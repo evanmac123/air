@@ -2,7 +2,7 @@
 @import "external/_case_study";
 
 .client_admin_explore_tile_tag{
-  border: 1px solid;
+  border: 1px solid $light-gray;
   background: $sky-blue;
   padding-left: 0;
   margin-bottom: 50px;
@@ -36,20 +36,21 @@
 
 .tile_with_tags, .client_admin_explore .tiles {
   td {
+    border-bottom: none;
     width: 25%;
     height: 1px;
     vertical-align: top;
   }
   .explore_tile {
-    height: 26em;
+    height: 26.75em;
     border: 1px solid $light-gray;            
-    border-radius: 3px;
+    border-radius: 2px;
     padding: 6px 6px;
     float: left;
     margin: 5px 13px 5px 0px;
     width: 92%;
     .organization {
-      color: $sky-blue;
+      color: $dark-gray;
       font-size: 14px;
       height: 1.25em;
     }
@@ -71,24 +72,28 @@
       height: 12em;
     }
     .headline{
-      color: $med-gray;
-      padding: 5px;
-      min-height: 90px;
+      background:$white;
+      min-height:7.25em;
+      position: relative;
+      padding: .5em;
+      text-align: left;
+      &:after{@include clear;}
+      .text{
+        color: $dark-gray;
+        @include font-regular;
+        font-size:1em;
+      }
       border: 1px solid $light-gray;
     }
     .all_tile_tags{
       .tile_tag {
-        .extra_tags{          
-          font-size: 10px;
-          color: $med-gray;
-        }
+        font-size: 10px;
         margin-top: 5px;
         margin-left: 4px;
         padding: 0px 6px 3px 6px;
         border-radius: 5px;
         display: inline-block;
         a {
-          font-size: 10px;
           color: $med-gray;
         }
         border: 1px solid $light-gray;
@@ -98,30 +103,35 @@
 }
 #tile_links{
   text-align: center;
-  .more_tiles_button{
-    text-align: center;
-    background: $sky-blue;
-    border: 1px $sky-blue solid;
-    border-radius: 3px;
-    display: inline-block;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-style: normal;
-    font-weight: bolder;
-    font-weight: 700;
-    font-size: 1em;
-    font-size: 1rem;
-    line-height: 1em;
-    padding: .35em .75em;
-    text-align: center;
-    text-transform: capitalize;
-    padding: .75em 1.5em 0.6em;
-    a{color: #fff;}
-  }
+    .show_more_tiles {
+      @include app-button($sky-blue);
+      padding:.75em .5em 0.6em;
+      &:before, &:after {
+        @include arrow-down(lighten($sky-blue, 10%), 8px);
+        margin:0 1em;
+        position: relative;
+        vertical-align: middle;
+      }
+      &[disabled] {
+        color: $light-gray !important;;
+        @include app-button($med-gray);
+        padding:.75em .5em 0.6em;
+        
+        &:before, &:after {
+          visibility:hidden;
+        }
+      }
+      #show_more_tiles_spinner {
+        display: inline-block; 
+        vertical-align: top; 
+        height:1em;
+      }
+    }
 }
 @-moz-document url-prefix() {
   .tile_with_tags, .client_admin_explore .tiles {
     .explore_tile{  
-      height: 26em;
+      height: 26.75em;
       width: 82%;            
     }
   }
@@ -129,7 +139,7 @@
 
 .explores {
   .explore_tile {
-    height: 26em;
+    height: 26.75em;
     .extra_tags_list{
       width: 21%;
       z-index: 9;
@@ -138,7 +148,7 @@
       position: absolute;
       margin-top: 5px;
       border: 1px solid $light-gray;
-      border-radius: 3px;
+      border-radius: 2px;
       .tile_tag {
         padding-bottom: 8px;
         border-bottom: 1px solid $light-gray;
@@ -153,28 +163,6 @@
         border-bottom: none;
       }
     }
-  }
-  .tile_preview_navbar {
-    .extra_tags_list{
-      z-index: 9;
-      background-color: $white;
-      display: none;
-      position: absolute;
-      margin-top: 60px;
-      width: 28%;
-      border: 1px solid $light-gray;
-      border-radius: 5px;
-      .tile_tag { 
-        margin-top: 5px;
-        margin-left: 4px;
-        padding: 0px 6px 3px 6px;
-        display: inline-block;
-        a {
-          font-size: 10px;
-          color: $med-gray;
-        }
-      }
-    }    
   }
 }
 
@@ -206,102 +194,3 @@
   }
 }
 
-.tile_preview_navbar{
-  border: 1px solid $light-gray;
-  margin-bottom: 50px;
-  ul {
-    li {
-      float: left;
-      &.left-section{
-        a {
-          color: #000;          
-        }
-        text-align: center;
-        border-right: 1px solid $light-gray;
-        width: 13%;
-        padding-top: 20px;
-        padding-bottom: 20px;
-        font-size: 30px;
-      }
-      &.middle-section{
-        padding-top: 16px;
-        &.organization{
-          width: 22%;
-          padding-left: 30px;
-          color: $sky-blue;
-          font-size: 16px;
-          font-weight: 500;
-          .fa{
-            float: left;
-            padding-right: 10px;
-            padding-top: 14px;                
-          }
-          .organization-name{
-            float: left;
-            font-size: 16px;
-            font-weight: 500;
-            padding-top: 12px;
-          }
-        }
-        &.creator{
-          width: 22%;
-          .fa{
-            float: left;
-            padding-right: 15px;
-            padding-top: 14px;
-            padding-left: 30px;
-          }
-          .creator-name{
-            float: left;
-            padding-right: 10px;
-            padding-top: 8px;
-            .name {
-              font-size: 16px;
-              font-weight: 500;
-            }
-            .created_at{
-              font-size: 12px;
-              color: $med-gray;
-            }
-          }
-        }
-        &.tile-tags{
-          width: 30%;
-          float: left;
-          .all_tile_tags{
-            .tile_tag {
-              margin-top: 5px;
-              margin-left: 3px;
-              padding: 0px 6px 3px 6px;
-              border-radius: 5px;
-              display: inline-block;
-              font-size: 10px;
-              color: $med-gray;
-              border: 1px solid $light-gray;
-              a{
-                color: $med-gray;
-              }
-            }
-          }
-        }
-      }
-      &.right-section{        
-        border-left: 1px solid $light-gray;
-        width: 13%;
-        text-align: center;
-        float: right;
-        padding-top: 14px;
-        padding-bottom: 14px;
-        .view-only{
-          color: $light-gray;
-        }          
-        a {
-          .copy-to-board{
-            color: #000;
-            font-size: 14px;
-          }
-        }
-      }
-    }
-  }
-}

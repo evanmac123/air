@@ -42,7 +42,7 @@ feature 'Creates tile' do
     end
     
     scenario 'tile with tags added is saved correctly', js: true do
-      fill_in_valid_tile_form_entries(6, true)
+      fill_in_valid_form_entries({click_answer: 1}, true)
       
 #      add_new_tile_tag('first tag added', true)
 #      add_new_tile_tag('second tag added')
@@ -200,7 +200,7 @@ feature 'Creates tile' do
 
   context "acting with image" do
     before(:each) do
-      fill_in_valid_tile_form_entries 
+      fill_in_valid_form_entries 
     end
 
     scenario "clear the image", js: true do

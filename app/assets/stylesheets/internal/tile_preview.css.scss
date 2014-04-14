@@ -1,0 +1,132 @@
+@import "mixins/main_styles";
+@import "external/_case_study";
+
+body.tile_previews.tile_previews-show {
+  background-color: $white;  
+  .tile_preview_navbar {
+    border: 1px solid $light-gray;
+    margin-bottom: 50px;
+    padding-left: 0;
+    padding-right: 0;
+    ul {
+      li {
+        float: left;
+        &.left-section{
+          a {
+            color: #000;          
+          }
+          text-align: center;
+          border-right: 1px solid $light-gray;
+          width: 13%;
+          padding-top: 20px;
+          padding-bottom: 20px;
+          font-size: 30px;
+        }
+        &.middle-section{
+          padding-top: 16px;
+          &.organization{
+            width: 22%;
+            padding-left: 30px;
+            color: $sky-blue;
+            font-size: 16px;
+            font-weight: 500;
+            .fa{
+              float: left;
+              padding-right: 10px;
+              padding-top: 14px;                
+            }
+            .organization-name{
+              float: left;
+              font-size: 16px;
+              font-weight: 500;
+              padding-top: 12px;
+            }
+          }
+          &.creator{
+            width: 22%;
+            .fa{
+              float: left;
+              padding-right: 15px;
+              padding-top: 14px;
+              padding-left: 30px;
+            }
+            .creator-name{
+              float: left;
+              padding-right: 10px;
+              padding-top: 8px;
+              .name {
+                font-size: 16px;
+                font-weight: 500;
+              }
+              .created_at{
+                font-size: 12px;
+                color: $med-gray;
+              }
+            }
+          }
+          &.tile-tags{
+            width: 30%;
+            float: left;
+            .all_tile_tags{
+              .tile_tag {
+                margin-top: 5px;
+                margin-left: 3px;
+                padding: 0px 6px 3px 6px;
+                border-radius: 5px;
+                display: inline-block;
+                font-size: 10px;
+                color: $med-gray;
+                border: 1px solid $light-gray;
+                a{
+                  color: $med-gray;
+                }
+              }
+            }
+          }
+        }
+        &.right-section{        
+          border-left: 1px solid $light-gray;
+          width: 13%;
+          text-align: center;
+          float: right;
+          padding-top: 14px;
+          padding-bottom: 14px;
+          .view-only{
+            color: $light-gray;
+          }          
+          a {
+            .copy-to-board{
+              color: #000;
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+    
+    .extra_tags_list{
+      z-index: 9;
+      background-color: $white;
+      display: none;
+      position: absolute;
+      margin-top: 60px;
+      width: 28%;
+      border: 1px solid $light-gray;
+      border-radius: 5px;
+      padding-left: 0;
+      padding-right: 0;
+      .tile_tag { 
+        margin-top: 5px;
+        margin-left: 4px;
+        padding: 0 6px 3px 6px;
+        display: inline-block;
+        a {
+          font-size: 10px;
+          color: $med-gray;
+        }
+      }
+    }    
+  }
+ 
+  
+}

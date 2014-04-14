@@ -48,7 +48,7 @@ body.client_admin-tiles-update {
       width: 34%;
       padding: 2em 0.5em;
       .share_to_explore_message{
-        color: $med-gray;
+        color:lighten($text-color, 17%);
         padding-left: 10px;
         display: inline-block;
         @include caption;
@@ -75,7 +75,7 @@ body.client_admin-tiles-update {
       float: left;
       padding: 2em 0.5em;
       .allow_copying_message{
-        color: $med-gray;
+        color:lighten($text-color, 17%);
         padding-left: 10px;
         display: inline-block;
         @include caption;
@@ -105,6 +105,7 @@ body.client_admin-tiles-update {
         border: 2px solid #f3f3f3;
         width: 220px;
         height: 30px;
+        font-size: 0.9em;
       }
       .tag_alert{
         display: none;
@@ -119,10 +120,10 @@ body.client_admin-tiles-update {
           margin-right: 5px;
           margin-top: 5px;
           display: inline-block;
+          padding: 0px 6px 3px 6px;
           border: 1px solid;
-          padding: 1px 5px;
           border-radius: 5px;
-          font-size: 14px;
+          font-size: 10px;
           a {
             color: $med-gray;
             padding-left: 5px;

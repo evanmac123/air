@@ -15,9 +15,10 @@
               .organization= tile.demo.name
               .creator= (tile.creator && tile.creator.name)||''
               .created_at= tile.human_creation_date
-              = link_to tile_preview_explore_path(tile: tile) do
+              = link_to explore_tile_preview_path(tile) do
                 .tile_image{id:thumbnail_id}
-                .headline= tile.headline
+                .headline
+                  .text= tile.headline
               %ul.all_tile_tags
               %ul.extra_tags_list
                 - tile.tile_tags.each do |tile_tag|
@@ -27,4 +28,4 @@
           - count += 1
           %td
 .clearfix
-=render partial: 'shared/tile_wall_show_more_link', locals: {path_for_more_tiles: path_for_more_tiles}
+=render partial: 'shared/tile_wall_show_more_link', locals: {path_for_more_tiles: path_for_more_tiles, all_tiles_displayed: @all_tiles_displayed}

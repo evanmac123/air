@@ -1,11 +1,9 @@
 <div id="tile_links">
   <div class="more_tiles_button">
-    <a class="show_more_tiles" data-tile-path="<%= path_for_more_tiles %>" href="#">
-      <i class="fa fa-caret-down"></i>
+    <%= link_to '#', class: 'show_more_tiles', 'data-tile-path'=> path_for_more_tiles, disabled: all_tiles_displayed do%>
       More
       <%= image_tag "spinner_gears_bg.gif", :style => 'display: none', :id => 'show_more_tiles_spinner' %>
-      <i class="fa fa-caret-down"></i>
-    </a>    
+    <%end%>
   </div>
 </div>
 
@@ -13,17 +11,20 @@
   <%= javascript_tag do %>
     $('.show_more_tiles').live('click', function(event) {
       event.preventDefault();
+      if($(".show_more_tiles").attr("disabled") != "disabled"){
 
-      $('#show_more_tiles_spinner').show();
+        $('#show_more_tiles_spinner').show();
 
-      baseBatchSize = $('.explore_tile').length;
-      $.get(
-        $(this).data('tile-path'),
-        {base_batch_size: baseBatchSize, partial_only: 'true'},
-        function(data) {
-          $('.tile_with_tags').replaceWith(data);
-        }
-      );
+        baseBatchSize = $('.explore_tile').length;
+        $.get(
+          $(this).data('tile-path'),
+          {base_batch_size: baseBatchSize, partial_only: 'true'},
+          function(data) {
+            $('.tile_with_tags').html(data);
+          }
+        );
+      }
     });
   <% end %>
 <% end %>
+

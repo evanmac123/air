@@ -11,7 +11,7 @@ feature 'Sees tiles on explore page' do
   it "should show only tiles that are public and active" do
     FactoryGirl.create_list(:tile, 2, :public)
     FactoryGirl.create(:tile, headline: "I do not appear in public")
-    FactoryGirl.create(:tile, is_public: true, status: Tile::ARCHIVE, headline: "Nor do I appear in public")
+    FactoryGirl.create(:tile, :public, status: Tile::ARCHIVE, headline: "Nor do I appear in public")
 
     visit explore_path(as: a_client_admin)
     expect_thumbnail_count 2
@@ -27,23 +27,23 @@ feature 'Sees tiles on explore page' do
     # saner ways to get Poltergeist to wait for the AJAX request to work yet.
     show_more_tiles_link.click
     sleep 5
-    expect_thumbnail_count 12
+    expect_thumbnail_count 8
 
     show_more_tiles_link.click
     sleep 5
-    expect_thumbnail_count 15
+    expect_thumbnail_count 8
   end
 
   it "should see information about creators for tiles that have them" do
     other_board = FactoryGirl.create(:demo, name: "The Board You've All Been Waiting For")
     creator = FactoryGirl.create(:client_admin, name: "John Q. Public", demo: other_board)
-    tile = FactoryGirl.create(:tile, is_public: true, creator: creator)
+    tile = FactoryGirl.create(:tile, :public, creator: creator)
     creation_date = Date.parse("2013-05-01")
     tile.update_attributes(created_at: creation_date.midnight)
 
     visit explore_path(as: a_client_admin)
 
-    expect_content "John Q. Public, The Board You've All Been Waiting For"
+    expect_content "John Q. Public"
     expect_content "May 1, 2013"
   end
 
@@ -77,8 +77,8 @@ feature 'Sees tiles on explore page' do
 
       %w(Nein Non Nyet).each do |title|
         tag = FactoryGirl.create(:tile_tag, title: title)
-        draft_tile = FactoryGirl.create(:tile, status: Tile::DRAFT, is_public: true)
-        archive_tile = FactoryGirl.create(:tile, status: Tile::ARCHIVE, is_public: true)
+        draft_tile = FactoryGirl.create(:tile, :public, status: Tile::DRAFT)
+        archive_tile = FactoryGirl.create(:tile, :public, status: Tile::ARCHIVE)
         draft_tile.tile_tags << tag
         archive_tile.tile_tags << tag
       end
@@ -108,70 +108,36 @@ feature 'Sees tiles on explore page' do
 
       it "shows tiles only with the chosen tag when clicked" do
         visit explore_path(as: a_client_admin)
-        click_link "Click me"
+        within '.tags' do
+          click_link "Click me"
+        end
         @tagged_tiles.each {|tagged_tile| expect_content tagged_tile.headline}
         @other_tagged_tiles.each {|other_tagged_tile| expect_no_content other_tagged_tile.headline}
         @untagged_tiles.each {|untagged_tile| expect_no_content untagged_tile.headline}
       end
 
       it "respects the tag when See More is clicked", js: true do
-        # This, plus the two above, makes 13 tiles total.
-        11.times do
+        # This, plus the two above, makes 21 tiles total.
+        19.times do
           tile = FactoryGirl.create(:tile, :public)
           tile.tile_tags << @tag_to_click
           @tagged_tiles << tile
         end
 
         visit explore_path(as: a_client_admin)
-        click_link "Click me"
-        
-        expect_thumbnail_count 8
+        within '.tags' do
+          click_link "Click me"
+        end
+        expect_thumbnail_count 16
         expect_only_headlines_in(@tagged_tiles)
 
         show_more_tiles_link.click
-        expect_thumbnail_count 12
+        expect_thumbnail_count 20
         expect_only_headlines_in(@tagged_tiles)
 
         show_more_tiles_link.click
-        expect_thumbnail_count 13
+        expect_thumbnail_count 21
         expect_only_headlines_in(@tagged_tiles)
-      end
-
-      it "allows de-selection by clicking the tag again" do
-        visit explore_path(as: a_client_admin)
-        click_link "Click me"
-        click_link "Click me"
-
-        expect_thumbnail_count 8
-        expect_only_headlines_in(@tagged_tiles + @other_tagged_tiles + @untagged_tiles)
-      end
-
-      it "highlights the chosen tag" do
-        visit explore_path(as: a_client_admin)
-        page.all('.tag_link').each do |tag_link| 
-          tag_link['class'].split.should include('disabled')
-          tag_link['class'].split.should_not include('enabled')
-        end
-        click_link "Click me"
-
-        expected_unselected_tags = page.all('.tag_link').select{|tag_link| tag_link.text != "Click me"}
-        expected_selected_tag = page.all('.tag_link').select{|tag_link| tag_link.text == "Click me"}.first
-
-        expected_unselected_tags.each do |expected_unselected_tag| 
-          classes = expected_unselected_tag['class'].split
-          classes.should include('disabled')
-          classes.should_not include('enabled')
-        end
-
-        selected_classes = expected_selected_tag['class'].split
-        selected_classes.should include('enabled')
-        selected_classes.should_not include('disabled')
-
-        click_link "Click me"
-        page.all('.tag_link').each do |tag_link| 
-          tag_link['class'].split.should include('disabled')
-          tag_link['class'].split.should_not include('enabled')
-        end
       end
     end
   end
@@ -180,24 +146,26 @@ feature 'Sees tiles on explore page' do
     it "should have a Back link that links to the general explore page", js: true do
       tile = FactoryGirl.create(:tile, :public)
       visit explore_path(as: a_client_admin)
-      page.first('.tile-wrapper').click
+      page.first('.explore_tile > a').click
 
-      click_link "Back to Explore"
+      click_link '.left-section > a'
       should_be_on explore_path
     end
 
     context "and there is a tag selected" do
       it "should have a Back link that links to that tag", js: true do
-        tag = FactoryGirl.create(:tile_tag, title: "Hey Now")
+        tile_tag = FactoryGirl.create(:tile_tag, title: "Hey Now")
         tile = FactoryGirl.create(:tile, :public)
-        tile.tile_tags << tag
+        tile.tile_tags << tile_tag
 
         visit explore_path(as: a_client_admin)
-        click_link "Hey Now"
-        page.first('.tile-wrapper').click
+        within '.tags' do
+          click_link "Hey Now"
+        end
+        page.first('.explore_tile > a').click
 
-        click_link "Back to Hey Now"
-        should_be_on explore_path
+        click_link '.left-section > a'
+        should_be_on tile_tag_show_explore(tile_tag: tile_tag)
         page.first('.tag_link', text: 'Hey Now')['class'].split.should include('enabled')
       end
     end

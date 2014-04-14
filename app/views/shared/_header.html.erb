@@ -62,31 +62,31 @@
               <li><span id="no_other_boards">You haven't joined any other boards.</span></li>
             <% end %>
           </ul>
-        <div class="explore_menu">
-          <%= link_to fa_icon('gear'), '#', id: 'explore_settings' %>
-          <%= link_to explore_path, id: 'explore_board' do %>
-            <span class="fa fa-rocket"></span>
-            <span>Explore</span>
-          <% end %>
-        </div>
-        <div class="admin_options">
-          <% if current_user.authorized_to?(:client_admin) %>
-            <p class="small_cap">Board tools</p>
-            <%= link_to fa_icon('gear'), '#', id: 'explore_board' %>
+        <% if current_user.authorized_to?(:client_admin) %>
+          <div class="explore_menu">
+            <%= link_to fa_icon('gear'), '#', id: 'explore_settings' %>
             <%= link_to explore_path, id: 'explore_board' do %>
               <span class="fa fa-rocket"></span>
               <span>Explore</span>
             <% end %>
-            <%= link_to 'Manage', client_admin_tiles_path, id: 'manage_board' %>
-            <a id="admin_toggle">&#9662;</a>
-            <ul class="client_admin_pages">
-              <% if current_user.has_balances? %>
-                <li><%= link_to "Payments", new_client_admin_payment_path %></li>
-              <% end %>
-              <li><%= link_to "Admin help", DeskSSO.new(current_user).url, target: "_blank" %></li>
-            </ul>
-          <% end %>
-        </div>
+          </div>
+          <div class="admin_options">
+              <p class="small_cap">Board tools</p>
+              <%= link_to 'Manage', client_admin_tiles_path, id: 'manage_board' %>
+              <a id="admin_toggle">&#9662;</a>
+              <ul class="client_admin_pages">
+                <% if current_user.has_balances? %>
+                  <li><%= link_to "Payments", new_client_admin_payment_path %></li>
+                <% end %>
+                <li><%= link_to "Admin help", DeskSSO.new(current_user).url, target: "_blank" %></li>
+              </ul>
+          </div>
+        <%else%>
+          <div class="explore_menu">
+          </div>
+          <div class="admin_options">
+          </div>        
+        <% end %>
       </nav> <!-- end of off canvas -->
     <% end %>
 

@@ -87,16 +87,19 @@ shared_examples_for "editing a tile" do
     scenario "by default, share button is off" do
       page.find('#share_off')['checked'].should be_present
     end
-    scenario "changing from public and copyable to non-public and non-copyable" do
+    scenario "changing from public and copyable to non-public and non-copyable", js: true do
+      @tile.tile_tags.create!(title: 'start tag')
       @tile.update_attributes(is_public: true, is_copyable: true)
       visit edit_client_admin_tile_path(@tile, as: @client_admin)
-
       click_make_noncopyable
       click_make_nonpublic
+      if @tile.question_type == Tile::SURVEY
+        click_add_answer
+        fill_in_answer_field 0, "woop woop"
+      end
       click_button "Update tile"
-
       @tile.reload.is_public.should be_false
-      @tile.is_copyable.should be_false
+      @tile.reload.is_copyable.should be_false
     end
 
     scenario "changing from non-public and non-copyable to public and copyable", js: true do

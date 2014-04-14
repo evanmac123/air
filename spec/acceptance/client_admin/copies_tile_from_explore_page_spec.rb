@@ -9,7 +9,7 @@ feature "Client admin copies tile from the explore-preview page" do
   let (:admin) {a_client_admin}
 
   before do
-    @original_tile = FactoryGirl.create(:multiple_choice_tile, :public, :copyable)
+    @original_tile = FactoryGirl.create(:multiple_choice_tile, :copyable)
 
     crank_dj_clear # to resize the images
     @original_tile.reload

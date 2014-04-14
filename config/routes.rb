@@ -80,7 +80,6 @@ Health::Application.routes.draw do
     resource :copy_tile, only: [:create]
     member do
       get 'tile_tag_show'
-      get 'tile_preview'
     end
   end
 

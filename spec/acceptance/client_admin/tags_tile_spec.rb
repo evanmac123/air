@@ -34,7 +34,7 @@ feature 'Tags tile' do
   it "creating a tile with an existing tag", js: true do
     tag = FactoryGirl.create(:tile_tag, title: "Cheese")
     visit new_client_admin_tile_path(as: @client_admin)
-    fill_in_valid_tile_form_entries
+    fill_in_valid_form_entries
 
     click_make_public
     select_tile_tag "Cheese"
@@ -47,7 +47,7 @@ feature 'Tags tile' do
 
   it "creating a tile with a new tag", js: true do
     visit new_client_admin_tile_path(as: @client_admin)
-    fill_in_valid_tile_form_entries
+    fill_in_valid_form_entries
 
     select_add_new
     enter_new_title "Awesomeness"
@@ -97,7 +97,7 @@ feature 'Tags tile' do
   it "editing a tile with a new tag", js: true do
     tile = FactoryGirl.create(:multiple_choice_tile, demo: @client_admin.demo)
     visit edit_client_admin_tile_path(tile, as: @client_admin)
-    fill_in_valid_tile_form_entries
+    fill_in_valid_form_entries
 
     select_add_new
     enter_new_title "Cheezwhiz"
@@ -122,7 +122,7 @@ feature 'Tags tile' do
 
   it "normalizes tag names so they look consistent", js: true do
     visit new_client_admin_tile_path(as: @client_admin)
-    fill_in_valid_tile_form_entries
+    fill_in_valid_form_entries
 
     select_add_new
     enter_new_title "   i   am     dumb        "

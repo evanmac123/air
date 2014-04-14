@@ -6,8 +6,7 @@ body.client_admin-tiles-create,
 body.client_admin-tiles-edit,
 body.client_admin-tiles-show,
 body.client_admin-tiles-update,
-body.tiles.tiles-index,
-body.tile_previews.tile_previews-show {
+body.tiles.tiles-index {
   background:$tile-wall-bg;
   .shadow_overlay {
     display: block;
