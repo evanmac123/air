@@ -1,0 +1,17 @@
+.row
+  .large-12.columns
+    = render partial: 'client_admin/tiles/tiles_tools_subnav'
+.row.steps_nav_bar
+  .large-10.columns
+    %ul.breadcrumb
+      %li Set up
+      %li Live
+      %li Pick Winners
+  .how-to
+    %a{:href => "http://airbo.desk.com/customer/portal/articles/1189454-incentive-strategy"}
+      %icon.fa.fa-question-circle
+      How do prizes work?
+.row
+  .large-5.columns
+    = render partial: 'form', locals: { raffle: @raffle}
+  .large-7.columns

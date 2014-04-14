@@ -23,6 +23,7 @@ class Demo < ActiveRecord::Base
   has_one :skin
   has_one :claim_state_machine
   has_one :custom_invitation_email
+  has_one :raffle
 
   validate :end_after_beginning
   

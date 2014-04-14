@@ -164,6 +164,7 @@ Health::Application.routes.draw do
     end
 
     resource :billing_information
+    resources :prizes
   end
 
   resources :pages, :only => :show

@@ -1,0 +1,6 @@
+= form_for raffle, url: client_admin_prizes_path do |f|
+  .duration
+    = f.label :starts_at, "Duration", class: "small_cap"
+    = f.text_field :starts_at, class: "datepicker", placeholder: "Start", size: 10
+    = f.label :starts_at, "to", class: "small_cap"
+    = f.text_field :ends_at, class: "datepicker", placeholder: "End", size: 10
