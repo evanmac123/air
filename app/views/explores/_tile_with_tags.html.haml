@@ -1,0 +1,30 @@
+%table.tiles.large-12.columns
+  %tbody
+    - tiles.each_slice(4) do |tiles_slice|
+      - count = 0
+      %tr
+        - tiles_slice.each do |tile|
+          - count += 1
+          -thumbnail_id = "tile-thumbnail-#{tile.id }"
+          :css
+            ##{thumbnail_id} {
+              background-image: url('#{tile.thumbnail}');
+            }
+          %td
+            .explore_tile
+              .organization= tile.demo.name
+              .creator= (tile.creator && tile.creator.name)||''
+              .created_at= tile.human_creation_date
+              = link_to tile_preview_explore_path(tile: tile) do
+                .tile_image{id:thumbnail_id}
+                .headline= tile.headline
+              %ul.all_tile_tags
+              %ul.extra_tags_list
+                - tile.tile_tags.each do |tile_tag|
+                  %li.tile_tag
+                    = link_to tile_tag.title, tile_tag_show_explore_path(tile_tag: tile_tag.id)
+        - while(count < 4) do
+          - count += 1
+          %td
+.clearfix
+=render partial: 'shared/tile_wall_show_more_link', locals: {path_for_more_tiles: path_for_more_tiles}

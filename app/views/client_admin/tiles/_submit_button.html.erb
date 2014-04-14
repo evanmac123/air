@@ -9,10 +9,3 @@
 </div>
 
 <%= image_tag "spinner_gears.gif", id: "submit_spinner", style: "display: none" %>
-
-<% content_for :javascript do %>
-  <%= javascript_tag do %>
-    var submitMessage = $('#submit_spinner');
-    $('form#new_tile_builder_form').submit(function() {$(this).find('input:submit').prop('disabled', true) ; submitMessage.show()});
-  <% end %>
-<% end %>

@@ -409,7 +409,7 @@ module TileHelpers
   end
 
   def expect_thumbnail_count(expected_count)
-    page.all('.tile-wrapper').should have(expected_count).thumbnails
+    page.all('.explore_tile').should have(expected_count).thumbnails
   end
 
   def expect_placeholder_count(expected_count)

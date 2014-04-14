@@ -2,7 +2,7 @@ require 'acceptance/acceptance_helper'
 
 feature "Client admin copies tile from the explore-preview page" do
   def click_copy
-    click_button "Copy to my board"
+    page.find('.copy-to-board-message').click
     page.should have_content("You've added this tile to the inactive section of your board.")
   end
 

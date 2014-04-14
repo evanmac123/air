@@ -24,7 +24,7 @@
         }
       }
       &.tile_tag{
-          width: 80%;
+        width: 80%;
         float: left;
         h1 {
           color: $white;
@@ -41,41 +41,50 @@
     vertical-align: top;
   }
   .explore_tile {
+    height: 26em;
     border: 1px solid $light-gray;            
-    border-radius: 5px;
+    border-radius: 3px;
     padding: 6px 6px;
     float: left;
     margin: 5px 13px 5px 0px;
-    height: 100%;
-    width: 100%;
+    width: 92%;
     .organization {
       color: $sky-blue;
       font-size: 14px;
+      height: 1.25em;
     }
     .creator{
       color: $med-gray;
       font-size: 12px;
+      height: 1.25em;
     }
     .created_at{
       color: $med-gray;
       font-size: 10px;
       margin-bottom: 10px;
+      height: 1.25em;
     }
-    .supporting_content{
+    .tile_image{
+      background-color:$dark-gray;
+      background-position:center center;
+      background-repeat:no-repeat;
+      height: 12em;
+    }
+    .headline{
+      color: $med-gray;
       padding: 5px;
       min-height: 90px;
-      margin-top: -3px;
       border: 1px solid $light-gray;
     }
     .all_tile_tags{
       .tile_tag {
         .extra_tags{          
           font-size: 10px;
-          color: $sky-blue;
+          color: $med-gray;
         }
         margin-top: 5px;
         margin-left: 4px;
-        padding: 3px 6px;
+        padding: 0px 6px 3px 6px;
         border-radius: 5px;
         display: inline-block;
         a {
@@ -87,9 +96,40 @@
     }
   }
 }
+#tile_links{
+  text-align: center;
+  .more_tiles_button{
+    text-align: center;
+    background: $sky-blue;
+    border: 1px $sky-blue solid;
+    border-radius: 3px;
+    display: inline-block;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-style: normal;
+    font-weight: bolder;
+    font-weight: 700;
+    font-size: 1em;
+    font-size: 1rem;
+    line-height: 1em;
+    padding: .35em .75em;
+    text-align: center;
+    text-transform: capitalize;
+    padding: .75em 1.5em 0.6em;
+    a{color: #fff;}
+  }
+}
+@-moz-document url-prefix() {
+  .tile_with_tags, .client_admin_explore .tiles {
+    .explore_tile{  
+      height: 26em;
+      width: 82%;            
+    }
+  }
+}
 
 .explores {
   .explore_tile {
+    height: 26em;
     .extra_tags_list{
       width: 21%;
       z-index: 9;
@@ -98,16 +138,19 @@
       position: absolute;
       margin-top: 5px;
       border: 1px solid $light-gray;
-      border-radius: 5px;
-      .tile_tag { 
+      border-radius: 3px;
+      .tile_tag {
+        padding-bottom: 8px;
+        border-bottom: 1px solid $light-gray;
         margin-top: 5px;
-        margin-left: 4px;
-        padding: 3px 6px;
-        display: inline-block;
         a {
+          padding-left: 5px;
           font-size: 10px;
           color: $med-gray;
         }
+      }
+      .tile_tag:last-child{
+        border-bottom: none;
       }
     }
   }
@@ -124,7 +167,7 @@
       .tile_tag { 
         margin-top: 5px;
         margin-left: 4px;
-        padding: 3px 6px;
+        padding: 0px 6px 3px 6px;
         display: inline-block;
         a {
           font-size: 10px;
@@ -226,15 +269,18 @@
           width: 30%;
           float: left;
           .all_tile_tags{
-            .tile_tag {                
+            .tile_tag {
               margin-top: 5px;
               margin-left: 3px;
-              padding: 3px 6px;
+              padding: 0px 6px 3px 6px;
               border-radius: 5px;
               display: inline-block;
               font-size: 10px;
               color: $med-gray;
               border: 1px solid $light-gray;
+              a{
+                color: $med-gray;
+              }
             }
           }
         }

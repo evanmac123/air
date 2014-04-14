@@ -202,14 +202,14 @@ FactoryGirl.define do
     trait :public do
       is_public true
       status Tile::ACTIVE
-      association :tile_tag, factory: :tile_tag
+      tile_tags {[FactoryGirl.create(:tile_tag)]}
     end
 
     trait :copyable do
       is_public true
       is_copyable true
       status Tile::ACTIVE
-      association :tile_tag, factory: :tile_tag
+      tile_tags {[FactoryGirl.create(:tile_tag)]}
     end
   end
 
@@ -340,6 +340,11 @@ FactoryGirl.define do
     association :demo
   end
 
+  factory :tile_tagging do
+    association :tile_tag
+    association :tile
+  end
+  
   factory :tile_tag do
     sequence(:title) {|n| "Tile Tag #{n}"}
   end

@@ -61,6 +61,8 @@ $(document).ready ->
     element.remove()
   )
   
+  # on tile builder form submit, check if tags are present in case 
+  # sharing is on (tile is public)
   $('#new_tile_builder_form').on('submit', (event) ->
     if $(this).find('#share_on').is(':checked')
       if $(this).find('.share_options').find('.tile_tags li').length < 1
@@ -69,5 +71,7 @@ $(document).ready ->
         false
       else
         $(this).find('.tag_alert').hide()
+        $(this).find('input:submit').prop('disabled', true) ; 
+        $(this).find('#submit_spinner').show()
         true
   )   

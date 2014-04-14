@@ -2,7 +2,7 @@ require 'acceptance/acceptance_helper'
 
 feature "Interacts with tiles in explore page" do
   def click_first_thumbnail
-    page.first('.tile-wrapper').click
+    page.first('.explore_tile > a').click
   end
 
   it "by clicking on one and viewing it", js: true do

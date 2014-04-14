@@ -1,11 +1,16 @@
 <%= stylesheet_link_tag "app-internal" %>
+<%= stylesheet_link_tag 'internal/explore' %>
 <%= javascript_include_tag "internal/countUp.min" %>
 <%= javascript_include_tag "internal/point_and_ticket_animation" %>
 
-<div class="container row">
-  <div class="viewer">
-    <div id="slideshow">
-      <%= render "tiles/full_size_tile", tile: @tile, remove_right_answer_target: true, show_copy_button: @tile.is_copyable, is_preview: true, selected_tag_id: params[:tag_id] %>
-    </div>
+<div class='row'>
+  <%=render partial: 'tile_preview_navbar', locals: {tile: @tile} %>
+</div>
+
+<div class="row">
+  <div class="large-7 large-centered columns">
+    <%= render "tiles/full_size_tile", tile: @tile, answer_links_disabled: true %>
+
+    <%= render 'client_admin/tiles/poll_for_image_if_needed', tile: @tile %>
   </div>
 </div>

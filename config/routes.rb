@@ -154,7 +154,7 @@ Health::Application.routes.draw do
     resource :explore, only: :show do
       member do
         get 'tile_tag_show'
-        get 'tile_preview'
+        get 'tile_preview'        
       end
     end
     
