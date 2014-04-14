@@ -159,6 +159,7 @@ body.client_admin-tiles-update {
           .image_credit_view{
             cursor: pointer;
             text-align: right;
+            min-width: 25px;
           }
         }
         i { color: $gray; }

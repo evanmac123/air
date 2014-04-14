@@ -70,19 +70,27 @@
     });
 
     $(".image_credit_view").keyup( function(){ 
-      saveImageCreditChanges();
+      saveImageCreditChanges("keyup");
       truncateImageCreditView();    
     });
 
-    $(".image_credit_view").keydown( function deleteImageCreditPlaceholder(e){ 
+    $(".image_credit_view").keydown( function deleteTruncateImageCredit(e){ 
       div_input = $(this);
-      if( div_input.hasClass("empty") ){
-        div_input = $(this);
-        div_input.removeClass("empty");
-        div_input.text(div_input.text().replace('Add Image Credit',''));
-      }else if( div_input.hasClass("truncate") && e.keyCode == 8 ){//backspace
+      if( div_input.hasClass("truncate") && e.keyCode == 8 ){//backspace
         div_input.removeClass("truncate");
         div_input.text("");
+      }
+    });
+
+    $(".image_credit_view").click(function deleteImageCreditPlaceholder(){
+      if( $(this).hasClass("empty")){
+        $(this).text("").focus();
+      }
+    });
+
+    $(".image_credit_view").focusout(function addImageCreditPlaceholder(){
+      if( $(this).hasClass("empty")){
+        $(this).text("Add Image Credit");
       }
     });
 
@@ -90,17 +98,21 @@
       $(".image_credit_view").text("").addClass("remove").removeClass("truncate");
     });
 
-    function saveImageCreditChanges() {
+    function saveImageCreditChanges(caller) {
       div_input = $(".image_credit_view");
       //check if we have any text in div(delete spaces)
       text_length = div_input.text().replace(/\s+/g, '').length
 
       if(text_length == 0){
-        div_input.text("Add Image Credit").addClass("empty").removeClass("truncate");
+        div_input.addClass("empty").removeClass("truncate");
+        if (!div_input.is(":focus") && caller != "keyup") {
+          div_input.text("Add Image Credit")
+        }
         text = "";
       }else if( div_input.hasClass("truncate") ){
         text = $("#tile_builder_form_image_credit").text(); //do nothing
       }else if(text_length > 0){
+        div_input.removeClass("empty")
         text = div_input.text();
       }
       $("#tile_builder_form_image_credit").text(text);
