@@ -20,12 +20,8 @@
     <div class="quiz_content">
       <p class="placeholder">Pick what users will earn points for.</p>
     </div>
-    <div id="set_points" class="content_sections">
-      <p>How many points is this tile worth (1 to 20)?</p>
-      <%= form.text_field :points, {maxlength: 2} %>
-      <%= form.label :points %>
-    </div>
   </div>
+  <%= render partial: 'points', locals: {form: form} %>
 </div>
 <% content_for :javascript do %>
   <%= javascript_tag do %>

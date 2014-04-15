@@ -337,7 +337,34 @@ body.client_admin-tiles-update {
   }
 
   // Points
+  .slider{
+    padding-top: 5em;
+    padding-bottom: 5em;
+    .level{
+      float:left;
+      padding-left: 0.5em;
+      padding-right: 0.5em;
+      text-transform: capitalize;
+      color:$med-gray;
+      font-size: 12px;
+    }
+    #points_slider{
+      float:left;
+      bottom: -2px;
+      width: 28.9em;
+      height: 12px;
+      border-radius: 4px;
+      background: $light-gray;
+      .ui-slider-range { 
+        background: $sky-blue; 
+      }
+      .ui-slider-handle { 
+        -webkit-transition: none; -moz-transition: none;
+      }
+    }
+  }
   #set_points {
+    display: none;
     border-top:1px darken($light-gray, 5%) solid;
     padding-top:1em;
     text-align: center;

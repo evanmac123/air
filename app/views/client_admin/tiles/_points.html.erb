@@ -1,0 +1,35 @@
+<div id="set_points" class="content_sections">
+  <p>How many points is this tile worth (1 to 20)?</p>
+  <%= form.text_field :points, {maxlength: 2} %>
+  <%= form.label :points %>
+</div>
+<div class="slider">
+  <div class="level">EASY</div>
+    <div id="points_slider"></div>
+  <div class="level">HARD</div>
+</div>
+<% content_for :javascript do %>
+  <%= javascript_tag do %>
+    $(function() {
+      //set slider settings. ax value 200 to make slider movement smooth
+      $( "#points_slider" ).slider({
+        orientation: "horizontal",
+        range: "min",
+        max: 200,
+        value: 1,
+        slide: refreshPointsField,
+        change: refreshPointsField
+      });
+      //turn on slider and set points from text field * 10.
+      $( "#points_slider" ).slider( "value", $("#tile_builder_form_points").val()*10 );
+      //and vice versa
+      refreshPointsField();
+    });
+
+    function refreshPointsField(){
+      //max points 20, max slider 200. so:
+      points = Math.ceil($( "#points_slider" ).slider( "value" )/10);
+      $("#tile_builder_form_points").val(points);
+    }
+  <% end %>
+<% end %>
