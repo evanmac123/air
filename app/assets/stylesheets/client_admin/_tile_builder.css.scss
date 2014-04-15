@@ -338,14 +338,14 @@ body.client_admin-tiles-update {
 
   // Points
   .slider{
-    padding-top: 5em;
-    padding-bottom: 5em;
+    padding-top: 4em;
+    padding-bottom: 3em;
     .level{
       float:left;
       padding-left: 0.5em;
       padding-right: 0.5em;
-      text-transform: capitalize;
       color:$med-gray;
+      text-transform: capitalize;
       font-size: 12px;
     }
     #points_slider{
@@ -356,9 +356,38 @@ body.client_admin-tiles-update {
       border-radius: 4px;
       background: $light-gray;
       .ui-slider-range { 
-        background: $sky-blue; 
+        background: #8ecded; 
+        .points_pop_up{
+          cursor: pointer;
+          position: absolute;
+          right:-40px;
+          bottom:0px;
+          width: 80px;
+          height: 64px;
+          background: transparent;
+          .tooltip{
+            display: block;
+            background: $sky-blue;
+            text-transform: capitalize;
+            font-size: 12px;
+            color: white;
+            text-align: center;
+            margin: 0;
+            max-width: 100%;
+            left: 0;
+            .nub{
+              border-top-color: $sky-blue;
+              left: 44%;
+              margin: 0;
+            }
+            .points_num{
+              font-size: 20px;
+            }
+          }
+        }
       }
       .ui-slider-handle { 
+        visibility: hidden;
         -webkit-transition: none; -moz-transition: none;
       }
     }
