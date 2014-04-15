@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   before_filter :authorize
   before_filter :initialize_flashes
   before_filter :set_show_conversion_form_before_this_request
-  before_filter :load_boards_for_switching_menu
+  before_filter :load_boards_for_switching_and_managing
 
   # This prints the controller and action to stdout on every action, which
   # is sometimes handy for debugging
@@ -441,12 +441,15 @@ class ApplicationController < ActionController::Base
     @no_tiles_to_do = current_user.demo.tiles.active.empty?
   end
 
-  def load_boards_for_switching_menu
+  def load_boards_for_switching_and_managing
     return unless current_user && !(current_user.is_guest?)
+    
     @boards_to_switch_to = if current_user.is_site_admin
                              Demo.alphabetical
                            else 
-                             current_user.demos.alphabetical
+                              current_user.demos.alphabetical
                            end
+
+    @boards_as_admin = current_user.boards_as_admin
   end
 end

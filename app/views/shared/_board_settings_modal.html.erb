@@ -1,7 +1,21 @@
 <div id="board_settings" class="reveal-modal">
   <div id="board_settings_content_wrapper">
-    <h1>Board Settings</h1>
+    <div class="row">
+      <h1 class="large-12">Board Settings</h1>
+    </div>
+
     <a id="close_board_settings" href="#">Close</a>
+
+    <div class="row" id="admin_controls">
+      <h3 class="large-12">Boards You Manage</h3>
+      <% boards_as_admin.each do |board| %>
+        <div class="row">
+          <div class="large-8 columns">
+            <h3><%= board.name %></h3>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>  
 

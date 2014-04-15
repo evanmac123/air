@@ -1076,6 +1076,18 @@ class User < ActiveRecord::Base
     true
   end
 
+  def boards_as_admin
+    User.transaction do
+      boards = board_memberships.where(is_client_admin: true).map(&:demo)
+
+      if is_client_admin || is_site_admin
+        boards << demo
+      end
+
+      boards.uniq
+    end
+  end
+
   protected
 
   def downcase_email
