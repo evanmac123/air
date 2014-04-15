@@ -139,6 +139,7 @@ header {
   #save_progress {
     margin-top: 1em;
     float: left;
+    text-align: center;
   }
   #save_progress_button {@include light-button-small($sky-blue); font-size: .8em;}
   #sign_in_button {@include light-button($med-gray); font-size: .8em;}

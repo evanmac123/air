@@ -8,40 +8,39 @@
 
     <%# If we don't need the guest user controls, steal their space for the 
     navigation, so we can use it for the current board. %>
-    <% navigation_width = current_user.is_guest? ? 3 : 5 %>
-    <nav id="navigation" class="columns large-<%= navigation_width %>"> <!-- offcanvas menu -->
-      <div class="user_options">
-        <ul>
-          <li><%= link_to "Home", _activity_path, :class => 'nav-home' %></li>
-          <li><%= link_to "My Profile", user_path(current_user), :id => 'my_profile', :class => 'nav-activity-class' %></li>
-          <li><%= link_to "Find users", users_path, :class => 'nav-directory' %></li>
-          <li><%= link_to "Settings", edit_account_settings_path, :class => 'nav-settings' %></li>
-          <% if current_user.authorized_to?(:site_admin) %>
-            <li><%= link_to "Site admin", admin_path, :class => 'nav-admin', id: 'nav-site-admin-link' %></li>
-          <% end %>
-          <li><%= link_to "Sign Out", sign_out_path, :method => :delete , :class => 'nav-signout' %></li>
+    <% unless current_user.is_guest? %>
+      <nav id="navigation" class="columns large-5"> <!-- offcanvas menu -->
+        <div class="user_options">
+          <ul>
+            <li><%= link_to "Home", _activity_path, :class => 'nav-home' %></li>
+            <li><%= link_to "My Profile", user_path(current_user), :id => 'my_profile', :class => 'nav-activity-class' %></li>
+            <li><%= link_to "Find users", users_path, :class => 'nav-directory' %></li>
+            <li><%= link_to "Settings", edit_account_settings_path, :class => 'nav-settings' %></li>
+            <% if current_user.authorized_to?(:site_admin) %>
+              <li><%= link_to "Site admin", admin_path, :class => 'nav-admin', id: 'nav-site-admin-link' %></li>
+            <% end %>
+            <li><%= link_to "Sign Out", sign_out_path, :method => :delete , :class => 'nav-signout' %></li>
 
-          <%# Mobile-only select version of the board switcher %>
-          <% if @boards_to_switch_to.present? && @boards_to_switch_to.length > 1 %>
-            <li class="board_switch_dropdown">
-              <select>
-                <%= options_from_collection_for_select @boards_to_switch_to, :id, :name, current_user.demo_id %>
-              </select>
-            </li>
-            <%= content_for :javascript do %>
-              <%= javascript_tag do %>
-                $('.board_switch_dropdown select').live('change', function(event) {
-                  selectedOption = $(event.target).find('option:selected');
-                  boardId = selectedOption.val();
-                  $('#board-switch-link-' + boardId).click();
-                });
+            <%# Mobile-only select version of the board switcher %>
+            <% if @boards_to_switch_to.present? && @boards_to_switch_to.length > 1 %>
+              <li class="board_switch_dropdown">
+                <select>
+                  <%= options_from_collection_for_select @boards_to_switch_to, :id, :name, current_user.demo_id %>
+                </select>
+              </li>
+              <%= content_for :javascript do %>
+                <%= javascript_tag do %>
+                  $('.board_switch_dropdown select').live('change', function(event) {
+                    selectedOption = $(event.target).find('option:selected');
+                    boardId = selectedOption.val();
+                    $('#board-switch-link-' + boardId).click();
+                  });
+                <% end %>
               <% end %>
             <% end %>
-          <% end %>
 
-        </ul>
-      </div>
-      <% unless current_user.is_guest? %>
+          </ul>
+        </div>
         <div id="board_switch">
           <a id="board_switch_toggler">
             <p class="small_cap">Current board</p>
@@ -63,21 +62,21 @@
               <li><span id="no_other_boards">You haven't joined any other boards.</span></li>
             <% end %>
           </ul>
-      <% end %>
-      <div class="admin_options">
-        <% if current_user.authorized_to?(:client_admin) %>
-          <p class="small_cap">Board tools</p>
-          <%= link_to 'Manage', client_admin_tiles_path, id: 'manage_board' %>
-          <a id="admin_toggle">&#9662;</a>
-          <ul class="client_admin_pages">
-            <% if current_user.has_balances? %>
-              <li><%= link_to "Payments", new_client_admin_payment_path %></li>
-            <% end %>
-            <li><%= link_to "Admin help", DeskSSO.new(current_user).url, target: "_blank" %></li>
-          </ul>
-        <% end %>
-      </div>
-    </nav> <!-- end of off canvas -->
+        <div class="admin_options">
+          <% if current_user.authorized_to?(:client_admin) %>
+            <p class="small_cap">Board tools</p>
+            <%= link_to 'Manage', client_admin_tiles_path, id: 'manage_board' %>
+            <a id="admin_toggle">&#9662;</a>
+            <ul class="client_admin_pages">
+              <% if current_user.has_balances? %>
+                <li><%= link_to "Payments", new_client_admin_payment_path %></li>
+              <% end %>
+              <li><%= link_to "Admin help", DeskSSO.new(current_user).url, target: "_blank" %></li>
+            </ul>
+          <% end %>
+        </div>
+      </nav> <!-- end of off canvas -->
+    <% end %>
 
     <% if current_user.is_guest? %>
       <% guest_user_header_button_style = show_save_progress_button ? '' : 'display: none' %>
