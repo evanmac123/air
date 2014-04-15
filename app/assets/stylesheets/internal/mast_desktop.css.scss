@@ -64,7 +64,7 @@ header {
     }
   }
 
-  #user_info #me_toggle, #manage_board, #explore_board, #explore_settings, #admin_toggle, .how_it_works {
+  #user_info #me_toggle, #manage_board, #admin_toggle, .how_it_works, #explore_board, #explore_settings, .board_settings_toggle_wrapper {
     border: {
       style:solid;
       color:darken($header-color, 9%);
@@ -255,6 +255,10 @@ header {
       padding:.75em 0.3em;
       border-left:0;
     }
+  }
+
+  .board_settings_toggle_wrapper {
+    padding: 1.125em 0.3em 1.125em 0;
   }
 }
 
