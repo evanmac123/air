@@ -1,0 +1,16 @@
+<div id="board_settings" class="reveal-modal">
+  <div id="board_settings_content_wrapper">
+    <h1>Board Settings</h1>
+    <a id="close_board_settings" href="#">Close</a>
+  </div>
+</div>  
+
+<%= content_for :javascript do %>
+  <%= javascript_tag do %>
+    $('#close_board_settings').click(function(event) {
+      event.preventDefault();
+      $('#board_settings').foundation('reveal', 'close');
+    });
+  <% end %>
+<% end %>
+

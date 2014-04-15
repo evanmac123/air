@@ -262,6 +262,12 @@ header {
   }
 }
 
+@mixin standard_reveal_dimensions {
+  width: 40%;
+  left: 75%;
+  z-index: 5000;
+}
+
 body.explores {
   background-color: #d9dfe9;
   .explore_menu {
@@ -297,7 +303,7 @@ body.explores {
 }
 
 #new_board_creation {
-  z-index: 5000;
+  @include standard_reveal_dimensions;
 
   h1, h3, input, #cancel_board_creation {
     width: 100%;
@@ -337,5 +343,20 @@ body.explores {
     display: block;
     color: $med-gray;
     margin-top: 0.8em;
+  }
+}
+
+#board_settings {
+  @include standard_reveal_dimensions;
+
+  #board_settings_content_wrapper {
+    position: relative;
+  }
+
+  #close_board_settings {
+    color: $med-gray;
+    position: absolute;
+    top: 0;
+    right: 0;
   }
 }
