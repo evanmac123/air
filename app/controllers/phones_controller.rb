@@ -1,6 +1,6 @@
 class PhonesController < ApplicationController
   skip_before_filter :authorize
-  before_filter :authorize_without_game_begun_check
+  before_filter :authorize_without_guest_checks
 
   def update
     if current_user.validate_new_phone(params[:user][:new_phone_validation])

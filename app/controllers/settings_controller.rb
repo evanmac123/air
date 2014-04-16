@@ -1,7 +1,7 @@
 class SettingsController < ApplicationController
 
   before_filter :parse_date_of_birth, :only => :update
-  before_filter :authorize_without_game_begun_check
+  before_filter :authorize_without_guest_checks
 
   def edit
   end

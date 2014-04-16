@@ -87,21 +87,6 @@ feature "Client Admin Accepts Invitation" do
     should_be_on activity_path(:format => 'html')
   end
 
-  scenario "user accepts invitation before game begins" do
-    @user.demo.update_attributes(begins_at: Chronic.parse("May 1, 2030, 12:00 PM"))
-
-    visit invitation_url(@user.invitation_code)
-    fill_in_required_invitation_fields
-    click_button "Log in"
-
-    should_be_on activity_path
-    expect_content "Your game begins on May 01, 2030 at 12:00 PM Eastern."
-    @user.reload.should be_claimed
-
-    visit activity_path
-    expect_content "Your game begins on May 01, 2030 at 12:00 PM Eastern."
-  end
-
   scenario "just one time" do
     visit invitation_url(@user.invitation_code)
     fill_in_required_invitation_fields

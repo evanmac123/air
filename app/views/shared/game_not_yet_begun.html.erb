@@ -1,8 +1,0 @@
-<div id="no-login-yet">
-  <h2>Your game will start soon</h2>
-
-  <p>Your game begins on <%= current_user.demo.begins_at.pretty %>. Please try back after then.</p>
-</div>
-<% content_for(:javascript) do %>
-  <%= mp_track_page 'game not yet begun' %>
-<% end %>

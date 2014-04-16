@@ -25,8 +25,6 @@ class Demo < ActiveRecord::Base
   has_one :custom_invitation_email
   has_one :raffle
 
-  validate :end_after_beginning
-  
   validates_inclusion_of :join_type, :in => JOIN_TYPES
 
   validates_uniqueness_of :name
@@ -157,34 +155,11 @@ class Demo < ActiveRecord::Base
     )
   end
 
-  def game_not_yet_begun_response
-    custom_message(
-      :act_too_early_message,
-      "The game will begin #{self.begins_at.pretty}. Please try again after that time."      
-    )
-  end
-
   def game_over_response
     custom_message(
       :act_too_late_message,
       "Thanks for participating. Your administrator has disabled this board. If you'd like more information e-mailed to you, please text INFO."
     )
-  end
-
-  def game_not_yet_begun?
-    self.begins_at && Time.now < self.begins_at
-  end
-
-  def game_over?
-    self.ends_at && Time.now > self.ends_at
-  end
-
-  def game_open?
-    !game_not_yet_begun? && !game_over?
-  end
-
-  def game_closed?
-    !game_open?
   end
 
   def has_rule_value_matching?(value)
@@ -421,12 +396,6 @@ class Demo < ActiveRecord::Base
     end
   end
 
-  def end_after_beginning
-    if begins_at && ends_at && ends_at <= begins_at
-      errors.add(:begins_at, "must come before the ending time")
-    end
-  end
- 
   def ticket_fields_all_set
     unless ticket_threshold.present?
       self.errors.add(:ticket_threshold, "must be set if you want to use gold coins on this demo")

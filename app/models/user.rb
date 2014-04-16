@@ -746,7 +746,6 @@ class User < ActiveRecord::Base
   end
 
   def befriend(other, mixpanel_properties={})
-    return nil unless self.demo.game_open?
     friendship = nil
     Friendship.transaction do
       return nil if self.friendships.where(:friend_id => other.id).present?

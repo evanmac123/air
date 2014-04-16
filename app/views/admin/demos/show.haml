@@ -60,23 +60,6 @@
       No client name set
 
   %p
-    Game
-    - if @demo.begins_at 
-      begins at
-      = @demo.begins_at.pretty 
-    - else 
-      began immediately upon creation
-
-
-  %p
-    Game
-    - if @demo.ends_at 
-      ends at 
-      = @demo.ends_at.pretty 
-    - else 
-      goes on indefinitely.
-
-  %p
     New players start with 
     = @demo.seed_points  
     points.
@@ -203,11 +186,6 @@
       Post-act summaries will be sent
     - else
       No post-act summaries will be sent
-
-  %p
-    Users
-    = @demo.show_invite_modal_when_game_closed ? "can" : "cannot"
-    invite friends before game is open
 
   %p
     - if @demo.example_tutorial

@@ -11,8 +11,6 @@ Feature: Admin sets up demo
     And I fill in "demo_followup_welcome_message" with "That's right."
     And I fill in "demo_followup_welcome_message_delay" with "30"
     And I fill in "Starting player score" with "5"
-    And I set the start time to "April/1/2014/12 PM/00"
-    And I set the end time to "May/1/2015/12 PM/00"
     And I fill in "Threshold to credit user who referred you to the game (in minutes)" with "60"
     And I fill in "Bonus for referring another to the game" with "5"
     And I fill in "Bonus for crediting the user who referred you to the game" with "17"
@@ -30,7 +28,6 @@ Feature: Admin sets up demo
     And I fill in "Custom already-claimed message" with "You're in, fool."
     And I uncheck "Send post-act summaries with act replies"
     And I fill in "Custom support reply" with "We'll call you."
-    And I check "Let users invite friends before game is open"
     And I fill in "Phone number" with "6175551212"
     And I fill in "demo_email" with "threem@playhengage.com"
     And I fill in "demo_custom_reply_email_name" with "Penitenziagite"
@@ -41,8 +38,6 @@ Feature: Admin sets up demo
     And I should see "Welcome message: 3M will rule you all!"
     And I should see "Followup welcome message: That's right. (send 30 minutes after invitation accepted)"
     And I should see "New players start with 5 points"
-    And I should see "Game begins at April 01, 2014 at 12:00 PM Eastern"
-    And I should see "Game ends at May 01, 2015 at 12:00 PM Eastern"
     And I should see "Bonus for referring another user to the game: 5 points (with a 60 minute threshold)"
     And I should see "Bonus for crediting the user who referred you to the game: 17 points"
     And I should see "Game will not use standard playbook rules, only custom rules."    
@@ -59,7 +54,6 @@ Feature: Admin sets up demo
     And I should see `Custom already-claimed message is "You're in, fool."`
     And I should see "No post-act summaries will be sent"
     And I should see `Custom support reply is "We'll call you."`
-    And I should see "Users can invite friends before game is open"
     And I should see "Phone number for this game is (617) 555-1212"
     And I should see "Email for this game is threem@playhengage.com"
     And I should see "Website is locked out, users can use SMS only"
@@ -74,8 +68,6 @@ Feature: Admin sets up demo
     Then I should see "Welcome message: You've joined the %{name} game! @{reply here}"
     And I should see "New players start with 0 points"
     And I should not see "points to win"
-    And I should see "Game began immediately upon creation"
-    And I should see "Game goes on indefinitely"
     And I should see "No followup message"
     And I should see "No bonus for referring another user to the game"
     And I should see "No bonus for crediting the user who referred you to the game"
@@ -91,12 +83,10 @@ Feature: Admin sets up demo
     And I should see "Game will have default already-claimed message"
     And I should see "Post-act summaries will be sent"
     And I should see "No custom support reply"
-    And I should see "Users cannot invite friends before game is open"
     And I should see "NO PHONE NUMBER SET FOR THIS GAME, MAKE SURE THAT IS WHAT YOU REALLY WANT"
     And I should see "NO EMAIL SET FOR THIS GAME, MAKE SURE THAT IS WHAT YOU REALLY WANT"
     And I should not see "Website is locked out"
     And I should see "Talking chicken will use multiple-choice sample tile"
-    And I should see "No custom email mask, using default"
 
   Scenario: Appropriate restrictions on text that gets SMSed
     Given I am on the admin page

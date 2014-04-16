@@ -112,9 +112,6 @@ class Act < ActiveRecord::Base
 
     value = body.downcase.gsub(/\.$/, '').gsub(/\s+$/, '').gsub(/\s+/, ' ')
 
-    error = ensure_game_currently_running(user.demo)
-    return error if error
-
     rule_value = user.first_eligible_rule_value(value)
 
     rule = rule_value.try(:rule)
@@ -214,16 +211,6 @@ class Act < ActiveRecord::Base
     end
 
     [user, phone_number]
-  end
-
-  def self.ensure_game_currently_running(demo)
-    if demo.game_not_yet_begun?
-      return parsing_error_message(demo.game_not_yet_begun_response)
-    end
-
-    if demo.game_over?
-      return parsing_error_message(demo.game_over_response)
-    end
   end
 
   def self.done_today

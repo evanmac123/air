@@ -7,17 +7,38 @@ feature "User Accepts Invitation" do
     @user = FactoryGirl.create :user, name: "Bob Q. Smith, III"
   end
 
-  context "when all goes well" do
-    before do
+  def set_password_if_needed
+    if @needs_password
+      fill_in "user[password]", with: "foobar"
+      click_button "Log in"
+    end
+  end
+
+  shared_examples_for "any invitation acceptance" do
+    context "when all goes well" do
+      before do
+        visit invitation_url(@user.invitation_code)
+        set_password_if_needed
+      end
+
+      it "sends them to the activity page" do
+        should_be_on activity_path
+      end
+
+      it "welcomes them in das flash" do
+        page.should have_content "Welcome, Bob"
+      end
+    end
+
+    scenario "just one time" do
       visit invitation_url(@user.invitation_code)
-    end
+      set_password_if_needed
 
-    it "sends them to the activity page" do
-      should_be_on activity_path
-    end
+      click_link "Sign Out"
+      visit invitation_url(@user.invitation_code)
 
-    it "welcomes them in das flash" do
-      page.should have_content "Welcome, Bob"
+      should_be_on sign_in_path
+      expect_content "You've already accepted your invitation to the game. Please log in if you'd like to use the site."
     end
   end
 
@@ -42,6 +63,15 @@ feature "User Accepts Invitation" do
 
     should_be_on sign_in_path
     expect_content logged_out_message
+    expect_content "You've already accepted your invitation to the game. Please log in if you'd like to use the site."
+  end
+    
+  scenario "and gets no email after accepting invitation" do
+    visit invitation_url(@user.invitation_code)
+    set_password_if_needed
+    crank_dj_clear
+
+    ActionMailer::Base.deliveries.should be_empty
   end
 
   scenario "across boards" do

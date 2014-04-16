@@ -18,12 +18,8 @@ Feature: Admin edits existing demo
       | demo_followup_welcome_message_delay                   | 666                          |
       | Bonus for referring another to the game               | 60                           |
       | Threshold to credit user who referred you to the game | 90                           |
-    And I set the start time to "April/20/2014/6 AM/25"
-    And I set the end time to "June/20/2015/7 AM/30"
     And I press "Update Game"
     Then I should be on the admin "BarCo" demo page
-    And I should see "Game begins at April 20, 2014 at 06:25 AM Eastern"
-    And I should see "Game ends at June 20, 2015 at 07:30 AM Eastern"
     And I should see "New players start with 10 points"
     And I should see "Welcome message: Sup."
     And I should see "Followup welcome message: Did you figure it out? (send 666 minutes after invitation accepted)"

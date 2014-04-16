@@ -127,23 +127,19 @@ class ApplicationController < ActionController::Base
   
   private
 
-  alias authorize_without_game_begun_check authorize
+  alias authorize_without_guest_checks authorize
+
   def authorize
     authorize_by_explore_token
 
     return if authorize_as_guest
     return if authorize_to_public_board
 
-    authorize_without_game_begun_check
+    authorize_without_guest_checks
+
     refresh_activity_session(current_user)
 
     return if current_user_is_site_admin || going_to_settings
-
-    if game_not_yet_begun?
-      @game_pending = true
-      render "shared/game_not_yet_begun"
-      return
-    end
 
     if game_locked?
       render "shared/website_locked"

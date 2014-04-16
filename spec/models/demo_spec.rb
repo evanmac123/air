@@ -11,12 +11,6 @@ describe Demo do
   it { should have_one(:skin) }
 end
 
-describe Demo, "when both begins_at and ends_at are set" do
-  it "should validate that ends_at is later than begins_at" do
-    FactoryGirl.build(:demo, :begins_at => Time.now + 2.hours, :ends_at => Time.now).should_not be_valid
-  end
-end
-
 describe Demo, "#welcome_message" do
   before(:each) do
     @demo = FactoryGirl.create :demo
@@ -40,52 +34,6 @@ describe Demo, "#welcome_message" do
 
     it "should use that" do
       @demo.welcome_message(@user).should == "Derp derp! Let's play! You are #{@user.sms_slug}, we are #{@demo.name}!"
-    end
-  end
-end
-
-describe Demo, "#game_over?" do
-  before(:each) do
-    @demo = FactoryGirl.create :demo
-  end
-
-  context "for a demo with no ending time set" do
-    before(:each) do
-      @demo.ends_at.should be_nil
-    end
-
-    it "should return false" do
-      @demo.game_over?.should be_false
-    end
-  end
-
-  context "for a demo with an ending time set" do
-    before(:each) do
-      @demo.ends_at = Time.parse("2010-05-01 12:00:00 UTC")
-    end
-
-    after(:each) do
-      Timecop.return
-    end
-
-    context "at or before the ending time" do
-      before(:each) do
-        Timecop.freeze(Time.parse("2010-05-01 12:00:00 UTC"))
-      end
-
-      it "should return false" do
-        @demo.game_over?.should be_false
-      end
-    end
-
-    context "after that ending time" do
-      before(:each) do
-        Timecop.freeze(Time.parse("2010-05-01 12:00:01 UTC"))
-      end
-
-      it "should return true" do
-        @demo.game_over?.should be_true
-      end
     end
   end
 end

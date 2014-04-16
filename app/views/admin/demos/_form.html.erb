@@ -8,8 +8,6 @@
     <%= form.input :seed_points, :label => "Starting player score" %>
     <%= form.input :custom_welcome_message, {:maxlength => 160} %>
     <%= add_byte_counter_for 'Custom welcome message' %>
-    <%= form.input :begins_at, :label => "Game begins at", :twelve_hour => true, :start_year => Time.now.year %>
-    <%= form.input :ends_at, :label => "Game ends at", :twelve_hour => true, :start_year => Time.now.year %>
     <%= form.input :prize, :label => "Prize text", :as => :text %>
     <%= form.input :help_message, :as => :text %>
     <%= form.input :unrecognized_user_message, :label => 'Phone-number-not-recognized message', :input_html => {:maxlength => 160} %>
@@ -25,7 +23,6 @@
     <%= form.input :login_announcement, :label => "Message user sees on login" %>
     <%= form.input :mute_notice_threshold %>
     <%= form.input :use_post_act_summaries, label: "Send post-act summaries with act replies" %>
-    <%= form.input :show_invite_modal_when_game_closed, label: 'Let users invite friends before game is open' %>
     <div class='example_instructions_holder'>
       <div class='example_instructions'>
         Make sure the custom examples for slide 1 of the tutorial and for the playbox tooltip are real rules associated with your game.
