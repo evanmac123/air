@@ -129,9 +129,6 @@
       }
       select, label {font-size:1.142857143em;}
     }
-    .intro_message {
-        margin-bottom:9em;
-    }
     .follow_up {
       p span {
         @include share-instructions;
@@ -265,7 +262,7 @@
   p { margin-bottom: 0.75em; }
 }
 
-$public_slug_height: 2.0em;
+$public_slug_height: 2.25em;
 
 #public_board_field {
   display: inline;

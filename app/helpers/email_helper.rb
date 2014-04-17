@@ -23,7 +23,7 @@ module EmailHelper
     if logo_url.blank?
       # Pretty asinine that we have to roll our own here. But hi. Here we are.
       expanded_logo_path = ActionController::Base.helpers.asset_path('logo.png')
-      logo_url = ::Rails.application.config.action_mailer.asset_host + expanded_logo_path
+      logo_url = "#{::Rails.application.config.action_mailer.asset_host}#{expanded_logo_path}"
       image_options.merge!(alt: 'Airbo')
     else
       # They are not forced to supply alt_text; if they don't, Rails will use the filename (without extension) as the alt-text
