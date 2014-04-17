@@ -127,6 +127,7 @@ body.client_admin-tiles-update {
             display: block;
             width: 100%;
             height: 100%;
+            overflow: hidden;
           }
         }
       }
@@ -349,9 +350,9 @@ body.client_admin-tiles-update {
     }
     #points_slider{
       float:left;
-      bottom: -2px;
+      bottom: -3px;
       width: 29.7em;
-      height: 12px;
+      height: 10px;
       border-radius: 4px;
       background: $light-gray;
       .ui-slider-range { 
@@ -362,7 +363,7 @@ body.client_admin-tiles-update {
           right:-30px;
           bottom:0px;
           width: 60px;
-          height: 50px;
+          height: 48px;
           background: transparent;
           .tooltip{
             display: block;
@@ -378,10 +379,17 @@ body.client_admin-tiles-update {
             //background gradient
             background: #4face0; /* old browsers */
             background: linear-gradient(to bottom, #4face0, #66b9e5);
-            .nub{
-              border-top-color: #66b9e5;
+            .points_nub{
+              border: solid 5px;
+              border-color: #66b9e5 transparent transparent transparent;
               left: 44%;
               margin: 0;
+              bottom: -10px;
+              display: block;
+              position: absolute;
+              width: 0;
+              height: 0;
+
             }
             .points_num{
               font-size: 20px;
