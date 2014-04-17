@@ -348,15 +348,34 @@ body.explores {
 
 #board_settings {
   @include standard_reveal_dimensions;
+  width: 60%;
+  left: 65%;
+
+  h1 {
+    display: inline-block;
+    /* This is a tiny cheat to make the h1 line up with the h3's below it */
+    position: relative;
+    left: -2px;
+  }
 
   #board_settings_content_wrapper {
     position: relative;
   }
 
   #close_board_settings {
-    color: $med-gray;
-    position: absolute;
-    top: 0;
-    right: 0;
+    color: $text-color;
   }
+
+  .control_section_header {
+    color: $med-gray;
+  }
+
+  .board_name {
+    color: $text-color;
+  }
+
+  .reserved_for_controls {
+    background-color: orange;
+  }
+
 }

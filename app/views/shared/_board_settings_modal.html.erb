@@ -1,37 +1,39 @@
 <div id="board_settings" class="reveal-modal">
-  <div id="board_settings_content_wrapper">
     <div class="row">
-      <h1 class="large-12">Board Settings</h1>
+      <div class="large-11 columns">
+        <h1>Board Settings</h1>
+      </div>
+      <div class="large-1 columns">
+        <a id="close_board_settings" class="large-1" href="#">Close</a>
+      </div>
     </div>
 
-    <a id="close_board_settings" href="#">Close</a>
 
     <% if boards_as_admin.present? %>
-      <div class="row" id="admin_board_controls">
-        <h3 class="large-12">Boards You Manage</h3>
-        <% boards_as_admin.each do |board| %>
-          <div class="row">
-            <div class="large-8 columns">
-              <h3><%= truncate board.name, length: 36 %></h3>
-            </div>
+      <div id="admin_board_controls">
+        <div class="row">
+          <div class="large-12 columns">
+            <h3 class="control_section_header">Boards You Manage</h3>
           </div>
+        </div>
+        <% boards_as_admin.sort_by(&:name).each do |board| %>
+          <%= render "shared/board_settings_board_name", board: board %>
         <% end %>
       </div>
     <% end %>
 
     <% if boards_as_regular_user.present? %>
-      <div class="row" id="user_board_controls">
-        <h3 class="large-12">Boards You Participate In</h3>
-        <% boards_as_regular_user.each do |board| %>
-          <div class="row">
-            <div class="large-8 columns">
-              <h3><%= truncate board.name, length: 36 %></h3>
-            </div>
+      <div id="user_board_controls">
+        <div class="row">
+          <div class="large-12 columns">
+            <h3 class="control_section_header">Boards You Participate In</h3>
           </div>
+        </div>
+        <% boards_as_regular_user.sort_by(&:name).each do |board| %>
+          <%= render "shared/board_settings_board_name", board: board %>
         <% end %>
       </div>
     <% end %>
-  </div>
 </div>  
 
 <%= content_for :javascript do %>
