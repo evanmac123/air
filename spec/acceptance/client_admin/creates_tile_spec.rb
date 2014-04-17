@@ -77,14 +77,14 @@ feature 'Creates tile' do
     click_create_button
 
     demo.tiles.reload.should be_empty
-    expect_content "Sorry, we couldn't save this tile: headline can't be blank, supporting content can't be blank, image is missing, points can't be blank."
+    expect_content "Sorry, we couldn't save this tile: headline can't be blank, supporting content can't be blank, image is missing."
 
     2.times { click_add_answer }
     select_correct_answer 1
     click_create_button
 
     demo.tiles.reload.should be_empty
-    expect_content "Sorry, we couldn't save this tile: headline can't be blank, supporting content can't be blank, image is missing, points can't be blank."
+    expect_content "Sorry, we couldn't save this tile: headline can't be blank, supporting content can't be blank, image is missing."
   end
 
   scenario "with overlong headline or supporting content should have a reasonable error" do
@@ -137,7 +137,7 @@ feature 'Creates tile' do
     new_tile.correct_answer_index.should == -1
     new_tile.is_survey?.should == true
     new_tile.multiple_choice_answers.should == ["Me", "You", "He", "Add Answer Option"]
-    new_tile.points.should == 23
+    new_tile.points.should == 18
     new_tile.should be_draft
 
     expect_content after_tile_save_message
@@ -146,7 +146,7 @@ feature 'Creates tile' do
       expect_content new_tile.send(string)
     end
 
-    expect_content "23 POINTS"
+    expect_content "18 POINTS"
     new_tile.multiple_choice_answers.each {|answer| expect_content answer}
   end
 

@@ -102,7 +102,7 @@ feature "Client admin edits tile" do
     fill_in_answer_field 3, "me"
     fill_in_answer_field 4, "bob"
 
-    fill_in "Points", with: "23"
+    fill_in_points "18"
 
     fill_in_external_link_field "http://example.co.uk"
   end
@@ -163,7 +163,7 @@ feature "Client admin edits tile" do
       rule = @tile.first_rule
       rule.reply.should include("Ten pounds of cheese")
       rule.description.should include("Ten pounds of cheese")
-      rule.points.should == 23
+      rule.points.should == 18
 
       rule.should have(5).rule_values
       rule.rule_values.map(&:value).sort.should == ['add answer option', 'bob', 'it', 'me', 'you']
@@ -239,11 +239,9 @@ feature "Client admin edits tile" do
       fill_in "Supporting content", with: ""
 
       fill_in_question ""
-
-      fill_in "Points", with: "0"
       
       click_button "Update tile"
-      expect_content "Sorry, we couldn't update this tile: headline can't be blank, supporting content can't be blank, question can't be blank, points can't be blank."
+      expect_content "Sorry, we couldn't update this tile: headline can't be blank, supporting content can't be blank, question can't be blank."
     end
   end
 end

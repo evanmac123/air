@@ -193,7 +193,6 @@ module TileHelpers
 
   def fill_in_points points
     script = '$("#points_slider").slider("value", ' + (points.to_i * 10).to_s + ")"
-    p script
     page.evaluate_script(script)
   end
 
