@@ -32,35 +32,39 @@
     }
     .fa-question-circle{
         float: left;
+        padding-top: 2px;
         padding-left: 10px;
         color: $med-gray;
     }
   }
   .status_div{
-     margin-top: 8px;
-     width: 200px;
+    margin-top: 8px;
+    width: 200px;
     .public, .private{ 
-        float: left;
-        font-size: 11px;
-        text-transform: uppercase;
-        font-weight: bold;
-        &.engaged {
-          color: #000000;
-        }
-        &.disengaged {
-          color: $light-gray;          
-        }
+      float: left;
+      font-size: 11px;
+      text-transform: uppercase;
+      font-weight: bold;
+      margin: 3px;
+      &.engaged {
+        color: #000000;
+      }
+      &.disengaged {
+        color: $light-gray;          
+      }
     }
+    
     .switch{
-        @include switch-size(16px, 9px, 2.3em);
-        width: 50px;
-        margin: 0 5px;
-        .for_private{
-            background-color: #E1F5D1;
-        }
-        .switch_button{
-            z-index: 2;
-        }
+      @include switch-size(16px, 9px, 2.3em);
+      @include switch-style($switch-paddle-bg, $light-gray, $dark-green, false, true);
+      float: left;
+      width: 45px;
+      margin-top: 3px;
+      margin-bottom: 8px;
+      span.switch_button {
+        -webkit-box-shadow: 2px 0 10px 0 rgba(0, 0, 0, 0.07), 1000px 0 0 1000px #dfdfdf, -2px 0 10px 0 rgba(0, 0, 0, 0.07), -1000px 0 0 1000px #4faa60;
+        box-shadow: 2px 0 10px 0 rgba(0, 0, 0, 0.07), 1000px 0 0 988px #dfdfdf, -2px 0 10px 0 rgba(0, 0, 0, 0.07), -1000px 0 0 1000px #4faa60;
+      }
     }
   }
   .status_message_div{
@@ -88,7 +92,7 @@
           .fa{
               margin-top: 3px;
               font-size: 25px;
-              padding: 0 7px;
+              padding: 2px 7px;
               color: $med-gray;
           }
       }
@@ -113,7 +117,13 @@
 }
 #digest_management {
   &:after {@include clear;}
-
+  
+  .large-3 {
+    &.columns {
+        padding-left: 0;
+        padding-right: 0;
+      }    
+  }
   .notification_controls {
     float: left;    
     .send_to, .follow_up, .intro_message {
@@ -192,6 +202,8 @@
     margin-bottom: 20px;
     padding: 10px 10px 10px 0px;
     border-bottom: 1px solid $light-gray;
+    color: $dark-green;
+    font-size: 18px;        
     #last-email {
       @include caption;
       color:$gray;
@@ -202,11 +214,7 @@
       padding-top: 10px;
     }
     .fa {
-      color: $dark-green;
-      font-size: 18px;        
-      span {
-        padding-left: 12px;
-      }
+      padding-right: 10px;
     }
   }
 }

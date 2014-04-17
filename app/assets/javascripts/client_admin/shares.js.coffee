@@ -10,7 +10,7 @@ $(document).ready ->
     false
   )
   
-  $('#share_tiles_email_preview').on('load', (event) ->
+  $('#invite_users_page_2').find('#share_tiles_email_preview').on('load', (event) ->
     if document.getElementById
       newHeight = document.getElementById('share_tiles_email_preview').contentWindow.document.body.scrollHeight - 250
       newHeight = 520 if newHeight > 520
@@ -24,7 +24,29 @@ $(document).ready ->
       $('#invite_users_page_2').find('#share_tiles_email_preview').contents().find('#custom_message').html($(custom_message).val())
     return
   )
-  
+
+  $('#share_tiles_email_preview').on('load', (event) ->
+    if document.getElementById
+      newHeight = document.getElementById('share_tiles_email_preview').contentWindow.document.body.scrollHeight
+      maxHeight = $('#digest_management').find('.notification_controls').height()
+      
+      newWidth = document.getElementById('share_tiles_email_preview').contentWindow.document.body.scrollWidth
+
+      $('#share_tiles_email_preview').height(newHeight + "px")
+      $('#share_tiles_email_preview').width(newWidth + "px")
+      
+      newTotalHeight = $('.large-9.email_preview').height()
+      if newTotalHeight > maxHeight
+        #re-adjust iframe
+        newHeight -= (newTotalHeight - maxHeight) 
+        $('#share_tiles_email_preview').height(newHeight + "px")
+        
+      custom_message = $('#invite_users_page_2').find('#users_invite_message')
+      
+      $('#invite_users_page_2').find('#share_tiles_email_preview').contents().find('#custom_message').html($(custom_message).val())
+    return
+  )
+
   removeInviteUsersErrorMessage = (container, type) ->
     container.find('.error_message>.' + type).html('')
       

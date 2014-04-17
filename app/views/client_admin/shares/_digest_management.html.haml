@@ -1,8 +1,7 @@
-.ready_to_send
-  .fa.fa-envelope 
-    %span Email Tiles
+.large-12.columns.ready_to_send
+  = fa_icon('envelope', text: 'Email Tiles')
   #last-email= digest_email_sent_on_message
-.large-3
+.large-3.columns
   = form_tag client_admin_tiles_digest_notification_path, class: :custom do
     .notification_controls
       .send_to

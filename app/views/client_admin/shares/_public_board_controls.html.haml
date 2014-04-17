@@ -2,7 +2,7 @@
 .new_public_board{:id=>"#{current_user.demo.id}"}
   %div.title_div
     %div.public_board_title Board Access
-    .fa.fa-question-circle.has-tip{"data-tooltip" => true, "data-options" => "tooltip_class:'mytooltip'", title:"If Private, only people you add can see your board.<br/>If public, anyone with the share link can see and join it."}
+    %i.fa.fa-question-circle.has-tip{"data-tooltip" => true, "data-options" => "tooltip_class:'mytooltip'", title:"If Private, only people you add can see your board.<br/>If public, anyone with the share link can see and join it."}
   %div.status_div
     - unless @board_is_public
       .private.engaged PRIVATE
