@@ -39,7 +39,7 @@ feature 'Creates tile' do
       expect_content new_tile.send(string)
     end
 
-    expect_content "23 POINTS"
+    expect_content "18 POINTS"
     new_tile.multiple_choice_answers.each {|answer| expect_content answer}
   end
 

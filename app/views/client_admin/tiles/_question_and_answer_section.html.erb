@@ -34,6 +34,8 @@
         type = "<%= raw @tile_builder_form.question_type %>"
         subtype = "<%= raw @tile_builder_form.question_subtype %>"
         $("#" + type + "-" + subtype).click().click();
+        //show slider
+        $(".slider").css("display", "block");
       <% else %>
         window.tile_types = <%= raw(tile_types.to_json) %>;
       <% end %>
@@ -73,6 +75,8 @@
       turnRadioGreen();
       selectMessage();
       rebindEvents();
+      //show slider
+      $(".slider").css("display", "block");
     });
 
     $('body').click(function(event) {

@@ -187,7 +187,6 @@ body.client_admin-tiles-update {
     }
   }
   .tile_quiz {
-    padding: 0 !important;
     .selected {
       color: #4face0 !important;
     }
@@ -246,7 +245,7 @@ body.client_admin-tiles-update {
       .placeholder {
         text-align: center;
         padding-top: 3em;
-        padding-bottom: 2em;
+        padding-bottom: 2.5em;
         color: $gray;
         font-weight: 700;
       }
@@ -338,14 +337,16 @@ body.client_admin-tiles-update {
 
   // Points
   .slider{
-    padding-top: 1.7em;
+    display: none;
+    padding-top: 2.3em;
     padding-bottom: 2.5em;
     background: #f3f3f3;
     padding-left: 2.5em;
+    padding-right: 2.5em;
     #points_slider{
       float:left;
       bottom: -3px;
-      width: 29.7em;
+      width: 100%;
       height: 10px;
       border-radius: 4px;
       background: $light-gray;
@@ -399,25 +400,16 @@ body.client_admin-tiles-update {
   }
   #set_points {
     display: none;
-    border-top:1px darken($light-gray, 5%) solid;
-    padding-top:1em;
-    text-align: center;
-    p, input, label {display: inline-block;}
-    input, label {color:$orange;}
-    p {
-      color:lighten($text-color, 17%);
-      @include font-bold;
-    }
-    input {
-      @include font-bold;
-      font-size:1.3em;
-      margin-left:1em;
-      text-align:center; 
-      width:3.5em;
-    }
-    label {@include font-bold;}
   }
   .tooltip > .nub {
     margin-left: 46px;
+  }
+}
+body.client_admin-tiles-new, 
+body.client_admin-tiles-create,
+body.client_admin-tiles-edit,
+body.client_admin-tiles-update {
+  .tile_quiz {
+    padding: 0 !important;
   }
 }

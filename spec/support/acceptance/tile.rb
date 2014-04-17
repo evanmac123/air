@@ -192,8 +192,9 @@ module TileHelpers
   end
 
   def fill_in_points points
-    p '$("#points_slider").slider("value", #{points.to_i * 10}'
-    page.evaluate_script('$("#points_slider").slider("value", #{points.to_i * 10}')
+    script = '$("#points_slider").slider("value", ' + (points.to_i * 10).to_s + ")"
+    p script
+    page.evaluate_script(script)
   end
 
   def fill_in_valid_form_entries(options = {})
