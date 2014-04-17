@@ -187,8 +187,13 @@ module TileHelpers
   def fill_in_image_credit text
     #it's not easy to write in div though capybara
     #in few words about events: keydown deletes placeholder, 
-    #html input text, keyup copy text to real textarea
+    #html inputs text, keyup copies text to real textarea
     page.execute_script( "$('.image_credit_view').keydown().html('#{text}').keyup()" )
+  end
+
+  def fill_in_points points
+    p '$("#points_slider").slider("value", #{points.to_i * 10}'
+    page.evaluate_script('$("#points_slider").slider("value", #{points.to_i * 10}')
   end
 
   def fill_in_valid_form_entries(options = {})
@@ -213,7 +218,7 @@ module TileHelpers
 
     click_answer.times { select_correct_answer 2 } if question_type == Tile::QUIZ
 
-    fill_in "Points", with: "23"
+    fill_in_points "18"
 
     fill_in_external_link_field  "http://www.google.com/foobar"
   end

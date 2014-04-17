@@ -187,6 +187,7 @@ body.client_admin-tiles-update {
     }
   }
   .tile_quiz {
+    padding: 0 !important;
     .selected {
       color: #4face0 !important;
     }
@@ -337,17 +338,10 @@ body.client_admin-tiles-update {
 
   // Points
   .slider{
-    padding-top: 2.7em;
+    padding-top: 1.7em;
     padding-bottom: 2.5em;
-    .level{
-      float:left;
-      padding-left: 0.5em;
-      padding-right: 0.5em;
-      color:$dark-gray;
-      text-transform: capitalize;
-      font-size: 10px;
-      font-weight: 700;
-    }
+    background: #f3f3f3;
+    padding-left: 2.5em;
     #points_slider{
       float:left;
       bottom: -3px;
@@ -382,7 +376,7 @@ body.client_admin-tiles-update {
             .points_nub{
               border: solid 5px;
               border-color: #66b9e5 transparent transparent transparent;
-              left: 44%;
+              left: 41%;
               margin: 0;
               bottom: -10px;
               display: block;

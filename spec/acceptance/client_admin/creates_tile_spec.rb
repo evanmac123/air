@@ -30,7 +30,7 @@ feature 'Creates tile' do
     new_tile.link_address.should == "http://www.google.com/foobar"
     new_tile.correct_answer_index.should == 2
     new_tile.multiple_choice_answers.should == ["Me", "You", "He", "Add Answer Option"]
-    new_tile.points.should == 23
+    new_tile.points.should == 18
     new_tile.should be_draft
 
     expect_content after_tile_save_message
