@@ -8,6 +8,7 @@
       </div>
     </div>
 
+    <% put_divider_between_sections = boards_as_admin.present? && boards_as_regular_user.present? %>
 
     <% if boards_as_admin.present? %>
       <div id="admin_board_controls">
@@ -23,7 +24,8 @@
     <% end %>
 
     <% if boards_as_regular_user.present? %>
-      <div id="user_board_controls">
+      <% divider_class = put_divider_between_sections ? "with_divider" : "" %>
+      <div id="user_board_controls" class="<%= divider_class %>">
         <div class="row">
           <div class="large-12 columns">
             <h3 class="control_section_header">Boards You Participate In</h3>

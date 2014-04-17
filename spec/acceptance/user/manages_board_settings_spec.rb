@@ -131,7 +131,5 @@ feature 'Manages board settings' do
         end
       end
     end
-
-    it "should have a divider between the sections"
   end
 end

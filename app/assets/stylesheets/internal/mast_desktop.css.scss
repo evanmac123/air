@@ -378,4 +378,8 @@ body.explores {
     background-color: orange;
   }
 
+  #user_board_controls.with_divider {
+    border-top: solid $light-gray 1px;
+    padding-top: 1em;
+  }
 }
