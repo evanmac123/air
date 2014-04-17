@@ -2,12 +2,11 @@
 @import "external/_case_study";
 
 .client_admin_explore_tile_tag{
-  border: 1px solid $light-gray;
-  background: $sky-blue;
   padding-left: 0;
   margin-bottom: 50px;
   ul {
     li {
+      border: 1px solid $light-gray;
       h1 {
         display: inline;
         padding-left: 10px;
@@ -16,15 +15,18 @@
       padding-bottom: 20px;
       float: left;
       &.explore_section{
+        border-right: 0;
         text-align: center;
-        background: $white;
-        width: 15%;
+        background-color: $white;
+        width: 25%;
         a {
           color: #000; 
         }
       }
       &.tile_tag{
-        width: 80%;
+        border-left: 0;
+        background: #8ecded;
+        width: 75%;
         float: left;
         h1 {
           color: $white;
@@ -43,6 +45,7 @@
   }
   .explore_tile {
     height: 26.75em;
+    background-color: $white;
     border: 1px solid $light-gray;            
     border-radius: 2px;
     padding: 6px 6px;
@@ -93,6 +96,7 @@
         padding: 0px 6px 3px 6px;
         border-radius: 5px;
         display: inline-block;
+        background-color: white;
         a {
           color: $med-gray;
         }
@@ -150,11 +154,12 @@
       border: 1px solid $light-gray;
       border-radius: 2px;
       .tile_tag {
-        padding-bottom: 8px;
-        border-bottom: 1px solid $light-gray;
         margin-top: 5px;
+        margin-left: 4px;
+        padding: 0 6px 3px 6px;
+        border-bottom: 1px solid $light-gray;
+        float: none;
         a {
-          padding-left: 5px;
           font-size: 10px;
           color: $med-gray;
         }

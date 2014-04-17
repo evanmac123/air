@@ -119,7 +119,8 @@ body.tile_previews.tile_previews-show {
         margin-top: 5px;
         margin-left: 4px;
         padding: 0 6px 3px 6px;
-        display: inline-block;
+        border-bottom: 1px solid $light-gray;
+        float: none;
         a {
           font-size: 10px;
           color: $med-gray;

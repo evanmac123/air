@@ -100,14 +100,8 @@ module TileBuilderForm
 
     def save_main_objects      
       main_objects.each {|object| object.save(:context => :client_admin)}
-      save_tile_taggings
     end
 
-    def save_tile_taggings
-      Tile.transaction do
-        @tile.tile_taggings.each {|tile_tagging| tile_tagging.save!}
-      end      
-    end
     def after_save_main_objects_hook
     end
 
@@ -157,10 +151,10 @@ module TileBuilderForm
         new_tile_tag_ids.each do |tile_tag_id|
           associated_tile_taggings << @tile.tile_taggings.build(tile_tag_id: tile_tag_id)
         end
-        
-       @tile.tile_taggings = associated_tile_taggings
-      end
-      
+        @tile.tile_taggings = associated_tile_taggings
+      else 
+        @tile.tile_taggings = []
+      end      
     end
     
     def set_tile_image

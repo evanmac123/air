@@ -55,7 +55,7 @@ feature 'User views tiles' do
       page.should have_content(all_tiles_done_message)
     end
 
-    scenario 'and a ping is sent to Mixpanel', js: :webkit do
+    scenario 'and a ping is sent to Mixpanel', js: true do
       page.find('.right_multiple_choice_answer').click
 
       FakeMixpanelTracker.clear_tracked_events

@@ -165,10 +165,6 @@ module TileHelpers
     page.find(".tile_question").click if page.all(".tile_question").count > 0
     page.find("#tile_builder_form_question").set(text)
   end
-  
-  def click_make_public
-    choose("share_on")
-  end
 
   def click_make_copyable
     choose('allow_copying_on')
@@ -189,7 +185,8 @@ module TileHelpers
   end
 
   def add_tile_tag(tag)
-    fill_in 'add-tag', with: tag    
+    field = 'add-tag'
+    fill_in field, with: tag    
     page.execute_script %Q{ $('##{field}').trigger('focus') }
     page.execute_script %Q{ $('##{field}').trigger('keydown') }
     
@@ -201,10 +198,29 @@ module TileHelpers
     page.find('.tile_tags>li', text: tag).should have_content(normalized_tag(tag))
   end
 
-  def normalized_tag(tag)
-    tag.strip.gsub(/\s+/, ' ').split.map(&:capitalize).join(' ')    
+  def after_tile_save_message(options={})
+    "Tile #{options[:action] || 'create'}d! We're resizing the graphics, which usually takes less than a minute."
   end
-  def add_new_tile_tag(tag, is_debug = false)
+
+  def click_edit_link
+    click_here_link[1].click
+  end
+
+  def click_add_answer
+    page.find(".add_answer").click
+  end
+
+  def fill_in_image_credit text
+    #it's not easy to write in div though capybara
+    #in few words about events: keydown deletes placeholder, 
+    #html input text, keyup copy text to real textarea
+    page.execute_script( "$('.image_credit_view').keydown().html('#{text}').keyup()" )
+  end
+  
+  def normalized_tag(tag)
+    tag.strip.gsub(/\s+/, ' ').split(' ').map(&:capitalize).join(' ')    
+  end
+  def add_new_tile_tag(tag)
     field = 'add-tag'
     fill_in field, with: tag
     a_text = "Click to add."
@@ -212,10 +228,9 @@ module TileHelpers
     page.execute_script %Q{ $('##{field}').trigger('keydown') }
     selector = %Q{ul.ui-autocomplete li.ui-menu-item a:contains("#{a_text}")}
     
-    find('ul.ui-autocomplete li.ui-menu-item a', text: a_text).should have_content(a_text)
+    page.should have_selector("ul.ui-autocomplete li.ui-menu-item a:contains('#{a_text}')")
     page.execute_script %Q{ $('#{selector}').trigger('mouseenter').click() }
-    debugger if is_debug
-    find('.tile_tags>li', text: normalized_tag(tag)).should have_content(normalized_tag(tag))
+    page.find('.tile_tags>li', text: normalized_tag(tag)).should have_content(normalized_tag(tag))
   end  
   
   def click_make_public
@@ -288,9 +303,13 @@ module TileHelpers
 
     if with_public_and_copyable
       click_make_public
-      page.find('.allow_copying', visible: true)
-      add_new_tile_tag('start tag')
+      tile_tag_title = options[:tile_tag_title] || 'Start tag'
+      add_new_tile_tag(tile_tag_title)
     end
+  end
+  
+  def click_edit_link
+    click_here_link[1].click
   end
 
   def click_create_button
@@ -301,6 +320,7 @@ module TileHelpers
     page.find("##{question_type}").click()
     page.find("##{question_type}-#{question_subtype}").click()
   end
+
 
   def create_good_tile(with_public_and_copyable = false)
     fill_in_valid_form_entries({}, with_public_and_copyable)
@@ -385,10 +405,10 @@ module TileHelpers
     end
   end
 
-  def expect_thumbnail_count(expected_count)
-    page.all('.explore_tile').should have(expected_count).thumbnails
+  def expect_thumbnail_count(expected_count, tile_wrapper='.tile-wrapper')
+    page.all(tile_wrapper).should have(expected_count).thumbnails
   end
-
+  
   def expect_placeholder_count(expected_count)
     page.all('.placeholder_tile').should have(expected_count).placeholders
   end

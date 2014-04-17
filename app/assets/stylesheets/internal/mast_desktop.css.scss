@@ -203,7 +203,7 @@ header {
   .explore_menu {
     display: inline-block;
     a {
-      color: black;
+      color: $text-color;
       font-size: 14px;
       height:100%;
       max-height:$header-total-height;      
@@ -252,6 +252,7 @@ header {
 }
 
 body.explores {
+  background-color: #FEFEFE;
   .explore_menu {
     #explore_board {
       color: $sky-blue;

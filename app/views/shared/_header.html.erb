@@ -64,7 +64,6 @@
           </ul>
         <% if current_user.authorized_to?(:client_admin) %>
           <div class="explore_menu">
-            <%= link_to fa_icon('gear'), '#', id: 'explore_settings' %>
             <%= link_to explore_path, id: 'explore_board' do %>
               <span class="fa fa-rocket"></span>
               <span>Explore</span>

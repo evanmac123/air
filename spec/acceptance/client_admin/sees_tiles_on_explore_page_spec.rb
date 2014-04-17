@@ -14,24 +14,24 @@ feature 'Sees tiles on explore page' do
     FactoryGirl.create(:tile, :public, status: Tile::ARCHIVE, headline: "Nor do I appear in public")
 
     visit explore_path(as: a_client_admin)
-    expect_thumbnail_count 2
+    expect_thumbnail_count 2, '.explore_tile'
     page.should_not have_content "I do not appear in public"
   end
 
   it "should have a working \"Show More\" button", js: true do
     FactoryGirl.create_list(:tile, 15, :public)
     visit explore_path(as: a_client_admin)
-    expect_thumbnail_count 8
+    expect_thumbnail_count 8, '.explore_tile'
 
     # These "sleep"s are a terrible hack, but I haven't gotten any of the
     # saner ways to get Poltergeist to wait for the AJAX request to work yet.
     show_more_tiles_link.click
     sleep 5
-    expect_thumbnail_count 8
+    expect_thumbnail_count 12, '.explore_tile'
 
     show_more_tiles_link.click
     sleep 5
-    expect_thumbnail_count 8
+    expect_thumbnail_count 15, '.explore_tile'
   end
 
   it "should see information about creators for tiles that have them" do
@@ -128,15 +128,15 @@ feature 'Sees tiles on explore page' do
         within '.tags' do
           click_link "Click me"
         end
-        expect_thumbnail_count 16
+        expect_thumbnail_count 16, '.explore_tile'
         expect_only_headlines_in(@tagged_tiles)
 
         show_more_tiles_link.click
-        expect_thumbnail_count 20
+        expect_thumbnail_count 20, '.explore_tile'
         expect_only_headlines_in(@tagged_tiles)
 
         show_more_tiles_link.click
-        expect_thumbnail_count 21
+        expect_thumbnail_count 21, '.explore_tile'
         expect_only_headlines_in(@tagged_tiles)
       end
     end
@@ -148,7 +148,7 @@ feature 'Sees tiles on explore page' do
       visit explore_path(as: a_client_admin)
       page.first('.explore_tile > a').click
 
-      click_link '.left-section > a'
+      find('.left-section > a').click
       should_be_on explore_path
     end
 
@@ -163,10 +163,9 @@ feature 'Sees tiles on explore page' do
           click_link "Hey Now"
         end
         page.first('.explore_tile > a').click
-
-        click_link '.left-section > a'
-        should_be_on tile_tag_show_explore(tile_tag: tile_tag)
-        page.first('.tag_link', text: 'Hey Now')['class'].split.should include('enabled')
+        
+        find('.left-section > a').click
+        URI.parse(current_url).path.should eq URI.parse(tile_tag_show_explore_url(tile_tag: tile_tag)).path
       end
     end
   end

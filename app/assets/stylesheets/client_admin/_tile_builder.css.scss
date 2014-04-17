@@ -55,12 +55,8 @@ body.client_admin-tiles-update {
       }        
     }
     .switch{
-      $height: 20px;
-      $font-size: 20px;           
-      @include switch-size($height);
-      $positive-color: $light-gray;
-      $negative-color: $dark-green;            
-      @include switch-style($switch-paddle-bg, $positive-color, $negative-color, false, true);
+      @include switch-size(20px);
+      @include switch-style($switch-paddle-bg, $light-gray, $dark-green, false, true);
       float: left;
       width: 45px;
       margin-top: 4px;
