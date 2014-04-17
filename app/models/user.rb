@@ -1077,13 +1077,25 @@ class User < ActiveRecord::Base
 
   def boards_as_admin
     User.transaction do
-      boards = board_memberships.where(is_client_admin: true).map(&:demo)
+      boards = board_memberships.where(is_client_admin: true, is_current: false).map(&:demo)
 
       if is_client_admin || is_site_admin
         boards << demo
       end
 
-      boards.uniq
+      boards
+    end
+  end
+
+  def boards_as_regular_user
+    User.transaction do
+      boards = board_memberships.where(is_client_admin: false, is_current: false).map(&:demo)
+
+      unless is_client_admin || is_site_admin
+        boards << demo
+      end
+
+      boards
     end
   end
 

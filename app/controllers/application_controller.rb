@@ -447,5 +447,6 @@ class ApplicationController < ActionController::Base
                            end
 
     @boards_as_admin = current_user.boards_as_admin
+    @boards_as_regular_user = current_user.boards_as_regular_user
   end
 end

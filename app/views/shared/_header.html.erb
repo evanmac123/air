@@ -53,12 +53,12 @@
 
         <%= render 'shared/desktop_board_switcher', boards_to_switch_to: @boards_to_switch_to %>
 
-        <% if current_user.authorized_to?(:client_admin) %>
-          <div class="board_settings_toggle_wrapper has-tip" data-tooltip title="Settings">
-            <%= link_to fa_icon("cog"), '#', id: 'board_settings_toggle', "data-reveal-id" => "board_settings" %>
-            <%= render 'shared/board_settings_modal', boards_as_admin: @boards_as_admin %>
-          </div>
+        <div class="board_settings_toggle_wrapper has-tip" data-tooltip title="Settings">
+          <%= link_to fa_icon("cog"), '#', id: 'board_settings_toggle', "data-reveal-id" => "board_settings" %>
+          <%= render 'shared/board_settings_modal', boards_as_admin: @boards_as_admin, boards_as_regular_user: @boards_as_regular_user %>
+        </div>
 
+        <% if current_user.authorized_to?(:client_admin) %>
           <div class="explore_menu">
             <%= link_to explore_path, id: 'explore_board' do %>
               <span class="fa fa-rocket"></span>
