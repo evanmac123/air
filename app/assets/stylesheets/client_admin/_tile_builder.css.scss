@@ -187,7 +187,7 @@ body.client_admin-tiles-update {
   }
   .tile_quiz {
     .selected {
-      color: $dark-green !important;
+      color: #4face0 !important;
     }
     .tile_types {
       .tile_type {
@@ -252,8 +252,6 @@ body.client_admin-tiles-update {
   }
   // Quiz section of the tile
   .builder_quiz, .tile_quiz {
-    background:$light-gray;
-
     .answer-div{
       position: relative;
       .character-counter{
@@ -338,20 +336,21 @@ body.client_admin-tiles-update {
 
   // Points
   .slider{
-    padding-top: 4em;
-    padding-bottom: 3em;
+    padding-top: 2.7em;
+    padding-bottom: 2.5em;
     .level{
       float:left;
       padding-left: 0.5em;
       padding-right: 0.5em;
-      color:$med-gray;
+      color:$dark-gray;
       text-transform: capitalize;
-      font-size: 12px;
+      font-size: 10px;
+      font-weight: 700;
     }
     #points_slider{
       float:left;
       bottom: -2px;
-      width: 28.9em;
+      width: 29.7em;
       height: 12px;
       border-radius: 4px;
       background: $light-gray;
@@ -360,23 +359,27 @@ body.client_admin-tiles-update {
         .points_pop_up{
           cursor: pointer;
           position: absolute;
-          right:-40px;
+          right:-30px;
           bottom:0px;
-          width: 80px;
-          height: 64px;
+          width: 60px;
+          height: 50px;
           background: transparent;
           .tooltip{
             display: block;
-            background: $sky-blue;
             text-transform: capitalize;
-            font-size: 12px;
+            font-size: 10px;
             color: white;
             text-align: center;
             margin: 0;
             max-width: 100%;
             left: 0;
+            line-height: 1.1;
+            padding: 0.3em;
+            //background gradient
+            background: #4face0; /* old browsers */
+            background: linear-gradient(to bottom, #4face0, #66b9e5);
             .nub{
-              border-top-color: $sky-blue;
+              border-top-color: #66b9e5;
               left: 44%;
               margin: 0;
             }

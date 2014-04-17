@@ -21,8 +21,9 @@
         slide: refreshPointsField,
         change: refreshPointsField
       });
-      //turn on slider and set points from text field * 10.
-      $( "#points_slider" ).slider( "value", $("#tile_builder_form_points").val()*10 );
+      //turn on slider and set points from text field * 10 or 10 points by default.
+      start_points = ($("#tile_builder_form_points").val() ? $("#tile_builder_form_points").val() : 10) * 10;
+      $( "#points_slider" ).slider( "value", start_points );
 
       addPointsPopUp();
       //and vice versa
