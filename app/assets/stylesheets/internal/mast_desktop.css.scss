@@ -162,7 +162,7 @@ header {
     }
 
     #switcher_create_new_board {
-      color: $dark-green;
+      color: $med-blue;
     }
   }
 
@@ -293,13 +293,19 @@ body.explores {
 }
 
 #new_board_creation {
-  width: 40%;
-  left: 75%;
   z-index: 5000;
 
   h1, h3, input, #cancel_board_creation {
     width: 100%;
     text-align: center;
+  }
+
+  h1, h3 {
+    color: $dark-gray;
+  }
+
+  h3 {
+    margin-bottom: 1em;
   }
 
   input[type=text].valid {
@@ -309,8 +315,12 @@ body.explores {
   }
 
   input[type=submit] {
-    @include app-button($dark-green);
+    @include app-button($med-blue);
     margin-top: 1em;
+
+    &:disabled {
+      @include app-button($med-gray);
+    }
   }
 
   #cancel_board_creation {

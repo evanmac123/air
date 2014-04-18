@@ -14,13 +14,17 @@ validateNewBoardName = (value, element) ->
         $(element).addClass('valid')
       else
         $(element).removeClass('valid')
+        enableNewBoardCreationButton()
   )
   nameValid
 
+newBoardCreationButton = () -> $('#new_board_creation form input[type=submit]')
+
+disableNewBoardCreationButton = () -> newBoardCreationButton().attr('disabled', true)
+enableNewBoardCreationButton = () -> newBoardCreationButton().removeAttr('disabled')
 
 bindNewBoardValidations = () ->
   $.validator.addMethod 'validateNewBoardName', validateNewBoardName, "Sorry, that board name is already taken."
-
 
   $('#new_board_creation').find('form').validate
     rules:
@@ -29,4 +33,7 @@ bindNewBoardValidations = () ->
     onkeyup:
       false
 
+window.newBoardCreationButton = newBoardCreationButton
+window.disableNewBoardCreationButton = disableNewBoardCreationButton
+window.enableNewBoardCreationButton = enableNewBoardCreationButton
 window.bindNewBoardValidations = bindNewBoardValidations

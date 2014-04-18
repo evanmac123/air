@@ -274,7 +274,7 @@ body.client_admin-tiles-update {
   }
   .tile_quiz {
     .selected {
-      color: #4face0 !important;
+      color: $med-blue !important;
     }
     .tile_types {
       .tile_type {
@@ -464,8 +464,8 @@ body.client_admin-tiles-update {
             line-height: 1.1;
             padding: 0.3em;
             //background gradient
-            background: #4face0; /* old browsers */
-            background: linear-gradient(to bottom, #4face0, #66b9e5);
+            background: $med-blue; /* old browsers */
+            background: linear-gradient(to bottom, $med-blue, #66b9e5);
             .points_nub{
               border: solid 5px;
               border-color: #66b9e5 transparent transparent transparent;

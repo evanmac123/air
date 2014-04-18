@@ -22,7 +22,7 @@ feature 'Create new board' do
   end
 
   def wait_for_board_modal
-    page.should have_content "Make a new board" # slow your roll, Poltergeist  
+    page.should have_content "Create a new board" # slow your roll, Poltergeist  
   end
 
   def try_to_create_new_board(user = a_regular_user)
