@@ -2,6 +2,8 @@ class BoardsController < ApplicationController
   layout 'external'
   skip_before_filter :authorize
 
+  include NormalizeBoardName
+
   def new
     @user = User.new
     @board = Demo.new
@@ -9,6 +11,21 @@ class BoardsController < ApplicationController
 
   def create
     params[:as_existing] ? create_as_existing : create_as_guest
+  end
+
+  def update
+    board = Demo.find(params[:id])
+
+    unless current_user.is_client_admin_in_board(board)
+      render nothing: true
+      return
+    end
+
+    new_name = normalize_board_name(params[:board_name])
+    board.name = new_name
+    board.save!
+
+    render nothing: true
   end
 
   protected

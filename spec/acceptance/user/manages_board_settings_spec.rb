@@ -26,6 +26,19 @@ feature 'Manages board settings' do
     "36 characters should be just abou..."  
   end
 
+  def fill_in_new_board_name(board, new_name)
+    # Stole this from fill_in_image_credit. If we're gonna do a lot with
+    # contenteditable, we should factor this out.
+
+    board_name_selector = "#admin_board_controls .board_name[data-demo_id=\"#{board.id}\"]"
+    js_to_fake_edit = "$('#{board_name_selector}').focus().keydown().html('#{new_name}').keyup()"
+    page.execute_script(js_to_fake_edit)
+  end
+
+  def click_save_link
+    within(board_admin_controls_selector) { page.find('a', text: 'Save', visible: true).click }
+  end
+
   context "when they admin no boards" do
     before do
       @user = FactoryGirl.create(:user)
@@ -92,6 +105,23 @@ feature 'Manages board settings' do
         page.should have_content truncated_long_board_name
       end
     end
+
+    it "should let them edit a board name by clicking the name", js: true do
+      visit activity_path(as: @user)
+      open_board_settings
+
+      board_to_change = @boards.first
+      fill_in_new_board_name(board_to_change, "Hapsburg Dynasty")
+      click_save_link
+
+      page.should have_content("Saved!")
+      board_to_change.reload.name.should == "Hapsburg Dynasty Board"
+    end
+
+    it "should let them edit a board name by clicking the edit icon"
+    it "should let them edit a board name by clicking the edit link"
+
+    it "should give helpful feedback if the board name is bad"
   end
 
   context "when they are an admin in some boards and a peon in others" do

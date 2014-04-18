@@ -1012,6 +1012,14 @@ class User < ActiveRecord::Base
     demos.where(id: demo_ids - [current_demo_id])
   end
 
+  def is_client_admin_in_board(board)
+    if board == self.demo
+      self.is_client_admin
+    else
+      board_memberships.find_by_demo_id(board.id).try(:is_client_admin)
+    end
+  end
+
   def current_location_in_board(board)
     if board == self.demo
       self.location

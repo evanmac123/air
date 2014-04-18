@@ -1,45 +1,66 @@
 <div id="board_settings" class="reveal-modal">
-    <div class="row">
-      <div class="large-11 columns">
-        <h1>Board Settings</h1>
-      </div>
-      <div class="large-1 columns">
-        <a id="close_board_settings" class="large-1" href="#">Close</a>
-      </div>
+  <div class="row">
+    <div class="large-11 columns">
+      <h1>Board Settings</h1>
     </div>
+    <div class="large-1 columns">
+      <a id="close_board_settings" class="large-1" href="#">Close</a>
+    </div>
+  </div>
 
-    <% put_divider_between_sections = boards_as_admin.present? && boards_as_regular_user.present? %>
+  <% put_divider_between_sections = boards_as_admin.present? && boards_as_regular_user.present? %>
 
-    <% if boards_as_admin.present? %>
-      <div id="admin_board_controls">
-        <div class="row">
-          <div class="large-12 columns">
-            <h3 class="control_section_header">Boards You Manage</h3>
-          </div>
+  <% if boards_as_admin.present? %>
+    <div id="admin_board_controls">
+      <div class="row">
+        <div class="large-12 columns">
+          <h3 class="control_section_header">Boards You Manage</h3>
         </div>
-        <% boards_as_admin.sort_by(&:name).each do |board| %>
-          <%= render "shared/board_settings_board_name", board: board %>
-        <% end %>
       </div>
-    <% end %>
+      <% boards_as_admin.sort_by(&:name).each do |board| %>
+        <%= render "shared/board_settings_board_name", board: board, as_admin: true %>
+      <% end %>
+    </div>
+  <% end %>
 
-    <% if boards_as_regular_user.present? %>
-      <% divider_class = put_divider_between_sections ? "with_divider" : "" %>
-      <div id="user_board_controls" class="<%= divider_class %>">
-        <div class="row">
-          <div class="large-12 columns">
-            <h3 class="control_section_header">Boards You Participate In</h3>
-          </div>
+  <% if boards_as_regular_user.present? %>
+    <% divider_class = put_divider_between_sections ? "with_divider" : "" %>
+
+    <div id="user_board_controls" class="<%= divider_class %>">
+      <div class="row">
+        <div class="large-12 columns">
+          <h3 class="control_section_header">Boards You Participate In</h3>
         </div>
-        <% boards_as_regular_user.sort_by(&:name).each do |board| %>
-          <%= render "shared/board_settings_board_name", board: board %>
-        <% end %>
       </div>
-    <% end %>
+      <% boards_as_regular_user.sort_by(&:name).each do |board| %>
+        <%= render "shared/board_settings_board_name", board: board, as_admin: false %>
+      <% end %>
+    </div>
+  <% end %>
 </div>  
 
 <%= content_for :javascript do %>
   <%= javascript_tag do %>
+    $('.board_name').focus(function(event) {
+      var demoId = $(this).data('demo_id');
+      $('a.save_board_name').hide();
+      $('a.save_board_name[data-demo_id="' + demoId + '"]').show();
+    });
+
+    $('.save_board_name').click(function(event) {
+      event.preventDefault();
+      var demoId = $(this).data('demo_id');
+      var updateURL = "/boards/" + demoId;
+      var boardName = $('.board_name[data-demo_id="' + demoId + '"]').text()
+
+      $.post(
+        updateURL,
+        { board_name: boardName,
+          _method: 'PUT'
+        }
+      )
+    });
+
     $('#close_board_settings').click(function(event) {
       event.preventDefault();
       $('#board_settings').foundation('reveal', 'close');

@@ -372,6 +372,15 @@ body.explores {
 
   .board_name {
     color: $text-color;
+    border: solid transparent 1px;
+
+    &[contenteditable="true"]:focus {
+      border-color: $med-gray;
+    }
+  }
+
+  .save_board_name {
+    display: none;
   }
 
   .reserved_for_controls {

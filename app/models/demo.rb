@@ -1,4 +1,6 @@
 class Demo < ActiveRecord::Base
+  extend NormalizeBoardName
+
   JOIN_TYPES = %w(pre-populated self-inviting public).freeze
 
   has_many :guest_users
@@ -364,6 +366,10 @@ class Demo < ActiveRecord::Base
 
   def custom_logo_url
     self.skin.try(:logo_url)
+  end
+
+  def self.name_like(name)
+    where("name ILIKE ?", normalize_board_name(name))
   end
 
   protected
