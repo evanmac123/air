@@ -242,8 +242,8 @@ feature 'Activates or edits tile from preview page' do
       expect_first_time_create_popover
       click_link 'Got it'
 
-      expect_mixpanel_action_ping('Tile Preview Page - Draft', 'Clicked Got It button in orientation pop-over')
       expect_no_first_time_create_popover
+      expect_mixpanel_action_ping('Tile Preview Page - Draft', 'Clicked Got It button in orientation pop-over')
     end
 
     scenario "does not see the popover appear after first time create", js:true do

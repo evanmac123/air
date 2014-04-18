@@ -34,7 +34,7 @@ $(document).ready ->
   
   $('.tile_with_tags').find('.explore_tile > .all_tile_tags').each (index) ->
     hideExtraTags($(this), 60, false)
-    
+
   $('.tile_with_tags').find('.explore_tile > .all_tile_tags > .tile_tag > .extra_tags').on('click', (event) ->
     $(this).parent().parent().siblings('ul.extra_tags_list').toggle()
     false
@@ -47,4 +47,9 @@ $(document).ready ->
     
   $('body.explores').on('click', (event) -> 
     $(this).find('ul.extra_tags_list').hide()
+  )
+  
+  $('body.explores').find('.tile_with_tags').on('ajaxComplete', (event) ->
+    $(this).find('.explore_tile > .all_tile_tags').each (index) ->
+      hideExtraTags($(this), 60, false)    
   )

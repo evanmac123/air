@@ -41,6 +41,10 @@
     color:$white;
   }
   font-size:.75;
+  &#close_tile_copied_lightbox {
+    @include light-button($gray);
+    font-size: 14px;
+  }
 }
 
 

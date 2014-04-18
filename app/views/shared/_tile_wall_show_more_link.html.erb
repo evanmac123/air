@@ -20,7 +20,7 @@
           $(this).data('tile-path'),
           {base_batch_size: baseBatchSize, partial_only: 'true'},
           function(data) {
-            $('.tile_with_tags').html(data);
+            $('#tile_wall').replaceWith(data);
           }
         );
       }
