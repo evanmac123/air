@@ -164,7 +164,11 @@ Health::Application.routes.draw do
     end
 
     resource :billing_information
-    resources :prizes
+    resources :prizes, only: :index do 
+      collection do
+        put 'save_draft'
+      end
+    end
   end
 
   resources :pages, :only => :show
