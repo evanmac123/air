@@ -1004,7 +1004,11 @@ class User < ActiveRecord::Base
   end
 
   def current_location_in_board(board)
-    board_memberships.find_by_demo_id(board.id).try(:location)
+    if board == self.demo
+      self.location
+    else
+      board_memberships.find_by_demo_id(board.id).try(:location)
+    end
   end
 
   def flush_tickets_in_board(board_id)
