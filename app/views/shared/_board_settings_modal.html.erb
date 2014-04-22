@@ -41,7 +41,8 @@
 
 <%= content_for :javascript do %>
   <%= javascript_tag do %>
-    $('.board_name').focus(function(event) {
+    $('#board_settings .board_name').focus(function(event) {
+      $(this).closest('.board_wrapper').removeClass('unfocused');
       var demoId = $(this).data('demo_id');
       $('a.save_board_name').hide();
       $('.board_saving').hide();
@@ -49,8 +50,14 @@
       $('a.save_board_name[data-demo_id="' + demoId + '"]').show();
     });
 
+    $('.edit_board_name_link').click(function(event) {
+      event.preventDefault();
+      $(this).closest('.board_wrapper').find('.board_name').focus();
+    });
+
     $('.save_board_name').click(function(event) {
       event.preventDefault();
+
       var demoId = $(this).data('demo_id');
       var updateURL = "/boards/" + demoId;
       var boardName = $('.board_name[data-demo_id="' + demoId + '"]').text()
@@ -67,6 +74,8 @@
         function() {
           controlSection.find('.board_saving').hide();
           controlSection.find('.board_saved').show();
+          console.log(controlSection.closest('.board_wrapper'));
+          controlSection.closest('.board_wrapper').addClass('unfocused');
         }
       )
     });

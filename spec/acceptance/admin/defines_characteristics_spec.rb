@@ -24,6 +24,10 @@ feature "Admin Defines Characteristics" do
     @characteristic_2.demo.should_not == @demo
   end
 
+  def click_edit_link
+    within('.content') {click_link "Edit"}  
+  end
+
   context "For demo-agnostic characteristics" do
     it "admin sees existing demo-agnostic characteristics" do
       set_up_demo_and_characteristics
@@ -59,7 +63,7 @@ feature "Admin Defines Characteristics" do
     it "admin edits existing characteristic", :js => true do
       set_up_demo_and_characteristics
       visit admin_characteristics_path(as: an_admin)
-      click_link "Edit"
+      click_edit_link
 
       expect_allowed_value_text_field 'Viagra'
       expect_allowed_value_text_field 'Clonozepam'
@@ -134,7 +138,7 @@ feature "Admin Defines Characteristics" do
       set_up_demo_and_characteristics
       visit admin_demo_characteristics_path(@demo, as: an_admin)
 
-      click_link "Edit"
+      click_edit_link
       fill_in "characteristic[name]", :with => "Goat preference"
       fill_in "characteristic[description]", :with => "What kind of goat do you want?"
       click_button "Update Characteristic"

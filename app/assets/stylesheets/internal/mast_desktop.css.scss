@@ -398,8 +398,16 @@ body.explores {
     display: none;
   }
 
-  .save_board_name, .board_saving, .board_saved {
+  .save_board_name, .board_saving, .board_saved, .edit_board_name_link {
     display: none;
+  }
+
+  .board_wrapper.unfocused {
+    &:hover {
+      .edit_board_name_link {
+        display: inline;
+      }
+    }
   }
 
   .reserved_for_controls {

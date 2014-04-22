@@ -33,7 +33,7 @@ feature 'Activates or edits tile from preview page' do
   end
 
   def click_edit_link
-    click_link edit_link_text
+    within('.content') {click_link edit_link_text}
   end
 
   def activate_links
