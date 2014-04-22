@@ -14,4 +14,8 @@
 .row
   .form_section.columns
     = render partial: 'form', locals: { raffle: @raffle}
-  .large-8.columns
+  .action_section.columns
+    %label.small_cap
+      User preview
+    .preview_container
+      =render partial: 'prize'

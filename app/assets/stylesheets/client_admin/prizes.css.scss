@@ -56,6 +56,9 @@ body.client_admin-prizes {
       }
     }
   }
+  label.small_cap{
+    padding-bottom: 2em;
+  }
   .form_section{
     width:34%;
     form{
@@ -65,9 +68,6 @@ body.client_admin-prizes {
       }
       input, textarea{
         font-size: 14px;
-      }
-      label.small_cap{
-        padding-bottom: 2em;
       }
       .content_section{
         margin-bottom: 2em; 
@@ -127,6 +127,111 @@ body.client_admin-prizes {
             color: white;
             box-shadow: none;
           }
+        }
+      }
+    }
+  }
+  .action_section{
+    width: 66%;
+    .columns, .row{
+      padding: 0;
+      margin: 0;
+    }
+    .prize_num{
+      color: $white;
+      font-size: 36px;
+      padding: 0;
+      margin: 0;
+    }
+    .prize_caps{
+      font-size: 0.8em;
+      text-transform: uppercase;
+    }
+    .preview_container{
+      border: 1px solid $light-gray;
+      padding: 3em;
+      .prize_box{
+        margin: auto;
+        width: 360px;
+        border: 1px solid $light-gray;
+        .icon_container{
+          width: 58px;
+          padding: 0.7em;
+          text-align: center;
+          color: $white;
+          icon{
+            font-size: 36px;
+          }
+        }
+        .desc_container{
+          width: 300px;
+          padding: 0.2em;
+        }
+        .prize_header{
+          position: relative;
+          padding: 0.5em;
+          h1{
+            display: inline;
+          }
+          .end_date{
+            position: absolute;
+            bottom: 0.8em;
+            right: 0.8em;
+            display: inline;
+            font-size: 14px;
+            color: $med-gray;
+          }
+        }
+        .tickets_row, .time_row{
+          color: $white;
+          text-align: center;
+          border-bottom: 1px solid $white;
+          .desc_container{
+            border-left: 1px solid $white;
+          }
+        }
+        .tickets_row{
+          background: $sky-blue;
+        }
+        .time_row{
+          background: $text-color;
+          .big_date, .small_date{
+            display: inline;
+            width: 50%;
+            padding: 0.2em;
+          }
+          .small_date{
+            border-left: 1px solid $white;
+          }
+          .desc_container{
+            padding: 0;
+          }
+        }
+        .prizes_container{
+          .prize_row{
+            border-bottom: 1px solid $light-gray;
+            .icon_container{
+              color: $sky-blue;
+              padding: 0.3em;
+            }
+            .prize_description{
+              font-size: 14px;
+              min-height: 3.2em;
+              border-left: 1px solid $light-gray;
+              display: table;
+              padding: 0.5em;
+              p{
+                display: table-cell;
+                vertical-align: middle;
+                word-break: break-all;
+              }
+            }
+          }
+        }
+        .other_info_row{
+          padding: 1em 0.5em 1em 0.5em;
+          color: $med-gray;
+          font-size: 14px;
         }
       }
     }
