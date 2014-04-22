@@ -370,16 +370,35 @@ body.explores {
     color: $med-gray;
   }
 
+  $board_control_height: 1.2em;
+  $board_control_bottom_margin: 0.5em;
+
   .board_name {
     color: $text-color;
     border: solid transparent 1px;
+    padding-bottom: 0;
+
+    &.non_admin {
+      padding-bottom: $board_control_height;
+      margin-bottom: $board_control_bottom_margin;
+    }
 
     &[contenteditable="true"]:focus {
       border-color: $med-gray;
     }
   }
 
-  .save_board_name {
+  .board_save_controls {
+    text-align: right;
+    min-height: $board_control_height;
+    margin-bottom: $board_control_bottom_margin;
+  }
+
+  .board_saved {
+    display: none;
+  }
+
+  .save_board_name, .board_saving, .board_saved {
     display: none;
   }
 

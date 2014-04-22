@@ -44,6 +44,8 @@
     $('.board_name').focus(function(event) {
       var demoId = $(this).data('demo_id');
       $('a.save_board_name').hide();
+      $('.board_saving').hide();
+      $('.board_saved').hide();
       $('a.save_board_name[data-demo_id="' + demoId + '"]').show();
     });
 
@@ -52,11 +54,19 @@
       var demoId = $(this).data('demo_id');
       var updateURL = "/boards/" + demoId;
       var boardName = $('.board_name[data-demo_id="' + demoId + '"]').text()
+      var controlSection = $('.board_save_controls[data-demo_id="' + demoId + '"]');
+
+      controlSection.find('.save_board_name').hide();
+      controlSection.find('.board_saving').show();
 
       $.post(
         updateURL,
         { board_name: boardName,
           _method: 'PUT'
+        },
+        function() {
+          controlSection.find('.board_saving').hide();
+          controlSection.find('.board_saved').show();
         }
       )
     });
