@@ -8,13 +8,13 @@ feature 'Sees tiles on explore page' do
     end
   end
 
-  it "should show only tiles that are public and active" do
+  it "should show only tiles that are public and active or archived" do
     FactoryGirl.create_list(:tile, 2, :public)
     FactoryGirl.create(:tile, headline: "I do not appear in public")
-    FactoryGirl.create(:tile, :public, status: Tile::ARCHIVE, headline: "Nor do I appear in public")
+    FactoryGirl.create(:tile, :public, status: Tile::ARCHIVE)
 
     visit explore_path(as: a_client_admin)
-    expect_thumbnail_count 2, '.explore_tile'
+    expect_thumbnail_count 3, '.explore_tile'
     page.should_not have_content "I do not appear in public"
   end
 
@@ -64,7 +64,7 @@ feature 'Sees tiles on explore page' do
       expect_content "Bouillabase Cheese Fish Groats Spam"
     end
 
-    it "omits tags that have no active public tiles on the explore page" do
+    it "omits tags that have no active or archived public tiles on the explore page" do
       %w(Spam Fish Cheese Groats Bouillabase).each do |title|
         FactoryGirl.create(:tile_tag, title: title)
       end
@@ -75,7 +75,7 @@ feature 'Sees tiles on explore page' do
         tile.tile_tags << tag
       end
 
-      %w(Nein Non Nyet).each do |title|
+      %w(Ja Oui Si).each do |title|
         tag = FactoryGirl.create(:tile_tag, title: title)
         draft_tile = FactoryGirl.create(:tile, :public, status: Tile::DRAFT)
         archive_tile = FactoryGirl.create(:tile, :public, status: Tile::ARCHIVE)
@@ -89,7 +89,7 @@ feature 'Sees tiles on explore page' do
 
       visit explore_path(as: a_client_admin)
       %w(Spam Fish Cheese Groats Bouillabase).each {|title| expect_no_content title}
-      %w(Nope None Nil Nein Non Nyet).each {|title| expect_no_content title}
+      %w(Nope None Nil).each {|title| expect_no_content title}
     end
 
     context "when a tag is clicked" do

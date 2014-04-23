@@ -361,7 +361,7 @@ class Tile < ActiveRecord::Base
   end
 
   def self.viewable_in_public
-    where(is_public: true, status: Tile::ACTIVE)
+    where(is_public: true, status: [Tile::ACTIVE, Tile::ARCHIVE])
   end
 
   def self.copyable
