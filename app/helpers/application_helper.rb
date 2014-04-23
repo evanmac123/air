@@ -168,13 +168,4 @@ module ApplicationHelper
       params[:public_slug] ? public_tile_path(params[:public_slug], tile) : tile_path(tile)
     end
   end
-
-  def back_to_explore_link(selected_tag_id) 
-    if selected_tag_id.present?
-      tag = TileTag.find(selected_tag_id)
-      link_to "Back to #{tag.title}", explore_path(tag_id: selected_tag_id), id: 'back_to_explore'
-    else
-      link_to "Back to Explore", explore_path, id: 'back_to_explore'
-    end
-  end
 end
