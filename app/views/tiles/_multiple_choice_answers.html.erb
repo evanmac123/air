@@ -9,7 +9,7 @@
       
         <% if answer_links_disabled %>
           <%= link_to answer, '#', class: "nerfed_answer" %>
-        <% elsif tile.tile_completions.where(user_id: current_user).empty? == false %>
+        <% elsif !is_preview && tile.tile_completions.where(user_id: current_user).present? %>
           <% if tile.tile_completions.where(user_id: current_user).first.answer_index == i %>
             <%= content_tag :div , answer, class: 'clicked_right_answer' %>
           <% else %>
