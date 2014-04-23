@@ -109,24 +109,24 @@ body.client_admin-prizes {
       #raffle_other_info{
         height: 6em;
       }
-      .buttons_section{
-        button{
-          background: transparent;
-          width: 46.9%;
-          border: 1px solid $sky-blue;
-          color: $sky-blue;
-          font-size: 18px;
-          font-weight: 100;
-          padding-top: 0.4em;
-          padding-bottom: 0.4em;
-          &:nth-child(odd){
-            margin-right: 5%;
-          }
-          &.blue_button{
-            background: $sky-blue;
-            color: white;
-            box-shadow: none;
-          }
+    }
+  .buttons_section{
+      button{
+        background: transparent;
+        width: 46.9%;
+        border: 1px solid $sky-blue;
+        color: $sky-blue;
+        font-size: 18px;
+        font-weight: 100;
+        padding-top: 0.4em;
+        padding-bottom: 0.4em;
+        &:nth-child(odd){
+          margin-right: 5%;
+        }
+        &.blue_button{
+          background: $sky-blue;
+          color: white;
+          box-shadow: none;
         }
       }
     }
@@ -216,7 +216,7 @@ body.client_admin-prizes {
             }
             .prize_description{
               font-size: 14px;
-              min-height: 3.2em;
+              min-height: 3.3em;
               border-left: 1px solid $light-gray;
               display: table;
               padding: 0.5em;
@@ -230,9 +230,11 @@ body.client_admin-prizes {
         }
         .other_info_row{
           padding: 1em 0.5em 1em 0.5em;
-          color: $med-gray;
           font-size: 14px;
         }
+      }
+      .placeholder_text{
+        color: $med-gray;
       }
     }
   }

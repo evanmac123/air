@@ -3,7 +3,8 @@
     %h1
       Prize
     .end_date
-      Ends Monday, January 3
+      Ends 
+      = raffle.ends_at ? raffle.ends_at.strftime("%A, %B %e") : "[Day of week, MM DD]"
   .tickets_row.row
     .torhy_icon.icon_container.columns
       %icon.fa.fa-trophy
@@ -18,35 +19,24 @@
     .time_left.desc_container.columns
       .big_date.columns
         %h1.big_date_num.prize_num
-          12
+          = time_left starts_at: raffle.starts_at, ends_at: raffle.ends_at, position: :first, format: :number
         .big_date_text.prize_caps
-          Weeks
+          = time_left starts_at: raffle.starts_at, ends_at: raffle.ends_at, position: :first, format: :text
       .small_date.columns
         %h1.small_date_num.prize_num
-          03
+          = time_left starts_at: raffle.starts_at, ends_at: raffle.ends_at, position: :second, format: :number
         .small_date_text.prize_caps
-          Days
+          = time_left starts_at: raffle.starts_at, ends_at: raffle.ends_at, position: :second, format: :text
   .prizes_container
-    .prize_row.row
-      .prize_icon.icon_container.columns
-        %icon.fa.fa-gift
-      .prize_description.desc_container.columns
-        %p
-          Grand Prize: Amazon Kindle
-    .prize_row.row
-      .prize_icon.icon_container.columns
-        %icon.fa.fa-gift
-      .prize_description.desc_container.columns
-        %p
-          Grand Prize: Amazon Kindle Firef df fd df fd fd df dffd fd fd fd f d fdf d fd fd fd fdf d fd fdf df df df dfd f d f fdf df f dfd fd fd f dfd fd f df df dfd fd fd f d
-    .prize_row.row
-      .prize_icon.icon_container.columns
-        %icon.fa.fa-gift
-      .prize_description.desc_container.columns
-        %p
-          fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-  .other_info_row
-    For every 20 points you earn, you receive an entry into the prize raffle. We’ll email the winner to award the prize within a week of the end of the prize period.
+    - raffle.prizes.each do |prize|
+      .prize_row.row
+        .prize_icon.icon_container.columns
+          %icon.fa.fa-gift
+        .prize_description.desc_container.columns
+          %p
+            = prize
+  .other_info_row{:class => ("placeholder_text" unless raffle.other_info.present?)}
+    = raffle.other_info.present? ? raffle.other_info : "For every 20 points you earn, you receive an entry into the prize raffle. We’ll email the winner to award the prize within a week of the end of the prize period."
 
 
 

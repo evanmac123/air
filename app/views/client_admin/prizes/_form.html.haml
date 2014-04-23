@@ -18,11 +18,11 @@
   .content_section
     = f.label :other_info, class: "small_cap"
     = f.text_area :other_info, maxlength: 300, placeholder: "For every 20 points you earn, you receive an entry into the prize raffle. We’ll email the winner to award the prize within a week of the end of the prize period."
-  .buttons_section
-    %button{id: "save_form"}
-      Save draft
-    %button{class: "blue_button"}
-      Start
+.buttons_section
+  %button{id: "save_form"}
+    Save draft
+  %button{class: "blue_button"}
+    Start
 :javascript
   _.each($('.prize_field'), addCharacterCounterFor);
   addCharacterCounterFor( $('#raffle_other_info') );
