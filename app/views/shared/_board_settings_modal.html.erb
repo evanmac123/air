@@ -50,7 +50,7 @@
       $('a.save_board_name[data-demo_id="' + demoId + '"]').show();
     });
 
-    $('.edit_board_name_link').click(function(event) {
+    $('.edit_board_name_link, .edit_board_name_icon').click(function(event) {
       event.preventDefault();
       $(this).closest('.board_wrapper').find('.board_name').focus();
     });
@@ -74,7 +74,6 @@
         function() {
           controlSection.find('.board_saving').hide();
           controlSection.find('.board_saved').show();
-          console.log(controlSection.closest('.board_wrapper'));
           controlSection.closest('.board_wrapper').addClass('unfocused');
         }
       )

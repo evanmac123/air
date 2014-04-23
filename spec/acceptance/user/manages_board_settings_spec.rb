@@ -118,9 +118,6 @@ feature 'Manages board settings' do
       board_to_change.reload.name.should == "Hapsburg Dynasty Board"
     end
 
-    it "should let them edit a board name by clicking the edit icon"
-    it "should let them edit a board name by clicking the edit link"
-
     it "should give helpful feedback if the board name is bad"
   end
 
