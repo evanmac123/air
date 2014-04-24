@@ -28,21 +28,23 @@
   addCharacterCounterFor( $('#raffle_other_info') );
 
   $(function() {
-    //find first prize
-    var initialPrize = $('.prize_section').eq(0);
-
-    $('.add_another').click(function addNewPrizeField(e) {
-      //clone prize
-      prize_count = $(".prize_section").length
-      var newPrize = initialPrize.clone()
-                      .find('.character-counter').remove().end()
-                      .find('.prize_field').val('').end();
-      newPrizeField = newPrize.find('.prize_field');
-      newPrize.appendTo('#prizes');
-      addCharacterCounterFor(newPrizeField);
-    });
+    $(".datepicker").datepicker();
+    validateStartDate();
+    validateEndDate();
   });
 
   $("#save_form").click(function savePrizeDraft(){
     $("form[class$='_raffle']").submit();
+  });
+
+  $('.add_another').click(function() {
+    addNewPrizeField();
+  });
+
+  $("#raffle_starts_at").change( function(){
+    validateStartDate();
+  });
+
+  $("#raffle_ends_at").change( function(){
+    validateEndDate();
   });
