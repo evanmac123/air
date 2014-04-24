@@ -19,10 +19,18 @@
     = f.label :other_info, class: "small_cap"
     = f.text_area :other_info, maxlength: 300, placeholder: "For every 20 points you earn, you receive an entry into the prize raffle. We’ll email the winner to award the prize within a week of the end of the prize period."
 .buttons_section
-  %button{id: "save_form"}
+  .button#save_draft
     Save draft
-  %button{class: "blue_button"}
+  .button.blue_button
     Start
+.clear_form
+  %icon.fa.fa-times
+  Clear all
+  #clear_dialog{title: "Clear the form?"}
+    %p
+      This form will be cleared. Are you sure?
+
+
 :javascript
   _.each($('.prize_field'), addCharacterCounterFor);
   addCharacterCounterFor( $('#raffle_other_info') );
@@ -31,15 +39,20 @@
     $(".datepicker").datepicker();
     validateStartDate();
     validateEndDate();
+    rebindPrizeEvents();
+    clearAllDialog();
+
+    window.draft_saved = false;
   });
 
-  $("#save_form").click(function savePrizeDraft(){
-    $("form[class$='_raffle']").submit();
+  $("#save_draft").click(function() {
+    saveDraft();
   });
 
   $('.add_another').click(function() {
     addNewPrizeField();
     addNewPreviewPrizeField();
+    rebindPrizeEvents();
   });
 
   //for picking by datepicker
@@ -56,12 +69,26 @@
   $("#raffle_ends_at").bind('input propertychange', function(){
     validateEndDate();
   });
-
-  $(".prize_field").bind('input propertychange', function(){
-    index = $(".prize_field").index($(this));
-    updatePrivewPrizeField(index);
-  });
+  function rebindPrizeEvents(){
+    $(".prize_field").bind('input propertychange', function(){
+      index = $(".prize_field").index($(this));
+      updatePrivewPrizeField(index);
+    });
+  };
 
   $("#raffle_other_info").bind('input propertychange', function(){
     updatePreivewOtherInfo();
+  });
+
+  $(".clear_form").click(function(){
+    $( "#clear_dialog" ).dialog( "open" );
+  });
+
+  //enable save draft button
+  $("form textarea, form input").bind('input propertychange', function(){
+    unsavedDraft();
+  });
+
+  $("form textarea, form input").change(function(){
+    unsavedDraft();
   });

@@ -8,11 +8,6 @@ class ClientAdmin::PrizesController < ClientAdminBaseController
     @demo = current_user.demo
     @raffle = @demo.raffle
     @raffle.update_attributes_without_validations(raffle_params)
-    #  flash[:success] = "Cool!"
-    #else
-    #  flash[:failure] = "Sorry, we couldn't save draft: " + @raffle.errors.values.join(", ") + "."
-    #end
-    redirect_to client_admin_prizes_path
   end
 
   def raffle_params

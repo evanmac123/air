@@ -19,7 +19,7 @@ module ClientAdmin::PrizesHelper
     end
     #choose duration from today or future start date
     today = Time.now.utc.in_time_zone("Eastern Time (US & Canada)")
-    duration = ends_at - (today > starts_at ? today : starts_at)
+    duration = ends_at - starts_at
 
     if duration < 0
       dimention = (position == :first ? "week" : "day")

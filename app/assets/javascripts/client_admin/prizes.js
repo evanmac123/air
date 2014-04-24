@@ -16,6 +16,18 @@ function addNewPreviewPrizeField(){
   newPrize.appendTo('.prizes_container');
 }
 
+function saveDraft(){
+  $("form[class$='_raffle']").attr("data-remote", "true").submit();
+  window.draft_saved = true;
+}
+
+function unsavedDraft(){
+  if(window.draft_saved){
+    $("#save_draft").removeAttr('disabled').text("Save draft");
+    window.draft_saved = false;
+  }
+}
+
 function todayDate(){
   return (new Date()).setHours(12,0,0,0); //today afternoon
 }
@@ -26,7 +38,7 @@ function validDateFormat(date){
 
 function endDate(){
   date_input = $("#raffle_ends_at").val();
-  if(validDateFormat){
+  if(validDateFormat(date_input)){
     date = (new Date(date_input + " 12:00"));
   }else{
     date = false;
@@ -36,7 +48,7 @@ function endDate(){
 
 function startDate(){
   date_input = $("#raffle_starts_at").val();
-  if(validDateFormat){
+  if(validDateFormat(date_input)){
     date = (new Date(date_input + " 12:00"));
   }else{
     date = false;
@@ -130,7 +142,12 @@ function updatePreviewEndDate(){
 }
 
 function prizePeriodDuration(){
-  return endDate() - startDate();
+  if( endDate() && startDate()){
+    duration = endDate() - startDate();
+  }else{
+    duration = false;
+  }
+  return duration;
 }
 
 function weekDuration(){
@@ -204,4 +221,44 @@ function updatePreivewOtherInfo(){
     $(".other_info_row").removeClass("placeholder_text");
   }
   $(".other_info_row").text(text);
+}
+
+function clearAll(){
+  //clear dates
+  $("#raffle_starts_at").val("");
+  $("#raffle_ends_at").val("");
+  //update dates in preview
+  validateStartDate();
+  validateEndDate();
+  //remove all prizes except first
+  $(".prize_section:gt(0)").remove();
+  //set first empty
+  $(".prize_field").val("");
+  //delete prizes from preview
+  $(".prize_row:gt(0)").remove();
+  //set first empty
+  updatePrivewPrizeField(0);
+  //clear other info
+  $("#raffle_other_info").val("");
+  updatePreivewOtherInfo();
+}
+
+function clearAllDialog(){
+  $( "#clear_dialog" ).dialog({
+    resizable: false,
+    height:200,
+    width: 400,
+    modal: true,
+    buttons: {
+      "Confirm": function() {
+        $( this ).dialog( "close" );
+        clearAll();
+        rebindPrizeEvents();
+      },
+      Cancel: function() {
+        $( this ).dialog( "close" );
+      }
+    }
+  });
+  $( "#clear_dialog" ).dialog( "close" );
 }

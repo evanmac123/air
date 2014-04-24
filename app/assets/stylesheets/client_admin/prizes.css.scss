@@ -111,7 +111,8 @@ body.client_admin-prizes {
       }
     }
   .buttons_section{
-      button{
+      margin-top: 4em;
+      .button{
         background: transparent;
         width: 46.9%;
         border: 1px solid $sky-blue;
@@ -128,8 +129,18 @@ body.client_admin-prizes {
           color: white;
           box-shadow: none;
         }
+        &[disabled]{
+          color: $med-gray;
+          border: 1px solid $med-gray;
+        }
       }
     }
+  }
+  .clear_form{
+    cursor: pointer;
+    color: $med-gray;
+    font-size: 14px;
+    font-weight: 400;
   }
   .action_section{
     width: 66%;
@@ -223,7 +234,7 @@ body.client_admin-prizes {
               p{
                 display: table-cell;
                 vertical-align: middle;
-                word-break: break-all;
+                word-break: break-word;
               }
             }
           }
@@ -231,12 +242,25 @@ body.client_admin-prizes {
         .other_info_row{
           padding: 1em 0.5em 1em 0.5em;
           font-size: 14px;
-          word-break: break-all;
+          word-break: break-word;
         }
       }
       .placeholder_text{
         color: $med-gray;
       }
+    }
+  }
+  //dialog
+  .ui-widget-overlay{
+    z-index: 2;
+    display: none;
+  }
+  .ui-dialog{
+    z-index: 3;
+    .ui-icon-closethick{
+      margin: 0;
+      margin-top: -8px;
+      margin-left: -8px;
     }
   }
 }
