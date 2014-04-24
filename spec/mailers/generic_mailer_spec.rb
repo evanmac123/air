@@ -34,6 +34,18 @@ describe GenericMailer do
       should_not have_sent_email.with_body /Please do not forward it to others/
     end
 
+    it "should not try to send to an empty email address" do
+      users = FactoryGirl.create_list(:user, 2)
+      users.first.update_attributes(email: nil)
+      users.last.update_attributes(email: '')
+
+      users.each do |user|
+        GenericMailer.send_message(demo.id, user.id, "Here is the subject", "This is some text", "<p>This is some HTML</p>").deliver
+      end
+
+      ActionMailer::Base.deliveries.should be_empty
+    end
+
     it "should be able to interpolate invitation URLs" do
       @user = FactoryGirl.create :user
       GenericMailer.send_message(demo.id, @user.id, "Here is the subject", "This is some text, and you should go to [invitation_url]", "<p>This is some HTML. Go to [invitation_url]</p>").deliver

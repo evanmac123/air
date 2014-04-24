@@ -7,6 +7,7 @@ class GenericMailer < ActionMailer::Base
 
   def send_message(demo_id, user_id, subject, plain_text, html_text)
     @user = User.find(user_id)
+    return unless @user.email.present?
 
     _invitation_url = invitation_url(@user.invitation_code, demo_id: demo_id)
 
