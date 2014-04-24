@@ -90,19 +90,16 @@ end
 
 group :test do
   gem "cucumber-rails", :require => false
-  gem "factory_girl_rails"
   gem "bourne"
   gem "capybara"
   gem 'capybara-screenshot'
   gem "database_cleaner"
   gem "fakeweb"
   gem "sham_rack"
-  gem "nokogiri"
   gem "timecop"
   gem "shoulda"
   gem "shoulda-matchers"
   gem "email_spec", "~> 1.1"
-  gem "sham_rack"
   gem "capybara-webkit"
   gem "poltergeist"
   gem "sinatra"
