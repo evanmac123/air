@@ -71,9 +71,13 @@
         { board_name: boardName,
           _method: 'PUT'
         },
-        function() {
+        function(data) {
           controlSection.find('.board_saving').hide();
-          controlSection.find('.board_saved').show();
+          if(data.success) {
+            controlSection.find('.board_saved').show();
+          } else {
+            controlSection.find('.board_save_error').text(data.message);
+          }
           controlSection.closest('.board_wrapper').addClass('unfocused');
         }
       )

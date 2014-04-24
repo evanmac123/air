@@ -118,7 +118,20 @@ feature 'Manages board settings' do
       board_to_change.reload.name.should == "Hapsburg Dynasty Board"
     end
 
-    it "should give helpful feedback if the board name is bad"
+    it "should give helpful feedback if the board name is bad", js: true do
+      FactoryGirl.create(:demo, name: "Nuclear Lemmings Board")
+
+      visit activity_path(as: @user)
+      open_board_settings
+
+      board_to_change = @boards.first
+      original_name = board_to_change.name
+      fill_in_new_board_name(board_to_change, "Nuclear Lemmings")
+      click_save_link
+
+      page.should have_content "Sorry, that board name is already taken."
+      board_to_change.reload.name.should == original_name
+    end
   end
 
   context "when they are an admin in some boards and a peon in others" do

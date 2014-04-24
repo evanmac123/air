@@ -23,9 +23,12 @@ class BoardsController < ApplicationController
 
     new_name = normalize_board_name(params[:board_name])
     board.name = new_name
-    board.save!
 
-    render nothing: true
+    if board.save
+      render json: {success: true}
+    else
+      render json: {success: false, message: "Sorry, that board name is already taken."}
+    end
   end
 
   protected

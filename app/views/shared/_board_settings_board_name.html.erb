@@ -15,6 +15,7 @@
   <% if as_admin %>
     <div class="row">
       <%= content_tag 'div', class: "large-8 columns board_save_controls", "data-demo_id" => board.id do %>
+        <span class="board_save_error"></span>
         <%= content_tag 'span', class: 'board_saving' do %>Saving...<% end %>
         <%= link_to 'Save', '#', "data-demo_id" => board.id, class: 'save_board_name' %>
         <%= link_to 'Edit', '#', "data-demo_id" => board.id, class: 'edit_board_name_link' %>
