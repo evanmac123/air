@@ -39,12 +39,29 @@
 
   $('.add_another').click(function() {
     addNewPrizeField();
+    addNewPreviewPrizeField();
   });
 
+  //for picking by datepicker
   $("#raffle_starts_at").change( function(){
     validateStartDate();
   });
-
   $("#raffle_ends_at").change( function(){
     validateEndDate();
+  });
+  //for printing or pasting
+  $("#raffle_starts_at").bind('input propertychange', function(){
+    validateStartDate();
+  });
+  $("#raffle_ends_at").bind('input propertychange', function(){
+    validateEndDate();
+  });
+
+  $(".prize_field").bind('input propertychange', function(){
+    index = $(".prize_field").index($(this));
+    updatePrivewPrizeField(index);
+  });
+
+  $("#raffle_other_info").bind('input propertychange', function(){
+    updatePreivewOtherInfo();
   });

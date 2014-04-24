@@ -10,24 +10,38 @@ function addNewPrizeField() {
   addCharacterCounterFor(newPrizeField);
 }
 
+function addNewPreviewPrizeField(){
+  initialPrize = $('.prize_row').eq(0);
+  var newPrize =  initialPrize.clone().find(".prize_description p").text("").end();
+  newPrize.appendTo('.prizes_container');
+}
+
 function todayDate(){
   return (new Date()).setHours(12,0,0,0); //today afternoon
 }
 
-function startDateInSeconds(){
-  return Date.parse($("#raffle_starts_at").val() + " 12:00");
-}
-
-function endDateInSeconds(){
-  return Date.parse($("#raffle_ends_at").val() + " 12:00");
+function validDateFormat(date){
+  return /[0-9]+\/[0-9]+\/[0-9]+/.test(date);
 }
 
 function endDate(){
-  return (new Date($("#raffle_ends_at").val() + " 12:00"));
+  date_input = $("#raffle_ends_at").val();
+  if(validDateFormat){
+    date = (new Date(date_input + " 12:00"));
+  }else{
+    date = false;
+  }
+  return date;
 }
 
 function startDate(){
-  return (new Date($("#raffle_starts_at").val() + " 12:00"));
+  date_input = $("#raffle_starts_at").val();
+  if(validDateFormat){
+    date = (new Date(date_input + " 12:00"));
+  }else{
+    date = false;
+  }
+  return date;
 }
 
 function disableEndDate(){
@@ -39,8 +53,8 @@ function enableEndDate(){
 }
 
 function validateStartDate(){
-  start_date = startDateInSeconds();
-  end_date = endDateInSeconds();
+  start_date = startDate();
+  end_date = endDate();
   today = todayDate();
 
   if(!start_date){ // not date
@@ -60,8 +74,8 @@ function validateStartDate(){
 }
 
 function validateEndDate(){
-  end_date = endDateInSeconds();
-  start_date = startDateInSeconds();
+  end_date = endDate();
+  start_date = startDate();
 
   if(end_date <= start_date){
     $("#raffle_ends_at").val("");
@@ -174,4 +188,20 @@ function updateAllDurationFields(date_1, text_1, date_2, text_2){
   $(".big_date_text").text(text_1);
   $(".small_date_num").text(date_2);
   $(".small_date_text").text(text_2);
+}
+
+function updatePrivewPrizeField(index){
+  text = $(".prize_field").eq(index).val();
+  $(".prize_description p").eq(index).text(text);
+}
+
+function updatePreivewOtherInfo(){
+  text = $("#raffle_other_info").val();
+  if(text.length == 0 ){
+    text = $("#raffle_other_info").attr("placeholder");
+    $(".other_info_row").addClass("placeholder_text");
+  }else{
+    $(".other_info_row").removeClass("placeholder_text");
+  }
+  $(".other_info_row").text(text);
 }
