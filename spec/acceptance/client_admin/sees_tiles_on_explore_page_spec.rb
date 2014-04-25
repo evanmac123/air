@@ -302,4 +302,18 @@ feature 'Sees tiles on explore page' do
       end
     end
   end
+
+  context "when clicking the \"Explore\" link to go back to the main explore page from a topic page" do
+    it "should ping" do
+      tile_tag = FactoryGirl.create(:tile_tag)
+      visit tile_tag_show_explore_path(tile_tag: tile_tag.id, as: a_client_admin)
+
+      within('.explore_section') { click_link "Explore" }
+
+      FakeMixpanelTracker.clear_tracked_events
+      crank_dj_clear
+
+      FakeMixpanelTracker.should have_event_matching('Topic Page - Back To Explore')
+    end
+  end
 end

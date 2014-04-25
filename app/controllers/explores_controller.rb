@@ -10,6 +10,10 @@ class ExploresController < ClientAdminBaseController
     if params[:partial_only]
       render partial: "explores/tile_with_tags", locals: {tiles: @tiles, path_for_more_tiles: @path_for_more_tiles, all_tiles_displayed: @all_tiles_displayed, tag_click_source: 'Explore Main Page - Clicked Tag On Tile', thumb_click_source: 'Explore Main Page - Tile Thumbnail Clicked'}
     end
+
+    if params[:return_to_explore_source]
+      ping params[:return_to_explore_source], {}, current_user
+    end
   end
   
   def tile_tag_show
