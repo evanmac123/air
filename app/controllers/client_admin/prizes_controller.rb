@@ -1,7 +1,8 @@
 class ClientAdmin::PrizesController < ClientAdminBaseController
   def index
     @demo = current_user.demo
-    @raffle = (@demo.raffle ? @demo.raffle : Raffle.create(demo: @demo))
+    Raffle.new(demo: @demo).save(validate: false) unless @demo.raffle
+    @raffle = @demo.reload.raffle
   end
 
   def save_draft
