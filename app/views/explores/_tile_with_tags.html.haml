@@ -1,3 +1,4 @@
+- source ||= nil
 #tile_wall
   %table.tiles.large-12.columns
     %tbody
@@ -24,7 +25,7 @@
                 %ul.extra_tags_list
                   - tile.tile_tags.each do |tile_tag|
                     %li.tile_tag
-                      = link_to tile_tag.title, tile_tag_show_explore_path(tile_tag: tile_tag.id)
+                      = link_to tile_tag.title, tile_tag_show_explore_path(tile_tag: tile_tag.id, source: source)
           - while(count < 4) do
             - count += 1
             %td

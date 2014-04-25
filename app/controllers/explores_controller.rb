@@ -8,8 +8,7 @@ class ExploresController < ClientAdminBaseController
     @tiles = @tiles.order("created_at DESC").limit(tile_batch_size).includes(:creator)
     @path_for_more_tiles = explore_path
     if params[:partial_only]
-      render partial: "explores/tile_with_tags", locals: {tiles: @tiles, 
-        path_for_more_tiles: @path_for_more_tiles, all_tiles_displayed: @all_tiles_displayed}
+      render partial: "explores/tile_with_tags", locals: {tiles: @tiles, path_for_more_tiles: @path_for_more_tiles, all_tiles_displayed: @all_tiles_displayed, source: 'Explore Main Page - Clicked Tag On Tile'}
     end
   end
   
@@ -24,8 +23,11 @@ class ExploresController < ClientAdminBaseController
     @path_for_more_tiles = tile_tag_show_explore_path(tile_tag: params[:tile_tag])
     
     if params[:partial_only]
-      render partial: "explores/tile_with_tags", locals: {tiles: @tiles, 
-        path_for_more_tiles: @path_for_more_tiles, all_tiles_displayed: @all_tiles_displayed}
+      render partial: "explores/tile_with_tags", locals: {tiles: @tiles, path_for_more_tiles: @path_for_more_tiles, all_tiles_displayed: @all_tiles_displayed, source: "Topic Page - Clicked Tag On Tile"}
+    end
+
+    if params[:source].present?
+      TrackEvent.ping(params[:source], {tag: @tile_tag.title}, current_user)
     end
   end
   
