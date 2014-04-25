@@ -29,6 +29,9 @@
   #clear_dialog{title: "Clear the form?"}
     %p
       This form will be cleared. Are you sure?
+  #unload_dialog{title: "Save draft?"}
+    %p
+      Would you like to save as draft?
 
 
 :javascript
@@ -41,8 +44,9 @@
     validateEndDate();
     rebindPrizeEvents();
     clearAllDialog();
+    unloadDialog();
 
-    window.draft_saved = false;
+    window.draft_saved = true;
   });
 
   $("#save_draft").click(function() {
@@ -91,4 +95,10 @@
 
   $("form textarea, form input").change(function(){
     unsavedDraft();
+  });
+
+  $(window).on("beforeunload", function(){
+    if(!window.draft_saved){
+      return "If you leave this page, you’ll lose any changes you made. Please, save them before leaving."
+    }
   });

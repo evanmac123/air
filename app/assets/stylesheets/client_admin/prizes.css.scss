@@ -206,13 +206,13 @@ body.client_admin-prizes {
         }
         .time_row{
           background: $text-color;
-          .big_date, .small_date{
+          .time_cell{
             display: inline;
             width: 50%;
             padding: 0.2em;
-          }
-          .small_date{
-            border-left: 1px solid $white;
+            &:nth-child(even){
+              border-left: 1px solid $white;
+            }
           }
           .desc_container{
             padding: 0;

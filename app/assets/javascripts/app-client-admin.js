@@ -15,6 +15,7 @@
 //= require ./internal_and_external/underscore-min
 //= require ./internal/tiles
 //= require ./internal/show_more_tiles_link
+//= require ./internal/countUp.min
 
 //= require wice_grid
 //= require ../../../vendor/assets/javascripts/external/foundation.min

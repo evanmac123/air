@@ -17,15 +17,15 @@
     .clock_icon.icon_container.columns
       %icon.fa.fa-clock-o
     .time_left.desc_container.columns
-      .big_date.columns
-        %h1.big_date_num.prize_num
+      .time_cell.columns
+        %h1.prize_num#first_date_num
           = time_left starts_at: raffle.starts_at, ends_at: raffle.ends_at, position: :first, format: :number
         .big_date_text.prize_caps
           = time_left starts_at: raffle.starts_at, ends_at: raffle.ends_at, position: :first, format: :text
-      .small_date.columns
-        %h1.small_date_num.prize_num
+      .time_cell.columns
+        %h1.prize_num#second_date_num
           = time_left starts_at: raffle.starts_at, ends_at: raffle.ends_at, position: :second, format: :number
-        .small_date_text.prize_caps
+        #second_date_text.prize_caps
           = time_left starts_at: raffle.starts_at, ends_at: raffle.ends_at, position: :second, format: :text
   .prizes_container
     - raffle.prizes.each do |prize|

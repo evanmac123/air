@@ -201,10 +201,14 @@ function updatePreviewDuration(){
 }
 
 function updateAllDurationFields(date_1, text_1, date_2, text_2){
-  $(".big_date_num").text(date_1);
-  $(".big_date_text").text(text_1);
-  $(".small_date_num").text(date_2);
-  $(".small_date_text").text(text_2);
+  animateDate("first_date_num", date_1);
+  $("#first_date_text").text(text_1);
+  animateDate("second_date_num", date_2);
+  $("#second_date_text").text(text_2);
+}
+
+function animateDate(id, end){
+  (new countUp(id,  parseInt($("#" + id + "").text()), end, 0, 1, {})).start();
 }
 
 function updatePrivewPrizeField(index){
@@ -241,6 +245,7 @@ function clearAll(){
   //clear other info
   $("#raffle_other_info").val("");
   updatePreivewOtherInfo();
+  $("form textarea, form input").change();
 }
 
 function clearAllDialog(){
@@ -261,4 +266,24 @@ function clearAllDialog(){
     }
   });
   $( "#clear_dialog" ).dialog( "close" );
+}
+
+function unloadDialog(){
+  $( "#unload_dialog" ).dialog({
+    resizable: false,
+    height:200,
+    width: 400,
+    modal: true,
+    buttons: {
+      "Save draft": function() {
+        $( this ).dialog( "close" );
+        saveDraft();
+      },
+      "Don't save": function() {
+        $( this ).dialog( "close" );
+      }
+    },
+    close: function () {}
+  });
+  $( "#unload_dialog" ).dialog( "close" );
 }
