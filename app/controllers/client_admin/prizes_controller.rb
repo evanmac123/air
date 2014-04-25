@@ -1,6 +1,7 @@
 class ClientAdmin::PrizesController < ClientAdminBaseController
   def index
     @demo = current_user.demo
+    @demo.raffle ||= Raffle.new
     @raffle = @demo.raffle
   end
 
