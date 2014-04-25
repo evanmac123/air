@@ -17,6 +17,10 @@ body.client_admin-prizes {
         padding:.25em 1em .25em 1.5em;
         position: relative;
         text-align:center;
+        font-weight: 700;
+        &.selected{
+          color: $blue;
+        }
         &:not(:first-child) {
           padding-left: 2.5em;
         }
