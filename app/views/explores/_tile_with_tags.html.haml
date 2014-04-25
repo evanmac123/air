@@ -28,8 +28,22 @@
                   - tile.tile_tags.each do |tile_tag|
                     %li.tile_tag
                       = link_to tile_tag.title, tile_tag_show_explore_path(tile_tag: tile_tag.id, tag_click_source: tag_click_source)
+                .like_copy_tile
+                  = render partial: 'like_copy_tile', :locals => { :tile => tile }
           - while(count < 4) do
             - count += 1
             %td
   .clearfix
   =render partial: 'shared/tile_wall_show_more_link', locals: {path_for_more_tiles: path_for_more_tiles, all_tiles_displayed: @all_tiles_displayed}
+
+#tile_copied_reveal.reveal-modal.tile_copied_reveal
+  = link_to 'Close', '#', class: "close-lightbox-button close-reveal-modal", id: "close_tile_copied_lightbox"
+  %p 
+    You've added this tile to the inactive section of your board. 
+    %br
+    Next, you can 
+    = link_to "edit this tile", "#", id: "edit_copied_tile_link"
+    , or go to 
+    = link_to "manage your board", client_admin_tiles_path
+    :plain 
+    .

@@ -46,7 +46,6 @@ Health::Application.routes.draw do
     resources :acts, :only => [:index], :controller => "users/acts"
 
   end
-
   post 'resend_phone_verification' => 'users/phone_verification#create', :as => 'resend_phone_verification'
   delete 'cancel_phone_verification' => 'users/phone_verification#destroy', :as => 'cancel_phone_verification'
 
@@ -78,6 +77,7 @@ Health::Application.routes.draw do
   resource :explore, only: [:show] do
     resources :tile_previews, only: [:show]
     resource :copy_tile, only: [:create]
+    resource :tile_likes, :only => [:create,:destroy]
     member do
       get 'tile_tag_show'
     end

@@ -177,10 +177,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
   
   private
-
-  def param_path
-    @param_path ||= params[:path].nil? ? :undefined : params[:path].to_sym
-  end
   
   def get_demo
     @demo = current_user.demo

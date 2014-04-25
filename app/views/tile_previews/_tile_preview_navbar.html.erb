@@ -5,39 +5,44 @@
         <%=fa_icon 'chevron-left'%>
       <% end %>            
     </li>
-    <li class='middle-section organization'>
-      <%= fa_icon 'building-o' %>
-      <div class="organization-name"><%= tile.demo.name%></div>            
+    <li class='basic-info'>
+      <div class='organization'><%= tile.demo.name%></div>
+      <div class='creator'><%=(tile.creator && tile.creator.name) || ''%></div>
+      <div class='created_at'>Posted: <%= tile.human_creation_date %></div>
     </li>
-    <li class='middle-section creator'>
-      <%= fa_icon 'user'%>
-      <div class="creator-name">
-        <div class="name"><%= (tile.creator && tile.creator.name)||'' %></div>
-        <div class="created_at"><%= tile.human_creation_date %></div>
-      </div>            
+    <li class='like-copy-section'>
+      <div class="copy_like_button_wrapper">
+        <%unless current_user.likes_tile?(tile)%>
+          <%= link_to explore_tile_likes_path(tile_id: tile.id, path: :via_explore_page_tile_view), class: 'copy_like_button', method: :post do%>
+            <%= fa_icon 'smile-o' %>
+            Like
+          <%end%>
+        <%else%>
+          <%=link_to explore_tile_likes_path(tile_id: tile.id, path: :via_explore_page_tile_view), class: 'copy_like_button', method: :delete do%>        
+            <%= fa_icon 'smile-o' %>
+            Liked
+          <%end%>
+        <%end%>
+      </div>
+      <div class="liked_by">
+        <%=show_tile_likes(tile, current_user)%>
+      </div>
     </li>
-    <li class='middle-section tile-tags'>
-      <ul class="all_tile_tags">
-      </ul>            
-      <ul class="extra_tags_list">
-        <% @tile.tile_tags.each do |tile_tag| %>
-          <li class="tile_tag">
-            <%= link_to tile_tag.title, tile_tag_show_explore_path(tile_tag: tile_tag.id, tag_click_source: "Explore Tile Preview Page - Clicked Tile Tag") %>
-          </li>
-        <% end %>          
-      </ul>
-    </li>
-    <li class='right-section'>
+    <li class='like-copy-section'>
       <% if @tile.is_copyable? %>
         <%= render 'tiles/copy_button', tile: tile%>
+        <div class='copied_by'>
+          <%=show_tile_copies(tile, current_user)%>
+        </div>
       <% else %>
         <div data-tooltip class="has-tip" title="The permissions on this tile don't allow copying.">
           <div class="view-only">
             <%= fa_icon 'minus-circle 2x'%>
-              <div>View Only</div>      
+            <div>Tile is view only</div>      
           </div>
         </div>
       <% end %>            
     </li>
   </ul>
 </div>
+

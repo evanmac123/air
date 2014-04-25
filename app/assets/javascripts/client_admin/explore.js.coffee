@@ -29,8 +29,8 @@ $(document).ready ->
     if(all_tile_tags_height > max_height)
       all_tile_tags.find('li:nth-last-child(2)').appendTo(extra_tags_lists)
     
-  $('.tile_preview_navbar').find(".all_tile_tags").each (index) ->
-    hideExtraTags($(this), 60, true)
+  $('.tile_tag_bar').find(".all_tile_tags").each (index) ->
+    hideExtraTags($(this), 40, true)
   
   $('.tile_with_tags').find('.explore_tile > .all_tile_tags').each (index) ->
     hideExtraTags($(this), 60, false)
@@ -40,11 +40,13 @@ $(document).ready ->
     false
   )
   
-  $('.tile_preview_navbar').find(".extra_tags").on('click', (event) ->
+  #show extended tile tags list on clicking the '...' button in tile_preview page
+  $('.tile_tag_bar').find(".extra_tags").on('click', (event) ->
     $(this).parent().parent().siblings('ul').toggle()
     false
   )
     
+  #show extended tile tags list on clicking the '...' button in explore page
   $('body.explores').on('click', (event) -> 
     $(this).find('ul.extra_tags_list').hide()
   )
@@ -53,3 +55,17 @@ $(document).ready ->
     $(this).find('.explore_tile > .all_tile_tags').each (index) ->
       hideExtraTags($(this), 60, false)    
   )
+  
+  $('body.explores').find('#copy_tile_link').on('click', (event) ->
+    copyButton = $(event.target);
+    event.preventDefault();
+    $.post($(this).attr('data_url'), {},
+      (data) ->
+        if(data.success)
+          $('#edit_copied_tile_link').attr('href', data.editTilePath)
+          $('#tile_copied_reveal').foundation('reveal', 'open')
+      ,    
+      'json'
+    )
+  )
+  

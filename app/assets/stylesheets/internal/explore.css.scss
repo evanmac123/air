@@ -45,7 +45,7 @@
     vertical-align: top;
   }
   .explore_tile {
-    height: 26.75em;
+    height: 30.75em;
     background-color: $white;
     border: 1px solid $light-gray;            
     border-radius: 2px;
@@ -90,6 +90,64 @@
       }
       border: 1px solid $light-gray;
     }
+    .like_copy_tile{
+      background-color: white;
+      border: 1px solid #dfdfdf;
+      border-bottom: 0;
+      border-radius: 2px;
+      padding: 10px 10px;
+      float: left;
+      width: 106%;
+      margin-left: -7px;
+      margin-top: 5px;
+      line-height: 22px;
+      color: $med-gray;
+      font-size: 10px; 
+      .fa:before{
+        padding-right: 6px;
+      }
+      .tile_liked{
+        font-size: 10px;
+        a{
+          color: $sky-blue;
+          text-decoration: underline !important;
+          margin-left: 6px;
+          font-size: 10px;
+        }
+        color: $sky-blue;
+      }
+      .tile_not_liked{
+        a{
+          color: $med-gray;
+          text-decoration: underline !important;
+          margin-left: 6px;
+          font-size: 10px;
+        }
+        font-size: 10px;
+        color: $med-gray;
+      }
+      .copied{
+        a{
+          color: $sky-blue;
+          text-decoration: underline !important;
+          margin-left: 6px;
+          font-size: 10px;
+        }
+        
+        color: $sky-blue;
+        font-size: 10px;
+      }
+      .not_copied{
+        a{
+          color: $med-gray;
+          text-decoration: underline !important;
+          margin-left: 6px;
+          font-size: 10px;
+        }
+        font-size: 10px;
+        color: $med-gray;
+      }
+    }
     .all_tile_tags{
       .tile_tag {
         font-size: 10px;
@@ -109,30 +167,30 @@
 }
 #tile_links{
   text-align: center;
-    .show_more_tiles {
-      @include app-button($sky-blue);
+  .show_more_tiles {
+    @include app-button($sky-blue);
+    padding:.75em .5em 0.6em;
+    &:before, &:after {
+      @include arrow-down(lighten($sky-blue, 10%), 8px);
+      margin:0 1em;
+      position: relative;
+      vertical-align: middle;
+    }
+    &[disabled] {
+      color: $light-gray !important;;
+      @include app-button($med-gray);
       padding:.75em .5em 0.6em;
+      
       &:before, &:after {
-        @include arrow-down(lighten($sky-blue, 10%), 8px);
-        margin:0 1em;
-        position: relative;
-        vertical-align: middle;
-      }
-      &[disabled] {
-        color: $light-gray !important;;
-        @include app-button($med-gray);
-        padding:.75em .5em 0.6em;
-        
-        &:before, &:after {
-          visibility:hidden;
-        }
-      }
-      #show_more_tiles_spinner {
-        display: inline-block; 
-        vertical-align: top; 
-        height:1em;
+        visibility:hidden;
       }
     }
+    #show_more_tiles_spinner {
+      display: inline-block; 
+      vertical-align: top; 
+      height:1em;
+    }
+  }
 }
 @-moz-document url-prefix() {
   .tile_with_tags, .client_admin_explore .tiles {
@@ -179,7 +237,7 @@
     margin-top: 80px;
     margin-bottom: 30px;
   }
-
+  
   .tags{
     .tag_name{
       background-color: $white;
@@ -190,7 +248,7 @@
       display: inline-block;
       margin: 5px 10px 5px 0px;
     }
-
+    
     div:hover{
       border: 1px solid $sky-blue;
       color: $sky-blue;
@@ -201,4 +259,47 @@
     }
   }
 }
-
+.tile_tag_bar
+{
+  
+}
+.all_tag_bar_list{
+  li{
+    margin-top: 5px;
+    margin-left: 3px;
+    padding: 0px 6px 3px 6px;
+    border-radius: 5px;
+    display: inline-block;
+    font-size: 10px;
+    color: #a8a8a8;
+    border: 1px solid #dfdfdf;
+    a{
+      color: #a8a8a8;
+    }
+  }  
+}
+.user_detail_nav_bar{
+  text-align: center;
+  border-right: 1px solid #dfdfdf;
+  width: 21%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-size: 30px;
+}
+.nav_name{
+  color: $dark-gray;
+  font-size: 12px;
+  font-face: bold;
+  text-align: left;
+}
+.nav_creator{
+  color: $dark-gray;
+  font-size: 14px;
+  font-face: bold;
+  text-align: left;
+}
+.nav_date{
+  color: $med-gray;
+  font-size: 10px;
+  text-align: left;
+}

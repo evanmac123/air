@@ -34,6 +34,8 @@ class User < ActiveRecord::Base
   has_many   :peer_invitations_as_invitee, :class_name => "PeerInvitation", :foreign_key => :invitee_id
   has_many   :peer_invitations_as_inviter, :class_name => "PeerInvitation", :foreign_key => :inviter_id
   has_many   :tiles, :foreign_key => :creator_id
+  has_many   :user_tile_copies
+  has_many   :user_tile_likes
   has_many   :creator_tile_completions, source: :tile_completions, through: :tiles
   has_many   :board_memberships, dependent: :destroy
   has_many   :demos, through: :board_memberships
@@ -1021,6 +1023,13 @@ class User < ActiveRecord::Base
       end
     end
   end
+    def likes_tile?(tile)
+    self.user_tile_likes.where(tile_id: tile.id).exists?    
+  end
+  
+  def copied_tile?(tile)
+    user_tile_copies.where(tile_id: tile.id).exists?    
+  end
 
   protected
 
@@ -1117,6 +1126,8 @@ class User < ActiveRecord::Base
     User.where(["name ILIKE ? AND claim_code = ?", first_name.like_escape + '%', claim_code]).first
   end
 
+
+  
   private
 
   def self.add_joining_to_activity_stream(user)

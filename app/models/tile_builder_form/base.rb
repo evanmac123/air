@@ -137,7 +137,7 @@ module TileBuilderForm
 
     def set_tile_taggings
       if @parameters[:tile_tag_ids].present?
-        tile_tag_ids = @parameters[:tile_tag_ids].split(',')
+        tile_tag_ids = @parameters[:tile_tag_ids].split(',').map(&:to_i)
  
         new_tile_tag_ids = tile_tag_ids
         

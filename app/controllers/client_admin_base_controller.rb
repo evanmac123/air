@@ -11,4 +11,8 @@ class ClientAdminBaseController < ApplicationController
   def load_locations
     @locations = current_user.demo.locations.alphabetical
   end
+
+  def param_path
+    @param_path ||= params[:path].nil? ? :undefined : params[:path].to_sym
+  end
 end

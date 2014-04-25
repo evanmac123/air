@@ -34,7 +34,9 @@ class Tile < ActiveRecord::Base
   has_many :triggering_rules, :class_name => "Rule", :through => :rule_triggers
   has_many :tile_taggings, dependent: :destroy
   has_many :tile_tags, through: :tile_taggings
-
+  has_many :user_tile_copies
+  has_many :user_tile_likes
+  
   validates_presence_of :headline, :allow_blank => false, :message => "headline can't be blank"
   validates_presence_of :supporting_content, :allow_blank => false, :message => "supporting content can't be blank", :on => :client_admin
   validates_presence_of :question, :allow_blank => false, :message => "question can't be blank", :on => :client_admin
@@ -94,8 +96,8 @@ class Tile < ActiveRecord::Base
     {
     :styles =>
       { :carousel     => ["238x238>", :png],
-        :email_digest => ["190", :png]
-      },
+      :email_digest => ["190", :png]
+    },
     :convert_options => {:email_digest => '-gravity "North" -background "#292929" -extent "190x160"'},
     :default_style   => :carousel,
     :default_url     => "/assets/avatars/thumb/missing.png",
@@ -125,8 +127,8 @@ class Tile < ActiveRecord::Base
   # Custom Attribute Setter: ensure that setting/updating the 'status' updates the corresponding time-stamp
   def status=(status)
     case status
-      when ACTIVE  then self.activated_at = Time.now
-      when ARCHIVE then self.archived_at  = Time.now
+    when ACTIVE  then self.activated_at = Time.now
+    when ARCHIVE then self.archived_at  = Time.now
     end
     write_attribute(:status, status)
   end
@@ -149,7 +151,34 @@ class Tile < ActiveRecord::Base
     return false if end_time && (end_time < now)
     true
   end
-
+  
+  # copying count and user list
+  def copied_by
+    user_names = self.user_tile_copies.includes(:user).collect do |user_tile_copy|
+      user_tile_copy.user.name
+    end
+    user_names.to_sentence
+  end
+  
+  def copy_count
+    self.user_tile_copies.count
+  end
+  
+  def unique_user_copy_count
+    self.user_tile_copies.count(:user_id, distinct: true)
+  end
+  # like count and user list
+  def liked_by
+    user_names = self.user_tile_likes.includes(:user).collect do |user_tile_like|
+      user_tile_like.user.name
+    end
+    user_names.to_sentence
+  end
+  
+  def like_count
+    self.user_tile_likes.count
+  end
+  
   def only_manually_triggerable?
     self.rule_triggers.empty?
   end
@@ -209,10 +238,10 @@ class Tile < ActiveRecord::Base
       chart[i]["answer"] = answer 
       chart[i]["number"] = TileCompletion.where(tile_id: self, answer_index: i).count
       chart[i]["percent"] = if count > 0
-                              (chart[i]["number"].to_f * 100 / count).round(2).to_s + "%"
-                            else
-                              "0%"
-                            end
+        (chart[i]["number"].to_f * 100 / count).round(2).to_s + "%"
+      else
+        "0%"
+      end
     end
     chart
   end
@@ -247,7 +276,7 @@ class Tile < ActiveRecord::Base
     false
   end
 
-  def copy_to_new_demo(new_demo)
+  def copy_to_new_demo(new_demo, copying_user)
     @making_copy = true # prevents processing that we don't need
     copy = Tile.new
     %w(correct_answer_index headline link_address multiple_choice_answers points question supporting_content type image_meta thumbnail_meta image thumbnail).each do |field_to_copy|
@@ -258,6 +287,10 @@ class Tile < ActiveRecord::Base
     copy.original_creator = self.creator
     copy.original_created_at = self.created_at
     copy.demo = new_demo
+    
+    #mark as copied by user
+    copy.user_tile_copies.build(user_id: copying_user.id)
+    
     copy.save!
     copy
   end

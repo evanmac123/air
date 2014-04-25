@@ -2,7 +2,7 @@ require 'acceptance/acceptance_helper'
 
 feature "Client admin copies tile from the explore-preview page" do
   def click_copy
-    page.find('.copy-to-board-message').click
+    page.find('.copy_tile_button').click
     page.should have_content("You've added this tile to the inactive section of your board.")
   end
 
@@ -66,6 +66,13 @@ feature "Client admin copies tile from the explore-preview page" do
     FakeMixpanelTracker.should have_event_matching('Tile - Copied', {tile_id: @original_tile.id})
   end
 
+  it "should record user who copied", js: true do
+    click_copy
+    
+    copied_tile = Tile.order("created_at DESC").first
+    copied_tile.user_tile_copies.first.user_id.should eq admin.id
+  end
+  
   it "should not show the link for a non-copyable tile" do
     tile = FactoryGirl.create(:multiple_choice_tile, :public)
     visit explore_tile_preview_path(tile, as: admin)
