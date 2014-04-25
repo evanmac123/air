@@ -7,7 +7,7 @@
 
     <div class="row tags">
       <% @tile_tags.each do |tile_tag| %>
-        <%= link_to tile_tag_show_explore_path(tile_tag: tile_tag.id, source: 'Explore Main Page - Clicked Tile Subject Tag') do %>
+        <%= link_to tile_tag_show_explore_path(tile_tag: tile_tag.id, tag_click_source: 'Explore Main Page - Clicked Tile Subject Tag') do %>
           <div class="tag_name"><%= tile_tag.title %></div>
         <% end %>
       <% end %>
@@ -16,7 +16,7 @@
     <h1>Recent Posts</h1>
 
     <div class='row tile_with_tags'>
-      <%= render partial: 'tile_with_tags', locals: {tiles: @tiles, path_for_more_tiles: @path_for_more_tiles, source: "Explore Main Page - Clicked Tag On Tile"} %>
+      <%= render partial: 'tile_with_tags', locals: {tiles: @tiles, path_for_more_tiles: @path_for_more_tiles, tag_click_source: "Explore Main Page - Clicked Tag On Tile", thumb_click_source: 'Explore Main Page - Tile Thumbnail Clicked'} %>
     </div>
   </div>
 </div>

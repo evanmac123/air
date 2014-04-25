@@ -1,12 +1,16 @@
 class TilePreviewsController < ClientAdminBaseController
   def show
     @tile = Tile.viewable_in_public.where(id: params[:id]).first
-    schedule_mixpanel_ping @tile
+    schedule_mixpanel_pings @tile
   end
 
   protected
 
-  def schedule_mixpanel_ping(tile)
+  def schedule_mixpanel_pings(tile)
     ping "Tile - Viewed in Explore", {tile_id: tile.id}, current_user
+
+    if params[:thumb_click_source]
+      ping params[:thumb_click_source], {tile_id: tile.id}, current_user
+    end
   end
 end

@@ -221,17 +221,68 @@ feature 'Sees tiles on explore page' do
         crank_dj_clear
         FakeMixpanelTracker.should have_event_matching('Topic Page - Clicked Tag On Tile', {tag: "Click me"})
       end
+
+      it "pings when clicking a tile thumbnail on the topic page", js: true do
+        visit tile_tag_show_explore_path(tile_tag: @tag_to_click, as: a_client_admin)
+        page.first('.explore_tile > a').click
+
+        FakeMixpanelTracker.clear_tracked_events
+        crank_dj_clear
+        FakeMixpanelTracker.should have_event_matching('Topic Page - Tile Thumbnail Clicked')
+      end
+
+      it "pings when clicking a tile thumbnail on the topic page in a later batch", js: true do
+        19.times do
+          tile = FactoryGirl.create(:tile, :public)
+          tile.tile_tags << @tag_to_click
+        end
+
+        visit tile_tag_show_explore_path(tile_tag: @tag_to_click, as: a_client_admin)
+        click_link 'More'
+
+        crank_dj_clear
+        FakeMixpanelTracker.clear_tracked_events
+
+        page.all('.explore_tile > a')[19].click
+
+        crank_dj_clear
+        FakeMixpanelTracker.should have_event_matching('Topic Page - Tile Thumbnail Clicked')
+      end
     end
   end
 
   context "when clicking through a tile" do
+    before do
+      @tile = FactoryGirl.create(:tile, :public)
+    end
+
     it "should have a Back link that links to the general explore page", js: true do
-      tile = FactoryGirl.create(:tile, :public)
       visit explore_path(as: a_client_admin)
       page.first('.explore_tile > a').click
 
       find('.left-section > a').click
       should_be_on explore_path
+    end
+
+    it "pings" do
+      visit explore_path(as: a_client_admin)
+      page.first('.explore_tile > a').click
+      
+      FakeMixpanelTracker.clear_tracked_events
+      crank_dj_clear
+      FakeMixpanelTracker.should have_event_matching('Explore Main Page - Tile Thumbnail Clicked')
+    end
+
+    it "pings when clicking through a tile in a later batch", js: true do
+      FactoryGirl.create_list(:tile, 19, :public)
+      visit explore_path(as: a_client_admin)
+      3.times { click_link 'More' }
+
+      page.all('.explore_tile > a')[19].click
+
+      FakeMixpanelTracker.clear_tracked_events
+      crank_dj_clear
+      FakeMixpanelTracker.should have_event_matching('Explore Main Page - Tile Thumbnail Clicked')
     end
 
     context "and there is a tag selected" do

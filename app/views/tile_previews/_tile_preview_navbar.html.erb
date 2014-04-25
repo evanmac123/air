@@ -22,7 +22,7 @@
       <ul class="extra_tags_list">
         <% @tile.tile_tags.each do |tile_tag| %>
           <li class="tile_tag">
-            <%= link_to tile_tag.title, tile_tag_show_explore_path(tile_tag: tile_tag.id, source: "Explore Tile Preview Page - Clicked Tile Tag") %>
+            <%= link_to tile_tag.title, tile_tag_show_explore_path(tile_tag: tile_tag.id, tag_click_source: "Explore Tile Preview Page - Clicked Tile Tag") %>
           </li>
         <% end %>          
       </ul>
