@@ -32,7 +32,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
 
   def create
     @demo = current_user.demo
-    user_params = params[:user].filter_by_key(*SETTABLE_USER_ATTRIBUTES)
+    user_params = params[:user].slice(*SETTABLE_USER_ATTRIBUTES)
 
     email = user_params['email'].try(:downcase)
     existing_user = if email.present?
@@ -82,7 +82,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
       @new_location_id = params[:user].delete(:location_id)
     end
 
-    @user.attributes = params[:user].filter_by_key(*SETTABLE_USER_ATTRIBUTES)
+    @user.attributes = params[:user].slice(*SETTABLE_USER_ATTRIBUTES)
     if @user.phone_number.present?
       @user.phone_number = PhoneNumber.normalize(@user.phone_number)
     end
