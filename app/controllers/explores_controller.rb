@@ -40,6 +40,7 @@ class ExploresController < ClientAdminBaseController
 
   def render_partial_if_requested(extra_locals)
     if params[:partial_only]
+      ping("Topic Page - Clicked See More", {}, current_user)
       render partial: "explores/tile_with_tags", locals: {tiles: @tiles, path_for_more_tiles: @path_for_more_tiles, all_tiles_displayed: @all_tiles_displayed}.merge(extra_locals)
     end
   end

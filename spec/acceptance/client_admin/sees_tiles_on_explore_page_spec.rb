@@ -34,6 +34,19 @@ feature 'Sees tiles on explore page' do
     expect_thumbnail_count 15, '.explore_tile'
   end
 
+  it "should ping when the more-tiles button is clicked", js: true do
+    FactoryGirl.create_list(:tile, 15, :public)
+    visit explore_path(as: a_client_admin)
+
+    crank_dj_clear
+    FakeMixpanelTracker.clear_tracked_events
+
+    show_more_tiles_link.click
+    sleep 5
+    crank_dj_clear
+    FakeMixpanelTracker.should have_event_matching('Topic Page - Clicked See More')
+  end
+
   it "should see information about creators for tiles that have them" do
     other_board = FactoryGirl.create(:demo, name: "The Board You've All Been Waiting For")
     creator = FactoryGirl.create(:client_admin, name: "John Q. Public", demo: other_board)
