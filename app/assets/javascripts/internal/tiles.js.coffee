@@ -54,16 +54,21 @@ disableAllAnswers = ->
   $(".right_multiple_choice_answer:not(.clicked_right_answer)").removeClass("right_multiple_choice_answer").addClass("nerfed_answer").removeAttr("href").removeAttr("data-method").unbind()
   $(".wrong_multiple_choice_answer").removeClass("wrong_multiple_choice_answer").addClass("nerfed_answer").removeAttr("href").removeAttr("data-method").unbind()
 
+findCsrfToken = () ->
+  $('meta[name="csrf-token"]').attr('content')
+
 postTileCompletion = (event) ->
   link = $(event.target)
-  token = $('meta[name="csrf-token"]').attr('content')
   $.ajax({
     type: "POST",
     url: link.attr('href'),
     headers: {
-      'X-CSRF-Token': token
+      'X-CSRF-Token': findCsrfToken()
     }
   })
+
+pingRightAnswerInPreview = () ->
+  $.post("/ping", {event: 'Explore Tile Preview Page - Clicked Answer'})
 
 rightAnswerClicked = (event) ->
   posting = postTileCompletion(event)
@@ -72,6 +77,7 @@ rightAnswerClicked = (event) ->
   loadNextTileWithOffset(1, preloadAnimationsDone, predisplayAnimations, posting)
 
 rightAnswerClickedForPreview = (event) ->
+  pingRightAnswerInPreview()
   markCompletedRightAnswer(event)
   highlightEarnablePoints()
   pointCounter().start()

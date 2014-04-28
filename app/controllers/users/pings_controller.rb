@@ -1,9 +1,11 @@
 class Users::PingsController < ApplicationController
+  include TrackEvent
 
-  def create 
+  def create
     page_name = params[:page_name]
     event = params[:event]
-    properties = params[:properties]
+    properties = params[:properties] || {}
+
     if page_name
       current_user.ping_page(page_name)
     elsif event
@@ -11,6 +13,6 @@ class Users::PingsController < ApplicationController
     else
       raise "No page name, no event given for mixpanel ping"
     end
-    render :text => ''
+    render nothing: true
   end
 end
