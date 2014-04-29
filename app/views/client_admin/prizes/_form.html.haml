@@ -2,21 +2,25 @@
   .content_section
     = f.label :starts_at, "Duration", class: "small_cap"
     .duration
-      = f.text_field :starts_at, value: date_in_pick_format(raffle.starts_at), class: "datepicker", placeholder: "Start", size: 10
-      = f.label :ends_at, "to", class: "small_cap"
-      = f.text_field :ends_at, value: date_in_pick_format(raffle.ends_at), class: "datepicker", placeholder: "End", size: 10
-      .outer_tip
-        Start at 12:00 AM ET of start date. End at 11:59 PM ET of end date.
-  .content_section#prizes
+      .date_input
+        = f.text_field :starts_at, value: date_in_pick_format(raffle.starts_at), class: "datepicker", placeholder: "Start", size: 10
+      .to_label
+        = f.label :ends_at, "to", class: "small_cap"
+      .date_input
+        = f.text_field :ends_at, value: date_in_pick_format(raffle.ends_at), class: "datepicker", placeholder: "End", size: 10
+    .outer_tip
+      Start at 12:00 AM ET of start date. End at 11:59 PM ET of end date.
+  .content_section
     = f.label "prizes_0", "Prize", class: "small_cap"
     .add_another
       %i.fa.fa-plus
       Add Another
-    - raffle.prizes.each do |prize|
-      .prize_section
-        = text_area_tag "raffle[prizes][]", prize, placeholder: "Enter a prize description (e.g., Grand Prize: Gift Card)", class: "prize_field", maxlength: 160
-        .remove_prize
-          Remove
+    #prizes
+      - raffle.prizes.each do |prize|
+        .prize_section
+          = text_area_tag "raffle[prizes][]", prize, placeholder: "Enter a prize description (e.g., Grand Prize: Gift Card)", class: "prize_field", maxlength: 160
+          .remove_prize
+            Remove
   .content_section
     = f.label :other_info, class: "small_cap"
     = f.text_area :other_info, maxlength: 300, placeholder: "For every 20 points you earn, you receive an entry into the prize raffle. We’ll email the winner to award the prize within a week of the end of the prize period."
@@ -63,19 +67,6 @@
       index = $(".prize_field").index($(this));
       updatePrivewPrizeField(index);
     });
-
-    $(".prize_section").unbind();
-    $(".prize_section")
-      .mouseover(function(){
-        if(!window.status || window.status == 'live_edit'){
-          $(this).find(".remove_prize").css("display", "block");
-        }
-      })
-      .mouseleave(function(){
-        if(!window.status || window.status == 'live_edit'){
-          $(this).find(".remove_prize").css("display", "none");
-        }
-      });
 
     $(".remove_prize").unbind();  
     $(".remove_prize").click(function(){

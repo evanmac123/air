@@ -75,6 +75,7 @@ body.client_admin-prizes {
   .form_section{
     width:34%;
     form{
+      margin-bottom: 4em;
       textarea{
         width: 100%;
         margin-bottom: 0.5em;
@@ -87,19 +88,30 @@ body.client_admin-prizes {
         position: relative;
       }
       .duration{
+        display: table;
+        width: 100%;
         input, label{
           display: inline;
         }
         input {
-          width: 46.9%;
+          width: 100%;
         }
-        .outer_tip{
-          color: $med-gray;
-          font-size: 10px;
-          font-weight: 700;
-          padding-top: 0.5em;
-          padding-left: 0.5em;
+        .to_label{
+          width:7%;
+          display: table-cell;
+          text-align: center;
         }
+        .date_input{
+          display: table-cell;
+          width: 46.5%;
+        }
+      }
+      .outer_tip{
+        color: $med-gray;
+        font-size: 10px;
+        font-weight: 700;
+        padding-top: 0.5em;
+        padding-left: 0.5em;
       }
       .add_another{
         position: absolute;
@@ -113,21 +125,27 @@ body.client_admin-prizes {
           font-size: 14px;
         }
       }
-      .prize_section{
-        padding-bottom: 3.5em;
-        textarea{
-          height: 4.5em;
-        }
-        .remove_prize{
-          cursor: pointer;
-          color: $med-gray;
-          font-size: 14px;
-          font-weight: 400;
-          display: none;
-          float: left;
-        }
-        .character-counter{
-          padding-top: 0.4em;
+      #prizes{
+        .prize_section{
+          padding-bottom: 3.5em;
+          &:first-child{
+            .remove_prize{
+              display: none;
+            }
+          }
+          textarea{
+            height: 4.5em;
+          }
+          .remove_prize{
+            cursor: pointer;
+            color: $med-gray;
+            font-size: 14px;
+            font-weight: 400;
+            float: left;
+          }
+          .character-counter{
+            padding-top: 0.4em;
+          }
         }
       }
       #raffle_other_info{
@@ -135,10 +153,10 @@ body.client_admin-prizes {
       }
     }
   .buttons_section{
-      margin-top: 4em;
+      display: flex;
       .button{
         background: transparent;
-        width: 46.9%;
+        width: 46.5%;
         border: 1px solid $sky-blue;
         color: $sky-blue;
         font-size: 18px;
@@ -146,7 +164,7 @@ body.client_admin-prizes {
         padding-top: 0.4em;
         padding-bottom: 0.4em;
         &:nth-child(odd){
-          margin-right: 5%;
+          margin-right: 7%;
         }
         &.blue_button{
           background: $sky-blue;
@@ -278,6 +296,9 @@ body.client_admin-prizes {
         color: $med-gray;
       }
     }
+  }
+  .field_with_errors{
+    display: inline;
   }
   //--------some standard things from jquery-ui or foundation changed-------//
   .ui-widget-overlay{
