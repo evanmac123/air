@@ -54,7 +54,20 @@ feature 'Creates tile' do
 #      new_tile.tile_tags.reload.where(title: 'First tag added').should_not be_empty
 #      new_tile.tile_tags.reload.where(title: 'Second tag added').should_not be_empty
     end
-    
+   
+    context "when attempting to make a tile public but not specifying a tag" do
+      scenario "pings", js: true do
+        fill_in_valid_form_entries({}, false)
+        click_make_public
+        click_create_button
+        page.should have_content("Add a tag to continue")
+
+        FakeMixpanelTracker.clear_tracked_events
+        crank_dj_clear
+
+        FakeMixpanelTracker.should have_event_matching('Tile - Received No Tag Added Error')
+      end
+    end
   end
 
   scenario 'by uploading an image and supplying some information', js: true do

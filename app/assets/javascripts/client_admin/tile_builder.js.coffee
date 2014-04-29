@@ -9,7 +9,7 @@ jumpTagSelected = (event, ui) ->
 addNewTag = (name) ->
   $.ajax(
     url: "/client_admin/tile_tags/add?term=#{name}",
-    success: (id)-> 
+    success: (id)->
       appendSelectedTags(id, name)
   )
   
@@ -22,7 +22,9 @@ appendSelectedTags = (id, name) ->
     else
       $('#tile_builder_form_tile_tag_ids').val($('#tile_builder_form_tile_tag_ids').val() + ",#{id}")
     
-  
+sendTagMissingPing = () ->
+  $.post("/ping", {event: 'Tile - Received No Tag Added Error'})
+
 window.bindTagNameSearchAutocomplete = (sourceSelector, targetSelector, searchURL) ->
   $(sourceSelector).autocomplete({
     appendTo: targetSelector, 
@@ -66,6 +68,7 @@ $(document).ready ->
   $('#new_tile_builder_form').on('submit', (event) ->
     if $(this).find('#share_on').is(':checked')
       if $(this).find('.share_options').find('.tile_tags li').length < 1
+        sendTagMissingPing()
         $(this).find('.tag_alert').show()
         $(this).find('#submit_spinner').hide()
         false
