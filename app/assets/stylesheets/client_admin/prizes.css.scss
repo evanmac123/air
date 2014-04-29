@@ -289,7 +289,31 @@ body.client_admin-prizes {
     .ui-icon-closethick{
       margin: 0;
       margin-top: -8px;
-      margin-left: -8px;
+      margin-left: -9px;
+    }
+    .ui-dialog-buttonpane{
+      .ui-dialog-buttonset{
+        width: 100%;
+        button{
+          background: transparent;
+          width: 47.5%;
+          border: 1px solid $sky-blue;
+          color: $sky-blue;
+          font-size: 18px;
+          font-weight: 400;
+          margin-right: 0;
+          border-radius: 0;
+          &:nth-child(odd){
+            margin-right: 5%;
+            background: $sky-blue;
+            color: white;
+            box-shadow: none;
+          }
+          span{
+            padding: 0.2em 1em;
+          }
+        }
+      }
     }
   }
   .tooltip.tip-bottom{

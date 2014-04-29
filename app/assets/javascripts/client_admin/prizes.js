@@ -319,7 +319,7 @@ function clearAllDialog(){
       }
     }
   });
-  $( "#clear_dialog" ).dialog( "close" );
+  //$( "#clear_dialog" ).dialog( "close" );
 }
 
 /*********************Live************************/
