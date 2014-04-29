@@ -99,7 +99,6 @@ function validateStartDate(){
     $('#raffle_ends_at').datepicker( 'option', 'minDate', 
       new Date( startDate().getTime() + dayDuration() ) );
   }
-
   updatePickWinnersEndDate();
   updatePreviewEndDate();
   updatePreviewDuration();
