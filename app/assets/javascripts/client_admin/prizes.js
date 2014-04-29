@@ -39,7 +39,7 @@ function unsavedDraft(){
 }
 
 function todayDate(){
-  return (new Date()).setHours(12,0,0,0); //today afternoon
+  return (new Date()).setHours(0,0,0,0); //today afternoon
 }
 
 function validDateFormat(date){
@@ -89,6 +89,11 @@ function validateStartDate(){
     $("#raffle_ends_at").val("");
   }else{
     enableEndDate();
+  }
+
+  if(startDate()){
+    $('#raffle_ends_at').datepicker( 'option', 'minDate', 
+      new Date( startDate().getTime() + dayDuration() ) );
   }
 
   updatePickWinnersEndDate();
@@ -142,9 +147,10 @@ function monthName(date){
 }
 
 function updatePickWinnersEndDate(){
-  end_date = new Date(endDate().getTime() + minuteDuration());
+  end_date = endDate();
   text =  "You can pick winners starting ";
   if(end_date > 0){
+    end_date = new Date(endDate().getTime() + minuteDuration());
     text += weekDay(end_date) + 
             ", " + monthName(end_date) + 
             " " + end_date.getDate() + " at 12:00 AM ET";
@@ -169,6 +175,9 @@ function updatePreviewEndDate(){
 function prizePeriodDuration(){
   if( endDate() && startDate()){
     duration = (endDate() - startDate()) + minuteDuration();
+    if(duration <= dayDuration()){
+      duration = false;
+    }
   }else{
     duration = false;
   }
