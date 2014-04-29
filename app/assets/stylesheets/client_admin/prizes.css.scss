@@ -286,12 +286,16 @@ body.client_admin-prizes {
   }
   .ui-dialog{
     z-index: 3;
+    .ui-dialog-titlebar-close:hover{
+        background: $sky-blue;
+      }
     .ui-icon-closethick{
       margin: 0;
       margin-top: -8px;
       margin-left: -9px;
     }
     .ui-dialog-buttonpane{
+      padding-right:0.4em;
       .ui-dialog-buttonset{
         width: 100%;
         button{
