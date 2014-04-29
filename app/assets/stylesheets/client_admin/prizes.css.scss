@@ -58,6 +58,11 @@ body.client_admin-prizes {
         color: $light-gray;
         font-size: 0.9em;
       }
+      .pick_winners_from{
+        color: $blue;
+        font-size: 14px;
+        font-weight: 700;
+      }
     }
   }
   label.small_cap{
@@ -122,7 +127,7 @@ body.client_admin-prizes {
         border: 1px solid $sky-blue;
         color: $sky-blue;
         font-size: 18px;
-        font-weight: 100;
+        font-weight: 500;
         padding-top: 0.4em;
         padding-bottom: 0.4em;
         &:nth-child(odd){
@@ -132,8 +137,13 @@ body.client_admin-prizes {
           background: $sky-blue;
           color: white;
           box-shadow: none;
+          &[disabled]{
+            color: white;
+            background: $light-blue;
+            border: 1px solid $light-blue;
+          }
         }
-        &[disabled]{
+        &[disabled], &.finish_button{
           color: $med-gray;
           border: 1px solid $med-gray;
         }
@@ -267,6 +277,12 @@ body.client_admin-prizes {
       margin-left: -8px;
     }
   }
-  //some bug.need to fix
-  .field_with_errors { display: inline; }
+  .tooltip.tip-bottom{
+    width: 12.5em !important;
+    margin-left: -0.7em !important;
+    text-align: center;
+    .nub{
+      left: 5.8em !important;
+    }
+  }
 }

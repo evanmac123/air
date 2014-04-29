@@ -18,20 +18,7 @@
   .content_section
     = f.label :other_info, class: "small_cap"
     = f.text_area :other_info, maxlength: 300, placeholder: "For every 20 points you earn, you receive an entry into the prize raffle. We’ll email the winner to award the prize within a week of the end of the prize period."
-.buttons_section
-  .button#save_draft
-    Save draft
-  .button.blue_button
-    Start
-.clear_form
-  %icon.fa.fa-times
-  Clear all
-  #clear_dialog{title: "Clear the form?"}
-    %p
-      This form will be cleared. Are you sure?
-  #unload_dialog{title: "Save draft?"}
-    %p
-      Would you like to save as draft?
+
 
 
 :javascript
@@ -40,40 +27,37 @@
 
   $(function() {
     $(".datepicker").datepicker();
-    validateStartDate();
-    validateEndDate();
     rebindPrizeEvents();
-    clearAllDialog();
-    unloadDialog();
-
-    window.draft_saved = true;
-  });
-
-  $("#save_draft").click(function() {
-    saveDraft();
   });
 
   $('.add_another').click(function() {
-    addNewPrizeField();
-    addNewPreviewPrizeField();
-    rebindPrizeEvents();
+    if(!window.status || window.status == 'live_edit'){
+      addNewPrizeField();
+      addNewPreviewPrizeField();
+      rebindPrizeEvents();
+    }
   });
 
   //for picking by datepicker
   $("#raffle_starts_at").change( function(){
     validateStartDate();
   });
+
   $("#raffle_ends_at").change( function(){
     validateEndDate();
   });
+
   //for printing or pasting
   $("#raffle_starts_at").bind('input propertychange', function(){
     validateStartDate();
   });
+
   $("#raffle_ends_at").bind('input propertychange', function(){
     validateEndDate();
   });
+
   function rebindPrizeEvents(){
+    $(".prize_field").unbind();
     $(".prize_field").bind('input propertychange', function(){
       index = $(".prize_field").index($(this));
       updatePrivewPrizeField(index);
@@ -82,23 +66,4 @@
 
   $("#raffle_other_info").bind('input propertychange', function(){
     updatePreivewOtherInfo();
-  });
-
-  $(".clear_form").click(function(){
-    $( "#clear_dialog" ).dialog( "open" );
-  });
-
-  //enable save draft button
-  $("form textarea, form input").bind('input propertychange', function(){
-    unsavedDraft();
-  });
-
-  $("form textarea, form input").change(function(){
-    unsavedDraft();
-  });
-
-  $(window).on("beforeunload", function(){
-    if(!window.draft_saved){
-      return "If you leave this page, you’ll lose any changes you made. Please, save them before leaving."
-    }
   });

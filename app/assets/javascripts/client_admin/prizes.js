@@ -17,8 +17,18 @@ function addNewPreviewPrizeField(){
 }
 
 function saveDraft(){
-  $("form[class$='_raffle']").attr("data-remote", "true").submit();
+  $("form[class$='_raffle']").attr("action", "/client_admin/prizes/save_draft")
+                             .attr("data-remote", "true")
+                             .submit();
   window.draft_saved = true;
+}
+
+function startLive(){
+  window.draft_saved = true; //to not fire popup
+  $("form[class$='_raffle']").attr("action", "/client_admin/prizes/start")
+                             .removeAttr("data-remote")
+                             .removeData("remote")
+                             .submit();
 }
 
 function unsavedDraft(){
@@ -39,7 +49,7 @@ function validDateFormat(date){
 function endDate(){
   date_input = $("#raffle_ends_at").val();
   if(validDateFormat(date_input)){
-    date = (new Date(date_input + " 12:00"));
+    date = (new Date(date_input + " 23:59"));
   }else{
     date = false;
   }
@@ -49,7 +59,7 @@ function endDate(){
 function startDate(){
   date_input = $("#raffle_starts_at").val();
   if(validDateFormat(date_input)){
-    date = (new Date(date_input + " 12:00"));
+    date = (new Date(date_input + " 00:00"));
   }else{
     date = false;
   }
@@ -81,6 +91,7 @@ function validateStartDate(){
     enableEndDate();
   }
 
+  updatePickWinnersEndDate();
   updatePreviewEndDate();
   updatePreviewDuration();
 }
@@ -93,6 +104,7 @@ function validateEndDate(){
     $("#raffle_ends_at").val("");
   }
 
+  updatePickWinnersEndDate();
   updatePreviewEndDate();
   updatePreviewDuration();
 }
@@ -129,6 +141,19 @@ function monthName(date){
   return months[date.getMonth()];
 }
 
+function updatePickWinnersEndDate(){
+  end_date = new Date(endDate().getTime() + minuteDuration());
+  text =  "You can pick winners starting ";
+  if(end_date > 0){
+    text += weekDay(end_date) + 
+            ", " + monthName(end_date) + 
+            " " + end_date.getDate() + " at 12:00 AM ET";
+  }else{
+    text = "[Day of week, Month, DD at 12:00 AM] ET";
+  }
+  $(".pick_winners_from").text(text);
+}
+
 function updatePreviewEndDate(){
   end_date = endDate();
   if(end_date > 0){
@@ -143,7 +168,7 @@ function updatePreviewEndDate(){
 
 function prizePeriodDuration(){
   if( endDate() && startDate()){
-    duration = endDate() - startDate();
+    duration = (endDate() - startDate()) + minuteDuration();
   }else{
     duration = false;
   }
@@ -268,22 +293,42 @@ function clearAllDialog(){
   $( "#clear_dialog" ).dialog( "close" );
 }
 
-function unloadDialog(){
-  $( "#unload_dialog" ).dialog({
-    resizable: false,
-    height:200,
-    width: 400,
-    modal: true,
-    buttons: {
-      "Save draft": function() {
-        $( this ).dialog( "close" );
-        saveDraft();
-      },
-      "Don't save": function() {
-        $( this ).dialog( "close" );
-      }
-    },
-    close: function () {}
-  });
-  $( "#unload_dialog" ).dialog( "close" );
+/*********************Live************************/
+
+function disableForm(){
+  $("form[class$='_raffle'] :input").attr("disabled", "disabled");
+}
+
+function enableForm(){
+  $("form[class$='_raffle'] :input").removeAttr("disabled");
+}
+
+function liveEditButtons(){
+  $("#edit_or_save").text("Save");
+  $("#progress_or_cancel").text("Cancel").removeAttr("disabled");
+  $(".finish_button").css("display", "none");
+}
+
+function liveShowButtons(){
+  $("#edit_or_save").text("Edit");
+  $("#progress_or_cancel").text("In progress").attr("disabled", "disabled");
+  $(".finish_button").css("display", "");
+}
+
+function turnLiveEdit(){
+  enableForm();
+  liveEditButtons();
+  window.status = 'live_edit';
+}
+
+function turnLiveShow(){
+  disableForm();
+  liveShowButtons();
+  window.status = 'live_show';
+}
+
+function updateRaffle(){
+  $("form[class$='_raffle']").attr("action", "/client_admin/prizes")
+                             .attr("data-remote", "true")
+                             .submit();
 }

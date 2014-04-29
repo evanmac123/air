@@ -18,8 +18,7 @@ module ClientAdmin::PrizesHelper
       return time_in_format 0, format, dimention 
     end
     #choose duration from today or future start date
-    today = Time.now.utc.in_time_zone("Eastern Time (US & Canada)")
-    duration = ends_at - starts_at
+    duration = ends_at + 1.minute - starts_at
 
     if duration < 0
       dimention = (position == :first ? "week" : "day")

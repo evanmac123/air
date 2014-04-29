@@ -18,8 +18,8 @@ $sky-blue:          #20ADE9;
 $header-color:      #fff;
 $offcanvas-gray:    $dark-gray;
 $text-color:        #4c4c4c;
-$light-blue:        lighten($blue, 56.5%);
-$body-bg:           $light-blue;
+$light-blue:        #a7d5ef;
+$body-bg:           lighten($blue, 56.5%);
 $tile-wall-bg:      lighten($blue, 45%);
 $form-bg:           lighten($blue, 53%);
 

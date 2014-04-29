@@ -167,6 +167,9 @@ Health::Application.routes.draw do
     resources :prizes, only: :index do 
       collection do
         post 'save_draft'
+        post 'start'
+        post 'update'
+        get 'cancel'
       end
     end
   end

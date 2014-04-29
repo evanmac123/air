@@ -4,16 +4,26 @@
 .row.steps_nav_bar
   .large-10.columns
     %ul.breadcrumb
-      %li.selected Set up
-      %li Live
-      %li Pick Winners
+      %li{class: (:selected if @raffle.status == Raffle::SET_UP)}
+        Set Up
+      %li{class: (:selected if @raffle.status == Raffle::LIVE)}
+        Live
+      %li{class: (:selected if @raffle.status == Raffle::PICK_WINNERS)}
+        Pick Winners
   .how-to
-    %a{:href => "http://airbo.desk.com/customer/portal/articles/1189454-incentive-strategy"}
-      %icon.fa.fa-question-circle
-      How do prizes work?
+    -if @raffle.status == Raffle::SET_UP
+      %a{:href => "http://airbo.desk.com/customer/portal/articles/1189454-incentive-strategy"}
+        %icon.fa.fa-question-circle
+        How do prizes work?
+    -elsif @raffle.status == Raffle::LIVE
+      .pick_winners_from
+        You can pick winners starting 
+        = @raffle.ends_at ? (@raffle.ends_at + 1.minute).strftime("%A, %B %e at %l:%M %p") : "[Day of week, MM DD at 12:00 AM]"
+        ET
 .row
   .form_section.columns
     = render partial: 'form', locals: { raffle: @raffle}
+    = render partial: 'buttons', locals: {raffle: @raffle}
   .action_section.columns
     %label.small_cap
       User preview

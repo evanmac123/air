@@ -29,6 +29,9 @@ class Raffle < ActiveRecord::Base
   end
 
   def prizes_presence
-    errors.add(:prizes, "should have at least one prize") if prizes.empty?
+    if prizes.empty?
+      errors.add(:prizes, "should have at least one prize") 
+      default_values
+    end
   end
 end
