@@ -361,3 +361,8 @@ function updateRaffle(){
                              .attr("data-remote", "true")
                              .submit();
 }
+
+function makeConfirmButton(button){
+  button.addClass("confirmation").text("Confirm?");
+
+}

@@ -69,3 +69,10 @@
     $("#progress_or_cancel").click(function(){
       turnLiveShow();
     });
+
+    $(".finish_button").click(function(e){
+      if( !$(this).hasClass("confirmation") ){
+        e.preventDefault();
+        makeConfirmButton( $(this) );
+      }
+    });
