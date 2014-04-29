@@ -1,3 +1,6 @@
+<%= render 'shared/mixpanel' %>
+<%= mp_track_page 'tile editor (edit existing)' %>
+
 <div class="row">
   <div class="large-8 large-centered columns builder-width">
     <%= form_for @tile_builder_form, url: client_admin_tile_path(@tile_builder_form.tile), method: :put do |f| %>

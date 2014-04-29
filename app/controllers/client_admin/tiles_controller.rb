@@ -84,7 +84,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       delete_old_image_container(:success)
       record_creator(@tile_builder_form.tile)
       set_after_save_flash(@tile_builder_form.tile)
-      schedule_tile_creation_ping
+      schedule_tile_creation_ping(@tile_builder_form.tile)
       redirect_to client_admin_tile_path(@tile_builder_form.tile)
     else
       delete_old_image_container(:failure)
@@ -244,8 +244,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     flash[:success_allow_raw] = true
   end
 
-  def schedule_tile_creation_ping
-    ping('Tile - New', {}, current_user)
+  def schedule_tile_creation_ping(tile)
+    ping('Tile - New', {is_public: tile.is_public, is_copyable: tile.is_copyable, tag: tile.tile_tags.first.try(:title)}, current_user)
   end
 
   def set_image_and_container
