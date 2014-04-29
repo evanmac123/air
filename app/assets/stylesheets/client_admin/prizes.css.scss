@@ -114,9 +114,20 @@ body.client_admin-prizes {
         }
       }
       .prize_section{
-        padding-bottom: 1.5em;
+        padding-bottom: 3.5em;
         textarea{
           height: 4.5em;
+        }
+        .remove_prize{
+          cursor: pointer;
+          color: $med-gray;
+          font-size: 14px;
+          font-weight: 400;
+          display: none;
+          float: left;
+        }
+        .character-counter{
+          padding-top: 0.4em;
         }
       }
       #raffle_other_info{
@@ -131,7 +142,7 @@ body.client_admin-prizes {
         border: 1px solid $sky-blue;
         color: $sky-blue;
         font-size: 18px;
-        font-weight: 500;
+        font-weight: 400;
         padding-top: 0.4em;
         padding-bottom: 0.4em;
         &:nth-child(odd){
@@ -154,7 +165,7 @@ body.client_admin-prizes {
       }
     }
   }
-  .clear_form{
+  .clear_form {
     cursor: pointer;
     color: $med-gray;
     font-size: 14px;
@@ -268,7 +279,7 @@ body.client_admin-prizes {
       }
     }
   }
-  //dialog
+  //--------some standard things from jquery-ui or foundation changed-------//
   .ui-widget-overlay{
     z-index: 2;
     display: none;
@@ -287,6 +298,16 @@ body.client_admin-prizes {
     text-align: center;
     .nub{
       left: 5.8em !important;
+    }
+  }
+  .ui-datepicker{
+    td{
+      a, span{
+        border: 1px solid transparent !important;
+      }
+      span{
+        color: $light-gray;
+      }
     }
   }
 }

@@ -14,6 +14,7 @@ function addNewPreviewPrizeField(){
   initialPrize = $('.prize_row').eq(0);
   var newPrize =  initialPrize.clone().find(".prize_description p").text("").end();
   newPrize.appendTo('.prizes_container');
+  updatePrivewPrizeField( $('.prize_row').length - 1 );
 }
 
 function saveDraft(){
@@ -246,8 +247,15 @@ function animateDate(id, end){
 }
 
 function updatePrivewPrizeField(index){
+  prize_preview = $(".prize_description p").eq(index);
   text = $(".prize_field").eq(index).val();
-  $(".prize_description p").eq(index).text(text);
+  if(text.length == 0 ){
+    text = "Prize description will appear here";
+    prize_preview.addClass("placeholder_text");
+  }else{
+    prize_preview.removeClass("placeholder_text");
+  }
+  prize_preview.text(text);
 }
 
 function updatePreivewOtherInfo(){
@@ -259,6 +267,18 @@ function updatePreivewOtherInfo(){
     $(".other_info_row").removeClass("placeholder_text");
   }
   $(".other_info_row").text(text);
+}
+
+function removePrize(index){
+  prize = $(".prize_section").eq(index);
+  prize_preview = $(".prize_row").eq(index);
+  if( $(".prize_section").length == 1 ){
+    prize.find("textarea").val("");
+    updatePrivewPrizeField(index);
+  }else{
+    prize.remove();
+    prize_preview.remove();
+  }
 }
 
 function clearAll(){
