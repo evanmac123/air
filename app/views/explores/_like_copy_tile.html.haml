@@ -1,19 +1,28 @@
 -if current_user.likes_tile?(tile)
-  .tile_liked
-    = fa_icon 'smile-o'
-    = show_my_liked_tile(tile)
-    =link_to 'Liked', explore_tile_likes_path(tile_id: tile.id, path: :via_explore_page_thumbnail), method: :delete
+  - display_liked = 'display:block;'
+  - display_unliked = 'display:none;'
 -else
-  .tile_not_liked
-    = fa_icon 'smile-o'
-    = show_unliked_tile(tile)
-    = link_to 'Like', explore_tile_likes_path(tile_id: tile.id, path: :via_explore_page_thumbnail), method: :post
+  - display_liked = 'display:none;'
+  - display_unliked = 'display:block;'
+
+.tile_liked{class:"tile-#{tile.id}", style:display_liked}
+  = fa_icon 'smile-o'
+  %span.like_message
+    = tile.like_count
+  =link_to 'Liked', explore_tile_likes_path(tile_id: tile.id, path: :via_explore_page_thumbnail), method: :delete, remote: true
+.tile_not_liked{class:"tile-#{tile.id}", style:display_unliked}
+  = fa_icon 'smile-o'
+  %span.like_message
+    = tile.like_count
+  = link_to 'Like', explore_tile_likes_path(tile_id: tile.id, path: :via_explore_page_thumbnail), method: :post, remote: true
 
 -if tile.is_copyable?
-  - if current_user.copied_tile?(tile)
+  - puts tile.copy_count
+  - puts "*"*1000
+  - if tile.copy_count>0
     .copied
       =fa_icon 'copy'
-      = show_my_copied_tile(tile)
+      = tile.copy_count
       - copy_url = explore_copy_tile_path(tile_id: tile.id, path: :via_explore_page_thumbnail)
       - if current_user.copied_tile?(tile)
         = link_to '#', id: "copy_tile_link", data_url: copy_url do
@@ -21,10 +30,10 @@
       - else
         = link_to '#', id: "copy_tile_link", data_url: copy_url do
           Copy      
-  -else
+  - else
     .not_copied
       =fa_icon 'copy'
-      = show_uncopied_tile(tile)
+      = tile.copy_count
       - copy_url = explore_copy_tile_path(tile_id: tile.id, path: :via_explore_page_thumbnail)
       - if current_user.copied_tile?(tile)
         = link_to '#', id: "copy_tile_link", data_url: copy_url do

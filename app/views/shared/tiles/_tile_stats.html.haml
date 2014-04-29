@@ -10,20 +10,3 @@
         Completed:
         = number_to_percentage tile.claimed_completion_percentage, precision: 1
         of joined users
-      .likes
-        Liked:
-        = link_to("#{pluralize(tile.like_count, 'user')}", '#', 'data-reveal-id' => "reveal_like_copy_status_#{tile.id}")
-      .copies
-        Copied:
-        = link_to("#{pluralize(tile.copy_count, 'user')}", '#', 'data-reveal-id' => "reveal_like_copy_status_#{tile.id}")
-      .reveal-modal{id:"reveal_like_copy_status_#{tile.id}"}
-        = link_to '&#215;'.html_safe, '#', class: "close-reveal-modal"
-        .liked_by
-          = fa_icon 'smile-o'
-          Liked By:
-          =tile.liked_by
-        .copied_by
-          = fa_icon 'copy'
-          Copied By:
-          =tile.copied_by
-        

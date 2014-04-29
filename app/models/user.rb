@@ -1028,7 +1028,7 @@ class User < ActiveRecord::Base
   end
   
   def copied_tile?(tile)
-    user_tile_copies.where(tile_id: tile.id).exists?    
+    self.user_tile_copies.where(tile_id: tile.id).exists?    
   end
 
   protected

@@ -7,22 +7,8 @@
 <div class='row'>
   <%=render partial: 'tile_preview_navbar', locals: {tile: @tile} %>
 </div>
-
-<div clas='row'>
-  <div class='tile_tag_bar columns large-7 large-centered columns' >
-    <ul class="all_tile_tags">
-      <li><%=fa_icon :tags%></li>
-        
-
-    </ul>
-    <ul class="extra_tags_list">
-      <% @tile.tile_tags.each do |tile_tag| %>
-        <li class="tile_tag">
-          <%= link_to tile_tag.title, tile_tag_show_explore_path(tile_tag: tile_tag.id) %>
-        </li>
-      <% end %>          
-    </ul>
-  </div>
+<div class='row'>
+  <%=render partial: 'like_copy_tag_bar', locals: {tile: @tile} %>
 </div>
 
 <div class="row">

@@ -29,6 +29,10 @@ module ClientAdmin::TilesHelper
   def footer_timestamp(tile, options={})
     TileFooterTimestamper.new(tile, options).footer_timestamp
   end
+  
+  def tile_time_ago(tile,options={})
+    TileFooterTimestamper.new(tile, options).footer_timestamp_ago
+  end
 
   # We display a different heading if the schmuck... er, customer, didn't interact with any of the tiles in the first digest email
   def digest_email_heading_begin

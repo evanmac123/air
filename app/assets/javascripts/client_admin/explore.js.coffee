@@ -7,42 +7,43 @@ $(document).ready ->
     else
       return all_tile_tags.height()
     
-  hideExtraTags = (all_tile_tags, max_height, use_parent_height) ->
-    extra_tags_lists = all_tile_tags.siblings('ul.extra_tags_list')
+  hideExtraTags = (all_tile_tags, extra_tags_list, max_height, use_parent_height) ->    
     
-    children = extra_tags_lists.children()
+    children = extra_tags_list.children()
     if use_parent_height
       all_tile_tags_height = all_tile_tags.parent().height()
     else
       all_tile_tags_height = all_tile_tags.height()
     while( all_tile_tags_height <= max_height && children.length > 0)      
       children.first().appendTo(all_tile_tags)
-      children = extra_tags_lists.children()
+      children = extra_tags_list.children()
       all_tile_tags_height = calculateHeight(all_tile_tags, use_parent_height)
 
     if(all_tile_tags_height > max_height) 
-      all_tile_tags.children().last().appendTo(extra_tags_lists)
+      all_tile_tags.children().last().appendTo(extra_tags_list)
       $(all_tile_tags).append("<li class='tile_tag'><a class='extra_tags' href='#'>...</a></li>")
       all_tile_tags_height = calculateHeight(all_tile_tags, use_parent_height)
 
     #decrease the number of items further, if height constraint is still not met
     if(all_tile_tags_height > max_height)
-      all_tile_tags.find('li:nth-last-child(2)').appendTo(extra_tags_lists)
+      all_tile_tags.find('li:nth-last-child(2)').appendTo(extra_tags_list)
     
-  $('.tile_tag_bar').find(".all_tile_tags").each (index) ->
-    hideExtraTags($(this), 40, true)
+  $('.tile_tag_bar').find(".tile_tags").each (index) ->
+    extra_tags_list = $('.tile_tag_bar').find('ul.extra_tags_list')    
+    hideExtraTags($(this), extra_tags_list, 40, true)
   
   $('.tile_with_tags').find('.explore_tile > .all_tile_tags').each (index) ->
-    hideExtraTags($(this), 60, false)
+    extra_tags_list = $(this).siblings('ul.extra_tags_list')
+    hideExtraTags($(this), extra_tags_list, 60, false)
 
   $('.tile_with_tags').find('.explore_tile > .all_tile_tags > .tile_tag > .extra_tags').on('click', (event) ->
     $(this).parent().parent().siblings('ul.extra_tags_list').toggle()
     false
   )
   
-  #show extended tile tags list on clicking the '...' button in tile_preview page
+  #show/hide extended tile tags list on clicking the '...' button in tile_preview page
   $('.tile_tag_bar').find(".extra_tags").on('click', (event) ->
-    $(this).parent().parent().siblings('ul').toggle()
+    $('.tile_tag_bar').find('ul.extra_tags_list').toggle()
     false
   )
     
@@ -50,15 +51,21 @@ $(document).ready ->
   $('body.explores').on('click', (event) -> 
     $(this).find('ul.extra_tags_list').hide()
   )
+  #show/hide extended tile tags list on clicking the '...' button in tile preview page
+  $('body.tile_previews').on('click', (event) -> 
+    $(this).find('ul.extra_tags_list').hide()
+  )
   
   $('body.explores').find('.tile_with_tags').on('ajaxComplete', (event) ->
     $(this).find('.explore_tile > .all_tile_tags').each (index) ->
       hideExtraTags($(this), 60, false)    
   )
-  
+    
   $('body.explores').find('#copy_tile_link').on('click', (event) ->
     copyButton = $(event.target);
     event.preventDefault();
+    console.log('copy_tile_link clicked with url: '+ $(this).attr('data_url'))
+    
     $.post($(this).attr('data_url'), {},
       (data) ->
         if(data.success)

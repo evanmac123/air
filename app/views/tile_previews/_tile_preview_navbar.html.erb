@@ -1,47 +1,21 @@
 <div class='large-12 columns tile_preview_navbar'>
   <ul class='large-12'>
     <li class ='left-section'>
-      <%= link_to :back do %>
-        <%=fa_icon 'chevron-left'%>
+      <%= link_to explore_path do %>
+        <%='Explore:'%>
       <% end %>            
     </li>
     <li class='basic-info'>
+      <%unless tile.demo.client_name.blank?%>
+        <div class="nav_bar_company_name"><%="#{tile.demo.client_name}, "%></div>
+      <%end%>
       <div class='organization'><%= tile.demo.name%></div>
-      <div class='creator'><%=(tile.creator && tile.creator.name) || ''%></div>
-      <div class='created_at'>Posted: <%= tile.human_creation_date %></div>
-    </li>
-    <li class='like-copy-section'>
-      <div class="copy_like_button_wrapper">
-        <%unless current_user.likes_tile?(tile)%>
-          <%= link_to explore_tile_likes_path(tile_id: tile.id, path: :via_explore_page_tile_view), class: 'copy_like_button', method: :post do%>
-            <%= fa_icon 'smile-o' %>
-            Like
-          <%end%>
-        <%else%>
-          <%=link_to explore_tile_likes_path(tile_id: tile.id, path: :via_explore_page_tile_view), class: 'copy_like_button', method: :delete do%>        
-            <%= fa_icon 'smile-o' %>
-            Liked
-          <%end%>
-        <%end%>
+      <div class='created_at'><%= time_ago_in_words(tile.created_at)%> ago</div>
+      <div class='creator'>
+        <%=fa_icon :user%>
+        <%=(tile.creator && tile.creator.name) || ''%>
       </div>
-      <div class="liked_by">
-        <%=show_tile_likes(tile, current_user)%>
-      </div>
-    </li>
-    <li class='like-copy-section'>
-      <% if @tile.is_copyable? %>
-        <%= render 'tiles/copy_button', tile: tile%>
-        <div class='copied_by'>
-          <%=show_tile_copies(tile, current_user)%>
-        </div>
-      <% else %>
-        <div data-tooltip class="has-tip" title="The permissions on this tile don't allow copying.">
-          <div class="view-only">
-            <%= fa_icon 'minus-circle 2x'%>
-            <div>Tile is view only</div>      
-          </div>
-        </div>
-      <% end %>            
+      
     </li>
   </ul>
 </div>

@@ -7,12 +7,12 @@
     <ul class='large-12'>
       <li class='explore_section'>
         <%= link_to client_admin_explore_path(return_to_explore_source: 'Explore Topic Page - Back To Explore') do %>
-          <%= fa_icon 'chevron-left 2x'%>
-          <h1 class='explore'> Explore </h1>
+          Explore:
         <% end %>
       </li>
       <li class='tile_tag'>
-        <h1><%= @tile_tag.title %></h1>
+        <%= @tile_tag.title %>
+        <%= fa_icon 'tag' %>
       </li>
     </ul>
   </div>

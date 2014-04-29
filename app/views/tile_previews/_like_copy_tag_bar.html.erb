@@ -1,0 +1,81 @@
+<% 
+if current_user.likes_tile?(tile)
+  display_like = 'display:none;'
+  display_liked = 'display:block;'
+  else
+  display_like = 'display:block;'
+  display_liked = 'display:none;'
+  end
+%>
+
+  <div class='tile_tag_bar columns large-7 large-centered columns' >
+    <ul class="">
+      <% if tile.is_copyable?%>
+        <li class='like-copy-section'>
+          <div class="like_button_wrapper">
+            <%= link_to explore_tile_likes_path(tile_id: tile.id, 
+              path: :via_explore_page_tile_view), class: "not_like_button tile-#{tile.id}", 
+                method: :post, remote: true, style: display_like do%>
+              <%= fa_icon 'smile-o' %>
+              Like
+            <%end%>
+            <%=link_to explore_tile_likes_path(tile_id: tile.id, 
+              path: :via_explore_page_tile_view), class: "like_button tile-#{tile.id}", 
+                method: :delete, remote: true, style: display_liked do%>
+              <%= fa_icon 'smile-o' %>
+              Liked
+            <%end%>
+          </div>
+        </li>
+        <li class='like-copy-section'>
+          <%= render 'tiles/copy_button', tile: tile%>
+        </li>
+        <li class="like-copy-info">
+          <div class="liked_by" id="tile_likes_text">
+            <%=show_tile_likes(tile, current_user)%>
+          </div>
+          <div class='copied_by'>
+            <%=show_tile_copies(tile, current_user)%>
+          </div> 
+        </li>
+      <%else%>
+        <li class='like-copy-section'>
+          <div class="like_button_wrapper">
+            <%= link_to explore_tile_likes_path(tile_id: tile.id, 
+              path: :via_explore_page_tile_view), class: "not_like_button tile-#{tile.id}", 
+                method: :post, remote: true, style: display_like do%>
+              <%= fa_icon 'smile-o' %>
+              Like
+            <%end%>
+            <%=link_to explore_tile_likes_path(tile_id: tile.id, 
+              path: :via_explore_page_tile_view), class: 'like_button tile-#{tile.id}',
+                method: :delete, remote: true, style: display_liked do%>
+              <%= fa_icon 'smile-o' %>
+              Liked
+            <%end%>
+          </div>
+        </li>
+        <li class="like-view-info">
+          <div class="liked_by_non_copyable" id="tile_likes_text">
+            <%=show_tile_likes(tile, current_user)%>
+          </div>
+          <div data-tooltip class="has-tip view-only" title="The permissions on this tile don't allow copying.">
+            <%= fa_icon 'minus-circle 2x'%>
+            <div class="text">Tile is view only</div>      
+          </div>
+        </li>
+      <%end%>
+      <li class="all_tile_tags">
+        <ul class="tile_tags">
+          <li><%=fa_icon :tag%></li>
+        </ul>
+      </li>
+    </ul>
+    <ul class="extra_tags_list">
+      <% @tile.tile_tags.each do |tile_tag| %>
+        <li class="tile_tag">
+          <%= link_to tile_tag.title, tile_tag_show_explore_path(tile_tag: tile_tag.id) %>
+        </li>
+      <% end %>          
+    </ul>
+  </div>

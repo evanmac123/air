@@ -2,7 +2,7 @@ require 'acceptance/acceptance_helper'
 
 feature "Client admin copies tile from the explore-preview page" do
   def click_copy
-    page.find('.copy_tile_button').click
+    page.find('#copy_tile_button').click
     page.should have_content("You've added this tile to the inactive section of your board.")
   end
 
@@ -50,6 +50,7 @@ feature "Client admin copies tile from the explore-preview page" do
   end
 
   it "should show a helpful message in a modal after copying", js: true do
+    debugger
     click_copy
     page.find('#tile_copied_lightbox', visible: true)
 
@@ -63,7 +64,10 @@ feature "Client admin copies tile from the explore-preview page" do
     click_copy
     crank_dj_clear
 
-    FakeMixpanelTracker.should have_event_matching('Tile - Copied', {tile_id: @original_tile.id})
+    FakeMixpanelTracker.should have_event_matching('Explore page - Large Tile View', {
+        tile_id: @original_tile.id,
+        action: 'Clicked Copy'
+      })
   end
 
   it "should record user who copied", js: true do

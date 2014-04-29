@@ -5,7 +5,7 @@ body.tile_previews.tile_previews-show {
   background-color: #FEFEFE;  
   .tile_preview_navbar {
     background-color: $white;  
-    border: 1px solid $light-gray;
+    border-bottom: 1px solid $light-gray;
     margin-bottom: 50px;
     padding-left: 0;
     padding-right: 0;
@@ -14,79 +14,55 @@ body.tile_previews.tile_previews-show {
         float: left;
         &.left-section{
           a {
-            color: #000;          
+            color: $sky-blue;
+            font-size: 16px;
+            font-weight: 500;
           }
           text-align: center;
-          width: 13%;
+          width: 6%;
           padding-top: 20px;
           padding-bottom: 20px;
           font-size: 30px;
+          font-weight: 900px;
         }
         &.basic-info{
           text-align: left;
-          border-left: 1px solid #dfdfdf;
-          width: 27%;
-          padding-left: 20px;
-          padding-top: 16px;
-          line-height: 1.15em;
-          min-height: 82px;
+          width: 94%;
+          padding-bottom: 20px;
+          padding-top: 20pt;
           color: $dark-gray;
           font-weight: 900;
+          .nav_bar_company_name{
+            font-size: 16pt;
+            padding-top: 8px;
+            font-weight: 500;
+            color: $dark-gray;
+          }
           .organization{
-            font-size: 12px;
+            float: left;
+            padding-top: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            color: $dark-gray;
           }
           .creator{
+            float: right;
             font-size: 14px;
-          }
-          .created_at{
-            font-size: 10px;
-            font-weight: 500;
-            color: $med-gray;
-          }
-        }
-        &.like-copy-section{
-          
-          float: left;
-          border-left: 1px solid #dfdfdf;
-          width: 30%;
-          min-height: 82px;
-          padding-top: 26px;
-          padding-bottom: 14px;
-          padding-left: 50px;
-          .copy_like_button_wrapper, #copy_button_wrapper {
-            float: left;
-            padding-right: 12px;
-          }
-          .copy_like_button{
-              @include light-button($sky-blue);
-              font-size: 12px;
-              &:active {
-                color: $white !important;
-                background-color: $sky-blue;
-              }
-          }
-          .view-only{
-            color: $light-gray;
-            font-size: 10px;
-            div {
-              display: inline-block;
+            padding-top: 12px;
+            color: $dark-gray;
+            padding-right: 50px;
+            .fa{
+              padding-right: 5px;
             }
           }
-          .liked_by, .copied_by {
+          .created_at{
+            float: right;
             font-size: 12px;
+            font-weight: 500;
+            padding-top: 13px;
+            padding-right: 5px;
             color: $med-gray;
           }
-          .copy_like_button{
-              @include light-button($sky-blue);
-          }
-        }
-        &.right-section{        
-          border-left: 1px solid $light-gray;
-          width: 30%;
-          text-align: center;
-          float: right;
-          padding-top: 14px;
-          padding-bottom: 14px;
         }
         .user_detail_nav_bar{
           text-align: center;
@@ -99,11 +75,74 @@ body.tile_previews.tile_previews-show {
       }
     }    
   }
+  
   .tile_tag_bar {
-    padding-bottom: 20px;
+    padding-bottom: 2.5em;
+    .like-copy-section{      
+      float: left;
+      width: 14%;
+      padding-left: 10px;
+      .like_button_wrapper, .copy_button_wrapper {
+        float: left;
+      }
+      .copy_button, .like_button, .not_like_button{
+        @include light-button($sky-blue);
+        font-size: 0.8em;
+        &:active {
+          color: $white !important;
+          background-color: $sky-blue;
+        }
+      }      
+      .liked_by, .copied_by {
+        font-size: 12px;
+        color: $med-gray;
+      }      
+    }
+    .like-copy-info{      
+      float: left;
+      width: 40%;
+      color: $med-gray;
+      .liked_by, .copied_by{
+        float: bottom;
+        font-size: 10px;
+      }
+    }
+    .like-view-info{      
+      float: left;
+      width: 56%;
+      color: $med-gray;
+      .liked_by {
+        float: bottom;
+        font-size: 10px;
+      }
+      .view-only{
+        color: $light-gray;
+        float: left;
+        font-size: 10px;
+        div {
+          display: inline-block;
+        }
+        .text{
+          padding-top: 5px;
+        }
+      }
+      .liked_by_non_copyable{
+        float: left;
+        width: 70%;
+        font-size: 10px;
+        color: $med-gray;
+        padding-top: 5px;
+      }
+    }
     .all_tile_tags {
-      max-width: 600px;
-      margin: 0 auto;
+      float: right;
+      width: 30%;
+    }
+    .tile_tags {
+      color: $light-gray;
+      float: right;
+      padding-right: 10px;
+      
       li { display: inline-block;}
       .tile_tag {
         margin-top: 5px;
@@ -121,6 +160,7 @@ body.tile_previews.tile_previews-show {
     }
     .extra_tags_list{
       max-width: 600px;
+      margin-top: 1.7em;
       margin-left: 0.7em;
       width: 100%;
       
@@ -143,6 +183,4 @@ body.tile_previews.tile_previews-show {
       }
     }    
   }
-  
-  
 }
