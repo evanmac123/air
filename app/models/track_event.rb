@@ -9,6 +9,13 @@ module TrackEvent
     TrackEvent.ping_page *args
   end
 
+  def ping_action_after_dash(description, args, user=nil)
+    parts = description.split(/\s+-\s+/)
+    (event, action) = parts
+    _args = args.merge(action: action)
+    ping(event, _args, user)
+  end
+
   def self.ping(event, data_hash = {}, user = nil)
     data_to_send = user.present? ? data_hash.merge(user.data_for_mixpanel) : data_hash
 

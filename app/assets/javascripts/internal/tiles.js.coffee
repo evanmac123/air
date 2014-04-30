@@ -68,7 +68,7 @@ postTileCompletion = (event) ->
   })
 
 pingRightAnswerInPreview = () ->
-  $.post("/ping", {event: 'Explore Tile Preview Page - Clicked Answer'})
+  $.post("/ping", {event: 'Explore Tile Preview Page', properties: {action: 'Clicked Answer'}})
 
 rightAnswerClicked = (event) ->
   posting = postTileCompletion(event)

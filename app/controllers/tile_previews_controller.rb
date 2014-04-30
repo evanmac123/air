@@ -10,7 +10,7 @@ class TilePreviewsController < ClientAdminBaseController
     ping "Tile - Viewed in Explore", {tile_id: tile.id}, current_user
 
     if params[:thumb_click_source]
-      ping params[:thumb_click_source], {tile_id: tile.id}, current_user
+      ping_action_after_dash params[:thumb_click_source], {tile_id: tile.id}, current_user
     end
   end
 end

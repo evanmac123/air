@@ -12,7 +12,7 @@ class ExploresController < ClientAdminBaseController
     render_partial_if_requested(tag_click_source: 'Explore Main Page - Clicked Tag On Tile', thumb_click_source: 'Explore Main Page - Tile Thumbnail Clicked')
 
     if params[:return_to_explore_source]
-      ping params[:return_to_explore_source], {}, current_user
+      ping_action_after_dash params[:return_to_explore_source], {}, current_user
     end
   end
   
@@ -28,7 +28,7 @@ class ExploresController < ClientAdminBaseController
     render_partial_if_requested(tag_click_source: "Topic Page - Clicked Tag On Tile", thumb_click_source: 'Topic Page - Tile Thumbnail Clicked')
 
     if params[:tag_click_source].present?
-      TrackEvent.ping(params[:tag_click_source], {tag: @tile_tag.title}, current_user)
+      ping_action_after_dash(params[:tag_click_source], {tag: @tile_tag.title}, current_user)
     end
   end
 
@@ -40,7 +40,7 @@ class ExploresController < ClientAdminBaseController
 
   def render_partial_if_requested(extra_locals)
     if params[:partial_only]
-      ping("Topic Page - Clicked See More", {}, current_user)
+      ping("Topic Page", {action: "Clicked See More"}, current_user)
       render partial: "explores/tile_with_tags", locals: {tiles: @tiles, path_for_more_tiles: @path_for_more_tiles, all_tiles_displayed: @all_tiles_displayed}.merge(extra_locals)
     end
   end

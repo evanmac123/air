@@ -20,7 +20,7 @@ feature 'Previews a public tile' do
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear
 
-      FakeMixpanelTracker.should have_event_matching('Explore Tile Preview Page - Clicked Tile Tag', {tag: @tile_tag.title})
+      FakeMixpanelTracker.should have_event_matching('Explore Tile Preview Page', action: 'Clicked Tile Tag', tag: @tile_tag.title)
     end
 
     it "takes us to where we would want" do
