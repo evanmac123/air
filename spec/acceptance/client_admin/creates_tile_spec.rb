@@ -65,7 +65,7 @@ feature 'Creates tile' do
         FakeMixpanelTracker.clear_tracked_events
         crank_dj_clear
 
-        FakeMixpanelTracker.should have_event_matching('Tile - Received No Tag Added Error')
+        FakeMixpanelTracker.should have_event_matching('Tile - New', {'action' => 'Received No Tag Added Error'})
       end
     end
   end

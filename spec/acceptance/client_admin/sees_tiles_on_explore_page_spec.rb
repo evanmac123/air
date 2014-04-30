@@ -44,7 +44,7 @@ feature 'Sees tiles on explore page' do
     show_more_tiles_link.click
     sleep 5
     crank_dj_clear
-    FakeMixpanelTracker.should have_event_matching('Topic Page', action: 'Clicked See More')
+    FakeMixpanelTracker.should have_event_matching('Explore Topic Page', action: 'Clicked See More')
   end
 
   it "should see information about creators for tiles that have them" do
@@ -212,7 +212,7 @@ feature 'Sees tiles on explore page' do
         page.should have_content('Explore Click me') # wait till load is done
         FakeMixpanelTracker.clear_tracked_events
         crank_dj_clear
-        FakeMixpanelTracker.should have_event_matching('Topic Page', {action: 'Clicked Tag On Tile', tag: "Click me"})
+        FakeMixpanelTracker.should have_event_matching('Explore Topic Page', {action: 'Clicked Tag On Tile', tag: "Click me"})
       end
 
       it "pings when clicking a tag on a tile, on the topic page, in a later batch", js: true do
@@ -232,7 +232,7 @@ feature 'Sees tiles on explore page' do
         end
 
         crank_dj_clear
-        FakeMixpanelTracker.should have_event_matching('Topic Page', {action: 'Clicked Tag On Tile', tag: "Click me"})
+        FakeMixpanelTracker.should have_event_matching('Explore Topic Page', {action: 'Clicked Tag On Tile', tag: "Click me"})
       end
 
       it "pings when clicking a tile thumbnail on the topic page", js: true do
@@ -241,7 +241,7 @@ feature 'Sees tiles on explore page' do
 
         FakeMixpanelTracker.clear_tracked_events
         crank_dj_clear
-        FakeMixpanelTracker.should have_event_matching('Topic Page', action: 'Tile Thumbnail Clicked')
+        FakeMixpanelTracker.should have_event_matching('Explore Topic Page', action: 'Tile Thumbnail Clicked')
       end
 
       it "pings when clicking a tile thumbnail on the topic page in a later batch", js: true do
@@ -259,7 +259,7 @@ feature 'Sees tiles on explore page' do
         page.all('.explore_tile > a')[19].click
 
         crank_dj_clear
-        FakeMixpanelTracker.should have_event_matching('Topic Page', action: 'Tile Thumbnail Clicked')
+        FakeMixpanelTracker.should have_event_matching('Explore Topic Page', action: 'Tile Thumbnail Clicked')
       end
     end
   end
@@ -326,7 +326,7 @@ feature 'Sees tiles on explore page' do
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear
 
-      FakeMixpanelTracker.should have_event_matching('Topic Page', action: 'Back To Explore')
+      FakeMixpanelTracker.should have_event_matching('Explore Topic Page', action: 'Back To Explore')
     end
   end
 
