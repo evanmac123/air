@@ -297,7 +297,7 @@ function clearAll(){
   //set first empty
   updatePrivewPrizeField(0);
   //clear other info
-  $("#raffle_other_info").val("");
+  $("#raffle_other_info").val( $("#raffle_other_info").attr("placeholder") );
   updatePreivewOtherInfo();
   $("form textarea, form input").change();
 }
@@ -312,6 +312,7 @@ function clearAllDialog(){
       "Confirm": function() {
         $( this ).dialog( "close" );
         clearAll();
+        saveDraft();
         rebindPrizeEvents();
       },
       Cancel: function() {

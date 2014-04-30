@@ -206,9 +206,12 @@ body.client_admin-prizes {
       text-transform: uppercase;
     }
     .preview_container{
+      box-shadow: 0 1px 1px 1px $med-gray;
       border: 1px solid $light-gray;
+      background: $light-gray;
       padding: 3em;
       .prize_box{
+        background: $white;
         margin: auto;
         width: 360px;
         border: 1px solid $light-gray;
