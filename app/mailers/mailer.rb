@@ -129,9 +129,10 @@ class Mailer < ActionMailer::Base
   end
   
   def notify_creator_for_social_interaction(tile, user, action)
-    @creator = tile.creator
+    @creator = tile.creator || tile.original_creator
     @action = action
     @user = user
+    @tile = tile
     mail :to      => @creator.email_with_name,
          :from    => @creator.reply_email_address,
          :subject => "Someone #{@action} your tile on Airbo"

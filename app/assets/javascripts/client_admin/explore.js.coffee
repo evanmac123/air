@@ -34,7 +34,7 @@ $(document).ready ->
   
   $('.tile_with_tags').find('.explore_tile > .all_tile_tags').each (index) ->
     extra_tags_list = $(this).siblings('ul.extra_tags_list')
-    hideExtraTags($(this), extra_tags_list, 60, false)
+    hideExtraTags($(this), extra_tags_list, 30, false)
 
   $('.tile_with_tags').find('.explore_tile > .all_tile_tags > .tile_tag > .extra_tags').on('click', (event) ->
     $(this).parent().parent().siblings('ul.extra_tags_list').toggle()
@@ -55,16 +55,10 @@ $(document).ready ->
   $('body.tile_previews').on('click', (event) -> 
     $(this).find('ul.extra_tags_list').hide()
   )
-  
-  $('body.explores').find('.tile_with_tags').on('ajaxComplete', (event) ->
-    $(this).find('.explore_tile > .all_tile_tags').each (index) ->
-      hideExtraTags($(this), 60, false)    
-  )
     
   $('body.explores').find('#copy_tile_link').on('click', (event) ->
     copyButton = $(event.target);
     event.preventDefault();
-    console.log('copy_tile_link clicked with url: '+ $(this).attr('data_url'))
     
     $.post($(this).attr('data_url'), {},
       (data) ->

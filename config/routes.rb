@@ -77,7 +77,7 @@ Health::Application.routes.draw do
   resource :explore, only: [:show] do
     resources :tile_previews, only: [:show]
     resource :copy_tile, only: [:create]
-    resource :tile_likes, :only => [:create, :destroy]
+    resource :tile_likes, :only => [:create, :destroy, :show]
     member do
       get 'tile_tag_show'
     end

@@ -3,7 +3,7 @@
   $('body.explores').find('.tile_liked.tile-<%=@tile.id%>').show();
   $('body.explores').find('.tile_liked.tile-<%=@tile.id%> > .like_message').html('<%=@tile.like_count%>');
 <%else%>
-  $('body.tile_previews').find('.not_like_button.tile-<%=@tile.id%>').hide();
-  $('body.tile_previews').find('.like_button.tile-<%=@tile.id%>').show();
-  $('body.tile_previews').find('#tile_likes_text').html('<%=@tile.like_count%>')
+  $('body.tile_previews').find('#tile-not-like-<%=@tile.id%>').hide();
+  $('body.tile_previews').find('#tile-like-<%=@tile.id%>').show();
+  $('body.tile_previews').find('#tile_likes_text').html('<%=escape_javascript(show_tile_likes(@tile, current_user))%>')
 <%end%>

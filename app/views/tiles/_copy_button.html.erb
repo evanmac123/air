@@ -1,8 +1,21 @@
+<% 
+if current_user.likes_tile?(tile)
+  display_copy = 'display:none;'
+  display_copied = 'display:block;'
+else
+  display_copy = 'display:block;'
+  display_copied = 'display:none;'
+end
+%>
 <%= javascript_include_tag 'jquery.lightbox_me' %>
 <% copy_url = explore_copy_tile_path(tile_id: tile.id, path: :via_explore_page_tile_view) %>
 <div id="copy_button_wrapper">
   <%= link_to '#', id: 'copy_tile_button' do %>
-    <div class="copy_button">
+    <div class="copy_button" style="<%=display_copy%>">
+      <%= fa_icon 'files-o'%>
+        Copy
+    </div>
+    <div class="not_copy_button" style="<%=display_copied%>">
       <%= fa_icon 'files-o'%>
         Copy
     </div>
@@ -29,7 +42,8 @@
           if(data.success) {
             $('#edit_copied_tile_link').attr('href', data.editTilePath);
             $('#tile_copied_lightbox').foundation('reveal', 'open');
-            copyButton.removeClass('disabled');
+            copyButton.find('not_copy_button').hide();
+            copyButton.find('copy_button').show();
           }
         },
         'json'

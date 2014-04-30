@@ -9,48 +9,39 @@ body.tile_previews.tile_previews-show {
     margin-bottom: 50px;
     padding-left: 0;
     padding-right: 0;
+    padding-bottom: 5px;
     ul {
       li {
         float: left;
         &.left-section{
           a {
             color: $sky-blue;
-            font-size: 16px;
+            font-size: 16pt;
             font-weight: 500;
           }
           text-align: center;
-          width: 6%;
-          padding-top: 20px;
-          padding-bottom: 20px;
+          width: 8%;
           font-size: 30px;
-          font-weight: 900px;
+          font-weight: 500px;
+          margin-top: 1px;
         }
         &.basic-info{
           text-align: left;
-          width: 94%;
-          padding-bottom: 20px;
-          padding-top: 20pt;
+          width: 92%;
           color: $dark-gray;
-          font-weight: 900;
+          font-weight: 500;
           .nav_bar_company_name{
             font-size: 16pt;
-            padding-top: 8px;
             font-weight: 500;
             color: $dark-gray;
-          }
-          .organization{
-            float: left;
-            padding-top: 8px;
-            font-size: 16px;
-            font-weight: 500;
-            color: $dark-gray;
+            margin-top: 12px;
           }
           .creator{
             float: right;
             font-size: 14px;
-            padding-top: 12px;
             color: $dark-gray;
-            padding-right: 50px;
+            padding-right: 115px;
+            margin-top: -21px;
             .fa{
               padding-right: 5px;
             }
@@ -59,9 +50,9 @@ body.tile_previews.tile_previews-show {
             float: right;
             font-size: 12px;
             font-weight: 500;
-            padding-top: 13px;
             padding-right: 5px;
             color: $med-gray;
+            margin-top: -18px;
           }
         }
         .user_detail_nav_bar{
@@ -78,19 +69,29 @@ body.tile_previews.tile_previews-show {
   
   .tile_tag_bar {
     padding-bottom: 2.5em;
+    ul.info-bar {
+      padding-left: 10px;
+    }
     .like-copy-section{      
       float: left;
       width: 14%;
-      padding-left: 10px;
       .like_button_wrapper, .copy_button_wrapper {
         float: left;
       }
-      .copy_button, .like_button, .not_like_button{
+      .copy_button, .like_button {
         @include light-button($sky-blue);
         font-size: 0.8em;
         &:active {
           color: $white !important;
           background-color: $sky-blue;
+        }
+      }      
+      .not_copy_button, .not_like_button{
+        @include light-button($med-gray);
+        font-size: 0.8em;
+        &:active {
+          color: $white !important;
+          background-color: $med-gray;
         }
       }      
       .liked_by, .copied_by {
@@ -101,6 +102,8 @@ body.tile_previews.tile_previews-show {
     .like-copy-info{      
       float: left;
       width: 40%;
+      margin-top: -3px;
+      margin-left: 5px;
       color: $med-gray;
       .liked_by, .copied_by{
         float: bottom;

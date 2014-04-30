@@ -14,12 +14,12 @@
           %h1{:style => "color:#292929; font-weight:lighter; font-weight: 300;"}
             Congratulations!
           %h2{:style => "color: #a8a8a8; font-weight:bold; font-weight: 500;"}
-            ="#{@user.name} #{@action} the tile,  ‘#{@tile.headline}’ that you shared on the Explore page.
+            ="#{@user.name} #{@action} the tile,  ‘#{@tile.headline}’ that you shared on the Explore page."
           %table{:id => "mail_footer", :cellpadding => "0", :cellspacing => "15", :width => "100%", :style => "margin:0; text-align:center;"}
             %tr
               %td
                 %center
-                  %table{:style => "background: #4da968; border-bottom:3px #3e8052 solid; text-align:center;", :cellspacing => "3", :width => "250"}
+                  %table{:style => "background: #20ADE9; border-bottom:3px #20ADEA solid; text-align:center;", :cellspacing => "3", :width => "250"}
                     %tr
                       %td{colspan:"3", height:"0", style:"line-height:0; font-size:0;"}
                         &nbsp;
@@ -27,7 +27,7 @@
                       %td{width:"3", height:"45"}
                         &nbsp;
                       %td{valign:"middle", height:"45"}
-                        #{link_to 'Check Activity', client_admin_tiles_url(as:@user), {style:'display:block; padding:10px 40px; text-decoration:none; color:#fff; font-family:helvetica, arial, sans-serif; font-size:20px; font-weight:bold; font-weight:500;'}}
+                        #{link_to 'See Tile', explore_tile_preview_url(@tile,as:@user), {style:'display:block; padding:10px 40px; text-decoration:none; color:#fff; font-family:helvetica, arial, sans-serif; font-size:20px; font-weight:bold; font-weight:500;'}}
                       %td{width:"3", height:"45"}
                         &nbsp;
       %tr

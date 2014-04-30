@@ -17,9 +17,9 @@
             %td
               .explore_tile
                 .author_info= show_author_info(tile)
-                .created_at= "#{time_ago_in_words(tile.created_at)} ago"
                 .like_copy_tile
                   = render partial: 'like_copy_tile', :locals => { :tile => tile }
+                  .created_at= "#{time_ago_in_words(tile.created_at)} ago"
                 = link_to explore_tile_preview_path(tile, thumb_click_source: thumb_click_source) do
                   .tile_image{id:thumbnail_id}
                   .headline

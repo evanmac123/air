@@ -6,13 +6,10 @@
       <% end %>            
     </li>
     <li class='basic-info'>
-      <%unless tile.demo.client_name.blank?%>
-        <div class="nav_bar_company_name"><%="#{tile.demo.client_name}, "%></div>
-      <%end%>
-      <div class='organization'><%= tile.demo.name%></div>
+      <div class="nav_bar_company_name"><%=show_company_and_demo(tile)%></div>
       <div class='created_at'><%= time_ago_in_words(tile.created_at)%> ago</div>
       <div class='creator'>
-        <%=fa_icon :user%>
+        <%=fa_icon :user if tile.creator && !tile.creator.name.blank?%>
         <%=(tile.creator && tile.creator.name) || ''%>
       </div>
       
