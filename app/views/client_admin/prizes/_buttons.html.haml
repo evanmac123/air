@@ -49,7 +49,7 @@
     .button.blue_button#progress_or_cancel{disabled: true}
       In progress
   .buttons_section
-    .button.finish_button#end_early.has-tip.tip-bottom{"data-tooltip" => true, title:'End Early, pick a winner'}
+    %a.button.finish_button#end_early.has-tip.tip-bottom{"data-tooltip" => true, title:'End Early, pick a winner', href: end_early_client_admin_prizes_path}
       End Early
     %a.button.finish_button#cancel_raffle.tip-bottom{"data-tooltip" => true, title:'Cancel, no winner', href: cancel_client_admin_prizes_path}
       Cancel
@@ -76,4 +76,12 @@
         e.preventDefault();
         makeConfirmButton( $(this) );
       }
+    });
+- else
+  .buttons_section
+    .button.blue_button#period_complete{ disabled: true }
+      Prize Period Complete 
+  :javascript
+    $(function() {
+      disableForm();
     });

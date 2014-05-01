@@ -5,6 +5,7 @@ class ClientAdmin::PrizesController < ClientAdminBaseController
     @demo = current_user.demo
     Raffle.new(demo: @demo).save(validate: false) unless @demo.raffle
     @raffle = @demo.reload.raffle
+    @winners = @raffle.winners
   end
 
   def index
@@ -25,14 +26,28 @@ class ClientAdmin::PrizesController < ClientAdminBaseController
     else
       flash[:failure] = "Sorry, we couldn't start the raffle: " + @raffle.errors.values.join(", ") + "."
     end
-    render 'index'
+    redirect_to client_admin_prizes_path
   end
 
   def cancel
     @raffle.destroy
     @demo.reload
     find_raffle
-    render 'index'
+    redirect_to client_admin_prizes_path
+  end
+
+  def end_early
+    @raffle.update_attribute(:status, Raffle::PICK_WINNERS)
+    redirect_to client_admin_prizes_path
+  end
+
+  def pick_winners
+    if params["number_of_winners"].to_i > 0
+      @raffle.update_attribute(:status, Raffle::PICKED_WINNERS)
+      @raffle.pick_winners params["number_of_winners"].to_i
+      @winners = @raffle.winners
+    end
+    redirect_to client_admin_prizes_path
   end
 
   def raffle_params

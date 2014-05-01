@@ -170,6 +170,8 @@ Health::Application.routes.draw do
         post 'start'
         post 'update'
         get 'cancel'
+        get 'end_early'
+        post 'pick_winners'
       end
     end
   end

@@ -1,0 +1,27 @@
+%table
+  %thead
+    %tr
+      %th.winner_number
+      %th.winner_name
+        Name
+      %th.winner_chances
+        Chances
+      %th.winner_email
+        Email
+      %th.winner_delete
+      %th.winner_repick
+  %tbody
+    - winners.each_with_index do |user, index|
+      %tr
+        %td.winner_number
+          = (index + 1).to_s + '.'
+        %td.winner_name
+          = user.name
+        %td.winner_chances
+          = user.tickets
+        %td.winner_email
+          = user.email
+        %td.winner_delete
+          = link_to "Delete", ''
+        %td.winner_repick
+          = link_to "Re-Pick", ''

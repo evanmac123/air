@@ -8,17 +8,18 @@ $almost-white:      #fefefe;
 
 // Our palette
 $blue:              #50698C;
+$med-blue:          #4cbce3;
+$light-blue:        #a7d5ef;
+$sky-blue:          #20ADE9;
 $dark-green:        #4FAA60;
 $orange:            #ff7d00;
 $red:               #BC4C40;
 $white:             #fff;
-$sky-blue:          #20ADE9;
 
 // App elements
 $header-color:      #fff;
 $offcanvas-gray:    $dark-gray;
 $text-color:        #4c4c4c;
-$light-blue:        #a7d5ef;
 $body-bg:           lighten($blue, 56.5%);
 $tile-wall-bg:      lighten($blue, 45%);
 $form-bg:           lighten($blue, 53%);
