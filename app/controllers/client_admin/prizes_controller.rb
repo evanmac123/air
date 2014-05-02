@@ -37,6 +37,12 @@ class ClientAdmin::PrizesController < ClientAdminBaseController
     redirect_to client_admin_prizes_path
   end
 
+  def start_new
+    @raffle.destroy
+    @demo.users.update_all(tickets: 0, points: 0)
+    redirect_to client_admin_prizes_path
+  end
+
   def end_early
     @raffle.update_attribute(:status, Raffle::PICK_WINNERS)
     redirect_to client_admin_prizes_path

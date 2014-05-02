@@ -203,6 +203,7 @@ body.client_admin-prizes {
           border: 1px solid $med-gray;
           &.confirmation{
             color: $red;
+            border-color: $red;
           }
         }
       }
