@@ -20,7 +20,7 @@
         %td.winner_chances
           = user.tickets
         %td.winner_email
-          = user.email
+          = mail_to user.email, user.email, subject: winner_email_subject, body: winner_email_body
         %td.winner_delete
           = link_to "Delete", delete_winner_client_admin_prizes_path(user.id), remote: true, method: :delete
         %td.winner_repick

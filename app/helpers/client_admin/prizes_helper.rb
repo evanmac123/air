@@ -68,4 +68,13 @@ module ClientAdmin::PrizesHelper
       dimention.pluralize(duration)
     end
   end
+
+  def winner_email_subject
+    "Congratulations - you're an Airbo prize winner!"
+  end
+
+  def winner_email_body
+    "Congratulations! You're an Airbo prize winner." +
+    " Thanks for participating and be sure to watch for new tiles to be posted soon."
+  end
 end

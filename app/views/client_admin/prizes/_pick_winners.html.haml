@@ -19,6 +19,12 @@
   .winners
     - if raffle.status == Raffle::PICK_WINNERS && !winners.nil?
       %p
-        Enter number of winners and click the See Winners button. Winners are chosen through the magic of a random number generator. The more prize entries a user has, the better chance of winning. You can curate the list of winners before notifying them.
+        Enter number of winners and click the See Winners button.
+        %br
+        Winners are chosen through the magic of a random number generator. 
+        %br
+        The more prize entries a user has, the better chance of winning. 
+        %br
+        You can curate the list of winners before notifying them.
     - else
       = render 'winners', winners: winners 

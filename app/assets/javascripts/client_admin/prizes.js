@@ -61,6 +61,9 @@ function startDate(){
   date_input = $("#raffle_starts_at").val();
   if(validDateFormat(date_input)){
     date = (new Date(date_input + " 00:00"));
+    if( date.getTime() == todayDate() ){
+      date = new Date();
+    }
   }else{
     date = false;
   }

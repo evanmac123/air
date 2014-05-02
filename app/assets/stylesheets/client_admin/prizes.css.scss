@@ -2,6 +2,7 @@ body.client_admin-prizes {
   .steps_nav_bar{
     padding-bottom: 2em;
     .breadcrumb {
+      background: $white;
       border:1px $light-gray solid;
       border-radius:$border-radius;
       overflow: hidden;
@@ -197,6 +198,9 @@ body.client_admin-prizes {
         &[disabled], &.finish_button{
           color: $med-gray;
           border: 1px solid $med-gray;
+          &.confirmation{
+            color: $red;
+          }
         }
       }
     }
@@ -227,10 +231,6 @@ body.client_admin-prizes {
       border: 1px solid $light-gray;
       padding: 3em;
       .prize_box{
-        //box-shadow: rgb(165, 165, 165) 0px 1px 2px -1px, 
-        //            rgb(165, 165, 165) 0px -1px 2px -1px,
-        //            rgb(165, 165, 165) 1px 0px 2px -1px, 
-        //            rgb(165, 165, 165) -1px 0px 2px -1px;
         box-shadow: rgb(231, 231, 231) 0px 0px 1px 1px;
         background: $white;
         margin: auto;
@@ -340,10 +340,10 @@ body.client_admin-prizes {
       }
       label{
         font-weight: 500;
-        color: $med-gray;
+        color: $text-color;
       }
       input[type=text]{
-        color: $med-gray;
+        color: $text-color;
         text-align: center;
         width: 5em;
       }
@@ -371,14 +371,14 @@ body.client_admin-prizes {
         font-size: 18px;
         padding: 0.55em;
         i{
-          font-size: 24px;
+          font-size: 18px;
         }
       }
       .winners{
         color: $med-gray;
         font-size: 14px;
         p{
-          padding: 2em 5em 5em 5em;
+          padding: 2em 5em 5em 2em;
           line-height: 1.5;
         }
         table{
@@ -401,6 +401,9 @@ body.client_admin-prizes {
           }
           .winner_email{
             padding-left: 5rem;
+            a{
+              color: $med-gray;
+            }
           }
           .winner_delete, .winner_repick{
             width: 10%;
@@ -424,8 +427,14 @@ body.client_admin-prizes {
             tr{
               &:hover{
                 color: $sky-blue;
+                a{
+                  color: $sky-blue;
+                }
                 .winner_delete a, .winner_repick a{
                   visibility: visible;
+                }
+                .winner_number, .winner_name, .winner_chances{
+                  color: $text-color;
                 }
               }
               &:last-child{
