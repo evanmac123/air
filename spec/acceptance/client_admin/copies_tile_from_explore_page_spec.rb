@@ -10,11 +10,11 @@ feature "Client admin copies tile from the explore-preview page" do
     Tile.order("created_at DESC").first
   end
 
-  let (:admin) {a_client_admin}
-  let (:creator) {a_client_admin}
-  let (:copier) {a_client_admin}
-  let (:last_copier) {a_client_admin}
-  let (:second_copier) {a_client_admin}
+  let (:admin) {FactoryGirl.create(:client_admin, name: "Lucille Adminsky")}
+  let (:creator) {FactoryGirl.create(:client_admin, name: "Charlotte McTilecreator")}
+  let (:copier) {FactoryGirl.create(:client_admin, name: "Joe Copier")}
+  let (:last_copier) {FactoryGirl.create(:client_admin, name: "John Lastcopier")}
+  let (:second_copier) {FactoryGirl.create(:client_admin, name: "Suzanne von Secondcopier")}
   
   context 'Admin copies tile' do
     before do
@@ -105,59 +105,63 @@ feature "Client admin copies tile from the explore-preview page" do
   
     scenario 'hitting refresh should show copied by you', js: true do
       click_copy
-      visit explore_tile_preview_path(@original_tile, as: admin)
+      visit explore_tile_preview_path(@original_tile)
       page.should have_content("Copied by you")
     end
+
     scenario 'If someone else has copied the tile page should show copied by username', js: true do
       click_copy
-      visit explore_tile_preview_path(@original_tile, as: copier)
-      page.should have_content("Copied by #{copier.name}")
-    end
-    scenario 'If someone else and you have copied the tile page should show copied by you and username', js: true do
-      click_copy
+
       visit explore_tile_preview_path(@original_tile, as: copier)
       page.should have_content("Copied by #{admin.name}")
+    end
+
+    scenario 'If someone else and you have copied the tile page should show copied by you and username', js: true do
       click_copy
+
+      visit explore_tile_preview_path(@original_tile, as: copier)
+      click_copy
+
       visit explore_tile_preview_path(@original_tile, as: copier)
       page.should have_content("Copied by you and #{admin.name}")
     end
+
     scenario 'If only two people have copied tile and you havent page should show copied by last copier username and prior copier username', js: true do
       click_copy
+
       visit explore_tile_preview_path(@original_tile, as: last_copier)
-      page.should have_content("Copied by #{admin.name}")
       click_copy
-      visit explore_tile_preview_path(@original_tile, as: last_copier)
-      page.should have_content("Copied by you and #{last_copier.name}")
+
       visit explore_tile_preview_path(@original_tile, as: copier)
       page.should have_content("Copied by #{last_copier.name} and #{admin.name}")
     end
+
     scenario 'If copied by more then two people and you havent page should show copied by last copied username, prior copier username and 1 other', js: true do
       click_copy
-      visit explore_tile_preview_path(@original_tile, as: last_copier)
-      page.should have_content("Copied by #{admin.name}")
-      click_copy
-      visit explore_tile_preview_path(@original_tile, as: last_copier)
-      page.should have_content("Copied by you and #{last_copier.name}")
+
       visit explore_tile_preview_path(@original_tile, as: last_copier)
       click_copy
-      page.should have_content("Copied by #{last_copier.name} and #{admin.name}")
+
+      visit explore_tile_preview_path(@original_tile, as: second_copier)
+      click_copy
+
       visit explore_tile_preview_path(@original_tile, as: copier)
-      page.should have_content("Copied by #{last_copier.name}, #{copier.name} and 1 other")
+      page.should have_content("Copied by #{second_copier.name}, #{last_copier.name} and 1 other")
     end
+
     scenario 'If copied by more then two people and you have, page should show copied by you, prior copier username and 2 others', js: true do
       click_copy
+
       visit explore_tile_preview_path(@original_tile, as: last_copier)
-      page.should have_content("Copied by #{admin.name}")
       click_copy
-      visit explore_tile_preview_path(@original_tile, as: last_copier)
-      page.should have_content("Copied by you and #{last_copier.name}")
+
+      visit explore_tile_preview_path(@original_tile, as: second_copier)
       click_copy
-      visit explore_tile_preview_path(@original_tile, as: last_copier)
-      page.should have_content("Copied by #{last_copier.name} and   #{admin.name}")
+
       visit explore_tile_preview_path(@original_tile, as: copier)
-      page.should have_content("Copied by #{last_copier.name}, #{copier.name} and 1 other")
       click_copy
-      page.should have_content("Copied by you, #{last_copier.name} and 2 others")
+
+      page.should have_content("Copied by you, #{second_copier.name}, and 2 others")
     end
   end
 end
