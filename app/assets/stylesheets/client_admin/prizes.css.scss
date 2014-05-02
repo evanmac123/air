@@ -227,10 +227,11 @@ body.client_admin-prizes {
       border: 1px solid $light-gray;
       padding: 3em;
       .prize_box{
-        box-shadow: rgb(165, 165, 165) 0px 1px 2px -1px, 
-                    rgb(165, 165, 165) 0px -1px 2px -1px,
-                    rgb(165, 165, 165) 1px 0px 2px -1px, 
-                    rgb(165, 165, 165) -1px 0px 2px -1px;
+        //box-shadow: rgb(165, 165, 165) 0px 1px 2px -1px, 
+        //            rgb(165, 165, 165) 0px -1px 2px -1px,
+        //            rgb(165, 165, 165) 1px 0px 2px -1px, 
+        //            rgb(165, 165, 165) -1px 0px 2px -1px;
+        box-shadow: rgb(231, 231, 231) 0px 0px 1px 1px;
         background: $white;
         margin: auto;
         width: 360px;
