@@ -195,6 +195,9 @@ body.client_admin-prizes {
             margin: 0;
           }
         }
+        &[disabled]{
+          background: $white;
+        }
         &[disabled], &.finish_button{
           color: $med-gray;
           border: 1px solid $med-gray;
