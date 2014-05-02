@@ -39,9 +39,8 @@ class ClientAdmin::PrizesController < ClientAdminBaseController
 
   def start_new
     @raffle.destroy
-    #@demo.users.update_all(tickets: 0, points: 0)
     @demo.delay.flush_all_user_tickets
-    flash[:success] = "All tickets will be cleared for this demo, it may take a few minutes to finish."
+    flash[:success] = "All tickets have been cleared from your board and reset for the next prize. This may take a few minutes to finish."
     redirect_to client_admin_prizes_path
   end
 
