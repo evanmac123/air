@@ -49,9 +49,9 @@
     .button.blue_button#progress_or_cancel{disabled: true}
       In progress
   .buttons_section
-    %a.button.finish_button#end_early.has-tip.tip-bottom{"data-tooltip" => true, title:'End Early, pick a winner', href: end_early_client_admin_prizes_path}
+    %a.button.finish_button#end_early.has-tip.tip-bottom{"data-tooltip" => true, title: 'End Early, pick a winner', href: end_early_client_admin_prizes_path, "data-confirm-message" => "Confirm?"}
       End Early
-    %a.button.finish_button#cancel_raffle.tip-bottom{"data-tooltip" => true, title:'Cancel, no winner', href: cancel_client_admin_prizes_path}
+    %a.button.finish_button#cancel_raffle.tip-bottom{"data-tooltip" => true, title: 'Cancel, no winner', href: cancel_client_admin_prizes_path, "data-confirm-message" => "Confirm?"}
       Cancel
   :javascript
     $(function() {

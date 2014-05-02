@@ -1,0 +1,28 @@
+%ul.breadcrumb
+  %li{class: (:selected if raffle.status == Raffle::SET_UP)}
+    Set Up
+  %li{class: (:selected if raffle.status == Raffle::LIVE)}
+    Live
+  %li{class: (:selected if raffle.status == Raffle::PICK_WINNERS || raffle.status == Raffle::PICKED_WINNERS)}
+    Pick Winners
+.how-to
+  -if raffle.status == Raffle::SET_UP
+    %a.how_works{:href => "http://airbo.desk.com/customer/portal/articles/1189454-incentive-strategy"}
+      %icon.fa.fa-question-circle
+      How do prizes work?
+  -elsif raffle.status == Raffle::LIVE
+    .pick_winners_from
+      You can pick winners starting 
+      = raffle.ends_at ? (raffle.ends_at + 1.minute).strftime("%A, %B %e at %l:%M %p") : "[Day of week, MM DD at 12:00 AM]"
+      ET
+  -elsif raffle.status == Raffle::PICKED_WINNERS
+    %a.button.new_prize{href: cancel_client_admin_prizes_path, "data-confirm-message" => "Winners for this prize period will be cleared. Confirm?"}
+      %i.fa.fa-gift
+      New Prize
+:javascript
+  $(".new_prize").click(function(e){
+    if( !$(this).hasClass("confirmation") ){
+      e.preventDefault();
+      makeConfirmButton( $(this) );
+    }
+  });

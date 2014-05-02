@@ -364,6 +364,5 @@ function updateRaffle(){
 }
 
 function makeConfirmButton(button){
-  button.addClass("confirmation").text("Confirm?");
-
+  button.addClass("confirmation").text( button.attr("data-confirm-message") );
 }

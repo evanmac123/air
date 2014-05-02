@@ -7,10 +7,10 @@ class Raffle < ActiveRecord::Base
   after_initialize :default_values
 
   #raffle statuses
-  SET_UP = "set_up"
-  LIVE = "live"
-  PICK_WINNERS = "pick_winners"
-  PICKED_WINNERS = "picked_winners"
+  SET_UP = "set_up".freeze
+  LIVE = "live".freeze
+  PICK_WINNERS = "pick_winners".freeze
+  PICKED_WINNERS = "picked_winners".freeze
 
   validates_presence_of :starts_at, :allow_blank => false, :message => "start date can't be blank"
   validates_presence_of :ends_at, :allow_blank => false, :message => "end date can't be blank"
