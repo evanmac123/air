@@ -12,7 +12,7 @@
       %th.winner_repick
   %tbody
     - winners.each_with_index do |user, index|
-      %tr
+      %tr{id: "user_#{user.id}"}
         %td.winner_number
           = (index + 1).to_s + '.'
         %td.winner_name
@@ -22,6 +22,6 @@
         %td.winner_email
           = user.email
         %td.winner_delete
-          = link_to "Delete", ''
+          = link_to "Delete", delete_winner_client_admin_prizes_path(user.id), remote: true, method: :delete
         %td.winner_repick
-          = link_to "Re-Pick", ''
+          = link_to "Re-Pick", repick_winner_client_admin_prizes_path(user.id), remote: true

@@ -31,8 +31,6 @@ class ClientAdmin::PrizesController < ClientAdminBaseController
 
   def cancel
     @raffle.destroy
-    @demo.reload
-    find_raffle
     redirect_to client_admin_prizes_path
   end
 
@@ -48,6 +46,17 @@ class ClientAdmin::PrizesController < ClientAdminBaseController
       @winners = @raffle.winners
     end
     redirect_to client_admin_prizes_path
+  end
+
+  def delete_winner
+    @user = User.find(params[:user_id])
+    @raffle.winners.delete(@user)
+  end
+
+  def repick_winner
+    @user = User.find(params[:user_id])
+    @raffle.repick_winner @user
+    @new_user = @raffle.raffle_winners.last.user
   end
 
   def raffle_params

@@ -172,6 +172,8 @@ Health::Application.routes.draw do
         get 'cancel'
         get 'end_early'
         post 'pick_winners'
+        delete 'delete_winner/:user_id' => 'prizes#delete_winner', as: :delete_winner
+        get 'repick_winner/:user_id' => 'prizes#repick_winner', as: :repick_winner
       end
     end
   end
