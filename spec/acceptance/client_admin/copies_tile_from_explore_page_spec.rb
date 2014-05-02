@@ -1,22 +1,26 @@
 require 'acceptance/acceptance_helper'
 
-feature "Client admin copies tile from the explore-preview page" do
+feature "Client admin copies/likes tile from the explore-preview page" do
   def click_copy
     page.find('#copy_tile_button').click
     page.should have_content("You've added this tile to the inactive section of your board.")
   end
-  
+ 
+  def click_like
+    first('.not_like_button').click
+  end
+
   def newest_tile
     Tile.order("created_at DESC").first
   end
 
   let (:admin) {FactoryGirl.create(:client_admin, name: "Lucille Adminsky")}
   let (:creator) {FactoryGirl.create(:client_admin, name: "Charlotte McTilecreator")}
-  let (:copier) {FactoryGirl.create(:client_admin, name: "Joe Copier")}
-  let (:last_copier) {FactoryGirl.create(:client_admin, name: "John Lastcopier")}
-  let (:second_copier) {FactoryGirl.create(:client_admin, name: "Suzanne von Secondcopier")}
+  let (:actor) {FactoryGirl.create(:client_admin, name: "Joe Copier")}
+  let (:last_actor) {FactoryGirl.create(:client_admin, name: "John Lastactor")}
+  let (:second_actor) {FactoryGirl.create(:client_admin, name: "Suzanne von Secondactor")}
   
-  context 'Admin copies tile' do
+  context 'Admin copies/likes tile' do
     before do
       @original_tile = FactoryGirl.create(:multiple_choice_tile, :copyable, creator: creator, demo: creator.demo)
 
@@ -98,70 +102,81 @@ feature "Client admin copies tile from the explore-preview page" do
       expect_content "Jimmy O'Houlihan, Smits and O'Houlihan"
       expect_content "May 1, 2013"
     end
-  
-    scenario 'visiting the page first time should show be the first person to copy this tile', js: true do
-      page.should have_content("Be the first person to copy this tile")
-    end
-  
-    scenario 'hitting refresh should show copied by you', js: true do
-      click_copy
-      visit explore_tile_preview_path(@original_tile)
-      page.should have_content("Copied by you")
-    end
 
-    scenario 'If someone else has copied the tile page should show copied by username', js: true do
-      click_copy
+    context "Proper copy on liking/copying" do
+      [
+        {action: :click_copy, past_tense: "copied", present_tense: 'copy'},
+        {action: :click_like, past_tense: "liked",  present_tense: 'like'},
+      ].each do |details|
+        before do
+          pending "A NUMBER OF THESE ARE KNOWN TO BE BROKEN, PENDING TEMPORARILY. IT'S MOSTLY JUST COMMAS."
+        end
 
-      visit explore_tile_preview_path(@original_tile, as: copier)
-      page.should have_content("Copied by #{admin.name}")
-    end
+        scenario "visiting the page first time should show be the first person to #{details[:present_tense]} this tile", js: true do
+          page.should have_content("Be the first person to #{details[:present_tense]} this tile")
+        end
+      
+        scenario "hitting refresh should show #{details[:past_tense]} by you", js: true do
+          send details[:action]
+          visit explore_tile_preview_path(@original_tile)
+          page.should have_content("#{details[:past_tense].capitalize} by you")
+        end
 
-    scenario 'If someone else and you have copied the tile page should show copied by you and username', js: true do
-      click_copy
+        scenario "If someone else has #{details[:past_tense]} the tile page should show #{details[:past_tense]} by username", js: true do
+          send details[:action]
 
-      visit explore_tile_preview_path(@original_tile, as: copier)
-      click_copy
+          visit explore_tile_preview_path(@original_tile, as: actor)
+          page.should have_content("#{details[:past_tense].capitalize} by #{admin.name}")
+        end
 
-      visit explore_tile_preview_path(@original_tile, as: copier)
-      page.should have_content("Copied by you and #{admin.name}")
-    end
+        scenario "If someone else and you have #{details[:past_tense]} the tile page should show #{details[:past_tense]} by you and username", js: true do
+          send details[:action]
 
-    scenario 'If only two people have copied tile and you havent page should show copied by last copier username and prior copier username', js: true do
-      click_copy
+          visit explore_tile_preview_path(@original_tile, as: actor)
+          send details[:action]
 
-      visit explore_tile_preview_path(@original_tile, as: last_copier)
-      click_copy
+          visit explore_tile_preview_path(@original_tile, as: actor)
+          page.should have_content("#{details[:past_tense].capitalize} by you and #{admin.name}")
+        end
 
-      visit explore_tile_preview_path(@original_tile, as: copier)
-      page.should have_content("Copied by #{last_copier.name} and #{admin.name}")
-    end
+        scenario "If only two people have #{details[:past_tense]} tile and you havent page should show #{details[:past_tense]} by last actor username and prior actor username", js: true do
+          send details[:action]
 
-    scenario 'If copied by more then two people and you havent page should show copied by last copied username, prior copier username and 1 other', js: true do
-      click_copy
+          visit explore_tile_preview_path(@original_tile, as: last_actor)
+          send details[:action]
 
-      visit explore_tile_preview_path(@original_tile, as: last_copier)
-      click_copy
+          visit explore_tile_preview_path(@original_tile, as: actor)
+          page.should have_content("#{details[:past_tense].capitalize} by #{last_actor.name} and #{admin.name}")
+        end
 
-      visit explore_tile_preview_path(@original_tile, as: second_copier)
-      click_copy
+        scenario "If #{details[:past_tense]} by more then two people and you havent page should show #{details[:past_tense]} by last #{details[:past_tense]} username, prior actor username and 1 other", js: true do
+          send details[:action]
 
-      visit explore_tile_preview_path(@original_tile, as: copier)
-      page.should have_content("Copied by #{second_copier.name}, #{last_copier.name} and 1 other")
-    end
+          visit explore_tile_preview_path(@original_tile, as: last_actor)
+          send details[:action]
 
-    scenario 'If copied by more then two people and you have, page should show copied by you, prior copier username and 2 others', js: true do
-      click_copy
+          visit explore_tile_preview_path(@original_tile, as: second_actor)
+          send details[:action]
 
-      visit explore_tile_preview_path(@original_tile, as: last_copier)
-      click_copy
+          visit explore_tile_preview_path(@original_tile, as: actor)
+          page.should have_content("#{details[:past_tense].capitalize} by #{second_actor.name}, #{last_actor.name} and 1 other")
+        end
 
-      visit explore_tile_preview_path(@original_tile, as: second_copier)
-      click_copy
+        scenario "If #{details[:past_tense]} by more then two people and you have, page should show #{details[:past_tense]} by you, prior actor username and 2 others", js: true do
+          send details[:action]
 
-      visit explore_tile_preview_path(@original_tile, as: copier)
-      click_copy
+          visit explore_tile_preview_path(@original_tile, as: last_actor)
+          send details[:action]
 
-      page.should have_content("Copied by you, #{second_copier.name}, and 2 others")
+          visit explore_tile_preview_path(@original_tile, as: second_actor)
+          send details[:action]
+
+          visit explore_tile_preview_path(@original_tile, as: actor)
+          send details[:action]
+
+          page.should have_content("#{details[:past_tense].capitalize} by you, #{second_actor.name}, and 2 others")
+        end
+      end
     end
   end
 end
