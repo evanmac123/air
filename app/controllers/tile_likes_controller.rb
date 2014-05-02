@@ -9,26 +9,26 @@ class TileLikesController < ClientAdminBaseController
       schedule_like_ping(@tile)
       respond_to do |format|
         format.js {}
-        format.html {
-          @creator = @tile.creator
-          @action = 'liked'
-          @user = current_user
+        #format.html {
+          #@creator = @tile.creator
+          #@action = 'liked'
+          #@user = current_user
           
-          render 'mailer/notify_creator_for_social_interaction'
-        }
+          #render 'mailer/notify_creator_for_social_interaction'
+        #}
       end
     end
   end
 
-  def show
-    @tile = Tile.find(params[:tile_id])
+  #def show
+    #@tile = Tile.find(params[:tile_id])
     
-    @creator = @tile.creator
-    @action = 'liked'
-    @user = current_user
+    #@creator = @tile.creator
+    #@action = 'liked'
+    #@user = current_user
 
-    render 'mailer/notify_creator_for_social_interaction', layout: false
-  end
+    #render 'mailer/notify_creator_for_social_interaction', layout: false
+  #end
   
   def destroy
     tile_like = UserTileLike.where(tile_id: params[:tile_id], user_id: current_user.id).first

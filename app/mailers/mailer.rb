@@ -130,6 +130,8 @@ class Mailer < ActionMailer::Base
   
   def notify_creator_for_social_interaction(tile, user, action)
     @creator = tile.creator || tile.original_creator
+    return unless @creator.present?
+
     @action = action
     @user = user
     @tile = tile

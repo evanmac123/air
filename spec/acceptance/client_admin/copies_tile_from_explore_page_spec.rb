@@ -61,6 +61,14 @@ feature "Client admin copies/likes tile from the explore-preview page" do
       expect_content %(You've added this tile to the inactive section of your board. Next, you can edit this tile, go back to "Explore" or go to manage your board.)
     end
 
+    scenario "works if no creator is set", js: true do
+      @original_tile.update_attributes(creator: nil)
+      click_copy
+      page.find('#tile_copied_lightbox', visible: true)
+
+      expect_content %(You've added this tile to the inactive section of your board. Next, you can edit this tile, go back to "Explore" or go to manage your board.)
+    end
+
     scenario "should ping", js: true do
       crank_dj_clear
       FakeMixpanelTracker.clear_tracked_events
