@@ -54,10 +54,15 @@ feature 'Sees tiles on explore page' do
     creation_date = Date.parse("2013-05-01")
     tile.update_attributes(created_at: creation_date.midnight)
 
-    visit explore_path(as: a_client_admin)
+    begin
+      Timecop.travel(Chronic.parse("2014-05-01"))
+      visit explore_path(as: a_client_admin)
 
-    expect_content "John Q. Public"
-    expect_content "May 1, 2013"
+      expect_content "John Q. Public"
+      expect_content "about 1 year ago"
+    ensure
+      Timecop.return
+    end
   end
 
   context "by picking tagged ones" do
@@ -159,7 +164,7 @@ feature 'Sees tiles on explore page' do
           click_link 'Click me'
         end
 
-        page.should have_content('Explore Click me') # wait till load is done
+        page.should have_content('Explore: Click me') # wait till load is done
         FakeMixpanelTracker.clear_tracked_events
         crank_dj_clear
         FakeMixpanelTracker.should have_event_matching('Explore Main Page', {action: 'Clicked Tile Subject Tag', tag: 'Click me'})
@@ -175,14 +180,14 @@ feature 'Sees tiles on explore page' do
           tag_link.click
         end
 
-        page.should have_content("Explore #{tag_name}") # wait till load is done
+        page.should have_content("Explore: #{tag_name}") # wait till load is done
         FakeMixpanelTracker.clear_tracked_events
         crank_dj_clear
 
         FakeMixpanelTracker.should have_event_matching('Explore Main Page', {action: 'Clicked Tag On Tile', tag: tag_name})
       end
 
-      it "pings when clicking a tag on a tile in a later batch", js: true do
+      it "pings when clicking a tag on a tile in a later batch", js: :webkit do
         19.times do
           tile = FactoryGirl.create(:tile, :public)
           tile.tile_tags << @tag_to_click
@@ -209,13 +214,13 @@ feature 'Sees tiles on explore page' do
           click_link "Click me"
         end
 
-        page.should have_content('Explore Click me') # wait till load is done
+        page.should have_content('Explore: Click me') # wait till load is done
         FakeMixpanelTracker.clear_tracked_events
         crank_dj_clear
         FakeMixpanelTracker.should have_event_matching('Explore Topic Page', {action: 'Clicked Tag On Tile', tag: "Click me"})
       end
 
-      it "pings when clicking a tag on a tile, on the topic page, in a later batch", js: true do
+      it "pings when clicking a tag on a tile, on the topic page, in a later batch", js: :webkit do
         19.times do
           tile = FactoryGirl.create(:tile, :public)
           tile.tile_tags << @tag_to_click
@@ -237,7 +242,7 @@ feature 'Sees tiles on explore page' do
 
       it "pings when clicking a tile thumbnail on the topic page", js: true do
         visit tile_tag_show_explore_path(tile_tag: @tag_to_click, as: a_client_admin)
-        page.first('.explore_tile > a').click
+        page.first('.explore_tile').click
 
         FakeMixpanelTracker.clear_tracked_events
         crank_dj_clear
@@ -256,7 +261,7 @@ feature 'Sees tiles on explore page' do
         crank_dj_clear
         FakeMixpanelTracker.clear_tracked_events
 
-        page.all('.explore_tile > a')[19].click
+        page.all('.explore_tile')[19].click
 
         crank_dj_clear
         FakeMixpanelTracker.should have_event_matching('Explore Topic Page', action: 'Tile Thumbnail Clicked')
@@ -267,14 +272,6 @@ feature 'Sees tiles on explore page' do
   context "when clicking through a tile" do
     before do
       @tile = FactoryGirl.create(:tile, :public)
-    end
-
-    it "should have a Back link that links to the general explore page", js: true do
-      visit explore_path(as: a_client_admin)
-      page.first('.explore_tile > a').click
-
-      find('.left-section > a').click
-      should_be_on explore_path
     end
 
     it "pings" do
@@ -291,28 +288,11 @@ feature 'Sees tiles on explore page' do
       visit explore_path(as: a_client_admin)
       3.times { click_link 'More' }
 
-      page.all('.explore_tile > a')[19].click
+      page.all('.explore_tile')[19].click
 
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear
       FakeMixpanelTracker.should have_event_matching('Explore Main Page', {action: "Tile Thumbnail Clicked"})
-    end
-
-    context "and there is a tag selected" do
-      it "should have a Back link that links to that tag", js: true do
-        tile_tag = FactoryGirl.create(:tile_tag, title: "Hey Now")
-        tile = FactoryGirl.create(:tile, :public)
-        tile.tile_tags << tile_tag
-
-        visit explore_path(as: a_client_admin)
-        within '.tags' do
-          click_link "Hey Now"
-        end
-        page.first('.explore_tile > a').click
-        
-        find('.left-section > a').click
-        URI.parse(current_url).path.should eq URI.parse(tile_tag_show_explore_url(tile_tag: tile_tag)).path
-      end
     end
   end
 
