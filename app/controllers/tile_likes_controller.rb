@@ -3,36 +3,19 @@ class TileLikesController < ClientAdminBaseController
 
   def create
     @tile = Tile.find(params[:tile_id])
-    #only create if like does not already exist
     unless @tile.user_tile_likes.find_by_user_id(current_user.id)
       @tile.user_tile_likes.create(user_id: current_user.id)
       schedule_like_ping(@tile)
       respond_to do |format|
         format.js {}
-        #format.html {
-          #@creator = @tile.creator
-          #@action = 'liked'
-          #@user = current_user
-          
-          #render 'mailer/notify_creator_for_social_interaction'
-        #}
       end
     end
   end
 
-  #def show
-    #@tile = Tile.find(params[:tile_id])
-    
-    #@creator = @tile.creator
-    #@action = 'liked'
-    #@user = current_user
-
-    #render 'mailer/notify_creator_for_social_interaction', layout: false
-  #end
-  
   def destroy
     tile_like = UserTileLike.where(tile_id: params[:tile_id], user_id: current_user.id).first
-    unless tile_like.nil?
+
+    if tile_like.present?
       @tile = tile_like.tile
       tile_like.destroy
       schedule_unlike_ping(@tile)

@@ -1,17 +1,52 @@
 require 'acceptance/acceptance_helper'
 
 feature "Client admin copies/likes tile from the explore-preview page" do
-  def click_copy
-    page.find('#copy_tile_button').click
+  def expect_copied_lightbox
     page.should have_content("You've added this tile to the inactive section of your board.")
+  end
+
+  def click_copy_button
+    page.find('#copy_tile_button').click
+    expect_copied_lightbox
+  end
+
+  def click_copy_link
+    page.find('#copy_tile_link').click
+    show_me_the_page
+    expect_copied_lightbox
   end
  
   def click_like
     first('.not_like_button').click
   end
 
+  def click_unlike_link
+    page.first('.tile_liked a').click
+  end
+
   def newest_tile
     Tile.order("created_at DESC").first
+  end
+
+  def expect_tile_copied(original_tile)
+    copied_tile = newest_tile
+
+    Tile.count.should == 2
+    %w(correct_answer_index headline image_content_type image_file_size image_meta link_address multiple_choice_answers points question supporting_content thumbnail_content_type thumbnail_file_size thumbnail_meta type).each do |expected_same_field|
+      copied_tile[expected_same_field].should == original_tile[expected_same_field]
+    end
+
+    copied_tile.status.should == Tile::DRAFT
+    copied_tile.demo_id.should == admin.demo_id
+    copied_tile.is_copyable.should be_false
+    copied_tile.is_public.should be_false
+
+    copied_tile.image_processing.should be_false
+    copied_tile.thumbnail_processing.should be_false
+    copied_tile.image_updated_at.should be_present
+    copied_tile.thumbnail_updated_at.should be_present
+    copied_tile.image_file_name.should == original_tile.image_file_name
+    copied_tile.thumbnail_file_name.should == original_tile.thumbnail_file_name
   end
 
   let (:admin) {FactoryGirl.create(:client_admin, name: "Lucille Adminsky")}
@@ -31,31 +66,27 @@ feature "Client admin copies/likes tile from the explore-preview page" do
     end
     
     scenario "by clicking the proper link", js: true do
-      click_copy
-      Tile.count.should == 2
+      click_copy_button
    
       crank_dj_clear
-      copied_tile = Tile.order("created_at DESC").first
+      expect_tile_copied(@original_tile)
+    end
 
-      %w(correct_answer_index headline image_content_type image_file_size image_meta link_address multiple_choice_answers points question supporting_content thumbnail_content_type thumbnail_file_size thumbnail_meta type).each do |expected_same_field|
-        copied_tile[expected_same_field].should == @original_tile[expected_same_field]
+    context "when the tile has no creator", js: true do
+      before do
+        @original_tile.update_attributes(creator: nil)
       end
 
-      copied_tile.status.should == Tile::DRAFT
-      copied_tile.demo_id.should == admin.demo_id
-      copied_tile.is_copyable.should be_false
-      copied_tile.is_public.should be_false
-
-      copied_tile.image_processing.should be_false
-      copied_tile.thumbnail_processing.should be_false
-      copied_tile.image_updated_at.should be_present
-      copied_tile.thumbnail_updated_at.should be_present
-      copied_tile.image_file_name.should == @original_tile.image_file_name
-      copied_tile.thumbnail_file_name.should == @original_tile.thumbnail_file_name
+      it "should work", js: true do
+        click_copy_button
+     
+        crank_dj_clear
+        expect_tile_copied(@original_tile)
+      end
     end
 
     scenario "should show a helpful message in a modal after copying", js: true do
-      click_copy
+      click_copy_button
       page.find('#tile_copied_lightbox', visible: true)
 
       expect_content %(You've added this tile to the inactive section of your board. Next, you can edit this tile, go back to "Explore" or go to manage your board.)
@@ -63,7 +94,7 @@ feature "Client admin copies/likes tile from the explore-preview page" do
 
     scenario "works if no creator is set", js: true do
       @original_tile.update_attributes(creator: nil)
-      click_copy
+      click_copy_button
       page.find('#tile_copied_lightbox', visible: true)
 
       expect_content %(You've added this tile to the inactive section of your board. Next, you can edit this tile, go back to "Explore" or go to manage your board.)
@@ -73,7 +104,7 @@ feature "Client admin copies/likes tile from the explore-preview page" do
       crank_dj_clear
       FakeMixpanelTracker.clear_tracked_events
 
-      click_copy
+      click_copy_button
       crank_dj_clear
 
       FakeMixpanelTracker.should have_event_matching('Explore page - Large Tile View', {
@@ -83,7 +114,7 @@ feature "Client admin copies/likes tile from the explore-preview page" do
     end
 
     scenario "should record user who copied", js: true do
-      click_copy
+      click_copy_button
     
       @original_tile.user_tile_copies.reload.first.user_id.should eq admin.id
     end
@@ -102,7 +133,7 @@ feature "Client admin copies/likes tile from the explore-preview page" do
       @original_tile.created_at = Chronic.parse("May 1, 2013, 12:00")
       @original_tile.save!
 
-      click_copy
+      click_copy_button
 
       # little hack
       newest_tile.update_attributes(status: Tile::ACTIVE)
@@ -113,7 +144,7 @@ feature "Client admin copies/likes tile from the explore-preview page" do
 
     context "Proper copy on liking/copying" do
       [
-        {action: :click_copy, past_tense: "copied", present_tense: 'copy'},
+        {action: :click_copy_button, past_tense: "copied", present_tense: 'copy'},
         {action: :click_like, past_tense: "liked",  present_tense: 'like'},
       ].each do |details|
         before do
@@ -186,5 +217,19 @@ feature "Client admin copies/likes tile from the explore-preview page" do
         end
       end
     end
+  end
+
+  scenario "unliking a tile that was liked sometime in the past updates the page properly", js: true do
+    tile = FactoryGirl.create(:multiple_choice_tile, :public)
+    client_admin = a_client_admin
+    UserTileLike.create!(tile: tile, user: client_admin) # we liked this at some point in the past
+
+    visit explore_path(as: client_admin)
+    page.should have_content("1 Like")
+    page.should have_no_content("0 Like")
+
+    click_unlike_link
+    page.should have_content("0 Like")
+    page.should have_no_content("1 Like")
   end
 end
