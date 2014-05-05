@@ -301,13 +301,14 @@ body.client_admin-prizes {
               padding: 0.3em;
             }
             .prize_description{
-              font-size: 14px;
-              min-height: 3.3em;
+              font-size: 16px;
+              min-height: 3em;
               border-left: 1px solid $light-gray;
-              //display: table;
               padding: 0.5em;
+              display: flex;
               p{
-                display: table-cell;
+                margin: auto;
+                text-align: center;
                 vertical-align: middle;
                 word-break: break-word;
               }

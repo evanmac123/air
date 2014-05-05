@@ -9,7 +9,7 @@
       .date_input
         = f.text_field :ends_at, value: date_in_pick_format(raffle.ends_at), class: "datepicker", placeholder: "End", size: 10
     .outer_tip
-      Start at 12:00 AM ET of start date. End at 11:59 PM ET of end date.
+      Starts at 12:00 AM ET of start date. Ends at 11:59 PM ET of end date.
   .content_section
     = f.label "prizes_", "Prize", class: "small_cap"
     .add_another
