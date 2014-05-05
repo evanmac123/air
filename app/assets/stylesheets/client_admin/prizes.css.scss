@@ -316,7 +316,8 @@ body.client_admin-prizes {
           }
         }
         .other_info_row{
-          padding: 1em 0.5em 1em 0.5em;
+          margin-left: 4.2em;
+          padding: 1em 0.7em 1em 0.7em;
           font-size: 14px;
           word-break: break-word;
           line-height: 1.5em;
@@ -353,18 +354,26 @@ body.client_admin-prizes {
         text-align: center;
         width: 5em;
       }
-      input[type=submit]{
-        color: $white;
-        background: $sky-blue;
-        font-size: 16px;
-        padding: 0.35em;
-        border: 0;
-        width: 10em;
-        margin: 0;
-        &.re-pick{
-          color: $med-gray;
-          border: 1px solid $med-gray;
-          background: $white;
+      .pick_winners_submit{
+        position: relative;
+        input[type=submit]{
+          color: $white;
+          background: $sky-blue;
+          font-size: 16px;
+          padding: 0.35em;
+          border: 0;
+          width: 10em;
+          margin: 0;
+          &.re-pick{
+            color: $med-gray;
+            border: 1px solid $med-gray;
+            background: $white;
+          }
+        }
+        #submit_spinner{
+          position: absolute;
+          left: 4.5em;
+          bottom: -0.3em;
         }
       }
     }

@@ -28,6 +28,7 @@ class Raffle < ActiveRecord::Base
   end
 
   def pick_winners number, delete_old = winners
+    blacklisted_users.push delete_old
     blacklist = blacklisted_users.empty? ? -1 : blacklisted_users.pluck(:id)
     participants = demo.users
                         .where('user_id not in (?)', blacklist)
@@ -57,7 +58,6 @@ class Raffle < ActiveRecord::Base
   end
 
   def repick_winner old_winner
-    blacklisted_users.push old_winner
     pick_winners 1, old_winner
   end
 

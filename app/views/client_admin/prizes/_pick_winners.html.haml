@@ -8,11 +8,12 @@
 = form_tag pick_winners_client_admin_prizes_path, id: 'pick_winners' do
   = label_tag :number_of_winners, 'Number of Winners'
   = text_field_tag :number_of_winners, winners.present? ? winners.count : raffle.prizes.count, maxlength: 2
-  - if raffle.status == Raffle::PICK_WINNERS 
-    = submit_tag 'Pick Winners!'
-  - else
-    = submit_tag 'Re-Pick List', class: "re-pick"
-  = image_tag "spinner_gears.gif", id: "submit_spinner", style: "display: none"
+  .pick_winners_submit
+    - if raffle.status == Raffle::PICK_WINNERS 
+      = submit_tag 'Pick Winners!'
+    - else
+      = submit_tag 'Re-Pick List', class: "re-pick"
+    = image_tag "spinner_gears.gif", id: "submit_spinner", style: "display:none"
 .winners_output
   .title
     %i.fa.fa-trophy
@@ -33,8 +34,8 @@
   $().ready(function(){
     $("#pick_winners input[type=submit]").click(function(e){
       e.preventDefault();
-      $(this).parent("form").submit();
+      $("form#pick_winners").submit();
       $("#submit_spinner").css("display", "inline");
-      $(this).attr("disabled", "disabled");
+      $(this).attr("disabled", "disabled").css("color", "transparent");
     });
   });
