@@ -2,6 +2,8 @@ class Raffle < ActiveRecord::Base
   belongs_to :demo
   has_many :raffle_winners, dependent: :destroy#, foreign_key: :raffle_id
   has_many :winners, through: :raffle_winners, source: :user
+  has_many :blacklists, dependent: :destroy
+  has_many :blacklisted_users, through: :blacklists, source: :user
   serialize :prizes, Array
 
   after_initialize :default_values
@@ -26,7 +28,10 @@ class Raffle < ActiveRecord::Base
   end
 
   def pick_winners number, delete_old = winners
-    participants = demo.users.with_some_tickets.order(:tickets)
+    blacklist = blacklisted_users.empty? ? -1 : blacklisted_users.pluck(:id)
+    participants = demo.users
+                        .where('user_id not in (?)', blacklist)
+                        .with_some_tickets.order(:tickets)
     return nil if participants.empty?
 
     chances = []
@@ -39,12 +44,20 @@ class Raffle < ActiveRecord::Base
 
     begin
       index = rand(chances.length)
-      winners.push chances[index] unless winners.include? chances[index]
-    end while winners.count < number && winners.count < participants.count
+      possible_winner = chances[index]
+
+      if winners.include? possible_winner
+        chances.delete(possible_winner)
+        return nil if chances.empty?
+      else
+        winners.push possible_winner
+      end
+    end while winners.count < number
     winners
   end
 
   def repick_winner old_winner
+    blacklisted_users.push old_winner
     pick_winners 1, old_winner
   end
 

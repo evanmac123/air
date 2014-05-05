@@ -319,6 +319,7 @@ body.client_admin-prizes {
           padding: 1em 0.5em 1em 0.5em;
           font-size: 14px;
           word-break: break-word;
+          line-height: 1.5em;
         }
       }
       .placeholder_text{
@@ -355,10 +356,11 @@ body.client_admin-prizes {
       input[type=submit]{
         color: $white;
         background: $sky-blue;
-        font-size: 18px;
-        padding: 0.3em;
+        font-size: 16px;
+        padding: 0.35em;
         border: 0;
         width: 10em;
+        margin: 0;
         &.re-pick{
           color: $med-gray;
           border: 1px solid $med-gray;

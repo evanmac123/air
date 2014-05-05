@@ -12,6 +12,7 @@
     = submit_tag 'Pick Winners!'
   - else
     = submit_tag 'Re-Pick List', class: "re-pick"
+  = image_tag "spinner_gears.gif", id: "submit_spinner", style: "display: none"
 .winners_output
   .title
     %i.fa.fa-trophy
@@ -28,3 +29,12 @@
         You can curate the list of winners before notifying them.
     - else
       = render 'winners', winners: winners 
+:javascript
+  $().ready(function(){
+    $("#pick_winners input[type=submit]").click(function(e){
+      e.preventDefault();
+      $(this).parent("form").submit();
+      $("#submit_spinner").css("display", "inline");
+      $(this).attr("disabled", "disabled");
+    });
+  });

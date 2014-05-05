@@ -65,8 +65,11 @@ class ClientAdmin::PrizesController < ClientAdminBaseController
 
   def repick_winner
     @user = User.find(params[:user_id])
-    @raffle.repick_winner @user
-    @new_user = @raffle.raffle_winners.last.user
+    if @raffle.repick_winner @user
+      @new_user = @raffle.raffle_winners.last.user
+    else
+      render 'delete_winner'
+    end
   end
 
   def raffle_params
