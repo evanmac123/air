@@ -30,7 +30,11 @@ FactoryGirl.define do
 
     trait :sample_tile_not_yet_done do
       sample_tile_completed false
-    end    
+    end  
+
+    trait :with_tickets do
+      tickets 3
+    end  
   end
 
   factory :brand_new_user, :parent => :user do
@@ -358,5 +362,39 @@ FactoryGirl.define do
     issuer           "American Excess"
 
     association :user
+  end
+
+  factory :raffle do
+    association :demo 
+    starts_at DateTime.now.change({:hour => 0 , :min => 0 , :sec => 0 })
+    ends_at DateTime.now.change({:hour => 0 , :min => 0 , :sec => 0 }) + 8.days - 1.minute 
+    prizes ["First Prize", "Second Prize"]
+    other_info "Play raffles - it's fun"
+
+    trait :set_up do
+      status Raffle::SET_UP
+    end
+
+    trait :live do
+      status Raffle::LIVE
+    end
+
+    trait :pick_winners do
+      status Raffle::PICK_WINNERS
+    end
+
+    trait :picked_winners do
+      status Raffle::PICKED_WINNERS
+    end
+  end
+
+  factory :raffle_winner do
+    association :user
+    association :raffle
+  end
+
+  factory :blacklist do
+    association :user
+    association :raffle
   end
 end

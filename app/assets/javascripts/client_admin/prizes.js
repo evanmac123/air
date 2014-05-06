@@ -44,7 +44,7 @@ function todayDate(){
 }
 
 function validDateFormat(date){
-  return /[0-9]+\/[0-9]+\/[0-9]+/.test(date);
+  return /[0-9]+\/[0-9]+\/[0-9]{4,}/.test(date);
 }
 
 function endDate(){
@@ -109,7 +109,7 @@ function validateEndDate(){
   end_date = endDate();
   start_date = startDate();
 
-  if(end_date <= start_date){
+  if(end_date && start_date && end_date <= start_date){
     $("#raffle_ends_at").val("");
   }
 

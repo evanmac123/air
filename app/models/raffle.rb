@@ -1,6 +1,6 @@
 class Raffle < ActiveRecord::Base
   belongs_to :demo
-  has_many :raffle_winners, dependent: :destroy#, foreign_key: :raffle_id
+  has_many :raffle_winners, dependent: :destroy
   has_many :winners, through: :raffle_winners, source: :user
   has_many :blacklists, dependent: :destroy
   has_many :blacklisted_users, through: :blacklists, source: :user
@@ -65,8 +65,10 @@ class Raffle < ActiveRecord::Base
   def default_values
     self.prizes = [""] if prizes.empty?
     self.status = SET_UP unless status
-    self.other_info = "For every 20 points you earn, you receive an entry into the prize raffle. " + \
-    "We'll email the winner to award the prize within a week of the end of the prize period."
+    unless other_info.present?
+      self.other_info = "For every 20 points you earn, you receive an entry into the prize raffle. " + \
+      "We'll email the winner to award the prize within a week of the end of the prize period."
+    end
   end
 
   def prizes_presence

@@ -9,3 +9,4 @@ include SteakHelperMethods
 include NavigationHelpers
 include TileHelpers
 include BoardSwitchingHelpers
+include RaffleHelpers
