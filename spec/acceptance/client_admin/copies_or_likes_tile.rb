@@ -54,6 +54,18 @@ feature "Client admin copies or likes tile" do
       UserTileCopy.count.should eq 2
     end
 
+    scenario 'clicking copy updates copy count on page', js: true do
+      within(first '.like_copy_tile') do
+        page.should have_content('0 Copy')
+        click_link 'Copy'
+      end
+      click_close
+
+      within(first '.like_copy_tile') do
+        page.should have_content('1 Copy')
+      end
+    end
+
     scenario 'Clicks on copy for a tile the refresing the page should have copied link instead of copy link', js: true do
       UserTileCopy.count.should eq 0
       click_copy

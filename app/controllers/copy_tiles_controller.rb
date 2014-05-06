@@ -5,7 +5,11 @@ class CopyTilesController < ClientAdminBaseController
     tile = Tile.copyable.where(id: params[:tile_id]).first
     copy = tile.copy_to_new_demo(current_user.demo, current_user)
     schedule_copy_ping(tile)
-    render json: {success: true, editTilePath: edit_client_admin_tile_path(copy)}
+    render json: {
+      success: true, 
+      editTilePath: edit_client_admin_tile_path(copy),
+      copyCount: tile.copy_count
+    }
   end
 
   protected

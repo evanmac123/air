@@ -59,12 +59,16 @@ $(document).ready ->
   $('body.explores .copy_tile_link').on('click', (event) ->
     copyButton = $(event.target)
     event.preventDefault()
-    
-    $.post($(this).attr('data_url'), {},
+   
+    copyLink = $(this)
+
+    $.post(copyLink.attr('data_url'), {},
       (data) ->
         if(data.success)
           $('#edit_copied_tile_link').attr('href', data.editTilePath)
           $('#tile_copied_reveal').foundation('reveal', 'open')
+          copyMessage = copyLink.parent().find('.copy_message')
+          copyMessage.text(data.copyCount)
       ,
       'json'
     )
