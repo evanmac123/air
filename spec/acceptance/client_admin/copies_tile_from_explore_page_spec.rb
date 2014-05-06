@@ -11,8 +11,7 @@ feature "Client admin copies/likes tile from the explore-preview page" do
   end
 
   def click_copy_link
-    page.find('#copy_tile_link').click
-    show_me_the_page
+    page.first('.copy_tile_link').click
     expect_copied_lightbox
   end
  

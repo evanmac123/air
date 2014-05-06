@@ -12,7 +12,7 @@ feature "Client admin copies or likes tile" do
 
       
   def click_copy
-    first('.not_copied').find('#copy_tile_link').click
+    first('.not_copied').find('.copy_tile_link').click
     find('.reveal-modal').should have_content("You've added this tile to the inactive section of your board.")   
   end
   def click_close
@@ -26,9 +26,11 @@ feature "Client admin copies or likes tile" do
   def click_liked
     first('.tile_liked').find('a').click
   end
+
   def view_only_check
     first('.like_copy_tile').find('.view_only').should have_content('View only')
   end
+
   context 'User on explore tiles page', js: true do
     before do
       FactoryGirl.create_list(:multiple_choice_tile, 8, :copyable, 
@@ -43,6 +45,7 @@ feature "Client admin copies or likes tile" do
       click_copy        
       UserTileCopy.count.should eq 1
     end
+
     scenario 'Clicks on copy for a tile twice increases count by twice', js: true do
       UserTileCopy.count.should eq 0
       click_copy
@@ -50,19 +53,21 @@ feature "Client admin copies or likes tile" do
       click_copy
       UserTileCopy.count.should eq 2
     end
+
     scenario 'Clicks on copy for a tile the refresing the page should have copied link instead of copy link', js: true do
       UserTileCopy.count.should eq 0
       click_copy
       click_close
       visit explore_path(as: client_admin_copier)
-      first('.like_copy_tile').find('.copied').should have_content('Copied')   
+      first('.like_copy_tile .copied').should have_content('Copied')   
     end
+
     scenario 'Clicks on copy for a tile the refresing the page should have copy count increased by 1', js: true do
       UserTileCopy.count.should eq 0
       click_copy
       click_close
       visit explore_path(as: client_admin_copier)
-      first('.like_copy_tile').find('.copied').should have_content('1')  
+      first('.like_copy_tile .copied').should have_content('1')  
     end
     
     scenario 'Clicks on like for a tile should increase the UserTileLike', js:true do
@@ -70,16 +75,19 @@ feature "Client admin copies or likes tile" do
       click_like
       UserTileLike.count.should eq 1
     end
+
     scenario 'Clicks on like for a tile in window count should increase', js:true do
       first('.like_copy_tile').find('.tile_not_liked').should have_content('0')
       click_like
       first('.like_copy_tile').find('.tile_liked').should have_content("1")
     end
+
     scenario 'Clicking on like link should change to liked and appear in blue', js:true do
       first('.like_copy_tile').find('.tile_not_liked').should have_content('Like')
       click_like
       first('.like_copy_tile').find('.tile_liked').should have_content("Liked")
     end
+
     scenario 'Clicking twice on like link should change to like and appear in blue', js:true do
       first('.like_copy_tile').find('.tile_not_liked').should have_content('Like')
       UserTileLike.count.should eq 0
@@ -90,6 +98,7 @@ feature "Client admin copies or likes tile" do
       first('.like_copy_tile').find('.tile_not_liked').should have_content('Like')
       UserTileLike.count.should eq 0
     end
+
     scenario 'Clicking twice on like link should decrese the count', js:true do
       first('.like_copy_tile').find('.tile_not_liked').should have_content('Like')
       UserTileLike.count.should eq 0
@@ -102,7 +111,7 @@ feature "Client admin copies or likes tile" do
   
   context 'User on explore tiles page with uncopyable tiles', js: true do
     before do
-      FactoryGirl.create_list(:multiple_choice_tile, 8, :public, demo: client_admin_maker.demo)      
+      FactoryGirl.create_list(:multiple_choice_tile, 8, :public, demo: client_admin_maker.demo, creator: client_admin_maker)
       crank_dj_clear # to resize the images
       visit explore_path(as: client_admin_copier)
     end
@@ -110,24 +119,28 @@ feature "Client admin copies or likes tile" do
     scenario 'Tile copy should should view only', js: true do
       view_only_check
     end
+
     scenario 'Clicks on like for a tile should increase the UserTileLike', js:true do
       UserTileLike.count.should eq 0
       click_like
       UserTileLike.count.should eq 1
       view_only_check
     end
+
     scenario 'Clicks on like for a tile in window count should increase', js:true do
       first('.like_copy_tile').find('.tile_not_liked').should have_content('0')
       click_like
       first('.like_copy_tile').find('.tile_liked').should have_content("1")
       view_only_check
     end
+
     scenario 'Clicking on like link should change to liked and appear in blue', js:true do
       first('.like_copy_tile').find('.tile_not_liked').should have_content('Like')
       click_like
       first('.like_copy_tile').find('.tile_liked').should have_content("Liked")
       view_only_check
     end
+
     scenario 'Clicking twice on like link should change to like and appear in blue', js:true do
       first('.like_copy_tile').find('.tile_not_liked').should have_content('Like')
       UserTileLike.count.should eq 0
@@ -139,6 +152,7 @@ feature "Client admin copies or likes tile" do
       UserTileLike.count.should eq 0
       view_only_check
     end
+
     scenario 'Clicking twice on like link should decrese the count', js:true do
       first('.like_copy_tile').find('.tile_not_liked').should have_content('Like')
       UserTileLike.count.should eq 0
@@ -148,17 +162,15 @@ feature "Client admin copies or likes tile" do
       UserTileLike.count.should eq 0
       view_only_check
     end
+
     scenario 'Clicking on like link should send an email', js:true do
       click_like
       
       Timecop.travel(15.minutes + 1.second)
       crank_dj_clear
       all_emails.should have(1).emails
-      congratulate_email = find_email(recipient)
-      congratulate_email.should have_content "#{client_admin_copier.name} liked your tile"
       open_email(client_admin_maker.email)
       current_email.should have_content "#{client_admin_copier.name} liked your tile"
-
     end
   end
 end
