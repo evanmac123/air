@@ -7,6 +7,7 @@ class Raffle < ActiveRecord::Base
   serialize :prizes, Array
 
   after_initialize :default_values
+  before_destroy :remove_timer_to_end_live
 
   #raffle statuses
   SET_UP = "set_up".freeze
@@ -59,6 +60,22 @@ class Raffle < ActiveRecord::Base
 
   def repick_winner old_winner
     pick_winners 1, old_winner
+  end
+
+  def set_timer_to_end_live
+    remove_timer_to_end_live
+    self.delayed_job_id = self.delay(run_at: self.ends_at).finish_live
+    self.save(validate: false)
+  end
+
+  def remove_timer_to_end_live
+    delayed_job = Delayed::Backend::ActiveRecord::Job.where(delayed_job_id).first
+    delayed_job.destroy if delayed_job.present?
+    true
+  end
+
+  def finish_live
+    update_attribute(:status, PICK_WINNERS)
   end
 
   private

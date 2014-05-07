@@ -26,6 +26,8 @@ class ClientAdmin::PrizesController < ClientAdminBaseController
     if @raffle.update_attributes(raffle_params)
       @raffle.update_attribute(:status, Raffle::LIVE)
       flash.delete(:failure)
+      @raffle.set_timer_to_end_live
+      #@raffle.delay(run_at: @raffle.ends_at).finish_raffle #2.minutes.from_now
     else
       flash[:failure] = "Sorry, we couldn't start the raffle: " + @raffle.errors.values.join(", ") + "."
     end
@@ -39,13 +41,13 @@ class ClientAdmin::PrizesController < ClientAdminBaseController
 
   def start_new
     @raffle.destroy
-    @demo.delay.flush_all_user_tickets
     flash[:success] = "All tickets have been cleared from your board and reset for the next prize. This may take a few minutes to finish."
     redirect_to client_admin_prizes_path
   end
 
   def end_early
     @raffle.update_attribute(:status, Raffle::PICK_WINNERS)
+    @raffle.remove_timer_to_end_live
     redirect_to client_admin_prizes_path
   end
 
