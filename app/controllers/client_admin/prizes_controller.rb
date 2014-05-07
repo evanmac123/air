@@ -20,6 +20,7 @@ class ClientAdmin::PrizesController < ClientAdminBaseController
       @consolidated_flash = {failure: ["Sorry, we couldn't update the raffle: " + @raffle.errors.values.join(", ") + "."]}
       render 'show_errors'
     end
+    @raffle.set_timer_to_end_live
   end
 
   def start
