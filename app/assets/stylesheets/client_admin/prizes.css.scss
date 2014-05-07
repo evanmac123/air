@@ -177,9 +177,12 @@ body.client_admin-prizes {
   .buttons_section{
       display: flex;
       .button{
-        width: 46.5%;
+        width: 46.5%;//46.5%;
         &:nth-child(odd){
           margin-right: 7%;
+        }
+        &:nth-child(even){
+          float: right;
         }
         &.blue_button{
           background: $sky-blue;
