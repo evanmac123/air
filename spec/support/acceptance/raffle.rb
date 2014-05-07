@@ -83,7 +83,6 @@ module RaffleHelpers
 
   def click_pick_winners number
     page.find("#number_of_winners").set(number)
-    p page.find("#number_of_winners").value
     page.find("#pick_winners input[type=submit]").click
   end
 

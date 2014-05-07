@@ -5,6 +5,7 @@ feature 'Live raffle' do
   let (:demo)         { client_admin.demo }
 
   before(:each) do
+    FactoryGirl.create(:tile, demo: demo, activated_at: DateTime.now) #to active demo
     demo.raffle = FactoryGirl.create(:raffle, :live, demo: demo)
     visit client_admin_prizes_path(as: client_admin)
   end

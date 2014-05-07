@@ -5,6 +5,7 @@ feature 'Pick winners after raffle' do
   let (:demo)         { client_admin.demo }
 
   before(:each) do
+    FactoryGirl.create(:tile, demo: demo, activated_at: DateTime.now) #to active demo
     @users = FactoryGirl.create_list(:user, 4, :with_tickets, demo: demo)
   end
 
