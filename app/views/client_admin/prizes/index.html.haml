@@ -1,19 +1,22 @@
 .row
   .large-12.columns
     = render partial: 'client_admin/tiles/tiles_tools_subnav'
-.row.steps_nav_bar
-  .columns
-    = render partial: 'nav_bar', locals: { raffle: @raffle }
-.row
-  .form_section.columns
-    = render partial: 'form', locals: { raffle: @raffle }
-    = render partial: 'buttons', locals: { raffle: @raffle }
-  .action_section.columns
-    - if @raffle.status == Raffle::SET_UP || @raffle.status == Raffle::LIVE
-      %label.small_cap
-        User preview
-      .preview_container
-        = render partial: 'prize', locals: { raffle: @raffle }
-    - else
-      .pick_container
-        = render partial: 'pick_winners', locals: { raffle: @raffle, winners: @winners }
+- if @demo.non_activated?
+  = render partial: 'shared/lock_screen'
+-else
+  .row.steps_nav_bar
+    .columns
+      = render partial: 'nav_bar', locals: { raffle: @raffle }
+  .row
+    .form_section.columns
+      = render partial: 'form', locals: { raffle: @raffle }
+      = render partial: 'buttons', locals: { raffle: @raffle }
+    .action_section.columns
+      - if @raffle.status == Raffle::SET_UP || @raffle.status == Raffle::LIVE
+        %label.small_cap
+          User preview
+        .preview_container
+          = render partial: 'prize', locals: { raffle: @raffle }
+      - else
+        .pick_container
+          = render partial: 'pick_winners', locals: { raffle: @raffle, winners: @winners }

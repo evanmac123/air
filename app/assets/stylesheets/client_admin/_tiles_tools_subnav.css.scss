@@ -95,7 +95,7 @@ body.client_admin-tiles
         }
     }
     
-    .share_tiles, .board_activity, .users{
+    .share_tiles, .board_activity, .users, .prizes_nav{
         border-left:1px $blue solid;
         color: #dfdfdf;
         padding-top: 10px;
@@ -106,7 +106,8 @@ body.client_admin-tiles
 body.client_admin-shares,
 body.client_admins,
 body.client_admin-users,
-body.client_admin-explores {    
+body.client_admin-explores,
+body.client_admin-prizes {    
     #tile_manager_nav.tooltip{
         margin-left: -44px;
         .nub{
@@ -114,7 +115,7 @@ body.client_admin-explores {
         }
     }
     
-    .share_tiles, .board_activity, .users{
+    .share_tiles, .board_activity, .users, .prizes_nav{
         border-left:1px $white solid;
         color: #dfdfdf;
         padding-top: 10px;
