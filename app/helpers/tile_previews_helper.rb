@@ -22,14 +22,13 @@ module TilePreviewsHelper
         "Copied by #{user_tile_copies[0].user.name} and #{user_tile_copies[1].user.name}"
       end
     else #count is greater than 3
-      unique_tile_copies = tile.user_tile_copies.
-        select('user_id, tile_id, max(id) id').
-        group('user_id, tile_id').order('max(id) DESC')
+      unique_tile_copies = tile.user_tile_copies.select('user_id, tile_id').where("user_id != ?", current_user.id).order('user_id DESC').uniq
+
       if current_user.copied_tile?(tile)
-        "Copied by you, #{unique_tile_copies.limit(1)[0].user.name} and #{pluralize(unique_copy_count - 1, 'other')}"        
+        "Copied by you, #{unique_tile_copies.limit(1)[0].user.name}, and #{pluralize(unique_copy_count - 2, 'other')}"
       else
         user_tile_copies = unique_tile_copies.limit(2)
-        "#{user_tile_copies[0].user.name}, #{user_tile_copies[1].user.name} and #{pluralize(unique_copy_count - 1, 'other')}"
+        "Copied by #{user_tile_copies[0].user.name}, #{user_tile_copies[1].user.name}, and #{pluralize(unique_copy_count - 2, 'other')}"
       end
     end
   end
@@ -43,7 +42,7 @@ module TilePreviewsHelper
       else
         "Liked by #{tile.user_tile_likes.last.user.name}"
       end
-    elsif tile.like_count < 2
+    elsif tile.like_count == 2
       if current_user.likes_tile?(tile)
         "Liked by you and #{tile.user_tile_likes.where('user_id <> ?', current_user.id).last.
         user.name}"
@@ -54,10 +53,10 @@ module TilePreviewsHelper
     else #count is greater than 3
       if current_user.likes_tile?(tile)
         "Liked by you, #{tile.user_tile_likes.where('user_id <> ?', current_user.id).last.
-        user.name} and #{pluralize(tile.like_count - 2, 'other')}"
+        user.name}, and #{pluralize(tile.like_count - 2, 'other')}"
       else
         user_tile_likes = tile.user_tile_likes.limit(2).order('created_at DESC')       
-        "#{user_tile_likes[0].user.name}, #{user_tile_likes[1].user.name} and #{pluralize(tile.like_count - 2, 'other')}"
+        "Liked by #{user_tile_likes[0].user.name}, #{user_tile_likes[1].user.name}, and #{pluralize(tile.like_count - 2, 'other')}"
       end
     end
   end
