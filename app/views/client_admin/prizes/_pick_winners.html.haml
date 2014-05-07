@@ -19,7 +19,7 @@
     %i.fa.fa-trophy
     Winners
   .winners
-    - if raffle.status == Raffle::PICK_WINNERS || !winners.present?
+    - if raffle.status == Raffle::PICK_WINNERS 
       %p
         Enter number of winners and click the See Winners button.
         %br
