@@ -60,11 +60,11 @@
       font-size: 12pt;
       font-weight: 400;
       overflow: hidden;
-      height: 3em;
+      height: 2em;
     }
     .created_at{
       color: $text-color;
-      font-size: 10pt;
+      font-size: 10px;
       margin-bottom: 10px;
       height: 1.25em;
       float: right;
@@ -101,89 +101,45 @@
       line-height: 22px;
       color: $med-gray;
       font-size: 12px; 
+
+      @mixin like_or_copy_control($color) {
+        font-size: 10px;
+        margin-right: 10px;
+        float: left;
+        .fa{
+          font-size: 12px;
+          color: $color;
+        }
+        .like_message, .copy_message{
+          font-size: 10px;
+          font-weight: 500;
+          color: $color;
+        }
+        a{
+          color: $color;
+          text-decoration: underline !important;
+          margin-left: 0px;
+          font-size: 10px;
+        }
+        color: $color;
+      }
+
       .tile_liked{
-        font-size: 10px;
-        padding-right: 2px;
-        float: left;
-        .fa{
-          font-size: 12px;
-          color: $sky-blue;
-        }
-        .like_message{
-          font-size: 12pt;
-          font-weight: 500;
-          color: $sky-blue;
-        }
-        a{
-          color: $sky-blue;
-          text-decoration: underline !important;
-          margin-left: 0px;
-          font-size: 10px;
-        }
-        color: $sky-blue;
+        @include like_or_copy_control($sky-blue);
       }
-      .tile_not_liked{
-        font-size: 10px;
-        paddding-right: 2px;
-        float: left;
-        .fa{
-          font-size: 12px;
-          color: $dark-gray;
-        }
-        .like_message{
-          font-size: 12pt;
-          font-weight: 500;
-          color: $dark-gray;
-        }
-        a{
-          text-decoration: underline !important;
-          margin-left: 0px;
-          font-size: 10px;
-          color: $med-gray;
-        }
-        color: $med-gray;
+
+      .tile_not_liked {
+        @include like_or_copy_control($dark-gray);
       }
-      .copied{
-        float: left;
-        .fa{
-          font-size: 12px;
-          color: $sky-blue;
-        }
-        .copy_message {
-          font-size: 12pt;
-          font-weight: 500;
-          color: $sky-blue;
-        }
-        a{
-          color: $sky-blue;
-          text-decoration: underline !important;
-          margin-left: 0px;
-          font-size: 10px;
-        }
-        
-        color: $sky-blue;
-        font-size: 10px;
+
+      .copied {
+        @include like_or_copy_control($sky-blue);
       }
-      .not_copied{
-        float: left;
-        .fa{
-          font-size: 12px;
-          color: $dark-gray;
-        }
-        .copy_message {
-          font-size: 12pt;
-          font-weight: 500;
-          color: $dark-gray;
-        }
-        a{
-          color: $med-gray;
-          text-decoration: underline !important;
-          margin-left: 0px;
-          font-size: 10px;
-        }
-        font-size: 10px;
-        color: $med-gray;
+
+      .not_copied {
+        @include like_or_copy_control($dark-gray);
       }
+
       .view_only{
         color: $med-gray;
         font-size: 12px;

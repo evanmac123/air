@@ -18,14 +18,14 @@
 
 -if tile.is_copyable?
   - if tile.copy_count>0
-    .copied
+    %span.copied
       = render "copy_link", tile: tile
   - else
-    .not_copied
+    %span.not_copied
       = render "copy_link", tile: tile
 
 -else
-  .view_only
+  %span.view_only
     =fa_icon 'minus-circle'
     View only
 
