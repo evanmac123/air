@@ -16,7 +16,7 @@
               }
             %td
               .explore_tile
-                .author_info= show_author_info(tile)
+                .author_info= truncate(show_author_info(tile), length: 60)
                 .like_copy_tile
                   = render partial: 'like_copy_tile', :locals => { :tile => tile }
                   .created_at= "#{time_ago_in_words(tile.created_at)} ago"

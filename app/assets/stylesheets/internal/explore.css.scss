@@ -57,10 +57,11 @@
     
     .author_info{
       color: $text-color;
-      font-size: 12pt;
+      font-size: 10pt;
       font-weight: 400;
       overflow: hidden;
-      height: 2em;
+      height: 2.3em;
+      line-height: 1.2em;
     }
     .created_at{
       color: $text-color;
