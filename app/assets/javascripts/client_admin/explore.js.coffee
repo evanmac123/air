@@ -67,6 +67,8 @@ $(document).ready ->
         if(data.success)
           $('#edit_copied_tile_link').attr('href', data.editTilePath)
           $('#tile_copied_reveal').foundation('reveal', 'open')
+          copyLink.closest('.not_copied').removeClass('not_copied').addClass('copied')
+          copyLink.text('Copied')
           copyMessage = copyLink.parent().find('.copy_message')
           copyMessage.text(data.copyCount)
       ,

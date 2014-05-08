@@ -9,12 +9,12 @@ feature "Client admin copies or likes tile" do
     crank_dj_clear # to resize the images
     @original_tile.reload
   end
-
       
   def click_copy
     first('.not_copied').find('.copy_tile_link').click
     find('.reveal-modal').should have_content("You've added this tile to the inactive section of your board.")   
   end
+
   def click_close
     page.find('#close_tile_copied_lightbox').click
   end
@@ -62,7 +62,24 @@ feature "Client admin copies or likes tile" do
       click_close
 
       within(first '.like_copy_tile') do
-        page.should have_content('1 Copy')
+        page.should have_content('1 Copied')
+      end
+    end
+
+    scenario 'clicking copy on never-before-copied tile changes the class of the copy control wrapper so that styles will change', js: true do
+      within(page.first('.explore_tile')) do 
+        page.should have_selector('.not_copied')
+        page.should have_no_selector('.copied')
+        page.should have_content('Copy')
+      end
+
+      click_copy
+      click_close
+
+      within(page.first('.explore_tile')) do 
+        page.should have_selector('.copied')
+        page.should have_no_selector('.not_copied')
+        page.should have_content('Copied')
       end
     end
 
