@@ -1,0 +1,15 @@
+#user_progress
+  #total_section
+    #total_header
+      Total points
+    #total_points
+      = current_user.points
+  #tile_section
+    #tile_header
+      Tiles
+    #tile_progress_bar
+      #completed_tiles
+        %icon.fa.fa-check
+        = current_user.completed_tiles_on_current_demo.count
+      #all_tiles
+        = current_user.avaliable_tiles_on_current_demo.count

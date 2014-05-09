@@ -1035,6 +1035,14 @@ class User < ActiveRecord::Base
     tile.user_tile_copies.where(user_id: self.id).exists?
   end
 
+  def avaliable_tiles_on_current_demo
+    demo.tiles.where(status: Tile::ACTIVE)
+  end
+
+  def completed_tiles_on_current_demo
+    completed_tiles.where(demo_id: demo, status: Tile::ACTIVE)
+  end
+
   protected
 
   def downcase_email
