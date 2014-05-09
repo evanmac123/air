@@ -72,9 +72,10 @@ body.tile_previews.tile_previews-show {
     ul.info-bar {
       padding-left: 10px;
     }
-    .like-copy-section{      
+
+    .like-copy-section{
       float: left;
-      width: 14%;
+      width: 12%;
       .like_button_wrapper, .copy_button_wrapper {
         float: left;
       }
@@ -99,6 +100,7 @@ body.tile_previews.tile_previews-show {
         color: $med-gray;
       }      
     }
+
     .like-copy-info{      
       float: left;
       width: 40%;
