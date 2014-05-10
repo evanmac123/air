@@ -1,15 +1,28 @@
 #user_progress
+  #raffle_section
+    #raffle_entries.progress_header
+      Raffle Entries
+    #raffle_data.progress_header
+      #raffle_time_left
+        %icon.fa.fa-clock-o
+        12 weeks
+      #raffle_info
+        %icon.fa.fa-trophy
+        Info
+    .progress-radial.progress-70
+      .overlay
+        30
   #total_section
-    #total_header
+    #total_header.progress_header
       Total points
     #total_points
       = current_user.points
   #tile_section
-    #tile_header
+    #tile_header.progress_header
       Tiles
+    #all_tiles
+      = current_user.avaliable_tiles_on_current_demo.count
     #tile_progress_bar
       #completed_tiles
         %icon.fa.fa-check
         = current_user.completed_tiles_on_current_demo.count
-      #all_tiles
-        = current_user.avaliable_tiles_on_current_demo.count

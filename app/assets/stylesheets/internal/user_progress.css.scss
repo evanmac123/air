@@ -7,6 +7,100 @@ body.tiles-index, body.acts-index{
     text-transform: uppercase;
     color: $white;
     font-weight: 700;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    .progress_header{
+        float: left;
+        height: 2.2rem;
+        width: 4rem;
+        color: $white;
+        text-transform: uppercase;
+        line-height: 1.3;
+        padding: 0.5em;
+        padding-left: 1em;
+        background: $blue;
+      }
+    #raffle_section{
+      float: right;
+      border-radius: 3px;
+      height: 2.2rem;
+      width: 13rem;
+      background: $blue;
+      margin-left: 1.5rem;
+      #raffle_entries{
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+      }
+      #raffle_data{
+        float: right;
+        width: 5.5rem;
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+      }
+      /* -------------------------------------
+       * Radial progress bar - http://codepen.io/geedmo/pen/InFfd/
+       * ------------------------------------- */
+      $barColor: $sky-blue;
+      $overlayColor: $white;
+      $backColor: $white;
+      /* -------------------------------------
+       * Bar container
+       * ------------------------------------- */
+      .progress-radial{
+        margin-left: 6.5em;
+        margin-top: -1.5em;
+        position: relative;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        border: 3px solid $blue; // remove gradient color
+        background-color: $barColor; // default 100%
+        box-shadow: inset 0 0 6 60px #cbc9c9;
+        /* -------------------------------------
+         * Optional centered circle w/text
+         * ------------------------------------- */  
+        .overlay{
+          position: absolute;
+          width: 40px;
+          height: 40px;
+          background-color: $overlayColor;
+          border-radius: 50%;
+          margin-left: 7px;
+          margin-top: 7px;
+          text-align: center;
+          line-height: 40px;
+          font-size: 16px;
+          box-shadow: inset 0 0 10px #cbc9c9;
+          color: $sky-blue;
+        }
+        /* -------------------------------------
+         * Mixin for progress-% class
+         * ------------------------------------- */
+        $step: 1; // step of % for created classes
+
+        $loops: round(100 / $step);
+        $increment: 360 / $loops;
+        $half: round($loops / 2);
+        @for $i from 0 through $loops{
+          &.progress-#{$i*$step}{
+            z-index: 1;
+            @if($i < $half){
+              $startdeg: -90deg;
+              $nextdeg: $startdeg + ( $increment * $i );
+              background-image: linear-gradient($startdeg, 
+                $backColor 50%, transparent 50%, transparent), 
+              linear-gradient($nextdeg, $barColor 50%, $backColor 50%, $backColor);
+            }@else{
+              $startdeg: 90deg;
+              $nextdeg: $startdeg + ( $increment * ( $i - $half ) );
+              background-image: linear-gradient($nextdeg, 
+                $barColor 50%, transparent 50%, transparent), 
+              linear-gradient(360deg + $startdeg, $barColor 50%, $backColor 50%, $backColor);
+            }
+          }
+        }
+      }
+    }
     #tile_section, #total_section{
       border-radius: 3px;
       background: $white;
@@ -17,16 +111,8 @@ body.tiles-index, body.acts-index{
       width: 8rem;
       float: right;
       margin-left: 1.5rem;
-      text-align: center;
-      #total_header{
-        float: left;
-        width: 4rem;
-        height: 2.2rem;
-        background: $blue;
-        padding: 0.5em;
-        line-height: 1.3;
-      }
       #total_points{
+        text-align: center;
         float: left;
         width: 4rem;
         color: $sky-blue;
@@ -39,30 +125,29 @@ body.tiles-index, body.acts-index{
       width: auto;
       overflow: hidden;
       #tile_header{
-        float: left;
-        width: 4rem;
-        height: 2.2rem;
-        background: $blue;
-        padding: 0.5em;
-        line-height: 1.3;
+        padding-top: 1.1em;
         text-align: center;
-        padding: 1.1em;
+      }
+      #all_tiles{
+        float: right;
+        height: 2.2rem;
+        border-radius: 3px;
+        background: $sky-blue;
+        padding: 0.5em;
+        font-size: 18px;
       }
       #tile_progress_bar{
+        float: none;
+        width: auto;
+        overflow: hidden;
+        height: 2.2rem;
         font-size: 18px;
         #completed_tiles{
           float: left;
           height: 2.2rem;
-          width: 50%;
+          min-width: 10%;
           background: $sky-blue;
           text-align: right;
-          padding: 0.5em;
-        }
-        #all_tiles{
-          float: right;
-          height: 2.2rem;
-          border-radius: 3px;
-          background: $sky-blue;
           padding: 0.5em;
         }
       }
