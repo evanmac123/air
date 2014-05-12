@@ -179,7 +179,7 @@ var predisplayAnimations = function(tileData, tilePosting) {
     var startingData = $.parseJSON(tilePosting.responseText);
     $('#js-flashes').html(tileData.flash_content);
     //$('#user_points').html(tileData.delimited_starting_points);
-    $('#total_points').html(tileData.delimited_starting_points);
+    //$('#total_points').html(tileData.delimited_starting_points);
     $('#progress_bar .small_cap').html(tileData.master_bar_point_content);
     //$('#user_tickets').html(tileData.starting_tickets);
     $('#raffle_entries').html(tileData.starting_tickets);
