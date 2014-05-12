@@ -40,18 +40,9 @@ Run the following commands:
 
 #### PostgreSQL
 
-Phil put it pretty well, so might as well quote him:
+Getting Postgres authentication can be a bit tricky, especially if you've never done it before. There is a simple authentication config file available at https://github.com/vladig17/hengage/wiki/Development-pg_hba.conf. However, YOU MUST NEVER USE THIS CONFIGURATION IN PRODUCTION BECAUSE IT IS TOTALLY INSECURE. IT IS FOR DEVELOPMENT ONLY.
 
-> Getting Postgres authorization set up can be somewhat confusing and frustrating. 
-> So, in the best tradition of programmers everywhere, we're going to cheat. 
-> I've included a file called *pg_hba.conf* which configures authorization for Postgres: 
-> you should be able to just drop this in place once you have Postgres installed, overwriting the default one. 
->
-> What the settings in this file basically say is "*Anyone on the local machine is allowed to access any database; 
-> nobody from outside the local machine is allowed to access any database.*" 
-> This would be sketchy for a production machine, but it's perfect for development.
-
-So get `pg_hba.conf` from Phil and drop it into `/etc/postgresql/9.1/main/` (version number might be different)
+So get pg_hba.conf from the address above and drop it into `/etc/postgresql/9.1/main/` (version number might be different)
 
 Then you'll need to create a database user (Postgres keeps its own lists of users separate from the system's) to use:
 
