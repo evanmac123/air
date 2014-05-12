@@ -20,9 +20,17 @@
   #tile_section
     #tile_header.progress_header
       Tiles
-    #all_tiles
-      = current_user.avaliable_tiles_on_current_demo.count
+    - if current_user.avaliable_tiles_on_current_demo.count != current_user.completed_tiles_on_current_demo.count
+      #all_tiles
+        = current_user.avaliable_tiles_on_current_demo.count
     #tile_progress_bar
       #completed_tiles
-        %icon.fa.fa-check
-        = current_user.completed_tiles_on_current_demo.count
+        #complete_info
+          %icon.fa.fa-check
+          %span#completed_tiles_num
+            = current_user.completed_tiles_on_current_demo.count
+:javascript
+  $().ready(function(){
+    setTileBarWidth(#{ current_user.avaliable_tiles_on_current_demo.count }, 
+                    #{ current_user.completed_tiles_on_current_demo.count });
+  });

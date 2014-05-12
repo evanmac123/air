@@ -68,7 +68,7 @@ var fillBarEntirely = function(previousTickets, currentTickets, finalProgress, a
 
   var emptyBarCallback = function() {
     changeRadialProgressBarTo(0);
-    console.log("emptyBarCallback");
+    //console.log("emptyBarCallback");
     fillBarToFinalProgress(finalProgress, allTilesDone, function() {
       //animateCounter('user_tickets', previousTickets, currentTickets, 0.1, deferred.resolve);
       animateCounter('raffle_entries', previousTickets, currentTickets, 0.1, deferred.resolve);
@@ -119,6 +119,56 @@ var markCompletedRightAnswer = function(event) {
   $(event.target).addClass('clicked_right_answer');
 }
 
+var tileCompletedBar = function(){ return $("#completed_tiles"); }
+var tileCompletedNum = function(){ return $("#completed_tiles_num"); }
+var getTileCompletedNum = function(){ 
+  return parseInt( tileCompletedNum().text() ); 
+}
+var tileFullBar = function(){ return $("#tile_progress_bar"); }
+var tileCompleteData = function() { return $("#complete_info"); }
+var tileAll = function(){ return $("#all_tiles"); }
+
+var calculateTileProgressWidth = function(allTiles, completedTiles){
+  return parseInt(tileFullBar().outerWidth() * completedTiles / allTiles);
+}
+
+var setTileBarWidth = function(allTiles, completedTiles){
+  newWidth = calculateTileProgressWidth(allTiles, completedTiles);
+  currentWidth = tileCompletedBar().outerWidth();
+  if(currentWidth <= newWidth){
+    tileCompletedBar().css("width", "" + newWidth + "px");
+  }
+}
+
+var hideTileNumbers = function(allTiles, completedTiles){
+  tileCompleteData().css("visibility", "hidden");
+  tileCompletedNum().text(completedTiles);
+  tileAll().text(allTiles);
+  if(allTiles == completedTiles){
+    tileAll().css("display", "none");
+  }else{
+    tileAll().css("visibility", "hidden");
+  }
+}
+
+var showTileNumbers = function(allTiles, completedTiles){
+  tileAll().css("visibility", "visible");
+}
+
+var fillTileBar = function(allTiles, completedTiles){
+  var deferred = $.Deferred();
+
+  hideTileNumbers(allTiles, completedTiles);
+  newWidth = calculateTileProgressWidth(allTiles, completedTiles);
+  tileCompletedBar().animate({width: newWidth}, 750, 'linear', function(){
+    tileCompleteData().css("visibility", "visible");
+    tileAll().css("visibility", "visible");
+    deferred.resolve();
+  });
+
+  return deferred.promise();
+}
+
 var predisplayAnimations = function(tileData, tilePosting) {
   $.when(tilePosting).then(function() {
     var startingData = $.parseJSON(tilePosting.responseText);
@@ -128,9 +178,10 @@ var predisplayAnimations = function(tileData, tilePosting) {
     $('#progress_bar .small_cap').html(tileData.master_bar_point_content);
     //$('#user_tickets').html(tileData.starting_tickets);
     $('#raffle_entries').html(tileData.starting_tickets);
-
-    return $.when(animateCounter('total_points', startingData.starting_points, tileData.ending_points, 0.5)).then(function() {
-      return fillBar(startingData.starting_tickets, tileData.ending_tickets, tileData.raffle_progress_bar, tileData.all_tiles_done);
+    return $.when( fillTileBar(tileData.all_tiles, tileData.completed_tiles) ).then(function(){
+      return $.when(animateCounter('total_points', startingData.starting_points, tileData.ending_points, 0.5)).then(function() {
+        return fillBar(startingData.starting_tickets, tileData.ending_tickets, tileData.raffle_progress_bar, tileData.all_tiles_done);
+      });
     });
   })
 }

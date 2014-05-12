@@ -24,7 +24,7 @@ loadNextTileWithOffset = (offset, preloadAnimations, predisplayAnimations, tileP
       (data) ->
         $.when(predisplayAnimations(data, tilePosting)).then ->
           if data.all_tiles_done == true && afterPosting
-            $('.content').html(data.tile_content)
+            $('.content .container.row').replaceWith(data.tile_content)
             showOrHideStartOverButton(data.show_start_over_button == true)
 
           else

@@ -71,7 +71,9 @@ class TilesController < ApplicationController
       all_tiles_done: all_tiles_done,
       show_conversion_form: @show_conversion_form,
       show_start_over_button: current_user.can_start_over?,
-      raffle_progress_bar: raffle_progress_bar * 10
+      raffle_progress_bar: raffle_progress_bar * 10,
+      all_tiles: current_user.avaliable_tiles_on_current_demo.count,
+      completed_tiles: current_user.completed_tiles_on_current_demo.count
     }
   end
  
