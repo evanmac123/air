@@ -77,32 +77,35 @@ class Act < ActiveRecord::Base
     where(:demo_id => user.demo_id)
   end
 
-  def self.displayable_to_user(viewing_user)
-    unhidden.allowed_to_view_by_privacy_settings(viewing_user)
-  end
-
-  def self.allowed_to_view_by_privacy_settings(viewing_user)
+  def self.displayable_to_user(viewing_user, board, limit, offset)
     if viewing_user.is_site_admin
       # Site admins get to see anything they please.
-      return where("1 = 1")
+      return where(demo_id: board.id).limit(limit).offset(offset).order("created_at DESC")
     end
 
     if viewing_user.is_guest?
       # And guests get to see their own only.
-      return where(user_id: viewing_user.id, user_type: 'GuestUser')
+      return where(demo_id: board.id, user_id: viewing_user.id, user_type: 'GuestUser').limit(limit).offset(offset).order("created_at DESC")
     end
 
     friends = viewing_user.accepted_friends.where("users.privacy_level != 'nobody'")
-    viewable_user_ids = friends.map(&:id) + [viewing_user.id]
+    viewable_user_ids = friends.pluck(:id) + [viewing_user.id]
 
-    act_relation = where("acts.user_id IN (?) OR acts.privacy_level = 'everybody'", viewable_user_ids)
+    #act_relation = where("acts.user_id IN (?) OR acts.privacy_level = 'everybody'", viewable_user_ids)
     # This is kind of a HACK, but fuck it, select_values is part of the 
     # public API.
     # TODO: write patch to Rails to do this properly, submit it, most likely
     # get it rejected. Or maybe not, who knows.
 
-    act_relation.select_values = Array.wrap("DISTINCT \"acts\".*")
-    act_relation
+    #act_relation.select_values = Array.wrap("DISTINCT \"acts\".*")
+    #act_relation
+    #
+    # UGH. But there's not a straightforward way to do a UNION in ActiveRecord, 
+    # and performance of a straightforward OR-ed query was getting poor.
+    find_by_sql(["SELECT acts.* FROM acts WHERE acts.demo_id = ? AND acts.hidden = 'f' AND acts.user_id IN (?) UNION \
+                  SELECT acts.* FROM acts WHERE acts.demo_id = ? AND acts.hidden = 'f' AND acts.privacy_level = 'everybody' \
+                  ORDER BY created_at DESC LIMIT ? OFFSET ?",
+                  board.id, viewable_user_ids, board.id, limit, offset])
   end
 
   def self.parse(user_or_phone, body, options = {})
@@ -168,7 +171,8 @@ class Act < ActiveRecord::Base
   end
 
   def self.for_profile(viewing_user, _offset=0)
-    in_demo(viewing_user.demo).displayable_to_user(viewing_user).recent(10).offset(_offset)
+    #in_demo(viewing_user.demo).displayable_to_user(viewing_user).recent(10).offset(_offset)
+    displayable_to_user(viewing_user, viewing_user.demo, 10, _offset)
   end
 
   protected

@@ -68,11 +68,13 @@ class ActsController < ApplicationController
   protected
 
   def find_requested_acts(demo)
-    demo.acts.displayable_to_user(current_user).recent(ACT_BATCH_SIZE).includes(:rule)
+    offset = params[:offset].present? ? params[:offset].to_i : 0
+    # User, demo, limit, offset
+    Act.displayable_to_user(current_user, demo, ACT_BATCH_SIZE, offset)
+    #demo.acts.displayable_to_user(current_user).recent(ACT_BATCH_SIZE)
   end
 
   def render_act_update
-    @acts = @acts.offset(params[:offset])
     render :partial => 'shared/more_acts', :locals => {:acts => @acts}
   end
 
