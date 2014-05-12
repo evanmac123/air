@@ -129,13 +129,18 @@ var tileCompleteData = function() { return $("#complete_info"); }
 var tileAll = function(){ return $("#all_tiles"); }
 
 var calculateTileProgressWidth = function(allTiles, completedTiles){
-  return parseInt(tileFullBar().outerWidth() * completedTiles / allTiles);
+  newWidth = parseInt(tileFullBar().outerWidth() * completedTiles / allTiles);
+  currentWidth = tileCompletedBar().outerWidth();
+  if(currentWidth > newWidth){
+    newWidth = currentWidth; 
+  }
+  return newWidth;
 }
 
 var setTileBarWidth = function(allTiles, completedTiles){
   newWidth = calculateTileProgressWidth(allTiles, completedTiles);
   currentWidth = tileCompletedBar().outerWidth();
-  if(currentWidth <= newWidth){
+  if(currentWidth < newWidth){
     tileCompletedBar().css("width", "" + newWidth + "px");
   }
 }
