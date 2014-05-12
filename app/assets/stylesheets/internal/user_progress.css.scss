@@ -27,7 +27,7 @@ body.tiles-index, body.acts-index{
       width: 13rem;
       background: $blue;
       margin-left: 1.5rem;
-      #raffle_entries{
+      #raffle_header{
         border-top-left-radius: 3px;
         border-bottom-left-radius: 3px;
       }
@@ -78,7 +78,7 @@ body.tiles-index, body.acts-index{
          * ------------------------------------- */
         $step: 1; // step of % for created classes
 
-        $loops: round(100 / $step);
+        $loops: round(200 / $step);
         $increment: 360 / $loops;
         $half: round($loops / 2);
         @for $i from 0 through $loops{

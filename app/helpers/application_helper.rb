@@ -64,6 +64,10 @@ module ApplicationHelper
     "#{current_user.to_ticket_progress_calculator.pretty_point_fraction} points"
   end
 
+  def raffle_progress_bar
+    current_user.to_ticket_progress_calculator.points_towards_next_threshold
+  end
+
   def consolidated_flash
     return @consolidated_flash if @consolidated_flash
 

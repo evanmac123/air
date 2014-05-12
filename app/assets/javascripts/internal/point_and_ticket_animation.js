@@ -13,42 +13,80 @@ var animateCounter = function(domID, previous, current, duration, callback) {
 };
 
 var progressBar = function() {return $('#completed_progress')};
+var radialProgressBar = function() {return $('.progress-radial')};
+var currentProgress = function() {
+  progressStr = $('.progress-radial').attr('class').match( /progress\-([0-9]+).*/)[1];
+  return parseInt(progressStr);
+};
+var changeRadialProgressBarTo = function(progressNew){
+  radialProgressBar()
+        .removeClass("progress-" + currentProgress())
+        .addClass("progress-" + progressNew);
+};
 
-var fillBarToFinalPercentage = function(finalPercentage, allTilesDone, callback) {
-  progressBar().addClass('counting');
+var fillBarToFinalProgress = function(finalProgress, allTilesDone, callback) {
+  radialProgressBar().addClass('counting');
+  startProgress = currentProgress();
+  stepsNumber = finalProgress - startProgress;
+  return $({progressCount: 0}).animate({progressCount: stepsNumber}, {
+    duration: 750,
+    easing: 'linear',
+    step: function(progressCount){
+      //console.log(progressCount);
+      progressNew = startProgress + parseInt(progressCount);
+      //console.log(progressNew);
+      changeRadialProgressBarTo(progressNew);
+    },
+    complete: function() {
+      radialProgressBar().removeClass('counting');
+      if(typeof(callback) === 'function') {
+        callback();
+      }
+    } 
+  });
+  /*, 750, 'linear', function() {
+    radialProgressBar().removeClass('counting');
+    if(typeof(callback) === 'function') {
+      callback();
+    } 
+  });
+  /*progressBar().addClass('counting');
   return progressBar().animate({width: finalPercentage}, 750, 'linear', function() {
     progressBar().removeClass('counting');
     if(typeof(callback) === 'function') {
       callback();
     } 
-  });
+  });*/
 };
 
 var loadFollowingTile = function() {
   loadNextTileWithOffset(1);
 }
 
-var fillBarEntirely = function(previousTickets, currentTickets, finalPercentage, allTilesDone) {
+var fillBarEntirely = function(previousTickets, currentTickets, finalProgress, allTilesDone) {
   var deferred = $.Deferred();
 
   var emptyBarCallback = function() {
-    progressBar().css('width', '0%');
-    fillBarToFinalPercentage(finalPercentage, allTilesDone, function() {
-      animateCounter('user_tickets', previousTickets, currentTickets, 0.1, deferred.resolve);
+    changeRadialProgressBarTo(0);
+    console.log("emptyBarCallback");
+    fillBarToFinalProgress(finalProgress, allTilesDone, function() {
+      //animateCounter('user_tickets', previousTickets, currentTickets, 0.1, deferred.resolve);
+      animateCounter('raffle_entries', previousTickets, currentTickets, 0.1, deferred.resolve);
     });
   }
 
-  progressBar().addClass('counting');
-  progressBar().animate({width: '100%'}, 750, 'linear', emptyBarCallback);
+  //progressBar().addClass('counting');
+  //progressBar().animate({width: '100%'}, 750, 'linear', emptyBarCallback);
+  fillBarToFinalProgress(200, allTilesDone, emptyBarCallback);
   return deferred.promise();
 };
 
-var fillBar = function(previousTickets, currentTickets, finalPercentage, allTilesDone) {
+var fillBar = function(previousTickets, currentTickets, finalProgress, allTilesDone) {
   var ticketsIncreased = (previousTickets < currentTickets);
   if(ticketsIncreased) {
-    return(fillBarEntirely(previousTickets, currentTickets, finalPercentage, allTilesDone));
+    return(fillBarEntirely(previousTickets, currentTickets, finalProgress, allTilesDone));
   } else {
-    return(fillBarToFinalPercentage(finalPercentage, allTilesDone)); 
+    return(fillBarToFinalProgress(finalProgress, allTilesDone)); 
   }
 }
 
@@ -85,12 +123,14 @@ var predisplayAnimations = function(tileData, tilePosting) {
   $.when(tilePosting).then(function() {
     var startingData = $.parseJSON(tilePosting.responseText);
     $('#js-flashes').html(tileData.flash_content);
-    $('#user_points').html(tileData.delimited_starting_points);
+    //$('#user_points').html(tileData.delimited_starting_points);
+    $('#total_points').html(tileData.delimited_starting_points);
     $('#progress_bar .small_cap').html(tileData.master_bar_point_content);
-    $('#user_tickets').html(tileData.starting_tickets);
+    //$('#user_tickets').html(tileData.starting_tickets);
+    $('#raffle_entries').html(tileData.starting_tickets);
 
-    return $.when(animateCounter('user_points', startingData.starting_points, tileData.ending_points, 0.5)).then(function() {
-      return fillBar(startingData.starting_tickets, tileData.ending_tickets, tileData.master_bar_ending_percentage, tileData.all_tiles_done);
+    return $.when(animateCounter('total_points', startingData.starting_points, tileData.ending_points, 0.5)).then(function() {
+      return fillBar(startingData.starting_tickets, tileData.ending_tickets, tileData.raffle_progress_bar, tileData.all_tiles_done);
     });
   })
 }

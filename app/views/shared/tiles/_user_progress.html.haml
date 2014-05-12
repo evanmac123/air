@@ -1,6 +1,6 @@
 #user_progress
   #raffle_section
-    #raffle_entries.progress_header
+    #raffle_header.progress_header
       Raffle Entries
     #raffle_data.progress_header
       #raffle_time_left
@@ -9,9 +9,9 @@
       #raffle_info
         %icon.fa.fa-trophy
         Info
-    .progress-radial.progress-70
-      .overlay
-        30
+    .progress-radial{class: "progress-" + (raffle_progress_bar * 10).to_s}
+      #raffle_entries.overlay
+        = starting_tickets
   #total_section
     #total_header.progress_header
       Total points

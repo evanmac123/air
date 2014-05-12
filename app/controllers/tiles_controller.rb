@@ -70,7 +70,8 @@ class TilesController < ApplicationController
       tile_content: tile_content(all_tiles_done, after_posting),
       all_tiles_done: all_tiles_done,
       show_conversion_form: @show_conversion_form,
-      show_start_over_button: current_user.can_start_over?
+      show_start_over_button: current_user.can_start_over?,
+      raffle_progress_bar: raffle_progress_bar * 10
     }
   end
  
