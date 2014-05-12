@@ -91,15 +91,6 @@ class Act < ActiveRecord::Base
     friends = viewing_user.accepted_friends.where("users.privacy_level != 'nobody'")
     viewable_user_ids = friends.pluck(:id) + [viewing_user.id]
 
-    #act_relation = where("acts.user_id IN (?) OR acts.privacy_level = 'everybody'", viewable_user_ids)
-    # This is kind of a HACK, but fuck it, select_values is part of the 
-    # public API.
-    # TODO: write patch to Rails to do this properly, submit it, most likely
-    # get it rejected. Or maybe not, who knows.
-
-    #act_relation.select_values = Array.wrap("DISTINCT \"acts\".*")
-    #act_relation
-    #
     # UGH. But there's not a straightforward way to do a UNION in ActiveRecord, 
     # and performance of a straightforward OR-ed query was getting poor.
     find_by_sql(["SELECT acts.* FROM acts WHERE acts.demo_id = ? AND acts.hidden = 'f' AND acts.user_id IN (?) UNION \
@@ -171,7 +162,6 @@ class Act < ActiveRecord::Base
   end
 
   def self.for_profile(viewing_user, _offset=0)
-    #in_demo(viewing_user.demo).displayable_to_user(viewing_user).recent(10).offset(_offset)
     displayable_to_user(viewing_user, viewing_user.demo, 10, _offset)
   end
 
