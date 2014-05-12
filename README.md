@@ -42,7 +42,7 @@ Run the following commands:
 
 Getting Postgres authentication can be a bit tricky, especially if you've never done it before. There is a simple authentication config file available at https://github.com/vladig17/hengage/wiki/Development-pg_hba.conf. However, YOU MUST NEVER USE THIS CONFIGURATION IN PRODUCTION BECAUSE IT IS TOTALLY INSECURE. IT IS FOR DEVELOPMENT ONLY.
 
-So get pg_hba.conf from the address above and drop it into `/etc/postgresql/9.1/main/` (version number might be different)
+To get started. copy the configuration from the address above to `/etc/postgresql/9.1/main/` (version number might be different) and restart Postgres.
 
 Then you'll need to create a database user (Postgres keeps its own lists of users separate from the system's) to use:
 
