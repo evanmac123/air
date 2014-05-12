@@ -30,7 +30,6 @@ Feature: Admin sets up demo
     And I fill in "Custom already-claimed message" with "You're in, fool."
     And I uncheck "Send post-act summaries with act replies"
     And I fill in "Custom support reply" with "We'll call you."
-    And I fill in "Internal domains" with "example.com, foo.com, bar.com"
     And I check "Let users invite friends before game is open"
     And I fill in "Phone number" with "6175551212"
     And I fill in "demo_email" with "threem@playhengage.com"
@@ -60,7 +59,6 @@ Feature: Admin sets up demo
     And I should see `Custom already-claimed message is "You're in, fool."`
     And I should see "No post-act summaries will be sent"
     And I should see `Custom support reply is "We'll call you."`
-    And I should see "Internal email domains are: example.com foo.com bar.com"
     And I should see "Users can invite friends before game is open"
     And I should see "Phone number for this game is (617) 555-1212"
     And I should see "Email for this game is threem@playhengage.com"
@@ -93,7 +91,6 @@ Feature: Admin sets up demo
     And I should see "Game will have default already-claimed message"
     And I should see "Post-act summaries will be sent"
     And I should see "No custom support reply"
-    And I should see "No email domains will be considered internal"
     And I should see "Users cannot invite friends before game is open"
     And I should see "NO PHONE NUMBER SET FOR THIS GAME, MAKE SURE THAT IS WHAT YOU REALLY WANT"
     And I should see "NO EMAIL SET FOR THIS GAME, MAKE SURE THAT IS WHAT YOU REALLY WANT"

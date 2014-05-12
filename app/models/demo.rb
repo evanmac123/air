@@ -1,8 +1,6 @@
 class Demo < ActiveRecord::Base
   JOIN_TYPES = %w(pre-populated self-inviting public).freeze
 
-  serialize :internal_domains, Array
-
   has_many :guest_users
   has_many :board_memberships, dependent: :destroy
   has_many :users, through: :board_memberships
@@ -36,7 +34,6 @@ class Demo < ActiveRecord::Base
   validate :ticket_fields_all_set, :if => :uses_tickets
 
   before_save :normalize_phone_number_if_changed
-  after_save :schedule_resegment_on_internal_domains
   after_create :create_public_slug!
 
   has_alphabetical_column :name
@@ -438,12 +435,6 @@ class Demo < ActiveRecord::Base
   def normalize_phone_number_if_changed
     return unless self.changed.include?('phone_number')
     self.phone_number = PhoneNumber.normalize(self.phone_number)
-  end
-
-  def schedule_resegment_on_internal_domains
-    return unless self.changed.include?('internal_domains')
-
-    self.delay.resegment_everyone
   end
 
   def resegment_everyone

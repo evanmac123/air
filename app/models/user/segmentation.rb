@@ -17,7 +17,6 @@ class User
         :accepted_invitation_at    => self.accepted_invitation_at.try(:utc),
         :claimed                   => self.accepted_invitation_at.present?,
         :has_phone_number          => self.phone_number.present?,
-        :email_has_internal_domain => self.email_has_internal_domain?,
       }
     end
 

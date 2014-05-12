@@ -147,34 +147,6 @@ describe Demo, "phone number" do
   end
 end
 
-describe Demo, "when internal email domains are changed" do
-  it "should re-segment everybody" do
-    demo = FactoryGirl.create(:demo)
-    demo.internal_domains.should be_empty
-
-    user1 = FactoryGirl.create(:user, demo: demo, email: "user@foo.com")
-    user2 = FactoryGirl.create(:user, demo: demo, email: "user@bar.com")
-    user3 = FactoryGirl.create(:user, demo: demo, email: "user@baz.com")
-    crank_dj_clear
-
-    [user1, user2, user3].all?{|u| u.segmentation_data.email_has_internal_domain == false}.should be_true
-
-    demo.internal_domains = %w(bar.com)
-    demo.save!
-    crank_dj_clear
-
-    [user1, user3].all?{|u| u.segmentation_data.reload.email_has_internal_domain == false}.should be_true
-    [user2].all?{|u| u.segmentation_data.reload.email_has_internal_domain == true}.should be_true
-
-    demo.internal_domains = %w(baz.com foo.com)
-    demo.save!
-    crank_dj_clear
-
-    [user2].all?{|u| u.segmentation_data.reload.email_has_internal_domain == false}.should be_true
-    [user1, user3].all?{|u| u.segmentation_data.reload.email_has_internal_domain == true}.should be_true
-  end
-end
-
 describe Demo, '#num_tile_completions' do
   it 'returns the number of users who have completed each of the tiles for this demo' do
 

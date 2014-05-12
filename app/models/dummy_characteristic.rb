@@ -29,8 +29,7 @@ end
   ['gender',                    'Gender',           'Discrete'],
   ['claimed',                   'Joined?',          'Boolean'],
   ['has_phone_number',          'Has phone number', 'Boolean'],
-  ['last_acted_at',             'Last acted at',    'Time'],
-  ['email_has_internal_domain', 'Corporate email?', 'Boolean']
+  ['last_acted_at',             'Last acted at',    'Time']
 ].each do |field_id, human_name, datatype_short_name|
   class_name = field_id.camelize + "DummyCharacteristic"
   datatype_name = "Characteristic::" + datatype_short_name + "Type"

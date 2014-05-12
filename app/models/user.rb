@@ -496,12 +496,6 @@ class User < ActiveRecord::Base
     }
   end
 
-  def email_has_internal_domain?
-    return false unless (self.email.present?) && (self.email =~ /@(.*)$/)
-    domain = $1.downcase
-    self.demo.internal_domains.include? domain
-  end
-
   def has_balances?
     demo.balances.outstanding.first.present?
   end

@@ -240,16 +240,6 @@
     -if @demo.uses_tickets
       %p= "Tickets are awarded every #{@demo.ticket_threshold} points"
 
-  %p
-    - unless @demo.internal_domains.empty?
-      Internal email domains are:
-      %ul
-        -@demo.internal_domains.each do |internal_domain|
-          %li=internal_domain
-
-    - else
-      No email domains will be considered internal.
-
   %p.explanation= translate('.explanation', :default => "Add HR people from %{company} to this demo, then send them an invitation to the demo.", :company => @demo.name) 
 
 

@@ -51,12 +51,6 @@
 
   <% end %>
 
-  <%= form.inputs :name => "Internal e-mail domains" do %>
-    Put a comma-separated list of domains here. Users whose e-mail addresses are in one of these domains will be considered to have an "internal" (i.e. corporate) e-mail address.
-    <%= label_tag "demo[internal_domains]", "Internal domains" %>
-    <%= form.text_field :internal_domains, value: (demo.internal_domains.empty? ? '' : demo.internal_domains.join(','))  %>
-  <% end %>
-
   <%= form.inputs :name => "Followup welcome message" do %>
     <%= form.input :followup_welcome_message %>
     <%= add_byte_counter_for 'Followup welcome message' %>
