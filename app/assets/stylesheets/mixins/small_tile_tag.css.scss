@@ -1,0 +1,15 @@
+@mixin small-tile-tag {
+  background-color: transparent;
+  margin-top: 5px;
+  margin-left: 3px;
+  padding: 0px 3px;
+  border-radius: 6px;
+  display: inline-block;
+  font-size: 10px;
+  color: $med-gray;
+  border: 1px solid $med-gray;
+  a{
+    color: $med-gray;
+    font-weight: 300;
+  }
+}

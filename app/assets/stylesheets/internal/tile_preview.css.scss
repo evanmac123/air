@@ -1,10 +1,11 @@
 @import "mixins/main_styles";
 @import "external/_case_study";
+@import "mixins/small_tile_tag";
 
 body.tile_previews.tile_previews-show {
   background-color: #FEFEFE;  
   .tile_preview_navbar {
-    background-color: $white;  
+    background-color: transparent;
     border-bottom: 1px solid $light-gray;
     margin-bottom: 50px;
     padding-left: 0;
@@ -101,9 +102,9 @@ body.tile_previews.tile_previews-show {
       }      
     }
 
-    .like-copy-info{      
+    .like-copy-info{
       float: left;
-      width: 40%;
+      width: 35%;
       margin-top: -3px;
       margin-left: 5px;
       color: $med-gray;
@@ -141,7 +142,11 @@ body.tile_previews.tile_previews-show {
     }
     .all_tile_tags {
       float: right;
-      width: 30%;
+      width: 40%;
+
+      .tile_tag {
+        float: right;
+      }
     }
     .tile_tags {
       color: $light-gray;
@@ -149,18 +154,11 @@ body.tile_previews.tile_previews-show {
       padding-right: 10px;
       
       li { display: inline-block;}
+      .tag-icon { 
+        float: left; 
+      }
       .tile_tag {
-        margin-top: 5px;
-        margin-left: 3px;
-        padding: 0px 6px 3px 6px;
-        border-radius: 5px;
-        display: inline-block;
-        font-size: 10px;
-        color: $med-gray;
-        border: 1px solid $light-gray;
-        a{
-          color: $med-gray;
-        }
+        @include small-tile-tag;
       }
     }
     .extra_tags_list{

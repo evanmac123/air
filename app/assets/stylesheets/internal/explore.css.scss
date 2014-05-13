@@ -1,5 +1,6 @@
 @import "mixins/main_styles";
 @import "external/_case_study";
+@import "mixins/small_tile_tag";
 
 .client_admin_explore_tile_tag{
   padding-left: 0;
@@ -148,17 +149,7 @@
     }
     .all_tile_tags{ 
       .tile_tag {
-        font-size: 10px;
-        margin-top: 5px;
-        margin-left: 4px;
-        padding: 0px 6px 3px 6px;
-        border-radius: 5px;
-        display: inline-block;
-        background-color: white;
-        a {
-          color: $med-gray;
-        }
-        border: 1px solid $light-gray;
+        @include small-tile-tag;
       }
     }
   }
