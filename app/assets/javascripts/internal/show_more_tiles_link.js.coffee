@@ -1,4 +1,4 @@
-bindShowMoreTilesLink = (moreTilesSelector, tileSelector, spinnerSelector, targetSelector) ->
+bindShowMoreTilesLink = (moreTilesSelector, tileSelector, spinnerSelector, targetSelector, afterRenderCallback) ->
   $(moreTilesSelector).live('click', (event) ->
     event.preventDefault()
 
@@ -10,7 +10,11 @@ bindShowMoreTilesLink = (moreTilesSelector, tileSelector, spinnerSelector, targe
       $.get(
         $(this).data('tile-path'),
         {base_batch_size: baseBatchSize, partial_only: 'true'},
-        ((data) -> $(targetSelector).replaceWith(data)))
+        ((data) -> 
+          $(targetSelector).replaceWith(data)
+          if typeof(afterRenderCallback) == 'function'
+            afterRenderCallback()
+        ))
   )
 
 window.bindShowMoreTilesLink = bindShowMoreTilesLink

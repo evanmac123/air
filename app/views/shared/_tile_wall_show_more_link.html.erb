@@ -9,7 +9,7 @@
 
 <% content_for :javascript do %>
   <%= javascript_tag do %>
-      bindShowMoreTilesLink('.show_more_tiles', '.explore_tile', '#show_more_tiles_spinner', '#tile_wall');
+    bindShowMoreTilesLink('.show_more_tiles', '.explore_tile', '#show_more_tiles_spinner', '#tile_wall', hideExplorePageExtraTags);
   <% end %>
 <% end %>
 
