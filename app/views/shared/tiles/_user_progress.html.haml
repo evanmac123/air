@@ -1,12 +1,13 @@
 #user_progress
-  - if current_user.demo.raffle.live?
+  - if raffle.live?
     #raffle_section
       #raffle_header.progress_header
         Raffle Entries
       #raffle_data.progress_header
         #raffle_time_left
           %icon.fa.fa-clock-o
-          12 weeks
+          = time_left starts_at: raffle.starts_at, ends_at: raffle.ends_at, position: :first, format: :number
+          = time_left starts_at: raffle.starts_at, ends_at: raffle.ends_at, position: :first, format: :text
         #raffle_info
           %icon.fa.fa-trophy
           Info
