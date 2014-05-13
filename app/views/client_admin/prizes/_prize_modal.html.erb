@@ -1,0 +1,11 @@
+<div id="prize_modal" class="reveal-modal">
+     <%= render partial: "client_admin/prizes/prize", locals: {raffle: raffle} %>
+</div>
+<a href="#" data-reveal-id="prize_modal" id="modal_link" data-dismissmodalclass="close_modal">Click Me For A Modal</a>
+<% content_for :javascript do %>
+  <%= javascript_tag do %>
+    $().ready(function(){
+      $("#modal_link").click();
+    });
+  <% end %>
+<% end %>

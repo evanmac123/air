@@ -37,6 +37,8 @@
             = prize.present? ? prize : "Prize description will appear here"
   .other_info_row{:class => ("placeholder_text" unless raffle.other_info.present?)}
     = raffle.other_info.present? ? raffle.other_info : "For every 20 points you earn, you receive an entry into the prize raffle. We’ll email the winner to award the prize within a week of the end of the prize period."
+    .button.close_modal
+      Close
 
 
 
