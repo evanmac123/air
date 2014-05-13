@@ -1,6 +1,5 @@
 .container.row
   #tiles_done_message
-    %p= done_all_tiles_message
     = link_to "Return to homepage", (params[:public_slug] ? public_activity_path(params[:public_slug]) : activity_path)
 
 = render "shared/guest_conversion_lightbox"

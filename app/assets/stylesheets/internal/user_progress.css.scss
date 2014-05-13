@@ -124,22 +124,22 @@ body.tiles-index, body.acts-index{
         float: left;
         width: 4rem;
         color: $sky-blue;
-        font-size: 12px;
-        padding: 0.8em;
+        font-size: 16px;
+        padding-top: 0.7em;
       }
     }
     #tile_section{
       float: none;
       width: auto;
       overflow: hidden;
+      background: #cbc9c9;
       #tile_header{
         padding-top: 1.1em;
-        text-align: center;
+        //text-align: center;
       }
       #all_tiles{
         float: right;
         height: 2.2rem;
-        border-radius: 3px;
         padding: 0.5em;
         font-size: 18px;
       }
@@ -154,6 +154,19 @@ body.tiles-index, body.acts-index{
           height: 2.2rem;
           text-align: right;
           padding: 0.5em;
+          width: 55px;
+          #complete_info{
+            position: relative;
+            #congrat_header{
+              display: none;
+              text-transform: none;
+              font-size: 16px;
+              font-weight: 100;
+              width: 100%;
+              text-align: center;
+              position: absolute;
+            }
+          }
         }
       }
     }

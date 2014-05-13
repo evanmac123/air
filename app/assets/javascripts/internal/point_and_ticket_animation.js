@@ -127,37 +127,53 @@ var getTileCompletedNum = function(){
 var tileFullBar = function(){ return $("#tile_progress_bar"); }
 var tileCompleteData = function() { return $("#complete_info"); }
 var tileAll = function(){ return $("#all_tiles"); }
+var tileCongrat = function(){ return $("#congrat_header"); }
 
 var calculateTileProgressWidth = function(allTiles, completedTiles){
   newWidth = parseInt(tileFullBar().outerWidth() * completedTiles / allTiles);
-  currentWidth = tileCompletedBar().outerWidth();
-  if(currentWidth > newWidth){
-    newWidth = currentWidth; 
+  //currentWidth = tileCompletedBar().outerWidth();
+  if(completedTiles == 0){
+    newWidth = 0;
+  }else if(minWidth > newWidth){
+    newWidth = minWidth; 
   }
   return newWidth;
 }
 
-var setTileBarWidth = function(allTiles, completedTiles){
+var setTileBar = function(allTiles, completedTiles){
+  window.minWidth = parseInt( tileCompletedBar().css("width") );
   newWidth = calculateTileProgressWidth(allTiles, completedTiles);
-  currentWidth = tileCompletedBar().outerWidth();
-  if(currentWidth < newWidth){
-    tileCompletedBar().css("width", "" + newWidth + "px");
-  }
+  //currentWidth = tileCompletedBar().outerWidth();
+  //if(currentWidth < newWidth){
+  tileCompletedBar().css("width", "" + newWidth + "px");
+  //}
+  hideTileNumbers(allTiles, completedTiles);
+  showTileNumbers(allTiles, completedTiles);
 }
 
 var hideTileNumbers = function(allTiles, completedTiles){
-  tileCompleteData().css("visibility", "hidden");
+  tileCompletedBar().css("display", "block");       //show progress bar
+  tileCongrat().css("display", "none");             //not show congrat message
+  tileCompleteData().css("display", "none");
   tileCompletedNum().text(completedTiles);
   tileAll().text(allTiles);
   if(allTiles == completedTiles){
-    tileAll().css("display", "none");
+    tileAll().css("display", "none")
   }else{
     tileAll().css("visibility", "hidden");
   }
 }
 
 var showTileNumbers = function(allTiles, completedTiles){
-  tileAll().css("visibility", "visible");
+  tileCompleteData().css("display", "block");              //show earned points
+  tileAll().css("display", "block").css("visibility", "visible");//show all points
+
+  if( allTiles == 0 || completedTiles == 0 ){
+    tileCompletedBar().css("display", "none");
+  }else if(allTiles == completedTiles){
+    tileCongrat().css("display", "block");
+    tileAll().css("display", "none");
+  }
 }
 
 var fillTileBar = function(allTiles, completedTiles){
@@ -166,8 +182,7 @@ var fillTileBar = function(allTiles, completedTiles){
   hideTileNumbers(allTiles, completedTiles);
   newWidth = calculateTileProgressWidth(allTiles, completedTiles);
   tileCompletedBar().animate({width: newWidth}, 750, 'linear', function(){
-    tileCompleteData().css("visibility", "visible");
-    tileAll().css("visibility", "visible");
+    showTileNumbers(allTiles, completedTiles);
     deferred.resolve();
   });
 
@@ -185,7 +200,9 @@ var predisplayAnimations = function(tileData, tilePosting) {
     $('#raffle_entries').html(tileData.starting_tickets);
     return $.when( fillTileBar(tileData.all_tiles, tileData.completed_tiles) ).then(function(){
       return $.when(animateCounter('total_points', startingData.starting_points, tileData.ending_points, 0.5)).then(function() {
-        return fillBar(startingData.starting_tickets, tileData.ending_tickets, tileData.raffle_progress_bar, tileData.all_tiles_done);
+        if( radialProgressBar().length > 0 ){
+          return fillBar(startingData.starting_tickets, tileData.ending_tickets, tileData.raffle_progress_bar, tileData.all_tiles_done);
+        }
       });
     });
   })

@@ -20,6 +20,10 @@ class Raffle < ActiveRecord::Base
   validates_presence_of :other_info, :allow_blank => false, :message => "other info can't be blank"
   validate :prizes_presence
 
+  def live?
+    self.status == LIVE && self.starts_at <= Time.now
+  end
+
   def update_attributes_without_validations raffle_params
     self.starts_at = raffle_params[:starts_at]
     self.ends_at = raffle_params[:ends_at]

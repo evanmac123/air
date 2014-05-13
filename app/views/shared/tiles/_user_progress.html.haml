@@ -1,17 +1,18 @@
 #user_progress
-  #raffle_section
-    #raffle_header.progress_header
-      Raffle Entries
-    #raffle_data.progress_header
-      #raffle_time_left
-        %icon.fa.fa-clock-o
-        12 weeks
-      #raffle_info
-        %icon.fa.fa-trophy
-        Info
-    .progress-radial{class: "progress-" + (raffle_progress_bar * 10).to_s}
-      #raffle_entries.overlay
-        = starting_tickets
+  - if current_user.demo.raffle.live?
+    #raffle_section
+      #raffle_header.progress_header
+        Raffle Entries
+      #raffle_data.progress_header
+        #raffle_time_left
+          %icon.fa.fa-clock-o
+          12 weeks
+        #raffle_info
+          %icon.fa.fa-trophy
+          Info
+      .progress-radial{class: "progress-" + (raffle_progress_bar * 10).to_s}
+        #raffle_entries.overlay
+          = starting_tickets
   #total_section
     #total_header.progress_header
       Total points
@@ -26,11 +27,14 @@
     #tile_progress_bar
       #completed_tiles
         #complete_info
+          #congrat_header
+            %icon.fa.fa-flag
+            You've finished all new tiles!
           %icon.fa.fa-check
           %span#completed_tiles_num
             = current_user.completed_tiles_on_current_demo.count
 :javascript
   $().ready(function(){
-    setTileBarWidth(#{ current_user.avaliable_tiles_on_current_demo.count }, 
+    setTileBar(#{ current_user.avaliable_tiles_on_current_demo.count }, 
                     #{ current_user.completed_tiles_on_current_demo.count });
   });
