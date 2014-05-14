@@ -88,7 +88,7 @@ body.tile_previews.tile_previews-show {
           background-color: $sky-blue;
         }
       }      
-      .not_copy_button, .not_like_button{
+      .not_like_button{
         @include light-button($med-gray);
         font-size: 0.8em;
         &:active {
