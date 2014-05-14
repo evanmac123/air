@@ -1,0 +1,129 @@
+body.tiles-index, body.acts-index, body.client_admin-prizes{
+  #modal_link{
+    display: none;
+  }
+  .reveal-modal{
+    background: transparent;
+    box-shadow: none;
+    border: 0;
+  }
+  /*
+   *  Prize box
+   */
+  .prize_num{
+    color: $white;
+    font-size: 36px;
+    padding: 0;
+    margin: 0;
+  }
+  .prize_caps{
+    font-size: 0.8em;
+    text-transform: uppercase;
+  }
+  .preview_container{
+    border: 1px solid $light-gray;
+    padding: 3em;
+    .placeholder_text{
+      color: $med-gray;
+    }
+  }
+  .prize_box{
+    box-shadow: rgb(231, 231, 231) 0px 0px 1px 1px;
+    background: $white;
+    margin: auto;
+    width: 360px;
+    border: 1px solid $light-gray;
+    .icon_container{
+      width: 58px;
+      padding: 0.5em;
+      padding-top: 0.7em;
+      text-align: center;
+      color: $white;
+      icon{
+        font-size: 36px;
+      }
+    }
+    .desc_container{
+      width: 300px;
+      padding: 0.2em;
+    }
+    .prize_header{
+      position: relative;
+      padding: 0.5em;
+      h1{
+        font-size: 2em;
+        display: inline;
+      }
+      .end_date{
+        position: absolute;
+        bottom: 0.8em;
+        right: 0.8em;
+        display: inline;
+        font-size: 14px;
+        color: $med-gray;
+      }
+    }
+    .tickets_row, .time_row{
+      color: $white;
+      text-align: center;
+      border-bottom: 1px solid $white;
+      .desc_container{
+        border-left: 1px solid $white;
+      }
+    }
+    .tickets_row{
+      background: $sky-blue;
+    }
+    .time_row{
+      background: $text-color;
+      .time_cell{
+        display: inline;
+        width: 50%;
+        padding: 0.2em;
+        &:nth-child(even){
+          border-left: 1px solid $white;
+        }
+      }
+      .desc_container{
+        padding: 0;
+      }
+    }
+    .prizes_container{
+      .prize_row{
+        border-bottom: 1px solid $light-gray;
+        .icon_container{
+          color: $sky-blue;
+          padding: 0.3em;
+        }
+        .prize_description{
+          font-size: 16px;
+          min-height: 3em;
+          border-left: 1px solid $light-gray;
+          padding: 0.5em;
+          display: flex;
+          p{
+            margin: auto;
+            text-align: center;
+            vertical-align: middle;
+            word-break: break-word;
+          }
+        }
+      }
+    }
+    .other_info_row{
+      padding: 1em 0.7em 1em 0.7em;
+      font-size: 14px;
+      word-break: break-word;
+      line-height: 1.5em;
+      .close_modal{
+        color: $med-gray;
+        border: 1px solid $med-gray;
+        background: transparent;
+        margin: 0;
+        border-radius: 3px;
+        width: 100%;
+        margin-top: 1em;
+      }
+    }
+  }
+}

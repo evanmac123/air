@@ -1,5 +1,6 @@
 #user_progress
-  = render partial: "shared/tiles/raffle_progress", locals: {raffle: raffle}   
+  - if raffle
+    = render partial: "shared/tiles/raffle_progress", locals: {raffle: raffle}   
   #total_section
     #total_header.progress_header
       Total points
@@ -14,15 +15,16 @@
     #tile_progress_bar
       #completed_tiles
         #complete_info
-          #congrat_header
-            %icon.fa.fa-flag
-            You've finished all new tiles!
           %icon.fa.fa-check
           %span#completed_tiles_num
             = current_user.completed_tiles_on_current_demo.count
+        #congrat_header
+          %icon.fa.fa-flag-checkered
+          You've finished all new tiles!
 :javascript
   $().ready(function(){
     setTileBar(#{ current_user.avaliable_tiles_on_current_demo.count }, 
                     #{ current_user.completed_tiles_on_current_demo.count });
   });
-= render partial: "client_admin/prizes/prize_modal", locals: {raffle: raffle}
+- if raffle
+  = render partial: "client_admin/prizes/prize_modal", locals: {raffle: raffle}

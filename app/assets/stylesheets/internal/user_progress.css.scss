@@ -133,7 +133,7 @@ body.tiles-index, body.acts-index{
       float: none;
       width: auto;
       overflow: hidden;
-      background: #cbc9c9;
+      background: #e2e7ef;
       #tile_header{
         padding-top: 1.1em;
         //text-align: center;
@@ -157,16 +157,15 @@ body.tiles-index, body.acts-index{
           padding: 0.5em;
           width: 55px;
           #complete_info{
-            position: relative;
-            #congrat_header{
-              display: none;
-              text-transform: none;
-              font-size: 16px;
-              font-weight: 100;
-              width: 100%;
-              text-align: center;
-              position: absolute;
-            }
+            float: right;
+          }
+          #congrat_header{
+            display: none;
+            text-transform: none;
+            font-size: 16px;
+            font-weight: 500;
+            width: 100%;
+            text-align: center;
           }
         }
       }

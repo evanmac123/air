@@ -197,7 +197,7 @@ var predisplayAnimations = function(tileData, tilePosting) {
     //$('#total_points').html(tileData.delimited_starting_points);
     $('#progress_bar .small_cap').html(tileData.master_bar_point_content);
     //$('#user_tickets').html(tileData.starting_tickets);
-    $('#raffle_entries').html(tileData.starting_tickets);
+    $('.raffle_entries_num').html(tileData.ending_tickets);
     return $.when( fillTileBar(tileData.all_tiles, tileData.completed_tiles) ).then(function(){
       return $.when(animateCounter('total_points', startingData.starting_points, tileData.ending_points, 0.5)).then(function() {
         if( radialProgressBar().length > 0 ){
