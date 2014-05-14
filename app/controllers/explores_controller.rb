@@ -4,7 +4,7 @@ class ExploresController < ClientAdminBaseController
   before_filter :find_tiles
 
   def show
-    @tile_tags = TileTag.alphabetical.with_public_active_tiles
+    @tile_tags = TileTag.alphabetical.with_public_non_draft_tiles
     @all_tiles_displayed = @tiles.count <= tile_batch_size
     @tiles = @tiles.limit(tile_batch_size)
     @path_for_more_tiles = explore_path

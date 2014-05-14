@@ -66,17 +66,23 @@ feature 'Sees tiles on explore page' do
   end
 
   context "by picking tagged ones" do
-    it "lists tags that have tiles on the explore page in alpha order" do
+    it "lists tags that have active or archived tiles on the explore page in alpha order" do
       %w(Spam Fish Cheese Groats Bouillabase).each do |title|
         FactoryGirl.create(:tile_tag, title: title)
       end
 
-      2.times do
-        TileTag.all.each do |tile_tag|
-          tile = FactoryGirl.create(:tile, :public)
-          tile.tile_tags << tile_tag
-        end
+      tags = TileTag.all
+
+      tags[0,2].each do |tile_tag|
+        tile = FactoryGirl.create(:tile, :public, status: Tile::ACTIVE)
+        tile.tile_tags << tile_tag
       end
+
+      tags[2,3].each do |tile_tag|
+        tile = FactoryGirl.create(:tile, :public, status: Tile::ARCHIVE)
+        tile.tile_tags << tile_tag
+      end
+
 
       visit explore_path(as: a_client_admin)
       expect_content "Bouillabase Cheese Fish Groats Spam"
@@ -92,18 +98,6 @@ feature 'Sees tiles on explore page' do
         tile = FactoryGirl.create(:tile)
         tile.tile_tags << tag
       end
-
-      %w(Ja Oui Si).each do |title|
-        tag = FactoryGirl.create(:tile_tag, title: title)
-        draft_tile = FactoryGirl.create(:tile, :public, status: Tile::DRAFT)
-        archive_tile = FactoryGirl.create(:tile, :public, status: Tile::ARCHIVE)
-        draft_tile.tile_tags << tag
-        archive_tile.tile_tags << tag
-      end
-
-      tag = FactoryGirl.create(:tile_tag, title: "ThisYes")
-      tile = FactoryGirl.create(:tile, :public)
-      tile.tile_tags << tag
 
       visit explore_path(as: a_client_admin)
       %w(Spam Fish Cheese Groats Bouillabase).each {|title| expect_no_content title}

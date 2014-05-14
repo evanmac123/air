@@ -4,11 +4,11 @@ class TileTag < ActiveRecord::Base
 
   has_alphabetical_column :title
 
-  def self.with_public_active_tiles
+  def self.with_public_non_draft_tiles
     # There might be better way to do this, via a combination of JOIN and
     # DISTINCT, but I can't seem to browbeat ActiveRelation into doing that
 
-    ids_from_taggings = TileTagging.joins(:tile).where("tiles.is_public" => true, "tiles.status" => Tile::ACTIVE).pluck(:tile_tag_id)
+    ids_from_taggings = TileTagging.joins(:tile).where("tiles.is_public" => true, "tiles.status" => [Tile::ACTIVE, Tile::ARCHIVE]).pluck(:tile_tag_id)
     where(id: ids_from_taggings)
   end
 end
