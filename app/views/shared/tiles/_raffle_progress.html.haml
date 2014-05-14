@@ -1,0 +1,15 @@
+- if raffle.live?
+  #raffle_section
+    #raffle_header.progress_header
+      Raffle Entries
+    #raffle_data.progress_header
+      #raffle_time_left
+        %icon.fa.fa-clock-o
+        = time_left starts_at: raffle.starts_at, ends_at: raffle.ends_at, position: :first, format: :number
+        = time_left starts_at: raffle.starts_at, ends_at: raffle.ends_at, position: :first, format: :text
+      #raffle_info
+        %icon.fa.fa-trophy
+        Info
+    .progress-radial{class: "progress-" + (raffle_progress_bar * 10).to_s}
+      #raffle_entries.overlay
+        = starting_tickets

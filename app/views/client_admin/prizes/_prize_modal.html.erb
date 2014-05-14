@@ -5,10 +5,23 @@
 <% content_for :javascript do %>
   <%= javascript_tag do %>
     $().ready(function(){
-      $("#modal_link").click();
+      <% if raffle.show_finish? current_user %>
+        $(".prize_header .end_date").css("display", "none");
+        $(".prize_header").css("text-align", "center");
+        showRaffleBox("Prize Period Finished!");
+      <% elsif raffle.show_start? current_user %>
+        showRaffleBox("New Raffle!");
+      <% end %>
     });
+    function showRaffleBox(header){
+      $(".prize_header h1").text(header);
+      $("#modal_link").click();
+    }
     $(".close_modal").click(function(){
       $('[data-reveal]').foundation('reveal','close');
+    });
+    $("#raffle_data").click(function(){
+      showRaffleBox("Prize");
     });
   <% end %>
 <% end %>

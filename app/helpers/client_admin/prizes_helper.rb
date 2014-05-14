@@ -12,8 +12,10 @@ module ClientAdmin::PrizesHelper
     ends_at   = time_params[:ends_at]
     position  = time_params[:position]
     format    = time_params[:format]
+    status = current_user.demo.raffle.status
+    if starts_at.present? == false || ends_at.present? == false || \
+      status == Raffle::PICK_WINNERS || status == Raffle::PICKED_WINNERS
 
-    unless starts_at.present? && ends_at.present?
       dimention = (position == :first ? "week" : "day")
       return time_in_format 0, format, dimention 
     end

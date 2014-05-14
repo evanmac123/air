@@ -4,6 +4,8 @@ class Raffle < ActiveRecord::Base
   has_many :winners, through: :raffle_winners, source: :user
   has_many :blacklists, dependent: :destroy
   has_many :blacklisted_users, through: :blacklists, source: :user
+  has_many :users_in_raffles, dependent: :destroy
+  has_many :users, through: :users_in_raffles
   serialize :prizes, Array
 
   after_initialize :default_values
@@ -22,6 +24,41 @@ class Raffle < ActiveRecord::Base
 
   def live?
     self.status == LIVE && self.starts_at <= Time.now
+  end
+
+  def finished?
+    status == PICK_WINNERS || status == PICKED_WINNERS
+  end
+
+  def find_user_in_raffle_info user
+    user_in_raffle = UsersInRaffle.where(raffle_id: self.id, user_id: user.id).first
+    unless user_in_raffle
+      user_in_raffle = UsersInRaffle.create(raffle_id: self.id, user_id: user.id) 
+    end
+    user_in_raffle
+  end
+
+  def show_start? user
+    user_in_raffle = find_user_in_raffle_info user
+    if live? && !user_in_raffle.start_showed
+      user_in_raffle.start_showed = true
+      user_in_raffle.save
+      true
+    else
+      false
+    end
+  end
+
+  def show_finish? user
+    user_in_raffle = find_user_in_raffle_info user
+    if finished? && !user_in_raffle.finish_showed
+      user_in_raffle.start_showed = true
+      user_in_raffle.finish_showed = true
+      user_in_raffle.save
+      true
+    else
+      false
+    end
   end
 
   def update_attributes_without_validations raffle_params
