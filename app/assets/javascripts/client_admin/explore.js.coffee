@@ -63,6 +63,10 @@ $(document).ready ->
     event.preventDefault()
    
     copyLink = $(this)
+    wrapper = copyLink.parents('.copied, .not_copied')
+    spinner = wrapper.siblings('.copy_spinner')
+    wrapper.hide()
+    spinner.show()
 
     $.post(copyLink.attr('data_url'), {},
       (data) ->
@@ -73,6 +77,8 @@ $(document).ready ->
           copyLink.text('Copied')
           copyMessage = copyLink.parent().find('.copy_message')
           copyMessage.text(data.copyCount)
+          spinner.hide()
+          wrapper.show()
       ,
       'json'
     )

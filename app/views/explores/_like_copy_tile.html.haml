@@ -23,6 +23,7 @@
   - else
     %span.not_copied
       = render "copy_link", tile: tile
+  = image_tag 'spinner_gears.gif', class: 'copy_spinner', style: 'display: none'
 
 -else
   %span.view_only
