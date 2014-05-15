@@ -28,7 +28,7 @@ feature "Client admin copies/likes tile from the explore-preview page" do
     Tile.order("created_at DESC").first
   end
 
-  def expect_tile_copied(original_tile)
+  def expect_tile_copied(original_tile, copying_user)
     copied_tile = newest_tile
 
     Tile.count.should == 2
@@ -36,6 +36,7 @@ feature "Client admin copies/likes tile from the explore-preview page" do
       copied_tile[expected_same_field].should == original_tile[expected_same_field]
     end
 
+    copied_tile.creator.should == copying_user
     copied_tile.status.should == Tile::DRAFT
     copied_tile.demo_id.should == admin.demo_id
     copied_tile.is_copyable.should be_false
@@ -69,7 +70,7 @@ feature "Client admin copies/likes tile from the explore-preview page" do
       click_copy_button
    
       crank_dj_clear
-      expect_tile_copied(@original_tile)
+      expect_tile_copied(@original_tile, admin)
     end
 
     context "when the tile has no creator", js: true do
@@ -81,7 +82,7 @@ feature "Client admin copies/likes tile from the explore-preview page" do
         click_copy_button
      
         crank_dj_clear
-        expect_tile_copied(@original_tile)
+        expect_tile_copied(@original_tile, admin)
       end
     end
 

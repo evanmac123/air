@@ -287,6 +287,7 @@ class Tile < ActiveRecord::Base
     copy.original_creator = self.creator || self.original_creator
     copy.original_created_at = self.created_at || self.original_created_at
     copy.demo = new_demo
+    copy.creator = copying_user
     
     #mark as copied by user
     self.user_tile_copies.build(user_id: copying_user.id)
