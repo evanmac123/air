@@ -1,0 +1,200 @@
+body.acts-index{
+  #user_progress{
+    padding-bottom: 2rem !important;
+  }
+}
+body.tiles-index, body.acts-index{
+  header{
+    box-shadow: none;
+  }
+  .content{
+    padding-top: 0em !important;
+  } 
+  #user_progress{
+    background: $white;
+    padding: 1em;
+    margin-bottom: 1em;
+    box-shadow: 0 4px 4px -4px #a6a6a6;
+    width: 100%;
+    font-size: 9px;
+    text-transform: uppercase;
+    color: $white;
+    font-weight: 700;
+    //padding-bottom: 5rem;
+    &:after {@include clear;}
+    .progress_header{        
+        height: 1rem;
+        width: 100%;
+        color: $white;
+        text-transform: uppercase;
+        line-height: 1.4;
+        padding: 0.2em;
+        padding-left: 1em;
+        background: $blue;
+        border-radius: 3px;
+      }
+    #raffle_section{
+      float: right;
+      //border-radius: 3px;
+      //height: 2.2rem;
+      width: 7rem;
+      //background: $blue;
+      margin-left: 0.5rem;
+      //box-shadow: #B3B3B3 0px 0px 1px 1px;
+      #raffle_header{
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+      }
+      #raffle_data{
+        cursor: pointer;
+        float: right;
+        margin-top: 0.4rem;
+        //padding-left: 1rem;
+        width: 4.5rem;
+        color: $med-gray;
+        background: transparent;
+      }
+      /* -------------------------------------
+       * Radial progress bar - http://codepen.io/geedmo/pen/InFfd/
+       * ------------------------------------- */
+      $barColor: $sky-blue;
+      $overlayColor: $white;
+      $backColor: $white;
+      /* -------------------------------------
+       * Bar container
+       * ------------------------------------- */
+      .progress-radial{
+        //margin-left: 6.5em;
+        margin-top: 0.2rem;
+        margin-left: 0.5rem;
+        position: relative;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 0; // remove gradient color
+        background-color: $barColor; // default 100%
+        box-shadow: inset 0 0 7px #cbc9c9;
+        /* -------------------------------------
+         * Optional centered circle w/text
+         * ------------------------------------- */  
+        .overlay{
+          position: absolute;
+          width: 22px;
+          height: 22px;
+          background-color: $overlayColor;
+          border-radius: 50%;
+          margin-left: 5px;
+          margin-top: 5px;
+          text-align: center;
+          line-height: 22px;
+          font-size: 10px;
+          box-shadow: inset 0 0 10px #cbc9c9;
+          color: $sky-blue;
+        }
+        /* -------------------------------------
+         * Mixin for progress-% class
+         * ------------------------------------- */
+        $step: 1; // step of % for created classes
+
+        $loops: round(200 / $step);
+        $increment: 360 / $loops;
+        $half: round($loops / 2);
+        @for $i from 0 through $loops{
+          &.progress-#{$i*$step}{
+            z-index: 1;
+            @if($i < $half){
+              $startdeg: -90deg;
+              $nextdeg: $startdeg + ( $increment * $i );
+              background-image: linear-gradient($startdeg, 
+                $backColor 50%, transparent 50%, transparent), 
+              linear-gradient($nextdeg, $barColor 50%, $backColor 50%, $backColor);
+            }@else{
+              $startdeg: 90deg;
+              $nextdeg: $startdeg + ( $increment * ( $i - $half ) );
+              background-image: linear-gradient($nextdeg, 
+                $barColor 50%, transparent 50%, transparent), 
+              linear-gradient(360deg + $startdeg, $barColor 50%, $backColor 50%, $backColor);
+            }
+          }
+        }
+      }
+    }
+    #tile_section, #total_section{
+      //border-radius: 3px;
+      //background: $white;
+      //height: 2.2rem;
+      overflow: hidden;
+      //box-shadow: #B3B3B3 0px 0px 1px 1px;
+    }
+    #total_section{
+      width: 4rem;
+      float: right;
+      margin-left: 0.5rem;
+      #total_points{
+        text-align: left;
+        float: left;
+        width: 4rem;
+        color: $sky-blue;
+        font-size: 15px;
+        padding-top: 0.5rem;
+        padding-left: 0.5rem;
+        font-weight: 500;
+        line-height: 0.8;
+        &:after{
+          font-size: 9px;
+          content: "POINTS";
+          display: block;
+          margin-top: 0.4rem;
+        }
+      }
+    }
+    #tile_section{
+      float: none;
+      width: auto;
+      overflow: hidden;
+      //background: #e2e7ef;
+      #tile_progress_bar{
+        float: none;
+        width: auto;
+        overflow: hidden;
+        height: 1.9rem;
+        font-size: 10px;
+        background: #e2e7ef;
+        border-radius: 3px;
+        margin-top: 0.3rem;
+        #all_tiles{
+          float: right;
+          height: 1.9rem;
+          padding: 0.8em;
+          //font-size: 18px;
+        }
+        #completed_tiles{
+          float: left;
+          height: 1.9rem;
+          text-align: right;
+          padding: 0.8em;
+          width: 30px;
+          #complete_info{
+            float: right;
+          }
+          #congrat_header{
+            display: none;
+            text-transform: none;
+            font-weight: 500;
+            width: 100%;
+            text-align: center;
+          }
+        }
+      }
+    }
+    #completed_tiles, #all_tiles{
+      background: -moz-linear-gradient(top,  rgba(32,173,233,1) 0%, rgba(32,173,233,0.9) 100%); /* FF3.6+ */
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(32,173,233,1)), color-stop(100%,rgba(32,173,233,0.9))); /* Chrome,Safari4+ */
+      background: -webkit-linear-gradient(top,  rgba(32,173,233,1) 0%,rgba(32,173,233,0.9) 100%); /* Chrome10+,Safari5.1+ */
+      background: -o-linear-gradient(top,  rgba(32,173,233,1) 0%,rgba(32,173,233,0.9) 100%); /* Opera 11.10+ */
+      background: -ms-linear-gradient(top,  rgba(32,173,233,1) 0%,rgba(32,173,233,0.9) 100%); /* IE10+ */
+      background: linear-gradient(to bottom,  rgba(32,173,233,1) 0%,rgba(32,173,233,0.9) 100%); /* W3C */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#20ade9', endColorstr='#e620ade9',GradientType=0 ); /* IE6-9 */
+    }
+  }
+}

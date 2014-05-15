@@ -130,7 +130,11 @@ var tileAll = function(){ return $("#all_tiles"); }
 var tileCongrat = function(){ return $("#congrat_header"); }
 
 var calculateTileProgressWidth = function(allTiles, completedTiles){
-  newWidth = parseInt(tileFullBar().outerWidth() * completedTiles / allTiles);
+  fullWidth = tileFullBar().outerWidth();
+  if(allTiles != completedTiles){
+    fullWidth -= tileAll().outerWidth();
+  }
+  newWidth = parseInt( fullWidth * completedTiles / allTiles);
   //currentWidth = tileCompletedBar().outerWidth();
   if(completedTiles == 0){
     newWidth = 0;
