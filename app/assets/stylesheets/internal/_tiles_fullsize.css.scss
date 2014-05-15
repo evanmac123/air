@@ -292,10 +292,19 @@ tile_copied_reveal p {
   margin-top: 1em;
 }
 
-#close_tile_copied_lightbox {
-  @include app-button($dark-green);
+#post_copy_buttons {
+  margin-top: 3em;
+
+  a {
+    @include light-button($med-gray);
+    margin-right: 0.6em;
+  }
+
+  #close_tile_copied_lightbox {
+    @include light-button($sky-blue);
+  }
 }
-  
+
 #back_to_explore_button_wrapper {
   max-width: 600px;
   margin: 0 auto 1em auto;

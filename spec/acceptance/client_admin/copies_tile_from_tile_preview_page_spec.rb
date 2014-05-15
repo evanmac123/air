@@ -2,13 +2,13 @@ require 'acceptance/acceptance_helper'
 
 feature "Client admin copies/likes tile from the explore-preview page" do
   def expect_copied_lightbox
-    page.should have_content(post_copy_on_preview_page_copy)
+    page.should have_content(post_copy_copy)
   end
 
   def click_copy_button
     page.find('#copy_tile_button').click
     expect_copied_lightbox
-    page.find('.close-lightbox-button').click
+    page.find('#close_tile_copied_lightbox').click
   end
 
   def click_copy_link
@@ -90,7 +90,7 @@ feature "Client admin copies/likes tile from the explore-preview page" do
       click_copy_button
       page.find('#tile_copied_lightbox', visible: true)
 
-      expect_content post_copy_on_preview_page_copy
+      expect_content post_copy_copy
     end
 
     scenario "works if no creator is set", js: true do
@@ -98,7 +98,7 @@ feature "Client admin copies/likes tile from the explore-preview page" do
       click_copy_button
       page.find('#tile_copied_lightbox', visible: true)
 
-      expect_content post_copy_on_preview_page_copy
+      expect_content post_copy_copy
     end
 
     scenario "should ping", js: true do
