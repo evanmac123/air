@@ -36,6 +36,7 @@ class ExploresController < ClientAdminBaseController
 
   def find_tiles
     @tiles = Tile.viewable_in_public.tagged_with(params[:tile_tag]).order("created_at DESC").includes(:creator).includes(:tile_tags).includes(:user_tile_likes).includes(:user_tile_copies)
+    @liked_tile_ids = UserTileLike.where(user_id: current_user.id, tile_id: @tiles.map(&:id)).pluck(:tile_id)
   end
 
   def render_partial_if_requested(extra_locals)

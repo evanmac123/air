@@ -1,4 +1,4 @@
--if current_user.likes_tile?(tile)
+-if @liked_tile_ids.include?(tile.id)
   - display_liked = 'display:block;'
   - display_unliked = 'display:none;'
 -else
