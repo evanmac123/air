@@ -1,0 +1,16 @@
+<div id="tile_copied_lightbox" class="reveal-modal tile_copied_reveal">
+  <%= link_to 'Close', '#', class: "close-lightbox-button", id: "close_tile_copied_lightbox" %>
+  <p> 
+    You've added this tile to the draft section of your board.<br/>
+    Next, you can <%= link_to "edit this tile", "#", id: "edit_copied_tile_link" %><%- if show_back_to_explore_link %>, <%= link_to "go back to \"Explore,\"", explore_path %><% end %>
+    or <%= link_to "manage your board", client_admin_tiles_path %>.
+  </p>
+</div>
+<% content_for :javascript do %>
+  <%= javascript_tag do %>
+    $('#close_tile_copied_lightbox').click(function(event) {
+      event.preventDefault();
+      $('#tile_copied_lightbox').foundation('reveal', 'close');
+    });
+  <% end %>
+<% end %>

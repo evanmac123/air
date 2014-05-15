@@ -79,6 +79,7 @@ $(document).ready ->
           copyMessage.text(data.copyCount)
           spinner.hide()
           wrapper.show()
+          $('#tile_copied_lightbox').foundation('reveal', 'open')
       ,
       'json'
     )

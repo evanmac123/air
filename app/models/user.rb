@@ -1023,7 +1023,8 @@ class User < ActiveRecord::Base
       end
     end
   end
-    def likes_tile?(tile)
+
+  def likes_tile?(tile)
     self.user_tile_likes.where(tile_id: tile.id).exists?    
   end
   

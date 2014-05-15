@@ -427,4 +427,18 @@ module TileHelpers
     page.should have_selector('img.tile_image', visible: false)
     page.should have_selector('.image_placeholder', visible: true)
   end
+
+  # First "copy" in these next method names refers to the act of copying 
+  # something.
+  # Second "copy" means a piece of text.
+  # If you have a problem with this, don't blame me, sue the President of 
+  # English.
+  
+  def post_copy_on_explore_page_copy
+    "You've added this tile to the draft section of your board. Next, you can edit this tile or manage your board."
+  end
+
+  def post_copy_on_preview_page_copy
+    "You've added this tile to the draft section of your board. Next, you can edit this tile, go back to \"Explore,\" or manage your board."
+  end
 end

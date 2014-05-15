@@ -12,7 +12,7 @@ feature "Client admin copies or likes tile" do
       
   def click_copy
     first('.not_copied').find('.copy_tile_link').click
-    find('.reveal-modal').should have_content("You've added this tile to the inactive section of your board.")   
+    find('.reveal-modal').should have_content(post_copy_on_explore_page_copy)   
   end
 
   def click_close
