@@ -1025,11 +1025,11 @@ class User < ActiveRecord::Base
   end
 
   def likes_tile?(tile)
-    self.user_tile_likes.where(tile_id: tile.id).exists?    
+    tile.user_tile_likes.where(user_id: self.id).exists?
   end
   
   def copied_tile?(tile)
-    self.user_tile_copies.where(tile_id: tile.id).exists?    
+    tile.user_tile_copies.where(user_id: self.id).exists?
   end
 
   protected
