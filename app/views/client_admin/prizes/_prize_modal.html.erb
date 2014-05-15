@@ -13,15 +13,42 @@
         showRaffleBox("New Raffle!");
       <% end %>
     });
-    function showRaffleBox(header){
-      $(".prize_header h1").text(header);
-      $("#modal_link").click();
-    }
     $(".close_modal").click(function(){
-      $('[data-reveal]').foundation('reveal','close');
+      mq = window.matchMedia( "(min-width: 500px)" );
+      if (mq.matches) {
+        $('[data-reveal]').foundation('reveal','close');
+        }else{
+          hideRaffleMobile();
+        }
     });
     $("#raffle_data").click(function(){
       showRaffleBox("Prize");
     });
+    function showRaffleBox(header){
+      $(".prize_header h1").text(header);
+      mq = window.matchMedia( "(min-width: 500px)" );
+      if (mq.matches) {
+        // window width is at least 500px
+        $("#modal_link").click();
+      }
+      else {
+        // window width is less than 500px
+        showRaffleMobile();
+      }
+    }
+    function showRaffleMobile(){
+      $("#prize_modal").removeClass("reveal-modal");
+      $(".content").children().slice(3).css("display", "none");
+      $("footer").css("display", "none");
+      $("body").css("background", "white");
+      $(".jPanelMenu-panel").css("background", "white");
+    }
+    function hideRaffleMobile(){
+      $("#prize_modal").addClass("reveal-modal");
+      $(".content").children().slice(3).css("display", "block");
+      $("footer").css("display", "block");
+      $("jPanelMenu-panel").css("background", "");
+      $(".content").css("background", "");
+    }
   <% end %>
 <% end %>

@@ -49,6 +49,7 @@
 }
 @media only screen and (min-width: $foundation) {
 	@import "./internal/screen_desktop.css.scss";
+  @import "./internal/user_progress_desktop.css.scss";
 }
 @media only screen and (min-width: $mid-desktop) {
   @import "./internal/screen_large.css.scss";

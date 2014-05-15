@@ -108,7 +108,7 @@ header {
   } // Progress bar 
 
   #user_info {  // ============== User info
-    margin:1em auto;
+    //margin:1em auto;
     text-align:center;
     &:after{@include clear;}
     p.user_numbers {

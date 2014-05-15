@@ -6,7 +6,7 @@ body.acts-index{
 }
 body.tiles-index, body.acts-index{
   #user_progress{
-    max-width: 46.8rem;
+    max-width: 600px;
     width: 100%;
     margin: auto;
     font-size: 10px;
@@ -131,7 +131,7 @@ body.tiles-index, body.acts-index{
         width: 4rem;
         color: $sky-blue;
         font-size: 16px;
-        padding-top: 0.7em;
+        padding-top: 0.8em;
         padding-left: 0;
         &:after{
           content: "";

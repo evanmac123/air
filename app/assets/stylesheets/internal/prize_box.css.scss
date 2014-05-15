@@ -2,6 +2,9 @@ body.tiles-index, body.acts-index, body.client_admin-prizes{
   #modal_link{
     display: none;
   }
+  #prize_modal{
+    margin-top: -0.5em;
+  }
   .reveal-modal{
     background: transparent;
     box-shadow: none;

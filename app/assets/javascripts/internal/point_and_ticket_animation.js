@@ -140,6 +140,8 @@ var calculateTileProgressWidth = function(allTiles, completedTiles){
     newWidth = 0;
   }else if(minWidth > newWidth){
     newWidth = minWidth; 
+  }else if( allTiles == completedTiles ){
+    newWidth = "100%";
   }
   return newWidth;
 }
@@ -149,7 +151,7 @@ var setTileBar = function(allTiles, completedTiles){
   newWidth = calculateTileProgressWidth(allTiles, completedTiles);
   //currentWidth = tileCompletedBar().outerWidth();
   //if(currentWidth < newWidth){
-  tileCompletedBar().css("width", "" + newWidth + "px");
+  tileCompletedBar().css("width", newWidth);
   //}
   hideTileNumbers(allTiles, completedTiles);
   showTileNumbers(allTiles, completedTiles);
@@ -183,8 +185,8 @@ var showTileNumbers = function(allTiles, completedTiles){
 var fillTileBar = function(allTiles, completedTiles){
   var deferred = $.Deferred();
 
-  hideTileNumbers(allTiles, completedTiles);
   newWidth = calculateTileProgressWidth(allTiles, completedTiles);
+  hideTileNumbers(allTiles, completedTiles);
   tileCompletedBar().animate({width: newWidth}, 750, 'linear', function(){
     showTileNumbers(allTiles, completedTiles);
     deferred.resolve();

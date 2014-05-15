@@ -13,13 +13,13 @@ body.tiles-index, body.acts-index{
   #user_progress{
     background: $white;
     padding: 1em;
-    margin-bottom: 1em;
     box-shadow: 0 4px 4px -4px #a6a6a6;
     width: 100%;
     font-size: 9px;
     text-transform: uppercase;
     color: $white;
     font-weight: 700;
+    margin-bottom: 1em;
     //padding-bottom: 5rem;
     &:after {@include clear;}
     .progress_header{        
