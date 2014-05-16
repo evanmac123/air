@@ -333,7 +333,7 @@ class Tile < ActiveRecord::Base
     result
   end
   
-  def self.displayable_categorized_to_user(user, maximum_tiles = nil)
+  def self.displayable_categorized_to_user(user, maximum_tiles)
     result = satisfiable_categorized_to_user(user) 
 
     if maximum_tiles
@@ -351,8 +351,6 @@ class Tile < ActiveRecord::Base
         result[:all_tiles_displayed] = true      
       end
       result
-    else
-      result[:all_tiles_displayed] = true
     end
 
     result

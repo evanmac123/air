@@ -25,7 +25,7 @@ class TilesController < ApplicationController
     decide_whether_to_show_conversion_form
 
     if params[:partial_only]
-      render_tile_wall
+      render_tile_wall_as_partial
     else
       schedule_viewed_tile_ping(@start_tile)
     end
@@ -122,9 +122,9 @@ class TilesController < ApplicationController
     @current_tile_position_description = "Tile #{current_tile_index+1} of #{current_tile_ids.length}"
   end
 
-  def render_tile_wall
-    render partial: "shared/tile_wall", 
-      locals: (Tile.displayable_categorized_to_user(current_user, tile_batch_size)).merge(path_for_more_tiles: tiles_path)
+  def render_tile_wall_as_partial
+    html_content = render_to_string partial: "shared/tile_wall", locals: (Tile.displayable_categorized_to_user(current_user, maximum_tiles_wanted)).merge(path_for_more_tiles: tiles_path)
+    render json: {htmlContent: html_content}
   end
 
   def decide_whether_to_show_conversion_form
@@ -165,5 +165,10 @@ class TilesController < ApplicationController
   def schedule_viewed_tile_ping(tile)
     return unless tile.present?
     ping('Tile - Viewed', {tile_id: tile.id}, current_user)
+  end
+
+  def maximum_tiles_wanted
+    offset = params[:offset].to_i
+    offset + tile_batch_size_increment - (offset % tile_batch_size_increment)
   end
 end
