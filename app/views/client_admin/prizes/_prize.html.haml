@@ -5,34 +5,34 @@
     .end_date
       Ends 
       = raffle.ends_at ? raffle.ends_at.strftime("%A, %B %e") : "[Day of week, MM DD]"
-  .tickets_row.row
-    .torhy_icon.icon_container.columns
+  .tickets_row
+    .torhy_icon.icon_container
       %icon.fa.fa-trophy
-    .raffle_entries.desc_container.columns
+    .raffle_entries.desc_container
       %h1.raffle_entries_num.prize_num
         = entries
       .prize_caps
         Your raffle entries
-  .time_row.row
-    .clock_icon.icon_container.columns
+  .time_row
+    .clock_icon.icon_container
       %icon.fa.fa-clock-o
-    .time_left.desc_container.columns
-      .time_cell.columns
+    .time_left.desc_container
+      .time_cell
         %h1.prize_num#first_date_num
           = time_left starts_at: raffle.starts_at, ends_at: raffle.ends_at, position: :first, format: :number
         #first_date_text.prize_caps
           = time_left starts_at: raffle.starts_at, ends_at: raffle.ends_at, position: :first, format: :text
-      .time_cell.columns
+      .time_cell
         %h1.prize_num#second_date_num
           = time_left starts_at: raffle.starts_at, ends_at: raffle.ends_at, position: :second, format: :number
         #second_date_text.prize_caps
           = time_left starts_at: raffle.starts_at, ends_at: raffle.ends_at, position: :second, format: :text
   .prizes_container
     - raffle.prizes.each do |prize|
-      .prize_row.row
-        .prize_icon.icon_container.columns
+      .prize_row
+        .prize_icon.icon_container
           %icon.fa.fa-gift
-        .prize_description.desc_container.columns
+        .prize_description.desc_container
           %p{:class => ("placeholder_text" unless prize.present?)}
             = prize.present? ? prize : "Prize description will appear here"
   .other_info_row{:class => ("placeholder_text" unless raffle.other_info.present?)}
