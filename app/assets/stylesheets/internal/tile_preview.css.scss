@@ -80,22 +80,28 @@ body.tile_previews.tile_previews-show {
       .like_button_wrapper, .copy_button_wrapper {
         float: left;
       }
+
+      @mixin tile_preview_copy_like_button($color) {
+        @include light-button($color);
+        font-size: 0.8em;
+        &:active {
+          color: $white !important;
+          background-color: $color;
+        }
+      }
+
       .copy_button, .like_button {
-        @include light-button($sky-blue);
-        font-size: 0.8em;
-        &:active {
-          color: $white !important;
-          background-color: $sky-blue;
-        }
-      }      
+        @include tile_preview_copy_like_button($sky-blue);
+      }
+
+      .copy_button.uncopied {
+        @include tile_preview_copy_like_button($med-gray);
+      }
+
       .not_like_button{
-        @include light-button($med-gray);
-        font-size: 0.8em;
-        &:active {
-          color: $white !important;
-          background-color: $med-gray;
-        }
-      }      
+        @include tile_preview_copy_like_button($med-gray);
+      }
+
       .liked_by, .copied_by {
         font-size: 12px;
         color: $med-gray;

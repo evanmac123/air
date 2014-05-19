@@ -3,7 +3,10 @@
 <div id="copy_button_wrapper">
   <%= image_tag "spinner_gears.gif", class: "full_size_copy_tile_spinner", style: 'display: none' %>
   <%= link_to '#', id: 'copy_tile_button' do %>
-    <div class="copy_button">
+    <% copy_button_classes = ["copy_button"] %>
+    <% copy_button_classes << "uncopied" unless current_user.copied_tile?(tile) %>
+    <% copy_button_classes = copy_button_classes.join(' ') %>
+    <div class="<%= copy_button_classes %>">
       <%= fa_icon 'files-o'%>
         Copy
     </div>
@@ -32,6 +35,7 @@
           if(data.success) {
             $('#edit_copied_tile_link').attr('href', data.editTilePath);
             $('#tile_copied_lightbox').foundation('reveal', 'open');
+            $('.copy_button.uncopied').removeClass('uncopied');
             copyButton.find('copy_button').show();
           }
         },
