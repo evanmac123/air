@@ -28,11 +28,11 @@ body.tiles-index, body.acts-index{
         color: $white;
         text-transform: uppercase;
         line-height: 1.4;
-        padding: 0.2em;
-        //padding-left: 1em;
+        padding: 0.27em;
+        padding-left: 1em;
         background: $blue;
         border-radius: 3px;
-        text-align: center;
+        //text-align: center;
       }
     #raffle_section{
       float: right;
@@ -175,7 +175,7 @@ body.tiles-index, body.acts-index{
           height: 1.9rem;
           text-align: right;
           padding: 0.8em;
-          width: 30px;
+          width: 40px;
           #complete_info{
             float: right;
           }
