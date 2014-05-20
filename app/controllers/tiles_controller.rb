@@ -179,7 +179,7 @@ class TilesController < ApplicationController
   end
 
   def mark_all_completed_tiles
-    if current_user.avaliable_tiles_on_current_demo == current_user.completed_tiles_on_current_demo
+    if Tile.satisfiable_to_user(current_user).empty?
       current_user.not_show_all_completed_tiles_in_progress
     end
   end
