@@ -29,9 +29,10 @@ body.tiles-index, body.acts-index{
         text-transform: uppercase;
         line-height: 1.4;
         padding: 0.2em;
-        padding-left: 1em;
+        //padding-left: 1em;
         background: $blue;
         border-radius: 3px;
+        text-align: center;
       }
     #raffle_section{
       float: right;
@@ -159,13 +160,14 @@ body.tiles-index, body.acts-index{
         overflow: hidden;
         height: 1.9rem;
         font-size: 10px;
-        background: #e2e7ef;
+        background: #cfd7e3;//#e2e7ef;
         border-radius: 3px;
         margin-top: 0.3rem;
         #all_tiles{
           float: right;
           height: 1.9rem;
           padding: 0.8em;
+          background: transparent;
           //font-size: 18px;
         }
         #completed_tiles{
@@ -183,6 +185,9 @@ body.tiles-index, body.acts-index{
             font-weight: 500;
             width: 100%;
             text-align: center;
+            #congrat_text{
+              display: inline;
+            }
           }
         }
       }

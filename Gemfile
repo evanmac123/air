@@ -45,6 +45,7 @@ gem 'font-awesome-rails'
 gem 'wice_grid'
 gem 'kaminari'
 gem 'browser'
+gem "squeel" 
 
 # Gems used only for assets and not required
 # in production environments by default.

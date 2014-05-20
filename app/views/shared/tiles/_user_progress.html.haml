@@ -3,7 +3,7 @@
     = render partial: "shared/tiles/raffle_progress", locals: {raffle: raffle}   
   #total_section
     #total_header.progress_header
-      Total points
+      Total
     #total_points
       = number_with_delimiter current_user.points
   #tile_section
@@ -20,11 +20,13 @@
             = current_user.completed_tiles_on_current_demo.count
         #congrat_header
           %icon.fa.fa-flag-checkered
-          You've finished all new tiles!
+          #congrat_text
+            Finished!
 :javascript
   $().ready(function(){
     setTileBar(#{ current_user.avaliable_tiles_on_current_demo.count }, 
                     #{ current_user.completed_tiles_on_current_demo.count });
+    setCongratText();
   });
 - if raffle
   = render partial: "client_admin/prizes/prize_modal", locals: {raffle: raffle}

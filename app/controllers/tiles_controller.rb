@@ -37,6 +37,7 @@ class TilesController < ApplicationController
       get_position_description
       render_new_tile
       schedule_viewed_tile_ping(current_tile)
+      mark_all_completed_tiles
     else
       session[:start_tile] = params[:id]
       if params[:public_slug]
@@ -60,6 +61,8 @@ class TilesController < ApplicationController
   def render_new_tile
     after_posting = params[:after_posting] == "true"
     all_tiles_done = Tile.satisfiable_to_user(current_user).empty?
+    all_tiles = current_user.avaliable_tiles_on_current_demo.count
+    completed_tiles = current_user.completed_tiles_on_current_demo.count
     render json: {
       delimited_starting_points: number_with_delimiter(starting_points),
       ending_points: current_user.points,
@@ -72,8 +75,8 @@ class TilesController < ApplicationController
       show_conversion_form: @show_conversion_form,
       show_start_over_button: current_user.can_start_over?,
       raffle_progress_bar: raffle_progress_bar * 10,
-      all_tiles: current_user.avaliable_tiles_on_current_demo.count,
-      completed_tiles: current_user.completed_tiles_on_current_demo.count
+      all_tiles: all_tiles,
+      completed_tiles: completed_tiles
     }
   end
  
@@ -173,5 +176,11 @@ class TilesController < ApplicationController
   def maximum_tiles_wanted
     offset = params[:offset].to_i
     offset + tile_batch_size_increment - (offset % tile_batch_size_increment)
+  end
+
+  def mark_all_completed_tiles
+    if current_user.avaliable_tiles_on_current_demo == current_user.completed_tiles_on_current_demo
+      current_user.not_show_all_completed_tiles_in_progress
+    end
   end
 end

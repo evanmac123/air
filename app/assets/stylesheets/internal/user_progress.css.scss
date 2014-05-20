@@ -28,6 +28,7 @@ body.tiles-index, body.acts-index{
         padding-left: 1em;
         background: $blue;
         border-radius: 0;
+        text-align: left;
       }
     #raffle_section{
       float: right;
@@ -125,6 +126,11 @@ body.tiles-index, body.acts-index{
       width: 8rem;
       float: right;
       margin-left: 1.5rem;
+      #total_header{
+        &:after{
+          content: "POINTS";
+        }
+      }
       #total_points{
         text-align: center;
         float: left;
@@ -160,6 +166,7 @@ body.tiles-index, body.acts-index{
           height: 2.2rem;
           padding: 0.5em;
           font-size: 18px;
+          background: transparent;
         }
         #completed_tiles{
           float: left;

@@ -157,6 +157,13 @@ var setTileBar = function(allTiles, completedTiles){
   showTileNumbers(allTiles, completedTiles);
 }
 
+var setCongratText = function(){
+  mq = window.matchMedia( "(min-width: 500px)" );
+  if (mq.matches) {
+    $("#congrat_text").text("You've finished all new tiles!");
+  }
+}
+
 var hideTileNumbers = function(allTiles, completedTiles){
   tileCompletedBar().css("display", "block");       //show progress bar
   tileCongrat().css("display", "none");             //not show congrat message
@@ -177,6 +184,7 @@ var showTileNumbers = function(allTiles, completedTiles){
   if( allTiles == 0 || completedTiles == 0 ){
     tileCompletedBar().css("display", "none");
   }else if(allTiles == completedTiles){
+    tileCompleteData().css("display", "none");
     tileCongrat().css("display", "block");
     tileAll().css("display", "none");
   }
