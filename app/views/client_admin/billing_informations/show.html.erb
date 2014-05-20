@@ -1,0 +1,8 @@
+<%= form_for @credit_card, url: client_admin_billing_information_path do |form| %>
+  <%= form.text_field :number %>
+  <%= form.text_field :expiration %>
+  <%= form.text_field :cvc %>
+  <%= form.text_field :zip %>
+
+  <%= form.submit "Purchase" %>
+<% end %>

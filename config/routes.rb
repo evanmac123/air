@@ -162,6 +162,8 @@ Health::Application.routes.draw do
         get 'add'
       end
     end
+
+    resource :billing_information
   end
 
   resources :pages, :only => :show

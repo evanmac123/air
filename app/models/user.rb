@@ -42,6 +42,7 @@ class User < ActiveRecord::Base
   has_one    :current_board_membership, :class_name => "BoardMembership", :conditions => "is_current = true"
   has_one    :demo, through: :current_board_membership
   has_one    :original_guest_user, :class_name => "GuestUser", :foreign_key => :converted_user_id, :inverse_of => :converted_user
+  has_one    :billing_information
   validate :normalized_phone_number_unique, :normalized_new_phone_number_unique
   validate :new_phone_number_has_valid_number_of_digits
   validate :sms_slug_does_not_match_commands
