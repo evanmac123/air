@@ -1,27 +1,28 @@
-#user_progress
-  - if raffle
-    = render partial: "shared/tiles/raffle_progress", locals: {raffle: raffle}   
-  #total_section
-    #total_header.progress_header
-      Total
-    #total_points
-      = number_with_delimiter current_user.points
-  #tile_section
-    #tile_header.progress_header
-      Tiles
-    #tile_progress_bar
-      - if current_user.avaliable_tiles_on_current_demo.count != current_user.completed_tiles_on_current_demo.count
-        #all_tiles
-          = current_user.avaliable_tiles_on_current_demo.count
-      #completed_tiles
-        #complete_info
-          %icon.fa.fa-check
-          %span#completed_tiles_num
-            = current_user.completed_tiles_on_current_demo.count
-        #congrat_header
-          %icon.fa.fa-flag-checkered
-          #congrat_text
-            Finished!
+.user_container
+  #user_progress
+    - if raffle
+      = render partial: "shared/tiles/raffle_progress", locals: {raffle: raffle}   
+    #total_section
+      #total_header.progress_header
+        Total
+      #total_points
+        = number_with_delimiter current_user.points
+    #tile_section
+      #tile_header.progress_header
+        Tiles
+      #tile_progress_bar
+        - if current_user.avaliable_tiles_on_current_demo.count != current_user.completed_tiles_on_current_demo.count
+          #all_tiles
+            = current_user.avaliable_tiles_on_current_demo.count
+        #completed_tiles
+          #complete_info
+            %icon.fa.fa-check
+            %span#completed_tiles_num
+              = current_user.completed_tiles_on_current_demo.count
+          #congrat_header
+            %icon.fa.fa-flag-checkered
+            #congrat_text
+              Finished!
 :javascript
   $().ready(function(){
     setTileBar(#{ current_user.avaliable_tiles_on_current_demo.count }, 
