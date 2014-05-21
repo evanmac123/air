@@ -32,7 +32,7 @@ class ClientAdmin::PrizesController < ClientAdminBaseController
     else
       flash[:failure] = "Sorry, we couldn't start the raffle: " + @raffle.errors.values.join(", ") + "."
     end
-    redirect_to client_admin_prizes_path
+    render 'index'
   end
 
   def cancel

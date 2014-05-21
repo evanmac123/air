@@ -26,57 +26,67 @@
     = f.text_area :other_info, maxlength: 300, placeholder: "For every 20 points you earn, you receive an entry into the prize raffle. We’ll email the winner to award the prize within a week of the end of the prize period."
 
 
-
-:javascript
-  _.each($('.prize_field'), addCharacterCounterFor);
-  addCharacterCounterFor( $('#raffle_other_info') );
-
-  $(function() {
-    $(".datepicker").datepicker({ minDate: '0'});
-    rebindPrizeEvents();
-  });
-
-  $('.add_another').click(function() {
-    if(!window.status || window.status == 'live_edit'){
-      addNewPrizeField();
-      addNewPreviewPrizeField();
+- content_for :javascript do
+  :javascript
+    $(function() {
+      addCharacterCounterFor( $('#raffle_other_info') );
+      $(".datepicker").datepicker({ minDate: '0'});
       rebindPrizeEvents();
-    }
-  });
-
-  //for picking by datepicker
-  $("#raffle_starts_at").change( function(){
-    validateStartDate();
-  });
-
-  $("#raffle_ends_at").change( function(){
-    validateEndDate();
-  });
-
-  //for printing or pasting
-  $("#raffle_starts_at").bind('input propertychange', function(){
-    validateStartDate();
-  });
-  $("#raffle_ends_at").bind('input propertychange', function(){
-    validateEndDate();
-  });
-
-  function rebindPrizeEvents(){
-    $(".prize_field").unbind();
-    $(".prize_field").bind('input propertychange', function(){
-      index = $(".prize_field").index($(this));
-      updatePrivewPrizeField(index);
     });
 
-    $(".remove_prize").unbind();  
-    $(".remove_prize").click(function(){
+    $('.add_another').click(function() {
       if(!window.status || window.status == 'live_edit'){
-        index = $(".prize_section").index( $(this).closest( $(".prize_section") ) );
-        removePrize(index);
+        addNewPrizeField();
+        addNewPreviewPrizeField();
+        rebindPrizeEvents();
       }
     });
-  };
 
-  $("#raffle_other_info").bind('input propertychange', function(){
-    updatePreivewOtherInfo();
-  });
+    //for picking by datepicker
+    $("#raffle_starts_at").change( function(){
+      validateStartDate();
+    });
+
+    $("#raffle_ends_at").change( function(){
+      validateEndDate();
+    });
+
+    //for printing or pasting
+    $("#raffle_starts_at").bind('input propertychange', function(){
+      validateStartDate();
+    });
+    $("#raffle_ends_at").bind('input propertychange', function(){
+      validateEndDate();
+    });
+
+    function rebindPrizeEvents(){
+      $(".prize_field").unbind();
+      $(".prize_section .character-counter").remove();
+
+      _.each($('.prize_field'), addCharacterCounterFor);
+
+      //enable save draft button
+      $(".prize_field").bind('input propertychange', function(){
+        unsavedDraft();
+      });
+      $(".prize_field").change(function(){
+        unsavedDraft();
+      });
+
+      $(".prize_field").bind('input propertychange', function(){
+        index = $(".prize_field").index($(this));
+        updatePrivewPrizeField(index);
+      });
+
+      $(".remove_prize").unbind();  
+      $(".remove_prize").click(function(){
+        if(!window.status || window.status == 'live_edit'){
+          index = $(".prize_section").index( $(this).closest( $(".prize_section") ) );
+          removePrize(index);
+        }
+      });
+    };
+
+    $("#raffle_other_info").bind('input propertychange', function(){
+      updatePreivewOtherInfo();
+    });

@@ -10,38 +10,39 @@
     #clear_dialog{title: "Clear the form?"}
       %p
         This form will be cleared. Are you sure?
-  :javascript
-    $(function() {
-      clearAllDialog();
-      window.draft_saved = true;
-    });
+  - content_for :javascript do
+    :javascript
+      $(function() {
+        clearAllDialog();
+        window.draft_saved = true;
+      });
 
-    $("#save_draft").click(function() {
-      saveDraft();
-    });
+      $("#save_draft").click(function() {
+        saveDraft();
+      });
 
-    $(".clear_form").click(function(){
-      $( "#clear_dialog" ).dialog( "open" );
-    });
+      $(".clear_form").click(function(){
+        $( "#clear_dialog" ).dialog( "open" );
+      });
 
-    //enable save draft button
-    $("form textarea, form input").bind('input propertychange', function(){
-      unsavedDraft();
-    });
+      //enable save draft button
+      $("form textarea, form input").bind('input propertychange', function(){
+        unsavedDraft();
+      });
 
-    $("form textarea, form input").change(function(){
-      unsavedDraft();
-    });
+      $("form textarea, form input").change(function(){
+        unsavedDraft();
+      });
 
-    $(window).on("beforeunload", function(){
-      if(!window.draft_saved){
-        return "If you leave this page, you’ll lose any changes you made. Please, save them before leaving."
-      }
-    });
+      $(window).on("beforeunload", function(){
+        if(!window.draft_saved){
+          return "If you leave this page, you’ll lose any changes you made. Please, save them before leaving."
+        }
+      });
 
-    $("#start").click(function(){
-      startLive();
-    });
+      $("#start").click(function(){
+        startLive();
+      });
 - elsif raffle.status == Raffle::LIVE
   .buttons_section
     .button#edit_or_save
@@ -53,35 +54,37 @@
       End Early
     %a.button.finish_button#cancel_raffle.tip-bottom{"data-tooltip" => true, title: 'Cancel, no winner', href: cancel_client_admin_prizes_path, "data-confirm-message" => "Confirm?"}
       Cancel
-  :javascript
-    $(function() {
-      disableForm();
-      window.status = 'live_show';
-    });
+  - content_for :javascript do
+    :javascript
+      $(function() {
+        disableForm();
+        window.status = 'live_show';
+      });
 
-    $("#edit_or_save").click(function(){
-      if( window.status == 'live_show' ){
-      turnLiveEdit();
-      }else{
-        updateRaffle();
-      }
-    });
+      $("#edit_or_save").click(function(){
+        if( window.status == 'live_show' ){
+        turnLiveEdit();
+        }else{
+          updateRaffle();
+        }
+      });
 
-    $("#progress_or_cancel").click(function(){
-      turnLiveShow();
-    });
+      $("#progress_or_cancel").click(function(){
+        turnLiveShow();
+      });
 
-    $(".finish_button").click(function(e){
-      if( !$(this).hasClass("confirmation") ){
-        e.preventDefault();
-        makeConfirmButton( $(this) );
-      }
-    });
+      $(".finish_button").click(function(e){
+        if( !$(this).hasClass("confirmation") ){
+          e.preventDefault();
+          makeConfirmButton( $(this) );
+        }
+      });
 - else
   .buttons_section
     .button.blue_button#period_complete{ disabled: true }
       Prize Period Complete 
-  :javascript
-    $(function() {
-      disableForm();
-    });
+  - content_for :javascript do
+    :javascript
+      $(function() {
+        disableForm();
+      });

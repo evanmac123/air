@@ -1,7 +1,6 @@
 function addNewPrizeField() {
   initialPrize = $('.prize_section').eq(0);
   //clone from first prize
-  prize_count = $(".prize_section").length
   var newPrize = initialPrize.clone()
                 .find('.character-counter').remove().end()
                 .find('.prize_field').val('').end();
@@ -33,6 +32,7 @@ function startLive(){
 }
 
 function unsavedDraft(){
+  //activate save draft button
   if(window.draft_saved){
     $("#save_draft").removeAttr('disabled').text("Save draft");
     window.draft_saved = false;
