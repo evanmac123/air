@@ -62,6 +62,10 @@ feature 'Submits payment information' do
     )
   end
 
+  def expect_no_call_to_stripe
+    Stripe::Customer.should have_received(:create).never
+  end
+
   before do
     # We could avoid all this nonsense if the Stripe library would let us just
     # do Stripe::Customer.new(stuff_we_actually_want) and have it work.
@@ -126,6 +130,46 @@ feature 'Submits payment information' do
   end
 
   context 'when they enter bad information' do
-    it 'reprimands them gently'
+    context 'that we can detect on our side' do
+      scenario 'to wit, a missing CC#' do
+        fill_in_valid_cc_entries
+        fill_in number_field, with: ''
+        submit_card
+
+        expect_no_call_to_stripe
+        page.should have_content("please enter a credit card number")
+      end
+
+      scenario 'to wit, a missing expiration' do
+        fill_in_valid_cc_entries
+        fill_in expiration_field, with: ''
+        submit_card
+
+        expect_no_call_to_stripe
+        page.should have_content("please enter an expiration date")
+      end
+
+      scenario 'to wit, a missing CVC' do
+        fill_in_valid_cc_entries
+        fill_in cvc_field, with: ''
+        submit_card
+
+        expect_no_call_to_stripe
+        page.should have_content("please enter the security code for this card")
+      end
+
+      scenario 'to wit, a missing ZIP' do
+        fill_in_valid_cc_entries
+        fill_in zip_field, with: ''
+        submit_card
+
+        expect_no_call_to_stripe
+        page.should have_content("please enter the billing ZIP code for this card")
+      end
+    end
+
+    context 'when stuff looks fine to us, but Stripe throws a card error' do
+      it 'passes along the message from that error'
+    end
   end
 end

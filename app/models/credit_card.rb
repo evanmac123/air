@@ -9,6 +9,12 @@
 class CreditCard < Struct.new(:number, :expiration, :cvc, :zip)
   extend  ActiveModel::Naming
   include ActiveModel::Conversion
+  include ActiveModel::Validations
+
+  validates_presence_of :number,     message: 'please enter a credit card number'
+  validates_presence_of :expiration, message: 'please enter an expiration date'
+  validates_presence_of :cvc,        message: 'please enter the security code for this card'
+  validates_presence_of :zip,        message: 'please enter the billing ZIP code for this card'
 
   def initialize(params={})
     params.keys.each do |key|
