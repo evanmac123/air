@@ -169,7 +169,14 @@ feature 'Submits payment information' do
     end
 
     context 'when stuff looks fine to us, but Stripe throws a card error' do
-      it 'passes along the message from that error'
+      it 'passes along the message from that error' do
+        error_message = "You did it wrong." # Stripe's style is a full sentence, first word capped, period at the end
+        exception = Stripe::CardError.new(error_message, nil, nil)
+        Stripe::Customer.stubs(:create).raises(exception)
+
+        submit_valid_cc_entries
+        page.should have_content "you did it wrong"
+      end
     end
   end
 end
