@@ -55,7 +55,11 @@ feature 'Submits payment information' do
   end
 
   def expect_stripe_called_with_happy_path_parameters
-    Stripe::Customer.should have_received(:create).with(card: VALID_STRIPE_CARD_PARAMETERS, email: @client_admin.email, description: "#{@client_admin.name} (#{@client_admin.email})")
+    Stripe::Customer.should have_received(:create).with(
+      card:  VALID_STRIPE_CARD_PARAMETERS, 
+      email: @client_admin.email, 
+      description: "#{@client_admin.name} (#{@client_admin.email})"
+    )
   end
 
   before do
@@ -77,7 +81,7 @@ feature 'Submits payment information' do
 
     Stripe::Customer.stubs(:create).returns(@dummy_customer)
 
-    @client_admin = FactoryGirl.create(:client_admin)
+    @client_admin = FactoryGirl.create(:client_admin, name: "Joey Bananas", email: "joey@example.com")
     visit client_admin_billing_information_path(as: @client_admin)
   end
 
@@ -113,7 +117,13 @@ feature 'Submits payment information' do
     expect_stripe_called_with_happy_path_parameters
   end
 
-  scenario 'and triggers an email to us'
+  scenario 'and triggers an email to us' do
+    submit_valid_cc_entries
+    crank_dj_clear
+
+    open_email(BILLING_INFORMATION_ENTERED_NOTIFICATION_ADDRESS)
+    current_email.should have_body_text("Joey Bananas (joey@example.com) submitted payment information to Stripe for the #{@client_admin.demo.name} (#{@client_admin.demo_id})")
+  end
 
   context 'when they enter bad information' do
     it 'reprimands them gently'
