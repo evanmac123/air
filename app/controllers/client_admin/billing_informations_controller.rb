@@ -5,28 +5,19 @@ class ClientAdmin::BillingInformationsController < ClientAdminBaseController
 
   def create
     @credit_card = CreditCard.new(params[:credit_card])
+    (failure_path and return) unless @credit_card.valid?
 
-    if @credit_card.valid?
-      begin
-        stripe_response = Stripe::Customer.create(
-          email:       current_user.email, 
-          description: user_description(current_user),
-          card:        @credit_card.to_stripe_params
-        )
-      rescue Stripe::CardError => stripe_error
-        failure_path(stripe_error)
-        return
-      end
-
-      current_user.billing_information = BillingInformation.build_from_stripe_response(stripe_response)
-      current_user.billing_information.save!
-
-      notify_us_of_new_billing_information(current_user)
-
-      redirect_to :back
-    else
-      failure_path
+    begin
+      stripe_response = post_billing_information_to_stripe
+    rescue Stripe::CardError => stripe_error
+      failure_path(stripe_error)
+      return
     end
+
+    save_billing_information(stripe_response)
+    notify_us_of_new_billing_information(current_user)
+
+    redirect_to :back
   end
 
   protected
@@ -57,5 +48,18 @@ class ClientAdmin::BillingInformationsController < ClientAdminBaseController
     # Stripe's typical style is "You did it wrong."
     # Downcase and ditch the period.
     stripe_error.message.downcase.gsub(/\.$/, '')
+  end
+
+  def post_billing_information_to_stripe
+    Stripe::Customer.create(
+      email:       current_user.email, 
+      description: user_description(current_user),
+      card:        @credit_card.to_stripe_params
+    )
+  end
+
+  def save_billing_information(stripe_response)
+    current_user.billing_information = BillingInformation.build_from_stripe_response(stripe_response)
+    current_user.billing_information.save!
   end
 end
