@@ -155,7 +155,8 @@
       }
 
       .tile_not_liked {
-        @include like_or_copy_control($dark-gray);
+        @include like_or_copy_control($white);
+        border-right: 1px solid $tile-text;
       }
 
       .copied {
@@ -163,7 +164,7 @@
       }
 
       .not_copied {
-        @include like_or_copy_control($dark-gray);
+        @include like_or_copy_control($white);
       }
 
       .view_only{
