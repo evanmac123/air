@@ -159,7 +159,7 @@ var setTileBar = function(allTiles, completedTiles){
 
 var setCongratText = function(){
   mq = window.matchMedia( "(min-width: 500px)" );
-  if (mq.matches) {
+  if (mq.matches || window.oldBrowser) {
     $("#congrat_text").text("You've finished all new tiles!");
   }
 }

@@ -23,11 +23,15 @@
             %icon.fa.fa-flag-checkered
             #congrat_text
               Finished!
-:javascript
-  $().ready(function(){
-    setTileBar(#{ current_user.avaliable_tiles_on_current_demo.count }, 
-                    #{ current_user.completed_tiles_on_current_demo.count });
-    setCongratText();
-  });
+- content_for :javascript do
+  - if browser.ie6? || browser.ie7? || browser.ie8?
+    :javascript
+      window.oldBrowser = true;
+  :javascript
+    $().ready(function(){
+      setTileBar(#{ current_user.avaliable_tiles_on_current_demo.count }, 
+                      #{ current_user.completed_tiles_on_current_demo.count });
+      setCongratText();
+    });
 - if raffle
   = render partial: "client_admin/prizes/prize_modal", locals: {raffle: raffle}

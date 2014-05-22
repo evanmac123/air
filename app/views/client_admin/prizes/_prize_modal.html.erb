@@ -15,7 +15,7 @@
     });
     $(".close_modal").click(function(){
       mq = window.matchMedia( "(min-width: 500px)" );
-      if (mq.matches) {
+      if (mq.matches || window.oldBrowser) {
         $('[data-reveal]').foundation('reveal','close');
         }else{
           hideRaffleMobile();
@@ -27,7 +27,7 @@
     function showRaffleBox(header){
       $(".prize_header h1").text(header);
       mq = window.matchMedia( "(min-width: 500px)" );
-      if (mq.matches) {
+      if (mq.matches || window.oldBrowser) {
         // window width is at least 500px
         $("#modal_link").click();
       }
