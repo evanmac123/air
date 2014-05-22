@@ -34,8 +34,8 @@ class Tile < ActiveRecord::Base
   has_many :triggering_rules, :class_name => "Rule", :through => :rule_triggers
   has_many :tile_taggings, dependent: :destroy
   has_many :tile_tags, through: :tile_taggings
-  has_many :user_tile_copies
-  has_many :user_tile_likes
+  has_many :user_tile_copies, dependent: :destroy
+  has_many :user_tile_likes, dependent: :destroy
   
   validates_presence_of :headline, :allow_blank => false, :message => "headline can't be blank"
   validates_presence_of :supporting_content, :allow_blank => false, :message => "supporting content can't be blank", :on => :client_admin
