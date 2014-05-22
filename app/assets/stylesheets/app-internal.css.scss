@@ -54,3 +54,5 @@
 @media only screen and (min-width: $mid-desktop) {
   @import "./internal/screen_large.css.scss";
 }
+
+@import "./internal/user_progress_ie8.css.scss";
