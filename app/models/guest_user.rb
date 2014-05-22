@@ -162,4 +162,16 @@ class GuestUser < ActiveRecord::Base
   def can_start_over?
     tile_completions.first.present?
   end
+
+  def available_tiles_on_current_demo
+    User::TileProgressCalculator.new(self).available_tiles_on_current_demo
+  end
+
+  def completed_tiles_on_current_demo
+    User::TileProgressCalculator.new(self).completed_tiles_on_current_demo
+  end
+
+  def not_show_all_completed_tiles_in_progress
+    User::TileProgressCalculator.new(self).not_show_all_completed_tiles_in_progress
+  end
 end

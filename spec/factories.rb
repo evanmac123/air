@@ -388,13 +388,12 @@ FactoryGirl.define do
     end
   end
 
-  factory :raffle_winner do
+  factory :user_in_raffle_info do
     association :user
     association :raffle
-  end
-
-  factory :blacklist do
-    association :user
-    association :raffle
+    start_showed false
+    finish_showed false
+    in_blacklist false
+    is_winner false
   end
 end

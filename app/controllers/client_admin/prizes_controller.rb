@@ -32,8 +32,8 @@ class ClientAdmin::PrizesController < ClientAdminBaseController
       redirect_to client_admin_prizes_path
     else
       flash[:failure] = "Sorry, we couldn't start the raffle: " + @raffle.errors.values.join(", ") + "."
+      render 'index'
     end
-    render 'index'
   end
 
   def cancel
@@ -71,7 +71,7 @@ class ClientAdmin::PrizesController < ClientAdminBaseController
   def repick_winner
     @user = User.find(params[:user_id])
     if @raffle.repick_winner @user
-      @new_user = @raffle.raffle_winners.last.user
+      @new_user = @raffle.user_in_raffle_infos.last.user
     else
       render 'delete_winner'
     end

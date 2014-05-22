@@ -1035,47 +1035,16 @@ class User < ActiveRecord::Base
     tile.user_tile_copies.where(user_id: self.id).exists?
   end
 
-  def avaliable_tiles_on_current_demo
-    available = demo.tiles.where(status: Tile::ACTIVE)
-    completed = completed_tiles.where(demo_id: demo, status: Tile::ACTIVE)
-    if available.pluck(:id).sort != completed.pluck(:id).sort
-      available -= tiles_not_used_in_tile_progress
-    end
-    available
+  def available_tiles_on_current_demo
+    TileProgressCalculator.new(self).available_tiles_on_current_demo
   end
 
   def completed_tiles_on_current_demo
-    available = demo.tiles.where(status: Tile::ACTIVE)
-    completed = completed_tiles.where(demo_id: demo, status: Tile::ACTIVE)
-    if available.pluck(:id).sort != completed.pluck(:id).sort
-      completed -= tiles_not_used_in_tile_progress
-    end
-    completed
-  end
-
-  def tiles_not_used_in_tile_progress
-    userid = self.id
-    tile_demo_id = self.demo_id
-    Tile.joins(:tile_completions).
-      where do 
-        (status == Tile::ACTIVE) & 
-        (tile_completions.user_id == userid) & 
-        (tile_completions.not_show_in_tile_progress == true) & 
-        (demo_id == tile_demo_id) 
-      end
+    TileProgressCalculator.new(self).completed_tiles_on_current_demo
   end
 
   def not_show_all_completed_tiles_in_progress
-    userid = self.id
-    tile_demo_id = self.demo_id
-    completed_tiles = TileCompletion.joins(:tile).
-      where do 
-        (tile.status == Tile::ACTIVE) & 
-        (user_id == userid) & 
-        (not_show_in_tile_progress == false) & 
-        (tile.demo_id == tile_demo_id) 
-      end
-    completed_tiles.update_all(not_show_in_tile_progress: true)
+    TileProgressCalculator.new(self).not_show_all_completed_tiles_in_progress
   end
 
   protected

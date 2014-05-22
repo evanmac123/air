@@ -1,11 +1,12 @@
 class Raffle < ActiveRecord::Base
   belongs_to :demo
-  has_many :raffle_winners, dependent: :destroy
-  has_many :winners, through: :raffle_winners, source: :user
-  has_many :blacklists, dependent: :destroy
-  has_many :blacklisted_users, through: :blacklists, source: :user
-  has_many :users_in_raffles, dependent: :destroy
-  has_many :users, through: :users_in_raffles
+  #has_many :raffle_winners, dependent: :destroy
+  #has_many :winners, through: :raffle_winners, source: :user
+  #has_many :blacklists, dependent: :destroy
+  #has_many :blacklisted_users, through: :blacklists, source: :user
+  has_many :user_in_raffle_infos, dependent: :destroy
+  has_many :blacklisted_users, through: :user_in_raffle_infos, source: :user, :conditions => "in_blacklist = true"
+  has_many :winners, through: :user_in_raffle_infos, source: :user, :conditions => "is_winner = true"
   serialize :prizes, Array
 
   after_initialize :default_values
@@ -30,19 +31,10 @@ class Raffle < ActiveRecord::Base
     status == PICK_WINNERS || status == PICKED_WINNERS
   end
 
-  def find_user_in_raffle_info user
-    user_in_raffle = UsersInRaffle.where(raffle_id: self.id, user_id: user.id).first
-    unless user_in_raffle
-      user_in_raffle = UsersInRaffle.create(raffle_id: self.id, user_id: user.id) 
-    end
-    user_in_raffle
-  end
-
   def show_start? user
     user_in_raffle = find_user_in_raffle_info user
     if live? && !user_in_raffle.start_showed
-      user_in_raffle.start_showed = true
-      user_in_raffle.save
+      user_in_raffle.update_attributes(start_showed: true)
       true
     else
       false
@@ -52,9 +44,7 @@ class Raffle < ActiveRecord::Base
   def show_finish? user
     user_in_raffle = find_user_in_raffle_info user
     if finished? && !user_in_raffle.finish_showed
-      user_in_raffle.start_showed = true
-      user_in_raffle.finish_showed = true
-      user_in_raffle.save
+      user_in_raffle.update_attributes(start_showed: true, finish_showed: true)
       true
     else
       false
@@ -70,7 +60,7 @@ class Raffle < ActiveRecord::Base
   end
 
   def pick_winners number, delete_old = winners
-    blacklisted_users.push delete_old
+    add_blacklisted_users delete_old
     blacklist = blacklisted_users.empty? ? -1 : blacklisted_users.pluck(:id)
     participants = demo.users
                         .where('user_id not in (?)', blacklist)
@@ -82,7 +72,7 @@ class Raffle < ActiveRecord::Base
       user.tickets.times {chances << user}
     end
 
-    winners.delete(delete_old)
+    delete_winners delete_old
     number += winners.count
 
     begin
@@ -93,7 +83,7 @@ class Raffle < ActiveRecord::Base
         chances.delete(possible_winner)
         return nil if chances.empty?
       else
-        winners.push possible_winner
+        add_winners possible_winner
       end
     end while winners.count < number
     winners
@@ -117,6 +107,26 @@ class Raffle < ActiveRecord::Base
 
   def finish_live
     update_attribute(:status, PICK_WINNERS)
+  end
+
+
+  #
+  # => UserInRaffleInfo methods
+  #
+  def find_user_in_raffle_info user
+    UserInRaffleInfo.find_user_in_raffle_info self, user
+  end
+
+  def add_blacklisted_users users
+    UserInRaffleInfo.add_blacklisted_users self, users
+  end
+
+  def add_winners users
+    UserInRaffleInfo.add_winners self, users
+  end
+
+  def delete_winners users 
+    UserInRaffleInfo.delete_winners self, users
   end
 
   private

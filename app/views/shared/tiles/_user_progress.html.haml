@@ -11,9 +11,9 @@
       #tile_header.progress_header
         Tiles
       #tile_progress_bar
-        - if current_user.avaliable_tiles_on_current_demo.count != current_user.completed_tiles_on_current_demo.count
+        - if current_user.available_tiles_on_current_demo.count != current_user.completed_tiles_on_current_demo.count
           #all_tiles
-            = current_user.avaliable_tiles_on_current_demo.count
+            = current_user.available_tiles_on_current_demo.count
         #completed_tiles
           #complete_info
             %icon.fa.fa-check
@@ -29,7 +29,7 @@
       window.oldBrowser = true;
   :javascript
     $().ready(function(){
-      setTileBar(#{ current_user.avaliable_tiles_on_current_demo.count }, 
+      setTileBar(#{ current_user.available_tiles_on_current_demo.count }, 
                       #{ current_user.completed_tiles_on_current_demo.count });
       setCongratText();
     });

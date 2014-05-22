@@ -27,7 +27,7 @@ feature 'Pick winners after raffle' do
   context "re-pick winners" do
     before(:each) do
       @raffle = demo.raffle = FactoryGirl.create(:raffle, :picked_winners, demo: demo)
-      demo.raffle.winners.push @users[0..1]
+      demo.raffle.add_winners @users[0..1]
       visit client_admin_prizes_path(as: client_admin)
     end
 

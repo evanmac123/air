@@ -61,7 +61,7 @@ class TilesController < ApplicationController
   def render_new_tile
     after_posting = params[:after_posting] == "true"
     all_tiles_done = Tile.satisfiable_to_user(current_user).empty?
-    all_tiles = current_user.avaliable_tiles_on_current_demo.count
+    all_tiles = current_user.available_tiles_on_current_demo.count
     completed_tiles = current_user.completed_tiles_on_current_demo.count
     render json: {
       delimited_starting_points: number_with_delimiter(starting_points),
