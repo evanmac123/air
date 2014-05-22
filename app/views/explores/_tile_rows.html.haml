@@ -33,8 +33,6 @@
                 = tile.demo.name
               -else
                 = ''
-            .text= tile.supporting_content
-          .author_info= truncate(show_author_info(tile), length: 60)
           %ul.all_tile_tags
           %ul.extra_tags_list
             - tile.tile_tags.each do |tile_tag|
