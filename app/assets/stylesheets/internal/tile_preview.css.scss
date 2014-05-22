@@ -3,7 +3,7 @@
 @import "mixins/small_tile_tag";
 
 body.tile_previews.tile_previews-show {
-  background-color: #FEFEFE;  
+  background-color: $almost-white;  
   .tile_preview_navbar {
     background-color: transparent;
     border-bottom: 1px solid $light-gray;

@@ -28,7 +28,7 @@ class ClientAdmin::BillingInformationsController < ClientAdminBaseController
       errors << normalize_stripe_error_message(stripe_error)
     end
 
-    flash[:failure] = "Sorry, we weren't able to process your credit card: " + errors.join(', ') + '.'
+    flash.now[:failure] = "Sorry, we weren't able to process your credit card: " + errors.join(', ') + '.'
     render :show
   end
 

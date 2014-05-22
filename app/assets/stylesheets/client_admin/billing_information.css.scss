@@ -1,0 +1,53 @@
+body.client_admin-billing_informations {
+  .payment_form_wrapper {
+    text-align: center;
+
+    h1 {
+      color: $sky-blue;
+      font-size: 18px;
+    }
+
+    form {
+      display: inline-block;
+      border: solid $med-gray 1px;
+      padding: 1em 2em 1.4em 2em;
+
+      input {
+        margin-top: 0.4em;
+        display: inline;
+      }
+
+      $payment_row_width: 100%;
+
+      input[type="text"] {
+        background-color: $almost-white;
+        border: solid $med-gray 1px;
+        font-size: 14px;
+        width: $payment_row_width;
+      }
+
+      #expiration_and_cvc_wrapper {
+        width: $payment_row_width;
+      }
+
+      input[type="submit"] {
+        @include app-button($sky-blue);
+        font-size: 14px;
+        color: $white;
+        width: $payment_row_width;
+      }
+
+      #credit_card_expiration, #credit_card_cvc {
+        width: 49%;
+      }
+
+      #credit_card_expiration {
+        float: left;
+      }
+
+      #credit_card_cvc {
+        float: right;
+      }
+    }
+  }
+}

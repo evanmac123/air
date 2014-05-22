@@ -1,8 +1,17 @@
-<%= form_for @credit_card, url: client_admin_billing_information_path do |form| %>
-  <%= form.text_field :number %>
-  <%= form.text_field :expiration %>
-  <%= form.text_field :cvc %>
-  <%= form.text_field :zip %>
+<div class="row">
+  <div class="payment_form_wrapper columns large-4 large-centered">
+    <h1>Enter Your Payment Information</h1>
+    <%= form_for @credit_card, url: client_admin_billing_information_path do |form| %>
+      <%= form.text_field :number, placeholder: "Card Number" %>
 
-  <%= form.submit "Purchase" %>
-<% end %>
+      <div id="expiration_and_cvc_wrapper">
+        <%= form.text_field :expiration, placeholder: "MM/YY" %>
+        <%= form.text_field :cvc, placeholder: "CVC" %>
+      </div>
+
+      <%= form.text_field :zip, placeholder: "Billing ZIP" %>
+
+      <%= form.submit "Purchase" %>
+    <% end %>
+  </div>
+</div>
