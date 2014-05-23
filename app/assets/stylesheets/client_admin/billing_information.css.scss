@@ -77,4 +77,11 @@ body.client_admin-billing_informations {
       }
     }
   }
+
+  .field_with_errors {
+    /* Rails' form helpers sure are helpful--except for when they want to
+       wrap an extra div around fields with errors that fuck the styling all
+       up. Luckily the fix is easy: */
+    display: inline;
+  }
 }
