@@ -34,11 +34,11 @@ feature "Sees tiles after completion" do
     end
     context "sees active tiles" do
       before do      
-        FactoryGirl.create(:tile, status: Tile::ACTIVE, demo: demo)
+        @tile = FactoryGirl.create(:tile, status: Tile::ACTIVE, demo: demo)
         visit activity_path(as: user)
       end
       scenario "shows active tiles section" do
-        page.find('.not-completed').should have_content tile.headline
+        page.find('.not-completed').should have_content @tile.headline
       end
     end
     context "sees tile completion history" do
@@ -106,7 +106,7 @@ feature "Sees tiles after completion" do
       end
       scenario "should display message saying 'you’ve completed all of your tiles'", js: true do
         click_link "Eggs"
-        page.should have_content("You've completed all available tiles! Check back later for more.")
+        page.should have_content("You've finished all new tiles!")
       end      
     end
   end

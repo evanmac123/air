@@ -1,4 +1,7 @@
 module RaffleHelpers
+  #
+  # => Client Admin Side
+  #
   def click_save_draft
     page.find("#save_draft").click
   end
@@ -96,5 +99,22 @@ module RaffleHelpers
 
   def repick_winner index
     page.all("td.winner_repick")[index].click
+  end
+
+  #
+  # => User Side
+  #
+
+  def expect_raffle_progress percents
+    percents *= 2 #convertion
+    page.should have_selector(".progress-" + percents.to_s)
+  end
+
+  def expect_reffle_entries tickets
+    page.find("#raffle_entries").text.should == tickets.to_s
+  end
+
+  def click_raffle_info
+    page.find("#raffle_info").click
   end
 end

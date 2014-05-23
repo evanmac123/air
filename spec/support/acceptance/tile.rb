@@ -437,4 +437,12 @@ module TileHelpers
   def post_copy_copy
     "Success! Tile has been copied to your board's drafts section."
   end
+
+  def completed_tiles_number
+    page.find("#completed_tiles_num", :visible => false).text.to_i
+  end
+
+  def total_points
+    page.find("#total_points").text.to_i
+  end
 end

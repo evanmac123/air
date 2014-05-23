@@ -189,6 +189,10 @@ module SteakHelperMethods
     expect_content_case_insensitive "tickets #{expected_ticket_count}"
   end
 
+  def expect_raffle_entries count
+    page.find("#raffle_entries").text.should == count.to_s
+  end
+
   def expect_link(text, url)
     page.find(:xpath, "//a[@href='#{url}']", :text => text).should be_present
   end

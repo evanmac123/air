@@ -2,7 +2,7 @@ require 'acceptance/acceptance_helper'
 
 feature 'User views tiles' do
   def all_tiles_done_message
-    "You've completed all available tiles!"
+    "You've finished all new tiles!"
   end
 
   context 'of the keyword variety' do

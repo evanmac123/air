@@ -8,7 +8,6 @@ feature "User proper stuff in masthead" do
     signin_as(user, "foobar")
     should_be_on activity_path(:format => :html)
 
-    within('#top_bar') { page.should have_content "Experience 1,234" }
     expect_avatar_in_masthead('ein_berliner.png')
   end
 end

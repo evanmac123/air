@@ -33,10 +33,11 @@ feature 'Completes tiles' do
     page.all(".not-completed #tile-thumbnail-#{tile_1.id}").should be_empty
   end
 
-  scenario 'and the score should update', js: true do
+  scenario 'and completed tiles count should update', js: true do
+    old_number = completed_tiles_number
     click_right_answer
     sleep 5
     visit activity_path
-    expect_content "TO NEXT TICKET 10/20 POINTS"
+    completed_tiles_number.should == old_number + 1
   end
 end
