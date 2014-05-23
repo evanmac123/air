@@ -7,7 +7,7 @@
       = raffle.ends_at ? raffle.ends_at.strftime("%A, %B %e") : "[Day of week, MM DD]"
   .tickets_row
     .torhy_icon.icon_container
-      %icon.fa.fa-trophy
+      %span.fa.fa-trophy
     .raffle_entries.desc_container
       %h1.raffle_entries_num.prize_num
         = entries
@@ -15,7 +15,7 @@
         Your raffle entries
   .time_row
     .clock_icon.icon_container
-      %icon.fa.fa-clock-o
+      %span.fa.fa-clock-o
     .time_left.desc_container
       .time_cell
         %h1.prize_num#first_date_num
@@ -31,7 +31,7 @@
     - raffle.prizes.each do |prize|
       .prize_row
         .prize_icon.icon_container
-          %icon.fa.fa-gift
+          %span.fa.fa-gift
         .prize_description.desc_container
           %p{:class => ("placeholder_text" unless prize.present?)}
             = prize.present? ? prize : "Prize description will appear here"
