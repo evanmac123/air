@@ -140,6 +140,10 @@
       line-height: 1.5;
       padding: 0.625em .6em;
       border-bottom: 1px solid $light-gray;
+
+      a{
+        color: $text-color;
+      }
     }
     .like_copy_tile{
       padding: 0;
