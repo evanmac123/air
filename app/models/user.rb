@@ -39,8 +39,8 @@ class User < ActiveRecord::Base
   has_many   :creator_tile_completions, source: :tile_completions, through: :tiles
   has_many   :board_memberships, dependent: :destroy
   has_many   :demos, through: :board_memberships
-  has_many   :raffle_winners, dependent: :destroy
-  has_many   :won_raffles, through: :raffle_winners, source: :raffle
+  has_many   :user_in_raffle_infos
+  has_one    :raffle, through: :demo
   has_one    :current_board_membership, :class_name => "BoardMembership", :conditions => "is_current = true"
   has_one    :demo, through: :current_board_membership
   has_one    :original_guest_user, :class_name => "GuestUser", :foreign_key => :converted_user_id, :inverse_of => :converted_user

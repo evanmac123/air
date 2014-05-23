@@ -1,9 +1,5 @@
 class Raffle < ActiveRecord::Base
   belongs_to :demo
-  #has_many :raffle_winners, dependent: :destroy
-  #has_many :winners, through: :raffle_winners, source: :user
-  #has_many :blacklists, dependent: :destroy
-  #has_many :blacklisted_users, through: :blacklists, source: :user
   has_many :user_in_raffle_infos, dependent: :destroy
   has_many :blacklisted_users, through: :user_in_raffle_infos, source: :user, :conditions => "in_blacklist = true"
   has_many :winners, through: :user_in_raffle_infos, source: :user, :conditions => "is_winner = true"
