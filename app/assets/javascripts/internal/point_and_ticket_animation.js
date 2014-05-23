@@ -44,19 +44,6 @@ var fillBarToFinalProgress = function(finalProgress, allTilesDone, callback) {
       }
     } 
   });
-  /*, 750, 'linear', function() {
-    radialProgressBar().removeClass('counting');
-    if(typeof(callback) === 'function') {
-      callback();
-    } 
-  });
-  /*progressBar().addClass('counting');
-  return progressBar().animate({width: finalPercentage}, 750, 'linear', function() {
-    progressBar().removeClass('counting');
-    if(typeof(callback) === 'function') {
-      callback();
-    } 
-  });*/
 };
 
 var loadFollowingTile = function() {
@@ -68,15 +55,11 @@ var fillBarEntirely = function(previousTickets, currentTickets, finalProgress, a
 
   var emptyBarCallback = function() {
     changeRadialProgressBarTo(0);
-    //console.log("emptyBarCallback");
     fillBarToFinalProgress(finalProgress, allTilesDone, function() {
-      //animateCounter('user_tickets', previousTickets, currentTickets, 0.1, deferred.resolve);
       animateCounter('raffle_entries', previousTickets, currentTickets, 0.1, deferred.resolve);
     });
   }
 
-  //progressBar().addClass('counting');
-  //progressBar().animate({width: '100%'}, 750, 'linear', emptyBarCallback);
   fillBarToFinalProgress(200, allTilesDone, emptyBarCallback);
   return deferred.promise();
 };
@@ -119,6 +102,10 @@ var markCompletedRightAnswer = function(event) {
   $(event.target).addClass('clicked_right_answer');
 }
 
+//
+//  All tile progress functions and set up 
+//
+
 var tileCompletedBar = function(){ return $("#completed_tiles"); }
 var tileCompletedNum = function(){ return $("#completed_tiles_num"); }
 var getTileCompletedNum = function(){ 
@@ -135,7 +122,6 @@ var calculateTileProgressWidth = function(allTiles, completedTiles){
     fullWidth -= tileAll().outerWidth();
   }
   newWidth = parseInt( fullWidth * completedTiles / allTiles);
-  //currentWidth = tileCompletedBar().outerWidth();
   if(completedTiles == 0){
     newWidth = 0;
   }else if(minWidth > newWidth){
@@ -149,10 +135,7 @@ var calculateTileProgressWidth = function(allTiles, completedTiles){
 var setTileBar = function(allTiles, completedTiles){
   window.minWidth = parseInt( tileCompletedBar().css("width") );
   newWidth = calculateTileProgressWidth(allTiles, completedTiles);
-  //currentWidth = tileCompletedBar().outerWidth();
-  //if(currentWidth < newWidth){
   tileCompletedBar().css("width", newWidth);
-  //}
   hideTileNumbers(allTiles, completedTiles);
   showTileNumbers(allTiles, completedTiles);
 }
@@ -203,16 +186,18 @@ var fillTileBar = function(allTiles, completedTiles){
   return deferred.promise();
 }
 
+//
+//  Makes all progress animation
+//
 var predisplayAnimations = function(tileData, tilePosting) {
+  //first, we post new tile
   $.when(tilePosting).then(function() {
     var startingData = $.parseJSON(tilePosting.responseText);
     $('#js-flashes').html(tileData.flash_content);
-    //$('#user_points').html(tileData.delimited_starting_points);
-    //$('#total_points').html(tileData.delimited_starting_points);
-    $('#progress_bar .small_cap').html(tileData.master_bar_point_content);
-    //$('#user_tickets').html(tileData.starting_tickets);
     $('.raffle_entries_num').html(tileData.ending_tickets);
+    //second, fill tile bar
     return $.when( fillTileBar(tileData.all_tiles, tileData.completed_tiles) ).then(function(){
+      //third, animate total points. fourth, animate raffle antries 
       return $.when(animateCounter('total_points', startingData.starting_points, tileData.ending_points, 0.5)).then(function() {
         if( radialProgressBar().length > 0 ){
           return fillBar(startingData.starting_tickets, tileData.ending_tickets, tileData.raffle_progress_bar, tileData.all_tiles_done);

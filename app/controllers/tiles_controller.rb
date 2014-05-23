@@ -64,12 +64,9 @@ class TilesController < ApplicationController
     all_tiles = current_user.available_tiles_on_current_demo.count
     completed_tiles = current_user.completed_tiles_on_current_demo.count
     render json: {
-      delimited_starting_points: number_with_delimiter(starting_points),
       ending_points: current_user.points,
       ending_tickets: current_user.tickets,
       flash_content: render_to_string('shared/_flashes', layout: false),
-      master_bar_point_content: master_bar_point_content,
-      master_bar_ending_percentage: master_bar_ending_percentage,
       tile_content: tile_content(all_tiles_done, after_posting),
       all_tiles_done: all_tiles_done,
       show_conversion_form: @show_conversion_form,
