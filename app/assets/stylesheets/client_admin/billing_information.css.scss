@@ -5,6 +5,10 @@ body.client_admin-billing_informations {
   }
 
   .payment_form_wrapper {
+    h1 {
+      float: left;
+    }
+
     text-align: center;
 
     form {
@@ -96,5 +100,20 @@ body.client_admin-billing_informations {
       top: -400px;
       padding: 5px 30px;
     }
+  }
+
+  .existing_billing_wrapper {
+    border: solid $med-gray 1px;
+    margin: 1em 0;
+
+    padding: 1em;
+
+    p:first-of-type {
+      margin-bottom: 1em;
+    }
+  }
+
+  #back_to_tiles {
+    @include light-button($med-gray);
   }
 }
