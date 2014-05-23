@@ -1,6 +1,10 @@
 class ClientAdmin::BillingInformationsController < ClientAdminBaseController
   def show
-    @credit_card = CreditCard.new
+    if current_user.billing_information.present?
+      render_billing_information
+    else
+      render_billing_information_form
+    end
   end
 
   def create
@@ -61,5 +65,15 @@ class ClientAdmin::BillingInformationsController < ClientAdminBaseController
   def save_billing_information(stripe_response)
     current_user.billing_information = BillingInformation.build_from_stripe_response(stripe_response)
     current_user.billing_information.save!
+  end
+
+  def render_billing_information
+    @billing_information = current_user.billing_information
+    render :billing_information_exists
+  end
+
+  def render_billing_information_form
+    @credit_card = CreditCard.new
+    render :show
   end
 end

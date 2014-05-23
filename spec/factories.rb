@@ -348,4 +348,15 @@ FactoryGirl.define do
   factory :tile_tag do
     sequence(:title) {|n| "Tile Tag #{n}"}
   end
+
+  factory :billing_information do
+    expiration_month "2"
+    expiration_year  "2019"
+    last_4           "9042"
+    customer_token   "cus_fake"
+    card_token       "card_fake"
+    issuer           "American Excess"
+
+    association :user
+  end
 end
