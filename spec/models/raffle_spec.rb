@@ -1,9 +1,8 @@
 require 'spec_helper'
 
 describe Raffle do
-  it { should have_many(:raffle_winners) }
+  it { should have_many(:user_in_raffle_infos) }
   it { should have_many(:winners) }
-  it { should have_many(:blacklists) }
   it { should have_many(:blacklisted_users) }
 
   describe "#pick_winners" do
@@ -27,16 +26,16 @@ describe Raffle do
 
     it "should put previous winners in blacklist" do
       @raffle.pick_winners 2
-      old_winners_id = @raffle.winners.pluck(:id)
+      old_winners_id = @raffle.reload.winners.pluck(:id)
       @raffle.pick_winners 2
-      @raffle.blacklisted_users.pluck(:id).should == old_winners_id
+      @raffle.reload.blacklisted_users.pluck(:id).should == old_winners_id
     end
 
     it "should not repeat winner" do
       @raffle.pick_winners 2
-      old_winners = @raffle.winners.dup
+      old_winners = @raffle.reload.winners.dup
       @raffle.pick_winners 2
-      old_winners.should_not == @raffle.winners
+      old_winners.should_not == @raffle.reload.winners
     end
   end
 end

@@ -15,8 +15,7 @@ class Admin::UsersController < AdminBaseController
         else
           @users = @demo.users
         end
-
-        @users = @users.order(&:name)
+        @users = @users.order{ name.asc }
       end
 
       format.js do
