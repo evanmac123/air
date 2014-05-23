@@ -13,21 +13,39 @@ body.client_admin-billing_informations {
       padding: 1em 2em 1.4em 2em;
 
       input {
-        margin-top: 0.4em;
         display: inline;
       }
 
       $payment_row_width: 100%;
+      $field_top_margin: 0.4em;
 
       input[type="text"] {
         background-color: $almost-white;
-        border: solid $med-gray 1px;
+        border: 0;
         font-size: 14px;
+        width: 88%;
+        float: right;
+      }
+
+      .field_wrapper {
+        display: inline-block;
         width: $payment_row_width;
+        border: solid $med-gray 1px;
+        padding: 0;
+        margin-top: $field-top-margin;
+
+        .fa {
+          font-size: 14px;
+          color: $med-gray;
+          margin-top: 9px;
+          width: 15px;
+        }
       }
 
       #expiration_and_cvc_wrapper {
-        width: $payment_row_width;
+        .field_wrapper {
+          width: ($payment_row_width / 2) - 2%;
+        }
       }
 
       input[type="submit"] {
@@ -35,17 +53,18 @@ body.client_admin-billing_informations {
         font-size: 14px;
         color: $white;
         width: $payment_row_width;
+        margin-top: $field_top_margin;
       }
 
       #credit_card_expiration, #credit_card_cvc {
-        width: 49%;
+        width: 75%;
       }
 
-      #credit_card_expiration {
+      #expiration_wrapper {
         float: left;
       }
 
-      #credit_card_cvc {
+      #cvc_wrapper {
         float: right;
       }
     }

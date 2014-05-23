@@ -2,14 +2,26 @@
   <div class="payment_form_wrapper columns large-4 large-centered">
     <h1>Enter Your Payment Information</h1>
     <%= form_for @credit_card, url: client_admin_billing_information_path do |form| %>
-      <%= form.text_field :number, placeholder: "Card Number" %>
-
-      <div id="expiration_and_cvc_wrapper">
-        <%= form.text_field :expiration, placeholder: "MM/YY" %>
-        <%= form.text_field :cvc, placeholder: "CVC" %>
+      <div class="field_wrapper">
+        <%= fa_icon "credit-card" %>
+        <%= form.text_field :number, placeholder: "Card Number" %>
       </div>
 
-      <%= form.text_field :zip, placeholder: "Billing ZIP" %>
+      <div id="expiration_and_cvc_wrapper">
+        <div id="expiration_wrapper" class="field_wrapper">
+          <%= fa_icon "calendar" %>
+          <%= form.text_field :expiration, placeholder: "MM/YY" %>
+        </div>
+        <div id="cvc_wrapper" class="field_wrapper">
+          <%= fa_icon "lock" %>
+          <%= form.text_field :cvc, placeholder: "CVC" %>
+        </div>
+      </div>
+
+      <div class="field_wrapper">
+        <%= fa_icon "map-marker" %>
+        <%= form.text_field :zip, placeholder: "Billing ZIP" %>
+      </div>
 
       <%= form.submit "Purchase" %>
     <% end %>
