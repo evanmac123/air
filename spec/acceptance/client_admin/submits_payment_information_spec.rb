@@ -133,6 +133,13 @@ feature 'Submits payment information' do
     current_email.should have_body_text("Joey Bananas (joey@example.com) submitted payment information to Stripe for the #{@client_admin.demo.name} (#{@client_admin.demo_id})")
   end
 
+  scenario 'sees a link back to the tiles page' do
+    submit_valid_cc_entries
+
+    page.should have_content("Payment Successful!")
+    page.should have_link("Back to Manage", client_admin_tiles_path)
+  end
+
   context 'when they enter bad information' do
     context 'that we can detect on our side' do
       scenario 'to wit, a missing CC#' do

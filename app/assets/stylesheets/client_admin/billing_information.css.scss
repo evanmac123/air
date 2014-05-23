@@ -1,11 +1,11 @@
 body.client_admin-billing_informations {
+  h1 {
+    color: $sky-blue;
+    font-size: 18px;
+  }
+
   .payment_form_wrapper {
     text-align: center;
-
-    h1 {
-      color: $sky-blue;
-      font-size: 18px;
-    }
 
     form {
       display: inline-block;
@@ -83,5 +83,18 @@ body.client_admin-billing_informations {
        wrap an extra div around fields with errors that fuck the styling all
        up. Luckily the fix is easy: */
     display: inline;
+  }
+
+  #return_image_and_link {
+    text-align: center;
+    border-top: solid $light-gray 1px;
+    padding-top: 20px;
+
+    #back_to_manage_link {
+      @include app-button($sky-blue);
+      position: relative;
+      top: -400px;
+      padding: 5px 30px;
+    }
   }
 }

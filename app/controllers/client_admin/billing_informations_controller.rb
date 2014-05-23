@@ -17,7 +17,7 @@ class ClientAdmin::BillingInformationsController < ClientAdminBaseController
     save_billing_information(stripe_response)
     notify_us_of_new_billing_information(current_user)
 
-    redirect_to :back
+    render :billing_successful
   end
 
   protected
