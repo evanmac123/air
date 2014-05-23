@@ -11,8 +11,10 @@
       %td
         .explore_tile
           .headline
-            %i.fa.fa-building-o
-            .text= tile.demo.client_name != '' ? tile.demo.client_name : tile.demo.name
+            = link_to explore_tile_preview_path(tile, thumb_click_source: thumb_click_source) do
+              %i.fa.fa-building-o
+              .text
+                =tile.demo.client_name != '' ? tile.demo.client_name : tile.demo.name
           = link_to explore_tile_preview_path(tile, thumb_click_source: thumb_click_source) do
             .tile_image{id:thumbnail_id}
               .like_copy_tile
@@ -20,7 +22,10 @@
                 -#.created_at= "#{time_ago_in_words(tile.created_at)} ago"
           .description
             .text= tile.headline
-          .author_info= truncate(show_author_info(tile), length: 60)
+          .author_info
+            = tile.creator.name
+            %span
+              = tile.demo.name
           %ul.all_tile_tags
           %ul.extra_tags_list
             - tile.tile_tags.each do |tile_tag|
