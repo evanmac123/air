@@ -9,7 +9,8 @@ class BillingInformation < ActiveRecord::Base
       expiration_year:  card.exp_year,
       last_4:           card.last4,
       customer_token:   stripe_customer.id,
-      card_token:       stripe_customer.default_card
+      card_token:       stripe_customer.default_card,
+      issuer:           card.type
     )
   end
 

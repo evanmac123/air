@@ -5,7 +5,8 @@ feature 'Submits payment information' do
   DUMMY_CARD_TOKEN     = "card_quux"
 
   # The parameters for a CC that we're concerned with, formatted the way
-  # Stripe expects to get them.
+  # Stripe expects to get them, or the way Stripe returns them, as is
+  # appropriate.
   VALID_CC_NUMBER        = "4012345981398502"
   VALID_LAST_4           = VALID_CC_NUMBER[-4, 4]
   VALID_EXPIRATION       = "0219"
@@ -13,6 +14,7 @@ feature 'Submits payment information' do
   VALID_EXPIRATION_YEAR  = VALID_EXPIRATION[2,2]
   VALID_CVC              = "456"
   VALID_ZIP              = "01234"
+  VALID_COMPANY          = "American Excess"
 
   VALID_STRIPE_CARD_PARAMETERS  = {
     number:      VALID_CC_NUMBER, 
@@ -75,6 +77,7 @@ feature 'Submits payment information' do
     @dummy_card.stubs(:exp_month).returns(VALID_EXPIRATION_MONTH)
     @dummy_card.stubs(:exp_year).returns(VALID_EXPIRATION_YEAR)
     @dummy_card.stubs(:last4).returns(VALID_LAST_4)
+    @dummy_card.stubs(:type).returns(VALID_COMPANY)
 
     @dummy_card_list = [@dummy_card]
 
@@ -101,6 +104,7 @@ feature 'Submits payment information' do
     billing_information.expiration_month.should == VALID_EXPIRATION_MONTH
     billing_information.expiration_year.should  == VALID_EXPIRATION_YEAR
     billing_information.last_4.should           == VALID_LAST_4
+    billing_information.issuer.should           == VALID_COMPANY
     billing_information.customer_token.should   == DUMMY_CUSTOMER_TOKEN
     billing_information.card_token.should       == DUMMY_CARD_TOKEN
   end

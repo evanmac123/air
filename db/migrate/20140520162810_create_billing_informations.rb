@@ -6,6 +6,7 @@ class CreateBillingInformations < ActiveRecord::Migration
       t.string :last_4, null: false, default: ''
       t.string :customer_token, null: false, default: ''
       t.string :card_token, null: false, default: ''
+      t.string :issuer, null: false, default: ''
 
       t.belongs_to :user
       t.timestamps
