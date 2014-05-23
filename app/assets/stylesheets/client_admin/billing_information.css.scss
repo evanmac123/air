@@ -48,12 +48,20 @@ body.client_admin-billing_informations {
         }
       }
 
-      input[type="submit"] {
-        @include app-button($sky-blue);
+      @mixin purchase-button($color) {
+        @include app-button($color);
         font-size: 14px;
         color: $white;
         width: $payment_row_width;
         margin-top: $field_top_margin;
+      }
+
+      input[type="submit"] {
+        @include purchase-button($sky-blue);
+      }
+
+      input[type="submit"][disabled] {
+        @include purchase-button($light-gray);
       }
 
       #credit_card_expiration, #credit_card_cvc {

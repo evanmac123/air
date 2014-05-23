@@ -27,3 +27,11 @@
     <% end %>
   </div>
 </div>
+
+<%= content_for :javascript do %>
+  <%= javascript_tag do %>
+    $('.payment_form_wrapper form').submit(function() {
+      $(this).find('input[type=submit]').attr('disabled', 'disabled');
+    });
+  <% end %>
+<% end %>
