@@ -56,7 +56,7 @@
     padding: 6px 6px;
     float: left;
     margin: 5px 13px 5px 0px;
-    width: 92%;
+    width: 100%;
     
     .author_info{
       color: $tile-text;
@@ -239,14 +239,7 @@
     }
   }
 }
-@-moz-document url-prefix() {
-  .tile_with_tags, .client_admin_explore .tiles {
-    .explore_tile{  
-      height: auto;
-      width: 82%;            
-    }
-  }
-}
+
 
 .explores {
   .reveal-modal {
