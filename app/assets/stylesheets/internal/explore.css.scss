@@ -69,6 +69,11 @@
       padding: 0.625em 1em;
       font-weight: 700;
       overflow: hidden;
+
+      > span{
+        font-weight: 400;
+        display: block;
+      }
     }
     .created_at{
       color: $text-color;
@@ -83,13 +88,19 @@
       background-repeat:no-repeat;
       height: 12em;
       position: relative;
+
+      > a{
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
     }
     .headline{
       background:$white;
       position: relative;
       padding: 0 1em;
-      line-height: 2.5em;
-      height: 2.5em;
+      line-height: 40px;
+      min-height: 40px;
       text-align: left;
       color: $sky-blue;
       font-size: 0.875rem;
@@ -107,27 +118,37 @@
       .text{
         @include font-regular;
         display: inline-block;
+        width: 89%;
         padding-left: 0.5em;
+        padding-top: 0.7em;
+        padding-bottom: 0.7em;
         margin-left: 0.7em;
-        border-left: 1px solid $light-gray;
+        line-height: 1;
+        vertical-align: middle;
+
+        &:before{
+          content: '';
+          position: absolute; top: 0; left: 40px; bottom: 0;
+          border-left: 1px solid $light-gray;
+        }
       }
     }
     .description{
       background: $white;
       color: $text-color;
       font-size: 1em;
+      line-height: 1.5;
       padding: 0.625em .6em;
       border-bottom: 1px solid $light-gray;
     }
     .like_copy_tile{
-      background-color: transparent;
       padding: 0;
       line-height: 34px;
       height: 34px;
       color: $med-gray;
       font-size: 12px;
       position: absolute; bottom: 0; left: 0; right: 0;
-      background: $dark;
+      background: rgba($dark, 0.79);
 
       @mixin box-sizing(){
         box-sizing: border-box;
@@ -139,9 +160,9 @@
         font-size: 12px;
         float: left;
         text-decoration: none;
-        font-weight: 500;
         width: 50%;
         padding: 0 0 0 10px;
+        font-weight: 400;
         @include box-sizing;
         .fa{
           font-size: 12px;
@@ -223,7 +244,14 @@
     }
   }
 }
-
+@-moz-document url-prefix() {
+  .tile_with_tags, .client_admin_explore .tiles {
+    .explore_tile{  
+      height: auto;
+      width: 82%;            
+    }
+  }
+}
 
 .explores {
   .reveal-modal {
