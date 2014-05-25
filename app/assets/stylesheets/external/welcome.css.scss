@@ -1,0 +1,100 @@
+body.pages-show.landing{
+  .content{
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+  .lightbox{
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 630px;
+    width: 100;
+    background: $white;
+    border-radius: 3px;
+    .headline_section{
+      padding: 2.5rem 1.5rem 2.5rem 1.5rem;
+      width: 100%;
+      #airbo_logo{
+        display: block;
+        margin-right: auto;
+        margin-left: auto;
+        margin-bottom: 2rem;
+        width: 100px;
+      }
+      .headline{
+        font-size: 24px;
+        color: $text-color;
+        text-align: center;
+        max-width: 30rem;
+        margin: auto;
+      }
+    }
+    .call_out_section{
+      background: #c1145b;
+      padding: 0.5em;
+      box-shadow: #616161 0px 4px 4px -4px;
+      position: relative;
+      z-index: 2;
+      .call_out{
+        font-size: 16px;
+        color: $white;
+        text-align: center;
+        max-width: 30rem;
+        margin: auto;
+        line-height: 1.7;
+        max-width: 25rem;
+      }
+    }
+    .janet_section{
+      position: relative;
+      .janet_text{
+        position: absolute;
+        margin-top: 12%;
+        margin-left: 5%;
+        z-index: 3;
+        color: $white;
+        .fa{
+          float: left;
+          color: #6d7668;
+          margin-right: 0.5rem;
+          line-height: 24px;
+          font-size: 18px;
+        }
+        .janet_all_text{
+          float: right;
+          text-shadow: black 1px 1px 1px;
+          .janet_quote{
+            width: 17rem;
+            font-size: 24px;
+            max-width: 100%;
+          }
+          .janet_about{
+            width: 20rem;
+            max-width: 100%;
+            font-size: 14px;
+            margin-top: 1rem;
+          }
+        }
+      }
+      #janet_picture{
+        position: relative;
+        &:before {
+          content: " ";
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          z-index: 1;
+          top: 0;
+          left: 0;
+          background: -moz-linear-gradient(left,  rgba(0,0,0,0.68) 0%, rgba(255,255,255,0.01) 100%); /* FF3.6+ */
+          background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(0,0,0,0.68)), color-stop(100%,rgba(255,255,255,0.01))); /* Chrome,Safari4+ */
+          background: -webkit-linear-gradient(left,  rgba(0,0,0,0.68) 0%,rgba(255,255,255,0.01) 100%); /* Chrome10+,Safari5.1+ */
+          background: -o-linear-gradient(left,  rgba(0,0,0,0.68) 0%,rgba(255,255,255,0.01) 100%); /* Opera 11.10+ */
+          background: -ms-linear-gradient(left,  rgba(0,0,0,0.68) 0%,rgba(255,255,255,0.01) 100%); /* IE10+ */
+          background: linear-gradient(to right,  rgba(0,0,0,0.68) 0%,rgba(255,255,255,0.01) 100%); /* W3C */
+          filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ad000000', endColorstr='#03ffffff',GradientType=1 ); /* IE6-9 */
+
+        }
+      }
+    }
+  }
+}
