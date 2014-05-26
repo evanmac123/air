@@ -1,21 +1,16 @@
-- form_submit_protocol = Rails.env.production? ? "https" : "http" #we need https for staging
 .inspire_headline
   See and be inspired by what other companies have created.
-= form_tag boards_url(protocol: form_submit_protocol), id: "create_account" do
+= form_tag boards_path do
   .text_field
     = text_field_tag "user[name]", user.name, placeholder: "First and Last Name"
   .text_field
     = text_field_tag "user[email]", user.email, placeholder: "Work Email"
   .text_field
-    = text_field_tag "board[name]", board.name, placeholder: "Name Your Airbo (ex.: Company Name)"
-  .text_field
-    = password_field_tag "user[password]", user.password, placeholder: "Password"
-  = hidden_field_tag "page_name", "welcome"
-  = hidden_field_tag "creation_source", "Marketing Page (version 2014-05-27)"
-  .submit_field
-    = submit_tag "Create Free Account", class: "button", id: "create_account_btn"
- :javascript
-  $("#create_account_btn").click(function(e){
-   e.preventDefault();
-   $("#create_account").submit();
- });
+    = text_field_tag "board[client_name]", board.client_name, placeholder: "Company Name"
+  = submit_tag "Create Free Account", class: "button"
+.log_in_container
+  Have an account?
+  = link_to "Log In.", sign_in_path
+.t-and-c-notice
+  By creating an account, I accept Airbo's
+  = link_to 'Terms of Service and Privacy Policy.', terms_path, target: '_blank'

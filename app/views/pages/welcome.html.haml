@@ -107,3 +107,10 @@
       .tile_container
         = image_tag "marketing/welcome_page/miltoncat.png", class: "logo"
         = image_tag "marketing/welcome_page/milton_cat_tile.png", class: "tile"
+  .sign_up_section
+    = render partial: 'shared/sign_up_form', locals: { user: User.new, board: Demo.new }
+  %footer
+    = link_to "How it Works", page_path("more_info") 
+    = link_to "Company Background"
+    = link_to "Pricing", page_path("pricing")
+    = link_to "Blog"
