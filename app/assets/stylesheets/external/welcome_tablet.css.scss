@@ -256,5 +256,16 @@ body.pages-show.landing{
         }
       }
     }
+    .how_section{
+      &:after{
+        content: " ";
+        clear: both;
+        display: table;
+      }
+      .step{
+        float: left;
+        width: 33.3%;
+      }
+    }
   }
 } 
