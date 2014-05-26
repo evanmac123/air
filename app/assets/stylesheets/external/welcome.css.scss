@@ -119,5 +119,36 @@ body.pages-show.landing{
         }
       }
     }
+    .advantage_section{
+      background: #4face0;
+      padding: 1rem 0rem 1rem 0rem;
+      color: $white;
+      #bulb{
+        margin: auto;
+        display: block;
+      }
+      .adv_headline{
+        font-size: 14px;
+        text-align: center;
+        padding: 1rem 2rem 1rem 2rem;
+      }
+      .adv_list{
+        font-size: 10px;
+        &:after{
+          content: " ";
+          clear: both;
+          display: table;
+        }
+        .adv_column{
+          width: 50%;
+          float: left;
+          display: inline-block;
+          padding-left: 5%;
+          .adv_item{
+            padding: 0.5em 0 0.5em 0.5em;
+          }
+        }
+      }
+    }
   }
 }
