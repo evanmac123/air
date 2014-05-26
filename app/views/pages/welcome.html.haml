@@ -28,3 +28,14 @@
       = image_tag "marketing/welcome_page/heineken.png"
     .logo
       = image_tag "marketing/welcome_page/asha.png"
+  .advantage_section
+    = image_tag "marketing/welcome_page/bulb.png", id: "bulb"
+    .adv_headline
+      Any Communication, Program or Process
+    .adv_list
+      - advantages.each do |adv_group|
+        .adv_column
+          - adv_group.each do |advantage|
+            .adv_item
+              %span.fa.fa-check-square-o
+              = advantage
