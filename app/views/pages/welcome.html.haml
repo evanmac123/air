@@ -110,7 +110,8 @@
   .sign_up_section
     = render partial: 'shared/sign_up_form', locals: { user: User.new, board: Demo.new }
   %footer
-    = link_to "How it Works", page_path("more_info") 
-    = link_to "Company Background"
+    = link_to "Contact Us"
+    = link_to "Case Studies"
     = link_to "Pricing", page_path("pricing")
     = link_to "Blog"
+    = link_to "Sign in", sign_in_path

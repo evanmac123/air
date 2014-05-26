@@ -59,7 +59,15 @@ class BoardsController < ApplicationController
     else
       set_errors
       @board.name = original_board_name
-      render 'new'
+      #if registration on welcome page
+      if params[:page_name] == "welcome"
+        redirect_to :controller => 'pages', \
+                    :action => 'show', \
+                    :id => "welcome", \
+                    flash: { failure: flash[:failure] }
+      else
+        render 'new'
+      end
     end
   end
 

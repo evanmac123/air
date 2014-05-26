@@ -104,11 +104,15 @@ body.pages-show.landing{
         .text_field{
           display: block;
           float: left;
-          width: 33.3%;
-          padding-left: 0.1rem;
-          padding-right: 0.1rem;
+          width: 50%;
+          padding-left: 0.5rem;
+          padding-right: 0.5rem;
           input[type="text"]{
           }
+        }
+        .submit_field{
+          margin-left: 0.5rem;
+          margin-right: 0.5rem;
         }
       }
     }
