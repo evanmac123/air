@@ -39,3 +39,16 @@
             .adv_item
               %span.fa.fa-check-square-o
               = advantage
+  .features_section
+    .feature_container
+      .tile_features
+        .features_headline
+          Turn what you want people to read or do into tiles.
+        - tile_features.each do |feature|
+          .feature
+            .feature_title
+              = feature[:title]
+            .feature_desc
+              = simple_format feature[:desc]
+    .piggy_container
+      = image_tag "marketing/welcome_page/piggy_iphone_cut.png", id: "piggy_iphone"

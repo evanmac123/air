@@ -150,5 +150,48 @@ body.pages-show.landing{
         }
       }
     }
+    .features_section{
+      &:after{
+        content: " ";
+        clear: both;
+        display: table;
+      }
+      .feature_container{
+        .tile_features{
+          width:14rem;
+          margin: auto;
+          .features_headline{
+            font-size: 18px;
+            color: $text-color;
+            line-height: 1.5;
+            padding-top: 10%;
+            padding-bottom:10%;
+          }
+          .feature{
+            padding-bottom:12%;
+            line-height: 1.7;
+            .feature_title{
+              font-size: 14px;
+              color: #c1145b;
+            }
+            .feature_desc{
+              font-size: 12px;
+              color: $text-color;
+              p{
+                line-height: 1.7;
+              }
+            }
+          }
+        }
+      }
+      .piggy_container{
+
+        #piggy_iphone{
+          max-width:80%;
+          margin: auto;
+          display: block;
+        }
+      }
+    }
   }
 }
