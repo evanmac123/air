@@ -196,5 +196,21 @@ body.pages-show.landing{
         width: 33.3%;
       }
     }
+    .wheel_section{
+      padding-right: 1rem;
+      padding-left: 1rem;
+      &:after{
+        content: " ";
+        clear: both;
+        display: table;
+      }
+      .tile_container{
+        float: left;
+        width: 33.3%;
+        .logo{
+          max-width: 6rem;
+        }
+      }
+    }
   }
 } 
