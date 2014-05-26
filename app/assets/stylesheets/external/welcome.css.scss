@@ -11,7 +11,7 @@ body.pages-show.landing{
     background: $white;
     border-radius: 3px;
     .headline_section{
-      padding: 2.5rem 1.5rem 2.5rem 1.5rem;
+      padding: 2.5rem 1rem 2.5rem 1rem;
       width: 100%;
       #airbo_logo{
         display: block;
@@ -48,7 +48,7 @@ body.pages-show.landing{
       position: relative;
       .janet_text{
         position: absolute;
-        margin-top: 12%;
+        margin-top: 3%;
         margin-left: 5%;
         z-index: 3;
         color: $white;
@@ -68,7 +68,7 @@ body.pages-show.landing{
             max-width: 100%;
           }
           .janet_about{
-            width: 20rem;
+            width: 17rem;
             max-width: 100%;
             font-size: 14px;
             margin-top: 1rem;
@@ -93,6 +93,29 @@ body.pages-show.landing{
           background: linear-gradient(to right,  rgba(0,0,0,0.68) 0%,rgba(255,255,255,0.01) 100%); /* W3C */
           filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ad000000', endColorstr='#03ffffff',GradientType=1 ); /* IE6-9 */
 
+        }
+      }
+    }
+    .logo_section{
+      margin-top: -1px;
+      position: relative;
+      background: $white;
+      z-index: 5;
+      &:after{
+        content: " ";
+        clear: both;
+        display: table;
+      }
+      .logo{
+        width: 50%;
+        float: left;
+        display: block;
+        img{
+          margin: auto;
+          margin-top: 0.5rem;
+          margin-bottom: 0.5rem;
+          display: block;
+          max-width: 60%;
         }
       }
     }

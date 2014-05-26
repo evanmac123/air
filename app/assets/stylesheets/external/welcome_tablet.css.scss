@@ -1,28 +1,4 @@
 body.pages-show.landing{
-  //
-  //  Header
-  //
-  header{
-    #top_bar{
-      max-width: 100%;
-      #navigation{
-        .nav_items{
-          height: 100%;
-          ul{
-            display: none;
-          }
-          .sign_in_button{
-            @include light-button($sky-blue);
-            padding: 0.5rem 2rem;
-            margin: 0.5rem 1rem;
-          }
-        }
-      }
-    }
-  }
-  //
-  //  Marketing Page
-  //
   .lightbox{
     .janet_section{
       .janet_text{
