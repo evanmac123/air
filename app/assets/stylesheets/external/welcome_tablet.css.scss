@@ -171,5 +171,19 @@ body.pages-show.landing{
         }
       }
     }
+    .interaction_section{
+      &:after{
+        content: " ";
+        clear: both;
+        display: table;
+      }
+      .interaction{
+        float: left;
+        width: 33.3%;
+        .interaction_type{
+          display: block;
+        }
+      }
+    }
   }
 } 
