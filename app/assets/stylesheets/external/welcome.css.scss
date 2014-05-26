@@ -197,14 +197,39 @@ body.pages-show.landing{
       border-top: solid 1px $light-gray;
       border-bottom: solid 1px $light-gray;
       margin: auto;
+      padding: 1rem 0rem 1rem 0rem;
       .interaction{
         font-size: 14px;
         color: $text-color;
         text-align: center;
-        padding: 1rem 0rem 1rem 2rem;
+        padding: 0.5rem 0rem 0.5rem 2rem;
+        line-height: 1.7;
         .interaction_type{
           font-weight: 700;
           display: inline;
+        }
+      }
+    }
+    .how_section{
+      border-bottom: solid 1px $light-gray;
+      color: $text-color;
+      padding-bottom: 2rem;
+      .how_headline{
+        font-size: 18px;
+        text-align: center;
+        padding: 2rem;
+      }
+      .step{
+        text-align: center;
+        padding-bottom: 1rem;
+        line-height: 1.7;
+        .step_header{
+          color: #c1145b;
+          font-size: 14px;
+          padding: 0.5rem;
+        }
+        .step_desc{
+          font-size: 12px;
         }
       }
     }
