@@ -212,5 +212,18 @@ body.pages-show.landing{
         }
       }
     }
+    .sign_up_section{
+      form{
+        .text_field{
+          display: block;
+          float: left;
+          width: 33.3%;
+          padding-left: 0.1rem;
+          padding-right: 0.1rem;
+          input[type="text"]{
+          }
+        }
+      }
+    }
   }
 } 
