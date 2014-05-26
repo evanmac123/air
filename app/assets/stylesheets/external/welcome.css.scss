@@ -233,5 +233,34 @@ body.pages-show.landing{
         }
       }
     }
+    .wheel_section{
+      padding-top: 3rem;
+      .wheel_headline{
+        font-size: 18px;
+        text-align: center;
+        padding: 1rem;
+      }
+      .wheel_answer{
+        color: #c1145b;
+        font-size: 14px;
+        padding: 0.5rem;
+        padding-bottom: 1.5rem;
+        text-align: center;
+      }
+      .tile_container{
+        .logo{
+          max-width: 8rem;
+          display: block;
+          margin: auto;
+        }
+        .tile{
+          margin: auto;
+          display: block;
+          padding-bottom: 2rem;
+          padding-left: 1rem;
+          padding-right: 1rem;
+        }
+      }
+    }
   }
 }
