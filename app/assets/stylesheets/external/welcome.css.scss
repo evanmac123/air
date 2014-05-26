@@ -193,5 +193,20 @@ body.pages-show.landing{
         }
       }
     }
+    .interaction_section{
+      border-top: solid 1px $light-gray;
+      border-bottom: solid 1px $light-gray;
+      margin: auto;
+      .interaction{
+        font-size: 14px;
+        color: $text-color;
+        text-align: center;
+        padding: 1rem 0rem 1rem 2rem;
+        .interaction_type{
+          font-weight: 700;
+          display: inline;
+        }
+      }
+    }
   }
 }
