@@ -213,5 +213,34 @@ body.pages-show.landing{
         }
       }
     }
+    .features_section{
+      .feature_container{
+        float: right; 
+        width: 50%; 
+        .tile_features{
+          width:14rem;
+          margin: auto;
+          .features_headline{
+            padding-top: 15%;
+            padding-bottom: 5%;
+          }
+          .feature{
+            padding-bottom: 5%;
+            .feature_title{
+            }
+            .feature_desc{
+            }
+          }
+        }
+      }
+      .piggy_container{
+        width: 50%;
+        float: left;
+        padding-left: 2rem;
+        #piggy_iphone{
+          max-width: 100%;  
+        }
+      }
+    }
   }
 } 
