@@ -45,6 +45,9 @@ class BoardsController < ApplicationController
       user_saved_successfully = @user.save
 
       unless board_saved_successfully && user_saved_successfully
+        Rails.logger.fatal "About to roll back:"
+        Rails.logger.fatal "board_saved_successfully: #{board_saved_successfully}"
+        Rails.logger.fatal "user_saved_successfully: #{user_saved_successfully}"
         raise ActiveRecord::Rollback
       end
     end
@@ -55,17 +58,21 @@ class BoardsController < ApplicationController
       @user.send_conversion_email
       sign_in(@user, 1)
       schedule_creation_pings(@user)
+      Rails.logger.fatal "Everything's OK, redirecting to tiles path"
       redirect_to client_admin_tiles_path
     else
+      Rails.logger.fatal "Something went wrong"
       set_errors
       @board.name = original_board_name
       #if registration on welcome page
       if params[:page_name] == "welcome"
+        Rails.logger.fatal "Redirecting to welcome page"
         redirect_to :controller => 'pages', \
                     :action => 'show', \
                     :id => "welcome", \
                     flash: { failure: flash[:failure] }
       else
+        Rails.logger.fatal "Rendering 'new' page"
         render 'new'
       end
     end
