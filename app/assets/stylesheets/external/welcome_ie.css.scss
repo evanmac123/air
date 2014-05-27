@@ -16,6 +16,7 @@ html.lt-ie9{
               @include light-button($sky-blue);
               padding: 0.5rem 2rem;
               margin: 0.5rem 1rem;
+              float: right;
             }
           }
         }
