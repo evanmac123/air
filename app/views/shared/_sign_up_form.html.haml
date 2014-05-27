@@ -1,4 +1,4 @@
-= form_submit_protocol = Rails.env.production? ? "https" : "http" #we need https for staging
+- form_submit_protocol = Rails.env.production? ? "https" : "http" #we need https for staging
 .inspire_headline
   See and be inspired by what other companies have created.
 = form_tag boards_url(protocol: form_submit_protocol), id: "create_account" do
