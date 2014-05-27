@@ -2,10 +2,10 @@
   .headline_section
     = image_tag "airbo_logo_lightblue.png", "alt" => "Airbo Board", id: "airbo_logo"
     %p.headline
-      Quickly communicate important information to employees in a fun and interactive way.
+      Highlight important information to employees in a fun and interactive way.
   .call_out_section
     %p.call_out
-      A tool to make concise, modern communications that employees will read, understand and take action upon.
+      Airbo is a tool make concise, modern communications that employees will read, understand and take action upon.
   .janet_section
     .janet_text
       %span.fa.fa-quote-left
@@ -43,7 +43,7 @@
     .feature_container
       .tile_features
         .features_headline
-          Turn what you want people to read or do into tiles.
+          Tiles are a bright and fresh content format.
         - tile_features.each do |feature|
           .feature
             .feature_title
@@ -66,8 +66,8 @@
     .interaction
       .interaction_type
         %span.fa.fa-check
-        Behavior
-      like walking
+        Action
+      to drive behavior
   .how_section
     .how_headline
       How it works
@@ -110,8 +110,8 @@
   .sign_up_section
     = render partial: 'shared/sign_up_form', locals: { user: User.new, board: Demo.new }
   %footer
-    = link_to "Contact Us"
-    = link_to "Case Studies"
+    = link_to "Contact Us", "#!", "data-request-demo-full" => true
+    = link_to "Case Studies", page_path("customer_tiles")
     = link_to "Pricing", page_path("pricing")
-    = link_to "Blog"
+    = link_to "Blog", "http://blog.air.bo", target: "_blank"
     = link_to "Sign in", sign_in_path
