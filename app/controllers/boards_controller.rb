@@ -104,7 +104,7 @@ class BoardsController < ApplicationController
   end
 
   def schedule_creation_pings(user)
-    ping 'Board - New', {source: 'marketing page'}, user
-    ping 'Creator - New', {source: 'marketing page'}, user
+    ping 'Board - New', {source: params[:creation_source]}, user
+    ping 'Creator - New', {source: params[:creation_source]}, user
   end
 end
