@@ -20,7 +20,7 @@ module PagesHelper
       },
       {
         title: "Links to increase participation",
-        desc: "Like vendor sites intranets."
+        desc: "Like vendor sites and intranets."
       },
       {
         title: "Interactive",
