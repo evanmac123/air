@@ -7,6 +7,7 @@ class PagesController < HighVoltage::PagesController
   before_filter :force_html_format
   before_filter :signed_out_only_on_root
   before_filter :set_login_url
+  before_filter :set_new_board_url
   before_filter :display_social_links_if_marketing_page
   before_filter :set_page_name
 
@@ -57,6 +58,14 @@ class PagesController < HighVoltage::PagesController
                  else
                    session_path
                  end
+  end
+
+  def set_new_board_url
+    @new_board_url = if Rails.env.production?
+                       boards_url(protocol: 'https', host: hostname_with_subdomain)
+                     else
+                       boards_url
+                     end
   end
 
   def display_social_links_if_marketing_page
