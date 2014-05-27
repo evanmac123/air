@@ -12,7 +12,7 @@ module PagesHelper
     [
       {
         title: "Visually interesting", 
-        desc: "An image to capture attention"
+        desc: "An image to capture attention."
       },
       {
         title: "Easy to understand",
@@ -24,7 +24,7 @@ module PagesHelper
       },
       {
         title: "Interactive",
-        desc: "Reader earns points for engaging. " + "\n" +
+        desc: "Employee earns points for engaging. " + "\n" +
               "You can add prices and leaderboards."
       }
     ]

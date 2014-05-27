@@ -34,13 +34,16 @@
     <%= render 'shared/nerf_animations_in_test' %>
   </head>
   <body class="<%= body_class %> landing" style="-webkit-overflow-scrolling: touch; overflow:visible;">
-    <%= render 'shared/header_public' %>
+    <%= render 'shared/header_standalone' %>
     <%= render 'shared/flashes' %>
     <div class="content">
       <%= yield %>
     </div>
+    <%= render "shared/request_demo" %>
+
     <%= javascript_include_tag asset_path('ga-marketing.js') if ENV['USE_GA'] %>
     <%= yield :javascript %>  
+    <%= javascript_include_tag 'jquery.lightbox_me' %>
     
     <%= render :partial => 'shared/offcanvas_menu' %>
   </body>
