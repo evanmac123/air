@@ -1,6 +1,6 @@
 .inspire_headline
   See and be inspired by what other companies have created.
-= form_tag boards_path, id: "create_account" do
+= form_tag boards_path(protocol: "https"), id: "create_account" do
   .text_field
     = text_field_tag "user[name]", user.name, placeholder: "First and Last Name"
   .text_field
@@ -12,8 +12,3 @@
   = hidden_field_tag "page_name", "welcome"
   .submit_field
     = submit_tag "Create Free Account", class: "button", id: "create_account_btn"
-:javascript
-  $("#create_account_btn").click(function(e){
-    e.preventDefault();
-    $("#create_account").submit();
-  });
