@@ -39,11 +39,31 @@ body.tiles-index, body.acts-index{
         .point_progress_ie{
           height: 1rem;
           background: $sky-blue;
-          width: 100%;
           &:after{
-            content: "11/20";
             float: right;
             margin-right: 0.1rem;
+          }
+        }
+      }
+      /* -------------------------------------
+       * Mixin for progress-% class
+       * ------------------------------------- */
+      $step: 1; // step of % for created classes
+
+      $loops: round(200 / $step);
+      $increment: $loops / 100;
+      $min-width: 32;
+      @for $i from 0 through $loops{
+        &.progress-#{$i*$step}{
+          .point_progress_ie{
+            @if($i < $min-width * 2 and $i > 0){
+              width: percentage($min-width / 100);
+            }@else{
+              width: percentage($i / $increment / 100);
+            }
+            &:after{
+              content: round($i / 10) + "/20";
+            }
           }
         }
       }
