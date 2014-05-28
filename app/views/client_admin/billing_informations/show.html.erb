@@ -10,7 +10,7 @@
       <div id="expiration_and_cvc_wrapper">
         <div id="expiration_wrapper" class="field_wrapper">
           <%= fa_icon "calendar" %>
-          <%= form.text_field :expiration, placeholder: "MM/YY" %>
+          <%= form.text_field :expiration, placeholder: "Expiration", maxlength: 4, size: 4 %>
         </div>
         <div id="cvc_wrapper" class="field_wrapper">
           <%= fa_icon "lock" %>
@@ -20,7 +20,7 @@
 
       <div class="field_wrapper">
         <%= fa_icon "map-marker" %>
-        <%= form.text_field :zip, placeholder: "Billing ZIP" %>
+        <%= form.text_field :zip, placeholder: "Billing ZIP", maxlength: 5, size: 5 %>
       </div>
 
       <%= form.submit "Purchase" %>
