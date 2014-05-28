@@ -3,7 +3,7 @@ module PagesHelper
     [
       ["Wellness", "Open Enrollment", "Onboarding", "Learning & Development"],
       ["Health Care Reform", "Retirement", "Safety", "Leadership Updates"],
-      ["Employee Research", "Events", "Social Recruting", "Financial Education"],
+      ["Employee Research", "Events", "Social Recruiting", "Financial Education"],
       ["Sustainability", "Consumerism", "Philanthropy", "Compliance"]
     ]
   end
@@ -24,8 +24,8 @@ module PagesHelper
       },
       {
         title: "Interactive",
-        desc: "Employee earns points for engaging. " + "\n" +
-              "You can add prices and leaderboards."
+        desc: "Employees earn points for engaging. " + "\n" +
+              "You can add prizes and leaderboards."
       }
     ]
   end
