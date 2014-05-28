@@ -6,6 +6,7 @@
 //= require ../../../vendor/assets/javascripts/client_admin/highcharts
 //= require ../../../vendor/assets/javascripts/client_admin/exporting
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.slider.min
+//= require ../../../vendor/assets/javascripts/client_admin/jquery.payment
 
 //= require ../../../vendor/assets/javascripts/internal/jquery.jpanelmenu.min
 //= require ../../../vendor/assets/javascripts/internal/jRespond.min

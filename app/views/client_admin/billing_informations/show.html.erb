@@ -10,7 +10,7 @@
       <div id="expiration_and_cvc_wrapper">
         <div id="expiration_wrapper" class="field_wrapper">
           <%= fa_icon "calendar" %>
-          <%= form.text_field :expiration, placeholder: "Expiration", maxlength: 4, size: 4 %>
+          <%= form.text_field :expiration, placeholder: "MM/YY" %>
         </div>
         <div id="cvc_wrapper" class="field_wrapper">
           <%= fa_icon "lock" %>
@@ -30,6 +30,8 @@
 
 <%= content_for :javascript do %>
   <%= javascript_tag do %>
+    $('#credit_card_expiration').payment('formatCardExpiry');
+
     $('.payment_form_wrapper form').submit(function() {
       $(this).find('input[type=submit]').attr('disabled', 'disabled');
     });

@@ -54,7 +54,7 @@ class CreditCard < Struct.new(:number, :expiration, :cvc, :zip)
   end
 
   def exp_year
-    normalized_expiration[2,2]
+    normalized_expiration[-2,2]
   end
 
   def persisted?

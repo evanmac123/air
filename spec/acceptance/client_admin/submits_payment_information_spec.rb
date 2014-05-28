@@ -97,12 +97,12 @@ feature 'Submits payment information' do
     visit client_admin_billing_information_path(as: @client_admin)
   end
 
-  scenario 'that gets shipped off to Stripe' do
+  scenario 'that gets shipped off to Stripe', js: true do
     submit_valid_cc_entries
     expect_stripe_called_with_happy_path_parameters
   end
 
-  scenario 'saving the expiration date, last 4, Stripe customer token, and Stripe card token in the database' do
+  scenario 'saving the expiration date, last 4, Stripe customer token, and Stripe card token in the database', js: true do
     submit_valid_cc_entries
     billing_information = @client_admin.billing_information
 
@@ -114,7 +114,7 @@ feature 'Submits payment information' do
     billing_information.card_token.should       == DUMMY_CARD_TOKEN
   end
 
-  scenario "normalizes the card number" do
+  scenario "normalizes the card number", js: true do
     fill_in_valid_cc_entries
     fill_in number_field, with: "4012 3459-8139 8502"
     submit_card
@@ -122,7 +122,7 @@ feature 'Submits payment information' do
     expect_stripe_called_with_happy_path_parameters
   end
   
-  scenario "normalizes the month and year" do
+  scenario "normalizes the month and year in a short format", js: true do
     fill_in_valid_cc_entries
     fill_in expiration_field, with: "219"
     submit_card
@@ -130,7 +130,15 @@ feature 'Submits payment information' do
     expect_stripe_called_with_happy_path_parameters
   end
 
-  scenario 'and triggers an email to us' do
+  scenario "normalizes the month and year in a long format", js: true do
+    fill_in_valid_cc_entries
+    fill_in expiration_field, with: "02/2019"
+    submit_card
+
+    expect_stripe_called_with_happy_path_parameters
+  end
+
+  scenario 'and triggers an email to us', js: true do
     submit_valid_cc_entries
     crank_dj_clear
 
@@ -138,7 +146,7 @@ feature 'Submits payment information' do
     current_email.should have_body_text("Joey Bananas (joey@example.com) submitted payment information to Stripe for the #{@client_admin.demo.name} (#{@client_admin.demo_id})")
   end
 
-  scenario 'sees a link back to the tiles page' do
+  scenario 'sees a link back to the tiles page', js: true do
     submit_valid_cc_entries
 
     page.should have_content("Payment Successful!")
@@ -147,7 +155,7 @@ feature 'Submits payment information' do
 
   context 'when they enter bad information' do
     context 'that we can detect on our side' do
-      scenario 'to wit, a missing CC#' do
+      scenario 'to wit, a missing CC#', js: true do
         fill_in_valid_cc_entries
         fill_in number_field, with: ''
         submit_card
@@ -156,7 +164,7 @@ feature 'Submits payment information' do
         page.should have_content("please enter a credit card number")
       end
 
-      scenario 'to wit, a missing expiration' do
+      scenario 'to wit, a missing expiration', js: true do
         fill_in_valid_cc_entries
         fill_in expiration_field, with: ''
         submit_card
@@ -165,7 +173,7 @@ feature 'Submits payment information' do
         page.should have_content("please enter an expiration date")
       end
 
-      scenario 'to wit, a missing CVC' do
+      scenario 'to wit, a missing CVC', js: true do
         fill_in_valid_cc_entries
         fill_in cvc_field, with: ''
         submit_card
@@ -174,7 +182,7 @@ feature 'Submits payment information' do
         page.should have_content("please enter the security code for this card")
       end
 
-      scenario 'to wit, a missing ZIP' do
+      scenario 'to wit, a missing ZIP', js: true do
         fill_in_valid_cc_entries
         fill_in zip_field, with: ''
         submit_card
@@ -185,19 +193,19 @@ feature 'Submits payment information' do
     end
 
     context 'when stuff looks fine to us, but Stripe throws a card error' do
-      it 'passes along the message from that error' do
+      it 'passes along the message from that error', js: true do
         stripe_raises_card_error "You did it wrong."
         submit_valid_cc_entries
         page.should have_content "you did it wrong"
       end
 
-      it 'formats multiple-sentence Stripe errors properly' do
+      it 'formats multiple-sentence Stripe errors properly', js: true do
         stripe_raises_card_error "You did it wrong. Ask someone else to show you. Or give up."
         submit_valid_cc_entries
         page.should have_content "you did it wrong. Ask someone else to show you. Or give up"
       end
 
-      it "makes the errors a bit politer" do
+      it "makes the errors a bit politer", js: true do
         stripe_raises_card_error "Your card was temporarily rejected. Try again in a little bit."
         submit_valid_cc_entries
         page.should have_content "Please try again in a little bit"
