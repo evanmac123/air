@@ -50,8 +50,18 @@ class ClientAdmin::BillingInformationsController < ClientAdminBaseController
 
   def normalize_stripe_error_message(stripe_error)
     # Stripe's typical style is "You did it wrong."
-    # Downcase and ditch the period.
-    stripe_error.message.downcase.gsub(/\.$/, '')
+    # Downcase the first letter and ditch the period.
+    #
+    # Note that we can't just do message.downcase because sometimes the error
+    # is multiple sentences--we just wanna downcase the very first letter, so
+    # it then fits into our error schema "Sorry, something went wrong: [something]"
+   
+    message = stripe_error.message.clone
+    message[0] = message[0].downcase
+
+    message.
+      gsub(/Try again in a little bit/, 'Please try again in a little bit').
+      gsub(/\.$/, '')
   end
 
   def post_billing_information_to_stripe

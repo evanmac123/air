@@ -68,6 +68,11 @@ feature 'Submits payment information' do
     Stripe::Customer.should have_received(:create).never
   end
 
+  def stripe_raises_card_error(error_message)
+    exception = Stripe::CardError.new(error_message, nil, nil)
+    Stripe::Customer.stubs(:create).raises(exception)
+  end
+
   before do
     # We could avoid all this nonsense if the Stripe library would let us just
     # do Stripe::Customer.new(stuff_we_actually_want) and have it work.
@@ -181,12 +186,21 @@ feature 'Submits payment information' do
 
     context 'when stuff looks fine to us, but Stripe throws a card error' do
       it 'passes along the message from that error' do
-        error_message = "You did it wrong." # Stripe's style is a full sentence, first word capped, period at the end
-        exception = Stripe::CardError.new(error_message, nil, nil)
-        Stripe::Customer.stubs(:create).raises(exception)
-
+        stripe_raises_card_error "You did it wrong."
         submit_valid_cc_entries
         page.should have_content "you did it wrong"
+      end
+
+      it 'formats multiple-sentence Stripe errors properly' do
+        stripe_raises_card_error "You did it wrong. Ask someone else to show you. Or give up."
+        submit_valid_cc_entries
+        page.should have_content "you did it wrong. Ask someone else to show you. Or give up"
+      end
+
+      it "makes the errors a bit politer" do
+        stripe_raises_card_error "Your card was temporarily rejected. Try again in a little bit."
+        submit_valid_cc_entries
+        page.should have_content "Please try again in a little bit"
       end
     end
   end
