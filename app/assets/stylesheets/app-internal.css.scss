@@ -24,7 +24,6 @@
 @import "./internal/profile.css.scss";
 @import "./internal/directory.css.scss";
 @import "./internal/settings.css.scss";
-
 @import "./internal/faq.css.scss";
 @import "./internal/unsupported.css.scss";
 
@@ -36,6 +35,7 @@
 @import "./internal/explore.css.scss";
 @import "./internal/tile_preview.css.scss";
 @import "./internal/prize_box.css.scss";
+@import "./internal/raffle_progress_ie.css.scss";
 
 /* RWD */
 @import "./internal/user_progress_iphone.css.scss";
@@ -47,11 +47,10 @@
   @import "./internal/user_progress.css.scss";
 }
 @media only screen and (min-width: $foundation) {
-	@import "./internal/screen_desktop.css.scss";
+  @import "./internal/screen_desktop.css.scss";
   @import "./internal/user_progress_desktop.css.scss";
 }
 @media only screen and (min-width: $mid-desktop) {
   @import "./internal/screen_large.css.scss";
 }
-
 @import "./internal/user_progress_ie8.css.scss";

@@ -6,7 +6,8 @@ body.acts-index{
 }
 body.tiles-index, body.acts-index{
   #user_progress{
-    max-width: 600px;
+    //max-width: 600px;
+    max-width: 46.8rem;
     width: 100%;
     margin: auto;
     font-size: 10px;
@@ -30,7 +31,7 @@ body.tiles-index, body.acts-index{
         border-radius: 0;
         text-align: left;
       }
-    #raffle_section{
+    #raffle_section.round_bar{
       float: right;
       border-radius: 3px;
       height: 2.2rem;

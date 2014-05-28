@@ -1,0 +1,52 @@
+body.tiles-index, body.acts-index{
+  #raffle_section.line_bar{
+    background: transparent;
+    box-shadow: none;
+    float: right;
+    margin-left: 1.5rem;
+    position: relative;
+    #raffle_header{
+      height: 1rem;
+      width: 7rem;
+      border-radius: 3px;
+      margin-right: 0.3rem;
+      padding-top: 0.1rem;
+    }
+    #raffle_data{
+      background-color: $blue;
+      border-radius: 3px;
+      width: 5rem;
+      cursor: pointer;
+    }
+    .progress-radial{
+      background: $white;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 1rem;
+      width: 7rem;
+      #raffle_entries{
+        float: right;
+        background: $blue;
+        padding: 0 0.3em;
+        border-radius: 3px;
+      }
+      .point_container_ie{
+        float: none;
+        height: 1rem;
+        width: auto;
+        overflow: hidden;
+        .point_progress_ie{
+          height: 1rem;
+          background: $sky-blue;
+          width: 100%;
+          &:after{
+            content: "11/20";
+            float: right;
+            margin-right: 0.1rem;
+          }
+        }
+      }
+    }
+  }
+}

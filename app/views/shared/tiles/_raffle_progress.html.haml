@@ -1,5 +1,6 @@
 - if raffle.live?
-  #raffle_section
+  - browser_lt_ie10 = (browser.ie6? || browser.ie7? || browser.ie8? || browser.ie9?) ? "round_bar" : "line_bar"
+  #raffle_section{class: "line_bar" }
     #raffle_header.progress_header
       Raffle Entries
     #raffle_data.progress_header
@@ -13,3 +14,5 @@
     .progress-radial{class: "progress-" + (raffle_progress_bar * 10).to_s}
       #raffle_entries.overlay
         = starting_tickets
+      .point_container_ie
+        .point_progress_ie
