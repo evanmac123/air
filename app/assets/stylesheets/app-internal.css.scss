@@ -34,23 +34,22 @@
 @import "./internal/tags.css.scss";
 @import "./internal/explore.css.scss";
 @import "./internal/tile_preview.css.scss";
-@import "./internal/prize_box.css.scss";
-@import "./internal/raffle_progress_ie.css.scss";
-
+//@import "./internal/prize_box.css.scss";
 /* RWD */
-@import "./internal/user_progress_iphone.css.scss";
+//@import "./internal/user_progress_iphone.css.scss";
 @media only screen and (min-width: 319px) {
   @import "./internal/screen_iphone.css.scss";
 }
 @media only screen and (min-width: 500px) {
   @import "./internal/screen_tablet.css.scss";
-  @import "./internal/user_progress.css.scss";
+//  @import "./internal/user_progress.css.scss";
 }
 @media only screen and (min-width: $foundation) {
   @import "./internal/screen_desktop.css.scss";
-  @import "./internal/user_progress_desktop.css.scss";
+//  @import "./internal/user_progress_desktop.css.scss";
 }
 @media only screen and (min-width: $mid-desktop) {
   @import "./internal/screen_large.css.scss";
 }
-@import "./internal/user_progress_ie8.css.scss";
+//@import "./internal/user_progress_ie8.css.scss";
+//@import "./internal/raffle_progress_ie.css.scss";

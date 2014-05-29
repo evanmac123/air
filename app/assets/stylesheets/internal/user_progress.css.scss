@@ -102,15 +102,15 @@ body.tiles-index, body.acts-index{
             @if($i < $half){
               $startdeg: -90deg;
               $nextdeg: $startdeg + ( $increment * $i );
-              background-image: linear-gradient($startdeg, 
-                $backColor 50%, transparent 50%, transparent), 
-              linear-gradient($nextdeg, $barColor 50%, $backColor 50%, $backColor);
+              background-image: 
+                linear-gradient($startdeg, $backColor 50%, transparent 50%, transparent),
+                linear-gradient($nextdeg, $barColor 50%, $backColor 50%, $backColor);
             }@else{
               $startdeg: 90deg;
               $nextdeg: $startdeg + ( $increment * ( $i - $half ) );
-              background-image: linear-gradient($nextdeg, 
-                $barColor 50%, transparent 50%, transparent), 
-              linear-gradient(360deg + $startdeg, $barColor 50%, $backColor 50%, $backColor);
+              background-image: 
+                linear-gradient($nextdeg, $barColor 50%, transparent 50%, transparent),
+                linear-gradient(360deg + $startdeg, $barColor 50%, $backColor 50%, $backColor);
             }
           }
         }
