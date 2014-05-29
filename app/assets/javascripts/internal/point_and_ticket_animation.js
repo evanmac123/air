@@ -32,9 +32,7 @@ var fillBarToFinalProgress = function(finalProgress, allTilesDone, callback) {
     duration: 750,
     easing: 'linear',
     step: function(progressCount){
-      //console.log(progressCount);
       progressNew = startProgress + parseInt(progressCount);
-      //console.log(progressNew);
       changeRadialProgressBarTo(progressNew);
     },
     complete: function() {

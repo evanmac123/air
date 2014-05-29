@@ -121,11 +121,7 @@ body.tiles-index, body.acts-index{
       }
     }
     #tile_section, #total_section{
-      //border-radius: 3px;
-      //background: $white;
-      //height: 2.2rem;
       overflow: hidden;
-      //box-shadow: #B3B3B3 0px 0px 1px 1px;
     }
     #total_section{
       width: 4rem;
@@ -192,7 +188,7 @@ body.tiles-index, body.acts-index{
         }
       }
     }
-    #completed_tiles, #all_tiles{
+    #completed_tiles{
       background: -moz-linear-gradient(top,  rgba(32,173,233,1) 0%, rgba(32,173,233,0.9) 100%); /* FF3.6+ */
       background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(32,173,233,1)), color-stop(100%,rgba(32,173,233,0.9))); /* Chrome,Safari4+ */
       background: -webkit-linear-gradient(top,  rgba(32,173,233,1) 0%,rgba(32,173,233,0.9) 100%); /* Chrome10+,Safari5.1+ */

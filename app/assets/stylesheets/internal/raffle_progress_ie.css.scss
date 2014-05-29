@@ -36,6 +36,8 @@ body.tiles-index, body.acts-index{
         height: 1rem;
         width: auto;
         overflow: hidden;
+        background: #cfd7e3;
+        position: relative;
       }
       /* -------------------------------------
        * Mixin for progress-% class
@@ -46,14 +48,19 @@ body.tiles-index, body.acts-index{
       $increment: $loops / 100;
       @for $i from 0 through $loops{
         &.progress-#{$i*$step}{
-          .point_progress_ie{
-            height: 1rem;
-            background: $sky-blue;
-            width: percentage($i / $increment / 100);
+          .point_container_ie{
+            .point_progress_ie{
+              height: 1rem;
+              background: $sky-blue;
+              width: percentage($i / $increment / 100);
+            }
             &:after{
               float: right;
               margin-right: 0.1rem;
               content: round($i / 10) + "/20";
+              position: absolute;
+              bottom: 0;
+              right: 3px;
             }
           }
         }

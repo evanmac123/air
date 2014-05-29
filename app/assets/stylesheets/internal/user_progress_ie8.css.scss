@@ -27,108 +27,17 @@ html.lt-ie9{
       background: transparent;
       box-shadow: none;
       .progress_header{
-          float: left;
-          height: 34px;
-          width: 60px;
-          color: $white;
-          text-transform: uppercase;
-          line-height: 1.3;
-          padding: 0.5em;
-          padding-left: 1em;
-          background: $blue;
-          border-radius: 0;
-          text-align: left;
-        }
-      #raffle_section.round_bar{
-        float: right;
-        border-radius: 3px;
+        float: left;
         height: 34px;
-        width: 180px;
+        width: 60px;
+        color: $white;
+        text-transform: uppercase;
+        line-height: 1.3;
+        padding: 0.5em;
+        padding-left: 1em;
         background: $blue;
-        margin-left: 10px;
-        box-shadow: #B3B3B3 0px 0px 1px 1px;
-        #raffle_header{
-          border-top-left-radius: 3px;
-          border-bottom-left-radius: 3px;
-        }
-        #raffle_data{
-          cursor: pointer;
-          float: right;
-          width: 80px;
-          border-top-right-radius: 3px;
-          border-bottom-right-radius: 3px;
-          margin: 0;
-          color: $white;
-          #raffle_info{
-            display: block;
-          }
-        }
-        /* -------------------------------------
-         * Radial progress bar - http://codepen.io/geedmo/pen/InFfd/
-         * ------------------------------------- */
-        $barColor: $sky-blue;
-        $overlayColor: $white;
-        $backColor: $white;
-        /* -------------------------------------
-         * Bar container
-         * ------------------------------------- */
-        .progress-radial{
-          //margin-left: auto;
-          //margin-right: auto;
-          margin-left: 65px;
-          margin-top: 0px;
-          position: relative;
-          width: 34px;
-          height: 34px;
-          border: 0;
-          //border-radius: 50%;
-          //border: 3px solid $blue; // remove gradient color
-          //background-color: $barColor; // default 100%
-          //box-shadow: inset 0 0 6 60px #cbc9c9;
-          /* -------------------------------------
-           * Optional centered circle w/text
-           * ------------------------------------- */  
-          .overlay{
-            position: absolute;
-            margin-top: 0;
-            margin-left: 0;
-            width: 34px;
-            height: 34px;
-            background-color: $overlayColor;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 34px;
-            font-size: 16px;
-            box-shadow: inset 0 0 10px #cbc9c9;
-            color: $sky-blue;
-          }
-          /* -------------------------------------
-           * Mixin for progress-% class
-           * ------------------------------------- */
-          $step: 1; // step of % for created classes
-
-          $loops: round(200 / $step);
-          $increment: 360 / $loops;
-          $half: round($loops / 2);
-          @for $i from 0 through $loops{
-            &.progress-#{$i*$step}{
-              z-index: 1;
-              @if($i < $half){
-                $startdeg: -90deg;
-                $nextdeg: $startdeg + ( $increment * $i );
-                background-image: linear-gradient($startdeg, 
-                  $backColor 50%, transparent 50%, transparent), 
-                linear-gradient($nextdeg, $barColor 50%, $backColor 50%, $backColor);
-              }@else{
-                $startdeg: 90deg;
-                $nextdeg: $startdeg + ( $increment * ( $i - $half ) );
-                background-image: linear-gradient($nextdeg, 
-                  $barColor 50%, transparent 50%, transparent), 
-                linear-gradient(360deg + $startdeg, $barColor 50%, $backColor 50%, $backColor);
-              }
-            }
-          }
-        }
+        border-radius: 0;
+        text-align: left;
       }
       #tile_section, #total_section{
         border-radius: 3px;
