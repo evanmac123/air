@@ -1,4 +1,4 @@
-BULK_UPLOADER_BUCKET = 'bulk_uploads'.freeze
+BULK_UPLOADER_BUCKET = "airbo-bulk-uploads-#{Rails.env}".freeze
 
 CarrierWave.configure do |config|
   access_key_id = if Rails.env.test?
@@ -18,7 +18,7 @@ CarrierWave.configure do |config|
     :aws_access_key_id      => access_key_id,
     :aws_secret_access_key  => secret_key
   }
-  config.fog_directory  =  BULK_UPLOADER_BUCKET # required
+  config.fog_directory  = BULK_UPLOADER_BUCKET # required
   config.fog_public     = false
   config.fog_attributes = {'Cache-Control'=>'max-age=315576000'}
 end

@@ -164,6 +164,7 @@ Health::Application.routes.draw do
     end
 
     resource :billing_information
+
     resources :prizes, only: :index do 
       collection do
         post 'save_draft'
@@ -177,6 +178,8 @@ Health::Application.routes.draw do
         get 'start_new'
       end
     end
+
+    resource :bulk_upload
   end
 
   resources :pages, :only => :show
