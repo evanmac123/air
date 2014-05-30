@@ -47,15 +47,16 @@
 .tile_with_tags, .client_admin_explore .tiles {
   td {
     border-bottom: none;
-    width: 24%;
+    width: 25%;
     height: 1px;
     vertical-align: top;
+    padding-right: 40px;
   }
   .explore_tile {
     border-radius: 2px;
-    padding: 6px 6px;
+    padding: 6px 0;
     float: left;
-    margin: 5px 13px 5px 0px;
+    margin: 5px 0 5px 0px;
     width: 100%;
     
     .author_info{
