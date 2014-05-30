@@ -3,12 +3,11 @@
 @import "mixins/small_tile_tag";
 
 body.tile_previews.tile_previews-show {
-   background-color: $almost-white;
+  background-color: #d9dfe9;
+
 
   .justify{
     display: table;
-    vertical-align: top;
-
     > * {
       display: table-cell;
       width: 1%;
@@ -39,7 +38,7 @@ body.tile_previews.tile_previews-show {
       a {
         color: $white;
         font-size: 18px;
-        font-weight: 600;
+        font-weight: 300;
         display: inline-block;
         vertical-align: middle;
 
@@ -57,7 +56,7 @@ body.tile_previews.tile_previews-show {
         display: inline-block;
         vertical-align: middle;
       }
-      font-weight: 600;
+      font-weight: 300;
     }
     .basic-info{
       background: $white;
@@ -125,7 +124,7 @@ body.tile_previews.tile_previews-show {
           a{
             color: $tile-text;
             display: inline-block;
-            border: 1px solid $tile-tag-border;
+            border: 1px solid $tile-text;
             font-weight: 400;
             padding: 1px 10px;
 
@@ -144,8 +143,8 @@ body.tile_previews.tile_previews-show {
 
     .like-copy-section{
       float: left;
-      width: 33.33%;
-      text-align: left;
+      width: 35%;
+      text-align: right;
 
       .likes-count, .copy-count{
         display: inline-block;
@@ -194,7 +193,7 @@ body.tile_previews.tile_previews-show {
         border-radius: 0;
       }
 
-      .like-button, .copy-button {
+      .like-button, .copy-button{
         width: 259px;
         float: left;
         margin-right: 33px;
@@ -212,7 +211,7 @@ body.tile_previews.tile_previews-show {
           text-align: center;
           line-height: 46px;
           height: 46px;
-          border: 1px solid $tile-tag-border;
+          border: 1px solid #d9ddde;
           color: $text-color;
           font-size: 16px;
           font-weight: 400;
