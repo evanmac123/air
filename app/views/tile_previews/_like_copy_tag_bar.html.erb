@@ -19,8 +19,8 @@ if current_user.likes_tile?(tile)
         <% end %>
       </div>
       <div class="like-copy-section">
-        <div class="likes-count"><i class="fa fa-heart-o"></i> 13 Likes</div>
-        <div class="copy-count"><i class="fa fa-files-o"></i> 3 Copies</div>
+        <div class="likes-count"><i class="fa fa-heart-o"></i> <%=@tile.like_count %> <%= @tile.like_count > 1 ? "Likes" :  "Like" %></div>
+        <div class="copy-count"><i class="fa fa-files-o"></i> <%=@tile.copy_count %> <%= @tile.like_count > 1 ? "Copies" :  "Copy" %></div>
       </div>
 
     </div>
