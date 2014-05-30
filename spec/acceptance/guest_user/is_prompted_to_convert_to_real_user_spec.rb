@@ -127,7 +127,6 @@ feature 'Guest user is prompted to convert to real user' do
     end
 
     it "should show them before you close the conversion form", js: true do
-        p board.raffle
       expect_save_progress_button
       expect_sign_in_button
     end
