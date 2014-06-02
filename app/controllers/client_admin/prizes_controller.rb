@@ -1,13 +1,6 @@
 class ClientAdmin::PrizesController < ClientAdminBaseController
   before_filter :find_raffle
 
-  def find_raffle
-    @demo = current_user.demo
-    Raffle.new(demo: @demo).save(validate: false) unless @demo.raffle
-    @raffle = @demo.reload.raffle
-    @winners = @raffle.winners
-  end
-
   def index
   end
 
@@ -75,6 +68,15 @@ class ClientAdmin::PrizesController < ClientAdminBaseController
     else
       render 'delete_winner'
     end
+  end
+
+  protected
+
+  def find_raffle
+    @demo = current_user.demo
+    Raffle.new(demo: @demo).save(validate: false) unless @demo.raffle
+    @raffle = @demo.reload.raffle
+    @winners = @raffle.winners
   end
 
   def raffle_params
