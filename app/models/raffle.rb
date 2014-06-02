@@ -91,7 +91,7 @@ class Raffle < ActiveRecord::Base
 
   def set_timer_to_end_live
     remove_timer_to_end_live
-    self.delayed_job_id = self.delay(run_at: self.ends_at).finish_live
+    self.delayed_job_id = self.delay(run_at: self.ends_at).finish_live.id
     self.save(validate: false)
   end
 
