@@ -18,11 +18,11 @@ module EmailHelper
 
   def email_logo(demo)
     logo_url = demo.custom_logo_url
-    image_options        = { width: "150px", style: "display:block;" }
+    image_options        = { width: "60", height: "36", border: "0", style: "display:block;"}
 
     if logo_url.blank?
       # Pretty asinine that we have to roll our own here. But hi. Here we are.
-      expanded_logo_path = ActionController::Base.helpers.asset_path('logo.png')
+      expanded_logo_path = ActionController::Base.helpers.asset_path('airbo_logo_lightblue.png')
       logo_url = "#{::Rails.application.config.action_mailer.asset_host}#{expanded_logo_path}"
       image_options.merge!(alt: 'Airbo')
     else

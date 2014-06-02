@@ -1,0 +1,30 @@
+<% tile_url = tile.thumbnail(:email_digest)  # Paperclip returns the full url in staging and production modes %>
+<% tile_url = tile_url.prepend('http://localhost:3000') if (Rails.env.development? or Rails.env.test?) %>
+<table align="center" cellpadding="0" cellspacing="0" border="0" class="columnsNoPadding" style="width:190px;">
+<tr>
+  <td align="center" class="column">
+    <%= link_to(image_tag(tile_url, alt: tile.headline, width: '190px', style: 'display:block; border-style:none;'), site_link, link_options) %>
+  </td>
+</tr>
+<tr>
+  <td height="100" valign="top" style="font-family:Helvetica,Arial,sans-serif;font-size:16px;color:#2e2e2c;mso-line-height-rule:exactly;line-height:22px;padding-top:20px;padding-left:10px;padding-right:10px;border-left:1px solid #dfdfdf;border-right:1px solid #dfdfdf;">
+    <span class="appleLinks2" style="word-break: break-all;">
+      <%= tile.headline %>
+    </span>
+  </td>
+</tr>
+<tr>
+  <td class="column">
+    <table width="100%" align="center" cellpadding="0" cellspacing="0" border="0" class="columnsNoPadding">
+    <tr>
+      <td style="font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#4face0;mso-line-height-rule:exactly;line-height:22px;padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;border:1px solid #4face0;width:25px;">
+        +<%= tile.points %>
+      </td>
+      <td style="font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#818385;mso-line-height-rule:exactly;line-height:22px;padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;border:1px solid #dfdfdf;border-left:0;word-break: break-all;">
+        <%= tile.question.truncate(20) %>
+      </td>
+    </tr>
+    </table>
+  </td>
+</tr>
+</table>

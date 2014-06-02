@@ -24,14 +24,13 @@ class ClientAdmin::UsersInvitesController < ClientAdminBaseController
     @custom_message = params[:custom_message]||'Check out my new board!'
     if params[:is_invite_user] == 'true'
       @title = "Join my #{@demo.name}"      
-      email_heading = "Join my #{@demo.name}"
+      @email_heading = "Join my #{@demo.name}"
       @tiles = @demo.digest_tiles(nil).order('activated_at DESC')
     else
       @tiles = @demo.digest_tiles.order('activated_at DESC')      
     end
     @invitation_url = @user.claimed? ? nil : invitation_url(@user.invitation_code, protocol: email_link_protocol, host: email_link_host)    
-      
-
-    render partial: 'shared/notify_one', locals: {email_heading: email_heading, is_preview: true}
+    @is_preview = true
+    render 'tiles_digest_mailer/notify_one', :layout => false
   end
 end
