@@ -96,7 +96,7 @@ class Raffle < ActiveRecord::Base
   end
 
   def remove_timer_to_end_live
-    delayed_job = Delayed::Backend::ActiveRecord::Job.where(delayed_job_id).first
+    delayed_job = Delayed::Backend::ActiveRecord::Job.where(id: delayed_job_id).first
     delayed_job.destroy if delayed_job.present?
     true
   end
