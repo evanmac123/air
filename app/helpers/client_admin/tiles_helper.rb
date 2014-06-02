@@ -36,11 +36,15 @@ module ClientAdmin::TilesHelper
 
   # We display a different heading if the schmuck... er, customer, didn't interact with any of the tiles in the first digest email
   def digest_email_heading_begin
-    @follow_up_email ? 'Did you forget to check out your' : 'Your'
+    @follow_up_email ? 'Here' : 'Your'
+  end
+
+  def digest_email_heading_link
+    @follow_up_email ? 'the tiles' : 'new tiles'
   end
 
   def digest_email_heading_end
-    @follow_up_email ? '?' : 'are here'
+    @follow_up_email ? 'you missed' : 'are here'
   end
 
   def default_follow_up_day

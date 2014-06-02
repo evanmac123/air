@@ -19,7 +19,7 @@ class ClientAdmin::UsersInvitesController < ClientAdminBaseController
   def preview_invite_email    
     @demo  = current_user.demo
     @user  = current_user#User.new(name: 'Invited User')
-    @follow_up_email = false
+    @follow_up_email = true
     @onboarding_email = true
     @custom_message = params[:custom_message]||'Check out my new board!'
     if params[:is_invite_user] == 'true'
