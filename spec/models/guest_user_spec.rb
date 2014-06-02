@@ -139,4 +139,11 @@ describe GuestUser do
       user.slug.should == "guestuser"
     end
   end
+
+  describe "data_for_mixpanel" do
+    it "should include the game name" do
+      user.demo.should_not be_nil
+      user.data_for_mixpanel[:game].should == user.demo.name
+    end
+  end
 end

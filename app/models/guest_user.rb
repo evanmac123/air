@@ -85,7 +85,8 @@ class GuestUser < ActiveRecord::Base
   def data_for_mixpanel
     {
       distinct_id: "guest_user_#{self.id}",
-      user_type:   self.highest_ranking_user_type
+      user_type:   self.highest_ranking_user_type,
+      game:        self.demo.try(:name)
     }
   end
 
