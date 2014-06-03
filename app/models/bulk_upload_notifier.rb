@@ -6,7 +6,7 @@ class BulkUploadNotifier
   end
 
   def notify_us_of_upload
-    BulkUploadNotificationMailer.delay_mail(:file_uploaded, @uploading_user, @uploading_user.demo, uploaded_url)
+    BulkUploadNotificationMailer.delay_mail(:file_uploaded, @uploading_user.name, @uploading_user.email, @uploading_user.demo.name, @uploading_user.demo_id, uploaded_url)
   end
 
   protected

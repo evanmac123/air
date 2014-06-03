@@ -25,7 +25,7 @@ feature 'Uploads file to fake bulk uploader' do
 
   it "has a reasonable message for the user"
 
-  it "notifies us by email of the URL in question" do
+  it "notifies us by email" do
     visit new_client_admin_bulk_upload_path(as: @client_admin)
     attach_file_for_direct_upload('spec/support/fixtures/arbitrary_csv.csv')
     upload_directly(BulkUserUploader.new, "Upload to S3")
@@ -34,6 +34,9 @@ feature 'Uploads file to fake bulk uploader' do
     open_email(BulkUploadNotificationMailer::ADDRESS_TO_NOTIFY)
 
     current_email.body.should match(%r!https://s3.amazonaws.com/#{BULK_UPLOADER_BUCKET}/uploads/[0123456789abcdef-]{36}/arbitrary_csv.csv!)
-    pending "has user info and demo ID"
+    current_email.body.should contain(@client_admin.name)
+    current_email.body.should contain(@client_admin.email)
+    current_email.body.should contain(@client_admin.demo.name)
+    current_email.body.should contain(@client_admin.demo_id)
   end
 end

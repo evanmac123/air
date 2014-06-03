@@ -6,7 +6,11 @@ class BulkUploadNotificationMailer < ActionMailer::Base
 
   has_delay_mail
 
-  def file_uploaded(user, board, uploaded_url)
+  def file_uploaded(user_name, user_email, board_name, board_id, uploaded_url)
+    @user_name = user_name
+    @user_email = user_email
+    @board_name = board_name
+    @board_id = board_id
     @uploaded_url = uploaded_url
 
     mail(
