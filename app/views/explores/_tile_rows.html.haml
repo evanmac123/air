@@ -14,6 +14,11 @@
             %i.fa.fa-building-o
             %span.text
               =tile.demo.client_name != '' ? tile.demo.client_name : tile.demo.name
+          %ul.all_tile_tags
+          %ul.extra_tags_list
+            - tile.tile_tags.each do |tile_tag|
+              %li.tile_tag
+                = link_to tile_tag.title, tile_tag_show_explore_path(tile_tag: tile_tag.id, tag_click_source: tag_click_source)
           = link_to explore_tile_preview_path(tile, thumb_click_source: thumb_click_source) do
             .tile_image{id:thumbnail_id}
               .like_copy_tile
