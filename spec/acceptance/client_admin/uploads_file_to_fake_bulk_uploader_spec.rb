@@ -21,12 +21,13 @@ feature 'Uploads file to fake bulk uploader' do
 
   before do
     @client_admin = a_client_admin
+    FactoryGirl.create(:tile, status: Tile::ACTIVE, demo: @client_admin.demo) # unlock the users page
   end
 
   it "has a reasonable message for the user"
 
   it "notifies us by email" do
-    visit new_client_admin_bulk_upload_path(as: @client_admin)
+    visit client_admin_users_path(as: @client_admin)
     attach_file_for_direct_upload('spec/support/fixtures/arbitrary_csv.csv')
     upload_directly(BulkUserUploader.new, "Upload to S3")
 

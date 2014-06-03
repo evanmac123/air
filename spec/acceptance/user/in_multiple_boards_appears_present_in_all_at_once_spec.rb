@@ -173,21 +173,4 @@ feature 'In multiple boards appears present in all at once' do
       current_email.html_part.body.should include(@tile.headline)
     end
   end
-
-  context "gettin' segmented" do
-    scenario "appears in both boards", js: true do
-      create_two_boards(:activated)
-      create_two_admins
-      create_user
-      crank_dj_clear
-
-      visit client_admin_users_path(as: @first_admin)
-      click_button "Find segment"
-      page.should have_content("Users in segment 2") # admin plus @user
-
-      visit client_admin_users_path(as: @second_admin)
-      click_button "Find segment"
-      page.should have_content("Users in segment 2")
-    end
-  end
 end

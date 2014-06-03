@@ -1,8 +1,8 @@
 class ClientAdmin::UsersController < ClientAdminBaseController
   include ClientAdmin::UsersHelper
 
-  before_filter :load_characteristics, only: [:create, :edit]
   before_filter :load_locations, only: [:create, :edit]
+  before_filter :create_uploader
   before_filter :find_user, only: [:edit, :update, :destroy]
   before_filter :normalize_characteristic_ids_to_integers, only: [:create, :update]
 
@@ -98,7 +98,6 @@ class ClientAdmin::UsersController < ClientAdminBaseController
       redirect_to edit_client_admin_user_path(@user)
     else
       add_date_of_birth_error_if_needed(@user)
-      load_characteristics
       load_locations
       flash.now[:failure] = "Sorry, we weren't able to change that user's information. " + user_errors
       render :template => "client_admin/users/edit"
@@ -141,7 +140,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
 
   def render_main_index_page
     @user = User.new(demo_id: current_user.demo_id)
-    load_characteristics
+    create_uploader
     load_locations
   end
 
@@ -182,11 +181,6 @@ class ClientAdmin::UsersController < ClientAdminBaseController
   def link_to_edit_user(user)
     url = edit_client_admin_user_path(user)
     %{<a href="#{url}">#{ERB::Util.h user.name}</a>}
-  end
-
-  def load_characteristics
-    super(current_user.demo)
-    @visible_characteristics = @generic_characteristics + @demo_specific_characteristics
   end
 
   def find_user
@@ -232,5 +226,10 @@ class ClientAdmin::UsersController < ClientAdminBaseController
   def send_creation_ping(existing_user)
     event = existing_user.present? ? "User - Existing Invited" : "User - New"
     ping(event, source: 'creator')
+  end
+
+  def create_uploader
+    @uploader = BulkUserUploader.new
+    @uploader.success_action_redirect = client_admin_bulk_upload_path
   end
 end
