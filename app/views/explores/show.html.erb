@@ -2,6 +2,16 @@
 <%= stylesheet_link_tag "internal/explore" %>
 
 <div class="row client_admin_explore">
+  <div class='large-12 column'>
+    <h1>Tile Subjects</h1>
+
+    <div class="row tags">
+      <% @tile_tags.each do |tile_tag| %>
+        <%= link_to tile_tag_show_explore_path(tile_tag: tile_tag.id, tag_click_source: 'Explore Main Page - Clicked Tile Subject Tag') do %>
+          <div class="tag_name"><%= tile_tag.title %></div>
+        <% end %>
+      <% end %>
+    </div>
 
     <h1>Recent Posts</h1>
 

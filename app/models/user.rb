@@ -1035,16 +1035,9 @@ class User < ActiveRecord::Base
     tile.user_tile_copies.where(user_id: self.id).exists?
   end
 
-  def available_tiles_on_current_demo
-    TileProgressCalculator.new(self).available_tiles_on_current_demo
-  end
-
-  def completed_tiles_on_current_demo
-    TileProgressCalculator.new(self).completed_tiles_on_current_demo
-  end
-
-  def not_show_all_completed_tiles_in_progress
-    TileProgressCalculator.new(self).not_show_all_completed_tiles_in_progress
+  def get_client_admin_by_board(board)
+    User.joins(:board_memberships).select("users.*").where("board_memberships.demo_id ='"+board.id.to_s+"'
+                                                            and users.is_client_admin=true").first()
   end
 
   protected
