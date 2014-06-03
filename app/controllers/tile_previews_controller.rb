@@ -1,6 +1,8 @@
 class TilePreviewsController < ClientAdminBaseController
   def show
     @tile = Tile.viewable_in_public.where(id: params[:id]).first
+    @tag = TileTag.where(id: params[:tag]).first
+    @clientname = current_user.get_client_admin_by_board(@tile.demo)
     schedule_mixpanel_pings @tile
   end
 
