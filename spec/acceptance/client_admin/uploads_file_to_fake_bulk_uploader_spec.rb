@@ -28,7 +28,9 @@ feature 'Uploads file to fake bulk uploader' do
     page.should have_content("Total users #{count}")
   end
 
-  it "has a reasonable message for the user"
+  def template_url
+    "https://s3.amazonaws.com/airbo_downloadable_templates/Sample_Eligibility_File_name_and_email.csv"
+  end
 
   it "notifies us by email" do
     visit client_admin_users_path(as: @client_admin)
@@ -65,4 +67,11 @@ feature 'Uploads file to fake bulk uploader' do
     visit client_admin_users_path(as: @client_admin)
     expect_total_users_display 3
   end
+
+  it "has a downloadable template" do
+    visit client_admin_users_path(as: @client_admin)
+    page.first("a[href=\"#{template_url}\"]").should be_present
+  end
+
+  it "has a reasonable message for the user"
 end
