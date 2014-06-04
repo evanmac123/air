@@ -33,6 +33,14 @@ module TilePreviewsHelper
     end
   end
 
+  def get_tile_likes(tile, current_user)
+    if tile.like_count < 1
+      ""
+    else
+      tile.like_count.to_s+" Like"
+    end
+  end
+
   def show_tile_likes(tile, current_user)
     if tile.like_count < 1
       "Be the first person to like this tile"

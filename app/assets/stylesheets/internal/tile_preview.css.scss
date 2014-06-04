@@ -165,7 +165,7 @@ body.tile_previews.tile_previews-show {
       }
     }
 
-    .likes-copy-buttons{
+    .likes-copy-buttons {
       padding: 17px 24px 14px;
       @include clearfix();
       &.tile_holder{
@@ -175,7 +175,7 @@ body.tile_previews.tile_previews-show {
         border-radius: 0;
       }
 
-      .like-button, .copy-button{
+      .like-button, .copy-button {
         width: 259px;
         float: left;
         margin-right: 33px;
@@ -198,12 +198,39 @@ body.tile_previews.tile_previews-show {
           font-size: 16px;
           font-weight: 400;
 
-          &:active{
+          &#copy_tile_button {
+            border: none;
+            line-height: 44px;
+            height: 44px;
+
+            .copy_button{
+              border: 1px solid $sky-blue;
+              &.uncopied{
+                color: $text-color;
+                border-color: $tile-tag-border;
+              }
+            }
+
+          }
+
+          &:active, .copy_button{
+
             color: $sky-blue;
             border-color: $sky-blue;
+
+            &.uncopied{
+              color: $text-color;
+              border-color: $tile-tag-border;
+            }
           }
         }
+        a[id*="tile-like"]{
+          color: $sky-blue;
+          border-color: $sky-blue;
+        }
       }
+
+
 
     }
 

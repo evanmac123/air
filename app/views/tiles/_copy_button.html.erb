@@ -33,6 +33,7 @@
           spinner.hide();
           wrapper.show();
           if(data.success) {
+            $('.copy_message').html("<i class='fa fa-files-o'></i>"+data.copyCount)
             $('#edit_copied_tile_link').attr('href', data.editTilePath);
             $('#tile_copied_lightbox').foundation('reveal', 'open');
             $('.copy_button.uncopied').removeClass('uncopied');

@@ -57,7 +57,7 @@ $(document).ready ->
   $('body.tile_previews').on('click', (event) ->
     $(this).find('ul.extra_tags_list').hide()
   )
-    
+
   $('body.explores .copy_tile_link').live('click', (event) ->
     copyButton = $(event.target)
     event.preventDefault()
