@@ -16,7 +16,7 @@ class GenericMailer < ActionMailer::Base
     @html_text = interpolate_tile_digest_url(@user, demo_id, @html_text)
     @plain_text = interpolate_tile_digest_url(@user, demo_id, @plain_text)
 
-    demo = Demo.find(demo_id)
+    @demo = demo = Demo.find(demo_id)
     from_string = demo.email.present? ? demo.reply_email_address : "Airbo <play@ourairbo.com>"
 
     while(@plain_text !~ /\n\n$/)
@@ -27,7 +27,10 @@ class GenericMailer < ActionMailer::Base
       :to      => @user.email,
       :subject => subject,
       :from    => from_string
-    ) 
+    ) do |format|
+      format.html { render 'mailer/invitation'}
+      format.text { render 'mailer/invitation'}
+    end
   end
 
   class BulkSender

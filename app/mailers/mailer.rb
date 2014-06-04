@@ -122,6 +122,7 @@ class Mailer < ActionMailer::Base
 
   def congratulate_creator_with_first_completed_tile(user)
     @user = user
+    @demo = user.demo
 
     mail :to      => user.email_with_name,
          :from    => user.reply_email_address,
@@ -132,6 +133,7 @@ class Mailer < ActionMailer::Base
     @creator = tile.creator || tile.original_creator
     return unless @creator.present?
 
+    @demo = Demo.new
     @action = action
     @user = user
     @tile = tile

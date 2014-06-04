@@ -1,0 +1,26 @@
+<%= render partial: 'tiles_digest_mailer/header' %>
+
+<% # We send 'claimed' users to the main activities page; "unclaimed" users have to accept their invitation first %>
+<% site_link = email_site_link(@user, @demo, @is_preview ||= false) %>
+<% if @email_heading %>
+        <%= email_heading %>
+<% else %>
+        <%= digest_email_heading_begin + " " + digest_email_heading_link + " " +digest_email_heading_end %>
+        <%= site_link %>
+<% end %>
+<% if @custom_message.present? %>
+        <%= @custom_message %>
+<% end %>
+
+<% @tiles.each do |tile| %>
+
+    <%= tile.headline %>
+  <%= site_link %>
+  <%= tile.supporting_content + "\n" if @follow_up_email %> +<%= tile.points %> <%= tile.question %>
+<% end %>
+
+  See Tiles
+  <%= site_link %>
+  You won't have to log in. Works on mobile.
+  
+<%= render partial: 'shared/unsubscribe_footer' %>
