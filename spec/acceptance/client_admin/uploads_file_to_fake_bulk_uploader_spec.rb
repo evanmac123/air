@@ -24,6 +24,10 @@ feature 'Uploads file to fake bulk uploader' do
     FactoryGirl.create(:tile, status: Tile::ACTIVE, demo: @client_admin.demo) # unlock the users page
   end
 
+  def expect_total_users_display(count)
+    page.should have_content("Total users #{count}")
+  end
+
   it "has a reasonable message for the user"
 
   it "notifies us by email" do
@@ -39,5 +43,26 @@ feature 'Uploads file to fake bulk uploader' do
     current_email.body.should contain(@client_admin.email)
     current_email.body.should contain(@client_admin.demo.name)
     current_email.body.should contain(@client_admin.demo_id)
+  end
+
+  it "has a count of the number of users" do
+    @client_admin.demo.users.claimed.should be_empty
+
+    visit client_admin_users_path(as: @client_admin)
+    expect_total_users_display 0
+
+    3.times do 
+      user = FactoryGirl.create(:user, :claimed)
+      user.add_board(@client_admin.demo)
+    end
+
+    2.times do
+      user = FactoryGirl.create(:user, :unclaimed)
+      user.add_board(@client_admin.demo)
+    end
+
+    @client_admin.demo.users.claimed.should have(3).claimed_users
+    visit client_admin_users_path(as: @client_admin)
+    expect_total_users_display 3
   end
 end

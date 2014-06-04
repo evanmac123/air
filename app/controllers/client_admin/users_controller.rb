@@ -5,6 +5,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
   before_filter :create_uploader
   before_filter :find_user, only: [:edit, :update, :destroy]
   before_filter :normalize_characteristic_ids_to_integers, only: [:create, :update]
+  before_filter :count_total_users
 
   # Attributes that admins are allowed to set
   SETTABLE_USER_ATTRIBUTES = [:name, :email, :employee_id, :zip_code, :characteristics, :location_id, :"date_of_birth(1i)", :"date_of_birth(2i)", :"date_of_birth(3i)", :gender, :phone_number]
@@ -231,5 +232,9 @@ class ClientAdmin::UsersController < ClientAdminBaseController
   def create_uploader
     @uploader = BulkUserUploader.new
     @uploader.success_action_redirect = client_admin_bulk_upload_path
+  end
+
+  def count_total_users
+    @total_user_count = current_user.demo.users.claimed.count
   end
 end

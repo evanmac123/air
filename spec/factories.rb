@@ -16,6 +16,12 @@ FactoryGirl.define do
       accepted_invitation_at Time.now
     end
 
+    # This trait is, strictly speaking, redundant, but some tests are easier
+    # to read if we say this explicitly.
+    trait :unclaimed do
+      accepted_invitation_at nil
+    end
+
     trait :with_phone_number do
       sequence(:phone_number) {|n| "+1#{4442220000 + n}" }
     end
