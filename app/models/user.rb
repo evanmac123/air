@@ -1035,11 +1035,6 @@ class User < ActiveRecord::Base
     tile.user_tile_copies.where(user_id: self.id).exists?
   end
 
-  def get_client_admin_by_board(board)
-    User.joins(:board_memberships).select("users.*").where("board_memberships.demo_id ='"+board.id.to_s+"'
-                                                            and users.is_client_admin=true").first()
-  end
-
   protected
 
   def downcase_email

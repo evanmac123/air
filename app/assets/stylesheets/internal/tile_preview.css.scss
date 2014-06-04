@@ -176,7 +176,6 @@ body.tile_previews.tile_previews-show {
     }
 
 
-
     .likes-copy-buttons {
       padding: 17px 21px 14px;
       @include clearfix();
@@ -193,7 +192,7 @@ body.tile_previews.tile_previews-show {
         border-radius: 0;
       }
 
-      .like-button, .copy-button{
+      .like-button, .copy-button {
         width: 259px;
         float: left;
         margin-right: 33px;
@@ -227,7 +226,6 @@ body.tile_previews.tile_previews-show {
                 color: $text-color;
                 border-color: $tile-tag-border;
               }
-
             }
 
           }
@@ -241,7 +239,6 @@ body.tile_previews.tile_previews-show {
               color: $text-color;
               border-color: $tile-tag-border;
             }
-
           }
         }
         a[id*="tile-like"]{
