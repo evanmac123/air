@@ -7,15 +7,15 @@ class Mailer < ActionMailer::Base
   default :from => "Airbo <play@ourairbo.com>"
 
   def invitation(user, referrer = nil, options = {})
-    _demo = options[:demo_id].present? ? Demo.find(options[:demo_id]) : user.demo
-    email_template = _demo.invitation_email
+    @demo = options[:demo_id].present? ? Demo.find(options[:demo_id]) : user.demo
+    email_template = @demo.invitation_email
     referrer_hash = User.referrer_hash(referrer)
 
     @invitation_url = if options[:password_only]
                        user.manually_set_confirmation_token
                        edit_user_password_url(user, :token => user.confirmation_token)
                      else
-                       invitation_url(user.invitation_code, referrer_hash.merge(demo_id: _demo.id))
+                       invitation_url(user.invitation_code, referrer_hash.merge(demo_id: @demo.id))
                      end
 
     @plain_text = email_template.plain_text(user, referrer, @invitation_url)
@@ -27,7 +27,7 @@ class Mailer < ActionMailer::Base
 
     mail(:to      => user.email_with_name,
          :subject => email_template.subject(user, referrer, @invitation_url),
-         :from    => _demo.reply_email_address)
+         :from    => @demo.reply_email_address)
   end
 
 

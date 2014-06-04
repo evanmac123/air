@@ -95,49 +95,38 @@ Questions? Email support@air.bo.
 
     custom_html_text: %{
 <center>
-<table width="550" cellspacing="0" cellpadding="0" border="0">
-  <tr><td height="10">&nbsp;</td></tr>
-  <tr style="font-family: 'helvetica neue', helvetica, sans-serif;">
-    <td style="text-align:center;">
-      <h1 style="color:#292929; font-weight:lighter; font-weight: 300;">Your invitation to the [game_name]</h1>
-      <h2 style="color: #a8a8a8; font-weight:bold; font-weight: 500;">
-Our social space to feature what you should know and do. Read, take actions, and earn points.</h2> </td>
-    </td>
-  </tr>
-  <tr><td height="10">&nbsp;</td></tr>
-  <tr>
-    <td><center>
-      <table style="background: #4da968; border-bottom:3px #3e8052 solid; text-align:center;" cellspacing="3" width="250">
-        <tr>
-          <td colspan="3" height="0" style="line-height:0; font-size:0;">
-            &nbsp;
-          </td>
-        </tr>
-        <tr>
-          <td width="3" height="45">
-            &nbsp;
-          </td>
-          <td valign="middle" height="45">
-            <a href="[invitation_url]" style='display: block; padding: 10px 40px; text-decoration: none; color: #fff; font-family: helvetica, arial, sans-serif; font-size: 20px; font-weight:bold; font-weight:500;'>Start</a>
-          </td>
-          <td width="3" height="45">
-            &nbsp;
-          </td>
-        </tr>
-      </table>
-    </center></td>
-  </tr>
-  <tr><td height="50">&nbsp;</td></tr>
-  <tr>
-    <td height="10">&nbsp;</td>
-  </tr>
-  <tr style="font-family: 'helvetica neue',helvetica, sans-serif;">
-    <td style="text-align:center;">Questions? <a href="mailto:support@air.bo">support@air.bo</a></td>
-  </tr>
-  <tr>
-    <td height="50">&nbsp;</td>
-  </tr>
-</table>
+  <table cellspacing="0" cellpadding="0" border="0">
+    <tr><td height="10">&nbsp;</td></tr>
+    <tr style="font-family: 'helvetica neue', helvetica, sans-serif;">
+      <td style="font-family:Helvetica,Arial,sans-serif;font-size:24px;color:#4c4c4c;mso-line-height-rule:exactly;line-height:24px;padding-top:40px;padding-bottom:20px;text-align: center;">
+        Your invitation to the [game_name]
+      </td>
+    </tr>
+    <tr>
+      <td style="font-family:Helvetica,Arial,sans-serif;font-size:16px;color:#a8a8a8;mso-line-height-rule:exactly;line-height:24px;padding-bottom:60px;word-break: break-word;text-align: center;">
+        Our social space to feature what you should know and do. Read, take actions, and earn points.
+      </td>
+    </tr>
+    <tr><td height="10">&nbsp;</td></tr>
+    <tr>
+      <td><center>
+        <table width="250">
+          <tr>
+            <td bgcolor="#4face0" align="center" style="font-family:Helvetica,Arial,sans-serif;font-size:24px;color:#ffffff;">
+              <a href="[invitation_url]" style='color:#ffffff;text-decoration:none;display:block;border-left:10px solid #4face0;border-right:10px solid #4face0;border-top:15px solid #4face0;border-bottom:15px solid #4face0;'>Start</a>
+            </td>
+          </tr>
+        </table>
+      </center></td>
+    </tr>
+    <tr><td height="50">&nbsp;</td></tr>
+    <tr>
+      <td height="10">&nbsp;</td>
+    </tr>
+    <tr>
+      <td height="50">&nbsp;</td>
+    </tr>
+  </table>
 </center>
 
     }
