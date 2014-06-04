@@ -16,9 +16,7 @@
               <% if @email_heading %>
                 <%= @email_heading %>
               <% else %>
-                <%= digest_email_heading_begin %>
-                <%= link_to digest_email_heading_link, site_link, link_options.merge({style:'color:#4faa60; font-weight:bold; font-weight:500; font-size:24px; text-decoration:none;'}) %>
-                <%= digest_email_heading_end %>
+                <%= link_to digest_email_heading, site_link, link_options.merge({style:'color:#4faa60; font-weight:bold; font-weight:500; font-size:24px; text-decoration:none;color:#4c4c4c;'}) %>
               <% end %>
             </td>
           </tr>
