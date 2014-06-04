@@ -11,3 +11,7 @@
 <% end %>
 
 <%= link_to "Download", "https://s3.amazonaws.com/airbo_downloadable_templates/Sample_Eligibility_File_name_and_email.csv" %>
+
+<% if @demo.upload_in_progress %>
+  Upload in progress. You can leave this page and we'll email you when it's complete.
+<% end %>

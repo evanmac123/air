@@ -32,10 +32,18 @@ feature 'Uploads file to fake bulk uploader' do
     "https://s3.amazonaws.com/airbo_downloadable_templates/Sample_Eligibility_File_name_and_email.csv"
   end
 
-  it "notifies us by email" do
-    visit client_admin_users_path(as: @client_admin)
+  def simulate_upload
     attach_file_for_direct_upload('spec/support/fixtures/arbitrary_csv.csv')
     upload_directly(BulkUserUploader.new, "Upload to S3")
+  end
+
+  def upload_in_progress_message
+    "Upload in progress. You can leave this page and we'll email you when it's complete."
+  end
+
+  it "notifies us by email" do
+    visit client_admin_users_path(as: @client_admin)
+    simulate_upload
 
     crank_dj_clear
     open_email(BulkUploadNotificationMailer::ADDRESS_TO_NOTIFY)
@@ -73,5 +81,11 @@ feature 'Uploads file to fake bulk uploader' do
     page.first("a[href=\"#{template_url}\"]").should be_present
   end
 
-  it "has a reasonable message for the user"
+  it "has a reasonable message for the user" do
+    visit client_admin_users_path(as: @client_admin)
+    page.should have_no_content(upload_in_progress_message)
+
+    simulate_upload
+    page.should have_content(upload_in_progress_message)
+  end
 end
