@@ -1,6 +1,16 @@
 module BoardSwitchingHelpers
+  # This is a little hack because including ActionView::Helpers::TextHelper
+  # directly in this module breaks unrelated tests, possibly for a good reason,
+  # definitely for a reason I have little to no interest in tracking down. So
+  # we wrap it up in this class instead.
+  class TextHelpifier
+    include ActionView::Helpers::TextHelper
+  end
+
+
   def expect_current_board_header(board)
-    page.should have_content("Current board #{board.name}")
+    _name = TextHelpifier.new.truncate(board.name, length: 15)
+    page.should have_content("Current board #{_name}")
   end
 
   def open_board_menu
