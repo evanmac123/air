@@ -1,15 +1,27 @@
-<table bgcolor="#ffffff" width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr>
-    <td style="padding-top:10px;padding-bottom:10px;">
-      <%= render partial: "tiles_digest_mailer/header" %>
-      <table width="480" align="center" cellpadding="0" cellspacing="0" border="0" class="columns">
-        <tr>
-          <td style="padding:20px;border-left:1px solid #dfdfdf;border-right:1px solid #dfdfdf;border-bottom:1px solid #dfdfdf;">
-            <%= render partial: "mailer/notify_creator_for_social_interaction" %>
-          </td>
-        </tr>
-      </table>
-      <%= render partial: "tiles_digest_mailer/footer", locals: {link_options: {}} %>
-    </td>
-  </tr>
-</table>
+<center>
+  <table cellspacing="0" cellpadding="0" border="0">
+    <tr><td height="10">&nbsp;</td></tr>
+    <tr style="font-family: 'helvetica neue', helvetica, sans-serif;">
+      <td style="font-family:Helvetica,Arial,sans-serif;font-size:24px;color:#4c4c4c;mso-line-height-rule:exactly;line-height:24px;padding-top:40px;padding-bottom:20px;text-align: center;">
+        Congratulations!
+      </td>
+    </tr>
+    <tr>
+      <td style="font-family:Helvetica,Arial,sans-serif;font-size:16px;color:#a8a8a8;mso-line-height-rule:exactly;line-height:24px;padding-bottom:60px;word-break: break-word;text-align: center;">
+        <%= "#{@user.name} #{@action} your tile, \"#{@tile.headline},\" that you shared on the Explore page." %>
+      </td>
+    </tr>
+    <tr><td height="10">&nbsp;</td></tr>
+    <tr>
+      <td><center>
+        <table width="436" cellpadding="0" cellspacing="0" border="0" class="columnsNoPadding">
+          <tr>
+            <td bgcolor="#4face0" align="center" style="font-family:Helvetica,Arial,sans-serif;font-size:24px;color:#ffffff;">
+              <%= link_to 'See Tile', explore_tile_preview_url(@tile), {style:'color:#ffffff;text-decoration:none;display:block;border-left:10px solid #4face0;border-right:10px solid #4face0;border-top:15px solid #4face0;border-bottom:15px solid #4face0;'} %>
+            </td>
+          </tr>
+        </table>
+      </center></td>
+    </tr>
+  </table>
+</center>

@@ -5,6 +5,8 @@ class GenericMailer < ActionMailer::Base
   helper :email
   has_delay_mail
 
+  layout 'mailer'
+
   def send_message(demo_id, user_id, subject, plain_text, html_text)
     @user = User.find(user_id)
     return unless @user.email.present?
@@ -27,10 +29,7 @@ class GenericMailer < ActionMailer::Base
       :to      => @user.email,
       :subject => subject,
       :from    => from_string
-    ) do |format|
-      format.html { render 'mailer/invitation'}
-      format.text { render 'mailer/invitation'}
-    end
+    )
   end
 
   class BulkSender

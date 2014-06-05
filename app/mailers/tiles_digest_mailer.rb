@@ -7,6 +7,8 @@ class TilesDigestMailer < ActionMailer::Base
 
   include EmailHelper  # Well, the 'helper' above method might include it into the view, but it don't include it in here
 
+  layout 'mailer'
+
   def noon
     Date.today.midnight.advance(hours: 12)
   end
@@ -46,7 +48,7 @@ class TilesDigestMailer < ActionMailer::Base
       @title = "Join my #{@demo.name}"      
       @email_heading = "Join my #{@demo.name}"
     else
-      @title = @email_heading = nil #use default logic
+      @title = @email_heading = @follow_up_email ? 'Here the tiles you missed' : 'Your new tiles are here'
     end
     
     @invitation_url = @user.claimed? ? nil : invitation_url(@user.invitation_code, protocol: email_link_protocol, host: email_link_host)

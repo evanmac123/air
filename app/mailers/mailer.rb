@@ -57,6 +57,9 @@ class Mailer < ActionMailer::Base
   end
 
   def follow_notification(friend_name, friend_address, reply_address, user_name, user_id, friendship_id)
+    @user = User.find(user_id)
+    @demo = @user.demo
+
     @friend_name   = friend_name.split[0]
     @user_name     = user_name
     @user_id       = user_id
@@ -68,6 +71,9 @@ class Mailer < ActionMailer::Base
   end
 
   def follow_notification_acceptance(user_name, user_address, reply_address, friend_name)
+    @user = User.find_by_email(user_address)
+    @demo = @user.demo
+
     @user_name   = user_name.split[0]
     @friend_name = friend_name
 
