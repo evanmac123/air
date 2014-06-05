@@ -79,7 +79,13 @@
         $('#get_started_lightbox').trigger('close');
       });
 
-      $('#get_started_lightbox').lightbox_me();
+      $('#get_started_lightbox').lightbox_me({
+        onClose: function(){ 
+          if( window.showRaffleAfterLightbox == true ){
+            showRaffleBox("New Raffle!");
+          } 
+        }
+      });
     <% end %>
   <% end %>
 <% end %>      

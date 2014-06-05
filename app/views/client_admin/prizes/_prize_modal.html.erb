@@ -13,6 +13,8 @@
         if( $("#get_started_lightbox").length == 0 ){ 
         // not display prize and get started box simultaneously
           showRaffleBox("New Raffle!");
+        }else{
+          window.showRaffleAfterLightbox = true;
         }
       <% end %>
     });
@@ -25,10 +27,6 @@
         }
     });
     $("#raffle_data").click(function(){
-      showRaffleBox("Prize");
-    });
-    //after closing lightbox we should show raffle
-    $("#close_get_started_lightbox").click(function(){
       showRaffleBox("Prize");
     });
     function showRaffleBox(header){
