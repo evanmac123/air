@@ -2,7 +2,12 @@ class TileTag < ActiveRecord::Base
   has_many :tile_taggings, dependent: :destroy
   has_many :tiles, through: :tile_taggings
 
-  has_alphabetical_column :title
+  def self.alphabetical
+    # We use the C collation because we want tags that start with an @ sign to
+    # show up first.
+
+    order '(title COLLATE "C")'
+  end
 
   def self.with_public_non_draft_tiles
     # There might be better way to do this, via a combination of JOIN and
