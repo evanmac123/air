@@ -162,8 +162,17 @@ body.tile_previews.tile_previews-show {
           font-size: 14px;
           margin-right: 4px;
         }
+
+        .like-offset-right{
+          display: inline-block;
+          width: 180px;
+          text-align: left;
+        }
+
       }
     }
+
+
 
     .likes-copy-buttons {
       padding: 17px 24px 14px;

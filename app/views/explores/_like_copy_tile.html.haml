@@ -19,6 +19,10 @@
 - if current_user.copied_tile?(tile)
   %span.copied
     = render "copy_link", tile: tile
+- elsif !tile.is_copyable?
+  %span.viewonly_message
+    = fa_icon 'minus-circle'
+    = "View Only"
 - else
   %span.not_copied
     = render "copy_link", tile: tile

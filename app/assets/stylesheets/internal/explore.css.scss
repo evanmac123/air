@@ -139,6 +139,8 @@
       line-height: 1.5;
       padding: 0.625em .6em;
       border-bottom: 1px solid $light-gray;
+      overflow: hidden;
+      height: 80px;
 
       a{
         color: $text-color;
@@ -186,6 +188,24 @@
           font-weight: 400;
         }
         color: $color;
+
+        img.spinner{
+          margin: auto;
+          display: block;
+          margin-top: 6px;
+          width: 35px;
+        }
+
+      }
+
+
+
+
+      .viewonly_message{
+        font-size: 12px;
+        font-weight: 500;
+        color: $white;
+        padding-left: 20px;
       }
 
       .tile_liked{
@@ -200,6 +220,7 @@
 
       .copied {
         @include like_or_copy_control($sky-blue);
+
       }
 
       .not_copied {

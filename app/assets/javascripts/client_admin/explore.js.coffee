@@ -63,8 +63,8 @@ $(document).ready ->
     event.preventDefault()
    
     copyLink = $(this)
-    wrapper = copyLink.parents('.copied, .not_copied')
-    spinner = wrapper.siblings('.copy_spinner')
+    wrapper = copyLink.parents('.copied > span, .not_copied')
+    spinner = wrapper.siblings('.spinner')
     wrapper.hide()
     spinner.show()
 
@@ -77,6 +77,7 @@ $(document).ready ->
           copyLink.text('Copied')
           copyMessage = copyLink.parent().find('.copy_message')
           copyMessage.text(data.copyCount)
+          copyMessage.append('<i class="fa fa-copy"></i>')
           spinner.hide()
           wrapper.show()
           $('#tile_copied_lightbox').foundation('reveal', 'open')

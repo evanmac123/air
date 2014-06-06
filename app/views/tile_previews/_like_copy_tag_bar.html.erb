@@ -19,10 +19,22 @@ if current_user.likes_tile?(tile)
         <% end %>
       </div>
       <div class="like-copy-section">
-        <div class="likes-count"><span class="like_message"> <i class="fa fa-heart-o"></i><%= @tile.like_count > 0 ? @tile.like_count.to_s+' Like': '' %> </span></div>
-        <div class="copy-count"><span class="copy_message"> <i class="fa fa-files-o"></i><%= @tile.copy_count > 0 ? @tile.copy_count.to_s : '' %> </span>
-          <%= @tile.copy_count > 0 ? 'Copy' : '' %>
+        <div class="likes-count">
+          <% if @tile.is_copyable? %>
+              <span class="like_message">
+                <i class="fa fa-heart-o"></i><%= @tile.like_count > 0 ? @tile.like_count.to_s+' Like': '' %>
+              </span>
+          <% else %>
+              <span class="like_message like-offset-right">
+                <i class="fa fa-heart-o"></i><%= @tile.like_count > 0 ? @tile.like_count.to_s+' Like': '' %>
+              </span>
+          <% end %>
         </div>
+        <% if @tile.is_copyable? %>
+          <div class="copy-count"><span class="copy_message"> <i class="fa fa-files-o"></i><%= @tile.copy_count > 0 ? @tile.copy_count.to_s : '' %> </span>
+            <%= @tile.copy_count > 0 ? 'Copy' : '' %>
+          </div>
+        <% end%>
       </div>
 
     </div>
@@ -32,16 +44,16 @@ if current_user.likes_tile?(tile)
             path: :via_explore_page_tile_view), id: "tile-not-like-#{tile.id}",
               method: :post, remote: true, style: display_like do%>
             <div class="not_like_button">
-              <%= fa_icon 'heart-o' %>
-              Like
+              <%= fa_icon 'arrow-up' %>
+              Vote Up
             </div>
           <%end%>
           <%=link_to explore_tile_likes_path(tile_id: tile.id,
             path: :via_explore_page_tile_view), id: "tile-like-#{tile.id}",
               method: :delete, remote: true, style: display_liked do%>
             <div class="like_button">
-              <%= fa_icon 'heart' %>
-              Liked
+              <%= fa_icon 'arrow-up' %>
+              Voted Up
             </div>
           <%end%>
         </div>
@@ -49,6 +61,17 @@ if current_user.likes_tile?(tile)
             <div class='copy-button'>
               <%= render 'tiles/copy_button', tile: tile%>
             </div>
-          <% end %>
+        <% else %>
+          <div class="copy-button">
+            <div id="copy_button_wrapper">
+              <a id="copy_tile_button" href="#">
+                <div class="copy_button uncopied">
+                  <i class="fa fa-minus-circle"></i>
+                  View Only
+                </div>
+              </a>
+            </div>
+          </div>
+        <% end %>
       </div>
   </div>
