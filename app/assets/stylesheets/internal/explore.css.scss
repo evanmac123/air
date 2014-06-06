@@ -60,6 +60,8 @@
     height: 100%;
     background: $white;
     position: relative;
+    min-height: 417px;
+    margin: 0 0 30px 0;
     
     .author_info{
       color: $tile-text;
@@ -140,7 +142,7 @@
       padding: 0.625em .6em;
       border-bottom: 1px solid $light-gray;
       overflow: hidden;
-      height: 80px;
+      height: 90px;
 
       a{
         color: $text-color;
