@@ -351,13 +351,13 @@ function liveShowButtons(){
 function turnLiveEdit(){
   enableForm();
   liveEditButtons();
-  window.status = 'live_edit';
+  window.prizeFormStatus = 'live_edit';
 }
 
 function turnLiveShow(){
   disableForm();
   liveShowButtons();
-  window.status = 'live_show';
+  window.prizeFormStatus = 'live_show';
 }
 
 function updateRaffle(){

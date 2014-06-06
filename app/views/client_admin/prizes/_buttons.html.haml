@@ -58,12 +58,12 @@
     :javascript
       $(function() {
         disableForm();
-        window.status = 'live_show';
+        window.prizeFormStatus = 'live_show';
       });
 
       $("#edit_or_save").click(function(){
-        if( window.status == 'live_show' ){
-        turnLiveEdit();
+        if( window.prizeFormStatus == 'live_show' ){
+          turnLiveEdit();
         }else{
           updateRaffle();
         }

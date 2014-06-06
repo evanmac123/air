@@ -35,7 +35,7 @@
     });
 
     $('.add_another').click(function() {
-      if(!window.status || window.status == 'live_edit'){
+      if(!window.prizeFormStatus || window.prizeFormStatus == 'live_edit'){
         addNewPrizeField();
         addNewPreviewPrizeField();
         rebindPrizeEvents();
@@ -80,7 +80,7 @@
 
       $(".remove_prize").unbind();  
       $(".remove_prize").click(function(){
-        if(!window.status || window.status == 'live_edit'){
+        if(!window.prizeFormStatus || window.prizeFormStatus == 'live_edit'){
           index = $(".prize_section").index( $(this).closest( $(".prize_section") ) );
           removePrize(index);
         }
