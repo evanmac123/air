@@ -118,6 +118,9 @@ class Mailer < ActionMailer::Base
   end
 
   def guest_user_converted_to_real_user(user)
+    @user = user
+    @demo = @user.demo
+    
     @cancel_account_url = cancel_account_url(id: user.cancel_account_token)
     @board_name = user.demo.name
 
