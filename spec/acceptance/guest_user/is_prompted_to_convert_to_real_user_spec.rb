@@ -234,7 +234,7 @@ feature 'Guest user is prompted to convert to real user' do
       user = User.last
       open_email(user.email)
 
-      visit_in_email "click here to cancel."
+      visit_in_email "cancel"
       User.all.count.should_not be_zero
       expect_content user.name
       expect_content user.email

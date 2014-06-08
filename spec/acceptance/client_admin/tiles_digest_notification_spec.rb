@@ -319,7 +319,7 @@ feature 'Client admin and the digest email for tiles' do
 
             all_addresses.each do |address|
               open_email(address)
-              current_email.body.should include(buzzwordery)
+              current_email.html_part.body.should include(buzzwordery)
             end
           end
         end

@@ -1,4 +1,4 @@
-<%= render partial: 'tiles_digest_mailer/header' %>
+<%# render partial: 'mailer/header' %>
 
 <% # We send 'claimed' users to the main activities page; "unclaimed" users have to accept their invitation first %>
 <% site_link = email_site_link(@user, @demo, @is_preview ||= false) %>

@@ -25,7 +25,7 @@ feature 'In multiple boards appears present in all at once' do
   def expect_all_headlines_in_some_email(user, *boards)
     emails_to_user = ActionMailer::Base.deliveries.select{|email| email.to.include?(user.email)}
     headlines = boards.map{|board| first_tile_headline(board)}
-    headlines.all?{|headline| emails_to_user.any? {|email_to_user| email_to_user.body.to_s.include?(headline)} }.should be_true
+    headlines.all?{|headline| emails_to_user.any? {|email_to_user| email_to_user.html_part.body.to_s.include?(headline)} }.should be_true
   end
 
   context "in client/site admin searches for users" do
@@ -102,7 +102,7 @@ feature 'In multiple boards appears present in all at once' do
       crank_dj_clear
 
       open_email(@user.email)
-      current_email.body.should include(first_tile_headline(@first_board))
+      current_email.html_part.body.should include(first_tile_headline(@first_board))
       visit_in_email "new tiles"
       should_be_on activity_path
       expect_current_board_header @first_board
@@ -114,7 +114,7 @@ feature 'In multiple boards appears present in all at once' do
       crank_dj_clear
 
       open_email(@user.email)
-      current_email.body.should include(first_tile_headline(@second_board))
+      current_email.html_part.body.should include(first_tile_headline(@second_board))
       visit_in_email "new tiles"
       should_be_on activity_path
       expect_current_board_header @second_board
@@ -170,7 +170,7 @@ feature 'In multiple boards appears present in all at once' do
       crank_dj_clear
 
       open_email(@user.email)
-      current_email.body.should include(@tile.headline)
+      current_email.html_part.body.should include(@tile.headline)
     end
   end
 

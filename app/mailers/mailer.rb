@@ -25,6 +25,8 @@ class Mailer < ActionMailer::Base
 
     @user = user
 
+    @not_show_settings_link = true
+
     mail(:to      => user.email_with_name,
          :subject => email_template.subject(user, referrer, @invitation_url),
          :from    => @demo.reply_email_address)
