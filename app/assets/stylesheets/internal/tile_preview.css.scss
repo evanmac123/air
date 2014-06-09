@@ -165,8 +165,9 @@ body.tile_previews.tile_previews-show {
 
         .like-offset-right{
           display: inline-block;
-          width: 180px;
+          width: 128px;
           text-align: left;
+          height: 10px;
         }
 
       }
@@ -218,6 +219,10 @@ body.tile_previews.tile_previews-show {
                 color: $text-color;
                 border-color: $tile-tag-border;
               }
+              &.viewonly {
+                color: $text-color;
+                border: none;
+              }
             }
 
           }
@@ -231,6 +236,7 @@ body.tile_previews.tile_previews-show {
               color: $text-color;
               border-color: $tile-tag-border;
             }
+
           }
         }
         a[id*="tile-like"]{

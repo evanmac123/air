@@ -1,10 +1,20 @@
 <% 
 if current_user.likes_tile?(tile)
-  display_like = 'display:none;'
-  display_liked = 'display:block;'
+    display_like = 'display:none;'
+    display_liked = 'display:block;'
   else
-  display_like = 'display:block;'
-  display_liked = 'display:none;'
+    display_like = 'display:block;'
+    display_liked = 'display:none;'
+  end
+  if @tile.like_count > 0
+    display_like_icon = 'display:block;'
+  else
+    display_like_icon = 'display:none;'
+  end
+  if @tile.copy_count > 0
+    display_copy_icon = 'display:block;'
+  else
+    display_copy_icon = 'display:none;'
   end
 %>
 
@@ -20,19 +30,19 @@ if current_user.likes_tile?(tile)
       </div>
       <div class="like-copy-section">
         <div class="likes-count">
-          <% if @tile.is_copyable? %>
-              <span class="like_message">
-                <i class="fa fa-heart-o"></i><%= @tile.like_count > 0 ? @tile.like_count.to_s+' Like': '' %>
-              </span>
-          <% else %>
-              <span class="like_message like-offset-right">
-                <i class="fa fa-heart-o"></i><%= @tile.like_count > 0 ? @tile.like_count.to_s+' Like': '' %>
-              </span>
-          <% end %>
+            <span class="like_message<%=@tile.is_copyable? ? '' : ' like-offset-right' %>">
+              <i class="fa fa-heart-o" style="<%=display_like_icon%> float: left"></i>
+              <div id="like_value" style="<%=display_like_icon%> float: left"><%= @tile.like_count > 0 ? @tile.like_count : '' %></div>
+              <div id="like_msg" style="<%=display_like_icon%> float: left; padding-left: 2px">Votes</div>
+            </span>
         </div>
         <% if @tile.is_copyable? %>
-          <div class="copy-count"><span class="copy_message"> <i class="fa fa-files-o"></i><%= @tile.copy_count > 0 ? @tile.copy_count.to_s : '' %> </span>
-            <%= @tile.copy_count > 0 ? 'Copy' : '' %>
+          <div class="copy-count">
+            <span class="copy_message">
+              <i class="fa fa-files-o" style="<%=display_copy_icon%> float: left"></i>
+              <div id="copy_value" style="<%=display_copy_icon%> float: left"><%= @tile.copy_count > 0 ? @tile.copy_count : '' %></div>
+              <div id="copy_msg" style="<%=display_copy_icon%> float: left; padding-left: 2px">Copy</div>
+            </span>
           </div>
         <% end%>
       </div>
@@ -65,7 +75,7 @@ if current_user.likes_tile?(tile)
           <div class="copy-button">
             <div id="copy_button_wrapper">
               <a id="copy_tile_button" href="#">
-                <div class="copy_button uncopied">
+                <div class="copy_button viewonly">
                   <i class="fa fa-minus-circle"></i>
                   View Only
                 </div>
