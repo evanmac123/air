@@ -60,9 +60,15 @@
     height: 100%;
     background: $white;
     position: relative;
+<<<<<<< HEAD
     min-height: 408px;
     margin: 0 0 20px 0;
 
+=======
+    min-height: 417px;
+    margin: 0 0 100px 0;
+    
+>>>>>>> Added fixes based on feedback round 3
     .author_info{
       color: $tile-text;
       background: $white;
@@ -126,6 +132,7 @@
         margin-left: 0.7em;
         line-height: 1;
         vertical-align: middle;
+        color: $text-color;
 
         &:before{
           content: '';
@@ -175,6 +182,13 @@
           font-weight: 500;
           color: $color;
           display: inline-block;
+<<<<<<< HEAD
+=======
+          margin-left: 10px;
+        }
+        .like_message_width {
+          width:8px;
+>>>>>>> Added fixes based on feedback round 3
         }
 
         a{
@@ -199,6 +213,7 @@
         font-size: 12px;
         font-weight: 400;
         color: $white;
+<<<<<<< HEAD
         padding-left: 21px;
         text-decoration: none !important;
         display: block;
@@ -207,6 +222,10 @@
         .fa {
           margin: 0 8px 0 0;
         }
+=======
+        padding-left: 20px;
+        text-decoration: none !important;
+>>>>>>> Added fixes based on feedback round 3
       }
 
       .tile_liked{
@@ -227,11 +246,14 @@
       .not_copied {
         @include like_or_copy_control($white);
       }
+<<<<<<< HEAD
 
       .copy_count {
         display:inline-block;
         padding-right:2px;
       }
+=======
+>>>>>>> Added fixes based on feedback round 3
     }
     .all_tile_tags{
       background: $white;
