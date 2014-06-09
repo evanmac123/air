@@ -72,12 +72,13 @@ class Mailer < ActionMailer::Base
          :subject => "#{user_name} wants to be your friend on Airbo"
   end
 
-  def follow_notification_acceptance(user_name, user_address, reply_address, friend_name)
+  def follow_notification_acceptance(user_name, user_address, reply_address, friend_name, friend_id)
     @user = User.find_by_email(user_address)
     @demo = @user.demo
 
     @user_name   = user_name.split[0]
     @friend_name = friend_name
+    @friend = User.find(friend_id)
 
     mail :to      => user_address,
          :from    => reply_address,

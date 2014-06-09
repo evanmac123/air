@@ -26,9 +26,9 @@ class Friendship < ActiveRecord::Base
     end
   end
 
-  class FollowNotificationAcceptance < Struct.new(:user_name, :user_address, :reply_address, :friend_name)
+  class FollowNotificationAcceptance < Struct.new(:user_name, :user_address, :reply_address, :friend_name, :friend_id)
     def perform
-      Mailer.follow_notification_acceptance(user_name, user_address, reply_address, friend_name).deliver
+      Mailer.follow_notification_acceptance(user_name, user_address, reply_address, friend_name, friend_id).deliver
     end
   end
 
@@ -115,7 +115,7 @@ class Friendship < ActiveRecord::Base
   protected
 
   def notify_follower_of_acceptance
-    Delayed::Job.enqueue FollowNotificationAcceptance.new user.name, user.email, user.reply_email_address, friend.name
+    Delayed::Job.enqueue FollowNotificationAcceptance.new user.name, user.email, user.reply_email_address, friend.name, friend_id
   end
 
   def follow_notification_text
