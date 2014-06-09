@@ -35,7 +35,7 @@ describe 'Digest email' do
     it 'should display the H.Engage logo and alt-text if an alternative one is not provided' do
       email = TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "New Tiles", false, nil)
 
-      email.should have_selector "img[src $= '/assets/logo.png'][alt = 'Airbo']"
+      email.should have_selector "img[src $= '/assets/airbo_logo_lightblue.png'][alt = 'Airbo']"
     end
 
     it "should display another company's logo if they have provided one, along with default alt-text if they have not provided any" do
@@ -59,17 +59,15 @@ describe 'Digest email' do
     context "original digest email should display its title" do
       subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "New Tiles", false, nil) }
 
-      it { should have_body_text 'Your' }
-      it { should have_link 'new tiles' }
-      it { should have_link 'View your tiles' }
+      it { should have_link 'Your new tiles are here' }
+      it { should have_link 'See Tiles' }
     end
 
     context "follow-up digest email should display its title" do
       subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "Don't Miss Your New Tiles", true, nil) }
 
-      it { should have_body_text 'Did you forget to check out your' }
-      it { should have_link 'new tiles' }
-      it { should have_link 'View your tiles' }
+      it { should have_link 'Here the tiles you missed' }
+      it { should have_link 'See Tiles' }
     end
   end
 
@@ -85,10 +83,10 @@ describe 'Digest email' do
       it { should_not have_selector "a[href *= 'invitations']" }
     end
 
-    # There should be 6 links in all: 5 same as above + 1 for a 'sign up' link in the footer
+    # There should be 5 links in all same as above
     context 'unclaimed user' do
       subject { TilesDigestMailer.notify_one(demo.id, unclaimed_user.id, tile_ids, "New Tiles", false, nil) }
-      it { should have_selector     "a[href *= 'invitations']", count: 6 }
+      it { should have_selector     "a[href *= 'invitations']", count: 5 }
       it { should_not have_selector "a[href *= 'acts']" }
     end
 
@@ -145,24 +143,22 @@ describe 'Digest email' do
     context 'all users' do
       subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "New Tiles", false, nil) }
 
-      it { should have_body_text 'Copyright &copy; 2014 H.Engage, Inc. All Rights Reserved' }
-      it { should have_body_text 'Our mailing address is: 222 Newbury St., Floor 3, Boston, MA 02116' }
-      it { should have_body_text 'You received this email because your company uses Airbo' }
+      it { should have_body_text 'For assistanace contact' }
+      it { should have_link      'support@air.bo' }
+      it { should have_body_text "We're located at 222 Newbury St, Boston, MA 02116" }
 
       it { should have_link      'Unsubscribe' }
-      it { should have_body_text 'from email communications' }
+      it { should have_link 'Update Preferences' }
     end
 
     context 'claimed user' do
       subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "New Tiles", false, nil) }
-      it { should     have_link('Update your contact preferences') }
-      it { should_not have_link('sign up') }
+      it { should     have_link('Update Preferences') }
     end
 
     context 'unclaimed user' do
       subject { TilesDigestMailer.notify_one(demo.id, unclaimed_user.id, tile_ids, "New Tiles", false, nil) }
-      it { should_not have_link('Update your contact preferences') }
-      it { should     have_link('sign up') }
+      it { should_not have_link('Update preferences') }
     end
   end
 end
@@ -184,6 +180,8 @@ describe 'Digest email tile order' do
     User.stubs(:find).returns(FactoryGirl.create :claimed_user)
 
     Fixnum.any_instance.stubs(:headline)
+    Fixnum.any_instance.stubs(:points)
+    Fixnum.any_instance.stubs(:question).returns("dcsddsc")
     Fixnum.any_instance.stubs(:thumbnail).returns('xxx')
 
     tile_ids = [1, 2, 3]
