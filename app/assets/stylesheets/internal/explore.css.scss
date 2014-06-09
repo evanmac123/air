@@ -115,6 +115,7 @@
         display: inline-block;
         width: 6.7%;
         vertical-align: middle;
+        color: $text-color;
       }
       .text{
         @include font-regular;
