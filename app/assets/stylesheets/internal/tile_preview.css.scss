@@ -76,13 +76,14 @@ body.tile_previews.tile_previews-show {
       }
 
       .creator{
-
+        width: 33.33%;
       }
       .tower{
         text-align: center;
+        width: 33.33%;
       }
       .board-name{
-        text-align: right;
+        width: 33.33%;
       }
 
       .fa{
@@ -106,7 +107,7 @@ body.tile_previews.tile_previews-show {
       }
 
       .tags{
-        width: 65%;
+        width: 66.66%;
         float: left;
         margin-bottom: -12px;
         .tag{
@@ -143,8 +144,8 @@ body.tile_previews.tile_previews-show {
 
     .like-copy-section{
       float: left;
-      width: 35%;
-      text-align: right;
+      width: 33.33%;
+      text-align: left;
 
       .likes-count, .copy-count{
         display: inline-block;
