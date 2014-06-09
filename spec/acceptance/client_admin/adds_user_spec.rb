@@ -31,15 +31,15 @@ feature 'Adds user' do
   USER_EMAIL = "jemsh@example.com"
 
   def fill_in_user_information
-    fill_in "Name",        :with => "Jehosaphat Emshwiller"
-    fill_in "Email",       :with => USER_EMAIL
+    fill_in "user[name]",        :with => "Jehosaphat Emshwiller"
+    fill_in "user[email]",       :with => USER_EMAIL
 
     click_link "More options"
-    fill_in "Employee ID", :with => "012345"
-    fill_in "Zip code",    :with => "02139"
+    fill_in "user[employee_id]", :with => "012345"
+    fill_in "user[zip_code]",    :with => "02139"
 
-    select "Boston", :from => "Location"
-    select "other",  :from => "Gender"
+    select "Boston", :from => "user[location_id]"
+    select "other",  :from => "user[gender]"
 
     select_date_of_birth("April", "17", "1977")
   end
@@ -85,7 +85,7 @@ feature 'Adds user' do
     demo.users.count.should == 1 # just the admin
 
     fill_in_user_information
-    click_button "Add user"
+    click_button "Add User"
 
     should_be_on client_admin_users_path
 
@@ -99,7 +99,7 @@ feature 'Adds user' do
 
     fill_in_user_information
     page.find('select.user-role-select').select 'User'
-    click_button "Add user"
+    click_button "Add User"
 
     should_be_on client_admin_users_path
 
@@ -113,7 +113,7 @@ feature 'Adds user' do
 
     fill_in_user_information
     page.find('select.user-role-select').select 'Administrator'
-    click_button "Add user"
+    click_button "Add User"
 
     should_be_on client_admin_users_path
 
@@ -123,15 +123,15 @@ feature 'Adds user' do
   end
   
   it "should show meaningful errors when entered data is invalid" do
-    click_button "Add user"
+    click_button "Add User"
     should_be_on client_admin_users_path
 
     demo.users.reload.count.should == 1
     expect_add_failed_message "Please enter a first and last name"
 
-    fill_in "Name", with: "Bob Smith"
+    fill_in "user[name]", with: "Bob Smith"
     select "January", from: "user[date_of_birth(2i)]"
-    click_button "Add user"
+    click_button "Add User"
 
     demo.users.reload.count.should == 1
     expect_add_failed_message "Please enter a full date of birth"
@@ -139,8 +139,8 @@ feature 'Adds user' do
 
   it "should generate unique claim codes for each user" do
     2.times do
-      fill_in "Name", with: "John Smith"
-      click_button "Add user"
+      fill_in "user[name]", with: "John Smith"
+      click_button "Add User"
     end
 
     john_smiths = demo.reload.users.where(name: "John Smith")
@@ -150,7 +150,7 @@ feature 'Adds user' do
 
   it "should send a mixpanel ping", js: true do
     fill_in_user_information
-    click_button "Add user"
+    click_button "Add User"
     FakeMixpanelTracker.clear_tracked_events
     crank_dj_clear
 
@@ -162,7 +162,7 @@ feature 'Adds user' do
       FactoryGirl.create(:user, email: USER_EMAIL)
       fill_in_user_information
 
-      click_button "Add user"
+      click_button "Add User"
 
       page.should have_no_content("Email has already been taken.")
       expect_new_user(demo, false)
@@ -173,7 +173,7 @@ feature 'Adds user' do
       FactoryGirl.create(:user, email: USER_EMAIL, demo: demo)
       fill_in_user_information
 
-      click_button "Add user"
+      click_button "Add User"
       newest_user(demo).demos.should have(1).demo
       page.should have_content("It looks like #{USER_EMAIL} is already in your board.")
     end
@@ -182,7 +182,7 @@ feature 'Adds user' do
       FactoryGirl.create(:user, email: USER_EMAIL)
       fill_in_user_information
 
-      click_button "Add user"
+      click_button "Add User"
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear
       FakeMixpanelTracker.should_not have_event_matching('User - New', source: 'creator')
@@ -195,7 +195,7 @@ feature 'Adds user' do
 
       fill_in_user_information
 
-      click_button "Add user"
+      click_button "Add User"
       click_link "Next, send invite to #{user.name}"
       crank_dj_clear
 

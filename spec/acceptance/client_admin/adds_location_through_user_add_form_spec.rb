@@ -10,12 +10,12 @@ feature 'Adds location through user add form' do
     demo.locations.length.should == 0
 
     click_link 'More options'
-    select "Add new...", from: "Location"
+    select "Add new...", from: "user[location_id]"
     fill_in "New location name", with: "Funkytown"
     click_button "Save new location"
 
-    fill_in "Name", with: "Mayor McCheese"
-    click_button "Add user"
+    fill_in "user[name]", with: "Mayor McCheese"
+    click_button "Add User"
 
     # This next line is to ensure that the HTTP request actually finishes before 
     # we go poke around in the database again.

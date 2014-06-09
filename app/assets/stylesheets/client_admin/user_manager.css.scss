@@ -2,6 +2,22 @@
 
 // ================== For all Manage Users pages ==================
 body.client_admin-users {
+  h3 {
+    text-transform: uppercase;
+    font-size: 10pt;
+    color: $text-color;
+    font-weight: bold;
+  }
+
+  #user_count {
+    font-size: 30pt;
+    color: $sky-blue;
+  }
+
+  #total_user_count_row, #find_users_row {
+    margin-bottom: 3em;
+  }
+
   form.user-profile {
     .field_with_errors {
       input {border:1px $red solid;}
@@ -74,11 +90,10 @@ body.client_admin-users {
         vertical-align: middle; 
       }
       li#toggle-more-options a {
-        @include app-button($med-gray);
         margin-right: 0.5em;
       }
       li#add-user-button input[type='submit'] {
-        @include app-button($dark-green);
+        @include light-button($med-gray);
       }
     }
     .required_label {
@@ -87,14 +102,18 @@ body.client_admin-users {
     }
     p.required_label {margin-bottom:1em;}
   }
-  a.clear-form{
-    margin-left:.75em;
+
+  input[type="submit"]#add-user {
+    @include light-button($med-gray);
+    display: inline-block;
+    float: right;
+    position: relative;
+    top: 0.5em;
   }
 }
 
 #find-users {
   vertical-align: top;
-  .find-tools {@include form-group;}
   h2.subhead {padding-bottom:.5em;}
   input[type="text"]{width:100%;}
   span {
@@ -102,9 +121,16 @@ body.client_admin-users {
     display: block;
     margin:1.5em 0;
   }
-  #show-everyone {
-    @include app-button($med-gray);
-  }
+}
+
+#show-everyone, #more-options {
+  display: block;
+  margin-top: 1em;
+  font-weight: 500;
+  color: $med-gray;
+  font-size: 12pt;
+
+  &:hover {color: $blue;}
 }
 
 body.client_admin-users .breadcrumbs,
@@ -114,18 +140,10 @@ body.client_admin-tile_completions .breadcrumbs {
 }
 
 #add-single-user {
-  &:before {@include clear;}
-  
-  form.user-profile#single-form {
-    @include form-group;
-    padding-left:2.25em;
-    #loaded-user-data {
-      h1.headline {display:none;}
-    }
+  input[type="text"] {
+    width: 100%;
+    margin-bottom: 1em;
   }
-  #user-data-entry {margin-bottom:1em;&:after{@include clear;}}
-  .extra-user-info {display:none;}
-  #user-characteristics {margin-bottom:1em;}
 }
 
 #new_location_lightbox {
@@ -268,4 +286,8 @@ body.client_admin-users-edit, body.client_admin-users-update {
     border-color: $blue;
     background-image: none;
   }
+}
+
+.select-section {
+  margin-bottom: 1em;
 }

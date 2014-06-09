@@ -1,25 +1,30 @@
-<div class="row">
-  Total users <%= @total_user_count %>
+<div class="row" id="total_user_count_row">
+  <div class="large-12 columns">
+    <h3>Total users</h3>
+    <div id="user_count"><%= @total_user_count %></div>
+  </div>
 </div>
 
-<div class="row">
-  <div class="large-8 columns">
-    <div id="add-single-user" class="section">
-      <h3>Add</h3>
-      <%= render 'add_form', demo: @demo, user: @user, visible_characteristics: @visible_characteristics %>
-    </div>
-  </div>
-  <div class="large-4 columns">
-    <div id="find-users" class="section">
+<div class="row" id="find_users_row">
+  <div class="large-12 columns">
+    <div id="find-users">
       <h3>Find</h3>
       <div class="find-tools">
         <div id="name-search">
           <%= text_field_tag 'name-substring', nil, placeholder: "Enter first or last name" %>
           <div id="name-autocomplete-target"></div>
         </div>
-        <span>or</span>
         <%= link_to "Show everyone", client_admin_users_path(show_everyone: true), id: "show-everyone" %>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="large-12 columns">
+    <div id="add-single-user">
+      <h3>Add</h3>
+      <%= render 'add_form', demo: @demo, user: @user, visible_characteristics: @visible_characteristics %>
     </div>
   </div>
 </div>

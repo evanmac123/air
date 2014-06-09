@@ -37,12 +37,12 @@ feature 'Invites user' do
       @demo = client_admin.demo
       FactoryGirl.create :tile, demo: @demo
       visit client_admin_users_path(as: client_admin)
-      fill_in "Name", with: "Bob Jones"
+      fill_in "user[name]", with: "Bob Jones"
     end
 
     it "should have a link in the add message to invite the newly-created user, if they have an email", js: true do
-      fill_in "Email", with: "bob@acme.co.uk"
-      click_button "Add user"
+      fill_in "user[email]", with: "bob@acme.co.uk"
+      click_button "Add User"
 
       new_user = @demo.users.order("created_at DESC").first
       new_user.invited.should be_false
@@ -54,7 +54,7 @@ feature 'Invites user' do
     end
 
     it "shouldn't be an option, if they have no email" do
-      click_button "Add user"
+      click_button "Add User"
 
       new_user = @demo.users.order("created_at DESC").first
       new_user.invited.should be_false
