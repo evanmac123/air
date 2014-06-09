@@ -12,10 +12,12 @@
   <% if t_cnt > 0 %>
     $('body.tile_previews').find('.like_message').find('i').show();
     $('body.tile_previews').find('.like_message').find('#like_value').text(<%=t_cnt%>);
+    $('body.tile_previews').find('.like_message').find('#like_value').show();
     $('body.tile_previews').find('.like_message').find('#like_msg').show();
   <% else %>
     $('body.tile_previews').find('.like_message').find('i').hide();
     $('body.tile_previews').find('.like_message').find('#like_value').empty();
+    $('body.tile_previews').find('.like_message').find('#like_value').hide()
     $('body.tile_previews').find('.like_message').find('#like_msg').hide();
   <% end %>
   $('body.tile_previews').find('#tile-not-like-<%=@tile.id%>').show();
