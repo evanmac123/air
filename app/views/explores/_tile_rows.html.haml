@@ -23,7 +23,10 @@
             = link_to explore_tile_preview_path(tile, tag: @tile_tag, thumb_click_source: thumb_click_source) do
               %span.text= tile.headline
           .author_info
-            = tile.creator.name
+            -if !tile.nil? && !tile.creator.nil? && tile.creator.name?
+              = tile.creator.name
+            -else
+              = ''
             %span
               -if !tile.demo.nil? && tile.demo.name?
                 = tile.demo.name
