@@ -25,7 +25,7 @@
           .author_info
             = tile.creator.name
             %span
-              -if !tile.demo.nil?
+              -if !tile.demo.nil? && tile.demo.name?
                 = tile.demo.name
               -else
                 = ''
