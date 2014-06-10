@@ -25,7 +25,10 @@
           .author_info
             = tile.creator.name
             %span
-              = tile.demo.name
+              -if !tile.demo.nil?
+                = tile.demo.name
+              -else
+                = ''
           %ul.all_tile_tags
           %ul.extra_tags_list
             - tile.tile_tags.each do |tile_tag|
