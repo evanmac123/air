@@ -18,7 +18,7 @@ module TileBatchHelper
     when :tablet
       4
     else
-      4
+      8
     end
   end
 end

@@ -220,10 +220,7 @@ body.tile_previews.tile_previews-show {
                 color: $text-color;
                 border-color: $tile-tag-border;
               }
-              &.viewonly {
-                color: $text-color;
-                border: none;
-              }
+
             }
 
           }
@@ -245,9 +242,15 @@ body.tile_previews.tile_previews-show {
           border-color: $sky-blue;
         }
       }
+    }
 
-
-
+    .viewonly {
+      float: left;
+      width: 33.33%;
+      color: $text-color;
+      border: none;
+      height: 46px;
+      line-height: 46px;
     }
 
     .like-copy-info{

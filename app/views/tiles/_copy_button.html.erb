@@ -8,7 +8,7 @@
     <% copy_button_classes = copy_button_classes.join(' ') %>
     <div class="<%= copy_button_classes %>">
       <%= fa_icon 'files-o'%>
-        Copy
+      <%=current_user.copied_tile?(tile) ? 'Copied' : 'Copy'%>
     </div>
   <% end %>
 </div>
