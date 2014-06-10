@@ -153,12 +153,14 @@ body.tile_previews.tile_previews-show {
         color: $tile-text;
         vertical-align: middle;
         padding: 1px 0;
-        margin-right: 20px;
 
         &:last-child{
           margin-right: 0;
+          margin-left: -3px;
         }
-
+        div:last-child{
+          margin-right: 20px;
+        }
         .fa{
           font-size: 14px;
           margin-right: 4px;
@@ -179,6 +181,12 @@ body.tile_previews.tile_previews-show {
     .likes-copy-buttons {
       padding: 17px 24px 14px;
       @include clearfix();
+
+      .reveal-modal{
+        text-align: left;
+        width: 548px;
+        margin-left: -(548px / 2);
+      }
       &.tile_holder{
         background: $white;
         box-shadow: none;
