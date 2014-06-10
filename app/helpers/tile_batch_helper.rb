@@ -1,10 +1,6 @@
 module TileBatchHelper
   def tile_batch_size
-    if first_tile_batch
-      2 * tile_batch_size_increment
-    else
-      tile_batch_size_increment
-    end
+    2 * tile_batch_size_increment
   end
 
   def first_tile_batch
