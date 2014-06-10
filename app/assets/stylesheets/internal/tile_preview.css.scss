@@ -8,6 +8,7 @@ body.tile_previews.tile_previews-show {
 
   .justify{
     display: table;
+    vertical-align: top;
 
     > * {
       display: table-cell;

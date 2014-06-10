@@ -15,12 +15,12 @@
           <%=(tile.creator && tile.creator.name) || ''%>
         </div>
         <div class="tower">
-          <i class="fa fa-building-o"></i>
-          <%= tile.demo.client_name.present? ? tile.demo.client_name : '' %>
+          <div <%= tile.demo.client_name.present? ? 'style="float:left"' : '' %> ><i class="fa fa-building-o"></i></div>
+          <div style="overflow: hidden"><%= tile.demo.client_name.present? ? tile.demo.client_name : '' %></div>
         </div>
         <div class="board-name">
-          <i class="fa fa-th-large"></i>
-          <%= tile.demo.name %>
+          <div style="float:left"><i class="fa fa-th-large"></i></div>
+          <div style="overflow: hidden"><%= tile.demo.name %></div>
         </div>
     </div>
 </div>
