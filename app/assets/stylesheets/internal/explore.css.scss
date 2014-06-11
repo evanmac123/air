@@ -60,7 +60,7 @@
     height: 100%;
     background: $white;
     position: relative;
-    min-height: 417px;
+    min-height: 408px;
     margin: 0 0 20px 0;
     
     .author_info{
@@ -235,6 +235,11 @@
 
       .not_copied {
         @include like_or_copy_control($white);
+      }
+
+      .copy_count {
+        display:inline-block;
+        padding-right:2px;
       }
     }
     .all_tile_tags{

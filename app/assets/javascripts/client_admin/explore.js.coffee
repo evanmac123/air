@@ -76,8 +76,8 @@ $(document).ready ->
           copyLink.closest('.not_copied').removeClass('not_copied').addClass('copied')
           copyLink.text('Copied')
           copyMessage = copyLink.parent().find('.copy_message')
-          copyMessage.text(data.copyCount)
-          copyMessage.append('<i class="fa fa-copy"></i>')
+          copyMessage.html('<div class="copy_count">' + data.copyCount + '</div>
+                                <i class="fa fa-copy"></i>');
           spinner.hide()
           wrapper.show()
           $('#tile_copied_lightbox').foundation('reveal', 'open')
