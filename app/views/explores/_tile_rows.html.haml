@@ -7,6 +7,7 @@
       :css
         ##{thumbnail_id} {
           background-image: url('#{tile.thumbnail}');
+          background-repeat: no-repeat;
         }
       %td
         .explore_tile
@@ -14,8 +15,8 @@
             %i.fa.fa-building-o
             %span.text
               =truncate(tile.demo.client_name != '' ? tile.demo.client_name : tile.demo.name, length: 22)
-          = link_to explore_tile_preview_path(tile, tag: @tile_tag, thumb_click_source: thumb_click_source) do
-            .tile_image{id:thumbnail_id}
+          .tile_image{id: thumbnail_id}
+            = link_to explore_tile_preview_path(tile, tag: @tile_tag, thumb_click_source: thumb_click_source) do
               .like_copy_tile
                 = render partial: 'like_copy_tile', :locals => { :tile => tile }
                 -#.created_at= "#{time_ago_in_words(tile.created_at)} ago"
