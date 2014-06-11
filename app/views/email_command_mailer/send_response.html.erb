@@ -7,6 +7,11 @@
       </td>
     </tr>
     <tr><td height="10">&nbsp;</td></tr>
+    <tr>
+      <td><center>
+        <%= render partial: 'mailer/main_button', locals: {button_text: "Go to your account", button_url: activity_url(as: @user)} %>
+      </center></td>
+    </tr>
   </table>
 </center>
 
