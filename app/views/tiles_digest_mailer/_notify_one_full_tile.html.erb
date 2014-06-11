@@ -1,18 +1,18 @@
 <% tile_url = tile.thumbnail(:email_digest)  # Paperclip returns the full url in staging and production modes %>
 <% tile_url = tile_url.prepend('http://localhost:3000') if (Rails.env.development? or Rails.env.test?) %>
 <!-- 2-col image/text -->
-<table width="434" align="center" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #dfdfdf;" class="columnsNoPadding">
+<table width="100%" align="center" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #dfdfdf;border-collapse: separate;text-align: center;" class="columnsNoPadding">
 <tr>
-  <td width="207" class="column">
+  <td width="207" class="column" style="display: inline-block;">
     <table cellpadding="0" cellspacing="0" border="0" class="columnsNoPadding">
     <tr>
-      <td class="column">
+      <td class="column" style="display: inline-block;">
         <%= link_to(image_tag(tile_url, alt: tile.headline, width: '208px', height: "170px", border: "0px", style: 'display:block; border-style:none;', class: "imageScale"), site_link, link_options.merge(style: "text-decoration:none;", target: "_blank") ) %>
       </td>
     </tr>
     </table>
   </td>
-  <td width="227" class="column">
+  <td width="227" class="column" style="display: inline-block;">
     <table align="center" cellpadding="0" cellspacing="0" border="0" class="columnsNoPadding">
     <tr>
       <td style="" class="column">
@@ -49,7 +49,7 @@
     +<%= tile.points %>
   </td>
   <td width="377" style="font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#4c4c4c;mso-line-height-rule:exactly;line-height:22px;padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;border:1px solid #dfdfdf;border-left:0;word-break:break-all;">
-    <%= tile.question.truncate(45) %>
+    <%= tile.question.truncate(56) %>
   </td>
 </tr>
 <tr>
