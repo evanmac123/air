@@ -13,10 +13,6 @@
       </td>
     </tr>
     <tr><td height="10">&nbsp;</td></tr>
-    <tr>
-      <td><center>
-        <%= render partial: 'mailer/main_button', locals: {button_text: "See your new connection", button_url: user_url(@friend)} %>
-      </center></td>
-    </tr>
   </table>
 </center>
+<%= render partial: 'mailer/main_button', locals: {button_text: "See your new connection", button_url: user_url(@friend)} %>

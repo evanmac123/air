@@ -23,12 +23,5 @@
     <%= render partial: "tiles_digest_mailer/notify_one_full_tile", locals: {tile: tile, site_link: site_link, link_options: link_options} %>
   <% end %>
 <% end %>
-<!-- See Tiles -->
-<table width="436" cellpadding="0" cellspacing="0" border="0" class="columnsNoPadding" style="width: 100% !important;">
-  <tr>
-    <td bgcolor="#4face0" align="center" style="font-family:Helvetica,Arial,sans-serif;font-size:24px;color:#ffffff;">
-      <%= link_to 'See Tiles', site_link, link_options.merge({style:'color:#ffffff;text-decoration:none;display:block;border-left:10px solid #4face0;border-right:10px solid #4face0;border-top:15px solid #4face0;border-bottom:15px solid #4face0;'}) %>
-    </td>
-  </tr>
-</table>
+<%= render partial: 'mailer/main_button', locals: {button_text: 'See Tiles', button_url: site_link} %>
         

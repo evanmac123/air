@@ -108,17 +108,6 @@ Questions? Email support@air.bo.
       </td>
     </tr>
     <tr><td height="10">&nbsp;</td></tr>
-    <tr>
-      <td><center>
-        <table width="436" cellpadding="0" cellspacing="0" border="0" class="columnsNoPadding">
-          <tr>
-            <td bgcolor="#4face0" align="center" style="font-family:Helvetica,Arial,sans-serif;font-size:24px;color:#ffffff;">
-              <a href="[invitation_url]" style='color:#ffffff;text-decoration:none;display:block;border-left:10px solid #4face0;border-right:10px solid #4face0;border-top:15px solid #4face0;border-bottom:15px solid #4face0;'>Start</a>
-            </td>
-          </tr>
-        </table>
-      </center></td>
-    </tr>
   </table>
 </center>
 
