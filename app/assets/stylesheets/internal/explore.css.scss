@@ -171,8 +171,8 @@
         float: left;
         text-decoration: none;
         width: 50%;
-        padding: 0 0 0 10px;
         font-weight: 400;
+        text-align: center;
         @include box-sizing;
         .fa{
           font-size: 12px;
@@ -184,7 +184,6 @@
           font-weight: 500;
           color: $color;
           display: inline-block;
-          margin-left: 10px;
         }
 
         a{
