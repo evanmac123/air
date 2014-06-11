@@ -209,8 +209,12 @@
         font-size: 12px;
         font-weight: 400;
         color: $white;
-        padding-left: 30px;
+        padding-left: 21px;
         text-decoration: none !important;
+
+        .fa {
+          margin: 0 8px 0 7px;
+        }
       }
 
       .tile_liked{
