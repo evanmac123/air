@@ -26,3 +26,4 @@
     </tr>
   </table>
 </center>
+<%= render partial: 'mailer/main_button', locals: {button_text: "Accept", button_url: accept_friendship_url(@user_id, @friendship_id)} %>

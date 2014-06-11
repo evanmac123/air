@@ -12,16 +12,6 @@
       </td>
     </tr>
     <tr><td height="10">&nbsp;</td></tr>
-    <tr>
-      <td><center>
-        <table width="436" cellpadding="0" cellspacing="0" border="0" class="columnsNoPadding">
-          <tr>
-            <td bgcolor="#4face0" align="center" style="font-family:Helvetica,Arial,sans-serif;font-size:24px;color:#ffffff;">
-              <%= link_to 'Check Activity', client_admin_tiles_url(as: @user), {style:'color:#ffffff;text-decoration:none;display:block;border-left:10px solid #4face0;border-right:10px solid #4face0;border-top:15px solid #4face0;border-bottom:15px solid #4face0;'} %>
-            </td>
-          </tr>
-        </table>
-      </center></td>
-    </tr>
   </table>
 </center>
+<%= render partial: 'mailer/main_button', locals: {button_text: 'Check Activity', button_url: client_admin_tiles_url(as: @user)} %>
