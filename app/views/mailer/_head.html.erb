@@ -17,6 +17,8 @@ img { -ms-interpolation-mode:bicubic;}
   table[class=columns] {padding-left:10px!important;padding-right:10px!important;border-collapse:separate!important;width:100%!important;}
   table[class=columnsNoPadding] {width:100%!important;border-collapse:separate!important;width:100%!important;}
   td[class=column] {display:block;font-size:16px!important;padding-left:0!important;padding-right:0!important;width:100%!important;}
+  td[class=horizontalGap]{}
+  td[class=verticalGap]{display: none;}
   td[class=columnNormal] {display:block;padding-left:0!important;padding-right:0!important;width:100%!important;height:auto!important;}
   img[class=imageScale] {margin:0!important;width:100%!important;height:auto!important;}
   span[class=newLineMobile] {display:block;padding-top:10px;padding-bottom:10px;}
@@ -26,4 +28,5 @@ img { -ms-interpolation-mode:bicubic;}
 <title>
   <%= @title || "Airbo" %>
 </title>
+ <%= javascript_include_tag 'app-internal' %>
 </head>
