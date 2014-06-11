@@ -1,17 +1,84 @@
-<%= form_tag @uploader.direct_fog_url, multipart: true do %>
-  <%= hidden_field_tag 'key',                     @uploader.key %>
-  <%= hidden_field_tag 'AWSAccessKeyId',          @uploader.aws_access_key_id %>
-  <%= hidden_field_tag 'acl',                     @uploader.acl %>
-  <%= hidden_field_tag 'success_action_redirect', @uploader.success_action_redirect %>
-  <%= hidden_field_tag 'policy',                  @uploader.policy %>
-  <%= hidden_field_tag 'signature',               @uploader.signature %>
+<div class="row">
+  <div class="columns large-12">
+    <div id="upload-user-header">
+      <h1><%= fa_icon "users" %>Upload Users</h1>
+    </div>
+  </div>
+</div>
 
-  <%= file_field_tag 'file' %>
-  <%= submit_tag 'Upload to S3' %>
-<% end %>
+<div class="row">
+  <div class="columns large-12">
+    <div id="upload-explanation-header">
+      Add a large number of users using the tool below.
+    </div>
 
-<%= link_to "Download", "https://s3.amazonaws.com/airbo_downloadable_templates/Sample_Eligibility_File_name_and_email.csv" %>
+    <div id="upload-explanation">
+      <p>
+        <span id="explanation-header">How it works:</span><br/>
+        Upload a full file with all the users you'd like to be in your board, even if you've added them before. We'll:<br/>
+        1. Match users (using the email column) that are already in the board and confirm that they should stay <br/>
+        2. Add new users<br/>
+        3. Delete users that are currently in the board but not in your file; you'll be able to review and approve deletions after file upload<br/>
+      </p>
+    </div>
+  </div>
+</div>
 
-<% if @demo.upload_in_progress %>
-  Upload in progress. You can leave this page and we'll email you when it's complete.
-<% end %>
+<div class="row">
+  <div class="columns large-6">
+    <div class="upload-user-section upload-half-width-section">
+      <div class="upload-user-section-header">
+        <h2>1. Download Template</h2>
+      </div>
+
+      <div class="upload-user-section-content">
+        <p>This is a CSV file.</p>
+        <%= link_to "Download", "https://s3.amazonaws.com/airbo_downloadable_templates/Sample_Eligibility_File_name_and_email.csv", id: "template-link" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="columns large-6">
+    <div class="upload-user-section upload-half-width-section">
+      <div class="upload-user-section-header">
+        <h2>2. Add Users To Template</h2>
+      </div>
+
+      <div class="upload-user-section-content">
+        <p>
+          First and last name in column 1.<br/>
+          Email address in column 2.<br/>
+          Save file as CSV.<br/>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="columns large-12">
+    <div class="upload-user-section">
+      <div class="upload-user-section-header">
+        <h2>3. Upload Users</h2>
+      </div>
+
+      <div class="upload-user-section-content" id="upload-form-content">
+        <% if @demo.upload_in_progress %>
+          <p>Upload in progress. You can leave this page and we'll email you when it's complete.</p>
+        <% else %>
+          <%= form_tag @uploader.direct_fog_url, multipart: true do %>
+            <%= hidden_field_tag 'key',                     @uploader.key %>
+            <%= hidden_field_tag 'AWSAccessKeyId',          @uploader.aws_access_key_id %>
+            <%= hidden_field_tag 'acl',                     @uploader.acl %>
+            <%= hidden_field_tag 'success_action_redirect', @uploader.success_action_redirect %>
+            <%= hidden_field_tag 'policy',                  @uploader.policy %>
+            <%= hidden_field_tag 'signature',               @uploader.signature %>
+
+            <%= file_field_tag 'file' %>
+            <%= submit_tag 'Upload user file' %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -110,6 +110,93 @@ body.client_admin-users {
     position: relative;
     top: 0.5em;
   }
+
+  $upload-user-left-padding: 10px;
+
+  #upload-explanation-header {
+    margin: 1em auto;
+    background-color: $sky-blue;
+    color: $almost-white;
+    padding: 0.5em 0.5em;
+  }
+
+  #upload-explanation {
+    p {
+      color: $text-color;
+      line-height: 1.4em;
+    }
+
+    #explanation-header {
+      font-weight: 900;
+    }
+  }
+
+  .upload-half-width-section {
+    min-height: 10em;
+  }
+
+  .upload-user-section {
+    border: solid $light-gray 1px;
+    margin-top: 1.5em;
+
+    .upload-user-section-header {
+      border-bottom: solid $light-gray 1px;
+    }
+
+    .upload-user-section-content {
+      padding-top: 1em;
+      padding-left: $upload-user-left-padding;
+
+      p {
+        font-size: 14pt;
+        color: $med-gray;
+        margin-bottom: 1em;
+      }
+
+      input[type="file"] {
+        border: 0;
+      }
+    }
+
+    h2 {
+      color: $text-color;
+      font-size: 16pt;
+      font-weight: 500;
+      padding-left: $upload-user-left-padding;
+      margin: 0.25em 0;
+    }
+
+    a#template-link {
+      @include light-button($med-gray);
+    }
+  }
+
+  #upload-form-content {
+    text-align: center;
+    padding-bottom: 1em;
+
+    p {
+      color: $sky-blue;
+      font-size: 12pt;
+    }
+  }
+
+  #upload-user-header {
+    .fa-users {
+      font-size: 16pt;
+      color: $sky-blue;
+      margin-right: 0.5em;
+    }
+
+    h1 {
+      display: inline;
+      font-size: 18pt;
+      color: $sky-blue;
+    }
+
+    border-bottom: solid 1px $med-gray;
+    padding-bottom: 0.25em;
+  }
 }
 
 #find-users {

@@ -34,7 +34,7 @@ feature 'Uploads file to fake bulk uploader' do
 
   def simulate_upload
     attach_file_for_direct_upload('spec/support/fixtures/arbitrary_csv.csv')
-    upload_directly(BulkUserUploader.new, "Upload to S3")
+    upload_directly(BulkUserUploader.new, "Upload user file")
   end
 
   def upload_in_progress_message
