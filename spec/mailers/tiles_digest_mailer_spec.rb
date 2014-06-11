@@ -66,7 +66,7 @@ describe 'Digest email' do
     context "follow-up digest email should display its title" do
       subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "Don't Miss Your New Tiles", true, nil) }
 
-      it { should have_link 'Here the tiles you missed' }
+      it { should have_link 'Here are the tiles you missed' }
       it { should have_link 'See Tiles' }
     end
   end
