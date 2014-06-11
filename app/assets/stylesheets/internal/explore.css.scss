@@ -177,7 +177,7 @@
         .fa{
           font-size: 12px;
           color: $color;
-          margin: 0 8px 0 7px;
+          margin: 0 8px 0 0;
         }
         .like_message, .copy_message{
           font-size: 12px;
@@ -210,9 +210,11 @@
         color: $white;
         padding-left: 21px;
         text-decoration: none !important;
+        display: block;
+        text-align: center;
 
         .fa {
-          margin: 0 8px 0 7px;
+          margin: 0 8px 0 0;
         }
       }
 
