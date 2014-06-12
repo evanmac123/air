@@ -1,17 +1,2 @@
-<center>
-  <table cellspacing="0" cellpadding="0" border="0">
-    <tr><td height="10">&nbsp;</td></tr>
-    <tr style="font-family: 'helvetica neue', helvetica, sans-serif;">
-      <td style="font-family:Helvetica,Arial,sans-serif;font-size:24px;color:#4c4c4c;mso-line-height-rule:exactly;line-height:24px;padding-top:40px;padding-bottom:20px;text-align: center;">
-        Congratulations!
-      </td>
-    </tr>
-    <tr>
-      <td style="font-family:Helvetica,Arial,sans-serif;font-size:16px;color:#a8a8a8;mso-line-height-rule:exactly;line-height:24px;padding-bottom:60px;word-break: break-word;text-align: center;">
-        <%= "#{@user.name} #{@action} your tile \"#{@tile.headline},\" that you shared on the Explore page." %>
-      </td>
-    </tr>
-    <tr><td height="10">&nbsp;</td></tr>
-  </table>
-</center>
+<%= render partial: 'mailer/main_text', locals: {head_text: "Congratulations!", subhead_text: "#{@user.name} #{@action} your tile \"#{@tile.headline},\" that you shared on the Explore page."} %>
 <%= render partial: 'mailer/main_button', locals: {button_text: 'See Tile', button_url: explore_tile_preview_url(@tile)} %>

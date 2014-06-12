@@ -1,17 +1,2 @@
-<center>
-  <table cellspacing="0" cellpadding="0" border="0">
-    <tr><td height="10">&nbsp;</td></tr>
-    <tr>
-      <td style="font-family:Helvetica,Arial,sans-serif;font-size:16px;color:#a8a8a8;mso-line-height-rule:exactly;line-height:24px;padding-bottom:60px;word-break: break-word;text-align: center;">
-        <%= @message %>
-      </td>
-    </tr>
-    <tr><td height="10">&nbsp;</td></tr>
-    <tr>
-      <td><center>
-        <%= render partial: 'mailer/main_button', locals: {button_text: "Go and connect with them", button_url: activity_url(as: @user)} %>
-      </center></td>
-    </tr>
-  </table>
-</center>
-
+<%= render partial: 'mailer/main_text', locals: {subhead_text: @message} %>
+<%= render partial: 'mailer/main_button', locals: {button_text: "Go and connect with them", button_url: activity_url(as: @user)} %>

@@ -1,0 +1,20 @@
+<center>
+  <table cellspacing="0" cellpadding="0" border="0">
+    <% if head_text %>
+      <tr><td height="10">&nbsp;</td></tr>
+      <tr style="font-family: 'helvetica neue', helvetica, sans-serif;">
+        <td style="font-family:Helvetica,Arial,sans-serif;font-size:24px;color:#4c4c4c;mso-line-height-rule:exactly;line-height:24px;padding-top:40px;padding-bottom:20px;text-align: center;">
+          <%= head_text %>
+        </td>
+      </tr>
+    <% end %>
+    <% if subhead_text %>
+      <tr>
+        <td style="font-family:Helvetica,Arial,sans-serif;font-size:16px;color:#a8a8a8;mso-line-height-rule:exactly;line-height:24px;padding-bottom:60px;word-break: break-word;text-align: center;">
+          <%= simple_format subhead_text %>
+        </td>
+      </tr>
+      <tr><td height="10">&nbsp;</td></tr>
+    <% end %>
+  </table>
+</center>
