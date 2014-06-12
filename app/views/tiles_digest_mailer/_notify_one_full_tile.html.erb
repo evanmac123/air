@@ -1,7 +1,7 @@
 <% tile_url = tile.thumbnail(:email_digest)  # Paperclip returns the full url in staging and production modes %>
 <% tile_url = tile_url.prepend('http://localhost:3000') if (Rails.env.development? or Rails.env.test?) %>
 <!-- 2-col image/text -->
-<table align="center" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #dfdfdf;text-align:center;" class="columnsNoPadding">
+<table align="center" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #dfdfdf;" class="columnsNoPadding">
 <tr>
   <td width="207" class="column" style="display: inline-block;">
     <table cellpadding="0" cellspacing="0" border="0" class="columnsNoPadding">
