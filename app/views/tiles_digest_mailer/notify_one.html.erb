@@ -1,4 +1,4 @@
-<% if false %>
+<% if $rollout.active?(:new_digest_email, @user) %>
   <%= render partial: 'tiles_digest_mailer/notify_one_new' %>
 <% else %>
   <%= render partial: 'tiles_digest_mailer/notify_one_old' %>
