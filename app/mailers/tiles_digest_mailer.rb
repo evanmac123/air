@@ -7,7 +7,7 @@ class TilesDigestMailer < ActionMailer::Base
 
   include EmailHelper  # Well, the 'helper' above method might include it into the view, but it don't include it in here
 
-  layout 'mailer'
+  layout nil#'mailer'
 
   def noon
     Date.today.midnight.advance(hours: 12)
