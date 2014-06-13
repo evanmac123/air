@@ -52,7 +52,8 @@ class TilesDigestMailer < ActionMailer::Base
     end
 
     @new_digest_email = $rollout.active?(:new_digest_email, @user)
-    ping_on_digest_email @new_digest_email, follow_up_email
+    @email_type = find_email_type @new_digest_email, follow_up_email
+    ping_on_digest_email @email_type
 
     @invitation_url = @user.claimed? ? nil : invitation_url(@user.invitation_code, protocol: email_link_protocol, host: email_link_host)
     mail  to:      @user.email_with_name,
@@ -60,9 +61,22 @@ class TilesDigestMailer < ActionMailer::Base
           subject: subject
   end
 
-  def ping_on_digest_email new_email, follow_up_email
-    version = new_email ? "v. 6/15/14" : "v. Pre 6/13/14"
-    email_type = follow_up_email ? "Follow-up" : "Digest"
-    TrackEvent.ping( "Email Sent", email_type: (email_type + " - " + email_type) )
+  def ping_on_digest_email email_type
+    TrackEvent.ping( "Email Sent", email_type: ping_message[email_type] )
+  end
+
+  def ping_message
+    {
+      "digest_old" => "Digest  - v. Pre 6/13/14",
+      "digest_new" => "Digest - v. 6/15/14",
+      "follow_old" => "Follow-up - v. pre 6/13/14",
+      "follow_new" => "Follow-up - v. 6/15/14"
+    }
+  end
+
+  def find_email_type new_email, follow_up_email 
+    version = new_email ? "new" : "old"
+    digest_type = follow_up_email ? "follow" : "digest"
+    digest_type + "_" + version
   end
 end

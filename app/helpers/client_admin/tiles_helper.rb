@@ -17,10 +17,10 @@ module ClientAdmin::TilesHelper
     message
   end
 
-  def email_site_link(user, demo, is_preview = false)
+  def email_site_link(user, demo, is_preview = false, email_type = "")
     _demo_id = demo.kind_of?(Demo) ? demo.id : demo
 
-    email_link_hash = is_preview ? {demo_id: _demo_id} : { protocol: email_link_protocol, host: email_link_host, demo_id: _demo_id }
+    email_link_hash = is_preview ? {demo_id: _demo_id} : { protocol: email_link_protocol, host: email_link_host, demo_id: _demo_id, email_type: email_type }
     email_link_hash.merge!(user_id: user.id, tile_token: EmailLink.generate_token(user)) if user.claimed? and ! user.is_client_admin
 
     (is_preview || user.claimed?) ? acts_url(email_link_hash): invitation_url(user.invitation_code, email_link_hash)

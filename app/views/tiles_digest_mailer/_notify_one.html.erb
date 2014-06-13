@@ -1,5 +1,5 @@
 <% # We send 'claimed' users to the main activities page; "unclaimed" users have to accept their invitation first %>
-<% site_link = email_site_link(@user, @demo, @is_preview ||= false) %>
+<% site_link = email_site_link(@user, @demo, @is_preview ||= false, @email_type) %>
 <% link_options = @is_preview ? {target: '_blank'} : {} %>
 <!-- content -->
 <table width="436" align="center" cellpadding="0" cellspacing="0" border="0" class="columnsNoPadding">
