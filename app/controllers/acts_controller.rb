@@ -129,7 +129,7 @@ class ActsController < ApplicationController
       }
       if email_ping_text_type.keys.include? params[:email_type]
         email_ping_text = email_ping_text_type[params[:email_type]] 
-        ping("Email sent", { test: email_ping_text })
+        ping("Email clicked", { test: email_ping_text })
       end
     end
   end
