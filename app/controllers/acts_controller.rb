@@ -120,16 +120,16 @@ class ActsController < ApplicationController
   end
 
   def email_clicked_ping
-    if params[:email_clicked].present?
+    if params[:email_type].present?
       email_ping_text_type = {
         "digest_old" => "Digest  - v. Pre 6/13/14",
         "digest_new" => "Digest - v. 6/15/14",
         "follow_old" => "Follow-up - v. pre 6/13/14",
         "follow_new" => "Follow-up - v. 6/15/14"
       }
-      if email_ping_text_type.keys.include? params[:email_clicked]
-        email ping_text = email_ping_text_type[params[:email_clicked]] 
-        ping("Email sent", { test: email_ping_text[] })
+      if email_ping_text_type.keys.include? params[:email_type]
+        email_ping_text = email_ping_text_type[params[:email_type]] 
+        ping("Email sent", { test: email_ping_text })
       end
     end
   end
