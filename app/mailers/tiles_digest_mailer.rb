@@ -50,10 +50,19 @@ class TilesDigestMailer < ActionMailer::Base
     else
       @title = @email_heading = @follow_up_email ? 'Here are the tiles you missed' : 'Your new tiles are here'
     end
-    
+
+    @new_digest_email = $rollout.active?(:new_digest_email, @user)
+    ping_on_digest_email @new_digest_email, follow_up_email
+
     @invitation_url = @user.claimed? ? nil : invitation_url(@user.invitation_code, protocol: email_link_protocol, host: email_link_host)
     mail  to:      @user.email_with_name,
           from:    custom_from || @demo.reply_email_address,
           subject: subject
+  end
+
+  def ping_on_digest_email new_email, follow_up_email
+    version = new_email ? "v. 6/15/14" : "v. Pre 6/13/14"
+    email_type = follow_up_email ? "Follow-up" : "Digest"
+    TrackEvent.ping( "Email Sent", email_type: (email_type + " - " + email_type) )
   end
 end
