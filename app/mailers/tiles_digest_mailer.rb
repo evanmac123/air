@@ -67,16 +67,16 @@ class TilesDigestMailer < ActionMailer::Base
 
   def ping_message
     {
-      "digest_old" => "Digest  - v. Pre 6/13/14",
-      "digest_new" => "Digest - v. 6/15/14",
-      "follow_old" => "Follow-up - v. pre 6/13/14",
-      "follow_new" => "Follow-up - v. 6/15/14"
+      "digest_old_v" => "Digest  - v. Pre 6/13/14",
+      "digest_new_v" => "Digest - v. 6/15/14",
+      "follow_old_v" => "Follow-up - v. pre 6/13/14",
+      "follow_new_v" => "Follow-up - v. 6/15/14"
     }
   end
 
   def find_email_type new_email, follow_up_email 
     version = new_email ? "new" : "old"
     digest_type = follow_up_email ? "follow" : "digest"
-    digest_type + "_" + version
+    digest_type + "_" + version + "_v"
   end
 end
