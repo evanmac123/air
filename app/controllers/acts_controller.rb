@@ -117,6 +117,7 @@ class ActsController < ApplicationController
       flash[:success] = "Welcome back, #{user.first_name}"
       redirect_to activity_url
     end
+    email_clicked_ping
   end
 
   def email_clicked_ping
