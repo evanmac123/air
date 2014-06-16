@@ -24,11 +24,11 @@ feature "Client admin copies or likes tile" do
   end
     
   def click_liked
-    first('.tile_liked').find('a').click
+    first('.tile_liked').find('a:eq(2)').click
   end
 
   def view_only_check
-    first('.like_copy_tile').find('.view_only').should have_content('View only')
+    first('.like_copy_tile').find('.viewonly_message').should have_content('View Only')
   end
 
   context 'User on explore tiles page', js: true do
@@ -56,13 +56,13 @@ feature "Client admin copies or likes tile" do
 
     scenario 'clicking copy updates copy count on page', js: true do
       within(first '.like_copy_tile') do
-        page.should have_content('0 Copy')
+        page.should have_content('Copy')
         click_link 'Copy'
       end
       click_close
 
       within(first '.like_copy_tile') do
-        page.should have_content('1 Copied')
+        page.should have_content('Copied')
       end
     end
 
@@ -106,30 +106,30 @@ feature "Client admin copies or likes tile" do
     end
 
     scenario 'Clicks on like for a tile in window count should increase', js:true do
-      first('.like_copy_tile').find('.tile_not_liked').should have_content('0')
+      first('.like_copy_tile').find('.tile_not_liked').should have_content('Vote Up')
       click_like
       first('.like_copy_tile').find('.tile_liked').should have_content("1")
     end
 
     scenario 'Clicking on like link should change to liked and appear in blue', js:true do
-      first('.like_copy_tile').find('.tile_not_liked').should have_content('Like')
+      first('.like_copy_tile').find('.tile_not_liked').should have_content('Vote Up')
       click_like
-      first('.like_copy_tile').find('.tile_liked').should have_content("Liked")
+      first('.like_copy_tile').find('.tile_liked').should have_content("Voted Up")
     end
 
-    scenario 'Clicking twice on like link should change to like and appear in blue', js:true do
-      first('.like_copy_tile').find('.tile_not_liked').should have_content('Like')
+    scenario 'Clicking twice on Vote Up link should change to Voted Up and appear in blue', js:true do
+      first('.like_copy_tile').find('.tile_not_liked').should have_content('Vote Up')
       UserTileLike.count.should eq 0
       click_like
-      first('.like_copy_tile').find('.tile_liked').should have_content("Liked")
+      first('.like_copy_tile').find('.tile_liked').should have_content("Voted Up")
       UserTileLike.count.should eq 1
       click_liked
-      first('.like_copy_tile').find('.tile_not_liked').should have_content('Like')
+      first('.like_copy_tile').find('.tile_not_liked').should have_content('Vote Up')
       UserTileLike.count.should eq 0
     end
 
-    scenario 'Clicking twice on like link should decrese the count', js:true do
-      first('.like_copy_tile').find('.tile_not_liked').should have_content('Like')
+    scenario 'Clicking twice on Vote Up link should decrese the count', js:true do
+      first('.like_copy_tile').find('.tile_not_liked').should have_content('Vote Up')
       UserTileLike.count.should eq 0
       click_like
       UserTileLike.count.should eq 1
@@ -149,41 +149,41 @@ feature "Client admin copies or likes tile" do
       view_only_check
     end
 
-    scenario 'Clicks on like for a tile should increase the UserTileLike', js:true do
+    scenario 'Clicks on VoteUp for a tile should increase the UserTileLike', js:true do
       UserTileLike.count.should eq 0
       click_like
       UserTileLike.count.should eq 1
       view_only_check
     end
 
-    scenario 'Clicks on like for a tile in window count should increase', js:true do
-      first('.like_copy_tile').find('.tile_not_liked').should have_content('0')
+    scenario 'Clicks on VoteUp for a tile in window count should increase', js:true do
+      first('.like_copy_tile').find('.tile_not_liked').should have_content('Vote Up')
       click_like
       first('.like_copy_tile').find('.tile_liked').should have_content("1")
       view_only_check
     end
 
-    scenario 'Clicking on like link should change to liked and appear in blue', js:true do
-      first('.like_copy_tile').find('.tile_not_liked').should have_content('Like')
+    scenario 'Clicking on Vote Up link should change to Voted Up and appear in blue', js:true do
+      first('.like_copy_tile').find('.tile_not_liked').should have_content('Vote Up')
       click_like
-      first('.like_copy_tile').find('.tile_liked').should have_content("Liked")
+      first('.like_copy_tile').find('.tile_liked').should have_content("Voted Up")
       view_only_check
     end
 
-    scenario 'Clicking twice on like link should change to like and appear in blue', js:true do
-      first('.like_copy_tile').find('.tile_not_liked').should have_content('Like')
+    scenario 'Clicking twice on Vote Up link should change to Voted Up and appear in blue', js:true do
+      first('.like_copy_tile').find('.tile_not_liked').should have_content('Vote Up')
       UserTileLike.count.should eq 0
       click_like
-      first('.like_copy_tile').find('.tile_liked').should have_content("Liked")
+      first('.like_copy_tile').find('.tile_liked').should have_content("Voted Up")
       UserTileLike.count.should eq 1
       click_liked
-      first('.like_copy_tile').find('.tile_not_liked').should have_content('Like')
+      first('.like_copy_tile').find('.tile_not_liked').should have_content('Vote Up')
       UserTileLike.count.should eq 0
       view_only_check
     end
 
-    scenario 'Clicking twice on like link should decrese the count', js:true do
-      first('.like_copy_tile').find('.tile_not_liked').should have_content('Like')
+    scenario 'Clicking twice on Vote Up link should decrese the count', js:true do
+      first('.like_copy_tile').find('.tile_not_liked').should have_content('Vote Up')
       UserTileLike.count.should eq 0
       click_like
       UserTileLike.count.should eq 1

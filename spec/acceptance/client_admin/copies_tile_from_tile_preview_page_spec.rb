@@ -20,12 +20,20 @@ feature "Client admin copies/likes tile from the explore-preview page" do
     first('.not_like_button').click
   end
 
-  def click_unlike_link
+  def click_unlike_link_in_preview
+    page.find(:xpath,"//div[contains(@class,'like-button')]/a[2]").click
+  end
+
+    def click_unlike_link
     page.first('.tile_liked a').click
   end
 
   def newest_tile
     Tile.order("created_at DESC").first
+  end
+
+  def click_tile
+    page.find(:xpath,"//div[contains(@class,'tile_image')]/a").click
   end
 
   def expect_tile_copied(original_tile, copying_user)
@@ -123,7 +131,7 @@ feature "Client admin copies/likes tile from the explore-preview page" do
     scenario "should not show the link for a non-copyable tile", js: true do
       tile = FactoryGirl.create(:multiple_choice_tile, :public)
       visit explore_tile_preview_path(tile, as: admin)
-      page.should have_content("Tile is view only")
+      page.should have_content("View Only")
     end
 
     scenario "has credit for the original creator if present", js: true do
@@ -222,12 +230,10 @@ feature "Client admin copies/likes tile from the explore-preview page" do
     client_admin = a_client_admin
     UserTileLike.create!(tile: tile, user: client_admin) # we liked this at some point in the past
 
-    visit explore_path(as: client_admin)
-    page.should have_content("1 Like")
-    page.should have_no_content("0 Like")
-
-    click_unlike_link
-    page.should have_content("0 Like")
-    page.should have_no_content("1 Like")
+    visit explore_path(as: client_admin)    
+    click_tile
+    page.find(:xpath,"//span[contains(@class, 'like_message')]/div[@id='like_value']").should have_content("1")
+    click_unlike_link_in_preview
+    page.find(:xpath,"//span[contains(@class, 'like_message')]/div[@id='like_value']").should_not be_visible
   end
 end

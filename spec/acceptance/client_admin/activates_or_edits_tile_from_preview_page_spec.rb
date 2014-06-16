@@ -253,12 +253,12 @@ feature 'Activates or edits tile from preview page' do
     end
 
     context 'after first tile create' do
-      scenario "sees the popover appear the first time tile is posted", js: :webkit do        
+      scenario "sees the popover appear the first time tile is posted", js:true do        
         create_good_tile
-        click_link 'Post'
+        click_link 'Post'        
         expect_first_time_post_popover
       end
-      scenario "does not see the popover appear after first time post", js: :webkit do
+      scenario "does not see the popover appear after first time post", js:true do
         create_existing_tiles(@client_admin.demo, Tile::ACTIVE, 2)
         create_good_tile
         click_link 'Post'

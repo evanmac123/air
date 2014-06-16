@@ -1035,6 +1035,18 @@ class User < ActiveRecord::Base
     tile.user_tile_copies.where(user_id: self.id).exists?
   end
 
+  def available_tiles_on_current_demo
+    TileProgressCalculator.new(self).available_tiles_on_current_demo
+  end
+
+  def completed_tiles_on_current_demo
+    TileProgressCalculator.new(self).completed_tiles_on_current_demo
+  end
+
+  def not_show_all_completed_tiles_in_progress
+    TileProgressCalculator.new(self).not_show_all_completed_tiles_in_progress
+  end
+
   protected
 
   def downcase_email
