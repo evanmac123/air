@@ -53,7 +53,7 @@ class TilesDigestMailer < ActionMailer::Base
 
     @new_digest_email = $rollout.active?(:new_digest_email, @user)
     @email_type = find_email_type @new_digest_email, follow_up_email
-    ping_on_digest_email @email_type
+    ping_on_digest_email @email_type, @user
 
     @invitation_url = @user.claimed? ? nil : invitation_url(@user.invitation_code, protocol: email_link_protocol, host: email_link_host)
     mail  to:      @user.email_with_name,
@@ -61,8 +61,8 @@ class TilesDigestMailer < ActionMailer::Base
           subject: subject
   end
 
-  def ping_on_digest_email email_type
-    TrackEvent.ping( "Email Sent", email_type: ping_message[email_type] )
+  def ping_on_digest_email email_type, user
+    TrackEvent.ping( "Email Sent", email_type: ping_message[email_type], user )
   end
 
   def ping_message

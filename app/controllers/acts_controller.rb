@@ -108,12 +108,12 @@ class ActsController < ApplicationController
   end
 
   def authorized_by_tile_token
-    email_clicked_ping
     if params[:tile_token].present? && (user = User.find params[:user_id]) && EmailLink.validate_token(user, params[:tile_token])
       sign_in(user)
       if params[:demo_id].present?
         user.move_to_new_demo(params[:demo_id])
       end
+      email_clicked_ping
       flash[:success] = "Welcome back, #{user.first_name}"
       redirect_to activity_url
     end
@@ -129,7 +129,7 @@ class ActsController < ApplicationController
       }
       if email_ping_text_type.keys.include? params[:email_type]
         email_ping_text = email_ping_text_type[params[:email_type]]
-        ping("Email clicked", { test: email_ping_text })
+        ping("Email clicked", { test: email_ping_text }, current_user)
       end
     end
   end
