@@ -62,7 +62,7 @@ class TilesDigestMailer < ActionMailer::Base
   end
 
   def ping_on_digest_email email_type, user
-    TrackEvent.ping( "Email Sent", email_type: ping_message[email_type], user )
+    TrackEvent.ping( "Email Sent", {email_type: ping_message[email_type]}, user )
   end
 
   def ping_message

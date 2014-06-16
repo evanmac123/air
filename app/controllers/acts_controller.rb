@@ -116,8 +116,10 @@ class ActsController < ApplicationController
       email_clicked_ping
       flash[:success] = "Welcome back, #{user.first_name}"
       redirect_to activity_url
+    else
+      email_clicked_ping
+      nil # not authorized_by_tile_token
     end
-    email_clicked_ping
   end
 
   def email_clicked_ping
