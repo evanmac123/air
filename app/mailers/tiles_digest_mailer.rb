@@ -51,7 +51,12 @@ class TilesDigestMailer < ActionMailer::Base
       @title = @email_heading = @follow_up_email ? 'Here are the tiles you missed' : 'Your new tiles are here'
     end
 
-    @new_digest_email = $rollout.active?(:new_digest_email, @user)
+                        #set new digest email if rollout is not activated
+    @new_digest_email = unless $rollout.active?(:new_digest_email)
+                          true
+                        else
+                          $rollout.active?(:new_digest_email, @user)
+                        end
     @email_type = find_email_type @new_digest_email, follow_up_email
     ping_on_digest_email @email_type
 
