@@ -182,20 +182,39 @@ body.client_admin-users {
   }
 
   #upload-user-header {
+    position: relative;
+    height: 18pt;
+
     .fa-users {
       font-size: 16pt;
       color: $sky-blue;
       margin-right: 0.5em;
     }
 
+    $fake-bottom-padding: 4px;
+
     h1 {
-      display: inline;
+      display: inline-block;
+      position: absolute;
+      bottom: $fake-bottom-padding;
+      left: 0;
       font-size: 18pt;
       color: $sky-blue;
+      margin-bottom: 0;
+    }
+
+    #last-added-users {
+      display: inline-block;
+      position: absolute;
+      bottom: $fake-bottom-padding;
+      right: 0;
+      text-transform: uppercase;
+      font-size: 10pt;
+      color: $text-color;
+      font-weight: bold;
     }
 
     border-bottom: solid 1px $med-gray;
-    padding-bottom: 0.25em;
   }
 }
 

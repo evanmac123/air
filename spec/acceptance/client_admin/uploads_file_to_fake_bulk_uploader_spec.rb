@@ -41,6 +41,11 @@ feature 'Uploads file to fake bulk uploader' do
     "Upload in progress. You can leave this page and we'll email you when it's complete."
   end
 
+  def last_loaded_message
+    date_string = Time.now.strftime("%B %e, %Y")
+    "Last added users on #{date_string}"
+  end
+
   it "notifies us by email" do
     visit client_admin_users_path(as: @client_admin)
     simulate_upload
@@ -87,5 +92,18 @@ feature 'Uploads file to fake bulk uploader' do
 
     simulate_upload
     page.should have_content(upload_in_progress_message)
+  end
+
+  it "updates the users_last_loaded date" do
+    Timecop.freeze
+    begin
+      visit client_admin_users_path(as: @client_admin)
+      page.should have_no_content(last_loaded_message)
+
+      simulate_upload
+      page.should have_content(last_loaded_message)
+    ensure
+      Timecop.return
+    end
   end
 end
