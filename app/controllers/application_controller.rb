@@ -2,6 +2,13 @@ class ApplicationController < ActionController::Base
   FLASHES_ALLOWING_RAW = %w(notice)
   ACTIVITY_SESSION_THRESHOLD = ENV['ACTIVITY_SESSION_THRESHOLD'].try(:to_i) || 900 # in seconds
 
+  EMAIL_PING_TEXT_TYPES = {
+    "digest_old_v" => "Digest  - v. Pre 6/13/14",
+    "digest_new_v" => "Digest - v. 6/15/14",
+    "follow_old_v" => "Follow-up - v. pre 6/13/14",
+    "follow_new_v" => "Follow-up - v. 6/15/14"
+  }
+
   before_filter :force_ssl 
   before_filter :authorize
   before_filter :initialize_flashes
@@ -113,16 +120,8 @@ class ApplicationController < ActionController::Base
 
   def email_clicked_ping user
     if params[:email_type].present?
-      email_ping_text_type = {
-        "digest_old_v" => "Digest  - v. Pre 6/13/14",
-        "digest_new_v" => "Digest - v. 6/15/14",
-        "follow_old_v" => "Follow-up - v. pre 6/13/14",
-        "follow_new_v" => "Follow-up - v. 6/15/14"
-      }
-      if email_ping_text_type.keys.include? params[:email_type]
-        email_ping_text = email_ping_text_type[params[:email_type]]
-        ping("Email clicked", { test: email_ping_text }, user)
-      end
+      email_ping_text = EMAIL_PING_TEXT_TYPES[params[:email_type]]
+      ping("Email clicked", { test: email_ping_text }, user) if email_ping_text.present?
     end
   end
   
