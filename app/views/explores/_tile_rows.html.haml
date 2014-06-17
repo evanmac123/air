@@ -38,23 +38,6 @@
             - tile.tile_tags.each do |tile_tag|
               %li.tile_tag
                 = link_to tile_tag.title, tile_tag_show_explore_path(tile_tag: tile_tag.id, tag_click_source: tag_click_source)
-          = link_to explore_tile_preview_path(tile, thumb_click_source: thumb_click_source) do
-            .tile_image{id:thumbnail_id}
-              .like_copy_tile
-                = render partial: 'like_copy_tile', :locals => { :tile => tile }
-                -#.created_at= "#{time_ago_in_words(tile.created_at)} ago"
-          .description
-            = link_to explore_tile_preview_path(tile, thumb_click_source: thumb_click_source) do
-              %span.text= tile.headline
-          .author_info
-            = tile.creator.name
-            %span
-              = tile.demo.name
-          %ul.all_tile_tags
-          %ul.extra_tags_list
-            - tile.tile_tags.each do |tile_tag|
-              %li.tile_tag
-                = link_to tile_tag.title, tile_tag_show_explore_path(tile_tag: tile_tag.id, tag_click_source: tag_click_source)
     - while(count < 4) do
       - count += 1
       %td
