@@ -41,6 +41,7 @@ class InvitationsController < ApplicationController
     end
     if @user
       @user.ping_page('invitation acceptance')
+      email_clicked_ping(@user)
       return if redirect_if_invitation_accepted_already
       log_out_if_logged_in
       @locations = @user.demo.locations.alphabetical

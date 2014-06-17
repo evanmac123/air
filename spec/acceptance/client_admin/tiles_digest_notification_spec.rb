@@ -411,6 +411,89 @@ feature 'Client admin and the digest email for tiles' do
           crank_dj_clear
           FakeMixpanelTracker.should have_event_matching('Digest - Sent', {optional_message_added: true})
         end
+
+        it "sends ping for sended new digest email", js:true do
+          $rollout.activate(:new_digest_email)
+
+          create_tile
+          visit client_admin_share_path(as: admin)
+          fill_in "digest[custom_message]", with: ''
+          click_button "Send"
+          page.should have_content("Your tiles have been sent!")
+
+          FakeMixpanelTracker.clear_tracked_events
+          crank_dj_clear
+          FakeMixpanelTracker.should have_event_matching('Email Sent', {email_type: "Digest - v. 6/15/14"})
+        end
+
+        it "sends ping for sended old digest email", js:true do
+          $rollout.deactivate(:new_digest_email)
+
+          create_tile
+          visit client_admin_share_path(as: admin)
+          fill_in "digest[custom_message]", with: ''
+          click_button "Send"
+          page.should have_content("Your tiles have been sent!")
+
+          FakeMixpanelTracker.clear_tracked_events
+          crank_dj_clear
+          FakeMixpanelTracker.should have_event_matching('Email Sent', {email_type: "Digest  - v. Pre 6/13/14"})
+        end
+
+        context "Email Cliked ping" do
+          let (:all_addresses) {%w(client-admin@hengage.com site-admin@hengage.com john@campbell.com irma@thomas.com wc@clark.com taj@mahal.com)}
+
+          before do
+            @users_activated = []
+            @users_not_activated = []
+            @users_activated.push FactoryGirl.create :user, demo: demo, name: 'John Campbell', email: 'john@campbell.com'
+            @users_not_activated.push FactoryGirl.create :user, demo: demo, name: 'Irma Thomas',   email: 'irma@thomas.com'
+
+            @users_activated.push FactoryGirl.create :claimed_user, demo: demo, name: 'W.C. Clark', email: 'wc@clark.com'
+            @users_not_activated.push FactoryGirl.create :claimed_user, demo: demo, name: 'Taj Mahal',  email: 'taj@mahal.com'
+
+            @users_activated.push FactoryGirl.create :site_admin, demo: demo, name: 'Eric Claption',  email: 'site-admin@hengage.com'
+            
+            @users_activated.each do |user|
+              $rollout.activate_user(:new_digest_email, user)
+            end
+          end
+
+          it "sends ping when user click link in email", js: true do
+            create_tile
+            visit client_admin_share_path(as: admin)
+            fill_in "digest[custom_message]", with: ''
+            click_button "Send"
+            page.should have_content("Your tiles have been sent!")
+
+            crank_dj_clear
+
+            all_addresses.each do |address|
+              open_email(address)
+
+              if %w(site-admin@hengage.com wc@clark.com taj@mahal.com).include?(address)  # Claimed, non-client-admin user?
+                email_link = /tile_token/
+              elsif address == 'client-admin@hengage.com' # client-admin?
+                email_link = /acts/
+              else
+                email_link = /invitations/
+              end
+
+              click_email_link_matching email_link
+
+              user = User.where(email: address).first
+              if @users_activated.include? user
+                ping_message = "Digest - v. 6/15/14"
+              else
+                ping_message = "Digest  - v. Pre 6/13/14"
+              end
+
+              FakeMixpanelTracker.clear_tracked_events
+              crank_dj_clear
+              FakeMixpanelTracker.should have_event_matching('Email clicked', {test: ping_message}.merge(user.data_for_mixpanel))
+            end
+          end
+        end
       end
     end
   end

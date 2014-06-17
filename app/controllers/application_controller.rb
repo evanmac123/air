@@ -110,6 +110,21 @@ class ApplicationController < ActionController::Base
   def yell_name
     puts [params[:controller], params[:action]].join('#')
   end
+
+  def email_clicked_ping user
+    if params[:email_type].present?
+      email_ping_text_type = {
+        "digest_old_v" => "Digest  - v. Pre 6/13/14",
+        "digest_new_v" => "Digest - v. 6/15/14",
+        "follow_old_v" => "Follow-up - v. pre 6/13/14",
+        "follow_new_v" => "Follow-up - v. 6/15/14"
+      }
+      if email_ping_text_type.keys.include? params[:email_type]
+        email_ping_text = email_ping_text_type[params[:email_type]]
+        ping("Email clicked", { test: email_ping_text }, user)
+      end
+    end
+  end
   
   private
 

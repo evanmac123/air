@@ -113,27 +113,12 @@ class ActsController < ApplicationController
       if params[:demo_id].present?
         user.move_to_new_demo(params[:demo_id])
       end
-      email_clicked_ping
+      email_clicked_ping(current_user)
       flash[:success] = "Welcome back, #{user.first_name}"
       redirect_to activity_url
     else
-      email_clicked_ping
+      email_clicked_ping(current_user)
       nil # not authorized_by_tile_token
-    end
-  end
-
-  def email_clicked_ping
-    if params[:email_type].present?
-      email_ping_text_type = {
-        "digest_old_v" => "Digest  - v. Pre 6/13/14",
-        "digest_new_v" => "Digest - v. 6/15/14",
-        "follow_old_v" => "Follow-up - v. pre 6/13/14",
-        "follow_new_v" => "Follow-up - v. 6/15/14"
-      }
-      if email_ping_text_type.keys.include? params[:email_type]
-        email_ping_text = email_ping_text_type[params[:email_type]]
-        ping("Email clicked", { test: email_ping_text }, current_user)
-      end
     end
   end
 
