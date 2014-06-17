@@ -63,7 +63,7 @@ $(document).ready ->
     event.preventDefault()
    
     copyLink = $(this)
-    wrapper = copyLink.parents('.copied > span, .not_copied > span')
+    wrapper = copyLink.parents('.copied > div, .not_copied > div')
     spinner = wrapper.siblings('.spinner')
     wrapper.hide()
     spinner.show()

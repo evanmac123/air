@@ -3,11 +3,13 @@
 @import "mixins/small_tile_tag";
 
 body.tile_previews.tile_previews-show {
-  background-color: #d9dfe9;
+  background-color: #f2f2f2;
 
 
   .justify{
     display: table;
+    vertical-align: top;
+
     > * {
       display: table-cell;
       width: 1%;
@@ -143,8 +145,8 @@ body.tile_previews.tile_previews-show {
 
     .like-copy-section{
       float: left;
-      width: 35%;
-      text-align: right;
+      width: 33.33%;
+      text-align: left;
 
       .likes-count, .copy-count{
         display: inline-block;
@@ -174,6 +176,7 @@ body.tile_previews.tile_previews-show {
 
       }
     }
+
 
 
     .likes-copy-buttons {

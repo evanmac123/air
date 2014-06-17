@@ -60,15 +60,9 @@
     height: 100%;
     background: $white;
     position: relative;
-<<<<<<< HEAD
     min-height: 408px;
     margin: 0 0 20px 0;
 
-=======
-    min-height: 417px;
-    margin: 0 0 100px 0;
-    
->>>>>>> Added fixes based on feedback round 3
     .author_info{
       color: $tile-text;
       background: $white;
@@ -119,8 +113,9 @@
       }
       .fa{
         display: inline-block;
-        width: 4.7%;
+        width: 6.7%;
         vertical-align: middle;
+        color: $text-color;
       }
       .text{
         @include font-regular;
@@ -148,6 +143,13 @@
       line-height: 1.5;
       padding: 0.625em .6em;
       border-bottom: 1px solid $light-gray;
+      overflow: hidden;
+      height: 90px;
+
+      a{
+        color: $text-color;
+        font-weight: 400;
+      }
     }
     .like_copy_tile{
       padding: 0;
@@ -169,26 +171,19 @@
         float: left;
         text-decoration: none;
         width: 50%;
-        padding: 0 0 0 10px;
         font-weight: 400;
+        text-align: center;
         @include box-sizing;
         .fa{
           font-size: 12px;
           color: $color;
-          margin: 0 15px 0 7px;
+          margin: 0 8px 0 0;
         }
         .like_message, .copy_message{
           font-size: 12px;
           font-weight: 500;
           color: $color;
           display: inline-block;
-<<<<<<< HEAD
-=======
-          margin-left: 10px;
-        }
-        .like_message_width {
-          width:8px;
->>>>>>> Added fixes based on feedback round 3
         }
 
         a{
@@ -213,7 +208,6 @@
         font-size: 12px;
         font-weight: 400;
         color: $white;
-<<<<<<< HEAD
         padding-left: 21px;
         text-decoration: none !important;
         display: block;
@@ -222,10 +216,6 @@
         .fa {
           margin: 0 8px 0 0;
         }
-=======
-        padding-left: 20px;
-        text-decoration: none !important;
->>>>>>> Added fixes based on feedback round 3
       }
 
       .tile_liked{
@@ -246,19 +236,15 @@
       .not_copied {
         @include like_or_copy_control($white);
       }
-<<<<<<< HEAD
 
       .copy_count {
         display:inline-block;
         padding-right:2px;
       }
-=======
->>>>>>> Added fixes based on feedback round 3
     }
     .all_tile_tags{
       background: $white;
       padding: 0 7px 5px 7px;
-      border-top: 1px solid $light-gray;
       .tile_tag {
         @include middle-tile-tag;
       }

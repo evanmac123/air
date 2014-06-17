@@ -139,17 +139,17 @@ body.tiles.tiles-index {
   }
 
   .tile_headline {
-    font-size: 36px;
+    @extend h1;
     color:$dark-gray;
     line-height:1.15em;
     padding:.5em 0;
   }
   .tile_supporting_content {
-    color: #8d9193;
-    font-size: 16px;
-    line-height: 24px;
-    margin-bottom: 1.5em;
-    margin-top: 1.3em;
+    color:$text-color;
+    font-size:1.25em;
+    line-height:1.3em;
+    margin-bottom:1em;
+    margin-top:.75em;
   }
 
   // Gray quiz area
@@ -176,7 +176,17 @@ body.tiles.tiles-index {
       &:after {@include clear;}
       .earnable_points {
         @include font-bold;
-        background: #e98d20;
+        background: $orange;
+        @include light-to-color-gradient($orange, 10%);
+        border: {
+          style:solid;
+          color:$light-gray;
+          left:{width:1px;}
+          right:{width:1px;}
+          top:{width:0}
+          bottom:{width:0}
+        }
+        box-shadow: inset 0px 1px 1px 1px lighten($orange, 10%);
         color:$white;
         display: inline-block;
         height:47px;
@@ -200,17 +210,10 @@ body.tiles.tiles-index {
     }
     // Question portion
     .tile_question {
-<<<<<<< HEAD
-      color: $darker-gray;
-      font-size: 16px;
-      line-height: 24px;
-      padding:32px 20px 22px;
-=======
       @include font-semibold;
       font-size:1.25em;
       line-height:1.35em;
       padding:1.5em 0 1em;
->>>>>>> Added fixes based on feedback round 3
     }
 
 
@@ -219,29 +222,14 @@ body.tiles.tiles-index {
       margin:1em auto;
       width:100%;
       a, a:link, a:visited {
-        background: #475d7c;
+        @include app-button($blue);
         @include font-semibold;
         color:$white;
         display: block;
-<<<<<<< HEAD
-        font-size: 24px;
-        line-height: 48px;
-        padding: 0 1em;
-        margin-bottom: 10px;
-        min-height: 48px;
-        text-align: center;
-
-
-
-        &:hover{
-          background: lighten(#475d7c, 5%);
-        }
-=======
         font-size:1.25em;
         line-height:1em;
         padding:.5em 1em;
         min-height: 2.1em;
->>>>>>> Added fixes based on feedback round 3
         &.clicked_wrong {
           background:darken($light-gray, 10%);
           border-color:$light-gray;
