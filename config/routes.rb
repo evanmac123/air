@@ -270,5 +270,7 @@ Health::Application.routes.draw do
     delete "reset_tiles" => "tile_completions#destroy", :as => :reset_tiles
 
     resources :characteristics
+
+    resources :reset_bulk_uploads, only: [:destroy]
   end
 end

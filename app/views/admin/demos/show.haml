@@ -8,6 +8,10 @@
 
   = button_to "Send me an Activity Report", admin_demo_reports_activities_path(@demo)
 
+  - if @demo.upload_in_progress
+    This board is currently marked as having an update in progress
+    = button_to "Reset upload-in-progress status", admin_reset_bulk_upload_path(@demo), method: :delete
+
   %h2 Reports
   %ul 
     %li= link_to "Points", admin_demo_reports_points_path(@demo) 
