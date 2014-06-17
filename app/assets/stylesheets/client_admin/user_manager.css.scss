@@ -156,6 +156,10 @@ body.client_admin-users {
       input[type="file"] {
         border: 0;
       }
+
+      input[type="submit"] {
+        @include light-button($med-gray);
+      }
     }
 
     h2 {

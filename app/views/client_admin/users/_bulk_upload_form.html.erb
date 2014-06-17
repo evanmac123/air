@@ -1,0 +1,11 @@
+<%= form_tag @uploader.direct_fog_url, multipart: true do %>
+  <%= hidden_field_tag 'key',                     @uploader.key %>
+  <%= hidden_field_tag 'AWSAccessKeyId',          @uploader.aws_access_key_id %>
+  <%= hidden_field_tag 'acl',                     @uploader.acl %>
+  <%= hidden_field_tag 'success_action_redirect', @uploader.success_action_redirect %>
+  <%= hidden_field_tag 'policy',                  @uploader.policy %>
+  <%= hidden_field_tag 'signature',               @uploader.signature %>
+
+  <%= file_field_tag 'file' %>
+  <%= submit_tag 'Upload user file' %>
+<% end %>
