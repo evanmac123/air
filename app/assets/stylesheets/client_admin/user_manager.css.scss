@@ -121,9 +121,11 @@ body.client_admin-users {
   }
 
   #upload-explanation {
+    font-size: 11pt;
+
     p {
       color: $text-color;
-      line-height: 1.4em;
+      line-height: 1.5em;
     }
 
     #explanation-header {
