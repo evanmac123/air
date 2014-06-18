@@ -11,16 +11,17 @@
         }
       %td
         .explore_tile
-          .headline
+          .company_name
             %i.fa.fa-building-o
             %span.text
-              =truncate(tile.demo.client_name != '' ? tile.demo.client_name : tile.demo.name, length: 22)
+              -name_to_truncate = tile.demo.client_name.present? ? tile.demo.client_name : tile.demo.name
+              =truncate(name_to_truncate, length: 22)
           .tile_image{id: thumbnail_id}
             = link_to explore_tile_preview_path(tile, tag: @tile_tag, thumb_click_source: thumb_click_source) do
               .like_copy_tile
                 = render partial: 'like_copy_tile', :locals => { :tile => tile }
                 -#.created_at= "#{time_ago_in_words(tile.created_at)} ago"
-          .description
+          .headline
             = link_to explore_tile_preview_path(tile, tag: @tile_tag, thumb_click_source: thumb_click_source) do
               %span.text= tile.headline
           .author_info

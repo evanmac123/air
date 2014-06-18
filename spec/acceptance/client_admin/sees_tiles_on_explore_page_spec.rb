@@ -19,23 +19,23 @@ feature 'Sees tiles on explore page' do
   end
 
   it "should have a working \"Show More\" button", js: true do
-    FactoryGirl.create_list(:tile, 15, :public)
+    FactoryGirl.create_list(:tile, 47, :public)
     visit explore_path(as: a_client_admin)
-    expect_thumbnail_count 8, '.explore_tile'
+    expect_thumbnail_count 16, '.explore_tile'
 
     # These "sleep"s are a terrible hack, but I haven't gotten any of the
     # saner ways to get Poltergeist to wait for the AJAX request to work yet.
     show_more_tiles_link.click
     sleep 5
-    expect_thumbnail_count 12, '.explore_tile'
+    expect_thumbnail_count 32, '.explore_tile'
 
     show_more_tiles_link.click
     sleep 5
-    expect_thumbnail_count 15, '.explore_tile'
+    expect_thumbnail_count 47, '.explore_tile'
   end
 
   it "should ping when the more-tiles button is clicked", js: true do
-    FactoryGirl.create_list(:tile, 15, :public)
+    FactoryGirl.create_list(:tile, 20, :public)
     visit explore_path(as: a_client_admin)
 
     crank_dj_clear
@@ -59,7 +59,6 @@ feature 'Sees tiles on explore page' do
       visit explore_path(as: a_client_admin)
 
       expect_content "John Q. Public"
-      expect_content "about 1 year ago"
     ensure
       Timecop.return
     end
@@ -129,8 +128,8 @@ feature 'Sees tiles on explore page' do
       end
 
       it "respects the tag when See More is clicked", js: true do
-        # This, plus the two above, makes 21 tiles total.
-        19.times do
+        # This, plus the two above, makes 33 tiles total.
+        31.times do
           tile = FactoryGirl.create(:tile, :public)
           tile.tile_tags << @tag_to_click
           @tagged_tiles << tile
@@ -144,11 +143,11 @@ feature 'Sees tiles on explore page' do
         expect_only_headlines_in(@tagged_tiles)
 
         show_more_tiles_link.click
-        expect_thumbnail_count 20, '.explore_tile'
+        expect_thumbnail_count 32, '.explore_tile'
         expect_only_headlines_in(@tagged_tiles)
 
         show_more_tiles_link.click
-        expect_thumbnail_count 21, '.explore_tile'
+        expect_thumbnail_count 33, '.explore_tile'
         expect_only_headlines_in(@tagged_tiles)
       end
 
@@ -236,7 +235,7 @@ feature 'Sees tiles on explore page' do
 
       it "pings when clicking a tile thumbnail on the topic page", js: true do
         visit tile_tag_show_explore_path(tile_tag: @tag_to_click, as: a_client_admin)
-        page.first('.explore_tile').click
+        page.first('.explore_tile .headline a').click
 
         FakeMixpanelTracker.clear_tracked_events
         crank_dj_clear
@@ -255,7 +254,7 @@ feature 'Sees tiles on explore page' do
         crank_dj_clear
         FakeMixpanelTracker.clear_tracked_events
 
-        page.all('.explore_tile')[19].click
+        page.all('.explore_tile .headline a')[19].click
 
         crank_dj_clear
         FakeMixpanelTracker.should have_event_matching('Explore Topic Page', action: 'Tile Thumbnail Clicked')
@@ -270,7 +269,7 @@ feature 'Sees tiles on explore page' do
 
     it "pings" do
       visit explore_path(as: a_client_admin)
-      page.first('.explore_tile > a').click
+      page.first('.explore_tile .headline a').click
       
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear
@@ -282,7 +281,7 @@ feature 'Sees tiles on explore page' do
       visit explore_path(as: a_client_admin)
       3.times { click_link 'More' }
 
-      page.all('.explore_tile')[19].click
+      page.all('.explore_tile .headline a')[19].click
 
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear
