@@ -1,3 +1,0 @@
-#define REDIS_GIT_SHA1 "80f89990"
-#define REDIS_GIT_DIRTY "0"
-#define REDIS_BUILD_ID "zgeist-pc-1400680168"
