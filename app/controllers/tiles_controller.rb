@@ -172,7 +172,7 @@ class TilesController < ApplicationController
 
   def maximum_tiles_wanted
     offset = params[:offset].to_i
-    offset + tile_batch_size_increment - (offset % tile_batch_size_increment)
+    offset + tile_batch_size - (offset % tile_batch_size)
   end
 
   def mark_all_completed_tiles
