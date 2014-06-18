@@ -199,7 +199,7 @@ feature "Client admin copies or likes tile" do
       crank_dj_clear
       all_emails.should have(1).emails
       open_email(client_admin_maker.email)
-      current_email.should have_content "#{client_admin_copier.name} liked your tile"
+      current_email.should have_content "#{client_admin_copier.name} voted up your tile"
     end
   end
 end
