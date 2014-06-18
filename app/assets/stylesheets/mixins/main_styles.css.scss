@@ -24,7 +24,7 @@ $offcanvas-gray:    $dark-gray;
 $text-color:        #4c4c4c;
 $tile-text:         #a8a8a8;
 $tile-tag-border:   #dfdfdf;
-$body-bg:           $light-blue;
+$body-bg:           lighten($blue, 56.5%);
 $tile-wall-bg:      lighten($blue, 45%);
 $form-bg:           lighten($blue, 53%);
 
