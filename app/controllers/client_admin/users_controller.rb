@@ -231,7 +231,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
 
   def create_uploader
     @uploader = BulkUserUploader.new
-    @uploader.success_action_redirect = client_admin_bulk_upload_path
+    @uploader.success_action_redirect = client_admin_bulk_upload_url
   end
 
   def count_total_users
