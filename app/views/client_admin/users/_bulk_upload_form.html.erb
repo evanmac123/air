@@ -1,4 +1,4 @@
-<%= form_tag @uploader.direct_fog_url, multipart: true do %>
+<%= form_tag @uploader.direct_fog_url, multipart: true, authenticity_token: false do %>
   <%= hidden_field_tag 'key',                     @uploader.key %>
   <%= hidden_field_tag 'AWSAccessKeyId',          @uploader.aws_access_key_id %>
   <%= hidden_field_tag 'acl',                     @uploader.acl %>
