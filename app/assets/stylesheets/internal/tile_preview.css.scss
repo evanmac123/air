@@ -79,12 +79,33 @@ body.tile_previews.tile_previews-show {
       .creator{
         width: 33.33%;
       }
-      .tower{
+
+      #company-name-header {
         text-align: center;
         width: 33.33%;
+
+        #company-icon {
+          float: left;
+        }
+
+        #company-name {
+          overflow: hidden;
+          padding-left: 5px;
+          text-align: left;
+        }
       }
-      .board-name{
+
+      #board-name-header{
         width: 33.33%;
+
+        #board-icon {
+          float: left;
+        }
+
+        #board-name {
+          overflow: hidden;
+          padding-left: 5px;
+        }
       }
 
       .fa{
