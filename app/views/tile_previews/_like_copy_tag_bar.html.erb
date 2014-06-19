@@ -30,11 +30,11 @@ if current_user.likes_tile?(tile)
       </div>
       <div class="like-copy-section">
         <div class="likes-count">
-            <span class="like_message<%=@tile.is_copyable? ? '' : ' like-offset-right' %>">
-              <i class="fa fa-arrow-up" style="<%=display_like_icon%> float: left"></i>
-              <div id="like_value" style="<%=display_like_icon%> float: left"><%= @tile.like_count > 0 ? @tile.like_count : '' %></div>
-              <div id="like_msg" style="<%=display_like_icon%> float: left; padding-left: 2px">Votes</div>
-            </span>
+          <span class="like_message<%=@tile.is_copyable? ? '' : ' like-offset-right' %>">
+            <i class="fa fa-arrow-up" style="<%=display_like_icon%> float: left"></i>
+            <div id="like_value" style="<%=display_like_icon%> float: left"><%= @tile.like_count > 0 ? @tile.like_count : '' %></div>
+            <div id="like_msg" style="<%=display_like_icon%> float: left; padding-left: 2px">Votes</div>
+          </span>
         </div>
         <% if @tile.is_copyable? %>
           <div class="copy-count">
