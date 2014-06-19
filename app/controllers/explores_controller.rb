@@ -1,4 +1,3 @@
-require 'pp'
 class ExploresController < ClientAdminBaseController
   include TileBatchHelper
 

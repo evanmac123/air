@@ -12,7 +12,6 @@ feature 'User gets invitation email' do
   def expect_no_email_content(unexpected_content)
     crank_dj_clear
     open_email(@user.email)
-    p unexpected_content
     current_email.to_s.gsub(/\r\n/, "\n").should_not include(unexpected_content)
   end
 
