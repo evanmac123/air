@@ -1,4 +1,4 @@
-BULK_UPLOADER_BUCKET = "airbo-bulk-uploads-#{Rails.env}".freeze
+BULK_UPLOADER_BUCKET = ENV['BULK_UPLOADER_BUCKET'] || "airbo-bulk-uploads-#{Rails.env}".freeze
 
 CarrierWave.configure do |config|
   access_key_id = if Rails.env.test?
