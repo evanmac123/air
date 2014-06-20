@@ -17,7 +17,8 @@ hideExtraTags = (all_tile_tags, extra_tags_list, max_height, use_parent_height) 
 
   if(all_tile_tags_height > max_height)
     all_tile_tags.children().last().appendTo(extra_tags_list)
-    $(all_tile_tags).append("<li class='tile_tag'><a class='extra_tags' href='#'>...</a></li>")
+    unless $(all_tile_tags).find('a.extra_tags').length > 0
+      $(all_tile_tags).append("<li class='tile_tag'><a class='extra_tags' href='#'>...</a></li>")
     all_tile_tags_height = calculateHeight(all_tile_tags, use_parent_height)
 
   #decrease the number of items further, if height constraint is still not met
@@ -38,9 +39,9 @@ $(document).ready ->
 
   hideExplorePageExtraTags()
 
-  $('.tile_with_tags').find('.explore_tile > .all_tile_tags > .tile_tag > .extra_tags').on('click', (event) ->
+  $(document).on('click', '.extra_tags', (event) ->
+    event.preventDefault()
     $(this).parent().parent().siblings('ul.extra_tags_list').toggle()
-    false
   )
   
   #show/hide extended tile tags list on clicking the '...' button in tile_preview page
