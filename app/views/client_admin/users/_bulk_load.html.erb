@@ -14,17 +14,7 @@
 <div class="row">
   <div class="columns large-12">
     <div id="upload-explanation-header">
-      Add a large number of users using the tool below.
-    </div>
-
-    <div id="upload-explanation">
-      <p>
-        <span id="explanation-header">How it works:</span><br/>
-        Upload a full file with all the users you'd like to be in your board. Airbo will automatically:<br/>
-        1. Match users that are already in the board<br/>
-        2. Add new users<br/>
-        3. Delete users that are not in your file<br/>
-      </p>
+      Add a large number of users
     </div>
   </div>
 </div>
@@ -49,7 +39,7 @@
         <h2>2. Add Users To Template</h2>
       </div>
 
-      <div class="upload-user-section-content">
+      <div class="upload-user-section-content" id="section-2">
         <p>
           First and last name in column 1.<br/>
           Email address in column 2.<br/>
@@ -69,7 +59,7 @@
 
       <div class="upload-user-section-content" id="upload-form-content">
         <% if @demo.upload_in_progress %>
-          <p>Upload in progress. You can leave this page and we'll email you when it's complete.</p>
+          <p id="upload-in-progress">Upload in progress. You can leave this page and we'll email you when it's complete.</p>
         <% else %>
           <%= render 'bulk_upload_form' %>
         <% end %>

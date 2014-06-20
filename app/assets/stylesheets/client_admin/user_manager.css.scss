@@ -154,6 +154,11 @@ body.client_admin-users {
         font-size: 14px;
         color: $med-gray;
         margin-bottom: 1em;
+        line-height: 1.6em;
+      }
+
+      #upload-in-progress {
+        font-size: 16px;
       }
 
       input[type="file"] {
@@ -165,7 +170,7 @@ body.client_admin-users {
           @include light-button($light-gray);
         }
 
-        @include light-button($med-gray);
+        @include light-button($sky-blue);
       }
     }
 
