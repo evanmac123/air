@@ -161,6 +161,10 @@ body.client_admin-users {
       }
 
       input[type="submit"] {
+        &[disabled] {
+          @include light-button($light-gray);
+        }
+
         @include light-button($med-gray);
       }
     }

@@ -7,5 +7,18 @@
   <%= hidden_field_tag 'signature',               @uploader.signature %>
 
   <%= file_field_tag 'file' %>
-  <%= submit_tag 'Upload user file' %>
+  <%= submit_tag 'Upload user file', id: 'file-upload-submit' %>
+<% end %>
+
+<%= content_for :javascript do %>
+  <%= javascript_tag do %>
+    $(function() {
+      var fileSubmitButton = $('#file-upload-submit');
+      fileSubmitButton.attr('disabled', 'disabled');
+
+      $("input[name='file']").change(function(event) {
+        fileSubmitButton.removeAttr('disabled');
+      });
+    })
+  <% end %>
 <% end %>
