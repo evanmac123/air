@@ -1,9 +1,9 @@
 # encoding: utf-8
 
 class Invitation::AcceptancesController < ApplicationController
-  before_filter :find_user, :only => :update
+  before_filter :find_user, :only => [:update, :generate_password]
 
-  skip_before_filter :authorize, :only => :update
+  skip_before_filter :authorize, :only => [:update, :generate_password]
   #before_filter :authenticate_without_game_begun_check, :only => :update
 
   layout "external"
@@ -34,6 +34,12 @@ class Invitation::AcceptancesController < ApplicationController
     end
     sign_in(@user)
     redirect_to activity_path
+  end
+  #this is called to create not admin user by setting random password for him
+  def generate_password
+    params[:user] = @user.attributes
+    params[:user][:password] = SecureRandom.hex(8)
+    update
   end
 
   protected

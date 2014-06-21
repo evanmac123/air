@@ -28,7 +28,9 @@ Health::Application.routes.draw do
   resources :invitations, :only => [:new, :create, :show]
   namespace :invitation do
     resource :resend
-    resource :acceptance
+    resource :acceptance do
+      get "generate_password", on: :member
+    end
     get "autocompletion" => "autocompletions#index", :as => "autocompletion"
     post "invite_friend" => "friend_invitations#create", :as => "invite_friend"
   end
