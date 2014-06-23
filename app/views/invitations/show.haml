@@ -30,6 +30,7 @@
   .external-form-wrapper.small-12.large-6.large-centered.columns
     = form_for @user, :url => invitation_acceptance_path(:user_id => @user.id), :html => {:autocomplete => :off, :id => "signup-form"}, :builder => FancyFormBuilder do |f|
       = hidden_field_tag "demo_id", params[:demo_id]
+      = hidden_field_tag "invitation_code", @user.invitation_code
       %div#all-inputs
      
         %div.form-ul-section

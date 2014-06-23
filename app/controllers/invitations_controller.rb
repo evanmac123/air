@@ -29,11 +29,7 @@ class InvitationsController < ApplicationController
   end
 
   def show
-    if params[:user_id]
-      @user = User.find(params[:user_id])
-    else
-      @user = User.find_by_invitation_code(params[:id])
-    end
+    @user = User.find_by_invitation_code(params[:id])
 
     referrer_id = params[:referrer_id]
     if referrer_id =~ /^\d+$/

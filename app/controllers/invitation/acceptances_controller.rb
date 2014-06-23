@@ -39,7 +39,7 @@ class Invitation::AcceptancesController < ApplicationController
   protected
 
   def find_user
-    @user = User.find(params[:user_id])
+    @user = User.where(id: params[:user_id], invitation_code: params[:invitation_code]).first
   end
 
   def add_user_errors
