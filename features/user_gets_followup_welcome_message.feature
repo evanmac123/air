@@ -22,8 +22,6 @@ Feature: User gets followup welcome message at some point after starting the gam
     When "phil@example.com" opens the email
     And I click the play now button in the email
     Given a clear email queue
-    When I fill in "Choose a password" with "ohyeah"
-    And I press "Log in"
     And time moves ahead 30
     And DJ cranks 20 times
     Then "phil@example.com" should receive an email with "Play. Or die. Your choice." in the email body

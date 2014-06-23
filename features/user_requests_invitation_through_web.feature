@@ -31,7 +31,7 @@ Feature: User sends herself an invitation
     But "fred@highmark.com" should receive an email
     When "fred@highmark.com" opens the email
     And I click the play now button in the email
-    Then I should be on the invitation page for "fred@highmark.com"
+    Then I should be on the activity page
 
   Scenario: Pre Populated user can request invitation
     When I fill in "invitation_request_email" with "bob@somedomain.com"
@@ -41,4 +41,4 @@ Feature: User sends herself an invitation
     Then "bob@somedomain.com" should receive an email
     When "bob@somedomain.com" opens the email
     And I click the play now button in the email
-    Then I should be on the invitation page for "bob@somedomain.com" 
+    Then I should be on the activity page

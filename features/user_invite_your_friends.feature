@@ -58,12 +58,10 @@ Feature: User invites friends
     Then "1@loaded.com" should receive an email
     When "1@loaded.com" opens the email
     And I click the play now button in the email
-    Then I should be on the invitation page for "1@loaded.com"
-    When I fill in "Choose a password" with "password"
-    And I press "Log in"
-    Then I should see "Charlie Brainfield credited Shelly for recruiting them"
-    Then user with email "1@loaded.com" should show up as referred by "Shelly"
-    And DJ works off
+    Then I should be on the activity page
+    And I should see "Charlie Brainfield credited Shelly for recruiting them"
+    And user with email "1@loaded.com" should show up as referred by "Shelly"
+    When DJ works off
     And "+16662221111" should have received SMS "Charlie Brainfield gave you credit for recruiting them. Many thanks and 2000 bonus points!"
     And "pre@loaded.com" should receive an email with "Charlie Brainfield gave you credit for recruiting them. Many thanks and 2000 bonus points!" in the email body
     And I should see "Shelly got credit for recruiting Charlie Brainfield"
