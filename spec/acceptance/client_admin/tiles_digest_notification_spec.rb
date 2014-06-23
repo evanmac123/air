@@ -282,8 +282,8 @@ feature 'Client admin and the digest email for tiles' do
                 page_text_2 = "Remember me"
               else
                 email_link = /invitations/
-                page_text_1 = "Welcome, #{name}"
-                page_text_2 = "Just set a password, and you're ready to go"
+                page_text_1 = "Welcome to Airbo!"
+                page_text_2 = "Get started by clicking on a tile."
               end
 
               click_email_link_matching email_link
@@ -478,10 +478,9 @@ feature 'Client admin and the digest email for tiles' do
               else
                 email_link = /invitations/
               end
-
+              user = User.where(email: address).first
               click_email_link_matching email_link
 
-              user = User.where(email: address).first
               if @users_activated.include? user
                 ping_message = "Digest - v. 6/15/14"
               else
