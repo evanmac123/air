@@ -245,16 +245,6 @@ If you're smart you'll go to [invitation_url] and play.
       expect_email_content("play HealthAwesome in plain text, #{@user.name}!")
     end
 
-    it "should interpolate invitation links" do
-      open_email(@user.email)
-
-      visit_in_email "click here"
-      should_be_on(invitation_path(@user.invitation_code))
-
-      visit_in_email "seriously dude click"
-      should_be_on(invitation_path(@user.invitation_code))
-    end
-
     it "should interpolate invitation URLs" do
       expect_email_content("you'll go to #{invitation_url(@user.invitation_code)}")
     end
@@ -289,15 +279,6 @@ If you're smart you'll go to [invitation_url] and play.
 
       it "should interpolate invitation URLs with the referrer" do
         expect_email_content invitation_url(@user.invitation_code, :referrer_id => @referrer.id, :demo_id => @demo.id)
-      end
-
-      it "should interpolate invitation links with the referrer" do
-        crank_dj_clear
-        open_email(@user.email)
-        visit_in_email("click here")
-
-        should_be_on(invitation_path(@user.invitation_code))
-        expect_game_referrer_id(@referrer.id)
       end
     end
   end
