@@ -14,6 +14,11 @@ class Invitation::AcceptancesController < ApplicationController
     @user.attributes = params[:user]
 
     @user.password = @user.password_confirmation = params[:user][:password]
+    @user.invitation_code = params[:invitation_code] if params[:invitation_code].present?
+    referrer_id = params[:referrer_id]
+    if referrer_id =~ /^\d+$/
+      @user.game_referrer_id = referrer_id
+    end
     add_user_errors
     
     if @user.errors.present?
