@@ -8,9 +8,10 @@ feature 'Client admin sees basic stats on dashboard' do
       5.times {FactoryGirl.create :user, :claimed, :with_phone_number, demo: demo}
       7.times {FactoryGirl.create :user, :claimed, :with_game_referrer, demo: demo}
       10.times {FactoryGirl.create :user, demo: demo}
+      2.times {FactoryGirl.create :site_admin, demo: demo}
       FactoryGirl.create :tile, demo: demo
 
-      # That makes 24 total, 14 claimed
+      # That makes 26 total, 14 claimed, 2 site admin(we don't count them)
     end
 
     it "should include the number of claimed users" do
