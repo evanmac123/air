@@ -218,7 +218,7 @@ class Demo < ActiveRecord::Base
   end
 
   def claimed_user_count
-    users.claimed.count
+    users.claimed.where(is_site_admin: false).count
   end
 
   def claimed_user_with_phone_fraction
