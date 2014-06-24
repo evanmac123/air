@@ -35,12 +35,13 @@ class InvitationsController < ApplicationController
     if referrer_id =~ /^\d+$/
       @user.game_referrer_id = referrer_id
     end
+
     if @user
       @user.ping_page('invitation acceptance')
       email_clicked_ping(@user)
       return if redirect_if_invitation_accepted_already
       log_out_if_logged_in
-      @locations = @user.demo.locations.alphabetical
+
       #if it is not admin we are going to create and set random password for him
       unless @user.is_client_admin || @user.is_site_admin
         redirect_to generate_password_invitation_acceptance_path(user_id: @user.id, demo_id: params[:demo_id], invitation_code: @user.invitation_code, referrer_id: referrer_id)

@@ -102,9 +102,7 @@ class User < ActiveRecord::Base
     # NOTE: This method is only called when you actually CALL the create method
     # (Not when you ask if the method is valid :on => :create.)
     # creating a new object and testing x.valid? :on => :create does not send us to this function
-    unless trying_to_accept
-      set_slugs_based_on_name if name_present? && (self.slug.blank? || self.sms_slug.blank?)
-    end
+    set_slugs_based_on_name if name_present? && (self.slug.blank? || self.sms_slug.blank?)
   end
 
 
@@ -152,8 +150,7 @@ class User < ActiveRecord::Base
     destroy_segmentation_info
   end
 
-  attr_accessor :trying_to_accept, :password_confirmation, :converting_from_guest, 
-    :creating_board, :role
+  attr_accessor :password_confirmation, :converting_from_guest, :creating_board, :role
 
   # Changed from attr_protected to attr_accessible to address vulnerability CVE-2013-0276
 
