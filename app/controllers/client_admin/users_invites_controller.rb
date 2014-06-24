@@ -19,7 +19,7 @@ class ClientAdmin::UsersInvitesController < ClientAdminBaseController
   def preview_invite_email    
     @demo  = current_user.demo
     @user  = current_user#User.new(name: 'Invited User')
-    @follow_up_email = false
+    @follow_up_email = true
     @onboarding_email = true
     @custom_message = params[:custom_message]||'Check out my new board!'
     if params[:is_invite_user] == 'true'
@@ -27,7 +27,7 @@ class ClientAdmin::UsersInvitesController < ClientAdminBaseController
       @email_heading = "Join my #{@demo.name}"
       @tiles = @demo.digest_tiles(nil).order('activated_at DESC')
     else
-      @title = @email_heading = @follow_up_email ? 'Here the tiles you missed' : 'Your new tiles are here'
+      @title = @email_heading = @follow_up_email ? 'Here are the tiles you missed' : 'Your new tiles are here'
       @tiles = @demo.digest_tiles.order('activated_at DESC')      
     end
     @invitation_url = @user.claimed? ? nil : invitation_url(@user.invitation_code, protocol: email_link_protocol, host: email_link_host)    
