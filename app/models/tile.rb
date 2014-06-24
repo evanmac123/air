@@ -95,10 +95,9 @@ class Tile < ActiveRecord::Base
   has_attached_file :thumbnail,
     {
     :styles =>
-      { :carousel     => ["238x238>", :png],
-      :email_digest => ["190", :png]
+      { :carousel     => ["238x238#", :png],
+      :email_digest => ["190x160#", :png]
     },
-    :convert_options => {:email_digest => '-gravity "North" -background "#292929" -extent "190x160"'},
     :default_style   => :carousel,
     :default_url     => "/assets/avatars/thumb/missing.png",
     :bucket          => S3_TILE_THUMBNAIL_BUCKET}.merge(TILE_THUMBNAIL_OPTIONS)
