@@ -3,17 +3,21 @@ require 'acceptance/acceptance_helper'
 feature "User Accepts Invitation" do
 
   before(:each) do
-    @user = FactoryGirl.create :user
+    @user = FactoryGirl.create :user, name: "Bob Q. Smith, III"
   end
 
-  scenario "when all goes well" do
-    visit invitation_url(@user.invitation_code)
+  context "when all goes well" do
+    before do
+      visit invitation_url(@user.invitation_code)
+    end
 
-    should_be_on activity_path
+    it "sends them to the activity page" do
+      should_be_on activity_path
+    end
 
-    ActionMailer::Base.deliveries.clear
-    crank_dj_clear
-    ActionMailer::Base.deliveries.should be_empty # no validation code to email
+    it "welcomes them in das flash" do
+      page.should have_content "Welcome, Bob"
+    end
   end
 
   scenario "across boards" do

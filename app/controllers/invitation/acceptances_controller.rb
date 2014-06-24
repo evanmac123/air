@@ -37,6 +37,7 @@ class Invitation::AcceptancesController < ApplicationController
       @user.move_to_new_demo(params[:demo_id])
     end
     sign_in(@user)
+    flash[:success] = "Welcome, #{@user.first_name}!"
     redirect_to activity_path
   end
   #this is called to create not admin user by setting random password for him
