@@ -6,8 +6,8 @@ class ClientAdmin::SharesController < ClientAdminBaseController
     @follow_up_emails = @demo.follow_up_digest_emails.order("send_on ASC")
     @suppress_tile_stats = false
     @board_is_public = @demo.is_public
-    @all_users = @demo.users.count
-    @activated_users = @demo.users.claimed.count - 1 #need to exclude the current user
+    @all_users = @demo.users.where(is_site_admin: false).count
+    @activated_users = @demo.users.claimed.where(is_site_admin: false).count - 1 #need to exclude the current user
 
     if (!@demo.has_normal_users? || @demo.tile_completions.empty?)
       #need to show show_invite_users with tiles active so far
