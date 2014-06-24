@@ -17,7 +17,7 @@ feature 'Browses user lists' do
     expect_browse_row(user, false)
   end
 
-  it "should show everyone if asked" do
+  it "should show everyone except site admin if asked" do
     5.times do |i| 
       user = FactoryGirl.create(:user, :with_location, name: "Dude #{i}", demo: client_admin.demo)
       user.location.update_attributes(demo_id: user.demo.id)
@@ -27,11 +27,16 @@ feature 'Browses user lists' do
     other_demo_guy = FactoryGirl.create(:user, :with_location, name: "Johnny Otherdemo")
     other_demo_guy.demo.should_not == client_admin.demo
 
+    site_admin_guy = FactoryGirl.create(:site_admin, :with_location, name: "Site Dude", demo: client_admin.demo)
+    site_admin_guy.location.update_attributes(demo_id: site_admin_guy.demo.id)
+    site_admin_guy.board_memberships.first.update_attributes(location_id: site_admin_guy.location_id)
+
     visit client_admin_users_path(as: client_admin)
     click_link "Show everyone"
 
-    client_admin.demo.users.each {|user| expect_browse_row(user)}
+    client_admin.demo.users.where(is_site_admin: false).each {|user| expect_browse_row(user)}
     expect_no_browse_row(other_demo_guy)
+    expect_no_browse_row(site_admin_guy)
     expect_content "Showing results for everyone"
   end
 

@@ -5,7 +5,7 @@ class ClientAdminsController < ClientAdminBaseController
       format.html do
         demo = current_user.demo
 
-        @claimed_user_count = demo.claimed_user_count
+        @claimed_user_count = demo.users.claimed.where(is_site_admin: false).count
         @with_phone_percentage = demo.claimed_user_with_phone_fraction.as_rounded_percentage
         @with_peer_invitation_fraction = demo.claimed_user_with_peer_invitation_fraction.as_rounded_percentage
         @demo = demo

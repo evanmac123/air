@@ -235,6 +235,6 @@ class ClientAdmin::UsersController < ClientAdminBaseController
   end
 
   def count_total_users
-    @total_user_count = current_user.demo.users.claimed.count
+    @total_user_count = current_user.demo.users.claimed.where(is_site_admin: false).count
   end
 end
