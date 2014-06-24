@@ -127,7 +127,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
   def render_browse_page
     @offset = params[:offset].present? ? params[:offset].to_i : 0
 
-    @users = current_user.demo.users.alphabetical.limit(PAGE_SIZE).offset(@offset)
+    @users = current_user.demo.users.where(is_site_admin: false).alphabetical.limit(PAGE_SIZE).offset(@offset)
     
     @result_description = "everyone"
 
