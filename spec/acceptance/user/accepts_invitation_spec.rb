@@ -107,6 +107,7 @@ feature "User Accepts Invitation" do
 
   context "and they're in the cohort that has to set a password first" do
     before do
+      $rollout.deactivate(:accept_invitation_without_password)
       $rollout.deactivate_user(:accept_invitation_without_password, @user)
       @needs_password = true
     end

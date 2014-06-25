@@ -62,3 +62,5 @@ end
 # an incredible amount of stuff, which we virtually never look at in testing, 
 # is logged unless we set the log level way high.
 Rails.logger.level = 4 
+
+$rollout.activate(:accept_invitation_without_password)
