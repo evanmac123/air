@@ -35,6 +35,8 @@ class TileLikesController < ClientAdminBaseController
       TrackEvent.ping_action('Explore page - Interaction', 'Clicked Vote Up', current_user, {tile_id: tile.id, page: "Tile thumbnail"})
     when :via_explore_page_tile_view
       TrackEvent.ping_action('Explore page - Interaction', 'Clicked Vote Up', current_user, {tile_id: tile.id, page: "Large Tile View"})
+    when :via_explore_page_subject_tag
+      TrackEvent.ping_action('Explore page - Interaction', 'Clicked Vote Up', current_user, {tile_id: tile.id, page: "Tile Subject Tag"})
     end
   end
 
