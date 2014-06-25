@@ -37,14 +37,19 @@ class InvitationsController < ApplicationController
     end
 
     if @user
-      @user.ping_page('invitation acceptance')
+      gets_to_skip_password = $rollout.active?(:accept_invitation_without_password, @user)
+      page_version = gets_to_skip_password ? "v. 6/25/14" : "v. Pre-6/25/14"
+
+      @user.ping_page('invitation acceptance', 'invitation acceptance version' => page_version)
       email_clicked_ping(@user)
       return if redirect_if_invitation_accepted_already
       log_out_if_logged_in
 
-      #if it is not admin we are going to create and set random password for him
-      unless @user.is_client_admin || @user.is_site_admin
-        redirect_to generate_password_invitation_acceptance_path(user_id: @user.id, demo_id: params[:demo_id], invitation_code: @user.invitation_code, referrer_id: referrer_id)
+      if gets_to_skip_password
+        #if it is not admin we are going to create and set random password for him
+        unless @user.is_client_admin || @user.is_site_admin
+          redirect_to generate_password_invitation_acceptance_path(user_id: @user.id, demo_id: params[:demo_id], invitation_code: @user.invitation_code, referrer_id: referrer_id)
+        end
       end
     else
       flash[:failure] = "That page doesn't exist."

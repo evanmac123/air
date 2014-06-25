@@ -256,7 +256,7 @@ feature 'Client admin and the digest email for tiles' do
         scenario "Demo where claimed and unclaimed should get digests.
                   The tile links should sign in claimed, *non-client-admin* users to the
                   Activities page, while whisking others to where they belong" do
-          #page.driver.accept_js_confirms!
+          $rollout.activate(:accept_invitation_without_password)
           on_day '7/6/2013' do
             change_send_to('All Users')
             click_button 'Send'
