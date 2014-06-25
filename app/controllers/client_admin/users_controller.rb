@@ -56,7 +56,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
 
       put_add_success_in_flash
       send_creation_ping(existing_user)
-      ping_if_made_client_admin(user, user.is_client_admin)
+      ping_if_made_client_admin(@user, @user.is_client_admin)
       redirect_to client_admin_users_path
     else
       # This is a stupid hack. The more time goes on, the more I think Rails
@@ -96,7 +96,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
         @user.board_memberships.find_by_demo_id(@demo.id).
           update_attributes(location_id: @new_location_id, role: @new_role)
       end
-      ping_if_made_client_admin(user, role_was_changed)
+      ping_if_made_client_admin(@user, role_was_changed)
       flash[:success] = "OK, we've updated this user's information"
       redirect_to edit_client_admin_user_path(@user)
     else
