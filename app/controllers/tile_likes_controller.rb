@@ -32,17 +32,13 @@ class TileLikesController < ClientAdminBaseController
   def schedule_like_ping(tile)
     case param_path
     when :via_explore_page_thumbnail
-      TrackEvent.ping_action('Explore page - Thumbnail', 'Clicked Like', current_user, tile_id: tile.id)
+      TrackEvent.ping_action('Explore page - Interaction', 'Clicked Vote Up', current_user, {tile_id: tile.id, page: "Tile thumbnail"})
     when :via_explore_page_tile_view
-      TrackEvent.ping_action('Explore page - Large Tile View', 'Clicked Like', current_user, tile_id: tile.id)
+      TrackEvent.ping_action('Explore page - Interaction', 'Clicked Vote Up', current_user, {tile_id: tile.id, page: "Large Tile View"})
     end
   end
+
   def schedule_unlike_ping(tile)
-    case param_path
-    when :via_explore_page_thumbnail
-      TrackEvent.ping_action('Explore page - Thumbnail', 'Clicked Like', current_user, tile_id: tile.id)
-    when :via_explore_page_tile_view
-      TrackEvent.ping_action('Explore page - Large Tile View', 'Clicked Like', current_user, tile_id: tile.id)
-    end
+    schedule_like_ping(tile)
   end
 end
