@@ -80,7 +80,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
 
     user_in_current_demo = (@user.demo == @demo)
     @new_role = params[:user].delete(:role)
-    role_was_changed = (@new_role == @user.role)
+    role_was_changed = (@new_role != @user.role)
     unless user_in_current_demo
       @new_location_id = params[:user].delete(:location_id)
     end
