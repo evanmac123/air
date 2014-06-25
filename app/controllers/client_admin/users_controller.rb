@@ -47,7 +47,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
 
     @user = existing_user || current_user.demo.users.new(user_params)
     @user.role = params[:user].delete(:role)
-      
+    
     if save_if_date_good(@user) # sigh
       make_this_board_current = existing_user.nil?
       @user.add_board(@demo.id, make_this_board_current)
@@ -56,6 +56,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
 
       put_add_success_in_flash
       send_creation_ping(existing_user)
+      ping_if_made_client_admin(user, user.is_client_admin)
       redirect_to client_admin_users_path
     else
       # This is a stupid hack. The more time goes on, the more I think Rails
@@ -79,6 +80,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
 
     user_in_current_demo = (@user.demo == @demo)
     @new_role = params[:user].delete(:role)
+    role_was_changed = (@new_role == @user.role)
     unless user_in_current_demo
       @new_location_id = params[:user].delete(:location_id)
     end
@@ -94,7 +96,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
         @user.board_memberships.find_by_demo_id(@demo.id).
           update_attributes(location_id: @new_location_id, role: @new_role)
       end
-
+      ping_if_made_client_admin(user, role_was_changed)
       flash[:success] = "OK, we've updated this user's information"
       redirect_to edit_client_admin_user_path(@user)
     else
@@ -236,5 +238,11 @@ class ClientAdmin::UsersController < ClientAdminBaseController
 
   def count_total_users
     @total_user_count = current_user.demo.users.claimed.where(is_site_admin: false).count
+  end
+
+  def ping_if_made_client_admin(user, was_changed)
+    if user.is_client_admin && was_changed
+      ping('Creator - New', {source: 'Client Admin'}, current_user)
+    end
   end
 end
