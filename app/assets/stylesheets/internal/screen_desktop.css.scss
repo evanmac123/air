@@ -34,6 +34,9 @@ body {
   margin-left:-284px !important;
   left:50%!important;
   top:18.5em!important;
+  &.for_guest {
+    top: 13.5em!important;
+  }
   &:after {
     @include arrow-left($white, 1em);
     left:-2em;

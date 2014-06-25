@@ -62,7 +62,8 @@
     </ol>
   </div>
 <% elsif @display_get_started_lightbox %>
-  <div id='get_started_lightbox'>
+  <% lightbox_class = @current_user.is_guest? ? 'for_guest' : '' %>
+  <div id='get_started_lightbox' class=<%= lightbox_class %>>
     <a href="#" id="close_get_started_lightbox">Get started!</a>
     <h3>Welcome to Airbo!</h3>
     <p>You've arrived at the <%= current_user.demo.name%>.</p>
