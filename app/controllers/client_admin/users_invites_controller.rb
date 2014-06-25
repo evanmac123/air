@@ -1,5 +1,6 @@
 class ClientAdmin::UsersInvitesController < ClientAdminBaseController
-  include EmailHelper
+  include ClientAdmin::TilesHelper
+
   def create
     params[:users_invite][:demo_id] = current_user.demo_id
 
@@ -27,7 +28,7 @@ class ClientAdmin::UsersInvitesController < ClientAdminBaseController
       @email_heading = "Join my #{@demo.name}"
       @tiles = @demo.digest_tiles(nil).order('activated_at DESC')
     else
-      @title = @email_heading = @follow_up_email ? "Don't miss your new tiles" : 'Your new tiles are here'
+      @title = @email_heading = digest_email_heading
       @tiles = @demo.digest_tiles.order('activated_at DESC')      
     end
     @invitation_url = @user.claimed? ? nil : invitation_url(@user.invitation_code, protocol: email_link_protocol, host: email_link_host)    

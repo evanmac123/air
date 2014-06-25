@@ -6,6 +6,7 @@ class TilesDigestMailer < ActionMailer::Base
   has_delay_mail       # Some kind of monkey-patch workaround (not even sure need)
 
   include EmailHelper  # Well, the 'helper' above method might include it into the view, but it don't include it in here
+  include ClientAdmin::TilesHelper # and ditto
 
   layout nil#'mailer'
 
@@ -48,7 +49,7 @@ class TilesDigestMailer < ActionMailer::Base
       @title = "Join my #{@demo.name}"      
       @email_heading = "Join my #{@demo.name}"
     else
-      @title = @email_heading = @follow_up_email ? 'Here are the tiles you missed' : 'Your new tiles are here'
+      @title = @email_heading = digest_email_heading
     end
 
     @new_digest_email = $rollout.active?(:new_digest_email, @user)
