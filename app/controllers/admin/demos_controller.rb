@@ -9,7 +9,7 @@ class Admin::DemosController < AdminBaseController
   def create
     Demo.transaction do
       @demo = Demo.new(params[:demo])
-      @demo.save!
+      @demo.save!admin
       schedule_creation_ping
     end
 
@@ -69,6 +69,6 @@ class Admin::DemosController < AdminBaseController
   end
 
   def schedule_creation_ping
-    ping 'Board - New', {source: 'site admin'}, current_user
+    ping 'Boards - New', {source: 'Site Admin'}, current_user
   end
 end

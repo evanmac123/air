@@ -14,7 +14,8 @@
 
       <label class="input_label">Name for your new board</label>
       <%= text_field_tag "board[name]", @board.name %>
-      <%= hidden_field_tag "creation_source", "Boards - New" %>
+      <%= hidden_field_tag "creation_source_board", "Boards/new Page" %>
+      <%= hidden_field_tag "creation_source_creator", "A Client Admin" %>
       <%= submit_tag "Create Board" %>
 
       <p id="t-and-c-notice">By submitting this form or using this site, you are agreeing to the <%= link_to 'terms and conditions', terms_path, target: '_blank' %>.</p>

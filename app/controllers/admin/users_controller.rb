@@ -83,7 +83,7 @@ class Admin::UsersController < AdminBaseController
 
   def ping_if_made_client_admin(user, was_changed)
     if user.is_client_admin && was_changed
-      ping('Creator - New', {source: 'site admin'}, current_user)
+      ping('Creator - New', {source: 'A Site Admin'}, current_user)
     end
   end
 end
