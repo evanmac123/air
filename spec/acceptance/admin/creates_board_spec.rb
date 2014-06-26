@@ -8,6 +8,6 @@ feature 'Creates board' do
 
     FakeMixpanelTracker.clear_tracked_events
     crank_dj_clear
-    FakeMixpanelTracker.should have_event_matching("Board - New", source: 'site admin')
+    FakeMixpanelTracker.should have_event_matching("Boards - New", source: 'Site Admin')
   end
 end

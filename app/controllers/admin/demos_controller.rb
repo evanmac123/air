@@ -9,7 +9,7 @@ class Admin::DemosController < AdminBaseController
   def create
     Demo.transaction do
       @demo = Demo.new(params[:demo])
-      @demo.save!admin
+      @demo.save!
       schedule_creation_ping
     end
 
