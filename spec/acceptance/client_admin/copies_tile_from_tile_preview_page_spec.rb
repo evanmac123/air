@@ -115,10 +115,11 @@ feature "Client admin copies/likes tile from the explore-preview page" do
 
       click_copy_button
       crank_dj_clear
-
-      FakeMixpanelTracker.should have_event_matching('Explore page - Large Tile View', {
+      
+      FakeMixpanelTracker.should have_event_matching('Explore page - Interaction', {
           tile_id: @original_tile.id,
-          action: 'Clicked Copy'
+          action: 'Clicked Copy',
+          page: "Large Tile View"
         })
     end
 

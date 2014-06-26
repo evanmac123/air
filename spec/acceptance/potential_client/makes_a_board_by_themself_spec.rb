@@ -102,13 +102,13 @@ feature 'Makes a board by themself' do
     it "should send an appropriate ping for the board creation" do
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear
-      FakeMixpanelTracker.should have_event_matching("Board - New", source: 'Boards - New')
+      FakeMixpanelTracker.should have_event_matching("Boards - New", source: 'Boards/new Page')
     end
 
     it "should send an appropriate ping for the creator creation" do
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear
-      FakeMixpanelTracker.should have_event_matching("Creator - New", source: 'Boards - New')
+      FakeMixpanelTracker.should have_event_matching("Creator - New", source: 'Marketing Page')
     end
         
   end
