@@ -24,7 +24,7 @@ feature "Client admin copies or likes tile" do
   end
     
   def click_liked
-    first('.tile_liked').find('a:eq(2)').click
+    first('.tile_liked').find('a').click
   end
 
   def view_only_check
