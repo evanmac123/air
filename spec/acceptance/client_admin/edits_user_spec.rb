@@ -161,6 +161,16 @@ feature 'Edits user' do
     user.reload.role_in(client_admin.demo).should eq 'Administrator'
     expect_role('Administrator')
   end
+
+  it 'should make ping if user was given role Administrator' do
+    visit(edit_client_admin_user_path(user, as: client_admin))
+    page.find('select.user-role-select').select 'Administrator'
+    click_button "Save edits"
+    
+    FakeMixpanelTracker.clear_tracked_events 
+    crank_dj_clear 
+    FakeMixpanelTracker.should have_event_matching("Creator - New", source: 'Client Admin')
+  end
   
   it "should show errors on bad data" do
     visit(edit_client_admin_user_path(user, as: client_admin))

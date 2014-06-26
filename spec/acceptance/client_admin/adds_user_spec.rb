@@ -121,6 +121,16 @@ feature 'Adds user' do
     new_user = demo.users.order("created_at DESC").first
     new_user.is_client_admin.should == true    
   end
+
+  it 'should ping if new user is client admin', js: true do
+    fill_in_user_information
+    page.find('select.user-role-select').select 'Administrator'
+    click_button "Add User"
+
+    FakeMixpanelTracker.clear_tracked_events 
+    crank_dj_clear 
+    FakeMixpanelTracker.should have_event_matching("Creator - New", source: 'Client Admin')
+  end
   
   it "should show meaningful errors when entered data is invalid" do
     click_button "Add User"
