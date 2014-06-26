@@ -20,7 +20,8 @@
         last_acted_at: "<%= _intercom_user.last_acted_at.try(:to_i) %>",
         date_of_birth: "<%= _intercom_user.date_of_birth %>",
         profile: "<%= 'https://' + http_host + '/users/' + _intercom_user.slug %>",
-        points: "<%= _intercom_user.points %>"
+        points: "<%= _intercom_user.points %>",
+        client_admin: "<%= _intercom_user.is_client_admin %>"
       },
       widget: {
         activator: '#IntercomDefaultWidget',
