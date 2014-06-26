@@ -10,7 +10,6 @@
     = tile.like_count
   = fa_icon 'arrow-up'
   =link_to 'Voted Up', explore_tile_likes_path(tile_id: tile.id, path: @tile_tag ? :via_explore_page_subject_tag : :via_explore_page_thumbnail), method: :delete, remote: true
->>>>>>> add ping for subject tag on like and copy
 .tile_not_liked{class:"tile-#{tile.id}", style:display_unliked}
   %span.like_message
     -if tile.like_count > 0
