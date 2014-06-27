@@ -230,3 +230,16 @@ describe 'Follow-up digest email' do
     TilesDigestMailer.notify_all_follow_up follow_up.id
   end
 end
+
+describe "#notify_one" do
+  it "should not try to send to a blank or nil address" do
+    blank_mail_user = FactoryGirl.create(:user, email: '')
+    nil_mail_user   = FactoryGirl.create(:user, email: nil)
+
+    blank_mail = TilesDigestMailer.notify_one(blank_mail_user.demo.id, blank_mail_user.id, [], 'New Tiles', false, nil)
+    nil_mail = TilesDigestMailer.notify_one(nil_mail_user.demo.id, nil_mail_user.id, [], 'New Tiles', false, nil)
+
+    blank_mail.should be_kind_of(ActionMailer::Base::NullMail)
+    nil_mail.should be_kind_of(ActionMailer::Base::NullMail)
+  end
+end

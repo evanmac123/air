@@ -41,6 +41,7 @@ class TilesDigestMailer < ActionMailer::Base
       custom_message, custom_from=nil, is_new_invite = nil)
     @demo  = Demo.find demo_id
     @user  = User.find user_id
+    return nil unless @user.email.present? # no wasting our time trying to email people for whom we don't have an address
 
     @tiles = Tile.where(id: tile_ids).order('activated_at DESC')
     @follow_up_email = follow_up_email
