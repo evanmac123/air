@@ -101,7 +101,6 @@ feature "Invite Users Modal" do
     end    
     context "inviting users", js: :webkit do
       before do
-        $rollout.activate_user(:public_board, client_admin2.demo)
         FactoryGirl.create(:tile, status: Tile::ACTIVE, demo: client_admin2.demo)
         visit client_admin_share_path(as: client_admin2)        
       end
