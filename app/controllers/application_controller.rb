@@ -106,9 +106,9 @@ class ApplicationController < ActionController::Base
     ping_without_device_type(event, _data_hash, user)
   end
 
-  def ping_page(page, user = nil)
+  def ping_page(page, user = nil, additional_properties={})
     event = 'viewed page'
-    properties = {page_name: page, device_type: device_type}
+    properties = {page_name: page, device_type: device_type}.merge(additional_properties)
     self.ping(event, properties, user)
   end
 
@@ -129,6 +129,7 @@ class ApplicationController < ActionController::Base
 
   alias authenticate_without_game_begun_check authorize
   def authorize
+    session[:has_ever_logged_in] = true
     if logged_in_as_guest?
       if guest_user_allowed?
         board = find_current_board # must be implemented in subclass

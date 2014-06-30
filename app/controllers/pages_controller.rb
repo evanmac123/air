@@ -10,6 +10,7 @@ class PagesController < HighVoltage::PagesController
   before_filter :set_new_board_url
   before_filter :display_social_links_if_marketing_page
   before_filter :set_page_name
+  before_filter :ping_if_marketing_page
 
   skip_before_filter :force_ssl, :except => SIGNED_IN_OK_PAGES
   before_filter :force_no_ssl_on_marketing
@@ -84,5 +85,12 @@ class PagesController < HighVoltage::PagesController
   def set_page_name
     flash.now[:failure] ||= params[:flash][:failure] if params[:flash]
     @page_name = page_name
+  end
+
+  def ping_if_marketing_page
+    if page_name == 'welcome'
+      ping_page("Marketing Page", current_user, \
+       {has_ever_logged_in: session[:has_ever_logged_in] ? true : false})
+    end
   end
 end
