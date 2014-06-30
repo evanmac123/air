@@ -350,6 +350,7 @@ body.explores {
   @include standard_reveal_dimensions;
   width: 60%;
   left: 65%;
+  background-color: $white;
 
   h1 {
     display: inline-block;
