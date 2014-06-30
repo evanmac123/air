@@ -19,6 +19,10 @@ class GuestUser < ActiveRecord::Base
     false
   end
 
+  def is_client_admin
+    false
+  end
+
   def is_guest?
     true
   end

@@ -146,4 +146,8 @@ describe GuestUser do
       user.data_for_mixpanel[:game].should == user.demo.name
     end
   end
+
+  it "is not a client admin" do
+    user.is_client_admin.should be_false
+  end
 end
