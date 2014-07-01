@@ -48,16 +48,32 @@ body.tile_previews.tile_previews-show {
           color: $sky-blue;
         }
 
+
         .fa{
-          margin-right: 13px;
           vertical-align: middle;
-          margin-top: -4px;
         }
       }
       span{
         display: inline-block;
         vertical-align: middle;
       }
+
+      $fa-margin: 14px;
+      #back-link {
+        .fa {
+          margin-right: $fa-margin;
+          margin-top: -4px;
+        }
+      }
+
+      #random-tile-link {
+        float: right;
+
+        .fa {
+          margin-left: $fa-margin;
+        }
+      }
+
       font-weight: 600;
     }
     .basic-info{
