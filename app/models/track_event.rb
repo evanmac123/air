@@ -31,6 +31,6 @@ module TrackEvent
   def self.ping_action(event, action, user, properties = {})
     properties ||= {}
     properties[:action] = action
-    self.ping(event, properties.merge(user.data_for_mixpanel), user)    
+    self.ping(event, properties.merge(user.data_for_mixpanel), user)
   end
 end
