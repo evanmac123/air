@@ -26,12 +26,15 @@ feature 'Manages board settings' do
     "36 characters should be just abou..."  
   end
 
+  def selector_for_board(board)
+    "#admin_board_controls .board_name[data-demo_id=\"#{board.id}\"]"  
+  end
+
   def fill_in_new_board_name(board, new_name)
     # Stole this from fill_in_image_credit. If we're gonna do a lot with
     # contenteditable, we should factor this out.
 
-    board_name_selector = "#admin_board_controls .board_name[data-demo_id=\"#{board.id}\"]"
-    js_to_fake_edit = "$('#{board_name_selector}').focus().keydown().html('#{new_name}').keyup()"
+    js_to_fake_edit = "$('#{selector_for_board(board)}').focus().keydown().html('#{new_name}').keyup()"
     page.execute_script(js_to_fake_edit)
   end
 
@@ -116,6 +119,22 @@ feature 'Manages board settings' do
 
       page.should have_content("Saved!")
       board_to_change.reload.name.should == "Hapsburg Dynasty Board"
+    end
+
+    it "should not save a board name with an ellipsis at the end (since that presumably is not part of the name but was rendered there by truncation)", js: true do
+      long_string = "This is the song that never ends, some people started singing it a long time ago, und so weider."
+      board = @boards.first
+      board.update_attributes(name: long_string)
+
+      visit activity_path(as: @user)
+      open_board_settings
+
+      truncated_name = page.find(selector_for_board(board)).text
+      fill_in_new_board_name(board, truncated_name)
+      click_save_link
+
+      page.should have_content("Saved!")
+      board.reload.name.should == long_string
     end
 
     it "should give helpful feedback if the board name is bad", js: true do

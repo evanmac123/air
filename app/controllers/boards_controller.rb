@@ -22,7 +22,7 @@ class BoardsController < ApplicationController
     end
 
     new_name = normalize_board_name(params[:board_name])
-    board.name = new_name
+    board.name = new_name unless (new_name =~ /\.\.\. Board$/)
 
     if board.save
       render json: {success: true}
