@@ -129,7 +129,6 @@ class ApplicationController < ActionController::Base
 
   alias authenticate_without_game_begun_check authorize
   def authorize
-    session[:has_ever_logged_in] = true
     if logged_in_as_guest?
       if guest_user_allowed?
         board = find_current_board # must be implemented in subclass
@@ -177,6 +176,8 @@ class ApplicationController < ActionController::Base
   def refresh_activity_session(user)
     return if user.nil?
 
+    session[:has_ever_logged_in] = true
+    
     baseline = user.last_session_activity_at.to_i || 0
     difference = Time.now.to_i - baseline
 
