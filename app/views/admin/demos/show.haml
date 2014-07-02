@@ -10,6 +10,13 @@
     This board is currently marked as having an update in progress
     = button_to "Reset upload-in-progress status", admin_reset_bulk_upload_path(@demo), method: :delete
 
+  - if @demo.is_paid?
+    This board is currently paid.
+    = button_to "Make board free", admin_demo_paid_status_path(@demo), method: :delete
+  - else
+    This board is currently free.
+    = button_to "Make board paid", admin_demo_paid_status_path(@demo)
+
   %h2 Reports
   %ul 
     %li= link_to "Points", admin_demo_reports_points_path(@demo) 
