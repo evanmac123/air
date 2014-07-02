@@ -241,7 +241,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def schedule_tile_creation_ping(tile)
-    ping('Tile - New', {is_public: tile.is_public, is_copyable: tile.is_copyable, tag: tile.tile_tags.first.try(:title)}, current_user)
+    ping('Tile - New', {tile_source: "Self Created", is_public: tile.is_public, is_copyable: tile.is_copyable, tag: tile.tile_tags.first.try(:title)}, current_user)
   end
 
   def set_image_and_container

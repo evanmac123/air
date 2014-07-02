@@ -45,7 +45,7 @@ class ClientAdmin::SharesController < ClientAdminBaseController
     render nothing: true    
   end
   def clicked_preview_invitation
-    TrackEvent.ping_action('Share - Add First Users', 'Clicked Preview Invitation button', current_user)
+    TrackEvent.ping_action('Share - Add First Users', 'Successfully Added Users', current_user)
     render nothing: true
   end
   
@@ -75,7 +75,7 @@ class ClientAdmin::SharesController < ClientAdminBaseController
   end
   
   def clicked_send
-    TrackEvent.ping_action('Share - Send Invitation', "Clicked Send", current_user)
+    TrackEvent.ping_action('Share - Send Invitation', "Successfully Sent", current_user)
     render nothing: true
   end
   

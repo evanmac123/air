@@ -5,6 +5,7 @@ class CopyTilesController < ClientAdminBaseController
     tile = Tile.copyable.where(id: params[:tile_id]).first
     copy = tile.copy_to_new_demo(current_user.demo, current_user)
     schedule_copy_ping(tile)
+    schedule_tile_creation_ping(copy)
     render json: {
       success: true, 
       editTilePath: edit_client_admin_tile_path(copy),
@@ -23,6 +24,10 @@ class CopyTilesController < ClientAdminBaseController
     when :via_explore_page_subject_tag
       TrackEvent.ping_action('Explore page - Interaction', 'Clicked Copy', current_user, {tile_id: tile.id, page: "Tile Subject Tag"})
     end
+  end
+
+  def schedule_tile_creation_ping(tile)
+    ping('Tile - New', {tile_source: "Explore Page", is_public: tile.is_public, is_copyable: tile.is_copyable, tag: tile.tile_tags.first.try(:title)}, current_user)
   end
   
 end

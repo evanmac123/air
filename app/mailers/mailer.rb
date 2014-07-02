@@ -137,11 +137,13 @@ class Mailer < ActionMailer::Base
     @user = user
     @demo = user.demo
 
+    first_completed_tile_ping(@user)
+
     mail :to      => user.email_with_name,
          :from    => user.reply_email_address,
          :subject => "Congratulations! Someone interacted with a tile"
   end
-  
+
   def notify_creator_for_social_interaction(tile, user, action)
     @creator = tile.creator || tile.original_creator
     return unless @creator.present?
@@ -153,5 +155,11 @@ class Mailer < ActionMailer::Base
     mail :to      => @creator.email_with_name,
          :from    => @creator.reply_email_address,
          :subject => "Someone #{@action} your tile on Airbo"
-  end  
+  end 
+
+  protected
+
+  def first_completed_tile_ping(user)
+    TrackEvent.ping("First tile completion", {user_type: user.is_guest? ? "Guest User" : "User"})
+  end
 end
