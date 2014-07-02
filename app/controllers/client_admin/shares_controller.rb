@@ -23,7 +23,7 @@ class ClientAdmin::SharesController < ClientAdminBaseController
     if @demo.non_activated?
       TrackEvent.ping_page('Page Locked', {}, current_user)
     else
-      TrackEvent.ping_page('Share Page', {}, current_user)
+      ping_page("Manage - Share Page", current_user)
     end
     prepend_view_path 'client_admin/users'
   end

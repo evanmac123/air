@@ -17,7 +17,7 @@ class ClientAdminsController < ClientAdminBaseController
         params[:chart_interval]     = 'Weekly'
         params[:chart_label_points] = '0'
 
-        ping_page('client admin dashboard', current_user)
+        ping_page('Manage - Activity', current_user)
 
         render template: 'client_admin/show'
       end

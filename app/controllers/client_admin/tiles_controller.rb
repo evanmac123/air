@@ -31,7 +31,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       TrackEvent.ping_action('Tile Preview Page - Archive', 'Clicked Back to Tiles button', current_user)      
     end
 
-    TrackEvent.ping_page('Tiles Page', {}, current_user)
+    ping_page('Manage - Tiles', current_user)
   end
   private :record_index_ping
   

@@ -14,6 +14,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
   PAGE_SIZE = 50
 
   def index
+    ping_page("Manage - Users", current_user)
     respond_to do |format|
       @demo = current_user.demo
       @tiles_to_be_sent = @demo.digest_tiles(@demo.tile_digest_email_sent_at).count
