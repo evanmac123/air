@@ -96,9 +96,9 @@ $(document).ready ->
     (num_valid_users > 0) && all_ok
   #submit form
   $('#invite_users_page_1').find('#submit_invite_users').on('click', (event) ->
-    event.preventDefault()
-    $.ajax("/client_admin/share/clicked_preview_invitation")    
+    event.preventDefault()   
     if validateInvitedUsers(true)
+      $.ajax("/client_admin/share/clicked_preview_invitation") 
       History.pushState {state: 2}, "Airbo", "?state=2"
       loadPage2()
     else
