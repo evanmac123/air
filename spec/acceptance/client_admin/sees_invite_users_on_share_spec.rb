@@ -24,7 +24,7 @@ feature "Invite Users Modal" do
     scenario "sends mixpanel ping" do
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear
-      properties = {page_name: 'Share Page'}
+      properties = {page_name: 'Manage - Share Page'}
       FakeMixpanelTracker.should have_event_matching('viewed page', properties)
     end
     scenario 'sees invite users modal and accompanying username and email fields', js: true do
@@ -145,10 +145,10 @@ feature "Invite Users Modal" do
           properties = {action: 'Clicked Add More Users'}
           FakeMixpanelTracker.should have_event_matching('Share - Send Invitation', properties)          
         end
-        scenario "pings on clicking preview invitation button", js: true do
+        scenario "pings on clicking preview invitation button if users are successfull added", js: true do
           FakeMixpanelTracker.clear_tracked_events
           crank_dj_clear
-          properties = {action: 'Clicked Preview Invitation button'}
+          properties = {action: 'Successfully Added Users'}
           FakeMixpanelTracker.should have_event_matching('Share - Add First Users', properties)          
         end        
         scenario "pings on valid entries", js: true do
@@ -191,7 +191,7 @@ feature "Invite Users Modal" do
           
           FakeMixpanelTracker.clear_tracked_events
           crank_dj_clear
-          properties = {action: 'Clicked Send'}
+          properties = {action: 'Successfully Sent'}
           FakeMixpanelTracker.should have_event_matching('Share - Send Invitation', properties)
           
           page.should have_content("Invitation Sent!")

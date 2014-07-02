@@ -129,14 +129,14 @@ Health::Application.routes.draw do
         get 'added_valid_user'        
         get 'number_of_valid_users_added'        
         
-        get 'clicked_preview_invitation'
+        get 'successfully_added_users'
         get 'clicked_skip'
         get 'clicked_mail_to'
         get 'got_error'
         
         get 'changed_message'
         get 'clicked_add_more_users'
-        get 'clicked_send'
+        get 'successfully_sent'
         
         get 'clicked_success_mail'
         get 'clicked_success_twitter'

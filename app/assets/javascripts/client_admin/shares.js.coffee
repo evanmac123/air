@@ -98,7 +98,7 @@ $(document).ready ->
   $('#invite_users_page_1').find('#submit_invite_users').on('click', (event) ->
     event.preventDefault()   
     if validateInvitedUsers(true)
-      $.ajax("/client_admin/share/clicked_preview_invitation") 
+      $.ajax("/client_admin/share/successfully_added_users") 
       History.pushState {state: 2}, "Airbo", "?state=2"
       loadPage2()
     else
@@ -246,7 +246,7 @@ $(document).ready ->
   $('#invite_users_page_2').find('#invite_users_send_button').on('click', (event) ->    
     if validateInvitedUsers(true)      
       $('#share_tiles_digest').find('#invite_users_form').submit()
-      $.ajax("/client_admin/share/clicked_send")
+      $.ajax("/client_admin/share/successfully_sent")
     false
     )
   
