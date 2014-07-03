@@ -18,7 +18,7 @@ module EmailHelper
 
   def email_logo(demo)
     logo_url = demo.custom_logo_url
-    image_options        = { width: "61", height: "36", border: "0", style: "display:block;"}
+    image_options        = { width: "90", border: "0", style: "display:block;"}
 
     if logo_url.blank?
       # Pretty asinine that we have to roll our own here. But hi. Here we are.
