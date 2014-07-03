@@ -63,6 +63,9 @@ $(document).ready ->
     element.remove()
   )
   
+  $('#new_tile_builder_form').on('submit', (event) -> 
+    $('#publish input[type="submit"]').attr('disabled', 'disabled'))
+
   # on tile builder form submit, check if tags are present in case 
   # sharing is on (tile is public)
   $('#new_tile_builder_form').on('submit', (event) ->

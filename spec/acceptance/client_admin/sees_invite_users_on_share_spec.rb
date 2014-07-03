@@ -224,7 +224,7 @@ feature "Invite Users Modal" do
 #            FakeMixpanelTracker.should have_event_matching('Share - Invitation Sent Confirmation', properties)            
 #          end
 #        end        
-        scenario "pings on clicking twitter icon" do
+        scenario "pings on clicking twitter icon", js: true do
           page.find("#invite_users_send_button").click
           within('#share_link', visible: true) do
             page.find('.twitter').click
