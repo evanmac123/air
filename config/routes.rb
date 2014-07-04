@@ -179,6 +179,7 @@ Health::Application.routes.draw do
         delete 'delete_winner/:user_id' => 'prizes#delete_winner', as: :delete_winner
         get 'repick_winner/:user_id' => 'prizes#repick_winner', as: :repick_winner
         get 'start_new'
+        get 'showed_modal_pop_up'
       end
     end
 

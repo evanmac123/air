@@ -9,10 +9,12 @@
         $(".prize_header .end_date").css("display", "none");
         $(".prize_header").css("text-align", "center");
         showRaffleBox("Prize Period Finished!");
+        prizeModalPing("Saw+Prize+Modal");
       <% elsif raffle.show_start? current_user %>
         if( $("#get_started_lightbox").length == 0 ){ 
         // not display prize and get started box simultaneously
           showRaffleBox("New Raffle!");
+          prizeModalPing("Saw+Prize+Modal");
         }else{
           window.showRaffleAfterLightbox = true;
         }
@@ -28,7 +30,11 @@
     });
     $("#raffle_data").click(function(){
       showRaffleBox("Prize");
+      prizeModalPing("Clicked+Prize+Info");
     });
+    function prizeModalPing(event){
+      $.ajax("/client_admin/prizes/showed_modal_pop_up?event=" + event);
+    }
     function showRaffleBox(header){
       $(".prize_header h1").text(header);
       mq = window.matchMedia( "(min-width: 500px)" );

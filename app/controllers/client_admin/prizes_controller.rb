@@ -71,6 +71,11 @@ class ClientAdmin::PrizesController < ClientAdminBaseController
     end
   end
 
+  def showed_modal_pop_up
+    TrackEvent.ping_action(params[:event], 'Clicked Start', current_user)
+    render nothing: true
+  end
+
   protected
 
   def find_raffle
