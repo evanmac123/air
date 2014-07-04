@@ -134,6 +134,9 @@ class GuestUser < ActiveRecord::Base
       converted_user.add_board(demo_id, true)
       tile_completions.each {|tile_completion| tile_completion.user = converted_user; tile_completion.save!}
       acts.each {|act| act.user = converted_user; act.save!}
+      UserInRaffleInfo.where(user_id: self.id).each do |u_info|
+        u_info.update_attribute(:user_id, converted_user.id)
+      end
       converted_user.send_conversion_email
       converted_user
     else
