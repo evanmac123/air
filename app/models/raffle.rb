@@ -39,7 +39,7 @@ class Raffle < ActiveRecord::Base
 
   def show_finish? user
     user_in_raffle = find_user_in_raffle_info user
-    if finished? && !user_in_raffle.finish_showed
+    if finished? && !user_in_raffle.finish_showed && user_in_raffle.start_showed
       user_in_raffle.update_attributes(start_showed: true, finish_showed: true)
       true
     else
