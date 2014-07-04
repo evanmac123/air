@@ -11,7 +11,7 @@
         showRaffleBox("Prize Period Finished!");
         prizeModalPing("Saw+Prize+Modal");
       <% elsif raffle.show_start? current_user %>
-        if( $("#get_started_lightbox").length == 0 ){ 
+        if( $("#get_started_lightbox").length == 0 && $('#activity-joyride').length == 0 ){ 
         // not display prize and get started box simultaneously
           showRaffleBox("New Raffle!");
           prizeModalPing("Saw+Prize+Modal");
