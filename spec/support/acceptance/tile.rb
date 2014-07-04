@@ -139,8 +139,8 @@ module TileHelpers
     have_tile_image options.merge(count: number)
   end
 
-  def have_num_tile_image_links(num)
-    have_selector 'td a img', count: num
+  def have_num_tile_links(num)
+    have_selector ".tile_link", count: num
   end
  
   def answer_field_selector

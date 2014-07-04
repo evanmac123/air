@@ -1,6 +1,6 @@
 <% tile_url = tile.thumbnail(:email_digest)  # Paperclip returns the full url in staging and production modes %>
 <% tile_url = tile_url.prepend('http://localhost:3000') if (Rails.env.development? or Rails.env.test?) %>
-<%= link_to site_link, link_options.merge({style: "width:100% !important;border:0;margin:0;padding:0;"}) do %>
+<%= link_to site_link, link_options.merge({style: "width:100% !important;border:0;margin:0;padding:0;", class: "tile_link"}) do %>
   <table width="208" align="center" cellpadding="0" cellspacing="0" border="0" class="columnsNoPadding" style="width: 100% !important;">
     <tbody width="208" style="width: 100% !important;">
       <tr>
