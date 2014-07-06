@@ -44,10 +44,24 @@ feature 'User sees progress bars' do
       visit tiles_path(as: @user)
       expect_no_content "New Raffle!"
     end
+    it "ping on first enter to new raffle", js: true do
+      expect_content "New Raffle!"
+      FakeMixpanelTracker.clear_tracked_events
+      crank_dj_clear
+      FakeMixpanelTracker.should have_event_matching("Saw Prize Modal",{ "action" => "Clicked Start"})
+    end
     it "show raffle box on info raffle click", js: true do
       visit tiles_path(as: @user)
       click_raffle_info
       expect_content "Prize"
+    end
+    it "ping on info raffle click", js: true do
+      visit tiles_path(as: @user)
+      click_raffle_info
+      expect_content "Prize"
+      FakeMixpanelTracker.clear_tracked_events
+      crank_dj_clear
+      FakeMixpanelTracker.should have_event_matching("Clicked Prize Info",{"action" => "Clicked Start"})
     end
     it "is encremented after completing tile", js: true do
       visit tiles_path(as: @user)

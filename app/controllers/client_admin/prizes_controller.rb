@@ -1,5 +1,6 @@
 class ClientAdmin::PrizesController < ClientAdminBaseController
   before_filter :find_raffle
+  prepend_before_filter :allow_guest_user
 
   def index
     ping_page("Manage - Prizes", current_user)
@@ -69,11 +70,6 @@ class ClientAdmin::PrizesController < ClientAdminBaseController
     else
       render 'delete_winner'
     end
-  end
-
-  def showed_modal_pop_up
-    TrackEvent.ping_action(params[:event], 'Clicked Start', current_user)
-    render nothing: true
   end
 
   protected
