@@ -725,6 +725,21 @@ describe User, "#move_to_new_demo" do
   end
 end
 
+describe User, "#add_board" do
+  it "should be idempotent, i.e. not create redundant BoardMemberships if called more than once with the same arguments" do
+    user = FactoryGirl.create(:user)
+    user.board_memberships.length.should == 1
+
+    board = FactoryGirl.create(:demo)
+
+    user.add_board(board)
+    user.add_board(board)
+
+    user.board_memberships.length.should == 2
+    user.board_memberships.where(demo_id: board.id).length.should == 1
+  end
+end
+
 describe User, "#credit_referring_user" do
   before :each do
     Twilio::SMS.stubs(:create)

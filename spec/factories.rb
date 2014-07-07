@@ -102,6 +102,10 @@ FactoryGirl.define do
     trait :with_turned_off_onboarding do
       turn_off_admin_onboarding true
     end
+
+    trait :paid do
+      is_paid true
+    end
   end
 
   factory :rule do

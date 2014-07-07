@@ -505,9 +505,14 @@ class User < ActiveRecord::Base
 
   def add_board(board_or_board_id, is_current = false)
     board_id = board_or_board_id.kind_of?(Demo) ? board_or_board_id.id : board_or_board_id
-    return if self.board_memberships.where(demo_id: board_id).present?
+    return if self.in_board?(board_id)
     self.board_memberships.create(demo_id: board_id, is_current: is_current)
     reload
+    schedule_segmentation_update(true)
+  end
+
+  def remove_board(board_or_board_id)
+    RemoveUserFromBoard.new(self, board_or_board_id).remove!
     schedule_segmentation_update(true)
   end
 

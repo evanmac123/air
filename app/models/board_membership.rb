@@ -24,4 +24,12 @@ class BoardMembership < ActiveRecord::Base
   def self.current
     where(is_current: true)
   end
+
+  def self.uncurrent
+    where(is_current: false)
+  end
+
+  def self.most_recently_posted_to
+    includes(:demo).order("demos.tile_last_posted_at DESC")
+  end
 end
