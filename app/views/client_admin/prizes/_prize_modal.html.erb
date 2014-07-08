@@ -35,8 +35,8 @@
     function prizeModalPing(event){
       $.ajax({
         type: "POST",
-        url: "ping",
-        data: {event: event, properties: {action: "Clicked Start"}}
+        url: "/ping",
+        data: { event: event, properties: { action: "Clicked Start"}, public_slug: "<%= params[:public_slug] %>" }
       });
     }
     function showRaffleBox(header){

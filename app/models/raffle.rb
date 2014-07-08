@@ -1,8 +1,8 @@
 class Raffle < ActiveRecord::Base
   belongs_to :demo
   has_many :user_in_raffle_infos, dependent: :destroy
-  has_many :blacklisted_users, through: :user_in_raffle_infos, source: :user, :conditions => "in_blacklist = true"
-  has_many :winners, through: :user_in_raffle_infos, source: :user, :conditions => "is_winner = true"
+  has_many :blacklisted_users, through: :user_in_raffle_infos, source: :user, source_type: "User", :conditions => "in_blacklist = true"
+  has_many :user_winners, through: :user_in_raffle_infos, source: :user, source_type: "User", :conditions => "is_winner = true"
   serialize :prizes, Array
 
   after_initialize :default_values
@@ -18,6 +18,14 @@ class Raffle < ActiveRecord::Base
   validates_presence_of :ends_at, :allow_blank => false, :message => "end date can't be blank"
   validates_presence_of :other_info, :allow_blank => false, :message => "other info can't be blank"
   validate :prizes_presence
+
+  def winners
+    user_winners
+  end
+
+  def blacklisted_participants
+    blacklisted_users
+  end
 
   def live?
     self.status == LIVE && self.starts_at <= Time.now
@@ -56,11 +64,8 @@ class Raffle < ActiveRecord::Base
   end
 
   def pick_winners number, delete_old = winners
-    add_blacklisted_users delete_old
-    blacklist = blacklisted_users.empty? ? -1 : blacklisted_users.pluck(:id)
-    participants = demo.users
-                        .where('user_id not in (?)', blacklist)
-                        .with_some_tickets.order(:tickets)
+    add_blacklisted_participants delete_old
+    participants = user_participants
     return nil if participants.empty?
 
     chances = []
@@ -77,12 +82,19 @@ class Raffle < ActiveRecord::Base
 
       if winners.include? possible_winner
         chances.delete(possible_winner)
-        return nil if chances.empty?
+        break if chances.empty?
       else
         add_winners possible_winner
       end
+      self.reload
     end while winners.count < number
+    self.reload
     winners
+  end
+
+  def user_participants
+    blacklist = blacklisted_users.empty? ? -1 : blacklisted_users.pluck(:id)
+    demo.users.where('user_id not in (?)', blacklist).with_some_tickets.order(:tickets)
   end
 
   def repick_winner old_winner
@@ -113,8 +125,8 @@ class Raffle < ActiveRecord::Base
     UserInRaffleInfo.find_user_in_raffle_info self, user
   end
 
-  def add_blacklisted_users users
-    UserInRaffleInfo.add_blacklisted_users self, users
+  def add_blacklisted_participants users
+    UserInRaffleInfo.add_blacklisted_participants self, users
   end
 
   def add_winners users
