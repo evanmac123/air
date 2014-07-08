@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Raffle do
   it { should have_many(:user_in_raffle_infos) }
-  it { should have_many(:winners) }
+  it { should have_many(:user_winners) }
   it { should have_many(:blacklisted_users) }
 
   describe "#pick_winners" do

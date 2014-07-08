@@ -52,6 +52,7 @@ Health::Application.routes.draw do
   delete 'cancel_phone_verification' => 'users/phone_verification#destroy', :as => 'cancel_phone_verification'
 
   post "ping" => "users/pings#create"
+  post "universal_ping" => "users/pings#create_universal_ping"
   # Override some Clearance routes
   resources :passwords,
     :controller => 'passwords',

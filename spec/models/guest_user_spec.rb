@@ -33,6 +33,17 @@ describe GuestUser do
       converted_user.tickets.should == 456
     end
 
+    it "copies user in raffle information" do
+      raffle1 = FactoryGirl.create(:raffle)
+      user_in_raffle_info1 = FactoryGirl.create(:user_in_raffle_info, user: user, raffle: raffle1)
+      raffle2 = FactoryGirl.create(:raffle)
+      user_in_raffle_info2 = FactoryGirl.create(:user_in_raffle_info, user: user, raffle: raffle2)
+      
+      user.user_in_raffle_infos.should == [user_in_raffle_info1, user_in_raffle_info2]
+      converted_user = convert
+      converted_user.user_in_raffle_infos.pluck(:id).should == [user_in_raffle_info1.id, user_in_raffle_info2.id]
+    end
+
     it "sets the name appropriately" do
       convert.name.should == "Jimmy Smits"
     end

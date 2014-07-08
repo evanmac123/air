@@ -35,7 +35,7 @@
     function prizeModalPing(event){
       $.ajax({
         type: "POST",
-        url: "/ping",
+        url: "/universal_ping",
         data: { event: event, properties: { action: "Clicked Start"}, public_slug: "<%= params[:public_slug] %>" }
       });
     }
