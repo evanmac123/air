@@ -6,9 +6,11 @@
       <% end %>
     </div>
 
-    <div class="large-4 columns reserved_for_controls board_control_icons">
-      <%= link_to fa_icon('pencil'), '#', class: 'edit_board_name_icon' %>
-      reserved for controls
+    <div class="large-4 columns board_control_icons">
+      <% if as_admin %>
+        <%= link_to fa_icon('pencil'), '#', class: 'edit_board_name_icon' %>
+      <% end %>
+      <%= link_to "X", board_membership_path(board), method: :delete, class: 'delete_board_icon' %>
     </div>
   </div>
 

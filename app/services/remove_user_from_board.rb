@@ -6,7 +6,7 @@ class RemoveUserFromBoard
   end
 
   def remove!
-    return unless can_leave_board?
+    return false unless can_leave_board?
 
     BoardMembership.transaction do
       if board_membership_to_leave.is_current?
@@ -17,10 +17,20 @@ class RemoveUserFromBoard
     end
   end
 
+  def error_messages
+    # I decided to name this #error_messages rather than #errors because the
+    # latter might imply that this follows ActiveModel error semantics, which
+    # I don't care for as a rule.
+    @error_messages ||= [].tap do |errors|
+      errors << "you can't leave your last board" unless not_last_board?
+      errors << "you can't leave a paid board" unless board_isnt_paid?
+    end
+  end
+
   protected
 
   def move_user_to_another_board
-    if most_recently_posted_board
+    if most_recently_posted_board.present?
       @user.move_to_new_demo(most_recently_posted_board)
     else
       @user.move_to_new_demo(possible_boards_to_move_into.first)
@@ -32,11 +42,11 @@ class RemoveUserFromBoard
   end
 
   def board_isnt_paid?
-    !(board_membership_to_leave.demo.is_paid)
+    @board_isnt_paid ||= !(board_membership_to_leave.demo.is_paid)
   end
 
   def not_last_board?
-    board_memberships.limit(2).length > 1
+    @not_last_board ||= (board_memberships.limit(2).length > 1)
   end
 
   def board_memberships

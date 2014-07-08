@@ -18,7 +18,7 @@
         </div>
       </div>
       <% boards_as_admin.sort_by(&:name).each do |board| %>
-        <%= render "shared/board_settings_board_name", board: board, as_admin: true %>
+        <%= render "shared/board_settings_single_board", board: board, as_admin: true %>
       <% end %>
     </div>
   <% end %>
@@ -33,7 +33,7 @@
         </div>
       </div>
       <% boards_as_regular_user.sort_by(&:name).each do |board| %>
-        <%= render "shared/board_settings_board_name", board: board, as_admin: false %>
+        <%= render "shared/board_settings_single_board", board: board, as_admin: false %>
       <% end %>
     </div>
   <% end %>
@@ -81,6 +81,9 @@
           controlSection.closest('.board_wrapper').addClass('unfocused');
         }
       )
+    });
+
+    $('.delete_board_icon').click(function(event) {
     });
 
     $('#close_board_settings').click(function(event) {

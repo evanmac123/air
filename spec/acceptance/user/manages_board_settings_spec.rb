@@ -1,21 +1,10 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Manages board settings' do
-  def open_board_settings
-    page.find('#board_settings_toggle').click
-    wait_for_board_modal
-  end
+  include BoardSettingsHelpers
 
   def board_admin_controls_selector
     "#admin_board_controls"
-  end
-
-  def board_regular_user_controls_selector
-    "#user_board_controls"
-  end
-
-  def wait_for_board_modal
-    page.should have_content("Board Settings")
   end
 
   def long_board_name
