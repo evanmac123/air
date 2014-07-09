@@ -1048,8 +1048,8 @@ class User < ActiveRecord::Base
     # onboarding is already turned off
     if self.not_show_onboarding 
       false
-    # onboarding is turned off for board. so turn off it for client admin
-    elsif demo.turn_off_client_admin_onboarding && self.is_client_admin
+    # onboarding is turned off for board. so turn off it for admin
+    elsif demo.turn_off_admin_onboarding && (self.is_client_admin || self.is_site_admin) 
       self.not_show_onboarding = true
       self.get_started_lightbox_displayed = true
       self.displayed_activity_page_admin_guide = true
