@@ -28,6 +28,10 @@ class GuestUser < ActiveRecord::Base
     true
   end
 
+  def show_onboarding?
+    true
+  end
+
   def ping_page(page, additional_properties = {})
     TrackEvent.ping_page(page, additional_properties, self)
   end
