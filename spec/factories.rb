@@ -72,7 +72,7 @@ FactoryGirl.define do
 
   factory :demo do
     sequence(:name) {|n| "Coolio_#{n} Board" }
-
+    
     trait :with_email do
       sequence(:email) {|n| "demo_#{n}@example.com"}
     end
@@ -97,6 +97,10 @@ FactoryGirl.define do
       tiles do
         [FactoryGirl.create(:multiple_choice_tile, status: Tile::ACTIVE, activated_at: Time.now, headline: "Tile #{SecureRandom.uuid}")]
       end
+    end
+
+    trait :with_turned_off_onboarding do
+      turn_off_admin_onboarding true
     end
   end
 
