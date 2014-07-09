@@ -1,6 +1,6 @@
 .row
   .large-12.columns= render partial: 'client_admin/tiles/tiles_tools_subnav'
-- if @demo.non_activated?
+- if @demo.non_activated? && current_user.show_onboarding?
   = render partial: 'shared/lock_screen'
 -else
   %section.share_tools

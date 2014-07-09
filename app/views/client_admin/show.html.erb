@@ -4,7 +4,7 @@
   </div>
 </div>
 
-<% if @demo.non_activated? %>
+<% if @demo.non_activated? && current_user.show_onboarding? %>
   <%= render partial: 'shared/lock_screen' %>
 <% else %>
   <div class="row">
