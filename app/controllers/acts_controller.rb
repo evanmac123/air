@@ -22,13 +22,19 @@ class ActsController < ApplicationController
     @demo                  = current_user.demo
     @acts                  = find_requested_acts(@demo)
 
-    @display_get_started_lightbox = current_user.on_first_login && !(current_user.get_started_lightbox_displayed) && current_user.demo.tiles.active.present?
+    @display_get_started_lightbox = current_user.on_first_login \
+                                && !(current_user.get_started_lightbox_displayed) \
+                                && current_user.demo.tiles.active.present? \
+                                && current_user.show_onboarding?
     if @display_get_started_lightbox
       current_user.get_started_lightbox_displayed = true
       current_user.save
     end
 
-    @display_activity_page_admin_guide = current_user.is_a?(User) && current_user.is_client_admin? && !current_user.displayed_activity_page_admin_guide?
+    @display_activity_page_admin_guide = current_user.is_a?(User) \
+                                      && current_user.is_client_admin? \
+                                      && !current_user.displayed_activity_page_admin_guide? \
+                                      && current_user.show_onboarding?
     if @display_activity_page_admin_guide
       current_user.displayed_activity_page_admin_guide = true
       current_user.save!
