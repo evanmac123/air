@@ -96,7 +96,8 @@ class PagesController < HighVoltage::PagesController
               end
       properties = {has_ever_logged_in: (user ? true : false), \
                     ping_time: Time.new.strftime("%H:%M:%S"), \
-                    url: request.original_url}
+                    url: request.original_url, \
+                    user_type: (user ? user.highest_ranking_user_type : nil)}
       properties.merge!({distinct_id: session[:session_id]}) unless user
       ping_page("Marketing Page", user, properties)
     end
