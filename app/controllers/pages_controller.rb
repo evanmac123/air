@@ -89,8 +89,13 @@ class PagesController < HighVoltage::PagesController
 
   def ping_if_marketing_page
     if page_name == 'welcome'
-      ping_page("Marketing Page", current_user, \
-       {has_ever_logged_in: session[:has_ever_logged_in] ? true : false})
+      user =  if session[:user_id]
+                User.where(id: session[:user_id]).first
+              else
+                User.where(id: session[:guest_user_id]).first
+              end
+      ping_page("Marketing Page", user, \
+       {has_ever_logged_in: (user ? true : false)})
     end
   end
 end

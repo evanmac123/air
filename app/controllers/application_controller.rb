@@ -175,8 +175,14 @@ class ApplicationController < ActionController::Base
 
   def refresh_activity_session(user)
     return if user.nil?
-
-    session[:has_ever_logged_in] = true
+    #session things for marketing page ping
+    if user.is_a? User
+      session[:user_id] = user.id 
+      session[:guest_user_id] = nil
+    elsif user.is_a? GuestUser
+      session[:guest_user_id] = user.id 
+      session[:user_id] = nil
+    end
     
     baseline = user.last_session_activity_at.to_i || 0
     difference = Time.now.to_i - baseline
