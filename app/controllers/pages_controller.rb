@@ -94,8 +94,9 @@ class PagesController < HighVoltage::PagesController
               else
                 User.where(id: session[:guest_user_id]).first
               end
-      ping_page("Marketing Page", user, \
-       {has_ever_logged_in: (user ? true : false)})
+      properties = {has_ever_logged_in: (user ? true : false)}
+      properties.merge!({distinct_id: session[:session_id]}) unless user
+      ping_page("Marketing Page", user, properties)
     end
   end
 end
