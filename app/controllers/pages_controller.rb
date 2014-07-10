@@ -92,7 +92,7 @@ class PagesController < HighVoltage::PagesController
       user =  if session[:user_id]
                 User.where(id: session[:user_id]).first
               else
-                User.where(id: session[:guest_user_id]).first
+                GuestUser.where(id: session[:guest_user_id]).first
               end
       properties = {has_ever_logged_in: (user ? true : false), \
                     ping_time: Time.new.strftime("%H:%M:%S"), \
