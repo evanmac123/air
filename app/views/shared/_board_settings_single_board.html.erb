@@ -10,7 +10,7 @@
       <% if as_admin %>
         <%= link_to fa_icon('pencil'), '#', class: 'edit_board_name_icon' %>
       <% end %>
-      <%= link_to "X", board_membership_path(board), method: :delete, class: 'delete_board_icon' %>
+      <%= link_to "X", '#', {class: 'delete_board_icon', "data-delete_url" => board_membership_path(board.id)} %>
     </div>
   </div>
 

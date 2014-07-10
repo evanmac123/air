@@ -346,11 +346,19 @@ body.explores {
   }
 }
 
-#board_settings {
+@mixin board_settings_modal {
   @include standard_reveal_dimensions;
   width: 60%;
   left: 65%;
   background-color: $white;
+}
+
+#leave_board_safety_modal {
+  @include board_settings_modal;
+}
+
+#board_settings {
+  @include board_settings_modal;
 
   h1 {
     display: inline-block;

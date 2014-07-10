@@ -1,3 +1,24 @@
+<div id="leave_board_safety_modal" class="reveal-modal">
+  <div class="row">
+    <div class="large-11 columns">
+      <h1>DELETE</h1>
+    </div>
+    <div class="large-1 columns">
+      <a id="close_safety_modal" class="large-1" href="#">Close</a>
+    </div>
+  </div>
+  <p>Your account will be permanently deleted from this board.</p>
+  <p>Confirm by typing the word "DELETE" in all caps.</p>
+  <!--<form id="leave_board_form" action='#' method="post">-->
+    <!--<input type="hidden" name="_method" value="delete">-->
+    <!--<input type="submit">-->
+    <!--</form>-->
+  <%= form_tag '#', id: "leave_board_form", method: "delete" do %>
+    <%= text_field_tag '#' %>
+    <%= submit_tag 'Stumbit', disabled: true %>
+  <% end %>
+</div>
+
 <div id="board_settings" class="reveal-modal">
   <div class="row">
     <div class="large-11 columns">
@@ -83,12 +104,32 @@
       )
     });
 
+    $('#leave_board_safety_modal input[type="text"]').on('keyup', function(event) {
+      var submitButton = $('#leave_board_safety_modal input[type="submit"]');
+
+      if($(event.target).val() == 'DELETE') {
+        submitButton.removeAttr('disabled', 'disabled');
+      } else {
+        submitButton.attr('disabled', 'disabled');
+      }
+    });
+
     $('.delete_board_icon').click(function(event) {
+      event.preventDefault();
+
+      var deleteURL = $(event.target).data('delete_url');
+      $('#leave_board_form').attr('action', deleteURL);
+      $('#leave_board_safety_modal').foundation('reveal', 'open');
     });
 
     $('#close_board_settings').click(function(event) {
       event.preventDefault();
       $('#board_settings').foundation('reveal', 'close');
+    });
+
+    $('#close_safety_modal').click(function(event) {
+      event.preventDefault();
+      $('#leave_board_safety_modal').foundation('reveal', 'close');
     });
   <% end %>
 <% end %>
