@@ -12,7 +12,7 @@ module TileBuilderForm
     def set_tile_attributes
       super
       if @parameters.present?
-        @tile.correct_answer_index = correct_answer_index_corrected_for_blanks
+        @tile.correct_answer_index = correct_answer_index_for_blanks_and_duplicates
         @tile.multiple_choice_answers = normalized_answers_from_params
         @tile.points = @parameters[:points].to_i
       end
@@ -26,11 +26,12 @@ module TileBuilderForm
       [tile]
     end
 
-    def correct_answer_index_corrected_for_blanks
+    def correct_answer_index_for_blanks_and_duplicates
       correct_answer_index = correct_answer_index_from_params
       return -1 unless correct_answer_index
-      blanks_preceding_correct_answer = answers_from_params[0, correct_answer_index].count(&:blank?)
-      correct_answer_index - blanks_preceding_correct_answer
+      #blanks_preceding_correct_answer = answers_from_params[0, correct_answer_index].count(&:blank?)
+      #correct_answer_index - blanks_preceding_correct_answer
+      answers_from_params[0, correct_answer_index].reject(&:blank?).uniq.count
     end
 
     def present_answer_marked_as_correct
