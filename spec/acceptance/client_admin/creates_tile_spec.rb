@@ -325,5 +325,38 @@ feature 'Creates tile' do
       page.all(".tile_multiple_choice_answer a")[2].text.should == "Sock"
       page.find(".clicked_right_answer").text.should == "Sock"
     end
+
+    scenario "when i make tile with answer blanks and duplicates it is saved correct", js: true do
+      attach_tile "tile_builder_form[image]", tile_fixture_path('cov1.jpg')
+      fill_in_image_credit "by Society"
+      fill_in "Headline",           with: "Ten pounds of cheese"
+      fill_in "Supporting content", with: "Ten pounds of cheese. Yes? Or no?"
+
+      choose_question_type_and_subtype Tile::QUIZ, Tile::MULTIPLE_CHOICE
+      
+      fill_in_question "Numbers?"
+      click_add_answer
+      fill_in_answer_field 0, "1"
+      fill_in_answer_field 1, "1"
+
+      click_add_answer
+      fill_in_answer_field 2, ""
+
+      click_add_answer
+      fill_in_answer_field 3, ""
+
+      click_add_answer
+      fill_in_answer_field 4, "2"
+      select_correct_answer 4
+
+      click_add_answer
+      fill_in_answer_field 5, "2"
+
+      click_create_button
+
+      tile = Tile.last
+      tile.multiple_choice_answers.should == ["1", "2", "Add Answer Option"]
+      tile.correct_answer_index.should == 1
+    end
   end
 end
