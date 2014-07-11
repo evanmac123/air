@@ -29,9 +29,7 @@ module TileBuilderForm
     def correct_answer_index_for_blanks_and_duplicates
       correct_answer_index = correct_answer_index_from_params
       return -1 unless correct_answer_index
-      #blanks_preceding_correct_answer = answers_from_params[0, correct_answer_index].count(&:blank?)
-      #correct_answer_index - blanks_preceding_correct_answer
-      answers_from_params[0, correct_answer_index].reject(&:blank?).uniq.count
+      answers_from_params[0, correct_answer_index + 1].reject(&:blank?).uniq.count - 1
     end
 
     def present_answer_marked_as_correct
