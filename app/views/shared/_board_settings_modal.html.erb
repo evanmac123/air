@@ -1,21 +1,19 @@
 <div id="leave_board_safety_modal" class="reveal-modal">
   <div class="row">
-    <div class="large-11 columns">
+    <div class="large-10 columns">
       <h1>DELETE</h1>
     </div>
-    <div class="large-1 columns">
-      <a id="close_safety_modal" class="large-1" href="#">Close</a>
+    <div class="large-2 columns">
+      <a id="close_safety_modal" class="large-1" href="#">Cancel</a>
     </div>
   </div>
-  <p>Your account will be permanently deleted from this board.</p>
-  <p>Confirm by typing the word "DELETE" in all caps.</p>
-  <!--<form id="leave_board_form" action='#' method="post">-->
-    <!--<input type="hidden" name="_method" value="delete">-->
-    <!--<input type="submit">-->
-    <!--</form>-->
+
+  <p id="warning_first_part">Your account will be permanently deleted from this board.</p>
+  <p id="warning_second_part">Confirm by typing the word "DELETE" in all caps.</p>
+
   <%= form_tag '#', id: "leave_board_form", method: "delete" do %>
-    <%= text_field_tag '#' %>
-    <%= submit_tag 'Stumbit', disabled: true %>
+    <%= text_field_tag '#', nil, placeholder: "Type \"DELETE\" in all caps" %>
+    <%= submit_tag 'Leave Board', disabled: true %>
   <% end %>
 </div>
 

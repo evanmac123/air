@@ -1,3 +1,5 @@
+@import "../mixins/placeholder_color.css.scss";
+
 /* -- Top bar / header -- */
 header nav {display: block;}
 header nav .row {position: relative;}
@@ -355,6 +357,47 @@ body.explores {
 
 #leave_board_safety_modal {
   @include board_settings_modal;
+
+  h1 {
+    font-size: 18px;
+    color: $red;
+  }
+
+  p {
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  #warning_first_part {
+    font-size: 16px;
+    font-weight: 400;
+    color: $med-gray;
+  }
+
+  #warning_second_part {
+    font-size: 10px;
+    font-weight: 400;
+    color: $text-color;
+    text-transform: uppercase;
+  }
+
+  input[type="text"] {
+    border: solid $med-gray 1px;
+    font-size: 14px;
+    @include placeholder-color($med-gray);
+    color: $text-color;
+    width: 40%;
+    display: inline;
+  }
+
+  input[type="submit"] {
+    display: inline;
+    @include app-button($red);
+
+    &:disabled {
+      @include light-button($light-gray);
+    }
+  }
 }
 
 #board_settings {
