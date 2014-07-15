@@ -2,37 +2,12 @@ require 'acceptance/acceptance_helper'
 
 feature 'Quits free board' do
   include BoardSettingsHelpers
-
-  def last_row_in_board_settings
-    rows_in_board_settings.last
-  end
-
   def last_displayed_board_name
     last_row_in_board_settings.find('.board_name').text
   end
 
-  def rows_in_board_settings
-    within board_regular_user_controls_selector do
-      page.all('.board_wrapper')
-    end
-  end
-
   def expect_no_board_name_in_settings(unexpected_name)
     rows_in_board_settings.any? {|row| row.text.include? unexpected_name}.should be_false
-  end
-
-  def click_last_delete_link
-    within last_row_in_board_settings do
-      page.find('.delete_board_icon').click
-    end
-  end
-
-  def safety_modal_selector
-    "#leave_board_safety_modal"
-  end
-
-  def wait_for_safety_modal
-    page.should have_content("Your account will be permanently deleted from this board.")
   end
 
   def expect_safety_submit_disabled
@@ -44,20 +19,6 @@ feature 'Quits free board' do
   def expect_safety_submit_enabled
     within(safety_modal_selector) do
       page.find('input[type="submit"]')['disabled'].should_not be_present
-    end
-  end
-
-  def fill_in_safety_text_field(text)
-    within(safety_modal_selector) do
-      page.find('input[type=text]').set(text)
-    end
-  end
-
-  def complete_safety_modal
-    wait_for_safety_modal
-    fill_in_safety_text_field('DELETE')
-    within(safety_modal_selector) do
-      page.find('input[type=submit]').click
     end
   end
 
@@ -99,7 +60,5 @@ feature 'Quits free board' do
       fill_in_safety_text_field 'DELETE'
       expect_safety_submit_enabled
     end
-
-    it "should have a (working) close button"
   end
 end

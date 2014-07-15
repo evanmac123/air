@@ -8,7 +8,13 @@
     </div>
   </div>
 
-  <p id="warning_first_part">Your account will be permanently deleted from this board.</p>
+  <p id="warning_first_part">
+    <% if has_only_one_board %>
+      Your account will be permanently deleted from Airbo.
+    <% else %>
+      Your account will be permanently deleted from this board.
+    <% end %>
+  </p>
   <p id="warning_second_part">Confirm by typing the word "DELETE" in all caps.</p>
 
   <%= form_tag '#', id: "leave_board_form", method: "delete" do %>

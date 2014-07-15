@@ -1112,6 +1112,14 @@ class User < ActiveRecord::Base
     end
   end
 
+  def has_only_one_board?
+    demos.limit(2).length == 1
+  end
+
+  def has_only_board?(board)
+    demos == [board]
+  end
+
   protected
 
   def downcase_email
