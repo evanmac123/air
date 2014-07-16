@@ -149,10 +149,6 @@ shared_examples_for "editing a tile" do
 end
 
 feature "Client admin edits tile" do
-  before do
-    $rollout.activate(:public_tile)
-  end
-
   def fill_in_fields
     fill_in_image_credit "by Me"
     fill_in "Headline",           with: "Ten pounds of cheese"

@@ -23,10 +23,6 @@ describe 'Digest email' do
     demo.digest_tiles(nil).pluck(:id)
   end
 
-  before do
-    $rollout.activate(:new_digest_email)
-  end
-
   describe 'Delivery' do
     subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, 'New Tiles', false, nil) }
 

@@ -9,7 +9,6 @@ feature 'Creates tile' do
   end
     
   before do
-    $rollout.activate_user(:public_tile, client_admin)
     visit new_client_admin_tile_path(as: client_admin)
     choose_question_type_and_subtype Tile::QUIZ, Tile::MULTIPLE_CHOICE
   end

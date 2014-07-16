@@ -2,7 +2,6 @@ require 'acceptance/acceptance_helper'
 
 feature 'Tags tile' do
   before do
-    $rollout.activate(:public_tile)
     @client_admin = FactoryGirl.create(:client_admin)
   end
 

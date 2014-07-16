@@ -33,7 +33,6 @@ class ClientAdmin::UsersInvitesController < ClientAdminBaseController
     end
     @invitation_url = @user.claimed? ? nil : invitation_url(@user.invitation_code, protocol: email_link_protocol, host: email_link_host)    
     @is_preview = true
-    @new_digest_email = true
     render 'tiles_digest_mailer/notify_one', :layout => false
   end
 end

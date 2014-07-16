@@ -103,7 +103,7 @@ feature 'In multiple boards appears present in all at once' do
 
       open_email(@user.email)
       current_email.html_part.body.should include(first_tile_headline(@first_board))
-      visit_in_email "View your tiles"
+      visit_in_email "Your New Tiles Are Here!"
       should_be_on activity_path
       expect_current_board_header @first_board
 
@@ -115,7 +115,7 @@ feature 'In multiple boards appears present in all at once' do
 
       open_email(@user.email)
       current_email.html_part.body.should include(first_tile_headline(@second_board))
-      visit_in_email "View your tiles"
+      visit_in_email "Your New Tiles Are Here!"
       should_be_on activity_path
       expect_current_board_header @second_board
     end
