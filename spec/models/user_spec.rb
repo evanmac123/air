@@ -1119,3 +1119,17 @@ describe User, "#flush_tickets_in_board" do
     end
   end
 end
+
+describe User, "#not_in_any_paid_boards?" do
+  it "returns what you'd think" do
+    user = FactoryGirl.create(:user)
+    user.not_in_any_paid_boards?.should be_true
+
+    user.demo.update_attributes(is_paid: true)
+    user.not_in_any_paid_boards?.should be_false
+
+    user.demo.update_attributes(is_paid: false)
+    user.add_board(FactoryGirl.create(:demo, :paid))
+    user.not_in_any_paid_boards?.should be_false
+  end
+end

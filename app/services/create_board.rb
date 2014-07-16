@@ -1,4 +1,4 @@
-class BoardCreator
+class CreateBoard
   include NormalizeBoardName
 
   def initialize(board_name)

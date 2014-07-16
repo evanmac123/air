@@ -37,7 +37,7 @@ class BoardsController < ApplicationController
     authorize
     return if response.redirect? # auth failed
 
-    board_creator = BoardCreator.new(params[:board_name])
+    board_creator = CreateBoard.new(params[:board_name])
     if board_creator.create
       board = board_creator.board
       current_user.add_board(board)
@@ -54,7 +54,7 @@ class BoardsController < ApplicationController
     # If you value your sanity, you won't read much further.
     #
     # Though the situation here is better than it was since extracting the
-    # BoardCreator service object.
+    # CreateBoard service object.
     
     board_saved_successfully = nil
     user_saved_successfully = nil
@@ -62,7 +62,7 @@ class BoardsController < ApplicationController
     original_board_name = params[:board][:name]
 
     Demo.transaction do
-      board_creator = BoardCreator.new(original_board_name)
+      board_creator = CreateBoard.new(original_board_name)
       board_saved_successfully = board_creator.create
       @board = board_creator.board
 

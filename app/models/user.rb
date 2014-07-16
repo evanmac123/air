@@ -1120,6 +1120,10 @@ class User < ActiveRecord::Base
     demos == [board]
   end
 
+  def not_in_any_paid_boards?
+    demos.where(is_paid: true).first.nil?
+  end
+
   protected
 
   def downcase_email
