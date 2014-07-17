@@ -176,8 +176,8 @@ body.tiles.tiles-index {
       &:after {@include clear;}
       .earnable_points {
         @include font-bold;
-        background: $orange;
-        @include light-to-color-gradient($orange, 10%);
+        background: $sky-blue;
+        @include light-to-color-gradient($sky-blue, 10%);
         border: {
           style:solid;
           color:$light-gray;
@@ -186,7 +186,6 @@ body.tiles.tiles-index {
           top:{width:0}
           bottom:{width:0}
         }
-        box-shadow: inset 0px 1px 1px 1px lighten($orange, 10%);
         color:$white;
         display: inline-block;
         height:47px;
@@ -233,7 +232,7 @@ body.tiles.tiles-index {
         &.clicked_wrong {
           background:darken($light-gray, 10%);
           border-color:$light-gray;
-          color:$red;
+          color:$med-gray;
           text-decoration: line-through!important;
         }
       }
@@ -264,7 +263,7 @@ body.tiles.tiles-index {
 }
 
 .clicked_right_answer {
-  background: $dark-green !important;
+  background: $sky-blue !important;
   @include font-semibold;
   color:$white;
   display: block;
