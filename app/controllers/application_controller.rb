@@ -147,29 +147,8 @@ class ApplicationController < ActionController::Base
     end
 
     if guest_user_allowed? && params[:public_slug] 
-      demo = Demo.public_board_by_public_slug(params[:public_slug])
-      unless demo
-        public_board_not_found
-        return
-      end
-
-      if current_user.nil?
-        session[:guest_user] = {demo_id: demo.id}
-        refresh_activity_session(current_user)
-        return
-      else
-        unless current_user.demos.include? demo
-          current_user.add_board demo
-          current_user.move_to_new_demo demo
-          current_user.get_started_lightbox_displayed = false
-          current_user.session_count = 1
-          current_user.save
-          flash[:success] = "You've now joined the #{demo.name} board!"
-        else
-          current_user.move_to_new_demo demo
-        end
-        redirect_to activity_path
-      end
+      authorize_to_public_board
+      return
     end
 
     authenticate_without_game_begun_check
@@ -186,6 +165,31 @@ class ApplicationController < ActionController::Base
     if game_locked?
       render "shared/website_locked"
       return
+    end
+  end
+
+  def authorize_to_public_board
+    demo = Demo.public_board_by_public_slug(params[:public_slug])
+    unless demo
+      public_board_not_found
+      return
+    end
+
+    if current_user.nil?
+      session[:guest_user] = {demo_id: demo.id}
+      refresh_activity_session(current_user)
+    else
+      if current_user.demos.include? demo
+        current_user.move_to_new_demo demo
+      else
+        current_user.add_board demo
+        current_user.move_to_new_demo demo
+        current_user.get_started_lightbox_displayed = false
+        current_user.session_count = 1
+        current_user.save
+        flash[:success] = "You've now joined the #{demo.name} board!"
+      end
+      redirect_to activity_path
     end
   end
 
