@@ -21,8 +21,7 @@ class BoardsController < ApplicationController
       return
     end
 
-    new_name = normalize_board_name(params[:board_name])
-    board.name = new_name unless (new_name =~ /\.\.\. Board$/)
+    board.name = normalize_board_name(params[:board_name])
 
     if board.save
       render json: {success: true}
