@@ -16,11 +16,20 @@ feature 'Signed-in user going to a public board' do
     @user.reload.demo.should == @board
   end
 
+  it "should see flash message" do
+    expect_content "You've now joined the #{@board.name} board!" 
+  end
+
   it "should be redirected to activity page of his board when he visits it" do
     visit public_board_path(@users_board.public_slug)
     @user.reload.demo.should == @users_board
 
     visit public_board_path(@users_board.public_slug)
     @user.reload.demo.should == @users_board
+  end
+
+  it "should see flash message" do
+    visit public_board_path(@users_board.public_slug)
+    expect_no_content "You've now joined the #{@users_board.name} board!" 
   end
 end
