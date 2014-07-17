@@ -147,11 +147,20 @@ class ApplicationController < ActionController::Base
     end
 
     if guest_user_allowed? && params[:public_slug] 
+      demo = Demo.public_board_by_public_slug(params[:public_slug])
+      unless demo
+        public_board_not_found
+        return
+      end
+
       if current_user.nil?
-        login_as_guest(params[:public_slug])
+        session[:guest_user] = {demo_id: demo.id}
         refresh_activity_session(current_user)
         return
       else
+        current_user.add_board demo
+        current_user.move_to_new_demo demo
+        flash[:success] = "You've now joined the #{demo.name} board!"
         redirect_to activity_path
       end
     end
@@ -197,16 +206,6 @@ class ApplicationController < ActionController::Base
 
   def claimed_guest_user
     GuestUser.find(session[:guest_user][:id])
-  end
-
-  def login_as_guest(public_slug)
-    demo = Demo.public_board_by_public_slug(public_slug)
-    if demo
-      session[:guest_user] = {demo_id: demo.id}
-    else
-      public_board_not_found
-      return
-    end
   end
 
   def public_board_not_found
