@@ -164,10 +164,10 @@ class ApplicationController < ActionController::Base
           current_user.get_started_lightbox_displayed = false
           current_user.session_count = 1
           current_user.save
+          flash[:success] = "You've now joined the #{demo.name} board!"
         else
           current_user.move_to_new_demo demo
         end
-        flash[:success] = "You've now joined the #{demo.name} board!"
         redirect_to activity_path
       end
     end
