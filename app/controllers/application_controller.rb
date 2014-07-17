@@ -158,8 +158,15 @@ class ApplicationController < ActionController::Base
         refresh_activity_session(current_user)
         return
       else
-        current_user.add_board demo
-        current_user.move_to_new_demo demo
+        unless current_user.demos.include? demo
+          current_user.add_board demo
+          current_user.move_to_new_demo demo
+          current_user.get_started_lightbox_displayed = false
+          current_user.session_count = 1
+          current_user.save
+        else
+          current_user.move_to_new_demo demo
+        end
         flash[:success] = "You've now joined the #{demo.name} board!"
         redirect_to activity_path
       end
