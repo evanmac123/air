@@ -390,9 +390,6 @@ body.client_admin-tiles-update {
       &:after{@include clear;}
     }
     #add-answer-link {@include app-button($med-gray);}
-    .clicked_right_answer{
-      border-color: $dark-green !important;
-    }
     .after_answers {
       padding-bottom: 1.1em;
       position: absolute;

@@ -267,6 +267,7 @@ body.tiles.tiles-index {
 
 .clicked_right_answer {
   background: $sky-blue !important;
+  border-color: $sky-blue !important;
   @include font-semibold;
   color:$white;
   display: block;

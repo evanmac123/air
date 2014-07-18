@@ -79,7 +79,7 @@ var pointCounter = function() {
 }
 
 var highlightEarnablePoints = function() {
-  $('.earnable_points').addClass("count_down");//css('background', '#4FAA60').css('box-shadow', 'none');
+  $('.earnable_points').addClass("count_down");
 }
 
 var tileCompletedPreloadAnimations = function() {
