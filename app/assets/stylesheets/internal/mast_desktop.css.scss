@@ -1,4 +1,8 @@
-@import "../mixins/placeholder_color.css.scss";
+@import "mixins/placeholder_color";
+@import "vendor/foundation/_variables";
+@import "vendor/foundation/_global";
+@import "vendor/foundation/_switch";
+@import "mixins/green_paddle_switch";
 
 /* -- Top bar / header -- */
 header nav {display: block;}
@@ -348,6 +352,9 @@ body.explores {
   }
 }
 
+
+
+/* Board settings modal, and friends */
 @mixin board_settings_modal {
   @include standard_reveal_dimensions;
   width: 60%;
@@ -469,5 +476,14 @@ body.explores {
   #user_board_controls.with_divider {
     border-top: solid $light-gray 1px;
     padding-top: 1em;
+  }
+
+  .switch{
+    @include green-paddle-switch;
+
+    span.green-paddle {
+      width: 20px;
+      height: 20px;
+    }
   }
 }
