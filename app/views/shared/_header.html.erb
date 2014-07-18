@@ -87,9 +87,17 @@
           </div>        
         <% end %>
       </nav> <!-- end of off canvas -->
-    <% end %>
 
-    <% if current_user.is_guest? %>
+      <!-- start of new admin navigation that needs to be gated off later -->
+      <div class="large-5 columns" id="user_info">
+        <div id="me_toggle">
+          <div class="shadow_overlay"></div>
+          <%= default_avatar_tag current_user, :id => :top_avatar, :class => "avatar48" %>
+        </div>
+      </div>
+
+
+    <% else # current_user.is_guest? == true %>
       <% guest_user_header_button_style = show_save_progress_button ? '' : 'display: none' %>
       <div id="save_progress" class="large-4 columns" style="<%= guest_user_header_button_style %>">
         <a href="#" id="save_progress_button" class="open_save_progress_form">Save Progress</a>
@@ -101,17 +109,11 @@
         <% end %>
       </div>
     <% end %>
-
-<!-- start of new admin navigation that needs to be gated off later -->
-    <div class="large-5 columns" id="user_info">
-      <div id="me_toggle">
-        <div class="shadow_overlay"></div>
-        <%= default_avatar_tag current_user, :id => :top_avatar, :class => "avatar48" %>
-      </div>
-    </div>
-      
+     
   </div> <!-- end of topbar -->
 
-  <div id="small-toggle" class="off-canvas-toggle"><a href="#side-nav" class="small_cap">MENU</a></div>
+  <% unless current_user.is_guest? %>
+    <div id="small-toggle" class="off-canvas-toggle"><a href="#side-nav" class="small_cap">MENU</a></div>
+  <% end %>
 
 </header>
