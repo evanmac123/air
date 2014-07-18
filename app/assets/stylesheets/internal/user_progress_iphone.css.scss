@@ -115,6 +115,7 @@ body.tiles-index, body.acts-index{
     }
     #tile_section, #total_section{
       overflow: hidden;
+      box-shadow: #E2E8F3 0px 1px 0px;
     }
     #total_section{
       width: 4rem;
@@ -142,7 +143,6 @@ body.tiles-index, body.acts-index{
       float: none;
       width: auto;
       overflow: hidden;
-      //background: #e2e7ef;
       #tile_progress_bar{
         float: none;
         width: auto;

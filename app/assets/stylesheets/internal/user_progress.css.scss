@@ -121,7 +121,6 @@ body.tiles-index, body.acts-index{
       background: $white;
       height: 2.2rem;
       overflow: hidden;
-      box-shadow: #B3B3B3 0px 0px 1px 1px;
     }
     #total_section{
       width: 8rem;
@@ -153,7 +152,6 @@ body.tiles-index, body.acts-index{
       background: #e2e7ef;
       #tile_header{
         padding-top: 1.1em;
-        //text-align: center;
       }
       #tile_progress_bar{
         float: none;
@@ -163,7 +161,7 @@ body.tiles-index, body.acts-index{
         font-size: 18px;
         border-radius: 0;
         margin: 0;
-        box-shadow: #C0CADB 0px 1px 0px inset;
+        //box-shadow: #C0CADB 0px 1px 0px inset;
         #all_tiles{
           float: right;
           height: 2.2rem;
