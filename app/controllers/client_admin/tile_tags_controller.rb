@@ -16,7 +16,7 @@ class ClientAdmin::TileTagsController < ClientAdminBaseController
   protected
 
   def normalized_title
-    params[:term].strip.gsub(/\s+/, ' ')#.split.map(&:capitalize).join(' ')
+    params[:term].strip.gsub(/\s+/, ' ')
   end
   
   def search_results_as_json

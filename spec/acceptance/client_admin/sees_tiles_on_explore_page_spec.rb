@@ -103,6 +103,17 @@ feature 'Sees tiles on explore page' do
       %w(Nope None Nil).each {|title| expect_no_content title}
     end
 
+    it "truncate long tags on the explore page" do
+      %w(Spam FishCheeseGroatsBouillabasePotato).each do |title|
+        tag = FactoryGirl.create(:tile_tag, title: title)
+        tile = FactoryGirl.create(:tile, :public, status: Tile::ACTIVE)
+        tile.tile_tags << tag
+      end
+
+      visit explore_path(as: a_client_admin)
+      %w(Spam FishCheeseGroatsBouillab...).each {|title| expect_content title}
+    end
+
     context "when a tag is clicked" do
       before do
         @tag_to_click = FactoryGirl.create(:tile_tag, title: "Click me")
