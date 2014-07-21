@@ -114,7 +114,7 @@ feature 'Tags tile' do
     fill_in_valid_form_entries({tile_tag_title: "   i   am     dumb        "}, true)
     find('.tile_tags > li > .fa-times')
     click_create_button
-    TileTag.last.title.should eq "I Am Dumb"
+    TileTag.last.title.should eq "i am dumb"
   end
 
   it "does not let a duplicate tag be created", js: true do

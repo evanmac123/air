@@ -218,7 +218,7 @@ module TileHelpers
   end
   
   def normalized_tag(tag)
-    tag.strip.gsub(/\s+/, ' ').split(' ').map(&:capitalize).join(' ')    
+    tag.strip.gsub(/\s+/, ' ')
   end
   def add_new_tile_tag(tag)
     field = 'add-tag'

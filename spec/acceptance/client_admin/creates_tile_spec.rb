@@ -31,7 +31,7 @@ feature 'Creates tile' do
     scenario "tag is displayed after adding and is removable", js: true do
       click_make_public
       add_new_tile_tag('random tag')
-      find('.tile_tags > li').should have_content('Random Tag')
+      find('.tile_tags > li').should have_content('random tag')
 
       find('.tile_tags > li > .fa-times').click
       page.should_not have_content('Random Tag')
@@ -50,7 +50,7 @@ feature 'Creates tile' do
       page.status_code.should be(200)
       demo.tiles.reload.should have(1).tile
       new_tile = Tile.last
-      new_tile.tile_tags.reload.where(title: 'Start Tag').should_not be_empty
+      new_tile.tile_tags.reload.where(title: 'Start tag').should_not be_empty
 #      new_tile.tile_tags.reload.where(title: 'First tag added').should_not be_empty
 #      new_tile.tile_tags.reload.where(title: 'Second tag added').should_not be_empty
     end

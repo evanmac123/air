@@ -126,10 +126,10 @@ shared_examples_for "editing a tile" do
     scenario "tag is displayed after adding and is removable", js: true do
       find('#share_on').click
       add_new_tile_tag('removable tag')
-      find('.tile_tags > li').should have_content('Removable Tag')
+      find('.tile_tags > li').should have_content('removable tag')
 
       find('.tile_tags > li > .fa-times').click
-      page.should_not have_content('Removable Tag')
+      page.should_not have_content('removable tag')
      
       page.should_not have_css('.tile_tags > li')
       click_update_button
@@ -142,7 +142,7 @@ shared_examples_for "editing a tile" do
       #TODO check if it should be removed
 #      add_new_tile_tag('second tag')
       click_update_button
-      @tile.tile_tags.reload.where(title: 'First Tag').should_not be_empty
+      @tile.tile_tags.reload.where(title: 'first tag').should_not be_empty
 #      @tile.tile_tags.where(title: 'Second Tag').should_not be_empty
     end    
   end  
