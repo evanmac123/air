@@ -16,7 +16,13 @@ body.settings {
     .avatar_inputs {
         padding:0 0 0 1em;
         width:80%;
-        .set-avatar {margin:0 0 1em 0;}
+        .set-avatar {
+          margin:0 0 1em 0;
+          display: inline;
+        }
+        .clear-avatar {
+          display: inline;
+        }
         input[type="file"] {margin-bottom:1em; width:80%;}
         input[type="submit"].clear {@include app-button($light-gray);}
     }
