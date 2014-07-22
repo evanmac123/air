@@ -68,4 +68,10 @@ function bindBoardSettingsControls() {
     event.preventDefault();
     $('#leave_board_safety_modal').foundation('reveal', 'close');
   });
+
+  $('.followup_off, .followup_on').change(function(event) {
+    var muteURL = $(this).data('mute_url');
+    var muteStatus = $(this).val();
+    $.post(muteURL, {_method: 'PUT', status: muteStatus});
+  });
 }

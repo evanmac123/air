@@ -38,7 +38,8 @@ class TilesDigestMailer < ActionMailer::Base
     user_ids = followup.demo.users_for_digest(followup.unclaimed_users_also_get_digest).pluck(:id)
 
     user_ids.reject! { |user_id| TileCompletion.user_completed_any_tiles?(user_id, tile_ids)}
-    user_ids.each    { |user_id| TilesDigestMailer.delay.notify_one(followup.demo.id, user_id, tile_ids, subject, true, nil) }
+    user_ids.reject! { |user_id| BoardMembership.where(demo_id: followup.demo_id, user_id: user_id, followup_muted: true).first.present? }
+    user_ids.each    { |user_id| TilesDigestMailer.delay.notify_one(followup.demo.id, user_id, tile_ids, "Don't Miss Your New Tiles", true, nil) }
 
     followup.destroy
   end

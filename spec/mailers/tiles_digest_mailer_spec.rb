@@ -193,7 +193,7 @@ describe 'Digest email tile order' do
   end
 end
 
-describe 'Follow-up digest email' do
+describe '#notify_all_follow_up' do
   it 'should be delivered to the appropriate people' do
     demo = FactoryGirl.create :demo
 
@@ -226,36 +226,20 @@ describe 'Follow-up digest email' do
     TilesDigestMailer.notify_all_follow_up follow_up.id
   end
 
-  context "when a custom subject was used in the original digest" do
-    it "should base the subject on that" do
-      custom_original_digest_subject = "Et tu, Brute?"
+  it 'should not send to a user with followups muted' do
+    unmuted_user = FactoryGirl.create(:user, :claimed)
+    muted_user   = FactoryGirl.create(:user, :claimed)
+    followup_board = FactoryGirl.create(:demo)
+    [unmuted_user, muted_user].each {|user| user.add_board(followup_board)}
+    muted_user.board_memberships.where(demo_id: followup_board.id).first.update_attributes(followup_muted: true)
 
-      user = FactoryGirl.create(:claimed_user)
-      user.email.should be_present
+    follow_up = FactoryGirl.create :follow_up_digest_email, demo: followup_board, tile_ids: [], send_on: Date.today
 
-      tile_ids = [FactoryGirl.create(:tile, demo: user.demo)]
-      follow_up = FactoryGirl.create :follow_up_digest_email, demo: user.demo, tile_ids: tile_ids, send_on: Date.today, original_digest_subject: custom_original_digest_subject
+    TilesDigestMailer.notify_all_follow_up follow_up.id
+    crank_dj_clear
 
-      TilesDigestMailer.notify_all_follow_up follow_up.id
-
-      open_email(user.email)
-      current_email.subject.should == "Don't Miss: #{custom_original_digest_subject}"
-    end
-  end
-
-  context "when the default subject was used in the original digest" do
-    it "should use a reasonable default subject" do
-      user = FactoryGirl.create(:claimed_user)
-      user.email.should be_present
-
-      tile_ids = [FactoryGirl.create(:tile, demo: user.demo)]
-      follow_up = FactoryGirl.create :follow_up_digest_email, demo: user.demo, tile_ids: tile_ids, send_on: Date.today, original_digest_subject: nil
-
-      TilesDigestMailer.notify_all_follow_up follow_up.id
-
-      open_email(user.email)
-      current_email.subject.should == "Don't Miss Your New Tiles"
-    end
+    ActionMailer::Base.deliveries.should have(1).followups
+    ActionMailer::Base.deliveries.map(&:to).flatten.first.should == unmuted_user.email
   end
 end
 
