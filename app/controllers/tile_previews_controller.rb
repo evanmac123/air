@@ -1,8 +1,17 @@
-class TilePreviewsController < ClientAdminBaseController
+class TilePreviewsController < ApplicationController
+  #must_be_authorized_to :client_admin
+  #skip_before_filter :authorize
+  skip_before_filter :authorize
+  before_filter :allow_guest_user
+
+  layout "client_admin_layout"
+
   def show
+    authorize
     @tile = Tile.viewable_in_public.where(id: params[:id]).first
     @tag = TileTag.where(id: params[:tag]).first
     schedule_mixpanel_pings @tile
+    current_user.demo ||= @tile.demo
   end
 
   protected

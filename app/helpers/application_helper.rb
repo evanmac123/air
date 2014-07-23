@@ -147,4 +147,19 @@ module ApplicationHelper
       params[:public_slug] ? public_tile_path(params[:public_slug], tile) : tile_path(tile)
     end
   end
+
+  def activity_link()
+    if guest_for_tile_preview?
+      nil
+    elsif current_user.is_guest?
+      public_activity_path(current_user.demo.public_slug)
+    else
+      activity_path
+    end
+  end
+
+  def guest_for_tile_preview?
+    params[:controller] == "tile_previews" \
+      && (current_user.nil? || current_user.is_guest? || current_user.role == "User")
+  end
 end

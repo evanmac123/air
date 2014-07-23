@@ -151,6 +151,13 @@ class ApplicationController < ActionController::Base
       return
     end
 
+    if guest_for_tile_preview?
+      unless current_user
+        @_guest_user = find_or_create_guest_user
+      end
+      return
+    end
+
     authenticate_without_game_begun_check
     refresh_activity_session(current_user)
 
@@ -215,6 +222,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def guest_for_tile_preview?
+    params[:controller] == "tile_previews" \
+      && (current_user.nil? || current_user.is_guest? || current_user.role == "User")
+  end
+
   def claimed_guest_user
     GuestUser.find(session[:guest_user][:id])
   end
@@ -232,6 +244,8 @@ class ApplicationController < ActionController::Base
 
     if logged_in_as_guest?
       @_guest_user ||= find_or_create_guest_user
+      @_guest_user
+    elsif params[:controller] == "tile_previews"
       @_guest_user
     else
       nil
@@ -358,6 +372,7 @@ class ApplicationController < ActionController::Base
   end
 
   def find_or_create_guest_user
+    session[:guest_user] ||= {}
     if session[:guest_user][:id].present?
       guest_user = GuestUser.find(session[:guest_user][:id])
       if params[:public_slug]

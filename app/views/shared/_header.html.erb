@@ -1,7 +1,7 @@
 <header>
   <div class="row" id="top_bar">
 
-    <% _activity_path = current_user.is_guest? ? public_activity_path(current_user.demo.public_slug) : activity_path %>
+    <% _activity_path = activity_link %>
     <div class="large-2 columns" id="logo">
       <a href="<%= _activity_path %>"><%= image_tag skinned('logo_url', "logo.png") %></a>
     </div>

@@ -191,4 +191,12 @@ class GuestUser < ActiveRecord::Base
   def not_show_all_completed_tiles_in_progress
     User::TileProgressCalculator.new(self).not_show_all_completed_tiles_in_progress
   end
+
+  def likes_tile?(tile)
+    nil
+  end
+
+  def copied_tile?(tile)
+    nil
+  end
 end
