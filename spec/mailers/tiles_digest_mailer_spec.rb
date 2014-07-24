@@ -193,6 +193,23 @@ describe 'Digest email tile order' do
   end
 end
 
+describe '#notify_all' do
+  it 'should not send to a user with digests muted' do
+    demo = FactoryGirl.create(:demo)
+    user = FactoryGirl.create(:user)
+    user.add_board(demo)
+    user.board_memberships.find_by_demo_id(demo.id).update_attributes(digest_muted: true)
+
+    crank_dj_clear
+    ActionMailer::Base.deliveries.clear
+
+    TilesDigestMailer.notify_all(demo, true, [], "a custom message")
+    crank_dj_clear
+
+    ActionMailer::Base.deliveries.should be_empty
+  end
+end
+
 describe '#notify_all_follow_up' do
   it 'should be delivered to the appropriate people' do
     demo = FactoryGirl.create :demo

@@ -63,6 +63,4 @@ feature 'Mutes emails from board management modal' do
 
   scenario 'mutes both original and followup with a slider'
   scenario 'unmutes original with a slider'
-
-  scenario 'digest mutes are actually respected when we send emails'
 end

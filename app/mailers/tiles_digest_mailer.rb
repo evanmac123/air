@@ -23,7 +23,8 @@ class TilesDigestMailer < ActionMailer::Base
   def notify_all(demo, unclaimed_users_also_get_digest, tile_ids, custom_message, subject)
     user_ids = demo.users_for_digest(unclaimed_users_also_get_digest).pluck(:id)
 
-    user_ids.each { |user_id| TilesDigestMailer.delay.notify_one(demo.id, user_id, tile_ids, subject, false, custom_message) }
+    user_ids.reject! { |user_id| BoardMembership.where(demo_id: demo.id, user_id: user_id, digest_muted: true).first.present? }
+    user_ids.each { |user_id| TilesDigestMailer.delay.notify_one(demo.id, user_id, tile_ids, 'New Tiles', false, custom_message) }
   end
 
   def notify_all_follow_up(followup_id)
