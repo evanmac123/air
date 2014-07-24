@@ -1,0 +1,6 @@
+<div class="switch small round <%= email_type %>_wrapper <%= 'disabled' if disabled %>">
+  <% radio_button_name = "mute_#{email_type}_#{board_id}" %>
+  <%= radio_button_tag radio_button_name, false, !original_setting, {class: "#{email_type}_unmute", disabled: disabled, "data-mute_url" => mute_url} %>
+  <%= radio_button_tag radio_button_name, true, original_setting, {class: "#{email_type}_mute", disabled: disabled, "data-mute_url" => mute_url} %>
+  <span class="green-paddle"></span>
+</div>

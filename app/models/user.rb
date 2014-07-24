@@ -1116,6 +1116,14 @@ class User < ActiveRecord::Base
     demos.limit(2).length == 1
   end
 
+  def muted_digest_boards
+    self.board_memberships.where(digest_muted: true).map(&:demo)
+  end
+
+  def muted_followup_boards
+    self.board_memberships.where(followup_muted: true).map(&:demo)
+  end
+
   def has_only_board?(board)
     demos == [board]
   end

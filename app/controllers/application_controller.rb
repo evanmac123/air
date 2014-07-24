@@ -449,5 +449,7 @@ class ApplicationController < ActionController::Base
     @boards_as_admin = current_user.boards_as_admin
     @boards_as_regular_user = current_user.boards_as_regular_user
     @has_only_one_board = current_user.has_only_one_board?
+    @muted_followup_boards = current_user.muted_followup_boards
+    @muted_digest_boards = current_user.muted_digest_boards
   end
 end

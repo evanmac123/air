@@ -58,7 +58,7 @@
         </div>
       </div>
       <% boards_as_regular_user.sort_by(&:name).each do |board| %>
-        <%= render "shared/board_settings_single_board", board: board, as_admin: false %>
+        <%= render "shared/board_settings_single_board", board: board, as_admin: false, followup_is_muted: @muted_followup_boards.include?(board), digest_is_muted: @muted_digest_boards.include?(board)  %>
       <% end %>
     </div>
   <% end %>
