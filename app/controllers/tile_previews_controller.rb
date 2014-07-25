@@ -7,11 +7,14 @@ class TilePreviewsController < ApplicationController
   layout "client_admin_layout"
 
   def show
-    authorize
     @tile = Tile.viewable_in_public.where(id: params[:id]).first
     @tag = TileTag.where(id: params[:tag]).first
+
+    session[:guest_user] ||= {demo_id: @tile.demo.id}
+    #authorize
+
     schedule_mixpanel_pings @tile
-    current_user.demo ||= @tile.demo
+    #current_user.demo ||= @tile.demo
   end
 
   protected

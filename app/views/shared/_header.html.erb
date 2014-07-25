@@ -8,7 +8,7 @@
 
     <%# If we don't need the guest user controls, steal their space for the 
     navigation, so we can use it for the current board. %>
-    <% unless current_user.is_guest? || guest_for_tile_preview? %>
+    <% unless current_user.is_guest? %>
       <nav id="navigation" class="columns large-5"> <!-- offcanvas menu -->
         <div class="user_options">
           <ul>
@@ -108,8 +108,7 @@
       </div>
     <% end %>
   </div> <!-- end of topbar -->
-
-  <% unless current_user.is_guest? || guest_for_tile_preview? %>
+  <% unless current_user.is_guest? %>
     <div id="small-toggle" class="off-canvas-toggle"><a href="#side-nav" class="small_cap">MENU</a></div>
   <% end %>
 </header>

@@ -124,7 +124,7 @@ module ApplicationHelper
   end
 
   def show_save_progress_button
-    current_user.try(:is_guest?) || guest_for_tile_preview?
+    current_user.try(:is_guest?)
   end
 
   def done_all_tiles_message
@@ -160,7 +160,11 @@ module ApplicationHelper
 
   def guest_for_tile_preview?
     params[:controller] == "tile_previews" \
-      && (current_user.nil? || current_user.is_guest? || current_user.role == "User")
+      && (current_user.nil? || current_user.is_guest?)
+  end
+
+  def user_is_guest_for_tile_preview?
+    params[:controller] == "tile_previews" && current_user.role == "User"
   end
 
   def set_new_board_url

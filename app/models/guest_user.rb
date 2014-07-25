@@ -28,6 +28,10 @@ class GuestUser < ActiveRecord::Base
     true
   end
 
+  def role
+    "Guest"
+  end
+
   def show_onboarding?
     true
   end
