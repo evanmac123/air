@@ -42,8 +42,12 @@ function dompath( element )
     for ( ; element && element.nodeType == 1; element = element.parentNode )
     {
         var inner = $(element).children().length == 0 ? $(element).text() : '';
+        var idSelector = $(element).attr("id") ? $(element).attr("id").trim().split(" ").join("#") : "";
+        var classSelector = $(element).attr("class") ? $(element).attr("class").trim().split(" ").join(".") : "";
         var eleSelector = element.tagName.toLowerCase() + 
-           ((inner.length > 0) ? ':contains(\'' + inner + '\')' : '');
+          ( (idSelector.length > 0) ? ("#" + idSelector) : "" ) +
+          ( (classSelector.length > 0) ? ("." + classSelector) : "" ) +
+          ((inner.length > 0) ? ':contains(\'' + inner + '\')' : '');
         path = ' ' + eleSelector + path;
     }
     return path;
@@ -75,6 +79,6 @@ $().ready(function(){
   if( domPath.length > 0 ){
     actionElement = $( domPath );
     localStorage.setItem("pathForActionAfterRegistration", "");
-    actionElement.click();
+    actionElement[0].click();
   }
 })
