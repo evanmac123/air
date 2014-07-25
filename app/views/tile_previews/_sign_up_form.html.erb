@@ -1,0 +1,6 @@
+<div id="sign_up_modal" class="reveal-modal" data-reveal>
+  <div class="sign_up_section">
+    <%= render partial: 'shared/sign_up_form', locals: { user: User.new, board: Demo.new, headline: "Create an account to interact with this tile and many others." } %>
+  </div>
+</div>
+<a href="#" id="modal_link" data-reveal-id="sign_up_modal" data-animation="fadeAndPop" data-animationspeed="300" data-closeonbackgroundclick="true" data-dismissmodalclass="close_modal" style="display:none;">Click for a modal</a>

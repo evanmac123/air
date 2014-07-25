@@ -1,7 +1,9 @@
 - form_submit_protocol = Rails.env.production? ? "https" : "http" #we need https for staging
+- headline ||= "See and be inspired by what other companies have created."
 .inspire_headline
-  See and be inspired by what other companies have created.
-= form_tag @new_board_url, id: "create_account" do
+  = headline
+= form_tag set_new_board_url, id: "create_account_form", remote: true do
+  .errors_field
   .text_field
     = text_field_tag "user[name]", user.name, placeholder: "First and Last Name"
   .text_field
@@ -14,4 +16,4 @@
   = hidden_field_tag "creation_source_board", "Marketing Page (version 2014-05-27)"
   = hidden_field_tag "creation_source_creator", "Marketing Page"
   .submit_field
-    = submit_tag "Create Free Account", class: "button", id: "create_account_btn"
+    = submit_tag "Create Free Account", class: "button", id: "submit_account_form"

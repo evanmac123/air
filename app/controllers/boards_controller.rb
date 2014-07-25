@@ -55,11 +55,13 @@ class BoardsController < ApplicationController
       @user.send_conversion_email
       sign_in(@user, 1)
       schedule_creation_pings(@user)
-      redirect_to client_admin_tiles_path
+      render_success
     else
       set_errors
       @board.name = original_board_name
+      render_failure
       #if registration on welcome page
+=begin
       if params[:page_name] == "welcome"
         redirect_to :controller => 'pages', \
                     :action => 'show', \
@@ -68,10 +70,28 @@ class BoardsController < ApplicationController
       else
         render 'new'
       end
+=end
     end
   end
 
   protected
+
+  def render_success
+    respond_to do |format|
+      format.json { render json: {status: 'success'} }
+      format.html { redirect_to client_admin_tiles_path }
+    end
+  end
+
+  def render_failure
+    respond_to do |format|
+      format.json { render json: {status: 'failure', errors: set_errors} }
+      format.html do 
+        flash.now[:failure] = set_errors
+        render 'new' 
+      end
+    end
+  end
 
   def set_board_defaults
     @board.game_referrer_bonus = 5
@@ -100,7 +120,7 @@ class BoardsController < ApplicationController
       end
     end
 
-    flash.now[:failure] = "Sorry, we weren't able to create your board: " + errors.join(', ') + '.'
+    "Sorry, we weren't able to create your board: " + errors.join(', ') + '.'
   end
 
   def schedule_creation_pings(user)

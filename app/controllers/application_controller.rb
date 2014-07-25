@@ -129,6 +129,11 @@ class ApplicationController < ActionController::Base
 
   alias authenticate_without_game_begun_check authorize
   def authorize
+    if guest_for_tile_preview?
+      @_guest_user = find_or_create_guest_user unless current_user
+      return
+    end
+
     if logged_in_as_guest?
       if guest_user_allowed?
         board = find_current_board # must be implemented in subclass
@@ -148,13 +153,6 @@ class ApplicationController < ActionController::Base
 
     if guest_user_allowed? && params[:public_slug] 
       authorize_to_public_board
-      return
-    end
-
-    if guest_for_tile_preview?
-      unless current_user
-        @_guest_user = find_or_create_guest_user
-      end
       return
     end
 
@@ -377,7 +375,7 @@ class ApplicationController < ActionController::Base
       guest_user = GuestUser.find(session[:guest_user][:id])
       if params[:public_slug]
         board = Demo.find_by_public_slug(params[:public_slug])
-        unless guest_user.demo_id == board.id
+        if board && guest_user.demo_id != board.id
           guest_user.demo = board
           guest_user.save!
         end

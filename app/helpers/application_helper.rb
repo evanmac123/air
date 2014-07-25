@@ -124,7 +124,7 @@ module ApplicationHelper
   end
 
   def show_save_progress_button
-    current_user.try(:is_guest?)
+    current_user.try(:is_guest?) || guest_for_tile_preview?
   end
 
   def done_all_tiles_message
@@ -148,7 +148,7 @@ module ApplicationHelper
     end
   end
 
-  def activity_link()
+  def set_activity_path
     if guest_for_tile_preview?
       nil
     elsif current_user.is_guest?
@@ -161,5 +161,13 @@ module ApplicationHelper
   def guest_for_tile_preview?
     params[:controller] == "tile_previews" \
       && (current_user.nil? || current_user.is_guest? || current_user.role == "User")
+  end
+
+  def set_new_board_url
+    if Rails.env.production?
+      boards_url(protocol: 'https', host: hostname_with_subdomain)
+    else
+      boards_url
+    end
   end
 end

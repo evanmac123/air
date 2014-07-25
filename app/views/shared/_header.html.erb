@@ -1,14 +1,14 @@
 <header>
   <div class="row" id="top_bar">
 
-    <% _activity_path = activity_link %>
+    <% _activity_path = set_activity_path %>
     <div class="large-2 columns" id="logo">
       <a href="<%= _activity_path %>"><%= image_tag skinned('logo_url', "logo.png") %></a>
     </div>
 
     <%# If we don't need the guest user controls, steal their space for the 
     navigation, so we can use it for the current board. %>
-    <% unless current_user.is_guest? %>
+    <% unless current_user.is_guest? || guest_for_tile_preview? %>
       <nav id="navigation" class="columns large-5"> <!-- offcanvas menu -->
         <div class="user_options">
           <ul>
@@ -95,8 +95,6 @@
           <%= default_avatar_tag current_user, :id => :top_avatar, :class => "avatar48" %>
         </div>
       </div>
-
-
     <% else # current_user.is_guest? == true %>
       <% guest_user_header_button_style = show_save_progress_button ? '' : 'display: none' %>
       <div id="save_progress" class="large-4 columns" style="<%= guest_user_header_button_style %>">
@@ -109,11 +107,9 @@
         <% end %>
       </div>
     <% end %>
-     
   </div> <!-- end of topbar -->
 
-  <% unless current_user.is_guest? %>
+  <% unless current_user.is_guest? || guest_for_tile_preview? %>
     <div id="small-toggle" class="off-canvas-toggle"><a href="#side-nav" class="small_cap">MENU</a></div>
   <% end %>
-
 </header>

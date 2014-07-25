@@ -18,3 +18,10 @@
     <%= render 'client_admin/tiles/poll_for_image_if_needed', tile: @tile %>
   </div>
 </div>
+
+<% if guest_for_tile_preview? %>
+  <%= javascript_tag do %>
+    window.guestForTilePreview = true;
+  <% end %>
+  <%= render partial: 'sign_up_form' %>
+<% end %>
