@@ -170,4 +170,8 @@ module ApplicationHelper
       boards_url
     end
   end
+
+  def hostname_with_subdomain
+    request.subdomain.present? ? request.host : "www." + request.host
+  end
 end
