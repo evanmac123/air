@@ -164,7 +164,8 @@ module ApplicationHelper
   end
 
   def user_is_guest_for_tile_preview?
-    params[:controller] == "tile_previews" && current_user.role == "User"
+    params[:controller] == "tile_previews" \
+      && !current_user.is_client_admin && !current_user.is_site_admin
   end
 
   def set_new_board_url

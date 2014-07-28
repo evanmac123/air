@@ -1,11 +1,11 @@
 //
 //  =>  Sign up form
 //
-function creationStartCallback(event){ 
+creationStartCallback = function(event){ 
   $("#submit_account_form").attr("disabled", "disabled");
   $('#create_account_form').find(".errors_field").text("");
 }
-function creationResponseCallback(event, data){
+creationResponseCallback = function(event, data){
   $("#submit_account_form").removeAttr("disabled");
   if(data.status == 'success'){
     //closeSignUpModal();
