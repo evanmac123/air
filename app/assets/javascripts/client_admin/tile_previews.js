@@ -1,23 +1,19 @@
 //
 //  =>  Sign up form
 //
-creationStartCallback = function(event){ 
+function creationStartCallback(event){ 
   $("#submit_account_form").attr("disabled", "disabled");
   $('#create_account_form').find(".errors_field").text("");
 }
-creationResponseCallback = function(event, data){
+function creationResponseCallback(event, data){
   $("#submit_account_form").removeAttr("disabled");
   if(data.status == 'success'){
-    //closeSignUpModal();
-    //window.guestForTilePreview = false;
-    //$("<a href='" + window.location.href + "'></a>")[0].click(); //location.reload();
     if( window.pathForActionAfterRegistration ){
       localStorage.setItem("pathForActionAfterRegistration", window.pathForActionAfterRegistration);
       location.reload();
     }else{
       window.location.href = "/client_admin/tiles";
     }
-    //window.actionAfterClientAdminRegister.click();
   }else{
     $('#create_account_form').find(".errors_field").text(data.errors);
   }
@@ -35,7 +31,7 @@ function showSignUpModal(){
 function closeSignUpModal(){
   $('#sign_up_modal').foundation('reveal', 'close');
 }
-
+/* This is full dompath but it doesn't work in tests because it's too long.
 function dompath( element )
 {
     var path = '';
@@ -51,6 +47,17 @@ function dompath( element )
         path = ' ' + eleSelector + path;
     }
     return path;
+}
+*/
+function dompath( element ){
+  var inner = $(element).children().length == 0 ? $(element).text() : '';
+  var idSelector = $(element).attr("id") ? $(element).attr("id").trim().split(" ").join("#") : "";
+  var classSelector = $(element).attr("class") ? $(element).attr("class").trim().split(" ").join(".") : "";
+  var eleSelector = element.tagName.toLowerCase() + 
+          ( (idSelector.length > 0) ? ("#" + idSelector) : "" ) +
+          ( (classSelector.length > 0) ? ("." + classSelector) : "" ) +
+          ((inner.length > 0) ? ':contains(\'' + inner + '\')' : '');
+  return eleSelector;
 }
 
 $().ready(function(){
@@ -72,9 +79,7 @@ $().ready(function(){
     $(blockedElements).click( function(event){
       event.preventDefault();
       window.pathForActionAfterRegistration = dompath(event.target);
-      //localStorage.setItem("actionAfterClientAdminRegister", window.actionAfterClientAdminRegister);
       showSignUpModal();
-      //console.log("false");
       return false; // prevents default for remote calls
     });
   }
@@ -83,6 +88,8 @@ $().ready(function(){
   if( domPath.length > 0 ){
     actionElement = $( domPath );
     localStorage.setItem("pathForActionAfterRegistration", "");
-    actionElement[0].click();
+    if(actionElement.length > 0){
+      actionElement[0].click();
+    }
   }
 })

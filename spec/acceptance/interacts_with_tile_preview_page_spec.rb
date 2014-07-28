@@ -67,16 +67,9 @@ feature "interacts with a tile from the explore-preview page" do
   NEW_BOARD_NAME = "Law Offices Of J. Cochran"
 
   def fill_in_valid_form_entries
-    #page.find("#user_name").set(NEW_CREATOR_NAME)
-    #page.find("#user_name").text.should == NEW_CREATOR_NAME
-    #fill_in 'user_name', with: NEW_CREATOR_NAME
-    #find(:xpath, "//input[@id='user_name']").set "my value"
-    #ill_in :placeholder => "First and Last Name", :with => "Text"
-    #find("input[placeholder='First and Last Name']").set "value"
     within(create_account_form_selector) do 
       page.find("[name='user[name]']").set(NEW_CREATOR_NAME)
-      page.find("[name='user[name]']").value.should == NEW_CREATOR_NAME
-      p page.find("[name='user[name]']").value
+      page.find("[name='user[name]']").value.should == NEW_CREATOR_NAME # because it doesn't work sometimes
       fill_in 'user[name]', with: NEW_CREATOR_NAME
       fill_in 'user[email]', with: NEW_CREATOR_EMAIL
       fill_in 'user[password]', with: NEW_CREATOR_PASSWORD
@@ -85,8 +78,17 @@ feature "interacts with a tile from the explore-preview page" do
   end
 
   def submit_create_form
-    within(create_account_form_selector) do 
+    element_selector = page.evaluate_script("window.pathForActionAfterRegistration")
+    p element_selector
+    begin 
       click_button "Create Free Account"
+    # actionElement[0].click(); - this code should make last 
+    # action that guest user had made before registration.
+    # this doesn't work in tests but works in code.
+    # so i have to do this action in tests manually
+    rescue Capybara::Poltergeist::JavascriptError
+      p page.find(element_selector)
+      page.find(element_selector).click
     end
   end
 
@@ -95,11 +97,11 @@ feature "interacts with a tile from the explore-preview page" do
   end
 
   def register_if_guest
-    if @user.is_guest?
+    if @user.nil? || !(@user.is_client_admin || @user.is_site_admin)
       page.should have_selector('#sign_up_modal', visible: true)
       fill_in_valid_form_entries
       submit_create_form
-      @user = User.last
+      @user = User.order("created_at DESC").first
     end
   end
 
@@ -188,7 +190,7 @@ feature "interacts with a tile from the explore-preview page" do
     end
   end
 
-  context "Client admin" do
+  context "as Client admin" do
     before do
       @original_tile = FactoryGirl.create(:multiple_choice_tile, :copyable, creator: creator, demo: creator.demo)
       crank_dj_clear # to resize the images
@@ -213,7 +215,28 @@ feature "interacts with a tile from the explore-preview page" do
     end
   end
 
-  context "Guest user" do
+  #[nil, FactoryGirl.create(:guest_user), 
+    #[FactoryGirl.create(:user)].each do |user|
+  context "as noone" do
+    before do
+      @original_tile = FactoryGirl.create(:multiple_choice_tile, :copyable, creator: creator, demo: creator.demo)
+      crank_dj_clear # to resize the images
+      @original_tile.reload
+
+      @user = nil
+      visit explore_tile_preview_path(@original_tile, as: @user)
+    end
+
+    #it_should_behave_like "copies/likes tile"
+    scenario "by clicking the proper link", js: true do
+      click_copy_button
+   
+      crank_dj_clear
+      expect_tile_copied(@original_tile, @user)
+    end
+  end
+
+  context "as Guest" do
     before do
       @original_tile = FactoryGirl.create(:multiple_choice_tile, :copyable, creator: creator, demo: creator.demo)
       crank_dj_clear # to resize the images
@@ -230,5 +253,32 @@ feature "interacts with a tile from the explore-preview page" do
       crank_dj_clear
       expect_tile_copied(@original_tile, @user)
     end
+  end
+
+  before(:all) do
+    Capybara.current_driver = :webkit
+  end
+
+  context "as User" do
+    before do
+      @original_tile = FactoryGirl.create(:multiple_choice_tile, :copyable, creator: creator, demo: creator.demo)
+      crank_dj_clear # to resize the images
+      @original_tile.reload
+
+      @user = FactoryGirl.create(:claimed_user)
+      visit explore_tile_preview_path(@original_tile, as: @user)
+    end
+
+    #it_should_behave_like "copies/likes tile"
+    scenario "by clicking the proper link", js: true do
+      click_copy_button
+   
+      crank_dj_clear
+      expect_tile_copied(@original_tile, @user)
+    end
+  end
+
+  after(:all) do
+    Capybara.use_default_driver
   end
 end
