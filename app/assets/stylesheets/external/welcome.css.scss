@@ -282,6 +282,11 @@ body.pages-show.landing, body.tile_previews.client_admin_main{
   #sign_up_modal{
     width:50%;
     margin-left: -25%;
+    .close_sign_up_modal{
+      position: absolute;
+      right: 1em;
+      top: 1em;
+    }
   }
   .sign_up_section{
     padding: 2rem;

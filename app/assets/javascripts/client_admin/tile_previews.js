@@ -57,6 +57,10 @@ $().ready(function(){
   if(window.guestForTilePreview){
     $("#save_progress_button").text("Create Board");
 
+    $(".close_sign_up_modal").click(function(){
+      closeSignUpModal();
+    });
+
     blockedElements = [ ".not_like_button", 
                         //"#copy_tile_button", 
                         "a .copy_button",
