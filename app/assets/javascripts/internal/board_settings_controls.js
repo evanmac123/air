@@ -69,9 +69,18 @@ function bindBoardSettingsControls() {
     $('#leave_board_safety_modal').foundation('reveal', 'close');
   });
 
-  $('.followup_mute, .followup_unmute').change(function(event) {
-    var muteURL = $(this).data('mute_url');
-    var muteStatus = $(this).val();
+  var postMuteRequest = function(elt) {
+    var muteURL = elt.data('mute_url');
+    var muteStatus = elt.val();
     $.post(muteURL, {_method: 'PUT', status: muteStatus});
+  };
+
+  $('.followup_mute, .followup_unmute, .digest_unmute').change(function(event) {
+    postMuteRequest($(this));
+  });
+
+  $('.digest_mute').change(function(event) {
+    $('.followup_mute').click();
+    postMuteRequest($(this));
   });
 }

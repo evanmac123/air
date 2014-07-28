@@ -1,6 +1,7 @@
-class MuteFollowupsController < ApplicationController
-  def update
-    current_user.board_memberships.where(demo_id: params[:id]).first.update_attributes(followup_muted: params[:status])
-    render nothing: true
+class MuteFollowupsController < MuteController
+  protected
+
+  def attribute_to_mute
+    :followup_muted
   end
 end
