@@ -80,7 +80,10 @@ function bindBoardSettingsControls() {
   });
 
   $('.digest_mute').change(function(event) {
-    $('.followup_mute').click();
+    var boardID = $(this).data('board_id');
+    var relatedFollowupSwitchWrapperSelector = '.followup_mute[data-board_id=' + boardID + ']';
+    var relatedFollowupSwitch = $(relatedFollowupSwitchWrapperSelector);
+    relatedFollowupSwitch.click();
     postMuteRequest($(this));
   });
 }
