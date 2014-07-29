@@ -98,6 +98,7 @@ feature "interacts with a tile from the explore-preview page" do
       fill_in_valid_form_entries
       submit_create_form
       @user = User.order("created_at DESC").first
+      @user.name.should == NEW_CREATOR_NAME
     end
   end
 
@@ -186,14 +187,11 @@ feature "interacts with a tile from the explore-preview page" do
     end
   end
 
-  shared_examples_for 'gets registration form when clicks on links' do
-    action_after_registration = [ 
-      { name: "like button", selector: ".not_like_button" }, 
-      { name: "copy button", selector: "a .copy_button" },
-      { name: "random link", selector: "#random-tile-link" }, 
-      { name: "back link", selector: "#back-link" }, 
-      { name: "tag link", selector: ".tag a" }
-    ]
+  shared_examples_for 'gets registration form' do |name, selector|
+    scenario "when clicks #{name}", js: true do
+      page.find(selector).click
+      register_if_guest
+    end
   end
 
   context "as Client admin" do
@@ -232,7 +230,11 @@ feature "interacts with a tile from the explore-preview page" do
     end
 
     it_should_behave_like "copies/likes tile"
-    it_should_behave_like "gets registration form when clicks on links"
+    it_should_behave_like "gets registration form", "like button", ".not_like_button"
+    it_should_behave_like "gets registration form", "copy button", "a .copy_button"
+    it_should_behave_like "gets registration form", "random link", "#random-tile-link"
+    it_should_behave_like "gets registration form", "back link", "#back-link"
+    it_should_behave_like "gets registration form", "tag link", ".tag a"
   end
 
   context "as Guest" do
@@ -246,6 +248,11 @@ feature "interacts with a tile from the explore-preview page" do
     end
 
     it_should_behave_like "copies/likes tile"
+    it_should_behave_like "gets registration form", "like button", ".not_like_button"
+    it_should_behave_like "gets registration form", "copy button", "a .copy_button"
+    it_should_behave_like "gets registration form", "random link", "#random-tile-link"
+    it_should_behave_like "gets registration form", "back link", "#back-link"
+    it_should_behave_like "gets registration form", "tag link", ".tag a"
   end
 
   context "as User" do
@@ -259,5 +266,10 @@ feature "interacts with a tile from the explore-preview page" do
     end
 
     it_should_behave_like "copies/likes tile"
+    it_should_behave_like "gets registration form", "like button", ".not_like_button"
+    it_should_behave_like "gets registration form", "copy button", "a .copy_button"
+    it_should_behave_like "gets registration form", "random link", "#random-tile-link"
+    it_should_behave_like "gets registration form", "back link", "#back-link"
+    it_should_behave_like "gets registration form", "tag link", ".tag a"
   end
 end
