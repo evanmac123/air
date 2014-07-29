@@ -79,8 +79,8 @@ rightAnswerClicked = (event) ->
 rightAnswerClickedForPreview = (event) ->
   pingRightAnswerInPreview()
   markCompletedRightAnswer(event)
-  highlightEarnablePoints()
-  pointCounter().start()
+  #highlightEarnablePoints()
+  #pointCounter().start()
 
 attachRightAnswers = ->
   $('.right_multiple_choice_answer').one("click", (event) ->

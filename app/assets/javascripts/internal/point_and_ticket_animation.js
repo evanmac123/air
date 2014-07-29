@@ -83,15 +83,15 @@ var highlightEarnablePoints = function() {
 }
 
 var tileCompletedPreloadAnimations = function() {
-  highlightEarnablePoints();
+  //highlightEarnablePoints();
 
   var callbacksDoneDeferred = $.Deferred();
 
-  pointCounter().start(function() {
-    $.when(grayoutTile()).
-      then(scrollToTop).
-      then(function(){callbacksDoneDeferred.resolve()})
-  });
+  //pointCounter().start(function() {
+  $.when(grayoutTile()).
+    then(scrollToTop).
+    then(function(){callbacksDoneDeferred.resolve()});
+  //});
 
   return callbacksDoneDeferred.promise();
 }
