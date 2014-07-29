@@ -78,20 +78,12 @@ var pointCounter = function() {
   return(new countUp('tile_point_value', originalPoints, 0, 0, 1.0));
 }
 
-var highlightEarnablePoints = function() {
-  $('.earnable_points').addClass("count_down");
-}
-
 var tileCompletedPreloadAnimations = function() {
-  //highlightEarnablePoints();
-
   var callbacksDoneDeferred = $.Deferred();
 
-  //pointCounter().start(function() {
   $.when(grayoutTile()).
     then(scrollToTop).
     then(function(){callbacksDoneDeferred.resolve()});
-  //});
 
   return callbacksDoneDeferred.promise();
 }
