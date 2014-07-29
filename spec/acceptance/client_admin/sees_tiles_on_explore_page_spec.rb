@@ -319,8 +319,7 @@ feature 'Sees tiles on explore page' do
       tile = FactoryGirl.create(:multiple_choice_tile, :public)
       visit explore_tile_preview_path(tile.id, as: a_client_admin)
       click_link 'Eggs'
-      page.should have_content "0 POINTS"
-
+      
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear
 
