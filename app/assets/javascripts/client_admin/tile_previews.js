@@ -8,12 +8,15 @@ function creationStartCallback(event){
 function creationResponseCallback(event, data){
   $("#submit_account_form").removeAttr("disabled");
   if(data.status == 'success'){
+    //new_location = "";
     if( window.pathForActionAfterRegistration ){
       localStorage.setItem("pathForActionAfterRegistration", window.pathForActionAfterRegistration);
-      location.reload();
+      //location.reload();
+      window.location.href = window.location.href.match(/(.*)\?/i) ? window.location.href.match(/(.*)\?/i)[1] : window.location.href;
     }else{
       window.location.href = "/client_admin/tiles";
     }
+    //window.location.href = new_location.length > 0 ? new_location : window.location.href;
   }else{
     $('#create_account_form').find(".errors_field").text(data.errors);
   }
@@ -54,9 +57,9 @@ function dompath( element ){
   var idSelector = $(element).attr("id") ? $(element).attr("id").trim().split(" ").join("#") : "";
   var classSelector = $(element).attr("class") ? $(element).attr("class").trim().split(" ").join(".") : "";
   var eleSelector = element.tagName.toLowerCase() + 
-          ( (idSelector.length > 0) ? ("#" + idSelector) : "" ) +
-          ( (classSelector.length > 0) ? ("." + classSelector) : "" ) +
-          ((inner.length > 0) ? ':contains(\'' + inner + '\')' : '');
+    ( (idSelector.length > 0) ? ("#" + idSelector) : "" ) +
+    ( (classSelector.length > 0) ? ("." + classSelector) : "" ) +
+    ( (inner.length > 0) ? ':contains(\'' + inner + '\')' : '' );
   return eleSelector;
 }
 
@@ -69,7 +72,6 @@ $().ready(function(){
     });
 
     blockedElements = [ ".not_like_button", 
-                        //"#copy_tile_button", 
                         "a .copy_button",
                         "#random-tile-link", 
                         "#back-link", 
