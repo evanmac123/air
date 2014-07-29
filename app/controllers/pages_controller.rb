@@ -83,6 +83,7 @@ class PagesController < HighVoltage::PagesController
   end
 
   def set_page_name
+    flash.now[:failure] ||= params[:flash][:failure] if params[:flash]
     @page_name = page_name
   end
 

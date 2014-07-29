@@ -1,8 +1,9 @@
 - form_submit_protocol = Rails.env.production? ? "https" : "http" #we need https for staging
 - headline ||= "See and be inspired by what other companies have created."
+- remote_type ||= nil
 .inspire_headline
   = headline
-= form_tag set_new_board_url, id: "create_account_form", remote: true do
+= form_tag set_new_board_url, id: "create_account_form", remote: remote_type do
   .errors_field
   .text_field
     = text_field_tag "user[name]", user.name, placeholder: "First and Last Name"

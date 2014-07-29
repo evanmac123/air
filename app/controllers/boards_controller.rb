@@ -57,7 +57,6 @@ class BoardsController < ApplicationController
       schedule_creation_pings(@user)
       render_success
     else
-      set_errors
       @board.name = original_board_name
       render_failure
     end
@@ -75,9 +74,16 @@ class BoardsController < ApplicationController
   def render_failure
     respond_to do |format|
       format.json { render json: {status: 'failure', errors: set_errors} }
-      format.html do 
-        flash.now[:failure] = set_errors
-        render 'new' 
+      format.html do
+        if params[:page_name] == "welcome"
+          redirect_to :controller => 'pages', \
+                      :action => 'show', \
+                      :id => "welcome", \
+                      flash: { failure: set_errors }
+        else
+          flash.now[:failure] = set_errors
+          render 'new'
+        end
       end
     end
   end

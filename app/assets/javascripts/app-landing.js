@@ -7,4 +7,3 @@
 //= require ../../../vendor/assets/javascripts/internal/jquery.jpanelmenu.min
 //= require ../../../vendor/assets/javascripts/internal/jRespond.min
 //= require ./external/placeholder_ie.js
-//= require ./client_admin/sign_up_form
