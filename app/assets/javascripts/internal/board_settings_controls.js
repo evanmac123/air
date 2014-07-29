@@ -70,20 +70,63 @@ function bindBoardSettingsControls() {
   });
 
   var postMuteRequest = function(elt) {
-    var muteURL = elt.data('mute_url');
+    var muteURL = elt.data('mute-url');
     var muteStatus = elt.val();
     $.post(muteURL, {_method: 'PUT', status: muteStatus});
   };
 
-  $('.followup_mute, .followup_unmute, .digest_unmute').change(function(event) {
+  $('.followup_mute, .followup_unmute').change(function(event) {
     postMuteRequest($(this));
   });
 
+  var relatedSelector = function(selector, boardID) {
+    return([selector, '[data-board-id=', boardID, ']'].join(''));
+  }
+
+  var relatedFollowupMuteSelector = function(boardID) {
+    return relatedSelector('.followup_mute', boardID);
+  };
+
+  var relatedFollowupUnmuteSelector = function(boardID) {
+    return relatedSelector('.followup_unmute', boardID);
+  };
+
+  var relatedFollowupWrapperSelector = function(boardID) {
+    return relatedSelector('.followup_wrapper', boardID);
+  };
+
+  var relatedFollowupPaddleSelector = function(boardID) {
+    return relatedFollowupWrapperSelector(boardID) + ' .green-paddle';
+  };
+
+  var muteRelatedFollowup = function(boardID) {
+    $(relatedFollowupMuteSelector(boardID)).click();
+  };
+
+  var disableRelatedFollowup = function(boardID) {
+    $(relatedFollowupMuteSelector(boardID)).attr('disabled', true);
+    $(relatedFollowupUnmuteSelector(boardID)).attr('disabled', true);
+    $(relatedFollowupWrapperSelector(boardID)).addClass('disabled');
+    $(relatedFollowupPaddleSelector(boardID)).addClass('disabled');
+  };
+
+  var enableRelatedFollowup = function(boardID) {
+    $(relatedFollowupMuteSelector(boardID)).removeAttr('disabled');
+    $(relatedFollowupUnmuteSelector(boardID)).removeAttr('disabled');
+    $(relatedFollowupWrapperSelector(boardID)).removeClass('disabled');
+    $(relatedFollowupPaddleSelector(boardID)).removeClass('disabled');
+  }
+
   $('.digest_mute').change(function(event) {
-    var boardID = $(this).data('board_id');
-    var relatedFollowupSwitchWrapperSelector = '.followup_mute[data-board_id=' + boardID + ']';
-    var relatedFollowupSwitch = $(relatedFollowupSwitchWrapperSelector);
-    relatedFollowupSwitch.click();
+    var boardID = $(this).data('board-id');
+    muteRelatedFollowup(boardID);
+    disableRelatedFollowup(boardID);
+    postMuteRequest($(this));
+  });
+
+  $('.digest_unmute').change(function(event) {
+    var boardID = $(this).data('board-id');
+    enableRelatedFollowup(boardID);
     postMuteRequest($(this));
   });
 }

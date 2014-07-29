@@ -22,8 +22,16 @@ feature 'Mutes emails from board management modal' do
     '.followup_unmute'
   end
 
+  def followup_wrapper_selector
+    '.followup_wrapper'
+  end
+
+  def followup_paddle_selector
+    followup_wrapper_selector + ' .green-paddle'
+  end
+
   def selector_for_board(selector, board)
-    selector + "[data-board_id='#{board.id}']"
+    selector + "[data-board-id='#{board.id}']"
   end
 
   def click_first_digest_mute
@@ -91,6 +99,34 @@ feature 'Mutes emails from board management modal' do
     page.first(selector_for_board followup_unmute_selector, board)['checked'].should be_true
   end
 
+  def followup_input_selectors
+    [followup_mute_selector, followup_unmute_selector]  
+  end
+
+  def followup_presentation_selectors
+    [followup_wrapper_selector, followup_paddle_selector]  
+  end
+
+  def expect_first_followup_slider_not_disabled
+    followup_input_selectors.each do |input_selector|
+      page.first(input_selector)['disabled'].should_not be_present
+    end
+
+    followup_presentation_selectors.each do |presentation_selector|
+      page.first(presentation_selector + '.disabled').should_not be_present
+    end
+  end
+
+  def expect_first_followup_slider_disabled
+    followup_input_selectors.each do |input_selector|
+      page.first(input_selector)['disabled'].should be_present
+    end
+
+    followup_presentation_selectors.each do |presentation_selector|
+      page.first(presentation_selector + '.disabled').should be_present
+    end
+  end
+
   scenario 'mutes followup with a slider', js: true do
     visit activity_path(as: user)
     open_board_settings
@@ -142,9 +178,38 @@ feature 'Mutes emails from board management modal' do
     expect_followup_unmuted(user, new_board)
   end
 
-  scenario 'muting original disables followup slider'
+  scenario 'muting/unmuting original disables/enables followup slider when slider starts enabled', js: true do
+    visit activity_path(as: user)
+    open_board_settings
+    wait_for_board_modal
 
-  scenario 'unmuting original re-enables followup slider'
+    expect_first_followup_slider_not_disabled
+
+    click_first_digest_mute
+    wait_for_ajax
+    expect_first_followup_slider_disabled
+
+    click_first_digest_unmute
+    wait_for_ajax
+    expect_first_followup_slider_not_disabled
+  end
+
+  scenario 'muting/unmuting original disables/enables followup slider when slider starts disabled', js: true do
+    board_membership_for_board(user, user.demo).update_attributes(digest_muted: true, followup_muted: true)
+    visit activity_path(as: user)
+    open_board_settings
+    wait_for_board_modal
+
+    expect_first_followup_slider_disabled
+
+    click_first_digest_unmute
+    wait_for_ajax
+    expect_first_followup_slider_not_disabled
+
+    click_first_digest_mute
+    wait_for_ajax
+    expect_first_followup_slider_disabled
+  end
 
   scenario 'unmutes original with a slider', js: true do
     user.board_memberships.first.update_attributes(digest_muted: true)
