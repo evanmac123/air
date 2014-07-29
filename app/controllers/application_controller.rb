@@ -129,12 +129,6 @@ class ApplicationController < ActionController::Base
 
   alias authenticate_without_game_begun_check authorize
   def authorize
-    #if guest_for_tile_preview?
-      #@_guest_user = find_or_create_guest_user unless current_user
-    #  session[:guest_user] ||= {}
-    #  return
-    #end
-
     if logged_in_as_guest?
       if guest_user_allowed?
         board = find_current_board # must be implemented in subclass
@@ -155,11 +149,6 @@ class ApplicationController < ActionController::Base
     if guest_user_allowed? && params[:public_slug] 
       authorize_to_public_board
       return
-    #elsif params[:controller] == "tile_previews" && current_user.nil?
-      #fdf
-    #  @_guest_user = find_or_create_guest_user
-    #  session[:guest_user] ||= {}
-    #  return
     end
 
     authenticate_without_game_begun_check
@@ -226,11 +215,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  #def guest_for_tile_preview?
-  #  params[:controller] == "tile_previews" \
-  #    && (current_user.nil? || current_user.is_guest?)
-  #end
-
   def claimed_guest_user
     GuestUser.find(session[:guest_user][:id])
   end
@@ -249,8 +233,6 @@ class ApplicationController < ActionController::Base
     if logged_in_as_guest?
       @_guest_user ||= find_or_create_guest_user
       @_guest_user
-    #elsif params[:controller] == "tile_previews"
-    #  @_guest_user
     else
       nil
     end
@@ -376,12 +358,11 @@ class ApplicationController < ActionController::Base
   end
 
   def find_or_create_guest_user
-    session[:guest_user] ||= {}
     if session[:guest_user][:id].present?
       guest_user = GuestUser.find(session[:guest_user][:id])
       if params[:public_slug]
         board = Demo.find_by_public_slug(params[:public_slug])
-        if board && guest_user.demo_id != board.id
+        unless guest_user.demo_id == board.id
           guest_user.demo = board
           guest_user.save!
         end

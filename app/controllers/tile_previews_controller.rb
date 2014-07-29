@@ -1,9 +1,6 @@
 class TilePreviewsController < ApplicationController
-  #must_be_authorized_to :client_admin
-  #skip_before_filter :authorize
   skip_before_filter :authorize
   before_filter :allow_guest_user
-
   layout "client_admin_layout"
 
   def show
@@ -11,10 +8,7 @@ class TilePreviewsController < ApplicationController
     @tag = TileTag.where(id: params[:tag]).first
 
     session[:guest_user] ||= {demo_id: @tile.demo.id}
-    #authorize
-
     schedule_mixpanel_pings @tile
-    #current_user.demo ||= @tile.demo
   end
 
   protected
