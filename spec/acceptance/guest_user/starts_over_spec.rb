@@ -81,7 +81,6 @@ feature 'Starts over' do
 
         click_link tile.headline
         @tiles[0,2].each do |tile|
-          p page
           page.find('.right_multiple_choice_answer:not(.clicked_right_answer)').click
           #answer(tile.correct_answer_index).click
         end

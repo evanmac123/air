@@ -84,7 +84,9 @@ attachRightAnswers = ->
   $('.right_multiple_choice_answer').one("click", (event) ->
     event.preventDefault()
     rightAnswerClicked(event)
-    disableAllAnswers()
+    #disableAllAnswers() 
+    # with this spec/acceptance/guest_user/starts_over_spec.rb:78 fails
+    # because it disables next tile. also without countdown we don't need it
   )
 
 attachRightAnswersForPreview = ->
