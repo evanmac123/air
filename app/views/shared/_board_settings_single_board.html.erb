@@ -8,12 +8,12 @@
 
     <div class="large-4 columns board_control_icons">
       <% if as_admin %>
-        <%= link_to fa_icon('pencil'), '#', class: 'edit_board_name_icon' %>
+        <%= link_to 'Edit', '#', class: 'edit_board_name_icon' %>
       <% else %>
         <%= render 'shared/board_settings_email_mute_slider', email_type: 'digest', mute_url: mute_digest_path(board.id), original_setting: digest_is_muted, disabled: false, board_id: board.id %>
         <%= render 'shared/board_settings_email_mute_slider', email_type: 'followup', mute_url: mute_followup_path(board.id), original_setting: digest_is_muted || followup_is_muted, disabled: digest_is_muted, board_id: board.id %>
         <% unless board.is_paid %>
-          <%= link_to "X", '#', {class: 'delete_board_icon', "data-delete_url" => board_membership_path(board.id)} %>
+          <%= link_to "Delete", '#', {class: 'delete_board_icon', "data-delete_url" => board_membership_path(board.id)} %>
         <% end %>
       <% end %>
     </div>
@@ -25,7 +25,7 @@
         <span class="board_save_error"></span>
         <%= content_tag 'span', class: 'board_saving' do %>Saving...<% end %>
         <%= link_to 'Save', '#', "data-demo_id" => board.id, class: 'save_board_name' %>
-        <%= link_to 'Edit', '#', "data-demo_id" => board.id, class: 'edit_board_name_link' %>
+        <%= link_to 'Edit Name', '#', "data-demo_id" => board.id, class: 'edit_board_name_link' %>
         <%= content_tag 'span', class: 'board_saved', "data-demo_id" => board.id do %>Saved!<% end %>
       <% end %>
     </div>

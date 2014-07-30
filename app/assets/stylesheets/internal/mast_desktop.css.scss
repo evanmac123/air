@@ -426,7 +426,8 @@ body.explores {
   }
 
   .control_section_header {
-    color: $med-gray;
+    color: $sky-blue;
+    text-transform: uppercase;
   }
 
   $board_control_height: 1.2em;
@@ -469,8 +470,22 @@ body.explores {
     }
   }
 
-  .reserved_for_controls {
-    background-color: orange;
+  .edit_board_name_icon, .delete_board_icon {
+    @include light-button($light-gray);
+    float: right;
+  }
+
+  .delete_board_icon:hover {
+    @include light-button($red);
+  }
+
+  .edit_board_name_link, .save_board_name {
+    color: $blue;
+  }
+
+  .edit_board_name_link, .save_board_name, .board_saving, .board_saved {
+    font-size: 11px;
+    font-weight: 300;
   }
 
   #user_board_controls.with_divider {
