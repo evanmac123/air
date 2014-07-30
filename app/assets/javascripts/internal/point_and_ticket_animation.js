@@ -73,11 +73,6 @@ var fillBar = function(previousTickets, currentTickets, finalProgress, allTilesD
 
 var scrollToTop = function() { $.Deferred(window.scrollTo(0,0)).promise(); }
 
-var pointCounter = function() {
-  var originalPoints = parseInt($('#tile_point_value').text());
-  return(new countUp('tile_point_value', originalPoints, 0, 0, 1.0));
-}
-
 var tileCompletedPreloadAnimations = function() {
   var callbacksDoneDeferred = $.Deferred();
 
