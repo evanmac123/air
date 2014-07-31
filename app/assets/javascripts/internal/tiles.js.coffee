@@ -76,9 +76,16 @@ rightAnswerClicked = (event) ->
   preloadAnimationsDone = tileCompletedPreloadAnimations(event)
   loadNextTileWithOffset(1, preloadAnimationsDone, predisplayAnimations, posting)
 
+markCompletedRightAnswer = (event) ->
+  $(event.target).addClass('clicked_right_answer')
+
+attachRightAnswerMessage = (event) ->
+  $(event.target).siblings('.wrong_answer_target').html("Correct!").slideDown(250)
+
 rightAnswerClickedForPreview = (event) ->
   pingRightAnswerInPreview()
   markCompletedRightAnswer(event)
+  attachRightAnswerMessage(event)
 
 attachRightAnswers = ->
   $('.right_multiple_choice_answer').one("click", (event) ->
@@ -93,7 +100,7 @@ attachRightAnswersForPreview = ->
   $('.right_multiple_choice_answer').one("click", (event) ->
     event.preventDefault()
     rightAnswerClickedForPreview(event)
-    disableAllAnswers()
+    #disableAllAnswers()
   )
 
 attachWrongAnswers = ->

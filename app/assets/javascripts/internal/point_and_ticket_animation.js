@@ -83,10 +83,6 @@ var tileCompletedPreloadAnimations = function() {
   return callbacksDoneDeferred.promise();
 }
 
-var markCompletedRightAnswer = function(event) {
-  $(event.target).addClass('clicked_right_answer');
-}
-
 //
 //  All tile progress functions and set up 
 //
