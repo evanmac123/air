@@ -2,7 +2,7 @@
   <div class="large-8 large-centered columns">
     <%= render partial: 'tile_preview_menu'%>
     
-    <%= render "tiles/full_size_tile", tile: @tile, answer_links_disabled: true %>
+    <%= render "tiles/full_size_tile", tile: @tile, is_preview: true %>
 
     <%= render 'client_admin/tiles/poll_for_image_if_needed', tile: @tile %>
   </div>

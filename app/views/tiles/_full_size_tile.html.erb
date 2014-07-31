@@ -1,5 +1,4 @@
 <% creator_class = tile.appears_client_created ? 'client_created' : 'admin_created' %>
-<% answer_links_disabled ||= false %>
 <% overlay_displayed ||= false %>
 <% remove_right_answer_target ||= false %>
 <% show_copy_button ||= false %>
@@ -46,7 +45,7 @@
 
 
           <div class="tile_question"><%= tile.question %></div>
-          <%= render 'tiles/multiple_choice_answers', tile: tile, answer_links_disabled: answer_links_disabled, remove_right_answer_target: remove_right_answer_target, is_preview: is_preview %>
+          <%= render 'tiles/multiple_choice_answers', tile: tile, remove_right_answer_target: remove_right_answer_target, is_preview: is_preview %>
         </div>
       </div>
     <% end %>
