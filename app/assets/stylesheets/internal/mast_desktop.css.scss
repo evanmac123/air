@@ -358,7 +358,7 @@ body.explores {
 @mixin board_settings_modal {
   @include standard_reveal_dimensions;
   width: 60%;
-  left: 65%;
+  left: 60%;
   background-color: $white;
 }
 
@@ -494,11 +494,19 @@ body.explores {
   }
 
   .switch{
-    @include green-paddle-switch;
+    @include green-paddle-switch(1.25);
+  }
 
-    span.green-paddle {
-      width: 20px;
-      height: 20px;
-    }
+  #email_settings_header, .email_settings_subheader {
+    font-size: 10px;
+    color: $light-gray;
+    text-align: center;
+  }
+
+  #email_settings_header {
+    border-bottom: 1px $tile-wall-bg solid;
+  }
+
+  .email_settings_subheader {
   }
 }

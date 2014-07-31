@@ -53,8 +53,17 @@
 
     <div id="user_board_controls" class="<%= divider_class %>">
       <div class="row">
-        <div class="large-12 columns">
+        <div class="large-6 columns">
           <h3 class="control_section_header">Boards You Participate In</h3>
+        </div>
+        <div class="large-6 columns">
+          <div class="row email_settings_header_wrapper">
+            <p id="email_settings_header" class="columns large-6">Email Settings</p>
+          </div>
+          <div class="row">
+            <p class="email_settings_subheader columns large-3">Reminder</p>
+            <p class="email_settings_subheader columns large-3 pull-6">New Tiles</p>
+          </div>
         </div>
       </div>
       <% boards_as_regular_user.sort_by(&:name).each do |board| %>
