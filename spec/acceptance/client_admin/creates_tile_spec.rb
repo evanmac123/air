@@ -124,14 +124,14 @@ feature 'Creates tile' do
    draft_tab.should have_first_tile(Tile.last, Tile::DRAFT)
   end
 
-  scenario "shouldn't have active answer links in the preview", js: true do
+  scenario "should have active answer links in the preview", js: true do
     create_good_tile
 
     click_link "Me"
-    expect_no_content "Sorry, that's not it"
+    expect_content "Sorry, that's not it"
 
-    click_link "You"
-    expect_no_content "That's right!"
+    click_link "He"
+    expect_content "Correct!"
   end
 
   scenario "with incomplete data should give a gentle rebuff", js: true do
