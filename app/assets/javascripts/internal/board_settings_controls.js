@@ -20,6 +20,8 @@ function bindBoardSettingsControls() {
     var updateURL = "/boards/" + demoId;
     var boardName = $('.board_name[data-demo_id="' + demoId + '"]').text()
     var controlSection = $('.board_save_controls[data-demo_id="' + demoId + '"]');
+    var boardSwitchLink = $('header .other_boards #board-switch-link-' + demoId);
+    var currentBoardName = $('#board_switch #current_board_name[data-demo-id=' + demoId + ']');
 
     controlSection.find('.save_board_name').hide();
     controlSection.find('.board_saving').show();
@@ -33,6 +35,8 @@ function bindBoardSettingsControls() {
         controlSection.find('.board_saving').hide();
         if(data.success) {
           controlSection.find('.board_saved').show();
+          boardSwitchLink.text(data.updatedBoardName);
+          currentBoardName.text(data.truncatedUpdatedBoardName);
         } else {
           controlSection.find('.board_save_error').text(data.message);
         }

@@ -44,10 +44,10 @@
         <div id="board_switch">
           <a id="board_switch_toggler">
             <p class="small_cap">Current board</p>
-            <p class="board_name has-tip tip-left" data-tooltip title="Switch between boards">
-              <%= truncate(current_user.demo.name, length: 15) %>
+            <%= content_tag "p", class: "board_name has-tip tip-left", id: "current_board_name", title: "Switch between boards", data: {tooltip: true, demo_id: current_user.demo.id} do %>
+              <%= truncate_name_for_switcher current_user.demo.name %>
               <span class="fa fa-caret-down"></span>
-            </p>
+            <% end %>
           </a>
         </div>
 

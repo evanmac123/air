@@ -97,6 +97,34 @@ feature 'Manages board settings' do
       page.should have_content "Sorry, that board name is already taken."
       board_to_change.reload.name.should == original_name
     end
+
+    it "updates the board name in the board switcher", js: true do
+      visit activity_path(as: @user)
+      open_board_settings
+
+      board_to_change = @boards.first
+      original_board_name = board_to_change.name
+
+      fill_in_new_board_name(board_to_change, "No Humorous Name Here")
+      click_save_link
+
+      within "header .other_boards #board-switch-link-#{board_to_change.id}" do
+        page.should have_no_content(original_board_name)
+        page.should have_content "No Humorous Name Here Board"
+      end
+    end
+
+    it "updates the name of the current board (respecting trunaction) in the switcher if it's changed", js: true do
+      visit activity_path(as: @user)
+      open_board_settings
+
+      fill_in_new_board_name(@user.demo, "A Name That Certainly Is Long Enough To Exercise Truncation")
+      click_save_link
+
+      within "#board_switch #current_board_name" do
+        page.should have_content "A Name That ..."
+      end
+    end
   end
 
   context "when they are an admin in some boards and a peon in others" do

@@ -3,6 +3,7 @@ class BoardsController < ApplicationController
   skip_before_filter :authorize
 
   include NormalizeBoardName
+  include BoardsHelper
 
   def new
     @user = User.new
@@ -21,10 +22,15 @@ class BoardsController < ApplicationController
       return
     end
 
-    board.name = normalize_board_name(params[:board_name])
+    @new_board_name = normalize_board_name(params[:board_name])
+    board.name = @new_board_name
 
     if board.save
-      render json: {success: true}
+      render json: {
+        success: true, 
+        updatedBoardName: @new_board_name,
+        truncatedUpdatedBoardName: truncate_name_for_switcher(@new_board_name)
+      }
     else
       render json: {success: false, message: "Sorry, that board name is already taken."}
     end
