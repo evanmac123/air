@@ -240,7 +240,7 @@ body.tiles.tiles-index {
       border-color: darken($blue, 10%) !important;
     }
 
-    .wrong_answer_target {
+    .answer_target {
       color:$gray;
       @include font-bold;
       padding:.5em;

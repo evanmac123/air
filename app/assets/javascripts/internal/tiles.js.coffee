@@ -51,8 +51,7 @@ nerfNerfedAnswers = ->
   $('.nerfed_answer').click((event) -> event.preventDefault())
 
 disableAllAnswers = ->
-  $(".right_multiple_choice_answer:not(.clicked_right_answer)").removeClass("right_multiple_choice_answer").addClass("nerfed_answer").removeAttr("href").removeAttr("data-method").unbind()
-  $(".wrong_multiple_choice_answer").removeClass("wrong_multiple_choice_answer").addClass("nerfed_answer").removeAttr("href").removeAttr("data-method").unbind()
+  $(".right_multiple_choice_answer").removeAttr("href").unbind()
 
 findCsrfToken = () ->
   $('meta[name="csrf-token"]').attr('content')
@@ -68,7 +67,8 @@ postTileCompletion = (event) ->
   })
 
 pingRightAnswerInPreview = () ->
-  $.post("/ping", {event: 'Explore page - Interaction', properties: {action: 'Clicked Answer'}})
+  if window.location.href.match(/explore/) 
+    $.post("/ping", {event: 'Explore page - Interaction', properties: {action: 'Clicked Answer'}})
 
 rightAnswerClicked = (event) ->
   posting = postTileCompletion(event)
@@ -80,7 +80,7 @@ markCompletedRightAnswer = (event) ->
   $(event.target).addClass('clicked_right_answer')
 
 attachRightAnswerMessage = (event) ->
-  $(event.target).siblings('.wrong_answer_target').html("Correct!").slideDown(250)
+  $(event.target).siblings('.answer_target').html("Correct!").slideDown(250)
 
 rightAnswerClickedForPreview = (event) ->
   pingRightAnswerInPreview()
@@ -91,22 +91,20 @@ attachRightAnswers = ->
   $('.right_multiple_choice_answer').one("click", (event) ->
     event.preventDefault()
     rightAnswerClicked(event)
-    #disableAllAnswers() 
-    # with this spec/acceptance/guest_user/starts_over_spec.rb:78 fails
-    # because it disables next tile. also without countdown we don't need it
+    disableAllAnswers()
   )
 
 attachRightAnswersForPreview = ->
   $('.right_multiple_choice_answer').one("click", (event) ->
     event.preventDefault()
     rightAnswerClickedForPreview(event)
-    #disableAllAnswers()
+    disableAllAnswers()
   )
 
 attachWrongAnswers = ->
   _.each($('.wrong_multiple_choice_answer'), (wrongAnswerLink) ->
     wrongAnswerLink = $(wrongAnswerLink)
-    target = wrongAnswerLink.siblings('.wrong_answer_target')
+    target = wrongAnswerLink.siblings('.answer_target')
     attachWrongAnswer(wrongAnswerLink, target)
   )
 
