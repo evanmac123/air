@@ -45,6 +45,11 @@ function bindBoardSettingsControls() {
     )
   });
 
+  $('#leave_board_safety_modal').on('opened', function(event) {
+    var textField = $(this).find('input[type=text]');
+    textField.val('');
+  });
+
   $('#leave_board_safety_modal input[type="text"]').on('keyup', function(event) {
     var submitButton = $('#leave_board_safety_modal input[type="submit"]');
 
