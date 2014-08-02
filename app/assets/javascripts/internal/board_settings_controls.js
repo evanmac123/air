@@ -8,6 +8,16 @@ function bindBoardSettingsControls() {
     $('a.save_board_name[data-demo_id="' + demoId + '"]').show();
   });
 
+  $('#board_settings').on('opened', function(event) {
+    $(event.target).find('.board_wrapper').not('.dirty').each(function(_index, board_wrapper) {
+      $(board_wrapper).find('a.save_board_name').hide();
+    });
+  });
+
+  $('#board_settings .board_name').keypress(function(event) {
+    $(event.target).closest('.board_wrapper').addClass('dirty');
+  });
+
   $('.edit_board_name_link, .edit_board_name_icon').click(function(event) {
     event.preventDefault();
     $(this).closest('.board_wrapper').find('.board_name').focus();
