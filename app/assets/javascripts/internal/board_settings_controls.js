@@ -45,6 +45,7 @@ function bindBoardSettingsControls() {
         controlSection.find('.board_saving').hide();
         if(data.success) {
           controlSection.find('.board_saved').show();
+          controlSection.find('.board_save_error').hide();
           boardSwitchLink.text(data.updatedBoardName);
           currentBoardName.text(data.truncatedUpdatedBoardName);
         } else {
