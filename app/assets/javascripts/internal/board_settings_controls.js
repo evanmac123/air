@@ -86,7 +86,8 @@ function bindBoardSettingsControls() {
 
   $('#close_safety_modal').click(function(event) {
     event.preventDefault();
-    $('#leave_board_safety_modal').foundation('reveal', 'close');
+    //$('#leave_board_safety_modal').foundation('reveal', 'close');
+    $('#board_settings').foundation('reveal', 'open');
   });
 
   var postMuteRequest = function(elt) {
