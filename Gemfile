@@ -105,6 +105,7 @@ group :test do
   gem "poltergeist"
   gem "sinatra"
   gem "mocha"
+  gem "selenium-webdriver"
 end
 
 group :development do 

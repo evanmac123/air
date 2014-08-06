@@ -91,7 +91,6 @@ attachRightAnswers = ->
   $('.right_multiple_choice_answer').one("click", (event) ->
     event.preventDefault()
     rightAnswerClicked(event)
-    disableAllAnswers()
   )
 
 attachRightAnswersForPreview = ->
