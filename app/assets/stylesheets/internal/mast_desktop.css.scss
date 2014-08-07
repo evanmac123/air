@@ -425,6 +425,12 @@ body.explores {
     position: relative;
   }
 
+  .close_board_settings_container {
+    position: absolute;
+    top: -15px;
+    right: 0;
+  }
+
   #close_board_settings {
     color: $text-color;
   }
