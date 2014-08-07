@@ -448,45 +448,44 @@ body.explores {
     }
   }
 
-  .board_save_controls {
+  /*.board_save_controls {
     text-align: right;
     min-height: $board_control_height;
     margin-bottom: $board_control_bottom_margin;
-  }
+  }*/
 
-  .board_saved {
-    display: none;
-  }
-
-  .save_board_name, .board_saving, .board_saved, .edit_board_name_link {
-    display: none;
-  }
-
-  .board_wrapper.unfocused {
-    &:hover {
-      .edit_board_name_link {
-        display: inline;
-      }
-    }
-  }
-
-  .edit_board_name_icon, .delete_board_icon {
+  .delete_board_icon, 
+  .save_board_name, .board_saving, 
+  .board_saved, .edit_board_name_link{
     @include light-button($light-gray);
     float: right;
+  }
+
+  .board_saving, .board_saved {
+    display: none;
+  }
+
+  .board_wrapper {
+    padding-bottom: 0.5rem;
+    &:hover {
+      .edit_board_name_link, .save_board_name {
+        @include light-button($sky-blue);
+      }
+    }
   }
 
   .delete_board_icon:hover {
     @include light-button($red);
   }
 
-  .edit_board_name_link, .save_board_name {
-    color: $blue;
-  }
+  //.edit_board_name_link, .save_board_name {
+  //  color: $blue;
+  //}
 
-  .edit_board_name_link, .save_board_name, .board_saving, .board_saved {
-    font-size: 11px;
-    font-weight: 300;
-  }
+  //.edit_board_name_link, .save_board_name, .board_saving, .board_saved {
+  //  font-size: 11px;
+  //  font-weight: 300;
+  //}
 
   #user_board_controls.with_divider {
     border-top: solid $light-gray 1px;

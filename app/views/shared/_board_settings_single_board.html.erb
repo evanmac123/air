@@ -1,4 +1,4 @@
-<div class="board_wrapper unfocused">
+<div class="board_wrapper">
   <div class="row">
     <div class="large-6 columns">
       <%= content_tag 'h3', class: "board_name #{as_admin ? '' : 'non_admin'}", "data-demo_id" => board.id, contenteditable: as_admin do %>
@@ -6,9 +6,13 @@
       <% end %>
     </div>
 
-    <div class="large-6 columns board_control_icons">
+    <div class="large-6 columns board_control_icons" data-demo_id="<%= board.id %>">
       <% if as_admin %>
-        <%= link_to 'Edit', '#', class: 'edit_board_name_icon' %>
+        <span class="board_save_error"></span>
+        <%= content_tag 'span', class: 'board_saving' do %>Saving...<% end %>
+          <%= link_to 'Save', '#', "data-demo_id" => board.id, class: 'save_board_name' %>
+          <%= link_to 'Edit', '#', "data-demo_id" => board.id, class: 'edit_board_name_link' %>
+          <%= content_tag 'span', class: 'board_saved', "data-demo_id" => board.id do %>Saved!<% end %>
       <% else %>
         <div class="row">
           <div class="large-3 columns">
@@ -31,13 +35,7 @@
 
   <% if as_admin %>
     <div class="row">
-      <%= content_tag 'div', class: "large-8 columns board_save_controls", "data-demo_id" => board.id do %>
-        <span class="board_save_error"></span>
-        <%= content_tag 'span', class: 'board_saving' do %>Saving...<% end %>
-        <%= link_to 'Save', '#', "data-demo_id" => board.id, class: 'save_board_name' %>
-        <%= link_to 'Edit Name', '#', "data-demo_id" => board.id, class: 'edit_board_name_link' %>
-        <%= content_tag 'span', class: 'board_saved', "data-demo_id" => board.id do %>Saved!<% end %>
-      <% end %>
+      
     </div>
   <% end %>
 </div>

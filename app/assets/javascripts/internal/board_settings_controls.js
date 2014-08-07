@@ -1,11 +1,12 @@
 function bindBoardSettingsControls() {
   $('#board_settings .board_name').focus(function(event) {
-    $(this).closest('.board_wrapper').removeClass('unfocused');
     var demoId = $(this).data('demo_id');
     $('a.save_board_name').hide();
+    $('a.edit_board_name_link').show();
     $('.board_saving').hide();
     $('.board_saved').hide();
     $('a.save_board_name[data-demo_id="' + demoId + '"]').show();
+    $('a.edit_board_name_link[data-demo_id="' + demoId + '"]').hide();
   });
 
   $('#board_settings').on('opened', function(event) {
@@ -29,7 +30,7 @@ function bindBoardSettingsControls() {
     var demoId = $(this).data('demo_id');
     var updateURL = "/boards/" + demoId;
     var boardName = $('.board_name[data-demo_id="' + demoId + '"]').text()
-    var controlSection = $('.board_save_controls[data-demo_id="' + demoId + '"]');
+    var controlSection = $('.board_control_icons[data-demo_id="' + demoId + '"]');
     var boardSwitchLink = $('header .other_boards #board-switch-link-' + demoId);
     var currentBoardName = $('#board_switch #current_board_name[data-demo-id=' + demoId + ']');
 
@@ -51,7 +52,11 @@ function bindBoardSettingsControls() {
         } else {
           controlSection.find('.board_save_error').text(data.message);
         }
-        controlSection.closest('.board_wrapper').addClass('unfocused');
+        window.setTimeout(function(){
+          controlSection.find('.board_saved').hide();
+          controlSection.find('.board_save_error').text("");
+          controlSection.find('a.edit_board_name_link').show();
+        }, 2000);
       }
     )
   });
