@@ -456,8 +456,11 @@ body.explores {
       margin-bottom: $board_control_bottom_margin;
     }
 
-    &[contenteditable="true"]:focus {
-      border-color: $med-gray;
+    &[contenteditable="true"] {
+      width: 500px;
+      &:focus {
+        border-color: $med-gray;
+      }
     }
   }
 
@@ -474,15 +477,20 @@ body.explores {
     float: right;
   }
 
-  .board_saving, .board_saved {
+  .board_saving, .board_saved, .edit_board_name_link, .delete_board_icon {
     display: none;
   }
 
   .board_wrapper {
     padding-bottom: 0.5rem;
+    min-height: 2.4rem;
     &:hover {
       .edit_board_name_link, .save_board_name {
         @include light-button($sky-blue);
+        display: block;
+      }
+      .delete_board_icon {
+        display: block;
       }
     }
   }

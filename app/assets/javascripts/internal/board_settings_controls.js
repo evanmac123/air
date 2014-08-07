@@ -2,7 +2,7 @@ function bindBoardSettingsControls() {
   $('#board_settings .board_name').focus(function(event) {
     var demoId = $(this).data('demo_id');
     $('a.save_board_name').hide();
-    $('a.edit_board_name_link').show();
+    $('a.edit_board_name_link').css("display", "");
     $('.board_saving').hide();
     $('.board_saved').hide();
     $('a.save_board_name[data-demo_id="' + demoId + '"]').show();
@@ -55,7 +55,7 @@ function bindBoardSettingsControls() {
         window.setTimeout(function(){
           controlSection.find('.board_saved').hide();
           controlSection.find('.board_save_error').text("");
-          controlSection.find('a.edit_board_name_link').show();
+          controlSection.find('a.edit_board_name_link').css("display", "");
         }, 2000);
       }
     )
