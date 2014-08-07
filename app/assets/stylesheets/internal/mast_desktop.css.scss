@@ -310,6 +310,10 @@ body.explores {
 
 #new_board_creation {
   @include standard_reveal_dimensions;
+  width: 500px;
+  background: $white;
+  left: 50%;
+  margin-left: -250px;
 
   h1, h3, input, #cancel_board_creation {
     width: 100%;
