@@ -478,6 +478,13 @@ body.explores {
     }
   }
 
+  .board_save_error {
+    float: right;
+    color: $red;
+    padding-top: 0.35rem;
+    margin-bottom: 0.5rem;
+  }
+
   .delete_board_icon:hover {
     @include light-button($red);
   }
