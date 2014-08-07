@@ -415,6 +415,7 @@ body.explores {
   @include board_settings_modal;
 
   h1 {
+    font-size: 18px;
     display: inline-block;
     /* This is a tiny cheat to make the h1 line up with the h3's below it */
     position: relative;
@@ -436,8 +437,10 @@ body.explores {
   }
 
   .control_section_header {
-    color: $sky-blue;
-    text-transform: uppercase;
+    //color: $sky-blue;
+    //text-transform: uppercase;
+    font-size: 16px;
+    color: $darker-gray;
   }
 
   $board_control_height: 1.2em;
@@ -521,6 +524,8 @@ body.explores {
 
   #email_settings_header {
     border-bottom: 1px $tile-wall-bg solid;
+    padding-bottom: 2px;
+    margin-bottom: 4px;
   }
 
   .digest_slider{
