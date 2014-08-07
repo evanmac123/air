@@ -453,6 +453,7 @@ body.explores {
     font-size: 14px;
     border: solid transparent 1px;
     padding: 0.4rem 0;
+    margin: 0;
     //padding-bottom: 0;
 
     &.non_admin {
@@ -525,6 +526,7 @@ body.explores {
 
   .switch{
     @include green-paddle-switch;
+    margin-bottom: 0;
     margin-left: 0.3rem;
   }
 
