@@ -415,11 +415,14 @@ body.explores {
   @include board_settings_modal;
 
   h1 {
-    font-size: 18px;
+    font-size: 24px;
     display: inline-block;
+    color: $sky-blue;
+    font-weight: 500;
+    padding-bottom: 0.5rem;
     /* This is a tiny cheat to make the h1 line up with the h3's below it */
-    position: relative;
-    left: -2px;
+    //position: relative;
+    //left: -2px;
   }
 
   #board_settings_content_wrapper {
@@ -440,20 +443,20 @@ body.explores {
     //color: $sky-blue;
     //text-transform: uppercase;
     font-size: 16px;
-    color: $darker-gray;
+    font-weight: 400;
+    color: $text-color;
+    padding-bottom: 1rem;
   }
 
-  $board_control_height: 1.2em;
-  $board_control_bottom_margin: 0.5em;
-
   .board_name {
-    color: $text-color;
+    color: $med-gray;
+    font-size: 14px;
     border: solid transparent 1px;
-    padding-bottom: 0;
+    padding: 0.4rem 0;
+    //padding-bottom: 0;
 
     &.non_admin {
-      padding-bottom: $board_control_height;
-      margin-bottom: $board_control_bottom_margin;
+      //padding-top: 0.25rem;
     }
 
     &[contenteditable="true"] {
@@ -521,7 +524,8 @@ body.explores {
   }
 
   .switch{
-    @include green-paddle-switch(1.25);
+    @include green-paddle-switch;
+    margin-left: 0.3rem;
   }
 
   #email_settings_header, .email_settings_subheader {

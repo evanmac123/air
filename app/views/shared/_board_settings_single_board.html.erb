@@ -2,7 +2,7 @@
   <div class="row">
     <div class="large-6 columns">
       <%= content_tag 'h3', class: "board_name #{as_admin ? '' : 'non_admin'}", "data-demo_id" => board.id, contenteditable: as_admin do %>
-        <%= board.name %>
+        <%= as_admin ? board.name : board.name.truncate(40) %>
       <% end %>
     </div>
 

@@ -5,6 +5,8 @@
   width: 45px * $size-factor;
   margin-top: 4px;
   span.green-paddle {
+    -webkit-box-shadow: 2px 0 10px 0 rgba(0, 0, 0, 0.07), 1000px 0 0 1000px #dfdfdf, -2px 0 10px 0 rgba(0, 0, 0, 0.07), -1000px 0 0 1000px #4face0;
+    box-shadow: 2px 0 10px 0 rgba(0, 0, 0, 0.07), 1000px 0 0 988px #dfdfdf, -2px 0 10px 0 rgba(0, 0, 0, 0.07), -1000px 0 0 1000px #4face0;
     width: 20px * $size-factor;
     height: 20px * $size-factor;
   }
