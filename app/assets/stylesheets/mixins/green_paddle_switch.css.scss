@@ -1,12 +1,10 @@
 @mixin green-paddle-switch($size-factor: 1) {
   @include switch-size(20px * $size-factor);
-  @include switch-style($switch-paddle-bg, $light-gray, $dark-green, false, true);
+  @include switch-style($switch-paddle-bg, $light-gray, $sky-blue, false, true);
   float: left;
   width: 45px * $size-factor;
   margin-top: 4px;
   span.green-paddle {
-    -webkit-box-shadow: 2px 0 10px 0 rgba(0, 0, 0, 0.07), 1000px 0 0 1000px #dfdfdf, -2px 0 10px 0 rgba(0, 0, 0, 0.07), -1000px 0 0 1000px #4faa60;
-    box-shadow: 2px 0 10px 0 rgba(0, 0, 0, 0.07), 1000px 0 0 988px #dfdfdf, -2px 0 10px 0 rgba(0, 0, 0, 0.07), -1000px 0 0 1000px #4faa60;
     width: 20px * $size-factor;
     height: 20px * $size-factor;
   }
