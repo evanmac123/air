@@ -322,6 +322,47 @@ feature 'Client admin and the digest email for tiles' do
             end
           end
         end
+
+        context "and the option admin-supplied custom subject is filled in" do
+          before do
+            @custom_subject = "Pferde in der Wehrmacht waren als Armeepferde ein wichtiger Bestandteil"
+            fill_in "digest[custom_subject]", with: @custom_subject
+            click_button 'Send'
+          end
+
+          it "uses that" do
+            crank_dj_clear
+
+            all_addresses.each do |address|
+              open_email(address)
+              current_email.subject.should == @custom_subject
+            end
+          end
+
+          it "records the original subject in the followup" do
+            FollowUpDigestEmail.all.length.should == 1
+            FollowUpDigestEmail.first.original_digest_subject.should == "#{@custom_subject}"
+          end
+        end
+
+        context "and the option admin-supplied custom subject is not filled in" do
+          it "uses a reasonable default" do
+            click_button 'Send'
+
+            crank_dj_clear
+
+            all_addresses.each do |address|
+              open_email(address)
+              current_email.subject.should == "New Tiles"
+            end
+          end
+
+          it "creates a FollowUpDigestEmail with a nil original subject recorded" do
+            click_button 'Send'
+            FollowUpDigestEmail.all.length.should == 1
+            FollowUpDigestEmail.first.original_digest_subject.should be_nil
+          end
+        end
       end
 
       context "a ping gets sent" do

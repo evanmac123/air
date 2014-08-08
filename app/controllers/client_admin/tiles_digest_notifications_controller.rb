@@ -5,11 +5,15 @@ class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseControlle
     follow_up_days = FollowUpDigestEmail.follow_up_days(params[:follow_up_day])
     # Need to do this because the param is the string "true" or "false"... and the string "false" is true
     unclaimed_users_also_get_digest = (params[:digest_send_to] == 'true' ? true : false)
+
     custom_message = params[:digest][:custom_message]
     custom_message = nil unless custom_message.present?
 
+    custom_subject = params[:digest][:custom_subject]
+    custom_subject = nil unless custom_subject.present?
+
     cutoff_time = @demo.tile_digest_email_sent_at
-    schedule_digest_and_followup! @demo, unclaimed_users_also_get_digest, follow_up_days, cutoff_time, custom_message
+    schedule_digest_and_followup! @demo, unclaimed_users_also_get_digest, follow_up_days, cutoff_time, custom_message, custom_subject
 
     @demo.update_attributes tile_digest_email_sent_at: Time.now, unclaimed_users_also_get_digest: unclaimed_users_also_get_digest
 
@@ -30,16 +34,18 @@ class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseControlle
     ping 'Digest - Sent', {digest_send_to: receiver_description, followup_scheduled: followup_scheduled, optional_message_added: optional_message_added}, current_user
   end
 
-  def schedule_digest_and_followup!(demo, unclaimed_users_also_get_digest, follow_up_days, cutoff_time, custom_message)
+  def schedule_digest_and_followup!(demo, unclaimed_users_also_get_digest, follow_up_days, cutoff_time, custom_message, custom_subject)
     tile_ids = demo.digest_tiles(cutoff_time).pluck(:id)
 
-    TilesDigestMailer.delay.notify_all demo, unclaimed_users_also_get_digest, tile_ids, custom_message
+    digest_subject = custom_subject || "New Tiles"
+    TilesDigestMailer.delay.notify_all demo, unclaimed_users_also_get_digest, tile_ids, custom_message, digest_subject
 
     if follow_up_days > 0
       FollowUpDigestEmail.create!(demo_id:  demo.id,
                                  tile_ids: tile_ids,
                                  send_on:  Date.today + follow_up_days.days,
-                                 unclaimed_users_also_get_digest: unclaimed_users_also_get_digest) 
+                                 unclaimed_users_also_get_digest: unclaimed_users_also_get_digest,
+                                 original_digest_subject: custom_subject)
     end
   end
 end

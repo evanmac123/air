@@ -14,11 +14,18 @@
           FOLLOW-UP EMAIL
         .drop_down= select_tag :follow_up_day, options_for_select(%w(Never) + Date::DAYNAMES, selected: default_follow_up_day)
 
+      .custom_subject
+        %p
+          SUBJECT
+        = text_area_tag "digest[custom_subject]", '', size: "50x3", maxlength: 80, placeholder: 'New Tiles'
+        = javascript_include_tag 'admin/byte_counter'
+        :javascript
+          addCharacterCounterFor('#digest_custom_subject');
+
       .intro_message
         %p
           INTRO MESSAGE
         = text_area_tag "digest[custom_message]", '', size: "50x6", maxlength: 160
-        = javascript_include_tag 'admin/byte_counter'
         :javascript
           addCharacterCounterFor('#digest_custom_message');
 
@@ -29,3 +36,12 @@
         .clearfix
       = submit_tag "Send", confirm: 'Are you sure you want to send the digest email?'
 .large-9.email_preview= render 'shared/email_client_wrapper', demo: current_user.demo, subject: 'New Tiles'
+
+= content_for :javascript do
+  :javascript
+    $('#digest_custom_subject').keyup(function(event) {
+      var text = $(event.target).val();
+      var textForSubject = (text == '') ? 'New Tiles' : text
+
+      $('.subject-field').text(textForSubject);
+    });

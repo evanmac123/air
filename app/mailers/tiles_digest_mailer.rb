@@ -18,20 +18,25 @@ class TilesDigestMailer < ActionMailer::Base
     FollowUpDigestEmail.send_follow_up_digest_email.each { |followup| TilesDigestMailer.delay(run_at: noon).notify_all_follow_up(followup.id) }
   end
 
-  def notify_all(demo, unclaimed_users_also_get_digest, tile_ids, custom_message)
+  def notify_all(demo, unclaimed_users_also_get_digest, tile_ids, custom_message, subject)
     user_ids = demo.users_for_digest(unclaimed_users_also_get_digest).pluck(:id)
 
-    user_ids.each { |user_id| TilesDigestMailer.delay.notify_one(demo.id, user_id, tile_ids, 'New Tiles', false, custom_message) }
+    user_ids.each { |user_id| TilesDigestMailer.delay.notify_one(demo.id, user_id, tile_ids, subject, false, custom_message) }
   end
 
   def notify_all_follow_up(followup_id)
     followup = FollowUpDigestEmail.find followup_id
+    subject = if followup.original_digest_subject.present?
+                "REMINDER: #{followup.original_digest_subject}"              
+              else
+                "Don't Miss Your New Tiles"              
+              end
 
     tile_ids = followup.tile_ids
     user_ids = followup.demo.users_for_digest(followup.unclaimed_users_also_get_digest).pluck(:id)
 
     user_ids.reject! { |user_id| TileCompletion.user_completed_any_tiles?(user_id, tile_ids)}
-    user_ids.each    { |user_id| TilesDigestMailer.delay.notify_one(followup.demo.id, user_id, tile_ids, "Don't Miss Your New Tiles", true, nil) }
+    user_ids.each    { |user_id| TilesDigestMailer.delay.notify_one(followup.demo.id, user_id, tile_ids, subject, true, nil) }
 
     followup.destroy
   end
