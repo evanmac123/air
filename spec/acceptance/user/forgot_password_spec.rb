@@ -4,7 +4,7 @@ feature "User interacts with the 'Forgot password?' functionality" do
 
   before(:each) do
     visit sign_in_path
-    click_link 'Forgot password?'
+    click_link 'Set or Reset Your Password'
   end
 
   scenario 'User enters an invalid email address' do

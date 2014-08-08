@@ -1,15 +1,13 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Makes a board by themself' do
+  include SessionHelpers
+
   NEW_CREATOR_NAME = "Johnny Cochran"
   NEW_CREATOR_EMAIL = "mustacquit@cochranlaw.com"
   NEW_CREATOR_PASSWORD = "ojtotallydidit"
   NEW_BOARD_NAME = "Law Offices Of J. Cochran"
 
-  def expiration_message
-    "Your session has expired. Please log back in to continue."
-  end
-  
   def fill_in_valid_form_entries
     fill_in 'user[name]', with: NEW_CREATOR_NAME
     fill_in 'user[email]', with: NEW_CREATOR_EMAIL
@@ -36,12 +34,12 @@ feature 'Makes a board by themself' do
       Timecop.travel(1.month)
       visit client_admin_tiles_path
       should_be_on client_admin_tiles_path
-      page.should_not have_content(expiration_message)
+      page.should_not have_content(logged_out_message)
 
       Timecop.travel(10.months)
       visit client_admin_tiles_path
       should_be_on client_admin_tiles_path
-      page.should_not have_content(expiration_message)
+      page.should_not have_content(logged_out_message)
       Timecop.return
     end
   end

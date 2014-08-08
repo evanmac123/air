@@ -4,7 +4,7 @@ end unless ENV['NO_DEBUGGER']
 
 Health::Application.configure do
 
-  require(Rails.root + 'config/initializers/constants')
+  require(Rails.root + 'config/initializers/sendgrid')
 
   # Settings specified here will take precedence over those in config/application.rb
 

@@ -1,6 +1,7 @@
 require 'acceptance/acceptance_helper'
 
 feature "User Accepts Invitation" do
+  include SessionHelpers
 
   before(:each) do
     @user = FactoryGirl.create :user, name: "Bob Q. Smith, III"
@@ -40,7 +41,7 @@ feature "User Accepts Invitation" do
     visit invitation_url(@user.invitation_code)
 
     should_be_on sign_in_path
-    expect_content "You've already accepted your invitation to the game. Please log in if you'd like to use the site."
+    expect_content logged_out_message
   end
 
   scenario "across boards" do

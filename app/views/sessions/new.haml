@@ -12,6 +12,6 @@
         = label_tag "session[remember_me]", "Remember me (Don't check this on a shared computer)", :class => :inline
         = check_box_tag "session[remember_me]", 1, true
       = submit_tag "Log In"
-      = link_to "Forgot password?", new_password_path 
+      = link_to "Set or Reset Your Password", new_password_path, id: "set_or_reset_password"
 
 = mp_track_page "sign in"

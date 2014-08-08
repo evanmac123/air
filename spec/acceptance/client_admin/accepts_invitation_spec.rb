@@ -1,6 +1,7 @@
 require 'acceptance/acceptance_helper'
 
 feature "Client Admin Accepts Invitation" do
+  include SessionHelpers
 
   before(:each) do
     @user = FactoryGirl.create :user, is_client_admin: true
@@ -110,7 +111,7 @@ feature "Client Admin Accepts Invitation" do
     visit invitation_url(@user.invitation_code)
 
     should_be_on sign_in_path
-    expect_content "You've already accepted your invitation to the game. Please log in if you'd like to use the site."
+    expect_content logged_out_message
   end
 
   scenario "and gets no email after accepting invitation" do

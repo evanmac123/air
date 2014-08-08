@@ -138,25 +138,5 @@ feature "User tries to friend someone" do
     user.should_not be_friends_with friend
     friend.should_not be_friends_with user
   end
-
-  scenario "A not-logged-in friend should see a flash error message and not become friends \
-            when he tries to process the friend request with an invalid token and then logs in", js: true do
-    pending "TEST HAS HEISENBUGS BUT I ASSURE YOU THIS SHIT WORKS FINE"
-
-    sign_out
-    deliver_and_open_email_for(friend)
-
-    # Chop off the last character of the authenticity token
-    link = links_in_email(current_email).find { |link| link =~ /accept/ }.chop
-    visit request_uri(link)
-
-    page.should have_content "Your session has expired"
-    signin_as(friend, friend.password)
-
-    page.should have_content "Invalid authenticity token. Connection operation cancelled."
-
-    user.should_not be_friends_with friend
-    friend.should_not be_friends_with user
-  end
 end
 

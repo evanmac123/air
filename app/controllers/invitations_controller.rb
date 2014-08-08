@@ -63,7 +63,8 @@ class InvitationsController < ApplicationController
         end
         redirect_to activity_path
       else
-        flash[:failure] = "You've already accepted your invitation to the game. Please log in if you'd like to use the site."
+        flash[:failure] = Clearance::SESSION_EXPIRED
+        flash[:failure_allow_raw] = true
         redirect_to sign_in_path(demo_id: params[:demo_id])
       end
 

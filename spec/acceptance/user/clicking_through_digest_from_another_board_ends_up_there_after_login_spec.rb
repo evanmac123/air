@@ -1,6 +1,8 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Clicking through digest from another board when claimed and logged out' do
+  include SessionHelpers
+
   before do
     @user = FactoryGirl.create(:user, :claimed, email: "johnny@heythere.co.uk")
     @user.password = @user.password_confirmation = "foobar"
@@ -13,7 +15,7 @@ feature 'Clicking through digest from another board when claimed and logged out'
 
     open_email("johnny@heythere.co.uk")
     visit_in_email "Start"
-    expect_content "Please log in if you'd like to use the site."
+    expect_content logged_out_message
   end
 
   scenario 'ends up there after login' do
