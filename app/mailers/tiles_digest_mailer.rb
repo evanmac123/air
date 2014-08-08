@@ -27,7 +27,7 @@ class TilesDigestMailer < ActionMailer::Base
   def notify_all_follow_up(followup_id)
     followup = FollowUpDigestEmail.find followup_id
     subject = if followup.original_digest_subject.present?
-                "REMINDER: #{followup.original_digest_subject}"              
+                "Don't Miss: #{followup.original_digest_subject}"              
               else
                 "Don't Miss Your New Tiles"              
               end

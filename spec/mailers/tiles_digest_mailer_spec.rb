@@ -239,7 +239,7 @@ describe 'Follow-up digest email' do
       TilesDigestMailer.notify_all_follow_up follow_up.id
 
       open_email(user.email)
-      current_email.subject.should == "REMINDER: #{custom_original_digest_subject}"
+      current_email.subject.should == "Don't Miss: #{custom_original_digest_subject}"
     end
   end
 
