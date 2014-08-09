@@ -1,4 +1,30 @@
 function bindBoardSettingsControls() {
+  $(".board_settings_toggle_wrapper").click(function(event){
+    event.preventDefault();
+    mq = window.matchMedia( "(min-width: 770px)" );
+    if (mq.matches || window.oldBrowser) {
+      $('#board_settings').foundation('reveal','open');
+    }else{
+      $('#board_settings').removeAttr("class").removeAttr("style");
+      $(".content").hide();
+      $("#small-toggle").click();
+    }
+    $("#board_settings").find('.board_wrapper').not('.dirty').each(function(_index, board_wrapper) {
+      $(board_wrapper).find('a.save_board_name').hide();
+    });
+  });
+
+  $(".close_board_settings_container").click(function(){
+    event.preventDefault();
+    mq = window.matchMedia( "(min-width: 770px)" );
+    if (mq.matches || window.oldBrowser) {
+      $('#board_settings').foundation('reveal','close');
+    }else{
+      $('#board_settings').hide();
+      $(".content").show();
+    }
+  });
+
   $('#board_settings .board_name').focus(function(event) {
     var demoId = $(this).data('demo_id');
     $('a.save_board_name').hide();
@@ -9,11 +35,9 @@ function bindBoardSettingsControls() {
     $('a.edit_board_name_link[data-demo_id="' + demoId + '"]').hide();
   });
 
-  $('#board_settings').on('opened', function(event) {
-    $(event.target).find('.board_wrapper').not('.dirty').each(function(_index, board_wrapper) {
-      $(board_wrapper).find('a.save_board_name').hide();
-    });
-  });
+  /*$('#board_settings').on('opened', function(event) {
+    
+  });*/
 
   $('#board_settings .board_name').keypress(function(event) {
     $(event.target).closest('.board_wrapper').addClass('dirty');

@@ -1,0 +1,23 @@
+<div class="board_wrapper">
+    <div class="board_name_column">
+      <%= content_tag 'h3', class: "board_name non_admin", "data-demo_id" => board.id do %>
+        <%= board.name.truncate(35) %>
+      <% end %>
+    </div>
+
+    <div class="email_column">
+      <div class="switch_container">
+        <%= render 'shared/board_settings_email_mute_slider', email_type: 'followup', mute_url: mute_followup_path(board.id), original_setting: digest_is_muted || followup_is_muted, disabled: digest_is_muted, board_id: board.id %>
+
+        <%= render 'shared/board_settings_email_mute_slider', email_type: 'digest', mute_url: mute_digest_path(board.id), original_setting: digest_is_muted, disabled: false, board_id: board.id %>
+      </div>
+    </div>
+
+    <div class="delete_column">
+      <% unless board.is_paid %>
+        <%= link_to "Delete", '#', {class: 'delete_board_icon', "data-delete_url" => board_membership_path(board.id)} %>
+      <% else %>
+        <span class="cannot_delete">Cannot delete</span>
+      <% end %>
+    </div>
+</div>

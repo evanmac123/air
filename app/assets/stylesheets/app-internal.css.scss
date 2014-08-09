@@ -34,6 +34,7 @@
 @import "./internal/tags.css.scss";
 @import "./internal/explore.css.scss";
 @import "./internal/tile_preview.css.scss";
+@import "./internal/board_settings_iphone.css.scss";
 @import "./external/welcome.css.scss";
 @import "./external/welcome_ie.css.scss";
 /* RWD */
@@ -47,6 +48,7 @@
 @media only screen and (min-width: $foundation) {
   @import "./internal/screen_desktop.css.scss";
   @import "./external/welcome_desktop.css.scss";
+  @import "./internal/board_settings_desktop.css.scss";
 }
 @media only screen and (min-width: $mid-desktop) {
   @import "./internal/screen_large.css.scss";

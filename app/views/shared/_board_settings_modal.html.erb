@@ -1,10 +1,10 @@
 <div id="leave_board_safety_modal" class="reveal-modal">
   <div class="row">
-    <div class="large-10 columns">
+    <div class="small-10 columns">
       <h1>DELETE</h1>
     </div>
-    <div class="large-2 columns">
-      <a id="close_safety_modal" class="large-1" href="#">Cancel</a>
+    <div class="small-2 columns">
+      <a id="close_safety_modal" class="small-1" href="#">Cancel</a>
     </div>
   </div>
 
@@ -25,11 +25,11 @@
 
 <div id="board_settings" class="reveal-modal">
   <div class="row">
-    <div class="large-11 columns">
+    <div class="small-11 columns">
       <h1>Board Settings</h1>
     </div>
     <div class="close_board_settings_container">
-      <a id="close_board_settings" class="large-1" href="#">Close</a>
+      <a id="close_board_settings" class="small-1" href="#">Close</a>
     </div>
   </div>
 
@@ -38,12 +38,12 @@
   <% if boards_as_admin.present? %>
     <div id="admin_board_controls">
       <div class="row">
-        <div class="large-12 columns">
+        <div class="small-12 columns">
           <h2 class="control_section_header">Boards You Manage</h2>
         </div>
       </div>
       <% boards_as_admin.sort_by(&:name).each do |board| %>
-        <%= render "shared/board_settings_single_board", board: board, as_admin: true %>
+        <%= render "shared/board_settings_admin_board", board: board %>
       <% end %>
     </div>
   <% end %>
@@ -52,22 +52,25 @@
     <% divider_class = put_divider_between_sections ? "with_divider" : "" %>
 
     <div id="user_board_controls" class="<%= divider_class %>">
-      <div class="row">
-        <div class="large-6 columns">
+      <div class="row board_wrapper">
+        <div class="board_name_column">
           <h2 class="control_section_header">Boards You Participate In</h2>
         </div>
-        <div class="large-6 columns">
+
+        <div class="email_column">
           <div class="row email_settings_header_wrapper">
-            <p id="email_settings_header" class="columns large-6">Email Settings</p>
+            <p id="email_settings_header" class="">Email Settings</p>
           </div>
-          <div class="row">
-            <p class="email_settings_subheader columns large-3">New Tiles</p>
-            <p class="email_settings_subheader columns large-3 pull-6">Reminder</p>
+          <div class="row switch_container">
+            <p class="email_settings_subheader">New Tiles</p>
+            <p class="email_settings_subheader">Reminder</p>
           </div>
         </div>
+
+        <div class="delete_column"></div>
       </div>
       <% boards_as_regular_user.sort_by(&:name).each do |board| %>
-        <%= render "shared/board_settings_single_board", board: board, as_admin: false, followup_is_muted: @muted_followup_boards.include?(board), digest_is_muted: @muted_digest_boards.include?(board)  %>
+        <%= render "shared/board_settings_user_board", board: board, as_admin: false, followup_is_muted: @muted_followup_boards.include?(board), digest_is_muted: @muted_digest_boards.include?(board)  %>
       <% end %>
     </div>
   <% end %>
@@ -75,7 +78,9 @@
 
 <%= content_for :javascript do %>
   <%= javascript_tag do %>
-    $(bindBoardSettingsControls());
+    $().ready(function(){
+      bindBoardSettingsControls()
+    });
   <% end %>
 <% end %>
 

@@ -53,12 +53,11 @@
 
         <%= render 'shared/desktop_board_switcher', boards_to_switch_to: @boards_to_switch_to %>
 
-        <%= link_to '#', id: 'board_settings_toggle', "data-reveal-id" => "board_settings" do %>
+        <%= link_to '#', id: 'board_settings_toggle' do %>
           <div class="board_settings_toggle_wrapper has-tip" data-tooltip title="Settings">
             <%= fa_icon("cog") %>
           </div>
         <% end %>
-        <%= render 'shared/board_settings_modal', boards_as_admin: @boards_as_admin, boards_as_regular_user: @boards_as_regular_user, has_only_one_board: @has_only_one_board %>
 
         <% if current_user.authorized_to?(:client_admin) %>
           <div class="explore_menu">
@@ -114,3 +113,6 @@
 <% if current_user && !current_user.can_switch_boards? %>
   <%= render "shared/login_modal" %>
 <% end %>
+
+<%= render 'shared/board_settings_modal', boards_as_admin: @boards_as_admin, boards_as_regular_user: @boards_as_regular_user, has_only_one_board: @has_only_one_board %>
+
