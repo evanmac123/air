@@ -4,7 +4,7 @@
 # they will still be logged in. We may want to fix this at some point
 
 module Clearance
-  SESSION_EXPIRED = %!You've been logged out. Log in below, or <a href="/passwords/new">create or reset your password</a>.!.freeze
+  SESSION_EXPIRED = %!You've been logged out due to inactivity. If needed, <a href="/passwords/new">create or reset your password</a>.!.freeze
 end
 
 module Clearance::Authentication
