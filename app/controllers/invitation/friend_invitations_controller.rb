@@ -1,7 +1,7 @@
 class Invitation::FriendInvitationsController < ApplicationController
   
   skip_before_filter :authorize
-  before_filter :authenticate_without_game_begun_check
+  before_filter :authorize_without_game_begun_check
   
   def create
     render 'shared/ajax_refresh_page' and return unless current_user     

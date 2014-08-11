@@ -2,7 +2,7 @@ class PagesController < HighVoltage::PagesController
   SIGNED_IN_OK_PAGES = [:faq, :faq_body, :faq_toc, :public_help, :static_digest, :static_followup]
 
   skip_before_filter :authorize, :except => SIGNED_IN_OK_PAGES
-  before_filter :authenticate_without_game_begun_check, :only => SIGNED_IN_OK_PAGES
+  before_filter :authorize_without_game_begun_check, :only => SIGNED_IN_OK_PAGES
 
   before_filter :force_html_format
   before_filter :signed_out_only_on_root

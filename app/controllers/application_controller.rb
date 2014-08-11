@@ -127,7 +127,8 @@ class ApplicationController < ActionController::Base
   
   private
 
-  alias authenticate_without_game_begun_check authorize
+  # alias authenticate_without_game_begun_check authorize
+  alias authorize_without_game_begun_check authorize
   def authorize
     if logged_in_as_guest?
       if guest_user_allowed?
@@ -151,7 +152,7 @@ class ApplicationController < ActionController::Base
       return
     end
 
-    authenticate_without_game_begun_check
+    authorize_without_game_begun_check
     refresh_activity_session(current_user)
 
     return if current_user_is_site_admin || going_to_settings

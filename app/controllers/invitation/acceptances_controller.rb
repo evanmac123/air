@@ -4,7 +4,6 @@ class Invitation::AcceptancesController < ApplicationController
   before_filter :find_user, :only => [:update, :generate_password]
 
   skip_before_filter :authorize, :only => [:update, :generate_password]
-  #before_filter :authenticate_without_game_begun_check, :only => :update
 
   layout "external"
 

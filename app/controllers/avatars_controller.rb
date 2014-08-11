@@ -1,6 +1,6 @@
 class AvatarsController < ApplicationController
   skip_before_filter :authorize
-  before_filter :authenticate_without_game_begun_check
+  before_filter :authorize_without_game_begun_check
 
   def update
     if params[:user].blank? || params[:user][:avatar].blank?
