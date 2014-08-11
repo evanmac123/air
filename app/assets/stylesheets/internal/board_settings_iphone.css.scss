@@ -3,7 +3,12 @@
 @import "mixins/green_paddle_switch";
 
 #leave_board_safety_modal {
-
+  padding: 1rem;
+  #close_safety_modal{
+    position: absolute;
+    top: -70px;
+    right: 45px;
+  }
   h1 {
     font-size: 18px;
     color: $red;

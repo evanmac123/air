@@ -7,8 +7,15 @@
 
 #leave_board_safety_modal {
   @include board_settings_modal;
+  #close_safety_modal{
+    top: 0px;
+  }
 }
 
 #board_settings {
   @include board_settings_modal;
+  .delete_board_icon {
+    padding-left: 1em !important;
+    padding-right: 1em !important;
+  }
 }

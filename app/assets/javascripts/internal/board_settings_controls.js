@@ -105,7 +105,15 @@ function bindBoardSettingsControls() {
 
     var deleteURL = $(event.target).data('delete_url');
     $('#leave_board_form').attr('action', deleteURL);
-    $('#leave_board_safety_modal').foundation('reveal', 'open');
+
+    mq = window.matchMedia( "(min-width: 770px)" );
+    if (mq.matches || window.oldBrowser) {
+      $('#leave_board_safety_modal').foundation('reveal', 'open');
+    }else{
+      $('#board_settings').hide();
+      $(".content").hide();
+      $('#leave_board_safety_modal').removeAttr("class").removeAttr("style");
+    }
   });
 
   $('#close_board_settings').click(function(event) {
@@ -116,7 +124,14 @@ function bindBoardSettingsControls() {
   $('#close_safety_modal').click(function(event) {
     event.preventDefault();
     //$('#leave_board_safety_modal').foundation('reveal', 'close');
-    $('#board_settings').foundation('reveal', 'open');
+    mq = window.matchMedia( "(min-width: 770px)" );
+    if (mq.matches || window.oldBrowser) {
+      $('#board_settings').foundation('reveal', 'open');
+    }else{
+      $('#leave_board_safety_modal').hide();
+      $(".content").hide();
+      $('#board_settings').show();
+    }
   });
 
   var postMuteRequest = function(elt) {
