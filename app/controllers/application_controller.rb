@@ -130,27 +130,8 @@ class ApplicationController < ActionController::Base
   # alias authenticate_without_game_begun_check authorize
   alias authorize_without_game_begun_check authorize
   def authorize
-    if logged_in_as_guest?
-      if guest_user_allowed?
-        board = find_current_board # must be implemented in subclass
-        unless board && board.is_public
-          public_board_not_found
-        end
-
-        refresh_activity_session(current_user)
-        return
-      else
-        flash[:failure] = '<a href="#" class="open_save_progress_form">Save your progress</a> to access this part of the site.'
-        flash[:failure_allow_raw] = true
-        redirect_to public_activity_path(claimed_guest_user.demo.public_slug)
-        return
-      end
-    end
-
-    if guest_user_allowed? && params[:public_slug] 
-      authorize_to_public_board
-      return
-    end
+    return if authorize_as_guest
+    return if authorize_to_public_board
 
     authorize_without_game_begun_check
     refresh_activity_session(current_user)
@@ -169,11 +150,32 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def authorize_as_guest
+    if logged_in_as_guest?
+      if guest_user_allowed?
+        board = find_current_board # must be implemented in subclass
+        unless board && board.is_public
+          public_board_not_found
+        end
+
+        refresh_activity_session(current_user)
+        return true
+      else
+        flash[:failure] = '<a href="#" class="open_save_progress_form">Save your progress</a> to access this part of the site.'
+        flash[:failure_allow_raw] = true
+        redirect_to public_activity_path(claimed_guest_user.demo.public_slug)
+        return true
+      end
+    end
+  end
+
   def authorize_to_public_board
+    return false unless guest_user_allowed? && params[:public_slug]
+
     demo = Demo.public_board_by_public_slug(params[:public_slug])
     unless demo
       public_board_not_found
-      return
+      return true
     end
 
     if current_user.nil?
@@ -192,6 +194,8 @@ class ApplicationController < ActionController::Base
       end
       redirect_to activity_path
     end
+
+    true
   end
 
   def refresh_activity_session(user)
