@@ -316,7 +316,7 @@ module SteakHelperMethods
   end
 
   def site_tutorial_content
-    "Airbo is a space to gather and share interactive bits of knowledge. Get started by clicking on a tile."
+    "Airbo is an interactive communication tool. Get started by clicking on a tile. Interact and answer questions to earn points."
   end
 
   def expect_no_site_tutorial_lightbox
