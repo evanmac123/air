@@ -78,8 +78,11 @@ function bindBoardSettingsControls() {
         }
         window.setTimeout(function(){
           controlSection.find('.board_saved').hide();
-          controlSection.find('.board_save_error').text("");
           controlSection.find('a.edit_board_name_link').css("display", "");
+          if( controlSection.find('.board_save_error').text().length > 0 ){
+            controlSection.find('.board_save_error').text("");
+            controlSection.closest('.board_wrapper').find('.board_name').focus();
+          }
         }, 2000);
       }
     )

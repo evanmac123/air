@@ -25,6 +25,14 @@
     top: 10px;
     right: 10px;
   }
+  #admin_board_controls{
+    display: block;
+  }
+  #user_board_controls {
+    &.with_divider {
+      border-top: solid $light-gray 1px;
+    }
+  }
   .board_wrapper {
     .delete_board_icon {
       padding-left: 1em !important;

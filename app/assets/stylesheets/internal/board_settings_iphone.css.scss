@@ -86,7 +86,9 @@
     color: $text-color;
     //padding-bottom: 1rem;
   }
-
+  #admin_board_controls{
+    display: none;
+  }
   .board_name {
     color: $med-gray;
     font-size: 14px;
@@ -205,9 +207,6 @@
 
   #user_board_controls {
     padding: 1em;
-    &.with_divider {
-      border-top: solid $light-gray 1px;
-    }
   }
 
   .switch{
