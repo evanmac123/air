@@ -1,5 +1,5 @@
 function bindBoardSettingsControls() {
-  $(".board_settings_toggle_wrapper").click(function(event){
+  $(".board_settings_toggle_wrapper, .board_settings_mobile_toggle").click(function(event){
     event.preventDefault();
     mq = window.matchMedia( "(min-width: 770px)" );
     if (mq.matches || window.oldBrowser) {

@@ -22,6 +22,7 @@ header #small-toggle.off-canvas-toggle a {
   }
   #desktop-toggle.off-canvas-toggle {display: none;}
   ul li + li {border-top:1px lighten($dark-gray, 7%) solid;}
+  .board_settings_toggle_wrapper{ display: none; }
   .explore_menu {
     display: inline-block;
     #explore_board { // ====== Manage Board toggle

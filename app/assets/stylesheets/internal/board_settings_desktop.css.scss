@@ -17,6 +17,10 @@
 
 #board_settings {
   @include board_settings_modal;
+  .close_board_settings_container {
+    top: 10px;
+    right: 10px;
+  }
   .board_wrapper {
     .delete_board_icon {
       padding-left: 1em !important;
@@ -24,6 +28,9 @@
     }
     .edit_board_name_link, .delete_board_icon, .cannot_delete {
       display: none;
+    }
+    .cannot_delete{
+      padding-top: 0.4rem;
     }
   }
 }

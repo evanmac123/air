@@ -266,6 +266,9 @@ header {
   .board_settings_toggle_wrapper {
     padding: 1.125em 0.3em 1.125em 0;
   }
+  .board_settings_mobile_toggle {
+    display: none;
+  }
 }
 
 @mixin standard_reveal_dimensions {
