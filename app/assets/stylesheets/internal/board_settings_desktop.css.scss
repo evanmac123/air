@@ -7,6 +7,8 @@
 
 #leave_board_safety_modal {
   @include board_settings_modal;
+  width: 55%;
+  margin-left: -37.5%;
   #close_safety_modal{
     top: 0px;
   }
@@ -17,6 +19,8 @@
 
 #board_settings {
   @include board_settings_modal;
+  width: 55%;
+  margin-left: -37.5%;
   .close_board_settings_container {
     top: 10px;
     right: 10px;
