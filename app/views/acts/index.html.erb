@@ -65,9 +65,8 @@
   <% lightbox_class = @current_user.is_guest? ? 'for_guest' : '' %>
   <div id='get_started_lightbox' class=<%= lightbox_class %>>
     <a href="#" id="close_get_started_lightbox">Get started!</a>
-    <h3>Welcome to Airbo!</h3>
-    <p>You've arrived at the <%= current_user.demo.name%>.</p>
-    <p>Airbo is a space to gather and share interactive bits of knowledge. Get started by clicking on a tile. </br>Answer questions to measure your progress.</p>   
+    <h3>Welcome to the <%= current_user.demo.name%>!</h3>
+    <p>Airbo is an interactive communication tool. Get started by clicking on a tile. Interact and answer questions to earn points. 
     <% if @current_user.is_guest? %>
       <p>Already a user? <%= link_to "Sign in", new_session_path %>.</p>
     <% end %>
