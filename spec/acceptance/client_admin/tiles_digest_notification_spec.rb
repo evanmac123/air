@@ -97,8 +97,9 @@ feature 'Client admin and the digest email for tiles' do
       page.should contain 'Wednesday, July 03, 2013'
       
       page.all(".cancel_button a").first.click
-      page.should_not contain 'Monday, July 01, 2013'
 
+      
+      page.should_not contain 'Monday, July 01, 2013'
       page.should contain 'Tuesday, July 02, 2013'
       page.should contain 'Wednesday, July 03, 2013'
     end
