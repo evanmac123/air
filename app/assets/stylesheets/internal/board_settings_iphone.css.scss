@@ -196,15 +196,18 @@
     color: $red;
     padding-top: 0.35rem;
     margin-bottom: 0.5rem;
+    font-size: 14px;
   }
 
   .delete_board_icon:hover {
     @include light-button($red);
   }
 
-  #user_board_controls.with_divider {
-    border-top: solid $light-gray 1px;
+  #user_board_controls {
     padding: 1em;
+    &.with_divider {
+      border-top: solid $light-gray 1px;
+    }
   }
 
   .switch{
