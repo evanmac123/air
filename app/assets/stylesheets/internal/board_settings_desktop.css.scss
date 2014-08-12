@@ -17,8 +17,13 @@
 
 #board_settings {
   @include board_settings_modal;
-  .delete_board_icon {
-    padding-left: 1em !important;
-    padding-right: 1em !important;
+  .board_wrapper {
+    .delete_board_icon {
+      padding-left: 1em !important;
+      padding-right: 1em !important;
+    }
+    .edit_board_name_link, .delete_board_icon, .cannot_delete {
+      display: none;
+    }
   }
 }
