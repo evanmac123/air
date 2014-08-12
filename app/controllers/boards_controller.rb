@@ -17,7 +17,7 @@ class BoardsController < ApplicationController
   def update
     board = Demo.find(params[:id])
 
-    unless current_user.is_client_admin_in_board(board)
+    unless current_user.is_client_admin_in_board(board) || current_user.is_site_admin
       render nothing: true
       return
     end
