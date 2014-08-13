@@ -132,6 +132,13 @@ describe User do
     user.should be_valid
   end
 
+  describe "on create" do
+    it "should set their explore_token" do
+      user = FactoryGirl.create(:user)
+      user.explore_token.should be_present
+    end
+  end
+
   describe "on destroy" do
     it "should destroy any Friendships where this user is the friend on destroy" do
       user1 = FactoryGirl.create(:user)

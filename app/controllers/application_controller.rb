@@ -127,12 +127,12 @@ class ApplicationController < ActionController::Base
   
   private
 
-  # alias authenticate_without_game_begun_check authorize
   alias authorize_without_game_begun_check authorize
   def authorize
     return if authorize_as_guest
     return if authorize_to_public_board
 
+    authorize_by_explore_token
     authorize_without_game_begun_check
     refresh_activity_session(current_user)
 
@@ -196,6 +196,27 @@ class ApplicationController < ActionController::Base
     end
 
     true
+  end
+
+  def authorize_by_explore_token
+    return if current_user
+    return unless explore_token_allowed
+
+    explore_token = find_explore_token
+    return unless explore_token.present?
+
+    user = User.find_by_explore_token(explore_token)
+    return unless user.present?
+
+    @current_user_by_explore_token = user
+  end
+
+  def explore_token_allowed
+    false
+  end
+  
+  def find_explore_token
+    params[:explore_token]
   end
 
   def refresh_activity_session(user)
@@ -337,7 +358,22 @@ class ApplicationController < ActionController::Base
   end
 
   def self.must_be_authorized_to(page_class, options={})
+    unless_symbols = options.delete(:unless)
+    if_symbols = options.delete(:if)
+
     before_filter(options) do
+      if if_symbols.present?
+        if_symbols.each do |if_symbol|
+          return true unless send(if_symbol)
+        end
+      end
+
+      if unless_symbols.present?
+        unless_symbols.each do |unless_symbol|
+          return true if send(unless_symbol)
+        end
+      end
+
       unless current_user.authorized_to?(page_class)
         redirect_to '/'
         return false

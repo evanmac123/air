@@ -3,6 +3,30 @@ class ExploresController < ClientAdminBaseController
 
   before_filter :find_tiles
 
+  def authorize
+    super
+  end
+
+  #def current_user
+    #@current_user ||= User.first
+  #end
+
+  def explore_token_allowed
+    true
+  end
+
+  def current_user
+    super || current_user_by_explore_token
+  end
+
+  def signed_in?
+    super || current_user_by_explore_token.present?
+  end
+
+  def current_user_by_explore_token
+    @current_user_by_explore_token
+  end
+
   def show
     @tile_tags = TileTag.alphabetical.with_public_non_draft_tiles
     @batch_size = tile_batch_size

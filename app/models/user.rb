@@ -125,6 +125,7 @@ class User < ActiveRecord::Base
   
   before_create do
     set_invitation_code
+    set_explore_token
   end
 
   before_save do
@@ -612,6 +613,10 @@ class User < ActiveRecord::Base
     save!
   end
 
+  def set_explore_token
+    self.explore_token = Digest::SHA1.hexdigest("This is the salt for an explore token, how about that--#{Time.now.to_f}--#{self.email}--#{self.name}--")
+  end
+
   def find_same_slug(possible_slug)
     User.first(:conditions => ["slug = ? OR sms_slug = ?", possible_slug, possible_slug],
                :order      => "created_at desc")
@@ -959,6 +964,8 @@ class User < ActiveRecord::Base
     when :site_admin
       is_site_admin
     when :client_admin
+      is_site_admin || is_client_admin
+    when :explore_family
       is_site_admin || is_client_admin
     else
       false

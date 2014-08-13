@@ -1,8 +1,14 @@
 class ClientAdminBaseController < ApplicationController
-  must_be_authorized_to :client_admin
+  must_be_authorized_to :client_admin,   unless: [:explore_token_allowed]
+  must_be_authorized_to :explore_family, if:     [:explore_token_allowed]
+
   layout "client_admin_layout"
 
   protected
+
+  def explore_token_allowed
+    false
+  end
 
   def load_tags
     @tags = TileTag.alphabetical
