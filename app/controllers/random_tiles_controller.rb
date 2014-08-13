@@ -1,4 +1,6 @@
 class RandomTilesController < ClientAdminBaseController
+  include LoginByExploreToken
+
   def show
     tile = RandomPublicTileChooser.new.choose_tile
     schedule_ping

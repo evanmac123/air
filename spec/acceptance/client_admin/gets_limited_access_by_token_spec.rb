@@ -16,6 +16,12 @@ feature 'Client admin gets limited access by token' do
     should_be_on tile_tag_show_explore_path
   end
 
+  scenario "to the random-tile page, when the token is appended as a query parameter" do
+    tile = FactoryGirl.create(:tile, :public)
+    visit explore_random_tile_path(explore_token: client_admin.explore_token)
+    should_be_on explore_tile_preview_path(tile)
+  end
+
   scenario "when they log in by token in a query parameter, they don't have to keep appending it in subsequent requests" do
     tile_tag = FactoryGirl.create(:tile_tag)
 
