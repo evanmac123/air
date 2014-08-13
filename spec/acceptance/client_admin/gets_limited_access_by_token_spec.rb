@@ -24,4 +24,15 @@ feature 'Client admin gets limited access by token' do
 
     should_be_on tile_tag_show_explore_path
   end
+
+  scenario "can't go outside the explore family using a token in the query parameter" do
+    visit activity_path(explore_token: client_admin.explore_token)
+    should_be_on sign_in_path
+  end
+
+  scenario "can't go outside the explore family using a token in the session" do
+    visit explore_path(explore_token: client_admin.explore_token)
+    visit activity_path(explore_token: client_admin.explore_token)
+    should_be_on sign_in_path
+  end
 end
