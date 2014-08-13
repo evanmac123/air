@@ -208,7 +208,8 @@ class ApplicationController < ActionController::Base
     user = User.find_by_explore_token(explore_token)
     return unless user.present?
 
-    @current_user_by_explore_token = user
+    remember_explore_token(explore_token)
+    remember_explore_user(user)
   end
 
   def explore_token_allowed
@@ -216,7 +217,15 @@ class ApplicationController < ActionController::Base
   end
   
   def find_explore_token
-    params[:explore_token]
+    params[:explore_token] || session[:explore_token]
+  end
+
+  def remember_explore_token(explore_token)
+    session[:explore_token] = explore_token
+  end
+
+  def remember_explore_user(user)
+    @current_user_by_explore_token = user
   end
 
   def refresh_activity_session(user)

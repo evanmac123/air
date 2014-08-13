@@ -3,14 +3,6 @@ class ExploresController < ClientAdminBaseController
 
   before_filter :find_tiles
 
-  def authorize
-    super
-  end
-
-  #def current_user
-    #@current_user ||= User.first
-  #end
-
   def explore_token_allowed
     true
   end
