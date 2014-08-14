@@ -95,8 +95,11 @@ class TilesDigestMailer < ActionMailer::Base
     @tiles = TileExploreDigestDecorator.decorate_collection Tile.where(id: tile_ids).order('activated_at DESC'), \
                                                             context: { user: @user }
 
-    @site_link = explore_path
-    @site_link.prepend('http://localhost:3000') if Rails.env.development? or Rails.env.test?
+    @site_link =  if Rails.env.development? or Rails.env.test?
+                    'http://localhost:3000' + explore_path
+                  else
+                    explore_url
+                  end 
     @link_options = {} 
 
     custom_from ||= "Airbo <play@ourairbo.com>"
