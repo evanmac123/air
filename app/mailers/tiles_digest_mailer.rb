@@ -96,6 +96,7 @@ class TilesDigestMailer < ActionMailer::Base
                                                             context: { user: @user }
 
     @site_link = explore_path
+    @site_link.prepend('http://localhost:3000') if Rails.env.development? or Rails.env.test?
     @link_options = {} 
 
     custom_from ||= "Airbo <play@ourairbo.com>"
