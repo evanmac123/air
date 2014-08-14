@@ -17,7 +17,7 @@ feature 'Client admin gets limited access by token' do
   end
 
   scenario "to the random-tile page, when the token is appended as a query parameter" do
-    tile = FactoryGirl.create(:tile, :public)
+    tile = FactoryGirl.create(:multiple_choice_tile, :public)
     visit explore_random_tile_path(explore_token: client_admin.explore_token)
     should_be_on explore_tile_preview_path(tile)
   end
@@ -32,11 +32,23 @@ feature 'Client admin gets limited access by token' do
   end
 
   scenario "can like a tile when logged in by token", js: true do
-    tile = FactoryGirl.create(:tile, :public)
+    tile = FactoryGirl.create(:multiple_choice_tile, :public)
+
     visit explore_path(explore_token: client_admin.explore_token)
 
     click_link "Vote Up"
     page.should have_content("Voted Up")
+  end
+
+  scenario "can copy a tile when logged in by token", js: true do
+    tile = FactoryGirl.create(:multiple_choice_tile, :public, :copyable)
+    crank_dj_clear # resize tile images, otherwise copy blows up
+    tile.reload
+
+    visit explore_path(explore_token: client_admin.explore_token)
+
+    click_link "Copy"
+    page.should have_content("Copied")
   end
 
   scenario "can't go outside the explore family using a token in the query parameter" do

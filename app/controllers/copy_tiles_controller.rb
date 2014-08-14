@@ -1,5 +1,8 @@
 class CopyTilesController < ClientAdminBaseController
   skip_before_filter :authorize
+  prepend_before_filter :authorize_by_explore_token
+
+  include LoginByExploreToken
 
   def create
     tile = Tile.copyable.where(id: params[:tile_id]).first
