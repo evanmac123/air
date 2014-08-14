@@ -61,4 +61,15 @@ feature 'Client admin gets limited access by token' do
     visit activity_path(explore_token: client_admin.explore_token)
     should_be_on sign_in_path
   end
+
+  scenario "if they happen to be in another board as a peon, they can still log in via explore token" do
+    board = FactoryGirl.create(:demo)
+    client_admin.add_board(board)
+    client_admin.move_to_new_demo(board)
+
+    client_admin.reload.is_client_admin.should be_false
+
+    visit explore_path(explore_token: client_admin.explore_token)
+    should_be_on explore_path
+  end
 end

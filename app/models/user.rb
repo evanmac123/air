@@ -966,7 +966,7 @@ class User < ActiveRecord::Base
     when :client_admin
       is_site_admin || is_client_admin
     when :explore_family
-      is_site_admin || is_client_admin
+      is_site_admin || is_client_admin_in_any_board
     else
       false
     end
@@ -1065,6 +1065,10 @@ class User < ActiveRecord::Base
     else
       true
     end
+  end
+
+  def is_client_admin_in_any_board
+    is_client_admin || board_memberships.pluck(:is_client_admin).any?
   end
 
   protected
