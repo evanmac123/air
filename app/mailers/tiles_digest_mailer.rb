@@ -56,7 +56,6 @@ class TilesDigestMailer < ActionMailer::Base
     else
       @title = @email_heading = digest_email_heading
     end
-    custom_from ||= @demo.reply_email_address
 
     @email_type = find_email_type follow_up_email
     ping_on_digest_email @email_type, @user
@@ -71,11 +70,40 @@ class TilesDigestMailer < ActionMailer::Base
     # We send 'claimed' users to the main activities page; 
     # "unclaimed" users have to accept their invitation first
     @site_link = email_site_link(@user, @demo, @is_preview ||= false, @email_type)
-    @link_options = @is_preview ? {target: '_blank'} : {} 
+    @link_options = {} 
 
+    custom_from ||= @demo.reply_email_address
     mail  to:      @user.email_with_name,
           from:    custom_from,
           subject: subject
+  end
+
+  def notify_all_explore tile_ids, subject, email_heading, custom_message, custom_from=nil
+    user_ids = User.where{ (is_client_admin) == true | (is_site_admin == true) }
+    user_ids.each{ |user_id| TilesDigestMailer.delay.notify_one_explore(user_id, tile_ids, subject, email_heading, custom_message, custom_from=nil) }
+  end
+
+  def notify_one_explore  user_id, tile_ids, subject, email_heading, custom_message, custom_from=nil
+    @user  = User.find user_id
+    return nil unless @user.email.present? # no wasting our time trying to email people for whom we don't have an address
+
+    @follow_up_email = false
+    @custom_message = custom_message
+    @title = "Explore digest"      
+    @email_heading = email_heading
+
+    @tiles = TileExploreDigestDecorator.decorate_collection Tile.where(id: tile_ids).order('activated_at DESC'), \
+                                                            context: { user: @user }
+
+    @site_link = explore_path
+    @link_options = {} 
+
+    custom_from ||= "Airbo <play@ourairbo.com>"
+    mail  to:      @user.email_with_name,
+          from:    custom_from,
+          subject: subject,
+          template_path: 'tiles_digest_mailer',
+          template_name: 'notify_one'
   end
 
   def ping_on_digest_email email_type, user
