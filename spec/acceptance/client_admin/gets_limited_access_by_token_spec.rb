@@ -31,6 +31,14 @@ feature 'Client admin gets limited access by token' do
     should_be_on tile_tag_show_explore_path
   end
 
+  scenario "can like a tile when logged in by token", js: true do
+    tile = FactoryGirl.create(:tile, :public)
+    visit explore_path(explore_token: client_admin.explore_token)
+
+    click_link "Vote Up"
+    page.should have_content("Voted Up")
+  end
+
   scenario "can't go outside the explore family using a token in the query parameter" do
     visit activity_path(explore_token: client_admin.explore_token)
     should_be_on sign_in_path

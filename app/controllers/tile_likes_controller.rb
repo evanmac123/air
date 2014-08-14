@@ -1,5 +1,8 @@
 class TileLikesController < ClientAdminBaseController
   skip_before_filter :authorize
+  prepend_before_filter :authorize_by_explore_token
+
+  include LoginByExploreToken
 
   def create
     @tile = Tile.find(params[:tile_id])
