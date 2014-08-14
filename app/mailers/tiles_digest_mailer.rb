@@ -44,11 +44,10 @@ class TilesDigestMailer < ActionMailer::Base
   # custom_from can have send value 'Hisham via Airbo <@demo.reply_email_address>'
   def notify_one(demo_id, user_id, tile_ids, subject, follow_up_email, 
       custom_message, custom_from=nil, is_new_invite = nil)
-    @demo  = Demo.find demo_id
+    @demo = Demo.find demo_id
     @user  = User.find user_id
     return nil unless @user.email.present? # no wasting our time trying to email people for whom we don't have an address
 
-    @tiles = Tile.where(id: tile_ids).order('activated_at DESC')
     @follow_up_email = follow_up_email
     @custom_message = custom_message
     if is_new_invite
@@ -57,13 +56,25 @@ class TilesDigestMailer < ActionMailer::Base
     else
       @title = @email_heading = digest_email_heading
     end
+    custom_from ||= @demo.reply_email_address
 
     @email_type = find_email_type follow_up_email
     ping_on_digest_email @email_type, @user
 
-    @invitation_url = @user.claimed? ? nil : invitation_url(@user.invitation_code, protocol: email_link_protocol, host: email_link_host)
+    @tiles = TileBoardDigestDecorator.decorate_collection Tile.where(id: tile_ids).order('activated_at DESC'), \
+                                                          context: {
+                                                            demo: @demo,
+                                                            user: @user,
+                                                            follow_up_email: @follow_up_email,
+                                                            email_type: @email_type,
+                                                          }
+    # We send 'claimed' users to the main activities page; 
+    # "unclaimed" users have to accept their invitation first
+    @site_link = email_site_link(@user, @demo, @is_preview ||= false, @email_type)
+    @link_options = @is_preview ? {target: '_blank'} : {} 
+
     mail  to:      @user.email_with_name,
-          from:    custom_from || @demo.reply_email_address,
+          from:    custom_from,
           subject: subject
   end
 

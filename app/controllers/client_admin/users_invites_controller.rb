@@ -19,20 +19,29 @@ class ClientAdmin::UsersInvitesController < ClientAdminBaseController
   
   def preview_invite_email    
     @demo  = current_user.demo
-    @user  = current_user#User.new(name: 'Invited User')
+    @user  = current_user
     @follow_up_email = false
-    @onboarding_email = true
-    @custom_message = params[:custom_message]||'Check out my new board!'
+    @custom_message = params[:custom_message] || 'Check out my new board!'
     if params[:is_invite_user] == 'true'
       @title = "Join my #{@demo.name}"      
       @email_heading = "Join my #{@demo.name}"
-      @tiles = @demo.digest_tiles(nil).order('activated_at DESC')
+      tiles = @demo.digest_tiles(nil).order('activated_at DESC')
     else
       @title = @email_heading = digest_email_heading
-      @tiles = @demo.digest_tiles.order('activated_at DESC')      
+      tiles = @demo.digest_tiles.order('activated_at DESC')      
     end
-    @invitation_url = @user.claimed? ? nil : invitation_url(@user.invitation_code, protocol: email_link_protocol, host: email_link_host)    
     @is_preview = true
+    @tiles = TileBoardDigestDecorator.decorate_collection tiles, \
+                                                          context: {
+                                                            demo: @demo,
+                                                            user: @user,
+                                                            follow_up_email: @follow_up_email,
+                                                            is_preview: @is_preview
+                                                          }
+
+    @site_link = email_site_link(@user, @demo, @is_preview ||= false, @email_type)
+    @link_options = @is_preview ? {target: '_blank'} : {} 
+
     render 'tiles_digest_mailer/notify_one', :layout => false
   end
 end

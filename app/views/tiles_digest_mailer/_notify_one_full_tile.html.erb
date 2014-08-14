@@ -1,14 +1,12 @@
-<% tile_url = tile.thumbnail(:email_digest)  # Paperclip returns the full url in staging and production modes %>
-<% tile_url = tile_url.prepend('http://localhost:3000') if (Rails.env.development? or Rails.env.test?) %>
 <!-- 2-col image/text -->
-<%= link_to site_link, link_options.merge(style: "text-decoration:none;", target: "_blank", class: "tile_link") do %>
+<%= link_to tile.email_site_link, tile.email_link_options.merge(style: "text-decoration:none;", target: "_blank", class: "tile_link") do %>
 <table align="center" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #dfdfdf;" class="columnsNoPadding">
 <tr>
   <td width="207" class="column" style="display: inline-block;">
     <table cellpadding="0" cellspacing="0" border="0" class="columnsNoPadding">
     <tr>
       <td class="column">
-        <%= image_tag(tile_url, alt: tile.headline, width: '208px', height: "170px", border: "0px", style: 'display:block; border-style:none;', class: "imageScale") %>
+        <%= image_tag(tile.email_img_url, alt: tile.headline, width: '208px', height: "170px", border: "0px", style: 'display:block; border-style:none;', class: "imageScale") %>
       </td>
     </tr>
     </table>
