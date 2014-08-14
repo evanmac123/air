@@ -617,6 +617,11 @@ class User < ActiveRecord::Base
     self.explore_token = Digest::SHA1.hexdigest("This is the salt for an explore token, how about that--#{Time.now.to_f}--#{self.email}--#{self.name}--")
   end
 
+  def set_explore_token! # useful for backfilling
+    set_explore_token
+    save!
+  end
+
   def find_same_slug(possible_slug)
     User.first(:conditions => ["slug = ? OR sms_slug = ?", possible_slug, possible_slug],
                :order      => "created_at desc")
