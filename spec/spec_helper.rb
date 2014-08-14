@@ -7,6 +7,7 @@ require 'rspec/rails'
 require 'clearance/testing'
 require 'rspec/autorun'
 require 'mocha/setup'
+#require 'draper/test/rspec_integration'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
