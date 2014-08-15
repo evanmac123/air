@@ -1,3 +1,11 @@
+getURLParameter = (sParam) ->
+  sPageURL = window.location.search.substring(1)
+  sURLVariables = sPageURL.split('&')
+  for i in [0..sURLVariables.length]
+    sParameterName = sURLVariables[i].split('=')
+    if sParameterName[0] == sParam 
+      return sParameterName[1]
+
 grayoutTile = () -> $('#spinner_large').fadeIn('slow')
 ungrayoutTile = () -> $('#spinner_large').fadeOut('slow')
 
@@ -43,7 +51,7 @@ loadNextTileWithOffsetForPreview = (offset) ->
   url = '/explore/tile_previews/' + $('#tile_preview_section .tile_holder[data-current-tile-id]').data('current-tile-id')
   $.get(
     url,
-    { partial_only: true, offset: offset },
+    { partial_only: true, offset: offset, tag: getURLParameter("tag") },
     (data) ->
       $('#tile_preview_section').html(data.tile_content)
       $('#spinner_large').css("display", "block")

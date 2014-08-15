@@ -18,7 +18,7 @@ class TilePreviewsController < ApplicationController
   protected
 
   def show_partial
-    next_tile = Tile.next_public_tile params[:id], params[:offset].to_i
+    next_tile = Tile.next_public_tile params[:id], params[:offset].to_i, params[:tag].to_i
 
     render json: {
       tile_content: render_to_string(partial: "tile_previews/tile_preview", locals: { tile: next_tile, tag: nil })
