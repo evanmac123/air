@@ -129,10 +129,11 @@ class ApplicationController < ActionController::Base
 
   alias authorize_without_game_begun_check authorize
   def authorize
+    authorize_by_explore_token
+
     return if authorize_as_guest
     return if authorize_to_public_board
 
-    authorize_by_explore_token
     authorize_without_game_begun_check
     refresh_activity_session(current_user)
 
@@ -404,7 +405,11 @@ class ApplicationController < ActionController::Base
   end
 
   def logged_in_as_guest?
-    session[:guest_user].present? && current_user_without_guest_user.nil?
+    session[:guest_user].present? && current_user_without_guest_user.nil? && current_user_by_explore_token.nil?
+  end
+
+  def current_user_by_explore_token
+    nil
   end
 
   def find_or_create_guest_user
