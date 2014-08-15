@@ -24,7 +24,13 @@ class TilePreviewsController < ApplicationController
     render json: {
       tile_content: render_to_string(partial: "tile_previews/tile_preview", locals: { tile: next_tile, tag: tag })
     }
+    ping_on_arrow params[:offset]
     return
+  end
+
+  def ping_on_arrow offset
+    action = offset > 0 ? "Clicked arrow to next tile" : "Clicked arrow to previous tile"
+    ping "Explore page: Interaction", {action: action}, current_user
   end
 
   def schedule_mixpanel_pings(tile)
