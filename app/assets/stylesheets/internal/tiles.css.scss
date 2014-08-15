@@ -93,7 +93,7 @@
     min-width:5.5em;
     top:2px;
   }
-  a#prev {left:1em;}
+  a#prev {left:1em; z-index: 1;}
   a#next {right:1em;}
 
   #tiles_done_message{
