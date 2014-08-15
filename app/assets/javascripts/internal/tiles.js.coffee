@@ -1,7 +1,7 @@
 getURLParameter = (sParam) ->
   sPageURL = window.location.search.substring(1)
   sURLVariables = sPageURL.split('&')
-  for i in [0..sURLVariables.length]
+  for i in [0...sURLVariables.length]
     sParameterName = sURLVariables[i].split('=')
     if sParameterName[0] == sParam 
       return sParameterName[1]

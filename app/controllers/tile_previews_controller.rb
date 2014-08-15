@@ -18,26 +18,13 @@ class TilePreviewsController < ApplicationController
   protected
 
   def show_partial
-    next_tile = Tile.next_public_tile params[:id], params[:offset].to_i, params[:tag].to_i
+    tag = TileTag.where(id: params[:tag]).first
+    next_tile = Tile.next_public_tile params[:id], params[:offset].to_i, params[:tag]
 
     render json: {
-      tile_content: render_to_string(partial: "tile_previews/tile_preview", locals: { tile: next_tile, tag: nil })
+      tile_content: render_to_string(partial: "tile_previews/tile_preview", locals: { tile: next_tile, tag: tag })
     }
     return
-  end
-
-  def find_next_tile
-    tiles = Tile.viewable_in_public
-    tile = Tile.viewable_in_public.where(id: params[:id]).first
-    next_tile = if tiles.count > 1 
-                  if params[:offset].to_i > 0
-                    tiles[tiles.index(tile) + params[:offset].to_i] || tiles.first
-                  else
-                    tiles[tiles.index(tile) + params[:offset].to_i] || tiles.last
-                  end
-                else
-                  tile
-                end
   end
 
   def schedule_mixpanel_pings(tile)

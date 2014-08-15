@@ -1,8 +1,8 @@
 <div class='columns large-centered tile_preview_navbar'>
     <div class='tile-head tile_holder'>
-      <% if @tag.present? %>
-        <%= link_to tile_tag_show_explore_path(tile_tag: @tag.id), id: "back-link" do %>
-          <%= fa_icon "arrow-left" %>Explore: <%= @tag.title %>
+      <% if tag.present? %>
+        <%= link_to tile_tag_show_explore_path(tile_tag: tag.id), id: "back-link" do %>
+          <%= fa_icon "arrow-left" %>Explore: <%= tag.title %>
         <% end %>
       <% else %>
         <%= link_to explore_path, id: "back-link" do %>
