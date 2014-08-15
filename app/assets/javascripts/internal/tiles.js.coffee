@@ -46,6 +46,7 @@ loadNextTileWithOffsetForPreview = (offset) ->
     { partial_only: true, offset: offset },
     (data) ->
       $('#tile_preview_section').html(data.tile_content)
+      $('#spinner_large').css("display", "block")
       ungrayoutTile()
   )
 
