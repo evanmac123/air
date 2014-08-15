@@ -4,19 +4,24 @@
 <%= render "shared/mixpanel" %>
 <%= mp_track_page 'explore tile preview' %>
 
-<div class='row'>
-  <%=render partial: 'tile_preview_navbar', locals: {tile: @tile} %>
-</div>
-<div class='row'>
-  <%=render partial: 'like_copy_tag_bar', locals: {tile: @tile} %>
-</div>
+<div class='viewer'>
+  <%= link_to "#", :id => :prev do %>
+    <%= "Previous" if device_type == :mobile %>
+  <% end %>
 
-<div class="row">
-  <div class="large-7 large-centered columns">
+  <%=render partial: 'tile_preview_navbar', locals: {tile: @tile} %>
+
+  <%=render partial: 'like_copy_tag_bar', locals: {tile: @tile} %>
+
+  <div class="large-centered columns">
     <%= render "tiles/full_size_tile", tile: @tile, is_preview: true %>
 
     <%= render 'client_admin/tiles/poll_for_image_if_needed', tile: @tile %>
   </div>
+
+  <%= link_to "#", :id => :next do %>
+    <%= "Next" if device_type == :mobile %>
+  <% end %>
 </div>
 
 <% if guest_for_tile_preview? || user_is_guest_for_tile_preview? %>
