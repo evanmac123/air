@@ -24,7 +24,7 @@ class TilePreviewsController < ApplicationController
     render json: {
       tile_content: render_to_string(partial: "tile_previews/tile_preview", locals: { tile: next_tile, tag: tag })
     }
-    ping_on_arrow params[:offset]
+    ping_on_arrow params[:offset].to_i
     return
   end
 
