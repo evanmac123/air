@@ -9,14 +9,8 @@
     <%= "Previous" if device_type == :mobile %>
   <% end %>
 
-  <%=render partial: 'tile_preview_navbar', locals: {tile: @tile} %>
-
-  <%=render partial: 'like_copy_tag_bar', locals: {tile: @tile} %>
-
-  <div class="large-centered columns">
-    <%= render "tiles/full_size_tile", tile: @tile, is_preview: true %>
-
-    <%= render 'client_admin/tiles/poll_for_image_if_needed', tile: @tile %>
+  <div id="tile_preview_section"> 
+    <%= render partial: 'tile_preview', locals: { tile: @tile, tag: @tag } %>
   </div>
 
   <%= link_to "#", :id => :next do %>

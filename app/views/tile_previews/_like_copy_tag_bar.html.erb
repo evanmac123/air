@@ -6,12 +6,12 @@ if current_user.likes_tile?(tile)
     display_like = 'display:block;'
     display_liked = 'display:none;'
   end
-  if @tile.like_count > 0
+  if tile.like_count > 0
     display_like_icon = 'display:block;'
   else
     display_like_icon = 'display:none;'
   end
-  if @tile.copy_count > 0
+  if tile.copy_count > 0
     display_copy_icon = 'display:block;'
   else
     display_copy_icon = 'display:none;'
@@ -22,7 +22,7 @@ if current_user.likes_tile?(tile)
     <div class="info-bar tile_holder">
 
       <div class="tags">
-        <% @tile.tile_tags.each do |tile_tag| %>
+        <% tile.tile_tags.each do |tile_tag| %>
             <span class="tag">
               <%= link_to tile_tag.title, tile_tag_show_explore_path(tile_tag: tile_tag.id, tag_click_source: 'Explore Tile Preview Page - Clicked Tile Tag') %>
             </span>
@@ -30,18 +30,18 @@ if current_user.likes_tile?(tile)
       </div>
       <div class="like-copy-section">
         <div class="likes-count">
-          <span class="like_message<%=@tile.is_copyable? ? '' : ' like-offset-right' %>">
+          <span class="like_message<%=tile.is_copyable? ? '' : ' like-offset-right' %>">
             <i class="fa fa-arrow-up" style="<%=display_like_icon%> float: left"></i>
-            <div id="like_value" style="<%=display_like_icon%> float: left"><%= @tile.like_count > 0 ? @tile.like_count : '' %></div>
+            <div id="like_value" style="<%=display_like_icon%> float: left"><%= tile.like_count > 0 ? tile.like_count : '' %></div>
             <div id="like_msg" style="<%=display_like_icon%> float: left; padding-left: 2px">Votes</div>
           </span>
         </div>
-        <% if @tile.is_copyable? %>
+        <% if tile.is_copyable? %>
           <div class="copy-count">
             <span class="copy_message">
               <i class="fa fa-files-o" style="<%=display_copy_icon%> float: left"></i>
-              <div id="copy_value" style="<%=display_copy_icon%> float: left"><%= @tile.copy_count > 0 ? @tile.copy_count : '' %></div>
-              <div id="copy_msg" style="<%=display_copy_icon%> float: left; padding-left: 2px"><%= @tile.copy_count > 0 ? 'Copied' : 'Copy' %></div>
+              <div id="copy_value" style="<%=display_copy_icon%> float: left"><%= tile.copy_count > 0 ? tile.copy_count : '' %></div>
+              <div id="copy_msg" style="<%=display_copy_icon%> float: left; padding-left: 2px"><%= tile.copy_count > 0 ? 'Copied' : 'Copy' %></div>
             </span>
           </div>
         <% end%>
@@ -49,7 +49,7 @@ if current_user.likes_tile?(tile)
 
     </div>
     <div class="likes-copy-buttons tile_holder">
-        <div class="like-button"<%=@tile.is_copyable? ? '' : ' style=margin-right:108px' %>>
+        <div class="like-button"<%=tile.is_copyable? ? '' : ' style=margin-right:108px' %>>
           <%= link_to explore_tile_likes_path(tile_id: tile.id,
             path: :via_explore_page_tile_view), id: "tile-not-like-#{tile.id}",
               method: :post, remote: true, style: display_like do%>

@@ -408,6 +408,13 @@ class Tile < ActiveRecord::Base
     end
   end
 
+  def self.next_public_tile tile_id, offset
+    tiles = Tile.viewable_in_public
+    tile = Tile.viewable_in_public.where(id: tile_id).first
+    next_tile = tiles[tiles.index(tile) + offset] || tiles.first # if index out of length
+    next_tile || tile # i.e. we have only one tile so next tile is nil
+  end
+
   # ------------------------------------------------------------------------------------------------------------------
   # These methods are for synchronizing a tile's start_time/end_time with its ACTIVE/ARCHIVE status.
   # (Tile has a custom attribute writer that updates the activated_at/archived_at along with the ACTIVE/ARCHIVE status)

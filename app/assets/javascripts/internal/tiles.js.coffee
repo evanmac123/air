@@ -39,6 +39,17 @@ loadNextTileWithOffset = (offset, preloadAnimations, predisplayAnimations, tileP
             lightboxConversionForm()
     )
 
+loadNextTileWithOffsetForPreview = (offset) ->
+  url = '/explore/tile_previews/' + $('#tile_preview_section .tile_holder[data-current-tile-id]').data('current-tile-id')
+  $.get(
+    url,
+    { partial_only: true, offset: offset },
+    (data) ->
+      $('#tile_preview_section').html(data.tile_content)
+      ungrayoutTile()
+  )
+
+
 attachWrongAnswer = (answerLink, target) ->
   answerLink.click((event) ->
     event.preventDefault()
@@ -126,10 +137,16 @@ $ ->
   $('#next').click((event) ->
     event.preventDefault()
     grayoutTile()
-    loadNextTileWithOffset(1)
+    if window.location.href.match(/explore/) 
+      loadNextTileWithOffsetForPreview(1)
+    else
+      loadNextTileWithOffset(1)
   )
   $('#prev').click((event) ->
     event.preventDefault()
     grayoutTile()
-    loadNextTileWithOffset(-1)
+    if window.location.href.match(/explore/) 
+      loadNextTileWithOffsetForPreview(-1)
+    else
+      loadNextTileWithOffset(-1)
   )
