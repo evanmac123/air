@@ -1,7 +1,10 @@
 class TilePreviewsController < ApplicationController
   skip_before_filter :authorize
+  before_filter :authorize_by_explore_token
   before_filter :allow_guest_user
   layout "client_admin_layout"
+
+  include LoginByExploreToken
 
   def show
     if params[:partial_only]
