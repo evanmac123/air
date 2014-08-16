@@ -170,6 +170,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def login_as_guest(demo)
+    session[:guest_user] = {demo_id: demo.id}
+    refresh_activity_session(current_user)
+  end
+
   def authorize_to_public_board
     return false unless guest_user_allowed? && params[:public_slug]
 
@@ -180,8 +185,7 @@ class ApplicationController < ActionController::Base
     end
 
     if current_user.nil?
-      session[:guest_user] = {demo_id: demo.id}
-      refresh_activity_session(current_user)
+      login_as_guest(demo)
     else
       if current_user.demos.include? demo
         current_user.move_to_new_demo demo

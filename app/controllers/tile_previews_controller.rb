@@ -1,7 +1,12 @@
 class TilePreviewsController < ApplicationController
   skip_before_filter :authorize
+  before_filter :find_tile # must run before authorize_as_guest, so that we can use the tile to implement #find_current_board
   before_filter :authorize_by_explore_token
+
   before_filter :allow_guest_user
+  before_filter :login_as_guest_to_tile_board
+  before_filter :authorize_as_guest
+
   layout "client_admin_layout"
 
   include LoginByExploreToken
@@ -41,6 +46,20 @@ class TilePreviewsController < ApplicationController
 
     if params[:thumb_click_source]
       ping_action_after_dash params[:thumb_click_source], {tile_id: tile.id}, current_user
+    end
+  end
+
+  def find_tile
+    @tile = Tile.viewable_in_public.where(id: params[:id]).first
+  end
+
+  def find_current_board
+    @tile.demo
+  end
+
+  def login_as_guest_to_tile_board
+    if current_user.nil?
+      login_as_guest(@tile.demo)
     end
   end
 end
