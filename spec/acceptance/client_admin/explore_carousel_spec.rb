@@ -31,15 +31,6 @@ feature 'Carousel on Explore Tile Preview Page' do
       end
     end
 
-    it "should show all tiles backwards", js: true do
-      expect_content @tiles.first.headline
-
-      5.downto(1) do |i|
-        show_previous_tile
-        expect_content @tiles[i].headline
-      end
-    end
-
     it "should send ping on #next button click", js: true do
       show_next_tile
 
