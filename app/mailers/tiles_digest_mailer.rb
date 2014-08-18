@@ -78,9 +78,9 @@ class TilesDigestMailer < ActionMailer::Base
                                                             context: { user: @user }
 
     @general_site_link =  if Rails.env.development? or Rails.env.test?
-                    'http://localhost:3000' + explore_path
+                    'http://localhost:3000' + explore_path(explore_token: @user.explore_token)
                   else
-                    explore_url
+                    explore_url(explore_token: @user.explore_token)
                   end 
 
     mail  to:      @user.email_with_name,

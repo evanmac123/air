@@ -34,8 +34,12 @@ describe 'Explore digest email' do
     end
 
     describe 'Links' do
-      it { should have_selector "a[href *= 'explore']", count: 5 } # /explore - 2, explore/tile_previews - 3
-      it { should have_selector "a[href *= 'explore/tile_previews']", count: 3 }
+      it { should have_selector "a[href *= 'explore?explore_token=#{admin.explore_token}']", count: 2 }
+      it "should have an explore-token link to each tile" do
+        tile_ids.each do |tile_id|
+          should have_selector "a[href *= 'explore/tile_previews/#{tile_id}?explore_token=#{admin.explore_token}']"
+        end
+      end
     end
 
     describe 'Tiles' do
