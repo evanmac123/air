@@ -26,7 +26,7 @@ img { -ms-interpolation-mode:bicubic;}
 }
 </style>
 <title>
-  <%= @title || "Airbo" %>
+  <%= @presenter.try(:title) || @title || "Airbo" %>
 </title>
  <%= javascript_include_tag 'app-internal' %>
 </head>

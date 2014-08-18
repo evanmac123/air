@@ -41,21 +41,13 @@ class TilesDigestMailer < ActionMailer::Base
     followup.destroy
   end
 
-  # custom_from can have send value 'Hisham via Airbo <@demo.reply_email_address>'
   def notify_one(demo_id, user_id, tile_ids, subject, follow_up_email, 
       custom_message, custom_from=nil, is_new_invite = nil)
     @demo = Demo.find demo_id
     @user  = User.find user_id # XTR
     return nil unless @user.email.present? # no wasting our time trying to email people for whom we don't have an address # XTR2
 
-    @presenter = TilesDigestMailDigestPresenter.new(follow_up_email)
-    @custom_message = custom_message # XTR
-    if is_new_invite
-      @title = "Join my #{@demo.name}"      
-      @email_heading = "Join my #{@demo.name}"
-    else
-      @title = @email_heading = digest_email_heading
-    end
+    @presenter = TilesDigestMailDigestPresenter.new(@user, @demo, custom_from, custom_message, follow_up_email, is_new_invite)
 
     @email_type = find_email_type follow_up_email
     ping_on_digest_email @email_type, @user
@@ -69,12 +61,10 @@ class TilesDigestMailer < ActionMailer::Base
                                                           }
     # We send 'claimed' users to the main activities page; 
     # "unclaimed" users have to accept their invitation first
-    @site_link = email_site_link(@user, @demo, @is_preview ||= false, @email_type)
-    @link_options = {}  # XTR
+    @site_link = email_site_link(@user, @demo, @presenter.is_preview, @email_type)
 
-    custom_from ||= @demo.reply_email_address # XTR
     mail  to:      @user.email_with_name,
-          from:    custom_from,
+          from:    @presenter.from_email,
           subject: subject
   end
 
@@ -82,10 +72,7 @@ class TilesDigestMailer < ActionMailer::Base
     @user  = User.find user_id
     return nil unless @user.email.present? # no wasting our time trying to email people for whom we don't have an address
 
-    @presenter = TilesDigestMailExplorePresenter.new
-    @custom_message = custom_message
-    @title = "Explore digest"      
-    @email_heading = email_heading
+    @presenter = TilesDigestMailExplorePresenter.new(custom_from, custom_message, email_heading)
 
     @tiles = TileExploreDigestDecorator.decorate_collection Tile.where(id: tile_ids).order('activated_at DESC'), \
                                                             context: { user: @user }
@@ -95,11 +82,9 @@ class TilesDigestMailer < ActionMailer::Base
                   else
                     explore_url
                   end 
-    @link_options = {}  # XTR
 
-    custom_from ||= "Airbo <play@ourairbo.com>"
     mail  to:      @user.email_with_name,
-          from:    custom_from,
+          from:    @presenter.from_email,
           subject: subject,
           template_path: 'tiles_digest_mailer',
           template_name: 'notify_one'

@@ -2,25 +2,23 @@
 <table width="436" align="center" cellpadding="0" cellspacing="0" border="0" class="columnsNoPadding">
   <tr>
     <td style="font-family:Helvetica,Arial,sans-serif;font-size:24px;color:#4c4c4c;mso-line-height-rule:exactly;line-height:24px;padding-top:40px;padding-bottom:15px;" class="columnNormal">
-      <%= link_to @email_heading, @site_link, @link_options.merge({style:'font-weight:500; font-size:24px; text-decoration:none;color:#4face0;'}) %>
+      <%= link_to @presenter.email_heading, @site_link, @presenter.link_options.merge({style:'font-weight:500; font-size:24px; text-decoration:none;color:#4face0;'}) %>
     </td>
   </tr>
   <tr>
     <% unless @presenter.follow_up_email %>
       <td id="custom_message" style="font-family:Helvetica,Arial,sans-serif;font-size:16px;color:#a8a8a8;mso-line-height-rule:exactly;line-height:24px;padding-bottom:60px;word-break: break-word;" class="columnNormal">
-        <% if @custom_message.present? %>
-          <%= @custom_message %>
-        <% end %>
+        <%= @presenter.custom_message_if_present %>
       </td>
     <% end %>
   </tr>
 </table>
 <% unless @presenter.follow_up_email %>
-  <%= render partial: "tiles_digest_mailer/notify_one_tiles_row", locals: {site_link: @site_link, link_options: @link_options} %>
+  <%= render partial: "tiles_digest_mailer/notify_one_tiles_row", locals: {site_link: @site_link, link_options: @presenter.link_options} %>
 <% else %>
   <% @tiles.each do |tile| %>
     <%= render partial: "tiles_digest_mailer/notify_one_full_tile", locals: {tile: tile} %>
   <% end %>
 <% end %>
-<%= render partial: 'mailer/main_button', locals: {button_text: 'See Tiles', button_url: @site_link, button_font_size: '24px', button_url_options: @link_options} %>
+<%= render partial: 'mailer/main_button', locals: {button_text: 'See Tiles', button_url: @site_link, button_font_size: '24px', button_url_options: @presenter.link_options} %>
         

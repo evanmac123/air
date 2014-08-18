@@ -20,27 +20,26 @@ class ClientAdmin::UsersInvitesController < ClientAdminBaseController
   def preview_invite_email    
     @demo  = current_user.demo
     @user  = current_user # XTR
-    @presenter = TilesDigestMailPreviewPresenter.new
-    @custom_message = params[:custom_message] || 'Check out my new board!' # XTR
-    if params[:is_invite_user] == 'true'
-      @title = "Join my #{@demo.name}"      
-      @email_heading = "Join my #{@demo.name}"
+
+    custom_message = params[:custom_message] || 'Check out my new board!'
+    is_invite_user = params[:is_invite_user] == 'true'
+
+    @presenter = TilesDigestMailPreviewPresenter.new(custom_message, @demo, is_invite_user)
+
+    if is_invite_user
       tiles = @demo.digest_tiles(nil).order('activated_at DESC')
     else
-      @title = @email_heading = digest_email_heading
       tiles = @demo.digest_tiles.order('activated_at DESC')      
     end
-    @is_preview = true # XTR
     @tiles = TileBoardDigestDecorator.decorate_collection tiles, \
                                                           context: {
                                                             demo: @demo,
                                                             user: @user,
                                                             follow_up_email: @follow_up_email,
-                                                            is_preview: @is_preview
+                                                            is_preview: @presenter.is_preview
                                                           }
 
-    @site_link = email_site_link(@user, @demo, @is_preview ||= false, @email_type)
-    @link_options = @is_preview ? {target: '_blank'} : {} 
+    @site_link = email_site_link(@user, @demo, @presenter.is_preview, @email_type)
 
     render 'tiles_digest_mailer/notify_one', :layout => false
   end

@@ -34,11 +34,6 @@ module ClientAdmin::TilesHelper
     TileFooterTimestamper.new(tile, options).footer_timestamp_ago
   end
 
-  # We display a different heading if the schmuck... er, customer, didn't interact with any of the tiles in the first digest email
-  def digest_email_heading
-    @presenter.follow_up_email ? "Don't miss your new tiles" : 'Your New Tiles Are Here!'
-  end
-
   def default_follow_up_day
     FollowUpDigestEmail::DEFAULT_FOLLOW_UP[Date::DAYNAMES[Date.today.wday]]
   end

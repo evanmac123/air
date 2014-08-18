@@ -1,16 +1,9 @@
 <%# render partial: 'mailer/header' %>
 
 <% # We send 'claimed' users to the main activities page; "unclaimed" users have to accept their invitation first %>
-<% site_link = email_site_link(@user, @demo, @is_preview ||= false, @email_type) %>
-<% if @email_heading %>
-        <%= @email_heading %>
-<% else %>
-        <%= digest_email_heading %>
-        <%= site_link %>
-<% end %>
-<% if @custom_message.present? %>
-        <%= @custom_message %>
-<% end %>
+<% site_link = email_site_link(@user, @demo, @presenter.is_preview, @email_type) %>
+<%= @presenter.digest_email_heading %>
+<%= @presenter.custom_message_if_present %>
 
 <% @tiles.each do |tile| %>
 
