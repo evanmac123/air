@@ -1,0 +1,2 @@
+class TilesDigestMailExplorePresenter < TilesDigestMailBasePresenter
+end

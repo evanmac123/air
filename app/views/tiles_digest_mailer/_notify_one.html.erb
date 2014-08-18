@@ -6,7 +6,7 @@
     </td>
   </tr>
   <tr>
-    <% unless @follow_up_email %>
+    <% unless @presenter.follow_up_email %>
       <td id="custom_message" style="font-family:Helvetica,Arial,sans-serif;font-size:16px;color:#a8a8a8;mso-line-height-rule:exactly;line-height:24px;padding-bottom:60px;word-break: break-word;" class="columnNormal">
         <% if @custom_message.present? %>
           <%= @custom_message %>
@@ -15,7 +15,7 @@
     <% end %>
   </tr>
 </table>
-<% unless @follow_up_email %>
+<% unless @presenter.follow_up_email %>
   <%= render partial: "tiles_digest_mailer/notify_one_tiles_row", locals: {site_link: @site_link, link_options: @link_options} %>
 <% else %>
   <% @tiles.each do |tile| %>

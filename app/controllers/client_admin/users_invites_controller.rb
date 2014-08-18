@@ -19,9 +19,9 @@ class ClientAdmin::UsersInvitesController < ClientAdminBaseController
   
   def preview_invite_email    
     @demo  = current_user.demo
-    @user  = current_user
-    @follow_up_email = false
-    @custom_message = params[:custom_message] || 'Check out my new board!'
+    @user  = current_user # XTR
+    @presenter = TilesDigestMailPreviewPresenter.new
+    @custom_message = params[:custom_message] || 'Check out my new board!' # XTR
     if params[:is_invite_user] == 'true'
       @title = "Join my #{@demo.name}"      
       @email_heading = "Join my #{@demo.name}"
@@ -30,7 +30,7 @@ class ClientAdmin::UsersInvitesController < ClientAdminBaseController
       @title = @email_heading = digest_email_heading
       tiles = @demo.digest_tiles.order('activated_at DESC')      
     end
-    @is_preview = true
+    @is_preview = true # XTR
     @tiles = TileBoardDigestDecorator.decorate_collection tiles, \
                                                           context: {
                                                             demo: @demo,

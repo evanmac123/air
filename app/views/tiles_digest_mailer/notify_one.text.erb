@@ -16,7 +16,7 @@
 
     <%= tile.headline %>
   <%= site_link %>
-  <%= tile.supporting_content + "\n" if @follow_up_email %> +<%= tile.points %> <%= tile.question %>
+  <%= tile.supporting_content + "\n" if @presenter.follow_up_email %> +<%= tile.points %> <%= tile.question %>
 <% end %>
 
   See Tiles
