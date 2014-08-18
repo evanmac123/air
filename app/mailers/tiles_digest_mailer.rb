@@ -61,7 +61,7 @@ class TilesDigestMailer < ActionMailer::Base
                                                           }
     # We send 'claimed' users to the main activities page; 
     # "unclaimed" users have to accept their invitation first
-    @site_link = email_site_link(@user, @demo, @presenter.is_preview, @email_type)
+    @general_site_link = email_site_link(@user, @demo, @presenter.is_preview, @email_type)
 
     mail  to:      @user.email_with_name,
           from:    @presenter.from_email,
@@ -77,7 +77,7 @@ class TilesDigestMailer < ActionMailer::Base
     @tiles = TileExploreDigestDecorator.decorate_collection Tile.where(id: tile_ids).order('activated_at DESC'), \
                                                             context: { user: @user }
 
-    @site_link =  if Rails.env.development? or Rails.env.test?
+    @general_site_link =  if Rails.env.development? or Rails.env.test?
                     'http://localhost:3000' + explore_path
                   else
                     explore_url

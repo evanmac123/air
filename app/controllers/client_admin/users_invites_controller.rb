@@ -39,7 +39,7 @@ class ClientAdmin::UsersInvitesController < ClientAdminBaseController
                                                             is_preview: @presenter.is_preview
                                                           }
 
-    @site_link = email_site_link(@user, @demo, @presenter.is_preview, @email_type)
+    @general_site_link = email_site_link(@user, @demo, @presenter.is_preview, @email_type)
 
     render 'tiles_digest_mailer/notify_one', :layout => false
   end
