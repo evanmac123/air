@@ -30,7 +30,7 @@ class TilePreviewsController < ApplicationController
 
   def ping_on_arrow offset
     action = offset > 0 ? "Clicked arrow to next tile" : "Clicked arrow to previous tile"
-    ping "Explore page: Interaction", {action: action}, current_user
+    ping "Explore page - Interaction", {action: action}, current_user
   end
 
   def schedule_mixpanel_pings(tile)
