@@ -41,30 +41,6 @@ feature "User Accepts Invitation" do
       expect_content "You've already accepted your invitation to the game. Please log in if you'd like to use the site."
     end
   end
-
-  scenario "user accepts invitation before game begins" do
-    @user.demo.update_attributes(begins_at: Chronic.parse("May 1, 2030, 12:00 PM"))
-
-    visit invitation_url(@user.invitation_code)
-
-    should_be_on activity_path
-    expect_content "Your game begins on May 01, 2030 at 12:00 PM Eastern."
-    @user.reload.should be_claimed
-
-    visit activity_path
-    expect_content "Your game begins on May 01, 2030 at 12:00 PM Eastern."
-  end
-
-  scenario "just one time" do
-    visit invitation_url(@user.invitation_code)
-
-    click_link "Sign Out"
-    visit invitation_url(@user.invitation_code)
-
-    should_be_on sign_in_path
-    expect_content logged_out_message
-    expect_content "You've already accepted your invitation to the game. Please log in if you'd like to use the site."
-  end
     
   scenario "and gets no email after accepting invitation" do
     visit invitation_url(@user.invitation_code)
