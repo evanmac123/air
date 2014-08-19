@@ -25,7 +25,7 @@ module BoardSettingsHelpers
 
   def rows_in_board_settings
     within board_regular_user_controls_selector do
-      page.all('.board_wrapper')
+      page.all('.board_wrapper:not(.user_section_header)')
     end
   end
 
