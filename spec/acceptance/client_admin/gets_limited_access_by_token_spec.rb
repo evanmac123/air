@@ -72,4 +72,12 @@ feature 'Client admin gets limited access by token' do
     visit explore_path(explore_token: client_admin.explore_token)
     should_be_on explore_path
   end
+
+  scenario "the board switcher is nerfed and pops a login modal instead", js: true do
+    visit explore_path(explore_token: client_admin.explore_token)
+    page.find('#board_switch_toggler').click
+
+    page.all('.other_boards', visible: true).should be_empty
+    pending "and there's a login modal"
+  end
 end

@@ -13,3 +13,5 @@
 //= require ../../../vendor/assets/javascripts/internal/jRespond.min
 //= require jquery.validate
 //= require jquery.validate.additional-methods
+//
+//= require internal_and_external/topbar_togglers

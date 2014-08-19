@@ -1,5 +1,3 @@
-<%= render :partial => 'shared/topbar_desktop' %>
-
 <script>
 var jPM = $.jPanelMenu({
   menu: 'header nav',
@@ -22,8 +20,8 @@ jRes.addFunc([
     enter: function() {
       window.intercomDisabled = true;
       jPM.on();
-      desktop_user_menu.show();
-      desktop_admin_menu.show();
+      desktop_user_menu().show();
+      desktop_admin_menu().show();
     },
     exit: function() {
       jPM.off();
@@ -33,15 +31,15 @@ jRes.addFunc([
   },{
     breakpoint: 'large',
     enter: function() {
-      user_toggler.on();
-      admin_toggler.on();
+      user_toggler().on();
+      admin_toggler().on();
       optionsToggle();
     },
     exit: function() {
-      user_toggler.off();
-      admin_toggler.off();
-      desktop_user_menu.show();
-      desktop_admin_menu.show();
+      user_toggler().off();
+      admin_toggler().off();
+      desktop_user_menu().show();
+      desktop_admin_menu().show();
     }
   }
 ]);
