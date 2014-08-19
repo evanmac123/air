@@ -214,7 +214,7 @@ class ApplicationController < ActionController::Base
     return unless user.present?
 
     remember_explore_token(explore_token)
-    remember_explore_user(user)
+    remember_explore_user(UserWithoutBoardSwitching.new(user))
   end
 
   def explore_token_allowed

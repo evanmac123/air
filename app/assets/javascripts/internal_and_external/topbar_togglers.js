@@ -61,7 +61,7 @@ function showBoards() {
   showMenu(board_switch_toggler(), desktop_board_switch_menu());
 }
 
-function optionsToggle() {
+function bindTogglers(bindBoardSwitcher) {
   $('html').click(function() {
     if(desktop_user_menu().is(':visible') || desktop_admin_menu().is(':visible') || desktop_board_switch_menu().is(':visible')) {
       hideUserMenu();
@@ -97,18 +97,25 @@ function optionsToggle() {
       return false;
     }
   });
-  board_switch_toggler().click(function() {
-    if(desktop_user_menu().is(':visible')) {
-      hideUserMenu();
-    }
-    if(desktop_admin_menu().is(':visible')) {
-      hideAdminMenu();
-    }
-    if(desktop_board_switch_menu().is(':visible')) {
-      hideBoards();
-    } else {
-      showBoards();
-      return false;
-    }
-  });
+
+  if(bindBoardSwitcher) {
+    board_switch_toggler().click(function() {
+      if(desktop_user_menu().is(':visible')) {
+        hideUserMenu();
+      }
+      if(desktop_admin_menu().is(':visible')) {
+        hideAdminMenu();
+      }
+      if(desktop_board_switch_menu().is(':visible')) {
+        hideBoards();
+      } else {
+        showBoards();
+        return false;
+      }
+    });
+  } else {
+    board_switch_toggler().click(function() {
+      $('#login_modal').foundation('reveal', 'open');
+    });
+  }
 }

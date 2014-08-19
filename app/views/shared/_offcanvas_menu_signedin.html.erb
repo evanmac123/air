@@ -33,7 +33,7 @@ jRes.addFunc([
     enter: function() {
       user_toggler().on();
       admin_toggler().on();
-      optionsToggle();
+      bindTogglers(<%= current_user.try(:can_switch_boards?) %>);
     },
     exit: function() {
       user_toggler().off();

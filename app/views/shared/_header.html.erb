@@ -22,7 +22,7 @@
             <li><%= link_to "Sign Out", sign_out_path, :method => :delete , :class => 'nav-signout' %></li>
 
             <%# Mobile-only select version of the board switcher %>
-            <% if @boards_to_switch_to.present? && @boards_to_switch_to.length > 1 %>
+            <% if @boards_to_switch_to.present? && @boards_to_switch_to.length > 1 && current_user.try(:can_switch_boards?)%>
               <li class="board_switch_dropdown">
                 <select>
                   <%= options_from_collection_for_select @boards_to_switch_to, :id, :name, current_user.demo_id %>
@@ -112,3 +112,7 @@
     <div id="small-toggle" class="off-canvas-toggle"><a href="#side-nav" class="small_cap">MENU</a></div>
   <% end %>
 </header>
+
+<% if current_user && !current_user.can_switch_boards? %>
+  <%= render "shared/login_modal" %>
+<% end %>

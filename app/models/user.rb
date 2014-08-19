@@ -1076,6 +1076,10 @@ class User < ActiveRecord::Base
     is_client_admin || board_memberships.pluck(:is_client_admin).any?
   end
 
+  def can_switch_boards?
+    true
+  end
+
   protected
 
   def downcase_email

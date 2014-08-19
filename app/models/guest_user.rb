@@ -203,4 +203,8 @@ class GuestUser < ActiveRecord::Base
   def copied_tile?(tile)
     nil
   end
+
+  def can_switch_boards?
+    false
+  end
 end
