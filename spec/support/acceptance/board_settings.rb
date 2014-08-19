@@ -14,7 +14,8 @@ module BoardSettingsHelpers
 
   def click_last_delete_link
     within last_row_in_board_settings do
-      page.find('.delete_board_icon').click
+      page.execute_script('$(".delete_board_icon").css("display", "block");') 
+      page.find('.delete_board_icon', visible: false).click
     end
   end
 
