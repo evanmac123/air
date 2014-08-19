@@ -261,4 +261,23 @@ body.explores {
   }
 }
 
+#login_modal {
+  font-size: 14px;
+  color: $text-color;
 
+  p {
+    margin: 1em 0;
+  }
+
+  p:first-child {
+    margin-top: 0;
+  }
+
+  input {
+    display: inline-block;
+  }
+
+  input[type="submit"] {
+    @include app-button($sky-blue);
+  }
+}
