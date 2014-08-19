@@ -203,7 +203,7 @@ describe '#notify_all' do
     crank_dj_clear
     ActionMailer::Base.deliveries.clear
 
-    TilesDigestMailer.notify_all(demo, true, [], "a custom message")
+    TilesDigestMailer.notify_all(demo, true, [], "a custom message", "a subject")
     crank_dj_clear
 
     ActionMailer::Base.deliveries.should be_empty
