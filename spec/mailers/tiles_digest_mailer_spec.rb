@@ -271,3 +271,16 @@ describe "#notify_one" do
     nil_mail.should be_kind_of(ActionMailer::Base::NullMail)
   end
 end
+
+describe "#notify_one_explore" do
+  it "should use the proper URL in the text part" do
+    user = FactoryGirl.create(:user)
+    tile = FactoryGirl.create(:tile)
+
+    mail = TilesDigestMailer.notify_one_explore(user.id, [tile.id], "subject", "heading", "message")
+    text = mail.text_part.to_s
+
+    text.should include(explore_path(explore_token: user.explore_token))
+    text.should include(explore_tile_preview_path(id: tile.id, explore_token: user.explore_token))
+  end
+end
