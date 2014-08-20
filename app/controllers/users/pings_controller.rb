@@ -1,7 +1,9 @@
 class Users::PingsController < ApplicationController
   include TrackEvent
+  include LoginByExploreToken
 
   skip_before_filter :authorize, only: [:create_universal_ping]
+  before_filter :authorize_by_explore_token
   before_filter :allow_guest_user, only: [:create_universal_ping]
 
   def create
