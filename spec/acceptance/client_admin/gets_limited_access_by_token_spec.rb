@@ -111,6 +111,34 @@ feature 'Client admin gets limited access by token' do
       end
     end
 
+    scenario "the link over the logo is nerfed", js: true do
+      expect_login_modal_after do
+        page.find('#top_bar #logo a').click
+      end
+    end
+
+    scenario "Manage My board link in post-copy modal is nerfed", js: true do
+      FactoryGirl.create(:multiple_choice_tile, :public, :copyable)
+      crank_dj_clear # for image resizing
+
+      expect_login_modal_after do
+        page.first('.copy_tile_link').click
+        page.should have_content("Manage Your Board")
+        within("#post_copy_buttons") {click_link "Manage Your Board"}
+      end
+    end
+
+    scenario "Edit link in post-copy modal is nerfed", js: true do
+      FactoryGirl.create(:multiple_choice_tile, :public, :copyable)
+      crank_dj_clear # for image resizing
+
+      expect_login_modal_after do
+        page.first('.copy_tile_link').click
+        page.should have_content("Manage Your Board")
+        within("#post_copy_buttons") {click_link "Edit"}
+      end
+    end
+
     scenario 'allows login by entering a password', js: true do
       client_admin.password = client_admin.password_confirmation = 'foobar'
       client_admin.save!
