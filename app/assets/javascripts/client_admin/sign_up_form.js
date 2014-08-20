@@ -74,10 +74,13 @@ $().ready(function(){
                         "#random-tile-link", 
                         "#back-link", 
                         ".tag a", 
-                        "#save_progress_button"
+                        "#save_progress_button",
+                        "#prev",
+                        "#next"
                       ].join(", ")
     $(blockedElements).click( function(event){
       event.preventDefault();
+      event.stopImmediatePropagation(); 
       window.pathForActionAfterRegistration = dompath(event.target);
       showSignUpModal();
       return false; // prevents default for remote calls
