@@ -98,7 +98,13 @@ class Raffle < ActiveRecord::Base
   end
 
   def repick_winner old_winner
+    old_winners_emails = winners.pluck(:email)
+
     pick_winners 1, old_winner
+
+    new_winners_emails = self.reload.winners.pluck(:email)
+    picked_winner_email = (new_winners_emails - old_winners_emails).first
+    User.where(email: picked_winner_email).first
   end
 
   def set_timer_to_end_live
