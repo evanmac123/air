@@ -55,6 +55,7 @@ loadNextTileWithOffsetForPreview = (offset) ->
     (data) ->
       $('#tile_preview_section').html(data.tile_content)
       $('#spinner_large').css("display", "block")
+      setUpAnswersForPreview()
       ungrayoutTile()
   )
 
