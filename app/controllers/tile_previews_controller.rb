@@ -18,7 +18,6 @@ class TilePreviewsController < ApplicationController
       @tile = Tile.viewable_in_public.where(id: params[:id]).first
       @tag = TileTag.where(id: params[:tag]).first
 
-      session[:guest_user] ||= {demo_id: @tile.demo.id}
       schedule_mixpanel_pings @tile
     end
   end
