@@ -235,6 +235,8 @@ feature "interacts with a tile from the explore-preview page" do
     it_should_behave_like "gets registration form", "random link", "#random-tile-link"
     it_should_behave_like "gets registration form", "back link", "#back-link"
     it_should_behave_like "gets registration form", "tag link", ".tag a"
+    it_should_behave_like "gets registration form", "right arrow", "#next"
+    it_should_behave_like "gets registration form", "left arrow", "#prev"
   end
 
   context "as Guest" do
@@ -253,6 +255,8 @@ feature "interacts with a tile from the explore-preview page" do
     it_should_behave_like "gets registration form", "random link", "#random-tile-link"
     it_should_behave_like "gets registration form", "back link", "#back-link"
     it_should_behave_like "gets registration form", "tag link", ".tag a"
+    it_should_behave_like "gets registration form", "right arrow", "#next"
+    it_should_behave_like "gets registration form", "left arrow", "#prev"
   end
 
   context "as User" do
@@ -271,5 +275,7 @@ feature "interacts with a tile from the explore-preview page" do
     it_should_behave_like "gets registration form", "random link", "#random-tile-link"
     it_should_behave_like "gets registration form", "back link", "#back-link"
     it_should_behave_like "gets registration form", "tag link", ".tag a"
+    it_should_behave_like "gets registration form", "right arrow", "#next"
+    it_should_behave_like "gets registration form", "left arrow", "#prev"
   end
 end
