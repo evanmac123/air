@@ -16,6 +16,7 @@
 //= require ./internal/tiles
 //= require ./internal/show_more_tiles_link
 //= require ./internal/countUp.min
+//= require internal_and_external/nerf_links_with_login_modal
 
 //= require wice_grid
 //= require ../../../vendor/assets/javascripts/external/foundation.min

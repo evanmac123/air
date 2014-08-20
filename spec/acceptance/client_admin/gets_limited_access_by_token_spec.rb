@@ -90,12 +90,25 @@ feature 'Client admin gets limited access by token' do
   end
 
   describe 'the login modal' do
-    scenario "the board switcher is nerfed and pops a login modal instead", js: true do
+    def expect_login_modal_after
       visit explore_path(explore_token: client_admin.explore_token)
-      click_board_switcher
+      
+      yield
 
       page.all('.other_boards', visible: true).should be_empty
       expect_login_modal(client_admin.email)
+    end
+
+    scenario "the board switcher is nerfed and pops a login modal instead", js: true do
+      expect_login_modal_after do
+        click_board_switcher
+      end
+    end
+
+    scenario "the Manage link in the header is nerfed", js: true do
+      expect_login_modal_after do
+        click_link "manage_board"
+      end
     end
 
     scenario 'allows login by entering a password', js: true do

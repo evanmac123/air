@@ -14,4 +14,5 @@
 //= require jquery.validate
 //= require jquery.validate.additional-methods
 //
+//= require internal_and_external/nerf_links_with_login_modal
 //= require internal_and_external/topbar_togglers

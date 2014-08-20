@@ -113,9 +113,5 @@ function bindTogglers(bindBoardSwitcher) {
         return false;
       }
     });
-  } else {
-    board_switch_toggler().click(function() {
-      $('#login_modal').foundation('reveal', 'open');
-    });
   }
 }

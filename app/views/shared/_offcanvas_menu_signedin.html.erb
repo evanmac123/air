@@ -1,3 +1,5 @@
+<% board_switching_allowed = current_user.try(:can_switch_boards?) %>
+
 <script>
 var jPM = $.jPanelMenu({
   menu: 'header nav',
@@ -33,7 +35,7 @@ jRes.addFunc([
     enter: function() {
       user_toggler().on();
       admin_toggler().on();
-      bindTogglers(<%= current_user.try(:can_switch_boards?) %>);
+      bindTogglers(<%= board_switching_allowed %>);
     },
     exit: function() {
       user_toggler().off();
@@ -43,4 +45,8 @@ jRes.addFunc([
     }
   }
 ]);
+
+<% unless board_switching_allowed %>
+  nerfLinksWithLoginModal();
+<% end %>
 </script>
