@@ -57,11 +57,10 @@ feature 'Pick winners after raffle' do
     end
 
     scenario "re-pick winner and get message if no potential winners left", js: true do
-      repick_winner 0
-      expect_no_content "No one has tickets or you've already drawn all potential winners."
-
-      repick_winner 0
-      expect_no_content "No one has tickets or you've already drawn all potential winners."
+      3.times do #until last winner in the list left
+        repick_winner 0
+        expect_no_content "No one has tickets or you've already drawn all potential winners."
+      end
 
       repick_winner 0
       expect_content "No one has tickets or you've already drawn all potential winners."
