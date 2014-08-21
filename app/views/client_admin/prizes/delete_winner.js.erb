@@ -3,6 +3,6 @@ $("td.winner_number").each(function(){
   index = $("td.winner_number").index($(this)); 
   $(this).text(index + 1 + "."); 
 });
-<% if @show_no_potential_winners_error %>
+<% if @winners.empty? %>
   $("#no_potential_winners_error").text("No one has tickets or you've already drawn all potential winners.");
 <% end %>
