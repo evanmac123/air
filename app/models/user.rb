@@ -589,10 +589,6 @@ class User < ActiveRecord::Base
   def update_points(point_increment, channel=nil)
     original_tickets = self.tickets
     PointIncrementer.new(self, point_increment).update_points
-
-    if channel.to_s != "web" && self.tickets > original_tickets
-      OutgoingMessage.send_side_message(self, "Congratulations - You've earned #{pluralize self.tickets, 'ticket'}!", channel: channel)
-    end
   end
 
   def password_optional?
