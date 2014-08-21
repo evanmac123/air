@@ -371,6 +371,11 @@ body.client_admin-prizes {
         }
       }
     }
+    #no_potential_winners_error {
+      font-size: 14px;
+      color: $sky-blue;
+      padding: 1rem;
+    }
   }
   .pick_container{
     .instruction_box{

@@ -1,5 +1,8 @@
 $("#user_<%= j @user.id.to_s %>").remove();
 $("td.winner_number").each(function(){
-	index = $("td.winner_number").index($(this)); 
-	$(this).text(index + 1 + "."); 
+  index = $("td.winner_number").index($(this)); 
+  $(this).text(index + 1 + "."); 
 });
+<% if @show_no_potential_winners_error %>
+  $("#no_potential_winners_error").text("No one has tickets or you've already drawn all potential winners.");
+<% end %>

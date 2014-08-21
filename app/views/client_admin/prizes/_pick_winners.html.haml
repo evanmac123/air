@@ -30,6 +30,7 @@
         You can curate the list of winners before notifying them.
     - else
       = render 'winners', winners: winners 
+#no_potential_winners_error
 :javascript
   $().ready(function(){
     $("#pick_winners input[type=submit]").click(function(e){
@@ -39,3 +40,6 @@
       $(this).attr("disabled", "disabled").css("color", "transparent");
     });
   });
+- if raffle.status == Raffle::PICKED_WINNERS && winners.empty?
+  :javascript
+    $("#no_potential_winners_error").text("No one has tickets or you've already drawn all potential winners.");
