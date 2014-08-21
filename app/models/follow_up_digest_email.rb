@@ -23,6 +23,6 @@ class FollowUpDigestEmail < ActiveRecord::Base
     today = Date.today.wday
     day_to_send = Date::DAYNAMES.index(follow_up_day)
 
-    day_to_send >= today ? day_to_send - today : 7 - (today - day_to_send)
+    day_to_send > today ? day_to_send - today : 7 - (today - day_to_send)
   end
 end
