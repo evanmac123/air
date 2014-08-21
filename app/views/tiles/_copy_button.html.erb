@@ -17,7 +17,7 @@
 
 <% content_for :javascript do %>
   <%= javascript_tag do %>
-    $('#copy_tile_button').bind('click', function(event) {
+    $(document).on('click', '#copy_tile_button', function(event) {
       var copyButton = $(event.target);
       var wrapper = copyButton.parents('#copy_tile_button');
       var spinner = wrapper.siblings('.full_size_copy_tile_spinner');
