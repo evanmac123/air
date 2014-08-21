@@ -10,7 +10,7 @@
 
 <% content_for :javascript do %>
   <%= javascript_tag do %>
-    $('#close_tile_copied_lightbox').click(function(event) {
+    $(document).on('click', '#close_tile_copied_lightbox', function(event) {
       event.preventDefault();
       $('#tile_copied_lightbox').foundation('reveal', 'close');
     });

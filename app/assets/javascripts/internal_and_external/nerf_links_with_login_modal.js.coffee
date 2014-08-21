@@ -9,7 +9,7 @@ popLoginModal = (event) ->
   loginModal.foundation('reveal', 'open')
 
 nerfBySelector = (selector) ->
-  $(selector).click(popLoginModal)
+  $(document).on('click', selector, popLoginModal)
 
 nerfLinksWithLoginModal = () ->
   $('#login_modal').bind('opened', () -> $('#session_password').focus())
