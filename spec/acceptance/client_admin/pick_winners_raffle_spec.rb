@@ -9,7 +9,7 @@ feature 'Pick winners after raffle' do
     @users = FactoryGirl.create_list(:user, 4, :with_tickets, demo: demo)
   end
 
-  context "pick winners first time", js: true do
+  context "pick all list of winners", js: true do
     before(:each) do
       @raffle = demo.raffle = FactoryGirl.create(:raffle, :pick_winners, demo: demo)
       visit client_admin_prizes_path(as: client_admin)
@@ -22,9 +22,21 @@ feature 'Pick winners after raffle' do
       demo.reload.raffle.reload.status == Raffle::PICKED_WINNERS
       demo.raffle.winners.count.should == 3
     end
+
+    scenario "get message if no potential winners left", js: true do
+      click_pick_winners 4
+      demo.reload.raffle.reload.status == Raffle::PICKED_WINNERS
+      demo.raffle.winners.count.should == 4
+      expect_no_content "No one has tickets or you've already drawn all potential winners."
+
+      click_pick_winners 1
+      demo.reload.raffle.reload.status == Raffle::PICKED_WINNERS
+      demo.raffle.winners.count.should == 0
+      expect_content "No one has tickets or you've already drawn all potential winners."
+    end
   end
 
-  context "re-pick winners" do
+  context "re-pick one winner" do
     before(:each) do
       @raffle = demo.raffle = FactoryGirl.create(:raffle, :picked_winners, demo: demo)
       demo.raffle.add_winners @users[0..1]
@@ -42,6 +54,17 @@ feature 'Pick winners after raffle' do
       repick_winner 1
       @raffle.reload.winners.include?(ejected_winner).should be_false
       @raffle.reload.blacklisted_users.include?(ejected_winner).should be_true
+    end
+
+    scenario "re-pick winner and get message if no potential winners left", js: true do
+      repick_winner 0
+      expect_no_content "No one has tickets or you've already drawn all potential winners."
+
+      repick_winner 0
+      expect_no_content "No one has tickets or you've already drawn all potential winners."
+
+      repick_winner 0
+      expect_content "No one has tickets or you've already drawn all potential winners."
     end
   end
 end
