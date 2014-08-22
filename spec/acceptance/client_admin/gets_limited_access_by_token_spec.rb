@@ -21,7 +21,7 @@ feature 'Client admin gets limited access by token' do
   end
 
   def click_board_switcher
-    page.find('#board_switch_toggler').click
+    page.find('#board_settings_toggle').click
   end
 
   def open_user_dropdown
