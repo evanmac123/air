@@ -1,6 +1,5 @@
 popLoginModal = (event) ->
   event.preventDefault()
-  event.stopImmediatePropagation()
 
   originalLink = $(event.target)
   loginModal = $('#login_modal')
@@ -16,6 +15,7 @@ nerfLinksWithLoginModal = () ->
   $('#login_modal').bind('opened', () -> $('#session_password').focus())
 
   nerfBySelector(selector) for selector in [
+    '#board_switch_toggler',
     '#board_settings_toggle',
     '#manage_board',
     '#top_bar #logo a',
