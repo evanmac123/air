@@ -2,11 +2,11 @@
 <table width="480" align="center" cellpadding="0" cellspacing="0" border="0" class="columns" style="border-top:1px solid #dfdfdf;">
 <tr>
   <td width="160" style="font-family:Helvetica,Arial,sans-serif;font-size:16px;color:#dfdfdf;mso-line-height-rule:exactly;line-height:18px;padding-top:20px;padding-bottom:20px;padding-left:20px;border-left:1px solid #dfdfdf;border-bottom:1px solid #dfdfdf;border-bottom-left-radius:4px;">
-    <%= link_to "Unsubscribe", email_unsubscribe_link(@user), {style: "color:#dfdfdf;text-decoration:none;", target: "_blank"} %>
+    <%= link_to "Unsubscribe", email_unsubscribe_link(@user), {style: "color:#dfdfdf;text-decoration:none;", target: "_blank"} if @user.present? %>
   </td>
   <td width="280" align="right" style="font-family:Helvetica,Arial,sans-serif;font-size:16px;color:#dfdfdf;mso-line-height-rule:exactly;line-height:18px;padding-top:20px;padding-bottom:20px;padding-right:20px;border-right:1px solid #dfdfdf;border-bottom:1px solid #dfdfdf;border-bottom-right-radius:4px;">
     &nbsp;
-    <% unless @user.unclaimed? || @not_show_settings_link %>
+    <% unless @user.nil? || @user.unclaimed? || @not_show_settings_link %>
       <%= link_to "Update Preferences", email_account_settings_link, {style:"color:#dfdfdf;text-decoration:none;", target: "_blank"} %>
     <% end %>
   </td>

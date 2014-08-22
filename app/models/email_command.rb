@@ -49,10 +49,6 @@ class EmailCommand < ActiveRecord::Base
     self.user.invite(nil, options)
   end
 
-  def all_blank?
-    self.clean_body.blank? && self.clean_subject.blank?
-  end
-
   def looks_like_autoresponder?
     AUTORESPONSE_PHRASES.any? {|autoresponse_phrase| normalized_clean_subject.include? autoresponse_phrase}
   end
