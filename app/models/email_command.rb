@@ -68,28 +68,6 @@ class EmailCommand < ActiveRecord::Base
     return false
   end
 
-  def claim_account
-    claim_response, was_success = User.claim_account(self.email_from, self.email_to, self.clean_body, :channel => :email)
-   
-    return nil unless claim_response
-
-    self.response = claim_response
-    
-    if was_success
-      self.status = EmailCommand::Status::SUCCESS
-      self.user = User.where(:email => self.email_from).first
-      self.save
-      EmailCommandMailer.delay_mail(:send_claim_response, self)
-    else
-      self.status = EmailCommand::Status::FAILED
-      self.save
-      EmailCommandMailer.delay_mail(:send_failed_claim_response, self.email_to, self.email_from, claim_response)
-    end
-
-
-    true
-  end
-
   def parse_command
     self.response = construct_reply(Command.parse(self.user, self.clean_body, :allow_claim_account => false, :channel => :email))
     self.status = EmailCommand::Status::SUCCESS

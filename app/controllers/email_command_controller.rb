@@ -17,8 +17,6 @@ class EmailCommandController< ApplicationController
     elsif email_command.all_blank?
       email_command.response = blank_body_response
       email_command.status = EmailCommand::Status::SUCCESS
-    elsif email_command.claim_account
-      return # response sent from within claim_account
     else
       # Note: You can do any of commands but this one using either body or subject.
       # Perhaps someday we will allow general commands to be in the subject line
