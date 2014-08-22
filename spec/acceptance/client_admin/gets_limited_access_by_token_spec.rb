@@ -24,6 +24,10 @@ feature 'Client admin gets limited access by token' do
     page.find('#board_switch_toggler').click
   end
 
+  def click_board_settings
+    page.find('#board_settings_toggle').click
+  end
+
   def open_user_dropdown
     page.find('#me_toggle').click
   end
@@ -187,6 +191,14 @@ feature 'Client admin gets limited access by token' do
       end
 
       login_modal_goes_to user_path(client_admin)
+    end
+
+    scenario "board settings is nerfed", js: true do
+      expect_login_modal_after do
+        click_board_settings
+      end
+
+      login_modal_goes_to edit_account_settings_path
     end
 
     scenario 'allows login by entering a password', js: true do
