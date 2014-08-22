@@ -9,7 +9,7 @@
   <% else %>
     <li><span id="no_other_boards">You haven't joined any other boards.</span></li>
   <% end %>
-  <% if current_user.is_site_admin || current_user.not_in_any_paid_boards? %>
+  <% if current_user.is_site_admin || current_user.not_in_any_paid_boards? || current_user.is_client_admin_in_any_board %>
     <li><%= link_to "Create new board", "#", {id: "switcher_create_new_board", "data-reveal-id" => "new_board_creation"} %></li>
   <% end %>
 </ul>
