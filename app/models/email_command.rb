@@ -31,18 +31,6 @@ class EmailCommand < ActiveRecord::Base
     "out of the office"
   ]
 
-  def send_response_to_non_user
-    self.response = non_user_response(self.email_from) 
-    self.status = EmailCommand::Status::FAILED
-    self.save
-    EmailCommandMailer.delay_mail(:send_response_to_non_user, self)
-  end
-
-
-  def handle_unknown_user(options={})
-    self.send_response_to_non_user
-  end
-
   def reinvite_user(options={})
     self.status = Status::INVITATION
     save
