@@ -1,4 +1,6 @@
 class Tile < ActiveRecord::Base
+  include Assets::Normalizer
+  
   ACTIVE  = 'active'.freeze
   ARCHIVE = 'archive'.freeze
   DRAFT   = 'draft'.freeze
