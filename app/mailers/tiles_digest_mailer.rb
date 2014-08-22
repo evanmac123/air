@@ -10,6 +10,8 @@ class TilesDigestMailer < ActionMailer::Base
 
   layout nil#'mailer'
 
+  default reply_to: 'support@air.bo'
+
   def noon
     Date.today.midnight.advance(hours: 12)
   end
