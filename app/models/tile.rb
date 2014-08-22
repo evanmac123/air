@@ -1,6 +1,6 @@
 class Tile < ActiveRecord::Base
-  include Assets::Normalizer
-  
+  include Assets::Normalizer # normalize filename of paperclip attachment
+
   ACTIVE  = 'active'.freeze
   ARCHIVE = 'archive'.freeze
   DRAFT   = 'draft'.freeze
