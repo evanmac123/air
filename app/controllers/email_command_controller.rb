@@ -20,7 +20,6 @@ class EmailCommandController< ApplicationController
     else
       # Note: You can do any of commands but this one using either body or subject.
       # Perhaps someday we will allow general commands to be in the subject line
-      email_command.parse_command
       email_command.status = EmailCommand::Status::SUCCESS
     end
 

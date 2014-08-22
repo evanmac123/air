@@ -43,12 +43,6 @@ Feature: User gets some props for finishing a goal
     Then "+14155551212" should have received SMS "You've won at winning everything!"
     But "bob@example.com" should receive no email
 
-  Scenario: User gets an email for finish a goal via email
-    When "bob@example.com" sends email with subject "win 3" and body "win 3"
-    And DJ cranks 10 times after a little while
-    Then "bob@example.com" should receive an email with "You've won at winning everything!" in the email body
-    But "+14155551212" should not have received an SMS including "won at winning everything"
-
   Scenario: User gets credit for finish goal just once
     When "+14155551212" sends SMS "win 3"
     When "+14155551212" sends SMS "win 1"

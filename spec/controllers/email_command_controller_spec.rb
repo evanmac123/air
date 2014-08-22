@@ -27,54 +27,6 @@ describe EmailCommandController do
         response.body.should eql 'success'
         response.content_type.should eql 'text/plain'
       end
-
-      it "should record a EmailCommand" do
-        params = @test_params.merge({:plain => @test_command})
-        post 'create', params
-        EmailCommand.count.should eql 1
-        email_command = EmailCommand.first
-        email_command.email_from.should eql @user.email
-        email_command.email_subject.should eql params['subject']
-        email_command.status.should eql EmailCommand::Status::SUCCESS
-        email_command.response.should eql "Sorry, I don't understand what \"here's the command\" means. Email \"s\" to suggest we add it."
-      end
-
-      it "should process 'myid' correctly" do
-        params = @test_params.merge({:plain => "myid"})
-        post 'create', params
-        EmailCommand.count.should eql 1
-        email_command = EmailCommand.first
-        email_command.email_from.should eql @user.email
-        email_command.email_subject.should eql params['subject']
-        email_command.status.should eql EmailCommand::Status::SUCCESS
-        email_command.response.should eql "Your username is #{@user.sms_slug}."
-      end
-
-      it "should process 's' correctly" do
-        params = @test_params.merge({:plain => "s ate kitten"})
-        post 'create', params
-        EmailCommand.count.should eql 1
-        email_command = EmailCommand.first
-        email_command.email_from.should eql @user.email
-        email_command.email_subject.should eql params['subject']
-        email_command.status.should eql EmailCommand::Status::SUCCESS
-        # make sure the suggestion was recorded
-        Suggestion.first.value.should eql "ate kitten"
-        email_command.response.should eql "Thanks! We'll take your suggestion into consideration."
-      end
-
-      it "should process 'suggest' correctly" do
-        params = @test_params.merge({:plain => "suggest ate kitten"})
-        post 'create', params
-        EmailCommand.count.should eql 1
-        email_command = EmailCommand.first
-        email_command.email_from.should eql @user.email
-        email_command.email_subject.should eql params['subject']
-        email_command.status.should eql EmailCommand::Status::SUCCESS
-        # make sure the suggestion was recorded
-        Suggestion.first.value.should eql "ate kitten"
-        email_command.response.should eql "Thanks! We'll take your suggestion into consideration."
-      end
     end
   end
 end

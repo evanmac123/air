@@ -68,11 +68,6 @@ class EmailCommand < ActiveRecord::Base
     return false
   end
 
-  def parse_command
-    self.response = construct_reply(Command.parse(self.user, self.clean_body, :allow_claim_account => false, :channel => :email))
-    self.status = EmailCommand::Status::SUCCESS
-  end
-
   def self.create_from_incoming_email(params)
     email_command = EmailCommand.new
     email_command.email_to = params['to']
