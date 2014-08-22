@@ -76,11 +76,14 @@
   <% end %>
 </div>  
 
-<%= content_for :javascript do %>
-  <%= javascript_tag do %>
-    $().ready(function(){
-      bindBoardSettingsControls()
-    });
+<% board_switching_allowed = current_user.try(:can_switch_boards?) %>
+<% if board_switching_allowed %>
+  <%= content_for :javascript do %>
+    <%= javascript_tag do %>
+      $().ready(function(){
+        bindBoardSettingsControls()
+      });
+    <% end %>
   <% end %>
 <% end %>
 
