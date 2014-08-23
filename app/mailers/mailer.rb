@@ -117,9 +117,7 @@ class Mailer < ActionMailer::Base
 
     mail :to      => to_email,
          :from    => from_email,
-         :subject => "Message from Airbo",
-         :template_path => 'email_command_mailer',
-         :template_name => "send_response"
+         :subject => "Message from Airbo"
   end
 
   def guest_user_converted_to_real_user(user)
