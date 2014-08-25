@@ -81,7 +81,10 @@
   <%= content_for :javascript do %>
     <%= javascript_tag do %>
       $().ready(function(){
-        bindBoardSettingsControls()
+        bindBoardSettingsControls();
+        if(<%= params[:pop_board_settings_modal] %>){
+          $(".board_settings_toggle_wrapper, .board_settings_mobile_toggle")[0].click();
+        }
       });
     <% end %>
   <% end %>
