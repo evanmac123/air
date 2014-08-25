@@ -33,7 +33,11 @@ class TilesDigestMailExplorePresenter < TilesDigestMailBasePresenter
       'http://localhost:3000' + explore_path(explore_token: @explore_token, email_type: email_type)
     else
       explore_url(explore_token: @explore_token, email_type: email_type, host: email_link_host, protocol: email_link_protocol)
-    end 
+    end
+  end
+
+  def works_on_mobile?
+    false
   end
 
   attr_reader :email_heading

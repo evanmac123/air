@@ -1,5 +1,6 @@
 <% button_font_size ||= '18px' %>
 <% button_url_options ||= {} %>
+<% works_on_mobile ||= true %>
 <center>
   <table width="436" cellpadding="0" cellspacing="0" border="0" class="columnsNoPadding" style="width: 100% !important;">
     <tr>
@@ -9,7 +10,8 @@
     </tr>
     <tr>
       <td align="center" style="font-family:Helvetica,Arial,sans-serif;font-size:16px;color:#a8a8a8;padding-top:20px;padding-bottom:50px;">
-        <span class="newLineMobile">You won't have to log in.</span> Works on mobile.
+        <span class="newLineMobile">You won't have to log in.</span> 
+        <%= works_on_mobile ? "Works on mobile." : "" %>
       </td>
     </tr>
   </table>

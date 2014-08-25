@@ -20,5 +20,4 @@
     <%= render partial: "tiles_digest_mailer/notify_one_full_tile", locals: {tile: tile} %>
   <% end %>
 <% end %>
-<%= render partial: 'mailer/main_button', locals: {button_text: 'See Tiles', button_url: @presenter.general_site_url, button_font_size: '24px', button_url_options: @presenter.link_options} %>
-        
+<%= render partial: 'mailer/main_button', locals: {button_text: 'See Tiles', button_url: @presenter.general_site_url, button_font_size: '24px', button_url_options: @presenter.link_options, works_on_mobile: @presenter.works_on_mobile? } %>

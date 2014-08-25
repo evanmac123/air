@@ -30,6 +30,10 @@ class TilesDigestMailBasePresenter
     STANDARD_DIGEST_HEADING
   end
 
+  def works_on_mobile?
+    true
+  end
+
   attr_reader :custom_message
 
   protected
