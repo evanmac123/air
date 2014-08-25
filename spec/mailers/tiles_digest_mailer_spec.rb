@@ -274,14 +274,21 @@ describe "#notify_one" do
 end
 
 describe "#notify_one_explore" do
-  it "should use the proper URL in the text part" do
-    user = FactoryGirl.create(:user)
-    tile = FactoryGirl.create(:tile)
+  let(:user) {FactoryGirl.create(:user)}
+  let(:tile) {FactoryGirl.create(:tile)}
 
+  it "should use the proper URL in the text part" do
     mail = TilesDigestMailer.notify_one_explore(user.id, [tile.id], "subject", "heading", "message")
     text = mail.text_part.to_s
 
     text.should include(explore_path(explore_token: user.explore_token))
     text.should include(explore_tile_preview_path(id: tile.id, explore_token: user.explore_token))
+  end
+
+  it "should schedule a ping that the mail has been sent" do
+    TilesDigestMailer.notify_one_explore(user.id, [tile.id], "subj", "head", "mess")
+    FakeMixpanelTracker.clear_tracked_events
+    crank_dj_clear
+    FakeMixpanelTracker.should have_event_matching('Email Sent', {email_type: "Explore - v. 8/25/14"})
   end
 end

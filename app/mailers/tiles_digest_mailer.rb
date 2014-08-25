@@ -53,19 +53,19 @@ class TilesDigestMailer < ActionMailer::Base
 
     @presenter = TilesDigestMailDigestPresenter.new(@user, @demo, custom_from, custom_message, follow_up_email, is_new_invite)
 
-    @email_type = find_email_type follow_up_email
-    ping_on_digest_email @email_type, @user
+    email_type = find_email_type follow_up_email
+    ping_on_digest_email email_type, @user
 
     @tiles = TileBoardDigestDecorator.decorate_collection Tile.where(id: tile_ids).order('activated_at DESC'), \
                                                           context: {
                                                             demo: @demo,
                                                             user: @user,
                                                             follow_up_email: @follow_up_email,
-                                                            email_type: @email_type,
+                                                            email_type: email_type,
                                                           }
     # We send 'claimed' users to the main activities page; 
     # "unclaimed" users have to accept their invitation first
-    @general_site_link = email_site_link(@user, @demo, @presenter.is_preview, @email_type)
+    @general_site_link = email_site_link(@user, @demo, @presenter.is_preview, email_type)
 
     mail  to:      @user.email_with_name,
           from:    @presenter.from_email,
@@ -86,6 +86,8 @@ class TilesDigestMailer < ActionMailer::Base
                   else
                     explore_url(explore_token: @user.explore_token)
                   end 
+
+    ping_on_digest_email("explore_v_1", @user)
 
     mail  to:      @user.email_with_name,
           from:    @presenter.from_email,
@@ -108,7 +110,8 @@ class TilesDigestMailer < ActionMailer::Base
       "digest_old_v" => "Digest  - v. Pre 6/13/14",
       "digest_new_v" => "Digest - v. 6/15/14",
       "follow_old_v" => "Follow-up - v. pre 6/13/14",
-      "follow_new_v" => "Follow-up - v. 6/15/14"
+      "follow_new_v" => "Follow-up - v. 6/15/14",
+      "explore_v_1"  => "Explore - v. 8/25/14"
     }
   end
 
