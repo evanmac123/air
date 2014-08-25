@@ -1,10 +1,15 @@
 class TilesDigestMailExplorePresenter < TilesDigestMailBasePresenter
-  EXPLORE_TITLE = "Explore digest".freeze
+  include Rails.application.routes.url_helpers
+  include EmailHelper
 
-  def initialize(custom_from, custom_message, email_heading)
+  EXPLORE_TITLE = "Explore digest".freeze
+  EXPLORE_EMAIL = "explore_v_1".freeze
+
+  def initialize(custom_from, custom_message, email_heading, explore_token)
     super(custom_message)
     @custom_from = custom_from
     @email_heading = email_heading
+    @explore_token = explore_token
   end
 
   def from_email
@@ -17,6 +22,18 @@ class TilesDigestMailExplorePresenter < TilesDigestMailBasePresenter
 
   def title
     EXPLORE_TITLE
+  end
+
+  def email_type
+    EXPLORE_EMAIL
+  end
+
+  def general_site_url
+    if Rails.env.development? or Rails.env.test?
+      'http://localhost:3000' + explore_path(explore_token: @explore_token, email_type: email_type)
+    else
+      explore_url(explore_token: @explore_token, email_type: email_type, host: email_link_host, protocol: email_link_protocol)
+    end 
   end
 
   attr_reader :email_heading

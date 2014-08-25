@@ -50,24 +50,4 @@ module EmailHelper
   def email_link_protocol
     ENV["EMAIL_PROTOCOL"] or 'http'
   end
-
-  def link_styled_like_button(link_text, url)
-    %{
-      <table border="0" cellspacing="0" cellpadding="0" style='margin-bottom: 20px'>
-        <tr>
-          <td style="border:1px #2b8838 solid; background:#39b149;">
-            <table border="0" cellspacing="0" style="background:#39b149; border-top:1px #4edf61 solid;">
-              <tr>
-                <td>
-                  <a href = "#{url}" style="display:block; padding:2px 7px; text-decoration:none;">
-                    <span style="text-decoration:none; color:#fff; font-family: Ubuntu, helvetica, arial, sans-serif; font-size:16px; font-weight:500;">#{link_text}</span>
-                  </a>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
-    }.html_safe
-  end
 end

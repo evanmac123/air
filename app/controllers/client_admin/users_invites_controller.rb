@@ -24,7 +24,7 @@ class ClientAdmin::UsersInvitesController < ClientAdminBaseController
     custom_message = params[:custom_message] || 'Check out my new board!'
     is_invite_user = params[:is_invite_user] == 'true'
 
-    @presenter = TilesDigestMailPreviewPresenter.new(custom_message, @demo, is_invite_user)
+    @presenter = TilesDigestMailPreviewPresenter.new(@user, @demo, custom_message, is_invite_user)
 
     if is_invite_user
       tiles = @demo.digest_tiles(nil).order('activated_at DESC')
@@ -38,8 +38,6 @@ class ClientAdmin::UsersInvitesController < ClientAdminBaseController
                                                             follow_up_email: @follow_up_email,
                                                             is_preview: @presenter.is_preview
                                                           }
-
-    @general_site_link = email_site_link(@user, @demo, @presenter.is_preview)
 
     render 'tiles_digest_mailer/notify_one', :layout => false
   end

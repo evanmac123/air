@@ -6,7 +6,8 @@ class ApplicationController < ActionController::Base
     "digest_old_v" => "Digest  - v. Pre 6/13/14",
     "digest_new_v" => "Digest - v. 6/15/14",
     "follow_old_v" => "Follow-up - v. pre 6/13/14",
-    "follow_new_v" => "Follow-up - v. 6/15/14"
+    "follow_new_v" => "Follow-up - v. 6/15/14",
+    "explore_v_1"  => "Explore - v. 8/25/14"
   }
 
   before_filter :force_ssl 

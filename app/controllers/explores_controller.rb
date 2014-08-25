@@ -16,6 +16,8 @@ class ExploresController < ClientAdminBaseController
     if params[:return_to_explore_source]
       ping_action_after_dash params[:return_to_explore_source], {}, current_user
     end
+
+    email_clicked_ping(current_user)
   end
   
   def tile_tag_show

@@ -1,6 +1,10 @@
 class TilesDigestMailPreviewPresenter < TilesDigestMailBasePresenter
-  def initialize(custom_message, demo, is_invite_user)
+  include ClientAdmin::TilesHelper
+  include Rails.application.routes.url_helpers
+
+  def initialize(user, demo, custom_message, is_invite_user)
     super(custom_message)
+    @user = user
     @demo = demo
     @is_invite_user = is_invite_user
   end
@@ -19,6 +23,10 @@ class TilesDigestMailPreviewPresenter < TilesDigestMailBasePresenter
 
   def email_heading
     join_demo_copy_or_digest_email_heading(is_invite_user)
+  end
+
+  def general_site_url
+    acts_path
   end
 
   attr_reader :is_invite_user

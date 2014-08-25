@@ -46,6 +46,10 @@ class TilePreviewsController < ApplicationController
     if params[:thumb_click_source]
       ping_action_after_dash params[:thumb_click_source], {tile_id: tile.id}, current_user
     end
+
+    if current_user.present?
+      email_clicked_ping(current_user)
+    end
   end
 
   def find_tile

@@ -1,4 +1,6 @@
 module ClientAdmin::TilesHelper
+  include EmailHelper
+
   def digest_email_sent_on
     @demo.tile_digest_email_sent_at.to_s(:tile_digest_email_sent_at)
   end
