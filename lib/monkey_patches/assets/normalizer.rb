@@ -8,9 +8,12 @@ module Assets
 
     def normalize_filename
       each_attachment do |name, attachment|
+        raw_filename = attachment.instance_read(:file_name)
+        next unless raw_filename
+        
         attachment.instance_write(
           :file_name,
-          Assets::Filename.normalize(attachment.instance_read(:file_name))
+          Assets::Filename.normalize(raw_filename)
         )
       end
     end
