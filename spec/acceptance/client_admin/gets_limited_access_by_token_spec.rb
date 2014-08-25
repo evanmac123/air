@@ -198,7 +198,10 @@ feature 'Client admin gets limited access by token' do
         click_board_settings
       end
 
-      login_modal_goes_to edit_account_settings_path
+      uri = URI.parse(current_url)
+      login_modal_goes_to uri.path
+
+      expect_content "Board Settings"
     end
 
     scenario 'allows login by entering a password', js: true do

@@ -1,17 +1,7 @@
 function bindBoardSettingsControls() {
   $(".board_settings_toggle_wrapper, .board_settings_mobile_toggle").click(function(event){
     event.preventDefault();
-    mq = window.matchMedia( "(min-width: 770px)" );
-    if (mq.matches || window.oldBrowser) {
-      $('#board_settings').foundation('reveal','open');
-    }else{
-      $('#board_settings').removeAttr("class").removeAttr("style");
-      $(".content").hide();
-      $("#small-toggle").click();
-    }
-    $("#board_settings").find('.board_wrapper').not('.dirty').each(function(_index, board_wrapper) {
-      $(board_wrapper).find('a.save_board_name').hide();
-    });
+    window.openBoardSettings();
   });
 
   $(".close_board_settings_container").click(function(){
@@ -136,6 +126,20 @@ function bindBoardSettingsControls() {
       $('#board_settings').show();
     }
   });
+
+  window.openBoardSettings = function() {
+    mq = window.matchMedia( "(min-width: 770px)" );
+    if (mq.matches || window.oldBrowser) {
+      $('#board_settings').foundation('reveal','open');
+    }else{
+      $('#board_settings').removeAttr("class").removeAttr("style");
+      $(".content").hide();
+      $("#small-toggle").click();
+    }
+    $("#board_settings").find('.board_wrapper').not('.dirty').each(function(_index, board_wrapper) {
+      $(board_wrapper).find('a.save_board_name').hide();
+    });
+  };
 
   var postMuteRequest = function(elt) {
     var muteURL = elt.data('mute-url');
