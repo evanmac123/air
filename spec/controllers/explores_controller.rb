@@ -8,7 +8,7 @@ describe ExploresController do
 
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear
-      FakeMixpanelTracker.should have_event_matching('Email clicked', {test: "Explore - v. 8/25/14"}.merge(user.data_for_mixpanel))
+      FakeMixpanelTracker.should have_event_matching('Email clicked', {email_type: "Explore - v. 8/25/14"}.merge(user.data_for_mixpanel))
     end
   end
 end

@@ -503,7 +503,7 @@ feature 'Client admin and the digest email for tiles' do
 
               FakeMixpanelTracker.clear_tracked_events
               crank_dj_clear
-              FakeMixpanelTracker.should have_event_matching('Email clicked', {test: ping_message}.merge(user.data_for_mixpanel))
+              FakeMixpanelTracker.should have_event_matching('Email clicked', {email_type: ping_message}.merge(user.data_for_mixpanel))
             end
           end
         end

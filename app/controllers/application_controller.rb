@@ -122,7 +122,7 @@ class ApplicationController < ActionController::Base
   def email_clicked_ping user
     if params[:email_type].present?
       email_ping_text = EMAIL_PING_TEXT_TYPES[params[:email_type]]
-      ping("Email clicked", { test: email_ping_text }, user) if email_ping_text.present?
+      ping("Email clicked", { email_type: email_ping_text }, user) if email_ping_text.present?
     end
   end
   
