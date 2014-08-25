@@ -1,4 +1,8 @@
 function bindBoardSettingsControls() {
+  var wideWindowOrOldBrowser = function() {
+    return(window.matchMedia("(min-width: 770px)").matches || window.oldBrowser);
+  };
+
   $(".board_settings_toggle_wrapper, .board_settings_mobile_toggle").click(function(event){
     event.preventDefault();
     window.openBoardSettings();
@@ -6,8 +10,7 @@ function bindBoardSettingsControls() {
 
   $(".close_board_settings_container").click(function(){
     event.preventDefault();
-    mq = window.matchMedia( "(min-width: 770px)" );
-    if (mq.matches || window.oldBrowser) {
+    if (wideWindowOrOldBrowser()) {
       $('#board_settings').foundation('reveal','close');
     }else{
       $('#board_settings').hide();
@@ -99,8 +102,7 @@ function bindBoardSettingsControls() {
     var deleteURL = $(event.target).data('delete_url');
     $('#leave_board_form').attr('action', deleteURL);
 
-    mq = window.matchMedia( "(min-width: 770px)" );
-    if (mq.matches || window.oldBrowser) {
+    if (wideWindowOrOldBrowser()) {
       $('#leave_board_safety_modal').foundation('reveal', 'open');
     }else{
       $('#board_settings').hide();
@@ -117,8 +119,7 @@ function bindBoardSettingsControls() {
   $('#close_safety_modal').click(function(event) {
     event.preventDefault();
     //$('#leave_board_safety_modal').foundation('reveal', 'close');
-    mq = window.matchMedia( "(min-width: 770px)" );
-    if (mq.matches || window.oldBrowser) {
+    if (wideWindowOrOldBrowser()) {
       $('#board_settings').foundation('reveal', 'open');
     }else{
       $('#leave_board_safety_modal').hide();
@@ -128,8 +129,7 @@ function bindBoardSettingsControls() {
   });
 
   window.openBoardSettings = function() {
-    mq = window.matchMedia( "(min-width: 770px)" );
-    if (mq.matches || window.oldBrowser) {
+    if (wideWindowOrOldBrowser()) {
       $('#board_settings').foundation('reveal','open');
     }else{
       $('#board_settings').removeAttr("class").removeAttr("style");
