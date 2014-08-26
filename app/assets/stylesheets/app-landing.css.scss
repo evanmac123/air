@@ -8,17 +8,17 @@
 @import "./external/mast_public.css.scss";
 @import "./external/_request_demo.css.scss";
 @import "./external/welcome.css.scss";
-@import "./external/welcome_ie.css.scss";
+//@import "./external/welcome_ie.css.scss";
 
 
 @media only screen and (min-width: 530px) { 
-  @import "./external/welcome_tablet.css.scss";
+  //@import "./external/welcome_tablet.css.scss";
 }
 
 @media only screen and (min-width: $foundation) {
   @import "./internal/mast_desktop.css.scss";
   @import "./external/mast_desktop_public.css.scss";
-  @import "./external/welcome_desktop.css.scss";
+  //@import "./external/welcome_desktop.css.scss";
 }
 
 @media only screen and (min-width: $large-desktop) {

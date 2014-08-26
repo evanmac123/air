@@ -1,0 +1,100 @@
+<header id="pageHdr">
+	<div class="row top">
+		<div class="small-6 large-4 columns logo">
+        	<a href="/"><%= image_tag "marketing/welcome_page/logo.png", alt: "Airbo", height: "283", width: "483" %></a>
+        </div>
+		<div class="small-6 large-8 columns">
+        	<a href="#" class="button small signin" >Sign in</a>
+        </div>
+    </div>
+    <div class="row">
+    	<h1 class="promoTitle">Crowdsourced Employee Communications</h1>
+    </div>
+    <div class="row promoPoints">
+    	<div class="medium-3 large-3 columns">
+        	<h4> <i class="fa fa-bars"></i> Short</h4>
+        </div>
+    	<div class="medium-3 large-3 columns">
+        	<h4> <i class="fa fa-photo"></i> Visual</h4>
+        </div>
+    	<div class="medium-3 large-3 columns">
+        	<h4> <i class="fa fa-child"></i> Interactive</h4>
+        </div>
+    	<div class="medium-3 large-3 columns">
+        	<h4> <i class="fa fa-mobile"></i> Mobile</h4>
+        </div>
+    </div>
+	<div class="row promoDesc">
+    	<h5>Airbo is a tool to create engaging employee communications, and a community that shares and votes on content. Sign up for free to search Airbo.</h5>
+    </div>
+
+	<div class="row">
+        <form id="regForm" action="#" method="post">
+            <ul>
+                <li>
+                	<label for="user_name">First and Last Name</label>
+                    <input type="text" name="user[name]" id="user_name" placeholder="First and Last Name" size="40" maxlength="50" />
+                </li>
+                <li>
+                	<label for="user_email">Work Email</label>
+                    <input type="text" name="user[email]" id="user_email" placeholder="Work Email" size="40" maxlength="50" />
+                </li>
+                <li>
+                	<label for="board_name">Name Your Airbo (ex.: Company Name)</label>
+                    <input type="text" name="board[name]" id="board_name" placeholder="Name Your Airbo (ex.: Company Name)" size="40" maxlength="50" />
+                </li>
+                <li>
+                	<label for="user_password">Password</label>
+                    <input type="password" name="user[password]" id="user_password" placeholder="Password" size="40" maxlength="50" />
+                </li>
+            </ul>
+            <input type="submit" id="create_account_btn" class="button" name="commit" value="Create Free Account" />
+        </form>
+    </div>
+</header>
+
+<div id="contents">
+	<div class="row fbCmnt">
+    	<div class="medium-4 large-4 columns">
+        	<img src="img/cmntr.png" height="180" width="180" />
+        </div>
+        <div class="medium-8 large-8 columns">
+        	<h2><i class="fa fa-quote-left"></i> Airbo is easy for me, and engaging for everyone.</h2>
+            <ul>
+            	<li>Janet McNichol, Director of HR,</li>
+                <li>American Speech-Language-Hearing Association</li>
+            </ul>
+        </div>
+    </div>
+
+	<div class="row compList">
+    	<div class="large-4 columns">
+        	<img src="img/fujifilm.png" height="25" width="143" />
+            <h2>+ 217%</h2>
+            <p>Health Risk Assessment Participation</p>
+        </div>
+    	<div class="large-4 columns">
+        	<img src="img/cat.png" height="33" width="139" />
+            <h2>+ 49%</h2>
+            <p>Weekly Safety Brief Completion</p>
+        </div>
+    	<div class="large-4 columns">
+        	<img src="img/heineken.png" height="33" width="136" />
+            <h2>+ 288%</h2>
+            <p>Visits to Open Enrollment Guide</p>
+        </div>
+    </div>
+</div>
+
+<footer id="pageFtr">
+	<div class="row">
+        <ul class="ftrMenu">
+            <li><a href="#">Our Product</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Case Studies</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Sign In</a></li>
+        </ul>
+    </div>
+</footer>
