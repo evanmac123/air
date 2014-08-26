@@ -1,0 +1,21 @@
+html.lt-ie9{
+  body.tile_previews.client_admin_main{
+    .sign_up_section{
+      form{
+        .text_field{
+          display: block;
+          float: left;
+          width: 50%;
+          padding-left: 0.5rem;
+          padding-right: 0.5rem;
+          input[type="text"]{
+          }
+        }
+        .submit_field{
+          margin-left: 0.5rem;
+          margin-right: 0.5rem;
+        }
+      }
+    }
+  }
+}

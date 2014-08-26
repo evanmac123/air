@@ -35,19 +35,18 @@
 @import "./internal/explore.css.scss";
 @import "./internal/tile_preview.css.scss";
 @import "./internal/board_settings_iphone.css.scss";
-@import "./external/welcome.css.scss";
-@import "./external/welcome_ie.css.scss";
+@import "./external/sign_up_form.css.scss";
+@import "./external/sign_up_form_ie.css.scss";
 /* RWD */
 @media only screen and (min-width: 319px) {
   @import "./internal/screen_iphone.css.scss";
 }
 @media only screen and (min-width: 500px) {
   @import "./internal/screen_tablet.css.scss";
-  @import "./external/welcome_tablet.css.scss";
+  @import "./external/sign_up_form_tablet.css.scss";
 }
 @media only screen and (min-width: $foundation) {
   @import "./internal/screen_desktop.css.scss";
-  @import "./external/welcome_desktop.css.scss";
   @import "./internal/board_settings_desktop.css.scss";
 }
 @media only screen and (min-width: $mid-desktop) {
