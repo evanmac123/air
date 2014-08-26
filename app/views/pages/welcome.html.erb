@@ -4,8 +4,8 @@
         	<a href="/"><%= image_tag "marketing/welcome_page/logo.png", alt: "Airbo", height: "283", width: "483" %></a>
         </div>
 		<div class="small-6 large-8 columns">
-        	<a href="#" class="button small signin" >Sign in</a>
-        </div>
+      <%= link_to "Sign in", sign_in_path, class: "button small signin" %>
+    </div>
     </div>
     <div class="row">
     	<h1 class="promoTitle">Crowdsourced Employee Communications</h1>

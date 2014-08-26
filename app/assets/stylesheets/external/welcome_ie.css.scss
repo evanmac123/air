@@ -1,131 +1,46 @@
 html.lt-ie9{
   body.pages-show.landing{
-    //
-    //  Header
-    //
-    header{
-      #top_bar{
-        max-width: 100%;
-        #navigation{
-          .nav_items{
-            height: 100%;
-            ul{
-              display: none;
-            }
-            .sign_in_button{
-              @include light-button($sky-blue);
-              padding: 0.5rem 2rem;
-              margin: 0.5rem 1rem;
-            }
-          }
-        }
-      }
+    .row{width: 980px !important;}
+    #pageHdr .top .large-4{width: 300px;}
+    #pageHdr .top .large-8{width: 680px;}
+    #pageHdr .promoTitle{font-size: 36px;}
+
+    #pageHdr .promoPoints .columns{
+      float: none;
+      display: inline;
+      width: 20%;
+      margin-right: 40px;
     }
-    //
-    //  Marketing Page
-    //
-    .lightbox{
-      .janet_section{
-        .janet_text{
-          margin-top: 12%;
-          .janet_all_text{
-            .janet_quote{
-              width: 17rem;
-            }
-            .janet_about{
-              width: 20rem;       
-            }
-          }
-        }
-      }
-      .logo_section{
-        .logo{
-          width:25%;
-          img{
-            max-width: 70%;
-          }
-        }
-      }
-      .advantage_section{
-        .adv_list{
-          font-size: 11px;
-          padding-left: 1.5rem;
-          .adv_column{
-            width:25%;
-            padding-left: 0.5em;
-          }
-        }
-      }
-      .features_section{
-        .feature_container{
-          float: right; 
-          width: 50%; 
-          .tile_features{
-            width:14rem;
-            margin: auto;
-            padding-bottom: 0rem;
-            .features_headline{
-              padding-top: 1.5rem;
-            }
-            .feature{
-              padding-top: 1.2rem;
-              .feature_title{
-              }
-              .feature_desc{
-              }
-            }
-          }
-        }
-        .piggy_container{
-          width: 50%;
-          float: left;
-          padding-left: 2rem;
-          #piggy_iphone{
-            max-width: 100%;  
-          }
-        }
-      }
-      .interaction_section{
-        &:after{
-          content: " ";
-          clear: both;
-          display: table;
-        }
-        .interaction{
-          float: left;
-          width: 33.3%;
-          .interaction_type{
-            display: block;
-          }
-        }
-      }
-      .how_section{
-        &:after{
-          content: " ";
-          clear: both;
-          display: table;
-        }
-        .step{
-          float: left;
-          width: 33.3%;
-        }
-      }
-      .wheel_section{
-        padding-right: 1rem;
-        padding-left: 1rem;
-        &:after{
-          content: " ";
-          clear: both;
-          display: table;
-        }
-        .tile_container{
-          float: left;
-          width: 33.3%;
-          .logo{
-            max-width: 6rem;
-          }
-        }
-      }
+
+    #pageHdr .promoPoints .columns h4{display: inline;font-size: 20px;}
+    #regForm{max-width: 760px;}
+    #regForm li{margin-right: 40px;}
+    #regForm .button{width: 680px;}
+    .fbCmnt .large-4{width: 300px;}
+    .fbCmnt .large-8{width: 680px;}
+
+    .compList .columns{width: 30%;float: left;}
+    .compList .columns:last-child{float: left;}
+
+    .boostROI img{
+      width: 980px;
+      height: 318px;
+    }
+
+    .promoPoints2 li{font-size: 18px;}
+    .newComm .large-5{width: 400px;}
+    .newComm .large-7{width: 580px;}
+    .intTypes .large-4{width: 326px;}
+    .ribbon .large-6{width: 490px;}
+    .big4Cols .large-3{width: 245px;}
+    .easyToLaunch img{width: 980px;height: 880px;}
+    .helpStaff .large-3{width: 300px;}
+    .helpStaff img{width: 300px;height: 200px;}
+    .helpStaff .large-9{width: 680px;}
+    .helps .large-6{width: 490px;}
+    .b_Tiles .large-3{width: 245px;}
+    .b_Tiles .top img{width: 245px;height: 186px;}
+    .btmRegForm{border: #ccc 1px solid;padding-right: 0;
     }
   } 
   body.pages-show.landing, body.tile_previews.client_admin_main{
