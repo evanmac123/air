@@ -29,28 +29,8 @@
     </div>
 
 	<div class="row">
-        <form id="regForm" action="#" method="post">
-            <ul>
-                <li>
-                	<label for="user_name">First and Last Name</label>
-                    <input type="text" name="user[name]" id="user_name" placeholder="First and Last Name" size="40" maxlength="50" />
-                </li>
-                <li>
-                	<label for="user_email">Work Email</label>
-                    <input type="text" name="user[email]" id="user_email" placeholder="Work Email" size="40" maxlength="50" />
-                </li>
-                <li>
-                	<label for="board_name">Name Your Airbo (ex.: Company Name)</label>
-                    <input type="text" name="board[name]" id="board_name" placeholder="Name Your Airbo (ex.: Company Name)" size="40" maxlength="50" />
-                </li>
-                <li>
-                	<label for="user_password">Password</label>
-                    <input type="password" name="user[password]" id="user_password" placeholder="Password" size="40" maxlength="50" />
-                </li>
-            </ul>
-            <input type="submit" id="create_account_btn" class="button" name="commit" value="Create Free Account" />
-        </form>
-    </div>
+    <%= render partial: 'shared/sign_up_form_new', locals: { user: User.new, board: Demo.new } %>    
+  </div>
 </header>
 
 <div id="contents">

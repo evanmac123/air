@@ -1,0 +1,13 @@
+<% form_submit_protocol = Rails.env.production? ? "https" : "http" #we need https for staging %>
+<%= form_tag set_new_board_url, id: "regForm" do %>
+  <ul>
+    <li><%= text_field_tag "user[name]", user.name, placeholder: "First and Last Name" %></li>
+    <li><%= text_field_tag "user[email]", user.email, placeholder: "Work Email" %></li>
+    <li><%= text_field_tag "board[name]", board.name, placeholder: "Name Your Airbo (ex.: Company Name)" %></li>
+    <li><%= password_field_tag "user[password]", user.password, placeholder: "Password" %></li>
+  <%= hidden_field_tag "page_name", "welcome" %>
+  <%= hidden_field_tag "creation_source_board", "Marketing Page (version 2014-05-27)" %>
+  <%= hidden_field_tag "creation_source_creator", "Marketing Page" %>
+  </ul>
+  <%= submit_tag "Create Free Account", class: "button", id: "create_account_btn" %>
+<% end %>
