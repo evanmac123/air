@@ -31,6 +31,8 @@ describe 'Explore digest email' do
     describe "Display its title and button" do
       it { should have_link 'Heading' }
       it { should have_link 'See Tiles' }
+      it { should have_body_text "You won't have to log in." }
+      it { should_not have_body_text "Works on mobile." }
     end
 
     describe 'Links' do
