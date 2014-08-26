@@ -243,6 +243,43 @@ describe '#notify_all_follow_up' do
     TilesDigestMailer.notify_all_follow_up follow_up.id
   end
 
+  context "when a custom subject is used in the original" do
+    it "should base the subject on that" do
+      custom_original_digest_subject = "Et tu, Brute?"
+
+      user = FactoryGirl.create(:claimed_user)
+      user.email.should be_present
+
+      tile_ids = [FactoryGirl.create(:tile, demo: user.demo)]
+      follow_up = FactoryGirl.create :follow_up_digest_email, demo: user.demo, tile_ids: tile_ids, send_on: Date.today, original_digest_subject: custom_original_digest_subject
+
+      ActionMailer::Base.deliveries.clear
+      TilesDigestMailer.notify_all_follow_up follow_up.id
+      crank_dj_clear
+
+      open_email(user.email)
+      current_email.subject.should == "Don't Miss: #{custom_original_digest_subject}"
+    end
+  end
+
+  context "when a custom subject is not used in the original" do
+    it "should have a reasonable default" do
+      user = FactoryGirl.create(:claimed_user)
+      user.email.should be_present
+
+      tile_ids = [FactoryGirl.create(:tile, demo: user.demo)]
+      follow_up = FactoryGirl.create :follow_up_digest_email, demo: user.demo, tile_ids: tile_ids, send_on: Date.today
+
+      ActionMailer::Base.deliveries.clear
+      TilesDigestMailer.notify_all_follow_up follow_up.id
+      crank_dj_clear
+
+      open_email(user.email)
+      current_email.subject.should == "Don't Miss Your New Tiles"
+    end
+
+  end
+
   it 'should not send to a user with followups muted' do
     unmuted_user = FactoryGirl.create(:user, :claimed)
     muted_user   = FactoryGirl.create(:user, :claimed)
