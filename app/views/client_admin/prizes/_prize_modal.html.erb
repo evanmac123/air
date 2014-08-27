@@ -5,7 +5,7 @@
 <% content_for :javascript do %>
   <%= javascript_tag do %>
     $().ready(function(){
-      <% if raffle.show_finish? current_user %>
+    <% if raffle.show_finish? current_user %>
         $(".prize_header .end_date").css("display", "none");
         $(".prize_header").css("text-align", "center");
         showRaffleBox("Prize Period Finished!");
@@ -35,8 +35,8 @@
     function prizeModalPing(event){
       $.ajax({
         type: "POST",
-        url: "/universal_ping",
-        data: { event: event, properties: { action: "Clicked Start"}, public_slug: "<%= params[:public_slug] %>" }
+        url: "/ping",
+        data: { event: event, properties: { action: "Clicked Start", public_slug: "<%= params[:public_slug] %>"} }
       });
     }
     function showRaffleBox(header){

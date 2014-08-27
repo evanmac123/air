@@ -15,7 +15,7 @@
           <% end %>
         <% else %>
           <% if i == tile.correct_answer_index || tile.is_survey? || tile.is_action? %>
-            <%= link_to answer, tile_completions_path(tile_id: tile.id, answer_index: i), class: "right_multiple_choice_answer" %>
+            <%= link_to answer, tile_completions_path(tile_id: tile.id, answer_index: i), class: "right_multiple_choice_answer", data: {tile_id: tile.id} %>
           <% else %>
             <%= link_to answer, '#', class: "wrong_multiple_choice_answer" %>
           <% end %>

@@ -131,6 +131,7 @@ class ApplicationController < ActionController::Base
   alias authorize_without_guest_checks authorize
 
   def authorize
+    #debugger if self.class == Users::PingsController
     authorize_by_explore_token
 
     return if authorize_as_guest

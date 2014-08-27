@@ -323,7 +323,7 @@ feature 'Sees tiles on explore page' do
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear
 
-      FakeMixpanelTracker.should have_event_matching('Explore page - Interaction', "action" => 'Clicked Answer')
+      FakeMixpanelTracker.should have_event_matching('Explore page - Interaction', "action" => 'Clicked Answer', 'tile_id' => tile.id.to_s)
     end
   end
 end

@@ -87,9 +87,9 @@ postTileCompletion = (event) ->
     }
   })
 
-pingRightAnswerInPreview = () ->
+pingRightAnswerInPreview = (tileId) ->
   if window.location.href.match(/explore/) 
-    $.post("/ping", {event: 'Explore page - Interaction', properties: {action: 'Clicked Answer'}})
+    $.post("/ping", {event: 'Explore page - Interaction', properties: {action: 'Clicked Answer', tile_id: tileId}})
 
 rightAnswerClicked = (event) ->
   posting = postTileCompletion(event)
@@ -104,7 +104,7 @@ attachRightAnswerMessage = (event) ->
   $(event.target).siblings('.answer_target').html("Correct!").slideDown(250)
 
 rightAnswerClickedForPreview = (event) ->
-  pingRightAnswerInPreview()
+  pingRightAnswerInPreview($(event.target).data('tile-id'))
   markCompletedRightAnswer(event)
   attachRightAnswerMessage(event)
 

@@ -2,9 +2,8 @@ class Users::PingsController < ApplicationController
   include TrackEvent
   include LoginByExploreToken
 
-  skip_before_filter :authorize, only: [:create_universal_ping]
+  prepend_before_filter :allow_guest_user
   before_filter :authorize_by_explore_token
-  before_filter :allow_guest_user, only: [:create_universal_ping]
 
   def create
     page_name = params[:page_name]
@@ -19,16 +18,6 @@ class Users::PingsController < ApplicationController
       raise "No page name, no event given for mixpanel ping"
     end
     render nothing: true
-  end
-  #it works also for guest users
-  def create_universal_ping
-    params[:public_slug] = nil if params[:public_slug].empty?
-    authorize
-    if current_user
-      create
-    else
-      render nothing: true
-    end
   end
 
   protected

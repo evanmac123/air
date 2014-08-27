@@ -18,6 +18,7 @@ feature 'Progress bars' do
     @tile_3 = FactoryGirl.create(:multiple_choice_tile, status: Tile::ACTIVE, headline: "Tile the first", points: 15, demo: @demo)
     @tile_2 = FactoryGirl.create(:multiple_choice_tile, status: Tile::ACTIVE, headline: "Tile the second", points: 5, demo: @demo)
     @tile_1 = FactoryGirl.create(:multiple_choice_tile, status: Tile::ACTIVE, headline: "Tile the third", points: 3, demo: @demo)
+    @normal_user.add_board(@demo)
   end
 
   shared_examples_for "tile progress and total progress" do
@@ -40,7 +41,7 @@ feature 'Progress bars' do
       expect_no_content "New Raffle!"
     end
     it "ping on first enter to new raffle", js: true do
-      expect_content "New Raffle!"
+      page.should have_content "New Raffle!"
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear
       FakeMixpanelTracker.should have_event_matching("Saw Prize Modal",{ "action" => "Clicked Start"})
@@ -76,6 +77,7 @@ feature 'Progress bars' do
       @path = public_tiles_path(@demo.public_slug)
       visit @path
     end
+
     it_should_behave_like "tile progress and total progress"
     it_should_behave_like "raffle progress"
   end
@@ -83,6 +85,7 @@ feature 'Progress bars' do
   context "for user", js: true do
     before(:each) do
       @user = @normal_user
+
       @raffle = @demo.raffle = FactoryGirl.create(:raffle, :live, demo: @demo)
       @path = tiles_path(as: @user)
       visit @path
