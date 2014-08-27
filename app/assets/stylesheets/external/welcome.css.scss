@@ -37,10 +37,10 @@ meta.foundation-version{font-family:"/5.2.3/"}meta.foundation-mq-small{font-fami
 #pageHdr .promoTitle{
   color: #fff;
   font-weight: normal;
-  font-size: 56px;
+  font-size: 40px;
   text-align: center;
-  margin: 60px auto;
-  padding: 0 15px;
+  margin: 20px auto;
+  padding: 51px 15px 0 15px;
 }
 
 #pageHdr .promoPoints{color: #fff;text-align: center;}
@@ -53,17 +53,17 @@ meta.foundation-version{font-family:"/5.2.3/"}meta.foundation-mq-small{font-fami
 }
 
 #pageHdr .promoDesc{
-  padding-bottom: 40px;
+  padding-bottom: 60px;
 }
 
 #pageHdr .promoDesc h5, .regFormSection h5{
   color: #fff;
-  font-size: 24px;
+  font-size: 18px;
   font-weight: normal;
   text-transform: none;
   text-align: center;
-  line-height: 1.6;
-  max-width: 53rem;
+  line-height: 1.9;
+  max-width: 29rem;
   margin: auto;
 }
 
@@ -79,6 +79,12 @@ meta.foundation-version{font-family:"/5.2.3/"}meta.foundation-mq-small{font-fami
 
 /* Registration Form */
 .regFormSection{
+  h2{
+    color: $text-color;
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 0;
+  }
   h5{
     color: $sky-blue;
     max-width: 100%;
@@ -141,7 +147,10 @@ meta.foundation-version{font-family:"/5.2.3/"}meta.foundation-mq-small{font-fami
   //color: #4face0;
 }
 
-.fbCmnt{margin: 120px auto;}
+.fbCmnt{
+  margin-top: 120px;
+  max-width: 680px !important;
+}
 
 .fbCmnt .large-4{text-align: center;}
 
@@ -161,7 +170,11 @@ meta.foundation-version{font-family:"/5.2.3/"}meta.foundation-mq-small{font-fami
 .fbCmnt li{font-size: 14px;color: #a8a8a8;}
 .fbCmnt li:first-child{color: #4c4c4c;}
 
-.compList{margin: 120px auto;}
+.compList{
+  margin-top: 70px;
+  margin-bottom: 120px;
+  max-width: 680px !important;
+}
 
 .compList .columns{text-align: center;}
 
@@ -179,7 +192,7 @@ meta.foundation-version{font-family:"/5.2.3/"}meta.foundation-mq-small{font-fami
 
 .ftrMenu{
   text-align: center;
-  padding: 20px 15px;
+  padding: 30px 15px;
 }
 
 .ftrMenu li{
@@ -518,7 +531,6 @@ meta.foundation-version{font-family:"/5.2.3/"}meta.foundation-mq-small{font-fami
   #pageHdr .promoPoints .columns:last-child{margin-bottom: 0;}
   #pageHdr .promoPoints h4{font-size: 18px;}
   #pageHdr .promoDesc{margin: 32px auto;}
-  #pageHdr .promoDesc h5{font-size: 18px;}
   
   #regForm li{float: none;width: auto;}
   #regForm li:nth-child(odd){margin-right: 0;}

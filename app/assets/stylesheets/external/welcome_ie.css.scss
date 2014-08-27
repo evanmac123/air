@@ -13,14 +13,18 @@ html.lt-ie9{
     }
 
     #pageHdr .promoPoints .columns h4{display: inline;font-size: 20px;}
-    #regForm{max-width: 760px;}
+    .regFormSection h5 { max-width: 100% !important; }
+    #regForm{max-width: 760px; padding-left: 100px;}
     #regForm li{margin-right: 40px;}
     #regForm .button{width: 680px;}
-    .fbCmnt { padding-top: 70px; }
+    .fbCmnt { 
+      padding-top: 70px; 
+      //max-width: 100% !important; 
+    }
     .fbCmnt .large-4{width: 300px;}
-    .fbCmnt .large-8{width: 680px;}
+    .fbCmnt .large-8{width: 380px;}
 
-    .compList { margin-top: 100px; margin-bottom: 100px; }
+    .compList { margin-top: 60px; margin-bottom: 70px; }
     .compList .columns{width: 30%;float: left;}
     .compList .columns:last-child{float: left;}
 
