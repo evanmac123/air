@@ -259,8 +259,9 @@ header {
       @include ease(0);
       color:$med-gray;
       font-size:1.5em;
-      padding:.75em 0.3em;
+      padding:.6em 0.3em;
       border-left:0;
+      height: 3rem;
     }
   }
 
