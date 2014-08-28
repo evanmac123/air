@@ -1,5 +1,5 @@
 <% form_submit_protocol = Rails.env.production? ? "https" : "http" #we need https for staging %>
-<h5>Create an account to see sample tiles from companies like Fujifilm and Heineken</h5>
+<h5>Create a free account to see real examples</h5>
 <%= form_tag set_new_board_url, id: "regForm" do %>
   <ul>
     <li><%= text_field_tag "user[name]", user.name, placeholder: "First and Last Name" %></li>

@@ -80,15 +80,15 @@ meta.foundation-version{font-family:"/5.2.3/"}meta.foundation-mq-small{font-fami
 /* Registration Form */
 .regFormSection{
   h2{
-    color: $text-color;
+    color: $sky-blue;
     font-size: 24px;
     text-align: center;
     margin-bottom: 0;
   }
   h5{
-    color: $sky-blue;
+    color: $text-color;
     max-width: 100%;
-    padding: 30px 0 20px 0;
+    padding: 10px 0 10px 0;
   }
 }
 #regForm{
