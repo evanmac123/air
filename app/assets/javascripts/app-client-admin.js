@@ -24,6 +24,7 @@
 //= require jquery.validate
 //= require jquery.validate.additional-methods
 //= require internal/validate_new_board
+//= require introjs
 
 $(document).ready(function() {
   $('.client_admin-users').foundation();

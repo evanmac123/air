@@ -1132,6 +1132,10 @@ class User < ActiveRecord::Base
     demos.where(is_paid: true).first.nil?
   end
 
+  def voteup_intro_never_seen
+    !(voteup_intro_seen)
+  end
+
   protected
 
   def downcase_email

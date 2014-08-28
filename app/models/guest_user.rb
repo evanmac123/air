@@ -207,4 +207,8 @@ class GuestUser < ActiveRecord::Base
   def can_switch_boards?
     false
   end
+
+  def voteup_intro_never_seen
+    !(voteup_intro_seen)
+  end
 end

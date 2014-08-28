@@ -5,6 +5,7 @@ feature "Guest user answering a tile in preview" do
     tile = FactoryGirl.create(:multiple_choice_tile, :public)
 
     visit explore_tile_preview_path(id: tile.id)
+    close_voteup_intro
 
     crank_dj_clear
     FakeMixpanelTracker.clear_tracked_events

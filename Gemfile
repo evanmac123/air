@@ -47,6 +47,7 @@ gem 'kaminari'
 gem 'browser'
 gem "squeel" 
 gem 'draper', '~> 1.3'
+gem 'introjs-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.

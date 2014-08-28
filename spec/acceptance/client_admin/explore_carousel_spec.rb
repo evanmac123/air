@@ -1,6 +1,8 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Carousel on Explore Tile Preview Page' do
+  let(:admin) {FactoryGirl.create(:client_admin, voteup_intro_seen: true)}
+
   before(:each) do
     %w(Spam Fish).each do |title|
       FactoryGirl.create(:tile_tag, title: title)
@@ -18,7 +20,7 @@ feature 'Carousel on Explore Tile Preview Page' do
 
   context "if user comes from explore main page" do
     before(:each) do
-      visit explore_path(as: a_client_admin)
+      visit explore_path(as: admin)
       expect_content "Spam"
       click_link @tiles.first.headline
     end
@@ -64,7 +66,7 @@ feature 'Carousel on Explore Tile Preview Page' do
 
   context "if user comes from explore topic page" do
     before(:each) do
-      visit explore_path(as: a_client_admin)
+      visit explore_path(as: admin)
       within page.find(".tags") do
         click_link @tags[0].title
       end

@@ -446,4 +446,8 @@ module TileHelpers
   def total_points
     page.find("#total_points").text.to_i
   end
+
+  def close_voteup_intro
+    click_link "Got it, thanks"
+  end
 end

@@ -18,6 +18,11 @@ class TilePreviewsController < ApplicationController
       @tile = Tile.viewable_in_public.where(id: params[:id]).first
       @tag = TileTag.where(id: params[:tag]).first
 
+      @show_voteup_intro = current_user && current_user.voteup_intro_never_seen
+      if @show_voteup_intro
+        mark_user_voteup_intro_seen!
+      end
+
       schedule_mixpanel_pings @tile
     end
   end
@@ -64,5 +69,10 @@ class TilePreviewsController < ApplicationController
     if current_user.nil?
       login_as_guest(@tile.demo)
     end
+  end
+
+  def mark_user_voteup_intro_seen!
+    current_user.voteup_intro_seen = true
+    current_user.save!
   end
 end

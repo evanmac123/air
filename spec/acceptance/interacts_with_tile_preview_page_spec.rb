@@ -102,6 +102,10 @@ feature "interacts with a tile from the explore-preview page" do
     end
   end
 
+  def upvote_tutorial_content
+    "Like a tile you see? Vote it up to give the creator positive feedback"  
+  end
+
   let (:creator) {FactoryGirl.create(:client_admin, name: "Charlotte McTilecreator")}
   let (:actor) {FactoryGirl.create(:client_admin, name: "Joe Copier")}
   let (:last_actor) {FactoryGirl.create(:client_admin, name: "John Lastactor")}
@@ -109,6 +113,7 @@ feature "interacts with a tile from the explore-preview page" do
 
   shared_examples_for 'copies/likes tile' do
     scenario "by clicking the proper link", js: true do
+      close_voteup_intro
       click_copy_button
    
       crank_dj_clear
@@ -118,6 +123,7 @@ feature "interacts with a tile from the explore-preview page" do
     context "when the tile has no creator", js: true do
       before do
         @original_tile.update_attributes(creator: nil)
+        close_voteup_intro
       end
 
       it "should work", js: true do
@@ -129,6 +135,7 @@ feature "interacts with a tile from the explore-preview page" do
     end
 
     scenario "should show a helpful message in a modal after copying", js: true do
+      close_voteup_intro
       click_copy_button
       page.find('#tile_copied_lightbox', visible: true)
 
@@ -136,6 +143,7 @@ feature "interacts with a tile from the explore-preview page" do
     end
 
     scenario "works if no creator is set", js: true do
+      close_voteup_intro
       @original_tile.update_attributes(creator: nil)
       click_copy_button
       page.find('#tile_copied_lightbox', visible: true)
@@ -144,6 +152,7 @@ feature "interacts with a tile from the explore-preview page" do
     end
 
     scenario "should ping", js: true do
+      close_voteup_intro
       crank_dj_clear
       FakeMixpanelTracker.clear_tracked_events
 
@@ -158,18 +167,21 @@ feature "interacts with a tile from the explore-preview page" do
     end
 
     scenario "should record user who copied", js: true do
+      close_voteup_intro
       click_copy_button
     
       @original_tile.user_tile_copies.reload.first.user_id.should eq @user.id
     end
   
     scenario "should not show the link for a non-copyable tile", js: true do
+      close_voteup_intro
       tile = FactoryGirl.create(:multiple_choice_tile, :public)
       visit explore_tile_preview_path(tile, as: @user)
       page.should have_content("View Only")
     end
 
     scenario "has credit for the original creator if present", js: true do
+      close_voteup_intro
       original_board = FactoryGirl.create(:demo, name: "Smits and O'Houlihan")
       creator = FactoryGirl.create(:user, name: "Jimmy O'Houlihan", demo: original_board)
 
@@ -189,8 +201,20 @@ feature "interacts with a tile from the explore-preview page" do
 
   shared_examples_for 'gets registration form' do |name, selector|
     scenario "when clicks #{name}", js: true do
+      close_voteup_intro
       page.find(selector).click
       register_if_guest
+    end
+  end
+
+  shared_examples_for "has intro modal for upvoting" do
+    scenario "which they see on the first visit", js: true do
+      page.should have_content(upvote_tutorial_content)
+    end
+
+    scenario "which they don't see on subsequent visits", js: true do
+      visit @path
+      page.should have_no_content(upvote_tutorial_content)
     end
   end
 
@@ -237,6 +261,10 @@ feature "interacts with a tile from the explore-preview page" do
     it_should_behave_like "gets registration form", "tag link", ".tag a"
     it_should_behave_like "gets registration form", "right arrow", "#next"
     it_should_behave_like "gets registration form", "left arrow", "#prev"
+
+    it "should not see the voteup intro" do
+      page.should have_no_content(upvote_tutorial_content)
+    end
   end
 
   context "as Guest" do
@@ -246,7 +274,8 @@ feature "interacts with a tile from the explore-preview page" do
       @original_tile.reload
 
       @user = FactoryGirl.create(:guest_user)
-      visit explore_tile_preview_path(@original_tile, as: @user)
+      @path = explore_tile_preview_path(@original_tile, as: @user)
+      visit @path
     end
 
     it_should_behave_like "copies/likes tile"
@@ -257,6 +286,9 @@ feature "interacts with a tile from the explore-preview page" do
     it_should_behave_like "gets registration form", "tag link", ".tag a"
     it_should_behave_like "gets registration form", "right arrow", "#next"
     it_should_behave_like "gets registration form", "left arrow", "#prev"
+    it_should_behave_like "has intro modal for upvoting"
+
+    it "should not see the upvote tutorial after converting, if they saw it as a guest"
   end
 
   context "as User" do
@@ -266,7 +298,8 @@ feature "interacts with a tile from the explore-preview page" do
       @original_tile.reload
 
       @user = FactoryGirl.create(:claimed_user)
-      visit explore_tile_preview_path(@original_tile, as: @user)
+      @path = explore_tile_preview_path(@original_tile, as: @user)
+      visit @path
     end
 
     it_should_behave_like "copies/likes tile"
@@ -277,5 +310,6 @@ feature "interacts with a tile from the explore-preview page" do
     it_should_behave_like "gets registration form", "tag link", ".tag a"
     it_should_behave_like "gets registration form", "right arrow", "#next"
     it_should_behave_like "gets registration form", "left arrow", "#prev"
+    it_should_behave_like "has intro modal for upvoting"
   end
 end

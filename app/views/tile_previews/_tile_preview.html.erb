@@ -1,3 +1,11 @@
+<% if @show_voteup_intro %>
+  <%= content_for :javascript do %>
+    <%= javascript_tag do %>
+      bindVoteupIntro();
+    <% end %>
+  <% end %>
+<% end %>
+
 <%=render partial: 'tile_preview_navbar', locals: {tile: tile, tag: tag} %>
 
 <%=render partial: 'like_copy_tag_bar', locals: {tile: tile} %>
