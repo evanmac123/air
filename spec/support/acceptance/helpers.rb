@@ -261,7 +261,7 @@ module SteakHelperMethods
   end
 
   def expect_marketing_page_blurb
-    expect_content "Engage employees, like their favorite app"
+    expect_content "Engage employees like their favorite apps"
   end
 
   def expect_disabled(element)
