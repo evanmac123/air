@@ -38,6 +38,11 @@ class ExploresController < ClientAdminBaseController
 
   protected
 
+  # fix number for explore page
+  def tile_batch_size
+    4
+  end
+
   def find_tiles
     @eligible_tiles = Tile.viewable_in_public.tagged_with(params[:tile_tag])
 
