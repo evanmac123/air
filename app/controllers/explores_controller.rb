@@ -22,7 +22,6 @@ class ExploresController < ClientAdminBaseController
   
   def tile_tag_show
     @batch_size = tile_batch_size
-    @batch_size = 16 if @batch_size < 16 && first_tile_batch
 
     @tile_tag = TileTag.find(params[:tile_tag])
     @all_tiles_displayed = @tiles.count <= @batch_size
@@ -40,7 +39,7 @@ class ExploresController < ClientAdminBaseController
 
   # fix number for explore page
   def tile_batch_size
-    4
+    16
   end
 
   def find_tiles
