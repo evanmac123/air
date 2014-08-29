@@ -58,12 +58,6 @@
   .container:after{@include clear;}
 
   // Full size tile counter
-  .tile_viewer_header {
-    margin-bottom:1em;
-    position:relative;
-    text-align: center;
-    width: 100%;    
-  }
   p#position {
     color:$text-color;
     display: inline-block;

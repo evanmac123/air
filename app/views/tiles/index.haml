@@ -4,9 +4,6 @@
   = render 'all_tiles_done'
 - else
   .container.row
-    .tile_viewer_header
-      %p#position.small_cap
-        = @current_tile_position_description
     .viewer
       = link_to "#", :id => :prev do
         = "Previous" if device_type == :mobile
