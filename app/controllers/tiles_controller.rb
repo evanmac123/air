@@ -4,7 +4,6 @@ class TilesController < ApplicationController
   include ApplicationHelper
 
   prepend_before_filter :allow_guest_user, :only => [:index, :show]
-  before_filter :get_position_description, :only => :index
 
   def index
     @current_user = current_user
@@ -34,7 +33,6 @@ class TilesController < ApplicationController
   def show
     if params[:partial_only]
       decide_whether_to_show_conversion_form
-      get_position_description
       render_new_tile
       schedule_viewed_tile_ping(current_tile)
       mark_all_completed_tiles
@@ -119,10 +117,6 @@ class TilesController < ApplicationController
     return (previous_tile_index + params[:offset].to_i) % 
     (current_tile_ids.length > 0 ? current_tile_ids.length : 1) unless previous_tile_ids.empty?
     return (current_tile_ids.find_index{|element| element.to_i == reference_tile_id.to_i}) || 0
-  end
-  
-  def get_position_description
-    @current_tile_position_description = "Tile #{current_tile_index+1} of #{current_tile_ids.length}"
   end
 
   def render_tile_wall_as_partial

@@ -44,7 +44,6 @@ loadNextTileWithOffset = (offset, preloadAnimations, predisplayAnimations, tileP
           else
             $('#slideshow').html(data.tile_content)
             setUpAnswers()
-            $('#position').html($('.tile_holder').data('position'))
             showOrHideStartOverButton($('#slideshow .tile_holder').data('show-start-over') == true)
 
             ungrayoutTile()
