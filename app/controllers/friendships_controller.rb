@@ -1,7 +1,5 @@
 class FriendshipsController < ApplicationController
-  before_filter :game_not_closed_yet
-
-  skip_before_filter :verify_authenticity_token, :game_not_closed_yet, :only => :accept
+  skip_before_filter :authorize, only: :accept
 
   def create
     mixpanel_properties = {:channel => :web}
@@ -68,20 +66,11 @@ class FriendshipsController < ApplicationController
     friendship = Friendship.find params[:friendship_id].to_i
 
     if EmailLink.validate_token(friendship, params[:token])
+      sign_in(friendship.friend) unless current_user || current_user == friendship.friend
       add_success(friendship.accept)
     else
       add_failure('Invalid authenticity token. Connection operation cancelled.')
     end
-
     redirect_to activity_url
-  end
-
-  protected
-
-  def game_not_closed_yet
-    return unless current_user.demo.ends_at && Time.now > current_user.demo.ends_at
-
-    flash[:failure] = "Thanks for participating. Your administrator has disabled this board."
-    redirect_to :back
   end
 end
