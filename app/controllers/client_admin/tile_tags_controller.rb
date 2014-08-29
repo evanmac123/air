@@ -20,14 +20,13 @@ class ClientAdmin::TileTagsController < ClientAdminBaseController
   end
   
   def search_results_as_json
-    normalized_tag = normalized_title
-    tags = name_like(normalized_tag).order(:title).limit(10)
+    tags = TileTag.tag_name_like(normalized_title).order(:title).limit(10)
 
-    if tags.empty?
-      add_tag_json(normalized_tag)
-    else
-      tags.map{|tag| search_result(tag)}.to_json
+    result = tags.map{|tag| search_result(tag)}
+    if tags.empty? || TileTag.have_tag(normalized_title).empty?
+      result += add_tag(normalized_title) 
     end
+    result.to_json
   end
 
   def search_result(tag)
@@ -40,7 +39,7 @@ class ClientAdmin::TileTagsController < ClientAdminBaseController
     } 
   end
 
-  def add_tag_json(normalized_title)
+  def add_tag(normalized_title)
     label = ERB::Util.h(%{Tag doesn't exist. Click to add.})
     [{
         label: label,
@@ -49,10 +48,6 @@ class ClientAdmin::TileTagsController < ClientAdminBaseController
           name: normalized_title,
           url:   add_client_admin_tile_tags_url(normalized_title)
         }
-      }].to_json
-  end
-  
-  def name_like(text)
-    TileTag.where("title ILIKE ?", "%#{text}%")  
+      }]
   end
 end
