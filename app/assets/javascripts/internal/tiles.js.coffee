@@ -1,3 +1,6 @@
+checkInTile = ->
+  $(".tile_multiple_choice_answer").length == 1
+
 isOnExplorePage = ->
   window.location.href.match(/explore/) != null
 
@@ -103,7 +106,8 @@ markCompletedRightAnswer = (event) ->
   $(event.target).addClass('clicked_right_answer')
 
 attachRightAnswerMessage = (event) ->
-  $(event.target).siblings('.answer_target').html("Correct!").slideDown(250)
+  unless checkInTile()
+    $(event.target).siblings('.answer_target').html("Correct!").slideDown(250)
 
 rightAnswerClickedForPreview = (event) ->
   markCompletedRightAnswer(event)
