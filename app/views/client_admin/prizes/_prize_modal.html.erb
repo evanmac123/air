@@ -8,7 +8,7 @@
     <% if raffle.show_finish? current_user %>
         $(".prize_header .end_date").css("display", "none");
         $(".prize_header").css("text-align", "center");
-        showRaffleBox("Prize Period Finished!");
+        showRaffleBox("Prize Period Finished!", "Ok");
         prizeModalPing("Saw Prize Modal");
       <% elsif raffle.show_start? current_user %>
         if( $("#get_started_lightbox").length == 0 && $('#activity-joyride').length == 0 ){ 
@@ -39,8 +39,11 @@
         data: { event: event, properties: { action: "Clicked Start", public_slug: "<%= params[:public_slug] %>"} }
       });
     }
-    function showRaffleBox(header){
+    function showRaffleBox(header, button_text){
+      button_text = typeof button_text !== 'undefined' ? button_text : "Start";
+
       $(".prize_header h1").text(header);
+      $(".button.close_modal").text(button_text);
       mq = window.matchMedia( "(min-width: 500px)" );
       if (mq.matches || window.oldBrowser) {
         // window width is at least 500px
