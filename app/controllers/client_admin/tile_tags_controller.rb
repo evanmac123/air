@@ -23,7 +23,7 @@ class ClientAdmin::TileTagsController < ClientAdminBaseController
     tags = TileTag.tag_name_like(normalized_title).order(:title).limit(10)
 
     result = tags.map{|tag| search_result(tag)}
-    if tags.empty? || TileTag.have_tag(normalized_title).empty?
+    if tags.empty? || TileTag.have_tag(normalized_title).nil?
       result += add_tag(normalized_title) 
     end
     result.to_json

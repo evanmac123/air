@@ -222,16 +222,22 @@ module TileHelpers
   end
 
   def add_new_tile_tag(tag)
-    field = 'add-tag'
-    fill_in field, with: tag
+    write_new_tile_tag tag
+    
     a_text = "Click to add."
-    page.execute_script %Q{ $('##{field}').trigger('focus') }
-    page.execute_script %Q{ $('##{field}').trigger('keydown') }
     selector = %Q{ul.ui-autocomplete li.ui-menu-item a:contains("#{a_text}")}
     
     page.should have_selector("ul.ui-autocomplete li.ui-menu-item a:contains('#{a_text}')")
     page.execute_script %Q{ $('#{selector}').trigger('mouseenter').click() }
     page.find('.tile_tags>li', text: normalized_tag(tag)).should have_content(normalized_tag(tag))
+  end
+
+  def write_new_tile_tag tag
+    field = 'add-tag'
+    fill_in field, with: tag
+
+    page.execute_script %Q{ $('##{field}').trigger('focus') }
+    page.execute_script %Q{ $('##{field}').trigger('keydown') }
   end  
   
   def click_make_public

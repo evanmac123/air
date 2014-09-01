@@ -22,6 +22,6 @@ class TileTag < ActiveRecord::Base
   end
 
   def self.have_tag(text)
-    TileTag.where("title ILIKE ?", "#{text}")  
+    TileTag.where("title ILIKE ?", "#{text}").first
   end
 end

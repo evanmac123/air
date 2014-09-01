@@ -33,11 +33,26 @@ feature 'Creates tile' do
       find('.tile_tags > li').should have_content('random tag')
 
       find('.tile_tags > li > .fa-times').click
-      page.should_not have_content('Random Tag')
+      page.should_not have_content('random tag')
      
       page.should_not have_css('.tile_tags > li')
       click_create_button
       page.should have_content('Add a tag to continue')
+    end
+
+    scenario "displays similiar tags and add tag button if exactly same tag is not present", js: true do
+      tag1 = FactoryGirl.create :tile_tag, title: "untag"
+      tag2 = FactoryGirl.create :tile_tag, title: "tagged"
+
+      click_make_public
+      write_new_tile_tag "tag"
+
+      expect_content "untag"
+      expect_content "tagged"
+      expect_content "Click to add."
+
+      write_new_tile_tag "untag"
+      expect_content "untag"
     end
     
     scenario 'tile with tags added is saved correctly', js: true do
