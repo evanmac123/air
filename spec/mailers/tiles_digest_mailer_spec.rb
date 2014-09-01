@@ -143,6 +143,7 @@ describe 'Digest email' do
     context 'all users' do
       subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "New Tiles", false, nil) }
 
+      it { should have_body_text "This email is unique for you. Please do not forward it." }
       it { should have_body_text 'For assistance contact' }
       it { should have_link      'support@air.bo' }
       it { should have_body_text "We're located at 222 Newbury St, Boston, MA 02116" }

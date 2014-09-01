@@ -66,6 +66,7 @@ describe 'Explore digest email' do
     end
 
     describe 'Footer' do
+      it { should have_body_text "This email is unique for you. Please do not forward it." }
       it { should have_body_text 'For assistance contact' }
       it { should have_link      'support@air.bo' }
       it { should have_body_text "We're located at 222 Newbury St, Boston, MA 02116" }
