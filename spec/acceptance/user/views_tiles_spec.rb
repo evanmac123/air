@@ -41,29 +41,6 @@ feature 'User views tile' do
       expect_current_tile_id(@make_toast)
     end
 
-    scenario 'sees counter', js: true do
-      visit tiles_path
-      expect_content "TILE 1 OF 2"
-
-      page.find("#next").click
-      expect_content "TILE 2 OF 2"
-
-      page.find("#next").click
-      expect_content "TILE 1 OF 2"
-
-      page.find("#prev").click
-      expect_content "TILE 2 OF 2"
-
-      page.find("#prev").click
-      expect_content "TILE 1 OF 2"
-    end
-
-    scenario "it should have the right position when you click to a non-first tile", js: true do
-      click_link "make toast"
-      expect_no_content "TILE 1 OF 2"
-      expect_content    "TILE 2 OF 2"
-    end
-
     context "when a tile has no attached link address" do
       before(:each) do
         @make_toast.link_address.should be_blank
