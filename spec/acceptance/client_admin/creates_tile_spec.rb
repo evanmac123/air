@@ -70,16 +70,28 @@ feature 'Creates tile' do
     end
    
     context "when attempting to make a tile public but not specifying a tag" do
-      scenario "pings", js: true do
+      before(:each) do
         fill_in_valid_form_entries({}, false)
         click_make_public
         click_create_button
+      end
+
+      scenario "pings", js: true do
         page.should have_content("Add a tag to continue")
 
         FakeMixpanelTracker.clear_tracked_events
         crank_dj_clear
 
         FakeMixpanelTracker.should have_event_matching('Tile - New', {'action' => 'Received No Tag Added Error'})
+      end
+
+      scenario "can then add tag and create tile", js: true do
+        expect_no_content after_tile_save_message
+
+        add_new_tile_tag('random tag')
+        click_create_button
+
+        expect_content after_tile_save_message
       end
     end
   end
