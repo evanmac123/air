@@ -393,6 +393,7 @@ body.tile_previews.tile_previews-show {
     .introjs-skipbutton {
       @include app-button($sky-blue);
       text-shadow: none;
+      font-size: 0.9rem;
     }
 
     .introjs-tooltiptext {
