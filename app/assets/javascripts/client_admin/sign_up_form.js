@@ -25,6 +25,16 @@ $().ready(function(){
 //  =>  Tile preview page
 //
 function showSignUpModal(){
+  // This is a hack, since if we call introJs().exit() and there are no intros
+  // open, it'll throw a TypeError: Cannot read property 'style' of null. So
+  // presumably it's looking up some element that should contain an intro,
+  // not checking to see if one actually exists, and then attempting to mess
+  // with its style.
+
+  try {
+    introJs().exit();
+  } catch(err) {
+  }
   $("#modal_link").click();
 }
 
