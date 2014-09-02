@@ -81,6 +81,12 @@ describe GuestUser do
       user.update_attributes(last_acted_at: baseline)
       convert.last_acted_at.to_i.should == baseline.to_i
     end
+
+    it "copies the voteup-intro-seen flag" do
+      user.voteup_intro_seen = true
+      user.save!
+      convert.voteup_intro_seen.should be_true
+    end
   end
 
   describe "the unhappy path" do

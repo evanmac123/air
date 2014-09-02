@@ -287,8 +287,6 @@ feature "interacts with a tile from the explore-preview page" do
     it_should_behave_like "gets registration form", "right arrow", "#next"
     it_should_behave_like "gets registration form", "left arrow", "#prev"
     it_should_behave_like "has intro modal for upvoting"
-
-    it "should not see the upvote tutorial after converting, if they saw it as a guest"
   end
 
   context "as User" do

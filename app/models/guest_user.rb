@@ -142,6 +142,7 @@ class GuestUser < ActiveRecord::Base
     converted_user.original_guest_user = self
     converted_user.cancel_account_token = generate_cancel_account_token(converted_user)
     converted_user.last_acted_at = last_acted_at
+    converted_user.voteup_intro_seen = voteup_intro_seen
 
     converted_user.converting_from_guest = true
     if converted_user.save
