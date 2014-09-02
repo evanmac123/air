@@ -1,6 +1,8 @@
 require 'acceptance/acceptance_helper'
 
 feature "interacts with a tile from the explore-preview page" do
+  include GuestUserConversionHelpers
+
   def expect_copied_lightbox
     page.should have_content(post_copy_copy)
   end

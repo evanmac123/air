@@ -1,6 +1,8 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Guest user is prompted to convert to real user' do
+  include GuestUserConversionHelpers
+
   let (:board) {FactoryGirl.create(:demo, public_slug: "sluggg", is_public: true)}
 
   def expect_no_conversion_form
@@ -52,32 +54,6 @@ feature 'Guest user is prompted to convert to real user' do
     # animations.
     #page.find('.right_multiple_choice_answer').click
     page.find('.right_multiple_choice_answer').click
-  end
-
-  def fill_in_conversion_name(name)
-    within(conversion_form_selector) do
-      page.find("[name='user[name]']").set(name)
-    end
-  end
-
-  def fill_in_conversion_email(email)
-    within(conversion_form_selector) do
-      page.find("[name='user[email]']").set(email)
-    end
-  end
-
-  def fill_in_conversion_password(password)
-    within(conversion_form_selector) do
-      page.find("[name='user[password]']").set(password)
-    end
-  end
-
-  def submit_conversion_form
-    page.find(conversion_form_selector, visible: true)
-
-    within(conversion_form_selector) do
-      click_button 'Create account'
-    end
   end
 
   def click_close_conversion_button

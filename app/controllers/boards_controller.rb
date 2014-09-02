@@ -86,6 +86,14 @@ class BoardsController < ApplicationController
     end
 
     if board_saved_successfully && user_saved_successfully
+      if current_user && current_user.is_guest?
+        current_user.converted_user = @user
+        current_user.save!
+
+        @user.voteup_intro_seen = current_user.voteup_intro_seen
+        @user.save!
+      end
+
       @user.add_board(@board.id, true)
       @user.reload
       @user.send_conversion_email
