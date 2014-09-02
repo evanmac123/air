@@ -31,6 +31,7 @@ class UsersController < Clearance::UsersController
   def show
     authorized_by_token # if user come through friendship acceptance notification email
     authorize
+    return if response_body.present? # such as if our authorization failed & we're bound for the signin page
 
     @user = current_user.demo.users.find_by_slug(params[:id])
     @current_user = current_user
@@ -69,6 +70,7 @@ class UsersController < Clearance::UsersController
       EmailLink.validate_token(user, params[:token])
 
       sign_in(user)
+      redirect_to user_url(params[:id])
     end
   end
 end

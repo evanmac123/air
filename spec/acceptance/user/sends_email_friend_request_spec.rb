@@ -19,6 +19,10 @@ feature "User tries to friend someone" do
     click_email_link_matching /accept/
   end
 
+  def see_new_connection
+    click_email_link_matching /users/
+  end
+
   # ========================================================================================
 
   let(:demo)    { FactoryGirl.create :demo }
@@ -80,6 +84,20 @@ feature "User tries to friend someone" do
 
     current_email.should have_subject("Message from Airbo")
     current_email.should have_body_text /#{friend.name} has approved your connection request./
+  end
+
+  scenario "when the friend accepts the request, the user should get a notification email \
+            and should see his connection even if not logged in", js: true do
+    deliver_and_open_email_for(friend)
+    accept_the_friendship
+    
+    delete "/sign_out"
+
+    deliver_and_open_email_for(user)
+    see_new_connection
+    current_path.should == user_path(friend)
+    expect_content friend.name
+    expect_content "Remove From Connections"
   end
 
   scenario "A friend should see the appropriate flash notification upon accepting the friendship", js: true  do
