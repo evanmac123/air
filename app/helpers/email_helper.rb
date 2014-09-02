@@ -7,6 +7,11 @@ module EmailHelper
                                token:         EmailLink.generate_token(Friendship.find friendship_id)
   end
 
+  def email_friend_url friend, user
+    token = EmailLink.generate_token(user)
+    user_url(friend, user_id: user.id, token: token)
+  end 
+
   def email_unsubscribe_link(user)
     token = EmailLink.generate_token(user)
     new_unsubscribe_url(:host => email_link_host, :protocol => email_link_protocol, user_id: user.id, token: token).html_safe

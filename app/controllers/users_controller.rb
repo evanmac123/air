@@ -2,6 +2,8 @@ class UsersController < Clearance::UsersController
   USER_LIMIT = 50
   MINIMUM_SEARCH_STRING_LENGTH = 3
 
+  skip_before_filter :authorize, only: :show
+
   def index
     @friend_ids = current_user.friend_ids
     @search_link_text = "our search bar"
@@ -27,6 +29,9 @@ class UsersController < Clearance::UsersController
   end
 
   def show
+    authorized_by_token # if user come through friendship acceptance notification email
+    authorize
+
     @user = current_user.demo.users.find_by_slug(params[:id])
     @current_user = current_user
     unless @user
@@ -53,6 +58,17 @@ class UsersController < Clearance::UsersController
       current_user.ping_page 'own profile'
     elsif @viewing_other
       current_user.ping_page("profile for someone else", {:viewed_person => @user.name, :viewed_person_id => @user.id})
+    end
+  end
+
+  private
+
+  def authorized_by_token
+    if params[:token].present? && 
+      (user = User.find params[:user_id]) && 
+      EmailLink.validate_token(user, params[:token])
+
+      sign_in(user)
     end
   end
 end

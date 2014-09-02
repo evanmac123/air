@@ -1,2 +1,2 @@
 <%= render partial: 'mailer/main_text', locals: {head_text: "Connection accepted", subhead_text: "Hi #{@user_name}, #{@friend_name} has approved your connection request."} %>
-<%= render partial: 'mailer/main_button', locals: {button_text: "See your new connection", button_url: user_url(@friend)} %>
+<%= render partial: 'mailer/main_button', locals: {button_text: "See your new connection", button_url: email_friend_url(@friend, @user) } %>
