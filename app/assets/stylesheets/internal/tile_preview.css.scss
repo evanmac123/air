@@ -386,4 +386,17 @@ body.tile_previews.tile_previews-show {
       }
     }    
   }
+
+  .voteup_intro {
+    padding-top: 1.0em;
+
+    .introjs-skipbutton {
+      @include app-button($sky-blue);
+      text-shadow: none;
+    }
+
+    .introjs-tooltiptext {
+      line-height: 1.2em;
+    }
+  }
 }

@@ -105,7 +105,7 @@ feature "interacts with a tile from the explore-preview page" do
   end
 
   def upvote_tutorial_content
-    "Like a tile you see? Vote it up to give the creator positive feedback"  
+    "Like a tile? Vote it up to give the creator positive feedback."
   end
 
   let (:creator) {FactoryGirl.create(:client_admin, name: "Charlotte McTilecreator")}
