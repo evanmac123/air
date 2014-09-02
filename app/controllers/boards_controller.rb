@@ -1,6 +1,7 @@
 class BoardsController < ApplicationController
   layout 'external'
   skip_before_filter :authorize
+  before_filter :allow_guest_user
 
   include NormalizeBoardName
   include BoardsHelper
@@ -60,7 +61,9 @@ class BoardsController < ApplicationController
     #
     # Though the situation here is better than it was since extracting the
     # CreateBoard service object.
-    
+  
+    authorize_as_guest
+
     board_saved_successfully = nil
     user_saved_successfully = nil
 
@@ -165,5 +168,9 @@ class BoardsController < ApplicationController
   def schedule_creation_pings(user)
     ping 'Boards - New', {source: params[:creation_source_board]}, user
     ping 'Creator - New', {source: params[:creation_source_creator]}, user
+  end
+
+  def find_current_board
+    Demo.new(is_public: true)
   end
 end
