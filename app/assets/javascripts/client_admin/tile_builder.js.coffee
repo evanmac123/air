@@ -74,7 +74,10 @@ $(document).ready ->
         false
       else
         $(this).find('.tag_alert').hide()
-        $(this).find('input:submit').prop('disabled', true) ; 
+        $(this).find('input:submit').prop('disabled', true)
         $(this).find('#submit_spinner').show()
         true
+    else
+      $(this).find('input:submit').prop('disabled', true)
+      true
   ) 
