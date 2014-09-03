@@ -1,4 +1,4 @@
-<% board_switching_allowed = current_user.try(:can_switch_boards?) %>
+<% board_switching_allowed = !current_user.is_a?(UserWithoutBoardSwitching) %>
 
 <script>
 var jPM = $.jPanelMenu({

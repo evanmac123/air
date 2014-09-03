@@ -263,6 +263,7 @@ feature "interacts with a tile from the explore-preview page" do
     it_should_behave_like "gets registration form", "tag link", ".tag a"
     it_should_behave_like "gets registration form", "right arrow", "#next"
     it_should_behave_like "gets registration form", "left arrow", "#prev"
+    it_should_behave_like "gets registration form", "logo", "#logo"
 
     it "should not see the voteup intro" do
       page.should have_no_content(upvote_tutorial_content)
@@ -288,6 +289,7 @@ feature "interacts with a tile from the explore-preview page" do
     it_should_behave_like "gets registration form", "tag link", ".tag a"
     it_should_behave_like "gets registration form", "right arrow", "#next"
     it_should_behave_like "gets registration form", "left arrow", "#prev"
+    it_should_behave_like "gets registration form", "logo", "#logo"
     it_should_behave_like "has intro modal for upvoting"
   end
 
@@ -310,6 +312,7 @@ feature "interacts with a tile from the explore-preview page" do
     it_should_behave_like "gets registration form", "tag link", ".tag a"
     it_should_behave_like "gets registration form", "right arrow", "#next"
     it_should_behave_like "gets registration form", "left arrow", "#prev"
+    it_should_behave_like "gets registration form", "logo", "#logo"
     it_should_behave_like "has intro modal for upvoting"
   end
 end
