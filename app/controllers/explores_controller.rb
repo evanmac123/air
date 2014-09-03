@@ -46,7 +46,7 @@ class ExploresController < ClientAdminBaseController
     @eligible_tiles = Tile.viewable_in_public.tagged_with(params[:tile_tag])
 
     @tiles = @eligible_tiles.
-      order("created_at DESC").
+      ordered_for_explore.
       offset(offset).
       includes(:creator).
       includes(:tile_tags).

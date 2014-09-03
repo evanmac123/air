@@ -15,7 +15,7 @@ feature 'Carousel on Explore Tile Preview Page' do
       FactoryGirl.create(:multiple_choice_tile, :public, headline: "Tile#{i}", created_at: Time.now + i.day, tile_tags: [tag])
     end
 
-    @tiles = Tile.order(:created_at)
+    @tiles = Tile.ordered_for_explore
   end
 
   context "if user comes from explore main page" do
@@ -68,7 +68,7 @@ feature 'Carousel on Explore Tile Preview Page' do
     before(:each) do
       visit explore_path(as: admin)
       within page.find(".tags") do
-        click_link @tags[0].title
+        click_link @tags.last.title
       end
     end
 

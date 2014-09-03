@@ -408,8 +408,12 @@ class Tile < ActiveRecord::Base
     end
   end
 
+  def self.ordered_for_explore
+    order("created_at DESC")
+  end
+
   def self.next_public_tile tile_id, offset, tag_id
-    tiles = Tile.viewable_in_public.tagged_with(tag_id)
+    tiles = Tile.viewable_in_public.ordered_for_explore.tagged_with(tag_id)
     tile = Tile.viewable_in_public.where(id: tile_id).first
     next_tile = tiles[tiles.index(tile) + offset] || tiles.first # if index out of length
     next_tile || tile # i.e. we have only one tile so next tile is nil

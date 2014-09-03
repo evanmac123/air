@@ -445,7 +445,7 @@ feature 'Guest user is prompted to convert to real user' do
         create_tiles(board, 2) 
         visit public_board_path(public_slug: board.public_slug)
         close_tutorial_lightbox
-        Tile.all.each do |tile|
+        Tile.ordered_for_explore.each do |tile|
           visit activity_path
           click_link tile.headline  
           click_right_answer
@@ -457,7 +457,7 @@ feature 'Guest user is prompted to convert to real user' do
       create_tiles(board, 2) 
       visit public_board_path(public_slug: board.public_slug)
 
-      all_tiles = Tile.all
+      all_tiles = Tile.ordered_for_explore
 
       close_tutorial_lightbox
       click_link all_tiles.first.headline
@@ -482,7 +482,7 @@ feature 'Guest user is prompted to convert to real user' do
     it "should offer after completing two tiles", js: true do
       visit public_board_path(public_slug: board.public_slug)
 
-      all_tiles = Tile.all
+      all_tiles = Tile.ordered_for_explore
     
       close_tutorial_lightbox
       click_link all_tiles.first.headline
@@ -503,7 +503,7 @@ feature 'Guest user is prompted to convert to real user' do
     it "should offer again after completing all tiles", js: true do
       visit public_board_path(public_slug: board.public_slug)
 
-      all_tiles = Tile.all
+      all_tiles = Tile.ordered_for_explore
 
       [0, 1].each do |i|
         visit activity_path
