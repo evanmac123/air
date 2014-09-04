@@ -260,13 +260,19 @@ $(document).ready ->
   ).on('keypress', (event) ->
     $('#invite_users_page_2').find('#share_tiles_email_preview').contents().find('#custom_message').html($(this).val())
     $.ajax("/client_admin/share/changed_message")
-  )  
+  )
 
   $('#digest_management').find('#digest_custom_message').on('keyup', (event) ->
     $('#digest_management').find('#share_tiles_email_preview').contents().find('#custom_message').html($(this).val())
   ).on('keypress', (event) ->
     $('#digest_management').find('#share_tiles_email_preview').contents().find('#custom_message').html($(this).val())
-  )  
+  )
+
+  $('#digest_management').find('#digest_custom_headline').on('keyup', (event) ->
+    $('#digest_management').find('#share_tiles_email_preview').contents().find('#custom_headline').html($(this).val())
+  ).on('keypress', (event) ->
+    $('#digest_management').find('#share_tiles_email_preview').contents().find('#custom_headline').html($(this).val())
+  )
 
   $('#invite_users_page_1').find('input').select((event) ->
     $(this).removeAttr('style').removeClass('invalid').removeClass('valid').removeClass('error')    

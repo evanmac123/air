@@ -137,7 +137,7 @@ feature 'Client admin and the digest email for tiles' do
         page.should have_send_to_selector('All Users')
         page.should have_follow_up_selector('Thursday')
         expect_character_counter_for '#digest_custom_message', 160
-        expect_character_counter_for '#digest_custom_headline', 80
+        expect_character_counter_for '#digest_custom_headline', 75
       end
 
       on_day('10/18/2013') do  # Friday
@@ -149,7 +149,7 @@ feature 'Client admin and the digest email for tiles' do
         page.should have_send_to_selector('Activated Users')
         page.should have_follow_up_selector('Tuesday')
         expect_character_counter_for '#digest_custom_message', 160
-        expect_character_counter_for '#digest_custom_headline', 80
+        expect_character_counter_for '#digest_custom_headline', 75
       end
     end
 
