@@ -268,11 +268,13 @@ $(document).ready ->
     $('#digest_management').find('#share_tiles_email_preview').contents().find('#custom_message').html($(this).val())
   )
 
-  $('#digest_management').find('#digest_custom_headline').on('keyup', (event) ->
-    $('#digest_management').find('#share_tiles_email_preview').contents().find('#custom_headline').html($(this).val())
-  ).on('keypress', (event) ->
-    $('#digest_management').find('#share_tiles_email_preview').contents().find('#custom_headline').html($(this).val())
-  )
+  updateCustomHeadline = (event) ->
+    value = $(this).val()
+    if value == ''
+      value = "Your New Tiles Are Here!"
+    $('#digest_management #share_tiles_email_preview').contents().find('#custom_headline').html(value)
+
+  $('#digest_management #digest_custom_headline').on('keyup', updateCustomHeadline).on('keypress', updateCustomHeadline)
 
   $('#invite_users_page_1').find('input').select((event) ->
     $(this).removeAttr('style').removeClass('invalid').removeClass('valid').removeClass('error')    
