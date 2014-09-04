@@ -12,8 +12,11 @@ class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseControlle
     custom_subject = params[:digest][:custom_subject]
     custom_subject = nil unless custom_subject.present?
 
+    custom_headline = params[:digest][:custom_headline]
+    custom_headline = nil unless custom_headline.present?
+
     cutoff_time = @demo.tile_digest_email_sent_at
-    schedule_digest_and_followup! @demo, unclaimed_users_also_get_digest, follow_up_days, cutoff_time, custom_message, custom_subject
+    schedule_digest_and_followup! @demo, unclaimed_users_also_get_digest, follow_up_days, cutoff_time, custom_headline, custom_message, custom_subject
 
     @demo.update_attributes tile_digest_email_sent_at: Time.now, unclaimed_users_also_get_digest: unclaimed_users_also_get_digest
 
@@ -34,18 +37,19 @@ class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseControlle
     ping 'Digest - Sent', {digest_send_to: receiver_description, followup_scheduled: followup_scheduled, optional_message_added: optional_message_added}, current_user
   end
 
-  def schedule_digest_and_followup!(demo, unclaimed_users_also_get_digest, follow_up_days, cutoff_time, custom_message, custom_subject)
+  def schedule_digest_and_followup!(demo, unclaimed_users_also_get_digest, follow_up_days, cutoff_time, custom_headline, custom_message, custom_subject)
     tile_ids = demo.digest_tiles(cutoff_time).pluck(:id)
 
     digest_subject = custom_subject || "New Tiles"
-    TilesDigestMailer.delay.notify_all demo, unclaimed_users_also_get_digest, tile_ids, custom_message, digest_subject
+    TilesDigestMailer.delay.notify_all demo, unclaimed_users_also_get_digest, tile_ids, custom_headline, custom_message, digest_subject
 
     if follow_up_days > 0
       FollowUpDigestEmail.create!(demo_id:  demo.id,
                                  tile_ids: tile_ids,
                                  send_on:  Date.today + follow_up_days.days,
                                  unclaimed_users_also_get_digest: unclaimed_users_also_get_digest,
-                                 original_digest_subject: custom_subject)
+                                 original_digest_subject: custom_subject,
+                                 original_digest_headline: custom_headline)
     end
   end
 end

@@ -22,6 +22,12 @@
         :javascript
           addCharacterCounterFor('#digest_custom_subject');
 
+      .custom_headline
+        %p CUSTOM HEADLINE
+        = text_area_tag "digest[custom_headline]", '', size: "50x3", maxlength: 80, placeholder: 'Your New Tiles Are Here!'
+        :javascript
+          addCharacterCounterFor('#digest_custom_headline');
+
       .intro_message
         %p
           INTRO MESSAGE

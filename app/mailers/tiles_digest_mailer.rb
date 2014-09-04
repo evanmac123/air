@@ -20,11 +20,11 @@ class TilesDigestMailer < ActionMailer::Base
     FollowUpDigestEmail.send_follow_up_digest_email.each { |followup| TilesDigestMailer.delay(run_at: noon).notify_all_follow_up(followup.id) }
   end
 
-  def notify_all(demo, unclaimed_users_also_get_digest, tile_ids, custom_message, subject)
+  def notify_all(demo, unclaimed_users_also_get_digest, tile_ids, custom_headline, custom_message, subject)
     user_ids = demo.users_for_digest(unclaimed_users_also_get_digest).pluck(:id)
 
     user_ids.reject! { |user_id| BoardMembership.where(demo_id: demo.id, user_id: user_id, digest_muted: true).first.present? }
-    user_ids.each { |user_id| TilesDigestMailer.delay.notify_one(demo.id, user_id, tile_ids, subject, false, custom_message) }
+    user_ids.each { |user_id| TilesDigestMailer.delay.notify_one(demo.id, user_id, tile_ids, subject, false, custom_headline, custom_message) }
   end
 
   def notify_all_follow_up(followup_id)
@@ -34,24 +34,26 @@ class TilesDigestMailer < ActionMailer::Base
               else
                 "Don't Miss Your New Tiles"              
               end
+    headline = followup.original_digest_headline
 
     tile_ids = followup.tile_ids
     user_ids = followup.demo.users_for_digest(followup.unclaimed_users_also_get_digest).pluck(:id)
 
     user_ids.reject! { |user_id| TileCompletion.user_completed_any_tiles?(user_id, tile_ids)}
     user_ids.reject! { |user_id| BoardMembership.where(demo_id: followup.demo_id, user_id: user_id, followup_muted: true).first.present? }
-    user_ids.each    { |user_id| TilesDigestMailer.delay.notify_one(followup.demo.id, user_id, tile_ids, subject, true, nil) }
+    user_ids.each    { |user_id| TilesDigestMailer.delay.notify_one(followup.demo.id, user_id, tile_ids, subject, true, headline, nil) }
 
     followup.destroy
   end
 
   def notify_one(demo_id, user_id, tile_ids, subject, follow_up_email, 
-      custom_message, custom_from=nil, is_new_invite = nil)
+      custom_headline, custom_message, custom_from=nil, is_new_invite = nil)
     @demo = Demo.find demo_id
     @user  = User.find user_id # XTR
     return nil unless @user.email.present? # no wasting our time trying to email people for whom we don't have an address # XTR2
 
-    @presenter = TilesDigestMailDigestPresenter.new(@user, @demo, custom_from, custom_message, follow_up_email, is_new_invite)
+    presenter_class = follow_up_email ? TilesDigestMailerFollowupPresenter : TilesDigestMailDigestPresenter
+    @presenter = presenter_class.new(@user, @demo, custom_from, custom_headline, custom_message, is_new_invite)
 
     email_type = @presenter.email_type
     ping_on_digest_email email_type, @user

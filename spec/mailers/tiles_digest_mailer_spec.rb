@@ -24,7 +24,7 @@ describe 'Digest email' do
   end
 
   describe 'Delivery' do
-    subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, 'New Tiles', false, nil) }
+    subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, 'New Tiles', false, nil, nil) }
 
     it { should be_delivered_to   'John Campbell <john@campbell.com>' }
     it { should be_delivered_from demo.reply_email_address }
@@ -33,21 +33,21 @@ describe 'Digest email' do
 
   describe 'Logo' do
     it 'should display the H.Engage logo and alt-text if an alternative one is not provided' do
-      email = TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "New Tiles", false, nil)
+      email = TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "New Tiles", false, nil, nil)
 
       email.should have_selector "img[src $= '/assets/airbo_logo_lightblue.png'][alt = 'Airbo']"
     end
 
     it "should display another company's logo if they have provided one, along with default alt-text if they have not provided any" do
       FactoryGirl.create :skin, demo: demo, logo_url: 'http://cannibalism.com/phil.png'
-      email = TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "New Tiles", false, nil)
+      email = TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "New Tiles", false, nil, nil)
 
       email.should have_selector "img[src = 'http://cannibalism.com/phil.png'][alt = 'Phil']"
     end
 
     it "should display another company's logo if they have provided one, along with alt-text if they have provided that" do
       FactoryGirl.create :skin, demo: demo, logo_url: 'http://cannibalism.com/phil.png', alt_logo_text: 'Phil is a closet cannibal'
-      email = TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "New Tiles", false, nil)
+      email = TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "New Tiles", false, nil, nil)
 
       email.should have_selector "img[src = 'http://cannibalism.com/phil.png'][alt = 'Phil is a closet cannibal']"
     end
@@ -57,14 +57,14 @@ describe 'Digest email' do
     # Note that the bottom text is the same for both original and follow-up
 
     context "original digest email should display its title" do
-      subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "New Tiles", false, nil) }
+      subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "New Tiles", false, nil, nil) }
 
       it { should have_link 'Your New Tiles Are Here!' }
       it { should have_link 'See Tiles' }
     end
 
     context "follow-up digest email should display its title" do
-      subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "Don't Miss Your New Tiles", true, nil) }
+      subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "Don't Miss Your New Tiles", true, nil, nil) }
 
       it { should have_link "Don't miss your new tiles" }
       it { should have_link 'See Tiles' }
@@ -78,34 +78,34 @@ describe 'Digest email' do
     # There should be 5 links in all: 3 tile links and 2 text links. All links should contain a security token
     # that is used to sign the user in when they click on any of the links in the tile-digest email.
     context 'claimed user' do
-      subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "New Tiles", false, nil) }
+      subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "New Tiles", false, nil, nil) }
       it { should have_selector     "a[href *= 'acts?demo_id=#{demo.id}&email_type=digest_new_v&tile_token=#{EmailLink.generate_token(claimed_user)}&user_id=#{claimed_user.id}']", count: 5 }
       it { should_not have_selector "a[href *= 'invitations']" }
     end
 
     # There should be 5 links in all same as above
     context 'unclaimed user' do
-      subject { TilesDigestMailer.notify_one(demo.id, unclaimed_user.id, tile_ids, "New Tiles", false, nil) }
+      subject { TilesDigestMailer.notify_one(demo.id, unclaimed_user.id, tile_ids, "New Tiles", false, nil, nil) }
       it { should have_selector     "a[href *= 'invitations']", count: 5 }
       it { should_not have_selector "a[href *= 'acts']" }
     end
 
     # client-admins should not have automatic sign-in links in their tiles
     context 'client-admins' do
-      subject { TilesDigestMailer.notify_one(demo.id, client_admin.id, tile_ids, "New Tiles", false, nil) }
+      subject { TilesDigestMailer.notify_one(demo.id, client_admin.id, tile_ids, "New Tiles", false, nil, nil) }
       it { should     have_selector "a[href *= 'acts']", count: 5 }
       it { should_not have_selector "a[href *= 'acts?tile_token']" }
     end
 
     # site-admins should have automatic sign-in links in their tiles
     context 'site-admins' do
-      subject { TilesDigestMailer.notify_one(demo.id, site_admin.id, tile_ids, "New Tiles", false, nil) }
+      subject { TilesDigestMailer.notify_one(demo.id, site_admin.id, tile_ids, "New Tiles", false, nil, nil) }
       it { should have_selector "a[href *= 'acts?demo_id=#{demo.id}&email_type=digest_new_v&tile_token=#{EmailLink.generate_token(site_admin)}&user_id=#{site_admin.id}']", count: 5 }
     end
   end
 
   describe 'Tiles' do
-    subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "New Tiles", false, nil) }
+    subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "New Tiles", false, nil, nil) }
 
     it { should have_num_tiles(3) }
     it { should have_num_tile_links(3) }
@@ -123,7 +123,7 @@ describe 'Digest email' do
 
   describe 'Supporting Content' do
     context "original digest email should not display the tile's supporting content" do
-      subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "New Tiles", false, nil) }
+      subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "New Tiles", false, nil, nil) }
 
       it { should_not have_body_text '6 kittens were killed' }
       it { should_not have_body_text '66 kittens were knifed' }
@@ -131,7 +131,7 @@ describe 'Digest email' do
     end
 
     context "follow-up digest email should display the tile's supporting content" do
-      subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "Don't Miss Your New Tiles", true, nil) }
+      subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "Don't Miss Your New Tiles", true, nil, nil) }
 
       it { should have_body_text '6 kittens were killed' }
       it { should have_body_text '66 kittens were knifed' }
@@ -141,7 +141,7 @@ describe 'Digest email' do
 
   describe 'Footer' do
     context 'all users' do
-      subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "New Tiles", false, nil) }
+      subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "New Tiles", false, nil, nil) }
 
       it { should have_body_text "This email is unique for you. Please do not forward it." }
       it { should have_body_text 'For assistance contact' }
@@ -153,12 +153,12 @@ describe 'Digest email' do
     end
 
     context 'claimed user' do
-      subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "New Tiles", false, nil) }
+      subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "New Tiles", false, nil, nil) }
       it { should     have_link('Update Preferences') }
     end
 
     context 'unclaimed user' do
-      subject { TilesDigestMailer.notify_one(demo.id, unclaimed_user.id, tile_ids, "New Tiles", false, nil) }
+      subject { TilesDigestMailer.notify_one(demo.id, unclaimed_user.id, tile_ids, "New Tiles", false, nil, nil) }
       it { should_not have_link('Update preferences') }
     end
   end
@@ -190,7 +190,7 @@ describe 'Digest email tile order' do
     Tile.expects(:where).with(id: tile_ids).returns(tile_ids)
     tile_ids.expects(:order).with('activated_at DESC').returns(tile_ids)
 
-    TilesDigestMailer.notify_one(1, 2, tile_ids, "New Tiles", false, nil)
+    TilesDigestMailer.notify_one(1, 2, tile_ids, "New Tiles", false, nil, nil)
   end
 end
 
@@ -204,7 +204,7 @@ describe '#notify_all' do
     crank_dj_clear
     ActionMailer::Base.deliveries.clear
 
-    TilesDigestMailer.notify_all(demo, true, [], "a custom message", "a subject")
+    TilesDigestMailer.notify_all(demo, true, [], nil, "a custom message", "a subject")
     crank_dj_clear
 
     ActionMailer::Base.deliveries.should be_empty
@@ -234,8 +234,8 @@ describe '#notify_all_follow_up' do
     TilesDigestMailer.stubs(:delay).returns(object)
 
     object.expects(:notify_one).at_most(2)
-    object.expects(:notify_one).with(demo.id, paul.id,   tile_ids, "Don't Miss Your New Tiles", true, nil)
-    object.expects(:notify_one).with(demo.id, george.id, tile_ids, "Don't Miss Your New Tiles", true, nil)
+    object.expects(:notify_one).with(demo.id, paul.id,   tile_ids, "Don't Miss Your New Tiles", true, nil, nil)
+    object.expects(:notify_one).with(demo.id, george.id, tile_ids, "Don't Miss Your New Tiles", true, nil, nil)
 
     # Make sure we delete 'FollowUpDigestEmail' objects after we process them
     FollowUpDigestEmail.expects(:find).returns(follow_up)
@@ -278,7 +278,42 @@ describe '#notify_all_follow_up' do
       open_email(user.email)
       current_email.subject.should == "Don't Miss Your New Tiles"
     end
+  end
 
+  context "when a custom headline is used in the original" do
+    it "should use the same for the followup" do
+      user = FactoryGirl.create(:claimed_user)
+      user.email.should be_present
+
+      tile_ids = [FactoryGirl.create(:tile, demo: user.demo)]
+      follow_up = FactoryGirl.create :follow_up_digest_email, demo: user.demo, tile_ids: tile_ids, send_on: Date.today, original_digest_headline: 'Kneel before Zod'
+
+      ActionMailer::Base.deliveries.clear
+      TilesDigestMailer.notify_all_follow_up follow_up.id
+      crank_dj_clear
+
+      open_email(user.email)
+      current_email.html_part.should contain('Kneel before Zod')
+      current_email.text_part.should contain('Kneel before Zod')
+    end
+  end
+
+  context "when a custom headline is not used in the original" do
+    it "should have a reasonable default" do
+      user = FactoryGirl.create(:claimed_user)
+      user.email.should be_present
+
+      tile_ids = [FactoryGirl.create(:tile, demo: user.demo)]
+      follow_up = FactoryGirl.create :follow_up_digest_email, demo: user.demo, tile_ids: tile_ids, send_on: Date.today
+
+      ActionMailer::Base.deliveries.clear
+      TilesDigestMailer.notify_all_follow_up follow_up.id
+      crank_dj_clear
+
+      open_email(user.email)
+      current_email.html_part.should contain("Don't miss your new tiles")
+      current_email.text_part.should contain("Don't miss your new tiles")
+    end
   end
 
   it 'should not send to a user with followups muted' do
@@ -303,8 +338,8 @@ describe "#notify_one" do
     blank_mail_user = FactoryGirl.create(:user, email: '')
     nil_mail_user   = FactoryGirl.create(:user, email: nil)
 
-    blank_mail = TilesDigestMailer.notify_one(blank_mail_user.demo.id, blank_mail_user.id, [], 'New Tiles', false, nil)
-    nil_mail = TilesDigestMailer.notify_one(nil_mail_user.demo.id, nil_mail_user.id, [], 'New Tiles', false, nil)
+    blank_mail = TilesDigestMailer.notify_one(blank_mail_user.demo.id, blank_mail_user.id, [], 'New Tiles', false, nil, nil)
+    nil_mail = TilesDigestMailer.notify_one(nil_mail_user.demo.id, nil_mail_user.id, [], 'New Tiles', false, nil, nil)
 
     blank_mail.should be_kind_of(ActionMailer::Base::NullMail)
     nil_mail.should be_kind_of(ActionMailer::Base::NullMail)

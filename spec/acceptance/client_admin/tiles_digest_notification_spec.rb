@@ -137,6 +137,7 @@ feature 'Client admin and the digest email for tiles' do
         page.should have_send_to_selector('All Users')
         page.should have_follow_up_selector('Thursday')
         expect_character_counter_for '#digest_custom_message', 160
+        expect_character_counter_for '#digest_custom_headline', 80
       end
 
       on_day('10/18/2013') do  # Friday
@@ -148,6 +149,7 @@ feature 'Client admin and the digest email for tiles' do
         page.should have_send_to_selector('Activated Users')
         page.should have_follow_up_selector('Tuesday')
         expect_character_counter_for '#digest_custom_message', 160
+        expect_character_counter_for '#digest_custom_headline', 80
       end
     end
 
@@ -323,7 +325,7 @@ feature 'Client admin and the digest email for tiles' do
           end
         end
 
-        context "and the option admin-supplied custom subject is filled in" do
+        context "and the optional admin-supplied custom subject is filled in" do
           before do
             @custom_subject = "Pferde in der Wehrmacht waren als Armeepferde ein wichtiger Bestandteil"
             fill_in "digest[custom_subject]", with: @custom_subject
@@ -345,7 +347,7 @@ feature 'Client admin and the digest email for tiles' do
           end
         end
 
-        context "and the option admin-supplied custom subject is not filled in" do
+        context "and the optional admin-supplied custom subject is not filled in" do
           it "uses a reasonable default" do
             click_button 'Send'
 
@@ -361,6 +363,41 @@ feature 'Client admin and the digest email for tiles' do
             click_button 'Send'
             FollowUpDigestEmail.all.length.should == 1
             FollowUpDigestEmail.first.original_digest_subject.should be_nil
+          end
+        end
+
+        context "and the optional admin-supplied custom headline is filled in" do
+          before do
+            @custom_headline = "Do the right thing, you"
+            fill_in "digest[custom_headline]", with: @custom_headline
+            click_button "Send"
+            crank_dj_clear
+          end
+
+          it "uses that" do
+            all_addresses.each do |address|
+              open_email(address)
+              current_email.html_part.body.should contain(@custom_headline)
+              current_email.text_part.body.should contain(@custom_headline)
+            end
+          end
+
+          it "records that headline in the followup" do
+            FollowUpDigestEmail.all.length.should == 1
+            FollowUpDigestEmail.first.original_digest_headline.should == @custom_headline
+          end
+        end
+
+        context "and the optional admin-supplied custom headline is not filled in" do
+          it "has a reasonable default" do
+            click_button "Send"
+            crank_dj_clear
+
+            all_addresses.each do |address|
+              open_email(address)
+              current_email.html_part.body.should contain('Your New Tiles Are Here!')
+              current_email.text_part.body.should contain('Your New Tiles Are Here!')
+            end
           end
         end
       end

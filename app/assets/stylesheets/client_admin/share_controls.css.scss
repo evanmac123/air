@@ -126,7 +126,7 @@
   }
   .notification_controls {
     float: left;    
-    .send_to, .follow_up, .intro_message, .custom_subject {
+    .send_to, .follow_up, .intro_message, .custom_subject, .custom_headline {
       margin-bottom:3.75em;
       p {
         @include caption;
@@ -146,7 +146,7 @@
       label {margin-right:2em;}
       select:disabled {color:$light-gray;}
     }
-    .custom_subject {
+    .custom_subject, .custom_headline {
       textarea {
         height: 4.5em;
       }

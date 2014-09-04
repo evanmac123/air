@@ -1,7 +1,7 @@
 <%# render partial: 'mailer/header' %>
 
 <% # We send 'claimed' users to the main activities page; "unclaimed" users have to accept their invitation first %>
-<%= @presenter.digest_email_heading %>
+<%= @presenter.email_heading %>
 <%= @presenter.custom_message_if_present %>
 
 <% @tiles.each do |tile| %>
