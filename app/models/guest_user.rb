@@ -209,6 +209,14 @@ class GuestUser < ActiveRecord::Base
     false
   end
 
+  def can_open_board_settings?
+    false
+  end
+
+  def nerf_links_with_login_modal?
+    false
+  end
+
   def voteup_intro_never_seen
     !(voteup_intro_seen)
   end

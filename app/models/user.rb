@@ -1088,6 +1088,14 @@ class User < ActiveRecord::Base
     true
   end
 
+  def can_open_board_settings?
+    true
+  end
+
+  def nerf_links_with_login_modal?
+    false
+  end
+
   def boards_as_admin
     User.transaction do
       boards = board_memberships.where(is_client_admin: true, is_current: false).map(&:demo)

@@ -54,7 +54,7 @@
         <%= render 'shared/desktop_board_switcher', boards_to_switch_to: @boards_to_switch_to %>
 
         <%= link_to '#', id: 'board_settings_toggle' do %>
-          <% after_login_link = current_user.try(:can_switch_boards?) ? "" : "#{request.path}?pop_board_settings_modal=true" %>
+          <% after_login_link = current_user.try(:can_open_board_settings?) ? "" : "#{request.path}?pop_board_settings_modal=true" %>
           <div class="board_settings_toggle_wrapper has-tip" data-tooltip title="Settings" href="<%= after_login_link %>">
             <i class="fa fa-cog" href="<%= after_login_link %>"></i>
           </div>

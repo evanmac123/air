@@ -76,8 +76,7 @@
   <% end %>
 </div>  
 
-<% board_switching_allowed = current_user.try(:can_switch_boards?) %>
-<% if board_switching_allowed %>
+<% if current_user.try(:can_open_board_settings?) %>
   <%= content_for :javascript do %>
     <%= javascript_tag do %>
       $().ready(function(){

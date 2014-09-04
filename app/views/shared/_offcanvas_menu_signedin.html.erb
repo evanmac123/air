@@ -1,4 +1,5 @@
-<% board_switching_allowed = !current_user.is_a?(UserWithoutBoardSwitching) %>
+<% board_switching_allowed = current_user.try(:can_switch_boards?) %>
+<% nerf_links_with_login_modal = current_user.try(:nerf_links_with_login_modal?) %>
 
 <script>
 var jPM = $.jPanelMenu({
@@ -46,7 +47,7 @@ jRes.addFunc([
   }
 ]);
 
-<% unless board_switching_allowed %>
+<% if nerf_links_with_login_modal %>
   nerfLinksWithLoginModal();
 <% end %>
 </script>
