@@ -45,7 +45,9 @@ class User < ActiveRecord::Base
   has_one    :billing_information
   validate :normalized_phone_number_unique, :normalized_new_phone_number_unique
   validate :new_phone_number_has_valid_number_of_digits
-  validate :sms_slug_does_not_match_commands
+  # OPTZ: We don't care anymore and this query is expensive
+  # but it may have to wait until we tear out rules and shit entirely
+  validate :sms_slug_does_not_match_commands 
   validate :date_of_birth_in_the_past
 
   validates_uniqueness_of :slug
@@ -1094,6 +1096,8 @@ class User < ActiveRecord::Base
   end
 
   def boards_as_admin
+    # OPTZ: Accidentally wrote an N+1 query here, whoops. Fix this up with
+    # some joins/includes.
     User.transaction do
       boards = board_memberships.where(is_client_admin: true, is_current: false).map(&:demo)
 
