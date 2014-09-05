@@ -34,6 +34,20 @@
   </fieldset>
 <% end %>
 
+<%= form_tag admin_demo_user_test_status_path(@user.demo, @user), method: :put do %>
+  <fieldset>
+    <% if @user.is_test_user %>
+      <legend>Make this user not a test user</legend>
+      <%= hidden_field_tag "user[is_test_user]", false %>
+      <%= submit_tag "Make non-test user" %>
+    <% else %>
+      <legend>Make this user a test user</legend>
+      <%= hidden_field_tag "user[is_test_user]", true %>
+      <%= submit_tag "Make test user" %>
+    <% end %>
+  </fieldset>
+<% end %>
+
 <%= semantic_form_for @user, :url => admin_demo_user_path(@user.demo, @user) do |form| %>
   <fieldset>
     <legend>Move User To A Different Demo</legend>

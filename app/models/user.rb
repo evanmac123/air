@@ -495,7 +495,8 @@ class User < ActiveRecord::Base
       :account_creation_date => self.created_at.to_date,
       :joined_game_date      => self.accepted_invitation_at.try(:to_date),
       :location              => self.location.try(:name),
-      :user_type             => self.highest_ranking_user_type
+      :user_type             => self.highest_ranking_user_type,
+      :is_test_user          => !!(self.is_test_user) # remember, the !! normalized nil to false
     }
   end
 

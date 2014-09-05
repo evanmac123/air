@@ -28,6 +28,10 @@ class GuestUser < ActiveRecord::Base
     true
   end
 
+  def is_test_user?
+    false
+  end
+
   def role
     "Guest"
   end
@@ -102,9 +106,10 @@ class GuestUser < ActiveRecord::Base
 
   def data_for_mixpanel
     {
-      distinct_id: "guest_user_#{self.id}",
-      user_type:   self.highest_ranking_user_type,
-      game:        self.demo.try(:name)
+      distinct_id:  "guest_user_#{self.id}",
+      user_type:    self.highest_ranking_user_type,
+      game:         self.demo.try(:name),
+      is_test_user: is_test_user?
     }
   end
 

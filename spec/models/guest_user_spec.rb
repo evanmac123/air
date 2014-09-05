@@ -157,10 +157,20 @@ describe GuestUser do
     end
   end
 
-  describe "data_for_mixpanel" do
+  describe "#data_for_mixpanel" do
     it "should include the game name" do
       user.demo.should_not be_nil
       user.data_for_mixpanel[:game].should == user.demo.name
+    end
+
+    it "should always report false for is_test_user" do
+      user.data_for_mixpanel[:is_test_user].should == false
+    end
+  end
+
+  describe "#is_test_user?" do
+    it "should be false always" do
+      user.is_test_user?.should be_false
     end
   end
 

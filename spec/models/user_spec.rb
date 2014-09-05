@@ -1133,3 +1133,15 @@ describe User, "#not_in_any_paid_boards?" do
     user.not_in_any_paid_boards?.should be_false
   end
 end
+
+describe User, "#data_for_mixpanel" do
+  it "should include the user's is_test_user flag, normalized to false in case of nil" do
+    user1 = FactoryGirl.build(:user, created_at: Time.now)
+    user2 = FactoryGirl.build(:user, is_test_user: false, created_at: Time.now)
+    user3 = FactoryGirl.build(:user, is_test_user: true, created_at: Time.now)
+
+    user1.data_for_mixpanel[:is_test_user].should == false
+    user2.data_for_mixpanel[:is_test_user].should == false
+    user3.data_for_mixpanel[:is_test_user].should == true
+  end
+end

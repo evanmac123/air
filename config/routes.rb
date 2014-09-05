@@ -232,6 +232,7 @@ Health::Application.routes.draw do
       # TODO: move :edit and :update onto resources :users below
       resources :users, :only => [:index, :edit, :update, :destroy] do
         resource :characteristics, :only => :update, :controller => "user_characteristics"
+        resource :test_status, :only => :update
       end
 
       resources :goals
