@@ -487,8 +487,6 @@ class User < ActiveRecord::Base
       :id                    => self.id,
       :email                 => self.email,
       :game                  => self.demo.name,
-      :following_count       => Friendship.accepted.where(:user_id => self.id).count,
-      :followers_count       => Friendship.accepted.where(:friend_id => self.id).count,
       :score                 => self.points,
       :account_creation_date => self.created_at.to_date,
       :joined_game_date      => self.accepted_invitation_at.try(:to_date),

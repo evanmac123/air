@@ -81,6 +81,7 @@ class Act < ActiveRecord::Base
 
     # UGH. But there's not a straightforward way to do a UNION in ActiveRecord, 
     # and performance of a straightforward OR-ed query was getting poor.
+    # OPTZ: Use the limit/offset trick to improve query of this still more
     find_by_sql(["SELECT acts.* FROM acts WHERE acts.demo_id = ? AND acts.hidden = 'f' AND acts.user_id IN (?) UNION \
                   SELECT acts.* FROM acts WHERE acts.demo_id = ? AND acts.hidden = 'f' AND acts.privacy_level = 'everybody' \
                   ORDER BY created_at DESC LIMIT ? OFFSET ?",
@@ -174,6 +175,7 @@ class Act < ActiveRecord::Base
     }
   end
 
+  # OPTZ: Cut this and satisfy_tiles_by_rule
   def trigger_tiles
     self.user.satisfy_tiles_by_rule(self.rule_id, self.referring_user_id.present?)
   end
