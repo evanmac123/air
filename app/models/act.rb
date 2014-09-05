@@ -7,7 +7,6 @@ class Act < ActiveRecord::Base
   belongs_to :rule
   belongs_to :rule_value
   belongs_to :demo
-  has_one :goal, :through => :rule
 
   before_save do
     # if rule.description is blank, then act.text will be blank, and we will set it as hidden
@@ -28,8 +27,6 @@ class Act < ActiveRecord::Base
   after_create do
     user.update_last_acted_at
     user.update_points(points, self.creation_channel) if points
-
-    check_goal_completion
 
     trigger_tiles
     schedule_mixpanel_ping
@@ -53,16 +50,7 @@ class Act < ActiveRecord::Base
   end
 
   def post_act_summary
-    if self.goal
-      user.point_and_ticket_summary([self.goal.progress_text(user)])
-    else
-      user.point_and_ticket_summary
-    end
-  end
-
-  def completes_goal?
-    return false unless self.goal && self.goal.complete?(self.user)
-    self.goal.acts.where(:user_id => self.user_id, :rule_id => self.rule_id).count == 1
+    user.point_and_ticket_summary
   end
 
   def self.recent(limit)
@@ -184,13 +172,6 @@ class Act < ActiveRecord::Base
       :channel               => self.creation_channel,
       :suggestion_code       => self.suggestion_code
     }
-  end
-
-  def check_goal_completion
-    if self.completes_goal?
-      OutgoingMessage.send_side_message(user, self.goal.completion_sms_text, :channel => self.creation_channel)
-      GoalCompletion.create!(:user => user, :goal => self.goal)
-    end
   end
 
   def trigger_tiles

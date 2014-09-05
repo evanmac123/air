@@ -1,9 +1,0 @@
-<%= semantic_form_for @goal, :url => admin_demo_goal_path(@demo, @goal) do |form| %>
-  <%= render 'form_fields', :form => form %>
-<% end %>
-
-<% unless @goal.new_record? %>
-  <%= button_to "Delete Goal", admin_demo_goal_path(@demo, @goal), :method => :delete, :confirm => "Really delete this goal?" do |form| %>
-    <%= form.submit %>
-  <% end %>
-<% end %>

@@ -111,52 +111,6 @@ Feature: User acts
     When "+15087407520" sends SMS "ate banana"
     Then "+15087407520" should have received an SMS "Bananas are good for you. Points 2/20, Tix 0."
 
-  Scenario: User achieves part of a goal by acting
-    Given the following goals exist:
-      | name              | demo                  |
-      | deadly sins       | name: FooCorp |
-      | redeeming virtues | name: FooCorp |
-    And the following rules exist:
-      | reply               | Points | demo                  |
-      | Lust woo!           | 2      | name: FooCorp |
-      | Pride boo!          | 5      | name: FooCorp |
-      | Envy who?           | 6      | name: FooCorp |
-      | Charity good for u. | 11     | name: FooCorp |
-      | So is diligence too | 15     | name: FooCorp |
-    And rule "Lust woo!" is associated with goal "deadly sins"
-    And rule "Pride boo!" is associated with goal "deadly sins"
-    And rule "Envy who?" is associated with goal "deadly sins"
-    And rule "Charity good for u." is associated with goal "redeeming virtues"
-    And rule "So is diligence too" is associated with goal "redeeming virtues"
-    And the following rule values exist:
-      | value     | rule                       |
-      | lust      | reply: Lust woo!           |
-      | pride     | reply: Pride boo!          |
-      | envy      | reply: Envy who?           |
-      | charity   | reply: Charity good for u. |
-      | diligence | reply: So is diligence too |
-
-    When "+15087407520" sends SMS "lust"
-    Then "+15087407520" should have received SMS "Lust woo! Deadly sins 1/3, Points 2/20, Tix 0."
-
-    When "+15087407520" sends SMS "lust"
-    Then "+15087407520" should have received SMS "Lust woo! Deadly sins 1/3, Points 4/20, Tix 0."
-
-    When "+15087407520" sends SMS "charity"
-    Then "+15087407520" should have received SMS "Charity good for u. Redeeming virtues 1/2, Points 15/20, Tix 0."
-
-    When "+15088675309" sends SMS "diligence"
-    Then "+15088675309" should have received SMS "So is diligence too Redeeming virtues 1/2, Points 15/20, Tix 0."
-
-    When "+15087407520" sends SMS "diligence"
-    Then "+15087407520" should have received SMS "So is diligence too Redeeming virtues 2/2, Points 10/20, Tix 1."
-
-    When "+15087407520" sends SMS "pride"
-    Then "+15087407520" should have received SMS "Pride boo! Deadly sins 2/3, Points 15/20, Tix 1."
-
-    When "+15087407520" sends SMS "lust"
-    Then "+15087407520" should have received SMS "Lust woo! Deadly sins 2/3, Points 17/20, Tix 1."
-
   Scenario: User can only get credit for rules up to their limits
     When "+15087407520" sends SMS "saw poster"
     And "+15087407520" sends SMS "saw poster"

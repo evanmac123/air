@@ -20,12 +20,6 @@ def expect_rule_rows(rule_or_hash)
   end
 end
 
-Given /^(the )?rule "([^"]*)" is associated with (the )?goal "([^"]*)"$/ do |_nothing_1, rule_reply, _nothing_2, goal_name|
-  goal = Goal.find_by_name(goal_name)
-  rule = Rule.find_by_reply(rule_reply)
-  goal.rules << rule
-end
-
 When /^I fill in secondary value field \#(\d+) with "([^"]*)"$/ do |index_plus_one, value|
   index = index_plus_one.to_i - 1
   field_name = "rule[secondary_values][#{index}]"

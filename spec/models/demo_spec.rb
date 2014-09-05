@@ -4,7 +4,6 @@ describe Demo do
   it { should have_many(:users) }
   it { should have_many(:rules) }
   it { should have_many(:rule_values).through(:rules) }
-  it { should have_many(:goals) }
   it { should have_many(:tiles) }
   it { should have_many(:locations) }
   it { should have_many(:characteristics) }

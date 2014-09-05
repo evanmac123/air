@@ -235,8 +235,6 @@ Health::Application.routes.draw do
         resource :test_status, :only => :update
       end
 
-      resources :goals
-
       resource :bulk_load, :only => [:new, :create]
 
       namespace :reports do

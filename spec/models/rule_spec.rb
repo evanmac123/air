@@ -8,7 +8,6 @@ describe Rule do
   it { should have_many(:rule_values).dependent(:destroy) }
 
   it { should belong_to(:demo) }
-  it { should belong_to(:goal) }
   it { should belong_to(:primary_tag) }
 
   it { should have_many(:acts) }
@@ -93,22 +92,11 @@ describe Rule do
       @rule = FactoryGirl.create(:rule, description: "Climbed the Pru")
     end
 
-    context "when the rule has no goal" do
-      it "should have a reply length limit of 120" do
-        @rule.reply = 'H' * 120
-        @rule.should be_valid
-        @rule.reply = 'H' * 121
-        @rule.should_not be_valid
-      end
-
-      it "should have a reply lenght limit of 100 if it has a goal" do
-        @rule.reply = 'H' * 100
-        @rule.save!
-        goal = FactoryGirl.create(:goal, :rule_ids => [@rule.id])
-        @rule.reload.should be_valid
-        @rule.reply = 'H' * 101
-        @rule.should_not be_valid
-      end
+    it "should have a reply length limit of 120" do
+      @rule.reply = 'H' * 120
+      @rule.should be_valid
+      @rule.reply = 'H' * 121
+      @rule.should_not be_valid
     end
   end
 

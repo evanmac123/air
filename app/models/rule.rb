@@ -1,6 +1,5 @@
 class Rule < ActiveRecord::Base
   belongs_to :demo
-  belongs_to :goal
 
   has_one    :primary_value,    :class_name => "RuleValue", :conditions => {:is_primary => true}
   has_many   :secondary_values, :class_name => "RuleValue", :conditions => {:is_primary => false}
@@ -13,19 +12,11 @@ class Rule < ActiveRecord::Base
   belongs_to :primary_tag, :class_name => "Tag"
 
   validates_length_of :reply, :maximum => 120
-  validates :reply, :with => :reply_length_100, :if => :goal_id
 
   validates :points, :with => :present_and_non_negative, :on => :client_admin
 
   before_destroy :nullify_acts
   
-  def reply_length_100
-    if reply.length > 100
-      message = "Rule '#{description}' (id = #{id}) has a #{reply.length}-character reply. Please shorten its reply to 100 before associating it with a goal"
-      errors.add(:reply, message)
-    end
-  end
-
   def to_s
     description || self.primary_value.try(:value) || self.rule_values.oldest.first.value
   end
@@ -145,14 +136,6 @@ class Rule < ActiveRecord::Base
     end
 
     rule
-  end
-
-  def self.eligible_for_goal(goal)
-    if goal.id
-      where(["demo_id = ? AND (goal_id = ? OR goal_id IS NULL)", goal.demo.id, goal.id])
-    else
-      where(["demo_id = ? AND goal_id IS NULL", goal.demo.id])
-    end
   end
 
   private
