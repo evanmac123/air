@@ -3,11 +3,13 @@ class UserInRaffleInfo < ActiveRecord::Base
   belongs_to :raffle
 
   def self.find_user_in_raffle_info raffle, user
-    user_in_raffle = self.where(raffle_id: raffle.id, user_id: user.id, user_type: user.class.name.to_s).first
-    unless user_in_raffle
-      user_in_raffle = UserInRaffleInfo.create(raffle_id: raffle.id, user_id: user.id, user_type: user.class.name.to_s) 
+    self.transaction do
+      user_in_raffle = self.where(raffle_id: raffle.id, user_id: user.id, user_type: user.class.name.to_s).first
+      unless user_in_raffle
+        user_in_raffle = UserInRaffleInfo.create(raffle_id: raffle.id, user_id: user.id, user_type: user.class.name.to_s) 
+      end
+      user_in_raffle
     end
-    user_in_raffle
   end
 
   def self.add_blacklisted_participants raffle, users
