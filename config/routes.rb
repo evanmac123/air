@@ -63,6 +63,7 @@ Health::Application.routes.draw do
   match "sign_out" => "sessions#destroy"
 
   root :to => 'pages#show', :id => 'welcome'
+  get "product" => 'pages#product', as: 'product'
   get "faq" => "pages#faq", :as => "faq"
   get "faq_body" => "pages#faq_body", :as => "faq_toc"
   get "faq_toc" => "pages#faq_toc", :as => "faq_body"

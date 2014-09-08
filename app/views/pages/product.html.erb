@@ -1,0 +1,163 @@
+<header id="pageHdr">
+	<div class="row top">
+		<div class="small-6 large-4 columns logo">
+      <a href="/"><%= image_tag "marketing/welcome_page/logo.png", alt: "Airbo", height: "283", width: "483" %></a>
+    </div>
+		<div class="small-6 large-8 columns">
+      <%= link_to "Sign in", sign_in_path, class: "button small signin" %>
+    </div>
+  </div>
+</header>
+
+<div id="contents">
+  <div class="hero">
+    <%= image_tag "marketing/welcome_page/hero_bg.jpg" %>
+    <div class="hero_section">
+      <div class="hero_content">
+        <h1>Create Engaging <br/> Employee Communications</h1>
+        <%= link_to "Try It Free", "#regFormSection", class: "get_started_btn" %>
+
+        <a href="//fast.wistia.net/embed/iframe/x7jewgb22s?popover=true" class="watch_demo_btn wistia-popover[height=360,playerColor=7b796a,width=640]">
+          Watch Demo
+          <span class="fa fa-play-circle-o"></span>
+        </a>
+        <script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/popover-v1.js"></script>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row compList">
+    <h3 class="sub_heading">Airbo helps leading organizations with tens of thousands of employees.</h3>
+    <div class="small-3 columns">
+      <%= image_tag "marketing/welcome_page/fujifilm.png", height: "25", width: "143" %>
+    </div>
+    <div class="small-3 columns">
+      <%= image_tag "marketing/welcome_page/cat.png", height: "33", width: "139" %>
+    </div>
+    <div class="small-3 columns">
+      <%= image_tag "marketing/welcome_page/heineken.png", height: "33", width: "136" %>
+    </div>
+    <div class="small-3 columns">
+      <%= image_tag "marketing/welcome_page/asha.png", height: "33", width: "136" %>
+    </div>
+  </div>
+
+  <div class="row videoSection">
+    <h1 class="heading">Capture attention the same way consumer tools do</h1>
+    <h3 class="sub_heading">Turn the things people should read, learn or do into interactive bits of content called Tiles.</h3>
+    <div class="videoContainer">
+      <%= image_tag "marketing/welcome_page/piggy.jpg" %>
+    </div>
+  </div>
+
+  <div class="row videoSection">
+    <h1 class="heading">Highlight what employees need to know and do</h1>
+    <h3 class="sub_heading">Post Tiles when you need to do announcements, explain complex information, drive behaviors, or collect feedback.</h3>
+    <div class="cases">
+      <% ["Wellness", "Open enrollment", "Training", "Onboarding", "Recruiting", "Retirement", "Safety"].each do |use_case| %>
+        <div class="case"><%= use_case %></div>
+      <% end %>
+    </div>
+    <div class="videoContainer">
+      <div id="wistia_slvax8suay" class="wistia_embed" style="width:572px;height:322px;"> </div>
+      <script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/E-v1.js"></script>
+      <script>
+      wistiaEmbed = Wistia.embed("slvax8suay", {
+        videoFoam: true,
+        plugin: {
+          "playWhenVisible": {
+            customOption: true,
+            src: "http://fast.wistia.com/labs/play-when-visible/plugin.js"
+          }
+        }
+      });
+      </script>
+    </div>
+  </div>
+
+  <div class="row videoSection">
+    <h1 class="heading">Motivate employee participation</h1>
+    <h3 class="sub_heading">Make it easy, fun and social. On Airbo, employees can:</h3>
+    <div class="row abilities">
+      <% ["Feel progress", "See peers", "Compete", "Win prizes"].each_with_index do |ability, index| %>
+        <div class="columns small-3 ability_container">
+          <div class="ability_num"><%= index + 1 %></div>
+          <div class="ability"><%= ability %></div>
+        </div>
+      <% end %>
+    </div>
+    <div class="videoContainer">
+      <%= image_tag "marketing/welcome_page/board.jpg" %>
+    </div>
+  </div>
+
+  <div class="row videoSection">
+    <h1 class="heading">Build a habit</h1>
+    <h3 class="sub_heading">Use Airbo to trigger employees to log on when there's new content available. <br/> Tiles are delivered via email. When they click, they're in - no password needed.</h3>
+    <div class="videoContainer">
+      <div id="wistia_un4zmzo31v" class="wistia_embed" style="width:572px;height:322px;">&nbsp;</div>
+      <script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/E-v1.js"></script>
+      <script>
+      wistiaEmbed = Wistia.embed("un4zmzo31v", {
+        videoFoam: true,
+        plugin: {
+          "playWhenVisible": {
+            customOption: true,
+            src: "http://fast.wistia.com/labs/play-when-visible/plugin.js"
+          }
+        }
+      });
+      </script>
+    </div>
+  </div>
+
+  <div class="row videoSection">
+    <h1 class="heading">Know who engaged</h1>
+    <h3 class="sub_heading">See aggregate and user-specific data. <br/> Automatically send Tile content to users that didn't log on so they don't miss it.</h3>
+    <div class="videoContainer">
+      <div id="wistia_392gannp2h" class="wistia_embed" style="width:572px;height:322px;"> </div>
+      <script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/E-v1.js"></script>
+      <script>
+      wistiaEmbed = Wistia.embed("392gannp2h", {
+        videoFoam: true,
+        plugin: {
+          "playWhenVisible": {
+            customOption: true,
+            src: "http://fast.wistia.com/labs/play-when-visible/plugin.js"
+          }
+        }
+      });
+      </script>
+    </div>
+  </div>
+
+  <div class="row videoSection">
+    <h1 class="heading">See best practices and ideas</h1>
+    <h3 class="sub_heading">Browse Tiles shared by experts and colleagues from other companies, <br/> or make your own in minutes.</h3>
+    <div class="videoContainer">
+      <div id="wistia_wyj551bejl" class="wistia_embed" style="width:572px;height:322px;"> </div>
+      <script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/E-v1.js"></script>
+      <script>
+      wistiaEmbed = Wistia.embed("wyj551bejl", {
+        videoFoam: true,
+        plugin: {
+          "playWhenVisible": {
+            customOption: true,
+            src: "http://fast.wistia.com/labs/play-when-visible/plugin.js"
+          }
+        }
+      });
+      </script>
+    </div>
+  </div>
+
+  <%= render partial: 'pages/marketing_slider' %>
+
+  <div class="regFormSection" id="regFormSection">
+    <%= render partial: 'shared/sign_up_form_new', locals: { user: User.new, board: Demo.new, heading: "Create a free account to explore sample tiles" } %>    
+  </div>
+</div>
+
+<%= render partial: 'pages/marketing_footer' %>
+

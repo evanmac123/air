@@ -1,0 +1,33 @@
+<div class="pplComm">
+  <div class="row">
+    <ul id="slides">
+      <li class="slide active" id="slShort">
+        <h2>"Airbo was a fantastic tool for us to reiterate key messaging around the benefits we offer as well as the tools we provide to enable employees to make the best decisions for themselves and their families."</h2>
+        <h6>— Carole Sizemore, Senior Director, Total Rewards, Heineken</h6>
+      </li>
+      <li class="slide" id="slVisual">
+        <h2>"I want to get people the information they need to do their jobs, make good decisions, and feel good about being a member of the ASHA staff. Airbo makes this kind of sharing easy for me and engaging and fun for everyone."</h2>
+        <h6>— Janet McNichol, Director of Human Resources, ASHA</h6>
+      </li>
+      <li class="slide" id="slInteractive">
+        <h2>"Supervisors are bombarded with a lot of information on a daily basis. Airbo allows for the key points of a safety message to be communicated in a quick and easy-to-read format. Airbo is not another page and a half email to read, it is a visually stimulating media board which comes right to your device."</h2>
+        <h6>— David Convery, Corporate Manager of Environmental Safety & Health, MiltonCAT</h6>
+      </li>
+    </ul>
+
+    <ul id="slideBtns">
+      <li class="active"><a href="#slShort"><i class="fa fa-circle-o"></i></a></li>
+        <li><a href="#slVisual"><i class="fa fa-circle-o"></i></a></li>
+        <li><a href="#slInteractive"><i class="fa fa-circle-o"></i></a></li>
+    </ul>
+
+  </div>
+</div>
+
+<% content_for :javascript do %>
+  <% javascript_tag do %>
+    $().ready(function(){
+      marketingSlider();
+    });
+  <% end %>
+<% end %>

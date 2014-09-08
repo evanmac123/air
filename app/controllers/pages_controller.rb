@@ -35,7 +35,7 @@ class PagesController < HighVoltage::PagesController
       'application'
     when 'faq_body', 'faq_toc'
       false
-    when 'welcome'
+    when 'welcome', 'product'
       'standalone'
     when 'more_info', 
       @body_id = "homepage"
