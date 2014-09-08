@@ -69,11 +69,6 @@ body.tiles-index, body.acts-index, body.client_admin-prizes{
         font-size: 14px;
         color: $med-gray;
       }
-      @media only screen and (max-width: $foundation) {
-        .end_date{
-          font-size: 13px;
-        }
-      }
     }
     .tickets_row, .time_row{
       color: $white;
