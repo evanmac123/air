@@ -132,18 +132,18 @@ function weekDay(date){
 
 function monthName(date){
   months = [
-    'January',
-    'February',
-    'March',
-    'April',
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
     'May',
     'June',
     'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
+    'Aug',
+    'Sept',
+    'Oct',
+    'Nov',
+    'Dec'
   ];
 
   return months[date.getMonth()];
