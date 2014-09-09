@@ -80,6 +80,9 @@ body {
     position:relative;
     max-width:46em;
     width:100%;
+    #slideshow {
+      padding-top: 0rem;
+    }
     a#prev, a#next {
       color:darken($tile-wall-bg, 3%);
       background:darken($tile-wall-bg, 3%);
