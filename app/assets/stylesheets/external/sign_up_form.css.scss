@@ -2,6 +2,7 @@ body.tile_previews.client_admin_main{
   #sign_up_modal{
     width: 700px;
     margin-left: -350px;
+    padding-bottom: 1rem;
     .close_sign_up_modal{
       position: absolute;
       right: 1em;
@@ -10,9 +11,10 @@ body.tile_previews.client_admin_main{
   }
   .sign_up_section{
     padding: 2rem;
+    padding-bottom: 0;
     .inspire_headline{
       font-size: 16px;
-      color: #c1145b;
+      color: $sky-blue;
       text-align: center;
       padding-bottom: 0.5rem;
       line-height: 1.7;
@@ -53,6 +55,16 @@ body.tile_previews.client_admin_main{
         font-weight: 400;
         margin: 0;
         display: block;
+      }
+    }
+    footer{
+      text-align: center;
+      padding-top: 3rem;
+      font-size: 8pt;
+      color: $med-gray;
+      a{
+        text-decoration: underline !important;
+        color: $med-gray;
       }
     }
     .log_in_container{

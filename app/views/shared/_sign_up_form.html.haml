@@ -18,3 +18,9 @@
   = hidden_field_tag "creation_source_creator", "Marketing Page"
   .submit_field
     = submit_tag "Create Free Account", class: "button", id: "submit_account_form"
+%footer
+  By using our site, you agree to our 
+  = link_to "Terms and Conditions", page_path("terms"), target: "_blank" 
+  and
+  = link_to "Privacy Policy", page_path("privacy"), target: "_blank" 
+  \.
