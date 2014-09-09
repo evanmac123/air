@@ -1,18 +1,8 @@
 require "spec_helper"
 
 describe Assets::Normalizer do
-  include ActionDispatch::TestProcess
-
-  class FakeImage #< Sinatra::Base
-    #has_attached_file :attachment
-  end
-
-  it "normalizes filename" do
-    FakeImage.any_instance.stubs(:save_attached_files).returns(true)
-    Paperclip::Attachment.any_instance.stubs(:post_process).returns(true)
-
-    FakeImage.create(
-      attachment: fixture_file_upload('cov1.png')
-    ).attachment_file_name.should == "cov1.png"
+  it "normalizes tile filename" do
+    tile = FactoryGirl.create(:multiple_choice_tile, image: File.open(Rails.root.join "spec/support/fixtures/tiles/cov'1.jpg"))
+    tile.image_file_name.should == "cov-1.jpg"
   end
 end
