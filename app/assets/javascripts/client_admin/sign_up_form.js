@@ -62,8 +62,8 @@ function dompath( element )
 // this function returns only selectors for element
 function dompath( element ){
   var inner = $(element).children().length == 0 ? $(element).text() : '';
-  var idSelector = $(element).attr("id") ? $(element).attr("id").trim().split(" ").join("#") : "";
-  var classSelector = $(element).attr("class") ? $(element).attr("class").trim().split(" ").join(".") : "";
+  var idSelector = $(element).attr("id") ? $.trim($(element).attr("id")).split(" ").join("#") : "";
+  var classSelector = $(element).attr("class") ? $.trim($(element).attr("class")).split(" ").join(".") : "";
   var eleSelector = element.tagName.toLowerCase() + 
     ( (idSelector.length > 0) ? ("#" + idSelector) : "" ) +
     ( (classSelector.length > 0) ? ("." + classSelector) : "" ) +
