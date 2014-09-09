@@ -25,6 +25,7 @@
 //= require jquery.validate.additional-methods
 //= require internal/validate_new_board
 //= require introjs
+//= require ./external/placeholder_ie.js
 
 $(document).ready(function() {
   $('.client_admin-users').foundation();
