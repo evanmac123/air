@@ -5,11 +5,9 @@
 - else
   .container.row
     .viewer
-      = link_to "#", :id => :prev do
-        = "Previous" if device_type == :mobile
+      = link_to "", "#", :id => :prev 
       #slideshow
         = render 'full_size_tile', :tile => @start_tile, :current_tiles => @current_tiles
-      = link_to "#", :id => :next do
-        = "Next" if device_type == :mobile
+      = link_to "", "#", :id => :next
 
 = render "shared/guest_conversion_lightbox"

@@ -90,8 +90,18 @@
     min-width:5.5em;
     top:2px;
   }
-  a#prev {left:1em; z-index: 1;}
-  a#next {right:1em;}
+  a#prev {
+    left:1em; z-index: 1;
+    &:after{
+      content: "Previous";
+    }
+  }
+  a#next {
+    right:1em;
+    &:after{
+      content: "Next";
+    }
+  }
 
   #tiles_done_message{
     padding-top:4em;

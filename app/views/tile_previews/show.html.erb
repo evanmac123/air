@@ -5,17 +5,13 @@
 <%= mp_track_page 'explore tile preview' %>
 
 <div class='viewer'>
-  <%= link_to "#", :id => :prev do %>
-    <%= "Previous" if device_type == :mobile %>
-  <% end %>
+  <%= link_to "", "#", :id => :prev %>
 
   <div id="tile_preview_section"> 
     <%= render partial: 'tile_preview', locals: { tile: @tile, tag: @tag } %>
   </div>
 
-  <%= link_to "#", :id => :next do %>
-    <%= "Next" if device_type == :mobile %>
-  <% end %>
+  <%= link_to "" ,"#", :id => :next %>
 </div>
 
 <% if guest_for_tile_preview? || user_is_guest_for_tile_preview? %>
