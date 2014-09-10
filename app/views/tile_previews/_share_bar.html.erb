@@ -12,3 +12,11 @@
     </div>
   </div>
 </div>
+
+<%= content_for :javascript do %>
+  <%= javascript_tag do %>
+    $().ready(function(){
+      tileShareLink();
+    });
+  <% end %>
+<% end %>
