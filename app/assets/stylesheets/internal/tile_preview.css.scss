@@ -419,13 +419,14 @@ body.tile_previews.tile_previews-show {
       position: relative;
       #share_link{
         width: 100%;
-        background: #f2f2f2;
+        background: $white;
       }
       .share_link_icons{
         position: absolute;
         right: 0;
         top: 0;
-        padding: 2px 5px;
+        padding: 5px;
+        font-size: 14px;
         .share_icon{
           display: inline-block;
           padding-right: 8px;

@@ -79,7 +79,7 @@ Health::Application.routes.draw do
 
   resource :current_board, only: [:update]  
   resource :explore, only: [:show] do
-    resources :tile_previews, only: [:show]
+    resources :tile_previews, only: [:show], :path => "tile"
     resource :copy_tile, only: [:create]
     resource :tile_likes, :only => [:create, :destroy, :show]
     resource :random_tile, only: [:show]
