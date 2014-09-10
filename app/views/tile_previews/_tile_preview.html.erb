@@ -7,8 +7,8 @@
 <% end %>
 
 <%=render partial: 'tile_preview_navbar', locals: {tile: tile, tag: tag} %>
-
 <%=render partial: 'like_copy_tag_bar', locals: {tile: tile} %>
+<%=render partial: 'share_bar', locals: {tile: tile} %>
 
 <div class="large-centered columns">
   <%= render "tiles/full_size_tile", tile: tile, is_preview: true %>

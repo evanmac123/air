@@ -1,0 +1,14 @@
+<div class="share_bar">
+  <div class="share_title">Share tile:</div>
+  <div class="share_link_block">
+    <%= text_field_tag 'share_tile_link', explore_tile_preview_url(tile), id: "share_link" %>
+    <div class="share_link_icons">
+      <div class="share_linkedin share_icon">
+        <%= link_to fa_icon('linkedin 2x'), "", target: '_blank', id: 'share_linkedin_icon' %>
+      </div> 
+      <div class="share_mail share_icon">
+        <%= mail_to '', fa_icon('envelope 2x'), subject: 'Shared via Airbo', body: "Check out my board at:#{public_board_url(current_user.demo.public_slug)}" %>
+      </div>   
+    </div>
+  </div>
+</div>
