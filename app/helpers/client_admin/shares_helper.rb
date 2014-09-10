@@ -15,9 +15,22 @@ module ClientAdmin::SharesHelper
     }
     link_to fa_icon('linkedin-square 2x'), "https://www.linkedin.com/shareArticle?#{params.to_query}", target: '_blank'
   end
+
+  def share_tile_by_linkedin(tile)
+    params = {
+      mini: true,
+      url: explore_tile_preview_url(tile),
+      title: tile.headline,
+      summary: tile.supporting_content,
+      source: "http://www.air.bo"
+    }
+    "https://www.linkedin.com/shareArticle?#{params.to_query}"
+  end
+
   def show_facebook_share(demo)
     link_to fa_icon('facebook-square 2x'), "https://www.facebook.com/sharer/sharer.php?u=#{public_board_url(demo.public_slug)}", class: 'share facebook', target: '_blank'
   end
+
   def show_twitter_share(demo)
     link_to fa_icon('twitter 2x'), "https://twitter.com/home?status=Come check out my new @theairbo board: #{public_board_url(demo.public_slug)}", class: 'share twitter', target: '_blank', id: 'share_twitter'
   end
