@@ -7,7 +7,7 @@
         <%= link_to fa_icon('linkedin 2x'), "", target: '_blank', id: 'share_linkedin_icon' %>
       </div> 
       <div class="share_mail share_icon">
-        <%= mail_to '', fa_icon('envelope 2x'), subject: 'Shared via Airbo', body: "Check out my board at:#{public_board_url(current_user.demo.public_slug)}" %>
+        <%= mail_to '', fa_icon('envelope 2x'), subject: 'Tile shared via Airbo', body: " I want to share this tile with you from Airbo: #{explore_tile_preview_url(tile)}" %>
       </div>   
     </div>
   </div>
