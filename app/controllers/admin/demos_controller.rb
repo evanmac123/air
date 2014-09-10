@@ -1,5 +1,5 @@
 class Admin::DemosController < AdminBaseController
-  before_filter :find_demo_by_id, :only => [:show, :edit, :update, :destroy]
+  before_filter :find_demo_by_id, :only => [:show, :edit, :update]
   before_filter :choose_tutorial_type, :only => [:create, :update]
 
   def new
@@ -42,12 +42,6 @@ class Admin::DemosController < AdminBaseController
       flash.now[:failure] = "Couldn't update demo: #{@demo.errors.full_messages.join(', ')}"
       render :edit
     end
-  end
-
-  def destroy
-    @demo.destroy
-    flash[:success] = "#{@demo.name} game destroyed"
-    redirect_to admin_path
   end
 
   protected

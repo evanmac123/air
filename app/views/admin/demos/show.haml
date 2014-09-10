@@ -231,10 +231,3 @@
   = link_to "Bulk load users", new_admin_demo_bulk_load_path(@demo) 
 
   = render 'user_paginator', :demo => @demo 
-
-  = form_tag admin_demo_path(@demo), :method => :delete do 
-    %h2 Destroy game
-    %p Destroying a game is <strong>irrevocable</strong>. There is <strong>no undo</strong>. This will also delete <strong>all associated records, including users and their actions</strong>.
-    %p If you want to save users from this demo, move them to another demo first.
-    = submit_tag "Destroy game", :confirm => "Really destroy this \"#{@demo.name}\" game?" 
- 

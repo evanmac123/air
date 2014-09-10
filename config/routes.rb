@@ -229,7 +229,7 @@ Health::Application.routes.draw do
     
     post "lost_user", :controller => "lost_users", :action => :create, :as => "lost_user"
 
-    resources :demos, :only => [:new, :create, :show, :destroy, :edit, :update] do
+    resources :demos, :only => [:new, :create, :show, :edit, :update] do
       # TODO: move :edit and :update onto resources :users below
       resources :users, :only => [:index, :edit, :update, :destroy] do
         resource :characteristics, :only => :update, :controller => "user_characteristics"
