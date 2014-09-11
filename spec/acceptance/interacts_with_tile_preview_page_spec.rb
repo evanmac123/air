@@ -220,6 +220,28 @@ feature "interacts with a tile from the explore-preview page" do
     end
   end
 
+  shared_examples_for 'uses share tile link' do
+    before(:each) do
+      close_voteup_intro
+    end
+
+    scenario "ping when click linkedin icon", js: true do
+      page.find('.share_linkedin').click            
+      FakeMixpanelTracker.clear_tracked_events
+      crank_dj_clear
+      properties = {"action" => 'Clicked share tile via LinkedIn', "tile_id" => @original_tile.id.to_s}
+      FakeMixpanelTracker.should have_event_matching('Explore page - Interaction', properties)
+    end
+
+    scenario "ping when click linkedin icon", js: true do
+      page.find('.share_mail').click            
+      FakeMixpanelTracker.clear_tracked_events
+      crank_dj_clear
+      properties = {"action" => 'Clicked share tile via email', "tile_id" => @original_tile.id.to_s}
+      FakeMixpanelTracker.should have_event_matching('Explore page - Interaction', properties)
+    end
+  end
+
   context "as Client admin" do
     before do
       @original_tile = FactoryGirl.create(:multiple_choice_tile, :copyable, creator: creator, demo: creator.demo)
@@ -231,6 +253,7 @@ feature "interacts with a tile from the explore-preview page" do
     end
 
     it_should_behave_like "copies/likes tile"
+    it_should_behave_like 'uses share tile link'
 
     scenario "unliking a tile that was liked sometime in the past updates the page properly", js: true do
       tile = @original_tile
@@ -256,6 +279,7 @@ feature "interacts with a tile from the explore-preview page" do
     end
 
     it_should_behave_like "copies/likes tile"
+    it_should_behave_like 'uses share tile link'
     it_should_behave_like "gets registration form", "like button", ".not_like_button"
     it_should_behave_like "gets registration form", "copy button", "a .copy_button"
     it_should_behave_like "gets registration form", "random link", "#random-tile-link"
@@ -282,6 +306,7 @@ feature "interacts with a tile from the explore-preview page" do
     end
 
     it_should_behave_like "copies/likes tile"
+    it_should_behave_like 'uses share tile link'
     it_should_behave_like "gets registration form", "like button", ".not_like_button"
     it_should_behave_like "gets registration form", "copy button", "a .copy_button"
     it_should_behave_like "gets registration form", "random link", "#random-tile-link"
@@ -305,6 +330,7 @@ feature "interacts with a tile from the explore-preview page" do
     end
 
     it_should_behave_like "copies/likes tile"
+    it_should_behave_like 'uses share tile link'
     it_should_behave_like "gets registration form", "like button", ".not_like_button"
     it_should_behave_like "gets registration form", "copy button", "a .copy_button"
     it_should_behave_like "gets registration form", "random link", "#random-tile-link"
