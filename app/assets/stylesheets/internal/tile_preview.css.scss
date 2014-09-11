@@ -407,33 +407,62 @@ body.tile_previews.tile_previews-show {
     font-size: 16px;
     .share_title{
       float: left;
-      width: 90px;
+      width: 53px;
       text-align: left;
       color: $text-color;
       padding-top: 10px;
+      font-weight: 700;
+      //margin-top: 26px;
+    }
+    .linkedin_true_icon{
+      float: right;
+      padding-left: 10px;
+      padding-top: 9px;
+    }
+    .share_link_icons{
+      float: left;
+      //right: 0;
+      //top: 0;
+      //padding: 5px;
+      position: relative;
+      font-size: 14px;
+      text-align: right;
+      width: 80px;
+      .share_icon{
+        display: inline-block;
+        padding-right: 8px;
+        &.share_mail{
+          font-size: 36px;
+          padding-right: 11px;
+          //padding-top: 5px;
+          /*img{
+            height: 37px;
+            width: 37px;
+          }*/
+        }
+        &.share_linkedin{
+          position: absolute;
+          top:3px;
+          left: 0px;
+          img{
+            height: 29px;
+            width: 29px;
+          }
+        }
+        a{
+          color: $tile-text;
+        }
+      }
     }
     .share_link_block{
       float: none;
       width: auto;
       overflow: hidden;
       position: relative;
+      //margin-top: 26px;
       #share_link{
         width: 100%;
         background: $white;
-      }
-      .share_link_icons{
-        position: absolute;
-        right: 0;
-        top: 0;
-        padding: 5px;
-        font-size: 14px;
-        .share_icon{
-          display: inline-block;
-          padding-right: 8px;
-          a{
-            color: $tile-text;
-          }
-        }
       }
     }
   }
