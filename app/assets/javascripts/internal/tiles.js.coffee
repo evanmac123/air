@@ -53,7 +53,7 @@ loadNextTileWithOffset = (offset, preloadAnimations, predisplayAnimations, tileP
     )
 
 loadNextTileWithOffsetForPreview = (offset) ->
-  url = '/explore/tile_previews/' + $('#tile_preview_section .tile_holder[data-current-tile-id]').data('current-tile-id')
+  url = '/explore/tile/' + $('#tile_preview_section .tile_holder[data-current-tile-id]').data('current-tile-id')
   $.get(
     url,
     { partial_only: true, offset: offset, tag: getURLParameter("tag") },
