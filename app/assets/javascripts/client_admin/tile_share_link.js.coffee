@@ -16,7 +16,11 @@ window.tileShareLink = () ->
       pingShareTile("Copied tile link")
   )
 
-  $(".share_linkedin").click ->
+  $(".share_linkedin").click (e)->
+    e.preventDefault()
+    url = $(".share_linkedin a").attr("href")
+    window.open(url, '', 'width=620, height=500')
+
     pingShareTile("Clicked share tile via LinkedIn")
 
   $(".share_mail").click ->
