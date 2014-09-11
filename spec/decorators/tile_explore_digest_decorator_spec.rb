@@ -9,7 +9,7 @@ describe TileExploreDigestDecorator do
 
   context "#email_site_link" do
     it "should return explore_tile_preview_path" do
-      TileExploreDigestDecorator.decorate(@tile, context: {user: @user}).email_site_link.should match "explore/tile_previews"
+      TileExploreDigestDecorator.decorate(@tile, context: {user: @user}).email_site_link.should match "explore/tile"
     end
   end
 end
