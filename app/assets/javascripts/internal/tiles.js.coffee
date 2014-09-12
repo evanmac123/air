@@ -21,6 +21,15 @@ showOrHideStartOverButton = (showFlag) ->
   else
     $('#guest_user_start_over_button').hide()
 
+updateNavbarURL = (newTileId) ->
+  newURL = newTileId.toString()
+
+  tag = getURLParameter 'tag'
+  if tag?
+    newURL += "?tag=#{tag}"
+
+  History.pushState(null, null, newURL)
+
 loadNextTileWithOffset = (offset, preloadAnimations, predisplayAnimations, tilePosting) ->
   afterPosting = typeof(tilePosting) != 'undefined'
 
@@ -59,6 +68,7 @@ loadNextTileWithOffsetForPreview = (offset) ->
     { partial_only: true, offset: offset, tag: getURLParameter("tag") },
     (data) ->
       $('#tile_preview_section').html(data.tile_content)
+      updateNavbarURL(data.tile_id)
       $('#spinner_large').css("display", "block")
       setUpAnswersForPreview()
       ungrayoutTile()
