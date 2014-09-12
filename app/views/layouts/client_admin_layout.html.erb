@@ -6,9 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=1280, maximum-scale=1.0" />
   <title>Airbo</title>
-  <meta property="og:title" content="<%= @tile.try(:headline) || "Airbo" %>" />
-  <meta property="og:description" content="<%= @tile.try(:supporting_content).try(:truncate, 200) || "Engage employees like their favorite apps" %>" />
-  <meta property="og:image" content="<%= path_to_image 'airbo_logo_lightblue_square_smile.png' %>" />
+  <%= content_for :meta %>
 
   <%= stylesheet_link_tag "app-client-admin" %>
   <%= javascript_include_tag 'app-admin' %>

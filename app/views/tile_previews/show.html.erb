@@ -1,3 +1,10 @@
+<% content_for :meta do %>
+  <meta property="og:title" content="<%= @tile.headline %>" />
+  <meta property="og:description" content="<%= @tile.supporting_content.truncate(200) %>" />
+  <meta property="og:image" content="<%= @tile.image %>" />
+  <meta property="og:image" content="<%= path_to_image 'airbo_logo_lightblue_square_smile.png' %>" />
+<% end %>
+
 <%= stylesheet_link_tag "app-internal" %>
 <%= javascript_include_tag "internal/countUp.min" %>
 <%= javascript_include_tag "internal/point_and_ticket_animation" %>
