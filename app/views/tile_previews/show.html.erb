@@ -1,8 +1,15 @@
 <% content_for :meta do %>
+  <!-- Facebook meta tags -->
   <meta property="og:title" content="<%= @tile.headline %>" />
   <meta property="og:description" content="<%= @tile.supporting_content.truncate(200) %>" />
   <meta property="og:image" content="<%= @tile.image %>" />
   <meta property="og:image" content="<%= path_to_image 'airbo_logo_lightblue_square_smile.png' %>" />
+  <!-- Twitter meta tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@theairbo">
+  <meta name="twitter:title" content="<%= @tile.headline.truncate(70) %>">
+  <meta name="twitter:description" content="<%= @tile.supporting_content.truncate(200) %>">
+  <meta name="twitter:image:src" content="<%= @tile.image %>">
 <% end %>
 
 <%= stylesheet_link_tag "app-internal" %>
