@@ -21,7 +21,8 @@ module ClientAdmin::SharesHelper
       mini: true,
       url: explore_tile_preview_url(tile),
       title: tile.headline,
-      summary: tile.supporting_content,
+      summary: tile.supporting_content.truncate(100) + \
+              " Check out this Tile on Airbo : https://www.linkedin.com/company/5045444",
       source: "http://www.air.bo"
     }
     "https://www.linkedin.com/shareArticle?#{params.to_query}"
