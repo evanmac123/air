@@ -1,8 +1,5 @@
 class PagesController < HighVoltage::PagesController
-  SIGNED_IN_OK_PAGES = [:faq, :faq_body, :faq_toc, :public_help, :static_digest, :static_followup]
-
-  skip_before_filter :authorize, :except => SIGNED_IN_OK_PAGES
-  before_filter :authorize_without_guest_checks, :only => SIGNED_IN_OK_PAGES
+  skip_before_filter :authorize
   before_filter :force_html_format
   before_filter :signed_out_only_on_root
   before_filter :set_login_url
@@ -13,25 +10,12 @@ class PagesController < HighVoltage::PagesController
 
   layout :layout_for_page
 
-  def faq
-    @current_user = current_user
-    render :layout => "/layouts/application"
-  end
-
-  def public_help
-    render :layout => 'external'
-  end
-
   protected
 
   def layout_for_page
     case page_name
     when 'privacy', 'terms'
       'external'
-    when 'faq'
-      'application'
-    when 'faq_body', 'faq_toc'
-      false
     when 'welcome', 'product'
       'standalone'
     when 'more_info', 
