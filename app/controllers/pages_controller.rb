@@ -11,9 +11,6 @@ class PagesController < HighVoltage::PagesController
   before_filter :set_page_name
   before_filter :ping_if_marketing_page
 
-  skip_before_filter :force_ssl, :except => SIGNED_IN_OK_PAGES
-  before_filter :force_no_ssl_on_marketing
-
   layout :layout_for_page
 
   def faq
@@ -74,11 +71,6 @@ class PagesController < HighVoltage::PagesController
 
   def page_name
     page_name = params[:id] || params[:action]
-  end
-
-  def force_no_ssl_on_marketing
-    return unless page_name == 'welcome' || page_name == 'more_info' || page_name == 'pricing'
-    force_no_ssl
   end
 
   def set_page_name

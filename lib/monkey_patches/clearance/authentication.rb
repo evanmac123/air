@@ -68,9 +68,10 @@ module Clearance
       if signed_in?
         Rack::Utils.set_cookie_header!(headers,
                                        REMEMBER_TOKEN_COOKIE,
-                                       :value => current_user.remember_token,
-                                       :expires => expire_time,
-                                       :path => "/")
+                                       value:   current_user.remember_token,
+                                       expires: expire_time,
+                                       path:    "/",
+                                       secure:  Rails.env.production?)
       end
     end
 
