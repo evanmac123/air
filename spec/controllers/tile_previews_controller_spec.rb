@@ -12,5 +12,10 @@ describe TilePreviewsController do
       crank_dj_clear
       FakeMixpanelTracker.should have_event_matching('Email clicked', {email_type: "Explore - v. 8/25/14"}.merge(user.data_for_mixpanel))
     end
+
+    it "should return 404 error if tile is not found" do
+      get :show, id: 0
+      response.status.should == 404
+    end
   end
 end
