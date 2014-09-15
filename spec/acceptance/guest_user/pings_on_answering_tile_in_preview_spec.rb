@@ -5,7 +5,7 @@ feature "Guest user answering a tile in preview" do
     tile = FactoryGirl.create(:multiple_choice_tile, :public)
 
     visit explore_tile_preview_path(id: tile.id)
-    close_voteup_intro
+    close_intro
 
     click_link "Eggs"
     page.should have_content("Correct!")
@@ -16,7 +16,7 @@ feature "Guest user answering a tile in preview" do
       multiple_choice_answers: ["Eggs"], correct_answer_index: 0)
 
     visit explore_tile_preview_path(id: tile.id)
-    close_voteup_intro
+    close_intro
 
     click_link "Eggs"
     page.should_not have_content("Correct!")
@@ -26,7 +26,7 @@ feature "Guest user answering a tile in preview" do
     tile = FactoryGirl.create(:multiple_choice_tile, :public)
 
     visit explore_tile_preview_path(id: tile.id)
-    close_voteup_intro
+    close_intro
 
     crank_dj_clear
     FakeMixpanelTracker.clear_tracked_events

@@ -1145,6 +1145,10 @@ class User < ActiveRecord::Base
     !(voteup_intro_seen)
   end
 
+  def share_link_intro_never_seen
+    !(share_link_intro_seen)
+  end
+
   protected
 
   def downcase_email

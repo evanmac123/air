@@ -1,7 +1,7 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Carousel on Explore Tile Preview Page' do
-  let(:admin) {FactoryGirl.create(:client_admin, voteup_intro_seen: true)}
+  let(:admin) {FactoryGirl.create(:client_admin, voteup_intro_seen: true, share_link_intro_seen: true)}
 
   before(:each) do
     %w(Spam Fish).each do |title|

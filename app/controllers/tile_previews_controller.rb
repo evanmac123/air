@@ -20,11 +20,6 @@ class TilePreviewsController < ApplicationController
       @tile = Tile.viewable_in_public.where(id: params[:id]).first
       @tag = TileTag.where(id: params[:tag]).first
 
-      @show_voteup_intro = current_user && current_user.voteup_intro_never_seen
-      if @show_voteup_intro
-        mark_user_voteup_intro_seen!
-      end
-
       @intros = create_intros_presenter
       schedule_mixpanel_pings @tile
     end
@@ -85,10 +80,26 @@ class TilePreviewsController < ApplicationController
     current_user.save!
   end
 
+  def mark_user_share_link_intro_seen!
+    current_user.share_link_intro_seen = true
+    current_user.save!
+  end
+
   def create_intros_presenter
+    show_voteup_intro = current_user && current_user.voteup_intro_never_seen
+    show_share_link_intro = current_user && current_user.share_link_intro_never_seen
+
+    if show_voteup_intro
+      mark_user_voteup_intro_seen!
+    end
+
+    if !(show_voteup_intro) && show_share_link_intro
+      mark_user_share_link_intro_seen!
+    end
+
     TilePreviewIntrosPresenter.new([
-      ['like-button', "Like a tile? Vote it up to give the creator positive feedback.", @show_voteup_intro]#,
-      #['share_link',  "Want to share this tile with your social network or a colleague? Simply copy the link, click the LinkedIn Icon, or the icon and share away!", true]
+      ['like-button', "Like a tile? Vote it up to give the creator positive feedback.", show_voteup_intro],
+      ['share_bar',   "Share a tile with your social network by clicking the LinkedIn Icon, the email icon or copying and pasting the link into your social network.", show_share_link_intro]
     ])
   end
 end

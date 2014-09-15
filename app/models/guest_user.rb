@@ -148,6 +148,7 @@ class GuestUser < ActiveRecord::Base
     converted_user.cancel_account_token = generate_cancel_account_token(converted_user)
     converted_user.last_acted_at = last_acted_at
     converted_user.voteup_intro_seen = voteup_intro_seen
+    converted_user.share_link_intro_seen = share_link_intro_seen
 
     converted_user.converting_from_guest = true
     if converted_user.save
@@ -224,5 +225,9 @@ class GuestUser < ActiveRecord::Base
 
   def voteup_intro_never_seen
     !(voteup_intro_seen)
+  end
+
+  def share_link_intro_never_seen
+    !(share_link_intro_seen)
   end
 end

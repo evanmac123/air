@@ -317,7 +317,7 @@ feature 'Sees tiles on explore page' do
   context "when answering a tile in the preview page" do
     it "should ping", js: true do
       tile = FactoryGirl.create(:multiple_choice_tile, :public)
-      admin = FactoryGirl.create(:client_admin, voteup_intro_seen: true)
+      admin = FactoryGirl.create(:client_admin, voteup_intro_seen: true, share_link_intro_seen: true)
       visit explore_tile_preview_path(tile.id, as: admin)
       click_link 'Eggs'
       

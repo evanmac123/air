@@ -457,7 +457,7 @@ module TileHelpers
     "Got it, thanks"  
   end
 
-  def close_voteup_intro
+  def close_intro
     click_link voteup_intro_copy
   end
 end
