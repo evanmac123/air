@@ -18,6 +18,11 @@ class TilePreviewsController < ApplicationController
       @tile = Tile.viewable_in_public.where(id: params[:id]).first
       @tag = TileTag.where(id: params[:tag]).first
 
+      unless @tile
+        not_found
+        return
+      end
+
       @show_voteup_intro = current_user && current_user.voteup_intro_never_seen
       if @show_voteup_intro
         mark_user_voteup_intro_seen!
