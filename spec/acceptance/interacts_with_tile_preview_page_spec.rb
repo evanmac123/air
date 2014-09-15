@@ -240,6 +240,11 @@ feature "interacts with a tile from the explore-preview page" do
       properties = {"action" => 'Clicked share tile via email', "tile_id" => @original_tile.id.to_s}
       FakeMixpanelTracker.should have_event_matching('Explore page - Interaction', properties)
     end
+
+    scenario "should be without protocol", js: true do
+      uri = URI.parse(current_url)
+      page.find('#share_link').value.should == "#{uri.host}:#{uri.port}#{uri.path}"  
+    end
   end
 
   context "as Client admin" do
