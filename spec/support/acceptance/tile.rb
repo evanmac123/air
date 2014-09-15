@@ -453,7 +453,11 @@ module TileHelpers
     page.find("#total_points").text.to_i
   end
 
+  def voteup_intro_copy
+    "Got it, thanks"  
+  end
+
   def close_voteup_intro
-    click_link "Got it, thanks"
+    click_link voteup_intro_copy
   end
 end

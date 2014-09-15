@@ -1,3 +1,5 @@
+require Rails.root.join('app/presenters/tile_previews_intros_presenter')
+
 class TilePreviewsController < ApplicationController
   skip_before_filter :authorize
   before_filter :find_tile # must run before authorize_as_guest, so that we can use the tile to implement #find_current_board
@@ -23,6 +25,7 @@ class TilePreviewsController < ApplicationController
         mark_user_voteup_intro_seen!
       end
 
+      @intros = create_intros_presenter
       schedule_mixpanel_pings @tile
     end
   end
@@ -80,5 +83,12 @@ class TilePreviewsController < ApplicationController
   def mark_user_voteup_intro_seen!
     current_user.voteup_intro_seen = true
     current_user.save!
+  end
+
+  def create_intros_presenter
+    TilePreviewIntrosPresenter.new([
+      ['like-button', "Like a tile? Vote it up to give the creator positive feedback.", @show_voteup_intro]#,
+      #['share_link',  "Want to share this tile with your social network or a colleague? Simply copy the link, click the LinkedIn Icon, or the icon and share away!", true]
+    ])
   end
 end

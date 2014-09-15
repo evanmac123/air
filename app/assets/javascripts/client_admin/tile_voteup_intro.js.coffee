@@ -3,7 +3,7 @@ window.bindVoteupIntro = () ->
   intro.setOptions({
     showStepNumbers: false,
     skipLabel: 'Got it, thanks',
-    tooltipClass: 'voteup_intro'
+    tooltipClass: 'tile_preview_intro'
   })
 
   $(() -> intro.start())

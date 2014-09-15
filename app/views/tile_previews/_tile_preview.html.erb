@@ -1,4 +1,5 @@
-<% if @show_voteup_intro %>
+<% intros = @intros || TilePreviewsNullIntrosPresenter.new %>
+<% if intros.any_active? %>
   <%= content_for :javascript do %>
     <%= javascript_tag do %>
       bindVoteupIntro();
@@ -7,8 +8,8 @@
 <% end %>
 
 <%=render partial: 'tile_preview_navbar', locals: {tile: tile, tag: tag} %>
-<%=render partial: 'like_copy_tag_bar', locals: {tile: tile} %>
-<%=render partial: 'share_bar', locals: {tile: tile} %>
+<%=render partial: 'like_copy_tag_bar', locals: {tile: tile, intros: intros} %>
+<%=render partial: 'share_bar', locals: {tile: tile, intros: intros} %>
 
 <div class="large-centered columns">
   <%= render "tiles/full_size_tile", tile: tile, is_preview: true %>

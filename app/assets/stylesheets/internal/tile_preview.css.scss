@@ -290,6 +290,10 @@ body.tile_previews.tile_previews-show {
           border-color: $sky-blue;
         }
       }
+
+      .like-button-without-copy {
+        margin-right: 108px;
+      }
     }
 
     .viewonly {
@@ -386,7 +390,7 @@ body.tile_previews.tile_previews-show {
     }    
   }
 
-  .voteup_intro {
+  .tile_preview_intro {
     padding-top: 1.0em;
 
     .introjs-skipbutton {
