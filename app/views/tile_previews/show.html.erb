@@ -1,22 +1,4 @@
-<% content_for :meta do %>
-  <!-- Open Grpaph meta tags(Facebook, Linkedin) -->
-  <meta property="og:title" content="<%= @tile.headline %>" />
-  <meta property="og:description" content="<%= @tile.supporting_content.truncate(200) %>" />
-  <meta property="og:image" content="<%= @tile.image %>" />
-  <meta property="og:image" content="<%= path_to_image 'airbo_logo_lightblue_square_smile.png' %>" />
-  <!-- special Pinterest meta tags -->
-  <meta property="og:type" content="article" />
-  <meta property="og:site_name" content="Airbo" />
-  <% @tile.tile_tags.each do |tag| %>
-    <meta property="article:tag" content="<%= tag.title %>" />
-  <% end %>
-  <!-- Twitter meta tags -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@theairbo">
-  <meta name="twitter:title" content="<%= @tile.headline.truncate(70) %>">
-  <meta name="twitter:description" content="<%= @tile.supporting_content.truncate(200) %>">
-  <meta name="twitter:image:src" content="<%= @tile.image %>">
-<% end %>
+<%= render partial: 'meta_tags', locals: { tile: @tile } %>
 
 <%= stylesheet_link_tag "app-internal" %>
 <%= javascript_include_tag "internal/countUp.min" %>
