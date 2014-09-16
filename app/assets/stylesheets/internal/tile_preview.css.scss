@@ -390,17 +390,31 @@ body.tile_previews.tile_previews-show {
     }    
   }
 
+  @mixin intro-button-to-app-button($color, $size) {
+    @include app-button($color);
+    text-shadow: none;
+    font-size: $size;
+
+    &.introjs-disabled {
+      @include app-button($light-gray);
+      font-size: $size;
+    }
+  }
+
   .tile_preview_intro {
     padding-top: 1.0em;
 
     .introjs-skipbutton {
-      @include app-button($sky-blue);
-      text-shadow: none;
-      font-size: 0.9rem;
+      @include intro-button-to-app-button($sky-blue, 0.9rem);
     }
 
     .introjs-tooltiptext {
       line-height: 1.2em;
+    }
+
+    .introjs-prevbutton, .introjs-nextbutton {
+      @include intro-button-to-app-button($sky-blue, 0.7rem);
+      margin-left: 0.1rem;
     }
   }
 
