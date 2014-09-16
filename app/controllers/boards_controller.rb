@@ -94,6 +94,7 @@ class BoardsController < ApplicationController
         current_user.save!
 
         @user.voteup_intro_seen = current_user.voteup_intro_seen
+        @user.share_link_intro_seen = current_user.share_link_intro_seen
         @user.save!
       end
 

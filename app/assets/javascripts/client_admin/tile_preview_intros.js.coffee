@@ -15,6 +15,8 @@ window.bindTilePreviewIntros = () ->
   intro.setOptions({
     showStepNumbers: false,
     skipLabel: 'Got it, thanks',
+    nextLabel: 'Next',
+    prevLabel: 'Back',
     tooltipClass: 'tile_preview_intro'
   })
 

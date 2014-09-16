@@ -99,7 +99,7 @@ class TilePreviewsController < ApplicationController
 
     TilePreviewIntrosPresenter.new([
       ['like-button', "Like a tile? Vote it up to give the creator positive feedback.", show_voteup_intro],
-      ['share_bar',   "Share a tile with your social network by clicking the LinkedIn Icon, the email icon or copying and pasting the link into your social network.", show_share_link_intro]
+      ['share_bar',   "Share a tile with your social network by clicking the LinkedIn icon, the email icon or copying and pasting the link into your social network.", show_share_link_intro]
     ])
   end
 end
