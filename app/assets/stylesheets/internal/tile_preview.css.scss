@@ -216,7 +216,7 @@ body.tile_previews.tile_previews-show {
 
 
     .likes-copy-buttons {
-      padding: 17px 21px 14px;
+      padding: 17px 21px 2px;
       @include clearfix();
 
       .reveal-modal{
@@ -421,7 +421,7 @@ body.tile_previews.tile_previews-show {
   .share_bar{
     background: $white;
     margin: 0 68px 30px 68px;
-    padding: 10px 27px 22px 22px;
+    padding: 22px 27px 22px 22px;
     font-size: 16px;
     .share_title{
       float: left;
