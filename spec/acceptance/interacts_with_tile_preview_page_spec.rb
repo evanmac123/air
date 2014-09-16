@@ -2,6 +2,7 @@ require 'acceptance/acceptance_helper'
 
 feature "interacts with a tile from the explore-preview page" do
   include GuestUserConversionHelpers
+  include WaitForAjax
 
   def expect_copied_lightbox
     page.should have_content(post_copy_copy)
@@ -231,6 +232,16 @@ feature "interacts with a tile from the explore-preview page" do
       page.should have_content(upvote_tutorial_content)
       click_next_intro_link
       page.should have_content(share_link_tutorial_content)
+    end
+
+    scenario "they see no modals on second visit if they saw both the first time", js: true do
+      page.should have_content(upvote_tutorial_content)
+      click_next_intro_link
+      page.should have_content(share_link_tutorial_content)
+      wait_for_ajax
+
+      visit @path
+      page.should have_no_content(share_link_tutorial_content)
     end
 
     scenario "they see share link intro on second visit if not yet seen", js: true do

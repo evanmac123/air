@@ -1,7 +1,7 @@
 class TilePreviewIntrosPresenter
-  class IntroStep < Struct.new(:copy, :step)
+  class IntroStep < Struct.new(:step_name, :copy, :step)
     def to_data
-      {intro: copy, step: step}
+      {intro: copy, step: step, step_name: step_name}
     end
   end
 
@@ -11,7 +11,7 @@ class TilePreviewIntrosPresenter
     key_copy_enabled_triples.each_with_index do |triple, index|
       key, copy, is_enabled = triple
       if is_enabled
-        @steps[key] = IntroStep.new(copy, index + 1)
+        @steps[key] = IntroStep.new(key, copy, index + 1)
       end
     end
   end

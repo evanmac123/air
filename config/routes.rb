@@ -92,6 +92,7 @@ Health::Application.routes.draw do
   resources :board_memberships, only: :destroy
   resources :mute_followups, only: :update
   resources :mute_digests, only: :update
+  resource  :intro_viewed_status, only: :update
 
   namespace :client_admin do
     resource :segmentation
