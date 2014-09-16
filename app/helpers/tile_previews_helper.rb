@@ -75,4 +75,7 @@ module TilePreviewsHelper
     author_name.join(', ')
   end
   
+  def share_tile_link tile
+    request.host_with_port.gsub(/^www./, "") + explore_tile_preview_path(tile)
+  end
 end

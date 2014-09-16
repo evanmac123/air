@@ -243,7 +243,7 @@ feature "interacts with a tile from the explore-preview page" do
 
     scenario "should be without protocol", js: true do
       uri = URI.parse(current_url)
-      page.find('#share_link').value.should == "#{uri.host}:#{uri.port}#{uri.path}"  
+      page.find('#share_link').value.should == "#{uri.host}:#{uri.port}#{uri.path}".gsub(/^www./, "")  
     end
   end
 
