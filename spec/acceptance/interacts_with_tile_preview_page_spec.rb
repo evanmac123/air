@@ -110,7 +110,7 @@ feature "interacts with a tile from the explore-preview page" do
   end
 
   def share_link_tutorial_content
-    "Share a tile with your social network by clicking the LinkedIn Icon, the email icon or copying and pasting the link into your social network."
+    "Want to share a tile? Email it using the email icon. Or, share to your social networks using the LinkedIn icon or copying the link."
   end
 
   def click_next_intro_link
