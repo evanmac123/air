@@ -1,7 +1,7 @@
 module Assets
   module Normalizer
     def self.included(base)
-      base.send :before_save, :normalize_filename
+      base.send :before_create, :normalize_filename
     end
 
     private
