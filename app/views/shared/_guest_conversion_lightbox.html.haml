@@ -13,8 +13,9 @@
       #password_error.conversion_error
       = password_field_tag "user[password]", "", placeholder: "Password (six characters or more)"
 
-      -#location_error.conversion_error
-      =# text_field_tag "location_name", "", placeholder: "Work Location (enter address or store number)"
+      - if demo.use_location_in_conversion
+        #location_error.conversion_error
+        = text_field_tag "location_name", "", placeholder: "Work Location (enter address or store number)"
 
       = submit_tag "Create account", id: 'submit_conversion_form'
       = image_tag "spinner.gif", class: "spinner", style: "display: none"

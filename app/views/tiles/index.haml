@@ -10,4 +10,4 @@
         = render 'full_size_tile', :tile => @start_tile, :current_tiles => @current_tiles
       = link_to "", "#", :id => :next
 
-= render "shared/guest_conversion_lightbox", user: @current_user, show_conversion_form: @show_conversion_form
+= render "shared/guest_conversion_lightbox", user: @current_user, show_conversion_form: @show_conversion_form, demo: @current_user.demo
