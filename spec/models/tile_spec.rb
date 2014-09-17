@@ -467,4 +467,38 @@ describe Tile do
                                     {"answer"=>"No", "number"=>2, "percent"=>"66.67%"}]
     end
   end
+
+  describe "image filenames" do
+    def legacy_filename
+      "Jerome_Smith.original.Screenshot-4.13.14.at.6.15.PM.png"
+    end
+
+    def make_legacy_tile
+      tile = FactoryGirl.create(:multiple_choice_tile)
+      tile.update_column(:image_file_name, legacy_filename) # No callbacks, no validations
+      tile
+    end
+
+    it "should be normalized on creation" do
+      tile = FactoryGirl.create(:multiple_choice_tile, image: File.open(Rails.root.join "spec/support/fixtures/tiles/cov'1.jpg"))
+      tile.image_file_name.should == "cov-1.jpg"
+    end
+
+    it "should be normalized on save if changed" do
+      tile = make_legacy_tile
+      tile.image = File.open(Rails.root.join "spec/support/fixtures/tiles/cov'1.jpg")
+      tile.save!
+
+      tile.image_file_name.should == "cov-1.jpg"
+    end
+
+    it "should not be touched if the tile is saved for some other reason, but the filename is unchanged" do
+      tile = make_legacy_tile
+
+      tile.status = Tile::ACTIVE
+      tile.save!
+
+      tile.reload.image_file_name.should == legacy_filename
+    end
+  end
 end
