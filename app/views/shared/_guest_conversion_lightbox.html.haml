@@ -1,4 +1,4 @@
-- if @current_user.is_guest?
+- if user.is_guest?
   #guest_conversion_form_wrapper
     %h3 You're on a roll!
     %p Create an account so you don't lose your progress.
@@ -13,13 +13,16 @@
       #password_error.conversion_error
       = password_field_tag "user[password]", "", placeholder: "Password (six characters or more)"
 
+      -#location_error.conversion_error
+      =# text_field_tag "location_name", "", placeholder: "Work Location (enter address or store number)"
+
       = submit_tag "Create account", id: 'submit_conversion_form'
       = image_tag "spinner.gif", class: "spinner", style: "display: none"
     #t-and-c-notice
       By submitting this form, you are agreeing to the 
       = link_to('terms and conditions', terms_path, target: '_blank') + '.'
 
-  - if @show_conversion_form
+  - if show_conversion_form
     = javascript_tag do
       lightboxConversionForm();
 

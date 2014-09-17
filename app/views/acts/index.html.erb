@@ -49,7 +49,7 @@
 
 </div>
 
-<%= render "shared/guest_conversion_lightbox" %>
+<%= render "shared/guest_conversion_lightbox", user: @current_user, show_conversion_form: @show_conversion_form %>
 
 <% if @display_activity_page_admin_guide %>
   <div id ='activity-joyride'>
