@@ -94,6 +94,8 @@ Health::Application.routes.draw do
   resources :mute_digests, only: :update
   resource  :intro_viewed_status, only: :update
 
+  resources :locations, only: :index
+
   namespace :client_admin do
     resource :segmentation
 

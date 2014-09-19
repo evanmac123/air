@@ -9,5 +9,6 @@
 //= require_tree ./internal_and_external/.
 //= require jquery.validate
 //= require jquery.validate.additional-methods
+//= require jquery.ui.autocomplete
 
 $(document).foundation();

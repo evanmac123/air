@@ -146,21 +146,7 @@ feature 'Guest user is prompted to convert to real user' do
     end
   end
 
-  shared_examples "conversion happy path" do
-    # All this @setup and local_setup bullshit is because RSpec doesn't do the
-    # right thing (i.e. what I expected) when you have before blocks split 
-    # between shared example groups and regular example groups.
-    #
-    # By the time you read this, there may well be a better way to do it.
-
-    def local_setup
-      wait_for_conversion_form
-      fill_in_conversion_name "Jimmy Jones"
-      fill_in_conversion_email "jim@jones.com"
-      fill_in_conversion_password "jimbim"
-      submit_conversion_form
-    end
-
+  shared_examples "a successful conversion" do
     it "should leave the user logged in as their new real user", js: true do
       @setup.call
       local_setup
@@ -248,6 +234,84 @@ feature 'Guest user is prompted to convert to real user' do
         User.count.should == 1 # the one we created above, remember?
         User.first.claimed?.should == true
       end
+    end
+  end
+
+  shared_examples "conversion happy path without location" do
+    # All this @setup and local_setup bullshit is because RSpec doesn't do the
+    # right thing (i.e. what I expected) when you have before blocks split 
+    # between shared example groups and regular example groups.
+    #
+    # By the time you read this, there may well be a better way to do it.
+
+    def local_setup
+      wait_for_conversion_form
+      fill_in_conversion_name "Jimmy Jones"
+      fill_in_conversion_email "jim@jones.com"
+      fill_in_conversion_password "jimbim"
+      submit_conversion_form
+    end
+
+    it_should_behave_like "a successful conversion"
+  end
+
+  shared_examples "conversion happy path with location" do
+    def setup_before_visit
+      @board = board
+      @board.update_attributes(use_location_in_conversion: true)
+
+      @location_names = ["Helsinki", "Detroit Rock City", "Capital City"]
+      @location_names.each do |location_name|
+        FactoryGirl.create(:location, name: location_name, demo: @board)
+      end
+      
+      @unexpected_location_name = "St. Elsewhere"
+      FactoryGirl.create(:location, name: @unexpected_location_name)
+    end
+
+    def local_setup
+      setup_before_visit
+      visit public_board_path(public_slug: board.public_slug)
+      click_link "Save Progress"
+      wait_for_conversion_form
+
+      fill_in_conversion_name "Jimmy Jones"
+      fill_in_conversion_email "jim@jones.com"
+      fill_in_conversion_password "jimbim"
+      submit_conversion_form
+    end
+
+    it_should_behave_like "a successful conversion"
+
+    context "when a location is chosen" do
+      def local_setup
+        setup_before_visit
+        visit public_board_path(public_slug: board.public_slug)
+        click_link "Save Progress"
+        wait_for_conversion_form
+
+        fill_in_conversion_name "Jimmy Jones"
+        fill_in_conversion_email "jim@jones.com"
+        fill_in_conversion_password "jimbim"
+        fill_in_location_autocomplete "City"
+        expect_content "Detroit Rock City"
+        page.first('#location_autocomplete_target a').click
+        submit_conversion_form
+      end
+
+      it "should pop the proper results when a location search string is filled in", js: true do
+        setup_before_visit
+        visit public_board_path(public_slug: board.public_slug)
+        wait_for_conversion_form
+
+        fill_in_location_autocomplete "City"
+        page.should have_content("Detroit Rock City")
+        page.should have_content("Capital City")
+      end
+
+      it "should use the selected location"
+
+      it_should_behave_like "a successful conversion"
     end
   end
 
@@ -401,7 +465,8 @@ feature 'Guest user is prompted to convert to real user' do
       expect_no_conversion_form
     end
 
-    it_should_behave_like "conversion happy path"
+    it_should_behave_like "conversion happy path without location"
+    it_should_behave_like "conversion happy path with location"
     it_should_behave_like "conversion unhappy path"
   end
 
@@ -434,7 +499,8 @@ feature 'Guest user is prompted to convert to real user' do
       expect_no_conversion_form
     end
 
-    it_should_behave_like "conversion happy path"    
+    it_should_behave_like "conversion happy path without location"
+    it_should_behave_like "conversion happy path with location"
     it_should_behave_like "conversion unhappy path"
   end
 
@@ -470,7 +536,8 @@ feature 'Guest user is prompted to convert to real user' do
       expect_conversion_form
     end
 
-    it_should_behave_like "conversion happy path"
+    it_should_behave_like "conversion happy path without location"
+    it_should_behave_like "conversion happy path with location"
     it_should_behave_like "conversion unhappy path"
   end
 

@@ -16,6 +16,10 @@
       - if demo.use_location_in_conversion
         #location_error.conversion_error
         = text_field_tag "location_name", "", placeholder: "Work Location (enter address or store number)"
+        #location_autocomplete_target
+        = content_for :javascript do
+          = javascript_tag do
+            bindLocationAutocomplete('#location_name', '#location_autocomplete_target', '/locations')
 
       = submit_tag "Create account", id: 'submit_conversion_form'
       = image_tag "spinner.gif", class: "spinner", style: "display: none"

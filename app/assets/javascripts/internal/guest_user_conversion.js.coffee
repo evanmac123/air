@@ -1,3 +1,9 @@
+bindLocationAutocomplete = (sourceSelector, targetSelector, searchURL) ->
+  $(sourceSelector).autocomplete({
+    appendTo: targetSelector,
+    source: searchURL,
+  })
+  
 spinner = $('#guest_conversion_form_wrapper .spinner')
 
 convertEmailErrors = (emailErrors) ->
@@ -65,3 +71,4 @@ $('.open_save_progress_form').on('click', saveProgressClickCallback)
 $('#guest_conversion_form_wrapper .close-lightbox-button').on('click', closeConversionLightbox)
 
 window.lightboxConversionForm = lightboxConversionForm
+window.bindLocationAutocomplete = bindLocationAutocomplete

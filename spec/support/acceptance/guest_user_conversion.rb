@@ -17,6 +17,14 @@ module GuestUserConversionHelpers
     end
   end
 
+  def fill_in_location_autocomplete(string)
+    within(conversion_form_selector) do
+      page.find("#location_name").set(string)
+      # Small hack to wake up the autocomplete code
+      page.execute_script("$('#location_name').focus().keydown().keyup()")
+    end
+  end
+
   def submit_conversion_form
     page.find(conversion_form_selector, visible: true)
 
