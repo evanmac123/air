@@ -27,5 +27,14 @@
     max-height: 9.5em;
     overflow-y: auto;
     overflow-x: hidden;
+
+    a {
+      color: $text-color;
+      font-weight: normal;
+
+      &.ui-state-hover{
+        background-color: $blue;
+      }
+    }
   }
 }

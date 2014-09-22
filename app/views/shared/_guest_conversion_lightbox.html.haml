@@ -15,7 +15,7 @@
 
       - if demo.use_location_in_conversion
         #location_error.conversion_error
-        = text_field_tag "location_name", "", placeholder: "Work Location (enter address or store number)"
+        = text_field_tag "location_name", "", placeholder: "Work Location (address or store number)"
         #location_autocomplete_target
         = content_for :javascript do
           = javascript_tag do
