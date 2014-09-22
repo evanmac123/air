@@ -30,10 +30,17 @@ class Invitation::AutocompletionsController < ApplicationController
     @matched_users.reject! {|ff| ff == current_user_or_new_user}
     @matched_users = @matched_users[0,5]
 
+    @matched_users = search_user_by_email(text) unless @matched_users.present?
 
     render :layout => false
   end
 
+  protected
 
-
+  def search_user_by_email email
+    return [] if email.is_not_email_address?
+    user = User.where(email: email, demo: current_user.demo).first
+    user = User.new(email: email, name: email) unless user
+    [user]
+  end
 end 

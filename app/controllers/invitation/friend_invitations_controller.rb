@@ -9,7 +9,8 @@ class Invitation::FriendInvitationsController < ApplicationController
 
     # Pre-populated Domain
     invitee_id = params[:invitee_id]
-    if invitee_id
+    invitee_email = params[:invitee_email]
+    if invitee_id.present?
       user = User.find(invitee_id)
       if user.nil?
         @message =  "User #{i} not found. "
@@ -25,10 +26,19 @@ class Invitation::FriendInvitationsController < ApplicationController
         bonus_message = pp ? "That's <span class='orange'>#{pp}</span> potential points!".html_safe : ''
         @message = "Invitation sent&#8212;#{bonus_message}<br>Search again to invite others".html_safe  
         attempted, successful = 1,0      
-      end        
-
+      end
       record_mixpanel_ping(attempted, successful)  
       return        
+    elsif invitee_email.present?
+      if invitee_email.is_not_email_address?
+        @message =  "Wrong email."
+      else
+        potential_user = PotentialUser
+                          .where(email: invitee_email, demo: current_user.demo)
+                          .first_or_create
+        potential_user.is_invited_by current_user
+        @message = "invitation sent - thanks for sharing"  
+      end
     end
   end
 
