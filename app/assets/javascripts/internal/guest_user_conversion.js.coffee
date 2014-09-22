@@ -23,6 +23,13 @@ convertEmailErrors = (emailErrors) ->
       else error
   )
 
+convertLocationIdErrors = (locationIdErrors) ->
+  _.map(locationIdErrors, (error) ->
+    switch error
+      when 'can\'t be blank' then 'Whoops. Enter a valid location.'
+      else error
+  )
+
 ensurePeriods = (errors) -> _.map(errors, ensurePeriod)
 
 ensurePeriod = (error) ->
@@ -36,6 +43,8 @@ displayErrors = (errors) ->
     $('#guest_conversion_form_wrapper #password_error').html(ensurePeriods(errors.password))
 
   $('#guest_conversion_form_wrapper #email_error').html(ensurePeriods(convertEmailErrors(errors.email)))
+
+  $('#guest_conversion_form_wrapper #location_error').html(ensurePeriods(convertLocationIdErrors(errors.location_id)))
 
 showSaveProgress = () ->
   $('#save_progress').show()

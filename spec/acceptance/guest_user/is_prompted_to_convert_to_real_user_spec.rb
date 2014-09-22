@@ -80,6 +80,10 @@ feature 'Guest user is prompted to convert to real user' do
     expect_content "It looks like that email is already taken. You can click here to sign in, or contact support@air.bo for help."
   end
 
+  def expect_invalid_location_name_error
+    expect_content "Whoops. Enter a valid location"
+  end
+
   def password_error_copy
     "Please enter a password at least 6 characters long"  
   end
@@ -452,7 +456,30 @@ feature 'Guest user is prompted to convert to real user' do
         User.count.should == 1 # the one we created above, remember?
       end
     end
-    
+   
+    context "when a bad location name is present" do
+      before do
+        @board = board
+        @board.update_attributes(use_location_in_conversion: true)
+
+        visit public_board_path(public_slug: board.public_slug)
+        click_link "Save Progress"
+        wait_for_conversion_form
+
+        fill_in_conversion_name "Jim Jones"
+        fill_in_conversion_email "jim@example.com"
+        fill_in_conversion_password "abcde"
+        fill_in_location_autocomplete "Bunksville"
+        submit_conversion_form
+      end
+
+      it "should show errors", js: true do
+        expect_invalid_location_name_error
+      end
+
+      it_should_behave_like "no user creation"
+    end
+
     it "should clear errors between submissions", js: true do
       fill_in_conversion_name "Jim Jones"
       fill_in_conversion_email "jim@example.com"

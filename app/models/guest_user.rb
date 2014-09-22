@@ -155,6 +155,8 @@ class GuestUser < ActiveRecord::Base
     converted_user.location_id = location_id
 
     converted_user.converting_from_guest = true
+    converted_user.must_have_location = true if location_name.present?
+
     if converted_user.save
       converted_user.add_board(demo_id, true)
       tile_completions.each {|tile_completion| tile_completion.user = converted_user; tile_completion.save!}

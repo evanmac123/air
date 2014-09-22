@@ -79,6 +79,8 @@ class User < ActiveRecord::Base
   validates_presence_of :password, :if => :converting_from_guest, :message => "Please enter a password at least 6 characters long"
   validates_length_of :password, :minimum => 6, :if => :converting_from_guest, :message => "Please enter a password at least 6 characters long"
   validates_presence_of :email, :if => :converting_from_guest, :message => "Please enter a valid email address"
+  validates_presence_of :location_id, if: :must_have_location
+
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i}, 
     if: Proc.new {|u| u.invitation_method == :client_admin_invites}
   validates_presence_of :email, :if => :creating_board, :message => "can't be blank"
@@ -151,7 +153,7 @@ class User < ActiveRecord::Base
     destroy_segmentation_info
   end
 
-  attr_accessor :password_confirmation, :converting_from_guest, :creating_board, :role
+  attr_accessor :password_confirmation, :converting_from_guest, :must_have_location, :creating_board, :role
 
   # Changed from attr_protected to attr_accessible to address vulnerability CVE-2013-0276
 

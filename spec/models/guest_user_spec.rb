@@ -129,6 +129,12 @@ describe GuestUser do
       user.errors.keys.should include(:password)
       user.errors.keys.should_not include(:password_confirmation) # just shut up already
     end
+
+    it "requires a valid location name if one is present" do
+      bad_location_name = "Nowhere"
+      user.convert_to_full_user!("jimmy", "jimmy@example.com", "foobar", bad_location_name)
+      user.errors.keys.should include(:location_id)
+    end
   end
 
   describe "#accepted_invitation_at" do
