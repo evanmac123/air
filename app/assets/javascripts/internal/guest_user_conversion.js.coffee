@@ -1,3 +1,11 @@
+digitAndPunctuationRegex = /^(\W|[0-9])+$/
+
+cancelIfNonnumericAndTooShort = (locationNameField) ->
+  (event, ui) ->
+    entered = locationNameField.val()
+    if entered.length < 3 && !(digitAndPunctuationRegex.test entered)
+      event.preventDefault()
+
 locationLinkSelected = (locationNameField) ->
   (event, ui) ->
     event.preventDefault()
@@ -11,7 +19,7 @@ bindLocationAutocomplete = (sourceSelector, targetSelector, searchURL) ->
     source: searchURL,
     select: locationLinkSelected(locationNameField),
 
-    minLength: 3,
+    search: cancelIfNonnumericAndTooShort(locationNameField),
     delay: 100
   })
   
