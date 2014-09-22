@@ -9,7 +9,10 @@ bindLocationAutocomplete = (sourceSelector, targetSelector, searchURL) ->
   locationNameField.autocomplete({
     appendTo: targetSelector,
     source: searchURL,
-    select: locationLinkSelected(locationNameField)
+    select: locationLinkSelected(locationNameField),
+
+    minLength: 3,
+    delay: 100
   })
   
 spinner = $('#guest_conversion_form_wrapper .spinner')
