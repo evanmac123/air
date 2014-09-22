@@ -473,8 +473,13 @@ feature 'Guest user is prompted to convert to real user' do
         submit_conversion_form
       end
 
-      it "should show errors", js: true do
+      it "should show errors if you submit", js: true do
         expect_invalid_location_name_error
+      end
+
+      it "should show a reasonable message in the autocomplete target", js: true do
+        fill_in_location_autocomplete "Bunksville Mark 2"
+        page.should have_content("Sorry, we cannot find that location. Try again.")
       end
 
       it_should_behave_like "no user creation"

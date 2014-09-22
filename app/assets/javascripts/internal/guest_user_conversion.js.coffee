@@ -9,7 +9,8 @@ cancelIfNonnumericAndTooShort = (locationNameField) ->
 locationLinkSelected = (locationNameField) ->
   (event, ui) ->
     event.preventDefault()
-    locationNameField.val(ui.item.label)
+    if ui.item.value.found
+      locationNameField.val(ui.item.label)
 
 bindLocationAutocomplete = (sourceSelector, targetSelector, searchURL) ->
   locationNameField = $(sourceSelector)
