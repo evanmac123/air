@@ -295,6 +295,8 @@ feature 'Guest user is prompted to convert to real user' do
         fill_in_conversion_password "jimbim"
         fill_in_location_autocomplete "City"
         expect_content "Detroit Rock City"
+        # click_link "Detroit Rock City" doesn't work. Your guess is as good
+        # as mine. lolcomputers.
         page.first('#location_autocomplete_target a').click
         submit_conversion_form
       end
@@ -309,7 +311,24 @@ feature 'Guest user is prompted to convert to real user' do
         page.should have_content("Capital City")
       end
 
-      it "should use the selected location"
+      it "should use the selected location", js: true do        
+        setup_before_visit
+        visit public_board_path(public_slug: board.public_slug)
+        wait_for_conversion_form
+
+        fill_in_conversion_name "Jimmy Jones"
+        fill_in_conversion_email "jim@jones.com"
+        fill_in_conversion_password "jimbim"
+        fill_in_location_autocomplete "City"
+        expect_content "Capital City"
+        # click_link "Capital City" doesn't work. Your guess is as good
+        # as mine. lolcomputers.
+        page.first('#location_autocomplete_target a').click
+
+        local_setup
+        user = User.last
+        user.location_id.should == Location.find_by_name("Capital City").id
+      end
 
       it_should_behave_like "a successful conversion"
     end

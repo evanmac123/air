@@ -21,9 +21,6 @@ class LocationsController < ApplicationController
   def search_result_for_autocomplete(search_result)
     {
       label: ERB::Util.h(search_result.name),
-      value: {
-        url: "http://www.google.com"
-      }
     }
   end
 

@@ -1,7 +1,15 @@
+locationLinkSelected = (locationNameField) ->
+  (event, ui) ->
+    event.preventDefault()
+    locationNameField.val(ui.item.label)
+
 bindLocationAutocomplete = (sourceSelector, targetSelector, searchURL) ->
-  $(sourceSelector).autocomplete({
+  locationNameField = $(sourceSelector)
+
+  locationNameField.autocomplete({
     appendTo: targetSelector,
     source: searchURL,
+    select: locationLinkSelected(locationNameField)
   })
   
 spinner = $('#guest_conversion_form_wrapper .spinner')

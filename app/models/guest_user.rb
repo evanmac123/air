@@ -127,8 +127,11 @@ class GuestUser < ActiveRecord::Base
     }
   end
 
-  def convert_to_full_user!(name, email, password)
+  def convert_to_full_user!(name, email, password, location_name = nil)
     converted_user = User.find_by_email(email)
+
+    location_id = location_name.present? ? Location.where(name: location_name).where(demo_id: self.demo_id).pluck(:id).first : nil
+
     if converted_user && converted_user.unclaimed?
       #converted_user.demo_id = demo_id
       converted_user.name = name
@@ -149,6 +152,7 @@ class GuestUser < ActiveRecord::Base
     converted_user.last_acted_at = last_acted_at
     converted_user.voteup_intro_seen = voteup_intro_seen
     converted_user.share_link_intro_seen = share_link_intro_seen
+    converted_user.location_id = location_id
 
     converted_user.converting_from_guest = true
     if converted_user.save

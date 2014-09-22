@@ -10,7 +10,8 @@ class GuestUserConversionsController < ApplicationController
     full_user = current_user.convert_to_full_user!(
       params[:user][:name],
       params[:user][:email],
-      params[:user][:password]
+      params[:user][:password],
+      params[:location_name]
     )
 
     if full_user
