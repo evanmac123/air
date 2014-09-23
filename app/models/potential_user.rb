@@ -6,6 +6,8 @@ class PotentialUser < ActiveRecord::Base
   validates_uniqueness_of :invitation_code
   before_create :set_invitation_code
 
+  include CancelAccountToken
+
   def is_invited_by referrer 
     Mailer.delay_mail(:invitation, self, referrer)
     PeerInvitation.create!(inviter: referrer, invitee: self, demo: demo)
@@ -126,6 +128,33 @@ class PotentialUser < ActiveRecord::Base
 
   def nerf_links_with_login_modal?
     false
+  end
+
+  def convert_to_full_user! name
+    converted_user = User.new(
+      name: name, 
+      email: email, 
+      points: points, 
+      tickets: tickets, 
+      get_started_lightbox_displayed: false, 
+      accepted_invitation_at: Time.now, 
+      characteristics: {}
+    )
+    converted_user.password = converted_user.password_confirmation = SecureRandom.hex(8)
+    converted_user.cancel_account_token = generate_cancel_account_token(converted_user)
+    if converted_user.save
+      converted_user.add_board(demo_id, true)
+      converted_user
+    else
+      converted_user.errors.messages.each do |field, error_messages|
+        self.errors.set(field, error_messages.uniq) # the #uniq gets rid of duplicate password errors
+      end
+      nil
+    end
+  end
+
+  def flashes_for_next_request
+    nil
   end
 
   protected

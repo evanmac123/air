@@ -153,7 +153,7 @@ class ApplicationController < ActionController::Base
   def authorize_as_potential_user
     if session[:potential_user_id].present? && !current_user
       @_potential_user = PotentialUser.find(session[:potential_user_id])
-      if @_potential_user && request.path != activity_path
+      if @_potential_user && ![activity_path, potential_user_conversions_path].include?(request.path)
         redirect_to activity_path
       end
       @_potential_user.present?
@@ -273,7 +273,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user_with_guest_user
-    return @_potential_user if @_potential_user
+    return @_potential_user if @_potential_user && !current_user_without_guest_user
     return current_user_without_guest_user unless guest_user_allowed?
 
     if (user = current_user_without_guest_user)
@@ -452,7 +452,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_boards_for_switching_and_managing
-    return unless current_user && !(current_user.is_guest?)
+    return unless current_user && (current_user.is_a? User)
     
     @boards_to_switch_to = if current_user.is_site_admin
                              Demo.alphabetical

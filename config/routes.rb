@@ -214,6 +214,7 @@ Health::Application.routes.draw do
 
   resources :thumbnails, :only => [:index]
 
+  resources :potential_user_conversions, :only => [:create]
   resources :guest_user_conversions, :only => [:create]
   resource :guest_user_reset, :only => [:update]
 

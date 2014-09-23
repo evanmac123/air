@@ -54,9 +54,10 @@
 <% if current_user.is_a? PotentialUser %>
   <div id="register_potential_user_lightbox" class="start_lightbox">
     <h3>Welcome to the <%= current_user.demo.name%>!</h3>
-    <%= form_tag "/" do %>
-      <%= label_tag "user_name", "Enter your name to continue:" %>
-      <%= text_field_tag "user_name" %>
+    <%= form_tag potential_user_conversions_path do %>
+      <%= label_tag "potential_user_name", "Enter your name to continue:" %>
+      <%= text_field_tag "potential_user_name" %>
+      <% hidden_field_tag "potential_user_id", current_user.id %>
       <%= submit_tag "Next", disabled: true %>
     <% end %>
   </div>
@@ -64,7 +65,7 @@
   <% content_for :javascript do %>
     <%= javascript_tag do %>
       $('#register_potential_user_lightbox').lightbox_me({closeClick: false});
-      $("#user_name").on('input propertychange paste', function() {
+      $("#potential_user_name").on('input propertychange paste', function() {
         submit_button = $("#register_potential_user_lightbox input[type='submit']")
         if( $(this).val().match(/\w+\s+\w+/) ){
           submit_button.removeAttr("disabled")
