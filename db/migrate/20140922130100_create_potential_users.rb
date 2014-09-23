@@ -4,6 +4,7 @@ class CreatePotentialUsers < ActiveRecord::Migration
       t.string :email
       t.string :invitation_code
       t.integer :demo_id
+      t.integer :game_referrer_id
 
       t.timestamps
     end

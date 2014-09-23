@@ -30,21 +30,27 @@ class InvitationsController < ApplicationController
 
   def show
     @user = User.find_by_invitation_code(params[:id])
-
-    referrer_id = params[:referrer_id]
-    if referrer_id =~ /^\d+$/
-      @user.game_referrer_id = referrer_id
-    end
+    @user = PotentialUser.find_by_invitation_code(params[:id]) unless @user
 
     if @user
-      @user.ping_page('invitation acceptance', 'invitation acceptance version' => "v. 6/25/14")
-      email_clicked_ping(@user)
-      return if redirect_if_invitation_accepted_already
-      log_out_if_logged_in
+      referrer_id = params[:referrer_id]
+      if referrer_id =~ /^\d+$/
+        @user.game_referrer_id = referrer_id
+      end
+      if @user.is_a? User
+        @user.ping_page('invitation acceptance', 'invitation acceptance version' => "v. 6/25/14")
+        email_clicked_ping(@user)
+        return if redirect_if_invitation_accepted_already
+        log_out_if_logged_in
 
-      #if it is not admin we are going to create and set random password for him
-      unless @user.is_client_admin || @user.is_site_admin
-        redirect_to generate_password_invitation_acceptance_path(user_id: @user.id, demo_id: params[:demo_id], invitation_code: @user.invitation_code, referrer_id: referrer_id)
+        #if it is not admin we are going to create and set random password for him
+        unless @user.is_client_admin || @user.is_site_admin
+          redirect_to generate_password_invitation_acceptance_path(user_id: @user.id, demo_id: params[:demo_id], invitation_code: @user.invitation_code, referrer_id: referrer_id)
+        end
+      else
+        log_out_if_logged_in
+        session[:potential_user_id] = @user.id
+        redirect_to activity_path
       end
     else
       flash[:failure] = "That page doesn't exist."

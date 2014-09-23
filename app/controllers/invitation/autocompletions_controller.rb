@@ -30,7 +30,9 @@ class Invitation::AutocompletionsController < ApplicationController
     @matched_users.reject! {|ff| ff == current_user_or_new_user}
     @matched_users = @matched_users[0,5]
 
-    @matched_users = search_user_by_email(text) unless @matched_users.present?
+    if @matched_users.empty? && demo.is_public?
+      @matched_users = search_user_by_email(text)
+    end
 
     render :layout => false
   end

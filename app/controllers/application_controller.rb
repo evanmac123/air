@@ -132,6 +132,7 @@ class ApplicationController < ActionController::Base
 
   def authorize
     #debugger if self.class == Users::PingsController
+    return if authorize_as_potential_user
     authorize_by_explore_token
 
     return if authorize_as_guest
@@ -146,6 +147,16 @@ class ApplicationController < ActionController::Base
     if game_locked?
       render "shared/website_locked"
       return
+    end
+  end
+
+  def authorize_as_potential_user
+    if session[:potential_user_id].present? && !current_user
+      @_potential_user = PotentialUser.find(session[:potential_user_id])
+      if @_potential_user && request.path != activity_path
+        redirect_to activity_path
+      end
+      @_potential_user.present?
     end
   end
 
@@ -232,7 +243,7 @@ class ApplicationController < ActionController::Base
   end
 
   def refresh_activity_session(user)
-    return if user.nil?
+    return if user.nil? || user.is_a?(PotentialUser)
     #session things for marketing page ping
     if user.is_a? User
       session[:user_id] = user.id 
@@ -262,6 +273,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user_with_guest_user
+    return @_potential_user if @_potential_user
     return current_user_without_guest_user unless guest_user_allowed?
 
     if (user = current_user_without_guest_user)
