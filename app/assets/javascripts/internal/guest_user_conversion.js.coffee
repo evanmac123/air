@@ -19,6 +19,7 @@ bindLocationAutocomplete = (sourceSelector, targetSelector, searchURL) ->
     appendTo: targetSelector,
     source: searchURL,
     select: locationLinkSelected(locationNameField),
+    focus: (event) -> event.preventDefault(),
 
     search: cancelIfNonnumericAndTooShort(locationNameField),
     delay: 100
