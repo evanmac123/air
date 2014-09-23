@@ -32,8 +32,15 @@
       color: $text-color;
       font-weight: normal;
 
-      &.ui-state-hover{
-        background-color: $blue;
+      &#ui-active-menuitem {
+        background: {
+          image: none;
+          color: $blue;
+        }
+
+        border: $blue;
+
+        color: $white;
       }
     }
   }
