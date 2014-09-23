@@ -65,7 +65,7 @@ class PotentialUser < ActiveRecord::Base
   end
 
   def get_started_lightbox_displayed
-    true  # it will be displayed to user
+    true  # it will be displayed to ordinary user later
   end
 
   def show_onboarding?
