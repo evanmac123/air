@@ -125,10 +125,6 @@ class GuestUser < ActiveRecord::Base
     end
   end
 
-  def accepted_invitation_at
-    created_at
-  end
-
   def slug
     "guestuser"
   end

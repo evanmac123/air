@@ -127,4 +127,8 @@ module User::FakeUserBehavior
   def notification_method
     "n/a"
   end
+
+  def accepted_invitation_at
+    created_at
+  end
 end
