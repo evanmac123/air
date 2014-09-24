@@ -55,7 +55,7 @@
   <div id="register_potential_user_lightbox" class="start_lightbox">
     <h3>Welcome to the <%= current_user.demo.name%>!</h3>
     <%= form_tag potential_user_conversions_path do %>
-      <%= label_tag "potential_user_name", "Enter your name to continue:" %>
+      <%= label_tag "potential_user_name", "Enter your first and last name to continue:" %>
       <%= text_field_tag "potential_user_name" %>
       <% hidden_field_tag "potential_user_id", current_user.id %>
       <%= submit_tag "Next", disabled: true %>

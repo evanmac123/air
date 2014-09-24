@@ -72,7 +72,7 @@ class Invitation::FriendInvitationsController < ApplicationController
   protected
 
   def success_message
-    "<span class='sending_success'>invitation sent - thanks for sharing</span>".html_safe
+    "<span class='sending_success'>Invitation sent - thanks for sharing!</span>".html_safe
   end
 
   def no_at_sign_error_message
