@@ -9,7 +9,7 @@ class LocationsController < ApplicationController
   protected
 
   def find_search_results
-    normalized_term = params[:term].downcase.strip.gsub(/\s+/, ' ')
+    normalized_term = params[:term].downcase.strip.gsub(/\s+/, ' ').gsub(/[^([:alnum:]|[:space:])]/, '')
     location_names = Location.name_ilike(normalized_term).where(demo_id: current_user.demo_id).alphabetical.pluck(:name)
     @search_results = LocationAutocompleteResults.from_location_names(location_names)
   end

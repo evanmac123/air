@@ -1,16 +1,10 @@
-digitAndPunctuationRegex = /^(\W|[0-9])+$/
-
-cancelIfNonnumericAndTooShort = (locationNameField) ->
-  (event, ui) ->
-    entered = locationNameField.val()
-    if entered.length < 3 && !(digitAndPunctuationRegex.test entered)
-      event.preventDefault()
-
 locationLinkSelected = (locationNameField) ->
   (event, ui) ->
     event.preventDefault()
     if ui.item.value.found
       locationNameField.val(ui.item.label)
+
+nerfFocus = (event) -> event.preventDefault()
 
 bindLocationAutocomplete = (sourceSelector, targetSelector, searchURL) ->
   locationNameField = $(sourceSelector)
@@ -19,10 +13,9 @@ bindLocationAutocomplete = (sourceSelector, targetSelector, searchURL) ->
     appendTo: targetSelector,
     source: searchURL,
     select: locationLinkSelected(locationNameField),
-    focus: (event) -> event.preventDefault(),
+    focus: nerfFocus,
 
-    search: cancelIfNonnumericAndTooShort(locationNameField),
-    delay: 100
+    delay: 200
   })
   
 spinner = $('#guest_conversion_form_wrapper .spinner')
