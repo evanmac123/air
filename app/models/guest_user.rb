@@ -15,50 +15,19 @@ class GuestUser < ActiveRecord::Base
   has_many   :user_in_raffle_infos, as: :user
 
   include CancelAccountToken
-
-  def is_site_admin
-    false
-  end
-
-  def is_client_admin
-    false
-  end
+  include User::FakeUserBehavior
 
   def is_guest?
     true
-  end
-
-  def is_test_user?
-    false
   end
 
   def role
     "Guest"
   end
 
-  def show_onboarding?
-    true
-  end
-
-  def ping_page(page, additional_properties = {})
-    TrackEvent.ping_page(page, additional_properties, self)
-  end
-
   def ping(event, properties={})
     data = data_for_mixpanel.merge(properties)
     TrackEvent.ping(event, data)
-  end
-
-  def accepted_friends
-    User.where("id IS NULL") # no friends, sucker
-  end
-
-  def on_first_login
-    true
-  end
-
-  def has_friends
-    false
   end
  
   def name
@@ -73,24 +42,8 @@ class GuestUser < ActiveRecord::Base
     "guestuser"
   end
 
-  def authorized_to?(page_class)
-    false
-  end
-
   def to_ticket_progress_calculator
     User::TicketProgressCalculator.new(self)
-  end
-
-  def avatar
-    User::NullAvatar.new
-  end
-
-  def flashes_for_next_request
-    nil
-  end
-
-  def privacy_level
-    'nobody'
   end
 
   def update_last_acted_at
@@ -99,9 +52,6 @@ class GuestUser < ActiveRecord::Base
 
   def update_points(bump, *args)
     PointIncrementer.new(self, bump).update_points
-  end
-
-  def satisfy_tiles_by_rule(*args)
   end
 
   def data_for_mixpanel
@@ -179,16 +129,6 @@ class GuestUser < ActiveRecord::Base
     created_at
   end
 
-  def location
-  end
-
-  def date_of_birth
-  end
-
-  def notification_method
-    "n/a"
-  end
-
   def slug
     "guestuser"
   end
@@ -197,36 +137,8 @@ class GuestUser < ActiveRecord::Base
     tile_completions.first.present?
   end
 
-  def available_tiles_on_current_demo
-    User::TileProgressCalculator.new(self).available_tiles_on_current_demo
-  end
-
-  def completed_tiles_on_current_demo
-    User::TileProgressCalculator.new(self).completed_tiles_on_current_demo
-  end
-
   def not_show_all_completed_tiles_in_progress
     User::TileProgressCalculator.new(self).not_show_all_completed_tiles_in_progress
-  end
-
-  def likes_tile?(tile)
-    nil
-  end
-
-  def copied_tile?(tile)
-    nil
-  end
-
-  def can_switch_boards?
-    false
-  end
-
-  def can_open_board_settings?
-    false
-  end
-
-  def nerf_links_with_login_modal?
-    false
   end
 
   def voteup_intro_never_seen
