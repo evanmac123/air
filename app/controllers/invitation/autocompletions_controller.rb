@@ -31,7 +31,7 @@ class Invitation::AutocompletionsController < ApplicationController
     @matched_users = @matched_users[0,5]
 
     if @matched_users.empty? && demo.is_public?
-      @matched_users = search_user_by_email(text)
+      @matched_users = search_user_by_email(text, current_user.demo)
     end
 
     render :layout => false
@@ -39,10 +39,12 @@ class Invitation::AutocompletionsController < ApplicationController
 
   protected
 
-  def search_user_by_email email
+  def search_user_by_email email, demo
     return [] if email.is_not_email_address?
-    user = User.where(email: email, demo: current_user.demo).first
-    user = User.new(email: email, name: email) unless user
+    user =  User.joins(:board_memberships)
+                .where{(users.email == email) & (board_memberships.demo == demo)}
+                .first
+    user =  User.new(email: email, name: email) unless user
     [user]
   end
 end 

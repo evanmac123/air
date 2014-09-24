@@ -22,9 +22,7 @@ class Invitation::FriendInvitationsController < ApplicationController
         @invitation_request = InvitationRequest.new(:email => user.email)
         user.invite(current_user)
         demo_name = current_user.demo.name
-        pp = current_user.demo.game_referrer_bonus
-        bonus_message = pp ? "That's <span class='orange'>#{pp}</span> potential points!".html_safe : ''
-        @message = "Invitation sent&#8212;#{bonus_message}<br>Search again to invite others".html_safe  
+        @message = success_message
         attempted, successful = 1,0      
       end
       record_mixpanel_ping(attempted, successful)  
@@ -37,7 +35,7 @@ class Invitation::FriendInvitationsController < ApplicationController
                           .where(email: invitee_email, demo: current_user.demo)
                           .first_or_create
         potential_user.is_invited_by current_user
-        @message = "invitation sent - thanks for sharing"  
+        @message = success_message
       end
     end
   end
@@ -66,6 +64,10 @@ class Invitation::FriendInvitationsController < ApplicationController
   end
 
   protected
+
+  def success_message
+    "<span class='sending_success'>invitation sent - thanks for sharing</span>".html_safe
+  end
 
   def no_at_sign_error_message
     %{Please enter only the part of the email address before the "@" - and remember that only colleagues in your organization can participate.}

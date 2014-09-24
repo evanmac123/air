@@ -116,6 +116,11 @@ body #facebox .content {
   width: 343px;
   padding-top: 4px;
   padding-bottom: 0px;
+  .sending_success{
+    color: $sky-blue;
+    text-transform: none;
+    font-size: 13px;
+  }
 }
 
 #indented_to_match_inputs{
