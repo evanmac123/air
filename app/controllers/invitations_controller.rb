@@ -66,9 +66,10 @@ class InvitationsController < ApplicationController
 
   def redirect_if_invitation_for_accepted_user_to_new_board
     if @user.claimed? && 
-      !@user.demos.pluck(:id).include?(params[:demo_id])
+      !@user.in_board?(params[:demo_id])
 
-      @user.add_board(params[:demo_id], true)
+      @user.add_board(params[:demo_id])
+      @user.move_to_new_demo params[:demo_id]
       @user.credit_game_referrer User.find(@referrer_id)
       flash[:success] = "Welcome, #{@user.name}"
       sign_in(@user)

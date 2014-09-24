@@ -33,7 +33,7 @@ class Invitation::FriendInvitationsController < ApplicationController
       else
         user = User.where(email: invitee_email).first
         if user 
-          user.invite(current_user)
+          user.invite(current_user, demo_id: current_user.demo.id)
           @message = success_message
           return
         end
