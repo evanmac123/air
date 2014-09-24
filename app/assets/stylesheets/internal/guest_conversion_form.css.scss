@@ -4,11 +4,6 @@
 #guest_conversion_form_wrapper {
   @include lightbox-form;
 
-  @media only screen and (max-width: $foundation) {
-    width: 100%;
-    max-width: none;
-  }
-
   form {
     margin-top: 1em;
   }
@@ -48,6 +43,21 @@
 
         color: $white;
       }
+    }
+  }
+
+  @media only screen and (max-width: $foundation) {
+    width: 100%;
+    max-width: none;
+
+    form {
+      input[type="text"], input[type="password"], textarea {
+        font-size: 0.8em;
+      }
+    }
+
+    .ui-autocomplete {
+      font-size: 0.8em;
     }
   }
 }
