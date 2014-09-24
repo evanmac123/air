@@ -331,7 +331,7 @@ feature 'Guest user is prompted to convert to real user' do
 
         local_setup
         user = User.last
-        user.location_id.should == Location.find_by_name("Capital City").id
+        user.location.name.should == "Capital City"
       end
 
       it_should_behave_like "a successful conversion"
