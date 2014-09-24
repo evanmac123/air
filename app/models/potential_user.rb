@@ -23,6 +23,10 @@ class PotentialUser < ActiveRecord::Base
     ""
   end
 
+  def slug
+    "potential_user"
+  end
+
   def data_for_mixpanel
     {
       distinct_id:  "potential_user_#{self.id}",

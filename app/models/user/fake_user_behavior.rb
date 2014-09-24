@@ -131,4 +131,8 @@ module User::FakeUserBehavior
   def accepted_invitation_at
     created_at
   end
+
+  def last_acted_at
+    updated_at
+  end
 end
