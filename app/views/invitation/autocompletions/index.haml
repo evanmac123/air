@@ -2,7 +2,7 @@
   .single_suggestion
     .image= default_avatar_tag(user)
     .info
-      .bit= user.name
+      .bit= user.name.truncate(25)
     .suggested_user_id{style: "display:none"}= user.id
     = link_to "X", '#', :class => "remove_referrer"
     / = form_for user, invitation_invite_friend_path  do |f|
