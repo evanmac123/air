@@ -9,6 +9,7 @@ class PotentialUser < ActiveRecord::Base
   include CancelAccountToken
 
   def is_invited_by referrer 
+    return if self.peer_invitations.length >= PeerInvitation::CUTOFF
     Mailer.delay_mail(:invitation, self, referrer)
     PeerInvitation.create!(inviter: referrer, invitee: self, demo: demo)
   end
@@ -155,6 +156,12 @@ class PotentialUser < ActiveRecord::Base
 
   def flashes_for_next_request
     nil
+  end
+
+  def self.search_by_invitation_code invitation_code
+    potential_user = self.find_by_invitation_code invitation_code
+    user = User.where(email: potential_user.email).first
+    user || potential_user
   end
 
   protected

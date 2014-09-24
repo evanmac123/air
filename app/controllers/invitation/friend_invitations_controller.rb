@@ -31,6 +31,12 @@ class Invitation::FriendInvitationsController < ApplicationController
       if invitee_email.is_not_email_address?
         @message =  "Wrong email."
       else
+        user = User.where(email: invitee_email).first
+        if user 
+          user.invite(current_user)
+          @message = success_message
+          return
+        end
         potential_user = PotentialUser
                           .where(email: invitee_email, demo: current_user.demo)
                           .first_or_create
