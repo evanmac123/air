@@ -98,8 +98,10 @@ Questions? Email support@air.bo.
   <table cellspacing="0" cellpadding="0" border="0">
     <tr><td height="10">&nbsp;</td></tr>
     <tr style="font-family: 'helvetica neue', helvetica, sans-serif;">
-      <td style="font-family:Helvetica,Arial,sans-serif;font-size:24px;color:#4c4c4c;mso-line-height-rule:exactly;line-height:24px;padding-top:40px;padding-bottom:20px;text-align: center;">
-        Your invitation to the [game_name]
+      <td style="font-family:Helvetica,Arial,sans-serif;font-size:24px;color:#4c4c4c;mso-line-height-rule:exactly;line-height:30px;padding-top:40px;padding-bottom:20px;text-align: center;">
+        [referrer] invitated you to 
+        <br/>
+        join the [game_name]
       </td>
     </tr>
     <tr>
