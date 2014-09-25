@@ -13,7 +13,7 @@ class Invitation::FriendInvitationsController < ApplicationController
     if invitee_id.present?
       user = User.find(invitee_id)
       if user.nil?
-        @message =  "User #{i} not found. "
+        @message =  "User not found. "
         attempted, successful = 1,0
       elsif user.claimed?
         @message =  "Thanks, but #{user.name} is already playing. Try searching for someone else."

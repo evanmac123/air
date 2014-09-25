@@ -405,4 +405,10 @@ FactoryGirl.define do
     in_blacklist false
     is_winner false
   end
+
+  factory :potential_user do
+    sequence(:email) {|n| "potential_#{n}@user.com" }
+    invitation_code "MyString"
+    association(:demo)
+  end
 end
