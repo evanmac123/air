@@ -144,8 +144,4 @@ class GuestUser < ActiveRecord::Base
   def share_link_intro_never_seen
     !(share_link_intro_seen)
   end
-
-  def get_started_lightbox_displayed
-    false  
-  end
 end

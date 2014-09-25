@@ -19,10 +19,6 @@ module User::FakeUserBehavior
     false
   end
 
-  def is_guest?
-    false
-  end
-
   def accepted_friends
     User.where("id IS NULL")
   end
@@ -31,20 +27,8 @@ module User::FakeUserBehavior
     true
   end
 
-  def get_started_lightbox_displayed
-    true  # it will be displayed to ordinary user later
-  end
-
   def show_onboarding?
     true
-  end
-
-  def tile_completions
-    TileCompletion.where("1 = 0")
-  end
-
-  def points
-    0
   end
 
   def available_tiles_on_current_demo
@@ -53,14 +37,6 @@ module User::FakeUserBehavior
 
   def completed_tiles_on_current_demo
     User::TileProgressCalculator.new(self).completed_tiles_on_current_demo
-  end
-
-  def completed_tiles
-    Tile.where("1 = 0")
-  end
-
-  def tickets
-    0
   end
 
   def has_friends
@@ -130,9 +106,5 @@ module User::FakeUserBehavior
 
   def accepted_invitation_at
     created_at
-  end
-
-  def last_acted_at
-    updated_at
   end
 end

@@ -63,6 +63,34 @@ class PotentialUser < ActiveRecord::Base
     end
   end
 
+  def is_guest?
+    false
+  end
+
+  def get_started_lightbox_displayed
+    true  # it will be displayed to ordinary user later
+  end
+
+  def tile_completions
+    TileCompletion.where("1 = 0")
+  end
+
+  def completed_tiles
+    Tile.where("1 = 0")
+  end
+
+  def tickets
+    0
+  end
+
+  def points
+    0
+  end
+
+  def last_acted_at
+    updated_at
+  end
+
   def self.search_by_invitation_code invitation_code
     potential_user = self.find_by_invitation_code invitation_code
     user = User.where(email: potential_user.email).first
