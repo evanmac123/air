@@ -65,7 +65,7 @@ class InvitationsController < ApplicationController
   protected
 
   def redirect_if_invitation_for_accepted_user_to_new_board
-    if @user.claimed? && 
+    if @user.claimed? && params[:demo_id].present? &&
       !@user.in_board?(params[:demo_id])
       
       if Demo.find(params[:demo_id]).is_public?
