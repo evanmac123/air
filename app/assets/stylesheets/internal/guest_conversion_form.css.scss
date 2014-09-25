@@ -26,6 +26,7 @@
 
   .ui-autocomplete {
     max-height: 9.5em;
+    max-width: 100% !important;
     overflow-y: auto;
     overflow-x: hidden;
 
