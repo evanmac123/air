@@ -86,7 +86,7 @@ class Invitation::FriendInvitationsController < ApplicationController
     %{Please enter only the part of the email address before the "@" - and remember that only colleagues in your organization can participate.}
   end
 
-  def record_mixpanel_ping(successful_invitations, attempted_invitations. invited_via, user)
+  def record_mixpanel_ping(successful_invitations, attempted_invitations, invited_via, user)
     mixpanel_details = {
       successful_invitations: successful_invitations,
       attempted_invitations:  attempted_invitations,
@@ -97,7 +97,7 @@ class Invitation::FriendInvitationsController < ApplicationController
     ping('invited friends', mixpanel_details, current_user)
     if user
       user_type = user.is_a?(User) ? "Ordinary User" : "Potential User"
-      ping('Email Sent', {email_type: "Friend Invitation"}, current_user) 
+      ping('Email Sent', {email_type: "Friend Invitation"}, user) 
     end
   end
 end
