@@ -28,6 +28,7 @@ class CustomInvitationEmail < ActiveRecord::Base
   def interpolate_everything(user, referrer, invitation_url, text)
     result = select_referrer_blocks(referrer, text)
     result = interpolate_referrer(referrer, result)
+    result = interpolate_headline(referrer, result)
     result = interpolate_game_name(result)
     result = interpolate_user_name(user, result)
     result = interpolate_invitation_url(invitation_url, result)
@@ -40,6 +41,14 @@ class CustomInvitationEmail < ActiveRecord::Base
   def interpolate_referrer(referrer, text)
     return text unless referrer
     interpolate_self_closing_tag('referrer', referrer.name, text)
+  end
+
+  def interpolate_headline(referrer, text)
+    if referrer
+      interpolate_self_closing_tag('headline', "#{referrer} invitated you to", text)
+    else
+      interpolate_self_closing_tag('headline', "You are invited to", text)
+    end
   end
 
   def interpolate_user_name(user, text)
@@ -99,7 +108,7 @@ Questions? Email support@air.bo.
     <tr><td height="10">&nbsp;</td></tr>
     <tr style="font-family: 'helvetica neue', helvetica, sans-serif;">
       <td style="font-family:Helvetica,Arial,sans-serif;font-size:24px;color:#4c4c4c;mso-line-height-rule:exactly;line-height:30px;padding-top:40px;padding-bottom:20px;text-align: center;">
-        [referrer] invitated you to 
+        [headline]
         <br/>
         join the [game_name]
       </td>
