@@ -30,6 +30,7 @@ class ActsController < ApplicationController
       current_user.get_started_lightbox_displayed = true
       current_user.save
     end
+    saw_welcome_pop_up_ping @display_get_started_lightbox
 
     @display_activity_page_admin_guide = current_user.is_a?(User) \
                                       && current_user.is_client_admin? \
@@ -133,6 +134,17 @@ class ActsController < ApplicationController
       Demo.public_board_by_public_slug(params[:public_slug])
     elsif current_user
       current_user.demo
+    end
+  end
+
+  def saw_welcome_pop_up_ping show_pop_up
+    if show_pop_up || current_user.is_a?(PotentialUser)
+      source =  if params[:invitation_email_type].present?
+                  params[:invitation_email_type]
+                elsif params[:public_slug].present?
+                  "Public Link"
+                end
+      ping('Saw welcome pop-up', {source: source}, current_user)
     end
   end
 end

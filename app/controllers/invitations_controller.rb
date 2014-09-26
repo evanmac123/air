@@ -66,7 +66,7 @@ class InvitationsController < ApplicationController
         if @demo.present? && @user.in_board?(@demo)
           current_user.move_to_new_demo(@demo)
         end
-        redirect_to activity_path
+        redirect_to activity_path(params_with_source)
       else
         flash[:failure] = Clearance::SESSION_EXPIRED
         flash[:failure_allow_raw] = true
@@ -91,12 +91,20 @@ class InvitationsController < ApplicationController
         @user.credit_game_referrer(@referrer) if @referrer.present?
         flash[:success] = "Welcome, #{@user.name}"
         sign_in(@user)
-        redirect_to activity_path
+        redirect_to activity_path(params_with_source)
       else
         sign_in(@user)
         flash[:failure] = "Access denied to #{@demo.name}"
-        redirect_to activity_path
+        redirect_to activity_path(params_with_source)
       end
+=begin 
+      flash[:failure] = "You've already accepted your invitation to the game."
+      if @demo.present? && @user.in_board?(@demo)
+        @user.move_to_new_demo(@demo)
+      end
+      sign_in @user
+      redirect_to activity_path(params_with_source)
+=end
     end
   end
 
@@ -121,11 +129,26 @@ class InvitationsController < ApplicationController
     log_out_if_logged_in
     session[:potential_user_id] = @user.id
     @user.update_attribute :game_referrer_id, @referrer.try(:id)
-    redirect_to activity_path
+    redirect_to activity_path(params_with_source)
   end
 
   def record_mixpanel_ping user
     user_type = user.is_a?(User) ? "Ordinary User" : "Potential User"
     ping('User - New', {source: "User - Friend Invitation", user_type: user_type}, current_user)
+  end
+
+  def params_with_source
+    invitation_email_type = if params[:email_type].present? # then digest or follow up
+      if params[:email_type] == "digest_old_v" || params[:email_type] == "digest_new_v"
+        "Digest email"
+      elsif params[:email_type] == "follow_old_v" || params[:email_type] == "follow_new_v"
+        "Follow-up"
+      end
+    elsif params[:referrer_id].present? # then friend invitation
+      "Friend Invitation"
+    else # then just invitation
+      "Invitation email"
+    end
+    {invitation_email_type: invitation_email_type}
   end
 end
