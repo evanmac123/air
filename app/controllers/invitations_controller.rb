@@ -34,27 +34,13 @@ class InvitationsController < ApplicationController
     @user = PotentialUser.search_by_invitation_code(params[:id]) unless @user
 
     if @user
-      @referrer_id = params[:referrer_id] if params[:referrer_id] =~ /^\d+$/
+      @referrer = User.find(params[:referrer_id]) if params[:referrer_id] =~ /^\d+$/
+      @demo = Demo.find(params[:demo_id]) if params[:demo_id] =~ /^\d+$/
 
       if @user.is_a? User
-        @user.ping_page('invitation acceptance', 'invitation acceptance version' => "v. 6/25/14")
-        email_clicked_ping(@user)
-        return if redirect_if_invitation_for_accepted_user_to_new_board
-        return if redirect_if_invitation_accepted_already
-        log_out_if_logged_in
-
-        #if it is not admin we are going to create and set random password for him
-        unless @user.is_client_admin || @user.is_site_admin
-          redirect_to generate_password_invitation_acceptance_path( user_id: @user.id, 
-                                                demo_id: params[:demo_id], 
-                                                invitation_code: @user.invitation_code, 
-                                                referrer_id: @referrer_id)
-        end
+        process_user_invitation
       else
-        log_out_if_logged_in
-        session[:potential_user_id] = @user.id
-        @user.update_attribute(:game_referrer_id, @referrer_id)
-        redirect_to activity_path
+        process_potential_user_invitation
       end
     else
       flash[:failure] = "That page doesn't exist."
@@ -64,40 +50,76 @@ class InvitationsController < ApplicationController
 
   protected
 
-  def redirect_if_invitation_for_accepted_user_to_new_board
-    if @user.claimed? && params[:demo_id].present? &&
-      !@user.in_board?(params[:demo_id])
-      
-      if Demo.find(params[:demo_id]).is_public?
-        @user.add_board(params[:demo_id])
-        @user.move_to_new_demo params[:demo_id]
-        @user.credit_game_referrer( User.find(@referrer_id) ) if @referrer_id.present?
-        flash[:success] = "Welcome, #{@user.name}"
-        sign_in(@user)
-      else
-        flash[:failure] = "Access denied"
-      end
-      redirect_to activity_path
-    else
-      nil
-    end
+  def process_user_invitation
+    @user.ping_page('invitation acceptance', 'invitation acceptance version' => "v. 6/25/14")
+    email_clicked_ping(@user)
+    return if invitation_for_user_to_other_board
+    return if invitation_to_board_already_accepted
+    accept_unclaimed_user
   end
 
-  def redirect_if_invitation_accepted_already
+  def invitation_to_board_already_accepted
     if @user.claimed?
-      if current_user
+      if current_user && current_user == @user
         flash[:failure] = "You've already accepted your invitation to the game."
-        if params[:demo_id]
-          current_user.move_to_new_demo(params[:demo_id])
+        if @demo.present? && @user.in_board?(@demo)
+          current_user.move_to_new_demo(@demo)
         end
         redirect_to activity_path
       else
         flash[:failure] = Clearance::SESSION_EXPIRED
         flash[:failure_allow_raw] = true
-        redirect_to sign_in_path(demo_id: params[:demo_id])
+        redirect_to sign_in_path demo_id: @demo.try(:id)
       end
-
-      return true
     end
+  end
+
+  def invitation_for_user_to_other_board
+    if @demo.present? && !@user.in_board?(@demo)
+      accept_unclaimed_user
+      accept_claimed_user_to_new_board
+      true
+    end
+  end
+
+  def accept_claimed_user_to_new_board
+    if @user.claimed? 
+      if @demo.is_public?
+        @user.add_board @demo
+        @user.move_to_new_demo @demo
+        @user.credit_game_referrer(@referrer) if @referrer.present?
+        flash[:success] = "Welcome, #{@user.name}"
+        sign_in(@user)
+        redirect_to activity_path
+      else
+        sign_in(@user)
+        flash[:failure] = "Access denied to #{@demo.name}"
+        redirect_to activity_path
+      end
+    end
+  end
+
+  def accept_unclaimed_user
+    if @user.unclaimed?
+      log_out_if_logged_in
+      
+      unless @user.is_client_admin || @user.is_site_admin
+        redirect_to generate_password_invitation_acceptance_path( 
+          user_id: @user.id, 
+          demo_id: @demo.try(:id), 
+          invitation_code: @user.invitation_code, 
+          referrer_id: @referrer.try(:id)
+        )
+      else
+        render 'show'
+      end
+    end
+  end 
+
+  def process_potential_user_invitation
+    log_out_if_logged_in
+    session[:potential_user_id] = @user.id
+    @user.update_attribute(:game_referrer_id, @referrer_id)
+    redirect_to activity_path
   end
 end

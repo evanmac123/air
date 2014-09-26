@@ -535,9 +535,12 @@ class User < ActiveRecord::Base
   end
 
   def invite(referrer = nil, options ={})
-    return if referrer && self.peer_invitations_as_invitee.length >= PeerInvitation::CUTOFF && !(options[:ignore_invitation_limit])
-
     _demo = options[:demo_id].present? ? Demo.find(options[:demo_id]) : self.demo
+
+    if referrer && !(options[:ignore_invitation_limit])
+      peer_num = self.peer_invitations_as_invitee.where(inviter: referrer, demo: _demo).length 
+      return if peer_num >= PeerInvitation::CUTOFF
+    end
 
     unless options[:is_new_invite]
       Mailer.delay_mail(:invitation, self, referrer, options)
