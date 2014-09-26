@@ -42,6 +42,7 @@ class InvitationsController < ApplicationController
       else
         process_potential_user_invitation
       end
+      record_mixpanel_ping @user
     else
       flash[:failure] = "That page doesn't exist."
       redirect_to "/"
@@ -121,5 +122,10 @@ class InvitationsController < ApplicationController
     session[:potential_user_id] = @user.id
     @user.update_attribute :game_referrer_id, @referrer.try(:id)
     redirect_to activity_path
+  end
+
+  def record_mixpanel_ping user
+    user_type = user.is_a?(User) ? "Ordinary User" : "Potential User"
+    ping('User - New', {source: "User - Friend Invitation", user_type: user_type}, current_user)
   end
 end

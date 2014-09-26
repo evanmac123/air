@@ -52,13 +52,10 @@ class Invitation::FriendInvitationsController < ApplicationController
       @message =  "Thanks, but #{user.name} is already playing. Try searching for someone else."
       attempted, successful = 1,0
     else
-      @invitation_request = InvitationRequest.new(:email => user.email)
-      user.invite(current_user)
-      demo_name = current_user.demo.name
       @message = success_message
-      attempted, successful = 1,0      
+      attempted, successful = 1,1     
     end
-    record_mixpanel_ping(attempted, successful)  
+    record_mixpanel_ping(attempted, successful, "name", user)  
   end
 
   def invite_user_by_email invitee_email
@@ -71,11 +68,13 @@ class Invitation::FriendInvitationsController < ApplicationController
         @message = success_message
         return
       end
-      potential_user = PotentialUser
-                        .where(email: invitee_email, demo: current_user.demo)
-                        .first_or_create
-      potential_user.is_invited_by current_user
+      user = PotentialUser
+              .where(email: invitee_email, demo: current_user.demo)
+              .first_or_create
+      user.is_invited_by current_user
       @message = success_message
+
+      record_mixpanel_ping(1, 1, "email", user)
     end
   end
 
@@ -87,12 +86,18 @@ class Invitation::FriendInvitationsController < ApplicationController
     %{Please enter only the part of the email address before the "@" - and remember that only colleagues in your organization can participate.}
   end
 
-  def record_mixpanel_ping(successful_invitations, attempted_invitations)
+  def record_mixpanel_ping(successful_invitations, attempted_invitations. invited_via, user)
     mixpanel_details = {
-      :successful_invitations => successful_invitations,
-      :attempted_invitations  => attempted_invitations
+      successful_invitations: successful_invitations,
+      attempted_invitations:  attempted_invitations,
+      invited_via: invited_via
+
     }.merge(current_user.data_for_mixpanel) 
 
     ping('invited friends', mixpanel_details, current_user)
+    if user
+      user_type = user.is_a?(User) ? "Ordinary User" : "Potential User"
+      ping('Email Sent', {email_type: "Friend Invitation", user_type: user_type}, current_user) 
+    end
   end
 end
