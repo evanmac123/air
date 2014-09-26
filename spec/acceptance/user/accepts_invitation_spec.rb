@@ -4,7 +4,7 @@ feature "User Accepts Invitation" do
   include SessionHelpers
 
   before(:each) do
-    @user = FactoryGirl.create :user, name: "Bob Q. Smith, III"
+    @user = FactoryGirl.create :claimed_user, name: "Bob Q. Smith, III"
   end
 
   def set_password_if_needed
@@ -49,19 +49,35 @@ feature "User Accepts Invitation" do
 
     ActionMailer::Base.deliveries.should be_empty
   end
+  describe "across boards" do
+    scenario "if user is already in the board" do
+      original_board = @user.demo
+      @other_board = FactoryGirl.create(:demo)
+      @user.add_board(@other_board)
+      @user.demos.should have(2).demos
+      @user.demo.should == original_board
+      original_board.should_not == @other_board
 
-  scenario "across boards" do
-    original_board = @user.demo
-    @other_board = FactoryGirl.create(:demo)
-    @user.add_board(@other_board)
-    @user.demos.should have(2).demos
-    @user.demo.should == original_board
-    original_board.should_not == @other_board
+      visit invitation_url(@user.invitation_code, demo_id: @other_board.id)
 
-    visit invitation_url(@user.invitation_code, demo_id: @other_board.id)
+      should_be_on activity_path
+      expect_current_board_header(@other_board)
+    end
 
-    should_be_on activity_path
-    expect_current_board_header(@other_board)
+    scenario "if user is invited to public board" do
+      original_board = @user.demo
+      @other_board = FactoryGirl.create(:demo, is_public: true)
+
+      visit invitation_url(@user.invitation_code, demo_id: @other_board.id)
+
+      should_be_on activity_path
+      expect_current_board_header(@other_board)
+      expect_content "Welcome"
+
+      @user.demos.should have(2).demos
+      @user.reload.demo.should == @other_board
+      original_board.should_not == @other_board
+    end
   end
 
   scenario "user gets seed points on accepting invitation to game with them, but just once" do

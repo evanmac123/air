@@ -71,7 +71,7 @@ class InvitationsController < ApplicationController
       if Demo.find(params[:demo_id]).is_public?
         @user.add_board(params[:demo_id])
         @user.move_to_new_demo params[:demo_id]
-        @user.credit_game_referrer User.find(@referrer_id)
+        @user.credit_game_referrer( User.find(@referrer_id) ) if @referrer_id.present?
         flash[:success] = "Welcome, #{@user.name}"
         sign_in(@user)
       else
