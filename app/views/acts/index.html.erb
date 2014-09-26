@@ -71,7 +71,14 @@
         }else{
           submit_button.attr("disabled", "disabled")
         }
+        if(!window.enteredName){
+          actionWithPopUp("Entered Name")
+        }
+        window.enteredName = true
       });
+      function actionWithPopUp(action){
+        $.post("/ping", {event: 'Saw welcome pop-up', properties: {action: action}})
+      }
     <% end %>
   <% end %>
 <% elsif @display_activity_page_admin_guide %>
@@ -98,6 +105,7 @@
   <% content_for :javascript do %>
     <%= javascript_tag do %>
       $('#close_get_started_lightbox').click(function(event) {
+        $.post("/ping", {event: 'Saw welcome pop-up', properties: {action: "Click ‘Get Started’"}});
         event.preventDefault();
         $('#get_started_lightbox').trigger('close');
       });
