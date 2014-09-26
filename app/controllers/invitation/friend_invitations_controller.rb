@@ -97,7 +97,7 @@ class Invitation::FriendInvitationsController < ApplicationController
     ping('invited friends', mixpanel_details, current_user)
     if user
       user_type = user.is_a?(User) ? "Ordinary User" : "Potential User"
-      ping('Email Sent', {email_type: "Friend Invitation", user_type: user_type}, current_user) 
+      ping('Email Sent', {email_type: "Friend Invitation"}, current_user) 
     end
   end
 end

@@ -133,8 +133,7 @@ class InvitationsController < ApplicationController
   end
 
   def record_mixpanel_ping user
-    user_type = user.is_a?(User) ? "Ordinary User" : "Potential User"
-    ping('User - New', {source: "User - Friend Invitation", user_type: user_type}, current_user)
+    ping('User - New', {source: "User - Friend Invitation"}, user)
   end
 
   def params_with_source

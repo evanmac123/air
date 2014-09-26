@@ -37,7 +37,7 @@ class PotentialUser < ActiveRecord::Base
   end
 
   def highest_ranking_user_type
-    "potential_user"
+    "potential user"
   end
 
   def convert_to_full_user! name

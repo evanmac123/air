@@ -937,7 +937,7 @@ class User < ActiveRecord::Base
   def credit_game_referrer(referring_user)
     referring_user = User.where(id: referring_user).first
     return unless referring_user
-    
+
     demo = self.demo
 
     referrer_act_text = I18n.t('special_command.credit_game_referrer.activity_feed_text', :default => "got credit for recruiting %{referred_name}", :referred_name => self.name)
