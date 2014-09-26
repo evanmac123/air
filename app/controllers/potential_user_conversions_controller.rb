@@ -19,6 +19,6 @@ class PotentialUserConversionsController < ApplicationController
   protected
 
   def clicked_next_ping
-    ping("Saw welcome pop-up", action: "Clicked 'Next'", current_user)
+    ping("Saw welcome pop-up", {action: "Clicked 'Next'"}, current_user)
   end
 end
