@@ -1,7 +1,7 @@
 class PotentialUserConversionsController < ApplicationController
   def create
     clicked_next_ping
-    
+
     if current_user.is_a? PotentialUser
       full_user = current_user.convert_to_full_user! params[:potential_user_name]
       if full_user
@@ -19,6 +19,6 @@ class PotentialUserConversionsController < ApplicationController
   protected
 
   def clicked_next_ping
-    ping("Saw welcome pop-up", action: "Clicked ‘Next’", current_user)
+    ping("Saw welcome pop-up", action: "Clicked 'Next'", current_user)
   end
 end
