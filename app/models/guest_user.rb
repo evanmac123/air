@@ -24,11 +24,6 @@ class GuestUser < ActiveRecord::Base
   def role
     "Guest"
   end
-
-  def ping(event, properties={})
-    data = data_for_mixpanel.merge(properties)
-    TrackEvent.ping(event, data)
-  end
  
   def name
     "Guest User [#{id}]"

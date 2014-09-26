@@ -7,6 +7,11 @@ module User::FakeUserBehavior
     false
   end
 
+  def ping(event, properties={})
+    data = data_for_mixpanel.merge(properties)
+    TrackEvent.ping(event, data)
+  end
+
   def ping_page(page, additional_properties = {})
     TrackEvent.ping_page(page, additional_properties, self)
   end
