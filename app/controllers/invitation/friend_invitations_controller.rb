@@ -11,38 +11,10 @@ class Invitation::FriendInvitationsController < ApplicationController
     invitee_id = params[:invitee_id]
     invitee_email = params[:invitee_email]
     if invitee_id.present?
-      user = User.find(invitee_id)
-      if user.nil?
-        @message =  "User not found."
-        attempted, successful = 1,0
-      elsif user.claimed?
-        @message =  "Thanks, but #{user.name} is already playing. Try searching for someone else."
-        attempted, successful = 1,0
-      else
-        @invitation_request = InvitationRequest.new(:email => user.email)
-        user.invite(current_user)
-        demo_name = current_user.demo.name
-        @message = success_message
-        attempted, successful = 1,0      
-      end
-      record_mixpanel_ping(attempted, successful)  
+      invite_user_by_id invitee_id 
       return        
     elsif invitee_email.present?
-      if invitee_email.is_not_email_address?
-        @message =  "Wrong email."
-      else
-        user = User.where(email: invitee_email).first
-        if user 
-          user.invite(current_user, demo_id: current_user.demo.id)
-          @message = success_message
-          return
-        end
-        potential_user = PotentialUser
-                          .where(email: invitee_email, demo: current_user.demo)
-                          .first_or_create
-        potential_user.is_invited_by current_user
-        @message = success_message
-      end
+      invite_user_by_email invitee_email
     end
   end
 
@@ -70,6 +42,42 @@ class Invitation::FriendInvitationsController < ApplicationController
   end
 
   protected
+
+  def invite_user_by_id invitee_id 
+    user = User.find(invitee_id)
+    if user.nil?
+      @message =  "User not found."
+      attempted, successful = 1,0
+    elsif user.claimed?
+      @message =  "Thanks, but #{user.name} is already playing. Try searching for someone else."
+      attempted, successful = 1,0
+    else
+      @invitation_request = InvitationRequest.new(:email => user.email)
+      user.invite(current_user)
+      demo_name = current_user.demo.name
+      @message = success_message
+      attempted, successful = 1,0      
+    end
+    record_mixpanel_ping(attempted, successful)  
+  end
+
+  def invite_user_by_email invitee_email
+    if invitee_email.is_not_email_address?
+      @message =  "Wrong email."
+    else
+      user = User.where(email: invitee_email).first
+      if user 
+        user.invite(current_user, demo_id: current_user.demo.id)
+        @message = success_message
+        return
+      end
+      potential_user = PotentialUser
+                        .where(email: invitee_email, demo: current_user.demo)
+                        .first_or_create
+      potential_user.is_invited_by current_user
+      @message = success_message
+    end
+  end
 
   def success_message
     "<span class='sending_success'>Invitation sent - thanks for sharing!</span>".html_safe

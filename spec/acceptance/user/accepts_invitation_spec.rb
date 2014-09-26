@@ -15,10 +15,10 @@ feature "User Accepts Invitation" do
     end
   end
 
-  shared_examples_for "any invitation acceptance" do
+  describe "invitation acceptance for unclaimed user" do
     context "when all goes well" do
       before do
-        visit invitation_url(@user.invitation_code)
+        visit invitation_url(@unclaimed_user.invitation_code)
         set_password_if_needed
       end
 
@@ -32,14 +32,14 @@ feature "User Accepts Invitation" do
     end
 
     scenario "just one time" do
-      visit invitation_url(@user.invitation_code)
+      visit invitation_url(@unclaimed_user.invitation_code)
       set_password_if_needed
 
       click_link "Sign Out"
-      visit invitation_url(@user.invitation_code)
+      visit invitation_url(@unclaimed_user.invitation_code)
 
       should_be_on sign_in_path
-      expect_content "You've already accepted your invitation to the game. Please log in if you'd like to use the site."
+      expect_content logged_out_message
     end
   end
     
@@ -50,6 +50,7 @@ feature "User Accepts Invitation" do
 
     ActionMailer::Base.deliveries.should be_empty
   end
+
   describe "is invited to other board" do
     describe "if user is already in the board" do
       before(:each) do
@@ -60,7 +61,7 @@ feature "User Accepts Invitation" do
         @user.demo.should == @original_board
         @original_board.should_not == @other_board
       end
-      
+
       scenario "and user is signed in then it goes well" do
         signin_as @user, 'foobar'
         visit invitation_url(@user.invitation_code, demo_id: @other_board.id)
