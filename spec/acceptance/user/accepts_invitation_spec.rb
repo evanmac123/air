@@ -4,8 +4,9 @@ feature "User Accepts Invitation" do
   include SessionHelpers
 
   before(:each) do
-    @user = FactoryGirl.create :claimed_user, name: "Bob Q. Smith, III", password: "foobar"
-    @unclaimed_user = FactoryGirl.create :user, name: "Bob Q. Smith, III"  # brothers, i suppose
+    @demo = FactoryGirl.create :demo, :activated
+    @user = FactoryGirl.create :claimed_user, demo: @demo, name: "Bob Q. Smith, III", password: "foobar"
+    @unclaimed_user = FactoryGirl.create :user, name: "Bob Q. Smith, III"
   end
 
   def set_password_if_needed
@@ -77,17 +78,16 @@ feature "User Accepts Invitation" do
 
     describe "if user is not in the board" do
       scenario "and is invited to public board then it goes well" do
-        original_board = @user.demo
-        @other_board = FactoryGirl.create(:demo, is_public: true)
-
-        visit invitation_url(@user.invitation_code, demo_id: @other_board.id)
+        original_board = @unclaimed_user.demo
+        @other_board = @demo
+        visit invitation_path @unclaimed_user.invitation_code, demo_id: @demo.id, referrer_id: @user.id
 
         should_be_on activity_path
         expect_current_board_header(@other_board)
         expect_content "Welcome"
 
-        @user.demos.should have(2).demos
-        @user.reload.demo.should == @other_board
+        @unclaimed_user.demos.should have(2).demos
+        @unclaimed_user.reload.demo.should == @other_board
         original_board.should_not == @other_board
       end
 
@@ -114,11 +114,53 @@ feature "User Accepts Invitation" do
     expect_content "10 pts #{@user.name} joined"
   end
 
-  it "sends an appropriate ping" do
-    visit invitation_url(@user.invitation_code)
-    FakeMixpanelTracker.clear_tracked_events
-    crank_dj_clear
+  context "pings" do
+    it "sends an appropriate ping" do
+      visit invitation_url(@user.invitation_code)
+      expect_ping "viewed page", {"invitation acceptance version" => "v. 6/25/14"}
+    end
+    
+    it "should send ping on friend invitation acceptance" do
+      visit invitation_path(@unclaimed_user.invitation_code, demo_id: @user.demo.id, referrer_id: @user.id)
+      expect_ping "User - New", {source: "User - Friend Invitation"}, @unclaimed_user
+    end
 
-    FakeMixpanelTracker.should have_event_matching("viewed page", {"invitation acceptance version" => "v. 6/25/14"})
+    context "saw welcome pop up ping after coming by" do
+      it "Friend Invitation" do
+        visit invitation_path @unclaimed_user.invitation_code, demo_id: @user.demo_id, referrer_id: @user.id
+        expect_current_board_header(@demo)
+        expect_content welcome_message
+        @unclaimed_user.reload
+
+        expect_ping "Saw welcome pop-up", {source: "Friend Invitation"}, @unclaimed_user
+      end
+
+      it "Digest email" do
+        visit invitation_path @unclaimed_user.invitation_code, demo_id: @user.demo_id, email_type: "digest_new_v" 
+        expect_current_board_header(@demo)
+        expect_content welcome_message
+        @unclaimed_user.reload
+
+        expect_ping "Saw welcome pop-up", {source: "Digest email"}, @unclaimed_user
+      end
+
+      it "Follow-up" do
+        visit invitation_path @unclaimed_user.invitation_code, demo_id: @user.demo_id, email_type: "follow_new_v" 
+        expect_current_board_header(@demo)
+        expect_content welcome_message
+        @unclaimed_user.reload
+
+        expect_ping "Saw welcome pop-up", {source: "Follow-up"}, @unclaimed_user
+      end
+
+      it "Invitation email" do
+        visit invitation_path @unclaimed_user.invitation_code, demo_id: @user.demo_id
+        expect_current_board_header(@demo)
+        expect_content welcome_message
+        @unclaimed_user.reload
+
+        expect_ping "Saw welcome pop-up", {source: "Invitation email"}, @unclaimed_user
+      end
+    end
   end
 end

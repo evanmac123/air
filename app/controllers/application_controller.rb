@@ -153,7 +153,8 @@ class ApplicationController < ActionController::Base
   def authorize_as_potential_user
     if session[:potential_user_id].present? && !current_user
       @_potential_user = PotentialUser.find(session[:potential_user_id])
-      if @_potential_user && ![activity_path, potential_user_conversions_path].include?(request.path)
+      allowed_pathes = [activity_path, potential_user_conversions_path, ping_path]
+      if @_potential_user && !allowed_pathes.include?(request.path)
         redirect_to activity_path
       end
       @_potential_user.present?

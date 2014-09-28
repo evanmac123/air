@@ -29,6 +29,8 @@ class InvitationsController < ApplicationController
   end
 
   def show
+    set_invitation_email_type_for_ping
+
     @user = User.find_by_invitation_code(params[:id])
     # can return potential user or user
     @user = PotentialUser.search_by_invitation_code(params[:id]) unless @user
@@ -66,7 +68,7 @@ class InvitationsController < ApplicationController
         if @demo.present? && @user.in_board?(@demo)
           current_user.move_to_new_demo(@demo)
         end
-        redirect_to activity_path(params_with_source)
+        redirect_to activity_path
       else
         flash[:failure] = Clearance::SESSION_EXPIRED
         flash[:failure_allow_raw] = true
@@ -91,11 +93,11 @@ class InvitationsController < ApplicationController
         @user.credit_game_referrer(@referrer) if @referrer.present?
         flash[:success] = "Welcome, #{@user.name}"
         sign_in(@user)
-        redirect_to activity_path(params_with_source)
+        redirect_to activity_path
       else
         sign_in(@user)
         flash[:failure] = "Access denied to #{@demo.name}"
-        redirect_to activity_path(params_with_source)
+        redirect_to activity_path
       end
 =begin 
       flash[:failure] = "You've already accepted your invitation to the game."
@@ -103,7 +105,7 @@ class InvitationsController < ApplicationController
         @user.move_to_new_demo(@demo)
       end
       sign_in @user
-      redirect_to activity_path(params_with_source)
+      redirect_to activity_path
 =end
     end
   end
@@ -129,25 +131,27 @@ class InvitationsController < ApplicationController
     log_out_if_logged_in
     session[:potential_user_id] = @user.id
     @user.update_attribute :game_referrer_id, @referrer.try(:id)
-    redirect_to activity_path(params_with_source)
+    redirect_to activity_path
   end
 
   def record_mixpanel_ping user
-    ping('User - New', {source: "User - Friend Invitation"}, user)
+    if params[:referrer_id].present?
+      ping('User - New', {source: "User - Friend Invitation"}, user)
+    end
   end
 
-  def params_with_source
-    invitation_email_type = if params[:email_type].present? # then digest or follow up
+  def set_invitation_email_type_for_ping
+    invitation_email_type = if params[:email_type].present? # digest or follow up
       if params[:email_type] == "digest_old_v" || params[:email_type] == "digest_new_v"
         "Digest email"
       elsif params[:email_type] == "follow_old_v" || params[:email_type] == "follow_new_v"
         "Follow-up"
       end
-    elsif params[:referrer_id].present? # then friend invitation
+    elsif params[:referrer_id].present? # friend invitation
       "Friend Invitation"
-    else # then just invitation
+    else # just invitation
       "Invitation email"
     end
-    {invitation_email_type: invitation_email_type}
+    session[:invitation_email_type] = invitation_email_type
   end
 end

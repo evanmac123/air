@@ -72,13 +72,10 @@
           submit_button.attr("disabled", "disabled")
         }
         if(!window.enteredName){
-          actionWithPopUp("Entered Name")
+          $.post("/ping", {event: 'Saw welcome pop-up', properties: {action: "Entered Name"}})
         }
         window.enteredName = true
       });
-      function actionWithPopUp(action){
-        $.post("/ping", {event: 'Saw welcome pop-up', properties: {action: action}})
-      }
     <% end %>
   <% end %>
 <% elsif @display_activity_page_admin_guide %>

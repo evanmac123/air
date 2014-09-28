@@ -139,13 +139,15 @@ class ActsController < ApplicationController
 
   def saw_welcome_pop_up_ping show_pop_up
     if show_pop_up || current_user.is_a?(PotentialUser)
-      source =  if params[:invitation_email_type].present?
-                  params[:invitation_email_type]
-                elsif params[:public_slug].present?
+      source =  if params[:public_slug].present?
                   "Public Link"
+                elsif session[:invitation_email_type].present?
+                  session[:invitation_email_type]
                 end
-      ping('Saw welcome pop-up', {source: source}, current_user)
+                
+      ping('Saw welcome pop-up', {source: source}, current_user) if source
     end
+    session[:invitation_email_type] = nil
   end
 end
 

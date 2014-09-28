@@ -369,4 +369,16 @@ module SteakHelperMethods
   def counter_selector(associated_selector)
     "#{associated_selector} + .character-counter"  
   end
+
+  def expect_ping event, properties, user = nil
+    FakeMixpanelTracker.clear_tracked_events
+    crank_dj_clear
+    #p FakeMixpanelTracker.tracked_events
+    properties.merge!(user.data_for_mixpanel) if user
+    FakeMixpanelTracker.should have_event_matching(event, properties)
+  end
+
+  def welcome_message
+    "Airbo is an interactive communication tool. Get started by clicking on a tile. Interact and answer questions to earn points."
+  end
 end

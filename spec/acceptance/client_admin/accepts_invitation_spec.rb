@@ -4,7 +4,8 @@ feature "Client Admin Accepts Invitation" do
   include SessionHelpers
 
   before(:each) do
-    @user = FactoryGirl.create :user, is_client_admin: true
+    @demo = @demo = FactoryGirl.create :demo, :activated
+    @user = FactoryGirl.create :user, is_client_admin: true, demo: @demo
   end
 
   def fill_in_required_invitation_fields
@@ -136,5 +137,12 @@ feature "Client Admin Accepts Invitation" do
     expect_terms_and_conditions_language
     click_link "terms and conditions"
     should_be_on terms_path
+  end
+
+  it "should send ping on friend invitation acceptance" do
+    inviter = FactoryGirl.create :user
+    visit invitation_path(@user.invitation_code, demo_id: inviter.demo.id, referrer_id: inviter.id)
+
+    expect_ping "User - New", {source: "User - Friend Invitation"}, @user
   end
 end

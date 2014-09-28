@@ -27,13 +27,15 @@ class Invitation::AcceptancesController < ApplicationController
     
     unless @user.accepted_invitation_at
       @user.join_game(:silent) 
-      @user.credit_game_referrer(User.find(@user.game_referrer_id)) unless @user.game_referrer_id.nil?
+      @user.credit_game_referrer @user.game_referrer_id
     end
 
     @user.save!
 
-    if params[:demo_id].present?
-      @user.move_to_new_demo(params[:demo_id])
+    demo = Demo.where(id: params[:demo_id]).first
+    if demo
+      @user.add_board demo
+      @user.move_to_new_demo demo
     end
     sign_in(@user)
     flash[:success] = "Welcome, #{@user.first_name}!"
