@@ -3,7 +3,7 @@ class Invitation::AutocompletionsController < ApplicationController
   def index
     text = params[:entered_text].strip.downcase
 
-    if current_user # This means you're logged in and want to find invitees
+    #if current_user # This means you're logged in and want to find invitees
       demo = current_user.demo
       names  = User.get_users_where_like(text, demo, "name", current_user)
       slugs  = User.get_users_where_like(text, demo, "slug", current_user)
@@ -19,7 +19,7 @@ class Invitation::AutocompletionsController < ApplicationController
         render 'shared/ajax_refresh_page' and return
       end
 =end
-    end
+    #end
 
     names = names.limit(5)
     slugs = slugs.limit(5)

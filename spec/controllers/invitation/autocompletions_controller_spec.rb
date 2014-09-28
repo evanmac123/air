@@ -18,24 +18,24 @@ describe Invitation::AutocompletionsController do
     @user7 = FactoryGirl.create(:claimed_user, :name => "Latino", :demo => @demo2, :email => "four@biker.com", :slug => "nutcase", :sms_slug => "nutcase")
     @user8 = FactoryGirl.create(:claimed_user, :name => "Va Va Va Voom", :demo => @demo2, :email => "seven@biker.com", :slug => "sixpack", :sms_slug => "sixpack")
     @user9 = FactoryGirl.create(:claimed_user, :name => "Joining Now 2", :demo => @demo2, :email => "angel@biker.com", :slug => "damnation", :sms_slug => "damnation")
-  
+    
+    sign_in_as @user0
   end
    
   describe "find the user named lucy that's in our game" do
     it "should return 'Lucy'" do
-      @params = {:email => "angel@hopper.com", :entered_text => "ucy"}
+      @params = {:entered_text => "ucy"}
       get :index, @params
       assigns[:matched_users].length.should == 1
       assigns[:matched_users].should include @user2
     end
   end
 
-  describe "find the user with slug 'sixpack' that's in our game'" do
+  describe "not find the user with slug 'sixpack' that's in other game'" do
     it "should return 'sterling'" do
-      @params = {:email => "angel@biker.com", :entered_text => "six"}
+      @params = {:entered_text => "six"}
       get :index, @params
-      assigns[:matched_users].length.should == 1
-      assigns[:matched_users].should include @user8
+      assigns[:matched_users].length.should == 0
     end
   end
 end

@@ -22,6 +22,11 @@ feature 'Lightbox for guest users' do
       click_link "Sign in"
       should_be_on new_session_path
     end
+
+    it "should send welcome pop-up ping" do
+      guest_user = GuestUser.last
+      expect_ping "Saw welcome pop-up", {source: "Public Link"}, guest_user
+    end
   end
 
   context 'When a guest in a board without active tiles', js: true do
