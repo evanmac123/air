@@ -1,0 +1,14 @@
+<div id="register_potential_user_lightbox" class="start_lightbox">
+  <h3>Welcome to the <%= current_user.demo.name%>!</h3>
+  <%= form_tag potential_user_conversions_path do %>
+    <%= label_tag "potential_user_name", "Enter your first and last name to continue:" %>
+    <%= text_field_tag "potential_user_name" %>
+    <%= submit_tag "Next", disabled: true %>
+  <% end %>
+</div>
+
+<% content_for :javascript do %>
+  <%= javascript_tag do %>
+    window.registerPotentialUserLightbox()
+  <% end %>
+<% end %>

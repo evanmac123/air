@@ -52,70 +52,10 @@
 <%= render "shared/guest_conversion_lightbox", user: @current_user, show_conversion_form: @show_conversion_form, demo: @current_user.demo %>
 
 <% if current_user.is_a? PotentialUser %>
-  <div id="register_potential_user_lightbox" class="start_lightbox">
-    <h3>Welcome to the <%= current_user.demo.name%>!</h3>
-    <%= form_tag potential_user_conversions_path do %>
-      <%= label_tag "potential_user_name", "Enter your first and last name to continue:" %>
-      <%= text_field_tag "potential_user_name" %>
-      <%= submit_tag "Next", disabled: true %>
-    <% end %>
-  </div>
-
-  <% content_for :javascript do %>
-    <%= javascript_tag do %>
-      $('#register_potential_user_lightbox').lightbox_me({closeClick: false});
-      $("#potential_user_name").on('input propertychange paste', function() {
-        submit_button = $("#register_potential_user_lightbox input[type='submit']")
-        if( $(this).val().match(/\w+\s+\w+/) ){
-          submit_button.removeAttr("disabled")
-        }else{
-          submit_button.attr("disabled", "disabled")
-        }
-        if(!window.enteredName){
-          $.post("/ping", {event: 'Saw welcome pop-up', properties: {action: "Entered Name"}})
-        }
-        window.enteredName = true
-      });
-    <% end %>
-  <% end %>
+  <%= render partial: "register_potential_user_lightbox" %>
 <% elsif @display_activity_page_admin_guide %>
-  <div id ='activity-joyride'>
-    <ol class='joyride-list activity-index' data-joyride>
-      <li data-id='manage_board' data-options='tipLocation:bottom' data-text='Got It'>
-          <p class='top-section'>
-          To return to the tile manager click <span>Manage</span>.
-        </p>
-      </li>
-    </ol>
-  </div>
+  <%= render partial: "activity_page_admin_guide" %>
 <% elsif @display_get_started_lightbox %>
-  <% lightbox_class = @current_user.is_guest? ? 'for_guest' : '' %>
-  <div id='get_started_lightbox' class="<%= lightbox_class %> start_lightbox">
-    <a href="#" id="close_get_started_lightbox">Get started!</a>
-    <h3>Welcome to the <%= current_user.demo.name%>!</h3>
-    <p>Airbo is an interactive communication tool. Get started by clicking on a tile. Interact and answer questions to earn points. 
-    <% if @current_user.is_guest? %>
-      <p>Already a user? <%= link_to "Sign in", new_session_path %>.</p>
-    <% end %>
-  </div>
-
-  <% content_for :javascript do %>
-    <%= javascript_tag do %>
-      $('#close_get_started_lightbox').click(function(event) {
-        $.post("/ping", {event: 'Saw welcome pop-up', properties: {action: "Click 'Get Started'"}});
-        event.preventDefault();
-        $('#get_started_lightbox').trigger('close');
-      });
-
-      $('#get_started_lightbox').lightbox_me({
-        onClose: function(){ 
-          if( window.showRaffleAfterLightbox == true ){
-            showRaffleBox("New Raffle!");
-            prizeModalPing("Saw Prize Modal");
-          } 
-        }
-      });
-    <% end %>
-  <% end %>
+  <%= render partial: "get_started_lightbox" %>
 <% end %>      
       
