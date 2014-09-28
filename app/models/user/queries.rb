@@ -57,6 +57,21 @@ module User::Queries
     get_users_where_like(text, demo, attribute).claimed
   end
 
+  def search_for_users text, demo, limit = nil, user_to_exempt = nil
+    names  = get_users_where_like(text, demo, "name", user_to_exempt)
+    slugs  = get_users_where_like(text, demo, "slug", user_to_exempt)
+
+    names = names.limit(limit)
+    slugs = slugs.limit(limit)
+
+    matched_users = names
+    slugs.each do |s|
+      @matched_users << s unless @matched_users.include? s
+    end
+
+    matched_users[0, limit]
+  end
+
   def by_date_of_birth_string(dob_string)
     month_part = dob_string[0..1].to_i
     day_part = dob_string[2..3].to_i
