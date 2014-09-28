@@ -16,30 +16,7 @@ class Invitation::FriendInvitationsController < ApplicationController
       @message = "Wrong data. Please try again"
     end
   end
-=begin
-  def create_sentence_response(name_array)
-    name_array.sort!
-    success_string = "You just invited "
-    which_time = 1
-    name_array.each do |name|
-      if which_time == 1
-        success_string += name
-      elsif which_time == 2 && name_array.length == 2
-        success_string += " and #{name}"
-      elsif which_time == name_array.length
-        success_string += ", and " + name
-      else
-        success_string += ", " + name
-      end
-      which_time += 1
-    end
-    success_string += " to H.Engage. "
-    unless current_user.demo.game_referrer_bonus.nil?
-      success_string += "That's #{current_user.demo.game_referrer_bonus * name_array.length} potential bonus points!"
-    end
-    success_string
-  end
-=end
+
   protected
 
   def invite_user_by_id invitee_id 

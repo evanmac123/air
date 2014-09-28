@@ -38,13 +38,16 @@ class InvitationsController < ApplicationController
     if @user
       @referrer = User.find(params[:referrer_id]) if params[:referrer_id] =~ /^\d+$/
       @demo = Demo.find(params[:demo_id]) if params[:demo_id] =~ /^\d+$/
+      # so many pings
+      @user.ping_page('invitation acceptance', 'invitation acceptance version' => "v. 6/25/14")
+      email_clicked_ping(@user)
+      record_mixpanel_ping @user
 
       if @user.is_a? User
         process_user_invitation
       else
         process_potential_user_invitation
       end
-      record_mixpanel_ping @user
     else
       flash[:failure] = "That page doesn't exist."
       redirect_to "/"
@@ -54,8 +57,6 @@ class InvitationsController < ApplicationController
   protected
 
   def process_user_invitation
-    @user.ping_page('invitation acceptance', 'invitation acceptance version' => "v. 6/25/14")
-    email_clicked_ping(@user)
     return if invitation_for_user_to_other_board
     return if invitation_to_board_already_accepted
     accept_unclaimed_user
@@ -92,21 +93,11 @@ class InvitationsController < ApplicationController
         @user.move_to_new_demo @demo
         @user.credit_game_referrer(@referrer) if @referrer.present?
         flash[:success] = "Welcome, #{@user.name}"
-        sign_in(@user)
-        redirect_to activity_path
       else
-        sign_in(@user)
         flash[:failure] = "Access denied to #{@demo.name}"
-        redirect_to activity_path
       end
-=begin 
-      flash[:failure] = "You've already accepted your invitation to the game."
-      if @demo.present? && @user.in_board?(@demo)
-        @user.move_to_new_demo(@demo)
-      end
-      sign_in @user
+      sign_in(@user)
       redirect_to activity_path
-=end
     end
   end
 

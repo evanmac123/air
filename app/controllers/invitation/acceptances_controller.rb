@@ -13,6 +13,7 @@ class Invitation::AcceptancesController < ApplicationController
 
     @user.password = @user.password_confirmation = params[:user][:password]
     @user.invitation_code = params[:invitation_code] if params[:invitation_code].present?
+    
     referrer_id = params[:referrer_id]
     if referrer_id =~ /^\d+$/
       @user.game_referrer_id = referrer_id
@@ -37,6 +38,7 @@ class Invitation::AcceptancesController < ApplicationController
       @user.add_board demo
       @user.move_to_new_demo demo
     end
+    
     sign_in(@user)
     flash[:success] = "Welcome, #{@user.first_name}!"
     redirect_to activity_path
