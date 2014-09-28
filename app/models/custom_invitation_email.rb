@@ -45,7 +45,7 @@ class CustomInvitationEmail < ActiveRecord::Base
 
   def interpolate_headline(referrer, text)
     if referrer
-      interpolate_self_closing_tag('headline', "#{referrer.name} invitated you to", text)
+      interpolate_self_closing_tag('headline', "#{referrer.name} invited you to", text)
     else
       interpolate_self_closing_tag('headline', "You are invited to", text)
     end

@@ -4,20 +4,19 @@ class Invitation::FriendInvitationsController < ApplicationController
   before_filter :authorize_without_guest_checks
   
   def create
-    render 'shared/ajax_refresh_page' and return unless current_user     
-    successful_invitation_count = 0
-
+    render 'shared/ajax_refresh_page' and return unless current_user
     # Pre-populated Domain
     invitee_id = params[:invitee_id]
     invitee_email = params[:invitee_email]
     if invitee_id.present?
-      invite_user_by_id invitee_id 
-      return        
+      invite_user_by_id invitee_id        
     elsif invitee_email.present?
       invite_user_by_email invitee_email
+    else
+      @message = "Wrong data. Please try again"
     end
   end
-
+=begin
   def create_sentence_response(name_array)
     name_array.sort!
     success_string = "You just invited "
@@ -40,7 +39,7 @@ class Invitation::FriendInvitationsController < ApplicationController
     end
     success_string
   end
-
+=end
   protected
 
   def invite_user_by_id invitee_id 
@@ -52,6 +51,7 @@ class Invitation::FriendInvitationsController < ApplicationController
       @message =  "Thanks, but #{user.name} is already playing. Try searching for someone else."
       attempted, successful = 1,0
     else
+      user.invite(current_user)
       @message = success_message
       attempted, successful = 1,1     
     end
@@ -66,14 +66,13 @@ class Invitation::FriendInvitationsController < ApplicationController
       if user 
         user.invite(current_user, demo_id: current_user.demo.id)
         @message = success_message
-        return
+      else
+        user = PotentialUser
+                .where(email: invitee_email, demo: current_user.demo)
+                .first_or_create
+        user.is_invited_by current_user
+        @message = success_message
       end
-      user = PotentialUser
-              .where(email: invitee_email, demo: current_user.demo)
-              .first_or_create
-      user.is_invited_by current_user
-      @message = success_message
-
       record_mixpanel_ping(1, 1, "email", user)
     end
   end
@@ -92,12 +91,9 @@ class Invitation::FriendInvitationsController < ApplicationController
       attempted_invitations:  attempted_invitations,
       invited_via: invited_via
 
-    }.merge(current_user.data_for_mixpanel) 
-
+    } 
     ping('invited friends', mixpanel_details, current_user)
-    if user
-      user_type = user.is_a?(User) ? "Ordinary User" : "Potential User"
-      ping('Email Sent', {email_type: "Friend Invitation"}, user) 
-    end
+
+    ping('Email Sent', {email_type: "Friend Invitation"}, user) if user
   end
 end

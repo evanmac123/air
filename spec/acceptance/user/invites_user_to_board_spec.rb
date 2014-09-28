@@ -1,8 +1,6 @@
 require 'acceptance/acceptance_helper'
 
 feature 'User invites user to board' do
-  include WaitForAjax
-
   AUTOCOMPLETE_STATUS = {
     click: "CLICK ON THE PERSON YOU WANT TO INVITE:",
     hm: "HMMM...NO MATCH",
@@ -41,8 +39,16 @@ feature 'User invites user to board' do
     crank_dj_clear
 
     open_email invitee.email
-    current_email.to_s.should have_content "#{referrer.name} invitated you to"
+    current_email.to_s.should have_content "#{referrer.name} invited you to"
     current_email.to_s.should have_content " join the #{demo.name}"
+  end
+
+  def should_send_friend_invitation_ping user
+    FakeMixpanelTracker.clear_tracked_events
+    crank_dj_clear
+    event = "Email Sent"
+    properties = {email_type: "Friend Invitation"}.merge user.data_for_mixpanel 
+    FakeMixpanelTracker.should have_event_matching(event, properties)
   end
 
   before(:each) do
@@ -79,9 +85,18 @@ feature 'User invites user to board' do
         should_have_invite_button @user0
       end  
 
-      scenario "invite unclaimed user", js: true do
-        page.find(".single_click_invite").click
-        should_send_email @user0, @user, @demo1
+      context "invite unclaimed user" do
+        before(:each) do
+          page.find(".single_click_invite").click
+        end
+
+        it "should send invitation", js: true do
+          should_send_email @user0, @user, @demo1
+        end
+        
+        it "should send ping", js: true do
+          should_send_friend_invitation_ping @user0
+        end
       end
     end
 
@@ -125,7 +140,19 @@ feature 'User invites user to board' do
         should_have_invite_button @user0
       end
 
-      #and he can be invited. it's obvious
+      context "invite unclaimed user" do
+        before(:each) do
+          page.find(".single_click_invite").click
+        end
+
+        it "should send invitation", js: true do
+          should_send_email @user0, @user, @demo1
+        end
+        
+        it "should send ping", js: true do
+          should_send_friend_invitation_ping @user0
+        end
+      end
     end
 
     describe "search for claimed user from board" do
@@ -153,9 +180,18 @@ feature 'User invites user to board' do
         found_users_count.should == 1
       end
 
-      scenario "invite user", js: true do
-        page.find(".single_click_invite").click
-        should_send_email @user8, @user, @demo1
+      context "invite user" do
+        before(:each) do
+          page.find(".single_click_invite").click
+        end
+
+        it "should send invitation", js: true do
+          should_send_email @user8, @user, @demo1
+        end
+        
+        it "should send ping", js: true do
+          should_send_friend_invitation_ping @user8
+        end
       end
     end
 

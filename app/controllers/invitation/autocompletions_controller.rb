@@ -1,5 +1,5 @@
 class Invitation::AutocompletionsController < ApplicationController
-  skip_before_filter :authorize
+  #skip_before_filter :authorize
   def index
     text = params[:entered_text].strip.downcase
 
@@ -7,6 +7,7 @@ class Invitation::AutocompletionsController < ApplicationController
       demo = current_user.demo
       names  = User.get_users_where_like(text, demo, "name", current_user)
       slugs  = User.get_users_where_like(text, demo, "slug", current_user)
+=begin
     else            # This means you're trying to sign up and want to locate a referrer
       begin
         email = params[:email].strip.downcase
@@ -17,6 +18,7 @@ class Invitation::AutocompletionsController < ApplicationController
         # This line will get called if my login cookie has expired
         render 'shared/ajax_refresh_page' and return
       end
+=end
     end
 
     names = names.limit(5)
