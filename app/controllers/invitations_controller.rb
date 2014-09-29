@@ -19,8 +19,6 @@ class InvitationsController < ApplicationController
       else
         @user.invite
       end
-    elsif ENV['JOIN_TYPE'] == 'public'
-      @user = @invitation_request.create_and_invite_user_to_public_game
     else
       @invalid_email = true
       render "invalid_email"

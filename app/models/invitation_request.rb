@@ -19,13 +19,6 @@ class InvitationRequest
     self.email.email_domain
   end
 
-  def create_and_invite_user_to_public_game
-    user = User.create!(:email => email, :demo => Demo.first)
-    user.invitation_method = "web"
-    user.invite
-    user
-  end
-
   def preexisting_user
     User.where(:email => self.email).first
   end
