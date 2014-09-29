@@ -320,10 +320,10 @@ describe User, "#invite" do
 
     context "and the user already has #{PeerInvitation::CUTOFF} invitations" do
       before(:each) do
-        other_user = FactoryGirl.create(:user)
-        PeerInvitation::CUTOFF.times {FactoryGirl.create(:peer_invitation, invitee: subject, inviter: other_user, demo: subject.demo)}
+        PeerInvitation::CUTOFF.times {FactoryGirl.create(:peer_invitation, invitee: subject, demo: subject.demo)}
         subject.reload.peer_invitations_as_invitee.count.should == PeerInvitation::CUTOFF
 
+        other_user = FactoryGirl.create(:user)
         subject.invite(other_user)
         crank_dj_clear
       end

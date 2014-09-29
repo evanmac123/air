@@ -52,6 +52,7 @@ feature "Potential User Accepts Invitation" do
 
     it "should show welcome message", js: true do
       expect_content "Welcome, my"
+      expect_current_board_header(@demo)
     end
 
     it "referrer should get email", js: true do
@@ -67,6 +68,38 @@ feature "Potential User Accepts Invitation" do
 
     it "should send 'entered name' ping", js: true do
       expect_ping "Saw welcome pop-up", {"action"=>"Entered Name"}, @potential_user
+    end
+  end
+
+  context "is invited to different boards simultaneusly" do
+    before(:each) do
+      @user2 = FactoryGirl.create(:user)
+      @demo2 = @user2.demo
+      @potential_user2 = FactoryGirl.create(:potential_user, email: "john@snow.com", demo: @demo2)
+      @potential_user2.is_invited_by @user2
+    end
+
+    it "should have 2 potential users and 2 users(inviters)" do
+      PotentialUser.count.should == 2
+      User.count.should == 2
+    end
+
+    it "should add 2 boards to 1 user", js: true do
+      # first invitation
+      should_be_on activity_path
+      fill_in "potential_user_name", with: "my name"
+      click_button "Next"
+      expect_current_board_header(@demo)
+      new_user = User.last
+      new_user.name.should == "my name"
+      new_user.email.should == @potential_user.email
+      new_user.demo.should == @demo
+      # second invitation
+      visit invitation_path(@potential_user.invitation_code, demo_id: @demo2.id, referrer_id: @user2.id)
+      expect_current_board_header(@demo2)
+      new_user.reload
+      new_user.demo.should == @demo2
+      new_user.should have(2).demos
     end
   end
 end 

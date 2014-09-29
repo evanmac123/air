@@ -10,7 +10,7 @@ class PotentialUser < ActiveRecord::Base
   include User::FakeUserBehavior
 
   def is_invited_by referrer 
-    return if self.peer_invitations.where(inviter: referrer).length >= PeerInvitation::CUTOFF
+    return if self.peer_invitations.length >= PeerInvitation::CUTOFF
     Mailer.delay_mail(:invitation, self, referrer)
     PeerInvitation.create!(inviter: referrer, invitee: self, demo: demo)
   end

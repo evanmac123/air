@@ -538,7 +538,7 @@ class User < ActiveRecord::Base
     _demo = options[:demo_id].present? ? Demo.find(options[:demo_id]) : self.demo
 
     if referrer && !(options[:ignore_invitation_limit])
-      peer_num = self.peer_invitations_as_invitee.where(inviter: referrer, demo: _demo).length 
+      peer_num = self.peer_invitations_as_invitee.where(demo: _demo).length 
       return if peer_num >= PeerInvitation::CUTOFF
     end
 
