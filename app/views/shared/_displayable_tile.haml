@@ -1,6 +1,5 @@
--# OPTZ: Cache this guy. It also seems that display_creator_info may never be actually set,
--# so perhaps we can tear that out too.
--thumbnail_id = "tile-thumbnail-#{displayable_tile.id }"
+-# OPTZ: Cache this guy.
+-thumbnail_id = "tile-thumbnail-#{displayable_tile.id}"
 
 :css
   ##{thumbnail_id} {
@@ -16,9 +15,3 @@
       .tile_thumbnail_image{id: thumbnail_id}
       .headline
         %div{data: {'for-test' => displayable_tile.headline.downcase.sub(' ', '-')}, class: 'text'}= displayable_tile.headline
-
-- if display_creator_info
-  %p.tile_creator
-    = displayable_tile.human_creator_identification
-    %br
-    = displayable_tile.human_creation_date

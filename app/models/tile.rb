@@ -307,16 +307,6 @@ class Tile < ActiveRecord::Base
     original_created_at.strftime("%B %-e, %Y")
   end
 
-  def human_creator_identification
-    return "" unless creator.present?
-    "#{creator.name}, #{creator.demo.name}"
-  end
-
-  def human_creation_date
-    return "" unless creator.present?
-    created_at.strftime("%B %-e, %Y")
-  end
-
   def first_tag
     self.tile_tags.first
   end
