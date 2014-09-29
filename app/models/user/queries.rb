@@ -66,7 +66,7 @@ module User::Queries
 
     matched_users = names
     slugs.each do |s|
-      @matched_users << s unless @matched_users.include? s
+      matched_users << s unless matched_users.include? s
     end
 
     matched_users[0, limit]

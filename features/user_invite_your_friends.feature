@@ -53,7 +53,7 @@ Feature: User invites friends
     When I fill in "Who do you want to invite?" with "bra"
     Then I should see "Charlie Brainfield"
     When I press the invite button for "Charlie Brainfield"
-    Then I should see "INVITATION SENT"
+    Then I should see "Invitation sent - thanks for sharing!"
     And DJ works off
     Then "1@loaded.com" should receive an email
     When "1@loaded.com" opens the email
