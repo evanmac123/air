@@ -110,8 +110,6 @@ class BoardsController < ApplicationController
     end
   end
 
-  protected
-
   def render_success
     respond_to do |format|
       format.json { render json: {status: 'success'} }

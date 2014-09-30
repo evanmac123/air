@@ -36,6 +36,7 @@ class Invitation::FriendInvitationsController < ApplicationController
   end
 
   def invite_user_by_email invitee_email
+=begin
     if invitee_email.is_not_email_address?
       @message =  "Wrong email."
     else
@@ -52,6 +53,16 @@ class Invitation::FriendInvitationsController < ApplicationController
       end
       record_mixpanel_ping(1, 1, "email", user)
     end
+=end
+    user = PotentialUser.where(email: invitee_email, demo: current_user.demo)
+                        .first_or_create
+    unless user
+      @message =  "Wrong email."
+      record_mixpanel_ping(0, 1, "email")
+    else
+      @message = success_message
+      record_mixpanel_ping(1, 1, "email", user)
+    end
   end
 
   def success_message
@@ -62,7 +73,7 @@ class Invitation::FriendInvitationsController < ApplicationController
     %{Please enter only the part of the email address before the "@" - and remember that only colleagues in your organization can participate.}
   end
 
-  def record_mixpanel_ping(successful_invitations, attempted_invitations, invited_via, user)
+  def record_mixpanel_ping(successful_invitations, attempted_invitations, invited_via, user = nil)
     mixpanel_details = {
       successful_invitations: successful_invitations,
       attempted_invitations:  attempted_invitations,
