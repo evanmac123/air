@@ -21,7 +21,7 @@ module ClientAdmin::SharesHelper
       mini: true,
       url: explore_tile_preview_url(tile),
       title: tile.headline,
-      summary: tile.supporting_content.truncate(100) + " https://www.linkedin.com/company/5045444",
+      summary: tile.supporting_content.truncate(100),
       source: "http://www.air.bo"
     }
     "https://www.linkedin.com/shareArticle?#{params.to_query}"

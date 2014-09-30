@@ -1,6 +1,7 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Client admin and the digest email for tiles' do
+  include WaitForAjax
 
   let(:admin) { FactoryGirl.create :client_admin }
   let(:demo)  { admin.demo  }
@@ -352,15 +353,14 @@ feature 'Client admin and the digest email for tiles' do
         within(".joyride-tip-guide") do
           click_link 'Got It'
         end
+
         click_activate_link_for(@draft_tile)
                         
         within(".joyride-tip-guide", visible: true) do
-          
           click_link 'Got It'
           expect_mixpanel_action_ping('Tiles Page', 'Activated Try your board as a user pop-over')
           
           click_link 'Got It'
-          
           expect_mixpanel_action_ping('Tiles Page', 'Clicked Got It button in Try As User orientation pop-over')
         end
       end
@@ -391,14 +391,17 @@ feature 'Client admin and the digest email for tiles' do
         tile_completion.save!
         
         visit_tile_manager_page
+        wait_for_ajax
         expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
         
         page.should have_content("You've had your first user interact with a tile!")
         click_link 'Got It'
         
+        wait_for_ajax
         expect_mixpanel_action_ping('Tiles Page', 'Pop Over - clicked Got It')
         
         visit_tile_manager_page
+        wait_for_ajax
         expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
 
         page.should_not have_content("You've had your first user interact with a tile!")
