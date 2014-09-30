@@ -38,12 +38,13 @@ class Invitation::FriendInvitationsController < ApplicationController
   def invite_user_by_email invitee_email
     user = PotentialUser.where(email: invitee_email, demo: current_user.demo)
                         .first_or_create
-    unless user
-      @message =  "Wrong email."
-      record_mixpanel_ping(0, 1, "email")
-    else
+    if user
+      user.is_invited_by current_user
       @message = success_message
       record_mixpanel_ping(1, 1, "email", user)
+    else
+      @message =  "Wrong email."
+      record_mixpanel_ping(0, 1, "email")
     end
   end
 
