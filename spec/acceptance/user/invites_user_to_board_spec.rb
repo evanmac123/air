@@ -183,6 +183,11 @@ feature 'User invites user to board' do
       context "invite user" do
         before(:each) do
           page.find(".single_click_invite").click
+          @potential_user = PotentialUser.last
+        end
+
+        it "should create potential user with entered email", js: true do
+          @potential_user.email.should == @user8.email
         end
 
         it "should send invitation", js: true do
@@ -190,7 +195,7 @@ feature 'User invites user to board' do
         end
         
         it "should send ping", js: true do
-          should_send_friend_invitation_ping @user8
+          should_send_friend_invitation_ping @potential_user
         end
       end
     end
