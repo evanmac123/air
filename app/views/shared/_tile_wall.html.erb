@@ -24,7 +24,7 @@ end
         <% not_completed_tiles.each do |tile| %>
           <div class="tile_thumbnail">
             <div class='not-completed'>
-              <%= render 'shared/displayable_tile', displayable_tile: tile, display_creator_info: display_creator_info, selected_tag_id: selected_tag_id %>
+              <%= render 'shared/displayable_tile', displayable_tile: tile, tile_thumbnail_url: tile_thumbnail_target(tile, selected_tag_id) %>
             </div>
           </div>
         <% end %>
@@ -33,7 +33,7 @@ end
         <% completed_tiles.each do |tile| %>
           <div class="tile_thumbnail">
             <div class='completed'>
-              <%= render 'shared/displayable_tile', displayable_tile: tile, display_creator_info: display_creator_info, selected_tag_id: selected_tag_id %>
+              <%= render 'shared/displayable_tile', displayable_tile: tile, tile_thumbnail_url: tile_thumbnail_target(tile, selected_tag_id) %>
            </div>
           </div>
         <% end %>

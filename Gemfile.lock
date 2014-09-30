@@ -317,6 +317,22 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     redis (3.0.2)
+    redis-actionpack (3.2.4)
+      actionpack (~> 3.2.0)
+      redis-rack (~> 1.4.4)
+      redis-store (~> 1.1.4)
+    redis-activesupport (3.2.5)
+      activesupport (~> 3.2.0)
+      redis-store (~> 1.1.0)
+    redis-rack (1.4.4)
+      rack (~> 1.4.0)
+      redis-store (~> 1.1.4)
+    redis-rails (3.2.4)
+      redis-actionpack (~> 3.2.4)
+      redis-activesupport (~> 3.2.4)
+      redis-store (~> 1.1.4)
+    redis-store (1.1.4)
+      redis (>= 2.2)
     request_store (1.0.8)
     rest-client (1.6.7)
       mime-types (>= 1.16)
@@ -469,6 +485,7 @@ DEPENDENCIES
   rails-erd
   rails3_before_render
   redis
+  redis-rails
   rollout
   rspec-rails
   sass-rails

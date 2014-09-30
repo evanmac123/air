@@ -1,17 +1,17 @@
--# OPTZ: Cache this guy.
--thumbnail_id = "tile-thumbnail-#{displayable_tile.id}"
+= cache [__FILE__, 'v1', displayable_tile, tile_thumbnail_url] do
+  -thumbnail_id = "tile-thumbnail-#{displayable_tile.id}"
 
-:css
-  ##{thumbnail_id} {
-    background-image: url('#{displayable_tile.thumbnail}');
-  }
+  :css
+    ##{thumbnail_id} {
+      background-image: url('#{displayable_tile.thumbnail}');
+    }
 
--#Preload base image image to prevent blinking in IE8
-%img{src: displayable_tile.thumbnail, style: "display: none; visibility: hidden;"}
+  -#Preload base image image to prevent blinking in IE8
+  %img{src: displayable_tile.thumbnail, style: "display: none; visibility: hidden;"}
 
-%li
-  = link_to tile_thumbnail_target(displayable_tile, selected_tag_id) do
-    .tile-wrapper
-      .tile_thumbnail_image{id: thumbnail_id}
-      .headline
-        %div{data: {'for-test' => displayable_tile.headline.downcase.sub(' ', '-')}, class: 'text'}= displayable_tile.headline
+  %li
+    = link_to tile_thumbnail_url do
+      .tile-wrapper
+        .tile_thumbnail_image{id: thumbnail_id}
+        .headline
+          %div{data: {'for-test' => displayable_tile.headline.downcase.sub(' ', '-')}, class: 'text'}= displayable_tile.headline
