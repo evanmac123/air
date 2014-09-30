@@ -41,26 +41,12 @@ class PotentialUser < ActiveRecord::Base
   end
 
   def convert_to_full_user! name
-    converted_user = User.new(
+    ConvertToFullUser.new({
+      pre_user: self, 
       name: name, 
       email: email, 
-      points: points, 
-      tickets: tickets, 
-      get_started_lightbox_displayed: false, 
-      accepted_invitation_at: Time.now, 
-      characteristics: {}
-    )
-    converted_user.password = converted_user.password_confirmation = SecureRandom.hex(8)
-    converted_user.cancel_account_token = generate_cancel_account_token(converted_user)
-    if converted_user.save
-      converted_user.add_board(demo_id, true)
-      converted_user
-    else
-      converted_user.errors.messages.each do |field, error_messages|
-        self.errors.set(field, error_messages.uniq) # the #uniq gets rid of duplicate password errors
-      end
-      nil
-    end
+      password: SecureRandom.hex(8)
+    }).convert!
   end
 
   def is_guest?
@@ -68,7 +54,7 @@ class PotentialUser < ActiveRecord::Base
   end
 
   def get_started_lightbox_displayed
-    true  # it will be displayed to ordinary user later
+    false
   end
 
   def tile_completions
@@ -95,6 +81,12 @@ class PotentialUser < ActiveRecord::Base
     potential_user = self.find_by_invitation_code invitation_code
     user = User.where(email: potential_user.email).first
     user || potential_user
+  end
+
+  def voteup_intro_seen
+  end
+
+  def share_link_intro_seen
   end
 
   protected
