@@ -1,4 +1,6 @@
 class ConvertToFullUser
+  attr_reader :converted_user
+
   def initialize(params = {})
     @pre_user = params[:pre_user]
     @name = params[:name]
@@ -6,6 +8,35 @@ class ConvertToFullUser
     @password = params[:password]
     @location_name = params[:location_name]
     @converting_from_guest = params[:converting_from_guest]
+  end
+
+  def create_client_admin_with_board! demo
+    @converted_user = User.new(
+      name: @name,
+      email: @email,
+      accepted_invitation_at: Time.now
+    )
+    @converted_user.creating_board = true
+    @converted_user.is_client_admin = true
+    @converted_user.password = @converted_user.password_confirmation = @password
+    @converted_user.cancel_account_token = @converted_user.generate_cancel_account_token(@converted_user)
+    
+    if @converted_user.save
+      if @pre_user && @pre_user.is_guest?
+        @pre_user.converted_user = @converted_user
+        @pre_user.save!
+
+        @converted_user.voteup_intro_seen = @pre_user.voteup_intro_seen
+        @converted_user.share_link_intro_seen = @pre_user.share_link_intro_seen
+        @converted_user.save!
+      end
+      @converted_user.add_board(demo.id, true)
+      @converted_user.reload
+      @converted_user.send_conversion_email
+      @converted_user
+    else
+      nil
+    end
   end
 
   def convert!

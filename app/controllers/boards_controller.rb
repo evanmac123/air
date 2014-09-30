@@ -57,50 +57,32 @@ class BoardsController < ApplicationController
   end
 
   def create_as_guest
-    # If you value your sanity, you won't read much further.
-    #
-    # Though the situation here is better than it was since extracting the
-    # CreateBoard service object.
-  
     authorize_as_guest
 
-    board_saved_successfully = nil
-    user_saved_successfully = nil
-
+    success = nil
     original_board_name = params[:board][:name]
 
-    Demo.transaction do
+    ActiveRecord::Base.transaction do
       board_creator = CreateBoard.new(original_board_name)
       board_saved_successfully = board_creator.create
       @board = board_creator.board
 
-      @user = @board.users.new(name: params[:user][:name], email: params[:user][:email])
-      @user.creating_board = true
-      @user.password = @user.password_confirmation = params[:user][:password]
-      @user.is_client_admin = true
-      @user.cancel_account_token = @user.generate_cancel_account_token(@user)
-      @user.accepted_invitation_at = Time.now
-      
-      user_saved_successfully = @user.save
+      user_creator = ConvertToFullUser.new({
+        pre_user: current_user, 
+        name: params[:user][:name], 
+        email: params[:user][:email], 
+        password: params[:user][:password]
+      })
+      user_saved_successfully = user_creator.create_client_admin_with_board! @board
+      @user = user_creator.converted_user
 
-      unless board_saved_successfully && user_saved_successfully
+      success = board_saved_successfully && user_saved_successfully
+      unless success
         raise ActiveRecord::Rollback
       end
     end
 
-    if board_saved_successfully && user_saved_successfully
-      if current_user && current_user.is_guest?
-        current_user.converted_user = @user
-        current_user.save!
-
-        @user.voteup_intro_seen = current_user.voteup_intro_seen
-        @user.share_link_intro_seen = current_user.share_link_intro_seen
-        @user.save!
-      end
-
-      @user.add_board(@board.id, true)
-      @user.reload
-      @user.send_conversion_email
+    if success
       sign_in(@user, 1)
       schedule_creation_pings(@user)
       render_success
@@ -109,6 +91,8 @@ class BoardsController < ApplicationController
       render_failure
     end
   end
+
+  protected
 
   def render_success
     respond_to do |format|
