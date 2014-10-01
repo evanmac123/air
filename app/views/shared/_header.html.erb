@@ -1,7 +1,7 @@
 <header>
   <div class="row" id="top_bar">
 
-    <% home_path = set_home_path public_tile_page: @public_tile_page %>
+    <% home_path = set_home_path @public_tile_page %>
     <div class="large-2 columns" id="logo">
       <a class="go_home" href="<%= home_path %>"><%= image_tag skinned('logo_url', "logo.png") %></a>
     </div>

@@ -148,8 +148,8 @@ module ApplicationHelper
     end
   end
 
-  def set_home_path params
-    if params[:public_tile_page]
+  def set_home_path public_tile_page
+    if public_tile_page
       "/"
     elsif guest_for_tile_preview?
       nil

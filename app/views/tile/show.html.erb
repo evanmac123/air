@@ -1,7 +1,11 @@
 <% stylesheet_link_tag "app-internal" %>
 <%= render "tiles/full_size_tile", tile: @tile, is_preview: true %>
 
-<%= javascript_tag do %>
-  window.guestForTilePreview = true;
-<% end %>
 <%= render partial: 'tile_previews/sign_up_form' %>
+<% content_for :javascript do %>
+  <%= javascript_tag do %>
+    $().ready(function(){
+      window.tilePublicPage();
+    })
+  <% end %>
+<% end %>
