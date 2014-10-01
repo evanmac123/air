@@ -2,7 +2,7 @@ class TileController < ApplicationController
   prepend_before_filter :find_tile
   prepend_before_filter :allow_guest_user
 
-  layout "client_admin_layout"
+  #layout "client_admin_layout"
 
   def show
     @public_tile_page = true

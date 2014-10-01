@@ -10,5 +10,6 @@
 //= require jquery.validate
 //= require jquery.validate.additional-methods
 //= require jquery.ui.autocomplete
+//= require client_admin/sign_up_form.js
 
 $(document).foundation();
