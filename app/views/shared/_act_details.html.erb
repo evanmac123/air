@@ -1,4 +1,4 @@
-<%= cache [__FILE__, 'v1.pwd', act, user, time_description] do %>
+<%= cache [__FILE__, 'v2.pwd', act, user, time_description] do %>
   <div class="user">
     <% if user.is_guest? %>
       <%= user.name %>
@@ -8,7 +8,7 @@
     <%= (act.text) %>
   </div>
   <span class="when small_cap">
-    <%= time_description %>
+    <%= time_description %> ago
   </span>
   <% flag_link_id = "flag_#{act.id}" %>
   <span class="flag">
