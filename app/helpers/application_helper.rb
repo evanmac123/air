@@ -148,8 +148,10 @@ module ApplicationHelper
     end
   end
 
-  def set_activity_path
-    if guest_for_tile_preview?
+  def set_home_path params
+    if params[:public_tile_page]
+      "/"
+    elsif guest_for_tile_preview?
       nil
     elsif current_user.is_guest?
       public_activity_path(current_user.demo.public_slug)

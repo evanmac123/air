@@ -1,4 +1,6 @@
 Health::Application.routes.draw do
+  get "tile/show"
+
   match "sms"           => "sms#create", :via => :post
   match "email"         => "email_command#create", :via => :post
   match "activity"      => "acts#index"
@@ -15,6 +17,7 @@ Health::Application.routes.draw do
   match "ard/:public_slug/tile/:id" => "tiles#show", :as => "public_tile", :via => :get
 
   resources :tiles, :only => [:index, :show]
+  resources :tile, :only => [:show]
   resources :tile_completions, :only => [:create]
 
   resource :session, :controller => 'sessions'

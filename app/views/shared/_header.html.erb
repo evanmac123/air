@@ -1,18 +1,18 @@
 <header>
   <div class="row" id="top_bar">
 
-    <% _activity_path = set_activity_path %>
+    <% home_path = set_home_path public_tile_page: @public_tile_page %>
     <div class="large-2 columns" id="logo">
-      <a class="go_home" href="<%= _activity_path %>"><%= image_tag skinned('logo_url', "logo.png") %></a>
+      <a class="go_home" href="<%= home_path %>"><%= image_tag skinned('logo_url', "logo.png") %></a>
     </div>
 
     <%# If we don't need the guest user controls, steal their space for the 
     navigation, so we can use it for the current board. %>
-    <% unless current_user.is_guest? %>
+    <% unless current_user.is_guest? || @public_tile_page %>
       <nav id="navigation" class="columns large-8"> <!-- offcanvas menu -->
         <div class="user_options">
           <ul>
-            <li><%= link_to "Home", _activity_path, :class => 'nav-home' %></li>
+            <li><%= link_to "Home", home_path, :class => 'nav-home' %></li>
             <li><%= link_to "My Profile", user_path(current_user), :id => 'my_profile', :class => 'nav-activity-class' %></li>
             <li><%= link_to "Find users", users_path, :class => 'nav-directory' %></li>
             <li><%= link_to "Settings", edit_account_settings_path, :class => 'nav-settings' %></li>
@@ -95,8 +95,7 @@
         </div>
       </div>
     <% else # current_user.is_guest? == true %>
-      <% guest_user_header_button_style = show_save_progress_button ? '' : 'display: none' %>
-      <div id="save_progress" class="large-4 columns" style="<%= guest_user_header_button_style %>">
+      <div id="save_progress" class="large-4 columns">
         <a href="#" id="save_progress_button" class="open_save_progress_form">Save Progress</a>
         <%= link_to "Sign In", new_session_path, id: 'sign_in_button' %>
         <% if session[:display_start_over_button] %>
