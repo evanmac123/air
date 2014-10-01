@@ -1,9 +1,7 @@
 class TileController < ApplicationController
   prepend_before_filter :find_tile
   prepend_before_filter :allow_guest_user
-
-  #layout "client_admin_layout"
-
+  
   def show
     @public_tile_page = true
   end
@@ -15,6 +13,10 @@ class TileController < ApplicationController
   end
 
   def find_tile
-    @tile = Tile.find(params[:id])
+    @tile = Tile.where(id: params[:id]).first
+    unless @tile
+      not_found 
+      return
+    end
   end
 end
