@@ -20,6 +20,8 @@
     <%= add_byte_counter_for "Custom already-claimed message" %>
     <%= form.input :custom_support_reply %>
     <%= add_byte_counter_for "Custom support reply" %>
+    <%= form.input :persistent_message, :label => "Persistent message", :input_html => {:maxlength => 160} %>
+    <%= add_byte_counter_for "Persistent message" %>
     <%= form.input :login_announcement, :label => "Message user sees on login" %>
     <%= form.input :mute_notice_threshold %>
     <%= form.input :use_location_in_conversion %>
@@ -35,18 +37,6 @@
     <%= check_box_tag :use_multiple_choice_tiles, '1', demo.tutorial_type == 'multiple_choice' %>
 
     <%= form.input :ticket_threshold, :label => "Points for ticket award"  %>
-    <%# For now, uses_tickets is hard-coded to true. %>
-    <%#= form.input :uses_tickets, :label => "Use tickets" %>
-    <%#- ticket_style = @demo.uses_tickets ? '' : "display: none" %>
-    <%#= form.inputs :name => "Ticket details", :style => ticket_style, :id => 'gold-coin-details' do %>
-    <%#= form.input :ticket_threshold, :label => "Points for ticket award"  %>
-    <%# end %>
-    <%#= content_for :javascript do %>
-      <%#= javascript_tag do %>
-        <!--$('input#demo_uses_tickets').change(function(e) {$('#gold-coin-details').toggle()});-->
-      <%# end %>
-    <%# end %>
-
   <% end %>
 
   <%= form.inputs :name => "Followup welcome message" do %>
