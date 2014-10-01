@@ -18,7 +18,7 @@
     </div>
 
     <div class="act-details">
-      <%= render :partial => 'shared/act_details', :locals => {:act => act} %>
+      <%= render :partial => 'shared/act_details', :locals => {act: act, user: act.user, time_description: time_ago_in_words(act.created_at)} %>
     </div>
     <div class="cf"></div>
   </li>

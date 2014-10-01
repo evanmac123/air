@@ -1,18 +1,20 @@
-<div class="user">
-  <% if act.user.is_guest? %>
-    <%= act.user.name %>
-  <% else %>
-    <%= link_to(act.user.name, act.user, :class => 'name-of-user') %> 
+<%= cache [__FILE__, 'v1.pwd', act, user, time_description] do %>
+  <div class="user">
+    <% if user.is_guest? %>
+      <%= user.name %>
+    <% else %>
+      <%= link_to(user.name, user, :class => 'name-of-user') %> 
+    <% end %>
+    <%= (act.text) %>
+  </div>
+  <span class="when small_cap">
+    <%= time_description %>
+  </span>
+  <% flag_link_id = "flag_#{act.id}" %>
+  <span class="flag">
+    <%= link_to "", "#", :id => flag_link_id %>
+  </span>
+  <%= javascript_tag do %>
+    connectFlagLink('<%= flag_link_id %>', <%= act.id %>, <%= act.user_id %>)
   <% end %>
-  <%= (act.text) %>
-</div>
-<span class="when small_cap">
-  <%= time_ago_in_words(act.created_at) %> ago
-</span>
-<% flag_link_id = "flag_#{act.id}" %>
-<span class="flag">
-  <%= link_to "", "#", :id => flag_link_id %>
-</span>
-<%= javascript_tag do %>
-  connectFlagLink('<%= flag_link_id %>', <%= act.id %>, <%= act.user_id %>)
 <% end %>
