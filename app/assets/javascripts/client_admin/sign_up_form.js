@@ -87,7 +87,7 @@ $().ready(function(){
                         "#save_progress_button",
                         "#prev",
                         "#next",
-                        "#logo a[href='']"
+                        "#logo"
                       ].join(", ")
     $(blockedElements).click( function(event){
       event.preventDefault();

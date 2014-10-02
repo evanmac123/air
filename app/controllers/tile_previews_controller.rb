@@ -14,6 +14,7 @@ class TilePreviewsController < ApplicationController
   include LoginByExploreToken
 
   def show
+    tile_viewed_ping
     if params[:partial_only]
       show_partial
     else
@@ -101,5 +102,9 @@ class TilePreviewsController < ApplicationController
       ['like-button', "Like a tile? Vote it up to give the creator positive feedback.", show_voteup_intro],
       ['share_bar',   "Want to share a tile? Email it using the email icon. Or, share to your social networks using the LinkedIn icon or copying the link.", show_share_link_intro]
     ])
+  end
+
+  def tile_viewed_ping
+    ping('Tile Viewed', {tile_type: "Public Tile - Explore"}, current_user)
   end
 end

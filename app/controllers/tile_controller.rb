@@ -4,6 +4,7 @@ class TileController < ApplicationController
   
   def show
     @public_tile_page = true
+    tile_viewed_ping
   end
 
   protected
@@ -18,5 +19,9 @@ class TileController < ApplicationController
       not_found 
       return
     end
+  end
+
+  def tile_viewed_ping
+    ping('Tile Viewed', {tile_type: "Public Tile"}, current_user)
   end
 end
