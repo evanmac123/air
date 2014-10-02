@@ -17,3 +17,4 @@
 //= require internal_and_external/topbar_togglers
 //= require internal/validate_new_board
 //= require internal/board_settings_controls
+//= require internal/flashes

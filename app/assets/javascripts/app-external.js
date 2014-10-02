@@ -5,3 +5,4 @@
 //= require ./external/prefilled_input.js
 //= require ./internal_and_external/autocomplete.js
 //= require ./external/textscroll.js
+//= require internal/flashes

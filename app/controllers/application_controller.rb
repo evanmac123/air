@@ -325,11 +325,6 @@ class ApplicationController < ActionController::Base
   def initialize_flashes
     @flash_successes_for_next_request = []
     @flash_failures_for_next_request = []
-
-    if current_user
-      @_user_flashes = current_user.flashes_for_next_request || {}
-      current_user.update_attributes(:flashes_for_next_request => nil) if current_user.flashes_for_next_request
-    end
   end
 
   def merge_flashes

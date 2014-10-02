@@ -1,8 +1,8 @@
 <% invisible_flash_keys = [/^mp_track/, /_allow_raw$/, /_flag$/, /previous_/, /tile_activated/] %>
 
-<% if consolidated_flash.any? %>
+<% if listified_flash.any? %>
   <div id="flash">
-    <% consolidated_flash.each do |key, value| -%>
+    <% listified_flash.each do |key, value| -%>
       <% next if invisible_flash_keys.any?{|regex| key.to_s =~ regex} %>
       <div id="flash_<%= key %>">
         <div class="row">
@@ -26,13 +26,6 @@
   </div>
 <% end %>
 
-<script type="text/javascript">
-$('#close-flash').click(function() {
-    $('#flash').slideUp();
-  });
-
-  function deleteCookie(name) {
-    // Note the path is set to root so that it will clear cookies set from more specific paths
-    document.cookie = name + '=; expires=Thu, 01-Jan-70 00:00:01 GMT; path=/';
-  } 
-</script>
+<% js_at_end do %>
+  bindCloseFlash('#close-flash');
+<% end %>

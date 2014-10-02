@@ -43,38 +43,15 @@ module ApplicationHelper
     current_user.to_ticket_progress_calculator.points_towards_next_threshold
   end
 
-  def consolidated_flash
-    return @consolidated_flash if @consolidated_flash
+  def listified_flash
+    return @listified_flash if @listified_flash
 
-    @consolidated_flash = HashWithIndifferentAccess.new
-    @_user_flashes ||= {}
+    @listified_flash = HashWithIndifferentAccess.new
 
     flash.each do |key, value|
-      @consolidated_flash[key] = [value]
-      @consolidated_flash[key] += [@_user_flashes.delete(key.to_s)]
+      @listified_flash[key] = [value]
     end
-
-    @_user_flashes.each do |key, value|
-      @consolidated_flash[key] ||= []
-      @consolidated_flash[key] += [value]
-    end
-
-    @consolidated_flash = display_flashes_from_last_time if @consolidated_flash.empty?
-    @consolidated_flash
   end
-
-  def display_flashes_from_last_time
-    # If no new flashes have been created to display, display the saved flashes
-    # that were stored as cookies in ApplicationController#keep_flashes_for_next_time
-    hash = HashWithIndifferentAccess.new 
-    saved_success = :saved_flash_success
-    saved_failure = :saved_flash_failure
-    hash[:success] = [cookies[saved_success]] if cookies[saved_success].try(:present?)
-    hash[:failure] = [cookies[saved_failure]] if cookies[saved_failure].try(:present?)
-    hash
-  end
-
-
 
   def joined_flashes
     joined_content = ''
@@ -180,5 +157,13 @@ module ApplicationHelper
 
   def hostname_with_subdomain
     request.subdomain.present? ? request.host : "www." + request.host
+  end
+
+  def js_at_end(&block)
+    content_for :javascript do
+      javascript_tag do
+        yield
+      end
+    end
   end
 end
