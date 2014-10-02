@@ -125,7 +125,7 @@ class ApplicationController < ActionController::Base
       ping("Email clicked", { email_type: email_ping_text }, user) if email_ping_text.present?
     end
   end
-  
+
   private
 
   alias authorize_without_guest_checks authorize

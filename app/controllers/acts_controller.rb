@@ -67,7 +67,7 @@ class ActsController < ApplicationController
 
     redirect_to :back
   end
-  
+
   add_method_tracer :index
   add_method_tracer :create
 

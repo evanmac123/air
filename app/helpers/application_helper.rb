@@ -51,25 +51,35 @@ module ApplicationHelper
     flash.each do |key, value|
       @listified_flash[key] = [value]
     end
+    
+    add_persistent_message!(@listified_flash)
+    @listified_flash
   end
 
-  def joined_flashes
-    joined_content = ''
-    [:success, :failure, :notice].each do |flash_key|
-      single = flash[flash_key]
-      next unless single.present?
-      single = [single] unless single.kind_of? Array
-      joined_content += single.join(' ') + ' '
-    end
+  def add_persistent_message!(listified_flash)
+    return unless use_persistent_message?
 
-    if joined_content.present?
-      # Want the following error message to be in red. However, making all status messages red
-      # didn't look right elsewhere (really can't remember where), so just do it for a bad login attempt.
-      joined_content = content_tag(:span, joined_content, class: 'red_text') if joined_content =~ /invalid username or password/
-      joined_content
-    else
-      nil
-    end
+    keys_for_real_flashes = %w(success failure notice)
+    return if keys_for_real_flashes.any?{|key| listified_flash[key].present?}
+
+    message_from_board = current_user.try(:demo).try(:persistent_message)
+    success_message = if message_from_board.present?
+                        message_from_board
+                      else
+                        default_persistent_message
+                      end
+
+    listified_flash[:success] = [success_message]
+  end
+
+  def default_persistent_message
+    "Airbo is an interactive communication tool. Read information and answer questions on the tiles to earn points."
+  end
+ 
+  def use_persistent_message?
+    # UGH. But I haven't found a better way yet to override helpers on a
+    # controller-by-controller basis.
+    params['controller'] == 'acts' && params['action'] == 'index'
   end
 
   def characteristic_input_specifiers_as_json(characteristics)
