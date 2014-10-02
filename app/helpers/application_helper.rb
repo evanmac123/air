@@ -70,6 +70,7 @@ module ApplicationHelper
                       end
 
     listified_flash[:success] = [success_message]
+    @persistent_message_shown = true
   end
 
   def default_persistent_message

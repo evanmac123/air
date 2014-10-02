@@ -27,5 +27,5 @@
 <% end %>
 
 <% js_at_end do %>
-  bindCloseFlash('#close-flash');
+  bindCloseFlash('#close-flash', <%=!!(@persistent_message_shown)%>);
 <% end %>
