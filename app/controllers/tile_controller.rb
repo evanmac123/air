@@ -1,8 +1,12 @@
 class TileController < ApplicationController
+  skip_before_filter :authorize
   prepend_before_filter :find_tile
-  prepend_before_filter :allow_guest_user
+  before_filter :allow_guest_user
   
   def show
+    session[:guest_user] = {demo_id: find_current_board.id}
+    authorize
+
     @public_tile_page = true
     tile_viewed_ping
   end
