@@ -17,5 +17,23 @@ window.tilePublicPage = ->
     pingOnAction "Clicked Logo"
 
   pingOnAction = (action) ->
-    $.post('/ping', {event: "Tile - Viewed", action: action})
+    $.post('/ping', {event: "Tile - Viewed", properties: {action: action} })
     true
+  #
+  # =>  Sign up form  
+  #
+  $().ready ->
+    $('#create_account_form').on('submit', 
+      creationStartCallback).on('ajax:success', creationResponseCallback)
+
+  creationStartCallback = (event) ->
+    $("#submit_account_form").attr("disabled", "disabled")
+    $('#create_account_form').find(".errors_field").text("")
+
+  creationResponseCallback = (event, data) ->
+    if data.status == 'success'
+      window.location.href = "/client_admin/tiles"
+    else
+      $('#create_account_form').find(".errors_field").text(data.errors)
+      $("#submit_account_form").removeAttr("disabled")
+

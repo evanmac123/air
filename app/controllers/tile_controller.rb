@@ -4,7 +4,9 @@ class TileController < ApplicationController
   before_filter :allow_guest_user
   
   def show
-    session[:guest_user] = {demo_id: find_current_board.id}
+    unless current_user || session[:guest_user].present?
+      session[:guest_user] = {demo_id: @tile.demo_id} 
+    end
     authorize
 
     @public_tile_page = true

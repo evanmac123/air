@@ -3,6 +3,7 @@ require 'acceptance/acceptance_helper'
 feature "interacts with a tile from the explore-preview page" do
   include GuestUserConversionHelpers
   include WaitForAjax
+  include SignUpModalHelpers
 
   def expect_copied_lightbox
     page.should have_content(post_copy_copy)
@@ -61,42 +62,9 @@ feature "interacts with a tile from the explore-preview page" do
     copied_tile.image_file_name.should == original_tile.image_file_name
     copied_tile.thumbnail_file_name.should == original_tile.thumbnail_file_name
   end
-  #
-  # => Functions for registration
-  #
-  NEW_CREATOR_NAME = "Johnny Cochran"
-  NEW_CREATOR_EMAIL = "mustacquit@cochranlaw.com"
-  NEW_CREATOR_PASSWORD = "ojtotallydidit"
-  NEW_BOARD_NAME = "Law Offices Of J. Cochran"
-
-  def fill_in_valid_form_entries
-    within(create_account_form_selector) do 
-      fill_in 'user[name]', with: NEW_CREATOR_NAME
-      fill_in 'user[email]', with: NEW_CREATOR_EMAIL
-      fill_in 'user[password]', with: NEW_CREATOR_PASSWORD
-      fill_in 'board[name]', with: NEW_BOARD_NAME
-    end
-  end
-
-  def submit_create_form
-    element_selector = page.evaluate_script("window.pathForActionAfterRegistration")
-    begin 
-      click_button "Create Free Account"
-    # actionElement[0].click(); - this code should make last 
-    # action that guest user had made before registration.
-    # this doesn't work in tests but works in code.
-    # so i have to do this action in tests manually
-    rescue Capybara::Poltergeist::JavascriptError
-      page.find(element_selector).click
-    end
-  end
-
-  def create_account_form_selector
-    "form#create_account_form"
-  end
 
   def register_if_guest
-    if @user.nil? || !(@user.is_client_admin || @user.is_site_admin)
+    if show_register_form?
       page.should have_selector('#sign_up_modal', visible: true)
       fill_in_valid_form_entries
       submit_create_form
@@ -105,6 +73,10 @@ feature "interacts with a tile from the explore-preview page" do
       expect_pings  ['Boards - New', {source: "Explore"}, @user], 
                     ["Creator - New", {source: "Explore"}, @user]
     end
+  end
+
+  def show_register_form?
+    @user.nil? || !(@user.is_client_admin || @user.is_site_admin)
   end
 
   def upvote_tutorial_content
