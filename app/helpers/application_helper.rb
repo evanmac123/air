@@ -52,36 +52,7 @@ module ApplicationHelper
       @listified_flash[key] = [value]
     end
     
-    add_persistent_message!(@listified_flash)
     @listified_flash
-  end
-
-  def add_persistent_message!(listified_flash)
-    return unless use_persistent_message?
-    return unless current_user.try(:is_guest?)
-
-    keys_for_real_flashes = %w(success failure notice)
-    return if keys_for_real_flashes.any?{|key| listified_flash[key].present?}
-
-    message_from_board = current_user.try(:demo).try(:persistent_message)
-    success_message = if message_from_board.present?
-                        message_from_board
-                      else
-                        default_persistent_message
-                      end
-
-    listified_flash[:success] = [success_message]
-    @persistent_message_shown = true
-  end
-
-  def default_persistent_message
-    "Airbo is an interactive communication tool. Read information and answer questions on the tiles to earn points."
-  end
- 
-  def use_persistent_message?
-    # UGH. But I haven't found a better way yet to override helpers on a
-    # controller-by-controller basis.
-    params['controller'] == 'acts' && params['action'] == 'index'
   end
 
   def characteristic_input_specifiers_as_json(characteristics)

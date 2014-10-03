@@ -284,7 +284,7 @@ feature 'Client admin and the digest email for tiles' do
               else
                 email_link = /invitations/
                 page_text_1 = "Welcome to the #{demo.name}!"
-                page_text_2 = "Get started by clicking on a tile."
+                page_text_2 = "Airbo is an interactive communication tool. Read information and answer questions on the tiles to earn points."
               end
 
               click_email_link_matching email_link

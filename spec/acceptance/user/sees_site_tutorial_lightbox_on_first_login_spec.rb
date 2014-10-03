@@ -38,7 +38,6 @@ feature "The site tutorial" do
 
       it "should show no tutorial content" do
         expect_no_site_tutorial_lightbox
-        expect_no_content(site_tutorial_content)
       end
     end
   end
@@ -51,7 +50,6 @@ feature "The site tutorial" do
 
     scenario 'sees no site tutorial lightbox', js: true do
       expect_no_site_tutorial_lightbox
-      expect_no_content site_tutorial_content
     end
   end
 end

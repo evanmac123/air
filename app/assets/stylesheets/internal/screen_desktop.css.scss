@@ -34,12 +34,6 @@ body {
   margin-left:-284px !important;
   left:50%!important;
   top:16.75em!important;
-  &:after {
-    @include arrow-left($white, 1em);
-    left:-2em;
-    top:1.5em;
-    bottom:auto;
-  }
 }
 
 /* -- Tile wall -- */

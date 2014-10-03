@@ -1,14 +1,13 @@
 <div id='get_started_lightbox' class="start_lightbox">
   <a href="#" id="close_get_started_lightbox">Get started!</a>
   <h3>Welcome to the <%= current_user.demo.name%>!</h3>
-  <p>Airbo is an interactive communication tool. Get started by clicking on a tile. Interact and answer questions to earn points. 
+  <p><%= @get_started_lightbox_message %></p>
+
   <% if @current_user.is_guest? %>
     <p>Already a user? <%= link_to "Sign in", new_session_path %>.</p>
   <% end %>
 </div>
 
-<% content_for :javascript do %>
-  <%= javascript_tag do %>
-    window.getStartedLightbox()
-  <% end %>
+<% js_at_end do %>
+  window.getStartedLightbox();
 <% end %>

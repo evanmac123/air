@@ -7,6 +7,20 @@ feature 'Sees persistent message when appropriate in activity page' do
 
   before do
     @demo = FactoryGirl.create(:demo, is_public: true)
+    @demo.update_attributes(is_public: true)
+  end
+
+  def expect_persistent_message_in_get_started_lightbox(message = default_persistent_message)
+    within('#get_started_lightbox') {page.should have_content(message)}
+  end
+
+  def expect_persistent_message_in_flash(message = default_persistent_message)
+    within('#flash') {page.should have_content(message)}
+  end
+
+  def expect_no_persistent_message_in_flash(message = default_persistent_message)
+    return unless page.first('#flash')
+    within('#flash') {page.should have_no_content(message)}
   end
 
   context "as a guest user" do
@@ -51,6 +65,33 @@ feature 'Sees persistent message when appropriate in activity page' do
       visit activity_path(as: user)
       should_be_on activity_path
       page.should have_no_css('#flash')
+    end
+  end
+
+  context "when the get-started lightbox is shown" do
+    before do
+      # Easiest way to get this to pop is go to a board with active tiles as
+      # a guest.
+      FactoryGirl.create(:tile, :active, demo: @demo)
+    end
+
+    it "should not show the persistent message in the flash", js: true do
+      visit activity_path(public_slug: @demo.public_slug)
+      page.first('#get_started_lightbox', visible: true).should be_present
+      expect_no_persistent_message_in_flash
+    end
+
+    it "should show the default persistent message in the get-started lightbox", js: true do
+      visit activity_path(public_slug: @demo.public_slug)
+      page.first('#get_started_lightbox', visible: true).should be_present
+      expect_persistent_message_in_get_started_lightbox
+    end
+
+    it "should show the custom persitent message in the get-started lightbox, if used", js: true do
+      @demo.update_attributes(persistent_message: "how are you")
+      visit activity_path(public_slug: @demo.public_slug)
+      page.first('#get_started_lightbox', visible: true).should be_present
+      expect_persistent_message_in_get_started_lightbox("how are you")
     end
   end
 end

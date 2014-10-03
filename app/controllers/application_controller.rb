@@ -21,6 +21,7 @@ class ApplicationController < ActionController::Base
   # before_filter :yell_name
 
   before_render :persist_guest_user
+  before_render :add_persistent_message
 
   after_filter :merge_flashes
 
@@ -335,6 +336,36 @@ class ApplicationController < ActionController::Base
     unless @flash_failures_for_next_request.empty?
       flash[:failure] = (@flash_failures_for_next_request + [flash[:failure]]).join(' ')
     end
+  end
+
+  def add_persistent_message
+    return unless use_persistent_message?
+    return unless current_user.try(:is_guest?)
+
+    keys_for_real_flashes = %w(success failure notice).map(&:to_sym)
+    return if keys_for_real_flashes.any?{|key| flash[key].present?}
+
+    flash.now[:success] = [persistent_message_or_default(current_user)]
+    #flash[:success] = [persistent_message_or_default(current_user)]
+    @persistent_message_shown = true
+  end
+
+  def persistent_message_or_default(user)
+    message_from_board = user.try(:demo).try(:persistent_message)
+
+    if message_from_board.present?
+      message_from_board
+    else
+      default_persistent_message
+    end
+  end
+
+  def default_persistent_message
+    "Airbo is an interactive communication tool. Read information and answer questions on the tiles to earn points."
+  end
+ 
+  def use_persistent_message?
+    !(@display_get_started_lightbox) && @use_persistent_message.present?
   end
  
   def log_out_if_logged_in

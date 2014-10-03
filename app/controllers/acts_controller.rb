@@ -4,6 +4,7 @@ class ActsController < ApplicationController
 
   skip_before_filter :authorize, only: :index
   before_filter :allow_guest_user, only: :index
+  before_filter :use_persistent_message, only: :index
 
   ACT_BATCH_SIZE = 5
 
@@ -22,11 +23,14 @@ class ActsController < ApplicationController
     @demo                  = current_user.demo
     @acts                  = find_requested_acts(@demo)
 
+    #@display_get_started_lightbox = true
     @display_get_started_lightbox = current_user.on_first_login \
                                 && !(current_user.get_started_lightbox_displayed) \
                                 && current_user.demo.tiles.active.present? \
                                 && current_user.show_onboarding?
     if @display_get_started_lightbox
+      @get_started_lightbox_message = persistent_message_or_default(current_user)
+
       current_user.get_started_lightbox_displayed = true
       current_user.save
     end
@@ -148,6 +152,10 @@ class ActsController < ApplicationController
       ping('Saw welcome pop-up', {source: source}, current_user) if source
     end
     session[:invitation_email_type] = nil
+  end
+
+  def use_persistent_message
+    @use_persistent_message = true
   end
 end
 
