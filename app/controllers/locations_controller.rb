@@ -48,7 +48,8 @@ class LocationsController < ApplicationController
 
     def search_result_for_autocomplete(location_name)
       {
-        label: ERB::Util.h(location_name),
+        #label: location_name,
+        label: location_name,
         value: {
           found: found
         }
