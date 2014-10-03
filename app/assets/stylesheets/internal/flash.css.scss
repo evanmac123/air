@@ -35,15 +35,12 @@
 #flash_failure {
   background: $red;
   .flash-content a {border-color:lighten($red, 30%);}
-  .flash-close a {background: darken($red, 15%)}
 }
 #flash_notice {
   background: $gray;
   .flash-content a {border-color:lighten($gray, 30%);}
-  .flash-close a {background: darken($gray, 15%)}
 }
 #flash_success {
   background: $dark-green;
   .flash-content a {border-color:lighten($dark-green, 30%);}
-  .flash-close a {background: darken($dark-green, 15%)}
 }
