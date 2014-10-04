@@ -1,6 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-feature "visits public tile page" do
+feature "visits sharable tile page" do
   include SignUpModalHelpers
 
   let!(:tile) { FactoryGirl.create(:multiple_choice_tile) }
@@ -57,17 +57,6 @@ feature "visits public tile page" do
     before do
       @user = nil
       visit sharable_tile_path(tile)
-    end
-
-    it_should_behave_like "gets registration form", "create board button", "#save_progress_button"
-    it_should_behave_like "answers the tile"
-    it_should_behave_like "makes ping"
-  end
-
-  context "as Guest" do
-    before do
-      @user = a_guest_user
-      visit sharable_tile_path(tile, as: @user)
     end
 
     it_should_behave_like "gets registration form", "create board button", "#save_progress_button"
