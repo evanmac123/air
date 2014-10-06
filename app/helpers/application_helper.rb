@@ -58,6 +58,7 @@ module ApplicationHelper
 
   def add_persistent_message!(listified_flash)
     return unless use_persistent_message?
+    return unless current_user.try(:is_guest?)
 
     keys_for_real_flashes = %w(success failure notice)
     return if keys_for_real_flashes.any?{|key| listified_flash[key].present?}
