@@ -1,4 +1,7 @@
 window.sharableTileLink = ->
+  #
+  # => Share Tile Switcher
+  #
   $('#sharable_tile_link_on').click ->
     $(".edit_multiple_choice_tile").submit()
     turnOnSharing()
@@ -16,3 +19,16 @@ window.sharableTileLink = ->
     $(".tile_status .off").removeClass("disengaged").addClass("engaged")
     $(".tile_status .on").removeClass("engaged").addClass("disengaged")
     $("#sharable_tile_link").attr("disabled", "disabled")
+
+  #
+  # => Share Tile Link
+  #
+  $("#sharable_tile_link").on('click', (event) ->
+    event.preventDefault()
+    $(event.target).focus().select()
+  )
+
+  $("#sharable_tile_link").on('keydown keyup keypress', (event) ->
+    if(!(event.ctrlKey || event.altKey || event.metaKey))
+      event.preventDefault()
+  )

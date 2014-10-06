@@ -3,15 +3,15 @@
     <div class="title">Tile Share Link</div>
     <i class="fa fa-question-circle has-tip" data-tooltip="true" title="If private, only your users can see the tile when you post it. <br/>If public, anyone can see your tile if you share it."></i>
     <div class="tile_status">
-      <div class="off <%= tile.is_public? ? "disengaged" : "engaged" %>">OFF</div>
+      <div class="off <%= tile.is_sharable? ? "disengaged" : "engaged" %>">OFF</div>
       <%= form_for tile, url: client_admin_public_tile_path(tile), method: :put, remote: true do |form| %>
         <div class="switch small round">
-          <%= form.radio_button :is_public, true, id: 'sharable_tile_link_on' %>
-          <%= form.radio_button :is_public, false, id: 'sharable_tile_link_off' %>
+          <%= form.radio_button :is_sharable, true, id: 'sharable_tile_link_on' %>
+          <%= form.radio_button :is_sharable, false, id: 'sharable_tile_link_off' %>
           <span class='green-paddle'></span>
         </div>
       <% end %>
-      <div class="on <%= tile.is_public? ? "engaged" : "disengaged" %>">ON</div>
+      <div class="on <%= tile.is_sharable? ? "engaged" : "disengaged" %>">ON</div>
     </div>
   </div>
   <div class="share_via_block">
@@ -32,7 +32,7 @@
       <%= fa_icon('envelope-o') %>
     </div>
     <div class="share_via_link">
-      <%= text_field_tag 'sharable_tile_link', sharable_tile_link(tile), disabled: !tile.is_public? %>
+      <%= text_field_tag 'sharable_tile_link', sharable_tile_link(tile), disabled: !tile.is_sharable? %>
     </div>
   </div>
 </div>

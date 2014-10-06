@@ -58,7 +58,7 @@ class Tile < ActiveRecord::Base
   has_alphabetical_column :headline
 
   validate do
-    errors.add(:tile_tags, 'must exist for public tile') if is_public? && (tile_taggings.size < 1 && tile_tags.size < 1)
+    errors.add(:tile_tags, 'must exist for public tile') if is_sharable? && is_public? && (tile_taggings.size < 1 && tile_tags.size < 1)
   end
   # The ":default_url => ~~~" option was not needed for Capy 1.x, but then Capy2 came along and started skipping
   # cucumber features without giving a reason. Specifically, one scenario in a feature file would pass, but
@@ -384,7 +384,7 @@ class Tile < ActiveRecord::Base
   end
 
   def self.viewable_in_public
-    where(is_public: true, status: [Tile::ACTIVE, Tile::ARCHIVE])
+    where(is_sharable: true, is_public: true, status: [Tile::ACTIVE, Tile::ARCHIVE])
   end
 
   def self.copyable
