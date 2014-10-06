@@ -122,6 +122,8 @@ Health::Application.routes.draw do
         get 'clicked_try_your_board_got_it'
       end
     end
+
+    resources :public_tiles, only: :update
     
     get 'tiles/:tile_id/non_completions' => "tile_completions#non_completions"
         

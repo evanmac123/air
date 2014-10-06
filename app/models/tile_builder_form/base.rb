@@ -176,7 +176,7 @@ module TileBuilderForm
           link_address:       @parameters[:link_address],
           question_type:      @parameters[:question_type],
           question_subtype:   @parameters[:question_subtype],
-          image_credit:       @parameters[:image_credit].strip,
+          image_credit:       @parameters[:image_credit].try(:strip),
           is_public:          @parameters[:is_public],
           is_copyable:        @parameters[:is_copyable]
         }
