@@ -1,6 +1,7 @@
 <div class="row">
   <div class="large-8 large-centered columns">
     <%= render partial: 'tile_preview_menu'%>
+    <%= render partial: 'share_section', locals: {tile: @tile} %>
     
     <%= render "tiles/full_size_tile", tile: @tile, is_preview: true %>
 

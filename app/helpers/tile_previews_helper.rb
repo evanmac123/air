@@ -78,4 +78,8 @@ module TilePreviewsHelper
   def share_tile_link tile
     request.host_with_port.gsub(/^www./, "") + explore_tile_preview_path(tile)
   end
+
+  def sharable_tile_link tile
+    request.host_with_port.gsub(/^www./, "") + sharable_tile_path(tile)
+  end
 end
