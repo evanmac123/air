@@ -24,9 +24,11 @@
         <%= fa_icon('facebook') %>
       </div>
     <% end %>
-    <div class="share_via share_via_twitter">
-      <%= fa_icon('twitter') %>
-    </div>
+    <%= link_to sharable_tile_on_twitter(tile), id: "share_via_twitter_link" do %>
+      <div class="share_via share_via_twitter">
+        <%= fa_icon('twitter') %>
+      </div>
+    <% end %>
     <%= link_to sharable_tile_on_linkedin(tile), id: "share_via_linkedin_link" do %>
       <div class="share_via share_via_linkedin">
         <%= fa_icon('linkedin') %>

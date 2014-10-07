@@ -57,3 +57,13 @@ window.sharableTileLink = ->
 
     url = $("#share_via_facebook_link").attr('href')
     window.open(url, '', 'width=620, height=500')
+
+  $(".share_via_twitter").click (e)->
+    e.preventDefault()
+
+    if $(".tile_status .on.disengaged").length > 0 # sharable tile is off
+      $('#sharable_tile_link_on').click()
+      sendSharableTileForm()
+
+    url = $("#share_via_twitter_link").attr('href')
+    window.open(url, '', 'width=620, height=500')

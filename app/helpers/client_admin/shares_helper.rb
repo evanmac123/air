@@ -52,4 +52,11 @@ module ClientAdmin::SharesHelper
     }
     "http://www.facebook.com/sharer.php?#{params.to_query}"
   end
+
+  def sharable_tile_on_twitter(tile)
+    params = {
+      url: sharable_tile_url(tile)
+    }
+    "https://twitter.com/intent/tweet?#{params.to_query}"
+  end
 end
