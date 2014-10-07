@@ -17,7 +17,7 @@ feature 'Designates board paid or free' do
     click_button "Make board free"
   end
 
-  scenario 'in the appropriate place', js: true do
+  scenario 'in the appropriate place' do
     board = FactoryGirl.create(:demo)
     user = an_admin
     visit admin_demo_path(board, as: user)
