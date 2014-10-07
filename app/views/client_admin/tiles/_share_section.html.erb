@@ -19,9 +19,11 @@
       <%= fa_icon('rocket') %>
       <div class="explore_title">Airbo Explore</div>
     </div>
-    <div class="share_via share_via_facebook" data-href="<%= sharable_tile_url(tile) %>" data-title="<%= tile.headline %>" date-desc="<%= tile.supporting_content %>" data-image="<%= tile.image.url %>">
-      <%= fa_icon('facebook') %>
-    </div>
+    <%= link_to sharable_tile_on_facebook(tile), id: "share_via_facebook_link" do %>
+      <div class="share_via share_via_facebook">
+        <%= fa_icon('facebook') %>
+      </div>
+    <% end %>
     <div class="share_via share_via_twitter">
       <%= fa_icon('twitter') %>
     </div>

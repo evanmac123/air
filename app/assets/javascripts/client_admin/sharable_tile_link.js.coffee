@@ -55,10 +55,5 @@ window.sharableTileLink = ->
       $('#sharable_tile_link_on').click()
       sendSharableTileForm()
 
-    elem = $(".share_via_facebook")
-    #postToFeed(elem.data('title'), elem.data('desc'), elem.prop('href'), elem.data('image'));
-    FB.ui(
-      method: 'share_open_graph',
-      href: elem.data('href'),
-    , (response) ->
-    )
+    url = $("#share_via_facebook_link").attr('href')
+    window.open(url, '', 'width=620, height=500')

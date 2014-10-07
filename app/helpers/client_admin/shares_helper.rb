@@ -47,8 +47,9 @@ module ClientAdmin::SharesHelper
   end
 
   def sharable_tile_on_facebook(tile)
-    'http://www.facebook.com/sharer.php?s=100&p[title]=' + tile.headline +
-    '&p[summary]=' + tile.supporting_content + '&p[url]=' +
-    sharable_tile_url(tile) + '&p[images][0]=' + tile.image.url
+    params = {
+      u: sharable_tile_url(tile)
+    }
+    "http://www.facebook.com/sharer.php?#{params.to_query}"
   end
 end
