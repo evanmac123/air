@@ -8,7 +8,7 @@ module SteakHelperMethods
   end
 
   def close_tutorial_lightbox
-    find('#get_started_lightbox #close_get_started_lightbox').click
+    find('#get_started_lightbox #lightbox_get_started_button').click
   end
 
   # Need these guys to get rid of overlays for the talking-chicken tutorial and inviting people

@@ -1,11 +1,15 @@
-<div id='get_started_lightbox' class="start_lightbox">
-  <a href="#" id="close_get_started_lightbox">Get started!</a>
+<div id='get_started_lightbox' class="start_lightbox" data-slide-name="Welcome message">
+  <div id="lightbox_close_link_wrapper">
+    <a href="#" id="lightbox_close_link">Close</a>
+  </div>
   <h3>Welcome to the <%= current_user.demo.name%>!</h3>
   <p><%= @get_started_lightbox_message %></p>
 
   <% if @current_user.is_guest? %>
     <p>Already a user? <%= link_to "Sign in", new_session_path %>.</p>
   <% end %>
+
+  <a href="#" id="lightbox_get_started_button">Get started!</a>
 </div>
 
 <% js_at_end do %>

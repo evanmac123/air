@@ -7,11 +7,29 @@ $(document).ready(function() {
     });
 });
 
+pingClick = function(action) {
+  var slideName = $('#get_started_lightbox').data('slide-name');
+
+  $.post("/ping", {event: 'Saw welcome Pop-Up', properties: {action: action, page: slideName}});
+}
+
+closeGetStartedLightbox = function() {
+  $('#get_started_lightbox').trigger('close');
+}
+
 window.getStartedLightbox = function(){
-  $('#close_get_started_lightbox').click(function(event) {
-    $.post("/ping", {event: 'Saw welcome pop-up', properties: {action: "Click 'Get Started'"}});
+  function closeWithPing(action) {
     event.preventDefault();
-    $('#get_started_lightbox').trigger('close');
+    pingClick(action);
+    closeGetStartedLightbox();
+  }
+
+  $('#lightbox_get_started_button').click(function(event) {
+    closeWithPing("Clicked 'Start'");
+  });
+
+  $('#lightbox_close_link').click(function(event) {
+    closeWithPing("Clicked 'Close'");
   });
 
   $('#get_started_lightbox').lightbox_me({
