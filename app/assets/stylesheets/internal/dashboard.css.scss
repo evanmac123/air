@@ -81,10 +81,11 @@
   }
 
   #close_get_started_lightbox {
-    @include light-button($dark-green);
+    @include light-button($sky-blue);
     font-size:1em;
     position: absolute;
     bottom: 1em;
+    width: 85%;
   }
   &#register_potential_user_lightbox{
     top: 217px !important;
