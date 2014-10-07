@@ -5,7 +5,7 @@ module BoardsHelper
     truncate name, length: 15
   end
 
-  def creation_source_creator params
+  def creation_source params
     if params[:controller] == "tile_previews"
       "Explore"
     elsif params[:controller] == "pages"
@@ -19,7 +19,7 @@ module BoardsHelper
     end
   end
 
-  def sign_in_form_page_name params
+  def sign_up_form_page_name params
     if params[:controller] == "tile_previews"
       "explore"
     elsif params[:controller] == "pages"

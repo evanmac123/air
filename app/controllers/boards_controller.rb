@@ -153,8 +153,7 @@ class BoardsController < ApplicationController
   end
 
   def schedule_creation_pings(user)
-    board_type = user.demo.is_paid ? "Paid" : "Free"
-    ping 'Boards - New', {source: params[:creation_source_board], board_type: board_type}, user
+    ping 'Boards - New', {source: params[:creation_source_board]}, user
     ping 'Creator - New', {source: params[:creation_source_creator]}, user
   end
 
