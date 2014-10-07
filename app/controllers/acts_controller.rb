@@ -23,11 +23,14 @@ class ActsController < ApplicationController
     @demo                  = current_user.demo
     @acts                  = find_requested_acts(@demo)
 
-    #@display_get_started_lightbox = true
     @display_get_started_lightbox = current_user.on_first_login \
                                 && !(current_user.get_started_lightbox_displayed) \
                                 && current_user.demo.tiles.active.present? \
                                 && current_user.show_onboarding?
+
+    # This is handy for debugging the lightbox or working on its styles
+    @display_get_started_lightbox ||= params[:display_get_started_lightbox]
+
     if @display_get_started_lightbox
       @get_started_lightbox_message = persistent_message_or_default(current_user)
 
