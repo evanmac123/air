@@ -3,12 +3,15 @@ window.sharableTileLink = ->
   # => Share Tile Switcher
   #
   $('#sharable_tile_link_on').click ->
-    $(".edit_multiple_choice_tile").submit()
+    sendSharableTileForm()
     turnOnSharing()
 
   $('#sharable_tile_link_off').click ->
-    $(".edit_multiple_choice_tile").submit()
+    sendSharableTileForm()
     turnOffSharing()
+
+  sendSharableTileForm = ->
+    $(".edit_multiple_choice_tile").submit()
 
   turnOnSharing = ->
     $(".tile_status .off").removeClass("engaged").addClass("disengaged")
@@ -32,3 +35,30 @@ window.sharableTileLink = ->
     if(!(event.ctrlKey || event.altKey || event.metaKey))
       event.preventDefault()
   )
+  #
+  # => Share Via
+  #
+  $(".share_via_linkedin").click (e)->
+    e.preventDefault()
+
+    if $(".tile_status .on.disengaged").length > 0 # sharable tile is off
+      $('#sharable_tile_link_on').click()
+      sendSharableTileForm()
+
+    url = $("#share_via_linkedin_link").attr("href")
+    window.open(url, '', 'width=620, height=500')
+
+  $(".share_via_facebook").click (e)->
+    e.preventDefault()
+
+    if $(".tile_status .on.disengaged").length > 0 # sharable tile is off
+      $('#sharable_tile_link_on').click()
+      sendSharableTileForm()
+
+    elem = $(".share_via_facebook")
+    #postToFeed(elem.data('title'), elem.data('desc'), elem.prop('href'), elem.data('image'));
+    FB.ui(
+      method: 'share_open_graph',
+      href: elem.data('href'),
+    , (response) ->
+    )

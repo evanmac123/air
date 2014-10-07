@@ -34,4 +34,21 @@ module ClientAdmin::SharesHelper
   def show_twitter_share(demo)
     link_to fa_icon('twitter 2x'), "https://twitter.com/home?status=Come check out my new @theairbo board: #{public_board_url(demo.public_slug)}", class: 'share twitter', target: '_blank', id: 'share_twitter'
   end
+
+  def sharable_tile_on_linkedin(tile)
+    params = {
+      mini: true,
+      url: sharable_tile_url(tile),
+      title: tile.headline,
+      summary: tile.supporting_content,
+      source: "http://www.air.bo"
+    }
+    "https://www.linkedin.com/shareArticle?#{params.to_query}"
+  end
+
+  def sharable_tile_on_facebook(tile)
+    'http://www.facebook.com/sharer.php?s=100&p[title]=' + tile.headline +
+    '&p[summary]=' + tile.supporting_content + '&p[url]=' +
+    sharable_tile_url(tile) + '&p[images][0]=' + tile.image.url
+  end
 end

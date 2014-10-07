@@ -5,6 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= content_for :meta %>
   <title>Airbo</title>
   <%= stylesheet_link_tag "app-internal" %>
   <%= stylesheet_link_tag "app-user-progress" %>
@@ -26,7 +27,7 @@
   <%= render 'shared/nerf_animations_in_test' %>
 </head>
 <body class="<%= body_class %>" style="-webkit-overflow-scrolling: touch; overflow:visible;"><%# only works with inline style? WTF. but leave it: this fixes scroll problems in ios7 and doesn't seem to work if included via stylesheet. %>
-  
+
   <%= render 'shared/header', :show_play_box => true %>
   <div id='js-flashes'><%= render 'shared/flashes' %> </div>  
   <div class="content">

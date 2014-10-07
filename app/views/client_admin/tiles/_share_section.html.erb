@@ -19,15 +19,17 @@
       <%= fa_icon('rocket') %>
       <div class="explore_title">Airbo Explore</div>
     </div>
-    <div class="share_via share_via_facebook">
+    <div class="share_via share_via_facebook" data-href="<%= sharable_tile_url(tile) %>" data-title="<%= tile.headline %>" date-desc="<%= tile.supporting_content %>" data-image="<%= tile.image.url %>">
       <%= fa_icon('facebook') %>
     </div>
     <div class="share_via share_via_twitter">
       <%= fa_icon('twitter') %>
     </div>
-    <div class="share_via share_via_linkedin">
-      <%= fa_icon('linkedin') %>
-    </div>
+    <%= link_to sharable_tile_on_linkedin(tile), id: "share_via_linkedin_link" do %>
+      <div class="share_via share_via_linkedin">
+        <%= fa_icon('linkedin') %>
+      </div>
+    <% end %>
     <div class="share_via share_via_email">
       <%= fa_icon('envelope-o') %>
     </div>
