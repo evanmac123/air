@@ -17,16 +17,18 @@ feature 'Designates board paid or free' do
     click_button "Make board free"
   end
 
-  scenario 'in the appropriate place' do
+  scenario 'in the appropriate place', js: true do
     board = FactoryGirl.create(:demo)
-
-    visit admin_demo_path(board, as: an_admin)
+    user = an_admin
+    visit admin_demo_path(board, as: user)
     expect_free_board_copy
 
     click_make_paid
     expect_paid_board_copy
+    expect_ping 'Board Type', {type: "Paid"}, user
 
     click_make_free
     expect_free_board_copy
+    expect_ping 'Board Type', {type: "Free"}, user
   end
 end

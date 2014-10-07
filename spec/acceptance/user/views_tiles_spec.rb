@@ -67,27 +67,27 @@ feature 'User views tile' do
 
       crank_dj_clear
       FakeMixpanelTracker.events_matching('Tile - Viewed').should have(1).ping
-      FakeMixpanelTracker.events_matching('Tile - Viewed', tile_id: @discover_fire.id).should have(1).ping
+      FakeMixpanelTracker.events_matching('Tile - Viewed', tile_id: @discover_fire.id, board_type: "Free").should have(1).ping
 
       click_next_button
       crank_dj_clear
       FakeMixpanelTracker.events_matching('Tile - Viewed').should have(2).pings
-      FakeMixpanelTracker.events_matching('Tile - Viewed', tile_id: @make_toast.id).should have(1).ping
+      FakeMixpanelTracker.events_matching('Tile - Viewed', tile_id: @make_toast.id, board_type: "Free").should have(1).ping
 
       click_next_button
       crank_dj_clear
       FakeMixpanelTracker.events_matching('Tile - Viewed').should have(3).pings
-      FakeMixpanelTracker.events_matching('Tile - Viewed', tile_id: @discover_fire.id).should have(2).pings
+      FakeMixpanelTracker.events_matching('Tile - Viewed', tile_id: @discover_fire.id, board_type: "Free").should have(2).pings
 
       click_prev_button
       crank_dj_clear
       FakeMixpanelTracker.events_matching('Tile - Viewed').should have(4).pings
-      FakeMixpanelTracker.events_matching('Tile - Viewed', tile_id: @make_toast.id).should have(2).pings
+      FakeMixpanelTracker.events_matching('Tile - Viewed', tile_id: @make_toast.id, board_type: "Free").should have(2).pings
 
       click_prev_button
       crank_dj_clear
       FakeMixpanelTracker.events_matching('Tile - Viewed').should have(5).pings
-      FakeMixpanelTracker.events_matching('Tile - Viewed', tile_id: @discover_fire.id).should have(3).pings
+      FakeMixpanelTracker.events_matching('Tile - Viewed', tile_id: @discover_fire.id, board_type: "Free").should have(3).pings
     end
   end
 

@@ -378,6 +378,20 @@ module SteakHelperMethods
     FakeMixpanelTracker.should have_event_matching(event, properties)
   end
 
+  def expect_pings *pings
+    FakeMixpanelTracker.clear_tracked_events
+    crank_dj_clear
+    #p FakeMixpanelTracker.tracked_events
+    pings.each do |ping|
+      event = ping[0]
+      properties = ping[1]
+      user = ping[2]
+      
+      properties.merge!(user.data_for_mixpanel) if user
+      FakeMixpanelTracker.should have_event_matching(event, properties)
+    end
+  end
+
   def welcome_message
     "Airbo is an interactive communication tool. Get started by clicking on a tile. Interact and answer questions to earn points."
   end

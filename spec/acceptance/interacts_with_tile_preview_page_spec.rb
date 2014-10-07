@@ -102,6 +102,8 @@ feature "interacts with a tile from the explore-preview page" do
       submit_create_form
       @user = User.order("created_at DESC").first
       @user.name.should == NEW_CREATOR_NAME
+      expect_pings  ['Boards - New', {source: "Explore"}, @user], 
+                    ["Creator - New", {source: "Explore"}, @user]
     end
   end
 
