@@ -7,9 +7,9 @@
     <li><%= text_field_tag "user[email]", user.email, placeholder: "Work Email" %></li>
     <li><%= text_field_tag "board[name]", board.name, placeholder: "Name Your Airbo (ex.: Company Name)" %></li>
     <li><%= password_field_tag "user[password]", user.password, placeholder: "Password" %></li>
-  <%= hidden_field_tag "page_name", "welcome" %>
+  <%= hidden_field_tag "page_name", sign_in_form_page_name(params) %>
   <%= hidden_field_tag "creation_source_board", "Marketing Page (version 2014-05-27)" %>
-  <%= hidden_field_tag "creation_source_creator", "Marketing Page" %>
+  <%= hidden_field_tag "creation_source_creator", creation_source_creator(params) %>
   </ul>
   <%= submit_tag "Create Free Account", class: "button", id: "create_account_btn" %>
 <% end %>

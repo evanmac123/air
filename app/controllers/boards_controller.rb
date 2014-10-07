@@ -110,6 +110,10 @@ class BoardsController < ApplicationController
                       :action => 'show', \
                       :id => "welcome", \
                       flash: { failure: set_errors }
+        elsif params[:page_name] == "product"
+          redirect_to :controller => 'pages', \
+                      :action => 'product', \
+                      flash: { failure: set_errors }
         else
           flash.now[:failure] = set_errors
           render 'new'
@@ -149,7 +153,8 @@ class BoardsController < ApplicationController
   end
 
   def schedule_creation_pings(user)
-    ping 'Boards - New', {source: params[:creation_source_board]}, user
+    board_type = user.demo.is_paid ? "Paid" : "Free"
+    ping 'Boards - New', {source: params[:creation_source_board], board_type: board_type}, user
     ping 'Creator - New', {source: params[:creation_source_creator]}, user
   end
 
