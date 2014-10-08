@@ -24,6 +24,7 @@ appendSelectedTags = (id, name) ->
       $('#tile_builder_form_tile_tag_ids').val(id)
     else
       $('#tile_builder_form_tile_tag_ids').val($('#tile_builder_form_tile_tag_ids').val() + ",#{id}")
+  publicTileForm().submit()
     
 sendTagMissingPing = () ->
   $.post("/ping", {event: 'Tile - New', properties: {action: 'Received No Tag Added Error'}})
@@ -64,15 +65,17 @@ $(document).ready ->
     $('.share_options').find('#tile_builder_form_tile_tag_ids').val(filtered_vals.join(','))
     
     element.remove()
+    publicTileForm().submit()
   )
 
   # on tile builder form submit, check if tags are present in case 
   # sharing is on (tile is public)
   publicTileForm().on('submit', (event) ->
+    #console.log("boom")
     if $(this).find('#share_on').is(':checked')
       if $(this).find('.share_options').find('.tile_tags li').length < 1
-        sendTagMissingPing()
-        $(this).find('.tag_alert').show()
+        #sendTagMissingPing()
+        #$(this).find('.tag_alert').show()
         #$(this).find('#submit_spinner').hide()
         false
       else
@@ -84,3 +87,6 @@ $(document).ready ->
       #$(this).find('input:submit').prop('disabled', true)
       true
   ) 
+
+  $('#share_off, #share_on, #allow_copying_on, #allow_copying_off').click ->
+    publicTileForm().submit()

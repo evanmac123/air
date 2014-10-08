@@ -22,6 +22,7 @@ window.sharableTileLink = ->
     $(".tile_status .off").removeClass("disengaged").addClass("engaged")
     $(".tile_status .on").removeClass("engaged").addClass("disengaged")
     $("#sharable_tile_link").attr("disabled", "disabled")
+    $(".share_options").css("display", "none")
 
   #
   # => Share Tile Link
@@ -47,3 +48,6 @@ window.sharableTileLink = ->
 
     url = $(this).closest("a").attr("href")
     window.open(url, '', 'width=620, height=500')
+
+  $(".share_via_explore").click ->
+    $(".share_options").css("display", "block")

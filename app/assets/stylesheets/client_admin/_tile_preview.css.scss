@@ -1,6 +1,7 @@
 body.client_admin-tiles-show{
   .tile_holder {
     width: 600px;
+    margin-top: 50px;
   }
   .tile_control, h5 {
     display: inline-block;
@@ -86,6 +87,7 @@ body.client_admin-tiles-show{
       }
       .share_via_explore{
         background: $sky-blue;
+        cursor: pointer;
         .fa-rocket, .explore_title{
           display: inline-block;
         }
@@ -119,7 +121,7 @@ body.client_admin-tiles-show{
   }
   .share_options{
     background: $white;
-    margin-bottom: 50px;
+    display: none;
     .share_to_explore{
       float: left;
       display: inline;

@@ -20,7 +20,7 @@ class TileController < ApplicationController
   end
 
   def find_tile
-    @tile = Tile.where(id: params[:id]).first
+    @tile = Tile.where(id: params[:id], is_sharable: true).first
     unless @tile
       not_found 
       return
