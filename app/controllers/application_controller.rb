@@ -341,6 +341,8 @@ class ApplicationController < ActionController::Base
   def add_persistent_message
     return unless use_persistent_message?
     return unless current_user.try(:is_guest?)
+    demo = current_user.try(:demo)
+    return if demo && $rollout.active?(:skip_persistent_message, demo)
 
     keys_for_real_flashes = %w(success failure notice).map(&:to_sym)
     return if keys_for_real_flashes.any?{|key| flash[key].present?}
