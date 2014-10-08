@@ -1,4 +1,4 @@
-<% cache [__FILE__, 'v3.pwd', get_started_lightbox_message, board_name, is_guest] do %>
+<% cache [__FILE__, 'v4.pwd', get_started_lightbox_message, board_name, is_guest, suppress_conversion_modal] do %>
   <div id='get_started_lightbox' class="start_lightbox" data-slide-name="Welcome message">
     <div id="lightbox_close_link_wrapper">
       <a href="#" id="lightbox_close_link">Close</a>
@@ -7,7 +7,9 @@
     <p><%= get_started_lightbox_message %></p>
 
     <% if is_guest %>
-      <p>Already a user? <%= link_to "Sign in", new_session_path %>.</p>
+      <% unless suppress_conversion_modal %>
+        <p>Already a user? <%= link_to "Sign in", new_session_path %>.</p>
+      <% end %>
     <% end %>
 
     <a href="#" id="lightbox_get_started_button">Get started!</a>
@@ -15,5 +17,5 @@
 <% end %>
 
 <% js_at_end do %>
-  window.getStartedLightbox();
+  window.getStartedLightbox()
 <% end %>
