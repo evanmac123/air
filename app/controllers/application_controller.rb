@@ -98,6 +98,8 @@ class ApplicationController < ActionController::Base
 
     return if session[:conversion_form_shown_already] && !(allow_reshow)
     return unless current_user && current_user.is_guest?
+    demo = current_user.try(:demo)
+    return if demo && $rollout.active?(:suppress_conversion_modal, demo)
 
     @show_conversion_form = yield
     session[:conversion_form_shown_already] = @show_conversion_form
