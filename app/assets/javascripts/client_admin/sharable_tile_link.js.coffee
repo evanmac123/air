@@ -38,32 +38,12 @@ window.sharableTileLink = ->
   #
   # => Share Via
   #
-  $(".share_via_linkedin").click (e)->
+  $(".share_via_linkedin, .share_via_facebook, .share_via_twitter").click (e)->
     e.preventDefault()
 
     if $(".tile_status .on.disengaged").length > 0 # sharable tile is off
       $('#sharable_tile_link_on').click()
       sendSharableTileForm()
 
-    url = $("#share_via_linkedin_link").attr("href")
-    window.open(url, '', 'width=620, height=500')
-
-  $(".share_via_facebook").click (e)->
-    e.preventDefault()
-
-    if $(".tile_status .on.disengaged").length > 0 # sharable tile is off
-      $('#sharable_tile_link_on').click()
-      sendSharableTileForm()
-
-    url = $("#share_via_facebook_link").attr('href')
-    window.open(url, '', 'width=620, height=500')
-
-  $(".share_via_twitter").click (e)->
-    e.preventDefault()
-
-    if $(".tile_status .on.disengaged").length > 0 # sharable tile is off
-      $('#sharable_tile_link_on').click()
-      sendSharableTileForm()
-
-    url = $("#share_via_twitter_link").attr('href')
+    url = $(this).closest("a").attr("href")
     window.open(url, '', 'width=620, height=500')
