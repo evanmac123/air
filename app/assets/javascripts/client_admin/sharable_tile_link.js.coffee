@@ -11,7 +11,7 @@ window.sharableTileLink = ->
     turnOffSharing()
 
   sendSharableTileForm = ->
-    $(".edit_multiple_choice_tile").submit()
+    $("#sharable_link_form").submit()
 
   turnOnSharing = ->
     $(".tile_status .off").removeClass("engaged").addClass("disengaged")

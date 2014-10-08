@@ -12,9 +12,12 @@ addNewTag = (name) ->
     success: (id)->
       appendSelectedTags(id, name)
   )
+
+publicTileForm = ->
+  $('#public_tile_form')
   
 appendSelectedTags = (id, name) ->
-  $('#new_tile_builder_form').find('.tag_alert').hide()
+  publicTileForm().find('.tag_alert').hide()
   if $('ul.tile_tags > li[id='+id+']').length < 1
     $('ul.tile_tags').append("<li id='#{id}'>#{name}<a class='fa fa-times'></a> </li>")
     if $('#tile_builder_form_tile_tag_ids').val() == ""
@@ -65,19 +68,19 @@ $(document).ready ->
 
   # on tile builder form submit, check if tags are present in case 
   # sharing is on (tile is public)
-  $('#new_tile_builder_form').on('submit', (event) ->
+  publicTileForm().on('submit', (event) ->
     if $(this).find('#share_on').is(':checked')
       if $(this).find('.share_options').find('.tile_tags li').length < 1
         sendTagMissingPing()
         $(this).find('.tag_alert').show()
-        $(this).find('#submit_spinner').hide()
+        #$(this).find('#submit_spinner').hide()
         false
       else
         $(this).find('.tag_alert').hide()
-        $(this).find('input:submit').prop('disabled', true)
-        $(this).find('#submit_spinner').show()
+        #$(this).find('input:submit').prop('disabled', true)
+        #$(this).find('#submit_spinner').show()
         true
     else
-      $(this).find('input:submit').prop('disabled', true)
+      #$(this).find('input:submit').prop('disabled', true)
       true
   ) 
