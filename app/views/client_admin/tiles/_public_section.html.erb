@@ -46,6 +46,8 @@
 
 <% content_for :javascript do %>
   <%= javascript_tag do %>
-    bindTagNameSearchAutocomplete('#add-tag', '#tag-autocomplete-target', '<%= client_admin_tile_tags_path %>');
+    $().ready(function(){
+      bindTagNameSearchAutocomplete('#add-tag', '#tag-autocomplete-target', '<%= client_admin_tile_tags_path %>');
+    })
   <% end %>
 <% end %>

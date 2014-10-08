@@ -38,23 +38,23 @@ window.bindTagNameSearchAutocomplete = (sourceSelector, targetSelector, searchUR
     focus:    (event) -> event.preventDefault()})
 
 
-$(document).ready ->
-  if $('.share_options').find('#share_off').attr('checked')
-    $('.share_options').find('.allow_copying').hide()
-    $('.share_options').find('.add_tag').hide()
-  else if $(this).find('#share_on').attr('checked')
-    $('.share_options').find('.allow_copying').show()
-    $('.share_options').find('.add_tag').show()
-  
-  $('#tile_builder_form_tile_tag_ids').hide()
-  $('.share_options').on('click', (event) ->
-    if $(this).find('#share_off').attr('checked')
+  $(document).ready ->
+    if $('.share_options').find('#share_off').attr('checked')
       $('.share_options').find('.allow_copying').hide()
       $('.share_options').find('.add_tag').hide()
     else if $(this).find('#share_on').attr('checked')
       $('.share_options').find('.allow_copying').show()
       $('.share_options').find('.add_tag').show()
-  )
+    
+    $('#tile_builder_form_tile_tag_ids').hide()
+    $('.share_options').on('click', (event) ->
+      if $(this).find('#share_off').attr('checked')
+        $('.share_options').find('.allow_copying').hide()
+        $('.share_options').find('.add_tag').hide()
+      else if $(this).find('#share_on').attr('checked')
+        $('.share_options').find('.allow_copying').show()
+        $('.share_options').find('.add_tag').show()
+    )
   
   $(document).on('click','.add_tag .fa', (event) ->
     element = $(this).parent()
@@ -90,3 +90,8 @@ $(document).ready ->
 
   $('#share_off, #share_on, #allow_copying_on, #allow_copying_off').click ->
     publicTileForm().submit()
+
+  $(window).on "beforeunload", ->
+    if $(this).find('.share_options').find('.tile_tags li').length < 1
+      $('.tag_alert').show()
+      "If you leave this page, you’ll lose any changes you made. Please, save them before leaving."
