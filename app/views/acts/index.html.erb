@@ -56,6 +56,6 @@
 <% elsif @display_activity_page_admin_guide %>
   <%= render partial: "activity_page_admin_guide" %>
 <% elsif @display_get_started_lightbox %>
-  <%= render partial: "get_started_lightbox" %>
+  <%= render "get_started_lightbox", board_name: current_user.demo.name, is_guest: @current_user.is_guest?, get_started_lightbox_message: @get_started_lightbox_message %>
 <% end %>      
       
