@@ -127,6 +127,12 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       current_user.displayed_tile_success_guide = true
       current_user.save!
     end
+    @show_share_section_intro = if current_user.share_section_intro_seen
+      false
+    else
+      current_user.share_section_intro_seen = true
+      current_user.save!
+    end
   end
 
   def edit

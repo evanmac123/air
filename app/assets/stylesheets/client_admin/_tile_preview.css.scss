@@ -1,3 +1,4 @@
+@import "mixins/intro_button_to_app_button";
 body.client_admin-tiles-show{
   .tile_holder {
     width: 600px;
@@ -274,6 +275,24 @@ body.client_admin-tiles-show{
       span{
         color: $gray;
       }
+    }
+  }
+}
+body.tile_previews.tile_previews-show, body.client_admin-tiles-show{
+.tile_preview_intro {
+    padding-top: 1.0em;
+
+    .introjs-skipbutton {
+      @include intro-button-to-app-button($sky-blue, 0.9rem);
+    }
+
+    .introjs-tooltiptext {
+      line-height: 1.3rem;
+    }
+
+    .introjs-prevbutton, .introjs-nextbutton {
+      @include intro-button-to-app-button($sky-blue, 0.7rem);
+      margin-left: 0.1rem;
     }
   }
 }
