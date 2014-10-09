@@ -985,7 +985,7 @@ class User < ActiveRecord::Base
   end
 
   def to_ticket_progress_calculator
-    User::TicketProgressCalculator.new(self)
+    TicketProgressCalculator.new(self)
   end
 
   def on_first_login
@@ -1155,6 +1155,10 @@ class User < ActiveRecord::Base
 
   def share_link_intro_never_seen
     !(share_link_intro_seen)
+  end
+
+  def can_see_raffle_modal?
+    true
   end
 
   protected

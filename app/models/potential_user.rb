@@ -94,7 +94,11 @@ class PotentialUser < ActiveRecord::Base
   end
 
   def to_ticket_progress_calculator
-    User::NullTicketProgressCalculator.new
+    NullTicketProgressCalculator.new
+  end
+
+  def can_see_raffle_modal?
+    false
   end
 
   protected
@@ -105,6 +109,15 @@ class PotentialUser < ActiveRecord::Base
     until(possibly_finished && (self.valid? || self.errors[:invitation_code].empty?))
       possibly_finished = true
       self.invitation_code = Digest::SHA1.hexdigest("--#{Time.now.to_f}--#{self.email}--")
+    end
+  end
+
+  class NullTicketProgressCalculator
+    def initialize
+    end
+
+    def points_towards_next_threshold
+      0
     end
   end
 end
