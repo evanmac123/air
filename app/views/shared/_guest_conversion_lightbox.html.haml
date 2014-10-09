@@ -1,4 +1,4 @@
-- if user.is_guest?
+- if user.is_guest? && !($rollout.active?(:suppress_conversion_modal, user.demo))
   #guest_conversion_form_wrapper
     %h3 You're on a roll!
     %p Create an account so you don't lose your progress.

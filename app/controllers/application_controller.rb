@@ -175,8 +175,14 @@ class ApplicationController < ActionController::Base
         refresh_activity_session(current_user)
         return true
       else
-        flash[:failure] = '<a href="#" class="open_save_progress_form">Save your progress</a> to access this part of the site.'
-        flash[:failure_allow_raw] = true
+        guest = GuestUser.where(id: session[:guest_user_id]).first
+        demo = guest.try(:demo)
+        if demo && $rollout.active?(:suppress_conversion_modal, demo)
+          flash[:failure] = "Sorry, you don't have permission to access that part of the site."
+        else
+          flash[:failure] = '<a href="#" class="open_save_progress_form">Save your progress</a> to access this part of the site.'
+          flash[:failure_allow_raw] = true
+        end
         redirect_to public_activity_path(claimed_guest_user.demo.public_slug)
         return true
       end
