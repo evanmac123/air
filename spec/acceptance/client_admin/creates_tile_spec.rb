@@ -12,95 +12,12 @@ feature 'Creates tile' do
     visit new_client_admin_tile_path(as: client_admin)
     choose_question_type_and_subtype Tile::QUIZ, Tile::MULTIPLE_CHOICE
   end
-  
-  context "share to explore" do
-    scenario "by default, share button is off" do
-      page.find('#share_off')['checked'].should be_present
-    end
-    scenario "clicking the share button should display allow copy button and add tag field", js: true do
-      page.should_not have_css('.allow_copying', visible: true)
-      page.should_not have_css('.add_tag', visible: true)
-
-      click_make_public
-      
-      page.should have_css('.allow_copying', visible: true)
-      page.should have_css('.add_tag', visible: true)
-    end
-    
-    scenario "tag is displayed after adding and is removable", js: true do
-      click_make_public
-      add_new_tile_tag('random tag')
-      find('.tile_tags > li').should have_content('random tag')
-
-      find('.tile_tags > li > .fa-times').click
-      page.should_not have_content('random tag')
-     
-      page.should_not have_css('.tile_tags > li')
-      click_create_button
-      page.should have_content('Add a tag to continue')
-    end
-
-    scenario "displays similiar tags and add tag button if exactly same tag is not present", js: true do
-      tag1 = FactoryGirl.create :tile_tag, title: "untag"
-      tag2 = FactoryGirl.create :tile_tag, title: "tagged"
-
-      click_make_public
-      write_new_tile_tag "tag"
-
-      expect_content "untag"
-      expect_content "tagged"
-      expect_content "Click to add."
-
-      write_new_tile_tag "untag"
-      expect_content "untag"
-    end
-    
-    scenario 'tile with tags added is saved correctly', js: true do
-      fill_in_valid_form_entries({click_answer: 1}, true)
-      
-#      add_new_tile_tag('first tag added', true)
-#      add_new_tile_tag('second tag added')
-      click_create_button
-      page.status_code.should be(200)
-      demo.tiles.reload.should have(1).tile
-      new_tile = Tile.last
-      new_tile.tile_tags.reload.where(title: 'Start tag').should_not be_empty
-#      new_tile.tile_tags.reload.where(title: 'First tag added').should_not be_empty
-#      new_tile.tile_tags.reload.where(title: 'Second tag added').should_not be_empty
-    end
-   
-    context "when attempting to make a tile public but not specifying a tag" do
-      before(:each) do
-        fill_in_valid_form_entries({}, false)
-        click_make_public
-        click_create_button
-      end
-
-      scenario "pings", js: true do
-        page.should have_content("Add a tag to continue")
-
-        FakeMixpanelTracker.clear_tracked_events
-        crank_dj_clear
-
-        FakeMixpanelTracker.should have_event_matching('Tile - New', {'action' => 'Received No Tag Added Error'})
-      end
-
-      scenario "can then add tag and create tile", js: true do
-        expect_no_content after_tile_save_message
-
-        add_new_tile_tag('random tag')
-        click_create_button
-
-        expect_content after_tile_save_message
-      end
-    end
-  end
 
   scenario 'by uploading an image and supplying some information', js: true do
     demo.tiles.should be_empty
     demo.rules.should be_empty
 
-    create_good_tile(true)
+    create_good_tile
     demo.tiles.reload.should have(1).tile
     new_tile = MultipleChoiceTile.last
     new_tile.image_file_name.should == 'cov1.jpg'
@@ -126,7 +43,7 @@ feature 'Creates tile' do
 
     new_tile.creator.should == client_admin
 
-    new_tile.is_public.should be_true
+    new_tile.is_public.should be_false # by default
   end
 
   scenario 'and Mixpanel gets a ping', js: true do
@@ -293,15 +210,6 @@ feature 'Creates tile' do
     end
   end
 
-  context "when the public and copyable checkboxes are not checked" do
-    it "should not set those", js: true do
-      create_good_tile(false)
-      new_tile = MultipleChoiceTile.last
-      new_tile.is_public.should be_false
-      new_tile.is_copyable.should be_true #by default, its value is set to true
-    end
-  end
-  
   context "acting with question and answers" do
     scenario "choose type Action, subtype any", js: true do
       choose_question_type_and_subtype Tile::ACTION, Tile::DO_SOMETHING

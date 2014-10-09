@@ -64,6 +64,7 @@ FactoryGirl.define do
   factory :client_admin, :parent => :claimed_user do
     name            "Bo Diddley"
     is_client_admin true
+    share_section_intro_seen true
   end
 
   factory :guest_user do
@@ -213,12 +214,14 @@ FactoryGirl.define do
     end
 
     trait :public do
+      is_sharable true
       is_public true
       status Tile::ACTIVE
       tile_tags {[FactoryGirl.create(:tile_tag)]}
     end
 
     trait :copyable do
+      is_sharable true
       is_public true
       is_copyable true
       status Tile::ACTIVE

@@ -3,7 +3,7 @@ require 'acceptance/acceptance_helper'
 feature "visits sharable tile page" do
   include SignUpModalHelpers
 
-  let!(:tile) { FactoryGirl.create(:multiple_choice_tile) }
+  let!(:tile) { FactoryGirl.create(:multiple_choice_tile, is_sharable: true) }
 
   before(:each) do
     crank_dj_clear

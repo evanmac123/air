@@ -126,10 +126,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       @show_tile_success_guide = !current_user.displayed_tile_success_guide? && @tile.demo.tiles.active.count == 1
       current_user.displayed_tile_success_guide = true
       current_user.save!
-    end
-    @show_share_section_intro = if current_user.share_section_intro_seen
-      false
-    else
+    elsif !current_user.share_section_intro_seen
+      @show_share_section_intro = true
       current_user.share_section_intro_seen = true
       current_user.save!
     end

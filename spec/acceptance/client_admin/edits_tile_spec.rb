@@ -81,71 +81,7 @@ shared_examples_for "editing a tile" do
     if @tile.kind_of?(KeywordTile)
       @tile.first_rule.reload.should have(3).rule_values # unchanged
     end
-  end
-
-  context "share to explore" do
-    scenario "by default, share button is off" do
-      page.find('#share_off')['checked'].should be_present
-    end
-    scenario "changing from public and copyable to non-public and non-copyable", js: true do
-      @tile.tile_tags.create!(title: 'start tag')
-      @tile.update_attributes(is_public: true, is_copyable: true)
-      visit edit_client_admin_tile_path(@tile, as: @client_admin)
-      click_make_noncopyable
-      click_make_nonpublic
-      if @tile.question_type == Tile::SURVEY
-        click_add_answer
-        fill_in_answer_field 0, "woop woop"
-      end
-      click_button "Update tile"
-      @tile.reload.is_public.should be_false
-      @tile.reload.is_copyable.should be_false
-    end
-
-    scenario "changing from non-public and non-copyable to public and copyable", js: true do
-      @tile.is_public.should be_false
-      @tile.is_copyable.should be_false
-
-      click_make_public
-      click_make_copyable
-      add_new_tile_tag('public copyable')
-      click_button "Update tile"
-
-      @tile.reload.is_public.should be_true
-      @tile.is_copyable.should be_true
-    end
-    scenario "clicking the share button should display allow copy button and add tag field", js: true do
-      page.should_not have_css('.allow_copying', visible: true)
-      page.should_not have_css('.add_tag', visible: true)
-
-      page.find('#share_on').click
-      
-      page.should have_css('.allow_copying', visible: true)
-      page.should have_css('.add_tag', visible: true)
-    end
-    scenario "tag is displayed after adding and is removable", js: true do
-      find('#share_on').click
-      add_new_tile_tag('removable tag')
-      find('.tile_tags > li').should have_content('removable tag')
-
-      find('.tile_tags > li > .fa-times').click
-      page.should_not have_content('removable tag')
-     
-      page.should_not have_css('.tile_tags > li')
-      click_update_button
-    end
-    
-    scenario 'tile with tags added is saved correctly', js: true do
-      click_make_public
-      add_new_tile_tag('first tag')
-      #second tag addition doesn't work correctly with poltergeist
-      #TODO check if it should be removed
-#      add_new_tile_tag('second tag')
-      click_update_button
-      @tile.tile_tags.reload.where(title: 'first tag').should_not be_empty
-#      @tile.tile_tags.where(title: 'Second Tag').should_not be_empty
-    end    
-  end  
+  end 
 end
 
 feature "Client admin edits tile" do

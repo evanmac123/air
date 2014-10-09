@@ -239,10 +239,19 @@ module TileHelpers
     page.execute_script %Q{ $('##{field}').trigger('focus') }
     page.execute_script %Q{ $('##{field}').trigger('keydown') }
   end  
+
+  def open_public_section
+    find(".share_via_explore").click
+  end
   
   def click_make_public
     find('#share_on').click    
   end
+
+  def click_make_sharable
+    find('#sharable_tile_link_on').click 
+  end
+
   def click_make_nonpublic
     find('#share_off').click    
   end
@@ -282,7 +291,7 @@ module TileHelpers
     page.evaluate_script(script)
   end
 
-  def fill_in_valid_form_entries(options = {}, with_public_and_copyable = false)
+  def fill_in_valid_form_entries options = {}
     click_answer = options[:click_answer] || 1
     question_type = options[:question_type] || Tile::QUIZ
     question_subtype = options[:question_subtype] || Tile::MULTIPLE_CHOICE
@@ -307,12 +316,6 @@ module TileHelpers
     fill_in_points "18"
 
     fill_in_external_link_field  "http://www.google.com/foobar"
-
-    if with_public_and_copyable
-      click_make_public
-      tile_tag_title = options[:tile_tag_title] || 'Start tag'
-      add_new_tile_tag(tile_tag_title)
-    end
   end
   
   def click_edit_link
@@ -329,8 +332,8 @@ module TileHelpers
   end
 
 
-  def create_good_tile(with_public_and_copyable = false)
-    fill_in_valid_form_entries({}, with_public_and_copyable)
+  def create_good_tile
+    fill_in_valid_form_entries
     click_create_button
   end
 
