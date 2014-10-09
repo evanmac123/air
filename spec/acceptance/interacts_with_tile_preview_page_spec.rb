@@ -29,7 +29,7 @@ feature "interacts with a tile from the explore-preview page" do
     page.find(:xpath,"//div[contains(@class,'like-button')]/a[2]").click
   end
 
-    def click_unlike_link
+  def click_unlike_link
     page.first('.tile_liked a').click
   end
 
@@ -61,18 +61,6 @@ feature "interacts with a tile from the explore-preview page" do
     copied_tile.thumbnail_updated_at.should be_present
     copied_tile.image_file_name.should == original_tile.image_file_name
     copied_tile.thumbnail_file_name.should == original_tile.thumbnail_file_name
-  end
-
-  def register_if_guest
-    if show_register_form?
-      page.should have_selector('#sign_up_modal', visible: true)
-      fill_in_valid_form_entries
-      submit_create_form
-      @user = User.order("created_at DESC").first
-      @user.name.should == NEW_CREATOR_NAME
-      expect_pings  ['Boards - New', {source: "Explore"}, @user], 
-                    ["Creator - New", {source: "Explore"}, @user]
-    end
   end
 
   def show_register_form?

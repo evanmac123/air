@@ -11,6 +11,8 @@ module SignUpModalHelpers
       submit_create_form
       @user = User.order("created_at DESC").first
       @user.name.should == NEW_CREATOR_NAME
+      expect_pings  ['Boards - New', {}, @user], 
+                    ["Creator - New", {}, @user]
     end
   end
 
