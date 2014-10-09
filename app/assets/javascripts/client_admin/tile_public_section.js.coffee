@@ -47,9 +47,11 @@ window.bindTagNameSearchAutocomplete = (sourceSelector, targetSelector, searchUR
     if $('.share_options').find('#share_off').attr('checked')
       $('.share_options').find('.allow_copying').hide()
       $('.share_options').find('.add_tag').hide()
+      $('.share_options').hide()
     else if $(this).find('#share_on').attr('checked')
       $('.share_options').find('.allow_copying').show()
       $('.share_options').find('.add_tag').show()
+      $('.share_options').show()
     
     $('#tile_builder_form_tile_tag_ids').hide()
     $('.share_options').on('click', (event) ->

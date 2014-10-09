@@ -55,6 +55,8 @@ window.sharableTileLink = ->
       sendSharableTileForm()
 
     $(".share_options").show()
+    $("#share_on").click()
+    $("#share_on").click()
 
 window.shareSectionIntro = ->
   intro = introJs()
