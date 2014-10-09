@@ -22,7 +22,7 @@ window.sharableTileLink = ->
     $(".tile_status .off").removeClass("disengaged").addClass("engaged")
     $(".tile_status .on").removeClass("engaged").addClass("disengaged")
     $("#sharable_tile_link").attr("disabled", "disabled")
-    $(".share_options").css("display", "none")
+    $(".share_options").hide()
 
   #
   # => Share Tile Link
@@ -50,4 +50,8 @@ window.sharableTileLink = ->
     window.open(url, '', 'width=620, height=500')
 
   $(".share_via_explore").click ->
-    $(".share_options").css("display", "block")
+    if $(".tile_status .on.disengaged").length > 0 # sharable tile is off
+      $('#sharable_tile_link_on').click()
+      sendSharableTileForm()
+
+    $(".share_options").show()

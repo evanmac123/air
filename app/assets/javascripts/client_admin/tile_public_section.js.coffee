@@ -15,6 +15,11 @@ addNewTag = (name) ->
 
 publicTileForm = ->
   $('#public_tile_form')
+
+tileTagsError = ->
+  $('#sharable_tile_link_on').is(':checked') &&
+  $('#share_on').is(':checked') &&
+  $('.share_options').find('.tile_tags li').length < 1
   
 appendSelectedTags = (id, name) ->
   publicTileForm().find('.tag_alert').hide()
@@ -92,6 +97,13 @@ window.bindTagNameSearchAutocomplete = (sourceSelector, targetSelector, searchUR
     publicTileForm().submit()
 
   $(window).on "beforeunload", ->
-    if $(this).find('.share_options').find('.tile_tags li').length < 1
+    if tileTagsError()
       $('.tag_alert').show()
       "If you leave this page, you’ll lose any changes you made. Please, save them before leaving."
+
+  $("#back_header a, #archive, #post, .edit_header a, .new_tile_header a").click (e)->
+    #console.log("pow")
+    if tileTagsError()
+      e.preventDefault()
+      e.stopPropagation()
+      $('.tag_alert').show()
