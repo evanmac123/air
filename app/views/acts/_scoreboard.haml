@@ -1,5 +1,7 @@
-%h3 Connections
-=link_to "Add", users_path, :class => "find_users small_button"
+- demo = current_user.try(:demo)
+- unless demo && $rollout.active?(:suppress_conversion_modal, demo)
+  %h3 Connections
+  =link_to "Add", users_path, :class => "find_users small_button"
 
-.wrap
-  = render 'shared/connections_list', user: current_user
+  .wrap
+    = render 'shared/connections_list', user: current_user
