@@ -93,6 +93,10 @@ class PotentialUser < ActiveRecord::Base
   def share_link_intro_seen
   end
 
+  def to_ticket_progress_calculator
+    User::NullTicketProgressCalculator.new
+  end
+
   protected
 
   def set_invitation_code

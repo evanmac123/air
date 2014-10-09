@@ -40,4 +40,13 @@ class User
       "#{points}/#{point_denominator}"
     end
   end
+
+  class NullTicketProgressCalculator
+    def initialize
+    end
+
+    def points_towards_next_threshold
+      0
+    end
+  end
 end
