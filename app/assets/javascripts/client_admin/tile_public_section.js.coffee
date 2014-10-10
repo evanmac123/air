@@ -36,7 +36,7 @@ initialSetting = ->
     $('.share_options').find('.allow_copying').hide()
     $('.share_options').find('.add_tag').hide()
     $('.share_options').hide()
-  else if $(this).find('#share_on').attr('checked')
+  else if $('.share_options').find('#share_on').attr('checked')
     $('.share_options').find('.allow_copying').show()
     $('.share_options').find('.add_tag').show()
     $('.share_options').show()
