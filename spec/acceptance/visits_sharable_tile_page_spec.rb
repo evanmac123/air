@@ -85,4 +85,10 @@ feature "visits sharable tile page" do
     it_should_behave_like "answers the tile"
     it_should_behave_like "makes ping"
   end
+
+  scenario "show 404 error for not sharable tile" do 
+    tile2 = FactoryGirl.create :multiple_choice_tile
+    visit sharable_tile_path(tile2)
+    page.status_code.should be(404)
+  end
 end
