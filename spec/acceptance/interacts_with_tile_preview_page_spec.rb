@@ -172,7 +172,7 @@ feature "interacts with a tile from the explore-preview page" do
     end
   end
 
-  shared_examples_for 'gets registration form' do |name, selector|
+  shared_examples_for 'gets registration form after closing intro' do |name, selector|
     scenario "when clicks #{name}", js: true do
       close_intro
       page.find(selector).click
@@ -284,14 +284,14 @@ feature "interacts with a tile from the explore-preview page" do
 
     it_should_behave_like "copies/likes tile"
     it_should_behave_like 'uses share tile link'
-    it_should_behave_like "gets registration form", "like button", ".not_like_button"
-    it_should_behave_like "gets registration form", "copy button", "a .copy_button"
-    it_should_behave_like "gets registration form", "random link", "#random-tile-link"
-    it_should_behave_like "gets registration form", "back link", "#back-link"
-    it_should_behave_like "gets registration form", "tag link", ".tag a"
-    it_should_behave_like "gets registration form", "right arrow", "#next"
-    it_should_behave_like "gets registration form", "left arrow", "#prev"
-    it_should_behave_like "gets registration form", "logo", "#logo"
+    it_should_behave_like "gets registration form after closing intro", "like button", ".not_like_button"
+    it_should_behave_like "gets registration form after closing intro", "copy button", "a .copy_button"
+    it_should_behave_like "gets registration form after closing intro", "random link", "#random-tile-link"
+    it_should_behave_like "gets registration form after closing intro", "back link", "#back-link"
+    it_should_behave_like "gets registration form after closing intro", "tag link", ".tag a"
+    it_should_behave_like "gets registration form after closing intro", "right arrow", "#next"
+    it_should_behave_like "gets registration form after closing intro", "left arrow", "#prev"
+    it_should_behave_like "gets registration form after closing intro", "logo", "#logo"
 
     it "should not see the voteup intro" do
       page.should have_no_content(upvote_tutorial_content)
@@ -311,14 +311,14 @@ feature "interacts with a tile from the explore-preview page" do
 
     it_should_behave_like "copies/likes tile"
     it_should_behave_like 'uses share tile link'
-    it_should_behave_like "gets registration form", "like button", ".not_like_button"
-    it_should_behave_like "gets registration form", "copy button", "a .copy_button"
-    it_should_behave_like "gets registration form", "random link", "#random-tile-link"
-    it_should_behave_like "gets registration form", "back link", "#back-link"
-    it_should_behave_like "gets registration form", "tag link", ".tag a"
-    it_should_behave_like "gets registration form", "right arrow", "#next"
-    it_should_behave_like "gets registration form", "left arrow", "#prev"
-    it_should_behave_like "gets registration form", "logo", "#logo"
+    it_should_behave_like "gets registration form after closing intro", "like button", ".not_like_button"
+    it_should_behave_like "gets registration form after closing intro", "copy button", "a .copy_button"
+    it_should_behave_like "gets registration form after closing intro", "random link", "#random-tile-link"
+    it_should_behave_like "gets registration form after closing intro", "back link", "#back-link"
+    it_should_behave_like "gets registration form after closing intro", "tag link", ".tag a"
+    it_should_behave_like "gets registration form after closing intro", "right arrow", "#next"
+    it_should_behave_like "gets registration form after closing intro", "left arrow", "#prev"
+    it_should_behave_like "gets registration form after closing intro", "logo", "#logo"
     it_should_behave_like "has intro modals"
   end
 
@@ -335,14 +335,14 @@ feature "interacts with a tile from the explore-preview page" do
 
     it_should_behave_like "copies/likes tile"
     it_should_behave_like 'uses share tile link'
-    it_should_behave_like "gets registration form", "like button", ".not_like_button"
-    it_should_behave_like "gets registration form", "copy button", "a .copy_button"
-    it_should_behave_like "gets registration form", "random link", "#random-tile-link"
-    it_should_behave_like "gets registration form", "back link", "#back-link"
-    it_should_behave_like "gets registration form", "tag link", ".tag a"
-    it_should_behave_like "gets registration form", "right arrow", "#next"
-    it_should_behave_like "gets registration form", "left arrow", "#prev"
-    it_should_behave_like "gets registration form", "logo", "#logo"
+    it_should_behave_like "gets registration form after closing intro", "like button", ".not_like_button"
+    it_should_behave_like "gets registration form after closing intro", "copy button", "a .copy_button"
+    it_should_behave_like "gets registration form after closing intro", "random link", "#random-tile-link"
+    it_should_behave_like "gets registration form after closing intro", "back link", "#back-link"
+    it_should_behave_like "gets registration form after closing intro", "tag link", ".tag a"
+    it_should_behave_like "gets registration form after closing intro", "right arrow", "#next"
+    it_should_behave_like "gets registration form after closing intro", "left arrow", "#prev"
+    it_should_behave_like "gets registration form after closing intro", "logo", "#logo"
     it_should_behave_like "has intro modals"
   end
 end
