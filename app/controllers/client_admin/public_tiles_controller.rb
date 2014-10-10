@@ -5,7 +5,7 @@ class ClientAdmin::PublicTilesController < ClientAdminBaseController
     if params[:tile_builder_form].present?
       if params[:tile_builder_form][:is_sharable].present?
         @tile.update_attribute(:is_sharable, params[:tile_builder_form][:is_sharable])
-      elsif @tile.is_sharable?
+      else#if @tile.is_sharable?
         tile_builder_form = @tile.form_builder_class.new(@tile.demo, 
                             parameters: params[:tile_builder_form], 
                             tile: @tile)

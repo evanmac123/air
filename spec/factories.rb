@@ -59,6 +59,7 @@ FactoryGirl.define do
   factory :site_admin, :parent => :claimed_user do
     name          "Sylvester McAdmin"
     is_site_admin true
+    share_section_intro_seen true
   end
 
   factory :client_admin, :parent => :claimed_user do
@@ -211,6 +212,10 @@ FactoryGirl.define do
 
     trait :draft do
       status Tile::DRAFT
+    end
+
+    trait :sharable do
+      is_sharable true
     end
 
     trait :public do

@@ -25,7 +25,7 @@ window.sharableTileLink = ->
     $(".share_options").hide()
 
   #
-  # => Share Tile Link
+  # => Sharable Tile Link
   #
   $("#sharable_tile_link").on('click', (event) ->
     event.preventDefault()
@@ -36,27 +36,49 @@ window.sharableTileLink = ->
     if(!(event.ctrlKey || event.altKey || event.metaKey))
       event.preventDefault()
   )
+
+  $("#share_link").bind(
+    copy: ->
+      sendTileSharedPing("Via Link")
+    cut: ->
+      sendTileSharedPing("Via Link")
+  )
   #
   # => Share Via
   #
-  $(".share_via_linkedin, .share_via_facebook, .share_via_twitter").click (e)->
-    e.preventDefault()
+  sendTileSharedPing = (shared_to) ->
+    tile_id = $("[data-current-tile-id]").data("current-tile-id")
+    $.post "/ping", {event: 'Tile Shared', properties: {shared_to: shared_to, tile_id: tile_id}}
 
+  sharedViaSocialPing = (element) ->
+    if element.hasClass("share_via_facebook")
+      sendTileSharedPing("Facebook")
+    else if element.hasClass("share_via_twitter")
+      sendTileSharedPing("Twitter")
+    else if element.hasClass("share_via_linkedin") 
+      sendTileSharedPing("Linkedin")
+
+  turnOnSharableTile = ->
     if $(".tile_status .on.disengaged").length > 0 # sharable tile is off
       $('#sharable_tile_link_on').click()
       sendSharableTileForm()
 
+  $(".share_via_linkedin, .share_via_facebook, .share_via_twitter").click (e)->
+    e.preventDefault()
+    sharedViaSocialPing $(this)
+    turnOnSharableTile()
     url = $(this).closest("a").attr("href")
     window.open(url, '', 'width=620, height=500')
 
   $(".share_via_explore").click ->
-    if $(".tile_status .on.disengaged").length > 0 # sharable tile is off
-      $('#sharable_tile_link_on').click()
-      sendSharableTileForm()
-
+    sendTileSharedPing("Explore")
+    turnOnSharableTile()
     $(".share_options").show()
-    $("#share_on").click()
-    $("#share_on").click()
+    $("#share_on").click().click()
+
+  $(".share_via_email").click ->
+    sendTileSharedPing("Email")
+    turnOnSharableTile()
 
 window.shareSectionIntro = ->
   intro = introJs()

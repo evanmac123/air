@@ -1,6 +1,4 @@
 Health::Application.routes.draw do
-  get "tile/show"
-
   match "sms"           => "sms#create", :via => :post
   match "email"         => "email_command#create", :via => :post
   match "activity"      => "acts#index"

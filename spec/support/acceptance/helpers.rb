@@ -370,7 +370,7 @@ module SteakHelperMethods
     "#{associated_selector} + .character-counter"  
   end
 
-  def expect_ping event, properties, user = nil
+  def expect_ping event, properties = {}, user = nil
     FakeMixpanelTracker.clear_tracked_events
     crank_dj_clear
     #p FakeMixpanelTracker.tracked_events

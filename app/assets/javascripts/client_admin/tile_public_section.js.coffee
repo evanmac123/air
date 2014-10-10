@@ -31,8 +31,8 @@ appendSelectedTags = (id, name) ->
       $('#tile_builder_form_tile_tag_ids').val($('#tile_builder_form_tile_tag_ids').val() + ",#{id}")
   publicTileForm().submit()
     
-sendTagMissingPing = () ->
-  $.post("/ping", {event: 'Tile - New', properties: {action: 'Received No Tag Added Error'}})
+#sendTagMissingPing = () ->
+#  $.post("/ping", {event: 'Tile - New', properties: {action: 'Received No Tag Added Error'}})
 
 window.bindTagNameSearchAutocomplete = (sourceSelector, targetSelector, searchURL) ->
   $(sourceSelector).autocomplete({
