@@ -6,14 +6,12 @@ class ClientAdmin::PublicBoardsController < ClientAdminBaseController
     @demo.update_attributes(is_public: true)
     @board_is_public = true
     render nothing: true
-    #render partial: "client_admin/shares/public_board_controls"
   end
 
   def destroy
     @demo.update_attributes(is_public: false)
     @board_is_public = false
     render nothing: true
-    #render partial: "client_admin/shares/public_board_controls"
   end
 
   protected

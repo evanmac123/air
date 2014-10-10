@@ -31,8 +31,16 @@ appendSelectedTags = (id, name) ->
       $('#tile_builder_form_tile_tag_ids').val($('#tile_builder_form_tile_tag_ids').val() + ",#{id}")
   publicTileForm().submit()
     
-#sendTagMissingPing = () ->
-#  $.post("/ping", {event: 'Tile - New', properties: {action: 'Received No Tag Added Error'}})
+initialSetting = ->
+  if $('.share_options').find('#share_off').attr('checked')
+    $('.share_options').find('.allow_copying').hide()
+    $('.share_options').find('.add_tag').hide()
+    $('.share_options').hide()
+  else if $(this).find('#share_on').attr('checked')
+    $('.share_options').find('.allow_copying').show()
+    $('.share_options').find('.add_tag').show()
+    $('.share_options').show()
+  $('#tile_builder_form_tile_tag_ids').hide()
 
 window.bindTagNameSearchAutocomplete = (sourceSelector, targetSelector, searchURL) ->
   $(sourceSelector).autocomplete({
@@ -42,26 +50,16 @@ window.bindTagNameSearchAutocomplete = (sourceSelector, targetSelector, searchUR
     select:   jumpTagSelected,
     focus:    (event) -> event.preventDefault()})
 
+  initialSetting()
 
-  $(document).ready ->
-    if $('.share_options').find('#share_off').attr('checked')
+  $('.share_options').on('click', (event) ->
+    if $(this).find('#share_off').attr('checked')
       $('.share_options').find('.allow_copying').hide()
       $('.share_options').find('.add_tag').hide()
-      $('.share_options').hide()
     else if $(this).find('#share_on').attr('checked')
       $('.share_options').find('.allow_copying').show()
       $('.share_options').find('.add_tag').show()
-      $('.share_options').show()
-    
-    $('#tile_builder_form_tile_tag_ids').hide()
-    $('.share_options').on('click', (event) ->
-      if $(this).find('#share_off').attr('checked')
-        $('.share_options').find('.allow_copying').hide()
-        $('.share_options').find('.add_tag').hide()
-      else if $(this).find('#share_on').attr('checked')
-        $('.share_options').find('.allow_copying').show()
-        $('.share_options').find('.add_tag').show()
-    )
+  )
   
   $(document).on('click','.add_tag .fa', (event) ->
     element = $(this).parent()
@@ -75,23 +73,14 @@ window.bindTagNameSearchAutocomplete = (sourceSelector, targetSelector, searchUR
     publicTileForm().submit()
   )
 
-  # on tile builder form submit, check if tags are present in case 
-  # sharing is on (tile is public)
   publicTileForm().on('submit', (event) ->
-    #console.log("boom")
     if $(this).find('#share_on').is(':checked')
       if $(this).find('.share_options').find('.tile_tags li').length < 1
-        #sendTagMissingPing()
-        #$(this).find('.tag_alert').show()
-        #$(this).find('#submit_spinner').hide()
         false
       else
         $(this).find('.tag_alert').hide()
-        #$(this).find('input:submit').prop('disabled', true)
-        #$(this).find('#submit_spinner').show()
         true
     else
-      #$(this).find('input:submit').prop('disabled', true)
       true
   ) 
 
@@ -104,7 +93,6 @@ window.bindTagNameSearchAutocomplete = (sourceSelector, targetSelector, searchUR
       "If you leave this page, you’ll lose any changes you made. Please, save them before leaving."
 
   $("#back_header a, #archive, #post, .edit_header a, .new_tile_header a").click (e)->
-    #console.log("pow")
     if tileTagsError()
       e.preventDefault()
       e.stopPropagation()
