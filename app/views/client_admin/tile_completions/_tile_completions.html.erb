@@ -10,18 +10,18 @@
       tile_completion.user.name          
     end
   end
-  g.column html: {class: "results-email"}, name: 'Email' do |tile_completion|      
+  g.column html: {class: "results-email"}, name: 'Email', model: 'User', attribute: 'email', filter: false do |tile_completion|      
     tile_completion.user.email
   end
   g.column name: 'Date', attribute: 'created_at', filter: false  do |tile_completion|
     display_time_ago_and_date tile_completion.created_at
   end
   if @tile.is_survey?
-    g.column html: {class: "results-answer"}, name: 'Answer' do |tile_completion|      
+    g.column html: {class: "results-answer"}, name: 'Answer', attribute: 'answer_index', filter: false  do |tile_completion|      
       dispay_short_and_full_answer tile_completion.tile.multiple_choice_answers[tile_completion.answer_index]
     end
   end
-  g.column html: {class: "results-joined"}, name: 'Joined?' do |tile_completion|    
+  g.column html: {class: "results-joined"}, name: 'Joined?', model: 'User', attribute: 'accepted_invitation_at', filter: false do |tile_completion|    
     if tile_completion.has_user_joined?
       '<span class="joined">Yes</span>'.html_safe
     else
