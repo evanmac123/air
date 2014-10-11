@@ -1,8 +1,6 @@
 class ClientAdmin::TileCompletionsController < ClientAdminBaseController
-  #Tiles completion report
+  before_filter :find_tile_and_demo
   def index
-    @tile = Tile.find(params[:tile_id])
-    @demo = @tile.demo
     @survey_chart = @tile.survey_chart if @tile.is_survey?
     params[:grid] = {page: params[:page]}
     if params[:nc_grid]
@@ -17,12 +15,17 @@ class ClientAdmin::TileCompletionsController < ClientAdminBaseController
   end
 
   def non_completions
-    @tile = Tile.find(params[:tile_id])
-    @demo = @tile.demo
     @non_completions_grid = initialize_grid(
       TileCompletion.non_completions_with_users(@tile), 
       TileCompletion.non_completion_grid_params
     )
     render :non_completions
+  end
+
+  protected
+
+  def find_tile_and_demo
+    @tile = Tile.find(params[:tile_id])
+    @demo = @tile.demo
   end
 end
