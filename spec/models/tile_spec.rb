@@ -3,7 +3,6 @@ require 'spec_helper'
 describe Tile do
   it { should belong_to(:demo) }
   it { should belong_to(:creator) }
-  it { should have_many(:rule_triggers) }
   it { should have_many(:tile_tags) }
   it { should ensure_inclusion_of(:status).in_array(Tile::STATUS) }
 
@@ -273,22 +272,8 @@ describe Tile do
     end
   end
 
-  describe "#first_rule" do
-    it "should return nil for a tile with no rule triggers" do
-      FactoryGirl.create(:tile).first_rule.should be_nil
-    end
-
-    it "should return the first rule associated through a rule trigger, if such exists" do
-      first_trigger = FactoryGirl.create(:rule_trigger)
-      tile = first_trigger.tile
-      3.times { FactoryGirl.create(:rule_trigger, tile: tile) }
-      tile.first_rule.should == first_trigger.rule
-    end
-  end
-
   describe "#appears_client_created" do
-    it "is true for KeywordTiles and MultipleChoiceTiles, but not OldSchoolTiles" do
-      FactoryGirl.create(:keyword_tile).appears_client_created.should == true
+    it "is true for MultipleChoiceTiles, but not OldSchoolTiles" do
       FactoryGirl.create(:multiple_choice_tile).appears_client_created.should == true
       FactoryGirl.create(:old_school_tile).appears_client_created.should == false
     end
@@ -300,62 +285,12 @@ describe Tile do
       @fun = FactoryGirl.create(:demo, name: 'A Good Time')
       @mud_bath = FactoryGirl.create(:tile, headline: 'Mud Bath', demo: @fun)
       @leah = FactoryGirl.create(:user, name: 'Leah Eckles', demo: @fun)
-      @take_a_bath = FactoryGirl.create(:rule, demo: @fun)
-      FactoryGirl.create(:rule_trigger, rule: @take_a_bath, tile: @mud_bath)
     end
 
     it "looks good to the average user" do
       tiles = Tile.satisfiable_to_user(@leah)
       tiles.count.should == 1
       tiles.first.id.should == @mud_bath.id
-    end
-  end
-
-  describe "satisfiable by a good many things" do
-    before(:each) do
-      Demo.find_each {|f| f.destroy}
-      @fun = FactoryGirl.create(:demo, name: 'A Good Time')
-      @mud_bath = FactoryGirl.create(:tile, headline: 'Mud Bath', demo: @fun)
-      @sponge_bath = FactoryGirl.create(:tile, headline: 'Sponge Bath', demo: @fun)
-      @hot_shower = FactoryGirl.create(:tile, headline: 'Hot Shower', demo: @fun)
-
-      # Make rules and rule triggers for mud_bath and sponge_bath
-      @take_mud_bath = FactoryGirl.create(:rule, demo: @fun)
-      FactoryGirl.create(:rule_trigger, rule: @take_mud_bath, tile: @mud_bath)
-      @take_sponge_bath = FactoryGirl.create(:rule, demo: @fun)
-      FactoryGirl.create(:rule_trigger, rule: @take_sponge_bath, tile: @sponge_bath)
-    end
-
-    it "is satisfiable by some rule" do
-      tiles = Tile.satisfiable_by_trigger_table('trigger_rule_triggers')
-      tiles.count.should == 2
-      tiles.map(&:id).should include(@mud_bath.id)
-      tiles.map(&:id).should include(@sponge_bath.id)
-    end
-
-    it "is satisfiable by a particular rule" do
-      tiles_1 = Tile.satisfiable_by_rule(@take_sponge_bath)
-      tiles_1.map(&:id).should == [@sponge_bath.id]
-      tiles_2 = Tile.satisfiable_by_rule(@take_mud_bath)
-      tiles_2.map(&:id).should == [@mud_bath.id]
-    end
-
-    it "is satisfiable to a particular user by a particular rule" do
-      leah = FactoryGirl.create(:user, demo: @fun, name: 'Leah')
-      tiles_before = Tile.satisfiable_by_rule_to_user(@take_mud_bath, leah)
-      tiles_before.map(&:id).should == [@mud_bath.id]
-      completion = FactoryGirl.create(:tile_completion, tile: @mud_bath, user: leah)
-      tiles_after = Tile.satisfiable_by_rule_to_user(@take_mud_bath, leah.reload)
-      tiles_after.should be_empty
-    end
-
-    it "satisfies a tile for a user" do
-      janice = FactoryGirl.create(:user, demo: @fun, name: 'Janice')
-      TileCompletion.count.should == 0
-      janice.satisfy_tiles_by_rule(@take_mud_bath)
-      TileCompletion.count.should == 1
-      TileCompletion.first.tile.id.should == @mud_bath.id
-      TileCompletion.first.user.should == janice
     end
   end
 
@@ -389,39 +324,6 @@ describe Tile do
       emails = []
       Tile.bulk_complete(@fun.id, @stretch.id, emails)
       TileCompletion.count.should == 0
-    end
-  end
-
-  describe "Tiles with all_required" do
-    before(:each) do
-      Demo.find_each { |f| f.destroy }
-      @fun = FactoryGirl.create(:demo, name: 'F U N')
-      @leah = FactoryGirl.create(:user, name: 'Leah', demo: @fun)
-      @tile = FactoryGirl.create(:tile, headline: 'Tile with Require All', demo: @fun, poly: true)
-      @rule_1 = FactoryGirl.create(:rule, demo: @fun)
-      @rule_2 = FactoryGirl.create(:rule, demo: @fun)
-      @trigger_1 = FactoryGirl.create(:rule_trigger, tile: @tile, rule: @rule_1)
-      @trigger_2 = FactoryGirl.create(:rule_trigger, tile: @tile, rule: @rule_2)
-    end
-
-    it "should satisfy the rule only after both rules are satisfied" do
-      Tile.satisfiable_to_user(@leah).map(&:id).should == [@tile.id]
-      @tile.all_rule_triggers_satisfied_to_user(@leah).should be_false
-      Act.count.should == 0
-      # Create one of the required acts to satisfy the rule
-      FactoryGirl.create(:act, user: @leah, rule: @rule_1)
-      @tile.all_rule_triggers_satisfied_to_user(@leah).should be_false
-      Act.count.should == 1
-      Tile.satisfiable_to_user(@leah.reload).map(&:id).should == [@tile.id]
-      # Create the second act, so now it should actually be satisfied
-      FactoryGirl.create(:act, user: @leah, rule: @rule_2)
-      @tile.all_rule_triggers_satisfied_to_user(@leah).should be_true
-      Act.count.should == 3 # two acts and one tile completion
-      TileCompletion.count.should == 1
-      completion = TileCompletion.first
-      completion.user.should == @leah
-      completion.tile_id.should == @tile.id
-      Tile.satisfiable_to_user(@leah.reload).should be_empty
     end
   end
 

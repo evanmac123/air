@@ -46,7 +46,7 @@ class Act < ActiveRecord::Base
   alias_method_chain :user, :guest_allowed
 
   def points
-    self.inherent_points || self.rule.try(:points)
+    self.inherent_points || 0
   end
 
   def post_act_summary
@@ -86,65 +86,6 @@ class Act < ActiveRecord::Base
                   SELECT acts.* FROM acts WHERE acts.demo_id = ? AND acts.hidden = 'f' AND acts.privacy_level = 'everybody' \
                   ORDER BY created_at DESC LIMIT ? OFFSET ?",
                   board.id, viewable_user_ids, board.id, limit, offset])
-  end
-
-  def self.parse(user_or_phone, body, options = {})
-    set_return_message_type!(options)
-
-    user, phone_number = extract_user_and_phone(user_or_phone)
-
-    if user.nil?
-      reply = Demo.number_not_found_response(options[:receiving_number])
-      record_bad_message(phone_number, body)
-      return parsing_error_message(reply)
-    end
-
-    value = body.downcase.gsub(/\.$/, '').gsub(/\s+$/, '').gsub(/\s+/, ' ')
-
-    rule_value = user.first_eligible_rule_value(value)
-
-    rule = rule_value.try(:rule)
-
-    if rule
-      reply, error_code = user.act_on_rule(rule, rule_value, :channel => options[:channel])
-      if error_code == :success
-        return parsing_success_message(reply)
-      else
-        return parsing_error_message(reply)
-      end
-    else
-      reply = find_and_record_rule_suggestion(value, user)
-      record_bad_message(phone_number, body, reply)
-      return parsing_error_message(reply)
-    end
-  end
-
-  def self.find_and_record_rule_suggestion(attempted_value, user)
-    reply, last_suggested_item_ids = RuleValue.suggestion_for(attempted_value, user)
-    
-    user.last_suggested_items = last_suggested_item_ids if last_suggested_item_ids
-    user.save!
-
-    reply
-  end
-
-  def self.record_act(user, rule, rule_value, options={})
-    channel = options[:channel]
-    referring_user = options[:referring_user]
-    suggestion_code = options[:suggestion_code]
-                      
-    text = rule.to_s
-    if referring_user
-      text += I18n.translate(
-        'activerecord.models.act.thanks_from_referred_user',
-        :default => " (thanks %{name} for the referral)",
-        :name    => referring_user.name
-      )
-    end
-
-    act = create!(:user => user, :text => text, :rule => rule, :rule_value => rule_value, :referring_user => referring_user, :creation_channel => (channel || ''), :suggestion_code => suggestion_code)
-
-    [rule.reply, act.post_act_summary].join
   end
 
   def self.for_profile(viewing_user, _offset=0)

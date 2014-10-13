@@ -740,37 +740,6 @@ describe User, "#add_board" do
   end
 end
 
-describe User, "#credit_referring_user" do
-  before :each do
-    Twilio::SMS.stubs(:create)
-
-    @user = FactoryGirl.create :user
-    @rule_value = FactoryGirl.create :rule_value
-    @referring_user = FactoryGirl.create :user
-  end
-
-  it "should create an Act with the appropriate values" do
-    @user.send(:credit_referring_user, @referring_user, @rule_value.rule, @rule_value)
-
-    latest_act = @referring_user.reload.acts.last
-    latest_act.text.should include(@user.name)
-    latest_act.text.should_not include(@rule_value.value)
-    latest_act.inherent_points.should == @rule_value.rule.points / 2
-  end
-
-  describe "when the referring user has no phone number" do
-    before :each do
-      @referring_user.phone_number.should be_blank
-    end
-
-    it "should not try to send an SMS to that blank number" do
-      @user.send(:credit_referring_user, @referring_user, @rule_value.rule, @rule_value)
-
-      Twilio::SMS.should have_received(:create).never
-    end
-  end
-end
-
 describe "#mark_as_claimed" do
   before(:each) do
     @user = FactoryGirl.create :user
@@ -841,16 +810,13 @@ describe User do
 end
 
 describe User, "#sms_slug_does_not_match_commands" do
-  it "should invalidate user if sms_slug matches a command" do
-    demo = FactoryGirl.create(:demo, :name => "my_demo")
-    rule = FactoryGirl.create(:rule, :demo => demo)
-    rule_value = FactoryGirl.create(:rule_value, :value => "hippa", :rule_id => rule.id)
-    user = FactoryGirl.build(:user, :demo => demo, :sms_slug => 'follow', :slug => 'follow')
-    user.should_not be_valid
-    user = FactoryGirl.build(:user, :demo => demo, :sms_slug => 'hippa', :slug => 'hippa')
-    user.should_not be_valid
-    user = FactoryGirl.build(:user, :demo => demo, :sms_slug => 'followmehome', :slug => 'followmehome')
-    user.should be_valid
+  SpecialCommand.reserved_words.each do |reserved_word|
+    it "should invalidate user if sms_slug matches the reserved word \"#{reserved_word}\"" do
+      user = FactoryGirl.build(:user)
+      user.should be_valid
+      user.sms_slug = reserved_word
+      user.should_not be_valid
+    end
   end
 end
 
@@ -1018,34 +984,20 @@ describe User, "finds by either email" do
 end
 
 describe User, "#reset_tiles" do
-  before(:each) do
-    @fun = FactoryGirl.create(:demo, name: 'Fun')
-    @leah = FactoryGirl.create(:site_admin, name: 'Leah', demo: @fun)
-    @rule = FactoryGirl.create(:rule, demo: @fun)
-    @tile = FactoryGirl.create(:tile, demo: @fun)
-    @rule_trigger = FactoryGirl.create(:rule_trigger, rule: @rule, tile: @tile)
-    TileCompletion.count.should == 0
-    @act = FactoryGirl.create(:act, rule: @rule, user: @leah, demo: @fun)
-    TileCompletion.count.should == 1
-    @completion = TileCompletion.first
-    Act.count.should == 2 # @act plus the game piece completion act
-
-    # One more act for Leah that should stay around after resetting
-    FactoryGirl.create(:act, user: @leah, demo: @fun)
-
-    # Some random stuff that doesn't matter
-    FactoryGirl.create(:act)
-    FactoryGirl.create(:tile_completion)
-  end
-
   it "resets Leah's tiles for one demo only" do
+    demo = FactoryGirl.create(:demo)
+    user = FactoryGirl.create(:user, demo: demo)
+    tile = FactoryGirl.create(:tile, demo: demo)
+    completion = TileCompletion.create(user: user, tile: tile)
+
+    # A completion by someone else
+    FactoryGirl.create(:tile_completion)
+
     TileCompletion.count.should == 2
-    Act.count.should == 4
-    @leah.reset_tiles(@fun)
+
+    user.reset_tiles(demo)
     TileCompletion.count.should == 1
-    Act.count.should == 3
-    TileCompletion.all.map(&:id).should_not include(@completion.id)
-    Act.all.map(&:id).should_not include(@act.id)
+    TileCompletion.where(id: completion.id).should be_empty
   end
 end
 

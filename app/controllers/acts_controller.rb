@@ -62,19 +62,6 @@ class ActsController < ApplicationController
     end
   end
 
-  def create
-    parsing_message, parsing_message_type = Command.parse(current_user, params[:act][:code], :return_message_type => true, :channel => :web)
-    reply = construct_reply(parsing_message)
-    add_flash!(parsing_message_type, reply)
-
-    # Remain on current tile instead of going back to first one if current tile has more rules for them to complete
-    unless no_current_tile || on_talking_chicken_example_tile
-      remain_on_current_tile_if_rules_left_on_it
-    end
-
-    redirect_to :back
-  end
-
   add_method_tracer :index
   add_method_tracer :create
 
@@ -110,15 +97,6 @@ class ActsController < ApplicationController
 
   def no_current_tile
     params['current_tile'].blank?
-  end
-
-  def on_talking_chicken_example_tile
-    params['current_tile'].to_i.zero? # 0 is the default tile for talking chicken
-  end
-
-  def remain_on_current_tile_if_rules_left_on_it
-    tile = Tile.find params['current_tile']
-    session[:start_tile] = params['current_tile'] if tile.has_rules_left_for_user(current_user)
   end
 
   def authorized_by_tile_token

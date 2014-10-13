@@ -15,7 +15,6 @@ feature 'Creates tile' do
 
   scenario 'by uploading an image and supplying some information', js: true do
     demo.tiles.should be_empty
-    demo.rules.should be_empty
 
     create_good_tile
     demo.tiles.reload.should have(1).tile
@@ -124,7 +123,6 @@ feature 'Creates tile' do
 
   scenario "with a survey", js: true do
     demo.tiles.should be_empty
-    demo.rules.should be_empty
 
     fill_in_valid_form_entries(click_answer: 6, question_type: Tile::SURVEY)
     click_create_button

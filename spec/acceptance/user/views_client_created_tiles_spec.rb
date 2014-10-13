@@ -5,19 +5,6 @@ feature 'User views tiles' do
     "You've finished all new tiles!"
   end
 
-  context 'of the keyword variety' do
-    scenario 'and all the extra cool stuff around them' do
-      tile = FactoryGirl.create(:keyword_tile, supporting_content: "Vote Quimby", question: "Who should you vote for?")
-      tile.first_rule.update_attributes(points: 10)
-      user = FactoryGirl.create(:user, demo: tile.demo)
-      visit tiles_path(as: user)
-
-      expect_supporting_content "Vote Quimby"
-      expect_question "Who should you vote for?"
-      expect_points 10
-    end
-  end
-
   context 'of the multiple-choice variety' do
     before do
       @tile = FactoryGirl.create(:multiple_choice_tile, points: 30)

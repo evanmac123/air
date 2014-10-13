@@ -228,18 +228,8 @@ class User < ActiveRecord::Base
 
   def sms_slug_does_not_match_commands
     # HRFF: check this only if the slug actually changed
-    # Also, eager load the rule values
 
-    if self.demo && self.demo.rule_values.present?
-      demo_rules = self.demo.rule_values
-      demo_rule_values = demo_rules.collect do |v|
-        v.value
-      end
-    else
-      demo_rule_values = []
-    end
-
-    all_commands = SpecialCommand.reserved_words + demo_rule_values
+    all_commands = SpecialCommand.reserved_words
     if all_commands.include? self.sms_slug
       self.errors.add("sms_slug", "Sorry, but that username is reserved")
     end
@@ -733,31 +723,6 @@ class User < ActiveRecord::Base
     true
   end
 
-  # Returns a list [reply, reply_type] where reply_type should be :success if
-  # the action was successful, or an error code if the action failed.
-
-  def act_on_rule(rule, rule_value, options={})
-    self.last_suggested_items = ''
-    self.save!
-
-    result = nil
-
-    User.transaction do
-      if rule.user_hit_limit?(self)
-        return ["Sorry, you've already done that action.", :over_alltime_limit]
-      end
-
-      if rule.user_hit_daily_limit?(self)
-        return ["Sorry, you've reached the limit for the number of times you can earn points for that kind of action today. Enter it tomorrow!", :over_daily_limit]
-      end
-
-      result = [Act.record_act(self, rule, rule_value, options), :success]
-    end
-
-    credit_referring_user(options[:referring_user], rule, rule_value)
-    result
-  end
-
   def befriend(other, mixpanel_properties={})
     friendship = nil
     Friendship.transaction do
@@ -859,12 +824,6 @@ class User < ActiveRecord::Base
     # Why the fuck does changing this to self.tile_completions not work?
     TileCompletion.where(user_id: self.id).each do |completion|
       completion.destroy if completion.tile.demo == demo
-    end
-
-    Tile.where(demo_id: demo.id).each do |tile|
-      tile.rule_triggers.each do |rule_trigger|
-        Act.where(user_id: self.id, rule_id: rule_trigger.rule_id).each { |act| act.destroy }
-      end
     end
   end
 
@@ -1274,35 +1233,6 @@ class User < ActiveRecord::Base
 
   def add_joining_to_activity_stream
     self.class.add_joining_to_activity_stream(self)
-  end
-
-  def credit_referring_user(referring_user, rule, rule_value)
-    return unless referring_user
-
-    act_text = I18n.interpolate(
-      "told %{name} about a command",
-      :name       => self.name,
-      :rule_value => rule_value.value
-    )
-
-    points_earned_by_referring = (rule.referral_points) || (rule.points ? rule.points / 2 : 0)
-    points_phrase = points_earned_by_referring == 1 ? "1 point" : "#{points_earned_by_referring} points"
-
-    Act.create!(
-      :user => referring_user,
-      :text => act_text,
-      :inherent_points => points_earned_by_referring
-    )
-
-    sms_text = I18n.interpolate(
-      %{+%{points}, %{name} tagged you in the "%{rule_value}" command.%{point_and_ticket_summary}},
-      :points                    => points_phrase,
-      :name                      => self.name,
-      :rule_value                => rule_value.value,
-      :point_and_ticket_summary  => referring_user.point_and_ticket_summary
-    )
-
-    OutgoingMessage.send_message(referring_user, sms_text)
   end
 
   def self.passwords_dont_match_error_message

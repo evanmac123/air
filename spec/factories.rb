@@ -110,36 +110,6 @@ FactoryGirl.define do
     end
   end
 
-  factory :rule do
-    points  2
-    reply  "Yum. +2 points. Bananas help you fight cancer."
-    association :demo
-    association :primary_tag, :factory => :tag
-  end
-
-  factory :rule_value do
-    sequence(:value)  {|n| "ate banana #{n}" }
-    association(:rule)
-  end
-
-  factory :primary_value, :parent => :rule_value do
-    is_primary true
-  end
-
-  factory :tag do
-    description "A short description"
-    sequence(:name) {|n| "Cool word #{n}"}
-  end
-
-  factory :label do
-    association(:rule)
-    association(:tag)
-  end
-
-  factory :key do
-    sequence(:name) { |n| "ate_#{n}" }
-  end
-
   factory :bad_message do
     phone_number "+14155551212"
     received_at  { Time.now }
@@ -162,10 +132,6 @@ FactoryGirl.define do
 
   factory :act do
     association :user
-  end
-
-  factory :act_with_rule, :parent => :act do
-    association :rule
   end
 
   factory :friendship do
@@ -247,15 +213,6 @@ FactoryGirl.define do
     image_credit "by Human"
   end
 
-  factory :keyword_tile, parent: :client_created_tile, class: KeywordTile do
-    type 'KeywordTile'
-    after(:create) do |tile|
-      rule_value   = FactoryGirl.create(:rule_value, is_primary: true)
-      rule_trigger = FactoryGirl.create(:rule_trigger, tile: tile, rule: rule_value.rule)
-      tile.first_rule.update_attributes(demo_id: tile.demo_id)
-    end
-  end
-
   factory :multiple_choice_tile, parent: :client_created_tile, class: MultipleChoiceTile do
     type 'MultipleChoiceTile'
     question "Which of the following comes out of a bird?"
@@ -288,11 +245,6 @@ FactoryGirl.define do
   factory :location do
     sequence(:name) {|n| "Awesomeville #{n}"}
     association :demo
-  end
-
-  factory :rule_trigger, :class => Trigger::RuleTrigger do
-    association :rule
-    association :tile
   end
 
   factory :characteristic do

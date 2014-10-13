@@ -183,26 +183,6 @@ class Tile < ActiveRecord::Base
     self.user_tile_likes.count
   end
   
-  def only_manually_triggerable?
-    self.rule_triggers.empty?
-  end
-
-  def all_rule_triggers_satisfied_to_user(user)
-    return true unless self.poly
-    required_rule_ids = rule_triggers.map(&:rule_id).to_set
-    completed_rule_ids = Act.where(user_id: user.id).map(&:rule_id).to_set
-    required_rule_ids.subset? completed_rule_ids
-  end
-
-  def has_rules_left_for_user(user)
-    poly? && !all_rule_triggers_satisfied_to_user(user)
-  end
-
-  def first_rule
-    first_trigger = rule_triggers.order("created_at ASC").first
-    first_trigger && first_trigger.rule
-  end
-
   def appears_client_created
     supporting_content.present? && question.present?
   end

@@ -57,7 +57,6 @@ module SpecialCommand
   register_command_handler %w(myid),                                SpecialCommandHandlers::MyIdHandler
   register_command_handler %w(info),                                SpecialCommandHandlers::MoreInfoHandler
   register_command_handler %w(s suggest),                           SpecialCommandHandlers::SuggestionHandler
-  register_command_handler [/^[a-z]$/],                             SpecialCommandHandlers::UseSuggestedItemHandler
   register_command_handler %w(help),                                SpecialCommandHandlers::HelpHandler
   register_command_handler %w(support),                             SpecialCommandHandlers::SupportHandler
   register_command_handler %w(prizes),                              SpecialCommandHandlers::PrizeHandler
