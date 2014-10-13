@@ -38,7 +38,9 @@ class TileCompletion < ActiveRecord::Base
   def has_user_joined?
     user_type == User.name && user.claimed?
   end
-
+  #
+  # => Methods For Wice Grid
+  #
   def self.tile_completions_with_users tile_id
     TileCompletion.includes(:tile).joins("LEFT JOIN #{User.table_name} on #{TileCompletion.table_name}.user_id = #{User.
     table_name}.id AND user_type = '#{User.name}'").
@@ -63,7 +65,9 @@ class TileCompletion < ActiveRecord::Base
         ORDER_BY_USER_JOINED => "CASE WHEN #{User.
         table_name}.id IS NULL THEN NULL ELSE #{User.table_name}.accepted_invitation_at end"
       
-      }
+      },
+      enable_export_to_csv: true,
+      csv_file_name: "tile_completions_report_#{DateTime.now.strftime("%d_%m_%y")}"
     }
   end
 
@@ -76,6 +80,12 @@ class TileCompletion < ActiveRecord::Base
   end
 
   def self.non_completion_grid_params
-    {name: 'nc_grid', order: 'name', order_direction: 'asc'}
+    {
+      name: 'nc_grid', 
+      order: 'name', 
+      order_direction: 'asc',
+      enable_export_to_csv: true,
+      csv_file_name: "non_completions_report_#{DateTime.now.strftime("%d_%m_%y")}"
+    }
   end
 end

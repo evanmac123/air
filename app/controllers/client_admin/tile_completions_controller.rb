@@ -10,6 +10,7 @@ class ClientAdmin::TileCompletionsController < ClientAdminBaseController
         TileCompletion.tile_completions_with_users(@tile.id), 
         TileCompletion.tile_completion_grid_params
       )
+      export_grid_if_requested('tc_grid' => 'tile_completions')
     end
     TrackEvent.ping_page('Tile More Info Page', {}, current_user) 
   end
