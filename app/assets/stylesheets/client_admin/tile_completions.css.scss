@@ -4,13 +4,13 @@ $tile_completion_button_height: 2.0em;
     float: right;
     display: none;
   }
-  .completed {
+  .completed, .not-completed {
     height: $tile_completion_button_height;
     &.engaged {
-      @include app-button($dark-green);
+      @include app-button($sky-blue);
     }
     &.disengaged {
-      @include app-button($blue);
+      @include light-button($sky-blue);
     }
   }
   
@@ -21,7 +21,7 @@ $tile_completion_button_height: 2.0em;
       }
     }
     .grid_no_record {margin:3em auto 0;}  
-  }
+  }/*
   .not-completed {
     height: $tile_completion_button_height;
     &.engaged {
@@ -30,5 +30,5 @@ $tile_completion_button_height: 2.0em;
     &.disengaged {
       @include app-button($blue);
     }
-  }
+  }*/
 }
