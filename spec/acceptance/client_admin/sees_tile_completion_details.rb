@@ -6,8 +6,11 @@ feature "sees tile completion details" do
   let (:survey_tile) {FactoryGirl.create(:survey_tile, status: Tile::ACTIVE, demo: client_admin.demo)}
   let (:user) {FactoryGirl.create :user, demo: client_admin.demo}
   let (:guest_user) {FactoryGirl.create :guest_user, demo: client_admin.demo}
-  let(:user_first) {FactoryGirl.create(:user, demo: client_admin.demo, name: '000')}
-  let(:user_last) {FactoryGirl.create(:user, demo: client_admin.demo, name: 'ZZZ')}
+  let(:user_first_name) {FactoryGirl.create(:user, demo: client_admin.demo, name: '000')}
+  let(:user_last_name) {FactoryGirl.create(:user, demo: client_admin.demo, name: 'ZZZ')}
+  let(:user_first_email) {FactoryGirl.create(:user, demo: client_admin.demo, email: '000@gmail.com')}
+  let(:user_last_email) {FactoryGirl.create(:user, demo: client_admin.demo, email: 'zzz@gmail.com')}
+  let(:user_first_joined) {FactoryGirl.create(:user, demo: client_admin.demo, name: "first joined", accepted_invitation_at: 10.years.ago)}
   let(:user_latest) {FactoryGirl.create(:user, demo: client_admin.demo)}
 
   context "tiles detail page" do
@@ -53,8 +56,11 @@ feature "sees tile completion details" do
         u = FactoryGirl.create(:user, demo: client_admin.demo)
         FactoryGirl.create(:tile_completion, user: u, tile: tile)
       end
-      FactoryGirl.create(:tile_completion, user: user_first, tile: tile)
-      FactoryGirl.create(:tile_completion, user: user_last, tile: tile)
+      FactoryGirl.create(:tile_completion, user: user_first_name, tile: tile)
+      FactoryGirl.create(:tile_completion, user: user_last_name, tile: tile)
+      FactoryGirl.create(:tile_completion, user: user_first_email, tile: tile)
+      FactoryGirl.create(:tile_completion, user: user_last_email, tile: tile)
+      FactoryGirl.create(:tile_completion, user: user_first_joined, tile: tile)
       visit client_admin_tile_tile_completions_path(tile, as: client_admin)
     end    
     scenario "breadcrumb saying Tiles and Completion Report" do
@@ -64,7 +70,7 @@ feature "sees tile completion details" do
     end
     scenario "top of the page has the headline from the tile I clicked" do
       #top of the page has the headline from the tile I clicked
-      page.all('h3')[0].should have_content tile.headline
+      page.should have_content tile.headline
     end
     # I see There are two options: 'Completed: Yes' or 'No' (second button class style, selected state blue, not selected grey)
       
@@ -85,6 +91,20 @@ feature "sees tile completion details" do
       page.find('tbody tr:first td:first').should have_content('000')
       click_link 'Name'
       page.find('tbody tr:first td:first').should have_content('ZZZ')
+    end
+    scenario "on click email, list should show email descending" do
+      click_link 'Email'
+      page.all('tbody tr:first td')[1].should have_content('000@gmail.com')
+      click_link 'Email'
+      page.all('tbody tr:first td')[1].should have_content('zzz@gmail.com')
+    end
+    scenario "on click joined, list should show joined descending" do
+      click_link 'Joined'
+      page.find('tbody tr:first td:first').should have_content('first joined')
+      page.all('tbody tr:first td')[3].should have_content('Yes')
+      click_link 'Joined'
+      page.find('tbody tr:first td:first').should have_content('James Earl Jones')
+      page.all('tbody tr:first td')[3].should have_content('No')
     end
     #    scenario "should be sortable by date" do
     #      tile_completion_latest = FactoryGirl.create(:tile_completion, user: user_latest, tile: tile)
