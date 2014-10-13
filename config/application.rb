@@ -121,6 +121,6 @@ module Health
     # Allows us to detect the type of client device on the server, i.e. before sending the page down
     config.middleware.use Mobvious::Manager
 
-    config.cache_store = :redis_store, ENV['REDISTOGO_URL']
+    config.cache_store = :redis_store, ENV['REDISTOGO_URL'], { expires_in: 90.minutes }
   end
 end
