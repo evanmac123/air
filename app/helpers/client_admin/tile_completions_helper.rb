@@ -7,4 +7,22 @@ module ClientAdmin::TileCompletionsHelper
   	content_tag(:span, answer[0...15], class: 'has-tip', 
         title: answer, data: {tooltip: ''})
   end
+
+  def tile_completions_csv_link(tile)
+  	params = {
+  		tc_grid: {
+  			export: "csv"
+  		}
+  	}
+  	client_admin_tile_tile_completions_path(tile) + "?#{params.to_query}"
+  end
+
+  def non_completions_csv_link tile
+  	params = {
+  		nc_grid: {
+  			export: "csv"
+  		}
+  	}
+  	client_admin_tile_tile_completions_path(tile) + "?#{params.to_query}"
+  end
 end

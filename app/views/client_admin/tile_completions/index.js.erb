@@ -5,5 +5,4 @@ $(".completed").addClass('engaged')
 $(".not-completed").addClass('disengaged')
 
 $("#completions_grid").html("<%= escape_javascript( render(:partial => "tile_completions") ) %>")
-$(".download_as_csv[data-grid-name='tc_grid']").show()
-$(".download_as_csv[data-grid-name='nc_grid']").hide()
+$(".download_as_csv").attr("href", "<%= tile_completions_csv_link @tile %>")
