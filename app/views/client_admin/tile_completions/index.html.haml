@@ -19,6 +19,8 @@
       = link_to "No", {controller: :tile_completions, action: :non_completions, tile_id: @tile.id},{class:'not-completed disengaged', id: 'show_not_completed', remote: true}#, id: 'off_toggle'#, class: off_toggle_class
       = image_tag "spinner.gif", id: "spinner", style: "display: none"
       .download_as_csv.wg-external-csv-export-button{"data-grid-name" => "tc_grid"}
+        Download as CSV
+      .download_as_csv.wg-external-csv-export-button{"data-grid-name" => "nc_grid", style: "display:none;"}
         Download as CSV    
     #completions_grid
       = render partial: 'tile_completions', tile_completions_grid: @tile_completions_grid

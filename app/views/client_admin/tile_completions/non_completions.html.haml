@@ -13,5 +13,7 @@
       = image_tag "spinner.gif", id: "spinner", style: "display: none" 
       .download_as_csv.wg-external-csv-export-button{"data-grid-name" => "nc_grid"}
         Download as CSV  
+      .download_as_csv.wg-external-csv-export-button{"data-grid-name" => "tc_grid", style: "display:none;"}
+        Download as CSV  
     #completions_grid
       = render partial: 'non_completions', non_completions_grid: @non_completions_grid

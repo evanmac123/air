@@ -20,7 +20,10 @@ class ClientAdmin::TileCompletionsController < ClientAdminBaseController
       TileCompletion.non_completions_with_users(@tile), 
       TileCompletion.non_completion_grid_params
     )
-    render :non_completions
+    export_grid_if_requested('nc_grid' => 'non_completions') do
+      # if the request is not a CSV export request
+      render :non_completions
+    end
   end
 
   protected

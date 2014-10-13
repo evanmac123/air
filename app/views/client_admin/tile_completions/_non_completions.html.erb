@@ -1,19 +1,34 @@
-<%= grid(@non_completions_grid, html: {id: "search-results-table"}, header_tr_html:  {id: "search-labels"}) do |g|
+<%= grid(@non_completions_grid, html: {id: "search-results-table"}, header_tr_html:  {id: "search-labels"}, hide_csv_button: true) do |g|
   g.blank_slate "<div class='grid_no_record'>Everyone has completed this tile!</div>".html_safe 
   g.row_attributes do |user|
     {class: 'found-user'}
   end
-  g.column html: {class: "results-name"}, name: 'Name', attribute: 'name', filter: false do |user|
+  #
+  # => Columns for HTML version
+  #
+  g.column html: {class: "results-name"}, name: 'Name', attribute: 'name', filter: false, in_csv: false do |user|
     link_to user.name, edit_client_admin_user_path(user), class: 'edit-user'
   end
-  g.column html: {class: "results-email"}, name: 'Email', attribute: 'email', filter: false do |user|      
+  g.column html: {class: "results-email"}, name: 'Email', attribute: 'email', filter: false, in_csv: false do |user|      
     user.email
   end
-  g.column html: {class: "results-joined"}, name: 'Joined?', attribute: 'accepted_invitation_at', filter: false do |user|    
+  g.column html: {class: "results-joined"}, name: 'Joined?', attribute: 'accepted_invitation_at', filter: false, in_csv: false do |user|    
     if user.claimed?
       '<span class="joined">Yes</span>'.html_safe
     else
       '<span class="not-joined">No</span>'.html_safe
     end
+  end
+  #
+  # => Columns for CSV version
+  #
+  g.column name: 'Name', in_html: false do |user|
+    user.name
+  end
+  g.column name: 'Email', in_html: false do |user|      
+    user.email
+  end
+  g.column name: 'Joined?', in_html: false do |user|    
+    user.claimed? ? "Yes" : "No"
   end
 end -%>

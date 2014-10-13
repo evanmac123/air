@@ -21,6 +21,7 @@ $tile_completion_button_height: 2.0em;
       height: $tile_completion_button_height;
       float: right;
       text-transform: none;
+      cursor: pointer;
     }
   }
   
@@ -28,9 +29,6 @@ $tile_completion_button_height: 2.0em;
     #tc_grid, #nc_grid {
       td.results-joined {
         text-align: left;
-      }
-      .clickable.export-to-csv-button{
-        display: none;
       }
     }
     .grid_no_record {margin:3em auto 0;}  

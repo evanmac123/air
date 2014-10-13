@@ -1,4 +1,4 @@
-<%= grid(@tile_completions_grid, html: {id: "search-results-table"}, header_tr_html:  {id: "search-labels", hide_csv_button: true}) do |g|  
+<%= grid(@tile_completions_grid, html: {id: "search-results-table"}, header_tr_html:  {id: "search-labels"}, hide_csv_button: true) do |g|  
   g.blank_slate "<div class='grid_no_record'>There are no users that have completed this tile yet.</div>".html_safe 
   g.row_attributes do |tile_completion|
     {class: 'found-user'}
