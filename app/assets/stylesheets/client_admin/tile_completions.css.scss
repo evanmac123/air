@@ -4,13 +4,22 @@ $tile_completion_button_height: 2.0em;
     float: right;
     display: none;
   }
-  .completed, .not-completed {
-    height: $tile_completion_button_height;
-    &.engaged {
-      @include app-button($sky-blue);
+  .tile_completions_controls{
+    //position: relative;
+    .completed, .not-completed {
+      height: $tile_completion_button_height;
+      &.engaged {
+        @include app-button($sky-blue);
+      }
+      &.disengaged {
+        @include light-button($sky-blue);
+      }
     }
-    &.disengaged {
+    .download_as_csv{
       @include light-button($sky-blue);
+      text-align: left;
+      height: $tile_completion_button_height;
+      float: right;
     }
   }
   
@@ -21,14 +30,5 @@ $tile_completion_button_height: 2.0em;
       }
     }
     .grid_no_record {margin:3em auto 0;}  
-  }/*
-  .not-completed {
-    height: $tile_completion_button_height;
-    &.engaged {
-      @include app-button($dark-green);
-    }
-    &.disengaged {
-      @include app-button($blue);
-    }
-  }*/
+  }
 }

@@ -10,6 +10,7 @@
       Completed:
       = link_to "Yes", client_admin_tile_tile_completions_path(@tile),{class:'completed disengaged', id: 'show_completed', remote: true}
       = link_to "No", {controller: :tile_completions, action: :non_completions, tile_id: @tile.id},{class:'not-completed engaged', id: 'show_not_completed', remote: true}
-      = image_tag "spinner.gif", id: "spinner", style: "display: none"    
+      = image_tag "spinner.gif", id: "spinner", style: "display: none" 
+      = link_to "Download as CSV", nil, class: "download_as_csv"   
     #completions_grid
       = render partial: 'non_completions', non_completions_grid: @non_completions_grid
