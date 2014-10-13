@@ -6,10 +6,10 @@
   g.column html: {class: "results-name"}, name: 'Name', attribute: 'name', filter: false do |user|
     link_to user.name, edit_client_admin_user_path(user), class: 'edit-user'
   end
-  g.column html: {class: "results-email"}, name: 'Email' do |user|      
+  g.column html: {class: "results-email"}, name: 'Email', attribute: 'email', filter: false do |user|      
     user.email
   end
-  g.column html: {class: "results-joined"}, name: 'Joined?' do |user|    
+  g.column html: {class: "results-joined"}, name: 'Joined?', attribute: 'accepted_invitation_at', filter: false do |user|    
     if user.claimed?
       '<span class="joined">Yes</span>'.html_safe
     else
