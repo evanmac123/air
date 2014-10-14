@@ -56,7 +56,7 @@
 <% elsif @display_activity_page_admin_guide %>
   <%= render partial: "activity_page_admin_guide" %>
 <% elsif @display_get_started_lightbox %>
-  <% suppress_conversion_modal = @current_user.demo && $rollout.active?(:suppress_conversion_modal, @curent_user.demo) %>
+  <% suppress_conversion_modal = @current_user.demo && $rollout.active?(:suppress_conversion_modal, @current_user.demo) %>
   <%= render "get_started_lightbox", board_name: current_user.demo.name, is_guest: @current_user.is_guest?, get_started_lightbox_message: @get_started_lightbox_message, suppress_conversion_modal: suppress_conversion_modal %>
 <% end %>      
       

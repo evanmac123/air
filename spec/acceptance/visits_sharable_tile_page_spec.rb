@@ -31,20 +31,22 @@ feature "visits sharable tile page" do
     end
   end
 
-  shared_examples_for "makes ping" do
+  shared_examples_for "makes ping on board creation or signin" do
     scenario "should ping on create board", js: true do
       click_link "Create Board"
       expect_ping "Tile - Viewed", { "action" => "Clicked Create Board"}, @user
     end
 
-    scenario "should ping on answering", js: true do
-      click_link "Eggs"
-      expect_ping "Tile - Viewed", { "action" => "Answered Question"}, @user
-    end
-
     scenario "should ping on sign in", js: true do
       click_link "Sign In"
       expect_ping "Tile - Viewed", { "action" => "Clicked Sign-in"}, @user
+    end
+  end
+
+  shared_examples_for "makes ping" do
+    scenario "should ping on answering", js: true do
+      click_link "Eggs"
+      expect_ping "Tile - Viewed", { "action" => "Answered Question"}, @user
     end
 
     scenario "should ping on logo", js: true do
@@ -62,6 +64,7 @@ feature "visits sharable tile page" do
     it_should_behave_like "gets registration form", "create board button", "#save_progress_button"
     it_should_behave_like "answers the tile"
     it_should_behave_like "makes ping"
+    it_should_behave_like "makes ping on board creation or signin"
   end
 
   context "as User" do
@@ -70,7 +73,6 @@ feature "visits sharable tile page" do
       visit sharable_tile_path(tile, as: @user)
     end
 
-    it_should_behave_like "gets registration form", "create board button", "#save_progress_button"
     it_should_behave_like "answers the tile"
     it_should_behave_like "makes ping"
   end
@@ -81,7 +83,6 @@ feature "visits sharable tile page" do
       visit sharable_tile_path(tile, as: @user)
     end
 
-    it_should_behave_like "gets registration form", "create board button", "#save_progress_button"
     it_should_behave_like "answers the tile"
     it_should_behave_like "makes ping"
   end
