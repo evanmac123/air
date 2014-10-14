@@ -1,2 +1,3 @@
+<% content_for(:invitation_link){ accept_friendship_url(@user_id, @friendship_id) } %>
 <%= render partial: 'mailer/main_text', locals: {head_text: "Connection request", subhead_text: "Hi #{@friend_name}, #{@user_name} has asked to be your connection on Airbo."} %>
 <%= render partial: 'mailer/main_button', locals: {button_text: "Accept", button_url: accept_friendship_url(@user_id, @friendship_id)} %>

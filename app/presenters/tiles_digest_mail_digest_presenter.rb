@@ -49,8 +49,4 @@ class TilesDigestMailDigestPresenter < TilesDigestMailBasePresenter
   def general_site_url
     email_site_link(@user, @demo, is_preview, email_type)
   end
-
-  def invitation_link
-    @user.claimed? ? nil : general_site_url
-  end
 end

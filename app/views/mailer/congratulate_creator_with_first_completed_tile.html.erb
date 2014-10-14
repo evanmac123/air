@@ -1,2 +1,3 @@
+<% content_for(:invitation_link){ client_admin_tiles_url(as: @user) } %>
 <%= render partial: 'mailer/main_text', locals: {head_text: "Congratulations!", subhead_text: "You've had your first person interact with a tile."} %>
 <%= render partial: 'mailer/main_button', locals: {button_text: 'Check Activity', button_url: client_admin_tiles_url(as: @user)} %>
