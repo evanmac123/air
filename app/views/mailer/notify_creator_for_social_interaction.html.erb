@@ -1,3 +1,3 @@
-<% content_for(:invitation_link){ explore_tile_preview_url(@tile) } %>
+<% content_for(:ie_link){ explore_tile_preview_url(@tile) } %>
 <%= render partial: 'mailer/main_text', locals: {head_text: "Congratulations!", subhead_text: "#{@user.name} #{@action} your tile \"#{@tile.headline},\" that you shared on the Explore page."} %>
 <%= render partial: 'mailer/main_button', locals: {button_text: 'See Tile', button_url: explore_tile_preview_url(@tile)} %>

@@ -1,4 +1,4 @@
-<% content_for(:invitation_link){ @invitation_url } %>
+<% content_for(:ie_link){ @cancel_account_url } %>
 <%= render partial: 'mailer/main_text', locals: {head_text: "Welcome to Airbo!", subhead_text: ("Welcome to the  #{@board_name} on Airbo" + "\n" + "If you didn't create this account, just click here to cancel")} %>
 <%= render partial: 'mailer/main_button', locals: {button_text: "Cancel", button_url: @cancel_account_url, button_url_options: {method: :delete} } %>
 

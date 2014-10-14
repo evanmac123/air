@@ -1,4 +1,4 @@
-<% invitation_link ||= nil %>
+<% ie_link ||= nil %>
 <!-- Unsubscribe/Update Preferences -->
 <table width="480" align="center" cellpadding="0" cellspacing="0" border="0" class="columns" style="border-top:1px solid #dfdfdf;">
 <tr>
@@ -17,7 +17,7 @@
 <!-- footer -->
 <table width="480" align="center" cellpadding="0" cellspacing="0" border="0" class="columns">
 <tr>
-  <td align="center" style="font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#a8a8a8;;mso-line-height-rule:exactly;line-height:18px;padding-top:20px;padding-bottom:30px;padding-left:10px;padding-right:10px;" class="columnNormal">
+  <td align="center" style="font-family:Helvetica,Arial,sans-serif;font-size:11px;color:#a8a8a8;;mso-line-height-rule:exactly;line-height:18px;padding-top:20px;padding-bottom:30px;padding-left:10px;padding-right:10px;" class="columnNormal">
     <span style="color:#a8a8a8 !important;">
       This email is unique for you. Please do not forward it.
       For assistance contact <a href="mailto:support@air.bo" style="text-decoration:none;color:#a8a8a8;">support@air.bo</a>. 
@@ -26,9 +26,10 @@
       <a href="https://www.air.bo/terms" style="color:#a8a8a8;" target="_blank">Terms and Conditions</a> 
       and 
       <a href="https://www.air.bo/privacy" style="color:#a8a8a8;" target="_blank">Privacy Policy</a>.
-      <% if invitation_link.present? %>
+      <% if ie_link.present? %>
+        <br/><br/>
         If using below IE8, copy and paste this link into IE8 and above, Firefox or Chrome:
-        <%= invitation_link %>
+        <%= ie_link %>
       <% end %>
     </span>
   </td>
