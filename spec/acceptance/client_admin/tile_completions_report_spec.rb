@@ -20,7 +20,7 @@ feature 'client admin views tile completions and non completions reports' do
   let!(:tile_completions) do
     demo.users.each_with_index do |user, i|
       next if i.even?
-      FactoryGirl.create :tile_completion, tile: tile, user: user, answer_index: (i%3), created_at: Date.parse("13/10/2014")
+      FactoryGirl.create :tile_completion, tile: tile, user: user, answer_index: (i%3), created_at: Date::strptime("10/13/2014", "%m/%d/%Y")
     end
   end
 
