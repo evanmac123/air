@@ -13,7 +13,7 @@
               </td>
             </tr>
           </table>
-          <%= render partial: "mailer/footer" %>
+          <%= render partial: "mailer/footer", locals: { invitation_link: @presenter.invitation_link } %>
         </td>
       </tr>
     </table>

@@ -34,6 +34,10 @@ class TilesDigestMailBasePresenter
     true
   end
 
+  def invitation_link
+    nil
+  end
+
   attr_reader :custom_message
 
   protected

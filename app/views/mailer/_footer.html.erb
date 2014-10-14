@@ -1,3 +1,4 @@
+<% invitation_link ||= nil %>
 <!-- Unsubscribe/Update Preferences -->
 <table width="480" align="center" cellpadding="0" cellspacing="0" border="0" class="columns" style="border-top:1px solid #dfdfdf;">
 <tr>
@@ -25,6 +26,10 @@
       <a href="https://www.air.bo/terms" style="color:#a8a8a8;" target="_blank">Terms and Conditions</a> 
       and 
       <a href="https://www.air.bo/privacy" style="color:#a8a8a8;" target="_blank">Privacy Policy</a>.
+      <% if invitation_link.present? %>
+        If using below IE8, copy and paste this link into IE8 and above, Firefox or Chrome:
+        <%= invitation_link %>
+      <% end %>
     </span>
   </td>
 </tr>
