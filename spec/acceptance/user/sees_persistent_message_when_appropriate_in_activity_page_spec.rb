@@ -2,7 +2,7 @@ require 'acceptance/acceptance_helper'
 
 feature 'Sees persistent message when appropriate in activity page' do
   def default_persistent_message
-    "Airbo is an interactive communication tool. Read information and answer questions on the tiles to earn points."  
+    "Airbo is an interactive communication tool. Get started by clicking on a tile. Interact and answer questions to earn points."
   end
 
   before do
