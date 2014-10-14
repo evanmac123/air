@@ -4,7 +4,7 @@ feature "Client Admin Interacts With Share And Public Section" do
   include WaitForAjax
 
   def share_section_intro_text
-    "Want to share a tile with someone not in your board? Make it public and use these tools to share it."
+    "Share tile outside of your board."
   end
 
   def sharable_link_switcher
