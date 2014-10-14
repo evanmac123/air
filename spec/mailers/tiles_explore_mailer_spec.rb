@@ -72,6 +72,7 @@ describe 'Explore digest email' do
       it { should have_body_text "Our mailing address is 292 Newbury Street, Suite 547, Boston, MA 02116" }
 
       it { should have_link      'Unsubscribe' }
+      it { should have_body_text 'If using below IE8, copy and paste this link into IE8 and above, Firefox or Chrome:' }
     end
   end
 end
