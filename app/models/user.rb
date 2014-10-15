@@ -497,7 +497,7 @@ class User < ActiveRecord::Base
       :location              => self.location.try(:name),
       :user_type             => self.highest_ranking_user_type,
       :is_test_user          => !!(self.is_test_user), # remember, the !! normalized nil to false
-      :board_type            => (self.demo.is_paid ? "Paid" : "Free")
+      :board_type            => (self.demo.try(:is_paid) ? "Paid" : "Free")
     }
   end
 

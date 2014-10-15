@@ -33,7 +33,7 @@ class PotentialUser < ActiveRecord::Base
       user_type:    self.highest_ranking_user_type,
       game:         self.demo.try(:name),
       is_test_user: is_test_user?,
-      board_type:   (self.demo.is_paid ? "Paid" : "Free")
+      board_type:   (self.demo.try(:is_paid) ? "Paid" : "Free")
     }
   end
 
