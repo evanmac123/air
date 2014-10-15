@@ -32,7 +32,8 @@ class PotentialUser < ActiveRecord::Base
       distinct_id:  "potential_user_#{self.id}",
       user_type:    self.highest_ranking_user_type,
       game:         self.demo.try(:name),
-      is_test_user: is_test_user?
+      is_test_user: is_test_user?,
+      board_type:   (self.demo.is_paid ? "Paid" : "Free")
     }
   end
 
