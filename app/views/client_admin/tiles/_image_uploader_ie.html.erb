@@ -28,29 +28,7 @@
     <%= form.text_field :image_credit, {maxlength: 50, placeholder:'Add Image Credit'} %>
   </div>
 </div>
-<% content_for :javascript do %>
-  <%= javascript_tag do %>
-    $( document ).ready(function() {
-      saveImageCreditChanges();
-      addCharacterCounterFor('#tile_builder_form_image_credit');
-    });
 
-    function saveImageCreditChanges() {
-      input = $("#tile_builder_form_image_credit");
-      if(input.val() != ""){
-        if(input.val().length > 50 ){
-          text = input.val().substring(0,50) + "...";
-        }else{
-          text = input.val();
-        }
-      }else{
-        text = "Add Image Credit"
-      }
-      $(".image_credit_view").html(text);
-    };
-
-    $("#tile_builder_form_image_credit").bind('input propertychange', function(){ 
-      saveImageCreditChanges();     
-    });
-  <% end %>
+<% js_at_end do %>
+  bindTileUploaderIE();
 <% end %>
