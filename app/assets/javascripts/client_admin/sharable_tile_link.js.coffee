@@ -74,7 +74,8 @@ window.sharableTileLink = ->
     sendTileSharedPing("Explore")
     turnOnSharableTile()
     $(".share_options").show()
-    $("#share_on").click().click()
+    $('.share_options').find('.allow_copying').show()
+    $('.share_options').find('.add_tag').show()
 
   $(".share_via_email").click ->
     sendTileSharedPing("Email")

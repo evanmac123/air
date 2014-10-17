@@ -1,17 +1,19 @@
 <div class="share_options">
   <div class='row'>
   <ul class='columns'>
-    <li class="share_to_explore">
-      <div class="switch small round share_explore">
-        <%= form.radio_button :is_public, true, id: 'share_on' %>
-        <%= form.radio_button :is_public, false, id: 'share_off' %>
-
-        <span class='green-paddle'></span>
-      </div>
-      <div class="share_to_explore_message">
-        Share to explore page
-      </div>
-    </li>
+    <li class="add_tag">
+      <%= text_field_tag 'add-tag', nil, placeholder: 'Add Tag (required)' %>
+      <div class='tag_alert'>Add a tag to continue</div>
+      <ul class="tile_tags">
+        <% form.object.tile_tags.each do |tile_tag| %>
+          <li id='<%=tile_tag.id%>'>
+            <%=tile_tag.title%>
+            <%=fa_icon 'times'%>
+          </li>
+        <% end %>
+      </ul>  
+      <%= form.text_field :tile_tag_ids %>
+      </li>
 
     <li class="allow_copying">
       <div class="switch small round allow_copy">
@@ -26,19 +28,18 @@
       </div>          
     </li>
 
-    <li class="add_tag">
-      <%= text_field_tag 'add-tag', nil, placeholder: 'Add Tag' %>
-      <div class='tag_alert'>Add a tag to continue</div>
-      <ul class="tile_tags">
-        <% form.object.tile_tags.each do |tile_tag| %>
-          <li id='<%=tile_tag.id%>'>
-            <%=tile_tag.title%>
-            <%=fa_icon 'times'%>
-          </li>
-        <% end %>
-      </ul>  
-      <%= form.text_field :tile_tag_ids %>
+    <li class="share_to_explore">
+      <div class="switch small round share_explore">
+        <%= form.radio_button :is_public, true, id: 'share_on' %>
+        <%= form.radio_button :is_public, false, id: 'share_off' %>
+
+        <span class='green-paddle'></span>
+      </div>
+      <div class="share_to_explore_message">
+        Share to explore page
+      </div>
     </li>
+
   </ul>
   </div>
   <div id="tag-autocomplete-target"></div>

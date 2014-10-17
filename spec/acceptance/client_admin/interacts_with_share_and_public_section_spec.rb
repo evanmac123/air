@@ -15,6 +15,10 @@ feature "Client Admin Interacts With Share And Public Section" do
     end
   end
 
+  def switch_on_explore
+    share_to_explore_switcher.click
+  end
+
   def share_to_explore_switcher
     if page.find('#share_off')['checked'].present?
       page.find('#share_on')
@@ -106,18 +110,14 @@ feature "Client Admin Interacts With Share And Public Section" do
     it_should_behave_like "click share via button", "Email",    ".share_via_email"
 
     context "Airbo Explore" do
-      it "should open public section and turn on share switcher", js: true do
+      it "should open public section but not turn on share switcher", js: true do
         @tile = FactoryGirl.create(:multiple_choice_tile, demo: @client_admin.demo)
         visit client_admin_tile_path(@tile, as: @client_admin)
 
         expect_no_content "SHARE TO EXPLORE PAGE"
         page.find(".share_via_explore").click
         expect_content "SHARE TO EXPLORE PAGE"
-        page.find('#share_on')['checked'].should be_present
-
-        wait_for_ajax
-        @tile.reload.is_sharable.should be_true
-        @tile.reload.is_public.should be_false # because tile has no tags
+        page.find('#share_on')['checked'].should_not be_present
       end
     end
   end
@@ -130,6 +130,7 @@ feature "Client Admin Interacts With Share And Public Section" do
 
     it "should not save tile public attributes without tags", js: true do
       open_public_section
+      switch_on_explore
       copying_switcher.click
       page.find('#allow_copying_on')['checked'].should be_present
 
@@ -139,6 +140,7 @@ feature "Client Admin Interacts With Share And Public Section" do
 
     scenario "clicking the share button should display allow copy button and add tag field", js: true do
       open_public_section
+      switch_on_explore
       page.find('#share_on')['checked'].should be_present
 
       page.should have_css('.allow_copying', visible: true)
@@ -152,6 +154,7 @@ feature "Client Admin Interacts With Share And Public Section" do
 
     scenario "tag is displayed after adding and is removable", js: true do
       open_public_section
+      switch_on_explore
 
       add_new_tile_tag('random tag')
       find('.tile_tags > li').should have_content('random tag')
@@ -179,6 +182,7 @@ feature "Client Admin Interacts With Share And Public Section" do
 
     scenario "tile public attrs are saved correctly if tags are added", js: true do
       open_public_section
+      switch_on_explore
       add_new_tile_tag "tag"
 
       wait_for_ajax
@@ -195,6 +199,7 @@ feature "Client Admin Interacts With Share And Public Section" do
         @tile = FactoryGirl.create(:multiple_choice_tile, :sharable, demo: @client_admin.demo)
         visit client_admin_tile_path(@tile, as: @client_admin)
         open_public_section
+        switch_on_explore
       end
 
       it "#{name} then should show error message", js: true do
