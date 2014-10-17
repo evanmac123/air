@@ -12,7 +12,7 @@ class AvatarsController < ApplicationController
         current_user.save!
         flash[:mp_track_avatar] = ["changed avatar", {:success => true}]
       rescue ActiveRecord::RecordInvalid => e
-        flash[:failure] = "Sorry, I didn't understand that file you tried to upload as an image file."
+        flash[:failure] = "Sorry that doesn't look like an image file. Please use a file with the extension .jpg, .jpeg, .gif, .bmp or .png."
         flash[:mp_track_avatar] = ["changed avatar", {:success => false, :reason => e.message, :error_class => e.class, :content_type => params[:user][:avatar].content_type, :original_filename => params[:user][:avatar].original_filename}]
       end
     end

@@ -12,6 +12,6 @@ def should_have_valid_mime_type(klass, field)
   bad_mime_types.each do |bad_mime_type|
     model_object = klass.new(field => bad_mime_type)
     model_object.valid?
-    model_object.errors[field].should include("not a recognized image format")
+    model_object.errors[field].should include("that doesn't look like an image file. Please use a file with the extension .jpg, .jpeg, .gif, .bmp or .png.")
   end
 end

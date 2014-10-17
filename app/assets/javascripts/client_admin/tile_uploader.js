@@ -36,7 +36,7 @@ function bindTileUploader() {
   $("#tile_builder_form_image").change(function PreviewImage(event) {
     var attachedFile = document.getElementById("tile_builder_form_image").files[0];
     if(filetypeNotOnWhitelist(attachedFile)) {
-      alert("Sorry, that file doesn't look like an image format I understand. Please try a file with extension .jpg, .jpeg, .gif, .bmp, or .png.");
+      alert("Sorry, that doesn't look like an image file. Please use a file with the extension .jpg, .jpeg, .gif, .bmp or .png.");
       event.preventDefault();
       return(false);
     }
