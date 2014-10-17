@@ -12,6 +12,8 @@ class ApplicationController < ActionController::Base
 
   before_filter :force_ssl 
   before_filter :authorize
+  before_filter :disable_mime_sniffing
+  before_filter :disable_framing
   before_filter :initialize_flashes
   before_filter :set_show_conversion_form_before_this_request
   before_filter :load_boards_for_switching_and_managing
@@ -502,5 +504,21 @@ class ApplicationController < ActionController::Base
     @has_only_one_board = current_user.has_only_one_board?
     @muted_followup_boards = current_user.muted_followup_boards
     @muted_digest_boards = current_user.muted_digest_boards
+  end
+
+  def disable_mime_sniffing
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+  end
+
+  def allow_same_origin_framing
+    @allow_same_origin_framing = true
+  end
+
+  def disable_framing
+    response.headers['X-Frame-Options'] = frame_option
+  end
+
+  def frame_option
+    @allow_same_origin_framing ? 'SAMEORIGIN' : 'DENY'
   end
 end

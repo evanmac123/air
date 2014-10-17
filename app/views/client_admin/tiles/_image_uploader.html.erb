@@ -47,12 +47,34 @@
       $(".image_preview").removeClass("show_placeholder").addClass("show_shadows");
     };
 
-    $("#tile_builder_form_image").change(function PreviewImage() {
+    var imageFileTypes = [
+      "image/bmp",
+      "image/x-windows-bmp",
+      "image/gif",
+      "image/jpeg",
+      "image/pjpeg",
+      "image/x-portable-bmp",
+      "image/png"
+    ];
+
+    function filetypeNotOnWhitelist(file) {
+      var type = file.type;
+      return ($.inArray(type, imageFileTypes) == -1);
+    };
+
+    $("#tile_builder_form_image").change(function PreviewImage(event) {
+      var attachedFile = document.getElementById("tile_builder_form_image").files[0];
+      if(filetypeNotOnWhitelist(attachedFile)) {
+        alert("Sorry, that file doesn't look like an image format I understand. Please try a file with extension .jpg, .jpeg, .gif, .bmp, or .png.");
+        event.preventDefault();
+        return(false);
+      }
+
       var oFReader = new FileReader();
-      oFReader.readAsDataURL(document.getElementById("tile_builder_form_image").files[0]);
+      oFReader.readAsDataURL(attachedFile);
 
       oFReader.onload = function (oFREvent) {
-          document.getElementById("upload_preview").src = oFREvent.target.result;
+        document.getElementById("upload_preview").src = oFREvent.target.result;
       };
       $("#image_container").val("");
       showShadows();

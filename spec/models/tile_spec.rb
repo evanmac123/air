@@ -7,6 +7,8 @@ describe Tile do
   it { should have_many(:tile_tags) }
   it { should ensure_inclusion_of(:status).in_array(Tile::STATUS) }
 
+  it { should_have_valid_mime_type(Tile, :image_content_type) }
+  
   describe 'finders based on status' do
     # The test below was written first and exercises all tile-status combinations pretty thoroughly.
     # We then decided to not initially set a demo's 'tile_digest_email_sent_at' => all 'active' tiles should

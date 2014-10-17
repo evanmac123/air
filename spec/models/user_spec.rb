@@ -16,7 +16,7 @@ describe User do
   # Note that our validates_uniqueness_of :email is called in the Clearance gem
   it { should validate_uniqueness_of(:email) }
   it { should validate_presence_of(:name).with_message("Please enter a first and last name") }
-
+  it { should_have_valid_mime_type(User, :avatar_content_type) }
 end
 
 describe User do

@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   include CancelAccountToken
 
   extend User::Queries
+  extend ValidImageMimeTypes
 
   belongs_to :location
   belongs_to :game_referrer, :class_name => "User"
@@ -96,6 +97,8 @@ class User < ActiveRecord::Base
     :path => "/avatars/:id/:style/:filename",
     :bucket => S3_AVATAR_BUCKET,
     :default_url => MISSING_AVATAR_PATH
+
+  validates_attachment_content_type :avatar, content_type: valid_image_mime_types, message: invalid_mime_type_error
 
   serialize :flashes_for_next_request
   serialize :characteristics

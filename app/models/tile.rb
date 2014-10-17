@@ -1,5 +1,6 @@
 class Tile < ActiveRecord::Base
   include Assets::Normalizer # normalize filename of paperclip attachment
+  extend ValidImageMimeTypes
 
   ACTIVE  = 'active'.freeze
   ARCHIVE = 'archive'.freeze
@@ -52,6 +53,8 @@ class Tile < ActiveRecord::Base
   validates_with AttachmentPresenceValidator, :attributes => [:thumbnail], :if => :require_images
 
   validates_with AttachmentSizeValidator, :less_than => (2.5).megabytes, :message => " the image is too large, please use a smaller file", :attributes => [:image], :if => :require_images
+
+  validates_attachment_content_type :image, content_type: valid_image_mime_types, message: invalid_mime_type_error
 
   before_save :ensure_protocol_on_link_address
 

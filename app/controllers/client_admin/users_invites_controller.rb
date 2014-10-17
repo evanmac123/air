@@ -1,6 +1,8 @@
 class ClientAdmin::UsersInvitesController < ClientAdminBaseController
   include ClientAdmin::TilesHelper
 
+  prepend_before_filter :allow_same_origin_framing, only: [:preview_invite_email]
+
   def create
     params[:users_invite][:demo_id] = current_user.demo_id
 

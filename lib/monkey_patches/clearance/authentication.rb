@@ -71,7 +71,8 @@ module Clearance
                                        value:   current_user.remember_token,
                                        expires: expire_time,
                                        path:    "/",
-                                       secure:  Rails.env.production?)
+                                       secure:  Rails.env.production?,
+                                       httponly: true)
       end
     end
 

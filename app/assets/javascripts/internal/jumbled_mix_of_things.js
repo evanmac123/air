@@ -2,31 +2,6 @@
 // it. --Phil, 9/11/2013.
 
 $(function() {
-  
-  $("#command_central").click(function(){
-    $('.bubbly').hide();
-  });
-  
-  if (document.getElementById('command_central')){
-    $('#command_central').focus();
-    var sugg = "Enter keyword";
-    $('#command_central').val(sugg);
-    $('#command_central').click(function(){
-      $('#command_central').val('');   
-    });
-    
-    $('#command_central').keypress(function(key){
-      if (sugg == $('#command_central').val()){
-        $('#command_central').val('');
-      }
-      if (key.keyCode == 13){
-       $('#flash_failure').hide();
-      }
-      $('#command_central').addClass('green');
-      
-    })
-  };
-
   $('#add-new-user').live('click', function() {
     $('#new_user').parent('.hidden-form').show();
     $('#user_name').focus();
@@ -51,10 +26,6 @@ $(function() {
     $('#main-profile-section').height(mainProfileHeight + $('.avatar-controls').height() + 100);
     $('.avatar-controls').show();
     e.preventDefault();
-  });
-
-  $('html').click(function(){
-    $(".bubbly").hide();
   });
 
   resizeFaceboxToFitSuggestions();
