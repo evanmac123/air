@@ -22,7 +22,6 @@ window.sharableTileLink = ->
     $(".tile_status .off").removeClass("disengaged").addClass("engaged")
     $(".tile_status .on").removeClass("engaged").addClass("disengaged")
     $("#sharable_tile_link").attr("disabled", "disabled")
-    $(".share_options").hide()
 
   #
   # => Sharable Tile Link

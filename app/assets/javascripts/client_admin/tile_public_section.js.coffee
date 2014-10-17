@@ -52,7 +52,7 @@ window.bindTagNameSearchAutocomplete = (sourceSelector, targetSelector, searchUR
 
   initialSetting()
 
-  $('.share_options').on('click', (event) ->
+  $('.share_to_explore').on('click', (event) ->
     if $(this).find('#share_off').attr('checked')
       $('.share_options').find('.allow_copying').hide()
       $('.share_options').find('.add_tag').hide()
