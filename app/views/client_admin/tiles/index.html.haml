@@ -70,3 +70,8 @@
             You've had your first user interact with a tile!
           %div.bottom-section
             To see more information about users that complete your tiles, click on the number.
+- content_for :javascript do
+  :javascript
+    $().ready(function(){
+      window.dragAndDropTiles()
+    })

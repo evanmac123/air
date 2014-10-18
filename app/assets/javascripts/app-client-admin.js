@@ -8,6 +8,8 @@
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.slider.min
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.payment
 //= require ../../../vendor/assets/javascripts/client_admin/jquery-dialog.min
+//= require ../../../vendor/assets/javascripts/client_admin/jquery-sortable.min
+//= require ../../../vendor/assets/javascripts/client_admin/jquery.ui.touch-punch.min
 
 //= require ../../../vendor/assets/javascripts/internal/jquery.jpanelmenu.min
 //= require ../../../vendor/assets/javascripts/internal/jRespond.min

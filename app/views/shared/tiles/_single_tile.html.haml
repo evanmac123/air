@@ -1,8 +1,7 @@
--do_ajax ||= false
 -archive_link_options = {class: 'archive_tile_link'}
 -archive_link_options = archive_link_options.merge(method: :put, remote: true) if do_ajax
-%td{class:type, id:"single-tile-#{tile.id}", data:{tile_id:tile.id}}
-  %div.tile_thumbnail
+.tile_container
+  .tile_thumbnail{class:type, id:"single-tile-#{tile.id}", data:{tile_id:tile.id}}
     %a{href:client_admin_tile_path(tile), class:'tile_thumb_link'}
       %div.tile-wrapper
         %div.tile_thumbnail_image= image_tag tile.thumbnail

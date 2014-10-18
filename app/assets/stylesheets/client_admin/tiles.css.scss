@@ -129,6 +129,20 @@ body.client_admin-draft_tiles {
     // Tile management sections
     .content {background:$blue;}
     .manage_tiles {
+        //text-align: justify;
+        .creation-placeholder{
+            display: inline-block;
+            width: 100%;
+            max-width: 238px;
+        }
+        .tile_container{
+            width: 24%;
+            text-align: center;
+            //display: inline-block;
+            float: left;
+            padding-bottom: 2rem;
+        }
+        /*
         td {
             border:0; 
             padding:0 0 2em 0;
@@ -141,13 +155,18 @@ body.client_admin-draft_tiles {
             td:nth-of-type(2) {padding-right: .5em;}
             td:nth-of-type(3) {padding-left: .5em;}
             td:nth-of-type(4) {text-align: right;}
-        }
+        }*/
         .no_tiles_message {margin:0 auto 3em;}
     }
     #archived_tiles, #draft_tiles {
         background:$blue;
+        #draft, #archive{
+            &:after{ @include clear; }
+        }
         h2, .all_inactive {display: inline-block;}
-        .tile_thumbnail.placeholder_tile {border-color:lighten($blue, 13%);}
+        .tile_thumbnail.placeholder_tile {
+            border-color:lighten($blue, 13%);
+        }
         .create_new_tile {
             @include app-button($dark-green);
             float: right;
@@ -193,13 +212,17 @@ body.client_admin-draft_tiles #active_tiles,
 .creation-placeholder a {
     border-color:lighten($blue, 13%);
     display: block;
-    color:$white;
+    color:transparent;
     line-height:1em;
-    padding-top:12em;
+    //padding-top:12em;
     position: relative;
     text-align: center;
-    &:hover {border-color:lighten($blue, 10%); color:$white;}
+    //.add_new_tile_text{
+    //    padding-top:12em;
+    //}
+    &:hover {border-color:lighten($blue, 10%); color:transparent;}
     &:before {
+        color:$white;
         background:$dark-green;
         border-radius:$border-radius;
         content:"+";
@@ -217,6 +240,15 @@ body.client_admin-draft_tiles #active_tiles,
         padding-top:32px;
     }
     &:hover:before {background:darken($dark-green, 7%);}
+    &:after{
+        color:$white;
+        line-height:1em;
+        content: "Add New Tile";
+        position: absolute;
+        top:60%;
+        left:30%;
+        text-align: center;
+    }
 }
 
 // Links to download CSV tile reports

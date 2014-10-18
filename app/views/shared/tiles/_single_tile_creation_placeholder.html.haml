@@ -1,2 +1,3 @@
-%td{class:'creation-placeholder'}
-  = link_to "Add New Tile", new_client_admin_tile_path(path: :via_index), :class => :tile_thumbnail, id: 'add_new_tile_link'
+.tile_container.placeholder_container
+  .creation-placeholder
+    = link_to "Link", new_client_admin_tile_path(path: :via_index), :class => :tile_thumbnail, id: 'add_new_tile_link'
