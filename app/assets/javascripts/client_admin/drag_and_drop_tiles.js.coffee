@@ -1,5 +1,5 @@
 window.dragAndDropTiles = ->
-  $( "#draft_tiles" ).sortable({
+  $( "#draft, #active, #archive" ).sortable({
+    connectWith: ".manage_section",
     items: ".tile_container:not(.placeholder_container)"
-  });
-  $( "#draft" ).disableSelection();
+  }).disableSelection();

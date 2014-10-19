@@ -141,6 +141,7 @@ body.client_admin-draft_tiles {
             //display: inline-block;
             float: left;
             padding-bottom: 2rem;
+            min-height: 466px;
         }
         /*
         td {
@@ -179,7 +180,7 @@ body.client_admin-draft_tiles {
             @include light-button($white);
             @include caption;
             margin: 0 auto;
-            margin-top: -3em;
+            //margin-top: -3em;
             margin-bottom: 3em;
             display: block;
             text-align: center;
@@ -196,7 +197,12 @@ body.client_admin-draft_tiles {
         }
         .tile_thumbnail .tile-wrapper {border: none;}
     }
-    #active_tiles {padding:2em 0 0 0;}
+    #active_tiles {
+        padding:2em 0 0 0;
+        #active{
+            &:after{ @include clear; }
+        }
+    }
     #archived_tiles {padding:2em 0 0 0;}
 }
 
