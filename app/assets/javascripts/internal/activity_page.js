@@ -19,16 +19,17 @@ closeGetStartedLightbox = function() {
 
 window.getStartedLightbox = function(){
   function closeWithPing(action) {
-    event.preventDefault();
     pingClick(action);
     closeGetStartedLightbox();
   }
 
   $('#lightbox_get_started_button').click(function(event) {
+    event.preventDefault();
     closeWithPing("Clicked 'Start'");
   });
 
   $('#lightbox_close_link').click(function(event) {
+    event.preventDefault();
     closeWithPing("Clicked 'Close'");
   });
 
