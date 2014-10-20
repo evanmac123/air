@@ -4,7 +4,7 @@ class MultipleChoiceTile < Tile
   validate :at_least_one_answer_present
 
   def form_builder_class
-    TileBuilderForm::MultipleChoice
+    TileBuilderForm
   end
 
   def points_positive

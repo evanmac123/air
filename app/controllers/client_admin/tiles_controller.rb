@@ -62,7 +62,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   private :process_own_tile_completed
   
   def new    
-    @tile_builder_form = TileBuilderForm::MultipleChoice.new(@demo)
+    @tile_builder_form = TileBuilderForm.new(@demo)
     if param_path == :via_index
       TrackEvent.ping_action('Tiles Page', 'Clicked Add New Tile', current_user)
     elsif param_path == :via_draft_preview
@@ -76,7 +76,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def create
-    @tile_builder_form = TileBuilderForm::MultipleChoice.new(@demo, \
+    @tile_builder_form = TileBuilderForm.new(@demo, \
         parameters: params[:tile_builder_form], \
         creator: current_user, \
         image_container: params[:image_container])
