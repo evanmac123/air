@@ -26,13 +26,6 @@
     <%= form.input :mute_notice_threshold %>
     <%= form.input :use_location_in_conversion %>
     <%= form.input :use_post_act_summaries, label: "Send post-act summaries with act replies" %>
-    <div class='example_instructions_holder'>
-      <div class='example_instructions'>
-        Make sure the custom examples for slide 1 of the tutorial and for the playbox tooltip are real rules associated with your game.
-      </div>
-    </div>
-    <%= form.input :example_tutorial, :label => "Custom example for slide 1 of tutorial" %>
-    <%= form.input :example_tooltip, :label => "Custom example for playbox tooltip" %>
     <%= label_tag :use_multiple_choice_tiles, "Talking chicken should use multiple-choice sample tile" %>
     <%= check_box_tag :use_multiple_choice_tiles, '1', demo.tutorial_type == 'multiple_choice' %>
 
@@ -52,7 +45,6 @@
     <%= form.input :credit_game_referrer_threshold, :label => "Threshold to credit user who referred you to the game (in minutes)" %>
   <% end %>
 
-  <%= form.input :use_standard_playbook, :label => "Use standard playbook rules" %>
   <%= form.input :website_locked, :label => "Lock out website-users will use SMS only" %>
   <%= form.input :turn_off_admin_onboarding, :label => "Turn off admin onboarding" %>
 

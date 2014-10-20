@@ -4,12 +4,9 @@ class Act < ActiveRecord::Base
 
   belongs_to :user, polymorphic: true
   belongs_to :referring_user, :class_name => "User"
-  belongs_to :rule
-  belongs_to :rule_value
   belongs_to :demo
 
   before_save do
-    # if rule.description is blank, then act.text will be blank, and we will set it as hidden
     self.hidden = self.text.blank?
 
     # Privacy level is denormalized from user onto act in the interest of
@@ -28,7 +25,6 @@ class Act < ActiveRecord::Base
     user.update_last_acted_at
     user.update_points(points, self.creation_channel) if points
 
-    trigger_tiles
     schedule_mixpanel_ping
   end
 
@@ -101,24 +97,12 @@ class Act < ActiveRecord::Base
   end
 
   def data_for_mixpanel
-    _rule = self.try(:rule)
-
-    secondary_tag_names = _rule ? _rule.tags.map(&:name).sort : []
-
     {
       :time                  => Time.now,
-      :rule_value            => _rule.try(:primary_value).try(:value),
-      :primary_tag           => _rule.try(:primary_tag).try(:name),
-      :secondary_tags        => secondary_tag_names,
       :tagged_user_id        => self.referring_user_id,
       :channel               => self.creation_channel,
       :suggestion_code       => self.suggestion_code
     }
-  end
-
-  # OPTZ: Cut this and satisfy_tiles_by_rule
-  def trigger_tiles
-    self.user.satisfy_tiles_by_rule(self.rule_id, self.referring_user_id.present?)
   end
 
   def self.record_bad_message(phone_number, body, reply = '')

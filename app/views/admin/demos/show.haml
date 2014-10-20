@@ -109,12 +109,6 @@
       No bonus for crediting the user who referred you to the game
 
   %p
-    - if @demo.use_standard_playbook 
-      Game will use standard playbook rules as well as custom rules.
-    - else 
-      Game will not use standard playbook rules, only custom rules.
-
-  %p
     - if @demo.website_locked
       Website is locked out, users can use SMS only
 
@@ -191,20 +185,6 @@
       Post-act summaries will be sent
     - else
       No post-act summaries will be sent
-
-  %p
-    - if @demo.example_tutorial
-      Custom example for slide 1 of tutorial:
-      = @demo.example_tutorial  
-    - else 
-      Game will have default tutorial example
-   
-  %p
-    - if @demo.example_tooltip
-      Custom example for Playbox tooltip:
-      = @demo.example_tooltip
-    - else 
-      Game will have default tooltip example
 
   %p
     - if @demo.tutorial_type == "multiple_choice"

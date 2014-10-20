@@ -31,10 +31,8 @@ class Tile < ActiveRecord::Base
   belongs_to :creator, class_name: 'User'
   belongs_to :original_creator, class_name: 'User'
 
-  has_many :rule_triggers, :class_name => "Trigger::RuleTrigger"
   has_many :tile_completions, :dependent => :destroy
   has_many :completed_tiles, source: :tile, through: :tile_completions
-  has_many :triggering_rules, :class_name => "Rule", :through => :rule_triggers
   has_many :tile_taggings, dependent: :destroy
   has_many :tile_tags, through: :tile_taggings
   has_many :user_tile_copies, dependent: :destroy
@@ -330,10 +328,6 @@ class Tile < ActiveRecord::Base
     result
   end
 
-  def self.satisfiable_by_rule_to_user(rule_or_rule_id, user)
-    satisfiable_by_rule(rule_or_rule_id).satisfiable_to_user(user)
-  end
-
   def self.satisfiable_to_user(user)
     tiles_due_in_demo = after_start_time_and_before_end_time.where(demo_id: user.demo.id, status: ACTIVE)
     ids_completed = user.tile_completions.map(&:tile_id)
@@ -433,10 +427,6 @@ class Tile < ActiveRecord::Base
     Delayed::Job.enqueue TileBulkCompletionJob.new(demo_id, tile_id, emails)
   end
 
-  def self.satisfiable_by_rule(rule_or_rule_id)
-    satisfiable_by_object(rule_or_rule_id, Rule, "trigger_rule_triggers", "rule_id")
-  end
-
   protected
 
   def ensure_protocol_on_link_address
@@ -449,19 +439,6 @@ class Tile < ActiveRecord::Base
 
   def no_post_process_on_copy
     !(@making_copy)
-  end
-
-  def self.satisfiable_by_trigger_table(trigger_table_name)
-    joins("INNER JOIN #{trigger_table_name} ON #{trigger_table_name}.tile_id = tiles.id")
-  end
-
-  def self.satisfiable_by_object(satisfying_object_or_id, satisfying_object_class, trigger_table_name, satisfying_object_column)
-    satisfying_object_id = triggering_object_id(satisfying_object_or_id, satisfying_object_class)
-    satisfiable_by_trigger_table(trigger_table_name).where("#{trigger_table_name}.#{satisfying_object_column} = ?", satisfying_object_id)
-  end
-
-  def self.triggering_object_id(object_or_object_id, expected_class)
-    object_or_object_id.kind_of?(expected_class) ? object_or_object_id.id : object_or_object_id
   end
 
   class TileBulkCompletionJob

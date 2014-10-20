@@ -20,9 +20,6 @@ Feature: Admin sets up demo
     And I fill in "Response to command before game begins" with "Hold ur horses"
     And I fill in "Response to command after game ends" with "Too slow!"
     And I fill in "Message user sees on login" with "La llama!"
-    And I fill in "Custom example for slide 1 of tutorial" with "ran a mile"
-    And I fill in "Custom example for playbox tooltip" with "smoked a joint"
-    And I uncheck "Use standard playbook rules"
     And I fill in "Mute notice threshold" with "17"
     And I fill in "Client name" with "BigCorp"
     And I fill in "Custom already-claimed message" with "You're in, fool."
@@ -40,15 +37,12 @@ Feature: Admin sets up demo
     And I should see "New players start with 5 points"
     And I should see "Bonus for referring another user to the game: 5 points (with a 60 minute threshold)"
     And I should see "Bonus for crediting the user who referred you to the game: 17 points"
-    And I should see "Game will not use standard playbook rules, only custom rules."    
     And I should see 'Prize response is "More ice cream than you can shake a stick at."'
     And I should see 'Help message is "Get a job"'
     And I should see 'Phone-number-not-recognized message is "Go play in your own yard"'
     And I should see 'Response to command before game begins is "Hold ur horses"'
     And I should see 'Response to command after game ends is "Too slow!"'
     And I should see 'Message user sees on login is "La llama!"'
-    And I should see "ran a mile"
-    And I should see "smoked a joint"
     And I should see "Mute notice to users after 17 SMSes"
     And I should see "Client name is BigCorp"
     And I should see `Custom already-claimed message is "You're in, fool."`
@@ -71,7 +65,6 @@ Feature: Admin sets up demo
     And I should see "No followup message"
     And I should see "No bonus for referring another user to the game"
     And I should see "No bonus for crediting the user who referred you to the game"
-    And I should see "Game will use standard playbook rules as well as custom rules."
     And I should see "Game will have default response about prizes (indicating no prize)"
     And I should see "Game will have default help message"
     And I should see "Game will have default phone-number-not-recognized message"

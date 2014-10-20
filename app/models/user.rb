@@ -46,8 +46,6 @@ class User < ActiveRecord::Base
   has_one    :billing_information
   validate :normalized_phone_number_unique, :normalized_new_phone_number_unique
   validate :new_phone_number_has_valid_number_of_digits
-  # OPTZ: We don't care anymore and this query is expensive
-  # but it may have to wait until we tear out rules and shit entirely
   validate :sms_slug_does_not_match_commands 
   validate :date_of_birth_in_the_past
 
@@ -385,10 +383,6 @@ class User < ActiveRecord::Base
     latest_act_descriptions = IncomingSms.where(:from => self.phone_number).order("created_at DESC").limit(20).map(&:body)
 
     Mailer.delay_mail(:support_request, self.name, self.email, self.phone_number, self.demo.name, latest_act_descriptions)
-  end
-
-  def first_eligible_rule_value(value)
-    RuleValue.visible_from_demo(self).where(:value => value).first
   end
 
   def generate_short_numerical_validation_token
@@ -756,19 +750,6 @@ class User < ActiveRecord::Base
       :default => "OK, you're no longer connected to %{followed_user_name}.",
       :followed_user_name => self.name
     )
-  end
-
-  def satisfy_tiles_by_rule(rule_or_rule_id, referring_user_id = nil)
-    return unless rule_or_rule_id
-
-    satisfiable_tiles = Tile.satisfiable_by_rule_to_user(rule_or_rule_id, self)
-
-    satisfiable_tiles.each do |tile|
-      required = tile.rule_triggers.map(&:referrer_required).include? true
-      if referring_user_id or not required
-        tile.satisfy_for_user!(self) if tile.all_rule_triggers_satisfied_to_user(self)
-      end
-    end
   end
 
   def email_with_name

@@ -7,9 +7,6 @@ class Demo < ActiveRecord::Base
   has_many :board_memberships, dependent: :destroy
   has_many :users, through: :board_memberships
   has_many :acts
-  has_many :rule_based_acts, :class_name => 'Act', :conditions =>  "rule_id IS NOT NULL"
-  has_many :rules, :dependent => :destroy
-  has_many :rule_values, :through => :rules
   has_many :tiles, :dependent => :destroy
   has_many :locations, :dependent => :destroy
   has_many :characteristics, :dependent => :destroy
@@ -161,10 +158,6 @@ class Demo < ActiveRecord::Base
       :act_too_late_message,
       "Thanks for participating. Your administrator has disabled this board. If you'd like more information e-mailed to you, please text INFO."
     )
-  end
-
-  def has_rule_value_matching?(value)
-    self.rule_values.where(:value => value).present?
   end
 
   def reply_email_name

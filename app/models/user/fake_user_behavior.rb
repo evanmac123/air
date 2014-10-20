@@ -96,9 +96,6 @@ module User::FakeUserBehavior
     'nobody'
   end
 
-  def satisfy_tiles_by_rule(*args)
-  end
-
   def location
   end
 

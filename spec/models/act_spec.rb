@@ -3,8 +3,6 @@ require 'spec_helper'
 describe Act do
   it { should belong_to(:user) }
   it { should belong_to(:referring_user) }
-  it { should belong_to(:rule) }
-  it { should belong_to(:rule_value) }
   it { should belong_to(:demo) }
 end
 
