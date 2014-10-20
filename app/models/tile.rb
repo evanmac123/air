@@ -233,7 +233,7 @@ class Tile < ActiveRecord::Base
   end
 
   def to_form_builder
-    form_builder_class.new(demo, tile: self)
+    TileBuilderForm.new(demo, tile: self)
   end
 
   def image_really_still_processing

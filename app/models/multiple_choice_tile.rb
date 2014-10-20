@@ -3,10 +3,6 @@ class MultipleChoiceTile < Tile
   validate  :points_positive
   validate :at_least_one_answer_present
 
-  def form_builder_class
-    TileBuilderForm
-  end
-
   def points_positive
     unless points.present? && points > 0
       errors.add :base, "points can't be blank"

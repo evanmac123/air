@@ -216,7 +216,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
   
   def update_fields
-    @tile_builder_form = @tile.form_builder_class.new(@demo, \
+    @tile_builder_form = TileBuilderForm.new(@demo, \
         parameters: params[:tile_builder_form], \
         tile: @tile, \
         image_container: params[:image_container])
