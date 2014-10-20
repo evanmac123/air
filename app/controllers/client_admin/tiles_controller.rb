@@ -80,7 +80,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
         parameters: params[:tile_builder_form], \
         creator: current_user, \
         image_container: params[:image_container])
-    if @tile_builder_form.create_objects
+    if @tile_builder_form.create_tile
       delete_old_image_container(:success)
       record_creator(@tile_builder_form.tile)
       set_after_save_flash(@tile_builder_form.tile)
@@ -221,7 +221,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
         tile: @tile, \
         image_container: params[:image_container])
 
-    if @tile_builder_form.update_objects
+    if @tile_builder_form.update_tile
       delete_old_image_container(:success)
 
       set_after_save_flash(@tile_builder_form.tile)

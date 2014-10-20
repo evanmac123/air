@@ -17,20 +17,17 @@ class TileBuilderForm
     false
   end
 
-  def build_objects
+  def create_tile
     build_tile
+    save_tile if valid?
   end
 
-  def create_objects
-    build_objects
-    save_objects if valid?
-  end
-
-  def update_objects
-    update_tile
+  def update_tile
+    set_tile_image
+    set_tile_attributes
 
     if valid?
-      save_objects
+      save_tile
       true
     end
   end
@@ -45,21 +42,13 @@ class TileBuilderForm
     set_tile_taggings
 
     if valid?
-      save_objects
+      save_tile
       true
     end
   end
 
   def tile
-    @tile ||= tile_class.new(demo: @demo, is_copyable: true)
-  end
-
-  def rule
-    @rule ||= tile.persisted? ? tile.first_rule : @demo.rules.new
-  end
-
-  def rule_values
-    @rule_values ||= tile.persisted? ? tile.first_rule.rule_values : [RuleValue.new]
+    @tile ||= MultipleChoiceTile.new(demo: @demo, is_copyable: true)
   end
 
   def answers
@@ -94,15 +83,8 @@ class TileBuilderForm
 
   protected
 
-  def save_objects
-    tile_class.transaction do
-      save_main_objects
-      true
-    end
-  end
-
-  def save_main_objects      
-    main_objects.each {|object| object.save(:context => :client_admin)}
+  def save_tile
+    Tile.transaction { tile.save(context: :client_admin) }
   end
 
   def clean_error_messages
@@ -110,16 +92,11 @@ class TileBuilderForm
   end
 
   def build_tile
-    @tile = tile_class.new(demo: @demo)
+    @tile = MultipleChoiceTile.new(demo: @demo)
     set_tile_image
     set_tile_attributes
     set_tile_creator
     @tile.status = Tile::DRAFT
-  end
-
-  def update_tile
-    set_tile_image
-    set_tile_attributes
   end
 
   def set_tile_taggings
@@ -158,8 +135,8 @@ class TileBuilderForm
     @tile.creator ||= @creator
   end
 
-  def errors_from_main_objects
-    main_objects.map{|object| object.errors.messages.values}.flatten
+  def errors_from_tile
+    tile.errors.messages.values
   end
 
   def normalized_answers
@@ -186,14 +163,13 @@ class TileBuilderForm
 
   def main_objects_all_valid
     #tile_taggings
-    invalid_objects = main_objects.reject{|object| object.valid?(:client_admin)}
-
+    tile_valid = tile.valid?(:client_admin)
     clean_error_messages
 
-
-    invalid_objects.each do |invalid_object|
-      invalid_object.errors.values.each {|error| errors.add :base, error}
+    unless tile_valid
+      tile.errors.values.each {|error| errors.add :base, error}
     end
+
     check_quiz_on_correct_answer if errors.empty?
   end
 
@@ -207,12 +183,9 @@ class TileBuilderForm
   def remove_thumbnail_error
     tile.errors.delete(:thumbnail)
   end
+
   def default_answer_count
     2
-  end
-
-  def tile_class
-    MultipleChoiceTile
   end
 
   def set_tile_attributes
@@ -236,10 +209,6 @@ class TileBuilderForm
     tile && tile.multiple_choice_answers
   end
 
-  def main_objects
-    [tile]
-  end
-
   def correct_answer_index_for_blanks_and_duplicates
     correct_answer_index = correct_answer_index_from_params
     return -1 unless correct_answer_index
@@ -255,10 +224,6 @@ class TileBuilderForm
   def correct_answer_index_from_params
     return nil unless @parameters[:correct_answer_index].present?
     @parameters[:correct_answer_index].to_i    
-  end
-
-  def answer_prompt
-    "Give the answers and mark the correct one. If survey, do not mark any."   
   end
 
   def is_copyable
