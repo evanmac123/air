@@ -147,6 +147,11 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     end
     set_image_and_container
   end
+
+  def sort
+    Tile.insert_tile_between(params[:left_tile_id], params[:id], params[:right_tile_id])
+    render nothing: true
+  end
   
   def active_tile_guide_displayed
     current_user.displayed_active_tile_guide=true

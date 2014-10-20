@@ -119,6 +119,9 @@ Health::Application.routes.draw do
         get 'activated_try_your_board'
         get 'clicked_try_your_board_got_it'
       end
+      member do
+        post 'sort'
+      end
     end
 
     resources :public_tiles, only: :update

@@ -345,15 +345,15 @@ class Tile < ActiveRecord::Base
   end
   
   def self.active
-    where("status = ?", ACTIVE).order("CASE WHEN activated_at IS NULL THEN created_at ELSE activated_at END DESC")
+    where("status = ?", ACTIVE).order("position DESC")#.order("CASE WHEN activated_at IS NULL THEN created_at ELSE activated_at END DESC")
   end
 
   def self.archive
-    where("status = ?", ARCHIVE).order("CASE WHEN archived_at IS NULL THEN created_at ELSE archived_at END DESC")
+    where("status = ?", ARCHIVE).order("position DESC")#.order("CASE WHEN archived_at IS NULL THEN created_at ELSE archived_at END DESC")
   end
 
   def self.draft
-    where("status = ?", DRAFT).order('created_at DESC')
+    where("status = ?", DRAFT).order("position DESC")#.order('created_at DESC')
   end
 
   def self.digest(demo, cutoff_time)
@@ -425,6 +425,47 @@ class Tile < ActiveRecord::Base
 
   def self.bulk_complete(demo_id, tile_id, emails)
     Delayed::Job.enqueue TileBulkCompletionJob.new(demo_id, tile_id, emails)
+  end
+
+  def self.satisfiable_by_rule(rule_or_rule_id)
+    satisfiable_by_object(rule_or_rule_id, Rule, "trigger_rule_triggers", "rule_id")
+  end
+
+  def self.insert_tile_between left_tile_id, tile_id, right_tile_id
+    left_tile = Tile.where(id: left_tile_id).first
+    tile = Tile.where(id: tile_id).first
+    right_tile = Tile.where(id: right_tile_id).first
+
+    return unless right_tile || left_tile
+
+    unless right_tile
+      left_demo = left_tile.demo
+      left_status = left_tile.status
+      left_position = left_tile.position
+      right_tile = left_demo.tiles.where{(status == left_status) & (position < left_position)}.first
+    end
+
+    Tile.transaction do
+      if right_tile
+        tile.position = right_tile.position + 1
+        tile.status = right_tile.status
+      else
+        tile.position = left_tile.position
+        tile.status = left_tile.status
+      end
+      tile.save
+
+      tile_demo = tile.demo
+      tile_status = tile.status
+      tile_position = tile.position
+      Tile.where{ (demo == tile_demo) & 
+                  (status == tile_status) & 
+                  (position >= tile_position) &
+                  (id != tile_id)
+      }.order("position ASC").each_with_index do |tile, index|
+        tile.update_attribute(:position, index + 1)
+      end
+    end
   end
 
   protected
