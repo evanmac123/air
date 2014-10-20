@@ -149,7 +149,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def sort
-    Tile.insert_tile_between(params[:left_tile_id], params[:id], params[:right_tile_id])
+    Tile.insert_tile_between(params[:left_tile_id], params[:id], params[:right_tile_id], params[:status])
     render nothing: true
   end
   

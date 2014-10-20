@@ -431,12 +431,17 @@ class Tile < ActiveRecord::Base
     satisfiable_by_object(rule_or_rule_id, Rule, "trigger_rule_triggers", "rule_id")
   end
 
-  def self.insert_tile_between left_tile_id, tile_id, right_tile_id
+  def self.insert_tile_between left_tile_id, tile_id, right_tile_id, new_status
     left_tile = Tile.where(id: left_tile_id).first
     tile = Tile.where(id: tile_id).first
     right_tile = Tile.where(id: right_tile_id).first
 
-    return unless right_tile || left_tile
+    unless right_tile || left_tile
+      tile.status = new_status
+      tile.position = 0
+      tile.save
+      return
+    end
 
     unless right_tile
       left_demo = left_tile.demo
@@ -463,7 +468,7 @@ class Tile < ActiveRecord::Base
                   (position >= tile_position) &
                   (id != tile_id)
       }.order("position ASC").each_with_index do |tile, index|
-        tile.update_attribute(:position, index + 1)
+        tile.update_attribute :position, (tile_position + index + 1)
       end
     end
   end
