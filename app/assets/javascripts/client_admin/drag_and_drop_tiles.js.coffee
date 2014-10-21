@@ -1,6 +1,11 @@
 window.dragAndDropTiles = ->
+  $( "#draft, #active" ).sortable({
+    connectWith: ".draft-active"
+  })
+  $( "#active, #archive" ).sortable({
+    connectWith: ".active-archive"
+  })
   $( "#draft, #active, #archive" ).sortable({
-    connectWith: ".manage_section",
     items: ".tile_container:not(.placeholder_container)",
     update: (event, ui) ->
       id = ui.item.find(".tile_thumbnail").data("tile_id")
