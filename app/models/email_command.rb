@@ -31,25 +31,8 @@ class EmailCommand < ActiveRecord::Base
     "out of the office"
   ]
 
-  def reinvite_user(options={})
-    self.status = Status::INVITATION
-    save
-    self.user.invite(nil, options)
-  end
-
   def looks_like_autoresponder?
     AUTORESPONSE_PHRASES.any? {|autoresponse_phrase| normalized_clean_subject.include? autoresponse_phrase}
-  end
-
-  def request_invitation_by_emailing_their_userid(options={})
-    user = User.where(claim_code: self.clean_body).first
-    if user && user.load_personal_email(self.email_from)
-      user.invite(nil, options)
-      self.user_id = user.id
-      self.save
-      return true
-    end
-    return false
   end
 
   def self.create_from_incoming_email(params)

@@ -3,6 +3,11 @@ class TileCompletionsController < ApplicationController
 
   def create
     tile = find_tile
+    unless current_user.in_board?(tile.demo_id)
+      not_found
+      return false
+    end
+
     answer_index = params[:answer_index]
 
     remember_points_and_tickets

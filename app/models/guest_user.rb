@@ -107,4 +107,8 @@ class GuestUser < ActiveRecord::Base
   def can_see_raffle_modal?
     true
   end
+
+  def in_board?(demo_id)
+    self.demo_id == demo_id
+  end
 end

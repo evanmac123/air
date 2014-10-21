@@ -995,6 +995,11 @@ class User < ActiveRecord::Base
     end
   end
 
+  def has_board_in_common_with(other_user)
+    board_ids = self.board_memberships.pluck(:demo_id)
+    other_user.board_memberships.where(demo_id: board_ids).first.present?
+  end
+
   def likes_tile?(tile)
     tile.user_tile_likes.where(user_id: self.id).exists?
   end

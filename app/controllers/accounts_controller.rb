@@ -6,7 +6,7 @@ class AccountsController < ApplicationController
 
   def update
     update_phone_number
-    current_user.attributes = params[:user]
+    current_user.attributes = params[:user].permit(:notification_method)
     
     if current_user.changed? && current_user.save
       add_success "Your account settings have been updated."

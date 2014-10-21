@@ -49,6 +49,7 @@ gem "squeel"
 gem 'draper', '~> 1.3'
 gem 'introjs-rails'
 gem 'redis-rails'
+gem 'strong_parameters'
 
 # Gems used only for assets and not required
 # in production environments by default.

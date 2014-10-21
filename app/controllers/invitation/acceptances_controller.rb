@@ -35,8 +35,7 @@ class Invitation::AcceptancesController < ApplicationController
 
     demo = Demo.where(id: params[:demo_id]).first
     if demo
-      @user.add_board demo
-      @user.move_to_new_demo demo
+      add_user_to_board_if_allowed(demo)
     end
     
     sign_in(@user)
@@ -51,6 +50,21 @@ class Invitation::AcceptancesController < ApplicationController
   end
 
   protected
+
+  def add_user_to_board_if_allowed(board)
+    return unless (invitation_code = @user.invitation_code)
+    
+    if (potential_user = PotentialUser.find_by_invitation_code(invitation_code))
+      add_user_to_board_and_move(PotentialUser.demo)
+    elsif (user = User.find_by_invitation_code(invitation_code))
+      add_user_to_board_and_move(board) if user.in_board?(board.id) || board.is_public?
+    end
+  end
+
+  def add_user_to_board_and_move(board)
+    @user.add_board(board)
+    @user.move_to_new_demo(board)
+  end
 
   def find_user
     @user = User.where(id: params[:user_id], invitation_code: params[:invitation_code]).first

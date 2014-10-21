@@ -1,5 +1,16 @@
 class ClientAdmin::BalancesController < ClientAdminBaseController
   def update
+    # SEC: the following is an insecure direct object reference (IDOR), since
+    # we don't validate if the user can actually see this balance. But:
+    #
+    # * this particular hole only lets you pay someone else's tab, and
+    # * this is only linked to (via the payment page) for a client admin in a 
+    #   board with outstanding balances, of which there's exactly 1 in 
+    #   production, and it's an antique
+    # * this has been superseded by the new BillingInformation flow
+    #
+    # As such, odds are that we'll cut this controller soon, and this is not
+    # doing much harm in the meantime.
     balance = Balance.find(params[:id])
     charge_description = "#{current_user.name} <#{current_user.email}> - #{current_user.demo.name}"
 

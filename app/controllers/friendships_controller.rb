@@ -8,6 +8,11 @@ class FriendshipsController < ApplicationController
     end
 
     @user = User.find_by_slug(params[:user_id])
+    unless current_user.has_board_in_common_with(@user)
+      not_found
+      return false
+    end
+
     new_friendship = current_user.befriend(@user, mixpanel_properties)
     new_friendship.accept if new_friendship && (@user.name == Tutorial.example_search_name)
     @user.reload

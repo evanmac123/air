@@ -8,7 +8,7 @@ class ClientAdmin::BillingInformationsController < ClientAdminBaseController
   end
 
   def create
-    @credit_card = CreditCard.new(params[:credit_card])
+    @credit_card = CreditCard.new(whitelisted_params[:credit_card])
     (failure_path and return) unless @credit_card.valid?
 
     begin
@@ -25,6 +25,10 @@ class ClientAdmin::BillingInformationsController < ClientAdminBaseController
   end
 
   protected
+
+  def whitelisted_params
+    params.permit(credit_card: [:number, :expiration, :cvc, :zip])
+  end
 
   def failure_path(stripe_error = nil)
     errors = credit_card_errors
