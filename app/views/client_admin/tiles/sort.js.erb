@@ -1,1 +1,1 @@
-$("#single-tile-<%= @tile.id %>").closest(".tile_container").replaceWith("<%= escape_javascript( render(partial: 'shared/tiles/single_tile', locals: {tile: @tile, type: @tile.status, do_ajax: false}) ) %>");
+$("#single-tile-<%= @tile.id %>").closest(".tile_container").replaceWith("<%= escape_javascript( render(partial: 'shared/tiles/single_tile', locals: {tile: @tile, type: @tile.status.to_sym, do_ajax: false}) ) %>");
