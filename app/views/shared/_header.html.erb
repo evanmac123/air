@@ -73,9 +73,6 @@
               <%= link_to 'Manage', client_admin_tiles_path, id: 'manage_board' %>
               <a id="admin_toggle">&#9662;</a>
               <ul class="client_admin_pages">
-                <% if current_user.has_balances? %>
-                  <li><%= link_to "Payments", new_client_admin_payment_path %></li>
-                <% end %>
                 <li><%= link_to "Admin help", DeskSSO.new(current_user).url, target: "_blank" %></li>
               </ul>
           </div>

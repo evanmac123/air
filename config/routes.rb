@@ -129,9 +129,6 @@ Health::Application.routes.draw do
 
     resources :tiles_follow_up_email, only: :destroy
 
-    resources :payments
-    resources :balances
-
     resources :inactive_tiles, only: :index
     resources :draft_tiles, only: :index
 

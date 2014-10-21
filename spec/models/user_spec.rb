@@ -1024,18 +1024,6 @@ describe User, "add_tickets" do
   end
 end
 
-describe User, "has_balances?" do
-  it "should return true for a user in a demo with balances" do
-    user = FactoryGirl.create(:user)
-    FactoryGirl.create(:balance, demo: user.demo)
-    user.should have_balances
-  end
-
-  it "should return false for a user without balances" do
-    FactoryGirl.create(:user).should_not have_balances
-  end
-end
-
 describe User, "#flush_tickets_in_board" do
   before do
     @user = FactoryGirl.create(:user, points: 123, tickets: 79)

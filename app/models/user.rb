@@ -488,10 +488,6 @@ class User < ActiveRecord::Base
     }
   end
 
-  def has_balances?
-    demo.balances.outstanding.first.present?
-  end
-
   def add_board(board_or_board_id, is_current = false)
     board_id = board_or_board_id.kind_of?(Demo) ? board_or_board_id.id : board_or_board_id
     return if self.in_board?(board_id)

@@ -297,18 +297,6 @@ FactoryGirl.define do
     association :invitee, :factory => :user
   end
 
-  factory :balance do |balance|
-    amount 2000
-    association :demo
-
-    trait :paid do
-      association :payment
-    end
-  end
-
-  factory :payment do |payment|
-  end
-
   factory :follow_up_digest_email do
     association :demo
   end
