@@ -86,8 +86,8 @@ window.dragAndDropTiles = ->
     updateNoTilesMess("active")
 
   updateNoTilesMess = (section) ->
-    message = $("#" + section).find(".no_tiles_message")
+    no_tiles_message = $("#" + section).find(".no_tiles_message")
     if $("#" + section).find(".tile_container").length == 0
-      message.show()
+      no_tiles_message.show()
     else
-      message.hide()
+      no_tiles_message.hide()
