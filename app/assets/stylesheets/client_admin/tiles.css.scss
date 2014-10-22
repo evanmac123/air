@@ -161,6 +161,7 @@ body.client_admin-draft_tiles {
     }
     #archived_tiles, #draft_tiles {
         background:$blue;
+        position: relative;
         #draft, #archive{
             &:after{ @include clear; }
         }
@@ -196,6 +197,27 @@ body.client_admin-draft_tiles {
             vertical-align: text-bottom;
         }
         .tile_thumbnail .tile-wrapper {border: none;}
+    }
+    .draft_overlay{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: black;
+        z-index: 100;
+        opacity: 0.4;
+        display: none;
+        .overlay_message{
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            font-size: 5em;
+            color: $white;
+            text-align: center;
+            line-height: 1.5;
+            padding: 50px;
+        }
     }
     #active_tiles {
         padding:2em 0 0 0;

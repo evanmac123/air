@@ -431,6 +431,7 @@ class Tile < ActiveRecord::Base
     satisfiable_by_object(rule_or_rule_id, Rule, "trigger_rule_triggers", "rule_id")
   end
 
+  # TODO: add check if tile position is old so we don't need to update it
   def self.insert_tile_between left_tile_id, tile_id, right_tile_id, new_status
     left_tile = Tile.where(id: left_tile_id).first
     tile = Tile.where(id: tile_id).first
