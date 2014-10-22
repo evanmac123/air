@@ -62,7 +62,16 @@ window.dragAndDropTiles = ->
     placeholdersNumber = $("#" + section).find( placehoderSelector() ).length
     tilesNumber =  allTilesNumber - placeholdersNumber
     expectedPlaceholdersNumber = ( numberInRow() - ( tilesNumber % numberInRow() ) ) % numberInRow()
-    addOrRemovePlaceholders(section, expectedPlaceholdersNumber - placeholdersNumber)
+    console.log expectedPlaceholdersNumber
+    removePlaceholders(section)
+    addPlaceholders(section, expectedPlaceholdersNumber)
+    #addOrRemovePlaceholders(section, expectedPlaceholdersNumber - placeholdersNumber)
+
+  removePlaceholders = (section) ->
+    $("#" + section).find( placehoderSelector() ).remove()
+
+  addPlaceholders = (section, number) ->
+    $("#" + section).append placeholderHTML().times(number) 
 
   addOrRemovePlaceholders = (section, number) ->
     if number > 0       # add
