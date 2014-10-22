@@ -295,7 +295,7 @@ class Tile < ActiveRecord::Base
 
   def update_status status
     self.status = status
-    self.position = Tile.where(demo: self.demo, status: status).maximum(:position) + 1
+    self.position = Tile.where(demo: self.demo, status: status).maximum(:position).to_i + 1
     self.save
   end
 
