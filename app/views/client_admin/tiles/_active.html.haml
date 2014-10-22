@@ -1,4 +1,4 @@
-- if @active_tiles.empty?
-  %div.no_tiles_message There are no active tiles.
-- else
+- display_no_tiles_message = @active_tiles.empty? ? "block" : "none"
+%div.no_tiles_message{style: "display:#{display_no_tiles_message};"} There are no active tiles.
+- unless @active_tiles.empty?
   = render partial: 'shared/tiles/tiles_table', locals: {tiles: @active_tiles, type: :active}

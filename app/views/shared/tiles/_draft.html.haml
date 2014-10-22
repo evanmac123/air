@@ -1,4 +1,4 @@
-- if @draft_tiles.empty?
-  %div.no_tiles_message There are no draft tiles.
-- else
+- display_no_tiles_message = @draft_tiles.empty? ? "block" : "none"
+%div.no_tiles_message{style: "display:#{display_no_tiles_message};"} There are no draft tiles.
+- unless @draft_tiles.empty?
   = render partial: 'shared/tiles/tiles_table', locals: {tiles: @draft_tiles, type: :draft}

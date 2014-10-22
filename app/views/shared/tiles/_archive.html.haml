@@ -1,4 +1,4 @@
-- if @archive_tiles.empty? || @archive_tiles.all?(&:is_placeholder?)
-  %div.no_tiles_message There are no archived tiles.
+- display_no_tiles_message = (@archive_tiles.empty? || @archive_tiles.all?(&:is_placeholder?)) ? "block" : "none"
+%div.no_tiles_message{style: "display:#{display_no_tiles_message};"} There are no archived tiles.
 
 = render partial: 'shared/tiles/tiles_table', locals: {tiles: @archive_tiles, type: :archive}

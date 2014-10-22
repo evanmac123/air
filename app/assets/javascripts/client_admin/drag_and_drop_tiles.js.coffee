@@ -23,23 +23,11 @@ window.dragAndDropTiles = ->
         url: '/client_admin/tiles/' + id + '/sort'
       });
     over: (event, ui) ->
-      updatePlaceholders("draft")
-      updatePlaceholders("active")
-      updatePlaceholders("archive")
-      #status = $(this).closest(".manage_section").attr("id")
-      #console.log(status)
-    #  if status == "draft"
-    #    $(".draft_overlay").show()
-        #$("#draft").sortable("disable")
-        #$(this).sortable("refresh")
+      updateAllPlaceholders()
+      updateAllNoTilesMess()
     out: (event, ui) ->
-      updatePlaceholders("draft")
-      updatePlaceholders("active")
-      updatePlaceholders("archive")
-    #  status = $(this).closest(".manage_section").attr("id")
-    #  console.log(status)
-    #  if status == "draft"
-    #    $(".draft_overlay").hide()
+      updateAllPlaceholders()
+      updateAllNoTilesMess()
     start: (event, ui) ->
       status = ui.item.closest(".manage_section").attr("id")
       completions = ui.item.find(".completions a").text()
@@ -47,19 +35,10 @@ window.dragAndDropTiles = ->
         $(".draft_overlay").show()
         $("#draft").sortable("disable")
         $(this).sortable("refresh")
-      #$("#draft").on "mouseenter", ->
-      #  $(".draft_overlay").show()
-      #$("#draft").sortable("disable")
-      #$(this).sortable("refresh")
-      #$("#draft").mouseout ->
-      #  $(".draft_overlay").hide()
     stop: (event, ui) ->
       $(".draft_overlay").hide()
       $("#draft").sortable("enable")
       $(this).sortable("refresh")
-    #  $("#draft").sortable("enable")
-    #  $(this).sortable("refresh")
-    #  $(".draft_overlay").hide()
   }).disableSelection();
 
   numberInRow = ->
@@ -73,6 +52,11 @@ window.dragAndDropTiles = ->
       '<div class="tile_thumbnail placeholder_tile"></div>' +
     '</div>'
 
+  updateAllPlaceholders = ->
+    updatePlaceholders("draft")
+    updatePlaceholders("active")
+    updatePlaceholders("archive")
+
   updatePlaceholders = (section) ->
     allTilesNumber = $("#" + section).find(".tile_container").length
     placeholdersNumber = $("#" + section).find( placehoderSelector() ).length
@@ -85,3 +69,15 @@ window.dragAndDropTiles = ->
       $("#" + section).append placeholderHTML().times(number) 
     else if number < 0  # remove
       $("#" + section).find( placehoderSelector() + ":gt(" + (number - 1) + ")" ).remove()
+
+  updateAllNoTilesMess = ->
+    updateNoTilesMess("draft")
+    updateNoTilesMess("active")
+    updateNoTilesMess("active")
+
+  updateNoTilesMess = (section) ->
+    message = $("#" + section).find(".no_tiles_message")
+    if $("#" + section).find(".tile_container").length == 0
+      message.show()
+    else
+      message.hide()
