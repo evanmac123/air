@@ -1,3 +1,6 @@
+String.prototype.times = (n) ->
+  Array.prototype.join.call({length:n+1}, this)
+
 window.dragAndDropTiles = ->
   $( "#draft" ).sortable({ connectWith: ".draft-active" })
   $( "#active" ).sortable({ connectWith: ".draft-active, .active-archive" })
@@ -19,14 +22,20 @@ window.dragAndDropTiles = ->
         type: 'POST',
         url: '/client_admin/tiles/' + id + '/sort'
       });
-    #over: (event, ui) ->
-    #  status = $(this).closest(".manage_section").attr("id")
-    #  console.log(status)
+    over: (event, ui) ->
+      updatePlaceholders("draft")
+      updatePlaceholders("active")
+      updatePlaceholders("archive")
+      #status = $(this).closest(".manage_section").attr("id")
+      #console.log(status)
     #  if status == "draft"
     #    $(".draft_overlay").show()
         #$("#draft").sortable("disable")
         #$(this).sortable("refresh")
-    #out: (event, ui) ->
+    out: (event, ui) ->
+      updatePlaceholders("draft")
+      updatePlaceholders("active")
+      updatePlaceholders("archive")
     #  status = $(this).closest(".manage_section").attr("id")
     #  console.log(status)
     #  if status == "draft"
@@ -52,3 +61,27 @@ window.dragAndDropTiles = ->
     #  $(this).sortable("refresh")
     #  $(".draft_overlay").hide()
   }).disableSelection();
+
+  numberInRow = ->
+    4
+
+  placehoderSelector = ->
+    ".tile_container.placeholder_container:not(.creation_placeholder)"
+
+  placeholderHTML = ->
+    '<div class="tile_container placeholder_container">' +
+      '<div class="tile_thumbnail placeholder_tile"></div>' +
+    '</div>'
+
+  updatePlaceholders = (section) ->
+    allTilesNumber = $("#" + section).find(".tile_container").length
+    placeholdersNumber = $("#" + section).find( placehoderSelector() ).length
+    tilesNumber =  allTilesNumber - placeholdersNumber
+    expectedPlaceholdersNumber = ( numberInRow() - ( tilesNumber % numberInRow() ) ) % numberInRow()
+    addOrRemovePlaceholders(section, expectedPlaceholdersNumber - placeholdersNumber)
+
+  addOrRemovePlaceholders = (section, number) ->
+    if number > 0       # add
+      $("#" + section).append placeholderHTML().times(number) 
+    else if number < 0  # remove
+      $("#" + section).find( placehoderSelector() + ":gt(" + (number - 1) + ")" ).remove()
