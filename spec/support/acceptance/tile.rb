@@ -170,10 +170,6 @@ module TileHelpers
     choose('allow_copying_on')
   end
 
-  def click_make_nonpublic
-    choose("share_off")
-  end
-
   def click_make_noncopyable
     choose('allow_copying_off')
   end
@@ -253,12 +249,13 @@ module TileHelpers
   end
 
   def click_make_nonpublic
-    find('#share_off').click    
+    find('#share_off').trigger('click') # I know it's not visible, fuck you Poltergeist
   end
   
   def click_make_noncopyable
     find('#allow_copying_off').click
   end
+
   def click_make_copyable
     find('#allow_copying_on').click
   end

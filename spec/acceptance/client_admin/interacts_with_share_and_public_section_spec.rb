@@ -20,11 +20,7 @@ feature "Client Admin Interacts With Share And Public Section" do
   end
 
   def share_to_explore_switcher
-    if page.find('#share_off')['checked'].present?
-      page.find('#share_on')
-    else
-      page.find('#share_off')
-    end
+    page.find('.share_to_explore')
   end
 
   def copying_switcher
@@ -114,9 +110,9 @@ feature "Client Admin Interacts With Share And Public Section" do
         @tile = FactoryGirl.create(:multiple_choice_tile, demo: @client_admin.demo)
         visit client_admin_tile_path(@tile, as: @client_admin)
 
-        expect_no_content "SHARE TO EXPLORE PAGE"
+        expect_no_content "Share To Explore"
         page.find(".share_via_explore").click
-        expect_content "SHARE TO EXPLORE PAGE"
+        expect_content "Share To Explore"
         page.find('#share_on')['checked'].should_not be_present
       end
     end
@@ -136,20 +132,6 @@ feature "Client Admin Interacts With Share And Public Section" do
 
       wait_for_ajax
       @tile.reload.is_copyable.should be_false
-    end
-
-    scenario "clicking the share button should display allow copy button and add tag field", js: true do
-      open_public_section
-      switch_on_explore
-      page.find('#share_on')['checked'].should be_present
-
-      page.should have_css('.allow_copying', visible: true)
-      page.should have_css('.add_tag', visible: true)
-
-      share_to_explore_switcher.click
-      
-      page.should_not have_css('.allow_copying', visible: true)
-      page.should_not have_css('.add_tag', visible: true)
     end
 
     scenario "tag is displayed after adding and is removable", js: true do

@@ -63,15 +63,6 @@ window.bindTagNameSearchAutocomplete = (sourceSelector, targetSelector, searchUR
 
   initialSetting()
 
-  $('.share_to_explore').on('click', (event) ->
-    if $(this).find('#share_off').attr('checked')
-      $('.share_options').find('.allow_copying').hide()
-      $('.share_options').find('.add_tag').hide()
-    else if $(this).find('#share_on').attr('checked')
-      $('.share_options').find('.allow_copying').show()
-      $('.share_options').find('.add_tag').show()
-  )
-  
   $(document).on('click','.add_tag .fa', (event) ->
     element = $(this).parent()
     tag_id = element.attr('id')
@@ -96,8 +87,14 @@ window.bindTagNameSearchAutocomplete = (sourceSelector, targetSelector, searchUR
       true
   ) 
 
-  $('#share_off, #share_on, #allow_copying_on, #allow_copying_off').click ->
+  $('#share_off, #share_on, #allow_copying_on, #allow_copying_off').click (event) ->
     publicTileForm().submit()
+
+  $('.share_to_explore').click (event) ->
+    event.preventDefault()
+    shareRadios = $('#share_to_explore_buttons input[type=radio]')
+    uncheckedRadio = shareRadios.not(':checked').first()
+    uncheckedRadio.click()
 
   $(window).on "beforeunload", ->
     if tileTagsError()

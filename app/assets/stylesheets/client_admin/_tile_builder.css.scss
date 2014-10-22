@@ -44,17 +44,19 @@ body.client_admin-tiles-update {
       &:last-of-type{margin-bottom:0;}
     }
     .share_to_explore{
+      @include light-button($sky-blue);
+
       float: left;
       display: inline;
       width: 34%;
-      padding: 2em 1em;
-      .share_to_explore_message{
-        color:lighten($text-color, 17%);
-        padding-left: 10px;
-        display: inline-block;
-        @include caption;
-      }        
+      margin-top: 1.8em;
+      input[type="radio"] {
+        // display: none;
+      }
     }
+
+    #share_to_explore_buttons { display: none; }
+
     .switch{
       @include green-paddle-switch;
     }

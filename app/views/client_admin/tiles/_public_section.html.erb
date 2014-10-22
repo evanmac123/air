@@ -30,16 +30,12 @@
     </li>
 
     <li class="share_to_explore">
-      <div class="switch small round share_explore">
-        <%= form.radio_button :is_public, true, id: 'share_on' %>
-        <%= form.radio_button :is_public, false, id: 'share_off' %>
-
-        <span class='green-paddle'></span>
-      </div>
-      <div class="share_to_explore_message">
-        Share to explore page
-      </div>
+      Share to Explore
     </li>
+    <div id="share_to_explore_buttons">
+      <%= form.radio_button :is_public, true, id: 'share_on' %>
+      <%= form.radio_button :is_public, false, id: 'share_off' %>
+    </div>
 
   </ul>
   </div>
