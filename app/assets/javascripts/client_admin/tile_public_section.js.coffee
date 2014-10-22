@@ -4,7 +4,18 @@ jumpTagSelected = (event, ui) ->
   else
     addNewTag(ui.item.value.name)
   $('#add-tag').val("")
+  unhighlightAddTag()
   event.preventDefault()
+
+unhighlightAddTag = () ->
+  $('#add-tag').removeClass('highlighted')
+
+highlightAddTag = () ->
+  $('#add-tag').addClass('highlighted')
+
+highlightAddTagIfNoTags = () ->
+  if $('.tile_tags a').length == 0
+    highlightAddTag()
 
 addNewTag = (name) ->
   $.ajax(
@@ -70,6 +81,7 @@ window.bindTagNameSearchAutocomplete = (sourceSelector, targetSelector, searchUR
     $('.share_options').find('#tile_builder_form_tile_tag_ids').val(filtered_vals.join(','))
     
     element.remove()
+    highlightAddTagIfNoTags()
     publicTileForm().submit()
   )
 

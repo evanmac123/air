@@ -2,7 +2,8 @@
   <div class='row'>
   <ul class='columns'>
     <li class="add_tag">
-      <%= text_field_tag 'add-tag', nil, placeholder: 'Add Tag (required)' %>
+      <% add_tag_class = form.object.tile_tags.present? ? '' : 'highlighted' %>
+      <%= text_field_tag 'add-tag', nil, placeholder: 'Add Tag (required)', class: add_tag_class %>
       <div class='tag_alert'>Add a tag to continue</div>
       <ul class="tile_tags">
         <% form.object.tile_tags.each do |tile_tag| %>
