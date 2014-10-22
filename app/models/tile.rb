@@ -270,7 +270,7 @@ class Tile < ActiveRecord::Base
     copy.original_created_at = self.created_at || self.original_created_at
     copy.demo = new_demo
     copy.creator = copying_user
-    copy.position = Tile.where(demo: copy.demo, status: copy.status).maximum(:position).to_i + 1
+    copy.position = copy.find_first_position
     
     #mark as copied by user
     self.user_tile_copies.build(user_id: copying_user.id)
@@ -295,8 +295,12 @@ class Tile < ActiveRecord::Base
 
   def update_status status
     self.status = status
-    self.position = Tile.where(demo: self.demo, status: status).maximum(:position).to_i + 1
+    self.position = find_first_position
     self.save
+  end
+
+  def find_first_position
+    Tile.where(demo: self.demo, status: self.status).maximum(:position).to_i + 1
   end
 
   def self.due_ids
