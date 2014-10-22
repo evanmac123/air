@@ -8,6 +8,7 @@ window.dragAndDropTiles = ->
   $( "#draft, #active, #archive" ).sortable({
     items: ".tile_container:not(.placeholder_container)",
     revert: true,
+    tolerance: "pointer",
     update: (event, ui) ->
       id = ui.item.find(".tile_thumbnail").data("tile_id")
       left_tile_id = ui.item.prev().find(".tile_thumbnail").data("tile_id")

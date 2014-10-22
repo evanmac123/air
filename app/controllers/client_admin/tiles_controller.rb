@@ -212,7 +212,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   def update_status
     success, failure = flash_status_messages
     is_new = @tile.activated_at.nil?
-    if @tile.update_attributes status: params[:update_status]
+    if @tile.update_status(params[:update_status])
       flash[:tile_activated] = is_new && @tile.active?
       flash[:tile_activated_flag] = is_new && @tile.active?
       flash[:success] = "The #{@tile.headline} tile has been #{success}"
