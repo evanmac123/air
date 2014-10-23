@@ -97,6 +97,7 @@ class TileBuilderForm
     set_tile_attributes
     set_tile_creator
     @tile.status = Tile::DRAFT
+    @tile.position = @tile.find_first_position
   end
 
   def set_tile_taggings
