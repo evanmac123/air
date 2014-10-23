@@ -45,6 +45,9 @@ body.client_admin-tiles-update {
     }
     .share_to_explore{
       @include light-button($sky-blue);
+      &.disabled {
+        @include light-button($light-gray);
+      }
 
       float: left;
       display: inline;

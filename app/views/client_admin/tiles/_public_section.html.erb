@@ -29,9 +29,11 @@
       </div>          
     </li>
 
-    <li class="share_to_explore">
+    <% share_to_explore_classes = %w(share_to_explore) %>
+    <% share_to_explore_classes << 'disabled' unless form.object.tile_tags.present? %>
+    <%= content_tag 'li', class: share_to_explore_classes do %>
       Share to Explore
-    </li>
+    <% end %>
     <div id="share_to_explore_buttons">
       <%= form.radio_button :is_public, true, id: 'share_on' %>
       <%= form.radio_button :is_public, false, id: 'share_off' %>

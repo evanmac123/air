@@ -5,6 +5,7 @@ jumpTagSelected = (event, ui) ->
     addNewTag(ui.item.value.name)
   $('#add-tag').val("")
   unhighlightAddTag()
+  enableShareLink()
   event.preventDefault()
 
 unhighlightAddTag = () ->
@@ -13,9 +14,10 @@ unhighlightAddTag = () ->
 highlightAddTag = () ->
   $('#add-tag').addClass('highlighted')
 
-highlightAddTagIfNoTags = () ->
-  if $('.tile_tags a').length == 0
-    highlightAddTag()
+noTags = () -> $('.tile_tags a').length == 0
+
+enableShareLink  = () -> $('.share_to_explore').removeClass('disabled')
+disableShareLink = () -> $('.share_to_explore').addClass('disabled')
 
 addNewTag = (name) ->
   $.ajax(
@@ -72,7 +74,9 @@ window.bindTagNameSearchAutocomplete = (sourceSelector, targetSelector, searchUR
     $('.share_options').find('#tile_builder_form_tile_tag_ids').val(filtered_vals.join(','))
     
     element.remove()
-    highlightAddTagIfNoTags()
+    if noTags()
+      highlightAddTag()
+      disableShareLink()
     publicTileForm().submit()
   )
 
@@ -92,6 +96,8 @@ window.bindTagNameSearchAutocomplete = (sourceSelector, targetSelector, searchUR
 
   $('.share_to_explore').click (event) ->
     event.preventDefault()
+    if $('.share_to_explore').hasClass('disabled')
+      return
     shareRadios = $('#share_to_explore_buttons input[type=radio]')
     uncheckedRadio = shareRadios.not(':checked').first()
     uncheckedRadio.click()
