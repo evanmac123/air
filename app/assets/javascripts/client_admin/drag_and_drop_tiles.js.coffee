@@ -7,6 +7,7 @@ window.dragAndDropTiles = ->
   $( "#archive" ).sortable({ connectWith: ".active-archive" })
   $( "#draft, #active, #archive" ).sortable({
     items: ".tile_container:not(.placeholder_container)",
+    cancel: ".placeholder_container, .no_tiles_message",
     revert: true,
     tolerance: "pointer",
     update: (event, ui) ->
