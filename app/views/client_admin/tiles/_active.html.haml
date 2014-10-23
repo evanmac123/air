@@ -1,4 +1,8 @@
-- display_no_tiles_message = @active_tiles.empty? ? "block" : "none"
-%div.no_tiles_message{style: "display:#{display_no_tiles_message};"} There are no active tiles.
+- display_no_tiles_section = @active_tiles.empty? ? "block" : "none"
+%div.no_tiles_section{style: "display:#{display_no_tiles_section};"}
+  - tile = TileOddRowPlaceholder.new
+  - 4.times do |col|
+    = render "shared/tiles/single_#{tile.class.to_s.underscore}", tile: tile
+
 - unless @active_tiles.empty?
   = render partial: 'shared/tiles/tiles_table', locals: {tiles: @active_tiles, type: :active}

@@ -7,7 +7,7 @@ window.dragAndDropTiles = ->
   $( "#archive" ).sortable({ connectWith: ".active-archive" })
   $( "#draft, #active, #archive" ).sortable({
     items: ".tile_container:not(.placeholder_container)",
-    cancel: ".placeholder_container, .no_tiles_message",
+    cancel: ".placeholder_container, .no_tiles_section",
     revert: true,
     tolerance: "pointer",
     update: (event, ui) ->
@@ -26,10 +26,10 @@ window.dragAndDropTiles = ->
       });
     over: (event, ui) ->
       updateAllPlaceholders()
-      updateAllNoTilesMess()
+      updateAllNoTilesSection()
     out: (event, ui) ->
       updateAllPlaceholders()
-      updateAllNoTilesMess()
+      updateAllNoTilesSection()
     start: (event, ui) ->
       status = ui.item.closest(".manage_section").attr("id")
       completions = ui.item.find(".completions a").text()
@@ -70,7 +70,7 @@ window.dragAndDropTiles = ->
     #addOrRemovePlaceholders(section, expectedPlaceholdersNumber - placeholdersNumber)
 
   removePlaceholders = (section) ->
-    $("#" + section).find( placehoderSelector() ).remove()
+    $("#" + section).children( placehoderSelector() ).remove()
 
   addPlaceholders = (section, number) ->
     $("#" + section).append placeholderHTML().times(number) 
@@ -81,14 +81,14 @@ window.dragAndDropTiles = ->
     else if number < 0  # remove
       $("#" + section).find( placehoderSelector() + ":gt(" + (number - 1) + ")" ).remove()
 
-  updateAllNoTilesMess = ->
-    updateNoTilesMess("draft")
-    updateNoTilesMess("active")
-    updateNoTilesMess("active")
+  updateAllNoTilesSection = ->
+    updateNoTilesSection("draft")
+    updateNoTilesSection("active")
+    updateNoTilesSection("archive")
 
-  updateNoTilesMess = (section) ->
-    no_tiles_message = $("#" + section).find(".no_tiles_message")
-    if $("#" + section).find(".tile_container").length == 0
-      no_tiles_message.show()
+  updateNoTilesSection = (section) ->
+    no_tiles_section = $("#" + section).find(".no_tiles_section")
+    if $("#" + section).children(".tile_container").length == 0
+      no_tiles_section.show()
     else
-      no_tiles_message.hide()
+      no_tiles_section.hide()

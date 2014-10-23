@@ -1,4 +1,7 @@
-- display_no_tiles_message = (@archive_tiles.empty? || @archive_tiles.all?(&:is_placeholder?)) ? "block" : "none"
-%div.no_tiles_message{style: "display:#{display_no_tiles_message};"} There are no archived tiles.
+- display_no_tiles_section = (@archive_tiles.empty? || @archive_tiles.all?(&:is_placeholder?)) ? "block" : "none"
+%div.no_tiles_section{style: "display:#{display_no_tiles_section};"}
+  - tile = TileOddRowPlaceholder.new
+  - 4.times do |col|
+    = render "shared/tiles/single_#{tile.class.to_s.underscore}", tile: tile
 
 = render partial: 'shared/tiles/tiles_table', locals: {tiles: @archive_tiles, type: :archive}
