@@ -12,8 +12,10 @@ class CreateRuleValues < ActiveRecord::Migration
 
     ActiveRecord::Base.connection.execute("CREATE INDEX index_rule_values_value_tsvector ON rule_values USING gin(to_tsvector('english', value));")
 
-    Rule.all.each do |rule|
-      RuleValue.create!(:value => rule.value, :rule_id => rule.id, :is_primary => true)
+    if const_defined?("Rule")
+      Rule.all.each do |rule|
+        RuleValue.create!(:value => rule.value, :rule_id => rule.id, :is_primary => true)
+      end
     end
 
     remove_column :rules, :value
@@ -23,12 +25,14 @@ class CreateRuleValues < ActiveRecord::Migration
     add_column :rules, :value, :string
     ActiveRecord::Base.connection.execute("CREATE INDEX index_rule_value_tsvector ON rules USING gin(to_tsvector('english', value));")
 
-    Rule.reset_column_information
+    if const_defined?("Rule") && const_defined?("RuleValue")
+      Rule.reset_column_information
 
-    RuleValue.where(:is_primary => true).all.each do |rule_value|
-      rule = Rule.find(rule_value.rule_id)
-      rule.value = rule_value.value
-      rule.save!
+      RuleValue.where(:is_primary => true).all.each do |rule_value|
+        rule = Rule.find(rule_value.rule_id)
+        rule.value = rule_value.value
+        rule.save!
+      end
     end
 
     drop_table :rule_values
