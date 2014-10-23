@@ -15,13 +15,13 @@ window.dragAndDropTiles = ->
     over: (event, ui) ->
       updateAllPlaceholders()
       updateAllNoTilesSections()
-    out: (event, ui) ->
-      updateAllPlaceholders()
-      updateAllNoTilesSections()
+    #out: (event, ui) ->
+    #  updateAllPlaceholders()
+    #  updateAllNoTilesSections()
     start: (event, ui) ->
-      turnOnDraftBlocling ui.item, $(this)
+      turnOnDraftBlocking ui.item, $(this)
     stop: (event, ui) ->
-      turnOffDraftBlocling ui.item, $(this)
+      turnOffDraftBlocking ui.item, $(this)
   }).disableSelection();
 
   numberInRow = ->
@@ -49,7 +49,7 @@ window.dragAndDropTiles = ->
       updatePlaceholders section
 
   updatePlaceholders = (section) ->
-    allTilesNumber = $("#" + section).find(".tile_container").length
+    allTilesNumber = $("#" + section).find(".tile_container:not(.ui-sortable-helper)").length
     placeholdersNumber = $("#" + section).find( placehoderSelector() ).length
     tilesNumber =  allTilesNumber - placeholdersNumber
     expectedPlaceholdersNumber = ( numberInRow() - ( tilesNumber % numberInRow() ) ) % numberInRow()
@@ -96,7 +96,7 @@ window.dragAndDropTiles = ->
       url: '/client_admin/tiles/' + id + '/sort'
     });
 
-  turnOnDraftBlocling = (tile, section) ->
+  turnOnDraftBlocking = (tile, section) ->
     status = getTilesSection tile
     completions = tile.find(".completions a").text()
     if status != "draft" && completions != "0 users"
@@ -104,7 +104,7 @@ window.dragAndDropTiles = ->
       $("#draft").sortable("disable")
       section.sortable("refresh")
 
-  turnOffDraftBlocling = (tile, section) ->
+  turnOffDraftBlocking = (tile, section) ->
     $(".draft_overlay").hide()
     $("#draft").sortable("enable")
     section.sortable("refresh")
