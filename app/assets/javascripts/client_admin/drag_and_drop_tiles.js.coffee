@@ -10,7 +10,10 @@ window.dragAndDropTiles = ->
     cancel: ".placeholder_container, .no_tiles_section",
     revert: true,
     tolerance: "pointer",
+    placeholder: "drag_placeholder",
     update: (event, ui) ->
+      removeTileStats( ui.item, $(this) )
+
       id = ui.item.find(".tile_thumbnail").data("tile_id")
       left_tile_id = ui.item.prev().find(".tile_thumbnail").data("tile_id")
       right_tile_id = ui.item.next().find(".tile_thumbnail").data("tile_id")
@@ -92,3 +95,9 @@ window.dragAndDropTiles = ->
       no_tiles_section.show()
     else
       no_tiles_section.hide()
+
+  removeTileStats = (tile, source_section) ->
+    destination_name = tile.closest(".manage_section").attr("id")
+    source_name = source_section.attr("id")
+    if source_name == "active" && destination_name == "draft"
+      tile.find(".tile_stats").hide()
