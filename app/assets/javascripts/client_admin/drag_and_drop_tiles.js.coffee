@@ -16,7 +16,6 @@ window.dragAndDropTiles = ->
       updateAllPlaceholders()
       updateAllNoTilesSections()
     #out: (event, ui) ->
-    #  updateAllPlaceholders()
     #  updateAllNoTilesSections()
     start: (event, ui) ->
       turnOnDraftBlocking ui.item, $(this)
@@ -68,7 +67,7 @@ window.dragAndDropTiles = ->
 
   updateNoTilesSection = (section) ->
     no_tiles_section = $("#" + section).find(".no_tiles_section")
-    if $("#" + section).children(".tile_container").length == 0
+    if $("#" + section).children(".tile_container:not(.ui-sortable-helper)").length == 0
       no_tiles_section.show()
     else
       no_tiles_section.hide()

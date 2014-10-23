@@ -140,9 +140,29 @@ body.client_admin-draft_tiles {
             float: left;
             padding-bottom: 2rem;
         }
-        #draft .tile_container   { height: 377px; } 
-        #active .tile_container  { height: 466px; }
-        #archive .tile_container { height: 466px; }
+        #draft {
+            .tile_container { 
+                height: 377px; 
+                display: none;
+            } 
+            & > .tile_container:nth-child(-n+9) { // shows only 8 tiles. need for drag and drop
+                display: block;
+            }
+        }
+        #active {
+            .tile_container  { height: 466px; }
+        }
+        #archive {
+            .tile_container { 
+                height: 466px;
+            }
+            & > .tile_container {
+                display: none;
+            }
+            & > .tile_container:nth-child(-n+9) { // shows only 8 tiles. need for drag and drop
+                display: block;
+            }
+        }
         .no_tiles_message {margin:0 auto 3em;}
     }
     #archived_tiles, #draft_tiles {
