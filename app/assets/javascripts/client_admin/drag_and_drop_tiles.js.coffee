@@ -10,7 +10,7 @@ window.dragAndDropTiles = ->
     cancel: ".placeholder_container, .no_tiles_section",
     revert: true,
     tolerance: "pointer",
-    placeholder: "drag_placeholder",
+    placeholder: "tile_container",
     update: (event, ui) ->
       removeTileStats( ui.item, $(this) )
 
