@@ -66,6 +66,10 @@ window.bindTagNameSearchAutocomplete = (sourceSelector, targetSelector, searchUR
   initialSetting()
 
   $(document).on('click','.add_tag .fa', (event) ->
+    if $('.add_tag li').length == 1 && $('#share_on:checked').length > 0
+      $('.tag_alert').show()
+      return false
+
     element = $(this).parent()
     tag_id = element.attr('id')
     
@@ -74,6 +78,8 @@ window.bindTagNameSearchAutocomplete = (sourceSelector, targetSelector, searchUR
     $('.share_options').find('#tile_builder_form_tile_tag_ids').val(filtered_vals.join(','))
     
     element.remove()
+    $('.tag_alert').hide()
+
     if noTags()
       highlightAddTag()
       disableShareLink()
@@ -91,7 +97,10 @@ window.bindTagNameSearchAutocomplete = (sourceSelector, targetSelector, searchUR
       true
   ) 
 
-  $('#share_off, #share_on, #allow_copying_on, #allow_copying_off').click (event) ->
+  $('#allow_copying_on, #allow_copying_off').click (event) ->
+    publicTileForm().submit()
+
+  $('#share_off, #share_on').change (event) ->
     publicTileForm().submit()
 
   $('.share_to_explore').click (event) ->

@@ -33,15 +33,13 @@ feature 'Tags tile' do
   end
 
   it "editing tagged tile with an existing tag", js: true do
-    tile = FactoryGirl.create(:multiple_choice_tile, :public, demo: @client_admin.demo)
+    tile = FactoryGirl.create(:multiple_choice_tile, demo: @client_admin.demo)
     first_tag = FactoryGirl.create(:tile_tag, title: "Cheese")
     second_tag = FactoryGirl.create(:tile_tag, title: "Ducks")
     tile.tile_taggings.create!(tile_tag: first_tag)
    
     visit client_admin_tile_path(tile, as: @client_admin)
-    
-    #remove existing tile tags
-    find('.tile_tags > li:first > .fa-times').click()
+    open_public_section
     #remove existing tile tags
     find('.tile_tags > li > .fa-times').click()
 
@@ -61,17 +59,6 @@ feature 'Tags tile' do
     wait_for_ajax
     tag = TileTag.find_by_title("Cheezwhiz")
     tag.tiles.should include(tile)
-  end
-
-  it "allows tag to be removed", js: true do
-    tile = FactoryGirl.create(:multiple_choice_tile, :public, demo: @client_admin.demo)
-    visit client_admin_tile_path(tile, as: @client_admin)
-    
-    find('.tile_tags > li > .fa-times').click
-    click_make_nonpublic
-
-    wait_for_ajax
-    tile.reload.tile_tags.should be_empty
   end
 
   it "normalizes tag names so they look consistent", js: true do

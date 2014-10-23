@@ -15,14 +15,6 @@ feature "Client Admin Interacts With Share And Public Section" do
     end
   end
 
-  def switch_on_explore
-    share_to_explore_switcher.click
-  end
-
-  def share_to_explore_switcher
-    page.find('.share_to_explore')
-  end
-
   def copying_switcher
     if page.find('#allow_copying_off')['checked'].present?
       page.find('#allow_copying_on')
@@ -135,16 +127,25 @@ feature "Client Admin Interacts With Share And Public Section" do
       end
 
       context "when there are tags" do
-        it "should start in an enabled state and be disabled if all tags are removed", js: true do
+        before do
           FactoryGirl.create(:tile_tagging, tile: @tile)
           @tile.update_attributes(is_public: true)
-
           visit client_admin_tile_path(@tile, as: @client_admin)
+        end
+
+        it "should start in an enabled state and be disabled if all tags are removed", js: true do
           page.should have_css('.share_to_explore')
           page.should have_no_css('.share_to_explore.disabled')
 
+          find('#share_off').trigger('click') # got to switch off sharing before you can remove the tag
           find('.tile_tags > li:first > .fa-times').click()
           page.should have_css('.share_to_explore.disabled')
+        end
+
+        it "should not allow the last tag to be removed if sharing is on", js: true do
+          find('.tile_tags > li:first > .fa-times').click()
+          page.should have_css('.tile_tags li')
+          page.should have_css('.tag_alert', visible: true)
         end
       end
     end
@@ -158,7 +159,6 @@ feature "Client Admin Interacts With Share And Public Section" do
 
     scenario "tag is displayed after adding and is removable", js: true do
       open_public_section
-      switch_on_explore
 
       add_new_tile_tag('random tag')
       find('.tile_tags > li').should have_content('random tag')
