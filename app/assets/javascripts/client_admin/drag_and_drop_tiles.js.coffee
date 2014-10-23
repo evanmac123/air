@@ -2,48 +2,26 @@ String.prototype.times = (n) ->
   Array.prototype.join.call({length:n+1}, this)
 
 window.dragAndDropTiles = ->
-  $( "#draft" ).sortable({ connectWith: ".draft-active" })
-  $( "#active" ).sortable({ connectWith: ".draft-active, .active-archive" })
-  $( "#archive" ).sortable({ connectWith: ".active-archive" })
   $( "#draft, #active, #archive" ).sortable({
     items: ".tile_container:not(.placeholder_container)",
+    connectWith: ".manage_section",
     cancel: ".placeholder_container, .no_tiles_section",
     revert: true,
     tolerance: "pointer",
     placeholder: "tile_container",
     update: (event, ui) ->
-      removeTileStats( ui.item, $(this) )
-
-      id = ui.item.find(".tile_thumbnail").data("tile_id")
-      left_tile_id = ui.item.prev().find(".tile_thumbnail").data("tile_id")
-      right_tile_id = ui.item.next().find(".tile_thumbnail").data("tile_id")
-      status = ui.item.closest(".manage_section").attr("id")
-      $.ajax({
-        data: {
-          left_tile_id: left_tile_id, 
-          right_tile_id: right_tile_id,
-          status: status
-        },
-        type: 'POST',
-        url: '/client_admin/tiles/' + id + '/sort'
-      });
+      removeTileStats ui.item, $(this)
+      saveTilePosition ui.item
     over: (event, ui) ->
       updateAllPlaceholders()
-      updateAllNoTilesSection()
+      updateAllNoTilesSections()
     out: (event, ui) ->
       updateAllPlaceholders()
-      updateAllNoTilesSection()
+      updateAllNoTilesSections()
     start: (event, ui) ->
-      status = ui.item.closest(".manage_section").attr("id")
-      completions = ui.item.find(".completions a").text()
-      if status == "active" && completions != "0 users"
-        $(".draft_overlay").show()
-        $("#draft").sortable("disable")
-        $(this).sortable("refresh")
+      turnOnDraftBlocling ui.item, $(this)
     stop: (event, ui) ->
-      $(".draft_overlay").hide()
-      $("#draft").sortable("enable")
-      $(this).sortable("refresh")
+      turnOffDraftBlocling ui.item, $(this)
   }).disableSelection();
 
   numberInRow = ->
@@ -57,20 +35,26 @@ window.dragAndDropTiles = ->
       '<div class="tile_thumbnail placeholder_tile"></div>' +
     '</div>'
 
+  sectionNames = ->
+    ["draft", "active", "archive"]
+
+  findTileId = (tile) ->
+    tile.find(".tile_thumbnail").data("tile_id")
+
+  getTilesSection = (tile) ->
+    tile.closest(".manage_section").attr("id")
+
   updateAllPlaceholders = ->
-    updatePlaceholders("draft")
-    updatePlaceholders("active")
-    updatePlaceholders("archive")
+    for section in sectionNames()
+      updatePlaceholders section
 
   updatePlaceholders = (section) ->
     allTilesNumber = $("#" + section).find(".tile_container").length
     placeholdersNumber = $("#" + section).find( placehoderSelector() ).length
     tilesNumber =  allTilesNumber - placeholdersNumber
     expectedPlaceholdersNumber = ( numberInRow() - ( tilesNumber % numberInRow() ) ) % numberInRow()
-    console.log expectedPlaceholdersNumber
     removePlaceholders(section)
     addPlaceholders(section, expectedPlaceholdersNumber)
-    #addOrRemovePlaceholders(section, expectedPlaceholdersNumber - placeholdersNumber)
 
   removePlaceholders = (section) ->
     $("#" + section).children( placehoderSelector() ).remove()
@@ -78,16 +62,9 @@ window.dragAndDropTiles = ->
   addPlaceholders = (section, number) ->
     $("#" + section).append placeholderHTML().times(number) 
 
-  addOrRemovePlaceholders = (section, number) ->
-    if number > 0       # add
-      $("#" + section).append placeholderHTML().times(number) 
-    else if number < 0  # remove
-      $("#" + section).find( placehoderSelector() + ":gt(" + (number - 1) + ")" ).remove()
-
-  updateAllNoTilesSection = ->
-    updateNoTilesSection("draft")
-    updateNoTilesSection("active")
-    updateNoTilesSection("archive")
+  updateAllNoTilesSections = ->
+    for section in sectionNames()
+      updateNoTilesSection section
 
   updateNoTilesSection = (section) ->
     no_tiles_section = $("#" + section).find(".no_tiles_section")
@@ -97,7 +74,37 @@ window.dragAndDropTiles = ->
       no_tiles_section.hide()
 
   removeTileStats = (tile, source_section) ->
-    destination_name = tile.closest(".manage_section").attr("id")
+    destination_name = getTilesSection tile
     source_name = source_section.attr("id")
-    if source_name == "active" && destination_name == "draft"
+
+    if source_name != "draft" && destination_name == "draft"
       tile.find(".tile_stats").hide()
+
+  saveTilePosition = (tile) ->
+    id = findTileId tile
+    left_tile_id = findTileId tile.prev()
+    right_tile_id = findTileId tile.next()
+    status = getTilesSection tile
+
+    $.ajax({
+      data: {
+        left_tile_id: left_tile_id, 
+        right_tile_id: right_tile_id,
+        status: status
+      },
+      type: 'POST',
+      url: '/client_admin/tiles/' + id + '/sort'
+    });
+
+  turnOnDraftBlocling = (tile, section) ->
+    status = getTilesSection tile
+    completions = tile.find(".completions a").text()
+    if status != "draft" && completions != "0 users"
+      $(".draft_overlay").show()
+      $("#draft").sortable("disable")
+      section.sortable("refresh")
+
+  turnOffDraftBlocling = (tile, section) ->
+    $(".draft_overlay").hide()
+    $("#draft").sortable("enable")
+    section.sortable("refresh")
