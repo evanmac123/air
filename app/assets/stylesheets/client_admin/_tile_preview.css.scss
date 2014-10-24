@@ -161,7 +161,7 @@ body.client_admin-tiles-show{
       width: 27%;
       display: none;
       float: left;
-      padding: 2em 0.5em;
+      padding: 2em 0.5em 1em 0.5em;
       .allow_copying_message{
         color:lighten($text-color, 17%);
         padding-left: 10px;
@@ -182,13 +182,14 @@ body.client_admin-tiles-show{
         background-image: none;
       }
     }
+    $add_tag_left_margin: 1em;
     .add_tag{
       width: 33%;
       display: none;
       margin-top: 28px;
       float: left;
       padding: 1px;
-      margin-left: 1em;
+      margin-left: $add_tag_left_margin;
 
       input[type="text"]{
         border: 2px solid #f3f3f3;
@@ -199,11 +200,6 @@ body.client_admin-tiles-show{
         &.highlighted {
           border-color: $sky-blue;
         }
-      }
-      .tag_alert{
-        display: none;
-        color: $red;
-        margin: 7px 0px;
       }
       .tile_tags{
         color: $med-gray;
@@ -225,8 +221,13 @@ body.client_admin-tiles-show{
       }
     }
 
-
+    .tag_alert{
+      display: none;
+      color: $red;
+      margin: 0 0 0.5em $add_tag_left_margin;
+    }
   }
+
   .preview_menu_header {
     width: 150px;
     font-size: 27px;
