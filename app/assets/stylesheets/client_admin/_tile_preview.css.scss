@@ -67,6 +67,9 @@ body.client_admin-tiles-show{
           &.disengaged{
             color: $med-gray;
           }
+          &.engaged{
+            color: $text-color;
+          }
         }
         .off{
           padding-left: 15px;
@@ -116,7 +119,7 @@ body.client_admin-tiles-show{
       }
       .share_via_link{
         float: none;
-        width: auto;
+        width: 195px;
         overflow: hidden;
         #sharable_tile_link{
           width: 100%;
@@ -127,17 +130,16 @@ body.client_admin-tiles-show{
   .share_options{
     background: $white;
     display: none;
+
+    .row {
+      margin-right: 0;
+    }
+
     .share_to_explore{
       float: left;
       display: inline;
       width: 34%;
       padding: 2em 0.5em;
-      .share_to_explore_message{
-        color:lighten($text-color, 17%);
-        padding-left: 10px;
-        display: inline-block;
-        @include caption;
-      }        
     }
 
     .share_to_explore{
@@ -149,12 +151,16 @@ body.client_admin-tiles-show{
         @include light-button($light-gray);
       }
 
-      float: left;
+      float: right;
       display: inline;
-      width: 34%;
+      width: 195px;
       margin-top: 1.8em;
-      input[type="radio"] {
-        // display: none;
+
+      .share_to_explore_message{
+        color:lighten($text-color, 17%);
+        padding-left: 10px;
+        display: inline-block;
+        @include caption;
       }
     }
 
@@ -170,6 +176,7 @@ body.client_admin-tiles-show{
         padding-left: 10px;
         display: inline-block;
         @include caption;
+        font-size: 0.75rem;
       }
       .switch.disabled {
         @include switch-style($switch-paddle-bg, $light-gray, $light-gray, false, true);
