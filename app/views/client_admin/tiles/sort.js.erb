@@ -1,12 +1,17 @@
 $("#single-tile-<%= @tile.id %>")
   .closest(".tile_container")
   .replaceWith("<%= escape_javascript( render(partial: 'shared/tiles/single_tile', locals: {tile: @tile, type: @tile.status.to_sym, do_ajax: false}) ) %>");
-<% if @last_tile %>
-  if( $("#<%= @last_tile.status %>")
-      .children(".tile_container:not(.placeholder_container), .creation_placeholder").length <= 7 ){
-    $("#<%= @last_tile.status %>")
+<% @last_tiles.each do |last_tile| %>
+  if( $("#<%= last_tile.status %>")
+      .children(".tile_container:not(.placeholder_container), .creation_placeholder").length <= 7 &&
+      $("#single-tile-<%= last_tile.id %>").length == 0){
+    new_tile = $("#<%= last_tile.status %>")
       .children(".tile_container.placeholder_container:not(.creation_placeholder):first")
-      .removeClass("placeholder_container")
-      .replaceWith("<%= escape_javascript( render(partial: 'shared/tiles/single_tile', locals: {tile: @last_tile, type: @last_tile.status.to_sym, do_ajax: false}) ) %>");
+    if(new_tile.length == 0){
+      new_tile = $('<div class="tile_container"></div>')
+      $("#<%= last_tile.status %>").append(new_tile)
+    }
+    new_tile.removeClass("placeholder_container")
+      .replaceWith("<%= escape_javascript( render(partial: 'shared/tiles/single_tile', locals: {tile: last_tile, type: last_tile.status.to_sym, do_ajax: false}) ) %>");
   }
 <% end %>
