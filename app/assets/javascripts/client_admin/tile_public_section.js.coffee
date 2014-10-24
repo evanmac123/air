@@ -6,6 +6,7 @@ jumpTagSelected = (event, ui) ->
   $('#add-tag').val("")
   unhighlightAddTag()
   enableShareLink()
+  enableCopySwitch()
   event.preventDefault()
 
 unhighlightAddTag = () ->
@@ -18,6 +19,9 @@ noTags = () -> $('.tile_tags a').length == 0
 
 enableShareLink  = () -> $('.share_to_explore').removeClass('disabled')
 disableShareLink = () -> $('.share_to_explore').addClass('disabled')
+
+enableCopySwitch = () -> $('.allow_copy').removeClass('disabled')
+disableCopySwitch = () -> $('.allow_copy').addClass('disabled')
 
 toggleShareRemove = (nowPosted) ->
   if nowPosted == "true"
@@ -90,6 +94,7 @@ window.bindTagNameSearchAutocomplete = (sourceSelector, targetSelector, searchUR
     if noTags()
       highlightAddTag()
       disableShareLink()
+      disableCopySwitch()
     publicTileForm().submit()
   )
 

@@ -171,6 +171,9 @@ body.client_admin-tiles-show{
         display: inline-block;
         @include caption;
       }
+      .switch.disabled {
+        @include switch-style($switch-paddle-bg, $light-gray, $light-gray, false, true);
+      }
     }
     #tag-autocomplete-target{
       a {

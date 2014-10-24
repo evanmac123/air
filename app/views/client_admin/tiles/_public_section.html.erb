@@ -16,13 +16,15 @@
       </li>
 
     <li class="allow_copying">
-      <div class="switch small round allow_copy">
+      <% copy_switch_classes = %w(switch small round allow_copy) %>
+      <% copy_switch_classes << 'disabled' unless form.object.tile_tags.present? %>
+      <%= content_tag 'div', class: copy_switch_classes do %>
 
         <%= form.radio_button :is_copyable, true, id: 'allow_copying_on' %>
         <%= form.radio_button :is_copyable, false, id: 'allow_copying_off' %>
 
         <span class='green-paddle'></span>
-      </div>
+      <% end %>
       <div class="allow_copying_message">
         Allow Copying
       </div>          
