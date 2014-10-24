@@ -230,13 +230,9 @@ class TileBuilderForm
     tile.is_copyable?
   end
 
-  def is_public
-    tile.is_public?
-  end
-
   def is_sharable
     tile.is_sharable?
   end
 
-  delegate :headline, :supporting_content, :question, :question_type, :question_subtype, :thumbnail, :image, :image_credit, :link_address, :points, :to => :tile
+  delegate :headline, :supporting_content, :question, :question_type, :question_subtype, :thumbnail, :image, :image_credit, :link_address, :points, :is_public, :is_public?, :to => :tile
 end

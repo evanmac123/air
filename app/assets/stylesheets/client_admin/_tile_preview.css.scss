@@ -145,6 +145,9 @@ body.client_admin-tiles-show{
       &.disabled {
         @include light-button($light-gray);
       }
+      &.remove_from_explore{
+        @include light-button($light-gray);
+      }
 
       float: left;
       display: inline;

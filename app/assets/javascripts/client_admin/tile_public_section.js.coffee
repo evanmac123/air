@@ -19,6 +19,13 @@ noTags = () -> $('.tile_tags a').length == 0
 enableShareLink  = () -> $('.share_to_explore').removeClass('disabled')
 disableShareLink = () -> $('.share_to_explore').addClass('disabled')
 
+toggleShareRemove = (nowPosted) ->
+  if nowPosted == "true"
+    $('.share_to_explore').addClass('remove_from_explore').text('Remove from Explore')
+  else
+    $('.share_to_explore').removeClass('remove_from_explore').text('Share to Explore')
+  true
+
 addNewTag = (name) ->
   $.ajax(
     url: "/client_admin/tile_tags/add?term=#{name}",
@@ -95,13 +102,14 @@ window.bindTagNameSearchAutocomplete = (sourceSelector, targetSelector, searchUR
         true
     else
       true
-  ) 
+  )
 
   $('#allow_copying_on, #allow_copying_off').click (event) ->
     publicTileForm().submit()
 
   $('#share_off, #share_on').change (event) ->
     publicTileForm().submit()
+    toggleShareRemove($(event.target).val())
 
   $('.share_to_explore').click (event) ->
     event.preventDefault()

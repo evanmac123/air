@@ -105,10 +105,10 @@ feature "Client Admin Interacts With Share And Public Section" do
     context "Airbo Explore" do
       before do
         @tile = FactoryGirl.create(:multiple_choice_tile, demo: @client_admin.demo)
-        visit client_admin_tile_path(@tile, as: @client_admin)
       end
 
       it "should open public section but not turn on share switcher", js: true do
+        visit client_admin_tile_path(@tile, as: @client_admin)
         page.should have_no_css('.share_to_explore', visible: true)
         open_public_section
         page.should have_css('.share_to_explore', visible: true)
@@ -117,6 +117,7 @@ feature "Client Admin Interacts With Share And Public Section" do
 
       context "when there are no tags" do
         it "should start in a disabled state and enable when a tag is entered", js: true do
+          visit client_admin_tile_path(@tile, as: @client_admin)
           open_public_section
           page.should have_css('.share_to_explore.disabled')
 
@@ -146,6 +147,40 @@ feature "Client Admin Interacts With Share And Public Section" do
           find('.tile_tags > li:first > .fa-times').click()
           page.should have_css('.tile_tags li')
           page.should have_css('.tag_alert', visible: true)
+        end
+      end
+
+      context "when the tile starts as public" do
+        before do
+          FactoryGirl.create(:tile_tagging, tile: @tile)
+          @tile.update_attributes(is_public: true)
+        end
+
+        it "should switch when toggled", js: true do
+          visit client_admin_tile_path(@tile, as: @client_admin)
+          page.find('.share_to_explore').trigger('click')
+
+          page.should have_no_css('.share_to_explore.remove_from_explore')
+          page.should have_css('.share_to_explore', text: "Share To Explore")
+        end
+      end
+
+      context "when the tile starts non-public" do
+        before do
+          @tile.is_public.should be_false
+        end
+
+        it "should switch when toggled", js: true do
+          visit client_admin_tile_path(@tile, as: @client_admin)
+          open_public_section
+          add_new_tile_tag('The Humpty Dance')
+
+          page.should have_css('.share_to_explore', visible: true)
+          page.should have_no_css('.share_to_explore.disabled')
+
+          page.find('.share_to_explore').trigger('click')
+
+          page.should have_css('.share_to_explore.remove_from_explore', text: 'Remove From Explore')
         end
       end
     end
