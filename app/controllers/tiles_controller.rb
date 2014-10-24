@@ -31,7 +31,6 @@ class TilesController < ApplicationController
   end
 
   def show
-    #tile_viewed_ping
     if params[:partial_only]
       decide_whether_to_show_conversion_form
       render_new_tile
