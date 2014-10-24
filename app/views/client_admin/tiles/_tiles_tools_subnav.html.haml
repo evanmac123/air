@@ -1,24 +1,23 @@
 #tile_manager_nav
-  %ul.large-12
-    %li#managing_tiles= link_to 'Tiles'.html_safe, client_admin_tiles_path
-    -if @demo.non_activated? && current_user.show_onboarding?
-      %li#share_tiles.share_tiles.has-tip.text-center{"data-tooltip" => true, title:'Create and post at least one tile to unlock'}
-        %i.fa.fa-lock
+  %li#managing_tiles= link_to 'Tiles'.html_safe, client_admin_tiles_path
+  -if @demo.non_activated? && current_user.show_onboarding?
+    %li#share_tiles.share_tiles.has-tip.text-center{"data-tooltip" => true, title:'Create and post at least one tile to unlock'}
+      %i.fa.fa-lock
+      Share
+    %li#board_activity.board_activity.has-tip.text-center{"data-tooltip" => true, title:'Create and post at least one tile to unlock'}
+      %i.fa.fa-lock
+      Activity
+    %li#prizes_nav.prizes_nav.has-tip.text-center{"data-tooltip" => true, title:'Create and post at least one tile to unlock'}
+      %i.fa.fa-lock
+      Prizes
+    %li#users.users.has-tip.text-center{"data-tooltip" => true, title:'Create and post at least one tile to unlock'}
+      %i.fa.fa-lock
+      Users
+  -else
+    %li#share_tiles
+      = link_to client_admin_share_path do
         Share
-      %li#board_activity.board_activity.has-tip.text-center{"data-tooltip" => true, title:'Create and post at least one tile to unlock'}
-        %i.fa.fa-lock
-        Activity
-      %li#prizes_nav.prizes_nav.has-tip.text-center{"data-tooltip" => true, title:'Create and post at least one tile to unlock'}
-        %i.fa.fa-lock
-        Prizes
-      %li#users.users.has-tip.text-center{"data-tooltip" => true, title:'Create and post at least one tile to unlock'}
-        %i.fa.fa-lock
-        Users
-    -else
-      %li#share_tiles
-        = link_to client_admin_share_path do
-          Share
-          %span= @tiles_to_be_sent
-      %li#board_activity= link_to 'Activity'.html_safe, client_admin_path
-      %li#prizes_nav= link_to 'Prizes', client_admin_prizes_path
-      %li#users= link_to 'Users'.html_safe, client_admin_users_path
+        %span= @tiles_to_be_sent
+    %li#board_activity= link_to 'Activity'.html_safe, client_admin_path
+    %li#prizes_nav= link_to 'Prizes', client_admin_prizes_path
+    %li#users= link_to 'Users'.html_safe, client_admin_users_path

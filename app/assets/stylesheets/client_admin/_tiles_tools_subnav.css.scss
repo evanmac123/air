@@ -1,38 +1,30 @@
 // Nav between tile-related pages
-#tile_manager_nav {padding-bottom:2em;}
-#tile_manager_nav ul {
-    background:darken($blue, 10%);
-    border-radius:$border-radius;
-    display: inline-block;
-    overflow: hidden;
-    &:after{@include clear;}
-    li, li a {display: inline-block;}
-    li {
-        float:left;
-        width:20%;
-        a {
-            color:$light-gray;
-            min-width:10em;
-            width:100%;
-            padding:.65em 2em ;
-            position: relative;
-            text-align: center;
-            &:hover {
-                @include ease(0);
-                // background:$dark-gray;
-                background:darken($blue, 15%);
-                color:$white!important;
-            }
-            &:active {background:lighten($blue, 5%);}
-        }
-        i{
-            margin-right: 10px;
-        }
-    }
-    li + li a {
-        border-left:1px $body-bg solid;
-    }
+#tile_manager_nav {
+  background: $ca-subnav-color;
+  display: inline-block;
+  float: left;
+  list-style-type: none;
+  height: 100%;
+  width: $ca-subnav-size;
+
+  // &:after {
+  //   background-color: darken($blue, 15%);
+  //   content: "";
+  //   padding-bottom: 100%;
+  //   position: absolute;
+  //   height: 100%;
+  //   width: 100%;
+  // }
+
+  li {
+    border: 1px blue solid;
+    font-size: .85em;
+    text-align: center;
+    height: $ca-subnav-size;
+    width: $ca-subnav-size;
+  }
 }
+
 // Div lines for Manage Tiles page
 body.client_admin-tiles-index #tile_manager_nav ul li a,
 body.client_admin-inactive_tiles-index #tile_manager_nav ul a,
@@ -52,73 +44,72 @@ body.client_admin-shares #tile_manager_nav ul li#share_tiles,
 body.client_admin-users-index #tile_manager_nav ul li#users,
 body.client_admin-users-edit #tile_manager_nav ul li#users,
 body.client_admin-prizes #tile_manager_nav ul li#prizes_nav a{
-    background:$dark-green;
-    color:$white;
+  background:$dark-green;
+  color:$white;
 }
 
 body.client_admin-tiles,
 body.client_admins,
 body.client_admin-users,
 body.client_admin-explores {
-    #share_tiles{
-        span{            
-            background-color: $dark-green;
-            padding: 0 4px 1px;
-            border-radius: 4px;
-            position: absolute;
-            margin-left: 10px;
-            font-size: 12px;
-        }
+  #share_tiles{
+    span{
+        background-color: $dark-green;
+        padding: 0 4px 1px;
+        border-radius: 4px;
+        position: absolute;
+        margin-left: 10px;
+        font-size: 12px;
     }
+  }
 }
 
 body.client_admin-shares{
-    #share_tiles{
-        span{
-            color: $dark-green;
-            background-color: $white;
-            padding: 0 4px 1px;
-            border-radius: 4px;
-            position: absolute;
-            margin-left: 10px;
-            font-size: 12px;
-        }
+  #share_tiles{
+    span{
+      color: $dark-green;
+      background-color: $white;
+      padding: 0 4px 1px;
+      border-radius: 4px;
+      position: absolute;
+      margin-left: 10px;
+      font-size: 12px;
     }
+  }
 }
 
-body.client_admin-tiles
-{
-    #tile_manager_nav.tooltip{
-        margin-left: -44px;
-        .nub{
-            margin-left: 148px;
-        }
+body.client_admin-tiles {
+  #tile_manager_nav.tooltip{
+    margin-left: -44px;
+    .nub{
+      margin-left: 148px;
     }
-    
-    .share_tiles, .board_activity, .users, .prizes_nav{
-        border-left:1px $blue solid;
-        color: #dfdfdf;
-        padding-top: 10px;
-        padding-bottom: 10px;
-    }    
+  }
+
+  .share_tiles, .board_activity, .users, .prizes_nav{
+    border-left:1px $blue solid;
+    color: #dfdfdf;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
 }
 
 body.client_admin-shares,
 body.client_admins,
 body.client_admin-users,
 body.client_admin-explores,
-body.client_admin-prizes {    
-    #tile_manager_nav.tooltip{
-        margin-left: -44px;
-        .nub{
-            margin-left: 148px;
-        }
+body.client_admin-prizes {
+  #tile_manager_nav.tooltip{
+    margin-left: -44px;
+    .nub{
+      margin-left: 148px;
     }
-    
-    .share_tiles, .board_activity, .users, .prizes_nav{
-        border-left:1px $white solid;
-        color: #dfdfdf;
-        padding-top: 10px;
-        padding-bottom: 10px;
-    }
+  }
+
+  .share_tiles, .board_activity, .users, .prizes_nav{
+    border-left:1px $white solid;
+    color: #dfdfdf;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
 }

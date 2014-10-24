@@ -25,12 +25,15 @@
 <body class="<%= body_class %> client_admin_main" style="-webkit-overflow-scrolling: touch; overflow:visible; ">
   <%= render 'shared/header' %>
   <%= render 'shared/flashes' %>
-  <div class="content">
-    <%= yield %>
-  </div>
+  <main class="main">
+    <%= render partial: 'client_admin/tiles/tiles_tools_subnav' %>
+    <div class="content">
+      <%= yield %>
+    </div>
+  </main>
 
   </div>
-  
+
   <div id="footer">
       Copyright © 2013 H.Engage, Inc.
   </div>
@@ -44,7 +47,7 @@
     <%= javascript_tag do %>
       $('.nav-contact-us').click(function(e){
         e.preventDefault();
-        $('#IntercomDefaultWidget').click(); 
+        $('#IntercomDefaultWidget').click();
       });
     <% end %>
   <% end %>
