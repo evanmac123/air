@@ -31,7 +31,7 @@ class TilesController < ApplicationController
   end
 
   def show
-    tile_viewed_ping
+    #tile_viewed_ping
     if params[:partial_only]
       decide_whether_to_show_conversion_form
       render_new_tile
@@ -162,8 +162,8 @@ class TilesController < ApplicationController
 
   def schedule_viewed_tile_ping(tile)
     return unless tile.present?
-    board_type = tile.demo.is_paid ? "Paid" : "Free" 
-    ping('Tile - Viewed', {tile_id: tile.id, board_type: board_type}, current_user)
+    board_type = tile.demo.is_paid ? "Paid" : "Free"
+    ping('Tile - Viewed', {tile_type: "User", tile_id: tile.id, board_type: board_type}, current_user)
   end
 
   def maximum_tiles_wanted
@@ -175,9 +175,5 @@ class TilesController < ApplicationController
     if Tile.satisfiable_to_user(current_user).empty?
       current_user.not_show_all_completed_tiles_in_progress
     end
-  end
-
-  def tile_viewed_ping
-    ping('Tile - Viewed', {tile_type: "User"}, current_user)
   end
 end
