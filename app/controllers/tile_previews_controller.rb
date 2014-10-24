@@ -45,6 +45,7 @@ class TilePreviewsController < ApplicationController
   end
 
   def schedule_mixpanel_pings(tile)
+    ping "Tile - Viewed in Explore", {tile_id: tile.id}, current_user
     ping('Tile - Viewed', {tile_type: "Public Tile - Explore", tile_id: tile.id}, current_user)
 
     if params[:thumb_click_source]

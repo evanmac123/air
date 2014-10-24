@@ -30,7 +30,7 @@ feature "Interacts with tiles in explore page" do
     click_first_thumbnail
     crank_dj_clear
 
-    FakeMixpanelTracker.should have_event_matching('Tile - Viewed', {tile_type: "Public Tile - Explore",tile_id: tile.id})
+    FakeMixpanelTracker.should have_event_matching('Tile - Viewed in Explore', {tile_id: tile.id})
   end
 
   it "rejects off-the-street-yahoos, guest users, and peons" do
