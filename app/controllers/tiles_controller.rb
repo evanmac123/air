@@ -178,6 +178,6 @@ class TilesController < ApplicationController
   end
 
   def tile_viewed_ping
-    ping('Tile Viewed', {tile_type: "User"}, current_user)
+    ping('Tile - Viewed', {tile_type: "User"}, current_user)
   end
 end
