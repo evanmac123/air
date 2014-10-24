@@ -302,7 +302,13 @@ class Tile < ActiveRecord::Base
   def find_first_position
     Tile.where(demo: self.demo, status: self.status).maximum(:position).to_i + 1
   end
-
+=begin
+  def first_tile_beyond_visible_in_manage
+    nil if status == ACTIVE
+    number = status == DRAFT ? 7 : 8
+    Tile.where(demo: demo, status: status).order("position DESC").first(number).last
+  end
+=end
   def self.due_ids
     self.after_start_time_and_before_end_time.map(&:id)
   end

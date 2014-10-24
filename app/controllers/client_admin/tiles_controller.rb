@@ -150,8 +150,16 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def sort
     @tile = get_tile
+    #@last_tile = @tile.first_tile_beyond_visible_in_manage
     Tile.insert_tile_between(params[:left_tile_id], @tile.id, params[:right_tile_id], params[:status])
     @tile.reload
+
+    if params[:source_section].present?
+      status_name = params[:source_section][:name]
+      ids = params[:source_section][:presented_ids]
+      tile_demo_id = get_demo
+      @last_tile = Tile.where{ (demo_id == tile_demo_id) & (status == status_name) & (id << ids) }.first
+    end
   end
   
   def active_tile_guide_displayed

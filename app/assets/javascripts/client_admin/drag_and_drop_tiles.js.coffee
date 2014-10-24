@@ -11,7 +11,7 @@ window.dragAndDropTiles = ->
     placeholder: "tile_container",
     update: (event, ui) ->
       removeTileStats ui.item, $(this)
-      saveTilePosition ui.item
+      saveTilePosition ui.item, $(this)
     over: (event, ui) ->
       updateAllPlaceholders()
       updateAllNoTilesSections()
@@ -79,7 +79,7 @@ window.dragAndDropTiles = ->
     if source_name != "draft" && destination_name == "draft"
       tile.find(".tile_stats").hide()
 
-  saveTilePosition = (tile) ->
+  saveTilePosition = (tile, source_section) ->
     id = findTileId tile
     left_tile_id = findTileId tile.prev()
     right_tile_id = findTileId tile.next()
@@ -89,11 +89,18 @@ window.dragAndDropTiles = ->
       data: {
         left_tile_id: left_tile_id, 
         right_tile_id: right_tile_id,
-        status: status
+        status: status,
+        source_section: sectionParams(source_section)
       },
       type: 'POST',
       url: '/client_admin/tiles/' + id + '/sort'
     });
+
+  sectionParams = (section) ->
+    name = section.attr("id")
+    tiles = section.find(".tile_thumbnail:not(.placeholder_tile)")
+    presented_ids = ($(tile).data("tile_id") for tile in tiles)
+    {name: name, presented_ids: presented_ids}
 
   turnOnDraftBlocking = (tile, section) ->
     status = getTilesSection tile
