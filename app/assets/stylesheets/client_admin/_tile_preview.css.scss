@@ -135,69 +135,6 @@ body.client_admin-tiles-show{
         @include caption;
       }        
     }
-    .allow_copying{
-      width: 27%;
-      display: none;
-      float: left;
-      padding: 2em 0.5em;
-      .allow_copying_message{
-        color:lighten($text-color, 17%);
-        padding-left: 10px;
-        display: inline-block;
-        @include caption;
-      }
-    }
-    #tag-autocomplete-target{
-      a {
-        color: $gray;
-        font-size: 14px;
-        font-weight: 500;
-      }
-      .ui-state-hover {
-        // override standard jQuery UI background with our standard colors
-        background-color: $light-gray;
-        border-color: $light-gray;
-        background-image: none;
-      }
-    }
-    .add_tag{
-      width: 33%;
-      display: none;
-      margin-top: 28px;
-      float: left;
-      padding: 1px;
-      margin-left: 1em;
-
-      input{
-        border: 2px solid #f3f3f3;
-        width: 220px;
-        height: 30px;
-        font-size: 0.9em;
-      }
-      .tag_alert{
-        display: none;
-        color: $red;
-        margin: 7px 0px;
-      }
-      .tile_tags{
-        color: $med-gray;
-        margin: 4px 0px;
-        width: 100%;
-        li{
-          margin-right: 5px;
-          margin-top: 5px;
-          display: inline-block;
-          padding: 0px 6px 3px 6px;
-          border: 1px solid;
-          border-radius: 5px;
-          font-size: 10px;
-          a {
-            color: $med-gray;
-            padding-left: 5px;
-          }
-        }
-      }
-    }
   }
   .preview_menu_header {
     width: 150px;
@@ -280,7 +217,7 @@ body.client_admin-tiles-show{
   }
 }
 body.tile_previews.tile_previews-show, body.client_admin-tiles-show{
-.tile_preview_intro {
+  .tile_preview_intro {
     padding-top: 1.0em;
 
     .introjs-skipbutton {
