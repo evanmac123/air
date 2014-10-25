@@ -45,7 +45,7 @@ gem 'font-awesome-rails'
 gem 'wice_grid'
 gem 'kaminari'
 gem 'browser'
-gem "squeel" 
+gem "squeel"
 gem 'draper', '~> 1.3'
 gem 'introjs-rails'
 gem 'redis-rails'
@@ -84,7 +84,7 @@ group :development, :test do
   gem "rspec-rails"
   gem "factory_girl_rails"
   gem "steak"
-  gem "rails-dev-tweaks"  # The rails-dev-tweaks gem makes it so assets are not reloaded as often. 
+  gem "rails-dev-tweaks"  # The rails-dev-tweaks gem makes it so assets are not reloaded as often.
                           # For instance, XHR requests by themselves do not reload assets when using this gem
                           # Note that all defaults can be overridden, see the github README for this gem
 
@@ -112,7 +112,7 @@ group :test do
   gem "selenium-webdriver"
 end
 
-group :development do 
+group :development do
   gem 'quiet_assets'
   gem 'letter_opener'
   gem 'better_errors'

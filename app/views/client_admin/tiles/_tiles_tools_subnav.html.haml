@@ -1,4 +1,4 @@
-#tile_manager_nav
+%ul#tile_manager_nav
   %li#managing_tiles= link_to 'Tiles'.html_safe, client_admin_tiles_path
   -if @demo.non_activated? && current_user.show_onboarding?
     %li#share_tiles.share_tiles.has-tip.text-center{"data-tooltip" => true, title:'Create and post at least one tile to unlock'}

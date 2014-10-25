@@ -8,23 +8,33 @@ header .admin_options #manage_board:hover:before {background:$dark-green;}
 
 .main {
   background: $ca-subnav-color;
+  display: block;
   overflow: hidden;
 
   &:after {
-    clear: both;
-    content: "";
-    display: block;
+    @include clear;
   }
 }
 
 .content {
   background-color: $white;
-  display: inline-block;
-  float: left;
   position: relative;
-  width: -moz-calc(100% - #{$ca-subnav-size});
-  width: -webkit-calc(100% - #{$ca-subnav-size});
-  width: calc(100% - #{$ca-subnav-size});
+
+  @media only screen and (min-width: $foundation) {
+    display: inline-block;
+    float: left;
+    width: -moz-calc(100% - #{$ca-subnav-size});
+    width: -webkit-calc(100% - #{$ca-subnav-size});
+    width: calc(100% - #{$ca-subnav-size});
+  }
+
+  @media only screen and (min-width: $large-desktop) {
+    .row {
+      max-width: -moz-calc(#{$large-desktop} - #{$ca-subnav-size});
+      max-width: -webkit-calc(#{$large-desktop} - #{$ca-subnav-size});
+      max-width: calc(#{$large-desktop} - #{$ca-subnav-size});
+    }
+  }
 
   h2, h3 {
     margin-bottom:1em;

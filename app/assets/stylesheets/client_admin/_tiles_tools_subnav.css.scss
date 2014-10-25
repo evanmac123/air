@@ -1,29 +1,75 @@
 // Nav between tile-related pages
 #tile_manager_nav {
   background: $ca-subnav-color;
-  display: inline-block;
-  float: left;
+  display: block;
   list-style-type: none;
-  height: 100%;
-  width: $ca-subnav-size;
 
-  // &:after {
-  //   background-color: darken($blue, 15%);
-  //   content: "";
-  //   padding-bottom: 100%;
-  //   position: absolute;
-  //   height: 100%;
-  //   width: 100%;
-  // }
-
-  li {
-    border: 1px blue solid;
-    font-size: .85em;
-    text-align: center;
-    height: $ca-subnav-size;
+  @media only screen and (min-width: $foundation) {
+    display: inline-block;
+    float: left;
+    height: 100%;
     width: $ca-subnav-size;
   }
+
+  &:after {
+    @include clear;
+  }
+
+  li {
+    display: inline-block;
+    float: left;
+    position: relative;
+
+    @media only screen and (min-width: $foundation) {
+      display: block;
+    }
+  }
+
+  li + li {
+    border-left: 1px $blue solid;
+
+    @media only screen and (min-width: $foundation) {
+      border-left: 0;
+      border-top: 1px $blue solid;
+    }
+  }
+
+  a {
+    @include link($white);
+    border-bottom: 5px transparent solid;
+    display: block;
+    font-size: .75em;
+    padding: .75em 2em .5em;
+    text-align: center;
+
+    @media only screen and (min-width: $foundation) {
+      border-bottom: 0;
+      border-left: 5px transparent solid;
+      padding: 1.35em 0 1em;
+      width: $ca-subnav-size;
+
+      &:hover {
+        background-color: darken($ca-subnav-color, 5%);
+      }
+    }
+
+    &:before {
+      background: no-repeat center center;
+      background-size: 100%;
+      content: "";
+      display: block;
+      margin: 0 auto .35em;
+      height: 2em;
+      width: 2em;
+    }
+  }
 }
+
+#managing_tiles a:before {background-image: image-url('client_admin/tiles-subnav.svg');}
+#share_tiles a:before {background-image: image-url('client_admin/share-subnav.svg');}
+#board_activity a:before {background-image: image-url('client_admin/activity-subnav.svg');}
+#prizes_nav a:before {background-image: image-url('client_admin/prizes-subnav.svg');}
+#users a:before {background-image: image-url('client_admin/users-subnav.svg');}
 
 // Div lines for Manage Tiles page
 body.client_admin-tiles-index #tile_manager_nav ul li a,
@@ -31,25 +77,25 @@ body.client_admin-inactive_tiles-index #tile_manager_nav ul a,
 body.client_admin-draft_tiles #tile_manager_nav ul a {border-color:$blue;}
 
 // Current page states
-body.client_admin-tiles-index #tile_manager_nav ul li#managing_tiles a,
-body.client_admin-tile_completions-index #tile_manager_nav ul li#managing_tiles a,
-body.client_admin-inactive_tiles-index #tile_manager_nav ul li#managing_tiles a,
-body.client_admin-draft_tiles-index #tile_manager_nav ul li#managing_tiles a,
-body.client_admins-show #tile_manager_nav ul li#board_activity a,
-body.client_admin-shares #tile_manager_nav ul li#share_tiles a,
-body.client_admin-users-index #tile_manager_nav ul li#users a,
-body.client_admin-users-edit #tile_manager_nav ul li#users a,
-body.client_admins-show #tile_manager_nav ul li#board_activity,
-body.client_admin-shares #tile_manager_nav ul li#share_tiles,
-body.client_admin-users-index #tile_manager_nav ul li#users,
-body.client_admin-users-edit #tile_manager_nav ul li#users,
-body.client_admin-prizes #tile_manager_nav ul li#prizes_nav a{
-  background:$dark-green;
-  color:$white;
+body.client_admin-tiles-index #tile_manager_nav li#managing_tiles a,
+body.client_admin-tile_completions-index #tile_manager_nav li#managing_tiles a,
+body.client_admin-inactive_tiles-index #tile_manager_nav li#managing_tiles a,
+body.client_admin-draft_tiles-index #tile_manager_nav li#managing_tiles a,
+body.client_admins-show #tile_manager_nav li#board_activity a,
+body.client_admin-shares #tile_manager_nav li#share_tiles a,
+body.client_admin-users-index #tile_manager_nav li#users a,
+body.client_admin-users-edit #tile_manager_nav li#users a,
+body.client_admins-show #tile_manager_nav li#board_activity a,
+body.client_admin-shares #tile_manager_nav li#share_tiles a,
+body.client_admin-users-index #tile_manager_nav li#users a,
+body.client_admin-users-edit #tile_manager_nav li#users a,
+body.client_admin-prizes #tile_manager_nav li#prizes_nav a{
+  border-color: $dark-green;
 }
 
 body.client_admin-tiles,
 body.client_admins,
+body.client_admin-shares,
 body.client_admin-users,
 body.client_admin-explores {
   #share_tiles{
@@ -57,23 +103,10 @@ body.client_admin-explores {
         background-color: $dark-green;
         padding: 0 4px 1px;
         border-radius: 4px;
-        position: absolute;
-        margin-left: 10px;
         font-size: 12px;
-    }
-  }
-}
-
-body.client_admin-shares{
-  #share_tiles{
-    span{
-      color: $dark-green;
-      background-color: $white;
-      padding: 0 4px 1px;
-      border-radius: 4px;
-      position: absolute;
-      margin-left: 10px;
-      font-size: 12px;
+        position: absolute;
+        top: 5px;
+        right: 5px;
     }
   }
 }
