@@ -3,6 +3,8 @@
   background: $ca-subnav-color;
   display: block;
   list-style-type: none;
+  overflow-x: auto;
+  width: 100%;
 
   @media only screen and (min-width: $foundation) {
     display: inline-block;
