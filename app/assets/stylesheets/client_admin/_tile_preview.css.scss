@@ -142,6 +142,7 @@ body.client_admin-tiles-show{
       padding: 2em 0.5em;
     }
 
+    $share_to_explore_width: 195px;
     .share_to_explore{
       @include light-button($sky-blue);
       &.disabled {
@@ -153,7 +154,7 @@ body.client_admin-tiles-show{
 
       float: right;
       display: inline;
-      width: 195px;
+      width: $share_to_explore_width;
       margin-top: 1.8em;
 
       .share_to_explore_message{
@@ -243,9 +244,10 @@ body.client_admin-tiles-show{
     #successful_share {
       font-size: 13px;
       color: $sky-blue;
-      float: right;
       margin: 4px 0;
       display: none;
+      width: $share_to_explore_width;
+      float: right;
     }
   }
 
