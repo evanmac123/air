@@ -2,6 +2,24 @@ String.prototype.times = (n) ->
   Array.prototype.join.call({length:n+1}, this)
 
 window.dragAndDropTiles = ->
+  $("#draft").droppable({ 
+    accept: ".tile_container",
+    activate: (event, ui) ->
+      console.log("drop-activate" + $(this).attr("id"))
+    create: (event, ui) ->
+      console.log("drop-create" + $(this).attr("id"))
+    deactivate: (event, ui) ->
+      console.log("drop-deactivate" + $(this).attr("id"))
+    drop: (event, ui) ->
+      console.log("drop-drop" + $(this).attr("id"))
+    out: (event, ui) ->
+      console.log("drop-out" + $(this).attr("id"))
+      $(".draft_overlay").hide()
+    over: (event, ui) ->
+      console.log("drop-over" + $(this).attr("id"))
+      if $( "#draft" ).sortable( "option", "disabled" )
+        $(".draft_overlay").show()
+  })
   $( "#draft, #active, #archive" ).sortable({
     items: ".tile_container:not(.placeholder_container)",
     connectWith: ".manage_section",
@@ -22,13 +40,14 @@ window.dragAndDropTiles = ->
     #  updateAllNoTilesSections()
     start: (event, ui) ->
       console.log("start" + $(this).attr("id"))
-      #turnOnDraftBlocking ui.item, $(this)
+      turnOnDraftBlocking ui.item, $(this)
     stop: (event, ui) ->
       console.log("stop" + $(this).attr("id"))
-      #turnOffDraftBlocking ui.item, $(this)
+      turnOffDraftBlocking ui.item, $(this)
+      $(".draft_overlay").hide()
     receive: (event, ui) ->
       console.log("receive" + $(this).attr("id"))
-      cancelIfDraftBlocked ui.item, $(this)
+      #cancelIfDraftBlocked ui.item, $(this)
       #$( "#draft, #active, #archive" ).sortable( "cancel" )
       #$( "#draft, #active, #archive" ).sortable("refresh")
     activate: (event, ui) ->
@@ -49,7 +68,7 @@ window.dragAndDropTiles = ->
       console.log("remove" + $(this).attr("id"))
     sort: (event, ui) ->
       console.log("sort" + $(this).attr("id"))
-  }).disableSelection();
+  }).disableSelection()
 
   numberInRow = ->
     4
@@ -139,12 +158,14 @@ window.dragAndDropTiles = ->
     status = getTilesSection tile
     completions = tile.find(".completions a").text()
     if status != "draft" && completions != "0 users"
-      $(".draft_overlay").show()
+      #$("#active, #archive").sortable("option", "containment", ".completed_tiles_containment")
+      #$("#active, #archive").sortable("refresh")
+      #$(".draft_overlay").show()
       $("#draft").sortable("disable")
       section.sortable("refresh")
 
   turnOffDraftBlocking = (tile, section) ->
-    $(".draft_overlay").hide()
+    #$(".draft_overlay").hide()
     $("#draft").sortable("enable")
     section.sortable("refresh")
 
