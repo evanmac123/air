@@ -156,7 +156,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
     if params[:source_section].present?
       status_name = params[:source_section][:name]
-      ids = params[:source_section][:presented_ids]
+      ids = params[:source_section][:presented_ids] || []
       tile_demo_id = get_demo
       needs_tiles = ids.count >= 8 ? 0 : (8 - ids.count)
       @last_tiles = Tile.where{ (demo_id == tile_demo_id) & (status == status_name) & (id << ids) }.first(needs_tiles)
