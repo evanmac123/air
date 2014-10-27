@@ -4,7 +4,7 @@
 %section.manage_tiles#draft_tiles
   .draft_overlay
     .overlay_message
-      Sorry, you cannot move a tile that has been completed by users back to draft.
+      = fa_icon "ban"
   .row
     .large-12.columns
       %h2 Draft
@@ -12,6 +12,8 @@
       = link_to "Show all", client_admin_draft_tiles_path, :class => :all_draft
 .completed_tiles_containment
   %section.manage_tiles#active_tiles
+    .draft_blocked_message
+      Sorry, you cannot move a tile that has been completed by users back to draft.
     .row
       .large-12.columns
         %h2 Posted
