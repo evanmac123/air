@@ -167,10 +167,10 @@ body.client_admin-tiles-show{
     #share_to_explore_buttons { display: none; }
 
     .allow_copying{
-      width: 27%;
+      width: 35%;
       display: none;
       float: left;
-      padding: 2em 0.5em 1em 0.5em;
+      padding: 2em 0.5em 1em 2.8em;
       .allow_copying_message{
         color:lighten($text-color, 17%);
         padding-left: 10px;
