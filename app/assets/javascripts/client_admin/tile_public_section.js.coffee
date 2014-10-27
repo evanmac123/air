@@ -1,12 +1,18 @@
 jumpTagSelected = (event, ui) ->
+  startedWithNoTags = noTags()
+
   if ui.item.value.found
     appendSelectedTags(ui.item.value.id, ui.item.label)
   else
     addNewTag(ui.item.value.name)
+
   $('#add-tag').val("")
+
   unhighlightAddTag()
   enableShareLink()
   enableCopySwitch()
+  if startedWithNoTags
+    $('#allow_copying_on').click()
   event.preventDefault()
 
 unhighlightAddTag = () ->
@@ -24,11 +30,17 @@ enableCopySwitch = () -> $('.allow_copy').removeClass('disabled')
 disableCopySwitch = () -> $('.allow_copy').addClass('disabled')
 
 toggleShareRemove = (nowPosted) ->
-  if nowPosted == "true"
+  if nowPosted
     $('.share_to_explore').addClass('remove_from_explore').text('Remove from Explore')
   else
     $('.share_to_explore').removeClass('remove_from_explore').text('Share to Explore')
   true
+
+toggleSuccessVisibility = (nowPosted) ->
+  if nowPosted
+    $('#successful_share').show()
+  else
+    $('#successful_share').hide()
 
 addNewTag = (name) ->
   $.ajax(
@@ -114,7 +126,9 @@ window.bindTagNameSearchAutocomplete = (sourceSelector, targetSelector, searchUR
 
   $('#share_off, #share_on').change (event) ->
     publicTileForm().submit()
-    toggleShareRemove($(event.target).val())
+    switchedToOn = $(event.target).val() == 'true'
+    toggleShareRemove(switchedToOn)
+    toggleSuccessVisibility(switchedToOn)
 
   $('.share_to_explore').click (event) ->
     event.preventDefault()
