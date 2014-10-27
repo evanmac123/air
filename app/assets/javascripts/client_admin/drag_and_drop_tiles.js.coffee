@@ -10,18 +10,45 @@ window.dragAndDropTiles = ->
     tolerance: "pointer",
     placeholder: "tile_container",
     update: (event, ui) ->
+      console.log("update" + $(this).id)
       removeTileStats ui.item, $(this)
       saveTilePosition ui.item, $(this)
     over: (event, ui) ->
+      console.log("over" + $(this).id)
       updateAllPlaceholders()
       updateAllNoTilesSections()
       updateTileVisibility()
     #out: (event, ui) ->
     #  updateAllNoTilesSections()
     start: (event, ui) ->
-      turnOnDraftBlocking ui.item, $(this)
+      console.log("start" + $(this).attr("id"))
+      #turnOnDraftBlocking ui.item, $(this)
     stop: (event, ui) ->
-      turnOffDraftBlocking ui.item, $(this)
+      console.log("stop" + $(this).attr("id"))
+      #turnOffDraftBlocking ui.item, $(this)
+    receive: (event, ui) ->
+      console.log("receive" + $(this).attr("id"))
+      cancelIfDraftBlocked ui.item, $(this)
+      #$( "#draft, #active, #archive" ).sortable( "cancel" )
+      #$( "#draft, #active, #archive" ).sortable("refresh")
+    activate: (event, ui) ->
+      console.log("activate" + $(this).attr("id"))
+    beforeStop: (event, ui) ->
+      console.log("beforeStop" + $(this).attr("id"))
+    change: (event, ui) ->
+      console.log("change" + $(this).attr("id"))
+      #$( "#draft" ).sortable( "disable" )
+      #$( "#draft, #active, #archive" ).sortable("refresh")
+    create: (event, ui) ->
+      console.log("create" + $(this).attr("id"))
+    deactivate: (event, ui) ->
+      console.log("deactivate" + $(this).attr("id"))
+    out: (event, ui) ->
+      console.log("out" + $(this).attr("id"))
+    remove: (event, ui) ->
+      console.log("remove" + $(this).attr("id"))
+    sort: (event, ui) ->
+      console.log("sort" + $(this).attr("id"))
   }).disableSelection();
 
   numberInRow = ->
@@ -132,3 +159,9 @@ window.dragAndDropTiles = ->
         $(tile).css("display", "block")
       else
         $(tile).css("display", "none")
+
+  cancelIfDraftBlocked = (tile, section) ->
+    completions = tile.find(".completions a").text()
+    if completions.length > 0 && completions != "0 users" && section.attr("id") == "draft"
+      $( "#draft, #active, #archive" ).sortable("cancel").sortable("refresh")
+    false
