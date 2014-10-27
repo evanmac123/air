@@ -1,5 +1,5 @@
 def should_have_valid_mime_type(klass, field)
-  good_mime_types = ["image/bmp", "image/x-windows-bmp", "image/gif", "image/jpeg", "image/pjpeg", "image/x-portable-bmp", "image/png"]
+  good_mime_types = ["image/bmp", "image/x-windows-bmp", "image/gif", "image/jpeg", "image/pjpeg", "image/x-portable-bmp", "image/png", "image/x-png"]
   # The last one, for Powerpoint, isn't a bad MIME type: it's the worst MIME type.
   bad_mime_types = ["text/plain", "x-vendor-initrode/foobar", "application/vnd.ms-powerpointtd"]
 
