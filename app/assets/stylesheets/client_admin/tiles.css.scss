@@ -143,11 +143,22 @@ body.client_admin-draft_tiles {
         #draft {
             .tile_container { 
                 height: 377px; 
-                display: none;
+                //display: none;
+                //.ui-sortable-helper {
+                //    display: block;
+                //}
             } 
-            & > .tile_container:nth-child(-n+9) { // shows only 8 tiles. need for drag and drop
+            /*.tile_container
+                height: 377px; 
                 display: block;
-            }
+            }*/
+            /*& > .tile_container:nth-child(-n+9) { // shows only 8 tiles. need for drag and drop
+                display: block;
+            }*/
+
+            /*& > .tile_container:not(.ui-sortable-helper) ~ .tile_container:not(.ui-sortable-helper){
+                display: block;
+            }*/
         }
         #active {
             .tile_container  { height: 466px; }
@@ -156,12 +167,12 @@ body.client_admin-draft_tiles {
             .tile_container { 
                 height: 466px;
             }
-            & > .tile_container {
+            /*& > .tile_container {
                 display: none;
             }
             & > .tile_container:nth-child(-n+9) { // shows only 8 tiles. need for drag and drop
                 display: block;
-            }
+            }*/
         }
         .no_tiles_message {margin:0 auto 3em;}
     }

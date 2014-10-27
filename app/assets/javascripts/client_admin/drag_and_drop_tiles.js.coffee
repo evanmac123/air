@@ -15,6 +15,7 @@ window.dragAndDropTiles = ->
     over: (event, ui) ->
       updateAllPlaceholders()
       updateAllNoTilesSections()
+      updateTileVisibility()
     #out: (event, ui) ->
     #  updateAllNoTilesSections()
     start: (event, ui) ->
@@ -28,6 +29,9 @@ window.dragAndDropTiles = ->
 
   placehoderSelector = ->
     ".tile_container.placeholder_container:not(.creation_placeholder)"
+
+  notDraggedTileSelector = ->
+    ".tile_container:not(.ui-sortable-helper)"
 
   placeholderHTML = ->
     '<div class="tile_container placeholder_container">' +
@@ -48,7 +52,7 @@ window.dragAndDropTiles = ->
       updatePlaceholders section
 
   updatePlaceholders = (section) ->
-    allTilesNumber = $("#" + section).find(".tile_container:not(.ui-sortable-helper)").length
+    allTilesNumber = $("#" + section).find( notDraggedTileSelector() ).length
     placeholdersNumber = $("#" + section).find( placehoderSelector() ).length
     tilesNumber =  allTilesNumber - placeholdersNumber
     expectedPlaceholdersNumber = ( numberInRow() - ( tilesNumber % numberInRow() ) ) % numberInRow()
@@ -67,7 +71,7 @@ window.dragAndDropTiles = ->
 
   updateNoTilesSection = (section) ->
     no_tiles_section = $("#" + section).find(".no_tiles_section")
-    if $("#" + section).children(".tile_container:not(.ui-sortable-helper)").length == 0
+    if $("#" + section).children( notDraggedTileSelector() ).length == 0
       no_tiles_section.show()
     else
       no_tiles_section.hide()
@@ -93,7 +97,9 @@ window.dragAndDropTiles = ->
         source_section: sectionParams(source_section)
       },
       type: 'POST',
-      url: '/client_admin/tiles/' + id + '/sort'
+      url: '/client_admin/tiles/' + id + '/sort',
+      success: ->
+        updateTileVisibility()
     });
 
   sectionParams = (section) ->
@@ -114,3 +120,15 @@ window.dragAndDropTiles = ->
     $(".draft_overlay").hide()
     $("#draft").sortable("enable")
     section.sortable("refresh")
+
+  updateTileVisibility = ->
+    updateTileVisibilityIn "draft"
+    updateTileVisibilityIn "archive"
+
+  updateTileVisibilityIn = (section) ->
+    tiles = $("#" + section).find( notDraggedTileSelector() )
+    for tile, index in tiles
+      if index < 8
+        $(tile).css("display", "block")
+      else
+        $(tile).css("display", "none")
