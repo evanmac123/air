@@ -178,7 +178,7 @@ window.dragAndDropTiles = ->
     updateTileVisibilityIn "archive"
 
   updateTileVisibilityIn = (section) ->
-    tiles = $("#" + section).find( notDraggedTileSelector() )
+    tiles = $("#" + section).find( "> " + notDraggedTileSelector() )
     for tile, index in tiles
       if index < 8
         $(tile).css("display", "block")
