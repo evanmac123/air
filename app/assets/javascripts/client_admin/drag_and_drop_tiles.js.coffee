@@ -16,11 +16,11 @@ window.dragAndDropTiles = ->
     ###
     out: (event, ui) ->
       #console.log("drop-out" + $(this).attr("id"))
-      showDraftBlockedMess false
+      showDraftBlockedOverlay false
     over: (event, ui) ->
       #console.log("drop-over" + $(this).attr("id"))
       if $( "#draft" ).sortable( "option", "disabled" )
-        showDraftBlockedMess true
+        showDraftBlockedOverlay true
   })
   $( "#draft, #active, #archive" ).sortable({
     items: ".tile_container:not(.placeholder_container)",
@@ -43,10 +43,12 @@ window.dragAndDropTiles = ->
     start: (event, ui) ->
       #console.log("start" + $(this).attr("id"))
       turnOnDraftBlocking ui.item, $(this)
+      showDraftBlockedMess false
     stop: (event, ui) ->
       #console.log("stop" + $(this).attr("id"))
       turnOffDraftBlocking ui.item, $(this)
-      showDraftBlockedMess false
+      showDraftBlockedMess $(".draft_overlay").css("display") == "block"
+      showDraftBlockedOverlay false
     ###
     receive: (event, ui) ->
       console.log("receive" + $(this).attr("id"))
@@ -191,10 +193,14 @@ window.dragAndDropTiles = ->
       $( "#draft, #active, #archive" ).sortable("cancel").sortable("refresh")
     false
   ###
-  showDraftBlockedMess = (isOn) ->
+  showDraftBlockedOverlay = (isOn) ->
     if isOn
       $(".draft_overlay").show()
-      $(".draft_blocked_message").show()
     else
       $(".draft_overlay").hide()
+
+  showDraftBlockedMess = (isOn) ->
+    if isOn
+      $(".draft_blocked_message").show()
+    else
       $(".draft_blocked_message").hide()
