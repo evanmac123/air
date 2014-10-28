@@ -170,7 +170,7 @@ class ApplicationController < ActionController::Base
     if logged_in_as_guest?
       if guest_user_allowed?
         board = find_current_board # must be implemented in subclass
-        unless board && board.is_public
+        unless override_public_board_setting || (board && board.is_public)
           public_board_not_found
         end
 
@@ -520,5 +520,9 @@ class ApplicationController < ActionController::Base
 
   def frame_option
     @allow_same_origin_framing ? 'SAMEORIGIN' : 'DENY'
+  end
+
+  def override_public_board_setting
+    false
   end
 end

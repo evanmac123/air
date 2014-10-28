@@ -67,6 +67,16 @@ feature "visits sharable tile page" do
     it_should_behave_like "makes ping on board creation or signin"
   end
 
+  it "should allow the user to see a shared tile in a private board" do
+    private_board = FactoryGirl.create(:demo, is_public: false)
+    tile = FactoryGirl.create(:multiple_choice_tile, is_sharable: true, demo: private_board)
+
+    visit sharable_tile_path(tile)
+
+    expect_no_content "This board is currently private"
+    expect_content tile.headline
+  end
+
   context "as User" do
     before do
       @user = a_regular_user
