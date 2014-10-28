@@ -30,9 +30,12 @@ window.dragAndDropTiles = ->
     tolerance: "pointer",
     placeholder: "tile_container",
     update: (event, ui) ->
-      #console.log("update" + $(this).id)
-      removeTileStats ui.item, $(this)
-      saveTilePosition ui.item, $(this)
+      tile = ui.item
+      # update is called on every changed section so we don't want multiple ajax calls
+      if getTilesSection(tile) == $(this).attr("id")
+        #console.log("update" + $(this).attr("id"))
+        removeTileStats tile, $(this)
+        saveTilePosition tile, $(this)
     over: (event, ui) ->
       #console.log("over" + $(this).id)
       updateAllPlaceholders()
@@ -150,6 +153,8 @@ window.dragAndDropTiles = ->
       },
       type: 'POST',
       url: '/client_admin/tiles/' + id + '/sort',
+      beforeSend: ->
+        console.log(id)
       success: ->
         updateTileVisibility()
     });

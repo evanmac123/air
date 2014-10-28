@@ -161,6 +161,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       needs_tiles = ids.count >= 8 ? 0 : (8 - ids.count)
       @last_tiles = Tile.where{ (demo_id == tile_demo_id) & (status == status_name) & (id << ids) }.first(needs_tiles)
     end
+    #Logger.new("#{Rails.root}/log/my.log").info("#{@tile.id} ")
   end
   
   def active_tile_guide_displayed
