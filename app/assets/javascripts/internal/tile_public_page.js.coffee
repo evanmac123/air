@@ -17,7 +17,8 @@ window.tilePublicPage = ->
     pingOnAction "Clicked Logo"
 
   pingOnAction = (action) ->
-    $.post('/ping', {event: "Tile - Viewed", properties: {action: action} })
+    tile_id = $("[data-current-tile-id]").data("current-tile-id")
+    $.post('/ping', {event: "Tile - Viewed", properties: {action: action, tile_id: tile_id} })
     true
   #
   # =>  Sign up form  

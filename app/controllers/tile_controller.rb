@@ -32,7 +32,7 @@ class TileController < ApplicationController
   end
 
   def tile_viewed_ping
-    ping('Tile - Viewed', {tile_type: "Public Tile"}, current_user)
+    ping('Tile - Viewed', {tile_type: "Public Tile", tile_id: @tile.id}, current_user)
   end
 
   def override_public_board_setting
