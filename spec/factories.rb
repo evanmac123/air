@@ -233,6 +233,14 @@ FactoryGirl.define do
     correct_answer_index -1
   end
 
+  factory :sharable_and_public_tile, parent: :multiple_choice_tile do
+    is_public true
+    is_sharable true
+    tile_taggings do
+      [FactoryGirl.create(:tile_tagging)]
+    end
+  end
+
   factory :tile_completion do
     association :user
     association :tile

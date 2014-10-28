@@ -345,4 +345,15 @@ feature "interacts with a tile from the explore-preview page" do
     it_should_behave_like "gets registration form after closing intro", "logo", "#logo"
     it_should_behave_like "has intro modals"
   end
+
+  context "as guest for a public tile in a private board" do
+    it "should allow the guest to see the tile" do
+      private_board = FactoryGirl.create(:demo, is_public: false)
+      tile = FactoryGirl.create(:sharable_and_public_tile, demo: private_board)      
+      visit explore_tile_preview_path(tile)
+
+      expect_no_content "This board is currently private"
+      expect_content tile.headline
+    end
+  end
 end

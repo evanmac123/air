@@ -107,4 +107,8 @@ class TilePreviewsController < ApplicationController
   def tile_viewed_ping
     ping('Tile Viewed', {tile_type: "Public Tile - Explore"}, current_user)
   end
+
+  def override_public_board_setting
+    @tile && @tile.is_public && @tile.is_sharable
+  end
 end
