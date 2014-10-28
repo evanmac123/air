@@ -48,9 +48,9 @@ window.dragAndDropTiles = ->
       turnOnDraftBlocking ui.item, $(this)
       showDraftBlockedMess false
     stop: (event, ui) ->
-      #console.log("stop" + $(this).attr("id"))
+      console.log("stop" + $(this).attr("id"))
       turnOffDraftBlocking ui.item, $(this)
-      showDraftBlockedMess $(".draft_overlay").css("display") == "block"
+      showDraftBlockedMess $(".draft_overlay").css("display") == "block", $(this)
       showDraftBlockedOverlay false
     ###
     receive: (event, ui) ->
@@ -204,8 +204,8 @@ window.dragAndDropTiles = ->
     else
       $(".draft_overlay").hide()
 
-  showDraftBlockedMess = (isOn) ->
+  showDraftBlockedMess = (isOn, section) ->
     if isOn
-      $(".draft_blocked_message").show()
+      section.closest(".manage_tiles").find(".draft_blocked_message").show()
     else
       $(".draft_blocked_message").hide()

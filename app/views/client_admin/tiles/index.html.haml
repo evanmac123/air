@@ -21,6 +21,8 @@
         %div#active.manage_section=  render partial: 'active'
 
   %section.manage_tiles#archived_tiles
+    .draft_blocked_message
+      Sorry, you cannot move a tile that has been completed by users back to draft.
     .row
       .large-12.columns
         %h2 Archive

@@ -150,6 +150,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def sort
     @tile = get_tile
+    #Logger.new("#{Rails.root}/log/my.log").info("#{@tile.id} ")
     #@last_tile = @tile.first_tile_beyond_visible_in_manage
     Tile.insert_tile_between(params[:left_tile_id], @tile.id, params[:right_tile_id], params[:status])
     @tile.reload
@@ -161,7 +162,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       needs_tiles = ids.count >= 8 ? 0 : (8 - ids.count)
       @last_tiles = Tile.where{ (demo_id == tile_demo_id) & (status == status_name) & (id << ids) }.first(needs_tiles)
     end
-    #Logger.new("#{Rails.root}/log/my.log").info("#{@tile.id} ")
   end
   
   def active_tile_guide_displayed
