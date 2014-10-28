@@ -4,6 +4,7 @@ String.prototype.times = (n) ->
 window.dragAndDropTiles = ->
   $("#draft").droppable({ 
     accept: ".tile_container",
+    ###
     activate: (event, ui) ->
       console.log("drop-activate" + $(this).attr("id"))
     create: (event, ui) ->
@@ -12,11 +13,12 @@ window.dragAndDropTiles = ->
       console.log("drop-deactivate" + $(this).attr("id"))
     drop: (event, ui) ->
       console.log("drop-drop" + $(this).attr("id"))
+    ###
     out: (event, ui) ->
-      console.log("drop-out" + $(this).attr("id"))
+      #console.log("drop-out" + $(this).attr("id"))
       showDraftBlockedMess false
     over: (event, ui) ->
-      console.log("drop-over" + $(this).attr("id"))
+      #console.log("drop-over" + $(this).attr("id"))
       if $( "#draft" ).sortable( "option", "disabled" )
         showDraftBlockedMess true
   })
@@ -28,23 +30,24 @@ window.dragAndDropTiles = ->
     tolerance: "pointer",
     placeholder: "tile_container",
     update: (event, ui) ->
-      console.log("update" + $(this).id)
+      #console.log("update" + $(this).id)
       removeTileStats ui.item, $(this)
       saveTilePosition ui.item, $(this)
     over: (event, ui) ->
-      console.log("over" + $(this).id)
+      #console.log("over" + $(this).id)
       updateAllPlaceholders()
       updateAllNoTilesSections()
       updateTileVisibility()
     #out: (event, ui) ->
     #  updateAllNoTilesSections()
     start: (event, ui) ->
-      console.log("start" + $(this).attr("id"))
+      #console.log("start" + $(this).attr("id"))
       turnOnDraftBlocking ui.item, $(this)
     stop: (event, ui) ->
-      console.log("stop" + $(this).attr("id"))
+      #console.log("stop" + $(this).attr("id"))
       turnOffDraftBlocking ui.item, $(this)
       showDraftBlockedMess false
+    ###
     receive: (event, ui) ->
       console.log("receive" + $(this).attr("id"))
       #cancelIfDraftBlocked ui.item, $(this)
@@ -68,6 +71,7 @@ window.dragAndDropTiles = ->
       console.log("remove" + $(this).attr("id"))
     sort: (event, ui) ->
       console.log("sort" + $(this).attr("id"))
+    ###
   }).disableSelection()
 
   numberInRow = ->
@@ -180,13 +184,13 @@ window.dragAndDropTiles = ->
         $(tile).css("display", "block")
       else
         $(tile).css("display", "none")
-
+  ###
   cancelIfDraftBlocked = (tile, section) ->
     completions = tile.find(".completions a").text()
     if completions.length > 0 && completions != "0 users" && section.attr("id") == "draft"
       $( "#draft, #active, #archive" ).sortable("cancel").sortable("refresh")
     false
-
+  ###
   showDraftBlockedMess = (isOn) ->
     if isOn
       $(".draft_overlay").show()

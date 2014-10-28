@@ -270,7 +270,7 @@ body.client_admin-draft_tiles #active_tiles,
 .creation-placeholder a {
     border-color:lighten($blue, 13%);
     display: block;
-    color:transparent;
+    color:$blue !important;
     line-height:1em;
     //padding-top:12em;
     position: relative;
