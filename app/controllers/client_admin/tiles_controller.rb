@@ -162,6 +162,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       needs_tiles = ids.count >= 8 ? 0 : (8 - ids.count)
       @last_tiles = Tile.where{ (demo_id == tile_demo_id) & (status == status_name) & (id << ids) }.first(needs_tiles)
     end
+
+    tile_status_updated_ping @tile, "Dragged tile to move"
   end
   
   def active_tile_guide_displayed
@@ -226,6 +228,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       flash[:tile_activated] = is_new && @tile.active?
       flash[:tile_activated_flag] = is_new && @tile.active?
       flash[:success] = "The #{@tile.headline} tile has been #{success}"
+      tile_status_updated_ping @tile, "Clicked button to move"
     else
       flash[:failure] = "There was a problem #{failure} this tile. Please try again."
     end
@@ -338,5 +341,9 @@ class ClientAdmin::TilesController < ClientAdminBaseController
            else
              :via_draft_preview
            end
+  end
+
+  def tile_status_updated_ping tile, action
+    ping('Moved Tile in Manage', {action: action, tile_id: tile.id}, current_user)
   end
 end

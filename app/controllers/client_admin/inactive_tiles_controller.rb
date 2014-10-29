@@ -9,6 +9,7 @@ class ClientAdmin::InactiveTilesController < ClientAdminBaseController
   def sort
     @tile = get_tile
     Tile.insert_tile_between params[:left_tile_id], @tile.id, params[:right_tile_id]
+    tile_status_updated_ping @tile
     render nothing: true
   end
 
@@ -16,5 +17,9 @@ class ClientAdmin::InactiveTilesController < ClientAdminBaseController
 
   def get_tile
     current_user.demo.tiles.find params[:id]
+  end
+
+  def tile_status_updated_ping tile
+    ping('Moved Tile in Manage', {action: "Dragged tile to move", tile_id: tile.id}, current_user)
   end
 end

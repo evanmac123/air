@@ -38,6 +38,9 @@ window.dragAndDropTiles = ->
         turnOffDraftBlocking ui.item, $(this)
         showDraftBlockedMess true, $(this)
         showDraftBlockedOverlay false
+      updateAllPlaceholders()
+      updateAllNoTilesSections()
+      updateTileVisibility()
   }).disableSelection()
 
   numberInRow = ->
