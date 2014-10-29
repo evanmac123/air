@@ -4,21 +4,9 @@ String.prototype.times = (n) ->
 window.dragAndDropTiles = ->
   $("#draft").droppable({ 
     accept: ".tile_container",
-    ###
-    activate: (event, ui) ->
-      console.log("drop-activate" + $(this).attr("id"))
-    create: (event, ui) ->
-      console.log("drop-create" + $(this).attr("id"))
-    deactivate: (event, ui) ->
-      console.log("drop-deactivate" + $(this).attr("id"))
-    drop: (event, ui) ->
-      console.log("drop-drop" + $(this).attr("id"))
-    ###
     out: (event, ui) ->
-      #console.log("drop-out" + $(this).attr("id"))
       showDraftBlockedOverlay false
     over: (event, ui) ->
-      #console.log("drop-over" + $(this).attr("id"))
       if $( "#draft" ).sortable( "option", "disabled" )
         showDraftBlockedOverlay true
   })
@@ -31,52 +19,21 @@ window.dragAndDropTiles = ->
     placeholder: "tile_container",
     update: (event, ui) ->
       tile = ui.item
+      removeTileStats tile, $(this)
       # update is called on every changed section so we don't want multiple ajax calls
       if getTilesSection(tile) == $(this).attr("id")
-        #console.log("update" + $(this).attr("id"))
-        removeTileStats tile, $(this)
         saveTilePosition tile, $(this)
     over: (event, ui) ->
-      #console.log("over" + $(this).id)
       updateAllPlaceholders()
       updateAllNoTilesSections()
       updateTileVisibility()
-    #out: (event, ui) ->
-    #  updateAllNoTilesSections()
     start: (event, ui) ->
-      #console.log("start" + $(this).attr("id"))
       turnOnDraftBlocking ui.item, $(this)
       showDraftBlockedMess false
     stop: (event, ui) ->
-      console.log("stop" + $(this).attr("id"))
       turnOffDraftBlocking ui.item, $(this)
       showDraftBlockedMess $(".draft_overlay").css("display") == "block", $(this)
       showDraftBlockedOverlay false
-    ###
-    receive: (event, ui) ->
-      console.log("receive" + $(this).attr("id"))
-      #cancelIfDraftBlocked ui.item, $(this)
-      #$( "#draft, #active, #archive" ).sortable( "cancel" )
-      #$( "#draft, #active, #archive" ).sortable("refresh")
-    activate: (event, ui) ->
-      console.log("activate" + $(this).attr("id"))
-    beforeStop: (event, ui) ->
-      console.log("beforeStop" + $(this).attr("id"))
-    change: (event, ui) ->
-      console.log("change" + $(this).attr("id"))
-      #$( "#draft" ).sortable( "disable" )
-      #$( "#draft, #active, #archive" ).sortable("refresh")
-    create: (event, ui) ->
-      console.log("create" + $(this).attr("id"))
-    deactivate: (event, ui) ->
-      console.log("deactivate" + $(this).attr("id"))
-    out: (event, ui) ->
-      console.log("out" + $(this).attr("id"))
-    remove: (event, ui) ->
-      console.log("remove" + $(this).attr("id"))
-    sort: (event, ui) ->
-      console.log("sort" + $(this).attr("id"))
-    ###
   }).disableSelection()
 
   numberInRow = ->
@@ -152,9 +109,7 @@ window.dragAndDropTiles = ->
         source_section: sectionParams(source_section)
       },
       type: 'POST',
-      url: '/client_admin/tiles/' + id + '/sort',
-      beforeSend: ->
-        console.log(id)
+      url: '/client_admin/tiles/' + id + '/sort'
       success: ->
         updateTileVisibility()
     });
@@ -169,14 +124,10 @@ window.dragAndDropTiles = ->
     status = getTilesSection tile
     completions = tile.find(".completions a").text()
     if status != "draft" && completions != "0 users"
-      #$("#active, #archive").sortable("option", "containment", ".completed_tiles_containment")
-      #$("#active, #archive").sortable("refresh")
-      #$(".draft_overlay").show()
       $("#draft").sortable("disable")
       section.sortable("refresh")
 
   turnOffDraftBlocking = (tile, section) ->
-    #$(".draft_overlay").hide()
     $("#draft").sortable("enable")
     section.sortable("refresh")
 
@@ -191,13 +142,7 @@ window.dragAndDropTiles = ->
         $(tile).css("display", "block")
       else
         $(tile).css("display", "none")
-  ###
-  cancelIfDraftBlocked = (tile, section) ->
-    completions = tile.find(".completions a").text()
-    if completions.length > 0 && completions != "0 users" && section.attr("id") == "draft"
-      $( "#draft, #active, #archive" ).sortable("cancel").sortable("refresh")
-    false
-  ###
+
   showDraftBlockedOverlay = (isOn) ->
     if isOn
       $(".draft_overlay").show()

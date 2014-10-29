@@ -132,8 +132,16 @@ Health::Application.routes.draw do
 
     resources :tiles_follow_up_email, only: :destroy
 
-    resources :inactive_tiles, only: :index
-    resources :draft_tiles, only: :index
+    resources :inactive_tiles, only: :index do
+      member do
+        post 'sort'
+      end
+    end
+    resources :draft_tiles, only: :index do
+      member do
+        post 'sort'
+      end
+    end
 
     resource :share, only: :show do
       member do

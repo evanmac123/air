@@ -7,11 +7,12 @@
       %h2 All Draft
       = link_to "Minimize section", client_admin_tiles_path, :class => :minimize
       %br
-      = render partial: "shared/tiles/draft"
+      .manage_section#draft= render partial: "shared/tiles/draft"
+      .clearfix
       .pagination-centered
         = paginate @raw_tiles
 - content_for :javascript do
   :javascript
     $().ready(function(){
-      window.dragAndDropTiles()
+      window.dragAndDropInSection()
     })      

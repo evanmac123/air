@@ -5,4 +5,16 @@ class ClientAdmin::InactiveTilesController < ClientAdminBaseController
     @raw_tiles = current_user.demo.archive_tiles.page(params[:page]).per(PER_PAGE)
     @archive_tiles = current_user.demo.add_placeholders @raw_tiles
   end
+
+  def sort
+    @tile = get_tile
+    Tile.insert_tile_between params[:left_tile_id], @tile.id, params[:right_tile_id]
+    render nothing: true
+  end
+
+  protected
+
+  def get_tile
+    current_user.demo.tiles.find params[:id]
+  end
 end

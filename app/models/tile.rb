@@ -449,13 +449,13 @@ class Tile < ActiveRecord::Base
   end
 
   # TODO: add check if tile position is old so we don't need to update it
-  def self.insert_tile_between left_tile_id, tile_id, right_tile_id, new_status
+  def self.insert_tile_between left_tile_id, tile_id, right_tile_id, new_status = nil
     left_tile = Tile.where(id: left_tile_id).first
     tile = Tile.where(id: tile_id).first
     right_tile = Tile.where(id: right_tile_id).first
 
+    tile.status = new_status if STATUS.include?(new_status) && new_status != tile.status
     unless right_tile || left_tile
-      tile.status = new_status
       tile.position = 0
       tile.save
       return
@@ -471,10 +471,10 @@ class Tile < ActiveRecord::Base
     Tile.transaction do
       if right_tile
         tile.position = right_tile.position + 1
-        tile.status = right_tile.status
+        #tile.status = right_tile.status
       else
         tile.position = left_tile.position
-        tile.status = left_tile.status
+        #tile.status = left_tile.status
       end
       tile.save
 
