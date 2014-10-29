@@ -1,35 +1,32 @@
 <ul class="tile_preview_menu">  
   <% if @tile.active? %>
-    <% tag = :via_posted_preview %>
     <li class="preview_menu_header posted">        
       Posted
     </li>
   <% elsif @tile.archived? %>
-    <% tag = :via_archived_preview %>
     <li class="preview_menu_header archived">
       Archive
     </li>
   <% else %>
-    <% tag = :via_draft_preview %>
     <li class="preview_menu_header draft">
       Draft
     </li>    
   <% end %>
   <li class="back_header" id="back_header">
-    <%= link_to client_admin_tiles_path(path: tag) do %>
+    <%= link_to @back_to_tiles_href do %>
       <p class="fa fa-chevron-left fa-2x"></p>
       <p class="header_text">Back to Tiles</p>
     <% end %>
   </li>
   <%= render 'activate_deactivate_link', tile: @tile %>      
   <li class="edit_header">
-    <%= link_to edit_client_admin_tile_path(@tile, path: tag) do %>
+    <%= link_to edit_client_admin_tile_path(@tile, path: @tag) do %>
       <p class="fa fa-pencil fa-2x"></p>
       <p class="header_text">Edit</p>
     <% end %>
   </li>
   <li class="new_tile_header">
-    <%= link_to new_client_admin_tile_path(path: tag) do %>
+    <%= link_to new_client_admin_tile_path(path: @tag) do %>
       <p class="fa fa-plus fa-2x"></p>
       <p class="header_text">New Tile</p>
     <% end %>
