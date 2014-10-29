@@ -30,10 +30,14 @@ window.dragAndDropTiles = ->
     start: (event, ui) ->
       turnOnDraftBlocking ui.item, $(this)
       showDraftBlockedMess false
+    receive: (event, ui) ->
+      if $(".draft_overlay").css("display") == "block"
+        $(".manage_section").sortable( "cancel" ).sortable( "refresh" )
     stop: (event, ui) ->
-      turnOffDraftBlocking ui.item, $(this)
-      showDraftBlockedMess $(".draft_overlay").css("display") == "block", $(this)
-      showDraftBlockedOverlay false
+      if $(".draft_overlay").css("display") == "block"
+        turnOffDraftBlocking ui.item, $(this)
+        showDraftBlockedMess true, $(this)
+        showDraftBlockedOverlay false
   }).disableSelection()
 
   numberInRow = ->
@@ -151,6 +155,8 @@ window.dragAndDropTiles = ->
 
   showDraftBlockedMess = (isOn, section) ->
     if isOn
-      section.closest(".manage_tiles").find(".draft_blocked_message").show()
+      mess_div = section.closest(".manage_tiles").find(".draft_blocked_message")
+      mess_div.show()
+      $('html, body').scrollTo(mess_div, {duration: 500})
     else
       $(".draft_blocked_message").hide()

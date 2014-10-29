@@ -251,7 +251,7 @@ body.client_admin-draft_tiles {
         display: none;
         padding-top: 10px;
         text-align: center;
-        font-size: 27px;
+        font-size: 20px;
     }
     #active_tiles {
         padding:2em 0 0 0;
@@ -259,7 +259,12 @@ body.client_admin-draft_tiles {
             &:after{ @include clear; }
         }
     }
-    #archived_tiles {padding:2em 0 0 0;}
+    #archived_tiles {
+        padding:2em 0 0 0;
+        .draft_blocked_message{
+            color: $white;
+        }
+    }
 }
 
 body.client_admin-tiles-index #active_tiles, 
