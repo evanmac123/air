@@ -25,11 +25,12 @@ feature 'client admin views tiles reports' do
 
     let!(:tiles) do
       on_day '7/4/2013' do
+        positions = [0, 5, 1, 6, 2, 7, 3, 8, 4, 9]
         num_tiles.times do |i|
           awhile_from_now = Time.now + i.days
           tile = FactoryGirl.create :tile, demo: demo, headline: "Tile , #{i}", created_at: awhile_from_now,
-                                    activated_at: awhile_from_now, archived_at: awhile_from_now
-          # Make it so that all odd tiles should be listed before all even ones, and that odd/even each should be sorted in descending order.
+                                    activated_at: awhile_from_now, archived_at: awhile_from_now, position: positions[i]
+
           if i.even?
             awhile_ago = tile.created_at - 2.weeks
             tile.update_attributes(activated_at: awhile_ago, archived_at: awhile_ago)

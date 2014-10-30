@@ -5,7 +5,7 @@ feature 'Sees helpful information in tile manager' do
   let (:client_admin) { FactoryGirl.create :client_admin, demo: demo }
 
   def tile_cell(tile)
-    "td[data-tile_id='#{tile.id}']"  
+    "[data-tile_id='#{tile.id}']"  
   end
 
   def expect_completed_users_count(tile, expected_count)

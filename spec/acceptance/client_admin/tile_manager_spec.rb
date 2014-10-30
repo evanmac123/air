@@ -50,7 +50,7 @@ feature 'Client admin and the digest email for tiles' do
   end
 
   def expect_tile_placeholders(section_id, expected_count)
-    page.all("##{section_id} table tr:last td.odd-row-placeholder").count.should == expected_count
+    page.all("##{section_id} > .placeholder_container:not(.creation_placeholder)").count.should == expected_count
   end
 
   def expect_inactive_tile_placeholders(expected_count)
@@ -64,14 +64,6 @@ feature 'Client admin and the digest email for tiles' do
   def expect_draft_tile_placeholders(expected_count)
     expect_tile_placeholders("draft", expected_count)
   end 
-
-  def expect_all_inactive_tile_placeholders(expected_count)
-    expect_tile_placeholders("archived_tiles", expected_count)
-  end
-
-  def expect_all_draft_tile_placeholders(expected_count)
-    expect_tile_placeholders("draft_tiles", expected_count)
-  end
   
   def expect_page_to_be_locked
     page.should have_css('.fa-lock', visible: true)
@@ -110,12 +102,12 @@ feature 'Client admin and the digest email for tiles' do
     before(:each) { visit_tile_manager_page }
 
     scenario 'Correct message is displayed when there are no Active tiles' do
-      expect_content 'There are no active tiles'
+      page.find("#active .no_tiles_section", visible: true).should be_present
       page.should have_num_tiles(0)
     end
 
     scenario 'Correct message is displayed when there are no Archive tiles' do
-      expect_content 'There are no archived tiles'
+      page.find("#active .no_tiles_section", visible: true).should be_present
       page.should have_num_tiles(0)
     end
   end
@@ -425,32 +417,36 @@ feature 'Client admin and the digest email for tiles' do
 
     it "for Active tiles" do
       expected_tile_table =
-        [ ["Tile 9", "Tile 7", "Tile 5", "Tile 3"],
-        ["Tile 1", "Tile 8", "Tile 6", "Tile 4"],
-        ["Tile 2", "Tile 0"]
-      ]
-      demo.tiles.update_all status: Tile::ACTIVE
+        [
+          "Tile 9", "Tile 7", "Tile 5", "Tile 3",
+          "Tile 1", "Tile 8", "Tile 6", "Tile 4",
+          "Tile 2", "Tile 0"
+        ]
+      expected_tile_table.reverse.each do|tile| 
+        demo.tiles.find_by_headline(tile).update_status(Tile::ACTIVE)
+      end
 
       visit_tile_manager_page
       expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
       
-      table_content_without_activation_dates('#active table').should == expected_tile_table
+      section_content_without_activation_dates('#active').should == expected_tile_table
     end
 
     it "for Archived tiles, showing only a limited selection of them" do
-      archive_time = Time.now
       expected_tile_table =
         [ 
-        ["Tile 9", "Tile 7", "Tile 5", "Tile 3"], 
-        ["Tile 1", "Tile 8", "Tile 6", "Tile 4"]
-      ]
-      demo.tiles.update_all status: Tile::ARCHIVE
-      demo.tiles.where(archived_at: nil).each{|tile| tile.update_attributes(archived_at: tile.created_at)}
+          "Tile 9", "Tile 7", "Tile 5", "Tile 3", 
+          "Tile 1", "Tile 8", "Tile 6", "Tile 4",
+          "Tile 2", "Tile 0"
+        ]
+      expected_tile_table.reverse.each do|tile| 
+        demo.tiles.find_by_headline(tile).update_status(Tile::ARCHIVE)
+      end
 
       visit_tile_manager_page
       expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
 
-      table_content_without_activation_dates('#archive table').should == expected_tile_table
+      section_content_without_activation_dates('#archive').should == expected_tile_table[0..-3]
     end
   end
 
@@ -571,42 +567,42 @@ feature 'Client admin and the digest email for tiles' do
 
     # And now let's look at the full megillah of draft tiles
     visit client_admin_draft_tiles_path
-    expect_all_draft_tile_placeholders(3)
+    expect_draft_tile_placeholders(3)
 
     Tile.draft.last.destroy
     visit client_admin_draft_tiles_path
-    expect_all_draft_tile_placeholders(0)
+    expect_draft_tile_placeholders(0)
 
     Tile.draft.last.destroy
     visit client_admin_draft_tiles_path
-    expect_all_draft_tile_placeholders(1)
+    expect_draft_tile_placeholders(1)
 
     Tile.draft.last.destroy
     visit client_admin_draft_tiles_path
-    expect_all_draft_tile_placeholders(2)
+    expect_draft_tile_placeholders(2)
 
     Tile.draft.last.destroy
     visit client_admin_draft_tiles_path
-    expect_all_draft_tile_placeholders(3)
+    expect_draft_tile_placeholders(3)
 
     # And now let's look at the full megillah of archived tiles
     visit client_admin_inactive_tiles_path
-    expect_all_inactive_tile_placeholders(3)
+    expect_inactive_tile_placeholders(3)
 
     Tile.archive.last.destroy
     visit client_admin_inactive_tiles_path
-    expect_all_inactive_tile_placeholders(0)
+    expect_inactive_tile_placeholders(0)
 
     Tile.archive.last.destroy
     visit client_admin_inactive_tiles_path
-    expect_all_inactive_tile_placeholders(1)
+    expect_inactive_tile_placeholders(1)
 
     Tile.archive.last.destroy
     visit client_admin_inactive_tiles_path
-    expect_all_inactive_tile_placeholders(2)
+    expect_inactive_tile_placeholders(2)
 
     Tile.archive.last.destroy
     visit client_admin_inactive_tiles_path
-    expect_all_inactive_tile_placeholders(3)
+    expect_inactive_tile_placeholders(3)
   end
 end

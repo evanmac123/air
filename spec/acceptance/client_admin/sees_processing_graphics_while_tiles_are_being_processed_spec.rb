@@ -45,7 +45,7 @@ feature 'Sees processing graphics while tiles are being processed' do
     end
     visit client_admin_tiles_path
 
-    draft_tiles = page.all("td.draft")
+    draft_tiles = page.all(".draft")
     draft_tiles.should have(2).tiles
     draft_tiles.each {|draft_tile| draft_tile.find('img')['src'].should == Tile::THUMBNAIL_PROCESSING_IMAGE_URL}
 
@@ -62,7 +62,7 @@ feature 'Sees processing graphics while tiles are being processed' do
     end
     visit client_admin_tiles_path
 
-    draft_tiles = page.all("td.draft")
+    draft_tiles = page.all(".draft")
     draft_tiles.should have(2).tiles
     draft_tiles.each {|draft_tile| draft_tile.find('img')['src'].should == Tile::THUMBNAIL_PROCESSING_IMAGE_URL}
 

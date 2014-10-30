@@ -14,7 +14,7 @@ feature 'The order of the tiles in the Tile Manager and the Tile Carousel are in
   #------------------------------------------------------------------------------------
 
   def check_manager(manager_tiles)
-    table_content_without_activation_dates('#active table').should == manager_tiles
+    section_content_without_activation_dates('#active').should == manager_tiles
   end
 
   def click_next_button
@@ -53,7 +53,7 @@ feature 'The order of the tiles in the Tile Manager and the Tile Carousel are in
     # -----------------------------------------------------------------------------
 
     visit tile_manager_page
-    manager_tiles =  [ ["Tile 4", "Tile 3", "Tile 2", "Tile 1"] ]
+    manager_tiles =  ["Tile 4", "Tile 3", "Tile 2", "Tile 1"]
 
     check_manager(manager_tiles)
     check_carousel_and_viewer(manager_tiles, Tile.first)
@@ -64,48 +64,48 @@ feature 'The order of the tiles in the Tile Manager and the Tile Carousel are in
     # We now tweak the attributes directly rather than going through the manager
     # page, since we can't easily hover over and click "Archive" via Poltergiest
 
-    Tile.find_by_headline('Tile 3').update_attributes(status: 'archive')
+    Tile.find_by_headline('Tile 3').update_status('archive')
     visit tile_manager_page
 
-    manager_tiles =  [ ["Tile 4", "Tile 2", "Tile 1"] ]
+    manager_tiles =  ["Tile 4", "Tile 2", "Tile 1"]
     check_manager(manager_tiles)
     check_carousel_and_viewer(manager_tiles, Tile.first)
 
     # -----------------------------------------------------------------------------
     # Re-activate the archived tile => should move to the head of the list
     # See previous note about why we update_attributes for this
-    Tile.find_by_headline('Tile 3').update_attributes(status: 'active', activated_at: Time.now)
+    Tile.find_by_headline('Tile 3').update_status('active')
 
     visit tile_manager_page
-    manager_tiles =  [ ["Tile 3", "Tile 4", "Tile 2", "Tile 1"] ]
+    manager_tiles =  ["Tile 3", "Tile 4", "Tile 2", "Tile 1"]
 
     check_manager(manager_tiles)
     check_carousel_and_viewer(manager_tiles, Tile.first)
 
     # -----------------------------------------------------------------------------
     # Change the tile order in the Manager => should see the corresponding change in the Carousel and Viewer
-    Tile.find_by_headline('Tile 4').update_attributes(status: 'archive')
-    Tile.find_by_headline('Tile 1').update_attributes(status: 'archive')
+    Tile.find_by_headline('Tile 4').update_status('archive')
+    Tile.find_by_headline('Tile 1').update_status('archive')
     visit tile_manager_page
-    manager_tiles =  [ ["Tile 3", "Tile 2"] ]
+    manager_tiles =  ["Tile 3", "Tile 2"]
 
     check_manager(manager_tiles)
     check_carousel_and_viewer(["Tile 3", "Tile 2"], Tile.find_by_headline("Tile 3"))
 
     #-------------------------------------------------------------------------------
     # Re-activate the archived tile => should move to the head of the list
-    Tile.find_by_headline('Tile 1').update_attributes(status: 'active', activated_at: Time.now)
+    Tile.find_by_headline('Tile 1').update_status('active')
     visit tile_manager_page
-    manager_tiles =  [ ["Tile 1", "Tile 3", "Tile 2"] ]
+    manager_tiles =  ["Tile 1", "Tile 3", "Tile 2"]
 
     check_manager(manager_tiles)
     check_carousel_and_viewer(manager_tiles, Tile.active.last)
 
     #-------------------------------------------------------------------------------
     # Re-activate the archived tile => should move to the head of the list
-    Tile.find_by_headline('Tile 4').update_attributes(status: 'active', activated_at: Time.now)
+    Tile.find_by_headline('Tile 4').update_status('active')
     visit tile_manager_page
-    manager_tiles =  [ ["Tile 4", "Tile 1", "Tile 3", "Tile 2"] ]
+    manager_tiles =  ["Tile 4", "Tile 1", "Tile 3", "Tile 2"]
 
     check_manager(manager_tiles)
     check_carousel_and_viewer(manager_tiles, Tile.active.last)

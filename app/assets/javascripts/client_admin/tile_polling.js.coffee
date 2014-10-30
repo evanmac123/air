@@ -4,7 +4,7 @@ stillProcessing = (imageStatus) ->
 selectorForImage = (updateData) ->
   switch updateData.type
     when 'image' then '.tile_image'
-    when 'thumbnail' then ("td[data-tile_id='" + updateData.id + "'] img")
+    when 'thumbnail' then ("[data-tile_id='" + updateData.id + "'] img")
 
 updateSingleImage = (updateData) ->
   $(selectorForImage(updateData)).attr('src', updateData.imageURL)

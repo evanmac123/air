@@ -7,34 +7,15 @@ module TileHelpers
   # Usage: find(:tile, tile)
   #
   Capybara.add_selector(:tile) do
-    xpath { |tile| ".//td[@data-tile_id='#{tile.id}']" }
+    xpath { |tile| ".//div[@data-tile_id='#{tile.id}']" }
   end
 
-  # -------------------------------------------------
-
-  # This guy returns an HTML table as an array of arrays where each internal array corresponds
-  # to a row and the content of that array is the text in each of the columns.
-  #
-  # For example, the Tiles > Reports would look something like this:
-  # [ [Tile 1, Headline 1, 333 users, 33%, ...],
-  #   [Tile 2, Headline 2, 666 users, 66%, ...],
-  #   [Tile 3, Headline 3, 999 users, 99%, ...],
-  #   ...
-  # ]
-  #
-  # While the Tiles > Manager would look like this:
-  # [ ["Tile 9 Archive Edit Preview", "Tile 7 Archive Edit Preview", "Tile 5 Archive Edit Preview"],
-  #   ["Tile 3 Archive Edit Preview", "Tile 1 Archive Edit Preview", "Tile 8 Archive Edit Preview"],
-  #   ["Tile 6 Archive Edit Preview", "Tile 4 Archive Edit Preview", "Tile 2 Archive Edit Preview"],
-  #   ["Tile 0 Archive Edit Preview"]
-  # ]
-
-  def table_content(table_selector)
-    find(table_selector).all('tr').collect { |row| row.all('th, td').collect { |cell| cell.text } }
+  def section_content(selector)
+    find(selector).all('.tile_container:not(.placeholder_container)').collect { |tile| tile.text }
   end
 
-  def table_content_without_activation_dates(table_selector)
-    table_content(table_selector).map{|row_content| row_content.select(&:present?).map {|cell_content| cell_content.gsub(/ (Post|Post again|Archive|Active|Edit)(.*)?$/, '')}}
+  def section_content_without_activation_dates(selector)
+    section_content(selector).map {|cell_content| cell_content.gsub(/ (Post|Post again|Archive|Active|Edit)(.*)?$/, '')}
   end
 
   # -------------------------------------------------
@@ -219,10 +200,10 @@ module TileHelpers
 
   def add_new_tile_tag(tag)
     write_new_tile_tag tag
-    
+
     a_text = "Click to add."
     selector = %Q{ul.ui-autocomplete li.ui-menu-item a:contains("#{a_text}")}
-    
+
     page.should have_selector("ul.ui-autocomplete li.ui-menu-item a:contains('#{a_text}')")
     page.execute_script %Q{ $('#{selector}').trigger('mouseenter').click() }
     page.find('.tile_tags>li', text: normalized_tag(tag)).should have_content(normalized_tag(tag))
@@ -351,7 +332,7 @@ module TileHelpers
   end
 
   def click_new_tile_placeholder
-    page.find('.creation-placeholder a', text: new_tile_placeholder_text).click
+    page.find('.creation-placeholder a').click
   end
 
   def expect_supporting_content(expected_content)
