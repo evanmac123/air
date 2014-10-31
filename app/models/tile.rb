@@ -442,10 +442,26 @@ class Tile < ActiveRecord::Base
     satisfiable_by_object(rule_or_rule_id, Rule, "trigger_rule_triggers", "rule_id")
   end
 
+  def self.find_additional_tiles_for_manage_section(status_name, presented_ids, tile_demo_id)
+    ids = presented_ids || []
+    needs_tiles = if status_name == ACTIVE
+                    0
+                  else 
+                    ids.count >= 8 ? 0 : (8 - ids.count)
+                  end
+    return [] if needs_tiles == 0
+
+    Tile.where{ 
+      (demo_id == tile_demo_id) & 
+      (status == status_name) & 
+      (id.not_in ids) 
+    }.first(needs_tiles)
+  end
+
   def self.insert_tile_between left_tile_id, tile_id, right_tile_id, new_status = nil
     InsertTileBetweenTiles.new(left_tile_id, tile_id, right_tile_id, new_status).insert!
   end
-  # TODO: add check if tile position is old so we don't need to update it
+  
   def self.insert_tile_between2 left_tile_id, tile_id, right_tile_id, new_status = nil
     left_tile = Tile.where(id: left_tile_id).first
     tile = Tile.where(id: tile_id).first

@@ -150,16 +150,15 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def sort
     @tile = get_tile
-    #Logger.new("#{Rails.root}/log/my.log").info("#{@tile.id} ")
     Tile.insert_tile_between(params[:left_tile_id], @tile.id, params[:right_tile_id], params[:status])
     @tile.reload
 
     if params[:source_section].present?
-      status_name = params[:source_section][:name]
-      ids = params[:source_section][:presented_ids] || []
-      tile_demo_id = get_demo
-      needs_tiles = ids.count >= 8 ? 0 : (8 - ids.count)
-      @last_tiles = Tile.where{ (demo_id == tile_demo_id) & (status == status_name) & (id << ids) }.first(needs_tiles)
+      @last_tiles = Tile.find_additional_tiles_for_manage_section(
+                      params[:source_section][:name],
+                      params[:source_section][:presented_ids],
+                      get_demo.id
+                    )
     end
 
     tile_status_updated_ping @tile, "Dragged tile to move"

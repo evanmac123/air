@@ -5,7 +5,7 @@ class InsertTileBetweenTiles
     @right_tile = Tile.where(id: right_tile_id).first
     @status = status
   end
-
+# TODO: add check if tile position is old so we don't need to update it
   def insert!
     set_new_status
     return if first_and_only_in_section

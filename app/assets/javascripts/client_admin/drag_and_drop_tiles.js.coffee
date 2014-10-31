@@ -24,9 +24,7 @@ window.dragAndDropTiles = ->
       if getTilesSection(tile) == $(this).attr("id")
         saveTilePosition tile, $(this)
     over: (event, ui) ->
-      updateAllPlaceholders()
-      updateAllNoTilesSections()
-      updateTileVisibility()
+      updateTilesAndPlaceholdersAppearance()
     start: (event, ui) ->
       turnOnDraftBlocking ui.item, $(this)
       showDraftBlockedMess false
@@ -38,9 +36,7 @@ window.dragAndDropTiles = ->
         turnOffDraftBlocking ui.item, $(this)
         showDraftBlockedMess true, $(this)
         showDraftBlockedOverlay false
-      updateAllPlaceholders()
-      updateAllNoTilesSections()
-      updateTileVisibility()
+      updateTilesAndPlaceholdersAppearance()
   }).disableSelection()
 
   numberInRow = ->
@@ -65,6 +61,11 @@ window.dragAndDropTiles = ->
 
   getTilesSection = (tile) ->
     tile.closest(".manage_section").attr("id")
+
+  updateTilesAndPlaceholdersAppearance = ->
+    updateAllPlaceholders()
+    updateAllNoTilesSections()
+    updateTileVisibility()
 
   updateAllPlaceholders = ->
     for section in sectionNames()

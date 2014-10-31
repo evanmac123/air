@@ -51,8 +51,25 @@ feature 'Client admin drags and drops tiles' do
     end
   end
 
+  shared_examples_for "Tile is loaded after drag and drop if needed" do |section1, section2|
+    scenario "After moving tile from #{section1} to #{section2}", js: true do
+      create_tiles_for_sections section1 => 9, section2 => 1
+      i1 = section1 == "draft" ? 6 : 7
+      i2 = 0
+      tiles1 = demo.send(:"#{section1}_tiles").to_a
+      tiles2 = demo.send(:"#{section2}_tiles").to_a
+      visit current_path
+      expect_no_content tiles1[i1 + 1].headline
+      move_tile_between_sections tiles1[i1], tiles2[i2]
+
+      wait_for_ajax
+
+      section_tile_headlines("##{section1}").last.should == tiles1[i1 + 1].headline
+    end
+  end
+
   context "Moves tiles on Manage Page" do
-    before(:each) { visit_tile_manager_page }
+    before(:each) { visit client_admin_tiles_path }
     it_should_behave_like "Moves tile in one section", "draft",   3, 1, 0
     it_should_behave_like "Moves tile in one section", "active",  5, 1, 3
     it_should_behave_like "Moves tile in one section", "archive", 4, 0, 2
@@ -63,6 +80,11 @@ feature 'Client admin drags and drops tiles' do
     it_should_behave_like "Moves tile between sections", "active",  6, 4, "archive", 5, 4
     it_should_behave_like "Moves tile between sections", "archive", 7, 3, "draft",   4, 3
     it_should_behave_like "Moves tile between sections", "archive", 7, 2, "active",  3, 2
+
+    it_should_behave_like "Tile is loaded after drag and drop if needed", "archive", "active"
+    it_should_behave_like "Tile is loaded after drag and drop if needed", "archive", "draft"
+    #it_should_behave_like "Tile is loaded after drag and drop if needed", "draft", "active"
+    it_should_behave_like "Tile is loaded after drag and drop if needed", "draft", "archive"
   end
 
   context "Moves tiles on Draft Tiles Page" do
