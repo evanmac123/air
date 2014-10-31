@@ -1,5 +1,7 @@
 window.bindDebounceTileSubmit = (formSelector) ->
-  $(formSelector).submit (event) ->
-    form = $(event.target)
-    form.attr('disabled', 'disabled')
-    form.find('input[type=submit]').attr('disabled', 'disabled')
+  form = $(formSelector)
+  submitButton = form.find('input[type=submit]')
+
+  submitButton.click (event) ->
+    submitButton.attr('disabled', 'disabled')
+    form.submit()
