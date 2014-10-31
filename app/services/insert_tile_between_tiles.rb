@@ -5,8 +5,9 @@ class InsertTileBetweenTiles
     @right_tile = Tile.where(id: right_tile_id).first
     @status = status
   end
-# TODO: add check if tile position is old so we don't need to update it
+
   def insert!
+    return if tile_is_already_on_this_place
     set_new_status
     return if first_and_only_in_section
     search_for_right_tile # if right tile was not displayed on manage page(out of 8 displayed)
@@ -17,6 +18,15 @@ class InsertTileBetweenTiles
   end
 
   protected
+
+  def tile_is_already_on_this_place
+    if  (@left_tile.present? && @left_tile == @tile.left_tile) ||
+        (@right_tile.present? && @right_tile == @tile.right_tile)
+      true
+    else
+      false
+    end
+  end
 
   def set_new_status
     @tile.status = @status if Tile::STATUS.include?(@status) && @status != @tile.status
@@ -34,7 +44,10 @@ class InsertTileBetweenTiles
       left_demo = @left_tile.demo
       left_status = @left_tile.status
       left_position = @left_tile.position
-      @right_tile = left_demo.tiles.where{(status == left_status) & (position < left_position)}.first
+      @right_tile = left_demo.tiles.where{
+        (status == left_status) & 
+        (position < left_position)
+      }.order("position DESC").first
     end
   end
 

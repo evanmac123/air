@@ -303,6 +303,28 @@ class Tile < ActiveRecord::Base
     Tile.where(demo: self.demo, status: self.status).maximum(:position).to_i + 1
   end
 
+  def left_tile
+    self_demo = self.demo
+    self_status = self.status
+    self_position = self.position
+    Tile.where{ 
+      (demo == self_demo) & 
+      (status == self_status) &
+      (position > self_position)
+    }.order("position ASC").first
+  end
+
+  def right_tile
+    self_demo = self.demo
+    self_status = self.status
+    self_position = self.position
+    Tile.where{ 
+      (demo == self_demo) & 
+      (status == self_status) &
+      (position < self_position)
+    }.order("position DESC").first
+  end
+
   def self.due_ids
     self.after_start_time_and_before_end_time.map(&:id)
   end
