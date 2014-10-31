@@ -49,7 +49,9 @@ class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseControlle
                                  send_on:  Date.today + follow_up_days.days,
                                  unclaimed_users_also_get_digest: unclaimed_users_also_get_digest,
                                  original_digest_subject: custom_subject,
-                                 original_digest_headline: custom_headline)
+                                 original_digest_headline: custom_headline,
+                                 user_ids_to_deliver_to: demo.users_for_digest(unclaimed_users_also_get_digest).pluck(:id)
+                                 )
     end
   end
 end

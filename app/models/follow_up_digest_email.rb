@@ -1,5 +1,6 @@
 class FollowUpDigestEmail < ActiveRecord::Base
   serialize :tile_ids, Array
+  serialize :user_ids_to_deliver_to, Array
 
   belongs_to :demo
 

@@ -213,7 +213,7 @@ describe '#notify_all' do
 end
 
 describe '#notify_all_follow_up' do
-  it 'should be delivered to the appropriate people' do
+  it 'should be delivered only to users who did no tiles' do
     demo = FactoryGirl.create :demo
 
     john   = FactoryGirl.create :claimed_user, demo: demo, name: 'John',   email: 'john@beatles.com'
@@ -223,8 +223,9 @@ describe '#notify_all_follow_up' do
 
     tiles    = FactoryGirl.create_list :tile, 3, demo: demo
     tile_ids = tiles.collect(&:id)
+    user_ids = [john, paul, george, ringo].map(&:id)
 
-    follow_up = FactoryGirl.create :follow_up_digest_email, demo: demo, tile_ids: tile_ids, unclaimed_users_also_get_digest: true, send_on: Date.today
+    follow_up = FactoryGirl.create :follow_up_digest_email, demo: demo, tile_ids: tile_ids, unclaimed_users_also_get_digest: true, send_on: Date.today, user_ids_to_deliver_to: user_ids
 
     FactoryGirl.create :tile_completion, user: john,  tile: tiles[0]
     FactoryGirl.create :tile_completion, user: john,  tile: tiles[1]
@@ -245,6 +246,18 @@ describe '#notify_all_follow_up' do
     TilesDigestMailer.notify_all_follow_up follow_up.id
   end
 
+  it "should not deliver to users who did not get the original digest" do
+    demo = FactoryGirl.create(:demo)
+    users_to_deliver_to = FactoryGirl.create_list(:user, 2, demo: demo)
+    users_to_not_deliver_to = FactoryGirl.create_list(:user, 2, demo: demo)
+
+    follow_up = FollowUpDigestEmail.create!(demo_id: demo.id, tile_ids: [], send_on: Date.today, unclaimed_users_also_get_digest: true, user_ids_to_deliver_to: users_to_deliver_to.map(&:id))
+    TilesDigestMailer.notify_all_follow_up follow_up.id
+    crank_dj_clear
+    delivery_addresses = ActionMailer::Base.deliveries.map(&:to).flatten.sort
+    delivery_addresses.should == users_to_deliver_to.map(&:email).sort
+  end
+
   context "when a custom subject is used in the original" do
     it "should base the subject on that" do
       custom_original_digest_subject = "Et tu, Brute?"
@@ -253,7 +266,7 @@ describe '#notify_all_follow_up' do
       user.email.should be_present
 
       tile_ids = [FactoryGirl.create(:tile, demo: user.demo)]
-      follow_up = FactoryGirl.create :follow_up_digest_email, demo: user.demo, tile_ids: tile_ids, send_on: Date.today, original_digest_subject: custom_original_digest_subject
+      follow_up = FactoryGirl.create :follow_up_digest_email, demo: user.demo, tile_ids: tile_ids, send_on: Date.today, original_digest_subject: custom_original_digest_subject, user_ids_to_deliver_to: [user.id]
 
       ActionMailer::Base.deliveries.clear
       TilesDigestMailer.notify_all_follow_up follow_up.id
@@ -270,7 +283,7 @@ describe '#notify_all_follow_up' do
       user.email.should be_present
 
       tile_ids = [FactoryGirl.create(:tile, demo: user.demo)]
-      follow_up = FactoryGirl.create :follow_up_digest_email, demo: user.demo, tile_ids: tile_ids, send_on: Date.today
+      follow_up = FactoryGirl.create :follow_up_digest_email, demo: user.demo, tile_ids: tile_ids, send_on: Date.today, user_ids_to_deliver_to: [user.id]
 
       ActionMailer::Base.deliveries.clear
       TilesDigestMailer.notify_all_follow_up follow_up.id
@@ -287,7 +300,7 @@ describe '#notify_all_follow_up' do
       user.email.should be_present
 
       tile_ids = [FactoryGirl.create(:tile, demo: user.demo)]
-      follow_up = FactoryGirl.create :follow_up_digest_email, demo: user.demo, tile_ids: tile_ids, send_on: Date.today, original_digest_headline: 'Kneel before Zod'
+      follow_up = FactoryGirl.create :follow_up_digest_email, demo: user.demo, tile_ids: tile_ids, send_on: Date.today, original_digest_headline: 'Kneel before Zod', user_ids_to_deliver_to: [user.id]
 
       ActionMailer::Base.deliveries.clear
       TilesDigestMailer.notify_all_follow_up follow_up.id
@@ -305,7 +318,7 @@ describe '#notify_all_follow_up' do
       user.email.should be_present
 
       tile_ids = [FactoryGirl.create(:tile, demo: user.demo)]
-      follow_up = FactoryGirl.create :follow_up_digest_email, demo: user.demo, tile_ids: tile_ids, send_on: Date.today
+      follow_up = FactoryGirl.create :follow_up_digest_email, demo: user.demo, tile_ids: tile_ids, send_on: Date.today, user_ids_to_deliver_to: [user.id]
 
       ActionMailer::Base.deliveries.clear
       TilesDigestMailer.notify_all_follow_up follow_up.id
@@ -324,7 +337,7 @@ describe '#notify_all_follow_up' do
     [unmuted_user, muted_user].each {|user| user.add_board(followup_board)}
     muted_user.board_memberships.where(demo_id: followup_board.id).first.update_attributes(followup_muted: true)
 
-    follow_up = FactoryGirl.create :follow_up_digest_email, demo: followup_board, tile_ids: [], send_on: Date.today
+    follow_up = FactoryGirl.create :follow_up_digest_email, demo: followup_board, tile_ids: [], send_on: Date.today, user_ids_to_deliver_to: [unmuted_user.id, muted_user.id]
 
     TilesDigestMailer.notify_all_follow_up follow_up.id
     crank_dj_clear
