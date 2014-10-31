@@ -14,6 +14,10 @@ module TileHelpers
     find(selector).all('.tile_container:not(.placeholder_container)').collect { |tile| tile.text }
   end
 
+  def section_tile_headlines(selector)
+    find(selector).all('.tile_container:not(.placeholder_container)').collect { |tile| tile.find(".headline .text").text }
+  end
+
   def section_content_without_activation_dates(selector)
     section_content(selector).map {|cell_content| cell_content.gsub(/ (Post|Post again|Archive|Active|Edit)(.*)?$/, '')}
   end

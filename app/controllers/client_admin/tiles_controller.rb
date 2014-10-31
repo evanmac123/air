@@ -151,7 +151,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   def sort
     @tile = get_tile
     #Logger.new("#{Rails.root}/log/my.log").info("#{@tile.id} ")
-    #@last_tile = @tile.first_tile_beyond_visible_in_manage
     Tile.insert_tile_between(params[:left_tile_id], @tile.id, params[:right_tile_id], params[:status])
     @tile.reload
 

@@ -302,13 +302,7 @@ class Tile < ActiveRecord::Base
   def find_first_position
     Tile.where(demo: self.demo, status: self.status).maximum(:position).to_i + 1
   end
-=begin
-  def first_tile_beyond_visible_in_manage
-    nil if status == ACTIVE
-    number = status == DRAFT ? 7 : 8
-    Tile.where(demo: demo, status: status).order("position DESC").first(number).last
-  end
-=end
+
   def self.due_ids
     self.after_start_time_and_before_end_time.map(&:id)
   end
@@ -448,8 +442,11 @@ class Tile < ActiveRecord::Base
     satisfiable_by_object(rule_or_rule_id, Rule, "trigger_rule_triggers", "rule_id")
   end
 
-  # TODO: add check if tile position is old so we don't need to update it
   def self.insert_tile_between left_tile_id, tile_id, right_tile_id, new_status = nil
+    InsertTileBetweenTiles.new(left_tile_id, tile_id, right_tile_id, new_status).insert!
+  end
+  # TODO: add check if tile position is old so we don't need to update it
+  def self.insert_tile_between2 left_tile_id, tile_id, right_tile_id, new_status = nil
     left_tile = Tile.where(id: left_tile_id).first
     tile = Tile.where(id: tile_id).first
     right_tile = Tile.where(id: right_tile_id).first

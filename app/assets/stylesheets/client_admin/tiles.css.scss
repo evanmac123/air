@@ -144,40 +144,9 @@ body.client_admin-draft_tiles {
             float: left;
             padding-bottom: 2rem;
         }
-        #draft {
-            .tile_container { 
-                height: 377px; 
-                //display: none;
-                //.ui-sortable-helper {
-                //    display: block;
-                //}
-            } 
-            /*.tile_container
-                height: 377px; 
-                display: block;
-            }*/
-            /*& > .tile_container:nth-child(-n+9) { // shows only 8 tiles. need for drag and drop
-                display: block;
-            }*/
-
-            /*& > .tile_container:not(.ui-sortable-helper) ~ .tile_container:not(.ui-sortable-helper){
-                display: block;
-            }*/
-        }
-        #active {
-            .tile_container  { height: 466px; }
-        }
-        #archive {
-            .tile_container { 
-                height: 466px;
-            }
-            /*& > .tile_container {
-                display: none;
-            }
-            & > .tile_container:nth-child(-n+9) { // shows only 8 tiles. need for drag and drop
-                display: block;
-            }*/
-        }
+        #draft   { .tile_container { height: 377px; } }
+        #active  { .tile_container { height: 466px; } }
+        #archive { .tile_container { height: 466px; } }
         .no_tiles_message {margin:0 auto 3em;}
     }
     #archived_tiles, #draft_tiles {
@@ -202,7 +171,6 @@ body.client_admin-draft_tiles {
             @include light-button($white);
             @include caption;
             margin: 0 auto;
-            //margin-top: -3em;
             margin-bottom: 3em;
             display: block;
             text-align: center;
@@ -210,7 +178,6 @@ body.client_admin-draft_tiles {
         }
         .minimize {
             @include light-button($dark-green);
-            // font-size:.875em;
             @include caption;
             position: relative;
             top:-2px;
@@ -235,8 +202,6 @@ body.client_admin-draft_tiles {
             font-size: 275px;
             color: $white;
             text-align: center;
-            //line-height: 1.5;
-            //padding: 50px;
             padding-bottom: 100px;
             opacity: 0.7;
         }
@@ -281,12 +246,8 @@ body.client_admin-draft_tiles #active_tiles,
     display: block;
     color:$blue !important;
     line-height:1em;
-    //padding-top:12em;
     position: relative;
     text-align: center;
-    //.add_new_tile_text{
-    //    padding-top:12em;
-    //}
     &:hover {border-color:lighten($blue, 10%); color:transparent;}
     &:before {
         color:$white;
