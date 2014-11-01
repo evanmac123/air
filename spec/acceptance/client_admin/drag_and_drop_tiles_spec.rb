@@ -32,22 +32,20 @@ feature 'Client admin drags and drops tiles' do
   shared_examples_for 'Moves tile between sections' do |section1, num1, i1, section2, num2, i2|
     scenario "Move tile #{num1 - i1} from #{section1} to tile #{num2 - i2} in #{section2}", js: true do
       create_tiles_for_sections section1 => num1, section2 => num2
-      visit current_path
       tiles1 = demo.send(:"#{section1}_tiles").to_a
       tiles2 = demo.send(:"#{section2}_tiles").to_a
+      visit current_path
       move_tile_between_sections tiles1[i1], tiles2[i2]
-
-      wait_for_ajax
 
       tile_id = tiles1[i1].id
       tiles2.insert i2, tiles1.delete_at(i1)
+      wait_for_ajax
+
       section_tile_headlines("##{section1}").should == tiles1.map(&:headline)
       section_tile_headlines("##{section2}").should == tiles2.map(&:headline)
 
       demo.reload.send(:"#{section1}_tiles").should == tiles1
       demo.reload.send(:"#{section2}_tiles").should == tiles2
-
-      expect_tile_status_updated_ping tile_id, admin
     end
   end
 
@@ -74,8 +72,6 @@ feature 'Client admin drags and drops tiles' do
     it_should_behave_like "Moves tile in one section", "active",  5, 1, 3
     it_should_behave_like "Moves tile in one section", "archive", 4, 0, 2
 
-    #it_should_behave_like "Moves tile between sections", "draft",   3, 2, "active",  7, 3
-    #it_should_behave_like "Moves tile between sections", "draft",   4, 0, "archive", 7, 4
     it_should_behave_like "Moves tile between sections", "active",  5, 1, "draft",   6, 5
     it_should_behave_like "Moves tile between sections", "active",  6, 4, "archive", 5, 4
     it_should_behave_like "Moves tile between sections", "archive", 7, 3, "draft",   4, 3
@@ -83,7 +79,6 @@ feature 'Client admin drags and drops tiles' do
 
     it_should_behave_like "Tile is loaded after drag and drop if needed", "archive", "active"
     it_should_behave_like "Tile is loaded after drag and drop if needed", "archive", "draft"
-    #it_should_behave_like "Tile is loaded after drag and drop if needed", "draft", "active"
     it_should_behave_like "Tile is loaded after drag and drop if needed", "draft", "archive"
   end
 

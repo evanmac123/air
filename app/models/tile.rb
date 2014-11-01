@@ -483,48 +483,6 @@ class Tile < ActiveRecord::Base
   def self.insert_tile_between left_tile_id, tile_id, right_tile_id, new_status = nil
     InsertTileBetweenTiles.new(left_tile_id, tile_id, right_tile_id, new_status).insert!
   end
-  
-  def self.insert_tile_between2 left_tile_id, tile_id, right_tile_id, new_status = nil
-    left_tile = Tile.where(id: left_tile_id).first
-    tile = Tile.where(id: tile_id).first
-    right_tile = Tile.where(id: right_tile_id).first
-
-    tile.status = new_status if STATUS.include?(new_status) && new_status != tile.status
-    unless right_tile || left_tile
-      tile.position = 0
-      tile.save
-      return
-    end
-
-    unless right_tile
-      left_demo = left_tile.demo
-      left_status = left_tile.status
-      left_position = left_tile.position
-      right_tile = left_demo.tiles.where{(status == left_status) & (position < left_position)}.first
-    end
-
-    Tile.transaction do
-      if right_tile
-        tile.position = right_tile.position + 1
-        #tile.status = right_tile.status
-      else
-        tile.position = left_tile.position
-        #tile.status = left_tile.status
-      end
-      tile.save
-
-      tile_demo = tile.demo
-      tile_status = tile.status
-      tile_position = tile.position
-      Tile.where{ (demo == tile_demo) & 
-                  (status == tile_status) & 
-                  (position >= tile_position) &
-                  (id != tile_id)
-      }.order("position ASC").each_with_index do |tile, index|
-        tile.update_attribute :position, (tile_position + index + 1)
-      end
-    end
-  end
 
   protected
 
