@@ -65,6 +65,7 @@ module TileManagerHelpers
     FakeMixpanelTracker.clear_tracked_events
     crank_dj_clear
     properties = {action: action}
+    #p FakeMixpanelTracker.tracked_events
     FakeMixpanelTracker.should have_event_matching(event, properties)    
   end
   

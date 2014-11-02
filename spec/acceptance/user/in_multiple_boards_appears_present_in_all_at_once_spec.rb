@@ -152,7 +152,7 @@ feature 'In multiple boards appears present in all at once' do
       fill_in "board[name]", with: "terrible annoyance"
       click_button "Create Board"
 
-      click_link "Add New Tile"
+      page.find("#add_new_tile_link").click
       create_good_tile
       # cheat a little...
       @tile = Tile.last

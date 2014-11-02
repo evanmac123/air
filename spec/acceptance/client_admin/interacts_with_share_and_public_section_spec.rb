@@ -226,7 +226,7 @@ feature "Client Admin Interacts With Share And Public Section" do
       # I SWEAR this works in a real browser, good luck trying to click the
       # share_to_explore div that actually SHOULD make this happen so we don't
       # have to cheat.
-      page.find('#share_on').trigger('click')
+      page.find('.share_to_explore').trigger('click')
 
       wait_for_ajax
 

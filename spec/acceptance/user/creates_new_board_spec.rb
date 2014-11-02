@@ -52,7 +52,7 @@ feature 'Create new board' do
     try_to_create_new_board(user)
     page.should have_content "Click the + button to create a new tile."
 
-    click_link "Add New Tile"
+    page.find("#add_new_tile_link").click
     fill_in_valid_form_entries
     click_create_button
     page.should have_content("Click Post to publish your tile")
