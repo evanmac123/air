@@ -305,8 +305,7 @@ feature 'Client admin and tile manager page' do
         click_link 'Got It'
         
         wait_for_ajax
-        #expect_mixpanel_action_ping('Tiles Page', 'Pop Over - clicked Got It')
-        expect_ping 'Tiles Page', action: 'Pop Over - clicked Got It'
+        expect_mixpanel_action_ping('Tiles Page', 'Pop Over - clicked Got It')
         
         visit_tile_manager_page
         wait_for_ajax
