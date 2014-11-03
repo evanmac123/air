@@ -167,6 +167,10 @@ window.dragAndDropTiles = ->
     if isOn
       mess_div = section.closest(".manage_tiles").find(".draft_blocked_message")
       mess_div.show()
-      $('html, body').scrollTo(mess_div, {duration: 500})
+      unless iOSdevice()
+        $('html, body').scrollTo(mess_div, {duration: 500})
     else
       $(".draft_blocked_message").hide()
+
+  iOSdevice = ->
+    navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false
