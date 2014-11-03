@@ -35,8 +35,8 @@ window.dragAndDropTiles = ->
       if $(".draft_overlay").css("display") == "block"
         $(".manage_section").sortable( "cancel" ).sortable( "refresh" )
     stop: (event, ui) ->
+      turnOffDraftBlocking ui.item, $(this)
       if $(".draft_overlay").css("display") == "block"
-        turnOffDraftBlocking ui.item, $(this)
         showDraftBlockedMess true, $(this)
         showDraftBlockedOverlay false
       updateTilesAndPlaceholdersAppearance()
