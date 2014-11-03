@@ -194,13 +194,13 @@ body.client_admin-draft_tiles {
         display: none;
         .overlay_message{
             position: absolute;
-            bottom: 0;
             width: 100%;
             font-size: 275px;
             color: $white;
             text-align: center;
-            padding-bottom: 100px;
             opacity: 0.7;
+            top: 50%;
+            margin-top: -140px;
         }
     }
     .draft_blocked_message{
