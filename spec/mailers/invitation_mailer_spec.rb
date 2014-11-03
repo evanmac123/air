@@ -9,7 +9,7 @@ describe Mailer do
   	user = FactoryGirl.create :user
     email = Mailer.invitation(user)
 
-    email.html_part.body.should include("If using below IE8, copy and paste this link into IE8 and above, Firefox or Chrome:")
+    email.html_part.body.should include("If using a web browser that's IE8 or below, copy and paste this link into IE8 and above, Firefox or Chrome:")
     email.html_part.body.should include("http://www.example.com/invitations/#{user.invitation_code}")
   end
 end

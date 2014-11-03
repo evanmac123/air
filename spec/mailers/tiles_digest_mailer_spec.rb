@@ -150,7 +150,7 @@ describe 'Digest email' do
 
       it { should have_link      'Unsubscribe' }
       it { should have_link 'Update Preferences' }
-      it { should have_body_text 'If using below IE8, copy and paste this link into IE8 and above, Firefox or Chrome:' }
+      it { should have_body_text "If using a web browser that's IE8 or below, copy and paste this link into IE8 and above, Firefox or Chrome:" }
     end
 
     context 'claimed user' do
