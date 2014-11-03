@@ -270,7 +270,7 @@ class Tile < ActiveRecord::Base
     copy.original_created_at = self.created_at || self.original_created_at
     copy.demo = new_demo
     copy.creator = copying_user
-    copy.position = copy.find_first_position
+    copy.position = copy.find_new_first_position
     
     #mark as copied by user
     self.user_tile_copies.build(user_id: copying_user.id)
@@ -295,11 +295,11 @@ class Tile < ActiveRecord::Base
 
   def update_status status
     self.status = status
-    self.position = find_first_position
+    self.position = find_new_first_position
     self.save
   end
 
-  def find_first_position
+  def find_new_first_position
     Tile.where(demo: self.demo, status: self.status).maximum(:position).to_i + 1
   end
 
@@ -378,15 +378,15 @@ class Tile < ActiveRecord::Base
   end
   
   def self.active
-    where("status = ?", ACTIVE).order("position DESC")#.order("CASE WHEN activated_at IS NULL THEN created_at ELSE activated_at END DESC")
+    where("status = ?", ACTIVE).order("position DESC")
   end
 
   def self.archive
-    where("status = ?", ARCHIVE).order("position DESC")#.order("CASE WHEN archived_at IS NULL THEN created_at ELSE archived_at END DESC")
+    where("status = ?", ARCHIVE).order("position DESC")
   end
 
   def self.draft
-    where("status = ?", DRAFT).order("position DESC")#.order('created_at DESC')
+    where("status = ?", DRAFT).order("position DESC")
   end
 
   def self.digest(demo, cutoff_time)

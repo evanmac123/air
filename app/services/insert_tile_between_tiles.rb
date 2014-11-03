@@ -3,7 +3,7 @@ class InsertTileBetweenTiles
     @left_tile = Tile.where(id: left_tile_id).first
     @tile = Tile.where(id: tile_id).first
     @right_tile = Tile.where(id: right_tile_id).first
-    @status = status
+    @status = status if Tile::STATUS.include?(status)
   end
 
   def insert!
@@ -22,14 +22,18 @@ class InsertTileBetweenTiles
   def tile_is_already_on_this_place
     if  (@left_tile.present? && @left_tile == @tile.left_tile) ||
         (@right_tile.present? && @right_tile == @tile.right_tile)
-      true
+      if @status.present? && @status != @tile.status
+        false
+      else
+        true
+      end
     else
       false
     end
   end
 
   def set_new_status
-    @tile.status = @status if Tile::STATUS.include?(@status) && @status != @tile.status
+    @tile.status = @status if @status.present? && @status != @tile.status
   end
 
   def first_and_only_in_section
