@@ -24,7 +24,6 @@ feature 'Sees all draft tiles on a separate page' do
 
   it "has a placeholder that you can click on to create a new tile" do
     visit client_admin_draft_tiles_path(as: client_admin)
-    sleep 50
     click_new_tile_placeholder
     should_be_on new_client_admin_tile_path
   end
