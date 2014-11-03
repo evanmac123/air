@@ -1,6 +1,14 @@
 String.prototype.times = (n) ->
   Array.prototype.join.call({length:n+1}, this)
 
+window.dragAndDropProperties =
+  items: ".tile_container:not(.placeholder_container)",
+  connectWith: ".manage_section",
+  cancel: ".placeholder_container, .no_tiles_section",
+  revert: true,
+  tolerance: "pointer",
+  placeholder: "tile_container"
+
 window.dragAndDropTiles = ->
   $("#draft").droppable({ 
     accept: ".tile_container",
@@ -10,13 +18,8 @@ window.dragAndDropTiles = ->
       if $( "#draft" ).sortable( "option", "disabled" )
         showDraftBlockedOverlay true
   })
-  $( "#draft, #active, #archive" ).sortable({
-    items: ".tile_container:not(.placeholder_container)",
-    connectWith: ".manage_section",
-    cancel: ".placeholder_container, .no_tiles_section",
-    revert: true,
-    tolerance: "pointer",
-    placeholder: "tile_container",
+
+  dragAndDropTilesEvents =
     update: (event, ui) ->
       tile = ui.item
       removeTileStats tile, $(this)
@@ -37,7 +40,10 @@ window.dragAndDropTiles = ->
         showDraftBlockedMess true, $(this)
         showDraftBlockedOverlay false
       updateTilesAndPlaceholdersAppearance()
-  }).disableSelection()
+      
+  $( "#draft, #active, #archive" ).sortable( 
+    $.extend(window.dragAndDropProperties, dragAndDropTilesEvents)
+  ).disableSelection()
 
   numberInRow = ->
     4

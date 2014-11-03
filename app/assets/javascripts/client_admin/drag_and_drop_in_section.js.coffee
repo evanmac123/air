@@ -1,13 +1,10 @@
 window.dragAndDropInSection = ->
-  $(".manage_section").sortable({
-    items: ".tile_container:not(.placeholder_container)",
-    cancel: ".placeholder_container, .no_tiles_section",
-    revert: true,
-    tolerance: "pointer",
-    placeholder: "tile_container",
-    update: (event, ui) ->
-      saveTilePosition ui.item
-  }).disableSelection()
+  $(".manage_section").sortable( 
+    $.extend(window.dragAndDropProperties, {
+      update: (event, ui) ->
+        saveTilePosition ui.item
+    })
+  ).disableSelection()
 
   saveTilePosition = (tile) ->
     id = findTileId tile
@@ -33,9 +30,3 @@ window.dragAndDropInSection = ->
     else
       url_section_name = "draft_tiles"
     '/client_admin/' + url_section_name + '/' + id + '/sort'
-
-
-
-
-
-  
