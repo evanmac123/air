@@ -130,9 +130,6 @@ body.client_admin-draft_tiles {
     .content {background:$blue;}
     .manage_tiles {
         position: relative;
-        .manage_section{
-            overflow: auto;
-        }
         .creation-placeholder{
             display: inline-block;
             width: 100%;
