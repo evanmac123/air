@@ -304,7 +304,5 @@ feature 'Creates tile' do
       paras.first.text.should == "This is my first paragraph."
       paras.last.text.should  == "And this is my second."
     end
-
-    it "doesn't collapse consecutive multiple spaces"
   end
 end
