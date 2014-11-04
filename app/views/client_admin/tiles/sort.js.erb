@@ -1,7 +1,4 @@
-// update moved tile
-$("#single-tile-<%= @tile.id %>")
-  .closest(".tile_container")
-  .replaceWith("<%= escape_javascript( render(partial: 'shared/tiles/single_tile', locals: {tile: @tile, type: @tile.status.to_sym, do_ajax: false}) ) %>");
+replaceMovedTile("<%= @tile.id %>", "<%= single_tile_for_sort_js(@tile) %>");
 // add tiles to the source section if needed
 // ( i.e. we moved tile from archive with 8 tiles to draft 
 //   so we can load 1 tile from the server on the free place )
@@ -20,3 +17,5 @@ $("#single-tile-<%= @tile.id %>")
       .replaceWith("<%= escape_javascript( render(partial: 'shared/tiles/single_tile', locals: {tile: last_tile, type: last_tile.status.to_sym, do_ajax: false}) ) %>");
   }
 <% end %>
+
+console.log( aaa() )

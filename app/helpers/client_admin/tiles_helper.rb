@@ -129,4 +129,17 @@ module ClientAdmin::TilesHelper
     tile.question_type =  tile.is_survey? ? Tile::SURVEY : Tile::QUIZ
     tile.question_subtype = Tile::MULTIPLE_CHOICE
   end
+
+  def single_tile_for_sort_js(tile)
+    escape_javascript( 
+      render( 
+        partial: 'shared/tiles/single_tile', 
+        locals: {
+          tile: tile, 
+          type: tile.status.to_sym, 
+          do_ajax: false
+        }
+      ) 
+    )
+  end
 end
