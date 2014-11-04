@@ -460,10 +460,6 @@ class Tile < ActiveRecord::Base
     Delayed::Job.enqueue TileBulkCompletionJob.new(demo_id, tile_id, emails)
   end
 
-  def self.satisfiable_by_rule(rule_or_rule_id)
-    satisfiable_by_object(rule_or_rule_id, Rule, "trigger_rule_triggers", "rule_id")
-  end
-
   def self.find_additional_tiles_for_manage_section(status_name, presented_ids, tile_demo_id)
     ids = presented_ids || []
     needs_tiles = if status_name == ACTIVE
