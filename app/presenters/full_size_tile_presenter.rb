@@ -1,8 +1,10 @@
 class FullSizeTilePresenter
   SAFE_NBSP = "&nbsp;".html_safe.freeze
 
-  def initialize(tile)
+  def initialize(tile, user, is_preview)
     @tile = tile
+    @user = user
+    @is_preview = is_preview
   end
 
   def supporting_content
@@ -15,7 +17,30 @@ class FullSizeTilePresenter
     @supporting_content = p_tags.join.html_safe
   end
 
-  attr_reader :tile
+  def non_preview_of_completed_tile?
+    !is_preview && user_completed_tile?   
+  end
+
+  def user_completed_tile?
+    user_tile_completion.present?
+  end
+
+  def user_tile_completion
+    # nil is a valid answer, so we have to remember if this is memoized separately
+    return @user_tile_completion if @user_tile_completion_memoized
+    @user_tile_completion_memoized = true
+    @user_tile_completion = @user.tile_completions.where(tile_id: tile.id).first
+  end
+
+  def is_possible_correct_answer?(answer_index)
+    answer_index == tile.correct_answer_index || tile.is_survey? || tile.is_action?
+  end
+
+  def user_completed_tile_with_answer_index(answer_index)
+    user_tile_completion.answer_index == answer_index
+  end
+
+  attr_reader :tile, :user, :is_preview
 
   protected
 

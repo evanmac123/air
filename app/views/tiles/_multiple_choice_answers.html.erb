@@ -1,21 +1,16 @@
-<% target_link_id  = "multiple_choice_target_link_#{tile.id}" %>
-<% remove_right_answer_target ||= false %>
-<% is_preview ||= false %>
-
 <% if tile.multiple_choice_answers.present? %>
   <div class="multiple_choice_group">
-    <% tile.multiple_choice_answers.each_with_index do |answer, i| %>
+    <% tile.multiple_choice_answers.each_with_index do |answer, answer_index| %>
       <%= content_tag "div", class: "tile_multiple_choice_answer" do %>
-      
-        <% if !is_preview && tile.tile_completions.where(user_id: current_user).present? %>
-          <% if tile.tile_completions.where(user_id: current_user).first.answer_index == i %>
+        <% if tile.non_preview_of_completed_tile? %>
+          <% if user_completed_tile_with_answer_index(answer_index) %>
             <%= content_tag :div , answer, class: 'clicked_right_answer' %>
           <% else %>
             <%= link_to answer, '#', class: "nerfed_answer" %>
           <% end %>
         <% else %>
-          <% if i == tile.correct_answer_index || tile.is_survey? || tile.is_action? %>
-            <%= link_to answer, tile_completions_path(tile_id: tile.id, answer_index: i), class: "right_multiple_choice_answer", data: {tile_id: tile.id} %>
+          <% if tile.is_possible_correct_answer?(answer_index) %> 
+            <%= link_to answer, tile_completions_path(tile_id: tile.id, answer_index: answer_index), class: "right_multiple_choice_answer", data: {tile_id: tile.id} %>
           <% else %>
             <%= link_to answer, '#', class: "wrong_multiple_choice_answer" %>
           <% end %>
@@ -25,7 +20,7 @@
       <% end %>
     <% end %>
     <% content_for :javascript do %>
-      <% if is_preview %>
+      <% if tile.is_preview %>
         <%= javascript_tag do %>
           setUpAnswersForPreview();
         <% end %>
