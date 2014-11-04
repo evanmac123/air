@@ -1,21 +1,6 @@
 replaceMovedTile("<%= @tile.id %>", "<%= single_tile_for_sort_js(@tile) %>");
-// add tiles to the source section if needed
-// ( i.e. we moved tile from archive with 8 tiles to draft 
-//   so we can load 1 tile from the server on the free place )
 <% @last_tiles.each do |last_tile| %>
-  // section have free place for tile and last tile is not present
-  if( $("#<%= last_tile.status %>")
-      .children(".tile_container:not(.placeholder_container), .creation_placeholder").length <= 7 &&
-      $("#single-tile-<%= last_tile.id %>").length == 0){
-    new_tile = $("#<%= last_tile.status %>")
-      .children(".tile_container.placeholder_container:not(.creation_placeholder):first")
-    if(new_tile.length == 0){
-      new_tile = $('<div class="tile_container"></div>')
-      $("#<%= last_tile.status %>").append(new_tile)
-    }
-    new_tile.removeClass("placeholder_container")
-      .replaceWith("<%= escape_javascript( render(partial: 'shared/tiles/single_tile', locals: {tile: last_tile, type: last_tile.status.to_sym, do_ajax: false}) ) %>");
-  }
+  fillInLastTile( "<%= last_tile.id %>", 
+                  "<%= last_tile.status %>", 
+                  "<%= single_tile_for_sort_js(last_tile) %>" );
 <% end %>
-
-console.log( aaa() )

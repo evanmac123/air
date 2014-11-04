@@ -56,12 +56,12 @@ feature 'Client admin drags and drops tiles' do
       i2 = 0
       tiles1 = demo.send(:"#{section1}_tiles").to_a
       tiles2 = demo.send(:"#{section2}_tiles").to_a
+      
       visit current_path
       expect_no_content tiles1[i1 + 1].headline
-      move_tile_between_sections tiles1[i1], tiles2[i2]
+      move_tile_between_sections tiles1[0], tiles2[i2]
 
       wait_for_ajax
-
       section_tile_headlines("##{section1}").last.should == tiles1[i1 + 1].headline
     end
   end

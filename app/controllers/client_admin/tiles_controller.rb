@@ -153,6 +153,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     Tile.insert_tile_between(params[:left_tile_id], @tile.id, params[:right_tile_id], params[:status])
     @tile.reload
 
+    @last_tiles = []
     if params[:source_section].present?
       @last_tiles = Tile.find_additional_tiles_for_manage_section(
                       params[:source_section][:name],

@@ -105,9 +105,7 @@ module TileManagerHelpers
     selected_tile = tile(tile1)
     new_place_tile = tile(tile2)
     selected_tile.drag_to new_place_tile
-    #wait_for_ajax
-    sleep 3
-    visit current_path
+    wait_for_ajax
     move_tile tile1, tile2
   end
 

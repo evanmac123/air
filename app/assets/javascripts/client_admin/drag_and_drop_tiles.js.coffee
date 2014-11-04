@@ -26,6 +26,8 @@ window.dragAndDropTiles = ->
       # update is called on every changed section so we don't want multiple ajax calls
       if getTilesSection(tile) == $(this).attr("id")
         saveTilePosition tile, $(this)
+      else
+        window.sourceSectionName = $(this).attr("id")
     over: (event, ui) ->
       updateTilesAndPlaceholdersAppearance()
     start: (event, ui) ->
@@ -120,7 +122,7 @@ window.dragAndDropTiles = ->
         left_tile_id: left_tile_id, 
         right_tile_id: right_tile_id,
         status: status,
-        source_section: sectionParams(source_section)
+        source_section: sectionParams()
       },
       type: 'POST',
       url: '/client_admin/tiles/' + id + '/sort'
@@ -128,11 +130,17 @@ window.dragAndDropTiles = ->
         updateTileVisibility()
     });
 
-  sectionParams = (section) ->
-    name = section.attr("id")
-    tiles = section.find(".tile_thumbnail:not(.placeholder_tile)")
-    presented_ids = ($(tile).data("tile_id") for tile in tiles)
-    {name: name, presented_ids: presented_ids}
+  sectionParams = ->
+    if window.sourceSectionName
+      section = $("#" + window.sourceSectionName)
+      window.sourceSectionName = null
+
+      name = section.attr("id")
+      tiles = section.find(".tile_thumbnail:not(.placeholder_tile)")
+      presented_ids = ($(tile).data("tile_id") for tile in tiles)
+      {name: name, presented_ids: presented_ids}
+    else
+      null
 
   turnOnDraftBlocking = (tile, section) ->
     status = getTilesSection tile

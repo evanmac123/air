@@ -477,7 +477,7 @@ class Tile < ActiveRecord::Base
       (demo_id == tile_demo_id) & 
       (status == status_name) & 
       (id.not_in ids) 
-    }.first(needs_tiles)
+    }.order("position DESC").first(needs_tiles)
   end
 
   def self.insert_tile_between left_tile_id, tile_id, right_tile_id, new_status = nil
