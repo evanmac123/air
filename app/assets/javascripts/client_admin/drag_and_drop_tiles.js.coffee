@@ -22,23 +22,25 @@ window.dragAndDropTiles = ->
   dragAndDropTilesEvents =
     update: (event, ui) ->
       tile = ui.item
-      removeTileStats tile, $(this)
-      # update is called on every changed section so we don't want multiple ajax calls
-      if getTilesSection(tile) == $(this).attr("id")
-        saveTilePosition tile, $(this)
+      # if user moves tile from one section to another then
+      # update is called first for source section, then for destination section.
+      # so we need to save name of the source and then use it in ajax call
+      if isTileInSection tile, $(this)
+        saveTilePosition tile
       else
         window.sourceSectionName = $(this).attr("id")
+        removeTileStats tile, $(this)
     over: (event, ui) ->
       updateTilesAndPlaceholdersAppearance()
     start: (event, ui) ->
       turnOnDraftBlocking ui.item, $(this)
       showDraftBlockedMess false
     receive: (event, ui) ->
-      if $(".draft_overlay").css("display") == "block"
-        $(".manage_section").sortable( "cancel" ).sortable( "refresh" )
+      if completedTileWasAttemptedToBeMovedInBlockedDraft()
+        cancelTileMoving()
     stop: (event, ui) ->
       turnOffDraftBlocking ui.item, $(this)
-      if $(".draft_overlay").css("display") == "block"
+      if completedTileWasAttemptedToBeMovedInBlockedDraft()
         showDraftBlockedMess true, $(this)
         showDraftBlockedOverlay false
       updateTilesAndPlaceholdersAppearance()
@@ -111,7 +113,7 @@ window.dragAndDropTiles = ->
     if source_name != "draft" && destination_name == "draft"
       tile.find(".tile_stats").hide()
 
-  saveTilePosition = (tile, source_section) ->
+  saveTilePosition = (tile) ->
     id = findTileId tile
     left_tile_id = findTileId tile.prev()
     right_tile_id = findTileId tile.next()
@@ -122,7 +124,7 @@ window.dragAndDropTiles = ->
         left_tile_id: left_tile_id, 
         right_tile_id: right_tile_id,
         status: status,
-        source_section: sectionParams()
+        source_section: sourceSectionParams()
       },
       type: 'POST',
       url: '/client_admin/tiles/' + id + '/sort'
@@ -130,17 +132,20 @@ window.dragAndDropTiles = ->
         updateTileVisibility()
     });
 
-  sectionParams = ->
+  sourceSectionParams = ->
     if window.sourceSectionName
       section = $("#" + window.sourceSectionName)
       window.sourceSectionName = null
 
-      name = section.attr("id")
-      tiles = section.find(".tile_thumbnail:not(.placeholder_tile)")
-      presented_ids = ($(tile).data("tile_id") for tile in tiles)
-      {name: name, presented_ids: presented_ids}
+      sectionParams(section)
     else
       null
+
+  sectionParams = (section) ->
+    name = section.attr("id")
+    tiles = section.find(".tile_thumbnail:not(.placeholder_tile)")
+    presented_ids = ($(tile).data("tile_id") for tile in tiles)
+    {name: name, presented_ids: presented_ids}
 
   turnOnDraftBlocking = (tile, section) ->
     status = getTilesSection tile
@@ -171,6 +176,12 @@ window.dragAndDropTiles = ->
     else
       $(".draft_overlay").hide()
 
+  isDraftBlockedOverlayShowed = ->
+    $(".draft_overlay").css("display") == "block"
+
+  completedTileWasAttemptedToBeMovedInBlockedDraft = ->
+    isDraftBlockedOverlayShowed()
+
   showDraftBlockedMess = (isOn, section) ->
     if isOn
       mess_div = section.closest(".manage_tiles").find(".draft_blocked_message")
@@ -182,3 +193,9 @@ window.dragAndDropTiles = ->
 
   iOSdevice = ->
     navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false
+
+  isTileInSection = (tile, section) ->
+    getTilesSection(tile) == section.attr("id")
+
+  cancelTileMoving = ->
+    $(".manage_section").sortable( "cancel" ).sortable( "refresh" )
