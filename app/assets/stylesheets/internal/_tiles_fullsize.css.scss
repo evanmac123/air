@@ -149,6 +149,10 @@ body.tiles.tiles-index {
     line-height:1.3em;
     margin-bottom:1em;
     margin-top:.75em;
+
+    p {
+      white-space: pre-wrap;
+    }
   }
 
   // Gray quiz area
