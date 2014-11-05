@@ -5,91 +5,71 @@
   list-style-type: none;
   overflow-x: auto;
   width: 100%;
-
   @media only screen and (min-width: $foundation) {
     display: inline-block;
     float: left;
     height: 100%;
     width: $ca-subnav-size;
   }
-
   &:after {
     @include clear;
   }
-
   li {
     display: inline-block;
     float: left;
     position: relative;
-
     @media only screen and (min-width: $foundation) {
       display: block;
     }
   }
-
   li + li {
     border-left: 1px $blue solid;
-
     @media only screen and (min-width: $foundation) {
       border-left: 0;
       border-top: 1px $blue solid;
     }
   }
-
-  a {
+  .blocked_nav, a {
     @include link($white);
     border-bottom: 5px transparent solid;
     display: block;
     font-size: .75em;
     padding: .75em 2em .5em;
     text-align: center;
-
     @media only screen and (min-width: $foundation) {
       border-bottom: 0;
       border-left: 5px transparent solid;
       padding: 1.35em 0 1em;
       width: $ca-subnav-size;
-
       &:hover {
         background-color: darken($ca-subnav-color, 5%);
       }
     }
-/*
-    &:before {
-      background: no-repeat center center;
-      background-size: 100%;
-      content: "";
-      display: block;
-      margin: 0 auto .35em;
-      height: 2em;
-      width: 2em;
-    }
-*/
-    .fa{
+    .fa {
       display: block;
       font-size: 30px;
       opacity: 0.35;
     }
-    img{
+    img {
       display: block;
       opacity: 0.35;
       margin-left: auto;
       margin-right: auto;
     }
   }
+  .blocked_nav:hover { background-color: $ca-subnav-color; }
+  #share_tiles{
+    span{
+      background-color: $dark-green;
+      padding: 0 4px 1px;
+      border-radius: 4px;
+      font-size: 12px;
+      position: absolute;
+      top: 5px;
+      right: 5px;
+    }
+  }
 }
-/*
-#managing_tiles a:before {background-image: image-url('client_admin/tiles-subnav.svg');}
-#share_tiles a:before {background-image: image-url('client_admin/share-subnav.svg');}
-#board_activity a:before {background-image: image-url('client_admin/activity-subnav.svg');}
-#prizes_nav a:before {background-image: image-url('client_admin/prizes-subnav.svg');}
-#users a:before {background-image: image-url('client_admin/users-subnav.svg');}
-*/
-// Div lines for Manage Tiles page
-body.client_admin-tiles-index #tile_manager_nav ul li a,
-body.client_admin-inactive_tiles-index #tile_manager_nav ul a,
-body.client_admin-draft_tiles #tile_manager_nav ul a {border-color:$blue;}
-
 // Current page states
 body.client_admin-tiles-index #tile_manager_nav li#managing_tiles a,
 body.client_admin-tile_completions-index #tile_manager_nav li#managing_tiles a,
@@ -106,7 +86,23 @@ body.client_admin-users-edit #tile_manager_nav li#users a,
 body.client_admin-prizes #tile_manager_nav li#prizes_nav a{
   border-color: $dark-green;
 }
-
+/*
+body.client_admin-tiles {
+  #tile_manager_nav.tooltip{
+    margin-left: -44px;
+    .nub{
+      margin-left: 148px;
+    }
+  }
+}
+*/
+/*
+// Div lines for Manage Tiles page
+body.client_admin-tiles-index #tile_manager_nav ul li a,
+body.client_admin-inactive_tiles-index #tile_manager_nav ul a,
+body.client_admin-draft_tiles #tile_manager_nav ul a {border-color:$blue;}
+*/
+/*
 body.client_admin-tiles,
 body.client_admins,
 body.client_admin-shares,
@@ -124,7 +120,8 @@ body.client_admin-explores {
     }
   }
 }
-
+*/
+/*
 body.client_admin-tiles {
   #tile_manager_nav.tooltip{
     margin-left: -44px;
@@ -132,7 +129,6 @@ body.client_admin-tiles {
       margin-left: 148px;
     }
   }
-
   .share_tiles, .board_activity, .users, .prizes_nav{
     border-left:1px $blue solid;
     color: #dfdfdf;
@@ -140,7 +136,8 @@ body.client_admin-tiles {
     padding-bottom: 10px;
   }
 }
-
+*/
+/*
 body.client_admin-shares,
 body.client_admins,
 body.client_admin-users,
@@ -160,3 +157,4 @@ body.client_admin-prizes {
     padding-bottom: 10px;
   }
 }
+*/

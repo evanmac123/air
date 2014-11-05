@@ -13,17 +13,21 @@
       Create
   -if @demo.try(:non_activated?) && current_user.show_onboarding?
     %li#share_tiles.share_tiles.has-tip.text-center{"data-tooltip" => true, title:'Create and post at least one tile to unlock'}
-      %i.fa.fa-lock
-      Share
+      .blocked_nav
+        %i.fa.fa-lock
+        Share
     %li#board_activity.board_activity.has-tip.text-center{"data-tooltip" => true, title:'Create and post at least one tile to unlock'}
-      %i.fa.fa-lock
-      Activity
+      .blocked_nav
+        %i.fa.fa-lock
+        Activity
     %li#prizes_nav.prizes_nav.has-tip.text-center{"data-tooltip" => true, title:'Create and post at least one tile to unlock'}
-      %i.fa.fa-lock
-      Prizes
+      .blocked_nav
+        %i.fa.fa-lock
+        Prizes
     %li#users.users.has-tip.text-center{"data-tooltip" => true, title:'Create and post at least one tile to unlock'}
-      %i.fa.fa-lock
-      Users
+      .blocked_nav
+        %i.fa.fa-lock
+        Users
   -else
     %li#share_tiles
       = link_to client_admin_share_path do
