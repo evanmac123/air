@@ -1,0 +1,25 @@
+<% unless blocked %>
+  <li id="<%= item_id %>">
+    <%= link_to link do %>
+      <% if icon.present? %>
+        <%= fa_icon icon %>
+      <% elsif image.present? %>
+        <%= image_tag image %>
+      <% end %>
+
+      <%= text %>
+      <% if text == "Share" %>
+        <span>
+          <%= @tiles_to_be_sent || tiles_to_be_sent(current_user) %>
+        </span>
+      <% end %>
+    <% end %>
+  </li>
+<% else %>
+  <li id="<%= item_id %>" class="has-tip text-center" data-tooltip="true" title="Create and post at least one tile to unlock">
+    <div class="blocked_nav">
+      <%= fa_icon "lock" %>
+      <%= text %>
+    </div>
+  </li>
+<% end %>
