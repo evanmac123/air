@@ -1,4 +1,12 @@
 %ul#tile_manager_nav
+  %li#explore
+    = link_to explore_path do
+      = fa_icon "rocket"
+      Explore
+  %li#home_nav
+    = link_to activity_path do
+      = image_tag "airbo_logo_lightblue_square.png"
+      Preview
   %li#managing_tiles
     = link_to client_admin_tiles_path do
       = fa_icon "square-o"
