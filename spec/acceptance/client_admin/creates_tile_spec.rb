@@ -7,7 +7,12 @@ feature 'Creates tile' do
   def click_create_button
     click_button "Save tile"
   end
-    
+
+  def normalize_spaces(string)
+    # Convert all the weird spaces we use to make non-collapsing work into ordinary spaces.
+    string.gsub(/[[:space:]]/, ' ')
+  end
+
   before do
     visit new_client_admin_tile_path(as: client_admin)
     choose_question_type_and_subtype Tile::QUIZ, Tile::MULTIPLE_CHOICE
@@ -301,8 +306,8 @@ feature 'Creates tile' do
       paras = page.all('.tile_supporting_content p')
       paras.should have(2).p_elements
 
-      paras.first.text.should == "This is my first paragraph."
-      paras.last.text.should  == "And this is my second."
+      normalize_spaces(paras.first.text).should == "This is my first paragraph."
+      normalize_spaces(paras.last.text).should  == "And this is my second."
     end
   end
 end
