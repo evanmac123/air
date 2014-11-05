@@ -17,8 +17,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
     @tile_just_activated = process_tile_just_activated
     
-    @tiles_to_be_sent = @demo.digest_tiles(@demo.tile_digest_email_sent_at).count
-    
     record_index_ping
   end
 

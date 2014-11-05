@@ -9,7 +9,6 @@ class ClientAdminsController < ClientAdminBaseController
         @with_phone_percentage = demo.claimed_user_with_phone_fraction.as_rounded_percentage
         @with_peer_invitation_fraction = demo.claimed_user_with_peer_invitation_fraction.as_rounded_percentage
         @demo = demo
-        @tiles_to_be_sent = @demo.digest_tiles(@demo.tile_digest_email_sent_at).count
 
         params[:chart_start_date]   = (Time.now - 30.days).to_s(:chart_start_end_day)
         params[:chart_end_date]     = Time.now.to_s(:chart_start_end_day)

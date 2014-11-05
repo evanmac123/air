@@ -33,7 +33,7 @@
       = link_to client_admin_share_path do
         = fa_icon "share-alt"
         Share
-        %span= @tiles_to_be_sent
+        %span= @tiles_to_be_sent || tiles_to_be_sent(current_user)
     %li#board_activity
       = link_to client_admin_path do
         = fa_icon "line-chart"
