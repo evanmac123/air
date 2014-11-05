@@ -1,6 +1,9 @@
 %ul#tile_manager_nav
-  %li#managing_tiles= link_to 'Tiles'.html_safe, client_admin_tiles_path
-  -if @demo.non_activated? && current_user.show_onboarding?
+  %li#managing_tiles
+    = link_to client_admin_tiles_path do
+      = fa_icon "square-o"
+      Create
+  -if @demo.try(:non_activated?) && current_user.show_onboarding?
     %li#share_tiles.share_tiles.has-tip.text-center{"data-tooltip" => true, title:'Create and post at least one tile to unlock'}
       %i.fa.fa-lock
       Share
@@ -16,8 +19,18 @@
   -else
     %li#share_tiles
       = link_to client_admin_share_path do
+        = fa_icon "share-alt"
         Share
         %span= @tiles_to_be_sent
-    %li#board_activity= link_to 'Activity'.html_safe, client_admin_path
-    %li#prizes_nav= link_to 'Prizes', client_admin_prizes_path
-    %li#users= link_to 'Users'.html_safe, client_admin_users_path
+    %li#board_activity
+      = link_to client_admin_path do
+        = fa_icon "line-chart"
+        Activity
+    %li#prizes_nav
+      = link_to client_admin_prizes_path do
+        = fa_icon "trophy"
+        Prizes
+    %li#users
+      = link_to client_admin_users_path do
+        = fa_icon "users"
+        Users

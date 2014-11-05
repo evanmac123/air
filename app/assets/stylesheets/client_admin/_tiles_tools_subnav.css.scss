@@ -54,7 +54,7 @@
         background-color: darken($ca-subnav-color, 5%);
       }
     }
-
+/*
     &:before {
       background: no-repeat center center;
       background-size: 100%;
@@ -64,15 +64,21 @@
       height: 2em;
       width: 2em;
     }
+*/
+    .fa{
+      display: block;
+      font-size: 30px;
+      opacity: 0.35;
+    }
   }
 }
-
+/*
 #managing_tiles a:before {background-image: image-url('client_admin/tiles-subnav.svg');}
 #share_tiles a:before {background-image: image-url('client_admin/share-subnav.svg');}
 #board_activity a:before {background-image: image-url('client_admin/activity-subnav.svg');}
 #prizes_nav a:before {background-image: image-url('client_admin/prizes-subnav.svg');}
 #users a:before {background-image: image-url('client_admin/users-subnav.svg');}
-
+*/
 // Div lines for Manage Tiles page
 body.client_admin-tiles-index #tile_manager_nav ul li a,
 body.client_admin-inactive_tiles-index #tile_manager_nav ul a,
