@@ -280,7 +280,8 @@ header {
 }
 
 body.explores {
-  background-color: #d9dfe9;
+  background:$tile-wall-bg;
+  .content{ background:$tile-wall-bg; }
   .explore_menu {
     #explore_board {
       color: $sky-blue;

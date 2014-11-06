@@ -1,5 +1,5 @@
 body.tile.tile-show{
-  background: #d9dfe9;
+  .content{ background:$tile-wall-bg; }
   .tile_holder{
   	width: 600px;
   }

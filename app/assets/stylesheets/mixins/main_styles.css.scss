@@ -25,9 +25,9 @@ $text-color:        #4c4c4c;
 $tile-text:         #a8a8a8;
 $tile-tag-border:   #dfdfdf;
 $body-bg:           lighten($blue, 56.5%);
-$tile-wall-bg:      lighten($blue, 45%);
+$tile-wall-bg:      lighten($blue, 45%); // #d9dfe9
 $form-bg:           lighten($blue, 53%);
-$ca-subnav-color: darken($blue, 15%);
+$ca-subnav-color:   darken($blue, 15%);
 
 // ------------------------ * Misc dependents * ------------------------
 @mixin clear {

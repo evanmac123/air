@@ -8,6 +8,7 @@ body.client_admin-tiles-show,
 body.client_admin-tiles-update,
 body.tiles.tiles-index {
   background:$tile-wall-bg;
+  .content {background:$tile-wall-bg;}
 }
 
 .tiles.tiles-index {

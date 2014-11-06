@@ -3,7 +3,8 @@
 @import "mixins/small_tile_tag";
 
 body.tile_previews.tile_previews-show {
-  background-color: #d9dfe9;
+  background:$tile-wall-bg;
+  .content{ background:$tile-wall-bg; }
 
 
   .justify{
