@@ -26,7 +26,9 @@
   <%= render 'shared/header' %>
   <%= render 'shared/flashes' %>
   <main class="main">
-    <%= render partial: 'client_admin/tiles/tiles_tools_subnav' %>
+    <% if current_user.has_tiles_tools_subnav? %>
+      <%= render partial: 'client_admin/tiles/tiles_tools_subnav' %>
+    <% end %>
     <div class="content">
       <%= yield %>
     </div>

@@ -109,4 +109,8 @@ module User::FakeUserBehavior
   def accepted_invitation_at
     created_at
   end
+
+  def has_tiles_tools_subnav?
+    false
+  end
 end

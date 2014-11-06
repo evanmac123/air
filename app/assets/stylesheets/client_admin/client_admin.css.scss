@@ -21,11 +21,13 @@ header .admin_options #manage_board:hover:before {background:$dark-green;}
   position: relative;
 
   @media only screen and (min-width: $foundation) {
-    display: inline-block;
-    float: left;
-    width: -moz-calc(100% - #{$ca-subnav-size});
-    width: -webkit-calc(100% - #{$ca-subnav-size});
-    width: calc(100% - #{$ca-subnav-size});
+    //display: inline-block;
+    float: none;
+    width: auto;
+    overflow: hidden;
+    //width: -moz-calc(100% - #{$ca-subnav-size});
+    //width: -webkit-calc(100% - #{$ca-subnav-size});
+    //width: calc(100% - #{$ca-subnav-size});
   }
 
   @media only screen and (min-width: $large-desktop) {

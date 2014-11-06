@@ -13,4 +13,8 @@ class UserRestrictedToExplorePages < Draper::Decorator
   def nerf_links_with_login_modal?
     true
   end
+
+  def has_tiles_tools_subnav?
+    false
+  end
 end
