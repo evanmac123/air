@@ -24,6 +24,9 @@ body.client_admin-tiles-show{
     float:right;
     padding:.75em 1em;
   }
+  .tile_preview_container{
+    max-width: 760px;
+  }
   .tile_preview_menu{
     background: white;
     border-radius: $border-radius;
