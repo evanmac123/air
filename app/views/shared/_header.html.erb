@@ -60,20 +60,6 @@
           </div>
           <div class="board_settings_mobile_toggle">Board settings</div>
         <% end %>
-
-        <% if current_user.authorized_to?(:client_admin) %>
-          <div class="admin_options">
-              <p class="small_cap">Board tools</p>
-              <%= link_to 'Manage', client_admin_tiles_path, id: 'manage_board' %>
-              <a id="admin_toggle">&#9662;</a>
-              <ul class="client_admin_pages">
-                <li><%= link_to "Admin help", DeskSSO.new(current_user).url, target: "_blank" %></li>
-              </ul>
-          </div>
-        <%else%>
-          <div class="admin_options">
-          </div>        
-        <% end %>
       </nav> <!-- end of off canvas -->
 
       <!-- start of new admin navigation that needs to be gated off later -->
