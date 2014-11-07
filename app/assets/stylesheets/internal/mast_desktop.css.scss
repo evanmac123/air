@@ -241,6 +241,7 @@ header {
       position: relative;
     }
     #manage_board {
+      display: none;
       color:$text-color;
       padding:1.125em 0.3em;
       &:hover {&:before {
