@@ -21,7 +21,8 @@
     @media only screen and (min-width: $foundation) {
       display: block;
       &:last-child{
-        border-bottom: 5px $light-blue solid;
+        border-bottom: 1px $light-blue solid;
+        padding-bottom: 1px;
       }
     }
   }
@@ -42,7 +43,7 @@
     @media only screen and (min-width: $foundation) {
       border-bottom: 0;
       border-left: 5px transparent solid;
-      padding: 1.35em 0 1em;
+      padding: 1.15em 0 1em;
       width: $ca-subnav-size;
       &:hover {
         background-color: darken($ca-subnav-color, 5%);
@@ -50,16 +51,17 @@
     }
     .fa {
       display: block;
-      font-size: 30px;
+      font-size: 22px;
       opacity: 0.35;
+      padding-bottom: 7px;
     }
     img {
       display: block;
       opacity: 0.35;
       margin-left: auto;
       margin-right: auto;
-      width: 43px;
-      padding-bottom: 4px;
+      width: 33px;
+      padding-bottom: 10px;
     }
   }
   .blocked_nav:hover { background-color: $ca-subnav-color; }
@@ -77,6 +79,7 @@
 }
 // Current page states
 body.explores.explores-show #tile_manager_nav li#explore a,
+body.acts.acts-index #tile_manager_nav li#home_nav a,
 body.client_admin-tiles-index #tile_manager_nav li#managing_tiles a,
 body.client_admin-tile_completions-index #tile_manager_nav li#managing_tiles a,
 body.client_admin-inactive_tiles-index #tile_manager_nav li#managing_tiles a,
@@ -90,7 +93,7 @@ body.client_admin-shares #tile_manager_nav li#share_tiles a,
 body.client_admin-users-index #tile_manager_nav li#users a,
 body.client_admin-users-edit #tile_manager_nav li#users a,
 body.client_admin-prizes #tile_manager_nav li#prizes_nav a{
-  border-color: $dark-green;
+  background: $sky-blue;
 }
 /*
 body.client_admin-tiles {
