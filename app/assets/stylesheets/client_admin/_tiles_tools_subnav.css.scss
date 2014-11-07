@@ -20,6 +20,9 @@
     position: relative;
     @media only screen and (min-width: $foundation) {
       display: block;
+      &:last-child{
+        border-bottom: 5px $light-blue solid;
+      }
     }
   }
   li + li {
@@ -55,6 +58,8 @@
       opacity: 0.35;
       margin-left: auto;
       margin-right: auto;
+      width: 43px;
+      padding-bottom: 4px;
     }
   }
   .blocked_nav:hover { background-color: $ca-subnav-color; }
@@ -71,6 +76,7 @@
   }
 }
 // Current page states
+body.explores.explores-show #tile_manager_nav li#explore a,
 body.client_admin-tiles-index #tile_manager_nav li#managing_tiles a,
 body.client_admin-tile_completions-index #tile_manager_nav li#managing_tiles a,
 body.client_admin-inactive_tiles-index #tile_manager_nav li#managing_tiles a,
