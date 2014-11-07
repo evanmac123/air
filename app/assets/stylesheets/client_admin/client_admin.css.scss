@@ -10,7 +10,9 @@ header .explore_menu #explore_board:before {display: none;}
 header .admin_options #manage_board:hover:before {background:$dark-green;}
 
 .main {
-  background: $ca-subnav-color;
+  @media only screen and (min-width: $foundation) {
+    background: $ca-subnav-color;
+  }
   display: block;
   overflow: hidden;
 
@@ -18,11 +20,19 @@ header .admin_options #manage_board:hover:before {background:$dark-green;}
     @include clear;
   }
 }
-
+.core{
+  background-color: $white;
+  @media only screen and (min-width: $foundation) {
+    float: none;
+    width: auto;
+    overflow: hidden;
+    //min-height: 523px;
+  }
+}
 .content {
   background-color: $white;
   position: relative;
-
+/*
   @media only screen and (min-width: $foundation) {
     //display: inline-block;
     float: none;
@@ -32,14 +42,14 @@ header .admin_options #manage_board:hover:before {background:$dark-green;}
     //width: -webkit-calc(100% - #{$ca-subnav-size});
     //width: calc(100% - #{$ca-subnav-size});
   }
-
-  @media only screen and (min-width: $large-desktop) {
+*/
+  /*@media only screen and (min-width: $large-desktop) {
     .row {
       max-width: -moz-calc(#{$large-desktop} - #{$ca-subnav-size});
       max-width: -webkit-calc(#{$large-desktop} - #{$ca-subnav-size});
       max-width: calc(#{$large-desktop} - #{$ca-subnav-size});
     }
-  }
+  }*/
 
   h2, h3 {
     margin-bottom:1em;

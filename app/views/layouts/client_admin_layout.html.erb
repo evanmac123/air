@@ -29,15 +29,16 @@
     <% if current_user.has_tiles_tools_subnav? %>
       <%= render partial: 'client_admin/tiles/tiles_tools_subnav' %>
     <% end %>
-    <div class="content">
-      <%= yield %>
+    <div class="core">
+      <div class="content">
+        <%= yield %>
+      </div>
+      <div id="footer">
+        Copyright © 2013 H.Engage, Inc.
+      </div>
     </div>
   </main>
 
-  </div>
-
-  <div id="footer">
-      Copyright © 2013 H.Engage, Inc.
   </div>
 
   <%= render 'shared/intercom' %>
