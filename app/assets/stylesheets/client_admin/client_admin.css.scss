@@ -10,6 +10,7 @@ header .explore_menu #explore_board:before {display: none;}
 header .admin_options #manage_board:hover:before {background:$dark-green;}
 
 .main {
+  width: 100%;
   @media only screen and (min-width: $foundation) {
     background: $ca-subnav-color;
   }
