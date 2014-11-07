@@ -361,3 +361,33 @@ body.explores {
     margin-top: 0.8em;
   }
 }
+
+.main {
+  width: 100%;
+  @media only screen and (min-width: $foundation) {
+    background: $ca-subnav-color;
+  }
+  display: block;
+  overflow: hidden;
+
+  &:after {
+    @include clear;
+  }
+}
+
+.core{
+  background-color: $white;
+  @media only screen and (min-width: $foundation) {
+    float: none;
+    width: auto;
+    overflow: hidden;
+    //min-height: 523px;
+  }
+}
+
+.content {
+  background-color: $white;
+  position: relative;
+}
+
+

@@ -29,13 +29,21 @@
 <body class="<%= body_class %>" style="-webkit-overflow-scrolling: touch; overflow:visible;"><%# only works with inline style? WTF. but leave it: this fixes scroll problems in ios7 and doesn't seem to work if included via stylesheet. %>
 
   <%= render 'shared/header', :show_play_box => true %>
-  <div id='js-flashes'><%= render 'shared/flashes' %> </div>  
-  <div class="content">
-    <%= yield %>
-  </div>
-  <footer id="footer">
-		Copyright © 2013 H.Engage, Inc.
-  </footer>
+  <div id='js-flashes'><%= render 'shared/flashes' %> </div> 
+
+  <main class="main">
+    <% if current_user.has_tiles_tools_subnav? %>
+      <%= render partial: 'client_admin/tiles/tiles_tools_subnav' %>
+    <% end %>
+    <div class="core">
+      <div class="content">
+        <%= yield %>
+      </div>
+      <div id="footer">
+        Copyright © 2013 H.Engage, Inc.
+      </div>
+    </div>
+  </main>
 
   <%= render :partial => 'shared/javascript' %><!-- This is where 'yield :javascript' takes place -->
   <%= render 'shared/intercom' %>

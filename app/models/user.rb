@@ -805,7 +805,7 @@ class User < ActiveRecord::Base
   end
 
   def has_tiles_tools_subnav?
-    true
+    is_client_admin || is_site_admin
   end
 
   def self.send_invitation_if_claimed_sms_user_texts_us_an_email_address(from_phone, text, options={})
