@@ -8,7 +8,7 @@ header .explore_menu #explore_board:before {display: none;}
 // until Tile Wall admin toggle works,
 // using :hover to make link NOT look like a toggle
 header .admin_options #manage_board:hover:before {background:$dark-green;}
-
+#tile_manager_nav { display: block !important; }
 .content {
   //background-color: $white;
   //position: relative;

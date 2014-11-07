@@ -1,24 +1,28 @@
 // Nav between tile-related pages
 #tile_manager_nav {
+  @media only screen and (max-width: $foundation) {
+    display: none;
+  }
   background: $ca-subnav-color;
-  display: block;
-  list-style-type: none;
-  overflow-x: auto;
-  width: 100%;
-  @media only screen and (min-width: $foundation) {
+  //display: block;
+  //list-style-type: none;
+  overflow: hidden;
+  //overflow-x: auto;
+  //width: 100%;
+  //@media only screen and (min-width: $foundation) {
     //display: inline-block;
     float: left;
     height: 100%;
     width: $ca-subnav-size;
-  }
+  //}
   &:after {
     @include clear;
   }
   li {
-    display: inline-block;
+    //display: inline-block;
     float: left;
     position: relative;
-    @media only screen and (min-width: $foundation) {
+    //@media only screen and (min-width: $foundation) {
       display: block;
       &:hover {
         background-color: darken($ca-subnav-color, 5%);
@@ -27,14 +31,14 @@
         border-bottom: 1px $blue solid;
         padding-bottom: 1px;
       }
-    }
+    //}
   }
   li + li {
     border-left: 1px $blue solid;
-    @media only screen and (min-width: $foundation) {
+    //@media only screen and (min-width: $foundation) {
       border-left: 0;
       border-top: 1px $blue solid;
-    }
+    //}
   }
   .blocked_nav, a {
     @include link($white);
