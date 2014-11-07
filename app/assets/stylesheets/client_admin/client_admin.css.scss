@@ -1,4 +1,7 @@
 body {min-width:$large-desktop;}
+@media only screen and (min-width: $foundation) {
+  header { height: 50px; }
+}
 header .admin_options #manage_board:before {background:$dark-green;}
 header .explore_menu #explore_board:before {display: none;}
 

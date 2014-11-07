@@ -62,12 +62,6 @@
         <% end %>
 
         <% if current_user.authorized_to?(:client_admin) %>
-          <div class="explore_menu">
-            <%= link_to explore_path, id: 'explore_board' do %>
-              <span class="fa fa-rocket"></span>
-              <span>Explore</span>
-            <% end %>
-          </div>
           <div class="admin_options">
               <p class="small_cap">Board tools</p>
               <%= link_to 'Manage', client_admin_tiles_path, id: 'manage_board' %>
@@ -77,8 +71,6 @@
               </ul>
           </div>
         <%else%>
-          <div class="explore_menu">
-          </div>
           <div class="admin_options">
           </div>        
         <% end %>
