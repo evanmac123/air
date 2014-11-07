@@ -20,6 +20,9 @@
     position: relative;
     @media only screen and (min-width: $foundation) {
       display: block;
+      &:hover {
+        background-color: darken($ca-subnav-color, 5%);
+      }
       &:last-child{
         border-bottom: 1px $blue solid;
         padding-bottom: 1px;
@@ -45,9 +48,6 @@
       border-left: 5px transparent solid;
       padding: 1.15em 0 1em;
       width: $ca-subnav-size;
-      &:hover {
-        background-color: darken($ca-subnav-color, 5%);
-      }
     }
     .fa {
       display: block;
@@ -64,7 +64,7 @@
       padding-bottom: 10px;
     }
   }
-  .blocked_nav:hover { background-color: $ca-subnav-color; }
+  //.blocked_nav:hover { background-color: $ca-subnav-color; }
   #share_tiles{
     span{
       background-color: $dark-green;
@@ -80,6 +80,7 @@
 // Current page states
 body.explores.explores-show #tile_manager_nav li#explore,
 body.acts.acts-index #tile_manager_nav li#home_nav,
+body.tiles.tiles-index #tile_manager_nav li#home_nav,
 body.client_admin-tiles-index #tile_manager_nav li#managing_tiles,
 body.client_admin-tile_completions-index #tile_manager_nav li#managing_tiles,
 body.client_admin-inactive_tiles-index #tile_manager_nav li#managing_tiles,
