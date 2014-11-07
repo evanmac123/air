@@ -21,7 +21,7 @@
     @media only screen and (min-width: $foundation) {
       display: block;
       &:last-child{
-        border-bottom: 1px $light-blue solid;
+        border-bottom: 1px $blue solid;
         padding-bottom: 1px;
       }
     }
@@ -78,22 +78,25 @@
   }
 }
 // Current page states
-body.explores.explores-show #tile_manager_nav li#explore a,
-body.acts.acts-index #tile_manager_nav li#home_nav a,
-body.client_admin-tiles-index #tile_manager_nav li#managing_tiles a,
-body.client_admin-tile_completions-index #tile_manager_nav li#managing_tiles a,
-body.client_admin-inactive_tiles-index #tile_manager_nav li#managing_tiles a,
-body.client_admin-draft_tiles-index #tile_manager_nav li#managing_tiles a,
-body.client_admins-show #tile_manager_nav li#board_activity a,
-body.client_admin-shares #tile_manager_nav li#share_tiles a,
-body.client_admin-users-index #tile_manager_nav li#users a,
-body.client_admin-users-edit #tile_manager_nav li#users a,
-body.client_admins-show #tile_manager_nav li#board_activity a,
-body.client_admin-shares #tile_manager_nav li#share_tiles a,
-body.client_admin-users-index #tile_manager_nav li#users a,
-body.client_admin-users-edit #tile_manager_nav li#users a,
-body.client_admin-prizes #tile_manager_nav li#prizes_nav a{
+body.explores.explores-show #tile_manager_nav li#explore,
+body.acts.acts-index #tile_manager_nav li#home_nav,
+body.client_admin-tiles-index #tile_manager_nav li#managing_tiles,
+body.client_admin-tile_completions-index #tile_manager_nav li#managing_tiles,
+body.client_admin-inactive_tiles-index #tile_manager_nav li#managing_tiles,
+body.client_admin-draft_tiles-index #tile_manager_nav li#managing_tiles,
+body.client_admins-show #tile_manager_nav li#board_activity,
+body.client_admin-shares #tile_manager_nav li#share_tiles,
+body.client_admin-users-index #tile_manager_nav li#users,
+body.client_admin-users-edit #tile_manager_nav li#users,
+body.client_admins-show #tile_manager_nav li#board_activity,
+body.client_admin-shares #tile_manager_nav li#share_tiles,
+body.client_admin-users-index #tile_manager_nav li#users,
+body.client_admin-users-edit #tile_manager_nav li#users,
+body.client_admin-prizes #tile_manager_nav li#prizes_nav{
   background: $sky-blue;
+  .fa, img {
+    opacity: 1;
+  }
 }
 /*
 body.client_admin-tiles {
