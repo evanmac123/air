@@ -281,7 +281,7 @@ header {
 
 body.explores {
   background:$tile-wall-bg;
-  .content{ background:$tile-wall-bg; }
+  .core, .content { background:$tile-wall-bg; }
   .explore_menu {
     #explore_board {
       color: $sky-blue;

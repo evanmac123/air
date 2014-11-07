@@ -4,7 +4,7 @@
 
 body.tile_previews.tile_previews-show {
   background:$tile-wall-bg;
-  .content{ background:$tile-wall-bg; }
+  .core, .content{ background:$tile-wall-bg; }
 
 
   .justify{
