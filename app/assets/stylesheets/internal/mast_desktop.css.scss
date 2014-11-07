@@ -259,14 +259,16 @@ header {
       @include ease(0);
       color:$med-gray;
       font-size:1.5em;
-      padding:.6em 0.3em;
+      padding:.6em 0.2em;
+      padding-right: 0.35em;
+      padding-bottom: 1.5em;
       border-left:0;
-      height: 3rem;
+      height: 2rem;
     }
   }
 
   .board_settings_toggle_wrapper {
-    padding: 1.3em 0.3em 1em 0;
+    padding: 1.3em 0.5em 1em 0.2em;
   }
   .board_settings_mobile_toggle {
     display: none;
