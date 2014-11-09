@@ -1,15 +1,5 @@
-//@import "./vendor/normalize.css.scss";
-//@import "./foundation_and_overrides.scss";
-//@import "./vendor/flutie.css.scss";
-
-//@import "font-awesome";
-//@import "wice_grid";
-//@import "introjs";
-
 /* UNIVERSAL STYLESHEETS */
 @import "./mixins/main_styles.css.scss"; 
-//@import "./internal/flash.css.scss";
-//@import "./internal/mast.css.scss";
 @import "./internal/mast_desktop.css.scss";
 /* CLIENT ADMIN */
 @import "./internal/prize_box.css.scss";

@@ -1,44 +1,28 @@
 // Nav between tile-related pages
 #tile_manager_nav {
-  @media only screen and (max-width: $foundation) {
+  @media only screen and (max-width: $foundation) { // for user side
     display: none;
   }
   background: $ca-subnav-color;
-  //display: block;
-  //list-style-type: none;
   overflow: hidden;
-  //overflow-x: auto;
-  //width: 100%;
-  //@media only screen and (min-width: $foundation) {
-    //display: inline-block;
-    float: left;
-    height: 100%;
-    width: $ca-subnav-size;
-  //}
+  float: left;
+  height: 100%;
+  width: $ca-subnav-size;
   &:after {
     @include clear;
   }
   li {
-    //display: inline-block;
-    float: left;
-    position: relative;
-    //@media only screen and (min-width: $foundation) {
-      display: block;
-      &:hover {
-        background-color: darken($ca-subnav-color, 5%);
-      }
-      &:last-child{
-        border-bottom: 1px $blue solid;
-        //padding-bottom: 1px;
-      }
-    //}
+    &:hover {
+      background-color: darken($ca-subnav-color, 5%);
+    }
+    &:last-child{
+      border-bottom: 1px $blue solid;
+    }
   }
   li + li {
     border-left: 1px $blue solid;
-    //@media only screen and (min-width: $foundation) {
-      border-left: 0;
-      border-top: 1px $blue solid;
-    //}
+    border-left: 0;
+    border-top: 1px $blue solid;
   }
   .blocked_nav, a {
     @include link($white);
@@ -71,7 +55,6 @@
   //.blocked_nav:hover { background-color: $ca-subnav-color; }
   #share_tiles{
     span{
-      //background-color: $dark-green;
       padding: 0 4px 1px;
       border-radius: 4px;
       font-size: 12px;
@@ -103,75 +86,3 @@ body.client_admin-prizes #tile_manager_nav li#prizes_nav{
     opacity: 1;
   }
 }
-/*
-body.client_admin-tiles {
-  #tile_manager_nav.tooltip{
-    margin-left: -44px;
-    .nub{
-      margin-left: 148px;
-    }
-  }
-}
-*/
-/*
-// Div lines for Manage Tiles page
-body.client_admin-tiles-index #tile_manager_nav ul li a,
-body.client_admin-inactive_tiles-index #tile_manager_nav ul a,
-body.client_admin-draft_tiles #tile_manager_nav ul a {border-color:$blue;}
-*/
-/*
-body.client_admin-tiles,
-body.client_admins,
-body.client_admin-shares,
-body.client_admin-users,
-body.client_admin-explores {
-  #share_tiles{
-    span{
-      background-color: $dark-green;
-      padding: 0 4px 1px;
-      border-radius: 4px;
-      font-size: 12px;
-      position: absolute;
-      top: 5px;
-      right: 5px;
-    }
-  }
-}
-*/
-/*
-body.client_admin-tiles {
-  #tile_manager_nav.tooltip{
-    margin-left: -44px;
-    .nub{
-      margin-left: 148px;
-    }
-  }
-  .share_tiles, .board_activity, .users, .prizes_nav{
-    border-left:1px $blue solid;
-    color: #dfdfdf;
-    padding-top: 10px;
-    padding-bottom: 10px;
-  }
-}
-*/
-/*
-body.client_admin-shares,
-body.client_admins,
-body.client_admin-users,
-body.client_admin-explores,
-body.client_admin-prizes {
-  #tile_manager_nav.tooltip{
-    margin-left: -44px;
-    .nub{
-      margin-left: 148px;
-    }
-  }
-
-  .share_tiles, .board_activity, .users, .prizes_nav{
-    border-left:1px $white solid;
-    color: #dfdfdf;
-    padding-top: 10px;
-    padding-bottom: 10px;
-  }
-}
-*/
