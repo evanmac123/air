@@ -13,6 +13,7 @@ module ClientAdmin::TilesToolsSubnavHelper
     params[:icon] ||= nil
     params[:image] ||= nil
     params[:blocked] ||= nil
+    params[:link_options] ||= {}
     render partial: "client_admin/tiles/subnav_item", locals: params
   end
 
@@ -33,8 +34,8 @@ module ClientAdmin::TilesToolsSubnavHelper
       {
         item_id: "managing_tiles", 
         link: client_admin_tiles_path, 
-        icon: "square-o", 
-        text: "Create"
+        icon: "pencil", 
+        text: "Edit"
       },
       {
         item_id: "share_tiles", 
@@ -59,6 +60,13 @@ module ClientAdmin::TilesToolsSubnavHelper
         link: client_admin_users_path, 
         icon: "users", 
         text: "Users"
+      },
+      {
+        item_id: "admin_help", 
+        link: DeskSSO.new(current_user).url, 
+        icon: "question", 
+        text: "Help",
+        link_options: { target: "_blank" }
       }
     ]
   end

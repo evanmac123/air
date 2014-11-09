@@ -261,13 +261,14 @@ header {
     }
     #admin_toggle {
       @include ease(0);
-      color:$med-gray;
+      color:$text-color;
       font-size:1.5em;
       padding:.6em 0.2em;
       padding-right: 0.35em;
       padding-bottom: 1.5em;
       border-left:0;
       height: 2rem;
+      display: none;
     }
   }
 
