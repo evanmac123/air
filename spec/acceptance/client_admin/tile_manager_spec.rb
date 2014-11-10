@@ -248,7 +248,7 @@ feature 'Client admin and tile manager page' do
           click_link 'Got It'
           expect_mixpanel_action_ping('Tiles Page', 'Clicked Got It button in Share orientation pop-over')
           
-          page.should have_content("To try your board as a user click on the logo.")
+          page.should have_content("To try your board as a user click on the preview.")
           
           click_link 'Got It'
           

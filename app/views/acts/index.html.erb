@@ -53,7 +53,7 @@
 
 <% if current_user.is_a? PotentialUser %>
   <%= render partial: "register_potential_user_lightbox" %>
-<% elsif @display_activity_page_admin_guide %>
+<% elsif true#@display_activity_page_admin_guide %>
   <%= render partial: "activity_page_admin_guide" %>
 <% elsif @display_get_started_lightbox %>
   <% suppress_conversion_modal = @current_user.demo && $rollout.active?(:suppress_conversion_modal, @current_user.demo) %>
