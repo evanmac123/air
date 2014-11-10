@@ -3,7 +3,7 @@
     <% tile.multiple_choice_answers.each_with_index do |answer, answer_index| %>
       <%= content_tag "div", class: "tile_multiple_choice_answer" do %>
         <% if tile.non_preview_of_completed_tile? %>
-          <% if user_completed_tile_with_answer_index(answer_index) %>
+          <% if tile.user_completed_tile_with_answer_index(answer_index) %>
             <%= content_tag :div , answer, class: 'clicked_right_answer' %>
           <% else %>
             <%= link_to answer, '#', class: "nerfed_answer" %>
