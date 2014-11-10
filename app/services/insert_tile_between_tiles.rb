@@ -57,9 +57,9 @@ class InsertTileBetweenTiles
 
   def set_tile_position
     if @right_tile
-      @tile.position = @right_tile.position + 1
+      @tile.position = @right_tile.position.to_i + 1
     else
-      @tile.position = @left_tile.position
+      @tile.position = @left_tile.position.to_i
     end
     @tile.save
   end
