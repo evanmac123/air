@@ -49,6 +49,7 @@ feature 'Sign in' do
 
     visit '/' # But we're still signed in...
     should_be_signed_in
+    have_no_tile_manager_nav
   end
 
   scenario "redirects to the activity page" do

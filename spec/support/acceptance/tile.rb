@@ -445,4 +445,16 @@ module TileHelpers
   def close_intro
     click_link voteup_intro_copy
   end
+
+  def tile_manager_nav
+    page.find("#tile_manager_nav")
+  end
+
+  def have_tile_manager_nav
+    page.should have_selector('#tile_manager_nav')
+  end
+
+  def have_no_tile_manager_nav
+    page.should_not have_selector('#tile_manager_nav')
+  end
 end

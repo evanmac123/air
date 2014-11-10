@@ -64,7 +64,7 @@ feature 'Create new board' do
     page.should have_content("You've Unlocked Sharing!")
 
     within('.tile-index-share', visible: true) {click_link "Got It"}
-    page.should have_content("To try your board as a user click on the logo.")
+    page.should have_content("To try your board as a user click on the preview.")
   end
 
   context "with a name that's already taken" do

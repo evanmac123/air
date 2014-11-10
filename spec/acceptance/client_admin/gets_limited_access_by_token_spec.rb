@@ -36,6 +36,7 @@ feature 'Client admin gets limited access by token' do
     visit explore_path(explore_token: client_admin.explore_token)
 
     should_be_on explore_path
+    have_no_tile_manager_nav
   end
 
   scenario "to the tile tag page, when the token is appended as a query parameter" do
