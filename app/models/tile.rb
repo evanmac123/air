@@ -154,27 +154,8 @@ class Tile < ActiveRecord::Base
     true
   end
   
-  # copying count and user list
-  def copied_by
-    user_names = self.user_tile_copies.includes(:user).collect do |user_tile_copy|
-      user_tile_copy.user.name
-    end
-    user_names.to_sentence
-  end
-  
   def copy_count
     self.user_tile_copies.count
-  end
-  
-  def unique_user_copy_count
-    self.user_tile_copies.count(:user_id, distinct: true)
-  end
-  # like count and user list
-  def liked_by
-    user_names = self.user_tile_likes.includes(:user).collect do |user_tile_like|
-      user_tile_like.user.name
-    end
-    user_names.to_sentence
   end
   
   def like_count
@@ -197,9 +178,6 @@ class Tile < ActiveRecord::Base
     self.status == DRAFT
   end
 
-  def just_activated?
-    self.active? && self.activated_at > (Time.now - 5.seconds)    
-  end
   def is_survey?
     question_type == SURVEY || (question_type.nil? && correct_answer_index == -1)
   end
@@ -212,6 +190,7 @@ class Tile < ActiveRecord::Base
     question_type == ACTION
   end
 
+  # XTR this into a value object
   def survey_chart
     chart = []
     count = TileCompletion.where(tile_id: self).count
@@ -254,6 +233,7 @@ class Tile < ActiveRecord::Base
     false
   end
 
+  # XTR this into a service
   def copy_to_new_demo(new_demo, copying_user)
     @making_copy = true # prevents processing that we don't need
     copy = Tile.new
