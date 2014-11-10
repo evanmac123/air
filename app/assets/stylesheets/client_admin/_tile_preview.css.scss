@@ -1,4 +1,5 @@
 @import "mixins/intro_button_to_app_button";
+@import './internal/large_tile_viewer_desktop';
 body.client_admin-tiles-show{
   .switch{
     @include green-paddle-switch;
@@ -25,7 +26,7 @@ body.client_admin-tiles-show{
     padding:.75em 1em;
   }
   .tile_preview_container{
-    max-width: 760px;
+    max-width: 784px;
   }
   .tile_preview_menu{
     background: white;
@@ -292,6 +293,13 @@ body.client_admin-tiles-show{
   }
   .tooltip > .nub {
     margin-left: 10px;
+  }
+  .viewer{
+    margin: auto;
+    margin-top: 1em;
+    a#next, a#prev{
+      width: 4em !important;
+    }
   }
 }
 

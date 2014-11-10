@@ -49,6 +49,7 @@
 }
 @media only screen and (min-width: $foundation) {
   @import "./internal/screen_desktop.css.scss";
+  @import "./internal/large_tile_viewer_desktop.css.scss";
   @import "./internal/board_settings_desktop.css.scss";
 }
 @media only screen and (min-width: $mid-desktop) {
