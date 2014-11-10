@@ -4,6 +4,9 @@ checkInTile = ->
 isOnExplorePage = ->
   window.location.href.match(/explore/) != null
 
+isOnManageTilePage = ->
+  window.location.href.match(/client_admin/) != null
+
 getURLParameter = (sParam) ->
   sPageURL = window.location.search.substring(1)
   sURLVariables = sPageURL.split('&')
@@ -71,6 +74,18 @@ loadNextTileWithOffsetForPreview = (offset) ->
       updateNavbarURL(data.tile_id)
       $('#spinner_large').css("display", "block")
       setUpAnswersForPreview()
+      ungrayoutTile()
+  )
+
+loadNextTileWithOffsetForManageTile = (offset) ->
+  url = '/client_admin/tiles/' + $('[data-current-tile-id]').data('current-tile-id')
+  $.get(
+    url,
+    { partial_only: true, offset: offset },
+    (data) ->
+      $('.content').children(".row").replaceWith $(data.tile_content)
+      updateNavbarURL(data.tile_id)
+      $('#spinner_large').css("display", "block")
       ungrayoutTile()
   )
 
@@ -168,6 +183,8 @@ $ ->
     grayoutTile()
     if isOnExplorePage()
       loadNextTileWithOffsetForPreview(1)
+    else if isOnManageTilePage()
+      loadNextTileWithOffsetForManageTile(1)
     else
       loadNextTileWithOffset(1)
   )
@@ -176,6 +193,8 @@ $ ->
     grayoutTile()
     if isOnExplorePage() 
       loadNextTileWithOffsetForPreview(-1)
+    else if isOnManageTilePage()
+      loadNextTileWithOffsetForManageTile(-1)
     else
       loadNextTileWithOffset(-1)
   )

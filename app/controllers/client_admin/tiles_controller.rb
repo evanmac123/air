@@ -114,6 +114,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def show
     @tile = get_tile
+    return show_partial if params[:partial_only]
+
     @tile_just_activated = flash[:tile_activated] || false
     flash[:tile_activated_flag] = @tile_just_activated
     if @tile.draft?
@@ -251,6 +253,14 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       set_image_and_container
       render :edit
     end
+  end
+
+  def show_partial
+    @tile = params[:offset].to_i > 0 ? @tile.right_tile : @tile.left_tile
+    render json: {
+      tile_id:      @tile.id,
+      tile_content: render_to_string("client_admin/tiles/show", :layout => false)
+    }
   end
 
   def set_after_save_flash(new_tile)
