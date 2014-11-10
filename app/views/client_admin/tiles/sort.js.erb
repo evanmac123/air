@@ -1,4 +1,5 @@
 replaceMovedTile("<%= @tile.id %>", "<%= single_tile_for_sort_js(@tile) %>");
+updateShareTilesNumber("<%= tiles_to_be_sent(current_user) %>");
 <% @last_tiles.each do |last_tile| %>
   fillInLastTile( "<%= last_tile.id %>", 
                   "<%= last_tile.status %>", 

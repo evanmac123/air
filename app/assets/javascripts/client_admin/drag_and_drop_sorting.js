@@ -2,6 +2,10 @@ replaceMovedTile = function(tile_id, updated_tile_container){
   $("#single-tile-" + tile_id).closest(".tile_container").replaceWith(updated_tile_container)
 }
 
+updateShareTilesNumber = function(number){
+  $("#share_tiles span").text(number);
+}
+
 fillInLastTile = function(tile_id, section_name, tile_container){
   section = $("#" + section_name)
   if( sectionHasFreePlace(section) && tileIsNotPresent(tile_id) ){
