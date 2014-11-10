@@ -291,7 +291,7 @@ module TileHelpers
 
     fill_in_answer_field 0, "Me"
     fill_in_answer_field 1, "You"
-    fill_in_answer_field 2, "He"
+    fill_in_answer_field 2, "Hipster"
 
     click_answer.times { select_correct_answer 2 } if question_type == Tile::QUIZ
 

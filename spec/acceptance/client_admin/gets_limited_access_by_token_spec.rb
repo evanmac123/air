@@ -124,14 +124,6 @@ feature 'Client admin gets limited access by token' do
       end
     end
 
-    scenario "the Manage link in the header is nerfed", js: true do
-      expect_login_modal_after do
-        click_link "manage_board"
-      end
-
-      login_modal_goes_to client_admin_tiles_path
-    end
-
     scenario "the link over the logo is nerfed", js: true do
       expect_login_modal_after do
         page.find('#top_bar #logo a').click

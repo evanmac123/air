@@ -49,10 +49,10 @@
           %p.top-section
             To publish, mouse over the tile and click
             %span Post
-  - elsif @demo.tiles.count == 1 && @tile_just_activated
+  - elsif true#@demo.tiles.count == 1 && @tile_just_activated
     #tile-joyride-index-main-menu
       %ol.joyride-list.tile-index-share{"data-joyride" => true}
-        %li{:"data-id"=>"share_tiles", :"data-text"=>"Got It", :"data-options"=>"tipLocation:bottom;"}
+        %li{:"data-id"=>"share_tiles", :"data-text"=>"Got It", :"data-options"=>"tipLocation:bottom;nubPosition:left;"}
           %div.top-section
             .large-3.columns.logo= image_tag "/assets/airbo_logo_lightblue_square_smile.png", size: "50x50"
             .large-8.columns.heading You've Unlocked Sharing!
@@ -62,9 +62,9 @@
             %span Share
             when you're ready to invite people to see your board.
             We'll keep count of the number of tiles you have to share.
-        %li{:"data-id"=>"logo", :"data-text"=>"Got It", :"data-options"=>"tipLocation:bottom;"}
+        %li{:"data-id"=>"home_nav", :"data-text"=>"Got It", :"data-options"=>"tipLocation:bottom;"}
           %p.top-section
-            To try your board as a user click on the logo.
+            To try your board as a user click on the preview.
 
   - if @first_active_tile_id.present?
     #tile-joyride-index-posted-tile

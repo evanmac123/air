@@ -72,9 +72,9 @@ feature 'Client admin drags and drops tiles' do
     it_should_behave_like "Moves tile in one section", "active",  5, 1, 3
     it_should_behave_like "Moves tile in one section", "archive", 4, 0, 2
 
-    it_should_behave_like "Moves tile between sections", "active",  5, 1, "draft",   6, 5
-    it_should_behave_like "Moves tile between sections", "active",  6, 4, "archive", 5, 4
-    it_should_behave_like "Moves tile between sections", "archive", 7, 3, "draft",   4, 3
+    it_should_behave_like "Moves tile between sections", "active",  7, 2, "draft",   2, 1
+    it_should_behave_like "Moves tile between sections", "active",  6, 4, "archive", 2, 1
+    it_should_behave_like "Moves tile between sections", "archive", 7, 3, "draft",   2, 1
     it_should_behave_like "Moves tile between sections", "archive", 7, 2, "active",  3, 2
 
     it_should_behave_like "Tile is loaded after drag and drop if needed", "archive", "active"

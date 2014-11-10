@@ -13,9 +13,10 @@ feature 'Has nav link to desk' do
   # only.
 
   scenario 'with the correct URL' do
+    pending
     visit(client_admin_path(as: a_client_admin))
     
-    desk_link = page.find(desk_link_selector)
+    desk_link = page.find(desk_link_selector, visible: true)
     desk_link.text.should == desk_link_text
   end
 end

@@ -45,13 +45,10 @@
     }    
     &.tile-index-share {
         width: 466px;
-        height: 160px;
-        margin-top: 5px;
-        margin-left: -120px;
+        //height: 160px;
+        margin-left: 94px;
+        margin-top: -85px !important;
         color: $dark-gray;
-        .joyride-nub{
-            margin-left: 194px;
-        }
         .top-section{
             font-size: 18px !important;
             color: $sky-blue;            
@@ -78,9 +75,8 @@
     }
     &.tile-index-main-menu {
         width: 410px;
-        height: 100px;
-        margin-top: 20px;
-        margin-left: 0.9375em;
+        margin-top: -81px;
+        margin-left: 93px;
         color: $dark-gray;
         .top-section{
             font-size: 18px !important;

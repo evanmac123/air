@@ -22,7 +22,6 @@ $(document).ready(function() {
     });
         
   $('#tile-joyride-index-main-menu').foundation('joyride', 'start', {
-      tipLocation: 'bottom',
       step : 1,
       postStepCallback : function (){
         $('.joyride-tip-guide:last').removeClass("tile-index-share");

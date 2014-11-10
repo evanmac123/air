@@ -27,7 +27,7 @@ feature 'Creates tile' do
     new_tile.question.should == "Who rules?"
     new_tile.link_address.should == "http://www.google.com/foobar"
     new_tile.correct_answer_index.should == 2
-    new_tile.multiple_choice_answers.should == ["Me", "You", "He", "Add Answer Option"]
+    new_tile.multiple_choice_answers.should == ["Me", "You", "Hipster", "Add Answer Option"]
     new_tile.points.should == 18
     new_tile.should be_draft
 
@@ -72,7 +72,7 @@ feature 'Creates tile' do
     click_link "Me"
     expect_content "Sorry, that's not it"
 
-    click_link "He"
+    click_link "Hipster"
     expect_content "Correct!"
   end
 
@@ -138,7 +138,7 @@ feature 'Creates tile' do
     new_tile.link_address.should == "http://www.google.com/foobar"
     new_tile.correct_answer_index.should == -1
     new_tile.is_survey?.should == true
-    new_tile.multiple_choice_answers.should == ["Me", "You", "He", "Add Answer Option"]
+    new_tile.multiple_choice_answers.should == ["Me", "You", "Hipster", "Add Answer Option"]
     new_tile.points.should == 18
     new_tile.should be_draft
 
