@@ -237,41 +237,6 @@ describe Tile do
     end
   end
 
-  describe ".displayable_to_user" do
-    before(:each) do
-      Demo.find_each {|f| f.destroy}
-
-      @fun = FactoryGirl.create(:demo, name: 'Fun')
-      @not_fun = FactoryGirl.create(:demo, name: 'Not so Fun')
-
-      @leah = FactoryGirl.create(:user, name: 'Leah', demo: @fun)
-
-      @water_plants = FactoryGirl.create(:tile, demo: @fun, headline: 'Water plants')
-      @already_watered = FactoryGirl.create(:tile_completion, tile: @water_plants, user: @leah)
-
-      @wash = FactoryGirl.create(:tile, demo: @fun, headline: 'Wash the Dishes')
-      @dry = FactoryGirl.create(:tile, demo: @not_fun, headline: 'Dry the Dishes')
-      @color_after_washing = FactoryGirl.create(:tile, demo: @fun, headline: 'Choose a beautiful color for your wall')
-
-      # two tiles that don't need to be done right now
-      @shovel_snow = FactoryGirl.create(:tile, demo: @fun, start_time: 5.months.from_now)
-      @spring_cleaning = FactoryGirl.create(:tile, demo: @fun, end_time: 4.months.ago)
-
-      # And finally, a couple of tiles that have been archived
-      @archived_wash = FactoryGirl.create(:tile, demo: @fun, headline: 'Archived Wash the Dishes', status: Tile::ARCHIVE)
-      @archived_dry = FactoryGirl.create(:tile, demo: @not_fun, headline: 'Archived Dry the Dishes', status: Tile::ARCHIVE)
-
-      Tile.count.should == 8
-    end
-
-    it "should only display active, current tiles that have not been completed yet" do
-      tiles = Tile.displayable_to_user(@leah)
-      tiles.length.should == 2
-      tiles.map(&:id).should include(@wash.id)
-      tiles.map(&:id).should include(@color_after_washing.id)
-    end
-  end
-
   describe "#appears_client_created" do
     it "is true for MultipleChoiceTiles, but not OldSchoolTiles" do
       FactoryGirl.create(:multiple_choice_tile).appears_client_created.should == true

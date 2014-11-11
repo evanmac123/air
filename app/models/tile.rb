@@ -329,15 +329,6 @@ class Tile < ActiveRecord::Base
     self.after_start_time_and_before_end_time.map(&:id)
   end
 
-  def self.displayable_to_user(user, maximum_tiles = nil)
-    result = satisfiable_to_user(user).sort_by(&:activated_at).reverse
-    if maximum_tiles
-      result = result[0, maximum_tiles]
-    end
-
-    result
-  end
-  
   def self.displayable_categorized_to_user(user, maximum_tiles)
     result = satisfiable_categorized_to_user(user) 
 
@@ -365,7 +356,7 @@ class Tile < ActiveRecord::Base
     tiles_due_in_demo = after_start_time_and_before_end_time.where(demo_id: user.demo.id, status: ACTIVE)
     ids_completed = user.tile_completions.map(&:tile_id)
     satisfiable_tiles = tiles_due_in_demo.reject {|t| ids_completed.include? t.id}
-    satisfiable_tiles.sort_by(&:activated_at).reverse
+    satisfiable_tiles.sort_by(&:position).reverse
   end
 
   def self.satisfiable_categorized_to_user(user)
