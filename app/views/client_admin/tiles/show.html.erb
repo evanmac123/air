@@ -26,3 +26,7 @@
 <% elsif @show_tile_success_guide %>
   <%= render partial: 'tile_post_success_popover'%>
 <% end %>
+
+<% js_at_end do %>
+  bindTileCarouselNavigationButtons();
+<% end %>

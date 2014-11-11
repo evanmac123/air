@@ -11,3 +11,6 @@
       = link_to "", "#", :id => :next
 
 = render "shared/guest_conversion_lightbox", user: @current_user, show_conversion_form: @show_conversion_form, demo: @current_user.demo
+
+= js_at_end do
+  bindTileCarouselNavigationButtons();

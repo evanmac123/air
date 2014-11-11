@@ -184,24 +184,25 @@ window.setUpAnswersForPreview = setUpAnswersForPreview
 window.grayoutTile = grayoutTile
 window.ungrayoutTile = ungrayoutTile
 
-$ ->
-  $("body").on('click', '#next', (event) ->
-    event.preventDefault()
-    grayoutTile()
-    if isOnExplorePage()
-      loadNextTileWithOffsetForExplorePreview(1)
-    else if isOnClientAdminPage()
-      loadNextTileWithOffsetForManagePreview(1)
-    else
-      loadNextTileWithOffset(1)
-  )
-  $("body").on('click', '#prev', (event) ->
-    event.preventDefault()
-    grayoutTile()
-    if isOnExplorePage() 
-      loadNextTileWithOffsetForExplorePreview(-1)
-    else if isOnClientAdminPage()
-      loadNextTileWithOffsetForManagePreview(-1)
-    else
-      loadNextTileWithOffset(-1)
-  )
+window.bindTileCarouselNavigationButtons = () ->
+  $ ->
+    $("body").on('click', '#next', (event) ->
+      event.preventDefault()
+      grayoutTile()
+      if isOnExplorePage()
+        loadNextTileWithOffsetForExplorePreview(1)
+      else if isOnClientAdminPage()
+        loadNextTileWithOffsetForManagePreview(1)
+      else
+        loadNextTileWithOffset(1)
+    )
+    $("body").on('click', '#prev', (event) ->
+      event.preventDefault()
+      grayoutTile()
+      if isOnExplorePage() 
+        loadNextTileWithOffsetForExplorePreview(-1)
+      else if isOnClientAdminPage()
+        loadNextTileWithOffsetForManagePreview(-1)
+      else
+        loadNextTileWithOffset(-1)
+    )
