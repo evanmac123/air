@@ -4,7 +4,7 @@ checkInTile = ->
 isOnExplorePage = ->
   window.location.href.match(/explore/) != null
 
-isOnManageTilePage = ->
+isOnClientAdminPage = ->
   window.location.href.match(/client_admin/) != null
 
 getURLParameter = (sParam) ->
@@ -64,7 +64,7 @@ loadNextTileWithOffset = (offset, preloadAnimations, predisplayAnimations, tileP
             lightboxConversionForm()
     )
 
-loadNextTileWithOffsetForPreview = (offset) ->
+loadNextTileWithOffsetForExplorePreview = (offset) ->
   url = '/explore/tile/' + $('#tile_preview_section .tile_holder[data-current-tile-id]').data('current-tile-id')
   $.get(
     url,
@@ -159,7 +159,7 @@ attachRightAnswersForPreview = ->
       pingRightAnswerInPreview($(event.target).data('tile-id'))
       unless window.guestForTilePreview
         grayoutTile()
-        loadNextTileWithOffsetForPreview(1)
+        loadNextTileWithOffsetForExplorePreview(1)
   )
 
 attachWrongAnswers = ->
@@ -189,8 +189,8 @@ $ ->
     event.preventDefault()
     grayoutTile()
     if isOnExplorePage()
-      loadNextTileWithOffsetForPreview(1)
-    else if isOnManageTilePage()
+      loadNextTileWithOffsetForExplorePreview(1)
+    else if isOnClientAdminPage()
       loadNextTileWithOffsetForManagePreview(1)
     else
       loadNextTileWithOffset(1)
@@ -199,8 +199,8 @@ $ ->
     event.preventDefault()
     grayoutTile()
     if isOnExplorePage() 
-      loadNextTileWithOffsetForPreview(-1)
-    else if isOnManageTilePage()
+      loadNextTileWithOffsetForExplorePreview(-1)
+    else if isOnClientAdminPage()
       loadNextTileWithOffsetForManagePreview(-1)
     else
       loadNextTileWithOffset(-1)
