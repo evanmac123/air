@@ -256,7 +256,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def show_partial
-    @tile = params[:offset].to_i > 0 ? @tile.right_tile : @tile.left_tile
+    @tile = Tile.next_manage_tile(@tile, params[:offset].to_i)
     render json: {
       tile_id:      @tile.id,
       tile_content: render_to_string("client_admin/tiles/show", :layout => false)
