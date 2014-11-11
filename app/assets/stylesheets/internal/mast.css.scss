@@ -70,7 +70,6 @@ header {
   @include header_bar;
 
   box-shadow: 0 4px 4px -4px darken($header-color, 35%);
-  z-index: 1;
   position: relative;
   .small_cap {
     color:$med-gray;
