@@ -322,7 +322,7 @@ class Tile < ActiveRecord::Base
       (demo == self_demo) & 
       (status == self_status) &
       (position < self_position)
-    }.order("position DESC").first
+    }.ordered_by_position.first
   end
 
   def self.due_ids
@@ -374,19 +374,19 @@ class Tile < ActiveRecord::Base
     ids_completed = completed_tiles.map(&:id)
     not_completed_tiles = tiles_due_in_demo.reject {|t| ids_completed.include? t.id}
     
-    {completed_tiles: completed_tiles, not_completed_tiles: not_completed_tiles.sort_by(&:activated_at).reverse}
+    {completed_tiles: completed_tiles, not_completed_tiles: not_completed_tiles.sort_by(&:position).reverse}
   end
   
   def self.active
-    where("status = ?", ACTIVE).order("position DESC")
+    where("status = ?", ACTIVE).ordered_by_position
   end
 
   def self.archive
-    where("status = ?", ARCHIVE).order("position DESC")
+    where("status = ?", ARCHIVE).ordered_by_position
   end
 
   def self.draft
-    where("status = ?", DRAFT).order("position DESC")
+    where("status = ?", DRAFT).ordered_by_position
   end
 
   def self.digest(demo, cutoff_time)
@@ -412,6 +412,10 @@ class Tile < ActiveRecord::Base
 
   def self.ordered_for_explore
     order("created_at DESC")
+  end
+
+  def self.ordered_by_position
+    order "position DESC"
   end
 
   def self.next_public_tile tile_id, offset, tag_id
@@ -473,7 +477,7 @@ class Tile < ActiveRecord::Base
       (demo_id == tile_demo_id) & 
       (status == status_name) & 
       (id.not_in ids) 
-    }.order("position DESC").first(needs_tiles)
+    }.ordered_by_position.first(needs_tiles)
   end
 
   def self.insert_tile_between left_tile_id, tile_id, right_tile_id, new_status = nil

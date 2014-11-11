@@ -51,7 +51,7 @@ class InsertTileBetweenTiles
       @right_tile = left_demo.tiles.where{
         (status == left_status) & 
         (position < left_position)
-      }.order("position DESC").first
+      }.ordered_by_position.first
     end
   end
 

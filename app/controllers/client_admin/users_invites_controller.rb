@@ -29,9 +29,9 @@ class ClientAdmin::UsersInvitesController < ClientAdminBaseController
     @presenter = TilesDigestMailPreviewPresenter.new(@user, @demo, custom_message, is_invite_user)
 
     if is_invite_user
-      tiles = @demo.digest_tiles(nil).order('activated_at DESC')
+      tiles = @demo.digest_tiles(nil).ordered_by_position
     else
-      tiles = @demo.digest_tiles.order('activated_at DESC')      
+      tiles = @demo.digest_tiles.ordered_by_position
     end
     @tiles = TileBoardDigestDecorator.decorate_collection tiles, \
                                                           context: {

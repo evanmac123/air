@@ -58,7 +58,7 @@ class TilesDigestMailer < ActionMailer::Base
     email_type = @presenter.email_type
     ping_on_digest_email email_type, @user
 
-    @tiles = TileBoardDigestDecorator.decorate_collection Tile.where(id: tile_ids).order('activated_at DESC'), \
+    @tiles = TileBoardDigestDecorator.decorate_collection Tile.where(id: tile_ids).ordered_by_position, \
                                                           context: {
                                                             demo: @demo,
                                                             user: @user,

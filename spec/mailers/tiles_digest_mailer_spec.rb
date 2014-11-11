@@ -189,7 +189,7 @@ describe 'Digest email tile order' do
     tile_ids = [1, 2, 3]
 
     Tile.expects(:where).with(id: tile_ids).returns(tile_ids)
-    tile_ids.expects(:order).with('activated_at DESC').returns(tile_ids)
+    tile_ids.expects(:ordered_by_position).returns(tile_ids)
 
     TilesDigestMailer.notify_one(1, 2, tile_ids, "New Tiles", false, nil, nil)
   end
