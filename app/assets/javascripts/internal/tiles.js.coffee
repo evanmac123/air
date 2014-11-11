@@ -77,7 +77,7 @@ loadNextTileWithOffsetForPreview = (offset) ->
       ungrayoutTile()
   )
 
-loadNextTileWithOffsetForManageTile = (offset) ->
+loadNextTileWithOffsetForManagePreview = (offset) ->
   url = '/client_admin/tiles/' + $('[data-current-tile-id]').data('current-tile-id')
   $.get(
     url,
@@ -86,6 +86,13 @@ loadNextTileWithOffsetForManageTile = (offset) ->
       $('.content').children(".row").replaceWith $(data.tile_content)
       updateNavbarURL(data.tile_id)
       $('#spinner_large').css("display", "block")
+      window.sharableTileLink()
+      window.bindTagNameSearchAutocomplete(
+        '#add-tag', 
+        '#tag-autocomplete-target', 
+        "/client_admin/tile_tags"
+      )
+      setUpAnswersForPreview()
       ungrayoutTile()
   )
 
@@ -178,23 +185,23 @@ window.grayoutTile = grayoutTile
 window.ungrayoutTile = ungrayoutTile
 
 $ ->
-  $('#next').click((event) ->
+  $("body").on('click', '#next', (event) ->
     event.preventDefault()
     grayoutTile()
     if isOnExplorePage()
       loadNextTileWithOffsetForPreview(1)
     else if isOnManageTilePage()
-      loadNextTileWithOffsetForManageTile(1)
+      loadNextTileWithOffsetForManagePreview(1)
     else
       loadNextTileWithOffset(1)
   )
-  $('#prev').click((event) ->
+  $("body").on('click', '#prev', (event) ->
     event.preventDefault()
     grayoutTile()
     if isOnExplorePage() 
       loadNextTileWithOffsetForPreview(-1)
     else if isOnManageTilePage()
-      loadNextTileWithOffsetForManageTile(-1)
+      loadNextTileWithOffsetForManagePreview(-1)
     else
       loadNextTileWithOffset(-1)
   )
