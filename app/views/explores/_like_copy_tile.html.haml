@@ -1,32 +1,24 @@
--# OPTZ: cache me
--if @liked_tile_ids.include?(tile.id)
-  - display_liked = 'display:block;'
-  - display_unliked = 'display:none;'
--else
-  - display_liked = 'display:none;'
-  - display_unliked = 'display:block;'
+- cache [__FILE__, 'v2.pwd', presenter.cache_key] do
+  .tile_liked{class: presenter.like_links_class, style: presenter.display_liked}
+    %span.like_message
+      = presenter.like_count
+    = fa_icon 'arrow-up'
+    = link_to 'Voted Up', explore_tile_likes_path(presenter.explore_tile_likes_path_params), method: :delete, remote: true
+  .tile_not_liked{class: presenter.like_links_class, style: presenter.display_unliked}
+    %span.like_message
+      = presenter.like_count_if_nonzero
+    = fa_icon 'arrow-up'
+    = link_to 'Vote Up', explore_tile_likes_path(presenter.explore_tile_likes_path_params), method: :post, remote: true
 
-.tile_liked{class:"tile-#{tile.id}", style:display_liked}
-  %span.like_message
-    = tile.like_count
-  = fa_icon 'arrow-up'
-  =link_to 'Voted Up', explore_tile_likes_path(tile_id: tile.id, path: @tile_tag ? :via_explore_page_subject_tag : :via_explore_page_thumbnail), method: :delete, remote: true
-.tile_not_liked{class:"tile-#{tile.id}", style:display_unliked}
-  %span.like_message
-    -if tile.like_count > 0
-      = tile.like_count
-  = fa_icon 'arrow-up'
-  = link_to 'Vote Up', explore_tile_likes_path(tile_id: tile.id, path: @tile_tag ? :via_explore_page_subject_tag : :via_explore_page_thumbnail), method: :post, remote: true
+  - if presenter.user_copied_tile
+    %span.copied
+      = render "copy_link", presenter: presenter
 
-- if current_user.copied_tile?(tile)
-  %span.copied
-    = render "copy_link", tile: tile
+  - elsif presenter.tile_not_copyable
+    %span.viewonly_message
+      = fa_icon 'minus-circle'
+      = "View Only"
 
-- elsif !tile.is_copyable?
-  %span.viewonly_message
-    = fa_icon 'minus-circle'
-    = "View Only"
-
-- else
-  %span.not_copied
-    = render "copy_link", tile: tile
+  - else
+    %span.not_copied
+      = render "copy_link", presenter: presenter

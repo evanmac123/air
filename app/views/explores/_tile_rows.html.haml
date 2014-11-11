@@ -1,47 +1,42 @@
--# OPTZ: cache me
-- tiles.each_slice(4) do |tiles_slice|
-  - count = 0
-  %tr
-    - tiles_slice.each do |tile|
-      - count += 1
-      -thumbnail_id = "tile-thumbnail-#{tile.id }"
-      :css
-        ##{thumbnail_id} {
-          background-image: url('#{tile.thumbnail}');
-          background-repeat: no-repeat;
-        }
-      %td
-        .explore_tile
-          .company_name
-            %i.fa.fa-building-o
-            %span.text
-              -name_to_truncate = tile.demo.client_name.present? ? tile.demo.client_name : tile.demo.name
-              =truncate(name_to_truncate, length: 22)
-          .tile_image{id: thumbnail_id}
+- tile_presenters = tiles.map{|tile| SingleTilePresenter.new(tile, @tile_tag, current_user.copied_tile?(tile), @liked_tile_ids.include?(tile.id))}
+- main_cache_key = [__FILE__, 'v1.pwd', 'main', @tile_tag, *(tile_presenters.map(&:cache_key))]
 
-            -# No content for this link--it's given a background, via CSS, of the appropriate image, which makes
-            -# it nice and clickable.
-            =link_to '', explore_tile_preview_path(tile, tag: @tile_tag, thumb_click_source: thumb_click_source)
-            .like_copy_tile
-              = render partial: 'like_copy_tile', :locals => { :tile => tile }
-          .headline
-            = link_to explore_tile_preview_path(tile, tag: @tile_tag, thumb_click_source: thumb_click_source) do
-              %span.text= tile.headline
-          .author_info
-            -if !tile.nil? && !tile.creator.nil? && tile.creator.name?
-              = tile.creator.name
-            -else
-              = ''
-            %span
-              -if !tile.demo.nil? && tile.demo.name?
-                = tile.demo.name
-              -else
-                = ''
-          %ul.all_tile_tags
-          %ul.extra_tags_list
-            - tile.tile_tags.each do |tile_tag|
-              %li.tile_tag
-                = link_to tile_tag.title, tile_tag_show_explore_path(tile_tag: tile_tag.id, tag_click_source: tag_click_source)
-    - while(count < 4) do
-      - count += 1
-      %td
+- cache main_cache_key do 
+  - tile_presenters.each_slice(4) do |presenter_slice|
+    - slice_cache_key = [__FILE__, 'v1.pwd', 'slice', *(presenter_slice.map(&:cache_key))]
+    - cache slice_cache_key do
+      %tr
+        - presenter_slice.each do |presenter|
+
+          :css
+            ##{presenter.thumbnail_id} {
+              background-image: url('#{presenter.thumbnail_url}');
+              background-repeat: no-repeat;
+            }
+          %td
+            .explore_tile
+              .company_name
+                %i.fa.fa-building-o
+                  %span.text
+                  = presenter.truncated_client_or_board_name
+              .tile_image{id: presenter.thumbnail_id}
+
+                -# No content for this link--it's given a background, via CSS, of the appropriate image, which makes
+                -# it nice and clickable.
+                =link_to '', explore_tile_preview_path(presenter, tag: @tile_tag, thumb_click_source: thumb_click_source)
+                .like_copy_tile
+                  = render 'like_copy_tile', presenter: presenter
+              .headline
+                = link_to explore_tile_preview_path(presenter, tag: @tile_tag, thumb_click_source: thumb_click_source) do
+                  %span.text= presenter.headline
+              .author_info
+                = presenter.creator_name
+                %span
+                  =presenter.board_name
+              %ul.all_tile_tags
+              %ul.extra_tags_list
+                - presenter.associated_tile_tags.each do |tile_tag|
+                  %li.tile_tag
+                    = link_to tile_tag.title, tile_tag_show_explore_path(tile_tag: tile_tag.id, tag_click_source: tag_click_source)
+        - (4 - presenter_slice.length).times do
+          %td
