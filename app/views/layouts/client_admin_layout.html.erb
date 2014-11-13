@@ -26,6 +26,7 @@
 <body class="<%= body_class %> client_admin_main" style="-webkit-overflow-scrolling: touch; overflow:visible; ">
   <%= render 'shared/header' %>
   <%= render 'shared/flashes' %>
+  <%= render 'shared/offcanvas_menu_signedin' %>
   <main class="main">
     <% if current_user.has_tiles_tools_subnav? %>
       <%= render partial: 'client_admin/tiles/tiles_tools_subnav' %>

@@ -28,14 +28,8 @@
                   <%= options_from_collection_for_select @boards_to_switch_to, :id, :name, current_user.demo_id %>
                 </select>
               </li>
-              <%= content_for :javascript do %>
-                <%= javascript_tag do %>
-                  $('.board_switch_dropdown select').live('change', function(event) {
-                    selectedOption = $(event.target).find('option:selected');
-                    boardId = selectedOption.val();
-                    $('#board-switch-link-' + boardId).click();
-                  });
-                <% end %>
+              <% js_at_end do %>
+                bindBoardSwitchDropdownSelect();
               <% end %>
             <% end %>
 

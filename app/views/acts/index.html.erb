@@ -22,16 +22,9 @@
 
         <%= image_tag 'spinner_gears.gif', :id => 'see-more-spinner', :style => 'display:none;' %>
 
-  	    <%= render 'shared/bind_see_more', 
-  	      :offset_var_name     => 'actOffset', 
-  	      :current_offset      => @acts.length,
-  	      :button_selector     => '#see-more',
-  	      :spinner_selector    => '#see-more-spinner',
-  	      :original_path       => acts_path(:format => :js, :show_only => @show_only, :mode => 'see-more'),
-  	      :path_var_name       => 'actsPath',
-  	      :mixpanel_event_name => 'saw more acts'
-  	    %>
-
+        <% js_at_end do %>
+          bindSeeMoreActs('<%= acts_path(format: :js) %>', <%= @acts.length %>)
+        <% end %>
   	</div>
   </div>
 

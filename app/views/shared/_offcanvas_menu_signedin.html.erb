@@ -1,53 +1,9 @@
 <% board_switching_allowed = current_user.try(:can_switch_boards?) %>
 <% nerf_links_with_login_modal = current_user.try(:nerf_links_with_login_modal?) %>
 
-<script>
-var jPM = $.jPanelMenu({
-  menu: 'header nav',
-  trigger: '.off-canvas-toggle a'
-});
-var jRes = jRespond([
-  {
-    label: 'small',
-    enter: 0,
-    exit: 767
-  },{
-    label: 'large',
-    enter: 768,
-    exit: 10000
-  }
-]);
-jRes.addFunc([
-  {
-    breakpoint: 'small',
-    enter: function() {
-      window.intercomDisabled = true;
-      jPM.on();
-      desktop_user_menu().show();
-      desktop_admin_menu().show();
-    },
-    exit: function() {
-      jPM.off();
-      hideUserMenu();
-      hideAdminMenu();
-    }
-  },{
-    breakpoint: 'large',
-    enter: function() {
-      user_toggler().on();
-      admin_toggler().on();
-      bindTogglers(<%= board_switching_allowed %>);
-    },
-    exit: function() {
-      user_toggler().off();
-      admin_toggler().off();
-      desktop_user_menu().show();
-      desktop_admin_menu().show();
-    }
-  }
-]);
-
-<% if nerf_links_with_login_modal %>
-  nerfLinksWithLoginModal();
+<% js_at_end do %>
+  bindOffcanvasMenu(<%= board_switching_allowed %>);
+  <% if nerf_links_with_login_modal %>
+    nerfLinksWithLoginModal();
+  <% end %>
 <% end %>
-</script>

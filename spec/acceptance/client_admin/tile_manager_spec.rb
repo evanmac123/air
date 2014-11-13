@@ -299,16 +299,19 @@ feature 'Client admin and tile manager page' do
         
         visit_tile_manager_page
         wait_for_ajax
+        sleep 3 # shut up
         expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
         
         page.should have_content("You've had your first user interact with a tile!")
         click_link 'Got It'
         
         wait_for_ajax
+        sleep 3 # shut up
         expect_mixpanel_action_ping('Tiles Page', 'Pop Over - clicked Got It')
         
         visit_tile_manager_page
         wait_for_ajax
+        sleep 3 # shut up
         expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
 
         page.should_not have_content("You've had your first user interact with a tile!")

@@ -29,12 +29,6 @@
           %li.act-shim
           = render :partial => 'shared/act', :collection => @acts, :as => :act
       = render 'shared/see_more'
-  = content_for :javascript do
-    :javascript
-      var actOffset = #{@acts.length};
 
-      $('#see-more').bind('click', function(e) {
-        $('#see-more-spinner').show();
-        $.get('#{ user_acts_path(:user_id => @user.id, :format => :js)}', {offset: actOffset});
-        e.preventDefault();
-      });
+  = js_at_end do
+    bindSeeMoreActs('#{user_acts_path(user_id: @user.id, format: :js)}', #{@acts.length});

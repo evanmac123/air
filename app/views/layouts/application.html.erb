@@ -30,6 +30,7 @@
 
   <%= render 'shared/header', :show_play_box => true %>
   <div id='js-flashes'><%= render 'shared/flashes' %> </div> 
+  <%= render 'shared/offcanvas_menu_signedin' %>
 
   <main class="main">
     <% if current_user.has_tiles_tools_subnav? %>
@@ -45,8 +46,8 @@
     </div>
   </main>
 
-  <%= render :partial => 'shared/javascript' %><!-- This is where 'yield :javascript' takes place -->
   <%= render 'shared/intercom' %>
+  <%= render :partial => 'shared/javascript' %><!-- This is where 'yield :javascript' takes place -->
   
   <div id='gradient-triangle'></div>
   <%= javascript_include_tag 'rem.min.js' %>

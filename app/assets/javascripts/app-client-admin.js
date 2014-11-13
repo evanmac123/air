@@ -21,15 +21,18 @@
 //= require ./internal/countUp.min
 //= require internal/flashes
 //= require internal_and_external/nerf_links_with_login_modal
-
 //= require wice_grid
 //= require ../../../vendor/assets/javascripts/external/foundation.min
 //= require history_jquery
 //= require jquery.validate
 //= require jquery.validate.additional-methods
+//= require internal/create_new_board
 //= require internal/validate_new_board
 //= require introjs
 //= require ./external/placeholder_ie.js
+//= require internal/offcanvas_menu
+//= require internal/board_switch_dropdown
+//= require internal_and_external/intercom_setup
 
 $(document).ready(function() {
   $('.client_admin-users').foundation();

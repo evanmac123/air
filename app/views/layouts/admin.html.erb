@@ -14,6 +14,7 @@
 
   <%= render 'shared/header', :show_play_box => false %>
   <%= render 'shared/flashes' %>
+  <%= render 'shared/offcanvas_menu_signedin' %>
   <div class="content">
     <%= yield %>
   </div>
@@ -22,8 +23,8 @@
   </div>
 
   
+  <%= render "shared/intercom" %>
   <%= render :partial => 'shared/javascript' %><!-- This is where 'yield :javascript' takes place -->
   <div id='gradient-triangle'></div>
-  <%= render "shared/intercom" %>
 </body>
 </html>
