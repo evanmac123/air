@@ -12,13 +12,3 @@
 <span class="when small_cap">
   <%= time_description %> ago
 </span>
-
-<%= cache [__FILE__, 'part 2', 'v3.pwd', act] do %>
-  <% flag_link_id = "flag_#{act.id}" %>
-  <span class="flag">
-    <%= link_to "", "#", :id => flag_link_id %>
-  </span>
-  <%= javascript_tag do %>
-    connectFlagLink('<%= flag_link_id %>', <%= act.id %>, <%= act.user_id %>)
-  <% end %>
-<% end %>
