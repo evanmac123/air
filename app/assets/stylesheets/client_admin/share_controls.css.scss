@@ -55,15 +55,13 @@
     }
     
     .switch{
+      @include green-paddle-switch;
       @include switch-size(16px, 9px, 2.3em);
-      @include switch-style($switch-paddle-bg, $light-gray, $dark-green, false, true);
-      float: left;
-      width: 45px;
-      margin-top: 3px;
-      margin-bottom: 8px;
+      margin-top: 0;
+      margin-right: 2px;
       span.switch_button {
-        -webkit-box-shadow: 2px 0 10px 0 rgba(0, 0, 0, 0.07), 1000px 0 0 1000px #dfdfdf, -2px 0 10px 0 rgba(0, 0, 0, 0.07), -1000px 0 0 1000px #4faa60;
-        box-shadow: 2px 0 10px 0 rgba(0, 0, 0, 0.07), 1000px 0 0 988px #dfdfdf, -2px 0 10px 0 rgba(0, 0, 0, 0.07), -1000px 0 0 1000px #4faa60;
+        -webkit-box-shadow: 2px 0 10px 0 rgba(0, 0, 0, 0.07), 1000px 0 0 1000px #dfdfdf, -2px 0 10px 0 rgba(0, 0, 0, 0.07), -1000px 0 0 1000px $sky-blue;
+        box-shadow: 2px 0 10px 0 rgba(0, 0, 0, 0.07), 1000px 0 0 988px #dfdfdf, -2px 0 10px 0 rgba(0, 0, 0, 0.07), -1000px 0 0 1000px $sky-blue;
       }
     }
   }
@@ -185,7 +183,8 @@
   }
 
   input[type="submit"] {
-    @include app-button($dark-green);
+    @include app-button($sky-blue);
+    //background: $sky-blue !important;
     font-size:1em;
     padding:.35em .5em;
     height: 35px;
@@ -207,7 +206,7 @@
     margin-bottom: 20px;
     padding: 10px 10px 10px 0px;
     border-bottom: 1px solid $light-gray;
-    color: $dark-green;
+    color: $sky-blue;
     font-size: 18px;        
     #last-email {
       @include caption;

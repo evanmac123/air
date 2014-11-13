@@ -244,7 +244,7 @@ body.client_admin-draft_tiles #active_tiles,
     &:hover {border-color:lighten($blue, 10%); color:transparent;}
     &:before {
         color:$white;
-        background:$dark-green;
+        background:$sky-blue;
         border-radius:$border-radius;
         content:"+";
         display: block;
@@ -260,7 +260,7 @@ body.client_admin-draft_tiles #active_tiles,
         overflow: hidden;
         padding-top:32px;
     }
-    &:hover:before {background:darken($dark-green, 7%);}
+    &:hover:before {background:darken($sky-blue, 7%);}
     &:after{
         color:$white;
         line-height:1em;
