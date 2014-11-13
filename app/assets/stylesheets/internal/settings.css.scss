@@ -1,7 +1,7 @@
 body.settings .large-8 .module_inner {margin-bottom:1em; padding:1em 0;}
 body.settings .large-4 .module_inner {margin-bottom:1em;}
 body.settings {
-    input[type="submit"] {@include app-button($dark-green);}
+    input[type="submit"] {@include app-button($sky-blue);}
     label {margin-bottom:.5em;}
 }
 // Left side

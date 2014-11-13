@@ -32,9 +32,13 @@
       margin-left:.5em;
       text-align: center;
       width:auto;
-      a {@include light-button($white);}
+      a {
+        @include light-button($white);
+        font-size: 18px !important;
+        font-weight: 400 !important;
+      }
       &.archive_button a {@include app-button($med-gray);}
-      &.activate_button a {@include app-button($dark-green);}
+      &.activate_button a {@include app-button($sky-blue);}
     }
   }
 

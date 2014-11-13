@@ -185,7 +185,8 @@
   input[type="submit"] {
     @include app-button($sky-blue);
     //background: $sky-blue !important;
-    font-size:1em;
+    font-size:18px;
+    font-weight: 400;
     padding:.35em .5em;
     height: 35px;
     width: 100%;

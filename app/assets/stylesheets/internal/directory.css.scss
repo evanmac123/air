@@ -17,7 +17,7 @@
         vertical-align: middle;
     }
     #find_button {
-        @include app-button($dark-green);
+        @include app-button($sky-blue);
         border-radius:0;
         height:40px;
         width:20%;
@@ -65,7 +65,7 @@
     .pending_notice {
         color:$med-gray;
     }
-    .follow-btn {@include app-button($dark-green);}
+    .follow-btn {@include app-button($sky-blue);}
     .stop-following-btn {@include app-button($red);}
     .follow-btn, .stop-following-btn {
         @include ease(.15s);

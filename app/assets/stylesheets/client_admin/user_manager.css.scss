@@ -259,6 +259,7 @@ body.client_admin-users .breadcrumbs,
 body.client_admin-tile_completions .breadcrumbs {
   position:relative;
   top:-1.75em;
+  margin-top: 2em;
 }
 
 #add-single-user {
@@ -395,7 +396,7 @@ body.client_admin-users-edit, body.client_admin-users-update {
     }  
   }
   #user-join-status a, #user-join-status a:link {
-    @include light-button($dark-green);
+    @include light-button($sky-blue);
     display: inline-block;
     margin:.75em 0 0 0;
   }

@@ -23,13 +23,13 @@ body {
 		margin:0 auto;
 		&:after{@include clear;}
 		.seemore a {
-			@include app-button($dark-green);
+			@include app-button($sky-blue);
 			display: block;
 		}
 	}
 	.module {font-size:.875em; margin-bottom:2em;}
 	.find_users {
-    @include light-button($dark-green);
+    @include light-button($sky-blue);
     @include caption;
     padding:.25em .4em;
     margin-left:.5em;

@@ -27,6 +27,8 @@
       #show-chart-link {
         @include app-button($sky-blue);
         margin:0;
+        font-size: 18px;
+        font-weight: 400;
       }
     }
     &#chart-labeling {
