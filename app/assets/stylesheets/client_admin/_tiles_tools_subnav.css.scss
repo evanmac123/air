@@ -67,6 +67,8 @@
 }
 // Current page states
 body.explores.explores-show #tile_manager_nav li#explore,
+body.explores.explores-tile_tag_show #tile_manager_nav li#explore,
+body.tile_previews-show #tile_manager_nav li#explore,
 body.acts.acts-index #tile_manager_nav li#home_nav,
 body.tiles.tiles-index #tile_manager_nav li#home_nav,
 body.client_admin-tiles-index #tile_manager_nav li#managing_tiles,
@@ -79,6 +81,7 @@ body.client_admins-show #tile_manager_nav li#board_activity,
 body.client_admin-shares #tile_manager_nav li#share_tiles,
 body.client_admin-users-index #tile_manager_nav li#users,
 body.client_admin-users-edit #tile_manager_nav li#users,
+body.client_admin-users-create #tile_manager_nav li#users,
 body.client_admins-show #tile_manager_nav li#board_activity,
 body.client_admin-shares #tile_manager_nav li#share_tiles,
 body.client_admin-users-index #tile_manager_nav li#users,
