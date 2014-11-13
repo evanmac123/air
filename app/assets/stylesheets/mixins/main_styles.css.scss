@@ -155,9 +155,11 @@ $border-light:      1px #fff solid;
 @mixin box-outer-shadow($color) {box-shadow:  0px 0px 1px 1px $color;}
 
 @mixin form-group {
-  background: $form-bg;
-  @include box-down-shadow(darken($light-gray, 5%));
-  border:1px lighten($form-bg, 2%) solid;
+  //background: $form-bg;
+  //@include box-down-shadow(darken($light-gray, 5%));
+  //border:1px lighten($form-bg, 2%) solid;
+  background: transparent;
+  border:1px $light-gray solid;
   border-radius:$border-radius;
   padding:1em;
   &:after{@include clear;}
