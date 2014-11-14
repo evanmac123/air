@@ -1,16 +1,23 @@
-.pace .pace-progress {
-  background: #29d;
-  position: fixed;
-  z-index: 2000;
-  top: 0;
-  left: 0;
+.pace {
   height: 2px;
+  background: #29d;
   width: 100%;
+  z-index: 2000;
+  position: absolute;
+  .pace-progress {
+    background: white;
+    position: fixed;
+    z-index: 2000;
+    top: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
 
-  -webkit-transition: width 1s;
-  -moz-transition: width 1s;
-  -o-transition: width 1s;
-  transition: width 1s;
+    -webkit-transition: width 1s;
+    -moz-transition: width 1s;
+    -o-transition: width 1s;
+    transition: width 1s;
+  }
 }
 
 .pace-inactive {
