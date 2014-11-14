@@ -158,6 +158,7 @@ body.client_admin-tiles-show{
       }
       &.remove_from_explore{
         @include light-button($light-gray);
+        margin-right: 8px;
       }
 
       float: right;
@@ -187,8 +188,14 @@ body.client_admin-tiles-show{
         @include caption;
         font-size: 0.75rem;
       }
-      .switch.disabled {
-        @include switch-style($switch-paddle-bg, $light-gray, $light-gray, false, true);
+      .switch{
+        @include switch-size(16px, 9px, 2.3em);
+        &.disabled {
+          span.green-paddle {
+            -webkit-box-shadow: 2px 0 10px 0 rgba(0, 0, 0, 0.07), 1000px 0 0 1000px #dfdfdf, -2px 0 10px 0 rgba(0, 0, 0, 0.07), -1000px 0 0 1000px $light-gray;
+            box-shadow: 2px 0 10px 0 rgba(0, 0, 0, 0.07), 1000px 0 0 988px #dfdfdf, -2px 0 10px 0 rgba(0, 0, 0, 0.07), -1000px 0 0 1000px $light-gray;
+          }
+        }
       }
     }
     #tag-autocomplete-target{

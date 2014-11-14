@@ -17,9 +17,18 @@ h5 {color:$med-gray}
 .logos .example {padding:2em 1em; text-align: center;}
 
 
-.small_button {font-size:12px!important;}
-.medium_button {font-size:16px!important;}
-.large_button {font-size:20px!important;}
+.small_button {
+  font-size:12px!important;
+  //min-width: 90px !important;
+}
+.medium_button {
+  font-size:16px !important;
+  //min-width: 150px !important;
+}
+.large_button {
+  font-size:20px!important;
+  //min-width: 200px !important;
+}
 
 .big_button#blue {@include app-button($blue);}
 .big_button#green {@include app-button($dark-green);}
