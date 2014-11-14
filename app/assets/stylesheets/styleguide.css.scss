@@ -38,7 +38,13 @@ h5 {
   color:$med-gray;
 }
 
-.logos .example {padding:2em 1em; text-align: center;}
+.logos .example {
+  padding:1em 1em; 
+  text-align: center;
+  img{
+    max-height: 3em;
+  }
+}
 
 
 .small_button {
@@ -55,7 +61,7 @@ h5 {
 }
 
 .big_button#blue {@include app-button($blue);}
-.big_button#green {@include app-button($dark-green);}
+.big_button#sky-blue {@include app-button($sky-blue);}
 .big_button#orange {@include app-button($orange);}
 .big_button#red {@include app-button($red);}
 .big_button#gray {@include app-button($med-gray);}
@@ -64,7 +70,7 @@ h5 {
   .full-buttons {margin-bottom:2em;}
   .light_button#blue {@include light-button($blue);}
   .light_button#gray {@include light-button($med-gray);}
-  .light_button#green {@include light-button($dark-green);}
+  .light_button#sky-blue {@include light-button($sky-blue);}
   .light_button#orange {@include light-button($orange);}
   .light_button#red {@include light-button($red);}
 }
