@@ -12,19 +12,54 @@
   </section>
 
   <section class="colors">
-    <h5>Color palette</h5>
-    <div class="large-12 columns large-centered">
-      <div class="example row">
-        <div class="large-3 columns" id="blue">#50698C</div>
-        <div class="large-3 columns" id="green">#4FAA60</div>
-        <div class="large-3 columns" id="orange">#FF7D00</div>
-        <div class="large-3 columns" id="red">#BC4C40</div>
-        <div class="large-3 columns" id="dark-gray">#2e2e2c</div>
-        <div class="large-3 columns" id="gray">#818385</div>
-        <div class="large-3 columns" id="med-gray">#a8a8a8</div>
-        <div class="large-3 columns" id="light-gray">#dfdfdf</div>
+    <%
+      palettes = {
+        "Various grays" => {
+          "dark-gray"       => "#2e2e2c",
+          "med-gray"        => "#a8a8a8",
+          "gray"            => "#818385",
+          "almost-white"    => "#fefefe",
+          "darker-gray"     => "#66676d",
+          "light-gray"      => "#dfdfdf",
+          "dark"            => "#0c0c0b"
+        },
+        "Our palette"   => {
+          "blue"            => "#50698C",
+          "light-blue"      => "#a7d5ef",
+          "sky-blue"        => "#4face0",
+          "med-blue"        => "#4FACE0",
+          "dark-green"      => "#4FAA60",
+          "orange"          => "#ff7d00",
+          "red"             => "#BC4C40",
+          "white"           => "#fff"
+        },
+        "App elements"   => {
+          "header-color"    => "#fff",
+          "offcanvas-gray"  => "#2e2e2c",
+          "text-color"      => "#4c4c4c",
+          "tile-text"       => "#a8a8a8",
+          "tile-tag-border" => "#dfdfdf",
+          "body-bg"         => "#fefefe",
+          "tile-wall-bg"    => "#d9dfe9",
+          "form-bg"         => "#f2f5f8",
+          "ca-subnav-color" => "#34445b"
+        }
+      }
+    %>
+    <% palettes.each do |palette_name, palette| %>
+      <h5><%= palette_name %></h5>
+      <div class="large-12 columns large-centered">
+        <div class="example row">
+          <% palette.each do |name, color| %>
+            <%= content_tag :div, id: name, class: "large-3 columns", style: "background:#{color};" do %>
+              <%= name %>
+              <br/>
+              <%= color %>
+            <% end %>
+          <% end %>
+        </div>
       </div>
-    </div>
+    <% end %>
   </section>
 
   <section class="headers">

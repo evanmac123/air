@@ -43,14 +43,24 @@ h5 {color:$med-gray}
   padding:1.5em .5em;
   text-align: center;
   text-transform: uppercase;
-  &#blue {background:$blue}
-  &#green {background:$dark-green}
+  
+  &#almost-white, 
+  &#light-gray, 
+  &#white, 
+  &#header-color,
+  &#tile-tag-border,
+  &#body-bg,
+  &#tile-wall-bg,
+  &#form-bg
+  {color: $dark;}
+  /*&#green {background:$dark-green}
   &#orange {background:$orange}
   &#red {background:$red}
   &#dark-gray {background:$dark-gray}
   &#med-gray {background:$med-gray}
   &#gray {background:$gray}
   &#light-gray {background:$light-gray}
+  */
 }
 
 .progress_bar {
