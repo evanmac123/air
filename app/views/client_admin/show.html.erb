@@ -1,18 +1,19 @@
+
 <div class="row">
   <div class="large-3 columns quick_stats">
     <h2>Stats</h2>
     <div class="stats section">
       <ul class="stat-group">
         <li class="labels">Participants</li>
-        <li class="numbers"><h3><%= number_with_delimiter @claimed_user_count %></h3></li>
+        <li class="numbers"><h1><%= number_with_delimiter @claimed_user_count %></h1></li>
       </ul>
       <ul class="stat-group">
         <li class="labels">Added Mobile Numbers</li>
-        <li class="numbers"><h3><%= @with_phone_percentage %></h3></li>
+        <li class="numbers"><h1><%= @with_phone_percentage %></h1></li>
       </ul>
       <ul class="stat-group">
         <li class="labels">Recruited By Peer</li>
-        <li class="numbers"><h3><%= @with_peer_invitation_fraction %></h3></li>
+        <li class="numbers"><h1><%= @with_peer_invitation_fraction %></h1></li>
       </ul>
     </div>
   </div>

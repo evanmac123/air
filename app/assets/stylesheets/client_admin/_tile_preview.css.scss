@@ -153,12 +153,12 @@ body.client_admin-tiles-show{
     $share_to_explore_width: 195px;
     .share_to_explore{
       @include light-button($sky-blue);
+      margin-right: 8px;
       &.disabled {
         @include light-button($light-gray);
       }
       &.remove_from_explore{
         @include light-button($light-gray);
-        margin-right: 8px;
       }
 
       float: right;

@@ -8,6 +8,7 @@
         padding:.5em;
     }
     #search_string {
+        @include regular-text;
         float:left;
         height:40px;
         line-height: 1em;

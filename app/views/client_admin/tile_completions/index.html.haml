@@ -6,11 +6,11 @@
         %span Completion Report
 .row
   .large-12.columns
-    %h3
+    %h2
       Tile headline:
       =@tile.name
     = render partial: 'survey_chart' if @tile.is_survey?
-    %h3
+    %h2
       By User
     .tile_completions_controls
       Completed:
