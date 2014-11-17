@@ -118,24 +118,32 @@ h1 {
 }
 h2 {
   @include font-light;
-  font-size:1.75em;
-  font-size:1.75rem;
+  //font-size:1.75em;
+  //font-size:1.75rem;
+  font-size: 18px;
   line-height: 1.35em;
+  color: $sky-blue;
 }
 h3 {
   @include font-semibold;
   //color:darken($gray, 15%);
   //font-size:1.25em;
   //font-size:1.25rem;
-  color: $med-gray;
-  font-size: 18px;
+  color: $text-color;
+  font-size: 16px;
 }
 h4 {
-  @include font-semibold;
-  font-size:1em;
-  font-size:1rem;
+  //@include font-semibold;
+  //font-size:1em;
+  //font-size:1rem;
+  @include caption;
 }
-h5 {@include caption;}
+h5 {
+  @include font-bold;
+  color:$med-gray;
+  font-size: 12px;
+  text-transform: uppercase;
+}
 p {line-height:1.25em; margin:0; padding:0;}
 
 // ------------------------ * Breakpoints & measurements * ------------------------
@@ -370,7 +378,7 @@ a, a:link, a:visited {@include link($blue);}
     }
   }
 }
-
+/*
 @mixin light-button-small($outlineColor) {
   background:transparent;
   border:1px $outlineColor solid;
@@ -399,7 +407,7 @@ a, a:link, a:visited {@include link($blue);}
     }
   }
 }
-
+*/
 // ------------------------ * Arrows * ------------------------
 @mixin arrow-up($color, $size) {
   border-right: #{$size} solid transparent;

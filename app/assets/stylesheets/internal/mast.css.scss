@@ -152,7 +152,7 @@ header {
     float: left;
     text-align: center;
   }
-  #save_progress_button {@include light-button-small($sky-blue); font-size: .8em;}
+  #save_progress_button {@include light-button($sky-blue); font-size: .8em;}
   #sign_in_button {@include light-button($med-gray); font-size: .8em;}
   #guest_user_start_over_button {@include light-button($med-gray); font-size: .8em;}
 }

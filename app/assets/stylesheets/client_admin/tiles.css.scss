@@ -147,7 +147,7 @@ body.client_admin-draft_tiles {
         #draft, #archive{
             &:after{ @include clear; }
         }
-        h2, .all_inactive {display: inline-block;}
+        h1, .all_inactive {display: inline-block;}
         .tile_thumbnail.placeholder_tile {
             border-color:lighten($blue, 13%);
         }
@@ -155,7 +155,7 @@ body.client_admin-draft_tiles {
             @include app-button($dark-green);
             float: right;
         }
-        h2 {
+        h1 {
             color:$white;
         }
         .all_inactive, .all_draft
@@ -229,7 +229,7 @@ body.client_admin-inactive_tiles #active_tiles,
 body.client_admin-draft_tiles #active_tiles,
 .tiles_to_be_shared {
     background: $tile-wall-bg;
-    h2 {color:$text-color;}
+    h1 {color:$text-color;}
 }
 
 // Create new tile placeholder link
