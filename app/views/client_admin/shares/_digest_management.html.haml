@@ -5,32 +5,28 @@
   = form_tag client_admin_tiles_digest_notification_path, class: :custom do
     .notification_controls
       .send_to
-        %p
-          RECIPIENTS
+        %h4 Recipients
         .drop_down= select_tag :digest_send_to, options_for_select([['All Users', true], ['Activated Users', false]], @demo.unclaimed_users_also_get_digest)
 
       .follow_up
-        %p
-          FOLLOW-UP EMAIL
+        %h4 Folluw-up email
         .drop_down= select_tag :follow_up_day, options_for_select(%w(Never) + Date::DAYNAMES, selected: default_follow_up_day)
 
       .custom_subject
-        %p
-          EMAIL SUBJECT
+        %h4 Email subject
         = text_area_tag "digest[custom_subject]", '', size: "50x3", maxlength: 80, placeholder: 'New Tiles'
         = javascript_include_tag 'admin/byte_counter'
         :javascript
           addCharacterCounterFor('#digest_custom_subject');
 
       .custom_headline
-        %p CUSTOM HEADLINE
+        %h4 Custom headline
         = text_area_tag "digest[custom_headline]", '', size: "50x3", maxlength: 75, placeholder: 'Your New Tiles Are Here!'
         :javascript
           addCharacterCounterFor('#digest_custom_headline');
 
       .intro_message
-        %p
-          INTRO MESSAGE
+        %h4 Intro message
         = text_area_tag "digest[custom_message]", '', size: "50x6", maxlength: 160
         :javascript
           addCharacterCounterFor('#digest_custom_message');

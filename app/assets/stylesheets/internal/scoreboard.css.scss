@@ -7,16 +7,16 @@ $height_scoreboard_bar: 1.25em;
   width: $width_scoreboard_bar;
   position: relative;
   overflow: hidden;
-  .grey_bubble, .orange_bubble, .shine {
+  .full_bubble, .completed_bubble, .shine {
     height: $height_scoreboard_bar;
     position: absolute;
     top:0;
   } 
-  .grey_bubble{
+  .full_bubble{
     width: $width_scoreboard_bar;
     background:#cdcccc;
   }
-  .orange_bubble {
+  .completed_bubble {
     @include completed_progress;
   }
   .shine {@include bar_shine;}
@@ -71,7 +71,7 @@ table.scoreboard{
 }
 
 
-#this_is_me * {color:$orange;}
+#this_is_me * {color:$sky-blue;}
 
 #scoreboard_headers{
   border-bottom:1px $light-gray solid;

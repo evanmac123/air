@@ -32,10 +32,10 @@
       margin-left:.5em;
       text-align: center;
       width:auto;
-      a {
+      .edit_tile_link a {
         @include light-button($white);
-        font-size: 18px !important;
-        font-weight: 400 !important;
+        //font-size: 18px !important;
+        //font-weight: 400 !important;
       }
       &.archive_button a {@include app-button($med-gray);}
       &.activate_button a {@include app-button($sky-blue);}

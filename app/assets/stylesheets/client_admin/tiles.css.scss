@@ -161,7 +161,8 @@ body.client_admin-draft_tiles {
         .all_inactive, .all_draft
         {
             @include light-button($white);
-            @include caption;
+            font-size: 10px;
+            //@include caption;
             margin: 0 auto;
             margin-bottom: 3em;
             display: block;
@@ -275,7 +276,8 @@ body.client_admin-draft_tiles #active_tiles,
 // Links to download CSV tile reports
 a.download_csv {
     @include light-button($med-gray);
-    @include caption;
+    //@include caption;
+    font-size: 10px;
     color: $med-gray !important;
     position: absolute;
     top: 10px;

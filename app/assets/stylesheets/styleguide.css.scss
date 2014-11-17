@@ -11,7 +11,7 @@ section:after{@include clear;}
 }
 
 .dark-bg {background:$dark-gray; border-color:$dark-gray;}
-
+/*
 h2 {
   font-size: 18px;
   color: $sky-blue;
@@ -33,9 +33,11 @@ h5 {
   text-transform: uppercase;
   font-weight: 700;
 }
+*/
 #regular_text{
-  font-size: 14px;
-  color:$med-gray;
+  //font-size: 14px;
+  //color:$med-gray;
+  @include regular-text;
 }
 
 .logos .example {
@@ -92,28 +94,4 @@ h5 {
   &#tile-wall-bg,
   &#form-bg
   {color: $dark;}
-  /*&#green {background:$dark-green}
-  &#orange {background:$orange}
-  &#red {background:$red}
-  &#dark-gray {background:$dark-gray}
-  &#med-gray {background:$med-gray}
-  &#gray {background:$gray}
-  &#light-gray {background:$light-gray}
-  */
-}
-
-.progress_bar {
-  background-color: $light-gray;
-  border-radius: 2em;
-  padding: .5em;
-  width: 100%;
-
-  .filled_bar {
-    @include ease(1s);
-    background: $white;
-    border-radius: 2em;
-    height: 1em;
-    width: 50%;
-    max-width: 100%;
-  }
 }

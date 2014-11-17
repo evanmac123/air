@@ -26,13 +26,12 @@
      width: 200px;
      margin-top: 8px;
     .public_board_title{
-        font-size: 18px;
         float: left;
         color: $med-gray;
     }
     .fa-question-circle{
         float: left;
-        padding-top: 2px;
+        padding-top: 1px;
         padding-left: 10px;
         color: $med-gray;
     }
@@ -42,9 +41,9 @@
     width: 200px;
     .public, .private{ 
       float: left;
-      font-size: 11px;
-      text-transform: uppercase;
-      font-weight: bold;
+      //font-size: 11px;
+      //text-transform: uppercase;
+      //font-weight: bold;
       margin: 3px;
       &.engaged {
         color: #000000;
@@ -73,8 +72,8 @@
       float: left;
       width: 58px;
       margin: 4px 10px;
-      color: $med-gray;
-      text-transform: uppercase;
+      //color: $med-gray;
+      //text-transform: uppercase;
     }
     .fa {
       color: $med-gray;
@@ -126,12 +125,13 @@
     float: left;    
     .send_to, .follow_up, .intro_message, .custom_subject, .custom_headline {
       margin-bottom:3.75em;
-      p {
+      h4 {  }
+      /*p {
         @include caption;
         margin-bottom:.75em;
         text-transform: uppercase;
         color: $gray;
-      }
+      }*/
       .drop_down{          
         *{color: $med-gray;font-weight: normal;}
       }
@@ -272,7 +272,7 @@
   margin-bottom: 2em;
   a#make_public { @include app-button($dark-green) }
   a#make_private { @include app-button($red) }
-  p { margin-bottom: 0.75em; }
+  //p { margin-bottom: 0.75em; }
 }
 
 $public_slug_height: 2.25em;

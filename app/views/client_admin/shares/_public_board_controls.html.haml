@@ -1,13 +1,13 @@
 //.public_board_controls
 .new_public_board{:id=>"#{current_user.demo.id}"}
   %div.title_div
-    %div.public_board_title Board Access
+    %h3.public_board_title Board Access
     %i.fa.fa-question-circle.has-tip{"data-tooltip" => true, "data-options" => "tooltip_class:'mytooltip'", title:"If Private, only people you add can see your board.<br/>If public, anyone with the share link can see and join it."}
   %div.status_div
     - unless @board_is_public
-      .private.engaged PRIVATE
+      %h4.private.engaged PRIVATE
     - else
-      .private.disengaged PRIVATE
+      %h4.private.disengaged PRIVATE
     .switch.small.round
       %input#public_button{name: "switch-board", type: "radio", checked: @board_is_public}
       %input#private_button{name: "switch-board", type: "radio", checked: !@board_is_public}
@@ -15,13 +15,13 @@
       %label.for_public{for: "private_button"} &nbsp
       %span.switch_button
     - if @board_is_public
-      .public.engaged PUBLIC
+      %h4.public.engaged PUBLIC
     - else
-      .public.disengaged PUBLIC
+      %h4.public.disengaged PUBLIC
   %div.status_message_div
     - if @board_is_public
       .fa.fa-unlock.fa-2x
-      .public-demo-message SHARE LINK IS ACTIVE
+      %h5.public-demo-message SHARE LINK IS ACTIVE
     - else
       .fa.fa-lock.fa-2x
       .private-demo-message SHARE LINK IS LOCKED
