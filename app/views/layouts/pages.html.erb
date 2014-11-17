@@ -18,14 +18,14 @@
     <meta property="og:image:height" content="110" />
     <meta name="description" content="Workplace games made engaging." />
 
-    <%= stylesheet_link_tag 'styleguide' %>
+    <%= gzip_stylesheet_link_tag 'styleguide' %>
 
     <!--[if lt IE 9]>
       <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
       <style type="text/css">
       .gradient {filter: none;}</style>
     <![endif]-->
-    <%= javascript_include_tag asset_path('ga.js') if ENV['USE_GA'] %>
+    <%= gzip_javascript_include_tag asset_path('ga.js') if ENV['USE_GA'] %>
 
     <%= render 'shared/mixpanel' %>
     <%= mobvious_javascript %>
@@ -35,7 +35,7 @@
       
       <%= yield %>
 
-      <%= javascript_include_tag asset_path('ga-marketing.js') if ENV['USE_GA'] %>
+      <%= gzip_javascript_include_tag asset_path('ga-marketing.js') if ENV['USE_GA'] %>
     <%= yield :javascript %>  
   </body>
 </html>

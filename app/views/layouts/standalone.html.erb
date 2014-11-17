@@ -20,18 +20,18 @@
     <meta name="description" content="Workplace games made engaging." />
 
     <%= render 'shared/mixpanel' %>
-    <%= stylesheet_link_tag 'app-landing' %>
-    <%= javascript_include_tag 'app-landing' %>
+    <%= gzip_stylesheet_link_tag 'app-landing' %>
+    <%= gzip_javascript_include_tag 'app-landing' %>
     <%= mobvious_javascript %>
     
     <!--[if lt IE 9]>
       <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
       <style type="text/css">
       .gradient {filter: none;}</style>
-      <%= stylesheet_link_tag 'vendor/ie8-grid12-foundation-4.css' %>
-      <%= stylesheet_link_tag 'internal/internal_ie8' %>
+      <%= gzip_stylesheet_link_tag 'vendor/ie8-grid12-foundation-4.css' %>
+      <%= gzip_stylesheet_link_tag 'internal/internal_ie8' %>
     <![endif]-->
-    <%= javascript_include_tag asset_path('ga.js') if ENV['USE_GA'] %>
+    <%= gzip_javascript_include_tag asset_path('ga.js') if ENV['USE_GA'] %>
     <%= render 'shared/nerf_animations_in_test' %>
   </head>
   <body class="<%= body_class %> landing" style="-webkit-overflow-scrolling: touch; overflow:visible;">
@@ -42,9 +42,9 @@
 
     <%= render "shared/request_demo" %>
 
-    <%= javascript_include_tag asset_path('ga-marketing.js') if ENV['USE_GA'] %>
+    <%= gzip_javascript_include_tag asset_path('ga-marketing.js') if ENV['USE_GA'] %>
     <%= yield :javascript %>  
-    <%= javascript_include_tag 'jquery.lightbox_me' %>
-    <%= javascript_include_tag 'rem.min.js' %>
+    <%= gzip_javascript_include_tag 'jquery.lightbox_me' %>
+    <%= gzip_javascript_include_tag 'rem.min.js' %>
   </body>
 </html>

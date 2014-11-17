@@ -9,7 +9,7 @@ begin
     # config.fog_region = 'eu-west-1'
     #
     # Don't delete files from the store
-    # config.existing_remote_files = "keep"
+    config.existing_remote_files = "ignore"
     #
     # Automatically replace files with their equivalent gzip compressed version
     # config.gzip_compression = true

@@ -18,7 +18,7 @@
         %p
           EMAIL SUBJECT
         = text_area_tag "digest[custom_subject]", '', size: "50x3", maxlength: 80, placeholder: 'New Tiles'
-        = javascript_include_tag 'admin/byte_counter'
+        = gzip_javascript_include_tag 'admin/byte_counter'
         :javascript
           addCharacterCounterFor('#digest_custom_subject');
 

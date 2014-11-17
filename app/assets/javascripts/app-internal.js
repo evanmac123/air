@@ -12,3 +12,5 @@
 //= require jquery.ui.autocomplete
 
 $(document).foundation();
+
+if(undefined) {undefined};

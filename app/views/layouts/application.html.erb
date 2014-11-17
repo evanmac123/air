@@ -7,16 +7,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= content_for :meta %>
   <title>Airbo</title>
-  <%= stylesheet_link_tag "app-internal" %>
-  <%= stylesheet_link_tag "app-user-progress" %>
-  <%= javascript_include_tag 'app-internal' %>
-  <%= javascript_include_tag asset_path('ga.js') if ENV['USE_GA'] %>
+  <%= gzip_stylesheet_link_tag "app-internal" %>
+  <%= gzip_stylesheet_link_tag "app-user-progress" %>
+  <%= gzip_javascript_include_tag 'app-internal' %>
+  <%= gzip_javascript_include_tag asset_path('ga.js') if ENV['USE_GA'] %>
 
   <!--[if lt IE 9]>
     <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <style type="text/css">.gradient {filter: none;}</style>
-    <%= stylesheet_link_tag 'vendor/ie8-grid12-foundation-4.css' %>
-    <%= stylesheet_link_tag 'internal/internal_ie8' %>
+    <%= gzip_stylesheet_link_tag 'vendor/ie8-grid12-foundation-4.css' %>
+    <%= gzip_stylesheet_link_tag 'internal/internal_ie8' %>
   <![endif]-->
 
   <%= render 'shared/skin_styles' %>
@@ -50,6 +50,6 @@
   <%= render :partial => 'shared/javascript' %><!-- This is where 'yield :javascript' takes place -->
   
   <div id='gradient-triangle'></div>
-  <%= javascript_include_tag 'rem.min.js' %>
+  <%= gzip_javascript_include_tag 'rem.min.js' %>
 </body>
 </html>

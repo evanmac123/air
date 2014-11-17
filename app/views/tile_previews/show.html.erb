@@ -1,8 +1,8 @@
 <%= render partial: 'meta_tags', locals: { tile: @tile } %>
 
-<%= stylesheet_link_tag "app-internal" %>
-<%= javascript_include_tag "internal/countUp.min" %>
-<%= javascript_include_tag "internal/point_and_ticket_animation" %>
+<%= gzip_stylesheet_link_tag "app-internal" %>
+<%= gzip_javascript_include_tag "internal/countUp.min" %>
+<%= gzip_javascript_include_tag "internal/point_and_ticket_animation" %>
 <%= render "shared/mixpanel" %>
 <%= mp_track_page 'explore tile preview' %>
 

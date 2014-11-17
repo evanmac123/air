@@ -1,5 +1,5 @@
 <%= render partial: "tile_previews/meta_tags", locals: {tile: @tile} %>
-<% stylesheet_link_tag "app-internal" %>
+<% gzip_stylesheet_link_tag "app-internal" %>
 <%= render "tiles/full_size_tile", tile: @tile, is_preview: true %>
 
 <%= render partial: 'tile_previews/sign_up_form' %>
