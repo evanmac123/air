@@ -173,7 +173,7 @@ header {
     }
 
     #switcher_create_new_board {
-      color: $med-blue;
+      color: $sky-blue;
     }
   }
 
@@ -367,7 +367,7 @@ body.explores {
   }
 
   input[type=submit] {
-    @include app-button($med-blue);
+    @include app-button($sky-blue);
     margin-top: 1em;
 
     &:disabled {

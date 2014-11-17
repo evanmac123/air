@@ -189,7 +189,7 @@ body.client_admin-tiles-update {
   }
   .tile_quiz {
     .selected {
-      color: $med-blue !important;
+      color: $sky-blue !important;
     }
     .tile_types {
       .tile_type {
@@ -379,8 +379,8 @@ body.client_admin-tiles-update {
             line-height: 1.1;
             padding: 0.3em;
             //background gradient
-            background: $med-blue; /* old browsers */
-            background: linear-gradient(to bottom, $med-blue, #66b9e5);
+            background: $sky-blue; /* old browsers */
+            background: linear-gradient(to bottom, $sky-blue, #66b9e5);
             .points_nub{
               border: solid 5px;
               border-color: #66b9e5 transparent transparent transparent;
