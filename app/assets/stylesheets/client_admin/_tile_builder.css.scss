@@ -266,7 +266,7 @@ body.client_admin-tiles-update {
       background:lighten($light-gray, 5%);
       border-color:lighten($light-gray, 10%);
       &.answer-field {
-        color:$orange;
+        color:$sky-blue;
         @include font-semibold;
         text-align: center;
       }

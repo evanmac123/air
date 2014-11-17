@@ -34,7 +34,7 @@ header {
         a {
           box-shadow:none;
           &.sign_in_button {@include app-button($blue);}
-          &.request_a_demo {@include app-button($orange);}
+          &.request_a_demo {@include app-button($sky-blue);}
           &.sign_in_button, &.request_a_demo {padding:.5em .75em;}
         }
       }

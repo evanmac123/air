@@ -5,12 +5,12 @@ body {
   // Links
   a, a:link, a:visited {
     @include link($blue);
-    &:hover{color:$orange;}
+    &:hover{color:$sky-blue;}
     &.pop-button {@include app-button($blue);}
   }
   // Request buttons are all orange
   a.request_a_demo, a:link.request_a_demo, a:visited.request_a_demo {
-    @include fat-app-button($orange);
+    @include fat-app-button($sky-blue);
   }
 
   // Inputs
@@ -73,7 +73,7 @@ body {
   top:0;
   width:16.5%;
   &#blue {background:$blue; right:16.5%;}
-  &#orange {background:$orange; right:0;}
+  &#orange {background:$sky-blue; right:0;}
 }
 
 .stats {
