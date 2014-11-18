@@ -11,10 +11,10 @@
     padding:0;
     a {margin:0;}
     .show_more_tiles {
-      @include app-button($dark-green);
+      @include app-button($sky-blue);
       padding:.75em .5em 0.6em;
       &:before, &:after {
-        @include arrow-down(lighten($dark-green, 10%), 8px);
+        @include arrow-down(lighten($sky-blue, 10%), 8px);
         margin:0 1em;
         position: relative;
         vertical-align: middle;

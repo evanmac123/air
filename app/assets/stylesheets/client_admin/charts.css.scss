@@ -23,12 +23,10 @@
       margin-right:0;
       position: absolute;
       right:0;
-      top:$small_cap_size;
+      padding-top: 15px;
       #show-chart-link {
         @include app-button($sky-blue);
         margin:0;
-        font-size: 18px;
-        font-weight: 400;
       }
     }
     &#chart-labeling {

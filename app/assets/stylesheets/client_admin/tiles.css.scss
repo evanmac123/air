@@ -156,6 +156,7 @@ body.client_admin-draft_tiles {
             float: right;
         }
         h1 {
+            margin-bottom: 28px;
             color:$white;
         }
         .all_inactive, .all_draft
@@ -230,7 +231,10 @@ body.client_admin-inactive_tiles #active_tiles,
 body.client_admin-draft_tiles #active_tiles,
 .tiles_to_be_shared {
     background: $tile-wall-bg;
-    h1 {color:$text-color;}
+    h1 {
+        margin-bottom: 28px;
+        color:$text-color;
+    }
 }
 
 // Create new tile placeholder link

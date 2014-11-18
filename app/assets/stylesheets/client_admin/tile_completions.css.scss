@@ -11,13 +11,16 @@ $tile_completion_button_height: 2.0em;
       height: $tile_completion_button_height;
       &.engaged {
         @include app-button($sky-blue);
+        font-size: 10px;
       }
       &.disengaged {
         @include light-button($sky-blue);
+        font-size: 10px;
       }
     }
     .download_as_csv{
       @include light-button($sky-blue);
+      font-size: 10px;
       text-align: left;
       height: $tile_completion_button_height;
       float: right;

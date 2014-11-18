@@ -287,7 +287,7 @@ table.survey-chart-table {
     text-align: right;
   }
   th{
-    @extend h3;
+    @extend h4;
     background: transparent;
     border-bottom: 1px solid #dfdfdf;
     //text-transform: uppercase;
@@ -302,41 +302,46 @@ body.client_admin-users-show .headline span {font-style:italic;}
   margin-top:1em;
   table-layout: fixed;
   width:100%;
-  td {border:0; vertical-align: top; word-wrap:break-word;}
-    .results-name, .results-email {width:33%;}
-    .results-joined, .results-send-invite{
-      text-align:center;
-      width:6%;
+  td {
+    @include regular-text;
+    border:0; 
+    vertical-align: top; 
+    word-wrap:break-word;
+  }
+  .results-name, .results-email {width:33%;}
+  .results-joined, .results-send-invite{
+    text-align:center;
+    width:6%;
+  }
+  .results-joined .joined, .results-joined .not-joined, .results-send-invite a {
+    @include hide-text;
+    background:image-url('client_admin/sprites.png') no-repeat transparent;
+    display:inline-block;
+    vertical-align: middle;
+  }
+  .results-joined .joined {
+    background-position: -58px -55px;
+    height:17px;
+    width:18px;
+  }
+  .results-joined .not-joined {
+    background-position: -77px -56px;
+    height:16px;
+    width:13px;
+  }
+  .results-send-invite a {
+    @include ease(0);
+    height:19px;
+    width:22px;
+    &.send-invite {
+      background-position: -30px -94px;
+      &:hover{background-position: -55px -94px;}
     }
-    .results-joined .joined, .results-joined .not-joined, .results-send-invite a {
-      @include hide-text;
-      background:image-url('client_admin/sprites.png') no-repeat transparent;
-      display:inline-block;
-      vertical-align: middle;
+    &.resend-invite {
+      background-position: -30px -75px;
+      &:hover{background-position:-56px -75px;}
     }
-    .results-joined .joined {
-      background-position: -58px -55px;
-      height:17px;
-      width:18px;
-    }
-    .results-joined .not-joined {
-      background-position: -77px -56px;
-      height:16px;
-      width:13px;
-    }
-    .results-send-invite a {
-      @include ease(0);
-      height:19px;
-      width:22px;
-      &.send-invite {
-        background-position: -30px -94px;
-        &:hover{background-position: -55px -94px;}
-      }
-      &.resend-invite {
-        background-position: -30px -75px;
-        &:hover{background-position:-56px -75px;}
-      }
-    }
+  }
   #search-labels th {
     border-bottom:$border-dark;
     @extend h3;

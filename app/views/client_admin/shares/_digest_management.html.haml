@@ -9,7 +9,7 @@
         .drop_down= select_tag :digest_send_to, options_for_select([['All Users', true], ['Activated Users', false]], @demo.unclaimed_users_also_get_digest)
 
       .follow_up
-        %h4 Folluw-up email
+        %h4 Follow-up email
         .drop_down= select_tag :follow_up_day, options_for_select(%w(Never) + Date::DAYNAMES, selected: default_follow_up_day)
 
       .custom_subject
