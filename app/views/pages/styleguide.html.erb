@@ -15,19 +15,19 @@
     <%
       palettes = {
         "Color palette" => {
-          "dark-gray"       => "#2e2e2c",
-          "med-gray"        => "#a8a8a8",
-          "gray"            => "#818385",
-          "almost-white"    => "#fefefe",
-          "darker-gray"     => "#66676d",
-          "light-gray"      => "#dfdfdf",
-          "dark"            => "#0c0c0b",
+          "sky-blue"        => "#4face0",
           "blue"            => "#50698C",
           "light-blue"      => "#a7d5ef",
-          "sky-blue"        => "#4face0",
+          "dark"            => "#0c0c0b",
+          "dark-gray"       => "#2e2e2c",
+          "darker-gray"     => "#66676d",
+          "gray"            => "#818385",
+          "med-gray"        => "#a8a8a8",
+          "light-gray"      => "#dfdfdf",
+          "almost-white"    => "#fefefe",
+          "white"           => "#fff",
           "dark-green"      => "#4FAA60",
-          "red"             => "#BC4C40",
-          "white"           => "#fff"
+          "red"             => "#BC4C40"
         }
       }
     %>
@@ -61,8 +61,8 @@
       </div>
     </div>
   </section>
-
   <section class="buttons">
+    <!--
     <h5>Buttons comparison</h5>
      <div class="large-12 columns large-centered full-buttons">
       <div class="example row">
@@ -71,20 +71,17 @@
         <div class="big_prize" id="sky-blue">Click me</div>
       </div>
     </div>
+    -->
     <h5>Primary buttons, with importance in order</h5>
     <h5>@include app-button($color)</h5>
     <div class="large-12 columns large-centered full-buttons">
       <div class="example row">
         <a class="big_button" id="sky-blue">Click me</a>
         <a class="big_button" id="gray">Click me</a>
-        <a class="big_button" id="blue">Click me</a>
-        <a class="big_button" id="red">Click me</a>
       </div>
       <div class="example row">
         <a class="big_button small_button" id="sky-blue">Click me</a>
-        <a class="big_button medium_button" id="sky-blue">Click me</a>
-        <a class="big_button large_button" id="sky-blue">Click me</a>
-        <h5>10px/.625em, 16px/1em, 20px/1.25em</h5>
+        <a class="big_button" id="sky-blue">Click me</a>
       </div>
     </div>
 
@@ -94,20 +91,14 @@
       <div class="dark-bg example row">
         <a class="light_button" id="sky-blue">Click me</a>
         <a class="light_button" id="gray">Click me</a>
-        <a class="light_button" id="blue">Click me</a>
-        <a class="light_button" id="red">Click me</a>
       </div>
       <div class="light-bg example row">
         <a class="light_button" id="sky-blue">Click me</a>
         <a class="light_button" id="gray">Click me</a>
-        <a class="light_button" id="blue">Click me</a>
-        <a class="light_button" id="red">Click me</a>
       </div>
       <div class="light-bg example row">
         <a class="light_button small_button" id="sky-blue">Click me</a>
-        <a class="light_button medium_button" id="sky-blue">Click me</a>
-        <a class="light_button large_button" id="sky-blue">Click me</a>
-        <h5>10px/.625em, 16px/1em, 20px/1.25em</h5>
+        <a class="light_button" id="sky-blue">Click me</a>
       </div>
     </div>
   </section>

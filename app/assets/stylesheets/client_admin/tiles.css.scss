@@ -168,7 +168,8 @@ body.client_admin-draft_tiles {
             margin-bottom: 3em;
             display: block;
             text-align: center;
-            width: 7em;
+            width: 5.6em;
+            font-weight: 400;
         }
         .minimize {
             @include light-button($dark-green);
@@ -287,6 +288,7 @@ a.download_csv {
     top: 10px;
     right: 15px;
     vertical-align: text-bottom;
+    font-weight: 400 !important;
     // Copied the following over from main_styles since IE won't respect the 
     // color we set above unless we !important it, and we still want our hover 
     // effects to work.
