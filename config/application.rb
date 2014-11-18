@@ -125,6 +125,7 @@ module Health
     # Compresses response bodies
     config.middleware.use Rack::Deflater
 
-    config.cache_store = :redis_store, ENV['REDISTOGO_URL'], { expires_in: 90.minutes }
+    redis_cache_expiration = ENV['REDIS_CACHE_EXPIRATION'].try(:to_i) || 10.years
+    config.cache_store = :redis_store, ENV['REDISTOGO_URL'], { expires_in: redis_cache_expiration }
   end
 end
