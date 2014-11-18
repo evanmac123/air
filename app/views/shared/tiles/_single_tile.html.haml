@@ -1,18 +1,34 @@
--archive_link_options = {class: 'archive_tile_link'}
--archive_link_options = archive_link_options.merge(method: :put, remote: true) if do_ajax
-.tile_container
-  .tile_thumbnail{class:type, id:"single-tile-#{tile.id}", data:{tile_id:tile.id}}
-    %a{href:client_admin_tile_path(tile), class:'tile_thumb_link'}
-      %div.tile-wrapper
-        %div.tile_thumbnail_image= image_tag tile.thumbnail
-        %div.headline
-          %div.text= tile.headline
-        %div.shadow_overlay
-    %ul.tile_buttons
-      %li.archive_button= content_tag(:div, link_to('Archive', client_admin_tile_path(tile, update_status: Tile::ARCHIVE), method: :put), class: 'archive_tile_link') if type == :active
-      %li.activate_button= content_tag(:div, link_to('Post' + (type == :archive ? ' again' : ''), client_admin_tile_path(tile, update_status: Tile::ACTIVE, path: :via_index), method: :put), class: 'archive_tile_link') if type == :archive || type == :draft
-      %li= content_tag(:div, link_to('Edit', edit_client_admin_tile_path(tile)), class: 'edit_tile_link')
-    = render 'shared/tiles/tile_stats', tile: tile
+- archive_link_options = {class: 'archive_tile_link'}
+- archive_link_options = archive_link_options.merge(method: :put, remote: true) if do_ajax
+
+- timestamp = footer_timestamp(tile)
+- not_draft = tile.status != Tile::DRAFT
+- completion_count = tile.completion_count
+- completion_percentage = number_to_percentage tile.claimed_completion_percentage, precision: 1
+
+- cache [__FILE__, 'v1.pwd', archive_link_options, timestamp, not_draft, completion_count, completion_percentage, type, tile.id, tile.thumbnail, tile.headline] do
+  .tile_container
+    .tile_thumbnail{class:type, id:"single-tile-#{tile.id}", data:{tile_id:tile.id}}
+      %a{href:client_admin_tile_path(tile), class:'tile_thumb_link'}
+        %div.tile-wrapper
+          %div.tile_thumbnail_image= image_tag tile.thumbnail
+          %div.headline
+            %div.text= tile.headline
+          %div.shadow_overlay
+      %ul.tile_buttons
+        %li.archive_button= content_tag(:div, link_to('Archive', client_admin_tile_path(tile, update_status: Tile::ARCHIVE), method: :put), class: 'archive_tile_link') if type == :active
+        %li.activate_button= content_tag(:div, link_to('Post' + (type == :archive ? ' again' : ''), client_admin_tile_path(tile, update_status: Tile::ACTIVE, path: :via_index), method: :put), class: 'archive_tile_link') if type == :archive || type == :draft
+        %li= content_tag(:div, link_to('Edit', edit_client_admin_tile_path(tile)), class: 'edit_tile_link')
+      .tile_stats
+        .activation_dates= timestamp
+        - if not_draft
+          .completions 
+            Completed:
+            = link_to("#{pluralize(completion_count, 'user')}", client_admin_tile_tile_completions_path(tile))
+          .completion_percentage
+            Completed:
+            = completion_percentage
+            of joined users
 
 - if tile.thumbnail_processing
   - content_for :javascript do

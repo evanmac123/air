@@ -4,7 +4,6 @@ class ClientAdmin::SharesController < ClientAdminBaseController
     @user = current_user    
     tile_digest_email_sent_at = @demo.tile_digest_email_sent_at
     @follow_up_emails = @demo.follow_up_digest_emails.order("send_on ASC")
-    @suppress_tile_stats = false
     @board_is_public = @demo.is_public
     @all_users = @demo.users.where(is_site_admin: false).count
     @activated_users = @demo.users.claimed.where(is_site_admin: false).count - 1 #need to exclude the current user
