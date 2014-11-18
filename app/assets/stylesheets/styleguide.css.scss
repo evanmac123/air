@@ -52,7 +52,37 @@ h5 {
   }
 }
 
+.small_prize{
+  background: $sky-blue;
+  color: $white;
+  font-weight: normal;
+  font-size: 16px;
+  padding: 0.35em;
+  width: 10em;
+  font-weight: normal;
+  border-radius:3px;
+  border: none;
+  line-height: 18px;  
+  text-align: center;
+  display: inline-block;
+  cursor: pointer;
+}
 
+.big_prize{
+  background: $sky-blue;
+  color: $white;
+  font-size: 18px;
+  font-weight: 400;
+  padding-top: 0.4em;
+  padding-bottom: 0.4em;
+  border-radius:3px;
+  border: 1px solid $sky-blue;
+  line-height: 18px;  
+  text-align: center;
+  width: 10em;
+  display: inline-block;
+  cursor: pointer;
+}
 .small_button {
   font-size:12px!important;
   //min-width: 90px !important;
