@@ -40,6 +40,10 @@ h5 {
   @include regular-text;
 }
 
+#caption {
+  @include caption;
+}
+
 .logos .example {
   padding:1em 1em; 
   text-align: center;
