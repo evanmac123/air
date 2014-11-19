@@ -56,7 +56,6 @@ module Health
       external/prefilled_input.js
       jquery.lightbox_me.js
       rem.min.js
-      pace.min.js
       flick/jquery-ui-1.8.10.custom.css
       ga.js
       ga-marketing.js

@@ -1,3 +1,4 @@
+//= require ../../../vendor/assets/javascripts/pace.min
 //= require mobvious-rails
 //= require_tree ./client_admin
 //= require_tree ../../../vendor/assets/javascripts/external/
