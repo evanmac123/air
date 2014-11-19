@@ -83,17 +83,18 @@ h5 {
   display: inline-block;
   cursor: pointer;
 }
-.small_button {
-  font-size:12px;
-}
 
 .big_button#blue {@include app-button($blue);}
 .big_button#sky-blue {@include app-button($sky-blue);}
 .big_button#red {@include app-button($red);}
 .big_button#gray {@include app-button($med-gray);}
 
+.small_button {
+  font-size:10px !important;
+}
+
 .buttons {
-  .full-buttons {margin-bottom:2em;}
+  //.full-buttons {margin-bottom:2em;}
   .light_button#blue {@include light-button($blue);}
   .light_button#gray {@include light-button($med-gray);}
   .light_button#sky-blue {@include light-button($sky-blue);}
