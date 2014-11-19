@@ -10,7 +10,7 @@ begin
     #
     # Uncommenting this will force a re-upload of all assets, which comes in
     # handy once in a while, but takes forever.
-    config.existing_remote_files = "ignore"
+    #config.existing_remote_files = "ignore"
     #
     # Automatically replace files with their equivalent gzip compressed version
     # config.gzip_compression = true

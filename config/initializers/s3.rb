@@ -7,7 +7,6 @@ S3_AVATAR_BUCKET = ENV['AVATAR_BUCKET'] || 'hengage-avatars-development'
 S3_TILE_BUCKET = ENV['TILE_BUCKET'] || 'hengage-tiles-development'
 S3_TILE_THUMBNAIL_BUCKET = ENV['TILE_BUCKET'] || 'hengage-tiles-development'
 
-TILE_OPTIONS           = {}
 TILE_IMAGE_OPTIONS     = {}
 TILE_THUMBNAIL_OPTIONS = {}
 
@@ -16,7 +15,8 @@ when 'production', 'staging'
   TILE_OPTIONS = {
     :storage => :s3,
     :s3_protocol => 'https', 
-    :s3_credentials => S3_CREDENTIALS, 
+    :s3_credentials => S3_CREDENTIALS,
+    :s3_headers => {'Expires' => 1.year.from_now.httpdate, 'Cache-Control' => 'max-age=315576000'},
     :hash_data => "tiles/:attachment/:id/:style/:updated_at",
     :hash_secret => "Kid Sister Diary Secure",
     :url            => ":s3_domain_url"}
@@ -29,5 +29,6 @@ else
   raise 'Environment Not Found'
 end
 
+TILE_OPTIONS ||= {}
 TILE_IMAGE_OPTIONS.merge!(TILE_OPTIONS)
 TILE_THUMBNAIL_OPTIONS.merge!(TILE_OPTIONS)

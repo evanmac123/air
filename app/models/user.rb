@@ -91,6 +91,7 @@ class User < ActiveRecord::Base
     #:processors => [:png],
     :storage => :s3,
     :s3_credentials => S3_CREDENTIALS,
+    :s3_headers => {'Expires' => 1.year.from_now.httpdate, 'Cache-Control' => 'max-age=315576000'},
     :s3_protocol => 'https',
     :path => "/avatars/:id/:style/:filename",
     :bucket => S3_AVATAR_BUCKET,
