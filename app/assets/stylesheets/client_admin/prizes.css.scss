@@ -86,7 +86,7 @@ body.client_admin-prizes {
     padding-bottom: 2em;
   }
   input, button, textarea, .button{
-    border-radius: 3px;
+    border-radius: $border-radius;
   }
   .button{
     background: transparent;
