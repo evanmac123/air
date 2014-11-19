@@ -2,12 +2,6 @@
 
 // ================== For all Manage Users pages ==================
 body.client_admin-users {
-  /*h3 {
-    text-transform: uppercase;
-    font-size: 10px;
-    color: $text-color;
-    font-weight: bold;
-  }*/
 
   #user_count{
     color: $sky-blue;
@@ -40,7 +34,6 @@ body.client_admin-users {
       }
     }
     #birthday-selects {
-      //display:inline-block;
       width: 101%;
       margin:0;
       &> *{
@@ -304,10 +297,7 @@ table.survey-chart-table {
     @extend h4;
     background: transparent;
     border-bottom: 1px solid #dfdfdf;
-    //text-transform: uppercase;
-    //color:#a8a8a8;
     padding: .5em;
-    //font-size: 0.625rem;
   }
 }
 // ================== Search results ==================
@@ -359,8 +349,6 @@ body.client_admin-users-show .headline span {font-style:italic;}
   #search-labels th {
     border-bottom:$border-dark;
     @extend h3;
-    //@include caption;
-    //color:$med-gray;
     padding:.5em;
   }
   .found-user {

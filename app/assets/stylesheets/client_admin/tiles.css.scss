@@ -45,7 +45,6 @@
     }    
     &.tile-index-share {
         width: 466px;
-        //height: 160px;
         margin-left: 94px;
         margin-top: -85px !important;
         color: $dark-gray;
@@ -163,7 +162,6 @@ body.client_admin-draft_tiles {
         {
             @include light-button($white);
             font-size: 10px;
-            //@include caption;
             margin: 0 auto;
             margin-bottom: 3em;
             display: block;
@@ -243,7 +241,6 @@ body.client_admin-draft_tiles #active_tiles,
     border-color:lighten($blue, 13%);
     display: block;
     color:$blue !important;
-    //color:$white !important;
     line-height:1em;
     position: relative;
     text-align: center;
@@ -281,7 +278,6 @@ body.client_admin-draft_tiles #active_tiles,
 // Links to download CSV tile reports
 a.download_csv {
     @include light-button($med-gray);
-    //@include caption;
     font-size: 10px;
     color: $med-gray !important;
     position: absolute;
