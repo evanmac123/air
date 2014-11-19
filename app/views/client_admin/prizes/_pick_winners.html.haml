@@ -37,7 +37,7 @@
       e.preventDefault();
       $("form#pick_winners").submit();
       $("#submit_spinner").css("display", "inline");
-      $(this).attr("disabled", "disabled").css("color", "transparent");
+      $(this).attr("disabled", "disabled");
     });
   });
 - if raffle.status == Raffle::PICKED_WINNERS && winners.empty?

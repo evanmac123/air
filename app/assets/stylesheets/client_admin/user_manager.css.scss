@@ -12,6 +12,10 @@ body.client_admin-users {
   #user_count{
     color: $sky-blue;
   }
+  .custom.dropdown *{
+    color: $med-gray !important;
+    font-weight: 400;
+  }
 
   #total_user_count_row, #find_users_row {
     margin-bottom: 3em;
@@ -31,11 +35,21 @@ body.client_admin-users {
     }
     .info-cols li {
       padding-bottom:.75em;
-      #birthday-selects {
-        display:inline-block;
-        margin:0;
+      #birthday-selects{
+        width: 91%;
       }
-      select#user_location_id {display:inline-block; max-width:61.5%;}
+    }
+    #birthday-selects {
+      //display:inline-block;
+      width: 101%;
+      margin:0;
+      &> *{
+        display:inline-block;
+        width: 32.2%;
+      }
+      label{
+        display: block;
+      }
     }
     label {
       @include caption;

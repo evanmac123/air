@@ -92,10 +92,10 @@ body.client_admin-prizes {
     background: transparent;
     border: 1px solid $sky-blue;
     color: $sky-blue;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 400;
-    padding-top: 0.4em;
-    padding-bottom: 0.4em;
+    padding-top: 0.35em;
+    padding-bottom: 0.35em;
   }
   .form_section{
     width:34%;
@@ -244,16 +244,19 @@ body.client_admin-prizes {
     form#pick_winners{
       margin-top: 2em;
       margin-bottom: 2em;
-      *{
-        display: inline;
+      overflow: auto;
+      & > *{
+        float: left;
         font-size: 14px;
         margin-right: 1em;
       }
       label{
+        line-height: 30px;
         font-weight: 500;
         color: $text-color;
       }
       input[type=text]{
+        height: 30px;
         color: $text-color;
         text-align: center;
         width: 5em;
@@ -261,6 +264,7 @@ body.client_admin-prizes {
       .pick_winners_submit{
         position: relative;
         input[type=submit]{
+          /*
           color: $white;
           background: $sky-blue;
           font-size: 16px;
@@ -268,16 +272,23 @@ body.client_admin-prizes {
           border: 0;
           width: 10em;
           margin: 0;
+          */
+          @include app-button($sky-blue);
+          width: 10em;
           &.re-pick{
-            color: $med-gray;
-            border: 1px solid $med-gray;
-            background: $white;
+            @include light-button($med-gray);
+            //color: $med-gray;
+            //border: 1px solid $med-gray;
+            //background: $white;
+          }
+          &:disabled{
+            color: transparent !important;
           }
         }
         #submit_spinner{
           position: absolute;
           left: 4.5em;
-          bottom: -0.3em;
+          bottom: 0.3em;
         }
       }
     }

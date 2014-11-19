@@ -1,2 +1,2 @@
 <% location_options = options_from_collection_for_select(locations, :id, :name, selected_location_id) + content_tag("option", "Add new...", id: "add-new-location") %>
-<%= select_tag "user[location_id]", location_options, include_blank: true, id: "user_location_id", class: 'no-custom' %>
+<%= select_tag "user[location_id]", location_options, prompt: "Select location", id: "user_location_id", class: "small"  %>
