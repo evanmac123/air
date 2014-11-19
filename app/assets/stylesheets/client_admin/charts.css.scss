@@ -9,12 +9,9 @@
 #chart-header .subsection-head {display:inline-block;}
 
 #chart-options {
-  //margin-bottom:1.5em;
   position: relative;
-  //overflow: hidden;
   height: 55px;
   & > li {
-    //display:inline-block;
     float: left;
     margin-right:0.5em;
     margin-top: 0.845em;
@@ -76,10 +73,4 @@
       font-weight: 400;
     }
   }
-  /*select {
-    border:$border-dark;
-    color:$dark-gray;
-    outline:0;
-    padding:5px 4px;
-  }*/
 }

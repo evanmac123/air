@@ -5,7 +5,6 @@
 }
 .stat-group {
   @include form-group;
-  //@include light-to-color-gradient(lighten($blue, 53%), 2%);
   margin-bottom:2em;
   text-align: center;
   .labels {
@@ -16,7 +15,6 @@
   .numbers h1 {
     color:$blue;
     display:block;
-    //font-size:2.5em;
     margin:0 auto;
     padding:.5em;
     padding-top: 0;

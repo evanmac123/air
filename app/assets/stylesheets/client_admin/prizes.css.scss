@@ -37,7 +37,6 @@ body.client_admin-prizes {
       }
       li + li {
         margin-left:-1em;
-        //padding-left:2.5em;
         &:before {
           @include arrow-right($light-gray, 1.125em);
           margin-top:-1.125em;
@@ -65,10 +64,12 @@ body.client_admin-prizes {
         }
       }
       a.new_prize{
-        margin: 0;
+        /*margin: 0;
         font-size: 16px;
         padding-left: 1em;
-        padding-right: 1em;
+        padding-right: 1em;*/
+        @include light-button($sky-blue);
+        margin: 0;
       }
       .pick_winners_from{
         color: $blue;
@@ -85,18 +86,9 @@ body.client_admin-prizes {
   label.small_cap{
     padding-bottom: 2em;
   }
-  input, button, textarea, /*.button*/{
+  input, button, textarea{
     border-radius: $border-radius;
   }
-  /*.button{
-    background: transparent;
-    border: 1px solid $sky-blue;
-    color: $sky-blue;
-    font-size: 16px;
-    font-weight: 400;
-    padding-top: 0.35em;
-    padding-bottom: 0.35em;
-  }*/
   .form_section{
     width:34%;
     form{
@@ -210,43 +202,6 @@ body.client_admin-prizes {
         }
       }
     }
-    /*.buttons_section{
-      display: flex;
-      .button{
-        width: 46.5%;//46.5%;
-        &:nth-child(odd){
-          margin-right: 7%;
-        }
-        &:nth-child(even){
-          float: right;
-        }
-        &.blue_button{
-          background: $sky-blue;
-          color: $white;
-          box-shadow: none;
-          &[disabled]{
-            color: $white;
-            background: $light-blue;
-            border: 1px solid $light-blue;
-          }
-          &#period_complete{
-            width: 100%;
-            margin: 0;
-          }
-        }
-        &[disabled]{
-          background: $white;
-        }
-        &[disabled], &.finish_button{
-          color: $med-gray;
-          border: 1px solid $med-gray;
-          &.confirmation{
-            color: $red;
-            border-color: $red;
-          }
-        }
-      }
-    }*/
   }
   .clear_form {
     cursor: pointer;
@@ -257,7 +212,6 @@ body.client_admin-prizes {
   .action_section{
     width: 66%;
     .columns, .row{
-      //padding: 0;
       margin: 0;
     }
   }
@@ -293,22 +247,10 @@ body.client_admin-prizes {
       .pick_winners_submit{
         position: relative;
         input[type=submit]{
-          /*
-          color: $white;
-          background: $sky-blue;
-          font-size: 16px;
-          padding: 0.35em;
-          border: 0;
-          width: 10em;
-          margin: 0;
-          */
           @include app-button($sky-blue);
           width: 10em;
           &.re-pick{
             @include light-button($med-gray);
-            //color: $med-gray;
-            //border: 1px solid $med-gray;
-            //background: $white;
           }
           &:disabled{
             color: transparent !important;

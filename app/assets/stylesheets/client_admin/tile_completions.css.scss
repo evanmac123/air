@@ -6,7 +6,6 @@ $tile_completion_button_height: 2.0em;
   }
   .tile_completions_controls{
     @extend h5;
-    //position: relative;
     .completed, .not-completed {
       height: $tile_completion_button_height;
       &.engaged {

@@ -41,9 +41,6 @@
     width: 200px;
     .public, .private{ 
       float: left;
-      //font-size: 11px;
-      //text-transform: uppercase;
-      //font-weight: bold;
       margin: 3px;
       &.engaged {
         color: #000000;
@@ -72,8 +69,6 @@
       float: left;
       width: 58px;
       margin: 4px 10px;
-      //color: $med-gray;
-      //text-transform: uppercase;
     }
     .fa {
       color: $med-gray;
@@ -125,13 +120,6 @@
     float: left;    
     .send_to, .follow_up, .intro_message, .custom_subject, .custom_headline {
       margin-bottom:3.75em;
-      h4 {  }
-      /*p {
-        @include caption;
-        margin-bottom:.75em;
-        text-transform: uppercase;
-        color: $gray;
-      }*/
       .drop_down{          
         *{color: $med-gray;font-weight: normal;}
       }
@@ -177,14 +165,12 @@
   }
   #scheduled_followups {
     border-left:1px $light-gray solid;
-    /*float:right;*/
     padding-left:1em;
     width:40%;
   }
 
   input[type="submit"] {
     @include app-button($sky-blue);
-    //background: $sky-blue !important;
     font-size:18px;
     font-weight: 400;
     padding:.35em .5em;
@@ -229,14 +215,11 @@
   padding: 10px;
   margin-bottom: 20px;
   h3 {
-        /*margin:.6em auto 1.7em;*/
         color: $med-gray;
         font-weight: normal;
         font-size: 18px;
     }
-  /*#cancel_follow_up {@include form-group;}*/
   #cancel_follow_up div {
-    /*margin-bottom:.5em;*/
       font-size: 14px;
       display: inline;
     * {
@@ -272,7 +255,6 @@
   margin-bottom: 2em;
   a#make_public { @include app-button($dark-green) }
   a#make_private { @include app-button($red) }
-  //p { margin-bottom: 0.75em; }
 }
 
 $public_slug_height: 2.25em;
