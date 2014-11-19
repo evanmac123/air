@@ -246,12 +246,8 @@ class Tile < ActiveRecord::Base
     thumbnail_processing || thumbnail_url.nil? || thumbnail_url == Tile::THUMBNAIL_PROCESSING_IMAGE_URL
   end
 
-  def completion_count
-    tile_completions.count
-  end
-
   def claimed_completion_percentage
-    100.0 * completion_count / demo.users.claimed.count
+    100.0 * tile_completions_count / demo.users.claimed.count
   end
 
   def is_placeholder?

@@ -4,7 +4,7 @@ class TileCompletion < ActiveRecord::Base
   ORDER_BY_USER_JOINED  = 'users.accepted_invitation_at'.freeze
 
   belongs_to :user, polymorphic: true
-  belongs_to :tile
+  belongs_to :tile, counter_cache: true
 
   validates_uniqueness_of :tile_id, :scope => [:user_id, :user_type]
 

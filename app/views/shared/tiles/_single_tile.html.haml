@@ -3,10 +3,9 @@
 
 - timestamp = footer_timestamp(tile)
 - not_draft = tile.status != Tile::DRAFT
-- completion_count = tile.completion_count
 - completion_percentage = number_to_percentage tile.claimed_completion_percentage, precision: 1
 
-- cache [__FILE__, 'v1.pwd', archive_link_options, timestamp, not_draft, completion_count, completion_percentage, type, tile.id, tile.thumbnail, tile.headline] do
+- cache [__FILE__, 'v2.pwd', archive_link_options, timestamp, not_draft, completion_percentage, type, tile.id, tile.thumbnail, tile.headline, tile.tile_completions_count] do
   .tile_container
     .tile_thumbnail{class:type, id:"single-tile-#{tile.id}", data:{tile_id:tile.id}}
       %a{href:client_admin_tile_path(tile), class:'tile_thumb_link'}
@@ -24,7 +23,7 @@
         - if not_draft
           .completions 
             Completed:
-            = link_to("#{pluralize(completion_count, 'user')}", client_admin_tile_tile_completions_path(tile))
+            = link_to("#{pluralize(tile.tile_completions_count, 'user')}", client_admin_tile_tile_completions_path(tile))
           .completion_percentage
             Completed:
             = completion_percentage
