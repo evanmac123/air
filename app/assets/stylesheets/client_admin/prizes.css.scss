@@ -85,10 +85,10 @@ body.client_admin-prizes {
   label.small_cap{
     padding-bottom: 2em;
   }
-  input, button, textarea, .button{
+  input, button, textarea, /*.button*/{
     border-radius: $border-radius;
   }
-  .button{
+  /*.button{
     background: transparent;
     border: 1px solid $sky-blue;
     color: $sky-blue;
@@ -96,7 +96,7 @@ body.client_admin-prizes {
     font-weight: 400;
     padding-top: 0.35em;
     padding-bottom: 0.35em;
-  }
+  }*/
   .form_section{
     width:34%;
     form{
@@ -181,7 +181,36 @@ body.client_admin-prizes {
         height: 6em;
       }
     }
-  .buttons_section{
+    .buttons_section{
+      display: flex;
+      .button{
+        &#save_draft, &#edit_or_save{
+          @include light-button($sky-blue);
+        }
+        &.blue_button{
+          box-shadow: none;
+          @include app-button($sky-blue); 
+        }
+        &.finish_button{
+          @include light-button($med-gray);
+          &.confirmation{
+            @include light-button($red);
+          }
+        }
+        width: 46.5%;
+        &:nth-child(odd){
+          margin-right: 7%;
+        }
+        &:nth-child(even){
+          float: right;
+        }
+        &#period_complete{
+          width: 100%;
+          margin: 0;
+        }
+      }
+    }
+    /*.buttons_section{
       display: flex;
       .button{
         width: 46.5%;//46.5%;
@@ -217,7 +246,7 @@ body.client_admin-prizes {
           }
         }
       }
-    }
+    }*/
   }
   .clear_form {
     cursor: pointer;
