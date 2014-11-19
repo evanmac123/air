@@ -11,9 +11,12 @@
 #chart-options {
   margin-bottom:1.5em;
   position: relative;
-  li {
-    display:inline-block;
+  overflow: hidden;
+  & > li {
+    //display:inline-block;
+    float: left;
     margin-right:0.5em;
+    margin-top: 0.845em;
     &#chart-dates * {display: inline-block;}
     &#chart-dates span, &#chart-labeling span {
       @include caption;
@@ -21,6 +24,7 @@
     }
     &#show-button {
       margin-right:0;
+      margin-top: 0;
       position: absolute;
       right:0;
       padding-top: 15px;
@@ -31,6 +35,7 @@
     }
     &#chart-labeling {
       margin-right:.25em;
+      margin-top: 0;
       width:7em;
       span, select {display: block;}
       span {
@@ -57,10 +62,17 @@
       width: 7em;
     }
   }
-  select {
+  .custom.dropdown{
+    margin-bottom: 0;
+    * {
+      color: $med-gray;
+      font-weight: 400;
+    }
+  }
+  /*select {
     border:$border-dark;
     color:$dark-gray;
     outline:0;
     padding:5px 4px;
-  }
+  }*/
 }

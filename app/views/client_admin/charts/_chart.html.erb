@@ -1,5 +1,5 @@
 <div class="charting section">
-  <%= form_tag client_admin_path, id: "activity-chart", method: :get, remote: true  do %>
+  <%= form_tag client_admin_path, id: "activity-chart", class: "custom", method: :get, remote: true  do %>
     <ul id="chart-options">
       <li id="chart-dates">
         <%= text_field_tag :chart_start_date, params[:chart_start_date], class: "datepicker" %>

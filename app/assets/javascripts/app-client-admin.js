@@ -37,6 +37,6 @@
 //= require internal/preflight
 
 $(document).ready(function() {
-  $('.client_admin-users').foundation();
+  $('.client_admin-users, .client_admins-show').foundation();
 });
 $(document).foundation();
