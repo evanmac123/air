@@ -9,9 +9,10 @@
 #chart-header .subsection-head {display:inline-block;}
 
 #chart-options {
-  margin-bottom:1.5em;
+  //margin-bottom:1.5em;
   position: relative;
-  overflow: hidden;
+  //overflow: hidden;
+  height: 55px;
   & > li {
     //display:inline-block;
     float: left;
@@ -20,6 +21,7 @@
     &#chart-dates * {display: inline-block;}
     &#chart-dates span, &#chart-labeling span {
       @include caption;
+      color: $med-gray;
       text-transform: uppercase;
     }
     &#show-button {
@@ -46,7 +48,12 @@
     &#chart-spinner {
         vertical-align:middle;
         margin-right:0;
-        img{width:100%;height:auto;padding-left:0;}
+        img{
+          width:100%;
+          height:auto;
+          padding-left:0;
+          padding-top: 6px;
+        }
     }
 
     img {margin: 0em;}
