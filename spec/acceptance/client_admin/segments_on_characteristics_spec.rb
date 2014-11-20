@@ -25,7 +25,7 @@ feature 'Client admin segments on characteristics' do
     click_button "Find segment"
 
     expect_content "Segmented by characteristics: Points is less than 28"
-    expect_content "Users in segment 3"
+    expect_content "USERS IN SEGMENT 3"
   end
 
   scenario 'can segment on game-agnostic characteristic', js: true do
@@ -35,7 +35,7 @@ feature 'Client admin segments on characteristics' do
     click_button "Find segment"
 
     expect_content "Segmented by characteristics: IQ is greater than 100"
-    expect_content "Users in segment 1"
+    expect_content "USERS IN SEGMENT 1"
   end
 
   scenario 'segmenting on game-specific characteristic', js: true do
@@ -45,7 +45,7 @@ feature 'Client admin segments on characteristics' do
     click_button "Find segment"
 
     expect_content "Segmented by characteristics: Favorite Pancake equals blueberry"
-    expect_content "Users in segment 2"
+    expect_content "USERS IN SEGMENT 2"
   end
 
   scenario "doesn't see Show Users links", js: true do

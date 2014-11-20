@@ -462,7 +462,7 @@ feature 'Client admin and the digest email for tiles' do
           create_tile
           visit client_admin_share_path(as: admin)
           click_button "Send"
-          page.should have_content("Your tiles have been sent!")
+          page.should have_content("YOUR TILES HAVE BEEN SENT!")
 
           FakeMixpanelTracker.clear_tracked_events
           crank_dj_clear
@@ -472,7 +472,7 @@ feature 'Client admin and the digest email for tiles' do
           visit client_admin_share_path(as: admin)
           fill_in "digest[custom_message]", with: ''
           click_button "Send"
-          page.should have_content("Your tiles have been sent!")
+          page.should have_content("YOUR TILES HAVE BEEN SENT!")
 
           FakeMixpanelTracker.clear_tracked_events
           crank_dj_clear
@@ -482,7 +482,7 @@ feature 'Client admin and the digest email for tiles' do
           visit client_admin_share_path(as: admin)
           fill_in "digest[custom_message]", with: 'hey'
           click_button "Send"
-          page.should have_content("Your tiles have been sent!")
+          page.should have_content("YOUR TILES HAVE BEEN SENT!")
 
           FakeMixpanelTracker.clear_tracked_events
           crank_dj_clear
@@ -494,7 +494,7 @@ feature 'Client admin and the digest email for tiles' do
           visit client_admin_share_path(as: admin)
           fill_in "digest[custom_message]", with: ''
           click_button "Send"
-          page.should have_content("Your tiles have been sent!")
+          page.should have_content("YOUR TILES HAVE BEEN SENT!")
 
           FakeMixpanelTracker.clear_tracked_events
           crank_dj_clear
@@ -519,7 +519,7 @@ feature 'Client admin and the digest email for tiles' do
             visit client_admin_share_path(as: admin)
             fill_in "digest[custom_message]", with: ''
             click_button "Send"
-            page.should have_content("Your tiles have been sent!")
+            page.should have_content("YOUR TILES HAVE BEEN SENT!")
 
             crank_dj_clear
 

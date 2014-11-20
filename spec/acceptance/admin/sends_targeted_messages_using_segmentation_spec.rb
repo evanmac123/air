@@ -32,7 +32,7 @@ feature 'Admin sends targeted messages using segmentation' do
     click_button "Find segment"
 
     should_be_on(admin_demo_targeted_messages_path(@demo))
-    expect_content "Users in segment 6"
+    expect_content "USERS IN SEGMENT 6"
     expect_content "Segmented by characteristics: Metasyntactic variable does not equal foo Points is greater than 10"
     @expected_users = [11, 13, 14, 16, 17, 19].map{|i| @users[i]}
   end
@@ -278,7 +278,7 @@ feature 'Admin sends targeted messages using segmentation' do
     select "foo", :from => "segment_value[0]"
     click_button "Find segment"
 
-    expect_content "Users in segment 3"
+    expect_content "USERS IN SEGMENT 3"
 
     expect_value "html_text", expected_html_text
     expect_value "plain_text", expected_plain_text
@@ -319,7 +319,7 @@ feature 'Admin sends targeted messages using segmentation' do
     click_button "Find segment"
 
     should_be_on(admin_demo_targeted_messages_path(@demo))
-    expect_content "Users in segment 23"
+    expect_content "USERS IN SEGMENT 23"
 
     fill_in "sms_text", :with => 'some nonsense'
     click_button "It's going to be OK"
@@ -452,7 +452,7 @@ feature 'Admin sends targeted messages using segmentation' do
       click_button "Find segment"  # Get list of (original) recipients
 
       expect_content "Segmented by characteristics: Points is greater than 3"
-      expect_content "Users in segment 8"
+      expect_content "USERS IN SEGMENT 8"
 
       fill_in "subject",   :with => 'email subject'
       fill_in "html_text", :with => 'email text'

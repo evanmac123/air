@@ -78,7 +78,7 @@ feature 'Admin conducts raffle' do
 
       click_button "Find segment"
 
-      expect_content "Users in segment 5"
+      expect_content "USERS IN SEGMENT 5"
     end
 
     before(:each) do
