@@ -10,7 +10,7 @@ begin
     #
     # Uncommenting this will force a re-upload of all assets, which comes in
     # handy once in a while, but takes forever.
-    #config.existing_remote_files = "ignore"
+    config.existing_remote_files = "ignore"
     #
     # Automatically replace files with their equivalent gzip compressed version
     # config.gzip_compression = true
@@ -23,7 +23,11 @@ begin
     config.fail_silently = true
 
     # Set long-lived expiration
-    config.custom_headers = { '.*' => { cache_control: 'max-age=315576000', expires: 1.year.from_now.httpdate } }
+    config.custom_headers = {'.*' => { 
+                              cache_control: 'max-age=315576000', 
+                              expires: 1.year.from_now.httpdate,
+                              vary: 'Accept-Encoding'
+                            }}
   end
 rescue NameError
 end
