@@ -1,5 +1,6 @@
 body.tile.tile-show{
-  .content{ background:$tile-wall-bg; }
+  .core, .content{ background:$tile-wall-bg; }
+  #footer { color: $white; }
   .tile_holder{
   	width: 600px;
   }
