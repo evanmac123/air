@@ -6,7 +6,7 @@ $().ready(function(){
   if (!supports_input_placeholder()) {
     var fields = document.getElementsByTagName('INPUT');
     for (var i = 0; i < fields.length; i++) {
-      if (fields[i].hasAttribute('placeholder')) {
+      if (fields[i].hasAttribute('placeholder') && $(fields[i]).attr("value") == "") {
         fields[i].defaultValue = fields[i].getAttribute('placeholder');
         fields[i].value = fields[i].defaultValue;
         fields[i].onfocus = function () { if (this.value == this.defaultValue) this.value = ''; }
