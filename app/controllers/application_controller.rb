@@ -24,6 +24,7 @@ class ApplicationController < ActionController::Base
 
   before_render :persist_guest_user
   before_render :add_persistent_message
+  before_render :no_newrelic_for_site_admins
 
   after_filter :merge_flashes
 
@@ -524,5 +525,18 @@ class ApplicationController < ActionController::Base
 
   def override_public_board_setting
     false
+  end
+
+  def no_newrelic_for_site_admins
+    # The second conditional is a stupid hack because of the mess our 
+    # authentication system is. Site admins have hundreds of boards available,
+    # other users don't.
+    if (current_user && current_user.is_site_admin) || (@boards_to_switch_to && @boards_to_switch_to.length > 100)
+      ignore_all_newrelic
+    end
+  end
+
+  def ignore_all_newrelic
+    NewRelic::Agent.ignore_transaction
   end
 end

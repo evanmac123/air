@@ -25,6 +25,7 @@ class TilesController < ApplicationController
 
     if params[:partial_only]
       render_tile_wall_as_partial
+      ignore_all_newrelic if @current_user.is_site_admin
     else
       schedule_viewed_tile_ping(@start_tile)
     end
