@@ -69,7 +69,10 @@ header {
 }
 .tiles.tiles-index .viewer,
 .tile_previews.tile_previews-show .viewer {
-  a#prev, a#next {width:2em;}
+  a#prev, a#next {
+    width:2em;
+    font-size: 0.7em;
+  }
   a#prev {left:-2em;}
   a#next {right:3em;}
 }
