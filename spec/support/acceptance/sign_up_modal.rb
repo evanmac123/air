@@ -4,6 +4,10 @@ module SignUpModalHelpers
   NEW_CREATOR_PASSWORD = "ojtotallydidit"
   NEW_BOARD_NAME = "Law Offices Of J. Cochran"
 
+  def show_register_form?
+    false
+  end
+
   def register_if_guest
     if show_register_form? # method must be implemented in test file
       page.should have_selector('#sign_up_modal', visible: true)

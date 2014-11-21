@@ -1,6 +1,10 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Carousel on Explore Tile Preview Page' do
+  include SignUpModalHelpers
+  include TilePreviewHelpers
+
+  let (:creator) {FactoryGirl.create(:client_admin, name: "Charlotte McTilecreator")}
   let(:admin) {FactoryGirl.create(:client_admin, voteup_intro_seen: true, share_link_intro_seen: true)}
 
   before(:each) do
@@ -12,7 +16,9 @@ feature 'Carousel on Explore Tile Preview Page' do
 
     0.upto(5) do |i|
       tag = i.even? ? @tags[0] : @tags[1]
-      FactoryGirl.create(:multiple_choice_tile, :public, headline: "Tile#{i}", created_at: Time.now + i.day, tile_tags: [tag])
+      FactoryGirl.create(:multiple_choice_tile, 
+        :copyable, headline: "Tile#{i}", created_at: Time.now + i.day, 
+        tile_tags: [tag], creator: creator, demo: creator.demo)
     end
 
     @tiles = Tile.ordered_for_explore
@@ -98,6 +104,25 @@ feature 'Carousel on Explore Tile Preview Page' do
 
       page.find('.right_multiple_choice_answer').click
       expect_content @tiles[2].headline
+    end
+  end
+
+  context "interacts with tile after mooving" do
+    before(:each) do
+      crank_dj_clear
+      visit explore_tile_preview_path(@tiles.first, as: admin)
+      @tile = @tiles.first
+      expect_content @tile.headline
+      show_next_tile
+      @tile = @tiles[1]
+      expect_content @tile.headline
+    end
+
+    it "should copy tile", js: true do
+      click_copy_button
+
+      crank_dj_clear
+      expect_tile_copied(@tile, admin)
     end
   end
 end
