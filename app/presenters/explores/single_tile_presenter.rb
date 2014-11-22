@@ -92,7 +92,7 @@ class SingleTilePresenter
   end
 
   def associated_tile_tags
-    @associated_tile_tags ||= tile.tile_tags
+    @associated_tile_tags ||= tile.tile_tags.uniq
   end
 
   def associated_tile_tag_keys
@@ -102,7 +102,7 @@ class SingleTilePresenter
   def cache_key
     @cache_key ||= [
       self.class.to_s, 
-      'v1.pwd',
+      'v2.pwd',
       tile_id, 
       copy_link_text, 
       copy_count, 
