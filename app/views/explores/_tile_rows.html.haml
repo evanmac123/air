@@ -1,9 +1,9 @@
 - tile_presenters = tiles.map{|tile| SingleTilePresenter.new(tile, @tile_tag, current_user.copied_tile?(tile), @liked_tile_ids.include?(tile.id))}
-- main_cache_key = [__FILE__, 'v1.pwd', 'main', @tile_tag, *(tile_presenters.map(&:cache_key))]
+- main_cache_key = [__FILE__, 'v2.pwd', 'main', @tile_tag, *(tile_presenters.map(&:cache_key))]
 
 - cache main_cache_key do 
   - tile_presenters.each_slice(4) do |presenter_slice|
-    - slice_cache_key = [__FILE__, 'v1.pwd', 'slice', *(presenter_slice.map(&:cache_key))]
+    - slice_cache_key = [__FILE__, 'v2.pwd', 'slice', *(presenter_slice.map(&:cache_key))]
     - cache slice_cache_key do
       %tr
         - presenter_slice.each do |presenter|
@@ -17,8 +17,7 @@
             .explore_tile
               .company_name
                 %i.fa.fa-building-o
-                  %span.text
-                  = presenter.truncated_client_or_board_name
+                %span.text= presenter.truncated_client_or_board_name
               .tile_image{id: presenter.thumbnail_id}
 
                 -# No content for this link--it's given a background, via CSS, of the appropriate image, which makes
