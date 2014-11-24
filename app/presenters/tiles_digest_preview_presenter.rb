@@ -26,7 +26,7 @@ class TilesDigestMailPreviewPresenter < TilesDigestMailBasePresenter
   end
 
   def general_site_url
-    acts_path
+    "User's Unique Access Link Goes Here"
   end
 
   attr_reader :is_invite_user
