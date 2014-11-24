@@ -1,10 +1,5 @@
 function bindTileUploader() {
   $( document ).ready(function() {
-    if($(".tile_image").attr("src").indexOf("/assets/avatars/thumb/missing.png") >= 0) {
-      showPlaceholder();
-    }else{
-      showShadows();
-    }
     window.MAX_IMAGE_CREDIT_LENGTH = 50;
     saveImageCreditChanges();
     truncateImageCreditView();

@@ -142,4 +142,12 @@ module ClientAdmin::TilesHelper
       ) 
     )
   end
+
+  def tile_image_present(image_url)
+    if image_url.include? "/assets/avatars/thumb/missing.png"
+      false
+    else
+      true
+    end
+  end
 end
