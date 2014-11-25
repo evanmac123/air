@@ -69,7 +69,7 @@ describe 'Explore digest email' do
       it { should have_body_text "This email is unique for you. Please do not forward it." }
       it { should have_body_text 'For assistance contact' }
       it { should have_link      'support@air.bo' }
-      it { should have_body_text "Our mailing address is 292 Newbury Street, Suite 547, Boston, MA 02116" }
+      it { should have_body_text "Our mailing address is 292 Newbury Street, Suite 547, Boston, MA 02115" }
 
       it { should have_link      'Unsubscribe' }
       it { should have_body_text "If using a web browser that's IE8 or below, copy and paste this link into IE8 and above, Firefox or Chrome:" }
