@@ -101,7 +101,7 @@ class ActsController < ApplicationController
 
   def authorized_by_tile_token
     if params[:tile_token].present? && (user = User.find params[:user_id]) && EmailLink.validate_token(user, params[:tile_token])
-      sign_in(user)
+      sign_in(user, 1)
       if params[:demo_id].present?
         user.move_to_new_demo(params[:demo_id])
       end

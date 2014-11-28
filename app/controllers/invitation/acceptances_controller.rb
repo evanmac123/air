@@ -37,15 +37,17 @@ class Invitation::AcceptancesController < ApplicationController
     if demo
       add_user_to_board_if_allowed(demo)
     end
-    
-    sign_in(@user)
+   
+    sign_in(@user, params[:remember_me])
     flash[:success] = "Welcome, #{@user.first_name}!"
     redirect_to activity_path
   end
+
   #this is called to create not admin user by setting random password for him
   def generate_password
     params[:user] = @user.attributes
     params[:user][:password] = SecureRandom.hex(8)
+    params[:remember_me] = "1"
     update
   end
 
