@@ -56,10 +56,4 @@
   </div>
 </div>
 
-<% if tile.original_creator %>
-  <p class="original_tile_creator">
-    Based on a tile by <%= tile.human_original_creator_identification %>, <%= tile.human_original_creation_date %>.
-  </p>
-<% end %>
-
 <%= render 'tiles/copy_button', tile: tile if show_copy_button%>
