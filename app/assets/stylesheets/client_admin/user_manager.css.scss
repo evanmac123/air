@@ -31,17 +31,14 @@ body.client_admin-users {
       padding-bottom:.75em;
       #birthday-selects{
         width: 91%;
-      }
-    }
-    #birthday-selects {
-      width: 101%;
-      margin:0;
-      &> *{
-        display:inline-block;
-        width: 32.2%;
-      }
-      label{
-        display: block;
+        margin:0;
+        &> *{
+          display:inline-block;
+          width: 32.2%;
+        }
+        label{
+          display: block;
+        }
       }
     }
     label {
@@ -118,13 +115,6 @@ body.client_admin-users {
   }
 
   $upload-user-left-padding: 10px;
-
-  #upload-explanation-header {
-    margin: 1em auto;
-    background-color: $sky-blue;
-    color: $almost-white;
-    padding: 0.5em 0.5em;
-  }
 
   #upload-explanation {
     font-size: 14px;

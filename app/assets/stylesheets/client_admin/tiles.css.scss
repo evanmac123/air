@@ -121,7 +121,10 @@ body.client_admin-tiles-index, body.client_admin-inactive_tiles,
 body.client_admin-draft_tiles {
     
     // Tile management sections
-    .content {background:$blue;}
+    .content {
+        //background:$blue;
+        background: $almost-white;
+    }
     .manage_tiles {
         position: relative;
         .creation-placeholder{
@@ -141,7 +144,8 @@ body.client_admin-draft_tiles {
         .no_tiles_message {margin:0 auto 3em;}
     }
     #archived_tiles, #draft_tiles {
-        background:$blue;
+        background: $almost-white;
+        //background:$blue;
         position: relative;
         #draft, #archive{
             &:after{ @include clear; }
@@ -155,15 +159,21 @@ body.client_admin-draft_tiles {
             float: right;
         }
         h1 {
+            @extend h2;
             margin-bottom: 28px;
-            color:$white;
+            margin-left: 13px;
+            width: 100%;
+            max-width: 57.7em;
+            border-bottom: 1px solid;
+            //color:$white;
+            //color: $text-color;
         }
         .all_inactive, .all_draft
         {
-            @include light-button($white);
+            @include light-button($sky-blue);
             font-size: 10px;
             margin: 0 auto;
-            margin-bottom: 3em;
+            //margin-bottom: 3em;
             display: block;
             text-align: center;
             width: 6em;
@@ -212,7 +222,8 @@ body.client_admin-draft_tiles {
         font-size: 20px;
     }
     #active_tiles {
-        padding:2em 0 0 0;
+        //padding:2em 0 0 0;
+        padding: 0;
         #active{
             &:after{ @include clear; }
         }
@@ -229,10 +240,16 @@ body.client_admin-tiles-index #active_tiles,
 body.client_admin-inactive_tiles #active_tiles,
 body.client_admin-draft_tiles #active_tiles,
 .tiles_to_be_shared {
-    background: $tile-wall-bg;
+    //background: $tile-wall-bg;
+    background: $almost-white;
     h1 {
+        @extend h2;
         margin-bottom: 28px;
-        color:$text-color;
+        margin-left: 13px;
+        width: 100%;
+        max-width: 57.7em;
+        border-bottom: 1px solid;
+        //color:$text-color;
     }
 }
 
@@ -240,7 +257,7 @@ body.client_admin-draft_tiles #active_tiles,
 .creation-placeholder a {
     border-color:lighten($blue, 13%);
     display: block;
-    color:$blue !important;
+    color:$almost-white !important;
     line-height:1em;
     position: relative;
     text-align: center;
@@ -281,8 +298,8 @@ a.download_csv {
     font-size: 10px;
     color: $med-gray !important;
     position: absolute;
-    top: 10px;
-    right: 15px;
+    top: 0px;
+    right: 73px;
     vertical-align: text-bottom;
     font-weight: 400 !important;
     // Copied the following over from main_styles since IE won't respect the 

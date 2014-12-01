@@ -194,10 +194,11 @@
     padding: 10px 10px 10px 0px;
     border-bottom: 1px solid $light-gray;
     color: $sky-blue;
-    font-size: 18px;        
+    font-size: 18px;    
+    font-weight: 300;    
     #last-email {
       @include caption;
-      color:$gray;
+      color:$text-color;
       display: inline-block;
       margin-left:1em;
       float: right;

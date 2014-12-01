@@ -118,8 +118,8 @@ class Highchart
       #hc.plotOptions(tooltip: {xDateFormat: '%A, %b %e, %l %p' }) if interval == 'Hourly'
       #hc.plotOptions(tooltip: {formatter: "function() { return Highcharts.dateFormat('%A, %b %e, %l %p', this.value); }".js_code }) if interval == 'Hourly'
 
-      hc.series(name: 'Acts',  data: act_points,  color: '#82b989') if plot_acts
-      hc.series(name: 'Users', data: user_points, color: '#7588b4') if plot_users
+      hc.series(name: 'Acts',  data: act_points,  color: '#4FAA60') if plot_acts
+      hc.series(name: 'Users', data: user_points, color: '#4face0') if plot_users
     end
   end
 

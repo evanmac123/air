@@ -1,9 +1,7 @@
 %label.small_cap
   Pick winners
-.instruction_box
-  - if raffle.status == Raffle::PICK_WINNERS
-    Your prize period has ended. Next, pick and curate the winners.
-  - else
+- if raffle.status == Raffle::PICKED_WINNERS
+  .instruction_box
     Next, notify your winners via email or in person. We’ll keep this list here handy for you.
 = form_tag pick_winners_client_admin_prizes_path, id: 'pick_winners' do
   = label_tag :number_of_winners, 'Number of Winners'
@@ -21,13 +19,7 @@
   .winners
     - if raffle.status == Raffle::PICK_WINNERS 
       %p
-        Enter number of winners and click the See Winners button.
-        %br
-        Winners are chosen through the magic of a random number generator. 
-        %br
-        The more prize entries a user has, the better chance of winning. 
-        %br
-        You can curate the list of winners before notifying them.
+        Your prize period is complete. Pick and curate the winners!
     - else
       = render 'winners', winners: winners 
 #no_potential_winners_error

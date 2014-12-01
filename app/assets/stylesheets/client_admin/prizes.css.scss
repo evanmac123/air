@@ -219,9 +219,10 @@ body.client_admin-prizes {
       padding: 0.5em;
       font-weight: 700;
       border-radius: 3px;
+      margin-bottom: 2em;
     }
     form#pick_winners{
-      margin-top: 2em;
+      //margin-top: 2em;
       margin-bottom: 2em;
       overflow: auto;
       & > *{
@@ -276,7 +277,7 @@ body.client_admin-prizes {
         color: $med-gray;
         font-size: 14px;
         p{
-          padding: 2em 5em 5em 2em;
+          padding: 0.55em;
           line-height: 1.5;
         }
         table{
@@ -355,7 +356,7 @@ body.client_admin-prizes {
       padding: 1rem;
     }
   }
-  .pick_container{
+  /*.pick_container{
     .instruction_box{
       background: $sky-blue;
       color: $white;
@@ -476,7 +477,7 @@ body.client_admin-prizes {
         }
       }
     }
-  }
+  }*/
   .field_with_errors{
     display: inline;
   }
