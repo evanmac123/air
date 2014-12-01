@@ -85,24 +85,6 @@ feature "interacts with a tile from the explore-preview page" do
       visit explore_tile_preview_path(tile, as: @user)
       page.should have_content("View Only")
     end
-
-    scenario "has credit for the original creator if present", js: true do
-      close_intro
-      original_board = FactoryGirl.create(:demo, name: "Smits and O'Houlihan")
-      creator = FactoryGirl.create(:user, name: "Jimmy O'Houlihan", demo: original_board)
-
-      @original_tile.creator = creator
-      @original_tile.created_at = Chronic.parse("May 1, 2013, 12:00")
-      @original_tile.save!
-
-      click_copy_button
-
-      # little hack
-      newest_tile.update_attributes(status: Tile::ACTIVE)
-      visit tiles_path(start_tile: newest_tile.id)
-      expect_content "Jimmy O'Houlihan, Smits and O'Houlihan"
-      expect_content "May 1, 2013"
-    end
   end
 
   shared_examples_for 'gets registration form after closing intro' do |name, selector|
