@@ -501,22 +501,29 @@ body.client_admin-prizes {
       .ui-dialog-buttonset{
         width: 100%;
         button{
-          background: transparent;
           width: 47.5%;
-          border: 1px solid $sky-blue;
-          color: $sky-blue;
-          font-size: 18px;
-          font-weight: 400;
-          margin-right: 0;
-          border-radius: 0;
+          box-shadow: none;
+          padding-top: 0.2em !important;
+          padding-bottom: 0.2em !important;
+          &:nth-child(even){
+            @include light-button($sky-blue);
+            margin: 0;
+          }
+          //background: transparent;
+          //border: 1px solid $sky-blue;
+          //color: $sky-blue;
+          //font-size: 18px;
+          //font-weight: 400;
+          //margin-right: 0;
+          //border-radius: 0;
           &:nth-child(odd){
+            @include app-button($sky-blue);
             margin-right: 5%;
-            background: $sky-blue;
-            color: $white;
-            box-shadow: none;
+            //background: $sky-blue;
+            //color: $white;
           }
           span{
-            padding: 0.2em 1em;
+            padding: 0;
           }
         }
       }

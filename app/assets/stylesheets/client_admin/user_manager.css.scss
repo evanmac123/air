@@ -262,7 +262,19 @@ body.client_admin-tile_completions .breadcrumbs {
 
 #new_location_lightbox {
   @include lightbox;
-  label {margin-bottom:.75em;}
+  label {
+    margin-bottom:.75em;
+    @include caption;
+  }
+  input[type="text"]{
+    float: left;
+    height: 29px;
+  }
+  input[type="submit"]{
+    float: none;
+    margin: 0;
+    margin-left: 1em;
+  }
 }
 // ================== Survey chart   ==================
 table.survey-chart-table {

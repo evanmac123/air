@@ -51,6 +51,7 @@
     overflow: hidden;
     position: relative;
     width:100%;
+    box-shadow: 1px 1px 3px $light-gray;
     
     .tile_thumbnail_image, .headline {
       margin:0 auto;
