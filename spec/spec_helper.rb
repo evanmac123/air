@@ -53,6 +53,11 @@ RSpec.configure do |config|
     rescue NameError => e # quietly ignore if FakeTwilio not loaded
     end
   end
+
+  # handy if you've got a test that hangs
+  #config.before(:each) do
+    #puts example.metadata[:description]
+  #end
 end
 
 # Big Fat Hack (TM) Part I so the ActiveRecord connections are shared across threads.

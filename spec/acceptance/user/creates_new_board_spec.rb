@@ -39,32 +39,6 @@ feature 'Create new board' do
 
     page.should have_content "CURRENT BOARD Buttons Board"
     should_be_on client_admin_tiles_path
-    page.should have_content "Click the + button to create a new tile."
-  end
-
-  scenario "and goes through the whole onboarding flow", js: true do
-    user = FactoryGirl.create(:user)
-    # Pretend that the user has gone through the flow at some point in the past
-    user.displayed_tile_post_guide = true
-    user.displayed_tile_success_guide = true
-    user.save!
-
-    try_to_create_new_board(user)
-    page.should have_content "Click the + button to create a new tile."
-
-    page.find("#add_new_tile_link").click
-    fill_in_valid_form_entries
-    click_create_button
-    page.should have_content("Click Post to publish your tile")
-
-    click_link "Post"
-    page.should have_content("Congratulations! Your tile is posted.")
-
-    click_link "Back to Tiles"
-    page.should have_content("You've Unlocked Sharing!")
-
-    within('.tile-index-share', visible: true) {click_link "Got It"}
-    page.should have_content("To try your board as a user click on the preview.")
   end
 
   context "with a name that's already taken" do

@@ -142,35 +142,5 @@ feature 'In multiple boards appears present in all at once' do
 
       expect_all_headlines_in_some_email(@user, @first_board, @second_board)
     end
-
-    scenario "existing user is invited from a new board gets non-broken digest", js: true do
-      # detects a regression that Kate found in testing
-      visit new_board_path
-      fill_in "user[name]", with: "New Guy"
-      fill_in "user[email]", with: "new@guy.com"
-      fill_in "user[password]", with: "grunty"
-      fill_in "board[name]", with: "terrible annoyance"
-      click_button "Create Board"
-
-      page.find("#add_new_tile_link").click
-      create_good_tile
-      # cheat a little...
-      @tile = Tile.last
-      @tile.update_attributes(headline: "Canary in a coal mine")
-
-      click_link "Post"
-      click_link "Back to Tiles"
-      click_link "Share 1"
-
-      fill_in "user_0_name", with: USER_NAME
-      fill_in "user_0_email", with: @user.email
-      click_link "Preview Invitation"
-
-      click_link "Send"
-      crank_dj_clear
-
-      open_email(@user.email)
-      current_email.html_part.body.should include(@tile.headline)
-    end
   end
 end

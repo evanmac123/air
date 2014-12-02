@@ -26,39 +26,4 @@ feature 'Client Admin navigates site with tile manager navbar' do
       end
     end
   end
-
-  context "Blocked menu items for new client admin" do
-    before(:each) do
-      @joe = FactoryGirl.create(:client_admin, name: 'Joe')
-      has_password(@joe, 'foobar')
-      signin_as(@joe, 'foobar')
-    end
-
-    {
-      'Share' => 'client_admin_share_path',
-      'Activity' => 'client_admin_path',
-      'Prizes' => 'client_admin_prizes_path',
-      'Users' => 'client_admin_users_path'
-    }.each do |link_text, page_path_code|
-      it "should have a blocked link to #{link_text}" do
-        within tile_manager_nav do
-          expect_content link_text
-          page.should_not have_selector("[href='#{eval(page_path_code)}']")
-        end
-      end
-    end
-
-    {
-      'Explore' => "explore_path",
-      'Preview'   => "activity_path",
-      'Edit'   => "client_admin_tiles_path"
-    }.each do |link_text, page_path_code|
-      it "should have link to #{link_text}" do
-        within tile_manager_nav do
-          expect_content link_text
-          page.should have_selector("[href='#{eval(page_path_code)}']")
-        end
-      end
-    end
-  end
 end

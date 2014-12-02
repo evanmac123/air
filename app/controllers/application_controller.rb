@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
 
   # This prints the controller and action to stdout on every action, which
   # is sometimes handy for debugging
-  # before_filter :yell_name
+  #before_filter :yell_name
 
   before_render :persist_guest_user
   before_render :add_persistent_message

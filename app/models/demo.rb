@@ -333,18 +333,8 @@ class Demo < ActiveRecord::Base
     self.where(id: id).public.first
   end
 
-#  def self.public_board_by_params(params)
-    #if params[:public_slug]
-      #public_board_by_public_slug(params[:public_slug])
-    #elsif params[:demo_id]
-      #public_board_by_id(params[:demo_id])
-    #else
-      #nil
-    #end
-  #end
-
   def brand_new?
-    self.tiles.empty?
+    false
   end
   
   def non_activated?
