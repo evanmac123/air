@@ -171,10 +171,10 @@
 
   input[type="submit"] {
     @include app-button($sky-blue);
-    font-size:18px;
-    font-weight: 400;
-    padding:.35em .5em;
-    height: 35px;
+    //font-size:18px;
+    //font-weight: 400;
+    //padding:.35em .5em;
+    //height: 35px;
     width: 100%;
   }
   .update-digest-spinner {

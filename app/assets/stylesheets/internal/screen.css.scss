@@ -13,7 +13,6 @@ body {
 	border-top:none;
 	color:$text-color;
 	@include font-regular;
-	a, a:link, a:visited {@include font-bold;}
 	h3 {
 		@include font-semibold;
 		font-size:1.25em;
@@ -29,10 +28,12 @@ body {
 	}
 	.module {font-size:.875em; margin-bottom:2em;}
 	.find_users {
-    @include light-button($sky-blue);
-    @include caption;
-    padding:.25em .4em;
-    margin-left:.5em;
-    vertical-align: top;
-  }
+	    @include light-button($sky-blue);
+	    font-size: 10px;
+	    font-weight: 400 !important;
+	    //@include caption;
+	    //padding:.25em .4em;
+	    margin-left:.5em;
+	    vertical-align: top;
+	}
 }

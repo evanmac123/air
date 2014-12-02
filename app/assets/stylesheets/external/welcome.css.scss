@@ -1,4 +1,7 @@
 body.pages-show.landing, body.pages.pages-product{
+  .button{
+    box-shadow: none;
+  }
   background: $white;
   #pageHdr{
     background: #4eace0;box-shadow: none;
@@ -6,13 +9,9 @@ body.pages-show.landing, body.pages.pages-product{
     .logo img{width: 80px;}
     .large-8{text-align: right;}
     .button.signin{
-      background: none;
-      box-shadow: none;
-      border: #fff 1px solid;
-      color: #fff;
-      border-radius: 3px;
+      @include light-button($white);
       padding: 10px 20px;
-      font-size: 15px;
+      //font-size: 15px;
     }
   }
   .regFormSection{
@@ -43,15 +42,17 @@ body.pages-show.landing, body.pages.pages-product{
         }
       }
       .button{
-        background: $sky-blue;
-        box-shadow: none;
-        border: #fff 1px solid;
-        color: #fff;
-        border-radius: 3px;
-        display: block;
-        text-align: center;
+        @include app-button($sky-blue);
+        //background: $sky-blue;
+        //box-shadow: none;
+        //border: #fff 1px solid;
+        //color: #fff;
+        //border-radius: 3px;
+        //display: block;
+        //text-align: center;
         width: 100%;
         margin-top: 20px;
+        padding: 10px 20px;
       }
     }
   }

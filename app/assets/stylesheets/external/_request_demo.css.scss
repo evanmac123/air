@@ -5,5 +5,8 @@ input.unfilled-field {border-color:$red;}
 .all_fields_error {color:$red!important;}
 #request_demo {
   @include lightbox-form;
+  input[type="submit"]{
+  	@include app-button($sky-blue);
+  }
 }
 .text-placeholder {color: #AAA !important}

@@ -62,3 +62,8 @@ section:after{@include clear;}
   &#form-bg
   {color: $dark;}
 }
+
+label{
+  @include caption;
+  margin-bottom:.5em;
+}

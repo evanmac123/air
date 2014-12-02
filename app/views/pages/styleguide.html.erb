@@ -64,6 +64,7 @@
   <section class="buttons">
     <h5>Primary buttons, with importance in order</h5>
     <h5>@include app-button($color)</h5>
+    <h5>Regular: 16px / 1 em, Small 10px / .625em</h5>
     <div class="large-12 columns large-centered full-buttons">
       <div class="example row">
         <a class="big_button" id="sky-blue">Click me</a>
@@ -71,24 +72,44 @@
       </div>
       <div class="example row">
         <a class="big_button small_button" id="sky-blue">Click me</a>
-        <a class="big_button" id="sky-blue">Click me</a>
+        <a class="big_button small_button" id="gray">Click me</a>
       </div>
     </div>
 
     <h5>Secondary buttons, with importance in order</h5>
     <h5>@include light-button($color)</h5>
     <div class="large-12 columns large-centered light-buttons">
-      <div class="dark-bg example row">
-        <a class="light_button" id="sky-blue">Click me</a>
-        <a class="light_button" id="gray">Click me</a>
-      </div>
       <div class="light-bg example row">
         <a class="light_button" id="sky-blue">Click me</a>
         <a class="light_button" id="gray">Click me</a>
       </div>
       <div class="light-bg example row">
         <a class="light_button small_button" id="sky-blue">Click me</a>
-        <a class="light_button" id="sky-blue">Click me</a>
+        <a class="light_button small_button" id="gray">Click me</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="forms">
+    <h5>Form</h5>
+    <div class="large-12 columns large-centered">
+      <div class="example row">
+        <form class="custom">
+          <label for="input">Label</label>
+          <input type="text" id="input" placeholder="Placeholder">
+
+          <label for="big_select">Select</label>
+          <select id="big_select">
+            <option>Option 1</option>
+            <option>Option 2</option>
+          </select>
+
+          <label for="small_select">Small select</label>
+          <select id="small_select" class="small">
+            <option>Option 1</option>
+            <option>Option 2</option>
+          </select>
+        </form>
       </div>
     </div>
   </section>

@@ -12,6 +12,9 @@
 //= require jquery.validate.additional-methods
 //= require jquery.ui.autocomplete
 
+$(document).ready(function() {
+  $('.settings-edit').foundation();
+});
 $(document).foundation();
 
 if(undefined) {undefined};

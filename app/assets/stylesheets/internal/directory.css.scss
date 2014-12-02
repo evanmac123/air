@@ -1,7 +1,20 @@
 #search {
     @include form-group;
+    position: relative;
     &:after{@include clear;}
     h5 {display: none;}
+    #search_string {
+        float: left;
+        height: 29px;
+        margin: 0;
+        width: 242px;
+    }
+    #find_button {
+        @include app-button($sky-blue);
+        float: none;
+        margin-left: 1em;
+    }
+    /*
     #search_string, #find_button {
         font-size:1em;
         line-height: 1em;
@@ -23,6 +36,7 @@
         height:40px;
         width:20%;
     }
+    */
 }
 
 #notify_of_search {margin-bottom:2em;}
@@ -67,7 +81,7 @@
         color:$med-gray;
     }
     .follow-btn {@include app-button($sky-blue);}
-    .stop-following-btn {@include app-button($red);}
+    .stop-following-btn {@include light-button($sky-blue);}
     .follow-btn, .stop-following-btn {
         @include ease(.15s);
         cursor: pointer;

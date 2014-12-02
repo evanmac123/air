@@ -180,12 +180,14 @@ body.client_admin-draft_tiles {
             font-weight: 400;
         }
         .minimize {
-            @include light-button($dark-green);
-            @include caption;
-            position: relative;
+            @include light-button($med-gray);
+            font-size: 10px;
+            //@include caption;
+            position: absolute;
             top:-2px;
-            margin-left:1em;
-            vertical-align: text-bottom;
+            right: 73px;
+            //margin-left:1em;
+            //vertical-align: text-bottom;
         }
         .tile_thumbnail .tile-wrapper {border: none;}
     }

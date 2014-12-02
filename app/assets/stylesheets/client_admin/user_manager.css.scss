@@ -6,10 +6,6 @@ body.client_admin-users {
   #user_count{
     color: $sky-blue;
   }
-  .custom.dropdown *{
-    color: $med-gray !important;
-    font-weight: 400;
-  }
 
   #total_user_count_row, #find_users_row {
     margin-bottom: 3em;
