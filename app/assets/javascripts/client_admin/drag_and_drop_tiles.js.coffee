@@ -162,10 +162,19 @@ window.dragAndDropTiles = ->
     updateTileVisibilityIn "draft"
     updateTileVisibilityIn "archive"
 
+  visibleTilesNumberIn = (section) ->
+    if section == "draft"
+      8
+    else if section == "archive"
+      4
+    else
+      9999
+
   updateTileVisibilityIn = (section) ->
     tiles = $("#" + section).find( "> " + notDraggedTileSelector() )
+    visibleTilesNumber = visibleTilesNumberIn(section)
     for tile, index in tiles
-      if index < 8
+      if index < visibleTilesNumber
         $(tile).css("display", "block")
       else
         $(tile).css("display", "none")

@@ -10,7 +10,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @demo.activate_tiles_if_showtime
     @demo.archive_tiles_if_curtain_call
     @active_tiles  = @demo.active_tiles_with_placeholders
-    @archive_tiles = (@demo.archive_tiles_with_placeholders)[0,8]
+    @archive_tiles = (@demo.archive_tiles_with_placeholders)[0,4]
     @draft_tiles = (@demo.draft_tiles_with_placeholders)[0,8]
     @board_is_brand_new = @demo.tiles.limit(1).first.nil?
 

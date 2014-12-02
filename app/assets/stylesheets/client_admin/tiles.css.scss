@@ -152,7 +152,7 @@ body.client_admin-draft_tiles {
         }
         h1, .all_inactive {display: inline-block;}
         .tile_thumbnail.placeholder_tile {
-            border-color:lighten($blue, 13%);
+            border-color: $light-gray;
         }
         .create_new_tile {
             @include app-button($dark-green);
@@ -170,14 +170,18 @@ body.client_admin-draft_tiles {
         }
         .all_inactive, .all_draft
         {
-            @include light-button($sky-blue);
+            @include light-button($med-gray);
             font-size: 10px;
-            margin: 0 auto;
+            width: 100%;
+            margin-bottom: 1em;
+            margin-left: 1em;
+            max-width: 104.2em;
+            //margin: 0 auto;
             //margin-bottom: 3em;
-            display: block;
-            text-align: center;
-            width: 6em;
-            font-weight: 400;
+            //display: block;
+            //text-align: center;
+            
+            //font-weight: 400;
         }
         .minimize {
             @include light-button($med-gray);
@@ -189,7 +193,7 @@ body.client_admin-draft_tiles {
             //margin-left:1em;
             //vertical-align: text-bottom;
         }
-        .tile_thumbnail .tile-wrapper {border: none;}
+        //.tile_thumbnail .tile-wrapper {border: none;}
     }
     .draft_overlay{
         position: absolute;
@@ -284,7 +288,7 @@ body.client_admin-draft_tiles #active_tiles,
     }
     &:hover:before {background:darken($sky-blue, 7%);}
     &:after{
-        color:$white;
+        color:$sky-blue;
         line-height:1em;
         content: "Add New Tile";
         position: absolute;
