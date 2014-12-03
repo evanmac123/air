@@ -124,6 +124,7 @@ body.client_admin-draft_tiles {
     .content {
         //background:$blue;
         background: $almost-white;
+        padding: 0;
     }
     .manage_tiles {
         position: relative;
@@ -143,6 +144,16 @@ body.client_admin-draft_tiles {
         #archive { .tile_container { height: 466px; } }
         .no_tiles_message {margin:0 auto 3em;}
     }
+    #active_tiles, #archived_tiles, #draft_tiles {
+        h4{
+            margin-bottom: 2em;
+            margin-left: 1.5em;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            //color: rgba(0,0,0,0.8);
+        }
+    }
     #archived_tiles, #draft_tiles {
         background: $almost-white;
         //background:$blue;
@@ -150,7 +161,7 @@ body.client_admin-draft_tiles {
         #draft, #archive{
             &:after{ @include clear; }
         }
-        h1, .all_inactive {display: inline-block;}
+        /*h1, */.all_inactive {display: inline-block;}
         .tile_thumbnail.placeholder_tile {
             border-color: $light-gray;
         }
@@ -158,24 +169,25 @@ body.client_admin-draft_tiles {
             @include app-button($dark-green);
             float: right;
         }
-        h1 {
+        /*h1 {
             @extend h2;
             margin-bottom: 28px;
             margin-left: 13px;
             width: 100%;
             max-width: 57.7em;
-            border-bottom: 1px solid;
+            //border-bottom: 1px solid;
             //color:$white;
             //color: $text-color;
-        }
+        }*/
         .all_inactive, .all_draft
         {
             @include light-button($med-gray);
-            font-size: 10px;
+            font-size: 12px;
+            letter-spacing: 0.4em;
             width: 100%;
             margin-bottom: 1em;
             margin-left: 1em;
-            max-width: 104.2em;
+            max-width: 86.75em;
             //margin: 0 auto;
             //margin-bottom: 3em;
             //display: block;
@@ -194,6 +206,13 @@ body.client_admin-draft_tiles {
             //vertical-align: text-bottom;
         }
         //.tile_thumbnail .tile-wrapper {border: none;}
+    }
+    #draft_tiles {
+        padding-top: 2em;
+        background: #fafafa;
+        .tile_thumbnail.placeholder_tile {
+            border-color: $almost-white;
+        }
     }
     .draft_overlay{
         position: absolute;
@@ -228,8 +247,8 @@ body.client_admin-draft_tiles {
         font-size: 20px;
     }
     #active_tiles {
-        //padding:2em 0 0 0;
-        padding: 0;
+        padding:2em 0 0 0;
+        //padding: 0;
         #active{
             &:after{ @include clear; }
         }
@@ -248,22 +267,23 @@ body.client_admin-draft_tiles #active_tiles,
 .tiles_to_be_shared {
     //background: $tile-wall-bg;
     background: $almost-white;
-    h1 {
+    /*h1 {
         @extend h2;
         margin-bottom: 28px;
         margin-left: 13px;
         width: 100%;
         max-width: 57.7em;
-        border-bottom: 1px solid;
+        //border-bottom: 1px solid;
         //color:$text-color;
-    }
+    }*/
 }
 
 // Create new tile placeholder link
 .creation-placeholder a {
-    border-color: $light-gray;
+    //border-color: $light-gray;
+    border-color: $almost-white;
     display: block;
-    color:$almost-white !important;
+    color: #fafafa !important;
     line-height:1em;
     position: relative;
     text-align: center;

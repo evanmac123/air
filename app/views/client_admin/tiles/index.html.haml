@@ -4,7 +4,7 @@
       = fa_icon "ban"
   .row
     .large-12.columns
-      %h1 Draft
+      %h4 Draft
       %div#draft.manage_section= render partial: 'shared/tiles/draft'
       = link_to "Show all", client_admin_draft_tiles_path, :class => :all_draft
 .completed_tiles_containment
@@ -13,7 +13,7 @@
       Oops! Sorry, you can't move a tile that's been completed by users back to draft. You can archive it.
     .row
       .large-12.columns
-        %h1 Posted
+        %h4 Posted
         = link_to "Download stats", client_admin_tiles_report_path(report: Tile::ACTIVE, format: "csv"), class: "download_csv small_button"
         %div#active.manage_section=  render partial: 'active'
 
@@ -22,7 +22,7 @@
       Oops! Sorry, you can't move a tile that's been completed by users back to draft. You can archive or repost it.
     .row
       .large-12.columns
-        %h1 Archive
+        %h4 Archive
         = link_to "Download stats", client_admin_tiles_report_path(report: Tile::ARCHIVE, format: "csv"), class: 'download_csv small_button'
         %div#archive.manage_section= render partial: 'shared/tiles/archive'
         = link_to "Show all", client_admin_inactive_tiles_path, :class => :all_inactive
