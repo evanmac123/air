@@ -25,12 +25,4 @@ module TilesHelper
       str
     end
   end
-
-  # need this function to set height of image place in ie8 while image is loading
-  def tile_image_height tile
-    height = tile.image.height.to_f
-    width = tile.image.width.to_f
-    full_width = 600.0 # px for full size tile
-    ( height * full_width / width ).to_i
-  end
 end

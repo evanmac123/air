@@ -301,6 +301,19 @@ class Tile < ActiveRecord::Base
     }.ordered_by_position.first
   end
 
+  # need this function to set height of image place in ie8 while image is loading
+  def full_size_image_height
+    if image.to_s.include? "/assets/resizing_gears_fullsize.gif"
+      height = 484
+      width = 666
+    else
+      height = image.height
+      width = image.width
+    end
+    full_width = 600.0 # px for full size tile
+    ( height * full_width / width ).to_i
+  end
+
   def self.due_ids
     self.after_start_time_and_before_end_time.map(&:id)
   end

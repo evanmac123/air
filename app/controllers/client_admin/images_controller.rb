@@ -4,7 +4,14 @@ class ClientAdmin::ImagesController < ClientAdminBaseController
   before_filter :find_tile
 
   def show
-    render inline: [{'stillProcessing' => @tile.image_really_still_processing, 'imageURL' => @tile.image.url, 'type' => 'image'}].to_json
+    render inline: [
+      {
+        'stillProcessing' => @tile.image_really_still_processing, 
+        'imageURL' => @tile.image.url, 
+        'type' => 'image',
+        'imageHeight' => @tile.full_size_image_height
+      }
+    ].to_json
   end
 
   def update

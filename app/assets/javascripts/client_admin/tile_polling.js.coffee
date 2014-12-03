@@ -8,6 +8,8 @@ selectorForImage = (updateData) ->
 
 updateSingleImage = (updateData) ->
   $(selectorForImage(updateData)).attr('src', updateData.imageURL)
+  if updateData.type == 'image'
+    $(selectorForImage(updateData)).css "height", (updateData.imageHeight + "px")
 
 updateTileImagesIfProcessed = (data) ->
   readyToUpdate = _.reject(data, stillProcessing)

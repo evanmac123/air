@@ -14,7 +14,7 @@
 
   <div class="<%=tile_class(tile)%>">
     <div class="tile_full_image">
-      <%= image_tag tile.image.url, :class => :tile_image, :alt => tile.headline, style: "height:#{tile_image_height(tile)}px;" %>
+      <%= image_tag tile.image.url, :class => :tile_image, :alt => tile.headline, style: "height:#{tile.full_size_image_height}px;" %>
       <div class="shadow_overlay"></div>
       <div class="image_credit">
         <div class="image_credit_view">
