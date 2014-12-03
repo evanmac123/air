@@ -151,6 +151,16 @@ feature 'Client admin and tile manager page' do
   end
   
   context "New client admin visits client_admin/tiles page" do
+    context "For new client admin, when there is no tile in the demo", js: true do
+      before do
+        visit_tile_manager_page
+      end
+      scenario "popup appears" do
+        page.should have_css('.joyride-tip-guide', visible: true)
+        page.should have_content "Click the + button to create a new tile. Need ideas? Explore"
+      end
+    end
+
     context "when there is atleast one activated tile in demo", js: true do
       before do
         @tile = FactoryGirl.create :tile, demo: admin.demo, status: Tile::ACTIVE, creator: admin

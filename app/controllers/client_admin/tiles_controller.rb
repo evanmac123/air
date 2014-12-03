@@ -12,6 +12,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @active_tiles  = @demo.active_tiles_with_placeholders
     @archive_tiles = (@demo.archive_tiles_with_placeholders)[0,8]
     @draft_tiles = (@demo.draft_tiles_with_placeholders)[0,8]
+    @board_is_brand_new = @demo.tiles.limit(1).first.nil?
 
     process_own_tile_completed
 

@@ -26,6 +26,19 @@
         = link_to "Download stats", client_admin_tiles_report_path(report: Tile::ARCHIVE, format: "csv"), class: 'download_csv small_button'
         %div#archive.manage_section= render partial: 'shared/tiles/archive'
         = link_to "Show all", client_admin_inactive_tiles_path, :class => :all_inactive
+
+- if @board_is_brand_new
+  #tile-joyride
+    %ol.joyride-list.tile{"data-joyride" => true}
+      %li{:"data-id"=>"add_new_tile_link", :"data-options"=>"tipLocation:top;nextButton:false"}
+        %p.top-section
+          Click the
+          <b>+</b>
+          button to create a new tile.
+        .bottom-section
+          Need ideas?
+          = link_to 'Explore.', client_admin_explore_path
+
 - timeout_in_msecs = ThumbnailsController::THUMBNAIL_POLL_DELAY * 1000
 - content_for :javascript do
   :javascript
