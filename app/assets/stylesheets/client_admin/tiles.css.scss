@@ -261,7 +261,7 @@ body.client_admin-draft_tiles #active_tiles,
 
 // Create new tile placeholder link
 .creation-placeholder a {
-    border-color:lighten($blue, 13%);
+    border-color: $light-gray;
     display: block;
     color:$almost-white !important;
     line-height:1em;
