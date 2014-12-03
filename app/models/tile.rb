@@ -303,7 +303,9 @@ class Tile < ActiveRecord::Base
 
   # need this function to set height of image place in ie8 while image is loading
   def full_size_image_height
-    if image.to_s.include? "/assets/resizing_gears_fullsize.gif"
+    if image.to_s.include? "/assets/avatars/thumb/missing.png"
+      return nil
+    elsif image.to_s.include? "/assets/resizing_gears_fullsize.gif"
       height = 484
       width = 666
     else
