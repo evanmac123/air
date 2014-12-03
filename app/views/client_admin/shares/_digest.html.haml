@@ -1,26 +1,19 @@
-- if @show_invite_users
+= render 'public_board'
+-if @digest_tiles.empty?
   .row
-    .large-12
-    = render partial: 'share_tiles_digest', locals: {demo: @demo}
-    = render partial: 'success_share_digest'
-    = render partial: 'success_share_url'
+    .large-12#digest
+      %div.cancel_follow_ups.large-12.columns= render 'cancel_follow_ups'
+      %div.large-12.columns
+        %h2 Send Email with New Tiles
+        %div.no_tiles_messages
+          - if flash[:digest_sent_flag]
+            %h4
+              Your tiles have been sent! You can monitor 
+              = link_to "the Activity page", client_admin_path
+              to see how users interact.
+          %p= no_digest_email_message
 - else
-  = render 'public_board'
-  -if @digest_tiles.empty?
-    .row
-      .large-12#digest
-        %div.cancel_follow_ups.large-12.columns= render 'cancel_follow_ups'
-        %div.large-12.columns
-          %h2 Send Email with New Tiles
-          %div.no_tiles_messages
-            - if flash[:digest_sent_flag]
-              %h4
-                Your tiles have been sent! You can monitor 
-                = link_to "the Activity page", client_admin_path
-                to see how users interact.
-            %p= no_digest_email_message
-  - else
-    .row
-      .large-12#digest
-        %div.cancel_follow_ups.large-12.columns= render 'cancel_follow_ups'
-        %div#digest_management.large-12.columns= render partial: 'digest_management'
+  .row
+    .large-12#digest
+      %div.cancel_follow_ups.large-12.columns= render 'cancel_follow_ups'
+      %div#digest_management.large-12.columns= render partial: 'digest_management'

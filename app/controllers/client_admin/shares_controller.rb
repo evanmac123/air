@@ -8,22 +8,10 @@ class ClientAdmin::SharesController < ClientAdminBaseController
     @all_users = @demo.users.where(is_site_admin: false).count
     @activated_users = @demo.users.claimed.where(is_site_admin: false).count - 1 #need to exclude the current user
 
-    if (!@demo.has_normal_users? || @demo.tile_completions.empty?) && current_user.show_onboarding?
-      #need to show show_invite_users with tiles active so far
-      @digest_tiles = @demo.digest_tiles(nil)
-      @tiles_to_be_sent = @demo.digest_tiles(nil).count
-      @show_invite_users = @tiles_to_be_sent > 0
-    else
-      @digest_tiles = @demo.digest_tiles(tile_digest_email_sent_at)
-      @tiles_to_be_sent = @demo.digest_tiles(tile_digest_email_sent_at).count    
-      @show_invite_users = false
-    end
+    @digest_tiles = @demo.digest_tiles(tile_digest_email_sent_at)
+    @tiles_to_be_sent = @demo.digest_tiles(tile_digest_email_sent_at).count    
     
-    if @demo.non_activated? && current_user.show_onboarding?
-      TrackEvent.ping_page('Page Locked', {}, current_user)
-    else
-      ping_page("Manage - Share Page", current_user)
-    end
+    ping_page("Manage - Share Page", current_user)
     prepend_view_path 'client_admin/users'
   end
   

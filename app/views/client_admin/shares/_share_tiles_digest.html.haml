@@ -1,9 +1,0 @@
-#share_tiles_digest
-  .invite_users_header_page_1
-    %h1 Invite people to your board    
-  .invite_users_header_page_2{style:'display:none'}
-    %h1 Preview and send invitations
-  #invite_users_modal.large-12.columns
-    = form_for [:client_admin, UsersInvite.build(@demo)], remote: true, html: {class: 'user-profile', id: 'invite_users_form'} do |form|
-      = render 'invite_user_fields', form: form
-      = render 'invite_users_message', form: form, demo: demo
