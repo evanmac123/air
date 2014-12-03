@@ -333,11 +333,7 @@ class Demo < ActiveRecord::Base
     self.where(id: id).public.first
   end
 
-  def brand_new?
-    false
-  end
-  
-  def non_activated?
+  def non_activated? # CUT?
     self.tiles.active.empty? && self.tiles.where('activated_at IS NOT NULL').count < 1
   end
   

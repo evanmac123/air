@@ -11,6 +11,8 @@ class TileCompletion < ActiveRecord::Base
   after_create :creator_has_tile_completed
 
   def creator_has_tile_completed
+    # OPTZ: this can run asynchronously
+    
     creator = self.tile.creator
     if creator.nil? == false && 
        creator.has_own_tile_completed == false && 

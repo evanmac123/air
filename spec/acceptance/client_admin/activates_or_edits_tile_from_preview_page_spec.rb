@@ -76,25 +76,6 @@ feature 'Activates or edits tile from preview page' do
     expect_content "The #{tile.headline} tile has been archived"
   end
 
-  def expect_first_time_create_popover
-    expect_content 'Click Post to publish your tile.'
-    expect_content 'Got It'
-  end
-  
-  def expect_no_first_time_create_popover
-    expect_no_content 'Click Post to publish your tile.'
-    expect_no_content 'Got It'
-  end
-  def expect_first_time_post_popover
-    expect_content "Congratulations! Your tile is posted."
-    expect_content 'Next click Back to Tiles to see your board.'
-  end
-  
-  def expect_no_first_time_post_popover
-    expect_no_content "Congratulations! You've posted your first tile."
-    expect_no_content 'Next click Back to Tiles to see your board.'
-  end
-  
   def expect_mixpanel_action_ping(event, action)
     FakeMixpanelTracker.clear_tracked_events
     crank_dj_clear
@@ -228,42 +209,5 @@ feature 'Activates or edits tile from preview page' do
       expect_mixpanel_action_ping('Tile Preview Page - Draft', 'Clicked New Tile button')
 
     end    
-  end
-  
-  context "first time client admin" do
-    before do
-      @client_admin = FactoryGirl.create(:client_admin)
-      visit new_client_admin_tile_path(as: @client_admin)
-    end
-    
-    scenario "sees the popover appear the first time tile is created in demo which disappears on click", js:true do
-      create_good_tile
-      
-      expect_first_time_create_popover
-      click_link 'Got it'
-
-      expect_no_first_time_create_popover
-      expect_mixpanel_action_ping('Tile Preview Page - Draft', 'Clicked Got It button in orientation pop-over')
-    end
-
-    scenario "does not see the popover appear after first time create", js:true do
-      create_existing_tiles(@client_admin.demo, Tile::ACTIVE, 2)
-      create_good_tile
-      expect_no_first_time_create_popover
-    end
-
-    context 'after first tile create' do
-      scenario "sees the popover appear the first time tile is posted", js:true do        
-        create_good_tile
-        click_link 'Post'        
-        expect_first_time_post_popover
-      end
-      scenario "does not see the popover appear after first time post", js:true do
-        create_existing_tiles(@client_admin.demo, Tile::ACTIVE, 2)
-        create_good_tile
-        click_link 'Post'
-        expect_no_first_time_post_popover
-      end
-    end
   end
 end

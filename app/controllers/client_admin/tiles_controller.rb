@@ -13,10 +13,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @archive_tiles = (@demo.archive_tiles_with_placeholders)[0,8]
     @draft_tiles = (@demo.draft_tiles_with_placeholders)[0,8]
 
-    @first_active_tile_id = process_own_tile_completed
+    process_own_tile_completed
 
-    @tile_just_activated = process_tile_just_activated
-    
     record_index_ping
   end
 
@@ -33,24 +31,10 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
   private :record_index_ping
   
-  def process_tile_just_activated
-    tile_just_activated = flash[:tile_activated_flag] || false
-    #empty out flash[:tile_activated] too
-    tile_just_activated = flash[:tile_activated] || tile_just_activated
-    if tile_just_activated && @demo.tiles.count == 1
-      TrackEvent.ping_action('Tiles Page', 'Unlocked sharing', current_user)
-    end
-    
-    tile_just_activated
-  end
-  private :process_tile_just_activated
-  
-  
   def process_own_tile_completed
     if !current_user.has_own_tile_completed_displayed? && !current_user.has_own_tile_completed_id.nil?
       current_user.has_own_tile_completed_displayed = true
       current_user.save!
-      TrackEvent.ping_action('Tiles Page', "Activated Pop Over", current_user)
       
       current_user.has_own_tile_completed_id     
     else
@@ -116,8 +100,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @tile = get_tile
     return show_partial if params[:partial_only]
 
-    @tile_just_activated = flash[:tile_activated] || false
-    flash[:tile_activated_flag] = @tile_just_activated
     if @tile.draft?
       @show_tile_post_guide = !current_user.displayed_tile_post_guide? && @tile.demo.non_activated?
       current_user.displayed_tile_post_guide = true
@@ -224,8 +206,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     success, failure = flash_status_messages
     is_new = @tile.activated_at.nil?
     if @tile.update_status(params[:update_status])
-      flash[:tile_activated] = is_new && @tile.active?
-      flash[:tile_activated_flag] = is_new && @tile.active?
       flash[:success] = "The #{@tile.headline} tile has been #{success}"
       tile_status_updated_ping @tile, "Clicked button to move"
     else

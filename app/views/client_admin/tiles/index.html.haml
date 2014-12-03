@@ -30,50 +30,7 @@
 - content_for :javascript do
   :javascript
     startTileThumbnailPollingFromQueue(#{timeout_in_msecs})
-- if @demo.brand_new?
-  #tile-joyride
-    %ol.joyride-list.tile{"data-joyride" => true}
-      %li{:"data-id"=>"add_new_tile_link", :"data-options"=>"tipLocation:top;nextButton:false"}
-        %p.top-section
-          Click the
-          <b>+</b>
-          button to create a new tile.
-        .bottom-section
-          Need ideas?
-          = link_to 'Explore.', client_admin_explore_path
-- elsif current_user.show_onboarding?
-  - if @demo.non_activated? && !current_user.displayed_active_tile_guide
-    #tile-joyride-index-post
-      %ol.joyride-list.tile-index-post{"data-joyride" => true}
-        %li{:"data-id"=>"add_new_tile_link", :"data-text"=>"Got It", :"data-options"=>"tipLocation:top;"}
-          %p.top-section
-            To publish, mouse over the tile and click
-            %span Post
-  - elsif @demo.tiles.count == 1 && @tile_just_activated
-    #tile-joyride-index-main-menu
-      %ol.joyride-list.tile-index-share{"data-joyride" => true}
-        %li{:"data-id"=>"share_tiles", :"data-text"=>"Got It", :"data-options"=>"tipLocation:bottom;nubPosition:left;"}
-          %div.top-section
-            .large-3.columns.logo= image_tag "/assets/airbo_logo_lightblue_square_smile.png", size: "50x50"
-            .large-8.columns.heading You've Unlocked Sharing!
-            .clearfix
-          %div.bottom-section
-            Click
-            %span Share
-            when you're ready to invite people to see your board.
-            We'll keep count of the number of tiles you have to share.
-        %li{:"data-id"=>"home_nav", :"data-text"=>"Got It", :"data-options"=>"tipLocation:bottom;"}
-          %p.top-section
-            To try your board as a user click on the preview.
 
-  - if @first_active_tile_id.present?
-    #tile-joyride-index-posted-tile
-      %ol.joyride-list.tile-index-share{"data-joyride" => true}
-        %li{:"data-id"=> "single-tile-#{@first_active_tile_id}", :"data-text"=>"Got It", :"data-options"=>"tipLocation:bottom;"}
-          %div.top-section
-            You've had your first user interact with a tile!
-          %div.bottom-section
-            To see more information about users that complete your tiles, click on the number.
 - content_for :javascript do
   :javascript
     $().ready(function(){
