@@ -1,13 +1,9 @@
-<% if @demo.non_activated? && current_user.show_onboarding? %>
-  <%= render partial: 'shared/lock_screen' %>
-<% else %>
-  <div class="row">
-    <div class="large-4 columns">
-      <%= render 'user_tools' %>
-    </div>
-
-    <div class="large-8 columns">
-      <%= render 'bulk_load' %>
-    </div>
+<div class="row">
+  <div class="large-4 columns">
+    <%= render 'user_tools' %>
   </div>
-<% end %>
+
+  <div class="large-8 columns">
+    <%= render 'bulk_load' %>
+  </div>
+</div>

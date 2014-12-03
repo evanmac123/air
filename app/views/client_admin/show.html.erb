@@ -1,29 +1,25 @@
-<% if @demo.non_activated? && current_user.show_onboarding? %>
-  <%= render partial: 'shared/lock_screen' %>
-<% else %>
-  <div class="row">
-    <div class="large-3 columns quick_stats">
-      <h2>Stats</h2>
-      <div class="stats section">
-        <ul class="stat-group">
-          <li class="labels">Participants</li>
-          <li class="numbers"><h3><%= number_with_delimiter @claimed_user_count %></h3></li>
-        </ul>
-        <ul class="stat-group">
-          <li class="labels">Added Mobile Numbers</li>
-          <li class="numbers"><h3><%= @with_phone_percentage %></h3></li>
-        </ul>
-        <ul class="stat-group">
-          <li class="labels">Recruited By Peer</li>
-          <li class="numbers"><h3><%= @with_peer_invitation_fraction %></h3></li>
-        </ul>
-      </div>
-    </div>
-    <div class="large-9 columns">
-      <div id="chart-header">
-        <h2>Activity</h2>
-      </div>
-      <%= render partial: 'client_admin/charts/chart' %>
+<div class="row">
+  <div class="large-3 columns quick_stats">
+    <h2>Stats</h2>
+    <div class="stats section">
+      <ul class="stat-group">
+        <li class="labels">Participants</li>
+        <li class="numbers"><h3><%= number_with_delimiter @claimed_user_count %></h3></li>
+      </ul>
+      <ul class="stat-group">
+        <li class="labels">Added Mobile Numbers</li>
+        <li class="numbers"><h3><%= @with_phone_percentage %></h3></li>
+      </ul>
+      <ul class="stat-group">
+        <li class="labels">Recruited By Peer</li>
+        <li class="numbers"><h3><%= @with_peer_invitation_fraction %></h3></li>
+      </ul>
     </div>
   </div>
-<% end %>
+  <div class="large-9 columns">
+    <div id="chart-header">
+      <h2>Activity</h2>
+    </div>
+    <%= render partial: 'client_admin/charts/chart' %>
+  </div>
+</div>
