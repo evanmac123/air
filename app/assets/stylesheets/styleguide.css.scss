@@ -71,6 +71,7 @@ form{
     }
     .off, .on{
       float: left;
+      padding: 6px;
     }
     .switch{
       @include green-paddle-switch;
