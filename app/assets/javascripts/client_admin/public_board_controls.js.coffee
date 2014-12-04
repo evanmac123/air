@@ -53,15 +53,13 @@ $(document).ready ->
       })
       $('.status_div').find('.private').addClass('engaged').removeClass('disengaged')
       $('.status_div').find('.public').addClass('disengaged').removeClass('engaged')
-      $('.status_message_div').html("<div class='fa fa-lock fa-2x'></div> 
-                                     <div class='private-demo-message'>SHARE LINK IS LOCKED</div>")
+      $('.status_message_div').html("<div class='private-demo-message'>SHARE LINK IS LOCKED</div>")
       document.getElementById("public_board_field").setAttribute("disabled","true")
     else
       $.post("/client_admin/public_boards")
       $('.status_div').find('.private').addClass('disengaged').removeClass('engaged')
       $('.status_div').find('.public').addClass('engaged').removeClass('disengaged')
-      $('.status_message_div').html("<div class='fa fa-unlock fa-2x'></div> 
-                                   <div class='public-demo-message'>SHARE LINK IS ACTIVE</div>")
+      $('.status_message_div').html("<div class='public-demo-message'>SHARE LINK IS ACTIVE</div>")
       document.getElementById("public_board_field").removeAttribute("disabled")
 
     return

@@ -10,279 +10,284 @@
   padding-bottom:.5em;
 }
 
-/*.share_tools .notification_controls,*/
-.share_tools .no_tiles_messages,
-.share_tools .public_board_controls {@include form-group;}
-.share_tools .public_board_controls {
-  padding: 1em 1em 0em 1em;
-}
-.share_tools .new_public_board{
-  border: 1px solid $light-gray;
-  padding: 10px;
-  div{
-      float: left;
-  }
-  .title_div{
-     width: 200px;
-     margin-top: 8px;
-    .public_board_title{
-        float: left;
-        color: $med-gray;
-    }
-    .fa-question-circle{
-        float: left;
-        padding-top: 1px;
-        padding-left: 10px;
-        color: $med-gray;
-    }
-  }
-  .status_div{
-    margin-top: 8px;
-    width: 200px;
-    .public, .private{ 
-      float: left;
-      margin: 3px;
-      &.engaged {
-        color: #000000;
-      }
-      &.disengaged {
-        color: $light-gray;          
-      }
-    }
-    
-    .switch{
-      @include green-paddle-switch;
-      @include switch-size(16px, 9px, 2.3em);
-      margin-top: 0;
-      margin-right: 2px;
-      span.switch_button {
-        -webkit-box-shadow: 2px 0 10px 0 rgba(0, 0, 0, 0.07), 1000px 0 0 1000px #dfdfdf, -2px 0 10px 0 rgba(0, 0, 0, 0.07), -1000px 0 0 1000px $sky-blue;
-        box-shadow: 2px 0 10px 0 rgba(0, 0, 0, 0.07), 1000px 0 0 988px #dfdfdf, -2px 0 10px 0 rgba(0, 0, 0, 0.07), -1000px 0 0 1000px $sky-blue;
-      }
-    }
-  }
-  .status_message_div{
-    .public-demo-message, .private-demo-message{
-      text-align: center;
-      line-height: 12px;
-      font-size: 9px;
-      float: left;
-      width: 58px;
-      margin: 4px 10px;
-    }
-    .fa {
-      color: $med-gray;
-      width: 35px;
-    }
-  }
-  .share_link_div{
-      float: left;
-      width: 494px;
-      .share_link_icons{
-          float: right;
-          position: relative;
-          .fa{
-              margin-top: 3px;
-              font-size: 25px;
-              padding: 2px 7px;
-              color: $med-gray;
-          }
-      }
-      #public_board_field{
-          position: absolute;
-          width: 497px;
-      }
-  }
-}
+$public_slug_height: 2.25em;
 
-.share_tools .no_tiles_messages {
-  height:17.5em;
-  padding:5em 6em;
-  h4 {margin-bottom:1em;}
-}
-.share_tools #feedback {
-  color:$gray;
-  @include caption;
-  line-height: 1.45em;
-  padding:16px;
-  padding:1rem 0;
-}
-#digest_management {
-  &:after {@include clear;}
-  
-  .large-3 {
-    &.columns {
-        padding-left: 0;
-        padding-right: 0;
-      }    
-  }
-  .notification_controls {
-    float: left;    
-    .send_to, .follow_up, .intro_message, .custom_subject, .custom_headline {
-      margin-bottom:3.75em;
-      .drop_down{          
-        *{color: $med-gray;font-weight: normal;}
-      }
-      select, label {font-size:1.142857143em;}
-    }
-    .follow_up {
-      p span {
-        @include share-instructions;
-      }
-      label {margin-right:2em;}
-      select:disabled {color:$light-gray;}
-    }
-    .custom_subject, .custom_headline {
-      textarea {
-        height: 4.5em;
-      }
-    }
-    input[type="checkbox"], label, select {display: inline-block;}
-
-    .character-counter {
-      float: right;
-      display: block;
-      margin-bottom: 1em;
-    }
-    .total_users {
-      border:1px $light-gray solid;
-      padding: 10px;
-      margin-bottom:1.75em;
-      color: $gray;
-      span{
-        @include caption;
-        float: left;
-        width: 104px;
-      }
-      p{
-        float: right;
-      }
-    }
-  }
-  .email_preview{
-      float: left;
-      padding-left: 30px;
-  }
-  #scheduled_followups {
-    border-left:1px $light-gray solid;
-    padding-left:1em;
-    width:40%;
-  }
-
-  input[type="submit"] {
-    @include app-button($sky-blue);
-    //font-size:18px;
-    //font-weight: 400;
-    //padding:.35em .5em;
-    //height: 35px;
-    width: 100%;
-  }
-  .update-digest-spinner {
-    display: none;
-    vertical-align: middle;
-  }
-
-  textarea {
-    height: 9em;
-    width: 100%;
-    resize: none;
-    max-width: 100%;
-  }
-
-  .ready_to_send {
-    margin-bottom: 20px;
+body.client_admin-shares{
+  .content{
     padding: 0;
-    position: relative;  
-    #last-email {
-      @include caption;
-      color:$text-color;
-      position: absolute;
-      top: 3px;
-      right: 1px;
-    }
-    .fa {
-      padding-right: 10px;
-    }
   }
-}
-
-#scheduled_followups {
-  border: 1px solid $light-gray;
-  padding: 10px;
-  margin-bottom: 20px;
-  /*h3 {
-        color: $med-gray;
-        font-weight: normal;
-        font-size: 18px;
-    }*/
-  #cancel_follow_up div {
-      font-size: 14px;
-      display: inline;
-    * {
-        .cancel_follow_up_link{
-            color: $light-gray;
+  /*.share_tools .notification_controls,*/
+  .share_tools .no_tiles_messages,
+  .share_tools .public_board_controls {@include form-group;}
+  .share_tools .public_board_controls {
+    padding: 1em 1em 0em 1em;
+  }
+  .share_tools .new_public_board{
+    //border: 1px solid $light-gray;
+    padding: 10px;
+    div{
+        float: left;
+    }
+    .title_div{
+       width: 210px;
+       margin-top: 8px;
+      .public_board_title{
+          float: left;
+          //color: $med-gray;
+      }
+      .fa-question-circle{
+          float: left;
+          margin-top: -1px;
+          padding-left: 10px;
+          color: $med-gray;
+      }
+    }
+    .status_div{
+      margin-top: 8px;
+      width: 170px;
+      .public, .private{ 
+        @include regular-text;
+        float: left;
+        margin: 0 3px;
+        &.engaged {
+          color: #000000;
+        }
+        &.disengaged {
+          color: $light-gray;          
+        }
+      }
+      
+      .switch{
+        @include green-paddle-switch;
+        @include switch-size(16px, 9px, 2.3em);
+        margin-top: -2px;
+        margin-right: 2px;
+        span.switch_button {
+          -webkit-box-shadow: 2px 0 10px 0 rgba(0, 0, 0, 0.07), 1000px 0 0 1000px #dfdfdf, -2px 0 10px 0 rgba(0, 0, 0, 0.07), -1000px 0 0 1000px $sky-blue;
+          box-shadow: 2px 0 10px 0 rgba(0, 0, 0, 0.07), 1000px 0 0 988px #dfdfdf, -2px 0 10px 0 rgba(0, 0, 0, 0.07), -1000px 0 0 1000px $sky-blue;
+        }
+      }
+    }
+    .status_message_div{
+      .public-demo-message, .private-demo-message{
+        text-align: center;
+        line-height: 12px;
+        font-size: 9px;
+        float: left;
+        width: 70px;
+        margin: 4px 10px;
+      }
+    }
+    .share_link_div{
+        float: left;
+        width: 494px;
+        .share_link_icons{
+            float: right;
+            position: relative;
+            .fa{
+                margin-top: 3px;
+                font-size: 25px;
+                padding: 2px 7px;
+                color: $med-gray;
+            }
+        }
+        #public_board_field{
+            position: absolute;
+            width: 497px;
         }
     }
   }
-}
-#cancel_follow_up div a {
-        @include light-button($light-gray);
-        font-weight: bold;
+
+  .share_tools .no_tiles_messages {
+    height:17.5em;
+    padding:5em 6em;
+    h4 {margin-bottom:1em;}
+  }
+  .share_tools #feedback {
+    color:$gray;
+    @include caption;
+    line-height: 1.45em;
+    padding:16px;
+    padding:1rem 0;
+  }
+  #digest_management {
+    &:after {@include clear;}
+    
+    .large-3 {
+      &.columns {
+          padding-left: 0;
+          padding-right: 0;
+        }    
     }
-#cancel_follow_up div a:hover {
-    @include light-button($red);
-    font-weight: bold;
-    font-size: 10px;
+    .notification_controls {
+      float: left;    
+      .send_to, .follow_up, .intro_message, .custom_subject, .custom_headline {
+        margin-bottom:3.75em;
+        .drop_down{          
+          *{color: $med-gray;font-weight: normal;}
+        }
+        select, label {font-size:1.142857143em;}
+      }
+      .follow_up {
+        p span {
+          @include share-instructions;
+        }
+        label {margin-right:2em;}
+        select:disabled {color:$light-gray;}
+      }
+      .custom_subject, .custom_headline {
+        textarea {
+          height: 4.5em;
+        }
+      }
+      input[type="checkbox"], label, select {display: inline-block;}
+
+      .character-counter {
+        float: right;
+        display: block;
+        margin-bottom: 1em;
+      }
+      .total_users {
+        border:1px $light-gray solid;
+        padding: 10px;
+        margin-bottom:1.75em;
+        color: $gray;
+        span{
+          @include caption;
+          float: left;
+          width: 104px;
+        }
+        p{
+          float: right;
+        }
+      }
     }
-#cancel_follow_up div {
-  a {@include caption;}
-}
+    .email_preview{
+        float: left;
+        padding-left: 30px;
+    }
+    #scheduled_followups {
+      border-left:1px $light-gray solid;
+      padding-left:1em;
+      width:40%;
+    }
 
-.tiles_to_be_shared {
-  // sharing styles with Active tiles manager (in client_admin/tiles)
-  margin-top:4em;
-  padding:3em 0;
-  .columns {
-    padding-left: 2em;
+    input[type="submit"] {
+      @include app-button($sky-blue);
+      //font-size:18px;
+      //font-weight: 400;
+      //padding:.35em .5em;
+      //height: 35px;
+      width: 100%;
+    }
+    .update-digest-spinner {
+      display: none;
+      vertical-align: middle;
+    }
+
+    textarea {
+      height: 9em;
+      width: 100%;
+      resize: none;
+      max-width: 100%;
+    }
+
+    .ready_to_send {
+      margin-bottom: 20px;
+      padding: 0;
+      position: relative;  
+      #last-email {
+        @include caption;
+        color:$text-color;
+        position: absolute;
+        top: 3px;
+        right: 1px;
+      }
+      .fa {
+        padding-right: 10px;
+      }
+    }
   }
-}
 
-#public_board {
-  margin-bottom: 2em;
-  a#make_public { @include app-button($dark-green) }
-  a#make_private { @include app-button($red) }
-}
-
-$public_slug_height: 2.25em;
-
-#public_board_field {
-  display: inline;
-  width: 60%;
-  height: $public_slug_height;
-}
-
-#on_toggle {
-  height: $public_slug_height;
-  &.engaged {
-    @include app-button($dark-green);
+  #scheduled_followups {
+    border: 1px solid $light-gray;
+    padding: 10px;
+    margin-bottom: 20px;
+    /*h3 {
+          color: $med-gray;
+          font-weight: normal;
+          font-size: 18px;
+      }*/
+    #cancel_follow_up div {
+        font-size: 14px;
+        display: inline;
+      * {
+          .cancel_follow_up_link{
+              color: $light-gray;
+          }
+      }
+    }
   }
-  &.disengaged {
-    @include app-button($gray);
+  #cancel_follow_up div a {
+          @include light-button($light-gray);
+          font-weight: bold;
+      }
+  #cancel_follow_up div a:hover {
+      @include light-button($red);
+      font-weight: bold;
+      font-size: 10px;
+      }
+  #cancel_follow_up div {
+    a {@include caption;}
   }
-}
 
-#off_toggle {
-  height: $public_slug_height;
-  &.engaged {
-    @include app-button($dark-green);
+  .tiles_to_be_shared {
+    // sharing styles with Active tiles manager (in client_admin/tiles)
+    margin-top:4em;
+    padding:3em 0;
+    .columns {
+      padding-left: 2em;
+    }
   }
-  &.disengaged {
-    @include app-button($gray);
-  }
-}
 
-#public_board_instructions {
-  @include share-instructions;
-  max-width: none;
-  padding-top: 0.75em;
+  #public_board {
+    margin-bottom: 2em;
+    padding: 2em 0 1em 2em;
+    max-width: 100%;
+    background: #fafafa;
+    a#make_public { @include app-button($dark-green) }
+    a#make_private { @include app-button($red) }
+  }
+
+  #public_board_field {
+    display: inline;
+    width: 60%;
+    height: $public_slug_height;
+  }
+
+  #on_toggle {
+    height: $public_slug_height;
+    &.engaged {
+      @include app-button($dark-green);
+    }
+    &.disengaged {
+      @include app-button($gray);
+    }
+  }
+
+  #off_toggle {
+    height: $public_slug_height;
+    &.engaged {
+      @include app-button($dark-green);
+    }
+    &.disengaged {
+      @include app-button($gray);
+    }
+  }
+
+  #public_board_instructions {
+    @include share-instructions;
+    max-width: none;
+    padding-top: 0.75em;
+  }
 }
