@@ -85,6 +85,7 @@ body.client_admin-shares{
         float: none;
         width: auto;
         overflow: auto;
+        /*
         .share_link_icons{
             //float: right;
             //position: relative;
@@ -97,7 +98,7 @@ body.client_admin-shares{
                 padding: 2px 7px;
                 color: $med-gray;
             }
-        }
+        }*/
         #public_board_field{
             //position: absolute;
             width: 100%;
@@ -159,11 +160,16 @@ body.client_admin-shares{
         padding: 10px;
         margin-bottom:1.75em;
         color: $gray;
-        span{
+        /*span{
           @include caption;
           float: left;
           width: 104px;
           padding-top: 0.6em;
+        }*/
+        h5{
+          float: left;
+          margin: 0;
+          line-height: 1.7;
         }
         p{
           float: right;

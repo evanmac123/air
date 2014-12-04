@@ -20,7 +20,4 @@
       .public.disengaged Public
   %div.share_link_div
     = render :partial => 'client_admin/shares/public_url_display'
-    %div.share_link_icons
-      #share_mail= mail_to '', fa_icon('envelope 2x'), subject: 'Shared via Airbo', body: "Check out my board at:#{public_board_url(current_user.demo.public_slug)}", class: 'share email'
-      #share_twitter= show_twitter_share(current_user.demo)
   %br{clear:"all"}

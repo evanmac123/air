@@ -222,7 +222,7 @@ $client-green: #bfd255;
     }
 
   .client-toolbar {
-    background: darken($client-color, 5%);
+    background: $dark-gray;
     padding: .5em 1em;
 
     span {
