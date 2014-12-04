@@ -303,9 +303,6 @@ body.client_admin-tiles-show{
     font-size: 14px !important;
     @include light-button($gray);
   }
-  .tooltip > .nub {
-    margin-left: 10px;
-  }
   .viewer{
     margin: auto;
     margin-top: 1em;
