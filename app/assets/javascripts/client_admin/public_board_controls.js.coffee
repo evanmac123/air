@@ -1,3 +1,4 @@
+###
 hideSpinner = () -> $('.public_board_controls #spinner').hide()
 showSpinner = () -> $('.public_board_controls #spinner').show()
 
@@ -12,9 +13,9 @@ switchPublicStatusIfEngaged = (event) ->
   else
     showSpinner()
 
-$(document).on('click', '#on_toggle, #off_toggle', switchPublicStatusIfEngaged)
-$(document).on('ajax:success', '#on_toggle, #off_toggle', updatePublicBoardControls)
-
+#$(document).on('click', '#on_toggle, #off_toggle', switchPublicStatusIfEngaged)
+#$(document).on('ajax:success', '#on_toggle, #off_toggle', updatePublicBoardControls)
+###
 $(document).on('keydown keyup keypress', '#public_board_field', (event) ->
   if(!(event.ctrlKey || event.altKey || event.metaKey))
     event.preventDefault()
@@ -53,13 +54,11 @@ $(document).ready ->
       })
       $('.status_div').find('.private').addClass('engaged').removeClass('disengaged')
       $('.status_div').find('.public').addClass('disengaged').removeClass('engaged')
-      $('.status_message_div').html("<div class='private-demo-message'>SHARE LINK IS LOCKED</div>")
       document.getElementById("public_board_field").setAttribute("disabled","true")
     else
       $.post("/client_admin/public_boards")
       $('.status_div').find('.private').addClass('disengaged').removeClass('engaged')
       $('.status_div').find('.public').addClass('engaged').removeClass('disengaged')
-      $('.status_message_div').html("<div class='public-demo-message'>SHARE LINK IS ACTIVE</div>")
       document.getElementById("public_board_field").removeAttribute("disabled")
 
     return

@@ -24,7 +24,7 @@ body.client_admin-shares{
   }
   .share_tools .new_public_board{
     //border: 1px solid $light-gray;
-    padding: 10px;
+    //padding: 10px;
     div{
         float: left;
     }
@@ -50,7 +50,7 @@ body.client_admin-shares{
         float: left;
         margin: 0 3px;
         &.engaged {
-          color: #000000;
+          color: $dark-gray;
         }
         &.disengaged {
           color: $light-gray;          
@@ -68,7 +68,7 @@ body.client_admin-shares{
         }
       }
     }
-    .status_message_div{
+    /*.status_message_div{
       .public-demo-message, .private-demo-message{
         text-align: center;
         line-height: 12px;
@@ -77,13 +77,20 @@ body.client_admin-shares{
         width: 70px;
         margin: 4px 10px;
       }
-    }
+    }*/
     .share_link_div{
-        float: left;
-        width: 494px;
+        //float: left;
+        //width: 494px;
+        position: relative;
+        float: none;
+        width: auto;
+        overflow: auto;
         .share_link_icons{
-            float: right;
-            position: relative;
+            //float: right;
+            //position: relative;
+            position: absolute;
+            top: 0;
+            right: 0;
             .fa{
                 margin-top: 3px;
                 font-size: 25px;
@@ -92,8 +99,8 @@ body.client_admin-shares{
             }
         }
         #public_board_field{
-            position: absolute;
-            width: 497px;
+            //position: absolute;
+            width: 100%;
         }
     }
   }
@@ -126,7 +133,7 @@ body.client_admin-shares{
         .drop_down{          
           *{color: $med-gray;font-weight: normal;}
         }
-        select, label {font-size:1.142857143em;}
+        //select, label {font-size:1.142857143em;}
       }
       .follow_up {
         p span {
@@ -156,6 +163,7 @@ body.client_admin-shares{
           @include caption;
           float: left;
           width: 104px;
+          padding-top: 0.6em;
         }
         p{
           float: right;
@@ -197,10 +205,10 @@ body.client_admin-shares{
       padding: 0;
       position: relative;  
       #last-email {
-        @include caption;
-        color:$text-color;
+        @include regular-text;
+        //color:$text-color;
         position: absolute;
-        top: 3px;
+        top: -1px;
         right: 1px;
       }
       .fa {
@@ -251,12 +259,16 @@ body.client_admin-shares{
   }
 
   #public_board {
+    overflow: auto;
     margin-bottom: 2em;
-    padding: 2em 0 1em 2em;
+    padding: 2em 0 1em 0em;
     max-width: 100%;
     background: #fafafa;
-    a#make_public { @include app-button($dark-green) }
-    a#make_private { @include app-button($red) }
+    .row{
+      padding: 1em;
+    }
+    //a#make_public { @include app-button($dark-green) }
+    //a#make_private { @include app-button($red) }
   }
 
   #public_board_field {
@@ -265,7 +277,7 @@ body.client_admin-shares{
     height: $public_slug_height;
   }
 
-  #on_toggle {
+  /*#on_toggle {
     height: $public_slug_height;
     &.engaged {
       @include app-button($dark-green);
@@ -273,9 +285,9 @@ body.client_admin-shares{
     &.disengaged {
       @include app-button($gray);
     }
-  }
+  }*/
 
-  #off_toggle {
+  /*#off_toggle {
     height: $public_slug_height;
     &.engaged {
       @include app-button($dark-green);
@@ -283,7 +295,7 @@ body.client_admin-shares{
     &.disengaged {
       @include app-button($gray);
     }
-  }
+  }*/
 
   #public_board_instructions {
     @include share-instructions;

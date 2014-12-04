@@ -1,39 +1,38 @@
 .large-12.columns.ready_to_send
-  %h3
-    = fa_icon('envelope', text: 'Email Tiles')
+  %h3 Email Tiles
   #last-email= digest_email_sent_on_message
 .large-3.columns
   = form_tag client_admin_tiles_digest_notification_path, class: :custom do
     .notification_controls
       .send_to
-        %h4 Recipients
+        %label{for: "digest_send_to"} Recipients
         .drop_down= select_tag :digest_send_to, options_for_select([['All Users', true], ['Activated Users', false]], @demo.unclaimed_users_also_get_digest)
 
       .follow_up
-        %h4 Follow-up email
+        %label{for: "follow_up_day"} Follow-up email
         .drop_down= select_tag :follow_up_day, options_for_select(%w(Never) + Date::DAYNAMES, selected: default_follow_up_day)
 
       .custom_subject
-        %h4 Email subject
+        %label{for: "digest_custom_subject"} Email subject
         = text_area_tag "digest[custom_subject]", '', size: "50x3", maxlength: 80, placeholder: 'New Tiles'
         = javascript_include_tag 'admin/byte_counter'
         :javascript
           addCharacterCounterFor('#digest_custom_subject');
 
       .custom_headline
-        %h4 Custom headline
+        %label{for: "digest_custom_headline"} Custom headline
         = text_area_tag "digest[custom_headline]", '', size: "50x3", maxlength: 75, placeholder: 'Your New Tiles Are Here!'
         :javascript
           addCharacterCounterFor('#digest_custom_headline');
 
       .intro_message
-        %h4 Intro message
+        %label{for: "digest_custom_message"} Intro message
         = text_area_tag "digest[custom_message]", '', size: "50x6", maxlength: 160
         :javascript
           addCharacterCounterFor('#digest_custom_message');
 
       .total_users
-        %span TOTAL USERS EMAIL WILL BE SENT TO
+        %span Recipients
         %p#all_users= @all_users
         %p#activated_users= @activated_users
         .clearfix

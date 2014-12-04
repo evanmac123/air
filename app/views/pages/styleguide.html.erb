@@ -94,7 +94,7 @@
     <h5>Form</h5>
     <div class="large-12 columns large-centered">
       <div class="example row">
-        <form class="custom">
+        <form class="">
           <label for="input">Label</label>
           <input type="text" id="input" placeholder="Placeholder">
 
@@ -109,6 +109,15 @@
             <option>Option 1</option>
             <option>Option 2</option>
           </select>
+
+          <div class="switcher">
+            <div class="off disengaged">Off</div>
+              <div class="switch small round">
+              <%= radio_button_tag 'switcher', "true", true, id: "witcher_on" %>
+              <%= radio_button_tag 'switcher', "false", false, id: "witcher_off" %>
+              </div>
+            <div class="on engaged">On</div>
+          </div>
         </form>
       </div>
     </div>

@@ -26,7 +26,7 @@ function updateByteCount(from, to) {
 
 function updateCharacterCount(from, to) {
   currentLength = $(from).val().length;
-  $(to).text('' + maxLength(from) - currentLength + ' characters left');
+  $(to).text('' + maxLength(from) - currentLength + ' characters');
 }
 
 function addCounter(locator, countUpdater) {

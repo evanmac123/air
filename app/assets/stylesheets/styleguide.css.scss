@@ -1,6 +1,7 @@
 @import "./vendor/normalize.css.scss";
-@import "./vendor/foundation.min.css.scss";
+@import "./foundation_and_overrides.scss";
 @import "./mixins/main_styles.css.scss";
+@import "./mixins/green_paddle_switch.css.scss";
 
 section:after{@include clear;}
 .row section {margin:2em auto;}
@@ -62,8 +63,17 @@ section:after{@include clear;}
   &#form-bg
   {color: $dark;}
 }
-
+form{
+  .switcher{
+    @include regular-text;
+    .switch{
+      @include green-paddle-switch;
+    }
+  }
+}
+/*
 label{
   @include caption;
   margin-bottom:.5em;
 }
+*/
