@@ -66,6 +66,12 @@ section:after{@include clear;}
 form{
   .switcher{
     @include regular-text;
+    .engaged{
+      color: $dark-gray;
+    }
+    .off, .on{
+      float: left;
+    }
     .switch{
       @include green-paddle-switch;
     }
