@@ -101,15 +101,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @tile = get_tile
     return show_partial if params[:partial_only]
 
-    if @tile.draft?
-      @show_tile_post_guide = !current_user.displayed_tile_post_guide? && @tile.demo.non_activated?
-      current_user.displayed_tile_post_guide = true
-      current_user.save!
-    elsif @tile_just_activated
-      @show_tile_success_guide = !current_user.displayed_tile_success_guide? && @tile.demo.tiles.active.count == 1
-      current_user.displayed_tile_success_guide = true
-      current_user.save!
-    elsif !current_user.share_section_intro_seen
+    if !current_user.share_section_intro_seen
       @show_share_section_intro = true
       current_user.share_section_intro_seen = true
       current_user.save!
