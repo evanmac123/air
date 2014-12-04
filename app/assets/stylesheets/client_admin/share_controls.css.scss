@@ -191,19 +191,14 @@
 
   .ready_to_send {
     margin-bottom: 20px;
-    padding: 10px 10px 10px 0px;
-    border-bottom: 1px solid $light-gray;
-    color: $sky-blue;
-    font-size: 18px;    
-    font-weight: 300;    
+    padding: 0;
+    position: relative;  
     #last-email {
       @include caption;
       color:$text-color;
-      display: inline-block;
-      margin-left:1em;
-      float: right;
-      line-height: 0.5em;
-      padding-top: 10px;
+      position: absolute;
+      top: 3px;
+      right: 1px;
     }
     .fa {
       padding-right: 10px;
@@ -215,11 +210,11 @@
   border: 1px solid $light-gray;
   padding: 10px;
   margin-bottom: 20px;
-  h3 {
+  /*h3 {
         color: $med-gray;
         font-weight: normal;
         font-size: 18px;
-    }
+    }*/
   #cancel_follow_up div {
       font-size: 14px;
       display: inline;
