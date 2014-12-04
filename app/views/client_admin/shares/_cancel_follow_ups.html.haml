@@ -1,8 +1,8 @@
 - unless @follow_up_emails.empty?
   %div#scheduled_followups
-    %h3 Scheduled Follow-Up Emails
+    %h4 Scheduled Follow-Up
     %div#cancel_follow_up
       - @follow_up_emails.each do |follow_up|
         %div{id:"follow_up_email_#{follow_up.id}", class: "follow_up_email_details"}
           = follow_up.send_on.to_time.to_s(:tile_digest_email_sent_at)
-          .has-tip.cancel_button{"data-tooltip" => true, title:"Cancel"}= link_to fa_icon('times'), client_admin_tiles_follow_up_email_path(follow_up), method: :delete, remote: true, confirm: 'Are you sure?'
+          .cancel_button= link_to "Cancel", client_admin_tiles_follow_up_email_path(follow_up), method: :delete, remote: true, confirm: 'Are you sure?'

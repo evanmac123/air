@@ -224,35 +224,17 @@ body.client_admin-shares{
   }
 
   #scheduled_followups {
-    border: 1px solid $light-gray;
-    padding: 10px;
+    //padding: 10px;
     margin-bottom: 20px;
-    /*h3 {
-          color: $med-gray;
-          font-weight: normal;
-          font-size: 18px;
-      }*/
     #cancel_follow_up div {
-        font-size: 14px;
-        display: inline;
-      * {
-          .cancel_follow_up_link{
-              color: $light-gray;
-          }
+      font-size: 14px;
+      display: inline;
+      a {
+        @include light-button($med-gray);
+        font-size: 10px;
+        margin-left: 10px;
       }
     }
-  }
-  #cancel_follow_up div a {
-          @include light-button($light-gray);
-          font-weight: bold;
-      }
-  #cancel_follow_up div a:hover {
-      @include light-button($red);
-      font-weight: bold;
-      font-size: 10px;
-      }
-  #cancel_follow_up div {
-    a {@include caption;}
   }
 
   .tiles_to_be_shared {
@@ -273,8 +255,6 @@ body.client_admin-shares{
     .row{
       padding: 1em;
     }
-    //a#make_public { @include app-button($dark-green) }
-    //a#make_private { @include app-button($red) }
   }
 
   #public_board_field {
@@ -282,26 +262,6 @@ body.client_admin-shares{
     width: 60%;
     height: $public_slug_height;
   }
-
-  /*#on_toggle {
-    height: $public_slug_height;
-    &.engaged {
-      @include app-button($dark-green);
-    }
-    &.disengaged {
-      @include app-button($gray);
-    }
-  }*/
-
-  /*#off_toggle {
-    height: $public_slug_height;
-    &.engaged {
-      @include app-button($dark-green);
-    }
-    &.disengaged {
-      @include app-button($gray);
-    }
-  }*/
 
   #public_board_instructions {
     @include share-instructions;
