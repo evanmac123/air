@@ -46,6 +46,7 @@ module Health
       app-internal.js
       app-external.js
       app-landing.js
+      app-pages.js
       app-client-admin.js
       client_admin/add_new_item_via_select.js
       errors.css
