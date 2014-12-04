@@ -14,7 +14,7 @@
         <%= select_tag :chart_interval, options_for_select(options, selected: params[:chart_interval]) %>
       </li>
       <li id="chart-labeling">
-        <span>Show label</span>
+        <%= label_tag "chart_label_points", "Show label" %>
         <%= select_tag :chart_label_points, options_for_select([ ['None', 0], ['All points', 1], ['Every other', 2] ], selected: params[:chart_label_points]) %>
       </li>
       <li id="chart-spinner">

@@ -481,7 +481,7 @@ input[type="number"], select {
       transition:none;
   }
 }
-input[type="text"], input[type="password"], textarea {
+input[type="text"], input[type="password"], input[type="file"], textarea {
   color: $text-color;
   border-radius: $border-radius;
   font-size: 14px;

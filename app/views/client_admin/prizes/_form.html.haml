@@ -1,17 +1,17 @@
 = form_for raffle, url: save_draft_client_admin_prizes_path, method: :post do |f|
   .content_section
-    = f.label :starts_at, "Duration", class: "small_cap"
+    = f.label :starts_at, "Duration"
     .duration
       .date_input
         = f.text_field :starts_at, value: date_in_pick_format(raffle.starts_at), class: "datepicker", placeholder: "Start", size: 10
       .to_label
-        = f.label :ends_at, "to", class: "small_cap"
+        = f.label :ends_at, "to"
       .date_input
         = f.text_field :ends_at, value: date_in_pick_format(raffle.ends_at), class: "datepicker", placeholder: "End", size: 10
     .outer_tip
       Starts at 12:00 AM ET of start date. Ends at 11:59 PM ET of end date.
   .content_section
-    = f.label "prizes_", "Prize", class: "small_cap"
+    = f.label "prizes_", "Prize"
     .add_another
       %i.fa.fa-plus
       Add Another
@@ -22,7 +22,7 @@
           .remove_prize
             Remove
   .content_section
-    = f.label :other_info, class: "small_cap"
+    = f.label :other_info
     = f.text_area :other_info, maxlength: 300, placeholder: "For every 20 points you earn, you receive an entry into the prize raffle. We’ll email the winner to award the prize within a week of the end of the prize period."
 
 

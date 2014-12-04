@@ -37,12 +37,12 @@ body.client_admin-users {
         }
       }
     }
-    label {
+    /*label {
       @include caption;
       color:$gray;
       display:block; 
       margin-bottom:.5em;
-    }
+    }*/
     input[type="text"] {
       width:90%;
     }

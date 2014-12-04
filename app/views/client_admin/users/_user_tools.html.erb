@@ -1,6 +1,6 @@
 <div class="row" id="total_user_count_row">
   <div class="large-12 columns">
-    <h4>Total users</h4>
+    <label>Total users</label>
     <h1 id="user_count"><%= @total_user_count %></h1>
   </div>
 </div>
@@ -8,7 +8,7 @@
 <div class="row" id="find_users_row">
   <div class="large-12 columns">
     <div id="find-users">
-      <h4>Find</h4>
+      <%= label_tag "name-search", "Find" %>
       <div class="find-tools">
         <div id="name-search">
           <%= text_field_tag 'name-substring', nil, placeholder: "Enter first or last name" %>
@@ -23,7 +23,7 @@
 <div class="row">
   <div class="large-12 columns">
     <div id="add-single-user">
-      <h4>Add</h4>
+      <%= label_tag "user_name", "Add" %>
       <%= render 'add_form', demo: @demo, user: @user, visible_characteristics: @visible_characteristics %>
     </div>
   </div>

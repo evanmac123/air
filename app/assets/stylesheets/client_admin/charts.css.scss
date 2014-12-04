@@ -36,10 +36,9 @@
       margin-right:.25em;
       margin-top: 0;
       width:7em;
-      span, select {display: block;}
-      span {
-        color:$med-gray;
-        margin-bottom:.35em;
+      label{
+        margin: 0;
+        margin-top: -0.09em;
       }
     }
     &#chart-spinner {

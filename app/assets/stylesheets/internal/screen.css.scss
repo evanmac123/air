@@ -13,11 +13,11 @@ body {
 	border-top:none;
 	color:$text-color;
 	@include font-regular;
-	h3 {
+	/*h3 {
 		@include font-semibold;
 		font-size:1.25em;
   	padding-bottom:.75em;
-	}
+	}*/
 	.content {
 		margin:0 auto;
 		&:after{@include clear;}

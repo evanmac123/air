@@ -79,12 +79,12 @@ body.client_admin-prizes {
       }
     }
   }
-  label.small_cap{
+  /*label.small_cap{
     padding-bottom: 2em;
-  }
-  input, button, textarea{
+  }*/
+  /*input, button, textarea{
     border-radius: $border-radius;
-  }
+  }*/
   .form_section{
     width:34%;
     form{
@@ -95,7 +95,7 @@ body.client_admin-prizes {
         resize: none;
       }
       input, textarea{
-        font-size: 14px;
+        //font-size: 14px;
         &:disabled{
           border-color:transparent;
         }
@@ -107,10 +107,7 @@ body.client_admin-prizes {
       .duration{
         display: table;
         width: 100%;
-        input, label{
-          display: inline;
-        }
-        input {
+        input{
           width: 100%;
         }
         .to_label{
@@ -222,18 +219,14 @@ body.client_admin-prizes {
       margin-bottom: 2em;
     }
     form#pick_winners{
-      //margin-top: 2em;
       margin-bottom: 2em;
       overflow: auto;
       & > *{
         float: left;
-        font-size: 14px;
         margin-right: 1em;
       }
       label{
         line-height: 30px;
-        font-weight: 500;
-        color: $text-color;
       }
       input[type=text]{
         height: 30px;
@@ -356,128 +349,6 @@ body.client_admin-prizes {
       padding: 1rem;
     }
   }
-  /*.pick_container{
-    .instruction_box{
-      background: $sky-blue;
-      color: $white;
-      font-size: 14px;
-      padding: 0.5em;
-      font-weight: 700;
-      border-radius: 3px;
-    }
-    form#pick_winners{
-      margin-top: 2em;
-      margin-bottom: 2em;
-      *{
-        display: inline;
-        font-size: 14px;
-        margin-right: 1em;
-      }
-      label{
-        font-weight: 500;
-        color: $med-gray;
-      }
-      input[type=text]{
-        color: $med-gray;
-        text-align: center;
-        width: 5em;
-      }
-      input[type=submit]{
-        color: $white;
-        background: $sky-blue;
-        font-size: 18px;
-        padding: 0.3em;
-        border: 0;
-        width: 10em;
-        &.re-pick{
-          color: $med-gray;
-          border: 1px solid $med-gray;
-          background: $white;
-        }
-      }
-    }
-    .winners_output{
-      border-radius: 3px;
-      border: 1px solid $light-gray;
-      .title{
-        border-bottom: 1px solid $light-gray;
-        width:100%;
-        color: $sky-blue;
-        font-size: 18px;
-        padding: 0.55em;
-        i{
-          font-size: 24px;
-        }
-      }
-      .winners{
-        color: $med-gray;
-        font-size: 14px;
-        p{
-          padding: 2em 5em 5em 5em;
-          line-height: 1.5;
-        }
-        table{
-          margin: 0;
-          color: $med-gray;
-          font-size: 10px;
-          .winner_number{
-            text-align: right;
-            padding-right: 0.4em;
-            width: 4%;
-          }
-          .winner_name{
-            text-align: left;
-            padding-left: 0.4em;
-            width: 25%;
-          }
-          .winner_chances{
-            text-align: right;
-            width:10%;
-          }
-          .winner_email{
-            padding-left: 5rem;
-          }
-          .winner_delete, .winner_repick{
-            width: 10%;
-            a{
-              color: $sky-blue;
-              visibility: hidden;
-            }
-          }
-          thead{
-            background: $blue;
-            color: $white;
-            text-transform: uppercase;
-            th{
-              border: 0;
-              padding-left: 1em;
-            }
-          }
-          tbody{
-            font-size: 12px;
-            font-weight: 700;
-            tr{
-              &:hover{
-                color: $sky-blue;
-                .winner_delete a, .winner_repick a{
-                  visibility: visible;
-                }
-              }
-              &:last-child{
-                td{
-                  border: 0;
-                }
-              }
-            }
-            td{
-              padding-top: 1em;
-              padding-bottom: 1em;
-            }
-          }
-        }
-      }
-    }
-  }*/
   .field_with_errors{
     display: inline;
   }
