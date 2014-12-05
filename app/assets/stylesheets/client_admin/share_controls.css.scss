@@ -176,7 +176,6 @@ body.client_admin-shares{
       }
       .add_tiles_message{
         @include regular-text;
-        text-align: center;
         padding-top: 10px;
       }
     }
@@ -197,9 +196,9 @@ body.client_admin-shares{
       //padding:.35em .5em;
       //height: 35px;
       width: 100%;
-      &:disabled{
+      /*&:disabled{
         @include app-button($light-blue);
-      }
+      }*/
     }
     .update-digest-spinner {
       display: none;
@@ -232,7 +231,7 @@ body.client_admin-shares{
 
   #scheduled_followups {
     //padding: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 2em;
     #cancel_follow_up div {
       font-size: 14px;
       display: inline;

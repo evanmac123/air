@@ -22,10 +22,6 @@ class TilesDigestMailPreviewPresenter < TilesDigestMailBasePresenter
     @has_no_tiles
   end
 
-  def include_js_and_stylesheet?
-    @has_no_tiles
-  end
-
   def title
     join_demo_copy_or_digest_email_heading(is_invite_user)
   end

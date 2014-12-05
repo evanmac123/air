@@ -222,11 +222,11 @@ $client-green: #bfd255;
     }
 
   .client-toolbar {
-    background: $dark-gray;
+    background: darken($client-color, 5%);
     padding: .5em 1em;
 
     span {
-      color: darken($client-color, 50%);
+      color: $dark-gray;
       display: block;
       font-family: sans-serif;
       font-size: .75em;
@@ -339,6 +339,10 @@ a, a:link, a:visited {@include link($blue);}
     color:$white;
   }
   &:active {background:lighten($color, 5%);}
+  &:disabled{
+    background: lighten($color, 15%);
+    border-color: lighten($color, 15%);
+  }
 }
 @mixin fat-app-button($color) {
   @include app-button($color);

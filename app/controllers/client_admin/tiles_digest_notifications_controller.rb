@@ -20,7 +20,7 @@ class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseControlle
 
     @demo.update_attributes tile_digest_email_sent_at: Time.now, unclaimed_users_also_get_digest: unclaimed_users_also_get_digest
 
-    flash[:success] = "Tiles digest email was sent"
+    flash[:success] = "Your Tiles has been successfully sent! New Tiles you post will appear in the email preview."
     flash[:digest_sent_flag] = true
 
     schedule_digest_sent_ping(unclaimed_users_also_get_digest, follow_up_days, custom_message)
