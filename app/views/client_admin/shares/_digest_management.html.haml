@@ -36,7 +36,10 @@
         %p#all_users= @all_users
         %p#activated_users= @activated_users
         .clearfix
-      = submit_tag "Send", confirm: 'Are you sure you want to send the digest email?'
+      = submit_tag "Send", confirm: 'Are you sure you want to send the digest email?', disabled: (true if @digest_tiles.empty?)
+      - if @digest_tiles.empty?
+        .add_tiles_message
+          Post new tiles to send them to your users.
 .large-9.email_preview= render 'shared/email_client_wrapper', demo: current_user.demo, subject: 'New Tiles'
 
 = content_for :javascript do

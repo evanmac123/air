@@ -34,13 +34,17 @@ class ClientAdmin::UsersInvitesController < ClientAdminBaseController
     custom_message = params[:custom_message] || 'Check out my new board!'
     @presenter = TilesDigestMailPreviewPresenter.new(@user, @demo, custom_message, is_invite_user, has_no_tiles)
 
-    @tiles = TileBoardDigestDecorator.decorate_collection tiles, \
+    @tiles = unless @presenter.is_empty_preview?
+      TileBoardDigestDecorator.decorate_collection tiles, \
                                                           context: {
                                                             demo: @demo,
                                                             user: @user,
                                                             follow_up_email: @follow_up_email,
                                                             is_preview: @presenter.is_preview
                                                           }
+    else
+      [nil, nil] # to show tile placeholders
+    end
 
     render 'tiles_digest_mailer/notify_one', :layout => false
   end

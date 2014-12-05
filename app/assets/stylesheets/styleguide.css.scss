@@ -2,6 +2,7 @@
 @import "./foundation_and_overrides.scss";
 @import "./mixins/main_styles.css.scss";
 @import "./mixins/green_paddle_switch.css.scss";
+@import "font-awesome";
 
 section:after{@include clear;}
 .row section {margin:2em auto;}
@@ -66,6 +67,7 @@ section:after{@include clear;}
 form{
   .switcher{
     @include regular-text;
+    overflow: auto;
     .engaged{
       color: $dark-gray;
     }
@@ -78,9 +80,3 @@ form{
     }
   }
 }
-/*
-label{
-  @include caption;
-  margin-bottom:.5em;
-}
-*/
