@@ -52,39 +52,3 @@ nav.top-bar {
 
 // ============= Case study ============= 
 .case_study_content .study_samples {margin:4em auto 2em}
-
-// ============= Pricing page ============= 
-#simple_fair_pricing .calculator .price_customizer {
-  h3 {padding:.83em 0 .83em 16px;}
-  input[type="number"].num_of_users {padding:.5em;}
-}
-.offerings {
-  padding-right:14%!important;
-  a.check_price_button {margin:1.05em 0;}
-  .feature_labels li, .an_offering li.plan_details {min-height:35px;}
-  .feature_labels {top:215px;}
-  .feature_labels li, .an_offering li.plan_details {
-    padding-top:10px;
-    padding-bottom:0;
-    margin:0;
-  }
-  .feature_labels li {
-    padding-left:.25em;
-    &:after {font-size:1em!important;}  
-  }
-}
-.an_offering {
-  li.plan_description {padding-bottom:0;}
-  .additional_features {padding-bottom:1em!important;}
-}
-
-#simple_fair_pricing .details {
-  text-align: center;
-  .push-1 {
-    margin-left:8.3333334%;
-  }
-}
-#pricing_faq {
-  padding:3em 0;
-  &:after{@include clear;}
-}

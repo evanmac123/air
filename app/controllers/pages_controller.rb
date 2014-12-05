@@ -21,7 +21,7 @@ class PagesController < HighVoltage::PagesController
     when 'more_info', 
       @body_id = "homepage"
       'external_marketing'
-    when 'pricing', 'asha', 'heineken', 'miltoncat', 'fujifilm', 'customer_tiles'
+    when 'asha', 'heineken', 'miltoncat', 'fujifilm', 'customer_tiles'
       'external_marketing'
     else
       'pages'
@@ -50,7 +50,7 @@ class PagesController < HighVoltage::PagesController
   end
 
   def display_social_links_if_marketing_page
-    display_social_links if %w(more_info pricing asha miltoncat heineken fujifilm customer_tiles).include?(params[:id])
+    display_social_links if %w(more_info asha miltoncat heineken fujifilm customer_tiles).include?(params[:id])
   end
 
   def page_name
