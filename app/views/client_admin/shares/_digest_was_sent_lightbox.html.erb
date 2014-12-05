@@ -1,0 +1,11 @@
+<div id="digest_was_sent_lightbox" class="reveal-modal" data-reveal>
+  <h2>Congratulations!</h2>
+  <p>Your Tiles has been successfully sent! New Tiles you post will appear in the email preview.</p>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+
+<% js_at_end do %>
+  $().ready(function(){ 
+    $('#digest_was_sent_lightbox').foundation('reveal', 'open'); 
+  });
+<% end %>

@@ -11,6 +11,11 @@ class ClientAdmin::SharesController < ClientAdminBaseController
     @digest_tiles = @demo.digest_tiles(tile_digest_email_sent_at)
     @tiles_to_be_sent = @demo.digest_tiles(tile_digest_email_sent_at).count    
     
+    if flash[:digest_sent_flag]
+      @digest_sent_flag = true
+      flash[:digest_sent_flag] = nil
+    end
+    
     ping_page("Manage - Share Page", current_user)
     prepend_view_path 'client_admin/users'
   end

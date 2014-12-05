@@ -276,4 +276,12 @@ body.client_admin-shares{
     max-width: none;
     padding-top: 0.75em;
   }
+
+  #digest_was_sent_lightbox{
+    margin-left: -20%;
+    width: 40%;
+    p{
+      @include regular-text;
+    }
+  }
 }
