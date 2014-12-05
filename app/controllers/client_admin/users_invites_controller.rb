@@ -23,16 +23,17 @@ class ClientAdmin::UsersInvitesController < ClientAdminBaseController
     @demo  = current_user.demo
     @user  = current_user # XTR
 
-    custom_message = params[:custom_message] || 'Check out my new board!'
     is_invite_user = params[:is_invite_user] == 'true'
-
-    @presenter = TilesDigestMailPreviewPresenter.new(@user, @demo, custom_message, is_invite_user)
-
     if is_invite_user
       tiles = @demo.digest_tiles(nil).ordered_by_position
     else
       tiles = @demo.digest_tiles.ordered_by_position
     end
+
+    has_no_tiles = tiles.empty?
+    custom_message = params[:custom_message] || 'Check out my new board!'
+    @presenter = TilesDigestMailPreviewPresenter.new(@user, @demo, custom_message, is_invite_user, has_no_tiles)
+
     @tiles = TileBoardDigestDecorator.decorate_collection tiles, \
                                                           context: {
                                                             demo: @demo,

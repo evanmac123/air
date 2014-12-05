@@ -1,6 +1,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 <meta name="format-detection" content="telephone=no">
+<% if @presenter.try(:include_js_and_stylesheet?) %>
+  <% stylesheet_link_tag "app-internal" %>
+  <%= javascript_include_tag 'app-internal' %>
+<% end %>
 <style type="text/css">
 .ReadMsgBody {width:100%;background-color:#ffffff;}
 .ExternalClass {width:100%;background-color:#ffffff;}
@@ -28,5 +32,4 @@ img { -ms-interpolation-mode:bicubic;}
 <title>
   <%= @presenter.try(:title) || @title || "Airbo" %>
 </title>
- <%= javascript_include_tag 'app-internal' %>
 </head>

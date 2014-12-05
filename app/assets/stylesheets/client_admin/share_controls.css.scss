@@ -230,9 +230,11 @@ body.client_admin-shares{
       font-size: 14px;
       display: inline;
       a {
-        @include light-button($med-gray);
-        font-size: 10px;
+        //@include light-button($med-gray);
+        //font-size: 10px;
         margin-left: 10px;
+        font-weight: 400;
+        color: $med-gray;
       }
     }
   }

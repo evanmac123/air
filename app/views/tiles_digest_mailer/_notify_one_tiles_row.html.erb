@@ -3,13 +3,19 @@
 <% @tiles.each_slice(2) do |tiles| %>
   <tr>
     <td width="208" valign="top" class="column">
-      <%= render partial: "tiles_digest_mailer/notify_one_tile", locals: {tile: tiles[0], link_options: link_options} %>
+      <% if @presenter.is_empty_preview? %>
+        <%= render partial: "tiles_digest_mailer/notify_one_tile_placeholder" %>
+      <% else %>
+        <%= render partial: "tiles_digest_mailer/notify_one_tile", locals: {tile: tiles[0], link_options: link_options} %>
+      <% end %>
     </td>
     <td width="20" class="verticalGap">
       &nbsp;
     </td>
     <td width="208" valign="top" class="column">
-      <% if tiles[1] %>
+      <% if @presenter.is_empty_preview? %>
+        <%= render partial: "tiles_digest_mailer/notify_one_tile_placeholder" %>
+      <% elsif tiles[1] %>
         <%= render partial: "tiles_digest_mailer/notify_one_tile", locals: {tile: tiles[1], link_options: link_options} %>
       <% end %>
     </td>

@@ -26,6 +26,14 @@ class TilesDigestMailBasePresenter
     false
   end
 
+  def is_empty_preview?
+    false
+  end
+
+  def include_js_and_stylesheet?
+    false
+  end
+
   def digest_email_heading
     STANDARD_DIGEST_HEADING
   end

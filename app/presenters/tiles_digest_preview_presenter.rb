@@ -2,11 +2,12 @@ class TilesDigestMailPreviewPresenter < TilesDigestMailBasePresenter
   include ClientAdmin::TilesHelper
   include Rails.application.routes.url_helpers
 
-  def initialize(user, demo, custom_message, is_invite_user)
+  def initialize(user, demo, custom_message, is_invite_user, has_no_tiles)
     super(custom_message)
     @user = user
     @demo = demo
     @is_invite_user = is_invite_user
+    @has_no_tiles = has_no_tiles
   end
 
   def link_options
@@ -15,6 +16,14 @@ class TilesDigestMailPreviewPresenter < TilesDigestMailBasePresenter
 
   def is_preview
     true
+  end
+
+  def is_empty_preview?
+    @has_no_tiles
+  end
+
+  def include_js_and_stylesheet?
+    @has_no_tiles
   end
 
   def title
