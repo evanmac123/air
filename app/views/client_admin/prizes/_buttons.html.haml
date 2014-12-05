@@ -46,7 +46,7 @@
   .buttons_section
     .button#edit_or_save
       Edit
-    .button.blue_button#progress_or_cancel{disabled: true}
+    %button.blue_button#progress_or_cancel{disabled: true}
       In progress
   .buttons_section
     %a.button.finish_button#end_early.has-tip.tip-bottom{"data-tooltip" => true, title: 'End Early, pick a winner', href: end_early_client_admin_prizes_path, "data-confirm-message" => "Confirm?"}
@@ -80,7 +80,7 @@
       });
 - else
   .buttons_section
-    .button.blue_button#period_complete{ disabled: true }
+    %button.blue_button#period_complete{ disabled: true }
       Prize Period Complete 
   - content_for :javascript do
     :javascript

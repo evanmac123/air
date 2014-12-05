@@ -14,7 +14,7 @@ section:after{@include clear;}
 
 .dark-bg {background:$dark-gray; border-color:$dark-gray;}
 
-#regular_text{
+.regular_text{
   @include regular-text;
 }
 
@@ -78,5 +78,10 @@ form{
     .switch{
       @include green-paddle-switch;
     }
+  }
+}
+.sections{
+  .example_section{
+    border:1px $light-gray dashed; 
   }
 }

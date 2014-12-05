@@ -168,7 +168,7 @@ body.client_admin-prizes {
     }
     .buttons_section{
       display: flex;
-      .button{
+      .button, button{
         &#save_draft, &#edit_or_save{
           @include light-button($sky-blue);
         }
