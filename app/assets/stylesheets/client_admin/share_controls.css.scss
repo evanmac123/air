@@ -181,8 +181,15 @@ body.client_admin-shares{
       }
     }
     .email_preview{
-        float: left;
-        padding-left: 30px;
+      float: left;
+      padding-left: 30px;
+      #last-email {
+        @include regular-text;
+        //color:$text-color;
+        position: absolute;
+        top: -1px;
+        right: 1px;
+      }
     }
     #scheduled_followups {
       border-left:1px $light-gray solid;
@@ -216,31 +223,37 @@ body.client_admin-shares{
     .ready_to_send {
       margin-bottom: 20px;
       padding: 0;
-      position: relative;  
-      #last-email {
-        @include regular-text;
-        //color:$text-color;
-        position: absolute;
-        top: -1px;
-        right: 1px;
-      }
-      .fa {
-        padding-right: 10px;
+      position: relative;
+      .go_post_tiles_message {
+        font-size: 14px;
+        color: $dark-gray;
+        margin: 2em 0 1em 0;
+        a {
+          font-weight: 400;
+          color: $med-gray;
+          border-bottom: 1px solid $med-gray;
+          letter-spacing: 0.03em;
+        }
       }
     }
   }
   #scheduled_followups {
     padding-bottom: 2em;
     border-bottom: 1px solid $lightest-gray;
-    #cancel_follow_up div {
+    #cancel_follow_up {
       font-size: 14px;
-      display: inline;
-      a {
-        //@include light-button($med-gray);
-        //font-size: 10px;
-        margin-left: 10px;
-        font-weight: 400;
-        color: $med-gray;
+      .follow_up_email_details {
+        margin-bottom: 0.7em;
+        .cancel_button {
+          display: inline;
+          a {
+            //@include light-button($med-gray);
+            //font-size: 10px;
+            margin-left: 10px;
+            font-weight: 400;
+            color: $med-gray;
+          }
+        }
       }
     }
   }

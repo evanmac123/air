@@ -1,6 +1,10 @@
 .large-12.columns.ready_to_send
   %h3 Email Tiles
-  #last-email= digest_email_sent_on_message
+  - if @digest_tiles.empty?
+    .go_post_tiles_message
+      No new Tiles to send. Go to 
+      = link_to "Edit", client_admin_tiles_path 
+      to post new Tiles.
 .large-3.columns
   = form_tag client_admin_tiles_digest_notification_path, class: :custom do
     .notification_controls
@@ -42,6 +46,7 @@
           Post new tiles to send them to your users.
 .large-9.email_preview
   %h5 Email preview
+  #last-email= digest_email_sent_on_message
   = render 'shared/email_client_wrapper', demo: current_user.demo, subject: 'New Tiles'
 
 = content_for :javascript do

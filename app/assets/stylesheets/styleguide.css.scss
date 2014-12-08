@@ -6,6 +6,9 @@
 
 section:after{@include clear;}
 .row section {margin:2em auto;}
+.columns.large-centered {
+  position: static;
+}
 .example {
   border:1px $light-gray dashed; 
   padding:1em;

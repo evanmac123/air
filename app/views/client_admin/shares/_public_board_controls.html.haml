@@ -2,7 +2,7 @@
 .new_public_board{:id=>"#{current_user.demo.id}"}
   %div.title_div
     %h4.public_board_title Board Share Link:
-    %i.fa.fa-question-circle.has-tip{"data-tooltip" => true, title:"In a public board, anyone can participate using the Board Link.<br/> In a private board, only users you specifically add can participate, and the Board Link isn't active."}
+    %i.fa.fa-question-circle.has-tip{"data-tooltip" => true, title:"In a public board, anyone can participate using the Board Link. In a private board, only users you specifically add can participate, and the Board Link isn't active."}
   %div.status_div
     - unless @board_is_public
       .private.engaged Private

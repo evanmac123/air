@@ -590,7 +590,13 @@ input::-moz-focus-inner { // fix for Firefox thickening buttons
   margin:2em 0;
 }
 
+// ------------------------ * Foundation restyling * ------------------------
 .reveal-modal{
   box-shadow: none;
   border-radius: $border-radius;
+  border-color: $almost-white;
+}
+
+.tooltip {
+  max-width: 340px;
 }
