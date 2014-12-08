@@ -594,7 +594,7 @@ input::-moz-focus-inner { // fix for Firefox thickening buttons
 .reveal-modal{
   box-shadow: none;
   border-radius: $border-radius;
-  border-color: $almost-white;
+  border-color: $lightest-gray;
 }
 
 .tooltip {
