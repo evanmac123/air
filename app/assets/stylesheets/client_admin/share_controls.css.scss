@@ -118,6 +118,7 @@ body.client_admin-shares{
     padding:1rem 0;
   }
   #digest_management {
+    padding-top: 32px;
     &:after {@include clear;}
     
     .large-3 {
@@ -228,10 +229,9 @@ body.client_admin-shares{
       }
     }
   }
-
   #scheduled_followups {
-    //padding: 10px;
-    margin-bottom: 2em;
+    padding-bottom: 2em;
+    border-bottom: 1px solid $lightest-gray;
     #cancel_follow_up div {
       font-size: 14px;
       display: inline;
