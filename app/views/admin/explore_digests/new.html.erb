@@ -1,0 +1,10 @@
+<%= form_for @explore_digest_form, url: admin_explore_digest_path do |form| %>
+  <%= form.text_field :subject %>
+  <%= form.text_field :headline %>
+  <%= form.text_field :custom_message %>
+  <% form.object.tile_ids.each_with_index do |tile_id| %>
+    <%= text_field_tag "explore_digest_form[tile_ids][]", tile_id %>
+  <% end %>
+
+  <%= form.submit "Send test digest to self" %>
+<% end %>

@@ -291,5 +291,7 @@ Health::Application.routes.draw do
     resources :characteristics
 
     resources :reset_bulk_uploads, only: [:destroy]
+
+    resource :explore_digest, only: [:new, :create]
   end
 end

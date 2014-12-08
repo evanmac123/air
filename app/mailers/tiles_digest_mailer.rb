@@ -78,8 +78,8 @@ class TilesDigestMailer < ActionMailer::Base
 
     @presenter = TilesDigestMailExplorePresenter.new(custom_from, custom_message, email_heading, @user.explore_token)
 
-    @tiles = TileExploreDigestDecorator.decorate_collection Tile.where(id: tile_ids).ordered_for_explore, \
-                                                            context: { user: @user }
+    undecorated_tiles = tile_ids.map{|tile_id| Tile.find(tile_id)}
+    @tiles = TileExploreDigestDecorator.decorate_collection undecorated_tiles, context: { user: @user }
 
     ping_on_digest_email(@presenter.email_type, @user)
 
