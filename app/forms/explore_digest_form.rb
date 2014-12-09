@@ -1,6 +1,10 @@
 class ExploreDigestForm
   extend  ActiveModel::Naming
   include ActiveModel::Conversion
+  include ActiveModel::Validations
+
+  validate :at_least_one_tile_id
+  validate :all_tile_ids_viewable_in_public
 
   def initialize(params)
     @params = params
@@ -11,7 +15,7 @@ class ExploreDigestForm
   end
 
   def tile_ids
-    @tile_ids ||= @params[:tile_ids]
+    @tile_ids ||= @params[:tile_ids].map(&:to_i)
   end
 
   def subject
@@ -33,6 +37,23 @@ class ExploreDigestForm
 
   def self.model_name
     ActiveModel::Name.new(ExploreDigestForm)
+  end
+
+  protected
+
+  def at_least_one_tile_id
+    if tile_ids.empty?
+      errors.add(:base, "at least one tile ID must be present")
+    end
+  end
+
+  def all_tile_ids_viewable_in_public
+    public_tile_ids = Tile.where(id: tile_ids).viewable_in_public.pluck(:id)
+    nonpublic_tile_ids = tile_ids - public_tile_ids
+
+    unless nonpublic_tile_ids.empty?
+      errors.add(:base, "following tiles are not public: " + nonpublic_tile_ids.sort.join(', '))
+    end
   end
 
   private
