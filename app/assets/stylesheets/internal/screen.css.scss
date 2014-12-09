@@ -3,37 +3,30 @@
 
 .hidden{display:none;}
 .flash-preload {
-	height:0;
-	position:absolute;
-	top:-900px;
+  height:0;
+  position:absolute;
+  top:-900px;
 }
 
 // ------------------------ * App styles * ------------------------
 body {
-	border-top:none;
-	color:$text-color;
-	@include font-regular;
-	/*h3 {
-		@include font-semibold;
-		font-size:1.25em;
-  	padding-bottom:.75em;
-	}*/
-	.content {
-		margin:0 auto;
-		&:after{@include clear;}
-		.seemore a {
-			@include app-button($sky-blue);
-			display: block;
-		}
-	}
-	.module {font-size:.875em; margin-bottom:2em;}
-	.find_users {
-	    @include light-button($sky-blue);
-	    font-size: 10px;
-	    font-weight: 400 !important;
-	    //@include caption;
-	    //padding:.25em .4em;
-	    margin-left:.5em;
-	    vertical-align: top;
-	}
+  border-top:none;
+  color:$text-color;
+  @include font-regular;
+  .content {
+    margin:0 auto;
+    &:after{@include clear;}
+    .seemore a {
+      @include app-button($sky-blue);
+      display: block;
+    }
+  }
+  .module {font-size:.875em; margin-bottom:2em;}
+  .find_users {
+      @include light-button($sky-blue);
+      font-size: 10px;
+      font-weight: 400 !important;
+      margin-left:.5em;
+      vertical-align: top;
+  }
 }

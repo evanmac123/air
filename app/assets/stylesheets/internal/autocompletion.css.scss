@@ -131,24 +131,24 @@ body #facebox .content {
 }
 
 div#search_for_referrer {
-    div#autocomplete_status {
-        color:$gray;
-        margin:0;
-        padding:0;
-        top:-52px;
-        display: none;
-    }
-    div#suggestions {
-        div.single_suggestion {
-            div.image {
-                img {
-                    border:1px $light-gray inset;
-                    height:95px;
-                    width:95px;
-                }
-            }
+  div#autocomplete_status {
+    color:$gray;
+    margin:0;
+    padding:0;
+    top:-52px;
+    display: none;
+  }
+  div#suggestions {
+    div.single_suggestion {
+      div.image {
+        img {
+          border:1px $light-gray inset;
+          height:95px;
+          width:95px;
         }
+      }
     }
+  }
 }
 
 
@@ -158,12 +158,6 @@ div#search_for_referrer {
 #points_per_referral{
   display: none;
 }
-/*
-.inv-forms{
-  a, a:visited, a:hover, a:active{
-    color: #588B3D;
-  }
-}*/
 .subtle_notice{
   font-size: 12px;
   padding: 6px 13px 0;
@@ -227,9 +221,9 @@ div.helper {
 #submit_invite_friend {
     margin-top:4px;
     a#invite_friends_link {
-        margin-bottom: 4px;
-        display: inline-block;
-        font-size:11px;
+      margin-bottom: 4px;
+      display: inline-block;
+      font-size:11px;
     }
 }
 .bigger_message{
@@ -254,7 +248,6 @@ div.helper {
   bottom: 10px;
   @include light-button($sky-blue);
   margin-top: 10px;
-  //font-size: 1em;
   padding-left: 3em;
   padding-right: 3em;
 }

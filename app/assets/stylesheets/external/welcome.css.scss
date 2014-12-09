@@ -11,7 +11,6 @@ body.pages-show.landing, body.pages.pages-product{
     .button.signin{
       @include light-button($white);
       padding: 10px 20px;
-      //font-size: 15px;
     }
   }
   .regFormSection{
@@ -43,13 +42,6 @@ body.pages-show.landing, body.pages.pages-product{
       }
       .button{
         @include app-button($sky-blue);
-        //background: $sky-blue;
-        //box-shadow: none;
-        //border: #fff 1px solid;
-        //color: #fff;
-        //border-radius: 3px;
-        //display: block;
-        //text-align: center;
         width: 100%;
         margin-top: 20px;
         padding: 10px 20px;

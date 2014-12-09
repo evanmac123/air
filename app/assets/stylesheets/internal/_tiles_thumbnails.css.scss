@@ -44,7 +44,6 @@
   }
   .tile-wrapper{
     @include ease(.025s);
-    // box-shadow: 0 1px 1px 1px $med-gray;
     border: $lightest-gray solid 1px;
     border-radius:$border-radius;
     display: inline-block;

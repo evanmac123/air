@@ -12,7 +12,6 @@
     a {margin:0;}
     .show_more_tiles {
       @include app-button($sky-blue);
-      //padding:.75em .5em 0.6em;
       &:before, &:after {
         @include arrow-down(lighten($sky-blue, 10%), 8px);
         margin:0 1em;
@@ -22,7 +21,6 @@
       &[disabled] {
         color: $light-gray !important;;
         @include app-button($med-gray);
-        //padding:.75em .5em 0.6em;
         
         &:before, &:after {
           visibility:hidden;

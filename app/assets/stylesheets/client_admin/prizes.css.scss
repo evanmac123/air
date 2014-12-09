@@ -79,12 +79,6 @@ body.client_admin-prizes {
       }
     }
   }
-  /*label.small_cap{
-    padding-bottom: 2em;
-  }*/
-  /*input, button, textarea{
-    border-radius: $border-radius;
-  }*/
   .form_section{
     width:34%;
     form{
@@ -95,7 +89,6 @@ body.client_admin-prizes {
         resize: none;
       }
       input, textarea{
-        //font-size: 14px;
         &:disabled{
           border-color:transparent;
         }
@@ -380,18 +373,9 @@ body.client_admin-prizes {
             @include light-button($sky-blue);
             margin: 0;
           }
-          //background: transparent;
-          //border: 1px solid $sky-blue;
-          //color: $sky-blue;
-          //font-size: 18px;
-          //font-weight: 400;
-          //margin-right: 0;
-          //border-radius: 0;
           &:nth-child(odd){
             @include app-button($sky-blue);
             margin-right: 5%;
-            //background: $sky-blue;
-            //color: $white;
           }
           span{
             padding: 0;

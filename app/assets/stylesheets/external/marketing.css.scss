@@ -17,8 +17,6 @@ body {
   input, textarea {@include ease(.15s);}
   input[type="submit"] {
     @include app-button($sky-blue);
-    //@include font-semibold;
-    //font-size:1.125em;
   }
 
   p {

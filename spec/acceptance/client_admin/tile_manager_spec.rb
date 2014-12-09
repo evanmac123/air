@@ -325,12 +325,6 @@ feature 'Client admin and tile manager page' do
     visit_tile_manager_page
     expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
     expect_inactive_tile_placeholders(0)
-=begin
-    FactoryGirl.create(:tile, :archived, demo: admin.demo)
-    visit_tile_manager_page
-    expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
-    expect_inactive_tile_placeholders(3)
-=end
     5.times { FactoryGirl.create(:tile, :archived, demo: admin.demo) }
 
     # There's now the creation placeholder, plus eight other archived tiles.

@@ -22,23 +22,20 @@ body.client_admin-shares{
     padding: 1em 1em 0em 1em;
   }
   .share_tools .new_public_board{
-    //border: 1px solid $light-gray;
-    //padding: 10px;
     div{
-        float: left;
+      float: left;
     }
     .title_div{
-       width: 210px;
-       margin-top: 8px;
+      width: 210px;
+      margin-top: 8px;
       .public_board_title{
-          float: left;
-          //color: $med-gray;
+        float: left;
       }
       .fa-question-circle{
-          float: left;
-          margin-top: -1px;
-          margin-left: 10px;
-          color: $med-gray;
+        float: left;
+        margin-top: -1px;
+        margin-left: 10px;
+        color: $med-gray;
       }
     }
     .status_div{
@@ -67,49 +64,16 @@ body.client_admin-shares{
         }
       }
     }
-    /*.status_message_div{
-      .public-demo-message, .private-demo-message{
-        text-align: center;
-        line-height: 12px;
-        font-size: 9px;
-        float: left;
-        width: 70px;
-        margin: 4px 10px;
-      }
-    }*/
     .share_link_div{
-        //float: left;
-        //width: 494px;
-        position: relative;
-        float: none;
-        width: auto;
-        overflow: auto;
-        /*
-        .share_link_icons{
-            //float: right;
-            //position: relative;
-            position: absolute;
-            top: 0;
-            right: 0;
-            .fa{
-                margin-top: 3px;
-                font-size: 25px;
-                padding: 2px 7px;
-                color: $med-gray;
-            }
-        }*/
-        #public_board_field{
-            //position: absolute;
-            width: 100%;
-        }
+      position: relative;
+      float: none;
+      width: auto;
+      overflow: auto;
+      #public_board_field{
+        width: 100%;
+      }
     }
   }
-
-  /*.share_tools .no_tiles_messages {
-    height:17.5em;
-    padding:5em 6em;
-    h4 {margin-bottom:1em;}
-  }*/
   .share_tools #feedback {
     color:$gray;
     @include caption;
@@ -123,18 +87,19 @@ body.client_admin-shares{
     
     .large-3 {
       &.columns {
-          padding-left: 0;
-          padding-right: 0;
-        }    
+        padding-left: 0;
+        padding-right: 0;
+      }    
     }
     .notification_controls {
       float: left;    
       .send_to, .follow_up, .intro_message, .custom_subject, .custom_headline {
         margin-bottom:3.75em;
         .drop_down{          
-          *{color: $med-gray;font-weight: normal;}
+          *{
+            color: $med-gray;font-weight: normal;
+          }
         }
-        //select, label {font-size:1.142857143em;}
       }
       .follow_up {
         p span {
@@ -160,12 +125,6 @@ body.client_admin-shares{
         padding: 10px;
         margin-bottom:1.75em;
         color: $gray;
-        /*span{
-          @include caption;
-          float: left;
-          width: 104px;
-          padding-top: 0.6em;
-        }*/
         h5{
           float: left;
           margin: 0;
@@ -185,7 +144,6 @@ body.client_admin-shares{
       padding-left: 30px;
       #last-email {
         @include regular-text;
-        //color:$text-color;
         position: absolute;
         top: -1px;
         right: 1px;
@@ -199,14 +157,7 @@ body.client_admin-shares{
 
     input[type="submit"] {
       @include app-button($sky-blue);
-      //font-size:18px;
-      //font-weight: 400;
-      //padding:.35em .5em;
-      //height: 35px;
       width: 100%;
-      /*&:disabled{
-        @include app-button($light-blue);
-      }*/
     }
     .update-digest-spinner {
       display: none;
@@ -247,8 +198,6 @@ body.client_admin-shares{
         .cancel_button {
           display: inline;
           a {
-            //@include light-button($med-gray);
-            //font-size: 10px;
             margin-left: 10px;
             font-weight: 400;
             color: $med-gray;
@@ -259,7 +208,6 @@ body.client_admin-shares{
   }
 
   .tiles_to_be_shared {
-    // sharing styles with Active tiles manager (in client_admin/tiles)
     margin-top:4em;
     padding:3em 0;
     .columns {

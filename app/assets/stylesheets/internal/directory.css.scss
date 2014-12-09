@@ -1,91 +1,68 @@
 #search {
-    @include form-group;
-    position: relative;
-    &:after{@include clear;}
-    h5 {display: none;}
-    #search_string {
-        float: left;
-        height: 29px;
-        margin: 0;
-        width: 242px;
-    }
-    #find_button {
-        @include app-button($sky-blue);
-        float: none;
-        margin-left: 1em;
-    }
-    /*
-    #search_string, #find_button {
-        font-size:1em;
-        line-height: 1em;
-        padding:.5em;
-    }
-    #search_string {
-        @include regular-text;
-        float:left;
-        height:40px;
-        line-height: 1em;
-        margin:0; 
-        padding:auto .85em;
-        width:80%;
-        vertical-align: middle;
-    }
-    #find_button {
-        @include app-button($sky-blue);
-        border-radius:0;
-        height:40px;
-        width:20%;
-    }
-    */
+  @include form-group;
+  position: relative;
+  &:after{@include clear;}
+  h5 {display: none;}
+  #search_string {
+    float: left;
+    height: 29px;
+    margin: 0;
+    width: 242px;
+  }
+  #find_button {
+    @include app-button($sky-blue);
+    float: none;
+    margin-left: 1em;
+  }
 }
 
 #notify_of_search {margin-bottom:2em;}
 
 #other-users .user {
-    @include form-group;
-    margin-bottom:2em;
-    &:after {@include clear;}
-    .user-avatar, .user-info, .user-name_email, .follow_buttons {
-        display:inline-block;
-        vertical-align: top;
+  @include form-group;
+  margin-bottom:2em;
+  &:after {@include clear;}
+  .user-avatar, .user-info, .user-name_email, .follow_buttons {
+    display:inline-block;
+    vertical-align: top;
+  }
+  .user-avatar {
+    float:left;
+    width:20%;
+  }
+  .user-info {
+    float: left;
+    padding:0 0 0 1em;
+    width:80%;
+    position: relative;
+    &:after{@include clear;}
+  }
+  .user-name_email {
+    width:100%;
+    p {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width:100%;
     }
-    .user-avatar {
-        float:left;
-        width:20%;
-    }
-    .user-info {
-        float: left;
-        padding:0 0 0 1em;
-        width:80%;
-        position: relative;
-        &:after{@include clear;}
-    }
-    .user-name_email {
-        width:100%;
-        p {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            width:100%;
-        }
-        .name-of-user {font-size:1.5em;}
-    }
-    .follow_buttons {
-        margin-top:.5em;
-        width:100%;
-    }
+    .name-of-user {font-size:1.5em;}
+  }
+  .follow_buttons {
+    margin-top:.5em;
+    width:100%;
+  }
 }
 
 // affects Directory and Profile pages
 .follow_buttons {
-    .pending_notice {
-        color:$med-gray;
-    }
-    .follow-btn {@include app-button($sky-blue);}
-    .stop-following-btn {@include light-button($sky-blue);}
-    .follow-btn, .stop-following-btn {
-        @include ease(.15s);
-        cursor: pointer;
-        font-size:.85em;
-        margin-bottom:.5em;
-    }
+  .pending_notice {
+    color:$med-gray;
+  }
+  .follow-btn {@include app-button($sky-blue);}
+  .stop-following-btn {@include light-button($sky-blue);}
+  .follow-btn, .stop-following-btn {
+    @include ease(.15s);
+    cursor: pointer;
+    font-size:.85em;
+    margin-bottom:.5em;
+  }
 }

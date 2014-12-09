@@ -5,339 +5,297 @@
 @import './internal/tiles_fullsize';
 @import 'tile_preview';
 
-
-
 .joyride-tip-guide {
-    &.tile {
-        width: 360px;
-        margin-top: 82px;
-        margin-left: 82px;
-        color: $dark-gray;
-        .joyride-nub{
-            border: outset $joyride-tip-nub-size;
-        }
-        .top-section{
-            font-size: 18px !important;
-        }
-        .bottom-section{
-            font-size: 14px;
-        }
+  &.tile {
+    width: 360px;
+    margin-top: 82px;
+    margin-left: 82px;
+    color: $dark-gray;
+    .joyride-nub{
+      border: outset $joyride-tip-nub-size;
     }
-    &.tile-index-post {
-        width: 410px;
-        height: 100px;
-        margin-left: 216px;
-        color: $dark-gray;
-        .joyride-nub{
-            margin-left: 161px;
-            border: outset $joyride-tip-nub-size;
-        }
-        .top-section{
-            font-size: 18px !important;
-            span{
-                color: $dark-green;
-            }
-        }
-        .joyride-next-tip{
-            @include light-button($gray);
-            font-size: 14px;
-        }
-    }    
-    &.tile-index-share {
-        width: 466px;
-        margin-left: 94px;
-        margin-top: -85px !important;
-        color: $dark-gray;
-        .top-section{
-            font-size: 18px !important;
-            color: $sky-blue;            
-        }
-        .logo{
-            margin-left: -16px;
-        }
-        .heading{
-            padding-top: 10px;
-            margin-left: -45px;
-        }
-        .bottom-section{
-            line-height: 20px;
-            padding: 15px 0;
-            font-size: 14px;
-            span{
-                font-weight: bold;
-            }
-        }
-        .joyride-next-tip{
-            @include light-button($gray);
-            font-size: 14px;
-        }
+    .top-section{
+      font-size: 18px !important;
     }
-    &.tile-index-main-menu {
-        width: 410px;
-        margin-top: -81px;
-        margin-left: 93px;
-        color: $dark-gray;
-        .top-section{
-            font-size: 18px !important;
-            span{
-                color: $dark-green;
-            }
-        }
-        .joyride-next-tip{
-            @include light-button($gray);
-            font-size: 14px;
-        }
+    .bottom-section{
+      font-size: 14px;
     }
-    &.tile-index-posted-tile {
-        width: 414px;
-        margin-top: -65px;
-        margin-left: -90px;
-        color: $dark-gray;
-        .joyride-nub{
-            margin-left: 150px;
-        }
-        .top-section{
-            font-size: 18px !important;
-            padding-bottom: 15px;
-        }
-        .bottom-section{
-            font-size: 14px;
-            padding-bottom: 15px;
-        }
-        .joyride-next-tip{
-            @include light-button($gray);
-            font-size: 14px;
-        }
+  }
+  &.tile-index-post {
+    width: 410px;
+    height: 100px;
+    margin-left: 216px;
+    color: $dark-gray;
+    .joyride-nub{
+      margin-left: 161px;
+      border: outset $joyride-tip-nub-size;
     }
+    .top-section{
+      font-size: 18px !important;
+      span{
+        color: $dark-green;
+      }
+    }
+    .joyride-next-tip{
+      @include light-button($gray);
+      font-size: 14px;
+    }
+  }    
+  &.tile-index-share {
+    width: 466px;
+    margin-left: 94px;
+    margin-top: -85px !important;
+    color: $dark-gray;
+    .top-section{
+      font-size: 18px !important;
+      color: $sky-blue;            
+    }
+    .logo{
+      margin-left: -16px;
+    }
+    .heading{
+      padding-top: 10px;
+      margin-left: -45px;
+    }
+    .bottom-section{
+      line-height: 20px;
+      padding: 15px 0;
+      font-size: 14px;
+      span{
+        font-weight: bold;
+      }
+    }
+    .joyride-next-tip{
+      @include light-button($gray);
+      font-size: 14px;
+    }
+  }
+  &.tile-index-main-menu {
+    width: 410px;
+    margin-top: -81px;
+    margin-left: 93px;
+    color: $dark-gray;
+    .top-section{
+      font-size: 18px !important;
+      span{
+        color: $dark-green;
+      }
+    }
+    .joyride-next-tip{
+      @include light-button($gray);
+      font-size: 14px;
+    }
+  }
+  &.tile-index-posted-tile {
+    width: 414px;
+    margin-top: -65px;
+    margin-left: -90px;
+    color: $dark-gray;
+    .joyride-nub{
+      margin-left: 150px;
+    }
+    .top-section{
+      font-size: 18px !important;
+      padding-bottom: 15px;
+    }
+    .bottom-section{
+      font-size: 14px;
+      padding-bottom: 15px;
+    }
+    .joyride-next-tip{
+      @include light-button($gray);
+      font-size: 14px;
+    }
+  }
 }
 
 body.client_admin-tiles-index, body.client_admin-inactive_tiles,
 body.client_admin-tiles-index, body.client_admin-draft_tiles, 
 body.client_admin-shares {
-    .tile_thumbnail {width:100%;}
+  .tile_thumbnail {width:100%;}
 }
 
 body.client_admin-tiles-index, body.client_admin-inactive_tiles,
 body.client_admin-draft_tiles {
-    
-    // Tile management sections
-    .content {
-        //background:$blue;
-        background: $almost-white;
-        padding: 0;
+  // Tile management sections
+  .content {
+    background: $almost-white;
+    padding: 0;
+  }
+  .manage_tiles {
+    position: relative;
+    .creation-placeholder{
+      display: inline-block;
+      width: 100%;
+      max-width: 238px;
     }
-    .manage_tiles {
-        position: relative;
-        .creation-placeholder{
-            display: inline-block;
-            width: 100%;
-            max-width: 238px;
-        }
-        .tile_container{
-            width: 24%;
-            text-align: center;
-            float: left;
-            padding-bottom: 2rem;
-        }
-        #draft   { .tile_container { height: 377px; } }
-        #active  { .tile_container { height: 466px; } }
-        #archive { .tile_container { height: 466px; } }
-        .no_tiles_message {margin:0 auto 3em;}
+    .tile_container{
+      width: 24%;
+      text-align: center;
+      float: left;
+      padding-bottom: 2rem;
     }
-    #active_tiles, #archived_tiles, #draft_tiles {
-        h4{
-            margin-bottom: 2em;
-            margin-left: 1.5em;
-            //font-size: 12px;
-            //font-weight: 700;
-            //letter-spacing: 0.1em;
-            //color: rgba(0,0,0,0.8);
-        }
+    #draft   { .tile_container { height: 377px; } }
+    #active  { .tile_container { height: 466px; } }
+    #archive { .tile_container { height: 466px; } }
+    .no_tiles_message {margin:0 auto 3em;}
+  }
+  #active_tiles, #archived_tiles, #draft_tiles {
+    h4{
+      margin-bottom: 2em;
+      margin-left: 1.5em;
     }
-    #archived_tiles, #draft_tiles {
-        background: $almost-white;
-        //background:$blue;
-        position: relative;
-        #draft, #archive{
-            &:after{ @include clear; }
-        }
-        /*h1, */.all_inactive {display: inline-block;}
-        .tile_thumbnail.placeholder_tile {
-            border-color: $light-gray;
-        }
-        .create_new_tile {
-            @include app-button($dark-green);
-            float: right;
-        }
-        /*h1 {
-            @extend h2;
-            margin-bottom: 28px;
-            margin-left: 13px;
-            width: 100%;
-            max-width: 57.7em;
-            //border-bottom: 1px solid;
-            //color:$white;
-            //color: $text-color;
-        }*/
-        .all_inactive, .all_draft
-        {
-            @include light-button($med-gray);
-            font-size: 12px;
-            letter-spacing: 0.4em;
-            width: 100%;
-            margin-bottom: 1em;
-            margin-left: 1em;
-            max-width: 86.75em;
-            //margin: 0 auto;
-            //margin-bottom: 3em;
-            //display: block;
-            //text-align: center;
-            
-            //font-weight: 400;
-        }
-        .minimize {
-            @include light-button($med-gray);
-            font-size: 10px;
-            //@include caption;
-            position: absolute;
-            top:-2px;
-            right: 73px;
-            //margin-left:1em;
-            //vertical-align: text-bottom;
-        }
-        //.tile_thumbnail .tile-wrapper {border: none;}
+  }
+  #archived_tiles, #draft_tiles {
+    background: $almost-white;
+    position: relative;
+    #draft, #archive{
+      &:after{ @include clear; }
     }
-    #draft_tiles {
-        padding-top: 2em;
-        background: #fafafa;
-        .tile_thumbnail.placeholder_tile {
-            border-color: $almost-white;
-        }
+    .all_inactive {display: inline-block;}
+    .tile_thumbnail.placeholder_tile {
+      border-color: $light-gray;
     }
-    .draft_overlay{
-        position: absolute;
-        top: 0;
-        left: 0;
+    .create_new_tile {
+      @include app-button($dark-green);
+      float: right;
+    }
+    .all_inactive, .all_draft {
+      @include light-button($med-gray);
+        font-size: 12px;
+        letter-spacing: 0.4em;
         width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.4);
-        z-index: 100;
-        display: none;
-        .overlay_message{
-            position: absolute;
-            width: 100%;
-            font-size: 275px;
-            color: $white;
-            text-align: center;
-            opacity: 0.7;
-            top: 50%;
-            margin-top: -140px;
-        }
+        margin-bottom: 1em;
+        margin-left: 1em;
+        max-width: 86.75em;
     }
+    .minimize {
+      @include light-button($med-gray);
+      font-size: 10px;
+      position: absolute;
+      top:-2px;
+      right: 73px;
+    }
+  }
+  #draft_tiles {
+    padding-top: 2em;
+    background: #fafafa;
+    .tile_thumbnail.placeholder_tile {
+      border-color: $almost-white;
+    }
+  }
+  .draft_overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 100;
+    display: none;
+    .overlay_message{
+      position: absolute;
+      width: 100%;
+      font-size: 275px;
+      color: $white;
+      text-align: center;
+      opacity: 0.7;
+      top: 50%;
+      margin-top: -140px;
+    }
+  }
+  .draft_blocked_message{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    color: $text-color;
+    display: none;
+    padding-top: 10px;
+    text-align: center;
+    font-size: 20px;
+  }
+  #active_tiles {
+    padding:2em 0 0 0;
+    #active{
+      &:after{ @include clear; }
+    }
+  }
+  #archived_tiles {
+    padding:2em 0 0 0;
     .draft_blocked_message{
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        z-index: 100;
-        color: $text-color;
-        display: none;
-        padding-top: 10px;
-        text-align: center;
-        font-size: 20px;
+      color: $white;
     }
-    #active_tiles {
-        padding:2em 0 0 0;
-        //padding: 0;
-        #active{
-            &:after{ @include clear; }
-        }
-    }
-    #archived_tiles {
-        padding:2em 0 0 0;
-        .draft_blocked_message{
-            color: $white;
-        }
-    }
+  }
 }
 
 body.client_admin-tiles-index #active_tiles, 
 body.client_admin-inactive_tiles #active_tiles,
 body.client_admin-draft_tiles #active_tiles,
 .tiles_to_be_shared {
-    //background: $tile-wall-bg;
-    background: $almost-white;
-    /*h1 {
-        @extend h2;
-        margin-bottom: 28px;
-        margin-left: 13px;
-        width: 100%;
-        max-width: 57.7em;
-        //border-bottom: 1px solid;
-        //color:$text-color;
-    }*/
+  background: $almost-white;
 }
 
 // Create new tile placeholder link
 .creation-placeholder a {
-    //border-color: $light-gray;
-    border-color: $almost-white;
+  border-color: $almost-white;
+  display: block;
+  color: #fafafa !important;
+  line-height:1em;
+  position: relative;
+  text-align: center;
+  &:hover {border-color:lighten($blue, 10%); color:transparent;}
+  &:before {
+    color:$white;
+    background:$sky-blue;
+    border-radius:$border-radius;
+    content:"+";
     display: block;
-    color: #fafafa !important;
-    line-height:1em;
-    position: relative;
+    font-size:5em;
+    line-height:0;
+    margin-left:-40px;
+    position: absolute;
+    top:30%;
+    left:50%;
     text-align: center;
-    &:hover {border-color:lighten($blue, 10%); color:transparent;}
-    &:before {
-        color:$white;
-        background:$sky-blue;
-        border-radius:$border-radius;
-        content:"+";
-        display: block;
-        font-size:5em;
-        line-height:0;
-        margin-left:-40px;
-        position: absolute;
-        top:30%;
-        left:50%;
-        text-align: center;
-        height:80px;
-        width:80px;
-        overflow: hidden;
-        padding-top:32px;
-    }
-    &:hover:before {background:darken($sky-blue, 7%);}
-    &:after{
-        color:$sky-blue;
-        line-height:1em;
-        content: "Add New Tile";
-        position: absolute;
-        top:60%;
-        left:30%;
-        text-align: center;
-    }
+    height:80px;
+    width:80px;
+    overflow: hidden;
+    padding-top:32px;
+  }
+  &:hover:before {background:darken($sky-blue, 7%);}
+  &:after{
+    color:$sky-blue;
+    line-height:1em;
+    content: "Add New Tile";
+    position: absolute;
+    top:60%;
+    left:30%;
+    text-align: center;
+  }
 }
 
 // Links to download CSV tile reports
 a.download_csv {
-    @include light-button($med-gray);
-    font-size: 10px;
-    color: $med-gray !important;
-    position: absolute;
-    top: 0px;
-    right: 73px;
-    vertical-align: text-bottom;
-    font-weight: 400 !important;
-    // Copied the following over from main_styles since IE won't respect the 
-    // color we set above unless we !important it, and we still want our hover 
-    // effects to work.
-    &:hover {  
-        border-color:darken($med-gray, 11%);
-        color:darken($med-gray, 11%) !important;
-    }
-    &:active {
-        @include ease(0);
-        background:$med-gray;
-        color:$white;
-    }
+  @include light-button($med-gray);
+  font-size: 10px;
+  color: $med-gray !important;
+  position: absolute;
+  top: 0px;
+  right: 73px;
+  vertical-align: text-bottom;
+  font-weight: 400 !important;
+  // Copied the following over from main_styles since IE won't respect the 
+  // color we set above unless we !important it, and we still want our hover 
+  // effects to work.
+  &:hover {  
+    border-color:darken($med-gray, 11%);
+    color:darken($med-gray, 11%) !important;
+  }
+  &:active {
+    @include ease(0);
+    background:$med-gray;
+    color:$white;
+  }
 }
