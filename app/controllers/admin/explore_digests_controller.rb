@@ -4,7 +4,11 @@ class Admin::ExploreDigestsController < AdminBaseController
   end
 
   def create
-    @explore_digest_form = ExploreDigestForm.new(params[:explore_digest_form], current_user)
+    @explore_digest_form = if params[:commit] == 'Send real digest'
+                             ExploreDigestForm.new(params[:explore_digest_form])
+                           else
+                             ExploreDigestTestForm.new(params[:explore_digest_form], current_user)
+                           end
     @explore_digest_form.send_digest!
 
     redirect_to :back

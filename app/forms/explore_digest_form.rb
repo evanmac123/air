@@ -2,21 +2,12 @@ class ExploreDigestForm
   extend  ActiveModel::Naming
   include ActiveModel::Conversion
 
-  def initialize(params, user)
+  def initialize(params)
     @params = params
-    @user = user
   end
 
   def persisted?
     false
-  end
-
-  def send_digest!
-    TilesDigestMailer.delay.notify_one_explore(user.id, tile_ids, subject, headline, custom_message)
-  end
-
-  def user
-    @user
   end
 
   def tile_ids
@@ -35,8 +26,27 @@ class ExploreDigestForm
     @custom_message ||= @params[:custom_message]
   end
 
+  def send_digest!
+    TilesDigestMailer.delay.notify_all_explore tile_ids, subject, headline, custom_message
+  end
+
   def self.model_name
     ActiveModel::Name.new(ExploreDigestForm)
+  end
+end
+
+class ExploreDigestTestForm < ExploreDigestForm
+  def initialize(params, user)
+    @params = params
+    @user = user
+  end
+
+  def user
+    @user
+  end
+
+  def send_digest!
+    TilesDigestMailer.delay.notify_one_explore(user.id, tile_ids, subject, headline, custom_message)
   end
 end
 
