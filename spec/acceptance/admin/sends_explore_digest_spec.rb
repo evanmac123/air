@@ -29,9 +29,9 @@ feature 'Sends explore digest' do
     fill_in "explore_digest_form[custom_message]", with: valid_custom_message
   end
 
-  def fill_in_valid_tile_fields
+  def fill_in_valid_tile_fields(tile_ids = @tiles.map(&:id))
     4.times do |n|
-      page.all('#explore_digest_form_tile_ids_')[n].set(@tiles[n].id)
+      page.all('#explore_digest_form_tile_ids_')[n].set(tile_ids[n])
     end
   end
 
@@ -84,6 +84,16 @@ feature 'Sends explore digest' do
       end
     end
 
-    it "changes the order of the tiles on the explore page itself"
+    it "changes the order of the tiles on the explore page itself" do
+      fill_in_valid_message_entries
+
+      indices = [2, 0, 3, 1]
+      tile_ids = indices.map{|index| @tiles[index].id}
+      fill_in_valid_tile_fields(tile_ids)
+      click_send_button
+
+      visit explore_path
+      page.body.should =~ /#{@tiles[2].headline}.*#{@tiles[0].headline}.*#{@tiles[3].headline}.*#{@tiles[1].headline}/m
+    end
   end
 end

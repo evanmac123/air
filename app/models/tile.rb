@@ -393,7 +393,12 @@ class Tile < ActiveRecord::Base
   end
 
   def self.ordered_for_explore
-    order("created_at DESC")
+    order("explore_page_priority DESC NULLS LAST").order("created_at DESC")
+  end
+
+  def self.current_highest_explore_page_priority
+    real_priority = select("MAX(explore_page_priority) AS explore_page_priority").first.explore_page_priority 
+    real_priority || -1
   end
 
   def self.ordered_by_position

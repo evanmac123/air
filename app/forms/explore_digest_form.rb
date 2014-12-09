@@ -27,11 +27,26 @@ class ExploreDigestForm
   end
 
   def send_digest!
+    reorder_explore_page_tiles!
     TilesDigestMailer.delay.notify_all_explore tile_ids, subject, headline, custom_message
   end
 
   def self.model_name
     ActiveModel::Name.new(ExploreDigestForm)
+  end
+
+  private
+
+  def reorder_explore_page_tiles!
+    Tile.transaction do
+      starting_priority = Tile.current_highest_explore_page_priority
+      priority = starting_priority + 1
+
+      tile_ids.reverse.each do |tile_id|
+        Tile.find(tile_id).update_attributes(explore_page_priority: priority)
+        priority += 1
+      end
+    end
   end
 end
 

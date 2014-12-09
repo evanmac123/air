@@ -574,7 +574,10 @@ feature 'Guest user is prompted to convert to real user' do
       create_tiles(board, 2) 
       visit public_board_path(public_slug: board.public_slug)
 
-      all_tiles = Tile.ordered_for_explore
+      # We do #to_a here because ordered_for_explore apparently generates a 
+      # more complex ORDER BY clause than #last can deal with, and we get a
+      # SQL syntax error.
+      all_tiles = Tile.ordered_for_explore.to_a
 
       close_tutorial_lightbox
       click_link all_tiles.first.headline
@@ -600,7 +603,8 @@ feature 'Guest user is prompted to convert to real user' do
     it "should offer after completing two tiles", js: true do
       visit public_board_path(public_slug: board.public_slug)
 
-      all_tiles = Tile.ordered_for_explore
+      # See above for explanation of why we do to_a
+      all_tiles = Tile.ordered_for_explore.to_a
     
       close_tutorial_lightbox
       click_link all_tiles.first.headline
