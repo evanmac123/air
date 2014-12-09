@@ -65,7 +65,7 @@ feature "Admin segmentation" do
     fill_in "segment_value[0]", :with => reference_value
     click_button "Find segment"
 
-    expect_content "Segmented by characteristics: #{characteristic_name} equals #{reference_value}"
+    expect_content "SEGMENTED BY CHARACTERISTICS: #{characteristic_name} equals #{reference_value}"
     expect_content "USERS IN SEGMENT 1"
     click_link "Show users"
     expect_user_content(users[5])
@@ -75,7 +75,7 @@ feature "Admin segmentation" do
     fill_in "segment_value[0]", :with => reference_value
     click_button "Find segment"
 
-    expect_content "Segmented by characteristics: #{characteristic_name} does not equal #{reference_value}"
+    expect_content "SEGMENTED BY CHARACTERISTICS: #{characteristic_name} does not equal #{reference_value}"
     expect_content "USERS IN SEGMENT 9"
     click_link "Show users"
     ((0..4).to_a + (6..9).to_a).each {|i| expect_user_content(users[i])}
@@ -89,7 +89,7 @@ feature "Admin segmentation" do
     fill_in "segment_value[0]", :with => reference_value
     click_button "Find segment"
 
-    expect_content "Segmented by characteristics: #{characteristic_name} is greater than #{reference_value}"
+    expect_content "SEGMENTED BY CHARACTERISTICS: #{characteristic_name} is greater than #{reference_value}"
     expect_content "USERS IN SEGMENT 4"
     click_link "Show users"
     (6..9).to_a.each {|i| expect_user_content(users[i])}
@@ -99,7 +99,7 @@ feature "Admin segmentation" do
     fill_in "segment_value[0]", :with => reference_value
     click_button "Find segment"
 
-    expect_content "Segmented by characteristics: #{characteristic_name} is less than #{reference_value}"
+    expect_content "SEGMENTED BY CHARACTERISTICS: #{characteristic_name} is less than #{reference_value}"
     expect_content "USERS IN SEGMENT 5"
     click_link "Show users"
     (0..4).to_a.each {|i| expect_user_content(users[i])}
@@ -109,7 +109,7 @@ feature "Admin segmentation" do
     fill_in "segment_value[0]", :with => reference_value
     click_button "Find segment"
 
-    expect_content "Segmented by characteristics: #{characteristic_name} is greater than or equal to #{reference_value}"
+    expect_content "SEGMENTED BY CHARACTERISTICS: #{characteristic_name} is greater than or equal to #{reference_value}"
     expect_content "USERS IN SEGMENT 5"
     click_link "Show users"
     (5..9).to_a.each {|i| expect_user_content(users[i])}
@@ -119,7 +119,7 @@ feature "Admin segmentation" do
     fill_in "segment_value[0]", :with => reference_value
     click_button "Find segment"
 
-    expect_content "Segmented by characteristics: #{characteristic_name} is less than or equal to #{reference_value}"
+    expect_content "SEGMENTED BY CHARACTERISTICS: #{characteristic_name} is less than or equal to #{reference_value}"
     expect_content "USERS IN SEGMENT 6"
     click_link "Show users"
     (0..5).to_a.each {|i| expect_user_content(users[i])}
@@ -141,7 +141,7 @@ feature "Admin segmentation" do
 
       click_button "Find segment"
 
-      expect_content "Segmented by characteristics: Color equals red"
+      expect_content "SEGMENTED BY CHARACTERISTICS: Color equals red"
       expect_content "USERS IN SEGMENT 14"
       click_link "Show users"
       @reds.each { |red| expect_user_content red }
@@ -359,7 +359,7 @@ feature "Admin segmentation" do
 
       click_button "Find segment"
 
-      expect_content "Segmented by characteristics: Likes cheese equals true"
+      expect_content "SEGMENTED BY CHARACTERISTICS: Likes cheese equals true"
       expect_content "USERS IN SEGMENT 6"
       click_link "Show users"
       [0, 1, 2, 6, 7, 8].each {|i| expect_user_content(users[i])}
@@ -370,7 +370,7 @@ feature "Admin segmentation" do
 
       click_button "Find segment"
 
-      expect_content "Segmented by characteristics: Likes cheese does not equal true"
+      expect_content "SEGMENTED BY CHARACTERISTICS: Likes cheese does not equal true"
       expect_content "USERS IN SEGMENT 6"
       click_link "Show users"
       [3, 4, 5, 9, 10, 11].each {|i| expect_user_content(users[i])}
@@ -380,7 +380,7 @@ feature "Admin segmentation" do
 
       click_button "Find segment"
 
-      expect_content "Segmented by characteristics: Likes cheese equals false"
+      expect_content "SEGMENTED BY CHARACTERISTICS: Likes cheese equals false"
       expect_content "USERS IN SEGMENT 6"
       click_link "Show users"
       [3, 4, 5, 9, 10, 11].each {|i| expect_user_content(users[i])}
@@ -390,7 +390,7 @@ feature "Admin segmentation" do
 
       click_button "Find segment"
 
-      expect_content "Segmented by characteristics: Likes cheese does not equal false"
+      expect_content "SEGMENTED BY CHARACTERISTICS: Likes cheese does not equal false"
       expect_content "USERS IN SEGMENT 6"
       click_link "Show users"
       [0, 1, 2, 6, 7, 8].each {|i| expect_user_content(users[i])}
@@ -479,7 +479,7 @@ feature "Admin segmentation" do
 
     click_button "Find segment"
 
-    expect_content "Segmented by characteristics: Location equals North Southerton (AwesomeCo)"
+    expect_content "SEGMENTED BY CHARACTERISTICS: Location equals North Southerton (AwesomeCo)"
     expect_content "USERS IN SEGMENT 1"
 
     expected_location = Location.find_by_name "North Southerton"
@@ -494,7 +494,7 @@ feature "Admin segmentation" do
    
     click_button "Find segment"
 
-    expect_content "Segmented by characteristics: Location does not equal North Southerton (AwesomeCo)"
+    expect_content "SEGMENTED BY CHARACTERISTICS: Location does not equal North Southerton (AwesomeCo)"
     expect_content "USERS IN SEGMENT 2"
 
     click_link "Show users"
@@ -557,7 +557,7 @@ feature "Admin segmentation" do
     select "Puddingville (Site B) (AwesomeCo)", :from => "segment_value[0]"
     click_button "Find segment"
 
-    expect_content "Segmented by characteristics: Location equals Puddingville (Site B) (AwesomeCo)"
+    expect_content "SEGMENTED BY CHARACTERISTICS: Location equals Puddingville (Site B) (AwesomeCo)"
     expect_content "USERS IN SEGMENT 3"
 
     expected_location = Location.find_by_name "Puddingville (Site B)"
@@ -636,7 +636,7 @@ feature "Admin segmentation" do
       select gender_name, :from => "segment_value[0]"
       click_button "Find segment"
 
-      expect_content "Segmented by characteristics: Gender equals #{gender_name}"
+      expect_content "SEGMENTED BY CHARACTERISTICS: Gender equals #{gender_name}"
       expect_content "USERS IN SEGMENT 3"
       click_link "Show users"
       expected_users[gender_name].each{|user| expect_user_content(user)}
@@ -646,7 +646,7 @@ feature "Admin segmentation" do
       select gender_name,      :from => "segment_value[0]"
       click_button "Find segment"
 
-      expect_content "Segmented by characteristics: Gender does not equal #{gender_name}"
+      expect_content "SEGMENTED BY CHARACTERISTICS: Gender does not equal #{gender_name}"
       expect_content "USERS IN SEGMENT 6"
       click_link "Show users"
       other_keys = expected_users.keys - [gender_name]
@@ -675,7 +675,7 @@ feature "Admin segmentation" do
 
     click_button "Find segment"
 
-    expect_content "Segmented by characteristics: Has phone number equals true"
+    expect_content "SEGMENTED BY CHARACTERISTICS: Has phone number equals true"
     expect_content "USERS IN SEGMENT 4"
     click_link "Show users"
     users_with_phone.each {|claimed_user| expect_user_content(claimed_user)}
@@ -685,7 +685,7 @@ feature "Admin segmentation" do
 
     click_button "Find segment"
 
-    expect_content "Segmented by characteristics: Has phone number equals false"
+    expect_content "SEGMENTED BY CHARACTERISTICS: Has phone number equals false"
     expect_content "USERS IN SEGMENT 3"
     click_link "Show users"
     users_without_phone.each {|unclaimed_user| expect_user_content(unclaimed_user)}
@@ -707,7 +707,7 @@ feature "Admin segmentation" do
 
     click_button "Find segment"
 
-    expect_content "Segmented by characteristics: Joined? equals true"
+    expect_content "SEGMENTED BY CHARACTERISTICS: Joined? equals true"
     expect_content "USERS IN SEGMENT 4"
     click_link "Show users"
     @demo.users.claimed.each {|claimed_user| expect_user_content(claimed_user)}
@@ -718,7 +718,7 @@ feature "Admin segmentation" do
 
     click_button "Find segment"
 
-    expect_content "Segmented by characteristics: Joined? does not equal true"
+    expect_content "SEGMENTED BY CHARACTERISTICS: Joined? does not equal true"
     expect_content "USERS IN SEGMENT 3"
     click_link "Show users"
     @demo.users.unclaimed.each {|unclaimed_user| expect_user_content(unclaimed_user)}
@@ -728,7 +728,7 @@ feature "Admin segmentation" do
 
     click_button "Find segment"
 
-    expect_content "Segmented by characteristics: Joined? equals false"
+    expect_content "SEGMENTED BY CHARACTERISTICS: Joined? equals false"
     expect_content "USERS IN SEGMENT 3"
     click_link "Show users"
     @demo.users.unclaimed.each {|unclaimed_user| expect_user_content(unclaimed_user)}
@@ -738,7 +738,7 @@ feature "Admin segmentation" do
 
     click_button "Find segment"
 
-    expect_content "Segmented by characteristics: Joined? does not equal false"
+    expect_content "SEGMENTED BY CHARACTERISTICS: Joined? does not equal false"
     expect_content "USERS IN SEGMENT 4"
     click_link "Show users"
     @demo.users.claimed.each {|claimed_user| expect_user_content(claimed_user)}

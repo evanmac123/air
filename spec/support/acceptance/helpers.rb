@@ -371,7 +371,7 @@ module SteakHelperMethods
   end
 
   def counter_text(max_characters)
-    "#{max_characters} CHARACTERS LEFT"  
+    "#{max_characters} CHARACTERS"  
   end
 
   def expect_character_counter_for_each(selector, max_characters)

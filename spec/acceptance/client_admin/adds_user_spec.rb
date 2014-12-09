@@ -22,12 +22,6 @@ feature 'Adds user' do
     expect_content "Sorry, we weren't able to add that user. #{error}"
   end
 
-  def select_date_of_birth(month, day, year)
-    select month, :from => "user[date_of_birth(2i)]"
-    select day,   :from => "user[date_of_birth(3i)]"
-    select year,  :from => "user[date_of_birth(1i)]"
-  end
-
   USER_EMAIL = "jemsh@example.com"
 
   def fill_in_user_information
@@ -39,9 +33,6 @@ feature 'Adds user' do
     fill_in "user[zip_code]",    :with => "02139"
 
     select "Boston", :from => "user[location_id]"
-    select "other",  :from => "user[gender]"
-
-    select_date_of_birth("April", "17", "1977")
   end
 
   def create_characteristics(demo)
@@ -70,8 +61,6 @@ feature 'Adds user' do
       new_user.name.should == "Jehosaphat Emshwiller"
       new_user.employee_id.should == "012345"
       new_user.zip_code.should == "02139"
-      new_user.date_of_birth.should == Date.parse("1977-04-17")
-      new_user.gender.should == "other"
     end
   end
 
@@ -138,13 +127,6 @@ feature 'Adds user' do
 
     demo.users.reload.count.should == 1
     expect_add_failed_message "Please enter a first and last name"
-
-    fill_in "user[name]", with: "Bob Smith"
-    select "January", from: "user[date_of_birth(2i)]"
-    click_button "Add User"
-
-    demo.users.reload.count.should == 1
-    expect_add_failed_message "Please enter a full date of birth"
   end
 
   it "should generate unique claim codes for each user" do

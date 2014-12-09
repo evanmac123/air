@@ -34,6 +34,10 @@ feature 'Create new board' do
     click_create_new_board_button
   end
 
+  def board_name_taken_message
+    "Sorry, that board name is already taken".upcase
+  end
+
   scenario "via the create-board link in das switcher", js: true do
     try_to_create_new_board
 
@@ -52,18 +56,18 @@ feature 'Create new board' do
 
     it "should warn the user", js: true do
       fill_in_new_board_name "Buttons"
-      page.should have_content "Sorry, that board name is already taken"
+      page.should have_content board_name_taken_message
     end
 
     it "should ignore case when comparing names", js: true do
       fill_in_new_board_name "buttons"
-      page.should have_content "Sorry, that board name is already taken"
+      page.should have_content board_name_taken_message
 
       fill_in_new_board_name "BUTTONS"
-      page.should have_content "Sorry, that board name is already taken"
+      page.should have_content board_name_taken_message
 
       fill_in_new_board_name "BuTtOnS"
-      page.should have_content "Sorry, that board name is already taken"
+      page.should have_content board_name_taken_message
     end
   end
 end

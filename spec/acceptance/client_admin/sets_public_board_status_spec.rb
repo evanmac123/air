@@ -66,12 +66,7 @@ feature "Client admin sets board's public status themself" do
     
     it "should display tooltip on mouseover question mark icon", js: true do
       page.find('.fa-question-circle').trigger(:mouseover)
-      page.should have_content("If Private, only people you add can see your board. If public, anyone with the share link can see and join it.")
-    end
-    
-    it "should have unlock icon with respective message" do
-      page.should have_css('.fa-unlock')
-      page.should have_content("SHARE LINK IS ACTIVE")
+      page.should have_content "In a public board, anyone can participate using the Board Link. In a private board, only users you specifically add can participate, and the Board Link isn't active."
     end
   end
 
@@ -92,10 +87,6 @@ feature "Client admin sets board's public status themself" do
     it "should allow the client admin to switch it off", js: true do
       click_off_link
       expect_on_engaged
-    end
-    it "should have lock icon with respective message" do
-      page.should have_css('.fa-lock')
-      page.should have_content("SHARE LINK IS LOCKED")
     end
   end
 end

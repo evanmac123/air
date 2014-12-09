@@ -42,7 +42,7 @@ feature 'Manages board settings' do
       open_board_settings
       within(board_regular_user_controls_selector) do
         @boards.each do |board|
-          expect_content board.name
+          expect_content board.name.upcase
         end
       end
     end
@@ -66,7 +66,7 @@ feature 'Manages board settings' do
       open_board_settings
       @boards.each do |board|
         within(board_admin_controls_selector) do
-          page.should have_content(board.name)
+          page.should have_content(board.name.upcase)
         end
       end
     end
@@ -154,13 +154,13 @@ feature 'Manages board settings' do
 
       within(board_admin_controls_selector) do
         @user.boards_as_admin.each do |board|
-          page.should have_content board.name
+          page.should have_content board.name.upcase
         end
       end
 
       within(board_regular_user_controls_selector) do
         @user.boards_as_regular_user.each do |board|
-          page.should have_content board.name
+          page.should have_content board.name.upcase
         end
       end
     end

@@ -24,7 +24,7 @@ feature 'Client admin segments on characteristics' do
     fill_in "segment_value[0]", :with => "28"
     click_button "Find segment"
 
-    expect_content "Segmented by characteristics: Points is less than 28"
+    expect_content "SEGMENTED BY CHARACTERISTICS: Points is less than 28"
     expect_content "USERS IN SEGMENT 3"
   end
 
@@ -34,7 +34,7 @@ feature 'Client admin segments on characteristics' do
     fill_in "segment_value[0]", :with => '100'
     click_button "Find segment"
 
-    expect_content "Segmented by characteristics: IQ is greater than 100"
+    expect_content "SEGMENTED BY CHARACTERISTICS: IQ is greater than 100"
     expect_content "USERS IN SEGMENT 1"
   end
 
@@ -44,7 +44,7 @@ feature 'Client admin segments on characteristics' do
     select "blueberry", :from => "segment_value[0]"
     click_button "Find segment"
 
-    expect_content "Segmented by characteristics: Favorite Pancake equals blueberry"
+    expect_content "SEGMENTED BY CHARACTERISTICS: Favorite Pancake equals blueberry"
     expect_content "USERS IN SEGMENT 2"
   end
 
@@ -54,7 +54,7 @@ feature 'Client admin segments on characteristics' do
     fill_in "segment_value[0]", :with => "28"
     click_button "Find segment"
 
-    expect_content "Segmented by characteristics: Points is less than 28"
+    expect_content "SEGMENTED BY CHARACTERISTICS: Points is less than 28"
     expect_no_content "Show users"
   end
 end

@@ -4,7 +4,7 @@ feature 'Admin sets up tickets for demo', :js => true do
   scenario "should do what it says" do
     demo = FactoryGirl.create(:demo)
     visit edit_admin_demo_path(demo, as: an_admin)
-    expect_content "Points for ticket award"
+    expect_content "POINTS FOR TICKET AWARD"
 
     fill_in "Points for ticket award", :with => '10'
 

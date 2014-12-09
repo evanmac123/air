@@ -63,11 +63,11 @@ feature 'Client admin and the digest email for tiles' do
   end
   
   def expect_digest_sent_content
-    expect_content "Your tiles have been sent! You can monitor the Activity page to see how users interact."
+    expect_content "Your Tiles have been successfully sent. New Tiles you post will appear in the email preview."
   end
 
   def follow_up_header_copy
-    'Scheduled Follow-Up'  
+    'SCHEDULED FOLLOW-UP'
   end
 
   def expect_follow_up_header
@@ -205,12 +205,11 @@ feature 'Client admin and the digest email for tiles' do
         visit client_admin_share_path(as: admin)
         click_button "Send"
         expect_digest_sent_content
-        click_link "the Activity page"
+        click_link "Activity"
         should_be_on client_admin_path
       end
 
-      scenario "A flash confirmation message is displayed,
-                the last-digest-email-sent-on date is updated,
+      scenario "A confirmation message in modal is displayed,
                 and a no-tiles message appears in the Digest tab" do
         on_day '7/6/2013' do
           visit client_admin_share_path(as: admin)
@@ -220,10 +219,9 @@ feature 'Client admin and the digest email for tiles' do
           click_button 'Send'
           crank_dj_clear
 
-          page.should contain "Tiles digest email was sent"
+          expect_digest_sent_content
           page.should_not contain 'Tiles to be sent'
-          page.should contain 'No new tiles have been added'
-          page.should contain 'since the last digest email you sent on Saturday, July 06, 2013'
+          page.should contain 'No new Tiles to send. Go to Edit to post new Tiles.'
         end
       end
 
@@ -232,7 +230,7 @@ feature 'Client admin and the digest email for tiles' do
           visit client_admin_share_path(as: admin)
           change_follow_up_day 'Thursday'
           click_button "Send"
-          expect_follow_up_header
+          expect_content "Scheduled Follow-Up"
           expect_content "Thursday, July 11, 2013"
         end
       end
@@ -462,7 +460,7 @@ feature 'Client admin and the digest email for tiles' do
           create_tile
           visit client_admin_share_path(as: admin)
           click_button "Send"
-          page.should have_content("YOUR TILES HAVE BEEN SENT!")
+          expect_digest_sent_content
 
           FakeMixpanelTracker.clear_tracked_events
           crank_dj_clear
@@ -472,7 +470,7 @@ feature 'Client admin and the digest email for tiles' do
           visit client_admin_share_path(as: admin)
           fill_in "digest[custom_message]", with: ''
           click_button "Send"
-          page.should have_content("YOUR TILES HAVE BEEN SENT!")
+          expect_digest_sent_content
 
           FakeMixpanelTracker.clear_tracked_events
           crank_dj_clear
@@ -482,7 +480,7 @@ feature 'Client admin and the digest email for tiles' do
           visit client_admin_share_path(as: admin)
           fill_in "digest[custom_message]", with: 'hey'
           click_button "Send"
-          page.should have_content("YOUR TILES HAVE BEEN SENT!")
+          expect_digest_sent_content
 
           FakeMixpanelTracker.clear_tracked_events
           crank_dj_clear
@@ -494,7 +492,7 @@ feature 'Client admin and the digest email for tiles' do
           visit client_admin_share_path(as: admin)
           fill_in "digest[custom_message]", with: ''
           click_button "Send"
-          page.should have_content("YOUR TILES HAVE BEEN SENT!")
+          expect_digest_sent_content
 
           FakeMixpanelTracker.clear_tracked_events
           crank_dj_clear
@@ -519,7 +517,7 @@ feature 'Client admin and the digest email for tiles' do
             visit client_admin_share_path(as: admin)
             fill_in "digest[custom_message]", with: ''
             click_button "Send"
-            page.should have_content("YOUR TILES HAVE BEEN SENT!")
+            expect_digest_sent_content
 
             crank_dj_clear
 

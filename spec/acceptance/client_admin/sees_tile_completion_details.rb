@@ -139,7 +139,7 @@ feature "sees tile completion details" do
         visit client_admin_tile_tile_completions_path(survey_tile, as: client_admin)
       end
       scenario "I see summary header Summary" do
-        page.should have_content "Summary"
+        page.should have_content "SUMMARY"
       end
       scenario "I see the column name Answer, Number, Percent" do
         page.should have_content "ANSWER"
