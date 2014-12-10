@@ -16,4 +16,14 @@ describe ExploreDigestForm do
     form.should_not be_valid
     form.errors.full_messages.should include("following tiles are not public: #{nonpublic_tiles.map(&:id).sort.join(', ')}")
   end
+
+  it "should ignore blank tile IDs" do
+    form = ExploreDigestForm.new(tile_ids: ['', '123', '', '456', '', '789', ''])
+    form.tile_ids.should == [123, 456, 789]
+  end
+
+  it "should uniq tile IDs" do
+    form = ExploreDigestForm.new(tile_ids: ['123', '456', '123', '456', '789', '456', '123'])
+    form.tile_ids.should == [123, 456, 789]
+  end
 end

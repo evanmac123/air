@@ -15,7 +15,7 @@ class ExploreDigestForm
   end
 
   def tile_ids
-    @tile_ids ||= @params[:tile_ids].map(&:to_i)
+    @tile_ids ||= @params[:tile_ids].reject(&:blank?).map(&:to_i).uniq
   end
 
   def subject
