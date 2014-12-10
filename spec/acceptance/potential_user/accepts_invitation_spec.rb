@@ -23,7 +23,7 @@ feature "Potential User Accepts Invitation" do
     end
 
     it "should show form for registration", js: true do
-      expect_content "Enter your first and last name to continue:"
+      expect_content "Enter your first and last name to continue:".upcase
     end
 
     it "should redirect from any other path to activity path" do
@@ -114,7 +114,7 @@ feature "Potential User Accepts Invitation" do
       FactoryGirl.create(:raffle, :live, demo: @demo)
 
       visit invitation_path(@potential_user.invitation_code, demo_id: @demo.id, referrer_id: @user.id)
-      expect_content "Enter your first and last name to continue:"
+      expect_content "Enter your first and last name to continue:".upcase
       sleep 1 # yeah yeah yeah shut up I'm in no mood
       page.should have_no_content('New Raffle!')
     end

@@ -37,7 +37,7 @@ feature 'Quits free board' do
     wait_for_board_modal
     expect_no_board_name_in_settings board_to_leave_name
     rows_in_board_settings.should have(2).names
-    page.should have_content("OK, you've left the #{board_to_leave_name}")
+    expect_content_case_insensitive "OK, you've left the #{board_to_leave_name}"
   end
 
   context "the safety modal" do
