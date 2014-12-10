@@ -9,10 +9,18 @@
   <%= form.text_field :custom_message %>
 
   <%= form.label "Tile IDs" %>
-  <% form.object.tile_ids.each_with_index do |tile_id| %>
-    <%= text_field_tag "explore_digest_form[tile_ids][]", tile_id %>
-  <% end %>
+  <div id="tile_ids_container">
+    <% form.object.tile_ids.each_with_index do |tile_id| %>
+      <%= text_field_tag "explore_digest_form[tile_ids][]", tile_id %>
+    <% end %>
+  </div>
+
+  <%= form.submit "Add another tile ID", id: 'add_tile_id' %>
 
   <%= form.submit "Send test digest to self" %>
   <%= form.submit "Send real digest", confirm: "Reorder tiles and send real digest?" %>
+<% end %>
+
+<% js_at_end do %>
+  bindAddExploreDigestTileIDField();
 <% end %>
