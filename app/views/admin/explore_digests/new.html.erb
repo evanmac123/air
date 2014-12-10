@@ -1,3 +1,5 @@
+<%= link_to "Back to admin", admin_path %>
+
 <%= form_for @explore_digest_form, url: admin_explore_digest_path do |form| %>
   <%= form.label :subject %>
   <%= form.text_field :subject %>
@@ -6,7 +8,7 @@
   <%= form.text_field :headline %>
 
   <%= form.label :custom_message %>
-  <%= form.text_field :custom_message %>
+  <%= form.text_area :custom_message, rows: 5, columns: 60 %>
 
   <%= form.label "Tile IDs" %>
   <div id="tile_ids_container">
