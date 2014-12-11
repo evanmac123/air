@@ -82,6 +82,7 @@ class ExploreDigestTestForm < ExploreDigestForm
   end
 
   def send_digest!
+    reorder_explore_page_tiles!
     TilesDigestMailer.delay.notify_one_explore(user.id, tile_ids, subject, headline, custom_message)
   end
 end

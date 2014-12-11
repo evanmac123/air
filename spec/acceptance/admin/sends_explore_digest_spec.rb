@@ -1,15 +1,8 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Sends explore digest' do
-  before do
-    @tiles = FactoryGirl.create_list(:multiple_choice_tile, 5, :public)
-    @admin = an_admin
-
-    crank_dj_clear
-    ActionMailer::Base.deliveries.clear
-
-    visit new_admin_explore_digest_path(as: @admin)
-  end
+  SEND_BUTTON_COPY = "Send real digest"  
+  TEST_BUTTON_COPY = "Send test digest to self"  
 
   def valid_subject
     "I am thy Subjekt"  
@@ -36,11 +29,11 @@ feature 'Sends explore digest' do
   end
 
   def click_test_button
-    click_button "Send test digest to self"
+    click_button TEST_BUTTON_COPY
   end
 
   def click_send_button
-    click_button "Send real digest"
+    click_button SEND_BUTTON_COPY
   end
 
   def expect_correct_digest(email)
@@ -51,6 +44,30 @@ feature 'Sends explore digest' do
 
     tile_headlines = @tiles[0,4].map(&:headline)
     current_email.to_s.should =~ /#{tile_headlines[0]}.*#{tile_headlines[1]}.*#{tile_headlines[2]}.*#{tile_headlines[3]}/m
+  end
+
+  shared_examples_for 'reordering the tiles' do |button_label|
+    it "changes the order of the tiles on the explore page itself" do
+      fill_in_valid_message_entries
+
+      indices = [2, 0, 3, 1]
+      tile_ids = indices.map{|index| @tiles[index].id}
+      fill_in_valid_tile_fields(tile_ids)
+      click_button button_label
+
+      visit explore_path
+      page.body.should =~ /#{@tiles[2].headline}.*#{@tiles[0].headline}.*#{@tiles[3].headline}.*#{@tiles[1].headline}/m
+    end
+  end
+
+  before do
+    @tiles = FactoryGirl.create_list(:multiple_choice_tile, 5, :public)
+    @admin = an_admin
+
+    crank_dj_clear
+    ActionMailer::Base.deliveries.clear
+
+    visit new_admin_explore_digest_path(as: @admin)
   end
 
   context 'as a test' do
@@ -65,6 +82,8 @@ feature 'Sends explore digest' do
       ActionMailer::Base.deliveries.should have(1).email
       expect_correct_digest(@admin.email)
     end
+
+    it_should_behave_like "reordering the tiles", TEST_BUTTON_COPY
   end
 
   context 'for real' do
@@ -84,16 +103,6 @@ feature 'Sends explore digest' do
       end
     end
 
-    it "changes the order of the tiles on the explore page itself" do
-      fill_in_valid_message_entries
-
-      indices = [2, 0, 3, 1]
-      tile_ids = indices.map{|index| @tiles[index].id}
-      fill_in_valid_tile_fields(tile_ids)
-      click_send_button
-
-      visit explore_path
-      page.body.should =~ /#{@tiles[2].headline}.*#{@tiles[0].headline}.*#{@tiles[3].headline}.*#{@tiles[1].headline}/m
-    end
+    it_should_behave_like "reordering the tiles", SEND_BUTTON_COPY
   end
 end
