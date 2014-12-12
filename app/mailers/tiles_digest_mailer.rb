@@ -1,7 +1,7 @@
 class TilesDigestMailer < ActionMailer::Base
 
-  helper :email, :skin         # loads 'app/helpers/email_helper.rb' & includes 'EmailHelper' into the View. (Ditto for 'skin')
-  helper 'client_admin/tiles'  # ditto for 'app/helpers/client_admin/tiles_helper.rb'
+  helper :email
+  helper 'client_admin/tiles'
 
   has_delay_mail       # Some kind of monkey-patch workaround (not even sure need)
 

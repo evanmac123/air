@@ -17,7 +17,6 @@ class Demo < ActiveRecord::Base
 
   has_many :follow_up_digest_emails
 
-  has_one :skin
   has_one :claim_state_machine
   has_one :custom_invitation_email
   has_one :raffle
@@ -339,10 +338,6 @@ class Demo < ActiveRecord::Base
   
   def has_normal_users?
     (self.users.non_admin.count > 0) || (self.guest_users.count > 0)
-  end
-
-  def custom_logo_url
-    self.skin.try(:logo_url)
   end
 
   def self.name_like(name)

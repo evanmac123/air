@@ -5,7 +5,6 @@ describe Demo do
   it { should have_many(:tiles) }
   it { should have_many(:locations) }
   it { should have_many(:characteristics) }
-  it { should have_one(:skin) }
 end
 
 describe Demo, "#welcome_message" do

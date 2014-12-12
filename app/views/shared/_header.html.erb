@@ -3,7 +3,8 @@
 
     <% home_path = set_home_path @public_tile_page %>
     <div class="large-2 columns" id="logo">
-      <a class="go_home" href="<%= home_path %>"><%= image_tag skinned('logo_url', "logo.png") %></a>
+      <% logo_url = current_user.demo.custom_logo_url.present? ? current_user.demo.custom_logo_url : 'logo.png' %>
+      <a class="go_home" href="<%= home_path %>"><%= image_tag logo_url %></a>
     </div>
 
     <%# If we don't need the guest user controls, steal their space for the 

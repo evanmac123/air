@@ -38,18 +38,11 @@ describe 'Digest email' do
       email.should have_selector "img[src $= '/assets/airbo_logo_lightblue.png'][alt = 'Airbo']"
     end
 
-    it "should display another company's logo if they have provided one, along with default alt-text if they have not provided any" do
-      FactoryGirl.create :skin, demo: demo, logo_url: 'http://cannibalism.com/phil.png'
+    it "should display another company's logo if they have provided one" do
+      demo.update_attributes(custom_logo_url: 'http://cannibalism.com/phil.png')
       email = TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "New Tiles", false, nil, nil)
 
       email.should have_selector "img[src = 'http://cannibalism.com/phil.png'][alt = 'Phil']"
-    end
-
-    it "should display another company's logo if they have provided one, along with alt-text if they have provided that" do
-      FactoryGirl.create :skin, demo: demo, logo_url: 'http://cannibalism.com/phil.png', alt_logo_text: 'Phil is a closet cannibal'
-      email = TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "New Tiles", false, nil, nil)
-
-      email.should have_selector "img[src = 'http://cannibalism.com/phil.png'][alt = 'Phil is a closet cannibal']"
     end
   end
 

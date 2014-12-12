@@ -143,10 +143,6 @@ FactoryGirl.define do
     state 'accepted'
   end
 
-  factory :skin do
-    association :demo
-  end
-
   factory :email_command do
     status EmailCommand::Status::UNKNOWN_EMAIL
   end
