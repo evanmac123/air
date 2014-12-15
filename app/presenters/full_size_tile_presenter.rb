@@ -1,10 +1,11 @@
 class FullSizeTilePresenter
   SAFE_NBSP = "&nbsp;".html_safe.freeze
 
-  def initialize(tile, user, is_preview)
+  def initialize(tile, user, is_preview, current_tile_ids)
     @tile = tile
     @user = user
     @is_preview = is_preview
+    @current_tile_ids = current_tile_ids
   end
 
   def supporting_content
@@ -39,9 +40,30 @@ class FullSizeTilePresenter
     user_tile_completion.answer_index == answer_index
   end
 
+  def current_tile_ids_joined
+    @current_tile_ids && @current_tile_ids.join(',') 
+  end
+
+  def adjacent_tile_image_urls
+    Tile.where(id: adjacent_tile_ids).map{|tile| tile.image.url}
+  end
+
   attr_reader :tile, :user, :is_preview
 
   protected
+
+  def adjacent_tile_ids
+    return [] unless @current_tile_ids.present?
+
+    current_tile_index = @current_tile_ids.index(tile.id)
+    return [] unless current_tile_index
+
+    adjacent_indices = [1,-1].map do |offset|
+      (current_tile_index + offset) % @current_tile_ids.length
+    end
+
+    adjacent_indices.map{|adjacent_index| @current_tile_ids[adjacent_index]}
+  end
 
   def content_tag(*args)
     ActionController::Base.helpers.content_tag(*args).html_safe
