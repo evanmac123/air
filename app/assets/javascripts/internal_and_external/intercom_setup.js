@@ -1,4 +1,4 @@
-function bindIntercomSettings(email, created_at, name, user_id, user_hash, demo, location, notification_method, last_acted_at, date_of_birth, profile, points, client_admin) {
+function bindIntercomSettings(email, created_at, name, user_id, user_hash, demo) {
   window.intercomSettings = {
     app_id: 'iukuloq8',
     email: email,
@@ -7,14 +7,7 @@ function bindIntercomSettings(email, created_at, name, user_id, user_hash, demo,
     user_id: user_id,
     user_hash: user_hash,
     custom_data:{
-      demo: demo,
-      location: location,
-      notification_method: notification_method,
-      last_acted_at: last_acted_at,
-      date_of_birth: date_of_birth,
-      profile: profile,
-      points: points,
-      client_admin: client_admin
+      demo: demo
     },
     widget: {
       activator: '#IntercomDefaultWidget',

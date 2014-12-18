@@ -13,14 +13,7 @@
       "<%= _intercom_user.name %>",
       "<%= intercom_user_id_with_env %>",
       "<%= Digest::SHA1.hexdigest('9rlx8hyy' + intercom_user_id_with_env) %>", 
-      "<%= _intercom_user.demo.name.html_safe %>",
-      "<%= _intercom_user.location.try(:name) %>",
-      "<%= _intercom_user.notification_method %>",
-      "<%= _intercom_user.last_acted_at.try(:to_i) %>",
-      "<%= _intercom_user.date_of_birth %>",
-      "<%= 'https://' + http_host + '/users/' + _intercom_user.slug %>",
-      "<%= _intercom_user.points %>",
-      "<%= _intercom_user.is_client_admin %>"
+      "<%= _intercom_user.demo_id %>"
     );
     loadIntercom();
   <% end %>
