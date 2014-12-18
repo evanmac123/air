@@ -385,12 +385,13 @@ body.explores {
   float: none;
   width: auto;
   overflow: hidden;
-  min-height:646px;
+  //min-height:646px;
 }
 
 .content {
   background-color: $white;
   position: relative;
+  min-height: 490px;
 }
 
 

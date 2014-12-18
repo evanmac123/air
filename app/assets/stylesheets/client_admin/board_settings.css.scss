@@ -17,6 +17,10 @@ body.client_admin-board_settings-index{
     .clear_form{
       display: none;
     }
+    .character-counter{
+      margin-right: 115px;
+      margin-top: 5px;
+    }
     form{
       &:not(.dirty):not(.active){
         input[type="submit"]{
@@ -48,11 +52,6 @@ body.client_admin-board_settings-index{
         .error_message {
           display: block;
         }
-      }
-    }
-    form#edit_board_name{
-      .character-counter{
-        display: none;// !important;
       }
     }
   }

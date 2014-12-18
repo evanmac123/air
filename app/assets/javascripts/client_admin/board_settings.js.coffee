@@ -1,35 +1,41 @@
-window.boardSettingsPage = ->
-  updateTooltipCounter = (counter) ->
-    tooltipCounter = $("#boards_name_chars_left")
-    if tooltipCounter.length == 0
-      $("#board_name_tooltip").trigger('mouseenter').trigger('mouseleave')
-      tooltipCounter = $("#boards_name_chars_left")
-    chars_num = parseInt counter.text()
-    tooltipCounter.text chars_num
-      
+initialSetUp = (field) ->
+  setOldValue field
+  addClearLink field
+  addCharacterCounterFor field
 
-  initialSetUp = (field) ->
-    setOldValue field
-    addClearLink field
-    addCharacterCounterFor field
-    updateTooltipCounter $("#edit_board_name .character-counter")
+addClearLink = (field) ->
+  form = field.closest("form")
+  submit = form.find("input[type='submit']")
+  clear_link = $( clearLinkHTML() )
+  clear_link.attr "data-selector", field.attr("id")
+  submit.after clear_link 
 
-  addClearLink = (field) ->
-    form = field.closest("form")
+clearLinkHTML = ->
+  '<div class="clear_form">Clear</div>'
+
+setOldValue = (field) ->
+  field.attr "old-value", field.val()
+
+oldValue = (field) ->
+  field.attr("old-value")
+
+errorMess = (form) ->
+  form.find(".error_message")
+
+formResponse = (form) ->
+  (data) ->
     submit = form.find("input[type='submit']")
-    clear_link = $( clearLinkHTML() )
-    clear_link.attr "data-selector", field.attr("id")
-    submit.after clear_link 
+    submit.val "Update"
+    if data.success
+      form.removeClass("dirty").removeClass("has_error")
+      submit.prop('disabled', true)
+      field = form.find("input[type='text']")
+      setOldValue field
+      $("#current_board_name").text field.val()
+    else
+      form.addClass("has_error")
 
-  clearLinkHTML = ->
-    '<div class="clear_form">Clear</div>'
-
-  setOldValue = (field) ->
-    field.attr "old-value", field.val()
-
-  oldValue = (field) ->
-    field.attr("old-value")
-
+window.boardSettingsPage = ->
   initialSetUp $("#demo_name")
 
   $("#demo_name").focusin ->
@@ -65,27 +71,6 @@ window.boardSettingsPage = ->
     form.removeClass("dirty").removeClass("has_error")
     submit = form.find("input[type='submit']")
     submit.prop('disabled', true)
-
-  $("#edit_board_name .character-counter").bind "DOMNodeInserted",  ->
-    updateTooltipCounter $(@)
-
-  errorMess = (form) ->
-    form.find(".error_message")
-
-  formResponse = (form) ->
-    (data) ->
-      submit = form.find("input[type='submit']")
-      submit.val "Update"
-      if data.success
-        #errorMess(form).hide()
-        form.removeClass("dirty").removeClass("has_error")
-        submit.prop('disabled', true)
-      else
-        form.addClass("has_error")
-        #errorMess(form).show()
-        #submit = form.find("input[type='submit']")
-        #submit.before
-
 
   $("form").submit (e) ->
     e.preventDefault()
