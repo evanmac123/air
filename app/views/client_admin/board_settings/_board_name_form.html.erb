@@ -7,3 +7,9 @@
   </div>
   <%= form.submit "Update", disabled: true %>
 <% end %>
+
+<% js_at_end do %>
+  $().ready(function(){
+    window.boardNameForm()
+  })
+<% end %>

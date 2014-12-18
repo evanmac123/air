@@ -35,7 +35,7 @@ formResponse = (form) ->
     else
       form.addClass("has_error")
 
-window.boardSettingsPage = ->
+window.boardNameForm = ->
   initialSetUp $("#demo_name")
 
   $("#demo_name").focusin ->

@@ -3,8 +3,3 @@
     <%= render partial: "board_name_form", locals: { board: @board } %>
   </div>
 </div>
-<% js_at_end do %>
-  $().ready(function(){
-    window.boardSettingsPage()
-  })
-<% end %>
