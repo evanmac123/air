@@ -1,9 +1,9 @@
 - tile_presenters = tiles.map{|tile| SingleTilePresenter.new(tile, @tile_tag, current_user.copied_tile?(tile), @liked_tile_ids.include?(tile.id))}
-- main_cache_key = [__FILE__, 'v2.pwd', 'main', @tile_tag, *(tile_presenters.map(&:cache_key))]
+- main_cache_key = [__FILE__, 'v3.pwd', 'main', @tile_tag, *(tile_presenters.map(&:cache_key))]
 
 - cache main_cache_key do 
   - tile_presenters.each_slice(4) do |presenter_slice|
-    - slice_cache_key = [__FILE__, 'v2.pwd', 'slice', *(presenter_slice.map(&:cache_key))]
+    - slice_cache_key = [__FILE__, 'v3.pwd', 'slice', *(presenter_slice.map(&:cache_key))]
     - cache slice_cache_key do
       %tr
         - presenter_slice.each do |presenter|
@@ -13,7 +13,7 @@
               background-image: url('#{presenter.thumbnail_url}');
               background-repeat: no-repeat;
             }
-          %td
+          %td{id: presenter.containing_td_id}
             .explore_tile
               .company_name
                 %i.fa.fa-building-o
@@ -39,3 +39,8 @@
                     = link_to tile_tag.title, tile_tag_show_explore_path(tile_tag: tile_tag.id, tag_click_source: tag_click_source)
         - (4 - presenter_slice.length).times do
           %td
+
+  - tile_presenters.each do |presenter|
+    :javascript
+      bindPreflightToEvent('mouseenter', '##{presenter.containing_td_id}', '#{presenter.full_size_url}');
+

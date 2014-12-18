@@ -16,8 +16,5 @@
         .headline
           %div{data: {'for-test' => displayable_tile.headline.downcase.sub(' ', '-')}, class: 'text'}= displayable_tile.headline
 
--# For SOME reason, calling bindPreflightToEvent breaks every single test case that
--# uses Poltergeist. Out of patience with this nonsense, so we cheat.
-- unless Rails.env.test?
-  - js_at_end do
-    bindPreflightToEvent('mouseenter', '##{thumbnail_id}', '#{displayable_tile.image.url}');
+- js_at_end do
+  bindPreflightToEvent('mouseenter', '##{thumbnail_id}', '#{displayable_tile.image.url}');

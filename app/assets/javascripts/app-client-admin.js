@@ -33,6 +33,7 @@
 //= require internal/offcanvas_menu
 //= require internal/board_switch_dropdown
 //= require internal_and_external/intercom_setup
+//= require internal/preflight
 
 $(document).ready(function() {
   $('.client_admin-users').foundation();

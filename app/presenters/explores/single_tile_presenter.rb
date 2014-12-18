@@ -56,8 +56,16 @@ class SingleTilePresenter
     @thumbnail_id ||= "tile-thumbnail-#{tile_id}"
   end
 
+  def containing_td_id
+    @containing_td_id ||= "tile-thumbnail-container-#{tile_id}"
+  end
+
   def thumbnail_url
     @thumbnail_url ||= tile.thumbnail.to_s
+  end
+
+  def full_size_url
+    @full_size_url ||= tile.image.url
   end
 
   def truncated_client_or_board_name

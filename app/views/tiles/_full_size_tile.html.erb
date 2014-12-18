@@ -58,10 +58,8 @@
 
 <%= render 'tiles/copy_button', tile: tile if show_copy_button%>
 
-<% unless Rails.env.test? %>
-  <% tile.adjacent_tile_image_urls.each do |adjacent_tile_image_url| %>
-    <%= javascript_tag do %>
-      $(document).ready(function() { preflight("<%= adjacent_tile_image_url %>"); });
-    <% end %>
+<% tile.adjacent_tile_image_urls.each do |adjacent_tile_image_url| %>
+  <%= javascript_tag do %>
+    $(document).ready(function() { preflight("<%= adjacent_tile_image_url %>"); });
   <% end %>
 <% end %>
