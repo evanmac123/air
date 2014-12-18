@@ -62,6 +62,12 @@ module ClientAdmin::TilesToolsSubnavHelper
         text: "Users"
       },
       {
+        item_id: "settings", 
+        link: client_admin_board_settings_path, 
+        icon: "cog", 
+        text: "Settings"
+      },
+      {
         item_id: "admin_help", 
         link: DeskSSO.new(current_user).url, 
         icon: "question", 

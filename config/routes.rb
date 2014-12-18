@@ -204,6 +204,12 @@ Health::Application.routes.draw do
     end
 
     resource :bulk_upload
+
+    resources :board_settings, only: :index do
+      collection do
+        put 'board_name'
+      end
+    end
   end
 
   resources :pages, :only => :show

@@ -81,7 +81,8 @@ body.client_admins-show #tile_manager_nav li#board_activity,
 body.client_admin-shares #tile_manager_nav li#share_tiles,
 body.client_admin-users-index #tile_manager_nav li#users,
 body.client_admin-users-edit #tile_manager_nav li#users,
-body.client_admin-prizes #tile_manager_nav li#prizes_nav{
+body.client_admin-prizes #tile_manager_nav li#prizes_nav,
+body.client_admin-board_settings-index #tile_manager_nav li#settings{
   background: $sky-blue;
   .fa, img {
     opacity: 1;

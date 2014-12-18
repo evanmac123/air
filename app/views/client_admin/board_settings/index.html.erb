@@ -1,0 +1,10 @@
+<div class="row board_settings">
+  <div class="large-6">
+    <%= render partial: "board_name_form", locals: { board: @board } %>
+  </div>
+</div>
+<% js_at_end do %>
+  $().ready(function(){
+    window.boardSettingsPage()
+  })
+<% end %>

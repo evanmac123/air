@@ -1,0 +1,59 @@
+body.client_admin-board_settings-index{
+  .board_settings{
+    @import '../mixins/new_main_styles.css.scss';
+
+    input[type="text"]{
+      width: 80%;
+    }
+    .error_message{
+      @include regular-text;
+      color: $red;
+      display: none;
+      padding-bottom: 1em;
+    }
+    label {
+      display: inline-block;
+    }
+    .clear_form{
+      display: none;
+    }
+    form{
+      &:not(.dirty):not(.active){
+        input[type="submit"]{
+          @include light-button($gray);
+        }
+      }
+      &.active{
+        input[type="submit"]{
+          &:disabled{
+            @include app-button($gray);
+          }
+        }
+      }
+      &.dirty {
+        input[type="submit"]{
+          @include app-button($sky-blue);
+        }
+        .clear_form{
+          @include regular-text;
+          display: inline-block;
+          cursor: pointer;
+          padding-left: 1em;
+        }
+      }
+      &.has_error {
+        input[type="text"]{
+          background: rgba(198, 15, 19, 0.0980392);
+        }
+        .error_message {
+          display: block;
+        }
+      }
+    }
+    form#edit_board_name{
+      .character-counter{
+        display: none;// !important;
+      }
+    }
+  }
+}
