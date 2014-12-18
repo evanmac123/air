@@ -11,7 +11,7 @@ addClearLink = (field) ->
   submit.after clear_link 
 
 clearLinkHTML = ->
-  '<div class="clear_form">Clear</div>'
+  '<a class="clear_form">Clear</a>'
 
 setOldValue = (field) ->
   field.attr "old-value", field.val()
