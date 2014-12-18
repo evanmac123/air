@@ -1,4 +1,4 @@
-<% if Rails.env.production? || Rails.env.staging? || ENV['INTERCOM'] %>
+<% if use_intercom? %>
   <% http_host = controller.env['HTTP_HOST'] %>
   <% _intercom_user = @intercom_user || current_user || @user %>
   <% intercom_user_id_with_env = _intercom_user.id.to_s + "-" + Rails.env %>
@@ -15,6 +15,5 @@
       "<%= Digest::SHA1.hexdigest('9rlx8hyy' + intercom_user_id_with_env) %>", 
       "<%= _intercom_user.demo_id %>"
     );
-    loadIntercom();
   <% end %>
 <% end %>

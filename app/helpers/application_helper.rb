@@ -149,4 +149,8 @@ module ApplicationHelper
       end
     end
   end
+
+  def use_intercom?
+    Rails.env.production? || Rails.env.staging? || ENV['INTERCOM']  
+  end
 end
