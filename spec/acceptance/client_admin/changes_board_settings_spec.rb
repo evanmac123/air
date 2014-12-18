@@ -2,7 +2,7 @@ require 'acceptance/acceptance_helper'
 
 feature "Client Admin Changes Board Settings" do
   let(:demo) { FactoryGirl.create :demo, name: "Board 1" }
-  let (:client_admin) { FactoryGirl.create(:client_admin, demo: demo)}
+  let(:client_admin) { FactoryGirl.create(:client_admin, demo: demo)}
 
   def board_name_form
     "#edit_board_name"
