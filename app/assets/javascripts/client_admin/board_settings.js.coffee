@@ -1,3 +1,9 @@
+String.prototype.trimToLength = (m) ->
+  if this.length > m
+    jQuery.trim(this).substring(0, m).trim(this) + "...";
+  else
+    this
+
 initialSetUp = (field) ->
   setOldValue field
   bindClearLinkAndField field
@@ -17,6 +23,9 @@ oldValue = (field) ->
 errorMess = (form) ->
   form.find(".error_message")
 
+updateCurrentBoardName = (new_name) ->
+  $("#current_board_name").text new_name.trimToLength(12)
+
 formResponse = (form) ->
   (data) ->
     submit = findSubmit(form)
@@ -26,7 +35,7 @@ formResponse = (form) ->
       submit.prop('disabled', true)
       field = form.find("input[type='text']")
       setOldValue field
-      $("#current_board_name").text field.val()
+      updateCurrentBoardName field.val()
     else
       form.addClass("has_error")
 
