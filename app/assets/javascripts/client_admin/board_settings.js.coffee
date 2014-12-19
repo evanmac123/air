@@ -1,30 +1,25 @@
 initialSetUp = (field) ->
   setOldValue field
-  addClearLink field
+  bindClearLinkAndField field
   addCharacterCounterFor field
 
-addClearLink = (field) ->
-  form = field.closest("form")
-  submit = form.find("input[type='submit']")
-  clear_link = $( clearLinkHTML() )
-  clear_link.attr "data-selector", field.attr("id")
-  submit.after clear_link 
-
-clearLinkHTML = ->
-  '<a class="clear_form">Clear</a>'
+bindClearLinkAndField = (field) ->
+  form = findForm field
+  clear_link = form.find(".clear_form")
+  clear_link.data "selector", field.attr("id")
 
 setOldValue = (field) ->
-  field.attr "old-value", field.val()
+  field.data "old-value", field.val()
 
 oldValue = (field) ->
-  field.attr("old-value")
+  field.data("old-value")
 
 errorMess = (form) ->
   form.find(".error_message")
 
 formResponse = (form) ->
   (data) ->
-    submit = form.find("input[type='submit']")
+    submit = findSubmit(form)
     submit.val "Update"
     if data.success
       form.removeClass("dirty").removeClass("has_error")
@@ -35,41 +30,47 @@ formResponse = (form) ->
     else
       form.addClass("has_error")
 
+findSubmit = (form) ->
+  form.find("input[type='submit']")
+
+findForm = (field) ->
+  field.closest("form")
+
 window.boardNameForm = ->
   initialSetUp $("#demo_name")
 
   $("#demo_name").focusin ->
-    form = $(@).closest("form")
+    form = findForm $(@)
     form.addClass("active")
 
     unless oldValue $(@)
       setOldValue $(@)
 
     unless form.hasClass("dirty")
-      submit = form.find("input[type='submit']")
+      submit = findSubmit(form)
       submit.prop('disabled', true)
 
   $("#demo_name").focusout ->
-    form = $(@).closest("form")
+    form = findForm $(@)
     form.removeClass("active")
 
   $("#demo_name").on 'input propertychange paste', ->
-    form = $(@).closest("form")
+    form = findForm $(@)
     form.addClass("dirty")
 
-    submit = form.find("input[type='submit']")
+    submit = findSubmit(form)
     submit.prop('disabled', false)
 
-    if $("#demo_name").attr("old-value") == $("#demo_name").val()
+    if $("#demo_name").data("old-value") == $("#demo_name").val()
       form.removeClass("dirty")
       submit.prop('disabled', true)
 
   $(".clear_form").click ->
-    field = $( "#" + $(@).attr('data-selector') )
+    field = $( "#" + $(@).data('selector') )
     field.val oldValue(field)
-    form = field.closest("form")
+    form = findForm field
     form.removeClass("dirty").removeClass("has_error")
-    submit = form.find("input[type='submit']")
+    submit = findSubmit(form)
     submit.prop('disabled', true)
 
   $("form").submit (e) ->
