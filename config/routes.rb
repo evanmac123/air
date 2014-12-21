@@ -179,6 +179,7 @@ Health::Application.routes.draw do
     resources :board_settings, only: :index do
       collection do
         put 'board_name'
+        put 'board_logo'
       end
     end
   end

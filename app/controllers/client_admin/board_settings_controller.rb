@@ -9,6 +9,13 @@ class ClientAdmin::BoardSettingsController < ClientAdminBaseController
     render json: { success: @board.save }
   end
 
+  def board_logo
+    @board.logo = params[:demo][:logo] if params[:demo].present?
+    @board.save
+    redirect_to :back
+    #render json: { success: @board.save }
+  end
+
   protected
 
   def get_board

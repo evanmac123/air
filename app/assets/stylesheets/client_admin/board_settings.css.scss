@@ -2,8 +2,9 @@ body.client_admin-board_settings-index{
   .board_settings{
     @import '../mixins/new_main_styles.css.scss';
 
-    input[type="text"]{
+    input[type="text"], input[type="file"]{
       width: 80%;
+      display: block;
     }
     .error_message{
       @include regular-text;
@@ -22,6 +23,7 @@ body.client_admin-board_settings-index{
       margin-top: 5px;
     }
     form{
+      margin-bottom: 1em;
       &:not(.dirty):not(.active){
         input[type="submit"]{
           @include light-button($gray);
