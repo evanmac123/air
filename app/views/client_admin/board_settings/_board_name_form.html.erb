@@ -11,6 +11,7 @@
 
 <% js_at_end do %>
   $().ready(function(){
-    //window.boardNameForm()
+    addCharacterCounterFor( $("#demo_name") );
+    window.formWithClearableTextField("#demo_name");
   })
 <% end %>
