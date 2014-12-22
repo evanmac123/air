@@ -102,11 +102,8 @@ formSubmitHandler = (field) ->
     submit = findSubmit $(@)
     submit.val "Updating..."
 
-    $.ajax 
-      type: "POST"
-      url: $(@).attr "action"
-      data: new FormData(@)#$(@).serialize()
-      success: formResponse( $(@) )
+    $(@).ajaxSubmit
+      success: formResponse $(@)
       dataType: "json"
 
 window.formWithClearableTextField = (fieldSelector) ->
