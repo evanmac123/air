@@ -42,7 +42,7 @@ feature 'Starts over' do
       expect_start_over_button
     end
 
-    it "should reset guest user's progress when they click it", js: :webkit do
+    it "should reset guest user's progress when they click it", js: true do
       click_start_over_button
 
       should_be_on public_activity_path(board.public_slug)
@@ -53,7 +53,7 @@ feature 'Starts over' do
       guest_user.tickets.should be_zero
     end
 
-    it "should not appear after being clicked", js: :webkit do
+    it "should not appear after being clicked", js: true do
       click_start_over_button
       expect_no_start_over_button
 
@@ -75,7 +75,7 @@ feature 'Starts over' do
         ]
       end
 
-      it "should pop after doing two tiles", js: :webkit do
+      it "should pop after doing two tiles", js: true do
         visit public_board_path(board.public_slug)
         close_tutorial_lightbox
 

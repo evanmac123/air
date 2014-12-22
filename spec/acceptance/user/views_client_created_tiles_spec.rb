@@ -22,7 +22,7 @@ feature 'User views tiles' do
       expect_answer 2, "A V8 Buick"
     end
 
-    scenario 'and can answer by clicking the answers', js: :webkit do
+    scenario 'and can answer by clicking the answers', js: true do
       click_answer 0
       expect_wrong_answer_reaction 0
 

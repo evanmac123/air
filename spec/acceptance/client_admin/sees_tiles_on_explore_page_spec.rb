@@ -191,7 +191,7 @@ feature 'Sees tiles on explore page' do
         FakeMixpanelTracker.should have_event_matching('Explore Main Page', {action: 'Clicked Tag On Tile', tag: tag_name})
       end
 
-      it "pings when clicking a tag on a tile in a later batch", js: :webkit do
+      it "pings when clicking a tag on a tile in a later batch", js: true do
         19.times do
           tile = FactoryGirl.create(:tile, :public)
           tile.tile_tags << @tag_to_click
@@ -224,7 +224,7 @@ feature 'Sees tiles on explore page' do
         FakeMixpanelTracker.should have_event_matching('Explore Topic Page', {action: 'Clicked Tag On Tile', tag: "Click me"})
       end
 
-      it "pings when clicking a tag on a tile, on the topic page, in a later batch", js: :webkit do
+      it "pings when clicking a tag on a tile, on the topic page, in a later batch", js: true do
         19.times do
           tile = FactoryGirl.create(:tile, :public)
           tile.tile_tags << @tag_to_click
