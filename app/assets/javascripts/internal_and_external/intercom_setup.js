@@ -1,4 +1,4 @@
-function bindIntercomSettings(email, created_at, name, user_id, user_hash, demo) {
+function bindIntercomSettings(email, created_at, name, user_id, user_hash, demo, client_admin) {
   // Notice the underscore: "_intercomSettings"
   // This because if we called it intercomSettings, no underscore, it'd
   // automatically push the user data to Intercom when we call loadIntercom,
@@ -15,6 +15,14 @@ function bindIntercomSettings(email, created_at, name, user_id, user_hash, demo)
       demo: demo
     }
   };
+
+  if(client_admin) {
+    window._intercomSettings.widget = {
+      activator: '#IntercomDefaultWidget',
+      label: 'Support',
+      use_counter: true
+    }
+  }
 }
 
 function openIntercom() {

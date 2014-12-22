@@ -1,4 +1,6 @@
-<div id="open-intercom" >Support</div>
-<% js_at_end do %>
-  bindIntercomOpen('#open-intercom');
+<% unless current_user.is_client_admin %>
+  <div id="open-intercom" >Support</div>
+  <% js_at_end do %>
+    bindIntercomOpen('#open-intercom');
+  <% end %>
 <% end %>

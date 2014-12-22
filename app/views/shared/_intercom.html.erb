@@ -13,7 +13,8 @@
       "<%= _intercom_user.name %>",
       "<%= intercom_user_id_with_env %>",
       "<%= Digest::SHA1.hexdigest('9rlx8hyy' + intercom_user_id_with_env) %>", 
-      "<%= _intercom_user.demo_id %>"
+      "<%= _intercom_user.demo_id %>",
+      <%= _intercom_user.is_client_admin %>
     );
 
     <%# We don't push regular user data to Intercom until they actually open
