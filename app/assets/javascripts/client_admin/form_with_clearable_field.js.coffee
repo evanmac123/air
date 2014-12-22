@@ -63,6 +63,7 @@ formResponse = (form) ->
   (data) ->
     submit = findSubmit(form)
     submit.val "Update"
+
     if data.success
       form.removeClass("dirty").removeClass("has_error")
       disableSubmit(form, true)
@@ -104,7 +105,7 @@ formSubmitHandler = (field) ->
 
     $(@).ajaxSubmit
       success: formResponse $(@)
-      dataType: "json"
+      dataType: 'json'
 
 window.formWithClearableTextField = (fieldSelector) ->
   field = $(fieldSelector)
@@ -132,6 +133,11 @@ window.formWithClearableLogoField = (fieldSelector) ->
   formSubmitHandler field
 
   findForm(field).find(".clear_form").click ->
+    field = connectedField $(@)
     form = $(@).closest("form")
-    form[0].reset()
-    form.removeClass("dirty").removeClass("has_error")
+
+    if field.val().length > 0 
+      form[0].reset()
+      form.removeClass("dirty").removeClass("has_error")
+    else
+      form.submit()

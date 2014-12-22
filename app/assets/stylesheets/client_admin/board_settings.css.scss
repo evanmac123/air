@@ -16,6 +16,9 @@ body.client_admin-board_settings-index{
       display: inline-block;
     }
     .clear_form{
+      @include regular-text;
+      cursor: pointer;
+      padding-left: 1em;
       display: none;
     }
     .character-counter{
@@ -41,10 +44,7 @@ body.client_admin-board_settings-index{
           @include app-button($sky-blue);
         }
         .clear_form{
-          @include regular-text;
           display: inline-block;
-          cursor: pointer;
-          padding-left: 1em;
         }
       }
       &.has_error {
@@ -54,6 +54,11 @@ body.client_admin-board_settings-index{
         .error_message {
           display: block;
         }
+      }
+    }
+    form#edit_board_logo{
+      .clear_form{
+        display: inline-block;
       }
     }
   }

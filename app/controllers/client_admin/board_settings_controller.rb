@@ -10,8 +10,10 @@ class ClientAdmin::BoardSettingsController < ClientAdminBaseController
   end
 
   def board_logo
-    @board.logo = params[:demo][:logo] if params[:demo].present?
-
+    if params[:demo].present?
+      @board.logo = params[:demo][:logo].present? ? params[:demo][:logo] : nil   
+    end
+    
     if @board.save && params[:demo].present?
       render json: { success: true, logo_url: @board.logo.url }
     else
