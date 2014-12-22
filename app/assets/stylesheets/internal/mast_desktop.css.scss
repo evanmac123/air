@@ -289,6 +289,13 @@ header {
   display: inline-block !important;
 }
 
+#guest-intercom-wrapper {
+  margin-top: 1em;
+  #open-intercom {
+    float: right;
+  }
+}
+
 @mixin standard_reveal_dimensions {
   width: 40%;
   left: 75%;

@@ -93,7 +93,8 @@
         <%else%>
           <%= link_to "Start Over", guest_user_reset_path, id: 'guest_user_start_over_button', style: 'display:none', confirm: "Are you sure?", method: :put %>
         <% end %>
-
+      </div>
+      <div class="large-6 columns" id="guest-intercom-wrapper">
         <%= render 'shared/open_intercom_button' %>
       </div>
     <% end %>
