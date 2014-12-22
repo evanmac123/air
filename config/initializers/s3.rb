@@ -6,7 +6,7 @@ S3_CREDENTIALS = {
 S3_AVATAR_BUCKET = ENV['AVATAR_BUCKET'] || 'hengage-avatars-development'
 S3_TILE_BUCKET = ENV['TILE_BUCKET'] || 'hengage-tiles-development'
 S3_TILE_THUMBNAIL_BUCKET = ENV['TILE_BUCKET'] || 'hengage-tiles-development'
-S3_LOGO_BUCKET = ENV['LOGO_BUCKET'] || 'hengage-tiles-development'
+S3_LOGO_BUCKET = ENV['LOGO_BUCKET'] || 'hengage-logos-development'
 
 TILE_IMAGE_OPTIONS     = {}
 TILE_THUMBNAIL_OPTIONS = {}
@@ -25,7 +25,6 @@ when 'production', 'staging'
 
   TILE_IMAGE_OPTIONS[:path] = "/tiles/:id/:hash__:filename"
   TILE_THUMBNAIL_OPTIONS[:path] = "/tile_thumbnails/:id/:hash__:filename"
-
   LOGO_OPTIONS = {
     :storage => :s3,
     :s3_protocol => 'https', 

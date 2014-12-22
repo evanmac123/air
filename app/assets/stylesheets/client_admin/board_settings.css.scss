@@ -5,6 +5,7 @@ body.client_admin-board_settings-index{
     input[type="text"], input[type="file"]{
       width: 80%;
       display: block;
+      background: $white;
     }
     .error_message{
       @include regular-text;
@@ -26,7 +27,7 @@ body.client_admin-board_settings-index{
       margin-top: 5px;
     }
     form{
-      margin-bottom: 1em;
+      margin-bottom: 2em;
       &:not(.dirty):not(.active){
         input[type="submit"]{
           @include light-button($gray);
