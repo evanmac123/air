@@ -4,23 +4,20 @@ String.prototype.trimToLength = (m) ->
   else
     this
 
-#isTextField = (field) ->
-#  field.attr("type") == "text"
-
 oldValue = (field) ->
   field.data("old-value")
 
 setOldValue = (field) ->
   field.data "old-value", field.val()
 
+updateOldValue = (field) ->
+  return unless field.data("old-value")
+  setOldValue field
+
 bindClearLinkAndField = (field) ->
   form = findForm field
   clear_link = form.find(".clear_form")
   clear_link.data "selector", field.attr("id")
-
-initialSetUp = (field) ->
-  setOldValue field
-  bindClearLinkAndField field
 
 findSubmit = (form) ->
   form.find("input[type='submit']")
@@ -40,20 +37,27 @@ connectedField = (clear_link) ->
   $( "#" + clear_link.data('selector') )
 
 fieldHasInitialValue = (field) ->
+  return false unless field.data("old-value")
   field.data("old-value") == field.val()
 
-updateCurrentBoardName = (field) ->
+updateCurrentBoardName = (field, data) ->
   newName = field.val()
   $("#current_board_name").text newName.trimToLength(12)
 
+updateLogo = (field, data) ->
+  $("#logo a img").attr("src", data.logo_url)
+  form = findForm field
+  form[0].reset()
+
 tableOfSpecificFormResponses = () ->
   demo_name: updateCurrentBoardName
+  demo_logo: updateLogo
 
-specificFormResponse = (field) ->
+specificFormResponse = (field, data) ->
   fieldSelector = field.attr("id")
   func = tableOfSpecificFormResponses()[fieldSelector]
-  unless func
-    func(field)
+  if func
+    func(field, data)
 
 formResponse = (form) ->
   (data) ->
@@ -64,24 +68,16 @@ formResponse = (form) ->
       disableSubmit(form, true)
 
       field = findField(form)
-      setOldValue field
+      updateOldValue(field) 
 
-      specificFormResponse(field)
+      specificFormResponse(field, data)
     else
       form.addClass("has_error")
 
-window.formWithClearableTextField = (fieldSelector) ->
-  field = $(fieldSelector)
-  initialSetUp field
-  #
-  # => Field Events
-  #
+fieldEvents = (field) ->
   field.focusin ->
     form = findForm $(@)
     form.addClass("active")
-
-    unless oldValue $(@)
-      setOldValue $(@)
 
     unless form.hasClass("dirty")
       disableSubmit(form, true)
@@ -90,7 +86,7 @@ window.formWithClearableTextField = (fieldSelector) ->
     form = findForm $(@)
     form.removeClass("active")
 
-  field.on 'input propertychange paste', ->
+  field.on 'input propertychange change paste', ->
     form = findForm $(@)
     form.addClass("dirty")
 
@@ -99,20 +95,8 @@ window.formWithClearableTextField = (fieldSelector) ->
     if fieldHasInitialValue $(@) 
       form.removeClass("dirty")
       disableSubmit(form, true)
-  #
-  # => Clear Link
-  #
-  findForm(field).find(".clear_form").click ->
-    field = connectedField $(@)
-    field.val oldValue(field)
 
-    form = findForm field
-    form.removeClass("dirty").removeClass("has_error")
-
-    disableSubmit(form, true)
-  #
-  # => Submit Form Event
-  #
+formSubmitHandler = (field) ->
   findForm(field).submit (e) ->
     e.preventDefault()
     submit = findSubmit $(@)
@@ -121,8 +105,36 @@ window.formWithClearableTextField = (fieldSelector) ->
     $.ajax 
       type: "POST"
       url: $(@).attr "action"
-      data: $(@).serialize()
+      data: new FormData(@)#$(@).serialize()
       success: formResponse( $(@) )
       dataType: "json"
 
+window.formWithClearableTextField = (fieldSelector) ->
+  field = $(fieldSelector)
+  setOldValue field
+  bindClearLinkAndField field
 
+  fieldEvents field
+  formSubmitHandler field
+
+  findForm(field).find(".clear_form").click ->
+    field = connectedField $(@)
+    field.val oldValue(field)
+
+    form = findForm field
+    form.removeClass("dirty").removeClass("has_error")
+
+    disableSubmit(form, true)
+#
+# => Only For Form With File Field
+#
+window.formWithClearableLogoField = (fieldSelector) ->
+  field = $(fieldSelector)
+  bindClearLinkAndField field
+  fieldEvents field
+  formSubmitHandler field
+
+  findForm(field).find(".clear_form").click ->
+    form = $(@).closest("form")
+    form[0].reset()
+    form.removeClass("dirty").removeClass("has_error")
