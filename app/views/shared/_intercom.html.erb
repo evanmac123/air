@@ -15,5 +15,12 @@
       "<%= Digest::SHA1.hexdigest('9rlx8hyy' + intercom_user_id_with_env) %>", 
       "<%= _intercom_user.demo_id %>"
     );
+
+    <%# We don't push regular user data to Intercom until they actually open
+      the Intercom window, but we do for client admins on page load, so that
+      it then proceeds on from Intercom to Salesforce. What, us convoluted? %>
+    <% if _intercom_user.is_client_admin %>
+      Intercom('boot', window._intercomSettings);
+    <% end %>
   <% end %>
 <% end %>
