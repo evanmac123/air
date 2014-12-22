@@ -31,13 +31,6 @@
   <div id='js-flashes'><%= render 'shared/flashes' %> </div> 
   <%= render 'shared/offcanvas_menu_signedin' %>
 
-  <% if use_intercom? %>
-    <%= link_to "Of course we are going to change the UI before we push this for real, Kate", '#', id: 'open-intercom' %>
-    <% js_at_end do %>
-      bindIntercomOpen('#open-intercom');
-    <% end %>
-  <% end %>
-
   <main class="main">
     <% if current_user.has_tiles_tools_subnav? %>
       <%= render partial: 'client_admin/tiles/tiles_tools_subnav' %>

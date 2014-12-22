@@ -10,7 +10,7 @@
     <%# If we don't need the guest user controls, steal their space for the 
     navigation, so we can use it for the current board. %>
     <% unless current_user.is_guest? || @public_tile_page %>
-      <nav id="navigation" class="columns large-8"> <!-- offcanvas menu -->
+      <nav id="navigation" class="columns large-7"> <!-- offcanvas menu -->
         <div class="user_options">
           <ul>
             <li><%= link_to "Home", home_path, :class => 'nav-home' %></li>
@@ -72,11 +72,13 @@
       </nav> <!-- end of off canvas -->
 
       <!-- start of new admin navigation that needs to be gated off later -->
-      <div class="large-2 columns" id="user_info">
+      <div class="large-3 columns" id="user_info">
         <div id="me_toggle">
           <div class="shadow_overlay"></div>
           <%= default_avatar_tag current_user, :id => :top_avatar, :class => "avatar48" %>
         </div>
+
+        <%= render 'shared/open_intercom_button' %>
       </div>
     <% else # current_user.is_guest? == true %>
       <% guest_user_header_button_style = show_save_progress_button ? '' : 'display: none' %>
@@ -91,6 +93,8 @@
         <%else%>
           <%= link_to "Start Over", guest_user_reset_path, id: 'guest_user_start_over_button', style: 'display:none', confirm: "Are you sure?", method: :put %>
         <% end %>
+
+        <%= render 'shared/open_intercom_button' %>
       </div>
     <% end %>
   </div> <!-- end of topbar -->

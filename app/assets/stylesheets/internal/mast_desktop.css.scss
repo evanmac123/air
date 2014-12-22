@@ -92,6 +92,8 @@ header {
   // Toggles 
   
   #user_info #me_toggle {
+    border-right: 0;
+
     padding-left:.5em;
     position: relative;
     text-align: left;
@@ -278,6 +280,13 @@ header {
   .board_settings_mobile_toggle {
     display: none;
   }
+}
+
+
+#open-intercom {
+  @include light-button-small($sky-blue);
+  font-size: .8em;
+  display: inline-block !important;
 }
 
 @mixin standard_reveal_dimensions {
