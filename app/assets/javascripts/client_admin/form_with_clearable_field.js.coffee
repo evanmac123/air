@@ -123,9 +123,7 @@ window.formWithClearableTextField = (fieldSelector) ->
     form.removeClass("dirty").removeClass("has_error")
 
     disableSubmit(form, true)
-#
-# => Only For Form With File Field
-#
+
 window.formWithClearableLogoField = (fieldSelector) ->
   field = $(fieldSelector)
   bindClearLinkAndField field

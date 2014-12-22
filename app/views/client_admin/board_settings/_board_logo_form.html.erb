@@ -3,9 +3,10 @@
   <i class="fa fa-question-circle has-tip" id="board_logo_tooltip" data-tooltip="true" title="Logo file should be 160 pixels wide and under 38 pixels high, .png or .gif with a transparent or white background."></i>
   <%= form.file_field :logo %>
   <div class="error_message">
-    Sorry, that board logo is invalid.
+    Sorry that doesn't look like an image file. Please use a  <br/>
+    file with the extension .jpg, .jpeg, .gif, .bmp or .png.
   </div>
-  <%= form.submit "Update" %>
+  <%= form.submit "Update", disabled: true %>
   <a class="clear_form">Clear</a>
 <% end %>
 

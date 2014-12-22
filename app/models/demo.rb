@@ -1,5 +1,7 @@
 class Demo < ActiveRecord::Base
   extend NormalizeBoardName
+  include Assets::Normalizer # normalize filename of paperclip attachment
+  extend ValidImageMimeTypes
 
   JOIN_TYPES = %w(pre-populated self-inviting public).freeze
 
@@ -39,6 +41,8 @@ class Demo < ActiveRecord::Base
       :default_style => :home,
       :default_url => "/assets/logo.png"
     }
+
+  validates_attachment_content_type :logo, content_type: valid_image_mime_types, message: invalid_mime_type_error
 
   # We go through this rigamarole since we can move a user from one demo to
   # another, and usually we will only be concerned with acts belonging to the
