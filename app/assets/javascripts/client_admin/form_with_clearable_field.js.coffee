@@ -124,11 +124,12 @@ window.formWithClearableTextField = (fieldSelector) ->
 
     disableSubmit(form, true)
 
-window.formWithClearableLogoField = (fieldSelector) ->
+window.formWithClearableLogoField = (fieldSelector, old_ie) ->
   field = $(fieldSelector)
   bindClearLinkAndField field
   fieldEvents field
-  formSubmitHandler field
+  unless old_ie
+    formSubmitHandler field
 
   findForm(field).find(".clear_form").click ->
     field = connectedField $(@)

@@ -5,7 +5,7 @@
   <div class="large-8 large-centered columns builder-width">
     <%= form_for @tile_builder_form, url: client_admin_tiles_path do |f| %>
       <div class="tile_holder">
-        <% if browser.ie6? || browser.ie7? || browser.ie8? || browser.ie9? %>
+        <% if ie9_or_older? %>
           <%= render 'image_uploader_ie', form: f %>
         <% else %>
           <%= render 'image_uploader', form: f %>

@@ -12,6 +12,6 @@
 
 <% js_at_end do %>
   $().ready(function(){
-    window.formWithClearableLogoField("#demo_logo");
+    window.formWithClearableLogoField("#demo_logo", <%= ie9_or_older? %>);
   })
 <% end %>

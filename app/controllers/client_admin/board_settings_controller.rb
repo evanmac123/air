@@ -13,11 +13,21 @@ class ClientAdmin::BoardSettingsController < ClientAdminBaseController
     if params[:demo].present?
       @board.logo = params[:demo][:logo].present? ? params[:demo][:logo] : nil   
     end
-    
-    if @board.save && params[:demo].present?
-      render json: { success: true, logo_url: @board.logo.url }
-    else
-      render json: { success: false }
+    respond_to do |format|
+      if @board.save && params[:demo].present?
+        format.json { render json: { success: true, logo_url: @board.logo.url } }
+        format.html do
+          flash[:success] = "Logo is updated"
+          redirect_to :back
+        end
+      else
+        format.json { render json: { success: false } }
+        format.html do
+          flash[:failure] = "Sorry that doesn't look like an image file. Please use a" +
+                            "file with the extension .jpg, .jpeg, .gif, .bmp or .png."
+          redirect_to :back
+        end
+      end
     end
   end
 

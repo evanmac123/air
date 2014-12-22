@@ -153,4 +153,8 @@ module ApplicationHelper
   def use_intercom?
     Rails.env.production? || Rails.env.staging? || ENV['INTERCOM']  
   end
+
+  def ie9_or_older?
+    browser.ie6? || browser.ie7? || browser.ie8? || browser.ie9?
+  end
 end
