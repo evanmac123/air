@@ -112,13 +112,6 @@ Health::Application.routes.draw do
     resources :tiles do
       resource :image, :only => [:update, :show]
       resources :tile_completions, :only => [:index]      
-      collection do
-        get 'active_tile_guide_displayed'
-        get 'clicked_first_completion_got_it'
-        get 'clicked_post_got_it'
-        get 'activated_try_your_board'
-        get 'clicked_try_your_board_got_it'
-      end
       member do
         post 'sort'
       end
@@ -146,28 +139,6 @@ Health::Application.routes.draw do
     resource :share, only: :show do
       member do
         get 'show_first_active_tile'
-        
-        get 'added_valid_user'        
-        get 'number_of_valid_users_added'        
-        
-        get 'successfully_added_users'
-        get 'clicked_skip'
-        get 'clicked_mail_to'
-        get 'got_error'
-        
-        get 'changed_message'
-        get 'clicked_add_more_users'
-        get 'successfully_sent'
-        
-        get 'clicked_success_mail'
-        get 'clicked_success_twitter'
-        
-        get 'selected_public_board'
-
-        get 'clicked_share_mail'
-        get 'clicked_share_twitter'        
-        get 'clicked_add_users'
-        
       end
     end
 

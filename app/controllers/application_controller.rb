@@ -147,13 +147,6 @@ class ApplicationController < ActionController::Base
     authorize_without_guest_checks
 
     refresh_activity_session(current_user)
-
-    return if current_user_is_site_admin || going_to_settings
-
-    if game_locked?
-      render "shared/website_locked"
-      return
-    end
   end
 
   def authorize_as_potential_user
@@ -312,10 +305,6 @@ class ApplicationController < ActionController::Base
 
   def game_not_yet_begun?
     current_user && current_user.demo.game_not_yet_begun?
-  end
-
-  def game_locked?
-    current_user && current_user.demo.website_locked?
   end
 
   def force_html_format

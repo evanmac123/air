@@ -874,12 +874,6 @@ describe User, "#befriend" do
     @left_user.friends.length.should == 1
     @right_user.friends.length.should == 1
   end
-
-  it "should ping Mixpanel" do
-    @left_user.befriend(@right_user, :channel => :web)
-    crank_dj_clear
-    FakeMixpanelTracker.should have_event_matching("fanned", @left_user.data_for_mixpanel.merge(:channel => :web))
-  end
 end
 
 describe User do

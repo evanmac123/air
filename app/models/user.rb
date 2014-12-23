@@ -722,7 +722,6 @@ class User < ActiveRecord::Base
       reciprocal_friendship = other.friendships.create(:friend_id => self.id, :state => 'pending')
       reciprocal_friendship.update_attribute(:request_index, friendship.request_index)
     end
-    ping('fanned', mixpanel_properties)
 
     friendship
   end

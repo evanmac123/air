@@ -59,7 +59,6 @@ class FriendshipsController < ApplicationController
     respond_to do |format|
       format.html do
         redirect_to :back
-        flash[:mp_track_friendship] = ["unfriended"]
       end
 
       format.js

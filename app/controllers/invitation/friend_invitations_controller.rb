@@ -63,7 +63,6 @@ class Invitation::FriendInvitationsController < ApplicationController
       invited_via: invited_via
 
     } 
-    ping('invited friends', mixpanel_details, current_user)
 
     ping('Email Sent', {email_type: "Friend Invitation"}, user) if user
   end

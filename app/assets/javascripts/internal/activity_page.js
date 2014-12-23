@@ -10,7 +10,7 @@ $(document).ready(function() {
 pingClick = function(action) {
   var slideName = $('#get_started_lightbox').data('slide-name');
 
-  $.post("/ping", {event: 'Saw welcome Pop-Up', properties: {action: action, page: slideName}});
+  $.post("/ping", {event: 'Saw welcome pop-up', properties: {action: action, page: slideName}});
 }
 
 closeGetStartedLightbox = function() {

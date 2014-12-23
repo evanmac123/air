@@ -140,40 +140,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     tile_status_updated_ping @tile, "Dragged tile to move"
   end
   
-  def active_tile_guide_displayed
-    current_user.displayed_active_tile_guide=true
-    current_user.save!
-    TrackEvent.ping_action('Tiles Page', 'Clicked Got It button in Publish orientation pop-over', current_user)
-
-    render nothing: true
-  end
-  
-  def main_menu_tile_guide_displayed
-    TrackEvent.ping_action('Tiles Page', 'Clicked Got It button in orientation pop-over', current_user)
-    render nothing: true
-  end
-
-  def clicked_first_completion_got_it
-    TrackEvent.ping_action('Tiles Page', "Pop Over - clicked Got It", current_user)
-    render nothing: true    
-  end
-  
-  def activated_try_your_board
-    TrackEvent.ping_action('Tiles Page', 'Clicked Got It button in Share orientation pop-over', current_user)
-    TrackEvent.ping_action('Tiles Page', "Activated Try your board as a user pop-over", current_user)
-    render nothing: true        
-  end
-  
-  def clicked_try_your_board_got_it
-    TrackEvent.ping_action('Tiles Page', "Clicked Got It button in Try As User orientation pop-over", current_user)
-    render nothing: true        
-  end
-  
-  def clicked_post_got_it
-    TrackEvent.ping_action('Tile Preview Page - Draft', "Clicked Got It button in orientation pop-over", current_user)
-    render nothing: true        
-  end
-  
   private
   
   def get_demo

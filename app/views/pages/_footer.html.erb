@@ -27,10 +27,5 @@
 </footer>
 <script>
   $("[placeholder]").placeholder();
-  $("#linkedin, #twitter, #facebook").click(function() {
-    var socialLinkId = $(this).attr('id');
-    mixpanel.track('clicked social link', {link_to: socialLinkId});
-  });
-
   $(document).foundation();
 </script>
