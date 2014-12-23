@@ -25,6 +25,15 @@ function bindIntercomSettings(email, created_at, name, user_id, user_hash, demo,
   }
 }
 
+function bootIntercomWhenReady() {
+  var intercomBootInterval = setInterval(function () {
+    if(typeof(Intercom) != 'undefined') {
+      clearInterval(intercomBootInterval);
+      Intercom('boot', window._intercomSettings);
+    }
+  }, 1000);
+}
+
 function openIntercom() {
   Intercom('boot', window._intercomSettings);
   Intercom('show');
