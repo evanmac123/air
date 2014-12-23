@@ -15,6 +15,11 @@ feature "Client Admin Changes Board Settings" do
   def clear_link
     page.find(".clear_form")
   end
+
+  def wrong_format_message
+    "Sorry that doesn't look like an image file. Please use a " +
+    "file with the extension .jpg, .jpeg, .gif, .bmp or .png."
+  end
   
   context "board name form" do
     before(:each) do
@@ -72,6 +77,18 @@ feature "Client Admin Changes Board Settings" do
 
       demo.reload.logo_file_name.should == 'tasty.jpg'
       expect_logo_in_header 'tasty.png'
+    end
+
+    it "should show error message if wrong file format", js: true do
+      within board_logo_form do
+        attach_tile "demo[logo]", logo_fixture_path('not_an_image.txt')
+        click_button "Update"
+      end
+
+      expect_content wrong_format_message
+
+      expect_default_logo_in_header
+      demo.reload.logo.url.should =~ /logo.png/
     end
 
     it "sholud set default logo by clear link", js: true do

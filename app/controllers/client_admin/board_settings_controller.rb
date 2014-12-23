@@ -26,7 +26,7 @@ class ClientAdmin::BoardSettingsController < ClientAdminBaseController
       else
         format.json { render json: { success: false } }
         format.html do
-          flash[:failure] = "Sorry that doesn't look like an image file. Please use a" +
+          flash[:failure] = "Sorry that doesn't look like an image file. Please use a " +
                             "file with the extension .jpg, .jpeg, .gif, .bmp or .png."
           redirect_to :back
         end
