@@ -7,8 +7,11 @@ class CopyCustomLogoUrlToLogo < ActiveRecord::Migration
         demo.save
       end
     end
+
+    remove_column :demos, :custom_logo_url
   end
 
   def down
+    add_column :demos, :custom_logo_url, :string
   end
 end
