@@ -10,11 +10,14 @@ class ClientAdmin::BoardSettingsController < ClientAdminBaseController
   end
 
   def board_logo
-    if params[:demo].present?
-      @board.logo = params[:demo][:logo].present? ? params[:demo][:logo] : nil   
-    end
+    @board.logo = if params[:demo].present? && params[:demo][:logo].present?
+                    params[:demo][:logo]
+                  else
+                    nil # remove custom logo
+                  end
+
     respond_to do |format|
-      if @board.save && params[:demo].present?
+      if @board.save
         format.json { render json: { success: true, logo_url: @board.logo.url } }
         format.html do
           flash[:success] = "Logo is updated"

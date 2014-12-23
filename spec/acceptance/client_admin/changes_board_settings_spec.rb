@@ -8,6 +8,10 @@ feature "Client Admin Changes Board Settings" do
     "#edit_board_name"
   end
 
+  def board_logo_form
+    "#edit_board_logo"
+  end
+
   def clear_link
     page.find(".clear_form")
   end
@@ -48,6 +52,40 @@ feature "Client Admin Changes Board Settings" do
       end
 
       find_field('Board Name').value.should eq 'Board 1'
+    end
+  end
+
+  context "board logo form" do
+    before(:each) do
+      visit client_admin_board_settings_path(as: client_admin)
+    end
+
+    it "should show airbo logo by default" do
+      expect_default_logo_in_header
+    end
+
+    it "should update logo", js: true do
+      within board_logo_form do
+        attach_tile "demo[logo]", logo_fixture_path('tasty.jpg')
+        click_button "Update"
+      end
+
+      demo.reload.logo_file_name.should == 'tasty.jpg'
+      expect_logo_in_header 'tasty.png'
+    end
+
+    it "sholud set default logo by clear link", js: true do
+      demo.logo = File.open(Rails.root.join "spec/support/fixtures/logos/tasty.jpg")
+      demo.save
+      visit client_admin_board_settings_path(as: client_admin)
+      expect_logo_in_header 'tasty.png'
+
+      within board_logo_form do
+        clear_link.click
+      end
+
+      expect_default_logo_in_header
+      demo.reload.logo.url.should =~ /logo.png/
     end
   end
 end

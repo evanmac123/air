@@ -5,6 +5,8 @@ describe Demo do
   it { should have_many(:tiles) }
   it { should have_many(:locations) }
   it { should have_many(:characteristics) }
+
+  it { should_have_valid_mime_type(Demo, :logo_content_type) }
 end
 
 describe Demo, "#welcome_message" do

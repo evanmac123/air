@@ -115,6 +115,16 @@ module SteakHelperMethods
     expect_avatar_in_masthead('missing.png')
   end
 
+  def expect_logo_in_header expected_filename
+    logo = page.find(:css, "#logo .go_home img")
+    logo_url = logo['src'].gsub(/\?.*$/, '')
+    logo_url.should =~ /#{expected_filename}$/
+  end
+
+  def expect_default_logo_in_header
+    expect_logo_in_header "logo.png"
+  end
+
   def expect_inline_style(css_selector, style_key, expected_value)
     element = find(:css, css_selector)
     style = element['style']
@@ -204,6 +214,10 @@ module SteakHelperMethods
 
   def tile_fixture_path(filename)
     Rails.root.join('spec/support/fixtures/tiles', filename)  
+  end
+
+  def logo_fixture_path(filename)
+    Rails.root.join('spec/support/fixtures/logos', filename)  
   end
 
   def buttons_with_text(text)
