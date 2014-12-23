@@ -477,7 +477,7 @@ class User < ActiveRecord::Base
     {
       :distinct_id           => self.id,
       :id                    => self.id,
-      :email                 => self.email,
+      :email                 => (self.is_client_admin ? self.email : nil),
       :game                  => self.demo_id,
       :score                 => self.points,
       :account_creation_date => self.created_at.to_date,

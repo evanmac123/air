@@ -1078,4 +1078,12 @@ describe User, "#data_for_mixpanel" do
     user2.data_for_mixpanel[:is_test_user].should == false
     user3.data_for_mixpanel[:is_test_user].should == true
   end
+
+  it "should include a user's email address only if they're a client admin" do
+    peon = FactoryGirl.build(:user, email: 'peon@example.com', created_at: Time.now)
+    client_admin = FactoryGirl.build(:client_admin, email: 'ca@example.com', created_at: Time.now)
+
+    peon.data_for_mixpanel[:email].should be_nil
+    client_admin.data_for_mixpanel[:email].should == client_admin.email
+  end
 end
