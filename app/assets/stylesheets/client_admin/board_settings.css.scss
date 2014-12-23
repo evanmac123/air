@@ -62,6 +62,13 @@ body.client_admin-board_settings-index{
       .clear_form{
         display: inline-block;
       }
+      &.active{
+        input[type="submit"]{
+          &:disabled{
+            @include light-button($gray);
+          }
+        }
+      }
     }
   }
 }
