@@ -97,15 +97,28 @@ fieldEvents = (field) ->
       form.removeClass("dirty")
       disableSubmit(form, true)
 
+submitForm = (form) ->
+  submit = findSubmit form
+  submit.val "Updating..."
+
+  form.ajaxSubmit
+    success: formResponse form
+    dataType: 'json'
+
+submitEmptyForm = (form) ->
+  submit = findSubmit form
+  submit.val "Updating..."
+
+  $.ajax
+    type: "PUT"
+    url: form.attr("action")
+    success: formResponse form
+    dataType: 'json'
+
 formSubmitHandler = (field) ->
   findForm(field).submit (e) ->
     e.preventDefault()
-    submit = findSubmit $(@)
-    submit.val "Updating..."
-
-    $(@).ajaxSubmit
-      success: formResponse $(@)
-      dataType: 'json'
+    submitForm $(@)
 
 window.formWithClearableTextField = (fieldSelector) ->
   field = $(fieldSelector)
@@ -139,4 +152,7 @@ window.formWithClearableLogoField = (fieldSelector, old_ie) ->
       form[0].reset()
       form.removeClass("dirty").removeClass("has_error")
     else
-      form.submit()
+      # remove logo
+      submitEmptyForm(form)
+
+      
