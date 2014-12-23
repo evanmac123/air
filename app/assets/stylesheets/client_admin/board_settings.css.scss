@@ -6,6 +6,7 @@ body.client_admin-board_settings-index{
       width: 80%;
       display: block;
       background: $white;
+      border-color: $light-gray;
     }
     .error_message{
       @include regular-text;
