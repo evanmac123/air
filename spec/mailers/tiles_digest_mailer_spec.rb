@@ -39,10 +39,11 @@ describe 'Digest email' do
     end
 
     it "should display another company's logo if they have provided one" do
-      demo.update_attributes(custom_logo_url: 'http://cannibalism.com/phil.png')
+      demo.logo = File.open(Rails.root.join "spec/support/fixtures/logos/tasty.jpg")
+      demo.save
       email = TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "New Tiles", false, nil, nil)
 
-      email.should have_selector "img[src = 'http://cannibalism.com/phil.png'][alt = 'Phil']"
+      email.should have_selector "img[src *= 'tasty.png'][alt = 'Tasty']"
     end
   end
 
