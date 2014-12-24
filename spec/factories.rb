@@ -74,10 +74,7 @@ FactoryGirl.define do
 
   factory :demo do
     sequence(:name) {|n| "Coolio_#{n} Board" }
-    
-    trait :with_email do
-      sequence(:email) {|n| "demo_#{n}@example.com"}
-    end
+    sequence(:email) {|n| "demo_#{n}@ourairbo.com"}
 
     trait :with_tickets do
       # Currently a no-op since uses_tickets is, for the moment, hardcoded to

@@ -2,7 +2,7 @@ require 'acceptance/acceptance_helper'
 
 feature 'Gets no response to out of office autoresponder' do
   scenario "system logs email but sends no response" do
-    demo = FactoryGirl.create(:demo, :with_email)
+    demo = FactoryGirl.create(:demo)
     user = FactoryGirl.create(:user, demo: demo)
 
     out_of_office_subjects = [

@@ -1,7 +1,7 @@
 require 'acceptance/acceptance_helper'
 
 feature "Client Admin Changes Board Settings" do
-  let(:demo) { FactoryGirl.create :demo, name: "Board 1" }
+  let(:demo) { FactoryGirl.create :demo, name: "Board 1", email: "board1@ourairbo.com" }
   let(:client_admin) { FactoryGirl.create(:client_admin, demo: demo)}
 
   def board_name_form
@@ -10,6 +10,10 @@ feature "Client Admin Changes Board Settings" do
 
   def board_logo_form
     "#edit_board_logo"
+  end
+
+  def board_email_form
+    "#edit_board_email"
   end
 
   def clear_link
@@ -103,6 +107,44 @@ feature "Client Admin Changes Board Settings" do
 
       expect_default_logo_in_header
       demo.reload.logo.url.should =~ /logo.png/
+    end
+  end
+
+  context "board email form" do
+    before(:each) do
+      (2..4).to_a.each do |i|
+        new_demo = FactoryGirl.create :demo, email: "board#{i}@ourairbo.com"
+      end
+
+      visit client_admin_board_settings_path(as: client_admin)
+    end
+
+    it "should update email address if it's available", js: true do
+      within board_email_form do
+        fill_in "Email Address", with: "board10"
+        click_button "Update"
+      end
+
+      demo.reload.email.should == "board10@ourairbo.com"
+    end
+
+    it "should not update email address if it's not available", js: true do
+      within board_email_form do
+        fill_in "Email Address", with: "board2"
+        click_button "Update"
+      end
+
+      expect_content "Sorry, that email address is already taken."
+      demo.reload.email.should == "board1@ourairbo.com"
+    end
+
+    it "should clear form by clear link", js: true do
+      within board_email_form do
+        fill_in "Email Address", with: "board2 4"
+        clear_link.click
+      end
+
+      find_field('Email Address').value.should eq 'board1'
     end
   end
 end
