@@ -54,6 +54,7 @@ module EmailHelper
   end
 
   def remove_domain_part email
+    return "" unless email.present?
     email[/[^@]+/]
   end
 end

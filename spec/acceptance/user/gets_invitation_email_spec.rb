@@ -22,7 +22,7 @@ feature 'User gets invitation email' do
   end
 
   before(:each) do
-    @demo = FactoryGirl.create(:demo)
+    @demo = FactoryGirl.create(:demo, :with_email)
     @user = FactoryGirl.create(:user, demo: @demo, name: "Dude Duderson")
     @referrer = FactoryGirl.create(:user, demo: @demo, name: "Andy McReferrer")
   end
