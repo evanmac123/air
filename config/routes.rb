@@ -180,6 +180,7 @@ Health::Application.routes.draw do
       collection do
         put 'board_name'
         put 'board_logo'
+        put 'board_email'
       end
     end
   end

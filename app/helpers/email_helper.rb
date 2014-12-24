@@ -52,4 +52,8 @@ module EmailHelper
   def email_link_protocol
     ENV["EMAIL_PROTOCOL"] or 'http'
   end
+
+  def remove_domain_part email
+    email[/[^@]+/]
+  end
 end

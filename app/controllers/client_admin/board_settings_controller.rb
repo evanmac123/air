@@ -34,6 +34,11 @@ class ClientAdmin::BoardSettingsController < ClientAdminBaseController
     end
   end
 
+  def board_email
+    @board.email = params[:demo][:email].strip + "@ourairbo.com"
+    render json: { success: @board.save }
+  end
+
   protected
 
   def get_board
