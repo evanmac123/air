@@ -181,6 +181,7 @@ Health::Application.routes.draw do
         put 'board_name'
         put 'board_logo'
         put 'board_email'
+        put 'board_email_name'
       end
     end
   end

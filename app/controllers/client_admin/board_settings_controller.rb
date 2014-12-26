@@ -39,6 +39,11 @@ class ClientAdmin::BoardSettingsController < ClientAdminBaseController
     render json: { success: @board.save }
   end
 
+  def board_email_name
+    @board.custom_reply_email_name = params[:demo][:custom_reply_email_name]
+    render json: { success: @board.save }
+  end
+
   protected
 
   def get_board
