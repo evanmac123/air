@@ -16,6 +16,10 @@ feature "Client Admin Changes Board Settings" do
     "#edit_board_email"
   end
 
+  def board_email_name_form
+    "#edit_board_email_name"
+  end
+
   def clear_link
     page.find(".clear_form")
   end
@@ -145,6 +149,30 @@ feature "Client Admin Changes Board Settings" do
       end
 
       find_field('Email Address').value.should eq 'board1'
+    end
+  end
+
+  context "board email name form" do
+    before(:each) do
+      visit client_admin_board_settings_path(as: client_admin)
+    end
+
+    it "should update board email name", js: true do
+      within board_email_name_form do
+        fill_in "'From' Name", with: "Good Guy"
+        click_button "Update"
+      end
+
+      demo.reload.custom_reply_email_name.should == "Good Guy"
+    end
+
+    it "should clear form by clear link", js: true do
+      within board_email_name_form do
+        fill_in "'From' Name", with: "Good Guy"
+        clear_link.click
+      end
+
+      find_field("'From' Name").value.should eq ''
     end
   end
 end
