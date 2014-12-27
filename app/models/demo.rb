@@ -28,6 +28,8 @@ class Demo < ActiveRecord::Base
   validates_uniqueness_of :name
   validates_presence_of :name
 
+  validates_uniqueness_of :public_slug
+
   validate :ticket_fields_all_set, :if => :uses_tickets
 
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i},

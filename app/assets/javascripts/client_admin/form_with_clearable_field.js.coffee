@@ -144,4 +144,8 @@ window.formWithClearableLogoField = (fieldSelector, old_ie) ->
       # remove logo
       submitEmptyForm(form)
 
+window.urlField = (fieldSelector) ->
+  field = $(fieldSelector)
+  field.on 'input propertychange change paste', ->
+    $(@).val $(@).val().toLowerCase().replace /\s/g, "-"
       

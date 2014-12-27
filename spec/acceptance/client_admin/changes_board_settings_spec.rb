@@ -1,7 +1,7 @@
 require 'acceptance/acceptance_helper'
 
 feature "Client Admin Changes Board Settings" do
-  let(:demo) { FactoryGirl.create :demo, name: "Board 1", email: "board1@ourairbo.com" }
+  let!(:demo) { FactoryGirl.create :demo, name: "Board 1", email: "board1@ourairbo.com" }
   let(:client_admin) { FactoryGirl.create(:client_admin, demo: demo)}
 
   def board_name_form
@@ -18,6 +18,10 @@ feature "Client Admin Changes Board Settings" do
 
   def board_email_name_form
     "#edit_board_email_name"
+  end
+
+  def board_public_link_form
+    "#edit_board_public_link"
   end
 
   def clear_link
@@ -173,6 +177,44 @@ feature "Client Admin Changes Board Settings" do
       end
 
       find_field("'From' Name").value.should eq ''
+    end
+  end
+
+  context "board public link form" do
+    before(:each) do
+      (2..4).to_a.each do |i|
+        FactoryGirl.create :demo, name: "Board #{i}"
+      end
+
+      visit client_admin_board_settings_path(as: client_admin)
+    end
+
+    it "should update public slug if it's available", js: true do
+      within board_public_link_form do
+        fill_in "Public Link", with: "board-0"
+        click_button "Update"
+      end
+
+      demo.reload.public_slug.should == "board-0"
+    end
+
+    it "should not update public slug if it's not available", js: true do
+      within board_public_link_form do
+        fill_in "Public Link", with: "board-2"
+        click_button "Update"
+      end
+      
+      expect_content "Sorry, that public link is already taken."
+      demo.reload.public_slug.should == "board-1"
+    end
+
+    it "should clear form by clear link", js: true do
+      within board_public_link_form do
+        fill_in "Public Link", with: "board-0"
+        clear_link.click
+      end
+
+      find_field("Public Link").value.should eq 'board-1'
     end
   end
 end
