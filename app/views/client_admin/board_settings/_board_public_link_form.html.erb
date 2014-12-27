@@ -1,0 +1,21 @@
+<%= form_for board, url: board_public_link_client_admin_board_settings_path, html: { id: "edit_board_public_link"} do |form| %>
+  <%= form.label :public_slug, "Public Link" %>
+  <i class="fa fa-question-circle has-tip" id="board_name_tooltip" data-tooltip="true" title="You can customize the end of your public link if available. Only use lowercase letters."></i>
+  <div class="input_with_prefix">
+    <span class="prefix">
+      <%= request.host + '/ard/' %>
+    </span>
+    <%= form.text_field :public_slug %>
+  </div>
+  <div class="error_message">
+    Sorry, that public link is already taken.
+  </div>
+  <%= form.submit "Update", disabled: true %>
+  <a class="clear_form">Clear</a>
+<% end %>
+
+<% js_at_end do %>
+  $().ready(function(){
+    window.formWithClearableTextField("#demo_public_slug");
+  })
+<% end %>

@@ -44,6 +44,11 @@ class ClientAdmin::BoardSettingsController < ClientAdminBaseController
     render json: { success: @board.save }
   end
 
+  def board_public_link
+    @board.public_slug = params[:demo][:public_slug]
+    render json: { success: @board.save }
+  end
+
   protected
 
   def get_board
