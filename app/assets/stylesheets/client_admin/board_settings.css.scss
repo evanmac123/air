@@ -61,20 +61,9 @@ body.client_admin-board_settings-index{
       }
     }
     form#edit_board_email {
-      .input_with_prefix{
-        &:after{@include clear;}
-        input {
-          width: 50%;
-          float: left;
-          border-bottom-right-radius: 0;
-          border-top-right-radius: 0;
-        }
-        .postfix {
-          width: 30%;
-          float: left;
-          border-bottom-right-radius: 3px;
-          border-top-right-radius: 3px;
-        }
+      .input_with_postfix{
+        @include input-with-postfix(30%);
+        width: 80%;
       }
     }
   }

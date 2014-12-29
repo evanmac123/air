@@ -493,6 +493,23 @@ input[type="text"], input[type="password"], input[type="file"], textarea {
   margin-bottom: 0.5em;
 }
 input:focus, select, textarea {outline: 0;}
+
+@mixin input-with-postfix($postfix-percent) {
+  &:after{@include clear;}
+  input {
+    width: 100% - $postfix-percent;
+    float: left;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+  }
+  .postfix {
+    width: $postfix-percent;
+    float: left;
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px;
+  }
+}
+
 label { @extend h5; }
 
 form.custom .custom.dropdown {
