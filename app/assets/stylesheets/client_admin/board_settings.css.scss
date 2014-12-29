@@ -8,6 +8,10 @@ body.client_admin-board_settings-index{
       background: $white;
       border-color: $light-gray;
     }
+    input::-ms-clear { // hide 'x' for ie
+      width: 0;
+      height: 0;
+    }
     .error_message{
       @include regular-text;
       color: $red;
