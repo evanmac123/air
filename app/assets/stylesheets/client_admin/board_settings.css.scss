@@ -29,16 +29,9 @@ body.client_admin-board_settings-index{
     }
     form{
       margin-bottom: 2em;
-      &:not(.dirty):not(.active){
+      &:not(.dirty){
         input[type="submit"]{
           @include light-button($gray);
-        }
-      }
-      &.active{
-        input[type="submit"]{
-          &:disabled{
-            @include app-button($gray);
-          }
         }
       }
       &.dirty {
@@ -61,13 +54,6 @@ body.client_admin-board_settings-index{
     form#edit_board_logo{
       .clear_form{
         display: inline-block;
-      }
-      &.active{
-        input[type="submit"]{
-          &:disabled{
-            @include light-button($gray);
-          }
-        }
       }
     }
     form#edit_board_email {

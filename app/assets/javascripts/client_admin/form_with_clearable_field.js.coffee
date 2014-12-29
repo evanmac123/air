@@ -76,17 +76,6 @@ formResponse = (form) ->
       form.addClass("has_error")
 
 fieldEvents = (field) ->
-  field.focusin ->
-    form = findForm $(@)
-    form.addClass("active")
-
-    unless form.hasClass("dirty")
-      disableSubmit(form, true)
-
-  field.focusout ->
-    form = findForm $(@)
-    form.removeClass("active")
-
   field.on 'input propertychange change paste', ->
     form = findForm $(@)
     form.addClass("dirty")
