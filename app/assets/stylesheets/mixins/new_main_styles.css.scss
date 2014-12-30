@@ -494,19 +494,24 @@ input[type="text"], input[type="password"], input[type="file"], textarea {
 }
 input:focus, select, textarea {outline: 0;}
 
-@mixin input-with-postfix($postfix-percent) {
+@mixin input-with-fix($type: post, $width: 30%) { // you can use px as well
+  $side: left;
+  @if($type == post){
+    $side: right;
+  }
+
   &:after{@include clear;}
   input {
-    width: 100% - $postfix-percent;
+    width: calc(100% - #{$width});
     float: left;
-    border-bottom-right-radius: 0;
-    border-top-right-radius: 0;
+    border-bottom-#{$side}-radius: 0;
+    border-top-#{$side}-radius: 0;
   }
-  .postfix {
-    width: $postfix-percent;
+  .#{$type}fix {
+    width: $width;
     float: left;
-    border-bottom-right-radius: 3px;
-    border-top-right-radius: 3px;
+    border-bottom-#{$side}-radius: 3px;
+    border-top-#{$side}-radius: 3px;
   }
 }
 

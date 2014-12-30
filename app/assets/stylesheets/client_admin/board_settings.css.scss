@@ -62,25 +62,14 @@ body.client_admin-board_settings-index{
     }
     form#edit_board_email {
       .input_with_postfix{
-        @include input-with-postfix(30%);
+        @include input-with-fix;
         width: 80%;
       }
     }
     form#edit_board_public_link {
       .input_with_prefix{
-        &:after{@include clear;}
-        .prefix {
-          width: 30%;
-          float: left;
-          border-bottom-left-radius: 3px;
-          border-top-left-radius: 3px;
-        }
-        input {
-          width: 50%;
-          float: left;
-          border-bottom-left-radius: 0;
-          border-top-left-radius: 0;
-        }
+        @include input-with-fix($type: pre);
+        width: 80%;
       }
     }
   }
