@@ -1,6 +1,6 @@
 <%= form_for board, url: board_email_name_client_admin_board_settings_path, html: { id: "edit_board_email_name"} do |form| %>
   <%= form.label :custom_reply_email_name, "'From' Name" %>
-  <i class="fa fa-question-circle has-tip" id="board_email_name_tooltip" data-tooltip="true" title="Customize your “From” email address. Examples include Company ABC Benefits or Company ABC Airbo. The default is board name."></i>
+  <i class="fa fa-question-circle has-tip" id="board_email_name_tooltip" data-tooltip="true" title='Customize your "From" email address. Examples include "Company ABC Benefits" or "Company ABC Airbo". The default is board name.'></i>
   <%= form.text_field :custom_reply_email_name, maxlength: 50, placeholder: board.name %>
   <div class="error_message">
     Sorry, that name is bad.
