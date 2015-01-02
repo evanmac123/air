@@ -107,7 +107,7 @@ formResponse = (form) ->
       form.addClass("has_error")
 
 fieldEvents = (field) ->
-  field.on 'input propertychange change paste', ->
+  field.on 'input propertychange change paste keyup', ->
     form = findForm $(@)
     form.addClass("dirty")
 
@@ -186,7 +186,7 @@ window.formWithClearableLogoField = (fieldSelector, old_ie) ->
 window.urlField = (fieldSelector) ->
   field = $(fieldSelector)
 
-  field.on 'input propertychange change paste', ->
+  field.on 'input propertychange change paste keyup', ->
     cursorPos = $(@).getCursorPosition()
 
     lowerCaseField $(@)
