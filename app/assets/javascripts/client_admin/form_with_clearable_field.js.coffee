@@ -1,3 +1,34 @@
+(($, undefined_) ->
+  $.fn.getCursorPosition = ->
+    el = $(this).get(0)
+    pos = 0
+    if "selectionStart" of el
+      pos = el.selectionStart
+    else if "selection" of document
+      el.focus()
+      Sel = document.selection.createRange()
+      SelLength = document.selection.createRange().text.length
+      Sel.moveStart "character", -el.value.length
+      pos = Sel.text.length - SelLength
+    pos
+
+  $.fn.setCursorPosition = (pos) ->
+    @each (index, elem) ->
+      if elem.setSelectionRange
+        elem.setSelectionRange pos, pos
+      else if elem.createTextRange
+        range = elem.createTextRange()
+        range.collapse true
+        range.moveEnd "character", pos
+        range.moveStart "character", pos
+        range.select()
+      return
+
+    this
+
+  return
+) jQuery
+
 String.prototype.trimToLength = (m) ->
   if this.length > m
     jQuery.trim(this).substring(0, m).trim(this) + "...";
@@ -104,10 +135,19 @@ submitEmptyForm = (form) ->
     success: formResponse form
     dataType: 'json'
 
+removeLogo = (form) ->
+  submitEmptyForm(form)
+
 formSubmitHandler = (field) ->
   findForm(field).submit (e) ->
     e.preventDefault()
     submitForm $(@)
+
+lowerCaseField = (field) ->
+  field.val field.val().toLowerCase()
+
+replaceSpacesInField = (field, replacer) ->
+  field.val field.val().replace /\s/g, replacer
 
 window.formWithClearableTextField = (fieldSelector) ->
   field = $(fieldSelector)
@@ -141,11 +181,16 @@ window.formWithClearableLogoField = (fieldSelector, old_ie) ->
       form[0].reset()
       form.removeClass("dirty").removeClass("has_error")
     else
-      # remove logo
-      submitEmptyForm(form)
+      removeLogo(form)
 
 window.urlField = (fieldSelector) ->
   field = $(fieldSelector)
+
   field.on 'input propertychange change paste', ->
-    $(@).val $(@).val().toLowerCase().replace /\s/g, "-"
+    cursorPos = $(@).getCursorPosition()
+
+    lowerCaseField $(@)
+    replaceSpacesInField $(@), "-"
+
+    $(@).setCursorPosition cursorPos
       
