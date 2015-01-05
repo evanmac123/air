@@ -460,7 +460,7 @@ class ApplicationController < ActionController::Base
       guest_user = GuestUser.find(session[:guest_user][:id])
       if params[:public_slug]
         board = Demo.find_by_public_slug(params[:public_slug])
-        unless guest_user.demo_id == board.id
+        if board.present? && guest_user.demo_id != board.id
           guest_user.demo = board
           guest_user.save!
         end
