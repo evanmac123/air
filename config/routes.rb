@@ -183,6 +183,7 @@ Health::Application.routes.draw do
         put 'board_email'
         put 'board_email_name'
         put 'board_public_link'
+        put 'board_welcome_message'
       end
     end
   end

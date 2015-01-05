@@ -1,0 +1,18 @@
+<%= form_for board, url: board_welcome_message_client_admin_board_settings_path, html: { id: "edit_board_welcome_message"} do |form| %>
+  <%= form.label :name, "Welcome Message" %>
+  <i class="fa fa-question-circle has-tip" id="board_welcome_message_tooltip" data-tooltip="true" title="Customize the welcome message that users see when they first join your board."></i>
+  <%= welcome_message = board.custom_welcome_message.present? ? board.custom_welcome_message : default_persistent_message %>
+  <%= form.text_field :name, value: welcome_message, maxlength: 160 %>
+  <div class="error_message">
+    Sorry, that board name is already taken.
+  </div>
+  <%= form.submit "Update", disabled: true %>
+  <a class="clear_form">Clear</a>
+<% end %>
+
+<% js_at_end do %>
+  $().ready(function(){
+    addCharacterCounterFor( $("#demo_custom_welcome_message") );
+    window.formWithClearableTextField("#demo_custom_welcome_message");
+  })
+<% end %>

@@ -49,6 +49,11 @@ class ClientAdmin::BoardSettingsController < ClientAdminBaseController
     render json: { success: @board.save }
   end
 
+  def board_welcome_message
+    @board.custom_welcome_message = params[:demo][:custom_welcome_message]
+    render json: { success: @board.save }
+  end
+
   protected
 
   def get_board
