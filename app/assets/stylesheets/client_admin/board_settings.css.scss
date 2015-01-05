@@ -2,7 +2,7 @@ body.client_admin-board_settings-index{
   .board_settings{
     @import '../mixins/new_main_styles.css.scss';
 
-    input[type="text"], input[type="file"]{
+    input[type="text"], input[type="file"], textarea{
       width: 80%;
       display: block;
       background: $white;
@@ -71,6 +71,9 @@ body.client_admin-board_settings-index{
         @include input-with-fix($type: pre);
         width: 80%;
       }
+    }
+    form#edit_board_welcome_message{
+      margin-bottom: 6em;
     }
   }
 }

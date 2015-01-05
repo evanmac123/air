@@ -358,12 +358,8 @@ class ApplicationController < ActionController::Base
     if message_from_board.present?
       message_from_board
     else
-      default_persistent_message
+      Demo.default_persistent_message
     end
-  end
-
-  def default_persistent_message
-    "Airbo is an interactive communication tool. Get started by clicking on a tile. Interact and answer questions to earn points."
   end
  
   def use_persistent_message?

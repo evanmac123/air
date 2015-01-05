@@ -361,6 +361,10 @@ class Demo < ActiveRecord::Base
     where("name ILIKE ?", normalize_board_name(name))
   end
 
+  def self.default_persistent_message
+    "Airbo is an interactive communication tool. Get started by clicking on a tile. Interact and answer questions to earn points."
+  end
+
   protected
 
   def unless_within(cutoff_time, last_done_time)

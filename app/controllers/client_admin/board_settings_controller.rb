@@ -50,7 +50,8 @@ class ClientAdmin::BoardSettingsController < ClientAdminBaseController
   end
 
   def board_welcome_message
-    @board.custom_welcome_message = params[:demo][:custom_welcome_message]
+    @board.persistent_message = params[:demo][:persistent_message]
+    
     render json: { success: @board.save }
   end
 

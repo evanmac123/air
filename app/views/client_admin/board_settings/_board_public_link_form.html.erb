@@ -1,6 +1,6 @@
 <%= form_for board, url: board_public_link_client_admin_board_settings_path, html: { id: "edit_board_public_link"} do |form| %>
   <%= form.label :public_slug, "Public Link" %>
-  <i class="fa fa-question-circle has-tip" id="board_name_tooltip" data-tooltip="true" title="Customize your public link (if available). Lowercase letters only."></i>
+  <i class="fa fa-question-circle has-tip" id="board_public_link_tooltip" data-tooltip="true" title="Customize your public link (if available). Lowercase letters only."></i>
   <div class="input_with_prefix">
     <span class="prefix">
       <%= request.host + '/ard/' %>
