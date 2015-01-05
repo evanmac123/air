@@ -24,6 +24,10 @@ feature "Client Admin Changes Board Settings" do
     "#edit_board_public_link"
   end
 
+  def board_welcome_message_form
+    "#edit_board_welcome_message"
+  end
+
   def clear_link
     page.find(".clear_form")
   end
@@ -215,6 +219,30 @@ feature "Client Admin Changes Board Settings" do
       end
 
       find_field("Public Link").value.should eq 'board-1'
+    end
+  end
+
+  context "board welcome message form" do
+    before(:each) do
+      visit client_admin_board_settings_path(as: client_admin)
+    end
+
+    it "should update board welcome message", js: true do
+      within board_welcome_message_form do
+        fill_in "Welcome Message", with: "Happy New Year!"
+        click_button "Update"
+      end
+
+      demo.reload.persistent_message.should == "Happy New Year!"
+    end
+
+    it "should clear form by clear link", js: true do
+      within board_welcome_message_form do
+        fill_in "Welcome Message", with: "Happy New Year!"
+        clear_link.click
+      end
+
+      find_field("Welcome Message").value.should eq welcome_message
     end
   end
 end
