@@ -1,5 +1,5 @@
 - tile_presenters = tiles.map{|tile| SingleTilePresenter.new(tile, @tile_tag, current_user.copied_tile?(tile), @liked_tile_ids.include?(tile.id))}
-- main_cache_key = [__FILE__, 'v3.pwd', 'main', @tile_tag, *(tile_presenters.map(&:cache_key))]
+- main_cache_key = [__FILE__, 'v4.pwd', 'main', @tile_tag, *(tile_presenters.map(&:cache_key))]
 
 - cache main_cache_key do 
   - tile_presenters.each_slice(4) do |presenter_slice|
@@ -42,5 +42,5 @@
 
   - tile_presenters.each do |presenter|
     :javascript
-      bindPreflightToEvent('mouseenter', '##{presenter.containing_td_id}', '#{presenter.full_size_url}');
+      bindPreflightToEvent('ready', document, '#{presenter.full_size_url}');
 
