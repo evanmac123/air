@@ -8,18 +8,8 @@ class TilesController < ApplicationController
   def index
     @current_user = current_user
     
-    @start_tile = if start_tile_id.to_s == '0'
-                    current_user.sample_tile
-                  elsif start_tile_id.present?
-                    Tile.find(start_tile_id)
-                  else
-                    nil
-                  end                      
-    
     @current_tile_ids = satisfiable_tiles.map(&:id)
     decide_if_tiles_can_be_done(satisfiable_tiles)
-
-    session.delete(:start_tile)
 
     decide_whether_to_show_conversion_form
 
@@ -27,6 +17,8 @@ class TilesController < ApplicationController
       render_tile_wall_as_partial
       ignore_all_newrelic if @current_user.is_site_admin
     else
+      @start_tile = find_start_tile
+      session.delete(:start_tile)
       schedule_viewed_tile_ping(@start_tile)
     end
   end
@@ -48,6 +40,21 @@ class TilesController < ApplicationController
   end
 
   protected
+
+  def find_start_tile
+    if start_tile_id.to_s == '0'
+      current_user.sample_tile
+    elsif start_tile_id.present?
+      candidate = Tile.find(start_tile_id)
+      if (candidate.is_sharable) || (candidate.demo_id == current_user.demo_id)
+        candidate
+      else
+        nil
+      end
+    else
+      nil
+    end
+  end
 
   def start_tile_id
     session[:start_tile] || first_id
