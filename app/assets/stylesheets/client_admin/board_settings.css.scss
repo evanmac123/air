@@ -12,7 +12,7 @@ body.client_admin-board_settings-index{
       width: 0;
       height: 0;
     }
-    .error_message{
+    .error_message, .empty_error_message{
       @include regular-text;
       color: $red;
       display: none;
@@ -52,6 +52,14 @@ body.client_admin-board_settings-index{
         }
         .error_message {
           display: block;
+        }
+        &.has_empty_error{
+          .error_message {
+            display: none;
+          }
+          .empty_error_message {
+            display: block;
+          }
         }
       }
     }

@@ -90,6 +90,20 @@ specificFormResponse = (field, data) ->
   if func
     func(field, data)
 
+hasEmptyErrorMess = (form) ->
+  form.find(".empty_error_message").length > 0
+
+showEmptyErrorMess = (form) ->
+  field = findField(form)
+  if hasEmptyErrorMess(form) && field.val().length == 0
+    form.addClass("has_empty_error")
+  else
+    form.removeClass("has_empty_error")
+
+showErrorMess = (form) ->
+  form.addClass("has_error")
+  showEmptyErrorMess(form)
+
 formResponse = (form) ->
   (data) ->
     submit = findSubmit(form)
@@ -104,7 +118,7 @@ formResponse = (form) ->
 
       specificFormResponse(field, data)
     else
-      form.addClass("has_error")
+      showErrorMess(form)
 
 fieldEvents = (field) ->
   field.on 'input propertychange change paste keyup', ->

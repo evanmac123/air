@@ -29,6 +29,7 @@ class Demo < ActiveRecord::Base
   validates_presence_of :name
 
   validates_uniqueness_of :public_slug
+  validates_presence_of :public_slug
 
   validate :ticket_fields_all_set, :if => :uses_tickets
 
