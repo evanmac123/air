@@ -178,12 +178,12 @@ Health::Application.routes.draw do
 
     resources :board_settings, only: :index do
       collection do
-        put 'board_name'
-        put 'board_logo'
-        put 'board_email'
-        put 'board_email_name'
-        put 'board_public_link'
-        put 'board_welcome_message'
+        put 'name'
+        put 'logo'
+        put 'email'
+        put 'email_name'
+        put 'public_link'
+        put 'welcome_message'
       end
     end
   end

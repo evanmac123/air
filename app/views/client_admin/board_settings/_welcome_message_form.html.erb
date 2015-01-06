@@ -1,4 +1,4 @@
-<%= form_for board, url: board_welcome_message_client_admin_board_settings_path, html: { id: "edit_board_welcome_message"} do |form| %>
+<%= form_for board, url: welcome_message_client_admin_board_settings_path, html: { id: "edit_board_welcome_message"} do |form| %>
   <%= form.label :persistent_message, "Welcome Message" %>
   <i class="fa fa-question-circle has-tip" id="board_welcome_message_tooltip" data-tooltip="true" title="Customize the welcome message that users see when they first join your board."></i>
   <% welcome_message = board.persistent_message.present? ? board.persistent_message : Demo.default_persistent_message %>

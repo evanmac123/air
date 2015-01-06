@@ -4,12 +4,12 @@ class ClientAdmin::BoardSettingsController < ClientAdminBaseController
   def index
   end
 
-  def board_name
+  def name
     @board.name = params[:demo][:name]
     render json: { success: @board.save }
   end
 
-  def board_logo
+  def logo
     @board.logo = if params[:demo].present? && params[:demo][:logo].present?
                     params[:demo][:logo]
                   else
@@ -34,22 +34,22 @@ class ClientAdmin::BoardSettingsController < ClientAdminBaseController
     end
   end
 
-  def board_email
+  def email
     @board.email = params[:demo][:email].strip + "@ourairbo.com"
     render json: { success: @board.save }
   end
 
-  def board_email_name
+  def email_name
     @board.custom_reply_email_name = params[:demo][:custom_reply_email_name]
     render json: { success: @board.save }
   end
 
-  def board_public_link
+  def public_link
     @board.public_slug = params[:demo][:public_slug]
     render json: { success: @board.save }
   end
 
-  def board_welcome_message
+  def welcome_message
     @board.persistent_message = params[:demo][:persistent_message]
     
     render json: { success: @board.save }
