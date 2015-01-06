@@ -2,7 +2,7 @@
   <%= form.label :persistent_message, "Welcome Message" %>
   <i class="fa fa-question-circle has-tip" id="board_welcome_message_tooltip" data-tooltip="true" title="Customize the welcome message that users see when they first join your board."></i>
   <% welcome_message = board.persistent_message.present? ? board.persistent_message : Demo.default_persistent_message %>
-  <%= form.text_area :persistent_message, value: welcome_message, rows: 5, maxlength: 160 %>
+  <%= form.text_area :persistent_message, value: welcome_message, placeholder: Demo.default_persistent_message, rows: 5, maxlength: 160 %>
   <div class="error_message">
     Sorry, that message is invalid.
   </div>
