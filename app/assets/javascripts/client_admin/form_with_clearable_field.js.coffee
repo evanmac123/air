@@ -97,6 +97,7 @@ showEmptyErrorMess = (form) ->
   field = findField(form)
   if hasEmptyErrorMess(form) && field.val().length == 0
     form.addClass("has_empty_error")
+    field.val oldValue(field)
   else
     form.removeClass("has_empty_error")
 
