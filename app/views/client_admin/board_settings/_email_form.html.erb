@@ -1,6 +1,6 @@
 <%= form_for board, url: email_client_admin_board_settings_path, html: { id: "edit_board_email"} do |form| %>
   <%= form.label :email, "Email Address" %>
-  <i class="fa fa-question-circle has-tip" id="board_name_tooltip" data-tooltip="true" title="Customize the beginning of your email address (if available)."></i>
+  <i class="fa fa-question-circle has-tip" id="board_email_tooltip" data-tooltip="true" title="Email address your users will receive emails from."></i>
   <div class="input_with_postfix">
     <%= form.text_field :email, value: remove_domain_part(board.email) %>
     <span class="postfix">@ourairbo.com</span>

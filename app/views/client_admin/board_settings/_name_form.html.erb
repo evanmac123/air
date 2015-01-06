@@ -1,6 +1,6 @@
 <%= form_for board, url: name_client_admin_board_settings_path, html: { id: "edit_board_name"} do |form| %>
   <%= form.label :name, "Board Name" %>
-  <i class="fa fa-question-circle has-tip" id="board_name_tooltip" data-tooltip="true" title="Change or update the name of your board."></i>
+  <i class="fa fa-question-circle has-tip" id="board_name_tooltip" data-tooltip="true" title="Name of the board your users will see."></i>
   <%= form.text_field :name, maxlength: 50 %>
   <div class="error_message">
     Sorry, that board name is already taken.
