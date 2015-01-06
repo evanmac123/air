@@ -50,7 +50,7 @@ $tooltip-pip-size: 5px !default;
     font-size: $tooltip-font-size;
     line-height: $tooltip-line-height;
     padding: $tooltip-padding;
-    max-width: 85%;
+    max-width: 340px;
     #{$default-float}: 50%;
     width: 100%;
     color: $tooltip-font-color;
