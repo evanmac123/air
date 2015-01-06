@@ -40,10 +40,8 @@ function openIntercom() {
 }
 
 function bindIntercomOpen(selector) {
-  $(document).ready(function() {
-    $(selector).on('click', function(event) {
-      event.preventDefault();
-      openIntercom();
-    });
+  $(selector).on('click', function(event) {
+    event.preventDefault();
+    openIntercom();
   });
 }
