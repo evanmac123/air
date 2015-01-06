@@ -66,6 +66,16 @@ feature "Client Admin Changes Board Settings" do
       expect_content "Sorry, that board name is already taken."
     end
 
+    it "should not allow empty field", js: true do
+      within board_name_form do
+        fill_in "Board Name", with: ""
+        click_button "Update"
+      end
+
+      demo.reload.name.should == "Board 1"
+      expect_content "Sorry, you must enter a board name."
+    end
+
     it "should clear form by clear link", js: true do
       within board_name_form do
         fill_in "Board Name", with: "Board 4"
@@ -150,6 +160,17 @@ feature "Client Admin Changes Board Settings" do
       demo.reload.email.should == "board1@ourairbo.com"
     end
 
+    it "should not allow empty email address", js: true do
+      within board_email_form do
+        fill_in "Email Address", with: ""
+        click_button "Update"
+      end
+
+      expect_no_content "Sorry, that email address is already taken."
+      expect_content "Sorry, you must enter an email address."
+      demo.reload.email.should == "board1@ourairbo.com"
+    end
+
     it "should clear form by clear link", js: true do
       within board_email_form do
         fill_in "Email Address", with: "board2 4"
@@ -209,6 +230,17 @@ feature "Client Admin Changes Board Settings" do
       end
       
       expect_content "Sorry, that public link is already taken."
+      demo.reload.public_slug.should == "board-1"
+    end
+
+    it "should not allow empty public link", js: true do
+      within board_public_link_form do
+        fill_in "Public Link", with: ""
+        click_button "Update"
+      end
+      
+      expect_no_content "Sorry, that public link is already taken."
+      expect_content "Sorry, you must enter a public link."
       demo.reload.public_slug.should == "board-1"
     end
 
