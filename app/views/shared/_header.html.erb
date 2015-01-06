@@ -73,12 +73,11 @@
 
       <!-- start of new admin navigation that needs to be gated off later -->
       <div class="large-3 columns" id="user_info">
+        <%= render 'shared/open_intercom_button' %>
         <div id="me_toggle">
           <div class="shadow_overlay"></div>
           <%= default_avatar_tag current_user, :id => :top_avatar, :class => "avatar48" %>
         </div>
-
-        <%= render 'shared/open_intercom_button' %>
       </div>
     <% else # current_user.is_guest? == true %>
       <% guest_user_header_button_style = show_save_progress_button ? '' : 'display: none' %>

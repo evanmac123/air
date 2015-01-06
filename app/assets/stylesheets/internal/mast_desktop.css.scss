@@ -284,9 +284,12 @@ header {
 
 
 #open-intercom {
-  @include light-button-small($sky-blue);
-  font-size: .8em;
   display: inline-block !important;
+  color: $darker-gray;
+  cursor: pointer;
+  margin-top: 0.4em;
+  padding-right: 1em;
+  font-size: 14px;
 }
 
 #guest-intercom-wrapper {
