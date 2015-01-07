@@ -5,6 +5,7 @@ feature "Client admin sets board's public status themself" do
     
   before do
     client_admin.demo.update_attributes(public_slug: 'heyfriend')
+    p client_admin.demo.public_slug
     tile = FactoryGirl.create :tile, demo: client_admin.demo
     user = FactoryGirl.create :user, demo: client_admin.demo
     FactoryGirl.create(:tile_completion, tile: tile, user: user)      
