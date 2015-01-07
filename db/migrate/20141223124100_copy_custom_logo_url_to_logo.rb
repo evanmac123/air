@@ -4,7 +4,7 @@ class CopyCustomLogoUrlToLogo < ActiveRecord::Migration
       custom_logo = demo.custom_logo_url
       if custom_logo.present? && demo.logo_file_name.blank?
         demo.logo = URI.parse(custom_logo)
-        demo.save
+        demo.save!
       end
     end
 
@@ -13,5 +13,12 @@ class CopyCustomLogoUrlToLogo < ActiveRecord::Migration
 
   def down
     add_column :demos, :custom_logo_url, :string
+
+    Demo.all.each do |demo|
+      if demo.logo_file_name.present?
+        demo.custom_logo_url = demo.logo.url
+        demo.save!
+      end
+    end
   end
 end
