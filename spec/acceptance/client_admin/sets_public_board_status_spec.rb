@@ -1,14 +1,21 @@
 require 'acceptance/acceptance_helper'
 
 feature "Client admin sets board's public status themself" do
-  let (:client_admin) { FactoryGirl.create(:client_admin) }
+  let! (:client_admin) { FactoryGirl.create(:client_admin) }
     
-  before do
+  before :each do
     client_admin.demo.update_attributes(public_slug: 'heyfriend')
-    p client_admin.demo.public_slug
     tile = FactoryGirl.create :tile, demo: client_admin.demo
     user = FactoryGirl.create :user, demo: client_admin.demo
     FactoryGirl.create(:tile_completion, tile: tile, user: user)      
+  end
+
+  # not sure if it even helps
+  # these tests just fail to often an leave records in test db.
+  after :each do
+    Tile.delete_all
+    Demo.delete_all
+    User.delete_all
   end
 
   def click_on_link
@@ -39,7 +46,7 @@ feature "Client admin sets board's public status themself" do
   end
 
   context "when the board is public" do
-    before do
+    before :each do
       client_admin.demo.is_public.should be_true
       visit client_admin_share_path(as: client_admin)
     end
