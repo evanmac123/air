@@ -80,8 +80,7 @@ class User < ActiveRecord::Base
   validates_presence_of :email, :if => :converting_from_guest, :message => "Please enter a valid email address"
   validates_presence_of :location_id, if: :must_have_location
 
-  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i}, 
-    if: Proc.new {|u| u.invitation_method == :client_admin_invites}
+  validates_with EmailFormatValidator, if: Proc.new {|u| u.invitation_method == :client_admin_invites}
   validates_presence_of :email, :if => :creating_board, :message => "can't be blank"
   validates_presence_of :password, :if => :creating_board, :message => "please enter a password at least 6 characters long"
 
