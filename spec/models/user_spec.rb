@@ -56,6 +56,23 @@ describe User do
     user3.errors[:phone_number].should == ["Sorry, but that phone number has already been taken. Need help? Contact support@air.bo"]
   end
 
+  it 'should validate that there are ten digits in a new phone number, and ignore other characters' do
+    expected_error = "Please fill in all ten digits of your mobile number, including the area code"
+    bad_numbers = ["415-999-123", "415-867-53009"]
+    good_numbers = ["(415) 999-1234", "617-404-8008"]
+
+    bad_numbers.each do |bad_number|
+      user = FactoryGirl.build :user, new_phone_number: bad_number
+      user.should_not be_valid
+      user.errors[:new_phone_number].should include(expected_error)
+    end
+
+    good_numbers.each do |good_number|
+      user = FactoryGirl.build :user, new_phone_number: good_number
+      user.should be_valid
+    end
+  end
+
   it 'should validate 5-digit zipcode' do
     user = FactoryGirl.build :user
     user.should be_valid  # no zipcode is okay
@@ -896,12 +913,6 @@ describe User do
     @user2.should_not be_valid
     @user10 = FactoryGirl.build(:user, email: third_email, overflow_email: third_email)
     @user10.should_not be_valid
-  end
-
-  it "should allow two users with phone numbers but no emails to be loaded" do
-    FactoryGirl.create(:user, email: nil, phone_number: '+19993334444').should be_valid
-    FactoryGirl.create(:user, email: nil, phone_number: '+19993334443').should be_valid
-    FactoryGirl.build(:user, email: nil, phone_number: nil).should_not be_valid
   end
 end
 

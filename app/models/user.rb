@@ -420,7 +420,7 @@ class User < ActiveRecord::Base
   end
 
   def send_new_phone_validation_token
-    OutgoingMessage.send_message self.new_phone_number, "Your code to verify this phone with H.Engage is #{self.new_phone_validation}.", nil, :from_demo => self.demo
+    OutgoingMessage.send_message self.new_phone_number, "Your code to verify this phone with Airbo is #{self.new_phone_validation}.", nil, :from_demo => self.demo
   end
 
   def validate_new_phone(entered_validation_code)

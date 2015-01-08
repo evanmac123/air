@@ -36,7 +36,7 @@ feature "User Confirms Phone number" do
     @leah.reload.new_phone_number.should == @phone_number
     @leah.phone_number.should be_blank
     crank_dj_clear
-    expected_text = "Your code to verify this phone with H.Engage is #{@leah.new_phone_validation}."
+    expected_text = "Your code to verify this phone with Airbo is #{@leah.new_phone_validation}."
     expect_mt_sms(@phone_number, expected_text)
   end
 
