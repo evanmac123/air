@@ -135,6 +135,20 @@
 
           <h5>Icon with tooltip</h5>
           <i class="fa fa-question-circle has-tip" data-tooltip="true" title="Tooltip has max-width so at some point it becomes multiline"></i>
+
+          <%= label_tag :email, "Input with postfix" %>
+          <div class="input_with_postfix">
+            <%= text_field_tag :email, "someguy" %>
+            <span class="postfix">@ourairbo.com</span>
+          </div>
+
+          <%= label_tag :public_slug, "Input with prefix" %>
+          <div class="input_with_prefix">
+            <span class="prefix">
+              <%= request.host + '/ard/' %>
+            </span>
+            <%= text_field_tag :public_slug, "unique_link" %>
+          </div>
         </form>
       </div>
     </div>

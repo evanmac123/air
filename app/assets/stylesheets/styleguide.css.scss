@@ -83,6 +83,14 @@ form{
       @include green-paddle-switch;
     }
   }
+  .input_with_postfix{
+    @include input-with-fix($width: 50%);
+    width: 400px;
+  }
+  .input_with_prefix{
+    @include input-with-fix($type: pre, $width: 70%);
+    width: 400px;
+  }
 }
 .sections{
   .example_section{
