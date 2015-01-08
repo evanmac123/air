@@ -109,15 +109,20 @@
   }
 }
 
-body.client_admin-tiles-index, body.client_admin-inactive_tiles,
-body.client_admin-tiles-index, body.client_admin-draft_tiles, 
+body.client_admin-tiles-index, 
+body.client_admin-inactive_tiles, 
+body.client_admin-draft_tiles, 
 body.client_admin-shares {
   .tile_thumbnail {width:100%;}
 }
 
-body.client_admin-tiles-index, body.client_admin-inactive_tiles,
+body.client_admin-tiles-index, 
+body.client_admin-inactive_tiles,
 body.client_admin-draft_tiles {
   // Tile management sections
+  .core {
+    background: $off-white;
+  }
   .content {
     background: $almost-white;
     padding: 0;
@@ -147,7 +152,7 @@ body.client_admin-draft_tiles {
     }
   }
   #archived_tiles, #draft_tiles {
-    background: #fafafa;
+    background: $off-white;
     position: relative;
     #draft, #archive{
       &:after{ @include clear; }
@@ -239,7 +244,7 @@ body.client_admin-draft_tiles #active_tiles,
 .creation-placeholder a {
   border-color: $almost-white;
   display: block;
-  color: #fafafa !important;
+  color: $off-white !important;
   line-height:1em;
   position: relative;
   text-align: center;
