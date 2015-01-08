@@ -44,13 +44,12 @@
   }
   .tile-wrapper{
     @include ease(.025s);
-    border: $lightest-gray solid 1px;
     border-radius:$border-radius;
     display: inline-block;
     overflow: hidden;
     position: relative;
     width:100%;
-    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.22);
+    box-shadow: 0 2px 1px rgba(0, 0, 0, 0.22);
     
     .tile_thumbnail_image, .headline {
       margin:0 auto;

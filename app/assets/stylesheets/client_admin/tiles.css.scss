@@ -147,14 +147,14 @@ body.client_admin-draft_tiles {
     }
   }
   #archived_tiles, #draft_tiles {
-    background: $almost-white;
+    background: #fafafa;
     position: relative;
     #draft, #archive{
       &:after{ @include clear; }
     }
     .all_inactive {display: inline-block;}
     .tile_thumbnail.placeholder_tile {
-      border-color: $light-gray;
+      border-color: $almost-white;
     }
     .create_new_tile {
       @include app-button($dark-green);
@@ -179,10 +179,6 @@ body.client_admin-draft_tiles {
   }
   #draft_tiles {
     padding-top: 2em;
-    background: #fafafa;
-    .tile_thumbnail.placeholder_tile {
-      border-color: $almost-white;
-    }
   }
   .draft_overlay{
     position: absolute;
@@ -218,6 +214,8 @@ body.client_admin-draft_tiles {
   }
   #active_tiles {
     padding:2em 0 0 0;
+    box-shadow: 0px 1px 5.88px 0.12px rgba(125, 125, 125, 0.52);
+    z-index: 1;
     #active{
       &:after{ @include clear; }
     }

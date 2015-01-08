@@ -405,6 +405,7 @@ body.explores {
   width: auto;
   overflow: hidden;
   min-height:660px;
+  min-height: calc(100vh - 48px);
 }
 
 .content {
