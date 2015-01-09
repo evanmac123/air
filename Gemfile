@@ -8,7 +8,7 @@ gem "unicorn"   # Some of our capybara webkit tests fail with thin, so we use un
 gem 'delayed_job_active_record'
 gem "high_voltage"
 gem "airbrake"
-gem "paperclip"
+gem "paperclip", "~>3.3.0"
 gem "paperclip-meta"
 gem 'aws-sdk'
 gem "formtastic"
@@ -37,7 +37,7 @@ gem 'carrierwave_direct'
 gem 'redis'
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 gem 'rack-timeout'
-gem 'delayed_paperclip', :git => "https://github.com/phildarnowsky/delayed_paperclip"
+gem 'delayed_paperclip'
 gem 'mobvious-rails'
 gem 'rails3_before_render'
 gem 'rollout'
