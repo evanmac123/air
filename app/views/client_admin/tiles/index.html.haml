@@ -6,8 +6,7 @@
     .large-12.columns
       %h4 Draft
       %div#draft.manage_section= render partial: 'shared/tiles/draft'
-      - if @show_more_draft_tiles
-        = link_to "Show all", client_admin_draft_tiles_path, :class => :all_draft
+      = link_to "Show all", client_admin_draft_tiles_path, class: :all_draft, style: "display:#{@show_more_draft_tiles ? 'block' : 'none'};"
 .completed_tiles_containment
   %section.manage_tiles#active_tiles
     .draft_blocked_message

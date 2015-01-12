@@ -6,6 +6,15 @@ updateShareTilesNumber = function(number){
   $("#share_tiles span").text(number);
 }
 
+updateShowMoreDraftTilesButton = function(show){
+  button = $(".all_draft")
+  if(show == "true"){
+    button.show()
+  }else{
+    button.hide()
+  }
+}
+
 fillInLastTile = function(tile_id, section_name, tile_container){
   section = $("#" + section_name)
   if( sectionHasFreePlace(section) && tileIsNotPresent(tile_id) ){

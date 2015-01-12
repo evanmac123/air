@@ -12,7 +12,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @active_tiles  = @demo.active_tiles_with_placeholders
     @archive_tiles = (@demo.archive_tiles_with_placeholders)[0,4]
     @draft_tiles = (@demo.draft_tiles_with_placeholders)[0,8]
-    @show_more_draft_tiles = @demo.draft_tiles.count > 7
+    @show_more_draft_tiles = show_more_draft_tiles
     @board_is_brand_new = @demo.tiles.limit(1).first.nil?
 
     process_own_tile_completed
@@ -137,6 +137,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
                       get_demo.id
                     )
     end
+
+    @show_more_draft_tiles = show_more_draft_tiles
 
     tile_status_updated_ping @tile, "Dragged tile to move"
   end
@@ -292,5 +294,9 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def tile_status_updated_ping tile, action
     ping('Moved Tile in Manage', {action: action, tile_id: tile.id}, current_user)
+  end
+
+  def show_more_draft_tiles
+    @demo.draft_tiles.count > 7
   end
 end
