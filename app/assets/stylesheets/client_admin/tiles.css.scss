@@ -124,7 +124,7 @@ body.client_admin-draft_tiles {
     background: $off-white;
   }
   .content {
-    background: $almost-white;
+    background: $off-white;
     padding: 0;
   }
   .manage_tiles {
@@ -219,7 +219,7 @@ body.client_admin-draft_tiles {
   }
   #active_tiles {
     padding:2em 0 0 0;
-    box-shadow: 0px 1px 6px 1.2px rgba(125, 125, 125, 1);
+    box-shadow: 0px 1px 6px 1.2px $med-gray;
     z-index: 1;
     #active{
       &:after{ @include clear; }
