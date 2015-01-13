@@ -10,11 +10,14 @@ class PasswordsController < Clearance::PasswordsController
   def create
     @user = User.find_by_email params[:password][:email]
 
-    # Non-existent user or a legitimate "Forgot Password" => Let Clearance handle it
-    super and return if (@user.nil? or @user.claimed?)
-
-    flash.now[:failure] = "We're sorry, you need to join Airbo before you can reset your password. Please contact support@air.bo for assistance."
-    render :template => 'passwords/new'
+    if @user.present?
+      @user.forgot_password!
+      Mailer.delay.change_password(@user.id)
+      render :template => 'passwords/create'
+    else
+      flash.now[:failure] = "We're sorry, you need to join Airbo before you can reset your password. Please contact support@air.bo for assistance."
+      render :template => 'passwords/new'
+    end
   end
 
   def edit

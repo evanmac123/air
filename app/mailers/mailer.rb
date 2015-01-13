@@ -156,6 +156,14 @@ class Mailer < ActionMailer::Base
          :subject => "Someone #{@action} your tile on Airbo"
   end 
 
+  def change_password user_id
+    @user = User.find user_id
+
+    mail :to      => @user.email,
+         :from => @user.reply_email_address,
+         :subject => "Change your password"
+  end
+
   protected
 
   def first_completed_tile_ping(user)
