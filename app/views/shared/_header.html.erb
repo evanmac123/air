@@ -1,4 +1,4 @@
-<header>
+<header class="<%= current_user.has_tiles_tools_subnav? ? "admin_header" : '' %>">
   <div class="row" id="top_bar">
 
     <% home_path = set_home_path @public_tile_page %>
