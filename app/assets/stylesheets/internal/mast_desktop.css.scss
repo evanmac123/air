@@ -92,8 +92,7 @@ header {
   // Toggles 
   
   #user_info #me_toggle {
-    border-right: 0;
-
+    border-left-width: 1px;
     padding-left:.5em;
     position: relative;
     text-align: left;
@@ -104,12 +103,16 @@ header {
       content:"\25BE";
       font-size:1.25em;
       position: absolute;
-      right:.35em;
-      top:50%;
+      right: 4px;
       margin-top:-.55em;
+      padding: 18px 0 18px 3px;
+      border-left: 1px solid darken($header-color, 9%);
     }
     &.toggled {
-      &:after{color:$gray;}
+      &:after{
+        color:$gray;
+        border: none;
+      }
     }
     img {max-width:$top-bar-height;}
     .shadow_overlay {
@@ -178,8 +181,8 @@ header {
   }
 
   .user_options ul {
-    right:15px;
-    top:45px;
+    right:16px;
+    top:47px;
     .nav-home, .nav-help {display: none;}
   }
 

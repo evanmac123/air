@@ -70,7 +70,7 @@ header {
   @include header_bar;
 
   box-shadow: 0 4px 4px -4px darken($header-color, 35%);
-  margin-bottom: 1px;
+  margin-bottom: -1px;
   position: relative;
   .small_cap {
     color:$med-gray;
@@ -134,10 +134,9 @@ header {
         font-weight: 700;
       }
     }
-
-    #me_toggle, .user_info_sections {display: inline-block; }
     #me_toggle {display:none;}
     .user_info_sections {
+      display: inline-block;
       text-align: left;
       padding-right: 4%;
       vertical-align: top;
