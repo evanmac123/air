@@ -61,4 +61,41 @@ feature 'Sets their privacy level' do
       expect_act_copy
     end
   end
+
+  scenario "sets their privacy level in the settings page" do
+    visit edit_account_settings_path(as: @user)
+    page.find('#user_privacy_level').value.should == 'connected'
+
+    select 'Everybody', from: 'user[privacy_level]'
+    click_button "Update privacy"
+    page.find('#user_privacy_level').value.should == 'everybody'
+  end
+
+  scenario "privacy level change affects existing acts" do
+    @user.update_attributes(privacy_level: 'everybody')
+    create_act
+
+    visit acts_path(as: @user_in_same_board)
+    expect_act_copy
+    visit acts_path(as: @follower)
+    expect_act_copy
+
+    visit edit_account_settings_path(as: @user)
+    select "Connections I've accepted", from: 'user[privacy_level]'
+    click_button "Update privacy"
+
+    visit acts_path(as: @user_in_same_board)
+    expect_no_act_copy
+    visit acts_path(as: @follower)
+    expect_act_copy
+
+    visit edit_account_settings_path(as: @user)
+    select "Everybody", from: 'user[privacy_level]'
+    click_button "Update privacy"
+
+    visit acts_path(as: @user_in_same_board)
+    expect_act_copy
+    visit acts_path(as: @follower)
+    expect_act_copy
+  end
 end
