@@ -20,14 +20,19 @@ class TilesController < ApplicationController
       @start_tile = find_start_tile
       session.delete(:start_tile)
       schedule_viewed_tile_ping(@start_tile)
+      increment_tile_views_counter @start_tile, current_user
     end
   end
 
   def show
     if params[:partial_only]
       decide_whether_to_show_conversion_form
-      render_new_tile
-      schedule_viewed_tile_ping(current_tile)
+
+      new_tile_was_rendered = render_new_tile
+      if new_tile_was_rendered
+        schedule_viewed_tile_ping(current_tile)
+        increment_tile_views_counter current_tile, current_user
+      end
       mark_all_completed_tiles
     else
       session[:start_tile] = params[:id]
@@ -81,6 +86,7 @@ class TilesController < ApplicationController
       all_tiles: all_tiles,
       completed_tiles: completed_tiles
     }
+    !(all_tiles_done && after_posting)
   end
  
   def tile_content(all_tiles_done, after_posting)
@@ -182,5 +188,9 @@ class TilesController < ApplicationController
     if Tile.satisfiable_to_user(current_user).empty?
       current_user.not_show_all_completed_tiles_in_progress
     end
+  end
+
+  def increment_tile_views_counter tile, user
+    tile.viewed_by(user) if tile
   end
 end

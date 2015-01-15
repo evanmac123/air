@@ -22,12 +22,7 @@ class TileFooterTimestamper
           'tile-deactivated-time')
       ].join(' ').html_safe
     else
-      [
-        active_time,
-        spanned_text(
-          "Since: " + tile.activated_at.strftime('%-m/%-d/%Y'),
-          "tile-activated-since")
-      ].join(' ').html_safe
+      active_time
     end
   end
 

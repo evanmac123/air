@@ -5,7 +5,7 @@
 - not_draft = tile.status != Tile::DRAFT
 - completion_percentage = number_to_percentage tile.claimed_completion_percentage, precision: 1
 
-- cache [__FILE__, 'v2.pwd', archive_link_options, timestamp, not_draft, completion_percentage, type, tile.id, tile.thumbnail, tile.headline, tile.tile_completions_count] do
+- cache [__FILE__, 'v3.ant', archive_link_options, timestamp, not_draft, completion_percentage, type, tile.id, tile.thumbnail, tile.headline, tile.tile_completions_count, tile.total_views, tile.unique_views] do
   .tile_container
     .tile_thumbnail{class:type, id:"single-tile-#{tile.id}", data:{tile_id:tile.id}}
       %a{href:client_admin_tile_path(tile), class:'tile_thumb_link'}
@@ -20,6 +20,13 @@
         %li= content_tag(:div, link_to('Edit', edit_client_admin_tile_path(tile)), class: 'edit_tile_link')
       .tile_stats
         .activation_dates= timestamp
+        - if tile.active?
+          .views
+            Viewed:
+            = tile.total_views
+            Total,
+            = tile.unique_views
+            Unique 
         - if not_draft
           .completions 
             Completed:

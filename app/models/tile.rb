@@ -37,6 +37,8 @@ class Tile < ActiveRecord::Base
   has_many :tile_tags, through: :tile_taggings
   has_many :user_tile_copies, dependent: :destroy
   has_many :user_tile_likes, dependent: :destroy
+  has_many :tile_viewings, dependent: :destroy
+  has_many :viewers, through: :tile_viewings, source: :user
   
   validates_presence_of :headline, :allow_blank => false, :message => "headline can't be blank"
   validates_presence_of :supporting_content, :allow_blank => false, :message => "supporting content can't be blank", :on => :client_admin
@@ -313,6 +315,18 @@ class Tile < ActiveRecord::Base
 
     full_width = 600.0 # px for full size tile
     ( height * full_width / width ).to_i
+  end
+
+  def viewed_by user
+    TileViewing.add(self, user) if user
+  end
+
+  def total_views
+    TileViewing.total_views self
+  end
+
+  def unique_views
+    TileViewing.unique_views self
   end
 
   def self.due_ids

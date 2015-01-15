@@ -39,6 +39,8 @@ class User < ActiveRecord::Base
   has_many   :board_memberships, dependent: :destroy
   has_many   :demos, through: :board_memberships
   has_many   :user_in_raffle_infos, as: :user
+  has_many   :tile_viewings, as: :user
+  has_many   :viewed_tiles, through: :tile_viewings
   has_one    :raffle, through: :demo
   has_one    :current_board_membership, :class_name => "BoardMembership", :conditions => "is_current = true"
   has_one    :demo, through: :current_board_membership
