@@ -25,4 +25,12 @@ module ClientAdmin::TileCompletionsHelper
   	}
   	client_admin_tile_tile_completions_path(tile) + "?#{params.to_query}"
   end
+
+  def joined_field user
+    if user.claimed?
+      '<span class="joined">Yes</span>'.html_safe
+    else
+      '<span class="not-joined">No</span>'.html_safe
+    end
+  end
 end

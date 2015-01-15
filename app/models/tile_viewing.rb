@@ -11,6 +11,15 @@ class TileViewing < ActiveRecord::Base
     end
   end
 
+  def self.views tile, user
+    viewing = where(tile: tile, user: user).first
+    if viewing
+      viewing.views
+    else
+      0
+    end
+  end
+
   def self.unique_views tile
     where(tile: tile).count
   end
