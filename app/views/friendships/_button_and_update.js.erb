@@ -1,5 +1,0 @@
-$('#follow-target').html(
-  <%= raw render(new_button_path, :user => @user).to_json %>
-);
-$("#followers-count-<%= @user.id %>").text('<%= followers_count_phrase(@user) %>');
-$("#following-count-<%= @user.id %>").text('<%= following_count_phrase(@user) %>');
