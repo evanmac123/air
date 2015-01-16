@@ -38,7 +38,8 @@ class Tile < ActiveRecord::Base
   has_many :user_tile_copies, dependent: :destroy
   has_many :user_tile_likes, dependent: :destroy
   has_many :tile_viewings, dependent: :destroy
-  has_many :viewers, through: :tile_viewings, source: :user
+  has_many :user_viewers, through: :tile_viewings, source: :user, source_type: 'User'
+  has_many :guest_user_viewers, through: :tile_viewings, source: :user, source_type: 'GuestUser'
   
   validates_presence_of :headline, :allow_blank => false, :message => "headline can't be blank"
   validates_presence_of :supporting_content, :allow_blank => false, :message => "supporting content can't be blank", :on => :client_admin

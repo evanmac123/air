@@ -364,4 +364,9 @@ FactoryGirl.define do
     invitation_code "MyString"
     association(:demo)
   end
+
+  factory :tile_viewings do
+    association :tile
+    association :user
+  end
 end

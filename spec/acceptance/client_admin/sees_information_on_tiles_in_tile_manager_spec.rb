@@ -8,6 +8,18 @@ feature 'Sees helpful information in tile manager' do
     "[data-tile_id='#{tile.id}']"  
   end
 
+  def expect_total_views_count tile, count
+    within tile_cell(tile) do
+      expect_content "#{count} Total"
+    end
+  end
+
+  def expect_unique_views_count tile, count
+    within tile_cell(tile) do
+      expect_content "#{count} Unique"
+    end
+  end
+
   def expect_completed_users_count(tile, expected_count)
     within tile_cell(tile) do
       within ".completions" do
@@ -27,6 +39,11 @@ feature 'Sees helpful information in tile manager' do
         expect_content "Completed: #{expected_percentage}% of joined users"
       end
     end
+  end
+
+  def complete_tile tile
+    expect_content tile.headline
+    page.find('.right_multiple_choice_answer').click
   end
 
   after do
@@ -70,27 +87,117 @@ feature 'Sees helpful information in tile manager' do
   end
 
   context "for a tile that is active" do
-    before do
-      Timecop.travel(7.days)
-      @tile = FactoryGirl.create(:tile, demo: demo, status: Tile::ACTIVE, activated_at: 7.days.ago, archived_at: 19.days.ago)
+    context "info about activation" do
+      before do
+        Timecop.travel(7.days)
+        @tile = FactoryGirl.create(:tile, demo: demo, status: Tile::ACTIVE, activated_at: 7.days.ago, archived_at: 19.days.ago)
 
-      visit client_admin_tiles_path(as: client_admin)
-    end
+        visit client_admin_tiles_path(as: client_admin)
+      end
 
-    it "should show the length of time that it's been active", js: true do
-      within "#{tile_cell(@tile)}.active" do
-        expect_content "Active: 7 days"
+      it "should show the length of time that it's been active", js: true do
+        within "#{tile_cell(@tile)}.active" do
+          expect_content "Active: 7 days"
+        end
       end
     end
 
-    it "should show when it was activated" do
-      within "#{tile_cell(@tile)}.active" do
-        expect_content "Since: #{7.days.ago.strftime('%-m/%-d/%Y')}"
+    context "info about views" do
+      before do
+        @tile1 = FactoryGirl.create(:multiple_choice_tile, demo: demo, status: Tile::ACTIVE, activated_at: 7.days.ago)
+        @tile2 = FactoryGirl.create(:multiple_choice_tile, demo: demo, status: Tile::ACTIVE, activated_at: 7.days.ago)
+      end
+
+      it "should have no views initially" do
+        visit client_admin_tiles_path(as: client_admin)
+
+        expect_total_views_count @tile1, 0
+        expect_total_views_count @tile2, 0
+
+        expect_unique_views_count @tile1, 0
+        expect_unique_views_count @tile2, 0
+      end
+
+      it "should count user's views when he completes and views tiles", js: true do
+        #
+        # => Completes tiles
+        #
+        visit tiles_path(as: client_admin)
+        
+        complete_tile @tile2
+        complete_tile @tile1
+
+        expect_content "Return to homepage"
+
+        visit client_admin_tiles_path(as: client_admin)
+
+        expect_total_views_count @tile1, 1
+        expect_total_views_count @tile2, 1
+
+        expect_unique_views_count @tile1, 1
+        expect_unique_views_count @tile2, 1
+        #
+        # => Views tiles
+        #
+        visit tile_path(@tile2, as: client_admin)
+
+        expect_content @tile2.headline
+        show_next_tile
+
+        expect_content @tile1.headline
+        show_next_tile
+
+        expect_content @tile2.headline
+
+        visit client_admin_tiles_path
+
+        expect_total_views_count @tile1, 2
+        expect_total_views_count @tile2, 3
+
+        expect_unique_views_count @tile1, 1
+        expect_unique_views_count @tile2, 1
+      end
+
+      it "should count guest user's views when he views completed tiles", js: true do
+        guest_user = a_guest_user
+        #
+        # => Completes tiles
+        #
+        visit public_tiles_path(public_slug: demo.public_slug, as: guest_user)
+        
+        complete_tile @tile2
+        complete_tile @tile1
+
+        expect_content "Return to homepage"
+        #
+        # => Views tiles
+        #
+        visit public_tile_path(id: @tile2, public_slug: demo.public_slug, as: guest_user)
+
+        close_conversion_form
+
+        expect_content @tile2.headline
+        show_next_tile
+
+        close_conversion_form
+
+        expect_content @tile1.headline
+        show_next_tile
+
+        expect_content @tile2.headline
+
+        visit client_admin_tiles_path(as: client_admin)
+
+        expect_total_views_count @tile1, 2
+        expect_total_views_count @tile2, 3
+
+        expect_unique_views_count @tile1, 1
+        expect_unique_views_count @tile2, 1
       end
     end
   end
 
-  context "with numerical information" do
+  context "with information about completed tiles" do
     before do
       @tile_1 = FactoryGirl.create(:tile, demo: demo, status: Tile::ACTIVE,  archived_at: 5.days.ago, activated_at: 2.days.ago)
       @tile_2 = FactoryGirl.create(:tile, demo: demo, status: Tile::ARCHIVE, archived_at: 5.days.ago, activated_at: 6.days.ago)

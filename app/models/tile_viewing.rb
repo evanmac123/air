@@ -2,6 +2,10 @@ class TileViewing < ActiveRecord::Base
   belongs_to :tile
   belongs_to :user, polymorphic: true
 
+  def increment
+    update_attribute :views, (views + 1)
+  end
+
   def self.add tile, user
     viewing = where(tile: tile, user: user).first
     if viewing
@@ -34,11 +38,5 @@ class TileViewing < ActiveRecord::Base
 
   def self.guest_users_viewings tileid
     where(tile_id: tileid, user_type: 'GuestUser')
-  end
-
-  protected
-
-  def increment
-    update_attribute :views, (views + 1)
   end
 end
