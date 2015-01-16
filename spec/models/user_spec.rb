@@ -13,6 +13,8 @@ describe User do
   it { should have_many(:friends).through(:friendships) }
   it { should have_many(:tile_completions) }
   it { should have_many(:tiles) }
+  it { should have_many(:tile_viewings) }
+  it { should have_many(:viewed_tiles) }
   # Note that our validates_uniqueness_of :email is called in the Clearance gem
   it { should validate_uniqueness_of(:email) }
   it { should validate_presence_of(:name).with_message("Please enter a first and last name") }

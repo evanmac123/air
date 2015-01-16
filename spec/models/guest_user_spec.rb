@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 describe GuestUser do
+  it { should have_many(:tile_viewings) }
+  it { should have_many(:viewed_tiles) }
+  
   let(:user) { FactoryGirl.create(:guest_user) }
 
   def convert

@@ -61,6 +61,9 @@ feature "sees tile completion details" do
       FactoryGirl.create(:tile_completion, user: user_first_email, tile: tile)
       FactoryGirl.create(:tile_completion, user: user_last_email, tile: tile)
       FactoryGirl.create(:tile_completion, user: user_first_joined, tile: tile)
+
+      FactoryGirl.create(:tile_viewing, user: user_first_name, tile: tile)
+
       visit client_admin_tile_tile_completions_path(tile, as: client_admin)
     end    
     scenario "breadcrumb saying Tiles and Completion Report" do
@@ -80,6 +83,7 @@ feature "sees tile completion details" do
       page.should have_content "NAME"
       page.should have_content "EMAIL"
       page.should have_content "DATE"
+      page.should have_content "VIEWED"
       page.should have_content "JOINED"
     end
     scenario "sees pagination at bottom" do
@@ -98,13 +102,20 @@ feature "sees tile completion details" do
       click_link 'Email'
       page.all('tbody tr:first td')[1].should have_content('zzz@gmail.com')
     end
+    scenario "on click viewed, list should show viewed descending" do
+      click_link 'Viewed'
+      page.find('tbody tr:first td:first').should have_content('000')
+      page.all('tbody tr:first td')[3].should have_content('1')
+      click_link 'Viewed'
+      page.all('tbody tr:first td')[3].should have_content('0')
+    end
     scenario "on click joined, list should show joined descending" do
       click_link 'Joined'
       page.find('tbody tr:first td:first').should have_content('first joined')
-      page.all('tbody tr:first td')[3].should have_content('Yes')
+      page.all('tbody tr:first td')[4].should have_content('Yes')
       click_link 'Joined'
       page.find('tbody tr:first td:first').should have_content('James Earl Jones')
-      page.all('tbody tr:first td')[3].should have_content('No')
+      page.all('tbody tr:first td')[4].should have_content('No')
     end
     #    scenario "should be sortable by date" do
     #      tile_completion_latest = FactoryGirl.create(:tile_completion, user: user_latest, tile: tile)
@@ -121,6 +132,7 @@ feature "sees tile completion details" do
         click_link 'show_not_completed'
         page.should have_content "NAME"
         page.should have_content "EMAIL"
+        page.should have_content "VIEWED"
         page.should have_content "JOINED"
       end
     end

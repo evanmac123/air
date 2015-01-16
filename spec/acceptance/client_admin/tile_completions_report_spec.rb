@@ -17,8 +17,9 @@ feature 'client admin views tile completions and non completions reports' do
       FactoryGirl.create :user, name: "j'ames#{i}", demo: demo, email: "j'ames#{i}@example.com"
     end
   end
-  let!(:tile_completions) do
-    demo.users.each_with_index do |user, i|
+  before do
+    demo.users.order(:created_at).each_with_index do |user, i|
+      FactoryGirl.create :tile_viewing, tile: tile, user: user, views: i
       next if i.even?
       FactoryGirl.create :tile_completion, tile: tile, user: user, answer_index: (i%3), created_at: Date::strptime("10/13/2014", "%m/%d/%Y")
     end
@@ -33,12 +34,12 @@ feature 'client admin views tile completions and non completions reports' do
       page.response_headers['Content-Disposition'].should =~ report_name
 
       expected_csv = <<CSV
-Name,Email,Date,Answer,Joined?
-j'ames9,j'ames9@example.com,10/13/2014,Ham,No
-j'ames7,j'ames7@example.com,10/13/2014,Eggs,No
-j'ames5,j'ames5@example.com,10/13/2014,A V8 Buick,No
-j'ames3,j'ames3@example.com,10/13/2014,Ham,No
-j'ames1,j'ames1@example.com,10/13/2014,Eggs,No
+Name,Email,Date,Viewed,Answer,Joined?
+j'ames9,j'ames9@example.com,10/13/2014,9,Ham,No
+j'ames7,j'ames7@example.com,10/13/2014,7,Eggs,No
+j'ames5,j'ames5@example.com,10/13/2014,5,A V8 Buick,No
+j'ames3,j'ames3@example.com,10/13/2014,3,Ham,No
+j'ames1,j'ames1@example.com,10/13/2014,1,Eggs,No
 CSV
       page.body.should == expected_csv
     end
@@ -54,13 +55,13 @@ CSV
       page.response_headers['Content-Disposition'].should =~ report_name("non")
 
       expected_csv = <<CSV
-Name,Email,Joined?
-Bo Diddley,bo@example.com,Yes
-j'ames10,j'ames10@example.com,No
-j'ames2,j'ames2@example.com,No
-j'ames4,j'ames4@example.com,No
-j'ames6,j'ames6@example.com,No
-j'ames8,j'ames8@example.com,No
+Name,Email,Viewed,Joined?
+Bo Diddley,bo@example.com,0,Yes
+j'ames10,j'ames10@example.com,10,No
+j'ames2,j'ames2@example.com,2,No
+j'ames4,j'ames4@example.com,4,No
+j'ames6,j'ames6@example.com,6,No
+j'ames8,j'ames8@example.com,8,No
 CSV
       page.body.should == expected_csv
     end

@@ -365,7 +365,7 @@ FactoryGirl.define do
     association(:demo)
   end
 
-  factory :tile_viewings do
+  factory :tile_viewing do
     association :tile
     association :user
   end

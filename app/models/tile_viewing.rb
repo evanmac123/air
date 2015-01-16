@@ -4,6 +4,7 @@ class TileViewing < ActiveRecord::Base
 
   def increment
     update_attribute :views, (views + 1)
+    self
   end
 
   def self.add tile, user
