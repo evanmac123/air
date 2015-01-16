@@ -28,6 +28,14 @@ class TileViewing < ActiveRecord::Base
     where(tile: tile).sum(:views)
   end
 
+  def self.users_viewings tileid
+    where(tile_id: tileid, user_type: 'User')
+  end
+
+  def self.guest_users_viewings tileid
+    where(tile_id: tileid, user_type: 'GuestUser')
+  end
+
   protected
 
   def increment

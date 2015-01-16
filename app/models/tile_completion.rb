@@ -1,7 +1,8 @@
 class TileCompletion < ActiveRecord::Base
-  ORDER_BY_USER_NAME  = 'users.name'.freeze
-  ORDER_BY_USER_EMAIL  = 'users.email'.freeze
+  ORDER_BY_USER_NAME    = 'users.name'.freeze
+  ORDER_BY_USER_EMAIL   = 'users.email'.freeze
   ORDER_BY_USER_JOINED  = 'users.accepted_invitation_at'.freeze
+  ORDER_BY_TILE_VIEWS   = 'tile_viewings.views'.freeze
 
   belongs_to :user, polymorphic: true
   belongs_to :tile, counter_cache: true
@@ -52,10 +53,25 @@ class TileCompletion < ActiveRecord::Base
   # => Methods For Wice Grid
   #
   def self.tile_completions_with_users tileid
+    users_viewings_subquery = TileViewing.users_viewings(tileid)
+    guest_users_viewings_subquery = TileViewing.guest_users_viewings(tileid)
+
     TileCompletion
       .includes{tile}
-      .joins{user(User).outer.tile_viewings.outer}
-      .joins{user(GuestUser).outer.tile_viewings.outer}
+      .joins{user(User).outer}
+      .joins{user(GuestUser).outer}
+      .joins do
+        "LEFT JOIN (" +
+         users_viewings_subquery.to_sql +
+        ") AS users_viewings " + 
+        "ON users_viewings.user_id = users.id"
+      end
+      .joins do
+        "LEFT JOIN (" +
+         guest_users_viewings_subquery.to_sql +
+        ") AS guest_users_viewings " + 
+        "ON guest_users_viewings.user_id = guest_users.id"
+      end
       .where{tile_id == tileid}
   end
 
@@ -64,17 +80,21 @@ class TileCompletion < ActiveRecord::Base
       name: 'tc_grid', order: 'created_at', order_direction: 'desc',
       custom_order: {
 
-        ORDER_BY_USER_NAME =>   "CASE WHEN #{User.table_name}.id IS NULL 
+        ORDER_BY_USER_NAME   => "CASE WHEN #{User.table_name}.id IS NULL 
                                  THEN 'Guest User[' || #{GuestUser.table_name}.id ||']' 
-                                 ELSE #{User.table_name}.name end",
+                                 ELSE #{User.table_name}.name END",
 
-        ORDER_BY_USER_EMAIL =>  "CASE WHEN #{User.table_name}.id IS NULL 
+        ORDER_BY_USER_EMAIL  => "CASE WHEN #{User.table_name}.id IS NULL 
                                  THEN 'guest_user' || #{GuestUser.table_name}.id ||'@example.com' 
-                                 ELSE #{User.table_name}.email end",
+                                 ELSE #{User.table_name}.email END",
 
         ORDER_BY_USER_JOINED => "CASE WHEN #{User.table_name}.id IS NULL 
                                  THEN NULL 
-                                 ELSE #{User.table_name}.accepted_invitation_at end"
+                                 ELSE #{User.table_name}.accepted_invitation_at END",
+
+        ORDER_BY_TILE_VIEWS  => "CASE WHEN #{User.table_name}.id IS NULL 
+                                 THEN guest_users_viewings.views 
+                                 ELSE users_viewings.views END"
       
       },
       enable_export_to_csv: true,
@@ -85,8 +105,15 @@ class TileCompletion < ActiveRecord::Base
   def self.non_completions_with_users tile
     demoid = tile.demo.id
     tileid = tile.id
+    users_viewings_subquery = TileViewing.users_viewings(tileid)
+
     User.joins{tile_completions.outer}
-        .joins{tile_viewings.outer}
+        .joins do 
+          "LEFT JOIN (" +
+           users_viewings_subquery.to_sql +
+          ") AS tile_viewings " + 
+          "ON tile_viewings.user_id = users.id"
+        end
         .where do
           (demo_id == demoid) &&
           (tile_completions.tile_id == tileid) &&
