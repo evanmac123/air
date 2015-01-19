@@ -37,7 +37,7 @@ class SingleTilePresenter
   def cache_key
     @cache_key ||= [
       self.class,
-      'v2.ant',
+      'v1.ant',
       timestamp, 
       completion_percentage, 
       type, 

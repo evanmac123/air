@@ -1,6 +1,6 @@
 - presenter = SingleTilePresenter.new(tile, :html, type)
 
-- cache [__FILE__, 'v3.ant', presenter.cache_key] do
+- cache [__FILE__, 'v5.ant', presenter.cache_key] do
   .tile_container
     .tile_thumbnail{class:type, id:"single-tile-#{presenter.tile_id}", data:{tile_id:presenter.tile_id}}
       = link_to client_admin_tile_path(presenter), class:'tile_thumb_link' do
@@ -30,10 +30,9 @@
           .views
             Viewed:
             = link_to client_admin_tile_tile_completions_path(presenter) do
-              = presenter.total_views
-              Total,
-              = presenter.unique_views
-              Unique 
+              = pluralize(presenter.total_views, 'time')
+              by
+              = pluralize(presenter.unique_views, 'user')
         - if presenter.type? :active, :archive
           .completions 
             Completed:
