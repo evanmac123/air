@@ -25,10 +25,6 @@ module ClientAdmin::TilesHelper
   def footer_timestamp(tile, options={})
     TileFooterTimestamper.new(tile, options).footer_timestamp
   end
-  
-  def tile_time_ago(tile,options={})
-    TileFooterTimestamper.new(tile, options).footer_timestamp_ago
-  end
 
   def default_follow_up_day
     FollowUpDigestEmail::DEFAULT_FOLLOW_UP[Date::DAYNAMES[Date.today.wday]]

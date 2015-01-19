@@ -1,4 +1,4 @@
-class SingleTilePresenter
+class ExploreSingleTilePresenter
   include ActionView::Helpers::TextHelper
 
   def initialize(tile, tile_tag, user_copied_tile, user_liked_tile)

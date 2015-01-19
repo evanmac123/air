@@ -1,4 +1,4 @@
-- tile_presenters = tiles.map{|tile| SingleTilePresenter.new(tile, @tile_tag, current_user.copied_tile?(tile), @liked_tile_ids.include?(tile.id))}
+- tile_presenters = tiles.map{|tile| ExploreSingleTilePresenter.new(tile, @tile_tag, current_user.copied_tile?(tile), @liked_tile_ids.include?(tile.id))}
 - main_cache_key = [__FILE__, 'v4.pwd', 'main', @tile_tag, *(tile_presenters.map(&:cache_key))]
 
 - cache main_cache_key do 
