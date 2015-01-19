@@ -9,8 +9,8 @@ class ClientAdmin::TilesReportsController < ClientAdminBaseController
     num_tile_completions = demo.num_tile_completions
     num_tile_completions.default = 0
 
-    @active_tiles  = demo.active_tile_report_rows
-    @archive_tiles = demo.archive_tile_report_rows
+    @active_tiles  = demo.active_tiles
+    @archive_tiles = demo.archive_tiles
 
     respond_to do |format|
       format.csv do

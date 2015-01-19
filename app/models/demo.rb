@@ -132,14 +132,6 @@ class Demo < ActiveRecord::Base
     @_num_tile_completions
   end
 
-  def active_tile_report_rows
-    tile_report_rows(active_tiles)
-  end
-
-  def archive_tile_report_rows
-    tile_report_rows(archive_tiles)
-  end
-
   def example_tooltip_or_default
     default = "went for a walk"
     example_tooltip.blank? ? default : example_tooltip
@@ -409,22 +401,6 @@ class Demo < ActiveRecord::Base
 
   def resegment_everyone
     self.user_ids.each {|user_id| User.find(user_id).send(:schedule_segmentation_update, true)}
-  end
-
-  def tile_report_rows(tiles)
-    result = []
-    tiles.each do |tile|
-      completed_percent = num_tile_completions[tile.id] * 100.0
-      result << TileReportRow.new(tile.thumbnail,
-                                       tile.headline,
-                                       num_tile_completions[tile.id],
-                                       completed_percent / claimed_user_count,
-                                       tile.status,
-                                       tile.activated_at,
-                                       tile.archived_at)
-    end
-
-    result
   end
 
   def add_odd_row_placeholders!(tiles)

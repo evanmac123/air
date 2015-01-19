@@ -16,8 +16,8 @@ class SingleTilePresenter
     end
   end
 
-  def timestamp
-    @timestamp ||= TileFooterTimestamper.new(tile).footer_timestamp
+  def timestamp format = :html
+    @timestamp ||= TileFooterTimestamper.new(tile, format: format).footer_timestamp
   end
 
   def completion_percentage

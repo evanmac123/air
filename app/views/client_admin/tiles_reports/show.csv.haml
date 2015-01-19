@@ -1,6 +1,7 @@
 -# Need to call 'strip' on the lines because was getting "\n\n" instead of just "\n"
 -# (Actually, I wasn't getting the extra newlines in LibreOffice Calc, but Kate was in Excel. Beats me...)
 -# Also, notice the "!=" which is Haml's way of not escaping HTML. Need this so commas in headlines are processed correctly.
-Headline,Status,Completions,% of participants
+Headline,Status,Total Views,Unique Views,Completions,% of participants
 - @tiles.each do |tile|
-  != CSV.generate_line([tile.headline, footer_timestamp(tile, format: :plain), tile.num_completed, number_to_percentage(tile.percent_claimed, precision: 1)]).strip
+  - presenter = SingleTilePresenter.new(tile)
+  != CSV.generate_line([presenter.headline, presenter.timestamp(:plain), presenter.total_views, presenter.unique_views, presenter.tile_completions_count, presenter.completion_percentage]).strip

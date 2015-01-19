@@ -22,10 +22,6 @@ module ClientAdmin::TilesHelper
     (is_preview || user.claimed?) ? acts_url(email_link_hash): invitation_url(user.invitation_code, email_link_hash)
   end
 
-  def footer_timestamp(tile, options={})
-    TileFooterTimestamper.new(tile, options).footer_timestamp
-  end
-
   def default_follow_up_day
     FollowUpDigestEmail::DEFAULT_FOLLOW_UP[Date::DAYNAMES[Date.today.wday]]
   end
