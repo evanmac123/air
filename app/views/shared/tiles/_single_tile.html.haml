@@ -29,10 +29,11 @@
         - if presenter.active?
           .views
             Viewed:
-            = presenter.total_views
-            Total,
-            = presenter.unique_views
-            Unique 
+            = link_to client_admin_tile_tile_completions_path(presenter) do
+              = presenter.total_views
+              Total,
+              = presenter.unique_views
+              Unique 
         - if presenter.type? :active, :archive
           .completions 
             Completed:

@@ -30,10 +30,14 @@ class SingleTilePresenter
     @tile_id ||= id
   end
 
+  def to_param
+    @to_param ||= tile.to_param
+  end
+
   def cache_key
     @cache_key ||= [
       self.class,
-      'v1.ant',
+      'v2.ant',
       timestamp, 
       completion_percentage, 
       type, 

@@ -51,7 +51,7 @@
       margin-top:1px;
       &:after {@include clear;}
     }
-    .completions {
+    .completions, .views {
       a, a:link, a:visited {
         display: inline;
       }
