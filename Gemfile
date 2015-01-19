@@ -51,6 +51,7 @@ gem 'introjs-rails'
 gem 'redis-rails'
 gem 'strong_parameters'
 gem 'intercom'
+gem 'counter_culture'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -111,6 +112,7 @@ group :test do
   gem "sinatra"
   gem "mocha"
   gem "selenium-webdriver"
+  gem 'test_after_commit'
 end
 
 group :development do

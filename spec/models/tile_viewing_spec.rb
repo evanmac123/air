@@ -32,6 +32,18 @@ describe TileViewing do
       tv = TileViewing.add @tile, @user
       tv.views.should == 2
     end
+
+    it "should increase tile's counters" do
+      @tile.total_views.should == 0
+      @tile.unique_views.should == 0
+
+      tv = TileViewing.add @tile, @user
+      tv.views.should == 1
+
+      @tile.reload
+      @tile.total_views.should == 1
+      @tile.unique_views.should == 1
+    end
   end
 
   describe TileViewing, ".views" do

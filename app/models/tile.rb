@@ -112,21 +112,6 @@ class Tile < ActiveRecord::Base
   process_in_background :image, :processing_image_url => IMAGE_PROCESSING_IMAGE_URL, :priority => TILE_IMAGE_PROCESSING_PRIORITY
   process_in_background :thumbnail, :processing_image_url => THUMBNAIL_PROCESSING_IMAGE_URL, :priority => TILE_IMAGE_PROCESSING_PRIORITY
 
-  # This is a hack to make processing graphic tests work right. Usually
-  # enqueue_delayed_processing would run in an after_commit hook, but our
-  # tests all run within one transaction, and trying to fuck with
-  # use_transactional_fixtures and DatabaseCleaner to get JUST THESE tests
-  # to run outside of a transaction made me wanna throw my computer out of
-  # the window. So fuck that. Fuck fuck fuck.
-
-  if Rails.env.test?
-    after_save do
-      unless $TESTING_COPYING
-        enqueue_delayed_processing
-      end
-    end
-  end
-
   scope :activated, -> {where(status: ACTIVE)}
   scope :archived, -> {where(status: ARCHIVE)}
   # Custom Attribute Setter: ensure that setting/updating the 'status' updates the corresponding time-stamp
@@ -323,11 +308,11 @@ class Tile < ActiveRecord::Base
   end
 
   def total_views
-    TileViewing.total_views self
+    total_viewings_count
   end
 
   def unique_views
-    TileViewing.unique_views self
+    unique_viewings_count
   end
 
   def self.due_ids

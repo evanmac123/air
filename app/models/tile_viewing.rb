@@ -1,5 +1,7 @@
 class TileViewing < ActiveRecord::Base
   belongs_to :tile
+  counter_culture :tile, column_name: 'unique_viewings_count'
+  counter_culture :tile, column_name: 'total_viewings_count', delta_column: 'views'
   belongs_to :user, polymorphic: true
 
   def increment
