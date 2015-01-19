@@ -1,10 +1,5 @@
-class TileFooterTimestamper
+module TileFooterTimestamper
   include ActionView::Helpers::DateHelper
-
-  def initialize(tile, options={})
-    @tile   = tile
-    @format = options[:format] || :html
-  end
 
   def footer_timestamp
     if tile.status == Tile::DRAFT

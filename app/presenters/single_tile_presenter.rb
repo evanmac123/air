@@ -1,9 +1,11 @@
 class SingleTilePresenter
   include ActionView::Helpers::NumberHelper
+  include TileFooterTimestamper
 
-  def initialize tile, type = nil
+  def initialize tile, format, type = nil
     @tile = tile
     @type = type
+    @format = format
   end
 
   def type? *types
@@ -17,7 +19,7 @@ class SingleTilePresenter
   end
 
   def timestamp format = :html
-    @timestamp ||= TileFooterTimestamper.new(tile, format: format).footer_timestamp
+    @timestamp ||= footer_timestamp
   end
 
   def completion_percentage
