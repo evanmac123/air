@@ -13,7 +13,7 @@ task :bulk_load, [:bucket, :object_key, :demo_id, :unique_id, :schema] => :envir
   schema = args[:schema].split('/')
 
   puts "SCHEMA IS #{schema.inspect}"
-  chopper = S3LineChopperToRedis.new(bucket, object_key)
+  chopper = S3LineChopper.new(bucket, object_key)
   puts "Preparing to chop the file at #{bucket}/#{object_key} into Redis."
   chopper.feed_to_redis
 
