@@ -17,7 +17,14 @@ module TileFooterTimestamper
           'tile-deactivated-time')
       ].join(' ').html_safe
     else
-      active_time
+      if @format == :plain
+        [
+          active_time,
+          "Since: " + tile.activated_at.strftime('%-m/%-d/%Y')
+        ].join(' ')
+      else
+        active_time
+      end
     end
   end
 

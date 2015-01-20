@@ -10,13 +10,13 @@ feature 'Sees helpful information in tile manager' do
 
   def expect_total_views_count tile, count
     within tile_cell(tile) do
-      expect_content "#{count} Total"
+      expect_content "#{count} time"
     end
   end
 
   def expect_unique_views_count tile, count
     within tile_cell(tile) do
-      expect_content "#{count} Unique"
+      expect_content "#{count} user"
     end
   end
 

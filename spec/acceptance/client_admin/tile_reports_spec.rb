@@ -36,7 +36,10 @@ feature 'client admin views tiles reports' do
             tile.update_attributes(activated_at: awhile_ago, archived_at: awhile_ago)
           end
 
-          (i * 10).times { |j| FactoryGirl.create :tile_completion, tile: tile, user: claimed_users[j] }
+          (i * 10).times do |j| 
+            FactoryGirl.create :tile_completion, tile: tile, user: claimed_users[j] 
+            2.times { TileViewing.add tile, claimed_users[j] }
+          end
         end
       end
     end
@@ -74,17 +77,17 @@ feature 'client admin views tiles reports' do
           page.response_headers['Content-Disposition'].should =~ initial_filename('active')
 
           expected_csv = <<CSV
-Headline,Status,Completions,% of participants
-\"Tile , 9\",Active: 9 days Since: 7/13/2013,90,90.0%
-\"Tile , 7\",Active: 7 days Since: 7/11/2013,70,70.0%
-\"Tile , 5\",Active: 5 days Since: 7/9/2013,50,50.0%
-\"Tile , 3\",Active: 3 days Since: 7/7/2013,30,30.0%
-\"Tile , 1\",Active: 1 day Since: 7/5/2013,10,10.0%
-\"Tile , 8\",Active: 6 days Since: 6/28/2013,80,80.0%
-\"Tile , 6\",Active: 8 days Since: 6/26/2013,60,60.0%
-\"Tile , 4\",Active: 10 days Since: 6/24/2013,40,40.0%
-\"Tile , 2\",Active: 12 days Since: 6/22/2013,20,20.0%
-\"Tile , 0\",Active: 14 days Since: 6/20/2013,0,0.0%
+Headline,Status,Total Views,Unique Views,Completions,% of participants
+\"Tile , 9\",Active: 9 days Since: 7/13/2013,180,90,90,90.0%
+\"Tile , 7\",Active: 7 days Since: 7/11/2013,140,70,70,70.0%
+\"Tile , 5\",Active: 5 days Since: 7/9/2013,100,50,50,50.0%
+\"Tile , 3\",Active: 3 days Since: 7/7/2013,60,30,30,30.0%
+\"Tile , 1\",Active: 1 day Since: 7/5/2013,20,10,10,10.0%
+\"Tile , 8\",Active: 6 days Since: 6/28/2013,160,80,80,80.0%
+\"Tile , 6\",Active: 8 days Since: 6/26/2013,120,60,60,60.0%
+\"Tile , 4\",Active: 10 days Since: 6/24/2013,80,40,40,40.0%
+\"Tile , 2\",Active: 12 days Since: 6/22/2013,40,20,20,20.0%
+\"Tile , 0\",Active: 14 days Since: 6/20/2013,0,0,0,0.0%
 CSV
           page.body.should == expected_csv
         end
@@ -102,17 +105,17 @@ CSV
           page.response_headers['Content-Disposition'].should =~ initial_filename('archive')
 
           expected_csv = <<CSV
-Headline,Status,Completions,% of participants
-\"Tile , 9\",Active: less than a minute Deactivated: 7/13/2013,90,90.0%
-\"Tile , 7\",Active: less than a minute Deactivated: 7/11/2013,70,70.0%
-\"Tile , 5\",Active: less than a minute Deactivated: 7/9/2013,50,50.0%
-\"Tile , 3\",Active: less than a minute Deactivated: 7/7/2013,30,30.0%
-\"Tile , 1\",Active: less than a minute Deactivated: 7/5/2013,10,10.0%
-\"Tile , 8\",Active: less than a minute Deactivated: 6/28/2013,80,80.0%
-\"Tile , 6\",Active: less than a minute Deactivated: 6/26/2013,60,60.0%
-\"Tile , 4\",Active: less than a minute Deactivated: 6/24/2013,40,40.0%
-\"Tile , 2\",Active: less than a minute Deactivated: 6/22/2013,20,20.0%
-\"Tile , 0\",Active: less than a minute Deactivated: 6/20/2013,0,0.0%
+Headline,Status,Total Views,Unique Views,Completions,% of participants
+\"Tile , 9\",Active: less than a minute Deactivated: 7/13/2013,180,90,90,90.0%
+\"Tile , 7\",Active: less than a minute Deactivated: 7/11/2013,140,70,70,70.0%
+\"Tile , 5\",Active: less than a minute Deactivated: 7/9/2013,100,50,50,50.0%
+\"Tile , 3\",Active: less than a minute Deactivated: 7/7/2013,60,30,30,30.0%
+\"Tile , 1\",Active: less than a minute Deactivated: 7/5/2013,20,10,10,10.0%
+\"Tile , 8\",Active: less than a minute Deactivated: 6/28/2013,160,80,80,80.0%
+\"Tile , 6\",Active: less than a minute Deactivated: 6/26/2013,120,60,60,60.0%
+\"Tile , 4\",Active: less than a minute Deactivated: 6/24/2013,80,40,40,40.0%
+\"Tile , 2\",Active: less than a minute Deactivated: 6/22/2013,40,20,20,20.0%
+\"Tile , 0\",Active: less than a minute Deactivated: 6/20/2013,0,0,0,0.0%
 CSV
           page.body.should == expected_csv
         end

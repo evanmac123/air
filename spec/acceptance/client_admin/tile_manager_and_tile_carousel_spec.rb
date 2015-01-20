@@ -80,7 +80,7 @@ feature 'The order of the tiles in the Tile Manager and the Tile Carousel are in
     manager_tiles =  ["Tile 3", "Tile 4", "Tile 2", "Tile 1"]
 
     check_manager(manager_tiles)
-    check_carousel_and_viewer(manager_tiles, Tile.first)
+    check_carousel_and_viewer(manager_tiles, Tile.find_by_headline("Tile 3"))
 
     # -----------------------------------------------------------------------------
     # Change the tile order in the Manager => should see the corresponding change in the Carousel and Viewer
