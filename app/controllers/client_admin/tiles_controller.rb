@@ -142,6 +142,12 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
     tile_status_updated_ping @tile, "Dragged tile to move"
   end
+
+  def destroy
+    @tile = get_tile
+    flash[:success] = "You've successfully deleted the #{@tile.headline} Tile."
+    redirect_to client_admin_tiles_path
+  end
   
   private
   

@@ -25,6 +25,16 @@
       <p class="header_text">Edit</p>
     <% end %>
   </li>
+  <li class="destroy_header">
+    <%= link_to client_admin_tile_path(@tile), method: :delete, data: {
+    confirm: {
+      ok: 'Yup',
+      cancel: 'Nope'
+    }
+  } do %>
+      <p class="fa fa-trash fa-2x"></p>
+      <p class="header_text">Delete</p>
+    <% end %>
   <li class="new_tile_header">
     <%= link_to new_client_admin_tile_path(path: @tag) do %>
       <p class="fa fa-plus fa-2x"></p>
