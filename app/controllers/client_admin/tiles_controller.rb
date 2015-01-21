@@ -146,6 +146,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   def destroy
     @tile = get_tile
     flash[:success] = "You've successfully deleted the #{@tile.headline} Tile."
+    @tile.destroy
     redirect_to client_admin_tiles_path
   end
   
