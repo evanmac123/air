@@ -21,7 +21,7 @@ $.fn.extend
   confirmWithReveal: (options = {}) ->
 
     defaults =
-      modal_class: 'medium'
+      modal_class: 'small'
       title: ''
       title_class: ''
       body: 'This action cannot be undone.'
@@ -30,9 +30,9 @@ $.fn.extend
       prompt: 'Type <strong>%s</strong> to continue:'
       footer_class: ''
       ok: 'Confirm'
-      ok_class: 'button alert'
+      ok_class: 'confirm'
       cancel: 'Cancel'
-      cancel_class: 'button secondary'
+      cancel_class: 'cancel'
 
     settings = $.extend {}, defaults, options
 
@@ -54,12 +54,13 @@ $.fn.extend
 
       # TODO: allow caller to pass in a template (DOM element to clone?)
       modal = $("""
-        <div data-reveal class='reveal-modal #{option 'modal_class'}'>
+        <div data-reveal class='reveal-modal confirm-with-reveal #{option 'modal_class'}'>
           <h2 data-confirm-title class='#{option 'title_class'}'></h2>
           <p data-confirm-body class='#{option 'body_class'}'></p>
           <div data-confirm-footer class='#{option 'footer_class'}'>
             <a data-confirm-cancel class='#{option 'cancel_class'}'></a>
           </div>
+          <a class="close-reveal-modal">&#215;</a>
         </div>
         """)
 
@@ -93,7 +94,7 @@ $.fn.extend
           $el.trigger('cancel.reveal', e)
       modal
         .find('[data-confirm-footer]')
-        .append(confirm_button)
+        .prepend(confirm_button)
 
       if (password = option 'password')
         confirm_label =

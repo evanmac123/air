@@ -132,4 +132,8 @@ module ClientAdmin::TilesHelper
   def tile_image_present(image_url)
     !(image_url.include? User::MISSING_AVATAR_PATH)
   end
+
+  def destroy_tile_message_params
+    {body: "Are you sure you want to delete this tile? Deleting a tile is irrevocable and you'll loose all data associated with it."}
+  end
 end

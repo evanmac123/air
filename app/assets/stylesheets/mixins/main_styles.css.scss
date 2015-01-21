@@ -612,8 +612,24 @@ input::-moz-focus-inner { // fix for Firefox thickening buttons
 }
 
 // ------------------------ * Foundation restyling * ------------------------
-.reveal-modal{
+.reveal-modal {
   box-shadow: none;
   border-radius: $border-radius;
   border-color: $lightest-gray;
+  &.confirm-with-reveal {
+    p[data-confirm-body] {
+      @include regular-text;
+    }
+    [data-confirm-footer] {
+      text-align: center;
+      padding-top: 15px;
+      .confirm {
+        @include app-button($sky-blue);
+        margin-right: 20px;
+      }
+      .cancel {
+        @include light-button($sky-blue);
+      }
+    }
+  }
 }

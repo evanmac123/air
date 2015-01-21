@@ -26,12 +26,7 @@
     <% end %>
   </li>
   <li class="destroy_header">
-    <%= link_to client_admin_tile_path(@tile), method: :delete, data: {
-    confirm: {
-      ok: 'Yup',
-      cancel: 'Nope'
-    }
-  } do %>
+    <%= link_to client_admin_tile_path(@tile), method: :delete, data: { confirm:destroy_tile_message_params }  do %>
       <p class="fa fa-trash fa-2x"></p>
       <p class="header_text">Delete</p>
     <% end %>
