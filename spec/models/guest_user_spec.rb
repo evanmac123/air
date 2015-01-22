@@ -11,13 +11,16 @@ describe GuestUser do
   end
 
   describe '#convert_to_full_user!' do
-    it "should transfer over all the tile completions and acts that belong to the guest" do
+    it "should transfer over all the tile viewings, tile completions and acts that belong to the guest" do
+      3.times { FactoryGirl.create :tile_viewing }
       3.times { FactoryGirl.create :tile_completion }
       3.times { FactoryGirl.create :act }
 
+      2.times { FactoryGirl.create :tile_viewing, user: user }
       2.times { FactoryGirl.create :tile_completion, user: user }
       2.times { FactoryGirl.create :act, user: user }
 
+      tile_viewing_ids = user.tile_viewing_ids
       tile_completion_ids = user.tile_completion_ids
       act_ids = user.act_ids
 
@@ -25,6 +28,7 @@ describe GuestUser do
      
       converted_user.should_not == user
 
+      converted_user.tile_viewing_ids.sort.should == tile_viewing_ids.sort
       converted_user.tile_completion_ids.sort.should == tile_completion_ids.sort
       converted_user.act_ids.sort.should == act_ids.sort
     end

@@ -69,17 +69,11 @@ class ConvertToFullUser
 
   def copy_data_from_guest
     if @converting_from_guest
-      @pre_user.tile_completions.each do |tile_completion| 
-        tile_completion.user = @converted_user 
-        tile_completion.save!
-      end
-      @pre_user.acts.each do |act| 
-        act.user = @converted_user 
-        act.save!
-      end
-      UserInRaffleInfo.where(user_id: @pre_user.id, user_type: "GuestUser").each do |u_info|
-        u_info.update_attributes(user_id: @converted_user.id, user_type: "User")
-      end
+      @pre_user.tile_viewings.update_all(user_id: @converted_user.id, user_type: 'User')
+      @pre_user.tile_completions.update_all(user_id: @converted_user.id, user_type: 'User')
+      @pre_user.acts.update_all(user_id: @converted_user.id, user_type: 'User')
+      @pre_user.user_in_raffle_infos.update_all(user_id: @converted_user.id, user_type: 'User')
+
       @converted_user.send_conversion_email
     end
   end
