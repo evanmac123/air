@@ -12,7 +12,7 @@ class GuestUser < ActiveRecord::Base
   has_many  :completed_tiles, source: :tile, through: :tile_completions
   has_many   :acts, :as => :user, :dependent => :destroy
   has_many   :user_in_raffle_infos, as: :user
-  has_many   :tile_viewings, as: :user
+  has_many   :tile_viewings, as: :user, dependent: :destroy
   has_many   :viewed_tiles, through: :tile_viewings
   has_one    :converted_user, :class_name => "User", :foreign_key => :original_guest_user_id, :inverse_of => :original_guest_user
 
