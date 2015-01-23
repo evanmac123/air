@@ -58,6 +58,8 @@ class TileCompletion < ActiveRecord::Base
 
     TileCompletion
       .includes{tile}
+      .includes{user(User)}
+      .includes{user(GuestUser)}
       .joins{user(User).outer}
       .joins{user(GuestUser).outer}
       .joins do
@@ -103,22 +105,24 @@ class TileCompletion < ActiveRecord::Base
   end
 
   def self.non_completions_with_users tile
-    demoid = tile.demo.id
     tileid = tile.id
     users_viewings_subquery = TileViewing.users_viewings(tileid)
+    users_completions_subquery = TileCompletion.where(tile_id: tileid, user_type: 'User')
 
-    User.joins{tile_completions.outer}
-        .joins do 
-          "LEFT JOIN (" +
-           users_viewings_subquery.to_sql +
-          ") AS tile_viewings " + 
-          "ON tile_viewings.user_id = users.id"
-        end
-        .where do
-          (demo_id == demoid) &&
-          (tile_completions.tile_id == tileid) &&
-          (tile_completions.id == nil)
-        end
+    tile.demo.users \
+      .joins do
+        "LEFT JOIN (" +
+         users_completions_subquery.to_sql +
+        ") AS tile_completions " + 
+        "ON tile_completions.user_id = users.id"
+      end \
+      .joins do 
+        "LEFT JOIN (" +
+         users_viewings_subquery.to_sql +
+        ") AS tile_viewings " + 
+        "ON tile_viewings.user_id = users.id"
+      end \
+      .where{ tile_completions.id == nil }
   end
 
   def self.non_completion_grid_params
