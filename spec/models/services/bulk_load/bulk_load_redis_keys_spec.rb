@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe BulkLoadRedisKeys do
+describe BulkLoad::BulkLoadRedisKeys do
   class Dummy
     EXPECTED_OBJECT_KEY = 'foobar'
 
-    include BulkLoadRedisKeys
+    include BulkLoad::BulkLoadRedisKeys
 
     def object_key
       EXPECTED_OBJECT_KEY

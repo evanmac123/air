@@ -1,4 +1,4 @@
-module BulkLoadRedisKeys
+module BulkLoad::BulkLoadRedisKeys
   def object_key
     raise "To use BulkLoadRedisKeys in #{self.class}, you must define an #object_key method in that class"
   end

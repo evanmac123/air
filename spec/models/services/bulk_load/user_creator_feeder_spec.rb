@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe UserCreatorFeeder do
+describe BulkLoad::UserCreatorFeeder do
   before do
     Redis.new.flushdb
   end
@@ -10,7 +10,7 @@ describe UserCreatorFeeder do
   let (:demo_id)         {1}
   let (:schema)          {%w(foo bar baz)}
   let (:unique_id_field) {:email}
-  let (:feeder)          {UserCreatorFeeder.new(object_name, demo_id, schema, unique_id_field)}
+  let (:feeder)          {BulkLoad::UserCreatorFeeder.new(object_name, demo_id, schema, unique_id_field)}
 
   before do
     # Pretend the chopper is done
@@ -19,9 +19,9 @@ describe UserCreatorFeeder do
 
   describe "#feed" do
     it "should feed lines from Redis to a UserCreatorFromCsv" do
-      mock_user_creator = stub('UserCreatorFromCsv')
+      mock_user_creator = stub('BulkLoad::UserCreatorFromCsv')
       mock_user_creator.stubs(:create_user).with(kind_of(String)).returns(stub("User", "invalid?" => false))
-      UserCreatorFromCsv.stubs(:new).returns(mock_user_creator)
+      BulkLoad::UserCreatorFromCsv.stubs(:new).returns(mock_user_creator)
 
       Redis.new.lpush(feeder.redis_load_queue_key, lines)
 
@@ -47,7 +47,7 @@ describe UserCreatorFeeder do
         CSV.generate_line(["Joe Blow", existing_user.email])
       ])
 
-      feeder = UserCreatorFeeder.new(object_name, demo_id, schema, unique_id_field)
+      feeder = BulkLoad::UserCreatorFeeder.new(object_name, demo_id, schema, unique_id_field)
       feeder.feed
 
       Redis.new.llen(feeder.redis_failed_load_queue_key).should == 2

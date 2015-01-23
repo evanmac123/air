@@ -1,6 +1,6 @@
-class S3LineChopper
-  include MemoizedRedisClient
-  include BulkLoadRedisKeys
+class BulkLoad::S3LineChopper
+  include BulkLoad::MemoizedRedisClient
+  include BulkLoad::BulkLoadRedisKeys
 
   attr_reader :object_key
   attr_reader :count

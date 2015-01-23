@@ -1,6 +1,6 @@
 require 'csv'
 
-class UserCreatorFromCsv
+class BulkLoad::UserCreatorFromCsv
   def initialize(demo_id, schema, unique_id_field)
     @demo_id = demo_id
     @demo = Demo.find(@demo_id)

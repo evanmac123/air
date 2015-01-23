@@ -1,6 +1,6 @@
-class UserCreatorFeeder
-  include MemoizedRedisClient
-  include BulkLoadRedisKeys
+class BulkLoad::UserCreatorFeeder
+  include BulkLoad::MemoizedRedisClient
+  include BulkLoad::BulkLoadRedisKeys
 
   attr_reader :object_key
 
@@ -40,7 +40,7 @@ class UserCreatorFeeder
 
   def user_creator
     unless @_user_creator
-      @_user_creator = UserCreatorFromCsv.new(@demo_id, @schema, @unique_id_field)
+      @_user_creator = BulkLoad::UserCreatorFromCsv.new(@demo_id, @schema, @unique_id_field)
     end
 
     @_user_creator

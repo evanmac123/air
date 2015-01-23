@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe S3LineChopper do
+describe BulkLoad::S3LineChopper do
   EXPECTED_OBJECT_KEY = "uploads/arbitrary_csv.csv"
   TEST_FILE_PATH = Rails.root.join("spec/support/fixtures/arbitrary_csv.csv")
 
@@ -9,7 +9,7 @@ describe S3LineChopper do
     mock_s3.mount_file(EXPECTED_OBJECT_KEY, TEST_FILE_PATH, 100)
   end
 
-  let(:chopper) {S3LineChopper.new("some_bucket", EXPECTED_OBJECT_KEY)}
+  let(:chopper) {BulkLoad::S3LineChopper.new("some_bucket", EXPECTED_OBJECT_KEY)}
 
   describe "#feed_to_redis" do
     let (:lines_to_preview) {5}
