@@ -1,6 +1,6 @@
 - presenter = SingleTilePresenter.new(tile, :html, type)
 
-- cache [__FILE__, 'v5.ant', presenter.cache_key] do
+- cache [__FILE__, 'v6.ant', presenter.cache_key] do
   .tile_container
     .tile_thumbnail{class:type, id:"single-tile-#{presenter.tile_id}", data:{tile_id:presenter.tile_id}}
       = link_to client_admin_tile_path(presenter), class:'tile_thumb_link' do
@@ -23,6 +23,9 @@
         %li
           = content_tag :div, class: 'edit_tile_link' do 
             = link_to 'Edit', edit_client_admin_tile_path(presenter)
+        %li.destroy_button
+          .destroy_tile_link
+            = link_to 'Delete', client_admin_tile_path(presenter, page: 'Edit'), method: :delete, data: { confirm: destroy_tile_message_params }
       .tile_stats
         .activation_dates
           = presenter.timestamp

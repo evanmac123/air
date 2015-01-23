@@ -1,8 +1,12 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Client admin deletes tile' do
-  def delete_tile_link tile
-    page.find("a[href='#{client_admin_tile_path(tile)}'][data-method='delete']")
+  def delete_tile_link(tile)
+    if current_path.include? client_admin_tiles_path
+      show_thumbnail_buttons = "$('.tile_buttons').css('display', 'block')"
+      page.execute_script show_thumbnail_buttons
+    end
+    page.find("a[href *= '#{client_admin_tile_path(tile)}'][data-method='delete']")
   end
 
   def destroy_tile_message
@@ -20,7 +24,7 @@ feature 'Client admin deletes tile' do
     2.times { FactoryGirl.create :tile_completion, tile: @tile }
   end
 
-  shared_examples_for "deleting a tile" do
+  shared_examples_for "deleting a tile" do |page_name|
     before do
       delete_tile_link(@tile).click
     end
@@ -38,7 +42,7 @@ feature 'Client admin deletes tile' do
       Tile.first.should == @tile
     end
 
-    it "should remove tile if click conform", js: true do
+    it "should remove tile if click conform and send ping", js: true do
       within destroy_reveal_selector do
         page.find(".confirm").click
       end
@@ -48,6 +52,8 @@ feature 'Client admin deletes tile' do
 
       Tile.count.should == 0
       TileCompletion.count.should == 0
+
+      expect_ping 'Tile - Deleted', {page: page_name}, @client_admin
     end
   end
 
@@ -56,6 +62,14 @@ feature 'Client admin deletes tile' do
       visit client_admin_tile_path(@tile, as: @client_admin)
     end
 
-    it_should_behave_like "deleting a tile"
+    it_should_behave_like "deleting a tile", 'Large Tile Preview'
+  end
+
+  context "on Edit Page" do
+    before do
+      visit client_admin_tiles_path(as: @client_admin)
+    end
+
+    it_should_behave_like "deleting a tile", 'Edit'
   end
 end

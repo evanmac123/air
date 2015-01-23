@@ -147,6 +147,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @tile = get_tile
     flash[:success] = "You've successfully deleted the #{@tile.headline} Tile."
     @tile.destroy
+    destroy_tile_ping params[:page]
     redirect_to client_admin_tiles_path
   end
   
@@ -305,5 +306,9 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def show_more_draft_tiles
     @demo.draft_tiles.count > 7
+  end
+
+  def destroy_tile_ping(page)
+    ping('Tile - Deleted', {page: page}, current_user)
   end
 end

@@ -32,11 +32,27 @@
       margin-left:.5em;
       text-align: center;
       width:auto;
-      .edit_tile_link a {
-        @include light-button($white);
+      .edit_tile_link, &.destroy_button {
+        a {
+          @include light-button($white);
+        }
       }
       &.archive_button a {@include app-button($med-gray);}
       &.activate_button a {@include app-button($sky-blue);}
+    }
+  }
+  .draft {
+    .activate_button a {
+      width: 4.3em;
+    }
+    .edit_tile_link a {
+      width: 4em;
+    }
+  }
+  .archive{
+    .tile_buttons li a{
+      padding-left:  0.5em;
+      padding-right: 0.5em;
     }
   }
 
