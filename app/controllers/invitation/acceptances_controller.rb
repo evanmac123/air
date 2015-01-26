@@ -40,7 +40,11 @@ class Invitation::AcceptancesController < ApplicationController
    
     sign_in(@user, params[:remember_me])
     flash[:success] = "Welcome, #{@user.first_name}!"
-    redirect_to activity_path
+    if @user.is_client_admin || @user.is_site_admin
+      redirect_to client_admin_explore_path
+    else
+      redirect_to activity_path
+    end
   end
 
   #this is called to create not admin user by setting random password for him
