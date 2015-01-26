@@ -38,6 +38,10 @@ describe BulkLoad::S3LineChopper do
       expect_lines_in_queue(chopper.redis_load_queue_key, File.read(TEST_FILE_PATH).lines.to_a.length)
     end
 
+    it "should extract the unique field of each line into a queue" do
+      pending
+    end
+
     it "should record the number of lines processed to Redis on a running basis" do
       mock_redis = stub("Redis client", lpush: nil, set: nil)
       chopper.stubs(:redis).returns(mock_redis)
