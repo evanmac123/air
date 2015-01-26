@@ -341,7 +341,7 @@ a, a:link, a:visited {@include link($blue);}
     color:$white;
   }
   &:active {background:lighten($color, 5%);}
-  &:disabled{
+  &:disabled, &[disabled='disabled']{
     background: lighten($color, 15%);
     border-color: lighten($color, 15%);
   }
@@ -625,7 +625,23 @@ input::-moz-focus-inner { // fix for Firefox thickening buttons
       padding-top: 15px;
       .confirm {
         @include app-button($sky-blue);
+        position: relative;
         margin-right: 20px;
+        &:after {
+          content: ' ';
+        }
+        &[disabled='disabled'] {
+          color: transparent;
+          &:after {
+            background: url('spinner_gears.gif') no-repeat transparent;
+            display: block;
+            position: absolute;
+            width: 40px;
+            height: 20px;
+            top: 3px;
+            left: 25px;
+          }
+        }
       }
       .cancel {
         @include light-button($sky-blue);

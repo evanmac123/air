@@ -26,7 +26,6 @@ $.fn.extend
       title_class: ''
       body: 'This action cannot be undone.'
       body_class: ''
-      password: false
       prompt: 'Type <strong>%s</strong> to continue:'
       footer_class: ''
       ok: 'Confirm'
@@ -70,7 +69,11 @@ $.fn.extend
         .attr('class', option 'ok_class')
         .html(option 'ok')
         .on 'click', (e) ->
-          return false if $(this).prop('disabled')
+          btn = $(@)
+          if btn.attr('disabled') || btn.prop('disabled')
+            e.preventDefault()
+            return false
+          btn.attr('disabled', 'disabled')
           # TODO: Handlers of this event cannot stop the confirmation from
           # going through (e.g. chaining additional validation). Fix TBD.
           $el.trigger('confirm.reveal', e)
@@ -95,28 +98,6 @@ $.fn.extend
       modal
         .find('[data-confirm-footer]')
         .prepend(confirm_button)
-
-      if (password = option 'password')
-        confirm_label =
-          (option 'prompt')
-            .replace '%s', password
-        confirm_html = """
-          <label>
-            #{confirm_label}
-            <input data-confirm-password type='text'/>
-          </label>
-          """
-        modal
-          .find('[data-confirm-body]')
-          .after($(confirm_html))
-        modal
-          .find('[data-confirm-password]')
-          .on 'keyup', (e) ->
-            disabled = $(this).val() != password
-            confirm_button
-              .toggleClass('disabled', disabled)
-              .prop('disabled', disabled)
-          .trigger('keyup')
 
       modal
         .appendTo($('body'))
