@@ -348,7 +348,7 @@ class ApplicationController < ActionController::Base
     return if keys_for_real_flashes.any?{|key| flash[key].present?}
 
     flash.now[:success] = [persistent_message_or_default(current_user)]
-    #flash[:success] = [persistent_message_or_default(current_user)]
+    flash.now[:success_allow_raw] = demo.try(:allow_raw_in_persistent_message)
     @persistent_message_shown = true
   end
 

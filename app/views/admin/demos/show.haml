@@ -75,6 +75,12 @@
     %li= link_to "Tiles for this demo", admin_demo_tiles_path(@demo) 
 
   %p
+    - if @demo.allow_raw_in_persistent_message
+      Raw HTML allowed in persistent message
+    - else
+      No raw HTML allowed in persistent message
+
+  %p
     Welcome message: 
     = @demo.welcome_message 
 

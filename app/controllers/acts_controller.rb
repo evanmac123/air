@@ -33,6 +33,9 @@ class ActsController < ApplicationController
 
     if @display_get_started_lightbox
       @get_started_lightbox_message = persistent_message_or_default(current_user)
+      if @demo.allow_raw_in_persistent_message
+        @get_started_lightbox_message = @get_started_lightbox_message.html_safe
+      end
 
       current_user.get_started_lightbox_displayed = true
       current_user.save

@@ -23,6 +23,32 @@ feature 'Sees persistent message when appropriate in activity page' do
     within('#flash') {page.should have_no_content(message)}
   end
 
+  shared_examples_for "raw HTML in the persistent message" do |outer_element_selector|
+    context "when raw HTML is in the persistent message" do
+      before do
+        @demo.update_attributes(persistent_message: "You can <a href='#'>go here</a>")
+      end
+
+      context "which, by default, is not supported" do
+        it "should escape it" do
+          visit activity_path(public_slug: @demo.public_slug)
+          within(outer_element_selector) { page.all('a', text: 'go here').should be_empty }
+        end
+      end
+
+      context "if switch for same is on" do
+        before do
+          @demo.update_attributes(allow_raw_in_persistent_message: true)
+        end
+
+        it "allows raw HTML in the persistent message in the flash" do
+          visit activity_path(public_slug: @demo.public_slug)
+          within(outer_element_selector) { page.all('a', text: 'go here').should be_present }
+        end
+      end
+    end
+  end
+
   context "as a guest user" do
     context "when the demo has a persistent message" do
       before do
@@ -41,6 +67,8 @@ feature 'Sees persistent message when appropriate in activity page' do
         visit tiles_path(public_slug: @demo.public_slug)
         page.should have_no_content(@expected_message)
       end
+
+      it_should_behave_like 'raw HTML in the persistent message', '#flash'
     end
 
     context "when the demo has no persistent message" do
@@ -93,5 +121,9 @@ feature 'Sees persistent message when appropriate in activity page' do
       page.first('#get_started_lightbox', visible: true).should be_present
       expect_persistent_message_in_get_started_lightbox("how are you")
     end
+
+    it_should_behave_like 'raw HTML in the persistent message', '#get_started_lightbox'
   end
+
+  it "has the site admin set whether that is allowed"
 end
