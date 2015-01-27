@@ -26,14 +26,13 @@
       .tile_stats
         .activation_dates
           = presenter.timestamp
-        - if presenter.active?
+        - if presenter.type? :active, :archive
           .views
             Viewed:
             = link_to client_admin_tile_tile_completions_path(presenter) do
               = pluralize(presenter.total_views, 'time')
               by
               = pluralize(presenter.unique_views, 'user')
-        - if presenter.type? :active, :archive
           .completions 
             Completed:
             = link_to pluralize(presenter.tile_completions_count, 'user'), client_admin_tile_tile_completions_path(presenter)

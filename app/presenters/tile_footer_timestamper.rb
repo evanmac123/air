@@ -10,12 +10,14 @@ module TileFooterTimestamper
       tile.activated_at.nil?
       spanned_text("Never activated")
     elsif tile.status == Tile::ARCHIVE
-      [
-        active_time,
-        spanned_text(
-          "Deactivated: " + tile.archived_at.strftime('%-m/%-d/%Y'),
-          'tile-deactivated-time')
-      ].join(' ').html_safe
+      if @format == :plain
+        [
+          active_time,
+          "Deactivated: " + tile.archived_at.strftime('%-m/%-d/%Y')
+        ].join(' ').html_safe
+      else
+        active_time
+      end
     else
       if @format == :plain
         [
