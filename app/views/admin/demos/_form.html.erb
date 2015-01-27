@@ -21,7 +21,7 @@
     <%= form.input :custom_support_reply %>
     <%= add_byte_counter_for "Custom support reply" %>
     <%= form.input :allow_raw_in_persistent_message, :label => "Allow raw HTML in persistent message" %>
-    <%= form.input :persistent_message, :label => "Persistent message", :input_html => {:maxlength => 160} %>
+    <%= form.input :persistent_message, :label => "Persistent message", :input_html => {:maxlength => 250} %>
     <%= add_byte_counter_for "Persistent message" %>
     <%= form.input :login_announcement, :label => "Message user sees on login" %>
     <%= form.input :mute_notice_threshold %>
