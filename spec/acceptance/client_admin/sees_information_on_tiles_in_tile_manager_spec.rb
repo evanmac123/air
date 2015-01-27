@@ -79,10 +79,15 @@ feature 'Sees helpful information in tile manager' do
       end
     end
 
-    it "should show when it was deactivated" do
-      within tile_cell(@tile) do
-        expect_content "Deactivated: #{Date.today.strftime('%-m/%-d/%Y')}"
-      end
+    it "should show tile views", js: true do
+      expect_total_views_count @tile, 0
+      expect_unique_views_count @tile, 0
+
+      2.times { FactoryGirl.create :tile_viewing, tile: @tile }
+      visit client_admin_tiles_path
+
+      expect_total_views_count @tile, 2
+      expect_unique_views_count @tile, 2
     end
   end
 
