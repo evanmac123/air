@@ -11,7 +11,7 @@ class CreateTileViewings < ActiveRecord::Migration
 
     add_index :tile_viewings, [:tile_id, :user_id, :user_type], unique: true, name: "index_tile_viewings_on_tile_and_user"
 
-    TileCompletion.all.each do |tc|
+    TileCompletion.all.find_each do |tc|
       TileViewing.create(tile: tc.tile, user: tc.user)
     end
   end
