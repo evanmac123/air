@@ -21,7 +21,10 @@ feature "Client Admin Accepts Invitation" do
     fill_in_required_invitation_fields
     click_button "Log in"
 
-    should_be_on activity_path
+    should_be_on client_admin_explore_path
+    expect_content "Welcome, #{@user.first_name}!"
+
+    visit activity_path
     expect_content "#{@user.name} joined"
 
     ActionMailer::Base.deliveries.clear
@@ -51,7 +54,11 @@ feature "Client Admin Accepts Invitation" do
     fill_in_required_invitation_fields
     click_button "Log in"
 
-    expect_content "#{@user.name} joined!"
+    should_be_on client_admin_explore_path
+    expect_content "Welcome, #{@user.first_name}!"
+
+    visit activity_path
+    expect_content "#{@user.name} joined"
   end
 
   scenario "user gets seed points on accepting invitation to game with them, but just once" do
@@ -61,7 +68,10 @@ feature "Client Admin Accepts Invitation" do
     fill_in_required_invitation_fields
     click_button "Log in"
 
-    should_be_on activity_path
+    should_be_on client_admin_explore_path
+    expect_content "Welcome, #{@user.first_name}!"
+
+    visit activity_path
     expect_content "10 pts #{@user.name} joined"
   end
 
@@ -118,7 +128,7 @@ feature "Client Admin Accepts Invitation" do
 
     fill_in_required_invitation_fields
     click_button 'Log in'
-    should_be_on(activity_page)
+    should_be_on(client_admin_explore_path)
   end
 
   context "when there is no client name specified for the demo" do

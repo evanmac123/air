@@ -30,7 +30,7 @@ feature 'Makes a board by themself' do
       @new_board = Demo.order("created_at DESC").first
     end
     it "signs in and remembers the user" do
-      should_be_on client_admin_tiles_path
+      should_be_on client_admin_explore_path
       Timecop.travel(1.month)
       visit client_admin_tiles_path
       should_be_on client_admin_tiles_path
@@ -84,8 +84,8 @@ feature 'Makes a board by themself' do
       should_be_on activity_path(format: 'html')
     end
 
-    it 'should leave them on the client admin tile path' do
-      should_be_on client_admin_tiles_path
+    it 'should leave them on the client admin explore path' do
+      should_be_on client_admin_explore_path
     end
     
 
