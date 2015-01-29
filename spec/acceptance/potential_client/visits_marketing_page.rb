@@ -1,12 +1,16 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Visits marketing page' do
+  def expect_marketing_blurb
+    expect_content "Create communications that drive employee engagement in any program, benefit, training or process."  
+  end
+
   context "as not user" do
     before(:each) do
       visit marketing_page
     end
     scenario "and see page" do
-      expect_content "Highlight important information to employees in a fun and interactive way."
+      expect_marketing_blurb
     end
 
     scenario "pings Marketing page with has_ever_logged_in=false" do
@@ -25,7 +29,7 @@ feature 'Visits marketing page' do
     end
 
     scenario "and see page" do
-      expect_content "Highlight important information to employees in a fun and interactive way."
+      expect_marketing_blurb
     end 
 
     scenario "pings Marketing page" do
@@ -44,7 +48,7 @@ feature 'Visits marketing page' do
     end
 
     scenario "and see page" do
-      expect_content "Highlight important information to employees in a fun and interactive way."
+      expect_marketing_blurb
     end 
 
     scenario "pings Marketing page" do
