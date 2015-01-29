@@ -1,5 +1,6 @@
 class PagesController < HighVoltage::PagesController
   skip_before_filter :authorize
+  before_filter :allow_guest_user
   before_filter :force_html_format
   before_filter :signed_out_only_on_root
   before_filter :set_login_url
@@ -9,6 +10,11 @@ class PagesController < HighVoltage::PagesController
   before_filter :ping_if_marketing_page
 
   layout :layout_for_page
+
+  def show
+    login_as_guest(Demo.new) unless current_user
+    super
+  end
 
   protected
 

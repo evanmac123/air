@@ -17,9 +17,10 @@ feature 'Deletes account from board management' do
     complete_safety_modal
 
     should_be_on "/"
-
     visit activity_path
-    should_be_on sign_in_path
+    should_be_on activity_path
+    expect_content "This board is currently private"
+
     signin_as user, "foobar"
     page.should have_content("Sorry, that's an invalid username or password.")
   end
