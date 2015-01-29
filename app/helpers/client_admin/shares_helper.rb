@@ -22,7 +22,7 @@ module ClientAdmin::SharesHelper
       url: explore_tile_preview_url(tile),
       title: tile.headline,
       summary: tile.supporting_content,
-      source: "http://www.air.bo"
+      source: "http://www.airbo.com"
     }
     "https://www.linkedin.com/shareArticle?#{params.to_query}"
   end
@@ -37,7 +37,7 @@ module ClientAdmin::SharesHelper
       url: sharable_tile_url(tile),
       title: tile.headline,
       summary: tile.supporting_content,
-      source: "http://www.air.bo"
+      source: "http://www.airbo.com"
     }
     "https://www.linkedin.com/shareArticle?#{params.to_query}"
   end

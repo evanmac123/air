@@ -3,7 +3,7 @@ class BulkCompleteMailer < ActionMailer::Base
 
   helper :email
   default :to => Admin::BulkSatisfactionsController::REPORT_RECIPIENT,
-          :from => "donotreply@air.bo"
+          :from => "donotreply@airbo.com"
 
   def report(states)
     @states = states

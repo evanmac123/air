@@ -3,7 +3,7 @@ class EmailCommandController< ApplicationController
   skip_before_filter :force_ssl
   skip_before_filter :verify_authenticity_token
 
-  UNMONITORED_MAILBOX_RESPONSE = "Sorry, you've replied to an unmonitored account. For assistance please contact support@air.bo.".freeze
+  UNMONITORED_MAILBOX_RESPONSE = "Sorry, you've replied to an unmonitored account. For assistance please contact support@airbo.com.".freeze
 
   def create
     # a status of 404 would reject the mail, we set a trivial body and a 200

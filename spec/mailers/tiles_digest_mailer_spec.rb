@@ -139,7 +139,7 @@ describe 'Digest email' do
 
       it { should have_body_text "This email is unique for you. Please do not forward it." }
       it { should have_body_text 'For assistance contact' }
-      it { should have_link      'support@air.bo' }
+      it { should have_link      'support@airbo.com' }
       it { should have_body_text "Our mailing address is 292 Newbury Street, Suite 547, Boston, MA 02115" }
 
       it { should have_link      'Unsubscribe' }

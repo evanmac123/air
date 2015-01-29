@@ -18,7 +18,7 @@ describe EmailInfoRequest do
       request.notify_the_ks_of_demo_request
       Delayed::Worker.new.work_off
 
-      open_email 'team_k@air.bo'
+      open_email 'team_k@airbo.com'
       current_email.subject.should include("Information Request")
       [
         "Dude Duderson",

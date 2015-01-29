@@ -51,7 +51,7 @@ Health::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  config.action_mailer.default_url_options = { :host => 'www.air.bo' }
+  config.action_mailer.default_url_options = { :host => 'www.airbo.com' }
   
   ############  ASSETS   ###############
   config.assets.enabled = true
@@ -72,7 +72,7 @@ Health::Application.configure do
     :authentication => :plain,
     :user_name      => ENV['SENDGRID_USERNAME'],
     :password       => ENV['SENDGRID_PASSWORD'],
-    :domain         => 'air.bo'
+    :domain         => 'airbo.com'
   }
   ActionMailer::Base.delivery_method = :smtp
   

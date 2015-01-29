@@ -1,5 +1,5 @@
 class EmailInfoRequestNotifier < ActionMailer::Base
-  default :from => "email_info_requested@air.bo"
+  default :from => "email_info_requested@airbo.com"
   helper :email
   has_delay_mail
 
@@ -12,8 +12,8 @@ class EmailInfoRequestNotifier < ActionMailer::Base
 
     @email_info_request = email_info_request
 
-    mail(:from    => 'Airbo Notifier<notify@air.bo>',
-         :to      => ENV['GAME_CREATION_REQUEST_ADDRESS'] || 'team_k@air.bo',
+    mail(:from    => 'Airbo Notifier<notify@airbo.com>',
+         :to      => ENV['GAME_CREATION_REQUEST_ADDRESS'] || 'team_k@airbo.com',
          :subject => 'Information Request -- Airbo Marketing Site')
   end
 end

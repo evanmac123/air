@@ -11,10 +11,10 @@ class PasswordsController < Clearance::PasswordsController
     @user = User.find_by_email params[:password][:email]
 
     if @user.nil? 
-      flash.now[:failure] = "We're sorry, we can't find your email address in our records. Please contact support@air.bo for assistance."
+      flash.now[:failure] = "We're sorry, we can't find your email address in our records. Please contact support@airbo.com for assistance."
       render :template => 'passwords/new'
     elsif @user.unclaimed?
-      flash.now[:failure] = "We're sorry, you need to join Airbo before you can reset your password. Please contact support@air.bo for assistance."
+      flash.now[:failure] = "We're sorry, you need to join Airbo before you can reset your password. Please contact support@airbo.com for assistance."
       render :template => 'passwords/new'
     else
       @user.forgot_password!
@@ -80,7 +80,7 @@ class PasswordsController < Clearance::PasswordsController
   end
 
   def flash_failure_after_create
-    flash.now[:failure] = "We're sorry, we can't find your email address in our records. Please contact <a href=\"mailto:support@air.bo\">support@air.bo</a> for assistance."
+    flash.now[:failure] = "We're sorry, we can't find your email address in our records. Please contact <a href=\"mailto:support@airbo.com\">support@airbo.com</a> for assistance."
     flash.now[:failure_allow_raw] = true
   end
 end

@@ -5,7 +5,7 @@ class Mailer < ActionMailer::Base
   helper :email  # loads app/helpers/email_helper.rb & includes EmailHelper into the VIEW
 
   default :from => "Airbo <play@ourairbo.com>",
-          :reply_to => 'support@air.bo'
+          :reply_to => 'support@airbo.com'
 
   def invitation(user, referrer = nil, options = {})
     @demo = options[:demo_id].present? ? Demo.find(options[:demo_id]) : user.demo
@@ -52,8 +52,8 @@ class Mailer < ActionMailer::Base
     @game_name = game_name
     @sms_bodies = sms_bodies
 
-    mail :to      => "support@air.bo",
-         :from    => "support@air.bo",
+    mail :to      => "support@airbo.com",
+         :from    => "support@airbo.com",
          :subject => "Help request from core app for #{@user_name} of #{@game_name} (#{@user_email}, #{@user_phone})"
 
     headers['Reply-To'] = @user_email

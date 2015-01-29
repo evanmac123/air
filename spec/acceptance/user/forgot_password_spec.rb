@@ -10,7 +10,7 @@ feature "User interacts with the 'Forgot password?' functionality" do
   scenario 'User enters an invalid email address' do
     fill_in 'password_email', with: 'buddy@guy.com'
     click_button 'Reset password'
-    page.should have_text "We're sorry, we can't find your email address in our records. Please contact support@air.bo for assistance."
+    page.should have_text "We're sorry, we can't find your email address in our records. Please contact support@airbo.com for assistance."
   end
 
   scenario 'Claimed user enters a valid email address' do

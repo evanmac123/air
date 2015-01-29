@@ -11,6 +11,6 @@ Then /^I should see the error "(.*)"$/ do |message|
 end
 
 Then /^there should be a mail link to support in the flash$/ do
-  find(:css, %{#flash a[@href="mailto:support@air.bo"]}).should_not be_nil
+  find(:css, %{#flash a[@href="mailto:support@airbo.com"]}).should_not be_nil
 end
 

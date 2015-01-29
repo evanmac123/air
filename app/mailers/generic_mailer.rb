@@ -7,7 +7,7 @@ class GenericMailer < ActionMailer::Base
 
   layout 'mailer'
 
-  default reply_to: 'support@air.bo'
+  default reply_to: 'support@airbo.com'
 
   def send_message(demo_id, user_id, subject, plain_text, html_text)
     @user = User.find(user_id)

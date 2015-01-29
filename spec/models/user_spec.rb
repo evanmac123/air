@@ -55,7 +55,7 @@ describe User do
     user4.should be_valid
     user5.should_not be_valid
 
-    user3.errors[:phone_number].should == ["Sorry, but that phone number has already been taken. Need help? Contact support@air.bo"]
+    user3.errors[:phone_number].should == ["Sorry, but that phone number has already been taken. Need help? Contact support@airbo.com"]
   end
 
   it 'should validate that there are ten digits in a new phone number, and ignore other characters' do

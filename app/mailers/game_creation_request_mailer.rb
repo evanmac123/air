@@ -6,9 +6,9 @@ class GameCreationRequestMailer < ActionMailer::Base
     @name = game_creation_request.customer_name
     @email = game_creation_request.customer_email
 
-    to_address = ENV['GAME_CREATION_REQUEST_ADDRESS'] || 'team_k@air.bo'
+    to_address = ENV['GAME_CREATION_REQUEST_ADDRESS'] || 'team_k@airbo.com'
 
-    mail from:     "Game Creation Request <gamecreation@air.bo>",
+    mail from:     "Game Creation Request <gamecreation@airbo.com>",
          to:       to_address,
          reply_to: "#{game_creation_request.customer_name} <#{game_creation_request.customer_email}>",
          subject:  "Game creation request from #{game_creation_request.customer_name} (#{game_creation_request.company_name})"

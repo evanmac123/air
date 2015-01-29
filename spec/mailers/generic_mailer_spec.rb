@@ -23,14 +23,7 @@ describe GenericMailer do
       @user = FactoryGirl.create :user
       GenericMailer.send_message(demo.id, @user.id, "Here is the subject", "This is some text", "<p>This is some HTML</p>").deliver
 
-      should have_sent_email.
-        to(@user.email)#.
-        #with_part('text/plain', /Our mailing address is:/)#.
-        #with_part('text/html', /For assistanace contact support@air.bo/)
-
-      # The latter should only show up in the Invitation email.
-      # Re-doing check for 'Our mailing address...' so have confidence that the following test works
-      #should have_sent_email.with_body /Our mailing address is/
+      should have_sent_email.to(@user.email)      
       should_not have_sent_email.with_body /Please do not forward it to others/
     end
 

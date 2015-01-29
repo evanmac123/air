@@ -1,7 +1,7 @@
 class BillingNotificationMailer < ActionMailer::Base
   has_delay_mail
 
-  default from: "billing_notification@air.bo"
+  default from: "billing_notification@airbo.com"
 
   def notify(user_id, board_id)
     @user = User.find(user_id)

@@ -8,7 +8,7 @@ class SpecialCommandHandlers::StopHandler < SpecialCommandHandlers::Base
 
     return nil unless @parsing_options[:channel] == :sms
     @user.update_column(:notification_method, 'email')
-    msg = "Ok, you won't receive any more texts from us. To change your contact preferences, log into www.air.bo and click Settings, or email support@air.bo."
+    msg = "Ok, you won't receive any more texts from us. To change your contact preferences, log into www.airbo.com and click Settings, or email support@airbo.com."
     parsing_success_message(msg)
   end
 end

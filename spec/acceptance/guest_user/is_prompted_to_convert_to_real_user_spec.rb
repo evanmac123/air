@@ -77,7 +77,7 @@ feature 'Guest user is prompted to convert to real user' do
   end
 
   def expect_duplicate_email_error
-    expect_content "It looks like that email is already taken. You can click here to sign in, or contact support@air.bo for help."
+    expect_content "It looks like that email is already taken. You can click here to sign in, or contact support@airbo.com for help."
   end
 
   def expect_invalid_location_name_error
@@ -449,7 +449,7 @@ feature 'Guest user is prompted to convert to real user' do
       end
 
       it "should have a mailto link for support", js: true do
-        page.all("a[href='mailto:support@air.bo']", text: "support@air.bo").should_not be_empty
+        page.all("a[href='mailto:support@airbo.com']", text: "support@airbo.com").should_not be_empty
       end
 
       it "should not create another user", js: true do

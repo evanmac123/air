@@ -53,7 +53,7 @@ Health::Application.configure do
   ActionMailer::Base.smtp_settings = {
     :user_name => SendGrid::DEV_USERNAME,
     :password => SendGrid::DEV_PASSWORD,
-    :domain => "air.bo",
+    :domain => "airbo.com",
     :address => "smtp.sendgrid.net",
     :port => 587,
     :authentication => :plain,

@@ -1,7 +1,7 @@
 class BulkUploadNotificationMailer < ActionMailer::Base
-  ADDRESS_TO_NOTIFY = (ENV['BULK_UPLOAD_NOTIFICATION_ADDRESS']) || 'kate@air.bo'
+  ADDRESS_TO_NOTIFY = (ENV['BULK_UPLOAD_NOTIFICATION_ADDRESS']) || 'kate@airbo.com'
 
-  default from: "bulkupload@air.bo"
+  default from: "bulkupload@airbo.com"
   default to:   ADDRESS_TO_NOTIFY
 
   has_delay_mail

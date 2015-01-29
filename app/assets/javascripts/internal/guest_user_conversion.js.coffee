@@ -25,7 +25,7 @@ convertEmailErrors = (emailErrors) ->
     switch error
       when 'is invalid' then 'Whoops. Enter a valid email address.'
       when 'Please enter a valid email address' then 'Whoops. Enter a valid email address.'
-      when 'has already been taken' then 'It looks like that email is already taken. You can <a href="/sign_in">click here</a> to sign in, or contact <a href="mailto:support@air.bo">support@air.bo</a> for help.'
+      when 'has already been taken' then 'It looks like that email is already taken. You can <a href="/sign_in">click here</a> to sign in, or contact <a href="mailto:support@airbo.com">support@airbo.com</a> for help.'
       else error
   )
 

@@ -6,7 +6,7 @@ class User
       list = ['vlad', 'phil', 'kim', 'jack', 'connie', 'josh', 'kate', 'larry']
       count = 0
       list.each do |name|
-        in_email = name + '@air.bo'
+        in_email = name + '@airbo.com'
         unless User.find_by_email(in_email)
           User.create(name: name, 
                       demo_id: demo.id, 

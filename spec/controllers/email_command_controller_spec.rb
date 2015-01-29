@@ -36,13 +36,13 @@ describe EmailCommandController do
         it "should have an appropriate non-monitored-email response, referring them to support" do
           crank_dj_clear
           open_email(@user.email)
-          current_email.to_s.should include("Sorry, you've replied to an unmonitored account. For assistance please contact support@air.bo.")
+          current_email.to_s.should include("Sorry, you've replied to an unmonitored account. For assistance please contact support@airbo.com.")
         end
 
         it "should reply-to set to support" do
           crank_dj_clear
           open_email(@user.email)
-          current_email.reply_to.should == %w(support@air.bo)
+          current_email.reply_to.should == %w(support@airbo.com)
         end
 
         it "should have the correct from address" do

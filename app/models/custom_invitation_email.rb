@@ -97,7 +97,7 @@ Our social space to feature what you should know and do. Read, take actions, and
 
 Get started at [invitation_url]
 
-Questions? Email support@air.bo.
+Questions? Email support@airbo.com.
 
 
     },

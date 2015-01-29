@@ -3,7 +3,7 @@ class UnmonitoredMailboxMailer < ActionMailer::Base
   helper :email
   layout 'mailer'
 
-  default reply_to: 'support@air.bo'
+  default reply_to: 'support@airbo.com'
 
   def send_response(email_command)
     @response = email_command.response

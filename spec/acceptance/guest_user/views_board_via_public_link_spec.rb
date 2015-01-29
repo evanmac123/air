@@ -1,7 +1,7 @@
 require 'acceptance/acceptance_helper'
 
 def expect_bad_public_board_message
-  expect_content "This board is currently private. Please contact support@air.bo for assistance joining."
+  expect_content "This board is currently private. Please contact support@airbo.com for assistance joining."
 end
 
 feature 'Views board via public link' do

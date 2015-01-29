@@ -5,7 +5,7 @@
     <div class="existing_billing_wrapper">
       <p><%= @billing_information.issuer %> card **** **** **** <%= @billing_information.last_4 %>, valid until <%= @billing_information.expiration_month %>/<%= @billing_information.expiration_year %>.</p>
 
-      <p>To reset this so you can enter new billing information, please contact <%= link_to "support@air.bo", "mailto: support@air.bo" %>.</p>
+      <p>To reset this so you can enter new billing information, please contact <%= link_to "support@airbo.com", "mailto: support@airbo.com" %>.</p>
     </div>
 
     <%= link_to "Back", client_admin_tiles_path, id: "back_to_tiles" %>
