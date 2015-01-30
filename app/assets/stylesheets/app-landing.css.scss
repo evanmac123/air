@@ -23,3 +23,38 @@
 @media only screen and (min-width: $large-desktop) {
 
 }
+
+#airbo_announcement {
+  .row {
+    padding:1em;
+    position: relative;
+  }
+  .flash-content {
+    padding-right:2em;
+    line-height: 1.5em;
+    a {border-bottom:1px $white dashed;}
+  }
+  .flash-close {
+    position: absolute;
+    top:.5em;
+    right:1em;
+    a {
+      display: inline-block;
+      @include font-bold;
+      padding:.1em .3em;
+    }
+  }
+}
+
+#flash_failure, #flash_notice, #flash_success {
+  border:0;
+  border-radius: 0;
+  color:$white;
+  @include font-regular;
+  margin:0;
+  padding:0;
+  a {
+    color:$white;
+    @include font-bold;
+  }
+}
