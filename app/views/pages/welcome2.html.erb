@@ -1,0 +1,62 @@
+<header id="pageHdr">
+	<div class="row top">
+		<div class="small-6 large-4 columns logo">
+      <a href="/"><%= image_tag "marketing/welcome_page/logo.png", alt: "Airbo", height: "283", width: "483" %></a>
+    </div>
+		<div class="small-6 large-8 columns">
+      <%= link_to "Sign in", sign_in_path, class: "button small signin" %>
+    </div>
+  </div>
+  <div class="row">
+  	<h1 class="promoTitle">Engage employees like their favorite apps</h1>
+  </div>
+	<div class="row promoDesc">
+  	<h5>Create communications that drive employee engagement in any program, benefit, training or process.</h5>
+  </div>
+</header>
+
+<div id="contents">
+  <div class="row videoSection">
+    <div class="videoContainer">
+      <iframe src="//fast.wistia.net/embed/iframe/x7jewgb22s?videoFoam=true" allowtransparency="true" frameborder="0" scrolling="no" class="wistia_embed" name="wistia_embed" allowfullscreen mozallowfullscreen webkitallowfullscreen oallowfullscreen msallowfullscreen width="572" height="322"></iframe><script src="//fast.wistia.net/assets/external/iframe-api-v1.js"></script>
+    </div>
+  </div>
+
+  <div class="row fbCmnt">
+    <div class="medium-4 large-4 columns">
+      <%= image_tag "marketing/welcome_page/cmntr.png", height: "180", width: "180" %>
+    </div>
+    <div class="medium-8 large-8 columns">
+      <h2><i class="fa fa-quote-left"></i> Airbo is easy for me, and engaging for everyone.</h2>
+      <ul>
+        <li>Janet McNichol, Director of HR,</li>
+        <li>American Speech-Language-Hearing Association</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row compList">
+    <div class="large-4 columns">
+      <%= image_tag "marketing/welcome_page/fujifilm.png", height: "25", width: "143" %>
+      <h2>+ 217%</h2>
+      <p>Health Risk Assessment Participation</p>
+    </div>
+    <div class="large-4 columns">
+      <%= image_tag "marketing/welcome_page/cat.png", height: "33", width: "139" %>
+      <h2>+ 49%</h2>
+      <p>Weekly Safety Brief Completion</p>
+    </div>
+    <div class="large-4 columns">
+      <%= image_tag "marketing/welcome_page/heineken.png", height: "33", width: "136" %>
+      <h2>+ 288%</h2>
+      <p>Visits to Open Enrollment Guide</p>
+    </div>
+  </div>
+
+  <div class="row regFormSection">
+    <h2>Start by getting ideas from other companies</h2>
+    <%= render partial: 'shared/sign_up_form_new', locals: { user: User.new, board: Demo.new } %>    
+  </div>
+</div>
+
+<%= render partial: 'pages/marketing_footer' %>

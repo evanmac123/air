@@ -3,48 +3,80 @@ body.pages-show.landing, body.pages.pages-product{
     box-shadow: none;
   }
   background: $white;
-  #pageHdr{
+  #pageHeader{
     background: #4eace0;box-shadow: none;
-    .top{padding-top: 32px;}
-    .logo img{width: 80px;}
-    .large-8{text-align: right;}
-    .button.signin{
-      @include light-button($white);
-      padding: 10px 20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    position: relative;
+    .logo {
+      height: 50px;
+      width: 110px;
+      img{
+        width: 80px;
+      }
+    }
+    .headerMenu{
+      
+      width: 380px;
+      padding-top: 15px;
+      float: right;
+      ul{
+        li{
+          font-size: 18px;
+          display: inline;
+          margin-right: 50px;
+          &:last-child {
+            margin-right: 0;
+          }
+          a{
+            color: #fff;
+            font-weight: normal;
+          }
+        }
+      }
+    }
+    .signin{
+      height: 50px;
+      width: 125px;
+      float: right;
+      a{
+        @include app-button($light-blue);
+        border-left-width: 2px;
+        border-right-width: 2px;
+        border-left-color: $white;
+        border-right-color: $white;
+        padding: 10px 20px;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        float: right;
+        font-size: 18px;
+        width: 110px;
+      }
     }
   }
   .regFormSection{
+    overflow: auto;
     #regForm{
-      max-width: 710px;
-      margin: 20px auto 80px;
+      max-width: 1075px;
+      margin: 20px auto 80px auto;
       padding: 0 15px;
-      label{
-        display: none;
-        font-size: 14px;
-        color: #fff;
-      }
       ul{
         overflow: hidden;
         li{
           float: left;
           font-size: 14px;
-          width: 320px;
-          margin-bottom: 20px;
-          &:nth-child(odd){margin-right: 40px;}
           input[type="text"], input[type="password"]{
             border-color: $light-gray;
             border-radius: 3px;
             padding: 4px 10px;
-            width: 320px;
             height: 40px;
           }
         }
       }
-      .button{
+      #create_account_btn{
         @include app-button($sky-blue);
-        width: 100%;
-        margin-top: 20px;
         padding: 10px 20px;
+        height: 40px;
       }
     }
   }
@@ -55,7 +87,7 @@ body.pages-show.landing, body.pages.pages-product{
       padding: 30px 15px;
     }
     li{
-      font-size: 14px;
+      font-size: 18px;
       display: inline;
       margin-right: 20px;
       &:last-child{margin-right: 0;}
@@ -67,7 +99,73 @@ body.pages-show.landing, body.pages.pages-product{
   }
 }
 body.pages-show.landing{
-  #pageHdr{
+  main {
+    background-image: url("marketing/welcome_page/hero.png");
+    background-repeat: no-repeat;
+    background-size: 2000px;
+    background-position-x: center;
+    h1.heading {
+      color: $white;
+      padding-top: 270px;
+      margin: 0;
+      text-align: center;
+      font-size: 48px;
+      font-weight: 700;
+    }
+    h2.sub_heading {
+      color: $white;
+      font-size: 26px;
+      text-align: center;
+      padding: 55px;
+      margin: auto;
+      max-width: 1070px;
+    }
+    #regForm{
+      max-width: 1075px;
+      ul{
+        float: left;
+        width: 80%;
+        padding-right: 1px;
+        li{
+          width: 25%;
+          input{
+            width: 99%;
+          }
+        }
+      }
+      #create_account_btn{
+        width: 20%;
+        float: left;
+      }
+    }
+    .tiles{
+      position: relative;
+      overflow: auto;
+      max-width: 1200px;
+      margin: auto;
+      margin-top: 50px;
+      padding: 15px;
+      padding-bottom: 0;
+      text-align: center;
+      .tile{
+        float: left;
+        width: 25%;
+        margin-top: 40px;
+        height: 140px;
+        overflow: hidden;
+        &:nth-last-child(n+5){
+          height: auto;
+        }
+        img{
+          width: 90%;
+        }
+      }
+    }
+  }
+}
+/*
+body.pages-show.landing{
+  #pageHeader{
     .promoTitle{
       color: #fff;
       font-weight: normal;
@@ -158,9 +256,11 @@ body.pages-show.landing{
       }
     }
   }
+*/
   /* max-width 640px, mobile-only styles, use when QAing mobile issues */
+/*
   @media only screen and (max-width: 40em) {
-    #pageHdr{
+    #pageHeader{
       .promoTitle{font-size: 38px;margin: 40px auto;}
       .promoDesc{margin: 32px auto;}
     }
@@ -185,4 +285,4 @@ body.pages-show.landing{
       }
     }
   } 
-}
+}*/

@@ -1,13 +1,4 @@
-<header id="pageHdr">
-	<div class="row top">
-		<div class="small-6 large-4 columns logo">
-      <a href="/"><%= image_tag "marketing/welcome_page/logo.png", alt: "Airbo", height: "283", width: "483" %></a>
-    </div>
-		<div class="small-6 large-8 columns">
-      <%= link_to "Sign in", sign_in_path, class: "button small signin" %>
-    </div>
-  </div>
-</header>
+<%= render partial: 'marketing_header' %>
 
 <div id="contents">
   <div class="hero">

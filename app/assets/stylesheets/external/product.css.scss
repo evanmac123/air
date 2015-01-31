@@ -1,12 +1,4 @@
 body.pages.pages-product{
-  #pageHdr{
-    background: #4eace0;box-shadow: none;
-    .top{padding-top: 15px;}
-    .button.signin{
-      margin-top: 10px;
-      margin-bottom: 20px;
-    }
-  }
   .heading{
     font-size: 24px;
     color: $sky-blue;
@@ -14,7 +6,6 @@ body.pages.pages-product{
   }
   .sub_heading{
     margin: auto;
-    //font-size: 16px;
     margin-bottom: 25px;
     text-align: center;
     max-width: 657px;
@@ -134,8 +125,21 @@ body.pages.pages-product{
       padding-bottom: 20px;
     }
     #regForm{
+      max-width: 710px;
       margin-bottom: 0;
       padding-bottom: 50px;
+      li{
+        margin-bottom: 20px;
+        width: 320px;
+        &:nth-child(odd){margin-right: 40px;}
+        input{
+          width: 100%;
+        }
+      }
+      #create_account_btn{
+        width: 100%;
+        margin-top: 20px;
+      }
     }
   }
   /* Slides */
