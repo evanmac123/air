@@ -40,10 +40,6 @@ body.pages-show.landing, body.pages.pages-product{
       float: right;
       a{
         @include app-button($light-blue);
-        border-left-width: 2px;
-        border-right-width: 2px;
-        border-left-color: $white;
-        border-right-color: $white;
         padding: 10px 20px;
         margin-top: 10px;
         margin-bottom: 20px;
@@ -142,7 +138,7 @@ body.pages-show.landing{
       overflow: auto;
       max-width: 1200px;
       margin: auto;
-      margin-top: 50px;
+      //margin-top: 50px;
       padding: 15px;
       padding-bottom: 0;
       text-align: center;
