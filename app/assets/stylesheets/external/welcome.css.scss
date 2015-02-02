@@ -16,7 +16,6 @@ body.pages-show.landing, body.pages.pages-product{
       }
     }
     .headerMenu{
-      
       width: 380px;
       padding-top: 15px;
       float: right;
@@ -81,7 +80,7 @@ body.pages-show.landing, body.pages.pages-product{
     }
   }
   #pageFtr{
-    background: #4eace0;
+    background: $light-gray;
     .ftrMenu{
       text-align: center;
       padding: 30px 15px;
@@ -89,10 +88,10 @@ body.pages-show.landing, body.pages.pages-product{
     li{
       font-size: 18px;
       display: inline;
-      margin-right: 20px;
+      margin-right: 50px;
       &:last-child{margin-right: 0;}
       a{
-        color: #fff;
+        color: $dark-gray;
         font-weight: normal;
       }
     }
@@ -102,11 +101,11 @@ body.pages-show.landing{
   main {
     background-image: url("marketing/welcome_page/hero.png");
     background-repeat: no-repeat;
-    background-size: 2000px;
+    background-size: 100%;
     background-position-x: center;
     h1.heading {
       color: $white;
-      padding-top: 270px;
+      padding-top: 12%;
       margin: 0;
       text-align: center;
       font-size: 48px;
@@ -151,10 +150,10 @@ body.pages-show.landing{
         float: left;
         width: 25%;
         margin-top: 40px;
-        height: 140px;
+        height: auto;
         overflow: hidden;
-        &:nth-last-child(n+5){
-          height: auto;
+        &:nth-child(n+5){
+          height: 140px;
         }
         img{
           width: 90%;
@@ -163,126 +162,94 @@ body.pages-show.landing{
     }
   }
 }
-/*
 body.pages-show.landing{
-  #pageHeader{
-    .promoTitle{
-      color: #fff;
-      font-weight: normal;
-      font-size: 40px;
-      text-align: center;
-      margin: 20px auto;
-      padding: 51px 15px 0 15px;
-    }
-    .promoDesc{
-      padding-bottom: 60px;
-      h5 {
-        color: #fff;
-        font-size: 18px;
-        font-weight: normal;
-        text-transform: none;
-        text-align: center;
-        line-height: 1.9;
-        max-width: 29rem;
-        margin: auto;
+  @media only screen and (max-width: $large-desktop){
+    background: yellow;
+    main{
+      background-size: 130%;
+      h1.heading{
+        padding-top: 7%;
+      }
+      h2.sub_heading{
+        padding: 22px;
+        padding-bottom: 0;
+      }
+      .tiles{
+        margin-top: -20px;
+        .tile{
+          &:nth-child(n+5){
+            height: 100px;
+          }
+        }
       }
     }
   }
-  .videoSection {
-    padding-top: 40px;
-    .videoContainer {
-      max-width: 572px;
-      width: 100%;
-      margin: auto;
-    }
-  }
-  .regFormSection{
-    h2{
-      color: $sky-blue;
-      font-size: 24px;
-      text-align: center;
-      margin-bottom: 0;
-    }
-    h5{
-      font-size: 18px;
-      font-weight: normal;
-      text-transform: none;
-      text-align: center;
-      line-height: 1.9;
-      max-width: 29rem;
-      margin: auto;
-      color: $text-color;
-      max-width: 100%;
-      padding: 10px 0 10px 0;
-    }
-  }
-  .fbCmnt{
-    margin-top: 120px;
-    max-width: 680px !important;
-    .large-4{text-align: center;}
-    h2{
-      font-size: 32px;
-      color: #4c4c4c;
-      margin-top: 32px;
-      .fa{
-        font-size: 24px;
-        margin-right: 6px;
-        vertical-align: super;
-        color: #a8a8a8;
-      }
-    }
-    li{
-      font-size: 14px;color: #a8a8a8;
-      &:first-child{color: #4c4c4c;}
-    }
-  }
-
-  .compList{
-    margin-top: 70px;
-    margin-bottom: 120px;
-    max-width: 680px !important;
-    .columns{
-      text-align: center;
-      img[alt="Fujifilm"]{
-        padding-top: 8px;
-      }
-      h2{
-        color: #4eace0;
-        margin: 16px 0;
-      }
-      p{
-        font-size: 14px;
-        color: #4c4c4c;
-      }
-    }
-  }
-*/
-  /* max-width 640px, mobile-only styles, use when QAing mobile issues */
-/*
-  @media only screen and (max-width: 40em) {
+  @media only screen and (max-width: $foundation){
+    background: red;
     #pageHeader{
-      .promoTitle{font-size: 38px;margin: 40px auto;}
-      .promoDesc{margin: 32px auto;}
-    }
-    
-    #regForm {
-      li{
-        float: none;width: auto;
-        &:nth-child(odd){margin-right: 0;}
-      }
-      input[type="text"], input[type="password"]{width: 100%;}
-    }
-    
-    .fbCmnt,.compList{margin: 80px auto;}
-    
-    .fbCmnt {
-      h2, li{text-align: center;}
-    }
-    .compList {
-      .columns{
-        margin-bottom: 60px;
-        &:last-child{margin-bottom: 0;}
+      .headerMenu{
+        width: 100%;
+        ul{
+          li{
+            margin: 0;
+            width: 33%;
+            display: block;
+            float: left;
+            text-align: center;
+          }
+        }
       }
     }
-  } 
-}*/
+    main{
+      background-size: 155%;
+      h1.heading{
+        font-size: 33px;
+      }
+      h2.sub_heading{
+        font-size: 21px;
+      }
+      #regForm{
+        ul{
+          width: 100%;
+          li{
+            width: 50%;
+          }
+        }
+        #create_account_btn{
+          width: 100%;
+        }
+      }
+      .tiles{
+        .tile{
+          width: 50%;
+          &:nth-child(n+3){
+            height: 120px;
+          }
+          &:nth-child(n+5){
+            display: none;
+          }
+        }
+      }
+    }
+  }
+  @media only screen and (max-width: 530px){
+    background: green;
+    main{
+      background-size: 220%;
+      #regForm{
+        ul{
+          li{
+            width: 100%;
+          }
+        }
+      }
+      .tiles{
+        .tile{
+          &:nth-child(n+3){
+            height: 80px;
+          }
+        }
+      }
+    }
+  }
+}
