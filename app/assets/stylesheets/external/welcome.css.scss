@@ -164,7 +164,7 @@ body.pages-show.landing{
 }
 body.pages-show.landing{
   @media only screen and (max-width: $large-desktop){
-    background: yellow;
+    //background: yellow;
     main{
       background-size: 130%;
       h1.heading{
@@ -185,7 +185,7 @@ body.pages-show.landing{
     }
   }
   @media only screen and (max-width: $foundation){
-    background: red;
+    //background: red;
     #pageHeader{
       .headerMenu{
         width: 100%;
@@ -233,7 +233,7 @@ body.pages-show.landing{
     }
   }
   @media only screen and (max-width: 530px){
-    background: green;
+    //background: green;
     main{
       background-size: 220%;
       #regForm{
