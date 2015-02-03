@@ -7,9 +7,18 @@ class PagesController < HighVoltage::PagesController
   before_filter :set_new_board_url
   before_filter :display_social_links_if_marketing_page
   before_filter :set_page_name
-  before_filter :ping_if_marketing_page
+  before_filter :set_page_name_for_mixpanel
+
 
   layout :layout_for_page
+
+  PAGE_NAMES_FOR_MIXPANEL = {
+    'welcome'        => "Marketing Page",
+    'customer_tiles' => 'customer tiles',
+    'more_info'      => 'More Info, marketing',
+    'privacy'        => 'privacy policy',
+    'terms'          => 'terms and conditions'
+  }
 
   def show
     login_as_guest(Demo.new) unless current_user
@@ -68,19 +77,15 @@ class PagesController < HighVoltage::PagesController
     @page_name = page_name
   end
 
-  def ping_if_marketing_page
-    if page_name == 'welcome'
-      user =  if session[:user_id]
-                User.where(id: session[:user_id]).first
-              else
-                GuestUser.where(id: session[:guest_user_id]).first
-              end
-      properties = {has_ever_logged_in: (user ? true : false), \
-                    ping_time: Time.new.strftime("%H:%M:%S"), \
-                    url: request.original_url, \
-                    user_type: (user ? user.highest_ranking_user_type : nil)}
-      properties.merge!({distinct_id: session[:session_id]}) unless user
-      ping_page("Marketing Page", user, properties)
+  def set_page_name_for_mixpanel
+    @page_name_for_mixpanel = page_name_for_mixpanel
+  end
+
+  def page_name_for_mixpanel
+    if (name = PAGE_NAMES_FOR_MIXPANEL[page_name]).present?
+      name
+    else 
+      page_name
     end
   end
 end

@@ -21,6 +21,7 @@
     <%= javascript_include_tag asset_path('ga.js') if ENV['USE_GA'] %>
 
     <%= render 'shared/mixpanel' %>
+    <%= mp_track_page @page_name_for_mixpanel if @page_name_for_mixpanel.present? %>
     <%= mobvious_javascript %>
     <%= render 'shared/nerf_animations_in_test' %>
   </head>
