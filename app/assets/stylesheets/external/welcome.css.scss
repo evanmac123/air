@@ -97,7 +97,7 @@ body.pages-show.landing, body.pages.pages-product{
 }
 body.pages-show.landing{
   main {
-    background-image: url("marketing/welcome_page/hero.png");
+    background-image: url("marketing/welcome_page/hero_dark.png");
     background-repeat: no-repeat;
     background-size: 100%;
     background-position-x: center;
@@ -107,7 +107,7 @@ body.pages-show.landing{
       margin: 0;
       text-align: center;
       font-size: 48px;
-      font-weight: 700;
+      font-weight: 400;
     }
     h2.sub_heading {
       color: $white;
