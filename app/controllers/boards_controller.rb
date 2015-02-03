@@ -167,6 +167,8 @@ class BoardsController < ApplicationController
   end
 
   def alias_guest_user_mixpanel_id_to_client_admin_mixpanel_id(pre_user, post_user)
-    Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.alias(post_user.mixpanel_distinct_id, pre_user.mixpanel_distinct_id) 
+    tracker = Mixpanel::Tracker.new(MIXPANEL_TOKEN, {})
+    debugger
+    tracker.alias(post_user.mixpanel_distinct_id, pre_user.mixpanel_distinct_id) 
   end
 end
