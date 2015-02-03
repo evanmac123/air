@@ -474,9 +474,13 @@ class User < ActiveRecord::Base
     self.demo.reply_email_address(include_name)
   end
 
+  def mixpanel_distinct_id
+    self.id
+  end
+
   def data_for_mixpanel
     {
-      :distinct_id           => self.id,
+      :distinct_id           => self.mixpanel_distinct_id,
       :id                    => self.id,
       :email                 => (self.is_client_admin ? self.email : nil),
       :game                  => self.demo_id,

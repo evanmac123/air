@@ -58,6 +58,9 @@ class BoardsController < ApplicationController
 
   def create_as_guest
     authorize_as_guest
+    login_as_guest(Demo.new) unless current_user.present?
+
+    pre_user = current_user
 
     success = nil
     original_board_name = params[:board][:name]
@@ -68,10 +71,11 @@ class BoardsController < ApplicationController
       @board = board_creator.board
 
       user_creator = ConvertToFullUser.new({
-        pre_user: current_user, 
-        name: params[:user][:name], 
-        email: params[:user][:email], 
-        password: params[:user][:password]
+        pre_user:              current_user, 
+        name:                  params[:user][:name], 
+        email:                 params[:user][:email], 
+        password:              params[:user][:password],
+        converting_from_guest: true
       })
       user_saved_successfully = user_creator.create_client_admin_with_board! @board
       @user = user_creator.converted_user
@@ -85,6 +89,7 @@ class BoardsController < ApplicationController
     if success
       sign_in(@user, 1)
       schedule_creation_pings(@user)
+      alias_guest_user_mixpanel_id_to_client_admin_mixpanel_id(pre_user, @user)
       render_success
     else
       @board.name = original_board_name
@@ -159,5 +164,9 @@ class BoardsController < ApplicationController
 
   def find_current_board
     Demo.new(is_public: true)
+  end
+
+  def alias_guest_user_mixpanel_id_to_client_admin_mixpanel_id(pre_user, post_user)
+    Mixpanel::Tracker.new(MIXPANEL_TOKEN, {}).delay.alias(post_user.mixpanel_distinct_id, pre_user.mixpanel_distinct_id) 
   end
 end

@@ -52,9 +52,13 @@ class GuestUser < ActiveRecord::Base
     PointIncrementer.new(self, bump).update_points
   end
 
+  def mixpanel_distinct_id
+    "guest_user_#{self.id}"
+  end
+
   def data_for_mixpanel
     {
-      distinct_id:  "guest_user_#{self.id}",
+      distinct_id:  self.mixpanel_distinct_id,
       user_type:    self.highest_ranking_user_type,
       game:         self.demo.try(:id),
       is_test_user: is_test_user?,
