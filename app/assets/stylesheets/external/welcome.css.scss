@@ -161,6 +161,15 @@ body.pages-show.landing{
   }
 }
 body.pages-show.landing{
+  @media only screen and (max-width: 90em){
+    //background: red;
+    main{
+      background-size: 115%;
+      h1.heading {
+        padding-top: 10%;
+      }
+    }
+  }
   @media only screen and (max-width: $large-desktop){
     //background: yellow;
     main{
