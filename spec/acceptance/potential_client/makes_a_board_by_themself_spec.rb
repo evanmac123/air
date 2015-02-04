@@ -113,7 +113,7 @@ feature 'Makes a board by themself' do
     it "should tell Mixpanel to alias the old guest user's Mixpanel ID to the new client-admin's Mixpanel ID" do
       crank_dj_clear
       new_user = User.last
-      FakeMixpanelTracker.should have_received(:alias).with(new_user.mixpanel_distinct_id, new_user.original_guest_user.mixpanel_distinct_id)
+      FakeMixpanelTracker.should have_received(:alias).with(new_user.mixpanel_distinct_id, {distinct_id: new_user.original_guest_user.mixpanel_distinct_id})
     end
   end
 

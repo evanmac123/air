@@ -26,5 +26,8 @@ class FakeMixpanelTracker
     self.tracked_events.empty?
   end
 
+  def self.alias(*args)
+  end
+
   cattr_accessor :tracked_events
 end
