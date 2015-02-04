@@ -13,8 +13,9 @@ module MixpanelHelper
   def mp_track_page(page_name, properties = {})
     _properties = {:page_name => page_name}
 
-    if current_user
-      _properties = _properties.merge(current_user.data_for_mixpanel)
+    user_for_mixpanel = @user_for_mixpanel || current_user
+    if user_for_mixpanel
+      _properties = _properties.merge(user_for_mixpanel.data_for_mixpanel)
     end
 
     _properties = _properties.merge(properties)

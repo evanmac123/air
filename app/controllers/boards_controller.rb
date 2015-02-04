@@ -89,7 +89,6 @@ class BoardsController < ApplicationController
     if success
       sign_in(@user, 1)
       schedule_creation_pings(@user)
-      alias_guest_user_mixpanel_id_to_client_admin_mixpanel_id(pre_user, @user)
       render_success
     else
       @board.name = original_board_name
@@ -164,10 +163,5 @@ class BoardsController < ApplicationController
 
   def find_current_board
     Demo.new(is_public: true)
-  end
-
-  def alias_guest_user_mixpanel_id_to_client_admin_mixpanel_id(pre_user, post_user)
-    tracker = Mixpanel::Tracker.new(MIXPANEL_TOKEN, {})
-    tracker.delay.alias(post_user.mixpanel_distinct_id, {distinct_id: pre_user.mixpanel_distinct_id})
   end
 end

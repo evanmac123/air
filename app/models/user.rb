@@ -475,7 +475,7 @@ class User < ActiveRecord::Base
   end
 
   def mixpanel_distinct_id
-    self.id
+    attributes["mixpanel_distinct_id"] || self.id
   end
 
   def data_for_mixpanel

@@ -187,6 +187,9 @@ class ApplicationController < ActionController::Base
 
   def login_as_guest(demo)
     session[:guest_user] = {demo_id: demo.id}
+    if session[:guest_user_id]
+      session[:guest_user][:id] = session[:guest_user_id]
+    end
     refresh_activity_session(current_user)
   end
 
@@ -253,10 +256,8 @@ class ApplicationController < ActionController::Base
     #session things for marketing page ping
     if user.is_a? User
       session[:user_id] = user.id 
-      session[:guest_user_id] = nil
     elsif user.is_a? GuestUser
       session[:guest_user_id] = user.id 
-      session[:user_id] = nil
     end
     
     baseline = user.last_session_activity_at.to_i || 0

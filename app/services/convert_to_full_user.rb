@@ -14,12 +14,17 @@ class ConvertToFullUser
     @converted_user = User.new(
       name: @name,
       email: @email,
-      accepted_invitation_at: Time.now
+      accepted_invitation_at: Time.now,
     )
     @converted_user.creating_board = true
     @converted_user.is_client_admin = true
     @converted_user.password = @converted_user.password_confirmation = @password
     @converted_user.cancel_account_token = @converted_user.generate_cancel_account_token(@converted_user)
+
+    if @pre_user && @pre_user.is_guest?
+      @converted_user.original_guest_user = @pre_user
+      @converted_user.mixpanel_distinct_id = @pre_user.mixpanel_distinct_id
+    end
     
     if @converted_user.save
       if @pre_user && @pre_user.is_guest?

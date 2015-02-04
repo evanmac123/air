@@ -8,6 +8,7 @@ class PagesController < HighVoltage::PagesController
   before_filter :display_social_links_if_marketing_page
   before_filter :set_page_name
   before_filter :set_page_name_for_mixpanel
+  before_filter :set_user_for_mixpanel
 
 
   layout :layout_for_page
@@ -87,5 +88,9 @@ class PagesController < HighVoltage::PagesController
     else 
       page_name
     end
+  end
+
+  def set_user_for_mixpanel
+    @user_for_mixpanel ||= User.where(id: session[:user_id]).first
   end
 end

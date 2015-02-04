@@ -21,7 +21,6 @@ feature 'Makes a board by themself' do
 
   before do
     visit new_board_path
-    FakeMixpanelTracker.stubs(:alias)
   end
   
   context 'remembers user on login' do
@@ -108,12 +107,6 @@ feature 'Makes a board by themself' do
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear
       FakeMixpanelTracker.should have_event_matching("Creator - New", source: 'Marketing Page')
-    end
-
-    it "should tell Mixpanel to alias the old guest user's Mixpanel ID to the new client-admin's Mixpanel ID" do
-      crank_dj_clear
-      new_user = User.last
-      FakeMixpanelTracker.should have_received(:alias).with(new_user.mixpanel_distinct_id, {distinct_id: new_user.original_guest_user.mixpanel_distinct_id})
     end
   end
 

@@ -3,7 +3,7 @@ mixpanel.init("<%= MIXPANEL_TOKEN %>");</script><!-- end Mixpanel -->
 
 <% if current_user.present? %>
   <%= javascript_tag do %>
-    mixpanel.identify("<%= [current_user.class.to_s.underscore, current_user.id].join('_') %>"); <!--i.e. "user_292929" or "guest_user_2093"-->
+    mixpanel.identify("<%= current_user.mixpanel_distinct_id %>");
     mixpanel.name_tag("<%= current_user.name %>");
     mixpanel.register({user_type: "<%= current_user.highest_ranking_user_type %>"});
   <% end %>

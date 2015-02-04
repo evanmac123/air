@@ -27,9 +27,13 @@ class PotentialUser < ActiveRecord::Base
     "potential_user"
   end
 
+  def mixpanel_distinct_id
+    "potential_user_#{self.id}"
+  end
+
   def data_for_mixpanel
     {
-      distinct_id:  "potential_user_#{self.id}",
+      distinct_id:  mixpanel_distinct_id,
       user_type:    self.highest_ranking_user_type,
       game:         self.demo.try(:id),
       is_test_user: is_test_user?,
