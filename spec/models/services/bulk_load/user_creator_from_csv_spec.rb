@@ -15,7 +15,7 @@ describe BulkLoad::UserCreatorFromCsv do
   let(:basic_attributes)                {["Jim Smith", "bigjim@example.com"]}
   let(:attributes_with_characteristics) {basic_attributes + ["bar", "1945", "2013-02-07", "2013-02-07 18:12:51 -0500", "false"]}
 
-  let(:basic_creator) {BulkLoad::UserCreatorFromCsv.new(demo.id, basic_schema, :email)}
+  let(:basic_creator) {BulkLoad::UserCreatorFromCsv.new(demo.id, basic_schema, :email, 1)}
   let(:discrete_characteristic) {FactoryGirl.create(:characteristic, demo: demo, datatype: Characteristic::DiscreteType, allowed_values: %w(foo bar baz))}
   let(:number_characteristic)   {FactoryGirl.create(:characteristic, demo: demo, datatype: Characteristic::NumberType)}
   let(:date_characteristic)     {FactoryGirl.create(:characteristic, demo: demo, datatype: Characteristic::DateType)}
@@ -51,7 +51,7 @@ describe BulkLoad::UserCreatorFromCsv do
         attributes_with_most_characteristics = attributes_with_characteristics.dup
         attributes_with_most_characteristics.pop
 
-        creator = BulkLoad::UserCreatorFromCsv.new(demo.id, schema_with_most_characteristics, :email)
+        creator = BulkLoad::UserCreatorFromCsv.new(demo.id, schema_with_most_characteristics, :email, 1)
 
         user = FactoryGirl.create(
           :user, 
@@ -77,7 +77,7 @@ describe BulkLoad::UserCreatorFromCsv do
 
         schema = basic_schema + ['employee_id']
         attributes = basic_attributes + ['12345']
-        creator = BulkLoad::UserCreatorFromCsv.new(demo.id, schema, :employee_id)
+        creator = BulkLoad::UserCreatorFromCsv.new(demo.id, schema, :employee_id, 2)
 
         creator.create_user(CSV.generate_line(attributes))
 
@@ -91,7 +91,7 @@ describe BulkLoad::UserCreatorFromCsv do
     end
 
     it "should be able to set characteristics too" do
-      creator = BulkLoad::UserCreatorFromCsv.new(demo.id, schema_with_characteristics, :email)
+      creator = BulkLoad::UserCreatorFromCsv.new(demo.id, schema_with_characteristics, :email, 1)
 
       demo.users.count.should be_zero
 
@@ -114,7 +114,7 @@ describe BulkLoad::UserCreatorFromCsv do
       boston_location = FactoryGirl.create(:location, demo: demo, name: 'Boston')
       attributes = basic_attributes + ['Boston']
 
-      creator = BulkLoad::UserCreatorFromCsv.new(demo.id, schema, :email)
+      creator = BulkLoad::UserCreatorFromCsv.new(demo.id, schema, :email, 1)
 
       demo.users.count.should be_zero
 
@@ -131,7 +131,7 @@ describe BulkLoad::UserCreatorFromCsv do
       schema = basic_schema + ['location_name']
       attributes = basic_attributes + ['Boston']
 
-      creator = BulkLoad::UserCreatorFromCsv.new(demo.id, schema, :email)
+      creator = BulkLoad::UserCreatorFromCsv.new(demo.id, schema, :email, 1)
 
       demo.users.count.should be_zero
       demo.locations.count.should be_zero
@@ -151,7 +151,7 @@ describe BulkLoad::UserCreatorFromCsv do
       schema = basic_schema + [attribute_name]
       attributes = basic_attributes + [attribute_value]
 
-      creator = BulkLoad::UserCreatorFromCsv.new(demo.id, schema, :email)
+      creator = BulkLoad::UserCreatorFromCsv.new(demo.id, schema, :email, 1)
       creator.create_user(CSV.generate_line(attributes))
 
       demo.users.first[attribute_name].should == expected_model_value
@@ -192,7 +192,7 @@ describe BulkLoad::UserCreatorFromCsv do
             schema = basic_schema + ["characteristic_#{boolean_characteristic.id}"]
             attributes = basic_attributes + [true_string]
 
-            creator = BulkLoad::UserCreatorFromCsv.new(demo.id, schema, :email)
+            creator = BulkLoad::UserCreatorFromCsv.new(demo.id, schema, :email, 1)
             creator.create_user(CSV.generate_line(attributes))
 
             demo.users.first.characteristics[boolean_characteristic.id].should be_true
@@ -204,7 +204,7 @@ describe BulkLoad::UserCreatorFromCsv do
             schema = basic_schema + ["characteristic_#{boolean_characteristic.id}"]
             attributes = basic_attributes + [false_string]
 
-            creator = BulkLoad::UserCreatorFromCsv.new(demo.id, schema, :email)
+            creator = BulkLoad::UserCreatorFromCsv.new(demo.id, schema, :email, 1)
             creator.create_user(CSV.generate_line(attributes))
 
             demo.users.first.characteristics[boolean_characteristic.id].should be_false
@@ -218,7 +218,7 @@ describe BulkLoad::UserCreatorFromCsv do
             schema = basic_schema + ["characteristic_#{date_characteristic.id}"]
             attributes = basic_attributes + [date_string]
 
-            creator = BulkLoad::UserCreatorFromCsv.new(demo.id, schema, :email)
+            creator = BulkLoad::UserCreatorFromCsv.new(demo.id, schema, :email, 1)
             creator.create_user(CSV.generate_line(attributes))
 
             demo.users.first.characteristics[date_characteristic.id].should == Date.parse("2012-05-01")

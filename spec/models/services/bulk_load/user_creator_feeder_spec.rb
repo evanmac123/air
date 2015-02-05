@@ -10,7 +10,8 @@ describe BulkLoad::UserCreatorFeeder do
   let (:demo_id)         {1}
   let (:schema)          {%w(foo bar baz)}
   let (:unique_id_field) {:email}
-  let (:feeder)          {BulkLoad::UserCreatorFeeder.new(object_name, demo_id, schema, unique_id_field)}
+  let (:unique_id_index) {0}
+  let (:feeder)          {BulkLoad::UserCreatorFeeder.new(object_name, demo_id, schema, unique_id_field, unique_id_index)}
 
   before do
     # Pretend the chopper is done
@@ -47,7 +48,7 @@ describe BulkLoad::UserCreatorFeeder do
         CSV.generate_line(["Joe Blow", existing_user.email])
       ])
 
-      feeder = BulkLoad::UserCreatorFeeder.new(object_name, demo_id, schema, unique_id_field)
+      feeder = BulkLoad::UserCreatorFeeder.new(object_name, demo_id, schema, unique_id_field, unique_id_index)
       feeder.feed
 
       Redis.new.llen(feeder.redis_failed_load_queue_key).should == 2

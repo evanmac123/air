@@ -1,12 +1,12 @@
 require 'csv'
 
 class BulkLoad::UserCreatorFromCsv
-  def initialize(demo_id, schema, unique_id_field)
+  def initialize(demo_id, schema, unique_id_field, unique_id_index)
     @demo_id = demo_id
     @demo = Demo.find(@demo_id)
     @schema = schema
     @unique_id_field = unique_id_field
-    @unique_id_field_index_in_schema = @schema.find_index(@unique_id_field.to_s)
+    @unique_id_index = unique_id_index
   end
 
   def create_user(csv_line)
@@ -17,7 +17,7 @@ class BulkLoad::UserCreatorFromCsv
       add_column! column_name, value, new_user_attributes
     end
 
-    user = @demo.users.where(@unique_id_field => user_data[@unique_id_field_index_in_schema]).first
+    user = @demo.users.where(@unique_id_field => user_data[@unique_id_index]).first
 
     if user
       # Have to ditch the board_memberships join to make this record writeable

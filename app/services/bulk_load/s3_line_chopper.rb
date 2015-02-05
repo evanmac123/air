@@ -5,9 +5,10 @@ class BulkLoad::S3LineChopper
   attr_reader :object_key
   attr_reader :count
 
-  def initialize(bucket_name, object_key)
+  def initialize(bucket_name, object_key, unique_id_index)
     @bucket_name = bucket_name
     @object_key = object_key
+    @unique_id_index = unique_id_index
   end
 
   def chop(&block)
@@ -32,6 +33,7 @@ class BulkLoad::S3LineChopper
     chop do |line|
       redis.lpush(redis_preview_queue_key, line) if lines_to_preview && @count < lines_to_preview
       redis.lpush(redis_load_queue_key, line)
+      redis.lpush(redis_unique_id_queue_key, CSV.parse_line(line)[@unique_id_index])
 
       @count += 1
       redis.set(redis_lines_completed_key, @count)

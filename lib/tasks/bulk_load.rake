@@ -12,14 +12,16 @@ task :bulk_load, [:bucket, :object_key, :demo_id, :unique_id, :schema] => :envir
   unique_id = args[:unique_id]
   schema = args[:schema].split('/')
 
+  unique_id_index = schema.find_index(unique_id.to_s)
+
   puts "SCHEMA IS #{schema.inspect}"
-  chopper = BulkLoad::S3LineChopper.new(bucket, object_key)
+  chopper = BulkLoad::S3LineChopper.new(bucket, object_key, unique_id_index)
   puts "Preparing to chop the file at #{bucket}/#{object_key} into Redis."
   chopper.feed_to_redis
 
   puts "Chopping finished! #{chopper.count} lines loaded into Redis."
   puts "Scheduling load into demo #{demo_id}. This may take some time."
-  feeder = BulkLoad::UserCreatorFeeder.new(object_key, demo_id, schema, unique_id)
+  feeder = BulkLoad::UserCreatorFeeder.new(object_key, demo_id, schema, unique_id, unique_id_index)
   job = feeder.delay.feed
   puts "Job ID for feeder is #{job.id}"
 end

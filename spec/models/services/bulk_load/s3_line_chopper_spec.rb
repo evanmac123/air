@@ -9,7 +9,8 @@ describe BulkLoad::S3LineChopper do
     mock_s3.mount_file(EXPECTED_OBJECT_KEY, TEST_FILE_PATH, 100)
   end
 
-  let(:chopper) {BulkLoad::S3LineChopper.new("some_bucket", EXPECTED_OBJECT_KEY)}
+  let(:chopper) {BulkLoad::S3LineChopper.new("some_bucket", EXPECTED_OBJECT_KEY, 1)}
+  let(:line_count) {File.read(TEST_FILE_PATH).lines.to_a.length}
 
   describe "#feed_to_redis" do
     let (:lines_to_preview) {5}
@@ -35,11 +36,15 @@ describe BulkLoad::S3LineChopper do
     end
 
     it "should put every line into a Redis queue for loading" do
-      expect_lines_in_queue(chopper.redis_load_queue_key, File.read(TEST_FILE_PATH).lines.to_a.length)
+      expect_lines_in_queue(chopper.redis_load_queue_key, line_count)
     end
 
     it "should extract the unique field of each line into a queue" do
-      pending
+      chopper.feed_to_redis(lines_to_preview)
+      redis = Redis.new
+      stored_ids = redis.lrange(chopper.redis_unique_id_queue_key, 0, line_count)
+      expected_ids = CSV.parse(File.read(TEST_FILE_PATH)).map{|row| row[1]}
+      stored_ids.sort.should == expected_ids.sort
     end
 
     it "should record the number of lines processed to Redis on a running basis" do
