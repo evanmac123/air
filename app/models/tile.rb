@@ -317,7 +317,10 @@ class Tile < ActiveRecord::Base
 
   def update_sharable_attr is_sharable
     update_attribute(:is_sharable, is_sharable)
-    Tile.reorder_explore_page_tiles!([id]) if is_sharable
+    if is_sharable
+      update_attribute(:is_public, true)
+      Tile.reorder_explore_page_tiles!([id]) 
+    end
   end
 
   def self.due_ids
@@ -486,7 +489,7 @@ class Tile < ActiveRecord::Base
       priority = starting_priority + 1
 
       tile_ids.reverse.each do |tile_id|
-        self.find(tile_id).update_attributes(explore_page_priority: priority)
+        self.find(tile_id).update_attribute(:explore_page_priority, priority)
         priority += 1
       end
     end

@@ -76,7 +76,7 @@ feature "Client Admin Interacts With Share And Public Section" do
     end
 
     context "position on explore page" do
-      before do
+      before(:each) do
         @explore_tiles = []
         4.times do |i|
           @explore_tiles.push FactoryGirl.create :multiple_choice_tile, :public, explore_page_priority: i
@@ -97,7 +97,14 @@ feature "Client Admin Interacts With Share And Public Section" do
         wait_for_ajax
 
         visit explore_path
-        page.body.should =~ /#{@tile.headline}.*#{@explore_tiles[3].headline}.*#{@explore_tiles[2].headline}.*#{@explore_tiles[1].headline}/m
+        # @tile.reload
+        # p @tile.reload.explore_page_priority
+        # p [@tile.is_sharable, @tile.is_public, @tile.status]
+        # p Tile.viewable_in_public.ordered_for_explore.map(&:headline)
+        # p Tile.viewable_in_public.ordered_for_explore.map(&:explore_page_priority)
+        tiles_on_page = page.all(".headline .text").map(&:text)
+        expected_tiles = [@tile.headline] + @explore_tiles.reverse.map(&:headline)
+        tiles_on_page.should == expected_tiles
       end
     end
   end
