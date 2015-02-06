@@ -27,6 +27,15 @@ describe RemoveUserFromBoard do
         @user.demos.should include(@paid_board)
       end
 
+      context "when the manual override option is selected" do
+        it "should let them leave after all" do
+          @remover = RemoveUserFromBoard.new(@user, @paid_board, override_paid: true)
+          @remover.remove!
+          @user.reload.should have(1).demos
+          @user.demos.should_not include(@paid_board)
+        end
+      end
+
       it "returns false" do
         @remover.remove!.should be_false
       end

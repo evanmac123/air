@@ -1,8 +1,9 @@
 class RemoveUserFromBoard
-  def initialize(user, board_or_board_id)
+  def initialize(user, board_or_board_id, options={})
     @user = user
     @board_id = board_or_board_id
     @board_id = @board_id.id if board_or_board_id.kind_of?(Demo)
+    @options = options
   end
 
   def remove!
@@ -38,7 +39,11 @@ class RemoveUserFromBoard
   end
 
   def can_leave_board?
-    board_isnt_paid? && not_last_board?
+    override_paid || (board_isnt_paid? && not_last_board?)
+  end
+
+  def override_paid
+    @paid_board_override ||= @options[:override_paid]
   end
 
   def board_isnt_paid?

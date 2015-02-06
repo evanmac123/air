@@ -24,4 +24,5 @@ task :bulk_load, [:bucket, :object_key, :demo_id, :unique_id, :schema] => :envir
   feeder = BulkLoad::UserCreatorFeeder.new(object_key, demo_id, schema, unique_id, unique_id_index)
   job = feeder.delay.feed
   puts "Job ID for feeder is #{job.id}"
+  raise "YOU'RE NOT DONE YET, START THE REMOVAL IDENTIFIER HERE BOYO"
 end
