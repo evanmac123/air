@@ -59,15 +59,7 @@ class ExploreDigestForm
   private
 
   def reorder_explore_page_tiles!
-    Tile.transaction do
-      starting_priority = Tile.current_highest_explore_page_priority
-      priority = starting_priority + 1
-
-      tile_ids.reverse.each do |tile_id|
-        Tile.find(tile_id).update_attributes(explore_page_priority: priority)
-        priority += 1
-      end
-    end
+    Tile.reorder_explore_page_tiles! tile_ids
   end
 end
 

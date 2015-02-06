@@ -315,6 +315,11 @@ class Tile < ActiveRecord::Base
     unique_viewings_count
   end
 
+  def update_sharable_attr is_sharable
+    update_attribute(:is_sharable, is_sharable)
+    Tile.reorder_explore_page_tiles!([id]) if is_sharable
+  end
+
   def self.due_ids
     self.after_start_time_and_before_end_time.map(&:id)
   end
@@ -473,6 +478,18 @@ class Tile < ActiveRecord::Base
 
   def self.insert_tile_between left_tile_id, tile_id, right_tile_id, new_status = nil
     InsertTileBetweenTiles.new(left_tile_id, tile_id, right_tile_id, new_status).insert!
+  end
+
+  def self.reorder_explore_page_tiles! tile_ids
+    self.transaction do
+      starting_priority = current_highest_explore_page_priority
+      priority = starting_priority + 1
+
+      tile_ids.reverse.each do |tile_id|
+        self.find(tile_id).update_attributes(explore_page_priority: priority)
+        priority += 1
+      end
+    end
   end
 
   protected

@@ -74,6 +74,32 @@ feature "Client Admin Interacts With Share And Public Section" do
       wait_for_ajax
       @tile.reload.is_sharable.should be_false
     end
+
+    context "position on explore page" do
+      before do
+        @explore_tiles = []
+        4.times do |i|
+          @explore_tiles.push FactoryGirl.create :multiple_choice_tile, :public, explore_page_priority: i
+        end
+      end
+
+      it "should set max explore_page_priority for tile", js: true do
+        @tile.reload.explore_page_priority.should be_nil
+
+        sharable_link_switcher.click
+        wait_for_ajax
+
+        @tile.reload.explore_page_priority.should == 4
+      end
+
+      it "should set tile to the first position on explore page", js: true do
+        sharable_link_switcher.click
+        wait_for_ajax
+
+        visit explore_path
+        page.body.should =~ /#{@tile.headline}.*#{@explore_tiles[3].headline}.*#{@explore_tiles[2].headline}.*#{@explore_tiles[1].headline}/m
+      end
+    end
   end
 
   context "share via buttons" do
