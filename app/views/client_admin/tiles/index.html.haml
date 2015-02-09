@@ -40,9 +40,8 @@
           = link_to 'Explore.', client_admin_explore_path
 
 - timeout_in_msecs = ThumbnailsController::THUMBNAIL_POLL_DELAY * 1000
-- content_for :javascript do
-  :javascript
-    startTileThumbnailPollingFromQueue(#{timeout_in_msecs})
+- js_at_end do
+  startTileThumbnailPollingFromQueue(#{timeout_in_msecs})
 
 - content_for :javascript do
   :javascript
