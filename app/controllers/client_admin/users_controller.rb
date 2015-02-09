@@ -33,9 +33,11 @@ class ClientAdmin::UsersController < ClientAdminBaseController
 
   def create
     @demo = current_user.demo
-    user_params = params[:user].slice(*SETTABLE_USER_ATTRIBUTES)
+    user_params = params[:user].
+                    slice(*SETTABLE_USER_ATTRIBUTES).
+                    merge({email: params[:user][:email].try(:downcase).try(:strip)})
 
-    email = user_params['email'].try(:downcase)
+    email = user_params['email']
     existing_user = if email.present?
       User.find_by_email(email)
     end

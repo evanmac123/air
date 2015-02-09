@@ -81,6 +81,18 @@ feature 'Adds user' do
     demo.users.reload.count.should == 2
     expect_new_user(demo)
     newest_user(demo).demos.should have(1).demo
+  end 
+
+  it "should strip email", js: true do
+    demo.users.count.should == 1 # just the admin
+
+    fill_in_user_information
+    fill_in "user[email]",       :with => " jemsh@example.com   "
+
+    click_button "Add User"
+    demo.users.reload.count.should == 2
+    expect_new_user(demo, false)
+    newest_user(demo).demos.should have(1).demo
   end
 
   it 'should make user with user role', js: true do
