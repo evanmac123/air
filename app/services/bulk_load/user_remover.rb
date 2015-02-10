@@ -19,7 +19,7 @@ class BulkLoad::UserRemover
 
   def user_ids_to_remove
     @user_ids_to_remove ||= begin
-                              cached = redis.lrange(redis_user_ids_to_remove_key, 0, redis.llen(redis_user_ids_to_remove_key))
+                              cached = redis.smembers(redis_user_ids_to_remove_key)
                               if cached.present?
                                 cached
                               else
@@ -49,7 +49,7 @@ class BulkLoad::UserRemover
   end
 
   def cache_ids_to_remove_in_redis(ids)
-    ids.each {|id| redis.lpush(redis_user_ids_to_remove_key, id) }
+    ids.each {|id| redis.sadd(redis_user_ids_to_remove_key, id) }
   end
 
   def unique_ids_to_keep

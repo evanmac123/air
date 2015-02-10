@@ -18,8 +18,12 @@ describe BulkLoad::UserRemover do
 
   def expect_user_ids_in_queue_and_object(remover, user_ids_to_remove)
     remover.user_ids_to_remove.map(&:to_s).sort.should == user_ids_to_remove.map(&:to_s).sort
-    ids_queued_to_remove = redis.lrange(remover.redis_user_ids_to_remove_key, 0, user_ids_to_remove.length + 1)
+    ids_queued_to_remove = redis.smembers(remover.redis_user_ids_to_remove_key)
     user_ids_to_remove.map(&:to_s).sort.should == ids_queued_to_remove.map(&:to_s).sort
+  end
+
+  def predetermine_ids(ids_to_save, key)
+    ids_to_save.each {|id| redis.sadd(key, id)}
   end
 
   describe "#user_ids_to_remove" do
@@ -53,7 +57,7 @@ describe BulkLoad::UserRemover do
         remover = BulkLoad::UserRemover.new(@board.id, object_key, :employee_id)
 
         arbitrary_ids = [589, 89153, 599835]
-        arbitrary_ids.each {|id| redis.lpush(remover.redis_user_ids_to_remove_key, id)}
+        predetermine_ids(arbitrary_ids, redis_user_ids_to_remove_key)
 
         expect_user_ids_in_queue_and_object(remover, arbitrary_ids)
       end
