@@ -61,12 +61,13 @@ function addCounter(locator, countUpdater) {
       countUpdater(locator, '#'+ghettoUniqueId);
     }, 1);
   });
+  return ghettoUniqueId;
 }
 
 function addByteCounterFor(locator) {
-  addCounter(locator, updateByteCount)
+  return addCounter(locator, updateByteCount);
 }
 
 function addCharacterCounterFor(locator) {
-  addCounter(locator, updateCharacterCount)
+  return addCounter(locator, updateCharacterCount);
 }

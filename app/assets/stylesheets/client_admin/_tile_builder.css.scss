@@ -411,6 +411,12 @@ body.client_admin-tiles-update {
   #set_points {
     display: none;
   }
+  .supporting_content_error {
+    font-size: 14px;
+    color: $med-gray;
+    padding-top: 10px;
+    display: none;
+  }
 }
 
 body.client_admin-tiles-new, 
