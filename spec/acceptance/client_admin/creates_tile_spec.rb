@@ -112,6 +112,17 @@ feature 'Creates tile' do
     expect_content "supporting content is too long"
   end
 
+  scenario "with overlong supporting content should block submit button", js: true do
+    fill_in "Supporting content", with: ("x" * 301)
+    expect_content "Shorten the supporting content to save the Tile."
+    page.should have_selector("input[type=submit][value='Save tile'][disabled]")
+
+    fill_in "Supporting content", with: ("x" * 300)
+    expect_no_content "Shorten the supporting content to save the Tile."
+    page.should_not have_selector("input[type=submit][value='Save tile'][disabled]")
+    page.should have_selector("input[type=submit][value='Save tile']")
+  end
+
   scenario "should see character (not byte) counters on each text field", js: true do
     expect_character_counter_for      '#tile_builder_form_headline', 75
     expect_character_counter_for      '#tile_builder_form_supporting_content', 300
