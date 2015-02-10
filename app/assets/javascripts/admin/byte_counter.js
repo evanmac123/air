@@ -19,19 +19,40 @@ function maxLength(element) {
   return($(element).attr('maxlength'));
 }
 
+function canExceedMaxlength(element) {
+  return $(element).attr('exceed_maxlength');
+}
+
+function exceededMaxLength(locator, counter, leftLength){
+  if( !canExceedMaxlength(locator) ) return;
+  if( leftLength < 0 ) {
+    $(locator).addClass("exceeded_maxlength_field");
+    $(counter).addClass("exceeded_maxlength_counter");
+  } else {
+    $(locator).removeClass("exceeded_maxlength_field");
+    $(counter).removeClass("exceeded_maxlength_counter");
+  }
+}
+
 function updateByteCount(from, to) {
   currentLength = lengthInBytes($(from).val());
-  $(to).text('' + ((maxLength(from) * 7 / 8) - currentLength) + ' bytes left');
+  $(to).text('' + ((maxLength(to) * 7 / 8) - currentLength) + ' bytes left');
 }
 
 function updateCharacterCount(from, to) {
   currentLength = $(from).val().length;
-  $(to).text('' + maxLength(from) - currentLength + ' characters');
+  leftLength = maxLength(to) - currentLength;
+  $(to).text('' + leftLength + ' characters');
+  exceededMaxLength(from, to, leftLength)
 }
 
 function addCounter(locator, countUpdater) {
   var ghettoUniqueId = "counter_" + Math.round(Math.random() * 10000000);
-  $(locator).after('<span class="character-counter" id="' + ghettoUniqueId + '"></span>');
+
+  maxlength = $(locator).attr('maxlength'); // copy maxlength to counter
+  if( canExceedMaxlength(locator) ) $(locator).removeAttr('maxlength');
+  $(locator).after('<span class="character-counter" id="' + ghettoUniqueId + '" maxlength="' + maxlength + '"></span>');
+
   countUpdater(locator, '#'+ghettoUniqueId);
   // I'm using keyup here instead of keypress so that it plays nicely in Chrome
   $(locator).keyup(function() {

@@ -16,4 +16,7 @@ span.character-counter {
   color:$med-gray;
   float:right;
   padding-top:.5em;
+  &.exceeded_maxlength_counter {
+    color: $red;
+  }
 }

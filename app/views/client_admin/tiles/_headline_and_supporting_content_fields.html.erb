@@ -4,7 +4,7 @@
 </div>
 <div id="tile_supporting_content" class="content_sections">
   <%= form.label :supporting_content %>
-  <%= form.text_area :supporting_content, {maxlength: 300, rows: 10, placeholder:'Tell your users more about this topic.'} %>
+  <%= form.text_area :supporting_content, {maxlength: 300, exceed_maxlength: true, placeholder:'Tell your users more about this topic.', rows: 10} %>
 </div>
 <div id="tile_external_link" class="content_sections">
   <%= form.label :link_address, "Add a link (optional)" %>
