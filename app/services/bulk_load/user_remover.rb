@@ -28,6 +28,10 @@ class BulkLoad::UserRemover
                             end
   end
 
+  def preview(&blk)
+    user_ids_to_remove.each{|user_id| blk.call(user_id)}
+  end
+
   protected
 
   attr_reader :object_key

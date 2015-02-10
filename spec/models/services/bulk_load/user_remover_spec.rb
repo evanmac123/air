@@ -26,6 +26,11 @@ describe BulkLoad::UserRemover do
     ids_to_save.each {|id| redis.sadd(key, id)}
   end
 
+  def weird_user_prettyprinter(user_id)
+    user = User.find(user_id)
+    "I am #{user.name} number #{user_id}, of the tribe #{user.email}"
+  end
+
   describe "#user_ids_to_remove" do
     def create_users_from_employee_ids(board, employee_ids)
       users = []
@@ -84,7 +89,23 @@ describe BulkLoad::UserRemover do
     expect_user_ids_in_queue_and_object(remover, guys_to_delete.map(&:id))
   end
 
-  it "should easily let you preview users by ID, name, and email"
+  it "should easily let you preview users by means of a block" do
+    board = FactoryGirl.create(:demo)
+    users = FactoryGirl.create_list(:user, 2, demo: board)
+
+    predetermine_ids(users.map(&:id), redis_user_ids_to_remove_key)
+
+    remover = BulkLoad::UserRemover.new(board.id, object_key, :employee_id)
+    
+    result = []
+    remover.preview do |user_id|
+      result << weird_user_prettyprinter(user_id)
+    end
+
+    expected_result = users.map{|user| weird_user_prettyprinter(user.id)}.sort
+    result.sort.should == expected_result
+  end
+
   it "should easily let you remove a user from the set to be removed"
   it "should delete users in just the one board"
   it "should un-join users in multiple boards"
