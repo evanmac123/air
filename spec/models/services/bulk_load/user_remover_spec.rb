@@ -106,7 +106,16 @@ describe BulkLoad::UserRemover do
     result.sort.should == expected_result
   end
 
-  it "should easily let you remove a user from the set to be removed"
+  it "should easily let you remove a user from the set to be removed" do
+    raise "CALL IT #RETAIN_USER"
+    board = FactoryGirl.create(:demo)
+    users = FactoryGirl.create_list(:user, 2, demo: board)
+
+    predetermine_ids(users.map(&:id), redis_user_ids_to_remove_key)
+
+    remover = BulkLoad::UserRemover.new(board.id, object_key, :employee_id)
+  end
+
   it "should delete users in just the one board"
   it "should un-join users in multiple boards"
 end
