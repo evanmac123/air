@@ -22,8 +22,8 @@ describe BulkLoad::UserRemover do
     user_ids_to_remove.map(&:to_s).sort.should == ids_queued_to_remove.map(&:to_s).sort
   end
 
-  def predetermine_ids(ids_to_save, key)
-    ids_to_save.each {|id| redis.sadd(key, id)}
+  def predetermine_ids(ids_to_save)
+    ids_to_save.each {|id| redis.sadd(redis_user_ids_to_remove_key, id)}
   end
 
   def weird_user_prettyprinter(user_id)
@@ -62,7 +62,7 @@ describe BulkLoad::UserRemover do
         remover = BulkLoad::UserRemover.new(@board.id, object_key, :employee_id)
 
         arbitrary_ids = [589, 89153, 599835]
-        predetermine_ids(arbitrary_ids, redis_user_ids_to_remove_key)
+        predetermine_ids(arbitrary_ids)
 
         expect_user_ids_in_queue_and_object(remover, arbitrary_ids)
       end
@@ -89,16 +89,16 @@ describe BulkLoad::UserRemover do
     expect_user_ids_in_queue_and_object(remover, guys_to_delete.map(&:id))
   end
 
-  it "should easily let you preview users by means of a block" do
+  it "should easily let you iterate over users by means of a block" do
     board = FactoryGirl.create(:demo)
     users = FactoryGirl.create_list(:user, 2, demo: board)
 
-    predetermine_ids(users.map(&:id), redis_user_ids_to_remove_key)
+    predetermine_ids(users.map(&:id))
 
     remover = BulkLoad::UserRemover.new(board.id, object_key, :employee_id)
     
     result = []
-    remover.preview do |user_id|
+    remover.each_user_id do |user_id|
       result << weird_user_prettyprinter(user_id)
     end
 
@@ -110,7 +110,7 @@ describe BulkLoad::UserRemover do
     board = FactoryGirl.create(:demo)
     users = FactoryGirl.create_list(:user, 2, demo: board)
 
-    predetermine_ids(users.map(&:id), redis_user_ids_to_remove_key)
+    predetermine_ids(users.map(&:id))
 
     remover = BulkLoad::UserRemover.new(board.id, object_key, :employee_id)
     expect_user_ids_in_queue_and_object(remover, users.map(&:id))
@@ -122,6 +122,19 @@ describe BulkLoad::UserRemover do
     expect_user_ids_in_queue_and_object(remover, [user_to_remove.id])
   end
 
-  it "should delete users in just the one board"
+  it "should delete users in just the one board" do
+    board = FactoryGirl.create(:demo)
+    users = FactoryGirl.create_list(:user, 2, demo: board)
+    user_ids = users.map(&:id)
+
+    predetermine_ids(user_ids)
+    remover = BulkLoad::UserRemover.new(board.id, object_key, :employee_id)
+
+    remover.remove!
+    crank_dj_clear
+
+    User.where(id: user_ids).should be_empty
+  end
+
   it "should un-join users in multiple boards"
 end

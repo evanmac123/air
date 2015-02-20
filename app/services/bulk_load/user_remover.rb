@@ -30,12 +30,18 @@ class BulkLoad::UserRemover
     end
   end
 
-  def preview(&blk)
+  def each_user_id(&blk)
     user_ids_to_remove.each{|user_id| blk.call(user_id)}
   end
 
   def retain_user(user_id)
     redis.srem(redis_user_ids_to_remove_key, user_id.to_s)
+  end
+
+  def remove!
+    each_user_id do |user_id|
+      User.find(user_id).delay.destroy
+    end
   end
 
   protected
