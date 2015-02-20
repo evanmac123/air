@@ -33,5 +33,5 @@ describe BulkLoad::BulkLoadRedisKeys do
 
   expect_key :redis_unique_id_queue_key, "bulk_upload:unique_id_queue:#{Dummy::EXPECTED_OBJECT_KEY}"
 
-  expect_key :redis_user_ids_to_remove, "bulk_upload:user_ids_to_remove:#{Dummy::EXPECTED_OBJECT_KEY}"
+  expect_key :redis_user_ids_to_remove_key, "bulk_upload:user_ids_to_remove:#{Dummy::EXPECTED_OBJECT_KEY}"
 end
