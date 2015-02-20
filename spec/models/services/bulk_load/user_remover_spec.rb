@@ -136,5 +136,27 @@ describe BulkLoad::UserRemover do
     User.where(id: user_ids).should be_empty
   end
 
-  it "should un-join users in multiple boards"
+  it "should un-join users in multiple boards" do
+    board = FactoryGirl.create(:demo)
+    users = FactoryGirl.create_list(:user, 2)
+    users.each {|user| user.add_board(board)}
+    users.each do |user| 
+      user.demo_ids.should have(2).ids
+      user.demo_ids.should include(board.id)
+    end
+
+    user_ids = users.map(&:id)
+    predetermine_ids(user_ids)
+    remover = BulkLoad::UserRemover.new(board.id, object_key, :employee_id)
+
+    remover.remove!
+    crank_dj_clear
+
+    User.where(id: user_ids).should have(2).users
+    users.each do |user|
+      user.reload
+      user.demo_ids.should have(1).id
+      user.demo_ids.should_not include(board.id)
+    end
+  end
 end

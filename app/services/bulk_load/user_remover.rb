@@ -40,7 +40,13 @@ class BulkLoad::UserRemover
 
   def remove!
     each_user_id do |user_id|
-      User.find(user_id).delay.destroy
+      user = User.find(user_id)
+
+      if user.in_multiple_boards?
+        RemoveUserFromBoard.new(user, @board_id, override_paid: true).delay.remove!
+      else
+        user.delay.destroy
+      end
     end
   end
 

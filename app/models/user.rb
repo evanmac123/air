@@ -1,8 +1,6 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
-  # Maximum number of days back we will consider acts in the moving average
-  # (counting today as day 0)
   PRIVACY_LEVELS = %w(everybody connected nobody).freeze
 
   GENDERS = ["female", "male", "other", nil].freeze
@@ -1113,6 +1111,10 @@ class User < ActiveRecord::Base
 
   def can_see_raffle_modal?
     true
+  end
+
+  def in_multiple_boards?
+    demo_ids.length > 1
   end
 
   protected
