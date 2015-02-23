@@ -20,7 +20,7 @@ class BulkLoad::UserRemover
   def user_ids_to_remove
     # Contrary to our usual practice, we don't memoize this with an ivar.
     # This way we can remove individual user IDs via #retain_user by hitting
-    # Redis directly and not worry about having to keep our own ivar up toi
+    # Redis directly and not worry about having to keep our own ivar up to 
     # date with Redis.
     cached = redis.smembers(redis_user_ids_to_remove_key)
     if cached.present?
@@ -47,6 +47,15 @@ class BulkLoad::UserRemover
       else
         user.delay.destroy
       end
+    end
+  end
+
+  def preview_csv
+    puts CSV.generate_line(['id', 'name', 'email', @unique_id_field])
+
+    each_user_id do |user_id|
+      user = User.find(user_id)
+      puts CSV.generate_line([user.id, user.name, user.email, user.send(@unique_id_field)])
     end
   end
 
