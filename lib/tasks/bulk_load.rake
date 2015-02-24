@@ -42,7 +42,11 @@ namespace :bulk_load do
     end
 
     desc "Remove a user from the list of users to remove"
-    task :retain do
+    task :retain do |task, args|
+      ensure_all_arguments(task, args, %w(object_key user_id))
+
+      retainer = BulkLoad::UserRetainer.new(args[:object_key])
+      retainer.retain_user(args[:user_id])
     end
 
     desc "Kick off removals"

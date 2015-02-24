@@ -16,16 +16,6 @@ describe BulkLoad::UserRemover do
     redis.sadd(redis_unique_ids_key, employee_ids_to_keep)
   end
 
-  def expect_user_ids_in_queue_and_object(remover, user_ids_to_remove)
-    remover.user_ids_to_remove.map(&:to_s).sort.should == user_ids_to_remove.map(&:to_s).sort
-    ids_queued_to_remove = redis.smembers(remover.redis_user_ids_to_remove_key)
-    user_ids_to_remove.map(&:to_s).sort.should == ids_queued_to_remove.map(&:to_s).sort
-  end
-
-  def predetermine_ids(ids_to_save)
-    ids_to_save.each {|id| redis.sadd(redis_user_ids_to_remove_key, id)}
-  end
-
   def weird_user_prettyprinter(user_id)
     user = User.find(user_id)
     "I am #{user.name} number #{user_id}, of the tribe #{user.email}"
@@ -62,7 +52,7 @@ describe BulkLoad::UserRemover do
         remover = BulkLoad::UserRemover.new(@board.id, object_key, :employee_id)
 
         arbitrary_ids = [589, 89153, 599835]
-        predetermine_ids(arbitrary_ids)
+        rig_user_ids_for_bulk_removal(remover, arbitrary_ids)
 
         expect_user_ids_in_queue_and_object(remover, arbitrary_ids)
       end
@@ -93,9 +83,8 @@ describe BulkLoad::UserRemover do
     board = FactoryGirl.create(:demo)
     users = FactoryGirl.create_list(:user, 2, demo: board)
 
-    predetermine_ids(users.map(&:id))
-
     remover = BulkLoad::UserRemover.new(board.id, object_key, :employee_id)
+    rig_user_ids_for_bulk_removal(remover, users.map(&:id))
     
     result = []
     remover.each_user_id do |user_id|
@@ -106,29 +95,13 @@ describe BulkLoad::UserRemover do
     result.sort.should == expected_result
   end
 
-  it "should easily let you remove a user from the set to be removed" do
-    board = FactoryGirl.create(:demo)
-    users = FactoryGirl.create_list(:user, 2, demo: board)
-
-    predetermine_ids(users.map(&:id))
-
-    remover = BulkLoad::UserRemover.new(board.id, object_key, :employee_id)
-    expect_user_ids_in_queue_and_object(remover, users.map(&:id))
-
-    user_to_keep = users.first
-    user_to_remove = users.last
-    remover.retain_user(user_to_keep.id)
-
-    expect_user_ids_in_queue_and_object(remover, [user_to_remove.id])
-  end
-
   it "should delete users in just the one board" do
     board = FactoryGirl.create(:demo)
     users = FactoryGirl.create_list(:user, 2, demo: board)
     user_ids = users.map(&:id)
 
-    predetermine_ids(user_ids)
     remover = BulkLoad::UserRemover.new(board.id, object_key, :employee_id)
+    rig_user_ids_for_bulk_removal(remover, user_ids)
 
     remover.remove!
     crank_dj_clear
@@ -146,8 +119,8 @@ describe BulkLoad::UserRemover do
     end
 
     user_ids = users.map(&:id)
-    predetermine_ids(user_ids)
     remover = BulkLoad::UserRemover.new(board.id, object_key, :employee_id)
+    rig_user_ids_for_bulk_removal(remover, user_ids)
 
     remover.remove!
     crank_dj_clear

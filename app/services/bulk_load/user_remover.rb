@@ -19,7 +19,7 @@ class BulkLoad::UserRemover
 
   def user_ids_to_remove
     # Contrary to our usual practice, we don't memoize this with an ivar.
-    # This way we can remove individual user IDs via #retain_user by hitting
+    # This way we can remove individual user IDs via UserRetainer#retain_user by hitting
     # Redis directly and not worry about having to keep our own ivar up to 
     # date with Redis.
     cached = redis.smembers(redis_user_ids_to_remove_key)
@@ -32,10 +32,6 @@ class BulkLoad::UserRemover
 
   def each_user_id(&blk)
     user_ids_to_remove.each{|user_id| blk.call(user_id)}
-  end
-
-  def retain_user(user_id)
-    redis.srem(redis_user_ids_to_remove_key, user_id.to_s)
   end
 
   def remove!
