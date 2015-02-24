@@ -1,6 +1,6 @@
 class Admin::DemosController < AdminBaseController
   before_filter :find_demo_by_id, :only => [:show, :edit, :update]
-  before_filter :choose_tutorial_type, :only => [:create, :update]
+  before_filter :params_correction, :only => [:create, :update]
 
   def new
     @demo = Demo.new
@@ -54,12 +54,13 @@ class Admin::DemosController < AdminBaseController
     params[:demo].delete(:levels)
   end
 
-  def choose_tutorial_type
+  def params_correction
     params[:demo][:tutorial_type] = if params.delete(:use_multiple_choice_tiles)
                                       'multiple_choice'
                                     else
                                       'keyword'
                                     end
+    params[:demo][:is_public] = true if params[:demo][:is_parent]  
   end
 
   def schedule_creation_ping

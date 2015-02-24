@@ -48,6 +48,7 @@
 
   <%= form.input :website_locked, :label => "Lock out website-users will use SMS only" %>
   <%= form.input :turn_off_admin_onboarding, :label => "Turn off admin onboarding" %>
+  <%= form.input :is_parent, :label => "Is parent board (posted tiles can be copied by client admins from other boards)" %>
 
   <%= form.actions do %>
     <% button_text = demo.new_record? ? 'Create Game' : 'Update Game' %>
