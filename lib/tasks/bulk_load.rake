@@ -40,5 +40,13 @@ namespace :bulk_load do
       remover = BulkLoad::UserRemover.new(args[:demo_id], args[:object_key], args[:unique_id])
       remover.preview_csv
     end
+
+    desc "Remove a user from the list of users to remove"
+    task :retain do
+    end
+
+    desc "Kick off removals"
+    task :start_removal do
+    end
   end
 end
