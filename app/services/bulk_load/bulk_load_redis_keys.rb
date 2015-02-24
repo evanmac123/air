@@ -9,7 +9,7 @@ module BulkLoad::BulkLoadRedisKeys
   lines_completed 
   all_lines_chopped 
   failed_load_queue 
-  unique_id_queue 
+  unique_ids 
   user_ids_to_remove).each do |key_name|
     module_eval <<-END_EVAL
       def redis_#{key_name}_key

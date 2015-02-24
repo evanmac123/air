@@ -13,7 +13,7 @@ describe BulkLoad::UserRemover do
   let(:redis) {Redis.new}
 
   def load_employee_ids_to_keep_into_redis
-    redis.sadd(redis_unique_id_queue_key, employee_ids_to_keep)
+    redis.sadd(redis_unique_ids_key, employee_ids_to_keep)
   end
 
   def expect_user_ids_in_queue_and_object(remover, user_ids_to_remove)

@@ -42,13 +42,13 @@ describe BulkLoad::S3LineChopper do
     it "should extract the unique field of each line into a queue" do
       chopper.feed_to_redis(lines_to_preview)
       redis = Redis.new
-      stored_ids = redis.lrange(chopper.redis_unique_id_queue_key, 0, line_count)
+      stored_ids = redis.smembers(chopper.redis_unique_ids_key)
       expected_ids = CSV.parse(File.read(TEST_FILE_PATH)).map{|row| row[1]}
       stored_ids.sort.should == expected_ids.sort
     end
 
     it "should record the number of lines processed to Redis on a running basis" do
-      mock_redis = stub("Redis client", lpush: nil, set: nil)
+      mock_redis = stub("Redis client", lpush: nil, set: nil, sadd: nil)
       chopper.stubs(:redis).returns(mock_redis)
 
       chopper.feed_to_redis(1) do
