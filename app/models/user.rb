@@ -1117,6 +1117,11 @@ class User < ActiveRecord::Base
     demo_ids.length > 1
   end
 
+  def have_access_to_parent_board? board
+    board = Demo.where(id: board).first unless board.is_a? Demo
+    board && board.is_parent && (is_client_admin || is_site_admin)
+  end
+  
   protected
 
   def downcase_email

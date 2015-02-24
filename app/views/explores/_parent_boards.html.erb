@@ -1,0 +1,11 @@
+<% if current_user.is_site_admin %>
+  <h1>Parent Boards</h1>
+
+  <div class="parent_boards">
+    <ul>
+      <% boards.each do |board| %>
+        <%= link_to board.name, parent_board_path(board) %>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

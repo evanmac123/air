@@ -10,6 +10,7 @@ class ExploresController < ClientAdminBaseController
     @all_tiles_displayed = @tiles.count <= @batch_size
     @tiles = @tiles.limit(tile_batch_size)
     @path_for_more_tiles = explore_path
+    @parent_boards = Demo.where(is_parent: true)
 
     render_partial_if_requested(tag_click_source: 'Explore Main Page - Clicked Tag On Tile', thumb_click_source: 'Explore Main Page - Tile Thumbnail Clicked')
 
