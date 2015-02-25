@@ -82,11 +82,11 @@ module ApplicationHelper
   def is_desktop?
     request.env['mobvious.device_type'] == :desktop
   end
-
+=begin
   def show_save_progress_button
     current_user.try(:is_guest?)
   end
-
+=end
   def done_all_tiles_message
     if @no_tiles_to_do
       "There aren't any tiles available at this time. Check back later for more."
@@ -107,7 +107,7 @@ module ApplicationHelper
       params[:public_slug] ? public_tile_path(params[:public_slug], tile) : tile_path(tile)
     end
   end
-
+=begin
   def set_home_path public_tile_page
     if public_tile_page
       "/"
@@ -124,7 +124,7 @@ module ApplicationHelper
     params[:controller] == "tile_previews" \
       && (current_user.nil? || current_user.is_guest?)
   end
-
+=end
   def user_is_guest_for_tile_preview?
     params[:controller] == "tile_previews" \
       && !current_user.is_client_admin && !current_user.is_site_admin

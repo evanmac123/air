@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   before_filter :disable_framing
   before_filter :initialize_flashes
   before_filter :set_show_conversion_form_before_this_request
-  before_filter :load_boards_for_switching_and_managing
+  #before_filter :load_boards_for_switching_and_managing
 
   # This prints the controller and action to stdout on every action, which
   # is sometimes handy for debugging
@@ -476,7 +476,7 @@ class ApplicationController < ActionController::Base
     @all_tiles_done = satisfiable_tiles.empty?
     @no_tiles_to_do = current_user.demo.tiles.active.empty?
   end
-
+=begin
   def load_boards_for_switching_and_managing
     return unless current_user && (current_user.is_a? User)
     
@@ -492,7 +492,7 @@ class ApplicationController < ActionController::Base
     @muted_followup_boards = current_user.muted_followup_boards
     @muted_digest_boards = current_user.muted_digest_boards
   end
-
+=end
   def disable_mime_sniffing
     response.headers['X-Content-Type-Options'] = 'nosniff'
   end

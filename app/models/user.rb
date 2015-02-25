@@ -39,6 +39,7 @@ class User < ActiveRecord::Base
   has_many   :user_in_raffle_infos, as: :user
   has_many   :tile_viewings, as: :user
   has_many   :viewed_tiles, through: :tile_viewings, source: :tile
+  has_many   :parent_board_users
   has_one    :raffle, through: :demo
   has_one    :current_board_membership, :class_name => "BoardMembership", :conditions => "is_current = true"
   has_one    :demo, through: :current_board_membership
@@ -1117,11 +1118,22 @@ class User < ActiveRecord::Base
     demo_ids.length > 1
   end
 
-  def have_access_to_parent_board? board
+  def have_access_to_parent_board?(board)
     board = Demo.where(id: board).first unless board.is_a? Demo
     board && board.is_parent && (is_client_admin || is_site_admin)
   end
+
+  def display_get_started_lightbox
+    on_first_login \
+    && !get_started_lightbox_displayed \
+    && demo.tiles.active.present? \
+    && show_onboarding?
+  end
   
+  def is_parent_board_user?
+    false
+  end
+
   protected
 
   def downcase_email

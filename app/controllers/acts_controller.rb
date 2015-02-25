@@ -1,6 +1,7 @@
 class ActsController < ApplicationController
   include Reply
   include TileBatchHelper
+  include UserInParentBoard
 
   skip_before_filter :authorize, only: :index
   before_filter :allow_guest_user, only: :index
@@ -14,6 +15,8 @@ class ActsController < ApplicationController
     authorize
     return if response_body.present? # such as if our authorization failed & we're bound for the signin page
 
+    set_parent_board_user_if_needed(params[:board_id])
+
     @current_link_text = "Home"
     @current_user = current_user
     
@@ -23,10 +26,7 @@ class ActsController < ApplicationController
     @demo                  = current_user.demo
     @acts                  = find_requested_acts(@demo)
 
-    @display_get_started_lightbox = current_user.on_first_login \
-                                && !(current_user.get_started_lightbox_displayed) \
-                                && current_user.demo.tiles.active.present? \
-                                && current_user.show_onboarding?
+    @display_get_started_lightbox = current_user.display_get_started_lightbox
 
     # This is handy for debugging the lightbox or working on its styles
     @display_get_started_lightbox ||= params[:display_get_started_lightbox]

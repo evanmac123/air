@@ -1,9 +1,6 @@
 class ParentBoardsController < ApplicationController
-  include TileCompletionsInParentBoard
-
   def show
     if current_user.have_access_to_parent_board? board_id
-      remove_completions_in_parent_board board_id
       redirect_to activity_path(board_id: board_id)
     else
       redirect_to activity_path

@@ -9,7 +9,7 @@
   </div>
 
   <p id="warning_first_part">
-    <% if has_only_one_board %>
+    <% if user.has_only_one_board? %>
       Your account will be permanently deleted from Airbo.
     <% else %>
       Your account will be permanently deleted from this board.
@@ -33,25 +33,21 @@
     </div>
   </div>
 
-  <% put_divider_between_sections = boards_as_admin.present? && boards_as_regular_user.present? %>
-
-  <% if boards_as_admin.present? %>
+  <% if user.boards_as_admin.present? %>
     <div id="admin_board_controls">
       <div class="row">
         <div class="small-12 columns">
           <h2 class="control_section_header">Boards You Manage</h2>
         </div>
       </div>
-      <% boards_as_admin.sort_by(&:name).each do |board| %>
+      <% user.boards_as_admin.sort_by(&:name).each do |board| %>
         <%= render "shared/board_settings_admin_board", board: board %>
       <% end %>
     </div>
   <% end %>
 
-  <% if boards_as_regular_user.present? %>
-    <% divider_class = put_divider_between_sections ? "with_divider" : "" %>
-
-    <div id="user_board_controls" class="<%= divider_class %>">
+  <% if user.boards_as_regular_user.present? %>
+    <div id="user_board_controls" class="<%= user.divider_class %>">
       <div class="row board_wrapper user_section_header">
         <div class="board_name_column">
           <h2 class="control_section_header">Boards You Participate In</h2>
@@ -69,14 +65,14 @@
 
         <div class="delete_column"></div>
       </div>
-      <% boards_as_regular_user.sort_by(&:name).each do |board| %>
-        <%= render "shared/board_settings_user_board", board: board, as_admin: false, followup_is_muted: @muted_followup_boards.include?(board), digest_is_muted: @muted_digest_boards.include?(board)  %>
+      <% user.boards_as_regular_user.sort_by(&:name).each do |board| %>
+        <%= render "shared/board_settings_user_board", board: board, as_admin: false, followup_is_muted: user.followup_is_muted(board), digest_is_muted: user.digest_is_muted(board)  %>
       <% end %>
     </div>
   <% end %>
 </div>  
 
-<% if current_user.try(:can_open_board_settings?) %>
+<% if user.can_open_board_settings? %>
   <%= content_for :javascript do %>
     <%= javascript_tag do %>
       $().ready(function(){
