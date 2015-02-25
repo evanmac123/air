@@ -1120,7 +1120,7 @@ class User < ActiveRecord::Base
 
   def have_access_to_parent_board?(board)
     board = Demo.where(id: board).first unless board.is_a? Demo
-    board && board.is_parent && (is_client_admin || is_site_admin)
+    board && board.is_parent && is_site_admin
   end
 
   def display_get_started_lightbox
