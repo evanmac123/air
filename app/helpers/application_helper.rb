@@ -82,11 +82,7 @@ module ApplicationHelper
   def is_desktop?
     request.env['mobvious.device_type'] == :desktop
   end
-=begin
-  def show_save_progress_button
-    current_user.try(:is_guest?)
-  end
-=end
+
   def done_all_tiles_message
     if @no_tiles_to_do
       "There aren't any tiles available at this time. Check back later for more."

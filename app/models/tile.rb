@@ -224,29 +224,7 @@ class Tile < ActiveRecord::Base
   def copy_to_new_demo(new_demo, copying_user)
     CopyTile.new(new_demo, copying_user).copy_tile self
   end
-=begin
-  # XTR this into a service
-  def copy_to_new_demo(new_demo, copying_user)
-    @making_copy = true # prevents processing that we don't need
-    copy = Tile.new
-    %w(correct_answer_index headline link_address multiple_choice_answers points question supporting_content type image_meta thumbnail_meta image thumbnail).each do |field_to_copy|
-      copy.send("#{field_to_copy}=", self.send(field_to_copy))
-    end
 
-    copy.status = Tile::DRAFT
-    copy.original_creator = self.creator || self.original_creator
-    copy.original_created_at = self.created_at || self.original_created_at
-    copy.demo = new_demo
-    copy.creator = copying_user
-    copy.position = copy.find_new_first_position
-    
-    #mark as copied by user
-    self.user_tile_copies.build(user_id: copying_user.id)
-    self.save!
-    copy.save!    
-    copy
-  end
-=end
   def human_original_creator_identification
     return "" unless original_creator.present?
     "#{original_creator.name}, #{original_creator.demo.name}"
