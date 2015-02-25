@@ -221,6 +221,10 @@ class Tile < ActiveRecord::Base
     false
   end
 
+  def copy_to_new_demo(new_demo, copying_user)
+    CopyTile.new(new_demo, copying_user).copy_tile self
+  end
+=begin
   # XTR this into a service
   def copy_to_new_demo(new_demo, copying_user)
     @making_copy = true # prevents processing that we don't need
@@ -242,7 +246,7 @@ class Tile < ActiveRecord::Base
     copy.save!    
     copy
   end
-
+=end
   def human_original_creator_identification
     return "" unless original_creator.present?
     "#{original_creator.name}, #{original_creator.demo.name}"

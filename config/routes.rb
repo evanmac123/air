@@ -77,6 +77,7 @@ Health::Application.routes.draw do
   resource :client_admin, :only => :show
 
   resources :boards, only: [:new, :create, :update]
+  resources :copy_boards, only: [:create]
   resources :parent_boards, only: [:show]
 
   resource :current_board, only: [:update]  

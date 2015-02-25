@@ -283,6 +283,34 @@ header {
   .board_settings_mobile_toggle {
     display: none;
   }
+  .copy_board {
+    display: inline-block;
+    padding-left: 0.3em;
+    #copy_board_link {
+      @include app-button($sky-blue);
+    }
+  }
+  .board_copied_reveal {
+    background: $white !important;
+    width: 548px;
+    margin-left: -274px;
+    p {
+      @include regular-text;
+      padding-top: 10px;
+      padding-bottom: 20px;
+    }
+    #close_board_copied_lightbox {
+      @include light-button($sky-blue);
+      margin-right: 10px;
+    }
+    #manage_board_post_board_copy {
+      @include light-button($med-gray);
+      margin-right: 10px;
+    }
+    #to_explore_post_board_copy {
+      @include light-button($med-gray);
+    }
+  }
 }
 
 

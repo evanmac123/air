@@ -1,0 +1,21 @@
+<% if current_user.is_parent_board_user? %>
+  <div class="copy_board">
+    <%= link_to 'Copy', "#", id: "copy_board_link", data: {url: copy_boards_path(board_id: current_user.demo)} %>
+  </div>
+
+  <div id="board_copied_lightbox" class="reveal-modal board_copied_reveal">
+    <h2>Success!</h2>
+    <p>All Tiles have been copied to your board's Drafts section.</p>
+    <div id="post_board_copy_buttons">
+      <%= link_to "OK", "#", id: "close_board_copied_lightbox" %>
+      <%= link_to "View your Board", client_admin_tiles_path, id: "manage_board_post_board_copy" %>
+      <%= link_to "Back to Explore", explore_path, id: "to_explore_post_board_copy" %>
+    </div>
+  </div>
+
+  <% js_at_end do %>
+    $().ready(function(){
+      window.copyBoard();
+    });
+  <% end %>
+<% end %>

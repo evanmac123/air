@@ -1134,6 +1134,10 @@ class User < ActiveRecord::Base
     false
   end
 
+  def copy_active_tiles_from_demo(demo)
+    CopyTile.new(self.demo, self).copy_active_tiles_from_demo(demo)
+  end
+
   protected
 
   def downcase_email
