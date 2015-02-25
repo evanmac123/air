@@ -44,10 +44,6 @@ var fillBarToFinalProgress = function(finalProgress, allTilesDone, callback) {
   });
 };
 
-var loadFollowingTile = function() {
-  loadNextTileWithOffset(1);
-}
-
 var fillBarEntirely = function(previousTickets, currentTickets, finalProgress, allTilesDone) {
   var deferred = $.Deferred();
 

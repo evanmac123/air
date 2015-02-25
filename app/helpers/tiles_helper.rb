@@ -25,4 +25,12 @@ module TilesHelper
       str
     end
   end
+
+  def all_tiles_done_link
+    if params[:public_slug]
+      public_activity_path(params[:public_slug]) 
+    else
+      activity_path(board_id: current_user.demo_id) 
+    end
+  end
 end

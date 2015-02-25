@@ -323,32 +323,14 @@ class Tile < ActiveRecord::Base
     end
   end
 
+  def self.displayable_categorized_to_user(user, maximum_tiles)
+    DisplayCategorizedTiles.new(user, maximum_tiles).displayable_categorized_tiles
+  end
+
   def self.due_ids
     self.after_start_time_and_before_end_time.map(&:id)
   end
 
-  def self.displayable_categorized_to_user(user, maximum_tiles)
-    result = satisfiable_categorized_to_user(user) 
-
-    if maximum_tiles
-      #default for maximum tiles variant. if wrong will be changed
-      result[:all_tiles_displayed] = false  
-
-      length_not_completed = result[:not_completed_tiles].length
-      length_completed = result[:completed_tiles].length
-      if length_not_completed > maximum_tiles
-        result[:not_completed_tiles] = result[:not_completed_tiles][0, maximum_tiles]
-        result[:completed_tiles] = nil
-      elsif (length_not_completed + length_completed) > maximum_tiles
-        result[:completed_tiles] = result[:completed_tiles][0, maximum_tiles - length_not_completed]        
-      else
-        result[:all_tiles_displayed] = true      
-      end
-      result
-    end
-
-    result
-  end
 
   def self.satisfiable_to_user(user)
     tiles_due_in_demo = after_start_time_and_before_end_time.where(demo_id: user.demo.id, status: ACTIVE)
@@ -357,15 +339,6 @@ class Tile < ActiveRecord::Base
     satisfiable_tiles.sort_by(&:position).reverse
   end
 
-  def self.satisfiable_categorized_to_user(user)
-    tiles_due_in_demo = after_start_time_and_before_end_time.where(demo_id: user.demo.id, status: ACTIVE)
-    completed_tiles = user.tile_completions.order("#{TileCompletion.table_name}.id desc").includes(:tile).where("#{Tile.table_name}.demo_id" => user.demo_id).map(&:tile)
-    ids_completed = completed_tiles.map(&:id)
-    not_completed_tiles = tiles_due_in_demo.reject {|t| ids_completed.include? t.id}
-    
-    {completed_tiles: completed_tiles, not_completed_tiles: not_completed_tiles.sort_by(&:position).reverse}
-  end
-  
   def self.active
     where("status = ?", ACTIVE).ordered_by_position
   end

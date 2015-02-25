@@ -41,7 +41,7 @@ loadNextTileWithOffset = (offset, preloadAnimations, predisplayAnimations, tileP
   predisplayAnimations ?= -> $.Deferred().resolve()
 
   url = '/tiles/' + $('#slideshow .tile_holder').data('current-tile-id')
-  $.when(preloadAnimations).then(tilePosting).then ->
+  $.when(preloadAnimations, tilePosting).then ->
     $.get(
       url,
       {partial_only: true, offset: offset, after_posting: afterPosting,
