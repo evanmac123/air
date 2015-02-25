@@ -44,7 +44,7 @@ class TilesToolsSubnavPresenter
   end
 
   def block_nav?
-    demo.non_activated? && user.show_onboarding?
+    demo.non_activated? && current_user.show_onboarding?
   end
 
   def subnav_elements_with_blocked_items
