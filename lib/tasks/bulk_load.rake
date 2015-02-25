@@ -50,7 +50,33 @@ namespace :bulk_load do
     end
 
     desc "Kick off removals"
-    task :start_removal do
+    task :start_removal, [:object_key, :demo_id, :unique_id] => :environment do |task, args|
+      ensure_all_arguments(task, args, %w(object_key demo_id unique_id))
+
+      remover = BulkLoad::UserRemover.new(args[:demo_id], args[:object_key], args[:unique_id])
+      board = Demo.find(args[:demo_id])
+
+      confirmation_string = "Yes, I want to delete users from board #{board.name}."
+
+      puts
+      puts
+      puts "WARNING! THIS IS A DESTRUCTIVE AND IRREVOCABLE ACTION."
+      puts "You should consider running rake bulk_load:remove:preview first to see who will be deleted."
+      puts "If you are ABSOLUTELY SURE that you want to remove users from this board, type the sentence below exactly, character-for-character, at the prompt:"
+      puts
+      puts confirmation_string
+      puts
+      print "> "
+
+      user_response = STDIN.gets.chomp
+
+      if user_response == confirmation_string
+        puts
+        puts "All right buddy, it's your funeral. Here we go."
+        remover.remove!
+      else
+        puts "User response didn't match, aborting."
+      end
     end
   end
 end
