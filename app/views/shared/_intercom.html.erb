@@ -4,6 +4,8 @@
   <% intercom_user_id_with_env = _intercom_user.id.to_s + "-" + Rails.env %>
   <% if _intercom_user.is_guest? %>
     <% intercom_user_id_with_env = "GUEST-" + intercom_user_id_with_env %>
+  <% elsif _intercom_user.is_parent_board_user? %>
+    <% intercom_user_id_with_env = "PARENT-BOARD-" + intercom_user_id_with_env %>
   <% end %>
 
   <% js_at_end do %>

@@ -45,6 +45,10 @@ class ParentBoardUser < ActiveRecord::Base
     false
   end
 
+  def is_client_admin
+    false
+  end
+
   def is_guest?
     false
   end
@@ -128,5 +132,9 @@ class ParentBoardUser < ActiveRecord::Base
     pb_user = where(params).first
     pb_user = create!(params) unless pb_user
     pb_user
+  end
+
+  def accepted_invitation_at
+    created_at
   end
 end
