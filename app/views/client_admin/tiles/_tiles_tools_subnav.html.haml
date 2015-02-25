@@ -1,3 +1,5 @@
-%ul#tile_manager_nav
-  - set_subnav_elements.each do |item_params|
-    = subnav_item_block item_params
+- user = UserInTilesToolsSubnav.new(current_user)
+- if user.has_tiles_tools_subnav?
+  %ul#tile_manager_nav
+    - user.set_subnav_elements_with_corrected_params do |item_params|
+      = render partial: "client_admin/tiles/subnav_item", locals: item_params

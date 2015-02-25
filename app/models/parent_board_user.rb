@@ -6,15 +6,8 @@ class ParentBoardUser < ActiveRecord::Base
   has_many   :acts, :as => :user, :dependent => :destroy
 
   delegate  :name,
-            # :highest_ranking_user_type,
-            # :has_tiles_tools_subnav?,
-            # :authorized_to?,
-            # :is_site_admin,
-            # :is_guest?,
-            # :can_switch_boards?,
-            # :can_open_board_settings?,
-            # :email,
-            # :is_client_admin,
+            :can_switch_boards?,
+            :nerf_links_with_login_modal?,
             to: :original_user
 
   def available_tiles_on_current_demo
