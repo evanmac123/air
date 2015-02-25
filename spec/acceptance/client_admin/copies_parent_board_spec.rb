@@ -128,7 +128,7 @@ feature "Client admin copies parent board" do
 
         # watch completed tiles
         page.all(completed_tile_selector + " a").first.click
-        [0, 1, 0].each do |i|
+        [1, 0, 1].each do |i|
           tile = parent_demo.active_tiles[i]
           page.find(".tile_headline").text.should == tile.headline
           show_next_tile

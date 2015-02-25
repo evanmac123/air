@@ -18,7 +18,6 @@ class TilesController < ApplicationController
       @current_user = current_user
 
       @start_tile = find_start_tile
-      session.delete(:start_tile)
 
       @current_tile_ids = satisfiable_tiles.map(&:id)
       decide_if_tiles_can_be_done(satisfiable_tiles)
@@ -26,6 +25,7 @@ class TilesController < ApplicationController
 
       schedule_viewed_tile_ping(@start_tile)
       increment_tile_views_counter @start_tile, current_user
+      session.delete(:start_tile)
     end
   end
 
@@ -160,7 +160,7 @@ class TilesController < ApplicationController
     end
   end
 
-  def show_completed_tiles    
+  def show_completed_tiles
     @show_completed_tiles ||=  (params[:completed_only] == 'true') || 
       (session[:start_tile] && 
         current_user.tile_completions.where(tile_id: session[:start_tile]).exists?) || false
