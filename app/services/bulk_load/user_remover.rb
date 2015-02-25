@@ -79,7 +79,7 @@ class BulkLoad::UserRemover
   end
 
   def unique_ids_to_keep
-    @unique_ids_to_keep ||= Redis.new.smembers(redis_unique_ids_key)
+    @unique_ids_to_keep ||= redis.smembers(redis_unique_ids_key)
   end
 
   def board

@@ -37,8 +37,6 @@ namespace :bulk_load do
     task :preview, [:object_key, :demo_id, :unique_id] => :environment do |task, args|
       ensure_all_arguments(task, args, %w(object_key demo_id unique_id))
 
-      puts "ALL ARGUMENTS ARE GOOD"
-      puts ENV.inspect
       remover = BulkLoad::UserRemover.new(args[:demo_id], args[:object_key], args[:unique_id])
       remover.preview_csv
     end
