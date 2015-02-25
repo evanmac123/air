@@ -9,6 +9,7 @@ class TilesToolsSubnavPresenter
 
   def initialize(user)
     @current_user = if user.is_parent_board_user?
+                      @is_parent_board_user = true
                       user.original_user
                     else
                       user
@@ -23,6 +24,14 @@ class TilesToolsSubnavPresenter
 
   def show_subnav?
     has_tiles_tools_subnav?
+  end
+
+  def tile_manager_nav_class
+    if @is_parent_board_user
+      'parent_board'
+    else
+      ''
+    end
   end
 
   protected

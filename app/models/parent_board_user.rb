@@ -9,6 +9,7 @@ class ParentBoardUser < ActiveRecord::Base
 
   delegate  :can_switch_boards?,
             :nerf_links_with_login_modal?,
+            :name,
             to: :original_user
 
   def display_get_started_lightbox
@@ -63,10 +64,6 @@ class ParentBoardUser < ActiveRecord::Base
 
   def update_points(bump, *args)
     PointIncrementer.new(self, bump).update_points
-  end
-
-  def name
-    "Parent Board User [#{id}]"
   end
 
   def can_start_over?
