@@ -1,4 +1,4 @@
-class UserInTilesToolsSubnav
+class TilesToolsSubnavPresenter
   include Rails.application.routes.url_helpers
 
   attr_reader :current_user
@@ -15,10 +15,14 @@ class UserInTilesToolsSubnav
                     end
   end
 
-  def set_subnav_elements_with_corrected_params
+  def items_with_corrected_params
     set_subnav_elements.each do |item_params|
       yield correct_params(item_params)
     end
+  end
+
+  def show_subnav?
+    has_tiles_tools_subnav?
   end
 
   protected

@@ -1,8 +1,12 @@
 class TileCompletionsController < ApplicationController
+  include UserInParentBoard
+
   prepend_before_filter :allow_guest_user, :only => :create
 
   def create
     tile = find_tile
+    set_parent_board_user(tile.demo_id)
+    
     unless current_user.in_board?(tile.demo_id)
       not_found
       return false

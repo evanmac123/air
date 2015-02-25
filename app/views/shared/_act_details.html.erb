@@ -1,6 +1,6 @@
 <%= cache [__FILE__, 'part 1', 'v3.pwd', act, user] do %>
   <div class="user">
-    <% if user.is_guest? %>
+    <% if user.is_guest? || user.is_parent_board_user? %>
       <%= user.name %>
     <% else %>
       <%= link_to(user.name, user, :class => 'name-of-user') %> 

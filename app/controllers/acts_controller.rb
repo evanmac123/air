@@ -15,7 +15,7 @@ class ActsController < ApplicationController
     authorize
     return if response_body.present? # such as if our authorization failed & we're bound for the signin page
 
-    set_parent_board_user_if_needed(params[:board_id])
+    set_parent_board_user(params[:board_id])
 
     @current_link_text = "Home"
     @current_user = current_user

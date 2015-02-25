@@ -2,23 +2,26 @@ class TilesController < ApplicationController
   include TileBatchHelper
   include ActionView::Helpers::NumberHelper
   include ApplicationHelper
+  include UserInParentBoard
 
   prepend_before_filter :allow_guest_user, :only => [:index, :show]
 
   def index
     @current_user = current_user
-    
-    @current_tile_ids = satisfiable_tiles.map(&:id)
-    decide_if_tiles_can_be_done(satisfiable_tiles)
-
-    decide_whether_to_show_conversion_form
 
     if params[:partial_only]
       render_tile_wall_as_partial
       ignore_all_newrelic if @current_user.is_site_admin
     else
+      set_parent_board_user_by_tile(session[:start_tile])
+
       @start_tile = find_start_tile
       session.delete(:start_tile)
+
+      @current_tile_ids = satisfiable_tiles.map(&:id)
+      decide_if_tiles_can_be_done(satisfiable_tiles)
+      decide_whether_to_show_conversion_form
+
       schedule_viewed_tile_ping(@start_tile)
       increment_tile_views_counter @start_tile, current_user
     end
@@ -26,6 +29,8 @@ class TilesController < ApplicationController
 
   def show
     if params[:partial_only]
+      set_parent_board_user_by_tile(params[:id])
+
       decide_whether_to_show_conversion_form
 
       new_tile_was_rendered = render_new_tile
