@@ -1,6 +1,7 @@
 class UserInHeaderPresenter
   include Rails.application.routes.url_helpers
   include ActionView::Helpers::FormOptionsHelper
+  include ActionView::Helpers::ApplicationHelper
 
   attr_reader :params, 
               :public_tile_page, 
@@ -161,11 +162,6 @@ class UserInHeaderPresenter
 
   def is_not_user?
     !is_user?
-  end
-
-  def guest_for_tile_preview?
-    params[:controller] == "tile_previews" \
-      && (current_user.nil? || current_user.is_guest?)
   end
 
   def show_save_progress_button

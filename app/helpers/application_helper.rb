@@ -107,24 +107,12 @@ module ApplicationHelper
       params[:public_slug] ? public_tile_path(params[:public_slug], tile) : tile_path(tile)
     end
   end
-=begin
-  def set_home_path public_tile_page
-    if public_tile_page
-      "/"
-    elsif guest_for_tile_preview?
-      nil
-    elsif current_user.is_guest?
-      public_activity_path(current_user.demo.public_slug)
-    else
-      activity_path
-    end
-  end
 
   def guest_for_tile_preview?
     params[:controller] == "tile_previews" \
       && (current_user.nil? || current_user.is_guest?)
   end
-=end
+  
   def user_is_guest_for_tile_preview?
     params[:controller] == "tile_previews" \
       && !current_user.is_client_admin && !current_user.is_site_admin
