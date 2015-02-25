@@ -123,4 +123,10 @@ class ParentBoardUser < ActiveRecord::Base
   def claimed?
     false
   end
+
+  def self.find_or_create params
+    pb_user = where(params).first
+    pb_user = create!(params) unless pb_user
+    pb_user
+  end
 end
