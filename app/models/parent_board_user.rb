@@ -54,6 +54,10 @@ class ParentBoardUser < ActiveRecord::Base
     TicketProgressCalculator.new(self)
   end
 
+  def not_show_all_completed_tiles_in_progress
+    User::TileProgressCalculator.new(self).not_show_all_completed_tiles_in_progress
+  end
+
   def in_board?(demo_id)
     self.demo_id == demo_id
   end

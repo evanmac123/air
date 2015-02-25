@@ -111,8 +111,8 @@ feature "Client admin copies parent board" do
 
         # complete 2 tiles
         [0, 1].each do |i|
-          tile_headline = parent_demo.active_tiles[i].headline
-          page.find(".tile_headline").text.should == tile_headline
+          tile = parent_demo.active_tiles[i]
+          page.find(".tile_headline").text.should == tile.headline
           page.find(".right_multiple_choice_answer").click
 
           wait_for_ajax
@@ -129,25 +129,25 @@ feature "Client admin copies parent board" do
         # watch completed tiles
         page.all(completed_tile_selector + " a").first.click
         [0, 1, 0].each do |i|
-          tile_headline = parent_demo.active_tiles[i].headline
-          page.find(".tile_headline").text.should == tile_headline
+          tile = parent_demo.active_tiles[i]
+          page.find(".tile_headline").text.should == tile.headline
           show_next_tile
 
           wait_for_ajax
-          tc = TileCompletion.last
-          tc.tile.should == tile
-          tc.user.should == parent_board_user
         end
 
         # now complete last 2 tiles
         visit activity_path(board_id: parent_demo, as: client_admin)
         page.all(tile_selector + " a").first.click
         [2, 3].each do |i|
-          tile_headline = parent_demo.active_tiles[i].headline
-          page.find(".tile_headline").text.should == tile_headline
+          tile = parent_demo.active_tiles[i]
+          page.find(".tile_headline").text.should == tile.headline
           page.find(".right_multiple_choice_answer").click
 
           wait_for_ajax
+          tc = TileCompletion.last
+          tc.tile.should == tile
+          tc.user.should == parent_board_user
         end
         click_link "Return to homepage"
         page.all(completed_tile_selector).count.should == 4

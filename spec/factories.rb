@@ -109,6 +109,11 @@ FactoryGirl.define do
     trait :paid do
       is_paid true
     end
+
+    trait :parent do
+      is_parent true
+      is_public true
+    end
   end
 
   factory :bad_message do
