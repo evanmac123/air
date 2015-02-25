@@ -16,10 +16,12 @@ class CopyTile
 
     copy_tile_data
     set_new_data_for_copy
-    mark_tile_as_copied_by_user if mark_tile_as_copied
-
-    @tile.save!
-    @copy.save!    
+    if mark_tile_as_copied
+      mark_tile_as_copied_by_user 
+      @tile.save
+    end
+    
+    @copy.save  
     @copy
   end
 
