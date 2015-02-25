@@ -7,13 +7,15 @@ class TilesController < ApplicationController
   prepend_before_filter :allow_guest_user, :only => [:index, :show]
 
   def index
-    @current_user = current_user
-
     if params[:partial_only]
+      set_parent_board_user(params[:board_id])
+      @current_user = current_user
+
       render_tile_wall_as_partial
       ignore_all_newrelic if @current_user.is_site_admin
     else
       set_parent_board_user_by_tile(session[:start_tile])
+      @current_user = current_user
 
       @start_tile = find_start_tile
       session.delete(:start_tile)
@@ -139,7 +141,7 @@ class TilesController < ApplicationController
   end
 
   def render_tile_wall_as_partial
-    html_content = render_to_string partial: "shared/tile_wall", locals: (Tile.displayable_categorized_to_user(current_user, maximum_tiles_wanted)).merge(path_for_more_tiles: tiles_path)
+    html_content = render_to_string partial: "shared/tile_wall", locals: (Tile.displayable_categorized_to_user(current_user, maximum_tiles_wanted)).merge(path_for_more_tiles: tiles_path(board_id: params[:board_id]))
     render json: {htmlContent: html_content}
   end
 

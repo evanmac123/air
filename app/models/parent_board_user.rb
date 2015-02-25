@@ -6,7 +6,6 @@ class ParentBoardUser < ActiveRecord::Base
   has_many   :acts, :as => :user, :dependent => :destroy
 
   delegate  :can_switch_boards?,
-            :can_start_over?,
             :nerf_links_with_login_modal?,
             to: :original_user
 
@@ -107,5 +106,21 @@ class ParentBoardUser < ActiveRecord::Base
 
   def avatar
     User::NullAvatar.new
+  end
+
+  def can_start_over?
+    false
+  end
+
+  def email
+    "parent_board_user_#{id}@example.com"
+  end
+
+  def unclaimed?
+    true
+  end
+
+  def claimed?
+    false
   end
 end

@@ -17,6 +17,7 @@ class UserInHeaderPresenter
               :has_tiles_tools_subnav?,
               :avatar,
               :name,
+              :email,
               to: :current_user
 
   def initialize(user, public_tile_page, params, request)
