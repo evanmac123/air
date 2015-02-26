@@ -2,7 +2,7 @@ class TilesController < ApplicationController
   include TileBatchHelper
   include ActionView::Helpers::NumberHelper
   include ApplicationHelper
-  include UserInParentBoard
+  include UserInParentBoardHelper
 
   prepend_before_filter :allow_guest_user, :only => [:index, :show]
 

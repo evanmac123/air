@@ -1,5 +1,5 @@
 class TileCompletionsController < ApplicationController
-  include UserInParentBoard
+  include UserInParentBoardHelper
 
   prepend_before_filter :allow_guest_user, :only => :create
 

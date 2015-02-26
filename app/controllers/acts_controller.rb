@@ -1,7 +1,7 @@
 class ActsController < ApplicationController
   include Reply
   include TileBatchHelper
-  include UserInParentBoard
+  include UserInParentBoardHelper
 
   skip_before_filter :authorize, only: :index
   before_filter :allow_guest_user, only: :index

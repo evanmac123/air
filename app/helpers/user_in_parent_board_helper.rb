@@ -1,4 +1,4 @@
-module UserInParentBoard
+module UserInParentBoardHelper
   def current_user
     parent_board_user || super
   end
