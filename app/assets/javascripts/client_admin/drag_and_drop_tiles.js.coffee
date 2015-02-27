@@ -21,33 +21,63 @@ window.dragAndDropTiles = ->
 
   dragAndDropTilesEvents =
     update: (event, ui) ->
-      tile = ui.item
-      # if user moves tile from one section to another then
-      # update is called first for source section, then for destination section.
-      # so we need to save name of the source and then use it in ajax call
-      if isTileInSection tile, $(this)
-        saveTilePosition tile
-      else
-        window.sourceSectionName = $(this).attr("id")
-        removeTileStats tile, $(this)
-    over: (event, ui) ->
-      updateTilesAndPlaceholdersAppearance()
-    start: (event, ui) ->
-      turnOnDraftBlocking ui.item, $(this)
-      showDraftBlockedMess false
-    receive: (event, ui) ->
-      if completedTileWasAttemptedToBeMovedInBlockedDraft()
-        cancelTileMoving()
-    stop: (event, ui) ->
-      turnOffDraftBlocking ui.item, $(this)
-      if completedTileWasAttemptedToBeMovedInBlockedDraft()
-        showDraftBlockedMess true, $(this)
-        showDraftBlockedOverlay false
-      updateTilesAndPlaceholdersAppearance()
+      section = $(this)
+      $.when(window.moveConfirmation).then ->
+        console.log "update"
+        updateEvent(event, ui, section)
       
-  $( "#draft, #active, #archive" ).sortable( 
+    over: (event, ui) ->
+      console.log "over"
+      overEvent(event, ui, $(this))
+      
+    start: (event, ui) ->
+      console.log "start"
+      startEvent(event, ui, $(this))
+      
+    receive: (event, ui) ->
+      console.log "receive"
+      receiveEvent(event, ui, $(this))
+      
+    stop: (event, ui) ->
+      section = $(this)
+      $.when(window.moveConfirmation).then ->
+        console.log "stop"
+        stopEvent(event, ui, section)
+      
+      
+  window.tileSortable = $( "#draft, #active, #archive" ).sortable( 
     $.extend(window.dragAndDropProperties, dragAndDropTilesEvents)
   ).disableSelection()
+
+  updateEvent = (event, ui, section) ->
+    tile = ui.item
+    # if user moves tile from one section to another then
+    # update is called first for source section, then for destination section.
+    # so we need to save name of the source and then use it in ajax call
+    if isTileInSection tile, section
+      saveTilePosition tile
+    else
+      window.sourceSectionName = section.attr("id")
+      removeTileStats tile, section
+
+  overEvent = (event, ui, section) ->
+    updateTilesAndPlaceholdersAppearance()
+
+  startEvent = (event, ui, section) ->
+    turnOnDraftBlocking ui.item, section
+    showDraftBlockedMess false
+
+  receiveEvent = (event, ui, section) ->
+    moveComfirmationModal()
+    if completedTileWasAttemptedToBeMovedInBlockedDraft()
+      cancelTileMoving()
+
+  stopEvent = (event, ui, section) ->
+    turnOffDraftBlocking ui.item, section
+    if completedTileWasAttemptedToBeMovedInBlockedDraft()
+      showDraftBlockedMess true, section
+      showDraftBlockedOverlay false
+    updateTilesAndPlaceholdersAppearance()
 
   numberInRow = ->
     4
@@ -208,3 +238,8 @@ window.dragAndDropTiles = ->
 
   cancelTileMoving = ->
     $(".manage_section").sortable( "cancel" ).sortable( "refresh" )
+
+  moveComfirmationModal = ->
+    window.moveConfirmationDeferred = $.Deferred()
+    window.moveConfirmation = window.moveConfirmationDeferred.promise()
+    $(".move-tile-confirm").foundation('reveal', 'open')

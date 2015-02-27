@@ -1,0 +1,14 @@
+<div data-reveal class='reveal-modal confirm-with-reveal small move-tile-confirm'>
+  <p data-confirm-body>
+    Are you sure you want to re-use this Tile? It will not appear as a new Tile for users who have already completed it. If you want to re-use the content, please create a new Tile.
+  </p>
+  <div data-confirm-footer>
+    <%= link_to "Confirm", "#", class: "confirm" %>
+    <%= link_to "Cancel", "#", class: "cancel" %>
+  </div>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+
+<% js_at_end do %>
+  window.moveTileConfirmationModal();
+<% end %>

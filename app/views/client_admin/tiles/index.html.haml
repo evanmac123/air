@@ -26,6 +26,7 @@
         = link_to "Download stats", client_admin_tiles_report_path(report: Tile::ARCHIVE, format: "csv"), class: 'download_csv small_button'
         %div#archive.manage_section= render partial: 'shared/tiles/archive'
         = link_to "Show all", client_admin_inactive_tiles_path, :class => :all_inactive
+= render partial: 'move_tile_confirmation_modal'
 
 - if @board_is_brand_new
   #tile-joyride
