@@ -7,6 +7,14 @@ feature 'Client admin drags and drops tiles' do
   let!(:admin) { FactoryGirl.create :client_admin }
   let!(:demo)  { admin.demo  }
 
+  def move_modal_text
+    "Are you sure you want to re-use this Tile? It will not appear as a new Tile for users who have already completed it. If you want to re-use the content, please create a new Tile."
+  end
+
+  def move_modal_selector
+    ".move-tile-confirm"
+  end
+
   background do
     bypass_modal_overlays(admin)
     signin_as(admin, admin.password)
@@ -37,7 +45,6 @@ feature 'Client admin drags and drops tiles' do
       visit current_path
       move_tile_between_sections tiles1[i1], tiles2[i2]
 
-      tile_id = tiles1[i1].id
       tiles2.insert i2, tiles1.delete_at(i1)
       wait_for_ajax
 
@@ -80,6 +87,54 @@ feature 'Client admin drags and drops tiles' do
     it_should_behave_like "Tile is loaded after drag and drop if needed", "archive", "active"
     it_should_behave_like "Tile is loaded after drag and drop if needed", "archive", "draft"
     it_should_behave_like "Tile is loaded after drag and drop if needed", "draft", "archive"
+  
+    context "Move Confirmation Modal when user moves tile from archive to active" do
+      before do
+        @section1, @num1, @i1 = "archive", 4, 3
+        @section2, @num2, @i2 = "active", 3, 2
+        create_tiles_for_sections @section1 => @num1, @section2 => @num2
+        @tiles1 = demo.send(:"#{@section1}_tiles").to_a
+        @tiles2 = demo.send(:"#{@section2}_tiles").to_a
+      end
+
+      it "should not show modal if tile has no completions", js: true do
+        visit current_path
+        move_tile_between_sections @tiles1[@i1], @tiles2[@i2]
+
+        expect_no_content move_modal_text
+
+        @tiles2.insert @i2, @tiles1.delete_at(@i1)
+        wait_for_ajax
+
+        section_tile_headlines("##{@section1}").should == @tiles1.map(&:headline)
+        section_tile_headlines("##{@section2}").should == @tiles2.map(&:headline)
+
+        demo.reload.send(:"#{@section1}_tiles").should == @tiles1
+        demo.reload.send(:"#{@section2}_tiles").should == @tiles2
+      end
+
+      it "should show modal if tile has completions. should not save on canseling", js: true do
+        FactoryGirl.create :tile_completion, user: admin, tile: @tiles1[@i1]
+        visit current_path
+        move_tile_between_sections @tiles1[@i1], @tiles2[@i2]
+        
+        expect_content move_modal_text
+        within move_modal_selector do
+          click_link "Cancel"
+        end
+
+        wait_for_ajax
+        # nothing changes
+        section_tile_headlines("##{@section1}").should == @tiles1.map(&:headline)
+        section_tile_headlines("##{@section2}").should == @tiles2.map(&:headline)
+
+        demo.reload.send(:"#{@section1}_tiles").should == @tiles1
+        demo.reload.send(:"#{@section2}_tiles").should == @tiles2
+      end
+
+      # should show modal if tile has completions. should save on confirming
+      # i can't test this scenario. sadly
+    end
   end
 
   context "Moves tiles on Draft Tiles Page" do
