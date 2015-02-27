@@ -43,6 +43,9 @@ window.dragAndDropTiles = ->
       $.when(window.moveConfirmation).then ->
         console.log "stop"
         stopEvent(event, ui, section)
+      , ->
+        cancelTileMoving()
+        updateTilesAndPlaceholdersAppearance()
       
       
   window.tileSortable = $( "#draft, #active, #archive" ).sortable( 
