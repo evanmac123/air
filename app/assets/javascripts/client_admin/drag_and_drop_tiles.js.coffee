@@ -22,27 +22,35 @@ window.dragAndDropTiles = ->
   dragAndDropTilesEvents =
     update: (event, ui) ->
       section = $(this)
+      tile = ui.item
       $.when(window.moveConfirmation).then ->
-        console.log "update"
-        updateEvent(event, ui, section)
+        #console.log "update"
+        updateEvent(event, tile, section)
       
     over: (event, ui) ->
-      console.log "over"
-      overEvent(event, ui, $(this))
+      #console.log "over"
+      section = $(this)
+      tile = ui.item
+      overEvent(event, tile, section)
       
     start: (event, ui) ->
-      console.log "start"
-      startEvent(event, ui, $(this))
+      #console.log "start"
+      section = $(this)
+      tile = ui.item
+      startEvent(event, tile, section)
       
     receive: (event, ui) ->
-      console.log "receive"
-      receiveEvent(event, ui, $(this))
+      #console.log "receive"
+      section = $(this)
+      tile = ui.item
+      receiveEvent(event, tile, section)
       
     stop: (event, ui) ->
       section = $(this)
+      tile = ui.item
       $.when(window.moveConfirmation).then ->
-        console.log "stop"
-        stopEvent(event, ui, section)
+        #console.log "stop"
+        stopEvent(event, tile, section)
       , ->
         cancelTileMoving()
         updateTilesAndPlaceholdersAppearance()
@@ -52,31 +60,33 @@ window.dragAndDropTiles = ->
     $.extend(window.dragAndDropProperties, dragAndDropTilesEvents)
   ).disableSelection()
 
-  updateEvent = (event, ui, section) ->
-    tile = ui.item
+  updateEvent = (event, tile, section) ->
     # if user moves tile from one section to another then
     # update is called first for source section, then for destination section.
     # so we need to save name of the source and then use it in ajax call
     if isTileInSection tile, section
       saveTilePosition tile
-    else
+    else # executes if tile leaves section
       window.sourceSectionName = section.attr("id")
       removeTileStats tile, section
 
-  overEvent = (event, ui, section) ->
+  overEvent = (event, tile, section) ->
     updateTilesAndPlaceholdersAppearance()
 
-  startEvent = (event, ui, section) ->
-    turnOnDraftBlocking ui.item, section
+  startEvent = (event, tile, section) ->
+    resetGloballVariables()
+    turnOnDraftBlocking tile, section
     showDraftBlockedMess false
 
-  receiveEvent = (event, ui, section) ->
-    moveComfirmationModal()
+  receiveEvent = (event, tile, section) ->
     if completedTileWasAttemptedToBeMovedInBlockedDraft()
       cancelTileMoving()
+    else if isTileMoved(tile, "archive", "active") && tileCompletionsNum(tile) > 0
+      moveComfirmationModal(tile)
+      
 
-  stopEvent = (event, ui, section) ->
-    turnOffDraftBlocking ui.item, section
+  stopEvent = (event, tile, section) ->
+    turnOffDraftBlocking tile, section
     if completedTileWasAttemptedToBeMovedInBlockedDraft()
       showDraftBlockedMess true, section
       showDraftBlockedOverlay false
@@ -180,10 +190,13 @@ window.dragAndDropTiles = ->
     presented_ids = ($(tile).data("tile_id") for tile in tiles)
     {name: name, presented_ids: presented_ids}
 
+  tileCompletionsNum = (tile) ->
+    parseInt tile.find(".completions a").text().match(/\d+/)?[0]
+
   turnOnDraftBlocking = (tile, section) ->
     status = getTilesSection tile
-    completions = tile.find(".completions a").text()
-    if status != "draft" && completions != "0 users"
+    completions = tileCompletionsNum(tile)
+    if status != "draft" && completions > 0
       $("#draft").sortable("disable")
       section.sortable("refresh")
 
@@ -242,7 +255,16 @@ window.dragAndDropTiles = ->
   cancelTileMoving = ->
     $(".manage_section").sortable( "cancel" ).sortable( "refresh" )
 
-  moveComfirmationModal = ->
+  moveComfirmationModal = (tile) ->
     window.moveConfirmationDeferred = $.Deferred()
     window.moveConfirmation = window.moveConfirmationDeferred.promise()
     $(".move-tile-confirm").foundation('reveal', 'open')
+
+  isTileMoved = (tile, fromSectionName, toSectionName) ->
+    getTilesSection(tile) == toSectionName &&
+    window.sourceSectionName == fromSectionName
+
+  resetGloballVariables = ->
+    window.sourceSectionName = null
+    window.moveConfirmationDeferred = null
+    window.moveConfirmation = null
