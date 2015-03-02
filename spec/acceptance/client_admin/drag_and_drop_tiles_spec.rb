@@ -8,7 +8,7 @@ feature 'Client admin drags and drops tiles' do
   let!(:demo)  { admin.demo  }
 
   def move_modal_text
-    "Are you sure you want to re-use this Tile? It will not appear as a new Tile for users who have already completed it. If you want to re-use the content, please create a new Tile."
+    "Are you sure you want to re-use this Tile? Users who completed it before won't see it again. If you want to re-use the content, please create a new Tile."
   end
 
   def move_modal_selector
