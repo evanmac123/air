@@ -479,17 +479,18 @@ class User < ActiveRecord::Base
 
   def data_for_mixpanel
     {
-      :distinct_id           => self.mixpanel_distinct_id,
-      :id                    => self.id,
-      :email                 => (self.is_client_admin ? self.email : nil),
-      :game                  => self.demo_id,
-      :score                 => self.points,
-      :account_creation_date => self.created_at.to_date,
-      :joined_game_date      => self.accepted_invitation_at.try(:to_date),
-      :location              => self.location.try(:name),
-      :user_type             => self.highest_ranking_user_type,
-      :is_test_user          => !!(self.is_test_user), # remember, the !! normalized nil to false
-      :board_type            => (self.demo.try(:is_paid) ? "Paid" : "Free")
+      distinct_id:           self.mixpanel_distinct_id,
+      id:                    self.id,
+      email:                 (self.is_client_admin ? self.email : nil),
+      game:                  self.demo_id,
+      score:                 self.points,
+      account_creation_date: self.created_at.to_date,
+      joined_game_date:      self.accepted_invitation_at.try(:to_date),
+      location:              self.location.try(:name),
+      user_type:             self.highest_ranking_user_type,
+      is_test_user:          !!(self.is_test_user), # remember, the !! normalized nil to false
+      board_type:            (self.demo.try(:is_paid) ? "Paid" : "Free"),
+      first_time_user:       false
     }
   end
 

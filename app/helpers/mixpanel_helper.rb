@@ -5,7 +5,6 @@ module MixpanelHelper
     javascript_tag do
       raw <<-END_JS
         mixpanel.track('#{event}', #{_properties.to_json});
-        window.setTimeout(function() { mixpanel.register({first_time_user: false}); }, 500);
       END_JS
     end
   end

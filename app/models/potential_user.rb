@@ -33,11 +33,12 @@ class PotentialUser < ActiveRecord::Base
 
   def data_for_mixpanel
     {
-      distinct_id:  mixpanel_distinct_id,
-      user_type:    self.highest_ranking_user_type,
-      game:         self.demo.try(:id),
-      is_test_user: is_test_user?,
-      board_type:   (self.demo.try(:is_paid) ? "Paid" : "Free")
+      distinct_id:     mixpanel_distinct_id,
+      user_type:       self.highest_ranking_user_type,
+      game:            self.demo.try(:id),
+      is_test_user:    is_test_user?,
+      board_type:      (self.demo.try(:is_paid) ? "Paid" : "Free"),
+      first_time_user: false
     }
   end
 

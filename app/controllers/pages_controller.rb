@@ -10,6 +10,7 @@ class PagesController < HighVoltage::PagesController
   before_filter :set_page_name_for_mixpanel
   before_filter :set_user_for_mixpanel
 
+  after_filter :update_seeing_marketing_page_for_first_time
 
   layout :layout_for_page
 
@@ -92,5 +93,10 @@ class PagesController < HighVoltage::PagesController
 
   def set_user_for_mixpanel
     @user_for_mixpanel ||= User.where(id: session[:user_id]).first
+  end
+
+  def update_seeing_marketing_page_for_first_time
+    return unless current_user && current_user.respond_to?("seeing_marketing_page_for_first_time=")
+    current_user.update_attributes(seeing_marketing_page_for_first_time: false)
   end
 end

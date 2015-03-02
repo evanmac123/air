@@ -38,11 +38,12 @@ class ParentBoardUser < ActiveRecord::Base
 
   def data_for_mixpanel
     {
-      distinct_id:  mixpanel_distinct_id,
-      user_type:    highest_ranking_user_type,
-      game:         demo_id,
-      is_test_user: is_test_user?,
-      board_type:   (demo.try(:is_paid) ? "Paid" : "Free")
+      distinct_id:     mixpanel_distinct_id,
+      user_type:       highest_ranking_user_type,
+      game:            demo_id,
+      is_test_user:    is_test_user?,
+      board_type:      (demo.try(:is_paid) ? "Paid" : "Free"),
+      first_time_user: false
     }
   end
 
