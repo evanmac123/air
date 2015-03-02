@@ -14,7 +14,7 @@ feature 'Client admin deletes tile' do
   end
 
   def destroy_reveal_selector
-    ".confirm-with-reveal"
+    ".destroy_confirm_modal"
   end
 
   before do

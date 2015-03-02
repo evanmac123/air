@@ -21,7 +21,7 @@ $.fn.extend
   confirmWithReveal: (options = {}) ->
 
     defaults =
-      modal_class: 'small'
+      modal_class: ''
       title: ''
       title_class: ''
       body: 'This action cannot be undone.'
@@ -53,7 +53,7 @@ $.fn.extend
 
       # TODO: allow caller to pass in a template (DOM element to clone?)
       modal = $("""
-        <div data-reveal class='reveal-modal confirm-with-reveal #{option 'modal_class'}'>
+        <div data-reveal class='reveal-modal confirm-with-reveal small #{option 'modal_class'}'>
           <h2 data-confirm-title class='#{option 'title_class'}'></h2>
           <p data-confirm-body class='#{option 'body_class'}'></p>
           <div data-confirm-footer class='#{option 'footer_class'}'>

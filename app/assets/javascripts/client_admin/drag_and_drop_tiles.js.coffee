@@ -24,23 +24,19 @@ window.dragAndDropTiles = ->
       section = $(this)
       tile = ui.item
       $.when(window.moveConfirmation).then ->
-        #console.log "update"
         updateEvent(event, tile, section)
       
     over: (event, ui) ->
-      #console.log "over"
       section = $(this)
       tile = ui.item
       overEvent(event, tile, section)
       
     start: (event, ui) ->
-      #console.log "start"
       section = $(this)
       tile = ui.item
       startEvent(event, tile, section)
       
     receive: (event, ui) ->
-      #console.log "receive"
       section = $(this)
       tile = ui.item
       receiveEvent(event, tile, section)
@@ -49,7 +45,6 @@ window.dragAndDropTiles = ->
       section = $(this)
       tile = ui.item
       $.when(window.moveConfirmation).then ->
-        #console.log "stop"
         stopEvent(event, tile, section)
       , ->
         cancelTileMoving()
@@ -66,7 +61,7 @@ window.dragAndDropTiles = ->
     # so we need to save name of the source and then use it in ajax call
     if isTileInSection tile, section
       saveTilePosition tile
-    else # executes if tile leaves section
+    else # is executed if tile leaves section
       window.sourceSectionName = section.attr("id")
       removeTileStats tile, section
 
