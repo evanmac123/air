@@ -82,7 +82,7 @@ window.dragAndDropTiles = ->
     if completedTileWasAttemptedToBeMovedInBlockedDraft()
       cancelTileMoving()
     else if isTileMoved(tile, "archive", "active") && tileCompletionsNum(tile) > 0
-      moveComfirmationModal(tile)
+      moveComfirmationModal()
       
 
   stopEvent = (event, tile, section) ->
@@ -253,9 +253,10 @@ window.dragAndDropTiles = ->
     getTilesSection(tile) == section.attr("id")
 
   cancelTileMoving = ->
-    $(".manage_section").sortable( "cancel" ).sortable( "refresh" )
+    if window.sourceSectionName
+      $("#" + window.sourceSectionName).sortable( "cancel" ).sortable( "refresh" )
 
-  moveComfirmationModal = (tile) ->
+  moveComfirmationModal = ->
     window.moveConfirmationDeferred = $.Deferred()
     window.moveConfirmation = window.moveConfirmationDeferred.promise()
     $(".move-tile-confirm").foundation('reveal', 'open')
