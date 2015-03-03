@@ -6,7 +6,7 @@ describe "tiles/_multiple_choice_answers.html.erb" do
     let(:user) { FactoryGirl.build_stubbed(:user) }
     let(:tile_completion) { FactoryGirl.build_stubbed(:tile_completion, answer_index: 0) }
 
-    let(:presenter) { FullSizeTilePresenter.new(tile, user, false, []) }
+    let(:presenter) { FullSizeTilePresenter.new(tile, user, false, [], Browser.new) }
 
     before do
       presenter.stubs(:non_preview_of_completed_tile).returns(true)
