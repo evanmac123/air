@@ -1,4 +1,5 @@
 class ClientAdmin::ImagesController < ClientAdminBaseController
+  include ApplicationHelper
   IMAGE_POLL_DELAY = 5
 
   before_filter :find_tile
@@ -9,7 +10,7 @@ class ClientAdmin::ImagesController < ClientAdminBaseController
         'stillProcessing' => @tile.image_really_still_processing, 
         'imageURL' => @tile.image.url, 
         'type' => 'image',
-        'imageHeight' => @tile.full_size_image_height
+        'imageHeight' => (ie9_or_older? ? @tile.full_size_image_height : "")
       }
     ].to_json
   end

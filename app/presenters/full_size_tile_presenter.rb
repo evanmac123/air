@@ -1,11 +1,13 @@
 class FullSizeTilePresenter
+  include ApplicationHelper
   SAFE_NBSP = "&nbsp;".html_safe.freeze
 
-  def initialize(tile, user, is_preview, current_tile_ids)
+  def initialize(tile, user, is_preview, current_tile_ids, browser)
     @tile = tile
     @user = user
     @is_preview = is_preview
     @current_tile_ids = current_tile_ids
+    @browser = browser
   end
 
   def supporting_content
@@ -48,7 +50,11 @@ class FullSizeTilePresenter
     Tile.where(id: adjacent_tile_ids).map{|tile| tile.image.url}
   end
 
-  attr_reader :tile, :user, :is_preview
+  def image_styles
+    ie9_or_older? ? "height:#{full_size_image_height}px;" : ""
+  end
+
+  attr_reader :tile, :user, :is_preview, :browser
 
   protected
 

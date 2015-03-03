@@ -1,7 +1,7 @@
 class UserInHeaderPresenter
   include Rails.application.routes.url_helpers
   include ActionView::Helpers::FormOptionsHelper
-  include ActionView::Helpers::ApplicationHelper
+  include ApplicationHelper
 
   attr_reader :params, 
               :public_tile_page, 

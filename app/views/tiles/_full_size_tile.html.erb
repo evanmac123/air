@@ -2,8 +2,7 @@
 <% overlay_displayed ||= false %>
 <% show_copy_button ||= false %>
 <% is_preview ||= false %>
-
-<% tile = FullSizeTilePresenter.new(tile, current_user, is_preview, @current_tile_ids) %>
+<% tile = FullSizeTilePresenter.new(tile, current_user, is_preview, @current_tile_ids, browser) %>
 
 <div class="tile_holder <%= creator_class %>" 
   data-current-tile-id="<%= tile.id %>" 
@@ -14,7 +13,7 @@
 
   <div class="<%=tile_class(tile)%>">
     <div class="tile_full_image">
-      <%= image_tag tile.image.url, :class => :tile_image, :alt => tile.headline, style: "height:#{tile.full_size_image_height}px;" %>
+      <%= image_tag tile.image.url, :class => :tile_image, :alt => tile.headline, style: tile.image_styles %>
       <div class="shadow_overlay"></div>
       <div class="image_credit">
         <div class="image_credit_view">
