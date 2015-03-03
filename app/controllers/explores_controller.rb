@@ -36,6 +36,9 @@ class ExploresController < ClientAdminBaseController
     end
   end
 
+  add_method_tracer :show
+  add_method_tracer :tile_tag_show
+
   protected
 
   # fix number for explore page

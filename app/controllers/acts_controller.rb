@@ -67,7 +67,6 @@ class ActsController < ApplicationController
   end
 
   add_method_tracer :index
-  add_method_tracer :create
 
   protected
 
