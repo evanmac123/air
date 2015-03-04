@@ -1,6 +1,9 @@
 -# OPTZ: Cache this, must local-var a few things first
 -# (e.g. all the calls to current_user.foo)
 -# that's better practice anyway
+- available_tile_count = current_user.available_tiles_on_current_demo.count
+- completed_tile_count = current_user.completed_tiles_on_current_demo.count
+
 .user_container
   #user_progress
     - if raffle
@@ -14,27 +17,28 @@
       #tile_header.progress_header
         Tiles
       #tile_progress_bar
-        - if current_user.available_tiles_on_current_demo.count != current_user.completed_tiles_on_current_demo.count
+        - if available_tile_count != completed_tile_count
           #all_tiles
-            = current_user.available_tiles_on_current_demo.count
+            = available_tile_count
         #completed_tiles
           #complete_info
             %span.fa.fa-check
             %span#completed_tiles_num
-              = current_user.completed_tiles_on_current_demo.count
+              = completed_tile_count
           #congrat_header
             %icon.fa.fa-flag-checkered
             #congrat_text
               Finished!
+
 - content_for :javascript do
   - if browser.ie6? || browser.ie7? || browser.ie8?
     :javascript
       window.oldBrowser = true;
   :javascript
     $().ready(function(){
-      setTileBar(#{ current_user.available_tiles_on_current_demo.count }, 
-                      #{ current_user.completed_tiles_on_current_demo.count });
+      setTileBar(#{ available_tile_count }, #{ completed_tile_count });
       setCongratText();
     });
+
 - if raffle && current_user.can_see_raffle_modal?
   = render partial: "client_admin/prizes/prize_modal", locals: {raffle: raffle}
