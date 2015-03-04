@@ -107,8 +107,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       current_user.share_section_intro_seen = true
       current_user.save!
     end
-
-    @back_to_tiles_href = set_back_to_tiles_href
+    set_tiles_path_tag
   end
 
   def edit
@@ -272,25 +271,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     tile.save!
   end
 
-  def set_back_to_tiles_href
-    set_back_to_tiles_path_tag
-    return default_back_to_tiles_path unless request.referer.present?
-
-    @back_to_tiles_href = case request.referer.split("/").last
-                          when 'inactive_tiles'
-                            client_admin_inactive_tiles_path(path: @tag)
-                          when 'draft_tiles'
-                            client_admin_draft_tiles_path(path: @tag)
-                          else
-                            default_back_to_tiles_path
-                          end
-  end
-
-  def default_back_to_tiles_path
-    client_admin_tiles_path(path: @tag)  
-  end
-
-  def set_back_to_tiles_path_tag
+  def set_tiles_path_tag
     @tag = if @tile.active?
              :via_posted_preview
            elsif @tile.archived?
