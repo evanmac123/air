@@ -1,8 +1,4 @@
--# OPTZ: Cache this, must local-var a few things first
--# (e.g. all the calls to current_user.foo)
--# that's better practice anyway
-- available_tile_count = current_user.available_tiles_on_current_demo.count
-- completed_tile_count = current_user.completed_tiles_on_current_demo.count
+- presenter = UserProgressPresenter.new(current_user, raffle, browser)
 
 .user_container
   #user_progress
@@ -12,31 +8,31 @@
       #total_header.progress_header
         Total
       #total_points
-        = number_with_delimiter current_user.points
+        = presenter.points
     #tile_section
       #tile_header.progress_header
         Tiles
       #tile_progress_bar
-        - if available_tile_count != completed_tile_count
+        - if presenter.some_tiles_undone?
           #all_tiles
-            = available_tile_count
+            = presenter.available_tile_count
         #completed_tiles
           #complete_info
             %span.fa.fa-check
             %span#completed_tiles_num
-              = completed_tile_count
+              = presenter.completed_tile_count
           #congrat_header
             %icon.fa.fa-flag-checkered
             #congrat_text
               Finished!
 
 - content_for :javascript do
-  - if browser.ie6? || browser.ie7? || browser.ie8?
+  - if presenter.old_browser?
     :javascript
       window.oldBrowser = true;
   :javascript
     $().ready(function(){
-      setTileBar(#{ available_tile_count }, #{ completed_tile_count });
+      setTileBar(#{ presenter.available_tile_count }, #{ presenter.completed_tile_count });
       setCongratText();
     });
 
