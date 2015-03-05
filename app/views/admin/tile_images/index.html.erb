@@ -1,0 +1,13 @@
+<h1>Image Library</h1>
+<div class="image_block new_image">
+  <%= form_for @new_tile_image, url: [:admin, @new_tile_image] do |form| %>
+    <%= form.file_field :image %>
+    <%= form.submit "Save" %>
+  <% end %>
+</div>
+<% @tile_images.each do |tile_image| %>
+  <div class="image_block">
+    <%= image_tag tile_image.thumbnail %>
+    <%= link_to "Delete", [:admin, tile_image], method: :delete %>
+  </div>
+<% end %>

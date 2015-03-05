@@ -277,5 +277,6 @@ Health::Application.routes.draw do
     resources :reset_bulk_uploads, only: [:destroy]
 
     resource :explore_digest, only: [:new, :create]
+    resources :tile_images, only: [:create, :index, :destroy]
   end
 end

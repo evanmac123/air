@@ -87,6 +87,20 @@ module Concerns::TileImageable
     thumbnail_processing || thumbnail_url.nil? || thumbnail_url == THUMBNAIL_PROCESSING_IMAGE_URL
   end
 
+  # need this function to set height of image place in ie8 while image is loading
+  def full_size_image_height
+    return nil if image_file_name.nil?
+
+    height, width = if image_processing?
+                      [484, 666]
+                    else
+                      [image.height, image.width]
+                    end
+
+    full_width = 600.0 # px for full size tile
+    ( height * full_width / width ).to_i
+  end
+
   module ClassMethods
     include ValidImageMimeTypes
     #include Paperclip
