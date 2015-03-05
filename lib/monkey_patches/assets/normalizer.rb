@@ -1,7 +1,9 @@
 module Assets
   module Normalizer
-    def self.included(base)
-      base.send :before_save, :normalize_filename
+    extend ActiveSupport::Concern
+
+    included do
+      before_save :normalize_filename
     end
 
     private
