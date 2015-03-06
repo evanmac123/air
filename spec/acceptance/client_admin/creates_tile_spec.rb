@@ -85,14 +85,14 @@ feature 'Creates tile' do
     click_create_button
 
     demo.tiles.reload.should be_empty
-    expect_content "Sorry, we couldn't save this tile: headline can't be blank, supporting content can't be blank, image is missing."
+    expect_content "Sorry, we couldn't save this tile: image is missing, headline can't be blank, supporting content can't be blank."
 
     2.times { click_add_answer }
     select_correct_answer 1
     click_create_button
 
     demo.tiles.reload.should be_empty
-    expect_content "Sorry, we couldn't save this tile: headline can't be blank, supporting content can't be blank, image is missing."
+    expect_content "Sorry, we couldn't save this tile: image is missing, headline can't be blank, supporting content can't be blank."
   end
 
   scenario "with overlong headline or supporting content should have a reasonable error" do

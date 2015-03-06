@@ -6,7 +6,7 @@
 </div>
 <% @tile_images.each do |tile_image| %>
   <%= content_tag :div, class: "tile_image_block", data: {"tile-image-id" => tile_image.id} do %>
-    <%= link_to tile_image.image.url do %>
+    <%= link_to tile_image.image.url, target: "_blank" do %>
       <%= image_tag tile_image.thumbnail %>
     <% end %>
     <%= link_to "Delete", [:admin, tile_image], method: :delete %>
