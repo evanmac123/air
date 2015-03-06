@@ -1,7 +1,6 @@
 class Admin::TileImagesController < AdminBaseController
   def index
     @tile_images = TileImage.all
-    #fdf
     @new_tile_image = TileImage.new
   end
 
@@ -10,7 +9,7 @@ class Admin::TileImagesController < AdminBaseController
     if tile_image.save
       flash[:success] = "Image is saved"
     else
-      flash[:failure] = "Sorry, can't save the image: " + tile_image.errors.values.join(", ") + "."
+      flash[:failure] = "Sorry, couldn't save this image: " + tile_image.errors.values.join(", ")
     end
     redirect_to :back
   end

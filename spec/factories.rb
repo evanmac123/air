@@ -243,6 +243,11 @@ FactoryGirl.define do
     end
   end
 
+  factory :tile_image do
+    image {File.open(Rails.root.join "spec/support/fixtures/tiles/cov1.jpg")}
+    thumbnail {File.open(Rails.root.join "spec/support/fixtures/tiles/cov1_thumbnail.jpg")}
+  end
+
   factory :tile_completion do
     association :user
     association :tile
