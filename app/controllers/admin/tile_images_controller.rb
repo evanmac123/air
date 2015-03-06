@@ -1,6 +1,7 @@
 class Admin::TileImagesController < AdminBaseController
   def index
     @tile_images = TileImage.all
+    #fdf
     @new_tile_image = TileImage.new
   end
 
