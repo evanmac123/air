@@ -2,7 +2,6 @@
 <div class="tile_image_block new_image">
   <%= form_for @new_tile_image, url: [:admin, @new_tile_image] do |form| %>
     <%= form.file_field :image %>
-    <%= form.submit "Save" %>
   <% end %>
 </div>
 <% @tile_images.each do |tile_image| %>
@@ -12,4 +11,16 @@
     <% end %>
     <%= link_to "Delete", [:admin, tile_image], method: :delete %>
   <% end %>
+
+  <% if tile_image.thumbnail_processing %>
+    <%= js_at_end do %>
+      queueTileForThumbnailPolling(<%= tile_image.id %>)
+    <% end %>
+  <% end %>
+<% end %>
+
+<% timeout_in_msecs = ThumbnailsController::THUMBNAIL_POLL_DELAY * 1000 %>
+<%= js_at_end do %>
+  window.tileImages()
+  window.startTileThumbnailPollingFromQueue(<%= timeout_in_msecs %>, "tileImageThumbnails")
 <% end %>

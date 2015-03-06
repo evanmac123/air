@@ -5,6 +5,7 @@ selectorForImage = (updateData) ->
   switch updateData.type
     when 'image' then '.tile_image'
     when 'thumbnail' then ("[data-tile_id='" + updateData.id + "'] img")
+    when 'tileImageThumbnail' then ("[data-tile-image-id='" + updateData.id + "'] img")
 
 updateSingleImage = (updateData) ->
   $(selectorForImage(updateData)).attr('src', updateData.imageURL)
@@ -21,10 +22,14 @@ updateTileImagesIfProcessed = (data) ->
 thumbnailRequestUrl = (ids) ->
   '/thumbnails?tile_ids=' + ids
 
+tileImageThumbnailRequestUrl = (ids) ->
+  '/thumbnails?tile_image_ids=' + ids
+
 pollURL = (requestedTile) ->
   switch requestedTile.type
     when "image" then "/client_admin/tiles/" + requestedTile.id + "/image.json"
     when "thumbnails" then thumbnailRequestUrl(requestedTile.id)
+    when "tileImageThumbnails" then tileImageThumbnailRequestUrl(requestedTile.id)
 
 pollForTileData = (requestedTile) ->
   _pollURL = pollURL(requestedTile)
@@ -37,14 +42,14 @@ startTileImagePolling = (requestedTile, timeout) ->
   window.continueTileImagePolling = true
   setInterval pollForTileData(requestedTile), timeout
 
-makeThumbnailRequestfromIds = (ids) ->
-  {type: 'thumbnails', id: ids.join(',')}
+makeThumbnailRequestfromIds = (ids, type) ->
+  {type: type, id: ids.join(',')}
 
-startTileThumbnailPollingFromQueue = (timeout) ->
+startTileThumbnailPollingFromQueue = (timeout, type = 'thumbnails') ->
   if !(window.thumbnailPollingQueue?)
     return
 
-  thumbnailRequest = makeThumbnailRequestfromIds(window.thumbnailPollingQueue)
+  thumbnailRequest = makeThumbnailRequestfromIds(window.thumbnailPollingQueue, type)
   window.continueTileImagePolling = true
   setInterval pollForTileData(thumbnailRequest), timeout
 

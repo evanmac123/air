@@ -6,6 +6,7 @@
 //= require mobvious-rails
 //= require ../../../vendor/assets/javascripts/internal/jquery.jpanelmenu.min
 //= require ../../../vendor/assets/javascripts/internal/jRespond.min
+//= require ./internal_and_external/underscore-min
 //= require_tree ../../../vendor/assets/javascripts/admin/.
 //= require_tree ./admin/.
 //= require jquery.validate
@@ -19,3 +20,5 @@
 //= require internal/offcanvas_menu
 //= require internal/board_switch_dropdown
 //= require internal_and_external/intercom_setup
+//= require client_admin/tile_polling
+

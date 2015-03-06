@@ -1,6 +1,8 @@
 require 'acceptance/acceptance_helper'
 
 feature "Site Admin works with Image Library" do
+  include WaitForAjax
+
   Capybara.add_selector(:tile_image) do
     xpath { |tile_image| ".//div[@data-tile-image-id='#{tile_image.id}']" }
   end
@@ -17,7 +19,6 @@ feature "Site Admin works with Image Library" do
     visit admin_tile_images_path(as: an_admin)
     expect_content "Image Library"
     attach_tile "tile_image[image]", tile_fixture_path('cov1.jpg')
-    click_button "Save"
 
     expect_content "Image is saved"
     TileImage.count.should == 1
