@@ -1,0 +1,17 @@
+body.admin-tile_images.admin-tile_images-index {
+  .tile_image_block {
+    float: left;
+    width: 24%;
+    padding-bottom: 30px;
+    text-align: center;
+    img {
+      display: block;
+      margin: auto;
+      border: 1px solid $gray;
+      margin-bottom: 5px;
+    }
+  }
+  .new_image {
+    padding-top: 100px;
+  }
+}

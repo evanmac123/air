@@ -20,7 +20,7 @@ feature "Site Admin works with Image Library" do
     expect_content "Image Library"
     attach_tile "tile_image[image]", tile_fixture_path('cov1.jpg')
 
-    expect_content "Image is saved"
+    expect_content "Image was saved"
     TileImage.count.should == 1
 
     ti = TileImage.last
@@ -39,7 +39,7 @@ feature "Site Admin works with Image Library" do
       click_link "Delete"
     end
 
-    expect_content "Image is destroyed"
+    expect_content "Image was destroyed"
     page.all(tile_image_selector).count.should == 1
     TileImage.all.include?(ti).should be_false
   end
