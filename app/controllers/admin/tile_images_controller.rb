@@ -23,6 +23,6 @@ class Admin::TileImagesController < AdminBaseController
   protected
 
   def params_image
-    params[:tile_image][:image]
+    params[:tile_image][:image] if params[:tile_image]
   end
 end
