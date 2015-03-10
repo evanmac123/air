@@ -1,6 +1,6 @@
 class ClientAdmin::TilesController < ClientAdminBaseController
-  
   include ClientAdmin::TilesHelper
+  include ClientAdmin::TilesPingsHelper
   
   before_filter :get_demo
   before_filter :load_tags, only: [:new, :edit, :create, :update]
@@ -15,49 +15,13 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @draft_tiles = (@demo.draft_tiles_with_placeholders)[0,8]
     @show_more_draft_tiles = show_more_draft_tiles
     @board_is_brand_new = @demo.tiles.limit(1).first.nil?
-
-    process_own_tile_completed
-
     record_index_ping
   end
-
-  def record_index_ping
-    if param_path == :via_draft_preview
-      TrackEvent.ping_action('Tile Preview Page - Draft', 'Clicked Back to Tiles button', current_user)
-    elsif param_path == :via_posted_preview
-      TrackEvent.ping_action('Tile Preview Page - Posted', 'Clicked Back to Tiles button', current_user)      
-    elsif param_path == :via_archived_preview
-      TrackEvent.ping_action('Tile Preview Page - Archive', 'Clicked Back to Tiles button', current_user)      
-    end
-
-    ping_page('Manage - Tiles', current_user)
-  end
-  private :record_index_ping
-  
-  def process_own_tile_completed
-    if !current_user.has_own_tile_completed_displayed? && !current_user.has_own_tile_completed_id.nil?
-      current_user.has_own_tile_completed_displayed = true
-      current_user.save!
-      
-      current_user.has_own_tile_completed_id     
-    else
-      nil
-    end    
-  end
-  private :process_own_tile_completed
   
   def new    
     @tile_builder_form = TileBuilderForm.new(@demo)
-    if param_path == :via_index
-      TrackEvent.ping_action('Tiles Page', 'Clicked Add New Tile', current_user)
-    elsif param_path == :via_draft_preview
-      TrackEvent.ping_action('Tile Preview Page - Draft', 'Clicked New Tile button', current_user)    
-    elsif param_path == :via_posted_preview
-      TrackEvent.ping_action('Tile Preview Page - Posted', 'Clicked New Tile button', current_user)    
-    elsif param_path == :via_archived_preview
-      TrackEvent.ping_action('Tile Preview Page - Archive', 'Clicked New Tile button', current_user)    
-    end
     set_image_and_container
+    record_new_ping
   end
 
   def create
@@ -85,15 +49,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     
     if params[:update_status]
       update_status
-      if param_path == :via_preview_draft
-        TrackEvent.ping_action('Tile Preview Page - Draft', 'Clicked Post button', current_user)
-      elsif param_path == :via_preview_post
-        TrackEvent.ping_action('Tile Preview Page - Posted', 'Clicked Archive button', current_user)
-      elsif param_path == :via_preview_archive
-        TrackEvent.ping_action('Tile Preview Page - Archive', 'Clicked Re-post button', current_user)
-      elsif param_path == :via_index
-        TrackEvent.ping_action('Tiles Page', 'Clicked Post to activate tile', current_user)
-      end
+      record_update_status_ping
     else
       update_fields        
     end
@@ -113,15 +69,9 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def edit
     tile = get_tile
-    @tile_builder_form = tile.to_form_builder 
-    if param_path == :via_draft_preview
-      TrackEvent.ping_action('Tile Preview Page - Draft', 'Clicked Edit button', current_user)
-    elsif param_path == :via_posted_preview
-      TrackEvent.ping_action('Tile Preview Page - Posted', 'Clicked Edit button', current_user)      
-    elsif param_path == :via_archived_preview
-      TrackEvent.ping_action('Tile Preview Page - Archive', 'Clicked Edit button', current_user)      
-    end
+    @tile_builder_form = tile.to_form_builder
     set_image_and_container
+    record_edit_ping
   end
 
   def sort
@@ -282,16 +232,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
            end
   end
 
-  def tile_status_updated_ping tile, action
-    ping('Moved Tile in Manage', {action: action, tile_id: tile.id}, current_user)
-  end
-
   def show_more_draft_tiles
     @demo.draft_tiles.count > 7
-  end
-
-  def destroy_tile_ping(page)
-    ping('Tile - Deleted', {page: page}, current_user)
   end
 
   def load_image_library

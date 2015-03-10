@@ -60,8 +60,8 @@ class TileBuilderForm
   end
 
   def tile_tag_ids
-      @tile_tag_ids ||= (@parameters && @parameters[:tile_tag_ids] && @parameters[:tile_tag_ids]) || 
-        (@tile && @tile.tile_taggings.map(&:tile_tag_id).join(',')) || ''
+    @tile_tag_ids ||= (@parameters && @parameters[:tile_tag_ids] && @parameters[:tile_tag_ids]) || 
+      (@tile && @tile.tile_taggings.map(&:tile_tag_id).join(',')) || ''
   end
   
   def tile_tags

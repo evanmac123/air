@@ -1,2 +1,0 @@
-module ClientAdmin::PaymentsHelper
-end
