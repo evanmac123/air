@@ -4,7 +4,7 @@
     <i class="fa fa-question-circle has-tip" data-tooltip="true" title="If tile share link is on, anyone with the link can see the tile."></i>
     <div class="tile_status">
       <div class="off <%= tile.is_sharable? ? "disengaged" : "engaged" %>">OFF</div>
-      <%= form_for tile.to_form_builder, url: client_admin_public_tile_path(tile), method: :put, remote: true, html: { id: "sharable_link_form"} do |form| %>
+      <%= form_for TilePublicForm.new(tile), url: client_admin_public_tile_path(tile), method: :put, remote: true, html: { id: "sharable_link_form"} do |form| %>
         <div class="switch small round">
           <%= form.radio_button :is_sharable, true, id: 'sharable_tile_link_on' %>
           <%= form.radio_button :is_sharable, false, id: 'sharable_tile_link_off' %>
@@ -45,7 +45,7 @@
     </div>
   </div>
 <% end %>
-<%= form_for tile.to_form_builder, url: client_admin_public_tile_path(tile), method: :put, remote: true, html: {id: "public_tile_form"} do |f| %>
+<%= form_for TilePublicForm.new(tile), url: client_admin_public_tile_path(tile), method: :put, remote: true, html: {id: "public_tile_form"} do |f| %>
   <%= render 'public_section', form: f %>
 <% end %>
 

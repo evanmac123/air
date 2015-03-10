@@ -61,10 +61,10 @@ appendSelectedTags = (id, name) ->
   publicTileForm().find('.tag_alert').hide()
   if $('ul.tile_tags > li[id='+id+']').length < 1
     $('ul.tile_tags').append("<li id='#{id}'>#{name}<a class='fa fa-times'></a> </li>")
-    if $('#tile_builder_form_tile_tag_ids').val() == ""
-      $('#tile_builder_form_tile_tag_ids').val(id)
+    if $('#tile_public_form_tile_tag_ids').val() == ""
+      $('#tile_public_form_tile_tag_ids').val(id)
     else
-      $('#tile_builder_form_tile_tag_ids').val($('#tile_builder_form_tile_tag_ids').val() + ",#{id}")
+      $('#tile_public_form_tile_tag_ids').val($('#tile_public_form_tile_tag_ids').val() + ",#{id}")
   publicTileForm().submit()
     
 initialSetting = ->
@@ -76,7 +76,7 @@ initialSetting = ->
     $('.share_options').find('.allow_copying').show()
     $('.share_options').find('.add_tag').show()
     $('.share_options').show()
-  $('#tile_builder_form_tile_tag_ids').hide()
+  $('#tile_public_form_tile_tag_ids').hide()
 
 window.bindTagNameSearchAutocomplete = (sourceSelector, targetSelector, searchURL) ->
   $(sourceSelector).autocomplete({
@@ -96,9 +96,9 @@ window.bindTagNameSearchAutocomplete = (sourceSelector, targetSelector, searchUR
     element = $(this).parent()
     tag_id = element.attr('id')
     
-    vals = $('.share_options').find('#tile_builder_form_tile_tag_ids').val().split ','
+    vals = $('.share_options').find('#tile_public_form_tile_tag_ids').val().split ','
     filtered_vals = vals.filter (selected_tag_id) -> selected_tag_id isnt tag_id
-    $('.share_options').find('#tile_builder_form_tile_tag_ids').val(filtered_vals.join(','))
+    $('.share_options').find('#tile_public_form_tile_tag_ids').val(filtered_vals.join(','))
     
     element.remove()
     $('.tag_alert').hide()

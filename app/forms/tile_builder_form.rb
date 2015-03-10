@@ -32,21 +32,6 @@ class TileBuilderForm
     end
   end
 
-  def update_public_attributes
-    if @parameters.present?
-      @tile.attributes = {
-        is_public:   @parameters[:is_public],
-        is_copyable: @parameters[:is_copyable]
-      }
-    end
-    set_tile_taggings
-
-    if valid?
-      save_tile
-      true
-    end
-  end
-
   def tile
     @tile ||= MultipleChoiceTile.new(demo: @demo, is_copyable: true)
   end
@@ -57,19 +42,6 @@ class TileBuilderForm
 
   def entered_answers
     @entered_answers ||= normalized_entered_answers
-  end
-
-  def tile_tag_ids
-    @tile_tag_ids ||= (@parameters && @parameters[:tile_tag_ids] && @parameters[:tile_tag_ids]) || 
-      (@tile && @tile.tile_taggings.map(&:tile_tag_id).join(',')) || ''
-  end
-  
-  def tile_tags
-    @tile_tags ||= begin
-      tile_tag_ids = (@parameters && @parameters[:tile_tag_ids] && @parameters[:tile_tag_ids].split(',')) || 
-        (@tile && @tile.tile_taggings.map(&:tile_tag_id)) || []
-      TileTag.where(id: tile_tag_ids)
-    end
   end
       
   def error_messages
@@ -98,28 +70,6 @@ class TileBuilderForm
     set_tile_creator
     @tile.status = Tile::DRAFT
     @tile.position = @tile.find_new_first_position
-  end
-
-  def set_tile_taggings
-    if @parameters[:tile_tag_ids].present?
-      tile_tag_ids = @parameters[:tile_tag_ids].split(',').map(&:to_i)
-
-      new_tile_tag_ids = tile_tag_ids
-      
-      if @tile.persisted?
-        existing_tile_tag_ids = @tile.tile_taggings.map(&:tile_tag_id)
-        new_tile_tag_ids = tile_tag_ids - existing_tile_tag_ids                    
-      end
-      
-      #only keep the new and non-removed tile taggings
-      associated_tile_taggings = @tile.tile_taggings.where(tile_tag_id: tile_tag_ids)
-      new_tile_tag_ids.each do |tile_tag_id|
-        associated_tile_taggings << @tile.tile_taggings.build(tile_tag_id: tile_tag_id)
-      end
-      @tile.tile_taggings = associated_tile_taggings
-    else 
-      @tile.tile_taggings = []
-    end      
   end
   
   def set_tile_image
@@ -227,13 +177,15 @@ class TileBuilderForm
     @parameters[:correct_answer_index].to_i    
   end
 
-  def is_copyable
-    tile.is_copyable?
-  end
-
-  def is_sharable
-    tile.is_sharable?
-  end
-
-  delegate :headline, :supporting_content, :question, :question_type, :question_subtype, :thumbnail, :image, :image_credit, :link_address, :points, :is_public, :is_public?, :to => :tile
+  delegate  :headline, 
+            :supporting_content, 
+            :question, 
+            :question_type, 
+            :question_subtype, 
+            :thumbnail, 
+            :image, 
+            :image_credit, 
+            :link_address, 
+            :points, 
+            :to => :tile
 end
