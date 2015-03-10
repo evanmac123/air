@@ -1,7 +1,8 @@
 <%= render 'shared/mixpanel' %>
 <%= mp_track_page 'tile builder (create)' %>
 
-<div class="row">
+<%= render 'image_library', tile_images: @tile_images %>
+<div class="row tile_holder_container">
   <div class="large-8 large-centered columns builder-width">
     <%= form_for @tile_builder_form, url: client_admin_tiles_path do |f| %>
       <div class="tile_holder">

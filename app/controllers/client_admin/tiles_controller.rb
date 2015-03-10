@@ -4,6 +4,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   
   before_filter :get_demo
   before_filter :load_tags, only: [:new, :edit, :create, :update]
+  before_filter :load_image_library, only: [:new, :edit, :create, :update]
 
   def index
     # Update 'status' for tiles with 'start_time' and 'end_time' attributes (before you fetch the different tile groups)
@@ -291,5 +292,9 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def destroy_tile_ping(page)
     ping('Tile - Deleted', {page: page}, current_user)
+  end
+
+  def load_image_library
+    @tile_images = TileImage.all
   end
 end

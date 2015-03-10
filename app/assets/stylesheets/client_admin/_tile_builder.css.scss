@@ -423,8 +423,55 @@ body.client_admin-tiles-new,
 body.client_admin-tiles-create,
 body.client_admin-tiles-edit,
 body.client_admin-tiles-update {
+  overflow: hidden !important;
   .tile_quiz {
     padding: 0 !important;
+  }
+  .content {
+    padding: 0;
+  }
+  .image_library {
+    background: $dark-gray;
+    overflow: auto;
+    float: left;
+    width: 466px;
+    height: calc(100vh - 47px);
+    min-height: 646px;
+    padding: 30px 20px;
+    .tile_image_block {
+      float: left;
+      width: 126px;
+      height: 106px;
+      margin: 5px;
+      border-radius: 3px;
+      cursor: pointer;
+      img {
+        border-radius: 3px;
+      }
+    }
+    .upload_image {
+      border: 1px solid $white;
+      color: $white;
+      text-align: center;
+      i {
+        padding-top: 30px;
+        padding-bottom: 10px;
+      }
+      span {
+        display: block;
+      }
+    }
+  }
+  .tile_holder_container {
+    float: none;
+    width: auto;
+    height: calc(100vh - 47px);
+    min-height: 646px;
+    overflow: auto;
+    padding-top: 20px;
+  }
+  #footer {
+    display: none;
   }
 }
 
