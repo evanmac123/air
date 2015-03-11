@@ -3,18 +3,16 @@ class TileBuilderForm
   include ActiveModel::Conversion
   include ActiveModel::Validations
 
+  attr_accessor :tile
+
   validate :main_objects_all_valid
 
   def initialize(demo, options = {})
     @demo = demo
     @parameters = options[:parameters]
-    @tile = options[:tile]
+    @tile = (options[:tile] || MultipleChoiceTile.new(demo: @demo))
     @creator = options[:creator]
     @image_container = options[:image_container]
-  end
-
-  def persisted?
-    false
   end
 
   def create_tile
@@ -25,24 +23,19 @@ class TileBuilderForm
   def update_tile
     set_tile_image
     set_tile_attributes
-
-    if valid?
-      save_tile
-      true
-    end
-  end
-
-  def tile
-    @tile ||= MultipleChoiceTile.new(demo: @demo, is_copyable: true)
+    save_tile if valid?
   end
 
   def error_messages
-    clean_error_messages
     errors.values.join(", ") + "."
   end
 
   def self.model_name
     ActiveModel::Name.new(TileBuilderForm)
+  end
+
+  def persisted?
+    false
   end
 
   protected
@@ -51,66 +44,31 @@ class TileBuilderForm
     Tile.transaction { tile.save(context: :client_admin) }
   end
 
-  def clean_error_messages
-    remove_thumbnail_error
-  end
-
   def build_tile
-    @tile = MultipleChoiceTile.new(demo: @demo)
     set_tile_image
     set_tile_attributes
     set_tile_creator
-    @tile.status = Tile::DRAFT
-    @tile.position = @tile.find_new_first_position
+    tile.status = Tile::DRAFT
+    tile.position = tile.find_new_first_position
   end
   
   def set_tile_image
     if @parameters[:image].present?
-      @tile.image = @tile.thumbnail = @parameters[:image]
+      tile.image = tile.thumbnail = @parameters[:image]
     elsif @image_container == "no_image"
-      @tile.image = @tile.thumbnail = nil
+      tile.image = tile.thumbnail = nil
     elsif @image_container.to_i > 0
-      @tile.image = @tile.thumbnail = ImageContainer.find(@image_container).image
+      tile.image = tile.thumbnail = ImageContainer.find(@image_container).image
     end
   end
 
   def set_tile_creator
-    @tile.creator ||= @creator
-  end
-
-  def errors_from_tile
-    tile.errors.messages.values
-  end
-
-  def main_objects_all_valid
-    tile_valid = tile.valid?(:client_admin)
-    clean_error_messages
-
-    unless tile_valid
-      tile.errors.values.each {|error| errors.add :base, error}
-    end
-
-    check_quiz_on_correct_answer if errors.empty?
-  end
-
-  def check_quiz_on_correct_answer
-    if tile.question_type == "Quiz" &&
-      (tile.correct_answer_index.nil? || 
-       tile.correct_answer_index < 0)
-
-      quiz_error_mess = "For a quiz, you have to have to mark a correct answer." +
-                        " Click an answer in your tile to mark the correct answer"
-      errors.add :base, quiz_error_mess
-    end
-  end
-
-  def remove_thumbnail_error
-    tile.errors.delete(:thumbnail)
+    tile.creator ||= @creator
   end
 
   def set_tile_attributes
     if @parameters.present?
-      @tile.attributes = {
+      tile.attributes = {
         headline:                @parameters[:headline],
         supporting_content:      @parameters[:supporting_content],
         question:                @parameters[:question],
@@ -124,7 +82,9 @@ class TileBuilderForm
       }
     end
   end
-
+  #
+  # => Answers Stuff
+  #
   def normalized_correct_answer_index
     answers_normalizer.normalized_correct_answer_index
   end
@@ -138,6 +98,17 @@ class TileBuilderForm
       @parameters[:answers], 
       @parameters[:correct_answer_index]
     )
+  end
+  #
+  # => Errors and Validations
+  #
+  def main_objects_all_valid
+    tile_validation = TileValidation.new(tile)
+    return if tile_validation.valid?
+    
+    tile_validation.errors_values.each do |error| 
+      errors.add :base, error
+    end
   end
 
   delegate  :headline, 
