@@ -43,12 +43,13 @@ function bindTileUploader() {
       document.getElementById("upload_preview").src = oFREvent.target.result;
     };
     $("#image_container").val("");
+    $("#no_image").val("");
     showShadows();
   });
 
   $(".clear_image").click(function clearImage(event) {
     event.preventDefault();
-    $("#image_container").val("no_image");
+    $("#no_image").val("true");
     var control = $("#tile_builder_form_image");
     control.replaceWith( control = control.clone( true ) );
     showPlaceholder();

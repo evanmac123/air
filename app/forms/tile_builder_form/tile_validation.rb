@@ -6,7 +6,7 @@ class TileBuilderForm::TileValidation
   end
 
   def valid?
-    tile.valid?(:client_admin)
+    tile.valid?(:client_admin) && !has_quiz_error?
   end
 
   def errors_values

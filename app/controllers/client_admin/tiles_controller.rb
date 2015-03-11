@@ -20,26 +20,21 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   
   def new    
     @tile_builder_form = TileBuilderForm.new(@demo)
-    set_image_and_container
     record_new_ping
   end
 
   def create
-    @tile_builder_form = TileBuilderForm.new(@demo, \
-        parameters: params[:tile_builder_form], \
-        creator: current_user, \
-        image_container: params[:image_container])
+    @tile_builder_form =  TileBuilderForm.new(
+                            @demo,
+                            parameters: params[:tile_builder_form],
+                            creator: current_user
+                          )
     if @tile_builder_form.create_tile
-      delete_old_image_container(:success)
-      record_creator(@tile_builder_form.tile)
       set_after_save_flash(@tile_builder_form.tile)
       schedule_tile_creation_ping(@tile_builder_form.tile)
       redirect_to client_admin_tile_path(@tile_builder_form.tile)
     else
-      delete_old_image_container(:failure)
-
       flash[:failure] = "Sorry, we couldn't save this tile: " + @tile_builder_form.error_messages
-      set_image_and_container
       render "new"
     end
   end
@@ -70,13 +65,17 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   def edit
     tile = get_tile
     @tile_builder_form = tile.to_form_builder
-    set_image_and_container
     record_edit_ping
   end
 
   def sort
     @tile = get_tile
-    Tile.insert_tile_between(params[:left_tile_id], @tile.id, params[:right_tile_id], params[:status])
+    Tile.insert_tile_between(
+      params[:left_tile_id], 
+      @tile.id, 
+      params[:right_tile_id], 
+      params[:status]
+    )
     @tile.reload
 
     @last_tiles = []
@@ -136,21 +135,17 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
   
   def update_fields
-    @tile_builder_form = TileBuilderForm.new(@demo, \
-        parameters: params[:tile_builder_form], \
-        tile: @tile, \
-        image_container: params[:image_container])
-
+    @tile_builder_form =  TileBuilderForm.new( 
+                            @demo,
+                            parameters: params[:tile_builder_form],
+                            tile: @tile
+                          )
     if @tile_builder_form.update_tile
-      delete_old_image_container(:success)
-
       set_after_save_flash(@tile_builder_form.tile)
       redirect_to client_admin_tile_path(@tile_builder_form.tile)
     else
-      delete_old_image_container(:failure)
-
       flash[:failure] = "Sorry, we couldn't update this tile: " + @tile_builder_form.error_messages
-      set_image_and_container
+      set_flash_for_no_image
       render :edit
     end
   end
@@ -168,54 +163,22 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     edit_url = edit_client_admin_tile_path(new_tile)
     already_active = new_tile.active?
 
-    flash[:success] = render_to_string("preview_after_save_flash", layout: false, locals: {action: params[:action], edit_url: edit_url, activate_url: activate_url, already_active: already_active})
+    flash[:success] = render_to_string("preview_after_save_flash", 
+      layout: false, locals: {
+        action: params[:action], 
+        edit_url: edit_url, 
+        activate_url: activate_url, 
+        already_active: already_active
+      }
+    )
     flash[:success_allow_raw] = true
   end
 
-  def set_image_and_container
-    @container_id = set_container_id
-    @image_url = set_image_url
-    set_flash_for_no_image
-  end
-
-  def set_container_id
-    if params["image_container"].present? && params["image_container"] != "no_image"
-      ImageContainer.find(params["image_container"]).id
-    elsif params["image_container"] == "no_image"
-      "no_image"
-    elsif params[:tile_builder_form].present? && params[:tile_builder_form][:image].present?
-      ImageContainer.tile_image(params[:tile_builder_form][:image]).id
-    else
-      nil
-    end
-  end
-
-  def set_image_url
-    if @container_id.to_i > 0
-      ImageContainer.find(@container_id).image.url
-    else
-      @tile_builder_form.image.url
-    end
-  end
-
   def set_flash_for_no_image
-    if params["image_container"] == "no_image" && params[:action] == "update"
+    if @tile_builder_form.no_image
       flash[:failure] = render_to_string("save_tile_without_an_image", layout: false, locals: { tile: @tile_builder_form.tile })
       flash[:failure_allow_raw] = true
     end
-  end
-
-  def delete_old_image_container(tile_saved)
-    if params["old_image_container"].to_i > 0 && \
-        (tile_saved == :success || params["image_container"].to_i <= 0) 
-
-      ImageContainer.find(params["old_image_container"]).destroy
-    end
-  end
-
-  def record_creator(tile)
-    tile.creator = current_user
-    tile.save!
   end
 
   def set_tiles_path_tag

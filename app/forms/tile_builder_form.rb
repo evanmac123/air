@@ -9,21 +9,38 @@ class TileBuilderForm
 
   def initialize(demo, options = {})
     @demo = demo
-    @parameters = options[:parameters]
+    @parameters = (options[:parameters] || {})
     @tile = (options[:tile] || MultipleChoiceTile.new(demo: @demo))
     @creator = options[:creator]
-    @image_container = options[:image_container]
   end
 
   def create_tile
     build_tile
+    delete_old_image_container
     save_tile if valid?
   end
 
   def update_tile
     set_tile_image
     set_tile_attributes
+    delete_old_image_container
     save_tile if valid?
+  end
+
+  def image_container
+    image_builder.find_image_container
+  end
+
+  def old_image_container
+    image_container
+  end
+
+  def image_url
+    (image_builder.find_image || image).url
+  end
+
+  def no_image
+    @parameters[:no_image] == "true"
   end
 
   def error_messages
@@ -53,13 +70,8 @@ class TileBuilderForm
   end
   
   def set_tile_image
-    if @parameters[:image].present?
-      tile.image = tile.thumbnail = @parameters[:image]
-    elsif @image_container == "no_image"
-      tile.image = tile.thumbnail = nil
-    elsif @image_container.to_i > 0
-      tile.image = tile.thumbnail = ImageContainer.find(@image_container).image
-    end
+    new_image = image_builder.set_tile_image
+    tile.image = tile.thumbnail = new_image unless new_image == :leave_old
   end
 
   def set_tile_creator
@@ -81,6 +93,19 @@ class TileBuilderForm
         multiple_choice_answers: normalized_answers,
       }
     end
+  end
+
+  def delete_old_image_container
+    image_builder.delete_old_image_container(valid?)
+  end
+
+  def image_builder
+    @image_builder ||= ImageBuilder.new(
+      @parameters[:image],
+      @parameters[:image_container],
+      @parameters[:old_image_container],
+      no_image
+    )
   end
   #
   # => Answers Stuff

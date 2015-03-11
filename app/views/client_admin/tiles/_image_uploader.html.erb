@@ -1,10 +1,11 @@
 <div class="builder_content">
   <div id="image_uploader">
-    <% image_class = tile_image_present(@image_url) ? "show_shadows" : "show_placeholder" %>
+    <% image_class = tile_image_present(@tile_builder_form.image_url) ? "show_shadows" : "show_placeholder" %>
     <div class="image_preview <%= image_class %>">
-      <%= hidden_field_tag "image_container", @container_id, id: "image_container" %>
-      <%= hidden_field_tag "old_image_container", @container_id, id: "old_image_container" %>
-      <%= image_tag @image_url, class: "tile_image", id: "upload_preview" %>
+      <%= form.hidden_field :image_container, id: "image_container" %>
+      <%= form.hidden_field :old_image_container %>
+      <%= form.hidden_field :no_image, id: "no_image" %>
+      <%= image_tag @tile_builder_form.image_url, class: "tile_image", id: "upload_preview" %>
       <div class="image_placeholder">
         <i class="fa fa-picture-o fa-4x"></i>
         <label>Pick an image</label>
