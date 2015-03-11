@@ -36,14 +36,6 @@ class TileBuilderForm
     @tile ||= MultipleChoiceTile.new(demo: @demo, is_copyable: true)
   end
 
-  def answers
-    @answers ||= normalized_answers
-  end
-
-  def entered_answers
-    @entered_answers ||= normalized_entered_answers
-  end
-      
   def error_messages
     clean_error_messages
     errors.values.join(", ") + "."
@@ -90,30 +82,7 @@ class TileBuilderForm
     tile.errors.messages.values
   end
 
-  def normalized_answers
-    [normalized_answers_from_params, normalized_answers_from_tile, blank_answers].detect {|answer_source| answer_source.present?}
-  end
-
-  def normalized_entered_answers
-    [normalized_answers_from_params, blank_answers].detect {|answer_source| answer_source.present?}
-  end
-
-  def normalized_answers_from_params
-    return unless answers_from_params
-    answers_from_params.map{|answer| answer.strip}.select(&:present?).uniq
-  end
-
-  def answers_from_params
-    return unless @parameters && @parameters[:answers]
-    @parameters[:answers]
-  end
-
-  def blank_answers
-    [''] * default_answer_count
-  end
-
   def main_objects_all_valid
-    #tile_taggings
     tile_valid = tile.valid?(:client_admin)
     clean_error_messages
 
@@ -125,18 +94,18 @@ class TileBuilderForm
   end
 
   def check_quiz_on_correct_answer
-    if tile.question_type == "Quiz" && \
-      (tile.correct_answer_index.nil? || tile.correct_answer_index < 0)
-      errors.add :base, "For a quiz, you have to have to mark a correct answer. Click an answer in your tile to mark the correct answer"
+    if tile.question_type == "Quiz" &&
+      (tile.correct_answer_index.nil? || 
+       tile.correct_answer_index < 0)
+
+      quiz_error_mess = "For a quiz, you have to have to mark a correct answer." +
+                        " Click an answer in your tile to mark the correct answer"
+      errors.add :base, quiz_error_mess
     end
   end
 
   def remove_thumbnail_error
     tile.errors.delete(:thumbnail)
-  end
-
-  def default_answer_count
-    2
   end
 
   def set_tile_attributes
@@ -150,31 +119,25 @@ class TileBuilderForm
         question_subtype:        @parameters[:question_subtype],
         image_credit:            @parameters[:image_credit].try(:strip),
         points:                  @parameters[:points].to_i,
-        correct_answer_index:    correct_answer_index_for_blanks_and_duplicates,
-        multiple_choice_answers: normalized_answers_from_params,
+        correct_answer_index:    normalized_correct_answer_index,
+        multiple_choice_answers: normalized_answers,
       }
     end
   end
 
-  def normalized_answers_from_tile
-    tile && tile.multiple_choice_answers
+  def normalized_correct_answer_index
+    answers_normalizer.normalized_correct_answer_index
   end
 
-  def correct_answer_index_for_blanks_and_duplicates
-    correct_answer_index = correct_answer_index_from_params
-    return -1 unless correct_answer_index
-    answers_from_params[0, correct_answer_index + 1].reject(&:blank?).uniq.count - 1
+  def normalized_answers
+    answers_normalizer.normalized_answers
   end
 
-  def present_answer_marked_as_correct
-    unless @parameters[:answers] && correct_answer_index_from_params.present? && @parameters[:answers][correct_answer_index_from_params].present?
-      errors.add :base, 'must select a correct answer'
-    end
-  end
-
-  def correct_answer_index_from_params
-    return nil unless @parameters[:correct_answer_index].present?
-    @parameters[:correct_answer_index].to_i    
+  def answers_normalizer
+    @answers_builder ||= AnswersNormalizer.new(
+      @parameters[:answers], 
+      @parameters[:correct_answer_index]
+    )
   end
 
   delegate  :headline, 
