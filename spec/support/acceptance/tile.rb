@@ -194,7 +194,7 @@ module TileHelpers
   def fill_in_image_credit text
     #it's not easy to write in div though capybara
     #in few words about events: keydown deletes placeholder, 
-    #html input text, keyup copy text to real textarea
+    #html inputs text, keyup copies text to real textarea
     page.execute_script( "$('.image_credit_view').keydown().html('#{text}').keyup()" )
   end
   
