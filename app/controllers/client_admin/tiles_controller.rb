@@ -68,6 +68,14 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     record_edit_ping
   end
 
+  def destroy
+    @tile = get_tile
+    flash[:success] = "You've successfully deleted the #{@tile.headline} Tile."
+    @tile.destroy
+    destroy_tile_ping params[:page]
+    redirect_to client_admin_tiles_path
+  end
+
   def sort
     @tile = get_tile
     Tile.insert_tile_between(
@@ -90,14 +98,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @show_more_draft_tiles = show_more_draft_tiles
 
     tile_status_updated_ping @tile, "Dragged tile to move"
-  end
-
-  def destroy
-    @tile = get_tile
-    flash[:success] = "You've successfully deleted the #{@tile.headline} Tile."
-    @tile.destroy
-    destroy_tile_ping params[:page]
-    redirect_to client_admin_tiles_path
   end
   
   private

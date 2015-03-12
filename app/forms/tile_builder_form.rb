@@ -2,6 +2,7 @@ class TileBuilderForm
   extend  ActiveModel::Naming
   include ActiveModel::Conversion
   include ActiveModel::Validations
+  include Rails.application.routes.url_helpers
 
   attr_accessor :tile
 
@@ -41,6 +42,28 @@ class TileBuilderForm
 
   def no_image
     @parameters[:no_image] == "true"
+  end
+
+  def url
+    if tile.new_record?
+      client_admin_tiles_path
+    else
+      client_admin_tile_path tile
+    end
+  end
+
+  def form_params
+    params = {url: url}
+    params.merge!({method: :put}) unless tile.new_record?
+    params
+  end
+
+  def submit_button_text
+    tile.new_record? ? "Save tile" : "Update tile"
+  end
+
+  def return_button_text
+    tile.new_record? ? "Back" : "Cancel"
   end
 
   def error_messages
