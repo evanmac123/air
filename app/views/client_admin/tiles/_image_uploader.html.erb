@@ -1,35 +1,10 @@
-<div class="builder_content">
-  <div id="image_uploader">
-    <% image_class = tile_image_present(@tile_builder_form.image_url) ? "show_shadows" : "show_placeholder" %>
-    <div class="image_preview <%= image_class %>">
-      <%= form.hidden_field :image_container, id: "image_container" %>
-      <%= form.hidden_field :old_image_container %>
-      <%= form.hidden_field :no_image, id: "no_image" %>
-      <%= image_tag @tile_builder_form.image_url, class: "tile_image", id: "upload_preview" %>
-      <div class="image_placeholder">
-        <i class="fa fa-picture-o fa-4x"></i>
-        <label>Pick an image</label>
-      </div>
-      <div class="shadows">
-        <div class="shadow_overlay"></div>
-        <div class="clear_image has-tip tip-top" data-tooltip title="Remove the image">
-            <i class="fa fa-times fa-2x"></i>
-        </div>
-        <div class="image_credit">
-          <div class="image_credit_view" contenteditable="true">
-            <%= @tile_builder_form.tile.image_credit%>
-          </div>
-          <%= form.text_area :image_credit %>
-        </div>
-      </div>
-      <div class="upload_new_image">
-        <%= form.file_field "image" %>
-      </div>
-    </div>
+<div class="tile_image_block upload_image">
+  <%= fa_icon('arrow-circle-o-up 2x') %>
+  <span>Upload Image</span>
+  <div class="upload_new_image">
+    <%= form.file_field "image" %>
   </div>
 </div>
-
-<%= js_at_end do %>
-  window.imageCredit();
-  window.imagePreview();
-<% end %>
+<%= form.hidden_field :image_container, id: "image_container" %>
+<%= form.hidden_field :old_image_container %>
+<%= form.hidden_field :no_image, id: "no_image" %>

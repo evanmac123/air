@@ -106,30 +106,6 @@ body.client_admin-tiles-update {
         .shadows {display:none;}
         &:hover, &:focus {
           border-style:solid;
-          i.fa-picture-o { color: $blue; }
-        }
-        .upload_new_image {
-          opacity: 0;
-          position: absolute;
-          z-index: 100;
-          left: 0;
-          top: 0;
-          width: 100%;
-          height: 100%;
-          #tile_builder_form_image {
-            margin-top: 0;
-            font-size:10em;
-            line-height: 0;
-            position: absolute;
-            z-index: 150;
-            left: 0;
-            top: 0;
-            cursor: pointer;
-            display: block;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-          }
         }
       }
       .image_preview {
@@ -169,7 +145,6 @@ body.client_admin-tiles-update {
           label { margin-top: 1em;}
           padding-top: 5em;
           padding-bottom: 5em;
-          cursor: pointer;
         }
       }
     }
@@ -454,12 +429,36 @@ body.client_admin-tiles-update {
       border: 1px solid $white;
       color: $white;
       text-align: center;
+      position: relative;
       i {
         padding-top: 30px;
         padding-bottom: 10px;
       }
       span {
         display: block;
+      }
+      .upload_new_image {
+        opacity: 0;
+        position: absolute;
+        z-index: 100;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        #tile_builder_form_image {
+          margin-top: 0;
+          font-size:5em;
+          line-height: 0;
+          position: absolute;
+          z-index: 150;
+          left: 0;
+          top: 0;
+          cursor: pointer;
+          display: block;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+        }
       }
     }
   }
