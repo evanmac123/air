@@ -110,7 +110,7 @@ class ExploreSingleTilePresenter
   def cache_key
     @cache_key ||= [
       self.class.to_s, 
-      'v2.pwd',
+      'v3.pwd',
       tile_id, 
       copy_link_text, 
       copy_count, 
@@ -125,7 +125,8 @@ class ExploreSingleTilePresenter
       headline,
       creator_name,
       board_name,
-      associated_tile_tag_keys
+      associated_tile_tag_keys,
+      containing_td_id
     ].join('-')
   end
 
