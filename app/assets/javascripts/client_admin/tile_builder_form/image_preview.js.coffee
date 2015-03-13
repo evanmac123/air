@@ -56,17 +56,15 @@ recreateImageUploader = -> # is used to remove uploaded image
   imageUploader().replaceWith imageUploader().clone(true)
 
 updateHiddenImageFields = (caller) ->
+  imageContainer().val ''
+  noImage().val ''
+  imageFromLibraryField().val ''
+  
   if caller == 'imageUploader'
-    imageContainer().val ''
-    noImage().val ''
-    imageFromLibraryField().val ''
+    return
   else if caller == 'clearImage'
-    imageContainer().val ''
     noImage().val 'true'
-    imageFromLibraryField().val ''
   else if caller == 'imageFromLibrary'
-    imageContainer().val ''
-    noImage().val ''
     imageFromLibraryField().val selectedImageTileId()
 
 window.imagePreview = ->

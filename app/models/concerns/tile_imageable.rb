@@ -75,6 +75,11 @@ module Concerns::TileImageable
     process_in_background :thumbnail, 
                           processing_image_url: THUMBNAIL_PROCESSING_IMAGE_URL, 
                           priority:             TILE_IMAGE_PROCESSING_PRIORITY
+
+  end
+
+  def resize_images?
+    false
   end
 
   def image_really_still_processing

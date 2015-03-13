@@ -45,7 +45,7 @@ class TileBuilderForm
   end
 
   def image_from_library
-    5
+    image_builder.find_image_from_library_id
   end
 
   def url
@@ -98,7 +98,13 @@ class TileBuilderForm
   
   def set_tile_image
     new_image = image_builder.set_tile_image
-    tile.image = tile.thumbnail = new_image unless new_image == :leave_old
+    if new_image == :image_from_library
+      tile_image = image_builder.find_image_from_library
+      tile.image = tile_image.image
+      tile.thumbnail = tile_image.thumbnail
+    elsif ne_image != :leave_old
+      tile.image = tile.thumbnail = new_image 
+    end
   end
 
   def set_tile_creator
@@ -131,7 +137,8 @@ class TileBuilderForm
       @parameters[:image],
       @parameters[:image_container],
       @parameters[:old_image_container],
-      no_image
+      no_image,
+      @parameters[:image_from_library]
     )
   end
   #
