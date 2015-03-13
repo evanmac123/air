@@ -1,9 +1,11 @@
 <div class="tile_image_block upload_image">
   <%= fa_icon('arrow-circle-o-up 2x') %>
   <span>Upload Image</span>
-  <div class="upload_new_image">
-    <%= form.file_field "image" %>
-  </div>
+  <% unless ie9_or_older? %>
+    <div class="upload_new_image">
+      <%= form.file_field "image" %>
+    </div>
+  <% end %>
 </div>
 <%= form.hidden_field :image_container, id: "image_container" %>
 <%= form.hidden_field :old_image_container %>

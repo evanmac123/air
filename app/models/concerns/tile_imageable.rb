@@ -78,10 +78,6 @@ module Concerns::TileImageable
 
   end
 
-  def resize_images?
-    false
-  end
-
   def image_really_still_processing
     image_url = image.url
     image_processing || image_url.nil? || image_url == IMAGE_PROCESSING_IMAGE_URL

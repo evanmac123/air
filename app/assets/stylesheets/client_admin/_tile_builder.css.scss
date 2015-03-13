@@ -398,7 +398,9 @@ body.client_admin-tiles-new,
 body.client_admin-tiles-create,
 body.client_admin-tiles-edit,
 body.client_admin-tiles-update {
-  overflow: hidden !important;
+  #flash {
+    width: 100%;
+  }
   .tile_quiz {
     padding: 0 !important;
   }
@@ -421,7 +423,7 @@ body.client_admin-tiles-update {
       margin: 5px;
       border-radius: 3px;
       cursor: pointer;
-      border: 1px solid $dark-gray;
+      border: 3px solid $dark-gray;
       &.selected {
         border-color: $sky-blue;
       }

@@ -102,7 +102,7 @@ class TileBuilderForm
       tile_image = image_builder.find_image_from_library
       tile.image = tile_image.image
       tile.thumbnail = tile_image.thumbnail
-    elsif ne_image != :leave_old
+    elsif new_image != :leave_old
       tile.image = tile.thumbnail = new_image 
     end
   end
