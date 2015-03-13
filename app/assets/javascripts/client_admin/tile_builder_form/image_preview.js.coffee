@@ -46,11 +46,20 @@ badFileMessage = ->
 setPreviewImage = (imageUrl) ->
   document.getElementById('upload_preview').src = imageUrl
 
+isIE = ->
+  myNav = navigator.userAgent.toLowerCase()
+  if (myNav.indexOf('msie') != -1) 
+    parseInt(myNav.split('msie')[1]) 
+  else
+    false
+
 showImgInPreview = (imgFile) ->
   oFReader = new FileReader
   oFReader.readAsDataURL imgFile
   oFReader.onload = (oFREvent) ->
     setPreviewImage(oFREvent.target.result)
+
+    
 
 recreateImageUploader = -> # is used to remove uploaded image
   imageUploader().replaceWith imageUploader().clone(true)
@@ -69,16 +78,19 @@ updateHiddenImageFields = (caller) ->
 
 window.imagePreview = ->
   imageUploader().change (event) ->
-    attachedFile = getAttachedFile()
+    if 0 < isIE() < 10
+      showPlaceholder()
+    else
+      attachedFile = getAttachedFile()
 
-    if filetypeNotOnWhitelist(attachedFile)
-      alert badFileMessage()
-      event.preventDefault()
-      return false
+      if filetypeNotOnWhitelist(attachedFile)
+        alert badFileMessage()
+        event.preventDefault()
+        return false
 
-    showImgInPreview(attachedFile)
-    showShadows()
-    updateHiddenImageFields('imageUploader')
+      showImgInPreview(attachedFile)
+      updateHiddenImageFields('imageUploader')
+      showShadows()
 
   $('.clear_image').click (event) ->
     event.preventDefault()
@@ -119,4 +131,5 @@ window.imageLibrary = ->
   imageFromLibrary().click ->
     imageBlock = $(this)
     select(imageBlock)
+    recreateImageUploader()
   

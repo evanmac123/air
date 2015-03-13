@@ -8,7 +8,7 @@ imageCreditInputSelector = ->
   '#tile_builder_form_image_credit'
 
 imageCreditInput = ->
-  $(imageCreditInputSelector)
+  $(imageCreditInputSelector())
 
 normalizedImageCreditInput = ->
   inputted_text = imageCreditInput().val()

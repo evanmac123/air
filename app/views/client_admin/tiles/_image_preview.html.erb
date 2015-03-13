@@ -13,17 +13,47 @@
             <i class="fa fa-times fa-2x"></i>
         </div>
         <div class="image_credit">
-          <div class="image_credit_view" contenteditable="true">
-            <%= @tile_builder_form.tile.image_credit%>
-          </div>
-          <%= form.text_area :image_credit %>
+          <% if ie9_or_older? %>
+            <div class="image_credit_view">
+              <%= @tile_builder_form.tile.image_credit %>
+            </div>
+          <% else %>
+            <div class="image_credit_view" contenteditable="true">
+              <%= @tile_builder_form.tile.image_credit%>
+            </div>
+            <%= form.text_area :image_credit %>
+          <% end %>
         </div>
       </div>
     </div>
+
+    <% if ie9_or_older? %>
+      <div class="pick_image tile_builder_section">
+        <div class="upload_new_image">
+          <%= form.file_field "image", :style => 'display: block;' %>
+        </div>
+      </div>
+    <% end %>
+
   </div>
+
+  <% if ie9_or_older? %>
+    <div class="content_sections">
+      <%= form.label :image_credit %>
+      <%= form.text_field :image_credit, {maxlength: 50, placeholder:'Add Image Credit'} %>
+    </div>
+  <% end %>
+
 </div>
 
-<%= js_at_end do %>
-  window.imageCredit();
-  window.imagePreview();
+<% if ie9_or_older? %>
+  <% js_at_end do %>
+    window.imageCreditIE();
+    window.imagePreview();
+  <% end %>
+<% else %>
+  <%= js_at_end do %>
+    window.imageCredit();
+    window.imagePreview();
+  <% end %>
 <% end %>

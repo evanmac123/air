@@ -3,11 +3,7 @@
   <div class="tile_holder_container">
     <div class="large-8 large-centered columns builder-width">
       <div class="tile_holder">
-        <% if ie9_or_older? %>
-          <%= render 'image_uploader_ie', form: f %>
-        <% else %>
-          <%= render 'image_preview', form: f %>
-        <% end %>
+        <%= render 'image_preview', form: f %>
         <div class="builder_content tile_builder_section">
           <%= render 'headline_and_supporting_content_fields', form: f %>
         </div>
