@@ -4,6 +4,15 @@ imageUploaderId = ->
 imageUploader = ->
   $("#" + imageUploaderId())
 
+imageContainer = ->
+  $('#image_container')
+
+noImage = ->
+  $('#no_image')
+
+imageFromLibraryField = ->
+  $("#image_from_library")
+
 imageFileTypes = ->
   [
     'image/bmp'
@@ -34,14 +43,31 @@ filetypeNotOnWhitelist = (file) ->
 badFileMessage = ->
   'Sorry, that doesn\'t look like an image file. Please use a file with the extension .jpg, .jpeg, .gif, .bmp or .png.'
 
+setPreviewImage = (imageUrl) ->
+  document.getElementById('upload_preview').src = imageUrl
+
 showImgInPreview = (imgFile) ->
   oFReader = new FileReader
   oFReader.readAsDataURL imgFile
   oFReader.onload = (oFREvent) ->
-    document.getElementById('upload_preview').src = oFREvent.target.result
+    setPreviewImage(oFREvent.target.result)
 
 recreateImageUploader = -> # is used to remove uploaded image
   imageUploader().replaceWith imageUploader().clone(true)
+
+updateHiddenImageFields = (caller) ->
+  if caller == 'imageUploader'
+    imageContainer().val ''
+    noImage().val ''
+    imageFromLibraryField().val ''
+  else if caller == 'clearImage'
+    imageContainer().val ''
+    noImage().val 'true'
+    imageFromLibraryField().val ''
+  else if caller == 'imageFromLibrary'
+    imageContainer().val ''
+    noImage().val ''
+    imageFromLibraryField().val selectedImageTileId()
 
 window.imagePreview = ->
   imageUploader().change (event) ->
@@ -54,13 +80,45 @@ window.imagePreview = ->
 
     showImgInPreview(attachedFile)
     showShadows()
-
-    $('#image_container').val ''
-    $('#no_image').val ''
+    updateHiddenImageFields('imageUploader')
 
   $('.clear_image').click (event) ->
     event.preventDefault()
-    $('#no_image').val 'true'
+    updateHiddenImageFields('clearImage')
     recreateImageUploader()
     showPlaceholder()
     removeImageCredit()
+
+#
+# => Image Library Part
+#
+imageFromLibrary = ->
+  $(".tile_image_block:not(.upload_image)")
+
+selectedImageFromLibrary = ->
+  imageFromLibrary().filter(".selected")
+
+selectedImageTileId = ->
+  selectedImageFromLibrary().data('tile-image-id')
+
+setSelectedState = (imageBlock) ->
+  imageFromLibrary().removeClass('selected')
+  imageBlock.addClass('selected')
+
+mainImageUrl = (imageBlock) ->
+  imageBlock.data('image-url')
+
+showImgFromLibraryInPreview = (imageBlock) ->
+  setPreviewImage mainImageUrl(imageBlock)
+
+select = (imageBlock) ->
+  setSelectedState(imageBlock)
+  showImgFromLibraryInPreview(imageBlock)
+  showShadows()
+  updateHiddenImageFields('imageFromLibrary')
+
+window.imageLibrary = ->
+  imageFromLibrary().click ->
+    imageBlock = $(this)
+    select(imageBlock)
+  

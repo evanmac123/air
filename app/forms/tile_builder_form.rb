@@ -44,6 +44,10 @@ class TileBuilderForm
     @parameters[:no_image] == "true"
   end
 
+  def image_from_library
+    5
+  end
+
   def url
     if tile.new_record?
       client_admin_tiles_path

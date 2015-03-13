@@ -421,6 +421,9 @@ body.client_admin-tiles-update {
       margin: 5px;
       border-radius: 3px;
       cursor: pointer;
+      &.selected {
+        border: 1px solid $sky-blue;
+      }
       img {
         border-radius: 3px;
       }
