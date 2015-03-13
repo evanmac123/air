@@ -24,7 +24,7 @@ updateImageCreditView = ->
   text = normalizedImageCreditInput()
   imageCreditView().html text
 
-window.bindTileUploaderIE = ->
+window.imageCreditIE = ->
   $(document).ready ->
     updateImageCreditView()
     addCharacterCounterFor imageCreditInputSelector()

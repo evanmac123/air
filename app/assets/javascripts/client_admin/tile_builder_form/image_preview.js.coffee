@@ -111,9 +111,9 @@ showImgFromLibraryInPreview = (imageBlock) ->
 
 select = (imageBlock) ->
   setSelectedState(imageBlock)
+  updateHiddenImageFields('imageFromLibrary')
   showImgFromLibraryInPreview(imageBlock)
   showShadows()
-  updateHiddenImageFields('imageFromLibrary')
 
 window.imageLibrary = ->
   imageFromLibrary().click ->
