@@ -122,6 +122,7 @@ showImgFromLibraryInPreview = (imageBlock) ->
   setPreviewImage mainImageUrl(imageBlock)
 
 select = (imageBlock) ->
+  showPlaceholder()
   setSelectedState(imageBlock)
   updateHiddenImageFields('imageFromLibrary')
   showImgFromLibraryInPreview(imageBlock)
