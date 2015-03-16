@@ -3,18 +3,6 @@ require 'acceptance/acceptance_helper'
 feature "Site Admin works with Image Library" do
   include WaitForAjax
 
-  Capybara.add_selector(:tile_image) do
-    xpath { |tile_image| ".//div[@data-tile-image-id='#{tile_image.id}']" }
-  end
-
-  def tile_image_selector
-    ".tile_image_block:not(.new_image)"
-  end
-
-  def tile_image_block ti
-    page.find(:tile_image, ti)
-  end
-
   scenario "creates image", js: true do
     visit admin_tile_images_path(as: an_admin)
     expect_content "Image Library"

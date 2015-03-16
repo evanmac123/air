@@ -244,8 +244,8 @@ FactoryGirl.define do
   end
 
   factory :tile_image do
-    image {File.open(Rails.root.join "spec/support/fixtures/tiles/cov1.jpg")}
-    thumbnail {File.open(Rails.root.join "spec/support/fixtures/tiles/cov1_thumbnail.jpg")}
+    image {File.open(Rails.root.join "spec/support/fixtures/tiles/cov2.jpg")}
+    thumbnail {File.open(Rails.root.join "spec/support/fixtures/tiles/cov2_thumbnail.jpg")}
   end
 
   factory :tile_completion do

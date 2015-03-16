@@ -39,9 +39,8 @@ shared_examples_for "editing a tile" do
     page.find("img[src='#{@tile.reload.image}']").should be_present
   end
 
-  scenario "clear the image, upload new one and update tile", js: true do
+  scenario "upload new image and update tile", js: true do
     original_image_file_name = @tile.image_file_name
-    page.find(".clear_image").click
     attach_tile "tile_builder_form[image]", tile_fixture_path('cov2.jpg')
     click_button "Update tile"
 
@@ -51,12 +50,11 @@ shared_examples_for "editing a tile" do
     expect_content after_tile_save_message(action: "update")
   end
 
-  scenario "clear image, upload new but make empty fields, click update tile\
+  scenario "upload new image but make empty fields, click update tile\
             see new image and error message, fill empty fields, \
             save tile and get new image", js:true do
     
     fill_in "Headline", with: ""
-    page.find(".clear_image").click
     attach_tile "tile_builder_form[image]", tile_fixture_path('cov2.jpg')
     click_button "Update tile"
 
@@ -147,6 +145,27 @@ feature "Client admin edits tile" do
       
       click_button "Update tile"
       expect_content "Sorry, we couldn't update this tile: headline can't be blank, supporting content can't be blank, question can't be blank."
+    end
+
+    context "using image library" do
+      before do
+        @tile_images = FactoryGirl.create_list :tile_image, 3
+        crank_dj_clear
+        visit edit_client_admin_tile_path(@tile, as: @client_admin)
+      end
+
+      scenario "takes image from image library", js: true do
+        tile_image_block(@tile_images[0]).click
+        click_button "Update tile"
+
+
+        Tile.count.should == 1
+        tile = Tile.first
+
+        should_be_on client_admin_tile_path(tile)
+        expect_content after_tile_save_message(hide_activate_link: true, action: "update")
+        tile.image_file_name.should == @tile_images[0].image_file_name
+      end
     end
   end
 end

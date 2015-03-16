@@ -10,6 +10,18 @@ module TileHelpers
     xpath { |tile| ".//div[@data-tile_id='#{tile.id}']" }
   end
 
+  Capybara.add_selector(:tile_image) do
+    xpath { |tile_image| ".//div[@data-tile-image-id='#{tile_image.id}']" }
+  end
+
+  def tile_image_selector
+    ".tile_image_block:not(.new_image)"
+  end
+
+  def tile_image_block ti
+    page.find(:tile_image, ti)
+  end
+
   def section_content(selector)
     find(selector).all('.tile_container:not(.placeholder_container)').collect { |tile| tile.text }
   end
