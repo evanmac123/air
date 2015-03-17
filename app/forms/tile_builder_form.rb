@@ -37,12 +37,7 @@ class TileBuilderForm
   end
 
   def image_url
-    url = (image_builder.find_image || image).url
-    if url.include? User::MISSING_AVATAR_PATH
-      "//:0"
-    else
-      url
-    end
+    (image_builder.find_image || image).url
   end
 
   def no_image
