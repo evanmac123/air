@@ -21,19 +21,19 @@ feature 'Client admin and the digest email for tiles' do
   # -------------------------------------------------
     
   def have_send_to_selector(selected)
-    have_select 'digest_send_to', {selected: selected}
+    have_select 'digest[digest_send_to]', {selected: selected}
   end
 
   def have_follow_up_selector(selected)
-    have_select 'follow_up_day', {selected: selected}
+    have_select 'digest[follow_up_day]', {selected: selected}
   end
 
   def change_send_to(send_to)
-    select send_to, from: 'digest_send_to'
+    select send_to, from: 'digest[digest_send_to]'
   end
 
   def change_follow_up_day(num_days)
-    select num_days, from: 'follow_up_day'
+    select num_days, from: 'digest[follow_up_day]'
   end
 
   def set_last_sent_on(day)
@@ -415,7 +415,7 @@ feature 'Client admin and the digest email for tiles' do
         it "recording if the digest is for everyone or just claimed users" do
           create_tile
           visit client_admin_share_path(as: admin)
-          select 'All Users', from: 'digest_send_to'
+          select 'All Users', from: 'digest[digest_send_to]'
           click_button "Send"
 
           FakeMixpanelTracker.clear_tracked_events
@@ -425,7 +425,7 @@ feature 'Client admin and the digest email for tiles' do
 
           create_tile
           visit client_admin_share_path(as: admin)
-          select 'Activated Users', from: 'digest_send_to'
+          select 'Activated Users', from: 'digest[digest_send_to]'
           click_button "Send"
 
           FakeMixpanelTracker.clear_tracked_events
@@ -437,7 +437,7 @@ feature 'Client admin and the digest email for tiles' do
         it "recording if a followup was also scheduled" do
           create_tile
           visit client_admin_share_path(as: admin)
-          select "Never", from: 'follow_up_day'
+          select "Never", from: 'digest[follow_up_day]'
           click_button "Send"
 
           FakeMixpanelTracker.clear_tracked_events
@@ -447,7 +447,7 @@ feature 'Client admin and the digest email for tiles' do
 
           create_tile
           visit client_admin_share_path(as: admin)
-          select "Saturday", from: 'follow_up_day'
+          select "Saturday", from: 'digest[follow_up_day]'
           click_button "Send"
 
           FakeMixpanelTracker.clear_tracked_events

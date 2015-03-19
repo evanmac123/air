@@ -9,7 +9,8 @@ class ClientAdmin::SharesController < ClientAdminBaseController
     @activated_users = @demo.users.claimed.where(is_site_admin: false).count - 1 #need to exclude the current user
 
     @digest_tiles = @demo.digest_tiles(tile_digest_email_sent_at)
-    @tiles_to_be_sent = @demo.digest_tiles(tile_digest_email_sent_at).count    
+    @tiles_to_be_sent = @demo.digest_tiles(tile_digest_email_sent_at).count  
+    @tiles_digest_form = TilesDigestForm.new(current_user)  
     
     if flash[:digest_sent_flag]
       @digest_sent_flag = true

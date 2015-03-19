@@ -22,8 +22,8 @@ module ClientAdmin::TilesHelper
     (is_preview || user.claimed?) ? acts_url(email_link_hash): invitation_url(user.invitation_code, email_link_hash)
   end
 
-  def default_follow_up_day
-    FollowUpDigestEmail::DEFAULT_FOLLOW_UP[Date::DAYNAMES[Date.today.wday]]
+  def activate
+    current_user.demo.tiles.archived.update_all(status: Tile::ACTIVE)
   end
 
   def set_tile_types(tile_has_question_type, tile_builder)
