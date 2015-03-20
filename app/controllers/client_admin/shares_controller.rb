@@ -12,10 +12,7 @@ class ClientAdmin::SharesController < ClientAdminBaseController
     @tiles_to_be_sent = @demo.digest_tiles(tile_digest_email_sent_at).count  
     @tiles_digest_form = TilesDigestForm.new(current_user)  
     
-    if flash[:digest_sent_flag]
-      @digest_sent_flag = true
-      flash[:digest_sent_flag] = nil
-    end
+    digest_sent_modal
     
     ping_page("Manage - Share Page", current_user)
     prepend_view_path 'client_admin/users'
@@ -26,5 +23,17 @@ class ClientAdmin::SharesController < ClientAdminBaseController
     
     @first_active_tile = @demo.tiles.active.order('activated_at asc').limit(1)
     render :layout => false
+  end
+
+  protected
+
+  def digest_sent_modal
+    return unless flash[:digest_sent_flag]
+    
+    @digest_sent_flag = true
+    flash.delete(:digest_sent_flag)
+
+    @digest_sent_type = flash[:digest_sent_type]
+    flash.delete(:digest_sent_type)
   end
 end

@@ -6,7 +6,7 @@
       = link_to "Edit", client_admin_tiles_path 
       to post new Tiles.
 .large-3.columns
-  = form_tag client_admin_tiles_digest_notification_path, class: :custom do
+  = form_tag client_admin_tiles_digest_notification_path, class: :custom, id: "tiles_digest_form" do
     .notification_controls
       .send_to
         %label{for: "digest_send_to"} Recipients
@@ -34,6 +34,8 @@
         = text_area_tag "digest[custom_message]", @tiles_digest_form.custom_message, size: "50x6", maxlength: 160
         :javascript
           addCharacterCounterFor('#digest_custom_message');
+      
+      = hidden_field_tag "digest_type", "digest_and_follow_up"
 
       .total_users
         %h5 Recipients

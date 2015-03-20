@@ -111,6 +111,16 @@ $(document).ready ->
     textForSubject = if(text == '') then 'New Tiles' else text
 
     $('.subject-field').text(textForSubject)
+
+  $("#send_test_digest").click (e) ->
+    e.preventDefault()
+    $("#digest_type").val("test_digest")
+    $("#tiles_digest_form").submit()
+
+  $("#send_test_follow_up").click (e) ->
+    e.preventDefault()
+    $("#digest_type").val("test_follow_up")
+    $("#tiles_digest_form").submit()
   
 ############JQuery Validation#################
   $.validator.addMethod("first_last_name", 

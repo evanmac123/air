@@ -56,4 +56,27 @@ class TilesDigestForm
     )
     schedule_digest_and_followup.schedule!
   end
+
+  def send_test_email_to_self
+    send_test_digest
+  end
+
+  def send_test_follow_up_to_self
+    send_test_digest true
+  end
+
+  protected
+
+  def send_test_digest follow_up_email = false
+    cutoff_time = demo.tile_digest_email_sent_at
+    tile_ids = demo.digest_tiles(cutoff_time).pluck(:id)
+
+    TilesDigestMailer.delay.notify_one  demo.id,
+                                        current_user.id,
+                                        tile_ids,
+                                        (custom_subject || "New Tiles"),
+                                        follow_up_email,
+                                        custom_headline, 
+                                        custom_message
+  end
 end

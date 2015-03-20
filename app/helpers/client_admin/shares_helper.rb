@@ -4,16 +4,15 @@ module ClientAdmin::SharesHelper
     render 'invite_users', demo: demo
   end
   
-  def show_linkein_share(demo)
-    params = {
-      mini: true,
-      url: public_board_url(demo.public_slug),
-      title: demo.name,
-      summary: '',
-      source: '', 
-      class: 'share linkedin'          
-    }
-    link_to fa_icon('linkedin-square 2x'), "https://www.linkedin.com/shareArticle?#{params.to_query}", target: '_blank'
+  def digest_sent_modal_text digest_type
+    case digest_type
+    when "test_digest"
+      "A test digest email has been sent to #{current_user.email}. You should receive it shortly."
+    when "test_follow_up"
+      "A test follow-up email has been sent to #{current_user.email}. You should receive it shortly."
+    else
+      "Your Tiles have been successfully sent. New Tiles you post will appear in the email preview."
+    end
   end
 
   def share_tile_by_linkedin(tile)
@@ -27,10 +26,6 @@ module ClientAdmin::SharesHelper
     "https://www.linkedin.com/shareArticle?#{params.to_query}"
   end
 
-  def show_facebook_share(demo)
-    link_to fa_icon('facebook-square 2x'), "https://www.facebook.com/sharer/sharer.php?u=#{public_board_url(demo.public_slug)}", class: 'share facebook', target: '_blank'
-  end
-  
   def sharable_tile_on_linkedin(tile)
     params = {
       mini: true,
