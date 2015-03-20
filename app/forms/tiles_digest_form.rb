@@ -3,7 +3,13 @@ class TilesDigestForm
   # include ActiveModel::Conversion
   # include ActiveModel::Validations
 
-  attr_reader :demo, :current_user
+  attr_reader :demo, 
+              :current_user,
+              :follow_up_day,
+              :custom_message,
+              :custom_subject,
+              :custom_headline,
+              :unclaimed_users_also_get_digest
 
   def initialize current_user, params = {}
     @current_user = current_user
@@ -38,26 +44,14 @@ class TilesDigestForm
     FollowUpDigestEmail::DEFAULT_FOLLOW_UP[Date::DAYNAMES[Date.today.wday]]
   end
 
-  def custom_subject
-    @custom_subject || ''
-  end
-
-  def custom_headline
-    @custom_headline || ''
-  end
-
-  def custom_message
-    @custom_message || ''
-  end
-
   def schedule_digest_and_followup!
     schedule_digest_and_followup = ScheduleDigestAndFollowUp.new(
       demo: demo,
-      unclaimed_users_also_get_digest: @unclaimed_users_also_get_digest,
-      custom_headline: @custom_headline,
-      custom_message: @custom_message,
-      custom_subject: @custom_subject,
-      follow_up_day: @follow_up_day,
+      unclaimed_users_also_get_digest: unclaimed_users_also_get_digest,
+      custom_headline: custom_headline,
+      custom_message: custom_message,
+      custom_subject: custom_subject,
+      follow_up_day: follow_up_day,
       current_user: current_user
     )
     schedule_digest_and_followup.schedule!

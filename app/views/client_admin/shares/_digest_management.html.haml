@@ -45,15 +45,11 @@
         .add_tiles_message
           Post new tiles to send them to your users.
 .large-9.email_preview
-  %h5 Email preview
-  #last-email= digest_email_sent_on_message
+  .send_test
+    = link_to 'Send test email to self', "#", id: "send_test_digest"
+    = link_to 'Send test follow-up to self', "#", id: "send_test_follow_up"
+  .email_preview_header
+    %h5 Email preview
+    #last-email= digest_email_sent_on_message
   = render 'shared/email_client_wrapper', demo: current_user.demo, subject: 'New Tiles'
 
-= content_for :javascript do
-  :javascript
-    $('#digest_custom_subject').keyup(function(event) {
-      var text = $(event.target).val();
-      var textForSubject = (text == '') ? 'New Tiles' : text
-
-      $('.subject-field').text(textForSubject);
-    });

@@ -105,6 +105,12 @@ $(document).ready ->
   $('#invite_users_page_1').find('input').select((event) ->
     $(this).removeAttr('style').removeClass('invalid').removeClass('valid').removeClass('error')    
   )
+
+  $('#digest_custom_subject').keyup (event) ->
+    text = $(event.target).val()
+    textForSubject = if(text == '') then 'New Tiles' else text
+
+    $('.subject-field').text(textForSubject)
   
 ############JQuery Validation#################
   $.validator.addMethod("first_last_name", 
