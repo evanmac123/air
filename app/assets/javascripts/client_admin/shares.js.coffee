@@ -20,6 +20,7 @@ $(document).ready ->
       custom_message = $('#invite_users_page_2').find('#users_invite_message')
       
       $('#invite_users_page_2').find('#share_tiles_email_preview').contents().find('#custom_message').html($(custom_message).val())
+    $("#digest_custom_message, #digest_custom_subject, #digest_custom_headline").trigger('keyup') 
     return
   )
 

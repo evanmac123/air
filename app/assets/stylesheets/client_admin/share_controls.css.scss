@@ -144,8 +144,9 @@ body.client_admin-shares{
       padding-left: 30px;
       .send_test {
         text-align: right;
-        a {
+        button {
           @include light-button($med-gray);
+          margin-bottom: 0px;
         }
         &:after {
           @include clear;

@@ -4,8 +4,8 @@ include EmailHelper
 
 feature 'Client admin and the digest email for tiles' do
 
-  let(:demo)  { FactoryGirl.create :demo, email: 'foobar@playhengage.com' }
-  let(:admin) { FactoryGirl.create :client_admin, email: 'client-admin@hengage.com', demo: demo }
+  let!(:demo)  { FactoryGirl.create :demo, email: 'foobar@playhengage.com' }
+  let!(:admin) { FactoryGirl.create :client_admin, email: 'client-admin@hengage.com', demo: demo }
   before do
     user = FactoryGirl.create :user, demo: demo
     tile = create_tile on_day: '7/5/2013', activated_on: '7/5/2013', status: Tile::ACTIVE, demo: demo, headline: "Tile completed"
@@ -55,7 +55,7 @@ feature 'Client admin and the digest email for tiles' do
   end
 
   def expect_tiles_to_send_header
-    expect_content "Email Tiles"
+    expect_content_case_insensitive "Email Tiles"
   end
 
   def expect_no_new_tiles_to_send_header
@@ -64,6 +64,10 @@ feature 'Client admin and the digest email for tiles' do
   
   def expect_digest_sent_content
     expect_content "Your Tiles have been successfully sent. New Tiles you post will appear in the email preview."
+  end
+
+  def test_digest_sent_content(email)
+    "A test digest email has been sent to #{email}. You should receive it shortly."
   end
 
   def follow_up_header_copy
@@ -544,5 +548,69 @@ feature 'Client admin and the digest email for tiles' do
         end
       end
     end
+  end
+
+  context "Send test digest or follow-up to self" do
+    before do
+      create_tile
+
+      FactoryGirl.create :user, demo: demo, name: 'John Campbell', email: 'john@campbell.com'
+      FactoryGirl.create :user, demo: demo, name: 'Irma Thomas',   email: 'irma@thomas.com'
+      FactoryGirl.create :claimed_user, demo: demo, name: 'W.C. Clark', email: 'wc@clark.com'
+      FactoryGirl.create :claimed_user, demo: demo, name: 'Taj Mahal',  email: 'taj@mahal.com'
+      FactoryGirl.create :site_admin, demo: demo, name: 'Eric Claption',  email: 'site-admin@hengage.com'
+      FactoryGirl.create :user,         demo: FactoryGirl.create(:demo)
+      FactoryGirl.create :claimed_user, demo: FactoryGirl.create(:demo)
+
+      visit client_admin_share_path(as: admin)
+
+      expect_tiles_to_send_header
+    end
+
+    context "test digest" do
+      before do
+        click_link "Send test email to self"
+      end
+
+      it "should pop up about sent test digest", js: true do
+        expect_content test_digest_sent_content(admin.email)
+        expect_no_content follow_up_header_copy
+        expect_no_content 'No new Tiles to send. Go to Edit to post new Tiles.'
+      end
+
+      it "should send digest only to admin", js: true do
+        crank_dj_clear
+        address = admin.email
+        all_emails.should have(1).email
+
+        expect_digest_to(address)
+
+        open_email(address)
+        current_email.should have_content "Your New Tiles Are Here!"
+
+        email_link = /acts/
+        page_text_1 = "Log In"
+        page_text_2 = "Remember me"
+
+        page.find("#me_toggle").click
+        click_link "Sign Out"
+
+        click_email_link_matching email_link
+
+        page.should have_content page_text_1
+        page.should have_content page_text_2
+      end
+    end
+
+    # context "test follow-up" do
+    #   before do
+    #     click_link "Send test follow-up to self"
+    #   end
+      
+    #   it "should not show any scheduled follow-up" do
+    #     expect_no_content follow_up_header_copy
+    #     expect_no_content 'No new Tiles to send. Go to Edit to post new Tiles.'
+    #   end
+    # end
   end
 end
