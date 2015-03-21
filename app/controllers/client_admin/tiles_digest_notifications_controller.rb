@@ -10,7 +10,7 @@ class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseControlle
       save_digest_form_params
       tiles_digest_form.send_test_follow_up_to_self
     else
-      session[:digest].delete
+      session[:digest] = nil
       tiles_digest_form.schedule_digest_and_followup!
     end
 

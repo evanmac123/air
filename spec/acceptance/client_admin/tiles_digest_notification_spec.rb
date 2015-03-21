@@ -70,12 +70,20 @@ feature 'Client admin and the digest email for tiles' do
     "A test digest email has been sent to #{email}. You should receive it shortly."
   end
 
+  def test_follow_up_sent_content(email)
+    "A test follow-up email has been sent to #{email}. You should receive it shortly."
+  end
+
   def follow_up_header_copy
     'SCHEDULED FOLLOW-UP'
   end
 
   def expect_follow_up_header
     expect_content follow_up_header_copy
+  end
+
+  def submit_button
+    page.find("#tiles_digest_form input[type='submit']")
   end
 
 # -------------------------------------------------
@@ -207,7 +215,7 @@ feature 'Client admin and the digest email for tiles' do
 
       scenario "yet a third message appears, somewhere on the page, that the digest has been sent" do
         visit client_admin_share_path(as: admin)
-        click_button "Send"
+        submit_button.click
         expect_digest_sent_content
         click_link "Activity"
         should_be_on client_admin_path
@@ -220,7 +228,7 @@ feature 'Client admin and the digest email for tiles' do
           expect_tiles_to_send_header
           page.should_not contain 'No new tiles have been added'
 
-          click_button 'Send'
+          submit_button.click
           crank_dj_clear
 
           expect_digest_sent_content
@@ -233,7 +241,7 @@ feature 'Client admin and the digest email for tiles' do
         on_day '7/6/2013' do
           visit client_admin_share_path(as: admin)
           change_follow_up_day 'Thursday'
-          click_button "Send"
+          submit_button.click
           expect_content "Scheduled Follow-Up"
           expect_content "Thursday, July 11, 2013"
         end
@@ -262,7 +270,7 @@ feature 'Client admin and the digest email for tiles' do
                   Activities page, while whisking others to where they belong" do
           on_day '7/6/2013' do
             change_send_to('All Users')
-            click_button 'Send'
+            submit_button.click
             crank_dj_clear
             all_emails.should have(7).emails  # The above 5 for this demo, and the 'client-admin' and the 'user' created at top of tests
 
@@ -300,7 +308,7 @@ feature 'Client admin and the digest email for tiles' do
         scenario 'Demo where only claimed users should get digests' do
           on_day '7/6/2013' do
             change_send_to('Activated Users')
-            click_button 'Send'
+            submit_button.click
             crank_dj_clear
 
             all_emails.should have(4).emails  # 2 claimed users, the 'site-admin', and the 'client-admin' (created at top of tests)
@@ -316,7 +324,7 @@ feature 'Client admin and the digest email for tiles' do
             buzzwordery = "Proactive synergies and cross-functional co-opetition."
             change_send_to('All Users')
             fill_in "digest[custom_message]", with: buzzwordery
-            click_button 'Send'
+            submit_button.click
 
             crank_dj_clear
 
@@ -331,7 +339,7 @@ feature 'Client admin and the digest email for tiles' do
           before do
             @custom_subject = "Pferde in der Wehrmacht waren als Armeepferde ein wichtiger Bestandteil"
             fill_in "digest[custom_subject]", with: @custom_subject
-            click_button 'Send'
+            submit_button.click
           end
 
           it "uses that" do
@@ -351,7 +359,7 @@ feature 'Client admin and the digest email for tiles' do
 
         context "and the optional admin-supplied custom subject is not filled in" do
           it "uses a reasonable default" do
-            click_button 'Send'
+            submit_button.click
 
             crank_dj_clear
 
@@ -362,7 +370,7 @@ feature 'Client admin and the digest email for tiles' do
           end
 
           it "creates a FollowUpDigestEmail with a nil original subject recorded" do
-            click_button 'Send'
+            submit_button.click
             FollowUpDigestEmail.all.length.should == 1
             FollowUpDigestEmail.first.original_digest_subject.should be_nil
           end
@@ -372,7 +380,7 @@ feature 'Client admin and the digest email for tiles' do
           before do
             @custom_headline = "Do the right thing, you"
             fill_in "digest[custom_headline]", with: @custom_headline
-            click_button "Send"
+            submit_button.click
             crank_dj_clear
           end
 
@@ -392,7 +400,7 @@ feature 'Client admin and the digest email for tiles' do
 
         context "and the optional admin-supplied custom headline is not filled in" do
           it "has a reasonable default" do
-            click_button "Send"
+            submit_button.click
             crank_dj_clear
 
             all_addresses.each do |address|
@@ -408,7 +416,7 @@ feature 'Client admin and the digest email for tiles' do
         it "having the proper label" do
           create_tile
           visit client_admin_share_path(as: admin)
-          click_button "Send"
+          submit_button.click
           
           FakeMixpanelTracker.clear_tracked_events
           crank_dj_clear
@@ -420,7 +428,7 @@ feature 'Client admin and the digest email for tiles' do
           create_tile
           visit client_admin_share_path(as: admin)
           select 'All Users', from: 'digest[digest_send_to]'
-          click_button "Send"
+          submit_button.click
 
           FakeMixpanelTracker.clear_tracked_events
           crank_dj_clear
@@ -430,7 +438,7 @@ feature 'Client admin and the digest email for tiles' do
           create_tile
           visit client_admin_share_path(as: admin)
           select 'Activated Users', from: 'digest[digest_send_to]'
-          click_button "Send"
+          submit_button.click
 
           FakeMixpanelTracker.clear_tracked_events
           crank_dj_clear
@@ -442,7 +450,7 @@ feature 'Client admin and the digest email for tiles' do
           create_tile
           visit client_admin_share_path(as: admin)
           select "Never", from: 'digest[follow_up_day]'
-          click_button "Send"
+          submit_button.click
 
           FakeMixpanelTracker.clear_tracked_events
           crank_dj_clear
@@ -452,7 +460,7 @@ feature 'Client admin and the digest email for tiles' do
           create_tile
           visit client_admin_share_path(as: admin)
           select "Saturday", from: 'digest[follow_up_day]'
-          click_button "Send"
+          submit_button.click
 
           FakeMixpanelTracker.clear_tracked_events
           crank_dj_clear
@@ -463,7 +471,7 @@ feature 'Client admin and the digest email for tiles' do
         it "recording if an optional message was also added", js: true do
           create_tile
           visit client_admin_share_path(as: admin)
-          click_button "Send"
+          submit_button.click
           expect_digest_sent_content
 
           FakeMixpanelTracker.clear_tracked_events
@@ -473,7 +481,7 @@ feature 'Client admin and the digest email for tiles' do
           create_tile
           visit client_admin_share_path(as: admin)
           fill_in "digest[custom_message]", with: ''
-          click_button "Send"
+          submit_button.click
           expect_digest_sent_content
 
           FakeMixpanelTracker.clear_tracked_events
@@ -483,7 +491,7 @@ feature 'Client admin and the digest email for tiles' do
           create_tile
           visit client_admin_share_path(as: admin)
           fill_in "digest[custom_message]", with: 'hey'
-          click_button "Send"
+          submit_button.click
           expect_digest_sent_content
 
           FakeMixpanelTracker.clear_tracked_events
@@ -495,7 +503,7 @@ feature 'Client admin and the digest email for tiles' do
           create_tile
           visit client_admin_share_path(as: admin)
           fill_in "digest[custom_message]", with: ''
-          click_button "Send"
+          submit_button.click
           expect_digest_sent_content
 
           FakeMixpanelTracker.clear_tracked_events
@@ -520,7 +528,7 @@ feature 'Client admin and the digest email for tiles' do
             create_tile
             visit client_admin_share_path(as: admin)
             fill_in "digest[custom_message]", with: ''
-            click_button "Send"
+            submit_button.click
             expect_digest_sent_content
 
             crank_dj_clear
@@ -569,16 +577,23 @@ feature 'Client admin and the digest email for tiles' do
 
     context "test digest" do
       before do
-        click_link "Send test email to self"
-      end
-
-      it "should pop up about sent test digest", js: true do
-        expect_content test_digest_sent_content(admin.email)
-        expect_no_content follow_up_header_copy
-        expect_no_content 'No new Tiles to send. Go to Edit to post new Tiles.'
+        fill_in "digest[custom_message]", with: 'Custom Message'
+        fill_in "digest[custom_subject]", with: 'Custom Subject'
+        click_button "Send test email to self"
       end
 
       it "should send digest only to admin", js: true do
+        # don't block anything
+        expect_no_content follow_up_header_copy
+        expect_no_content 'No new Tiles to send. Go to Edit to post new Tiles.'
+
+        expect_content test_digest_sent_content(admin.email)
+        page.find(".close-reveal-modal").click
+        # sign out
+        page.find("#me_toggle").click
+        click_link "Sign Out"
+        expect_content "Log In"
+
         crank_dj_clear
         address = admin.email
         all_emails.should have(1).email
@@ -587,30 +602,67 @@ feature 'Client admin and the digest email for tiles' do
 
         open_email(address)
         current_email.should have_content "Your New Tiles Are Here!"
+        current_email.should have_content 'Custom Message'
+        current_email.should have_content 'Custom Subject'
 
         email_link = /acts/
-        page_text_1 = "Log In"
-        page_text_2 = "Remember me"
-
-        page.find("#me_toggle").click
-        click_link "Sign Out"
-
         click_email_link_matching email_link
 
-        page.should have_content page_text_1
-        page.should have_content page_text_2
+        page.should have_content "Log In"
+        page.should have_content "REMEMBER ME"
+      end
+
+      it "should save entered text in digest form fields", js: true do
+        visit client_admin_share_path(as: admin)  
+
+        page.find("#digest_custom_message").value.should == "Custom Message"
+        page.find("#digest_custom_subject").value.should == "Custom Subject"
       end
     end
 
-    # context "test follow-up" do
-    #   before do
-    #     click_link "Send test follow-up to self"
-    #   end
-      
-    #   it "should not show any scheduled follow-up" do
-    #     expect_no_content follow_up_header_copy
-    #     expect_no_content 'No new Tiles to send. Go to Edit to post new Tiles.'
-    #   end
-    # end
+    context "test follow-up" do
+      before do
+        fill_in "digest[custom_message]", with: 'Custom Message'
+        fill_in "digest[custom_subject]", with: 'Custom Subject'
+        click_button "Send test follow-up to self"
+      end
+
+      it "should send digest only to admin", js: true do
+        # don't block anything
+        expect_no_content follow_up_header_copy
+        expect_no_content 'No new Tiles to send. Go to Edit to post new Tiles.'
+
+        expect_content test_follow_up_sent_content(admin.email)
+        page.find(".close-reveal-modal").click
+        # sign out
+        page.find("#me_toggle").click
+        click_link "Sign Out"
+        expect_content "Log In"
+
+        crank_dj_clear
+        address = admin.email
+        all_emails.should have(1).email
+
+        expect_digest_to(address)
+
+        open_email(address)
+        current_email.should have_content "Don't miss your new tiles"
+        current_email.should have_content 'Custom Message'
+        current_email.should have_content 'Custom Subject'
+
+        email_link = /acts/
+        click_email_link_matching email_link
+
+        page.should have_content "Log In"
+        page.should have_content "REMEMBER ME"
+      end
+
+      it "should save entered text in digest form fields", js: true do
+        visit client_admin_share_path(as: admin)  
+
+        page.find("#digest_custom_message").value.should == "Custom Message"
+        page.find("#digest_custom_subject").value.should == "Custom Subject"
+      end
+    end
   end
 end
