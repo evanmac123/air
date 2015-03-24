@@ -28,6 +28,10 @@ feature 'In multiple boards appears present in all at once' do
     headlines.all?{|headline| emails_to_user.any? {|email_to_user| email_to_user.html_part.body.to_s.include?(headline)} }.should be_true
   end
 
+  def submit_button
+    page.find("#tiles_digest_form input[type='submit']")
+  end
+
   context "in client/site admin searches for users" do
     before do
       create_two_boards(:activated)
@@ -98,7 +102,7 @@ feature 'In multiple boards appears present in all at once' do
 
     scenario "digests are received from both" do
       visit client_admin_share_path(as: @first_admin)
-      click_button "Send"
+      submit_button.click
       crank_dj_clear
 
       open_email(@user.email)
@@ -110,7 +114,7 @@ feature 'In multiple boards appears present in all at once' do
       ActionMailer::Base.deliveries.clear
 
       visit client_admin_share_path(as: @second_admin)
-      click_button "Send"
+      submit_button.click
       crank_dj_clear
 
       open_email(@user.email)
@@ -124,13 +128,13 @@ feature 'In multiple boards appears present in all at once' do
       Timecop.freeze
       Timecop.travel(Chronic.parse("March 23, 2014, 12:00 PM")) # a Sunday
       visit client_admin_share_path(as: @first_admin)
-      select "Tuesday", from: "follow_up_day"
-      click_button "Send"
+      select "Tuesday", from: "digest[follow_up_day]"
+      submit_button.click
       crank_dj_clear
 
       visit client_admin_share_path(as: @second_admin)
-      select "Tuesday", from: "follow_up_day"
-      click_button "Send"
+      select "Tuesday", from: "digest[follow_up_day]"
+      submit_button.click
       crank_dj_clear
 
       Timecop.travel(Chronic.parse("March 25, 2014, 6:00 PM"))

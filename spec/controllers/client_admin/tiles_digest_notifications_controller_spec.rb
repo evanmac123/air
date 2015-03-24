@@ -10,7 +10,7 @@ describe ClientAdmin::TilesDigestNotificationsController do
 
       sign_in_as(client_admin)
       request.env['HTTP_REFERER'] = '/' # so redirect_to :back works
-      post :create, follow_up_day: 'Friday', digest: {}, digest_send_to: 'true'
+      post :create, follow_up_day: 'Friday', digest: {follow_up_day: "Tuesday", digest_send_to: 'true'}
 
       follow_up = FollowUpDigestEmail.last
       follow_up.user_ids_to_deliver_to.sort.should == expected_user_ids_to_deliver_to

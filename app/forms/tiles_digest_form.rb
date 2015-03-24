@@ -74,9 +74,21 @@ class TilesDigestForm
     TilesDigestMailer.delay.notify_one  demo.id,
                                         current_user.id,
                                         tile_ids,
-                                        (custom_subject || "New Tiles"),
+                                        test_digest_subject(follow_up_email),
                                         follow_up_email,
                                         custom_headline, 
                                         custom_message
+  end
+
+  def test_digest_subject follow_up_email
+    if follow_up_email
+      if custom_subject.present?
+        "Don't Miss: #{custom_subject}"
+      else
+        "Don't Miss Your New Tiles"  
+      end
+    else
+      custom_subject || "New Tiles"
+    end
   end
 end
