@@ -478,6 +478,9 @@ body.client_admin-tiles-update {
     overflow: auto;
     padding-top: 20px;
     padding-bottom: 50px;
+    .tile_form_holder{
+      max-width: 52.2vw;
+    }
   }
   #footer {
     display: none;
