@@ -21,7 +21,7 @@ module ClientAdmin::TilesHelper
 
     (is_preview || user.claimed?) ? acts_url(email_link_hash): invitation_url(user.invitation_code, email_link_hash)
   end
-
+  
   def activate
     current_user.demo.tiles.archived.update_all(status: Tile::ACTIVE)
   end

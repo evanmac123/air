@@ -1,8 +1,4 @@
 class TilesDigestForm
-  # extend  ActiveModel::Naming
-  # include ActiveModel::Conversion
-  # include ActiveModel::Validations
-
   attr_reader :demo, 
               :current_user,
               :follow_up_day,
