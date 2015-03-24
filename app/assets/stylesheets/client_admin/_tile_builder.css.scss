@@ -142,7 +142,10 @@ body.client_admin-tiles-update {
         }
         i { color: $gray; }
         .image_placeholder {
-          label { margin-top: 1em;}
+          label { 
+            margin-top: 1em;
+            cursor: default;
+          }
           padding-top: 5em;
           padding-bottom: 5em;
         }
