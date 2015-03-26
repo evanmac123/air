@@ -1,5 +1,5 @@
 <div class="image_library">
-  <%= render 'image_uploader', form: form %>
+  <%= render 'client_admin/tiles/form/image_uploader', form: form %>
 
   <% @tile_images.each do |tile_image| %>
     <%= content_tag :div, class: "tile_image_block #{'selected' if tile_image.id == @tile_builder_form.image_from_library}", data: {"tile-image-id" => tile_image.id, "image-url" => tile_image.image.url} do %>

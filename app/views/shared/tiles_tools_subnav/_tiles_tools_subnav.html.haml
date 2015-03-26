@@ -2,4 +2,4 @@
 - if subnav.show_subnav?
   %ul#tile_manager_nav{class: subnav.tile_manager_nav_class}
     - subnav.items_with_corrected_params do |item_params|
-      = render partial: "client_admin/tiles/subnav_item", locals: item_params
+      = render partial: "shared/tiles_tools_subnav/subnav_item", locals: item_params

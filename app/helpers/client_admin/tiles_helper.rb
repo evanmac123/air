@@ -119,7 +119,7 @@ module ClientAdmin::TilesHelper
   def single_tile_for_sort_js(tile)
     escape_javascript( 
       render( 
-        partial: 'shared/tiles/single_tile', 
+        partial: 'client_admin/tiles/manage_tiles/single_tile', 
         locals: {
           tile: tile, 
           type: tile.status.to_sym, 

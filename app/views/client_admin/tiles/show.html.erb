@@ -7,19 +7,7 @@
 <% end %>
 
 <div class="row">
-  <div class="large-9 large-centered columns tile_preview_container">
-    <%= render partial: 'tile_preview_menu'%>
-    <%= render partial: 'share_section', locals: {tile: @tile} %>
-    <div class='viewer'>
-      <%= link_to "", "#", :id => :prev %>
-        <div id="slideshow">
-          <%= render "tiles/full_size_tile", tile: @tile, is_preview: true %>
-        </div>
-      <%= link_to "" ,"#", :id => :next %>
-    </div>
-
-    <%= render 'client_admin/tiles/poll_for_image_if_needed', tile: @tile %>
-  </div>
+  <%= render 'tile_preview' %>
 </div>
 
 <% js_at_end do %>

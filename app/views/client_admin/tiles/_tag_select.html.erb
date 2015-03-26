@@ -1,3 +1,0 @@
-<% selected_tag_id ||= nil %>
-<% tag_options = options_from_collection_for_select(tags, :id, :title, selected_tag_id) + content_tag("option", "Add new...", id: "add-new-tag") %>
-<%= select_tag "tile_builder_form[tag_id]", tag_options, include_blank: true, id: "tile_tag_select" %>

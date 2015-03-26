@@ -2,7 +2,7 @@
 %div.no_tiles_section{style: "display:#{display_no_tiles_section};"}
   - tile = TileOddRowPlaceholder.new
   - 4.times do
-    = render "shared/tiles/single_#{tile.class.to_s.underscore}", tile: tile
+    = render "client_admin/tiles/manage_tiles/single_#{tile.class.to_s.underscore}", tile: tile
 
 - unless @active_tiles.empty?
-  = render partial: 'shared/tiles/tiles_table', locals: {tiles: @active_tiles, type: :active}
+  = render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: {tiles: @active_tiles, type: :active}

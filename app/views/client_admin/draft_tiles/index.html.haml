@@ -4,7 +4,7 @@
       %h1 All Draft
       = link_to "Minimize section", client_admin_tiles_path, :class => :minimize
       %br
-      .manage_section#draft= render partial: "shared/tiles/draft"
+      .manage_section#draft= render partial: "client_admin/tiles/manage_tiles/draft"
       .clearfix
       .pagination-centered
         = paginate @raw_tiles

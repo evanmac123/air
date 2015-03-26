@@ -49,9 +49,9 @@ class Tile < ActiveRecord::Base
 
   has_alphabetical_column :headline
 
-  validate do
-    errors.add(:tile_tags, 'must exist for public tile') if is_public? && (tile_taggings.size < 1 && tile_tags.size < 1)
-  end
+  # validate do
+  #   errors.add(:tile_tags, 'must exist for public tile') if is_public? && (tile_taggings.size < 1 && tile_tags.size < 1)
+  # end
 
   before_post_process :no_post_process_on_copy
   

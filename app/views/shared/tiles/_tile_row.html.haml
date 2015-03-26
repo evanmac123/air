@@ -1,7 +1,0 @@
--do_ajax ||= false
-- columns.size.times do |col|
-  - tile = columns[col]
-  - if tile.is_placeholder?
-    = render "shared/tiles/single_#{tile.class.to_s.underscore}", tile: tile
-  - else
-    = render 'shared/tiles/single_tile', tile: tile, type: type, do_ajax: do_ajax

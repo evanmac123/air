@@ -46,7 +46,7 @@
   </div>
 <% end %>
 <%= form_for TilePublicForm.new(tile), url: client_admin_public_tile_path(tile), method: :put, remote: true, html: {id: "public_tile_form"} do |f| %>
-  <%= render 'public_section', form: f %>
+  <%= render 'client_admin/tiles/tile_preview/public_section', form: f %>
 <% end %>
 
 <% content_for :javascript do %>

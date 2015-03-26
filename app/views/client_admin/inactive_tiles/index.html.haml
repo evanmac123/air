@@ -4,7 +4,7 @@
       %h1 All Inactive
       = link_to "Minimize section", client_admin_tiles_path, :class => :minimize
       %br
-      .manage_section#archive= render partial: "shared/tiles/archive"
+      .manage_section#archive= render partial: "client_admin/tiles/manage_tiles/archive"
       .clearfix
       .pagination-centered
         = paginate @raw_tiles

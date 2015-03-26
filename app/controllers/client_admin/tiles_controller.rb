@@ -163,7 +163,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     edit_url = edit_client_admin_tile_path(new_tile)
     already_active = new_tile.active?
 
-    flash[:success] = render_to_string("preview_after_save_flash", 
+    flash[:success] = render_to_string("client_admin/tiles/form/preview_after_save_flash", 
       layout: false, locals: {
         action: params[:action], 
         edit_url: edit_url, 
@@ -176,7 +176,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def set_flash_for_no_image
     if @tile_builder_form.no_image
-      flash.now[:failure] = render_to_string("save_tile_without_an_image", layout: false, locals: { tile: @tile_builder_form.tile })
+      flash.now[:failure] = render_to_string("client_admin/tiles/form/save_tile_without_an_image", layout: false, locals: { tile: @tile_builder_form.tile })
       flash[:failure_allow_raw] = true
     end
   end

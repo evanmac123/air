@@ -5,7 +5,7 @@
   .row
     .large-12.columns
       %h4 Draft
-      %div#draft.manage_section= render partial: 'shared/tiles/draft'
+      %div#draft.manage_section= render partial: 'client_admin/tiles/manage_tiles/draft'
       = link_to "Show all", client_admin_draft_tiles_path, class: :all_draft, style: "display:#{@show_more_draft_tiles ? 'block' : 'none'};"
 .completed_tiles_containment
   %section.manage_tiles#active_tiles
@@ -15,7 +15,7 @@
       .large-12.columns
         %h4 Posted
         = link_to "Download stats", client_admin_tiles_report_path(report: Tile::ACTIVE, format: "csv"), class: "download_csv small_button"
-        %div#active.manage_section=  render partial: 'active'
+        %div#active.manage_section=  render partial: 'client_admin/tiles/manage_tiles/active'
 
   %section.manage_tiles#archived_tiles
     .draft_blocked_message
@@ -24,9 +24,9 @@
       .large-12.columns
         %h4 Archive
         = link_to "Download stats", client_admin_tiles_report_path(report: Tile::ARCHIVE, format: "csv"), class: 'download_csv small_button'
-        %div#archive.manage_section= render partial: 'shared/tiles/archive'
+        %div#archive.manage_section= render partial: 'client_admin/tiles/manage_tiles/archive'
         = link_to "Show all", client_admin_inactive_tiles_path, :class => :all_inactive
-= render partial: 'move_tile_confirmation_modal'
+= render partial: 'client_admin/tiles/manage_tiles/move_tile_confirmation_modal'
 
 - if @board_is_brand_new
   #tile-joyride
