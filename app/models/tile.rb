@@ -49,10 +49,6 @@ class Tile < ActiveRecord::Base
 
   has_alphabetical_column :headline
 
-  # validate do
-  #   errors.add(:tile_tags, 'must exist for public tile') if is_public? && (tile_taggings.size < 1 && tile_tags.size < 1)
-  # end
-
   before_post_process :no_post_process_on_copy
   
   scope :activated, -> {where(status: ACTIVE)}
@@ -214,14 +210,6 @@ class Tile < ActiveRecord::Base
 
   def unique_views
     unique_viewings_count
-  end
-
-  def update_sharable_attr is_sharable
-    update_attribute(:is_sharable, is_sharable)
-    if is_sharable
-      update_attribute(:is_public, true)
-      Tile.reorder_explore_page_tiles!([id]) 
-    end
   end
 
   def self.displayable_categorized_to_user(user, maximum_tiles)

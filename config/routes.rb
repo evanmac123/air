@@ -120,6 +120,7 @@ Health::Application.routes.draw do
     end
 
     resources :public_tiles, only: :update
+    resources :sharable_tiles, only: :update
     
     get 'tiles/:tile_id/non_completions' => "tile_completions#non_completions"
         

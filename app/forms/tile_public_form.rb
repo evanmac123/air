@@ -1,16 +1,20 @@
 class TilePublicForm
   include ActiveModel::Conversion
+  include ActiveModel::Validations
+
   attr_accessor :tile, :parameters
+  validate :main_objects_all_valid
 
   def initialize(tile, parameters = {})
     @tile = tile
     @parameters = parameters
+    @is_public_initial = is_public
   end
 
   def save
     set_tile_public_params
     set_tile_taggings
-    save_tile
+    save_tile if valid?
   end
 
   def tile_tags
@@ -25,8 +29,8 @@ class TilePublicForm
     tile.is_copyable?
   end
 
-  def is_sharable
-    tile.is_sharable?
+  def is_public
+    tile.is_public?
   end
 
   def self.model_name
@@ -39,8 +43,16 @@ class TilePublicForm
 
   protected
 
+  def tile_became_public
+    is_public && !@is_public_initial
+  end
+
   def save_tile
-    Tile.transaction { tile.save(context: :client_admin) }
+    Tile.transaction do 
+      if tile.save(context: :client_admin) && tile_became_public
+        Tile.reorder_explore_page_tiles!([tile.id]) 
+      end
+    end
   end
 
   def set_tile_public_params
@@ -79,6 +91,14 @@ class TilePublicForm
     end      
   end
 
-  delegate  :is_public,
-            to: :tile
+  def main_objects_all_valid
+    if !tile.is_sharable?
+      errors.add(:base, 'tile share link must be turned on for public tile')      
+    elsif  tile.is_public? && 
+        tile.tile_taggings.size < 1 && 
+        tile.tile_tags.size < 1
+
+      errors.add(:base, 'at least one tag must exist for public tile')
+    end
+  end
 end
