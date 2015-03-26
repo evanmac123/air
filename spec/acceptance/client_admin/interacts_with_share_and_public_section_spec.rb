@@ -74,39 +74,6 @@ feature "Client Admin Interacts With Share And Public Section" do
       wait_for_ajax
       @tile.reload.is_sharable.should be_false
     end
-
-    context "position on explore page" do
-      before(:each) do
-        @explore_tiles = []
-        4.times do |i|
-          @explore_tiles.push FactoryGirl.create :multiple_choice_tile, :public, explore_page_priority: i
-        end
-      end
-
-      it "should set max explore_page_priority for tile", js: true do
-        @tile.reload.explore_page_priority.should be_nil
-
-        sharable_link_switcher.click
-        wait_for_ajax
-
-        @tile.reload.explore_page_priority.should == 4
-      end
-
-      it "should set tile to the first position on explore page", js: true do
-        sharable_link_switcher.click
-        wait_for_ajax
-
-        visit explore_path
-        # @tile.reload
-        # p @tile.reload.explore_page_priority
-        # p [@tile.is_sharable, @tile.is_public, @tile.status]
-        # p Tile.viewable_in_public.ordered_for_explore.map(&:headline)
-        # p Tile.viewable_in_public.ordered_for_explore.map(&:explore_page_priority)
-        tiles_on_page = page.all(".headline .text").map(&:text)
-        expected_tiles = [@tile.headline] + @explore_tiles.reverse.map(&:headline)
-        tiles_on_page.should == expected_tiles
-      end
-    end
   end
 
   context "share via buttons" do
@@ -267,6 +234,44 @@ feature "Client Admin Interacts With Share And Public Section" do
       TileTag.last.tiles.first.should == @tile
       @tile.reload.is_public.should be_true
       @tile.reload.is_copyable.should be_true
+    end
+
+    context "position on explore page" do
+      before(:each) do
+        @explore_tiles = []
+        4.times do |i|
+          @explore_tiles.push FactoryGirl.create :multiple_choice_tile, :public, explore_page_priority: i
+        end
+        visit client_admin_tile_path(@tile, as: @client_admin)
+      end
+
+      scenario "should set max explore_page_priority for tile", js: :webkit do
+        @tile.reload.explore_page_priority.should be_nil
+
+        open_public_section
+        add_new_tile_tag "tag"
+        wait_for_explore_to_activate
+        page.find('.share_to_explore').trigger('click')
+
+        expect_content "Success--thanks for sharing!"
+        wait_for_ajax
+
+        @tile.reload.explore_page_priority.should == 4
+      end
+
+      scenario "should set tile to the first position on explore page", js: :webkit do
+        open_public_section
+        add_new_tile_tag "tag"
+        wait_for_explore_to_activate
+        page.find('.share_to_explore').trigger('click')
+
+        wait_for_ajax
+
+        visit explore_path
+        tiles_on_page = page.all(".headline .text").map(&:text)
+        expected_tiles = [@tile.headline] + @explore_tiles.reverse.map(&:headline)
+        tiles_on_page.should == expected_tiles
+      end
     end
   end
 end
