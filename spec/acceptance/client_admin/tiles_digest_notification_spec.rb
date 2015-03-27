@@ -70,10 +70,6 @@ feature 'Client admin and the digest email for tiles' do
     "A test digest email has been sent to #{email}. You should receive it shortly."
   end
 
-  def test_follow_up_sent_content(email)
-    "A test follow-up email has been sent to #{email}. You should receive it shortly."
-  end
-
   def follow_up_header_copy
     'SCHEDULED FOLLOW-UP'
   end
@@ -577,12 +573,13 @@ feature 'Client admin and the digest email for tiles' do
 
     context "test digest" do
       before do
+        select "Never", from: 'digest[follow_up_day]' # this means ONLY digest
         fill_in "digest[custom_message]", with: 'Custom Message'
         fill_in "digest[custom_subject]", with: 'Custom Subject'
-        click_button "Send test email to self"
+        click_button "Send a Test Email to Myself"
       end
 
-      it "should send digest only to admin", js: true do
+      it "should send only test digest only to admin", js: true do
         # don't block anything
         expect_no_content follow_up_header_copy
         expect_no_content 'No new Tiles to send. Go to Edit to post new Tiles.'
@@ -620,19 +617,20 @@ feature 'Client admin and the digest email for tiles' do
       end
     end
 
-    context "test follow-up" do
+    context "test digest and follow-up" do
       before do
+        select "Sunday", from: 'digest[follow_up_day]' # this means digest and follow-up
         fill_in "digest[custom_message]", with: 'Custom Message'
         fill_in "digest[custom_subject]", with: 'Custom Subject'
-        click_button "Send test follow-up to self"
+        click_button "Send a Test Email to Myself"
       end
 
-      it "should send digest only to admin", js: true do
+      it "should send test digest and follow-up only to admin", js: true do
         # don't block anything
         expect_no_content follow_up_header_copy
         expect_no_content 'No new Tiles to send. Go to Edit to post new Tiles.'
 
-        expect_content test_follow_up_sent_content(admin.email)
+        expect_content test_digest_sent_content(admin.email)
         page.find(".close-reveal-modal").click
         # sign out
         page.find("#me_toggle").click
@@ -641,11 +639,10 @@ feature 'Client admin and the digest email for tiles' do
 
         crank_dj_clear
         address = admin.email
-        all_emails.should have(1).email
+        all_emails.should have(2).email
 
         expect_digest_to(address)
-
-        open_email(address)
+        open_email(address, with_subject: "[Test] Don't Miss: Custom Subject")
         current_email.should have_content "Don't miss your new tiles"
         current_email.should have_content 'Custom Message'
         current_email.should have_content 'Custom Subject'
