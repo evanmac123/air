@@ -5,20 +5,22 @@ class ExploresController < ClientAdminBaseController
   before_filter :find_tiles
 
   def show
-    @tile_tags = TileTag.alphabetical.with_public_non_draft_tiles
-    @batch_size = tile_batch_size
-    @all_tiles_displayed = @tiles.count <= @batch_size
-    @tiles = @tiles.limit(tile_batch_size)
-    @path_for_more_tiles = explore_path
-    @parent_boards = Demo.where(is_parent: true)
+    trace('get_tile_tags') {@tile_tags = TileTag.alphabetical.with_public_non_draft_tiles}
+    trace('batch size') {@batch_size = tile_batch_size}
+    trace('all_tiles_displayed') {@all_tiles_displayed = @tiles.count <= @batch_size}
+    trace('get tiles') {@tiles = @tiles.limit(tile_batch_size)}
+    trace('set path for more') {@path_for_more_tiles = explore_path}
+    trace('find parents') {@parent_boards = Demo.where(is_parent: true)}
 
-    render_partial_if_requested(tag_click_source: 'Explore Main Page - Clicked Tag On Tile', thumb_click_source: 'Explore Main Page - Tile Thumbnail Clicked')
+    trace('render partial if requested') {render_partial_if_requested(tag_click_source: 'Explore Main Page - Clicked Tag On Tile', thumb_click_source: 'Explore Main Page - Tile Thumbnail Clicked')}
 
-    if params[:return_to_explore_source]
-      ping_action_after_dash params[:return_to_explore_source], {}, current_user
+    trace('return to explore source') do
+      if params[:return_to_explore_source]
+        ping_action_after_dash params[:return_to_explore_source], {}, current_user
+      end
     end
 
-    email_clicked_ping(current_user)
+    trace('email_clicked_ping') {email_clicked_ping(current_user)}
   end
   
   def tile_tag_show
@@ -76,5 +78,9 @@ class ExploresController < ClientAdminBaseController
 
   def offset
     @_offset = params[:offset].present? ? params[:offset].to_i : 0
+  end
+
+  def trace(name)
+    self.class.trace_execution_scoped([name]) {yield}
   end
 end
