@@ -540,6 +540,12 @@ input::-moz-focus-inner { // fix for Firefox thickening buttons
   margin-bottom: -2px;
 }
 
+button {
+  &:focus, &:active {
+    outline:0 !important;
+  }
+}
+
 // Breadcrumbs
 .breadcrumbs {
   $breadcrumb-bg: lighten($light-gray, 7%);

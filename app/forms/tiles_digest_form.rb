@@ -37,7 +37,7 @@ class TilesDigestForm
   end
 
   def default_follow_up_day
-    FollowUpDigestEmail::DEFAULT_FOLLOW_UP[Date::DAYNAMES[Date.today.wday]]
+    @follow_up_day || FollowUpDigestEmail::DEFAULT_FOLLOW_UP[Date::DAYNAMES[Date.today.wday]]
   end
 
   def schedule_digest_and_followup!
