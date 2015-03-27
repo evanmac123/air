@@ -86,6 +86,6 @@ class TilesDigestForm
       custom_subject || "New Tiles"
     end
 
-    "Test. " + subject
+    "[Test] " + subject
   end
 end
