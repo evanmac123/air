@@ -120,6 +120,15 @@ body.client_admin-shares{
         display: block;
         margin-bottom: 1em;
       }
+      .send_test {
+        margin-bottom: 1.75em;
+        button {
+          @include light-button($sky-blue);
+          display: block;
+          width: 100%;
+          text-transform: none;
+        }
+      }
       .total_users {
         border:1px $light-gray solid;
         padding: 10px;
@@ -142,19 +151,8 @@ body.client_admin-shares{
     .email_preview{
       float: left;
       padding-left: 30px;
-      .send_test {
-        text-align: right;
-        button {
-          @include light-button($med-gray);
-          margin-bottom: 0px;
-        }
-        &:after {
-          @include clear;
-        }
-      }
       .email_preview_header {
         position: relative;
-        margin-top: 10px;
         #last-email {
           @include regular-text;
           position: absolute;

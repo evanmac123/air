@@ -55,10 +55,9 @@ class TilesDigestForm
 
   def send_test_email_to_self
     send_test_digest
-  end
-
-  def send_test_follow_up_to_self
-    send_test_digest true
+    unless follow_up_day == 'Never'
+      send_test_digest true # test follow-up
+    end 
   end
 
   protected
@@ -77,7 +76,7 @@ class TilesDigestForm
   end
 
   def test_digest_subject follow_up_email
-    if follow_up_email
+    subject = if follow_up_email
       if custom_subject.present?
         "Don't Miss: #{custom_subject}"
       else
@@ -86,5 +85,7 @@ class TilesDigestForm
     else
       custom_subject || "New Tiles"
     end
+
+    "[Test] " + subject
   end
 end

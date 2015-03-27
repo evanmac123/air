@@ -37,19 +37,21 @@
       
       = hidden_field_tag "digest_type", "digest_and_follow_up"
 
+      .send_test
+        %label Test
+        = button_tag 'Send a Test Email to Myself', id: "send_test_digest", disabled: @digest_tiles.empty?
+
+      %label Send to users
       .total_users
         %h5 Recipients
         %p#all_users= @all_users
         %p#activated_users= @activated_users
         .clearfix
-      = submit_tag "Send", confirm: 'Are you sure you want to send the digest email?', disabled: (true if @digest_tiles.empty?)
+      = submit_tag "Send", confirm: 'Are you sure you want to send the digest email?', disabled: @digest_tiles.empty?
       - if @digest_tiles.empty?
         .add_tiles_message
           Post new tiles to send them to your users.
 .large-9.email_preview
-  .send_test
-    = button_tag 'Send test email to self', id: "send_test_digest", disabled: @digest_tiles.empty?
-    = button_tag 'Send test follow-up to self', id: "send_test_follow_up", disabled: @digest_tiles.empty?
   .email_preview_header
     %h5 Email preview
     #last-email= digest_email_sent_on_message
