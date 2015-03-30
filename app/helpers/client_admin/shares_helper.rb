@@ -6,7 +6,7 @@ module ClientAdmin::SharesHelper
   
   def digest_sent_modal_text digest_type
     if digest_type == "test_digest"
-      "A test digest email has been sent to #{current_user.email}. You should receive it shortly."
+      "A test email has been sent to #{current_user.email}. You should receive it shortly."
     else
       "Your Tiles have been successfully sent. New Tiles you post will appear in the email preview."
     end

@@ -67,7 +67,7 @@ feature 'Client admin and the digest email for tiles' do
   end
 
   def test_digest_sent_content(email)
-    "A test digest email has been sent to #{email}. You should receive it shortly."
+    "A test email has been sent to #{email}. You should receive it shortly."
   end
 
   def follow_up_header_copy
