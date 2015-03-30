@@ -39,7 +39,9 @@
 
       .send_test
         %label Test
-        = button_tag 'Send a Test Email to Myself', id: "send_test_digest", disabled: @digest_tiles.empty?
+        = button_tag id: "send_test_digest", disabled: @digest_tiles.empty? do
+          = fa_icon "envelope-o"
+          Send a Test Email to Myself
 
       %label Send to users
       .total_users

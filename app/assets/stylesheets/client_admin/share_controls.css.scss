@@ -123,10 +123,19 @@ body.client_admin-shares{
       .send_test {
         margin-bottom: 1.75em;
         button {
-          @include light-button($sky-blue);
+          @include light-button($gray);
+          font-size: 14px;
+          padding: 0;
           display: block;
-          width: 100%;
           text-transform: none;
+          border: none;
+          &:active, &:focus, &:hover {
+            color: $sky-blue !important;
+          }
+          i {
+            font-size: 16px;
+            padding-right: 3px;
+          }
         }
       }
       .total_users {
