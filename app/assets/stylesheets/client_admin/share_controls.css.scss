@@ -121,7 +121,7 @@ body.client_admin-shares{
         margin-top: -20px;
       }
       .send_test {
-        margin-bottom: 1.75em;
+        margin-bottom: 2.75em;
         button {
           @include light-button($gray);
           font-size: 14px;
@@ -129,19 +129,24 @@ body.client_admin-shares{
           display: block;
           text-transform: none;
           border: none;
+          font-weight: 700;
           &:active, &:focus, &:hover {
             color: $sky-blue !important;
+          }
+          &[disabled] {
+            color: $gray !important;
           }
           i {
             font-size: 16px;
             padding-right: 3px;
+            font-weight: 700;
           }
         }
       }
       .total_users {
         border:1px $light-gray solid;
         padding: 10px;
-        margin-bottom:1.75em;
+        margin-bottom: 2.75em;
         color: $gray;
         h5{
           float: left;
