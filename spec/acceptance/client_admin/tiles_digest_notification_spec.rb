@@ -557,109 +557,56 @@ feature 'Client admin and the digest email for tiles' do
   context "Send test digest or follow-up to self" do
     before do
       create_tile
-
       FactoryGirl.create :user, demo: demo, name: 'John Campbell', email: 'john@campbell.com'
-      FactoryGirl.create :user, demo: demo, name: 'Irma Thomas',   email: 'irma@thomas.com'
-      FactoryGirl.create :claimed_user, demo: demo, name: 'W.C. Clark', email: 'wc@clark.com'
-      FactoryGirl.create :claimed_user, demo: demo, name: 'Taj Mahal',  email: 'taj@mahal.com'
-      FactoryGirl.create :site_admin, demo: demo, name: 'Eric Claption',  email: 'site-admin@hengage.com'
-      FactoryGirl.create :user,         demo: FactoryGirl.create(:demo)
-      FactoryGirl.create :claimed_user, demo: FactoryGirl.create(:demo)
-
       visit client_admin_share_path(as: admin)
-
       expect_tiles_to_send_header
+
+      select "Sunday", from: 'digest[follow_up_day]' # this means digest and follow-up
+      fill_in "digest[custom_message]", with: 'Custom Message'
+      fill_in "digest[custom_subject]", with: 'Custom Subject'
+      click_button "Send a Test Email to Myself"
     end
 
-    context "test digest" do
-      before do
-        select "Never", from: 'digest[follow_up_day]' # this means ONLY digest
-        fill_in "digest[custom_message]", with: 'Custom Message'
-        fill_in "digest[custom_subject]", with: 'Custom Subject'
-        click_button "Send a Test Email to Myself"
-      end
+    it "should send test digest and follow-up only to admin", js: true do
+      # don't block anything
+      expect_no_content follow_up_header_copy
+      expect_no_content 'No new Tiles to send. Go to Edit to post new Tiles.'
 
-      it "should send only test digest only to admin", js: true do
-        # don't block anything
-        expect_no_content follow_up_header_copy
-        expect_no_content 'No new Tiles to send. Go to Edit to post new Tiles.'
+      expect_content test_digest_sent_content(admin.email)
+      page.find(".close-reveal-modal").click
+      # sign out
+      page.find("#me_toggle").click
+      click_link "Sign Out"
+      expect_content "Log In"
 
-        expect_content test_digest_sent_content(admin.email)
-        page.find(".close-reveal-modal").click
-        # sign out
-        page.find("#me_toggle").click
-        click_link "Sign Out"
-        expect_content "Log In"
+      crank_dj_clear
+      address = admin.email
+      all_emails.should have(2).email
 
-        crank_dj_clear
-        address = admin.email
-        all_emails.should have(1).email
+      expect_digest_to(address)
+      # digest
+      open_email(address, with_subject: "[Test] Custom Subject")
+      current_email.should have_content "Your New Tiles Are Here!"
+      current_email.should have_content 'Custom Message'
+      current_email.should have_content 'Custom Subject'
+      # follow up
+      open_email(address, with_subject: "[Test] Don't Miss: Custom Subject")
+      current_email.should have_content "Don't miss your new tiles"
+      current_email.should have_content 'Custom Message'
+      current_email.should have_content 'Custom Subject'
 
-        expect_digest_to(address)
+      email_link = /acts/
+      click_email_link_matching email_link
 
-        open_email(address)
-        current_email.should have_content "Your New Tiles Are Here!"
-        current_email.should have_content 'Custom Message'
-        current_email.should have_content 'Custom Subject'
-
-        email_link = /acts/
-        click_email_link_matching email_link
-
-        page.should have_content "Log In"
-        page.should have_content "REMEMBER ME"
-      end
-
-      it "should save entered text in digest form fields", js: true do
-        visit client_admin_share_path(as: admin)  
-
-        page.find("#digest_custom_message").value.should == "Custom Message"
-        page.find("#digest_custom_subject").value.should == "Custom Subject"
-      end
+      page.should have_content "Log In"
+      page.should have_content "REMEMBER ME"
     end
 
-    context "test digest and follow-up" do
-      before do
-        select "Sunday", from: 'digest[follow_up_day]' # this means digest and follow-up
-        fill_in "digest[custom_message]", with: 'Custom Message'
-        fill_in "digest[custom_subject]", with: 'Custom Subject'
-        click_button "Send a Test Email to Myself"
-      end
+    it "should save entered text in digest form fields", js: true do
+      visit client_admin_share_path(as: admin)  
 
-      it "should send test digest and follow-up only to admin", js: true do
-        # don't block anything
-        expect_no_content follow_up_header_copy
-        expect_no_content 'No new Tiles to send. Go to Edit to post new Tiles.'
-
-        expect_content test_digest_sent_content(admin.email)
-        page.find(".close-reveal-modal").click
-        # sign out
-        page.find("#me_toggle").click
-        click_link "Sign Out"
-        expect_content "Log In"
-
-        crank_dj_clear
-        address = admin.email
-        all_emails.should have(2).email
-
-        expect_digest_to(address)
-        open_email(address, with_subject: "[Test] Don't Miss: Custom Subject")
-        current_email.should have_content "Don't miss your new tiles"
-        current_email.should have_content 'Custom Message'
-        current_email.should have_content 'Custom Subject'
-
-        email_link = /acts/
-        click_email_link_matching email_link
-
-        page.should have_content "Log In"
-        page.should have_content "REMEMBER ME"
-      end
-
-      it "should save entered text in digest form fields", js: true do
-        visit client_admin_share_path(as: admin)  
-
-        page.find("#digest_custom_message").value.should == "Custom Message"
-        page.find("#digest_custom_subject").value.should == "Custom Subject"
-      end
+      page.find("#digest_custom_message").value.should == "Custom Message"
+      page.find("#digest_custom_subject").value.should == "Custom Subject"
     end
   end
 end
