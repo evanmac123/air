@@ -94,7 +94,7 @@ body.client_admin-shares{
     .notification_controls {
       float: left;    
       .send_to, .follow_up, .intro_message, .custom_subject, .custom_headline {
-        margin-bottom:3.75em;
+        margin-bottom: 2.75em;
         .drop_down{          
           *{
             color: $med-gray;font-weight: normal;
@@ -116,9 +116,9 @@ body.client_admin-shares{
       input[type="checkbox"], label, select {display: inline-block;}
 
       .character-counter {
-        float: right;
-        display: block;
-        margin-bottom: 1em;
+        padding: 0;
+        margin-right: 3px;
+        margin-top: -20px;
       }
       .send_test {
         margin-bottom: 1.75em;
