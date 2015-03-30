@@ -42,6 +42,7 @@
         = button_tag id: "send_test_digest", disabled: @digest_tiles.empty? do
           = fa_icon "envelope-o"
           Send a Test Email to Myself
+          %i.fa.fa-question-circle.has-tip{"data-tooltip" => true, title:"This will send you a test Tiles Email, and if scheduled, a test Follow-Up Email."}
 
       %label Send to users
       .total_users

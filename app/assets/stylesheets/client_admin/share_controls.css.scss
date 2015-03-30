@@ -129,7 +129,7 @@ body.client_admin-shares{
           display: block;
           text-transform: none;
           border: none;
-          font-weight: 700;
+          font-weight: 500;
           &:active, &:focus, &:hover {
             color: $sky-blue !important;
           }
@@ -138,8 +138,8 @@ body.client_admin-shares{
           }
           i {
             font-size: 16px;
-            padding-right: 3px;
-            font-weight: 700;
+            padding: 0 3px;
+            font-weight: 500;
           }
         }
       }
