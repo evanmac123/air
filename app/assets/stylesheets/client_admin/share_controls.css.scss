@@ -122,6 +122,9 @@ body.client_admin-shares{
       }
       .send_test {
         margin-bottom: 2.75em;
+        i.has-tip {
+          font-size: 16px;
+        }
         button {
           @include light-button($gray);
           font-size: 14px;
@@ -132,6 +135,8 @@ body.client_admin-shares{
           font-weight: 500;
           &:active, &:focus, &:hover {
             color: $sky-blue !important;
+            background: transparent;
+            box-shadow: none;
           }
           &[disabled] {
             color: $gray !important;

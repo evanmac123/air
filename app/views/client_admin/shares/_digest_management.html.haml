@@ -38,11 +38,12 @@
       = hidden_field_tag "digest_type", "digest_and_follow_up"
 
       .send_test
-        %label Test
+        %label 
+          Test
+          %i.fa.fa-question-circle.has-tip{"data-tooltip" => true, title:"This will send you a test Tiles Email, and if scheduled, a test Follow-Up Email."}
         = button_tag id: "send_test_digest", disabled: @digest_tiles.empty? do
           = fa_icon "envelope-o"
           Send a Test Email to Myself
-          %i.fa.fa-question-circle.has-tip{"data-tooltip" => true, title:"This will send you a test Tiles Email, and if scheduled, a test Follow-Up Email."}
 
       %label Send to users
       .total_users
