@@ -6,13 +6,35 @@ loadEmailPreview = (followUp = false) ->
     .find('#share_tiles_email_preview')
     .attr('src', emailPreviewLink(followUp))
 
+previewIsFollowUp = ->
+  $("#show_follow_up_preview").hasClass "selected"
+
+defaultCustomSubject = ->
+  if previewIsFollowUp()
+    "Don't Miss Your New Tiles"
+  else
+    "New Tiles"
+
+textForSubject = (text) ->
+  if(text == '') 
+    defaultCustomSubject()
+  else if previewIsFollowUp()
+    "Don't Miss: " + text 
+  else
+    text
+
+defaultCustomHeadline = ->
+  if previewIsFollowUp()
+    "Don't miss your new tiles"
+  else
+    'Your New Tiles Are Here!'
+
 $(document).ready ->
   $('.client_admin-shares-show').foundation()
   loadEmailPreview()
 
   $(".email_preview_switchers a").click (e) ->
     e.preventDefault()
-    
     $(".email_preview_switchers a").removeClass "selected"
     $(@).addClass "selected"
     loadEmailPreview $(@).attr('id') == "show_follow_up_preview"
@@ -114,7 +136,7 @@ $(document).ready ->
   updateCustomHeadline = (event) ->
     value = $(this).val()
     if value == ''
-      value = "Your New Tiles Are Here!"
+      value = defaultCustomHeadline()
     $('#digest_management #share_tiles_email_preview').contents().find('#custom_headline').html(value)
 
   $('#digest_management #digest_custom_headline').on('keyup', updateCustomHeadline).on('keypress', updateCustomHeadline)
@@ -125,9 +147,7 @@ $(document).ready ->
 
   $('#digest_custom_subject').keyup (event) ->
     text = $(event.target).val()
-    textForSubject = if(text == '') then 'New Tiles' else text
-
-    $('.subject-field').text(textForSubject)
+    $('.subject-field').text textForSubject(text)
 
   $("#send_test_digest").click (e) ->
     e.preventDefault()
