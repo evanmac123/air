@@ -6,8 +6,7 @@ class ExploresController < ClientAdminBaseController
 
   def show
     trace('get_tile_tags') {@tile_tags = TileTag.alphabetical.with_public_non_draft_tiles}
-    trace('batch size') {@batch_size = tile_batch_size}
-    trace('all_tiles_displayed') {@all_tiles_displayed = @tiles.count <= @batch_size}
+    trace('all_tiles_displayed') {@all_tiles_displayed = @tiles.count <= tile_batch_size}
     trace('get tiles') {@tiles = @tiles.limit(tile_batch_size)}
     trace('set path for more') {@path_for_more_tiles = explore_path}
     trace('find parents') {@parent_boards = Demo.where(is_parent: true)}
@@ -24,11 +23,9 @@ class ExploresController < ClientAdminBaseController
   end
   
   def tile_tag_show
-    @batch_size = tile_batch_size
-
     @tile_tag = TileTag.find(params[:tile_tag])
-    @all_tiles_displayed = @tiles.count <= @batch_size
-    @tiles = @tiles.limit(@batch_size)
+    @all_tiles_displayed = @tiles.count <= tile_batch_size
+    @tiles = @tiles.limit(tile_batch_size)
     @path_for_more_tiles = tile_tag_show_explore_path(tile_tag: params[:tile_tag])
     
     render_partial_if_requested(tag_click_source: "Explore Topic Page - Clicked Tag On Tile", thumb_click_source: 'Explore Topic Page - Tile Thumbnail Clicked')
@@ -69,7 +66,7 @@ class ExploresController < ClientAdminBaseController
       ping("Explore Topic Page", {action: "Clicked See More"}, current_user)
 
       html_content = render_to_string partial: "explores/tile_rows", locals: {tiles: @tiles, path_for_more_tiles: @path_for_more_tiles, show_back_to_explore_link_in_post_copy_modal: false}.merge(extra_locals)
-      last_batch = @eligible_tiles.count <= offset + @batch_size
+      last_batch = @eligible_tiles.count <= offset + tile_batch_size
 
       render json: {
         htmlContent: html_content,
