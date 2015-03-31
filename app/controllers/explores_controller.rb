@@ -3,11 +3,12 @@ class ExploresController < ClientAdminBaseController
   include LoginByExploreToken
 
   before_filter :find_tiles
+  before_filter :set_all_tiles_displayed
+  before_filter :limit_tiles_to_batch_size
+  before_filter :find_liked_tile_ids
 
   def show
     trace('get_tile_tags') {@tile_tags = TileTag.alphabetical.with_public_non_draft_tiles}
-    trace('all_tiles_displayed') {@all_tiles_displayed = @tiles.count <= tile_batch_size}
-    trace('get tiles') {@tiles = @tiles.limit(tile_batch_size)}
     trace('set path for more') {@path_for_more_tiles = explore_path}
     trace('find parents') {@parent_boards = Demo.where(is_parent: true)}
 
@@ -24,8 +25,6 @@ class ExploresController < ClientAdminBaseController
   
   def tile_tag_show
     @tile_tag = TileTag.find(params[:tile_tag])
-    @all_tiles_displayed = @tiles.count <= tile_batch_size
-    @tiles = @tiles.limit(tile_batch_size)
     @path_for_more_tiles = tile_tag_show_explore_path(tile_tag: params[:tile_tag])
     
     render_partial_if_requested(tag_click_source: "Explore Topic Page - Clicked Tag On Tile", thumb_click_source: 'Explore Topic Page - Tile Thumbnail Clicked')
@@ -57,8 +56,18 @@ class ExploresController < ClientAdminBaseController
         includes(:user_tile_likes).
         includes(:user_tile_copies)
     end
+  end
 
-    trace('liked tile IDs') {@liked_tile_ids = UserTileLike.where(user_id: current_user.id, tile_id: @tiles.map(&:id)).pluck(:tile_id)}
+  def set_all_tiles_displayed
+    @all_tiles_displayed = @tiles.count <= tile_batch_size  
+  end
+
+  def limit_tiles_to_batch_size
+    @tiles = @tiles.limit(tile_batch_size)
+  end
+
+  def find_liked_tile_ids
+    trace('liked tile IDs') {@liked_tile_ids = UserTileLike.where(user_id: current_user.id, tile_id: @tiles.pluck(:id)).pluck(:tile_id)}
   end
 
   def render_partial_if_requested(extra_locals)
