@@ -32,7 +32,10 @@ class ClientAdmin::UsersInvitesController < ClientAdminBaseController
 
     has_no_tiles = tiles.empty?
     custom_message = params[:custom_message] || 'Check out my new board!'
-    @presenter = TilesDigestMailPreviewPresenter.new(@user, @demo, custom_message, is_invite_user, has_no_tiles)
+
+    @follow_up_email = params[:follow_up_email] == "true"
+    presenter_class = @follow_up_email ? TilesDigestMailerPreviewFollowupPresenter : TilesDigestMailPreviewPresenter
+    @presenter = presenter_class.new(@user, @demo, custom_message, is_invite_user, has_no_tiles)
 
     @tiles = unless @presenter.is_empty_preview?
       TileBoardDigestDecorator.decorate_collection tiles, \
