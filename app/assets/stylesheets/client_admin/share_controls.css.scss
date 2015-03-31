@@ -180,14 +180,22 @@ body.client_admin-shares{
         }
       }
       .email_preview_switchers{
-        margin: 9px 0;
+        margin: 10px 0;
         li {
           width: 50%;
+          padding-right: 1px;
         }
         a {
           @include light-button($sky-blue);
           width: 100%;
           margin: 0;
+          height: 33px;
+          padding-top: 8px;
+          color: $light-gray !important;
+          border-color: $light-gray;
+          &.selected {
+            @include light-button($sky-blue);
+          }
         }
         #show_email_preview {
           border-bottom-right-radius: 0;

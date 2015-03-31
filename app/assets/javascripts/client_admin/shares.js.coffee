@@ -1,5 +1,21 @@
+emailPreviewLink = (followUp = false) ->
+  "/client_admin/preview_invite_email?follow_up_email=#{followUp}&&custom_message=%20"
+
+loadEmailPreview = (followUp = false) ->
+  $('#digest_management')
+    .find('#share_tiles_email_preview')
+    .attr('src', emailPreviewLink(followUp))
+
 $(document).ready ->
   $('.client_admin-shares-show').foundation()
+  loadEmailPreview()
+
+  $(".email_preview_switchers a").click (e) ->
+    e.preventDefault()
+    
+    $(".email_preview_switchers a").removeClass "selected"
+    $(@).addClass "selected"
+    loadEmailPreview $(@).attr('id') == "show_follow_up_preview"
   
   $('#share_tiles_email_preview').on('load', (event) ->
     if document.getElementById
@@ -117,7 +133,6 @@ $(document).ready ->
     e.preventDefault()
     $("#digest_type").val("test_digest")
     $("#tiles_digest_form").submit()
-  
 ############JQuery Validation#################
   $.validator.addMethod("first_last_name", 
     (value, element) ->      

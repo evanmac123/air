@@ -9,7 +9,6 @@ $(document).on('click', '#public_board_field', (event) ->
 )
 
 $(document).ready ->
-  $('#digest_management').find('#share_tiles_email_preview').attr('src', '/client_admin/preview_invite_email?custom_message=%20')
   $('#activated_users').hide()
   $('#digest_send_to').on('change', (event) ->
     if $('#digest_send_to option:selected').text() == "All Users"
