@@ -45,6 +45,10 @@ feature "Client admin sets board's public status themself" do
     page.find('#public_button')['checked'].should_not be_present
   end
 
+  def public_board_section
+    "#public_board"
+  end
+
   context "when the board is public" do
     before :each do
       client_admin.demo.is_public.should be_true
@@ -65,7 +69,9 @@ feature "Client admin sets board's public status themself" do
     end
     
     it "should display tooltip on mouseover question mark icon", js: true do
-      page.find('.fa-question-circle').trigger(:mouseover)
+      within public_board_section do
+        page.find('.fa-question-circle').trigger(:mouseover)
+      end
       page.should have_content "In a public board, anyone can participate using the Board Link. In a private board, only users you specifically add can participate, and the Board Link isn't active."
     end
   end
