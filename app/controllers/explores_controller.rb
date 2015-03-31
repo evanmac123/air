@@ -49,17 +49,19 @@ class ExploresController < ClientAdminBaseController
   end
 
   def find_tiles
-    @eligible_tiles = Tile.viewable_in_public.tagged_with(params[:tile_tag])
+    trace('viewable tagged tiles') {@eligible_tiles = Tile.viewable_in_public.tagged_with(params[:tile_tag])}
 
-    @tiles = @eligible_tiles.
-      ordered_for_explore.
-      offset(offset).
-      includes(:creator).
-      includes(:tile_tags).
-      includes(:user_tile_likes).
-      includes(:user_tile_copies)
+    trace('filter tiles') do
+      @tiles = @eligible_tiles.
+        ordered_for_explore.
+        offset(offset).
+        includes(:creator).
+        includes(:tile_tags).
+        includes(:user_tile_likes).
+        includes(:user_tile_copies)
+    end
 
-    @liked_tile_ids = UserTileLike.where(user_id: current_user.id, tile_id: @tiles.map(&:id)).pluck(:tile_id)
+    trace('liked tile IDs') {@liked_tile_ids = UserTileLike.where(user_id: current_user.id, tile_id: @tiles.map(&:id)).pluck(:tile_id)}
   end
 
   def render_partial_if_requested(extra_locals)
