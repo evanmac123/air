@@ -179,6 +179,25 @@ body.client_admin-shares{
           right: 1px;
         }
       }
+      .email_preview_switchers{
+        margin: 9px 0;
+        li {
+          width: 50%;
+        }
+        a {
+          @include light-button($sky-blue);
+          width: 100%;
+          margin: 0;
+        }
+        #show_email_preview {
+          border-bottom-right-radius: 0;
+          border-top-right-radius: 0;
+        }
+        #show_follow_up_preview {
+          border-bottom-left-radius: 0;
+          border-top-left-radius: 0;
+        }
+      }
     }
     #scheduled_followups {
       border-left:1px $light-gray solid;

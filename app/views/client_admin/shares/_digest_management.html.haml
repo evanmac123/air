@@ -59,5 +59,10 @@
   .email_preview_header
     %h5 Email preview
     #last-email= digest_email_sent_on_message
+  %ul.email_preview_switchers.button-group
+    %li
+      = link_to "Tiles Email Preview", "#", class: "button", id: "show_email_preview"
+    %li
+      = link_to "Follow-Up Email Preview", "#", class: "button", id: "show_follow_up_preview"
   = render 'shared/email_client_wrapper', demo: current_user.demo, subject: 'New Tiles'
 
