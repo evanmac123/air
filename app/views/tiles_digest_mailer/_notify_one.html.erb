@@ -16,7 +16,7 @@
 <% unless @presenter.follow_up_email %>
   <%= render partial: "tiles_digest_mailer/notify_one_tiles_row", locals: {link_options: @presenter.link_options} %>
 <% else %>
-  <% @tiles.each do |tile| %>
+  <% @tiles.compact.each do |tile| %>
     <%= render partial: "tiles_digest_mailer/notify_one_full_tile", locals: {tile: tile} %>
   <% end %>
 <% end %>
