@@ -1,4 +1,4 @@
-class TilesDigestMailerPreviewFollowupPresenter < TilesDigestMailPreviewPresenter
+class TilesDigestMailFollowupPresenter < TilesDigestMailDigestPresenter
   def slice_size
     1
   end

@@ -34,7 +34,7 @@ class ClientAdmin::UsersInvitesController < ClientAdminBaseController
     custom_message = params[:custom_message] || 'Check out my new board!'
 
     @follow_up_email = params[:follow_up_email] == "true"
-    presenter_class = @follow_up_email ? TilesDigestMailerPreviewFollowupPresenter : TilesDigestMailPreviewPresenter
+    presenter_class = @follow_up_email ? TilesDigestMailPreviewFollowupPresenter : TilesDigestMailPreviewDigestPresenter
     @presenter = presenter_class.new(@user, @demo, custom_message, is_invite_user, has_no_tiles)
 
     @tiles = unless @presenter.is_empty_preview?

@@ -52,7 +52,7 @@ class TilesDigestMailer < ActionMailer::Base
     @user  = User.find user_id # XTR
     return nil unless @user.email.present? # no wasting our time trying to email people for whom we don't have an address # XTR2
 
-    presenter_class = follow_up_email ? TilesDigestMailerFollowupPresenter : TilesDigestMailDigestPresenter
+    presenter_class = follow_up_email ? TilesDigestMailFollowupPresenter : TilesDigestMailDigestPresenter
     @presenter = presenter_class.new(@user, @demo, custom_from, custom_headline, custom_message, is_new_invite)
 
     email_type = @presenter.email_type

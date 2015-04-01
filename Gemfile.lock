@@ -364,6 +364,7 @@ GEM
     redis-store (1.1.4)
       redis (>= 2.2)
     request_store (1.0.8)
+    require_all (1.3.2)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rollout (2.0.0)
@@ -526,6 +527,7 @@ DEPENDENCIES
   rails3_before_render
   redis
   redis-rails
+  require_all
   rollout
   rspec-rails
   sass-rails

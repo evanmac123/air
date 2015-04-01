@@ -1,4 +1,4 @@
-class TilesDigestMailPreviewPresenter < TilesDigestMailBasePresenter
+class TilesDigestMailPreviewDigestPresenter < TilesDigestMailBasePresenter
   include ClientAdmin::TilesHelper
   include Rails.application.routes.url_helpers
 

@@ -52,6 +52,7 @@ gem 'redis-rails'
 gem 'strong_parameters'
 gem 'intercom'
 gem 'counter_culture'
+gem 'require_all'
 
 # Gems used only for assets and not required
 # in production environments by default.
