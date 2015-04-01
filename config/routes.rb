@@ -218,9 +218,6 @@ Health::Application.routes.draw do
   resources :cancel_account, :only => [:show, :destroy]
 
   namespace :admin do
-    get 'exception' => 'exceptions#show'
-    get 'sleep_forever' => 'sleep_forever#show'
-
     resources :rule_values, :only => [:destroy]
 
     resources :tags
