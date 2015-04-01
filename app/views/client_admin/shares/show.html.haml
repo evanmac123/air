@@ -2,7 +2,5 @@
 %section.share_tools
   = render 'digest'
 
-= javascript_include_tag "client_admin/public_board_controls"
-
 - if @digest_sent_flag
   = render partial: "digest_was_sent_lightbox"

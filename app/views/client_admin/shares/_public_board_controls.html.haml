@@ -1,4 +1,3 @@
-//.public_board_controls
 .new_public_board{:id=>"#{current_user.demo.id}"}
   %div.title_div
     %h4.public_board_title Board Share Link:
@@ -21,3 +20,6 @@
   %div.share_link_div
     = render :partial => 'client_admin/shares/public_url_display'
   %br{clear:"all"}
+
+- js_at_end do
+  window.publicBoardControls()
