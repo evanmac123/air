@@ -5,7 +5,7 @@ class ExploresController < ClientAdminBaseController
   before_filter :find_tiles
   before_filter :set_all_tiles_displayed
   before_filter :limit_tiles_to_batch_size
-  before_filter :find_liked_tile_ids
+  before_filter :find_liked_and_copied_tile_ids
 
   def show
     trace('get_tile_tags') {@tile_tags = TileTag.alphabetical.with_public_non_draft_tiles}
@@ -66,8 +66,11 @@ class ExploresController < ClientAdminBaseController
     @tiles = @tiles.limit(tile_batch_size)
   end
 
-  def find_liked_tile_ids
-    trace('liked tile IDs') {@liked_tile_ids = UserTileLike.where(user_id: current_user.id, tile_id: @tiles.pluck(:id)).pluck(:tile_id)}
+  def find_liked_and_copied_tile_ids
+    tile_ids = []
+    trace('pluck tile IDs') {tile_ids = @tiles.pluck(:id)}
+    trace('liked tile IDs') {@liked_tile_ids = UserTileLike.where(user_id: current_user.id, tile_id: tile_ids).pluck(:tile_id)}
+    trace('copied tile IDs') {@copied_tile_ids = UserTileCopy.where(user_id: current_user.id, tile_id: tile_ids).pluck(:tile_id)}
   end
 
   def render_partial_if_requested(extra_locals)
