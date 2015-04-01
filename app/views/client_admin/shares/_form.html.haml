@@ -1,0 +1,49 @@
+= form_tag client_admin_tiles_digest_notification_path, class: :custom, id: "tiles_digest_form" do
+  .notification_controls
+    .send_to
+      %label{for: "digest_send_to"} Recipients
+      .drop_down= select_tag "digest[digest_send_to]", options_for_select(@tiles_digest_form.digest_send_to_options, @tiles_digest_form.digest_send_to_selected)
+
+    .follow_up
+      %label{for: "follow_up_day"} Follow-up email
+      .drop_down= select_tag "digest[follow_up_day]", options_for_select(@tiles_digest_form.follow_up_day_options, selected: @tiles_digest_form.default_follow_up_day)
+
+    .custom_subject
+      %label{for: "digest_custom_subject"} Email subject
+      = text_area_tag "digest[custom_subject]", @tiles_digest_form.custom_subject, size: "50x3", maxlength: 80, placeholder: 'New Tiles'
+      = javascript_include_tag 'admin/byte_counter'
+      :javascript
+        addCharacterCounterFor('#digest_custom_subject');
+
+    .custom_headline
+      %label{for: "digest_custom_headline"} Custom headline
+      = text_area_tag "digest[custom_headline]", @tiles_digest_form.custom_headline, size: "50x3", maxlength: 75, placeholder: 'Your New Tiles Are Here!'
+      :javascript
+        addCharacterCounterFor('#digest_custom_headline');
+
+    .intro_message
+      %label{for: "digest_custom_message"} Intro message
+      = text_area_tag "digest[custom_message]", @tiles_digest_form.custom_message, size: "50x6", maxlength: 160
+      :javascript
+        addCharacterCounterFor('#digest_custom_message');
+    
+    = hidden_field_tag "digest_type", "digest_and_follow_up"
+
+    .send_test
+      %label 
+        Test
+        %i.fa.fa-question-circle.has-tip{"data-tooltip" => true, title:"This will send you a test Tiles Email, and if scheduled, a test Follow-Up Email."}
+      = button_tag id: "send_test_digest", disabled: @digest_tiles.empty? do
+        = fa_icon "envelope-o"
+        Send a Test Email to Myself
+
+    %label Send to users
+    .total_users
+      %h5 Recipients
+      %p#all_users= @all_users
+      %p#activated_users= @activated_users
+      .clearfix
+    = submit_tag "Send", confirm: 'Are you sure you want to send the digest email?', disabled: @digest_tiles.empty?
+    - if @digest_tiles.empty?
+      .add_tiles_message
+        Post new tiles to send them to your users.
