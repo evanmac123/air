@@ -13,6 +13,8 @@
 $public_slug_height: 2.25em;
 
 body.client_admin-shares{
+  @import 'email_client';
+
   .content{
     padding: 0;
   }

@@ -35,6 +35,22 @@ updateCustomHeadline = (event) ->
     value = defaultCustomHeadline()
   $('#digest_management #share_tiles_email_preview').contents().find('#custom_headline').html(value)
 
+resizeEmailPreview = ->
+  newHeight = document.getElementById('share_tiles_email_preview')
+                      .contentWindow.document.body.scrollHeight
+  maxHeight = $('#digest_management').find('.notification_controls').height()
+  newWidth =  document.getElementById('share_tiles_email_preview')
+                      .contentWindow.document.body.scrollWidth
+
+  $('#share_tiles_email_preview').height(newHeight + "px")
+  $('#share_tiles_email_preview').width(newWidth + "px")
+  
+  newTotalHeight = $('.large-9.email_preview').height()
+  if newTotalHeight > maxHeight
+    #re-adjust iframe
+    newHeight -= (newTotalHeight - maxHeight) 
+    $('#share_tiles_email_preview').height(newHeight + "px")
+  window.resizedEmailPreview = true
 
 window.digestManagement = ->
   $(document).ready ->
@@ -43,28 +59,14 @@ window.digestManagement = ->
 
   $(".email_preview_switchers a").click (e) ->
     e.preventDefault()
+    $(".email_preview_overlay").fadeIn()
     $(".email_preview_switchers a").removeClass "selected"
     $(@).addClass "selected"
     loadEmailPreview $(@).attr('id') == "show_follow_up_preview"
   
   $('#share_tiles_email_preview').on 'load', (event) ->
-    return unless document.getElementById
-
-    newHeight = document.getElementById('share_tiles_email_preview')
-                        .contentWindow.document.body.scrollHeight
-    maxHeight = $('#digest_management').find('.notification_controls').height()
-    newWidth =  document.getElementById('share_tiles_email_preview')
-                        .contentWindow.document.body.scrollWidth
-
-    $('#share_tiles_email_preview').height(newHeight + "px")
-    $('#share_tiles_email_preview').width(newWidth + "px")
-  
-    newTotalHeight = $('.large-9.email_preview').height()
-    if newTotalHeight > maxHeight
-      #re-adjust iframe
-      newHeight -= (newTotalHeight - maxHeight) 
-      $('#share_tiles_email_preview').height(newHeight + "px")
-    
+    resizeEmailPreview() unless window.resizedEmailPreview
+    $(".email_preview_overlay").fadeOut()
     $("#digest_custom_message, #digest_custom_subject, #digest_custom_headline")
       .trigger('keyup')
 
