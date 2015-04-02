@@ -66,8 +66,8 @@ feature 'Client admin and the digest email for tiles' do
     expect_content "Your Tiles have been successfully sent. New Tiles you post will appear in the email preview."
   end
 
-  def test_digest_sent_content(email)
-    "A test email has been sent to #{email}. You should receive it shortly."
+  def test_digest_and_follow_up_sent_content(email)
+    "A test Tiles Emails and Follow-up Email has been sent to #{email}. You should receive it shortly."
   end
 
   def follow_up_header_copy
@@ -572,7 +572,7 @@ feature 'Client admin and the digest email for tiles' do
       expect_no_content follow_up_header_copy
       expect_no_content 'No new Tiles to send. Go to Edit to post new Tiles.'
 
-      expect_content test_digest_sent_content(admin.email)
+      expect_content test_digest_and_follow_up_sent_content(admin.email)
       page.find(".close-reveal-modal").click
       # sign out
       page.find("#me_toggle").click
