@@ -141,4 +141,14 @@ module ApplicationHelper
   def ie9_or_older?
     browser.ie6? || browser.ie7? || browser.ie8? || browser.ie9?
   end
+
+  def nr_trace(name)
+    result = nil
+
+    self.class.trace_execution_scoped([name]) do 
+      result = yield
+    end
+
+    result
+  end
 end

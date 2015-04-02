@@ -1,5 +1,8 @@
+require 'new_relic/agent/method_tracer'
+
 class ExploreSingleTilePresenter
   include ActionView::Helpers::TextHelper
+  include ::NewRelic::Agent::MethodTracer
 
   def initialize(tile, tile_tag, user_copied_tile, user_liked_tile)
     @tile = tile
@@ -135,6 +138,28 @@ class ExploreSingleTilePresenter
   end
 
   attr_reader :user_copied_tile
+
+  add_method_tracer :cache_key
+  add_method_tracer :thumbnail_id
+  add_method_tracer :thumbnail_url
+  add_method_tracer :containing_td_id
+  add_method_tracer :truncated_client_or_board_name
+  add_method_tracer :to_param
+  add_method_tracer :like_links_class
+  add_method_tracer :display_liked
+  add_method_tracer :like_count
+  add_method_tracer :explore_tile_likes_path_params
+  add_method_tracer :display_unliked
+  add_method_tracer :like_count_if_nonzero
+  add_method_tracer :user_copied_tile
+  add_method_tracer :tile_not_copyable
+  add_method_tracer :copy_count
+  add_method_tracer :copy_link_text
+  add_method_tracer :headline
+  add_method_tracer :creator_name
+  add_method_tracer :board_name
+  add_method_tracer :associated_tile_tags
+  add_method_tracer :full_size_url
 
   protected
 

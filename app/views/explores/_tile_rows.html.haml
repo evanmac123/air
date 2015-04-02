@@ -1,13 +1,13 @@
-- tile_presenters = tiles.map{|tile| ExploreSingleTilePresenter.new(tile, @tile_tag, @copied_tile_ids.include?(tile.id), @liked_tile_ids.include?(tile.id))}
-- main_cache_key = [__FILE__, 'v7.pwd', 'main', @tile_tag.try(:id), *(tile_presenters.map(&:cache_key))]
+- tile_presenters = nr_trace('instantiate tile presenters') {tiles.map{|tile| ExploreSingleTilePresenter.new(tile, @tile_tag, @copied_tile_ids.include?(tile.id), @liked_tile_ids.include?(tile.id))}}
+- main_cache_key = nr_trace('calculate main cache key') {[__FILE__, 'v7.pwd', 'main', @tile_tag.try(:id), *(tile_presenters.map(&:cache_key))]}
 
 - cache main_cache_key do 
   - tile_presenters.each_slice(4) do |presenter_slice|
-    - slice_cache_key = [__FILE__, 'v5.pwd', 'slice', *(presenter_slice.map(&:cache_key))]
+    - slice_cache_key = nr_trace('calculate slice cache key') {[__FILE__, 'v5.pwd', 'slice', *(presenter_slice.map(&:cache_key))]}
     - cache slice_cache_key do
       %tr
         - presenter_slice.each do |presenter|
-          - cache [__FILE__, 'v3.pwd', 'single_thumb', presenter.cache_key, @tile_tag.try(:id), thumb_click_source] do
+          - cache (nr_trace('calculate single thumb cache key') {[__FILE__, 'v3.pwd', 'single_thumb', presenter.cache_key, @tile_tag.try(:id), thumb_click_source]}) do
             :css
               ##{presenter.thumbnail_id} {
                 background-image: url('#{presenter.thumbnail_url}');
