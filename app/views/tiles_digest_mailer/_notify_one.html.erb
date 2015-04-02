@@ -16,8 +16,12 @@
 <% unless @presenter.follow_up_email %>
   <%= render partial: "tiles_digest_mailer/notify_one_tiles_row", locals: {link_options: @presenter.link_options} %>
 <% else %>
-  <% @tiles.compact.each do |tile| %>
-    <%= render partial: "tiles_digest_mailer/notify_one_full_tile", locals: {tile: tile} %>
+  <% @tiles.each do |tile| %>
+    <% if tile %>
+      <%= render partial: "tiles_digest_mailer/notify_one_full_tile", locals: {tile: tile} %>
+    <% else %>
+      <%= render partial: "tiles_digest_mailer/notify_one_full_tile_placeholder" %>
+    <% end %>
   <% end %>
 <% end %>
 <%= render partial: 'mailer/main_button', locals: {button_text: 'See Tiles', button_url: @presenter.general_site_url, button_font_size: '24px', button_url_options: @presenter.link_options, works_on_mobile: @presenter.works_on_mobile? } %>
