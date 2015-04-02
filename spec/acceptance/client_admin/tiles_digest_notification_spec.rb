@@ -67,7 +67,7 @@ feature 'Client admin and the digest email for tiles' do
   end
 
   def test_digest_and_follow_up_sent_content(email)
-    "A test Tiles Emails and Follow-up Email has been sent to #{email}. You should receive it shortly."
+    "A test Tiles Email and Follow-up Email has been sent to #{email}. You should receive it shortly."
   end
 
   def follow_up_header_copy

@@ -7,7 +7,11 @@ class TilesDigestMailPreviewFollowupPresenter < TilesDigestMailPreviewDigestPres
     true
   end
 
-  def standard_email_heading
+  def email_heading
+    join_demo_copy_or_digest_email_heading(is_invite_user)
+  end
+
+  def digest_email_heading
     STANDARD_FOLLOWUP_HEADING
   end
 
