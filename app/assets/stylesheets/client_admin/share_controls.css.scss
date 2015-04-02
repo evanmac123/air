@@ -125,7 +125,7 @@ body.client_admin-shares{
       .send_test {
         margin-bottom: 2.75em;
         label {
-          margin-bottom: 1.25em;
+          margin-bottom: 0.5em;
         }
         i.has-tip {
           font-size: 13px;
@@ -140,7 +140,7 @@ body.client_admin-shares{
           text-transform: none;
           border: none;
           font-weight: 400;
-          padding-top: 1.25em;
+          padding-top: 0.5em;
           &:active, &:focus, &:hover {
             color: $sky-blue !important;
             background: transparent;

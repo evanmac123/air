@@ -18,9 +18,9 @@ module ClientAdmin::SharesHelper
   def digest_sent_modal_text digest_type
     case digest_type
     when "test_digest"
-      "A test Tiles Emails has been sent to #{current_user.email}. You should receive it shortly."
+      "A test Tiles Email has been sent to #{current_user.email}. You should receive it shortly."
     when "test_digest_and_follow_up"
-      "A test Tiles Emails and Follow-up Email has been sent to #{current_user.email}. You should receive it shortly."
+      "A test Tiles Email and Follow-up Email has been sent to #{current_user.email}. You should receive it shortly."
     else
       "Your Tiles have been successfully sent. New Tiles you post will appear in the email preview."
     end
