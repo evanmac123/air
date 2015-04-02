@@ -40,6 +40,10 @@ class TilesDigestForm
     @follow_up_day || FollowUpDigestEmail::DEFAULT_FOLLOW_UP[Date::DAYNAMES[Date.today.wday]]
   end
 
+  def with_follow_up?
+    @follow_up_day && @follow_up_day != "Never"
+  end
+
   def schedule_digest_and_followup!
     schedule_digest_and_followup = ScheduleDigestAndFollowUp.new(
       demo: demo,

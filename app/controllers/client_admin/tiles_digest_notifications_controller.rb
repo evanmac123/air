@@ -1,16 +1,16 @@
 class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseController
   def create
-    tiles_digest_form = TilesDigestForm.new(current_user, params[:digest])
+    @tiles_digest_form = TilesDigestForm.new(current_user, params[:digest])
 
     if params[:digest_type] == "test_digest"
       save_digest_form_params
-      tiles_digest_form.send_test_email_to_self
+      @tiles_digest_form.send_test_email_to_self
     else
       session[:digest] = nil
-      tiles_digest_form.schedule_digest_and_followup!
+      @tiles_digest_form.schedule_digest_and_followup!
     end
 
-    flash[:digest_sent_type] = params[:digest_type]
+    flash[:digest_sent_type] = digest_sent_type
     flash[:digest_sent_flag] = true
 
     redirect_to :back
@@ -20,5 +20,17 @@ class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseControlle
 
   def save_digest_form_params
     session[:digest] = params[:digest]
+  end
+
+  def digest_sent_type
+    if params[:digest_type] == "test_digest" 
+      if @tiles_digest_form.with_follow_up?
+        "test_digest_and_follow_up"
+      else
+        "test_digest"
+      end
+    else
+      "digest_and_follow_up"
+    end
   end
 end

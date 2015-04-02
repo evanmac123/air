@@ -32,7 +32,8 @@
     .send_test
       %label 
         Test
-        %i.fa.fa-question-circle.has-tip{"data-tooltip" => true, title:"This will send you a test Tiles Email, and if scheduled, a test Follow-Up Email."}
+        %i.fa.fa-question-circle.has-tip{"data-tooltip" => true, title:"Send Yourself a Test Email, and if scheduled, a test Follow-Up Email."}
+      .editorial_divider
       = button_tag id: "send_test_digest", disabled: @digest_tiles.empty? do
         = fa_icon "envelope-o"
         Send a Test Email to Myself

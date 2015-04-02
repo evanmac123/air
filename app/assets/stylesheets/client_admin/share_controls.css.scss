@@ -124,29 +124,35 @@ body.client_admin-shares{
       }
       .send_test {
         margin-bottom: 2.75em;
+        label {
+          margin-bottom: 1.25em;
+        }
         i.has-tip {
-          font-size: 16px;
+          font-size: 13px;
+          color: $med-gray;
+          margin-left: 5px;
         }
         button {
-          @include light-button($gray);
+          @include light-button($dark-gray);
           font-size: 14px;
           padding: 0;
           display: block;
           text-transform: none;
           border: none;
-          font-weight: 500;
+          font-weight: 400;
+          padding-top: 1.25em;
           &:active, &:focus, &:hover {
             color: $sky-blue !important;
             background: transparent;
             box-shadow: none;
           }
           &[disabled] {
-            color: $gray !important;
+            color: $dark-gray !important;
           }
           i {
+            font-weight: 400;
             font-size: 16px;
             padding: 0 3px;
-            font-weight: 500;
           }
         }
       }
