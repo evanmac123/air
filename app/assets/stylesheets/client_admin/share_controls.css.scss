@@ -141,6 +141,7 @@ body.client_admin-shares{
           border: none;
           font-weight: 400;
           padding-top: 0.5em;
+          line-height: 2em;
           &:active, &:focus, &:hover {
             color: $sky-blue !important;
             background: transparent;
