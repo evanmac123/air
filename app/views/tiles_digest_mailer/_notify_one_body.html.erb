@@ -14,13 +14,13 @@
   </tr>
 </table>
 <% unless @presenter.follow_up_email %>
-  <%= render partial: "tiles_digest_mailer/notify_one_tiles_row", locals: {link_options: @presenter.link_options} %>
+  <%= render partial: "tiles_digest_mailer/tiles_row", locals: {link_options: @presenter.link_options} %>
 <% else %>
   <% @tiles.each do |tile| %>
     <% if tile %>
-      <%= render partial: "tiles_digest_mailer/notify_one_full_tile", locals: {tile: tile} %>
+      <%= render partial: "tiles_digest_mailer/full_tile", locals: {tile: tile} %>
     <% else %>
-      <%= render partial: "tiles_digest_mailer/notify_one_full_tile_placeholder" %>
+      <%= render partial: "tiles_digest_mailer/full_tile_placeholder" %>
     <% end %>
   <% end %>
 <% end %>
