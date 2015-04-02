@@ -1,13 +1,13 @@
 - tile_presenters = tiles.map{|tile| ExploreSingleTilePresenter.new(tile, @tile_tag, @copied_tile_ids.include?(tile.id), @liked_tile_ids.include?(tile.id))}
-- main_cache_key = [__FILE__, 'v5.pwd', 'main', @tile_tag, *(tile_presenters.map(&:cache_key))]
+- main_cache_key = [__FILE__, 'v6.pwd', 'main', @tile_tag, *(tile_presenters.map(&:cache_key))]
 
 - cache main_cache_key do 
   - tile_presenters.each_slice(4) do |presenter_slice|
-    - slice_cache_key = [__FILE__, 'v4.pwd', 'slice', *(presenter_slice.map(&:cache_key))]
+    - slice_cache_key = [__FILE__, 'v5.pwd', 'slice', *(presenter_slice.map(&:cache_key))]
     - cache slice_cache_key do
       %tr
         - presenter_slice.each do |presenter|
-          - cache [__FILE__, 'v1.pwd', 'single_thumb', presenter.cache_key, @tile_tag, thumb_click_source] do
+          - cache [__FILE__, 'v2.pwd', 'single_thumb', presenter.cache_key, @tile_tag, thumb_click_source] do
             :css
               ##{presenter.thumbnail_id} {
                 background-image: url('#{presenter.thumbnail_url}');

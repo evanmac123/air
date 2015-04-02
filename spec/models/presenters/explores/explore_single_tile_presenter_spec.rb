@@ -8,4 +8,27 @@ describe ExploreSingleTilePresenter do
     presenter = ExploreSingleTilePresenter.new(tile, tile_tag, false, false)
     presenter.associated_tile_tags.should == [tile_tag]
   end
+
+  context "the cache key" do
+    let(:tile) {FactoryGirl.create(:tile)}
+
+    context "when the tile_tag argument is nil" do
+      it "should serialize it properly" do
+        presenter = ExploreSingleTilePresenter.new(tile, nil, false, false)
+        presenter.cache_key.should_not include("TileTag")
+        # Two dashes separated by nil.to_s, that is, an empty string
+        presenter.cache_key.should include("--")
+      end
+    end
+
+    context "when the tile_tag argument is a TileTag" do
+      it "should serialize it using the database ID rather than the in-memory object ID" do
+        tag = FactoryGirl.create(:tile_tag)
+
+        presenter = ExploreSingleTilePresenter.new(tile, tag, false, false)
+        presenter.cache_key.should_not include("TileTag")
+        presenter.cache_key.should include("-#{tag.id.to_s}-")
+      end
+    end
+  end
 end

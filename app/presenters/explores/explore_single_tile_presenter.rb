@@ -75,6 +75,10 @@ class ExploreSingleTilePresenter
     end
   end
 
+  def tile_tag_id_if_present
+    tile_tag.try(:id).to_s
+  end
+
   def to_param
     @to_param ||= tile.to_param
   end
@@ -110,14 +114,14 @@ class ExploreSingleTilePresenter
   def cache_key
     @cache_key ||= [
       self.class.to_s, 
-      'v3.pwd',
+      'v4.pwd',
       tile_id, 
       copy_link_text, 
       copy_count, 
       user_copied_tile, 
       user_liked_tile, 
-      tile_not_copyable, 
-      tile_tag, 
+      tile_not_copyable,
+      tile_tag_id_if_present,
       like_count,
       thumbnail_id,
       thumbnail_url,
