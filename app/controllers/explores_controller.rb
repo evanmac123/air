@@ -8,19 +8,17 @@ class ExploresController < ClientAdminBaseController
   before_filter :find_liked_and_copied_tile_ids
 
   def show
-    trace('get_tile_tags') {@tile_tags = TileTag.alphabetical.with_public_non_draft_tiles}
-    trace('set path for more') {@path_for_more_tiles = explore_path}
-    trace('find parents') {@parent_boards = Demo.where(is_parent: true)}
+    @tile_tags = TileTag.alphabetical.with_public_non_draft_tiles
+    @path_for_more_tiles = explore_path
+    @parent_boards = Demo.where(is_parent: true)
 
-    trace('render partial if requested') {render_partial_if_requested(tag_click_source: 'Explore Main Page - Clicked Tag On Tile', thumb_click_source: 'Explore Main Page - Tile Thumbnail Clicked')}
+    render_partial_if_requested(tag_click_source: 'Explore Main Page - Clicked Tag On Tile', thumb_click_source: 'Explore Main Page - Tile Thumbnail Clicked')
 
-    trace('return to explore source') do
-      if params[:return_to_explore_source]
-        ping_action_after_dash params[:return_to_explore_source], {}, current_user
-      end
+    if params[:return_to_explore_source]
+      ping_action_after_dash params[:return_to_explore_source], {}, current_user
     end
 
-    trace('email_clicked_ping') {email_clicked_ping(current_user)}
+    email_clicked_ping(current_user)
   end
   
   def tile_tag_show
@@ -45,17 +43,15 @@ class ExploresController < ClientAdminBaseController
   end
 
   def find_tiles
-    trace('viewable tagged tiles') {@eligible_tiles = Tile.viewable_in_public.tagged_with(params[:tile_tag])}
+    @eligible_tiles = Tile.viewable_in_public.tagged_with(params[:tile_tag])
 
-    trace('filter tiles') do
-      @tiles = @eligible_tiles.
-        ordered_for_explore.
-        offset(offset).
-        includes(:creator).
-        includes(:tile_tags).
-        includes(:user_tile_likes).
-        includes(:user_tile_copies)
-    end
+    @tiles = @eligible_tiles.
+      ordered_for_explore.
+      offset(offset).
+      includes(:creator).
+      includes(:tile_tags).
+      includes(:user_tile_likes).
+      includes(:user_tile_copies)
   end
 
   def set_all_tiles_displayed
@@ -67,10 +63,9 @@ class ExploresController < ClientAdminBaseController
   end
 
   def find_liked_and_copied_tile_ids
-    tile_ids = []
-    trace('pluck tile IDs') {tile_ids = @tiles.pluck(:id)}
-    trace('liked tile IDs') {@liked_tile_ids = UserTileLike.where(user_id: current_user.id, tile_id: tile_ids).pluck(:tile_id)}
-    trace('copied tile IDs') {@copied_tile_ids = UserTileCopy.where(user_id: current_user.id, tile_id: tile_ids).pluck(:tile_id)}
+    tile_ids = @tiles.pluck(:id)
+    @liked_tile_ids = UserTileLike.where(user_id: current_user.id, tile_id: tile_ids).pluck(:tile_id)
+    @copied_tile_ids = UserTileCopy.where(user_id: current_user.id, tile_id: tile_ids).pluck(:tile_id)
   end
 
   def render_partial_if_requested(extra_locals)
@@ -89,9 +84,5 @@ class ExploresController < ClientAdminBaseController
 
   def offset
     @_offset = params[:offset].present? ? params[:offset].to_i : 0
-  end
-
-  def trace(name)
-    self.class.trace_execution_scoped([name]) {yield}
   end
 end
