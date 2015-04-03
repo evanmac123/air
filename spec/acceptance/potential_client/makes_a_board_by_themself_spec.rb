@@ -19,6 +19,10 @@ feature 'Makes a board by themself' do
     click_button "Create Board"
   end
 
+  def board_created_notification_text(user, board)
+    "#{user.name} (#{user.email}) has created a new board #{board.name} (#{board.id})."
+  end
+
   before do
     visit new_board_path
   end
@@ -107,6 +111,14 @@ feature 'Makes a board by themself' do
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear
       FakeMixpanelTracker.should have_event_matching("Creator - New", source: 'Marketing Page')
+    end
+
+    it "should send board created notification to the airbo team" do
+      crank_dj_clear
+      email = BoardCreatedNotificationMailer::ADDRESS_TO_NOTIFY
+      new_creator = @new_board.users.first
+      open_email email
+      current_email.should have_body_text board_created_notification_text(new_creator, @new_board)
     end
   end
 
