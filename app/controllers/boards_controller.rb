@@ -61,40 +61,16 @@ class BoardsController < ApplicationController
     authorize_as_guest
     login_as_guest(Demo.new) unless current_user.present?
 
-    pre_user = current_user
-
-    success = nil
-    original_board_name = params[:board][:name]
-
-    ActiveRecord::Base.transaction do
-      board_creator = CreateBoard.new(original_board_name)
-      board_saved_successfully = board_creator.create
-      @board = board_creator.board
-
-      user_creator = ConvertToFullUser.new({
-        pre_user:              current_user, 
-        name:                  params[:user][:name], 
-        email:                 params[:user][:email], 
-        password:              params[:user][:password],
-        converting_from_guest: true
-      })
-      user_saved_successfully = user_creator.create_client_admin_with_board! @board
-      @user = user_creator.converted_user
-
-      success = board_saved_successfully && user_saved_successfully
-      unless success
-        raise ActiveRecord::Rollback
-      end
-    end
+    @create_user_with_board = CreateUserWithBoard.new params.merge(pre_user: current_user)
+    success = @create_user_with_board.create
+    @user = @create_user_with_board.user
+    @board = @create_user_with_board.board
 
     if success
-      BoardCreatedNotificationMailer.delay_mail(:notify, @user.id, @board.id)
       sign_in(@user, 1)
-      schedule_creation_pings(@user)
       render_success
     else
-      @board.name = original_board_name
-      render_failure
+      render_failure(@create_user_with_board.set_errors)
     end
   end
 
@@ -107,7 +83,7 @@ class BoardsController < ApplicationController
     end
   end
 
-  def render_failure
+  def render_failure(set_errors)
     respond_to do |format|
       format.json { render json: {status: 'failure', errors: set_errors} }
       format.html do
@@ -126,41 +102,6 @@ class BoardsController < ApplicationController
         end
       end
     end
-  end
-
-  def set_board_defaults
-    @board.game_referrer_bonus = 5
-    @board.referred_credit_bonus = 2
-    @board.credit_game_referrer_threshold = 100000
-  end
-
-  def set_errors
-    errors = []
-
-    @board.errors.each do |field, raw_error|
-      case field.to_s
-      when 'name'
-        errors << "the board name " + raw_error
-      end
-    end
-
-    @user.errors.each do |field, raw_error|
-      case field.to_s
-      when 'name'
-        errors << "user name can't be blank"
-      when 'email'
-        errors << "user email " + raw_error
-      when 'password'
-        errors << raw_error
-      end
-    end
-
-    "Sorry, we weren't able to create your board: " + errors.join(', ') + '.'
-  end
-
-  def schedule_creation_pings(user)
-    ping 'Boards - New', {source: params[:creation_source_board]}, user
-    ping 'Creator - New', {source: params[:creation_source_creator]}, user
   end
 
   def find_current_board
