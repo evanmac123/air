@@ -1,5 +1,6 @@
 class CreateBoard
   include NormalizeBoardName
+  attr_reader :board
 
   def initialize(board_name)
     @board_name = normalize_board_name(board_name)
@@ -13,6 +14,8 @@ class CreateBoard
     # We do this separately so that we know the board has a unique public slug
     set_board_email if board_saved_successfully
   end
+
+  protected
 
   def set_board_defaults
     @board.game_referrer_bonus = 5
@@ -33,6 +36,4 @@ class CreateBoard
       @board.update_attributes(email: email_local_part + "@ourairbo.com")
     end
   end
-
-  attr_reader :board
 end
