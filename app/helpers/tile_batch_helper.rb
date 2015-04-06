@@ -2,7 +2,7 @@ module TileBatchHelper
   def tile_batch_size
     case device_type
     when :mobile
-      2
+      4
     when :tablet
       4
     else

@@ -5,6 +5,10 @@ feature 'User views tiles' do
     "You've finished all new tiles!"
   end
 
+  def tile_row_size(device_type)
+    device_type == :mobile ? 2 : 4
+  end
+
   context 'of the multiple-choice variety' do
     before do
       @tile = FactoryGirl.create(:multiple_choice_tile, points: 30)
@@ -89,7 +93,7 @@ feature 'User views tiles' do
     end
   end
 
-  [[:mobile, 2, 2], [:tablet, 4, 4], [:desktop, 16, 4]].each do |device_type, expected_tile_batch_size, expected_tile_row_size|
+  [[:mobile, 4, 4], [:tablet, 4, 4], [:desktop, 16, 4]].each do |device_type, expected_tile_batch_size, expected_tile_row_size|
     context "loaded in batches which on #{device_type} have #{expected_tile_batch_size} tiles apiece, with a \"See More\" link" do
       before do
         spoof_client_device(device_type)
@@ -113,7 +117,7 @@ feature 'User views tiles' do
 
         show_more_tiles_link.click
         expect_thumbnail_count(expected_tile_batch_size * 2 + 1)
-        expect_placeholder_count(expected_tile_row_size - 1)
+        expect_placeholder_count(tile_row_size(device_type) - 1)
         expect_show_more_tiles_link_disabled?(true)
 
 
@@ -135,7 +139,7 @@ feature 'User views tiles' do
 
         show_more_tiles_link.click
         expect_thumbnail_count(expected_tile_batch_size * 3 + 1)
-        expect_placeholder_count(expected_tile_row_size - 1)
+        expect_placeholder_count(tile_row_size(device_type) - 1)
         expect_show_more_tiles_link_disabled?(true)
       end
     end
