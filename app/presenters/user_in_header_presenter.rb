@@ -92,6 +92,10 @@ class UserInHeaderPresenter
     !current_user.is_client_admin
   end
 
+  def show_contact_airbo?
+    request.url.include? 'explore' # in explore section
+  end
+
   def show_side_menu_button?
     !current_user.is_guest?
   end

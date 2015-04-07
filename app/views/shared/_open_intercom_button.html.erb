@@ -1,13 +1,11 @@
-<% if user.has_intercom_help? %>
-  <div id="open-intercom" >Help</div>
-  <% js_at_end do %>
-    $(document).ready(function() {bindIntercomOpen('#open-intercom')});
-  <% end %>
-<% end %>
-
-<% if user.has_intercom_help? %>
+<% if user.show_contact_airbo? %>
   <a id="contact-airbo" >Contact Airbo</a>
   <% js_at_end do %>
     $(document).ready(function() {bindIntercomOpen('#contact-airbo')});
+  <% end %>
+<% elsif user.has_intercom_help? %>
+  <div id="open-intercom" >Help</div>
+  <% js_at_end do %>
+    $(document).ready(function() {bindIntercomOpen('#open-intercom')});
   <% end %>
 <% end %>
