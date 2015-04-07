@@ -2,6 +2,8 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 require 'mobvious'
+require File.expand_path(__FILE__ + '/../../app/middleware/request_timestamp')
+
 
 # If you have a Gemfile, require the gems listed there, including any gems
 # you've limited to :test, :development, or :production.
@@ -118,6 +120,8 @@ module Health
     config.generators do |g|
       g.orm :active_record
     end
+
+    config.middleware.use RequestTimestamp
 
     # Allows us to detect the type of client device on the server, i.e. before sending the page down
     config.middleware.use Mobvious::Manager

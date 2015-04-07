@@ -125,9 +125,14 @@ class ApplicationController < ActionController::Base
   end
 
   def email_clicked_ping user
+    # We rig the timestamp here so that, if this ping is present, and there's
+    # also a new activity session, this ping always appears before the activity
+    # session ping.
     if params[:email_type].present?
       email_ping_text = EMAIL_PING_TEXT_TYPES[params[:email_type]]
-      ping("Email clicked", { email_type: email_ping_text }, user) if email_ping_text.present?
+      rack_timestamp = request.env['rack.timestamp']
+      event_time = (rack_timestamp || Time.now) - 5.seconds
+      ping("Email clicked", { email_type: email_ping_text, time: event_time}, user) if email_ping_text.present?
     end
   end
 
@@ -265,8 +270,12 @@ class ApplicationController < ActionController::Base
     user.last_session_activity_at = Time.now
     user.save!
 
+    # We rig the timestamp to ensure that these always appear to Mixpanel to happen
+    # after the corresponding email ping (as in email_clicked_ping) if any.
     if difference >= ACTIVITY_SESSION_THRESHOLD
-      ping('Activity Session - New', {}, user)
+      time_from_rack = request.env['rack.timestamp'] 
+      time = time_from_rack || Time.now
+      ping('Activity Session - New', {time: time - 1}, user)
     end
   end
 
