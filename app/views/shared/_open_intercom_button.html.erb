@@ -4,3 +4,10 @@
     $(document).ready(function() {bindIntercomOpen('#open-intercom')});
   <% end %>
 <% end %>
+
+<% if user.has_intercom_help? %>
+  <a id="contact-airbo" >Contact Airbo</a>
+  <% js_at_end do %>
+    $(document).ready(function() {bindIntercomOpen('#contact-airbo')});
+  <% end %>
+<% end %>

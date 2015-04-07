@@ -323,6 +323,14 @@ header {
   font-size: 14px;
 }
 
+#contact-airbo {
+  @include light-button($sky-blue);
+  font-size: 14px;
+  margin-right: 5px;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
 #guest-intercom-wrapper {
   margin-top: 1em;
   #open-intercom {
