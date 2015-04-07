@@ -1,7 +1,7 @@
 <% if user.show_contact_airbo? %>
   <a id="contact-airbo" >Contact Airbo</a>
   <% js_at_end do %>
-    $(document).ready(function() {bindIntercomOpen('#contact-airbo')});
+    window.contactAirbo();
   <% end %>
 <% elsif user.has_intercom_help? %>
   <div id="open-intercom" >Help</div>
