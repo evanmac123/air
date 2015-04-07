@@ -236,6 +236,8 @@ class ApplicationController < ActionController::Base
     return unless user.present? && user.is_client_admin_in_any_board
 
     remember_explore_token(explore_token)
+
+    refresh_activity_session(user)
     remember_explore_user(UserRestrictedToExplorePages.new(user))
   end
 
