@@ -34,12 +34,12 @@ module ClientAdmin::TilesHelper
     {
       Tile::ACTION => {
         Tile::TAKE_ACTION => {
-          name: "Take action",
+          name: "Take Action",
           question: "Points for taking action",
           answers: ["I did it"] 
         },
         Tile::READ_TILE => {
-          name: "Read tile",
+          name: "Read Tile",
           question: "Points for reading tile",
           answers: ["I read it"]
         },
@@ -73,7 +73,7 @@ module ClientAdmin::TilesHelper
       Tile::QUIZ => {
         Tile::TRUE_FALSE.parameterize("_") => {
           name: "True / False",
-          question: "Fill In Statement",
+          question: "Fill in statement",
           answers: ["True", "False"]
         },
         Tile::MULTIPLE_CHOICE.parameterize("_") => {
@@ -86,11 +86,11 @@ module ClientAdmin::TilesHelper
       Tile::SURVEY => {
         Tile::MULTIPLE_CHOICE.parameterize("_") => {
           name: "Multiple Choice",
-          question: "Add Question",
+          question: "Add question",
           answers: ["Add Answer Option", "Add Answer Option"]
         },
         Tile::RSVP_TO_EVENT.parameterize("_") => {
-          name: "RSVP to event",
+          name: "RSVP To Event",
           question: "Will you be attending?",
           answers: ["Yes", "No", "Maybe"]
         }
