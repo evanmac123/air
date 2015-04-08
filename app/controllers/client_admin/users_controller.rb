@@ -144,7 +144,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
   end
 
   def render_main_index_page
-    @user = User.new(demo_id: current_user.demo_id)
+    @user = User.new
     create_uploader
     load_locations
   end
