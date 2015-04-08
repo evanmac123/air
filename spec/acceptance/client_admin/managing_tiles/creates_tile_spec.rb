@@ -236,7 +236,7 @@ feature 'Creates tile' do
 
   context "acting with question and answers" do
     scenario "choose type Action, subtype any", js: true do
-      choose_question_type_and_subtype Tile::ACTION, Tile::DO_SOMETHING
+      choose_question_type_and_subtype Tile::ACTION, Tile::TAKE_ACTION
       page.all(answer_link_selector).should have(1).link
       page.all(".choose_answer").should be_empty
       page.all(".add_answer").should be_empty

@@ -10,7 +10,7 @@ class Tile < ActiveRecord::Base
   QUIZ   = 'Quiz'.freeze
   SURVEY = 'Survey'.freeze
   #question subtypes
-  DO_SOMETHING          = "Do something".parameterize("_").freeze
+  TAKE_ACTION           = "Take Action".parameterize("_").freeze
   READ_TILE             = "Read Tile".parameterize("_").freeze
   READ_ARTICLE          = "Read Article".parameterize("_").freeze
   SHARE_ON_SOCIAL_MEDIA = "Share On Social Media".parameterize("_").freeze

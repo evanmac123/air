@@ -33,8 +33,8 @@ module ClientAdmin::TilesHelper
   def tile_types
     {
       Tile::ACTION => {
-        Tile::DO_SOMETHING => {
-          name: "Do something",
+        Tile::TAKE_ACTION => {
+          name: "Take action",
           question: "Points for taking action",
           answers: ["I did it"] 
         },
