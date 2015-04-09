@@ -121,6 +121,7 @@ Health::Application.routes.draw do
 
     resources :public_tiles, only: :update
     resources :sharable_tiles, only: :update
+    resources :tile_images, only: :index
     
     get 'tiles/:tile_id/non_completions' => "tile_completions#non_completions"
         

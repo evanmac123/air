@@ -1,13 +1,14 @@
 <div class="image_library">
-  <%= render 'client_admin/tiles/form/image_uploader', form: form %>
-
-  <% @tile_images.each do |tile_image| %>
-    <%= content_tag :div, class: "tile_image_block #{'selected' if tile_image.id == @tile_builder_form.image_from_library}", data: {"tile-image-id" => tile_image.id, "image-url" => tile_image.image.url} do %>
-      <%= image_tag tile_image.thumbnail(:email_digest) %>
-    <% end %>
-  <% end %>
+  <div class="tile_images">
+    <%= render 'client_admin/tiles/form/image_uploader', form: form %>
+    <%= render @tile_images %>
+  </div>
+  <div class="pagination">
+    <%= link_to 'AAAAAAAAA', client_admin_tile_images_path(page: 1), rel: 'next' %>
+  </div>
 </div>
 
 <%= js_at_end do %>
   window.imageLibrary();
+  window.imageLibraryScroll();
 <% end %>

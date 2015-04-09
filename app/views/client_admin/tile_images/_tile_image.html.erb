@@ -1,0 +1,4 @@
+<% image_from_library = @tile_builder_form.try(:image_from_library) %>
+<%= content_tag :div, class: "tile_image_block #{'selected' if tile_image.id == image_from_library}", data: {"tile-image-id" => tile_image.id, "image-url" => tile_image.image.url} do %>
+  <%= image_tag tile_image.thumbnail(:email_digest) %>
+<% end %>

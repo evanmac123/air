@@ -133,4 +133,3 @@ window.imageLibrary = ->
     imageBlock = $(this)
     select(imageBlock)
     recreateImageUploader()
-  

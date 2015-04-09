@@ -418,8 +418,11 @@ body.client_admin-tiles-update {
     height: calc(100vh - 47px);
     min-height: 646px;
     padding: 30px 0px 50px 31px;
+    .tile_images {
+      overflow: auto;
+    }
     .tile_image_block {
-      float: left;
+      //float: left;
       width: 126px;
       height: 106px;
       margin: 5px;

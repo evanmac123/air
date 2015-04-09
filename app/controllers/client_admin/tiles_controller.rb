@@ -196,8 +196,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def load_image_library
-    @tile_images = TileImage.
-      where(image_processing: false, thumbnail_processing: false).
-      order{ created_at.desc }
+    @tile_images = TileImage.all_ready.first(5)
   end
 end

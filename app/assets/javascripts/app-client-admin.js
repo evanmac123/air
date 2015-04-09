@@ -14,6 +14,7 @@
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.scrollTo.min
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.form.min
 //= require ../../../vendor/assets/javascripts/client_admin/confirm_with_reveal
+//= require ../../../vendor/assets/javascripts/client_admin/jquery.jscroll.min.js
 
 //= require ../../../vendor/assets/javascripts/internal/jquery.jpanelmenu.min
 //= require ../../../vendor/assets/javascripts/internal/jRespond.min
