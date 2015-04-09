@@ -3,7 +3,7 @@ class ClientAdmin::TileImagesController < ClientAdminBaseController
     @tile_images = TileImage.all_ready.page(params[:page])
     render json: {
       tileImages: tile_image_containers,
-      nextPage: next_page
+      nextPageLink: next_page_link
     }
   end
 
@@ -18,11 +18,12 @@ class ClientAdmin::TileImagesController < ClientAdminBaseController
     end.to_json
   end
 
-  def next_page
+  def next_page_link
     if @tile_images.last_page?
       nil
     else
-      params[:page].to_i + 1
+      next_page = params[:page].to_i + 1
+      client_admin_tile_images_path(page: next_page)
     end
   end
 end
