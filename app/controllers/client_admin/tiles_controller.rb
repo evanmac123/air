@@ -196,6 +196,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def load_image_library
-    @tile_images = TileImage.all_ready.first(5)
+    @tile_images = TileImage.all_ready.first(TileImage::PAGINATION_PADDING)
   end
 end

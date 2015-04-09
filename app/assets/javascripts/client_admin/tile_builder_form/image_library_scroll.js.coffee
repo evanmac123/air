@@ -12,14 +12,13 @@ updateNextPageLink = (link) ->
   else
     $(nextSelector()).remove()
 
-window.imageLibraryScroll = ->
+window.imageLibraryScroll = (imagePath) ->
   $('.image_library').jscroll
-    debug: true,
-    loadingHtml: '<p>Loading...</p>',
-    padding: 20,
+    #debug: true,
+    loadingHtml: "<img src='#{imagePath}' />",
+    padding: 100,
     nextSelector: nextSelector(),
     pagingSelector: ".paginator",
     callback: (data) ->
-      console.log data
       addTileImages data.tileImages
       updateNextPageLink data.nextPageLink

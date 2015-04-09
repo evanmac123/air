@@ -421,8 +421,17 @@ body.client_admin-tiles-update {
     .tile_images {
       overflow: auto;
     }
+    .pagination {
+      display: none;
+    }
+    .jscroll-loading {
+      text-align: center;
+      img {
+        width: 50px;
+      }
+    }
     .tile_image_block {
-      //float: left;
+      float: left;
       width: 126px;
       height: 106px;
       margin: 5px;

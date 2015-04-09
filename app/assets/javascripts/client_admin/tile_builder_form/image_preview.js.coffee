@@ -102,8 +102,11 @@ window.imagePreview = ->
 #
 # => Image Library Part
 #
+imageFromLibrarySelector = ->
+  ".tile_image_block:not(.upload_image)"
+
 imageFromLibrary = ->
-  $(".tile_image_block:not(.upload_image)")
+  $(imageFromLibrarySelector())
 
 selectedImageFromLibrary = ->
   imageFromLibrary().filter(".selected")
@@ -129,7 +132,7 @@ select = (imageBlock) ->
   showShadows()
 
 window.imageLibrary = ->
-  imageFromLibrary().click ->
+  $("body").on "click", imageFromLibrarySelector(), ->
     imageBlock = $(this)
     select(imageBlock)
     recreateImageUploader()

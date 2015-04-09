@@ -4,11 +4,11 @@
     <%= render @tile_images %>
   </div>
   <div class="pagination">
-    <%= link_to 'AAAAAAAAA', client_admin_tile_images_path(page: 1), rel: 'next' %>
+    <%= link_to 'Next Page', client_admin_tile_images_path(page: 1), rel: 'next' %>
   </div>
 </div>
 
 <%= js_at_end do %>
   window.imageLibrary();
-  window.imageLibraryScroll();
+  window.imageLibraryScroll("<%= image_path 'spinner_large.gif' %>");
 <% end %>
