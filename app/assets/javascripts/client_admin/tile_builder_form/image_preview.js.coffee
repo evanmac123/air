@@ -131,7 +131,15 @@ select = (imageBlock) ->
   showImgFromLibraryInPreview(imageBlock)
   showShadows()
 
+window.selectImageFromLibrary = ->
+  id = parseInt imageFromLibraryField().val()
+  if selectedImageFromLibrary().length == 0 && id > 0
+    setSelectedState imageFromLibrary().filter("[data-tile-image-id=#{id}]")
+
 window.imageLibrary = ->
+  $ ->
+    window.selectImageFromLibrary()
+
   $("body").on "click", imageFromLibrarySelector(), ->
     imageBlock = $(this)
     select(imageBlock)
