@@ -1,6 +1,8 @@
 class ClientAdmin::TileImagesController < ClientAdminBaseController
   def index
-    @tile_images = TileImage.all_ready.page(params[:page]).padding(TileImage::PAGINATION_PADDING)
+    @tile_images = TileImage.all_ready
+                            .page(params[:page])
+                            .padding(TileImage::PAGINATION_PADDING)
     render json: {
       tileImages: tile_image_containers,
       nextPageLink: next_page_link
