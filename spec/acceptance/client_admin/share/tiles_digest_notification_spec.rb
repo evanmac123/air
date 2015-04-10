@@ -94,7 +94,7 @@ feature 'Client admin and the digest email for tiles' do
       expect_no_content follow_up_header_copy
     end
 
-    scenario 'Text is correct when follow-up emails are scheduled to be sent, and emails can be cancelled', js: :webkit do  # (Didn't work with poltergeist)
+    scenario 'Text is correct when follow-up emails are scheduled to be sent, and emails can be cancelled', js: true, driver: :webkit do  # (Didn't work with poltergeist)
       page.driver.accept_js_confirms!
       create_follow_up_emails
       visit client_admin_share_path(as: admin)
@@ -113,7 +113,7 @@ feature 'Client admin and the digest email for tiles' do
     end
 
     context "when a followup is cancelled" do
-      it "sends a ping", js: :webkit do
+      it "sends a ping", js: true, driver: :webkit do
         page.driver.accept_js_confirms!
         create_follow_up_emails
         visit client_admin_share_path(as: admin)
@@ -134,9 +134,9 @@ feature 'Client admin and the digest email for tiles' do
 
       expect_tiles_to_send_header
     end
-
+    
     scenario 'Form components are on the page and properly initialized', js: true do
-      on_day('10/14/2013') do  # Monday
+     on_day('10/14/2013') do  # Monday
         create_tile
         demo.update_attributes unclaimed_users_also_get_digest: true
 
@@ -168,7 +168,7 @@ feature 'Client admin and the digest email for tiles' do
       expect_no_content follow_up_header_copy
     end
 
-    scenario 'Text is correct when follow-up emails are scheduled to be sent, and emails can be cancelled', js: :webkit do
+    scenario 'Text is correct when follow-up emails are scheduled to be sent, and emails can be cancelled', js: true, driver: :webkit do
       # If you 'create_follow_up_emails' and then 'visit tile_manager_page' the follow-up email creation bombs.
       # We've had this stupid fucking problem before. Luckily Phil figured out it is some kind of timing problem.
       # We've also had the stupid fucking problem of stuff like this not working in poltergeist => have to use webkit
@@ -605,8 +605,8 @@ feature 'Client admin and the digest email for tiles' do
     it "should save entered text in digest form fields", js: true do
       visit client_admin_share_path(as: admin)  
 
-      page.find("#digest_custom_message").value.should == "Custom Message"
-      page.find("#digest_custom_subject").value.should == "Custom Subject"
+      page.should have_field("Email subject", with: "Custom Subject")
+      page.should have_field("Intro message", with: "Custom Message")
     end
   end
 end

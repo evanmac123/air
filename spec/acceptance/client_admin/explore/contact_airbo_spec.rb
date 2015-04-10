@@ -9,7 +9,7 @@ feature "Client admin contacts airbo" do
       page.find("#contact-airbo").click
     end
 
-    it "should send ping", js: :webkit do
+    it "should send ping", js: true, driver: :webkit do
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear
       FakeMixpanelTracker.should have_event_matching('Explore page - Interaction', "action"=>"Clicked \"Contact Airbo\" button")

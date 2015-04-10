@@ -41,6 +41,7 @@ feature "Admin Defines Characteristics" do
 
     it "admin creates new characteristic", :js => true do
       set_up_demo_and_characteristics
+      admin = an_admin
       visit admin_characteristics_path(as: an_admin)
 
       fill_in "characteristic[name]", :with => "T-shirt size"

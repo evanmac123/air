@@ -15,11 +15,14 @@ feature 'Admin conducts raffle' do
 
   context "when no segment is selected" do
     context "and no users have tickets" do
-      it "should say so", :js => true do
+      before do
         5.times{ FactoryGirl.create(:user, demo: @demo)}
+        @admin = an_admin
         @demo.users.map(&:tickets).sum.should be_zero
+      end
 
-        visit admin_demo_raffles_path(@demo, as: an_admin)
+      it "should say so", :js => true do
+        visit admin_demo_raffles_path(@demo, as: @admin)
 
         click_button "Pick a winner"
 

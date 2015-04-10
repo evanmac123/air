@@ -20,7 +20,7 @@ feature 'Tags tile' do
     find('.tile_tags > li').text.should eq tag.title
   end
 
-  it "editing untagged tile with an existing tag", js: :webkit do
+  it "editing untagged tile with an existing tag", js: true, driver: :webkit do
     tile = FactoryGirl.create(:multiple_choice_tile, demo: @client_admin.demo, is_sharable: true)
     tag = FactoryGirl.create(:tile_tag, title: "Cheese")
     
@@ -32,7 +32,7 @@ feature 'Tags tile' do
     tag.tiles.reload.should include(Tile.last)
   end
 
-  it "editing tagged tile with an existing tag", js: :webkit do
+  it "editing tagged tile with an existing tag", js: true, driver: :webkit do
     tile = FactoryGirl.create(:multiple_choice_tile, demo: @client_admin.demo)
     first_tag = FactoryGirl.create(:tile_tag, title: "Cheese")
     second_tag = FactoryGirl.create(:tile_tag, title: "Ducks")
@@ -50,7 +50,7 @@ feature 'Tags tile' do
     second_tag.tiles.reload.should include(tile)
   end
 
-  it "editing a tile with a new tag", js: :webkit do
+  it "editing a tile with a new tag", js: true, driver: :webkit do
     tile = FactoryGirl.create(:multiple_choice_tile, :public, demo: @client_admin.demo)
     visit client_admin_tile_path(tile, as: @client_admin)
 
@@ -61,7 +61,7 @@ feature 'Tags tile' do
     tag.tiles.should include(tile)
   end
 
-  it "normalizes tag names so they look consistent", js: :webkit do
+  it "normalizes tag names so they look consistent", js: true, driver: :webkit do
     tile = FactoryGirl.create(:multiple_choice_tile, :public, demo: @client_admin.demo)
     visit client_admin_tile_path(tile, as: @client_admin)
 
@@ -71,7 +71,7 @@ feature 'Tags tile' do
     TileTag.last.title.should eq "i am dumb"
   end
 
-  it "does not let a duplicate tag be created", js: :webkit do
+  it "does not let a duplicate tag be created", js: true, driver: :webkit do
     tag = FactoryGirl.create(:tile_tag, title: "Taken")
     tile = FactoryGirl.create(:multiple_choice_tile, demo: @client_admin.demo)
     visit client_admin_tile_path(tile, as: @client_admin)

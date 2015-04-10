@@ -116,7 +116,7 @@ feature "Client Admin Interacts With Share And Public Section" do
       end
 
       context "when there are no tags" do
-        it "should start in a disabled state and enable when a tag is entered", js: :webkit do
+        it "should start in a disabled state and enable when a tag is entered", js: true, driver: :webkit do
           visit client_admin_tile_path(@tile, as: @client_admin)
           open_public_section
           page.should have_css('.share_to_explore.disabled')
@@ -170,7 +170,7 @@ feature "Client Admin Interacts With Share And Public Section" do
           @tile.is_public.should be_false
         end
 
-        it "should switch when toggled", js: :webkit do
+        it "should switch when toggled", js: true, driver: :webkit do
           visit client_admin_tile_path(@tile, as: @client_admin)
           open_public_section
           add_new_tile_tag('The Humpty Dance')
@@ -192,7 +192,7 @@ feature "Client Admin Interacts With Share And Public Section" do
       visit client_admin_tile_path(@tile, as: @client_admin)
     end
 
-    scenario "tag is displayed after adding and is removable", js: :webkit do
+    scenario "tag is displayed after adding and is removable", js: true, driver: :webkit do
       open_public_section
 
       add_new_tile_tag('random tag')
@@ -204,7 +204,7 @@ feature "Client Admin Interacts With Share And Public Section" do
       page.should_not have_css('.tile_tags > li')
     end
 
-    scenario "displays similiar tags and add tag button if exactly same tag is not present", js: :webkit do
+    scenario "displays similiar tags and add tag button if exactly same tag is not present", js: true, driver: :webkit do
       tag1 = FactoryGirl.create :tile_tag, title: "untag"
       tag2 = FactoryGirl.create :tile_tag, title: "tagged"
 
@@ -219,7 +219,7 @@ feature "Client Admin Interacts With Share And Public Section" do
       expect_content "untag"
     end
 
-    scenario "tile public attrs are saved correctly if tags are added", js: :webkit do
+    scenario "tile public attrs are saved correctly if tags are added", js: true, driver: :webkit do
       open_public_section
       add_new_tile_tag "tag"
       wait_for_explore_to_activate
@@ -245,7 +245,7 @@ feature "Client Admin Interacts With Share And Public Section" do
         visit client_admin_tile_path(@tile, as: @client_admin)
       end
 
-      scenario "should set max explore_page_priority for tile", js: :webkit do
+      scenario "should set max explore_page_priority for tile", js: true, driver: :webkit do
         @tile.reload.explore_page_priority.should be_nil
 
         open_public_section
@@ -259,7 +259,7 @@ feature "Client Admin Interacts With Share And Public Section" do
         @tile.reload.explore_page_priority.should == 4
       end
 
-      scenario "should set tile to the first position on explore page", js: :webkit do
+      scenario "should set tile to the first position on explore page", js: true, driver: :webkit do
         open_public_section
         add_new_tile_tag "tag"
         wait_for_explore_to_activate

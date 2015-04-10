@@ -33,15 +33,22 @@ feature 'client admin views tile completions and non completions reports' do
       page.response_headers['Content-Type'].should =~ %r{text/csv}
       page.response_headers['Content-Disposition'].should =~ report_name
 
-      expected_csv = <<CSV
-Name,Email,Date,Viewed,Answer,Joined?
+      expected_header_row = "Name,Email,Date,Viewed,Answer,Joined?"
+
+      expected_data = <<CSV
 j'ames9,j'ames9@example.com,10/13/2014,9,Ham,No
 j'ames7,j'ames7@example.com,10/13/2014,7,Eggs,No
 j'ames5,j'ames5@example.com,10/13/2014,5,A V8 Buick,No
 j'ames3,j'ames3@example.com,10/13/2014,3,Ham,No
 j'ames1,j'ames1@example.com,10/13/2014,1,Eggs,No
 CSV
-      page.body.should == expected_csv
+      expected_data_rows = expected_data.lines
+
+      lines = page.body.lines
+      lines.first.strip.should == expected_header_row.strip
+
+      data_rows = lines[1..-1]
+      data_rows.sort.should == expected_data_rows.sort
     end
   end
 
