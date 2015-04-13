@@ -12,7 +12,7 @@ class CopyTilesController < ClientAdminBaseController
     render json: {
       success: true, 
       editTilePath: edit_client_admin_tile_path(copy),
-      copyCount: tile.copy_count
+      copyCount: tile.reload.copy_count
     }
   end
 

@@ -8,6 +8,7 @@ class TileLikesController < ClientAdminBaseController
     @tile = Tile.find(params[:tile_id])
     unless @tile.user_tile_likes.find_by_user_id(current_user.id)
       @tile.user_tile_likes.create(user_id: current_user.id)
+      @tile.reload
       schedule_like_ping(@tile)
       respond_to do |format|
         format.js {}
@@ -21,6 +22,7 @@ class TileLikesController < ClientAdminBaseController
     if tile_like.present?
       @tile = tile_like.tile
       tile_like.destroy
+      @tile.reload
       schedule_unlike_ping(@tile)
       respond_to do |format|
         format.js {}

@@ -82,11 +82,11 @@ class Tile < ActiveRecord::Base
   end
   
   def copy_count
-    self.user_tile_copies.count
+    self.user_tile_copies_count
   end
   
   def like_count
-    self.user_tile_likes.count
+    self.user_tile_likes_count
   end
   
   def appears_client_created
