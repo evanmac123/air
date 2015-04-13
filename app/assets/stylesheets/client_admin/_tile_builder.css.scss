@@ -424,7 +424,7 @@ body.client_admin-tiles-update {
     .pagination {
       display: none;
     }
-    .jscroll-loading {
+    .jscroll-loading { // div with our standard spinner 
       text-align: center;
       img {
         width: 50px;
