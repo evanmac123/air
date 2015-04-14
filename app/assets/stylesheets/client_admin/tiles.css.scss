@@ -158,21 +158,21 @@ body.client_admin-draft_tiles {
       &:after{ @include clear; }
     }
     .all_inactive {display: inline-block;}
+    .all_inactive {
+      @include light-button($med-gray);
+      font-size: 12px;
+      letter-spacing: 0.4em;
+      width: 100%;
+      margin-bottom: 1em;
+      margin-left: 1em;
+      max-width: 86.75em;
+    }
     .tile_thumbnail.placeholder_tile {
       border-color: $almost-white;
     }
     .create_new_tile {
       @include app-button($dark-green);
       float: right;
-    }
-    .all_inactive, .all_draft {
-      @include light-button($med-gray);
-        font-size: 12px;
-        letter-spacing: 0.4em;
-        width: 100%;
-        margin-bottom: 1em;
-        margin-left: 1em;
-        max-width: 86.75em;
     }
     .minimize {
       @include light-button($med-gray);
@@ -216,6 +216,17 @@ body.client_admin-draft_tiles {
     padding-top: 10px;
     text-align: center;
     font-size: 20px;
+  }
+  .show_all_draft_section {
+    position: relative;
+    padding: 1.65em;
+    background: $off-white;
+    .all_draft {
+      @include light-button($med-gray);
+      font-size: 12px;
+      letter-spacing: 0.4em;
+      width: 86.6em;
+    }
   }
   #active_tiles {
     padding:2em 0 0 0;

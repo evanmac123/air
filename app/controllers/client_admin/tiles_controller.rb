@@ -12,7 +12,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @demo.archive_tiles_if_curtain_call
     @active_tiles  = @demo.active_tiles_with_placeholders
     @archive_tiles = (@demo.archive_tiles_with_placeholders)[0,4]
-    @draft_tiles = (@demo.draft_tiles_with_placeholders)#[0,8]
+    @draft_tiles = @demo.draft_tiles_with_placeholders
     @show_more_draft_tiles = show_more_draft_tiles
     @board_is_brand_new = @demo.tiles.limit(1).first.nil?
     record_index_ping

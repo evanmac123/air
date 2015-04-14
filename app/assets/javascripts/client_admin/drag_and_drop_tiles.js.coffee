@@ -204,9 +204,7 @@ window.dragAndDropTiles = ->
     updateTileVisibilityIn "archive"
 
   visibleTilesNumberIn = (section) ->
-    if section == "draft"
-      8
-    else if section == "archive"
+    if section == "archive"
       4
     else
       9999
