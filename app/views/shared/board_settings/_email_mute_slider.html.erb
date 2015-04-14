@@ -1,0 +1,7 @@
+<% cache presenter.cache_key do %>
+  <%= content_tag 'div', class: presenter.wrapper_classes, data: presenter.wrapper_data do %>
+    <%= radio_button_tag presenter.radio_button_name, false, !presenter.original_setting, class: presenter.unmute_class, disabled: presenter.disabled?, data: presenter.radio_data %>
+    <%= radio_button_tag presenter.radio_button_name, true, presenter.original_setting, class: presenter.mute_class, disabled: presenter.disabled?, data: presenter.radio_data %>
+    <%= content_tag 'span', '', class: presenter.paddle_classes %>
+  <% end %>
+<% end %>

@@ -41,7 +41,7 @@
         </div>
       </div>
       <% user.boards_as_admin.sort_by(&:name).each do |board| %>
-        <%= render "shared/board_settings_admin_board", board: board %>
+        <%= render "shared/board_settings/admin_board", board: board %>
       <% end %>
     </div>
   <% end %>
@@ -66,7 +66,7 @@
         <div class="delete_column"></div>
       </div>
       <% user.boards_as_regular_user.sort_by(&:name).each do |board| %>
-        <%= render "shared/board_settings_user_board", board: board, as_admin: false, followup_is_muted: user.followup_is_muted(board), digest_is_muted: user.digest_is_muted(board)  %>
+        <%= render "shared/board_settings/user_board", board: board, as_admin: false, followup_is_muted: user.followup_is_muted(board), digest_is_muted: user.digest_is_muted(board)  %>
       <% end %>
     </div>
   <% end %>
