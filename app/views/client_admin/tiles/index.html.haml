@@ -1,4 +1,4 @@
-%section.manage_tiles#draft_tiles
+%section.manage_tiles#draft_tiles.compressed_section
   .draft_overlay
     .overlay_message
       = fa_icon "ban"
@@ -6,7 +6,7 @@
     .large-12.columns
       %h4 Draft
       %div#draft.manage_section= render partial: 'client_admin/tiles/manage_tiles/draft'
-      = link_to "Show all", client_admin_draft_tiles_path, class: :all_draft, style: "display:#{@show_more_draft_tiles ? 'block' : 'none'};"
+      = link_to "Show all", '', class: :all_draft, style: "display:#{@show_more_draft_tiles ? 'block' : 'none'};"
 .completed_tiles_containment
   %section.manage_tiles#active_tiles
     .draft_blocked_message
@@ -47,5 +47,6 @@
 - content_for :javascript do
   :javascript
     $().ready(function(){
-      window.dragAndDropTiles()
+      window.dragAndDropTiles();
+      window.expandDraftSection();
     })
