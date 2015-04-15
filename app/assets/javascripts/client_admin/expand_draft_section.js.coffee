@@ -32,7 +32,7 @@ animateSectionSliding = (stepsNum, startProgress, direction = "down") ->
   $({progressCount: 0}).animate 
     progressCount: stepsNum
   ,
-    duration: 500
+    duration: 1000
     easing: 'linear'
     step: (progressCount) ->
       progressNew = if direction == "down"
@@ -51,7 +51,7 @@ animateSectionSliding = (stepsNum, startProgress, direction = "down") ->
 
 scrollUp = ->
   unless iOSdevice()
-    $('html, body').scrollTo section(), {duration: 500}
+    $('html, body').scrollTo section(), {duration: 1000}
 
 iOSdevice = ->
   navigator.userAgent.match(/(iPad|iPhone|iPod)/g)
