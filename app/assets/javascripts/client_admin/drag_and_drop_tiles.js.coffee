@@ -204,7 +204,12 @@ window.dragAndDropTiles = ->
     updateTileVisibilityIn "archive"
 
   visibleTilesNumberIn = (section) ->
-    if section == "archive"
+    if section == "draft"
+      if $("#draft_tiles").hasClass "compressed_section"
+        4
+      else
+        9999
+    else if section == "archive"
       4
     else
       9999
@@ -217,6 +222,8 @@ window.dragAndDropTiles = ->
         $(tile).css("display", "block")
       else
         $(tile).css("display", "none")
+
+  window.updateTileVisibilityIn = updateTileVisibilityIn
 
   showDraftBlockedOverlay = (isOn) ->
     if isOn

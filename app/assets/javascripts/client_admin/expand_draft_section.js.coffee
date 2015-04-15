@@ -1,7 +1,8 @@
 compressSection = (section, animate = false) ->
   cutHeight = compressSectionMargin(section)
   unless animate
-    section.css "margin-bottom", (cutHeight + "px")
+    #section.css "margin-bottom", (cutHeight + "px")
+    window.updateTileVisibilityIn("draft")
   else
     scrollTo section
     animateSectionSliding section, -cutHeight, 0 , "up"
@@ -12,14 +13,19 @@ compressSectionMargin = (section) ->
 
 compressSectionHeight = ->
   420
+
 expandSection = (section) ->
+  setCompressedSectionClass(section, "hide")
+  window.updateTileVisibilityIn("draft")
+  section.css "margin-bottom", (compressSectionMargin(section) + "px")
+
   startProgress = parseInt section.css("margin-bottom")
   animateSectionSliding(section, -startProgress, startProgress, "down")
 
 animateSectionSliding = (section, stepsNum, startProgress, direction = "down") ->
-  section.addClass("counting")
   setCompressedSectionClass(section, "show")
 
+  section.addClass("counting")
   $({progressCount: 0}).animate 
     progressCount: stepsNum
   ,
@@ -35,9 +41,12 @@ animateSectionSliding = (section, stepsNum, startProgress, direction = "down") -
       section.css "margin-bottom", (progressNew + "px")
     complete: ->
       section.removeClass("counting")
+      section.css "margin-bottom", ""
       if direction == "down" 
-        section.css "margin-bottom", ""
         setCompressedSectionClass(section, "hide")
+      else
+        window.updateTileVisibilityIn("draft")
+
 
 scrollTo = (container) ->
   unless iOSdevice()
