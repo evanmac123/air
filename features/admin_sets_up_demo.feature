@@ -28,7 +28,6 @@ Feature: Admin sets up demo
     And I fill in "Phone number" with "6175551212"
     And I fill in "demo_email" with "threem@playhengage.com"
     And I fill in "demo_custom_reply_email_name" with "Penitenziagite"
-    And I check "Lock out website-users will use SMS only"
     And I uncheck "Talking chicken should use multiple-choice sample tile"
     And I press "Create Game"
     Then I should be on the admin "3M" demo page
@@ -50,7 +49,6 @@ Feature: Admin sets up demo
     And I should see `Custom support reply is "We'll call you."`
     And I should see "Phone number for this game is (617) 555-1212"
     And I should see "Email for this game is threem@playhengage.com"
-    And I should see "Website is locked out, users can use SMS only"
     And I should see "Talking chicken will use old-school sample tile"
     And I should see "Email mask is Penitenziagite"
 
@@ -78,7 +76,6 @@ Feature: Admin sets up demo
     And I should see "No custom support reply"
     And I should see "NO PHONE NUMBER SET FOR THIS GAME, MAKE SURE THAT IS WHAT YOU REALLY WANT"
     And I should see "NO EMAIL SET FOR THIS GAME, MAKE SURE THAT IS WHAT YOU REALLY WANT"
-    And I should not see "Website is locked out"
     And I should see "Talking chicken will use multiple-choice sample tile"
 
   Scenario: Appropriate restrictions on text that gets SMSed

@@ -24,7 +24,7 @@ module AccountClaimer
     end
 
     def send_welcome_email_if_wanted
-      return nil if @user.email.blank? || @user.demo.website_locked
+      return nil if @user.email.blank?
       Mailer.delay.set_password(@user.id)
     end
   end

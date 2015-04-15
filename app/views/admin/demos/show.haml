@@ -115,11 +115,6 @@
       No bonus for crediting the user who referred you to the game
 
   %p
-    - if @demo.website_locked
-      Website is locked out, users can use SMS only
-
-
-  %p
     - if @demo.prize.present? 
       = "Prize response is \"#{@demo.prize}\""
     - else 
