@@ -1,82 +1,82 @@
-compressSection = (section, animate = false) ->
-  cutHeight = compressSectionMargin(section)
-  unless animate
-    #section.css "margin-bottom", (cutHeight + "px")
-    window.updateTileVisibilityIn("draft")
-  else
-    scrollTo section
-    animateSectionSliding section, -cutHeight, 0 , "up"
+section = ->
+  $("#draft_tiles")
 
-compressSectionMargin = (section) ->
-  initialHeight = section.outerHeight()
+compressSection = (animate = false) ->
+  unless animate
+    setCompressedSectionClass("show")
+  else
+    scrollUp()
+    animateSectionSliding -compressSectionMargin(), 0 , "up"
+
+compressSectionMargin = ->
+  initialHeight = section().outerHeight()
   cutHeight = compressSectionHeight() - initialHeight
 
 compressSectionHeight = ->
   420
 
-expandSection = (section) ->
-  setCompressedSectionClass(section, "hide")
-  window.updateTileVisibilityIn("draft")
-  section.css "margin-bottom", (compressSectionMargin(section) + "px")
+moveBottomBoundOfSection = (height) ->
+  section().css "margin-bottom", height
 
-  startProgress = parseInt section.css("margin-bottom")
-  animateSectionSliding(section, -startProgress, startProgress, "down")
+makeVisibleAllDraftTilesButHideThem = ->
+  setCompressedSectionClass("hide")
+  moveBottomBoundOfSection compressSectionMargin() + "px"
 
-animateSectionSliding = (section, stepsNum, startProgress, direction = "down") ->
-  setCompressedSectionClass(section, "show")
+expandSection = ->
+  makeVisibleAllDraftTilesButHideThem()
+  startProgress = parseInt section().css("margin-bottom")
+  animateSectionSliding -startProgress, startProgress, "down"
 
-  section.addClass("counting")
+animateSectionSliding = (stepsNum, startProgress, direction = "down") ->
+  section().addClass("counting")
   $({progressCount: 0}).animate 
     progressCount: stepsNum
   ,
     duration: 500
     easing: 'linear'
     step: (progressCount) ->
-      progressNew = startProgress
-      if direction == "down"
-        progressNew += parseInt(progressCount)
+      progressNew = if direction == "down"
+        startProgress + parseInt(progressCount)
       else
-        progressNew -= parseInt(progressCount)
+        startProgress - parseInt(progressCount)
 
-      section.css "margin-bottom", (progressNew + "px")
+      moveBottomBoundOfSection (progressNew + "px")
     complete: ->
-      section.removeClass("counting")
-      section.css "margin-bottom", ""
+      section().removeClass("counting")
+      moveBottomBoundOfSection "" # just remove current value
       if direction == "down" 
-        setCompressedSectionClass(section, "hide")
+        setCompressedSectionClass("hide")
       else
-        window.updateTileVisibilityIn("draft")
+        setCompressedSectionClass("show")
 
-
-scrollTo = (container) ->
+scrollUp = ->
   unless iOSdevice()
-    $('html, body').scrollTo(container, {duration: 500})
+    $('html, body').scrollTo section(), {duration: 500}
 
 iOSdevice = ->
   navigator.userAgent.match(/(iPad|iPhone|iPod)/g)
 
-setCompressedSectionClass = (section, action = "hide") ->
+setCompressedSectionClass = (action = "hide") ->
   if action == "hide"
-    section.removeClass compressedSectionClass()
+    section().removeClass compressedSectionClass()
   else
-    section.addClass compressedSectionClass()
+    section().addClass compressedSectionClass()
+  window.updateTileVisibilityIn("draft")
 
-sectionIsCompressed = (section) ->
-  section.hasClass compressedSectionClass()
+sectionIsCompressed = ->
+  section().hasClass compressedSectionClass()
 
 compressedSectionClass = ->
   "compressed_section"
 
 window.expandDraftSection = ->
-  section = $("#draft_tiles")
-  compressSection section
+  compressSection()
 
   $(".all_draft").click (e) ->
     e.preventDefault()
-    section = $("#draft_tiles")
-    if sectionIsCompressed section
-      expandSection section
+    if sectionIsCompressed()
+      expandSection()
       $(this).text("Minimize")
     else
-      compressSection section, true
+      compressSection true
       $(this).text("Show all")

@@ -203,9 +203,12 @@ window.dragAndDropTiles = ->
     updateTileVisibilityIn "draft"
     updateTileVisibilityIn "archive"
 
+  draftSectionIsCompressed = ->
+    $("#draft_tiles").hasClass "compressed_section"
+
   visibleTilesNumberIn = (section) ->
     if section == "draft"
-      if $("#draft_tiles").hasClass "compressed_section"
+      if draftSectionIsCompressed()
         4
       else
         9999

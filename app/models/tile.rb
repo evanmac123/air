@@ -327,10 +327,10 @@ class Tile < ActiveRecord::Base
 
   def self.find_additional_tiles_for_manage_section(status_name, presented_ids, tile_demo_id)
     ids = presented_ids || []
-    needs_tiles = if status_name == ACTIVE
+    needs_tiles = if status_name == ACTIVE || status_name == DRAFT
                     0
                   else 
-                    ids.count >= 8 ? 0 : (8 - ids.count)
+                    ids.count >= 4 ? 0 : (4 - ids.count)
                   end
     return [] if needs_tiles == 0
 
