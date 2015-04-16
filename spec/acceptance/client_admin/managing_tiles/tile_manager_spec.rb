@@ -237,7 +237,7 @@ feature 'Client admin and tile manager page' do
     expect_mixpanel_action_ping('Tiles Page', 'Clicked Add New Tile')
   end
 
-  it "pads odd rows, in both the inactive and active sections, with blank placeholder cells, so the table comes out right" do
+  it "pads odd rows, in both the inactive and active sections, with blank placeholder cells, so the table comes out right", js: true do
     visit_tile_manager_page
     expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
 
@@ -259,18 +259,12 @@ feature 'Client admin and tile manager page' do
     expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
     expect_draft_tile_placeholders(0)
 
-    FactoryGirl.create(:tile, :draft, demo: admin.demo)
-    visit_tile_manager_page
-    expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
-    expect_draft_tile_placeholders(3)
-
-    4.times { FactoryGirl.create(:tile, :draft, demo: admin.demo) }
-
-    # There's now the creation placeholder, plus eight other draft tiles.
+     # There's now the creation placeholder, plus 4 other draft tiles.
     # If we DID show all of them, there's be an odd row with 1 tile, and we'd
-    # expect 3 placeholders. But we only show the first 8 draft tiles
-    # (really the first 7 + creation placeholder) and those two rows are full 
+    # expect 3 placeholders. But we only show the first 4 draft tiles
+    # (really the first 3 + creation placeholder) and those two rows are full 
     # now, so...
+    FactoryGirl.create(:tile, :draft, demo: admin.demo)
     visit_tile_manager_page
     expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
     expect_draft_tile_placeholders(0)

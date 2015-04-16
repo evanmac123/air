@@ -34,7 +34,7 @@ module TileManagerHelpers
   end
 
   def expect_tile_placeholders(section_id, expected_count)
-    page.all("##{section_id} > .placeholder_container:not(.creation_placeholder)").count.should == expected_count
+    page.all("##{section_id} > .placeholder_container:not(.creation_placeholder)", visible: true).count.should == expected_count
   end
 
   def expect_inactive_tile_placeholders(expected_count)
