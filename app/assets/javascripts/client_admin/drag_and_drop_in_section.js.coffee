@@ -25,8 +25,5 @@ window.dragAndDropInSection = ->
 
   saveUrl = (id) ->
     section_name = $(".manage_section").attr("id")
-    if section_name == "archive"
-      url_section_name = "inactive_tiles"
-    else
-      url_section_name = "draft_tiles"
+    url_section_name = "inactive_tiles"
     '/client_admin/' + url_section_name + '/' + id + '/sort'
