@@ -2,11 +2,12 @@ section = ->
   $("#draft_tiles")
 
 compressSection = (animate = false) ->
-  unless animate
-    setCompressedSectionClass("show")
-  else
+  if animate
+    # two simultaneous actions
     scrollUp()
     animateSectionSliding -compressSectionMargin(), 0 , "up"
+  else
+    setCompressedSectionClass("add")
 
 compressSectionMargin = ->
   initialHeight = section().outerHeight()
@@ -19,7 +20,7 @@ moveBottomBoundOfSection = (height) ->
   section().css "margin-bottom", height
 
 makeVisibleAllDraftTilesButHideThem = ->
-  setCompressedSectionClass("hide")
+  setCompressedSectionClass("remove")
   moveBottomBoundOfSection compressSectionMargin() + "px"
 
 expandSection = ->
@@ -45,9 +46,9 @@ animateSectionSliding = (stepsNum, startProgress, direction = "down") ->
       section().removeClass("counting")
       moveBottomBoundOfSection "" # just remove current value
       if direction == "down" 
-        setCompressedSectionClass("hide")
+        setCompressedSectionClass("remove")
       else
-        setCompressedSectionClass("show")
+        setCompressedSectionClass("add")
 
 scrollUp = ->
   unless iOSdevice()
@@ -56,8 +57,8 @@ scrollUp = ->
 iOSdevice = ->
   navigator.userAgent.match(/(iPad|iPhone|iPod)/g)
 
-setCompressedSectionClass = (action = "hide") ->
-  if action == "hide"
+setCompressedSectionClass = (action = "remove") ->
+  if action == "remove"
     section().removeClass compressedSectionClass()
   else
     section().addClass compressedSectionClass()
