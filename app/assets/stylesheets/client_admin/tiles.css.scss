@@ -221,6 +221,7 @@ body.client_admin-draft_tiles {
     position: relative;
     padding: 1.65em;
     background: $off-white;
+    height: 75px;
     .all_draft {
       @include light-button($med-gray);
       font-size: 12px;

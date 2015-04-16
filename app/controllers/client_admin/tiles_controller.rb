@@ -192,7 +192,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def show_more_draft_tiles
-    @demo.draft_tiles.count > 7
+    @demo.draft_tiles.count > 3
   end
 
   def load_image_library

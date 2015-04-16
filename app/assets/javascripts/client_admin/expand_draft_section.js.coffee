@@ -13,7 +13,7 @@ compressSectionMargin = ->
   cutHeight = compressSectionHeight() - initialHeight
 
 compressSectionHeight = ->
-  420
+  448
 
 moveBottomBoundOfSection = (height) ->
   section().css "margin-bottom", height

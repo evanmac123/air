@@ -58,8 +58,8 @@ feature 'Client admin drags and drops tiles' do
 
   shared_examples_for "Tile is loaded after drag and drop if needed" do |section1, section2|
     scenario "After moving tile from #{section1} to #{section2}", js: true do
-      create_tiles_for_sections section1 => 9, section2 => 1
-      i1 = section1 == "draft" ? 6 : 7
+      create_tiles_for_sections section1 => 5, section2 => 1
+      i1 = 3
       i2 = 0
       tiles1 = demo.send(:"#{section1}_tiles").to_a
       tiles2 = demo.send(:"#{section2}_tiles").to_a
@@ -81,12 +81,11 @@ feature 'Client admin drags and drops tiles' do
 
     it_should_behave_like "Moves tile between sections", "active",  7, 2, "draft",   2, 1
     it_should_behave_like "Moves tile between sections", "active",  6, 4, "archive", 2, 1
-    it_should_behave_like "Moves tile between sections", "archive", 7, 3, "draft",   2, 1
-    it_should_behave_like "Moves tile between sections", "archive", 7, 2, "active",  3, 2
+    it_should_behave_like "Moves tile between sections", "archive", 4, 3, "draft",   2, 1
+    it_should_behave_like "Moves tile between sections", "archive", 4, 2, "active",  3, 2
 
     it_should_behave_like "Tile is loaded after drag and drop if needed", "archive", "active"
     it_should_behave_like "Tile is loaded after drag and drop if needed", "archive", "draft"
-    it_should_behave_like "Tile is loaded after drag and drop if needed", "draft", "archive"
   
     context "Move Confirmation Modal when user moves tile from archive to active" do
       before do
