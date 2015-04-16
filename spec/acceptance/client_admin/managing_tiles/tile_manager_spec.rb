@@ -330,26 +330,6 @@ feature 'Client admin and tile manager page' do
     expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
     expect_inactive_tile_placeholders(0)
 
-    # And now let's look at the full megillah of draft tiles
-    visit client_admin_draft_tiles_path
-    expect_draft_tile_placeholders(3)
-
-    Tile.draft.last.destroy
-    visit client_admin_draft_tiles_path
-    expect_draft_tile_placeholders(0)
-
-    Tile.draft.last.destroy
-    visit client_admin_draft_tiles_path
-    expect_draft_tile_placeholders(1)
-
-    Tile.draft.last.destroy
-    visit client_admin_draft_tiles_path
-    expect_draft_tile_placeholders(2)
-
-    Tile.draft.last.destroy
-    visit client_admin_draft_tiles_path
-    expect_draft_tile_placeholders(3)
-
     # And now let's look at the full megillah of archived tiles
     visit client_admin_inactive_tiles_path
     expect_inactive_tile_placeholders(3)

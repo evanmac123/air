@@ -136,11 +136,6 @@ feature 'Client admin drags and drops tiles' do
     end
   end
 
-  context "Moves tiles on Draft Tiles Page" do
-    before(:each) { visit client_admin_draft_tiles_path }
-    it_should_behave_like "Moves tile in one section", "draft", 3, 1, 0
-  end
-
   context "Moves tiles on Inactive Tiles Page" do
     before(:each) { visit client_admin_inactive_tiles_path }
     it_should_behave_like "Moves tile in one section", "archive", 4, 0, 2
