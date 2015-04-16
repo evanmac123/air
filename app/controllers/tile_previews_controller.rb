@@ -98,6 +98,7 @@ class TilePreviewsController < ApplicationController
       mark_user_share_link_intro_seen!
     end
 
+    # show_voteup_intro = show_share_link_intro = true
     TilePreviewIntrosPresenter.new([
       ['like-button', "Like a tile? Vote it up to give the creator positive feedback.", show_voteup_intro],
       ['share_bar',   "Want to share a tile? Email it using the email icon. Or, share to your social networks using the LinkedIn icon or copying the link.", show_share_link_intro]

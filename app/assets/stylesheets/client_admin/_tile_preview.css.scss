@@ -1,4 +1,3 @@
-@import "mixins/intro_button_to_app_button";
 @import './internal/large_tile_viewer_desktop';
 body.client_admin-tiles-show{
   .switch{
@@ -355,18 +354,5 @@ body.client_admin-tiles-show{
 body.tile_previews.tile_previews-show, body.client_admin-tiles-show{
   .tile_preview_intro {
     padding-top: 1.0em;
-
-    .introjs-skipbutton {
-      @include intro-button-to-app-button($sky-blue, 0.9rem);
-    }
-
-    .introjs-tooltiptext {
-      line-height: 1.3rem;
-    }
-
-    .introjs-prevbutton, .introjs-nextbutton {
-      @include intro-button-to-app-button($sky-blue, 0.7rem);
-      margin-left: 0.1rem;
-    }
   }
 }

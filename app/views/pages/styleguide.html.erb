@@ -222,6 +222,20 @@
     </div>
   </section>
 
+  <section class="intro-js">
+    <h5>Intro JS</h5>
+    <div class="large-12 columns large-centered">
+      <div class="example row">
+        <%= content_tag :section, data: {intro: "This turns on intro js", "step-name" => "button", step: 1} do %>
+          <%=  link_to "Turn on Intro JS", '#', id: "turn-on-intro-js", class: "big_button"%>
+        <% end %>
+        <section>
+          <%= text_field_tag :url, "http://usablica.github.io/intro.js/", data: {intro: "This is link to library and demos. We are using gem 'introjs-rails' for it.", "step-name" => "link", step: 2} %>
+        </section>
+      </div>
+    </div>
+  </section>
+
   <section class="dividers">
     <h5>Dividers</h5>
     <div class="row editorial_divider">

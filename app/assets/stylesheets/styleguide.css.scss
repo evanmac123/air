@@ -3,6 +3,7 @@
 @import "./mixins/main_styles.css.scss";
 @import "./mixins/green_paddle_switch.css.scss";
 @import "font-awesome";
+@import "introjs";
 
 section:after{@include clear;}
 .row section {margin:2em auto;}
@@ -92,6 +93,9 @@ form{
     @include input-with-fix($type: pre, $width: 70%);
     width: 400px;
   }
+}
+input[type="text"] {
+  width: 100%;
 }
 .sections{
   .example_section{
