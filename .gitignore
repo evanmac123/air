@@ -59,3 +59,4 @@ user_failuers
 .ruby-gemset
 erd.pdf
 license_notes
+doc/*.svg
