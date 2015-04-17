@@ -2,54 +2,37 @@
 <% completed_tiles ||= nil %>
 <% tags ||= [] %>
 <% selected_tag_id ||= nil %>
+<% tiles_length =  not_completed_tiles.length + completed_tiles.length %>
 
-<% 
-if not_completed_tiles.present? && completed_tiles.present?
-  tiles_length = not_completed_tiles.length + completed_tiles.length
-elsif completed_tiles.present?
-  tiles_length = completed_tiles.length
-elsif not_completed_tiles.present?
-  tiles_length = not_completed_tiles.length
-else
-  tiles_length = 0
-end
-%>
+<div id="tile_wall">
+  <%= render 'shared/tile_tags', tags: tags %>
 
-<% if tiles_length > 0 %>
-  <div id="tile_wall">
-    <%= render 'shared/tile_tags', tags: tags %>
-
-    <div class="all_tile_thumbnails row">
-      <% if not_completed_tiles.present? %>
-        <% not_completed_tiles.each do |tile| %>
-          <div class="tile_thumbnail">
-            <div class='not-completed'>
-              <%= render 'shared/displayable_tile', displayable_tile: tile, tile_thumbnail_url: tile_thumbnail_target(tile, selected_tag_id) %>
-            </div>
+  <div class="all_tile_thumbnails row">
+    <% if not_completed_tiles.present? %>
+      <% not_completed_tiles.each do |tile| %>
+        <div class="tile_thumbnail">
+          <div class='not-completed'>
+            <%= render 'shared/displayable_tile', displayable_tile: tile, tile_thumbnail_url: tile_thumbnail_target(tile, selected_tag_id) %>
           </div>
-        <% end %>
-      <% end %>       
-      <% if completed_tiles.present? %>
-        <% completed_tiles.each do |tile| %>
-          <div class="tile_thumbnail">
-            <div class='completed'>
-              <%= render 'shared/displayable_tile', displayable_tile: tile, tile_thumbnail_url: tile_thumbnail_target(tile, selected_tag_id) %>
-           </div>
-          </div>
-        <% end %>
-      <% end %>       
-      <% odd_row_length = tiles_length % tile_row_size %>
-      <% if odd_row_length != 0 %>
-        <% (tile_row_size - odd_row_length).times do %>
-          <div class='placeholder_tile tile_thumbnail'></div>
-        <% end %>
+        </div>
       <% end %>
-      <span id="justifier" style="visibility:hidden; width:35%; display:inline-block;">&nbps;</span>
-      <%= render 'shared/tiles_wall_client_admin_tools', disable_button: all_tiles_displayed %>
-    </div>
+    <% end %>       
+    <% if completed_tiles.present? %>
+      <% completed_tiles.each do |tile| %>
+        <div class="tile_thumbnail">
+          <div class='completed'>
+            <%= render 'shared/displayable_tile', displayable_tile: tile, tile_thumbnail_url: tile_thumbnail_target(tile, selected_tag_id) %>
+         </div>
+        </div>
+      <% end %>
+    <% end %>       
+    <% odd_row_length = tiles_length % tile_row_size %>
+    <% if odd_row_length != 0 || @no_tiles_to_do %>
+      <% (tile_row_size - odd_row_length).times do %>
+        <div class='placeholder_tile tile_thumbnail'></div>
+      <% end %>
+    <% end %>
+    <span id="justifier" style="visibility:hidden; width:35%; display:inline-block;">&nbps;</span>
+    <%= render 'shared/tiles_wall_client_admin_tools', disable_button: all_tiles_displayed %>
   </div>
-<% else %>
-  <div id="tile_wall"><div class="all_tile_thumbnails row">
-    <span class="no_tiles_message"><%= done_all_tiles_message %></span>
-  </div></div>
-<% end %>
+</div>

@@ -83,14 +83,6 @@ module ApplicationHelper
     request.env['mobvious.device_type'] == :desktop
   end
 
-  def done_all_tiles_message
-    if @no_tiles_to_do
-      "There aren't any tiles available at this time. Check back later for more."
-    else
-      "You've completed all available tiles! Check back later for more."
-    end
-  end
-
   def tile_thumbnail_target(tile, selected_tag_id = nil)
     # It would have been much neater to deal with this via inheritance.
     # Too bad you can't inherit views, and doing it with helpers didn't seem
