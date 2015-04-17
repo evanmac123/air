@@ -1182,7 +1182,9 @@ class User < ActiveRecord::Base
   end
 
   def normalized_new_phone_number_not_taken_by_board
-    num =  PhoneNumber.normalize(new_phone_number)
+    num = PhoneNumber.normalize(new_phone_number)
+    return unless num.present?
+
     found = Demo.find_by_phone_number(num)
     if found
       self.errors.add(:new_phone_number, TAKEN_PHONE_NUMBER_ERR_MSG) 
