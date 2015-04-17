@@ -93,11 +93,19 @@ feature "User sets their mobile number on settings page" do
     expect_validation_field_not_visible
   end
 
+
+
+
   context "when the user is in a board with a custom phone number" do
     before do
       demo = user.demo
       demo.phone_number = "+18089871234"
       demo.save!
+    end
+
+    it "prevents user from setting board number as own" do
+      set_new_number(user.demo.phone_number)
+      expect(page).to have_content("Sorry, but that phone number has already been taken. Need help? Contact support@airbo.com")
     end
 
     it "should send the validation SMS from that number" do

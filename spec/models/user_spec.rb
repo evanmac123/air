@@ -48,12 +48,14 @@ describe User do
     user3 = FactoryGirl.build :user, :phone_number => '+14152613077'
     user4 = FactoryGirl.build :user, :phone_number => ''
     user5 = FactoryGirl.build :user, :phone_number => "(415) 261-3077"
+    user6 = FactoryGirl.build :user, :new_phone_number => FactoryGirl.create(:demo, phone_number: "+12125551212").phone_number
 
     user1.should be_valid
     user2.should be_valid
     user3.should_not be_valid
     user4.should be_valid
     user5.should_not be_valid
+    user6.should_not be_valid
 
     user3.errors[:phone_number].should == ["Sorry, but that phone number has already been taken. Need help? Contact support@airbo.com"]
   end

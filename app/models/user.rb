@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   FIELDS_TRIGGERING_SEGMENTATION_UPDATE = %w(characteristics points location_id date_of_birth gender demo_id accepted_invitation_at last_acted_at phone_number email)
 
   MISSING_AVATAR_PATH = "/assets/avatars/thumb/missing.png"
+  TAKEN_PHONE_NUMBER_ERR_MSG = "Sorry, but that phone number has already been taken. Need help? Contact support@airbo.com" 
 
   include Clearance::User
   include User::Segmentation
@@ -45,7 +46,7 @@ class User < ActiveRecord::Base
   has_one    :demo, through: :current_board_membership
   has_one    :original_guest_user, :class_name => "GuestUser", :foreign_key => :converted_user_id, :inverse_of => :converted_user
   has_one    :billing_information
-  validate :normalized_phone_number_unique, :normalized_new_phone_number_unique
+  validate :normalized_phone_number_unique, :normalized_new_phone_number_unique, :normalized_new_phone_number_not_taken_by_board
   validate :new_phone_number_has_valid_number_of_digits
   validate :sms_slug_does_not_match_commands 
   validate :date_of_birth_in_the_past
@@ -1176,7 +1177,18 @@ class User < ActiveRecord::Base
                          ["phone_number = ? AND id != ?", normalized_number, self.id]
                        end
     if self.class.where(where_conditions).limit(1).present?
-      self.errors.add(input, "Sorry, but that phone number has already been taken. Need help? Contact support@airbo.com")
+      self.errors.add(input, TAKEN_PHONE_NUMBER_ERR_MSG)
+    end
+  end
+
+  def normalized_new_phone_number_not_taken_by_board
+    num =  PhoneNumber.normalize(new_phone_number)
+    found = Demo.find_by_phone_number(num)
+    if found
+      self.errors.add(:new_phone_number, TAKEN_PHONE_NUMBER_ERR_MSG) 
+      return false
+    else
+      true
     end
   end
 
