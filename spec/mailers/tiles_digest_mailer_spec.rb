@@ -14,8 +14,8 @@ describe 'Digest email' do
   let(:unclaimed_user) { FactoryGirl.create :user,         demo: demo, name: 'Irma Thomas',   email: 'irma@thomas.com'   }
 
   let(:tile_ids) do
-    create_tile headline: 'Phil Kills Kittens',        status: Tile::ACTIVE, activated_at: Time.now, supporting_content: '6 kittens were killed'
-    create_tile headline: 'Phil Knifes Kittens',       status: Tile::ACTIVE, activated_at: Time.now, supporting_content: '66 kittens were knifed'
+    create_tile headline: 'Phil Kills Kittens',        status: Tile::ACTIVE, activated_at: Time.now, supporting_content: '6 kittens were killed', link_address: "http://www.google.com"
+    create_tile headline: 'Phil Knifes Kittens',       status: Tile::ACTIVE, activated_at: Time.now, supporting_content: '66 kittens were knifed', link_address: "https://www.nsa.gov"
     create_tile headline: 'Phil Kannibalizes Kittens', status: Tile::ACTIVE, activated_at: Time.now, supporting_content: '666 kittens were kannibalized'
 
     create_tile headline: "Archive Tile", status: Tile::ARCHIVE  # This guy shouldn't show up in the email
@@ -130,6 +130,28 @@ describe 'Digest email' do
       it { should have_body_text '6 kittens were killed' }
       it { should have_body_text '66 kittens were knifed' }
       it { should have_body_text '666 kittens were kannibalized' }
+    end
+  end
+
+  describe "Link" do
+    context "original digest email should not display the tile's link" do
+      subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "New Tiles", false, nil, nil) }
+
+      it { should_not have_link 'http://www.google.com' }
+      it { should_not have_selector "a[href *= 'http://www.google.com']" }
+
+      it { should_not have_link 'https://www.nsa.gov' }
+      it { should_not have_selector "a[href *= 'https://www.nsa.gov']" }
+    end
+
+    context "follow-up digest email should display the tile's link if present" do
+      subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "Don't Miss Your New Tiles", true, nil, nil) }
+
+      it { should have_link 'http://www.google.com' }
+      it { should have_selector "a[href *= 'http://www.google.com']" }
+
+      it { should have_link 'https://www.nsa.gov' }
+      it { should have_selector "a[href *= 'https://www.nsa.gov']" }
     end
   end
 
