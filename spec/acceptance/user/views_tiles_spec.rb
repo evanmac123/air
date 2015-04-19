@@ -1,10 +1,6 @@
 require 'acceptance/acceptance_helper'
 
 feature 'User views tile' do
-  def no_tiles_message
-    "There aren't any tiles available at this time. Check back later for more."
-  end
-
   def click_next_button
     page.find('#next').click
   end
@@ -57,10 +53,6 @@ feature 'User views tile' do
       end
     end
 
-    it "should not show the no-content message" do
-      expect_no_content no_tiles_message
-    end
-
     it "should ping", js: true do
       FakeMixpanelTracker.clear_tracked_events
       visit tiles_path
@@ -92,12 +84,12 @@ feature 'User views tile' do
   end
 
   context "when there are no tiles to be seen" do
-    it "should have a helpful message" do
+    it "should show 4 placeholders" do
       user = FactoryGirl.create(:user, :claimed)
       user.demo.tiles.should be_empty
 
       visit activity_path(as: user)
-      expect_content no_tiles_message
+      page.all(".placeholder_tile.tile_thumbnail").count.should == 4
     end
   end
 end

@@ -2,7 +2,7 @@
 <% completed_tiles ||= nil %>
 <% tags ||= [] %>
 <% selected_tag_id ||= nil %>
-<% tiles_length =  not_completed_tiles.length + completed_tiles.length %>
+<% tiles_length =  not_completed_tiles.try(:length).to_i + completed_tiles.try(:length).to_i %>
 
 <div id="tile_wall">
   <%= render 'shared/tile_tags', tags: tags %>
