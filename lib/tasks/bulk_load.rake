@@ -19,7 +19,7 @@ task :bulk_load, [:bucket, :object_key, :demo_id, :unique_id, :schema] => :envir
   unique_id_index = schema.find_index(unique_id.to_s)
 
   puts "SCHEMA IS #{schema.inspect}"
-  chopper = BulkLoad::S3LineChopper.new(bucket, object_key, unique_id_index)
+  chopper = BulkLoad::S3CensusChopper.new(bucket, object_key, unique_id_index)
   puts "Preparing to chop the file at #{bucket}/#{object_key} into Redis."
   chopper.feed_to_redis
 
