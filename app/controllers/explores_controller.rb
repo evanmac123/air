@@ -50,8 +50,7 @@ class ExploresController < ClientAdminBaseController
       offset(offset).
       includes(:creator).
       includes(:tile_tags).
-      includes(:user_tile_likes).
-      includes(:user_tile_copies)
+      includes(:demo)
   end
 
   def set_all_tiles_displayed

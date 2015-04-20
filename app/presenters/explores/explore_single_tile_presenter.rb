@@ -73,7 +73,7 @@ class ExploreSingleTilePresenter
 
   def truncated_client_or_board_name
     @truncated_client_or_board_name ||= begin
-      name_to_truncate = tile.demo.client_name.present? ? tile.demo.client_name : tile.demo.name
+      name_to_truncate = board.client_name.present? ? board.client_name : board.name
       truncate(name_to_truncate, length: 22)
     end
   end
@@ -99,8 +99,8 @@ class ExploreSingleTilePresenter
   end
 
   def board_name
-    @board_name ||= if !tile.demo.nil? && tile.demo.name?
-                      tile.demo.name
+    @board_name ||= if !board.nil? && board.name?
+                      board.name
                     else
                       ''
                     end
@@ -117,7 +117,7 @@ class ExploreSingleTilePresenter
   def cache_key
     @cache_key ||= [
       self.class.to_s, 
-      'v4.pwd',
+      'v5.pwd',
       tile_id, 
       copy_link_text, 
       copy_count, 
@@ -167,5 +167,9 @@ class ExploreSingleTilePresenter
 
   def via_subject_or_thumbnail
     tile_tag ? :via_explore_page_subject_tag : :via_explore_page_thumbnail
+  end
+
+  def board
+    @board ||= tile.demo
   end
 end
