@@ -17,7 +17,7 @@ class BulkLoad::UserCreatorFromCsv
       add_column! column_name, value, new_user_attributes
     end
 
-    user = @demo.users.where(@unique_id_field => user_data[@unique_id_index]).first
+    user = find_existing_user(user_data[@unique_id_index])
 
     if user
       # Have to ditch the board_memberships join to make this record writeable
@@ -67,10 +67,10 @@ class BulkLoad::UserCreatorFromCsv
   end
 
   def normalize_value(column_name, value)
-    case column_name
-    when 'date_of_birth'
+    case column_name.to_sym
+    when :date_of_birth
       Chronic.parse(value).try(:to_date)
-    when 'gender'
+    when :gender
       case value.downcase.first
       when 'm'
         'male'
@@ -79,8 +79,10 @@ class BulkLoad::UserCreatorFromCsv
       when 'o'
         'other'
       end
-    when 'location_name'
+    when :location_name
       existing_or_new_location_id(value)
+    when :email
+      value.downcase.strip
     else
       value
     end
@@ -106,5 +108,10 @@ class BulkLoad::UserCreatorFromCsv
     end
 
     result
+  end
+
+  def find_existing_user(unique_id)
+    normalized_unique_id = normalize_value(@unique_id_field, unique_id)
+    @demo.users.where(@unique_id_field => normalized_unique_id).first
   end
 end

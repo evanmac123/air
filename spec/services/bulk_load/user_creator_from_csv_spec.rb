@@ -147,6 +147,22 @@ describe BulkLoad::UserCreatorFromCsv do
       user.location.should == demo.locations.first
     end
 
+    context "when using email as the unique ID" do
+      it "should downcase email in the input before trying to locate a user based on it" do
+        user = FactoryGirl.create(:user, name: "John Q. Doe", email: "john@doe.com")
+        user.add_board(demo)
+        demo.users.count.should == 1
+
+        creator = BulkLoad::UserCreatorFromCsv.new(demo.id, basic_schema, :email, 1)
+        creator.create_user(CSV.generate_line(["John Doe", 'John@DoE.cOm']))
+
+        demo.users.count.should == 1
+        found_user = demo.users.first
+        found_user.name.should == 'John Doe'
+        found_user.email.should == 'john@doe.com'
+      end
+    end
+
     def expect_attribute_flexibility(attribute_name, attribute_value, expected_model_value)
       schema = basic_schema + [attribute_name]
       attributes = basic_attributes + [attribute_value]
