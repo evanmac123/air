@@ -38,7 +38,7 @@ end
 # This is a mock for classes that use the AWS::SDK S3 API.
 
 class MockS3
-  class MockS3Object
+  class MockS3File
     def initialize(file_path, chunk_size)
       @file_path = file_path
       @chunk_size = chunk_size
@@ -57,6 +57,20 @@ class MockS3
     end
   end
 
+  class MockS3String
+    def initialize(text)
+      @text = text
+    end
+
+    def read
+      if block_given?
+        yield @text.dup
+      else
+        @text.dup
+      end
+    end
+  end
+
   def initialize
     @objects = {}
   end
@@ -70,7 +84,11 @@ class MockS3
   end
 
   def mount_file(object_key, file_path, chunk_size = nil)
-    @objects[object_key] = MockS3Object.new(file_path, chunk_size)
+    @objects[object_key] = MockS3File.new(file_path, chunk_size)
+  end
+
+  def mount_string(object_key, text)
+    @objects[object_key] = MockS3String.new(text)
   end
 
   attr_reader :objects

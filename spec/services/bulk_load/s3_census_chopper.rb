@@ -1,17 +1,16 @@
 require 'spec_helper'
 
 describe BulkLoad::S3CensusChopper do
-  EXPECTED_OBJECT_KEY = "uploads/arbitrary_csv.csv"
-  TEST_FILE_PATH = Rails.root.join("spec/support/fixtures/arbitrary_csv.csv")
-
   before do
     mock_s3 = MockS3.install
-    mock_s3.mount_file(EXPECTED_OBJECT_KEY, TEST_FILE_PATH, 100)
+    mock_s3.mount_file(expected_object_key, test_file_path, 100)
   end
 
-  let(:chopper) {BulkLoad::S3CensusChopper.new("some_bucket", EXPECTED_OBJECT_KEY, 1)}
+  let(:expected_object_key) {"uploads/arbitrary_csv.csv"}
+  let(:test_file_path) {Rails.root.join("spec/support/fixtures/arbitrary_csv.csv")}
+  let(:chopper) {BulkLoad::S3CensusChopper.new("some_bucket", expected_object_key, 1)}
   let (:lines_to_preview) {5}
-  let(:line_count) {File.read(TEST_FILE_PATH).lines.to_a.length}
+  let(:line_count) {File.read(test_file_path).lines.to_a.length}
 
   describe "#feed_to_redis" do
     
@@ -25,7 +24,7 @@ describe BulkLoad::S3CensusChopper do
       redis = Redis.new
       redis.llen(key).should == expected_count
 
-      expected_lines = File.read(TEST_FILE_PATH).lines.to_a[0, expected_count]
+      expected_lines = File.read(test_file_path).lines.to_a[0, expected_count]
       expected_lines.each do |line|
         redis.rpop(key).should == line
       end
@@ -43,7 +42,7 @@ describe BulkLoad::S3CensusChopper do
       chopper.feed_to_redis(lines_to_preview)
       redis = Redis.new
       stored_ids = redis.smembers(chopper.redis_unique_ids_key)
-      expected_ids = CSV.parse(File.read(TEST_FILE_PATH)).map{|row| row[1]}
+      expected_ids = CSV.parse(File.read(test_file_path)).map{|row| row[1]}
       stored_ids.sort.should == expected_ids.sort
     end
 
