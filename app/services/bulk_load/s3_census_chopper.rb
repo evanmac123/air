@@ -18,4 +18,6 @@ class BulkLoad::S3CensusChopper < BulkLoad::S3LineChopper
 
     redis.set(redis_all_lines_chopped_key, "done")
   end
+
+  attr_reader :count
 end

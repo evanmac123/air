@@ -79,4 +79,11 @@ namespace :bulk_load do
       end
     end
   end
+
+  desc "Add existing users to another board in bulk, from a CSV (one user ID per line) on S3"
+  task :add_to_board, [:bucket, :object_key, :demo_id] => :environment do |task, args|
+    ensure_all_arguments(task, args, %w(bucket object_key demo_id))
+    chopper = BulkLoad::S3BoardAdditionChopper.new(args[:bucket], args[:object_key], args[:demo_id])
+    chopper.add_users_to_board
+  end
 end
