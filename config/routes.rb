@@ -272,5 +272,7 @@ Health::Application.routes.draw do
 
     resource :explore_digest, only: [:new, :create]
     resources :tile_images, only: [:create, :index, :destroy]
+    resource :bulk_upload_progress, only: [:show]
+    resource :bulk_upload_errors, only: [:show]
   end
 end

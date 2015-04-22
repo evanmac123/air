@@ -1,0 +1,7 @@
+<p><%= @load_queue_length %> records in load queue.</p>
+<p><%= @failed_load_queue_length %> records in failed load queue <%= link_to '(see errors)', admin_bulk_upload_errors_path(object_key: @object_key), {target: '_blank'} %>.</p>
+<p><%= @updated_user_count %> users updated since baseline time.</p>
+<p><%= @not_updated_user_count %> users not updated since baseline time.</p>
+<p><%= @never_attempted_dj_count %> never-attempted delayed jobs in the queue.</p>
+
+<p>Numbers may not add exactly to the total you expect because of changes taking place as we load this data.</p>

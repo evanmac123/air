@@ -117,4 +117,12 @@ module User::Queries
   def alphabetical_by_name
     order("name")
   end
+
+  def updated_since(baseline_time)
+    where("users.updated_at > ?", baseline_time)
+  end
+
+  def not_updated_since(baseline_time)
+    where("users.updated_at <= ?", baseline_time)
+  end
 end
