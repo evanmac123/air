@@ -1,4 +1,6 @@
 class EmailCommand < ActiveRecord::Base
+  UNMONITORED_MAILBOX_RESPONSE = "Sorry, you've replied to an unmonitored account. For assistance please contact support@airbo.com.".freeze
+
   include Reply
 
   belongs_to :user
@@ -33,6 +35,22 @@ class EmailCommand < ActiveRecord::Base
 
   def looks_like_autoresponder?
     AUTORESPONSE_PHRASES.any? {|autoresponse_phrase| normalized_clean_subject.include? autoresponse_phrase}
+  end
+
+  def too_soon_for_another_unmonitored_mailbox_reminder?
+    user.too_soon_for_another_unmonitored_mailbox_reminder?
+  end
+
+  def set_attributes_for_unmonitored_mailbox_response
+    transaction do
+      self.response = UNMONITORED_MAILBOX_RESPONSE
+      self.status = EmailCommand::Status::SUCCESS
+
+      user.last_unmonitored_mailbox_response_at = Time.now
+      user.save!
+
+      save!
+    end
   end
 
   def self.create_from_incoming_email(params)

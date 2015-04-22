@@ -5,7 +5,8 @@ class UnmonitoredMailboxMailer < ActionMailer::Base
 
   default reply_to: 'support@airbo.com'
 
-  def send_response(email_command)
+  def send_response(email_command_id)
+    email_command = EmailCommand.find(email_command_id)
     @response = email_command.response
     @demo = email_command.user.try(:demo)
 
