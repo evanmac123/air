@@ -305,6 +305,7 @@ GEM
       mime-types
     paperclip-meta (0.4.3)
       paperclip
+    pen-rails (0.0.4)
     pg (0.14.1)
     poltergeist (1.1.0)
       capybara (~> 2.0, >= 2.0.1)
@@ -532,6 +533,7 @@ DEPENDENCIES
   nokogiri
   paperclip (~> 3.3.0)
   paperclip-meta
+  pen-rails
   pg
   poltergeist
   quiet_assets

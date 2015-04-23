@@ -14,3 +14,5 @@ window.hedalineAndSupportingContentBuilder = ->
 
   $("#" + counterId).bind "DOMSubtreeModified", ->
     blockSubmitButton $(@)
+
+  editor = new Pen('#editor')

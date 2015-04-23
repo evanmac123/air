@@ -39,6 +39,8 @@
 //= require internal_and_external/intercom_setup
 //= require internal_and_external/contact_airbo
 //= require internal/preflight
+//= require pen
+//= require markdown
 
 $(document).ready(function() {
   $('.client_admin-users, .client_admins-show').foundation();
