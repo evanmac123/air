@@ -15,4 +15,17 @@ window.hedalineAndSupportingContentBuilder = ->
   $("#" + counterId).bind "DOMSubtreeModified", ->
     blockSubmitButton $(@)
 
-  editor = new Pen('#editor')
+  options =
+    editor: document.getElementById('supporting_content_editor'), # {DOM Element} [required]
+    list: [
+      'bold'
+      'italic'
+      'underline'
+      'insertorderedlist'
+      'insertunorderedlist'
+    ] # editor menu list
+    #class: 'pen', # {String} class of the editor,
+    #debug: false, # {Boolean} false by default
+    #textarea: '<textarea name="content"></textarea>', # fallback for old browsers
+    
+  editor = new Pen(options)

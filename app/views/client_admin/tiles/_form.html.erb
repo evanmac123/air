@@ -6,7 +6,7 @@
         <div class="tile_holder">
           <%= render 'client_admin/tiles/form/image_preview', form: f %>
           <div class="builder_content tile_builder_section">
-            <%= render 'client_admin/tiles/form/headline_and_supporting_content_fields', form: f %>
+            <%= render 'client_admin/tiles/form/headline_and_supporting_content_fields', form: f, tile: tile_builder_form.tile %>
           </div>
           <%= render 'client_admin/tiles/form/question_and_answer_section', form: f %>
         </div>
