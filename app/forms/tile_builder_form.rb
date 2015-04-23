@@ -115,7 +115,7 @@ class TileBuilderForm
     if @parameters.present?
       tile.attributes = {
         headline:                @parameters[:headline],
-        supporting_content:      @parameters[:supporting_content].try(:strip),
+        supporting_content:      Sanitize.fragment(@parameters[:supporting_content], :elements => ['ul', 'ol', 'li', 'b', 'i', 'u', 'span']).strip.html_safe,
         question:                @parameters[:question],
         link_address:            @parameters[:link_address],
         question_type:           @parameters[:question_type],

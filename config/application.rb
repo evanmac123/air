@@ -2,6 +2,7 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 require 'mobvious'
+require 'htmlentities'
 require File.expand_path(__FILE__ + '/../../app/middleware/request_timestamp')
 
 
