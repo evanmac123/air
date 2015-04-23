@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
 
   MISSING_AVATAR_PATH = "/assets/avatars/thumb/missing.png"
   TAKEN_PHONE_NUMBER_ERR_MSG = "Sorry, but that phone number has already been taken. Need help? Contact support@airbo.com" 
-  UNMONITORED_MAILBOX_RESPONSE_THRESHOLD = 3600 # seconds
+  UNMONITORED_MAILBOX_RESPONSE_THRESHOLD = ENV['UNMONITORED_MAILBOX_RESPONSE_THRESHOLD'].try(:to_i) || 3600 # seconds
 
   include Clearance::User
   include User::Segmentation
