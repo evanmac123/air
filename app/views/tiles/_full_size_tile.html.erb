@@ -25,7 +25,7 @@
     <% if tile.appears_client_created %>
       <div class="tile_texts_container">
         <div class="tile_headline"><%= tile.headline %></div>
-        <div class="tile_supporting_content"><%= tile.supporting_content %></div>
+        <div class="tile_supporting_content"><%= simple_format tile.supporting_content.strip.html_safe %></div>
         <% if tile.link_address.present? %>
           <div class="tile_external_link">
             Visit <%= link_to truncate(tile.link_address, length: 30), tile.link_address, target: '_blank' %> <%= link_to fa_icon("external-link"), tile.link_address, target: '_blank' %>
