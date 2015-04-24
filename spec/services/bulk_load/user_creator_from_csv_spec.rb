@@ -163,6 +163,82 @@ describe BulkLoad::UserCreatorFromCsv do
       end
     end
 
+    shared_examples_for "ignoring a match in another board" do
+      it "should not add that user to this board" do
+        @other_user.reload.demo_ids.should have(1).board_id
+        @other_user.demo_ids.first.should_not == demo.id
+      end
+
+      it "should not try to update that user" do
+        @other_user.reload
+        @other_user.name.should == 'John Doe'
+        @other_user.email.should == 'john@doe.com'
+        @other_user.employee_id.should == '12345'
+      end
+
+      it "should try to create a separate user in the board we're loading into" do
+        new_user = demo.users.find_by_employee_id('12345')
+        new_user.demo_ids.should == [demo.id]
+        new_user.name.should == 'John Smith'
+        new_user.email.should == 'john@smith.com'
+        new_user.employee_id.should == '12345'
+      end
+    end
+
+    context "when there is a user matching that unique ID in another board" do
+      before do
+        @other_user = FactoryGirl.create(:user, name: "John Doe", email: "john@doe.com", employee_id: '12345')
+
+        @schema = %w(name email employee_id)
+        @csv = CSV.generate_line(["John Smith", "john@smith.com", "12345"])
+      end
+
+      context "by default" do
+        before do
+          creator = BulkLoad::UserCreatorFromCsv.new(demo.id, @schema, :employee_id, 2)
+          creator.create_user(@csv)
+        end
+
+        it_should_behave_like "ignoring a match in another board"
+      end
+
+      context "when we have a list of alternate board IDs, but that user isn't in one of them" do
+        before do
+          other_boards = FactoryGirl.create_list(:demo, 3)
+          other_board_ids = other_boards.map(&:id)
+          creator = BulkLoad::UserCreatorFromCsv.new(demo.id, @schema, :employee_id, 2, other_board_ids)
+          creator.create_user(@csv)
+        end
+
+        it_should_behave_like "ignoring a match in another board"
+      end
+
+      context "when we have a list of alternate board IDs, and that user is in one of them" do
+        before do
+          other_boards = FactoryGirl.create_list(:demo, 3)
+          other_board_ids = other_boards.map(&:id) + @other_user.demo_ids
+          creator = BulkLoad::UserCreatorFromCsv.new(demo.id, @schema, :employee_id, 2, other_board_ids)
+          creator.create_user(@csv)
+        end
+
+        it "should add them to the board we're loading into" do
+          @other_user.reload.demo_ids.should have(2).ids
+          @other_user.demo_ids.should include(demo.id)
+        end
+
+        it "should update them" do
+          @other_user.reload
+          @other_user.name.should == 'John Smith'
+          @other_user.email.should == 'john@smith.com'
+          @other_user.employee_id.should == '12345'
+        end
+
+        it "should not try to create a separate user" do
+          demo.user_ids.should include(@other_user.id)
+        end
+      end
+    end
+
     def expect_attribute_flexibility(attribute_name, attribute_value, expected_model_value)
       schema = basic_schema + [attribute_name]
       attributes = basic_attributes + [attribute_value]

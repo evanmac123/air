@@ -1,12 +1,13 @@
 require 'csv'
 
 class BulkLoad::UserCreatorFromCsv
-  def initialize(demo_id, schema, unique_id_field, unique_id_index)
+  def initialize(demo_id, schema, unique_id_field, unique_id_index, related_board_ids = [])
     @demo_id = demo_id
     @demo = Demo.find(@demo_id)
     @schema = schema
     @unique_id_field = unique_id_field
     @unique_id_index = unique_id_index
+    @related_board_ids = related_board_ids
   end
 
   def create_user(csv_line)
@@ -24,6 +25,7 @@ class BulkLoad::UserCreatorFromCsv
       user = User.find(user.id)
       user.attributes = clean_attributes_for_existing_user(user, new_user_attributes)
       user.save
+      user.add_board(@demo_id)
       user.schedule_segmentation_update(true)
     else
       user = User.create(new_user_attributes)
@@ -112,6 +114,12 @@ class BulkLoad::UserCreatorFromCsv
 
   def find_existing_user(unique_id)
     normalized_unique_id = normalize_value(@unique_id_field, unique_id)
-    @demo.users.where(@unique_id_field => normalized_unique_id).first
+    where_conditions = {@unique_id_field => normalized_unique_id}
+
+    user_in_target_board = @demo.users.where(where_conditions).first
+    return user_in_target_board if user_in_target_board.present?
+
+    return nil if @related_board_ids.empty?
+    User.where(where_conditions).joins(:board_memberships).where("board_memberships.demo_id" => @related_board_ids).first
   end
 end

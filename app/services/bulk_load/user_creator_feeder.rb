@@ -4,12 +4,13 @@ class BulkLoad::UserCreatorFeeder
 
   attr_reader :object_key
 
-  def initialize(object_key, demo_id, schema, unique_id_field, unique_id_index)
+  def initialize(object_key, demo_id, schema, unique_id_field, unique_id_index, related_board_ids = [])
     @object_key = object_key
     @demo_id = demo_id
     @schema = schema
     @unique_id_field = unique_id_field
     @unique_id_index = unique_id_index
+    @related_board_ids = related_board_ids
     @line_index = 0
 
     if @schema.kind_of?(String)
@@ -41,7 +42,7 @@ class BulkLoad::UserCreatorFeeder
 
   def user_creator
     unless @_user_creator
-      @_user_creator = BulkLoad::UserCreatorFromCsv.new(@demo_id, @schema, @unique_id_field, @unique_id_index)
+      @_user_creator = BulkLoad::UserCreatorFromCsv.new(@demo_id, @schema, @unique_id_field, @unique_id_index, @related_board_ids)
     end
 
     @_user_creator

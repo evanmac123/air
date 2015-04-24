@@ -7,14 +7,16 @@ def ensure_all_arguments(task, args, expected_args)
 end
 
 desc "Bulk load users into a demo from a CSV uploaded to S3"
-task :bulk_load, [:bucket, :object_key, :demo_id, :unique_id, :schema] => :environment do |task, args|
+task :bulk_load, [:bucket, :object_key, :demo_id, :unique_id, :schema, :related_board_ids] => :environment do |task, args|
   ensure_all_arguments(task, args, %w(bucket object_key demo_id unique_id schema))
+  # related_board_ids is optional
 
   bucket = args[:bucket]
   object_key = args[:object_key]
   demo_id = args[:demo_id]
   unique_id = args[:unique_id]
   schema = args[:schema].split('/')
+  related_board_ids = args[:related_board_ids].present? ? args[:related_board_ids].split('/') : []
 
   unique_id_index = schema.find_index(unique_id.to_s)
 
@@ -25,7 +27,7 @@ task :bulk_load, [:bucket, :object_key, :demo_id, :unique_id, :schema] => :envir
 
   puts "Chopping finished! #{chopper.count} lines loaded into Redis."
   puts "Scheduling load into demo #{demo_id}. This may take some time."
-  feeder = BulkLoad::UserCreatorFeeder.new(object_key, demo_id, schema, unique_id, unique_id_index)
+  feeder = BulkLoad::UserCreatorFeeder.new(object_key, demo_id, schema, unique_id, unique_id_index, related_board_ids)
   job = feeder.delay.feed
   puts "Job ID for feeder is #{job.id}"
 end
