@@ -26,9 +26,7 @@
       <div class="tile_texts_container">
         <div class="tile_headline"><%= tile.headline %></div>
         <div class="tile_supporting_content">
-          <%= coder = HTMLEntities.new
-              raw coder.decode(""+tile.supporting_content+"")
-          %>
+          <%= unescape_html(tile.supporting_content) %>
         </div>
         <% if tile.link_address.present? %>
           <div class="tile_external_link">

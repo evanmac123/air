@@ -115,7 +115,7 @@ class TileBuilderForm
     if @parameters.present?
       tile.attributes = {
         headline:                @parameters[:headline],
-        supporting_content:      Sanitize.fragment(@parameters[:supporting_content], :elements => ['ul', 'ol', 'li', 'b', 'i', 'u', 'span']).strip.html_safe,
+        supporting_content:      sanitized_supporting_content,
         question:                @parameters[:question],
         link_address:            @parameters[:link_address],
         question_type:           @parameters[:question_type],
@@ -140,6 +140,13 @@ class TileBuilderForm
       no_image,
       @parameters[:image_from_library]
     )
+  end
+
+  def sanitized_supporting_content
+    Sanitize.fragment(
+      @parameters[:supporting_content], 
+      elements: ['ul', 'ol', 'li', 'b', 'i', 'u', 'span']
+    ).strip
   end
   #
   # => Answers Stuff

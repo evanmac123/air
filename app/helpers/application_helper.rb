@@ -143,4 +143,9 @@ module ApplicationHelper
 
     result
   end
+
+  def unescape_html html
+    coder = HTMLEntities.new
+    raw coder.decode("" + html + "")
+  end
 end

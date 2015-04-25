@@ -16,6 +16,8 @@ class TileBuilderForm::TileValidation
         tile.errors.values
       elsif has_quiz_error?
         [quiz_error_message]
+      elsif has_too_long_supporting_content?
+        [too_long_supporting_content_error]
       else
         []
       end
@@ -46,5 +48,13 @@ class TileBuilderForm::TileValidation
   def quiz_error_message
     "For a quiz, you have to have to mark a correct answer." +
     " Click an answer in your tile to mark the correct answer"
+  end
+
+  def has_too_long_supporting_content?
+    Sanitize.fragment(tile.supporting_content).strip.length > 450
+  end
+
+  def too_long_supporting_content_error
+    "supporting content is too long (maximum is 450 characters)"
   end
 end
