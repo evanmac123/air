@@ -1,41 +1,44 @@
+contentEditorSel = ->
+  '#supporting_content_editor'
+
 contentEditor = ->
-  $('#supporting_content_editor')
+  $(contentEditorSel())
 
 contentInput = ->
   $('#tile_builder_form_supporting_content')
 
 blockSubmitButton = (counter) ->
   textLength = parseInt counter.text()
+  submitBtn = $("#publish input[type=submit]")
+  errorContainer = $(".supporting_content_error")
+
   if textLength < 0
-    $("#publish input[type=submit]").attr('disabled', 'disabled')
-    $(".supporting_content_error").show()
+    submitBtn.attr('disabled', 'disabled')
+    errorContainer.show()
   else
-    $("#publish input[type=submit]").removeAttr('disabled')
-    $(".supporting_content_error").hide()
+    submitBtn.removeAttr('disabled')
+    errorContainer.hide()
 
 updateContentInput = ->
   contentInput().val contentEditor().html()
 
-initializeContentEditor = ->
+initializeSupportingContentEditor = ->
   options =
-    editor: (contentEditor())[0], # {DOM Element} [required]
+    editor: (contentEditor())[0],
     list: [
       'bold'
       'italic'
       'underline'
       'insertorderedlist'
       'insertunorderedlist'
-    ] # editor menu list
-    #class: 'pen', # {String} class of the editor,
-    #debug: false, # {Boolean} false by default
-    #textarea: '<textarea name="content"></textarea>', # fallback for old browsers
+    ]
   editor = new Pen(options)
     
 window.hedalineAndSupportingContentBuilder = ->
   addCharacterCounterFor('#tile_builder_form_headline')
-  counterId = addCharacterCounterFor('#tile_builder_form_supporting_content')
+  counterId = addCharacterCounterFor(contentEditorSel())
   blockSubmitButton $("#" + counterId)
-  initializeContentEditor()
+  initializeSupportingContentEditor()
 
   $("#" + counterId).bind "DOMSubtreeModified", ->
     blockSubmitButton $(@)

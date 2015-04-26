@@ -35,12 +35,20 @@ function exceededMaxLength(locator, counter, leftLength){
 }
 
 function updateByteCount(from, to) {
-  currentLength = lengthInBytes($(from).val());
+  currentLength = lengthInBytes(currentText(from));
   $(to).text('' + ((maxLength(to) * 7 / 8) - currentLength) + ' bytes left');
 }
 
+function currentText(field) {
+  if( $(field).is("input") || $(field).is("textarea") ) {
+    return $(field).val();
+  } else {
+    return $(field).text();
+  }
+}
+
 function updateCharacterCount(from, to) {
-  currentLength = $(from).val().length;
+  currentLength = currentText(from).length;
   leftLength = maxLength(to) - currentLength;
   $(to).text('' + leftLength + ' characters');
   exceededMaxLength(from, to, leftLength)

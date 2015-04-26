@@ -4,10 +4,10 @@
 </div>
 <div id="tile_supporting_content" class="content_sections">
   <%= form.label :supporting_content %>
-  <div id="supporting_content_editor" class="text-input" >
+  <%= content_tag :div, id: "supporting_content_editor", class: "text-input", maxlength: 450, exceed_maxlength: true, placeholder:'Tell your users more about this topic.' do %>
   	<%= raw tile.supporting_content %>
-  </div>
-  <%= form.text_area :supporting_content, {maxlength: 450, exceed_maxlength: true, placeholder:'Tell your users more about this topic.', rows: 15} %>
+  <% end %>
+  <%= form.text_area :supporting_content, {placeholder:'Tell your users more about this topic.'} %>
 </div>
 <div id="tile_external_link" class="content_sections">
   <%= form.label :link_address, "Add a link (optional)" %>

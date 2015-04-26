@@ -163,14 +163,15 @@ body.client_admin-tiles-update {
     #supporting_content_editor {
       height: 450px;
       overflow-y: scroll;
-    }
-    #tile_builder_form_supporting_content {
-      color:$text-color;
-      font-size:1.5em;
       &.exceeded_maxlength_field {
         border-color: $red;
       }
     }
+    // #tile_builder_form_supporting_content {
+    //   color:$text-color;
+    //   font-size:1.5em;
+      
+    // }
   }
   .tile_quiz {
     .selected {
