@@ -16,7 +16,7 @@ body.client_admin-tiles-update {
     #publish input[type="submit"] {@include app-button($sky-blue);}
     #publish input[type="submit"]:disabled {@include app-button($med-gray);}
     #publish .cancel_tile_builder {@include light-button($red); float:right;}
-    input[type="text"],textarea {
+    input[type="text"],textarea, .text-input {
       border:2px lighten($light-gray, 8%) dashed;
       display: block;
       font-size:1.3em;
@@ -159,6 +159,10 @@ body.client_admin-tiles-update {
       line-height:1.15em;
       height:3.75em;
       padding:.35em;
+    }
+    #supporting_content_editor {
+      height: 450px;
+      overflow-y: scroll;
     }
     #tile_builder_form_supporting_content {
       color:$text-color;

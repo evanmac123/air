@@ -363,7 +363,7 @@ ol, ul {list-style-position:outside; list-style-type:none; margin:0; padding:0;}
 
 input[type="text"], input[type="password"],textarea,
 input[type="file"], input[type="checkbox"], input[type="radio"],
-input[type="number"], select {
+input[type="number"], select, .text-input {
   @include regular-text;
   border:$border-dark;
   box-shadow:none;
@@ -381,7 +381,8 @@ input[type="number"], select {
     transition:none;
   }
 }
-input[type="text"], input[type="password"], input[type="file"], textarea {
+input[type="text"], input[type="password"], 
+input[type="file"], textarea, .text-input {
   color: $text-color;
   border-radius: $border-radius;
   font-size: 14px;
