@@ -190,8 +190,9 @@
       // change menu offset when window resize / scroll
       addListener(ctx, root, 'resize', setpos);
       addListener(ctx, root, 'scroll', setpos);
-      // hack for our scroller. will fix later
+      // hack for our scrollers. will fix later. maybe
       addListener(ctx, $(".tile_holder_container")[0], 'scroll', setpos); 
+      addListener(ctx, $("#supporting_content_editor")[0], 'scroll', setpos); 
 
       // toggle toolbar on mouse select
       var selecting = false;
