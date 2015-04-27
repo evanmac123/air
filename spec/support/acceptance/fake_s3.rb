@@ -42,6 +42,7 @@ class MockS3
     def initialize(file_path, chunk_size)
       @file_path = file_path
       @chunk_size = chunk_size
+      @last_modified = Time.now
     end
 
     def read
@@ -55,11 +56,14 @@ class MockS3
         File.read(@file_path)
       end
     end
+
+    attr_reader :last_modified
   end
 
   class MockS3String
     def initialize(text)
       @text = text
+      @last_modified = Time.now
     end
 
     def read
@@ -69,10 +73,20 @@ class MockS3
         @text.dup
       end
     end
+
+    attr_reader :last_modified
+  end
+
+  class MockObjectCollection < Hash
+    def delete_if
+      self.select{|k, v| yield v}.each {|k,v| v.delete}
+
+      self.reject!{|k,v| yield v}
+    end
   end
 
   def initialize
-    @objects = {}
+    @objects = MockObjectCollection.new
   end
 
   def buckets
