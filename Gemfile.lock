@@ -1,10 +1,4 @@
 GIT
-  remote: https://github.com/avbrychak/pen-rails
-  revision: ef33f5c4d3c330db0bd54f25c0242278c6c13912
-  specs:
-    pen-rails (0.0.4)
-
-GIT
   remote: https://github.com/stripe/stripe-ruby
   revision: 06c860aeeac012f251807322e49eb5eeb0380a58
   specs:
@@ -547,7 +541,6 @@ DEPENDENCIES
   nokogiri
   paperclip (~> 3.3.0)
   paperclip-meta
-  pen-rails!
   pg
   poltergeist
   quiet_assets

@@ -15,6 +15,7 @@
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.form.min
 //= require ../../../vendor/assets/javascripts/client_admin/confirm_with_reveal
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.jscroll.min.js
+//= require ../../../vendor/assets/javascripts/client_admin/pen.js
 
 //= require ../../../vendor/assets/javascripts/internal/jquery.jpanelmenu.min
 //= require ../../../vendor/assets/javascripts/internal/jRespond.min
@@ -39,8 +40,6 @@
 //= require internal_and_external/intercom_setup
 //= require internal_and_external/contact_airbo
 //= require internal/preflight
-//= require pen
-//= require markdown
 
 $(document).ready(function() {
   $('.client_admin-users, .client_admins-show').foundation();
