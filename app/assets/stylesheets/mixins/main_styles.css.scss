@@ -512,6 +512,16 @@ button {
   margin:2em 0;
 }
 
+[contenteditable="true"] {
+  &:empty {
+    &:before {
+      content: attr(placeholder);
+      color: $med-gray;
+      display: block; /* For Firefox */
+    }
+  }
+}
+
 // ------------------------ * Foundation restyling * ------------------------
 .reveal-modal {
   box-shadow: none;

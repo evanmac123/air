@@ -167,11 +167,11 @@ body.client_admin-tiles-update {
         border-color: $red;
       }
     }
-    // #tile_builder_form_supporting_content {
-    //   color:$text-color;
-    //   font-size:1.5em;
-      
-    // }
+    #tile_builder_form_supporting_content {
+      color:$text-color;
+      font-size:1.5em;
+      display: none;   
+    }
   }
   .tile_quiz {
     .selected {
