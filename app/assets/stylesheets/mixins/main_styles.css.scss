@@ -193,6 +193,22 @@ $border-light:      1px #fff solid;
   .editorial_title {background:$color;}
 }
 
+@mixin with-lists() {
+  ul, ol, li {
+    list-style-position: inside;
+  }
+  ol {
+    list-style-type: decimal;
+  }
+  ul {
+    list-style-type: disc;
+  }
+  li {
+    margin-bottom: 1em;
+    line-height: 1.4;
+  }
+}
+
 // ------------------------ * Links & buttons * ------------------------
 @mixin link($color) {
   @include ease(.15s);

@@ -161,6 +161,7 @@ body.client_admin-tiles-update {
       padding:.35em;
     }
     #supporting_content_editor {
+      @include with-lists();
       height: 450px;
       overflow-y: scroll;
       &.exceeded_maxlength_field {

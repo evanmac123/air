@@ -144,6 +144,7 @@ body.tiles.tiles-index {
     padding:.5em 0;
   }
   .tile_supporting_content {
+    @include with-lists();
     color:$text-color;
     font-size:1.25em;
     line-height:1.3em;
@@ -152,15 +153,6 @@ body.tiles.tiles-index {
 
     p {
       white-space: pre-wrap;
-    }
-    ul, ol {
-      list-style-position: inside;
-    }
-    ol {
-      list-style-type: decimal;
-    }
-    ul {
-      list-style-type: disc;
     }
   }
 
