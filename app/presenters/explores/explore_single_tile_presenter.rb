@@ -5,10 +5,10 @@ class ExploreSingleTilePresenter
   include ::NewRelic::Agent::MethodTracer
 
   def initialize(tile, tile_tag, user_copied_tile, user_liked_tile)
-    @tile = tile
-    @user_copied_tile = user_copied_tile
-    @user_liked_tile = user_liked_tile
-    @tile_tag = tile_tag
+    nr_trace("ESTP -- tile") {@tile = tile}
+    nr_trace("ESTP -- UCT") {@user_copied_tile = user_copied_tile}
+    nr_trace("ESTP -- ULT") {@user_liked_tile = user_liked_tile}
+    nr_trace("ESTP -- tag") {@tile_tag = tile_tag}
   end
 
   def tile_id
@@ -171,5 +171,11 @@ class ExploreSingleTilePresenter
 
   def board
     @board ||= tile.demo
+  end
+
+  def nr_trace(tag)
+    self.class.trace_execution_scoped([tag]) do
+      yield
+    end
   end
 end
