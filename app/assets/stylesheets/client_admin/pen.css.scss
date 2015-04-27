@@ -1,10 +1,10 @@
 /*! Licensed under MIT, https://github.com/sofish/pen */
 /* FONT PATH
 /* basic reset */
-//= depend_on_asset "fontello.eot"
+/*//= depend_on_asset "fontello.eot"
 //= depend_on_asset "fontello.svg"
 //= depend_on_asset "fontello.ttf"
-//= depend_on_asset "fontello.woff"
+//= depend_on_asset "fontello.woff"*/
 .pen, .pen-menu, .pen-input, .pen textarea{font:400 1.16em/1.45 Palatino, Optima, Georgia, serif;color:#331;}
 .pen:focus{outline:none;}
 .pen fieldset, img {border: 0;}
@@ -56,11 +56,11 @@
 
 @font-face {
     font-family: 'pen';
-    src: url('<%= font_path('fontello.eol') %>');
-    src: url('<%= font_path('fontello.eot') %>') format('embedded-opentype'),
-    url('<%= font_path('fontello.woff') %>') format('woff'),
-    url('<%= font_path('fontello.ttf') %>') format('truetype'),
-    url('<%= font_path('fontello.svg') %>') format('svg');
+    src: font-url('fontello.eol');
+    src: font-url('fontello.eot') format('embedded-opentype'),
+    font-url('fontello.woff') format('woff'),
+    font-url('fontello.ttf') format('truetype'),
+    font-url('fontello.svg') format('svg');
     font-weight: normal;
     font-style: normal;
 }
