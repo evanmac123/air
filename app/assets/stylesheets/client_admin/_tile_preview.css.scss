@@ -1,4 +1,5 @@
 @import './internal/large_tile_viewer_desktop';
+@import "mixins/intro_js_restyling";
 body.client_admin-tiles-show{
   .switch{
     @include green-paddle-switch;
@@ -351,8 +352,9 @@ body.client_admin-tiles-show{
     }
   }
 }
-body.tile_previews.tile_previews-show, body.client_admin-tiles-show{
+body.tile_previews.tile_previews-show, body.client_admin-tiles-show {
   .tile_preview_intro {
     padding-top: 1.0em;
+    @include intro-js-restyling;
   }
 }

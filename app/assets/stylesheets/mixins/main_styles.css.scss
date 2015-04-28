@@ -549,22 +549,3 @@ button {
     }
   }
 }
-// ------------------------ * Intro JS restyling * ------------------------
-@import "mixins/intro_button_to_app_button";
-.introjs-tooltip {
-  .introjs-skipbutton {
-    @include intro-button-to-app-button($sky-blue, 0.9rem);
-  }
-
-  .introjs-tooltiptext {
-    line-height: 1.3rem;
-  }
-
-  .introjs-prevbutton, .introjs-nextbutton {
-    @include intro-button-to-app-button($sky-blue, 0.7rem);
-    &:focus, &:active {
-      @include intro-button-to-app-button($sky-blue, 0.7rem);
-    }
-    margin-left: 0.1rem;
-  }
-}
