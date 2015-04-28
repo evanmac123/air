@@ -194,8 +194,8 @@ $border-light:      1px #fff solid;
 }
 
 @mixin with-lists() {
-  ul, ol, li {
-    list-style-position: inside;
+  ul, ol {
+    padding-left: 40px;
   }
   ol {
     list-style-type: decimal;

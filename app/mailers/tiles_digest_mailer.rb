@@ -7,6 +7,7 @@ class TilesDigestMailer < ActionMailer::Base
 
   include EmailHelper  # Well, the 'helper' above method might include it into the view, but it don't include it in here
   include ClientAdmin::TilesHelper # and ditto
+  include ApplicationHelper
 
   layout nil#'mailer'
 
