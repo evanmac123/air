@@ -33,6 +33,13 @@ initializeSupportingContentEditor = ->
       'insertunorderedlist'
     ]
   editor = new Pen(options)
+
+isIE = ->
+  myNav = navigator.userAgent.toLowerCase()
+  if (myNav.indexOf('msie') != -1) 
+    parseInt(myNav.split('msie')[1]) 
+  else
+    false
     
 window.hedalineAndSupportingContentBuilder = ->
   addCharacterCounterFor('#tile_builder_form_headline')
@@ -45,3 +52,10 @@ window.hedalineAndSupportingContentBuilder = ->
 
   contentEditor().bind "DOMSubtreeModified", ->
     updateContentInput()
+
+  # convert pasted content to plain text. ie does it automatically
+  contentEditor().on 'paste', (e) ->
+    unless isIE()
+      e.preventDefault()
+      text = (e.originalEvent || e).clipboardData.getData('text/plain')
+      window.document.execCommand('insertText', false, text)
