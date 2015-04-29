@@ -236,6 +236,26 @@
     </div>
   </section>
 
+  <section class="pen">
+    <h5>Pen editor</h5>
+    <div class="large-12 columns large-centered">
+      <div class="example row">
+        <%= content_tag :div, id: "demo_pen_editor", class: "text-input", contenteditable: true do %>
+          <h1>This is Pen editor</h1>
+          <ol>
+            <li>Click to edit</li>
+            <li>Select to apply effect</li>
+            <li>Click items of toolbar to toggle effects</li>
+          </ol>
+          <p>
+            For more information visit: 
+            <%= link_to "http://sofish.github.io/pen/", "http://sofish.github.io/pen/" %>
+          </p>
+        <% end %>
+      </div>
+    </div>
+  </section>
+
   <section class="dividers">
     <h5>Dividers</h5>
     <div class="row editorial_divider">

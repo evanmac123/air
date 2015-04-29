@@ -5,6 +5,7 @@
 @import "font-awesome";
 @import "introjs";
 @import "mixins/intro_js_restyling";
+@import "./client_admin/pen.css.scss";
 
 section:after{@include clear;}
 .row section {margin:2em auto;}
@@ -113,4 +114,8 @@ input[type="text"] {
 }
 .introjs-tooltip {
   @include intro-js-restyling;
+}
+
+#demo_pen_editor {
+  @include with-lists;
 }
