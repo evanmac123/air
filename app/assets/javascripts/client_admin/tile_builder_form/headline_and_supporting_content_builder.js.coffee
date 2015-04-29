@@ -31,6 +31,7 @@ initializeSupportingContentEditor = ->
       'underline'
       'insertorderedlist'
       'insertunorderedlist'
+      'createlink'
     ]
   editor = new Pen(options)
 
