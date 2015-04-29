@@ -24,6 +24,7 @@ updateContentInput = ->
 
 initializeSupportingContentEditor = ->
   options =
+    #debug: true,
     editor: (contentEditor())[0],
     list: [
       'bold'
@@ -53,6 +54,7 @@ window.hedalineAndSupportingContentBuilder = ->
 
   contentEditor().bind "DOMSubtreeModified", ->
     updateContentInput()
+    $(@).find("a").attr("target", "_blank")
 
   # convert pasted content to plain text. ie does it automatically
   contentEditor().on 'paste', (e) ->

@@ -469,7 +469,7 @@
       if (url.length > autoLinkReg.maxLength) displayUrl = url.slice(0, autoLinkReg.maxLength) + '...';
       // Add http prefix if necessary
       if (!autoLinkReg.prefix.test(realUrl)) realUrl = 'http://' + realUrl;
-      return '<a href="' + realUrl + '">' + displayUrl + '</a>';
+      return '<a href="' + realUrl + '" target="blank">' + displayUrl + '</a>';
     });
     return {links: count, text: str};
   }
