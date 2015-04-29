@@ -2,12 +2,12 @@ class TilesDigestMailer < ActionMailer::Base
 
   helper :email
   helper 'client_admin/tiles'
+  helper ApplicationHelper
 
   has_delay_mail       # Some kind of monkey-patch workaround (not even sure need)
 
   include EmailHelper  # Well, the 'helper' above method might include it into the view, but it don't include it in here
   include ClientAdmin::TilesHelper # and ditto
-  include ApplicationHelper
 
   layout nil#'mailer'
 
@@ -106,5 +106,10 @@ class TilesDigestMailer < ActionMailer::Base
       "follow_new_v" => "Follow-up - v. 6/15/14",
       "explore_v_1"  => "Explore - v. 8/25/14"
     }
+  end
+
+  def unescape_html html
+    coder = HTMLEntities.new
+    raw coder.decode("" + html + "")
   end
 end
