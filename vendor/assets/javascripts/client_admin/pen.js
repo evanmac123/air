@@ -1,3 +1,5 @@
+/* Uses class_list.js to make shim for classList in ie9 */
+
 /*! Licensed under MIT, https://github.com/sofish/pen */
 (function(root, doc) {
 
@@ -171,7 +173,6 @@
 
       toggleNode(ctx._menu, true);
       doc.body.appendChild(ctx._menu);
-      //$(ctx.config.editor).after(ctx._menu);
     }
     if (ctx._toolbar && ctx._inputBar) toggleNode(ctx._inputBar);
   }
@@ -218,14 +219,17 @@
       var selecting = false;
       addListener(ctx, editor, 'mousedown', function() {
         selecting = true;
+        console.log('mousedown');
       });
       addListener(ctx, editor, 'mouseleave', function() {
         if (selecting) updateStatus(800);
         selecting = false;
+        console.log('mouseleave');
       });
       addListener(ctx, editor, 'mouseup', function() {
         if (selecting) updateStatus(100);
         selecting = false;
+        console.log('mouseup');
       });
       // Hide menu when focusing outside of editor
       outsideClick = function(e) {
@@ -512,7 +516,7 @@
     if (!editor || editor.nodeType !== 1) throw new Error('Can\'t find editor');
 
     // set default class
-    editor.classList.add(defaults.class);
+    $(editor).addClass(defaults.class);
 
     // set contenteditable
     editor.setAttribute('contenteditable', 'true');
