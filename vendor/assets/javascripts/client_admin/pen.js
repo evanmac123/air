@@ -322,6 +322,10 @@
         if (e.which === 13) return createlink();
       };
 
+      // customizing
+      $(ctx._addLinkButton).click(function() {
+        createlink();
+      });
     });
 
     // listen for placeholder
