@@ -142,6 +142,9 @@
 
   function initToolbar(ctx) {
     var icons = '', inputStr = '<input class="pen-input" placeholder="http://" />';
+    // customizing
+    addLinkButton = '<a id="add-link-pen">Add</a>';
+    inputStr += addLinkButton;
 
     ctx._toolbar = ctx.config.toolbar;
     if (!ctx._toolbar) {
@@ -162,11 +165,21 @@
       ctx._menu.setAttribute('class', ctx.config.class + '-menu pen-menu');
       ctx._menu.innerHTML = icons;
       ctx._inputBar = ctx._menu.querySelector('input');
+      // customizing
+      ctx._addLinkButton = ctx._menu.querySelector('a');
+      initAddLinkButton(ctx);
+
       toggleNode(ctx._menu, true);
       doc.body.appendChild(ctx._menu);
       //$(ctx.config.editor).after(ctx._menu);
     }
     if (ctx._toolbar && ctx._inputBar) toggleNode(ctx._inputBar);
+  }
+  // customizing
+  function initAddLinkButton(ctx) {
+    $(ctx._inputBar).change(function(){
+      $(ctx._addLinkButton).css("display", $(this).css("display"));
+    });
   }
 
   function initEvents(ctx) {
@@ -191,6 +204,7 @@
       addListener(ctx, root, 'resize', setpos);
       addListener(ctx, root, 'scroll', setpos);
 
+      // customizing
       // hack for our scrollers. will fix later. maybe
       var elementsWithScrolling = [ ".tile_holder_container", "#supporting_content_editor" ];
       for (var i = 0; i < elementsWithScrolling.length; i++) {
@@ -476,6 +490,8 @@
 
   function toggleNode(node, hide) {
     node.style.display = hide ? 'none' : 'block';
+    // customizing
+    $(node).change();
   }
 
   Pen = function(config) {
@@ -648,7 +664,7 @@
 
     if (inputBar && toolbar === this._menu) {
       // display link input if createlink enabled
-      inputBar.style.display = 'none';
+      toggleNode(inputBar, true);
       // reset link input value
       inputBar.value = '';
     }
