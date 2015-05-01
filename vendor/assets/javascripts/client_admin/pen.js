@@ -111,6 +111,10 @@
 
     try {
       doc.execCommand(cmd, false, val);
+      // customizing
+      if(cmd == 'createlink'){
+        $(ctx.config.editor).find("a[target!='_blank']").attr("target", "_blank")
+      }
     } catch(err) {
       // TODO: there's an error when insert a image to document, bug not a bug
       return utils.log('fail' + message, true);
@@ -219,17 +223,17 @@
       var selecting = false;
       addListener(ctx, editor, 'mousedown', function() {
         selecting = true;
-        console.log('mousedown');
+        //console.log('mousedown');
       });
       addListener(ctx, editor, 'mouseleave', function() {
         if (selecting) updateStatus(800);
         selecting = false;
-        console.log('mouseleave');
+        //console.log('mouseleave');
       });
       addListener(ctx, editor, 'mouseup', function() {
         if (selecting) updateStatus(100);
         selecting = false;
-        console.log('mouseup');
+        //console.log('mouseup');
       });
       // Hide menu when focusing outside of editor
       outsideClick = function(e) {

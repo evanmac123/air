@@ -63,7 +63,7 @@ function addCounter(locator, countUpdater) {
 
   countUpdater(locator, '#'+ghettoUniqueId);
   // I'm using keyup here instead of keypress so that it plays nicely in Chrome
-  $(locator).bind( "keyup DOMSubtreeModified", function() {
+  $(locator).bind( "keyup paste", function() {
     // Put a tiny timeout in this so it waits for the data to hit the field before it calculates it
     setTimeout(function(){
       countUpdater(locator, '#'+ghettoUniqueId);
