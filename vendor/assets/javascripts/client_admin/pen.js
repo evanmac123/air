@@ -322,10 +322,13 @@
             .replace(strReg.mailTo, 'mailto:$1')
             .replace(strReg.http, 'http://$1');
         }
-        //console.log(action, inputValue);
         menuApply(action, inputValue);
-        if (toolbar === ctx._menu) toggleNode(input, false);
-        else toggleNode(ctx._menu, true);
+        //console.log(action, inputValue);
+        // if (toolbar === ctx._menu) toggleNode(input, false);
+        // else toggleNode(ctx._menu, true);
+
+        // customizing
+        toggleNode(ctx._inputBar, 100);
       };
 
       input.onkeypress = function(e) {
@@ -337,7 +340,8 @@
 
       // customizing
       $(ctx._addLinkButton).unbind();
-      $(ctx._addLinkButton).click(function() {
+      $(ctx._addLinkButton).click(function(e) {
+        e.preventDefault();
         createlink();
       });
     });
