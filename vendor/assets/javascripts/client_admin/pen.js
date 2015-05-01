@@ -238,7 +238,7 @@
       // Hide menu when focusing outside of editor
       outsideClick = function(e) {
         if (ctx._menu && !containsNode(editor, e.target) && !containsNode(ctx._menu, e.target)) {
-          removeListener(ctx, doc, 'click', outsideClick);
+          //removeListener(ctx, doc, 'click', outsideClick);
           toggleMenu(100);
         }
       };
@@ -349,8 +349,11 @@
     // listen for placeholder
     addListener(ctx, editor, 'focus', function() {
       if (ctx.isEmpty()) lineBreak(ctx, true);
-      addListener(ctx, doc, 'click', outsideClick);
+      //removeListener(ctx, doc, 'click', outsideClick);
+      //addListener(ctx, doc, 'click', outsideClick);
     });
+
+    addListener(ctx, doc, 'click', outsideClick);
 
     addListener(ctx, editor, 'blur', function() {
       checkPlaceholder(ctx);
@@ -378,6 +381,9 @@
       ctx._eventsCache[index][type].push(listener);
 
       target.addEventListener(type, listener, false);
+      target.addEventListener(type, function(){
+        console.log($(target).attr("class") + type + listener);
+      }, false);
     }
     return ctx;
   }
