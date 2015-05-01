@@ -314,23 +314,29 @@
       var createlink = function() {
         var inputValue = input.value;
 
-        if (!inputValue) action = 'unlink';
-        else {
+        if (!inputValue) {
+          action = 'unlink';
+        } else {
           inputValue = input.value
             .replace(strReg.whiteSpace, '')
             .replace(strReg.mailTo, 'mailto:$1')
             .replace(strReg.http, 'http://$1');
         }
+        //console.log(action, inputValue);
         menuApply(action, inputValue);
         if (toolbar === ctx._menu) toggleNode(input, false);
         else toggleNode(ctx._menu, true);
       };
 
       input.onkeypress = function(e) {
-        if (e.which === 13) return createlink();
+        if (e.which === 13 || e.keyCode === 13) {
+          e.preventDefault();
+          return createlink();
+        } 
       };
 
       // customizing
+      $(ctx._addLinkButton).unbind();
       $(ctx._addLinkButton).click(function() {
         createlink();
       });
