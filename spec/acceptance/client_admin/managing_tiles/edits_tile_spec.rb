@@ -81,7 +81,7 @@ feature "Client admin edits tile" do
   def fill_in_fields
     fill_in_image_credit "by Me"
     fill_in "Headline",           with: "Ten pounds of cheese"
-    fill_in "Supporting content", with: "Ten pounds of cheese. Yes? Or no?"
+    fill_in_supporting_content"Ten pounds of cheese. Yes? Or no?"
 
     fill_in_question "Who rules?"
 
@@ -139,7 +139,7 @@ feature "Client admin edits tile" do
 
     scenario "with bad information", js: true do
       fill_in "Headline",           with: ""
-      fill_in "Supporting content", with: ""
+      fill_in_supporting_content""
 
       fill_in_question ""
       

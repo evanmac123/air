@@ -95,7 +95,7 @@ feature 'Creates tile' do
     expect_content "Sorry, we couldn't save this tile: image is missing, headline can't be blank, supporting content can't be blank."
   end
 
-  scenario "with overlong headline or supporting content should have a reasonable error" do
+  scenario "with overlong headline should have a reasonable error" do
     # We don't use a JS-based driver to test this as a quick and dirty way of 
     # simulating the behavior of certain browsers that don't respect the 
     # character counters that are supposed to keep these fields to the proper
@@ -103,21 +103,21 @@ feature 'Creates tile' do
     # Ficrosoft.
 
     fill_in "Headline", with: ("x" * 76)
-    fill_in "Supporting content", with: ("x" * 451)
     click_button "Save tile"
-
+    
     demo.tiles.reload.should be_empty
     expect_content "Sorry, we couldn't save this tile"
     expect_content "headline is too long"
-    expect_content "supporting content is too long"
   end
 
   scenario "with overlong supporting content should block submit button", js: true do
-    fill_in "Supporting content", with: ("x" * 451)
+    fill_in_supporting_content("x" * 451)
+    expect_content "-1 CHARACTERS"
     expect_content "Shorten the supporting content to save the Tile."
     page.should have_selector("input[type=submit][value='Save tile'][disabled]")
 
-    fill_in "Supporting content", with: ("x" * 450)
+    fill_in_supporting_content("x" * 450)
+    expect_content "0 CHARACTERS"
     expect_no_content "Shorten the supporting content to save the Tile."
     page.should_not have_selector("input[type=submit][value='Save tile'][disabled]")
     page.should have_selector("input[type=submit][value='Save tile']")
@@ -125,7 +125,7 @@ feature 'Creates tile' do
 
   scenario "should see character (not byte) counters on each text field", js: true do
     expect_character_counter_for      '#tile_builder_form_headline', 75
-    expect_character_counter_for      '#tile_builder_form_supporting_content', 450
+    expect_character_counter_for      '#supporting_content_editor', 450
     expect_character_counter_for_each '.answer-field', 25
 
     2.times {click_add_answer}
@@ -288,7 +288,7 @@ feature 'Creates tile' do
       attach_tile "tile_builder_form[image]", tile_fixture_path('cov1.jpg')
       fill_in_image_credit "by Society"
       fill_in "Headline",           with: "Ten pounds of cheese"
-      fill_in "Supporting content", with: "Ten pounds of cheese. Yes? Or no?"
+      fill_in_supporting_content"Ten pounds of cheese. Yes? Or no?"
 
       choose_question_type_and_subtype Tile::QUIZ, Tile::MULTIPLE_CHOICE
       
@@ -318,10 +318,10 @@ feature 'Creates tile' do
     end
   end
 
-  context "and respects whitespace in supporting content", js: true do
+  context "formatting in supporting content", js: true do
     it "creates new paragraphs on carriage return" do
       fill_in_valid_form_entries
-      fill_in "Supporting content", with: "This is my first paragraph.\nAnd this is my second."
+      fill_in_supporting_content "This is my first paragraph.\nAnd this is my second."
       click_create_button
 
       paras = page.all('.tile_supporting_content p')

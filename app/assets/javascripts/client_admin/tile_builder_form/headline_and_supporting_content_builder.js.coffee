@@ -4,18 +4,18 @@ contentEditorSel = ->
 contentEditor = ->
   $(contentEditorSel())
 
+contentEditorMaxlength = ->
+  contentEditor().next().attr('maxlength') #counter
+
 contentInput = ->
   $('#tile_builder_form_supporting_content')
 
-counterLength = (counter) ->
-  parseInt counter.text()
-
 blockSubmitButton = (counter) ->
-  textLeftLength = counterLength(counter)
+  textLeftLength = contentEditor().text().length
   submitBtn = $("#publish input[type=submit]")
   errorContainer = $(".supporting_content_error")
 
-  if textLeftLength < 0
+  if textLeftLength > contentEditorMaxlength()
     submitBtn.attr('disabled', 'disabled')
     errorContainer.show()
   else
@@ -51,24 +51,22 @@ editorLength = ->
 
 # need to make length checking because ie9 and ie10
 # fire DOMSubtreeModified like crazy
-contentEditorModifiedEvents = (counter) ->
+contentEditorModifiedEvents = () ->
   window.lastEditorLength = editorLength()
 
   contentEditor().bind "DOMSubtreeModified", ->
     if editorLength() != window.lastEditorLength
       window.lastEditorLength = editorLength()
 
-      blockSubmitButton counter
+      blockSubmitButton()
       updateContentInput()
     
 window.hedalineAndSupportingContentBuilder = ->
   addCharacterCounterFor('#tile_builder_form_headline')
-  counterId = addCharacterCounterFor(contentEditorSel())
-  counter = $("#" + counterId)
-
-  blockSubmitButton counter
+  addCharacterCounterFor contentEditorSel()
+  blockSubmitButton()
   initializeSupportingContentEditor()
-  contentEditorModifiedEvents(counter)
+  contentEditorModifiedEvents()
 
   # convert pasted content to plain text. ie does it automatically
   contentEditor().on 'paste', (e) ->

@@ -285,6 +285,10 @@ module TileHelpers
     page.evaluate_script(script)
   end
 
+  def fill_in_supporting_content(text)
+    page.execute_script("$('#supporting_content_editor').keydown().html('#{text}').keyup()")
+  end
+
   def fill_in_valid_form_entries options = {}
     click_answer = options[:click_answer] || 1
     question_type = options[:question_type] || Tile::QUIZ
@@ -295,7 +299,7 @@ module TileHelpers
     attach_tile "tile_builder_form[image]", tile_fixture_path('cov1.jpg')
     fill_in_image_credit "by Society"
     fill_in "Headline",           with: "Ten pounds of cheese"
-    fill_in "Supporting content", with: "Ten pounds of cheese. Yes? Or no?"
+    fill_in_supporting_content("Ten pounds of cheese. Yes? Or no?")
 
     fill_in_question "Who rules?"
 
