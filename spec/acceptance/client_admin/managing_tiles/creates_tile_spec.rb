@@ -317,4 +317,20 @@ feature 'Creates tile' do
       tile.correct_answer_index.should == 1
     end
   end
+
+  context "formatting in supporting content", js: true do
+    it "should save supporting content with formatting and show it correctly" do
+      fill_in_valid_form_entries
+      supporting_content = 'The <b>origin</b> of the <a href="/wiki/Dog" target="_blank">domestic dog</a>'
+      fill_in_supporting_content supporting_content
+      click_create_button
+      
+      tile = Tile.last
+      tile.supporting_content.should == supporting_content
+
+      expect_content 'The origin of the domestic dog'
+      page.all(".tile_supporting_content b").count.should == 1
+      page.all(".tile_supporting_content a").count.should == 1
+    end
+  end
 end
