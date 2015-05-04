@@ -42,7 +42,6 @@ class Tile < ActiveRecord::Base
 
   validates_inclusion_of :status, in: STATUS
 
-  #validates_length_of :supporting_content, maximum: 450, message: "supporting content is too long (maximum is 450 characters)"
   validates_length_of :headline, maximum: 75, message: "headline is too long (maximum is 75 characters)"
 
   before_save :ensure_protocol_on_link_address

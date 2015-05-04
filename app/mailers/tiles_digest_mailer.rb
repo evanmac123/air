@@ -107,9 +107,4 @@ class TilesDigestMailer < ActionMailer::Base
       "explore_v_1"  => "Explore - v. 8/25/14"
     }
   end
-
-  def unescape_html html
-    coder = HTMLEntities.new
-    raw coder.decode("" + html + "")
-  end
 end
