@@ -72,7 +72,6 @@ header {
   box-shadow: 0 4px 4px -4px darken($header-color, 35%);
   margin-bottom: -1px;
   position: relative;
-  z-index: 2;
   .small_cap {
     color:$med-gray;
     margin-bottom: $under_small_cap;
