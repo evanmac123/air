@@ -317,18 +317,4 @@ feature 'Creates tile' do
       tile.correct_answer_index.should == 1
     end
   end
-
-  context "formatting in supporting content", js: true do
-    it "creates new paragraphs on carriage return" do
-      fill_in_valid_form_entries
-      fill_in_supporting_content "This is my first paragraph.\nAnd this is my second."
-      click_create_button
-
-      paras = page.all('.tile_supporting_content p')
-      paras.should have(2).p_elements
-
-      normalize_spaces(paras.first.text).should == "This is my first paragraph."
-      normalize_spaces(paras.last.text).should  == "And this is my second."
-    end
-  end
 end
