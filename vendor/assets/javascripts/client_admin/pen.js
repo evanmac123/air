@@ -381,9 +381,9 @@
       ctx._eventsCache[index][type].push(listener);
 
       target.addEventListener(type, listener, false);
-      target.addEventListener(type, function(){
-        console.log($(target).attr("class") + type + listener);
-      }, false);
+      // target.addEventListener(type, function(){
+      //   console.log($(target).attr("class") + type + listener);
+      // }, false);
     }
     return ctx;
   }

@@ -27,7 +27,7 @@ updateContentInput = ->
 
 initializeSupportingContentEditor = ->
   options =
-    debug: true,
+    #debug: true,
     editor: (contentEditor())[0],
     list: [
       'bold'
