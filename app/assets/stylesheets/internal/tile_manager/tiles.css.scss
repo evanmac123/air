@@ -5,7 +5,6 @@
 @import 'tile_preview';
 @import './internal/tile_builder/tile_builder';
 @import './internal/tile_manager/_joyride_tip_guide';
-
 body.client_admin-tiles-index, 
 body.client_admin-inactive_tiles,
 body.client_admin-shares,
@@ -407,6 +406,7 @@ body.suggested_tiles-index {
       }
     }
   }
+
   #accept-tile-modal {
     h2 {
       margin-bottom: 20px;
