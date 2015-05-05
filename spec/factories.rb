@@ -200,6 +200,11 @@ FactoryGirl.define do
       status Tile::ACTIVE
       tile_tags {[FactoryGirl.create(:tile_tag)]}
     end
+
+    trait :user_drafted do
+      status Tile::USER_DRAFT
+      association :creator, factory: :user
+    end
   end
 
   # Simple alias of :tile to :old_school_tile

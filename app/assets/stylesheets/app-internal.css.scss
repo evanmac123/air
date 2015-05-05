@@ -34,12 +34,14 @@
 
 @import "./internal/tags.css.scss";
 @import "./internal/explore.css.scss";
-@import "./internal/tile_preview.css.scss";
+@import "./internal/tile_manager/tile_preview.css.scss";
+@import "./internal/tile_manager/tiles.css.scss";
 @import "./internal/board_settings_iphone.css.scss";
 @import "./internal/tile.css.scss";
 @import "./external/sign_up_form.css.scss";
 @import "./external/sign_up_form_ie.css.scss";
 @import './client_admin/tiles_tools_subnav';
+@import './internal/tile_builder/tile_builder';
 /* RWD */
 @media only screen and (min-width: 319px) {
   @import "./internal/screen_iphone.css.scss";

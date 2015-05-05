@@ -36,7 +36,8 @@ initializeSupportingContentEditor = ->
       'insertorderedlist'
       'insertunorderedlist'
       'createlink'
-    ]
+    ],
+    stay: false
   editor = new Pen(options)
 
 isIE = ->

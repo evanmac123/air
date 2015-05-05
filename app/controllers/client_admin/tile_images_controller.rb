@@ -13,7 +13,7 @@ class ClientAdmin::TileImagesController < ClientAdminBaseController
 
   def tile_image_containers
     @tile_images.map do |tile_image|
-      render_to_string("client_admin/tile_images/_tile_image", 
+      render_to_string("shared/tile_images/_tile_image", 
         locals: {tile_image: tile_image}, 
         layout: false
       )

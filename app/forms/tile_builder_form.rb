@@ -48,11 +48,19 @@ class TileBuilderForm
     image_builder.find_image_from_library_id
   end
 
+  def create_url
+    client_admin_tiles_path
+  end
+
+  def update_url
+    client_admin_tile_path tile
+  end
+
   def url
     if tile.new_record?
-      client_admin_tiles_path
+      create_url
     else
-      client_admin_tile_path tile
+      update_url
     end
   end
 
@@ -74,6 +82,10 @@ class TileBuilderForm
     errors.values.join(", ") + "."
   end
 
+  def error_message
+    "Sorry, we couldn't save this tile: " + error_messages
+  end
+
   def self.model_name
     ActiveModel::Name.new(TileBuilderForm)
   end
@@ -92,7 +104,7 @@ class TileBuilderForm
     set_tile_image
     set_tile_attributes
     set_tile_creator
-    tile.status = Tile::DRAFT
+    tile.status = newly_built_tile_status
     tile.position = tile.find_new_first_position
   end
   
@@ -181,6 +193,10 @@ class TileBuilderForm
     tile_validation.errors_values.each do |error| 
       errors.add :base, error
     end
+  end
+
+  def newly_built_tile_status
+    Tile::DRAFT  
   end
 
   delegate  :headline, 

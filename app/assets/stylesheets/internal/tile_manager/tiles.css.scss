@@ -1,9 +1,9 @@
 @import './internal/tiles_thumbnails';
 @import './internal/tiles_thumbnails_desktop';
 @import 'tiles_thumbnails_controls';
-@import 'tile_builder';
 @import './internal/tiles_fullsize';
 @import 'tile_preview';
+@import './internal/tile_builder/tile_builder';
 
 .joyride-tip-guide {
   &.tile {
@@ -111,12 +111,14 @@
 
 body.client_admin-tiles-index, 
 body.client_admin-inactive_tiles,
-body.client_admin-shares {
+body.client_admin-shares,
+body.suggested_tiles-index {
   .tile_thumbnail {width:100%;}
 }
 
 body.client_admin-tiles-index, 
-body.client_admin-inactive_tiles {
+body.client_admin-inactive_tiles,
+body.suggested_tiles-index {
   // Tile management sections
   .core {
     background: $off-white;
@@ -242,6 +244,7 @@ body.client_admin-inactive_tiles {
 
 body.client_admin-tiles-index #active_tiles, 
 body.client_admin-inactive_tiles #active_tiles,
+body.suggested_tiles-index,
 .tiles_to_be_shared {
   background: $almost-white;
 }
@@ -309,7 +312,8 @@ a.download_csv {
   }
 }
 
-body.client_admin-tiles-index {
+body.client_admin-tiles-index,
+body.suggested_tiles-index {
   .switch{
     @include green-paddle-switch;
     @include switch-size(16px, 9px, 2.3em);
