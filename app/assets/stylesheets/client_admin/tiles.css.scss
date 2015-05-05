@@ -308,3 +308,20 @@ a.download_csv {
     color:$white;
   }
 }
+
+body.client_admin-tiles-index {
+  .suggestion_box_header {
+    position: absolute;
+    top: 0;
+    right: 73px;
+    .help, .manage_access, h3 {
+      float: left;
+    }
+    .help, .manage_access {
+      @include regular-text;
+      font-size: 12px;
+      padding-right: 35px;
+      cursor: pointer;
+    }
+  }
+}
