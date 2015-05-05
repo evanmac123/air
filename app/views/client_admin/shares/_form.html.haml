@@ -11,7 +11,6 @@
     .custom_subject
       %label{for: "digest_custom_subject"} Email subject
       = text_area_tag "digest[custom_subject]", @tiles_digest_form.custom_subject, size: "50x3", maxlength: 80, placeholder: 'New Tiles'
-      = javascript_include_tag 'admin/byte_counter'
       :javascript
         addCharacterCounterFor('#digest_custom_subject');
 

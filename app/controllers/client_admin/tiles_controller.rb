@@ -37,7 +37,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       schedule_tile_creation_ping(@tile_builder_form.tile)
       redirect_to client_admin_tile_path(@tile_builder_form.tile)
     else
-      flash.now[:failure] = "Sorry, we couldn't save this tile: " + @tile_builder_form.error_messages
+      flash.now[:failure] = @tile_builder_form.error_message
       render "new"
     end
   end
@@ -166,7 +166,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     edit_url = edit_client_admin_tile_path(new_tile)
     already_active = new_tile.active?
 
-    flash[:success] = render_to_string("client_admin/tiles/form/preview_after_save_flash", 
+    flash[:success] = render_to_string("shared/tiles/form/preview_after_save_flash", 
       layout: false, locals: {
         action: params[:action], 
         edit_url: edit_url, 

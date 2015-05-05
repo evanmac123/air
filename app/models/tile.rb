@@ -1,10 +1,11 @@
 class Tile < ActiveRecord::Base
   include Concerns::TileImageable
 
-  ACTIVE  = 'active'.freeze
-  ARCHIVE = 'archive'.freeze
-  DRAFT   = 'draft'.freeze
-  STATUS  = [ACTIVE, ARCHIVE, DRAFT].freeze
+  ACTIVE     = 'active'.freeze
+  ARCHIVE    = 'archive'.freeze
+  DRAFT      = 'draft'.freeze
+  USER_DRAFT = 'user_draft'.freeze
+  STATUS  = [ACTIVE, ARCHIVE, DRAFT, USER_DRAFT].freeze
   #question types
   ACTION = 'Action'.freeze
   QUIZ   = 'Quiz'.freeze
@@ -238,6 +239,10 @@ class Tile < ActiveRecord::Base
 
   def self.draft
     where("status = ?", DRAFT).ordered_by_position
+  end
+
+  def self.user_draft
+    where("status = ?", USER_DRAFT).ordered_by_position
   end
 
   def self.digest(demo, cutoff_time)

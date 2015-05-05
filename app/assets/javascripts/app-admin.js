@@ -20,5 +20,5 @@
 //= require internal/offcanvas_menu
 //= require internal/board_switch_dropdown
 //= require internal_and_external/intercom_setup
-//= require client_admin/tile_polling
-
+//= require internal/tile_manager/tile_polling
+//= require ./internal/byte_counter

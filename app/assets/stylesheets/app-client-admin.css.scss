@@ -15,7 +15,6 @@
 
 /* CLIENT ADMIN */
 @import "./client_admin/client_admin.css.scss";
-@import "./client_admin/tiles.css.scss";
 @import './client_admin/share_controls.css.scss';
 @import './client_admin/shares.css.scss';
 @import "./client_admin/tile_completions";
@@ -35,3 +34,5 @@
 @import "./client_admin/board_settings.css.scss";
 @import "./internal/screen_large.css.scss";
 @import "./client_admin/pen.css.scss";
+@import "./internal/tile_manager/tiles.css.scss";
+@import "./client_admin/tile_preview.css.scss";

@@ -5,7 +5,12 @@ body.client_admin-tiles-new,
 body.client_admin-tiles-create,
 body.client_admin-tiles-edit,
 body.client_admin-tiles-show,
-body.client_admin-tiles-update {
+body.client_admin-tiles-update,
+body.suggested_tiles-new, 
+body.suggested_tiles-create,
+body.suggested_tiles-edit,
+body.suggested_tiles-show,
+body.suggested_tiles-update {
   .builder-width {
     width:600px;
     padding: 0 !important;
@@ -406,7 +411,12 @@ body.client_admin-tiles-update {
 body.client_admin-tiles-new, 
 body.client_admin-tiles-create,
 body.client_admin-tiles-edit,
-body.client_admin-tiles-update {
+body.client_admin-tiles-update,
+body.suggested_tiles-new, 
+body.suggested_tiles-create,
+body.suggested_tiles-edit,
+body.suggested_tiles-show,
+body.suggested_tiles-update {
   #flash {
     width: 100%;
   }

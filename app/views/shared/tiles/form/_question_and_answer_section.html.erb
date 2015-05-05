@@ -21,7 +21,7 @@
       <p class="placeholder">Pick what users will earn points for.</p>
     </div>
   </div>
-  <%= render partial: 'client_admin/tiles/form/points', locals: {form: form} %>
+  <%= render partial: 'shared/tiles/form/points', locals: {form: form} %>
 </div>
 
 <% tile_has_question_type = params[:action] == "edit" || params[:action] == "update" || (params[:action] == "create" && @tile_builder_form.question_type.present?) %>

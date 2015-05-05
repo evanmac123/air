@@ -14,9 +14,6 @@
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.scrollTo.min
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.form.min
 //= require ../../../vendor/assets/javascripts/client_admin/confirm_with_reveal
-//= require ../../../vendor/assets/javascripts/client_admin/jquery.jscroll.min.js
-//= require ../../../vendor/assets/javascripts/client_admin/class_list.js
-//= require ../../../vendor/assets/javascripts/client_admin/pen.js
 
 //= require ../../../vendor/assets/javascripts/internal/jquery.jpanelmenu.min
 //= require ../../../vendor/assets/javascripts/internal/jRespond.min
@@ -25,6 +22,7 @@
 //= require ./internal/tiles
 //= require ./internal/show_more_tiles_link
 //= require ./internal/countUp.min
+//= require ./internal/byte_counter
 //= require internal/flashes
 //= require internal_and_external/nerf_links_with_login_modal
 //= require wice_grid
@@ -41,6 +39,10 @@
 //= require internal_and_external/intercom_setup
 //= require internal_and_external/contact_airbo
 //= require internal/preflight
+//= require_tree ./internal/tile_builder_form/
+//= require_tree ./internal/tile_manager/
+//= require internal/byte_counter
+//= require_tree ../../../vendor/assets/javascripts/internal/tile_builder_form
 
 $(document).ready(function() {
   $('.client_admin-users, .client_admins-show').foundation();
