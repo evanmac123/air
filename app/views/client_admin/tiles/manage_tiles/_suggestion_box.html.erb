@@ -9,3 +9,9 @@
   </div>
   <h3>Suggestion box</h3>
 </div>
+
+<%= render partial: 'client_admin/tiles/manage_tiles/suggestion_box_modal' %>
+
+<% js_at_end do %>
+  window.suggestionBox();
+<% end %>

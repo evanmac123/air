@@ -1,0 +1,20 @@
+<div data-reveal class='reveal-modal' id='suggestion_box_modal'>
+  <h2>Add people to suggestion box</h2>
+  <div class="access_to_suggestion_block">
+    <p>
+      Who would you like to give access to?
+    </p>
+    <div class='switch small round suggestion_switcher_block'>
+      <%= radio_button_tag 'suggestion_switcher', "true", true, id: "suggestion_switcher_on" %>
+      <%= radio_button_tag 'suggestion_switcher', "false", false, id: "suggestion_switcher_off" %>
+
+      <span class='green-paddle'></span>
+    </div>
+    <i class='fa fa-question-circle'></i>
+  </div>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+
+<% js_at_end do %>
+  window.moveTileConfirmationModal();
+<% end %>
