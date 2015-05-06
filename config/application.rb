@@ -32,6 +32,7 @@ module Health
     config.assets.precompile += %w(
       app-admin.css
       app-client-admin.css
+      app-client-admin_split2.css
       client_admin_base.css
       app-external.css
       app-internal.css

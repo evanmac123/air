@@ -7,8 +7,7 @@
   <%= content_for :meta %>
   <title>Airbo</title>
 
-  <%= stylesheet_link_tag "app-client-admin" %>
-  <%= stylesheet_link_tag "client_admin_base" %>
+  <%= split_stylesheet_link_tag "app-client-admin", :media => "all" %>
   <%= javascript_include_tag "https://api.intercom.io/api/js/library.js" %>
   <%= javascript_include_tag 'app-admin' %>
   <%= javascript_include_tag 'app-client-admin' %>
