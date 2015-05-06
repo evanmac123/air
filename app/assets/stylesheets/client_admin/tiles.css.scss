@@ -310,6 +310,10 @@ a.download_csv {
 }
 
 body.client_admin-tiles-index {
+  .switch{
+    @include green-paddle-switch;
+    @include switch-size(16px, 9px, 2.3em);
+  }
   .suggestion_box_header {
     position: absolute;
     top: 0;
