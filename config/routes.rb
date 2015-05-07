@@ -186,6 +186,8 @@ Health::Application.routes.draw do
 				put 'weekly_activity_email'
       end
     end
+
+    resource :suggestions_access, only: :update, controller: 'suggestions_access'
   end
 
   resources :pages, :only => :show
