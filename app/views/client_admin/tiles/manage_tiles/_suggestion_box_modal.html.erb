@@ -1,6 +1,7 @@
 <%= form_for current_user.demo, url: client_admin_suggestions_access_path do |form| %>
   <div data-reveal class='reveal-modal' id='suggestion_box_modal'>
     <h2>Add people to suggestion box</h2>
+
     <div class="access_to_suggestion_block">
       <p>
         Who would you like to give access to?
@@ -17,7 +18,13 @@
         <i class='fa fa-question-circle'></i>
       </div>
     </div>
-    <div class="all_users_block">
+
+    <%
+      display_all_users = current_user.demo.everyone_can_make_tile_suggestions
+      display_specific_users = !display_all_users
+    %>
+
+    <div class="all_users_section" style="display:<%= display_all_users ? 'block' : 'none' %>;">
       <p>
         You've selected All Users in this Board to have access to Suggestion Box.
       </p>
@@ -28,10 +35,16 @@
         <%= link_to 'contact us', '' %>.
       </p>
     </div>
+
+    <div class="specific_users_section" style="display:<%= display_specific_users ? 'block' : 'none' %>;">
+      <%= render partial: 'client_admin/allowed_to_suggest_users/users', locals: { users: User.first(5) } %>
+    </div>
+
     <div class="control_buttons">
       <%= form.submit 'Save', id: "save_suggestion_box" %>
       <%= link_to 'Cancel', '', id: "cancel_suggestion_box" %>
     </div>
+
     <a class="close-reveal-modal">&#215;</a>
   </div>
 <% end %>
