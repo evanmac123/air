@@ -1146,6 +1146,16 @@ class User < ActiveRecord::Base
     Time.now - self.last_unmonitored_mailbox_response_at < UNMONITORED_MAILBOX_RESPONSE_THRESHOLD
   end
 
+  def update_allowed_to_make_tile_suggestions value, demo
+    bm = board_memberships.where(demo: demo).first
+    return unless bm
+    User.transaction do
+      bm.update_attribute :allowed_to_make_tile_suggestions, value
+      if bm.is_current
+        update_attribute :allowed_to_make_tile_suggestions, value
+      end
+    end
+  end
 
   protected
 
@@ -1228,7 +1238,7 @@ class User < ActiveRecord::Base
   end
 
   # See note in #move_to_new_demo for why these next two exist.
-  FIELDS_ON_A_BOARD_BY_BOARD_BASIS = %w(is_client_admin points tickets ticket_threshold_base location_id displayed_tile_post_guide displayed_tile_success_guide)
+  FIELDS_ON_A_BOARD_BY_BOARD_BASIS = %w(is_client_admin points tickets ticket_threshold_base location_id displayed_tile_post_guide displayed_tile_success_guide allowed_to_make_tile_suggestions)
   def save_current_board_dependent_attributes
    _current_board_membership = current_board_membership
     FIELDS_ON_A_BOARD_BY_BOARD_BASIS.each do |field|

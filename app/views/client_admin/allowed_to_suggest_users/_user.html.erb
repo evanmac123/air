@@ -1,0 +1,11 @@
+<tr id="allowed_to_suggest_user_<%= user.id %>">
+  <td class="user_name">
+    <%= user.name %>
+  </td>
+  <td class="user_email">
+    <%= user.email %>
+  </td>
+  <td class="user_remove">
+    <%= link_to 'Remove', client_admin_allowed_to_suggest_user_path(user) %>
+  </td>
+</tr>

@@ -1,0 +1,8 @@
+<table id="allowed_to_suggest_users">
+  <thead></thead>
+  <tbody>
+    <% users.each do |user| %>
+      <%= render partial: 'client_admin/allowed_to_suggest_users/user', locals: { user: user } %>
+    <% end %>
+  </tbody>
+</table>
