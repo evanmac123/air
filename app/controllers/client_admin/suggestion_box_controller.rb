@@ -7,9 +7,9 @@ class ClientAdmin::SuggestionBoxController < ClientAdminBaseController
   end
 
   protected
-  
+
   def form(demo, users)
-    render_to_string("client_admin/tiles/suggestion_box/_suggestion_box_form", 
+    render_to_string("client_admin/suggestion_box/_suggestion_box_form", 
       locals: { demo: demo, users: users }, 
       layout: false
     )
