@@ -48,6 +48,25 @@ removeLink = ->
 
 window.suggestionBox = (withModalEvents = true) ->
   #
+  # => Suggestion Box Modal
+  #
+  triggerModal = (action) ->
+    modal().foundation('reveal', action)
+
+  cancelBtn().click (e) ->
+    e.preventDefault()
+    triggerModal('close')
+    if window.needToBeSaved
+      reloadForm()
+
+  if withModalEvents
+    $(document).on 'open.fndtn.reveal', modalSelector(), ->
+      blockSaveBtn()
+
+    manageAccessBtn().click (e) ->
+      e.preventDefault()
+      triggerModal('open')
+  #
   # => Suggestion Switcher
   #
   higlightSwitcherCopy = (name) ->
@@ -72,25 +91,6 @@ window.suggestionBox = (withModalEvents = true) ->
 
   switherOff().click (e) ->
     showSection('specificUsers')
-  #
-  # => Suggestion Box Modal
-  #
-  triggerModal = (action) ->
-    modal().foundation('reveal', action)
-
-  cancelBtn().click (e) ->
-    e.preventDefault()
-    triggerModal('close')
-    if window.needToBeSaved
-      reloadForm()
-
-  if withModalEvents
-    $(document).on 'open.fndtn.reveal', modalSelector(), ->
-      blockSaveBtn()
-
-    manageAccessBtn().click (e) ->
-      e.preventDefault()
-      triggerModal('open')
   #
   # => User Search Autocomplete
   #
@@ -144,6 +144,11 @@ window.suggestionBox = (withModalEvents = true) ->
     $(@).closest("tr").remove()
     formChanged()
 
+  form().on 'submit', (e) ->
+    e.preventDefault()
+    $(@).ajaxSubmit
+      dataType: 'json'
+    blockSaveBtn()
   #
   # => Initialization
   #
