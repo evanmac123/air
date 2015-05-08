@@ -1,4 +1,4 @@
-<%= form_for current_user.demo, url: client_admin_suggestions_access_path do |form| %>
+<%= form_for current_user.demo, url: client_admin_suggestions_access_path, html: {id: "suggestion_box_form"} do |form| %>
   <div data-reveal class='reveal-modal' id='suggestion_box_modal'>
     <h2>Add people to suggestion box</h2>
 

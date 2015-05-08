@@ -29,7 +29,7 @@ cancelBtn = ->
   $('#cancel_suggestion_box')
 
 userRow = (userId) ->
-  $("#allowed_to_suggest_user_" + userId)
+  $(".allowed_to_suggest_user[data-user-id=#{userId}]")
 
 usersTableBody = ->
   $("#allowed_to_suggest_users tbody")
@@ -39,6 +39,9 @@ searchInput = ->
 
 searchResultsSelector = ->
   "#name_autocomplete_target"
+
+form = ->
+  $("#suggestion_box_form")
 
 window.suggestionBox = ->
   #
@@ -61,14 +64,6 @@ window.suggestionBox = ->
   #
   # => Suggestion Box Modal
   #
-  blockSaveBtn = ->
-    saveBtn().attr("disabled", "disabled")
-    window.needToBeSaved = false
-
-  unblockSaveBtn = ->
-    saveBtn().removeAttr("disabled")
-    window.needToBeSaved = true
-
   triggerModal = (action) ->
     modal().foundation('reveal', action)
 
@@ -110,8 +105,20 @@ window.suggestionBox = ->
   #
   # => Suggestion Form
   #
+  blockSaveBtn = ->
+    saveBtn().attr("disabled", "disabled")
+    window.needToBeSaved = false
+
+  unblockSaveBtn = ->
+    saveBtn().removeAttr("disabled")
+    window.needToBeSaved = true
+
   formChanged = ->
     unblockSaveBtn()
+
+  # form().on 'submit', (e) ->
+  #   e.preventDefault()
+
   #
   # => Initialization
   #

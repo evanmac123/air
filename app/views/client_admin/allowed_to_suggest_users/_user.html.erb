@@ -1,4 +1,4 @@
-<tr id="allowed_to_suggest_user_<%= user.id %>">
+<tr class="allowed_to_suggest_user" data-user-id="<%= user.id %>">
   <td class="user_name">
     <%= user.name %>
   </td>
@@ -8,4 +8,6 @@
   <td class="user_remove">
     <%= link_to 'Remove', client_admin_allowed_to_suggest_user_path(user.id), method: :delete %>
   </td>
+
+  <%= hidden_field_tag 'allowed_users[]', user.id %>
 </tr>
