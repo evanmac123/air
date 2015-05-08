@@ -1,0 +1,8 @@
+<div class="specific_users_section" style="display:<%= display_specific_users ? 'block' : 'none' %>;">
+  <div id="name_search">
+    <%= text_field_tag 'name_substring', nil, placeholder: "Enter first or last name" %>
+    <div id="name_autocomplete_target"></div>
+  </div>
+
+  <%= render partial: 'client_admin/allowed_to_suggest_users/users', locals: { users: users } %>
+</div>
