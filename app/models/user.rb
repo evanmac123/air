@@ -1157,6 +1157,14 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.allowed_to_suggest_tiles _demo
+    joins{board_memberships}
+      .where do
+        (board_memberships.demo == _demo) &
+        (board_memberships.allowed_to_make_tile_suggestions == true)
+      end
+  end
+
   protected
 
   def downcase_email
