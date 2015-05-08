@@ -223,11 +223,11 @@ body.client_admin-users {
   vertical-align: top;
   h2.subhead {padding-bottom:.5em;}
   input[type="text"]{width:100%;}
-  span {
-    @include caption;
-    display: block;
-    margin:1.5em 0;
-  }
+  // span {
+  //   @include caption;
+  //   display: block;
+  //   margin:1.5em 0;
+  // }
 }
 
 #show-everyone, #more-options {

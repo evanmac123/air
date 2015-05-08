@@ -379,6 +379,15 @@ body.client_admin-tiles-index {
       }
     }
     .specific_users_section {
+      #name_substring {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+      #name_autocomplete_target {
+        span.add_user {
+          display: none;
+        }
+      }
       table#allowed_to_suggest_users {
         border-top: 1px solid #ddd;
         td {

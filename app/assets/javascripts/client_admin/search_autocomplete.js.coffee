@@ -10,9 +10,9 @@ fillInAndFocusNameField = (name) ->
   userNameField.val(name).focus()
 
 window.bindUserNameSearchAutocomplete = (sourceSelector, targetSelector, searchURL) ->
-  $(sourceSelector).autocomplete({
-      appendTo: targetSelector, 
-      source:   searchURL, 
-      html:     'html', 
-      select:   jumpLinkSelected,
-      focus:    (event) -> event.preventDefault()})
+  $(sourceSelector).autocomplete
+    appendTo: targetSelector, 
+    source:   searchURL, 
+    html:     'html', 
+    select:   jumpLinkSelected,
+    focus:    (event) -> event.preventDefault()
