@@ -50,13 +50,21 @@ window.suggestionBox = ->
   #
   # => Suggestion Switcher
   #
-  showSection = (section) ->
-    if section == 'allUsers'
+  higlightSwitcherCopy = (name) ->
+    $(".specific_users, .all_users").removeClass("on")
+    if name == 'allUsers'
+      $(".all_users").addClass("on")
+    else
+      $(".specific_users").addClass("on")
+
+  showSection = (name) ->
+    if name == 'allUsers'
       allUsers().slideDown()
       specificUsers().slideUp()
     else
       allUsers().slideUp()
       specificUsers().slideDown()
+    higlightSwitcherCopy(name)
     formChanged()
 
   switherOn().click (e) ->

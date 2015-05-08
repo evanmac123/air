@@ -350,8 +350,6 @@ body.client_admin-tiles-index {
           @include regular-text;
           float: left;
           margin: 0 15px;
-        }
-        .off {
           color: $light-gray;
         }
         .on {
@@ -360,10 +358,6 @@ body.client_admin-tiles-index {
         .switch {
           @include switch-size(16px, 9px, 2.3em);
           margin-top: -1px;
-          float: left;
-        }
-        i {
-          font-size: 12px;
           float: left;
         }
       }
