@@ -8,8 +8,15 @@ class ClientAdmin::SuggestionsAccessController < ClientAdminBaseController
     unless @demo.everyone_can_make_tile_suggestions
       User.allow_to_make_tile_suggestions params[:allowed_users], @demo
     end
+    respond_to do |format|
+      format.html do
+        redirect_to :back
+      end
 
-    redirect_to :back
+      format.json do
+        render nothing: true
+      end
+    end
   end
 
   protected
