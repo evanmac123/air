@@ -26,7 +26,7 @@ saveBtn = ->
   $("#save_suggestion_box")
 
 cancelBtn = ->
-  $('#cancel_suggestion_box')
+  $('#cancel_suggestion_box, #suggestion_box_modal .close-reveal-modal')
 
 userRow = (userId) ->
   $(".allowed_to_suggest_user[data-user-id=#{userId}]")
@@ -81,13 +81,16 @@ window.suggestionBox = ->
   $(document).on 'open.fndtn.reveal', modalSelector(), ->
     blockSaveBtn()
 
-  manageAccessBtn().click (e)->
+  manageAccessBtn().click (e) ->
     e.preventDefault()
     triggerModal('open')
 
-  cancelBtn().click (e)->
+  cancelBtn().click (e) ->
     e.preventDefault()
     triggerModal('close')
+    if window.needToBeSaved
+      reloadForm()
+
   #
   # => User Search Autocomplete
   #
@@ -126,6 +129,13 @@ window.suggestionBox = ->
 
   formChanged = ->
     unblockSaveBtn()
+
+  reloadForm = ->
+    $.ajax
+      type: 'GET',
+      url: '/client_admin/suggestion_box'
+      success: (data) ->
+        form().replaceWith data.form
 
   removeLink().click (e) ->
     e.preventDefault()

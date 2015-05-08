@@ -189,6 +189,7 @@ Health::Application.routes.draw do
 
     resource :suggestions_access, only: :update, controller: 'suggestions_access'
     resources :allowed_to_suggest_users, only: [:destroy, :show]
+    resources :suggestion_box, only: :index, controller: 'suggestion_box'
   end
 
   resources :pages, :only => :show
