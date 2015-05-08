@@ -1,49 +1,118 @@
-showSection = (section) ->
-  if section == 'allUsers'
-    $(".all_users_section").slideDown()
-    $('.specific_users_section').slideUp()
-  else
-    $(".all_users_section").slideUp()
-    $('.specific_users_section').slideDown()
+#
+# => Selectors
+#
+allUsers = ->
+  $(".all_users_section")
+
+specificUsers = ->
+  $(".specific_users_section")
+
+switherOn = ->
+  $('#suggestion_switcher_on')
+
+switherOff = ->
+  $('#suggestion_switcher_off')
+
+modalSelector = ->
+  '#suggestion_box_modal'
+
+modal = ->
+  $(modalSelector())
+
+manageAccessBtn = ->
+  $('.manage_access')
+
+saveBtn = ->
+  $("#save_suggestion_box")
+
+cancelBtn = ->
+  $('#cancel_suggestion_box')
+
+userRow = (userId) ->
+  $("#allowed_to_suggest_user_" + userId)
+
+usersTableBody = ->
+  $("#allowed_to_suggest_users tbody")
+
+searchInput = ->
+  $("#name_substring")
+
+searchResultsSelector = ->
+  "#name_autocomplete_target"
 
 window.suggestionBox = ->
-  $('#suggestion_box_modal').foundation('reveal', 'open')
+  #
+  # => Suggestion Switcher
+  #
+  showSection = (section) ->
+    if section == 'allUsers'
+      allUsers().slideDown()
+      specificUsers().slideUp()
+    else
+      allUsers().slideUp()
+      specificUsers().slideDown()
+    formChanged()
 
-  $('#suggestion_switcher_on').click (e) ->
+  switherOn().click (e) ->
     showSection('allUsers')
 
-  $('#suggestion_switcher_off').click (e) ->
+  switherOff().click (e) ->
     showSection('specificUsers')
   #
   # => Suggestion Box Modal
   #
-  $('.manage_access').click (e)->
-    e.preventDefault()
-    $('#suggestion_box_modal').foundation('reveal', 'open')
+  blockSaveBtn = ->
+    saveBtn().attr("disabled", "disabled")
+    window.needToBeSaved = false
 
-  $('#cancel_suggestion_box').click (e)->
+  unblockSaveBtn = ->
+    saveBtn().removeAttr("disabled")
+    window.needToBeSaved = true
+
+  triggerModal = (action) ->
+    modal().foundation('reveal', action)
+
+  $(document).on 'open.fndtn.reveal', modalSelector(), ->
+    blockSaveBtn()
+
+  manageAccessBtn().click (e)->
     e.preventDefault()
-    $('#suggestion_box_modal').foundation('reveal', 'close')
+    triggerModal('open')
+
+  cancelBtn().click (e)->
+    e.preventDefault()
+    triggerModal('close')
   #
   # => User Search Autocomplete
   #
   alreadyInList = (userId) ->
-    $("#allowed_to_suggest_user_" + userId).length > 0
+    userRow(userId).length > 0
 
   getSelectedUser = (e, ui) ->
     e.preventDefault()
-    if ui.item.value.found && !alreadyInList(ui.item.value.id)
+    user = ui.item.value
+    if user.found && !alreadyInList(user.id)
       $.ajax
         type: 'GET',
-        url: '/client_admin/allowed_to_suggest_users/' + ui.item.value.id
+        url: '/client_admin/allowed_to_suggest_users/' + user.id
         success: (data) ->
-          $("#allowed_to_suggest_users tbody").prepend data.userRow
+          usersTableBody().prepend data.userRow
+          formChanged()
     else
-      $("#name_substring").val('').focus()
+      searchInput().val('').focus()
 
-  $("#name_substring").autocomplete
-    appendTo: "#name_autocomplete_target", 
+  searchInput().autocomplete
+    appendTo: searchResultsSelector(), 
     source:   '/client_admin/users', 
     html:     'html', 
     select:   getSelectedUser,
     focus:    (e) -> e.preventDefault()
+  #
+  # => Suggestion Form
+  #
+  formChanged = ->
+    unblockSaveBtn()
+  #
+  # => Initialization
+  #
+  triggerModal('open')
