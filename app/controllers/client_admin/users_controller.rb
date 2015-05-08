@@ -174,15 +174,15 @@ class ClientAdmin::UsersController < ClientAdminBaseController
       label: ERB::Util.h(user.name), 
       value: {
         found: true,
-        url:   edit_client_admin_user_url(user)
+        url:   edit_client_admin_user_url(user),
+        id: user.id
       }
     } 
   end
 
   def add_user_json(normalized_name)
     name = normalized_name.split.map(&:capitalize).join(' ')
-    label = ERB::Util.h(%{No match for "#{name}". Click to add this user.})
-
+    label = "No match for #{name}. <span class='add_user'>Click to add this user.</span>".html_safe
     [{
         label: label,
         value: {
