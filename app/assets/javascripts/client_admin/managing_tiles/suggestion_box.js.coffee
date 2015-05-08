@@ -46,6 +46,19 @@ form = ->
 removeLink = ->
   $(".user_remove a")
 
+warningModalSelector = ->
+  "#suggestion_box_warning_modal"
+
+warningModal = ->
+  $(warningModalSelector())
+
+warningConfirm = ->
+  $(warningModalSelector() + " .confirm")
+
+warningCancel = ->
+  $(warningModalSelector() + " .cancel, " + 
+    warningModalSelector() + " .close-reveal-modal")
+
 window.suggestionBox = (withModalEvents = true) ->
   #
   # => Suggestion Box Modal
@@ -56,16 +69,41 @@ window.suggestionBox = (withModalEvents = true) ->
   cancelBtn().click (e) ->
     e.preventDefault()
     triggerModal('close')
-    if window.needToBeSaved
-      reloadForm()
+      
 
   if withModalEvents
     $(document).on 'open.fndtn.reveal', modalSelector(), ->
-      blockSaveBtn()
+      unless window.needToBeSaved
+        blockSaveBtn()
+
+    $(document).on 'closed.fndtn.reveal', modalSelector(), ->
+      if window.needToBeSaved
+        triggerWarningModal('open')
 
     manageAccessBtn().click (e) ->
       e.preventDefault()
       triggerModal('open')
+  #
+  # => Warning Modal
+  #
+  triggerWarningModal = (action) ->
+    warningModal().foundation('reveal', action)
+
+  if withModalEvents
+    warningCancel().click (e) ->
+      triggerWarningModal('close')
+      
+    warningConfirm().click (e) ->
+      window.needToBeSaved = 'reload'
+      triggerWarningModal('close')
+      
+
+    $(document).on 'closed.fndtn.reveal', warningModalSelector(), ->
+      if window.needToBeSaved == 'reload'
+        reloadForm()
+      else
+        triggerModal('open')
+
   #
   # => Suggestion Switcher
   #
@@ -149,7 +187,11 @@ window.suggestionBox = (withModalEvents = true) ->
     $(@).ajaxSubmit
       dataType: 'json'
     blockSaveBtn()
+
+  $(window).on "beforeunload", ->
+    if window.needToBeSaved
+      "You haven't saved your changes."
   #
   # => Initialization
   #
-  triggerModal('open')
+  #triggerModal('open')
