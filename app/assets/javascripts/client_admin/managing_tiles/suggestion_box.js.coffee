@@ -46,7 +46,7 @@ form = ->
 removeLink = ->
   $(".user_remove a")
 
-window.suggestionBox = ->
+window.suggestionBox = (withModalEvents = true) ->
   #
   # => Suggestion Switcher
   #
@@ -78,19 +78,19 @@ window.suggestionBox = ->
   triggerModal = (action) ->
     modal().foundation('reveal', action)
 
-  $(document).on 'open.fndtn.reveal', modalSelector(), ->
-    blockSaveBtn()
-
-  manageAccessBtn().click (e) ->
-    e.preventDefault()
-    triggerModal('open')
-
   cancelBtn().click (e) ->
     e.preventDefault()
     triggerModal('close')
     if window.needToBeSaved
       reloadForm()
 
+  if withModalEvents
+    $(document).on 'open.fndtn.reveal', modalSelector(), ->
+      blockSaveBtn()
+
+    manageAccessBtn().click (e) ->
+      e.preventDefault()
+      triggerModal('open')
   #
   # => User Search Autocomplete
   #
@@ -136,6 +136,8 @@ window.suggestionBox = ->
       url: '/client_admin/suggestion_box'
       success: (data) ->
         form().replaceWith data.form
+        window.needToBeSaved = false
+        window.suggestionBox(false)
 
   removeLink().click (e) ->
     e.preventDefault()

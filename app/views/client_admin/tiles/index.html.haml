@@ -5,7 +5,7 @@
   .row
     .large-12.columns
       %h4 Draft
-      = render partial: 'client_admin/tiles/suggestion_box/suggestion_box'
+      = render partial: 'client_admin/suggestion_box/suggestion_box'
       %div#draft.manage_section= render partial: 'client_admin/tiles/manage_tiles/draft'
 .row.show_all_draft_section
   = link_to "Show all", '', class: :all_draft, style: "display:#{@show_more_draft_tiles ? 'block' : 'none'};"
