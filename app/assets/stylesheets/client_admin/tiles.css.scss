@@ -378,6 +378,28 @@ body.client_admin-tiles-index {
         color: $sky-blue;
       }
     }
+    .specific_users_section {
+      table#allowed_to_suggest_users {
+        border-top: 1px solid #ddd;
+        td {
+          @include regular-text;
+          padding: 1em 0.5em;
+        }
+        .user_name {
+          width: 25%;
+        }
+        .user_email {
+          width: 50%;
+        }
+        .user_remove {
+          width: 25%;
+          text-align: right;
+        }
+        a {
+          @include regular-text;
+        }
+      }
+    }
     .control_buttons {
       margin-top: 20px;
       #save_suggestion_box {
