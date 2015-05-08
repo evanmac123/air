@@ -43,6 +43,9 @@ searchResultsSelector = ->
 form = ->
   $("#suggestion_box_form")
 
+removeLink = ->
+  $(".user_remove a")
+
 window.suggestionBox = ->
   #
   # => Suggestion Switcher
@@ -116,8 +119,10 @@ window.suggestionBox = ->
   formChanged = ->
     unblockSaveBtn()
 
-  # form().on 'submit', (e) ->
-  #   e.preventDefault()
+  removeLink().click (e) ->
+    e.preventDefault()
+    $(@).closest("tr").remove()
+    formChanged()
 
   #
   # => Initialization
