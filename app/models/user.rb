@@ -1149,11 +1149,42 @@ class User < ActiveRecord::Base
   def update_allowed_to_make_tile_suggestions value, demo
     bm = board_memberships.where(demo: demo).first
     return unless bm
-    User.transaction do
+    transaction do
       bm.update_attribute :allowed_to_make_tile_suggestions, value
       if bm.is_current
         update_attribute :allowed_to_make_tile_suggestions, value
       end
+    end
+  end
+
+  def self.allow_to_make_tile_suggestions _user_ids, _demo
+    transaction do
+      BoardMembership
+        .where(demo: _demo, allowed_to_make_tile_suggestions: true)
+        .update_all(allowed_to_make_tile_suggestions: false)
+
+      BoardMembership
+        .where do
+          (user_id.in _user_ids) &
+          (demo == _demo)
+        end
+        .update_all(allowed_to_make_tile_suggestions: true)
+
+      joins{board_memberships}
+        .where do 
+          (board_memberships.demo == _demo) &
+          (board_memberships.is_current == true) &
+          (allowed_to_make_tile_suggestions == true)
+        end
+        .update_all(allowed_to_make_tile_suggestions: false)
+
+      joins{board_memberships}
+        .where do 
+          (board_memberships.demo == _demo) &
+          (board_memberships.is_current == true) &
+          (id.in _user_ids) 
+        end
+        .update_all(allowed_to_make_tile_suggestions: true)
     end
   end
 
