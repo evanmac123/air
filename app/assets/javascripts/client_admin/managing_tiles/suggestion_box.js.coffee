@@ -206,4 +206,4 @@ window.suggestionBox = (withModalEvents = true) ->
   #
   # => Initialization
   #
-  triggerModal('open')
+  #triggerModal('open')
