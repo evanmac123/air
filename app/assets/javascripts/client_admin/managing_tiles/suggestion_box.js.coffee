@@ -28,6 +28,9 @@ saveBtn = ->
 cancelBtn = ->
   $('#cancel_suggestion_box, #suggestion_box_modal .close-reveal-modal')
 
+controlButtonsBlock = ->
+  $('.control_buttons')
+
 userRow = (userId) ->
   $(".allowed_to_suggest_user[data-user-id=#{userId}]")
 
@@ -43,8 +46,8 @@ searchResultsSelector = ->
 form = ->
   $("#suggestion_box_form")
 
-removeLink = ->
-  $(".user_remove a")
+removeLinkSelector = ->
+  ".user_remove a"
 
 warningModalSelector = ->
   "#suggestion_box_warning_modal"
@@ -145,8 +148,7 @@ window.suggestionBox = (withModalEvents = true) ->
         success: (data) ->
           usersTableBody().prepend data.userRow
           formChanged()
-    else
-      searchInput().val('').focus()
+    searchInput().val('').focus()
 
   searchInput().autocomplete
     appendTo: searchResultsSelector(), 
@@ -168,6 +170,13 @@ window.suggestionBox = (withModalEvents = true) ->
   formChanged = ->
     unblockSaveBtn()
 
+  turnSaveBtnSpinner = (action = 'on') ->
+    if action == 'on'
+      blockSaveBtn()
+      controlButtonsBlock().addClass('with_spinner')
+    else
+      controlButtonsBlock().removeClass('with_spinner')
+
   reloadForm = ->
     $.ajax
       type: 'GET',
@@ -177,16 +186,19 @@ window.suggestionBox = (withModalEvents = true) ->
         window.needToBeSaved = false
         window.suggestionBox(false)
 
-  removeLink().click (e) ->
+  $(document).on 'click', removeLinkSelector(), (e) ->
     e.preventDefault()
     $(@).closest("tr").remove()
     formChanged()
 
   form().on 'submit', (e) ->
     e.preventDefault()
+    turnSaveBtnSpinner('on')
     $(@).ajaxSubmit
       dataType: 'json'
-    blockSaveBtn()
+      success: ->
+        turnSaveBtnSpinner('off')
+        triggerModal('close')
 
   $(window).on "beforeunload", ->
     if window.needToBeSaved
@@ -194,4 +206,4 @@ window.suggestionBox = (withModalEvents = true) ->
   #
   # => Initialization
   #
-  #triggerModal('open')
+  triggerModal('open')

@@ -405,6 +405,21 @@ body.client_admin-tiles-index {
     }
     .control_buttons {
       margin-top: 20px;
+      position: relative;
+      &.with_spinner {
+        img#submit_spinner {
+          display: block;
+          position: absolute;
+          top: 4px;
+          left: 34px;
+        }
+        #save_suggestion_box {
+          color: transparent;
+        }
+      }
+      img#submit_spinner {
+        display: none;
+      }
       #save_suggestion_box {
         @include app-button($sky-blue);
         font-size: 14px;
