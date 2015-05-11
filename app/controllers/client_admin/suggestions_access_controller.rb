@@ -14,7 +14,7 @@ class ClientAdmin::SuggestionsAccessController < ClientAdminBaseController
       end
 
       format.json do
-        render nothing: true
+        render json: {success: true}
       end
     end
   end
