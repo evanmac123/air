@@ -14,7 +14,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @archive_tiles = (@demo.archive_tiles_with_placeholders)[0,4]
     @draft_tiles = @demo.draft_tiles_with_placeholders
 
-    @allowed_to_suggest_users = User.allowed_to_suggest_tiles @demo
+    @allowed_to_suggest_users = @demo.users_that_allowed_to_suggest_tiles
 
     @show_more_draft_tiles = show_more_draft_tiles
     @board_is_brand_new = @demo.tiles.limit(1).first.nil?
