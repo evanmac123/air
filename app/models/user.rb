@@ -1157,6 +1157,11 @@ class User < ActiveRecord::Base
     end
   end
 
+  def can_make_tile_suggestions? _demo = demo
+    _demo.everyone_can_make_tile_suggestions ||
+      board_memberships.where(demo: _demo).first.allowed_to_make_tile_suggestions
+  end
+
   def self.allow_to_make_tile_suggestions _user_ids, _demo
     transaction do
       BoardMembership
