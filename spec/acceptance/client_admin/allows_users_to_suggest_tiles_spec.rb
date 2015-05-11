@@ -6,7 +6,7 @@ feature 'Client admin segments on characteristics' do
   let!(:admin) { FactoryGirl.create :client_admin }
   let!(:demo)  { admin.demo  }
   let!(:users) do 
-    (1..4).to_a.map do |num|
+    users = (1..4).to_a.map do |num|
       FactoryGirl.create :user, demo: demo, name: "User#{num}"
     end
   end
@@ -50,6 +50,26 @@ feature 'Client admin segments on characteristics' do
     page.all("#name_autocomplete_target li a").map(&:text)
   end
 
+  def warning_modal_mess
+    "Are you sure you want to close this form? You haven't saved changes."
+  end
+
+  def suggestion_box_header
+    "Add people to suggestion box"
+  end
+
+  def suggestion_box_cancel
+    page.find("#cancel_suggestion_box")
+  end
+
+  def warning_cancel
+    page.find("#suggestion_box_warning_modal .cancel")
+  end
+
+  def warning_confirm
+    page.find("#suggestion_box_warning_modal .confirm")
+  end
+
   background do
     bypass_modal_overlays(admin)
     signin_as(admin, admin.password)
@@ -60,12 +80,12 @@ feature 'Client admin segments on characteristics' do
   end
 
   it "should show Suggestion Box Modal", js: true do
-    expect_no_content "Add people to suggestion box"
+    expect_no_content suggestion_box_header
 
     expect_content "Manage Access"
     manage_access_link.click
 
-    expect_content "Add people to suggestion box"
+    expect_content suggestion_box_header
   end
 
   context "Suggestion Switcher" do
@@ -127,6 +147,53 @@ feature 'Client admin segments on characteristics' do
 
         demo.users_that_allowed_to_suggest_tiles.pluck(:name).should == ["User1"]
       end
+    end
+
+    context "Removing" do
+      before do
+        users.first.update_allowed_to_make_tile_suggestions true, demo
+        visit current_path 
+        manage_access_link.click
+      end
+
+      it "should remove user", js: true do
+        demo.users_that_allowed_to_suggest_tiles.pluck(:name).should == ["User1"]
+
+        user_rows[0].find(".user_remove a").click
+        user_rows.count.should == 0
+
+        save_button.click
+        demo.users_that_allowed_to_suggest_tiles.count.should == 0
+      end
+    end
+  end
+
+  context "Warning Modal" do
+    before do
+      users.first.update_allowed_to_make_tile_suggestions true, demo
+      visit current_path 
+      manage_access_link.click
+    end
+
+    it "should confirm leaving if there is some unsaved changes", js: true do
+      user_rows[0].find(".user_remove a").click
+      user_rows.count.should == 0
+
+      suggestion_box_cancel.click
+      expect_content warning_modal_mess
+      # cancel modal and this moves us back in suggestion box
+      warning_cancel.click
+      expect_content suggestion_box_header
+      user_rows.count.should == 0
+
+      suggestion_box_cancel.click
+      expect_content warning_modal_mess
+      # now confirm leaving
+      warning_confirm.click
+      expect_no_content suggestion_box_header
+      # open box again and get our initial data
+      manage_access_link.click
+      user_rows.count.should == 1
     end
   end
 end
