@@ -337,6 +337,10 @@ class Demo < ActiveRecord::Base
     where(is_public: true)
   end
 
+  def users_that_allowed_to_suggest_tiles
+    User.allowed_to_suggest_tiles self
+  end
+
   def self.public_board_by_public_slug(public_slug)
     self.where(public_slug: public_slug).public.first
   end

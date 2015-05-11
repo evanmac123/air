@@ -1,7 +1,7 @@
 class ClientAdmin::SuggestionBoxController < ClientAdminBaseController
   def index
     demo = current_user.demo
-    users = User.allowed_to_suggest_tiles demo
+    users = demo.users_that_allowed_to_suggest_tiles
 
     render json: { form: form(demo, users) }
   end

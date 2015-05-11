@@ -37,13 +37,16 @@ feature 'Client admin segments on characteristics' do
 
   def fill_in_username_autocomplete(name)
     autocomplete_input.set(name)
-    page.execute_script("$('#name_substring').focus().keydown().keyup()")
-    #fill_in "name_substring", with: name
+    page.execute_script("$('#name_substring').autocomplete('search')")
     wait_for_ajax
   end
 
-  def username_autocomplete_results
-    p page.all("#name_autocomplete_target li")
+  def username_autocomplete_results_click num
+    selector = "#name_autocomplete_target li a:first"
+    page.execute_script %Q{ $('#{selector}').eq(#{num}).trigger('mouseenter').click() }
+  end
+
+  def autocomplete_result_names
     page.all("#name_autocomplete_target li a").map(&:text)
   end
 
@@ -103,18 +106,27 @@ feature 'Client admin segments on characteristics' do
     end
 
     context "Autocomplete Input" do
-      it "should autocomplete entered name and show users", js: true do#, driver: :selenium do
+      it "should autocomplete entered name and show users", js: true , driver: :webkit do
         fill_in_username_autocomplete("Use")
-        #sleep 100
-        username_autocomplete_results.count.should == 4
-        username_autocomplete_results.should == ["User1", "User2", "User3", "User4"]
+        autocomplete_result_names.count.should == 4
+        autocomplete_result_names.should == ["User1", "User2", "User3", "User4"]
 
         fill_in_username_autocomplete("W")
-        username_autocomplete_results.count.should == 1
-        username_autocomplete_results[0] =~ "No match for W."
+        autocomplete_result_names.count.should == 1
+        autocomplete_result_names[0] =~ /No match for W./
       end
 
-      #it "should add user from autocomplete list to user table on click"
+      it "should add user from autocomplete list to user table on click", js: true , driver: :webkit do
+        fill_in_username_autocomplete("Use")
+        username_autocomplete_results_click 0
+
+        wait_for_ajax
+        user_rows.first.find(".user_name").text.should == "User1"
+
+        save_button.click
+
+        demo.users_that_allowed_to_suggest_tiles.pluck(:name).should == ["User1"]
+      end
     end
   end
 end
