@@ -193,6 +193,7 @@ feature 'Client admin segments on characteristics' do
       expect_no_content suggestion_box_header
       # open box again and get our initial data
       manage_access_link.click
+      expect_content suggestion_box_header
       user_rows.count.should == 1
     end
   end
