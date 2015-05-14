@@ -1,11 +1,12 @@
 class Tile < ActiveRecord::Base
   include Concerns::TileImageable
 
-  ACTIVE     = 'active'.freeze
-  ARCHIVE    = 'archive'.freeze
-  DRAFT      = 'draft'.freeze
+  ACTIVE  = 'active'.freeze
+  ARCHIVE = 'archive'.freeze
+  DRAFT   = 'draft'.freeze
   USER_DRAFT = 'user_draft'.freeze
-  STATUS  = [ACTIVE, ARCHIVE, DRAFT, USER_DRAFT].freeze
+  USER_SUBMITTED   = 'user_submitted'.freeze
+  STATUS  = [ACTIVE, ARCHIVE, DRAFT, USER_DRAFT, USER_SUBMITTED].freeze
   #question types
   ACTION = 'Action'.freeze
   QUIZ   = 'Quiz'.freeze

@@ -1,0 +1,10 @@
+#tile-joyride
+  %ol.joyride-list.tile{"data-joyride" => true}
+    %li{:"data-id"=>"add_new_tile_link", :"data-options"=>"tipLocation:top;nextButton:false"}
+      %p.top-section
+        Click the
+        <b>+</b>
+        button to create a new tile.
+      .bottom-section
+        Need ideas?
+        = link_to 'Explore.', client_admin_explore_path
