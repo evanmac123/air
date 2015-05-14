@@ -19,7 +19,20 @@ class ClientAdmin::SuggestionsAccessController < ClientAdminBaseController
     end
   end
 
+  def index
+    @users = @demo.users_that_allowed_to_suggest_tiles
+
+    render json: { form: form(@demo, @users) }
+  end
+
   protected
+
+  def form(demo, users)
+    render_to_string("client_admin/suggestions_access/_form", 
+      locals: { demo: demo, users: users }, 
+      layout: false
+    )
+  end
 
   def find_demo
     @demo = current_user.demo

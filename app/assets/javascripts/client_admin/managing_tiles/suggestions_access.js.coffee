@@ -62,7 +62,7 @@ warningCancel = ->
   $(warningModalSelector() + " .cancel, " + 
     warningModalSelector() + " .close-reveal-modal")
 
-window.suggestionBox = (withModalEvents = true) ->
+window.suggestionsAccess = (withModalEvents = true) ->
   #
   # => Suggestion Box Modal
   #
@@ -180,11 +180,11 @@ window.suggestionBox = (withModalEvents = true) ->
   reloadForm = ->
     $.ajax
       type: 'GET',
-      url: '/client_admin/suggestion_box'
+      url: '/client_admin/suggestions_access'
       success: (data) ->
         form().replaceWith data.form
         window.needToBeSaved = false
-        window.suggestionBox(false)
+        window.suggestionsAccess(false)
 
   $(document).on 'click', removeLinkSelector(), (e) ->
     e.preventDefault()
