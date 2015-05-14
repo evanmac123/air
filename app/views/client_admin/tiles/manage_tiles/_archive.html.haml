@@ -1,7 +1,10 @@
-- display_no_tiles_section = (@archive_tiles.empty? || @archive_tiles.all?(&:is_placeholder?)) ? "block" : "none"
-%div.no_tiles_section{style: "display:#{display_no_tiles_section};"}
-  - tile = TileOddRowPlaceholder.new
-  - 4.times do
-    = render "client_admin/tiles/manage_tiles/single_#{tile.class.to_s.underscore}", tile: tile
-
-= render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: {tiles: @archive_tiles, type: :archive}
+.draft_blocked_message
+  Oops! Sorry, you can't move a tile that's been completed by users back to draft. You can archive or repost it.
+.row
+  .large-12.columns
+    %h4 Archive
+    = link_to "Download stats", client_admin_tiles_report_path(report: Tile::ARCHIVE, format: "csv"), class: 'download_csv small_button'
+    %div#archive.manage_section
+      = render partial: 'client_admin/tiles/manage_tiles/no_tiles_section', locals: {display_no_tiles_section: (@archive_tiles.empty? || @archive_tiles.all?(&:is_placeholder?))}
+      = render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: {tiles: @archive_tiles, type: :archive}
+    = link_to "Show all", client_admin_inactive_tiles_path, :class => :all_inactive

@@ -1,46 +1,16 @@
 %section.manage_tiles#draft_tiles.compressed_section
-  .draft_overlay
-    .overlay_message
-      = fa_icon "ban"
-  .row
-    .large-12.columns
-      %h4 Draft
-      = render partial: 'client_admin/suggestions_access/suggestion_box_header'
-      %div#draft.manage_section= render partial: 'client_admin/tiles/manage_tiles/draft'
+  = render partial: 'client_admin/tiles/manage_tiles/draft'
 .row.show_all_draft_section
   = link_to "Show all", '', class: :all_draft, style: "display:#{@show_more_draft_tiles ? 'block' : 'none'};"
 .completed_tiles_containment
   %section.manage_tiles#active_tiles
-    .draft_blocked_message
-      Oops! Sorry, you can't move a tile that's been completed by users back to draft. You can archive it.
-    .row
-      .large-12.columns
-        %h4 Posted
-        = link_to "Download stats", client_admin_tiles_report_path(report: Tile::ACTIVE, format: "csv"), class: "download_csv small_button"
-        %div#active.manage_section=  render partial: 'client_admin/tiles/manage_tiles/active'
-
+    =  render partial: 'client_admin/tiles/manage_tiles/active'
   %section.manage_tiles#archived_tiles
-    .draft_blocked_message
-      Oops! Sorry, you can't move a tile that's been completed by users back to draft. You can archive or repost it.
-    .row
-      .large-12.columns
-        %h4 Archive
-        = link_to "Download stats", client_admin_tiles_report_path(report: Tile::ARCHIVE, format: "csv"), class: 'download_csv small_button'
-        %div#archive.manage_section= render partial: 'client_admin/tiles/manage_tiles/archive'
-        = link_to "Show all", client_admin_inactive_tiles_path, :class => :all_inactive
-= render partial: 'client_admin/tiles/manage_tiles/move_tile_confirmation_modal'
+    = render partial: 'client_admin/tiles/manage_tiles/archive'
 
+= render partial: 'client_admin/tiles/manage_tiles/move_tile_confirmation_modal'
 - if @board_is_brand_new
-  #tile-joyride
-    %ol.joyride-list.tile{"data-joyride" => true}
-      %li{:"data-id"=>"add_new_tile_link", :"data-options"=>"tipLocation:top;nextButton:false"}
-        %p.top-section
-          Click the
-          <b>+</b>
-          button to create a new tile.
-        .bottom-section
-          Need ideas?
-          = link_to 'Explore.', client_admin_explore_path
+  = render partial: 'client_admin/tiles/manage_tiles/add_new_tile_joyride'
 
 = render 'shared/tiles/poll_for_thumbnails'
 - content_for :javascript do

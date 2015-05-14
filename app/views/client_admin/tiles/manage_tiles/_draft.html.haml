@@ -1,2 +1,9 @@
-- unless @draft_tiles.empty?
-  = render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: {tiles: @draft_tiles, type: :draft}
+.draft_overlay
+  .overlay_message
+    = fa_icon "ban"
+.row
+  .large-12.columns
+    %h4 Draft
+    = render partial: 'client_admin/suggestions_access/suggestion_box_header'
+    %div#draft.manage_section
+      = render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: {tiles: @draft_tiles, type: :draft}
