@@ -14,7 +14,7 @@ switherOff = ->
   $('#suggestion_switcher_off')
 
 modalSelector = ->
-  '#suggestion_box_modal'
+  '#suggestions_access_modal'
 
 modal = ->
   $(modalSelector())
@@ -23,10 +23,10 @@ manageAccessBtn = ->
   $('.manage_access')
 
 saveBtn = ->
-  $("#save_suggestion_box")
+  $("#save_suggestions_access")
 
 cancelBtn = ->
-  $('#cancel_suggestion_box, #suggestion_box_modal .close-reveal-modal')
+  $('#cancel_suggestions_access, #suggestion_box_modal .close-reveal-modal')
 
 controlButtonsBlock = ->
   $('.control_buttons')
@@ -44,13 +44,13 @@ searchResultsSelector = ->
   "#name_autocomplete_target"
 
 form = ->
-  $("#suggestion_box_form")
+  $("#suggestions_access_form")
 
 removeLinkSelector = ->
   ".user_remove a"
 
 warningModalSelector = ->
-  "#suggestion_box_warning_modal"
+  "#suggestions_access_warning_modal"
 
 warningModal = ->
   $(warningModalSelector())
@@ -111,11 +111,11 @@ window.suggestionsAccess = (withModalEvents = true) ->
   # => Suggestion Switcher
   #
   higlightSwitcherCopy = (name) ->
-    $(".specific_users, .all_users").removeClass("on")
+    $(".specific_users_copy, .all_users_copy").removeClass("on")
     if name == 'allUsers'
-      $(".all_users").addClass("on")
+      $(".all_users_copy").addClass("on")
     else
-      $(".specific_users").addClass("on")
+      $(".specific_users_copy").addClass("on")
 
   showSection = (name) ->
     if name == 'allUsers'

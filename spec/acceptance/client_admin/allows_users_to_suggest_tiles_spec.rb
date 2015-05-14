@@ -28,7 +28,7 @@ feature 'Client admin segments on characteristics' do
   end
 
   def save_button
-    page.find("#save_suggestion_box")
+    page.find("#save_suggestions_access")
   end
 
   def autocomplete_input
@@ -59,15 +59,15 @@ feature 'Client admin segments on characteristics' do
   end
 
   def suggestion_box_cancel
-    page.find("#cancel_suggestion_box")
+    page.find("#cancel_suggestions_access")
   end
 
   def warning_cancel
-    page.find("#suggestion_box_warning_modal .cancel")
+    page.find("#suggestions_access_warning_modal .cancel")
   end
 
   def warning_confirm
-    page.find("#suggestion_box_warning_modal .confirm")
+    page.find("#suggestions_access_warning_modal .confirm")
   end
 
   background do

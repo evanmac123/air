@@ -3,14 +3,14 @@
     Who would you like to give access to?
   </p>
   <div class="switcher">
-    <div class="specific_users <%= 'on' if display_specific_users %>">Specific Users</div>
+    <div class="specific_users_copy <%= 'on' if display_specific_users %>">Specific Users</div>
     <div class='switch small round suggestion_switcher_block'>
       <%= form.radio_button :everyone_can_make_tile_suggestions, true, id: 'suggestion_switcher_on' %>
       <%= form.radio_button :everyone_can_make_tile_suggestions, false, id: 'suggestion_switcher_off' %>
 
       <span class='green-paddle'></span>
     </div>
-    <div class="all_users <%= 'on' if display_all_users %>">
+    <div class="all_users_copy <%= 'on' if display_all_users %>">
       All Users
       <i class='fa fa-question-circle'></i>
     </div>
