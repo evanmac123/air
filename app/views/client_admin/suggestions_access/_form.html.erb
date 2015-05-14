@@ -3,7 +3,7 @@
   display_specific_users = !display_all_users
 %>
 
-<%= form_for demo, url: client_admin_suggestions_access_path, html: {id: "suggestion_box_form"} do |form| %>
+<%= form_for demo, url: client_admin_suggestions_access_path, html: {id: "suggestions_access_form"} do |form| %>
   <%= render partial: 'client_admin/suggestions_access/switcher', locals: { form: form, display_all_users: display_all_users, display_specific_users: display_specific_users } %>
 
   <%= render partial: 'client_admin/suggestions_access/all_users', locals: { display_all_users: display_all_users } %>
@@ -11,8 +11,8 @@
   <%= render partial: 'client_admin/suggestions_access/specific_users', locals: { users: users, display_specific_users: display_specific_users } %>  
 
   <div class="control_buttons">
-    <%= form.submit 'Save', id: "save_suggestion_box" %>
-    <%= link_to 'Cancel', '', id: "cancel_suggestion_box" %>
+    <%= form.submit 'Save', id: "save_suggestions_access" %>
+    <%= link_to 'Cancel', '', id: "cancel_suggestions_access" %>
 
     <%= image_tag "spinner_gears.gif", id: "submit_spinner" %>
   </div>
