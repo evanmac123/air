@@ -207,7 +207,7 @@ window.dragAndDropTiles = ->
     $("#draft_tiles").hasClass "compressed_section"
 
   visibleTilesNumberIn = (section) ->
-    if section == "draft"
+    if section == "draft" || section == "suggestion_box"
       if draftSectionIsCompressed()
         4
       else
