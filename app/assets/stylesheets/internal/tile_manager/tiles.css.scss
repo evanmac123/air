@@ -140,7 +140,15 @@ body.suggested_tiles-index {
       float: left;
       padding-bottom: 2rem;
     }
-    #draft   { .tile_container { height: 377px; } }
+    #draft { 
+      display: none;
+      &.selected {
+        display: block;
+      }
+      .tile_container { 
+        height: 377px; 
+      } 
+    }
     #active  { .tile_container { height: 466px; } }
     #archive { .tile_container { height: 466px; } }
     .no_tiles_message {margin:0 auto 3em;}
@@ -438,6 +446,12 @@ body.suggested_tiles-index {
         width: 85px;
         margin-left: 10px;
       }
+    }
+  }
+  #suggestion_box {
+    display: none;
+    &.selected {
+      display: block;
     }
   }
 }
