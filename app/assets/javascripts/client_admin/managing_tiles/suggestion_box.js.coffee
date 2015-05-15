@@ -12,15 +12,14 @@ boxTitle = ->
 
 showSection = (section) ->
   if section == 'draft'
-    draftSection().show()
-    box().hide()
+    draftSection().addClass('selected')
+    box().removeClass('selected')
   else
-    draftSection().hide()
-    box().show()
+    draftSection().removeClass('selected')
+    box().addClass('selected')
+  updateShowMoreDraftTilesButton()
 
 window.suggestionBox = ->
-  showSection('draft') 
-
   draftTitle().click ->
     showSection('draft')
 

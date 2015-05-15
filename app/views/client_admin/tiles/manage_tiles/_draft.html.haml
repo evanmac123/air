@@ -5,9 +5,9 @@
   .large-12.columns
     %h4#draft_title Draft
     = render partial: 'client_admin/suggestions_access/suggestion_box_header'
-    %div#draft.manage_section
+    %div#draft.manage_section{class: draftSectionClass}
       = render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: {tiles: @draft_tiles, type: :draft}
-    %div#suggestion_box
+    %div#suggestion_box{class: suggestionBoxClass}
       = render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: {tiles: @user_submitted_tiles, type: :user_submitted}
 
 - content_for :javascript do

@@ -139,4 +139,29 @@ module ClientAdmin::TilesHelper
       modal_class: "destroy_confirm_modal"
     }
   end
+
+  def draftSectionClass
+    if params[:showSuggestionBox].present?
+      nil
+    else
+      'selected'
+    end
+  end
+
+  def suggestionBoxClass
+    if params[:showSuggestionBox].present?
+      'selected'
+    else
+      nil
+    end
+  end
+
+  def display_show_more_draft_tiles
+    show = if params[:showSuggestionBox].present?
+      current_user.demo.user_submitted_tiles.count > 4
+    else
+      current_user.demo.draft_tiles.count > 3
+    end
+    show ? 'display' : 'none'
+  end
 end

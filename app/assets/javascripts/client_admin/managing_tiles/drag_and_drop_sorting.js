@@ -6,12 +6,30 @@ updateShareTilesNumber = function(number){
   $("#share_tiles span").text(number);
 }
 
-updateShowMoreDraftTilesButton = function(show){
+updateShowMoreDraftTilesButton = function(){
   button = $(".all_draft")
-  if(show == "true"){
+  if( showMoreDraftTiles() || showMoreSuggestionBox() ){
     button.show()
   }else{
     button.hide()
+  }
+}
+
+showMoreDraftTiles = function(){
+  draftTilesCount = $("#draft .tile_container").length
+  return (draftTilesCount > 3 && selectedSection() == 'draft')
+}
+
+showMoreSuggestionBox = function(){
+  suggestionBoxTilesCount = $("#suggestion_box .tile_container").length
+  return (suggestionBoxTilesCount > 4 && selectedSection() == 'box')
+}
+
+selectedSection = function() {
+  if( $("#draft.selected").length > 0 ){
+    return 'draft';
+  } else {
+    return 'box';
   }
 }
 
