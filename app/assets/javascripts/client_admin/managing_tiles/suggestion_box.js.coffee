@@ -18,6 +18,7 @@ showSection = (section) ->
     draftSection().removeClass('selected')
     box().addClass('selected')
   updateShowMoreDraftTilesButton()
+  window.compressSection()
 
 window.suggestionBox = ->
   draftTitle().click ->

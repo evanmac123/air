@@ -1,6 +1,12 @@
 section = ->
   $("#draft_tiles")
 
+selectedBlockName = ->
+  if $("#draft.selected").length > 0
+    'draft'
+  else
+    'suggestion_box'
+
 compressSection = (animate = false) ->
   if animate
     # two simultaneous actions
@@ -8,6 +14,8 @@ compressSection = (animate = false) ->
     animateSectionSliding -compressSectionMargin(), 0 , "up"
   else
     setCompressedSectionClass("add")
+
+window.compressSection = compressSection
 
 compressSectionMargin = ->
   initialHeight = section().outerHeight()
@@ -62,7 +70,7 @@ setCompressedSectionClass = (action = "remove") ->
     section().removeClass compressedSectionClass()
   else
     section().addClass compressedSectionClass()
-  window.updateTileVisibilityIn("draft")
+  window.updateTileVisibilityIn selectedBlockName()
 
 sectionIsCompressed = ->
   section().hasClass compressedSectionClass()
@@ -70,7 +78,7 @@ sectionIsCompressed = ->
 compressedSectionClass = ->
   "compressed_section"
 
-window.expandDraftSection = ->
+window.expandDraftSectionOrSuggestionBox = ->
   compressSection()
 
   $(".all_draft").click (e) ->

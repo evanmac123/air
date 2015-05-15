@@ -16,12 +16,12 @@ updateShowMoreDraftTilesButton = function(){
 }
 
 showMoreDraftTiles = function(){
-  draftTilesCount = $("#draft .tile_container").length
+  draftTilesCount = notTilePlaceholdersInSection( $("#draft") ).length
   return (draftTilesCount > 3 && selectedSection() == 'draft')
 }
 
 showMoreSuggestionBox = function(){
-  suggestionBoxTilesCount = $("#suggestion_box .tile_container").length
+  suggestionBoxTilesCount = notTilePlaceholdersInSection( $("#suggestion_box") ).length
   return (suggestionBoxTilesCount > 4 && selectedSection() == 'box')
 }
 
