@@ -2,7 +2,7 @@ module TileFooterTimestamper
   include ActionView::Helpers::DateHelper
 
   def footer_timestamp
-    if tile.status == Tile::DRAFT
+    if tile.status == Tile::DRAFT || tile.status == Tile::USER_SUBMITTED
       spanned_text(
         "Created: " + tile.created_at.strftime('%-m/%-d/%Y'),
           "tile-created-at")

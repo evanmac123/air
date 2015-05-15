@@ -32,27 +32,38 @@
       margin-left:.5em;
       text-align: center;
       width:auto;
-      .edit_tile_link, &.destroy_button {
+      &.edit_button, &.destroy_button, &.ignore_button {
         a {
           @include light-button($white);
         }
       }
-      &.archive_button a {@include app-button($med-gray);}
-      &.activate_button a {@include app-button($sky-blue);}
+      &.archive_button a {
+        @include app-button($med-gray);
+      }
+      &.activate_button, &.accept_button {
+        a {
+          @include app-button($sky-blue);
+        }
+      }
     }
   }
   .draft {
     .activate_button a {
       width: 4.3em;
     }
-    .edit_tile_link a {
+    .edit_button a {
       width: 4em;
     }
   }
-  .archive{
-    .tile_buttons li a{
+  .archive {
+    .tile_buttons li a {
       padding-left:  0.5em;
       padding-right: 0.5em;
+    }
+  }
+  .user_submitted {
+    .accept_button {
+      margin-right: 4.2em;
     }
   }
 

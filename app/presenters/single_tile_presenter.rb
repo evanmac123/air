@@ -1,7 +1,7 @@
 class SingleTilePresenter
   include ActionView::Helpers::NumberHelper
   include TileFooterTimestamper
-  include Rails.application.routes.url_helpers  
+  #include Rails.application.routes.url_helpers  
 
   def initialize tile, format, type = nil
     @tile = tile
@@ -19,11 +19,39 @@ class SingleTilePresenter
     end
   end
 
-  def show_path
-    client_admin_tile_path(tile)
+  def has_archive_button?
+    type? :active
   end
 
-  def timestamp format = :html
+  def has_activate_button?
+    type? :archive, :draft
+  end
+
+  def post_link_text
+    'Post' + (type?(:archive) ? ' again' : '')
+  end
+
+  def has_edit_button?
+    type? :draft, :active, :archive
+  end
+
+  def has_destroy_button? 
+    type? :draft, :active, :archive
+  end
+
+  def has_accept_button? 
+    type? :user_submitted
+  end
+
+  def has_ignore_button? 
+    type? :user_submitted
+  end
+
+  def has_additional_tile_stats?
+    type? :active, :archive
+  end
+
+  def timestamp
     @timestamp ||= footer_timestamp
   end
 
