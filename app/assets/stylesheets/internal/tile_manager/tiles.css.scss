@@ -185,6 +185,9 @@ body.suggested_tiles-index {
   #draft_tiles {
     padding-top: 2em;
   }
+  #draft_title {
+    cursor: pointer;
+  }
   .draft_overlay{
     position: absolute;
     top: 0;
@@ -324,12 +327,12 @@ body.suggested_tiles-index {
     right: 73px;
     .help, .manage_access, h3 {
       float: left;
+      cursor: pointer;
     }
     .help, .manage_access {
       @include regular-text;
       font-size: 12px;
       padding-right: 35px;
-      cursor: pointer;
     }
   }
   #suggestions_access_modal {
