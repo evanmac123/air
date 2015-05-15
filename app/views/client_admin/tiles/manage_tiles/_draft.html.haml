@@ -7,3 +7,5 @@
     = render partial: 'client_admin/suggestions_access/suggestion_box_header'
     %div#draft.manage_section
       = render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: {tiles: @draft_tiles, type: :draft}
+    %div#suggestion_box
+      = render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: {tiles: @user_submitted_tiles, type: :user_submitted}

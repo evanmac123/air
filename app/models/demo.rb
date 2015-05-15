@@ -83,6 +83,10 @@ class Demo < ActiveRecord::Base
     tiles.archive
   end
 
+  def user_submitted_tiles
+    tiles.user_submitted
+  end
+
   def archive_tiles_with_creation_placeholder
     [TileCreationPlaceholder.new] + archive_tiles
   end
@@ -101,6 +105,10 @@ class Demo < ActiveRecord::Base
 
   def draft_tiles_with_placeholders
     add_odd_row_placeholders! draft_tiles_with_creation_placeholder
+  end
+
+  def user_submitted_tiles_with_placeholders
+    add_odd_row_placeholders! user_submitted_tiles
   end
 
   def draft_tiles_with_creation_placeholder
