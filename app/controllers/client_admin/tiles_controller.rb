@@ -115,12 +115,21 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def flash_status_messages
-    if params[:update_status] == Tile::ARCHIVE
+    case params[:update_status]
+    when Tile::ARCHIVE
       success = 'archived'
       failure = 'archiving'
-    else
+    when Tile::ACTIVE
       success = 'published'
       failure = 'publishing'
+    when Tile::DRAFT
+      success = 'accepted and moved to draft'
+      failure = 'accepting'
+    when Tile::USER_SUBMITTED
+      success = 'unaccepted and moved back to suggestion box'
+      failure = 'unaccepting'
+    else
+      success, failure = '', ''
     end
     [success, failure]
   end
