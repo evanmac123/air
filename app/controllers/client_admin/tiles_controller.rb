@@ -13,6 +13,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @active_tiles  = @demo.active_tiles_with_placeholders
     @archive_tiles = (@demo.archive_tiles_with_placeholders)[0,4]
     @draft_tiles = @demo.draft_tiles_with_placeholders
+    @user_submitted_tiles = @demo.user_submitted_tiles_with_placeholders
 
     @allowed_to_suggest_users = @demo.users_that_allowed_to_suggest_tiles
 

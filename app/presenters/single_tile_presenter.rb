@@ -1,6 +1,7 @@
 class SingleTilePresenter
   include ActionView::Helpers::NumberHelper
   include TileFooterTimestamper
+  include Rails.application.routes.url_helpers  
 
   def initialize tile, format, type = nil
     @tile = tile
@@ -18,12 +19,17 @@ class SingleTilePresenter
     end
   end
 
+  def show_path
+    client_admin_tile_path(tile)
+  end
+
   def timestamp format = :html
     @timestamp ||= footer_timestamp
   end
 
   def completion_percentage
-    @completion_percentage ||= number_to_percentage claimed_completion_percentage, precision: 1
+    @completion_percentage ||= 
+      number_to_percentage claimed_completion_percentage, precision: 1
   end
 
   def tile_id

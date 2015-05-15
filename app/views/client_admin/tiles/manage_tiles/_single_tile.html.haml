@@ -3,7 +3,7 @@
 - cache [__FILE__, 'v6.ant', presenter.cache_key] do
   .tile_container
     .tile_thumbnail{class:type, id:"single-tile-#{presenter.tile_id}", data:{tile_id:presenter.tile_id}}
-      = link_to client_admin_tile_path(presenter), class:'tile_thumb_link' do
+      = link_to presenter.show_path, class:'tile_thumb_link' do
         %div.tile-wrapper
           %div.tile_thumbnail_image
             = image_tag presenter.thumbnail
