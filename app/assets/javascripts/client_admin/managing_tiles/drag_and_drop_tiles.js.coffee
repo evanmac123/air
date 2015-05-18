@@ -91,10 +91,10 @@ window.dragAndDropTiles = ->
     4
 
   placehoderSelector = ->
-    ".tile_container.placeholder_container:not(.creation_placeholder)"
+    ".tile_container.placeholder_container:not(.creation_placeholder):not(.hidden_tile)"
 
   notDraggedTileSelector = ->
-    ".tile_container:not(.ui-sortable-helper)"
+    ".tile_container:not(.ui-sortable-helper):not(.hidden_tile)"
 
   placeholderHTML = ->
     '<div class="tile_container placeholder_container">' +
@@ -102,7 +102,7 @@ window.dragAndDropTiles = ->
     '</div>'
 
   sectionNames = ->
-    ["draft", "active", "archive"]
+    ["draft", "active", "archive", "suggestion_box"]
 
   findTileId = (tile) ->
     tile.find(".tile_thumbnail").data("tile_id")
@@ -115,6 +115,8 @@ window.dragAndDropTiles = ->
     updateAllNoTilesSections()
     updateTileVisibility()
 
+  window.updateTilesAndPlaceholdersAppearance = updateTilesAndPlaceholdersAppearance
+
   updateAllPlaceholders = ->
     for section in sectionNames()
       updatePlaceholders section
@@ -126,6 +128,8 @@ window.dragAndDropTiles = ->
     expectedPlaceholdersNumber = ( numberInRow() - ( tilesNumber % numberInRow() ) ) % numberInRow()
     removePlaceholders(section)
     addPlaceholders(section, expectedPlaceholdersNumber)
+
+  window.updatePlaceholders = updatePlaceholders
 
   removePlaceholders = (section) ->
     $("#" + section).children( placehoderSelector() ).remove()
@@ -200,8 +204,8 @@ window.dragAndDropTiles = ->
     section.sortable("refresh")
 
   updateTileVisibility = ->
-    updateTileVisibilityIn "draft"
-    updateTileVisibilityIn "archive"
+    for section in sectionNames()
+      updateTileVisibilityIn section
 
   draftSectionIsCompressed = ->
     $("#draft_tiles").hasClass "compressed_section"

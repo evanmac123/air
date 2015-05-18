@@ -44,14 +44,38 @@ window.suggestionBox = ->
   #
   # => Accept Tile Modal
   #
+  acceptingTileVisibility = (action) ->
+    tile = window.accessActionParams["tile"]
+    if action == "show"
+      tile.removeClass("hidden_tile").show()
+    else if action == "hide"
+      tile.addClass("hidden_tile").hide()
+    else if action == "remove"
+      tile.remove()
+    window.updateTilesAndPlaceholdersAppearance()
+
   prepareAccessModal = (acceptBtn) ->
     tile = acceptBtn.closest(".tile_container")
-    tile.hide()
-
     window.accessActionParams =
       url: acceptBtn.attr("href")
-      tile: acceptBtn.closest(".tile_container")
+      tile: tile
       undo: false
+    acceptingTileVisibility("hide")
+
+  acceptTile = ->
+    if window.accessActionParams["undo"]
+      acceptingTileVisibility("show")
+    else
+      $.ajax
+        type: 'PUT'
+        dataType: "json"
+        url: window.accessActionParams["url"]
+        success: (data) ->
+          if data.success
+            acceptingTileVisibility("remove")
+            $(".creation_placeholder").after data.tile
+          else
+            acceptingTileVisibility("show")
 
   acceptBtn().click (e) ->
     e.preventDefault()
@@ -68,17 +92,5 @@ window.suggestionBox = ->
     acceptModal().foundation('reveal', 'close')
 
   $(document).on 'closed.fndtn.reveal', acceptModalSel(), ->
-    unless window.accessActionParams["undo"]
-      $.ajax
-        type: 'PUT'
-        dataType: "json"
-        url: window.accessActionParams["url"]
-        success: (data) ->
-          if data.success
-            window.accessActionParams["tile"].remove()
-            $(".creation_placeholder").after data.tile
-          else
-            window.accessActionParams["tile"].show()
-    else
-      window.accessActionParams["tile"].show()
+    acceptTile()
 
