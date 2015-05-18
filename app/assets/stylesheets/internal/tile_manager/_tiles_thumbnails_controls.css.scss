@@ -87,7 +87,8 @@
     .activation_dates span, 
     .views,
     .completions,
-    .completion_percentage {
+    .completion_percentage,
+    .creator {
       @include caption;
       background: image-url('v5/bg_light.png');
       color:$dark-gray;

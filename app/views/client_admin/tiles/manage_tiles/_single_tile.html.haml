@@ -47,6 +47,10 @@
             Completed:
             = presenter.completion_percentage
             of joined users
+        - if presenter.shows_creator? && presenter.has_creator?
+          .creator
+            By:
+            = presenter.creator
 
 - if presenter.thumbnail_processing
   - js_at_end do

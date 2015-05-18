@@ -2,12 +2,15 @@ module TileFooterTimestamper
   include ActionView::Helpers::DateHelper
 
   def footer_timestamp
-    if tile.status == Tile::DRAFT || tile.status == Tile::USER_SUBMITTED
+    if tile.status == Tile::DRAFT
       spanned_text(
         "Created: " + tile.created_at.strftime('%-m/%-d/%Y'),
           "tile-created-at")
-    elsif
-      tile.activated_at.nil?
+    elsif tile.status == Tile::USER_SUBMITTED
+      spanned_text(
+        "Submitted: " + tile.created_at.strftime('%-m/%-d/%Y'),
+          "tile-submitted-at")
+    elsif tile.activated_at.nil?
       spanned_text("Never activated")
     elsif tile.status == Tile::ARCHIVE
       if @format == :plain
