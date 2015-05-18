@@ -29,7 +29,7 @@
             = link_to 'Ignore', ''
         - if presenter.has_accept_button?
           %li.accept_button
-            = link_to 'Accept', client_admin_tile_path(presenter, update_status: Tile::DRAFT), method: :put
+            = link_to 'Accept', client_admin_tile_path(presenter, update_status: Tile::DRAFT)
       .tile_stats
         .activation_dates
           = presenter.timestamp

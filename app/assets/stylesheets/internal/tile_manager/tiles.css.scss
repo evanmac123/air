@@ -454,4 +454,20 @@ body.suggested_tiles-index {
       display: block;
     }
   }
+  #accept-tile-modal {
+    h2 {
+      margin-bottom: 20px;
+    }
+    p {
+      margin-bottom: 20px;
+      color: $text-color;
+    }
+    .confirm {
+      @include app-button($sky-blue);
+      margin-right: 10px;
+    }
+    .undo {
+      @include light-button($sky-blue);
+    }
+  }
 }
