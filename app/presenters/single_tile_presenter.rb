@@ -51,6 +51,10 @@ class SingleTilePresenter
     type? :active, :archive
   end
 
+  def shows_creator?
+    type? :user_submitted
+  end
+
   def timestamp
     @timestamp ||= footer_timestamp
   end
@@ -58,6 +62,14 @@ class SingleTilePresenter
   def completion_percentage
     @completion_percentage ||= 
       number_to_percentage claimed_completion_percentage, precision: 1
+  end
+
+  def has_creator?
+    original_creator
+  end
+
+  def creator
+    original_creator.name 
   end
 
   def tile_id
@@ -95,5 +107,6 @@ class SingleTilePresenter
             :thumbnail_processing,
             :tile_completions_count, 
             :claimed_completion_percentage, 
+            :original_creator,
             to: :tile
 end
