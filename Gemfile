@@ -90,6 +90,7 @@ group :development, :test do
   gem "rspec-rails"
   gem "factory_girl_rails"
   gem "steak"
+	gem "rspec-mocks"
   gem "rails-dev-tweaks"  # The rails-dev-tweaks gem makes it so assets are not reloaded as often.
                           # For instance, XHR requests by themselves do not reload assets when using this gem
                           # Note that all defaults can be overridden, see the github README for this gem

@@ -555,6 +555,7 @@ DEPENDENCIES
   redis-rails
   require_all
   rollout
+  rspec-mocks
   rspec-rails
   sanitize
   sass-rails
