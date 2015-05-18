@@ -124,12 +124,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     when Tile::ACTIVE
       success = 'published'
       failure = 'publishing'
-    when Tile::DRAFT
-      success = 'accepted and moved to draft'
-      failure = 'accepting'
-    when Tile::USER_SUBMITTED
-      success = 'unaccepted and moved back to suggestion box'
-      failure = 'unaccepting'
     else
       success, failure = '', ''
     end
@@ -137,9 +131,18 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def update_status
+    result = @tile.update_status(params[:update_status])
+
+    respond_to do |format|
+      format.js { update_status_js(result) }
+      format.html { update_status_html(result) }
+    end
+  end
+
+  def update_status_html result
     success, failure = flash_status_messages
     is_new = @tile.activated_at.nil?
-    if @tile.update_status(params[:update_status])
+    if result
       flash[:success] = "The #{@tile.headline} tile has been #{success}"
       tile_status_updated_ping @tile, "Clicked button to move"
     else
@@ -147,6 +150,28 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     end
 
     redirect_to :back
+  end
+
+  def update_status_js result
+    if result
+      render json: {
+        success: true,
+        tile: render_tile(@tile)
+      }
+    else
+      render json: {success: false}
+    end
+  end
+
+  def render_tile tile
+    render_to_string( 
+      partial: 'client_admin/tiles/manage_tiles/single_tile', 
+      locals: {
+        tile: @tile, 
+        type: @tile.status.to_sym, 
+        do_ajax: false
+      }
+    ) 
   end
   
   def update_fields

@@ -8,7 +8,10 @@
     %div#draft.manage_section{class: draftSectionClass}
       = render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: {tiles: @draft_tiles, type: :draft}
     %div#suggestion_box{class: suggestionBoxClass}
+      = render partial: 'client_admin/tiles/manage_tiles/no_tiles_section', locals: {display_no_tiles_section: @user_submitted_tiles.empty?}
       = render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: {tiles: @user_submitted_tiles, type: :user_submitted}
+
+= render partial: 'client_admin/tiles/manage_tiles/accept_tile_modal'
 
 - content_for :javascript do
   :javascript

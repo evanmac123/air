@@ -14,6 +14,7 @@ compressSection = (animate = false) ->
     animateSectionSliding -compressSectionMargin(), 0 , "up"
   else
     setCompressedSectionClass("add")
+    $(".all_draft").text("Show all")
 
 window.compressSection = compressSection
 
