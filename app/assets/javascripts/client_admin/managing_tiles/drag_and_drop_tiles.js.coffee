@@ -129,8 +129,6 @@ window.dragAndDropTiles = ->
     removePlaceholders(section)
     addPlaceholders(section, expectedPlaceholdersNumber)
 
-  window.updatePlaceholders = updatePlaceholders
-
   removePlaceholders = (section) ->
     $("#" + section).children( placehoderSelector() ).remove()
 
