@@ -5,7 +5,7 @@
 @import "font-awesome";
 @import "introjs";
 @import "mixins/intro_js_restyling";
-@import "./client_admin/pen.css.scss";
+@import "./internal/tile_builder/pen.css.scss";
 
 section:after{@include clear;}
 .row section {margin:2em auto;}

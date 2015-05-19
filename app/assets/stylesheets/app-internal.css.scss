@@ -42,6 +42,8 @@
 @import "./external/sign_up_form_ie.css.scss";
 @import './client_admin/tiles_tools_subnav';
 @import './internal/tile_builder/tile_builder';
+@import "./internal/tile_builder/pen.css.scss";
+@import "./internal/character_counter.css.scss";
 /* RWD */
 @media only screen and (min-width: 319px) {
   @import "./internal/screen_iphone.css.scss";

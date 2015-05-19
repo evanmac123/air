@@ -42,10 +42,7 @@
           Need ideas?
           = link_to 'Explore.', client_admin_explore_path
 
-- timeout_in_msecs = ThumbnailsController::THUMBNAIL_POLL_DELAY * 1000
-- js_at_end do
-  startTileThumbnailPollingFromQueue(#{timeout_in_msecs})
-
+= render 'shared/tiles/poll_for_thumbnails'
 - content_for :javascript do
   :javascript
     $().ready(function(){
