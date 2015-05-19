@@ -1,0 +1,3 @@
+- timeout_in_msecs = ThumbnailsController::THUMBNAIL_POLL_DELAY * 1000
+- js_at_end do
+  startTileThumbnailPollingFromQueue(#{timeout_in_msecs})

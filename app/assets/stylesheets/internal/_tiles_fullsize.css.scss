@@ -6,9 +6,17 @@ body.client_admin-tiles-create,
 body.client_admin-tiles-edit,
 body.client_admin-tiles-show,
 body.client_admin-tiles-update,
-body.tiles.tiles-index {
+body.tiles.tiles-index,
+body.suggested_tiles-new {
   background:$tile-wall-bg;
   .core, .content {background:$tile-wall-bg;}
+}
+
+body.suggested_tiles-new {
+  main {
+    position: relative;
+    top: 2px;
+  }
 }
 
 .tiles.tiles-index {

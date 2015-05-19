@@ -62,7 +62,7 @@ contentEditorModifiedEvents = () ->
       blockSubmitButton()
       updateContentInput()
     
-window.hedalineAndSupportingContentBuilder = ->
+window.headlineAndSupportingContentBuilder = ->
   addCharacterCounterFor('#tile_builder_form_headline')
   addCharacterCounterFor contentEditorSel()
   blockSubmitButton()

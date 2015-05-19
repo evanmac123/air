@@ -1,0 +1,10 @@
+span.character-counter {
+  @include caption;
+  color:$med-gray;
+  float:right;
+  padding-top:.5em;
+  &.exceeded_maxlength_counter {
+    color: $red;
+  }
+}
+

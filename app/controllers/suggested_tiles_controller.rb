@@ -1,6 +1,6 @@
 class SuggestedTilesController < ApplicationController
   def new
-    @tile_images = TileImage.all_ready.first(TileImage::PAGINATION_PADDING)
+    get_tile_images
     @tile_builder_form = UserTileBuilderForm.new(current_user.demo)
   end
 
@@ -16,11 +16,18 @@ class SuggestedTilesController < ApplicationController
                           )
     
     if @tile_builder_form.create_tile
-      flash[:success] = "TK: We should have some real copy here."
+      flash[:success] = "Tile created! We're resizing the graphics, which usually takes less than a minute."
       redirect_to suggested_tiles_path
     else
       flash.now[:failure] = @tile_builder_form.error_message
+      get_tile_images
       render "new"
     end
+  end
+
+  private
+
+  def get_tile_images
+    @tile_images = TileImage.all_ready.first(TileImage::PAGINATION_PADDING)
   end
 end
