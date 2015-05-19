@@ -149,6 +149,11 @@ body.suggested_tiles-index {
         height: 377px; 
       } 
     }
+    #suggestion_box {
+      .tile_container {
+        height: 407px;
+      }
+    }
     #active  { .tile_container { height: 466px; } }
     #archive { .tile_container { height: 466px; } }
     .no_tiles_message {margin:0 auto 3em;}
