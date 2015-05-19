@@ -182,6 +182,10 @@ FactoryGirl.define do
       status Tile::DRAFT
     end
 
+    trait :user_submitted do
+      status Tile::USER_SUBMITTED
+    end    
+
     trait :sharable do
       is_sharable true
     end
