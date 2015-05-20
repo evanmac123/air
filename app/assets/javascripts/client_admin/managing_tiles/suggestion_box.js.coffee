@@ -1,8 +1,8 @@
-draftSection = ->
-  $("#draft")
+# draftSection = ->
+#   $("#draft")
 
-box = ->
-  $("#suggestion_box")
+# box = ->
+#   $("#suggestion_box")
 
 draftTitle = ->
   $("#draft_title")
@@ -27,11 +27,14 @@ undoInAcceptModal = ->
 
 showSection = (section) ->
   if section == 'draft'
-    draftSection().addClass('selected')
-    box().removeClass('selected')
+    $("#draft_tiles")
+      .addClass('draft_selected')
+      .removeClass('suggestion_box_selected')
   else
-    draftSection().removeClass('selected')
-    box().addClass('selected')
+    $("#draft_tiles")
+      .removeClass('draft_selected')
+      .addClass('suggestion_box_selected')
+
   updateShowMoreDraftTilesButton()
   window.compressSection()
 

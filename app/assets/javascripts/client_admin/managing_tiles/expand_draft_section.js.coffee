@@ -2,7 +2,7 @@ section = ->
   $("#draft_tiles")
 
 selectedBlockName = ->
-  if $("#draft.selected").length > 0
+  if $("#draft_tiles.draft_selected").length > 0
     'draft'
   else
     'suggestion_box'

@@ -26,7 +26,7 @@ showMoreSuggestionBox = function(){
 }
 
 selectedSection = function() {
-  if( $("#draft.selected").length > 0 ){
+  if( $("#draft_tiles.draft_selected").length > 0 ){
     return 'draft';
   } else {
     return 'box';
