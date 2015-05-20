@@ -142,17 +142,9 @@ module ClientAdmin::TilesHelper
 
   def draftSectionClass
     if params[:showSuggestionBox].present?
-      nil
+      "suggestion_box_selected"
     else
-      'selected'
-    end
-  end
-
-  def suggestionBoxClass
-    if params[:showSuggestionBox].present?
-      'selected'
-    else
-      nil
+      'draft_selected'
     end
   end
 

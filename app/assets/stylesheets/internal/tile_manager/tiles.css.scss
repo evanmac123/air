@@ -141,10 +141,6 @@ body.suggested_tiles-index {
       padding-bottom: 2rem;
     }
     #draft { 
-      display: none;
-      &.selected {
-        display: block;
-      }
       .tile_container { 
         height: 377px; 
       } 
@@ -197,6 +193,22 @@ body.suggested_tiles-index {
   }
   #draft_tiles {
     padding-top: 2em;
+    &.draft_selected {
+      #draft {
+        display: block;
+      }
+      #suggestion_box {
+        display: none;
+      }
+    }
+    &.suggestion_box_selected {
+      #draft {
+        display: none;
+      }
+      #suggestion_box {
+        display: block;
+      }
+    }
   }
   #draft_title {
     cursor: pointer;
@@ -451,12 +463,6 @@ body.suggested_tiles-index {
         width: 85px;
         margin-left: 10px;
       }
-    }
-  }
-  #suggestion_box {
-    display: none;
-    &.selected {
-      display: block;
     }
   }
   #accept-tile-modal {
