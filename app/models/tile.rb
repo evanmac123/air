@@ -242,13 +242,12 @@ class Tile < ActiveRecord::Base
     where("status = ?", DRAFT).ordered_by_position
   end
 
-<<<<<<< HEAD
   def self.user_draft
     where("status = ?", USER_DRAFT).ordered_by_position
-=======
+  end
+
   def self.user_submitted
     where(status: USER_SUBMITTED)
->>>>>>> start adding of suggestion box section near draft section
   end
 
   def self.digest(demo, cutoff_time)
