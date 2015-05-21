@@ -25,6 +25,9 @@ undoInAcceptModal = ->
 ignoreBtn = ->
   $(".ignore_button a")
 
+undoIgnoreBtn = ->
+  $(".undo_ignore_button a")
+
 submittedTile = ->
   $(".tile_thumbnail.user_submitted").closest(".tile_container")
 
@@ -132,3 +135,32 @@ window.suggestionBox = ->
   ignoreBtn().click (e) ->
     e.preventDefault()
     ignoreTile $(@)
+  #
+  # => Undo Ignore Tile
+  #
+  insertUserSubmittedTile = (tile) ->
+    if submittedTile().length > 0
+      submittedTile().first().before tile
+    else
+      suggestionBox().append tile
+    window.updateTilesAndPlaceholdersAppearance()
+
+  undoIgnoreTile = (button) ->
+    tile = button.closest(".tile_container")
+    url = button.attr("href")
+
+    tileVisibility tile, "hide"
+    $.ajax
+      type: 'PUT'
+      dataType: "json"
+      url: url
+      success: (data) ->
+        if data.success
+          tileVisibility tile, "remove"
+          insertUserSubmittedTile data.tile
+        else
+          tileVisibility tile, "show"
+
+  undoIgnoreBtn().click (e) ->
+    e.preventDefault()
+    undoIgnoreTile $(@)
