@@ -30,6 +30,9 @@
         - if presenter.has_accept_button?
           %li.accept_button
             = link_to 'Accept', client_admin_tile_path(presenter, update_status: Tile::DRAFT)
+        - if presenter.has_undo_ignore_button?
+          %li.undo_ignore_button
+            = link_to 'Undo Ignore', ''
       .tile_stats
         .activation_dates
           = presenter.timestamp

@@ -46,6 +46,10 @@ class SingleTilePresenter
     type? :user_submitted
   end
 
+  def has_undo_ignore_button?
+    type? :ignored
+  end
+
   def has_additional_tile_stats?
     type? :active, :archive
   end
