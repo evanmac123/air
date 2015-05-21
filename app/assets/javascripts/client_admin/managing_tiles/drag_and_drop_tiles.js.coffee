@@ -90,7 +90,7 @@ window.dragAndDropTiles = ->
   numberInRow = ->
     4
 
-  placehoderSelector = ->
+  placeholderSelector = ->
     ".tile_container.placeholder_container:not(.creation_placeholder):not(.hidden_tile)"
 
   notDraggedTileSelector = ->
@@ -123,14 +123,14 @@ window.dragAndDropTiles = ->
 
   updatePlaceholders = (section) ->
     allTilesNumber = $("#" + section).find( notDraggedTileSelector() ).length
-    placeholdersNumber = $("#" + section).find( placehoderSelector() ).length
+    placeholdersNumber = $("#" + section).find( placeholderSelector() ).length
     tilesNumber =  allTilesNumber - placeholdersNumber
     expectedPlaceholdersNumber = ( numberInRow() - ( tilesNumber % numberInRow() ) ) % numberInRow()
     removePlaceholders(section)
     addPlaceholders(section, expectedPlaceholdersNumber)
 
   removePlaceholders = (section) ->
-    $("#" + section).children( placehoderSelector() ).remove()
+    $("#" + section).children( placeholderSelector() ).remove()
 
   addPlaceholders = (section, number) ->
     $("#" + section).append placeholderHTML().times(number) 
