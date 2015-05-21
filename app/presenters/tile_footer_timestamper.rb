@@ -6,7 +6,7 @@ module TileFooterTimestamper
       spanned_text(
         "Created: " + tile.created_at.strftime('%-m/%-d/%Y'),
           "tile-created-at")
-    elsif tile.status == Tile::USER_SUBMITTED
+    elsif tile.status == Tile::USER_SUBMITTED || tile.status == Tile::IGNORED
       spanned_text(
         "Submitted: " + tile.created_at.strftime('%-m/%-d/%Y'),
           "tile-submitted-at")

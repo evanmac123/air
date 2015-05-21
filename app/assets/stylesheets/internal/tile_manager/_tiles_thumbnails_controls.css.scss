@@ -32,7 +32,7 @@
       margin-left:.5em;
       text-align: center;
       width:auto;
-      &.edit_button, &.destroy_button, &.ignore_button {
+      &.edit_button, &.destroy_button, &.ignore_button, &.undo_ignore_button {
         a {
           @include light-button($white);
         }

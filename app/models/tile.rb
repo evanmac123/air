@@ -257,7 +257,8 @@ class Tile < ActiveRecord::Base
 
   def self.suggested
     where{ (status == USER_SUBMITTED) | (status == IGNORED) }
-      .order{ status.desc }.ordered_by_position
+      .order{ status.desc } # first submitted then ignored
+      .ordered_by_position
   end
 
   def self.digest(demo, cutoff_time)

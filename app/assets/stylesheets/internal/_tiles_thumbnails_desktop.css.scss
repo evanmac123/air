@@ -15,6 +15,14 @@
       }
     }
   }
+  &.ignored {
+    .headline {
+      background: $lightest-gray;
+      .text {
+        color: $med-gray;
+      }
+    }
+  }
 }
 
 // Placeholder tile thumbnail
