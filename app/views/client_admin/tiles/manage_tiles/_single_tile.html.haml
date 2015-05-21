@@ -26,7 +26,7 @@
             = link_to 'Delete', client_admin_tile_path(presenter, page: 'Edit'), method: :delete, data: { confirm: destroy_tile_message_params }
         - if presenter.has_ignore_button?
           %li.ignore_button
-            = link_to 'Ignore', ''
+            = link_to 'Ignore', client_admin_tile_path(presenter, update_status: Tile::IGNORED)
         - if presenter.has_accept_button?
           %li.accept_button
             = link_to 'Accept', client_admin_tile_path(presenter, update_status: Tile::DRAFT)

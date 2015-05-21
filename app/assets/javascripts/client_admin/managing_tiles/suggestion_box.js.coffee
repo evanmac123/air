@@ -1,6 +1,9 @@
 draftTitle = ->
   $("#draft_title")
 
+suggestionBox = ->
+  $("#suggestion_box")
+
 boxTitle = ->
   $("#suggestion_box_title")
 
@@ -19,6 +22,12 @@ confirmInAcceptModal = ->
 undoInAcceptModal = ->
   $( acceptModalSel() + " .undo" )
 
+ignoreBtn = ->
+  $(".ignore_button a")
+
+submittedTile = ->
+  $(".tile_thumbnail.user_submitted").closest(".tile_container")
+
 showSection = (section) ->
   if section == 'draft'
     $("#draft_tiles")
@@ -32,6 +41,15 @@ showSection = (section) ->
   updateShowMoreDraftTilesButton()
   window.compressSection()
 
+tileVisibility = (tile, action) ->
+  if action == "show"
+    tile.removeClass("hidden_tile").show()
+  else if action == "hide"
+    tile.addClass("hidden_tile").hide()
+  else if action == "remove"
+    tile.remove()
+  window.updateTilesAndPlaceholdersAppearance()
+
 window.suggestionBox = ->
   draftTitle().click ->
     showSection('draft')
@@ -43,13 +61,7 @@ window.suggestionBox = ->
   #
   acceptingTileVisibility = (action) ->
     tile = window.accessActionParams["tile"]
-    if action == "show"
-      tile.removeClass("hidden_tile").show()
-    else if action == "hide"
-      tile.addClass("hidden_tile").hide()
-    else if action == "remove"
-      tile.remove()
-    window.updateTilesAndPlaceholdersAppearance()
+    tileVisibility(tile, action)
 
   prepareAccessModal = (acceptBtn) ->
     tile = acceptBtn.closest(".tile_container")
@@ -71,6 +83,7 @@ window.suggestionBox = ->
           if data.success
             acceptingTileVisibility("remove")
             $(".creation_placeholder").after data.tile
+            window.updateTilesAndPlaceholdersAppearance()
           else
             acceptingTileVisibility("show")
 
@@ -90,4 +103,32 @@ window.suggestionBox = ->
 
   $(document).on 'closed.fndtn.reveal', acceptModalSel(), ->
     acceptTile()
+  #
+  # => Ignore Tile
+  #
+  insertIgnoredTile = (tile) ->
+    if submittedTile().length > 0
+      submittedTile().last().after tile
+    else
+      suggestionBox().append tile
+    window.updateTilesAndPlaceholdersAppearance()
 
+  ignoreTile = (ignoreButton) ->
+    tile = ignoreButton.closest(".tile_container")
+    url = ignoreButton.attr("href")
+
+    tileVisibility tile, "hide"
+    $.ajax
+      type: 'PUT'
+      dataType: "json"
+      url: url
+      success: (data) ->
+        if data.success
+          tileVisibility tile, "remove"
+          insertIgnoredTile data.tile
+        else
+          tileVisibility tile, "show"
+
+  ignoreBtn().click (e) ->
+    e.preventDefault()
+    ignoreTile $(@)
