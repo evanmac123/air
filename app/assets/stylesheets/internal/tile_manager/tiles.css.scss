@@ -194,6 +194,11 @@ body.suggested_tiles-index {
   #draft_tiles {
     background: $almost-white;
     margin-top: 2em;
+    #draft {
+      &:after {
+        @include clear;
+      }
+    }
     &.draft_selected {
       #draft {
         display: block;
