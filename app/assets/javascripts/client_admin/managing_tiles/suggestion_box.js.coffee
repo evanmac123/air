@@ -1,9 +1,3 @@
-# draftSection = ->
-#   $("#draft")
-
-# box = ->
-#   $("#suggestion_box")
-
 draftTitle = ->
   $("#draft_title")
 
