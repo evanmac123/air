@@ -380,9 +380,6 @@ body.suggested_tiles-index {
     @include switch-size(16px, 9px, 2.3em);
   }
   .suggestion_box_header {
-    // position: absolute;
-    // top: 0;
-    // right: 73px;
     .help, .manage_access, h3 {
       float: left;
       cursor: pointer;

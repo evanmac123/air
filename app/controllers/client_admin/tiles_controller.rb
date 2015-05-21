@@ -17,8 +17,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
     @allowed_to_suggest_users = @demo.users_that_allowed_to_suggest_tiles
 
-    # @show_more_draft_tiles = show_more_draft_tiles
-    # @show_more_suggestion_box = show_more_suggestion_box
     @board_is_brand_new = @demo.tiles.limit(1).first.nil?
     record_index_ping
   end
@@ -99,9 +97,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
                       get_demo.id
                     )
     end
-
-    # @show_more_draft_tiles = show_more_draft_tiles
-    # @show_more_suggestion_box = show_more_suggestion_box
 
     tile_status_updated_ping @tile, "Dragged tile to move"
   end
@@ -230,14 +225,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
              :via_draft_preview
            end
   end
-
-  # def show_more_draft_tiles
-  #   @demo.draft_tiles.count > 3
-  # end
-
-  # def show_more_suggestion_box
-  #   @demo.user_submitted_tiles.count > 4
-  # end
 
   def load_image_library
     @tile_images = TileImage.all_ready.first(TileImage::PAGINATION_PADDING)
