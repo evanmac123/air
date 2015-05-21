@@ -1,7 +1,6 @@
 class SingleTilePresenter
   include ActionView::Helpers::NumberHelper
-  include TileFooterTimestamper
-  #include Rails.application.routes.url_helpers  
+  include TileFooterTimestamper 
 
   def initialize tile, format, type = nil
     @tile = tile
