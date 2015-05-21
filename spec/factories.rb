@@ -184,6 +184,10 @@ FactoryGirl.define do
 
     trait :user_submitted do
       status Tile::USER_SUBMITTED
+    end   
+
+    trait :ignored do
+      status Tile::IGNORED
     end    
 
     trait :sharable do

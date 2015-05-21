@@ -1,6 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-feature 'Client accepts suggested tile' do
+feature 'Client uses suggestion box' do
   include WaitForAjax
 
   let!(:admin) { FactoryGirl.create :client_admin }
@@ -15,6 +15,16 @@ feature 'Client accepts suggested tile' do
     page.all(tile_selector, visible: true)
   end
 
+  def user_submitted_tiles
+    selector = tile_selector + ".user_submitted"
+    page.all(selector, visible: true)
+  end
+
+  def ignored_tiles
+    selector = tile_selector + ".ignored"
+    page.all(selector, visible: true)
+  end
+
   def suggestion_box_title
     page.find("#suggestion_box_title")
   end
@@ -23,11 +33,24 @@ feature 'Client accepts suggested tile' do
     page.find("#draft_title")
   end
 
-  def accept_button tile
-    show_thumbnail_buttons = "$('.tile_buttons').css('display', 'block')"
-    page.execute_script show_thumbnail_buttons
+  def show_thumbnail_buttons
+    script = "$('.tile_buttons').css('display', 'block')"
+    page.execute_script script
+  end
 
+  def accept_button tile
+    show_thumbnail_buttons
     page.find("a[href *= '#{client_admin_tile_path(tile, update_status: Tile::DRAFT)}']")
+  end
+
+  def ignore_button tile
+    show_thumbnail_buttons
+    page.find("a[href *= '#{client_admin_tile_path(tile, update_status: Tile::IGNORED)}']")
+  end
+
+  def undo_ignore_button tile
+    show_thumbnail_buttons
+    page.find("a[href *= '#{client_admin_tile_path(tile, update_status: Tile::USER_SUBMITTED)}']")
   end
 
   def accept_modal
@@ -100,9 +123,9 @@ feature 'Client accepts suggested tile' do
 
   context "show more button" do
     before do
-      # 3 + 3 = 6
+      # 3 + 3 = 6 user_submitted
       FactoryGirl.create_list :multiple_choice_tile, 3, :user_submitted, demo: demo
-      # 1 + 3 = 4
+      # 1 + 3 = 4 draft
       FactoryGirl.create_list :multiple_choice_tile, 3, :draft, demo: demo
     end
 
@@ -120,6 +143,41 @@ feature 'Client accepts suggested tile' do
       visible_tiles.count.should == 6
       show_more_button.click
       visible_tiles.count.should == 4
+    end
+  end
+
+  context "ignorring process" do
+    before do
+      # 3 + 1 = 4 user_submitted
+      FactoryGirl.create :multiple_choice_tile, :user_submitted, demo: demo
+      # 1 ignored
+      @ignored_tile = FactoryGirl.create :multiple_choice_tile, :ignored, demo: demo
+      visit client_admin_tiles_path(showSuggestionBox: true)
+      show_more_button.click
+      
+      visible_tiles.count.should == 5
+    end
+
+    scenario "ignore tile", js: true do
+      tile = submitted_tiles[1]
+      ignore_button(tile).click
+      wait_for_ajax
+      Tile.where(status: Tile::USER_SUBMITTED).count.should == 3
+      Tile.where(status: Tile::IGNORED).count.should == 2
+
+      visible_tiles.count.should == 5
+      headline(page.find(:tile, tile)).should == headline(ignored_tiles[0])
+    end
+
+    scenario "ignore tile", js: true do
+      tile = @ignored_tile
+      undo_ignore_button(tile).click
+      wait_for_ajax
+      Tile.where(status: Tile::USER_SUBMITTED).count.should == 5
+      Tile.where(status: Tile::IGNORED).count.should == 0
+
+      visible_tiles.count.should == 5
+      headline(page.find(:tile, tile)).should == headline(user_submitted_tiles[0])
     end
   end
 end
