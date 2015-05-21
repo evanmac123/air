@@ -3,6 +3,7 @@
   <% if @tile.has_client_admin_status? %>
     <%= render partial: 'client_admin/tiles/tile_preview/share_section', locals: {tile: @tile} %>
   <% end %>
+
   <div class='viewer'>
     <%= link_to "", "#", :id => :prev %>
       <div id="slideshow">

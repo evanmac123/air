@@ -29,7 +29,7 @@ feature 'Creates draft tile' do
     tile.creator.should == user
     tile.status.should == Tile::USER_DRAFT
     
-    should_be_on suggested_tiles_path
+    should_be_on suggested_tile_path(tile.id)
     page.should have_content("Tile created! We're resizing the graphics, which usually takes less than a minute.")
   end
 end

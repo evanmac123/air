@@ -185,6 +185,10 @@ FactoryGirl.define do
       status Tile::DRAFT
     end
 
+    trait :user_draft do
+      status Tile::USER_DRAFT
+    end
+
     trait :user_submitted do
       status Tile::USER_SUBMITTED
     end   

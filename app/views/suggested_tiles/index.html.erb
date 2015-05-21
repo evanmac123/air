@@ -11,5 +11,15 @@
     </div>
   </div>
 </section>
+<section class="manage_tiles" id="submitted_tiles">
+  <div class="row">
+    <div class="large-12 columns">
+      <h4>Submitted</h4>
+      <div class="manage_section" id="submitted">
+        <%= render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: {tiles: @submitted_tiles, type: :user_submitted} %>
+      </div>
+    </div>
+  </div>
+</section>
 <%= render 'shared/tiles/poll_for_thumbnails' %>
 <%= render "shared/header/submit_tile_modal" %>
