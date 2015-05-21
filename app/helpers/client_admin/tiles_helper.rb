@@ -120,11 +120,7 @@ module ClientAdmin::TilesHelper
     escape_javascript( 
       render( 
         partial: 'client_admin/tiles/manage_tiles/single_tile', 
-        locals: {
-          tile: tile, 
-          type: tile.status.to_sym, 
-          do_ajax: false
-        }
+        locals: { tile: tile }
       ) 
     )
   end
@@ -150,7 +146,7 @@ module ClientAdmin::TilesHelper
 
   def display_show_more_draft_tiles
     show = if params[:showSuggestionBox].present?
-      current_user.demo.user_submitted_tiles.count > 4
+      current_user.demo.suggested_tiles.count > 4
     else
       current_user.demo.draft_tiles.count > 3
     end
