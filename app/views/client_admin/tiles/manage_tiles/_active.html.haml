@@ -6,4 +6,4 @@
     = link_to "Download stats", client_admin_tiles_report_path(report: Tile::ACTIVE, format: "csv"), class: "download_csv small_button"
     %div#active.manage_section
       = render partial: 'client_admin/tiles/manage_tiles/no_tiles_section', locals: {display_no_tiles_section: @active_tiles.empty?}
-      = render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: {tiles: @active_tiles, type: :active}
+      = render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: {tiles: @active_tiles}

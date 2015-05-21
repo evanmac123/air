@@ -6,7 +6,8 @@ class Tile < ActiveRecord::Base
   DRAFT   = 'draft'.freeze
   USER_DRAFT = 'user_draft'.freeze
   USER_SUBMITTED   = 'user_submitted'.freeze
-  STATUS  = [ACTIVE, ARCHIVE, DRAFT, USER_DRAFT, USER_SUBMITTED].freeze
+  IGNORED = 'ignored'.freeze
+  STATUS  = [ACTIVE, ARCHIVE, DRAFT, USER_DRAFT, USER_SUBMITTED, IGNORED].freeze
   #question types
   ACTION = 'Action'.freeze
   QUIZ   = 'Quiz'.freeze
@@ -247,7 +248,16 @@ class Tile < ActiveRecord::Base
   end
 
   def self.user_submitted
-    where(status: USER_SUBMITTED)
+    where(status: USER_SUBMITTED).ordered_by_position
+  end
+
+  def self.ignored
+    where(status: IGNORED).ordered_by_position
+  end
+
+  def self.suggested
+    where{ (status == USER_SUBMITTED) | (status == IGNORED) }
+      .order{ status.desc }.ordered_by_position
   end
 
   def self.digest(demo, cutoff_time)

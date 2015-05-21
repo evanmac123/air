@@ -2,9 +2,9 @@ class SingleTilePresenter
   include ActionView::Helpers::NumberHelper
   include TileFooterTimestamper 
 
-  def initialize tile, format, type = nil
+  def initialize tile, format
     @tile = tile
-    @type = type
+    @type = tile.status.to_sym
     @format = format
   end
 

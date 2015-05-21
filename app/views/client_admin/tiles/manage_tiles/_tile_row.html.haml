@@ -4,4 +4,4 @@
   - if tile.is_placeholder?
     = render "client_admin/tiles/manage_tiles/single_#{tile.class.to_s.underscore}", placeholder: tile
   - else
-    = render 'client_admin/tiles/manage_tiles/single_tile', tile: tile, type: type, do_ajax: do_ajax
+    = render 'client_admin/tiles/manage_tiles/single_tile', tile: tile
