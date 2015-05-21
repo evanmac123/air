@@ -160,10 +160,10 @@ body.suggested_tiles-index {
       margin-left: 1.5em;
     }
   }
-  #archived_tiles, #draft_tiles {
+  #archived_tiles{
     background: $off-white;
     position: relative;
-    #draft, #archive{
+    #archive{
       &:after{ @include clear; }
     }
     .all_inactive {display: inline-block;}
@@ -192,13 +192,17 @@ body.suggested_tiles-index {
     }
   }
   #draft_tiles {
-    padding-top: 2em;
+    background: $almost-white;
+    margin-top: 2em;
     &.draft_selected {
       #draft {
         display: block;
       }
       #suggestion_box {
         display: none;
+      }
+      .suggestion_header_block {
+        background: $off-white;
       }
     }
     &.suggestion_box_selected {
@@ -208,10 +212,32 @@ body.suggested_tiles-index {
       #suggestion_box {
         display: block;
       }
+      .draft_title_block {
+        background: $off-white;
+      }
     }
   }
-  #draft_title {
-    cursor: pointer;
+  .draft_header_block {
+    position: relative;
+    padding-bottom: 50px;
+    .draft_title_block, .suggestion_header_block {
+      float: left;
+      width: 50%;
+      padding: 18px;
+      position: relative;
+    }  
+    #draft_title {
+      position: absolute;
+      top: 10px;
+      right: 490px;
+      cursor: pointer;
+      margin: 0;
+    }
+    .suggestion_box_header {
+      position: absolute;
+      top: 10px;
+      left: 155px;
+    }
   }
   .draft_overlay{
     position: absolute;
@@ -247,14 +273,16 @@ body.suggested_tiles-index {
   }
   .show_all_draft_section {
     position: relative;
-    padding: 1.65em;
-    background: $off-white;
+    background: $almost-white;
     height: 75px;
+    .row {
+      padding: 1.65em;
+    }
     .all_draft {
       @include light-button($med-gray);
       font-size: 12px;
       letter-spacing: 0.4em;
-      width: 86.6em;
+      width: 96%;
     }
   }
   #active_tiles {
@@ -279,7 +307,7 @@ body.suggested_tiles-index,
 
 // Create new tile placeholder link
 .creation-placeholder a {
-  border-color: $almost-white;
+  border-color: $lightest-gray;
   display: block;
   color: $off-white !important;
   line-height:1em;
@@ -347,9 +375,9 @@ body.suggested_tiles-index {
     @include switch-size(16px, 9px, 2.3em);
   }
   .suggestion_box_header {
-    position: absolute;
-    top: 0;
-    right: 73px;
+    // position: absolute;
+    // top: 0;
+    // right: 73px;
     .help, .manage_access, h3 {
       float: left;
       cursor: pointer;

@@ -1,7 +1,8 @@
 %section.manage_tiles#draft_tiles.compressed_section{class: draftSectionClass}
   = render partial: 'client_admin/tiles/manage_tiles/draft'
-.row.show_all_draft_section
-  = link_to "Show all", '', class: :all_draft, style: "display:#{display_show_more_draft_tiles};"
+.show_all_draft_section
+  .row
+    = link_to "Show all", '', class: :all_draft, style: "display:#{display_show_more_draft_tiles};"
 .completed_tiles_containment
   %section.manage_tiles#active_tiles
     =  render partial: 'client_admin/tiles/manage_tiles/active'
