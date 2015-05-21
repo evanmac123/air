@@ -128,6 +128,10 @@ class Tile < ActiveRecord::Base
     ignored? || user_submitted? || user_draft?
   end
 
+  def user_draft?
+    self.status == USER_DRAFT
+  end
+
   def is_survey?
     question_type == SURVEY || (question_type.nil? && correct_answer_index == -1)
   end
