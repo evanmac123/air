@@ -16,6 +16,9 @@
     }
   }
   &.ignored {
+    .tile_thumbnail_image {
+      opacity: 0.5;
+    }
     .headline {
       background: $lightest-gray;
       .text {
