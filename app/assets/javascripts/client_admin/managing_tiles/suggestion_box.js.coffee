@@ -7,8 +7,11 @@ suggestionBox = ->
 boxTitle = ->
   $("#suggestion_box_title")
 
+acceptBtnSel = ->
+  ".accept_button a"
+
 acceptBtn = ->
-  $(".accept_button a")
+  $( acceptBtnSel() )
 
 acceptModalSel = ->
   "#accept-tile-modal"
@@ -22,11 +25,17 @@ confirmInAcceptModal = ->
 undoInAcceptModal = ->
   $( acceptModalSel() + " .undo" )
 
+ignoreBtnSel = ->
+  ".ignore_button a"
+
 ignoreBtn = ->
-  $(".ignore_button a")
+  $( ignoreBtnSel() )
+
+undoIgnoreBtnSel = ->
+  ".undo_ignore_button a"
 
 undoIgnoreBtn = ->
-  $(".undo_ignore_button a")
+  $( undoIgnoreBtnSel() )
 
 submittedTile = ->
   $(".tile_thumbnail.user_submitted").closest(".tile_container")
@@ -90,7 +99,7 @@ window.suggestionBox = ->
           else
             acceptingTileVisibility("show")
 
-  acceptBtn().click (e) ->
+  $(document).on 'click', acceptBtnSel(), (e) ->
     e.preventDefault()
     prepareAccessModal $(@)
     acceptModal().foundation('reveal', 'open')
@@ -132,7 +141,7 @@ window.suggestionBox = ->
         else
           tileVisibility tile, "show"
 
-  ignoreBtn().click (e) ->
+  $(document).on 'click', ignoreBtnSel(), (e) ->
     e.preventDefault()
     ignoreTile $(@)
   #
@@ -161,6 +170,6 @@ window.suggestionBox = ->
         else
           tileVisibility tile, "show"
 
-  undoIgnoreBtn().click (e) ->
+  $(document).on 'click', undoIgnoreBtnSel(), (e) ->
     e.preventDefault()
     undoIgnoreTile $(@)
