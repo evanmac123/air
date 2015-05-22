@@ -97,7 +97,7 @@ group :development, :test do
 
   gem "getopt"
   #gem "ruby-debug19", :require => 'ruby-debug'
-  gem 'debugger'
+  # gem 'debugger'
 end
 
 group :test do
