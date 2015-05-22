@@ -1,0 +1,103 @@
+.joyride-tip-guide {
+  &.tile {
+    width: 360px;
+    margin-top: 82px;
+    margin-left: 82px;
+    color: $dark-gray;
+    .joyride-nub{
+      border: outset $joyride-tip-nub-size;
+    }
+    .top-section{
+      font-size: 18px !important;
+    }
+    .bottom-section{
+      font-size: 14px;
+    }
+  }
+  &.tile-index-post {
+    width: 410px;
+    height: 100px;
+    margin-left: 216px;
+    color: $dark-gray;
+    .joyride-nub{
+      margin-left: 161px;
+      border: outset $joyride-tip-nub-size;
+    }
+    .top-section{
+      font-size: 18px !important;
+      span{
+        color: $dark-green;
+      }
+    }
+    .joyride-next-tip{
+      @include light-button($gray);
+      font-size: 14px;
+    }
+  }    
+  &.tile-index-share {
+    width: 466px;
+    margin-left: 94px;
+    margin-top: -85px !important;
+    color: $dark-gray;
+    .top-section{
+      font-size: 18px !important;
+      color: $sky-blue;            
+    }
+    .logo{
+      margin-left: -16px;
+    }
+    .heading{
+      padding-top: 10px;
+      margin-left: -45px;
+    }
+    .bottom-section{
+      line-height: 20px;
+      padding: 15px 0;
+      font-size: 14px;
+      span{
+        font-weight: bold;
+      }
+    }
+    .joyride-next-tip{
+      @include light-button($gray);
+      font-size: 14px;
+    }
+  }
+  &.tile-index-main-menu {
+    width: 410px;
+    margin-top: -81px;
+    margin-left: 93px;
+    color: $dark-gray;
+    .top-section{
+      font-size: 18px !important;
+      span{
+        color: $dark-green;
+      }
+    }
+    .joyride-next-tip{
+      @include light-button($gray);
+      font-size: 14px;
+    }
+  }
+  &.tile-index-posted-tile {
+    width: 414px;
+    margin-top: -65px;
+    margin-left: -90px;
+    color: $dark-gray;
+    .joyride-nub{
+      margin-left: 150px;
+    }
+    .top-section{
+      font-size: 18px !important;
+      padding-bottom: 15px;
+    }
+    .bottom-section{
+      font-size: 14px;
+      padding-bottom: 15px;
+    }
+    .joyride-next-tip{
+      @include light-button($gray);
+      font-size: 14px;
+    }
+  }
+}
