@@ -98,6 +98,8 @@ group :development, :test do
   gem "getopt"
   #gem "ruby-debug19", :require => 'ruby-debug'
   # gem 'debugger'
+	gem 'pry'
+	gem 'pry-byebug'
 end
 
 group :test do
