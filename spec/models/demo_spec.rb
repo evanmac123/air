@@ -156,6 +156,32 @@ describe Demo, '#create_public_slug!' do
   end
 end
 
+describe Demo, "#has_tile_activity_for_period?" do
+	let(:viewing){FactoryGirl.create(:tile_viewing)}
+	let(:completion){FactoryGirl.create(:tile_completion)}
+	let(:tile){viewing.tile}
+	let(:demo){tile.demo}
+	let(:beg_date){1.week.ago}
+	let(:end_date){Time.now}
+	it "returns true if tile viewing activity exists for date range" do
+		viewing.update_attribute(:created_at,  2.days.ago)
+		expect(demo.has_tile_activity_for_period? beg_date, end_date). to be_true
+	end 
+
+	it "returns true if tile completion activity exists for date range" do
+		completion.update_attribute(:created_at,  2.days.ago)
+		expect(demo.has_tile_activity_for_period? beg_date, end_date). to be_true
+	end 
+
+	it "returns false if neither tile completion nor viewing activity  exists for date range" do
+		viewing.update_attribute(:created_at,  2.weeks.ago)
+		completion.update_attribute(:created_at,  2.weeks.ago)
+		expect(demo.has_tile_activity_for_period? beg_date, end_date). to be_false
+	end 
+
+end
+
+
 describe Demo, 'on create' do
   it 'should set the public slug' do
     d = FactoryGirl.create(:demo)

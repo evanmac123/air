@@ -9,6 +9,9 @@ class TileViewing < ActiveRecord::Base
     self
   end
 
+  scope :for_period, ->(b,e){where(:created_at => b..e)}
+
+
   def self.add tile, user
     viewing = where(tile: tile, user: user).first
     if viewing

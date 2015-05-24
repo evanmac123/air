@@ -7,6 +7,8 @@ class TileCompletion < ActiveRecord::Base
   belongs_to :user, polymorphic: true
   belongs_to :tile, counter_cache: true
 
+  scope :for_period, ->(b,e){where(:created_at => b..e)}
+
   validates_uniqueness_of :tile_id, :scope => [:user_id, :user_type]
 
   after_create :creator_has_tile_completed
