@@ -1,0 +1,44 @@
+require "spec_helper"
+
+describe CssSplitter::Splitter do
+  def count_selectors file
+    str = file.to_s
+    rules = CssSplitter::Splitter.split_string_into_rules str
+    return if rules.first.nil?
+    rules.sum{ |rule| CssSplitter::Splitter.count_selectors_of_rule(rule) }
+  end
+
+  def get_file name
+    Rails.application.assets[name + ".css"]
+  end
+
+  def max_selectors
+    4095
+  end
+
+  def check_stylesheets_num original_name, number
+    (1..number).to_a.each do |i|
+      name = i == 1 ? original_name : "#{original_name}_split#{i}"
+      get_file(name).should be_present
+    end
+  end
+
+  context "every big stylesheet should be splitted for ie9" do
+    [
+      "app-admin",
+      "app-client-admin",
+      "app-external",
+      "app-internal",
+      "app-landing",
+      "app-user-progress"
+    ].each do |name|
+      it "#{name}" do
+        file = get_file name
+        sel_number = count_selectors(file)
+        stylesheets_number = sel_number / max_selectors + 1
+        #p name.to_s + " " + sel_number.to_s + " " + stylesheets_number.to_s
+        check_stylesheets_num name, stylesheets_number
+      end
+    end
+  end
+end
