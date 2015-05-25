@@ -37,6 +37,7 @@ module Health
       client_admin_base.css
       app-external.css
       app-internal.css
+      app-internal_split2.css
       app-landing.css
       app-user-progress.css
       styleguide.css
