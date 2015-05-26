@@ -3,7 +3,7 @@
     <%= status_name tile %>
   </li>
 
-  <li class="back_header" id="back_header">
+  <li class="back_header preview_menu_item" id="back_header">
     <%= link_to client_admin_tiles_path(path: tag) do %>
       <p class="fa fa-chevron-left fa-2x"></p>
       <p class="header_text">Back to Tiles</p>
@@ -13,42 +13,42 @@
   <% if tile.has_client_admin_status? %>
     <%= render 'client_admin/tiles/tile_preview/activate_deactivate_link', tile: tile %>
 
-    <li class="edit_header">
+    <li class="edit_header preview_menu_item">
       <%= link_to edit_client_admin_tile_path(tile, path: tag) do %>
         <p class="fa fa-pencil fa-2x"></p>
         <p class="header_text">Edit</p>
       <% end %>
     </li>
 
-    <li class="destroy_header">
-      <%= link_to client_admin_tile_path(tile, page: 'Large Tile Preview'), method: :delete, data: { confirm: destroy_tile_message_params }  do %>
+    <li class="destroy_header preview_menu_item">
+      <%= link_to client_admin_tile_path(tile, page: 'Large Tile Preview'), method: :delete, data: { confirm: destroy_tile_message_params } do %>
         <p class="fa fa-trash fa-2x"></p>
         <p class="header_text">Delete</p>
       <% end %>
     </li>
 
-    <li class="new_tile_header">
+    <li class="new_tile_header preview_menu_item">
       <%= link_to new_client_admin_tile_path(path: tag) do %>
         <p class="fa fa-plus fa-2x"></p>
         <p class="header_text">New Tile</p>
       <% end %>
     </li>
   <% elsif tile.user_submitted? %>
-    <li class="accept_header">
+    <li class="accept_header preview_menu_item">
       <%= link_to client_admin_tile_path(tile, update_status: Tile::DRAFT, path: :via_preview_user_submitted), method: :put do %>
         <p class="fa fa-check fa-2x"></p>
         <p class="header_text">Accept</p>
       <% end %>
     </li>
 
-    <li class="ignore_header">
+    <li class="ignore_header preview_menu_item">
       <%= link_to client_admin_tile_path(tile, update_status: Tile::IGNORED, path: :via_preview_user_submitted), method: :put do %>
         <p class="fa fa-times fa-2x"></p>
         <p class="header_text">Ignore</p>
       <% end %>
     </li>
   <% else # ignored %>
-    <li class="undo_ignore_header">
+    <li class="undo_ignore_header preview_menu_item">
       <%= link_to client_admin_tile_path(tile, update_status: Tile::USER_SUBMITTED, path: :via_preview_ignored), method: :put do %>
         <p class="fa fa-undo fa-2x"></p>
         <p class="header_text">Undo Ignore</p>

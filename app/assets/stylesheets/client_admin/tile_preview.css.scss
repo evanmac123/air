@@ -28,6 +28,9 @@ body.client_admin-tiles-show{
   .tile_preview_container{
     max-width: 784px;
   }
+  //
+  // => Tile Preview Menu
+  //
   .tile_preview_menu{
     background: white;
     border-radius: $border-radius;
@@ -48,8 +51,43 @@ body.client_admin-tiles-show{
       }
     }
   }
+  .preview_menu_header {
+    font-size: 27px;
+    color: white;
+    padding: .5em 1em;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    &.draft, &.archived {
+      background: $blue;
+    }
+    &.posted {
+      background: $sky-blue;
+    }
+    &.user_submitted {
+      color: $sky-blue;
+      border: 2px $sky-blue solid;
+      padding: 0.45em;
+    }
+    &.ignored {
+      color: $med-gray;
+      border: 2px $med-gray solid;
+      padding: 0.45em 1em;
+    }
+  }
+  .preview_menu_item {
+    border-left: 1px $tile-wall-bg solid;
+    font-size: 14px;
+    padding: .55em;
+    text-align: center;
+    color: $gray;
+    .header_text{font-weight: bold;}
+  }
+  //
+  // => Share Section
+  //
   .share_section{
     background: $white;
+    border-top: 1px $tile-wall-bg solid;
     .share_link_block{
       margin-top: -2px;
       padding-top: 20px;
@@ -268,37 +306,6 @@ body.client_admin-tiles-show{
       width: $share_to_explore_width;
       float: right;
     }
-  }
-
-  .preview_menu_header {
-    font-size: 27px;
-    color: white;
-    padding: .5em 1em;
-
-    &.draft {
-      background: $blue;
-    }
-    &.archived {
-      background: $blue;
-    }
-
-    &.posted {
-      background: $sky-blue;
-    }
-  }
-  #archive_header, .edit_header, .back_header, .new_tile_header, #post_header, .destroy_header {
-    border-left: 1px $tile-wall-bg solid;
-    border-bottom: 1px $tile-wall-bg solid;
-    color: $gray;
-    .header_text{font-weight: bold;}
-  }
-  #archive_header, #post_header {
-    .header_text{font-weight: bold;}
-  }
-  .edit_header, .back_header, .new_tile_header, #archive_header, #post_header, .destroy_header {
-    font-size: 14px;
-    padding: .55em;
-    text-align: center;
   }
   .joyride-next-tip{
     font-size: 14px !important;
