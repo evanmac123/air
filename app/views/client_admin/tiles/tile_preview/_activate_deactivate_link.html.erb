@@ -1,20 +1,20 @@
 <% if tile.active? %>
   <%= link_to client_admin_tile_path(tile, update_status: Tile::ARCHIVE, path: :via_preview_post), method: :put, id: :archive do %>
-    <li class="post_header" id="archive_header">
+    <li class="post_header preview_menu_item" id="archive_header">
       <p class="fa fa-archive fa-2x"></p>
       <p class="header_text">Archive</p>
     </li>
   <% end %>
 <% elsif tile.activated_at.nil?%>
   <%= link_to client_admin_tile_path(tile, update_status: Tile::ACTIVE, path: :via_preview_draft), method: :put, id: :post do %>
-    <li class="post_header" id="post_header">
+    <li class="post_header preview_menu_item" id="post_header">
       <p class="fa fa-check fa-2x"></p>
       <p class="header_text">Post</p>
     </li>
   <% end %>
 <% else %>
   <%= link_to client_admin_tile_path(tile, update_status: Tile::ACTIVE, path: :via_preview_archive), method: :put, id: :post do %>
-    <li class="post_header" id="post_header">
+    <li class="post_header preview_menu_item" id="post_header">
       <p class="fa fa-check fa-2x"></p>
       <p class="header_text">Repost</p>
     </li>

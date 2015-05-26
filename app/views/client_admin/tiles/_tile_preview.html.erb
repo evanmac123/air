@@ -1,5 +1,5 @@
 <div class="large-9 large-centered columns tile_preview_container">
-  <%= render partial: 'client_admin/tiles/tile_preview/tile_preview_menu', locals: {tile: @tile, tag: @tag} %>
+  <%= render partial: 'client_admin/tiles/tile_preview/menu', locals: {tile: @tile, tag: @tag} %>
   <% if @tile.has_client_admin_status? %>
     <%= render partial: 'client_admin/tiles/tile_preview/share_section', locals: {tile: @tile} %>
   <% end %>
