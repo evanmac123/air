@@ -3,6 +3,8 @@ class BoardMembership < ActiveRecord::Base
   belongs_to :demo
   belongs_to :location
 
+	scope :admins, ->{where(:is_client_admin => true)}
+
   attr_accessor :role
   before_validation do
     if @role.present?
@@ -20,6 +22,7 @@ class BoardMembership < ActiveRecord::Base
       end
     end
   end
+
   
   def self.current
     where(is_current: true)
