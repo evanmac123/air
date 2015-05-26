@@ -108,6 +108,26 @@ class Tile < ActiveRecord::Base
     self.status == DRAFT
   end
 
+  def user_submitted?
+    self.status == USER_SUBMITTED
+  end
+
+  def ignored?
+    self.status == IGNORED
+  end
+
+  def suggested?
+    ignored? || user_submitted?
+  end
+
+  def has_client_admin_status?
+    active? || archived? || draft?
+  end
+
+  def has_user_status?
+    ignored? || user_submitted? || user_draft?
+  end
+
   def is_survey?
     question_type == SURVEY || (question_type.nil? && correct_answer_index == -1)
   end
