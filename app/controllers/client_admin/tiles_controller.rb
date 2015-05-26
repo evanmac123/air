@@ -135,16 +135,20 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def update_status_html result
-    success, failure = flash_status_messages
-    is_new = @tile.activated_at.nil?
-    if result
-      flash[:success] = "The #{@tile.headline} tile has been #{success}"
-      tile_status_updated_ping @tile, "Clicked button to move"
-    else
-      flash[:failure] = "There was a problem #{failure} this tile. Please try again."
-    end
+    if @tile.active? || @tile.archived?
+      success, failure = flash_status_messages
+      is_new = @tile.activated_at.nil?
+      if result
+        flash[:success] = "The #{@tile.headline} tile has been #{success}"
+        tile_status_updated_ping @tile, "Clicked button to move"
+      else
+        flash[:failure] = "There was a problem #{failure} this tile. Please try again."
+      end
 
-    redirect_to :back
+      redirect_to :back
+    else
+      redirect_to client_admin_tiles_path
+    end
   end
 
   def update_status_js result
