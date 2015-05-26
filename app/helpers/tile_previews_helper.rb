@@ -67,4 +67,8 @@ module TilePreviewsHelper
       ""
     end
   end
+
+  def menu_item_path
+    'client_admin/tiles/tile_preview/menu_item'
+  end
 end

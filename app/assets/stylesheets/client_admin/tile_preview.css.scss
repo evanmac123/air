@@ -46,7 +46,7 @@ body.client_admin-tiles-show{
       &.preview_menu_header {
         width: 20%;
       }
-      p + p {
+      p {
         margin-top: .25em;
       }
     }
@@ -80,7 +80,9 @@ body.client_admin-tiles-show{
     padding: .55em;
     text-align: center;
     color: $gray;
-    .header_text{font-weight: bold;}
+    .header_text {
+      font-weight: bold;
+    }
   }
   //
   // => Share Section

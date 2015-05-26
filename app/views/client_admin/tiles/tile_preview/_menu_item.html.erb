@@ -1,0 +1,16 @@
+<%
+  item_class ||= ""
+  item_id ||= ""
+  link ||= ""
+  link_options ||= {} 
+  icon ||= ""
+  text ||= ""
+%>
+<%= content_tag :li, class: "preview_menu_item #{item_class}", id: item_id do %>
+  <%= link_to link, link_options do %>
+    <%= fa_icon(icon + " 2x") %>
+    <p class="header_text">
+      <%= text %>
+    </p>
+  <% end %>
+<% end %>
