@@ -10,13 +10,13 @@ class Demo < ActiveRecord::Base
   has_many :board_memberships, dependent: :destroy
   has_many :users, through: :board_memberships
   has_many :acts
-  has_many :tiles, :dependent => :destroy
+  has_many :tiles, :dependent => :destroy, include: [:tile_completions, :tile_viewings]
   has_many :locations, :dependent => :destroy
   has_many :characteristics, :dependent => :destroy
   has_many :peer_invitations
   has_many :push_messages
 
-  has_many :tile_completions, through: :tiles
+  has_many :tile_completions, through: :tiles 
   has_many :tile_viewings, through: :tiles
 
   has_many :follow_up_digest_emails
@@ -332,9 +332,6 @@ class Demo < ActiveRecord::Base
     end
   end
 
-	def has_tile_activity_for_period? beg_date, end_date
-		has_viewings_for_period?(beg_date, end_date) || has_completions_for_period?(beg_date, end_date) 
-	end
 
   def self.public
     where(is_public: true)
@@ -366,13 +363,7 @@ class Demo < ActiveRecord::Base
 
   protected
 
-	def has_viewings_for_period? beg_date, end_date
-		self.tile_viewings.for_period(beg_date, end_date).any?
-	end
 
-	def has_completions_for_period? beg_date, end_date
-		self.tile_completions.for_period(beg_date, end_date).any?
-	end
 
   def unless_within(cutoff_time, last_done_time)
     if last_done_time.nil? || cutoff_time >= last_done_time
@@ -424,5 +415,7 @@ class Demo < ActiveRecord::Base
     placeholders_to_add.times { tiles << TileOddRowPlaceholder.new }
     tiles
   end
+
+
    
 end
