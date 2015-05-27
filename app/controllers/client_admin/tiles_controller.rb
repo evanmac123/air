@@ -58,11 +58,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @tile = get_tile
     return show_partial if params[:partial_only]
 
-    if !current_user.share_section_intro_seen
-      @show_share_section_intro = true
-      current_user.share_section_intro_seen = true
-      current_user.save!
-    end
+    @show_share_section_intro = show_share_section_intro
+    @show_submitted_tile_menu_intro = true
     set_tiles_path_tag
   end
 
@@ -103,6 +100,14 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
   
   private
+
+  def show_share_section_intro
+    if !current_user.share_section_intro_seen
+      current_user.share_section_intro_seen = true
+      current_user.save!
+      true
+    end
+  end
   
   def get_demo
     @demo = current_user.demo

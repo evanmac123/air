@@ -1,0 +1,8 @@
+<% if @show_submitted_tile_menu_intro %>
+  <% content_for :javascript do %>
+    <%= javascript_tag do %>
+      window.submittedTileMenuIntro();
+    <% end %>
+  <% end %>
+<% end %>
+

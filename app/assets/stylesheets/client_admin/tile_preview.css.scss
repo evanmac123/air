@@ -84,6 +84,13 @@ body.client_admin-tiles-show{
       font-weight: bold;
     }
   }
+  .submitted_tile_menu {
+    float: left;
+    width: 32%;
+    li {
+      width: 50%;
+    }
+  }
   //
   // => Share Section
   //

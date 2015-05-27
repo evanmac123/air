@@ -1,10 +1,5 @@
-<% if @show_share_section_intro %>
-  <% content_for :javascript do %>
-    <%= javascript_tag do %>
-      window.shareSectionIntro();
-    <% end %>
-  <% end %>
-<% end %>
+<%= render partial: 'client_admin/tiles/tile_preview/share_section_intro' %>
+<%= render partial: 'client_admin/tiles/tile_preview/submitted_tile_menu_intro' %>
 
 <div class="row">
   <%= render 'tile_preview' %>
