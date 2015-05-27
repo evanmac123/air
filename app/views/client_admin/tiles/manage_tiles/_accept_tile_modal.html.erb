@@ -12,3 +12,13 @@
   </div>
   <a class="close-reveal-modal">&#215;</a>
 </div>
+
+<% if @accepted_tile # if tile was accepted on tile preview page and we need to show confirm modal for that action %>
+  <% content_for :javascript do %>
+    <%= javascript_tag do %>
+      $().ready(function(){
+        window.acceptModalForTileFromPreviewPage("<%= client_admin_tile_path(@accepted_tile, update_status: Tile::USER_SUBMITTED) %>");
+      });
+    <% end %>
+  <% end %>
+<% end %>

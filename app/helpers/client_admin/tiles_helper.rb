@@ -137,7 +137,7 @@ module ClientAdmin::TilesHelper
   end
 
   def draftSectionClass
-    if params[:showSuggestionBox].present?
+    if params[:show_suggestion_box].present?
       "suggestion_box_selected"
     else
       'draft_selected'
@@ -145,7 +145,7 @@ module ClientAdmin::TilesHelper
   end
 
   def display_show_more_draft_tiles
-    show = if params[:showSuggestionBox].present?
+    show = if params[:show_suggestion_box].present?
       current_user.demo.suggested_tiles.count > 4
     else
       current_user.demo.draft_tiles.count > 3

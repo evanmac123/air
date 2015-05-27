@@ -12,11 +12,11 @@
     %div#suggestion_box
       = render partial: 'client_admin/tiles/manage_tiles/no_tiles_section', locals: {display_no_tiles_section: @suggested_tiles.empty?}
       = render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: {tiles: @suggested_tiles}
-
-= render partial: 'client_admin/tiles/manage_tiles/accept_tile_modal'
-
+      
 - content_for :javascript do
   :javascript
     $().ready(function(){
       window.suggestionBox();
     })
+
+= render partial: 'client_admin/tiles/manage_tiles/accept_tile_modal'
