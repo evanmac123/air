@@ -19,7 +19,9 @@ describe CssSplitter::Splitter do
   def check_stylesheets_num original_name, number
     (1..number).to_a.each do |i|
       name = i == 1 ? original_name : "#{original_name}_split#{i}"
-      get_file(name).should be_present
+      unless get_file(name).present?
+        raise "Expected asset file #{name} not present, remember that you must manually create split files as needed, and update split_count in corresponding layout"
+      end
     end
   end
 
@@ -36,34 +38,9 @@ describe CssSplitter::Splitter do
         file = get_file name
         sel_number = count_selectors(file)
         stylesheets_number = sel_number / max_selectors + 1
-        # p name.to_s + " " + sel_number.to_s + " " + stylesheets_number.to_s
+        #p name.to_s + " " + sel_number.to_s + " " + stylesheets_number.to_s
         check_stylesheets_num name, stylesheets_number
       end
     end
   end
 end
-
-
-# link to js script to count selectors in browser
-# http://stackoverflow.com/questions/5228459/count-number-of-selectors-in-a-css-file/12313690#12313690
-# or code:
-# var
-#   styleSheets = document.styleSheets,
-#   totalStyleSheets = styleSheets.length;
-
-# for (var j = 0; j < totalStyleSheets; j++){
-#   var
-#     styleSheet = styleSheets[j],
-#     rules = styleSheet.cssRules,
-#     totalRulesInStylesheet = rules.length,
-#     totalSelectorsInStylesheet = 0;
-
-#   for (var i = 0; i < totalRulesInStylesheet; i++) {
-#     if (rules[i].selectorText){
-#       totalSelectorsInStylesheet += rules[i].selectorText.split(',').length;
-#     }
-#   }
-#   console.log("Stylesheet: "+styleSheet.href);
-#   console.log("Total rules: "+totalRulesInStylesheet);
-#   console.log("Total selectors: "+totalSelectorsInStylesheet);
-# }
