@@ -36,21 +36,23 @@
       text: "New Tile"
     } %>
   <% elsif tile.user_submitted? %>
-    <%= render partial: menu_item_path, locals: {
-      item_class: "accept_header",
-      link: client_admin_tile_path(tile, update_status: Tile::DRAFT, path: :via_preview_user_submitted),
-      link_options: { method: :put },
-      icon: "check",
-      text: "Accept"
-    } %>
+    <%= content_tag 'div', class: 'submitted_tile_menu', "data-intro" => "Accept the tile to use it in your Board, or Ignore it to mark it as reviewed." do %>
+      <%= render partial: menu_item_path, locals: {
+        item_class: "accept_header",
+        link: client_admin_tile_path(tile, update_status: Tile::DRAFT, path: :via_preview_user_submitted),
+        link_options: { method: :put },
+        icon: "check",
+        text: "Accept"
+      } %>
 
-    <%= render partial: menu_item_path, locals: {
-      item_class: "ignore_header",
-      link: client_admin_tile_path(tile, update_status: Tile::IGNORED, path: :via_preview_user_submitted),
-      link_options: { method: :put },
-      icon: "times",
-      text: "Ignore"
-    } %>
+      <%= render partial: menu_item_path, locals: {
+        item_class: "ignore_header",
+        link: client_admin_tile_path(tile, update_status: Tile::IGNORED, path: :via_preview_user_submitted),
+        link_options: { method: :put },
+        icon: "times",
+        text: "Ignore"
+      } %>
+    <% end %>
   <% else # ignored %>
     <%= render partial: menu_item_path, locals: {
       item_class: "undo_ignore_header",

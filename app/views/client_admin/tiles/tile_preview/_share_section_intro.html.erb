@@ -1,0 +1,7 @@
+<% if @show_share_section_intro %>
+  <% content_for :javascript do %>
+    <%= javascript_tag do %>
+      window.shareSectionIntro();
+    <% end %>
+  <% end %>
+<% end %>
