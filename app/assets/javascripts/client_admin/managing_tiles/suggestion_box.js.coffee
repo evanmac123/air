@@ -62,6 +62,13 @@ tileVisibility = (tile, action) ->
     tile.remove()
   window.updateTilesAndPlaceholdersAppearance()
 
+window.acceptModalForTileFromPreviewPage = (url) ->
+  window.accessActionParams =
+    url: url
+    undo: false
+    ajax: false
+  acceptModal().foundation('reveal', 'open')
+
 window.suggestionBox = ->
   draftTitle().click ->
     showSection('draft')
@@ -81,7 +88,19 @@ window.suggestionBox = ->
       url: acceptBtn.attr("href")
       tile: tile
       undo: false
+      ajax: true
     acceptingTileVisibility("hide")
+
+  acceptTileFromPreviewPage = ->
+    if window.accessActionParams["undo"]
+      $.ajax
+        type: 'PUT'
+        dataType: "json"
+        url: window.accessActionParams["url"]
+        success: (data) ->
+          window.location.href = "/client_admin/tiles/" + data.tile_id
+    window.accessActionParams = {}
+
 
   acceptTile = ->
     if window.accessActionParams["undo"]
@@ -114,7 +133,10 @@ window.suggestionBox = ->
     acceptModal().foundation('reveal', 'close')
 
   $(document).on 'closed.fndtn.reveal', acceptModalSel(), ->
-    acceptTile()
+    if window.accessActionParams["ajax"]
+      acceptTile()
+    else
+      acceptTileFromPreviewPage()
   #
   # => Ignore Tile
   #

@@ -94,7 +94,7 @@ feature 'Client uses suggestion box' do
 
   context "accepting process" do
     before do
-      visit client_admin_tiles_path(showSuggestionBox: true)
+      visit client_admin_tiles_path(show_suggestion_box: true)
 
       @tile = submitted_tiles[1]
       accept_button(@tile).click
@@ -152,7 +152,7 @@ feature 'Client uses suggestion box' do
       FactoryGirl.create :multiple_choice_tile, :user_submitted, demo: demo
       # 1 ignored
       @ignored_tile = FactoryGirl.create :multiple_choice_tile, :ignored, demo: demo
-      visit client_admin_tiles_path(showSuggestionBox: true)
+      visit client_admin_tiles_path(show_suggestion_box: true)
       show_more_button.click
       
       visible_tiles.count.should == 5

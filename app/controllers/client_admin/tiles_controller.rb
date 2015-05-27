@@ -18,6 +18,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @allowed_to_suggest_users = @demo.users_that_allowed_to_suggest_tiles
 
     @board_is_brand_new = @demo.tiles.limit(1).first.nil?
+    @accepted_tile = Tile.find(session.delete(:accepted_tile_id)) if session[:accepted_tile_id]
     record_index_ping
   end
   
@@ -112,15 +113,19 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def flash_status_messages
-    case params[:update_status]
+    success, failure = case params[:update_status]
     when Tile::ARCHIVE
-      success = 'archived'
-      failure = 'archiving'
+      ['archived', 'archiving']
     when Tile::ACTIVE
-      success = 'published'
-      failure = 'publishing'
+      ['published', 'publishing']
+    when Tile::USER_SUBMITTED
+      ['moved to submitted', 'with moving to submitted']
+    when Tile::IGNORED
+      ['ignored', 'ignoring']
+    when Tile::DRAFT
+      ['accepted', 'accepting']
     else
-      success, failure = '', ''
+      ['', '']
     end
     [success, failure]
   end
@@ -135,19 +140,20 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def update_status_html result
-    if @tile.active? || @tile.archived?
-      success, failure = flash_status_messages
-      is_new = @tile.activated_at.nil?
-      if result
-        flash[:success] = "The #{@tile.headline} tile has been #{success}"
-        tile_status_updated_ping @tile, "Clicked button to move"
+    success, failure = flash_status_messages
+    #is_new = @tile.activated_at.nil?
+    if result
+      tile_status_updated_ping @tile, "Clicked button to move"
+      if @tile.draft?
+        session[:accepted_tile_id] = @tile.id
+        redirect_to client_admin_tiles_path
       else
-        flash[:failure] = "There was a problem #{failure} this tile. Please try again."
+        flash[:success] = "The #{@tile.headline} tile has been #{success}"
+        redirect_to client_admin_tile_path(@tile)
       end
-
-      redirect_to :back
     else
-      redirect_to client_admin_tiles_path
+      flash[:failure] = "There was a problem #{failure} this tile. Please try again."
+      redirect_to client_admin_tile_path(@tile)
     end
   end
 
@@ -155,7 +161,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     if result
       render json: {
         success: true,
-        tile: render_tile(@tile)
+        tile: render_tile(@tile),
+        tile_id: @tile.id
       }
     else
       render json: {success: false}
