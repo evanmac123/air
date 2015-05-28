@@ -101,7 +101,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   private
 
   def show_submitted_tile_menu_intro
-    unless current_user.submitted_tile_menu_intro_seen
+    if !current_user.submitted_tile_menu_intro_seen && @tile.suggested?
       current_user.submitted_tile_menu_intro_seen = true
       current_user.save!
       true
@@ -109,7 +109,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def show_share_section_intro
-    if !current_user.share_section_intro_seen
+    if !current_user.share_section_intro_seen && @tile.has_client_admin_status?
       current_user.share_section_intro_seen = true
       current_user.save!
       true
@@ -161,11 +161,11 @@ class ClientAdmin::TilesController < ClientAdminBaseController
         redirect_to client_admin_tiles_path(show_suggestion_box: true)
       else
         flash[:success] = "The #{@tile.headline} tile has been #{success}"
-        redirect_to client_admin_tile_path(@tile)
+        redirect_to :back
       end
     else
       flash[:failure] = "There was a problem #{failure} this tile. Please try again."
-      redirect_to client_admin_tile_path(@tile)
+      redirect_to :back
     end
   end
 
