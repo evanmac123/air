@@ -6,7 +6,7 @@
   <%= render partial: menu_item_path, locals: {
     item_class: "back_header",
     item_id: "back_header",
-    link: client_admin_tiles_path(path: tag),
+    link: client_admin_tiles_path(path: tag, show_suggestion_box: tile.suggested?),
     icon: "chevron-left",
     text: "Back to Tiles"
   } %>
@@ -39,7 +39,7 @@
     <%= content_tag 'div', class: 'submitted_tile_menu', "data-intro" => "Accept the tile to use it in your Board, or Ignore it to mark it as reviewed." do %>
       <%= render partial: menu_item_path, locals: {
         item_class: "accept_header",
-        link: client_admin_tile_path(tile, update_status: Tile::DRAFT, path: :via_preview_user_submitted),
+        link: client_admin_tile_path(tile, update_status: Tile::DRAFT, path: @tag),
         link_options: { method: :put },
         icon: "check",
         text: "Accept"
@@ -47,7 +47,7 @@
 
       <%= render partial: menu_item_path, locals: {
         item_class: "ignore_header",
-        link: client_admin_tile_path(tile, update_status: Tile::IGNORED, path: :via_preview_user_submitted),
+        link: client_admin_tile_path(tile, update_status: Tile::IGNORED, path: @tag),
         link_options: { method: :put },
         icon: "times",
         text: "Ignore"
@@ -56,7 +56,7 @@
   <% else # ignored %>
     <%= render partial: menu_item_path, locals: {
       item_class: "undo_ignore_header",
-      link: client_admin_tile_path(tile, update_status: Tile::USER_SUBMITTED, path: :via_preview_ignored),
+      link: client_admin_tile_path(tile, update_status: Tile::USER_SUBMITTED, path: @tag),
       link_options: { method: :put },
       icon: "undo",
       text: "Undo Ignore"

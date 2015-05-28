@@ -159,7 +159,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       tile_status_updated_ping @tile, "Clicked button to move"
       if @tile.draft?
         session[:accepted_tile_id] = @tile.id
-        redirect_to client_admin_tiles_path
+        redirect_to client_admin_tiles_path(show_suggestion_box: true)
       else
         flash[:success] = "The #{@tile.headline} tile has been #{success}"
         redirect_to client_admin_tile_path(@tile)
@@ -237,13 +237,20 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def set_tiles_path_tag
-    @tag = if @tile.active?
-             :via_posted_preview
-           elsif @tile.archived?
-             :via_archived_preview
-           else
-             :via_draft_preview
-           end
+    @tag =  case @tile.status
+            when Tile::ACTIVE
+              :via_posted_preview
+            when Tile::ARCHIVE
+              :via_archived_preview
+            when Tile::DRAFT
+              :via_draft_preview
+            when Tile::USER_SUBMITTED
+              :via_preview_user_submitted
+            when Tile::IGNORED
+              :via_preview_ignored
+            else
+              ''
+            end
   end
 
   def load_image_library
