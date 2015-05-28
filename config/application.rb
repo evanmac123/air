@@ -34,11 +34,11 @@ module Health
       app-admin.css
       app-client-admin.css
       app-client-admin_split2.css
-      app-client-admin_split3.css
       client_admin_base.css
       app-external.css
       app-internal.css
       app-internal_split2.css
+      app-internal_split3.css
       app-landing.css
       app-user-progress.css
       styleguide.css
