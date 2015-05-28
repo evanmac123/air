@@ -35,23 +35,10 @@ body.client_admin-tiles-show{
     background: white;
     border-radius: $border-radius;
     overflow: hidden;
-    a {
-      color: $gray;
-      display: block;
-      &:hover {color: darken($gray, 10%);}
-    }
-    li {
-      float: left;
-      width: 16%;
-      &.preview_menu_header {
-        width: 20%;
-      }
-      p {
-        margin-top: .25em;
-      }
-    }
   }
   .preview_menu_header {
+    float: left;
+    width: 20%;
     font-size: 27px;
     color: white;
     padding: .5em 1em;
@@ -75,13 +62,27 @@ body.client_admin-tiles-show{
     }
   }
   .preview_menu_item {
+    float: left;
+    width: 16%;
     border-left: 1px $tile-wall-bg solid;
     font-size: 14px;
     padding: .55em;
     text-align: center;
     color: $gray;
+    &:last-child {
+      border-right: 1px $tile-wall-bg solid;
+    }
+    &:nth-child(n+5) {
+      border-right: none;
+    }
     .header_text {
+      margin-top: .25em;
       font-weight: bold;
+    }
+    a {
+      color: $gray;
+      display: block;
+      &:hover {color: darken($gray, 10%);}
     }
   }
   .submitted_tile_menu {
