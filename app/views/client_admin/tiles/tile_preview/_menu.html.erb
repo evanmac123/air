@@ -1,65 +1,20 @@
+<% presenter = TilePreviewMenuPresenter.new(tile) %>
 <ul class="tile_preview_menu">
-  <li class="preview_menu_header <%= tile.status %>">        
-    <%= status_name tile %>
+  <li class="preview_menu_header <%= presenter.status %>">        
+    <%= presenter.status_name %>
   </li>
-
-  <%= render partial: menu_item_path, locals: {
-    item_class: "back_header",
-    item_id: "back_header",
-    link: client_admin_tiles_path(path: tag, show_suggestion_box: tile.suggested?),
-    icon: "chevron-left",
-    text: "Back to Tiles"
-  } %>
-
-  <% if tile.has_client_admin_status? %>
-    <%= render 'client_admin/tiles/tile_preview/activate_deactivate_link', tile: tile %>
-
-    <%= render partial: menu_item_path, locals: {
-      item_class: "edit_header",
-      link: edit_client_admin_tile_path(tile, path: tag),
-      icon: "pencil",
-      text: "Edit"
-    } %>
-
-    <%= render partial: menu_item_path, locals: {
-      item_class: "destroy_header",
-      link: client_admin_tile_path(tile, page: 'Large Tile Preview'),
-      link_options: { method: :delete, data: { confirm: destroy_tile_message_params } },
-      icon: "trash",
-      text: "Delete"
-    } %>
-
-    <%= render partial: menu_item_path, locals: {
-      item_class: "new_tile_header",
-      link: new_client_admin_tile_path(path: tag),
-      icon: "plus",
-      text: "New Tile"
-    } %>
-  <% elsif tile.user_submitted? %>
+  <%= render partial: presenter.menu_item_path, locals: presenter.back_btn_params %>
+  <% if presenter.has_client_admin_status? %>
+    <%= render partial: presenter.menu_item_path, locals: presenter.action_btn_params %>
+    <%= render partial: presenter.menu_item_path, locals: presenter.edit_btn_params %>
+    <%= render partial: presenter.menu_item_path, locals: presenter.delete_btn_params %>
+    <%= render partial: presenter.menu_item_path, locals: presenter.new_tile_btn_params %>
+  <% elsif presenter.user_submitted? %>
     <%= content_tag 'div', class: 'submitted_tile_menu', "data-intro" => "Accept the tile to use it in your Board, or Ignore it to mark it as reviewed." do %>
-      <%= render partial: menu_item_path, locals: {
-        item_class: "accept_header",
-        link: client_admin_tile_path(tile, update_status: Tile::DRAFT, path: @tag),
-        link_options: { method: :put },
-        icon: "check",
-        text: "Accept"
-      } %>
-
-      <%= render partial: menu_item_path, locals: {
-        item_class: "ignore_header",
-        link: client_admin_tile_path(tile, update_status: Tile::IGNORED, path: @tag),
-        link_options: { method: :put },
-        icon: "times",
-        text: "Ignore"
-      } %>
+      <%= render partial: presenter.menu_item_path, locals: presenter.accept_btn_params %>
+      <%= render partial: presenter.menu_item_path, locals: presenter.ignore_btn_params %>
     <% end %>
   <% else # ignored %>
-    <%= render partial: menu_item_path, locals: {
-      item_class: "undo_ignore_header",
-      link: client_admin_tile_path(tile, update_status: Tile::USER_SUBMITTED, path: @tag),
-      link_options: { method: :put },
-      icon: "undo",
-      text: "Undo Ignore"
-    } %>
+    <%= render partial: presenter.menu_item_path, locals: presenter.undo_ignore_btn_params %>
   <% end %>
 </ul>

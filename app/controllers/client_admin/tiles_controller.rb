@@ -60,7 +60,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
     @show_share_section_intro = show_share_section_intro
     @show_submitted_tile_menu_intro = show_submitted_tile_menu_intro
-    set_tiles_path_tag
   end
 
   def edit
@@ -234,23 +233,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       flash.now[:failure] = render_to_string("client_admin/tiles/form/save_tile_without_an_image", layout: false, locals: { tile: @tile_builder_form.tile })
       flash[:failure_allow_raw] = true
     end
-  end
-
-  def set_tiles_path_tag
-    @tag =  case @tile.status
-            when Tile::ACTIVE
-              :via_posted_preview
-            when Tile::ARCHIVE
-              :via_archived_preview
-            when Tile::DRAFT
-              :via_draft_preview
-            when Tile::USER_SUBMITTED
-              :via_preview_user_submitted
-            when Tile::IGNORED
-              :via_preview_ignored
-            else
-              ''
-            end
   end
 
   def load_image_library

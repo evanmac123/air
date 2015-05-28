@@ -48,27 +48,4 @@ module TilePreviewsHelper
   def sharable_tile_link tile
     request.host_with_port.gsub(/^www./, "") + sharable_tile_path(tile)
   end
-
-  def status_name tile
-    case tile.status
-    when Tile::ACTIVE
-      "Posted"
-    when Tile::ARCHIVE
-      "Archive"
-    when Tile::DRAFT
-      "Draft"
-    when Tile::USER_DRAFT
-      "Draft"
-    when Tile::USER_SUBMITTED
-      "Submitted"
-    when Tile::IGNORED  
-      "Ignored"
-    else
-      ""
-    end
-  end
-
-  def menu_item_path
-    'client_admin/tiles/tile_preview/menu_item'
-  end
 end
