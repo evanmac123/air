@@ -158,7 +158,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       tile_status_updated_ping @tile, "Clicked button to move"
       if @tile.draft?
         session[:accepted_tile_id] = @tile.id
-        redirect_to client_admin_tiles_path(show_suggestion_box: true)
+        redirect_to client_admin_tiles_path
       else
         flash[:success] = "The #{@tile.headline} tile has been #{success}"
         redirect_to :back
