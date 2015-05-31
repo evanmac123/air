@@ -7,7 +7,6 @@ tmp/**/*
 tmp/capybara-*
 tmp/pids/*
 tmp/*.log
-db/schema.rb
 public/system
 *.DS_Store
 coverage/*
