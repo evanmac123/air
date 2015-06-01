@@ -346,6 +346,44 @@ header {
   }
 }
 
+#submit_tile_modal {
+  @include with-lists;
+  background: $white;
+  width: 55%;
+  margin-left: -27.5%;
+  .main_text {
+    font-size: 16px;
+  }
+  h2 {
+    margin-bottom: 12px;
+  }
+  p {
+    margin-bottom: 20px;
+  }
+  a {
+    color: $sky-blue;
+    font-weight: normal; 
+  }
+  ol {
+    margin-bottom: 20px;
+  }
+  li {
+    margin-bottom: 2px;
+  }
+  .submit {
+    @include light-button($sky-blue);
+    font-size: 14px;
+  }
+  .close {
+    @include app-button($sky-blue);  
+    margin-left: 7px;
+    font-size: 14px;
+  }
+  .close-reveal-modal {
+    color: $med-gray;
+  }
+}
+
 #guest-intercom-wrapper {
   margin-top: 1em;
   #open-intercom {

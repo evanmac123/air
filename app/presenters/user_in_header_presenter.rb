@@ -152,7 +152,7 @@ class UserInHeaderPresenter
   end
 
   def show_submit_tile_intro?
-    true
+    can_submit_tile? && true
   end
 
   protected

@@ -1,0 +1,29 @@
+<div id="submit_tile_modal" class="reveal-modal" data-reveal>
+  <div class="main_text">
+    <h2>Submit a Tile to Suggestions Box</h2>
+    <p>The administrator has picked you to add Tiles to the Suggestion Box.</p>
+    <ol>
+      <li>
+        Click
+        <%= link_to 'Submit Tile', suggested_tiles_path %>
+      </li>
+      <li>Build a Tile (it's easy!)</li>
+      <li>Your Tile will be review by the administrator</li>
+      <li>If it's accepted, it will be featured on this Board.</li>
+    </ol>
+    <p>
+      Have questions?
+      <%= link_to 'Ask Us', '#', id: 'ask_us' %>.
+    </p>
+  </div>
+  <div class='control_buttons'>
+    <%= link_to suggested_tiles_path, class: "submit" do %>
+      <%= fa_icon 'pencil' %>
+      <span>Submit Tile</span>
+    <% end %>
+
+    <%= link_to 'Close', "#", class: "close" %>
+  </div>
+
+  <a href="" class="close-reveal-modal">×</a>
+</div>
