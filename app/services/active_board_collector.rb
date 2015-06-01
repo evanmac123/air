@@ -6,20 +6,37 @@ class ActiveBoardCollector
     @admin_board_memberships = opts[:selected_boards] || BoardMembership.admins
     validate_report_dates opts
     map_admins_to_boards
+		collect
   end
 
-  def boards
+  def active_boards
     @active_boards ||=collect
   end
 
+	def send_mail_notifications
+    active_boards.each do |active_board|
+			send_for_admin(active_board)
+    end
+	end
+
+	def send_for_admin(active_board)
+		active_board.admins.each do |admin|
+			BoardActivityMailer.notify(admin_board.board, admin, admin_board.tiles).deliver
+    end
+	end
+
+	def  board_admins board
+     @board_admins[board]
+	end
+
   private
   def collect
-    rep = Struct.new(:board_id, :admins, :tiles )
+    obj = Struct.new(:board, :admins, :tiles )
     @active_boards = []
     @board_admins.each do |board, admins| 
       tile_collector =ActiveTileCollector.new(board, @beg_date, @end_date)
       tiles = tile_collector.collect
-      @active_boards.push rep.new(board,admins,tiles ) if tiles.any?
+      @active_boards.push obj.new(board,admins,tiles ) if tiles.any?
     end
 
     @active_boards
@@ -38,7 +55,7 @@ class ActiveBoardCollector
     else
       #NOTE Default to last week
       @beg_date = Date.today.beginning_of_week(:sunday).prev_week(:sunday).at_midnight
-      @end_date = beg_date.end_of_week(:sunday).end_of_day
+      @end_date = @beg_date.end_of_week(:sunday).end_of_day
     end
   end
 
@@ -47,7 +64,7 @@ class ActiveBoardCollector
     @admin_board_memberships.includes(
       demo: [tiles: [:tile_viewings, :tile_completions]]).each do |mem|
 
-      @board_admins[mem.demo].push(mem.user.name)
+      @board_admins[mem.demo].push(mem.user)
     end
   end
 
