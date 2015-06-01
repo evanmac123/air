@@ -6,6 +6,7 @@ FactoryGirl.define do
     # association(:location)
     password  "password"
     sequence(:email) {|n| "darth_#{n}@sunni.ru" }
+    submit_tile_intro_seen true
   end
 
   factory :user,  :parent => :unnamed_user do
