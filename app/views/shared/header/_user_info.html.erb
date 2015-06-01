@@ -1,0 +1,8 @@
+<!-- start of new admin navigation that needs to be gated off later -->
+<div class="large-3 columns" id="user_info">
+  <%= render 'shared/header/open_intercom_button', user: user %>
+  <div id="me_toggle">
+    <div class="shadow_overlay"></div>
+    <%= default_avatar_tag user, :id => :top_avatar, :class => "avatar48" %>
+  </div>
+</div>

@@ -1,0 +1,6 @@
+<%= link_to '#', id: 'board_settings_toggle' do %>
+  <div class="board_settings_toggle_wrapper has-tip" data-tooltip title="Settings" href="<%= user.after_login_link %>">
+    <i class="fa fa-cog" href="<%= user.after_login_link %>"></i>
+  </div>
+  <div class="board_settings_mobile_toggle">Board settings</div>
+<% end %>
