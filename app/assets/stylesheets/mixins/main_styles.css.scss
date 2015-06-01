@@ -576,3 +576,8 @@ button {
     }
   }
 }
+
+@import "mixins/intro_js_restyling";
+.introjs-tooltip {
+  @include intro-js-restyling;
+}

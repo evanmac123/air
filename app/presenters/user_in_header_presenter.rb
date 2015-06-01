@@ -151,6 +151,10 @@ class UserInHeaderPresenter
     request[:controller] != "suggested_tiles"
   end
 
+  def show_submit_tile_intro?
+    true
+  end
+
   protected
 
   def muted_followup_boards

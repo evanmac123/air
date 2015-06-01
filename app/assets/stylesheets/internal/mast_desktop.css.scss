@@ -336,6 +336,15 @@ header {
   font-size: 14px;
   margin-right: 15px;
 }
+.submit_tile_intro {
+  .introjs-tooltipbuttons {
+    text-align: left;
+  }
+  .intojs-explainbutton {
+    @include light-button($sky-blue);
+    font-size: 14px;
+  }
+}
 
 #guest-intercom-wrapper {
   margin-top: 1em;

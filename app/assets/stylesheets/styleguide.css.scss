@@ -1,10 +1,9 @@
 @import "./vendor/normalize.css.scss";
 @import "./foundation_and_overrides.scss";
+@import "introjs";
 @import "./mixins/main_styles.css.scss";
 @import "./mixins/green_paddle_switch.css.scss";
 @import "font-awesome";
-@import "introjs";
-@import "mixins/intro_js_restyling";
 @import "./internal/tile_builder/pen.css.scss";
 
 section:after{@include clear;}
@@ -111,9 +110,6 @@ input[type="text"] {
       }
     }
   }
-}
-.introjs-tooltip {
-  @include intro-js-restyling;
 }
 
 #demo_pen_editor {
