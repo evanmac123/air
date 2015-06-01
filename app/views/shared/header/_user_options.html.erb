@@ -1,0 +1,15 @@
+<div class="user_options">
+  <ul>
+    <li><%= link_to "Home", user.home_path, :class => 'nav-home' %></li>
+    <li><%= link_to "My Profile", user_path(user), :id => 'my_profile', :class => 'nav-activity-class' %></li>
+    <li><%= link_to "Find users", users_path, :class => 'nav-directory' %></li>
+    <li><%= link_to "Settings", edit_account_settings_path, :class => 'nav-settings' %></li>
+    <% if user.authorized_to?(:site_admin) %>
+      <li><%= link_to "Site admin", admin_path, :class => 'nav-admin', id: 'nav-site-admin-link' %></li>
+    <% end %>
+    <li><%= link_to "Sign Out", sign_out_path, :method => :delete , :class => 'nav-signout' %></li>
+
+    <%= render 'shared/header/mobile_board_switcher', user: user %>
+
+  </ul>
+</div>

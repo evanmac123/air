@@ -6,104 +6,34 @@
     <div class="large-2 columns" id="logo">
       <a class="go_home" href="<%= home_path %>"><%= image_tag user.logo_url %></a>
     </div>
-
     <%# If we don't need the guest user controls, steal their space for the 
     navigation, so we can use it for the current board. %>
     <% unless user.show_user_nav? %>
       <nav id="navigation" class="columns large-7"> <!-- offcanvas menu -->
-        <div class="user_options">
-          <ul>
-            <li><%= link_to "Home", user.home_path, :class => 'nav-home' %></li>
-            <li><%= link_to "My Profile", user_path(user), :id => 'my_profile', :class => 'nav-activity-class' %></li>
-            <li><%= link_to "Find users", users_path, :class => 'nav-directory' %></li>
-            <li><%= link_to "Settings", edit_account_settings_path, :class => 'nav-settings' %></li>
-            <% if user.authorized_to?(:site_admin) %>
-              <li><%= link_to "Site admin", admin_path, :class => 'nav-admin', id: 'nav-site-admin-link' %></li>
-            <% end %>
-            <li><%= link_to "Sign Out", sign_out_path, :method => :delete , :class => 'nav-signout' %></li>
-
-            <%# Mobile-only select version of the board switcher %>
-            <% if user.show_board_switcher? %>
-              <li class="board_switch_dropdown">
-                <select>
-                  <%= user.options_for_board_select %>
-                </select>
-              </li>
-              <% js_at_end do %>
-                bindBoardSwitchDropdownSelect();
-              <% end %>
-            <% end %>
-
-          </ul>
-        </div>
-        <div id="board_switch">
-          <a id="board_switch_toggler">
-            <p class="small_cap">Current board</p>
-            <%= content_tag "p", class: "board_name has-tip tip-left", id: "current_board_name", title: "Switch between boards", data: {tooltip: true, demo_id: user.demo_id} do %>
-              <%= truncate_name_for_switcher user.demo.name %>
-              <span class="fa fa-caret-down"></span>
-            <% end %>
-          </a>
-        </div>
-
-        <%= render 'shared/desktop_board_switcher', user: user %>
-
-        <%= link_to '#', id: 'board_settings_toggle' do %>
-          <div class="board_settings_toggle_wrapper has-tip" data-tooltip title="Settings" href="<%= user.after_login_link %>">
-            <i class="fa fa-cog" href="<%= user.after_login_link %>"></i>
-          </div>
-          <div class="board_settings_mobile_toggle">Board settings</div>
-        <% end %>
-
-        <%= render partial: 'shared/copy_board' %>
-
-        <% if user.authorized_to?(:client_admin) %>
-          <div class="admin_options">
-              <p class="small_cap">Board tools</p>
-              <%= link_to 'Manage', client_admin_tiles_path, id: 'manage_board' %>
-              <a id="admin_toggle">&#9662;</a>
-              <ul class="client_admin_pages">
-                <li><%= link_to "Admin help", DeskSSO.new(user.current_user).url, target: "_blank" %></li>
-              </ul>
-          </div>
-        <%else%>
-          <div class="admin_options">
-          </div>        
-        <% end %>
+        <%= render 'shared/header/user_options', user: user %>
+        <%= render 'shared/header/board_switch_toggler', user: user %>
+        <%= render 'shared/header/desktop_board_switcher', user: user %>
+        <%= render 'shared/header/board_settings_toggle', user: user %>
+        <%= render partial: 'shared/header/copy_board' %>
+        <%= render 'shared/header/mobile_admin_options', user: user %>
       </nav> <!-- end of off canvas -->
 
-      <!-- start of new admin navigation that needs to be gated off later -->
-      <div class="large-3 columns" id="user_info">
-        <%= render 'shared/open_intercom_button', user: user %>
-        <div id="me_toggle">
-          <div class="shadow_overlay"></div>
-          <%= default_avatar_tag user, :id => :top_avatar, :class => "avatar48" %>
-        </div>
-      </div>
+      <%= render 'shared/header/user_info', user: user %>
     <% else # user.is_guest? == true %>
-      <div id="save_progress" class="large-4 columns" style="<%= user.guest_user_header_button_style %>">
-        <% unless user.demo && $rollout.active?(:suppress_conversion_modal, user.demo) %>
-          <a href="#" id="save_progress_button" class="open_save_progress_form">Save Progress</a>
-          <%= link_to "Sign In", new_session_path, id: 'sign_in_button' %>
-        <% end %>
-        <% if session[:display_start_over_button] %>
-          <%= link_to "Start Over", guest_user_reset_path, id: 'guest_user_start_over_button', confirm: "Are you sure?", method: :put %>      
-        <%else%>
-          <%= link_to "Start Over", guest_user_reset_path, id: 'guest_user_start_over_button', style: 'display:none', confirm: "Are you sure?", method: :put %>
-        <% end %>
-      </div>
+      <%= render 'shared/header/save_progress', user: user %>
       <div class="large-6 columns" id="guest-intercom-wrapper">
-        <%= render 'shared/open_intercom_button', user: user %>
+        <%= render 'shared/header/open_intercom_button', user: user %>
       </div>
     <% end %>
   </div> <!-- end of topbar -->
+
   <% if user.show_side_menu_button? %>
     <div id="small-toggle" class="off-canvas-toggle"><a href="#side-nav" class="small_cap">MENU</a></div>
   <% end %>
 </header>
 
 <% if user.show_login_modal? %>
-  <%= render "shared/login_modal", user: user %>
+  <%= render "shared/header/login_modal", user: user %>
 <% end %>
 
 <%= render 'shared/board_settings/modal', user: user %>

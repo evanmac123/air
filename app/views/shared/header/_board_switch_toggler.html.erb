@@ -1,0 +1,9 @@
+<div id="board_switch">
+  <a id="board_switch_toggler">
+    <p class="small_cap">Current board</p>
+    <%= content_tag "p", class: "board_name has-tip tip-left", id: "current_board_name", title: "Switch between boards", data: {tooltip: true, demo_id: user.demo_id} do %>
+      <%= truncate_name_for_switcher user.demo.name %>
+      <span class="fa fa-caret-down"></span>
+    <% end %>
+  </a>
+</div>

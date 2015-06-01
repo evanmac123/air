@@ -1,0 +1,11 @@
+<%# Mobile-only select version of the board switcher %>
+<% if user.show_board_switcher? %>
+  <li class="board_switch_dropdown">
+    <select>
+      <%= user.options_for_board_select %>
+    </select>
+  </li>
+  <% js_at_end do %>
+    bindBoardSwitchDropdownSelect();
+  <% end %>
+<% end %>
