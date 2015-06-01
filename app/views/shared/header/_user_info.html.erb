@@ -1,6 +1,12 @@
 <!-- start of new admin navigation that needs to be gated off later -->
 <div class="large-3 columns" id="user_info">
   <%= render 'shared/header/open_intercom_button', user: user %>
+  <% if user.can_submit_tile? %>
+    <%= link_to suggested_tiles_path, id: "submit_tile" do %>
+      <%= fa_icon 'pencil' %>
+      <span>Submit Tile</span>
+    <% end %>
+  <% end %>
   <div id="me_toggle">
     <div class="shadow_overlay"></div>
     <%= default_avatar_tag user, :id => :top_avatar, :class => "avatar48" %>

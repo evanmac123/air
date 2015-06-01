@@ -19,6 +19,7 @@ class UserInHeaderPresenter
               :avatar,
               :name,
               :email,
+              :can_make_tile_suggestions?,
               to: :current_user
 
   def initialize(user, public_tile_page, params, request)
@@ -142,6 +143,12 @@ class UserInHeaderPresenter
 
   def digest_is_muted(board)
     muted_digest_boards.include?(board)
+  end
+
+  def can_submit_tile?
+    can_make_tile_suggestions? && 
+    !authorized_to?(:client_admin) &&
+    request[:controller] != "suggested_tiles"
   end
 
   protected
