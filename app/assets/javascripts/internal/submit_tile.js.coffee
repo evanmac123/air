@@ -1,3 +1,6 @@
+#
+# => Intro
+#
 tooltipClass = ->
   "submit_tile_intro"
 
@@ -6,9 +9,14 @@ tooltip = ->
 
 explainBtnClass = ->
   'intojs-explainbutton'
+#
+# => Modal
+#
+modal = ->
+  $("#submit_tile_modal")
 
-explainBtn = ->
-  $( "." + explainBtnClass() )
+closeBtn = ->
+  modal().find(".close")
 
 askUsSel = ->
   '#ask_us'
@@ -29,13 +37,19 @@ window.submitTile = ->
     doneLabel: "How it works"
     tooltipClass: tooltipClass()
 
-  # $(window).on 'load', ->
-  #   intro.start()
-  #   addExplainBtn()
+  $(window).on 'load', ->
+    intro.start()
+    addExplainBtn()
+
+  $(document).on "click", "." + explainBtnClass(), ->
+    intro.exit()
+    modal().foundation 'reveal', 'open'
   #
   # => Modal
   #
   bindIntercomOpen askUsSel()
-  $("#submit_tile_modal").foundation('reveal', 'open')
+  
+  closeBtn().click ->
+    modal().foundation 'reveal', 'close'
 
 
