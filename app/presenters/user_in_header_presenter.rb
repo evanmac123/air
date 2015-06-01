@@ -20,6 +20,7 @@ class UserInHeaderPresenter
               :name,
               :email,
               :can_make_tile_suggestions?,
+              :show_submit_tile_intro!,
               to: :current_user
 
   def initialize(user, public_tile_page, params, request)
@@ -152,7 +153,7 @@ class UserInHeaderPresenter
   end
 
   def show_submit_tile_intro?
-    can_submit_tile? && true
+    @show_submit_tile_intro ||= (can_submit_tile? && show_submit_tile_intro!)
   end
 
   protected
