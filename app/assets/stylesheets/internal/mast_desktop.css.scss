@@ -378,6 +378,8 @@ header {
     @include app-button($sky-blue);  
     margin-left: 7px;
     font-size: 14px;
+    padding-left: 15px;
+    padding-right: 15px;
   }
   .close-reveal-modal {
     color: $med-gray;
