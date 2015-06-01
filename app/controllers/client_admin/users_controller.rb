@@ -48,11 +48,20 @@ class ClientAdmin::UsersController < ClientAdminBaseController
     end
 
     @user = existing_user || current_user.demo.users.new(user_params)
-    @user.role = params[:user].delete(:role)
+    is_new_user = existing_user.nil?
+    role = params[:user].delete(:role)
     
     if save_if_date_good(@user) # sigh
       make_this_board_current = existing_user.nil?
-      @user.add_board(@demo.id, make_this_board_current)
+      @user.add_board(@demo.id, is_new_user)
+
+      if is_new_user
+        @user.role = role
+        @user.save!
+      end
+      new_board_membership = @user.board_memberships.where(demo_id: @demo.id).first
+      new_board_membership.role = role
+      new_board_membership.save!
 
       @user.generate_unique_claim_code! unless @user.claim_code.present?
 
