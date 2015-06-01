@@ -69,7 +69,7 @@ window.hedalineAndSupportingContentBuilder = ->
   contentEditorModifiedEvents()
 
   # convert pasted content to plain text. ie does it automatically
-  pasteNoFrmattingIE = ->
+  pasteNoFormattingIE = ->
     text = window.clipboardData.getData("text") || ""
     if (text != "")
       if (window.getSelection)
@@ -82,7 +82,7 @@ window.hedalineAndSupportingContentBuilder = ->
   contentEditor().on 'paste', (e) ->
     e.preventDefault()
     if isIE()
-      pasteNoFrmattingIE()
+      pasteNoFormattingIE()
     else
       text = (e.originalEvent || e).clipboardData.getData('text/plain')
       window.document.execCommand('insertText', false, text)
