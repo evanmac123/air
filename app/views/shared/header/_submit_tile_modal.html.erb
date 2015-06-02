@@ -27,3 +27,11 @@
 
   <a href="" class="close-reveal-modal">×</a>
 </div>
+
+<% content_for :javascript do %>
+  <%= javascript_tag do %>
+    $().ready(function(){
+      window.submitTileModal();
+    });
+  <% end %>
+<% end %>

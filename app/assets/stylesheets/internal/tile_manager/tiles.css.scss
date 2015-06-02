@@ -210,6 +210,9 @@ body.suggested_tiles-index {
     margin-top: 0;
     padding-top: 2em;
   } 
+  #info_submit_tile {
+    cursor: pointer;
+  }
 }
 
 body.client_admin-tiles-index #active_tiles, 

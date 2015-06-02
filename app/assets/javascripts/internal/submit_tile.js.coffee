@@ -9,6 +9,23 @@ tooltip = ->
 
 explainBtnClass = ->
   'intojs-explainbutton'
+
+window.submitTileIntro = ->
+  intro = introJs()
+  intro.setOptions
+    showStepNumbers: false
+    skipLabel: 'Got it'
+    doneLabel: "How it works"
+    tooltipClass: tooltipClass()
+
+  $(window).on 'load', ->
+    intro.start()
+    addExplainBtn()
+
+  $(document).on "click", "." + explainBtnClass(), (e) ->
+    e.preventDefault()
+    intro.exit()
+    modal().foundation 'reveal', 'open'
 #
 # => Modal
 #
@@ -26,30 +43,18 @@ addExplainBtn = ->
     .find(".introjs-tooltipbuttons")
     .append "<a class='#{explainBtnClass()}'>How it works</a>"
 
-window.submitTile = ->
-  #
-  # => Intro
-  #
-  intro = introJs()
-  intro.setOptions
-    showStepNumbers: false
-    skipLabel: 'Got it'
-    doneLabel: "How it works"
-    tooltipClass: tooltipClass()
+infoIcon = ->
+  $("#info_submit_tile")
 
-  $(window).on 'load', ->
-    intro.start()
-    addExplainBtn()
-
-  $(document).on "click", "." + explainBtnClass(), ->
-    intro.exit()
-    modal().foundation 'reveal', 'open'
-  #
-  # => Modal
-  #
+window.submitTileModal = ->
   bindIntercomOpen askUsSel()
   
-  closeBtn().click ->
+  closeBtn().click (e) ->
+    e.preventDefault()
     modal().foundation 'reveal', 'close'
+
+  infoIcon().click (e) ->
+    e.preventDefault()
+    modal().foundation 'reveal', 'open'
 
 
