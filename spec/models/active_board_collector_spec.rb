@@ -13,7 +13,7 @@ describe ActiveBoardCollector do
 
   describe "#boards" do
 		before do
-			@collector = ActiveBoardCollector.new(beg_date: @beg_date, end_date: @end_date) 
+		@collector = create_date_range_collector
 		end
 
 		it "returns non-empty if tile viewing activity exists for date range" do
@@ -31,9 +31,7 @@ describe ActiveBoardCollector do
 		it "returns empty if no tile activity exists for date range" do
 			@completion.update_attribute(:created_at, 2.weeks.ago)
 			@viewing.update_attribute(:created_at, 2.weeks.ago)
-
-			@collector = ActiveBoardCollector.new(beg_date: @beg_date, end_date: @end_date) 
-
+			@collector = create_date_range_collector
 			expect(@collector.active_boards.blank?).to be_true
 		end
 
@@ -42,7 +40,7 @@ describe ActiveBoardCollector do
 			viewing = setup_viewing user, tile1
 			setup_board_membership demo.board_memberships.first, user, demo
 
-			@collector = ActiveBoardCollector.new(beg_date: @beg_date, end_date: @end_date) 
+			@collector = create_date_range_collector
 
 			expect(@collector.active_boards.count).to eq(2) 
 		end 
@@ -74,7 +72,7 @@ describe ActiveBoardCollector do
 
 	describe "#send_mail_notifications" do
 		it "sends notifications" do
-			@collector = ActiveBoardCollector.new
+			@collector = create_date_range_collector 
 			@collector.expects(:send_for_admin).once
 			@collector.send_mail_notifications
 		end
@@ -106,6 +104,10 @@ describe ActiveBoardCollector do
 
 	def create_demo_tile demo
 		FactoryGirl.create(:tile, demo: demo)
+	end
+
+	def create_date_range_collector
+		ActiveBoardCollector.new(beg_date: @beg_date, end_date: @end_date) 
 	end
 
 
