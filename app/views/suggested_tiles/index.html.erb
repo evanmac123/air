@@ -1,7 +1,10 @@
 <section class="manage_tiles" id="draft_tiles">
   <div class="row">
     <div class="large-12 columns">
-      <h4>Draft</h4>
+      <h4>
+        <span>Draft</span>
+        <%= fa_icon "question-circle", id: "info_submit_tile" %>
+      </h4>
       <div class="manage_section" id="draft">
         <%= render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: {tiles: @draft_tiles, type: :user_draft} %>
       </div>
@@ -9,3 +12,4 @@
   </div>
 </section>
 <%= render 'shared/tiles/poll_for_thumbnails' %>
+<%= render "shared/header/submit_tile_modal" %>

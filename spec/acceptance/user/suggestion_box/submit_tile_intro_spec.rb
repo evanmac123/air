@@ -14,7 +14,7 @@ feature 'Sees submit tile intro' do
   end
 
   def intro_text
-    "Add a Tile to the Suggestio Box. If it's accepted, it will be featured on this Board."
+    "Add a Tile to the Suggestion Box. If it's accepted, it will be featured on this Board."
   end
 
   def modal_header
