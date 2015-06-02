@@ -54,7 +54,7 @@ body.suggested_tiles-index {
     #archive { .tile_container { height: 466px; } }
     .no_tiles_message {margin:0 auto 3em;}
   }
-  #active_tiles, #archived_tiles, #draft_tiles {
+  #active_tiles, #archived_tiles, #draft_tiles, #submitted_tiles {
     h4{
       margin-bottom: 2em;
       margin-left: 1.5em;
@@ -204,13 +204,18 @@ body.suggested_tiles-index {
       width: 96%;
     }
   }
-  #active_tiles {
+  #active_tiles, #submitted_tiles {
     padding:2em 0 0 0;
-    box-shadow: 0px 1px 6px 1.2px $med-gray;
     z-index: 1;
     #active{
       &:after{ @include clear; }
     }
+  }
+  #active_tiles {
+    box-shadow: 0px 1px 6px 1.2px $med-gray;
+  }
+  #submitted_tiles {
+    box-shadow: 0px -3px 2px 1.2px $med-gray;
   }
   #archived_tiles {
     padding:2em 0 0 0;
