@@ -3,7 +3,7 @@ require 'ostruct'
 class ActiveBoardCollector
 
   def initialize opts={}
-    @admin_board_memberships = opts[:selected_boards] || BoardMembership.admins
+    @admin_board_memberships = opts[:selected_boards] || load_memberships
     validate_report_dates opts
     map_admins_to_boards
 		collect
@@ -61,12 +61,22 @@ class ActiveBoardCollector
 
   def map_admins_to_boards
     @board_admins = Hash.new{|h,k|h[k]=[]}
-    @admin_board_memberships.includes(
-      demo: [tiles: [:tile_viewings, :tile_completions]]).each do |mem|
-
+    @admin_board_memberships.each do |mem| 
       @board_admins[mem.demo].push(mem.user)
     end
   end
 
+
+	def load_memberships
+		BoardMembership.select(BoardMembership.arel_table[Arel.star]).where(
+  BoardMembership.arel_table[:is_client_admin].eq(true).or(
+    BoardMembership.arel_table[:is_current].eq(true).and(User.arel_table[:is_client_admin].eq(true))
+  )
+).joins(
+  BoardMembership.arel_table.join(User.arel_table).on(
+    User.arel_table[:id].eq(BoardMembership.arel_table[:user_id])
+  ).join_sources
+)		
+	end
 
 end
