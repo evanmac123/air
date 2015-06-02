@@ -128,4 +128,12 @@ module User::FakeUserBehavior
   def is_parent_board_user?
     false
   end
+
+  def can_make_tile_suggestions? _demo = nil
+    false
+  end
+
+  def show_submit_tile_intro!
+    false
+  end
 end
