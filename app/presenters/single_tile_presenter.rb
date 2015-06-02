@@ -58,6 +58,10 @@ class SingleTilePresenter
     type? :user_submitted
   end
 
+  def has_tile_stats?
+    type? :draft, :active, :archive, :user_submitted, :ignored
+  end
+
   def timestamp
     @timestamp ||= footer_timestamp
   end
