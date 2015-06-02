@@ -25,28 +25,45 @@ feature 'Sees submit tile intro' do
     page.find(".intojs-explainbutton")
   end
 
-  before do
-    visit activity_path(as: user)
+  def info_icon
+    page.find("#info_submit_tile")
   end
 
-  it "should show 'submit tile' button" do
-    submit_tile_btn.should be_present
-    submit_tile_btn.click
-    current_path.should == suggested_tiles_path
+  context "on activity page" do
+    before do
+      visit activity_path(as: user)
+    end
+
+    it "should show 'submit tile' button" do
+      submit_tile_btn.should be_present
+      submit_tile_btn.click
+      current_path.should == suggested_tiles_path
+    end
+
+    it "should show intro", js: true do
+      expect_content intro_text
+      user.reload.submit_tile_intro_seen.should be_true
+      click_link "Got it"
+      expect_no_content intro_text
+    end
+
+    it "should show modal", js: true do
+      expect_content "How It Works"
+      explain_button.click
+      expect_content modal_header
+      page.find(".submit").click 
+      current_path.should == suggested_tiles_path
+    end
   end
 
-  it "should show intro", js: true do
-    expect_content intro_text
-    user.reload.submit_tile_intro_seen.should be_true
-    click_link "Got it"
-    expect_no_content intro_text
-  end
+  context "on suggested_tiles page" do
+    before do
+      visit suggested_tiles_path(as: user)
+    end
 
-  it "should show modal", js: true do
-    expect_content "How It Works"
-    explain_button.click
-    expect_content modal_header
-    page.find(".submit").click 
-    current_path.should == suggested_tiles_path
+    it "should show modal", js: true do
+      info_icon.click
+      expect_content modal_header
+    end
   end
 end
