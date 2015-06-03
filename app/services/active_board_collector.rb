@@ -21,7 +21,7 @@ class ActiveBoardCollector
 
 	def send_for_admin(active_board)
 		active_board.admins.each do |admin|
-			BoardActivityMailer.notify(admin_board.board, admin, admin_board.tiles).deliver
+			BoardActivityMailer.notify(active_board.board, admin, active_board.tiles, @beg_date, @end_date).deliver
     end
 	end
 
