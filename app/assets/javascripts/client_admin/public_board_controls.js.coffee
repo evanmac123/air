@@ -11,11 +11,11 @@ window.publicBoardControls = ->
 
   $(document).ready ->
     $('#activated_users').hide()
-    $('#digest_send_to').on('change', (event) ->
-      if $('#digest_send_to option:selected').text() == "All Users"
+    $('#digest_digest_send_to').on('change', (event) ->
+      if $('#digest_digest_send_to option:selected').text() == "All Users"
         $('#all_users').show()
         $('#activated_users').hide()
-      else if $('#digest_send_to option:selected').text() == "Activated Users"
+      else if $('#digest_digest_send_to option:selected').text() == "Activated Users"
         $('#all_users').hide()
         $('#activated_users').show()
     )
