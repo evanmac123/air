@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150603005921) do
+ActiveRecord::Schema.define(:version => 20150603181535) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -961,7 +961,7 @@ ActiveRecord::Schema.define(:version => 20150603005921) do
     t.string   "mixpanel_distinct_id"
     t.datetime "last_unmonitored_mailbox_response_at"
     t.boolean  "allowed_to_make_tile_suggestions",                    :default => false,       :null => false
-    t.boolean  "send_weekly_activity_report"
+    t.boolean  "send_weekly_activity_report",                         :default => true
   end
 
   add_index "users", ["cancel_account_token"], :name => "index_users_on_cancel_account_token"
