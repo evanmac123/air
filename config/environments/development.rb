@@ -36,7 +36,7 @@ Health::Application.configure do
 
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
-Rails.application.routes.default_url_options[:host] = 'localhost:3000'
+Rails.application.routes.default_url_options[:host] = ENV['APP_HOST'] || 'localhost:3000'
   ########  ASSETS  ######################
   # Do not compress assets
   config.assets.compress = false

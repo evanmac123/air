@@ -38,6 +38,7 @@ Health::Application.configure do
   config.action_controller.asset_host = "//#{ENV['FOG_DIRECTORY']}.s3.amazonaws.com"
   config.action_mailer.asset_host = "https:" + config.action_controller.asset_host
 
+	Rails.application.routes.default_url_options[:host] = ENV['APP_HOST'] 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
 
@@ -51,7 +52,7 @@ Health::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  config.action_mailer.default_url_options = { :host => 'www.airbo.com' }
+  config.action_mailer.default_url_options = { :host => ENV["APP_HOST"] }
   
   ############  ASSETS   ###############
   config.assets.enabled = true
