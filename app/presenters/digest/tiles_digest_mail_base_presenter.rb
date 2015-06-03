@@ -38,6 +38,10 @@ class TilesDigestMailBasePresenter
     true
   end
 
+  def email_type
+		"" 
+  end
+
   attr_reader :custom_message
 
   protected
