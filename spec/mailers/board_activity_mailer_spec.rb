@@ -13,27 +13,64 @@ describe BoardActivityMailer do
 
 
 	describe "#notify" do
-		let(:board) {FactoryGirl.create(:demo)}
-		let(:user) {FactoryGirl.create(:user)}
-		let(:tiles) {[]}
-		let(:mail) {BoardActivityMailer.notify(board, user, tiles) }
+		before do
+			@demo, @user, @tile1, @tile2 = setup_user_board
+			@viewing = setup_viewing @user, @tile1
+			@completion = setup_completion(@user, @tile2)
+			@bm = setup_board_membership BoardMembership.first, @user, @demo
+		end
+		let(:mail) {BoardActivityMailer.notify(@demo.id, @user, [@tile1.id, @tile2.id], 1.week.ago, Time.now ) }
 
 		it 'renders the subject' do
-			expect(mail.subject).to eql('Your Weekly Activity')
+			expect(mail.subject).to eql(BoardActivityMailer::ACTIVITY_DIGEST_HEADING)
 		end
 
 		it 'renders the receiver email' do
-			expect(mail.to).to eql([user.email])
+			expect(mail.to).to eql([@user.email])
 		end
 
 		it 'renders the sender email' do
-			expect(mail.from).to eql(['"play@ourairbo.com"'])
+			expect(mail.from).to eql(["play@ourairbo.com"])
 		end
 
 		it 'assigns @name' do
-			expect(mail.body.encoded).to match(user.name)
+			expect(mail.body.encoded).to match("See Data")
 		end
 
 	end
+
+
+	def setup_viewing user, tile
+		FactoryGirl.create(:tile_viewing, tile: tile, user: user, created_at: 1.day.ago)
+	end
+
+	def setup_completion user, tile
+		FactoryGirl.create(:tile_completion, tile: tile, user: user, created_at: 1.day.ago)
+	end
+
+	def setup_board_membership bm, user, board, is_admin=true
+		bm.demo = board 
+		bm.user = user
+		bm.is_client_admin=is_admin;
+		bm.save
+		bm
+	end
+
+	def setup_user_board user_is_client_admin=false
+		demo=FactoryGirl.create(:demo)
+		user=FactoryGirl.create(:user, demo: demo, is_client_admin: user_is_client_admin)
+		tile1=create_demo_tile(demo)
+		tile2=create_demo_tile(demo)
+		return demo, user, tile1, tile2
+	end
+
+	def create_demo_tile demo
+		FactoryGirl.create(:tile, demo: demo)
+	end
+
+	def create_date_range_collector
+		ActiveBoardCollector.new(beg_date: @beg_date, end_date: @end_date) 
+	end
+
 end
 
