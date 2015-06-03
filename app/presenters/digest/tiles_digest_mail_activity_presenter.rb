@@ -45,6 +45,6 @@ class TilesDigestMailActivityPresenter < TilesDigestMailBasePresenter
   end
 
   def general_site_url
-    email_site_link(@user, @demo, is_preview, email_type)
+		client_admin_tiles_url
   end
 end
