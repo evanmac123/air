@@ -68,15 +68,19 @@ class ActiveBoardCollector
 
 
 	def load_memberships
+
 		BoardMembership.select(BoardMembership.arel_table[Arel.star]).where(
-  BoardMembership.arel_table[:is_client_admin].eq(true).or(
-    BoardMembership.arel_table[:is_current].eq(true).and(User.arel_table[:is_client_admin].eq(true))
-  )
-).joins(
-  BoardMembership.arel_table.join(User.arel_table).on(
-    User.arel_table[:id].eq(BoardMembership.arel_table[:user_id])
-  ).join_sources
-)		
-	end
+			BoardMembership.arel_table[:is_client_admin].eq('t').and(User.arel_table[:send_weekly_activity_report].eq('t')).or(
+				BoardMembership.arel_table[:is_current].eq('t').and(
+					User.arel_table[:is_client_admin].eq('t').and(User.arel_table[:send_weekly_activity_report].eq('t'))
+				)
+			)
+		).joins(
+			BoardMembership.arel_table.join(User.arel_table).on(
+				User.arel_table[:id].eq(BoardMembership.arel_table[:user_id])
+			).join_sources
+)	end
 
 end
+
+
