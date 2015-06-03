@@ -76,6 +76,11 @@ describe ActiveBoardCollector do
 			@collector = ActiveBoardCollector.new
 			expect(@collector.board_admins(@demo).count).to eq(0)
 		end
+		it "returns empty if user is has weekly report disabled" do
+			@user.update_attribute(:send_weekly_activity_report, false)
+			@collector = ActiveBoardCollector.new
+			expect(@collector.board_admins(@demo).count).to eq(0)
+		end
 
 		it "returns empty if user is not client admin on isn't a client admin on the board" do
 			@bm.update_attribute(:is_client_admin, false)
