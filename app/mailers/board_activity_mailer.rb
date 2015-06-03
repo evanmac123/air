@@ -1,29 +1,29 @@
-class BoardActivityMailer < ActionMailer::Base
+class BoardActivityMailer < BaseTilesDigestMailer
 
-  helper :email
-  helper 'client_admin/tiles'
-  helper ApplicationHelper
+  ACTIVITY_DIGEST_HEADING = "Weekly Activity Report".freeze
 
-  has_delay_mail
-
-  include EmailHelper
-  include ClientAdmin::TilesHelper # and ditto
-
-  layout nil#'mailer'
-
+  layout "mailer"
   default reply_to: 'support@airbo.com'
 		
-  def notify(board, user, tiles)
-    @demo =board
-		@user  = user 
-		@tiles = tiles #TileBoardDigestDecorator.decorate_collection tiles 
-    return nil unless @user.email.present? 
-    ping_on_digest_email @user
-		mail to: @user.email_with_name, from: @demo.reply_email_address, subject: "Your Weekly Activity" 
+	def notify(demo_id, user_id, tile_ids, beg_date, end_date)
+		@user  = User.find user_id # XTR
+		return nil unless @user.email.present? 
+
+		@beg_date = beg_date
+		@end_date = end_date
+		@demo = Demo.find demo_id
+    @tile_ids = tile_ids
+
+		@presenter = TilesDigestMailActivityPresenter.new(@user, @demo, beg_date, end_date )
+
+		@tiles = TileWeeklyActivityDecorator.decorate_collection(
+			tiles_by_position,  
+			context: { demo: @demo, user: @user, follow_up_email: @follow_up_email, email_type:  @presenter.email_type }
+		)     
+   
+		ping_on_digest_email @presenter.email_type, @user
+		mail to: @user.email_with_name, from: @demo.reply_email_address, subject: ACTIVITY_DIGEST_HEADING
   end
 
-  def ping_on_digest_email  user
-    TrackEvent.ping( "Email Sent", {email_type: "Activity - v. 6/15/14"}, user )
-  end
 
 end
