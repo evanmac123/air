@@ -1,20 +1,16 @@
-<% presenter = TilePreviewMenuPresenter.new(tile) %>
+<% show_client_admin_menu ||= false %>
+<% presenter_class = if show_client_admin_menu
+                       TilePreview::MenuPresenter::ClientAdmin
+                     else
+                       TilePreview::MenuPresenter::User 
+                     end %>
+<% presenter = presenter_class.new(tile) %>
 <ul class="tile_preview_menu">
   <li class="preview_menu_header <%= presenter.status %>">        
     <%= presenter.status_name %>
   </li>
-  <%= render partial: presenter.menu_item_path, locals: presenter.back_btn_params %>
-  <% if presenter.has_client_admin_status? %>
-    <%= render partial: presenter.menu_item_path, locals: presenter.action_btn_params %>
-    <%= render partial: presenter.menu_item_path, locals: presenter.edit_btn_params %>
-    <%= render partial: presenter.menu_item_path, locals: presenter.delete_btn_params %>
-    <%= render partial: presenter.menu_item_path, locals: presenter.new_tile_btn_params %>
-  <% elsif presenter.user_submitted? %>
-    <%= content_tag 'div', class: 'submitted_tile_menu', "data-intro" => "Accept the tile to use it in your Board, or Ignore it to mark it as reviewed." do %>
-      <%= render partial: presenter.menu_item_path, locals: presenter.accept_btn_params %>
-      <%= render partial: presenter.menu_item_path, locals: presenter.ignore_btn_params %>
-    <% end %>
-  <% else # ignored %>
-    <%= render partial: presenter.menu_item_path, locals: presenter.undo_ignore_btn_params %>
+
+  <% presenter.menu_cells.each do |menu_cell| %>
+    <%= render menu_cell, menu_cell.locals %>
   <% end %>
 </ul>

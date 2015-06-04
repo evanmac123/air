@@ -1,4 +1,4 @@
-require Rails.root.join('app/presenters/tile_previews_intros_presenter')
+require Rails.root.join('app/presenters/tile_preview/intros_presenter')
 
 class TilePreviewsController < ApplicationController
   skip_before_filter :authorize
@@ -99,7 +99,7 @@ class TilePreviewsController < ApplicationController
     end
 
     # show_voteup_intro = show_share_link_intro = true
-    TilePreviewIntrosPresenter.new([
+    TilePreview::IntrosPresenter.new([
       ['like-button', "Like a tile? Vote it up to give the creator positive feedback.", show_voteup_intro],
       ['share_bar',   "Want to share a tile? Email it using the email icon. Or, share to your social networks using the LinkedIn icon or copying the link.", show_share_link_intro]
     ])
