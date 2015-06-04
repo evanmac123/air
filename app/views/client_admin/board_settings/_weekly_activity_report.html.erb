@@ -1,0 +1,38 @@
+<%= form_for :board_membership, url: weekly_activity_email_client_admin_board_settings_path, method: :put, html: { id: "weekly_activity_email"} do |form|  %>
+  <%= label_tag :weekly_report, "Send weekly activity report" %>
+  <i class="fa fa-question-circle has-tip" id="board_email_tooltip" data-tooltip="true" title="Determines whether you receive a weekly tile activity report for this board"></i>
+ 
+	<div id="notification_settings">
+		<ul>
+			<li>
+				<%= form.radio_button :send_weekly_activity_report, true, :class => 'notification_pref' %>
+				<%= form.label :send_weekly_activity_report, "Yes", value: true, :class => 'check_label' %>
+			</li>
+			<li>
+				<%= form.radio_button :send_weekly_activity_report, false, :class => 'notification_pref' %>
+				<%= form.label :send_weekly_activity_report, "No", value: false , :class => 'check_label' %>
+			</li>
+		</ul>
+	</div>
+ 
+  <%= form.submit "Update", disabled: true, id: "report_submit" %>
+<% end %>
+
+<% js_at_end do %>
+	$(function(){
+
+	$("input[name='board_membership[send_weekly_activity_report]']:radio").change(function(){
+	$("#report_submit").attr("disabled", false)
+	$("#weekly_activity_email").addClass("dirty");
+	});
+	
+	$("#weekly_activity_email").submit(function(e){
+	e.preventDefault();
+	$.ajax({
+	url: $(this).attr("action"),
+	data: $(this).serialize(),
+	type: "PUT"
+	});
+	});
+	})
+<% end %>

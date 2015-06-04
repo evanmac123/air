@@ -73,20 +73,7 @@
               <% end %>
             </ul>
         </div>
-				<div class="module_inner settings_notification">
-				 Send weekly activity report	
-					<ul>
-						<li>
-							<%= form.radio_button :send_weekly_activity_report, true, :class => 'notification_pref' %>
-							<%= form.label :send_weekly_activity_report, "Yes" , value: true, :class => 'check_label' %>
-						</li>
-						<li>
-							<%= form.radio_button :send_weekly_activity_report, false, :class => 'notification_pref' %>
-							<%= form.label :send_weekly_activity_report, "No" , value: false, :class => 'check_label' %>
-						</li>
-					</ul>
-				</div>
-
+			
 
         <%= submit_tag 'Update', :class => 'button_norm', :id => 'save-notification-settings' %>
       <% end %>
