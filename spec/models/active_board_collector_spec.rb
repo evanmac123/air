@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe ActiveBoardCollector do
 
-
 	before do
 		@beg_date=1.week.ago
 		@end_date=Time.now
