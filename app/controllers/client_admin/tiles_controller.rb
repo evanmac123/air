@@ -103,8 +103,13 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def intro_flags_index
     @board_is_brand_new = @demo.tiles.limit(1).first.nil?
-    @show_suggestion_box_intro = !@board_is_brand_new && true
-    @show_suggestion_box_prompt = !@board_is_brand_new && true
+    @show_suggestion_box_intro =  if !@board_is_brand_new &&
+                                     !current_user.suggestion_box_intro_seen
+
+                                    current_user.suggestion_box_intro_seen = true
+                                    current_user.save
+                                  end
+    @show_suggestion_box_prompt = !@board_is_brand_new && !current_user.suggestion_box_prompt_seen
   end
 
   def show_submitted_tile_menu_intro
