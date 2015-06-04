@@ -70,9 +70,9 @@ class ActiveBoardCollector
 	def load_memberships
 
 		BoardMembership.select(BoardMembership.arel_table[Arel.star]).where(
-			BoardMembership.arel_table[:is_client_admin].eq('t').and(User.arel_table[:send_weekly_activity_report].eq('t')).or(
+			BoardMembership.arel_table[:is_client_admin].eq('t').and(BoardMembership.arel_table[:send_weekly_activity_report].eq('t')).or(
 				BoardMembership.arel_table[:is_current].eq('t').and(
-					User.arel_table[:is_client_admin].eq('t').and(User.arel_table[:send_weekly_activity_report].eq('t'))
+					User.arel_table[:is_client_admin].eq('t').and(BoardMembership.arel_table[:send_weekly_activity_report].eq('t'))
 				)
 			)
 		).joins(
