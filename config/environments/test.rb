@@ -62,6 +62,8 @@ Health::Application.configure do
 
   config.action_mailer.default_url_options = { :host => 'www.example.com' }
 
+	Rails.application.routes.default_url_options[:host] = ENV['APP_HOST'] || 'localhost:3000'
+
   FAKE_TWILIO_ACCOUNT_SID  = "12345"
   FAKE_TWILIO_AUTH_TOKEN   = "abcde"
 
