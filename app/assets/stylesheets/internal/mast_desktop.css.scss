@@ -346,7 +346,7 @@ header {
   }
 }
 
-#submit_tile_modal {
+#suggestion_box_help_modal, #submit_tile_modal {
   @include with-lists;
   background: $white;
   width: 55%;

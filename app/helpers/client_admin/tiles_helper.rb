@@ -154,7 +154,7 @@ module ClientAdmin::TilesHelper
   end
 
   def suggestion_box_intro_params
-    if true 
+    if false 
       {intro: "Give the people ability to create Tiles and submit them for your review."}
     else
       {}
