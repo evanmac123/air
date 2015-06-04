@@ -9,7 +9,7 @@ class TilesDigestMailActivityPresenter < TilesDigestMailBasePresenter
 
 		@beg_date = beg_date
 		@end_date = end_date
-		super("Here is your board's activity from #{pretty_date_range}")
+		super("Here is your board's activity from #{pretty_date_range}.")
     @user = user
     @demo = demo
   end
