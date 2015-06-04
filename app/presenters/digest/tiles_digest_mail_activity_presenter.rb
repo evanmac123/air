@@ -1,15 +1,17 @@
 class TilesDigestMailActivityPresenter < TilesDigestMailBasePresenter
   ACTIVITY_EMAIL = "weekly_activity_v".freeze
-  ACTIVITY_DIGEST_HEADING = "Weekly Activity Report".freeze
+  ACTIVITY_DIGEST_HEADING = "Your Weekly Activity Report".freeze
 
   include ClientAdmin::TilesHelper
   include Rails.application.routes.url_helpers
 
 	def initialize(user, demo, beg_date, end_date)
-    @user = user
-    @demo = demo
+
 		@beg_date = beg_date
 		@end_date = end_date
+		super("Here is your board's activity from #{pretty_date_range}")
+    @user = user
+    @demo = demo
   end
 
   def from_email
@@ -24,9 +26,6 @@ class TilesDigestMailActivityPresenter < TilesDigestMailBasePresenter
     @custom_headline.present? ? @custom_headline : standard_email_heading
   end
 
-	def custom_message
-		"Here is your board's activity from #{pretty_date_range}"
-	end
 
 	def pretty_date_range
 		"#{@beg_date.strftime('%A, %B %d')} to #{@end_date.strftime('%A, %B %d')}"
