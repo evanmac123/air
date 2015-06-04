@@ -1,12 +1,14 @@
 <div class="suggestion_header_block">
   <div class="suggestion_box_header">
-    <%= content_tag :h3, "Suggestion box", id: "suggestion_box_title", data: suggestion_box_intro_params %>
+    <%= content_tag :h3, "Suggestion box", id: "suggestion_box_title", data: suggestion_box_intro_params(@show_suggestion_box_intro) %>
     <div class="manage_items">
-      <div class="ideas_prompt manage_item">
-        <%= fa_icon 'user' %>
-        <span>Need ideas? Invite people to submit Tiles.</span>
-        <%= fa_icon 'close' %>
-      </div>
+      <% if @show_suggestion_box_prompt %>
+        <div class="ideas_prompt manage_item">
+          <%= fa_icon 'user' %>
+          <span>Need ideas? Invite people to submit Tiles.</span>
+          <%= fa_icon 'close' %>
+        </div>
+      <% end %>
       <div class="manage_access manage_item">
         <i class="fa fa-users"></i>
         Manage Access

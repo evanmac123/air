@@ -21,14 +21,30 @@ addExplainBtn = ->
     .find(".introjs-tooltipbuttons")
     .append "<a class='#{explainBtnClass()}'>How it works</a>"
 
+prompt = ->
+  $(".ideas_prompt")
+
+closePromptIcon = ->
+  prompt().find(".fa-close")
+
+promptVisibile = (show)->
+  if show
+    prompt().show()
+  else
+    prompt().hide()
+
 initIntro = (intro) ->
   if title().attr("data-intro")
+    promptVisibile(false)
+
     intro.setOptions
       showStepNumbers: false
       skipLabel: 'Got it'
       tooltipClass: tooltipClass()
     intro.start()
     addExplainBtn()
+    intro.oncomplete ->
+      promptVisibile(true)
 
 window.suggestionBoxIntro = ->
   intro = introJs()
@@ -37,7 +53,16 @@ window.suggestionBoxIntro = ->
   $(document).on "click", "." + explainBtnClass(), (e) ->
     e.preventDefault()
     intro.exit()
+    promptVisibile(true)
     modal().foundation 'reveal', 'open'
+
+  closePromptIcon().click (e) ->
+    e.preventDefault()
+    prompt().remove()
+
+  prompt().click (e) ->
+    e.preventDefault()
+    accessModal().foundation 'reveal', 'open'
 #
 # => Modal
 #
@@ -53,8 +78,15 @@ pickUsersBtn = ->
 accessModal = ->
   $('#suggestions_access_modal')
 
+helpBtn = ->
+  $(".suggestion_box_header .help")
+
 window.suggestionBoxHelpModal = ->
   # modal().foundation 'reveal', 'open'
+
+  helpBtn().click (e) ->
+    e.preventDefault()
+    modal().foundation 'reveal', 'open'
 
   closeBtn().click (e) ->
     e.preventDefault()
@@ -63,3 +95,5 @@ window.suggestionBoxHelpModal = ->
   pickUsersBtn().click (e) ->
     e.preventDefault()
     accessModal().foundation 'reveal', 'open'
+
+
