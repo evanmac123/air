@@ -35,7 +35,7 @@ class TilesDigestMailBasePresenter
   end
 
   def works_on_mobile?
-    true
+    false
   end
 
   def email_type

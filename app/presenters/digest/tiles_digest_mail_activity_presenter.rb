@@ -1,6 +1,6 @@
 class TilesDigestMailActivityPresenter < TilesDigestMailBasePresenter
   ACTIVITY_EMAIL = "weekly_activity_v".freeze
-  ACTIVITY_DIGEST_HEADING = "Your Weekly Activity Report".freeze
+  ACTIVITY_DIGEST_HEADING = "Your Weekly Airbo Activity Report".freeze
 
   include ClientAdmin::TilesHelper
   include Rails.application.routes.url_helpers

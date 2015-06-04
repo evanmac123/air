@@ -10,7 +10,9 @@
     </tr>
     <tr>
       <td align="center" style="font-family:Helvetica,Arial,sans-serif;font-size:16px;color:#a8a8a8;padding-top:20px;padding-bottom:50px;">
-        <span class="newLineMobile">You won't have to log in.</span> 
+				<% unless hide_no_login %>
+					<span class="newLineMobile">You won't have to log in.</span>  
+				<% end %>
         <%= works_on_mobile ? "Works on mobile." : "" %>
       </td>
     </tr>
