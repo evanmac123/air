@@ -2,6 +2,7 @@ require 'acceptance/acceptance_helper'
 
 feature 'Client admin segments on characteristics' do
   include WaitForAjax
+  include SuggestionBox
 
   let!(:admin) { FactoryGirl.create :client_admin }
   let!(:demo)  { admin.demo  }
@@ -76,7 +77,8 @@ feature 'Client admin segments on characteristics' do
   end
 
   before do
-    visit client_admin_tiles_path
+    visit client_admin_tiles_path(show_suggestion_box: true)
+    suggestion_box_title.click
   end
 
   it "should show Suggestion Box Modal", js: true do
@@ -114,9 +116,6 @@ feature 'Client admin segments on characteristics' do
 
       specific_users_switcher_on.click
       demo.reload.everyone_can_make_tile_suggestions.should be_true
-
-      save_button.click
-      demo.reload.everyone_can_make_tile_suggestions.should be_false
     end
   end
 
@@ -153,6 +152,7 @@ feature 'Client admin segments on characteristics' do
       before do
         users.first.update_allowed_to_make_tile_suggestions true, demo
         visit current_path 
+        suggestion_box_title.click
         manage_access_link.click
       end
 
@@ -172,6 +172,7 @@ feature 'Client admin segments on characteristics' do
     before do
       users.first.update_allowed_to_make_tile_suggestions true, demo
       visit current_path 
+      suggestion_box_title.click
       manage_access_link.click
     end
 
