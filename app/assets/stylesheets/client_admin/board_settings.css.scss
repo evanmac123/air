@@ -1,6 +1,12 @@
 body.client_admin-board_settings-index{
   .board_settings{
 
+		#notification_settings{
+     li {
+			 display: inline-block;
+		 }
+		}
+
     input[type="text"], input[type="file"], textarea{
       width: 80%;
       display: block;

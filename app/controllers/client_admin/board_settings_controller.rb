@@ -34,6 +34,11 @@ class ClientAdmin::BoardSettingsController < ClientAdminBaseController
     end
   end
 
+  def weekly_activity_email
+		@board_membership.send_weekly_activity_report= params[:board_membership][:send_weekly_activity_report]	
+    render json: { success: @board_membership.save }
+  end
+
   def email
     @board.email = params[:demo][:email].strip + "@ourairbo.com"
     render json: { success: @board.save }
@@ -59,5 +64,6 @@ class ClientAdmin::BoardSettingsController < ClientAdminBaseController
 
   def get_board
     @board = current_user.demo
+		@board_membership = current_user.current_board_membership
   end
 end

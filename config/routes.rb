@@ -183,6 +183,7 @@ Health::Application.routes.draw do
         put 'email_name'
         put 'public_link'
         put 'welcome_message'
+				put 'weekly_activity_email'
       end
     end
   end
