@@ -1,6 +1,6 @@
 class BoardActivityMailer < BaseTilesDigestMailer
 
-  ACTIVITY_DIGEST_HEADING = "Weekly Activity Report".freeze
+  ACTIVITY_DIGEST_HEADING = "Your Weekly Activity Report".freeze
 
   layout "mailer"
   default reply_to: 'support@airbo.com'

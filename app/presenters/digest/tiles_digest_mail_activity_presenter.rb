@@ -24,6 +24,10 @@ class TilesDigestMailActivityPresenter < TilesDigestMailBasePresenter
     @custom_headline.present? ? @custom_headline : standard_email_heading
   end
 
+	def custom_message
+		"Here is your board's activity from #{pretty_date_range}"
+	end
+
 	def pretty_date_range
 		"#{@beg_date.strftime('%A, %B %d')} to #{@end_date.strftime('%A, %B %d')}"
 	end
