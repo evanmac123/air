@@ -33,10 +33,13 @@ describe BoardActivityMailer do
 			expect(mail.from).to eql(["play@ourairbo.com"])
 		end
 
-		it 'assigns @name' do
-			expect(mail.body.encoded).to match("See Data")
+		it 'has correct CTA text' do
+			expect(mail.body.encoded).to match("See Your Tiles")
 		end
 
+		it 'does not mention not having to log in ' do
+			expect(mail.body.encoded).not_to match("You won't have to log in.")
+		end
 	end
 
 
