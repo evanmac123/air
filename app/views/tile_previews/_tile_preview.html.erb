@@ -1,4 +1,4 @@
-<% intros = @intros || TilePreviewsNullIntrosPresenter.new %>
+<% intros = @intros || TilePreview::NullIntrosPresenter.new %>
 <% if intros.any_active? %>
   <%= content_for :javascript do %>
     <%= javascript_tag do %>

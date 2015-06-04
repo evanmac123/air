@@ -1,0 +1,5 @@
+<%= content_tag 'div', class: 'submitted_tile_menu', "data-intro" => "Accept the tile to use it in your Board, or Ignore it to mark it as reviewed." do %>
+  <% contents.each do |cell| %>
+    <%= render cell, cell.locals %>
+  <% end %>
+<% end %>
