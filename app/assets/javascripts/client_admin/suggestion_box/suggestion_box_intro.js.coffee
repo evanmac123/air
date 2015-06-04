@@ -1,3 +1,6 @@
+#
+# => Intro
+#
 titleSel = ->
   "#suggestion_box_title"
 
@@ -30,3 +33,11 @@ initIntro = ->
 
 window.suggestionBoxIntro = ->
   initIntro()
+#
+# => Modal
+#
+modal = ->
+  $("#suggestion_box_help_modal")
+
+window.suggestionBoxHelpModal = ->
+  modal().foundation 'reveal', 'open'
