@@ -8,7 +8,7 @@
       <i class="fa fa-users"></i>
       Manage Access
     </div>
-    <h3 id="suggestion_box_title">Suggestion box</h3>
+    <%= content_tag :h3, "Suggestion box", id: "suggestion_box_title", data: suggestion_box_intro_params %>
   </div>
 </div>
 
@@ -16,4 +16,5 @@
 
 <% js_at_end do %>
   window.suggestionsAccess();
+  window.suggestionBoxIntro();
 <% end %>
