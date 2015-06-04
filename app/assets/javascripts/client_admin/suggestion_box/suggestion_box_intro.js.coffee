@@ -33,6 +33,9 @@ promptVisibile = (show)->
   else
     prompt().hide()
 
+updateFlag = ->
+  $.post('/intro_viewed_status', {suggestion_box_prompt_seen: true, _method: 'PUT'})
+
 initIntro = (intro) ->
   if title().attr("data-intro")
     promptVisibile(false)
@@ -59,6 +62,7 @@ window.suggestionBoxIntro = ->
   closePromptIcon().click (e) ->
     e.preventDefault()
     prompt().remove()
+    updateFlag()
 
   prompt().click (e) ->
     e.preventDefault()

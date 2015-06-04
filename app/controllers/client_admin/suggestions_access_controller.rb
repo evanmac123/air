@@ -8,6 +8,12 @@ class ClientAdmin::SuggestionsAccessController < ClientAdminBaseController
     unless @demo.everyone_can_make_tile_suggestions
       User.allow_to_make_tile_suggestions params[:allowed_users], @demo
     end
+
+    unless current_user.suggestion_box_prompt_seen
+      current_user.suggestion_box_prompt_seen = true
+      current_user.save!
+    end
+
     respond_to do |format|
       format.html do
         redirect_to :back
