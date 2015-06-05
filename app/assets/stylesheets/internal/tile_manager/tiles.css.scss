@@ -5,6 +5,7 @@
 @import 'tile_preview';
 @import './internal/tile_builder/tile_builder';
 @import './internal/tile_manager/_joyride_tip_guide';
+@import "./mixins/right_pip";
 
 body.client_admin-tiles-index, 
 body.client_admin-inactive_tiles,
@@ -111,6 +112,9 @@ body.suggested_tiles-index {
       .suggestion_box_header {
         .manage_access, .help {
           display: none;
+        }
+        .ideas_prompt {
+          @include right-pip(7px, $sky-blue, $off-white);
         }
       }
     }
@@ -318,6 +322,7 @@ body.suggested_tiles-index {
     }
     .ideas_prompt {
       @include font-regular;
+      @include right-pip(7px, $sky-blue, $white);
       font-size: 12px;
       color: $sky-blue;
       border-radius: 3px;
@@ -326,29 +331,6 @@ body.suggested_tiles-index {
       margin-top: -9px;
       margin-right: 15px;
       position: relative;
-      $pip-size: 7px;
-      &:before {
-        content: " ";
-        border: solid $pip-size;
-        border-color: transparent transparent transparent $sky-blue;
-        left: auto;
-        right: -($pip-size * 2);
-        top: 50%;
-        margin-top: -$pip-size;
-        display: block;
-        position: absolute;
-      }
-      &:after {
-        content: " ";
-        border: solid $pip-size;
-        border-color: transparent transparent transparent $off-white;
-        left: auto;
-        right: 1px - $pip-size * 2;
-        top: 50%;
-        margin-top: -$pip-size;
-        display: block;
-        position: absolute;
-      }
       .fa-user {
         font-size: 16px;
         padding-left: 5px;
