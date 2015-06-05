@@ -10,7 +10,7 @@ class Demo < ActiveRecord::Base
   has_many :board_memberships, dependent: :destroy
   has_many :users, through: :board_memberships
   has_many :acts
-  has_many :tiles, :dependent => :destroy, include: [:tile_completions, :tile_viewings]
+  has_many :tiles, :dependent => :destroy
   has_many :locations, :dependent => :destroy
   has_many :characteristics, :dependent => :destroy
   has_many :peer_invitations
