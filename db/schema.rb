@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
   add_index "acts", ["rule_value_id"], :name => "index_acts_on_rule_value_id"
   add_index "acts", ["text"], :name => "index_acts_on_text"
   add_index "acts", ["user_id"], :name => "index_acts_on_player_id"
+  add_index "acts", ["user_type"], :name => "index_acts_on_user_type"
 
   create_table "bad_message_replies", :force => true do |t|
     t.string   "body",           :limit => 160
@@ -254,9 +255,9 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
     t.boolean  "is_public",                                            :default => true
     t.boolean  "upload_in_progress"
     t.datetime "users_last_loaded"
-    t.boolean  "turn_off_admin_onboarding",                            :default => false
     t.boolean  "is_paid",                                              :default => false
     t.datetime "tile_last_posted_at"
+    t.boolean  "turn_off_admin_onboarding",                            :default => false
     t.boolean  "use_location_in_conversion",                           :default => false
     t.string   "persistent_message",                                   :default => ""
     t.string   "logo_file_name"
@@ -693,6 +694,7 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
 
   add_index "tile_completions", ["tile_id"], :name => "index_task_suggestions_on_task_id"
   add_index "tile_completions", ["user_id"], :name => "index_task_suggestions_on_user_id"
+  add_index "tile_completions", ["user_type"], :name => "index_tile_completions_on_user_type"
 
   create_table "tile_images", :force => true do |t|
     t.string   "image_file_name"
@@ -717,7 +719,6 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
   end
 
   add_index "tile_taggings", ["tile_id"], :name => "index_tile_taggings_on_tile_id"
-  add_index "tile_taggings", ["tile_tag_id"], :name => "index_tile_taggings_on_tile_tag_id"
 
   create_table "tile_tags", :force => true do |t|
     t.string   "title",      :default => ""
@@ -947,13 +948,15 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
     t.integer  "original_guest_user_id"
     t.string   "cancel_account_token"
     t.datetime "last_session_activity_at"
+    t.boolean  "show_invite_users_modal",                             :default => true
     t.boolean  "has_own_tile_completed",                              :default => false
     t.boolean  "displayed_tile_post_guide",                           :default => false
     t.boolean  "displayed_tile_success_guide",                        :default => false
-    t.boolean  "displayed_activity_page_admin_guide",                 :default => false
     t.boolean  "displayed_active_tile_guide",                         :default => false
+    t.boolean  "displayed_activity_page_admin_guide",                 :default => false
     t.boolean  "has_own_tile_completed_displayed",                    :default => false
     t.integer  "has_own_tile_completed_id"
+    t.integer  "user_tile_likes_count",                               :default => 0
     t.string   "explore_token"
     t.boolean  "voteup_intro_seen"
     t.boolean  "is_test_user"
@@ -962,6 +965,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
     t.string   "mixpanel_distinct_id"
     t.datetime "last_unmonitored_mailbox_response_at"
     t.boolean  "allowed_to_make_tile_suggestions",                    :default => false,       :null => false
+    t.boolean  "submitted_tile_menu_intro_seen",                      :default => false,       :null => false
+    t.boolean  "submit_tile_intro_seen",                              :default => false,       :null => false
     t.boolean  "send_weekly_activity_report",                         :default => true
   end
 
@@ -986,16 +991,5 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
   add_index "users", ["spouse_id"], :name => "index_users_on_spouse_id"
   add_index "users", ["ssn_hash"], :name => "index_users_on_ssn_hash"
   add_index "users", ["zip_code"], :name => "index_users_on_zip_code"
-
-  create_table "users_in_raffles", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "raffle_id"
-    t.boolean  "start_showed"
-    t.boolean  "finish_showed"
-    t.boolean  "in_blacklist"
-    t.boolean  "is_winner"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-  end
 
 end
