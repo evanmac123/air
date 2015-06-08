@@ -1,0 +1,3 @@
+<% content_for(:ie_link){ @link } %>
+<%= render partial: 'mailer/main_text', locals: {head_text: "Congratulations!", subhead_text: "#{@name} #{@email} has submitted a Tile for your review."} %>
+<%= render partial: 'mailer/main_button', locals: {button_text: "Review it", button_url: @link } %>
