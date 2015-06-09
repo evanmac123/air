@@ -12,7 +12,7 @@ class ReviewSuggestedTilesController < ApplicationController
       end
 
       redirect_to client_admin_tiles_path show_suggestion_box: true,
-                                          suggested_tile_intro: true
+                                          user_submitted_tile_intro: true
     else
       flash[:failure] = "That page doesn't exist."
       redirect_to "/"
