@@ -7,7 +7,8 @@ body.client_admin-tiles-edit,
 body.client_admin-tiles-show,
 body.client_admin-tiles-update,
 body.tiles.tiles-index,
-body.suggested_tiles-new {
+body.suggested_tiles-new,
+body.suggested_tiles-show{
   background:$tile-wall-bg;
   .core, .content {background:$tile-wall-bg;}
 }
