@@ -5,15 +5,16 @@ class SuggestedTileToReviewMailer < ActionMailer::Base
 
   def notify_all tile_sender_id, _demo_id
     user  = User.find tile_sender_id
-    client_admins_id = User.joins{board_memberships}
+    client_admin_ids = User.joins{board_memberships} \
                         .where do
                           (board_memberships.is_client_admin == true) &
                           (board_memberships.demo_id == _demo_id)
-                        end
+                        end \
                         .pluck(:id)
-
-    client_admins_id.each do |client_admin_id|
-      self.delay.notify_one client_admin_id, _demo_id, user.name, user.email
+    
+    client_admin_ids.each do |client_admin_id|
+      SuggestedTileToReviewMailer.delay.notify_one client_admin_id, _demo_id, 
+                                                   user.name, user.email
     end
   end
 
