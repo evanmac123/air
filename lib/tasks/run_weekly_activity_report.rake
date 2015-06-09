@@ -6,7 +6,7 @@ namespace :reports do
 				collector = ActiveBoardCollector.new
 				collector.send_mail_notifications
 			else
-				Rails.logger.info "Skipping Activity Report Not Monday"
+				Rails.logger.warn "Skipping Activity Report Not Monday"
 			end
 		end
 	end
