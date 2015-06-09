@@ -1,5 +1,5 @@
 <%= form_for :board_membership, url: weekly_activity_email_client_admin_board_settings_path, method: :put, html: { id: "weekly_activity_email"} do |form|  %>
-  <%= label_tag :weekly_report, "Recieve weekly activity report" %>
+  <%= label_tag :weekly_report, "Receive weekly activity report" %>
   <i class="fa fa-question-circle has-tip" id="board_email_tooltip" data-tooltip="true" title="Determines whether you receive a weekly tile activity report for this board."></i>
  
 	<div id="notification_settings">
@@ -28,10 +28,16 @@
 	
 	$("#weekly_activity_email").submit(function(e){
 	e.preventDefault();
+	var submitButton = $("#report_submit");
+	submitButton.val("Updating...");
 	$.ajax({
 	url: $(this).attr("action"),
 	data: $(this).serialize(),
 	type: "PUT"
+	}).done(function(){
+	$("#weekly_activity_email").removeClass("dirty");
+	$("#report_submit").attr("disabled", true);
+	submitButton.val("Update");
 	});
 	});
 	})
