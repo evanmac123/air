@@ -62,9 +62,9 @@ class SuggestedTilesController < ApplicationController
   def set_success_flash(new_status)
     flash[:success]= case new_status
                      when Tile::USER_SUBMITTED
-                       "TK: you submitted a tile"    
+                       "The administrator has been notified that you've submitted a Tile to the Suggestion Box. You'll be notified if your Tile is accepted."
                      when Tile::USER_DRAFT
-                       "TK: you unsubmitted a tile"    
+                       "You have unsubmitted this Tile. It's now in your Drafts."
                      end
   end
 end
