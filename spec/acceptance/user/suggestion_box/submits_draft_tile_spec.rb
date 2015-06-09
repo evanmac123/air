@@ -19,7 +19,7 @@ feature 'Submits/unsubmits tile' do
       click_submit_user_draft_tile_button
 
       should_be_on suggested_tiles_path
-      expect_content "TK: you submitted a tile"
+      expect_content "The administrator has been notified that you've submitted a Tile to the Suggestion Box. You'll be notified if your Tile is accepted."
       tile.reload.status.should == Tile::USER_SUBMITTED
     end
   end
@@ -33,7 +33,7 @@ feature 'Submits/unsubmits tile' do
 
       should_be_on suggested_tiles_path
       tile.reload.status.should == Tile::USER_DRAFT
-      expect_content "TK: you unsubmitted a tile"
+      expect_content "You have unsubmitted this Tile. It's now in your Drafts"
     end
   end
 
