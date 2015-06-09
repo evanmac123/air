@@ -18,7 +18,7 @@ feature 'Submits/unsubmits tile' do
       visit suggested_tile_path(tile.id, as: user)
       click_submit_user_draft_tile_button
 
-      should_be_on suggested_tile_path(tile.id)
+      should_be_on suggested_tiles_path
       expect_content "TK: you submitted a tile"
       tile.reload.status.should == Tile::USER_SUBMITTED
     end
@@ -31,7 +31,7 @@ feature 'Submits/unsubmits tile' do
       visit suggested_tile_path(tile.id, as: user)
       click_unsubmit_user_draft_tile_button
 
-      should_be_on suggested_tile_path(tile.id)
+      should_be_on suggested_tiles_path
       tile.reload.status.should == Tile::USER_DRAFT
       expect_content "TK: you unsubmitted a tile"
     end

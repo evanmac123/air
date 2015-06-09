@@ -42,7 +42,7 @@ class SuggestedTilesController < ApplicationController
       set_success_flash(new_status)
     end
 
-    redirect_to :back
+    redirect_to suggested_tiles_path
   end
 
   private
