@@ -38,6 +38,10 @@ describe SuggestedTileToReviewMailer do
       expect(mail.body.encoded).to match("#{@tile_sender.name} #{@tile_sender.email} has submitted a Tile for your review.")
     end
 
+    it 'has correct link' do
+      expect(mail.body.encoded).to match(client_admin_tiles_url)
+    end
+
     it 'does not mention not having to log in ' do
       expect(mail.body.encoded).not_to match("You won't have to log in.")
     end
