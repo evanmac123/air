@@ -11,7 +11,7 @@ class SuggestedTileToReviewMailer < ActionMailer::Base
                           (board_memberships.demo_id == _demo_id)
                         end \
                         .pluck(:id)
-    
+    p client_admin_ids
     client_admin_ids.each do |client_admin_id|
       SuggestedTileToReviewMailer.delay.notify_one client_admin_id, _demo_id, 
                                                    user.name, user.email
