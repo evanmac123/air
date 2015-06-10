@@ -3,10 +3,15 @@ class SingleTilePresenter
   include TileFooterTimestamper 
   include Rails.application.routes.url_helpers
 
-  def initialize tile, format
+  def initialize tile, format, show_admin_buttons
     @tile = tile
     @type = tile.status.to_sym
     @format = format
+    @show_admin_buttons = show_admin_buttons
+  end
+
+  def is_placeholder?
+    false
   end
 
   def type? *types
@@ -20,11 +25,11 @@ class SingleTilePresenter
   end
 
   def has_archive_button?
-    type? :active
+    show_admin_buttons? && (type? :active)
   end
 
   def has_activate_button?
-    type? :archive, :draft
+    show_admin_buttons? && (type? :archive, :draft)
   end
 
   def post_link_text
@@ -32,23 +37,23 @@ class SingleTilePresenter
   end
 
   def has_edit_button?
-    type? :draft, :active, :archive
+    show_admin_buttons? && (type? :draft, :active, :archive)
   end
 
   def has_destroy_button? 
-    type? :draft, :active, :archive
+    show_admin_buttons? && (type? :draft, :active, :archive)
   end
 
   def has_accept_button? 
-    type? :user_submitted
+    show_admin_buttons? && (type? :user_submitted)
   end
 
   def has_ignore_button? 
-    type? :user_submitted
+    show_admin_buttons? && (type? :user_submitted)
   end
 
   def has_undo_ignore_button?
-    type? :ignored
+    show_admin_buttons? && (type? :ignored)
   end
 
   def has_submit_button?
@@ -60,7 +65,7 @@ class SingleTilePresenter
   end
 
   def has_additional_tile_stats?
-    type? :active, :archive
+    show_admin_buttons? && (type? :active, :archive)
   end
 
   def shows_creator?
@@ -102,6 +107,10 @@ class SingleTilePresenter
 
   def to_param
     @to_param ||= tile.to_param
+  end
+
+  def show_admin_buttons?
+    @show_admin_buttons.present?
   end
 
   def cache_key

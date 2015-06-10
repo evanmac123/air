@@ -4,6 +4,8 @@ class ClientAdminBaseController < ApplicationController
 
   layout "client_admin_layout"
 
+  before_filter :set_is_client_admin_action
+
   protected
 
   def explore_token_allowed
@@ -20,5 +22,9 @@ class ClientAdminBaseController < ApplicationController
 
   def param_path
     @param_path ||= params[:path].nil? ? :undefined : params[:path].to_sym
+  end
+
+  def set_is_client_admin_action
+    @is_client_admin_action = true
   end
 end
