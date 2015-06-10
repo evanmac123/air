@@ -14,6 +14,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @archive_tiles = (@demo.archive_tiles_with_placeholders)[0,4]
     @draft_tiles = @demo.draft_tiles_with_placeholders
     @suggested_tiles = @demo.suggested_tiles_with_placeholders
+    @user_submitted_tiles_counter = @demo.tiles.user_submitted.count
 
     @allowed_to_suggest_users = @demo.users_that_allowed_to_suggest_tiles
 

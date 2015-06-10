@@ -1,6 +1,11 @@
 <div class="suggestion_header_block">
   <div class="suggestion_box_header">
-    <%= content_tag :h3, "Suggestion box", id: "suggestion_box_title", data: suggestion_box_intro_params(@show_suggestion_box_intro) %>
+    <%= content_tag :div,  id: "suggestion_box_title", data: suggestion_box_intro_params(@show_suggestion_box_intro) do %>
+      <span id="user_submitted_tiles_counter">
+        <%= @user_submitted_tiles_counter %>
+      </span>
+      <h3>Suggestion box</h3>
+    <% end %>
     <div class="manage_items">
       <% if @show_suggestion_box_prompt %>
         <div class="ideas_prompt manage_item">
