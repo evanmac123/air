@@ -1,6 +1,5 @@
 - presenter = SingleTilePresenter.new(tile, :html)
-
-- cache [__FILE__, 'v8.ant', presenter.cache_key] do
+- cache [__FILE__, 'v9.pwd', presenter.cache_key] do
   .tile_container
     .tile_thumbnail{class: presenter.type, id: "single-tile-#{presenter.tile_id}", data: {tile_id: presenter.tile_id}}
       = link_to presenter.show_tile_path, class:'tile_thumb_link' do
@@ -12,6 +11,12 @@
               = presenter.headline
           %div.shadow_overlay
       %ul.tile_buttons
+        - if presenter.has_submit_button?
+          %li.submit_button
+            = link_to 'Submit', suggested_tile_path(presenter, update_status: Tile::USER_SUBMITTED), method: :put
+        - if presenter.has_unsubmit_button?
+          %li.unsubmit_button
+            = link_to 'Unsubmit', suggested_tile_path(presenter, update_status: Tile::USER_DRAFT), method: :put
         - if presenter.has_archive_button?
           %li.archive_button
             = link_to 'Archive', client_admin_tile_path(presenter, update_status: Tile::ARCHIVE), method: :put

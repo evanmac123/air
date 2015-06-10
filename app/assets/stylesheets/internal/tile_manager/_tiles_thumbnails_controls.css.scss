@@ -1,4 +1,4 @@
-.client_admin_main {
+.client_admin_main, .suggested_tiles-index {
   // Tile thumbnail entire wrapper
   .tile_thumbnail {
     .shadow_overlay {
@@ -32,7 +32,7 @@
       margin-left:.5em;
       text-align: center;
       width:auto;
-      &.edit_button, &.destroy_button, &.ignore_button, &.undo_ignore_button {
+      &.edit_button, &.destroy_button, &.ignore_button, &.undo_ignore_button, &.submit_button, &.unsubmit_button {
         a {
           @include light-button($white);
         }

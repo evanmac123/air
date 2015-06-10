@@ -16,8 +16,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
     t.string   "text"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
     t.integer  "rule_id"
     t.integer  "inherent_points"
     t.integer  "demo_id"
@@ -43,8 +43,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
     t.string   "body",           :limit => 160
     t.integer  "bad_message_id"
     t.integer  "sender_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   add_index "bad_message_replies", ["bad_message_id"], :name => "index_bad_message_replies_on_bad_message_id"
@@ -54,8 +54,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
     t.string   "phone_number"
     t.text     "body"
     t.datetime "received_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                        :null => false
+    t.datetime "updated_at",                                        :null => false
     t.boolean  "is_new",                         :default => true
     t.boolean  "on_watch_list",                  :default => false
     t.integer  "reply_count",                    :default => 0
@@ -67,8 +67,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
   create_table "bad_words", :force => true do |t|
     t.string   "value",      :default => "", :null => false
     t.integer  "demo_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
   end
 
   add_index "bad_words", ["demo_id"], :name => "index_bad_words_on_demo_id"
@@ -96,13 +96,6 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
   end
 
   add_index "billing_informations", ["user_id"], :name => "index_billing_informations_on_user_id"
-
-  create_table "blacklists", :force => true do |t|
-    t.integer  "raffle_id"
-    t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
 
   create_table "board_memberships", :force => true do |t|
     t.boolean  "is_current",                       :default => true
@@ -132,8 +125,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
     t.integer  "max_points", :null => false
     t.integer  "award",      :null => false
     t.integer  "demo_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "bonus_thresholds", ["demo_id"], :name => "index_bonus_thresholds_on_demo_id"
@@ -153,8 +146,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
     t.string   "description"
     t.text     "allowed_values"
     t.integer  "demo_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
     t.string   "datatype"
   end
 
@@ -164,8 +157,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
     t.string   "from",              :default => "", :null => false
     t.text     "claim_information"
     t.integer  "claim_state_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
     t.integer  "demo_id"
   end
 
@@ -176,8 +169,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
     t.text     "states"
     t.integer  "demo_id"
     t.integer  "start_state_id", :default => 1
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   add_index "claim_state_machines", ["demo_id"], :name => "index_claim_state_machines_on_demo_id"
@@ -188,8 +181,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
     t.text     "custom_subject"
     t.text     "custom_subject_with_referrer"
     t.integer  "demo_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
   end
 
   add_index "custom_invitation_emails", ["demo_id"], :name => "index_custom_invitation_emails_on_demo_id"
@@ -203,8 +196,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
     t.datetime "locked_at"
     t.datetime "failed_at"
     t.string   "locked_by"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
     t.string   "queue"
   end
 
@@ -212,8 +205,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
 
   create_table "demos", :force => true do |t|
     t.string   "name",                                                 :default => "",                :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                                                          :null => false
+    t.datetime "updated_at",                                                                          :null => false
     t.integer  "seed_points",                                          :default => 0
     t.string   "custom_welcome_message",                :limit => 160
     t.datetime "ends_at"
@@ -281,8 +274,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
     t.text     "clean_body"
     t.string   "response"
     t.datetime "response_sent"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.text     "clean_subject"
   end
 
@@ -290,8 +283,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
 
   create_table "email_info_requests", :force => true do |t|
     t.string   "email",      :default => "(email not entered)"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
     t.string   "name",       :default => "(name not entered)"
     t.text     "comment",    :default => ""
     t.string   "phone"
@@ -318,8 +311,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
   create_table "former_friendships", :force => true do |t|
     t.integer  "user_id"
     t.integer  "friend_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "former_friendships", ["friend_id"], :name => "index_former_friendships_on_friend_id"
@@ -328,8 +321,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
   create_table "friendships", :force => true do |t|
     t.integer  "user_id"
     t.integer  "friend_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
     t.string   "state",         :default => "pending", :null => false
     t.integer  "request_index"
   end
@@ -350,8 +343,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
   create_table "goal_completions", :force => true do |t|
     t.integer  "user_id"
     t.integer  "goal_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "goal_completions", ["goal_id"], :name => "index_goal_completions_on_goal_id"
@@ -360,8 +353,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
   create_table "goals", :force => true do |t|
     t.string   "name",                :default => "", :null => false
     t.integer  "demo_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
     t.string   "achievement_text",    :default => "", :null => false
     t.string   "completion_sms_text", :default => "", :null => false
   end
@@ -399,14 +392,14 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
     t.string   "from"
     t.string   "body"
     t.string   "twilio_sid"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "keys", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "keys", ["name"], :name => "index_keys_on_name"
@@ -414,8 +407,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
   create_table "labels", :force => true do |t|
     t.integer  "rule_id"
     t.integer  "tag_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "labels", ["rule_id", "tag_id"], :name => "index_labels_on_rule_id_and_tag_id"
@@ -424,8 +417,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
     t.string   "name",              :default => "", :null => false
     t.integer  "threshold",                         :null => false
     t.integer  "demo_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
     t.integer  "index_within_demo"
   end
 
@@ -443,8 +436,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
   create_table "locations", :force => true do |t|
     t.string   "name",            :default => "", :null => false
     t.integer  "demo_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
     t.string   "normalized_name"
   end
 
@@ -454,8 +447,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
 
   create_table "more_info_requests", :force => true do |t|
     t.string   "phone_number"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
     t.string   "command"
     t.integer  "user_id"
   end
@@ -467,8 +460,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
     t.string   "from"
     t.text     "to"
     t.text     "raw"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "outgoing_emails", ["created_at"], :name => "index_outgoing_emails_on_created_at"
@@ -479,8 +472,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
     t.string   "body"
     t.string   "to"
     t.integer  "mate_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "outgoing_sms", ["mate_id"], :name => "index_outgoing_sms_on_mate_id"
@@ -513,8 +506,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
     t.integer  "inviter_id"
     t.integer  "invitee_id"
     t.integer  "demo_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
     t.string   "invitee_type", :default => "User"
   end
 
@@ -551,19 +544,12 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
     t.text     "sms_recipient_ids"
     t.text     "segment_description"
     t.integer  "demo_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                                          :null => false
+    t.datetime "updated_at",                                                          :null => false
     t.boolean  "respect_notification_method"
     t.string   "segment_query_columns"
     t.string   "segment_query_operators"
     t.string   "segment_query_values"
-  end
-
-  create_table "raffle_winners", :force => true do |t|
-    t.integer  "raffle_id"
-    t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
   end
 
   create_table "raffles", :force => true do |t|
@@ -582,8 +568,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
     t.string   "value"
     t.boolean  "is_primary", :default => false, :null => false
     t.integer  "rule_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   add_index "rule_values", ["is_primary"], :name => "index_rule_values_on_is_primary"
@@ -591,8 +577,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
 
   create_table "rules", :force => true do |t|
     t.integer  "points"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
     t.string   "reply",           :default => "",   :null => false
     t.string   "type"
     t.string   "description"
@@ -610,8 +596,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
   create_table "suggestions", :force => true do |t|
     t.string   "value",      :default => "", :null => false
     t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
   end
 
   add_index "suggestions", ["user_id"], :name => "index_suggestions_on_user_id"
@@ -619,8 +605,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
   create_table "survey_answers", :force => true do |t|
     t.integer  "user_id"
     t.integer  "survey_question_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
     t.integer  "survey_valid_answer_id"
   end
 
@@ -632,8 +618,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
     t.datetime "send_time",                  :null => false
     t.string   "text",       :default => "", :null => false
     t.integer  "survey_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
   end
 
   add_index "survey_prompts", ["survey_id"], :name => "index_survey_prompts_on_survey_id"
@@ -642,8 +628,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
     t.string   "text",       :default => "", :null => false
     t.integer  "index",                      :null => false
     t.integer  "survey_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
     t.integer  "points"
   end
 
@@ -653,8 +639,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
   create_table "survey_valid_answers", :force => true do |t|
     t.string   "value",              :default => "", :null => false
     t.integer  "survey_question_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
   end
 
   add_index "survey_valid_answers", ["survey_question_id"], :name => "index_survey_valid_answers_on_survey_question_id"
@@ -663,8 +649,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
   create_table "surveys", :force => true do |t|
     t.string   "name",       :default => "", :null => false
     t.integer  "demo_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
     t.datetime "open_at",                    :null => false
     t.datetime "close_at"
   end
@@ -676,16 +662,16 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
   create_table "tags", :force => true do |t|
     t.string   "name"
     t.string   "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.integer  "daily_limit"
   end
 
   create_table "tile_completions", :force => true do |t|
     t.integer  "tile_id"
     t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
     t.boolean  "displayed_one_final_time",  :default => false, :null => false
     t.string   "user_type"
     t.integer  "answer_index"
@@ -719,6 +705,7 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
   end
 
   add_index "tile_taggings", ["tile_id"], :name => "index_tile_taggings_on_tile_id"
+  add_index "tile_taggings", ["tile_tag_id"], :name => "index_tile_taggings_on_tile_tag_id"
 
   create_table "tile_tags", :force => true do |t|
     t.string   "title",      :default => ""
@@ -739,8 +726,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
 
   create_table "tiles", :force => true do |t|
     t.integer  "demo_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
     t.datetime "start_time"
     t.integer  "bonus_points",            :default => 0,     :null => false
     t.datetime "end_time"
@@ -762,15 +749,14 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
     t.text     "supporting_content",      :default => ""
     t.text     "question",                :default => ""
     t.string   "status"
-    t.datetime "activated_at"
-    t.datetime "archived_at"
     t.text     "multiple_choice_answers"
     t.string   "type"
     t.integer  "correct_answer_index"
     t.integer  "points"
+    t.datetime "activated_at"
+    t.datetime "archived_at"
     t.boolean  "image_processing"
     t.boolean  "thumbnail_processing"
-    t.integer  "image_container_id"
     t.boolean  "is_public",               :default => false, :null => false
     t.boolean  "is_copyable",             :default => false, :null => false
     t.integer  "creator_id"
@@ -798,16 +784,16 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
     t.string   "sms_text",   :default => "",    :null => false
     t.integer  "user_id"
     t.integer  "demo_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   add_index "timed_bonus", ["demo_id", "user_id"], :name => "index_timed_bonus_on_demo_id_and_user_id"
 
   create_table "trigger_demographic_triggers", :force => true do |t|
     t.integer  "tile_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "trigger_demographic_triggers", ["tile_id"], :name => "index_trigger_demographic_triggers_on_task_id"
@@ -815,8 +801,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
   create_table "trigger_rule_triggers", :force => true do |t|
     t.integer  "rule_id"
     t.integer  "tile_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
     t.boolean  "referrer_required", :default => false, :null => false
   end
 
@@ -827,8 +813,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
   create_table "trigger_survey_triggers", :force => true do |t|
     t.integer  "survey_id"
     t.integer  "tile_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "trigger_survey_triggers", ["survey_id"], :name => "index_trigger_survey_triggers_on_survey_id"
@@ -841,8 +827,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
     t.integer  "current_step", :default => 0,     :null => false
     t.integer  "friend_id"
     t.text     "first_act",    :default => "",    :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
   end
 
   add_index "tutorials", ["user_id"], :name => "index_tutorials_on_user_id"
@@ -850,8 +836,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
   create_table "unsubscribes", :force => true do |t|
     t.integer  "user_id",                    :null => false
     t.text     "reason",     :default => "", :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
   end
 
   add_index "unsubscribes", ["user_id"], :name => "index_unsubscribes_on_user_id"
@@ -895,8 +881,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
     t.string   "name",                                                :default => "",          :null => false
     t.string   "email",                                               :default => "",          :null => false
     t.boolean  "invited",                                             :default => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                                                   :null => false
+    t.datetime "updated_at",                                                                   :null => false
     t.string   "invitation_code",                                     :default => "",          :null => false
     t.string   "phone_number",                                        :default => "",          :null => false
     t.integer  "points",                                              :default => 0,           :null => false
@@ -936,8 +922,8 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
     t.string   "overflow_email",                                      :default => ""
     t.integer  "tickets",                                             :default => 0,           :null => false
     t.string   "zip_code"
-    t.string   "ssn_hash"
     t.boolean  "is_employee",                                         :default => true
+    t.string   "ssn_hash"
     t.string   "employee_id"
     t.integer  "spouse_id"
     t.datetime "last_acted_at"
@@ -948,15 +934,13 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
     t.integer  "original_guest_user_id"
     t.string   "cancel_account_token"
     t.datetime "last_session_activity_at"
-    t.boolean  "show_invite_users_modal",                             :default => true
     t.boolean  "has_own_tile_completed",                              :default => false
     t.boolean  "displayed_tile_post_guide",                           :default => false
     t.boolean  "displayed_tile_success_guide",                        :default => false
-    t.boolean  "displayed_active_tile_guide",                         :default => false
     t.boolean  "displayed_activity_page_admin_guide",                 :default => false
+    t.boolean  "displayed_active_tile_guide",                         :default => false
     t.boolean  "has_own_tile_completed_displayed",                    :default => false
     t.integer  "has_own_tile_completed_id"
-    t.integer  "user_tile_likes_count",                               :default => 0
     t.string   "explore_token"
     t.boolean  "voteup_intro_seen"
     t.boolean  "is_test_user"

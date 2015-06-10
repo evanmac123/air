@@ -30,6 +30,25 @@ module SuggestionBox
     page.execute_script script
   end
 
+  def submit_tile_selector(tile)
+    "a[href *= '#{suggested_tile_path(tile, update_status: Tile::USER_SUBMITTED)}']"  
+  end
+
+  def unsubmit_tile_selector(tile)
+    "a[href *= '#{suggested_tile_path(tile, update_status: Tile::USER_DRAFT)}']"  
+  end
+
+  # submit_tile_button because the name submit_button is taken
+  def submit_tile_button tile
+    show_thumbnail_buttons
+    page.find(submit_tile_selector(tile))
+  end
+
+  def unsubmit_button tile
+    show_thumbnail_buttons
+    page.find(unsubmit_tile_selector(tile))
+  end
+
   def accept_button tile
     show_thumbnail_buttons
     page.find("a[href *= '#{client_admin_tile_path(tile, update_status: Tile::DRAFT)}']")
