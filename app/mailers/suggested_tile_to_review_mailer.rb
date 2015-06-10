@@ -24,12 +24,10 @@ class SuggestedTileToReviewMailer < ActionMailer::Base
 
     @demo = Demo.find  demo_id
     @name, @email = tile_sender_name, tile_sender_email
-    @link = review_suggested_tiles_url user_id: client_admin_id,
-                                       demo_id: demo_id,
-                                       token: EmailLink.generate_token(@user)
+    @link = review_suggested_tiles_url demo_id: demo_id
 
-    mail  from:     "suggestion_box@airbo.com",
+    mail  from:     @demo.email,
           to:       @user.email,
-          subject:  "New Tile Suggested To Review"
+          subject:  "New Tile Submitted Needs Review"
   end
 end
