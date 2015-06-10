@@ -1,10 +1,13 @@
 class ReviewSuggestedTilesController < ApplicationController
+  skip_before_filter :authorize
+
   def index
     user = User.where(id: params[:user_id]).first
     demo = Demo.where(id: params[:demo_id]).first
-    if demo && user && user.is_client_admin && EmailLink.validate_token(user, params[:token])
+
+    if demo && user && EmailLink.validate_token(user, params[:token])
       if !current_user || current_user != user
-        sign_in(user)
+        sign_in(user, 1)
       end
 
       if current_user.in_board?(demo)
