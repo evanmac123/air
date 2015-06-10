@@ -43,7 +43,7 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
     padding: .5em 1em;
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
-    &.draft, &.archived {
+    &.draft, &.archived, &.user_draft {
       background: $blue;
     }
     &.posted {
