@@ -51,6 +51,14 @@ class SingleTilePresenter
     type? :ignored
   end
 
+  def has_submit_button?
+    type? :user_draft
+  end
+
+  def has_unsubmit_button?
+    type? :user_submitted
+  end
+
   def has_additional_tile_stats?
     type? :active, :archive
   end

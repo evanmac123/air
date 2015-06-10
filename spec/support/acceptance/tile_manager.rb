@@ -8,18 +8,6 @@ module TileManagerHelpers
       update_status: Tile::ARCHIVE)
   end
 
-  def click_activate_link_for(tile_to_activate)    
-    tile(tile_to_activate).trigger(:mouseover)
-    #hack for mouseover not working poltergeist
-    page.execute_script("$('.tile_buttons').show()")
-    click_link href: client_admin_tile_path(tile_to_activate, 
-      update_status: Tile::ACTIVE, path: :via_index)
-  end
-  def have_activate_link_for(tile)
-    have_link 'Post', href: client_admin_tile_path(tile, 
-      update_status: Tile::ACTIVE, path: :via_index)
-  end
-
   def have_reactivate_link_for(tile)
     have_link 'Post again', href: client_admin_tile_path(tile, 
       update_status: Tile::ACTIVE, path: :via_index)
