@@ -3,11 +3,11 @@ class SingleTilePresenter
   include TileFooterTimestamper 
   include Rails.application.routes.url_helpers
 
-  def initialize tile, format, show_admin_buttons
+  def initialize tile, format, as_admin
     @tile = tile
     @type = tile.status.to_sym
     @format = format
-    @show_admin_buttons = show_admin_buttons
+    @as_admin = as_admin
   end
 
   def is_placeholder?
@@ -77,7 +77,7 @@ class SingleTilePresenter
   end
 
   def show_tile_path
-    if type? :user_draft, :user_submitted
+    if viewing_as_regular_user?
       suggested_tile_path(self)
     else
       client_admin_tile_path(self)    
@@ -110,7 +110,11 @@ class SingleTilePresenter
   end
 
   def show_admin_buttons?
-    @show_admin_buttons.present?
+    @as_admin.present?
+  end
+
+  def viewing_as_regular_user?
+    !@as_admin
   end
 
   def cache_key
