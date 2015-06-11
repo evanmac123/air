@@ -11,7 +11,7 @@ class SuggestedTileToReviewMailer < ActionMailer::Base
                           (board_memberships.demo_id == _demo_id)
                         end \
                         .pluck(:id)
-    p client_admin_ids
+    # p client_admin_ids
     client_admin_ids.each do |client_admin_id|
       SuggestedTileToReviewMailer.delay.notify_one client_admin_id, _demo_id, 
                                                    user.name, user.email
@@ -19,6 +19,7 @@ class SuggestedTileToReviewMailer < ActionMailer::Base
   end
 
   def notify_one client_admin_id, demo_id, tile_sender_name, tile_sender_email
+    # p client_admin_id
     @user  = User.find client_admin_id
     return nil unless @user.email.present?
 
