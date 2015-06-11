@@ -1,6 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-feature 'Client admin sees intro about suggestion box' do
+feature 'Client admin visits link from submitted tile notification' do
   include WaitForAjax
   include SuggestionBox
 
@@ -31,8 +31,8 @@ feature 'Client admin sees intro about suggestion box' do
     admin.user_submitted_tile_intro_seen = false
     admin.suggestion_box_intro_seen = true
     admin.save
-    
-    visit review_suggested_tiles_path demo_id: demo.id
+
+    visit submitted_tile_notifications_path demo_id: demo.id
   end
 
   it "should show intro", js: true do

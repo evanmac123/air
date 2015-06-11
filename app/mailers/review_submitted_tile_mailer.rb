@@ -1,4 +1,4 @@
-class SuggestedTileToReviewMailer < ActionMailer::Base
+class ReviewSubmittedTileMailer < ActionMailer::Base
   has_delay_mail
   layout "mailer"
   helper :email
@@ -13,7 +13,7 @@ class SuggestedTileToReviewMailer < ActionMailer::Base
                         .pluck(:id)
     # p client_admin_ids
     client_admin_ids.each do |client_admin_id|
-      SuggestedTileToReviewMailer.delay.notify_one client_admin_id, _demo_id, 
+      ReviewSubmittedTileMailer.delay.notify_one client_admin_id, _demo_id, 
                                                    user.name, user.email
     end
   end
@@ -25,7 +25,7 @@ class SuggestedTileToReviewMailer < ActionMailer::Base
 
     @demo = Demo.find  demo_id
     @name, @email = tile_sender_name, tile_sender_email
-    @link = review_suggested_tiles_url demo_id: demo_id
+    @link = submitted_tile_notifications_url demo_id: demo_id
 
     mail  from:     @demo.email,
           to:       @user.email,
