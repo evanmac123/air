@@ -9,6 +9,9 @@ class SuggestedTilesController < ApplicationController
   def index
     @draft_tiles = [TileCreationPlaceholder.new(new_suggested_tile_path)] + current_user.tiles.user_draft
     @submitted_tiles = current_user.tiles.user_submitted
+    @accepted_tiles = current_user.tiles.draft
+    @posted_tiles = current_user.tiles.active
+    @archived_tiles = current_user.tiles.archived
   end
 
   def show

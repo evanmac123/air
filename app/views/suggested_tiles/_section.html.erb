@@ -1,0 +1,13 @@
+<section class="manage_tiles" id="<%= section_id %>">
+  <div class="row">
+    <div class="large-12 columns">
+      <h4>
+        <span><%= header_text %></span>
+        <%= fa_icon "question-circle", id: tooltip_id %>
+      </h4>
+      <div class="manage_section" id="<%=wrapper_id %>">
+        <%= render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: {tiles: tiles, type: type} %>
+      </div>
+    </div>
+  </div>
+</section>

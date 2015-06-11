@@ -2,7 +2,7 @@
 
 <div class="large-9 large-centered columns tile_preview_container">
   <%= render partial: 'client_admin/tiles/tile_preview/menu', locals: {tile: @tile, show_client_admin_menu: show_client_admin_menu} %>
-  <% if @tile.has_client_admin_status? %>
+  <% if show_client_admin_menu %>
     <%= render partial: 'client_admin/tiles/tile_preview/share_section', locals: {tile: @tile} %>
   <% end %>
 

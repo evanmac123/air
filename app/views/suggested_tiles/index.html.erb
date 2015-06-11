@@ -1,25 +1,12 @@
-<section class="manage_tiles" id="draft_tiles">
-  <div class="row">
-    <div class="large-12 columns">
-      <h4>
-        <span>Draft</span>
-        <%= fa_icon "question-circle", id: "info_submit_tile" %>
-      </h4>
-      <div class="manage_section" id="draft">
-        <%= render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: {tiles: @draft_tiles, type: :user_draft} %>
-      </div>
-    </div>
-  </div>
-</section>
-<section class="manage_tiles" id="submitted_tiles">
-  <div class="row">
-    <div class="large-12 columns">
-      <h4>Submitted</h4>
-      <div class="manage_section" id="submitted">
-        <%= render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: {tiles: @submitted_tiles, type: :user_submitted} %>
-      </div>
-    </div>
-  </div>
-</section>
+<%= render 'section', section_id: 'draft_tiles', header_text: 'Draft', tooltip_id: 'info_submit_tile', wrapper_id: 'draft', tiles: @draft_tiles, type: :user_draft %>
+
+<%= render 'section', section_id: "submitted_tiles", header_text: "Submitted", tooltip_id: "info_submitted_tile", wrapper_id: "submitted", tiles: @submitted_tiles, type: :user_submitted %>
+
+<%= render 'section', section_id: "accepted_tiles", header_text: "Accepted", tooltip_id: "info_accepted_tile", wrapper_id: "accepted", tiles: @accepted_tiles, type: :draft %>
+
+<%= render 'section', section_id: "posted_tiles", header_text: "Posted", tooltip_id: "info_posted_tile", wrapper_id: "posted", tiles: @posted_tiles, type: :active %>
+
+<%= render 'section', section_id: "archived_tiles", header_text: "Archived", tooltip_id: "info_archived_tile", wrapper_id: "archived", tiles: @archived_tiles, type: :archived %>
+
 <%= render 'shared/tiles/poll_for_thumbnails' %>
 <%= render "shared/header/submit_tile_modal" %>
