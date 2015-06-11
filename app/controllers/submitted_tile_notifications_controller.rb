@@ -1,4 +1,4 @@
-class ReviewSuggestedTilesController < ApplicationController
+class SubmittedTileNotificationsController < ApplicationController
   def index
     demo = Demo.where(id: params[:demo_id]).first
 

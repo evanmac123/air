@@ -1,7 +1,7 @@
 require "spec_helper"
 
-describe SuggestedTileToReviewMailer do
-  let!(:demo) {FactoryGirl.create :demo}
+describe ReviewSubmittedTileMailer do
+  let!(:demo) {FactoryGirl.create :demo, email: "demo@gmail.com"}
 
 
   def update_board_memberships
@@ -18,12 +18,12 @@ describe SuggestedTileToReviewMailer do
     end
 
     let(:mail) do 
-      SuggestedTileToReviewMailer.notify_one  @client_admin.id, demo.id, 
+      ReviewSubmittedTileMailer.notify_one  @client_admin.id, demo.id, 
                                               @tile_sender.name, @tile_sender.email
     end
 
     it 'renders the subject' do
-      expect(mail.subject).to eql("New Tile Suggested To Review")
+      expect(mail.subject).to eql("New Tile Submitted Needs Review")
     end
 
     it 'renders the receiver email' do
@@ -31,15 +31,11 @@ describe SuggestedTileToReviewMailer do
     end
 
     it 'renders the sender email' do
-      expect(mail.from).to eql(["suggestion_box@airbo.com"])
-    end
-
-    it 'has correct CTA text' do
-      expect(mail.body.encoded).to match("#{@tile_sender.name} #{@tile_sender.email} has submitted a Tile for your review.")
+      expect(mail.from).to eql([demo.email])
     end
 
     it 'has correct link' do
-      expect(mail.body.encoded).to match(client_admin_tiles_url)
+      expect(mail.body.encoded).to match(submitted_tile_notifications_url)
     end
 
     it 'does not mention not having to log in ' do
@@ -62,14 +58,14 @@ describe SuggestedTileToReviewMailer do
 
     it 'should be delivered only to client admins of selected demo' do
       object = mock('delay')
-      SuggestedTileToReviewMailer.stubs(:delay).returns(object)
+      ReviewSubmittedTileMailer.stubs(:delay).returns(object)
 
       object.expects(:notify_one).at_most(3)
       @admins.each do |ca|
         object.expects(:notify_one).with(ca.id, demo.id, @tile_sender.name, @tile_sender.email)
       end
 
-      SuggestedTileToReviewMailer.notify_all @tile_sender.id, demo.id
+      ReviewSubmittedTileMailer.notify_all @tile_sender.id, demo.id
    end
   end
 end
