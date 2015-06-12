@@ -48,6 +48,10 @@ feature 'Client Admin uses menu on tile preview page of suggested tile' do
       visit client_admin_tile_path(tile, as: client_admin)
     end
 
+    it "should send ping" do
+      expect_ping 'Suggestion Box', {client_admin_action: "Tile Viewed"}, client_admin
+    end
+
     it "should have right menu header" do
       menu_header.text.should == "Submitted"
     end
@@ -109,6 +113,10 @@ feature 'Client Admin uses menu on tile preview page of suggested tile' do
 
     before do
       visit client_admin_tile_path(tile, as: client_admin)
+    end
+
+    it "should send ping" do
+      expect_ping 'Suggestion Box', {client_admin_action: "Tile Viewed"}, client_admin
     end
 
     it "should have right menu header" do
