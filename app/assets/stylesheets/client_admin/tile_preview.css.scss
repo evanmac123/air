@@ -60,9 +60,8 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
       padding: 0.45em 1em;
     }
   }
-  .preview_menu_item {
+  .preview_menu_item, .preview_menu_text {
     float: left;
-    width: 16%;
     border-left: 1px $tile-wall-bg solid;
     font-size: 14px;
     padding: .55em;
@@ -83,6 +82,12 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
       display: block;
       &:hover {color: darken($gray, 10%);}
     }
+  }
+  .preview_menu_item {
+    width: 16%;
+  }
+  .preview_menu_text {
+    width: 48%;
   }
   .submitted_tile_menu {
     float: left;
