@@ -1,0 +1,8 @@
+describe TileStatusChangeManager do
+
+ 
+
+
+
+end
+
