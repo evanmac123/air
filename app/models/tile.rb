@@ -53,6 +53,8 @@ class Tile < ActiveRecord::Base
   has_alphabetical_column :headline
 
   before_post_process :no_post_process_on_copy
+
+	before_update :handle_status_change
   
   scope :activated, -> {where(status: ACTIVE)}
   scope :archived, -> {where(status: ARCHIVE)}
@@ -454,5 +456,11 @@ class Tile < ActiveRecord::Base
       BulkCompleteMailer.delay_mail(:report, completion_states)
     end
   end
+end
+
+private
+
+def handle_status_change
+	TileStatusChangeManager.new(self).process
 end
 
