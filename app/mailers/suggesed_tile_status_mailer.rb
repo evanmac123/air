@@ -1,4 +1,7 @@
 class SuggestedTileStatusMailer < ActionMailer::Base
+	ACCEPTED="Your Tile Has Been Accepted!"
+	POSTED="Your Tile Has Been Posted!"
+	ARCHIVED="Your Tile Has Been Archived"
 
 	has_delay_mail
 	layout "mailer"
@@ -6,7 +9,7 @@ class SuggestedTileStatusMailer < ActionMailer::Base
 		
 	def accepted(demo_id, user_id, tile_id)
 		set_vars(demo_id, user_id, tile_id, 
-						 "Your Tile Has Been Accepted!", 
+						 ACCEPTED, 
 						 "The administrator has reviewed your Tile and accepted it. We’ll let you know when it’s posted.") 
 		sendit
   end
@@ -14,14 +17,14 @@ class SuggestedTileStatusMailer < ActionMailer::Base
 
 	def posted(demo_id, user_id, tile_id)
 		set_vars(demo_id, user_id, tile_id, 
-						 "Your Tile Has Been Posted!",
+						POSTED,
 						 "The administrator has posted your Tile. You can see how many people have viewed and completed the Tile" ) 
 		sendit
 	end
 
 	def archived(demo_id, user_id, tile_id)
 		set_vars(demo_id, user_id, tile_id, 
-						 "Your Tile Has Been Archived", 
+						 ARCHIVED, 
 						 "The administrator has taken your Tile down from the Board. You can see the total number of people that have viewed and completed the Tile.") 
 		sendit
 	end
