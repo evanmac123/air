@@ -2,7 +2,8 @@ class TileStatusChangeManager
 
   def initialize tile
 		@tile = tile
-
+		@demo_id = tile.demo.id
+		@user_id = tile.original_creator.id
 	end
 
 
@@ -16,7 +17,7 @@ class TileStatusChangeManager
 
 
   def send_acceptance_email
-   TileAc 
+		SuggestedTileStatusMailer.delay.accepted(@demo_id,@user_id,@user_id)
 	end
 
 
