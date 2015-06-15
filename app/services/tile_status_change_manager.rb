@@ -2,13 +2,11 @@ class TileStatusChangeManager
 
   def initialize tile
 		@tile = tile
-		@demo_id = tile.demo.id
-		@user_id = tile.original_creator.id
 	end
 
 
   def process
-		if tile_approved 
+		if tile_approved?
 			send_acceptance_email
 		end
 	end
@@ -17,12 +15,12 @@ class TileStatusChangeManager
 
 
   def send_acceptance_email
-		SuggestedTileStatusMailer.delay.accepted(@demo_id,@user_id,@user_id)
+		SuggestedTileStatusMailer.delay.accepted(@tile.demo.id,@tile.original_creator.id,@tile.id)
 	end
 
 
-	def tile_approved
-		[Tile::USER_SUBMITTED, Tile::DRAFT] == @tile.changes[:status]
+	def tile_approved?
+		@tile.original_creator && [Tile::USER_SUBMITTED, Tile::DRAFT] == @tile.changes[:status]
 	end
 
 end
