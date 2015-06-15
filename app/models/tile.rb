@@ -114,6 +114,10 @@ class Tile < ActiveRecord::Base
     self.status == USER_SUBMITTED
   end
 
+  def current_version_is_user_submitted?
+		!original_creator.nil?
+  end
+
   def ignored?
     self.status == IGNORED
   end
