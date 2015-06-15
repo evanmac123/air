@@ -1,13 +1,11 @@
 class SuggestedTilesController < ApplicationController
-  ALLOWED_STATES = [Tile::USER_SUBMITTED, Tile::USER_DRAFT].freeze
-
   def new
     get_tile_images
     @tile_builder_form = UserTileBuilderForm.new(current_user.demo)
   end
 
   def index
-    @draft_tiles = [TileCreationPlaceholder.new(new_suggested_tile_path)] + current_user.tiles.user_draft
+    @creation_placeholder = [TileCreationPlaceholder.new(new_suggested_tile_path)]
     @submitted_tiles = current_user.tiles.user_submitted
     @accepted_tiles = current_user.tiles.draft
     @posted_tiles = current_user.tiles.active
@@ -26,26 +24,13 @@ class SuggestedTilesController < ApplicationController
                           )
     
     if @tile_builder_form.create_tile
-      flash[:success] = "Tile created! We're resizing the graphics, which usually takes less than a minute."
-      #redirect_to suggested_tile_path(@tile_builder_form.tile)
+      set_success_flash
       redirect_to suggested_tile_path(@tile_builder_form.tile)
     else
       flash.now[:failure] = @tile_builder_form.error_message
       get_tile_images
       render "new"
     end
-  end
-
-  def update
-    get_tile
-    new_status = params[:update_status]
-    if can_update_to_status?(new_status)
-      @tile.status = new_status
-      @tile.save!
-      set_success_flash(new_status)
-    end
-
-    redirect_to suggested_tiles_path
   end
 
   private
@@ -58,16 +43,7 @@ class SuggestedTilesController < ApplicationController
     @tile = current_user.tiles.find(params[:id])
   end
 
-  def can_update_to_status?(status)
-    ALLOWED_STATES.include? status
-  end
-
-  def set_success_flash(new_status)
-    flash[:success]= case new_status
-                     when Tile::USER_SUBMITTED
-                       "The administrator has been notified that you've submitted a Tile to the Suggestion Box. You'll be notified if your Tile is accepted."
-                     when Tile::USER_DRAFT
-                       "You have unsubmitted this Tile. It's now in your Drafts."
-                     end
+  def set_success_flash
+    flash[:success] = "The administrator has been notified that you've submitted a Tile to the Suggestion Box. You'll be notified if your Tile is accepted." 
   end
 end

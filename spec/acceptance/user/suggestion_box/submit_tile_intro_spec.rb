@@ -25,10 +25,6 @@ feature 'Sees submit tile intro' do
     page.find(".intojs-explainbutton")
   end
 
-  def info_icon
-    page.find("#info_submit_tile")
-  end
-
   context "on activity page" do
     before do
       visit activity_path(as: user)
@@ -53,17 +49,6 @@ feature 'Sees submit tile intro' do
       expect_content modal_header
       page.find(".submit").click 
       current_path.should == suggested_tiles_path
-    end
-  end
-
-  context "on suggested_tiles page" do
-    before do
-      visit suggested_tiles_path(as: user)
-    end
-
-    it "should show modal", js: true do
-      info_icon.click
-      expect_content modal_header
     end
   end
 end

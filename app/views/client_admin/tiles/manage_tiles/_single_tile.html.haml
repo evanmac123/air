@@ -10,12 +10,6 @@
               = presenter.headline
           %div.shadow_overlay
       %ul.tile_buttons
-        - if presenter.has_submit_button?
-          %li.submit_button
-            = link_to 'Submit', suggested_tile_path(presenter, update_status: Tile::USER_SUBMITTED), method: :put
-        - if presenter.has_unsubmit_button?
-          %li.unsubmit_button
-            = link_to 'Unsubmit', suggested_tile_path(presenter, update_status: Tile::USER_DRAFT), method: :put
         - if presenter.has_archive_button?
           %li.archive_button
             = link_to 'Archive', client_admin_tile_path(presenter, update_status: Tile::ARCHIVE), method: :put
