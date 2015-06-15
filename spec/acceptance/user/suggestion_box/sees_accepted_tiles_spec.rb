@@ -25,8 +25,6 @@ feature "Sees their accepted tiles" do
         visit suggested_tiles_path(as: user)
         within(section_id) {click_link tile.headline}
         should_be_on suggested_tile_path(tile)
-
-        expect_content "This Tile can't be edited because it's been accepted by the Administrator."
       end
     end
 

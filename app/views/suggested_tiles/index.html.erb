@@ -1,4 +1,4 @@
-<%= render 'section', section_id: 'draft_tiles', header_text: 'Draft', tooltip_id: 'info_submit_tile', wrapper_id: 'draft', tiles: @draft_tiles, type: :user_draft %>
+<%= render 'section', section_id: 'creation', suppress_header: true, wrapper_id: 'draft', tiles: @creation_placeholder, type: :user_draft %>
 
 <%= render 'section', section_id: "submitted_tiles", header_text: "Submitted", tooltip_id: "info_submitted_tile", wrapper_id: "submitted", tiles: @submitted_tiles, type: :user_submitted %>
 

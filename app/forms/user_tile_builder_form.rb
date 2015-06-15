@@ -8,6 +8,6 @@ class UserTileBuilderForm < TileBuilderForm
   end
 
   def newly_built_tile_status
-    Tile::USER_DRAFT  
+    Tile::USER_SUBMITTED
   end
 end
