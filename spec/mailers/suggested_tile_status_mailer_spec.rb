@@ -35,5 +35,42 @@ describe SuggestedTileStatusMailer do
 	end
 
 
+	describe "#posted" do
+
+		let(:mail) {SuggestedTileStatusMailer.posted(demo.id, user.id, tile.id) }
+
+		it 'renders the subject' do
+			expect(mail.subject).to eql(SuggestedTileStatusMailer::POSTED)
+		end
+
+		it 'renders the receiver email' do
+			expect(mail.to).to eql([user.email])
+		end
+
+		it 'has correct link' do
+			expect(mail.body.encoded).to match(suggested_tiles_url)
+		end
+
+	end
+
+	describe "#archived" do
+
+		let(:mail) {SuggestedTileStatusMailer.posted(demo.id, user.id, tile.id) }
+
+		it 'renders the subject' do
+			expect(mail.subject).to eql(SuggestedTileStatusMailer::POSTED)
+		end
+
+		it 'renders the receiver email' do
+			expect(mail.to).to eql([user.email])
+		end
+
+		it 'has correct link' do
+			expect(mail.body.encoded).to match(suggested_tiles_url)
+		end
+
+	end
+
+
 end
 
