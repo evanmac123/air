@@ -461,6 +461,8 @@ end
 private
 
 def handle_status_change
-	TileStatusChangeManager.new(self).process
+	if changed.map(&:to_sym).include? :status
+		TileStatusChangeManager.new(self).process
+	end
 end
 
