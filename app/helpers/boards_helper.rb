@@ -32,4 +32,8 @@ module BoardsHelper
       ""
     end
   end
+
+  def invite_friends_placeholder
+    "Type Name" + (current_user.demo.is_public? ? " or Email" : "")
+  end
 end

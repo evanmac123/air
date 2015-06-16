@@ -4,31 +4,21 @@
       e.preventDefault();
       $.facebox.close();
     });
-    
-
 .invite{:id => 'invite_friends'}
   #search_for_friends_to_invite
     #invite_friends_top
       %h3#invite_your_friends_title Invite
-      
       %p#why_invite Earn 5 points for each one that joins and gives you credit for recruiting them.
       #points_per_referral= current_user.demo.game_referrer_bonus
-
     #invite_friends_middle
-  
-
       %ul.form-section
         %li.form-label= label_tag :autocomplete,  "Who do you want to invite?"
-        %li.form-input= text_field_tag :autocomplete, nil, :autocomplete => "off", placeholder: 'Type name'
-
+        %li.form-input= text_field_tag :autocomplete, nil, :autocomplete => "off", placeholder: invite_friends_placeholder
       #autocomplete_status.small_cap{:style => "width: 99%"}
       -# leave this inline. yes, I know it's bad and wrong. but do it.
       -# it helps fix the scroll problems in ios7 and doesn't seem to work
       -# if included via an actual stylesheet
-
       #potential_bonus_points{:style => "display: none;"} 0
-
-
     #invite_friends_bottom 
       #suggestions
         .clear

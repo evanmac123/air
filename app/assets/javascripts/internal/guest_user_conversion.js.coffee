@@ -74,7 +74,12 @@ conversionStartCallback = (event) ->
 conversionResponseCallback = (event, data) ->
   hideSpinner()
   if data.status == 'success'
-    window.location.href = "/activity"
+    tile_id = $("[data-current-tile-id]").data("current-tile-id")
+    if tile_id
+      href = '/tiles/' + tile_id
+    else
+      href = "/activity"
+    window.location.href = href
   else
     displayErrors data.errors
 

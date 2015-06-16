@@ -276,7 +276,7 @@ feature 'Guest user is prompted to convert to real user' do
     def local_setup
       setup_before_visit
       visit public_board_path(public_slug: board.public_slug)
-      click_link "Save Progress"
+      click_link "Sign Up"
       wait_for_conversion_form
 
       fill_in_conversion_name "Jimmy Jones"
@@ -291,7 +291,7 @@ feature 'Guest user is prompted to convert to real user' do
       def local_setup
         setup_before_visit
         visit public_board_path(public_slug: board.public_slug)
-        click_link "Save Progress"
+        click_link "Sign Up"
         wait_for_conversion_form
 
         fill_in_conversion_name "Jimmy Jones"
@@ -463,7 +463,7 @@ feature 'Guest user is prompted to convert to real user' do
         @board.update_attributes(use_location_in_conversion: true)
 
         visit public_board_path(public_slug: board.public_slug)
-        click_link "Save Progress"
+        click_link "Sign Up"
         wait_for_conversion_form
 
         fill_in_conversion_name "Jim Jones"
