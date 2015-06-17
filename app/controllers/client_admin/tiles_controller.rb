@@ -17,7 +17,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
     @allowed_to_suggest_users = @demo.users_that_allowed_to_suggest_tiles
 
-    @board_is_brand_new = @demo.tiles.limit(1).first.nil?
+    intro_flags_index
+
     @accepted_tile = Tile.find(session.delete(:accepted_tile_id)) if session[:accepted_tile_id]
     record_index_ping
   end
@@ -99,6 +100,17 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
   
   private
+
+  def intro_flags_index
+    @board_is_brand_new = @demo.tiles.limit(1).first.nil?
+    @show_suggestion_box_intro =  if !@board_is_brand_new &&
+                                     !current_user.suggestion_box_intro_seen
+
+                                    current_user.suggestion_box_intro_seen = true
+                                    current_user.save
+                                  end
+    @show_suggestion_box_prompt = !@board_is_brand_new && !current_user.suggestion_box_prompt_seen
+  end
 
   def show_submitted_tile_menu_intro
     if !current_user.submitted_tile_menu_intro_seen && @tile.suggested?

@@ -1,0 +1,38 @@
+<div id="suggestion_box_help_modal" class="reveal-modal" data-reveal>
+  <div class="main_text">
+    <h2>How the Suggestions Box works</h2>
+    <p>The Suggestion Box helps you gather ideas for Tiles from users in your Board.</p>
+    <ol>
+      <li>
+        Select who can access Suggestion Box.
+      </li>
+      <li>The next time they log in, they'll be a prompt to submit a Tile.</li>
+      <li>If a Tile is submitted, you'll receive a notification to review it.</li>
+      <li>If you accept a Tile, the User will be notified.</li>
+    </ol>
+    <p>
+      Here's a handy
+      <%= link_to 'overview video', '#', id: 'overview_video' %>.
+      Have questions?
+      <%= link_to 'Ask Us', '#', id: 'ask_us' %>.
+    </p>
+  </div>
+  <div class='control_buttons'>
+    <%= link_to "#", class: "submit" do %>
+      <%= fa_icon 'user' %>
+      <span>Pick Users</span>
+    <% end %>
+
+    <%= link_to 'Close', "#", class: "close" %>
+  </div>
+
+  <a href="" class="close-reveal-modal">×</a>
+</div>
+
+<% content_for :javascript do %>
+  <%= javascript_tag do %>
+    $().ready(function(){
+      window.suggestionBoxHelpModal();
+    });
+  <% end %>
+<% end %>

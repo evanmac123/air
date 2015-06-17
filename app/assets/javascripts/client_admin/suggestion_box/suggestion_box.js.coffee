@@ -62,6 +62,9 @@ tileVisibility = (tile, action) ->
     tile.remove()
   window.updateTilesAndPlaceholdersAppearance()
 
+removeNewTileTip = ->
+  $(".joyride-tip-guide.tile").remove()
+
 window.acceptModalForTileFromPreviewPage = (url) ->
   window.accessActionParams =
     url: url
@@ -74,6 +77,7 @@ window.suggestionBox = ->
     showSection('draft')
 
   boxTitle().click ->
+    removeNewTileTip()
     showSection('box') 
   #
   # => Accept Tile Modal

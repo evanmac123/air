@@ -1,0 +1,24 @@
+@mixin right-pip($size, $border-color, $bg-color) {
+  &:before {
+    content: " ";
+    border: solid $size;
+    border-color: transparent transparent transparent $border-color;
+    left: auto;
+    right: -($size * 2);
+    top: 50%;
+    margin-top: -$size;
+    display: block;
+    position: absolute;
+  }
+  &:after {
+    content: " ";
+    border: solid $size;
+    border-color: transparent transparent transparent $bg-color;
+    left: auto;
+    right: 1px - $size * 2;
+    top: 50%;
+    margin-top: -$size;
+    display: block;
+    position: absolute;
+  }
+}

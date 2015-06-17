@@ -152,4 +152,12 @@ module ClientAdmin::TilesHelper
     end
     show ? 'display' : 'none'
   end
+
+  def suggestion_box_intro_params(show)
+    if show 
+      {intro: "Give the people ability to create Tiles and submit them for your review."}
+    else
+      {}
+    end
+  end
 end

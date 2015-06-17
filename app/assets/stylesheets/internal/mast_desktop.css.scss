@@ -336,7 +336,7 @@ header {
   font-size: 14px;
   margin-right: 15px;
 }
-.submit_tile_intro {
+.suggestion_box_intro, .submit_tile_intro {
   .introjs-tooltipbuttons {
     text-align: left;
   }
@@ -346,7 +346,7 @@ header {
   }
 }
 
-#submit_tile_modal {
+#suggestion_box_help_modal, #submit_tile_modal {
   @include with-lists;
   background: $white;
   width: 55%;
