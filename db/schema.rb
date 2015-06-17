@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150604010815) do
+ActiveRecord::Schema.define(:version => 20150610154652) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -768,6 +768,7 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
     t.boolean  "is_sharable",             :default => false, :null => false
     t.integer  "tile_completions_count",  :default => 0
     t.integer  "explore_page_priority"
+    t.integer  "views",                   :default => 0
     t.integer  "unique_viewings_count",   :default => 0,     :null => false
     t.integer  "total_viewings_count",    :default => 0,     :null => false
     t.integer  "user_tile_copies_count",  :default => 0
@@ -951,7 +952,10 @@ ActiveRecord::Schema.define(:version => 20150604010815) do
     t.boolean  "allowed_to_make_tile_suggestions",                    :default => false,       :null => false
     t.boolean  "submitted_tile_menu_intro_seen",                      :default => false,       :null => false
     t.boolean  "submit_tile_intro_seen",                              :default => false,       :null => false
+    t.boolean  "suggestion_box_intro_seen",                           :default => false,       :null => false
+    t.boolean  "suggestion_box_prompt_seen",                          :default => false,       :null => false
     t.boolean  "send_weekly_activity_report",                         :default => true
+    t.boolean  "user_submitted_tile_intro_seen",                      :default => false,       :null => false
   end
 
   add_index "users", ["cancel_account_token"], :name => "index_users_on_cancel_account_token"

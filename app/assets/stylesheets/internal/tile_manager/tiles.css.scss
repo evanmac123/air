@@ -311,18 +311,32 @@ body.suggested_tiles-index {
     @include switch-size(16px, 9px, 2.3em);
   }
   .suggestion_box_header {
-    .help, .manage_access, h3, .ideas_prompt {
+    .help, .manage_access, #suggestion_box_title, .ideas_prompt {
       float: right;
       cursor: pointer;
     }
-    h3 {
-      margin-top: 1px;
+    #user_submitted_tiles_counter {
+      @include font-regular;
+      font-size: 12px;
+      color:$sky-blue;
+      border: 1px solid $sky-blue;
+      border-radius: 3px;
+      display: inline-block;
+      min-width: 20px;
+      text-align: center;
+    }
+    #suggestion_box_title {
+      margin-top: -4px;
+      h3 {
+        display: inline-block;
+      }
     }
     .help, .manage_access {
       @include font-regular;
       font-size: 12px;
       color:$med-gray;
-      padding-right: 25px;
+      padding-right: 20px;
+      margin-top: -3px;
     }
     .ideas_prompt {
       @include font-regular;

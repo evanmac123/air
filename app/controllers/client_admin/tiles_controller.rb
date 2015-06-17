@@ -14,6 +14,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @archive_tiles = (@demo.archive_tiles_with_placeholders)[0,4]
     @draft_tiles = @demo.draft_tiles_with_placeholders
     @suggested_tiles = @demo.suggested_tiles_with_placeholders
+    @user_submitted_tiles_counter = @demo.tiles.user_submitted.count
 
     @allowed_to_suggest_users = @demo.users_that_allowed_to_suggest_tiles
 
@@ -110,6 +111,14 @@ class ClientAdmin::TilesController < ClientAdminBaseController
                                     current_user.save
                                   end
     @show_suggestion_box_prompt = !@board_is_brand_new && !current_user.suggestion_box_prompt_seen
+    @user_submitted_tile_intro =  if  params[:user_submitted_tile_intro] && 
+                                      !current_user.user_submitted_tile_intro_seen &&
+                                      @demo.tiles.user_submitted.first.present? &&
+                                      !@board_is_brand_new && !@show_suggestion_box_intro
+
+                                    current_user.user_submitted_tile_intro_seen = true
+                                    current_user.save
+                                  end
   end
 
   def show_submitted_tile_menu_intro

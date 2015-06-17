@@ -212,6 +212,7 @@ Health::Application.routes.draw do
   resource :logged_in_user_password, :only => [:update]
 
   resources :thumbnails, :only => [:index]
+  resources :submitted_tile_notifications, only: [:index]
 
   resources :potential_user_conversions, :only => [:create]
   resources :guest_user_conversions, :only => [:create]

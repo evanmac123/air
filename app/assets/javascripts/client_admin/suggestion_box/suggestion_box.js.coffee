@@ -95,6 +95,9 @@ window.suggestionBox = ->
       ajax: true
     acceptingTileVisibility("hide")
 
+  updateUserSubmittedTilesCounter = ->
+    $("#user_submitted_tiles_counter").html submittedTile().length
+
   acceptTileFromPreviewPage = ->
     if window.accessActionParams["undo"]
       $.ajax
@@ -119,6 +122,7 @@ window.suggestionBox = ->
             acceptingTileVisibility("remove")
             $(".creation_placeholder").after data.tile
             window.updateTilesAndPlaceholdersAppearance()
+            updateUserSubmittedTilesCounter()
           else
             acceptingTileVisibility("show")
 
@@ -164,6 +168,7 @@ window.suggestionBox = ->
         if data.success
           tileVisibility tile, "remove"
           insertIgnoredTile data.tile
+          updateUserSubmittedTilesCounter()
         else
           tileVisibility tile, "show"
 
@@ -193,6 +198,7 @@ window.suggestionBox = ->
         if data.success
           tileVisibility tile, "remove"
           insertUserSubmittedTile data.tile
+          updateUserSubmittedTilesCounter()
         else
           tileVisibility tile, "show"
 
