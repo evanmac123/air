@@ -414,6 +414,11 @@ body.suggested_tiles-index {
       }
     }
     .specific_users_section {
+      &.has_users {
+        .help_text {
+          display: none;
+        }
+      }
       #name_substring {
         width: 100%;
         margin-bottom: 20px;
@@ -423,8 +428,19 @@ body.suggested_tiles-index {
           display: none;
         }
       }
+      .help_text {
+        @include regular-text;
+        p {
+          line-height: 2;
+        }
+        a {
+          font-weight: 400;
+          color: $sky-blue;
+        }
+      }
       table#allowed_to_suggest_users {
         border-top: 1px solid #ddd;
+        margin: 0;
         td {
           @include regular-text;
           padding: 1em 0.5em;

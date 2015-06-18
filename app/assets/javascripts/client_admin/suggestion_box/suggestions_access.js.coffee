@@ -31,6 +31,9 @@ cancelBtn = ->
 controlButtonsBlock = ->
   $('.control_buttons')
 
+userRows = ->
+  $(".allowed_to_suggest_user")
+
 userRow = (userId) ->
   $(".allowed_to_suggest_user[data-user-id=#{userId}]")
 
@@ -167,8 +170,15 @@ window.suggestionsAccess = (withModalEvents = true) ->
     saveBtn().removeAttr("disabled")
     window.needToBeSaved = true
 
+  specificUsersChanged = ->
+    if userRows().length > 0
+      specificUsers().addClass("has_users")
+    else
+      specificUsers().removeClass("has_users")
+
   formChanged = ->
     unblockSaveBtn()
+    specificUsersChanged()
 
   turnSaveBtnSpinner = (action = 'on') ->
     if action == 'on'
@@ -207,3 +217,4 @@ window.suggestionsAccess = (withModalEvents = true) ->
   # => Initialization
   #
   #triggerModal('open')
+  bindIntercomOpen ".contact_airbo"

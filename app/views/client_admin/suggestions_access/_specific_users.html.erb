@@ -1,8 +1,17 @@
-<div class="specific_users_section" style="display:<%= display_specific_users ? 'block' : 'none' %>;">
+<% specific_users_class = users.present? ? "has_users" : "" %>
+<div class="specific_users_section <%= specific_users_class %>" style="display:<%= display_specific_users ? 'block' : 'none' %>;">
   <div id="name_search">
     <%= text_field_tag 'name_substring', nil, placeholder: "Enter first or last name" %>
     <div id="name_autocomplete_target"></div>
   </div>
-
   <%= render partial: 'client_admin/allowed_to_suggest_users/users', locals: { users: users } %>
+  <div class="help_text">
+    <p>
+      Type the name of an user above to give him or her access to your Suggestion Box.
+    </p>
+    <p>
+      Not sure how it works?
+      <%= link_to 'Contact us', '', class: "contact_airbo" %>.
+    </p>
+  </div>    
 </div>
