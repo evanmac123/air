@@ -71,7 +71,7 @@ describe Tile do
 	context "status changes" do
 		let(:user){FactoryGirl.create(:user)}
 		let(:demo) { FactoryGirl.create :demo }
-		let(:tile) { FactoryGirl.create :multiple_choice_tile, status: Tile::USER_SUBMITTED, demo: demo, original_creator: user }
+		let(:tile) { FactoryGirl.create :multiple_choice_tile, status: Tile::USER_SUBMITTED, demo: demo, creator: user, user_created: true }
 
 		it "triggers status change manager if status has changed" do
 			tile.status = Tile::DRAFT
@@ -83,6 +83,11 @@ describe Tile do
 			tile.question = "2B || !2B" 
 			TileStatusChangeManager.any_instance.expects(:process).never
 			tile.save
+		end
+
+		it "triggers status change manager on creation " do
+			TileStatusChangeManager.any_instance.expects(:process)
+			FactoryGirl.create :multiple_choice_tile, status: Tile::USER_SUBMITTED, demo: demo, creator: user, user_created: true 
 		end
 	end
 
