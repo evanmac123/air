@@ -6,10 +6,10 @@ class SuggestedTilesController < ApplicationController
 
   def index
     @creation_placeholder = [TileCreationPlaceholder.new(new_suggested_tile_path)]
-    @submitted_tiles = current_user.tiles.user_submitted
-    @accepted_tiles = current_user.tiles.draft
-    @posted_tiles = current_user.tiles.active
-    @archived_tiles = current_user.tiles.archived
+    @submitted_tiles = Demo.add_placeholders current_user.tiles.user_submitted
+    @accepted_tiles = Demo.add_placeholders current_user.tiles.draft
+    @posted_tiles = Demo.add_placeholders current_user.tiles.active
+    @archived_tiles = Demo.add_placeholders current_user.tiles.archived
   end
 
   def show

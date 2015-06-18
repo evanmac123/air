@@ -21,7 +21,7 @@ module TilePreview
             action_button_class.new(tile.id),
             TilePreview::MenuItem::Edit.new(tile.id, tag),
             TilePreview::MenuItem::Delete.new(tile.id, destroy_tile_message_params),
-            TilePreview::MenuItem::New.new(tag)
+            TilePreview::MenuItem::New.new(new_client_admin_tile_path(path: tag))
           ]
         elsif user_submitted?
           menu_cells << TilePreview::IntroWrapper::ClientAdmin.new([

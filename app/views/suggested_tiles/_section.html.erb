@@ -1,19 +1,18 @@
 <% suppress_header ||= false %>
 
-<% unless tiles.empty? %>
-  <section class="manage_tiles" id="<%= section_id %>">
-    <div class="row">
-      <div class="large-12 columns">
-        <% unless suppress_header %>
-          <h4>
-            <span><%= header_text %></span>
-            <%= fa_icon "question-circle", id: tooltip_id %>
-          </h4>
-        <% end %>
-        <div class="manage_section" id="<%=wrapper_id %>">
-          <%= render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: {tiles: tiles, type: type} %>
-        </div>
+<section class="manage_tiles" id="<%= section_id %>">
+  <div class="row">
+    <div class="large-12 columns">
+      <% unless suppress_header %>
+        <h4>
+          <span><%= header_text %></span>
+          <%= fa_icon "question-circle", id: tooltip_id %>
+        </h4>
+      <% end %>
+      <div class="manage_section" id="<%=wrapper_id %>">
+        <%= render partial: 'client_admin/tiles/manage_tiles/no_tiles_section', locals: {display_no_tiles_section: tiles.empty? } %>
+        <%= render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: {tiles: tiles, type: type} %>
       </div>
     </div>
-  </section>
-<% end %>
+  </div>
+</section>

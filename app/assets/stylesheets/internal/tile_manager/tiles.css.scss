@@ -214,7 +214,7 @@ body.suggested_tiles-index {
     box-shadow: 0px 1px 6px 1.2px $med-gray;
   }
   #submitted_tiles, #accepted_tiles, #posted_tiles, #archived_tiles {
-    box-shadow: 0px -3px 2px 1.2px $med-gray;
+    box-shadow: 0px -6px 7px -5.8px $med-gray;
   }
   #archived_tiles {
     padding:2em 0 0 0;
@@ -225,12 +225,14 @@ body.suggested_tiles-index {
   header {
     margin-bottom: 1px;
   }
-  #draft_tiles {
-    margin-top: 0;
+  #creation {
     padding-top: 2em;
   } 
   #info_submit_tile {
     cursor: pointer;
+  }
+  .creation-placeholder a {
+    color: $off-white !important;
   }
 }
 

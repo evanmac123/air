@@ -92,30 +92,30 @@ class Demo < ActiveRecord::Base
   end
 
   def archive_tiles_with_placeholders
-    add_odd_row_placeholders! archive_tiles
+    self.class.add_odd_row_placeholders! archive_tiles
   end
 
   def archive_tiles_with_placeholders_and_pagination(page)
-    add_odd_row_placeholders! archive_tiles.page(page).per(12)
+    self.class.add_odd_row_placeholders! archive_tiles.page(page).per(12)
   end
 
   def active_tiles_with_placeholders
-    add_odd_row_placeholders! active_tiles
+    self.class.add_odd_row_placeholders! active_tiles
   end
 
   def draft_tiles_with_placeholders
-    add_odd_row_placeholders! draft_tiles_with_creation_placeholder
+    self.class.add_odd_row_placeholders! draft_tiles_with_creation_placeholder
   end
 
   def suggested_tiles_with_placeholders
-    add_odd_row_placeholders! suggested_tiles
+    self.class.add_odd_row_placeholders! suggested_tiles
   end
 
   def draft_tiles_with_creation_placeholder
     [TileCreationPlaceholder.new] + draft_tiles
   end
 
-  def add_placeholders tiles
+  def self.add_placeholders tiles
     add_odd_row_placeholders! tiles
   end
 
@@ -420,7 +420,7 @@ class Demo < ActiveRecord::Base
     self.user_ids.each {|user_id| User.find(user_id).send(:schedule_segmentation_update, true)}
   end
 
-  def add_odd_row_placeholders!(tiles)
+  def self.add_odd_row_placeholders!(tiles)
     odd_row_length = tiles.length % 4
     placeholders_to_add = odd_row_length == 0 ? 0 : 4 - odd_row_length
 
