@@ -10,4 +10,9 @@ class UserTileBuilderForm < TileBuilderForm
   def newly_built_tile_status
     Tile::USER_SUBMITTED
   end
+
+	def build_tile
+		super
+		tile.user_created = true
+	end
 end
