@@ -48,14 +48,12 @@ class Tile < ActiveRecord::Base
   validates_length_of :headline, maximum: 75, message: "headline is too long (maximum is 75 characters)"
   validates_with RawTextLengthInHTMLFieldValidator, field: :supporting_content, maximum: 450, message: "supporting content is too long (maximum is 450 characters)"
 
-  before_save :ensure_protocol_on_link_address
+  before_save :ensure_protocol_on_link_address, :handle_status_change
 
   has_alphabetical_column :headline
 
   before_post_process :no_post_process_on_copy
 
-	before_update :handle_status_change
-  
   scope :activated, -> {where(status: ACTIVE)}
   scope :archived, -> {where(status: ARCHIVE)}
   # Custom Attribute Setter: ensure that setting/updating the 'status' updates the corresponding time-stamp
@@ -114,9 +112,6 @@ class Tile < ActiveRecord::Base
     self.status == USER_SUBMITTED
   end
 
-  def current_version_is_user_submitted?
-		!original_creator.nil?
-  end
 
   def ignored?
     self.status == IGNORED
@@ -465,8 +460,10 @@ end
 private
 
 def handle_status_change
-	if changed.map(&:to_sym).include? :status
+	if changed.map(&:to_sym).include?(:status)
 		TileStatusChangeManager.new(self).process
 	end
 end
+
+
 
