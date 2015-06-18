@@ -1,4 +1,5 @@
 <% suppress_header ||= false %>
+<% tooltip_params ||= {} %>
 
 <section class="manage_tiles" id="<%= section_id %>">
   <div class="row">
@@ -6,7 +7,7 @@
       <% unless suppress_header %>
         <h4>
           <span><%= header_text %></span>
-          <%= fa_icon "question-circle", id: tooltip_id %>
+          <%= fa_icon "question-circle", tooltip_params %>
         </h4>
       <% end %>
       <div class="manage_section" id="<%=wrapper_id %>">
