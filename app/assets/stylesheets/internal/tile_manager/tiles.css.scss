@@ -512,3 +512,21 @@ body.suggested_tiles-index {
     }
   }
 }
+
+body.client_admin-tiles-index {
+  .joyride-tip-guide.tile {
+    .joyride-nub.bottom {
+      &:before {
+        content: " ";
+        position: absolute;
+        border: 14px solid $lightest-gray !important;
+        border-bottom-color: transparent !important;
+        border-left-color: transparent !important;
+        border-right-color: transparent !important;
+        bottom: -18px;
+        left: -14px;
+        z-index: -1;
+      }
+    }
+  }
+}

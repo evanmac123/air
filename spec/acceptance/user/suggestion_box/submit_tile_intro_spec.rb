@@ -18,7 +18,7 @@ feature 'Sees submit tile intro' do
   end
 
   def modal_header
-    "Submit a Tile to Suggestions Box"
+    "Submit a Tile to Suggestion Box"
   end
 
   def explain_button
