@@ -1,4 +1,4 @@
-<%= render 'section', section_id: 'creation', suppress_header: true, wrapper_id: 'draft', tiles: @creation_placeholder, type: :user_draft %>
+<%= render 'section', section_id: 'creation', header_text: "Draft", tooltip_params: {id: "info_draft_tile"}, wrapper_id: 'draft', tiles: @creation_placeholder, type: :user_draft %>
 
 <%= render 'section', section_id: "submitted_tiles", header_text: "Submitted", tooltip_params: {id: "info_submitted_tile", data: {tooltip: true}, title: "Tiles you have submitted. If you have questions, contact us at support@airbo.com."}, wrapper_id: "submitted", tiles: @submitted_tiles, type: :user_submitted %>
 
