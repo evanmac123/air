@@ -25,6 +25,7 @@ gem "mixpanel_client"
 gem "newrelic_rpm"
 gem "mongoid"
 gem "bson_ext"
+gem "pundit"
 
 gem 'jquery-rails'
 gem 'jquery-validation-rails'
