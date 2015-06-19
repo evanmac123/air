@@ -27,10 +27,10 @@ class ApplicationController < ActionController::Base
 
   after_filter :merge_flashes
 
+	include Pundit
   include Clearance::Authentication
   include Mobvious::Rails::Controller
   include TrackEvent
-
   protect_from_forgery
 
   protected
