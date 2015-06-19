@@ -483,6 +483,8 @@ body.suggested_tiles-index {
         @include app-button($sky-blue);
         font-size: 14px;
         width: 100px;
+        margin-top: -2px;
+        height: 26px;
       }
       #cancel_suggestions_access {
         @include light-button($gray);
