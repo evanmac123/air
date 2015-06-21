@@ -53,10 +53,6 @@ feature "Sees their accepted tiles" do
     end
   end
 
-  context "in the draft (accepted but not yet posted) state" do
-    it_should_behave_like "a read-only view of the tiles", '#accepted_tiles', Tile::DRAFT
-  end
-
   context "in the posted state" do
     it_should_behave_like "a read-only view of the tiles", '#posted_tiles', Tile::ACTIVE
   end
