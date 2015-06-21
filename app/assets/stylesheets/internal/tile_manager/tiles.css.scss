@@ -515,6 +515,7 @@ body.suggested_tiles-index {
 
 body.client_admin-tiles-index {
   .joyride-tip-guide.tile {
+    z-index: 98;
     .joyride-nub.bottom {
       &:before {
         content: " ";
