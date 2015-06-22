@@ -233,13 +233,15 @@ body.suggested_tiles-index {
     padding-top: 2em;
     .help {
       @include font-regular;
-      font-size: 12px;
+      font-size: 13px;
       color:$med-gray;
       cursor: pointer;
-      padding-right: 80px;
       position: absolute;
-      top: 0;
-      right: 0;
+      top: -1px;
+      left: 91px;
+      i {
+        padding-left: 2px;
+      }
     }
   }
   .creation-placeholder a {
