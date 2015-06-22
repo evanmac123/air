@@ -3,7 +3,7 @@ class ClientAdmin::InactiveTilesController < ClientAdminBaseController
   def index
     @demo = current_user.demo
     @raw_tiles = current_user.demo.archive_tiles.page(params[:page]).per(PER_PAGE)
-    @archive_tiles = current_user.demo.add_placeholders @raw_tiles
+    @archive_tiles = Demo.add_placeholders @raw_tiles
   end
 
   def sort
