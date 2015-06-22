@@ -5,7 +5,7 @@ feature 'Client Admin uses menu on tile preview page of suggested tile' do
   include SuggestionBox
 
   let!(:demo) { FactoryGirl.create :demo }
-  let!(:client_admin) { FactoryGirl.create :client_admin, demo: demo }
+  let!(:client_admin) { FactoryGirl.create :site_admin, demo: demo }
 
   def menu_header
     page.find(".preview_menu_header")
