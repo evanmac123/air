@@ -1,8 +1,16 @@
 <% tooltip_params ||= {} %>
+<% help ||= false %>
 
 <section class="manage_tiles" id="<%= section_id %>">
   <div class="row">
     <div class="large-12 columns">
+      <% if help %>
+        <div class="help">
+          <i class="fa fa-info-circle"></i>
+          Help
+        </div>
+      <% end %>
+      
       <h4>
         <span><%= header_text %></span>
         <%= fa_icon "question-circle", tooltip_params %>

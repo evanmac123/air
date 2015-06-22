@@ -231,9 +231,16 @@ body.suggested_tiles-index {
   }
   #creation {
     padding-top: 2em;
-  } 
-  #info_draft_tile {
-    cursor: pointer;
+    .help {
+      @include font-regular;
+      font-size: 12px;
+      color:$med-gray;
+      cursor: pointer;
+      padding-right: 80px;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
   }
   .creation-placeholder a {
     color: $off-white !important;
