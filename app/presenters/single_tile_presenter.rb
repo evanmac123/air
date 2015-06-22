@@ -121,7 +121,8 @@ class SingleTilePresenter
       headline, 
       tile_completions_count, 
       total_views, 
-      unique_views
+      unique_views,
+      @as_admin
     ].join('-')
   end
 
