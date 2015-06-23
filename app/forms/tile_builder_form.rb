@@ -146,9 +146,9 @@ class TileBuilderForm
     Sanitize.fragment(
       @parameters[:supporting_content].strip, 
       elements: [
-        'ul', 'ol', 'li',    # lists
-        'b', 'i', 'u',       # text style
-        'span', 'div', 'p',  # blocks
+        'ul', 'ol', 'li',               # lists
+        'b', 'strong', 'i', 'em', 'u',  # text style
+        'span', 'div', 'p',             # blocks
         'br', 'a'
       ],
       attributes: { 'a' => ['href', 'target'] }
