@@ -1,4 +1,5 @@
 <% tooltip_params ||= {} %>
+<% help ||= false %>
 
 <section class="manage_tiles" id="<%= section_id %>">
   <div class="row">
@@ -7,6 +8,14 @@
         <span><%= header_text %></span>
         <%= fa_icon "question-circle", tooltip_params %>
       </h4>
+
+      <% if help %>
+        <div class="help">
+          Help
+          <i class="fa fa-info-circle"></i>
+        </div>
+      <% end %>
+
       <div class="manage_section" id="<%=wrapper_id %>">
         <%= render partial: 'client_admin/tiles/manage_tiles/no_tiles_section', locals: {display_no_tiles_section: tiles.empty? } %>
         <%= render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: {tiles: tiles, type: type} %>

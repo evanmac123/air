@@ -7,9 +7,10 @@ class SuggestedTilesController < ApplicationController
   def index
     @creation_placeholder = [TileCreationPlaceholder.new(new_suggested_tile_path)]
     @submitted_tiles = Demo.add_placeholders current_user.tiles.user_submitted
-    @accepted_tiles = Demo.add_placeholders current_user.tiles.draft
     @posted_tiles = Demo.add_placeholders current_user.tiles.active
     @archived_tiles = Demo.add_placeholders current_user.tiles.archived
+
+    user_action_ping "Suggestion Box Opened"
   end
 
   def show
@@ -26,6 +27,7 @@ class SuggestedTilesController < ApplicationController
     if @tile_builder_form.create_tile
       set_success_flash
       redirect_to suggested_tile_path(@tile_builder_form.tile)
+      user_action_ping "Tile Created"
     else
       flash.now[:failure] = @tile_builder_form.error_message
       get_tile_images
@@ -45,5 +47,9 @@ class SuggestedTilesController < ApplicationController
 
   def set_success_flash
     flash[:success] = "The administrator has been notified that you've submitted a Tile to the Suggestion Box. You'll be notified if your Tile is accepted." 
+  end
+
+  def user_action_ping action
+    ping('Suggestion Box', {user_action: action}, current_user)
   end
 end

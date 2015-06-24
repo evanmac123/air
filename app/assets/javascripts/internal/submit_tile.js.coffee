@@ -43,7 +43,7 @@ askUsSel = ->
   '#ask_us'
 
 infoIcon = ->
-  $("#info_draft_tile")
+  $("#creation .help")
 
 window.submitTileModal = ->
   bindIntercomOpen askUsSel()

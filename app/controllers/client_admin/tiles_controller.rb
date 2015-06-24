@@ -62,6 +62,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
     @show_share_section_intro = show_share_section_intro
     @show_submitted_tile_menu_intro = show_submitted_tile_menu_intro
+    tile_in_box_viewed_ping @tile
   end
 
   def edit
@@ -191,6 +192,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def update_status_js result
     if result
+      tile_in_box_updated_ping @tile
+
       render json: {
         success: true,
         tile: render_tile(@tile),

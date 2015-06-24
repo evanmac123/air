@@ -137,7 +137,9 @@ module ClientAdmin::TilesHelper
   end
 
   def draftSectionClass
-    if params[:show_suggestion_box].present?
+    if !policy(:board).tile_suggestion_enabled?
+      "suggestion_box_gated draft_selected"
+    elsif params[:show_suggestion_box].present?
       "suggestion_box_selected"
     else
       'draft_selected'

@@ -5,7 +5,7 @@ feature 'Client Admin uses menu on tile preview page of suggested tile' do
   include SuggestionBox
 
   let!(:demo) { FactoryGirl.create :demo }
-  let!(:client_admin) { FactoryGirl.create :client_admin, demo: demo }
+  let!(:client_admin) { FactoryGirl.create :site_admin, demo: demo }
 
   def menu_header
     page.find(".preview_menu_header")
@@ -46,6 +46,10 @@ feature 'Client Admin uses menu on tile preview page of suggested tile' do
 
     before do
       visit client_admin_tile_path(tile, as: client_admin)
+    end
+
+    it "should send ping" do
+      expect_ping 'Suggestion Box', {client_admin_action: "Tile Viewed"}, client_admin
     end
 
     it "should have right menu header" do
@@ -109,6 +113,10 @@ feature 'Client Admin uses menu on tile preview page of suggested tile' do
 
     before do
       visit client_admin_tile_path(tile, as: client_admin)
+    end
+
+    it "should send ping" do
+      expect_ping 'Suggestion Box', {client_admin_action: "Tile Viewed"}, client_admin
     end
 
     it "should have right menu header" do

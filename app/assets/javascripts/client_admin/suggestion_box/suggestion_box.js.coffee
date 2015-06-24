@@ -65,6 +65,9 @@ tileVisibility = (tile, action) ->
 removeNewTileTip = ->
   $(".joyride-tip-guide.tile").remove()
 
+ping = (action) ->
+  $.post "/ping", {event: 'Suggestion Box', properties: {client_admin_action: action}}
+
 window.acceptModalForTileFromPreviewPage = (url) ->
   window.accessActionParams =
     url: url
@@ -79,6 +82,7 @@ window.suggestionBox = ->
   boxTitle().click ->
     removeNewTileTip()
     showSection('box') 
+    ping("Suggestion Box Opened")
   #
   # => Accept Tile Modal
   #

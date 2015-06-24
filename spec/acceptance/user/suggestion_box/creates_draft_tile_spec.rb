@@ -3,6 +3,11 @@ require 'acceptance/acceptance_helper'
 feature 'Creates draft tile' do
   let(:user) {FactoryGirl.create(:user, allowed_to_make_tile_suggestions: true)}
 
+  it "should send ping on index page" do
+    visit suggested_tiles_path(as: user)
+    expect_ping 'Suggestion Box', {user_action: "Suggestion Box Opened"}, user
+  end
+
   it "should link properly from the tile to the appropriate edit page" do
     visit suggested_tiles_path(as: user)
     click_new_tile_placeholder
@@ -12,6 +17,7 @@ feature 'Creates draft tile' do
   it "should let them create and save a draft tile", js: true do
     visit new_suggested_tile_path(as: user)
     create_good_tile
+    expect_ping 'Suggestion Box', {user_action: "Tile Created"}, user
 
     Tile.count.should == 1
     tile = Tile.last
