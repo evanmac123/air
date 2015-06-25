@@ -22,78 +22,40 @@ body.client_admin-users {
       float:left;
       padding-right:.5em;
       width:50%;
-    }
-    .info-cols li {
-      padding-bottom:.75em;
-      #birthday-selects{
-        width: 91%;
-        margin:0;
-        &> *{
-          display:inline-block;
-          width: 32.2%;
-        }
-        label{
-          display: block;
-        }
+      li {
+        padding-bottom:.75em;
       }
     }
     input[type="text"] {
       width:90%;
     }
-    select {width:auto;}
-    #user-characteristics ul {
-      &:after{@include clear;}
-      li {
-        display:inline-block;
-        float:left;
-        margin:0 1.25em 0 0;
-        min-height:100px;
-        padding:1em 0 1em 0;
-        width:31%;
-        input, select {max-width:90%;}
-        label {
-          display:block; 
-          padding-bottom:.5em; 
-          width:100%; 
-          word-wrap:break-word;
-        }
-      }
-    }
-    #adding_location {
-      display:inline-block;
-      position: relative;
-      top:4px;
-      img {display:none;}
-    }
+    // select {width:auto;}
+    // #user-characteristics ul {
+    //   &:after{@include clear;}
+    //   li {
+    //     display:inline-block;
+    //     float:left;
+    //     margin:0 1.25em 0 0;
+    //     min-height:100px;
+    //     padding:1em 0 1em 0;
+    //     width:31%;
+    //     input, select {max-width:90%;}
+    //     label {
+    //       display:block; 
+    //       padding-bottom:.5em; 
+    //       width:100%; 
+    //       word-wrap:break-word;
+    //     }
+    //   }
+    // }
 
     // Add new user buttons
-    #confirm-add-user {
-      padding-top: 1em;
-      * {vertical-align: top;}
-      &:after{@include clear;}
-
-      li {
-        border:1px transparent solid;
-        display: inline-block;
-        vertical-align: middle;
-      }
-      #delete-user {
-        @include light-button($red);
-        display:inline-block;
-        vertical-align: middle; 
-      }
-      li#toggle-more-options a {
-        margin-right: 0.5em;
-      }
-      li#add-user-button input[type='submit'] {
-        @include light-button($med-gray);
-      }
-    }
-    .required_label {
-      color:$red;
-      font-size:.85em;
-    }
-    p.required_label {margin-bottom:1em;}
+    
+    // .required_label {
+    //   color:$red;
+    //   font-size:.85em;
+    // }
+    // p.required_label {margin-bottom:1em;}
   }
 
   input[type="submit"]#add-user {
@@ -106,18 +68,18 @@ body.client_admin-users {
 
   $upload-user-left-padding: 10px;
 
-  #upload-explanation {
-    font-size: 14px;
+  // #upload-explanation {
+  //   font-size: 14px;
 
-    p {
-      color: $text-color;
-      line-height: 1.5em;
-    }
+  //   p {
+  //     color: $text-color;
+  //     line-height: 1.5em;
+  //   }
 
-    #explanation-header {
-      font-weight: 900;
-    }
-  }
+  //   #explanation-header {
+  //     font-weight: 900;
+  //   }
+  // }
 
   .upload-half-width-section {
     min-height: 10em;
@@ -217,131 +179,110 @@ body.client_admin-users {
 
     border-bottom: solid 1px $med-gray;
   }
-}
 
-#find-users {
-  vertical-align: top;
-  h2.subhead {padding-bottom:.5em;}
-  input[type="text"]{width:100%;}
-}
+  #name-autocomplete-target {
+    .ui-state-hover {
+      // override standard jQuery UI background with our standard colors
+      background-color: $blue;
+      border-color: $blue;
+      background-image: none;
+    }
+  }
 
-#show-everyone, #more-options {
-  display: block;
-  margin-top: 1em;
-  font-weight: 500;
-  color: $med-gray;
-  font-size: 12px;
-
-  &:hover {color: $blue;}
-}
-
-body.client_admin-users .breadcrumbs,
-body.client_admin-tile_completions .breadcrumbs {
-  position:relative;
-  top:-1.75em;
-  margin-top: 2em;
-}
-
-#add-single-user {
-  input[type="text"] {
-    width: 100%;
+  .select-section {
     margin-bottom: 1em;
   }
+
+  #find-users {
+    vertical-align: top;
+    h2.subhead {padding-bottom:.5em;}
+    input[type="text"]{width:100%;}
+  }
+
+  #show-everyone, #more-options {
+    display: block;
+    margin-top: 1em;
+    font-weight: 500;
+    color: $med-gray;
+    font-size: 12px;
+
+    &:hover {color: $blue;}
+  }
 }
 
-#new_location_lightbox {
-  @include lightbox;
-  label {
-    margin-bottom:.75em;
-    @include caption;
-  }
-  input[type="text"]{
-    float: left;
-    height: 29px;
-  }
-  input[type="submit"]{
-    float: none;
-    margin: 0;
-    margin-left: 1em;
+body.client_admin-users,
+body.client_admin-tile_completions { 
+  .breadcrumbs {
+    position:relative;
+    top:-1.75em;
+    margin-top: 2em;
   }
 }
-// ================== Survey chart   ==================
-table.survey-chart-table {
-  width:40%;
-  text-align:left;
-  td {
-    @include regular-text;
-    white-space: nowrap;
-    padding: .4em .5em;
-    background-color: white;
-  }
-  .answer { width:50%; }
-  .number, .percent {
-    min-width: 6em;
-    text-align: right;
-  }
-  th{
-    @extend h4;
-    background: transparent;
-    border-bottom: 1px solid #dfdfdf;
-    padding: .5em;
+
+body.client_admin-users {
+  #add-single-user {
+    input[type="text"] {
+      width: 100%;
+      margin-bottom: 1em;
+    }
   }
 }
-// ================== Search results ==================
-body.client_admin-users-show .headline span {font-style:italic;}
-#search-results-table {
-  margin-top:1em;
-  table-layout: fixed;
-  width:100%;
-  td {
-    @include regular-text;
-    border:0; 
-    vertical-align: top; 
-    word-wrap:break-word;
-  }
-  .results-name, .results-email {width:33%;}
-  .results-joined, .results-send-invite{
-    text-align:center;
-    width:6%;
-  }
-  .results-joined .joined, .results-joined .not-joined, .results-send-invite a {
-    @include hide-text;
-    background:image-url('client_admin/sprites.png') no-repeat transparent;
-    display:inline-block;
-    vertical-align: middle;
-  }
-  .results-joined .joined {
-    background-position: -58px -55px;
-    height:17px;
-    width:18px;
-  }
-  .results-joined .not-joined {
-    background-position: -77px -56px;
-    height:16px;
-    width:13px;
-  }
-  .results-send-invite a {
-    @include ease(0);
-    height:19px;
-    width:22px;
-    &.send-invite {
-      background-position: -30px -94px;
-      &:hover{background-position: -55px -94px;}
+body.client_admin-users-index {
+  // ================== Search results ==================
+  #search-results-table {
+    margin-top:1em;
+    table-layout: fixed;
+    width:100%;
+    td {
+      @include regular-text;
+      border:0; 
+      vertical-align: top; 
+      word-wrap:break-word;
     }
-    &.resend-invite {
-      background-position: -30px -75px;
-      &:hover{background-position:-56px -75px;}
+    .results-name, .results-email {width:33%;}
+    .results-joined, .results-send-invite{
+      text-align:center;
+      width:6%;
     }
-  }
-  #search-labels th {
-    border-bottom:$border-dark;
-    @extend h3;
-    padding:.5em;
-  }
-  .found-user {
-    background:$white;
-    border-bottom:$border-dark;
-    td {padding:1em .5em;}
+    .results-joined .joined, .results-joined .not-joined, .results-send-invite a {
+      @include hide-text;
+      background:image-url('client_admin/sprites.png') no-repeat transparent;
+      display:inline-block;
+      vertical-align: middle;
+    }
+    .results-joined .joined {
+      background-position: -58px -55px;
+      height:17px;
+      width:18px;
+    }
+    .results-joined .not-joined {
+      background-position: -77px -56px;
+      height:16px;
+      width:13px;
+    }
+    .results-send-invite a {
+      @include ease(0);
+      height:19px;
+      width:22px;
+      &.send-invite {
+        background-position: -30px -94px;
+        &:hover{background-position: -55px -94px;}
+      }
+      &.resend-invite {
+        background-position: -30px -75px;
+        &:hover{background-position:-56px -75px;}
+      }
+    }
+    #search-labels th {
+      border-bottom:$border-dark;
+      @extend h3;
+      padding:.5em;
+    }
+    .found-user {
+      background:$white;
+      border-bottom:$border-dark;
+      td {padding:1em .5em;}
+    }
   }
 }
 
@@ -349,63 +290,72 @@ body.client_admin-users-show .headline span {font-style:italic;}
 // ================== User profile ==================
 body.client_admin-users-edit, body.client_admin-users-update {
   .section {margin-bottom:2em;}
-  #toggle-more-options {display:none!important;}
-}
+  // #toggle-more-options {display:none!important;}
+  #loaded-user-data:after{@include clear;}
 
-#loaded-user-data:after{@include clear;}
-
-#about-this-account {
-  ul:after{@include clear;}
-  h2 {margin-bottom:1em;}
-  li {
-    margin-bottom:2em;
-    vertical-align:top;
-  }
-  .join-status {
-    display:block; 
-    font-size:1.125em; 
-    @include font-bold; 
-    line-height:1em;
-  }
-  .user-role {
-    display:block; 
-    font-size:1.125em; 
-    @include font-bold; 
-    line-height:1em;    
-  }
-  .user-role-select {
-    margin: .75em 0 0 0;
-    border-color: $light-gray;
+  #about-this-account {
+    ul:after{@include clear;}
+    h2 {margin-bottom:1em;}
     li {
-      margin-bottom: 0em;
+      margin-bottom:2em;
+      vertical-align:top;
     }
-    .selector:after {
-        content: "\f0d7"; 
-        font-family: FontAwesome;
-        font-style: normal;
-        font-weight: normal;
-        text-decoration: inherit;
-        border: none;
-        margin-top: 5px;
-        top: inherit;
-    }  
+    .join-status {
+      display:block; 
+      font-size:1.125em; 
+      @include font-bold; 
+      line-height:1em;
+    }
+    .user-role {
+      display:block; 
+      font-size:1.125em; 
+      @include font-bold; 
+      line-height:1em;    
+    }
+    .user-role-select {
+      margin: .75em 0 0 0;
+      border-color: $light-gray;
+      li {
+        margin-bottom: 0em;
+      }
+      .selector:after {
+          content: "\f0d7"; 
+          font-family: FontAwesome;
+          font-style: normal;
+          font-weight: normal;
+          text-decoration: inherit;
+          border: none;
+          margin-top: 5px;
+          top: inherit;
+      }  
+    }
+    #user-join-status a, #user-join-status a:link {
+      @include light-button($sky-blue);
+      display: inline-block;
+      margin:.75em 0 0 0;
+    }
   }
-  #user-join-status a, #user-join-status a:link {
-    @include light-button($sky-blue);
-    display: inline-block;
-    margin:.75em 0 0 0;
-  }
-}
 
-#name-autocomplete-target {
-  .ui-state-hover {
-    // override standard jQuery UI background with our standard colors
-    background-color: $blue;
-    border-color: $blue;
-    background-image: none;
-  }
-}
+  #confirm-add-user {
+    padding-top: 1em;
+    * {vertical-align: top;}
+    &:after{@include clear;}
 
-.select-section {
-  margin-bottom: 1em;
+    li {
+      border:1px transparent solid;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    #delete-user {
+      @include light-button($red);
+      display:inline-block;
+      vertical-align: middle; 
+    }
+    li#toggle-more-options a {
+      margin-right: 0.5em;
+    }
+    li#add-user-button input[type='submit'] {
+      @include light-button($med-gray);
+    }
+  }
 }

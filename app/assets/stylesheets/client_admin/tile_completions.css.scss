@@ -1,5 +1,5 @@
 $tile_completion_button_height: 2.0em;
-.client_admin-tile_completions {
+body.client_admin-tile_completions {
   .pagination_status {
     float: right;
     display: none;
@@ -27,7 +27,6 @@ $tile_completion_button_height: 2.0em;
       cursor: pointer;
     }
   }
-  
   #completions_grid {
     #tc_grid, #nc_grid {
       td.results-joined {
@@ -35,5 +34,27 @@ $tile_completion_button_height: 2.0em;
       }
     }
     .grid_no_record {margin:3em auto 0;}  
+  }
+  // ================== Survey chart   ==================
+  table.survey-chart-table {
+    width:40%;
+    text-align:left;
+    td {
+      @include regular-text;
+      white-space: nowrap;
+      padding: .4em .5em;
+      background-color: white;
+    }
+    .answer { width:50%; }
+    .number, .percent {
+      min-width: 6em;
+      text-align: right;
+    }
+    th{
+      @extend h4;
+      background: transparent;
+      border-bottom: 1px solid #dfdfdf;
+      padding: .5em;
+    }
   }
 }
