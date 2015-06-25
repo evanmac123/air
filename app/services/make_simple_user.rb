@@ -1,12 +1,27 @@
 class MakeSimpleUser
-  attr_reader :user_params, :demo, :email, :role, :existing_user
+  attr_reader :user_params, :demo, :email, :role, :existing_user, :current_user
 
-  def initialize user_params, demo
+  def initialize user_params, demo, current_user, user = nil
     @user_params = user_params
     @email = user_params[:email]
     @role = user_params[:role]
     @demo = demo
+    @current_user = current_user
     @existing_user = set_existing_user
+    @user = user if user
+  end
+
+  def update
+    role_was_changed = (role != user.role)
+    user.attributes = user_params
+    user.role = role
+    set_phone_number
+
+    user_saved = user.save
+    if user_saved
+      ping_if_made_client_admin(user, role_was_changed)
+    end
+    user_saved
   end
 
   def existing_user_in_board?
@@ -19,6 +34,8 @@ class MakeSimpleUser
       user.add_board(demo.id, is_new_user)
       set_role
       user.generate_unique_claim_code! unless user.claim_code.present?
+
+      ping_if_made_client_admin(user, user.is_client_admin)
     end
     user_saved
   end
@@ -32,6 +49,12 @@ class MakeSimpleUser
   end
 
   protected
+
+  def set_phone_number
+    if user.phone_number.present?
+      user.phone_number = PhoneNumber.normalize(user.phone_number)
+    end
+  end
 
   def set_existing_user
     if email.present? 
@@ -52,5 +75,11 @@ class MakeSimpleUser
 
   def is_new_user
     !existing_user.present?
+  end
+
+  def ping_if_made_client_admin(user, was_changed)
+    if user.is_client_admin && was_changed
+      TrackEvent.ping('Creator - New', {source: 'Client Admin'}, current_user)
+    end
   end
 end
