@@ -289,8 +289,6 @@ body.client_admin-users-index {
 
 // ================== User profile ==================
 body.client_admin-users-edit, body.client_admin-users-update {
-  .section {margin-bottom:2em;}
-  // #toggle-more-options {display:none!important;}
   #loaded-user-data:after{@include clear;}
 
   #about-this-account {
@@ -337,7 +335,6 @@ body.client_admin-users-edit, body.client_admin-users-update {
   }
 
   #confirm-add-user {
-    padding-top: 1em;
     * {vertical-align: top;}
     &:after{@include clear;}
 
@@ -350,6 +347,7 @@ body.client_admin-users-edit, body.client_admin-users-update {
       @include light-button($red);
       display:inline-block;
       vertical-align: middle; 
+      margin-left: 7px;
     }
     li#toggle-more-options a {
       margin-right: 0.5em;

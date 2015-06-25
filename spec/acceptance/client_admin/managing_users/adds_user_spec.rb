@@ -89,7 +89,6 @@ feature 'Adds user' do
   
   it 'should make user with user role', js: true do
     demo.users.count.should == 1 # just the admin
-
     fill_in_user_information
     page.find('select.user-role-select').select 'Administrator'
     click_button "Add User"

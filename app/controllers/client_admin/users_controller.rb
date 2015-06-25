@@ -9,7 +9,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
 
   # Attributes that admins are allowed to set
   # SETTABLE_USER_ATTRIBUTES = [:name, :email, :employee_id, :zip_code, :characteristics, :location_id, :"date_of_birth(1i)", :"date_of_birth(2i)", :"date_of_birth(3i)", :gender, :phone_number]
-  SETTABLE_USER_ATTRIBUTES = [:name, :email, :characteristics, :phone_number]
+  SETTABLE_USER_ATTRIBUTES = [:name, :email, :role, :phone_number]
   # number of users displayable on one page when browsing
   PAGE_SIZE = 50
 
@@ -36,43 +36,62 @@ class ClientAdmin::UsersController < ClientAdminBaseController
     user_params = params[:user].
                     slice(*SETTABLE_USER_ATTRIBUTES).
                     merge({email: params[:user][:email].try(:downcase).try(:strip)})
+    user_maker = MakeSimpleUser.new(user_params, @demo)
 
-    email = user_params['email']
-    existing_user = if email.present?
-      User.find_by_email(email)
-    end
-    if existing_user.present? && existing_user.in_board?(@demo)
-      flash[:notice] = "It looks like #{existing_user.email} is already in your board."
+    if user_maker.existing_user_in_board?
+      flash[:notice] = "It looks like #{user_maker.existing_user.email} is already in your board."
       redirect_to :back
       return
     end
 
-    @user = existing_user || current_user.demo.users.new(user_params)
-    is_new_user = existing_user.nil?
-    role = params[:user].delete(:role)
-    
-    if @user.save
-      make_this_board_current = existing_user.nil?
-      @user.add_board(@demo.id, is_new_user)
-
-      if is_new_user
-        @user.role = role
-        @user.save!
-      end
-      new_board_membership = @user.board_memberships.where(demo_id: @demo.id).first
-      new_board_membership.role = role
-      new_board_membership.save!
-
-      @user.generate_unique_claim_code! unless @user.claim_code.present?
-
+    user_saved = user_maker.create
+    @user = user_maker.user
+    if user_saved
       put_add_success_in_flash
-      send_creation_ping(existing_user)
+      send_creation_ping(user_maker.existing_user)
       ping_if_made_client_admin(@user, @user.is_client_admin)
       redirect_to client_admin_users_path
     else
-      flash.now[:failure] = "Sorry, we weren't able to add that user. " + user_errors
+      flash.now[:failure] = "Sorry, we weren't able to add that user. " + user_maker.user_errors
       render :template => 'client_admin/users/index'
     end
+
+    # email = user_params['email']
+    # existing_user = if email.present?
+    #   User.find_by_email(email)
+    # end
+    # if existing_user.present? && existing_user.in_board?(@demo)
+    #   flash[:notice] = "It looks like #{existing_user.email} is already in your board."
+    #   redirect_to :back
+    #   return
+    # end
+
+    # @user = existing_user || current_user.demo.users.new(user_params)
+    # is_new_user = existing_user.nil?
+    # role = params[:user].delete(:role)
+    
+    # if @user.save
+    #   make_this_board_current = existing_user.nil?
+    #   @user.add_board(@demo.id, is_new_user)
+
+    #   if is_new_user
+    #     @user.role = role
+    #     @user.save!
+    #   end
+    #   new_board_membership = @user.board_memberships.where(demo_id: @demo.id).first
+    #   new_board_membership.role = role
+    #   new_board_membership.save!
+
+    #   @user.generate_unique_claim_code! unless @user.claim_code.present?
+
+    #   put_add_success_in_flash
+    #   send_creation_ping(existing_user)
+    #   ping_if_made_client_admin(@user, @user.is_client_admin)
+    #   redirect_to client_admin_users_path
+    # else
+    #   flash.now[:failure] = "Sorry, we weren't able to add that user. " + user_errors
+    #   render :template => 'client_admin/users/index'
+    # end
   end
 
   def edit
@@ -191,9 +210,9 @@ class ClientAdmin::UsersController < ClientAdminBaseController
     end
   end
 
-  def user_errors
-    @user.errors.smarter_full_messages.join(', ') + '.'  
-  end
+  # def user_errors
+  #   @user.errors.smarter_full_messages.join(', ') + '.'  
+  # end
 
   def put_add_success_in_flash
     if @user.invitable?
