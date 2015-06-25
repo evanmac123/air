@@ -8,9 +8,4 @@
     <% if user.invitable? %>
       <%= link_to "Send invite", client_admin_user_invitation_path(user), method: :post %>
     <% end %>
-    
-  </li>
-    <span class="user-role">Role</span>
-    <%= form.select(:role, options_for_select(User::ROLES, form.object.role_in(demo)), {}, {class: 'small user-role-select'})%>
-  </li>
 </ul>
