@@ -8,7 +8,7 @@ feature 'Browses user lists' do
 
   def expect_browse_row(user, sense=true)
     within '#search-results-table' do
-      expected_text = [user.name, user.email, user.location.try(:name), (user.claimed? ? "Yes" : "No"), (user.invitable? ? "Send" : nil)].compact.join(' ')
+      expected_text = [user.name, user.email, (user.claimed? ? "Yes" : "No"), (user.invitable? ? "Send" : nil)].compact.join(' ')
       page.all('.found-user').any? { |row| row.text == expected_text }.should == sense
     end
   end
@@ -19,18 +19,13 @@ feature 'Browses user lists' do
 
   it "should show everyone except site admin if asked" do
     5.times do |i| 
-      user = FactoryGirl.create(:user, :with_location, name: "Dude #{i}", demo: client_admin.demo)
-      user.location.update_attributes(demo_id: user.demo.id)
-      user.board_memberships.first.update_attributes(location_id: user.location_id)
+      user = FactoryGirl.create(:user, name: "Dude #{i}", demo: client_admin.demo)
     end
 
-    other_demo_guy = FactoryGirl.create(:user, :with_location, name: "Johnny Otherdemo")
+    other_demo_guy = FactoryGirl.create(:user, name: "Johnny Otherdemo")
     other_demo_guy.demo.should_not == client_admin.demo
 
-    site_admin_guy = FactoryGirl.create(:site_admin, :with_location, name: "Site Dude", demo: client_admin.demo)
-    site_admin_guy.location.update_attributes(demo_id: site_admin_guy.demo.id)
-    site_admin_guy.board_memberships.first.update_attributes(location_id: site_admin_guy.location_id)
-
+    site_admin_guy = FactoryGirl.create(:site_admin, name: "Site Dude", demo: client_admin.demo)
     visit client_admin_users_path(as: client_admin)
     click_link "Show everyone"
 
@@ -49,12 +44,10 @@ feature 'Browses user lists' do
 
     client_admin.update_attributes(name: "Zzzzzzzzz") # hack to make sure admin appears at the end of the list
     (2 * page_size).times do |i| 
-      user = FactoryGirl.create(:user, :with_location, name: "Dude #{i}", demo: client_admin.demo)    
-      user.location.update_attributes(demo_id: user.demo.id)
-      user.board_memberships.first.update_attributes(location_id: user.location_id)
-    end
+      user = FactoryGirl.create(:user, name: "Dude #{i}", demo: client_admin.demo)
+    end   
 
-    other_demo_guy = FactoryGirl.create(:user, :with_location, name: "Johnny Otherdemo")
+    other_demo_guy = FactoryGirl.create(:user, name: "Johnny Otherdemo")
     other_demo_guy.demo.should_not == client_admin.demo
 
     visit client_admin_users_path(as: client_admin)
@@ -98,7 +91,7 @@ feature 'Browses user lists' do
   end
 
   it "allows admin to invite user from the browse results page, assuming they have an email address" do
-    alfred = FactoryGirl.create(:user, :with_location, name: "Alfred Jones", demo: client_admin.demo)
+    alfred = FactoryGirl.create(:user, name: "Alfred Jones", demo: client_admin.demo)
     alfred.should_not be_invited
     visit client_admin_users_path(show_everyone: true, as: client_admin)
     within("tr:nth-of-type(2)") { click_link "Send" }
@@ -107,7 +100,7 @@ feature 'Browses user lists' do
   end
 
   it "should not present the option for an admin to try to invite a user without an email" do
-    alfred = FactoryGirl.create(:user, :with_location, name: "Alfred Jones", demo: client_admin.demo, email: '')
+    alfred = FactoryGirl.create(:user, name: "Alfred Jones", demo: client_admin.demo, email: '')
     alfred.should_not be_invited
     visit client_admin_users_path(show_everyone: true, as: client_admin)
 

@@ -29,14 +29,6 @@ feature 'Adds user' do
     fill_in "user[email]",       :with => USER_EMAIL
   end
 
-  def create_characteristics(demo)
-    @boolean_characteristic = FactoryGirl.create :characteristic, :boolean, name: "Likes cats", demo_id: demo.id
-    @date_characteristic = FactoryGirl.create :characteristic, :date, name: "Date of last teeth cleaning", demo_id: demo.id
-    @number_characteristic = FactoryGirl.create :characteristic, :number, name: "Remaining teeth", demo_id: demo.id
-    @time_characteristic = FactoryGirl.create :characteristic, :time, name: "Lunchtime", demo_id: demo.id
-    @discrete_characteristic = FactoryGirl.create :characteristic, :discrete, name: "Favorite Beatle", allowed_values: %w(John Paul George Ringo), demo_id: demo.id
-  end
-
   def newest_user(demo)
     demo.users.order("created_at DESC").first  
   end
@@ -53,7 +45,6 @@ feature 'Adds user' do
   end
 
   before do
-    create_characteristics(demo)
     visit client_admin_users_path(as: client_admin)
   end
 
