@@ -1,15 +1,15 @@
 class ClientAdmin::UsersController < ClientAdminBaseController
   include ClientAdmin::UsersHelper
 
-  before_filter :load_locations, only: [:create, :edit]
+  # before_filter :load_locations, only: [:create, :edit]
   before_filter :create_uploader
   before_filter :find_user, only: [:edit, :update, :destroy]
   before_filter :normalize_characteristic_ids_to_integers, only: [:create, :update]
-  before_filter :count_total_users
+  before_filter :count_total_users, only: :index
 
   # Attributes that admins are allowed to set
-  SETTABLE_USER_ATTRIBUTES = [:name, :email, :employee_id, :zip_code, :characteristics, :location_id, :"date_of_birth(1i)", :"date_of_birth(2i)", :"date_of_birth(3i)", :gender, :phone_number]
-
+  # SETTABLE_USER_ATTRIBUTES = [:name, :email, :employee_id, :zip_code, :characteristics, :location_id, :"date_of_birth(1i)", :"date_of_birth(2i)", :"date_of_birth(3i)", :gender, :phone_number]
+  SETTABLE_USER_ATTRIBUTES = [:name, :email, :characteristics, :phone_number]
   # number of users displayable on one page when browsing
   PAGE_SIZE = 50
 
@@ -51,7 +51,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
     is_new_user = existing_user.nil?
     role = params[:user].delete(:role)
     
-    if save_if_date_good(@user) # sigh
+    if @user.save
       make_this_board_current = existing_user.nil?
       @user.add_board(@demo.id, is_new_user)
 
@@ -70,10 +70,6 @@ class ClientAdmin::UsersController < ClientAdminBaseController
       ping_if_made_client_admin(@user, @user.is_client_admin)
       redirect_to client_admin_users_path
     else
-      # This is a stupid hack. The more time goes on, the more I think Rails
-      # validations are just not where they should be.
-
-      add_date_of_birth_error_if_needed(@user)
       flash.now[:failure] = "Sorry, we weren't able to add that user. " + user_errors
       render :template => 'client_admin/users/index'
     end
@@ -89,9 +85,6 @@ class ClientAdmin::UsersController < ClientAdminBaseController
     user_in_current_demo = (@user.demo == @demo)
     @new_role = params[:user].delete(:role)
     role_was_changed = (@new_role != @user.role)
-    unless user_in_current_demo
-      @new_location_id = params[:user].delete(:location_id)
-    end
 
     @user.attributes = params[:user].slice(*SETTABLE_USER_ATTRIBUTES)
     if @user.phone_number.present?
@@ -99,17 +92,11 @@ class ClientAdmin::UsersController < ClientAdminBaseController
     end
     @user.role = @new_role
     
-    if save_if_date_good(@user)
-      unless user_in_current_demo
-        @user.board_memberships.find_by_demo_id(@demo.id).
-          update_attributes(location_id: @new_location_id, role: @new_role)
-      end
+    if @user.save
       ping_if_made_client_admin(@user, role_was_changed)
       flash[:success] = "OK, we've updated this user's information"
       redirect_to edit_client_admin_user_path(@user)
     else
-      add_date_of_birth_error_if_needed(@user)
-      load_locations
       flash.now[:failure] = "Sorry, we weren't able to change that user's information. " + user_errors
       render :template => "client_admin/users/edit"
     end
@@ -120,13 +107,13 @@ class ClientAdmin::UsersController < ClientAdminBaseController
     redirect_to client_admin_users_path
   end
     
-  def validate_email
-    if params[:email].downcase == current_user.email
-      render text: "This is you!"
-    else
-      render nothing: true
-    end
-  end
+  # def validate_email
+  #   if params[:email].downcase == current_user.email
+  #     render text: "This is you!"
+  #   else
+  #     render nothing: true
+  #   end
+  # end
 
   protected
 
@@ -217,22 +204,22 @@ class ClientAdmin::UsersController < ClientAdminBaseController
     end
   end
 
-  def all_date_of_birth_parts_valid?(user)
-    date_part_keys = %w{date_of_birth(1i) date_of_birth(2i) date_of_birth(3i)}
-    number_present = date_part_keys.count {|date_part_key| params[:user][date_part_key].present?}
+  # def all_date_of_birth_parts_valid?(user)
+  #   date_part_keys = %w{date_of_birth(1i) date_of_birth(2i) date_of_birth(3i)}
+  #   number_present = date_part_keys.count {|date_part_key| params[:user][date_part_key].present?}
 
-    number_present == 0 || number_present == 3
-  end
+  #   number_present == 0 || number_present == 3
+  # end
 
-  def save_if_date_good(user)
-    all_date_of_birth_parts_valid?(user) && user.save
-  end
+  # def save_if_date_good(user)
+  #   all_date_of_birth_parts_valid?(user) && user.save
+  # end
 
-  def add_date_of_birth_error_if_needed(user)
-    unless all_date_of_birth_parts_valid?(user)
-      user.errors.add(:base, "Please enter a full date of birth")
-    end
-  end  
+  # def add_date_of_birth_error_if_needed(user)
+  #   unless all_date_of_birth_parts_valid?(user)
+  #     user.errors.add(:base, "Please enter a full date of birth")
+  #   end
+  # end  
 
   def send_creation_ping(existing_user)
     event = existing_user.present? ? "User - Existing Invited" : "User - New"
