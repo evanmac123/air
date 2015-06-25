@@ -104,12 +104,11 @@ Health::Application.routes.draw do
   namespace :client_admin do
     resource :segmentation
 
-    resources :users do
+    resources :users, only: [:index, :create, :edit, :update, :destroy] do
       resource :invitation, :only => :create
     end
     resources :users_invites, only: :create
     get 'preview_invite_email', to: 'users_invites#preview_invite_email'
-    get 'validate_email', to: 'users#validate_email'
     
     resources :locations, :only => :create
 

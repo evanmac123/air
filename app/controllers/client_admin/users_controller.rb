@@ -79,9 +79,6 @@ class ClientAdmin::UsersController < ClientAdminBaseController
     end
   end
 
-  def show
-  end
-
   def edit
     @demo = current_user.demo
   end
