@@ -44,8 +44,18 @@
     if (arrayLike) {
       for (var i = 0, l = obj.length; i < l; i++) iterator(obj[i], i, obj);
     } else {
+      //console.log(obj);
       for (var key in obj) {
-        if (obj.hasOwnProperty(key)) iterator(obj[key], key, obj);
+        //console.log(obj[key]);
+        //if (obj.hasOwnProperty(key)) iterator(obj[key], key, obj);
+        //if (Object.prototype.hasOwnProperty.call(obj,key)) 
+        //  iterator(obj[key], key, obj);
+        try {
+          obj.hasOwnProperty(key);
+        } catch(err) {
+          continue;
+        }
+        iterator(obj[key], key, obj);
       }
     }
   };
@@ -80,7 +90,7 @@
 
     // default settings
     var defaults = {
-      class: 'pen',
+      "class": 'pen',
       debug: false,
       toolbar: null, // custom toolbar
       stay: config.stay || !config.debug,
@@ -168,7 +178,7 @@
 
     if (icons) {
       ctx._menu = doc.createElement('div');
-      ctx._menu.setAttribute('class', ctx.config.class + '-menu pen-menu');
+      ctx._menu.setAttribute('class', ctx.config["class"] + '-menu pen-menu');
       ctx._menu.innerHTML = icons;
       ctx._inputBar = ctx._menu.querySelector('input');
       // customizing
@@ -536,7 +546,7 @@
     if (!editor || editor.nodeType !== 1) throw new Error('Can\'t find editor');
 
     // set default class
-    $(editor).addClass(defaults.class);
+    $(editor).addClass(defaults["class"]);
 
     // set contenteditable
     editor.setAttribute('contenteditable', 'true');
@@ -838,13 +848,14 @@
   root.Pen = function(config) {
     if (!config) return utils.log('can\'t find config', true);
 
-    var defaults = utils.merge(config)
-      , klass = defaults.editor.getAttribute('class');
+    var defaults = utils.merge(config);
+    var klass = config.editor.getAttribute('class');
+      //, klass = defaults.editor['class'];
 
-    klass = klass ? klass.replace(/\bpen\b/g, '') + ' pen-textarea ' + defaults.class : 'pen pen-textarea';
-    defaults.editor.setAttribute('class', klass);
-    defaults.editor.innerHTML = defaults.textarea;
-    return defaults.editor;
+    klass = klass ? klass.replace(/\bpen\b/g, '') + ' pen-textarea ' + defaults["class"] : 'pen pen-textarea';
+    config.editor.setAttribute('class', klass);
+    config.editor.innerHTML = defaults.textarea;
+    return config.editor;
   };
 
   // make it accessible
