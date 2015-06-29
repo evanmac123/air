@@ -1,4 +1,3 @@
-@import './internal/large_tile_viewer_desktop';
 body.client_admin-tiles-show, body.suggested_tiles-show {
   .switch{
     @include green-paddle-switch;
