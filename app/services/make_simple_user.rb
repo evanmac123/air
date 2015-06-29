@@ -2,9 +2,9 @@ class MakeSimpleUser
   attr_reader :user_params, :demo, :email, :role, :existing_user, :current_user
 
   def initialize user_params, demo, current_user, user = nil
-    @user_params = user_params
     @email = user_params[:email]
-    @role = user_params[:role]
+    @role = user_params.delete(:role)
+    @user_params = user_params
     @demo = demo
     @current_user = current_user
     @existing_user = set_existing_user
@@ -14,11 +14,11 @@ class MakeSimpleUser
   def update
     role_was_changed = (role != user.role)
     user.attributes = user_params
-    user.role = role
     set_phone_number
 
     user_saved = user.save
     if user_saved
+      set_role
       ping_if_made_client_admin(user, role_was_changed)
     end
     user_saved
@@ -63,7 +63,7 @@ class MakeSimpleUser
   end
 
   def set_role
-    if is_new_user
+    if user.demo_id == demo.id
       user.role = role
       user.save!
     end
