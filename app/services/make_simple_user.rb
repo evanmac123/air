@@ -12,7 +12,7 @@ class MakeSimpleUser
   end
 
   def update
-    role_was_changed = (role != user.role)
+    role_was_changed = (role != user.role_in(demo))
     user.attributes = user_params
     set_phone_number
 

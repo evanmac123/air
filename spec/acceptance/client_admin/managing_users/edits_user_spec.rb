@@ -3,6 +3,7 @@ require 'acceptance/acceptance_helper'
 feature 'Edits user' do
   let (:client_admin)   { FactoryGirl.create(:client_admin) }
   let (:demo)           { client_admin.demo }
+  let!(:demo2)          { FactoryGirl.create :demo }
   let (:unclaimed_user) { FactoryGirl.create(:user, demo: demo) }
 
   let (:user) do
@@ -75,7 +76,9 @@ feature 'Edits user' do
     expect_role('User')    
   end
   
-  it 'should set user with role Administrator when selected' do
+  it "should set user with role if user's current board isn't this one" do
+    user.add_board(demo2, true)
+
     visit(edit_client_admin_user_path(user, as: client_admin))
     page.find('select.user-role-select').select 'Administrator'
     click_button "Save edits"
