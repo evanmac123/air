@@ -1,35 +1,24 @@
 <div id="loaded-user-data" class="section">
   <ul class="info-cols">
-    <li><label for="user_name">Name</label><%= form.text_field "name", placeholder: "First and last (required)", :autofocus=>true %></li>
+    <li>
+      <label for="user_name">Name</label>
+      <%= form.text_field "name", placeholder: "First and last (required)", :autofocus=>true %>
+    </li>
   </ul>
   <ul class="info-cols">
-    <li><%= form.label "email" %><%= form.text_field "email", placeholder: "name@example.com" %></li>
-  </ul>
-  <ul class="info-cols extra-user-info">
-    <li><%= form.label "zip_code" %><%= form.text_field "zip_code", placeholder: "#####" %></li>
-    <li><label>Birthday</label><div id="birthday-selects">
-        <%= render 'dob_select', form: form %>
-      </div>
-    </li>
-    <li class="user_gender"><%= form.label :gender %>
-      <%= render 'gender_select', form: form %>
+    <li>
+      <%= form.label "email" %><%= form.text_field "email", placeholder: "name@example.com" %>
     </li>
   </ul>
-  <ul class="info-cols extra-user-info">
-    <% if show_phone_number %>
-      <li><%= form.label "phone_number" %><%= form.text_field "phone_number", value: user.phone_number.as_pretty_phone %></li>
-    <% end %>
-    <li><%= form.label "employee_id", "Employee ID" %><%= form.text_field "employee_id" %></li>
-    <li class="user_location_id"><%= form.label "location_id" %>
-      <%= render 'location_select_and_spinner', form: form, user: user %>
+  <ul class="info-cols">
+    <li>
+      <%= form.label "phone_number" %><%= form.text_field "phone_number", value: user.phone_number.as_pretty_phone %>
     </li>
-    <% if show_role %>
+  </ul>
+  <ul class="info-cols">
     <li>
       <%= form.label "role_id", "Role" %>
       <%= render 'role_select', form: form, demo: demo %>
     </li>
-    <% end %>
   </ul>
 </div>
-
-<%= render 'form_javascript' %>

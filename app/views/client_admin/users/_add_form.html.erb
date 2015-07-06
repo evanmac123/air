@@ -1,28 +1,9 @@
-<%= form_for user, url: client_admin_users_path, html: {class: "user-profile custom", id: "single-form"} do |form| %>
+<%= form_for [:client_admin, user], html: {class: "user-profile custom", id: "single-form"} do |form| %>
   <%= form.text_field "name", placeholder: "First and Last Name" %>
   <%= form.text_field "email", placeholder: "Email" %>
   <div class="select-section">
     <%= form.label "role" %>
     <%= render 'role_select', form: form, demo: demo %>
   </div>
-  <div class="extra-user-info" style="display: none">
-  <!--<div class="extra-user-info">-->
-    <%= form.text_field "employee_id", placeholder: "Employee ID" %>
-    <%= form.text_field "zip_code", placeholder: "ZIP Code (5 digits)" %>
-
-    <div class="select-section">
-      <%= form.label "location" %>
-      <%= render 'location_select_and_spinner', form: form, user: user %>
-    </div>
-  </div>
-  <div class="row more-submit">
-    <div class="columns large-6">
-      <a href="#" id="more-options">More options</a>
-    </div>
-    <div class="columns large-6">
-      <%= submit_tag "Add User", id: "add-user" %>
-    </div>
-  </div>
+  <%= submit_tag "Add User", id: "add-user" %>
 <% end %>
-
-<%= render "form_javascript" %>

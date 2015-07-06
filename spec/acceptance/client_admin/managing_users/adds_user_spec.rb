@@ -27,24 +27,6 @@ feature 'Adds user' do
   def fill_in_user_information
     fill_in "user[name]",        :with => "Jehosaphat Emshwiller"
     fill_in "user[email]",       :with => USER_EMAIL
-
-    click_link "More options"
-    fill_in "user[employee_id]", :with => "012345"
-    fill_in "user[zip_code]",    :with => "02139"
-
-    select "Boston", :from => "user[location_id]"
-  end
-
-  def create_characteristics(demo)
-    @boolean_characteristic = FactoryGirl.create :characteristic, :boolean, name: "Likes cats", demo_id: demo.id
-    @date_characteristic = FactoryGirl.create :characteristic, :date, name: "Date of last teeth cleaning", demo_id: demo.id
-    @number_characteristic = FactoryGirl.create :characteristic, :number, name: "Remaining teeth", demo_id: demo.id
-    @time_characteristic = FactoryGirl.create :characteristic, :time, name: "Lunchtime", demo_id: demo.id
-    @discrete_characteristic = FactoryGirl.create :characteristic, :discrete, name: "Favorite Beatle", allowed_values: %w(John Paul George Ringo), demo_id: demo.id
-  end
-
-  def create_locations(demo)
-    %w(Atlanta Boston Cleveland Detroit).each {|name| demo.locations.create!(name: name)}
   end
 
   def newest_user(demo)
@@ -59,14 +41,10 @@ feature 'Adds user' do
 
     if with_details
       new_user.name.should == "Jehosaphat Emshwiller"
-      new_user.employee_id.should == "012345"
-      new_user.zip_code.should == "02139"
     end
   end
 
   before do
-    create_characteristics(demo)
-    create_locations(demo)
     visit client_admin_users_path(as: client_admin)
   end
 
@@ -111,7 +89,6 @@ feature 'Adds user' do
   
   it 'should make user with user role', js: true do
     demo.users.count.should == 1 # just the admin
-
     fill_in_user_information
     page.find('select.user-role-select').select 'Administrator'
     click_button "Add User"
