@@ -276,7 +276,7 @@ feature 'Guest user is prompted to convert to real user' do
     def local_setup
       setup_before_visit
       visit public_board_path(public_slug: board.public_slug)
-      click_link "Save Progress"
+      click_link "Sign Up"
       wait_for_conversion_form
 
       fill_in_conversion_name "Jimmy Jones"
@@ -291,7 +291,7 @@ feature 'Guest user is prompted to convert to real user' do
       def local_setup
         setup_before_visit
         visit public_board_path(public_slug: board.public_slug)
-        click_link "Save Progress"
+        click_link "Sign Up"
         wait_for_conversion_form
 
         fill_in_conversion_name "Jimmy Jones"
@@ -463,7 +463,7 @@ feature 'Guest user is prompted to convert to real user' do
         @board.update_attributes(use_location_in_conversion: true)
 
         visit public_board_path(public_slug: board.public_slug)
-        click_link "Save Progress"
+        click_link "Sign Up"
         wait_for_conversion_form
 
         fill_in_conversion_name "Jim Jones"
@@ -645,6 +645,66 @@ feature 'Guest user is prompted to convert to real user' do
       click_link all_tiles[3].headline
       click_right_answer
       expect_conversion_form
+    end
+  end
+
+  context "returns user after conversion to last visited page" do
+    def local_setup
+      wait_for_conversion_form
+      fill_in_conversion_name "Jimmy Jones"
+      fill_in_conversion_email "jim@jones.com"
+      fill_in_conversion_password "jimbim"
+      submit_conversion_form
+    end
+
+    it "should return user to activity page", js: true do
+      visit public_board_path(public_slug: board.public_slug)
+      expect_conversion_form
+      local_setup
+      current_path.should == activity_path
+    end
+
+    it "should return user to last tile", js: true do
+      create_tiles(board, 2) 
+      visit public_board_path(public_slug: board.public_slug)
+
+      all_tiles = Tile.ordered_for_explore.to_a
+    
+      close_tutorial_lightbox
+      click_link all_tiles.first.headline
+      click_right_answer
+
+      page.find("[data-current-tile-id='"+all_tiles[1].id.to_s+"']").should be_present
+      click_save_progress_button
+      expect_conversion_form
+      local_setup
+      current_path.should == tiles_path
+      page.find("[data-current-tile-id='"+all_tiles[1].id.to_s+"']").should be_present
+    end
+  end
+
+  context "log out" do
+    def local_setup
+      wait_for_conversion_form
+      fill_in_conversion_name "Jimmy Jones"
+      fill_in_conversion_email "jim@jones.com"
+      fill_in_conversion_password "jimbim"
+      submit_conversion_form
+    end
+
+    after do
+      Timecop.return
+    end
+
+    it "should not log out converted user in 20 minutes after signing up", js: true do
+      visit public_board_path(public_slug: board.public_slug)
+      expect_conversion_form
+      local_setup
+      current_path.should == activity_path
+      Timecop.travel(25.minutes)
+
+      visit current_path
+      current_path.should == activity_path
     end
   end
 end

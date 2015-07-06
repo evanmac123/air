@@ -1,6 +1,6 @@
 <div id="save_progress" class="large-4 columns" style="<%= user.guest_user_header_button_style %>">
   <% unless user.demo && $rollout.active?(:suppress_conversion_modal, user.demo) %>
-    <a href="#" id="save_progress_button" class="open_save_progress_form">Save Progress</a>
+    <a href="#" id="save_progress_button" class="open_save_progress_form">Sign Up</a>
     <%= link_to "Sign In", new_session_path, id: 'sign_in_button' %>
   <% end %>
   <% if session[:display_start_over_button] %>
