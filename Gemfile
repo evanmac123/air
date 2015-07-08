@@ -4,7 +4,6 @@ ruby '2.0.0'
 
 gem "rails", "=3.2.21"
 gem "rack"  # Update rack to 1.3.0 or later to get rid of utf8 string regex warnings
-gem "unicorn"   # Some of our capybara webkit tests fail with thin, so we use unicorn
 gem 'delayed_job_active_record'
 gem "high_voltage"
 gem "airbrake"
@@ -22,7 +21,6 @@ gem "haml-rails"
 gem "chronic"
 gem "mixpanel"
 gem "mixpanel_client"
-gem "newrelic_rpm"
 gem "mongoid"
 gem "bson_ext"
 gem "pundit"
@@ -57,7 +55,10 @@ gem 'require_all'
 gem 'css_splitter'
 gem 'sanitize'
 gem 'htmlentities'
-
+gem 'rack-mini-profiler', require: false
+gem 'flamegraph'
+gem "unicorn"   # Some of our capybara webkit tests fail with thin, so we use unicorn
+gem "newrelic_rpm"
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -87,6 +88,7 @@ end
 # RSpec needs to be in :development group to expose generators
 # and rake tasks without having to type RAILS_ENV=test.
 group :development, :test do
+	gem "thin"
   gem "colored"
   gem "rspec-rails"
   gem "factory_girl_rails"
