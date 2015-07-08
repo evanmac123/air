@@ -521,7 +521,7 @@ class ApplicationController < ActionController::Base
   end
 
 	def enable_miniprofiler
-		if Rails.env.production? && PROFILABLE_USERS.include?(current_user.email)
+		if current_user && Rails.env.production? && PROFILABLE_USERS.include?(current_user.email)
 			Rack::MiniProfiler.authorize_request  
 		end
 	end
