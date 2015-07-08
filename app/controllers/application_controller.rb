@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   before_filter :disable_framing
   before_filter :initialize_flashes
   before_filter :set_show_conversion_form_before_this_request
-
+	before_filter :enable_miniprofiler #NOTE on by default in development
   # This prints the controller and action to stdout on every action, which
   # is sometimes handy for debugging
   #before_filter :yell_name
@@ -519,4 +519,10 @@ class ApplicationController < ActionController::Base
   def ignore_all_newrelic
     NewRelic::Agent.ignore_transaction
   end
+
+	def enable_miniprofiler
+		if Rails.env.production? && if PROFILABLE_USERS.include(current_user.email)
+			Rack::MiniProfiler.authorize_request  
+		end
+	end
 end
