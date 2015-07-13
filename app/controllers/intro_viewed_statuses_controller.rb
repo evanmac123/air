@@ -13,9 +13,6 @@ class IntroViewedStatusesController < ApplicationController
     if params[:share_link_intro_seen] == 'true'
       current_user.share_link_intro_seen = true
       current_user.save!
-    elsif params[:suggestion_box_prompt_seen] == 'true'
-      current_user.suggestion_box_prompt_seen = true
-      current_user.save!
     end
 
     # Since after all, there can be too much of a good thing.

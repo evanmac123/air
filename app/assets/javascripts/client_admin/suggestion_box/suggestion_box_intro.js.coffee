@@ -21,24 +21,8 @@ addExplainBtn = ->
     .find(".introjs-tooltipbuttons")
     .append "<a class='#{explainBtnClass()}'>How it works</a>"
 
-prompt = ->
-  $(".ideas_prompt")
-
-closePromptIcon = ->
-  prompt().find(".fa-close")
-
-promptVisibile = (show)->
-  if show
-    prompt().show()
-  else
-    prompt().hide()
-
-updateFlag = ->
-  $.post('/intro_viewed_status', {suggestion_box_prompt_seen: true, _method: 'PUT'})
-
 initIntro = (intro) ->
   if title().attr("data-intro")
-    promptVisibile(false)
 
     intro.setOptions
       showStepNumbers: false
@@ -46,8 +30,6 @@ initIntro = (intro) ->
       tooltipClass: tooltipClass()
     intro.start()
     addExplainBtn()
-    intro.oncomplete ->
-      promptVisibile(true)
 
 window.suggestionBoxIntro = ->
   intro = introJs()
@@ -56,17 +38,7 @@ window.suggestionBoxIntro = ->
   $(document).on "click", "." + explainBtnClass(), (e) ->
     e.preventDefault()
     intro.exit()
-    promptVisibile(true)
     modal().foundation 'reveal', 'open'
-
-  closePromptIcon().click (e) ->
-    e.preventDefault()
-    prompt().remove()
-    updateFlag()
-
-  prompt().click (e) ->
-    e.preventDefault()
-    accessModal().foundation 'reveal', 'open'
 #
 # => Modal
 #

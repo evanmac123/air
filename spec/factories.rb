@@ -8,7 +8,6 @@ FactoryGirl.define do
     sequence(:email) {|n| "darth_#{n}@sunni.ru" }
     submit_tile_intro_seen true
     suggestion_box_intro_seen true
-    suggestion_box_prompt_seen true
     user_submitted_tile_intro_seen true
   end
 

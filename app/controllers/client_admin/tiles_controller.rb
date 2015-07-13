@@ -110,7 +110,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
                                     current_user.suggestion_box_intro_seen = true
                                     current_user.save
                                   end
-    @show_suggestion_box_prompt = !current_user.suggestion_box_prompt_seen
     @user_submitted_tile_intro =  if  params[:user_submitted_tile_intro] && 
                                       !current_user.user_submitted_tile_intro_seen &&
                                       @demo.tiles.user_submitted.first.present? &&
