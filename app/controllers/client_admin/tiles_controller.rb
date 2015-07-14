@@ -118,7 +118,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
                                     current_user.user_submitted_tile_intro_seen = true
                                     current_user.save
                                   end
-    @manage_access_prompt = !current_user.manage_access_prompt_seen
+    @manage_access_prompt = !current_user.manage_access_prompt_seen 
   end
 
   def show_submitted_tile_menu_intro
