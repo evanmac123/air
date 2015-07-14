@@ -113,6 +113,9 @@ Health::Application.routes.draw do
     resources :locations, :only => :create
 
     resources :tiles do
+			collection do
+				get "blank"
+			end
       resource :image, :only => [:update, :show]
       resources :tile_completions, :only => [:index]      
       member do
