@@ -377,6 +377,21 @@ body.suggested_tiles-index {
     color: $sky-blue;
     border: 2px solid $sky-blue;
     border-radius: 3px;
+    background: $white;
+  }
+  .arrow_line {
+    position: absolute;
+    top: -160px;
+    right: -44px;height: 188px;
+    width: 44px;
+    border: 2px solid $sky-blue;
+    border-color: transparent $sky-blue $sky-blue transparent;
+    i {
+      position: absolute;
+      top: -14px;
+      right: -10px;
+      font-size: 27px;
+    }
   }
   #suggestions_access_modal {
     width: 60%;
