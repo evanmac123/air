@@ -9,6 +9,7 @@ class ClientAdmin::SuggestionsAccessController < ClientAdminBaseController
     unless @demo.everyone_can_make_tile_suggestions
       User.allow_to_make_tile_suggestions params[:allowed_users], @demo
     end
+    check_manage_access_prompt
     access_ping
 
     respond_to do |format|
@@ -29,6 +30,13 @@ class ClientAdmin::SuggestionsAccessController < ClientAdminBaseController
   end
 
   protected
+
+  def check_manage_access_prompt
+    unless current_user.manage_access_prompt_seen
+      current_user.manage_access_prompt_seen = true
+      current_user.save
+    end
+  end
 
   def access_ping
     client_admin_enabled = @demo.everyone_can_make_tile_suggestions ? "All Users" : "Specific Users"

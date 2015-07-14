@@ -140,7 +140,7 @@ body.suggested_tiles-index {
   }
   .draft_header_block {
     position: relative;
-    padding-bottom: 50px;
+    padding-bottom: 65px;
     .draft_title_block, .suggestion_header_block {
       float: left;
       padding: 18px;
@@ -367,6 +367,16 @@ body.suggested_tiles-index {
       padding-right: 20px;
       margin-top: -3px;
     }
+  }
+  #manage_access_prompt {
+    position: absolute;
+    top: 120px;
+    left: 140px;
+    padding: 20px;
+    font-size: 20px;
+    color: $sky-blue;
+    border: 2px solid $sky-blue;
+    border-radius: 3px;
   }
   #suggestions_access_modal {
     width: 60%;
