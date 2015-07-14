@@ -45,6 +45,10 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     end
   end
 
+	def blank
+     render "blank", layout: "empty_layout"
+	end
+
   def update
     @tile = get_tile
     
