@@ -4,7 +4,7 @@ feature 'Client admin sees intro about suggestion box' do
   include WaitForAjax
   include SuggestionBox
 
-  let!(:admin) { FactoryGirl.create :client_admin, suggestion_box_intro_seen: false, suggestion_box_prompt_seen: false }
+  let!(:admin) { FactoryGirl.create :client_admin, suggestion_box_intro_seen: false }
   let!(:demo)  { admin.demo  }
   let!(:tile) { FactoryGirl.create :tile, demo: demo }
 
@@ -88,34 +88,5 @@ feature 'Client admin sees intro about suggestion box' do
     expect_content intro_text
     visit current_path
     expect_no_content intro_text
-  end
-
-  it "should turn off prompt if admin closes it", js: true do
-    expect_content intro_text
-    within intro do
-      click_link "Got it"
-    end
-    expect_content prompt_text
-    
-    prompt_close_icon.click
-    expect_no_content prompt_text
-    wait_for_ajax
-
-    admin.reload.suggestion_box_prompt_seen.should be_true
-  end
-
-  it "should turn off prompt if admin changes access", js: true do
-    expect_content intro_text
-    explain_button.click
-    expect_content modal_header
-
-    within modal do
-      click_link "Pick Users"
-    end
-    expect_content access_modal_header
-    all_users_switcher_on.click
-    wait_for_ajax
-
-    admin.reload.suggestion_box_prompt_seen.should be_true
   end
 end
