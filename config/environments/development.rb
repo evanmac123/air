@@ -1,7 +1,3 @@
-silence_warnings do
-  # require 'debugger'
-end unless ENV['NO_DEBUGGER']
-
 Health::Application.configure do
 
   require(Rails.root + 'config/initializers/sendgrid')

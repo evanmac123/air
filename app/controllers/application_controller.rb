@@ -46,9 +46,7 @@ class ApplicationController < ActionController::Base
   end
   
   def force_ssl
-    if (Rails.env.development? || Rails.env.test?) && !$test_force_ssl
-      return
-    end
+		return true unless prod_or_testing_ssl_outside_of_prod
     redirect_required = false
     unless request.subdomain.present?
       redirect_required = true
@@ -542,4 +540,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+	def prod_or_testing_ssl_outside_of_prod
+    Rails.env.production? || $test_force_ssl 
+	end
 end

@@ -1,4 +1,5 @@
 Health::Application.configure do
+  require(Rails.root + 'config/initializers/sendgrid')
   # Settings specified here will take precedence over those in config/application.rb
 
   # The production environment is meant for finished, "live" apps.

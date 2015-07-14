@@ -35,7 +35,7 @@ when 'production', 'staging'
     :url            => ":s3_domain_url"
   }
   DEMO_LOGO_OPTIONS[:path] = "/demo/:id/:hash__:filename"
-when 'test', 'development'
+when 'test', 'development', 'production_local'
   # Use defaults of :storage => :filesystem
 else
   raise 'Environment Not Found'
