@@ -18,3 +18,10 @@ production:
   database: production
   host: localhost
   encoding: utf8
+
+production_local: &default
+  adapter: postgresql
+  min_messages: warning
+  database: public
+  host: localhost
+  encoding: utf8
