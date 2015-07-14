@@ -147,7 +147,7 @@ body.suggested_tiles-index {
       position: relative;
     }  
     .draft_title_block {
-      width: 11%;
+      width: 7%;
     }
     .suggestion_header_block {
       width: 89%;
@@ -381,8 +381,9 @@ body.suggested_tiles-index {
   }
   .arrow_line {
     position: absolute;
-    top: -160px;
-    right: -44px;height: 188px;
+    top: -154px;
+    right: -44px;
+    height: 183px;
     width: 44px;
     border: 2px solid $sky-blue;
     border-color: transparent $sky-blue $sky-blue transparent;

@@ -1,10 +1,12 @@
 .draft_overlay
   .overlay_message
     = fa_icon "ban"
-.draft_header_block
-  .draft_title_block
-    %h4#draft_title Draft
-  = render partial: 'client_admin/suggestions_access/suggestion_box_header' if  policy(:board).tile_suggestion_enabled? 
+.row
+  .large-12.columns
+    .draft_header_block
+      .draft_title_block
+        %h4#draft_title Draft
+      = render partial: 'client_admin/suggestions_access/suggestion_box_header' if  policy(:board).tile_suggestion_enabled? 
 .row
   .large-12.columns
     %div#draft.manage_section
