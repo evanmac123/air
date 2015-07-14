@@ -1,20 +1,20 @@
 <div class="suggestion_header_block">
   <div class="suggestion_box_header">
     <%= content_tag :div,  id: "suggestion_box_title", data: suggestion_box_intro_params(@show_suggestion_box_intro) do %>
+      <h3>Suggestion box</h3>
       <span id="user_submitted_tiles_counter">
         <%= @user_submitted_tiles_counter %>
       </span>
-      <h3>Suggestion box</h3>
     <% end %>
+    <div class="help">
+      <i class="fa fa-info-circle"></i>
+      Help
+    </div>
     <div class="manage_items">
       <div class="manage_access manage_item">
         <i class="fa fa-users"></i>
         Manage Access
       </div>
-    </div>
-    <div class="help">
-      <i class="fa fa-info-circle"></i>
-      Help
     </div>
   </div>
 </div>

@@ -92,7 +92,7 @@ body.suggested_tiles-index {
   }
   #draft_tiles {
     background: $almost-white;
-    margin-top: 2em;
+    padding-top: 2em;
     #draft {
       &:after {
         @include clear;
@@ -102,11 +102,12 @@ body.suggested_tiles-index {
       #draft {
         display: block;
       }
+      #draft_title {
+        color: $text-color;
+        border-bottom: 2px solid $sky-blue;
+      }
       #suggestion_box {
         display: none;
-      }
-      .suggestion_header_block {
-        background: $off-white;
       }
       .suggestion_box_header {
         .manage_access, .help {
@@ -121,8 +122,15 @@ body.suggested_tiles-index {
       #suggestion_box {
         display: block;
       }
-      .draft_title_block {
-        background: $off-white;
+      #suggestion_box_title{
+        border-bottom: 2px solid $sky-blue;
+        h3 {
+          color: $text-color;
+        }
+        #user_submitted_tiles_counter {
+          border-color: $text-color;
+          color: $text-color;
+        }
       }
     }
     &.suggestion_box_gated {
@@ -139,23 +147,25 @@ body.suggested_tiles-index {
       position: relative;
     }  
     .draft_title_block {
-      width: 47%;
+      width: 11%;
     }
     .suggestion_header_block {
-      width: 53%;
+      width: 89%;
     }
     #draft_title {
       position: absolute;
-      top: 13px;
-      right: 453px;
+      top: 11px;
+      right: 3px;
       cursor: pointer;
       margin: 0;
+      color: $med-gray;
+      padding: 0 10px 7px 10px;
     }
     .suggestion_box_header {
       position: absolute;
       top: 13px;
       left: 20px;
-      width: 505px;
+      width: 957px;
     }
   }
   .draft_overlay{
@@ -323,15 +333,19 @@ body.suggested_tiles-index {
     @include switch-size(16px, 9px, 2.3em);
   }
   .suggestion_box_header {
-    .help, .manage_access, #suggestion_box_title {
+    #suggestion_box_title {
+      float: left;
+      cursor: pointer;
+    }
+    .help, .manage_access {
       float: right;
       cursor: pointer;
     }
     #user_submitted_tiles_counter {
       @include font-regular;
       font-size: 12px;
-      color:$sky-blue;
-      border: 1px solid $sky-blue;
+      color: $med-gray;
+      border: 1px solid $med-gray;
       border-radius: 3px;
       display: inline-block;
       min-width: 20px;
@@ -339,7 +353,10 @@ body.suggested_tiles-index {
     }
     #suggestion_box_title {
       margin-top: -4px;
+      padding: 0 10px 7px 10px;
       h3 {
+        color: $med-gray;
+        margin: 0;
         display: inline-block;
       }
     }
