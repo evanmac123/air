@@ -3,11 +3,12 @@ class SingleTilePresenter
   include TileFooterTimestamper 
   include Rails.application.routes.url_helpers
 
-  def initialize tile, format, as_admin
+  def initialize tile, format, as_admin, is_ie
     @tile = tile
     @type = tile.status.to_sym
     @format = format
     @as_admin = as_admin
+    @is_ie = is_ie
   end
 
   def is_placeholder?
@@ -122,7 +123,8 @@ class SingleTilePresenter
       tile_completions_count, 
       total_views, 
       unique_views,
-      @as_admin
+      @as_admin,
+      @is_ie
     ].join('-')
   end
 

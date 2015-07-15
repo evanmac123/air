@@ -3,6 +3,6 @@
   - if tile.is_placeholder?
     = render "client_admin/tiles/manage_tiles/single_#{tile.class.to_s.underscore}", placeholder: tile
   - else
-    - presenter = SingleTilePresenter.new(tile, :html, @is_client_admin_action)
+    - presenter = SingleTilePresenter.new(tile, :html, @is_client_admin_action, browser.ie?)
     - cache [__FILE__, 'v1.pwd', 'single tile', presenter.cache_key] do
       = render 'client_admin/tiles/manage_tiles/single_tile', presenter: presenter
