@@ -130,10 +130,15 @@ module ClientAdmin::TilesHelper
   end
 
   def destroy_tile_message_params
-    {
-      body: "Are you sure you want to delete this tile? Deleting a tile is irrevocable and you'll loose all data associated with it.",
-      modal_class: "destroy_confirm_modal"
-    }
+    message = "Are you sure you want to delete this tile? Deleting a tile is irrevocable and you'll loose all data associated with it."
+    if browser.ie?
+      message
+    else
+      {
+        body: message,
+        modal_class: "destroy_confirm_modal"
+      }
+    end
   end
 
   def draftSectionClass
