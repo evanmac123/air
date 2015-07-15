@@ -40,10 +40,15 @@ initializeSupportingContentEditor = ->
     stay: false
   editor = new Pen(options)
 
+isIE11 = ->
+  !!window.MSInputMethodContext
+
 isIE = ->
   myNav = navigator.userAgent.toLowerCase()
   if (myNav.indexOf('msie') != -1) 
     parseInt(myNav.split('msie')[1]) 
+  else if isIE11()
+    11
   else
     false
 
