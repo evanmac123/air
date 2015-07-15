@@ -4,7 +4,7 @@ module TilePreview
       include Rails.application.routes.url_helpers
       include ClientAdmin::TilesHelper
 
-      attr_reader :tile
+      attr_reader :tile, :browser
       delegate  :status,
         :has_client_admin_status?,
         :active?,
@@ -12,8 +12,9 @@ module TilePreview
         :user_submitted?,
         to: :tile
 
-      def initialize(tile)
+      def initialize(tile, browser)
         @tile = tile
+        @browser = browser
       end
 
       def status_name
