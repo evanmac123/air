@@ -43,6 +43,7 @@ feature 'Client admin segments on characteristics' do
 		end
 
 		before do
+			FactoryGirl.create :tile, demo: demo
 			visit client_admin_tiles_path()
 			suggestion_box_title.click
 		end
