@@ -67,16 +67,23 @@
     }
   }
 
-  // Also hide activation dates indigest so as not to confuse admins
-  #digest .activation_dates {
-    display: none;
-  }
-
   // Tile stats
   .tile_stats {
     .activation_dates {
-      margin-top:1px;
-      &:after {@include clear;}
+      //&:after {@include clear;}
+      position: absolute;
+      top: 164px;
+      right: 7px;
+      border-radius: 3px;
+      background: rgba(0,0,0,0.7);
+      color: $white;
+      padding: 3px 8px;
+      font-size: 12px;
+      font-weight: 700;
+      i {
+        font-size: 13px;
+        padding-right: 8px;
+      }
     }
     .completions, .views {
       a, a:link, a:visited {
@@ -84,7 +91,7 @@
       }
     }
 
-    .activation_dates span, 
+    //.activation_dates span, 
     .views,
     .completions,
     .completion_percentage,
