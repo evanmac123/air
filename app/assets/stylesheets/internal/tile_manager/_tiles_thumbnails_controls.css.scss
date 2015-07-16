@@ -69,14 +69,9 @@
 
   // Tile stats
   .tile_stats {
-    .activation_dates {
-      //&:after {@include clear;}
-      position: absolute;
-      top: 164px;
-      right: 7px;
+    padding-top: 10px;
+    .activation_dates, .unique_views, .views, .completions {
       border-radius: 3px;
-      background: rgba(0,0,0,0.7);
-      color: $white;
       padding: 3px 8px;
       font-size: 12px;
       font-weight: 700;
@@ -85,16 +80,34 @@
         padding-right: 8px;
       }
     }
-    .completions, .views {
-      a, a:link, a:visited {
-        display: inline;
+
+    .activation_dates {
+      position: absolute;
+      top: 164px;
+      right: 7px;
+      background: rgba(0,0,0,0.7);
+      color: $white;
+    }
+    
+    .unique_views, .views, .completions {
+      float: left;
+      width: 76px;
+      border: 1px solid #bbb;
+      color: #555;
+      text-align: left;
+      &:hover {
+        border-color: #555;
+        color: #444;
+      }
+      i {
+        padding-right: 4px;
       }
     }
 
-    //.activation_dates span, 
-    .views,
-    .completions,
-    .completion_percentage,
+    .unique_views, .views {
+      margin-right: 5px;
+    }
+
     .creator {
       @include caption;
       background: image-url('v5/bg_light.png');

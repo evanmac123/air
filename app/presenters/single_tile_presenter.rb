@@ -81,10 +81,10 @@ class SingleTilePresenter
     @timestamp ||= footer_timestamp
   end
 
-  def completion_percentage
-    @completion_percentage ||= 
-      number_to_percentage claimed_completion_percentage, precision: 1
-  end
+  # def completion_percentage
+  #   @completion_percentage ||= 
+  #     number_to_percentage claimed_completion_percentage, precision: 1
+  # end
 
   def has_creator?
     original_creator
@@ -138,7 +138,7 @@ class SingleTilePresenter
             :unique_views,
             :thumbnail_processing,
             :tile_completions_count, 
-            :claimed_completion_percentage, 
+            # :claimed_completion_percentage, 
             :original_creator,
             to: :tile
 end
