@@ -37,13 +37,13 @@
             = presenter.timestamp
           - if presenter.has_additional_tile_stats?
             = link_to client_admin_tile_tile_completions_path(presenter) do
-              .unique_views
+              .unique_views.has-tip.tip-bottom{title: "unique views", data: {tooltip: true}}
                 = fa_icon 'users'
                 = presenter.unique_views
-              .views
+              .views.has-tip.tip-bottom{title: "total views", data: {tooltip: true}}
                 = fa_icon 'eye'
                 = presenter.total_views
-              .completions.has-tip.tip-bottom{title: "completed", data: {tooltip: true}}
+              .completions.has-tip.tip-bottom{title: "interacted", data: {tooltip: true}}
                 = fa_icon 'check'
                 = presenter.tile_completions_count
             - if presenter.shows_creator? && presenter.has_creator?

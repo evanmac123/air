@@ -128,14 +128,16 @@
     $tooltip-pip-size: 5px;
 
     font-size: 12px;
-    width: 73px !important;
+    width: 88px !important;
+    margin-left: -7px;
+    text-align: center;
     &>.nub {
       position: absolute;
       display: block;
       border: $tooltip-pip-size solid;
       border-color: transparent transparent $tooltip-bg transparent;
       top: -($tooltip-pip-size * 2);
-      left: 32px;
+      left: 40px;
     }
   }
 }
