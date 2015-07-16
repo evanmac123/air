@@ -123,4 +123,19 @@
       text-transform: none;
     }
   }
+  .tooltip.tip-bottom { // tip is used it tiles stats
+    $tooltip-bg: #000;
+    $tooltip-pip-size: 5px;
+
+    font-size: 12px;
+    width: 73px !important;
+    &>.nub {
+      position: absolute;
+      display: block;
+      border: $tooltip-pip-size solid;
+      border-color: transparent transparent $tooltip-bg transparent;
+      top: -($tooltip-pip-size * 2);
+      left: 32px;
+    }
+  }
 }

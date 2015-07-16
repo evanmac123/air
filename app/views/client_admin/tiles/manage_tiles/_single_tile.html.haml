@@ -43,7 +43,7 @@
               .views
                 = fa_icon 'eye'
                 = presenter.total_views
-              .completions 
+              .completions.has-tip.tip-bottom{title: "completed", data: {tooltip: true}}
                 = fa_icon 'check'
                 = presenter.tile_completions_count
             - if presenter.shows_creator? && presenter.has_creator?
