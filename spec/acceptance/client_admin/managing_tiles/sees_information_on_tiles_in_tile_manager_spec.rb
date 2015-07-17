@@ -8,42 +8,30 @@ feature 'Sees helpful information in tile manager' do
     "[data-tile_id='#{tile.id}']"  
   end
 
-  def expect_total_views_count tile, count
-    within tile_cell(tile) do
-      expect_content "#{count} time"
-    end
-  end
-
-  def expect_unique_views_count tile, count
-    within tile_cell(tile) do
-      expect_content "#{count} user"
-    end
-  end
-
-  def expect_completed_users_count(tile, expected_count)
-    within tile_cell(tile) do
-      within ".completions" do
-        if expected_count == 1
-          user_phrase = "1 user"
-        else
-          user_phrase = "#{expected_count} users"
-        end
-        expect_content "Completed: #{user_phrase}"
-      end
-    end
-  end
-
-  def expect_completed_users_percentage(tile, expected_percentage)
-    within tile_cell(tile) do
-      within ".completion_percentage" do
-        expect_content "Completed: #{expected_percentage}% of joined users"
-      end
-    end
-  end
-
   def complete_tile tile
     expect_content tile.headline
     page.find('.right_multiple_choice_answer').click
+  end
+
+  def tile_stat tile, selector
+    full_selector = tile_cell(tile) + " " + selector
+    page.find(full_selector).text
+  end
+
+  def activation_date tile
+    tile_stat tile, ".activation_dates"
+  end
+
+  def unique_views tile
+    tile_stat(tile, ".unique_views").to_i
+  end
+
+  def total_views tile
+    tile_stat(tile, ".views").to_i
+  end
+
+  def completions tile
+    tile_stat(tile, ".completions").to_i
   end
 
   after do
@@ -58,10 +46,7 @@ feature 'Sees helpful information in tile manager' do
 
       visit client_admin_tiles_path(as: client_admin)
 
-      within tile_cell(tile) do
-        expect_content "Never activated"
-        expect_no_content "Deactivated:"
-      end
+      activation_date(tile).should == "0"
     end
   end
 
@@ -74,20 +59,18 @@ feature 'Sees helpful information in tile manager' do
     end
 
     it "should show the length of time that it was active", js: true do
-      within tile_cell(@tile) do
-        expect_content "Active: 7 days"
-      end
+      activation_date(@tile).should == "7 days"
     end
 
     it "should show tile views", js: true do
-      expect_total_views_count @tile, 0
-      expect_unique_views_count @tile, 0
+      total_views(@tile).should == 0
+      unique_views(@tile).should == 0
 
       2.times { FactoryGirl.create :tile_viewing, tile: @tile }
       visit client_admin_tiles_path
 
-      expect_total_views_count @tile, 2
-      expect_unique_views_count @tile, 2
+      total_views(@tile).should == 2
+      unique_views(@tile).should == 2
     end
   end
 
@@ -101,9 +84,7 @@ feature 'Sees helpful information in tile manager' do
       end
 
       it "should show the length of time that it's been active", js: true do
-        within "#{tile_cell(@tile)}.active" do
-          expect_content "Active: 7 days"
-        end
+        activation_date(@tile).should == "7 days"
       end
     end
 
@@ -116,11 +97,11 @@ feature 'Sees helpful information in tile manager' do
       it "should have no views initially" do
         visit client_admin_tiles_path(as: client_admin)
 
-        expect_total_views_count @tile1, 0
-        expect_total_views_count @tile2, 0
+        total_views(@tile1).should == 0
+        total_views(@tile2).should == 0
 
-        expect_unique_views_count @tile1, 0
-        expect_unique_views_count @tile2, 0
+        unique_views(@tile1).should == 0
+        unique_views(@tile2).should == 0
       end
 
       it "should count user's views when he completes and views tiles", js: true do
@@ -136,11 +117,10 @@ feature 'Sees helpful information in tile manager' do
 
         visit client_admin_tiles_path(as: client_admin)
 
-        #expect_total_views_count @tile1, 1
-        expect_total_views_count @tile2, 1
+        total_views(@tile2).should == 1
 
-        expect_unique_views_count @tile1, 1
-        expect_unique_views_count @tile2, 1
+        unique_views(@tile1).should == 1
+        unique_views(@tile2).should == 1
         #
         # => Views tiles
         #
@@ -156,11 +136,11 @@ feature 'Sees helpful information in tile manager' do
 
         visit client_admin_tiles_path
 
-        expect_total_views_count @tile1, 2
-        expect_total_views_count @tile2, 3
+        total_views(@tile1).should == 2
+        total_views(@tile2).should == 3
 
-        expect_unique_views_count @tile1, 1
-        expect_unique_views_count @tile2, 1
+        unique_views(@tile1).should == 1
+        unique_views(@tile2).should == 1
       end
 
       it "should count guest user's views when he views completed tiles", js: true do
@@ -193,11 +173,11 @@ feature 'Sees helpful information in tile manager' do
 
         visit client_admin_tiles_path(as: client_admin)
 
-        expect_total_views_count @tile1, 2
-        expect_total_views_count @tile2, 3
+        total_views(@tile1).should == 2
+        total_views(@tile2).should == 3
 
-        expect_unique_views_count @tile1, 1
-        expect_unique_views_count @tile2, 1
+        unique_views(@tile1).should == 1
+        unique_views(@tile2).should == 1
       end
     end
   end
@@ -222,17 +202,10 @@ feature 'Sees helpful information in tile manager' do
     end
 
     it "such as the number of users who have completed the tile" do
-      expect_completed_users_count(@tile_1, 1)
-      expect_completed_users_count(@tile_2, 2)
-      expect_completed_users_count(@tile_3, 3)
-      expect_completed_users_count(@tile_4, 0)
-    end
-
-    it "such as the percentage of claimed users who have completed the tile" do
-      expect_completed_users_percentage(@tile_1, "25.0")
-      expect_completed_users_percentage(@tile_2, "50.0")
-      expect_completed_users_percentage(@tile_3, "75.0")
-      expect_completed_users_percentage(@tile_4, "0.0")
+      completions(@tile_1).should == 1
+      completions(@tile_2).should == 2
+      completions(@tile_3).should == 3
+      completions(@tile_4).should == 0
     end
   end
 end

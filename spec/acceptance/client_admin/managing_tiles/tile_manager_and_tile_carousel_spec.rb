@@ -14,7 +14,7 @@ feature 'The order of the tiles in the Tile Manager and the Tile Carousel are in
   #------------------------------------------------------------------------------------
 
   def check_manager(manager_tiles)
-    section_content_without_activation_dates('#active').should == manager_tiles
+    section_tile_headlines('#active').should == manager_tiles
   end
 
   def click_next_button
