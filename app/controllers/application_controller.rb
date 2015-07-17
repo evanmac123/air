@@ -260,25 +260,22 @@ class ApplicationController < ActionController::Base
   def refresh_activity_session(user)
     return if user.nil? || user.is_a?(PotentialUser)
     #session things for marketing page ping
+
     if user.is_a? User
       session[:user_id] = user.id 
     elsif user.is_a? GuestUser
       session[:guest_user_id] = user.id 
     end
-    
-    baseline = user.last_session_activity_at.to_i || 0
-    difference = Time.now.to_i - baseline
 
-    user.last_session_activity_at = Time.now
-    user.save!
 
     # We rig the timestamp to ensure that these always appear to Mixpanel to happen
     # after the corresponding email ping (as in email_clicked_ping) if any.
-    if difference >= ACTIVITY_SESSION_THRESHOLD
-      time_from_rack = request.env['rack.timestamp'] 
-      time = time_from_rack || Time.now
+    if idle_period >= ACTIVITY_SESSION_THRESHOLD
+      time = request.env['rack.timestamp'] || Time.now
       ping('Activity Session - New', {time: time - 1}, user)
     end
+
+    set_last_session_activity
   end
 
   def claimed_guest_user
@@ -520,9 +517,23 @@ class ApplicationController < ActionController::Base
     NewRelic::Agent.ignore_transaction
   end
 
-	def enable_miniprofiler
-		if current_user && Rails.env.production? && PROFILABLE_USERS.include?(current_user.email)
-			Rack::MiniProfiler.authorize_request  
-		end
-	end
+  def enable_miniprofiler
+    if current_user && Rails.env.production? && PROFILABLE_USERS.include?(current_user.email)
+      Rack::MiniProfiler.authorize_request  
+    end
+  end
+
+  def set_last_session_activity
+    session[:last_activity]=Time.now
+  end
+
+
+  def last_session_activity
+    session[:last_activity].to_i || 0
+  end
+
+  def idle_period
+    @difference ||= Time.now.to_i - last_session_activity
+  end
+
 end
