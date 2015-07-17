@@ -188,7 +188,7 @@ window.dragAndDropTiles = ->
     {name: name, presented_ids: presented_ids}
 
   tileCompletionsNum = (tile) ->
-    parseInt tile.find(".completions a").text().match(/\d+/)?[0]
+    parseInt tile.find(".completions").text().match(/\d+/)?[0]
 
   turnOnDraftBlocking = (tile, section) ->
     status = getTilesSection tile
