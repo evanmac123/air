@@ -80,7 +80,7 @@
 }
 
 // Placeholder tile thumbnail
-.tile_thumbnail.placeholder_tile, .creation-placeholder a {
+.tile_thumbnail.placeholder_tile {
   border:2px lighten($tile-wall-bg, 7%) dashed;
   border-radius:6px;
   height:16.25em;

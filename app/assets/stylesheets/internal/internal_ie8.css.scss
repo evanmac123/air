@@ -99,7 +99,7 @@ header {
   max-width:238px;
   width:100%;
 }
-.tile_thumbnail.placeholder_tile, .creation-placeholder a {height:20.75em;}
+.tile_thumbnail.placeholder_tile {height:20.75em;}
 .tile_thumbnail.placeholder_tile {border:1px $white dashed;}
 .tile_thumbnail .completed .tile-wrapper * {
   filter: alpha(opacity=50);
