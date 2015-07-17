@@ -528,11 +528,12 @@ class ApplicationController < ActionController::Base
     @difference ||= Time.now.to_i - last_session_activity
   end
 
-  def enable_miniprofiler
-    if current_user && Rails.env.production? && PROFILABLE_USERS.include?(current_user.email)
-      Rack::MiniProfiler.authorize_request  
-    end
-  end
+ 	def enable_miniprofiler
+		if Rails.env.production_local? || (current_user && Rails.env.production? && PROFILABLE_USERS.include?(current_user.email))
+			Rack::MiniProfiler.authorize_request  
+		end
+	end
+
 
   def profiler_step(name, &block)
     Rack::MiniProfiler.step(name) do
