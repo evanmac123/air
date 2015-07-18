@@ -5,8 +5,21 @@ function bindBoardSettingsControls() {
 
   $(".board_settings_toggle_wrapper, .board_settings_mobile_toggle").click(function(event){
     event.preventDefault();
-    window.openBoardSettings();
+     getBoardSettings();
   });
+
+
+  function getBoardSettings(){
+   $.ajax({
+     url: $("#user_settings_body").data("path"),
+     dataType: "html",
+
+   }).done(function(data, textStatus, jqXHR){
+     $("#user_settings_body").html(data);
+    bindBoardSettingsControls();
+    window.openBoardSettings();
+   });
+  }
 
   $(".close_board_settings_container").click(function(){
     event.preventDefault();

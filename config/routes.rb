@@ -80,6 +80,7 @@ Health::Application.routes.draw do
   resources :copy_boards, only: [:create]
   resources :parent_boards, only: [:show]
 
+	resource :board_setting, only: [:show]
   resource :current_board, only: [:update]  
   resource :explore, only: [:show] do
     resources :tile_previews, only: [:show], :path => "tile"
@@ -90,6 +91,8 @@ Health::Application.routes.draw do
       get 'tile_tag_show'
     end
   end
+
+
 
   resources :board_name_validations, only: :show
   resources :board_memberships, only: :destroy
