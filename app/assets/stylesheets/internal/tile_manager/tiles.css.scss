@@ -49,8 +49,8 @@ body.suggested_tiles-index {
         height: 407px;
       }
     }
-    #active  { .tile_container { height: 466px; } }
-    #archive { .tile_container { height: 466px; } }
+    #active  { .tile_container { height: 400px; } }
+    #archive { .tile_container { height: 400px; } }
     .no_tiles_message {margin:0 auto 3em;}
   }
   #active_tiles, #archived_tiles, #draft_tiles, #submitted_tiles, #accepted_tiles, #posted_tiles {

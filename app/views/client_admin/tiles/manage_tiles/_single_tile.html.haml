@@ -1,4 +1,4 @@
-- cache [__FILE__, 'v10.ant', presenter.cache_key] do
+- cache [__FILE__, 'v11.ant', presenter.cache_key] do
   .tile_container
     .tile_thumbnail{class: presenter.type, id: "single-tile-#{presenter.tile_id}", data: {tile_id: presenter.tile_id}}
       = link_to presenter.show_tile_path, class:'tile_thumb_link' do
@@ -36,23 +36,20 @@
           .activation_dates
             = presenter.timestamp
           - if presenter.has_additional_tile_stats?
-            .views
-              Viewed:
-              = link_to client_admin_tile_tile_completions_path(presenter) do
-                = pluralize(presenter.total_views, 'time')
-                by
-                = pluralize(presenter.unique_views, 'user')
-            .completions 
-              Completed:
-              = link_to pluralize(presenter.tile_completions_count, 'user'), client_admin_tile_tile_completions_path(presenter)
-            .completion_percentage
-              Completed:
-              = presenter.completion_percentage
-              of joined users
-          - if presenter.shows_creator? && presenter.has_creator?
-            .creator
-              By:
-              = presenter.creator
+            = link_to client_admin_tile_tile_completions_path(presenter) do
+              .unique_views.has-tip.tip-bottom{title: "Unique Views", data: {tooltip: true}}
+                = fa_icon 'users'
+                = presenter.unique_views
+              .views.has-tip.tip-bottom{title: "Total Views", data: {tooltip: true}}
+                = fa_icon 'eye'
+                = presenter.total_views
+              .completions.has-tip.tip-bottom{title: "Interacted", data: {tooltip: true}}
+                = fa_icon 'check'
+                = presenter.tile_completions_count
+            - if presenter.shows_creator? && presenter.has_creator?
+              .creator
+                By:
+                = presenter.creator
 
 - if presenter.thumbnail_processing
   - js_at_end do

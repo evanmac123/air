@@ -206,7 +206,7 @@ feature 'Client admin and tile manager page' do
       visit_tile_manager_page
       expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
       
-      section_content_without_activation_dates('#active').should == expected_tile_table
+      section_tile_headlines('#active').should == expected_tile_table
     end
 
     it "for Archived tiles, showing only a limited selection of them" do
@@ -223,7 +223,7 @@ feature 'Client admin and tile manager page' do
       visit_tile_manager_page
       expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
 
-      section_content_without_activation_dates('#archive').should == expected_tile_table[0..3]
+      section_tile_headlines('#archive').should == expected_tile_table[0..3]
     end
   end
 

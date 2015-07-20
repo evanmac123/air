@@ -55,44 +55,51 @@ module TileFooterTimestamper
     when :draft
       {
         title: "Created: ",
+        icon: "calendar",
         time: time_in_format(tile.created_at),
         class: "tile-created-at"
       }
     when :active
       {
         title: "Active: ",
+        icon: "clock-o",
         time: distance_of_time_in_words(tile.activated_at, Time.now),
         class: 'tile-active-time'
       }
     when :archive
       {
         title: "Active: ",
+        icon: "clock-o",
         time: distance_of_time_in_words(tile.activated_at, tile.archived_at),
         class: 'tile-active-time'
       }
     when :archive_never_activated
       {
         title: "Never activated",
-        time: "",
-        class: nil
+        icon: "clock-o",
+        time: "0",
+        class: ""
       }
     when :user_submitted
       {
         title: "Submitted: ",
+        icon: "calendar",
         time: time_in_format(tile.created_at),
         class: "tile-submitted-at"
       }
     when :ignored
       {
         title: "Submitted: ",
+        icon: "calendar",
         time: time_in_format(tile.created_at),
         class: "tile-submitted-at"
       }
     else
       {
         title: "",
+        icon: "",
         time: "",
-        class: nil
+        class: ""
       }
     end
   end
@@ -102,15 +109,17 @@ module TileFooterTimestamper
   end
 
   def spanned_text(params)
-    title, time, span_class = params.values_at(:title, :time, :class)
-    text = title + time
+    title, time, span_class, icon = params.values_at(:title, :time, :class, :icon)
 
-    return text if @format == :plain
-
-    if span_class
-      ["<span class='#{span_class}'>", text, "</span>"].join.html_safe
+    if @format == :plain
+      title + time
     else
-      "<span>#{text}</span>".html_safe
+      [
+        "<span class='#{span_class}'>", 
+          "<i class='fa fa-#{icon}'></i>",
+          time, 
+        "</span>"
+      ].join.html_safe
     end
   end
 end
