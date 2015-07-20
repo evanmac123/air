@@ -1,28 +1,3 @@
-<div id="leave_board_safety_modal" class="reveal-modal">
-  <div class="row">
-    <div class="small-9 columns">
-      <h1>DELETE</h1>
-    </div>
-    <div class="small-3 columns close_safety_block">
-      <a id="close_safety_modal" class="small-1" href="#">Cancel</a>
-    </div>
-  </div>
-
-  <p id="warning_first_part">
-    <% if user.has_only_one_board? %>
-      Your account will be permanently deleted from Airbo.
-    <% else %>
-      Your account will be permanently deleted from this board.
-    <% end %>
-  </p>
-  <p id="warning_second_part">Confirm by typing the word "DELETE" in all caps.</p>
-
-  <%= form_tag '#', id: "leave_board_form", method: "delete" do %>
-    <%= text_field_tag '#', nil, placeholder: "Type \"DELETE\" in all caps" %>
-    <%= submit_tag 'Leave Board', disabled: true %>
-  <% end %>
-</div>
-
 <div id="board_settings" class="reveal-modal">
   <div class="row">
     <div class="small-11 columns">
