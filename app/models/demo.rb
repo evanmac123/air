@@ -357,7 +357,7 @@ class Demo < ActiveRecord::Base
     self.where(id: id).public.first
   end
 
-  def non_activated? # CUT?
+	def non_activated? # CUT?  #TODO find a way to do this without doing a query every time.
     self.tiles.active.empty? && self.tiles.where('activated_at IS NOT NULL').count < 1
   end
   
