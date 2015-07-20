@@ -1086,7 +1086,7 @@ class User < ActiveRecord::Base
   end
 
   def has_only_one_board?
-    demos.limit(2).length == 1
+    demos.limit(2).count == 1
   end
 
   def muted_digest_boards
