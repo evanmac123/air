@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150618141029) do
+ActiveRecord::Schema.define(:version => 20150714101053) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -954,9 +954,9 @@ ActiveRecord::Schema.define(:version => 20150618141029) do
     t.boolean  "submitted_tile_menu_intro_seen",                      :default => false,       :null => false
     t.boolean  "submit_tile_intro_seen",                              :default => false,       :null => false
     t.boolean  "suggestion_box_intro_seen",                           :default => false,       :null => false
-    t.boolean  "suggestion_box_prompt_seen",                          :default => false,       :null => false
     t.boolean  "send_weekly_activity_report",                         :default => true
     t.boolean  "user_submitted_tile_intro_seen",                      :default => false,       :null => false
+    t.boolean  "manage_access_prompt_seen",                           :default => false,       :null => false
   end
 
   add_index "users", ["cancel_account_token"], :name => "index_users_on_cancel_account_token"

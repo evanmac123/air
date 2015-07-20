@@ -92,7 +92,7 @@ body.suggested_tiles-index {
   }
   #draft_tiles {
     background: $almost-white;
-    margin-top: 2em;
+    padding-top: 2em;
     #draft {
       &:after {
         @include clear;
@@ -102,18 +102,16 @@ body.suggested_tiles-index {
       #draft {
         display: block;
       }
+      #draft_title {
+        color: $text-color;
+        border-bottom: 2px solid $sky-blue;
+      }
       #suggestion_box {
         display: none;
-      }
-      .suggestion_header_block {
-        background: $off-white;
       }
       .suggestion_box_header {
         .manage_access, .help {
           display: none;
-        }
-        .ideas_prompt {
-          @include right-pip(7px, $sky-blue, $off-white);
         }
       }
     }
@@ -124,8 +122,15 @@ body.suggested_tiles-index {
       #suggestion_box {
         display: block;
       }
-      .draft_title_block {
-        background: $off-white;
+      #suggestion_box_title{
+        border-bottom: 2px solid $sky-blue;
+        h3 {
+          color: $text-color;
+        }
+        #user_submitted_tiles_counter {
+          border-color: $text-color;
+          color: $text-color;
+        }
       }
     }
     &.suggestion_box_gated {
@@ -135,30 +140,32 @@ body.suggested_tiles-index {
   }
   .draft_header_block {
     position: relative;
-    padding-bottom: 50px;
+    padding-bottom: 65px;
     .draft_title_block, .suggestion_header_block {
       float: left;
       padding: 18px;
       position: relative;
     }  
     .draft_title_block {
-      width: 47%;
+      width: 7%;
     }
     .suggestion_header_block {
-      width: 53%;
+      width: 89%;
     }
     #draft_title {
       position: absolute;
-      top: 13px;
-      right: 453px;
+      top: 11px;
+      right: 3px;
       cursor: pointer;
       margin: 0;
+      color: $med-gray;
+      padding: 0 10px 7px 10px;
     }
     .suggestion_box_header {
       position: absolute;
       top: 13px;
       left: 20px;
-      width: 505px;
+      width: 957px;
     }
   }
   .draft_overlay{
@@ -326,15 +333,19 @@ body.suggested_tiles-index {
     @include switch-size(16px, 9px, 2.3em);
   }
   .suggestion_box_header {
-    .help, .manage_access, #suggestion_box_title, .ideas_prompt {
+    #suggestion_box_title {
+      float: left;
+      cursor: pointer;
+    }
+    .help, .manage_access {
       float: right;
       cursor: pointer;
     }
     #user_submitted_tiles_counter {
       @include font-regular;
       font-size: 12px;
-      color:$sky-blue;
-      border: 1px solid $sky-blue;
+      color: $med-gray;
+      border: 1px solid $med-gray;
       border-radius: 3px;
       display: inline-block;
       min-width: 20px;
@@ -342,7 +353,10 @@ body.suggested_tiles-index {
     }
     #suggestion_box_title {
       margin-top: -4px;
+      padding: 0 10px 7px 10px;
       h3 {
+        color: $med-gray;
+        margin: 0;
         display: inline-block;
       }
     }
@@ -353,35 +367,31 @@ body.suggested_tiles-index {
       padding-right: 20px;
       margin-top: -3px;
     }
-    .ideas_prompt {
-      @include font-regular;
-      @include right-pip(7px, $sky-blue, $white);
-      font-size: 12px;
-      color: $sky-blue;
-      border-radius: 3px;
-      border: 1px solid $sky-blue;
-      padding: 5px;
-      margin-top: -9px;
-      margin-right: 15px;
-      position: relative;
-      .fa-user {
-        font-size: 16px;
-        padding-left: 5px;
-        padding-right: 4px;
-      }
-      .fa-close {
-        font-size: 14px;
-        padding-left: 3px;
-        padding-right: 3px;
-      }
-    }
-    .manage_item { // hide manage_access if we have prompt
-      &:last-child {
-        display: none;
-      }
-      &:first-child {
-        display: block;
-      }
+  }
+  #manage_access_prompt {
+    position: absolute;
+    top: 120px;
+    left: 140px;
+    padding: 20px;
+    font-size: 20px;
+    color: $sky-blue;
+    border: 2px solid $sky-blue;
+    border-radius: 3px;
+    background: $white;
+  }
+  .arrow_line {
+    position: absolute;
+    top: -154px;
+    right: -44px;
+    height: 183px;
+    width: 44px;
+    border: 2px solid $sky-blue;
+    border-color: transparent $sky-blue $sky-blue transparent;
+    i {
+      position: absolute;
+      top: -14px;
+      right: -10px;
+      font-size: 27px;
     }
   }
   #suggestions_access_modal {

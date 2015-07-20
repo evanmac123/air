@@ -4,7 +4,7 @@ feature 'Client admin visits link from submitted tile notification' do
   include WaitForAjax
   include SuggestionBox
 
-  let!(:admin) { FactoryGirl.create :client_admin, suggestion_box_intro_seen: false, suggestion_box_prompt_seen: false }
+  let!(:admin) { FactoryGirl.create :client_admin, suggestion_box_intro_seen: false }
   let!(:demo)  { admin.demo  }
   let!(:user) { FactoryGirl.create :user, demo: demo }
   let!(:tile) { FactoryGirl.create :tile, :user_submitted, demo: demo }

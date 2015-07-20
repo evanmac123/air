@@ -65,6 +65,9 @@ warningCancel = ->
   $(warningModalSelector() + " .cancel, " + 
     warningModalSelector() + " .close-reveal-modal")
 
+manageAccessPrompt = ->
+  $("#manage_access_prompt")
+
 window.suggestionsAccess = (withModalEvents = true) ->
   #
   # => Suggestion Box Modal
@@ -162,6 +165,10 @@ window.suggestionsAccess = (withModalEvents = true) ->
   #
   # => Suggestion Form
   #
+  checkManageAccessPrompt = ->
+    if manageAccessPrompt().length > 0
+      manageAccessPrompt().remove()
+
   blockSaveBtn = ->
     saveBtn().attr("disabled", "disabled")
     window.needToBeSaved = false
@@ -209,6 +216,7 @@ window.suggestionsAccess = (withModalEvents = true) ->
       success: ->
         turnSaveBtnSpinner('off')
         triggerModal('close')
+        checkManageAccessPrompt()
 
   $(window).on "beforeunload", ->
     if window.needToBeSaved

@@ -104,13 +104,12 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   private
 
   def intro_flags_index
-    @board_is_brand_new = @demo.tiles.limit(1).first.nil?
+    @board_is_brand_new = @demo.tiles.limit(1).first.nil? && params[:show_suggestion_box] != "true"
     @show_suggestion_box_intro =  if !current_user.suggestion_box_intro_seen
 
                                     current_user.suggestion_box_intro_seen = true
                                     current_user.save
                                   end
-    @show_suggestion_box_prompt = !current_user.suggestion_box_prompt_seen
     @user_submitted_tile_intro =  if  params[:user_submitted_tile_intro] && 
                                       !current_user.user_submitted_tile_intro_seen &&
                                       @demo.tiles.user_submitted.first.present? &&
@@ -119,6 +118,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
                                     current_user.user_submitted_tile_intro_seen = true
                                     current_user.save
                                   end
+    @manage_access_prompt = !current_user.manage_access_prompt_seen 
   end
 
   def show_submitted_tile_menu_intro
