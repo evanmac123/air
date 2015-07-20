@@ -9,7 +9,7 @@
     <% end %>
     <li><%= link_to "Sign Out", sign_out_path, :method => :delete , :class => 'nav-signout' %></li>
 
-    <%= render 'shared/header/mobile_board_switcher', user: user %>
+    <%= render 'shared/header/mobile_board_switcher', user: user if is_mobile?%>
 
   </ul>
 </div>
