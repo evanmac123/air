@@ -3,8 +3,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   include ClientAdmin::TilesPingsHelper
   
   before_filter :get_demo
-  before_filter :load_tags, only: [:new, :edit, :create, :update]
-  before_filter :load_image_library, only: [:new, :edit, :create, :update]
+  before_filter :load_tags, only: [:new, :edit, :update]
+  before_filter :load_image_library, only: [:new, :edit,  :update]
 
   def index
     # Update 'status' for tiles with 'start_time' and 'end_time' attributes (before you fetch the different tile groups)
@@ -41,6 +41,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       redirect_to client_admin_tile_path(@tile_builder_form.tile)
     else
       flash.now[:failure] = @tile_builder_form.error_message
+			load_tags
+			load_image_library
       render "new"
     end
   end
