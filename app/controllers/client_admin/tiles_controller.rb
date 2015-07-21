@@ -242,19 +242,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def set_after_save_flash(new_tile)
-    activate_url = client_admin_tile_path(new_tile, update_status: Tile::ACTIVE)
-    edit_url = edit_client_admin_tile_path(new_tile)
-    already_active = new_tile.active?
-
-    flash[:success] = render_to_string("shared/tiles/form/preview_after_save_flash", 
-      layout: false, locals: {
-        action: params[:action], 
-        edit_url: edit_url, 
-        activate_url: activate_url, 
-        already_active: already_active
-      }
-    )
-    flash[:success_allow_raw] = true
+    flash[:success] ="Tile #{params[:action] || 'create' }d! We're resizing the graphics, which usually takes less than a minute."
   end
 
   def set_flash_for_no_image
