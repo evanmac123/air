@@ -1,56 +1,27 @@
 class User
 	class TileProgressCalculator
+		attr_reader :available, :completed, :available_ids, :completed_ids, :tiles_not_used_in_tile_progress
 		def initialize(user)
 			@user = user
+			set_vars
 		end
 
 
 		def available_tiles_on_current_demo
 			available_differs_from_completed?
 			if available_differs_from_completed?
-				 @available_active -= tiles_not_used_in_tile_progress
+				 @available -= tiles_not_used_in_tile_progress
 			end
-			@available_active
+			@available
 		end
 
 		def completed_tiles_on_current_demo
 			if available_differs_from_completed?
-				@completed_active -= tiles_not_used_in_tile_progress
+				@completed -= tiles_not_used_in_tile_progress
 			end
-			@completed_active
+			@completed
 		end
 
-		def tiles_not_used_in_tile_progress
-			@res ||= Tile.joins(:tile_completions).
-				where do 
-				(status == Tile::ACTIVE) & 
-					(tile_completions.user_id == @user.id) & 
-					(tile_completions.not_show_in_tile_progress == true) & 
-					(demo_id == @user.demo_id) 
-			end
-		end
-
-
-		def available_differs_from_completed?
-			@res ||= (available_ids.sort != completed_ids.sort)
-		end
-
-		def available_ids
-			@available_ids ||= self.available.pluck(:id)
-		end
-
-		def completed_ids
-			@completed_ids ||= self.completed.pluck(:id)
-		end
-
-
-		def available
-			@available_active ||= @user.demo.tiles.where(status: Tile::ACTIVE)
-		end
-
-		def completed
-			@completed_active ||= @user.completed_tiles.where(demo_id: @user.demo, status: Tile::ACTIVE)
-		end
 
 		def not_show_all_completed_tiles_in_progress
 			userid = @user.id
@@ -64,5 +35,32 @@ class User
 			end
 			completed_tiles.update_all(not_show_in_tile_progress: true)
 		end
+
+		private
+
+
+		def set_vars
+			@available =  @user.demo.tiles.where(status: Tile::ACTIVE).all
+			@completed = @user.completed_tiles.where(demo_id: @user.demo, status: Tile::ACTIVE).all
+			@available_ids = @available.map(&:id)
+			@completed_ids = @completed.map(&:id)
+			@tiles_not_used_in_tile_progress = tiles_not_used(@user.id, @user.demo.id).all
+		end
+
+		def tiles_not_used user_id, demo_id
+			Tile.joins(:tile_completions).
+				where do 
+				(status == Tile::ACTIVE) & 
+					(tile_completions.user_id == user_id) & 
+					(tile_completions.not_show_in_tile_progress == true) & 
+					(demo_id == demo_id) 
+			end
+		end
+
+		def available_differs_from_completed?
+			available_ids.sort != completed_ids.sort
+		end
+
+
 	end
 end
