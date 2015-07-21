@@ -105,7 +105,6 @@ class TileBuilderForm
     set_tile_attributes
     set_tile_creator
     tile.status = newly_built_tile_status
-    tile.position = tile.find_new_first_position
   end
   
   def set_tile_image
