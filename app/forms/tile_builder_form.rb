@@ -97,7 +97,7 @@ class TileBuilderForm
   protected
 
   def save_tile
-    Tile.transaction { tile.save(context: :client_admin) }
+     tile.save(context: :client_admin)
   end
 
   def build_tile
