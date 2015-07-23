@@ -1,6 +1,6 @@
 S3_CREDENTIALS = {
-  :access_key_id     => (ENV['AWS_ACCESS_KEY_ID'] || 'AKIAJK2TBRVMQVRXAVSQ'),
-  :secret_access_key => (ENV['AWS_SECRET_ACCESS_KEY'] || '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')
+  :access_key_id     => (ENV['AWS_ACCESS_KEY_ID'] ),
+  :secret_access_key => (ENV['AWS_SECRET_ACCESS_KEY'])
 }
 
 S3_AVATAR_BUCKET = ENV['AVATAR_BUCKET'] || 'hengage-avatars-development'
@@ -13,7 +13,7 @@ TILE_THUMBNAIL_OPTIONS = {}
 DEMO_LOGO_OPTIONS = {}
 
 case Rails.env
-when 'production', 'staging'
+when 'production', 'staging', 'development'
   TILE_OPTIONS = {
     :storage => :s3,
     :s3_protocol => 'https', 
@@ -35,7 +35,7 @@ when 'production', 'staging'
     :url            => ":s3_domain_url"
   }
   DEMO_LOGO_OPTIONS[:path] = "/demo/:id/:hash__:filename"
-when 'test', 'development', 'production_local'
+when 'test',  'production_local'
   # Use defaults of :storage => :filesystem
 else
   raise 'Environment Not Found'
