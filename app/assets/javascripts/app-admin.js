@@ -22,3 +22,4 @@
 //= require internal_and_external/intercom_setup
 //= require internal/tile_manager/tile_polling
 //= require ./internal/byte_counter
+//= require jquery-fileupload/basic

@@ -59,6 +59,7 @@ gem 'rack-mini-profiler', require: false
 gem 'flamegraph'
 gem "unicorn"   # Some of our capybara webkit tests fail with thin, so we use unicorn
 gem "newrelic_rpm"
+gem "jquery-fileupload-rails"#
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
