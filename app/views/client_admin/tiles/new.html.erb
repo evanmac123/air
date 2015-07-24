@@ -2,3 +2,17 @@
 <%= mp_track_page 'tile builder (create)' %>
 <%= render 'shared/tiles/form', tile_images: @tile_images, tile_builder_form: @tile_builder_form %>
 
+
+<div class="row">
+<%= s3_uploader_form post: client_admin_tiles_url, as: "painting[image_url]" do %>
+  <%= file_field_tag :file, multiple: true %>
+<% end %>
+</div>
+
+
+<script id="template-upload" type="text/x-tmpl">
+<div class="upload">
+  {%=o.name%}
+  <div class="progress"><div class="bar" style="width: 0%"></div></div>
+</div>
+</script>
