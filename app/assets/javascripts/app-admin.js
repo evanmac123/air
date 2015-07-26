@@ -8,6 +8,13 @@
 //= require ../../../vendor/assets/javascripts/internal/jRespond.min
 //= require ./internal_and_external/underscore-min
 //= require_tree ../../../vendor/assets/javascripts/admin/.
+//= require jquery-fileupload/vendor/jquery.ui.widget
+//= require jquery-fileupload/vendor/load-image.all.min
+//= require jquery-fileupload/vendor/canvas-to-blob
+//= require jquery-fileupload/jquery.iframe-transport
+//= require jquery-fileupload/jquery.fileupload
+//= require jquery-fileupload/jquery.fileupload-process
+//= require jquery-fileupload/jquery.fileupload-image
 //= require_tree ./admin/.
 //= require jquery.validate
 //= require jquery.validate.additional-methods
@@ -22,4 +29,4 @@
 //= require internal_and_external/intercom_setup
 //= require internal/tile_manager/tile_polling
 //= require ./internal/byte_counter
-//= require jquery-fileupload/basic
+
