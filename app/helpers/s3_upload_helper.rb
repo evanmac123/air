@@ -30,6 +30,7 @@ module S3UploadHelper
         multipart: true,
         data: {
           post: @options[:post],
+          as: @options[:as]
         }
       }
     end
