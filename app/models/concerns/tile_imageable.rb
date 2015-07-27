@@ -7,17 +7,14 @@ module Concerns::TileImageable
   TILE_IMAGE_PROCESSING_PRIORITY = -10
 
   included do
-    validates_with Paperclip::Validators::AttachmentPresenceValidator, attributes: [:image], 
-                                                if: :require_images, 
-                                                message: "image is missing"
+    #validates_with Paperclip::Validators::AttachmentPresenceValidator, attributes: [:image], if: :require_images, message: "image is missing"
 
-    validates_with Paperclip::Validators::AttachmentPresenceValidator, attributes: [:thumbnail], 
-                                                if: :require_images
+    #validates_with Paperclip::Validators::AttachmentPresenceValidator, attributes: [:thumbnail], if: :require_images
 
-    validates_with Paperclip::Validators::AttachmentSizeValidator,     less_than: (2.5).megabytes, 
-                                                message: " the image is too large, please use a smaller file", 
-                                                attributes: [:image], 
-                                                if: :require_images
+    #validates_with Paperclip::Validators::AttachmentSizeValidator,less_than: (2.5).megabytes, 
+                                                #message: " the image is too large, please use a smaller file", 
+                                                #attributes: [:image], 
+                                                #if: :require_images
 
     validates_attachment_content_type           :image, 
                                                 content_type: valid_image_mime_types, 
