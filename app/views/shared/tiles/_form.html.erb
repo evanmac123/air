@@ -16,3 +16,8 @@
   </div>
 <% end %>
 <%= render 'shared/tiles/poll_for_image_if_needed', tile: tile_builder_form.tile %>
+
+<%= s3_uploader_form post: client_admin_tiles_url, as: "tile_builder_form[upload_url]", style: "visibilty:hidden;height:0px;width:0px" do %>
+  <%= file_field_tag :file, multiple: true, id:"media_file" %>
+<% end %>
+

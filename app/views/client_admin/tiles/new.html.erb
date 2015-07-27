@@ -2,13 +2,3 @@
 <%= mp_track_page 'tile builder (create)' %>
 <%= render 'shared/tiles/form', tile_images: @tile_images, tile_builder_form: @tile_builder_form %>
 
-
-<div class="tile_image_block upload_image" id="clickDelegator">
-  <%= fa_icon('arrow-circle-o-up 2x') %>
-  <span>Upload Image</span>
-  <div class="upload_new_image">
-    <%= s3_uploader_form post: client_admin_tiles_url, as: "tile_builder_form[upload_url]" do %>
-      <%= file_field_tag :file, multiple: true, id:"media_file" %>
-    <% end %>
-  </div>
-</div>
