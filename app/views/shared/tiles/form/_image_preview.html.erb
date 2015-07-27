@@ -24,7 +24,6 @@
             </div>
             <%= form.text_area :image_credit %>
           <% end %>
-          
         </div>
       </div>
     </div>
@@ -52,11 +51,9 @@
 <% if ie9_or_older? %>
   <% js_at_end do %>
     window.imageCreditIE();
-    window.imagePreview();
   <% end %>
 <% else %>
   <%= js_at_end do %>
     window.imageCredit();
-    window.imagePreview();
   <% end %>
 <% end %>
