@@ -101,7 +101,7 @@ class TileBuilderForm
   end
 
   def build_tile
-    set_tile_image
+    #set_tile_image
     set_tile_attributes
     set_tile_creator
     tile.status = newly_built_tile_status
