@@ -86,10 +86,58 @@
   height:16.25em;
 }
 
-.tile_creator {
-  text-align: left;
-  font-weight:bold;
-  font-size:12px;
-  padding-left:1em;
-  padding-top: .3em;
+// .tile_creator {
+//   text-align: left;
+//   font-weight:bold;
+//   font-size:12px;
+//   padding-left:1em;
+//   padding-top: .3em;
+// }
+
+#draft, #suggestion_box {
+  .tile_thumbnail {
+    max-width: 159px;
+    .shadow_overlay, .tile_thumbnail_image {
+      height: 8em;
+    }
+    .shadow_overlay:after {
+      margin-top: 4em;
+    }
+    .headline {
+      min-height: 5em;
+      height: 5em;
+      padding: 0.5em;
+      .text {
+        font-size: 13px;
+      }
+    }
+    .tile_stats {
+      .activation_dates {
+        top: 106px;
+        right: 0px;
+      }
+    }
+  }
+  .tile_buttons {
+    .edit_button, .destroy_button {
+      width: 33px;
+      text-align: left;
+      span {
+        display: none;
+      }
+      i {
+        display: block;
+        font-size: 22px;
+        padding-top: 2px;
+        color: $white;
+      }
+    }
+    .ignore_button, .accept_button {
+      margin-right: 0;  
+      span {
+        padding-left: 0.55em;
+        padding-right: 0.55em; 
+      }
+    }
+  }
 }

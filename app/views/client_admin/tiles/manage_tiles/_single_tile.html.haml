@@ -12,25 +12,35 @@
       %ul.tile_buttons
         - if presenter.has_archive_button?
           %li.archive_button
-            = link_to 'Archive', client_admin_tile_path(presenter, update_status: Tile::ARCHIVE), method: :put
+            = link_to client_admin_tile_path(presenter, update_status: Tile::ARCHIVE), method: :put do
+              %span Archive
         - if presenter.has_activate_button?
           %li.activate_button
-            = link_to presenter.post_link_text, client_admin_tile_path(presenter, update_status: Tile::ACTIVE, path: :via_index), method: :put
+            = link_to client_admin_tile_path(presenter, update_status: Tile::ACTIVE, path: :via_index), method: :put do
+              %span 
+                = presenter.post_link_text
         - if presenter.has_edit_button?              
           %li.edit_button
-            = link_to 'Edit', edit_client_admin_tile_path(presenter)
+            = link_to edit_client_admin_tile_path(presenter) do
+              %span Edit
+              = fa_icon 'pencil'
         - if presenter.has_destroy_button? 
           %li.destroy_button
-            = link_to 'Delete', client_admin_tile_path(presenter, page: 'Edit'), method: :delete, data: { confirm: destroy_tile_message_params }
+            = link_to client_admin_tile_path(presenter, page: 'Edit'), method: :delete, data: { confirm: destroy_tile_message_params } do
+              %span Delete
+              = fa_icon 'trash'
         - if presenter.has_ignore_button?
           %li.ignore_button
-            = link_to 'Ignore', client_admin_tile_path(presenter, update_status: Tile::IGNORED)
+            = link_to client_admin_tile_path(presenter, update_status: Tile::IGNORED) do
+              %span Ignore
         - if presenter.has_accept_button?
           %li.accept_button
-            = link_to 'Accept', client_admin_tile_path(presenter, update_status: Tile::DRAFT)
+            = link_to client_admin_tile_path(presenter, update_status: Tile::DRAFT) do
+              %span Accept
         - if presenter.has_undo_ignore_button?
           %li.undo_ignore_button
-            = link_to 'Undo Ignore', client_admin_tile_path(presenter, update_status: Tile::USER_SUBMITTED)
+            = link_to client_admin_tile_path(presenter, update_status: Tile::USER_SUBMITTED) do
+              %span Undo Ignore
       - if presenter.has_tile_stats?
         .tile_stats
           .activation_dates

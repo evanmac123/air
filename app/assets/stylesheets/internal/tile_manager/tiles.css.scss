@@ -39,16 +39,18 @@ body.suggested_tiles-index {
       float: left;
       padding-bottom: 2rem;
     }
-    #draft { 
+    #draft, #suggestion_box { 
       .tile_container { 
-        height: 377px; 
+        height: 251px; 
+        width: 16%;
       } 
     }
-    #suggestion_box {
-      .tile_container {
-        height: 407px;
-      }
-    }
+    // #suggestion_box {
+    //   .tile_container {
+    //     height: 300px; 
+    //     width: 16%;
+    //   }
+    // }
     #active  { .tile_container { height: 400px; } }
     #archive { .tile_container { height: 400px; } }
     .no_tiles_message {margin:0 auto 3em;}
@@ -271,45 +273,55 @@ body.suggested_tiles-index,
   position: absolute;
   top: 3px;
   right: -975px;
+  z-index: 1;
+  font-weight: 700;
 }
-// Create new tile link
-// .creation-placeholder a {
-//   border-color: $lightest-gray;
-//   display: block;
-//   color: $white !important;
-//   line-height:1em;
-//   position: relative;
-//   text-align: center;
-//   &:hover {border-color:lighten($blue, 10%); color:transparent;}
-//   &:before {
-//     color:$white;
-//     background:$sky-blue;
-//     border-radius:$border-radius;
-//     content:"+";
-//     display: block;
-//     font-size:5em;
-//     line-height:0;
-//     margin-left:-40px;
-//     position: absolute;
-//     top:30%;
-//     left:50%;
-//     text-align: center;
-//     height:80px;
-//     width:80px;
-//     overflow: hidden;
-//     padding-top:32px;
-//   }
-//   &:hover:before {background:darken($sky-blue, 7%);}
-//   &:after{
-//     color:$sky-blue;
-//     line-height:1em;
-//     content: "Add New Tile";
-//     position: absolute;
-//     top:60%;
-//     left:30%;
-//     text-align: center;
-//   }
-// }
+body.suggested_tiles-index {
+  // Create new tile link
+  .creation-placeholder {
+    display: inline-block;
+    width: 100%;
+    max-width: 238px;
+  }
+  .creation-placeholder a {
+    border-color: $lightest-gray;
+    display: block;
+    color: $white !important;
+    line-height:1em;
+    position: relative;
+    text-align: center;
+    height:19.5em;
+    &:hover {border-color:lighten($blue, 10%); color:transparent;}
+    &:before {
+      color:$white;
+      background:$sky-blue;
+      border-radius:$border-radius;
+      content:"+";
+      display: block;
+      font-size:5em;
+      line-height:0;
+      margin-left:-40px;
+      position: absolute;
+      top:30%;
+      left:50%;
+      text-align: center;
+      height:80px;
+      width:80px;
+      overflow: hidden;
+      padding-top:32px;
+    }
+    &:hover:before {background:darken($sky-blue, 7%);}
+    &:after{
+      color:$sky-blue;
+      line-height:1em;
+      content: "Add New Tile";
+      position: absolute;
+      top:60%;
+      left:30%;
+      text-align: center;
+    }
+  }
+}
 
 // Links to download CSV tile reports
 a.download_csv {

@@ -87,10 +87,6 @@ class Demo < ActiveRecord::Base
     tiles.suggested
   end
 
-  def archive_tiles_with_creation_placeholder
-    [TileCreationPlaceholder.new] + archive_tiles
-  end
-
   def archive_tiles_with_placeholders
     self.class.add_odd_row_placeholders! archive_tiles
   end
@@ -104,15 +100,11 @@ class Demo < ActiveRecord::Base
   end
 
   def draft_tiles_with_placeholders
-    self.class.add_odd_row_placeholders! draft_tiles_with_creation_placeholder
+    self.class.add_odd_row_placeholders! draft_tiles
   end
 
   def suggested_tiles_with_placeholders
     self.class.add_odd_row_placeholders! suggested_tiles
-  end
-
-  def draft_tiles_with_creation_placeholder
-    [TileCreationPlaceholder.new] + draft_tiles
   end
 
   def self.add_placeholders tiles
