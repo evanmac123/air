@@ -18,10 +18,13 @@ function isIE() {
  * **********************************************/
 
 Airbo.TileImagesMgr = (function(){
-  var previewer, 
+  var initialized,
+  previewer, 
   library,
-  noImage = $('#no_image'), 
-    imageContainer = $('#image_container');
+  noImage, 
+  imageContainer,
+  remoteMediaUrl,
+  remoteMediaType;
 
   function updateHiddenImageFields(caller) {
     imageContainer.val('');
@@ -52,7 +55,15 @@ Airbo.TileImagesMgr = (function(){
     });
   }
 
+  function initVars(){
+    noImage = $('#no_image'), 
+    imageContainer = $('#image_container'),
+    remoteMediaUrl = $('#remote_media_url'),
+    remoteMediaType = $('#remote_media_type');
+  }
   function init(){
+
+    initVars();
     initClearImage();
     previewer = Airbo.ImagePreviewer.init(this)
     library = Airbo.ImageLibrary.init(this)
