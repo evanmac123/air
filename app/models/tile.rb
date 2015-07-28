@@ -83,7 +83,18 @@ class Tile < ActiveRecord::Base
     return false if end_time && (end_time < now)
     true
   end
-  
+
+  alias_method :orig_image, :image
+
+  def image
+    if(remote_media_url)
+      obj = Struct.new(:url, :thumbnail) 
+      obj.new(remote_media_url, remote_media_url)
+    else
+      orig_image
+    end
+  end
+
   def copy_count
     self.user_tile_copies_count
   end
