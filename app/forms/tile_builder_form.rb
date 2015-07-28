@@ -13,6 +13,10 @@ class TileBuilderForm
     @parameters = (options[:parameters] || {})
     @tile = (options[:tile] || MultipleChoiceTile.new(demo: @demo))
     @creator = options[:creator]
+
+    @exclude_attrs = [:supporting_content, :correct_answer_index, 
+                      :multiple_choice_answers, :image_container, 
+                      :old_image_container, :no_image, :image_from_library, :answers]
   end
 
   def create_tile
@@ -124,18 +128,12 @@ class TileBuilderForm
 
   def set_tile_attributes
     if @parameters.present?
-      tile.attributes = {
-        headline:                @parameters[:headline],
+      @tile.assign_attributes @parameters.except(*@exclude_attrs).merge(
+      {
         supporting_content:      sanitized_supporting_content,
-        question:                @parameters[:question],
-        link_address:            @parameters[:link_address],
-        question_type:           @parameters[:question_type],
-        question_subtype:        @parameters[:question_subtype],
-        image_credit:            @parameters[:image_credit].try(:strip),
-        points:                  @parameters[:points].to_i,
         correct_answer_index:    normalized_correct_answer_index,
         multiple_choice_answers: normalized_answers,
-      }
+      })
     end
   end
 

@@ -91,7 +91,15 @@ class Tile < ActiveRecord::Base
   def like_count
     self.user_tile_likes_count
   end
-  
+
+  def points= p
+    write_attribute(:points, p.to_i)
+  end
+
+  def image_credit= text
+    write_attribute(:image_credit, text.strip)
+  end
+
   def appears_client_created
     supporting_content.present? && question.present?
   end
