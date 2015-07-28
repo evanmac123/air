@@ -26,12 +26,19 @@ Airbo.TileImagesMgr = (function(){
   remoteMediaUrl,
   remoteMediaType;
 
+  function directUploadCompleted(data,file, filepath){
+    remoteMediaUrl.val(filepath); 
+    remoteMediaType.val(file.type); 
+  }
+
+
+
   function updateHiddenImageFields(caller) {
     imageContainer.val('');
     noImage.val('');
 
     if (caller === 'imageUploader') {
-
+        
     } else if (caller === 'clearImage') {
       noImage.val('true');
     } else if (caller === 'imageFromLibrary') {
@@ -61,18 +68,21 @@ Airbo.TileImagesMgr = (function(){
     remoteMediaUrl = $('#remote_media_url'),
     remoteMediaType = $('#remote_media_type');
   }
+
   function init(){
 
     initVars();
     initClearImage();
     previewer = Airbo.ImagePreviewer.init(this)
     library = Airbo.ImageLibrary.init(this)
+    return this;
   }
 
   return {
     init: init,
     showImagePreview: showImagePreview,
     updateHiddenImageFields: updateHiddenImageFields,
+    directUploadCompleted: directUploadCompleted
   };
 
 }());
@@ -188,8 +198,19 @@ Airbo.ImagePreviewer = (function(){
 
 })();
 
+
+
 $(function() {
   //TODO consider not instantiating Airbo.ImagePreviewer and Airb.ImageLibrary
   //unless neeed
-  Airbo.TileImagesMgr.init();
+  //
+
+  tileMgr = Airbo.TileImagesMgr.init();
+
+  var customHandler = {
+    processed: tileMgr.showImagePreview,
+    done: tileMgr.directUploadCompleted
+  };
+
+  Airbo.DirectToS3ImageUploader.init(customHandler);
 });

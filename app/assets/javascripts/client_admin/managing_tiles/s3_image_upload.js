@@ -1,5 +1,13 @@
 var Airbo = window.Airbo || {}
 Airbo.DirectToS3ImageUploader = (function(){ 
+  var NOOP = function(){},
+    customHandler = {
+    added: NOOP,
+    progressed: NOOP, 
+    processed: NOOP, 
+    done: NOOP,
+    fileInfo: NOOP
+  };
 
   function defaultBuiltInPreview(file){
     return file.preview;
@@ -16,8 +24,7 @@ Airbo.DirectToS3ImageUploader = (function(){
     }else{
       //Manually perform our image preview (no scaling)
       loadImage(file, function (img) { 
-        setPreviewImage(img.toDataURL());
-        showShadows();
+        customHandler.processed(img.toDataURL());
       },{canvas: true} );
     }
 
@@ -38,14 +45,39 @@ Airbo.DirectToS3ImageUploader = (function(){
     });
   }
 
-  function setPreviewImage(imageUrl) {
-    $('#upload_preview').attr("src", imageUrl);
-  };
+  function fileProcessed(data){
+    imagePreview(data);
+  }
 
-  function showShadows() {
-    return $('.image_preview').removeClass('show_placeholder').addClass('show_shadows');
-  };
+  function fileAdded(data){
+    var file = data.files[0],
+      types = /(\.|\/)(gif|jpe?g|png|bmp)$/i;
 
+      if (types.test(file.type) || types.test(file.name)) {
+        data.submit();
+      } else {
+        alert(file.name + " is not a gif, jpeg, or png image file");
+      }
+      customHandler.added(file);
+  }
+
+  function fileProgress(data){
+    var progress;
+    if (data.context) {
+      progress = parseInt(data.loaded / data.total * 100, 10);
+      data.context.find('.bar').css('width', progress + '%');
+    }
+    customHandler.progressed(data);
+  }
+
+  function fileDone(data){
+
+    var content, domain, file, path, to;
+    file = data.files[0];
+    domain = $('#fileupload').attr('action');
+    path = $('#fileupload input[name=key]').val().replace('${filename}', file.name);
+    customHandler.done(data, file, domain+path);
+  }
 
   function initFileUploader() {
 
@@ -54,40 +86,28 @@ Airbo.DirectToS3ImageUploader = (function(){
         replaceFileInput: false,
         disableImagePreview: true
       }
-    ).on('fileuploadadd',  function(e, data) {
-      var file = data.files[0],
-          types = /(\.|\/)(gif|jpe?g|png|bmp)$/i;
-
-        if (types.test(file.type) || types.test(file.name)) {
-          return data.submit();
-        } else {
-          return alert(file.name + " is not a gif, jpeg, or png image file");
-        }
-
-    }).on('fileuploadprocessalways',  function (e, data) {
-      imagePreview(data);
+    ).on('fileuploadadd', function(e, data) {
+      fileAdded(data);
+    }).on('fileuploadprocessalways', function (e, data) {
+      fileProcessed(data);
     }).on('fileuploadprogress', function(e, data) {
-      var progress;
-      if (data.context) {
-        progress = parseInt(data.loaded / data.total * 100, 10);
-        return data.context.find('.bar').css('width', progress + '%');
-      }
+      fileProgress(data);
     }).on('fileuploaddone', function(e, data) {
-      var content, domain, file, path, to;
-      file = data.files[0];
-      domain = $('#fileupload').attr('action');
-      path = $('#fileupload input[name=key]').val().replace('${filename}', file.name);
-      debugger
-      //$.post(to, content);
-      //if (data.context) {
-      //return data.context.remove();
-      //}
-    }).on('fileuploadfail',  function(e, data) {
+      fileDone(data);
+    }).on('fileuploadfail', function(e, data) {
       console.log(data.files[0].name + " failed to upload.");
     });
   }
 
-  function init(){
+  function initCustomHandlers(handler){
+    //TODO build this out properly
+    return $.extend(customHandler,handler);
+
+  } 
+
+
+  function init(handler){
+    initCustomHandlers(handler);
     initChooseFileDelegator();
     initFileUploader();
   }
@@ -98,6 +118,3 @@ Airbo.DirectToS3ImageUploader = (function(){
 
 }());
 
-$(function() {
-Airbo.DirectToS3ImageUploader.init();
-});
