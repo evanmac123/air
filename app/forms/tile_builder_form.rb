@@ -208,5 +208,7 @@ class TileBuilderForm
             :image_credit, 
             :link_address, 
             :points, 
+            :remote_media_url,
+            :remote_media_type,
             :to => :tile
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150723191749) do
+ActiveRecord::Schema.define(:version => 20150727230157) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -802,6 +802,8 @@ ActiveRecord::Schema.define(:version => 20150723191749) do
     t.integer  "user_tile_copies_count",  :default => 0
     t.integer  "user_tile_likes_count",   :default => 0
     t.boolean  "user_created"
+    t.string   "remote_media_url"
+    t.string   "remote_media_type"
   end
 
   add_index "tiles", ["is_copyable"], :name => "index_tiles_on_is_copyable"
