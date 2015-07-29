@@ -94,54 +94,58 @@
 //   padding-top: .3em;
 // }
 
-#draft, #suggestion_box {
-  .tile_thumbnail {
-    max-width: 159px;
-    max-height: 211px;
-    .shadow_overlay, .tile_thumbnail_image {
-      height: 8em;
-    }
-    .shadow_overlay:after {
-      margin-top: 4em;
-    }
-    .headline {
-      min-height: 5em;
-      height: 5em;
-      padding: 0.5em;
-      .text {
-        font-size: 13px;
-        font-weight: 500;
+#draft, #suggestion_box, .tile_in_draft {
+  .tile_container:not(.tile_in_active):not(.tile_in_achive) {
+    height: 251px; 
+    min-width: 16%;
+    .tile_thumbnail {
+      max-width: 159px;
+      max-height: 211px;
+      .shadow_overlay, .tile_thumbnail_image {
+        height: 8em;
       }
-    }
-    .tile_stats {
-      .activation_dates {
-        top: 106px;
-        right: 0px;
+      .shadow_overlay:after {
+        margin-top: 4em;
       }
-    }
-  }
-  .tile_buttons {
-    .edit_button, .destroy_button {
-      width: 33px;
-      text-align: left;
-      span {
-        display: none;
+      .headline {
+        min-height: 5em;
+        height: 5em;
+        padding: 0.5em;
+        .text {
+          font-size: 13px;
+          font-weight: 500;
+        }
       }
-      i {
-        display: block;
-        font-size: 22px;
-        padding-top: 2px;
-        color: $white;
-        &:hover {
-          color: $light-gray;
+      .tile_stats {
+        .activation_dates {
+          top: 106px;
+          right: 0px;
         }
       }
     }
-    .ignore_button, .accept_button {
-      margin-right: 0;  
-      span {
-        padding-left: 0.55em;
-        padding-right: 0.55em; 
+    .tile_buttons {
+      .edit_button, .destroy_button {
+        width: 33px;
+        text-align: left;
+        span {
+          display: none;
+        }
+        i {
+          display: block;
+          font-size: 22px;
+          padding-top: 2px;
+          color: $white;
+          &:hover {
+            color: $light-gray;
+          }
+        }
+      }
+      .ignore_button, .accept_button {
+        margin-right: 0;  
+        span {
+          padding-left: 0.55em;
+          padding-right: 0.55em; 
+        }
       }
     }
   }

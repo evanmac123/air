@@ -34,25 +34,25 @@ body.suggested_tiles-index {
     //   max-width: 238px;
     // }
     .tile_container{
-      width: 24%;
+      min-width: 24%;
       text-align: center;
       float: left;
       padding-bottom: 2rem;
+      height: 400px;
     }
-    #draft, #suggestion_box { 
-      .tile_container { 
-        height: 251px; 
-        width: 16%;
-      } 
-    }
+    // #draft, #suggestion_box { 
+    //   .tile_container { 
+    //     height: 251px; 
+    //     width: 16%;
+    //   } 
+    // }
     // #suggestion_box {
     //   .tile_container {
     //     height: 300px; 
     //     width: 16%;
     //   }
     // }
-    #active  { .tile_container { height: 400px; } }
-    #archive { .tile_container { height: 400px; } }
+    //#active  { .tile_container { height: 400px; } }
     .no_tiles_message {margin:0 auto 3em;}
   }
   #active_tiles, #archived_tiles, #draft_tiles, #submitted_tiles, #accepted_tiles, #posted_tiles {

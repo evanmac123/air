@@ -21,27 +21,32 @@ window.dragAndDropTiles = ->
 
   dragAndDropTilesEvents =
     update: (event, ui) ->
+      console.log("update")
       section = $(this)
       tile = ui.item
       $.when(window.moveConfirmation).then ->
         updateEvent(event, tile, section)
       
     over: (event, ui) ->
+      console.log("over")
       section = $(this)
       tile = ui.item
       overEvent(event, tile, section)
       
     start: (event, ui) ->
+      console.log("start")
       section = $(this)
       tile = ui.item
       startEvent(event, tile, section)
       
     receive: (event, ui) ->
+      console.log("receive")
       section = $(this)
       tile = ui.item
       receiveEvent(event, tile, section)
       
     stop: (event, ui) ->
+      console.log("stop")
       section = $(this)
       tile = ui.item
       $.when(window.moveConfirmation).then ->
@@ -67,6 +72,7 @@ window.dragAndDropTiles = ->
 
   overEvent = (event, tile, section) ->
     updateTilesAndPlaceholdersAppearance()
+    updateTileInSectionClass(tile, section)
 
   startEvent = (event, tile, section) ->
     resetGloballVariables()
@@ -88,7 +94,7 @@ window.dragAndDropTiles = ->
     updateTilesAndPlaceholdersAppearance()
 
   numberInRow = (section) ->
-    if section = "draft"
+    if section == "draft"
       6
     else
       4
@@ -112,6 +118,12 @@ window.dragAndDropTiles = ->
 
   getTilesSection = (tile) ->
     tile.closest(".manage_section").attr("id")
+
+  updateTileInSectionClass = (tile, section) ->
+    tile.removeClass("tile_in_draft")
+        .removeClass("tile_in_active")
+        .removeClass("tile_in_archive")
+        .addClass("tile_in_" + section.attr("id"))
 
   updateTilesAndPlaceholdersAppearance = ->
     updateAllPlaceholders()
