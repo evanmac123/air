@@ -13,7 +13,7 @@ TILE_THUMBNAIL_OPTIONS = {}
 DEMO_LOGO_OPTIONS = {}
 
 case Rails.env
-when 'production', 'staging', 'development'
+when 'production', 'staging', 'development', "production_local"
   TILE_OPTIONS = {
     :storage => :s3,
     :s3_protocol => 'https', 
