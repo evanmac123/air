@@ -37,12 +37,12 @@ class TileBuilderForm
     build_tile
     delete_old_image_container
     save_tile if valid?
-    process_thumbail
+    process_thumbail 
   end
 
   def update_tile
     set_tile_attributes
-    process_thumbail  if tile.changed.include?("remote_media_url")
+    process_thumbail if image_changed?
     delete_old_image_container
     save_tile if valid?
   end
@@ -136,13 +136,16 @@ class TileBuilderForm
 
   def set_tile_attributes
     if @parameters.present?
-      @tile.assign_attributes @parameters.except(*@exclude_attrs).merge(
-      {
-        supporting_content:      sanitized_supporting_content,
-        correct_answer_index:    normalized_correct_answer_index,
-        multiple_choice_answers: normalized_answers,
-      })
+      @tile.assign_attributes filtered_tile_attributes 
     end
+  end
+
+  def filtered_tile_attributes
+    @parameters.except(*@exclude_attrs).merge({
+      supporting_content:      sanitized_supporting_content,
+      correct_answer_index:    normalized_correct_answer_index,
+      multiple_choice_answers: normalized_answers,
+    }).merge(image_processing_attributes)
   end
 
   def delete_old_image_container
@@ -218,4 +221,13 @@ class TileBuilderForm
       tile.image = tile.thumbnail = new_image 
     end
   end
+
+  def image_changed?
+    @tile.new_record? ||  @tile.changed.include?("remote_media_url")
+  end
+
+  def image_processing_attributes
+    image_changed? ? {thumbnail_processing: true} : {} 
+  end
+
 end

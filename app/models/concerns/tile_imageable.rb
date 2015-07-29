@@ -70,9 +70,15 @@ module Concerns::TileImageable
                           priority:             TILE_IMAGE_PROCESSING_PRIORITY
 
     process_in_background :thumbnail, 
-                          processing_image_url: THUMBNAIL_PROCESSING_IMAGE_URL, 
+                          processing_image_url: :processing_image_fallback, 
                           priority:             TILE_IMAGE_PROCESSING_PRIORITY
 
+
+    validates_presence_of :remote_media_url
+  end
+
+  def processing_image_fallback
+    remote_media_url || THUMBNAIL_PROCESSING_IMAGE_URL
   end
 
   def image_really_still_processing
