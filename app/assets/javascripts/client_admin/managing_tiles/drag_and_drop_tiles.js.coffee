@@ -68,9 +68,9 @@ window.dragAndDropTiles = ->
       saveTilePosition tile
     else # is executed if tile leaves section
       window.sourceSectionName = section.attr("id")
-      removeTileStats tile, section
 
   overEvent = (event, tile, section) ->
+    removeTileStats tile, section
     updateTilesAndPlaceholdersAppearance()
     updateTileInSectionClass(tile, section)
 
@@ -161,9 +161,9 @@ window.dragAndDropTiles = ->
     else
       no_tiles_section.hide()
 
-  removeTileStats = (tile, source_section) ->
-    destination_name = getTilesSection tile
-    source_name = source_section.attr("id")
+  removeTileStats = (tile, destination_section) ->
+    source_name = getTilesSection tile
+    destination_name = destination_section.attr("id")
 
     if source_name != "draft" && destination_name == "draft"
       tile.find(".tile_stats").hide()

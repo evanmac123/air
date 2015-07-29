@@ -18,6 +18,9 @@
     &:hover {
       .shadow_overlay, .tile_buttons{display:block;}
     }
+    &:focus {
+      .shadow_overlay, .tile_buttons{display:none;} 
+    }
   }
 
   // Default buttons
