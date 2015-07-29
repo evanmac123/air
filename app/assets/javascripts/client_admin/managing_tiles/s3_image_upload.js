@@ -46,6 +46,7 @@ Airbo.DirectToS3ImageUploader = (function(){
   }
 
   function fileProcessed(data){
+    data.submit();
     imagePreview(data);
   }
 
@@ -54,7 +55,6 @@ Airbo.DirectToS3ImageUploader = (function(){
       types = /(\.|\/)(gif|jpe?g|png|bmp)$/i;
 
       if (types.test(file.type) || types.test(file.name)) {
-        data.submit();
       } else {
         alert(file.name + " is not a gif, jpeg, or png image file");
       }
@@ -89,6 +89,8 @@ Airbo.DirectToS3ImageUploader = (function(){
     ).on('fileuploadadd', function(e, data) {
       fileAdded(data);
     }).on('fileuploadprocessalways', function (e, data) {
+      //NOOP
+    }).on('fileuploadprocessdone', function (e, data) {
       fileProcessed(data);
     }).on('fileuploadprogress', function(e, data) {
       fileProgress(data);
