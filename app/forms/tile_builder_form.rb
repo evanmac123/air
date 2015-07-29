@@ -117,6 +117,7 @@ class TileBuilderForm
 
   def save_tile
      tile.save(context: :client_admin)
+     process_thumbail
   end
 
   def build_tile
