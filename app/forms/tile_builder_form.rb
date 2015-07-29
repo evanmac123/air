@@ -115,16 +115,6 @@ class TileBuilderForm
     ImageProcessJob.new(tile.id).perform
   end
 
-  def set_tile_image
-    new_image = image_builder.set_tile_image
-    if new_image == :image_from_library
-      tile_image = image_builder.find_image_from_library
-      tile.image = tile_image.image
-      tile.thumbnail = tile_image.thumbnail
-    elsif new_image != :leave_old
-      tile.image = tile.thumbnail = new_image 
-    end
-  end
 
   def set_tile_creator
     tile.creator ||= @creator
@@ -213,4 +203,18 @@ class TileBuilderForm
             :remote_media_url,
             :remote_media_type,
             :to => :tile
+
+  private
+
+  def set_tile_image
+    # TODO Deprecated
+    new_image = image_builder.set_tile_image
+    if new_image == :image_from_library
+      tile_image = image_builder.find_image_from_library
+      tile.image = tile_image.image
+      tile.thumbnail = tile_image.thumbnail
+    elsif new_image != :leave_old
+      tile.image = tile.thumbnail = new_image 
+    end
+  end
 end
