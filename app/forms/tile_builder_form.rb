@@ -23,11 +23,12 @@ class TileBuilderForm
     build_tile
     delete_old_image_container
     save_tile if valid?
+    process_thumbail
   end
 
   def update_tile
-    set_tile_image
     set_tile_attributes
+    process_thumbail  if tile.changed.include?("remote_media_url")
     delete_old_image_container
     save_tile if valid?
   end
@@ -105,12 +106,15 @@ class TileBuilderForm
   end
 
   def build_tile
-    #set_tile_image
     set_tile_attributes
     set_tile_creator
     tile.status = newly_built_tile_status
   end
-  
+
+  def process_thumbail
+    ImageProcessJob.new(tile.id).perform
+  end
+
   def set_tile_image
     new_image = image_builder.set_tile_image
     if new_image == :image_from_library
