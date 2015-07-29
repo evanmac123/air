@@ -1,4 +1,6 @@
 class TileMedia < ActiveRecord::Base
+  #TODO consider deleting this file and related db elements if will not use
+  include Concerns::TileImageable
   belongs_to :tile
   attr_accessible :processed, :remote_url, :upload
 
