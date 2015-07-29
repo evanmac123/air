@@ -118,7 +118,6 @@ class SingleTilePresenter
       completion_percentage, 
       type, 
       tile_id, 
-      thumbnail, 
       headline, 
       tile_completions_count, 
       total_views, 
