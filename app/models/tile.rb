@@ -88,8 +88,8 @@ class Tile < ActiveRecord::Base
 
   def image
     if(remote_media_url)
-      obj = Struct.new(:url, :thumbnail) 
-      obj.new(remote_media_url, remote_media_url)
+      obj = Struct.new(:url) 
+      obj.new(remote_media_url)
     else
       orig_image
     end
