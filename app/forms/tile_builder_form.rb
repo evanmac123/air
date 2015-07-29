@@ -8,6 +8,20 @@ class TileBuilderForm
 
   validate :main_objects_all_valid
 
+  delegate  :headline, 
+            :supporting_content, 
+            :question, 
+            :question_type, 
+            :question_subtype, 
+            :thumbnail, 
+            :image, 
+            :image_credit, 
+            :link_address, 
+            :points, 
+            :remote_media_url,
+            :remote_media_type,
+            :to => :tile
+
   def initialize(demo, options = {})
     @demo = demo
     @parameters = (options[:parameters] || {})
@@ -190,19 +204,6 @@ class TileBuilderForm
     Tile::DRAFT  
   end
 
-  delegate  :headline, 
-            :supporting_content, 
-            :question, 
-            :question_type, 
-            :question_subtype, 
-            :thumbnail, 
-            :image, 
-            :image_credit, 
-            :link_address, 
-            :points, 
-            :remote_media_url,
-            :remote_media_type,
-            :to => :tile
 
   private
 
