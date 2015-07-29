@@ -87,8 +87,11 @@ window.dragAndDropTiles = ->
       showDraftBlockedOverlay false
     updateTilesAndPlaceholdersAppearance()
 
-  numberInRow = ->
-    4
+  numberInRow = (section) ->
+    if section = "draft"
+      6
+    else
+      4
 
   placeholderSelector = ->
     ".tile_container.placeholder_container:not(.creation_placeholder):not(.hidden_tile)"
@@ -125,7 +128,7 @@ window.dragAndDropTiles = ->
     allTilesNumber = $("#" + section).find( notDraggedTileSelector() ).length
     placeholdersNumber = $("#" + section).find( placeholderSelector() ).length
     tilesNumber =  allTilesNumber - placeholdersNumber
-    expectedPlaceholdersNumber = ( numberInRow() - ( tilesNumber % numberInRow() ) ) % numberInRow()
+    expectedPlaceholdersNumber = ( numberInRow(section) - ( tilesNumber % numberInRow(section) ) ) % numberInRow(section)
     removePlaceholders(section)
     addPlaceholders(section, expectedPlaceholdersNumber)
 
@@ -211,11 +214,11 @@ window.dragAndDropTiles = ->
   visibleTilesNumberIn = (section) ->
     if section == "draft" || section == "suggestion_box"
       if draftSectionIsCompressed()
-        4
+        numberInRow(section)
       else
         9999
     else if section == "archive"
-      4
+      numberInRow(section)
     else
       9999
 

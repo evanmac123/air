@@ -97,6 +97,7 @@
 #draft, #suggestion_box {
   .tile_thumbnail {
     max-width: 159px;
+    max-height: 211px;
     .shadow_overlay, .tile_thumbnail_image {
       height: 8em;
     }
@@ -109,6 +110,7 @@
       padding: 0.5em;
       .text {
         font-size: 13px;
+        font-weight: 500;
       }
     }
     .tile_stats {
@@ -130,6 +132,9 @@
         font-size: 22px;
         padding-top: 2px;
         color: $white;
+        &:hover {
+          color: $light-gray;
+        }
       }
     }
     .ignore_button, .accept_button {

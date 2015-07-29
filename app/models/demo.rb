@@ -100,7 +100,7 @@ class Demo < ActiveRecord::Base
   end
 
   def draft_tiles_with_placeholders
-    self.class.add_odd_row_placeholders! draft_tiles
+    self.class.add_odd_row_placeholders! draft_tiles, 6
   end
 
   def suggested_tiles_with_placeholders
@@ -412,14 +412,11 @@ class Demo < ActiveRecord::Base
     self.user_ids.each {|user_id| User.find(user_id).send(:schedule_segmentation_update, true)}
   end
 
-  def self.add_odd_row_placeholders!(tiles)
-    odd_row_length = tiles.length % 4
-    placeholders_to_add = odd_row_length == 0 ? 0 : 4 - odd_row_length
+  def self.add_odd_row_placeholders!(tiles, row_size = 4)
+    odd_row_length = tiles.length % row_size
+    placeholders_to_add = odd_row_length == 0 ? 0 : row_size - odd_row_length
 
     placeholders_to_add.times { tiles << TileOddRowPlaceholder.new }
     tiles
   end
-
-
-   
 end
