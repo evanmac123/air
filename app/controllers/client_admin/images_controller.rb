@@ -5,9 +5,10 @@ class ClientAdmin::ImagesController < ClientAdminBaseController
   before_filter :find_tile
 
   def show
+    #TODO is this still really needed? Since we no longer will poll for image processing
     render inline: [
       {
-        'stillProcessing' => @tile.image_really_still_processing, 
+        'stillProcessing' => false, 
         'imageURL' => @tile.image.url, 
         'type' => 'image',
         'imageHeight' => (ie9_or_older? ? @tile.full_size_image_height : "")

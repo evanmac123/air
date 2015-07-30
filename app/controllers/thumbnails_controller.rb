@@ -1,5 +1,7 @@
 class ThumbnailsController < ApplicationController
   THUMBNAIL_POLL_DELAY = 5
+#TODO figure out if these actions need to be refactored now that the image
+  #processing has been cleaned up.
 
   def index
     response =  if params[:tile_ids].present?
@@ -20,7 +22,7 @@ class ThumbnailsController < ApplicationController
     tiles = current_user.demo.tiles.where(id: tile_ids)
     tiles.map{|tile| {
         id: tile.id, 
-        stillProcessing: tile.thumbnail_really_still_processing, 
+        stillProcessing: false, 
         imageURL: tile.thumbnail.url, 
         type: 'thumbnail'
       }
@@ -32,7 +34,7 @@ class ThumbnailsController < ApplicationController
     tile_images = TileImage.where(id: tile_image_ids)
     tile_images.map{|ti| {
         id: ti.id, 
-        stillProcessing: ti.thumbnail_really_still_processing, 
+        stillProcessing: false, 
         imageURL: ti.thumbnail.url, 
         type: 'tileImageThumbnail'
       }

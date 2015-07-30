@@ -13,7 +13,6 @@
 - if @board_is_brand_new
   = render partial: 'client_admin/tiles/manage_tiles/add_new_tile_joyride'
 
-= render 'shared/tiles/poll_for_thumbnails'
 - content_for :javascript do
   :javascript
     $().ready(function(){
