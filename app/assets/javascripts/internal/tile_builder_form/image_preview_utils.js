@@ -26,28 +26,35 @@ Airbo.TileImagesMgr = (function(){
   remoteMediaUrl,
   remoteMediaType;
 
+  function imgTypeFromFilename(filename){
+    return "image/" + filename.substr(filename.lastIndexOf('.')+1)
+  }
+
   function directUploadCompleted(data,file, filepath){
-    remoteMediaUrl.val(filepath); 
-    remoteMediaType.val(file.type); 
+    updateHiddenImageFields();
+    setFormFieldsForSelectedImage(filepath, file.type);
+  }
+
+  function libraryImageSelected(url){
+    updateHiddenImageFields();
+    setFormFieldsForSelectedImage(url, imgTypeFromFilename(url));
+    showImagePreview(url);
+  }
+
+  function setFormFieldsForSelectedImage(url, type){
+    remoteMediaUrl.val(url); 
+    remoteMediaType.val(type || "image"); 
   }
 
 
-
-  function updateHiddenImageFields(caller) {
+  function updateHiddenImageFields() {
     imageContainer.val('');
     noImage.val('');
-
-    if (caller === 'imageUploader') {
-        
-    } else if (caller === 'clearImage') {
-      noImage.val('true');
-    } else if (caller === 'imageFromLibrary') {
-      library.setSelectedImageId();
-    }
   };
 
   function clearImage(){
-    updateHiddenImageFields('clearImage');
+    updateHiddenImageFields();
+    noImage.val('true')
     previewer.clearPreviewImage();
     library.clearSelectedImage();
   }
@@ -81,8 +88,8 @@ Airbo.TileImagesMgr = (function(){
   return {
     init: init,
     showImagePreview: showImagePreview,
-    updateHiddenImageFields: updateHiddenImageFields,
-    directUploadCompleted: directUploadCompleted
+    directUploadCompleted: directUploadCompleted,
+    libraryImageSelected: libraryImageSelected, 
   };
 
 }());
@@ -104,6 +111,7 @@ Airbo.ImageLibrary = (function(){
   function selectedImageFromLibrary() {
     return imageFromLibrary.filter(".selected");
   }
+
  
   function setSelectedState(imageBlock) {
     imageFromLibrary.removeClass('selected');
@@ -119,8 +127,8 @@ Airbo.ImageLibrary = (function(){
   }
 
   function select(imageBlock) {
-    imageMgr.showImagePreview(imageBlock.data('image-url'));
-    imageMgr.updateHiddenImageFields('imageFromLibrary');
+    var url = imageBlock.data('image-url')
+    imageMgr.libraryImageSelected(url);
     setSelectedState(imageBlock);
   };
 
