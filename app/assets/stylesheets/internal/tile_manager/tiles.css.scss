@@ -580,6 +580,8 @@ body.suggested_tiles-index {
 body.client_admin-tiles-index {
   .joyride-tip-guide.tile {
     z-index: 98;
+    margin-top: -23px;
+    margin-left: 13px;
     .joyride-nub.bottom {
       &:before {
         content: " ";
