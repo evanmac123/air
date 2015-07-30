@@ -8,7 +8,7 @@ class ImageProcessJob
 
   def perform
     tile = Tile.find(@tile_id)
-    tile.image = tile.thumbnail = URI.parse(tile.remote_media_url)
+    tile.image = tile.thumbnail = URI.parse(URI.encode(tile.remote_media_url))
     tile.save
   end
 
