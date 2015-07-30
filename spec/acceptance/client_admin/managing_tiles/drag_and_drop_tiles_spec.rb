@@ -80,7 +80,7 @@ feature 'Client admin drags and drops tiles' do
     it_should_behave_like "Moves tile in one section", "archive", 4, 0, 2
 
     it_should_behave_like "Moves tile between sections", "active",  7, 2, "draft",   2, 1
-    it_should_behave_like "Moves tile between sections", "active",  6, 4, "archive", 2, 1
+    it_should_behave_like "Moves tile between sections", "active",  4, 2, "archive", 2, 1
     it_should_behave_like "Moves tile between sections", "archive", 4, 3, "draft",   2, 1
     it_should_behave_like "Moves tile between sections", "archive", 4, 2, "active",  3, 2
 

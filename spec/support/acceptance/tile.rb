@@ -343,8 +343,8 @@ module TileHelpers
     "Add New Tile"
   end
 
-  def click_new_tile_placeholder
-    page.find('.creation-placeholder a').click
+  def click_add_new_tile
+    page.find('#add_new_tile').click
   end
 
   def expect_supporting_content(expected_content)

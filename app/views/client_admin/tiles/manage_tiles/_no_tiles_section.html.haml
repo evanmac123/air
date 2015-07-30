@@ -1,5 +1,6 @@
 - display = display_no_tiles_section ? "block" : "none"
+- row_size ||= 4
 %div.no_tiles_section{style: "display:#{display};"}
   - tile = TileOddRowPlaceholder.new
-  - 4.times do
+  - row_size.times do
     = render "client_admin/tiles/manage_tiles/single_#{tile.class.to_s.underscore}", tile: tile

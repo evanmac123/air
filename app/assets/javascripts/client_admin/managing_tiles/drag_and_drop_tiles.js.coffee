@@ -22,32 +22,32 @@ window.dragAndDropTiles = ->
 
   dragAndDropTilesEvents =
     update: (event, ui) ->
-      console.log("update")
+      #console.log("update")
       section = $(this)
       tile = ui.item
       $.when(window.moveConfirmation).then ->
         updateEvent(event, tile, section)
       
     over: (event, ui) ->
-      console.log("over")
+      #console.log("over")
       section = $(this)
       tile = ui.item
       overEvent(event, tile, section)
       
     start: (event, ui) ->
-      console.log("start")
+      #console.log("start")
       section = $(this)
       tile = ui.item
       startEvent(event, tile, section)
       
     receive: (event, ui) ->
-      console.log("receive")
+      #console.log("receive")
       section = $(this)
       tile = ui.item
       receiveEvent(event, tile, section)
       
     stop: (event, ui) ->
-      console.log("stop")
+      #console.log("stop")
       section = $(this)
       tile = ui.item
       $.when(window.moveConfirmation).then ->
@@ -98,7 +98,7 @@ window.dragAndDropTiles = ->
     tileButtons tile, "show"
 
   numberInRow = (section) ->
-    if section == "draft"
+    if section == "draft" || section == "suggestion_box"
       6
     else
       4

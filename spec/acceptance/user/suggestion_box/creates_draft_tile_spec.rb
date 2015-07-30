@@ -10,7 +10,7 @@ feature 'Creates draft tile' do
 
   it "should link properly from the tile to the appropriate edit page" do
     visit suggested_tiles_path(as: user)
-    click_new_tile_placeholder
+    click_add_new_tile
     should_be_on new_suggested_tile_path
   end
 

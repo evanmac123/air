@@ -14,13 +14,13 @@ feature 'Client expands draft section' do
   end
 
   before do
-    FactoryGirl.create_list :multiple_choice_tile, 5, :draft, demo: demo
+    FactoryGirl.create_list :multiple_choice_tile, 7, :draft, demo: demo
     visit client_admin_tiles_path
   end
 
   it "works as expected", js: true do
-    page.all(tile_selector, visible: true).count.should == 3
+    page.all(tile_selector, visible: true).count.should == 6
     page.find(".all_draft").click
-    page.all(tile_selector, visible: true).count.should == 5
+    page.all(tile_selector, visible: true).count.should == 7
   end
 end

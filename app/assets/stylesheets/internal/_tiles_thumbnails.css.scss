@@ -11,7 +11,6 @@
       @include ease(.5s);
       filter: alpha(opacity=25);
       opacity: 0.25;
-
       &:hover {
         filter: alpha(opacity=75);
         opacity: .75;
@@ -61,7 +60,6 @@
         margin:auto;
       }
     }
-
     .headline{
       background:$white;
       min-height:7.25em;
