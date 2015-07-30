@@ -116,6 +116,7 @@ class SingleTilePresenter
       'v2.ant',
       timestamp, 
       completion_percentage, 
+      thumbnail,
       type, 
       tile_id, 
       headline, 
