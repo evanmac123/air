@@ -37,7 +37,7 @@ body.suggested_tiles-index {
       min-width: 24%;
       text-align: center;
       float: left;
-      padding-bottom: 2rem;
+      padding-bottom: 1.5rem;
       height: 400px;
     }
     // #draft, #suggestion_box { 
@@ -67,15 +67,18 @@ body.suggested_tiles-index {
     #archive{
       &:after{ @include clear; }
     }
-    .all_inactive {display: inline-block;}
+    //.all_inactive {display: inline-block;}
     .all_inactive {
       @include light-button($med-gray);
       font-size: 12px;
-      letter-spacing: 0.4em;
-      width: 100%;
-      margin-bottom: 1em;
-      margin-left: 1em;
-      max-width: 86.75em;
+      font-weight: 700;
+      width: 100px;
+      display: block;
+      margin: auto;
+      padding: 7px;
+      //margin-bottom: 1em;
+      //margin-left: 1em;
+      //max-width: 86.75em;
     }
     .tile_thumbnail.placeholder_tile {
       border-color: $almost-white;
@@ -208,15 +211,18 @@ body.suggested_tiles-index {
   .show_all_draft_section {
     position: relative;
     background: $almost-white;
-    height: 75px;
+    height: 60px;
     .row {
-      padding: 1.65em;
+      margin-left: 5px;
     }
     .all_draft {
       @include light-button($med-gray);
+      font-weight: 700;
       font-size: 12px;
-      letter-spacing: 0.4em;
-      width: 96%;
+      width: 100px;
+      padding: 7px;
+      display: block;
+      margin: auto;
     }
   }
   #active_tiles, #submitted_tiles, #accepted_tiles, #posted_tiles {

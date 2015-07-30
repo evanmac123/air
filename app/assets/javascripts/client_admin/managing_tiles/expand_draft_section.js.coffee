@@ -23,7 +23,7 @@ compressSectionMargin = ->
   cutHeight = compressSectionHeight() - initialHeight
 
 compressSectionHeight = ->
-  448
+  330
 
 moveBottomBoundOfSection = (height) ->
   section().css "margin-bottom", height
@@ -42,7 +42,7 @@ animateSectionSliding = (stepsNum, startProgress, direction = "down") ->
   $({progressCount: 0}).animate 
     progressCount: stepsNum
   ,
-    duration: 1000
+    duration: stepsNum
     easing: 'linear'
     step: (progressCount) ->
       progressNew = if direction == "down"
