@@ -84,21 +84,10 @@ class Tile < ActiveRecord::Base
     true
   end
 
-  alias_method :orig_image, :image
-
-  def image
-    if(remote_media_url)
-      obj = Struct.new(:url) 
-      obj.new(remote_media_url)
-    else
-      orig_image
-    end
-  end
-
   def copy_count
     self.user_tile_copies_count
   end
-  
+
   def like_count
     self.user_tile_likes_count
   end
