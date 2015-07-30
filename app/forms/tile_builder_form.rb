@@ -1,4 +1,6 @@
 class TileBuilderForm
+  #TODO remove Deprecated methods and move others to private if not being called
+  #from outside 
   extend  ActiveModel::Naming
   include ActiveModel::Conversion
   include ActiveModel::Validations
@@ -36,15 +38,13 @@ class TileBuilderForm
   def create_tile
     build_tile
     delete_old_image_container
-    save_tile if valid?
-    process_thumbail 
+    save_tile
   end
 
   def update_tile
     set_tile_attributes
-    process_thumbail if image_changed?
     delete_old_image_container
-    save_tile if valid?
+    save_tile
   end
 
   def image_container
@@ -116,8 +116,9 @@ class TileBuilderForm
   protected
 
   def save_tile
-     tile.save(context: :client_admin)
-     process_thumbail
+    if tile.save(context: :client_admin)
+      process_thumbail
+    end
   end
 
   def build_tile
@@ -127,7 +128,7 @@ class TileBuilderForm
   end
 
   def process_thumbail
-    ImageProcessJob.new(tile.id).perform
+    ImageProcessJob.new(tile.id).perform if image_changed?
   end
 
 
@@ -139,14 +140,6 @@ class TileBuilderForm
     if @parameters.present?
       @tile.assign_attributes filtered_tile_attributes 
     end
-  end
-
-  def filtered_tile_attributes
-    @parameters.except(*@exclude_attrs).merge({
-      supporting_content:      sanitized_supporting_content,
-      correct_answer_index:    normalized_correct_answer_index,
-      multiple_choice_answers: normalized_answers,
-    }).merge(image_processing_attributes)
   end
 
   def delete_old_image_container
@@ -211,6 +204,14 @@ class TileBuilderForm
 
   private
 
+  def filtered_tile_attributes
+    @parameters.except(*@exclude_attrs).merge({
+      supporting_content:      sanitized_supporting_content,
+      correct_answer_index:    normalized_correct_answer_index,
+      multiple_choice_answers: normalized_answers,
+    }).merge(image_processing_attributes)
+  end
+
   def set_tile_image
     # TODO Deprecated
     new_image = image_builder.set_tile_image
@@ -224,11 +225,13 @@ class TileBuilderForm
   end
 
   def image_changed?
-    @tile.new_record? ||  @tile.changed.include?("remote_media_url")
+    @tile_image_changed ||= !!(@tile.new_record? && @parameters[:remote_media_url]) || (@parameters[:remote_media_url] != @tile.remote_media_url)
   end
 
   def image_processing_attributes
-    image_changed? ? {thumbnail_processing: true} : {} 
+    #forces delayed paperclip to think the tile is being processed before the
+    #attachment is actually assigned in the background job
+    image_changed? ? {thumbnail_processing: true, image_processing: true} : {} 
   end
 
 end
