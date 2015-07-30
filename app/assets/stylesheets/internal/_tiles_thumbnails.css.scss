@@ -5,8 +5,7 @@
   width:100%;
   max-width:238px;
   position: relative;
-  vertical-align: top;  
-
+  vertical-align: top;
   .completed {
     li {
       @include ease(.5s);
@@ -146,6 +145,33 @@
         padding-left: 0.55em;
         padding-right: 0.55em; 
       }
+    }
+  }
+}
+//
+//  => Transition properties for tile thumbnail
+//
+.tile_thumbnail {  
+  $trans-dur: 1s;
+
+  transition-property: max-width;
+  transition-duration: $trans-dur;
+  .shadow_overlay, .tile_thumbnail_image {
+    transition-property: height;
+    transition-duration: $trans-dur;
+  }
+  .shadow_overlay:after {
+    transition-property: margin-top;
+    transition-duration: $trans-dur;
+  }
+  .headline {
+    transition-property: min-height height padding;
+    transition-duration: $trans-dur;
+    .text {
+      font-size: 13px;
+      font-weight: 500;
+      transition-property: font-size font-weight;
+      transition-duration: $trans-dur;
     }
   }
 }
