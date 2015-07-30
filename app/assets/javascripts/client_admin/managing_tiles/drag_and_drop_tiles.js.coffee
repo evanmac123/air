@@ -2,12 +2,13 @@ String.prototype.times = (n) ->
   Array.prototype.join.call({length:n+1}, this)
 
 window.dragAndDropProperties =
-  items: ".tile_container:not(.placeholder_container)",
-  connectWith: ".manage_section",
-  cancel: ".placeholder_container, .no_tiles_section",
-  revert: true,
-  tolerance: "pointer",
+  items: ".tile_container:not(.placeholder_container)"
+  connectWith: ".manage_section"
+  cancel: ".placeholder_container, .no_tiles_section"
+  revert: true
+  tolerance: "pointer"
   placeholder: "tile_container"
+  #helper : 'clone'
 
 window.dragAndDropTiles = ->
   $("#draft").droppable({ 
@@ -65,6 +66,7 @@ window.dragAndDropTiles = ->
     # update is called first for source section, then for destination section.
     # so we need to save name of the source and then use it in ajax call
     if isTileInSection tile, section
+      tileButtons tile, "remove"
       saveTilePosition tile
     else # is executed if tile leaves section
       window.sourceSectionName = section.attr("id")
@@ -78,6 +80,7 @@ window.dragAndDropTiles = ->
     resetGloballVariables()
     turnOnDraftBlocking tile, section
     showDraftBlockedMess false
+    tileButtons tile, "hide"
 
   receiveEvent = (event, tile, section) ->
     if completedTileWasAttemptedToBeMovedInBlockedDraft()
@@ -92,12 +95,22 @@ window.dragAndDropTiles = ->
       showDraftBlockedMess true, section
       showDraftBlockedOverlay false
     updateTilesAndPlaceholdersAppearance()
+    tileButtons tile, "show"
 
   numberInRow = (section) ->
     if section == "draft"
       6
     else
       4
+
+  tileButtons = (tile, action) ->
+    controlElements = tile.find(".tile_buttons")
+    if action == "show"
+      controlElements.css("display", "")
+    else if action == "hide"
+      controlElements.hide()
+    else if action == "remove"
+      controlElements.remove()
 
   placeholderSelector = ->
     ".tile_container.placeholder_container:not(.creation_placeholder):not(.hidden_tile)"
@@ -267,7 +280,7 @@ window.dragAndDropTiles = ->
       $(".draft_blocked_message").hide()
 
   iOSdevice = ->
-    navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false
+    navigator.userAgent.match(/(iPad|iPhone|iPod)/g)
 
   isTileInSection = (tile, section) ->
     getTilesSection(tile) == section.attr("id")
