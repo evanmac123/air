@@ -124,7 +124,7 @@ window.suggestionBox = ->
         success: (data) ->
           if data.success
             acceptingTileVisibility("remove")
-            $(".creation_placeholder").after data.tile
+            $("#draft .no_tiles_section").after data.tile
             window.updateTilesAndPlaceholdersAppearance()
             updateUserSubmittedTilesCounter()
           else

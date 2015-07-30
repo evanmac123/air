@@ -113,7 +113,7 @@ window.dragAndDropTiles = ->
       controlElements.remove()
 
   placeholderSelector = ->
-    ".tile_container.placeholder_container:not(.creation_placeholder):not(.hidden_tile)"
+    ".tile_container.placeholder_container:not(.hidden_tile)"
 
   notDraggedTileSelector = ->
     ".tile_container:not(.ui-sortable-helper):not(.hidden_tile)"

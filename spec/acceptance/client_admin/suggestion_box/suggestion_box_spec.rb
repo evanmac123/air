@@ -67,7 +67,7 @@ feature 'Client uses suggestion box' do
 					click_link "Got it"
 				end
 				
-				#visible_tiles.count.should == 2
+				visible_tiles.count.should == 2
 				wait_for_ajax
 				draft_title.click
 				sleep 1
