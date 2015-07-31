@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150727230157) do
+ActiveRecord::Schema.define(:version => 20150731160622) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -96,13 +96,6 @@ ActiveRecord::Schema.define(:version => 20150727230157) do
   end
 
   add_index "billing_informations", ["user_id"], :name => "index_billing_informations_on_user_id"
-
-  create_table "blacklists", :force => true do |t|
-    t.integer  "raffle_id"
-    t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
 
   create_table "board_memberships", :force => true do |t|
     t.boolean  "is_current",                       :default => true
@@ -559,13 +552,6 @@ ActiveRecord::Schema.define(:version => 20150727230157) do
     t.string   "segment_query_values"
   end
 
-  create_table "raffle_winners", :force => true do |t|
-    t.integer  "raffle_id"
-    t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "raffles", :force => true do |t|
     t.datetime "starts_at"
     t.datetime "ends_at"
@@ -709,6 +695,7 @@ ActiveRecord::Schema.define(:version => 20150727230157) do
     t.boolean  "thumbnail_processing"
     t.datetime "created_at",             :null => false
     t.datetime "updated_at",             :null => false
+    t.string   "remote_media_url"
   end
 
   create_table "tile_media", :force => true do |t|
@@ -1010,16 +997,5 @@ ActiveRecord::Schema.define(:version => 20150727230157) do
   add_index "users", ["spouse_id"], :name => "index_users_on_spouse_id"
   add_index "users", ["ssn_hash"], :name => "index_users_on_ssn_hash"
   add_index "users", ["zip_code"], :name => "index_users_on_zip_code"
-
-  create_table "users_in_raffles", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "raffle_id"
-    t.boolean  "start_showed"
-    t.boolean  "finish_showed"
-    t.boolean  "in_blacklist"
-    t.boolean  "is_winner"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-  end
 
 end
