@@ -39,7 +39,6 @@ module Concerns::TileImageable
                           priority:             TILE_IMAGE_PROCESSING_PRIORITY
 
 
-    validates_presence_of :remote_media_url
   end
 
   def processing_image_fallback
