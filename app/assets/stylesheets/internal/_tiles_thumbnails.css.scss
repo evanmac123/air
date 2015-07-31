@@ -123,19 +123,6 @@
   .tile_buttons {
     .edit_button, .destroy_button {
       width: 33px;
-      text-align: left;
-      span {
-        display: none;
-      }
-      i {
-        display: block;
-        font-size: 22px;
-        padding-top: 2px;
-        color: $white;
-        &:hover {
-          color: $light-gray;
-        }
-      }
     }
     .ignore_button, .accept_button {
       margin-right: 0;  

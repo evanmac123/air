@@ -29,6 +29,7 @@
     position:absolute;
     top:.5em;
     right:.5em;
+    width: 100%;
     li {
       display:inline-block;
       float:right;
@@ -36,9 +37,19 @@
       text-align: center;
       width:auto;
       i {
-        display: none;
+        display: block;
+        font-size: 22px;
+        padding-top: 2px;
+        color: $white;
+        &:hover {
+          color: $light-gray;
+        }
       }
-      &.edit_button, &.destroy_button, &.ignore_button, &.undo_ignore_button, &.submit_button, &.unsubmit_button {
+      &.edit_button, &.destroy_button {
+        width: 50px;
+        float: left;
+      }
+      &.ignore_button, &.undo_ignore_button, &.submit_button, &.unsubmit_button {
         a span {
           @include light-button($white);
         }

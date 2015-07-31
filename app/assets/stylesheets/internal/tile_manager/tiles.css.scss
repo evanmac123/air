@@ -91,13 +91,13 @@ body.suggested_tiles-index {
       @include app-button($dark-green);
       float: right;
     }
-    .minimize {
-      @include light-button($med-gray);
-      font-size: 10px;
-      position: absolute;
-      top:-2px;
-      right: 73px;
-    }
+    // .minimize {
+    //   @include light-button($med-gray);
+    //   font-size: 10px;
+    //   position: absolute;
+    //   top:-2px;
+    //   right: 73px;
+    // }
   }
   #draft_tiles {
     background: $almost-white;
@@ -339,32 +339,15 @@ body.suggested_tiles-index {
   }
 }
 
-// Links to download CSV tile reports
-a.download_csv {
+.download_csv, .minimize {
   @include light-button($med-gray);
-  //font-size: 10px;
-  //color: $med-gray !important;
-  width: 110px;
+  width: 120px;
   padding: 7  px;
   font-size: 12px;
   font-weight: 500;
   position: absolute;
   top: -8px;
   right: 73px;
-  //vertical-align: text-bottom;
-  //font-weight: 400 !important;
-  // Copied the following over from main_styles since IE won't respect the 
-  // color we set above unless we !important it, and we still want our hover 
-  // effects to work.
-  // &:hover {  
-  //   border-color:darken($med-gray, 11%);
-  //   color:darken($med-gray, 11%) !important;
-  // }
-  // &:active {
-  //   @include ease(0);
-  //   background:$med-gray;
-  //   color:$white;
-  // }
 }
 
 body.client_admin-tiles-index,

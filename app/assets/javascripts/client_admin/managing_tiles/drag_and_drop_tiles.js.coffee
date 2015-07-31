@@ -8,7 +8,6 @@ window.dragAndDropProperties =
   revert: true
   tolerance: "pointer"
   placeholder: "tile_container"
-  #helper : 'clone'
 
 window.dragAndDropTiles = ->
   $("#draft").droppable({ 
