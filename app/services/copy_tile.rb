@@ -39,6 +39,7 @@ class CopyTile
       "type",
       "image_meta",
       "thumbnail_meta", 
+      "remote_media_url", 
       "image",
       "thumbnail"
     ].each do |field_to_copy|
