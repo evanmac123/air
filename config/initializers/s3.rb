@@ -13,7 +13,7 @@ TILE_THUMBNAIL_OPTIONS = {}
 DEMO_LOGO_OPTIONS = {}
 
 case Rails.env
-when 'production', 'staging', 'development', "production_local"
+when 'production', 'staging', "production_local"
   TILE_OPTIONS = {
     :storage => :s3,
     :s3_protocol => 'https', 
@@ -35,7 +35,7 @@ when 'production', 'staging', 'development', "production_local"
     :url            => ":s3_domain_url"
   }
   DEMO_LOGO_OPTIONS[:path] = "/demo/:id/:hash__:filename"
-when 'test',  'production_local'
+when 'test',  'development'
   # Use defaults of :storage => :filesystem
 else
   raise 'Environment Not Found'
