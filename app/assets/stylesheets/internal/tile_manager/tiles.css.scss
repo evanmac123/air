@@ -1,24 +1,18 @@
-@import './internal/tiles_thumbnails';
-@import './internal/tiles_thumbnails_desktop';
-@import 'tiles_thumbnails_controls';
 @import './internal/tiles_fullsize';
 @import 'tile_preview';
 @import './internal/tile_builder/tile_builder';
 @import './internal/tile_manager/_joyride_tip_guide';
-@import "./mixins/right_pip";
-body.client_admin-tiles-index, 
-body.client_admin-inactive_tiles,
-body.client_admin-shares,
-body.suggested_tiles-index {
-  .tile_thumbnail {
-    width:100%;
-  }
-}
+
+@import './internal/tiles_thumbnails';
+@import './internal/tiles_thumbnails_desktop';
+@import 'tiles_thumbnails_controls';
 
 body.client_admin-tiles-index, 
 body.client_admin-inactive_tiles,
 body.suggested_tiles-index {
-  // Tile management sections
+  //
+  // => General styles
+  //
   .core {
     background: $off-white;
   }
@@ -28,77 +22,35 @@ body.suggested_tiles-index {
   }
   .manage_tiles {
     position: relative;
-    // .creation-placeholder{
-    //   display: inline-block;
-    //   width: 100%;
-    //   max-width: 238px;
-    // }
-    .tile_container{
-      min-width: 24%;
-      text-align: center;
-      float: left;
-      padding-bottom: 1.5rem;
-      height: 400px;
-
-      // transition-property: height, width, min-width;
-      // transition-duration: 10s;
-      // border: 2px solid black;
-    }
-    // #draft, #suggestion_box { 
-    //   .tile_container { 
-    //     height: 251px; 
-    //     width: 16%;
-    //   } 
-    // }
-    // #suggestion_box {
-    //   .tile_container {
-    //     height: 300px; 
-    //     width: 16%;
-    //   }
-    // }
-    //#active  { .tile_container { height: 400px; } }
-    .no_tiles_message {margin:0 auto 3em;}
-  }
-  #active_tiles, #archived_tiles, #draft_tiles, #submitted_tiles, #accepted_tiles, #posted_tiles {
     h4{
       margin-bottom: 2em;
       margin-left: 1.5em;
     }
   }
-  #archived_tiles{
-    background: $off-white;
-    position: relative;
-    #archive{
-      &:after{ @include clear; }
-    }
-    //.all_inactive {display: inline-block;}
-    .all_inactive {
-      @include light-button($med-gray);
-      font-size: 12px;
-      font-weight: 700;
-      width: 100px;
-      display: block;
-      margin: auto;
-      padding: 7px;
-      //margin-bottom: 1em;
-      //margin-left: 1em;
-      //max-width: 86.75em;
-    }
-    .tile_thumbnail.placeholder_tile {
-      border-color: $almost-white;
-    }
-    .create_new_tile {
-      @include app-button($dark-green);
-      float: right;
-    }
-    // .minimize {
-    //   @include light-button($med-gray);
-    //   font-size: 10px;
-    //   position: absolute;
-    //   top:-2px;
-    //   right: 73px;
-    // }
+  .tile_container{
+    min-width: 24%;
+    text-align: center;
+    float: left;
+    padding-bottom: 1.5rem;
+    height: 400px;
   }
+  .download_csv, .minimize {
+    @include light-button($med-gray);
+    width: 120px;
+    padding: 7  px;
+    font-size: 12px;
+    font-weight: 500;
+    position: absolute;
+    top: -8px;
+    right: 73px;
+  }
+  .switch{
+    @include green-paddle-switch;
+    @include switch-size(16px, 9px, 2.3em);
+  }
+  //
+  // => Draft section
+  //
   #draft_tiles {
     background: $almost-white;
     padding-top: 2em;
@@ -107,6 +59,9 @@ body.suggested_tiles-index {
         @include clear;
       }
     }
+    //
+    // => Draft Header States
+    //
     &.draft_selected {
       #draft {
         display: block;
@@ -150,6 +105,28 @@ body.suggested_tiles-index {
       padding-top: 2em;
     }
   }
+  //
+  // => Draft Elements
+  //
+
+  // Add New Tile Btn
+  #add_new_tile {
+    @include app-button($sky-blue);
+    position: absolute;
+    top: 3px;
+    right: -975px;
+    z-index: 1;
+    font-weight: 700;
+    font-size: 12px;
+    padding: 7px;
+    width: 115px;
+    i {
+      padding-right: 3px;
+    }
+  }
+  //
+  // => Draft Header Block
+  //
   .draft_header_block {
     position: relative;
     padding-bottom: 65px;
@@ -178,8 +155,45 @@ body.suggested_tiles-index {
       top: 13px;
       left: 20px;
       width: 957px;
+      #suggestion_box_title {
+        float: left;
+        cursor: pointer;
+      }
+      .help, .manage_access {
+        float: right;
+        cursor: pointer;
+      }
+      #user_submitted_tiles_counter {
+        @include font-regular;
+        font-size: 12px;
+        color: $med-gray;
+        border: 1px solid $med-gray;
+        border-radius: 3px;
+        display: inline-block;
+        min-width: 20px;
+        text-align: center;
+      }
+      #suggestion_box_title {
+        margin-top: -4px;
+        padding: 0 10px 7px 10px;
+        h3 {
+          color: $med-gray;
+          margin: 0;
+          display: inline-block;
+        }
+      }
+      .help, .manage_access {
+        @include font-regular;
+        font-size: 12px;
+        color:$med-gray;
+        padding-right: 20px;
+        margin-top: -3px;
+      }
     }
   }
+  //
+  // => Draft Blocked Overlay With Message
+  //
   .draft_overlay{
     position: absolute;
     top: 0;
@@ -212,6 +226,9 @@ body.suggested_tiles-index {
     text-align: center;
     font-size: 20px;
   }
+  //
+  // => Draft Show All Btn
+  //
   .show_all_draft_section {
     position: relative;
     background: $almost-white;
@@ -229,6 +246,31 @@ body.suggested_tiles-index {
       margin: auto;
     }
   }
+  //
+  // => Archive section
+  //
+  #archived_tiles{
+    background: $off-white;
+    position: relative;
+    #archive{
+      &:after{ @include clear; }
+    }
+    .all_inactive {
+      @include light-button($med-gray);
+      font-size: 12px;
+      font-weight: 700;
+      width: 100px;
+      display: block;
+      margin: auto;
+      padding: 7px;
+    }
+    .tile_thumbnail.placeholder_tile {
+      border-color: $almost-white;
+    }
+  }
+  //
+  // => Other sections
+  //
   #active_tiles, #submitted_tiles, #accepted_tiles, #posted_tiles {
     padding:2em 0 0 0;
     z-index: 1;
@@ -238,6 +280,7 @@ body.suggested_tiles-index {
   }
   #active_tiles {
     box-shadow: 0px 1px 6px 1.2px $med-gray;
+    background: $almost-white;
   }
   #submitted_tiles, #accepted_tiles, #posted_tiles, #archived_tiles {
     box-shadow: 0px -6px 7px -5.8px $med-gray;
@@ -248,6 +291,7 @@ body.suggested_tiles-index {
 }
 
 body.suggested_tiles-index {
+  background: $almost-white;
   header {
     margin-bottom: 1px;
   }
@@ -260,39 +304,12 @@ body.suggested_tiles-index {
       cursor: pointer;
       position: absolute;
       top: -1px;
-      left: 91px;
+      left: 100px;
       i {
         padding-left: 2px;
       }
     }
   }
-  // .creation-placeholder a {
-  //   color: $off-white !important;
-  // }
-}
-
-body.client_admin-tiles-index #active_tiles, 
-body.client_admin-inactive_tiles #active_tiles,
-body.suggested_tiles-index,
-.tiles_to_be_shared {
-  background: $almost-white;
-}
-
-#add_new_tile {
-  @include app-button($sky-blue);
-  position: absolute;
-  top: 3px;
-  right: -975px;
-  z-index: 1;
-  font-weight: 700;
-  font-size: 12px;
-  padding: 7px;
-  width: 115px;
-  i {
-    padding-right: 3px;
-  }
-}
-body.suggested_tiles-index {
   // Create new tile link
   .creation-placeholder {
     display: inline-block;
@@ -339,59 +356,11 @@ body.suggested_tiles-index {
   }
 }
 
-.download_csv, .minimize {
-  @include light-button($med-gray);
-  width: 120px;
-  padding: 7  px;
-  font-size: 12px;
-  font-weight: 500;
-  position: absolute;
-  top: -8px;
-  right: 73px;
-}
-
 body.client_admin-tiles-index,
 body.suggested_tiles-index {
-  .switch{
-    @include green-paddle-switch;
-    @include switch-size(16px, 9px, 2.3em);
-  }
-  .suggestion_box_header {
-    #suggestion_box_title {
-      float: left;
-      cursor: pointer;
-    }
-    .help, .manage_access {
-      float: right;
-      cursor: pointer;
-    }
-    #user_submitted_tiles_counter {
-      @include font-regular;
-      font-size: 12px;
-      color: $med-gray;
-      border: 1px solid $med-gray;
-      border-radius: 3px;
-      display: inline-block;
-      min-width: 20px;
-      text-align: center;
-    }
-    #suggestion_box_title {
-      margin-top: -4px;
-      padding: 0 10px 7px 10px;
-      h3 {
-        color: $med-gray;
-        margin: 0;
-        display: inline-block;
-      }
-    }
-    .help, .manage_access {
-      @include font-regular;
-      font-size: 12px;
-      color:$med-gray;
-      padding-right: 20px;
-      margin-top: -3px;
-    }
-  }
+  //
+  // => Manage Acces Prompt
+  //
   #manage_access_prompt {
     position: absolute;
     top: 120px;
@@ -418,6 +387,9 @@ body.suggested_tiles-index {
       font-size: 27px;
     }
   }
+  //
+  // => Suggestions Access Modal
+  //
   #suggestions_access_modal {
     width: 60%;
     left: 60%;

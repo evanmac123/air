@@ -91,6 +91,9 @@
 //   padding-top: .3em;
 // }
 
+//
+// => Small tile thumbnail (66.7%)
+//
 #draft_tiles .tile_container:not(.tile_in_active):not(.tile_in_achive), 
 .tile_container.tile_in_draft {
   height: 240px; 
@@ -127,8 +130,8 @@
     .ignore_button, .accept_button {
       margin-right: 0;  
       span {
-        padding-left: 0.55em;
-        padding-right: 0.55em; 
+        padding-left: 0.5em;
+        padding-right: 0.5em; 
       }
     }
   }
