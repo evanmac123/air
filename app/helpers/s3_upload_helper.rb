@@ -17,7 +17,7 @@ module S3UploadHelper
         bucket: S3_TILE_BUCKET,
         acl: "public-read",
         expiration: 10.hours.from_now.utc,
-        max_file_size: 500.megabytes,
+        max_file_size: 2.5.megabytes.to_i,
         as: "file"
       )
     end

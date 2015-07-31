@@ -51,14 +51,7 @@ Airbo.DirectToS3ImageUploader = (function(){
   }
 
   function fileAdded(data){
-    var file = data.files[0],
-      types = /(\.|\/)(gif|jpe?g|png|bmp)$/i;
-
-      if (types.test(file.type) || types.test(file.name)) {
-      } else {
-        alert(file.name + " is not a gif, jpeg, or png image file");
-      }
-      customHandler.added(file);
+    customHandler.added(data.files[0]);
   }
 
   function fileProgress(data){
@@ -79,17 +72,32 @@ Airbo.DirectToS3ImageUploader = (function(){
     customHandler.done(data, file, domain+path);
   }
 
+  function handleAnyFileErrors(file){
+    if(file.error){
+      alert("Sorry unable to upload the file due to the following error: " + file.error);
+    }
+  }
+
+
   function initFileUploader() {
 
     $('#fileupload').fileupload(
       {
         replaceFileInput: false,
-        disableImagePreview: true
+        disableImagePreview: true,
+        maxFileSize: 2500000, //2.5Mb
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png|bmp)$/i,
+        messages: {
+          acceptFileTypes: 'File type not allowed. Must be a gif, bmp, jpeg, or png image file',
+          maxFileSize: 'File is too large. Max File size 2.5Mb',
+        }
       }
     ).on('fileuploadadd', function(e, data) {
+
       fileAdded(data);
+
     }).on('fileuploadprocessalways', function (e, data) {
-      //NOOP
+      handleAnyFileErrors(data.files[0])
     }).on('fileuploadprocessdone', function (e, data) {
       fileProcessed(data);
     }).on('fileuploadprogress', function(e, data) {
@@ -97,7 +105,10 @@ Airbo.DirectToS3ImageUploader = (function(){
     }).on('fileuploaddone', function(e, data) {
       fileDone(data);
     }).on('fileuploadfail', function(e, data) {
-      console.log(data.files[0].name + " failed to upload.");
+      var error = "Upload failed due to the following server error: ";
+      error += $(data.jqXHR.responseXML).find("Message").text();
+      alert(error);
+      console.log(data.files[0].name + " " + error);
     });
   }
 
