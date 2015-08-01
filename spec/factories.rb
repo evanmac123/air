@@ -165,7 +165,7 @@ FactoryGirl.define do
   factory :tile do
     headline {"Tile #{SecureRandom.uuid}, y'all"}
     require_images false
-    remote_media_url "spec/support/fixtures/tiles/cov2.jpg"
+    remote_media_url "/assets/avatars/thumb/missing.png"
     association :demo
     sequence(:position){ |n| n }
     status Tile::ACTIVE
