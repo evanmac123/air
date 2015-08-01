@@ -289,6 +289,8 @@ module TileHelpers
     choose_question_type_and_subtype question_type, question_subtype
 
     attach_tile "tile_builder_form[image]", tile_fixture_path('cov1.jpg')
+
+    fake_upload_image "cov1.jpg"
     fill_in_image_credit "by Society"
     fill_in "Headline",           with: "Ten pounds of cheese"
     fill_in_supporting_content("Ten pounds of cheese. Yes? Or no?")
@@ -465,4 +467,11 @@ module TileHelpers
   def have_no_tile_manager_nav
     page.should_not have_selector('#tile_manager_nav')
   end
+
+
+ def fake_upload_image filename
+    page.execute_script("$('#remote_media_url').val('#{filename}');")
+  end
+
+
 end
