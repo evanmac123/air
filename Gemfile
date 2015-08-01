@@ -6,7 +6,6 @@ gem "rails", "=3.2.21"
 gem "rack"  # Update rack to 1.3.0 or later to get rid of utf8 string regex warnings
 gem 'delayed_job_active_record'
 gem "high_voltage"
-gem "airbrake"
 gem "paperclip", "~>3.3.0"
 gem "paperclip-meta"
 gem 'aws-sdk'
@@ -136,5 +135,6 @@ group :development do
 end
 
 group :production do
+  gem "airbrake"
   gem 'rails_12factor'
 end
