@@ -48,7 +48,7 @@ class Tile < ActiveRecord::Base
   validates_length_of :headline, maximum: 75, message: "headline is too long (maximum is 75 characters)"
   validates_with RawTextLengthInHTMLFieldValidator, field: :supporting_content, maximum: 450, message: "supporting content is too long (maximum is 450 characters)"
 
-  validates_presence_of :remote_media_url
+  validates_presence_of :remote_media_url, message: "image is missing"
 
   before_save :ensure_protocol_on_link_address, :handle_status_change
 
