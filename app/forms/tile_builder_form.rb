@@ -118,6 +118,9 @@ class TileBuilderForm
   def save_tile
     if tile.save(context: :client_admin)
       process_thumbail
+      return true
+    else
+      false
     end
   end
 
