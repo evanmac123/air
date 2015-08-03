@@ -56,7 +56,7 @@ class TileBuilderForm
   end
 
   def image_url
-    remote_media_url || (image_builder.find_image || image).url
+    (image_builder.find_image || image).url ||  remote_media_url
   end
 
   def no_image
