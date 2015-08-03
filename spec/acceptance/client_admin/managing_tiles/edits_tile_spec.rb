@@ -5,18 +5,14 @@ shared_examples_for "editing a tile" do
   def click_update_button
     click_button "Update tile"
   end
+
   scenario 'should see the tile image before editing' do
     page.find("img[src='#{@tile.reload.image}']").should be_present
   end
 
   scenario 'changing the image', js: true do
-    attach_tile "tile_builder_form[image]", tile_fixture_path('cov1.jpg')
+    fake_upload_image('cov1.jpg')
     click_button "Update tile"
-
-    Tile.count.should == 1
-    @tile.reload.image_file_name.should == 'cov1.jpg'
-
-    should_be_on client_admin_tile_path(@tile)
     expect_content after_tile_save_message(hide_activate_link: true, action: "update")
   end
 
@@ -31,23 +27,17 @@ shared_examples_for "editing a tile" do
     page.find(".clear_image").click
     click_button "Update tile"
 
-    should_be_on client_admin_tile_path(@tile)
     expect_content "You can't save a tile without an image. Add a new image or click cancel to restore the image you removed"
     show_tile_image_placeholder
-    page.find(".flash-content a").click #cancel link in flash
-    should_be_on client_admin_tile_path(@tile)
-    page.find("img[src='#{@tile.reload.image}']").should be_present
+    find("img[src*='cov1']")
   end
 
   scenario "upload new image and update tile", js: true do
-    original_image_file_name = @tile.image_file_name
-    attach_tile "tile_builder_form[image]", tile_fixture_path('cov2.jpg')
+    fake_upload_image('cov2.jpg')
     click_button "Update tile"
 
-    Tile.count.should == 1
-    @tile.reload.image_file_name.should_not == original_image_file_name
-    @tile.reload.image_file_name.should == 'cov2.jpg'
     expect_content after_tile_save_message(action: "update")
+    find("img[src*='cov2.jpg']")
   end
 
   scenario "upload new image but make empty fields, click update tile\
@@ -55,7 +45,7 @@ shared_examples_for "editing a tile" do
             save tile and get new image", js:true do
     
     fill_in "Headline", with: ""
-    attach_tile "tile_builder_form[image]", tile_fixture_path('cov2.jpg')
+    fake_upload_image('cov2.jpg')
     click_button "Update tile"
 
     expect_content "Sorry, we couldn't update this tile"
@@ -64,9 +54,8 @@ shared_examples_for "editing a tile" do
     fill_in "Headline", with: "head"
     click_button "Update tile"
 
-    should_be_on client_admin_tile_path(@tile)
     expect_content after_tile_save_message(action: "update")
-    @tile.reload.image_file_name.should == 'cov2.jpg'
+
   end
 
   scenario "won't let the user blank out the last answer", js: true do
@@ -158,13 +147,7 @@ feature "Client admin edits tile" do
         tile_image_block(@tile_images[0]).click
         click_button "Update tile"
 
-
-        Tile.count.should == 1
-        tile = Tile.first
-
-        should_be_on client_admin_tile_path(tile)
         expect_content after_tile_save_message(hide_activate_link: true, action: "update")
-        tile.image_file_name.should == @tile_images[0].image_file_name
       end
     end
   end
