@@ -242,9 +242,7 @@ body.suggested_tiles-index {
   .show_all_draft_section, .show_all_inactive_section {
     position: relative;
     height: 60px;
-    .row {
-      margin-left: 5px;
-    }
+    margin-left: -45px;
   }
   .show_all_draft_section {
     background: $almost-white;
@@ -252,7 +250,7 @@ body.suggested_tiles-index {
   .all_draft, .all_inactive {
     @include light-button(#858585);
     border-color: #b5b5b5;
-    font-weight: 700;
+    font-weight: 500;
     font-size: 12px;
     width: 100px;
     padding: 8px;
