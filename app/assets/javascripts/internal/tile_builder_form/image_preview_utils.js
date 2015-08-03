@@ -64,6 +64,7 @@ $(function() {
         noImage.val('true')
         previewer.clearPreviewImage();
         library.clearSelectedImage();
+        remoteMediaUrl.val(undefined)
       }
 
       function showImagePreview(imgUrl){
@@ -92,11 +93,16 @@ $(function() {
         return this;
       }
 
+      function getRemoteMediaURL(){
+        return remoteMediaUrl.val();
+      }
+
       return {
         init: init,
         showImagePreview: showImagePreview,
         directUploadCompleted: directUploadCompleted,
         libraryImageSelected: libraryImageSelected, 
+        remoteMediaUrl: getRemoteMediaURL,
       };
 
     }());
@@ -203,6 +209,10 @@ $(function() {
       function init(mgr){
         imageMgr = mgr
         imgPreview= $('.image_preview');
+
+        if(imageMgr.remoteMediaUrl()===""){
+          clearPreviewImage();
+        } 
         return this;
       }
 
