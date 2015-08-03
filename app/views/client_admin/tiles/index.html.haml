@@ -8,6 +8,9 @@
     =  render partial: 'client_admin/tiles/manage_tiles/active'
   %section.manage_tiles#archived_tiles
     = render partial: 'client_admin/tiles/manage_tiles/archive'
+  .show_all_inactive_section
+    .row
+      = link_to "Show all", client_admin_inactive_tiles_path, class: :all_inactive, style: "display:#{display_show_more_draft_tiles};"
 
 = render partial: 'client_admin/tiles/manage_tiles/move_tile_confirmation_modal'
 - if @board_is_brand_new

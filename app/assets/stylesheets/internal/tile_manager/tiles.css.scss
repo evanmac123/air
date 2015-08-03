@@ -35,14 +35,19 @@ body.suggested_tiles-index {
     height: 400px;
   }
   .download_csv, .minimize {
-    @include light-button($med-gray);
-    width: 120px;
-    padding: 7  px;
+    @include light-button(#8d8d8d);
+    border-color: #b9b9b9;
+    //width: 120px;
+    padding: 7px 10px;
     font-size: 12px;
     font-weight: 500;
     position: absolute;
     top: -8px;
     right: 73px;
+    &:hover {
+      color: #666666;
+      border-color: #8c8c8c;
+    }
   }
   .switch{
     @include green-paddle-switch;
@@ -118,10 +123,15 @@ body.suggested_tiles-index {
     z-index: 1;
     font-weight: 700;
     font-size: 12px;
-    padding: 7px;
-    width: 115px;
+    padding: 6px 10px;
     i {
-      padding-right: 3px;
+      float: left;
+      font-size: 15px;
+      padding-right: 8px;
+    }
+    span {
+      float: left;
+      padding-top: 1px;
     }
   }
   //
@@ -229,21 +239,28 @@ body.suggested_tiles-index {
   //
   // => Draft Show All Btn
   //
-  .show_all_draft_section {
+  .show_all_draft_section, .show_all_inactive_section {
     position: relative;
-    background: $almost-white;
     height: 60px;
     .row {
       margin-left: 5px;
     }
-    .all_draft {
-      @include light-button($med-gray);
-      font-weight: 700;
-      font-size: 12px;
-      width: 100px;
-      padding: 7px;
-      display: block;
-      margin: auto;
+  }
+  .show_all_draft_section {
+    background: $almost-white;
+  }
+  .all_draft, .all_inactive {
+    @include light-button(#858585);
+    border-color: #b5b5b5;
+    font-weight: 700;
+    font-size: 12px;
+    width: 100px;
+    padding: 8px;
+    display: block;
+    margin: auto;
+    &:hover {
+      color: #5c5c5c;
+      border-color: #8c8c8c;
     }
   }
   //
@@ -254,15 +271,6 @@ body.suggested_tiles-index {
     position: relative;
     #archive{
       &:after{ @include clear; }
-    }
-    .all_inactive {
-      @include light-button($med-gray);
-      font-size: 12px;
-      font-weight: 700;
-      width: 100px;
-      display: block;
-      margin: auto;
-      padding: 7px;
     }
     .tile_thumbnail.placeholder_tile {
       border-color: $almost-white;

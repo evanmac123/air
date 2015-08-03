@@ -24,7 +24,7 @@
     width:100%;
   }
   a, a:link, a:visited {
-    display:inline-block;
+    display: block;
     width:100%;
     &:after {@include clear;}
   }
@@ -82,15 +82,6 @@
   border-radius:6px;
   height:16.25em;
 }
-
-// .tile_creator {
-//   text-align: left;
-//   font-weight:bold;
-//   font-size:12px;
-//   padding-left:1em;
-//   padding-top: .3em;
-// }
-
 //
 // => Small tile thumbnail (66.7%)
 //
@@ -112,21 +103,40 @@
       height: 5em;
       padding: 0.5em;
       .text {
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 500;
       }
     }
     .tile_stats {
       .activation_dates {
-        top: 106px;
+        top: 105px;
         right: 0px;
       }
     }
   }
   .tile_buttons {
-    .edit_button, .destroy_button {
-      width: 33px;
+    top: 6px;
+    right: 6px;
+    width: calc(100% - 6px);
+    li {
+      i {
+        font-size: 20px;
+        padding-top: 5px;
+      }
+      &.destroy_button {
+        padding-left: 14px;
+      }
+      &.edit_button {
+        padding-left: 20px;
+      }
+      &.activate_button a span {
+        font-size: 15px;
+        padding: 8px 14px;
+      }
     }
+    // .edit_button, .destroy_button {
+    //   width: 33px;
+    // }
     .ignore_button, .accept_button {
       margin-right: 0;  
       span {
@@ -140,7 +150,7 @@
 //  => Transition properties for tile thumbnail
 //
 .tile_thumbnail {  
-  $trans-dur: 1s;
+  $trans-dur: 0.3s;
 
   transition-property: max-width;
   transition-duration: $trans-dur;
@@ -156,8 +166,6 @@
     transition-property: min-height height padding;
     transition-duration: $trans-dur;
     .text {
-      font-size: 13px;
-      font-weight: 500;
       transition-property: font-size font-weight;
       transition-duration: $trans-dur;
     }

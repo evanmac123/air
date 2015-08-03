@@ -2,12 +2,13 @@
   // Tile thumbnail entire wrapper
   .tile_thumbnail {
     .shadow_overlay {
+      background: rgba(0,0,0,0.7);
       height:12em;
       width:100%;
       top:0;
       left:0;
       &:after {
-        color:$light-gray;
+        color:$white;
         content:"Preview";
         display: block;
         margin-top:6em;
@@ -15,11 +16,13 @@
         text-transform: uppercase;
       }
     }
-    &:hover {
-      .shadow_overlay, .tile_buttons{display:block;}
-    }
-    &:focus {
-      .shadow_overlay, .tile_buttons{display:none;} 
+    .tile-wrapper {
+      &:hover {
+        .shadow_overlay, .tile_buttons{display:block;}
+      }
+      &:focus {
+        .shadow_overlay, .tile_buttons{display:none;} 
+      }
     }
   }
 
@@ -27,32 +30,38 @@
   .tile_buttons {
     display:none;
     position:absolute;
-    top:.5em;
-    right:.5em;
-    width: 100%;
+    top: 8px;
+    right: 8px;
+    width: calc(100% - 8px);
     li {
       display:inline-block;
       float:right;
-      margin-left:.5em;
       text-align: center;
       width:auto;
       i {
         display: block;
         font-size: 22px;
-        padding-top: 2px;
+        padding-top: 5px;
         color: $white;
         &:hover {
-          color: $light-gray;
+          opacity: 0.75;
         }
       }
-      &.edit_button, &.destroy_button {
-        width: 50px;
+      &.edit_button {
         float: left;
+        padding-left: 28px;
+      }
+      &.destroy_button {
+        float: left;
+        padding-left: 22px;
       }
       &.ignore_button, &.undo_ignore_button, &.submit_button, &.unsubmit_button {
         a span {
           @include light-button($white);
         }
+      }
+      &.ignore_button {
+        margin-left: 15px;
       }
       &.archive_button a span {
         @include app-button($med-gray);
@@ -64,14 +73,6 @@
       }
     }
   }
-  // .draft {
-  //   .activate_button a {
-  //     width: 4.3em;
-  //   }
-  //   .edit_button a {
-  //     width: 4em;
-  //   }
-  // }
   .archive {
     .tile_buttons li a span {
       padding-left:  0.5em;
@@ -88,33 +89,34 @@
   .tile_stats {
     padding-top: 10px;
     .activation_dates, .unique_views, .views, .completions {
-      border-top-left-radius: 3px;
-      padding: 3px 8px;
+      border-radius: 3px;
+      padding: 3.5px 7px;
       font-size: 12px;
       font-weight: 700;
       i {
-        font-size: 13px;
-        padding-right: 8px;
+        font-size: 14px;
+        padding-right: 7px;
       }
     }
-
     .activation_dates {
       position: absolute;
-      top: 170px;
+      top: 169px;
       right: 0px;
       background: rgba(0,0,0,0.7);
       color: $white;
+      border-radius: 0;
+      border-top-left-radius: 3px;
     }
     
     .unique_views, .views, .completions {
       float: left;
       width: 76px;
-      border: 1px solid #bbb;
-      color: #555;
+      border: 1px solid #b5b5b5;
+      color: #616161;
       text-align: left;
       &:hover {
-        border-color: #555;
-        color: #444;
+        border-color: #858585;
+        color: #383838;
       }
       i {
         padding-right: 4px;

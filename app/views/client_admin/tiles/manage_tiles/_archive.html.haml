@@ -7,4 +7,3 @@
     %div#archive.manage_section
       = render partial: 'client_admin/tiles/manage_tiles/no_tiles_section', locals: {display_no_tiles_section: @archive_tiles.empty?}
       = render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: {tiles: @archive_tiles}
-    = link_to "Show all", client_admin_inactive_tiles_path, :class => :all_inactive
