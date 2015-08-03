@@ -228,7 +228,7 @@ class TileBuilderForm
   end
 
   def image_changed?
-    @tile_image_changed ||= !!(@tile.new_record? && @parameters[:remote_media_url]) || (@parameters[:remote_media_url] != @tile.remote_media_url)
+    @tile_image_changed ||= @parameters[:remote_media_url].present? && ((@tile.new_record? ) || (@parameters[:remote_media_url] != @tile.remote_media_url))
   end
 
   def image_processing_attributes
