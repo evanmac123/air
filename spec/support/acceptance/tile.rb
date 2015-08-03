@@ -29,6 +29,7 @@ module TileHelpers
   # -------------------------------------------------
 
   DATE_REG_EXPR = /(\d{1,2})\/(\d{1,2})\/(\d{4})/  # e.g. 7/4/2013 -or- 07/04/2013
+  ASSET_HOST = "http://localhost:3000"
 
   def day_to_time(day)
     day.match DATE_REG_EXPR
@@ -288,8 +289,6 @@ module TileHelpers
 
     choose_question_type_and_subtype question_type, question_subtype
 
-    attach_tile "tile_builder_form[image]", tile_fixture_path('cov1.jpg')
-
     fake_upload_image "cov1.jpg"
     fill_in_image_credit "by Society"
     fill_in "Headline",           with: "Ten pounds of cheese"
@@ -469,8 +468,10 @@ module TileHelpers
   end
 
 
- def fake_upload_image filename
-    page.execute_script("$('#remote_media_url').val('#{filename}');")
+  def fake_upload_image filename
+    url = "#{ASSET_HOST}/#{filename}" 
+    page.execute_script("$('#remote_media_url').val('#{url}');")
+    page.execute_script("$('#upload_preview').attr('src', '#{url}');")
   end
 
 
