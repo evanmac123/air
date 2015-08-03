@@ -175,7 +175,7 @@ $(function() {
      * **********************************************/
 
     Airbo.ImagePreviewer = (function(){
-      var imageMgr;
+      var imageMgr, imgPreview;
 
       function clearPreviewImage(){
         showPlaceholder();
@@ -183,7 +183,7 @@ $(function() {
       }
 
       function showPlaceholder() {
-        $('.image_preview').removeClass('show_shadows').addClass('show_placeholder');
+        imgPreview.removeClass('show_shadows').addClass('show_placeholder');
       };
 
       function removeImageCredit() {
@@ -191,7 +191,7 @@ $(function() {
       };
 
       function showShadows() {
-        $('.image_preview').removeClass('show_placeholder').addClass('show_shadows');
+        imgPreview.removeClass('show_placeholder').addClass('show_shadows');
       };
 
       function setPreviewImage(imageUrl) {
@@ -202,6 +202,7 @@ $(function() {
 
       function init(mgr){
         imageMgr = mgr
+        imgPreview= $('.image_preview');
         return this;
       }
 
