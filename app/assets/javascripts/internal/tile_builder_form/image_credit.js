@@ -62,7 +62,7 @@ Airbo.TileImageCredit = (function(){
   };
 
   function hasTextInimageCreditView() {
-    imageCreditView.text().replace(/\s+/g, '').length > 0;
+    return imageCreditView.text().replace(/\s+/g, '').length > 0;
   };
 
   function truncateImageCreditView() {
