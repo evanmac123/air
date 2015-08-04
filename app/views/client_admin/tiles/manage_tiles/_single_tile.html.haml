@@ -1,15 +1,15 @@
 - cache [__FILE__, 'v11.ant', presenter.cache_key] do
   .tile_container
     .tile_thumbnail{class: presenter.type, id: "single-tile-#{presenter.tile_id}", data: {tile_id: presenter.tile_id}}
-      = link_to presenter.show_tile_path, class:'tile_thumb_link' do
-        %div.tile-wrapper
+      %div.tile-wrapper
+        = link_to presenter.show_tile_path, class:'tile_thumb_link' do
           %div.tile_thumbnail_image
             = image_tag presenter.thumbnail
           %div.headline
             %div.text
               = presenter.headline
           %div.shadow_overlay
-          = render partial: 'client_admin/tiles/manage_tiles/tile_buttons', locals: { presenter: presenter }
+        = render partial: 'client_admin/tiles/manage_tiles/tile_buttons', locals: { presenter: presenter }
       = render partial: 'client_admin/tiles/manage_tiles/tile_stats', locals: { presenter: presenter }
 
 - if presenter.thumbnail_processing
