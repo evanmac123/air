@@ -1,0 +1,19 @@
+- if presenter.has_tile_stats?
+  .tile_stats
+    .activation_dates
+      = presenter.timestamp
+    - if presenter.has_additional_tile_stats?
+      = link_to client_admin_tile_tile_completions_path(presenter) do
+        .unique_views.has-tip.tip-bottom{title: "Unique Views", data: {tooltip: true}}
+          = fa_icon 'users'
+          = presenter.unique_views
+        .views.has-tip.tip-bottom{title: "Total Views", data: {tooltip: true}}
+          = fa_icon 'eye'
+          = presenter.total_views
+        .completions.has-tip.tip-bottom{title: "Interacted", data: {tooltip: true}}
+          = fa_icon 'check'
+          = presenter.tile_completions_count
+      - if presenter.shows_creator? && presenter.has_creator?
+        .creator
+          By:
+          = presenter.creator
