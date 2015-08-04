@@ -1,16 +1,12 @@
 %section.manage_tiles#draft_tiles.compressed_section{class: draftSectionClass}
   = render partial: 'client_admin/tiles/manage_tiles/draft'
-.row
-  .show_all_draft_section
-    = link_to "Show all", '', class: :all_draft, style: "display:#{display_show_more_draft_tiles};"
+= render partial: 'client_admin/tiles/manage_tiles/show_all_draft'
 .completed_tiles_containment
   %section.manage_tiles#active_tiles
     =  render partial: 'client_admin/tiles/manage_tiles/active'
   %section.manage_tiles#archived_tiles
     = render partial: 'client_admin/tiles/manage_tiles/archive'
-  .row
-    .show_all_inactive_section
-      = link_to "Show all", client_admin_inactive_tiles_path, class: :all_inactive
+  = render partial: 'client_admin/tiles/manage_tiles/show_all_archive'
 
 = render partial: 'client_admin/tiles/manage_tiles/move_tile_confirmation_modal'
 - if @board_is_brand_new
