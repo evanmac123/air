@@ -107,5 +107,7 @@ Airbo.TileImageCredit = (function(){
 }());
 
 $(function(){
-  Airbo.TileImageCredit.init();
+  if (Airbo.Utils.isAtPage(Airbo.Utils.Pages.TILE_BUILDER)) {
+    Airbo.TileImageCredit.init();
+  }
 })
