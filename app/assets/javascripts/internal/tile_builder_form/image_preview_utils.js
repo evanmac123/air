@@ -13,9 +13,8 @@ function isIE() {
 
 
 $(function() {
-  var IS_IN_TILE_BUILDER = $("#new_tile_builder_form").length > 0;
 
-  if (IS_IN_TILE_BUILDER) {
+  if (Airbo.Utils.isAtPage(Airbo.Utils.Pages.TILE_BUILDER)) {
 
   /************************************************
    *
