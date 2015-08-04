@@ -1,0 +1,25 @@
+//
+//  => Transition properties for tile thumbnail
+//
+.tile_thumbnail {  
+  $trans-dur: 0.3s;
+
+  transition-property: max-width;
+  transition-duration: $trans-dur;
+  .shadow_overlay, .tile_thumbnail_image {
+    transition-property: height;
+    transition-duration: $trans-dur;
+  }
+  .shadow_overlay:after {
+    transition-property: margin-top;
+    transition-duration: $trans-dur;
+  }
+  .headline {
+    transition-property: min-height height padding;
+    transition-duration: $trans-dur;
+    .text {
+      transition-property: font-size font-weight;
+      transition-duration: $trans-dur;
+    }
+  }
+}

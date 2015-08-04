@@ -3,9 +3,11 @@
 @import './internal/tile_builder/tile_builder';
 @import './internal/tile_manager/_joyride_tip_guide';
 
-@import './internal/tiles_thumbnails';
-@import './internal/tiles_thumbnails_desktop';
-@import 'tiles_thumbnails_controls';
+@import './internal/tile_thumbnail/tiles_thumbnails';
+@import './internal/tile_thumbnail/tiles_thumbnails_desktop';
+@import './internal/tile_thumbnail/tiles_thumbnails_controls';
+@import './internal/tile_thumbnail/tiles_thumbnails_small_with_controls';
+@import './internal/tile_thumbnail/tiles_thumbnails_transition';
 
 body.client_admin-tiles-index, 
 body.client_admin-inactive_tiles,
