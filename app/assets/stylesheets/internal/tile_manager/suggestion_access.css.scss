@@ -1,0 +1,175 @@
+body.client_admin-tiles-index,
+body.suggested_tiles-index {
+  //
+  // => Manage Acces Prompt
+  //
+  #manage_access_prompt {
+    position: absolute;
+    top: 120px;
+    left: 140px;
+    padding: 20px;
+    font-size: 20px;
+    color: $sky-blue;
+    border: 2px solid $sky-blue;
+    border-radius: 3px;
+    background: $white;
+  }
+  .arrow_line {
+    position: absolute;
+    top: -154px;
+    right: -44px;
+    height: 183px;
+    width: 44px;
+    border: 2px solid $sky-blue;
+    border-color: transparent $sky-blue $sky-blue transparent;
+    i {
+      position: absolute;
+      top: -14px;
+      right: -10px;
+      font-size: 27px;
+    }
+  }
+  //
+  // => Suggestions Access Modal
+  //
+  #suggestions_access_modal {
+    width: 60%;
+    left: 60%;
+    margin-left: -44.5%;
+    .access_to_suggestion_block {
+      margin-top: 20px;
+      margin-right: 20px;
+      &:after {
+        @include clear;
+      }
+      p {
+        @include regular-text;
+        color: $dark-gray;
+        font-weight: 700;
+        float: left;
+      }
+      .switcher {
+        float: right;
+        .specific_users_copy, .all_users_copy {
+          @include regular-text;
+          float: left;
+          margin: 0 15px;
+          color: $light-gray;
+        }
+        .on {
+          color: $dark-gray;
+        }
+        .switch {
+          @include switch-size(16px, 9px, 2.3em);
+          margin-top: -1px;
+          float: left;
+        }
+      }
+    }
+    .all_users_section {
+      @include regular-text;
+      p {
+        line-height: 2;
+      }
+      a {
+        font-weight: 400;
+        color: $sky-blue;
+      }
+    }
+    .specific_users_section {
+      &.has_users {
+        .help_text {
+          display: none;
+        }
+      }
+      #name_substring {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+      #name_autocomplete_target {
+        span.add_user {
+          display: none;
+        }
+      }
+      .help_text {
+        @include regular-text;
+        p {
+          line-height: 2;
+        }
+        a {
+          font-weight: 400;
+          color: $sky-blue;
+        }
+      }
+      table#allowed_to_suggest_users {
+        border-top: 1px solid #ddd;
+        margin: 0;
+        td {
+          @include regular-text;
+          padding: 1em 0.5em;
+        }
+        .user_name {
+          width: 25%;
+        }
+        .user_email {
+          width: 50%;
+        }
+        .user_remove {
+          width: 25%;
+          text-align: right;
+        }
+        a {
+          @include regular-text;
+        }
+      }
+    }
+    .control_buttons {
+      margin-top: 20px;
+      position: relative;
+      &.with_spinner {
+        img#submit_spinner {
+          display: block;
+          position: absolute;
+          top: 4px;
+          left: 34px;
+        }
+        #save_suggestions_access {
+          color: transparent;
+        }
+      }
+      img#submit_spinner {
+        display: none;
+      }
+      #save_suggestions_access {
+        @include app-button($sky-blue);
+        font-size: 14px;
+        width: 100px;
+        margin-top: -2px;
+        height: 26px;
+      }
+      #cancel_suggestions_access {
+        @include light-button($gray);
+        font-size: 14px;
+        width: 85px;
+        margin-left: 10px;
+      }
+    }
+  }
+
+  #accept-tile-modal {
+    h2 {
+      margin-bottom: 20px;
+    }
+    p {
+      margin-bottom: 20px;
+      color: $text-color;
+    }
+    .confirm {
+      @include app-button($sky-blue);
+      margin-right: 10px;
+    }
+    .undo {
+      @include light-button($sky-blue);
+    }
+  }
+}
