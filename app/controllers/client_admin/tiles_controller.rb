@@ -24,8 +24,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     record_index_ping
   end
   
-  def new    
-    @tile_builder_form = TileBuilderForm.new(@demo)
+  def new
+    @tile_builder_form = TileBuilderForm.new(@demo, params)
     record_new_ping
   end
 

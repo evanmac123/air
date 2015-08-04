@@ -1,6 +1,6 @@
 - cache [__FILE__, 'v11.ant', presenter.cache_key] do
   .tile_container
-    .tile_thumbnail{class: presenter.type, id: "single-tile-#{presenter.tile_id}", data: {tile_id: presenter.tile_id}}
+    .tile_thumbnail{class: presenter.type, id: "single-tile-#{presenter.tile_id}", data: {tile_id: presenter.tile_id, position: presenter.tile_position}}
       = link_to presenter.show_tile_path, class:'tile_thumb_link' do
         %div.tile-wrapper
           %div.tile_thumbnail_image

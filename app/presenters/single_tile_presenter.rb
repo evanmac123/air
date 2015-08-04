@@ -97,6 +97,10 @@ class SingleTilePresenter
   def tile_id
     @tile_id ||= id
   end
+  
+  def tile_position
+   @tile.position || 0
+  end
 
   def to_param
     @to_param ||= tile.to_param

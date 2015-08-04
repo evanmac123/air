@@ -10,6 +10,7 @@
 <div id="tile_external_link" class="content_sections">
   <%= form.label :link_address, "Add a link (optional)" %>
   <%= form.text_field :link_address %>
+  <%= form.hidden_field :position %>
 </div>
 
 <% js_at_end do %>

@@ -19,7 +19,8 @@ class TileBuilderForm
             :image, 
             :image_credit, 
             :link_address, 
-            :points, 
+            :points,
+            :position, 
             :remote_media_url,
             :remote_media_type,
             :to => :tile
@@ -27,7 +28,7 @@ class TileBuilderForm
   def initialize(demo, options = {})
     @demo = demo
     @parameters = (options[:parameters] || {})
-    @tile = (options[:tile] || MultipleChoiceTile.new(demo: @demo))
+    @tile = (options[:tile] || MultipleChoiceTile.new(demo: @demo, position: options[:position]))
     @creator = options[:creator]
 
     @exclude_attrs = [:supporting_content, :correct_answer_index, 
