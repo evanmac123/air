@@ -190,6 +190,7 @@ $(function() {
       function clearPreviewImage(){
         showPlaceholder();
         removeImageCredit();
+        $("#uploaded_image_file").text("Pick an image").removeClass("file_selected")
       }
 
       function showPlaceholder() {
