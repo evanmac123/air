@@ -20,8 +20,8 @@ class InsertTileBetweenTiles
   protected
 
   def tile_is_already_on_this_place
-    if  (@left_tile.present? && @left_tile == find_left_tile(@tile)) ||
-        (@right_tile.present? && @right_tile == find_right_tile(@tile))
+    if  (@left_tile.present? && @left_tile == @tile.left_tile) ||
+        (@right_tile.present? && @right_tile == @tile.right_tile)
       if @status.present? && @status != @tile.status
         false
       else
@@ -76,21 +76,5 @@ class InsertTileBetweenTiles
     }.order("position ASC").each_with_index do |tile, index|
       tile.update_attribute :position, (tile_position + index + 1)
     end
-  end
-
-  def find_right_tile(tile)
-    self_position = tile.position
-    Tile.where(demo: tile.demo)
-        .where(status: tile.status)
-        .where{position < self_position}
-        .ordered_by_position.first
-  end
-
-  def find_left_tile(tile)
-    self_position = tile.position
-    Tile.where(demo: tile.demo)
-        .where(status: tile.status)
-        .where{position > self_position}
-        .order("position ASC").first
   end
 end

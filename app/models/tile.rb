@@ -207,6 +207,22 @@ class Tile < ActiveRecord::Base
     ReorderExplorePageTiles.new(tile_ids).reorder
   end
 
+  def right_tile
+    self_position = self.position
+    Tile.where(demo: self.demo)
+        .where(status: self.status)
+        .where{position < self_position}
+        .ordered_by_position.first
+  end
+
+  def left_tile
+    self_position = self.position
+    Tile.where(demo: self.demo)
+        .where(status: self.status)
+        .where{position > self_position}
+        .order("position ASC").first
+  end
+
   protected
 
   def ensure_protocol_on_link_address
