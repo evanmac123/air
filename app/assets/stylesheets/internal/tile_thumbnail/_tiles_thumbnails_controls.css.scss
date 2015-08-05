@@ -1,13 +1,13 @@
 .client_admin_main, .suggested_tiles-index {
   .tile_thumbnail {
     .shadow_overlay {
-      background: rgba(0,0,0,0.7);
+      background: rgba(255, 255, 255, 0.9);
       height:12em;
       width:100%;
       top:0;
       left:0;
       &:after {
-        color:$white;
+        color: #666666;
         content:"Preview";
         display: block;
         margin-top:6em;
@@ -40,9 +40,9 @@
         display: block;
         font-size: 22px;
         padding-top: 5px;
-        color: $white;
+        color: #5c5c5c;
         &:hover {
-          opacity: 0.75;
+          color: #262626;
         }
       }
       &.edit_button {
@@ -99,8 +99,8 @@
       position: absolute;
       top: 169px;
       right: 0px;
-      background: rgba(0,0,0,0.7);
-      color: $white;
+      background: rgba(255, 255, 255, 0.9);
+      color: $text-color;
       border-radius: 0;
       border-top-left-radius: 3px;
     }

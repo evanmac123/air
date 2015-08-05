@@ -23,7 +23,7 @@ module ClientAdmin::TilesHelper
   end
   
   def activate
-    current_user.demo.tiles.archived.update_all(status: Tile::ACTIVE)
+    current_user.demo.tiles.archive.update_all(status: Tile::ACTIVE)
   end
 
   def set_tile_types(tile_has_question_type, tile_builder)
