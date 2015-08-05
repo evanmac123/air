@@ -38,7 +38,7 @@ Airbo.DirectToS3ImageUploader = (function(){
   function initChooseFileDelegator(){
     var uploadForm= $("#fileupload");
 
-    $('body').on('click', ".upload_image", function(event){
+    $('body').on('click', "#uploader_trigger", function(event){
       event.preventDefault();
       uploadForm.find('input[type=file]').click();
       return false;

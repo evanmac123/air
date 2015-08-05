@@ -1,10 +1,15 @@
-<% unless ie9_or_older? %>
+
+<% if ie9_or_older? %>
   <div class="tile_image_block upload_image">
     <%= fa_icon('arrow-circle-o-up 2x') %>
+  <label for="media_file" >
+    Upload Image
+  </label>
+  </div>
+<%else%>
+  <div class="tile_image_block upload_image" id="uploader_trigger">
+    <%= fa_icon('arrow-circle-o-up 2x') %>
     <span>Upload Image</span>
-      <div class="upload_new_image">
-        <%# form.file_field "image" %>
-      </div>
   </div>
 <% end %>
 <%= form.hidden_field :remote_media_url, id: "remote_media_url" %>

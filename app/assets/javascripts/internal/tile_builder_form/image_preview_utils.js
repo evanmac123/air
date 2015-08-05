@@ -70,6 +70,10 @@ $(function() {
         previewer.setPreviewImage(imgUrl);
       }
 
+      function showFileName(file){
+        previewer.showFileName(file);
+      }
+
       function initClearImage(){
         $('.clear_image').click(function(event) {
           clearImage()
@@ -99,6 +103,7 @@ $(function() {
       return {
         init: init,
         showImagePreview: showImagePreview,
+        showFileName: showFileName,
         directUploadCompleted: directUploadCompleted,
         libraryImageSelected: libraryImageSelected, 
         remoteMediaUrl: getRemoteMediaURL,
@@ -117,7 +122,7 @@ $(function() {
     Airbo.ImageLibrary = (function(){
       var imageMgr,
       imageFromLibraryField = $("#image_from_library"),
-        imageFromLibrarySelector = ".tile_image_block:not(.upload_image)",
+        imageFromLibrarySelector = ".tile_image_block.library",
         imageFromLibrary=  $(imageFromLibrarySelector);
 
       function selectedImageFromLibrary() {
@@ -205,6 +210,10 @@ $(function() {
         $('#upload_preview').attr("src", imageUrl);
       };
 
+      function showFileName(file){ 
+        $("#uploaded_image_file").text(file.name).addClass("file_selected")
+      }
+
       function init(mgr){
         imageMgr = mgr
         imgPreview= $('.image_preview');
@@ -218,6 +227,7 @@ $(function() {
       return {
         init: init,
         setPreviewImage: setPreviewImage,
+        showFileName: showFileName,
         clearPreviewImage: clearPreviewImage 
       };
 
@@ -227,7 +237,8 @@ $(function() {
 
     var customHandler = {
       processed: tileMgr.showImagePreview,
-      done: tileMgr.directUploadCompleted
+      done: tileMgr.directUploadCompleted,
+      added: tileMgr.showFileName,
     };
 
     Airbo.DirectToS3ImageUploader.init(customHandler);

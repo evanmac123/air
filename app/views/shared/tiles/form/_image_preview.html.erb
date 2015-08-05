@@ -5,7 +5,7 @@
       <%= image_tag @tile_builder_form.image_url, class: "tile_image", id: "upload_preview" %>
       <div class="image_placeholder">
         <i class="fa fa-picture-o fa-4x"></i>
-        <label>Pick an image</label>
+        <label id="uploaded_image_file">Pick an image</label>
       </div>
       <div class="shadows">
         <div class="shadow_overlay"></div>
@@ -13,7 +13,6 @@
             <i class="fa fa-times fa-2x"></i>
         </div>
         <div class="image_credit">
-
           <% if ie9_or_older? %>
             <div class="image_credit_view">
               <%= @tile_builder_form.tile.image_credit %>
@@ -28,14 +27,6 @@
       </div>
     </div>
 
-    <% if ie9_or_older? %>
-      <div class="pick_image tile_builder_section">
-        <div class="upload_new_image">
-          <label>Upload your own image</label>
-          <%= form.file_field "image", :style => 'display: block;' %>
-        </div>
-      </div>
-    <% end %>
 
   </div>
 

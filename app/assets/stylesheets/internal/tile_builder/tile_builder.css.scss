@@ -469,8 +469,11 @@ body.suggested_tiles-update {
         padding-top: 30px;
         padding-bottom: 10px;
       }
-      span {
+      span, label {
         display: block;
+      }
+      label {
+      color: white;
       }
       .upload_new_image {
         opacity: 0;
@@ -520,4 +523,14 @@ body.suggested_tiles-update {
 
 #tile_tag_select {
   background: lighten($light-gray, 8%);
+}
+
+.image_preview {
+  .image_placeholder {
+    label#uploaded_image_file.file_selected{
+      color: green;
+      font-weight: bold;
+    }
+
+  }
 }
