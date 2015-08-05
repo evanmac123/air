@@ -52,7 +52,7 @@ feature 'Client admin and tile manager page' do
           within tile(tile) do
             page.should contain tile.headline
             page.should have_archive_link_for(tile)
-            page.should have_edit_link_for(tile)
+            edit_link_for(tile).should be_present
             page.should have_preview_link_for(tile)
           end
         end
