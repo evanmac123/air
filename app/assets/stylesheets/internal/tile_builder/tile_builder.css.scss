@@ -534,3 +534,10 @@ body.suggested_tiles-update {
 
   }
 }
+
+#ie9_uploader.tile_image_block.upload_image.ie9_or_older {
+  cursor: auto;
+  label#upload_trigger_ie9 {
+    cursor: pointer;
+  }
+}
