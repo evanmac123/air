@@ -1,10 +1,9 @@
-<% creator_class = tile.appears_client_created ? 'client_created' : 'admin_created' %>
 <% overlay_displayed ||= false %>
 <% show_copy_button ||= false %>
 <% is_preview ||= false %>
 <% tile = FullSizeTilePresenter.new(tile, current_user, is_preview, @current_tile_ids, browser) %>
 
-<div class="tile_holder <%= creator_class %>" 
+<div class="tile_holder <%= tile.creator_class %>" 
   data-current-tile-id="<%= tile.id %>" 
   data-completed-only="<%= @show_completed_tiles %>" 
   data-show-conversion-form="<%= @show_conversion_form||false %>" 

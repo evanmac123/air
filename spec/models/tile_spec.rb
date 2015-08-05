@@ -180,95 +180,13 @@ describe Tile do
     end
   end
 
-  describe "#due?" do
-    it "should tell me whether a tile is within the window of opportunity" do
-      Demo.find_each { |f| f.destroy }
-      demo = FactoryGirl.create :demo
-      a = FactoryGirl.create(:tile, :demo => demo)
-      # Effectively reload a under the right class (OldSchoolTile vs. Tile)
-      a = Tile.find(a)
-      past = 1.hour.ago
-      future = 1.hour.from_now
-      ################ NO TIMES SET  #######################
-      a.start_time = nil
-      a.end_time = nil
-      a.should be_due
-      a.save!
-      Tile.after_start_time_and_before_end_time.should == [a]
 
-      ################ HAS START TIME ONLY #################
-      a.start_time = past
-      a.end_time = nil
-      a.should be_due
-      a.save!
-      Tile.after_start_time_and_before_end_time.should == [a]
-
-      a.start_time = future
-      a.end_time = nil
-      a.should_not be_due
-      a.save!
-      Tile.after_start_time_and_before_end_time.should == []
-
-      ################# HAS END TIME ONLY ##################
-      a.start_time = nil
-      a.end_time = past
-      a.should_not be_due
-      a.save!
-      Tile.after_start_time_and_before_end_time.should == []
-
-      a.start_time = nil
-      a.end_time = future
-      a.should be_due
-      a.save!
-      Tile.after_start_time_and_before_end_time.should == [a]
-
-      ############## HAS START AND END TIME ################
-      a.start_time = past
-      a.end_time = future
-      a.should be_due
-      a.save!
-      Tile.after_start_time_and_before_end_time.should == [a]
-
-      a.start_time = past
-      a.end_time = past
-      a.should_not be_due
-      a.save!
-      Tile.after_start_time_and_before_end_time.should == []
-
-      a.start_time = future
-      a.end_time = future
-      a.should_not be_due
-      a.save!
-      Tile.after_start_time_and_before_end_time.should == []
-    end
-  end
-
-  describe ".due_ids" do
-    it "should tell me the ids of all the due tiles" do
-      Demo.find_each {|f| f.destroy}
-      # Too early
-      too_early = FactoryGirl.create(:tile, headline: 'early', start_time: 1.minute.from_now)
-      too_early.should_not be_due
-
-      # Too late
-      too_late = FactoryGirl.create(:tile, headline: 'late', end_time: 1.minute.ago)
-      too_late.should_not be_due
-
-      # Just right
-      just_right = FactoryGirl.create(:tile, headline: 'right', start_time: 1.minute.ago, end_time: 1.minute.from_now)
-      just_right.should be_due
-
-      # due_ids
-      Tile.due_ids.count.should == 1
-    end
-  end
-
-  describe "#appears_client_created" do
-    it "is true for MultipleChoiceTiles, but not OldSchoolTiles" do
-      FactoryGirl.create(:multiple_choice_tile).appears_client_created.should == true
-      FactoryGirl.create(:old_school_tile).appears_client_created.should == false
-    end
-  end
+  # describe "#appears_client_created" do
+  #   it "is true for MultipleChoiceTiles, but not OldSchoolTiles" do
+  #     FactoryGirl.create(:multiple_choice_tile).appears_client_created.should == true
+  #     FactoryGirl.create(:old_school_tile).appears_client_created.should == false
+  #   end
+  # end
 
   describe "satisfiable to a particular user" do
     before(:each) do
