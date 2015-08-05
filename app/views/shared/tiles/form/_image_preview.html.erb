@@ -10,7 +10,7 @@
       <div class="shadows">
         <div class="shadow_overlay"></div>
         <div class="clear_image has-tip tip-top" data-tooltip title="Remove the image">
-            <i class="fa fa-times fa-2x"></i>
+          <i class="fa fa-times fa-2x"></i>
         </div>
         <div class="image_credit">
           <% if ie9_or_older? %>
@@ -27,11 +27,10 @@
       </div>
     </div>
 
-
   </div>
 
   <% if ie9_or_older? %>
-    <div class="content_sections">
+    <div class="content_sections tile_builder_section">
       <%= form.label :image_credit %>
       <%= form.text_field :image_credit, {maxlength: 50, placeholder:'Add Image Credit'} %>
     </div>
