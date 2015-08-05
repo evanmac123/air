@@ -44,6 +44,7 @@ module S3UploadHelper
         :policy => policy,
         :signature => signature,
         "AWSAccessKeyId" => @options[:aws_access_key_id],
+        :success_action_status => "201",
       }
     end
 
@@ -67,6 +68,7 @@ module S3UploadHelper
           ["starts-with", "$key", ""],
           ["content-length-range", 0, @options[:max_file_size]],
           {bucket: @options[:bucket]},
+          {success_action_status: "201"},
           {acl: @options[:acl]}
         ]
       }
