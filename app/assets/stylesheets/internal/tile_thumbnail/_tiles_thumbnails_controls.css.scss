@@ -15,18 +15,9 @@
         text-transform: uppercase;
       }
     }
-    .tile-wrapper {
-      &:hover {
-        .shadow_overlay, .tile_buttons{display:block;}
-      }
-      &:focus {
-        .shadow_overlay, .tile_buttons{display:none;} 
-      }
-    }
   }
   // Default buttons
   .tile_buttons {
-    display:none;
     position:absolute;
     top: 8px;
     right: 8px;
@@ -71,6 +62,24 @@
       }
     }
   }
+  // 
+  // => Tile Thumbnail transition on hover
+  //
+  .tile_thumbnail {
+    .shadow_overlay, .tile_buttons {
+      opacity: 0;
+      transition: opacity 250ms ease;
+      display: block;
+    }
+  }
+  .tile-wrapper {
+    &:hover {
+      .shadow_overlay, .tile_buttons {
+        opacity: 1;
+      }
+    }
+  }
+
   .archive {
     .tile_buttons li a span {
       padding-left:  0.5em;
