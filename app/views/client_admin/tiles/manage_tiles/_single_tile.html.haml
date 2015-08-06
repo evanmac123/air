@@ -5,6 +5,8 @@
         = link_to presenter.show_tile_path, class:'tile_thumb_link' do
           %div.tile_thumbnail_image
             = image_tag presenter.thumbnail
+          .activation_dates
+            = presenter.timestamp
           %div.headline
             %div.text
               = presenter.headline

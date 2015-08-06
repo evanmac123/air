@@ -53,16 +53,12 @@ class SingleTilePresenter
     show_admin_buttons? && (type? :ignored)
   end
 
-  def has_additional_tile_stats?
+  def has_tile_stats?
     show_admin_buttons? && (type? :active, :archive)
   end
 
   def shows_creator?
     type? :user_submitted
-  end
-
-  def has_tile_stats?
-    type? :draft, :active, :archive, :user_submitted, :ignored
   end
 
   def show_tile_path
