@@ -438,8 +438,7 @@ class Tile < ActiveRecord::Base
 
 
   def requires_remote_media_url
-    #is_brand_new_tile? || setting_empty_image?
-    false
+    is_brand_new_tile? || setting_empty_image?
   end
 
   def setting_empty_image?
