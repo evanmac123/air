@@ -427,6 +427,14 @@ class Tile < ActiveRecord::Base
     !(@making_copy)
   end
 
+  private
+
+  def handle_status_change
+    if changed.map(&:to_sym).include?(:status)
+      TileStatusChangeManager.new(self).process
+    end
+  end
+
   class TileBulkCompletionJob
     def initialize(demo_id, tile_id, emails)
       @demo_id = demo_id
@@ -466,14 +474,5 @@ class Tile < ActiveRecord::Base
     end
   end
 end
-
-private
-
-def handle_status_change
-	if changed.map(&:to_sym).include?(:status)
-		TileStatusChangeManager.new(self).process
-	end
-end
-
 
 
