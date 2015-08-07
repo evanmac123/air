@@ -6,9 +6,9 @@
     .draft_header_block
       .draft_title_block
         %h4#draft_title Draft
-        = link_to new_client_admin_tile_path(path: :via_index), id: 'add_new_tile' do
-          = fa_icon "plus"
-          %span Add New Tile
+      = link_to new_client_admin_tile_path(path: :via_index), id: 'add_new_tile' do
+        = fa_icon "plus"
+        %span Add New Tile
       = render partial: 'client_admin/suggestions_access/suggestion_box_header' if  policy(:board).tile_suggestion_enabled? 
 .row
   .large-12.columns
