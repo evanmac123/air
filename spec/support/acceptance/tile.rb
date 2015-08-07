@@ -289,7 +289,7 @@ module TileHelpers
 
     choose_question_type_and_subtype question_type, question_subtype
 
-    fake_upload_image "cov1.jpg"
+    fake_upload_image "cov1.png"
     fill_in_image_credit "by Society"
     fill_in "Headline",           with: "Ten pounds of cheese"
     fill_in_supporting_content("Ten pounds of cheese. Yes? Or no?")
