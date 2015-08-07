@@ -8,7 +8,7 @@ window.dragAndDropProperties =
   revert: true
   tolerance: "pointer"
   placeholder: "tile_container"
-  handle: ".tile_thumbnail"
+  handle: ".tile-wrapper"
 
 window.dragAndDropTiles = ->
   $("#draft").droppable({ 

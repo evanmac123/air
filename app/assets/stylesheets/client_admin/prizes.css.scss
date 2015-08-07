@@ -236,7 +236,7 @@ body.client_admin-prizes {
             @include light-button($med-gray);
           }
           &:disabled{
-            color: transparent !important;
+            color: transparent;// !important;
           }
         }
         #submit_spinner{

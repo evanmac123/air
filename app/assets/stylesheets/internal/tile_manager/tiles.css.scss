@@ -43,13 +43,12 @@ body.suggested_tiles-index {
   .download_csv, .minimize {
     @include light-button(#8d8d8d);
     border-color: #b9b9b9;
-    //width: 120px;
-    padding: 7px 10px;
-    font-size: 12px;
+    padding: 6px 7px 10px;
+    font-size: 11pt;
     font-weight: 500;
     position: absolute;
     top: -8px;
-    right: 73px;
+    right: 72px;
     &:hover {
       color: #666666;
       border-color: #8c8c8c;
@@ -78,7 +77,8 @@ body.suggested_tiles-index {
     font-weight: 500;
     font-size: 12px;
     width: 100px;
-    padding: 8px;
+    padding-top: 8px;
+    padding-bottom: 7px;
     display: block;
     margin: auto;
     &:hover {

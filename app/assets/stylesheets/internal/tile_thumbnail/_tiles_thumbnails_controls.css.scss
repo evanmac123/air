@@ -27,6 +27,10 @@
       float:right;
       text-align: center;
       width:auto;
+      a span {
+        padding: 7px 14px !important;
+        font-weight: 500 !important;
+      }
       i {
         display: block;
         font-size: 22px;
@@ -45,18 +49,18 @@
         padding-left: 22px;
       }
       &.ignore_button, &.undo_ignore_button, &.submit_button, &.unsubmit_button {
-        a span {
+        span {
           @include light-button($white);
         }
       }
       &.ignore_button {
         margin-left: 15px;
       }
-      &.archive_button a span {
+      &.archive_button span {
         @include app-button($med-gray);
       }
       &.activate_button, &.accept_button {
-        a span {
+        span {
           @include app-button($sky-blue);
         }
       }
