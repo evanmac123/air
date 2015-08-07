@@ -66,13 +66,12 @@ window.dragAndDropTiles = ->
     # update is called first for source section, then for destination section.
     # so we need to save name of the source and then use it in ajax call
     if isTileInSection tile, section
-      tileButtons tile, "remove"
+      tileInfo tile, "remove"
       saveTilePosition tile
     else # is executed if tile leaves section
       window.sourceSectionName = section.attr("id")
 
   overEvent = (event, tile, section) ->
-    removeTileStats tile, section
     updateTilesAndPlaceholdersAppearance()
     updateTileInSectionClass(tile, section)
 
@@ -80,7 +79,7 @@ window.dragAndDropTiles = ->
     resetGloballVariables()
     turnOnDraftBlocking tile, section
     showDraftBlockedMess false
-    tileButtons tile, "hide"
+    tileInfo tile, "hide"
 
   receiveEvent = (event, tile, section) ->
     if completedTileWasAttemptedToBeMovedInBlockedDraft()
@@ -95,22 +94,13 @@ window.dragAndDropTiles = ->
       showDraftBlockedMess true, section
       showDraftBlockedOverlay false
     updateTilesAndPlaceholdersAppearance()
-    tileButtons tile, "show"
+    tileInfo tile, "show"
 
   numberInRow = (section) ->
     if section == "draft" || section == "suggestion_box"
       6
     else
       4
-
-  tileButtons = (tile, action) ->
-    controlElements = tile.find(".tile_buttons")
-    if action == "show"
-      controlElements.css("display", "")
-    else if action == "hide"
-      controlElements.hide()
-    else if action == "remove"
-      controlElements.remove()
 
   placeholderSelector = ->
     ".tile_container.placeholder_container:not(.hidden_tile)"
@@ -174,12 +164,27 @@ window.dragAndDropTiles = ->
     else
       no_tiles_section.hide()
 
-  removeTileStats = (tile, destination_section) ->
-    source_name = getTilesSection tile
-    destination_name = destination_section.attr("id")
+  tileInfo = (tile, action) ->
+    controlElements = tile.find(".tile_buttons, .tile_stats")
+    if action == "show"
+      controlElements.css("display", "")
+    else if action == "hide"
+      controlElements.hide()
+    else if action == "remove"
+      controlElements.remove()
 
-    if source_name != "draft" && destination_name == "draft"
-      tile.find(".tile_stats").hide()
+  # tileStats = (tile, action) ->
+  #   controlElements = tile.find(".tile_stats")
+  #   if action == "show"
+  #     controlElements.css("display", "")
+  #   else if action == "hide"
+  #     controlElements.hide()
+  #   else if action == "remove"
+  #     controlElements.remove()
+    # source_name = getTilesSection tile
+    # destination_name = destination_section.attr("id")
+    # #if source_name != "draft" && destination_name == "draft"
+    # tile.find(".tile_stats").hide()
 
   saveTilePosition = (tile) ->
     id = findTileId tile
