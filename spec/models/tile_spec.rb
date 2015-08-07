@@ -9,7 +9,7 @@ describe Tile do
   it { should have_many(:guest_user_viewers) }
   it { should ensure_inclusion_of(:status).in_array(Tile::STATUS) }
 
-  it { should_have_valid_mime_type(Tile, :image_content_type) }
+  pending { should_have_valid_mime_type(Tile, :image_content_type) }
   
   describe 'finders based on status' do
     # The test below was written first and exercises all tile-status combinations pretty thoroughly.
