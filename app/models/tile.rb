@@ -100,7 +100,7 @@ class Tile < ActiveRecord::Base
   end
 
   def image_credit= text
-    write_attribute(:image_credit, text.strip)
+    write_attribute(:image_credit, text.try(:strip))
   end
 
   def appears_client_created
