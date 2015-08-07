@@ -5,9 +5,8 @@ feature 'Mime types on image uploads validated' do
     page.find('#upload_preview')['src'].should == "/assets/avatars/thumb/missing.png"
   end
 
-  scenario "in tile upload", js: true do
+  pending "in tile upload", js: true do
     visit new_client_admin_tile_path(as: a_client_admin)
-    attach_tile "tile_builder_form[image]", tile_fixture_path('not_an_image.txt')
-    expect_no_file_attachment_set
+    fake_upload_image "not_an_image.txt"
   end
 end
