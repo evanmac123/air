@@ -166,10 +166,13 @@ window.dragAndDropTiles = ->
 
   tileInfo = (tile, action) ->
     controlElements = tile.find(".tile_buttons, .tile_stats")
+    shadowOverlay = tile.find(".shadow_overlay")
     if action == "show"
       controlElements.css("display", "")
+      shadowOverlay.css("opacity", "")
     else if action == "hide"
       controlElements.hide()
+      shadowOverlay.css("opacity", "0")
     else if action == "remove"
       controlElements.remove()
 
