@@ -37,12 +37,11 @@
   <% end %>
 
 </div>
-
+<%#TODO figure out better browser detection procedure %>
 <% if ie9_or_older? %>
   <% js_at_end do %>
-    window.imageCreditIE();
-  <% end %>
-<% else %>
-  <%= js_at_end do %>
+    $(document).ready(function() {
+    Airbo.ImageCreditIE.init();
+    });
   <% end %>
 <% end %>
