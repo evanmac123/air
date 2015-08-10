@@ -1,7 +1,7 @@
 class ClientAdmin::TilesController < ClientAdminBaseController
   include ClientAdmin::TilesHelper
   include ClientAdmin::TilesPingsHelper
-  
+
   before_filter :get_demo
   before_filter :load_tags, only: [:new, :edit, :update]
   before_filter :load_image_library, only: [:new, :edit,  :update]
@@ -24,10 +24,17 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
     record_index_ping
   end
-  
+
   def new
     @tile_builder_form = TileBuilderForm.new(@demo, params)
     record_new_ping
+
+    if request.xhr? 
+      render partial "shared/tiles/builder", layout: false and return
+    else
+      #normal rails render
+    end
+
   end
 
   def create
