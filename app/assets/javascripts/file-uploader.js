@@ -6,4 +6,4 @@
 //= require jquery-fileupload/jquery.fileupload-process
 //= require jquery-fileupload/jquery.fileupload-image
 //= require jquery-fileupload/jquery.fileupload-validate
-//= require ./client_admin/managing_tiles/s3_image_upload
+//= require ./s3_image_upload

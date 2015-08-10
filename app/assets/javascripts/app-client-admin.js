@@ -1,6 +1,7 @@
 //= require ../../../vendor/assets/javascripts/pace.min
 //= require mobvious-rails
 //= require_tree ./client_admin
+//= require ./ajax-response-handler
 //= require_tree ../../../vendor/assets/javascripts/external/
 
 // highcharts.js and exporting.js are both from Highcharts, and the load order matters
