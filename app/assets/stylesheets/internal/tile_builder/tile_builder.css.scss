@@ -169,6 +169,7 @@ body.suggested_tiles-update {
       @include with-lists();
       height: 450px;
       overflow-y: scroll;
+      line-height: 1.25em;
       &.exceeded_maxlength_field {
         border-color: $red;
       }
