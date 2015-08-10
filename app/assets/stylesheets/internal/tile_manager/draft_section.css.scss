@@ -8,6 +8,8 @@ body.suggested_tiles-index {
     background: $almost-white;
     padding-top: 2em;
     #draft {
+      margin-left: 6px;
+      margin-right: 6px;
       &:after {
         @include clear;
       }
@@ -67,7 +69,7 @@ body.suggested_tiles-index {
     @include app-button($sky-blue);
     position: absolute;
     top: 4px;
-    right: 52px;
+    right: 57px;
     z-index: 1;
     font-weight: 700;
     font-size: 12px;
@@ -88,6 +90,7 @@ body.suggested_tiles-index {
   .draft_header_block {
     position: relative;
     padding-bottom: 65px;
+    margin-left: 6px;
     .draft_title_block, .suggestion_header_block {
       float: left;
       padding: 18px;
