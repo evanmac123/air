@@ -3,7 +3,7 @@
 .row
   .large-12.columns
     %h4 Archive
-    = link_to client_admin_tiles_report_path(report: Tile::ARCHIVE, format: "csv"), class: 'download_csv' do
+    = link_to client_admin_tiles_report_path(report: Tile::ARCHIVE, format: "csv"), class: 'download_csv', title: "Download Excel file with statistics for all of the Tiles in this section.", data: {tooltip: true} do
       = fa_icon "file-excel-o"
       %span Stats
     %div#archive.manage_section
