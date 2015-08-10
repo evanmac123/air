@@ -7,7 +7,7 @@ updateShareTilesNumber = function(number){
 }
 
 updateShowMoreDraftTilesButton = function(){
-  button = $(".all_draft")
+  button = $(".show_all_draft_section")
   if( showMoreDraftTiles() || showMoreSuggestionBox() ){
     button.show()
   }else{

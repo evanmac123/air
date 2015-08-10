@@ -1,7 +1,8 @@
-<div class="show_all_section <%= section_class %>">
+<% display ||= "block" %>
+<div class="show_all_section <%= section_class %>" style="display:<%= display %>;">
   <div class="row">
     <div class="button_container">
-      <%= link_to "Show all", url, btn_params %>
+      <%= link_to "Show all", url, class: btn_class %>
     </div>
   </div>
 </div>
