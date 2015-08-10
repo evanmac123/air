@@ -15,6 +15,20 @@ updateShowMoreDraftTilesButton = function(){
   }
 }
 
+updateShowMoreArchiveTilesButton = function(){
+  button = $(".show_all_inactive_section")
+  if( notTilePlaceholdersInSection( $("#archive") ).length > 4 ){
+    button.show()
+  }else{
+    button.hide()
+  }
+}
+
+updateShowMoreButtons = function(){
+  updateShowMoreDraftTilesButton();
+  updateShowMoreArchiveTilesButton();
+}
+
 showMoreDraftTiles = function(){
   draftTilesCount = notTilePlaceholdersInSection( $("#draft") ).length
   return (draftTilesCount > 6 && selectedSection() == 'draft')

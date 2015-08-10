@@ -160,6 +160,10 @@ module ClientAdmin::TilesHelper
     (count > 6) ? 'display' : 'none'
   end
 
+  def display_show_more_archive_tiles
+    (current_user.demo.archive_tiles.count > 4) ? 'display' : 'none'
+  end
+
   def suggestion_box_intro_params(show)
     if show 
       {intro: "Give the people ability to create Tiles and submit them for your review."}
