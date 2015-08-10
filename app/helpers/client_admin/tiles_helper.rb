@@ -152,12 +152,12 @@ module ClientAdmin::TilesHelper
   end
 
   def display_show_more_draft_tiles
-    show = if params[:show_suggestion_box].present?
-      current_user.demo.suggested_tiles.count > 4
+    count = if params[:show_suggestion_box].present?
+      current_user.demo.suggested_tiles.count
     else
-      current_user.demo.draft_tiles.count > 3
+      current_user.demo.draft_tiles.count
     end
-    show ? 'display' : 'none'
+    (count > 6) ? 'display' : 'none'
   end
 
   def suggestion_box_intro_params(show)
