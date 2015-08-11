@@ -54,15 +54,15 @@ body.suggested_tiles-index {
       color: #666666;
       border-color: #8c8c8c;
     }
-    span {
-      float: left;
-      padding-top: 2px;
-    }
-    i {
-      float: left;
-      font-size: 15px;
-      padding-right: 7px;
-    }
+    // span {
+    //   float: left;
+    //   padding-top: 2px;
+    // }
+    // i {
+    //   float: left;
+    //   font-size: 15px;
+    //   padding-right: 7px;
+    // }
   }
   .switch{
     @include green-paddle-switch;
