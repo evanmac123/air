@@ -117,7 +117,6 @@ feature 'Client uses suggestion box' do
 				# 1 ignored
 				@ignored_tile = FactoryGirl.create :multiple_choice_tile, :ignored, demo: demo
 				visit client_admin_tiles_path(show_suggestion_box: true)
-				show_more_button.click
 
 				visible_tiles.count.should == 5
 			end

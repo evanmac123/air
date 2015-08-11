@@ -34,10 +34,10 @@
       float:right;
       text-align: center;
       width:auto;
-      a span {
-        padding: 7px 14px !important;
-        font-weight: 500 !important;
-      }
+      // a span {
+      //   padding: 7px 14px !important;
+      //   font-weight: 500 !important;
+      // }
       i {
         display: block;
         font-size: 22px;
@@ -69,6 +69,13 @@
       &.activate_button, &.accept_button {
         span {
           @include app-button($sky-blue);
+        }
+      }
+      &.ignore_button, &.undo_ignore_button, &.submit_button, &.unsubmit_button, 
+      &.archive_button, &.activate_button, &.accept_button {
+        span {
+          padding: 7px 14px;
+          font-weight: 500;
         }
       }
     }
