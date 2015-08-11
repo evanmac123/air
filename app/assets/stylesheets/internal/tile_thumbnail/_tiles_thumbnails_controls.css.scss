@@ -57,7 +57,7 @@
       }
       &.ignore_button, &.undo_ignore_button, &.submit_button, &.unsubmit_button {
         span {
-          @include light-button($white);
+          @include light-button($gray);
         }
       }
       &.ignore_button {
