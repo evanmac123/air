@@ -160,7 +160,7 @@ body.suggested_tiles-index {
     top: 0;
     left: 0;
     width: 100%;
-    height: calc(100% + 75px);
+    height: 99%;
     background: rgba(0, 0, 0, 0.4);
     z-index: 100;
     display: none;
@@ -185,6 +185,6 @@ body.suggested_tiles-index {
     display: none;
     padding-top: 10px;
     text-align: center;
-    font-size: 18px;
+    font-size: 17px;
   }
 }
