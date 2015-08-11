@@ -11,16 +11,8 @@
     <% end %>
     <%= link_to "Delete", [:admin, tile_image], method: :delete %>
   <% end %>
-
-  <% if tile_image.thumbnail_processing %>
-    <%= js_at_end do %>
-      queueTileForThumbnailPolling(<%= tile_image.id %>)
-    <% end %>
-  <% end %>
 <% end %>
 
-<% timeout_in_msecs = ThumbnailsController::THUMBNAIL_POLL_DELAY * 1000 %>
 <%= js_at_end do %>
   window.tileImages()
-  window.startTileThumbnailPollingFromQueue(<%= timeout_in_msecs %>, "tileImageThumbnails")
 <% end %>
