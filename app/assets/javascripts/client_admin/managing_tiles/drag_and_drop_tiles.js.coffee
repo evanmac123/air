@@ -176,19 +176,6 @@ window.dragAndDropTiles = ->
     else if action == "remove"
       controlElements.remove()
 
-  # tileStats = (tile, action) ->
-  #   controlElements = tile.find(".tile_stats")
-  #   if action == "show"
-  #     controlElements.css("display", "")
-  #   else if action == "hide"
-  #     controlElements.hide()
-  #   else if action == "remove"
-  #     controlElements.remove()
-    # source_name = getTilesSection tile
-    # destination_name = destination_section.attr("id")
-    # #if source_name != "draft" && destination_name == "draft"
-    # tile.find(".tile_stats").hide()
-
   saveTilePosition = (tile) ->
     id = findTileId tile
     left_tile_id = findTileId tile.prev()

@@ -180,14 +180,6 @@ describe Tile do
     end
   end
 
-
-  # describe "#appears_client_created" do
-  #   it "is true for MultipleChoiceTiles, but not OldSchoolTiles" do
-  #     FactoryGirl.create(:multiple_choice_tile).appears_client_created.should == true
-  #     FactoryGirl.create(:old_school_tile).appears_client_created.should == false
-  #   end
-  # end
-
   describe "satisfiable to a particular user" do
     before(:each) do
       Demo.find_each {|f| f.destroy}
