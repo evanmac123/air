@@ -25,14 +25,24 @@
       Airbo.TileOrganizer = (function(){
          positions = $('.draft.tile_thumbnail').map(function(i, o){
         return $(o).data("position")
-        });
+        }).get();
 
       
+      function maxPos(){
+
+        if (positions.length > 0){
+        return Math.max.apply(null, positions);
+
+        }else{
+          return null;
+        }
+      }
+
       $("#add_new_tile_link").attr("href", function(index, value){
-      var idx = Math.max.call(null, positions) + 1;
-      return value + '&position=' + (idx || 1);
+      var idx =  maxPos() || ($('.draft.tile_thumbnail').length) + 1;
+      return  value + '&position=' + idx; 
       });
 
       }());
 
-    })
+    });
