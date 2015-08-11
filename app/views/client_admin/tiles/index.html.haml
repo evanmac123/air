@@ -27,9 +27,8 @@
         return $(o).data("position")
         }).get();
 
-      
       function maxPos(){
-
+       console.log(positions);
         if (positions.length > 0){
         return Math.max.apply(null, positions);
 
@@ -39,7 +38,7 @@
       }
 
       $("#add_new_tile_link").attr("href", function(index, value){
-      var idx =  maxPos() || ($('.draft.tile_thumbnail').length) + 1;
+      var idx =  (maxPos() || ($('.draft.tile_thumbnail').length)) + 1;
       return  value + '&position=' + idx; 
       });
 
