@@ -2,14 +2,16 @@ var Airbo = window.Airbo ||{}
 
 
 Airbo.ImageCreditIE = (function(){
-  var maxLength = 50,
-    imageCreditView = $('.image_credit_view'),
-    imageCreditInputSelector =   '#tile_builder_form_image_credit',
-    imageCreditInput =$(imageCreditInputSelector);
+  var imageCreditView,
+  imageCreditInput,
+  maxLength = 50,
+    imageCreditInputSelector = '#tile_builder_form_image_credit';
 
   function normalizedImageCreditInput() {
     var inputted_text;
-    inputted_text = imageCreditInput().val();
+    inputted_text = imageCreditInput.val();
+
+
     if (inputted_text !== '') {
       if (inputted_text.length > maxLength()) {
         return inputted_text.substring(0, maxLength()) + '...';
@@ -24,10 +26,16 @@ Airbo.ImageCreditIE = (function(){
   function updateImageCreditView() {
     var text;
     text = normalizedImageCreditInput();
-    return imageCreditView().html(text);
+    return imageCreditView.html(text);
+  }
+
+  function initSelectors(){
+    imageCreditView = $('.image_credit_view');
+    imageCreditInput=$(imageCreditInputSelector);
   }
 
   function init(){
+    initSelectors();
     updateImageCreditView();
     addCharacterCounterFor(imageCreditInputSelector);
     imageCreditInput.bind('input propertychange', function() {
