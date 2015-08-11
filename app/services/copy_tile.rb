@@ -20,7 +20,7 @@ class CopyTile
       mark_tile_as_copied_by_user 
       @tile.save
     end
-    @copy.remote_media_url= @tile.image.url(:origina) if @copy.remote_media_url.blank?
+    @copy.remote_media_url= @tile.image.url if @copy.remote_media_url.blank?
     @copy.save  
     @copy
   end
