@@ -28,7 +28,7 @@ class TileBuilderForm
   def initialize(demo, options = {})
     @demo = demo
     @parameters = (options[:parameters] || {})
-    @tile = (options[:tile] || MultipleChoiceTile.new(demo: @demo, position: options[:position]))
+    @tile = (options[:tile] || MultipleChoiceTile.new(demo: @demo, position: demo.next_draft_tile_position))
     @creator = options[:creator]
 
     @exclude_attrs = [:supporting_content, :correct_answer_index, 

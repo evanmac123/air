@@ -123,6 +123,12 @@ class Demo < ActiveRecord::Base
     tiles.draft
   end
 
+  #NOTE technically position should never be nil so the use of compact should
+  #not be necessary here
+  def next_draft_tile_position 
+    (draft_tiles.map(&:position).compact.max ||0) + 1
+  end
+
   def digest_tiles(cutoff_time=self.tile_digest_email_sent_at)
     tiles.digest(self, cutoff_time)
   end
