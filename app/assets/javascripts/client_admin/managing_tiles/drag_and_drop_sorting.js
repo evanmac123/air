@@ -7,7 +7,7 @@ updateShareTilesNumber = function(number){
 }
 
 updateShowMoreDraftTilesButton = function(){
-  button = $(".all_draft")
+  button = $(".show_all_draft_section")
   if( showMoreDraftTiles() || showMoreSuggestionBox() ){
     button.show()
   }else{
@@ -15,18 +15,28 @@ updateShowMoreDraftTilesButton = function(){
   }
 }
 
-updateHighestPositionInSection = function(pos){
-  $("#add_new_tile_link").attr("href", "/client_admin/tiles/new?path=via_index&position=" + pos);
+updateShowMoreArchiveTilesButton = function(){
+  button = $(".show_all_inactive_section")
+  if( notTilePlaceholdersInSection( $("#archive") ).length > 4 ){
+    button.show()
+  }else{
+    button.hide()
+  }
+}
+
+updateShowMoreButtons = function(){
+  updateShowMoreDraftTilesButton();
+  updateShowMoreArchiveTilesButton();
 }
 
 showMoreDraftTiles = function(){
   draftTilesCount = notTilePlaceholdersInSection( $("#draft") ).length
-  return (draftTilesCount > 3 && selectedSection() == 'draft')
+  return (draftTilesCount > 6 && selectedSection() == 'draft')
 }
 
 showMoreSuggestionBox = function(){
   suggestionBoxTilesCount = notTilePlaceholdersInSection( $("#suggestion_box") ).length
-  return (suggestionBoxTilesCount > 4 && selectedSection() == 'box')
+  return (suggestionBoxTilesCount > 6 && selectedSection() == 'box')
 }
 
 selectedSection = function() {
@@ -83,9 +93,9 @@ tilePlaceholdersInSection = function(section){
 }
 
 notTilePlaceholderSelector = function(){
-  return ".tile_container:not(.placeholder_container), .creation_placeholder"
+  return ".tile_container:not(.placeholder_container)"
 }
 
 tilePlaceholderSelector = function(){
-  return ".tile_container.placeholder_container:not(.creation_placeholder)"
+  return ".tile_container.placeholder_container"
 }

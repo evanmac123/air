@@ -10,7 +10,7 @@
 }
 
 /* -- Tile wall -- */
-@import 'tiles_thumbnails_desktop';
+@import 'internal/tile_thumbnail/tiles_thumbnails_desktop';
 .tile_thumbnail {
   margin-bottom:1em;
   width:32%;

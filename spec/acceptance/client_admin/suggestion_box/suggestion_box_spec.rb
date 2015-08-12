@@ -63,7 +63,10 @@ feature 'Client uses suggestion box' do
 			end
 
 			scenario "accepts tile", js: true do
-				click_link "Got it"
+				within accept_modal do
+					click_link "Got it"
+				end
+				
 				visible_tiles.count.should == 2
 				wait_for_ajax
 				draft_title.click
@@ -84,26 +87,26 @@ feature 'Client uses suggestion box' do
 
 		context "show more button" do
 			before do
-				# 3 + 3 = 6 user_submitted
-				FactoryGirl.create_list :multiple_choice_tile, 3, :user_submitted, demo: demo
-				# 1 + 3 = 4 draft
-				FactoryGirl.create_list :multiple_choice_tile, 3, :draft, demo: demo
+				# 3 + 5 = 8 user_submitted
+				FactoryGirl.create_list :multiple_choice_tile, 5, :user_submitted, demo: demo
+				# 1 + 6 = 7 draft
+				FactoryGirl.create_list :multiple_choice_tile, 6, :draft, demo: demo
 			end
 
 			scenario "expand and minimize suggestion box", js: true do
 				visit client_admin_tiles_path
 				# in draft section
-				visible_tiles.count.should == 3
+				visible_tiles.count.should == 6
 				show_more_button.click
-				visible_tiles.count.should == 4
+				visible_tiles.count.should == 7
 
 				suggestion_box_title.click
 				# in suggestion box
-				visible_tiles.count.should == 4
-				show_more_button.click
 				visible_tiles.count.should == 6
 				show_more_button.click
-				visible_tiles.count.should == 4
+				visible_tiles.count.should == 8
+				show_more_button.click
+				visible_tiles.count.should == 6
 			end
 		end
 
@@ -114,7 +117,6 @@ feature 'Client uses suggestion box' do
 				# 1 ignored
 				@ignored_tile = FactoryGirl.create :multiple_choice_tile, :ignored, demo: demo
 				visit client_admin_tiles_path(show_suggestion_box: true)
-				show_more_button.click
 
 				visible_tiles.count.should == 5
 			end

@@ -1,3 +1,10 @@
+// Adds triangle to the right of your element
+// For example, you have some container. Then you get:
+// ----------          ---------
+// |        |   ---\   |         \
+// |        |   ---/   |         /
+// ----------          ---------
+
 @mixin right-pip($size, $border-color, $bg-color) {
   &:before {
     content: " ";

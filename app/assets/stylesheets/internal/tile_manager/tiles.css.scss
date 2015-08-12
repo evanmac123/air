@@ -1,24 +1,24 @@
-@import './internal/tiles_thumbnails';
-@import './internal/tiles_thumbnails_desktop';
-@import 'tiles_thumbnails_controls';
 @import './internal/tiles_fullsize';
 @import 'tile_preview';
 @import './internal/tile_builder/tile_builder';
 @import './internal/tile_manager/_joyride_tip_guide';
-@import "./mixins/right_pip";
-body.client_admin-tiles-index, 
-body.client_admin-inactive_tiles,
-body.client_admin-shares,
-body.suggested_tiles-index {
-  .tile_thumbnail {
-    width:100%;
-  }
-}
+
+@import './internal/tile_manager/draft_section';
+@import './internal/tile_manager/suggested_tiles';
+@import './internal/tile_manager/suggestion_access';
+
+@import './internal/tile_thumbnail/tiles_thumbnails';
+@import './internal/tile_thumbnail/tiles_thumbnails_desktop';
+@import './internal/tile_thumbnail/tiles_thumbnails_controls';
+@import './internal/tile_thumbnail/tiles_thumbnails_small_with_controls';
+@import './internal/tile_thumbnail/tiles_thumbnails_transition';
 
 body.client_admin-tiles-index, 
 body.client_admin-inactive_tiles,
 body.suggested_tiles-index {
-  // Tile management sections
+  //
+  // => General styles
+  //
   .core {
     background: $off-white;
   }
@@ -28,192 +28,80 @@ body.suggested_tiles-index {
   }
   .manage_tiles {
     position: relative;
-    .creation-placeholder{
-      display: inline-block;
-      width: 100%;
-      max-width: 238px;
-    }
-    .tile_container{
-      width: 24%;
-      text-align: center;
-      float: left;
-      padding-bottom: 2rem;
-    }
-    #draft { 
-      .tile_container { 
-        height: 377px; 
-      } 
-    }
-    #suggestion_box {
-      .tile_container {
-        height: 407px;
-      }
-    }
-    #active  { .tile_container { height: 400px; } }
-    #archive { .tile_container { height: 400px; } }
-    .no_tiles_message {margin:0 auto 3em;}
-  }
-  #active_tiles, #archived_tiles, #draft_tiles, #submitted_tiles, #accepted_tiles, #posted_tiles {
     h4{
       margin-bottom: 2em;
       margin-left: 1.5em;
     }
   }
+  .tile_container {
+    min-width: 24%;
+    text-align: center;
+    float: left;
+    padding-bottom: 1.5rem;
+    height: 400px;
+  }
+  .download_csv, .minimize {
+    @include light-button(#8d8d8d);
+    border-color: #b9b9b9;
+    padding: 6px 10px;
+    font-size: 12px;
+    font-weight: 700;
+    position: absolute;
+    top: -10px;
+    right: 73px;
+    &:hover {
+      color: #666666;
+      border-color: #8c8c8c;
+    }
+  }
+  .switch{
+    @include green-paddle-switch;
+    @include switch-size(16px, 9px, 2.3em);
+  }
+  //
+  // => Show All Btns
+  //
+  .show_all_section {
+    &.show_all_draft_section {
+      background: $almost-white;
+    }
+    .button_container {
+      position: relative;
+      height: 60px;
+      margin-left: -45px;
+    }
+  }
+  .all_draft, .all_inactive {
+    @include light-button(#858585);
+    border-color: #b5b5b5;
+    font-weight: 500;
+    font-size: 12px;
+    width: 100px;
+    padding-top: 8px;
+    padding-bottom: 7px;
+    display: block;
+    margin: auto;
+    &:hover {
+      color: #5c5c5c;
+      border-color: #8c8c8c;
+    }
+  }
+  //
+  // => Archive section
+  //
   #archived_tiles{
     background: $off-white;
     position: relative;
     #archive{
       &:after{ @include clear; }
     }
-    .all_inactive {display: inline-block;}
-    .all_inactive {
-      @include light-button($med-gray);
-      font-size: 12px;
-      letter-spacing: 0.4em;
-      width: 100%;
-      margin-bottom: 1em;
-      margin-left: 1em;
-      max-width: 86.75em;
-    }
     .tile_thumbnail.placeholder_tile {
       border-color: $almost-white;
     }
-    .create_new_tile {
-      @include app-button($dark-green);
-      float: right;
-    }
-    .minimize {
-      @include light-button($med-gray);
-      font-size: 10px;
-      position: absolute;
-      top:-2px;
-      right: 73px;
-    }
   }
-  #draft_tiles {
-    background: $almost-white;
-    padding-top: 2em;
-    #draft {
-      &:after {
-        @include clear;
-      }
-    }
-    &.draft_selected {
-      #draft {
-        display: block;
-      }
-      #draft_title {
-        color: $text-color;
-        border-bottom: 2px solid $sky-blue;
-      }
-      #suggestion_box {
-        display: none;
-      }
-      .suggestion_box_header {
-        .manage_access, .help {
-          display: none;
-        }
-      }
-    }
-    &.suggestion_box_selected {
-      #draft {
-        display: none;
-      }
-      #suggestion_box {
-        display: block;
-      }
-      #suggestion_box_title{
-        border-bottom: 2px solid $sky-blue;
-        h3 {
-          color: $text-color;
-        }
-        #user_submitted_tiles_counter {
-          border-color: $text-color;
-          color: $text-color;
-        }
-      }
-    }
-    &.suggestion_box_gated {
-      margin-top: 0;
-      padding-top: 2em;
-    }
-  }
-  .draft_header_block {
-    position: relative;
-    padding-bottom: 65px;
-    .draft_title_block, .suggestion_header_block {
-      float: left;
-      padding: 18px;
-      position: relative;
-    }  
-    .draft_title_block {
-      width: 7%;
-    }
-    .suggestion_header_block {
-      width: 89%;
-    }
-    #draft_title {
-      position: absolute;
-      top: 11px;
-      right: 3px;
-      cursor: pointer;
-      margin: 0;
-      color: $med-gray;
-      padding: 0 10px 7px 10px;
-    }
-    .suggestion_box_header {
-      position: absolute;
-      top: 13px;
-      left: 20px;
-      width: 957px;
-    }
-  }
-  .draft_overlay{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: calc(100% + 75px);
-    background: rgba(0, 0, 0, 0.4);
-    z-index: 100;
-    display: none;
-    .overlay_message{
-      position: absolute;
-      width: 100%;
-      font-size: 275px;
-      color: $white;
-      text-align: center;
-      opacity: 0.7;
-      top: 50%;
-      margin-top: -140px;
-    }
-  }
-  .draft_blocked_message{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 100;
-    color: $text-color;
-    display: none;
-    padding-top: 10px;
-    text-align: center;
-    font-size: 20px;
-  }
-  .show_all_draft_section {
-    position: relative;
-    background: $almost-white;
-    height: 75px;
-    .row {
-      padding: 1.65em;
-    }
-    .all_draft {
-      @include light-button($med-gray);
-      font-size: 12px;
-      letter-spacing: 0.4em;
-      width: 96%;
-    }
-  }
+  //
+  // => Other sections
+  //
   #active_tiles, #submitted_tiles, #accepted_tiles, #posted_tiles {
     padding:2em 0 0 0;
     z-index: 1;
@@ -223,6 +111,7 @@ body.suggested_tiles-index {
   }
   #active_tiles {
     box-shadow: 0px 1px 6px 1.2px $med-gray;
+    background: $almost-white;
   }
   #submitted_tiles, #accepted_tiles, #posted_tiles, #archived_tiles {
     box-shadow: 0px -6px 7px -5.8px $med-gray;
@@ -230,327 +119,14 @@ body.suggested_tiles-index {
   #archived_tiles {
     padding:2em 0 0 0;
   }
-}
-
-body.suggested_tiles-index {
-  header {
-    margin-bottom: 1px;
-  }
-  #creation {
-    padding-top: 2em;
-    .help {
-      @include font-regular;
-      font-size: 13px;
-      color:$med-gray;
-      cursor: pointer;
-      position: absolute;
-      top: -1px;
-      left: 91px;
-      i {
-        padding-left: 2px;
-      }
+  @media only screen and (max-width: 1200px) {
+    #add_new_tile {
+      right: 44px;
     }
-  }
-  .creation-placeholder a {
-    color: $off-white !important;
-  }
-}
-
-body.client_admin-tiles-index #active_tiles, 
-body.client_admin-inactive_tiles #active_tiles,
-body.suggested_tiles-index,
-.tiles_to_be_shared {
-  background: $almost-white;
-}
-
-// Create new tile placeholder link
-.creation-placeholder a {
-  border-color: $lightest-gray;
-  display: block;
-  color: $white !important;
-  line-height:1em;
-  position: relative;
-  text-align: center;
-  &:hover {border-color:lighten($blue, 10%); color:transparent;}
-  &:before {
-    color:$white;
-    background:$sky-blue;
-    border-radius:$border-radius;
-    content:"+";
-    display: block;
-    font-size:5em;
-    line-height:0;
-    margin-left:-40px;
-    position: absolute;
-    top:30%;
-    left:50%;
-    text-align: center;
-    height:80px;
-    width:80px;
-    overflow: hidden;
-    padding-top:32px;
-  }
-  &:hover:before {background:darken($sky-blue, 7%);}
-  &:after{
-    color:$sky-blue;
-    line-height:1em;
-    content: "Add New Tile";
-    position: absolute;
-    top:60%;
-    left:30%;
-    text-align: center;
-  }
-}
-
-// Links to download CSV tile reports
-a.download_csv {
-  @include light-button($med-gray);
-  font-size: 10px;
-  color: $med-gray !important;
-  position: absolute;
-  top: 0px;
-  right: 73px;
-  vertical-align: text-bottom;
-  font-weight: 400 !important;
-  // Copied the following over from main_styles since IE won't respect the 
-  // color we set above unless we !important it, and we still want our hover 
-  // effects to work.
-  &:hover {  
-    border-color:darken($med-gray, 11%);
-    color:darken($med-gray, 11%) !important;
-  }
-  &:active {
-    @include ease(0);
-    background:$med-gray;
-    color:$white;
-  }
-}
-
-body.client_admin-tiles-index,
-body.suggested_tiles-index {
-  .switch{
-    @include green-paddle-switch;
-    @include switch-size(16px, 9px, 2.3em);
-  }
-  .suggestion_box_header {
-    #suggestion_box_title {
-      float: left;
-      cursor: pointer;
-    }
-    .help, .manage_access {
-      float: right;
-      cursor: pointer;
-    }
-    #user_submitted_tiles_counter {
-      @include font-regular;
-      font-size: 12px;
-      color: $med-gray;
-      border: 1px solid $med-gray;
-      border-radius: 3px;
-      display: inline-block;
-      min-width: 20px;
-      text-align: center;
-    }
-    #suggestion_box_title {
-      margin-top: -4px;
-      padding: 0 10px 7px 10px;
-      h3 {
-        color: $med-gray;
-        margin: 0;
-        display: inline-block;
-      }
-    }
-    .help, .manage_access {
-      @include font-regular;
-      font-size: 12px;
-      color:$med-gray;
-      padding-right: 20px;
-      margin-top: -3px;
-    }
-  }
-  #manage_access_prompt {
-    position: absolute;
-    top: 120px;
-    left: 140px;
-    padding: 20px;
-    font-size: 20px;
-    color: $sky-blue;
-    border: 2px solid $sky-blue;
-    border-radius: 3px;
-    background: $white;
-  }
-  .arrow_line {
-    position: absolute;
-    top: -154px;
-    right: -44px;
-    height: 183px;
-    width: 44px;
-    border: 2px solid $sky-blue;
-    border-color: transparent $sky-blue $sky-blue transparent;
-    i {
-      position: absolute;
-      top: -14px;
-      right: -10px;
-      font-size: 27px;
-    }
-  }
-  #suggestions_access_modal {
-    width: 60%;
-    left: 60%;
-    margin-left: -44.5%;
-    .access_to_suggestion_block {
-      margin-top: 20px;
-      margin-right: 20px;
-      &:after {
-        @include clear;
-      }
-      p {
-        @include regular-text;
-        color: $dark-gray;
-        font-weight: 700;
-        float: left;
-      }
-      .switcher {
-        float: right;
-        .specific_users_copy, .all_users_copy {
-          @include regular-text;
-          float: left;
-          margin: 0 15px;
-          color: $light-gray;
-        }
-        .on {
-          color: $dark-gray;
-        }
-        .switch {
-          @include switch-size(16px, 9px, 2.3em);
-          margin-top: -1px;
-          float: left;
-        }
-      }
-    }
-    .all_users_section {
-      @include regular-text;
-      p {
-        line-height: 2;
-      }
-      a {
-        font-weight: 400;
-        color: $sky-blue;
-      }
-    }
-    .specific_users_section {
-      &.has_users {
-        .help_text {
-          display: none;
-        }
-      }
-      #name_substring {
-        width: 100%;
-        margin-bottom: 20px;
-      }
-      #name_autocomplete_target {
-        span.add_user {
-          display: none;
-        }
-      }
-      .help_text {
-        @include regular-text;
-        p {
-          line-height: 2;
-        }
-        a {
-          font-weight: 400;
-          color: $sky-blue;
-        }
-      }
-      table#allowed_to_suggest_users {
-        border-top: 1px solid #ddd;
-        margin: 0;
-        td {
-          @include regular-text;
-          padding: 1em 0.5em;
-        }
-        .user_name {
-          width: 25%;
-        }
-        .user_email {
-          width: 50%;
-        }
-        .user_remove {
-          width: 25%;
-          text-align: right;
-        }
-        a {
-          @include regular-text;
-        }
-      }
-    }
-    .control_buttons {
-      margin-top: 20px;
-      position: relative;
-      &.with_spinner {
-        img#submit_spinner {
-          display: block;
-          position: absolute;
-          top: 4px;
-          left: 34px;
-        }
-        #save_suggestions_access {
-          color: transparent;
-        }
-      }
-      img#submit_spinner {
-        display: none;
-      }
-      #save_suggestions_access {
-        @include app-button($sky-blue);
-        font-size: 14px;
-        width: 100px;
-        margin-top: -2px;
-        height: 26px;
-      }
-      #cancel_suggestions_access {
-        @include light-button($gray);
-        font-size: 14px;
-        width: 85px;
-        margin-left: 10px;
-      }
-    }
-  }
-
-  #accept-tile-modal {
-    h2 {
-      margin-bottom: 20px;
-    }
-    p {
-      margin-bottom: 20px;
-      color: $text-color;
-    }
-    .confirm {
-      @include app-button($sky-blue);
-      margin-right: 10px;
-    }
-    .undo {
-      @include light-button($sky-blue);
+    .download_csv, .minimize {
+      right: 64px;
     }
   }
 }
 
-body.client_admin-tiles-index {
-  .joyride-tip-guide.tile {
-    z-index: 98;
-    .joyride-nub.bottom {
-      &:before {
-        content: " ";
-        position: absolute;
-        border: 14px solid $lightest-gray !important;
-        border-bottom-color: transparent !important;
-        border-left-color: transparent !important;
-        border-right-color: transparent !important;
-        bottom: -18px;
-        left: -14px;
-        z-index: -1;
-      }
-    }
-  }
-}
+

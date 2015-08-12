@@ -8,7 +8,7 @@ class SuggestedTilesController < ApplicationController
     @creation_placeholder = [TileCreationPlaceholder.new(new_suggested_tile_path)]
     @submitted_tiles = Demo.add_placeholders current_user.tiles.user_submitted
     @posted_tiles = Demo.add_placeholders current_user.tiles.active
-    @archived_tiles = Demo.add_placeholders current_user.tiles.archived
+    @archived_tiles = Demo.add_placeholders current_user.tiles.archive
 
     user_action_ping "Suggestion Box Opened"
   end

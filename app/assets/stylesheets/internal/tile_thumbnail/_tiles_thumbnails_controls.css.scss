@@ -1,0 +1,186 @@
+.client_admin_main, .suggested_tiles-index {
+  .tile_thumbnail {
+    .shadow_overlay {
+      background: rgba(255, 255, 255, 0.92);
+      height:12em;
+      width:100%;
+      top:0;
+      left:0;
+      &:after {
+        color: #666666;
+        content:"Preview";
+        display: block;
+        margin-top:6em;
+        text-align: center;
+        text-transform: uppercase;
+      }
+    }
+    .tile_overlay {
+      position: absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height: 100%;
+    }
+  }
+  // Default buttons
+  .tile_buttons {
+    position:absolute;
+    top: 8px;
+    right: 8px;
+    width: calc(100% - 8px);
+    li {
+      display:inline-block;
+      float:right;
+      text-align: center;
+      width:auto;
+      i {
+        display: block;
+        font-size: 22px;
+        padding-top: 5px;
+        color: #5c5c5c;
+        &:hover {
+          color: #262626;
+        }
+      }
+      &.edit_button {
+        float: left;
+        padding-left: 28px;
+      }
+      &.destroy_button {
+        float: left;
+        padding-left: 22px;
+      }
+      &.ignore_button, &.undo_ignore_button, &.submit_button, &.unsubmit_button {
+        span {
+          @include light-button($gray);
+        }
+      }
+      &.ignore_button {
+        margin-left: 15px;
+      }
+      &.archive_button span {
+        @include app-button($med-gray);
+      }
+      &.activate_button, &.accept_button {
+        span {
+          @include app-button($sky-blue);
+        }
+      }
+      &.ignore_button, &.undo_ignore_button, &.submit_button, &.unsubmit_button, 
+      &.archive_button, &.activate_button, &.accept_button {
+        span {
+          padding: 7px 14px;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+  // 
+  // => Tile Thumbnail transition on hover
+  //
+  .tile_thumbnail {
+    .shadow_overlay, .tile_buttons {
+      opacity: 0;
+      transition: opacity 250ms ease;
+      display: block;
+    }
+  }
+  .tile-wrapper {
+    &:hover {
+      .shadow_overlay, .tile_buttons {
+        opacity: 1;
+      }
+    }
+  }
+
+  .archive {
+    .tile_buttons li a span {
+      padding-left:  0.5em;
+      padding-right: 0.5em;
+    }
+  }
+  .user_submitted {
+    .accept_button {
+      margin-right: 4em;
+    }
+  }
+  // Tile stats
+  %stat_item {
+    border-radius: 3px;
+    padding: 3.5px 7px;
+    font-size: 12px;
+    font-weight: 700;
+    i {
+      font-size: 14px;
+      padding-right: 7px;
+    }
+  }
+  .activation_dates {
+    @extend %stat_item;
+    position: absolute;
+    top: 169px;
+    right: 0px;
+    background: rgba(255, 255, 255, 0.91);
+    color: #454545;
+    border-radius: 0;
+    border-top-left-radius: 3px;
+    z-index: 1;
+  }
+  .tile_stats {
+    padding-top: 10px;
+    
+    .unique_views, .views, .completions {
+      @extend %stat_item;
+      float: left;
+      width: 76px;
+      border: 1px solid #b5b5b5;
+      color: #616161;
+      text-align: left;
+      &:hover {
+        border-color: #858585;
+        color: #383838;
+      }
+      i {
+        padding-right: 4px;
+      }
+    }
+
+    .unique_views, .views {
+      margin-right: 5px;
+    }
+
+    .creator {
+      @include caption;
+      background: image-url('v5/bg_light.png');
+      color:$dark-gray;
+      display: block;
+      font-size:.75em;
+      font-weight:bold;
+      font-weight:500;
+      line-height:1.35em;
+      margin-bottom:1px;
+      padding:.5em 1em;
+      text-align: left;
+      text-transform: none;
+    }
+  }
+
+  .tooltip.tip-bottom { // tip is used in tile stats
+    $tooltip-bg: #000;
+    $tooltip-pip-size: 5px;
+
+    font-size: 12px;
+    width: 91px !important;
+    margin-left: -9px;
+    text-align: center;
+    &>.nub {
+      position: absolute;
+      display: block;
+      border: $tooltip-pip-size solid;
+      border-color: transparent transparent $tooltip-bg transparent;
+      top: -($tooltip-pip-size * 2);
+      left: 40px;
+    }
+  }
+}

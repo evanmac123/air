@@ -2,12 +2,13 @@ String.prototype.times = (n) ->
   Array.prototype.join.call({length:n+1}, this)
 
 window.dragAndDropProperties =
-  items: ".tile_container:not(.placeholder_container)",
-  connectWith: ".manage_section",
-  cancel: ".placeholder_container, .no_tiles_section",
-  revert: true,
-  tolerance: "pointer",
+  items: ".tile_container:not(.placeholder_container)"
+  connectWith: ".manage_section"
+  cancel: ".placeholder_container, .no_tiles_section"
+  revert: true
+  tolerance: "pointer"
   placeholder: "tile_container"
+  handle: ".tile-wrapper"
 
 window.dragAndDropTiles = ->
   $("#draft").droppable({ 
@@ -21,27 +22,32 @@ window.dragAndDropTiles = ->
 
   dragAndDropTilesEvents =
     update: (event, ui) ->
+      #console.log("update")
       section = $(this)
       tile = ui.item
       $.when(window.moveConfirmation).then ->
         updateEvent(event, tile, section)
       
     over: (event, ui) ->
+      #console.log("over")
       section = $(this)
       tile = ui.item
       overEvent(event, tile, section)
       
     start: (event, ui) ->
+      #console.log("start")
       section = $(this)
       tile = ui.item
       startEvent(event, tile, section)
       
     receive: (event, ui) ->
+      #console.log("receive")
       section = $(this)
       tile = ui.item
       receiveEvent(event, tile, section)
       
     stop: (event, ui) ->
+      #console.log("stop")
       section = $(this)
       tile = ui.item
       $.when(window.moveConfirmation).then ->
@@ -60,18 +66,20 @@ window.dragAndDropTiles = ->
     # update is called first for source section, then for destination section.
     # so we need to save name of the source and then use it in ajax call
     if isTileInSection tile, section
+      tileInfo tile, "remove"
       saveTilePosition tile
     else # is executed if tile leaves section
       window.sourceSectionName = section.attr("id")
-      removeTileStats tile, section
 
   overEvent = (event, tile, section) ->
     updateTilesAndPlaceholdersAppearance()
+    updateTileInSectionClass(tile, section)
 
   startEvent = (event, tile, section) ->
     resetGloballVariables()
     turnOnDraftBlocking tile, section
     showDraftBlockedMess false
+    tileInfo tile, "hide"
 
   receiveEvent = (event, tile, section) ->
     if completedTileWasAttemptedToBeMovedInBlockedDraft()
@@ -86,12 +94,16 @@ window.dragAndDropTiles = ->
       showDraftBlockedMess true, section
       showDraftBlockedOverlay false
     updateTilesAndPlaceholdersAppearance()
+    tileInfo tile, "show"
 
-  numberInRow = ->
-    4
+  numberInRow = (section) ->
+    if section == "draft" || section == "suggestion_box"
+      6
+    else
+      4
 
   placeholderSelector = ->
-    ".tile_container.placeholder_container:not(.creation_placeholder):not(.hidden_tile)"
+    ".tile_container.placeholder_container:not(.hidden_tile)"
 
   notDraggedTileSelector = ->
     ".tile_container:not(.ui-sortable-helper):not(.hidden_tile)"
@@ -110,6 +122,12 @@ window.dragAndDropTiles = ->
   getTilesSection = (tile) ->
     tile.closest(".manage_section").attr("id")
 
+  updateTileInSectionClass = (tile, section) ->
+    tile.removeClass("tile_in_draft")
+        .removeClass("tile_in_active")
+        .removeClass("tile_in_archive")
+        .addClass("tile_in_" + section.attr("id"))
+
   updateTilesAndPlaceholdersAppearance = ->
     updateAllPlaceholders()
     updateAllNoTilesSections()
@@ -125,7 +143,7 @@ window.dragAndDropTiles = ->
     allTilesNumber = $("#" + section).find( notDraggedTileSelector() ).length
     placeholdersNumber = $("#" + section).find( placeholderSelector() ).length
     tilesNumber =  allTilesNumber - placeholdersNumber
-    expectedPlaceholdersNumber = ( numberInRow() - ( tilesNumber % numberInRow() ) ) % numberInRow()
+    expectedPlaceholdersNumber = ( numberInRow(section) - ( tilesNumber % numberInRow(section) ) ) % numberInRow(section)
     removePlaceholders(section)
     addPlaceholders(section, expectedPlaceholdersNumber)
 
@@ -146,12 +164,17 @@ window.dragAndDropTiles = ->
     else
       no_tiles_section.hide()
 
-  removeTileStats = (tile, source_section) ->
-    destination_name = getTilesSection tile
-    source_name = source_section.attr("id")
-
-    if source_name != "draft" && destination_name == "draft"
-      tile.find(".tile_stats").hide()
+  tileInfo = (tile, action) ->
+    controlElements = tile.find(".tile_buttons, .tile_stats")
+    shadowOverlay = tile.find(".shadow_overlay")
+    if action == "show"
+      controlElements.css("display", "")
+      shadowOverlay.css("opacity", "")
+    else if action == "hide"
+      controlElements.hide()
+      shadowOverlay.css("opacity", "0")
+    else if action == "remove"
+      controlElements.remove()
 
   saveTilePosition = (tile) ->
     id = findTileId tile
@@ -211,11 +234,11 @@ window.dragAndDropTiles = ->
   visibleTilesNumberIn = (section) ->
     if section == "draft" || section == "suggestion_box"
       if draftSectionIsCompressed()
-        4
+        numberInRow(section)
       else
         9999
     else if section == "archive"
-      4
+      numberInRow(section)
     else
       9999
 
@@ -252,7 +275,7 @@ window.dragAndDropTiles = ->
       $(".draft_blocked_message").hide()
 
   iOSdevice = ->
-    navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false
+    navigator.userAgent.match(/(iPad|iPhone|iPod)/g)
 
   isTileInSection = (tile, section) ->
     getTilesSection(tile) == section.attr("id")

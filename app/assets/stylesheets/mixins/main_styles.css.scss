@@ -211,7 +211,7 @@ $border-light:      1px #fff solid;
 
 // ------------------------ * Links & buttons * ------------------------
 @mixin link($color) {
-  @include ease(.15s);
+  //@include ease(.15s);
   @include font-bold;
   color:$color;
   text-decoration: none!important;
@@ -265,7 +265,7 @@ a, a:link, a:visited {@include link($blue);}
   background:transparent;
   border:1px $outlineColor solid;
   border-radius:$border-radius;
-  color:$outlineColor!important;
+  color:$outlineColor;//!important;
   display: inline-block;
   @include font-semibold;
   font-size: 16px;
@@ -276,10 +276,10 @@ a, a:link, a:visited {@include link($blue);}
   text-transform: capitalize;
   &:hover {
     border-color:darken($outlineColor, 11%);
-    color:darken($outlineColor, 11%)!important;
+    color:darken($outlineColor, 11%);//!important;
   }
   &:active {
-    @include ease(0);
+    //@include ease(0);
     background:$outlineColor;
     color:$white;
   }

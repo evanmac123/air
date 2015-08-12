@@ -16,12 +16,12 @@ module TileFooterTimestamper
     when :active
       [
         spanned_text(span_params),
-        "Since: " + time_in_format(tile.archived_at)
+        "Since: " + time_in_format(tile.activated_at)
       ].join(' ')
     when :archive
       [
         spanned_text(span_params),
-        "Deactivated: " + time_in_format(tile.activated_at)
+        "Deactivated: " + time_in_format(tile.archived_at)
       ].join(' ')
     when :archive_never_activated
       spanned_text(span_params)

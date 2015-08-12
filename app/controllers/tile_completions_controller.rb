@@ -47,17 +47,19 @@ class TileCompletionsController < ApplicationController
     completion = TileCompletion.new(:tile_id => tile.id, :user => current_user, :answer_index => answer_index)
     completion.save
   end
-
+  # TODO: move this from controller
   def create_act(tile)
-    Act.create(user: current_user, demo_id: current_user.demo_id, inherent_points: points(tile), text: tile.text_of_completion_act, creation_channel: 'web')
+    Act.create(
+      user: current_user, 
+      demo_id: current_user.demo_id, 
+      inherent_points: tile.points, 
+      text: text_of_completion_act(tile), 
+      creation_channel: 'web'
+    )
   end
 
-  def reply(act)
-    ["Tile complete:", act.post_act_summary].join
-  end
-
-  def points(tile)
-    tile.points
+  def text_of_completion_act(tile)
+    "completed the tile: \"#{tile.headline}\""
   end
 
   def find_current_board

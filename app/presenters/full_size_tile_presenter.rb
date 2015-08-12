@@ -2,12 +2,33 @@ class FullSizeTilePresenter
   include ApplicationHelper
   SAFE_NBSP = "&nbsp;".html_safe.freeze
 
+  attr_reader :tile, :user, :is_preview, :browser
+  delegate  :id,
+            :image, 
+            :headline,
+            :image_credit, 
+            :link_address, 
+            :points, 
+            :question, 
+            :multiple_choice_answers, 
+            :correct_answer_index, 
+            :is_survey?, 
+            :is_action?, 
+            :original_creator, 
+            :tile_completions,
+            :full_size_image_height, 
+            to: :tile
+
   def initialize(tile, user, is_preview, current_tile_ids, browser)
     @tile = tile
     @user = user
     @is_preview = is_preview
     @current_tile_ids = current_tile_ids
     @browser = browser
+  end
+
+  def creator_class
+    appears_client_created ? 'client_created' : 'admin_created'
   end
 
   def supporting_content
@@ -54,7 +75,9 @@ class FullSizeTilePresenter
     ie9_or_older? ? "height:#{full_size_image_height}px;" : ""
   end
 
-  attr_reader :tile, :user, :is_preview, :browser
+  def appears_client_created
+    supporting_content.present? && question.present?
+  end
 
   protected
 
@@ -78,6 +101,4 @@ class FullSizeTilePresenter
   def html_escape(*args)
     ERB::Util.h(*args)  
   end
-
-  delegate :id, :image, :headline, :appears_client_created, :image_credit, :link_address, :points, :question, :multiple_choice_answers, :correct_answer_index, :is_survey?, :is_action?, :original_creator, :tile_completions, :human_original_creator_identification, :human_original_creation_date, :full_size_image_height, to: :tile
 end

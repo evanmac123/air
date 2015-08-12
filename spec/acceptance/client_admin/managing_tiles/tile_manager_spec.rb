@@ -52,7 +52,7 @@ feature 'Client admin and tile manager page' do
           within tile(tile) do
             page.should contain tile.headline
             page.should have_archive_link_for(tile)
-            page.should have_edit_link_for(tile)
+            edit_link_for(tile).should be_present
             page.should have_preview_link_for(tile)
           end
         end
@@ -227,24 +227,25 @@ feature 'Client admin and tile manager page' do
     end
   end
 
-  it "has a placeholder that you can click on to create a new tile" do
+  it "has a button that you can click on to create a new tile" do
     visit_tile_manager_page
     expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
     
-    click_new_tile_placeholder
+    click_add_new_tile
     should_be_on new_client_admin_tile_path
     
     expect_mixpanel_action_ping('Tiles Page', 'Clicked Add New Tile')
   end
 
   it "pads odd rows, in both the inactive and active sections, with blank placeholder cells, so the table comes out right", js: true do
+    
+    # 1 tile, 6 places in row, so
+    FactoryGirl.create_list(:tile, 1, :draft, demo: admin.demo)
     visit_tile_manager_page
-    expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
+    expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')    
+    expect_draft_tile_placeholders(5)
 
-    # No tiles, except the "Add Tile" placeholder in the draft section, sooooooo...
-    expect_draft_tile_placeholders(3)
-
-    FactoryGirl.create(:tile, :draft, demo: admin.demo)
+    FactoryGirl.create_list(:tile, 3, :draft, demo: admin.demo)
     visit_tile_manager_page
     expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
     expect_draft_tile_placeholders(2)

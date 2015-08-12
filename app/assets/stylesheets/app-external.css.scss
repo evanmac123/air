@@ -7,7 +7,7 @@
 @import "./internal/intercom.css.scss";
 @import "./internal/flash.css.scss";
 
-@import './internal/tiles_thumbnails';
+@import './internal/tile_thumbnail/tiles_thumbnails_desktop';
 @import './internal/tiles_fullsize';
 
 
@@ -45,7 +45,7 @@
 }
 @media only screen and (min-width: $mid-desktop) {
 	@import "./external/screen_desktop.css.scss";
-	@import './internal/tiles_thumbnails_desktop';
+	@import './internal/tile_thumbnail/tiles_thumbnails_desktop';
 }
 @media only screen and (min-width: $large-desktop) {
 	@import "./external/screen_large.css.scss";

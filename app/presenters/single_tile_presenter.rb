@@ -11,10 +11,6 @@ class SingleTilePresenter
     @is_ie = is_ie
   end
 
-  def is_placeholder?
-    false
-  end
-
   def type? *types
     if types.size == 0
       false
@@ -57,16 +53,12 @@ class SingleTilePresenter
     show_admin_buttons? && (type? :ignored)
   end
 
-  def has_additional_tile_stats?
+  def has_tile_stats?
     show_admin_buttons? && (type? :active, :archive)
   end
 
   def shows_creator?
     type? :user_submitted
-  end
-
-  def has_tile_stats?
-    type? :draft, :active, :archive, :user_submitted, :ignored
   end
 
   def show_tile_path
@@ -84,6 +76,10 @@ class SingleTilePresenter
   def completion_percentage
     @completion_percentage ||= 
       number_to_percentage claimed_completion_percentage, precision: 1
+  end
+
+  def claimed_completion_percentage
+    100.0 * tile_completions_count / demo.users.claimed.count
   end
 
   def has_creator?
@@ -141,8 +137,9 @@ class SingleTilePresenter
             :total_views,
             :unique_views,
             :thumbnail_processing,
-            :tile_completions_count, 
-            :claimed_completion_percentage, 
+            :tile_completions_count,
             :original_creator,
+            :demo,
+            :is_placeholder?,
             to: :tile
 end

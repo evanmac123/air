@@ -23,7 +23,7 @@ module ClientAdmin::TilesHelper
   end
   
   def activate
-    current_user.demo.tiles.archived.update_all(status: Tile::ACTIVE)
+    current_user.demo.tiles.archive.update_all(status: Tile::ACTIVE)
   end
 
   def set_tile_types(tile_has_question_type, tile_builder)
@@ -152,12 +152,16 @@ module ClientAdmin::TilesHelper
   end
 
   def display_show_more_draft_tiles
-    show = if params[:show_suggestion_box].present?
-      current_user.demo.suggested_tiles.count > 4
+    count = if params[:show_suggestion_box].present?
+      current_user.demo.suggested_tiles.count
     else
-      current_user.demo.draft_tiles.count > 3
+      current_user.demo.draft_tiles.count
     end
-    show ? 'display' : 'none'
+    (count > 6) ? 'display' : 'none'
+  end
+
+  def display_show_more_archive_tiles
+    (current_user.demo.archive_tiles.count > 4) ? 'display' : 'none'
   end
 
   def suggestion_box_intro_params(show)

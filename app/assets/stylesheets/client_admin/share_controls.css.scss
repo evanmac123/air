@@ -143,12 +143,12 @@ body.client_admin-shares{
           padding-top: 0.5em;
           line-height: 2em;
           &:active, &:focus, &:hover {
-            color: $sky-blue !important;
+            color: $sky-blue;// !important;
             background: transparent;
             box-shadow: none;
           }
           &[disabled] {
-            color: $dark-gray !important;
+            color: $dark-gray;// !important;
           }
           i {
             font-weight: 400;
@@ -200,7 +200,7 @@ body.client_admin-shares{
           margin: 0;
           height: 33px;
           padding-top: 8px;
-          color: $light-gray !important;
+          color: $light-gray;// !important;
           border-color: $light-gray;
           &.selected {
             @include light-button($sky-blue);

@@ -4,7 +4,7 @@
       %li= link_to 'Tiles', client_admin_tiles_path
       %li
         %span Completion Report
-    %h3= @tile.name
+    %h3= @tile.headline
     .tile_completions_controls
       Completed:
       = link_to "Yes", client_admin_tile_tile_completions_path(@tile),{class:'completed disengaged', id: 'show_completed', remote: true}

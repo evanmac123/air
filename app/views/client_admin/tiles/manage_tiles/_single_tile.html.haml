@@ -1,54 +1,18 @@
 - cache [__FILE__, 'v11.ant', presenter.cache_key] do
   .tile_container
-    .tile_thumbnail{class: presenter.type, id: "single-tile-#{presenter.tile_id}", data: {tile_id: presenter.tile_id, position: presenter.tile_position}}
-      = link_to presenter.show_tile_path, class:'tile_thumb_link' do
-        %div.tile-wrapper
-          %div.tile_thumbnail_image
+    .tile_thumbnail{class: presenter.type, id: "single-tile-#{presenter.tile_id}", data: {tile_id: presenter.tile_id}}
+      %div.tile-wrapper
+        = link_to presenter.show_tile_path, class:'tile_thumb_link' do
+          .tile_thumbnail_image
             = image_tag presenter.thumbnail
-          %div.headline
-            %div.text
-              = presenter.headline
-          %div.shadow_overlay
-      %ul.tile_buttons
-        - if presenter.has_archive_button?
-          %li.archive_button
-            = link_to 'Archive', client_admin_tile_path(presenter, update_status: Tile::ARCHIVE), method: :put
-        - if presenter.has_activate_button?
-          %li.activate_button
-            = link_to presenter.post_link_text, client_admin_tile_path(presenter, update_status: Tile::ACTIVE, path: :via_index), method: :put
-        - if presenter.has_edit_button?              
-          %li.edit_button
-            = link_to 'Edit', edit_client_admin_tile_path(presenter)
-        - if presenter.has_destroy_button? 
-          %li.destroy_button
-            = link_to 'Delete', client_admin_tile_path(presenter, page: 'Edit'), method: :delete, data: { confirm: destroy_tile_message_params }
-        - if presenter.has_ignore_button?
-          %li.ignore_button
-            = link_to 'Ignore', client_admin_tile_path(presenter, update_status: Tile::IGNORED)
-        - if presenter.has_accept_button?
-          %li.accept_button
-            = link_to 'Accept', client_admin_tile_path(presenter, update_status: Tile::DRAFT)
-        - if presenter.has_undo_ignore_button?
-          %li.undo_ignore_button
-            = link_to 'Undo Ignore', client_admin_tile_path(presenter, update_status: Tile::USER_SUBMITTED)
-      - if presenter.has_tile_stats?
-        .tile_stats
           .activation_dates
             = presenter.timestamp
-          - if presenter.has_additional_tile_stats?
-            = link_to client_admin_tile_tile_completions_path(presenter) do
-              .unique_views.has-tip.tip-bottom{title: "Unique Views", data: {tooltip: true}}
-                = fa_icon 'users'
-                = presenter.unique_views
-              .views.has-tip.tip-bottom{title: "Total Views", data: {tooltip: true}}
-                = fa_icon 'eye'
-                = presenter.total_views
-              .completions.has-tip.tip-bottom{title: "Interacted", data: {tooltip: true}}
-                = fa_icon 'check'
-                = presenter.tile_completions_count
-            - if presenter.shows_creator? && presenter.has_creator?
-              .creator
-                By:
-                = presenter.creator
+          .headline
+            .text
+              = presenter.headline
+          .shadow_overlay
+          .tile_overlay
+        = render partial: 'client_admin/tiles/manage_tiles/tile_buttons', locals: { presenter: presenter }
+      = render partial: 'client_admin/tiles/manage_tiles/tile_stats', locals: { presenter: presenter }
 
 

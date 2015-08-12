@@ -13,8 +13,8 @@ module TileManagerHelpers
       update_status: Tile::ACTIVE, path: :via_index)
   end
 
-  def have_edit_link_for(tile)
-    have_link 'Edit', href: edit_client_admin_tile_path(tile)
+  def edit_link_for(tile)
+    page.find "a[href='#{edit_client_admin_tile_path(tile)}']"
   end
 
   def have_preview_link_for(tile)

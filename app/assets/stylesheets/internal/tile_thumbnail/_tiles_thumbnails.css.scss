@@ -5,14 +5,12 @@
   width:100%;
   max-width:238px;
   position: relative;
-  vertical-align: top;  
-
+  vertical-align: top;
   .completed {
     li {
       @include ease(.5s);
       filter: alpha(opacity=25);
       opacity: 0.25;
-
       &:hover {
         filter: alpha(opacity=75);
         opacity: .75;
@@ -26,7 +24,7 @@
     width:100%;
   }
   a, a:link, a:visited {
-    display:inline-block;
+    display: block;
     width:100%;
     &:after {@include clear;}
   }
@@ -64,7 +62,6 @@
         max-height:238px;
       }
     }
-
     .headline{
       background:$white;
       min-height:7.25em;
@@ -82,16 +79,9 @@
 }
 
 // Placeholder tile thumbnail
-.tile_thumbnail.placeholder_tile, .creation-placeholder a {
+.tile_thumbnail.placeholder_tile {
   border:2px lighten($tile-wall-bg, 7%) dashed;
   border-radius:6px;
   height:16.25em;
 }
 
-.tile_creator {
-  text-align: left;
-  font-weight:bold;
-  font-size:12px;
-  padding-left:1em;
-  padding-top: .3em;
-}

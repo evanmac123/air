@@ -5,7 +5,7 @@ feature 'client admin views tiles reports' do
   let(:demo)  { admin.demo  }
 
   def download_links
-    page.all("a", text: "Download stats")
+    page.all("a", text: "Download Stats")
   end
 
   def click_download_active_link
@@ -29,11 +29,11 @@ feature 'client admin views tiles reports' do
         num_tiles.times do |i|
           awhile_from_now = Time.now + i.days
           tile = FactoryGirl.create :tile, demo: demo, headline: "Tile , #{i}", created_at: awhile_from_now,
-                                    activated_at: awhile_from_now, archived_at: awhile_from_now, position: positions[i]
+                                    activated_at: awhile_from_now, archived_at: awhile_from_now + 1.day, position: positions[i]
 
           if i.even?
             awhile_ago = tile.created_at - 2.weeks
-            tile.update_attributes(activated_at: awhile_ago, archived_at: awhile_ago)
+            tile.update_attributes(activated_at: awhile_ago, archived_at: awhile_ago + 1.day)
           end
 
           (i * 10).times do |j| 
@@ -106,16 +106,16 @@ CSV
 
           expected_csv = <<CSV
 Headline,Status,Total Views,Unique Views,Completions,% of participants
-\"Tile , 9\",Active: less than a minute Deactivated: 7/13/2013,180,90,90,90.0%
-\"Tile , 7\",Active: less than a minute Deactivated: 7/11/2013,140,70,70,70.0%
-\"Tile , 5\",Active: less than a minute Deactivated: 7/9/2013,100,50,50,50.0%
-\"Tile , 3\",Active: less than a minute Deactivated: 7/7/2013,60,30,30,30.0%
-\"Tile , 1\",Active: less than a minute Deactivated: 7/5/2013,20,10,10,10.0%
-\"Tile , 8\",Active: less than a minute Deactivated: 6/28/2013,160,80,80,80.0%
-\"Tile , 6\",Active: less than a minute Deactivated: 6/26/2013,120,60,60,60.0%
-\"Tile , 4\",Active: less than a minute Deactivated: 6/24/2013,80,40,40,40.0%
-\"Tile , 2\",Active: less than a minute Deactivated: 6/22/2013,40,20,20,20.0%
-\"Tile , 0\",Active: less than a minute Deactivated: 6/20/2013,0,0,0,0.0%
+\"Tile , 9\",Active: 1 day Deactivated: 7/14/2013,180,90,90,90.0%
+\"Tile , 7\",Active: 1 day Deactivated: 7/12/2013,140,70,70,70.0%
+\"Tile , 5\",Active: 1 day Deactivated: 7/10/2013,100,50,50,50.0%
+\"Tile , 3\",Active: 1 day Deactivated: 7/8/2013,60,30,30,30.0%
+\"Tile , 1\",Active: 1 day Deactivated: 7/6/2013,20,10,10,10.0%
+\"Tile , 8\",Active: 1 day Deactivated: 6/29/2013,160,80,80,80.0%
+\"Tile , 6\",Active: 1 day Deactivated: 6/27/2013,120,60,60,60.0%
+\"Tile , 4\",Active: 1 day Deactivated: 6/25/2013,80,40,40,40.0%
+\"Tile , 2\",Active: 1 day Deactivated: 6/23/2013,40,20,20,20.0%
+\"Tile , 0\",Active: 1 day Deactivated: 6/21/2013,0,0,0,0.0%
 CSV
           page.body.should == expected_csv
         end

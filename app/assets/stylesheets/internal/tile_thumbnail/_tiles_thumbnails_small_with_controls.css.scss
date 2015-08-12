@@ -1,0 +1,59 @@
+//
+// => Small tile thumbnail (66.7%)
+//
+#draft_tiles .tile_container:not(.tile_in_active):not(.tile_in_achive), 
+.tile_container.tile_in_draft {
+  height: 240px; 
+  min-width: 16%;
+  .tile_thumbnail {
+    max-width: 159px;
+    max-height: 211px;
+    .shadow_overlay, .tile_thumbnail_image {
+      height: 8em;
+    }
+    .shadow_overlay:after {
+      margin-top: 4em;
+    }
+    .headline {
+      min-height: 5em;
+      height: 5em;
+      padding: 0.5em;
+      .text {
+        font-size: 12px;
+        font-weight: 500;
+      }
+    }
+    .activation_dates {
+      top: 105px;
+      right: 0px;
+    }
+  }
+  .tile_buttons {
+    top: 6px;
+    right: 6px;
+    width: calc(100% - 6px);
+    li {
+      i {
+        font-size: 20px;
+        padding-top: 5px;
+      }
+      &.destroy_button {
+        padding-left: 14px;
+      }
+      &.edit_button {
+        padding-left: 20px;
+      }
+      &.activate_button a span {
+        font-size: 15px;
+        border-width: 0;
+      }
+    }
+    .ignore_button, .accept_button {
+      margin-right: 0;  
+      span {
+        padding-left: 0.5em;
+        padding-right: 0.5em; 
+      }
+    }
+  }
+}
