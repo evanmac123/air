@@ -21,6 +21,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     intro_flags_index
 
     @accepted_tile = Tile.find(session.delete(:accepted_tile_id)) if session[:accepted_tile_id]
+
     record_index_ping
   end
   
@@ -111,16 +112,12 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     #FIXME is this really important for tracking?
     tile_status_updated_ping @tile, "Dragged tile to move"
     
-    #FIXME temporary hack! this whole part of the codebase needs to be #rewritten
-      if params[:status] == "draft" 
-        @highest = @demo.draft_tiles.map(&:position).max + 1
-      end
   end
 
   
   private
 
-
+  
   def intro_flags_index
     @board_is_brand_new = @demo.tiles.limit(1).first.nil? && params[:show_suggestion_box] != "true"
     @show_suggestion_box_intro =  if !current_user.suggestion_box_intro_seen
