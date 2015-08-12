@@ -114,12 +114,12 @@ feature 'Creates tile' do
   end
 
   scenario "with overlong supporting content should block submit button", js: true do
-    fill_in_supporting_content("x" * 451)
+    fill_in_supporting_content("x" * 601)
     expect_content "-1 CHARACTERS"
     expect_content "Shorten the supporting content to save the Tile."
     page.should have_selector("input[type=submit][value='Save tile'][disabled]")
 
-    fill_in_supporting_content("x" * 450)
+    fill_in_supporting_content("x" * 600)
     expect_content "0 CHARACTERS"
     expect_no_content "Shorten the supporting content to save the Tile."
     page.should_not have_selector("input[type=submit][value='Save tile'][disabled]")
