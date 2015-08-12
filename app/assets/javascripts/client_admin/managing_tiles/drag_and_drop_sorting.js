@@ -15,6 +15,10 @@ updateShowMoreDraftTilesButton = function(){
   }
 }
 
+updateHighestPositionInSection = function(pos){
+  $("#add_new_tile_link").attr("href", "/client_admin/tiles/new?path=via_index&position=" + pos);
+}
+
 showMoreDraftTiles = function(){
   draftTilesCount = notTilePlaceholdersInSection( $("#draft") ).length
   return (draftTilesCount > 3 && selectedSection() == 'draft')

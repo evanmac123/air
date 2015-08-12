@@ -86,6 +86,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def sort
+ #FIXME this code sucks!!! simply posting of tile ids and current positions
+    #would simplify this whole process
     @tile = get_tile
     Tile.insert_tile_between(
       params[:left_tile_id], 
@@ -96,6 +98,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @tile.reload
 
     @last_tiles = []
+ 
     if params[:source_section].present?
       @last_tiles = Tile.find_additional_tiles_for_manage_section(
                       params[:source_section][:name],
@@ -104,10 +107,19 @@ class ClientAdmin::TilesController < ClientAdminBaseController
                     )
     end
 
+
+    #FIXME is this really important for tracking?
     tile_status_updated_ping @tile, "Dragged tile to move"
+    
+    #FIXME temporary hack! this whole part of the codebase needs to be #rewritten
+      if params[:status] == "draft" 
+        @highest = @demo.draft_tiles.map(&:position).max + 1
+      end
   end
+
   
   private
+
 
   def intro_flags_index
     @board_is_brand_new = @demo.tiles.limit(1).first.nil? && params[:show_suggestion_box] != "true"
