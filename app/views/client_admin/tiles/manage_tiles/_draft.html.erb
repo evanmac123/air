@@ -9,6 +9,10 @@
       <div class="draft_title_block">
         <h4 id="draft_title">Draft</h4>
       </div>
+      <%= link_to new_client_admin_tile_path(path: :via_index), id: 'add_new_tile' do %>
+        <%= fa_icon "plus" %>
+        <span>Add New Tile</span>
+      <% end %>
       <%= render partial: 'client_admin/suggestions_access/suggestion_box_header' if  policy(:board).tile_suggestion_enabled?  %>
     </div>
   </div>
@@ -16,10 +20,11 @@
 <div class="row">
   <div class="large-12 columns">
     <div class="manage_section" id="draft">
+      <%= render partial: 'client_admin/tiles/manage_tiles/no_tiles_section', locals: {display_no_tiles_section: @draft_tiles.empty?, row_size: 6} %>
       <%= render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: {tiles: @draft_tiles} %>
     </div>
     <div id="suggestion_box">
-      <%= render partial: 'client_admin/tiles/manage_tiles/no_tiles_section', locals: {display_no_tiles_section: @suggested_tiles.empty?} %>
+      <%= render partial: 'client_admin/tiles/manage_tiles/no_tiles_section', locals: {display_no_tiles_section: @suggested_tiles.empty?, row_size: 6} %>
       <%= render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: {tiles: @suggested_tiles} %>
       <% if @manage_access_prompt %>
         <div id="manage_access_prompt">
