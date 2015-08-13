@@ -27,4 +27,4 @@ window.imageLibraryScroll = (imagePath) ->
     callback: (data) ->
       addTileImages data.tileImages
       updateNextPageLink data.nextPageLink
-      window.selectImageFromLibrary()
+      Airbo.ImageLibrary.selectImageFromLibrary()
