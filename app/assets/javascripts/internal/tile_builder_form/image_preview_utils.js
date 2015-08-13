@@ -171,6 +171,7 @@ $(function() {
       return {
         setSelectedImageId: setSelectedImageId,
         clearSelectedImage: clearSelectedImage,
+        selectImageFromLibrary: selectImageFromLibrary,
         init: init
       }
     }());
