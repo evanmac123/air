@@ -219,10 +219,6 @@ $(function() {
       function init(mgr){
         imageMgr = mgr
         imgPreview= $('.image_preview');
-
-        if(imageMgr.remoteMediaUrl()===""){
-          clearPreviewImage();
-        } 
         return this;
       }
 
