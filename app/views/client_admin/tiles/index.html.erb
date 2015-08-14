@@ -1,0 +1,37 @@
+<section class="<%= draftSectionClass %> manage_tiles compressed_section" id="draft_tiles">
+  <%= render partial: 'client_admin/tiles/manage_tiles/draft' %>
+</section>
+<%= render partial: 'client_admin/tiles/manage_tiles/show_all_draft' %>
+
+<div class="completed_tiles_containment">
+  <section class="manage_tiles" id="active_tiles">
+    <%= render partial: 'client_admin/tiles/manage_tiles/active' %>
+  </section>
+  <section class="manage_tiles" id="archived_tiles">
+    <%= render partial: 'client_admin/tiles/manage_tiles/archive' %>
+  </section>
+  <%= render partial: 'client_admin/tiles/manage_tiles/show_all_archive' %>
+</div>
+
+<%= render partial: 'client_admin/tiles/manage_tiles/move_tile_confirmation_modal' %>
+<% if @board_is_brand_new %>
+  <%= render partial: 'client_admin/tiles/manage_tiles/add_new_tile_joyride' %>
+<% end %>
+
+
+<div id="new_tile_modal">
+
+</div>
+
+
+<% content_for :javascript do %>
+  <script>
+
+$().ready(function(){
+  window.dragAndDropTiles();
+  window.expandDraftSectionOrSuggestionBox();
+});
+
+  </script>
+<% end %>
+
