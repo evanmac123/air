@@ -10,7 +10,8 @@ module TilePreview
           item_class: "new_tile_header",
           link: @path,
           icon: "plus",
-          text: "New Tile"
+          text: "New Tile",
+          item_id: "add_new_tile"
         }
       end
     end
