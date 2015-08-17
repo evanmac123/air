@@ -1,1 +1,0 @@
-require_all Rails.root.join('app', 'presenters')
