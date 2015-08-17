@@ -148,7 +148,7 @@ class Raffle < ActiveRecord::Base
     self.prizes = [""] if prizes.empty?
     self.status = SET_UP unless status
     unless other_info.present?
-      self.other_info = "For every 20 points you earn, you receive an entry into the prize raffle. " + \
+      self.other_info = "For every 20 points you earn, you receive an entry. " + \
       "We'll email the winner to award the prize within a week of the end of the prize period."
     end
   end

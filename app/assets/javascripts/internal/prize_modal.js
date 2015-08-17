@@ -8,7 +8,7 @@ function bindPrizeModal(showStart, showFinish, publicSlug) {
     } else if(showStart) {
       if( $("#get_started_lightbox").length == 0 && $('#activity-joyride').length == 0 ){ 
       // not display prize and get started box simultaneously
-        showRaffleBox("New Raffle!");
+        showRaffleBox("New Prize!");
         prizeModalPing("Saw Prize Modal");
       }else{
         window.showRaffleAfterLightbox = true;

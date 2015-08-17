@@ -36,7 +36,7 @@ window.getStartedLightbox = function(){
   $('#get_started_lightbox').lightbox_me({
     onClose: function(){ 
       if( window.showRaffleAfterLightbox == true ){
-        showRaffleBox("New Raffle!");
+        showRaffleBox("New Prize!");
         prizeModalPing("Saw Prize Modal");
       } 
     }
