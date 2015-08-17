@@ -12,7 +12,7 @@ class ClientAdmin::PrizesController < ClientAdminBaseController
 
   def update
     unless @raffle.update_attributes(raffle_params)
-      @listified_flash = {failure: ["Sorry, we couldn't update the raffle: " + @raffle.errors.values.join(", ") + "."]}
+      @listified_flash = {failure: ["Sorry, we couldn't update the prize: " + @raffle.errors.values.join(", ") + "."]}
       render 'show_errors'
     end
     @raffle.set_timer_to_end_live
@@ -26,7 +26,7 @@ class ClientAdmin::PrizesController < ClientAdminBaseController
       #@raffle.delay(run_at: @raffle.ends_at).finish_raffle #2.minutes.from_now
       redirect_to client_admin_prizes_path
     else
-      flash[:failure] = "Sorry, we couldn't start the raffle: " + @raffle.errors.values.join(", ") + "."
+      flash[:failure] = "Sorry, we couldn't start the prize: " + @raffle.errors.values.join(", ") + "."
       render 'index'
     end
   end
