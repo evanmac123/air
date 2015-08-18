@@ -3,6 +3,18 @@ class ClientAdmin::TileStatsController < ClientAdminBaseController
 
   def index
     @tile_completions = TileCompletion.tile_completions_with_users(@tile.id)
+    @chart = TileStatsChart.new(@tile).draw
+    # params[:chart_start_date]   = (Time.now - 30.days).to_s(:chart_start_end_day)
+    # params[:chart_end_date]     = Time.now.to_s(:chart_start_end_day)
+    # params[:chart_plot_content] = 'Both'
+    # params[:chart_interval]     = 'Weekly'
+    # params[:chart_label_points] = '0'
+    # @chart = Highchart.chart current_user.demo,
+    #                          params[:chart_start_date],
+    #                          params[:chart_end_date],
+    #                          params[:chart_plot_content],
+    #                          params[:chart_interval],
+    #                          params[:chart_label_points]
   end
 
   protected

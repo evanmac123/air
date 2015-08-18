@@ -258,7 +258,7 @@ GEM
     kgio (2.7.4)
     launchy (2.1.2)
       addressable (~> 2.3)
-    lazy_high_charts (1.4.3)
+    lazy_high_charts (1.5.4)
       bundler (>= 1.0)
       hash-deep-merge
     letter_opener (1.0.0)
@@ -555,7 +555,7 @@ DEPENDENCIES
   jquery-validation-rails
   json (>= 1.7.7)
   kaminari
-  lazy_high_charts (~> 1.4.0)
+  lazy_high_charts
   letter_opener
   meta_request
   mixpanel
