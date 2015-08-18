@@ -120,7 +120,8 @@ Health::Application.routes.draw do
 				get "blank"
 			end
       resource :image, :only => [:update, :show]
-      resources :tile_completions, :only => [:index]      
+      resources :tile_completions, :only => [:index]
+      resources :tile_stats, :only => [:index]
       member do
         post 'sort'
       end
