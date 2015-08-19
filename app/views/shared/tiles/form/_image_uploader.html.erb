@@ -1,14 +1,1 @@
 
-<% if ie9_or_older? %>
-  <div class="tile_image_block upload_image ie9_or_older" id='ie9_uploader'>
-    <%= fa_icon('arrow-circle-o-up 2x') %>
-  <label for="media_file" id="upload_trigger_ie9" >
-    Upload Image
-  </label>
-  </div>
-<%else%>
-  <div class="tile_image_block upload_image" id="uploader_trigger">
-    <%= fa_icon('arrow-circle-o-up 2x') %>
-    <span>Upload Image</span>
-  </div>
-<% end %>

@@ -1,10 +1,21 @@
 <div class="image_library">
   <div class="tile_images">
-    <%= render 'shared/tiles/form/image_uploader' %>
-
-    <% @tile_images.each do |tile_image| %>
-      <%= render 'shared/tile_images/tile_image', tile_image: tile_image %>
+    <%#TODO can be refactored into a helper %>
+    <% if ie9_or_older? %>
+      <div class="tile_image_block upload_image ie9_or_older" id='ie9_uploader'>
+        <%= fa_icon('arrow-circle-o-up 2x') %>
+        <label for="media_file" id="upload_trigger_ie9" >
+          Upload Image
+        </label>
+      </div>
+    <%else%>
+      <div class="tile_image_block upload_image" id="uploader_trigger">
+        <%= fa_icon('arrow-circle-o-up 2x') %>
+        <span>Upload Image</span>
+      </div>
     <% end %>
+
+    <%= render partial: "/shared/tiles/form/tile_images" %>
   </div>
   <div class="pagination">
     <%= link_to 'Next Page', client_admin_tile_images_path(page: 1), rel: 'next' %>
