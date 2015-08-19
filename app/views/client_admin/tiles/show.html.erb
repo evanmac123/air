@@ -5,9 +5,16 @@
   <%= render 'tile_preview', show_client_admin_menu: true %>
 </div>
 
-<div id="new_tile_modal" class="reveal-modal">
+
+
+
+<div id="new_tile_modal" class="reveal-modal tiny">
+
 </div>
 
+<div id="images_modal" class="reveal-modal small">
+
+</div>
 <% js_at_end do %>
   bindTileCarouselNavigationButtons();
 <% end %>
