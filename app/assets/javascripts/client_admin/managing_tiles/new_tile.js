@@ -20,7 +20,7 @@ Airbo.TileCreator = (function(){
         success: function(data, status,xhr){
           newTileModal.html(data);
           newTileModal.foundation("reveal", "open");
-          //$(imagesModalSelector).foundation("reveal", "open"); 
+          initImageLibraryModal();
         },
         error: function(jqXHR, textStatus, error){
           console.log(error);
@@ -29,22 +29,37 @@ Airbo.TileCreator = (function(){
     });
   }
 
+  function getImageLibrary(libaryUrl){
+
+      $.ajax({
+        type: "GET",
+        dataType: "html",
+        url: libaryUrl,
+        success: function(data, status,xhr){
+          imagesModal.html(data);
+          $(imagesModalSelector).foundation("reveal", "open");
+        },
+        error: function(jqXHR, textStatus, error){
+          console.log(error);
+        }
+      })
+  }
+
   function initImageLibraryModal(){
     $("body").on("click", addImageSelector, function(event){
-      $(document).foundation({reveal: {multiple_opened: true}});
-      $(imagesModalSelector).foundation("reveal", "open");
+
+      getImageLibrary($(this).data("libraryUrl"))
     });
   }
 
   function initJQueryObjects(){
     newTileModal = $(newTileModalSelector);
+    imagesModal = $(imagesModalSelector);
   }
 
   function init(){
     initJQueryObjects();
     initNewTileModal();
-    $(document).foundation({reveal: {multiple_opened: true}});
-    initImageLibraryModal();
   }
 
   return {
