@@ -4,7 +4,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   before_filter :get_demo
   before_filter :load_tags, only: [:new, :edit, :update]
-  before_filter :load_image_library, only: [:new, :edit,  :update]
 
   def index
     # Update 'status' for tiles with 'start_time' and 'end_time' attributes (before you fetch the different tile groups)
@@ -30,8 +29,9 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     record_new_ping
 
     if request.xhr? 
-      render partial "shared/tiles/builder", layout: false and return
+      render partial: "shared/tiles/builder", layout: false and return
     else
+      load_image_library
       #normal rails render
     end
 
@@ -81,6 +81,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def edit
     tile = get_tile
+    load_image_library
     @tile_builder_form = tile.to_form_builder
     record_edit_ping
   end
@@ -245,6 +246,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     else
       flash.now[:failure] = "Sorry, we couldn't update this tile: " + @tile_builder_form.error_messages
       set_flash_for_no_image
+      load_image_library
       render :edit
     end
   end
