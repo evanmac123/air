@@ -7,6 +7,7 @@
     <%= f.hidden_field :no_image, id: "no_image" %>
     <%= f.hidden_field :image_from_library, id: "image_from_library" %>
 
+    <%= render 'shared/tiles/form/image_library', tile_images: tile_images unless request.xhr?%>
   <div class="tile_holder_container">
     <div class="tile_form_holder">
       <div class="large-8 large-centered columns builder-width">
