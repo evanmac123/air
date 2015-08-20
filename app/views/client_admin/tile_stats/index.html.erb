@@ -1,8 +1,8 @@
 <div class="row">
   <div class="large-12 columns">
-    <h2>
+    <h1>
       <%= @tile.headline %>
-    </h2>
+    </h1>
     <%= render partial: 'client_admin/tile_stats_charts/chart_section', locals: {chart_form: @chart_form, chart: @chart} %>
     <%= render partial: 'client_admin/tile_stats/tile_completions' %>
   </div>

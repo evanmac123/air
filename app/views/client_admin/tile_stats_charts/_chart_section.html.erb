@@ -4,7 +4,10 @@
       <% TileStatsChartForm::ACTION_TYPES.each do |action_type| %>
         <div class="action_type_block <%= action_type %>">
           <%= f.radio_button :action_type, action_type %>
-          <%= f.label :action_type, action_type.humanize, value: action_type %>  
+          <%= f.label :action_type,  value: action_type do %>
+            <div class="actions_num"></div>
+            <div class="action"><%= action_type.humanize %></div>
+          <% end %>
         </div>
       <% end %>
     </div>
