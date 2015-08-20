@@ -122,6 +122,7 @@ Health::Application.routes.draw do
       resource :image, :only => [:update, :show]
       resources :tile_completions, :only => [:index]
       resources :tile_stats, :only => [:index]
+      resources :tile_stats_charts, :only => [:create]
       member do
         post 'sort'
       end

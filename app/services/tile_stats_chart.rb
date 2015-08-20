@@ -8,6 +8,7 @@ class TileStatsChart
     @tile = tile
     @content = params[:content] || 'unqiue_views'
     @point_interval = params[:point_interval] || 'daily'
+    # date_range
     @start_date = params[:start_date] || (Time.now - 1.day).to_s(:chart_start_end_day) #tile.created_at.to_s(:chart_start_end_day)
     @end_date = params[:end_date] || Time.now.to_s(:chart_start_end_day)
     @value_type = params[:value_type] || 'cumulative'
@@ -20,6 +21,7 @@ class TileStatsChart
       hc.xAxis x_axis_params
       hc.yAxis y_axis_params
       hc.plotOptions plot_options_params
+      hc.tooltip tooltip_params
       hc.series name: 'Unique views',  data: data
     end
   end
@@ -38,7 +40,7 @@ class TileStatsChart
     end
 
     def legend_params
-      { layout: 'horizontal' }
+      { enabled: false }
     end
 
     def x_axis_params
@@ -47,7 +49,7 @@ class TileStatsChart
           text: nil 
         }, 
         type: 'datetime', 
-        maxPadding: 0.02, 
+        #maxPadding: 0.02, 
         labels: {
           formatter: x_axis_label.js_code
         }
@@ -55,7 +57,11 @@ class TileStatsChart
     end
 
     def x_axis_label
-      "function() { return Highcharts.dateFormat('%l %p', this.value); }"
+      <<-JS
+      function() { 
+        return Highcharts.dateFormat('%l %p', this.value); 
+      }
+JS
     end
 
     def y_axis_params
@@ -103,4 +109,22 @@ class TileStatsChart
     def time_unit
       'hour'
     end
+
+    def tooltip_params
+      #{formatter: tooltip_formatter.js_code }
+      {}
+    end
+
+#     def tooltip_formatter
+#       <<-JS
+#       function () {
+#         return 'The value for <b>' + 
+#           Highcharts.dateFormat('%l %p', this.x) +
+#           //Object.getOwnPropertyNames(this) +
+#           Object.getOwnPropertyNames(this.point) +
+#           this.point.state() +
+#           '</b> is <b>' + this.y + '</b>';
+#       }
+# JS
+#     end
 end

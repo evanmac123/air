@@ -1,0 +1,26 @@
+<div class="tile_chart_section">
+  <%= form_for chart_form, url: client_admin_tile_tile_stats_charts_path do |f| %>
+    <div class="large-3 columns">
+      <% TileStatsChartForm::ACTION_TYPES.each do |action_type| %>
+        <div class="action_type_block <%= action_type %>">
+          <%= f.radio_button :action_type, action_type %>
+          <%= f.label :action_type, action_type.humanize, value: action_type %>  
+        </div>
+      <% end %>
+    </div>
+    <div class="large-9 columns">
+      <%= f.select :interval_type, options_for_select(TileStatsChartForm.interval_types_select_list, f.object.interval_type) %>    
+      <%= f.select :value_type, options_for_select(TileStatsChartForm.value_types_select_list, f.object.value_type) %>
+      <%= f.select :date_range_type, options_for_select(f.object.date_range_types_select_list, f.object.date_range_types_disabled_option) %>
+      <div class="dates_selection">
+        <%= f.text_field :start_date, class: "datepicker" %>
+        <%= f.text_field :end_date, class: "datepicker" %>
+        <%= link_to "Done", "" %>
+      </div>
+
+      <%= f.submit %>
+
+      <%= high_chart('tile_chart', chart) %>
+    </div>
+  <% end %>
+</div>
