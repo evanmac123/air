@@ -14,7 +14,8 @@ function isIE() {
 
 $(function() {
 
-  if (Airbo.Utils.isAtPage(Airbo.Utils.Pages.TILE_BUILDER)) {
+
+  if (Airbo.Utils.supportsFeatureByPresenceOfSelector("#new_tile_builder_form, #add_new_tile") ) {
 
   /************************************************
    *
@@ -88,7 +89,6 @@ $(function() {
       }
 
       function init(){
-
         initVars();
         initClearImage();
         previewer = Airbo.ImagePreviewer.init(this)

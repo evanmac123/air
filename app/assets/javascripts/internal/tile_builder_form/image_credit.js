@@ -1,11 +1,13 @@
 var Airbo = window.Airbo || {};
 
 Airbo.TileImageCredit = (function(){
-  var  imageCreditInput, 
-  imageCreditView, 
-  maxLength = 50, 
-  maxLengthAfterTruncation = maxLength + '...'.length, 
-  backspaceKeyCode=8;
+  var  imageCreditInput 
+    , imageCreditView
+    , imageCreditViewSelector ='.image_credit_view'
+    , imageCreditInputSelector ='#tile_builder_form_image_credit'
+    , maxLength = 50 
+    , maxLengthAfterTruncation = maxLength + '...'.length 
+    , backspaceKeyCode=8;
 
   function initImageCreditHandlers(){
 
@@ -91,13 +93,15 @@ Airbo.TileImageCredit = (function(){
 
   function init(){
 
-    imageCreditView = $('.image_credit_view');
-    imageCreditInput = $('#tile_builder_form_image_credit');
+    if (Airbo.Utils.supportsFeatureByPresenceOfSelector(imageCreditViewSelector)) {
+      imageCreditView = $(imageCreditViewSelector);
+      imageCreditInput = $(imageCreditInputSelector);
 
-    initImageCreditHandlers();
-    saveImageCreditChanges();
-    truncateImageCreditView();
-  };
+      initImageCreditHandlers();
+      saveImageCreditChanges();
+      truncateImageCreditView();
+    } 
+  }
 
 
   return {
@@ -107,7 +111,6 @@ Airbo.TileImageCredit = (function(){
 }());
 
 $(function(){
-  if (Airbo.Utils.isAtPage(Airbo.Utils.Pages.TILE_BUILDER)) {
     Airbo.TileImageCredit.init();
-  }
+  
 })
