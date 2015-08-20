@@ -1,4 +1,4 @@
-<div class="image_library">
+<div class="image_library" data-loading-image-url="<%=image_path 'spinner_large.gif'%>">
   <div class="tile_images">
     <%#TODO can be refactored into a helper %>
     <% if ie9_or_older? %>
@@ -17,11 +17,5 @@
 
     <%= render partial: "/shared/tiles/form/tile_images" %>
   </div>
-  <div class="pagination">
-    <%= link_to 'Next Page', client_admin_tile_images_path(page: 1), rel: 'next' %>
-  </div>
 </div>
 
-<%= js_at_end do %>
-  window.imageLibraryScroll("<%= image_path 'spinner_large.gif' %>");
-<% end %>

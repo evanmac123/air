@@ -120,10 +120,14 @@ $(function() {
      * **********************************************/
 
     Airbo.ImageLibrary = (function(){
-      var imageMgr,
-      imageFromLibraryField = $("#image_from_library"),
-        imageFromLibrarySelector = ".tile_image_block.library",
-        imageFromLibrary=  $(imageFromLibrarySelector);
+      var imageMgr
+        , library
+        , librarySelector = ".image_library"
+        , imageFromLibraryField
+        , imageFromLibraryFieldSelector = "#image_from_library"
+        , imageFromLibrarySelector = ".tile_image_block.library"
+        , nextPageSelector =  "a[rel='next']"
+        , imageFromLibrary =  $(imageFromLibrarySelector);
 
       function selectedImageFromLibrary() {
         return imageFromLibrary.filter(".selected");
@@ -162,9 +166,27 @@ $(function() {
         });
       }
 
+
+      function initScrolling() {
+        library.jscroll({
+          loadingHtml: "<img src='" + library.data("loadingImageUrl") + "' />",
+          nextSelector: nextPageSelector,
+          debug: true,
+          padding: 0,
+          callback: false 
+        } );
+      };
+
+      function initjQueryObjects(){
+        imageFromLibraryField = $(imageFromLibraryFieldSelector);
+        library = $(librarySelector);
+      }
+
       function init(mgr){
         imageMgr = mgr;
+        initjQueryObjects();
         initImageChooser();
+        initScrolling();
         return this;
       };
 

@@ -1,3 +1,7 @@
 <% @tile_images.each do |tile_image| %>
   <%= render 'shared/tile_images/tile_image', tile_image: tile_image %>
 <% end %>
+<div style="clear:both"></div>
+  <div class="pagination">
+    <%= link_to 'Next Page', client_admin_tile_images_path(page: @curr_page || 1), rel: 'next' unless @last_page %>
+  </div>
