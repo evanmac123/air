@@ -37,6 +37,7 @@ Airbo.TileCreator = (function(){
         url: libaryUrl,
         success: function(data, status,xhr){
           imagesModal.html(data);
+          Airbo.ImageLibrary.init();
           $(imagesModalSelector).foundation("reveal", "open");
         },
         error: function(jqXHR, textStatus, error){
