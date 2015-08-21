@@ -3,8 +3,6 @@ var Airbo = window.Airbo || {};
 $(function() {
 
 
-  //if (Airbo.Utils.supportsFeatureByPresenceOfSelector("#new_tile_builder_form, #add_new_tile") ) {
-
   /************************************************
    *
    * Creates a wrapper around the image previewer
@@ -13,13 +11,20 @@ $(function() {
    * **********************************************/
 
     Airbo.TileImagesMgr = (function(){
-      var initialized,
-      previewer, 
-      library,
-      noImage, 
-      imageContainer,
-      remoteMediaUrl,
-      remoteMediaType;
+      var initialized
+        , previewer
+        , library
+        , noImage
+        , imageContainer
+        , remoteMediaUrl
+        , remoteMediaType
+        , clearImage
+        , clearImageSelector = '.clear_image'
+        , noImageSelector = '#no_image'
+        , imageContainerSelector = '#image_container'
+        , remoteMediaUrlSelector = '#remote_media_url'
+        , remoteMediaTypeSelector = '#remote_media_type'
+      ;
 
       function imgTypeFromFilename(filename){
         return "image/" + filename.substr(filename.lastIndexOf('.')+1)
@@ -47,7 +52,7 @@ $(function() {
         noImage.val('');
       };
 
-      function clearImage(){
+      function removeImage(){
         updateHiddenImageFields();
         noImage.val('true')
         previewer.clearPreviewImage();
@@ -64,22 +69,25 @@ $(function() {
       }
 
       function initClearImage(){
-        $('.clear_image').click(function(event) {
-          clearImage()
+        clearImage.click(function(event) {
+          removeImage();
+          event.stopPropagation();
         });
       }
 
-      function initVars(){
-        noImage = $('#no_image'), 
-          imageContainer = $('#image_container'),
-          remoteMediaUrl = $('#remote_media_url'),
-          remoteMediaType = $('#remote_media_type');
+      function initjQueryObjects(){
+        noImage = $(noImageSelector);
+        imageContainer = $(imageContainerSelector);
+        remoteMediaUrl = $(remoteMediaUrlSelector);
+        remoteMediaType = $(remoteMediaTypeSelector);
+        clearImage = $(clearImageSelector);
       }
 
       function init(){
         if (Airbo.Utils.supportsFeatureByPresenceOfSelector("#new_tile_builder_form, #add_new_tile") ) {
-          initVars();
+          initjQueryObjects();
           initClearImage();
+
           previewer = Airbo.ImagePreviewer.init(this)
           library = Airbo.ImageLibrary.init(this)
 
@@ -250,9 +258,6 @@ $(function() {
       };
 
     })();
-
-  //}
-
 
     Airbo.TileImagesMgr.init();
 });
