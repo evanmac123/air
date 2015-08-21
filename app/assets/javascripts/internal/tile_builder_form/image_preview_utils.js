@@ -1,17 +1,5 @@
 var Airbo = window.Airbo || {};
 
-function isIE() {
-  var myNav;
-  myNav = navigator.userAgent.toLowerCase();
-  if (myNav.indexOf('msie') !== -1) {
-    return parseInt(myNav.split('msie')[1]);
-  } else {
-    return false;
-  }
-};
-
-
-
 $(function() {
 
 
