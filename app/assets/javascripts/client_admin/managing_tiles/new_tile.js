@@ -4,7 +4,8 @@ Airbo.TileCreator = (function(){
   var newTileModal
     , imagesModal
     , libaryLoaded
-    , newTileSelector = "#add_new_tile.preview_menu_item a"
+    , tileFormLoaded
+    , newTileSelector = "a#add_new_tile, #add_new_tile.preview_menu_item a"
     , newTileModalSelector = "#new_tile_modal"
     , imagesModalSelector ="#images_modal"
     , addImageSelector ="#image_uploader"
@@ -14,18 +15,25 @@ Airbo.TileCreator = (function(){
 
     $("body").on("click", newTileSelector, function(event){
       event.preventDefault(); 
-      $.ajax({
-        type: "GET",
-        dataType: "html",
-        url:$(this).attr("href") ,
-        success: function(data, status,xhr){
-          newTileModal.html(data);
-          newTileModal.foundation("reveal", "open");
-        },
-        error: function(jqXHR, textStatus, error){
-          console.log(error);
-        }
-      })
+
+      if(tileFormLoaded) {
+        newTileModal.foundation("reveal", "open");
+      } else {
+        $.ajax({
+          type: "GET",
+          dataType: "html",
+          url:$(this).attr("href") ,
+          success: function(data, status,xhr){
+            newTileModal.html(data);
+            newTileModal.foundation("reveal", "open");
+            tileFormLoaded = true;
+          },
+
+          error: function(jqXHR, textStatus, error){
+            console.log(error);
+          }
+        });
+      }
     });
   }
 
@@ -37,8 +45,8 @@ Airbo.TileCreator = (function(){
         url: libaryUrl,
         success: function(data, status,xhr){
           imagesModal.html(data);
-          //Airbo.ImageLibrary.init();
           $(imagesModalSelector).foundation("reveal", "open");
+          Airbo.TileImagesMgr.init();
           libaryLoaded = true;
         },
         error: function(jqXHR, textStatus, error){
@@ -49,6 +57,7 @@ Airbo.TileCreator = (function(){
 
   function initImageLibraryModal(){
     $("body").on("click", addImageSelector, function(event){
+      event.preventDefault();
       if(libaryLoaded){
         $(imagesModalSelector).foundation("reveal", "open");
       }else{
