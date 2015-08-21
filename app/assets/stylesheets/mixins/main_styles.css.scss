@@ -430,7 +430,7 @@ input:focus, select, textarea {outline: 0;}
 label { @extend h5; }
 
 form.custom .custom.dropdown {
-  font-size: 14px;
+  //font-size: 14px;
   ul li {
     color: $med-gray;
     &.selected, &:hover{

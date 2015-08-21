@@ -16,6 +16,7 @@ class TileStatsChart
 
   def draw
     LazyHighCharts::HighChart.new do |hc|
+      hc.chart chart_params
       hc.exporting exporting_params
       hc.legend legend_params
       hc.xAxis x_axis_params
@@ -27,6 +28,23 @@ class TileStatsChart
   end
 
   protected
+    def chart_params
+      { 
+        events: {
+          load: load_function.js_code 
+        }
+      }
+    end
+
+    def load_function
+      # makes custom foundation selectors
+      <<-JS
+      function() { 
+        return $(document).foundation();
+      }
+JS
+    end
+
     def exporting_params
       # export to PNG, JPEG, PDF, SVG
       # Remove 'Print'

@@ -30,6 +30,14 @@ class TileStatsChartForm
     ([date_range_types_disabled_option] + DATE_RANGE_TYPES).collect{ |name| [ name.humanize, name ] }
   end
 
+  def action_num action
+    tile.send(action.to_sym)
+  end
+
+  def action_type_class action
+    action + " " + (action == action_type ? "selected" : "")
+  end
+
   def self.interval_types_select_list
     INTERVAL_TYPES.collect {|name| [ name.capitalize, name ] }
   end

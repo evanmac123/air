@@ -1,0 +1,102 @@
+body.client_admin-tile_stats_charts, body.client_admin-tile_stats {
+  .action_type_block {
+    padding-bottom: 40px;
+    &.selected {
+      label {
+        color: #007bc2;
+      }  
+    }
+    label {
+      color: #4b61a6;
+      margin: 0;
+    }
+    .custom.radio {
+      display: none;
+    }
+    .action_num {
+      font-size: 20px;
+      padding-bottom: 5px;
+    }
+    .action_name {
+      font-size: 16px;                                                                                                                                                           
+    }
+  }
+  //
+  // => Custom dropdown full restyling
+  //
+  .custom.dropdown {
+    $color-passive: #8d8d8d;
+    $color-active: #454545;
+    $color-hover: #454545;
+    $font-size: 13px;
+    $font-weight: 500;
+    // font-size: 13px;
+    // font-weight: 500;
+    // color: #8d8d8d;
+    border-radius: 3px;
+    border-color: $color-passive;
+    background: transparent;
+    margin: 0;
+    margin-right: 8px;
+    float: left;
+    &:hover {
+      border-color: $color-hover;
+      .current {
+        color: $color-hover;
+      }
+    }
+    &:active, &.open {
+      border-color: $color-active;
+      .current {
+        color: $color-hover;
+      }
+    }
+    .current {
+      font-size: $font-size;
+      font-weight: $font-weight;
+      color: $color-passive;
+    }
+    ul {
+      li {
+        font-size: $font-size;
+        font-weight: $font-weight;
+        border-width: 1px;
+        &:hover {
+          background: transparent;
+          color: $color-hover;
+        }
+      }
+    }
+  }
+  // Specific dropdowns
+  .interval_custom_drop {
+    width: 85px !important;
+  }
+  .value_custom_drop {
+    width: 110px !important;
+  }
+  .date_range_custom_drop {
+    width: 215px !important;
+    li:first-child {
+      display: none;
+    }
+  }
+  
+  .dates_selection {
+    float: left;
+    .datepicker {
+      float: left;
+      width: 100px;
+      margin-right: 8px;
+      font-size: 13px;
+      height: 33px;
+      color: #8d8d8d;
+    }
+     a {
+      @include app-button($sky-blue);
+      float: left;
+      font-size: 13px;
+      padding: 8px 13px;
+    }
+  }
+}

@@ -47,8 +47,9 @@
 
 var Airbo = window.Airbo || {};
 
-$(document).ready(function() {
+$(document).load(function() {
   $('.client_admin-users, .client_admins-show').foundation();
+  //$(document).foundation();
 });
-$(document).foundation();
+//$(document).foundation();
 $(document).confirmWithReveal();

@@ -1,20 +1,20 @@
 <div class="tile_chart_section">
-  <%= form_for chart_form, url: client_admin_tile_tile_stats_charts_path do |f| %>
+  <%= form_for chart_form, url: client_admin_tile_tile_stats_charts_path, html: { class: "custom" } do |f| %>
     <div class="large-3 columns">
       <% TileStatsChartForm::ACTION_TYPES.each do |action_type| %>
-        <div class="action_type_block <%= action_type %>">
+        <div class="action_type_block <%= f.object.action_type_class(action_type) %>">
           <%= f.radio_button :action_type, action_type %>
           <%= f.label :action_type,  value: action_type do %>
-            <div class="actions_num"></div>
-            <div class="action"><%= action_type.humanize %></div>
+            <div class="action_num"><%= f.object.action_num(action_type) %></div>
+            <div class="action_name"><%= action_type.humanize %></div>
           <% end %>
         </div>
       <% end %>
     </div>
     <div class="large-9 columns">
-      <%= f.select :interval_type, options_for_select(TileStatsChartForm.interval_types_select_list, f.object.interval_type) %>    
-      <%= f.select :value_type, options_for_select(TileStatsChartForm.value_types_select_list, f.object.value_type) %>
-      <%= f.select :date_range_type, options_for_select(f.object.date_range_types_select_list, f.object.date_range_types_disabled_option) %>
+      <%= f.select :interval_type, options_for_select(TileStatsChartForm.interval_types_select_list, f.object.interval_type), {}, { class: "interval_custom_drop" } %>    
+      <%= f.select :value_type, options_for_select(TileStatsChartForm.value_types_select_list, f.object.value_type), {}, { class: "value_custom_drop" } %>
+      <%= f.select :date_range_type, options_for_select(f.object.date_range_types_select_list, f.object.date_range_types_disabled_option), {}, { class: "date_range_custom_drop" } %>
       <div class="dates_selection">
         <%= f.text_field :start_date, class: "datepicker" %>
         <%= f.text_field :end_date, class: "datepicker" %>

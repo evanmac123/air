@@ -4,6 +4,9 @@ Airbo.TileStatsChart = (function(){
 
   function init(){
     $('#tile_stats_chart_form_start_date, #tile_stats_chart_form_end_date').datepicker();
+    // $("#tile_chart").ready(function(){
+    //   $(document).foundation();
+    // });
   }
   return {
     init: init
