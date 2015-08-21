@@ -15,7 +15,7 @@ function isIE() {
 $(function() {
 
 
-  if (Airbo.Utils.supportsFeatureByPresenceOfSelector("#new_tile_builder_form, #add_new_tile") ) {
+  //if (Airbo.Utils.supportsFeatureByPresenceOfSelector("#new_tile_builder_form, #add_new_tile") ) {
 
   /************************************************
    *
@@ -89,11 +89,20 @@ $(function() {
       }
 
       function init(){
-        initVars();
-        initClearImage();
-        previewer = Airbo.ImagePreviewer.init(this)
-        library = Airbo.ImageLibrary.init(this)
-        return this;
+        if (Airbo.Utils.supportsFeatureByPresenceOfSelector("#new_tile_builder_form, #add_new_tile") ) {
+          initVars();
+          initClearImage();
+          previewer = Airbo.ImagePreviewer.init(this)
+          library = Airbo.ImageLibrary.init(this)
+
+          Airbo.DirectToS3ImageUploader.init( {
+            processed: showImagePreview,
+            done: directUploadCompleted,
+            added: showFileName,
+          });
+
+          return this;
+        }
       }
 
       function getRemoteMediaURL(){
@@ -122,12 +131,12 @@ $(function() {
     Airbo.ImageLibrary = (function(){
       var imageMgr
         , library
-        , librarySelector = ".image_library"
+        , imageFromLibrary
         , imageFromLibraryField
+        , librarySelector = ".image_library"
         , imageFromLibraryFieldSelector = "#image_from_library"
         , imageFromLibrarySelector = ".tile_image_block.library"
-        , nextPageSelector =  "a[rel='next']"
-        , imageFromLibrary =  $(imageFromLibrarySelector);
+        , nextPageSelector =  "a[rel='next']";
 
       function selectedImageFromLibrary() {
         return imageFromLibrary.filter(".selected");
@@ -180,6 +189,7 @@ $(function() {
       function initjQueryObjects(){
         imageFromLibraryField = $(imageFromLibraryFieldSelector);
         library = $(librarySelector);
+        imageFromLibrary =  $(imageFromLibrarySelector);
       }
 
       function init(mgr){
@@ -210,6 +220,10 @@ $(function() {
     Airbo.ImagePreviewer = (function(){
       var imageMgr, imgPreview;
 
+      function removeImageCredit() {
+        $('.image_credit_view').text('').trigger('keyup').trigger('focusout');
+      };
+
       function clearPreviewImage(){
         showPlaceholder();
         removeImageCredit();
@@ -220,16 +234,12 @@ $(function() {
         imgPreview.removeClass('show_shadows').addClass('show_placeholder');
       };
 
-      function removeImageCredit() {
-        $('.image_credit_view').text('').trigger('keyup').trigger('focusout');
-      };
-
       function showShadows() {
         imgPreview.removeClass('show_placeholder').addClass('show_shadows');
       };
 
+
       function setPreviewImage(imageUrl) {
-        showPlaceholder();
         showShadows();
         $('#upload_preview').attr("src", imageUrl);
       };
@@ -253,14 +263,8 @@ $(function() {
 
     })();
 
-    tileMgr = Airbo.TileImagesMgr.init();
+  //}
 
-    var customHandler = {
-      processed: tileMgr.showImagePreview,
-      done: tileMgr.directUploadCompleted,
-      added: tileMgr.showFileName,
-    };
 
-    Airbo.DirectToS3ImageUploader.init(customHandler);
-  }
+    Airbo.TileImagesMgr.init();
 });
