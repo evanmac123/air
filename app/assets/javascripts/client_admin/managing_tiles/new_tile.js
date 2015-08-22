@@ -27,6 +27,7 @@ Airbo.TileCreator = (function(){
             newTileModal.html(data);
             newTileModal.foundation("reveal", "open");
             tileFormLoaded = true;
+            Airbo.TileImagesMgr.init();
           },
 
           error: function(jqXHR, textStatus, error){
@@ -72,7 +73,8 @@ Airbo.TileCreator = (function(){
   }
 
   function init(){
-    $(document).on('opened.fndtn.reveal',imagesModalSelector, function () {
+    $(document).on('opened.fndtn.reveal',newTileModalSelector, function () {
+      $("body").addClass("client_admin-tiles-edit");
     });
 
     $(document).on('closed.fndtn.reveal', imagesModalSelector, function () {
