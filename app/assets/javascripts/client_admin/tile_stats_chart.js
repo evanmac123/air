@@ -48,7 +48,7 @@ Airbo.TileStatsChart = (function(){
       }else if(input.find("option").eq(0).attr("selected")){
         return;
       }else{
-        changedFiled.val(input.attr("name"));
+        changedFiled.val(input.attr("name").match(/\[(.*)\]/)[1]);
         form.submit();
       }
     });

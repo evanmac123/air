@@ -101,7 +101,7 @@ JS
     end
 
     def point_interval
-      60 * 60
+      1.hour
     end
 
     def data

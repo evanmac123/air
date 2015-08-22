@@ -2,42 +2,50 @@ class TileStatsChartForm
   include ActiveModel::Conversion
 
   ACTION_TYPES = ['unique_views', 'total_views', 'interactions'].freeze
-  INTERVAL_TYPES = ['monthly', 'weekly', 'daily', 'hourly'].freeze
   VALUE_TYPES = ['cumulative', 'activity'].freeze
-  DATE_RANGE_TYPES = ['past_week', 'past_30_days', "past_3_months", "past_12_months", "pick_a_date_range"]
 
   attr_reader :tile, 
+              :time_handler,
               :action_type, 
-              :interval_type, 
-              :value_type, 
-              :date_range_type, 
-              :start_date, 
-              :end_date,
-              :changed_field
+              :value_type
+
+  delegate  :interval_type,
+            :date_range_type,
+            :start_date, 
+            :end_date,
+            :date_range_types_disabled_option,
+            :date_range_types_select_list,
+            :show_dates_selection,
+            :show_date_range,
+            to: :time_handler
 
   def initialize tile, params = {}
     @tile = tile
+    params = initial_params if params.empty?
+    @time_handler = TimeHandler.new( 
+      params.slice(:interval_type, :start_date, :end_date, :date_range_type, :changed_field)
+    ).handle
     @action_type = params[:action_type] || ACTION_TYPES[0]
-    @interval_type = params[:interval_type] || INTERVAL_TYPES[0]
     @value_type = params[:value_type] || VALUE_TYPES[0]
-    @date_range_type = params[:date_range_type]
-    @start_date = params[:start_date] || (Time.now - 1.day).to_s(:chart_start_end_day) #tile.created_at.to_s(:chart_start_end_day)
-    @end_date = params[:end_date] || Time.now.to_s(:chart_start_end_day)
-    @changed_field = params[:changed_field]
-    @show_date_range = params[:date_range_type] == "pick_a_date_range"
+    # @changed_field = params[:changed_field]
+    #@show_date_range = params[:date_range_type] == "pick_a_date_range"
   end
 
-  def date_range_types_disabled_option
-    start_date = tile.created_at
-    end_date = Time.now
-    start_date_str = start_date.strftime("%b %d, %Y")
-    end_date_str = end_date.strftime("%b %d, %Y")
-    start_date_str + " - " + end_date_str
+  def changed_field
+    nil    
   end
 
-  def date_range_types_select_list
-    ([date_range_types_disabled_option] + DATE_RANGE_TYPES).collect{ |name| [ name.humanize, name ] }
-  end
+  # def date_range_types_disabled_option
+  #   start_date = tile.created_at
+  #   end_date = Time.now
+  #   start_date_str = start_date.strftime("%b %d, %Y")
+  #   end_date_str = end_date.strftime("%b %d, %Y")
+  #   start_date_str + " - " + end_date_str
+  # end
+
+  # def date_range_types_select_list
+  #   ([date_range_types_disabled_option] + DATE_RANGE_TYPES).collect{ |name| [ name.humanize, name ] }
+  # end
 
   def action_num action
     tile.send(action.to_sym)
@@ -47,16 +55,16 @@ class TileStatsChartForm
     action + " " + (action == action_type ? "selected" : "")
   end
 
-  def show_dates_selection
-    @show_date_range ? "block" : "none"
-  end
+  # def show_dates_selection
+  #   @show_date_range ? "block" : "none"
+  # end
 
-  def show_date_range
-    @show_date_range ? "none" : "block"
-  end
+  # def show_date_range
+  #   @show_date_range ? "none" : "block"
+  # end
 
   def self.interval_types_select_list
-    INTERVAL_TYPES.collect {|name| [ name.capitalize, name ] }
+    TimeHandler::INTERVAL_TYPES.collect {|name| [ name.capitalize, name ] }
   end
 
   def self.value_types_select_list
@@ -71,4 +79,13 @@ class TileStatsChartForm
   def persisted?
     false
   end
+
+  protected
+    def initial_params
+      {
+        start_date: tile.created_at.to_s(:chart_start_end_day),
+        end_date: Time.now.to_s(:chart_start_end_day),
+        changed_field: 'end_date' # to trigger time handler
+      }
+    end
 end
