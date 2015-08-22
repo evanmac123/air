@@ -55,6 +55,17 @@ class TileStatsChartForm
     action + " " + (action == action_type ? "selected" : "")
   end
 
+  def chart_params
+    {
+      start_date: start_date,
+      end_date: end_date,
+      interval_type: interval_type,
+      value_type: value_type,
+      action_type: action_type,
+      date_range_type: date_range_type
+    }
+  end
+
   # def show_dates_selection
   #   @show_date_range ? "block" : "none"
   # end
@@ -64,7 +75,7 @@ class TileStatsChartForm
   # end
 
   def self.interval_types_select_list
-    TimeHandler::INTERVAL_TYPES.collect {|name| [ name.capitalize, name ] }
+    Period::INTERVAL_TYPES.collect {|name| [ name.capitalize, name ] }
   end
 
   def self.value_types_select_list

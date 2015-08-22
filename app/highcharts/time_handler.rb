@@ -51,8 +51,8 @@ class TimeHandler
     end
 
     def handle_date_range
-      end_date = to_american_format Time.now
-      start_date = to_american_format(Time.now - DATE_RANGE_TYPES[date_range_type][:duration])
+      self.end_date = to_american_format Time.now
+      self.start_date = to_american_format(Time.now - DATE_RANGE_TYPES[date_range_type][:duration])
 
       handle_interval_type
     end
@@ -61,7 +61,7 @@ class TimeHandler
       start_time = from_american_format(start_date)
       end_time = from_american_format(end_date)
       if start_time >= end_time
-        start_date = end_time = changed_date
+        self.start_date = self.end_date = changed_date
       end
 
       handle_interval_type
@@ -81,14 +81,14 @@ class TimeHandler
 
     def handle_interval_type
       date_diff = from_american_format(end_date) - from_american_format(start_date)
-      interval_type = if date_diff <= 96.hours
-                        'hourly'
-                      elsif date_diff <= 30.days
-                        'daily'
-                      elsif date_diff <= 11.months
-                        'weekly'
-                      else
-                        'monthly'
-                      end
+      self.interval_type = if date_diff <= 96.hours
+                            'hourly'
+                          elsif date_diff <= 30.days
+                            'daily'
+                          elsif date_diff <= 11.months
+                            'weekly'
+                          else
+                            'monthly'
+                          end
     end
 end
