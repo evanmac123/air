@@ -14,14 +14,16 @@
     <div class="large-9 columns">
       <%= f.select :interval_type, options_for_select(TileStatsChartForm.interval_types_select_list, f.object.interval_type), {}, { class: "interval_custom_drop" } %>    
       <%= f.select :value_type, options_for_select(TileStatsChartForm.value_types_select_list, f.object.value_type), {}, { class: "value_custom_drop" } %>
-      <%= f.select :date_range_type, options_for_select(f.object.date_range_types_select_list, f.object.date_range_types_disabled_option), {}, { class: "date_range_custom_drop" } %>
-      <div class="dates_selection">
+      <span class="date_range_block" style="display:<%= f.object.show_date_range %>;">
+        <%= f.select :date_range_type, options_for_select(f.object.date_range_types_select_list, f.object.date_range_types_disabled_option), {}, { class: "date_range_custom_drop"} %>
+      </span>
+      <div class="dates_selection" style="display:<%= f.object.show_dates_selection %>;">
         <%= f.text_field :start_date, class: "datepicker" %>
         <%= f.text_field :end_date, class: "datepicker" %>
         <%= link_to "Done", "" %>
       </div>
 
-      <%= f.submit %>
+      <%= f.hidden_field :changed_field %>
 
       <%= high_chart('tile_chart', chart) %>
     </div>

@@ -1,12 +1,72 @@
 var Airbo = window.Airbo || {};
 
 Airbo.TileStatsChart = (function(){
+  // Selectors
+  var 
+      actionInputSel    = "[name='tile_stats_chart_form[action_type]']",
+      intervalInputSel  = "[name='tile_stats_chart_form[interval_type]']",
+      valueInputSel     = "[name='tile_stats_chart_form[value_type]']",
+      dateRangeInputSel = "[name='tile_stats_chart_form[date_range_type]']",
+      dateStartSel      = "[name='tile_stats_chart_form[start_date]']",
+      dateEndSel        = "[name='tile_stats_chart_form[end_date]']",
+      changedFieldSel   = "[name='tile_stats_chart_form[changed_field]']",
+      datesSelectionSel = ".dates_selection",
+      doneBtnSel        = datesSelectionSel + " a",
+      formSel           = "#new_tile_stats_chart_form",
+      formSendSel       = [
+        actionInputSel, 
+        intervalInputSel, 
+        valueInputSel, 
+        dateRangeInputSel, 
+        dateStartSel,
+        dateEndSel
+      ].join(", ");
+      
+  // DOM elements
+  var 
+      dateRangeBlock,
+      datesSelection,
+      datePickers,
+      form;
+
+
+  function initVars(){
+    dateRangeBlock = $(".date_range_block");
+    datesSelection = $(datesSelectionSel);
+    dateRange = $(dateRangeInputSel);
+    datePickers = $(dateStartSel + ", " + dateEndSel);
+    changedFiled = $(changedFieldSel);
+    form = $(formSel);
+  }
+
+  function initEvents(){
+    $(document).on("change", formSendSel, function(){
+      input = $(this);
+      if(input.val() == "pick_a_date_range"){
+        dateRangeBlock.hide();
+        datesSelection.show();
+      }else if(input.find("option").eq(0).attr("selected")){
+        return;
+      }else{
+        changedFiled.val(input.attr("name"));
+        form.submit();
+      }
+    });
+    $(document).on("click", doneBtnSel, function(e){
+      e.preventDefault();
+
+      dateRangeBlock.show();
+      datesSelection.hide();
+
+      dateRange.val(0);
+      dateRange.trigger("change", true); // to update custom select
+    });
+  }
 
   function init(){
-    $('#tile_stats_chart_form_start_date, #tile_stats_chart_form_end_date').datepicker();
-    // $("#tile_chart").ready(function(){
-    //   $(document).foundation();
-    // });
+    initVars();
+    datePickers.datepicker();
+    initEvents();
   }
   return {
     init: init

@@ -1,4 +1,11 @@
 body.client_admin-tile_stats_charts, body.client_admin-tile_stats {
+  // General styles
+  form.custom {
+    select {
+      display: none;
+    }
+  }
+  
   .action_type_block {
     padding-bottom: 40px;
     &.selected {
@@ -10,11 +17,11 @@ body.client_admin-tile_stats_charts, body.client_admin-tile_stats {
       color: #4b61a6;
       margin: 0;
     }
-    .custom.radio {
+    .custom.radio, input[type='radio'] {
       display: none;
     }
     .action_num {
-      font-size: 20px;
+      font-size: 30px;
       padding-bottom: 5px;
     }
     .action_name {
@@ -30,9 +37,6 @@ body.client_admin-tile_stats_charts, body.client_admin-tile_stats {
     $color-hover: #454545;
     $font-size: 13px;
     $font-weight: 500;
-    // font-size: 13px;
-    // font-weight: 500;
-    // color: #8d8d8d;
     border-radius: 3px;
     border-color: $color-passive;
     background: transparent;

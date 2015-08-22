@@ -6,7 +6,14 @@ class TileStatsChartForm
   VALUE_TYPES = ['cumulative', 'activity'].freeze
   DATE_RANGE_TYPES = ['past_week', 'past_30_days', "past_3_months", "past_12_months", "pick_a_date_range"]
 
-  attr_reader :tile, :action_type, :interval_type, :value_type, :date_range_type, :start_date, :end_date
+  attr_reader :tile, 
+              :action_type, 
+              :interval_type, 
+              :value_type, 
+              :date_range_type, 
+              :start_date, 
+              :end_date,
+              :changed_field
 
   def initialize tile, params = {}
     @tile = tile
@@ -16,6 +23,8 @@ class TileStatsChartForm
     @date_range_type = params[:date_range_type]
     @start_date = params[:start_date] || (Time.now - 1.day).to_s(:chart_start_end_day) #tile.created_at.to_s(:chart_start_end_day)
     @end_date = params[:end_date] || Time.now.to_s(:chart_start_end_day)
+    @changed_field = params[:changed_field]
+    @show_date_range = params[:date_range_type] == "pick_a_date_range"
   end
 
   def date_range_types_disabled_option
@@ -36,6 +45,14 @@ class TileStatsChartForm
 
   def action_type_class action
     action + " " + (action == action_type ? "selected" : "")
+  end
+
+  def show_dates_selection
+    @show_date_range ? "block" : "none"
+  end
+
+  def show_date_range
+    @show_date_range ? "none" : "block"
   end
 
   def self.interval_types_select_list
