@@ -1,21 +1,9 @@
 class TileStatsChart
   attr_reader :period, :plot_data
-  #, :content, :interval_type, :start_date, :end_date, :value_type
-  # CONTENT = ['unique_views', 'total_views', 'interactions']
-  # INTERVAL = ['monthly', 'weekly', 'daily', 'hourly']
-  # VALUE_TYPE = ['cumulative', 'activity']
 
   def initialize tile, params = {}
-    # @interval_type, @start_date, @end_date, @action_type, @value_type =
-    #   params.values_at(:interval_type, :start_date, :end_date, :action_type, :value_type)
     @period = Period.new *params.values_at(:interval_type, :start_date, :end_date)
     @plot_data = PlotData.new tile, @period, *params.values_at(:action_type, :value_type)
-    # @content = params[:content] || 'unqiue_views'
-    # @point_interval = params[:point_interval] || 'daily'
-    # date_range
-    # @start_date = params[:start_date] || (Time.now - 1.day).to_s(:chart_start_end_day) #tile.created_at.to_s(:chart_start_end_day)
-    # @end_date = params[:end_date] || Time.now.to_s(:chart_start_end_day)
-    # @value_type = params[:value_type] || 'cumulative'
   end
 
   def draw
@@ -27,15 +15,15 @@ class TileStatsChart
       hc.yAxis y_axis_params
       hc.plotOptions plot_options_params
       hc.tooltip tooltip_params
-      hc.series data: plot_data.data
+      hc.series series_params
     end
   end
 
   protected
     def chart_params
-      { 
+      {
         events: {
-          load: load_function.js_code 
+          load: load_function.js_code
         }
       }
     end
@@ -43,7 +31,7 @@ class TileStatsChart
     def load_function
       # makes custom foundation selectors
       <<-JS
-      function() { 
+      function() {
         return $(document).foundation();
       }
 JS
@@ -53,9 +41,9 @@ JS
       # export to PNG, JPEG, PDF, SVG
       # Remove 'Print'
       {
-        buttons: { 
-          printButton: { 
-            enabled: false 
+        buttons: {
+          printButton: {
+            enabled: false
           }
         }
       }
@@ -67,11 +55,11 @@ JS
 
     def x_axis_params
       {
-        title: { 
-          text: nil 
-        }, 
-        type: 'datetime', 
-        #maxPadding: 0.02, 
+        title: {
+          text: nil
+        },
+        type: 'datetime',
+        # maxPadding: 0.02,
         labels: {
           formatter: x_axis_label.js_code
         }
@@ -80,8 +68,8 @@ JS
 
     def x_axis_label
       <<-JS
-      function() { 
-        return Highcharts.dateFormat('#{period.x_axis_label_format}', this.value); 
+      function() {
+        return Highcharts.dateFormat('#{period.x_axis_label_format}', this.value);
       }
 JS
     end
@@ -90,7 +78,7 @@ JS
       {
         title: {
           text: nil
-        }, 
+        },
         min: 0
       }
     end
@@ -98,39 +86,11 @@ JS
     def plot_options_params
       {
         line: {
-          pointStart: period.start_date(:date), 
+          pointStart: period.start_date(:date),
           pointInterval: period.point_interval
         }
       }
     end
-
-    # def point_interval
-    #   1.hour
-    # end
-
-    # def data
-    #   #(0..23).to_a
-    #   @q_start_date = Highchart.convert_date(@start_date).beginning_of_day
-    #   @q_end_date = Highchart.convert_date(@end_date).end_of_day
-
-    #   grouped_views = tile.tile_viewings
-    #       .select("date_trunc('#{time_unit}', created_at), views")
-    #       .where(created_at: @q_start_date..@q_end_date)
-    #       .group("date_trunc('#{time_unit}', created_at)")
-    #       .sum(:views)
-    #   # => {"2015-08-19 11:00:00"=>12, "2015-08-19 10:00:00"=>27, "2015-08-19 13:00:00"=>1, "2015-08-19 09:00:00"=>3, "2015-08-19 12:00:00"=>15}
-    #   start = @q_start_date
-    #   stop  = @q_end_date
-    #   while start < stop
-    #     grouped_views[start] = grouped_views[start] || 0
-    #     start += 1.send(time_unit.to_sym)
-    #   end
-    #   grouped_views.values
-    # end
-
-    # def time_unit
-    #   'hour'
-    # end
 
     def tooltip_params
       #{formatter: tooltip_formatter.js_code }
@@ -140,7 +100,7 @@ JS
 #     def tooltip_formatter
 #       <<-JS
 #       function () {
-#         return 'The value for <b>' + 
+#         return 'The value for <b>' +
 #           Highcharts.dateFormat('%l %p', this.x) +
 #           //Object.getOwnPropertyNames(this) +
 #           Object.getOwnPropertyNames(this.point) +
@@ -149,4 +109,8 @@ JS
 #       }
 # JS
 #     end
+
+    def series_params
+      { data: plot_data.data }
+    end
 end

@@ -1,8 +1,10 @@
 class PlotData
   attr_reader :period, :tile
-  delegate  :time_unit, 
+  delegate  :time_unit,
             :start_date,
             :end_date,
+            :q_start_date,
+            :q_end_date,
             :point_interval,
             to: :period
 
@@ -14,55 +16,25 @@ class PlotData
   end
 
   def data
-    case @value_type
-    when 'cumulative'
-      cumulative
-    when 'activity'
-      activity
+    @filled_actions = grouped_actions
+    period.each_point do |point|
+      @filled_actions[point] = value_in_point point
     end
+    @filled_actions.values
   end
 
   protected
-    def cumulative
-      start = q_start_date
-      stop  = q_end_date
-      filled_actions = grouped_actions
-      while start < stop
-        filled_actions[start] = filled_actions[start].to_i + filled_actions[start - point_interval].to_i
-        start += point_interval
+    def value_in_point point
+      value = @filled_actions[point].to_i
+      if @value_type == 'cumulative'
+        value += @filled_actions[point - point_interval].to_i
       end
-      filled_actions.values
-    end
-
-    def activity
-      start = q_start_date
-      stop  = q_end_date
-      filled_actions = grouped_actions
-      while start < stop
-        filled_actions[start] = filled_actions[start].to_i
-        start += point_interval
-      end
-      filled_actions.values
-    end
-
-    def q_start_date
-      start_date(:time).beginning_of_day
-    end
-
-    def q_end_date
-      end_date(:time).end_of_day
+      value
     end
 
     def grouped_actions
       # => {"2015-08-19 11:00:00"=>12, "2015-08-19 10:00:00"=>27, "2015-08-19 13:00:00"=>1}
-      case @action_type
-      when 'unique_views'
-        unique_views
-      when 'total_views'
-        total_views
-      when 'interactions'
-        interactions
-      end
+      self.send @action_type.to_sym
     end
 
     def total_views

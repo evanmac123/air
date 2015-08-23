@@ -45,7 +45,7 @@ Airbo.TileStatsChart = (function(){
       if(input.val() == "pick_a_date_range"){
         dateRangeBlock.hide();
         datesSelection.show();
-      }else if(input.find("option").eq(0).attr("selected")){
+      }else if(input == dateRange && input.find("option").eq(0).attr("selected")){
         return;
       }else{
         changedFiled.val(input.attr("name").match(/\[(.*)\]/)[1]);

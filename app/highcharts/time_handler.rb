@@ -1,5 +1,5 @@
 class TimeHandler
-  INTERVAL_TYPES = ['monthly', 'weekly', 'daily', 'hourly'].freeze
+  # INTERVAL_TYPES = ['monthly', 'weekly', 'daily', 'hourly'].freeze
 
   DATE_RANGE_TYPES = {
     'past_week'         => {text: "Past week",      duration: 1.week},

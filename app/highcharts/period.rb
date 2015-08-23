@@ -10,6 +10,7 @@ class Period
   def x_axis_label_format
     case @interval_type
     when 'monthly'
+      "%b. %d"
     when 'weekly'
       "%b. %d"
     when 'daily'
@@ -51,6 +52,24 @@ class Period
 
   def end_date format = :american
     show_date @end_date, format
+  end
+
+  def each_point
+    curr_point = q_start_date
+    stop_point  = q_end_date
+
+    while curr_point <= stop_point
+      yield curr_point
+      curr_point += point_interval
+    end
+  end
+
+  def q_start_date
+    start_date(:time).beginning_of_day
+  end
+
+  def q_end_date
+    end_date(:time).end_of_day
   end
 
   protected
