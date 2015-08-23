@@ -1,4 +1,8 @@
-window.questionAndAnswersBuilder = function(tileHasQuestionType, defaultType, defaultSubtype){
+var Airbo = window.Airbo || {};
+
+Airbo.TileQuestionBuilder = (function(){
+
+ function questionAndAnswersBuilder (tileHasQuestionType, defaultType, defaultSubtype){
   setUp(tileHasQuestionType, defaultType, defaultSubtype);
   //
   //  => Events
@@ -386,3 +390,5 @@ window.questionAndAnswersBuilder = function(tileHasQuestionType, defaultType, de
     });
   }
 }
+
+}());
