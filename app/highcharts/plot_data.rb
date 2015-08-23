@@ -33,6 +33,7 @@ class PlotData
     end
 
     def grouped_actions
+      # i.e. hourly:
       # => {"2015-08-19 11:00:00"=>12, "2015-08-19 10:00:00"=>27, "2015-08-19 13:00:00"=>1}
       self.send @action_type.to_sym
     end

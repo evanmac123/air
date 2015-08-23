@@ -54,6 +54,19 @@ class Period
     show_date @end_date, format
   end
 
+  def points
+    if @points
+      return @points
+    else
+      @points = []
+    end
+
+    each_point do |point|
+      @points.push point
+    end
+    @points
+  end
+
   def each_point
     curr_point = q_start_date
     stop_point  = q_end_date
