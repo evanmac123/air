@@ -34,6 +34,7 @@ class TileBuilderForm
     @exclude_attrs = [:supporting_content, :correct_answer_index, 
                       :multiple_choice_answers, :image_container, 
                       :old_image_container, :no_image, :image_from_library, :answers]
+    @action = [:action]
   end
 
   def create_tile
@@ -112,6 +113,14 @@ class TileBuilderForm
 
   def persisted?
     false
+  end
+
+  def has_question_type?
+    @action == "edit" || @action == "update" || ( @action == "create" && question_type.present?)
+  end
+
+  def question_config
+    { hasQuestionType: has_question_type?, type: question_type, subType: question_subtype}
   end
 
   protected

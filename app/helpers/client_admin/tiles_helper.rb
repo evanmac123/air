@@ -26,8 +26,8 @@ module ClientAdmin::TilesHelper
     current_user.demo.tiles.archive.update_all(status: Tile::ACTIVE)
   end
 
-  def set_tile_types(tile_has_question_type, tile_builder)
-    tile_has_question_type ? update_tile_types(tile_types, tile_builder) : tile_types
+  def set_tile_types( tile_builder)
+    tile_builder.has_question_type? ? update_tile_types(tile_types, tile_builder) : tile_types
   end
 
   def tile_types

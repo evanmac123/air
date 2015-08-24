@@ -95,6 +95,7 @@ $(function() {
           previewer = Airbo.ImagePreviewer.init(this)
           library = Airbo.ImageLibrary.init(this)
           contentEditor = Airbo.TileSuportingContentTextManager.init(this)
+          question = Airbo.TileQuestionBuilder.init();
 
           Airbo.DirectToS3ImageUploader.init( {
             processed: showImagePreview,

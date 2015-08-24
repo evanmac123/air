@@ -41,7 +41,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @tile_builder_form =  TileBuilderForm.new(
                             @demo,
                             parameters: params[:tile_builder_form],
-                            creator: current_user
+                            creator: current_user,
+                            actiont: params[:action]
                           )
     if @tile_builder_form.create_tile
       set_after_save_flash(@tile_builder_form.tile)
