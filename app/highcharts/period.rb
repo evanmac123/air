@@ -72,9 +72,8 @@ class Period
     stop_point  = q_end_date
 
     while curr_point <= stop_point
-      # yield show_date(curr_point, utc_str)
       yield curr_point
-      curr_point += point_interval
+      curr_point = (curr_point + point_interval).send ("beginning_of_" + time_unit).to_sym
     end
   end
 

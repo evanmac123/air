@@ -9,30 +9,28 @@ class PlotData
   end
 
   def data
-    data_hash.values
+    cumulate data_hash.values
   end
 
   protected
-    def data_hash
-      # @filled_actions = grouped_actions
-      @filled_actions = {}
-      group_actions
-      period.each_point do |point|
-        @filled_actions[point] = value_in_point point
-      end
-      @filled_actions
-    end
-
-    def value_in_point point
-      value = @grouped_actions[point].to_i
+    def cumulate values
       if @value_type == 'cumulative'
-        value += @filled_actions[point - point_interval].to_i
-        # value += @filled_actions[period.prev_point(point)].to_i
+        sum = 0
+        values.map{ |x| sum += x }
+      else
+        values
       end
-      value
     end
 
-    def group_actions
+    def data_hash
+      filled_actions = {}
+      period.each_point do |point|
+        filled_actions[point] = grouped_actions[point].to_i
+      end
+      filled_actions
+    end
+
+    def grouped_actions
       # i.e. hourly:
       # => {"2015-08-19 11:00:00"=>12, "2015-08-19 10:00:00"=>27, "2015-08-19 13:00:00"=>1}
       @grouped_actions ||= action_query.query
