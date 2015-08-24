@@ -1,9 +1,9 @@
 class TileStatsChart
   attr_reader :period, :plot_data
 
-  def initialize tile, params = {}
-    @period = Period.new *params.values_at(:interval_type, :start_date, :end_date)
-    @plot_data = PlotData.new tile, @period, *params.values_at(:action_type, :value_type)
+  def initialize period, action_query, value_type = "activity"
+    @period = period
+    @plot_data = PlotData.new @period, action_query, value_type
   end
 
   def draw
