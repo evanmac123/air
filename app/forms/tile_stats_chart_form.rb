@@ -44,7 +44,7 @@ class TileStatsChartForm
   def chart_params
     period = Period.new(interval_type, start_date, end_date)
     action_query = ("Query::" + action_type.camelize).constantize.new(tile, period)
-    [period, action_query]
+    [period, action_query, @value_type]
   end
 
   def self.interval_types_select_list
