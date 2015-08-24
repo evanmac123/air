@@ -1,5 +1,5 @@
 class Query::UniqueViews < Query::TileQuery
-  def query
+  def raw_query
     tile.tile_viewings
         .select("date_trunc('#{time_unit}', created_at)")
         .where(created_at: q_start_date..q_end_date)

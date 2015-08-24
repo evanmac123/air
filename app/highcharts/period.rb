@@ -72,6 +72,7 @@ class Period
     stop_point  = q_end_date
 
     while curr_point <= stop_point
+      # yield show_date(curr_point, utc_str)
       yield curr_point
       curr_point += point_interval
     end
@@ -85,20 +86,28 @@ class Period
     end_date(:time).end_of_day
   end
 
-  protected
-    def show_date time, format
-      if :date
-        time.to_date
-      elsif :american
-        time.to_s(:chart_start_end_day)
-      elsif :time
-        time
-      elsif :american_long
-        time.strftime("%b %d, %Y")
-      end
+  def show_date time, format
+    case format
+    when :date
+      time.to_date
+    when :american
+      time.to_s(:chart_start_end_day)
+    when :time
+      time
+    when :american_long
+      time.strftime("%b %d, %Y")
+    # elsif :utc_str
+    #   time.utc.to_s[0..-5]
+    when :utc_time
+      time += " UTC" unless time.include? "UTC"
+      Time.parse time
     end
+  end
+
+  protected
 
     def from_american_format str
-      Time.strptime(str, "%m/%d/%Y")
+      time = Time.strptime(str, "%m/%d/%Y")
+      (time + time.utc_offset).utc # same time in utc
     end
 end
