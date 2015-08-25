@@ -97,7 +97,5 @@ Airbo.TileCreator = (function(){
 }());
 
 $(function(){
-
 Airbo.TileCreator.init();
-
 })
