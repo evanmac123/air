@@ -12,7 +12,8 @@ class Query::TileQuery
   end
 
   def query
-    Hash[raw_query.map { |date_str, v| [show_date(date_str, :utc_time), v] }]
+    # Hash[raw_query.map { |date_str, v| [show_date(date_str, :utc_time), v] }]
+    raw_query
   end
 
   def raw_query

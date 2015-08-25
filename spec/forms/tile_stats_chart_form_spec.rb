@@ -29,8 +29,6 @@ describe TileStatsChartForm do
       form.date_range_type.should == "past_week"
       form.start_date.should == "08/17/2015"
       form.end_date.should == "08/24/2015"
-      # period, action_query = form.chart_params
-      #
     end
   end
 end

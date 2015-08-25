@@ -72,7 +72,7 @@ class Period
     stop_point  = q_end_date
 
     while curr_point <= stop_point
-      yield curr_point
+      yield show_date(curr_point, :utc_str)
       curr_point = (curr_point + point_interval).send ("beginning_of_" + time_unit).to_sym
     end
   end
@@ -95,8 +95,8 @@ class Period
       time
     when :american_long
       time.strftime("%b %d, %Y")
-    # elsif :utc_str
-    #   time.utc.to_s[0..-5]
+    when :utc_str
+      time.utc.to_s[0..-5]
     when :utc_time
       time += " UTC" unless time.include? "UTC"
       Time.parse time
