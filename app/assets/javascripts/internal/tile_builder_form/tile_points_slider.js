@@ -1,11 +1,16 @@
 var Airbo = window.Airbo || {};
 
 Airbo.tilePointsSlider = (function() {
- 
+  var pointsSlider
+    , formPoints
+    , pointSliderSelector =  "#points_slider"
+    , formPointsSelector = "#tile_builder_form_points"
+
   function refreshPointsField(){
     //max points 20, max slider 200. so:
-    points = Math.ceil($( "#points_slider" ).slider( "value" )/10);
-    $("#tile_builder_form_points").val(points);
+    var points = Math.ceil($( "#points_slider" ).slider( "value" )/10);
+    debugger
+    formPoints.val(points);
     $(".points_num").text(points);
   }
 
@@ -20,8 +25,16 @@ Airbo.tilePointsSlider = (function() {
         '</div>'].join('') );
   }
 
+  function initjQueryObjects(){
+    formPoints = $(formPointsSelector);
+    pointsSlider =$("#points_slider");
+  }
+
   function init(){
-    $( "#points_slider" ).slider({
+    initjQueryObjects();
+    debugger
+
+    $(pointSliderSelector ).slider({
       orientation: "horizontal",
       range: "min",
       max: 200,
@@ -31,8 +44,8 @@ Airbo.tilePointsSlider = (function() {
       change: refreshPointsField
     });
 
-    start_points = ($("#tile_builder_form_points").val() ? $("#tile_builder_form_points").val() : 10) * 10;
-    $( "#points_slider" ).slider( "value", start_points );
+    var startPoints = (formPoints.val() ? formPoints.val() : 10) * 10;
+    $( "#points_slider" ).slider( "value", startPoints );
 
     addPointsPopUp();
     refreshPointsField();
