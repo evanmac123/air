@@ -2,7 +2,7 @@ var Airbo = window.Airbo || {};
 
 Airbo.TileStatsChart = (function(){
   // Selectors
-  var 
+  var
       actionInputSel    = "[name='tile_stats_chart_form[action_type]']",
       intervalInputSel  = "[name='tile_stats_chart_form[interval_type]']",
       valueInputSel     = "[name='tile_stats_chart_form[value_type]']",
@@ -14,21 +14,38 @@ Airbo.TileStatsChart = (function(){
       doneBtnSel        = datesSelectionSel + " a",
       formSel           = "#new_tile_stats_chart_form",
       formSendSel       = [
-        actionInputSel, 
-        intervalInputSel, 
-        valueInputSel, 
-        dateRangeInputSel, 
+        actionInputSel,
+        intervalInputSel,
+        valueInputSel,
+        dateRangeInputSel,
         dateStartSel,
         dateEndSel
       ].join(", ");
-      
+
   // DOM elements
-  var 
+  var
       dateRangeBlock,
       datesSelection,
       datePickers,
       form;
 
+  function formResponse(){
+    return function (data){
+      if(data.success){
+        // console.log(data.chart);
+        $(".tile_chart_section").replaceWith(data.chart);
+        initVars();
+      }
+    };
+  }
+
+  function submitForm(){
+    // form.submit();
+    form.ajaxSubmit({
+      success: formResponse(),
+      dataType: 'json'
+    });
+  }
 
   function initVars(){
     dateRangeBlock = $(".date_range_block");
@@ -49,7 +66,7 @@ Airbo.TileStatsChart = (function(){
         return;
       }else{
         changedFiled.val(input.attr("name").match(/\[(.*)\]/)[1]);
-        form.submit();
+        submitForm();
       }
     });
     $(document).on("click", doneBtnSel, function(e){
