@@ -88,7 +88,7 @@ $(function() {
       }
 
       function init(){
-        if (Airbo.Utils.supportsFeatureByPresenceOfSelector("#new_tile_builder_form, #add_new_tile") ) {
+        if (Airbo.Utils.supportsFeatureByPresenceOfSelector("#new_tile_builder_form") ) {
           initjQueryObjects();
           initClearImage();
 
