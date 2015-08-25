@@ -24,16 +24,6 @@ describe PlotData do
       @value_type = "activity"
       plot_data = PlotData.new @period, @action_query, @value_type
       plot_data.send(:data_hash).should ==
-        # {
-        #   Time.parse("2015-09-18 00:00:00 UTC")=>3, Time.parse("2015-09-18 01:00:00 UTC")=>0, Time.parse("2015-09-18 02:00:00 UTC")=>0,
-        #   Time.parse("2015-09-18 03:00:00 UTC")=>0, Time.parse("2015-09-18 04:00:00 UTC")=>0, Time.parse("2015-09-18 05:00:00 UTC")=>0,
-        #   Time.parse("2015-09-18 06:00:00 UTC")=>0, Time.parse("2015-09-18 07:00:00 UTC")=>0, Time.parse("2015-09-18 08:00:00 UTC")=>0,
-        #   Time.parse("2015-09-18 09:00:00 UTC")=>0, Time.parse("2015-09-18 10:00:00 UTC")=>5, Time.parse("2015-09-18 11:00:00 UTC")=>0,
-        #   Time.parse("2015-09-18 12:00:00 UTC")=>0, Time.parse("2015-09-18 13:00:00 UTC")=>0, Time.parse("2015-09-18 14:00:00 UTC")=>0,
-        #   Time.parse("2015-09-18 15:00:00 UTC")=>1, Time.parse("2015-09-18 16:00:00 UTC")=>0, Time.parse("2015-09-18 17:00:00 UTC")=>0,
-        #   Time.parse("2015-09-18 18:00:00 UTC")=>0, Time.parse("2015-09-18 19:00:00 UTC")=>0, Time.parse("2015-09-18 20:00:00 UTC")=>0,
-        #   Time.parse("2015-09-18 21:00:00 UTC")=>0, Time.parse("2015-09-18 22:00:00 UTC")=>0, Time.parse("2015-09-18 23:00:00 UTC")=>10
-        # }
         {
           "2015-09-18 00:00:00"=>3, "2015-09-18 01:00:00"=>0, "2015-09-18 02:00:00"=>0, "2015-09-18 03:00:00"=>0,
           "2015-09-18 04:00:00"=>0, "2015-09-18 05:00:00"=>0, "2015-09-18 06:00:00"=>0, "2015-09-18 07:00:00"=>0,

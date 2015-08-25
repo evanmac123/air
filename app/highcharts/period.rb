@@ -68,12 +68,13 @@ class Period
   end
 
   def each_point
-    curr_point = q_start_date
-    stop_point  = q_end_date
+    curr_point = q_start_date.send ("beginning_of_" + time_unit).to_sym
+    stop_point  = q_end_date#.send ("beginning_of_" + time_unit).to_sym
 
     while curr_point <= stop_point
       yield show_date(curr_point, :utc_str)
-      curr_point = (curr_point + point_interval).send ("beginning_of_" + time_unit).to_sym
+      # curr_point = (curr_point + point_interval).send ("beginning_of_" + time_unit).to_sym
+      curr_point = curr_point + point_interval
     end
   end
 
