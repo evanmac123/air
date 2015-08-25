@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Query::TotalViews do
+describe Query::TileQuery do
   let!(:tile) { FactoryGirl.create :tile }
 
   context "Hourly interval" do
@@ -18,16 +18,37 @@ describe Query::TotalViews do
         [Time.new(2015, 9, 19, 0, 1, 0, "+00:00"), 8]
       ].each do |created_at, views|
         FactoryGirl.create :tile_viewing, tile: tile, views: views, created_at: created_at
+        FactoryGirl.create :tile_completion, tile: tile, created_at: created_at
       end
     end
 
-    it "should return aggregated tile viewings data" do
+    it "should return aggregated total tile viewings data" do
       Query::TotalViews.new(tile, period).query.should ==
         {
           "2015-09-18 00:00:00"=>3,
           "2015-09-18 10:00:00"=>5,
           "2015-09-18 15:00:00"=>1,
           "2015-09-18 23:00:00"=>10
+        }
+    end
+
+    it "should return aggregated unique tile viewings data" do
+      Query::UniqueViews.new(tile, period).query.should ==
+        {
+          "2015-09-18 00:00:00"=>1,
+          "2015-09-18 10:00:00"=>1,
+          "2015-09-18 15:00:00"=>1,
+          "2015-09-18 23:00:00"=>2
+        }
+    end
+
+    it "should return aggregated tile completions data" do
+      Query::Interactions.new(tile, period).query.should ==
+        {
+          "2015-09-18 00:00:00"=>1,
+          "2015-09-18 10:00:00"=>1,
+          "2015-09-18 15:00:00"=>1,
+          "2015-09-18 23:00:00"=>2
         }
     end
   end
@@ -47,16 +68,37 @@ describe Query::TotalViews do
         [Time.new(2015, 9, 19, 0, 1, 0, "+00:00"), 8]
       ].each do |created_at, views|
         FactoryGirl.create :tile_viewing, tile: tile, views: views, created_at: created_at
+        FactoryGirl.create :tile_completion, tile: tile, created_at: created_at
       end
     end
 
-    it "should return aggregated tile viewings data" do
+    it "should return aggregated total tile viewings data" do
       Query::TotalViews.new(tile, period).query.should ==
         {
           "2015-09-14 00:00:00"=>3,
           "2015-09-15 00:00:00"=>5,
           "2015-09-16 00:00:00"=>1,
           "2015-09-18 00:00:00"=>10
+        }
+    end
+
+    it "should return aggregated unqie tile viewings data" do
+      Query::UniqueViews.new(tile, period).query.should ==
+        {
+          "2015-09-14 00:00:00"=>1,
+          "2015-09-15 00:00:00"=>1,
+          "2015-09-16 00:00:00"=>1,
+          "2015-09-18 00:00:00"=>2
+        }
+    end
+
+    it "should return aggregated tile completions data" do
+      Query::Interactions.new(tile, period).query.should ==
+        {
+          "2015-09-14 00:00:00"=>1,
+          "2015-09-15 00:00:00"=>1,
+          "2015-09-16 00:00:00"=>1,
+          "2015-09-18 00:00:00"=>2
         }
     end
   end
@@ -89,15 +131,34 @@ describe Query::TotalViews do
         [Time.new(2015, 9, 28, 0, 1, 0, "+00:00"), 8]
       ].each do |created_at, views|
         FactoryGirl.create :tile_viewing, tile: tile, views: views, created_at: created_at
+        FactoryGirl.create :tile_completion, tile: tile, created_at: created_at
       end
     end
 
-    it "should return aggregated tile viewings data" do
+    it "should return aggregated total tile viewings data" do
       Query::TotalViews.new(tile, period).query.should ==
         {
           "2015-09-07 00:00:00"=>3,
           "2015-09-14 00:00:00"=>8,
           "2015-09-21 00:00:00"=>8
+        }
+    end
+
+    it "should return aggregated unique tile viewings data" do
+      Query::UniqueViews.new(tile, period).query.should ==
+        {
+          "2015-09-07 00:00:00"=>1,
+          "2015-09-14 00:00:00"=>3,
+          "2015-09-21 00:00:00"=>1
+        }
+    end
+
+    it "should return aggregated tile completions data" do
+      Query::Interactions.new(tile, period).query.should ==
+        {
+          "2015-09-07 00:00:00"=>1,
+          "2015-09-14 00:00:00"=>3,
+          "2015-09-21 00:00:00"=>1
         }
     end
   end
@@ -117,15 +178,34 @@ describe Query::TotalViews do
         [Time.new(2015, 10, 19, 0, 1, 0, "+00:00"), 8]
       ].each do |created_at, views|
         FactoryGirl.create :tile_viewing, tile: tile, views: views, created_at: created_at
+        FactoryGirl.create :tile_completion, tile: tile, created_at: created_at
       end
     end
 
-    it "should return aggregated tile viewings data" do
+    it "should return aggregated total tile viewings data" do
       Query::TotalViews.new(tile, period).query.should ==
         {
           "2015-08-01 00:00:00"=>8,
           "2015-09-01 00:00:00"=>1,
           "2015-10-01 00:00:00"=>10
+        }
+    end
+
+    it "should return aggregated unique tile viewings data" do
+      Query::UniqueViews.new(tile, period).query.should ==
+        {
+          "2015-08-01 00:00:00"=>2,
+          "2015-09-01 00:00:00"=>1,
+          "2015-10-01 00:00:00"=>2
+        }
+    end
+
+    it "should return aggregated tile ineractions data" do
+      Query::Interactions.new(tile, period).query.should ==
+        {
+          "2015-08-01 00:00:00"=>2,
+          "2015-09-01 00:00:00"=>1,
+          "2015-10-01 00:00:00"=>2
         }
     end
   end
