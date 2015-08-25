@@ -10,11 +10,11 @@ class Period
   def x_axis_label_format
     case @interval_type
     when 'monthly'
-      "%b. %d"
+      "%b %Y"
     when 'weekly'
-      "%b. %d"
+      "%b %d"
     when 'daily'
-      "%b. %d"
+      "%b %d"
     when 'hourly'
       "%l %p"
     end

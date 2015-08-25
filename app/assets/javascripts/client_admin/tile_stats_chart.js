@@ -54,6 +54,8 @@ Airbo.TileStatsChart = (function(){
     datePickers = $(dateStartSel + ", " + dateEndSel);
     changedFiled = $(changedFieldSel);
     form = $(formSel);
+
+    datePickers.datepicker();
   }
 
   function initEvents(){
@@ -82,7 +84,6 @@ Airbo.TileStatsChart = (function(){
 
   function init(){
     initVars();
-    datePickers.datepicker();
     initEvents();
   }
   return {
