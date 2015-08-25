@@ -25,7 +25,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def new
-    @tile_builder_form = TileBuilderForm.new(@demo, params)
+    @tile_builder_form = TileBuilderForm.new(@demo, builder_options)
     record_new_ping
 
     if request.xhr? 
@@ -37,13 +37,16 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   end
 
+
+  def edit
+    tile = get_tile
+    load_image_library
+    @tile_builder_form = TileBuilderForm.new(@demo,builder_options.merge(tile: tile))
+    record_edit_ping
+  end
+
   def create
-    @tile_builder_form =  TileBuilderForm.new(
-                            @demo,
-                            parameters: params[:tile_builder_form],
-                            creator: current_user,
-                            actiont: params[:action]
-                          )
+    @tile_builder_form =  TileBuilderForm.new(@demo,builder_options)
     if @tile_builder_form.create_tile
       set_after_save_flash(@tile_builder_form.tile)
       schedule_tile_creation_ping(@tile_builder_form.tile)
@@ -78,13 +81,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @show_share_section_intro = show_share_section_intro
     @show_submitted_tile_menu_intro = show_submitted_tile_menu_intro
     tile_in_box_viewed_ping @tile
-  end
-
-  def edit
-    tile = get_tile
-    load_image_library
-    @tile_builder_form = tile.to_form_builder
-    record_edit_ping
   end
 
   def destroy
@@ -274,5 +270,13 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   def load_image_library
     @tile_images = TileImage.all_ready.first(TileImage::PAGINATION_PADDING)
     @curr_page = 0
+  end
+
+  def builder_options
+    {
+      form_params: params[:tile_builder_form],
+      creator: current_user,
+      action: params[:action]
+    }
   end
 end

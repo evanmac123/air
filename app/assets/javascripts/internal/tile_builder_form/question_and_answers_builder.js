@@ -405,11 +405,9 @@ Airbo.TileQuestionBuilder = (function(){
       defaultType = config.type;
       defaultSubtype = config.subType;
 
-      $().ready(function(){
-        _.each($('.answer-field'), addCharacterCounterFor);
-        turnRadioGreen();
-        initialTypeSetUp(tileHasQuestionType, defaultType, defaultSubtype);
-      });
+      _.each($('.answer-field'), addCharacterCounterFor);
+      turnRadioGreen();
+      initialTypeSetUp(tileHasQuestionType, defaultType, defaultSubtype);
     }
 
     function getTileTypes(){
@@ -421,11 +419,11 @@ Airbo.TileQuestionBuilder = (function(){
     }
   function init (){
     initJQueryObjects()
-    setUp();
     getTileTypes();
     initType();
     initSubType();
     initQuestionLostFocus();
+    setUp();
   }
 
   return {

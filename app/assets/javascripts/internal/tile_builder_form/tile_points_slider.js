@@ -9,7 +9,6 @@ Airbo.tilePointsSlider = (function() {
   function refreshPointsField(){
     //max points 20, max slider 200. so:
     var points = Math.ceil($( "#points_slider" ).slider( "value" )/10);
-    debugger
     formPoints.val(points);
     $(".points_num").text(points);
   }
@@ -32,7 +31,6 @@ Airbo.tilePointsSlider = (function() {
 
   function init(){
     initjQueryObjects();
-    debugger
 
     $(pointSliderSelector ).slider({
       orientation: "horizontal",
