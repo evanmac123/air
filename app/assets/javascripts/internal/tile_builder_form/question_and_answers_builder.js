@@ -3,8 +3,10 @@ var Airbo = window.Airbo || {};
 Airbo.TileQuestionBuilder = (function(){
   var tileTypes = []
     , tileHasQuestionType
+    , tileTextContainer
     , defaultType
     , defaultSubtype
+    , tileTextContainerSelector = "#new_tile_builder_form .tile_texts_container"
   ;
 
     function initSubType() {
@@ -398,6 +400,10 @@ Airbo.TileQuestionBuilder = (function(){
     }
 
     function setUp() {
+      var config = tileTextContainer.data('questionConfig');
+      tileHasQuestionType = config.hasQuestionType;
+      defaultType = config.type;
+      defaultSubtype = config.subType;
 
       $().ready(function(){
         _.each($('.answer-field'), addCharacterCounterFor);
@@ -407,14 +413,14 @@ Airbo.TileQuestionBuilder = (function(){
     }
 
     function getTileTypes(){
-     tileTypes=  $(".tile_texts_container").data('tileTypes')
+     tileTypes=  tileTextContainer.data('tileTypes');
     }
 
+    function initJQueryObjects(){
+      tileTextContainer = $(tileTextContainerSelector);
+    }
   function init (){
-    var config = $(".tile_texts_container").data('questionConfig')
-    tileHasQuestionType = config.hasQuestionType
-    defaultType = config.type
-    defaultSubtype = config.subType
+    initJQueryObjects()
     setUp();
     getTileTypes();
     initType();
