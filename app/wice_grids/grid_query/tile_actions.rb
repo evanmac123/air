@@ -1,14 +1,20 @@
 class GridQuery::TileActions
   attr_reader :tile, :query_type
   # query_type: all, viewed, not_viewed, viewed_and_interacted, viewed_and_not_interacted
-
+  GRID_TYPES = {
+    "all" => "All",
+    "viewed" => "Viewed",
+    "not_viewed" => "Didn't view",
+    "viewed_and_interacted" => "Viewed and interacted",
+    "viewed_and_not_interacted" => "Viewed and didn't interact"
+  }.freeze
   def initialize tile, query_type
     @tile = tile
     @query_type = query_type
   end
 
   def query
-    self.send(query_type)
+    self.send(query_type.to_sym)
   end
 
   protected

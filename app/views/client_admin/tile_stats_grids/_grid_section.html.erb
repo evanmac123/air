@@ -1,0 +1,9 @@
+<% current_grid ||= "all" %>
+<div class="tile_grid_section" data-update-link="<%= client_admin_tile_tile_stats_grids_path(tile) %>">
+  <div class="grid_types">
+    <% GridQuery::TileActions::GRID_TYPES.each do |type, name| %>
+      <%= link_to name, client_admin_tile_tile_stats_grids_path(tile), data: {grid_type: type}  %>
+    <% end %>
+</div>
+  <%= render partial: 'client_admin/tile_stats/grid', locals: {tile_stats_grid: @tile_stats_grid, tile: @tile} %>
+</div>

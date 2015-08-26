@@ -4,28 +4,33 @@ Airbo.TileStatsGrid = (function(){
   // Selectros
   var
       gridSel = "#tile_stats_grid",
-      linkInGrid = gridSel + " a",
-      updateGridSel = "#update_grid";
+      linkInGridSel = gridSel + " a",
+      tileGridSectionSel = ".tile_grid_section";
 
-  var updateLink;
+  var updateLink,
+      tileGridSection,
+      gridType = "all";
 
   function ajaxResponse(){
     return function (data){
       if(data.success){
-        $(gridSel).replaceWith(data.grid);
+        tileGridSection.replaceWith(data.grid);
+        initVars();
       }
     };
   }
 
   function initVars(){
-    updateLink = $(updateGridSel).attr("href");
+    tileGridSection = $(tileGridSectionSel);
+    updateLink = tileGridSection.data("update-link");
   }
   function initEvents(){
-    $(document).on("click", linkInGrid, function(e){
+    $(document).on("click", linkInGridSel, function(e){
       e.preventDefault();
-      linkParams = $(this).attr("href");
+      linkParams = $(this).attr("href").split('?')[1];
       $.ajax({
-        url: updateLink + linkParams,
+        url: updateLink + "?" + linkParams,
+        data: {grid_type: gridType},
         success: ajaxResponse(),
         dataType: "json"
       });
