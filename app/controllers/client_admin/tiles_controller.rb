@@ -59,7 +59,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     else
       if request.xhr?
         response.headers["X-Message"]= @tile_builder_form.error_message
-        head :ok, :location => location
+        head :unprocessable_entity and return
       else
         flash.now[:failure] = @tile_builder_form.error_message
         load_tags

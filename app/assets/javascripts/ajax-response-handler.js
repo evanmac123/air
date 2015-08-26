@@ -46,6 +46,7 @@ Airbo.AjaxResponseHandler = (function(){
   }
 
   function flash(type, msg){
+    alert(msg);
     //FlashMsg.setMsg(type, msg).run();
     //noop
   }

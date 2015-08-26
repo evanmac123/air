@@ -18,12 +18,10 @@ $(function(){
       data: form.serialize(),
     }).done(function(data,status,xhr){
         ajaxHandler.silentSuccess(data, status, xhr, function(){
-
         });
 
     }).fail(function(xhr, status, errorThrown){
-      ajaxHandler.fail(status, xhr, function(){
-        alert("failed");
+      ajaxHandler.fail( xhr, status, function(){
         submitButton.removeAttr("disabled");
       });
 
