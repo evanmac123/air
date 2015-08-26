@@ -3,13 +3,13 @@ var Airbo = window.Airbo || {};
 Airbo.TileStatsGrid = (function(){
   // Selectros
   var
-      gridSel = "#tile_stats_grid",
-      linkInGridSel = gridSel + " a",
-      tileGridSectionSel = ".tile_grid_section";
+      tileGridSectionSel = ".tile_grid_section",
+      linkInGridSel = tileGridSectionSel + " a",
+      currentGridLinkSel = ".grid_types a.current";
 
   var updateLink,
       tileGridSection,
-      gridType = "all";
+      gridType;
 
   function ajaxResponse(){
     return function (data){
@@ -23,11 +23,15 @@ Airbo.TileStatsGrid = (function(){
   function initVars(){
     tileGridSection = $(tileGridSectionSel);
     updateLink = tileGridSection.data("update-link");
+    gridType = $("currentGridLinkSel").data("grid-type");
   }
   function initEvents(){
     $(document).on("click", linkInGridSel, function(e){
       e.preventDefault();
       linkParams = $(this).attr("href").split('?')[1];
+      if( $(this).data("grid-type") ){
+        gridType = $(this).data("grid-type");
+      }
       $.ajax({
         url: updateLink + "?" + linkParams,
         data: {grid_type: gridType},
