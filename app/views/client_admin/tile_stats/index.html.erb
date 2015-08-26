@@ -4,6 +4,7 @@
       <%= @tile.headline %>
     </h1>
     <%= render partial: 'client_admin/tile_stats_charts/chart_section', locals: {chart_form: @chart_form, chart: @chart} %>
+    <%= link_to "Update Grid", client_admin_tile_tile_stats_grids_path(@tile), id: "update_grid" %>
     <%= render partial: 'client_admin/tile_stats/grid', locals: {tile_stats_grid: @tile_stats_grid, tile: @tile} %>
   </div>
 </div>

@@ -6,7 +6,7 @@ Health::Application.routes.draw do
   match "scoreboard"    => "scores#index"
   match "join"          => "invitations#new"
 
-  # moved these to top level but don't want to break old links  
+  # moved these to top level but don't want to break old links
   match "client_admin/explore"     => "explores#show"
   match "client_admin/explore_new" => "explores#show"
   match "ard/:public_slug" => "public_boards#show", :as => "public_board", :via => :get
@@ -24,7 +24,7 @@ Health::Application.routes.draw do
     resource :verification, :only => [:show, :update]
   end
   get "invitation" => "email_previews#invitation", :as => "invitation_preview"
- 
+
   resource :unsubscribe, :only => [:new, :create, :show]
   resources :invitations, :only => [:new, :create, :show]
   namespace :invitation do
@@ -71,7 +71,7 @@ Health::Application.routes.draw do
 
   get "terms" => "pages#terms", :as => "terms"
   get "privacy" => "pages#privacy", :as => "privacy"
-  
+
   resource :home,  :only => :show
   resource :admin, :only => :show
   resource :client_admin, :only => :show
@@ -81,7 +81,7 @@ Health::Application.routes.draw do
   resources :parent_boards, only: [:show]
 
 	resource :board_setting, only: [:show]
-  resource :current_board, only: [:update]  
+  resource :current_board, only: [:update]
   resource :explore, only: [:show] do
     resources :tile_previews, only: [:show], :path => "tile"
     resource :copy_tile, only: [:create]
@@ -112,7 +112,7 @@ Health::Application.routes.draw do
     end
     resources :users_invites, only: :create
     get 'preview_invite_email', to: 'users_invites#preview_invite_email'
-    
+
     resources :locations, :only => :create
 
     resources :tiles do
@@ -123,6 +123,7 @@ Health::Application.routes.draw do
       resources :tile_completions, :only => [:index]
       resources :tile_stats, :only => [:index]
       resources :tile_stats_charts, :only => [:create]
+      resources :tile_stats_grids, :only => [:index]
       member do
         post 'sort'
       end
@@ -131,9 +132,9 @@ Health::Application.routes.draw do
     resources :public_tiles, only: :update
     resources :sharable_tiles, only: :update
     resources :tile_images, only: :index
-    
+
     get 'tiles/:tile_id/non_completions' => "tile_completions#non_completions"
-        
+
     resource :tiles_digest_notification, only: :create
 
     resources :tiles_follow_up_email, only: :destroy
@@ -156,10 +157,10 @@ Health::Application.routes.draw do
     resource :explore, only: :show do
       member do
         get 'tile_tag_show'
-        get 'tile_preview'        
+        get 'tile_preview'
       end
     end
-    
+
     resources :tile_tags, only: [:index] do
       collection do
         get 'add'
@@ -168,7 +169,7 @@ Health::Application.routes.draw do
 
     resource :billing_information
 
-    resources :prizes, only: :index do 
+    resources :prizes, only: :index do
       collection do
         post 'save_draft'
         post 'start'
@@ -234,7 +235,7 @@ Health::Application.routes.draw do
     resources :tags
 
     resources :labels
-    
+
     post "lost_user", :controller => "lost_users", :action => :create, :as => "lost_user"
 
     resources :demos, :only => [:new, :create, :show, :edit, :update] do

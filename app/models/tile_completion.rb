@@ -15,19 +15,19 @@ class TileCompletion < ActiveRecord::Base
 
   def creator_has_tile_completed
     # OPTZ: this can run asynchronously
-    
+
     creator = self.tile.creator
-    if creator.nil? == false && 
-       creator.has_own_tile_completed == false && 
+    if creator.nil? == false &&
+       creator.has_own_tile_completed == false &&
        creator != self.user &&
-       creator.creator_tile_completions.limit(2).length == 1 
+       creator.creator_tile_completions.limit(2).length == 1
        # is the TileCompletion we just created the only one?
        # The "limit 2" there is a DB optimization: we were getting long-running
-       # queries due to counting up ALL tile completions for this creator when 
+       # queries due to counting up ALL tile completions for this creator when
        # all we really want to know is, is there more than one. Throwing in the
-       # limit turned a typical query from 500 ms to 0.1 ms, or a 5000X 
+       # limit turned a typical query from 500 ms to 0.1 ms, or a 5000X
        # speedup. Not bad for less than ten extra characters.
-      
+
       creator.mark_own_tile_completed(self.tile)
     end
   end
@@ -39,7 +39,7 @@ class TileCompletion < ActiveRecord::Base
   def self.user_completed_any_tiles?(user_id, tile_ids)
     where(user_id: user_id, tile_id: tile_ids).count > 0
   end
-  
+
   def has_user_joined?
     user.claimed?
   end
@@ -67,13 +67,13 @@ class TileCompletion < ActiveRecord::Base
       .joins do
         "LEFT JOIN (" +
          users_viewings_subquery.to_sql +
-        ") AS users_viewings " + 
+        ") AS users_viewings " +
         "ON users_viewings.user_id = users.id"
       end
       .joins do
         "LEFT JOIN (" +
          guest_users_viewings_subquery.to_sql +
-        ") AS guest_users_viewings " + 
+        ") AS guest_users_viewings " +
         "ON guest_users_viewings.user_id = guest_users.id"
       end
       .where{tile_id == tileid}
@@ -81,25 +81,25 @@ class TileCompletion < ActiveRecord::Base
 
   def self.tile_completion_grid_params
     {
-      name: 'tc_grid', order: 'created_at', order_direction: 'desc',
+      name: 'tc_grid', order: 'created_at', order_direction: 'desc', per_page: 5,
       custom_order: {
 
-        ORDER_BY_USER_NAME   => "CASE WHEN #{User.table_name}.id IS NULL 
-                                 THEN 'Guest User[' || #{GuestUser.table_name}.id ||']' 
+        ORDER_BY_USER_NAME   => "CASE WHEN #{User.table_name}.id IS NULL
+                                 THEN 'Guest User[' || #{GuestUser.table_name}.id ||']'
                                  ELSE #{User.table_name}.name END",
 
-        ORDER_BY_USER_EMAIL  => "CASE WHEN #{User.table_name}.id IS NULL 
-                                 THEN 'guest_user' || #{GuestUser.table_name}.id ||'@example.com' 
+        ORDER_BY_USER_EMAIL  => "CASE WHEN #{User.table_name}.id IS NULL
+                                 THEN 'guest_user' || #{GuestUser.table_name}.id ||'@example.com'
                                  ELSE #{User.table_name}.email END",
 
-        ORDER_BY_USER_JOINED => "CASE WHEN #{User.table_name}.id IS NULL 
-                                 THEN NULL 
+        ORDER_BY_USER_JOINED => "CASE WHEN #{User.table_name}.id IS NULL
+                                 THEN NULL
                                  ELSE #{User.table_name}.accepted_invitation_at END",
 
-        ORDER_BY_TILE_VIEWS  => "CASE WHEN #{User.table_name}.id IS NULL 
-                                 THEN guest_users_viewings.views 
+        ORDER_BY_TILE_VIEWS  => "CASE WHEN #{User.table_name}.id IS NULL
+                                 THEN guest_users_viewings.views
                                  ELSE users_viewings.views END"
-      
+
       },
       enable_export_to_csv: true,
       csv_file_name: "tile_completions_report_#{DateTime.now.strftime("%d_%m_%y")}"
@@ -115,22 +115,23 @@ class TileCompletion < ActiveRecord::Base
       .joins do
         "LEFT JOIN (" +
          users_completions_subquery.to_sql +
-        ") AS tile_completions " + 
+        ") AS tile_completions " +
         "ON tile_completions.user_id = users.id"
       end \
-      .joins do 
+      .joins do
         "LEFT JOIN (" +
          users_viewings_subquery.to_sql +
-        ") AS tile_viewings " + 
+        ") AS tile_viewings " +
         "ON tile_viewings.user_id = users.id"
       end \
-      .where{ tile_completions.id == nil }
+      .where{ tile_completions.id == nil } \
+      .select("users.id AS user_id, users.name AS name, users.email AS email, tile_viewings.views AS views, users.accepted_invitation_at AS joined")
   end
 
   def self.non_completion_grid_params
     {
-      name: 'nc_grid', 
-      order: 'name', 
+      name: 'nc_grid',
+      order: 'name',
       order_direction: 'asc',
       enable_export_to_csv: true,
       csv_file_name: "non_completions_report_#{DateTime.now.strftime("%d_%m_%y")}"

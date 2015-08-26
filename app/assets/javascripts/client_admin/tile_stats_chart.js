@@ -102,4 +102,4 @@ $(function(){
   if (Airbo.Utils.isAtPage(Airbo.Utils.Pages.TILE_STATS_CHART)) {
     Airbo.TileStatsChart.init();
   }
-})
+});

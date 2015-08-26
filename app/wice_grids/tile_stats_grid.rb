@@ -18,7 +18,7 @@ class TileStatsGrid
 
   def grid_params
     {
-      name: 'all',
+      name: 'tile_stats_grid',
       order: 'name',
       order_direction: 'asc',
       per_page: 5,
