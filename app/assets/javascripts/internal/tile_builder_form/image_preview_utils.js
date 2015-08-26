@@ -62,6 +62,8 @@ $(function() {
 
       function showImagePreview(imgUrl){
         previewer.setPreviewImage(imgUrl);
+        //TODO decouple from the new tile builder modal
+        $("#images_modal").foundation("reveal", "close");
       }
 
       function showFileName(file){

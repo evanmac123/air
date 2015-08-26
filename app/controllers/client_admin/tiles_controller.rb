@@ -41,8 +41,15 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   def edit
     tile = get_tile
     load_image_library
-    @tile_builder_form = TileBuilderForm.new(@demo,builder_options.merge(tile: tile))
     record_edit_ping
+    @tile_builder_form = TileBuilderForm.new(@demo,builder_options.merge(tile: tile))
+
+    if request.xhr? 
+      render partial: "shared/tiles/builder", layout: false and return
+    else
+      #normal rails render
+    end
+
   end
 
   #TODO consider refactoring with custom responders
@@ -52,7 +59,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       set_after_save_flash(@tile_builder_form.tile)
       schedule_tile_creation_ping(@tile_builder_form.tile)
       if request.xhr?
-        head :ok, :location => client_admin_tile_path(@tile_builder_form.tile)
+        head :ok, :location => client_admin_tiles_path
       else
         redirect_to client_admin_tile_path(@tile_builder_form.tile)
       end
@@ -69,13 +76,9 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     end
   end
 
-  def blank
-    render "blank", layout: "empty_layout"
-  end
 
   def update
     @tile = get_tile
-
     if params[:update_status]
       update_status
       record_update_status_ping
@@ -91,6 +94,10 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @show_share_section_intro = show_share_section_intro
     @show_submitted_tile_menu_intro = show_submitted_tile_menu_intro
     tile_in_box_viewed_ping @tile
+  end
+
+  def blank
+    render "blank", layout: "empty_layout"
   end
 
   def destroy
@@ -242,19 +249,25 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
   
   def update_fields
-    @tile_builder_form =  TileBuilderForm.new( 
-                            @demo,
-                            parameters: params[:tile_builder_form],
-                            tile: @tile
-                          )
+    @tile_builder_form =  TileBuilderForm.new( @demo, builder_options.merge(tile: @tile))
     if @tile_builder_form.update_tile
       set_after_save_flash(@tile_builder_form.tile)
-      redirect_to client_admin_tile_path(@tile_builder_form.tile)
+      if request.xhr?
+        head :ok, :location => client_admin_tiles_path
+      else
+        redirect_to client_admin_tile_path(@tile_builder_form.tile)
+      end
     else
-      flash.now[:failure] = "Sorry, we couldn't update this tile: " + @tile_builder_form.error_messages
-      set_flash_for_no_image
-      load_image_library
-      render :edit
+      flash.now[:failure] = msg = "Sorry, we couldn't update this tile: " + @tile_builder_form.error_messages
+      if request.xhr?
+        response.headers["X-Message"]= msg
+        head :unprocessable_entity and return
+      else
+        set_flash_for_no_image
+        load_image_library
+        render :edit
+      end
+
     end
   end
 

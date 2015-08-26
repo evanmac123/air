@@ -46,7 +46,7 @@ Airbo.AjaxResponseHandler = (function(){
   }
 
   function flash(type, msg){
-    alert(msg);
+    $("#tile_flash").html(msg).show();
     //FlashMsg.setMsg(type, msg).run();
     //noop
   }
