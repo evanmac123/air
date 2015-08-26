@@ -29,12 +29,18 @@ Airbo.TileStatsChart = (function(){
       datePickers,
       form;
 
+  // function updateChartSection(chartSection){
+  //   $(".tile_chart_section").replaceWith(chartSection);
+  //   initVars();
+  // }
+
   function formResponse(){
     return function (data){
       if(data.success){
         // console.log(data.chart);
         $(".tile_chart_section").replaceWith(data.chart);
         initVars();
+        // updateChartSection(data.chart);
       }
     };
   }
@@ -85,6 +91,7 @@ Airbo.TileStatsChart = (function(){
   function init(){
     initVars();
     initEvents();
+    submitForm();
   }
   return {
     init: init

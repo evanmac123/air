@@ -2,7 +2,7 @@ class GridQuery::TileActions
   attr_reader :tile, :query_type
   # query_type: all, viewed, not_viewed, viewed_and_interacted, viewed_and_not_interacted
 
-  def initialize tile, query_type = :all
+  def initialize tile, query_type
     @tile = tile
     @query_type = query_type
   end

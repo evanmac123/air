@@ -1,8 +1,9 @@
 class TileStatsGrid
-  attr_reader :tile
+  attr_reader :tile, :query_type
 
-  def initialize tile
+  def initialize tile, query_type
     @tile = tile
+    @query_type = query_type
   end
 
   def args
@@ -12,7 +13,7 @@ class TileStatsGrid
   protected
 
   def query
-    GridQuery::TileActions.new(tile).query
+    GridQuery::TileActions.new(tile, query_type).query
   end
 
   def grid_params
