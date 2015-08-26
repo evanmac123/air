@@ -46,7 +46,8 @@ class GridQuery::TileActions
           "ON tile_viewings.user_id = users.id"
         end.
         select(
-          "users.name AS user_name, \
+          "users.id AS user_id, \
+           users.name AS user_name, \
            users.email AS user_email, \
            tile_viewings.views AS tile_views, \
            tile_completions.answer_index AS tile_answer_index, \
