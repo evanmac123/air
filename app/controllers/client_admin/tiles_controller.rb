@@ -45,32 +45,42 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     record_edit_ping
   end
 
+  #TODO consider refactoring with custom responders
   def create
     @tile_builder_form =  TileBuilderForm.new(@demo,builder_options)
     if @tile_builder_form.create_tile
       set_after_save_flash(@tile_builder_form.tile)
       schedule_tile_creation_ping(@tile_builder_form.tile)
-      redirect_to client_admin_tile_path(@tile_builder_form.tile)
+      if request.xhr?
+        head :ok, :location => client_admin_tile_path(@tile_builder_form.tile)
+      else
+        redirect_to client_admin_tile_path(@tile_builder_form.tile)
+      end
     else
-      flash.now[:failure] = @tile_builder_form.error_message
-			load_tags
-			load_image_library
-      render "new"
+      if request.xhr?
+        response.headers["X-Message"]= @tile_builder_form.error_message
+        head :ok, :location => location
+      else
+        flash.now[:failure] = @tile_builder_form.error_message
+        load_tags
+        load_image_library
+        render "new"
+      end
     end
   end
 
-	def blank
-     render "blank", layout: "empty_layout"
-	end
+  def blank
+    render "blank", layout: "empty_layout"
+  end
 
   def update
     @tile = get_tile
-    
+
     if params[:update_status]
       update_status
       record_update_status_ping
     else
-      update_fields        
+      update_fields
     end
   end
 

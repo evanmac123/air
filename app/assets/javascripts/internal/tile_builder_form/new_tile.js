@@ -9,6 +9,7 @@ Airbo.TileCreator = (function(){
     , newTileModalSelector = "#new_tile_modal"
     , imagesModalSelector ="#images_modal"
     , addImageSelector ="#image_uploader"
+    , tileForm ="#new_tile_builder_form"
   ;
 
   function initNewTileModal(){
@@ -27,6 +28,7 @@ Airbo.TileCreator = (function(){
             newTileModal.html(data);
             newTileModal.foundation("reveal", "open");
             tileFormLoaded = true;
+            $(tileForm).data("asAjax", true);
             Airbo.TileImagesMgr.init();
           },
 
