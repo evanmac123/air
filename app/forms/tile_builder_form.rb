@@ -28,7 +28,7 @@ class TileBuilderForm
   def initialize(demo, options = {})
     @demo = demo
     @action = options[:action]
-    @form_params = (options[:parameters] || {})
+    @form_params = (options[:form_params] || {})
     @tile = (options[:tile] || MultipleChoiceTile.new(demo: @demo, position: demo.next_draft_tile_position))
     @creator = options[:creator]
 
