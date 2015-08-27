@@ -1,0 +1,20 @@
+@mixin sort-arrows($color) {
+  $arrow-up-ascii: "\2191";
+  $arrow-down-ascii: "\2193";
+  background: none;
+  padding-right: 18px;
+  position: relative;
+  &:after {
+    content: $arrow-up-ascii;
+    color: $color;
+    position: absolute;
+    right: 0;
+    top: -2px;
+  }
+  &.asc:after {
+    content: $arrow-up-ascii;
+  }
+  &.desc:after {
+    content: $arrow-down-ascii;
+  }
+}

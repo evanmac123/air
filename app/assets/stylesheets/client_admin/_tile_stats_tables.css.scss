@@ -1,4 +1,5 @@
 body.client_admin-tile_stats {
+  @import "../mixins/sort_arrows";
   // Grid Controls
   .grid_controls {
     margin-bottom: 20px;
@@ -36,6 +37,13 @@ body.client_admin-tile_stats {
       a {
         color: $text-color;
         font-weight: 700;
+        @include sort-arrows(transparent);
+        &:hover {
+          @include sort-arrows(#8c8c8c);
+        }
+      }
+      &.sorted a {
+        @include sort-arrows($text-color);
       }
       &:first-child {
         border-top-left-radius: 3px;
@@ -55,6 +63,7 @@ body.client_admin-tile_stats {
   }
 
   .survey-chart-table {
+    margin-bottom: 60px;
     .answer {
       width: 50%;
     }
