@@ -4,6 +4,7 @@ Airbo.TileCreator = (function(){
   var newTileModal
     , imagesModal
     , libaryLoaded
+    , keepOpen = false
     , newTileSelector = "a#add_new_tile, #add_new_tile.preview_menu_item a,.tile_buttons .edit_button>a"
     , newTileModalSelector = "#new_tile_modal"
     , imagesModalSelector ="#images_modal"
@@ -75,14 +76,20 @@ Airbo.TileCreator = (function(){
 
     $(document).on('close.fndtn.reveal', newTileModalSelector, function (event) {
       if (confirm("Are you sure you want to cancel creating this tile")){
-        return true; 
+        keepOpen = false;
       }else{
-        event.preventDefault();
+        keepOpen = true;
       }
     });
 
+    $(document).on('closed.fndtn.reveal', newTileModalSelector, function (event) {
+      if(keepOpen){
+        newTileModal.foundation("reveal", "open");
+      }
+    })
+
     $(document).on('closed.fndtn.reveal', imagesModalSelector, function () {
-      newTileModal.foundation("reveal", "open");
+        newTileModal.foundation("reveal", "open");
     });
 
     initJQueryObjects();
