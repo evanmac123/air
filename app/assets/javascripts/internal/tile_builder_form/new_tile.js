@@ -24,6 +24,7 @@ Airbo.TileCreator = (function(){
 
  function prepShow(){
    $("body").addClass("client_admin-tiles-show");
+   $(".tile_preview_container").removeClass("large-9").addClass("large-12");
    preventClose = false
  }
 
