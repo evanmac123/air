@@ -94,4 +94,61 @@ body.client_admin-tile_stats {
       padding: 7px;
     }
   }
+  .tile_grid_section table {
+    .name_column {
+      width: 20%;
+    }
+    .email_column {
+      width: 25%;
+    }
+    .views_column {
+      width: 10%;
+    }
+    .answer_column {
+      width: 20%;
+    }
+    .date_column {
+      width: 20%;
+    }
+    tfoot td {
+      border: 0;
+    }
+  }
+  // Pagination in grid restyling
+  .pagination_status {
+    display: none;
+  }
+  .pagination {
+    float: none;
+  }
+  ul.pagination {
+    margin-left: 40%;
+    font-size: 13px;
+    li {
+      margin-left: 7px;
+      a {
+        color: #8c8c8c;
+        background: transparent;
+        border-radius: 3px;
+        border: 1px solid #8c8c8c;
+        padding: 4px 10px;
+        &:hover {
+          color: #666666;
+          border-color: #666666;
+          background: transparent;
+        }
+
+      }
+      &:last-child a[rel='next'], &:first-child a[rel='prev'] {
+        display: none;
+      }
+      &.disabled a {
+        border: 0;
+      }
+      &.active a {
+        color: #454545;
+        border-color: #454545;
+      }
+    }
+  }
 }
