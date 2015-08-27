@@ -94,6 +94,10 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @show_share_section_intro = show_share_section_intro
     @show_submitted_tile_menu_intro = show_submitted_tile_menu_intro
     tile_in_box_viewed_ping @tile
+    if request.xhr? 
+      render layout: false
+    end
+
   end
 
   def blank
@@ -133,7 +137,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
     #FIXME is this really important for tracking?
     tile_status_updated_ping @tile, "Dragged tile to move"
-    
+
   end
 
   

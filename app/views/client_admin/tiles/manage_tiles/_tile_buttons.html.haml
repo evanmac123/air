@@ -14,7 +14,7 @@
         = fa_icon 'trash'
   - if presenter.has_edit_button?              
     %li.edit_button
-      = link_to edit_client_admin_tile_path(presenter) do
+      = link_to edit_client_admin_tile_path(presenter), data:{action: "edit"} do
         = fa_icon 'pencil'
   - if presenter.has_ignore_button?
     %li.ignore_button

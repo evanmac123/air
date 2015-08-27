@@ -1,30 +1,64 @@
 var Airbo = window.Airbo || {};
 
 Airbo.TileCreator = (function(){
-  var newTileModal
+  var tileModal
     , imagesModal
     , libaryLoaded
+    , preventCloseMsg
     , keepOpen = false
-    , newTileSelector = "a#add_new_tile, #add_new_tile.preview_menu_item a,.tile_buttons .edit_button>a"
-    , newTileModalSelector = "#new_tile_modal"
+    , newSelector = "a#add_new_tile, #add_new_tile.preview_menu_item a"
+    , editSelector = ".tile_buttons .edit_button>a"
+    , previewSelector = ".tile-wrapper a.tile_thumb_link"
+    , tileModalSelector = "#new_tile_modal"
     , imagesModalSelector ="#images_modal"
     , addImageSelector ="#image_uploader"
     , tileForm ="#new_tile_builder_form"
+    , modalActivationSelectors = [newSelector, editSelector, previewSelector].join(",")
   ;
+
+ function prepEditOrNew(action){
+   $(tileForm).data("asAjax", true);
+   $("body").addClass("client_admin-tiles-edit");
+   preventCloseMsg = action
+ }
+
+ function prepShow(){
+   $("body").addClass("client_admin-tiles-show");
+   preventClose = false
+ }
+
+ function processEvent(trigger){
+
+   switch(trigger.data("action")){
+     case "new":
+       prepEditOrNew("creating");
+     break;
+     case "edit":
+       prepEditOrNew("editing");
+     break;
+     case "show":
+       prepShow();
+       break;
+     default:
+       // code
+   }
+ }
+
+
 
   function initNewTileModal(){
 
-    $("body").on("click", newTileSelector, function(event){
+    $("body").on("click", modalActivationSelectors, function(event){
       event.preventDefault(); 
+      var target = $(this);
       $.ajax({
         type: "GET",
         dataType: "html",
-        url:$(this).attr("href") ,
+        url:target.attr("href") ,
         success: function(data, status,xhr){
-          newTileModal.find("form").remove();
-          newTileModal.append(data);
-          newTileModal.foundation("reveal", "open");
-          $(tileForm).data("asAjax", true);
+          tileModal.find("#modal_content").html(data);
+          processEvent(target);
+          tileModal.foundation("reveal", "open");
           Airbo.TileImagesMgr.init();
         },
 
@@ -34,6 +68,7 @@ Airbo.TileCreator = (function(){
       });
     });
   }
+
 
   function getImageLibrary(libaryUrl){
 
@@ -65,31 +100,40 @@ Airbo.TileCreator = (function(){
   }
 
   function initJQueryObjects(){
-    newTileModal = $(newTileModalSelector);
+    tileModal = $(tileModalSelector);
     imagesModal = $(imagesModalSelector);
   }
 
   function init(){
-    $(document).on('opened.fndtn.reveal',newTileModalSelector, function () {
-      $("body").addClass("client_admin-tiles-edit");
+    $(document).on('opened.fndtn.reveal',tileModalSelector, function () {
     });
 
-    $(document).on('close.fndtn.reveal', newTileModalSelector, function (event) {
-      if (confirm("Are you sure you want to cancel creating this tile")){
-        keepOpen = false;
-      }else{
-        keepOpen = true;
+    $(document).on('close.fndtn.reveal', tileModalSelector, function (event) {
+      var msg;
+
+      if(preventCloseMsg){
+
+        msg = "Are you sure you want to stop " + preventCloseMsg + " this tile?"
+        + "\nAll your changes will be lost."
+        + "\n\nClick 'cancel' to continue " + preventCloseMsg + " this tile."
+        + "\n\nOtherwise click 'Ok' to discard your changes.";
+
+        if (confirm(msg)){
+          keepOpen = false;
+        }else{
+          keepOpen = true;
+        }
       }
     });
 
-    $(document).on('closed.fndtn.reveal', newTileModalSelector, function (event) {
+    $(document).on('closed.fndtn.reveal', tileModalSelector, function (event) {
       if(keepOpen){
-        newTileModal.foundation("reveal", "open");
+        tileModal.foundation("reveal", "open");
       }
     })
 
     $(document).on('closed.fndtn.reveal', imagesModalSelector, function () {
-        newTileModal.foundation("reveal", "open");
+        tileModal.foundation("reveal", "open");
     });
 
     initJQueryObjects();
@@ -97,7 +141,7 @@ Airbo.TileCreator = (function(){
     initImageLibraryModal();
   }
 
-  
+
 
   return {
 
