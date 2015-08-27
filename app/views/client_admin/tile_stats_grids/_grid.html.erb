@@ -1,13 +1,7 @@
 <% tile_stats_grid ||= @tile_stats_grid %>
 <% tile ||= @tile %>
-<%= grid(tile_stats_grid, html: {id: "search-results-table"}, header_tr_html:  {id: "search-labels"}, hide_csv_button: true) do |g|
+<%= grid(tile_stats_grid, hide_csv_button: true) do |g|
   g.blank_slate "<div class='grid_no_record'>No user made this action!</div>".html_safe
-  # g.row_attributes do |row|
-  #   {class: 'found-user'}
-  # end
-  #
-  # => Columns for HTML version
-  #
   g.column name: 'Name', attribute: 'name', filter: false do |row|
     row.user_name
   end
@@ -27,19 +21,4 @@
   g.column name: 'Date', model: 'TileCompletion', attribute: 'id', filter: false  do |row|
     row.completion_date || "-"
   end
-  #
-  # => Columns for CSV version
-  #
-  # g.column name: 'Name', in_html: false do |user|
-  #   user.name
-  # end
-  # g.column name: 'Email', in_html: false do |user|
-  #   user.email
-  # end
-  # g.column name: 'Viewed', in_html: false  do |user|
-  #   TileViewing.views @tile, user
-  # end
-  # g.column name: 'Joined?', in_html: false do |user|
-  #   user.claimed? ? "Yes" : "No"
-  # end
 end -%>

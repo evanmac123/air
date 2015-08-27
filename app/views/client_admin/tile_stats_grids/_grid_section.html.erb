@@ -1,10 +1,16 @@
 <% current_grid ||= "all" %>
 <div class="tile_grid_section" data-update-link="<%= client_admin_tile_tile_stats_grids_path(tile) %>">
-  <div class="grid_types">
-    <% GridQuery::TileActions::GRID_TYPES.each do |type, name| %>
-      <%= link_to name, client_admin_tile_tile_stats_grids_path(tile), data: {"grid-type" => type}, class: (type == current_grid ? "current" : "")  %>
-    <% end %>
+  <div class="grid_controls">
+    <div class="large-9 columns">
+      <div class="grid_types">
+        <% GridQuery::TileActions::GRID_TYPES.each do |type, name| %>
+          <%= link_to name, client_admin_tile_tile_stats_grids_path(tile), data: {"grid-type" => type}, class: (type == current_grid ? "current" : "")  %>
+        <% end %>
+      </div>
+    </div>
+    <div class="large-3 columns">
+      <%= link_to "Download CSV", client_admin_tile_tile_stats_grids_path(tile, tile_stats_grid: {export: "csv"}, grid_type: current_grid), class: "download_as_csv" %>
+    </div>
   </div>
-  <%= link_to "Download CSV", client_admin_tile_tile_stats_grids_path(tile, tile_stats_grid: {export: "csv"}, grid_type: current_grid), class: "download_as_csv" %>
   <%= render partial: 'client_admin/tile_stats_grids/grid', locals: {tile_stats_grid: @tile_stats_grid, tile: @tile} %>
 </div>

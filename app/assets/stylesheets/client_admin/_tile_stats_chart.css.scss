@@ -1,7 +1,7 @@
-body.client_admin-tile_stats_charts, body.client_admin-tile_stats {
+body.client_admin-tile_stats {
   // General styles
   .tile_chart_section {
-    overflow: hidden; 
+    overflow: hidden;
     margin-bottom: 55px;
   }
   form.custom {
@@ -9,13 +9,13 @@ body.client_admin-tile_stats_charts, body.client_admin-tile_stats {
       display: none;
     }
   }
-  
+
   .action_type_block {
     padding-bottom: 25px;
     &.selected {
       label {
         color: #007bc2;
-      }  
+      }
     }
     label {
       color: #4b61a6;
@@ -29,7 +29,7 @@ body.client_admin-tile_stats_charts, body.client_admin-tile_stats {
       padding-bottom: 5px;
     }
     .action_name {
-      font-size: 16px;                                                                                                                                                           
+      font-size: 16px;
     }
   }
   //
@@ -90,7 +90,7 @@ body.client_admin-tile_stats_charts, body.client_admin-tile_stats {
       display: none;
     }
   }
-  
+
   .dates_selection {
     float: left;
     .datepicker {

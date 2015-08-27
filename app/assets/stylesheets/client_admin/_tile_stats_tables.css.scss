@@ -1,0 +1,28 @@
+body.client_admin-tile_stats {
+  // Grid Controls
+  .grid_controls {
+    margin-bottom: 20px;
+    overflow: auto;
+  }
+  .download_as_csv {
+    @include light-button(#8d8d8d);
+    font-size:13px;
+    padding: 7.5px;
+    float: right;
+  }
+  .grid_types {
+    overflow: auto;
+    a {
+      float: left;
+      text-transform: uppercase;
+      color: $med-gray;
+      padding: 10px;
+      margin-right: 20px;
+      font-size: 12px;
+      &.current {
+        color: $text-color;
+        border-bottom: 2px solid $sky-blue;
+      }
+    }
+  }
+}
