@@ -23,7 +23,7 @@ Airbo.TileStatsGrid = (function(){
   function initVars(){
     tileGridSection = $(tileGridSectionSel);
     updateLink = tileGridSection.data("update-link");
-    gridType = $("currentGridLinkSel").data("grid-type");
+    gridType = $(currentGridLinkSel).data("grid-type");
   }
   function initEvents(){
     $(document).on("click", linkInGridSel, function(e){

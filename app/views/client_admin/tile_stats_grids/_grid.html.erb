@@ -19,6 +19,10 @@
     end
   end
   g.column name: 'Date', model: 'TileCompletion', attribute: 'id', filter: false  do |row|
-    row.completion_date || "-"
+    if row.completion_date
+      Time.parse(row.completion_date + " UTC").strftime(Wice::Defaults::DATE_FORMAT)
+    else
+      "-"
+    end
   end
 end -%>
