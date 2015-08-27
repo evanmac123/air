@@ -1,28 +1,30 @@
+<% tile_stats_grid ||= @tile_stats_grid %>
+<% tile ||= @tile %>
 <%= grid(tile_stats_grid, html: {id: "search-results-table"}, header_tr_html:  {id: "search-labels"}, hide_csv_button: true) do |g|
   g.blank_slate "<div class='grid_no_record'>No user made this action!</div>".html_safe
-  g.row_attributes do |row|
-    {class: 'found-user'}
-  end
+  # g.row_attributes do |row|
+  #   {class: 'found-user'}
+  # end
   #
   # => Columns for HTML version
   #
-  g.column name: 'Name', attribute: 'name', filter: false, in_csv: false do |row|
-    link_to row.user_name, edit_client_admin_user_path(row.user_id), class: 'edit-user'
+  g.column name: 'Name', attribute: 'name', filter: false do |row|
+    row.user_name
   end
-  g.column name: 'Email', attribute: 'email', filter: false, in_csv: false do |row|
+  g.column name: 'Email', attribute: 'email', filter: false do |row|
     row.user_email
   end
-  g.column name: 'Views', model: 'TileViewing', attribute: 'views', filter: false, in_csv: false  do |row|
+  g.column name: 'Views', model: 'TileViewing', attribute: 'views', filter: false  do |row|
     row.tile_views || "-"
   end
-  g.column name: 'Answer', model: "TileCompletion", attribute: 'answer_index', filter: false, in_csv: false do |row|
+  g.column name: 'Answer', model: "TileCompletion", attribute: 'answer_index', filter: false do |row|
     if row.tile_answer_index
       tile.multiple_choice_answers[row.tile_answer_index.to_i]
     else
       "-"
     end
   end
-  g.column name: 'Date', model: 'TileCompletion', attribute: 'id', filter: false, in_csv: false  do |row|
+  g.column name: 'Date', model: 'TileCompletion', attribute: 'id', filter: false  do |row|
     row.completion_date || "-"
   end
   #

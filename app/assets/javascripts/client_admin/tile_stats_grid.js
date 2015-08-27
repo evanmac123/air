@@ -27,6 +27,7 @@ Airbo.TileStatsGrid = (function(){
   }
   function initEvents(){
     $(document).on("click", linkInGridSel, function(e){
+      if( $(this).hasClass("download_as_csv") ) return;
       e.preventDefault();
       linkParams = $(this).attr("href").split('?')[1];
       if( $(this).data("grid-type") ){
