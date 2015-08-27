@@ -5,13 +5,13 @@
   g.column name: 'Name', attribute: 'name', html: {class: "name_column"} do |row|
     row.user_name
   end
-  g.column name: 'Email', attribute: 'email' do |row|
+  g.column name: 'Email', attribute: 'email', html: {class: "email_column"} do |row|
     row.user_email
   end
-  g.column name: 'Views', model: 'TileViewing', attribute: 'views'  do |row|
+  g.column name: 'Views', model: 'TileViewing', attribute: 'views', html: {class: "views_column"}  do |row|
     row.tile_views || "-"
   end
-  g.column name: 'Answer', model: "TileCompletion", attribute: 'answer_index' do |row|
+  g.column name: 'Answer', model: "TileCompletion", attribute: 'answer_index', html: {class: "answer_column"} do |row|
     if row.tile_answer_index
       tile.multiple_choice_answers[row.tile_answer_index.to_i]
     else
