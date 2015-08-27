@@ -114,7 +114,7 @@ Airbo.TileCreator = (function(){
       if(preventCloseMsg){
 
         msg = "Are you sure you want to stop " + preventCloseMsg + " this tile?"
-        + "\nAll your changes will be lost."
+        + "\nAny changes you've made will be lost."
         + "\n\nClick 'cancel' to continue " + preventCloseMsg + " this tile."
         + "\n\nOtherwise click 'Ok' to discard your changes.";
 
