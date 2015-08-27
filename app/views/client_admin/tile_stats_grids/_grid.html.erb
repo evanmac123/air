@@ -2,23 +2,23 @@
 <% tile ||= @tile %>
 <%= grid(tile_stats_grid, hide_csv_button: true) do |g|
   g.blank_slate "<div class='grid_no_record'>No user made this action!</div>".html_safe
-  g.column name: 'Name', attribute: 'name', filter: false do |row|
+  g.column name: 'Name', attribute: 'name' do |row|
     row.user_name
   end
-  g.column name: 'Email', attribute: 'email', filter: false do |row|
+  g.column name: 'Email', attribute: 'email' do |row|
     row.user_email
   end
-  g.column name: 'Views', model: 'TileViewing', attribute: 'views', filter: false  do |row|
+  g.column name: 'Views', model: 'TileViewing', attribute: 'views'  do |row|
     row.tile_views || "-"
   end
-  g.column name: 'Answer', model: "TileCompletion", attribute: 'answer_index', filter: false do |row|
+  g.column name: 'Answer', model: "TileCompletion", attribute: 'answer_index' do |row|
     if row.tile_answer_index
       tile.multiple_choice_answers[row.tile_answer_index.to_i]
     else
       "-"
     end
   end
-  g.column name: 'Date', model: 'TileCompletion', attribute: 'id', filter: false  do |row|
+  g.column name: 'Date', model: 'TileCompletion', attribute: 'id'  do |row|
     if row.completion_date
       Time.parse(row.completion_date + " UTC").strftime(Wice::Defaults::DATE_FORMAT)
     else

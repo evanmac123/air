@@ -62,6 +62,13 @@ body.client_admin-tile_stats {
     }
   }
 
+  .survey_question {
+    text-transform: uppercase;
+    color: $text-color;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 30px;
+  }
   .survey-chart-table {
     margin-bottom: 60px;
     .answer {

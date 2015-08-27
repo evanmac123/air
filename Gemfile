@@ -40,7 +40,7 @@ gem 'mobvious-rails'
 gem 'rails3_before_render'
 gem 'rollout'
 gem 'font-awesome-rails'
-gem 'wice_grid'
+gem 'wice_grid', git: 'https://github.com/avbrychak/wice_grid', branch: 'rails3'
 gem 'kaminari'
 gem 'browser'
 gem "squeel"
