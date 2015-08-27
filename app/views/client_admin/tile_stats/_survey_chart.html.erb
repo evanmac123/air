@@ -1,0 +1,31 @@
+<table class="survey-chart-table">
+  <thead>
+    <tr>
+      <th class="answer">
+        Answer
+      </th>
+      <th class="users">
+        Users
+      </th>
+      <th class="percent">
+        Percent
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @survey_chart.each do |row| %>
+      <tr>
+        <td class="answer">
+          <%= row["answer"] %>
+        </td>
+        <td class="users">
+          <%= row["number"] %>
+        </td>
+        <td class="percent">
+          <div class="progress" style="width:<%= row["percent"] * 2 %>px;"></div>
+          <div class="percent_num"><%= row["percent"].to_s + "%" %></div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -53,4 +53,29 @@ body.client_admin-tile_stats {
       }
     }
   }
+
+  .survey-chart-table {
+    .answer {
+      width: 50%;
+    }
+    .users {
+      width: 20%;
+    }
+    .percent {
+      width: 30%;
+      padding-top: 7px;
+      padding-bottom: 7px;
+    }
+    .progress, .percent_num {
+      float: left;
+    }
+    .progress {
+      border-radius: 3px;
+      background: #cbeaff;
+      height: 30px;
+    }
+    .percent_num {
+      padding: 7px;
+    }
+  }
 }

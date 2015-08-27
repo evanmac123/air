@@ -4,6 +4,7 @@
       <%= @tile.headline %>
     </h1>
     <%= render partial: 'client_admin/tile_stats_charts/chart_section', locals: {chart_form: @chart_form, chart: @chart} %>
+    <%= render(partial: 'survey_chart') if @survey_chart %>
     <%= render partial: 'client_admin/tile_stats_grids/grid_section', locals: {tile_stats_grid: @tile_stats_grid, tile: @tile} %>
   </div>
 </div>
