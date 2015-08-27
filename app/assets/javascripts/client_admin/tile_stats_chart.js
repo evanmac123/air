@@ -11,6 +11,7 @@ Airbo.TileStatsChart = (function(){
       dateEndSel        = "[name='tile_stats_chart_form[end_date]']",
       changedFieldSel   = "[name='tile_stats_chart_form[changed_field]']",
       datesSelectionSel = ".dates_selection",
+      downloadChartSel = "#download_chart",
       doneBtnSel        = datesSelectionSel + " a",
       formSel           = "#new_tile_stats_chart_form",
       formSendSel       = [
@@ -27,6 +28,7 @@ Airbo.TileStatsChart = (function(){
       dateRangeBlock,
       datesSelection,
       datePickers,
+      downloadChart,
       form;
 
   // function updateChartSection(chartSection){
@@ -60,6 +62,7 @@ Airbo.TileStatsChart = (function(){
     datePickers = $(dateStartSel + ", " + dateEndSel);
     changedFiled = $(changedFieldSel);
     form = $(formSel);
+    downloadChart = $(downloadChartSel);
 
     datePickers.datepicker();
   }
@@ -85,6 +88,16 @@ Airbo.TileStatsChart = (function(){
 
       dateRange.val(0);
       dateRange.trigger("change", true); // to update custom select
+    });
+    $(document).on("change", downloadChartSel, function(e){
+      text = downloadChart.val();
+
+      if(text == "Download") return;
+      $("#exportButton").click();
+      $( ".highcharts-container div:contains(" + text + ")" ).last().click();
+
+      downloadChart.find('option').eq(0).prop('selected', true);
+      downloadChart.trigger("change", true); // to update custom select
     });
   }
 

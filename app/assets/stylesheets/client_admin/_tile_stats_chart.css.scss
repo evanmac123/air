@@ -109,6 +109,16 @@ body.client_admin-tile_stats {
     }
   }
 
+  .download_chart_block {
+    float: right;
+    width: 205px;
+    .custom.dropdown {
+      li.disabled {
+        display: none;
+      }
+    }
+  }
+
   #tile_chart {
     height: 200px;
     margin-top: 60px;
