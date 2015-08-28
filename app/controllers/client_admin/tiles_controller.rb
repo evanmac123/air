@@ -89,8 +89,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def show
     @tile = get_tile
-    return show_partial if params[:partial_only]
-
     @show_share_section_intro = show_share_section_intro
     @show_submitted_tile_menu_intro = show_submitted_tile_menu_intro
     tile_in_box_viewed_ping @tile
@@ -183,7 +181,12 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def get_tile
-    current_user.demo.tiles.find params[:id]
+    tile = current_user.demo.tiles.find params[:id]
+    if params[:offset].present?
+      tile = Tile.next_manage_tile(tile, params[:offset].to_i)
+    end
+
+    tile
   end
 
   def flash_status_messages
@@ -275,13 +278,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     end
   end
 
-  def show_partial
-    @tile = Tile.next_manage_tile(@tile, params[:offset].to_i)
-    render json: {
-      tile_id:      @tile.id,
-      tile_content: render_to_string("client_admin/tiles/show", :layout => false)
-    }
-  end
+
 
   def set_after_save_flash(new_tile)
     flash[:success] ="Tile #{params[:action] || 'create' }d! We're resizing the graphics, which usually takes less than a minute."
