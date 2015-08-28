@@ -1,15 +1,20 @@
-<%= link_to tile.email_site_link, tile.email_link_options.merge({style: "width:100% !important;border:0;margin:0;padding:0;display:block;", class: "tile_link"}) do %>
+<% tile_link_args = [tile.email_site_link, tile.email_link_options.merge({style: "width:100% !important;border:0;margin:0;padding:0;display:block;text-decoration:none;", class: "tile_link"})] %>
+<%= link_to *tile_link_args do %>
   <table width="208" align="center" cellpadding="0" cellspacing="0" border="0" class="columnsNoPadding" style="width: 100% !important;">
     <tbody width="208" style="width: 100% !important;">
       <tr>
         <td width="208" align="center" class="column tile_thumbnail" style="width:100% !important; border:0;margin:0;padding:0;border-left:1px solid #dfdfdf;border-right:1px solid #dfdfdf;border-top:1px solid #dfdfdf;">
-          <%= image_tag(tile.email_img_url, alt: tile.headline,  width: '208', style: 'display:block; border-style:none;width:100% !important;') %>
+          <%= link_to *tile_link_args do %>
+            <%= image_tag(tile.email_img_url, alt: tile.headline,  width: '208', style: 'display:block; border-style:none;width:100% !important;') %>
+          <% end %>
         </td>
       </tr>
       <tr>
         <td width="208" height="100" valign="top" style="font-family:Helvetica,Arial,sans-serif;font-size:16px;color:#2e2e2c;mso-line-height-rule:exactly;line-height:22px;padding-top:20px;padding-left:10px;padding-right:10px;border-left:1px solid #dfdfdf;border-right:1px solid #dfdfdf;width: 100% !important;">
           <span class="appleLinks2" style="word-break: break-word;">
-            <%= tile.headline %>
+            <%= link_to *tile_link_args do %>
+              <%= tile.headline %>
+            <% end %>
           </span>
         </td>
       </tr>
@@ -56,4 +61,3 @@
     </tbody>
   </table>
 <% end %>
-
