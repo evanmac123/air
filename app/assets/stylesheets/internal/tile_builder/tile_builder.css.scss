@@ -544,3 +544,14 @@ body.suggested_tiles-update,
     cursor: pointer;
   }
 }
+
+#new_tile_modal{
+  background: rgba(0,0,0,0);
+  border: none;
+  .client_admin-tiles.client_admin-tiles-show &  .viewer a#next,
+  .client_admin-tiles.client_admin-tiles-show &  .viewer a#prev {
+    border: none;
+    background: none;
+  }
+}
+
