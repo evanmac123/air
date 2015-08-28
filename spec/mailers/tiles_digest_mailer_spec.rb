@@ -69,32 +69,32 @@ describe 'Digest email' do
     let(:client_admin) { FactoryGirl.create :client_admin, demo: demo }
     let(:site_admin)   { FactoryGirl.create :site_admin,   demo: demo }
 
-    # There should be 5 links in all: 3 tile links and 2 text links. All links should contain a security token
+    # There should be 11 links in all: 9 tile links(3 for each tile) and 2 text links. All links should contain a security token
     # that is used to sign the user in when they click on any of the links in the tile-digest email.
     context 'claimed user' do
       subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "New Tiles", false, nil, nil) }
-      it { should have_selector     "a[href *= 'acts?demo_id=#{demo.id}&email_type=digest_new_v&tile_token=#{EmailLink.generate_token(claimed_user)}&user_id=#{claimed_user.id}']", count: 5 }
+      it { should have_selector     "a[href *= 'acts?demo_id=#{demo.id}&email_type=digest_new_v&tile_token=#{EmailLink.generate_token(claimed_user)}&user_id=#{claimed_user.id}']", count: 11 }
       it { should_not have_selector "a[href *= 'invitations']" }
     end
 
-    # There should be 5 links in all same as above
+    # There should be 11 links in all same as above
     context 'unclaimed user' do
       subject { TilesDigestMailer.notify_one(demo.id, unclaimed_user.id, tile_ids, "New Tiles", false, nil, nil) }
-      it { should have_selector     "a[href *= 'invitations']", count: 5 }
+      it { should have_selector     "a[href *= 'invitations']", count: 11 }
       it { should_not have_selector "a[href *= 'acts']" }
     end
 
     # client-admins should not have automatic sign-in links in their tiles
     context 'client-admins' do
       subject { TilesDigestMailer.notify_one(demo.id, client_admin.id, tile_ids, "New Tiles", false, nil, nil) }
-      it { should     have_selector "a[href *= 'acts']", count: 5 }
+      it { should     have_selector "a[href *= 'acts']", count: 11 }
       it { should_not have_selector "a[href *= 'acts?tile_token']" }
     end
 
     # site-admins should have automatic sign-in links in their tiles
     context 'site-admins' do
       subject { TilesDigestMailer.notify_one(demo.id, site_admin.id, tile_ids, "New Tiles", false, nil, nil) }
-      it { should have_selector "a[href *= 'acts?demo_id=#{demo.id}&email_type=digest_new_v&tile_token=#{EmailLink.generate_token(site_admin)}&user_id=#{site_admin.id}']", count: 5 }
+      it { should have_selector "a[href *= 'acts?demo_id=#{demo.id}&email_type=digest_new_v&tile_token=#{EmailLink.generate_token(site_admin)}&user_id=#{site_admin.id}']", count: 11 }
     end
   end
 
@@ -102,7 +102,7 @@ describe 'Digest email' do
     subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "New Tiles", false, nil, nil) }
 
     it { should have_num_tiles(3) }
-    it { should have_num_tile_links(3) }
+    it { should have_num_tile_links(9) }
 
     it { should have_body_text 'Phil Kills Kittens' }
     it { should have_body_text 'Phil Knifes Kittens' }
