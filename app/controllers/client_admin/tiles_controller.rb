@@ -89,6 +89,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def show
     @tile = get_tile
+    @prev, @next = @demo.bracket @tile
     @show_share_section_intro = show_share_section_intro
     @show_submitted_tile_menu_intro = show_submitted_tile_menu_intro
     tile_in_box_viewed_ping @tile
