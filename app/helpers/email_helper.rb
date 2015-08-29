@@ -10,7 +10,7 @@ module EmailHelper
   def email_friend_url friend, user
     token = EmailLink.generate_token(user)
     user_url(friend, user_id: user.id, token: token)
-  end 
+  end
 
   def email_unsubscribe_link(user)
     token = EmailLink.generate_token(user)
@@ -22,7 +22,7 @@ module EmailHelper
   end
 
   def email_logo(demo)
-    image_options = { border: "0", style: "display:block;max-width:90px;"}
+    image_options = { border: "0", style: "display:block;", width: "90"}
     if demo.logo_file_name.blank?
       # Pretty asinine that we have to roll our own here. But hi. Here we are.
       expanded_logo_path = ActionController::Base.helpers.asset_path('airbo_logo_lightblue.png')

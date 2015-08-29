@@ -3,7 +3,7 @@ require "spec_helper"
 include TileHelpers
 include EmailHelper
 
-# This spec tests for content (not delivery, which is in /acceptance/client_admin/tiles_digest_notification_spec.rb),
+# This spec tests for content (not delivery, which is in /acceptance/client_admin/share/tiles_digest_notification_spec.rb),
 # so it calls 'TilesDigestMailer.notify_one' directly, without delivering the email.
 # That method returns a 'mail' object, whose content is then tested.
 
