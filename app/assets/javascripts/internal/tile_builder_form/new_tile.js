@@ -5,6 +5,8 @@ Airbo.TileCreator = (function(){
     , imagesModal
     , libaryLoaded
     , preventCloseMsg
+    , modalTrigger
+    , modalContent
     , keepOpen = false
     , newSelector = "a#add_new_tile, #add_new_tile.preview_menu_item a"
     , editSelector = ".tile_buttons .edit_button>a"
@@ -21,13 +23,17 @@ Airbo.TileCreator = (function(){
    $(tileForm).data("asAjax", true);
    $("body").addClass("client_admin-tiles-edit");
    preventCloseMsg = action
+   Airbo.TileImagesMgr.init();
  }
 
  function prepShow(){
+   adjustStylingForPreview();
+   Airbo.TileCarouselPage.init();
+ }
+
+ function adjustStylingForPreview(){
    $("body").addClass("client_admin-tiles-show");
    $(".tile_preview_container").removeClass("large-9").addClass("large-12");
-   Airbo.TileCarouselPage.init();
-   preventClose = false
  }
 
  function processEvent(trigger){
@@ -47,22 +53,34 @@ Airbo.TileCreator = (function(){
    }
  }
 
+ function handleModal(){
+   tileModal.find("#modal_content").html(modalContent);
+   processEvent(modalTrigger);
+   tileModal.foundation("reveal", "open");
+ }
 
+ function initDeletionConfirmation(){
+   $("body").on("confirm.reveal", "a[data-confirm]", function(event){
+
+   });
+
+   $("body").on("cancel.reveal", "a[data-confirm]", function(event){
+   });
+ }
 
   function initNewTileModal(){
 
     $("body").on("click", modalActivationSelectors, function(event){
       event.preventDefault(); 
-      var target = $(this);
+      modalTrigger = $(this);
+
       $.ajax({
         type: "GET",
         dataType: "html",
-        url:target.attr("href") ,
+        url: modalTrigger.attr("href") ,
         success: function(data, status,xhr){
-          tileModal.find("#modal_content").html(data);
-          processEvent(target);
-          tileModal.foundation("reveal", "open");
-          Airbo.TileImagesMgr.init();
+          modalContent = data;
+          handleModal();
         },
 
         error: function(jqXHR, textStatus, error){
@@ -108,13 +126,22 @@ Airbo.TileCreator = (function(){
   }
 
   function init(){
+
+    initDeletionConfirmation();
+
     $(document).on('opened.fndtn.reveal',tileModalSelector, function () {
-      $('.reveal-modal-bg').css({'background-color':'black', 'opacity': 0.85})
+      $('.reveal-modal-bg').css({'background-color':'black', 'opacity': 0.85});
     });
+
+    $(document).on('closed.fndtn.reveal', tileModalSelector, function (event) {
+      if(keepOpen){
+        tileModal.foundation("reveal", "open");
+      }
+    });
+
 
     $(document).on('close.fndtn.reveal', tileModalSelector, function (event) {
       var msg;
-
       if(preventCloseMsg){
 
         msg = "Are you sure you want to stop " + preventCloseMsg + " this tile?"
@@ -130,12 +157,7 @@ Airbo.TileCreator = (function(){
       }
     });
 
-    $(document).on('closed.fndtn.reveal', tileModalSelector, function (event) {
-      if(keepOpen){
-        tileModal.foundation("reveal", "open");
-      }
-    })
-
+    //imagesModal
     $(document).on('closed.fndtn.reveal', imagesModalSelector, function () {
         tileModal.foundation("reveal", "open");
     });
@@ -157,8 +179,6 @@ Airbo.TileCreator = (function(){
 
 
 Airbo.TileCarouselPage = (function() {
-
-
 
   function updateNavbarURL(newTileId) {
     var newURL, tag;
