@@ -1,16 +1,36 @@
 <% show_client_admin_menu ||= false %>
-<% presenter_class = if show_client_admin_menu
-                       TilePreview::MenuPresenter::ClientAdmin
-                     else
-                       TilePreview::MenuPresenter::User 
-                     end %>
-<% presenter = presenter_class.new(tile, browser) %>
-<ul class="tile_preview_menu">
-  <li class="preview_menu_header <%= presenter.status %>">        
-    <%= presenter.status_name %>
-  </li>
+<%  if show_client_admin_menu %>
+  <ul class="tile_preview_menu">
+    <%= render partial: "client_admin/tiles/tile_preview/drafted_menu_items", locals:{tile: tile} if tile.status== Tile::DRAFT %>
+    <%= render partial: "client_admin/tiles/tile_preview/posted_menu_items" , locals:{tile: tile} if tile.status== Tile::ACTIVE %>
+    <%= render partial: "client_admin/tiles/tile_preview/archived_menu_items" , locals:{tile: tile} if tile.status== Tile::ARCHIVE %>
 
-  <% presenter.menu_cells.each do |menu_cell| %>
-    <%= render menu_cell, menu_cell.locals %>
-  <% end %>
-</ul>
+    <li class="preview_menu_item edit_header" id="">
+      <%=link_to edit_client_admin_tile_path(tile) do %>
+        <i class="fa fa-pencil fa-1x"></i>
+        <span class="header_text">
+          Edit
+        </span>
+      <%end%>
+    </li>
+    <li class="preview_menu_item destroy_header" id="">
+      <%=link_to client_admin_tile_path(tile), data: {confirm: {body: "Are you sure you want to delete this tile? Deleting a tile is irrevocable and you'll loose all data associated with it", modal_class: 'destroy_confirm_modal'}, method: "delete"} do %>
+        <i class="fa fa-trash fa-1x"></i>
+        <span class="header_text">
+        Delete
+        </span>
+        <%end%>
+    </li>
+
+  </ul>
+<%else%>
+  presenter = TilePreview::MenuPresenter::User.new(tile, browser)
+  <ul class="tile_preview_menu">
+    <li class="preview_menu_header <%= presenter.status %>">        
+      <%= presenter.status_name %>
+    </li>
+    <% presenter.menu_cells.each do |menu_cell| %>
+      <%= render menu_cell, menu_cell.locals %>
+    <% end %>
+  </ul>
+<%end %>
