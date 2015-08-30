@@ -65,6 +65,7 @@ Airbo.TileCreator = (function(){
    });
 
    $("body").on("cancel.reveal", "a[data-confirm]", function(event){
+     setTimeout(function(){handleModal()}, 200);
    });
  }
 
