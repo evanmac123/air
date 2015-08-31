@@ -71,6 +71,25 @@ body.client_admin-tile_stats {
   }
   .survey-chart-table {
     margin-bottom: 60px;
+    th {
+      cursor: pointer;
+      span {
+        @include sort-arrows(transparent);
+      }
+      &:hover span {
+        @include sort-arrows(#8c8c8c);
+      }
+      &.sort-up {
+        span {
+          @include sort-arrows($text-color);
+        }
+      }
+      &.sort-down {
+        span {
+          @include sort-arrows($text-color, 'down');
+        }
+      }
+    }
     .answer {
       width: 50%;
     }

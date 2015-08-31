@@ -1,20 +1,31 @@
-@mixin sort-arrows($color) {
+@mixin sort-arrows($color, $default-arrow-direction: 'up') {
   $arrow-up-ascii: "\2191";
   $arrow-down-ascii: "\2193";
+  $default-arrow: $arrow-up-ascii;
+
+  @if $default-arrow-direction == 'down' {
+    $default-arrow: $arrow-down-ascii;
+  }
+
   background: none;
   padding-right: 18px;
   position: relative;
   &:after {
-    content: $arrow-up-ascii;
+    content: $default-arrow;
     color: $color;
     position: absolute;
     right: 0;
     top: -2px;
   }
-  &.asc:after {
-    content: $arrow-up-ascii;
+  &.asc {
+    &:after {
+      content: $arrow-up-ascii;
+    }
   }
-  &.desc:after {
-    content: $arrow-down-ascii;
+
+  &.desc {
+    &:after {
+      content: $arrow-down-ascii;
+    }
   }
 }
