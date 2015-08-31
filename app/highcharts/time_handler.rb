@@ -17,7 +17,7 @@ class TimeHandler
   end
 
   def handle
-    case changed_field 
+    case changed_field
     when "date_range_type"
       handle_date_range
     when "start_date"
@@ -33,7 +33,7 @@ class TimeHandler
   end
 
   def date_range_types_select_list
-    [[date_range_types_disabled_option] * 2] + 
+    [[date_range_types_disabled_option] * 2] +
     DATE_RANGE_TYPES.keys.collect{ |key| [ DATE_RANGE_TYPES[key][:text], key ] }
   end
 
@@ -85,7 +85,7 @@ class TimeHandler
                             'hourly'
                           elsif date_diff <= 30.days
                             'daily'
-                          elsif date_diff <= 11.months
+                          elsif date_diff <= 2.months
                             'weekly'
                           else
                             'monthly'

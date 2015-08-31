@@ -4,6 +4,17 @@ body.client_admin-tile_stats {
     overflow: hidden;
     margin-bottom: 55px;
   }
+  .section_with_chart {
+    &:after {
+      content: " ";
+      position: absolute;
+      right: 22px;
+      top: 71px;;
+      width: 26px;
+      height: 21px;
+      background: white;
+    }
+  }
   form.custom {
     select {
       display: none;
@@ -15,6 +26,9 @@ body.client_admin-tile_stats {
     &.selected {
       label {
         color: #007bc2;
+        .action_name {
+          text-decoration: underline;
+        }
       }
     }
     label {
@@ -78,7 +92,7 @@ body.client_admin-tile_stats {
   }
   // Specific dropdowns
   .interval_custom_drop {
-    width: 85px !important;
+    width: 95px !important;
     margin-left: 30px !important;
   }
   .value_custom_drop {
