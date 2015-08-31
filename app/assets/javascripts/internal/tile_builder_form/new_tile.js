@@ -29,6 +29,26 @@ Airbo.TileCreator = (function(){
  function prepShow(){
    adjustStylingForPreview();
    Airbo.TileCarouselPage.init();
+   initStatusUpdate();
+ }
+
+ function initStatusUpdate(){
+   $("body").on("click", ".update_status", function(event) {
+     event.preventDefault();
+     var target = $(this)
+       , data = {"update_status": target.data("status")}
+     ;
+
+       $.ajax({
+       url: target.attr("href"),
+       type: "put",
+       data: data,
+       success: function(data, status,xhr){
+
+       },
+
+     });
+   });
  }
 
  function adjustStylingForPreview(){
