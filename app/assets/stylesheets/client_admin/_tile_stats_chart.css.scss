@@ -5,6 +5,7 @@ body.client_admin-tile_stats {
     margin-bottom: 55px;
   }
   .section_with_chart {
+    // hide download in chart
     &:after {
       content: " ";
       position: absolute;
