@@ -21,7 +21,7 @@ class TileStatsGrid
       name: 'tile_stats_grid',
       order: 'name',
       order_direction: 'asc',
-      per_page: 5,
+      per_page: 10,
       enable_export_to_csv: true,
       csv_file_name: "tile_stats_report_#{DateTime.now.strftime("%d_%m_%y")}"
     }

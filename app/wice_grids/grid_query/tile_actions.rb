@@ -2,11 +2,10 @@ class GridQuery::TileActions
   attr_reader :tile, :query_type
   # query_type: all, viewed, not_viewed, viewed_and_interacted, viewed_and_not_interacted
   GRID_TYPES = {
-    "all" => "All",
-    "viewed" => "Viewed",
-    "not_viewed" => "Didn't view",
     "viewed_and_interacted" => "Viewed and interacted",
-    "viewed_and_not_interacted" => "Viewed and didn't interact"
+    "viewed_only" => "Viewed only",
+    "not_viewed" => "Didn't view",
+    "all" => "All"
   }.freeze
   def initialize tile, query_type
     @tile = tile
@@ -18,7 +17,7 @@ class GridQuery::TileActions
   end
 
   protected
-    def viewed_and_not_interacted
+    def viewed_only
       all.where{ tile_viewings.id != nil }.where{ tile_completions.id == nil }
     end
 
@@ -28,10 +27,6 @@ class GridQuery::TileActions
 
     def not_viewed
       all.where{ tile_viewings.id == nil }
-    end
-
-    def viewed
-      all.where{ tile_viewings.id != nil }
     end
 
     def all
