@@ -76,6 +76,13 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     end
   end
 
+  #FIXME should refactor the existing update method but the functionality is too
+  #convoluted to fix now.
+  def status_change
+    @tile = get_tile
+    @tile.status = params["status"] 
+  end
+
 
   def update
     @tile = get_tile
