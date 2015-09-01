@@ -186,6 +186,7 @@ Airbo.TileCreator = (function(){
 
         if (confirm(msg)){
           keepOpen = false;
+          preventCloseMsg = undefined;
         }else{
           keepOpen = true;
         }
