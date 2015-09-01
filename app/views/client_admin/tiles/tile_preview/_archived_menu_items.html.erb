@@ -7,7 +7,7 @@
 </li>
 
 <li class="preview_menu_item post_header" id="post_header">
-  <%=link_to client_admin_tile_path(tile), data: {status: 'active'}, class: 'update_status' do %>
+  <%=link_to status_change_client_admin_tile_path(tile), data: {status: 'active'}, class: 'update_status' do %>
     <i class="fa fa-check fa-1x"></i>
     <span class="header_text">
       Repost

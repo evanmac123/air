@@ -8,6 +8,9 @@ Airbo.TileCreator = (function(){
     , modalTrigger
     , modalContent
     , keepOpen = false
+    , tileWrapperSelector =".tile_container"
+    , modalBackgroundSelector = '.reveal-modal-bg'
+    , sectionSelector = ".manage_section"
     , newSelector = "a#add_new_tile, #add_new_tile.preview_menu_item a"
     , editSelector = ".tile_buttons .edit_button>a"
     , previewSelector = ".tile-wrapper a.tile_thumb_link"
@@ -29,22 +32,35 @@ Airbo.TileCreator = (function(){
  function prepShow(){
    adjustStylingForPreview();
    Airbo.TileCarouselPage.init();
-   initStatusUpdate();
+ }
+
+ function moveTile(currTile, data){
+   var newTile = $(data) 
+     , status = newTile.find(".tile_thumbnail").data("status")
+     , newSection = "#" + status + sectionSelector
+   ;
+   currTile.remove();
+   $(newSection).prepend(newTile);
  }
 
  function initStatusUpdate(){
    $("body").on("click", ".update_status", function(event) {
      event.preventDefault();
-     var target = $(this)
-       , data = {"update_status": target.data("status")}
+     var tile 
+       ,  target= $(this)
      ;
 
-       $.ajax({
+     tile = target.parents(tileWrapperSelector)
+     tile  = tile.length==0 ? modalTrigger.parents(tileWrapperSelector) : tile
+
+     $.ajax({
        url: target.attr("href"),
        type: "put",
-       data: data,
+       data: {"update_status": target.data("status")},
+       dataType: "html",
        success: function(data, status,xhr){
-
+         moveTile(tile, data);
+         $(modalBackgroundSelector).trigger("click");
        },
 
      });
@@ -146,9 +162,7 @@ Airbo.TileCreator = (function(){
     imagesModal = $(imagesModalSelector);
   }
 
-  function init(){
-
-    initDeletionConfirmation();
+  function tileModalOpenClose(){
 
     $(document).on('opened.fndtn.reveal',tileModalSelector, function () {
       $('.reveal-modal-bg').css({'background-color':'black', 'opacity': 0.85});
@@ -177,11 +191,27 @@ Airbo.TileCreator = (function(){
         }
       }
     });
+  }
 
-    //imagesModal
+  function imagesModalOpenclose(){
+
     $(document).on('closed.fndtn.reveal', imagesModalSelector, function () {
-        tileModal.foundation("reveal", "open");
+      tileModal.foundation("reveal", "open");
     });
+  }
+
+  function initModalOpenClose(){
+    tileModalOpenClose();
+    imagesModalOpenclose();
+  }
+
+  function init(){
+
+    initDeletionConfirmation();
+
+    initStatusUpdate();
+
+    initModalOpenClose();
 
     initJQueryObjects();
     initNewTileModal();

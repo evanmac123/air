@@ -80,7 +80,9 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   #convoluted to fix now.
   def status_change
     @tile = get_tile
-    @tile.status = params["status"] 
+    @tile.update_status(params[:update_status])
+    presenter = SingleTilePresenter.new(@tile, :html, @is_client_admin_action, browser.ie?)
+    render partial: 'client_admin/tiles/manage_tiles/single_tile', locals: { presenter: presenter}
   end
 
 
