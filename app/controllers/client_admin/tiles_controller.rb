@@ -1,7 +1,7 @@
 class ClientAdmin::TilesController < ClientAdminBaseController
   include ClientAdmin::TilesHelper
   include ClientAdmin::TilesPingsHelper
-  
+
   before_filter :get_demo
   before_filter :load_tags, only: [:new, :edit, :update]
   before_filter :load_image_library, only: [:new, :edit,  :update]
@@ -24,7 +24,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
     record_index_ping
   end
-  
+
   def new
     @tile_builder_form = TileBuilderForm.new(@demo, params)
     record_new_ping
@@ -54,12 +54,12 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def update
     @tile = get_tile
-    
+
     if params[:update_status]
       update_status
       record_update_status_ping
     else
-      update_fields        
+      update_fields
     end
   end
 
@@ -91,15 +91,15 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     #would simplify this whole process
     @tile = get_tile
     Tile.insert_tile_between(
-      params[:left_tile_id], 
-      @tile.id, 
-      params[:right_tile_id], 
+      params[:left_tile_id],
+      @tile.id,
+      params[:right_tile_id],
       params[:status]
     )
     @tile.reload
 
     @last_tiles = []
- 
+
     if params[:source_section].present?
       @last_tiles = Tile.find_additional_tiles_for_manage_section(
                       params[:source_section][:name],
@@ -111,13 +111,13 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
     #FIXME is this really important for tracking?
     tile_status_updated_ping @tile, "Dragged tile to move"
-    
+
   end
 
   
   private
 
-  
+
   def intro_flags_index
     @board_is_brand_new = @demo.tiles.limit(1).first.nil? && params[:show_suggestion_box] != "true"
     @show_suggestion_box_intro =  if !current_user.suggestion_box_intro_seen
@@ -125,7 +125,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
                                     current_user.suggestion_box_intro_seen = true
                                     current_user.save
                                   end
-    @user_submitted_tile_intro =  if  params[:user_submitted_tile_intro] && 
+    @user_submitted_tile_intro =  if  params[:user_submitted_tile_intro] &&
                                       !current_user.user_submitted_tile_intro_seen &&
                                       @demo.tiles.user_submitted.first.present? &&
                                       !@show_suggestion_box_intro
@@ -133,7 +133,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
                                     current_user.user_submitted_tile_intro_seen = true
                                     current_user.save
                                   end
-    @manage_access_prompt = !current_user.manage_access_prompt_seen 
+    @manage_access_prompt = !current_user.manage_access_prompt_seen
   end
 
   def show_submitted_tile_menu_intro
@@ -151,7 +151,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       true
     end
   end
-  
+
   def get_demo
     @demo = current_user.demo
   end
@@ -220,14 +220,14 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def render_tile tile
-    render_to_string( 
-      partial: 'client_admin/tiles/manage_tiles/single_tile', 
+    render_to_string(
+      partial: 'client_admin/tiles/manage_tiles/single_tile',
       locals: { presenter: SingleTilePresenter.new(@tile, :html, @is_client_admin_action, browser.ie?) }
-    ) 
+    )
   end
-  
+
   def update_fields
-    @tile_builder_form =  TileBuilderForm.new( 
+    @tile_builder_form =  TileBuilderForm.new(
                             @demo,
                             parameters: params[:tile_builder_form],
                             tile: @tile

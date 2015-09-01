@@ -114,6 +114,13 @@ body.client_admin-tile_stats {
     }
   }
   .tile_grid_section table {
+    .new_records {
+      background: #f6fcfc;
+      border: 1px solid #cbeaff;
+      border-radius: 3px;
+      text-align: center;
+      color: #4b61a6;
+    }
     .name_column {
       width: 25%;
     }

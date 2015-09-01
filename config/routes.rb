@@ -123,7 +123,11 @@ Health::Application.routes.draw do
       resources :tile_completions, :only => [:index]
       resources :tile_stats, :only => [:index]
       resources :tile_stats_charts, :only => [:create]
-      resources :tile_stats_grids, :only => [:index]
+      resources :tile_stats_grids, :only => [:index] do
+        collection do
+          get 'new_completions_count'
+        end
+      end
       member do
         post 'sort'
       end

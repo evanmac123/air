@@ -9,6 +9,12 @@ class ClientAdmin::TileStatsGridsController < ClientAdminBaseController
     end
   end
 
+  def new_completions_count
+    @tile = Tile.find(params[:tile_id])
+    count = @tile.tile_completions.count
+    render json: { count: count }
+  end
+
   protected
     def grid_to_string
       render_to_string(

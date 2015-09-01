@@ -3,10 +3,37 @@ var Airbo = window.Airbo || {};
 Airbo.GridUpdatesChecker = (function(){
   var continueRequests = true,
       timeoutID,
-      interval = 1000; // 1 second
+      interval = 5000,
+      checkLink,
+      tileGridSectionSel = ".tile_grid_section",
+      tileGridSection,
+      tableSel = "#tile_stats_grid table",
+      table,
+      newRecordsSectionSel = ".new_records";
+
+  function findNewRecordsSection(){
+    newRecordsSection = table.find(newRecordsSectionSel);
+    if(newRecordsSection.length == 0) {
+      table.find('thead').after("<td class='new_records' colspan='5'></td>");
+      newRecordsSection = table.find(newRecordsSectionSel);
+    }
+    return newRecordsSection;
+  }
+
+  function ajaxResponse() {
+    return function (data){
+      console.log(data.count);
+      findNewRecordsSection().html(data.count);
+    };
+  }
 
   function checkForUpdate() {
-    console.log(timeoutID);
+    //console.log(timeoutID);
+    $.ajax({
+      url: checkLink,
+      success: ajaxResponse(),
+      dataType: "json"
+    });
     if(continueRequests){
       start();
     }
@@ -23,6 +50,9 @@ Airbo.GridUpdatesChecker = (function(){
   }
 
   function init() {
+    tileGridSection = $(tileGridSectionSel);
+    checkLink = tileGridSection.data('updates-checker-link');
+    table = $(tableSel);
     return this;
   }
 
