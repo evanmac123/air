@@ -32,6 +32,10 @@ Airbo.TileCreator = (function(){
  function prepShow(){
    adjustStylingForPreview();
    Airbo.TileCarouselPage.init();
+   //$(".tipsy").tooltipster();
+   //$('#draft_status').tooltipster({
+     //content: $('<span><strong>This text is in bold case !</strong></span>')
+   //});
  }
 
  function moveTile(currTile, data){
