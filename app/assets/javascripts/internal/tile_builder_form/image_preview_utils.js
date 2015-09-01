@@ -373,5 +373,4 @@ Airbo.TileSuportingContentTextManager = (function(){
 
 }());
 
-    Airbo.TileImagesMgr.init();
 });

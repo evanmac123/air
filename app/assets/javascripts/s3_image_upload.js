@@ -37,7 +37,6 @@ Airbo.DirectToS3ImageUploader = (function(){
 
   function initChooseFileDelegator(){
     var uploadForm= $("#fileupload");
-
     $('body').on('click', "#uploader_trigger", function(event){
       event.preventDefault();
       uploadForm.find('input[type=file]').click();
@@ -120,9 +119,15 @@ Airbo.DirectToS3ImageUploader = (function(){
 
 
   function init(handler){
-    initCustomHandlers(handler);
-    initChooseFileDelegator();
-    initFileUploader();
+    if (Airbo.LoadedSingletonModules &&  Airbo.LoadedSingletonModules.indexOf(this) == -1){
+      initCustomHandlers(handler);
+      initChooseFileDelegator();
+      initFileUploader();
+      Airbo.LoadedSingletonModules.push[this];
+    }else{
+
+      return;
+    }
   }
 
   return {

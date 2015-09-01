@@ -143,7 +143,6 @@ Airbo.TileCreator = (function(){
         success: function(data, status,xhr){
           imagesModal.html(data);
           $(imagesModalSelector).foundation("reveal", "open");
-          Airbo.TileImagesMgr.init();
           libaryLoaded = true;
         },
         error: function(jqXHR, textStatus, error){

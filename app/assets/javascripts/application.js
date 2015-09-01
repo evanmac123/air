@@ -38,3 +38,6 @@ Airbo.Utils = {
   },
 
 }
+
+Airbo.LoadedSingletonModules = [];
+
