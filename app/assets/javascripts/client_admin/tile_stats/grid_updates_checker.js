@@ -9,7 +9,8 @@ Airbo.GridUpdatesChecker = (function(){
       tileGridSection,
       tableSel = "#tile_stats_grid table",
       table,
-      newRecordsSectionSel = ".new_records";
+      newRecordsSectionSel = ".new_records",
+      startTimeInMs;
 
   function findNewRecordsSection(){
     newRecordsSection = table.find(newRecordsSectionSel);
@@ -31,6 +32,7 @@ Airbo.GridUpdatesChecker = (function(){
     //console.log(timeoutID);
     $.ajax({
       url: checkLink,
+      data: {start_time_in_ms: startTimeInMs},
       success: ajaxResponse(),
       dataType: "json"
     });
@@ -49,15 +51,21 @@ Airbo.GridUpdatesChecker = (function(){
     }
   }
 
+  function updateStartTime() {
+    startTimeInMs = Date.now();
+  }
+
   function init() {
     tileGridSection = $(tileGridSectionSel);
     checkLink = tileGridSection.data('updates-checker-link');
     table = $(tableSel);
+    updateStartTime();
     return this;
   }
 
   return {
     init: init,
-    start: start
+    start: start,
+    updateStartTime: updateStartTime
   };
 }());
