@@ -36,12 +36,12 @@ feature 'Progress bars' do
 
   shared_examples_for "raffle progress", js: true do
     it "shows raffle new box on first enter", js: true do
-      expect_content "New Raffle!"
+      expect_content "New Prize!"
       visit @path
-      expect_no_content "New Raffle!"
+      expect_no_content "New Prize!"
     end
     it "ping on first enter to new raffle", js: true do
-      page.should have_content "New Raffle!"
+      page.should have_content "New Prize!"
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear
       FakeMixpanelTracker.should have_event_matching("Saw Prize Modal",{ "action" => "Clicked Start"})

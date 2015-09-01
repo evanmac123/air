@@ -46,13 +46,13 @@ feature 'Create raffle' do
 
   scenario "get error when try to start raffle with empty form", js: true do
     click_start_raffle
-    expect_content "Sorry, we couldn't start the raffle: start date can't be blank, end date can't be blank, should have at least one prize."
+    expect_content "Sorry, we couldn't start the prize: start date can't be blank, end date can't be blank, should have at least one prize."
   end
 
   scenario "clear form", js: true do
     fill_prize_form
     click_clear_form
     click_start_raffle
-    expect_content "Sorry, we couldn't start the raffle: start date can't be blank, end date can't be blank, should have at least one prize."
+    expect_content "Sorry, we couldn't start the prize: start date can't be blank, end date can't be blank, should have at least one prize."
   end
 end
