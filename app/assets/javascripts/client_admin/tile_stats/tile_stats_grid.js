@@ -2,15 +2,15 @@ var Airbo = window.Airbo || {};
 
 Airbo.TileStatsGrid = (function(){
   // Selectros
-  var
-      tileGridSectionSel = ".tile_grid_section",
+  var tileGridSectionSel = ".tile_grid_section",
       linkInGridSel = tileGridSectionSel + " a:not(.download_as_csv)",
       currentGridLinkSel = ".grid_types a.current";
   // JQuery Objects
   var tileGridSection;
 
   var updateLink,
-      currentGridType;
+      currentGridType,
+      updatesChecker;
 
   function ajaxResponse(){
     return function (data){
@@ -46,6 +46,8 @@ Airbo.TileStatsGrid = (function(){
     tileGridSection = $(tileGridSectionSel);
     updateLink = tileGridSection.data("update-link");
     updateGridType( $(currentGridLinkSel) );
+    updatesChecker = Airbo.GridUpdatesChecker.init();
+    updatesChecker.start();
   }
 
   function initEvents(){
