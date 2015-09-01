@@ -119,6 +119,7 @@ Airbo.DirectToS3ImageUploader = (function(){
 
 
   function init(handler){
+    //FIXME poor man's dependency management
     if (Airbo.LoadedSingletonModules &&  Airbo.LoadedSingletonModules.indexOf(this) == -1){
       initCustomHandlers(handler);
       initChooseFileDelegator();
