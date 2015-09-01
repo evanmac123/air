@@ -1,13 +1,14 @@
-<li class="preview_menu_item post_header" id="post_header">
+<li class="preview_menu_item tipsy" id="draft_status" title="hello">
   <a href="#">
   <i class="fa fa-edit fa-1x"></i>
-  <span class="header_text">
+  <span class="header_text " >
     Draft 
   </span>
   </a>
+  
 </li>
 
-<li class="preview_menu_item post_header" id="post_header">
+<li class="preview_menu_item " >
   <%=link_to status_change_client_admin_tile_path(tile), data: {status: 'active'}, class: 'update_status' do %>
     <i class="fa fa-check fa-1x"></i>
     <span class="header_text">
