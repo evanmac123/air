@@ -45,7 +45,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @tile_builder_form = TileBuilderForm.new(@demo,builder_options.merge(tile: tile))
 
     if request.xhr? 
-      render partial: "shared/tiles/builder", layout: false and return
+      render layout: false and return
     else
       #normal rails render
     end
