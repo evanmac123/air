@@ -9,10 +9,12 @@ class PagesController < HighVoltage::PagesController
   before_filter :set_page_name
   before_filter :set_page_name_for_mixpanel
   before_filter :set_user_for_mixpanel
+  before_filter :handle_disabled_pages
 
   after_filter :update_seeing_marketing_page_for_first_time
 
   layout :layout_for_page
+  DISABLED_PAGES = ["customer_tiles"]
 
   PAGE_NAMES_FOR_MIXPANEL = {
     'welcome'        => "Marketing Page",
@@ -98,5 +100,9 @@ class PagesController < HighVoltage::PagesController
   def update_seeing_marketing_page_for_first_time
     return unless current_user && current_user.respond_to?("seeing_marketing_page_for_first_time=")
     current_user.update_attributes(seeing_marketing_page_for_first_time: false)
+  end
+
+  def handle_disabled_pages
+    raise ActionController::RoutingError.new("Page not Found") if DISABLED_PAGES.include?(params[:id]) 
   end
 end
