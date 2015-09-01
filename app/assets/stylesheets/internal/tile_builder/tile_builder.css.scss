@@ -172,7 +172,7 @@ body.suggested_tiles-update,
       overflow-y: scroll;
       line-height: 1.25em;
       &.exceeded_maxlength_field {
-        border-color: $red;
+        background-color: rgba(188, 76, 64,.20); //pinkish
       }
     }
     #tile_builder_form_supporting_content {
@@ -506,7 +506,7 @@ body.suggested_tiles-update,
   .tile_holder_container {
     float: none;
     width: auto;
-    height: calc(100vh - 47px);
+    height: calc(80vh);
     min-height: 646px;
     overflow: auto;
     padding-top: 20px;
@@ -552,6 +552,54 @@ body.suggested_tiles-update,
   .client_admin-tiles.client_admin-tiles-show &  .viewer a#prev {
     border: none;
     background: none;
+  }
+  .close-reveal-modal {
+   right: 0px;
+   left: .6875em;
+  }
+
+  .tile_preview_menu {
+    width: 600px;
+    margin:auto;
+    margin-bottom: 50px;
+  }
+
+  .tile_holder {
+   margin-top: 50px;
+   height: 100%;
+  }
+
+  #publish {
+    .cancel_tile_builder{
+      display: none;
+    }
+
+    input[type="submit"] {
+      width: 100%;
+    }
+  }
+
+  #tile_external_link {
+    margin-bottom: 0px;
+    margin-top: 0px;
+  }
+  .builder_content {
+
+    padding-bottom: 1em;
+    padding-top: 1em;
+    #tile_builder_form_headline{
+      font-size: 1.5em;
+      line-height: 1.15em;
+      height: 4.0em;
+    }
+  }
+
+  .tile_preview_menu .preview_menu_item {
+    min-width: 13%;
+    .header-text {
+      font-size: 12px;
+      margin-left: .10em;
+    }
   }
 }
 
