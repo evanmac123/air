@@ -1,6 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.tilePointsSlider = (function() {
+Airbo.TilePointsSlider = (function() {
   var pointsSlider
     , formPoints
     , pointSliderSelector =  "#points_slider"

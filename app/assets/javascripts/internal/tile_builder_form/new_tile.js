@@ -28,15 +28,16 @@ Airbo.TileCreator = (function(){
    preventCloseMsg = action
    Airbo.TileImageCredit.init();
    Airbo.TileImagesMgr.init();
+   Airbo.TilePointsSlider.init();
  }
 
  function prepShow(){
    adjustStylingForPreview();
    Airbo.TileCarouselPage.init();
    //$(".tipsy").tooltipster();
-   //$('#draft_status').tooltipster({
-     //content: $('<span><strong>This text is in bold case !</strong></span>')
-   //});
+   $('#draft_status').tooltipster({
+     content: $('<span><strong>This text is in bold case !</strong></span>')
+   });
  }
 
  function moveTile(currTile, data){

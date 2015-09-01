@@ -98,7 +98,6 @@ $(function() {
           library = Airbo.ImageLibrary.init(this)
           contentEditor = Airbo.TileSuportingContentTextManager.init(this)
           question = Airbo.TileQuestionBuilder.init();
-          points = Airbo.tilePointsSlider.init();
 
           Airbo.DirectToS3ImageUploader.init( {
             processed: showImagePreview,
