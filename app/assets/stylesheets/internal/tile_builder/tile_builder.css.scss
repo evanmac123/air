@@ -567,9 +567,13 @@ body.suggested_tiles-update,
     .preview_menu_item {
       min-width: 13%;
       width: auto;
+      padding: 0px;
       .header_text {
         font-size: 12px;
         margin-left: 0.10em;
+      }
+      a {
+        padding: 0.65em;
       }
     }
 

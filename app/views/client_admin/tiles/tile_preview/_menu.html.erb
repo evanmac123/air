@@ -5,7 +5,7 @@
     <%= render partial: "client_admin/tiles/tile_preview/posted_menu_items" , locals:{tile: tile} if tile.status== Tile::ACTIVE %>
     <%= render partial: "client_admin/tiles/tile_preview/archived_menu_items" , locals:{tile: tile} if tile.status== Tile::ARCHIVE %>
 
-    <li class="preview_menu_item edit_header" >
+    <li class="preview_menu_item edit" >
       <%=link_to edit_client_admin_tile_path(tile) do %>
         <i class="fa fa-pencil fa-1x"></i>
         <span class="header_text">
@@ -14,7 +14,7 @@
       <%end%>
     </li>
 
-    <li class="preview_menu_item destroy_header" >
+    <li class="preview_menu_item destroy" >
       <%=link_to client_admin_tile_path(tile), data: {confirm: {body: "Are you sure you want to delete this tile? Deleting a tile is irrevocable and you'll loose all data associated with it", modal_class: 'destroy_confirm_modal'}, method: "delete"} do %>
         <i class="fa fa-trash fa-1x"></i>
         <span class="header_text">
@@ -23,7 +23,7 @@
         <%end%>
     </li>
 
-    <li class="preview_menu_item edit_header" >
+    <li class="preview_menu_item explore" >
       <%=link_to "#" do %>
         <i class="fa fa-rocket fa-1x"></i>
         <span class="header_text">
@@ -32,7 +32,7 @@
       <%end%>
     </li>
 
-    <li class="preview_menu_item edit_header" >
+    <li class="preview_menu_item share" >
       <%=link_to "#" do %>
         <i class="fa fa-share-alt fa-1x"></i>
         <span class="header_text">
@@ -41,7 +41,7 @@
       <%end%>
     </li>
 
-    <li class="preview_menu_item edit_header" >
+    <li class="preview_menu_item link" >
       <%=link_to "#" do %>
         <i class="fa fa-link fa-1x"></i>
         <span class="header_text">
