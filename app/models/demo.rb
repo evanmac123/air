@@ -436,11 +436,11 @@ class Demo < ActiveRecord::Base
   private
 
   def next_in_group array, id
-   tile_offset(array, id, 1) || array.last
+   tile_offset(array, id, 1) || array.first
   end
 
   def prev_in_group array, id
-   tile_offset(array, id, -1) || array.first
+   tile_offset(array, id, -1) || array.last
   end
 
   def tile_offset array, id, offset

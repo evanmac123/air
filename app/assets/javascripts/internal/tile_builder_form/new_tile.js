@@ -304,12 +304,6 @@ Airbo.TileCarouselPage = (function() {
     return $(".right_multiple_choice_answer").removeAttr("href").unbind();
   }
 
-  function navigate(dir){
-    event.preventDefault();
-    grayoutTile();
-    //loadNextTileWithOffsetForManagePreview(dir);
-  }
-
   function attachRightAnswerMessage(event) {
     if (!checkInTile()) {
       return $(event.target).siblings('.answer_target').html("Correct!").slideDown(250);
