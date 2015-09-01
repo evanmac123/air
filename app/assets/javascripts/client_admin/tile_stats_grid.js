@@ -4,12 +4,13 @@ Airbo.TileStatsGrid = (function(){
   // Selectros
   var
       tileGridSectionSel = ".tile_grid_section",
-      linkInGridSel = tileGridSectionSel + " a",
+      linkInGridSel = tileGridSectionSel + " a:not(.download_as_csv)",
       currentGridLinkSel = ".grid_types a.current";
+  // JQuery Objects
+  var tileGridSection;
 
   var updateLink,
-      tileGridSection,
-      gridType;
+      currentGridType;
 
   function ajaxResponse(){
     return function (data){
@@ -20,31 +21,45 @@ Airbo.TileStatsGrid = (function(){
     };
   }
 
+  function getLinkParams(link) {
+    return link.attr("href").split('?')[1];
+  }
+
+  function updateGridType(link) {
+    gridType = link.data("grid-type");
+    if( gridType ){
+      currentGridType = gridType;
+    }
+  }
+
+  function updateGrid(link) {
+    updateGridType(link);
+    $.ajax({
+      url: updateLink + "?" + getLinkParams(link),
+      data: {grid_type: currentGridType},
+      success: ajaxResponse(),
+      dataType: "json"
+    });
+  }
+
   function initVars(){
     tileGridSection = $(tileGridSectionSel);
     updateLink = tileGridSection.data("update-link");
-    gridType = $(currentGridLinkSel).data("grid-type");
+    updateGridType( $(currentGridLinkSel) );
   }
+
   function initEvents(){
     $(document).on("click", linkInGridSel, function(e){
-      if( $(this).hasClass("download_as_csv") ) return;
       e.preventDefault();
-      linkParams = $(this).attr("href").split('?')[1];
-      if( $(this).data("grid-type") ){
-        gridType = $(this).data("grid-type");
-      }
-      $.ajax({
-        url: updateLink + "?" + linkParams,
-        data: {grid_type: gridType},
-        success: ajaxResponse(),
-        dataType: "json"
-      });
+      updateGrid( $(this) );
     });
   }
+
   function init(){
     initVars();
     initEvents();
   }
+
   return {
     init: init
   };
