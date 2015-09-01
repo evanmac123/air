@@ -556,17 +556,28 @@ body.suggested_tiles-update,
   .close-reveal-modal {
    right: 0px;
    left: .6875em;
+   width: 2em;
   }
 
   .tile_preview_menu {
     width: 600px;
     margin:auto;
     margin-bottom: 50px;
+
+    .preview_menu_item {
+      min-width: 13%;
+      width: auto;
+      .header_text {
+        font-size: 12px;
+        margin-left: 0.10em;
+      }
+    }
+
   }
 
   .tile_holder {
-   margin-top: 50px;
-   height: 100%;
+    margin-top: 50px;
+    height: 100%;
   }
 
   #publish {
@@ -583,8 +594,8 @@ body.suggested_tiles-update,
     margin-bottom: 0px;
     margin-top: 0px;
   }
-  .builder_content {
 
+  .builder_content {
     padding-bottom: 1em;
     padding-top: 1em;
     #tile_builder_form_headline{
@@ -594,12 +605,6 @@ body.suggested_tiles-update,
     }
   }
 
-  .tile_preview_menu .preview_menu_item {
-    min-width: 13%;
-    .header-text {
-      font-size: 12px;
-      margin-left: .10em;
-    }
-  }
+
 }
 
