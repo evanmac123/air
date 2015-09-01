@@ -28,7 +28,6 @@ shared_examples_for "editing a tile" do
     click_button "Update tile"
 
     expect_content "You can't save a tile without an image. Add a new image or click cancel to restore the image you removed"
-    show_tile_image_placeholder
     find("img[src*='cov1']")
   end
 
