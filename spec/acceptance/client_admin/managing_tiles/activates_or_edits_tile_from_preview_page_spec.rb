@@ -1,6 +1,125 @@
+Capybara.javascript_driver = :selenuim
 require 'acceptance/acceptance_helper'
 
 feature 'Activates or edits tile from preview page' do
+
+  context "an active tile" do
+    before do
+      @tile = FactoryGirl.create(:multiple_choice_tile, status: Tile::ACTIVE)
+      @client_admin = FactoryGirl.create(:client_admin, demo: @tile.demo)
+      visit client_admin_tile_path(@tile, as: @client_admin)
+    end
+
+    it "should allow the tile to be deactivated" do
+      click_deactivate_link
+      expect_deactivated_content(@tile)
+      expect_reactivate_link
+      expect_no_deactivate_link
+      @tile.reload.status.should == Tile::ARCHIVE
+    end
+
+    it "should link to the edit page" do
+      click_edit_link
+      should_be_on edit_client_admin_tile_path(@tile)
+      expect_mixpanel_action_ping('Tile Preview Page - Posted', 'Clicked Edit button')
+    end
+
+    it "should ping on clicking back to tiles button" do
+      click_link "Back to Tiles"
+      expect_mixpanel_action_ping('Tile Preview Page - Posted', 'Clicked Back to Tiles button')
+    end
+
+    it "should ping on clicking new tile button" do
+      click_link "New Tile"
+      expect_mixpanel_action_ping('Tile Preview Page - Posted', 'Clicked New Tile button')
+    end
+
+    it "should ping on clicking archive button" do
+      click_link "Archive"
+      expect_mixpanel_action_ping('Tile Preview Page - Posted', 'Clicked Archive button')
+    end
+
+    it "should not show an activate link" do
+      expect_no_activate_link
+    end
+  end
+
+  context "an inactive tile" do
+    before do
+      @tile = FactoryGirl.create(:multiple_choice_tile, status: Tile::ARCHIVE, activated_at: Time.now)
+      @client_admin = FactoryGirl.create(:client_admin, demo: @tile.demo)
+
+      visit client_admin_tile_path(@tile, as: @client_admin)
+    end
+
+    it "should allow the tile to be activated" do
+      click_reactivate_link
+
+      should_be_on client_admin_tile_path(@tile)
+      expect_activated_content(@tile)
+      expect_deactivate_link
+      expect_no_activate_link
+
+      @tile.reload.status.should == Tile::ACTIVE
+    end
+
+    it "should link to the edit page" do
+      click_edit_link
+      should_be_on edit_client_admin_tile_path(@tile)
+      expect_mixpanel_action_ping('Tile Preview Page - Archive', 'Clicked Edit button')
+    end
+
+    it "should ping on clicking back to tiles button" do
+      click_link "Back to Tiles"
+      expect_mixpanel_action_ping('Tile Preview Page - Archive', 'Clicked Back to Tiles button')
+    end
+
+    it "should ping on clicking new tile button" do
+      click_link "New Tile"
+
+      expect_mixpanel_action_ping('Tile Preview Page - Archive', 'Clicked New Tile button')
+    end
+
+    it "should ping on clicking archive button" do
+      click_link "Repost"
+
+      expect_mixpanel_action_ping('Tile Preview Page - Archive', 'Clicked Re-post button')
+    end
+
+    it "should not show a deactivate link" do
+      expect_no_deactivate_link
+    end
+  end
+
+  context "a draft tile" do
+    before do
+      @tile = FactoryGirl.create(:multiple_choice_tile, status: Tile::DRAFT)
+      @client_admin = FactoryGirl.create(:client_admin, demo: @tile.demo)
+
+      visit client_admin_tile_path(@tile, as: @client_admin)
+    end
+    scenario 'should post' do
+      click_link 'Post'
+      expect_mixpanel_action_ping('Tile Preview Page - Draft', 'Clicked Post button')
+    end
+    
+    scenario "should link to the edit page" do
+      click_edit_link      
+      expect_mixpanel_action_ping('Tile Preview Page - Draft', 'Clicked Edit button')
+    end
+    
+    scenario "should ping on clicking back to tiles button" do
+      click_link "Back to Tiles"      
+      expect_mixpanel_action_ping('Tile Preview Page - Draft', 'Clicked Back to Tiles button')
+    end
+    
+    scenario "should ping on clicking new tile button" do
+      click_link "New Tile"      
+      expect_mixpanel_action_ping('Tile Preview Page - Draft', 'Clicked New Tile button')
+
+    end    
+  end
+
   def activate_link_text
     "Post"  
   end
@@ -83,131 +202,4 @@ feature 'Activates or edits tile from preview page' do
     FakeMixpanelTracker.should have_event_matching(event, properties)    
   end
   
-  context "an active tile" do
-    before do
-      @tile = FactoryGirl.create(:multiple_choice_tile, status: Tile::ACTIVE)
-      @client_admin = FactoryGirl.create(:client_admin, demo: @tile.demo)
-
-      visit client_admin_tile_path(@tile, as: @client_admin)
-    end
-
-    it "should allow the tile to be deactivated" do
-      click_deactivate_link
-
-      should_be_on client_admin_tile_path(@tile)
-      expect_deactivated_content(@tile)
-      expect_reactivate_link
-      
-      expect_no_deactivate_link
-
-      @tile.reload.status.should == Tile::ARCHIVE
-    end
-
-    it "should link to the edit page" do
-      click_edit_link
-      should_be_on edit_client_admin_tile_path(@tile)
-      
-      expect_mixpanel_action_ping('Tile Preview Page - Posted', 'Clicked Edit button')
-    end
-    
-    it "should ping on clicking back to tiles button" do
-      click_link "Back to Tiles"
-      
-      expect_mixpanel_action_ping('Tile Preview Page - Posted', 'Clicked Back to Tiles button')
-    end
-    
-    it "should ping on clicking new tile button" do
-      click_link "New Tile"
-      
-      expect_mixpanel_action_ping('Tile Preview Page - Posted', 'Clicked New Tile button')
-    end
-    
-    it "should ping on clicking archive button" do
-      click_link "Archive"
-      
-      expect_mixpanel_action_ping('Tile Preview Page - Posted', 'Clicked Archive button')
-    end
-
-    it "should not show an activate link" do
-      expect_no_activate_link
-    end
-  end
-
-  context "an inactive tile" do
-    before do
-      @tile = FactoryGirl.create(:multiple_choice_tile, status: Tile::ARCHIVE, activated_at: Time.now)
-      @client_admin = FactoryGirl.create(:client_admin, demo: @tile.demo)
-
-      visit client_admin_tile_path(@tile, as: @client_admin)
-    end
-
-    it "should allow the tile to be activated" do
-      click_reactivate_link
-
-      should_be_on client_admin_tile_path(@tile)
-      expect_activated_content(@tile)
-      expect_deactivate_link
-      expect_no_activate_link
-
-      @tile.reload.status.should == Tile::ACTIVE
-    end
-
-    it "should link to the edit page" do
-      click_edit_link
-      should_be_on edit_client_admin_tile_path(@tile)
-      
-      expect_mixpanel_action_ping('Tile Preview Page - Archive', 'Clicked Edit button')
-    end
-    
-    it "should ping on clicking back to tiles button" do
-      click_link "Back to Tiles"
-      
-      expect_mixpanel_action_ping('Tile Preview Page - Archive', 'Clicked Back to Tiles button')
-    end
-    
-    it "should ping on clicking new tile button" do
-      click_link "New Tile"
-      
-      expect_mixpanel_action_ping('Tile Preview Page - Archive', 'Clicked New Tile button')
-    end
-    
-    it "should ping on clicking archive button" do
-      click_link "Repost"
-      
-      expect_mixpanel_action_ping('Tile Preview Page - Archive', 'Clicked Re-post button')
-    end
-    
-    it "should not show a deactivate link" do
-      expect_no_deactivate_link
-    end
-  end
-  
-  context "a draft tile" do
-    before do
-      @tile = FactoryGirl.create(:multiple_choice_tile, status: Tile::DRAFT)
-      @client_admin = FactoryGirl.create(:client_admin, demo: @tile.demo)
-
-      visit client_admin_tile_path(@tile, as: @client_admin)
-    end
-    scenario 'should post' do
-      click_link 'Post'
-      expect_mixpanel_action_ping('Tile Preview Page - Draft', 'Clicked Post button')
-    end
-    
-    scenario "should link to the edit page" do
-      click_edit_link      
-      expect_mixpanel_action_ping('Tile Preview Page - Draft', 'Clicked Edit button')
-    end
-    
-    scenario "should ping on clicking back to tiles button" do
-      click_link "Back to Tiles"      
-      expect_mixpanel_action_ping('Tile Preview Page - Draft', 'Clicked Back to Tiles button')
-    end
-    
-    scenario "should ping on clicking new tile button" do
-      click_link "New Tile"      
-      expect_mixpanel_action_ping('Tile Preview Page - Draft', 'Clicked New Tile button')
-
-    end    
-  end
 end
