@@ -11,7 +11,7 @@ Airbo.TileImageCredit = (function(){
 
   function initImageCreditHandlers(){
 
-    imageCreditView.keyup(function() {
+    imageCreditView.keyup(function(event) {
       saveImageCreditChanges('keyup');
       truncateImageCreditView();
     });
@@ -23,7 +23,8 @@ Airbo.TileImageCredit = (function(){
       }
     });
 
-    imageCreditView.click(function() {
+    imageCreditView.click(function(event) {
+      event.stopImmediatePropagation();
       if (isStatus('empty')) {
         imageCreditView.text('').focus();
       }
@@ -111,6 +112,5 @@ Airbo.TileImageCredit = (function(){
 }());
 
 $(function(){
-    Airbo.TileImageCredit.init();
-  
+    //Airbo.TileImageCredit.init();
 })
