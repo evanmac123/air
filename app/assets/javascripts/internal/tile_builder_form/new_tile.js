@@ -24,6 +24,7 @@ Airbo.TileCreator = (function(){
 
  function prepEditOrNew(action){
    $(tileForm).data("asAjax", true);
+   $("body").removeClass("client_admin-tiles-show");
    $("body").addClass("client_admin-tiles-edit");
    preventCloseMsg = action
    Airbo.TileImageCredit.init();
