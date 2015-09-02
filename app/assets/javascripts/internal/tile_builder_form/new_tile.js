@@ -356,7 +356,7 @@ Airbo.TileCarouselPage = (function() {
   }
 
   function attachRightAnswerMessage(event) {
-    if (!checkInTile()) {
+    if ( $(".tile_multiple_choice_answer").length == 1) {
       return $(event.target).siblings('.answer_target').html("Correct!").slideDown(250);
     }
   }
