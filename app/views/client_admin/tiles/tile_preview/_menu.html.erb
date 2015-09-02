@@ -6,7 +6,7 @@
     <%= render partial: "client_admin/tiles/tile_preview/archived_menu_items" , locals:{tile: tile} if tile.status== Tile::ARCHIVE %>
 
     <li class="preview_menu_item edit" >
-      <%=link_to edit_client_admin_tile_path(tile) do %>
+      <%=link_to edit_client_admin_tile_path(tile),  data:{tile_id: tile.id, action: "edit", status: tile.status} do %>
         <i class="fa fa-pencil fa-1x"></i>
         <span class="header_text">
           Edit

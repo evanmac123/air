@@ -60,12 +60,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       schedule_tile_creation_ping(@tile_builder_form.tile)
       if request.xhr?
         @tile = @tile_builder_form.tile
-        prepTilePreview
-        render json: {
-          tileStatus: @tile.status,
-          tile: render_tile_string,
-          preview: render_tile_preview_string,
-        }
+        render_preview_and_single 
       else
         redirect_to client_admin_tile_path(@tile_builder_form.tile)
       end
@@ -288,10 +283,11 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def update_fields
     @tile_builder_form =  TileBuilderForm.new( @demo, builder_options.merge(tile: @tile))
+
     if @tile_builder_form.update_tile
-      set_after_save_flash(@tile_builder_form.tile)
+      set_after_save_flash(@tile)
       if request.xhr?
-        head :ok, :location => client_admin_tiles_path
+        render_preview_and_single
       else
         redirect_to client_admin_tile_path(@tile_builder_form.tile)
       end
@@ -334,4 +330,16 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       action: params[:action]
     }
   end
+
+
+  def render_preview_and_single
+    prepTilePreview
+    render json: {
+      tileStatus: @tile.status,
+      tile: render_tile_string,
+      preview: render_tile_preview_string,
+    }
+
+  end
+
 end
