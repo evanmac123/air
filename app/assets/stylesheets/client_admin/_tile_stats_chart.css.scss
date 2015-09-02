@@ -134,6 +134,79 @@ body.client_admin-tile_stats {
     }
   }
 
+  // Jquery Datepicker resyling
+  #ui-datepicker-div {
+    font-size: 13px;
+    padding: 0;
+    border: 0;
+    .ui-datepicker-header {
+      background: #f5f5f5;
+      border: 1px solid $color-passive;
+      border-bottom-width: 0;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      .ui-icon-circle-triangle-w, .ui-icon-circle-triangle-e {
+        border: 5px solid #f5f5f5;
+        background-image: none;
+        height: 10px;
+        margin-top: -5px;
+        &:hover {
+          background-image: none;
+        }
+      }
+      .ui-icon-circle-triangle-w {
+        border-right-color: $color-passive;
+      }
+      .ui-icon-circle-triangle-e {
+        border-width: 4px;
+        height: 8px;
+        margin-top: -3px;
+        border-left-color: $color-passive;
+      }
+      a {
+        background: none;
+        border: 0;
+        &:hover {
+          .ui-icon-circle-triangle-w {
+            border-right-color: $color-active;
+          }
+          .ui-icon-circle-triangle-e {
+            border-left-color: $color-active;
+          }
+        }
+      }
+    }
+    table.ui-datepicker-calendar {
+      margin: 0;
+      thead tr {
+        border: 1px solid $color-passive;
+      }
+      th {
+        background-color: #f5f5f5;
+        span {
+          color: $color-active;
+        }
+      }
+      td {
+        padding: 0;
+        border: 1px solid $color-passive;
+        a {
+          background: white;
+          text-align: center;
+          border-color: white;
+          color: $color-passive;
+          font-weight: 700;
+          &:hover {
+            color: $color-hover;
+          }
+          &.ui-state-active {
+            color: black;
+          }
+        }
+      }
+    }
+  }
+
   .download_chart_block {
     float: right;
     width: 205px;
