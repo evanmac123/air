@@ -3,7 +3,7 @@ var Airbo = window.Airbo || {};
 Airbo.GridUpdatesChecker = (function(){
   var continueRequests = true,
       timeoutID,
-      interval = 5000,
+      interval = 10000, // ms
       checkLink,
       tileGridSectionSel = ".tile_grid_section",
       tileGridSection,
@@ -12,19 +12,31 @@ Airbo.GridUpdatesChecker = (function(){
       newRecordsSectionSel = ".new_records",
       startTimeInMs;
 
-  function findNewRecordsSection(){
-    newRecordsSection = table.find(newRecordsSectionSel);
+  function findNewRecordsSection() {
+    return table.find(newRecordsSectionSel);
+  }
+
+  function findOrCreateNewRecordsSection(){
+    newRecordsSection = findNewRecordsSection();
     if(newRecordsSection.length == 0) {
       table.find('thead').after("<td class='new_records' colspan='5'></td>");
-      newRecordsSection = table.find(newRecordsSectionSel);
+      newRecordsSection = findNewRecordsSection();
     }
     return newRecordsSection;
   }
 
+  function removeNewRecordsSection() {
+    findNewRecordsSection().remove();
+  }
+
   function ajaxResponse() {
     return function (data){
-      console.log(data.count);
-      findNewRecordsSection().html(data.count);
+      console.log(data.text);
+      if(data.text.length > 0) {
+        findOrCreateNewRecordsSection().html(data.text);
+      } else {
+        removeNewRecordsSection();
+      }
     };
   }
 
