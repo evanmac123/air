@@ -19,6 +19,7 @@ Airbo.TileCreator = (function(){
     , imagesModalSelector ="#images_modal"
     , addImageSelector ="#image_uploader"
     , tileForm ="#new_tile_builder_form"
+    , ajaxHandler = Airbo.AjaxResponseHandler
     , modalActivationSelectors = [newSelector, editSelector, previewSelector, tileNavigationSelector].join(",")
   ;
 
@@ -50,6 +51,10 @@ Airbo.TileCreator = (function(){
    $(newSection).prepend(newTile);
  }
 
+ function pageSectionByStatus(status){
+   return $("#" + status + sectionSelector);
+ } 
+
  function initStatusUpdate(){
    $("body").on("click", ".update_status", function(event) {
      event.preventDefault();
@@ -79,9 +84,9 @@ Airbo.TileCreator = (function(){
    $(".tile_preview_container").removeClass("large-9").addClass("large-12");
  }
 
- function processEvent(trigger){
+ function processEvent(action){
 
-   switch(trigger.data("action")){
+   switch(action){
      case "new":
        prepEditOrNew("creating");
      break;
@@ -96,9 +101,10 @@ Airbo.TileCreator = (function(){
    }
  }
 
- function handleModal(){
+ function setupModalFor(action){
+   action = action || modalTrigger.data("action");
    tileModal.find("#modal_content").html(modalContent);
-   processEvent(modalTrigger);
+   processEvent(action);
    tileModal.foundation("reveal", "open");
  }
 
@@ -107,8 +113,9 @@ Airbo.TileCreator = (function(){
 
    });
 
+   //TODO figure why this needs a timer
    $("body").on("cancel.reveal", "a[data-confirm]", function(event){
-     setTimeout(function(){handleModal()}, 200);
+     setTimeout(function(){setupModalFor()}, 200);
    });
  }
 
@@ -124,7 +131,7 @@ Airbo.TileCreator = (function(){
         url: modalTrigger.attr("href") ,
         success: function(data, status,xhr){
           modalContent = data;
-          handleModal();
+          setupModalFor(modalTrigger.data("action"));
         },
 
         error: function(jqXHR, textStatus, error){
@@ -212,6 +219,45 @@ Airbo.TileCreator = (function(){
     imagesModalOpenclose();
   }
 
+
+  function initTileSubmission(){
+
+    $("body").on("submit", "#new_tile_builder_form", function(event){
+      event.preventDefault(); 
+      form = $(this);
+      submitButton = form.find('input[type=submit]')
+      submitButton.attr("disabled", "disabled");
+
+      if((form).data("asAjax")==true){
+        $.ajax({
+          url: form.attr("action"),
+          type: form.attr("method"),
+          data: form.serialize(),
+        }).done(function(data,status,xhr){
+
+          ajaxHandler.silentSuccess(data, status, xhr, function(data){
+
+           var section = pageSectionByStatus(data.tileStatus);
+           preventCloseMsg = false; // Allow modal to be closed sans confirmation
+           section.prepend(data.tile); //Add tile to section
+
+           tileModal.find("#modal_content").html(data.preview);
+           prepShow();
+          });
+
+        }).fail(function(xhr, status, errorThrown){
+          ajaxHandler.fail( xhr, status, function(){
+            submitButton.removeAttr("disabled");
+          });
+
+        });
+      }else {
+        form[0].submit();
+      }
+
+    });
+  }
+
   function init(){
 
     initDeletionConfirmation();
@@ -221,8 +267,12 @@ Airbo.TileCreator = (function(){
     initModalOpenClose();
 
     initJQueryObjects();
+
     initNewTileModal();
+
     initImageLibraryModal();
+
+    initTileSubmission();
   }
 
 

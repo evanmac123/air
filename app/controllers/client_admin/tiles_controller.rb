@@ -59,7 +59,13 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       set_after_save_flash(@tile_builder_form.tile)
       schedule_tile_creation_ping(@tile_builder_form.tile)
       if request.xhr?
-        head :ok, :location => client_admin_tiles_path
+        @tile = @tile_builder_form.tile
+        prepTilePreview
+        render json: {
+          tileStatus: @tile.status,
+          tile: render_tile(@tile),
+          preview: render_tile_preview,
+        }
       else
         redirect_to client_admin_tile_path(@tile_builder_form.tile)
       end
@@ -98,9 +104,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def show
     @tile = get_tile
-    @prev, @next = @demo.bracket @tile
-    @show_share_section_intro = show_share_section_intro
-    @show_submitted_tile_menu_intro = show_submitted_tile_menu_intro
+    prepTilePreview
     tile_in_box_viewed_ping @tile
     if request.xhr? 
       render layout: false
@@ -151,6 +155,11 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   
   private
 
+  def prepTilePreview
+    @prev, @next = @demo.bracket @tile
+    @show_share_section_intro = show_share_section_intro
+    @show_submitted_tile_menu_intro = show_submitted_tile_menu_intro
+  end
   
   def intro_flags_index
     @board_is_brand_new = @demo.tiles.limit(1).first.nil? && params[:show_suggestion_box] != "true"
@@ -264,7 +273,13 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       locals: { presenter: SingleTilePresenter.new(@tile, :html, @is_client_admin_action, browser.ie?) }
     ) 
   end
-  
+
+  def render_tile_preview
+    render_to_string(action: 'show', layout:false) 
+  end
+
+
+
   def update_fields
     @tile_builder_form =  TileBuilderForm.new( @demo, builder_options.merge(tile: @tile))
     if @tile_builder_form.update_tile
