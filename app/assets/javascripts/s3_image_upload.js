@@ -129,7 +129,6 @@ function initCustomHandlers(handler){
 
 function init(handler){
   $('body').off('click', uploaderTriggerSelector);
-  //FIXME poor man's dependency management
   initCustomHandlers(handler);
   initChooseFileDelegator();
   initFileUploader();
