@@ -26,7 +26,7 @@ body.client_admin-tile_stats {
       }
     }
   }
-  table {
+  %stats-table {
     font-size: 14px;
     th, td {
       padding: 13px 20px;
@@ -70,6 +70,7 @@ body.client_admin-tile_stats {
     margin-bottom: 30px;
   }
   .survey-chart-table {
+    @extend %stats-table;
     margin-bottom: 60px;
     th {
       cursor: pointer;
@@ -114,6 +115,7 @@ body.client_admin-tile_stats {
     }
   }
   .tile_grid_section table {
+    @extend %stats-table;
     .new_records {
       background: #f6fcfc;
       border: 1px solid #cbeaff;

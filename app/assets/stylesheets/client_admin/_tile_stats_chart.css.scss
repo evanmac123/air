@@ -9,7 +9,7 @@ body.client_admin-tile_stats {
     &:after {
       content: " ";
       position: absolute;
-      right: 22px;
+      right: 10px;
       top: 71px;;
       width: 26px;
       height: 21px;
@@ -48,14 +48,15 @@ body.client_admin-tile_stats {
     }
   }
   //
-  // => Custom dropdown full restyling
+  // => Selectors
   //
+  $color-passive: #8d8d8d;
+  $color-active: #454545;
+  $color-hover: #454545;
+  $font-size: 13px;
+  $font-weight: 500;
+  // => Custom dropdown full restyling
   .custom.dropdown {
-    $color-passive: #8d8d8d;
-    $color-active: #454545;
-    $color-hover: #454545;
-    $font-size: 13px;
-    $font-weight: 500;
     border-radius: 3px;
     border-color: $color-passive;
     background: transparent;
@@ -112,9 +113,18 @@ body.client_admin-tile_stats {
       float: left;
       width: 100px;
       margin-right: 8px;
-      font-size: 13px;
+      font-size: $font-size;
+      font-weight: $font-weight;
       height: 33px;
-      color: #8d8d8d;
+      color: $color-passive;
+      &:hover {
+        color: $color-hover;
+        border-color: $color-hover;
+      }
+      &:active {
+        color: $color-active;
+        border-color: $color-active;
+      }
     }
      a {
       @include app-button($sky-blue);

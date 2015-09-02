@@ -5,5 +5,12 @@ body.client_admin-tile_stats {
     color: $text-color;
     padding-bottom: 70px;
     margin: 0;
+    font-weight: 500;
+  }
+  .columns {
+    padding: 0;
+  }
+  .stats_page {
+    max-width: 1000px;
   }
 }
