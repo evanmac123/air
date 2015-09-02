@@ -63,8 +63,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
         prepTilePreview
         render json: {
           tileStatus: @tile.status,
-          tile: render_tile(@tile),
-          preview: render_tile_preview,
+          tile: render_tile_string,
+          preview: render_tile_preview_string,
         }
       else
         redirect_to client_admin_tile_path(@tile_builder_form.tile)
@@ -259,7 +259,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
       render json: {
         success: true,
-        tile: render_tile(@tile),
+        tile: render_tile_string,
         tile_id: @tile.id
       }
     else
@@ -267,18 +267,24 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     end
   end
 
-  def render_tile tile
+  def render_tile_string 
     render_to_string( 
-      partial: 'client_admin/tiles/manage_tiles/single_tile', 
-      locals: { presenter: SingleTilePresenter.new(@tile, :html, @is_client_admin_action, browser.ie?) }
-    ) 
+                     partial: 'client_admin/tiles/manage_tiles/single_tile', 
+                     locals: { presenter:  tile_presenter}
+                    ) 
   end
 
-  def render_tile_preview
+  def render_single_tile
+    render partial: 'client_admin/tiles/manage_tiles/single_tile', locals: { presenter: tile_presenter}
+  end
+
+  def tile_presenter
+    @presenter ||= SingleTilePresenter.new(@tile, :html, @is_client_admin_action, browser.ie?)
+  end
+
+  def render_tile_preview_string
     render_to_string(action: 'show', layout:false) 
   end
-
-
 
   def update_fields
     @tile_builder_form =  TileBuilderForm.new( @demo, builder_options.merge(tile: @tile))
