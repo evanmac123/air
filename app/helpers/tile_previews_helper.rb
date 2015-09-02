@@ -30,22 +30,85 @@ module TilePreviewsHelper
       end
     end
   end
-  
+
   def show_company_and_demo(tile)
     author_name = []
-    
+
     #author_name << tile.creator.name if tile.creator
     author_name << tile.demo.client_name if tile.demo.client_name.present?
     author_name << tile.demo.name
-    
+
     author_name.join(', ')
   end
-  
-  def share_tile_link tile
-    request.host_with_port.gsub(/^www./, "") + explore_tile_preview_path(tile)
+
+  def draft_menu_item type
+    if type == :action
+      ["Post",  "fa-check", "active"]
+    else
+      ["Draft", "fa-edit"]
+    end
   end
+
+  def active_menu_item type
+    if type == :action
+      [ "Archive", "fa-archive", "archive"]
+    else
+      ["Posted", "fa-archive" ]
+    end
+  end
+
+  def archive_menu_item type
+    if type == :action
+      ["Repost", "fa-check", "active"]
+    else
+      ["Archived", "fa-archive"]
+    end
+  end
+
+  def preview_menu_item_by_status status, type
+    keys = [:txt,  :icon,  :status]
+    values = case status
+             when Tile::DRAFT
+               draft_menu_item type
+             when Tile::ARCHIVE
+               archive_menu_item type
+             when Tile::ACTIVE
+               active_menu_item type
+             end
+
+    Hash[keys.zip(values)]
+  end
+
+  def tile_preview_menu_status_item tile 
+    config = preview_menu_item_by_status tile.status, :status
+    content_tag :li, class: "preview_menu_item",  id: "preview_tile_status" do
+      content_tag :a do
+        s = content_tag :i,  class: "fa #{config[:icon]} fa-1x" do; end
+        s+= content_tag :span,  class: "header_text " do
+          "#{config[:txt]}" 
+        end 
+        s
+      end
+    end
+  end
+
+  def tile_preview_menu_action_item tile
+    config = preview_menu_item_by_status tile.status, :action
+    content_tag :li, class: "preview_menu_item"  do
+      link_to  status_change_client_admin_tile_path(tile), data: {status: config[:status]},  class: 'update_status' do
+        s = content_tag :i,  class: "fa #{config[:icon]} fa-1x" do; end
+        s+= content_tag :span,  class: "header_text " do
+          "#{config[:txt]}" 
+        end 
+        s
+      end
+    end
+  end
+
 
   def sharable_tile_link tile
     request.host_with_port.gsub(/^www./, "") + sharable_tile_path(tile)
   end
+
+
 end

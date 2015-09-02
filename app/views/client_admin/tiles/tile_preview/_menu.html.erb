@@ -1,9 +1,9 @@
 <% show_client_admin_menu ||= false %>
 <%  if show_client_admin_menu %>
   <ul class="tile_preview_menu">
-    <%= render partial: "client_admin/tiles/tile_preview/drafted_menu_items", locals:{tile: tile} if tile.status== Tile::DRAFT %>
-    <%= render partial: "client_admin/tiles/tile_preview/posted_menu_items" , locals:{tile: tile} if tile.status== Tile::ACTIVE %>
-    <%= render partial: "client_admin/tiles/tile_preview/archived_menu_items" , locals:{tile: tile} if tile.status== Tile::ARCHIVE %>
+
+    <%=tile_preview_menu_status_item tile %>
+    <%=tile_preview_menu_action_item tile%>
 
     <li class="preview_menu_item edit" >
       <%=link_to edit_client_admin_tile_path(tile),  data:{tile_id: tile.id, action: "edit", status: tile.status} do %>
