@@ -1,7 +1,7 @@
 class TileStatsChart
   attr_reader :period, :plot_data
 
-  def initialize period, action_query, value_type# = "activity"
+  def initialize period, action_query, value_type
     @period = period
     @plot_data = PlotData.new @period, action_query, value_type
   end
@@ -93,24 +93,38 @@ JS
     end
 
     def tooltip_params
-      #{formatter: tooltip_formatter.js_code }
-      {}
+      {
+        #formatter: tooltip_formatter.js_code
+        # borderColor:
+        useHTML: true,
+        headerFormat: "<div style='font-size:13px;color:{series.color};padding:3px;'>{point.key}</div>",
+        pointFormat: "<div style='font-size:13px;padding:3px;padding-top:0;font-weight:700;'>{point.y}</div>"
+      }
+      #{}
     end
 
-#     def tooltip_formatter
+#     def point_format
 #       <<-JS
-#       function () {
-#         return 'The value for <b>' +
-#           Highcharts.dateFormat('%l %p', this.x) +
-#           //Object.getOwnPropertyNames(this) +
-#           Object.getOwnPropertyNames(this.point) +
-#           this.point.state() +
-#           '</b> is <b>' + this.y + '</b>';
+#       function() {
+#         return point.y;
 #       }
 # JS
 #     end
 
+    def tooltip_formatter
+      <<-JS
+      function () {
+        return 'The value for <b>' +
+          Highcharts.dateFormat('%l %p', this.x) +
+          '</b> is <b>' + this.y + '</b>';
+      }
+JS
+    end
+
     def series_params
-      { data: plot_data.data }
+      {
+        data: plot_data.data,
+        color: '#4FACE0'
+      }
     end
 end
