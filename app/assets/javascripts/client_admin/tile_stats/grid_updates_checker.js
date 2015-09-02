@@ -1,8 +1,7 @@
 var Airbo = window.Airbo || {};
 
 Airbo.GridUpdatesChecker = (function(){
-  var continueRequests = true,
-      timeoutID,
+  var timeoutID,
       interval = 10000, // ms
       checkLink,
       tileGridSectionSel = ".tile_grid_section",
@@ -48,18 +47,21 @@ Airbo.GridUpdatesChecker = (function(){
       success: ajaxResponse(),
       dataType: "json"
     });
-    if(continueRequests){
-      start();
-    }
   }
 
   function start() {
-    timeoutID = window.setTimeout(checkForUpdate, interval);
+    stopChecker();
+    timeoutID = window.setInterval(checkForUpdate, interval);
   }
 
-  function stop() {
+  function reStart() {
+    initVars();
+    start();
+  }
+
+  function stopChecker() {
     if(timeoutID) {
-      window.clearTimeout(timeoutID);
+      window.clearInterval(timeoutID);
     }
   }
 
@@ -67,17 +69,31 @@ Airbo.GridUpdatesChecker = (function(){
     startTimeInMs = Date.now();
   }
 
-  function init() {
+  function initVars() {
     tileGridSection = $(tileGridSectionSel);
     checkLink = tileGridSection.data('updates-checker-link');
     table = $(tableSel);
+  }
+
+  function initEvents() {
+    $(document).on("click", newRecordsSectionSel, function(e) {
+      e.preventDefault();
+      $(".grid_types a").first().click();
+      updateStartTime();
+    });
+  }
+
+  function init() {
+    initVars();
     updateStartTime();
+    initEvents();
     return this;
   }
 
   return {
     init: init,
     start: start,
-    updateStartTime: updateStartTime
+    stopChecker: stopChecker,
+    reStart: reStart
   };
 }());
