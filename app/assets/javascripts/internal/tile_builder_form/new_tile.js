@@ -10,6 +10,7 @@ Airbo.TileCreator = (function(){
     , currTileId
     , currTileStatus
     , keepOpen = false
+    , tilePreviewStatusSelector = "#preview_tile_status"
     , tileWrapperSelector =".tile_container"
     , modalContentSelector = "#modal_content"
     , modalBackgroundSelector = '.reveal-modal-bg'
@@ -40,8 +41,9 @@ Airbo.TileCreator = (function(){
    adjustStylingForPreview();
    Airbo.TileCarouselPage.init();
    //$(".tipsy").tooltipster();
-   $('#draft_status').tooltipster({
-     content: $('<span><strong>This text is in bold case !</strong></span>')
+   $(tilePreviewStatusSelector).tooltipster({
+     content: $('<span id="draft-tip"><strong>This text is in bold case !</strong></span>'),
+     contentAsHTML: true
    });
  }
 
