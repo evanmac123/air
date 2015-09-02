@@ -97,8 +97,13 @@ JS
         #formatter: tooltip_formatter.js_code
         # borderColor:
         useHTML: true,
-        headerFormat: "<div style='font-size:13px;color:{series.color};padding:3px;'>{point.key}</div>",
-        pointFormat: "<div style='font-size:13px;padding:3px;padding-top:0;font-weight:700;'>{point.y}</div>"
+        style: {
+          padding: 8,
+          fontSize: 13
+        },
+        headerFormat: "<div style='color:{series.color};'>{point.key}</div>",
+        pointFormat: "<div style='padding-top:3px;'>{point.y}</div>",
+        shadow: false
       }
       #{}
     end

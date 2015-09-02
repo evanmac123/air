@@ -64,7 +64,11 @@ Airbo.TileStatsChart = (function(){
     form = $(formSel);
     downloadChart = $(downloadChartSel);
 
-    datePickers.datepicker();
+    datePickers.datepicker({
+      showOtherMonths: true,
+      selectOtherMonths: true,
+      dateFormat: 'M d, yy'
+    });
   }
 
   function initEvents(){

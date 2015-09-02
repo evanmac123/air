@@ -107,7 +107,7 @@ class Period
   protected
 
     def from_american_format str
-      time = Time.strptime(str, "%m/%d/%Y")
+      time = Time.strptime(str, "%b %d, %Y")
       (time + time.utc_offset).utc # same time in utc
     end
 end

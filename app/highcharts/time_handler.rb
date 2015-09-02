@@ -68,11 +68,11 @@ class TimeHandler
     end
 
     def to_american_format time
-      time.to_s(:chart_start_end_day)
+      time.strftime("%b %d, %Y")
     end
 
     def from_american_format str
-      Time.strptime(str, "%m/%d/%Y")
+      Time.strptime(str, "%b %d, %Y")
     end
 
     def to_american_long_format str

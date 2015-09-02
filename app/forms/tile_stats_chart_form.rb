@@ -67,8 +67,8 @@ class TileStatsChartForm
   protected
     def initial_params
       {
-        start_date: tile.created_at.to_s(:chart_start_end_day),
-        end_date: Time.now.to_s(:chart_start_end_day),
+        start_date: tile.created_at.strftime("%b %d, %Y"),
+        end_date: Time.now.strftime("%b %d, %Y"),
         changed_field: 'end_date' # to trigger time handler
       }
     end
