@@ -41,7 +41,7 @@ module TilePreviewsHelper
     author_name.join(', ')
   end
 
-  def draft_menu_item type
+  def draft_menu_item_config type
     if type == :action
       ["Post",  "fa-check", "active"]
     else
@@ -49,7 +49,7 @@ module TilePreviewsHelper
     end
   end
 
-  def active_menu_item type
+  def active_menu_item_config type
     if type == :action
       [ "Archive", "fa-archive", "archive"]
     else
@@ -57,7 +57,7 @@ module TilePreviewsHelper
     end
   end
 
-  def archive_menu_item type
+  def archive_menu_item_config type
     if type == :action
       ["Repost", "fa-check", "active"]
     else
@@ -65,42 +65,55 @@ module TilePreviewsHelper
     end
   end
 
-  def preview_menu_item_by_status status, type
+  def preview_menu_item_config_by_status status, type
     keys = [:txt,  :icon,  :status]
     values = case status
              when Tile::DRAFT
-               draft_menu_item type
+               draft_menu_item_config type
              when Tile::ARCHIVE
-               archive_menu_item type
+               archive_menu_item_config type
              when Tile::ACTIVE
-               active_menu_item type
+               active_menu_item_config type
              end
 
     Hash[keys.zip(values)]
   end
 
+  def menu_item_text_and_icon txt, icon
+    s = content_tag :i,  class: "fa #{icon} fa-1x" do; end
+    s+= content_tag :span,  class: "header_text " do
+      "#{txt}" 
+    end
+    s
+  end
+
   def tile_preview_menu_status_item tile 
-    config = preview_menu_item_by_status tile.status, :status
+    config = preview_menu_item_config_by_status tile.status, :status
     content_tag :li, class: "preview_menu_item",  id: "preview_tile_status" do
       content_tag :a do
-        s = content_tag :i,  class: "fa #{config[:icon]} fa-1x" do; end
-        s+= content_tag :span,  class: "header_text " do
-          "#{config[:txt]}" 
-        end 
-        s
+        menu_item_text_and_icon(config[:txt], config[:icon])
       end
+
     end
   end
 
-  def tile_preview_menu_action_item tile
-    config = preview_menu_item_by_status tile.status, :action
-    content_tag :li, class: "preview_menu_item"  do
+  def tile_preview_status_change_tooltip tile
+    alt_statuses = [Tile::DRAFT, Tile::ACTIVE, Tile::ARCHIVE].reject{|x|x==tile.status}
+    content_tag :div, id: "stat_change_sub" do
+      s=""
+      alt_statuses.each do |stat|
+        s += tile_preview_menu_action_item tile, stat, :p, nil
+      end
+      raw s
+    end
+  end
+
+  def tile_preview_menu_action_item tile, status = tile.status, item_tag = :li, item_class="preview_menu_item"
+    config = preview_menu_item_config_by_status status, :action
+
+    content_tag item_tag, class: item_class  do
       link_to  status_change_client_admin_tile_path(tile), data: {status: config[:status]},  class: 'update_status' do
-        s = content_tag :i,  class: "fa #{config[:icon]} fa-1x" do; end
-        s+= content_tag :span,  class: "header_text " do
-          "#{config[:txt]}" 
-        end 
-        s
+        menu_item_text_and_icon(config[:txt], config[:icon])
       end
     end
   end
