@@ -121,6 +121,24 @@ module TilePreviewsHelper
     end
   end
 
+  def tile_preview_menu_social_share tile, site
+    site_link = "sharable_tile_on_#{site}".to_sym
+    link_to send(site_link, tile) do 
+      content_tag :div, class: "share_via share_via_#{site}" do
+        fa_icon(site, class: "1x")
+      end 
+    end
+  end
+
+  def social_share_links tile
+    content_tag :div, id: "social_share" do
+      s =""
+      %w(facebook twitter linkedin).each do |site|
+        s += tile_preview_menu_social_share tile, site
+      end
+      raw s
+    end
+  end
 
   def sharable_tile_link tile
     request.host_with_port.gsub(/^www./, "") + sharable_tile_path(tile)
