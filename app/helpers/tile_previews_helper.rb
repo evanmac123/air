@@ -140,6 +140,31 @@ module TilePreviewsHelper
     end
   end
 
+  def share_via_explore tile
+    s= form_for TilePublicForm.new(tile), url: client_admin_public_tile_path(tile), method: :put, html: {id: "public_tile_form"} do |f| 
+      render 'client_admin/tiles/tile_preview/public_section', form: f
+    end 
+    raw s
+  end
+
+  def share_to_explore_css_config tile 
+    copy_switch_classes = %w(switch small round allow_copy)
+    copy_switch_classes << "disabled" unless tile.tile_tags.present?
+
+    share_to_explore_classes = %w(share_to_explore)
+    share_to_explore_classes << "disabled" unless tile.tile_tags.present?
+    share_to_explore_classes << "remove_from_explore" if tile.is_public 
+
+    h = {} 
+
+    h[:copy_switch_classes] = copy_switch_classes
+    h[:share_to_explore_classes] = share_to_explore_classes
+
+    h[:add_tag_class] = tile.tile_tags.present? ? "" : "highlighted"
+    h[:share_to_explore_text] = tile.is_public ? "Remove from Explore" : "Share to Explore"
+    h
+  end
+
   def sharable_tile_link tile
     request.host_with_port.gsub(/^www./, "") + sharable_tile_path(tile)
   end
