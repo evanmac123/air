@@ -87,14 +87,9 @@ module TilePreviewsHelper
     s
   end
 
-  def tile_preview_menu_status_item tile 
-    config = preview_menu_item_config_by_status tile.status, :status
-    content_tag :li, class: "preview_menu_item",  id: "preview_tile_status" do
-      content_tag :a do
-        menu_item_text_and_icon(config[:txt], config[:icon])
-      end
-
-    end
+  def tile_preview_menu_item_config tile, opts
+    config = {status: tile.status }.merge(opts)
+    config.merge! (preview_menu_item_config_by_status config[:status], :action)
   end
 
   def tile_preview_status_change_tooltip tile
@@ -111,9 +106,12 @@ module TilePreviewsHelper
     end
   end
 
-  def tile_preview_menu_item_config tile, opts
-    config = {status: tile.status }.merge(opts)
-    config.merge! (preview_menu_item_config_by_status config[:status], :action)
+
+  def tile_preview_menu_status_item tile 
+    config = preview_menu_item_config_by_status tile.status, :status
+    content_tag :a do
+      menu_item_text_and_icon(config[:txt], config[:icon])
+    end
   end
 
   def tile_preview_menu_action_item tile, opts={}
