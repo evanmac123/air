@@ -98,23 +98,28 @@ module TilePreviewsHelper
   end
 
   def tile_preview_status_change_tooltip tile
-    alt_statuses = [Tile::DRAFT, Tile::ACTIVE, Tile::ARCHIVE].reject{|x|x==tile.status}
+    change_statuses = [Tile::DRAFT, Tile::ACTIVE, Tile::ARCHIVE].reject{|x|x==tile.status}
+
     content_tag :div, id: "stat_change_sub" do
       s=""
-      alt_statuses.each do |stat|
-        s += tile_preview_menu_action_item tile, stat, :p, nil
+      change_statuses.each do |stat|
+       s+= content_tag :p do
+           tile_preview_menu_action_item tile, {status: stat }
+        end
       end
       raw s
     end
   end
 
-  def tile_preview_menu_action_item tile, status = tile.status, item_tag = :li, item_class="preview_menu_item"
-    config = preview_menu_item_config_by_status status, :action
+  def tile_preview_menu_item_config tile, opts
+    config = {status: tile.status }.merge(opts)
+    config.merge! (preview_menu_item_config_by_status config[:status], :action)
+  end
 
-    content_tag item_tag, class: item_class  do
-      link_to  status_change_client_admin_tile_path(tile), data: {status: config[:status]},  class: 'update_status' do
-        menu_item_text_and_icon(config[:txt], config[:icon])
-      end
+  def tile_preview_menu_action_item tile, opts={}
+    config = tile_preview_menu_item_config tile, opts
+    link_to  status_change_client_admin_tile_path(tile), data: {status: config[:status]},  class: 'update_status' do
+      menu_item_text_and_icon(config[:txt], config[:icon])
     end
   end
 
