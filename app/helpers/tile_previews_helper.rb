@@ -148,7 +148,7 @@ module TilePreviewsHelper
   end
 
   def share_to_explore_css_config tile 
-    copy_switch_classes = %w(switch small round allow_copy)
+    copy_switch_classes = %w(switch tiny round allow_copy)
     copy_switch_classes << "disabled" unless tile.tile_tags.present?
 
     share_to_explore_classes = %w(share_to_explore)
@@ -161,7 +161,7 @@ module TilePreviewsHelper
     h[:share_to_explore_classes] = share_to_explore_classes
 
     h[:add_tag_class] = tile.tile_tags.present? ? "" : "highlighted"
-    h[:share_to_explore_text] = tile.is_public ? "Remove from Explore" : "Share to Explore"
+    h[:share_to_explore_text] = tile.is_public ? "Remove" : "Share"
     h
   end
 
