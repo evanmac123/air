@@ -37,14 +37,25 @@ Airbo.TileCreator = (function(){
    Airbo.TilePointsSlider.init();
  }
 
+ function tooltipBefore(){
+   console.log($(this).tooltipster("content"))
+ }
+
+
+ function initPreviewMenuTooltips(){
+
+ $(".tipsy").tooltipster({
+     theme: "tooltipster-shadow",
+     interactive: true,
+     position: "bottom",
+     contentAsHTML: true,
+   });
+ }
+
  function prepShow(){
    adjustStylingForPreview();
    Airbo.TileCarouselPage.init();
-   //$(".tipsy").tooltipster();
-   $(tilePreviewStatusSelector).tooltipster({
-     content: $('<span id="draft-tip"><strong>This text is in bold case !</strong></span>'),
-     contentAsHTML: true
-   });
+   initPreviewMenuTooltips();
  }
 
  function moveTile(currTile, data){

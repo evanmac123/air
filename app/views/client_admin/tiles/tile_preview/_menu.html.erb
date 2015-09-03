@@ -1,13 +1,17 @@
 <% show_client_admin_menu ||= false %>
 <%  if show_client_admin_menu %>
 
-  <ul class="tile_preview_menu">
+  <ul class="tile_preview_menu" >
 
+    
+    <li class="preview_menu_item edit tipsy" title= '<%=tile_preview_status_change_tooltip tile %>'>
     <%=tile_preview_menu_status_item tile %>
+    </li>
 
     <li class="preview_menu_item edit" >
       <%=tile_preview_menu_action_item tile%>
     </li>
+
     <li class="preview_menu_item edit" >
       <%=link_to edit_client_admin_tile_path(tile),  data:{tile_id: tile.id, action: "edit", status: tile.status} do %>
         <i class="fa fa-pencil fa-1x"></i>
@@ -26,7 +30,7 @@
         <%end%>
     </li>
 
-    <li class="preview_menu_item explore" >
+    <li class="preview_menu_item explore tipsy"  title='<%=share_via_explore tile %>'>
       <%=link_to "#" do %>
         <i class="fa fa-rocket fa-1x"></i>
         <span class="header_text">
@@ -35,7 +39,7 @@
       <%end%>
     </li>
 
-    <li class="preview_menu_item share" >
+    <li class="preview_menu_item share tipsy" title='<%=social_share_links tile %>'>
       <%=link_to "#" do %>
         <i class="fa fa-share-alt fa-1x"></i>
         <span class="header_text">
@@ -54,7 +58,7 @@
     </li>
   </ul>
 
-  <%=tile_preview_status_change_tooltip tile %>
+  
 <%else%>
   presenter = TilePreview::MenuPresenter::User.new(tile, browser)
   <ul class="tile_preview_menu">
@@ -66,3 +70,6 @@
     <% end %>
   </ul>
 <%end %>
+
+
+
