@@ -227,6 +227,7 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
       .add_tag {
         display:block;
         width: 100%;
+        max-width: 220px;
         float: none;
         margin: auto;
         input[type="text"]{
