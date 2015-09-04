@@ -194,6 +194,8 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
     background: $white;
     display: none;
 
+/*Add styling for when inside modal tooltipster    */
+
     &.for_modal {
       hr {
         margin: .5em 0;
@@ -260,6 +262,8 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
         }
       }
     }
+
+/*end customizations for tool-tip*/
 
     .row {
       margin-right: 0;
