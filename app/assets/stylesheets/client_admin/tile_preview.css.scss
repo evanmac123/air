@@ -250,15 +250,14 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
         padding-left: 8px;
         padding-right: 8px;
         width: 95%;
-        &.disabled {
+        display: block;
+        &.disabled, &.remove_from_explore {
           @include light-button($sky-blue);
           display: block;
+          text-transform: uppercase;
+          font-weight: bold;
+          font-size: 12px;
         }
-        &.remove_from_explore{
-          @include light-button($sky-blue);
-          display: block;
-        }
-
       }
     }
 
