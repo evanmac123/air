@@ -48,6 +48,7 @@ Airbo.TileCreator = (function(){
      interactive: true,
      position: "bottom",
      contentAsHTML: true,
+     autoClose: false,
    });
  }
 
