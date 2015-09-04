@@ -194,6 +194,74 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
     background: $white;
     display: none;
 
+    &.for_modal {
+      hr {
+        margin: .5em 0;
+      }
+
+      display: block;
+      .allow_copying {
+        display:block;
+        float: none;
+
+        padding: 0em 0em 1em 0em;
+        width: 100%;
+
+        .switch{
+
+          @include green-paddle-switch(0.75);
+          margin: auto;
+          float: right;
+          height: 15px;
+          margin-right: 2.75em;
+        }
+
+        .allow_copying_message{
+          margin-right: 2em;
+        }
+
+      }
+
+      .add_tag {
+        display:block;
+        width: 100%;
+        float: none;
+        margin: auto;
+        input[type="text"]{
+          width: 100%;
+          border: none;
+          &.highlighted {
+            background-color: rgba(188, 76, 64,.20)
+          }
+        }
+
+        .tile_tags{
+          color: $sky-blue;
+          hr:first-child{
+            display:none;
+          }
+        }
+      }
+      .share_to_explore{
+        float:none;
+        padding: 0em 0.5em;
+        margin-top: 0px;
+        margin: auto;
+        padding-left: 8px;
+        padding-right: 8px;
+        width: 95%;
+        &.disabled {
+          @include light-button($sky-blue);
+          display: block;
+        }
+        &.remove_from_explore{
+          @include light-button($sky-blue);
+          display: block;
+        }
+
+      }
+    }
+
     .row {
       margin-right: 0;
     }
