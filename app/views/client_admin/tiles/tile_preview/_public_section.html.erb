@@ -2,7 +2,7 @@
 <%= form.hidden_field :tile_tag_ids %>
 <div class="share_options for_modal">
   <div class="add_tag">
-    <%= text_field_tag "add-tag", nil, placeholder: "Add Tag (required)", class: config[:add_tag_class] %>
+    <%= text_field_tag "add-tag", nil, placeholder: "Add Tag", class: config[:add_tag_class] %>
     <hr/>
     <ul class="tile_tags">
       <% form.object.tile_tags.each do |tile_tag| %>

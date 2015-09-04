@@ -201,6 +201,9 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
         margin: .5em 0;
       }
 
+
+
+
       display: block;
       .allow_copying {
         display:block;
@@ -230,16 +233,41 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
         max-width: 220px;
         float: none;
         margin: auto;
+
         input[type="text"]{
           width: 100%;
           border: none;
           &.highlighted {
-            background-color: rgba(188, 76, 64,.20)
+            background-color: #ffedeb;
+
+            &::-webkit-input-placeholder:after {
+              content: " (Required)";
+              color: #ed8980;
+            }
+
+            &::-moz-placeholder:after  { /* Firefox 18- */
+              content: " (Required)";
+              color: #ed8980;
+            }
+
+            &::-moz-placeholder:after {  /* Firefox 19+ */
+              content: " (Required)";
+              color: #ed8980;
+            }
+
+            &:-ms-input-placeholder:after {  
+              content: " (Required)";
+              color: #ed8980;
+            }
+
           }
+
         }
 
         .tile_tags{
-          color: $sky-blue;
+          color: rgba(76, 76, 76, .60);
+          line-height: 1.757;
+          font-size: 1em; 
           hr:first-child{
             display:none;
           }
@@ -263,6 +291,21 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
         }
       }
     }
+
+/*.Second_tag {*/
+  /*font-size: 12px;*/
+  /*font-family: "Helvetica Neue";*/
+  /*color: rgb(76, 76, 76);*/
+  /*line-height: 1.757;*/
+  /*text-align: center;*/
+  /*position: absolute;*/
+  /*left: 796px;*/
+  /*top: 199.26px;*/
+  /*z-index: 87;*/
+/*}*/
+
+
+
 
 /*end customizations for tool-tip*/
 
