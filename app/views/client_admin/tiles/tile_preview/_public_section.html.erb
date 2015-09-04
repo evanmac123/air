@@ -1,5 +1,6 @@
 <% config = share_to_explore_css_config(form.object)%>
-<div >
+<%= form.hidden_field :tile_tag_ids %>
+<div class="share_options for_modal">
   <div class="add_tag">
     <%= text_field_tag "add-tag", nil, placeholder: "Add Tag (required)", class: config[:add_tag_class] %>
     <ul class="tile_tags">
@@ -9,15 +10,14 @@
           <%=fa_icon "times"%>
         </li>
       <% end %>
-    </ul>  
-    <%= form.hidden_field :tile_tag_ids %>
+    </ul>
   </div>
 
   <div class="allow_copying">
 
-    <!--span class="allow_copying_message">
+    <span class="allow_copying_message">
       Allow Copying
-      </span-->
+      </span>
       <%= content_tag "div", class: config[:copy_switch_classes] do %>
         <%= form.radio_button :is_copyable, true, id: "allow_copying_on" %>
         <%= form.radio_button :is_copyable, false, id: "allow_copying_off" %>
