@@ -152,6 +152,9 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
         .fa-question-circle{
           color: $med-gray;
           padding-left: 15px;
+          &:hover {
+           color: #4c4c4c;
+          }
         }
 
         .title{
@@ -167,13 +170,12 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
 
         .tile_status{
           display: block;
+          margin: 2px 0px;
+          padding: 5px 0px;
+          border-bottom: 1px solid $med-gray;
           .off, .on{
-
-            &.disengaged{
+            &.disengaged, &.engaged{
               color: $med-gray;
-            }
-            &.engaged{
-              color: $text-color;
             }
           }
           .off{
