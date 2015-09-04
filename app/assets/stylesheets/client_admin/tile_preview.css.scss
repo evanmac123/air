@@ -101,6 +101,10 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
 
  /* BEGIN TOOLTIPSTER STYLES OVERRIDES */
 
+  .tooltipster-base ~ .tooltip {
+    z-index: 99999999999;
+  }
+
   & .tooltipster-content {
 
     // => Share Section
