@@ -10,8 +10,7 @@ body.suggested_tiles-new,
 body.suggested_tiles-create,
 body.suggested_tiles-edit,
 body.suggested_tiles-show,
-body.suggested_tiles-update,
-#new_tile_modal {
+body.suggested_tiles-update{
   .builder-width {
     width:600px;
     padding: 0 !important;
@@ -417,8 +416,7 @@ body.client_admin-tiles-update,
 body.suggested_tiles-new, 
 body.suggested_tiles-create,
 body.suggested_tiles-edit,
-body.suggested_tiles-update,
-#images_modal{
+body.suggested_tiles-update{
   #flash {
     width: 100%;
   }
