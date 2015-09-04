@@ -31,10 +31,7 @@ Airbo.TileStatsChart = (function(){
       downloadChart,
       form;
 
-  // function updateChartSection(chartSection){
-  //   $(".tile_chart_section").replaceWith(chartSection);
-  //   initVars();
-  // }
+  var eventsInitialized;
 
   function formResponse(){
     return function (data){
@@ -72,6 +69,12 @@ Airbo.TileStatsChart = (function(){
   }
 
   function initEvents(){
+    if(eventsInitialized){
+      return;
+    }else{
+      eventsInitialized = true;
+    }
+
     $(document).on("change", formSendSel, function(){
       input = $(this);
       if(input.val() == "pick_a_date_range"){
@@ -108,7 +111,7 @@ Airbo.TileStatsChart = (function(){
   function init(){
     initVars();
     initEvents();
-    
+
     submitForm();
   }
   return {

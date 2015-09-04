@@ -10,13 +10,14 @@ Airbo.TileStatsGrid = (function(){
 
   var updateLink,
       currentGridType,
-      updatesChecker;
+      updatesChecker,
+      eventsInitialized;
 
   function ajaxResponse(){
     return function (data){
       if(data.success){
         tileGridSection.replaceWith(data.grid);
-        reInit();
+        initVars();
       }
     };
   }
@@ -43,18 +44,26 @@ Airbo.TileStatsGrid = (function(){
     updatesChecker.stopChecker();
   }
 
-  function reInit() {
-    initVars();
-    updatesChecker.reStart();
-  }
-
   function initVars(){
     tileGridSection = $(tileGridSectionSel);
     updateLink = tileGridSection.data("update-link");
     updateGridType( $(currentGridLinkSel) );
+
+    if(updatesChecker){
+      updatesChecker.reStart();
+    } else {
+      updatesChecker = Airbo.GridUpdatesChecker.init();
+      updatesChecker.start();
+    }
   }
 
   function initEvents(){
+    if(eventsInitialized){
+      return;
+    }else{
+      eventsInitialized = true;
+    }
+
     $(document).on("click", linkInGridSel, function(e){
       e.preventDefault();
       updateGrid( $(this) );
@@ -64,8 +73,6 @@ Airbo.TileStatsGrid = (function(){
   function init(){
     initVars();
     initEvents();
-    updatesChecker = Airbo.GridUpdatesChecker.init();
-    updatesChecker.start();
   }
 
   return {

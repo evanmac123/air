@@ -7,21 +7,24 @@ Airbo.TileStatsModal = (function(){
       modalContentSel = modalSel + " #modal_content";
   // DOM elements
   var modal,
-      modalContent;
+      modalContent,
+      chart,
+      grid,
+      surveyTable;
   //
 
   function ajaxResponse(){
     return function (data){
       modalContent.html(data.page);
-      initComponents();
+      reloadComponents();
       modal.foundation("reveal", "open");
     };
   }
 
-  function initComponents() {
-    Airbo.TileStatsChart.init();
-    Airbo.TileStatsGrid.init();
-    Airbo.SurveyTable.init();
+  function reloadComponents() {
+    chart.init();
+    grid.init();
+    surveyTable.init();
   }
 
   function getPage(link) {
@@ -42,6 +45,9 @@ Airbo.TileStatsModal = (function(){
   function initVars(){
     modal = $(modalSel);
     modalContent = $(modalContentSel);
+    chart = Airbo.TileStatsChart;
+    grid = Airbo.TileStatsGrid;
+    surveyTable = Airbo.SurveyTable;
   }
 
   function init(){

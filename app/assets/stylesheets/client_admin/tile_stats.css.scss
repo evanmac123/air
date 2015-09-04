@@ -14,3 +14,13 @@ body.client_admin-tile_stats, #tile_stats_modal {
     max-width: 1000px;
   }
 }
+#tile_stats_modal {
+  width: 1020px;
+  margin-left: -510px;
+  padding: 60px 35px 50px 40px;
+  .close-reveal-modal {
+    top: -9px;
+    left: -60px;
+    color: $white;
+  }
+}

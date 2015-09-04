@@ -2,7 +2,10 @@ var Airbo = window.Airbo || {};
 
 Airbo.SurveyTable = (function(){
   function init(){
-    new Tablesort(document.getElementById('survey_table'));
+    table = document.getElementById('survey_table');
+    if(table){
+      new Tablesort(table);
+    }
   }
   return {
     init: init

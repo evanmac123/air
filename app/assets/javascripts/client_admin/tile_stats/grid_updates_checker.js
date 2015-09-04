@@ -2,7 +2,7 @@ var Airbo = window.Airbo || {};
 
 Airbo.GridUpdatesChecker = (function(){
   var timeoutID,
-      interval = 10000, // ms
+      interval = 30000, // ms
       checkLink,
       tileGridSectionSel = ".tile_grid_section",
       tileGridSection,
@@ -55,14 +55,13 @@ Airbo.GridUpdatesChecker = (function(){
   }
 
   function reStart() {
+    stopChecker();
     initVars();
     start();
   }
 
   function stopChecker() {
-    if(timeoutID) {
-      window.clearInterval(timeoutID);
-    }
+    window.clearInterval(timeoutID);
   }
 
   function updateStartTime() {
