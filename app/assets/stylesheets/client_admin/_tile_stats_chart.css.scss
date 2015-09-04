@@ -1,3 +1,7 @@
+$color-passive: #8d8d8d;
+$color-active: #454545;
+$color-hover: #454545;
+
 body.client_admin-tile_stats, #tile_stats_modal {
   // General styles
   .tile_chart_section {
@@ -50,9 +54,6 @@ body.client_admin-tile_stats, #tile_stats_modal {
   //
   // => Selectors
   //
-  $color-passive: #8d8d8d;
-  $color-active: #454545;
-  $color-hover: #454545;
   $font-size: 13px;
   $font-weight: 500;
   // => Custom dropdown full restyling
@@ -134,6 +135,24 @@ body.client_admin-tile_stats, #tile_stats_modal {
     }
   }
 
+
+  .download_chart_block {
+    float: right;
+    width: 205px;
+    .custom.dropdown {
+      li.disabled {
+        display: none;
+      }
+    }
+  }
+
+  #tile_chart {
+    height: 200px;
+    margin-top: 60px;
+  }
+}
+
+body.client_admin-tile_stats, body.client_admin-tiles.client_admin-tiles-index {
   // Jquery Datepicker resyling
   #ui-datepicker-div {
     font-size: 13px;
@@ -205,20 +224,5 @@ body.client_admin-tile_stats, #tile_stats_modal {
         }
       }
     }
-  }
-
-  .download_chart_block {
-    float: right;
-    width: 205px;
-    .custom.dropdown {
-      li.disabled {
-        display: none;
-      }
-    }
-  }
-
-  #tile_chart {
-    height: 200px;
-    margin-top: 60px;
   }
 }
