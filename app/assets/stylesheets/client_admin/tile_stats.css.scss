@@ -1,6 +1,6 @@
 @import 'tile_stats_chart';
 @import 'tile_stats_tables';
-body.client_admin-tile_stats {
+body.client_admin-tile_stats, #tile_stats_modal {
   h1 {
     color: $text-color;
     padding-bottom: 70px;

@@ -9,5 +9,21 @@ class ClientAdmin::TileStatsController < ClientAdminBaseController
 
     @grid_type = GridQuery::TileActions::GRID_TYPES.keys.first
     @tile_stats_grid = initialize_grid *TileStatsGrid.new(@tile, @grid_type).args
+
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: { page: page_to_string }
+      end
+    end
   end
+
+  protected
+    def page_to_string
+      render_to_string(
+        'index',
+        formats: [:html],
+        layout: false
+      )
+    end
 end

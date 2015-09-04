@@ -108,6 +108,7 @@ Airbo.TileStatsChart = (function(){
   function init(){
     initVars();
     initEvents();
+    
     submitForm();
   }
   return {
