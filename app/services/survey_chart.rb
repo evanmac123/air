@@ -13,12 +13,11 @@ class SurveyChart
       chart[i] = {}
       chart[i]["answer"] = answer
       chart[i]["number"] = TileCompletion.where(tile_id: tile.id, answer_index: i).count
-      # chart[i]["percent"] = if count > 0
-      #   (chart[i]["number"].to_f * 100 / count).round(2).to_s + "%"
-      # else
-      #   "0%"
-      # end
-      chart[i]["percent"] = (chart[i]["number"].to_f * 100 / count).round(2)
+      chart[i]["percent"] = if count > 0
+        (chart[i]["number"].to_f * 100 / count).round(2)
+      else
+        0
+      end
     end
     chart
   end
