@@ -33,7 +33,6 @@ Airbo.TileCreator = (function(){
    $("body").addClass("client_admin-tiles-edit");
    preventCloseMsg = action
    Airbo.TileImageCredit.init();
-   Airbo.TileImagesMgr.init();
    Airbo.TilePointsSlider.init();
  }
 
@@ -216,6 +215,7 @@ Airbo.TileCreator = (function(){
       success: function(data, status,xhr){
         imagesModal.html(data);
         $(imagesModalSelector).foundation("reveal", "open");
+        Airbo.TileImagesMgr.init();
         libaryLoaded = true;
       },
       error: function(jqXHR, textStatus, error){
@@ -228,6 +228,7 @@ Airbo.TileCreator = (function(){
     $("body").on("click", addImageSelector, function(event){
       event.preventDefault();
       if(libaryLoaded){
+        Airbo.TileImagesMgr.init();
         $(imagesModalSelector).foundation("reveal", "open");
       }else{
         getImageLibrary($(this).data("libraryUrl"));
