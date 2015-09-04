@@ -48,8 +48,12 @@ Airbo.TileCreator = (function(){
      interactive: true,
      position: "bottom",
      contentAsHTML: true,
-     autoClose: false,
+     functionReady: initSharing
    });
+ }
+
+ function initSharing(){
+   Airbo.TileSharingMgr.init();
  }
 
  function prepShow(){
@@ -395,7 +399,8 @@ Airbo.TileCarouselPage = (function() {
   function init(){
     grayoutTile();
     //updateNavbarURL(data.tile_id);
-    window.sharableTileLink();
+
+
     window.bindTagNameSearchAutocomplete('#add-tag', '#tag-autocomplete-target', "/client_admin/tile_tags");
     setUpAnswersForPreview();
     ungrayoutTile();
