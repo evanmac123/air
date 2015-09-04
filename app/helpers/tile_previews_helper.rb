@@ -131,13 +131,61 @@ module TilePreviewsHelper
   end
 
   def social_share_links tile
-    content_tag :div, id: "social_share" do
-      s =""
-      %w(facebook twitter linkedin).each do |site|
-        s += tile_preview_menu_social_share tile, site
+    content_tag :div, class: "share_section" do
+      content_tag :div, class: "share_via_block" do
+        s =""
+        %w(facebook twitter linkedin).each do |site|
+          s += tile_preview_menu_social_share tile, site
+        end
+        s += email_share_link tile
+        raw s
       end
-      raw s
     end
+  end
+
+  def email_share_link tile
+    mail_content = capture do 
+      content_tag :div, class: "share_via share_via_email" do
+        fa_icon('envelope')
+      end
+    end
+    mail_to "", mail_content, subject: "Tile shared via Airbo", body: " I want to share this tile with you from Airbo: #{sharable_tile_url(tile)}"
+  end 
+
+  def tile_share_public_link tile
+    content_tag :div, class: "share_via_link" do
+      text_field_tag 'sharable_tile_link', sharable_tile_link(tile), disabled: !tile.is_sharable?
+    end 
+  end
+
+  def tile_share_public_link_block tile
+    tooltip = "If tile share link is on, anyone with the link can see the tile."
+    content_tag :div, class: "share_section" do
+     s= content_tag :div, class: "share_link_block" do
+        s1 = content_tag :div, "Tile Share Link", class: "title"
+        s1 += content_tag :i, "", class: "fa fa-question-circle has-tip",  data: {tooltip: "true"},  title: tooltip
+        s1 += content_tag :div,  class: "tile_status" do
+          s2 = content_tag :div, "OFF", class: "off #{tile.is_sharable? ? 'disengaged' : 'engaged'}"
+          s2 += tile_share_public_link_form tile
+          s2 += content_tag :div, "ON", class: "on #{tile.is_sharable? ? 'engaged' : 'disengaged'} "
+          s2
+        end
+        s1
+      end
+     s+= tile_share_public_link tile
+    end
+  end
+
+  def tile_share_public_link_form tile
+    s = form_for tile, url: client_admin_sharable_tile_path(tile), method: :put, remote: true, html: { id: "sharable_link_form"} do |form|
+      content_tag :div,  class:"switch tiny round" do
+        form.radio_button :is_sharable, true, id: 'sharable_tile_link_on' 
+        form.radio_button :is_sharable, false, id: 'sharable_tile_link_off'
+        content_tag :span,  class: 'green-paddle' do ; end
+      end
+    end 
+
+    raw s
   end
 
   def share_via_explore tile

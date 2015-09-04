@@ -98,6 +98,102 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
   //
   // => Share Section
   //
+
+ /* BEGIN TOOLTIPSTER STYLES OVERRIDES */
+
+  & .tooltipster-content {
+
+    // => Share Section
+
+    .share_section{
+      border: none;
+      .share_via_block{
+        padding: 5px 5px;
+
+        .fa{
+          font-size: 12px;
+        }
+
+        .share_via{
+          float: left;
+          width: auto;
+          width: 30px;
+          height: 30px;
+          padding: 4px; 
+          text-align: center;
+          border-radius: 3px;
+        }
+      }
+
+      // => Share link block
+
+      .share_via_link{
+        width: 100%;
+        overflow: hidden;
+        padding-left: 15px;
+        &:hover {
+          background-color:#f7fafc;
+        }
+
+        input {
+          border: none;
+          background-color:inherit;
+          padding: 0;
+        }
+
+        input#sharable_tile_link[disabled]{
+          color: #949494
+        }
+      }
+
+      .share_link_block{
+        margin-top: -2px;
+        padding-top: 20px;
+        .fa-question-circle{
+          color: $med-gray;
+          padding-left: 15px;
+        }
+
+        .title{
+          display: inline-block;
+        }
+
+        .title, .tile_status>.off, .tile_status>.on{
+          color:lighten($text-color, 17%);
+          display: inline-block;
+          @include caption;
+          font-size: 0.75rem;
+        }
+
+        .tile_status{
+          display: block;
+          .off, .on{
+
+            &.disengaged{
+              color: $med-gray;
+            }
+            &.engaged{
+              color: $text-color;
+            }
+          }
+          .off{
+            padding-left: 15px;
+            margin-right: 15px;
+          }
+          .on{
+            margin-left: 15px;
+          }
+          .switch{
+            margin-bottom: -4px;
+          }
+        }
+      }
+    }
+  }
+
+
+ /* END TOOLTIPSTER STYLES */
+
   .share_section{
     background: $white;
     border-top: 1px $tile-wall-bg solid;
@@ -134,10 +230,17 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
         }
         .switch{
           margin-bottom: -4px;
-          @include switch-size(16px, 9px, 2.3em);
+          @include green-paddle-switch(0.75);
         }
       }
     }
+
+
+
+
+
+
+
     .share_via_block{
       overflow: auto;
       padding: 20px 15px;
@@ -154,6 +257,7 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
         margin-right: 10px;
         height: 36px;
       }
+
       .share_via_explore{
         background: $sky-blue;
         cursor: pointer;
@@ -291,20 +395,6 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
         }
       }
     }
-
-/*.Second_tag {*/
-  /*font-size: 12px;*/
-  /*font-family: "Helvetica Neue";*/
-  /*color: rgb(76, 76, 76);*/
-  /*line-height: 1.757;*/
-  /*text-align: center;*/
-  /*position: absolute;*/
-  /*left: 796px;*/
-  /*top: 199.26px;*/
-  /*z-index: 87;*/
-/*}*/
-
-
 
 
 /*end customizations for tool-tip*/
