@@ -3,10 +3,10 @@ var Airbo = window.Airbo || {};
 Airbo.TileSharingMgr = (function(){
   var tileStatusOff
     , tileStatusOn
-    , shareableTileLink
+    , sharableTileLink
     , tileStatusOffSelector = ".tile_status .off"
     , tileStatusOnSelector = ".tile_status .on"
-    , shareableTileLinkSelector = "#sharable_tile_link"
+    , sharableTileLinkSelector = "#sharable_tile_link"
   ;
 
   function initOnOffLinks(){
@@ -24,12 +24,12 @@ Airbo.TileSharingMgr = (function(){
 
   function initSharableTileEvents(){
 
-   shareableTileLink.on('click', function(event) {
+   sharableTileLink.on('click', function(event) {
       event.preventDefault();
       $(event.target).focus().select();
     });
 
-    shareableTileLink.on('keydown keyup keypress', function(event) {
+    sharableTileLink.on('keydown keyup keypress', function(event) {
       if (!(event.ctrlKey || event.altKey || event.metaKey)) {
        event.preventDefault();
       }
@@ -51,7 +51,6 @@ Airbo.TileSharingMgr = (function(){
         , shareOptions = $(selector)
       ;
 
-      debugger
       sendTileSharedPing("Explore");
       turnOnSharableTile();
       shareOptions.show();
@@ -124,7 +123,7 @@ Airbo.TileSharingMgr = (function(){
   function initJQueryObjects(){
     tileStatusOff= $(tileStatusOffSelector);
     tileStatusOn = $(tileStatusOnSelector);
-    shareableTileLink= $(shareableTileLinkSelector);
+    sharableTileLink= $(sharableTileLinkSelector);
   }
 
   function init(){
