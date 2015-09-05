@@ -46,20 +46,20 @@ Airbo.TileCreator = (function(){
    console.log($(this).tooltipster("content"))
  }
 
-
  function initPreviewMenuTooltips(){
-
- $(".tipsy").tooltipster({
+   $(".tipsy").tooltipster({
      theme: "tooltipster-shadow",
      interactive: true,
      position: "bottom",
      contentAsHTML: true,
-     functionReady: initSharing
+     functionReady: initSharing,
+     autoClose: false,
    });
  }
 
  function initSharing(){
    Airbo.TileSharingMgr.init();
+   Airbo.TileTagger.init();
  }
 
 
@@ -401,9 +401,6 @@ Airbo.TileCarouselPage = (function() {
   function init(){
     grayoutTile();
     //updateNavbarURL(data.tile_id);
-
-
-    window.bindTagNameSearchAutocomplete('#add-tag', '#tag-autocomplete-target', "/client_admin/tile_tags");
     setUpAnswersForPreview();
     ungrayoutTile();
   }
