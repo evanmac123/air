@@ -36,6 +36,12 @@ Airbo.TileCreator = (function(){
    Airbo.TilePointsSlider.init();
  }
 
+ function prepShow(){
+   adjustStylingForPreview();
+   Airbo.TileCarouselPage.init();
+   initPreviewMenuTooltips();
+ }
+
  function tooltipBefore(){
    console.log($(this).tooltipster("content"))
  }
@@ -56,11 +62,7 @@ Airbo.TileCreator = (function(){
    Airbo.TileSharingMgr.init();
  }
 
- function prepShow(){
-   adjustStylingForPreview();
-   Airbo.TileCarouselPage.init();
-   initPreviewMenuTooltips();
- }
+
 
  function moveTile(currTile, data){
    var newTile = $(data) 
