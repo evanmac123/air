@@ -1,10 +1,10 @@
 <% config = share_to_explore_css_config(form.object)%>
 <%= form.hidden_field :tile_tag_ids %>
 <div class="share_options for_modal">
-  <div class="add_tag">
-    <%= text_field_tag "add-tag", nil, placeholder: "Add Tag", class: config[:add_tag_class] %>
+  <div class="add_tag" >
+    <%= text_field_tag "add-tag", nil, placeholder: "Add Tag", data:{searchUrl: client_admin_tile_tags_path}, class: config[:add_tag_class] %>
     <hr/>
-    <ul class="tile_tags">
+    <ul class="tile_tags" >
       <% form.object.tile_tags.each do |tile_tag| %>
         <li id="<%=tile_tag.id%>">
           <%=tile_tag.title%>
@@ -38,10 +38,3 @@
 
 <div id="tag-autocomplete-target"></div>
 
-<%# content_for :javascript do %>
-  <%= javascript_tag do %>
-    //$().ready(function(){
-     // bindTagNameSearchAutocomplete("#add-tag", "#tag-autocomplete-target", "<%= client_admin_tile_tags_path %>");
-   // })
-  <% end %>
-<%# end %>
