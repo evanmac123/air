@@ -1,7 +1,3 @@
-$color-passive: #8d8d8d;
-$color-active: #454545;
-$color-hover: #454545;
-
 body.client_admin-tile_stats, #tile_stats_modal {
   // General styles
   .tile_chart_section {
@@ -14,7 +10,7 @@ body.client_admin-tile_stats, #tile_stats_modal {
       content: " ";
       position: absolute;
       right: 10px;
-      top: 70px;;
+      top: 63px;;
       width: 26px;
       height: 21px;
       background: white;
@@ -28,7 +24,7 @@ body.client_admin-tile_stats, #tile_stats_modal {
   }
 
   .action_type_block {
-    padding-bottom: 26px;
+    padding-bottom: 20px;
     &.selected {
       .action_num {
         color: #007BC2;
@@ -69,44 +65,69 @@ body.client_admin-tile_stats, #tile_stats_modal {
   // => Custom dropdown full restyling
   .custom.dropdown {
     border-radius: 3px;
-    border-color: $color-passive;
+    border-color: #c4c4c4;
     background: transparent;
     margin: 0;
-    margin-right: 8px;
+    margin-right: 12px;
     float: left;
     &:hover {
-      border-color: $color-hover;
+      border-color:  #9E9E9E;
       .current {
-        color: $color-hover;
+        color: #636363;
+      }
+      .selector:after { //caret
+        color: #858585;
       }
     }
     &:active, &.open {
-      border-color: $color-active;
+      border-color: #808080;
       .current {
-        color: $color-hover;
+        color: #424242;
+      }
+      .selector:after { //caret
+        color: #707070;
       }
     }
-    .current {
+    .selector:after { //caret
+      color: #b0b0b0;
+    }
+    .current { // closed dropdown
+      margin-left: 0;
+      padding: 8px 12px;
+      line-height: 1;
       font-size: $font-size;
       font-weight: $font-weight;
-      color: $color-passive;
+      color: #919191;
     }
     ul {
       li {
+        padding: 3px 8px;
+        line-height: 1;
         font-size: $font-size;
         font-weight: $font-weight;
         border-width: 1px;
+        color: #919191;
+        &.selected {
+          background: transparent;
+          color: #424242;
+        }
         &:hover {
           background: transparent;
-          color: $color-hover;
+          color: #636363;
+        }
+        &:first-child {
+          padding-top: 8px;
+        }
+        &:last-child {
+          padding-bottom: 8px;
         }
       }
     }
   }
   // Specific dropdowns
   .interval_custom_drop {
-    width: 95px !important;
-    margin-left: 30px !important;
+    width: 91px !important;
+    margin-left: 51px !important;
   }
   .value_custom_drop {
     width: 110px !important;
@@ -122,25 +143,37 @@ body.client_admin-tile_stats, #tile_stats_modal {
     float: left;
     .datepicker {
       float: left;
-      width: 100px;
-      margin-right: 8px;
+      width: 105px;
+      margin-right: 12px;
+      padding: 8px 12px;
+      line-height: 1;
       font-size: $font-size;
       font-weight: $font-weight;
-      height: 33px;
-      color: $color-passive;
+      height: 32px;
+      color: #919191;
+      border-color: #c4c4c4;
       &:hover {
-        color: $color-hover;
-        border-color: $color-hover;
+        color: #636363;
+        border-color: #9E9E9E;
       }
       &:active {
-        color: $color-active;
-        border-color: $color-active;
+        color: #424242;
+        border-color: #808080;
       }
+    }
+    span {
+      float: left;
+      font-size: $font-size;
+      font-weight: $font-weight;
+      color: #919191;
+      padding: 8px 12px;
+      padding-left: 0;
     }
      a {
       @include app-button($sky-blue);
       float: left;
-      font-size: 13px;
+      font-size: $font-size;
+      font-weight: $font-weight;
       padding: 8px 13px;
     }
   }
@@ -148,7 +181,8 @@ body.client_admin-tile_stats, #tile_stats_modal {
 
   .download_chart_block {
     float: right;
-    width: 205px;
+    width: 141px;
+    padding-right: 9px;
     .custom.dropdown {
       li.disabled {
         display: none;
@@ -157,14 +191,18 @@ body.client_admin-tile_stats, #tile_stats_modal {
   }
 
   #tile_chart {
-    height: 200px;
-    margin-top: 60px;
+    height: 207px;
+    margin-top: 53px;
   }
 }
 
 body.client_admin-tile_stats, body.client_admin-tiles.client_admin-tiles-index {
   // Jquery Datepicker resyling
   #ui-datepicker-div {
+    $color-passive: #8d8d8d;
+    $color-active: #454545;
+    $color-hover: #454545;
+
     font-size: 13px;
     padding: 0;
     border: 0;

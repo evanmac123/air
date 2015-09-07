@@ -19,11 +19,12 @@
       </span>
       <div class="dates_selection" style="display:<%= f.object.show_dates_selection %>;">
         <%= f.text_field :start_date, class: "datepicker" %>
+        <span>-</span>
         <%= f.text_field :end_date, class: "datepicker" %>
         <%= link_to "Done", "" %>
       </div>
       <div class="download_chart_block">
-        <%= select_tag :download_chart, options_for_select(['Download', 'Download PNG image', 'Download JPEG image', 'Download PDF document', 'Download SVG vector image'], selected: 'Download', disabled: 'Download') %>
+        <%= select_tag :download_chart, options_for_select(['Download', 'PNG image', 'JPEG image', 'PDF document', 'SVG vector image'], selected: 'Download', disabled: 'Download') %>
       </div>
       <%= f.hidden_field :changed_field %>
 

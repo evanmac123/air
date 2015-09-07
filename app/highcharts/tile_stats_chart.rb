@@ -105,7 +105,7 @@ JS
           text: nil
         },
         min: 0,
-        tickPixelInterval: 50
+        tickPixelInterval: 47
       }
     end
 
