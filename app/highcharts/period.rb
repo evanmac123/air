@@ -7,18 +7,18 @@ class Period
     @end_date = from_american_format end_date
   end
 
-  def x_axis_label_format
-    case @interval_type
-    when 'monthly'
-      "%b %Y"
-    when 'weekly'
-      "%b %d"
-    when 'daily'
-      "%b %d"
-    when 'hourly'
-      "%l %p"
-    end
-  end
+  # def x_axis_label_format
+  #   case @interval_type
+  #   when 'monthly'
+  #     "%b %Y"
+  #   when 'weekly'
+  #     "%b %d"
+  #   when 'daily'
+  #     "%b %d"
+  #   when 'hourly'
+  #     "%l %p"
+  #   end
+  # end
 
   def point_interval
     case @interval_type

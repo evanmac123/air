@@ -14,10 +14,11 @@ body.client_admin-tile_stats, #tile_stats_modal {
       content: " ";
       position: absolute;
       right: 10px;
-      top: 71px;;
+      top: 70px;;
       width: 26px;
       height: 21px;
       background: white;
+      border-top: 1px solid #e3e3e3;
     }
   }
   form.custom {
@@ -27,27 +28,36 @@ body.client_admin-tile_stats, #tile_stats_modal {
   }
 
   .action_type_block {
-    padding-bottom: 25px;
+    padding-bottom: 26px;
     &.selected {
-      label {
-        color: #007bc2;
-        .action_name {
-          text-decoration: underline;
-        }
+      .action_num {
+        color: #007BC2;
+      }
+      .action_name {
+        color: #006BA8;
+      }
+    }
+    &:hover {
+      .action_num {
+        color: #007BC2;
+      }
+      .action_name {
+        color: #006BA8;
       }
     }
     label {
-      color: #4b61a6;
       margin: 0;
     }
     .custom.radio, input[type='radio'] {
       display: none;
     }
     .action_num {
+      color: #525252;
       font-size: 30px;
-      padding-bottom: 5px;
+      padding-bottom: 4px;
     }
     .action_name {
+      color: #4A4A4A;
       font-size: 16px;
     }
   }

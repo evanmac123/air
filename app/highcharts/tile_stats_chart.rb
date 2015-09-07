@@ -59,27 +59,53 @@ JS
           text: nil
         },
         type: 'datetime',
-        # maxPadding: 0.02,
+        lineWidth: 0,
+        dateTimeLabelFormats: {
+        	day: "%b %d",
+        	week: "%b %d",
+        	month: '%b %Y',
+        	year: '%Y'
+        },
+        offset: 15,
         labels: {
-          formatter: x_axis_label.js_code
-        }
+          align: 'left',
+          style: {
+            color: '#cecece',
+            'font-weight' => 700
+          },
+          useHTML: true
+        },
+        tickColor: 'white',
+        # tickInterval: 5
+        # tickPositioner: tick_positioner
       }
     end
 
-    def x_axis_label
-      <<-JS
-      function() {
-        return Highcharts.dateFormat('#{period.x_axis_label_format}', this.value);
-      }
-JS
-    end
+#     def tick_positioner
+#       <<-JS
+#       function() {
+#         return
+#       }
+# JS
+#     end
 
     def y_axis_params
       {
+        # allowDecimals: false,
+        gridLineColor: '#e3e3e3',
+        offset: 15,
+        labels: {
+          style: {
+            color: '#cecece',
+            'font-weight' => 700
+          },
+          useHTML: true
+        },
         title: {
           text: nil
         },
-        min: 0
+        min: 0,
+        tickPixelInterval: 50
       }
     end
 
@@ -87,7 +113,9 @@ JS
       {
         line: {
           pointStart: period.start_date(:date),
-          pointInterval: period.point_interval
+          pointInterval: period.point_interval,
+          shadow: false,
+          # stacking: 'percent'
         }
       }
     end
@@ -116,20 +144,20 @@ JS
 # JS
 #     end
 
-    def tooltip_formatter
-      <<-JS
-      function () {
-        return 'The value for <b>' +
-          Highcharts.dateFormat('%l %p', this.x) +
-          '</b> is <b>' + this.y + '</b>';
-      }
-JS
-    end
+#     def tooltip_formatter
+#       <<-JS
+#       function () {
+#         return 'The value for <b>' +
+#           Highcharts.dateFormat('%l %p', this.x) +
+#           '</b> is <b>' + this.y + '</b>';
+#       }
+# JS
+#     end
 
     def series_params
       {
         data: plot_data.data,
-        color: '#4FACE0'
+        color: '#2aa4eb'
       }
     end
 end
