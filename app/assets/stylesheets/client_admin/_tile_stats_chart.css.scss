@@ -137,6 +137,9 @@ body.client_admin-tile_stats, #tile_stats_modal {
     li:first-child {
       display: none;
     }
+    li:nth-child(2) {
+      padding-top: 8px !important;
+    }
   }
 
   .dates_selection {
@@ -187,6 +190,9 @@ body.client_admin-tile_stats, #tile_stats_modal {
       li.disabled {
         display: none;
       }
+      li:nth-child(2) {
+        padding-top: 8px !important;
+      }
     }
   }
 
@@ -202,13 +208,28 @@ body.client_admin-tile_stats, body.client_admin-tiles.client_admin-tiles-index {
     $color-passive: #8d8d8d;
     $color-active: #454545;
     $color-hover: #454545;
+    $border-color: #c7c7c7;
 
+    margin-top: 10px;
+    margin-left: -44px;
     font-size: 13px;
     padding: 0;
     border: 0;
+    background: transparent;
+    &:before {
+      content: " ";
+      display: block;
+      border: 8px solid transparent;
+      border-bottom-color: #f5f5f5;
+      position: absolute;
+      top: -15px;
+      left: 90px;
+      z-index: 1;
+    }
     .ui-datepicker-header {
+      width: 87%;
       background: #f5f5f5;
-      border: 1px solid $color-passive;
+      border: 1px solid $border-color;
       border-bottom-width: 0;
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
@@ -222,13 +243,13 @@ body.client_admin-tile_stats, body.client_admin-tiles.client_admin-tiles-index {
         }
       }
       .ui-icon-circle-triangle-w {
-        border-right-color: $color-passive;
+        border-right-color: $border-color;
       }
       .ui-icon-circle-triangle-e {
         border-width: 4px;
         height: 8px;
         margin-top: -3px;
-        border-left-color: $color-passive;
+        border-left-color: $border-color;
       }
       a {
         background: none;
@@ -245,24 +266,27 @@ body.client_admin-tile_stats, body.client_admin-tiles.client_admin-tiles-index {
     }
     table.ui-datepicker-calendar {
       margin: 0;
+      width: 87%;
       thead tr {
-        border: 1px solid $color-passive;
+        border: 1px solid $border-color;
       }
       th {
         background-color: #f5f5f5;
+        padding: 6px 0;
         span {
-          color: $color-active;
+          color: #4c4c4c;
         }
       }
       td {
         padding: 0;
-        border: 1px solid $color-passive;
+        border: 1px solid $border-color;
         a {
           background: white;
           text-align: center;
           border-color: white;
           color: $color-passive;
           font-weight: 700;
+          line-height: 1.6;
           &:hover {
             color: $color-hover;
           }
