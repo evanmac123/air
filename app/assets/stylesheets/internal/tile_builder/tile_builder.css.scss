@@ -15,6 +15,10 @@ body.suggested_tiles-update{
     width:600px;
     padding: 0 !important;
   }
+
+  .core {
+    overflow-y: visible;
+  }
   .content form {
     #publish { margin-top: 2em; }
     #publish * {vertical-align: top;}
@@ -504,9 +508,8 @@ body.suggested_tiles-update{
   .tile_holder_container {
     float: none;
     width: auto;
-    height: calc(80vh);
     min-height: 646px;
-    overflow: auto;
+    overflow: hidden;
     padding-top: 20px;
     padding-bottom: 50px;
     .tile_form_holder{

@@ -113,10 +113,13 @@ Airbo.TileCreator = (function(){
  }
 
  function setupModalFor(action){
+
    action = action || modalTrigger.data("action");
+
    tileModal.find(modalContentSelector).html(modalContent);
+
    processEvent(action);
-   tileModal.foundation("reveal", "open");
+   openTileFormModal();
  }
 
  function initDeletionConfirmation(){
@@ -221,7 +224,7 @@ Airbo.TileCreator = (function(){
       url: libaryUrl,
       success: function(data, status,xhr){
         imagesModal.html(data);
-        $(imagesModalSelector).foundation("reveal", "open");
+        openImageSelectorModal();
         Airbo.TileImagesMgr.init();
         libaryLoaded = true;
       },
@@ -236,7 +239,7 @@ Airbo.TileCreator = (function(){
       event.preventDefault();
       if(libaryLoaded){
         Airbo.TileImagesMgr.init();
-        $(imagesModalSelector).foundation("reveal", "open");
+        openImageSelectorModal();
       }else{
         getImageLibrary($(this).data("libraryUrl"));
       }
@@ -246,13 +249,17 @@ Airbo.TileCreator = (function(){
 
  function tileModalOpenClose(){
 
+   $(document).on('open.fndtn.reveal',tileModalSelector, function () {
+     $("body").scrollTop(50)
+   });
+
    $(document).on('opened.fndtn.reveal',tileModalSelector, function () {
      $('.reveal-modal-bg').css({'background-color':'black', 'opacity': 0.85});
    });
 
    $(document).on('closed.fndtn.reveal', tileModalSelector, function (event) {
      if(keepOpen){
-       tileModal.foundation("reveal", "open");
+        openTileFormModal();
      }
    });
 
@@ -277,12 +284,20 @@ Airbo.TileCreator = (function(){
  }
 
   function imagesModalOpenclose(){
-
     $(document).on('closed.fndtn.reveal', imagesModalSelector, function () {
-      tileModal.foundation("reveal", "open");
+      openTileFormModal();
     });
   }
 
+
+  function openTileFormModal(){
+    tileModal.foundation("reveal", "open", {animation: "fade"});
+    keepOpen = false;
+  }
+
+  function openImageSelectorModal(){
+    imagesModal.foundation("reveal", "open", {animation: "fade"});
+  }
 
   function initModalOpenClose(){
     tileModalOpenClose();
