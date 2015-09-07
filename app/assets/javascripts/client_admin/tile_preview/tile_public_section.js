@@ -13,10 +13,12 @@ Airbo.TileTagger = (function(){
     , shareOn
     , shareOff
     , successfulShare
-    , tilePublicFormTileTagIds
-    , tileTagIds
+    , selectedTagIds
+    , tagList
     , searchURL
     , publicTileForm
+    , tagAlert
+    , appliedTags
     , sourceSelector = "#add-tag"
     , targetSelector = "#tag-autocomplete-target"
     , shareOptionsSelector = '.share_options'
@@ -24,21 +26,24 @@ Airbo.TileTagger = (function(){
     , allowCopySelector = '.allow_copy'
     , allowCopyingOnSelector = '#allow_copying_on'
     , allowCopyingOffSelector =  '#allow_copying_off'
+    , allowCopyingToggleSelector = '#allow_copying_on, #allow_copying_off'
     , addTagClassSelector = '.add_tag'
     , addTagIdSelector = '#add-tag'
     , shareOptionsAddTagSelector = '.share_options .add_tag'
     , shareToExploreSelector = '.share_to_explore'
     , shareOnSelector = '#share_on'
     , shareOffSelector = '#share_off'
+    , shareOnOffToggleSelector ='#share_on, #share_off'
     , successfulShareSelector = '#successful_share'
-    , tilePublicFormTileTagIdsSelector = "#tile_public_form_tile_tag_ids"
-    , tileTagIdsSelector = "ul.tile_tags"
+    , selectedTagIdsSelector = "#tile_public_form_tile_tag_ids"
+    , tagListSelector = "ul.tile_tags"
     , publicTileFormSelector = "#public_tile_form"
+    , tagAlertSelector = ".tag_alert"
+    , appliedTagsSelector = ".tile_tags li"
   ;
 
 
   function initialSetting() {
-        //tilePublicFormTileTagIds.hide();
   };
 
 
@@ -110,13 +115,15 @@ Airbo.TileTagger = (function(){
       url: "/client_admin/tile_tags/add?term=" + name,
       success: function(id) {
         appendSelectedTags(id, name);
+        tagList.addClass("has_tags");
       }
     });
   };
 
 
   function tileTagsError() {
-    return $('#sharable_tile_link_on').is(':checked') && $('#share_on').is(':checked') && shareOptions.find('.tile_tags li').length < 1;
+    //This condition cannot be met
+    return $('#sharable_tile_link_on').is(':checked') && $('#share_on').is(':checked') && ('.tile_tags li').length < 1;
   };
 
   function appendSelectedTags(id, name) {
@@ -144,26 +151,26 @@ Airbo.TileTagger = (function(){
     shareOptionsAddTag = $(shareOptionsAddTagSelector);
     shareToExplore = $(shareToExploreSelector);
     successfulShare = $(successfulShareSelector);
-    tilePublicFormTileTagIds = $(tilePublicFormTileTagIdsSelector);
-    tileTagIds = $(tileTagIdsSelector);
+    selectedTagIds = $(selectedTagIdsSelector);
+    tagList = $(tagListSelector);
     shareOn = $(shareOnSelector);
     shareOf = $(shareOffSelector);
     publicTileForm = $(publicTileFormSelector);
+    tagAlert = $(tagAlertSelector);
+    appliedTags = $(appliedTagsSelector);
   }
 
-
-  function initHandlers(){
-    $('#allow_copying_on, #allow_copying_off').click(function(event) {
-      publicTileForm.submit();
-    });
-
-    $('#share_off, #share_on').change(function(event) {
+  function initShareToExploreToggleRadioChangeHandler(){
+    $(shareOnOffToggleSelector).change(function(event) {
       var switchedToOn;
       publicTileForm.submit();
       switchedToOn = $(event.target).val() === 'true';
       toggleShareRemove(switchedToOn);
       toggleSuccessVisibility(switchedToOn);
     });
+  }
+
+  function initShareToExploreToggle(){
 
     shareToExplore.click(function(event) {
       var shareRadios, uncheckedRadio;
@@ -175,55 +182,86 @@ Airbo.TileTagger = (function(){
       uncheckedRadio = shareRadios.not(':checked').first();
       uncheckedRadio.click();
     });
+  }
 
+  function initAllowCopyingToggle(){
+
+    $(allowCopyingToggleSelector).click(function(event) {
+      publicTileForm.submit();
+    });
+  }
+
+
+  function initPageUnloadWarning(){
     $(window).on("beforeunload", function() {
       if (tileTagsError()) {
-        $('.tag_alert').show();
+        tagAlert.show();
         return "If you leave this page, you’ll lose any changes you made. Please, save them before leaving.";
       }
     });
+  }
 
-    $("#back_header a, #archive, #post, .edit_header a, .new_tile_header a").click(function(e) {
+
+  function initNavigateAwayWarning(){
+    $("#archive, #post, .edit_header a, .new_tile_header a").click(function(e) {
       if (tileTagsError()) {
         e.preventDefault();
         e.stopPropagation();
-        $('.tag_alert').show();
+        tagAlert.show();
       }
     });
+  }
 
-    $(document).on('click', '.add_tag .fa', function(event) {
-      var element, filtered_vals, tag_id, vals;
-      if ($('.add_tag li').length === 1 && $('#share_on:checked').length > 0) {
-        $('.tag_alert').show();
-        return false;
-      }
-      element = $(this).parent();
-      tag_id = element.attr('id');
-      vals = shareOptions.find('#tile_public_form_tile_tag_ids').val().split(',');
-      filtered_vals = vals.filter(function(selected_tag_id) {
-        return selected_tag_id !== tag_id;
-      });
+  function isLastTag(){
+    return $('.add_tag li').length === 1 && $('#share_on:checked').length > 0
+  }
 
-      shareOptions.find('#tile_public_form_tile_tag_ids').val(filtered_vals.join(','));
-      element.remove();
-
-      $('.tag_alert').hide();
-
-      if (noTags()) {
-        highlightAddTag();
-        disableShareLink();
-        disableCopySwitch();
-      }
-      publicTileForm.submit();
+  function undeletedTags(tagId){
+    var currTags = selectedTagIds.val().split(',');
+    return  currTags.filter(function(selected_tag_id) {
+      return selected_tag_id !== tagId;
     });
+  }
 
+  function clearTag(element){
+    var tags = undeletedTags(element.attr('id'));
+
+    selectedTagIds.val(tags.join(','));
+    element.remove();
+  }
+
+  function initTagDeletion(){
+
+    $('.add_tag .fa').on('click', function(event) {
+      event.preventDefault();
+      if (isLastTag()) {
+        tagAlert.show();
+      }else{
+        clearTag($(this).parent());
+        tagAlert.hide();
+
+        if (noTags()) {
+          highlightAddTag();
+          disableShareLink();
+          disableCopySwitch();
+        }
+        publicTileForm.submit();
+      }
+    });
+  }
+
+  function isSharedToExplore(){
+    $('#share_on').is(':checked');
+  }
+
+  function initTileFormSubmission(){
     publicTileForm.on('submit', function(event) {
       event.preventDefault();
-      if ($(this).find('#share_on').is(':checked')) {
-        if ($(this).find('.share_options').find('.tile_tags li').length < 1) {
+      if (isSharedToExplore()) {
+        if (appliedTags.length < 1) {
           return false;
         } else {
-          $(this).find('.tag_alert').hide();
+          tagAlert.hide();
           return true;
         }
       } else {
@@ -232,10 +270,20 @@ Airbo.TileTagger = (function(){
     });
   }
 
+  function initEventHandlers(){
+    initAllowCopyingToggle();
+    initShareToExploreToggleRadioChangeHandler();
+    initShareToExploreToggle();
+    initPageUnloadWarning();
+    initNavigateAwayWarning();
+    initTagDeletion();
+    initTileFormSubmission();
+  }
+
 
   function init(){
     initJQueryObjects();
-    initHandlers();
+    initEventHandlers();
     searchURL = $(sourceSelector).data("searchurl");
 
     $(sourceSelector).autocomplete({
@@ -255,10 +303,4 @@ Airbo.TileTagger = (function(){
 
 
 }());
-
-
-
-window.bindTagNameSearchAutocomplete = function(sourceSelector, targetSelector, searchURL) {
-
-};
 

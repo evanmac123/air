@@ -70,16 +70,15 @@ class TilePublicForm
   end
 
   def set_tile_taggings
+
     if parameters[:tile_tag_ids].present?
       tile_tag_ids = parameters[:tile_tag_ids].split(',').map(&:to_i)
-
       new_tile_tag_ids = tile_tag_ids
-      
       if tile.persisted?
         existing_tile_tag_ids = @tile.tile_taggings.map(&:tile_tag_id)
         new_tile_tag_ids = tile_tag_ids - existing_tile_tag_ids                    
       end
-      
+
       #only keep the new and non-removed tile taggings
       associated_tile_taggings = tile.tile_taggings.where(tile_tag_id: tile_tag_ids)
       new_tile_tag_ids.each do |tile_tag_id|

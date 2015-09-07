@@ -378,8 +378,10 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
           color: rgba(76, 76, 76, .60);
           line-height: 1.757;
           font-size: 1em; 
-          hr:first-child{
-            display:none;
+
+          &.has_tags{
+            border-bottom: 1px solid #DDD;
+            padding-bottom: 10px;
           }
         }
       }
