@@ -19,7 +19,7 @@ module TilePreviewsHelper
       else
         user_tile_likes = tile.user_tile_likes.limit(2).order('created_at DESC')       
         "Liked by #{user_tile_likes[0].user.name} and #{user_tile_likes[1].user.name}"
-      end
+        end
     else #count is greater than 3
       if current_user.likes_tile?(tile)
         "Liked by you, #{tile.user_tile_likes.where('user_id <> ?', current_user.id).last.
@@ -27,7 +27,7 @@ module TilePreviewsHelper
       else
         user_tile_likes = tile.user_tile_likes.limit(2).order('created_at DESC')       
         "Liked by #{user_tile_likes[0].user.name}, #{user_tile_likes[1].user.name}, and #{pluralize(tile.like_count - 2, 'other')}"
-      end
+        end
     end
   end
 
@@ -41,42 +41,12 @@ module TilePreviewsHelper
     author_name.join(', ')
   end
 
-  def draft_menu_item_config type
-    if type == :action
-      ["Post",  "fa-check", "active"]
-    else
-      ["Draft", "fa-edit"]
-    end
-  end
-
-  def active_menu_item_config type
-    if type == :action
-      [ "Archive", "fa-archive", "archive"]
-    else
-      ["Posted", "fa-archive" ]
-    end
-  end
-
-  def archive_menu_item_config type
-    if type == :action
-      ["Repost", "fa-check", "active"]
-    else
-      ["Archived", "fa-archive"]
-    end
-  end
-
-  def preview_menu_item_config_by_status status, type
-    keys = [:txt,  :icon,  :status]
-    values = case status
-             when Tile::DRAFT
-               draft_menu_item_config type
-             when Tile::ARCHIVE
-               archive_menu_item_config type
-             when Tile::ACTIVE
-               active_menu_item_config type
-             end
-
-    Hash[keys.zip(values)]
+  def preview_menu_item_config_by_status status
+    {
+      draft: {txt: "Draft", icon: "fa-edit", status: "draft", action: "Draft"},
+      active: {txt: "Posted", icon: "fa-check", status: "active", action: "Post"}, 
+      archive: {txt: "Archived", icon: "fa-archive", status: "archive", action: "Archive"}
+    }[status.to_sym]
   end
 
   def menu_item_text_and_icon txt, icon
@@ -87,35 +57,29 @@ module TilePreviewsHelper
     s
   end
 
-  def tile_preview_menu_item_config tile, opts
-    config = {status: tile.status }.merge(opts)
-    config.merge! (preview_menu_item_config_by_status config[:status], :action)
-  end
-
   def tile_preview_status_change_tooltip tile
     change_statuses = [Tile::DRAFT, Tile::ACTIVE, Tile::ARCHIVE].reject{|x|x==tile.status}
 
     content_tag :div, id: "stat_change_sub", class: "preview_menu_item" do
       s=""
       change_statuses.each do |stat|
-       s+= tile_preview_menu_action_item tile, {status: stat }
+        config = preview_menu_item_config_by_status(stat)
+        s+= tile_preview_menu_action_item tile, config
       end
       raw s
     end
   end
 
-
-  def tile_preview_menu_status_item tile 
-    config = preview_menu_item_config_by_status tile.status, :status
+  def tile_preview_menu_status_item tile
+    config = preview_menu_item_config_by_status tile.status
     content_tag :a do
       menu_item_text_and_icon(config[:txt], config[:icon])
     end
   end
 
-  def tile_preview_menu_action_item tile, opts={}
-    config = tile_preview_menu_item_config tile, opts
+  def tile_preview_menu_action_item tile, config
     link_to  status_change_client_admin_tile_path(tile), data: {status: config[:status]},  class: 'update_status' do
-      menu_item_text_and_icon(config[:txt], config[:icon])
+      menu_item_text_and_icon(config[:action], config[:icon])
     end
   end
 
@@ -127,6 +91,7 @@ module TilePreviewsHelper
       end 
     end
   end
+
 
   def social_share_links tile
     content_tag :div, class: "share_section" do
@@ -159,7 +124,7 @@ module TilePreviewsHelper
   def tile_share_public_link_block tile
     tooltip = "If tile share link is on, anyone with the link can see the tile."
     content_tag :div, class: "share_section" do
-     s= content_tag :div, class: "share_link_block" do
+      s= content_tag :div, class: "share_link_block" do
         s1 = content_tag :div, "Tile Share Link", class: "title"
         s1 += content_tag :i, "", class: "fa fa-question-circle has-tip",  data: {tooltip: "true"},  title: tooltip
         s1 += content_tag :div,  class: "tile_status" do
@@ -170,16 +135,16 @@ module TilePreviewsHelper
         end
         s1
       end
-     s+= tile_share_public_link tile
+      s+= tile_share_public_link tile
     end
   end
 
   def tile_share_public_link_form tile
     s = form_for tile, url: client_admin_sharable_tile_path(tile), method: :put, remote: true, html: { id: "sharable_link_form"} do |form|
-       content_tag :div,  class:"switch tiny round" do
-         s1 = form.radio_button :is_sharable, true, id: 'sharable_tile_link_on' 
-         s1+=  form.radio_button :is_sharable, false, id: 'sharable_tile_link_off'
-         s1+=  content_tag :span,"",  class: 'green-paddle'
+      content_tag :div,  class:"switch tiny round" do
+        s1 = form.radio_button :is_sharable, true, id: 'sharable_tile_link_on' 
+        s1+=  form.radio_button :is_sharable, false, id: 'sharable_tile_link_off'
+        s1+=  content_tag :span,"",  class: 'green-paddle'
       end
     end 
 
