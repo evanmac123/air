@@ -558,6 +558,11 @@ body.suggested_tiles-update{
    right: 0px;
    left: .6875em;
    width: 2em;
+   margin-top: 1em;
+   .fa-2x{
+     font-size: 1.5em;
+   }
+
   }
 
   .tile_preview_menu {
@@ -571,7 +576,7 @@ body.suggested_tiles-update{
       padding: 0px;
       .header_text {
         font-size: 12px;
-        margin-left: 0.10em;
+        margin-left: 0.25em;
       }
       a {
         padding: 0.65em;
