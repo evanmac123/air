@@ -98,9 +98,7 @@ module TilePreviewsHelper
     content_tag :div, id: "stat_change_sub", class: "preview_menu_item" do
       s=""
       change_statuses.each do |stat|
-       s+= content_tag :p do
-           tile_preview_menu_action_item tile, {status: stat }
-        end
+       s+= tile_preview_menu_action_item tile, {status: stat }
       end
       raw s
     end
