@@ -40,6 +40,7 @@ Airbo.TileTagger = (function(){
     , publicTileFormSelector = "#public_tile_form"
     , tagAlertSelector = ".tag_alert"
     , appliedTagsSelector = ".tile_tags li"
+    , selectedTagsCache = {}
   ;
 
   
@@ -121,20 +122,36 @@ Airbo.TileTagger = (function(){
   function tileTagsError() {
     //This condition cannot be met
     return $('#sharable_tile_link_on').is(':checked') && $('#share_on').is(':checked') && ('.tile_tags li').length < 1;
-  };
+  }
+
+  function tagIdNotInList(id){
+    return tagList.find("#"+id).length === 0;
+  }
+
+  function addToSelectedTagsCache(id, name){
+    //selectedTagsCache[id]=name;
+  }
+
+  function removeFromSelectedTagsCache(id){
+    //delete selectedTagsCache[id];
+  }
 
   function appendSelectedTags(id, name) {
     publicTileForm.find('.tag_alert').hide();
-    if ($('ul.tile_tags > li[id=' + id + ']').length < 1) {
-      $('ul.tile_tags').append("<li id='" + id + "'>" + name + "<a class='fa fa-times'></a> </li>");
-      if ($('#tile_public_form_tile_tag_ids').val() === "") {
-        $('#tile_public_form_tile_tag_ids').val(id);
+    addToSelectedTagsCache(id, name);
+
+    if (tagIdNotInList(id)) {
+
+      tagList.append("<li id='" + id + "'>" + name + "<a class='fa fa-times'></a> </li>");
+
+      if (selectedTagIds.val() === "") {
+        selectedTagIds.val(id);
       } else {
-        $('#tile_public_form_tile_tag_ids').val($('#tile_public_form_tile_tag_ids').val() + ("," + id));
+        selectedTagIds.val(selectedTagIds.val() + ("," + id));
       }
     }
     publicTileForm.submit();
-  };
+  }
 
 
   function initJQueryObjects(){
@@ -187,7 +204,6 @@ Airbo.TileTagger = (function(){
       publicTileForm.submit();
     });
   }
-
 
   function initPageUnloadWarning(){
     $(window).on("beforeunload", function() {
@@ -278,9 +294,22 @@ Airbo.TileTagger = (function(){
   }
 
 
+  function setTagsCache(){
+    appliedTags.each(function(idx, o){
+      var obj = $(o)
+        , id =obj.attr("id")
+        , name = obj.text().trim()
+      ;
+
+      addToSelectedTagsCache(id,name);
+    });
+  }
+
   function init(){
+
     initJQueryObjects();
     initEventHandlers();
+    setTagsCache();
     searchURL = $(sourceSelector).data("searchurl");
 
     $(sourceSelector).autocomplete({
