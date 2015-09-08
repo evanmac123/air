@@ -1,8 +1,7 @@
 class ClientAdmin::TileStatsGridsController < ClientAdminBaseController
   def index
     @tile = Tile.find(params[:tile_id])
-    # @grid_type = params["grid_type"].present? ? params["grid_type"] : GridQuery::TileActions::GRID_TYPES.keys.first
-    grid_builder = TileStatsGrid.new(@tile, params["grid_type"])
+    grid_builder = TileStatsGrid.new(@tile, params["grid_type"], params[:answer_filter])
     @tile_stats_grid = initialize_grid *grid_builder.args
     @current_grid = grid_builder.query_type
 

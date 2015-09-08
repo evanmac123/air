@@ -3,7 +3,7 @@
     <div class="large-9 columns">
       <div class="grid_types">
         <% GridQuery::TileActions::GRID_TYPES.each do |type, name| %>
-          <%= link_to name, client_admin_tile_tile_stats_grids_path(@tile, grid_type: type), class: (type == @current_grid ? "current" : "")  %>
+          <%= link_to name, client_admin_tile_tile_stats_grids_path(@tile, grid_type: type, answer_filter: ""), class: (type == @current_grid ? "current" : "")  %>
         <% end %>
       </div>
     </div>

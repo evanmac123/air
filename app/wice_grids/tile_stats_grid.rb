@@ -1,9 +1,10 @@
 class TileStatsGrid
-  attr_reader :tile, :query_type
+  attr_reader :tile, :query_type, :answer_filter
 
-  def initialize tile, query_type
+  def initialize tile, query_type = nil, answer_filter = nil
     @tile = tile
     @query_type = set_query_type(query_type)
+    @answer_filter = answer_filter.present? ? answer_filter : nil
   end
 
   def args
@@ -21,7 +22,7 @@ class TileStatsGrid
   end
 
   def query
-    GridQuery::TileActions.new(tile, query_type).query
+    GridQuery::TileActions.new(tile, query_type, answer_filter).query
   end
 
   def grid_params

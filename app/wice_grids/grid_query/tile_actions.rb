@@ -1,5 +1,5 @@
 class GridQuery::TileActions
-  attr_reader :tile, :query_type
+  attr_reader :tile, :query_type, :answer_filter
   # query_type: all, viewed, not_viewed, viewed_and_interacted, viewed_and_not_interacted
   GRID_TYPES = {
     "viewed_and_interacted" => "Viewed and interacted",
@@ -7,16 +7,27 @@ class GridQuery::TileActions
     "not_viewed" => "Didn't view",
     "all" => "All"
   }.freeze
-  def initialize tile, query_type
+  def initialize tile, query_type, answer_filter
     @tile = tile
     @query_type = query_type
+    @answer_filter = answer_filter
   end
 
   def query
-    self.send(query_type.to_sym)
+    result = self.send(query_type.to_sym)
+    if answer_filter
+      index = answer_index
+      result.where{tile_completions.answer_index == index}
+    else
+      result
+    end
   end
 
   protected
+    def answer_index
+      tile.multiple_choice_answers.index(answer_filter)
+    end
+
     def viewed_only
       all.where{ tile_viewings.id != nil }.where{ tile_completions.id == nil }
     end

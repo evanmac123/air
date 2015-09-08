@@ -10,10 +10,8 @@ Airbo.TileStatsGrid = (function(){
   var tileGridSection;
 
   var updateLink,
-      //currentGridType,
       updatesChecker,
-      eventsInitialized,
-      answerFilter;
+      eventsInitialized;
 
   function ajaxResponse(){
     return function (data){
@@ -28,21 +26,9 @@ Airbo.TileStatsGrid = (function(){
     return link.attr("href").split('?')[1] || "";
   }
 
-  // function updateGridType(link) {
-  //   gridType = link.data("grid-type");
-  //   if( gridType ){
-  //     currentGridType = gridType;
-  //     answerFilter = "";
-  //   }
-  // }
-
   function gridRequest(url) {
     $.ajax({
       url: url,
-      data: {
-        //grid_type: currentGridType,
-        answer_filter: answerFilter
-      },
       success: ajaxResponse(),
       dataType: "json"
     });
@@ -50,20 +36,17 @@ Airbo.TileStatsGrid = (function(){
   }
 
   function updateGrid(link) {
-    // updateGridType(link);
     gridRequest( updateLink + "?" + getLinkParams(link) );
   }
 
   function filterByAnswer(answer){
-    //if(answer == "-") return;
-    answerFilter = answer;
-    gridRequest( updateLink );
+    if(answer == "-") return;
+    gridRequest( updateLink + "?answer_filter=" + answer);
   }
 
   function initVars(){
     tileGridSection = $(tileGridSectionSel);
     updateLink = tileGridSection.data("update-link");
-    // updateGridType( $(currentGridLinkSel) );
 
     if(updatesChecker){
       updatesChecker.reStart();
