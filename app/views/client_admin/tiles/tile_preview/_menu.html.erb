@@ -9,10 +9,6 @@
     </li>
 
     <li class="preview_menu_item edit" >
-      <%=tile_preview_menu_action_item tile%>
-    </li>
-
-    <li class="preview_menu_item edit" >
       <%=link_to edit_client_admin_tile_path(tile),  data:{tile_id: tile.id, action: "edit", status: tile.status} do %>
         <i class="fa fa-pencil fa-1x"></i>
         <span class="header_text">
