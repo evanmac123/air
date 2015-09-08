@@ -53,6 +53,7 @@ Airbo.TileTagger = (function(){
     } else {
       addNewTag(ui.item.value.name);
     }
+
     addTagId.val("");
     unhighlightAddTag();
     enableShareLink();
@@ -61,35 +62,35 @@ Airbo.TileTagger = (function(){
      allowCopyingOn.click();
     }
     event.preventDefault();
-  };
+  }
 
   function unhighlightAddTag() {
     addTagId.removeClass('highlighted');
-  };
+  }
 
   function highlightAddTag() {
     addTagId.addClass('highlighted');
-  };
+  }
 
   function noTags() {
     $('.tile_tags a').length === 0;
-  };
+  }
 
   function enableShareLink() {
     shareToExplore.removeClass('disabled');
-  };
+  }
 
   function disableShareLink() {
     shareToExplore.addClass('disabled');
-  };
+  }
 
   function enableCopySwitch() {
     allowCopy.removeClass('disabled');
-  };
+  }
 
   function disableCopySwitch() {
     allowCopy.addClass('disabled');
-  };
+  }
 
   function toggleShareRemove(nowPosted) {
     if (nowPosted) {
@@ -98,7 +99,7 @@ Airbo.TileTagger = (function(){
       shareToExplore.removeClass('remove_from_explore').text('Share to Explore');
     }
     return true;
-  };
+  }
 
   function toggleSuccessVisibility(nowPosted) {
     if (nowPosted) {
@@ -106,7 +107,7 @@ Airbo.TileTagger = (function(){
     } else {
       successfulShare.hide();
     }
-  };
+  }
 
   function addNewTag(name) {
     $.ajax({
@@ -116,7 +117,7 @@ Airbo.TileTagger = (function(){
         tagList.addClass("has_tags");
       }
     });
-  };
+  }
 
 
   function tileTagsError() {
