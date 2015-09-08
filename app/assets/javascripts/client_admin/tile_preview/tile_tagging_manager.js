@@ -42,10 +42,7 @@ Airbo.TileTagger = (function(){
     , appliedTagsSelector = ".tile_tags li"
   ;
 
-
-  function initialSetting() {
-  };
-
+  
 
   function jumpTagSelected(event, ui) {
     var startedWithNoTags;
