@@ -7,8 +7,10 @@ class ClientAdmin::TileStatsController < ClientAdminBaseController
 
     @survey_chart = @tile.survey_chart if @tile.is_survey?
 
-    @grid_type = GridQuery::TileActions::GRID_TYPES.keys.first
-    @tile_stats_grid = initialize_grid *TileStatsGrid.new(@tile, @grid_type).args
+    # @grid_type = GridQuery::TileActions::GRID_TYPES.keys.first
+    grid_builder = TileStatsGrid.new(@tile, nil)
+    @tile_stats_grid = initialize_grid *grid_builder.args
+    @current_grid = grid_builder.query_type
 
     respond_to do |format|
       format.html

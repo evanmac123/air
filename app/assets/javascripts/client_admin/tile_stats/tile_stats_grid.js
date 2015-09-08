@@ -4,14 +4,16 @@ Airbo.TileStatsGrid = (function(){
   // Selectros
   var tileGridSectionSel = ".tile_grid_section",
       linkInGridSel = tileGridSectionSel + " a:not(.download_as_csv)",
-      currentGridLinkSel = ".grid_types a.current";
+      currentGridLinkSel = ".grid_types a.current",
+      answerCellSel = tileGridSectionSel + " .answer_column";
   // JQuery Objects
   var tileGridSection;
 
   var updateLink,
-      currentGridType,
+      //currentGridType,
       updatesChecker,
-      eventsInitialized;
+      eventsInitialized,
+      answerFilter;
 
   function ajaxResponse(){
     return function (data){
@@ -23,31 +25,45 @@ Airbo.TileStatsGrid = (function(){
   }
 
   function getLinkParams(link) {
-    return link.attr("href").split('?')[1];
+    return link.attr("href").split('?')[1] || "";
   }
 
-  function updateGridType(link) {
-    gridType = link.data("grid-type");
-    if( gridType ){
-      currentGridType = gridType;
-    }
-  }
+  // function updateGridType(link) {
+  //   gridType = link.data("grid-type");
+  //   if( gridType ){
+  //     currentGridType = gridType;
+  //     answerFilter = "";
+  //   }
+  // }
 
-  function updateGrid(link) {
-    updateGridType(link);
+  function gridRequest(url) {
     $.ajax({
-      url: updateLink + "?" + getLinkParams(link),
-      data: {grid_type: currentGridType},
+      url: url,
+      data: {
+        //grid_type: currentGridType,
+        answer_filter: answerFilter
+      },
       success: ajaxResponse(),
       dataType: "json"
     });
     updatesChecker.stopChecker();
   }
 
+  function updateGrid(link) {
+    // updateGridType(link);
+    gridRequest( updateLink + "?" + getLinkParams(link) );
+  }
+
+  function filterByAnswer(answer){
+    //if(answer == "-") return;
+    answerFilter = answer;
+    gridRequest( updateLink );
+  }
+
   function initVars(){
     tileGridSection = $(tileGridSectionSel);
     updateLink = tileGridSection.data("update-link");
-    updateGridType( $(currentGridLinkSel) );
+    // updateGridType( $(currentGridLinkSel) );
 
     if(updatesChecker){
       updatesChecker.reStart();
@@ -68,9 +84,15 @@ Airbo.TileStatsGrid = (function(){
       e.preventDefault();
       updateGrid( $(this) );
     });
+
+    $(document).on("click", answerCellSel, function(e){
+      e.preventDefault();
+      filterByAnswer( $(this).text() );
+    });
   }
 
   function init(){
+    answerFilter = "";
     initVars();
     initEvents();
   }

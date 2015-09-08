@@ -1,7 +1,10 @@
 class ClientAdmin::TileStatsGridsController < ClientAdminBaseController
   def index
     @tile = Tile.find(params[:tile_id])
-    @tile_stats_grid = initialize_grid *TileStatsGrid.new(@tile, params["grid_type"]).args
+    # @grid_type = params["grid_type"].present? ? params["grid_type"] : GridQuery::TileActions::GRID_TYPES.keys.first
+    grid_builder = TileStatsGrid.new(@tile, params["grid_type"])
+    @tile_stats_grid = initialize_grid *grid_builder.args
+    @current_grid = grid_builder.query_type
 
     export_grid_if_requested('tile_stats_grid' => 'grid') do
       # if the request is not a CSV export request
@@ -22,11 +25,11 @@ class ClientAdmin::TileStatsGridsController < ClientAdminBaseController
       render_to_string(
         partial: 'grid_section',
         formats: [:html],
-        locals: {
-          tile: @tile,
-          tile_stats_grid: @tile_stats_grid,
-          current_grid: params["grid_type"]
-        }
+        # locals: {
+        #   # tile: @tile,
+        #   # tile_stats_grid: @tile_stats_grid,
+        #   # current_grid: @tile_stats_grid.query_type
+        # }
       )
     end
 end

@@ -3,7 +3,7 @@ class TileStatsGrid
 
   def initialize tile, query_type
     @tile = tile
-    @query_type = query_type
+    @query_type = set_query_type(query_type)
   end
 
   def args
@@ -11,6 +11,14 @@ class TileStatsGrid
   end
 
   protected
+
+  def set_query_type(query_type)
+    if query_type.present?
+      query_type
+    else
+      GridQuery::TileActions::GRID_TYPES.keys.first
+    end
+  end
 
   def query
     GridQuery::TileActions.new(tile, query_type).query
