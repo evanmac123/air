@@ -105,7 +105,111 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
     z-index: 99999999999;
   }
 
-  & .tooltipster-content {
+  & .tooltipster-base .tooltipster-content {
+    
+    
+    .share_options {
+      
+       display: block; // Always show
+       
+      hr {
+        margin: .5em 0;
+      }
+      
+
+      .allow_copying {
+        display:block;
+        float: none;
+
+        padding: 0em 0em 1em 0em;
+        width: 100%;
+
+        .switch{
+
+          @include green-paddle-switch(0.75);
+          margin: auto;
+          float: right;
+          height: 15px;
+          margin-right: 2.75em;
+        }
+
+        .allow_copying_message{
+          margin-right: 2em;
+        }
+
+      }
+
+      .add_tag {
+        display:block;
+        width: 100%;
+        max-width: 220px;
+        float: none;
+        margin: auto;
+
+        input[type="text"]{
+          width: 100%;
+          border: none;
+          &.highlighted {
+            background-color: #ffedeb;
+
+            &::-webkit-input-placeholder:after {
+              content: " (Required)";
+              color: #ed8980;
+            }
+
+            &::-moz-placeholder:after  { /* Firefox 18- */
+              content: " (Required)";
+              color: #ed8980;
+            }
+
+            &::-moz-placeholder:after {  /* Firefox 19+ */
+              content: " (Required)";
+              color: #ed8980;
+            }
+
+            &:-ms-input-placeholder:after {  
+              content: " (Required)";
+              color: #ed8980;
+            }
+
+          }
+
+        }
+
+        .tile_tags{
+          color: rgba(76, 76, 76, .60);
+          line-height: 1.757;
+          font-size: 1em; 
+
+          &.has_tags{
+            border-bottom: 1px solid #DDD;
+            padding-bottom: 10px;
+          }
+        }
+      }
+
+      .share_to_explore{
+        float:none;
+        padding: 0em 0.5em;
+        margin-top: 0px;
+        margin: auto;
+        padding-left: 8px;
+        padding-right: 8px;
+        width: 95%;
+        display: block;
+        &.disabled, &.remove_from_explore {
+          @include light-button($sky-blue);
+          display: block;
+          text-transform: uppercase;
+          font-weight: bold;
+          font-size: 12px;
+        }
+      }
+    }
+
+
+
+
 
     // => Share Section
 
@@ -306,103 +410,7 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
 
 /*Add styling for when inside modal tooltipster    */
 
-    &.for_modal {
-      hr {
-        margin: .5em 0;
-      }
 
-
-
-
-      display: block;
-      .allow_copying {
-        display:block;
-        float: none;
-
-        padding: 0em 0em 1em 0em;
-        width: 100%;
-
-        .switch{
-
-          @include green-paddle-switch(0.75);
-          margin: auto;
-          float: right;
-          height: 15px;
-          margin-right: 2.75em;
-        }
-
-        .allow_copying_message{
-          margin-right: 2em;
-        }
-
-      }
-
-      .add_tag {
-        display:block;
-        width: 100%;
-        max-width: 220px;
-        float: none;
-        margin: auto;
-
-        input[type="text"]{
-          width: 100%;
-          border: none;
-          &.highlighted {
-            background-color: #ffedeb;
-
-            &::-webkit-input-placeholder:after {
-              content: " (Required)";
-              color: #ed8980;
-            }
-
-            &::-moz-placeholder:after  { /* Firefox 18- */
-              content: " (Required)";
-              color: #ed8980;
-            }
-
-            &::-moz-placeholder:after {  /* Firefox 19+ */
-              content: " (Required)";
-              color: #ed8980;
-            }
-
-            &:-ms-input-placeholder:after {  
-              content: " (Required)";
-              color: #ed8980;
-            }
-
-          }
-
-        }
-
-        .tile_tags{
-          color: rgba(76, 76, 76, .60);
-          line-height: 1.757;
-          font-size: 1em; 
-
-          &.has_tags{
-            border-bottom: 1px solid #DDD;
-            padding-bottom: 10px;
-          }
-        }
-      }
-      .share_to_explore{
-        float:none;
-        padding: 0em 0.5em;
-        margin-top: 0px;
-        margin: auto;
-        padding-left: 8px;
-        padding-right: 8px;
-        width: 95%;
-        display: block;
-        &.disabled, &.remove_from_explore {
-          @include light-button($sky-blue);
-          display: block;
-          text-transform: uppercase;
-          font-weight: bold;
-          font-size: 12px;
-        }
-      }
-    }
 
 
 /*end customizations for tool-tip*/
