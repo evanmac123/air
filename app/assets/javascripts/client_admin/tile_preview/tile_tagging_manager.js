@@ -57,7 +57,7 @@ Airbo.TileTagger = (function(){
     enableShareLink();
     enableCopySwitch();
     if (startedWithNoTags) {
-      $('#allow_copying_on').click();
+     allowCopyingOn.click();
     }
     event.preventDefault();
   };
@@ -101,9 +101,9 @@ Airbo.TileTagger = (function(){
 
   function toggleSuccessVisibility(nowPosted) {
     if (nowPosted) {
-      $('#successful_share').show();
+      successfulShare.show();
     } else {
-      $('#successful_share').hide();
+      successfulShare.hide();
     }
   };
 
