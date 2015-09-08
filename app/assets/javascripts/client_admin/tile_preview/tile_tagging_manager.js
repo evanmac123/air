@@ -56,7 +56,7 @@ Airbo.TileTagger = (function(){
 
     addTagId.val("");
     unhighlightAddTag();
-    enableShareLink();
+    enableShareLink(); // TODO very if of to remove this functionality from tile tagging and sharing to explore
     enableCopySwitch();
     if (startedWithNoTags) {
      allowCopyingOn.click();
