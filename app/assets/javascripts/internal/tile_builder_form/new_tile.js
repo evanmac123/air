@@ -85,7 +85,6 @@ Airbo.TileCreator = (function(){
    var selector
      , section = pageSectionByStatus(data.tileStatus);
    ;
-
    if(inExistingTile){
      replaceTileContent(data)
    } else{
@@ -94,7 +93,7 @@ Airbo.TileCreator = (function(){
  }
 
  function replaceTileContent(data){
-   selector = tileWrapperSelector + "[data-tile-id=" + data.tile_id + "]";
+   selector = tileWrapperSelector + "[data-tile-id=" + data.tileId + "]";
    $(selector).replaceWith(data.tile);
  }
 

@@ -345,7 +345,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     prepTilePreview
     render json: {
       tileStatus: @tile.status,
-      tile_id: @tile_id,
+      tileId: @tile.id,
       tile: render_tile_string,
       preview: render_tile_preview_string,
     }
