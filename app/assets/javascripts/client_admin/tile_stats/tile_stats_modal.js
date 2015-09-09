@@ -17,7 +17,8 @@ Airbo.TileStatsModal = (function(){
     return function (data){
       modalContent.html(data.page);
       reloadComponents();
-      modal.foundation("reveal", "open");
+      modal.foundation("reveal", "open", {animation: 'fade'});
+      // modal.reveal({animation: 'fade'});
     };
   }
 
@@ -41,7 +42,7 @@ Airbo.TileStatsModal = (function(){
       getPage( $(this) );
     });
 
-    $(document).on('opened', modalSel, function(){
+    $(document).on('open', modalSel, function(){
       $("body").addClass('overflow_hidden');
     });
 

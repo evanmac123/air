@@ -20,7 +20,9 @@ body.client_admin-tile_stats, #tile_stats_modal {
   margin-left: -498px;
   padding: 0;
   border-width: 0;
-  margin-top: -100px;
+  // margin-top: -100px;
+  position: fixed;
+  top: 50px;
   #modal_content {
     padding: 50px 40px;
     overflow: auto;
