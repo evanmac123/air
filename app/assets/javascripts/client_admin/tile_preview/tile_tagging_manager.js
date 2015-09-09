@@ -19,6 +19,7 @@ Airbo.TileTagger = (function(){
     , publicTileForm
     , tagAlert
     , appliedTags
+    , ajaxHandler
     , sourceSelector = "#add-tag"
     , targetSelector = "#tag-autocomplete-target"
     , shareOptionsSelector = '.share_options'
@@ -43,7 +44,10 @@ Airbo.TileTagger = (function(){
     , selectedTagsCache = {}
   ;
 
-  
+  var config = {
+    submitSuccess: Airbo.Utils.noop,
+    submitFail: Airbo.Utils.noop
+  }
 
   function jumpTagSelected(event, ui) {
     var startedWithNoTags;
@@ -289,7 +293,9 @@ Airbo.TileTagger = (function(){
   function initShareFormSubmission(){
     publicTileForm.on('submit', function(event) {
       event.preventDefault();
-      return isValidToShareToExplore();
+      if (isValidToShareToExplore()){
+        ajaxHandler.submit($(this), config.submitSuccess, config.submitFail);
+      }
     });
   }
 
@@ -315,8 +321,10 @@ Airbo.TileTagger = (function(){
     });
   }
 
-  function init(){
+  function init(opts){
 
+    ajaxHandler = Airbo.AjaxResponseHandler;
+    config = $.extend(config, opts)
     initJQueryObjects();
     initEventHandlers();
     setTagsCache();

@@ -149,7 +149,9 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def update_explore_settings
-    @tile = TilePublicForm.new(@tile, params[:tile_public_form]).save
+    tpf = TilePublicForm.new(get_tile, params[:tile_public_form])
+    tpf.save
+    @tile = tpf.tile
     render_preview_and_single
   end
 
@@ -343,6 +345,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     prepTilePreview
     render json: {
       tileStatus: @tile.status,
+      tile_id: @tile_id,
       tile: render_tile_string,
       preview: render_tile_preview_string,
     }

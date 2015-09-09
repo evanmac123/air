@@ -7,10 +7,9 @@ Airbo.TileCreator = (function(){
     , preventCloseMsg
     , modalTrigger
     , modalContent
-    , currTileInModalId
-    , currTileStatus
     , tileBuilderForm
     , tileBuilderSubmitButton
+    , inExistingTile = false
     , keepOpen = false
     , tilePreviewStatusSelector = "#preview_tile_status"
     , tileWrapperSelector =".tile_container"
@@ -65,7 +64,10 @@ Airbo.TileCreator = (function(){
 
  function initSharing(){
    Airbo.TileSharingMgr.init();
-   Airbo.TileTagger.init();
+
+   Airbo.TileTagger.init({
+     submitSuccess: replaceTileContent
+   });
  }
 
 
@@ -87,12 +89,16 @@ Airbo.TileCreator = (function(){
      , section = pageSectionByStatus(data.tileStatus);
    ;
 
-   if(currTileInModalId){
-     selector = tileWrapperSelector + "[data-tile-id=" + currTileInModalId + "]";
-     $(selector).replaceWith(data.tile);
+   if(inExistingTile){
+     replaceTileContent(data)
    } else{
      section.prepend(data.tile); //Add tile to section
    }
+ }
+
+ function replaceTileContent(data){
+   selector = tileWrapperSelector + "[data-tile-id=" + data.tile_id + "]";
+   $(selector).replaceWith(data.tile);
  }
 
  function pageSectionByStatus(status){
@@ -148,9 +154,7 @@ Airbo.TileCreator = (function(){
     $("body").on("click", modalActivationSelectors, function(event){
       event.preventDefault(); 
       modalTrigger = $(this);
-      currTileInModalId=modalTrigger.data("tileId")
-      currTileStatus = modalTrigger.data("status")
-
+      inExistingTile = true
       $.ajax({
         type: "GET",
         dataType: "html",
@@ -191,10 +195,8 @@ Airbo.TileCreator = (function(){
     $("body").on("submit", tileBuilderFormSelector, function(event){
       event.preventDefault(); 
       var form = $(this);
-
       disableTileBuilderFormSubmit();
-        ajaxHandler.submit(form, refreshTileDataPageWide, enableTileBuilderFormSubmit);
-
+      ajaxHandler.submit(form, refreshTileDataPageWide, enableTileBuilderFormSubmit);
     });
   }
 
@@ -270,6 +272,8 @@ Airbo.TileCreator = (function(){
    $(document).on('closed.fndtn.reveal', tileModalSelector, function (event) {
      if(keepOpen){
         openTileFormModal();
+     }else{
+      inExistingTile = false;
      }
    });
 
@@ -286,6 +290,7 @@ Airbo.TileCreator = (function(){
        if (confirm(msg)){
          keepOpen = false;
          preventCloseMsg = undefined;
+
        }else{
          keepOpen = true;
        }
