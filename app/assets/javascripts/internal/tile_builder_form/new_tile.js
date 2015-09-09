@@ -9,6 +9,8 @@ Airbo.TileCreator = (function(){
     , modalContent
     , currTileId
     , currTileStatus
+    , tileBuilderForm
+    , tileBuilderSubmitButton
     , keepOpen = false
     , tilePreviewStatusSelector = "#preview_tile_status"
     , tileWrapperSelector =".tile_container"
@@ -22,18 +24,21 @@ Airbo.TileCreator = (function(){
     , tileModalSelector = "#new_tile_modal"
     , imagesModalSelector ="#images_modal"
     , addImageSelector ="#image_uploader"
-    , tileForm ="#new_tile_builder_form"
+    , tileBuilderFormSelector ="#new_tile_builder_form"
+    , tileBuilderSubmitButtonSelector = '#new_tile_builder_form input[type=submit]'
     , ajaxHandler = Airbo.AjaxResponseHandler
     , modalActivationSelectors = [newSelector, editSelector, previewSelector, tileNavigationSelector].join(",")
   ;
 
  function prepEditOrNew(action){
-   $(tileForm).data("asAjax", true);
+   //tileBuilderForm.data("asAjax", true);
    $("body").removeClass("client_admin-tiles-show");
    $("body").addClass("client_admin-tiles-edit");
    preventCloseMsg = action
    Airbo.TileImageCredit.init();
    Airbo.TilePointsSlider.init();
+   tileBuilderSubmitButton= $(tileBuilderSubmitButtonSelector);
+   tileBuilderForm = $(tileBuilderFormSelector);
  }
 
  function prepShow(){
@@ -156,42 +161,66 @@ Airbo.TileCreator = (function(){
       });
     });
   }
-  function initTileSubmission(){
 
-    $("body").on("submit", "#new_tile_builder_form", function(event){
-      event.preventDefault(); 
-      form = $(this);
-      submitButton = form.find('input[type=submit]')
-      submitButton.attr("disabled", "disabled");
 
-      if((form).data("asAjax")==true){
-        $.ajax({
-          url: form.attr("action"),
-          type: form.attr("method"),
-          data: form.serialize(),
-        }).done(function(data,status,xhr){
-
-          ajaxHandler.silentSuccess(data, status, xhr, function(data){
-
-            preventCloseMsg = false; // Allow modal to be closed sans confirmation
-            tileModal.find(modalContentSelector).html(data.preview);
-            prepShow();
-            updateTileSection(data);
-          });
-
-        }).fail(function(xhr, status, errorThrown){
-          ajaxHandler.fail( xhr, status, function(){
-            submitButton.removeAttr("disabled");
-          });
-
-        });
-      }else {
-        form[0].submit();
       }
+  function initTileBuilderFormSubmission(){
+
+    $("body").on("submit", tileBuilderFormSelector, function(event){
+      event.preventDefault(); 
+      var form = $(this);
+
+      disableTileBuilderFormSubmit();
+
+      //if((form).data("asAjax")==true){
+        ajaxSubmit(form, refreshTileDataPageWide, enableTileBuilderFormSubmit);
+      //}else {
+        //form[0].submit();
+      //}
 
     });
   }
 
+  function ajaxSubmit(form, successCallback, failCallBack){
+
+    $.ajax({
+      url: form.attr("action"),
+      type: form.attr("method"),
+      data: form.serialize(),
+    }).done(function(data,status,xhr){
+
+      ajaxHandler.silentSuccess(data, status, xhr, function(data){
+        successCallback(data)
+      });
+
+    }).fail(function(xhr, status, errorThrown){
+      ajaxHandler.fail( xhr, status, function(){
+        failCallBack(data);
+      });
+
+    });
+  }
+
+  function refreshTileDataPageWide(data){
+    preventCloseMsg = false; // Allow modal to be closed sans confirmation
+    tileModal.find(modalContentSelector).html(data.preview);
+    prepShow();
+    updateTileSection(data);
+  }
+
+  function enableTileBuilderFormSubmit(){
+    tileBuilderSubmitButton.removeAttr("disabled");
+  }
+
+  function disableTileBuilderFormSubmit(){
+    tileBuilderSubmitButton.attr("disabled", "disabled");
+  }
+
+
+  function tileByStatusChangeTriggerLocation(target){
+    var tile = target.parents(tileWrapperSelector)
+    return tile.length==0 ? modalTrigger.parents(tileWrapperSelector) : tile
+  }
   function initStatusUpdate(){
     $("body").on("click", ".update_status", function(event) {
       event.preventDefault();
@@ -324,7 +353,7 @@ Airbo.TileCreator = (function(){
 
     initImageLibraryModal();
 
-    initTileSubmission();
+    initTileBuilderFormSubmission();
   }
 
 
