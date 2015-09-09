@@ -40,6 +40,14 @@ Airbo.TileStatsModal = (function(){
       e.preventDefault();
       getPage( $(this) );
     });
+
+    $(document).on('opened', modalSel, function(){
+      $("body").addClass('overflow_hidden');
+    });
+
+    $(document).on('closed', modalSel, function(){
+      $("body").removeClass('overflow_hidden');
+    });
   }
 
   function initVars(){

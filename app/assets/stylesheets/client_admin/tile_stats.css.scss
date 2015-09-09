@@ -18,8 +18,14 @@ body.client_admin-tile_stats, #tile_stats_modal {
 #tile_stats_modal {
   width: 1007px;
   margin-left: -498px;
-  padding: 50px 40px;
+  padding: 0;
   border-width: 0;
+  margin-top: -100px;
+  #modal_content {
+    padding: 50px 40px;
+    overflow: auto;
+    max-height: calc(100vh - 100px);
+  }
   .close-reveal-modal {
     top: -9px;
     left: -60px;
@@ -34,4 +40,7 @@ body.client_admin-tile_stats, #tile_stats_modal {
 }
 .reveal-modal-bg{
   background: rgba(14, 23, 29, 0.8);
+}
+body.overflow_hidden {
+    overflow:hidden !important;
 }
