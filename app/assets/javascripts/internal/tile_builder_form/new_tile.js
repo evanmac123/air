@@ -195,7 +195,7 @@ Airbo.TileCreator = (function(){
       disableTileBuilderFormSubmit();
 
       //if((form).data("asAjax")==true){
-        ajaxSubmit(form, refreshTileDataPageWide, enableTileBuilderFormSubmit);
+        ajaxHandler.submit(form, refreshTileDataPageWide, enableTileBuilderFormSubmit);
       //}else {
         //form[0].submit();
       //}
@@ -203,25 +203,7 @@ Airbo.TileCreator = (function(){
     });
   }
 
-  function ajaxSubmit(form, successCallback, failCallBack){
 
-    $.ajax({
-      url: form.attr("action"),
-      type: form.attr("method"),
-      data: form.serialize(),
-    }).done(function(data,status,xhr){
-
-      ajaxHandler.silentSuccess(data, status, xhr, function(data){
-        successCallback(data)
-      });
-
-    }).fail(function(xhr, status, errorThrown){
-      ajaxHandler.fail( xhr, status, function(){
-        failCallBack(data);
-      });
-
-    });
-  }
 
   function refreshTileDataPageWide(data){
     preventCloseMsg = false; // Allow modal to be closed sans confirmation

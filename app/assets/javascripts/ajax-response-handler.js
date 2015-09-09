@@ -50,9 +50,30 @@ Airbo.AjaxResponseHandler = (function(){
     //FlashMsg.setMsg(type, msg).run();
     //noop
   }
+
+  function submit(form, successCallback, failCallBack){
+    $.ajax({
+      url: form.attr("action"),
+      type: form.attr("method"),
+      data: form.serialize(),
+    }).done(function(data,status,xhr){
+
+      silentSuccess(data, status, xhr, function(data){
+        successCallback(data)
+      });
+
+    }).fail(function(xhr, status, errorThrown){
+      fail( xhr, status, function(){
+        failCallBack(data);
+      });
+
+    });
+  }
+
   //#TODO there's a hidden designer or architecture pattern here figure it out. 
   //Should this be a promise interface or should i just expose properties like suppress_redirect?
   return {
+    submit: submit,
     success: success,
     fail: fail,
     silentSuccess: silentSuccess,
