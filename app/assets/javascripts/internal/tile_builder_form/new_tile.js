@@ -66,7 +66,7 @@ Airbo.TileCreator = (function(){
 
  function moveTile(currTile, data){
    var newTile = $(data) 
-     , status = newTile.find(".tile_thumbnail").data("status")
+     , status = newTile.data("status")
      , newSection = "#" + status + sectionSelector
    ;
    currTile.remove();
