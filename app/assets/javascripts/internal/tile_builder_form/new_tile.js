@@ -31,7 +31,6 @@ Airbo.TileCreator = (function(){
   ;
 
  function prepEditOrNew(action){
-   //tileBuilderForm.data("asAjax", true);
    $("body").removeClass("client_admin-tiles-show");
    $("body").addClass("client_admin-tiles-edit");
    preventCloseMsg = action
@@ -124,7 +123,6 @@ Airbo.TileCreator = (function(){
  }
 
  function setupModalFor(action){
-
    action = action || modalTrigger.data("action");
 
    tileModal.find(modalContentSelector).html(modalContent);
@@ -195,12 +193,7 @@ Airbo.TileCreator = (function(){
       var form = $(this);
 
       disableTileBuilderFormSubmit();
-
-      //if((form).data("asAjax")==true){
         ajaxHandler.submit(form, refreshTileDataPageWide, enableTileBuilderFormSubmit);
-      //}else {
-        //form[0].submit();
-      //}
 
     });
   }
