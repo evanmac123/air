@@ -148,6 +148,11 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   
+  def update_explore_settings
+    @tile = TilePublicForm.new(@tile, params[:tile_public_form]).save
+    render_preview_and_single
+  end
+
   private
 
   def prepTilePreview

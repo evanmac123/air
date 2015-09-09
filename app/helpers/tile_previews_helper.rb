@@ -153,7 +153,7 @@ module TilePreviewsHelper
 
   def share_via_explore tile
     has_tags_class = tile.tile_tags.present? ? "has_tags" : ""
-    s= form_for TilePublicForm.new(tile), url: client_admin_public_tile_path(tile), method: :put, remote: true, html: {id: "public_tile_form"} do |f| 
+    s= form_for TilePublicForm.new(tile), url: update_explore_settings_client_admin_tile_path(tile), method: :put, remote: true, html: {id: "public_tile_form"} do |f| 
       render 'client_admin/tiles/tile_preview/public_section', form: f, has_tags_class: has_tags_class
     end 
     raw s
