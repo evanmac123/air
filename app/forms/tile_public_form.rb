@@ -1,3 +1,5 @@
+#FIXME this whole form object is completely unnecessary this naive attempt at
+#modularization.
 class TilePublicForm
   include ActiveModel::Conversion
   include ActiveModel::Validations
