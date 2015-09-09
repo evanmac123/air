@@ -36,7 +36,8 @@ Airbo.Utils = {
   supportsFeatureByPresenceOfSelector: function(identifier){
     return $(identifier).length > 0
   },
-
+ 
+  noop:  function(){},
 }
 
 Airbo.LoadedSingletonModules = [];
