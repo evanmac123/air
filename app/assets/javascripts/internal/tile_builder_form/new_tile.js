@@ -64,10 +64,7 @@ Airbo.TileCreator = (function(){
 
  function initSharing(){
    Airbo.TileSharingMgr.init();
-
-   Airbo.TileTagger.init({
-     submitSuccess: replaceTileContent
-   });
+   Airbo.TileTagger.init();
  }
 
 
