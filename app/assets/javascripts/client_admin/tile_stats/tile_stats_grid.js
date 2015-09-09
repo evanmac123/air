@@ -4,10 +4,13 @@ Airbo.TileStatsGrid = (function(){
   // Selectros
   var tileGridSectionSel = ".tile_grid_section",
       linkInGridSel = tileGridSectionSel + " a:not(.download_as_csv)",
-      currentGridLinkSel = ".grid_types a.current",
-      answerCellSel = tileGridSectionSel + " .answer_column";
+      gridLinkSel = ".grid_types a",
+      currentGridLinkSel = gridLinkSel + ".current",
+      answerCellSel = tileGridSectionSel + " .answer_column",
+      surveyTableSel = "#survey_table";
   // JQuery Objects
-  var tileGridSection;
+  var tileGridSection,
+      surveyTable;
 
   var updateLink,
       updatesChecker,
@@ -39,14 +42,30 @@ Airbo.TileStatsGrid = (function(){
     gridRequest( updateLink + "?" + getLinkParams(link) );
   }
 
+  function markAnswerInSurveyTable(answer){
+    selectedRow = surveyTable.find("td:contains('" + answer + "')").closest('tr');
+    prevRow = selectedRow.prev();
+    if( prevRow.length == 0 ){
+      prevRow = surveyTable.find('thead tr');
+    }
+    selectedRow.addClass("selected");
+    prevRow.addClass("selected");
+  }
+
+  function unmarkAnswerInSurveyTable() {
+    surveyTable.find('tr.selected').removeClass('selected');
+  }
+
   function filterByAnswer(answer){
     if(answer == "-") return;
+    markAnswerInSurveyTable(answer);
     gridRequest( updateLink + "?answer_filter=" + answer);
   }
 
   function initVars(){
     tileGridSection = $(tileGridSectionSel);
     updateLink = tileGridSection.data("update-link");
+    surveyTable = $(surveyTableSel);
 
     if(updatesChecker){
       updatesChecker.reStart();
@@ -68,6 +87,10 @@ Airbo.TileStatsGrid = (function(){
       updateGrid( $(this) );
     });
 
+    $(document).on("click", gridLinkSel, function(){
+      unmarkAnswerInSurveyTable();
+    });
+
     $(document).on("click", answerCellSel, function(e){
       e.preventDefault();
       filterByAnswer( $(this).text() );
@@ -75,7 +98,6 @@ Airbo.TileStatsGrid = (function(){
   }
 
   function init(){
-    answerFilter = "";
     initVars();
     initEvents();
   }

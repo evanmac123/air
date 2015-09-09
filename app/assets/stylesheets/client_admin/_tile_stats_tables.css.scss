@@ -107,6 +107,11 @@ body.client_admin-tile_stats, #tile_stats_modal {
         }
       }
     }
+    tr.selected {
+      td, th {
+        border-bottom: 1px solid $sky-blue;
+      }
+    }
     .answer {
       width: 50%;
     }
