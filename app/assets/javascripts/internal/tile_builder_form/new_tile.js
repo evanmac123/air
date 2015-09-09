@@ -37,6 +37,8 @@ Airbo.TileCreator = (function(){
    preventCloseMsg = action
    Airbo.TileImageCredit.init();
    Airbo.TilePointsSlider.init();
+   Airbo.TileSuportingContentTextManager.init();
+   Airbo.TileQuestionBuilder.init();
    tileBuilderSubmitButton= $(tileBuilderSubmitButtonSelector);
    tileBuilderForm = $(tileBuilderFormSelector);
  }
