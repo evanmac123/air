@@ -7,7 +7,7 @@ Airbo.TileCreator = (function(){
     , preventCloseMsg
     , modalTrigger
     , modalContent
-    , currTileId
+    , currTileInModalId
     , currTileStatus
     , tileBuilderForm
     , tileBuilderSubmitButton
@@ -74,13 +74,11 @@ Airbo.TileCreator = (function(){
      , status = newTile.data("status")
      , newSection = "#" + status + sectionSelector
    ;
+
    currTile.remove();
+
    $(newSection).prepend(newTile);
  }
-
- function pageSectionByStatus(status){
-   return $("#" + status + sectionSelector);
- } 
 
  function updateTileSection(data){
 
@@ -88,13 +86,19 @@ Airbo.TileCreator = (function(){
      , section = pageSectionByStatus(data.tileStatus);
    ;
 
-   if(currTileId){
-     selector = tileWrapperSelector + "[data-tile-id=" + currTileId + "]";
+   if(currTileInModalId){
+     selector = tileWrapperSelector + "[data-tile-id=" + currTileInModalId + "]";
      $(selector).replaceWith(data.tile);
    } else{
      section.prepend(data.tile); //Add tile to section
    }
  }
+
+ function pageSectionByStatus(status){
+   return $("#" + status + sectionSelector);
+ } 
+
+
  function adjustStylingForPreview(){
    $("body").addClass("client_admin-tiles-show");
    $(".tile_preview_container").removeClass("large-9").addClass("large-12");
@@ -144,8 +148,9 @@ Airbo.TileCreator = (function(){
     $("body").on("click", modalActivationSelectors, function(event){
       event.preventDefault(); 
       modalTrigger = $(this);
-      currTileId=modalTrigger.data("tileId")
+      currTileInModalId=modalTrigger.data("tileId")
       currTileStatus = modalTrigger.data("status")
+
       $.ajax({
         type: "GET",
         dataType: "html",
@@ -163,7 +168,24 @@ Airbo.TileCreator = (function(){
   }
 
 
+
+  function getImageLibrary(libaryUrl){
+    $.ajax({
+      type: "GET",
+      dataType: "html",
+      url: libaryUrl,
+      success: function(data, status,xhr){
+        imagesModal.html(data);
+        openImageSelectorModal();
+        Airbo.TileImagesMgr.init();
+        libaryLoaded = true;
+      },
+      error: function(jqXHR, textStatus, error){
+        console.log(error);
       }
+    })
+  }
+
   function initTileBuilderFormSubmission(){
 
     $("body").on("submit", tileBuilderFormSelector, function(event){
@@ -221,15 +243,14 @@ Airbo.TileCreator = (function(){
     var tile = target.parents(tileWrapperSelector)
     return tile.length==0 ? modalTrigger.parents(tileWrapperSelector) : tile
   }
+
   function initStatusUpdate(){
     $("body").on("click", ".update_status", function(event) {
       event.preventDefault();
-      var tile 
-        ,  target= $(this)
-      ;
 
-      tile = target.parents(tileWrapperSelector)
-      tile  = tile.length==0 ? modalTrigger.parents(tileWrapperSelector) : tile
+      var tile, target = $(this) ;
+
+      tile = tileByStatusChangeTriggerLocation(target);
 
       $.ajax({
         url: target.attr("href"),
@@ -245,23 +266,6 @@ Airbo.TileCreator = (function(){
     });
   }
 
-
-  function getImageLibrary(libaryUrl){
-    $.ajax({
-      type: "GET",
-      dataType: "html",
-      url: libaryUrl,
-      success: function(data, status,xhr){
-        imagesModal.html(data);
-        openImageSelectorModal();
-        Airbo.TileImagesMgr.init();
-        libaryLoaded = true;
-      },
-      error: function(jqXHR, textStatus, error){
-        console.log(error);
-      }
-    })
-  }
 
   function initImageLibraryModal(){
     $("body").on("click", addImageSelector, function(event){

@@ -77,15 +77,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     end
   end
 
-  #FIXME should refactor the existing update method but the functionality is too
-  #convoluted to fix now.
-  def status_change
-    @tile = get_tile
-    @tile.update_status(params[:update_status])
-    presenter = SingleTilePresenter.new(@tile, :html, @is_client_admin_action, browser.ie?)
-    render partial: 'client_admin/tiles/manage_tiles/single_tile', locals: { presenter: presenter}
-  end
-
 
   def update
     @tile = get_tile
@@ -104,7 +95,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     if request.xhr? 
       render layout: false
     end
-
   end
 
   def blank
@@ -146,8 +136,18 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     tile_status_updated_ping @tile, "Dragged tile to move"
 
   end
-
   
+  #FIXME should refactor and cosolidate the existing update method but the functionality is too
+  #convoluted to fix now.
+
+  def status_change
+    @tile = get_tile
+
+    @tile.update_status(params[:update_status])
+    presenter = SingleTilePresenter.new(@tile, :html, @is_client_admin_action, browser.ie?)
+    render partial: 'client_admin/tiles/manage_tiles/single_tile', locals: { presenter: presenter}
+  end
+
   def update_explore_settings
     @tile = TilePublicForm.new(@tile, params[:tile_public_form]).save
     render_preview_and_single
@@ -228,12 +228,14 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def update_status
     result = @tile.update_status(params[:update_status])
-
     respond_to do |format|
       format.js { update_status_js(result) }
       format.html { update_status_html(result) }
     end
   end
+
+
+
 
   def update_status_html result
     success, failure = flash_status_messages
