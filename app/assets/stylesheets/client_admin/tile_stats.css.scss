@@ -3,9 +3,10 @@
 body.client_admin-tile_stats, #tile_stats_modal {
   h1 {
     color: $text-color;
-    padding-bottom: 66px;
+    padding-bottom: 50px;
     margin: 0;
     font-weight: 300;
+    line-height: 1.35em;
   }
   .columns {
     padding: 0;
@@ -15,12 +16,22 @@ body.client_admin-tile_stats, #tile_stats_modal {
   }
 }
 #tile_stats_modal {
-  width: 1020px;
-  margin-left: -510px;
-  padding: 60px 35px 50px 40px;
+  width: 1007px;
+  margin-left: -498px;
+  padding: 50px 40px;
+  border-width: 0;
   .close-reveal-modal {
     top: -9px;
     left: -60px;
     color: $white;
+    i {
+      font-size: 32px;
+      &:hover {
+        opacity: 0.7;
+      }
+    }
   }
+}
+.reveal-modal-bg{
+  background: rgba(14, 23, 29, 0.8);
 }
