@@ -151,7 +151,7 @@ Airbo.TileTagger = (function(){
         selectedTagIds.val(selectedTagIds.val() + ("," + id));
       }
     }
-    publicTileForm.submit();
+    submitTileForm();
   }
 
 
@@ -178,7 +178,7 @@ Airbo.TileTagger = (function(){
   function initShareToExploreToggleRadioChangeHandler(){
     $(shareOnOffToggleSelector).change(function(event) {
       var switchedToOn;
-      publicTileForm.submit();
+      submitTileForm();
       switchedToOn = $(event.target).val() === 'true';
       toggleShareRemove(switchedToOn);
       toggleSuccessVisibility(switchedToOn);
@@ -202,7 +202,7 @@ Airbo.TileTagger = (function(){
   function initAllowCopyingToggle(){
 
     $(allowCopyingToggleSelector).click(function(event) {
-      publicTileForm.submit();
+      submitTileForm();
     });
   }
 
@@ -259,7 +259,7 @@ Airbo.TileTagger = (function(){
           disableShareLink();
           disableCopySwitch();
         }
-        publicTileForm.submit();
+        submitTileForm();
       }
     });
   }
@@ -268,19 +268,28 @@ Airbo.TileTagger = (function(){
     $('#share_on').is(':checked');
   }
 
-  function initTileFormSubmission(){
-    publicTileForm.on('submit', function(event) {
-      event.preventDefault();
-      if (isSharedToExplore()) {
-        if (appliedTags.length < 1) {
-          return false;
-        } else {
-          tagAlert.hide();
-          return true;
-        }
+  function isValidToShareToExplore(){
+    if (isSharedToExplore()) {
+      if (appliedTags.length < 1) {
+        return false;
       } else {
+        tagAlert.hide();
         return true;
       }
+    } else {
+      return true;
+    }
+  }
+
+  function submitTileForm(){
+    publicTileForm.submit();
+  }
+
+
+  function initShareFormSubmission(){
+    publicTileForm.on('submit', function(event) {
+      event.preventDefault();
+      return isValidToShareToExplore();
     });
   }
 
@@ -291,7 +300,7 @@ Airbo.TileTagger = (function(){
     initPageUnloadWarning();
     initNavigateAwayWarning();
     initTagDeletion();
-    initTileFormSubmission();
+    initShareFormSubmission();
   }
 
 
