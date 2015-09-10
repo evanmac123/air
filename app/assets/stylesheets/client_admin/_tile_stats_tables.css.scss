@@ -50,11 +50,11 @@ body.client_admin-tile_stats, #tile_stats_modal {
         font-weight: 700;
         @include sort-arrows(transparent);
         &:hover {
-          @include sort-arrows(#8c8c8c);
+          @include sort-arrows(rgba(140, 140, 140, 0.6));
         }
       }
       &.sorted a {
-        @include sort-arrows(#595959);
+        @include sort-arrows(rgb(140, 140, 140));
       }
       &:first-child {
         border-top-left-radius: 3px;
