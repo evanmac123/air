@@ -1,3 +1,5 @@
+<div class="row">
+  <div class="large-centered columns large-9">
 <%= form_for tile_builder_form, tile_builder_form.form_params do |f| %>
 
     <%= f.hidden_field :remote_media_url, id: "remote_media_url" %>
@@ -24,7 +26,8 @@
   </div>
 
 <% end %>
-
+  </div>
+</div>
 
 
 <%= s3_uploader_form post: client_admin_tiles_url, as: "tile_builder_form[upload_url]", style: "visibility:hidden;height:0px;width:0px" do %>

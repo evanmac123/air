@@ -258,7 +258,9 @@ Airbo.TileCreator = (function(){
  function tileModalOpenClose(){
 
    $(document).on('open.fndtn.reveal',tileModalSelector, function () {
+     var modalHeight = tileModal.height() + 300;
      $("body").scrollTop(50)
+     $(".main").css({"max-height": modalHeight, "overflow-y": "hidden"});
    });
 
    $(document).on('opened.fndtn.reveal',tileModalSelector, function () {
@@ -270,6 +272,7 @@ Airbo.TileCreator = (function(){
         openTileFormModal();
      }else{
       inExistingTile = false;
+      $(".main").css({"max-height": "", "overflow": ""});
      }
    });
 

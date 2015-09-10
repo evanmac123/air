@@ -556,6 +556,11 @@ body.suggested_tiles-update{
 }
 
 #new_tile_modal{
+
+  &.reveal-modal{
+   top: 0px;
+  }
+
   background: rgba(0,0,0,0);
   border: none;
   .client_admin-tiles.client_admin-tiles-show &  .viewer a#next,
@@ -595,7 +600,6 @@ body.suggested_tiles-update{
   }
 
   .tile_holder {
-    margin-top: 50px;
     height: 100%;
   }
 
