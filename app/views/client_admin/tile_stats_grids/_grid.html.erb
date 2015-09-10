@@ -3,7 +3,7 @@
 <%= grid(tile_stats_grid, hide_csv_button: true) do |g|
   g.blank_slate "<div class='grid_no_record'>No users have completed this action yet.</div>".html_safe
   g.column name: 'Name', attribute: 'name', html: {class: "name_column"} do |row|
-    row.user_name
+    link_to row.user_name, edit_client_admin_user_path(row.user_id)
   end
   g.column name: 'Email', attribute: 'email', html: {class: "email_column"} do |row|
     row.user_email

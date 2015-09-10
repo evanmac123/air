@@ -69,7 +69,8 @@ body.client_admin-tile_stats, #tile_stats_modal {
       color: $text-color;
       font-weight: 500;
       border-bottom: 1px solid #e3e3e3;
-      &:first-child {
+      &:first-child, a {
+        font-weight: 500;
         color: #3B54A0;
         &:hover {
           color: #243361;
