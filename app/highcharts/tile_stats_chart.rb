@@ -91,7 +91,7 @@ JS
 
     def y_axis_params
       {
-        # allowDecimals: false,
+        allowDecimals: false,
         gridLineColor: '#e3e3e3',
         offset: 15,
         labels: {

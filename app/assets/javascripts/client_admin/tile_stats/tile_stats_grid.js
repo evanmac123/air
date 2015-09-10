@@ -6,7 +6,7 @@ Airbo.TileStatsGrid = (function(){
       linkInGridSel = tileGridSectionSel + " a:not(.download_as_csv)",
       gridLinkSel = ".grid_types a",
       currentGridLinkSel = gridLinkSel + ".current",
-      answerCellSel = tileGridSectionSel + " .answer_column",
+      answerCellSel = tileGridSectionSel + "tbody .answer_column",
       surveyTableSel = "#survey_table";
   // JQuery Objects
   var tileGridSection,

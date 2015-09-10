@@ -4,7 +4,8 @@ Airbo.TileStatsModal = (function(){
   // Selectors
   var tileStatsLinkSel = ".tile_stats a",
       modalSel = "#tile_stats_modal",
-      modalContentSel = modalSel + " #modal_content";
+      modalContentSel = modalSel + " #modal_content",
+      modalBgSel = '.reveal-modal-bg';
   // DOM elements
   var modal,
       modalContent,
@@ -48,6 +49,12 @@ Airbo.TileStatsModal = (function(){
 
     $(document).on('closed', modalSel, function(){
       $("body").removeClass('overflow_hidden');
+    });
+
+    $(document).on('mousewheel DOMMouseScroll', modalBgSel, function(e){
+      var delta = modalContent.scrollTop() - e.originalEvent.wheelDelta;
+      // console.log(delta);
+      modalContent.scrollTop(delta);
     });
   }
 
