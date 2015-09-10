@@ -78,7 +78,13 @@ JS
         tickColor: 'white',
         maxPadding: 0.04,
         minPadding: 0.04,
-        tickInterval: 1
+        units: [
+          [ 'hour',   [1, 2, 3, 4, 6, 8, 12] ],
+          [ 'day',    [1, 2, 3] ],
+          [ 'week',   [1] ],
+          [ 'month',  [1, 3, 6] ],
+          [ 'year',   [1] ]
+        ]
         # tickInterval: 5
         # tickPositioner: tick_positioner
       }
