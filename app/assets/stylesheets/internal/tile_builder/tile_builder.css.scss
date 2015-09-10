@@ -411,6 +411,150 @@ body.suggested_tiles-update{
     padding-top: 10px;
     display: none;
   }
+
+  //
+  // => Modal builder customizations
+  //
+  & #new_tile_modal{
+
+    background: rgba(0,0,0,0);
+    border: none;
+
+    &.reveal-modal{
+      top: 0px;
+    }
+
+    .close-reveal-modal, .fake-close-reveal-modal {
+      right: 0px;
+      left: .6875em;
+      width: 2em;
+      margin-top: 1em;
+      .fa-2x{
+        font-size: 1.5em;
+      }
+
+    }
+
+    .fake-close-reveal-modal {
+      font-size: 1.375em;
+      line-height: 1;
+      position: absolute;
+      top: 0.5em;
+      right: 0.6875em;
+      color: #aaa;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    // => Text content and submit buttons
+    form {
+      .builder_content {
+        padding-bottom: 1em;
+        #tile_builder_form_headline{
+          font-size: 2.5em;
+          line-height: 1.15em;
+          height: 4.0em;
+        }
+        #tile_builder_form_link_address{
+         font-size: 1.6em;
+         padding-top: 1.5em;
+         padding-bottom: 0;
+        }
+        input[type="text"],textarea, .text-input {
+          border: none;
+        }
+
+        textarea {
+          resize: none;
+        }
+
+      }
+
+      .content_sections {
+        width: 100%;
+        border-bottom: 2px dashed #f3f3f3;
+        padding-left: 5%;
+        padding-right: 5%;
+        padding-bottom: 2%;
+        margin-bottom: 0;
+
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+
+      #publish {
+        .cancel_tile_builder{
+          display: none;
+        }
+
+        input[type="submit"] {
+          width: 100%;
+          padding: .6em .75em;
+        }
+      }
+
+    // => End Text content and submit buttons
+
+      // Multiple choice answers
+      .tile_multiple_choice_answer.multiple{
+        ul.answer_option{
+          display: block;
+          margin-top: -45px;
+          .option_input{
+            display:none;
+          }
+        }
+        a {
+          width:90%;
+          margin-left: 10%;
+        }
+      }
+
+
+
+    }
+
+    .client_admin-tiles.client_admin-tiles-show &  .viewer a#next,
+    .client_admin-tiles.client_admin-tiles-show &  .viewer a#prev {
+      border: none;
+      background: none;
+    }
+
+
+    .tile_preview_menu {
+      width: 600px;
+      margin:auto;
+      margin-bottom: 50px;
+
+      .preview_menu_item {
+        min-width: 13%;
+        width: auto;
+        padding: 0px;
+        .header_text {
+          font-size: 12px;
+          margin-left: 0.25em;
+        }
+        a {
+          padding: 0.65em;
+        }
+      }
+
+    }
+
+    #tile_external_link {
+      margin-bottom: 0px;
+      margin-top: 0px;
+    }
+
+   
+
+  }
+
+
+
+
+
 }
 
 body.client_admin-tiles-new, 
@@ -478,7 +622,7 @@ body.suggested_tiles-update{
         display: block;
       }
       label {
-      color: white;
+        color: white;
       }
       .upload_new_image {
         opacity: 0;
@@ -555,75 +699,5 @@ body.suggested_tiles-update{
   }
 }
 
-#new_tile_modal{
 
-  &.reveal-modal{
-   top: 0px;
-  }
-
-  background: rgba(0,0,0,0);
-  border: none;
-  .client_admin-tiles.client_admin-tiles-show &  .viewer a#next,
-  .client_admin-tiles.client_admin-tiles-show &  .viewer a#prev {
-    border: none;
-    background: none;
-  }
-  .close-reveal-modal {
-   right: 0px;
-   left: .6875em;
-   width: 2em;
-   margin-top: 1em;
-   .fa-2x{
-     font-size: 1.5em;
-   }
-
-  }
-
-  .tile_preview_menu {
-    width: 600px;
-    margin:auto;
-    margin-bottom: 50px;
-
-    .preview_menu_item {
-      min-width: 13%;
-      width: auto;
-      padding: 0px;
-      .header_text {
-        font-size: 12px;
-        margin-left: 0.25em;
-      }
-      a {
-        padding: 0.65em;
-      }
-    }
-
-  }
-
-
-  #publish {
-    .cancel_tile_builder{
-      display: none;
-    }
-
-    input[type="submit"] {
-      width: 100%;
-    }
-  }
-
-  #tile_external_link {
-    margin-bottom: 0px;
-    margin-top: 0px;
-  }
-
-  .builder_content {
-    padding-bottom: 1em;
-    #tile_builder_form_headline{
-      font-size: 1.5em;
-      line-height: 1.15em;
-      height: 4.0em;
-    }
-  }
-
-
-}
 
