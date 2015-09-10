@@ -76,6 +76,9 @@ JS
           useHTML: true
         },
         tickColor: 'white',
+        maxPadding: 0.04,
+        minPadding: 0.04,
+        tickInterval: 1
         # tickInterval: 5
         # tickPositioner: tick_positioner
       }
