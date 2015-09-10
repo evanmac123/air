@@ -216,16 +216,25 @@ body.client_admin-tile_stats, body.client_admin-tiles.client_admin-tiles-index {
     padding: 0;
     border: 0;
     background: transparent;
-    &:before {
+    // top triangle
+    &:before, &:after {
       content: " ";
       display: block;
       border: 8px solid transparent;
-      border-bottom-color: #f5f5f5;
       position: absolute;
-      top: -15px;
+      visibility: visible;
       left: 90px;
       z-index: 1;
     }
+    &:before {
+      border-bottom-color: $border-color;
+      top: -16px;
+    }
+    &:after {
+      border-bottom-color: #f5f5f5;
+      top: -15px;
+    }
+    
     .ui-datepicker-header {
       width: 87%;
       background: #f5f5f5;
