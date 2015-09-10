@@ -456,9 +456,9 @@ body.suggested_tiles-update{
           height: 4.0em;
         }
         #tile_builder_form_link_address{
-         font-size: 1.6em;
-         padding-top: 1.5em;
-         padding-bottom: 0;
+          font-size: 1.6em;
+          padding-top: 1.5em;
+          padding-bottom: 0;
         }
         input[type="text"],textarea, .text-input {
           border: none;
@@ -494,26 +494,28 @@ body.suggested_tiles-update{
         }
       }
 
-    // => End Text content and submit buttons
+      // => End Text content and submit buttons
 
       // Multiple choice answers
-      .tile_multiple_choice_answer.multiple{
-        ul.answer_option{
-          display: block;
-          margin-top: -45px;
-          .option_input{
-            display:none;
+      .multiple_choice_group {
+        &.quiz, &.survey {
+          .tile_multiple_choice_answer{
+            ul.answer_option{
+              display: block;
+              margin-top: -45px;
+              .option_input{
+                display: none;
+              }
+            }
+            a {
+              width:90%;
+              margin-left: 10%;
+            }
           }
-        }
-        a {
-          width:90%;
-          margin-left: 10%;
         }
       }
 
-
-
-    }
+    } //End Form
 
     .client_admin-tiles.client_admin-tiles-show &  .viewer a#next,
     .client_admin-tiles.client_admin-tiles-show &  .viewer a#prev {

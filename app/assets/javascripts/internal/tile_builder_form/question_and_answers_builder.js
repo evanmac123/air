@@ -1,4 +1,5 @@
 var Airbo = window.Airbo || {};
+//FIXME this entire module needs to be refactored properly
 
 Airbo.TileQuestionBuilder = (function(){
   var tileTypes = []
@@ -15,12 +16,10 @@ Airbo.TileQuestionBuilder = (function(){
         var subtypeId = $(this).attr("id");
         type = getTileType(subtypeId);
         subtype = getTileSubtype(subtypeId);
-
         makeButtonsSelected(type, subtypeId);
         showQuestionAndAnswers(tileTypes[type][subtype]);
         showSelectAndAddAnswer();
         saveTypeToForm();
-
         _.each($('.answer-field'), addCharacterCounterFor);
         turnRadioGreen();
         selectMessage();
@@ -170,13 +169,23 @@ Airbo.TileQuestionBuilder = (function(){
               edit_answer_container.append(option_input);
               text_input = edit_answer_container.find(".answer-field.answer-part");
               text_input.val(text);
-              edit_answer_container.css("display", display);
+              
+
+              //FIXME quick hack to force display of multiple choice type questions
+              //mod_display = type == "Action" ? display : "block";
+              mod_display = overrideDisplay(type, display)
+
+              edit_answer_container.css("display", mod_display);
               if(correct){
                 edit_answer_container.find(".option_radio").addClass("option_selected");
                 edit_answer_container.find(".correct-answer-button.answer-part").attr("checked", true);
               }
               return edit_answer_container;
     };
+
+    function overrideDisplay(type, display){
+      return type == "Action" ? display : "block";
+    }
 
     function addNewAnswer(){
       type_name = findTileType();
@@ -200,7 +209,7 @@ Airbo.TileQuestionBuilder = (function(){
       type = findTileType();
       subtype = findTileSubtype();
 
-      answers_group = $('<div class="multiple_choice_group"></div>');
+      answers_group = $('<div class="multiple_choice_group"></div>').addClass(type.toLowerCase());
       container.append(answers_group);
       for(i in answers) {
 
@@ -335,9 +344,19 @@ Airbo.TileQuestionBuilder = (function(){
     }
 
     function turnOnEditAnswer(answer_show) {
-      $(answer_show).parent().find(".answer_option").css("display", "block");
+      var container = $(answer_show).parent(),
+        type = findTileType();
+      
+      container.find(".answer_option").css("display", "block");
       highlightText($(answer_show).parent().find(".answer-field"));
-      $(answer_show).css("display", "none");
+
+      //FIXME 
+
+      if(type == "Action"){ 
+        $(answer_show).css("display", "none");
+      }else{
+        container.find(".option_input").css("display", "list-item");
+      }
     }
 
     function turnOffEditQuestion() {
@@ -346,8 +365,17 @@ Airbo.TileQuestionBuilder = (function(){
     }
 
     function turnOffEditAnswer(answer_div) {
-      $(answer_div).find("a").css("display", "block");
-      $(answer_div).find(".answer_option").css("display", "none");
+
+      // FIXME hack to keep form elements visible for multiple choice tiles
+      //answer_option_display = overrideDisplay(findTileType(), "none"); 
+      var type = findTileType();
+
+      if(type == "Action"){ 
+        $(answer_div).find("a").css("display", "block");
+        $(answer_div).find(".answer_option").css("display", "none");
+      }else{
+        $(answer_div).find(".option_input").css("display", "none")
+      }
     }
 
     function tryTurnOffEditAnswer(element) {
@@ -417,14 +445,14 @@ Airbo.TileQuestionBuilder = (function(){
     function initJQueryObjects(){
       tileTextContainer = $(tileTextContainerSelector);
     }
-  function init (){
-    initJQueryObjects()
-    getTileTypes();
-    initType();
-    initSubType();
-    initQuestionLostFocus();
-    setUp();
-  }
+    function init (){
+      initJQueryObjects()
+      getTileTypes();
+      initType();
+      initSubType();
+      initQuestionLostFocus();
+      setUp();
+    }
 
   return {
    init: init
