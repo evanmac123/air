@@ -68,7 +68,7 @@ JS
         },
         offset: 15,
         labels: {
-          align: 'left',
+          align: 'center',
           style: {
             color: '#cecece',
             'font-weight' => 700
@@ -80,23 +80,13 @@ JS
         minPadding: 0.04,
         units: [
           [ 'hour',   [1, 2, 3, 4, 6, 8, 12] ],
-          [ 'day',    [1, 2, 3] ],
-          [ 'week',   [1] ],
-          [ 'month',  [1, 3, 6] ],
-          [ 'year',   [1] ]
+          [ 'day',    [1, 2, 3, 4, 6] ],
+          [ 'week',   [] ],
+          [ 'month',  [1, 2, 3, 6] ],
+          [ 'year',   [1, 2, 3] ]
         ]
-        # tickInterval: 5
-        # tickPositioner: tick_positioner
       }
     end
-
-#     def tick_positioner
-#       <<-JS
-#       function() {
-#         return
-#       }
-# JS
-#     end
 
     def y_axis_params
       {
@@ -123,16 +113,13 @@ JS
         line: {
           pointStart: period.start_date(:date),
           pointInterval: period.point_interval,
-          shadow: false,
-          # stacking: 'percent'
+          shadow: false
         }
       }
     end
 
     def tooltip_params
       {
-        #formatter: tooltip_formatter.js_code
-        # borderColor:
         useHTML: true,
         style: {
           padding: 8,
@@ -142,26 +129,7 @@ JS
         pointFormat: "<div style='padding-top:3px;'>{point.y}</div>",
         shadow: false
       }
-      #{}
     end
-
-#     def point_format
-#       <<-JS
-#       function() {
-#         return point.y;
-#       }
-# JS
-#     end
-
-#     def tooltip_formatter
-#       <<-JS
-#       function () {
-#         return 'The value for <b>' +
-#           Highcharts.dateFormat('%l %p', this.x) +
-#           '</b> is <b>' + this.y + '</b>';
-#       }
-# JS
-#     end
 
     def series_params
       {
