@@ -11,7 +11,7 @@ Airbo.TileStatsModal = (function(){
       modalContent,
       chart,
       grid,
-      surveyTable;
+      // surveyTable;
   //
 
   function ajaxResponse(){
@@ -26,7 +26,7 @@ Airbo.TileStatsModal = (function(){
   function reloadComponents() {
     chart.init();
     grid.init();
-    surveyTable.init();
+    // surveyTable.init();
   }
 
   function getPage(link) {
@@ -63,7 +63,7 @@ Airbo.TileStatsModal = (function(){
     modalContent = $(modalContentSel);
     chart = Airbo.TileStatsChart;
     grid = Airbo.TileStatsGrid;
-    surveyTable = Airbo.SurveyTable;
+    // surveyTable = Airbo.SurveyTable;
   }
 
   function init(){
