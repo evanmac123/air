@@ -263,6 +263,13 @@ body.client_admin-tile_stats, body.client_admin-tiles.client_admin-tiles-index {
       a {
         background: none;
         border: 0;
+        top: 2px;
+        &.ui-datepicker-next {
+          right: 2px;
+        }
+        &.ui-datepicker-prev {
+          left: 2px;
+        }
         &:hover {
           .ui-icon-circle-triangle-w {
             border-right-color: $color-active;
