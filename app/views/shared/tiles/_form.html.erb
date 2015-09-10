@@ -12,7 +12,6 @@
     <%= render 'shared/tiles/form/image_library', tile_images: tile_images unless request.xhr?%>
   <div class="tile_holder_container">
     <div class="tile_form_holder">
-      <div class="large-8 large-centered columns builder-width">
         <div class="tile_holder">
           <%= render '/shared/tiles/form/image_preview', form: f, tile_images: tile_images %>
           <div class="builder_content tile_builder_section">
@@ -21,7 +20,6 @@
           <%= render 'shared/tiles/form/question_and_answer_section', form: f %>
         </div>
         <%= render 'shared/tiles/form/submit_button', submit_button_text: tile_builder_form.submit_button_text, return_button_text: tile_builder_form.return_button_text, form: f %>
-      </div>
     </div>
   </div>
 
