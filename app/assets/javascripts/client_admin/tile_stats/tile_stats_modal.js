@@ -2,7 +2,7 @@ var Airbo = window.Airbo || {};
 
 Airbo.TileStatsModal = (function(){
   // Selectors
-  var tileStatsLinkSel = ".tile_stats a",
+  var tileStatsLinkSel = ".tile_stats",
       modalSel = "#tile_stats_modal",
       modalContentSel = modalSel + " #modal_content",
       modalBgSel = '.reveal-modal-bg';
@@ -10,7 +10,7 @@ Airbo.TileStatsModal = (function(){
   var modal,
       modalContent,
       chart,
-      grid,
+      grid;
       // surveyTable;
   //
 
@@ -31,7 +31,7 @@ Airbo.TileStatsModal = (function(){
 
   function getPage(link) {
     $.ajax({
-      url: link.attr("href"),
+      url: link,
       success: ajaxResponse(),
       dataType: "json"
     });
@@ -40,7 +40,7 @@ Airbo.TileStatsModal = (function(){
   function initEvents(){
     $(document).on("click", tileStatsLinkSel, function(e) {
       e.preventDefault();
-      getPage( $(this) );
+      getPage( $(this).data("href") );
     });
 
     $(document).on('open', modalSel, function(){
