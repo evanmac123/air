@@ -1,15 +1,12 @@
 <div id="tile_headline" class="content_sections">
-  <%= form.label :headline %>
   <%= form.text_area :headline, {maxlength: 75, placeholder:'Give this tile a headline'} %>
 </div>
 <div id="tile_supporting_content" class="content_sections">
-  <%= form.label :supporting_content %>
   <%= content_tag :div, id: "supporting_content_editor", class: "text-input", maxlength: 600, exceed_maxlength: true, placeholder:'Tell your users more about this topic.' do %><%= raw tile.supporting_content %><% end %>
   <%= form.text_area :supporting_content %>
 </div>
 <div id="tile_external_link" class="content_sections">
-  <%= form.label :link_address, "Add a link (optional)" %>
-  <%= form.text_field :link_address %>
+  <%= form.text_field :link_address, placeholder: "Add a link (optional)" %>
   <%= form.hidden_field :position %>
 </div>
 
