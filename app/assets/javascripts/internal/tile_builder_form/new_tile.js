@@ -208,6 +208,8 @@ Airbo.TileCreator = (function(){
 
       ignore: [],
 
+      errorClass: "tile_builder_error",
+
       rules: {
         "tile_builder_form[supporting_content]": {
           required: true,
@@ -219,14 +221,20 @@ Airbo.TileCreator = (function(){
         "tile_builder_form[correct_answer_index]": {
           required: true,
         },
+
+        "tile_builder_form[remote_media_url]": {
+          required: true,
+        },
       },
 
       highlight: function(element, errorClass) {
         $(element).parents(".content_sections").addClass(errorClass);
       },
 
-      unhighlight: function(element, errorClass, validClass) {
-        $(element).parents(".content_sections").removeClass("error");
+      unhighlight: function(element, errorClass) {
+        $(element).parents(".content_sections").removeClass(errorClass);
+        $(element.form).find("label[for=" + element.id + "]")
+      .addClass(errorClass);
       }
     },
 

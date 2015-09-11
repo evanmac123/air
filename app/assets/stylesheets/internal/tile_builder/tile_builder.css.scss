@@ -175,7 +175,6 @@ body.suggested_tiles-update{
       overflow-y: scroll;
       line-height: 1.25em;
       &.exceeded_maxlength_field {
-        background-color: rgba(188, 76, 64,.20); //pinkish
       }
     }
     #tile_builder_form_supporting_content {
@@ -424,6 +423,22 @@ body.suggested_tiles-update{
       top: 0px;
     }
 
+    .medium-editor-placeholder:after {
+      color: #b3b3b1;
+    }
+
+
+    .medium-editor-placeholder:after {
+      content: attr(data-placeholder)!important;
+      color: #a9a9a9;
+      font-size: 20px;
+      font-style: normal;
+      padding-top: 14px;
+      display: block;
+      position: relative;
+    }
+
+
     .close-reveal-modal, .fake-close-reveal-modal {
       right: 0px;
       left: .6875em;
@@ -449,7 +464,17 @@ body.suggested_tiles-update{
     // => Text content and submit buttons
     form {
       .builder_content {
-        padding-bottom: 1em;
+
+        padding-bottom: 0;
+
+        .show_placeholder {
+          border-bottom: none;
+
+          &:hover {
+            border-bottom: none;
+          }
+        }
+
         #tile_builder_form_headline{
           font-size: 2.5em;
           line-height: 1.15em;
@@ -460,14 +485,20 @@ body.suggested_tiles-update{
           padding-top: 1.5em;
           padding-bottom: 0;
         }
+
         input[type="text"],textarea, .text-input {
           border: none;
+          background: transparent; 
         }
 
         textarea {
           resize: none;
         }
 
+      }
+
+      .tile_builder_section {
+        padding: 0;
       }
 
       .content_sections {
@@ -478,9 +509,24 @@ body.suggested_tiles-update{
         padding-bottom: 2%;
         margin-bottom: 0;
 
-        &:last-child {
+        &.tile_builder_error{
+          background-color: rgba(188, 76, 64,.20); //pinkish*/
+
+        }
+
+        & label.tile_builder_error{
+          color: #bc4c40;
+          text-align: left;
+        }
+
+        &:last-child:not(:only-child) {
           border-bottom: none;
         }
+
+        #image_uploader {
+          &:hover {border-style:dashed;}
+        }
+
       }
 
       #publish {
