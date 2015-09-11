@@ -70,7 +70,7 @@ JS
         labels: {
           align: 'center',
           style: {
-            color: '#cecece',
+            color: '#a8a8a8',
             'font-weight' => 700
           },
           useHTML: true
@@ -104,7 +104,7 @@ JS
           text: nil
         },
         min: 0,
-        tickPixelInterval: 47
+        tickPixelInterval: 100#47
       }
     end
 
@@ -134,7 +134,7 @@ JS
     def series_params
       {
         data: plot_data.data,
-        color: '#2aa4eb'
+        color: '#4FACE0'
       }
     end
 end

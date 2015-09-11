@@ -4,7 +4,11 @@ body.client_admin-tile_stats, #tile_stats_modal {
     overflow: hidden;
     margin-bottom: 55px;
   }
-  .section_with_chart {
+  .actions_column {
+    width: 17%;
+  }
+  .chart_column {
+    width: 82%;
     // hide download in chart
     &:after {
       content: " ";
@@ -24,10 +28,17 @@ body.client_admin-tile_stats, #tile_stats_modal {
   }
 
   .action_type_block {
-    padding-bottom: 20px;
+    margin-bottom: 30px;
+    padding-left: 18px;
+    border-left: 2px solid transparent;
+    &:last-child {
+      margin-bottom: 0;
+    }
     &.selected {
+      border-color: $sky-blue;
       .action_num {
         color: #007BC2;
+        font-weight: 400;
       }
       .action_name {
         color: #006BA8;
@@ -36,6 +47,7 @@ body.client_admin-tile_stats, #tile_stats_modal {
     &:hover {
       .action_num {
         color: #007BC2;
+        font-weight: 400;
       }
       .action_name {
         color: #006BA8;
@@ -47,14 +59,17 @@ body.client_admin-tile_stats, #tile_stats_modal {
     .custom.radio, input[type='radio'] {
       display: none;
     }
+    .action_num, .action_name {
+      color: #444;
+    }
     .action_num {
-      color: #525252;
       font-size: 30px;
-      padding-bottom: 4px;
+      font-weight: 300;
+      padding-bottom: 2px;
     }
     .action_name {
-      color: #4A4A4A;
       font-size: 16px;
+      font-weight: 400;
     }
   }
   //
@@ -113,7 +128,7 @@ body.client_admin-tile_stats, #tile_stats_modal {
         }
         &:hover {
           background: transparent;
-          color: #636363;
+          color: #424242;
         }
         &:first-child {
           padding-top: 8px;
@@ -205,9 +220,9 @@ body.client_admin-tile_stats, #tile_stats_modal {
 body.client_admin-tile_stats, body.client_admin-tiles.client_admin-tiles-index {
   // Jquery Datepicker resyling
   #ui-datepicker-div {
-    $color-passive: #8d8d8d;
+    $color-passive: #818385;
     $color-active: #454545;
-    $color-hover: #454545;
+    $color-hover: #0c0c0b;
     $border-color: #c7c7c7;
 
     margin-top: 10px;
@@ -252,13 +267,13 @@ body.client_admin-tile_stats, body.client_admin-tiles.client_admin-tiles-index {
         }
       }
       .ui-icon-circle-triangle-w {
-        border-right-color: $border-color;
+        border-right-color: #818385;
       }
       .ui-icon-circle-triangle-e {
         border-width: 4px;
         height: 8px;
         margin-top: -3px;
-        border-left-color: $border-color;
+        border-left-color: #818385;
       }
       a {
         background: none;
@@ -296,6 +311,10 @@ body.client_admin-tile_stats, body.client_admin-tiles.client_admin-tiles-index {
       td {
         padding: 0;
         border: 1px solid $border-color;
+        &.ui-datepicker-other-month a {
+          opacity: 1;
+          color: lighten($color-passive, 25%);
+        }
         a {
           background: white;
           text-align: center;
@@ -307,7 +326,7 @@ body.client_admin-tile_stats, body.client_admin-tiles.client_admin-tiles-index {
             color: $color-hover;
           }
           &.ui-state-active {
-            color: black;
+            color: $color-hover;
           }
         }
       }

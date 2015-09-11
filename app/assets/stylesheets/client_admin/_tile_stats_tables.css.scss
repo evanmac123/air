@@ -6,7 +6,7 @@ body.client_admin-tile_stats, #tile_stats_modal {
     overflow: auto;
   }
   .download_as_csv {
-    @include light-button(#919191);
+    @include light-button(#c4c4c4);
     border-color: #c4c4c4;
     font-size:13px;
     font-weight: 500;
