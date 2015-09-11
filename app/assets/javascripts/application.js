@@ -35,7 +35,7 @@ Airbo.Utils = {
 
     errorClass: "err",
 
-    errorElement: "div",
+    errorElement: "label",
 
     highlight: function(element, errorClass, validClass) {
       $(element).addClass("error").removeClass(errorClass);
