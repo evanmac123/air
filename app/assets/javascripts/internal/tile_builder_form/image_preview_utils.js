@@ -63,6 +63,8 @@ $(function() {
       function showImagePreview(imgUrl){
         previewer.setPreviewImage(imgUrl);
         //TODO decouple from the new tile builder modal
+
+        $("#remote_media_url").focusout();
         $("#images_modal").foundation("reveal", "close");
       }
 
