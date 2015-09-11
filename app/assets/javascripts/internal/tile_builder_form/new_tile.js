@@ -39,6 +39,7 @@ Airbo.TileCreator = (function(){
    Airbo.TileQuestionBuilder.init();
    tileBuilderSubmitButton= $(tileBuilderSubmitButtonSelector);
    tileBuilderForm = $(tileBuilderFormSelector);
+   initFormValidator(tileBuilderForm);
  }
 
  function prepShow(){
@@ -191,11 +192,47 @@ Airbo.TileCreator = (function(){
     $("body").on("submit", tileBuilderFormSelector, function(event){
       event.preventDefault(); 
       var form = $(this);
-      disableTileBuilderFormSubmit();
-      ajaxHandler.submit(form, refreshTileDataPageWide, enableTileBuilderFormSubmit);
+
+      if(form.valid()){
+        disableTileBuilderFormSubmit();
+        ajaxHandler.submit(form, refreshTileDataPageWide, enableTileBuilderFormSubmit);
+      }
     });
   }
 
+
+  function initFormValidator(form){
+    var config ={
+
+      debug: true,
+
+      ignore: [],
+
+      rules: {
+        "tile_builder_form[supporting_content]": {
+          required: true,
+          minWords: 1,
+        },
+        "tile_builder_form[headline]": {
+          required: true,
+        },
+        "tile_builder_form[correct_answer_index]": {
+          required: true,
+        },
+      },
+
+      highlight: function(element, errorClass) {
+        $(element).parents(".content_sections").addClass(errorClass);
+      },
+
+      unhighlight: function(element, errorClass, validClass) {
+        $(element).parents(".content_sections").removeClass("error");
+      }
+    },
+
+    config = $.extend({}, Airbo.Utils.validationConfig, config);
+    validator = form.validate(config);
+  }
 
 
   function refreshTileDataPageWide(data){
@@ -471,60 +508,11 @@ Airbo.TileSuportingContentTextManager = (function(){
     contentInput.val(contentEditor.html());
   }
 
-  function initializePenEditor() {
-    var options = {
-      editor: contentEditor[0],
-      list: ['bold', 'italic', 'underline', 'insertorderedlist', 'insertunorderedlist', 'createlink'],
-      stay: false
-    };
-    new Pen(options);
-  }
-
-  function editorLength() {
-    return contentEditor.html().length;
-  };
-
-  function contentEditorModifiedEvents() {
-    window.lastEditorLength = editorLength();
-    return contentEditor.bind("DOMSubtreeModified", function() {
-      if (editorLength() !== window.lastEditorLength) {
-        window.lastEditorLength = editorLength();
-        blockSubmitButton();
-        return updateContentInput();
-      }
-    });
-  };
-
   function initializeEditor() {
     var pasteNoFormattingIE;
     addCharacterCounterFor('#tile_builder_form_headline');
     addCharacterCounterFor(contentEditorSelector);
-    //blockSubmitButton();
-    initializePenEditor();
-    contentEditorModifiedEvents();
-    pasteNoFormattingIE = function() {
-      var newNode, text;
-      text = window.clipboardData.getData("text") || "";
-      if (text !== "") {
-        if (window.getSelection) {
-          newNode = document.createElement("span");
-          newNode.innerHTML = text;
-          return window.getSelection().getRangeAt(0).insertNode(newNode);
-        } else {
-          return document.selection.createRange().pasteHTML(text);
-        }
-      }
-    };
-    return contentEditor.on('paste', function(e) {
-      var text;
-      e.preventDefault();
-      if (isIE()) {
-        return pasteNoFormattingIE();
-      } else {
-        text = (e.originalEvent || e).clipboardData.getData('text/plain');
-        return window.document.execCommand('insertText', false, text);
-      }
-    });
+    Airbo.Utils.mediumEditor.init();
   };
 
   function initjQueryObjects(){
@@ -537,8 +525,7 @@ Airbo.TileSuportingContentTextManager = (function(){
 
     if (Airbo.Utils.supportsFeatureByPresenceOfSelector(contentEditorSelector) ) {
       initjQueryObjects();
-      //initializeEditor();
-      Airbo.Utils.mediumEditor.init();
+      initializeEditor();
       return this;
     }
   }

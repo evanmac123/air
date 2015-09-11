@@ -1,5 +1,6 @@
 <div class="builder_content">
-  <div id="image_uploader" data-library-url=<%=client_admin_tile_images_path%>>
+
+  <div id="image_uploader" class="content_sections" data-library-url=<%=client_admin_tile_images_path%>>
     <% image_class = tile_image_present(@tile_builder_form.image_url) ? "show_shadows" : "show_placeholder" %>
     <div class="image_preview <%= image_class %>">
       <%= image_tag @tile_builder_form.image_url, class: "tile_image", id: "upload_preview" %>
