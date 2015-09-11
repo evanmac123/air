@@ -498,13 +498,17 @@ body.suggested_tiles-update{
 
       // Multiple choice answers
       .multiple_choice_group {
-        &.quiz, &.survey {
+        &.quiz{
           .tile_multiple_choice_answer{
             ul.answer_option{
               display: block;
               margin-top: -45px;
               .option_input{
                 display: none;
+              }
+
+              li.option_selected{
+                background-color: #d2d2d2;
               }
             }
             a {
@@ -513,7 +517,19 @@ body.suggested_tiles-update{
             }
           }
         }
+
       }
+        .after_answers {
+          .choose_answer{
+           width: auto; 
+           float: left;
+          }
+          .add_answer {
+            width: auto;
+            float: right;
+          }
+        }
+
 
     } //End Form
 

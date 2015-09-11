@@ -184,7 +184,7 @@ Airbo.TileQuestionBuilder = (function(){
     };
 
     function overrideDisplay(type, display){
-      return type == "Action" ? display : "block";
+      return type == "Quiz" ? "block" : display;
     }
 
     function addNewAnswer(){
@@ -258,12 +258,12 @@ Airbo.TileQuestionBuilder = (function(){
     };
 
     function addAnswerSelectedMessage(container) {
-      answer_container = $('<div class="choose_answer columns small-8"></div>');
+      answer_container = $('<div class="choose_answer"></div>');
       container.append(answer_container);
     }
 
     function showAddAnswer(container) {
-      add_container = $('<div class="add_answer columns"></div>');
+      add_container = $('<div class="add_answer"></div>');
       icon = $('<i class="fa fa-plus"></i>');
       meassage = "  Add another answer";
       add_container.text(meassage).prepend(icon);
@@ -271,11 +271,11 @@ Airbo.TileQuestionBuilder = (function(){
     }
 
     function showSelectAndAddAnswer() {
-      after_answers = $('<div class="after_answers row"></div>');
+      after_answers = $('<div class="after_answers"></div>');
       if(type == "Quiz"){
         addAnswerSelectedMessage(after_answers);
       }else{
-        after_answers.append('<div class="columns"></div>');
+        after_answers.append('<div class=""></div>');
       }
       if(subtype == "multiple_choice" && (type == "Quiz" || type == "Survey")){
         showAddAnswer(after_answers);
@@ -352,10 +352,10 @@ Airbo.TileQuestionBuilder = (function(){
 
       //FIXME 
 
-      if(type == "Action"){ 
-        $(answer_show).css("display", "none");
-      }else{
+      if(type == "Quiz"){ 
         container.find(".option_input").css("display", "list-item");
+      }else{
+        $(answer_show).css("display", "none");
       }
     }
 
@@ -367,14 +367,12 @@ Airbo.TileQuestionBuilder = (function(){
     function turnOffEditAnswer(answer_div) {
 
       // FIXME hack to keep form elements visible for multiple choice tiles
-      //answer_option_display = overrideDisplay(findTileType(), "none"); 
-      var type = findTileType();
 
-      if(type == "Action"){ 
+      if(type == "Quiz"){ 
+        $(answer_div).find(".option_input").css("display", "none")
+      }else{
         $(answer_div).find("a").css("display", "block");
         $(answer_div).find(".answer_option").css("display", "none");
-      }else{
-        $(answer_div).find(".option_input").css("display", "none")
       }
     }
 
