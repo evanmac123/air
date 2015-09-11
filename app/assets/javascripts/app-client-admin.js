@@ -43,6 +43,7 @@
 //= require internal/preflight
 //= require_tree ./internal/tile_builder_form/
 //= require_tree ./internal/tile_manager/
+//= require  medium-editor.min
 //= require internal/byte_counter
 //= require_tree ../../../vendor/assets/javascripts/internal/tile_builder_form
 
