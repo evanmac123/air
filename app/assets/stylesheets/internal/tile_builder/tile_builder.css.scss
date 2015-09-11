@@ -507,6 +507,10 @@ body.suggested_tiles-update{
                 display: none;
               }
 
+              li.option_radio{
+                background: inherit;
+                border-color: #d2d2d2;
+              }
               li.option_selected{
                 background-color: #d2d2d2;
               }
