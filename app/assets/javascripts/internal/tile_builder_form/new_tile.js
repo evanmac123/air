@@ -225,22 +225,38 @@ Airbo.TileCreator = (function(){
           required: true,
         },
 
-
         "tile_builder_form[question]": {
           required:  true,
         },
 
+        "tile_builder_form[correct_answer_index]": {
+          required:  true,
+        },
+
+        "tile_builder_form[answers][]": {
+          required: true,
+        }
+
       },
 
       messages: {
-        "tile_builder_form[question_subtype]": "Question option is required" 
+        "tile_builder_form[question_subtype]": "Question option is required",
+        "tile_builder_form[correct_answer_index]": "Please select one choice as the correct answer",
+        "tile_builder_form[answers][]": "Please provide text for all answer options"
       },
 
       errorPlacement: function(error, element) {
 
         if(element.attr("name")=="tile_builder_form[question_subtype]"){
           error.insertAfter(".quiz_content>.placeholder");
-        }else {
+        }
+        else if( element.attr("name")=="tile_builder_form[correct_answer_index]"){
+          $(".after_answers").prepend(error);
+        } 
+        else if( element.attr("name")=="tile_builder_form[answers][]"){
+          element.parents(".multiple_choice_group").append(error);
+        } 
+        else {
 
           element.parent().append(error);
         }

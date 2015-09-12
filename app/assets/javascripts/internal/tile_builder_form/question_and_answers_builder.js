@@ -282,17 +282,17 @@ Airbo.TileQuestionBuilder = (function(){
   }
 
   function selectMessage() {
-    select_message = $(".choose_answer");
-    if($(".option_selected").length > 0) {
-      select_message.removeClass("no_answer").addClass("have_answer");
-      icon = $('<i class="fa fa-check"></i>');
-      meassage = "  Correct answer selected";
-    }else {
-      select_message.removeClass("have_answer").addClass("no_answer");
-      icon = $('<i class="fa fa-info-circle"></i>');
-      meassage = "  Correct answer not selected";
-    }
-    select_message.text(meassage).prepend(icon);
+    //select_message = $(".choose_answer");
+    //if($(".option_selected").length > 0) {
+      //select_message.removeClass("no_answer").addClass("have_answer");
+      //icon = $('<i class="fa fa-check"></i>');
+      //meassage = "  Correct answer selected";
+    //}else {
+      //select_message.removeClass("have_answer").addClass("no_answer");
+      //icon = $('<i class="fa fa-info-circle"></i>');
+      //meassage = "  Correct answer not selected";
+    //}
+    //select_message.text(meassage).prepend(icon);
   }
 
   function makeButtonsSelected(type, subtype) {
@@ -366,25 +366,35 @@ Airbo.TileQuestionBuilder = (function(){
   function initTileQuestion(){
     $("body").on("blur", "#tile_builder_form_question", function(event){
       //FIXME hack to get this fucking horrible code to work.
-
       var question =$(this);
-
       if((question.val().trim() ==="")){
         question.valid();
       }else{
         turnOffEditQuestion();
       }
     });
-
   }
+
+  function initTileAnswer(){
+    $("body").on("blur", "input[name='tile_builder_form[answers][]']", function(event){
+      var answer =$(this);
+      if((answer.val().trim() ==="")){
+        answer.valid();
+      }else{
+        turnOffEditAnswer();
+      }
+    });
+  }
+
 
 
   function turnOffEditAnswer(answer_div) {
 
     // FIXME hack to keep form elements visible for multiple choice tiles
     var type = findTileType();
+
     if(type == "Quiz"){ 
-      $(answer_div).find(".option_input").css("display", "none")
+      //$(answer_div).find(".option_input").css("display", "none")
     }else{
       $(answer_div).find("a").css("display", "block");
       $(answer_div).find(".answer_option").css("display", "none");
@@ -459,12 +469,13 @@ Airbo.TileQuestionBuilder = (function(){
     tileTextContainer = $(tileTextContainerSelector);
   }
   function init (){
-    initJQueryObjects()
+    initJQueryObjects();
     getTileTypes();
     initType();
     initSubType();
     initQuestionLostFocus();
     initTileQuestion();
+    initTileAnswer();
     setUp();
   }
 
