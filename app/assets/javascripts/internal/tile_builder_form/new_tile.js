@@ -309,7 +309,7 @@ Airbo.TileCreator = (function(){
    });
 
    $(document).on('opened.fndtn.reveal',tileModalSelector, function () {
-     $('.reveal-modal-bg').css({'background-color':'black', 'opacity': 0.85});
+     $('.reveal-modal-bg').css({'background-color':'#212C33', 'opacity': 0.9});
    });
 
    $(document).on('closed.fndtn.reveal', tileModalSelector, function (event) {
