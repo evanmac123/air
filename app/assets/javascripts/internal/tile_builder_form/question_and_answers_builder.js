@@ -1,5 +1,5 @@
 var Airbo = window.Airbo || {};
-//FIXME this entire module needs to be Completely rewritten !!!!!!!!!!! 
+//FIXME this entire module is shit and needs to be Completely rewritten !!!!!!!!!!! 
 
 Airbo.TileQuestionBuilder = (function(){
   var tileTypes = []
@@ -34,10 +34,7 @@ Airbo.TileQuestionBuilder = (function(){
 
   function initQuestionLostFocus(){
     $('body').click(function(event) {
-      if (!$(event.target).is(".tile_question") && !$(event.target).is("#tile_builder_form_question")) {
-        turnOffEditQuestion();
-      }
-      if(!$(event.target).attr("data-dropdown")){
+            if(!$(event.target).attr("data-dropdown")){
         $(".f-dropdown").each(function() {
           $(this).removeClass("open").removeAttr("style");
         });
@@ -45,6 +42,8 @@ Airbo.TileQuestionBuilder = (function(){
       tryTurnOffEditAnswer(event.target);
     });
   }
+
+
 
   function initType(){
     $("body").on("click", ".type", function(){
@@ -350,7 +349,7 @@ Airbo.TileQuestionBuilder = (function(){
     container.find(".answer_option").css("display", "block");
     highlightText($(answer_show).parent().find(".answer-field"));
 
-    //FIXME 
+    //FIXME
 
     if(type == "Quiz"){ 
       container.find(".option_input").css("display", "list-item");
@@ -363,6 +362,22 @@ Airbo.TileQuestionBuilder = (function(){
     $(".tile_question").css("display", "block");
     $("#tile_builder_form_question").css("display", "none");
   }
+
+  function initTileQuestion(){
+    $("body").on("blur", "#tile_builder_form_question", function(event){
+      //FIXME hack to get this fucking horrible code to work.
+
+      var question =$(this);
+
+      if((question.val().trim() ==="")){
+        question.valid();
+      }else{
+        turnOffEditQuestion();
+      }
+    });
+
+  }
+
 
   function turnOffEditAnswer(answer_div) {
 
@@ -449,6 +464,7 @@ Airbo.TileQuestionBuilder = (function(){
     initType();
     initSubType();
     initQuestionLostFocus();
+    initTileQuestion();
     setUp();
   }
 

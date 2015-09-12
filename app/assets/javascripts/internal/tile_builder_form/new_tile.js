@@ -225,6 +225,11 @@ Airbo.TileCreator = (function(){
           required: true,
         },
 
+
+        "tile_builder_form[question]": {
+          required:  true,
+        },
+
       },
 
       messages: {
