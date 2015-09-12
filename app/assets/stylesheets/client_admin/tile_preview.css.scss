@@ -1,4 +1,14 @@
 body.client_admin-tiles-show, body.suggested_tiles-show {
+  & #new_tile_modal{
+
+    .viewer {
+      a#next, a#prev {
+        border: none;
+        background: transparent;
+      }
+    }
+  }
+
   .switch{
     @include green-paddle-switch;
   }

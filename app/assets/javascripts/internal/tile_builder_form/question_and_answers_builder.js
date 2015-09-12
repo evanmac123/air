@@ -367,7 +367,7 @@ Airbo.TileQuestionBuilder = (function(){
     function turnOffEditAnswer(answer_div) {
 
       // FIXME hack to keep form elements visible for multiple choice tiles
-
+     type = findTileType();
       if(type == "Quiz"){ 
         $(answer_div).find(".option_input").css("display", "none")
       }else{

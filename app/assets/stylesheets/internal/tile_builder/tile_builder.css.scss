@@ -416,6 +416,13 @@ body.suggested_tiles-update{
   //
   & #new_tile_modal{
 
+
+   
+   
+ 
+
+
+
     background: rgba(0,0,0,0);
     border: none;
 
@@ -522,11 +529,17 @@ body.suggested_tiles-update{
         &:last-child:not(:only-child) {
           border-bottom: none;
         }
+      }
 
-        #image_uploader {
-          &:hover {border-style:dashed;}
+      #image_uploader {
+        &:hover {border-style:dashed;}
+        &.content_sections {
+          padding: 0;
+          label.tile_builder_error{
+            padding-left: 5%;
+            padding-bottom: 2%;
+          }
         }
-
       }
 
       #publish {
@@ -582,13 +595,6 @@ body.suggested_tiles-update{
 
 
     } //End Form
-
-    .client_admin-tiles.client_admin-tiles-show &  .viewer a#next,
-    .client_admin-tiles.client_admin-tiles-show &  .viewer a#prev {
-      border: none;
-      background: none;
-    }
-
 
     .tile_preview_menu {
       width: 600px;
