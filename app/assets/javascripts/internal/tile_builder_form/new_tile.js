@@ -215,19 +215,37 @@ Airbo.TileCreator = (function(){
           required: true,
           minWords: 1,
         },
+
         "tile_builder_form[headline]": {
-          required: true,
-        },
-        "tile_builder_form[correct_answer_index]": {
           required: true,
         },
 
         "tile_builder_form[remote_media_url]": {
           required: true,
         },
+
+        "tile_builder_form[question_subtype]": {
+          required: true,
+        },
+
+      },
+
+      messages: {
+        "tile_builder_form[question_subtype]": "Question option is required" 
+      },
+
+      errorPlacement: function(error, element) {
+
+        if(element.attr("name")=="tile_builder_form[question_subtype]"){
+          error.insertAfter(".quiz_content>.placeholder");
+        }else {
+
+          element.parent().append(error);
+        }
       },
 
       highlight: function(element, errorClass) {
+
         $(element).parents(".content_sections").addClass(errorClass);
       },
 
