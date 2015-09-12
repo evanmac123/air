@@ -30,20 +30,23 @@ Airbo.TileCreator = (function(){
   ;
 
  function prepEditOrNew(action){
-   $("body").removeClass("client_admin-tiles-show");
-   $("body").addClass("client_admin-tiles-edit");
+   $("body").removeClass("client_admin-tiles-show").addClass("client_admin-tiles-edit");;
    preventCloseMsg = action
+   tileBuilderSubmitButton= $(tileBuilderSubmitButtonSelector);
+   tileBuilderForm = $(tileBuilderFormSelector);
+   initFormValidator(tileBuilderForm);
+
    Airbo.TileImageCredit.init();
    Airbo.TilePointsSlider.init();
    Airbo.TileSuportingContentTextManager.init();
    Airbo.TileQuestionBuilder.init();
-   tileBuilderSubmitButton= $(tileBuilderSubmitButtonSelector);
-   tileBuilderForm = $(tileBuilderFormSelector);
-   initFormValidator(tileBuilderForm);
  }
 
  function prepShow(){
-   adjustStylingForPreview();
+
+   $("body").addClass("client_admin-tiles-show").removeClass("client_admin-tiles-edit");
+   $(".tile_preview_container").removeClass("large-9").addClass("large-12");
+
    Airbo.TileCarouselPage.init();
    initPreviewMenuTooltips();
  }
@@ -67,7 +70,6 @@ Airbo.TileCreator = (function(){
    Airbo.TileSharingMgr.init();
    Airbo.TileTagger.init();
  }
-
 
 
  function moveTile(currTile, data){
@@ -102,11 +104,6 @@ Airbo.TileCreator = (function(){
    return $("#" + status + sectionSelector);
  } 
 
-
- function adjustStylingForPreview(){
-   $("body").addClass("client_admin-tiles-show");
-   $(".tile_preview_container").removeClass("large-9").addClass("large-12");
- }
 
  function processEvent(action){
 
