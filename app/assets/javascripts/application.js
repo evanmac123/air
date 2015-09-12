@@ -63,16 +63,18 @@ Airbo.Utils = {
 
 
           $(this).on('input', function() {
-            var textLength = $(this).text().trim().length,
-            fieldName = $(this).data('field')
-            field = $("#" + fieldName)
+            var obj =$(this),  textLength = obj.text().trim().length
+            , fieldName = obj.data('field')
+            , field = $("#" + fieldName)
+            ;
+
             if(textLength > 0){
-              field.val($(this).html());
-              field.blur();
+              field.val(obj.html());
             }else{
               field.val("");
-              field.blur();
             }
+
+            field.blur();
           });
         })
       }
