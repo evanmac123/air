@@ -574,10 +574,16 @@ body.suggested_tiles-update{
                 background-color: #d2d2d2;
               }
             }
+
             a {
               width:90%;
               margin-left: 10%;
             }
+            .answer-div {
+              input.answer-field.answer-part{
+                margin-left: 2%;
+              }
+            } 
           }
         }
 

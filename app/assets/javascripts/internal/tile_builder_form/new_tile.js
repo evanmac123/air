@@ -251,6 +251,7 @@ Airbo.TileCreator = (function(){
           error.insertAfter(".quiz_content>.placeholder");
         }
         else if( element.attr("name")=="tile_builder_form[correct_answer_index]"){
+          
           $(".after_answers").prepend(error);
         } 
         else if( element.attr("name")=="tile_builder_form[answers][]"){
@@ -268,8 +269,11 @@ Airbo.TileCreator = (function(){
       },
 
       unhighlight: function(element, errorClass) {
-        $(element).parents(".content_sections").removeClass(errorClass);
-        $(element.form).find("label[for=" + element.id + "]").addClass(errorClass);
+        if($(element).attr("name")=="tile_builder_form[correct_answer_index]" && $(".after_answers label:visible").length >0){
+          return;
+        }else{
+          $(element).parents(".content_sections").removeClass(errorClass);
+        }
       }
     },
 

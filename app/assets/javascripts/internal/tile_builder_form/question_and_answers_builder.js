@@ -166,6 +166,7 @@ Airbo.TileQuestionBuilder = (function(){
             '" maxlength="50" name="tile_builder_form[answers][]" type="text">',
             '</div>',
             '</li>'].join(''));
+
             if(type == "Quiz") {
               edit_answer_container.append(option_radio);
             };
@@ -347,9 +348,8 @@ Airbo.TileQuestionBuilder = (function(){
   }
 
   function turnOnEditAnswer(answer_show) {
-    var container = $(answer_show).parent(),
-      type = findTileType();
-
+    var container = $(answer_show).parent(), type = findTileType();
+    
     container.find(".answer_option").css("display", "block");
     highlightText($(answer_show).parent().find(".answer-field"));
 
@@ -383,7 +383,10 @@ Airbo.TileQuestionBuilder = (function(){
     $("body").on("blur", "input[name='tile_builder_form[answers][]']", function(event){
       var answer =$(this);
       if((answer.val().trim() ==="")){
+        event.preventDefault();
         answer.valid();
+        answer.parents(".option_input").css("display", "list-item");
+        answer.focus();
       }else{
         turnOffEditAnswer();
       }
@@ -398,7 +401,7 @@ Airbo.TileQuestionBuilder = (function(){
     var type = findTileType();
 
     if(type == "Quiz"){ 
-      //$(answer_div).find(".option_input").css("display", "none")
+      $(answer_div).find(".option_input").css("display", "none")
     }else{
       $(answer_div).find("a").css("display", "block");
       $(answer_div).find(".answer_option").css("display", "none");
