@@ -8,19 +8,27 @@ Airbo.TileQuestionBuilder = (function(){
     , defaultType
     , defaultSubtype
     , tileTextContainerSelector = "#new_tile_builder_form .tile_texts_container"
+    , typeSelector = ".type"
+    , subtypeSelector = ".subtype"
+    , sliderSelector = ".slider"
+    , dropdownSelector = ".f-dropdown"
+    , answerFieldSelector = ".answer-field"
+    , tileTextContainerSelector = "#new_tile_builder_form .tile_texts_container"
   ;
 
   function initSubType() {
 
-    $("body").on("click", ".subtype", function(){
+    $("body").on("click", subtypeSelector, function(){
       var subtypeId = $(this).attr("id");
       var type = getTileType(subtypeId);
       var subtype = getTileSubtype(subtypeId);
+
       makeButtonsSelected(type, subtypeId);
       showQuestionAndAnswers(tileTypes[type][subtype]);
       showSelectAndAddAnswer(type, subtype);
       saveTypeToForm();
-      _.each($('.answer-field'), addCharacterCounterFor);
+
+      _.each($(answerFieldSelector), addCharacterCounterFor);
       turnRadioGreen();
       selectMessage();
       rebindEvents();
@@ -29,33 +37,29 @@ Airbo.TileQuestionBuilder = (function(){
   }
 
   function showSlider(){
-    $(".slider").css("display", "block");
+    $(sliderSelector).css("display", "block");
   }
 
   function initQuestionLostFocus(){
     $('body').click(function(event) {
-            if(!$(event.target).attr("data-dropdown")){
-        $(".f-dropdown").each(function() {
-          $(this).removeClass("open").removeAttr("style");
-        });
+      if(!$(event.target).attr("data-dropdown")){
+        closeMenuDropDowns();
       }
       tryTurnOffEditAnswer(event.target);
     });
   }
 
 
+  function closeMenuDropDowns(){
+    $(dropdownSelector).each(function() {
+      $(this).removeClass("open").removeAttr("style");
+    });
+  }
 
-  function initType(){
-    $("body").on("click", ".type", function(){
-      var that = $(this)
-        , list_id = that.attr("data-dropdown")
-      ;
-
-      $(".f-dropdown").each(function() {
-        if(list_id != that.attr("id")){
-          that.removeClass("open").removeAttr("style");
-        }
-      });
+  function initQuestionTypeMenus(){
+    $("body").on("click", typeSelector, function(){
+     closeMenuDropDowns();
+      $(this).addClass("open");
     });
   }
 
@@ -471,7 +475,7 @@ Airbo.TileQuestionBuilder = (function(){
   function init (){
     initJQueryObjects();
     getTileTypes();
-    initType();
+    initQuestionTypeMenus();
     initSubType();
     initQuestionLostFocus();
     initTileQuestion();
