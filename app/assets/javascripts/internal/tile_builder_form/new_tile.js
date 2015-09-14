@@ -342,14 +342,14 @@ Airbo.TileCreator = (function(){
  function tileModalOpenClose(){
 
    $(document).on('open.fndtn.reveal',tileModalSelector, function () {
-     var modalHeight = tileModal.height() + 300;
      $("body").scrollTop(50)
-     $(".main").css({"max-height": modalHeight, "overflow-y": "hidden"});
 
    });
 
    $(document).on('opened.fndtn.reveal',tileModalSelector, function () {
      $('.reveal-modal-bg').css({'background-color':'#212C33', 'opacity': 0.9});
+     var modalHeight = tileModal.height() + 300;
+     $(".main").css({"max-height": modalHeight, "overflow-y": "hidden"});
    });
 
    $(document).on('closed.fndtn.reveal', tileModalSelector, function (event) {
