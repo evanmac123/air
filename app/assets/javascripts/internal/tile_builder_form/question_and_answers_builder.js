@@ -7,12 +7,14 @@ Airbo.TileQuestionBuilder = (function(){
     , tileTextContainer
     , defaultType
     , defaultSubtype
+    , tileBuilderForm
     , tileTextContainerSelector = "#new_tile_builder_form .tile_texts_container"
     , typeSelector = ".type"
     , subtypeSelector = ".subtype"
     , sliderSelector = ".slider"
     , dropdownSelector = ".f-dropdown"
     , answerFieldSelector = ".answer-field"
+    , tileBuilderFormSelector = "#new_tile_builder_form"
     , tileTextContainerSelector = "#new_tile_builder_form .tile_texts_container"
   ;
 
@@ -22,10 +24,11 @@ Airbo.TileQuestionBuilder = (function(){
       var subtypeId = $(this).attr("id");
       var type = getTileType(subtypeId);
       var subtype = getTileSubtype(subtypeId);
-
+      
       makeButtonsSelected(type, subtypeId);
       showQuestionAndAnswers(tileTypes[type][subtype]);
       showSelectAndAddAnswer(type, subtype);
+      $(this).remove
       saveTypeToForm();
 
       _.each($(answerFieldSelector), addCharacterCounterFor);
@@ -42,10 +45,16 @@ Airbo.TileQuestionBuilder = (function(){
 
   function initQuestionLostFocus(){
     $('body').click(function(event) {
-      if(!$(event.target).attr("data-dropdown")){
-        closeMenuDropDowns();
+      //FIXME hak hack hack !!!!
+      if(tileBuilderForm.length>0) {
+        if(!$(event.target).attr("data-dropdown")){
+          closeMenuDropDowns();
+        }
+        if($("li.selected").length > 0){ 
+          tryTurnOffEditAnswer(event.target);
+        }
       }
-      tryTurnOffEditAnswer(event.target);
+
     });
   }
 
@@ -474,6 +483,7 @@ Airbo.TileQuestionBuilder = (function(){
 
   function initJQueryObjects(){
     tileTextContainer = $(tileTextContainerSelector);
+    tileBuilderForm = $(tileBuilderFormSelector);
   }
   function init (){
     initJQueryObjects();
