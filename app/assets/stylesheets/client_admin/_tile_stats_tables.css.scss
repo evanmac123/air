@@ -157,8 +157,11 @@ body.client_admin-tile_stats, #tile_stats_modal {
       width: 25%;
       cursor: pointer;
     }
-    tfoot td {
-      border: 0;
+    tfoot{
+      td {
+        border: 0;
+        padding: 0;
+      }
     }
   }
   // Pagination in grid restyling
@@ -167,6 +170,9 @@ body.client_admin-tile_stats, #tile_stats_modal {
   }
   .pagination {
     float: none;
+  }
+  div.pagination {
+    padding: 20px 14px;
   }
   ul.pagination {
     margin-left: 40%;

@@ -18,7 +18,7 @@ Airbo.TileStatsModal = (function(){
     return function (data){
       modalContent.html(data.page);
       reloadComponents();
-      modal.foundation("reveal", "open", {animation: 'fade'});
+      modal.foundation("reveal", "open", {animation: 'none'});
       // modal.reveal({animation: 'fade'});
     };
   }
