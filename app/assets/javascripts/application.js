@@ -54,9 +54,10 @@ Airbo.Utils = {
           var editor = new MediumEditor(this, {
             staticToolbar:true, 
             placeholder: $(this).data("placeholder"),
-            firstHeader: 'h1',
-            secondHeader: 'h2',
-            buttons: ['header1', 'header2', 'bold', 'italic', 'orderedlist', "image"]
+            buttonLabels: 'fontawesome',
+            toolbar: {
+              buttons: ['bold', 'italic', 'unorderedlist', 'orderedlist', "anchor"]
+            }
           });
 
           $(this).html($("#" + $(this).data("field")).val());
