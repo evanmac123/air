@@ -120,7 +120,6 @@ Health::Application.routes.draw do
 				get "blank"
 			end
       resource :image, :only => [:update, :show]
-      resources :tile_completions, :only => [:index]
       resources :tile_stats, :only => [:index]
       resources :tile_stats_charts, :only => [:create]
       resources :tile_stats_grids, :only => [:index] do
@@ -136,8 +135,6 @@ Health::Application.routes.draw do
     resources :public_tiles, only: :update
     resources :sharable_tiles, only: :update
     resources :tile_images, only: :index
-
-    get 'tiles/:tile_id/non_completions' => "tile_completions#non_completions"
 
     resource :tiles_digest_notification, only: :create
 

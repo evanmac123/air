@@ -18,8 +18,8 @@ describe TileStatsChartForm do
         :"interval_type"=>"weekly",
         :"value_type"=>"cumulative",
         :"date_range_type"=>"past_week",
-        :"start_date"=>"01/08/2015",
-        :"end_date"=>"08/24/2015",
+        :"start_date"=>"Jan, 08 2015",
+        :"end_date"=>"Aug, 24 2015",
         :"changed_field"=>"date_range_type"
       }
       form = TileStatsChartForm.new tile, params
@@ -27,8 +27,8 @@ describe TileStatsChartForm do
       form.interval_type.should == "daily"
       form.value_type.should == "cumulative"
       form.date_range_type.should == "past_week"
-      form.start_date.should == "08/17/2015"
-      form.end_date.should == "08/24/2015"
+      form.start_date.should == "Sep 09, 2015"
+      form.end_date.should == "Sep 16, 2015"
     end
   end
 end

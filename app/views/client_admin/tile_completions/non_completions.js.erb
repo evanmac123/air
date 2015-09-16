@@ -1,8 +1,0 @@
-$(".completed").removeClass('engaged')
-$(".not-completed").removeClass('disengaged')
-
-$(".completed").addClass('disengaged')
-$(".not-completed").addClass('engaged')
-
-$("#completions_grid").html("<%= escape_javascript( render(:partial => "non_completions") ) %>")
-$(".download_as_csv").attr("href", "<%= non_completions_csv_link @tile %>")
