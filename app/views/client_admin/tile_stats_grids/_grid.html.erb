@@ -18,7 +18,7 @@
       "-"
     end
   end
-  g.column name: 'Date', model: 'TileCompletion', attribute: 'id'  do |row|
+  g.column name: 'Date', model: 'TileCompletion', attribute: 'id', html: {class: "date"}  do |row|
     if row.completion_date
       Time.parse(row.completion_date + " UTC").strftime(Wice::Defaults::DATE_FORMAT)
     else
