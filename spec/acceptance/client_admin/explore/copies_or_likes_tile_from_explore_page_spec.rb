@@ -10,26 +10,7 @@ feature "Client admin copies or likes tile" do
     @original_tile.reload
   end
       
-  def click_copy
-    first('.not_copied').find('.copy_tile_link').click
-    find('#tile_copied_lightbox').should have_content(post_copy_copy)
-  end
 
-  def click_close
-    page.find('#close_tile_copied_lightbox').click
-  end
-    
-  def click_like
-    first('.tile_not_liked').find('a').click
-  end
-    
-  def click_liked
-    first('.tile_liked').find('a').click
-  end
-
-  def view_only_check
-    first('.like_copy_tile').find('.viewonly_message').should have_content('View Only')
-  end
 
   context 'User on explore tiles page', js: true do
     before do
@@ -202,4 +183,29 @@ feature "Client admin copies or likes tile" do
       current_email.should have_content "#{client_admin_copier.name} voted up your tile"
     end
   end
+
+  def click_copy
+    first('.not_copied').find('.copy_tile_link').click
+    find('#tile_copied_lightbox').should have_content(post_copy_copy)
+  end
+
+  def click_close
+    page.find('#close_tile_copied_lightbox').click
+  end
+
+  def click_like
+    first('.tile_not_liked').find('a').click
+  end
+
+  def click_liked
+    first('.tile_liked').find('a').click
+  end
+
+  def view_only_check
+    first('.like_copy_tile').find('.viewonly_message').should have_content('View Only')
+  end
+
 end
+
+
+
