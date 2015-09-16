@@ -4,7 +4,7 @@ describe Query::TileQuery do
   let!(:tile) { FactoryGirl.create :tile }
 
   context "Hourly interval" do
-    let!(:period) { Period.new 'hourly', "9/18/2015", "9/18/2015" } # american format
+    let!(:period) { Period.new 'hourly', "Sep 18, 2015", "Sep 18, 2015" }
 
     before do
       [
@@ -54,7 +54,7 @@ describe Query::TileQuery do
   end
 
   context "Daily interval" do
-    let!(:period) { Period.new 'daily', "9/14/2015", "9/18/2015" } # american format
+    let!(:period) { Period.new 'daily', "Sep 14, 2015", "Sep 18, 2015" } # american format
 
     before do
       [
@@ -104,7 +104,7 @@ describe Query::TileQuery do
   end
 
   context "Weekly interval" do
-    let!(:period) { Period.new 'weekly', "9/13/2015", "9/26/2015" } # american format
+    let!(:period) { Period.new 'weekly', "Sep 13, 2015", "Sep 26, 2015" } # american format
     # It fetches data from Posgresql grouped by start of the week.
     # We use date_trunc('week', created_at) for it.
     # And start of the week is Monday in db.
@@ -164,7 +164,7 @@ describe Query::TileQuery do
   end
 
   context "Montly interval" do
-    let!(:period) { Period.new 'monthly', "8/14/2015", "10/18/2015" } # american format
+    let!(:period) { Period.new 'monthly', "Aug 14, 2015", "Oct 18, 2015" } # american format
 
     before do
       [

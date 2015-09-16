@@ -3,7 +3,7 @@ require "spec_helper"
 describe PlotData do
   context "period: hourly, action_query: total_views" do
     before do
-      @period = Period.new 'hourly', "9/18/2015", "9/18/2015"
+      @period = Period.new 'hourly', "Sep 18, 2015", "Sep 18, 2015"
       # action_query
       tile = FactoryGirl.create :tile
       [
@@ -47,7 +47,7 @@ describe PlotData do
 
   context "period: daily, action_query: total_views" do
     before do
-      @period = Period.new 'daily', "9/14/2015", "9/18/2015"
+      @period = Period.new 'daily', "Sep 14, 2015", "Sep 18, 2015"
       # action_query
       tile = FactoryGirl.create :tile
       [
@@ -90,7 +90,7 @@ describe PlotData do
 
   context "period: weekly, action_query: total_views" do
     before do
-      @period = Period.new 'weekly', "9/13/2015", "9/26/2015"
+      @period = Period.new 'weekly', "Sep 13, 2015", "Sep 26, 2015"
       # action_query
       tile = FactoryGirl.create :tile
       [
@@ -132,7 +132,7 @@ describe PlotData do
 
   context "period: monthly, action_query: total_views" do
     before do
-      @period = Period.new 'monthly', "8/14/2015", "10/18/2015"
+      @period = Period.new 'monthly', "Aug 14, 2015", "Oct 18, 2015"
       # action_query
       tile = FactoryGirl.create :tile
       [

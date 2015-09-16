@@ -19,30 +19,10 @@ describe GridQuery::TileActions do
     end
   end
 
-  # def make_table query
-  #   query.map do |user|
-  #     [
-  #       user.name,
-  #       user.email,
-  #       user.tile_viewings.where(tile: tile).first.try(:views) || "-",
-  #       if user.tile_completions.where(tile: tile).first
-  #         tile.multiple_choice_answers[user.tile_completions.where(tile: tile).first.answer_index][0...15]
-  #       else
-  #         "-"
-  #       end,
-  #       if user.tile_completions.where(tile: tile).present?
-  #         user.tile_completions.where(tile: tile).first.created_at.strftime('%-m/%-d/%Y')
-  #       else
-  #         "-"
-  #       end
-  #     ]
-  #   end
-  # end
-
   def make_table query
     query.map(&:attributes).map do |row|
-      # row["completion_date"] = Time.parse(row["completion_date"] + " UTC") if row["completion_date"]
       row.delete("completion_date")
+      row.delete("user_id")
       row
     end.map(&:values)
   end
@@ -55,7 +35,7 @@ describe GridQuery::TileActions do
       user_actions @users[i], tile, i+1, true, i
     end
     user_actions @other_users[0], other_tile, 2, true, 0
-    # viewed and didn't interact
+    # viewed only
     [3,4,5].each do |i|
       user_actions @users[i], tile, i
     end
@@ -66,7 +46,7 @@ describe GridQuery::TileActions do
   it "should return 'all'" do
     # result is set of rows(arrays) with columns:
     # user_name | user_email | tile_views | tile_answer_index
-    table = make_table(GridQuery::TileActions.new(tile).query.order("users.id ASC"))
+    table = make_table(GridQuery::TileActions.new(tile, "all").query.order("users.id ASC"))
     table.should == [
       ["Good guy0", "good_guy0@gmail.com", "1", "0"],
       ["Good guy1", "good_guy1@gmail.com", "2", "1"],
@@ -80,14 +60,11 @@ describe GridQuery::TileActions do
     ]
   end
 
-  it "should return 'viewed'" do
+  it "should return 'viewed only'" do
     # result is set of rows(arrays) with columns:
     # user_name | user_email | tile_views | tile_answer_index
-    table = make_table(GridQuery::TileActions.new(tile, :viewed).query.order("users.id ASC"))
+    table = make_table(GridQuery::TileActions.new(tile, "viewed_only").query.order("users.id ASC"))
     table.should == [
-      ["Good guy0", "good_guy0@gmail.com", "1", "0"],
-      ["Good guy1", "good_guy1@gmail.com", "2", "1"],
-      ["Good guy2", "good_guy2@gmail.com", "3", "2"],
       ["Good guy3", "good_guy3@gmail.com", "3", nil],
       ["Good guy4", "good_guy4@gmail.com", "4", nil],
       ["Good guy5", "good_guy5@gmail.com", "5", nil]
@@ -97,7 +74,7 @@ describe GridQuery::TileActions do
   it "should return 'not_viewed'" do
     # result is set of rows(arrays) with columns:
     # user_name | user_email | tile_views | tile_answer_index
-    table = make_table(GridQuery::TileActions.new(tile, :not_viewed).query.order("users.id ASC"))
+    table = make_table(GridQuery::TileActions.new(tile, "not_viewed").query.order("users.id ASC"))
     table.should == [
       ["Good guy6", "good_guy6@gmail.com", nil, nil],
       ["Good guy7", "good_guy7@gmail.com", nil, nil],
@@ -108,22 +85,11 @@ describe GridQuery::TileActions do
   it "should return 'viewed_and_interacted'" do
     # result is set of rows(arrays) with columns:
     # user_name | user_email | tile_views | tile_answer_index
-    table = make_table(GridQuery::TileActions.new(tile, :viewed_and_interacted).query.order("users.id ASC"))
+    table = make_table(GridQuery::TileActions.new(tile, "viewed_and_interacted").query.order("users.id ASC"))
     table.should == [
       ["Good guy0", "good_guy0@gmail.com", "1", "0"],
       ["Good guy1", "good_guy1@gmail.com", "2", "1"],
       ["Good guy2", "good_guy2@gmail.com", "3", "2"]
-    ]
-  end
-
-  it "should return 'viewed_and_not_interacted'" do
-    # result is set of rows(arrays) with columns:
-    # user_name | user_email | tile_views | tile_answer_index
-    table = make_table(GridQuery::TileActions.new(tile, :viewed_and_not_interacted).query.order("users.id ASC"))
-    table.should == [
-      ["Good guy3", "good_guy3@gmail.com", "3", nil],
-      ["Good guy4", "good_guy4@gmail.com", "4", nil],
-      ["Good guy5", "good_guy5@gmail.com", "5", nil]
     ]
   end
 end

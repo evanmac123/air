@@ -7,7 +7,7 @@ class GridQuery::TileActions
     "not_viewed" => "Didn't view",
     "all" => "All"
   }.freeze
-  def initialize tile, query_type, answer_filter
+  def initialize tile, query_type, answer_filter = nil
     @tile = tile
     @query_type = query_type
     @answer_filter = answer_filter
