@@ -5,6 +5,8 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
       a#next, a#prev {
         border: none;
         background: transparent;
+        height:auto;
+        top: 300px;
       }
     }
   }
