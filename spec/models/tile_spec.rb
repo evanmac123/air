@@ -10,7 +10,7 @@ describe Tile do
   it { should ensure_inclusion_of(:status).in_array(Tile::STATUS) }
 
   pending { should_have_valid_mime_type(Tile, :image_content_type) }
-  
+
   describe 'finders based on status' do
     # The test below was written first and exercises all tile-status combinations pretty thoroughly.
     # We then decided to not initially set a demo's 'tile_digest_email_sent_at' => all 'active' tiles should
@@ -80,14 +80,14 @@ describe Tile do
 		end
 
 		it "does not trigger status change manager if status has not changed" do
-			tile.question = "2B || !2B" 
+			tile.question = "2B || !2B"
 			TileStatusChangeManager.any_instance.expects(:process).never
 			tile.save
 		end
 
 		it "triggers status change manager on creation " do
 			TileStatusChangeManager.any_instance.expects(:process)
-			FactoryGirl.create :multiple_choice_tile, status: Tile::USER_SUBMITTED, demo: demo, creator: user, user_created: true 
+			FactoryGirl.create :multiple_choice_tile, status: Tile::USER_SUBMITTED, demo: demo, creator: user, user_created: true
 		end
 	end
 
@@ -268,8 +268,8 @@ describe Tile do
       tc1 = FactoryGirl.create(:tile_completion, tile: tile, answer_index: 0 )
       tc2 = FactoryGirl.create(:tile_completion, tile: tile, answer_index: 1 )
       tc3 = FactoryGirl.create(:tile_completion, tile: tile, answer_index: 1 )
-      tile.survey_chart.should == [{"answer"=>"Yes", "number"=>1, "percent"=>"33.33%"}, 
-                                    {"answer"=>"No", "number"=>2, "percent"=>"66.67%"}]
+      tile.survey_chart.should == [{"answer"=>"Yes", "number"=>1, "percent"=>33.33},
+                                    {"answer"=>"No", "number"=>2, "percent"=>66.67}]
     end
   end
 

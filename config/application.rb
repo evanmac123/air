@@ -23,17 +23,18 @@ module Health
     ###################  ASSET PIPELINE  ###########################
     # Enable the asset pipeline
     config.assets.enabled = true
-    # Tell heroku not to try to talk to the mongo database while it precompiles assets 
+    # Tell heroku not to try to talk to the mongo database while it precompiles assets
     config.assets.initialize_on_precompile = false
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '0.0.3'
-    
+
     # Tell rake which assets to precompile (default is application.css and application.js)
     # Note that even though our files are named .scss, the ones in this list are the plain .css counterparts
     config.assets.precompile += %w(
       app-admin.css
       app-client-admin.css
       app-client-admin_split2.css
+      app-client-admin_split3.css
       client_admin_base.css
       app-external.css
       app-internal.css
@@ -88,7 +89,7 @@ module Health
     )
 
     ################################################################
-    
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -119,7 +120,7 @@ module Health
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
-    
+
     # Add this block so mongo doesn't scream when we do a rails migration
     # Reference: http://groups.google.com/group/mongoid/browse_thread/thread/df278a11dba4d331?pli=1
     config.generators do |g|
