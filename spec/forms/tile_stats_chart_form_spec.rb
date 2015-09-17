@@ -4,7 +4,7 @@ describe TileStatsChartForm do
   let(:tile) { FactoryGirl.create :tile }
 
   before do
-    Timecop.travel(Chronic.parse("2015-24-08"))
+    Timecop.travel(Chronic.parse("2015-08-24"))
   end
 
   after do
@@ -27,8 +27,8 @@ describe TileStatsChartForm do
       form.interval_type.should == "daily"
       form.value_type.should == "cumulative"
       form.date_range_type.should == "past_week"
-      form.start_date.should == "Sep 09, 2015"
-      form.end_date.should == "Sep 16, 2015"
+      form.start_date.should == "Aug 17, 2015"
+      form.end_date.should == "Aug 24, 2015"
     end
   end
 end

@@ -114,7 +114,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   end
 
-  
+
   private
 
 

@@ -39,10 +39,10 @@
 </div>
 <% content_for :javascript do %>
   <script>
-    
+
     $().ready(function(){
       window.suggestionBox();
-      window.userSubmittedTileIntro("#{@user_submitted_tile_intro}");
+      window.userSubmittedTileIntro("<%= @user_submitted_tile_intro %>");
     })
 
 

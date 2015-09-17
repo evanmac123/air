@@ -15,7 +15,7 @@ describe Raffle do
     it "should have no winner or blacklisted user at the start" do
       @raffle.winners.should == []
       @raffle.blacklisted_users.should == []
-      @raffle.demo.users.should == @users
+      @raffle.demo.users.pluck(:email).should == @users.map(&:email)
     end
 
     it "should pick required number of winners" do
