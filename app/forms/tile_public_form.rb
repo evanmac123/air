@@ -93,12 +93,9 @@ class TilePublicForm
   end
 
   def main_objects_all_valid
-    if !tile.is_sharable?
-      errors.add(:base, 'tile share link must be turned on for public tile')      
-    elsif  tile.is_public? && 
+    if tile.is_public? && 
         tile.tile_taggings.size < 1 && 
         tile.tile_tags.size < 1
-
       errors.add(:base, 'at least one tag must exist for public tile')
     end
   end
