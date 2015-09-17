@@ -62,13 +62,20 @@ Airbo.TileCreator = (function(){
      position: "bottom",
      contentAsHTML: true,
      functionReady: initSharing,
-     autoClose: true,
+     autoClose: false,
    });
  }
 
  function initSharing(){
    Airbo.TileSharingMgr.init();
-   Airbo.TileTagger.init();
+   Airbo.TileTagger.init({
+       submitSuccess:  function(data){
+        refreshCurrentPreview(data.preview);
+        prepShow();
+        updateTileSection(data);
+       },
+     }
+   );
  }
 
 
@@ -281,12 +288,16 @@ Airbo.TileCreator = (function(){
     validator = form.validate(config);
   }
 
-
   function refreshTileDataPageWide(data){
     preventCloseMsg = false; // Allow modal to be closed sans confirmation
-    tileModal.find(modalContentSelector).html(data.preview);
+    //tileModal.find(modalContentSelector).html(data.preview);
+    refreshCurrentPreview(data.preview)
     prepShow();
     updateTileSection(data);
+  }
+
+  function refreshCurrentPreview(content){
+    tileModal.find(modalContentSelector).html(content);
   }
 
   function enableTileBuilderFormSubmit(){

@@ -1,3 +1,4 @@
+// FIXME extract out all functionality not related to tagging 
 var Airbo = window.Airbo || {};
 
 Airbo.TileTagger = (function(){
@@ -18,7 +19,6 @@ Airbo.TileTagger = (function(){
     , searchURL
     , publicTileForm
     , tagAlert
-    , appliedTags
     , ajaxHandler
     , sourceSelector = "#add-tag"
     , targetSelector = "#tag-autocomplete-target"
@@ -45,7 +45,7 @@ Airbo.TileTagger = (function(){
   ;
 
   var config = {
-    submitSuccess: Airbo.Utils.noop,
+    submitSuccess:  Airbo.Utils.noop,
     submitFail: Airbo.Utils.noop
   }
 
@@ -58,12 +58,15 @@ Airbo.TileTagger = (function(){
       addNewTag(ui.item.value.name);
     }
 
+    tagList.addClass("has_tags");
+    submitTileForm();
     addTagId.val("");
     unhighlightAddTag();
     enableShareLink(); // TODO very if of to remove this functionality from tile tagging and sharing to explore
     enableCopySwitch();
+
     if (startedWithNoTags) {
-     allowCopyingOn.click();
+     allowCopyingOn.click(); //FIXME just set the appropriate state
     }
     event.preventDefault();
   }
@@ -118,7 +121,6 @@ Airbo.TileTagger = (function(){
       url: "/client_admin/tile_tags/add?term=" + name,
       success: function(id) {
         appendSelectedTags(id, name);
-        tagList.addClass("has_tags");
       }
     });
   }
@@ -133,17 +135,9 @@ Airbo.TileTagger = (function(){
     return tagList.find("#"+id).length === 0;
   }
 
-  function addToSelectedTagsCache(id, name){
-    //selectedTagsCache[id]=name;
-  }
-
-  function removeFromSelectedTagsCache(id){
-    //delete selectedTagsCache[id];
-  }
 
   function appendSelectedTags(id, name) {
     publicTileForm.find('.tag_alert').hide();
-    addToSelectedTagsCache(id, name);
 
     if (tagIdNotInList(id)) {
 
@@ -155,7 +149,6 @@ Airbo.TileTagger = (function(){
         selectedTagIds.val(selectedTagIds.val() + ("," + id));
       }
     }
-    submitTileForm();
   }
 
 
@@ -176,7 +169,6 @@ Airbo.TileTagger = (function(){
     shareOf = $(shareOffSelector);
     publicTileForm = $(publicTileFormSelector);
     tagAlert = $(tagAlertSelector);
-    appliedTags = $(appliedTagsSelector);
   }
 
   function initShareToExploreToggleRadioChangeHandler(){
@@ -273,17 +265,14 @@ Airbo.TileTagger = (function(){
   }
 
   function isValidToShareToExplore(){
-    if (isSharedToExplore()) {
-      if (appliedTags.length < 1) {
-        return false;
-      } else {
-        tagAlert.hide();
-        return true;
-      }
+    if ($(appliedTagsSelector).length < 1) {
+      return false;
     } else {
+      tagAlert.hide();
       return true;
     }
   }
+
 
   function submitTileForm(){
     publicTileForm.submit();
@@ -310,16 +299,6 @@ Airbo.TileTagger = (function(){
   }
 
 
-  function setTagsCache(){
-    appliedTags.each(function(idx, o){
-      var obj = $(o)
-        , id =obj.attr("id")
-        , name = obj.text().trim()
-      ;
-
-      addToSelectedTagsCache(id,name);
-    });
-  }
 
   function init(opts){
 
@@ -327,7 +306,6 @@ Airbo.TileTagger = (function(){
     config = $.extend(config, opts)
     initJQueryObjects();
     initEventHandlers();
-    setTagsCache();
     searchURL = $(sourceSelector).data("searchurl");
 
     $(sourceSelector).autocomplete({
@@ -342,7 +320,7 @@ Airbo.TileTagger = (function(){
   }
 
   return {
-    init: init
+    init: init,
   };
 
 
