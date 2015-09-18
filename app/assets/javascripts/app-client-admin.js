@@ -54,3 +54,15 @@ $(document).ready(function() {
 });
 $(document).foundation();
 $(document).confirmWithReveal();
+
+
+jQuery.validator.addMethod("maxTextLength", function(value, element, param) {
+  function textLength(value){
+    var length = 0;
+    $(value).each(function(idx, obj){
+       length += $(obj).text().length;
+    })
+    return length;
+  }
+  return this.optional(element) || textLength(value) <= param;
+}, jQuery.validator.format("Please enter {0} characters or less"));
