@@ -22,8 +22,8 @@ body.client_admin-tile_stats, #tile_stats_modal {
       top: 63px;;
       width: 26px;
       height: 21px;
-      background: white;
-      border-top: 1px solid #e3e3e3;
+      background: $off-white;
+      border-top: 1px solid #d6d6d6;
     }
   }
   form.custom {
@@ -87,13 +87,13 @@ body.client_admin-tile_stats, #tile_stats_modal {
   // => Custom dropdown full restyling
   .custom.dropdown {
     border-radius: 3px;
-    border-color: #c4c4c4;
-    background: transparent;
+    border-color: #ccc;
+    background: $white;
     margin: 0;
     margin-right: 12px;
     float: left;
     &:hover {
-      border-color:  #9E9E9E;
+      border-color:  #A8A8A8;
       .current {
         color: #636363;
       }
@@ -102,7 +102,7 @@ body.client_admin-tile_stats, #tile_stats_modal {
       }
     }
     &:active, &.open {
-      border-color: #808080;
+      border-color: #8A8A8A;
       .current {
         color: #424242;
       }

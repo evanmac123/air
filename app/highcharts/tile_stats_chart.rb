@@ -22,6 +22,7 @@ class TileStatsChart
   protected
     def chart_params
       {
+        backgroundColor: "#fafafa",
         events: {
           load: load_function.js_code
         }
@@ -91,7 +92,7 @@ JS
     def y_axis_params
       {
         allowDecimals: false,
-        gridLineColor: '#e3e3e3',
+        gridLineColor: '#d6d6d6',
         offset: 20,
         labels: {
           style: {
@@ -113,7 +114,7 @@ JS
         line: {
           pointStart: period.start_date(:date),
           pointInterval: period.point_interval,
-          shadow: false
+          #shadow: false
         }
       }
     end

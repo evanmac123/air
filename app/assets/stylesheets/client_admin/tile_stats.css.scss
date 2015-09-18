@@ -1,9 +1,13 @@
 @import 'tile_stats_chart';
 @import 'tile_stats_tables';
 body.client_admin-tile_stats, #tile_stats_modal {
+  .title_block {
+    padding: 40px;
+    background: $white;
+  }
   h1 {
     color: $dark-gray;
-    padding-bottom: 50px;
+    // padding-bottom: 50px;
     margin: 0;
     font-weight: 300;
     line-height: 1.35em;
@@ -12,24 +16,29 @@ body.client_admin-tile_stats, #tile_stats_modal {
     padding: 0;
   }
   .stats_page {
-    max-width: 1000px;
+    max-width: 1007px;
+    background: $off-white;
+    border-radius: 3px;
+    padding: 53px 40px 50px 40px;
   }
 }
 #tile_stats_modal {
   width: 1007px;
-  margin-left: -455px;
+  margin-left: -494px;
   padding: 0;
   border-width: 0;
+  background: transparent;
+  // padding: 50px 40px;
   // margin-top: -100px;
-  position: fixed;
-  top: 50px;
+  // position: fixed;
+  // top: 50px;
   #modal_content {
-    padding: 50px 40px;
-    overflow: auto;
-    max-height: calc(100vh - 100px);
+    // padding: 50px 40px;
+    // overflow: auto;
+    // max-height: calc(100vh - 100px);
   }
   .close-reveal-modal {
-    top: -9px;
+    top: -5px;
     left: -60px;
     color: $white;
     i {
@@ -43,6 +52,6 @@ body.client_admin-tile_stats, #tile_stats_modal {
 .reveal-modal-bg{
   background: rgba(14, 23, 29, 0.8);
 }
-body.overflow_hidden {
-    overflow:hidden !important;
-}
+// body.overflow_hidden {
+//     overflow:hidden !important;
+// }

@@ -6,15 +6,16 @@ body.client_admin-tile_stats, #tile_stats_modal {
     overflow: auto;
   }
   .download_as_csv {
-    @include light-button(#c4c4c4);
-    border-color: #c4c4c4;
+    @include light-button(#919191);
+    background: $white;
+    border-color: #ccc;
     font-size:13px;
     font-weight: 500;
     padding: 8px 12px;
     float: right;
     &:hover {
       color: #636363;
-      border-color: #9E9E9E;
+      border-color: $med-gray;
     }
   }
   .grid_types {
@@ -37,13 +38,28 @@ body.client_admin-tile_stats, #tile_stats_modal {
     }
   }
   %stats-table {
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-collapse: separate;
+
     font-size: 14px;
     margin: 0;
+    // tr {
+    //   border: 1px solid #e3e3e3;
+    //   border-radius: 3px;
+    // }
+    // tbody {
+    //   border: 1px solid #e3e3e3;
+    //   border-top-width: 0;
+    //   border-bottom-width: 0;
+    //   border-radius: 3px;
+    // }
     th, td {
       padding: 14px 20px;
     }
     th {
-      background: #F2F2F2;
+      background: #dde3e9;
       border: 0;
       a {
         color: $text-color;
@@ -58,23 +74,38 @@ body.client_admin-tile_stats, #tile_stats_modal {
       }
       &:first-child {
         border-top-left-radius: 3px;
-        border-bottom-left-radius: 3px;
       }
       &:last-child {
         border-top-right-radius: 3px;
-        border-bottom-right-radius: 3px;
       }
     }
     td {
       color: $text-color;
       font-weight: 500;
-      border-bottom: 1px solid #e3e3e3;
+      border-width: 0;
+      border: 0 solid #e3e3e3;
+      border-bottom-width: 1px;
+      background: $white;
       &:first-child, a {
         font-weight: 500;
-        color: #3B54A0;
-        &:hover {
-          color: #243361;
-        }
+        color: #2e2e2c;
+      }
+      &:first-child {
+        border-left-width: 1px;
+      }
+      &:last-child {
+        border-right-width: 1px;
+      }
+      a:hover {
+        color: $sky-blue;
+      }
+    }
+    tr:last-child td {
+      &:first-child {
+        border-bottom-left-radius: 3px;
+      }
+      &:last-child {
+        border-bottom-right-radius: 3px;
       }
     }
   }
@@ -82,56 +113,56 @@ body.client_admin-tile_stats, #tile_stats_modal {
   .survey_question {
     text-transform: uppercase;
     color: $text-color;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
     margin-bottom: 24px;
   }
   .survey-chart-table {
     @extend %stats-table;
     margin-bottom: 60px;
-    th {
-      // cursor: pointer;
-      // span {
-      //   @include sort-arrows(transparent);
-      // }
-      // &:hover span {
-      //   @include sort-arrows(#8c8c8c);
-      // }
-      // &.sort-up {
-      //   span {
-      //     @include sort-arrows($text-color);
-      //   }
-      // }
-      // &.sort-down {
-      //   span {
-      //     @include sort-arrows($text-color, 'down');
-      //   }
-      // }
-    }
-    tr.selected {
-      td, th {
-        border-bottom: 1px solid $sky-blue;
+    // th {
+    //   // cursor: pointer;
+    //   // span {
+    //   //   @include sort-arrows(transparent);
+    //   // }
+    //   // &:hover span {
+    //   //   @include sort-arrows(#8c8c8c);
+    //   // }
+    //   // &.sort-up {
+    //   //   span {
+    //   //     @include sort-arrows($text-color);
+    //   //   }
+    //   // }
+    //   // &.sort-down {
+    //   //   span {
+    //   //     @include sort-arrows($text-color, 'down');
+    //   //   }
+    //   // }
+    // }
+    tr.selected, tr:hover {
+      td {
+        background: #f5f9fc;
       }
+      // td, th {
+      //   border-bottom: 1px solid $sky-blue;
+      // }
     }
     .answer {
       width: 50%;
     }
     .percent {
       width: 35%;
-      padding-top: 7px;
-      padding-bottom: 7px;
+      // padding-top: 7px;
+      // padding-bottom: 7px;
     }
     .progress, .percent_num {
       float: left;
     }
     .progress {
-      border-radius: 3px;
-      background: #BDE7FF;
-      height: 30px;
-      margin-right: 2px;
-    }
-    .percent_num {
-      padding: 7px;
+      border-radius: 8px;
+      background: $sky-blue;
+      height: 16px;
+      margin-right: 10px;
     }
   }
   .tile_grid_section table {
@@ -173,6 +204,7 @@ body.client_admin-tile_stats, #tile_stats_modal {
   }
   div.pagination {
     padding: 20px 14px;
+    background: $off-white;
   }
   ul.pagination {
     margin-left: 40%;
@@ -182,15 +214,15 @@ body.client_admin-tile_stats, #tile_stats_modal {
       margin-left: 7px;
       a {
         color: #919191;
-        background: transparent;
+        background: $white;
         border-radius: 3px;
         border: 1px solid #c2c2c2;
         padding: 4px 10px;
         font-weight: 500;
         &:hover {
-          color: #5e5e5e;
+          color: #595959;
           border-color: #949494;
-          background: transparent;
+          background: $white;
         }
 
       }
@@ -208,7 +240,7 @@ body.client_admin-tile_stats, #tile_stats_modal {
       }
       &.active a {
         color: #404040;
-        border-color: #808080;
+        border-color: #8A8A8A;
       }
     }
   }

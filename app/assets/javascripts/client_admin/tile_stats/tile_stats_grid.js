@@ -44,12 +44,12 @@ Airbo.TileStatsGrid = (function(){
 
   function markAnswerInSurveyTable(answer){
     selectedRow = surveyTable.find("td:contains('" + answer + "')").closest('tr');
-    prevRow = selectedRow.prev();
-    if( prevRow.length == 0 ){
-      prevRow = surveyTable.find('thead tr');
-    }
+    // prevRow = selectedRow.prev();
+    // if( prevRow.length == 0 ){
+    //   prevRow = surveyTable.find('thead tr');
+    // }
     selectedRow.addClass("selected");
-    prevRow.addClass("selected");
+    // prevRow.addClass("selected");
   }
 
   function unmarkAnswerInSurveyTable() {
