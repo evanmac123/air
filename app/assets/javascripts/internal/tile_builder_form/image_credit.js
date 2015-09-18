@@ -57,7 +57,7 @@ Airbo.TileImageCredit = (function(){
   };
 
   function setStatus(status) {
-    return imageCreditView.data("status", status);
+    imageCreditView.data("status", status);
   };
 
   function isStatus(status) {
@@ -71,7 +71,7 @@ Airbo.TileImageCredit = (function(){
   function truncateImageCreditView() {
     if (!isStatus('truncated') && isTooLong()) {
       truncate();
-      return setStatus('truncated');
+      setStatus('truncated');
     }
   };
 
