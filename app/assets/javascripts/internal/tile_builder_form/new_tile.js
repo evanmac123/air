@@ -8,6 +8,7 @@ Airbo.TileCreator = (function(){
     , modalTrigger
     , modalContent
     , tileBuilderForm
+    , validator
     , tileBuilderSubmitButton
     , inExistingTile = false
     , keepOpen = false
@@ -200,6 +201,9 @@ Airbo.TileCreator = (function(){
       if(form.valid()){
         disableTileBuilderFormSubmit();
         ajaxHandler.submit(form, refreshTileDataPageWide, enableTileBuilderFormSubmit);
+      }else{
+
+        validator.focusInvalid();
       }
     });
   }
