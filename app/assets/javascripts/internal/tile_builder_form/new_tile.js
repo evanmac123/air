@@ -251,6 +251,25 @@ Airbo.TileCreator = (function(){
 
       },
 
+      invalidHandler: function(form, validator) {
+        var errors = validator.numberOfInvalids();
+        if (errors) {
+          if($(validator.errorList[0].element).is(":visible"))
+            {
+              $('html, body').animate({
+                scrollTop: $(validator.errorList[0].element).offset().top
+              }, 250);
+            }
+            else
+              {
+
+                $('html, body').animate({
+                  scrollTop: $("#" + $(validator.errorList[0].element).data("proxyid")).offset().top
+                }, 1000);
+              }
+        }
+      },
+
       messages: {
         "tile_builder_form[question_subtype]": "Question option is required",
         "tile_builder_form[correct_answer_index]": "Please select one choice as the correct answer",
@@ -270,7 +289,6 @@ Airbo.TileCreator = (function(){
           element.parents(".multiple_choice_group").append(error);
         } 
         else {
-
           element.parent().append(error);
         }
       },

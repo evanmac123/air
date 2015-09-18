@@ -1,7 +1,7 @@
 <div class="tile_texts_container" data-tile-types='<%= set_tile_types(@tile_builder_form).to_json%>' data-question-config= '<%= @tile_builder_form.question_config.to_json%>'>
-  <div class="tile_quiz content_sections">
+  <div class="tile_quiz content_sections" id="question_type_container">
     <%= form.hidden_field :question_type %>
-    <%= form.hidden_field :question_subtype %>
+    <%= form.hidden_field :question_subtype, data:{proxyid: "question_type_container"} %>
     <div class="tile_types">
       <ul class="button-group">
         <% tile_types.each do |type, subtypes| %>
