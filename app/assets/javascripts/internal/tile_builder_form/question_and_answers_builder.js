@@ -7,7 +7,9 @@ Airbo.TileQuestionBuilder = (function(){
     , tileTextContainer
     , defaultType
     , defaultSubtype
-    , tileBuilderForm
+    , tilebuilderform
+    , multipleChoiceAnswerSelector = ".tile_multiple_choice_answer"
+    , delAnswerSelector = ".fa.fa-remove"
     , tileTextContainerSelector = "#new_tile_builder_form .tile_texts_container"
     , typeSelector = ".type"
     , subtypeSelector = ".subtype"
@@ -55,6 +57,12 @@ Airbo.TileQuestionBuilder = (function(){
         }
       }
 
+    });
+  }
+
+  function initRemoveAnswer(){
+    $("body").on("click", delAnswerSelector, function(event){
+      $(this).parents(multipleChoiceAnswerSelector).remove();
     });
   }
 
@@ -179,7 +187,11 @@ Airbo.TileQuestionBuilder = (function(){
             if(type == "Quiz") {
               edit_answer_container.append(option_radio);
             };
+
             edit_answer_container.append(option_input);
+           
+            edit_answer_container.append($("<li class='del-answer'> <i class='fa fa-remove fa-1x'></i></li>"));
+
             text_input = edit_answer_container.find(".answer-field.answer-part");
             text_input.val(text);
 
@@ -187,7 +199,7 @@ Airbo.TileQuestionBuilder = (function(){
             //mod_display = type == "Action" ? display : "block";
             mod_display = overrideDisplay(type, display)
 
-            edit_answer_container.css("display", mod_display);
+            edit_answer_container.css("display", "block");
             if(correct){
               edit_answer_container.find(".option_radio").addClass("option_selected");
               edit_answer_container.find(".correct-answer-button.answer-part").attr("checked", true);
@@ -409,7 +421,7 @@ Airbo.TileQuestionBuilder = (function(){
     // FIXME hack to keep form elements visible for multiple choice tiles
     var type = findTileType();
 
-    if(type == "Quiz"){ 
+    if(type == "Quiz" || type =="Survey"){ 
       $(answer_div).find(".option_input").css("display", "none")
     }else{
       $(answer_div).find("a").css("display", "block");
@@ -493,6 +505,7 @@ Airbo.TileQuestionBuilder = (function(){
     initQuestionLostFocus();
     initTileQuestion();
     initTileAnswer();
+    initRemoveAnswer();
     setUp();
   }
 

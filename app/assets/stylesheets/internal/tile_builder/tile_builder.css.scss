@@ -416,13 +416,6 @@ body.suggested_tiles-update{
   //
   & #new_tile_modal{
 
-
-   
-   
- 
-
-
-
     background: rgba(0,0,0,0);
     border: none;
 
@@ -557,47 +550,65 @@ body.suggested_tiles-update{
 
       // Multiple choice answers
       .multiple_choice_group {
+
+        .tile_multiple_choice_answer{
+          ul.answer_option{
+            display: block;
+            margin-top: -45px;
+            .option_input{
+              display: none;
+            }
+
+            li.del-answer{
+              float: right;
+              line-height: 2.65em;
+            }
+          }
+
+          .answer-div {
+            input.answer-field.answer-part{
+              margin-left: 2%;
+            }
+          } 
+        }
+
         &.quiz{
           .tile_multiple_choice_answer{
-            ul.answer_option{
-              display: block;
-              margin-top: -45px;
-              .option_input{
-                display: none;
-              }
 
-              li.option_radio{
-                background: inherit;
-                border-color: #d2d2d2;
-              }
-              li.option_selected{
-                background-color: #d2d2d2;
-              }
+            li.option_radio{
+              background: inherit;
+              border-color: #d2d2d2;
             }
+            li.option_selected{
+              background-color: #d2d2d2;
+            }
+          }
 
-            a {
-              width:90%;
-              margin-left: 10%;
-            }
-            .answer-div {
-              input.answer-field.answer-part{
-                margin-left: 2%;
-              }
-            } 
+          a {
+            width:85%;
+            margin-left: 10%;
+          }
+        }
+
+        &.survey{
+          a {
+            width:95%;
           }
         }
 
       }
-        .after_answers {
-          .choose_answer{
-           width: auto; 
-           float: left;
-          }
-          .add_answer {
-            width: auto;
-            float: right;
-          }
+
+      .after_answers {
+        .choose_answer{
+          width: auto; 
+          float: left;
         }
+        .add_answer {
+          width: auto;
+          float: right;
+        }
+      }
+
 
 
     } //End Form
@@ -626,14 +637,7 @@ body.suggested_tiles-update{
       margin-bottom: 0px;
       margin-top: 0px;
     }
-
-   
-
   }
-
-
-
-
 
 }
 
@@ -754,10 +758,10 @@ body.suggested_tiles-update{
 }
 
 .shadows{
- position: relative;
- .shadow_overlay {
-  min-height: 50px;
- }
+  position: relative;
+  .shadow_overlay {
+    min-height: 50px;
+  }
 }
 
 .image_preview {
@@ -770,8 +774,8 @@ body.suggested_tiles-update{
   }
   .image_credit {
     position: absolute;
-     padding-top: 20px;
-     bottom: 10px;
+    padding-top: 20px;
+    bottom: 10px;
   }
   .image_credit_view{
     /*padding-top: 20px;*/
