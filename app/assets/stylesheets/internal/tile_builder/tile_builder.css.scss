@@ -753,6 +753,13 @@ body.suggested_tiles-update{
   background: lighten($light-gray, 8%);
 }
 
+.shadows{
+ position: relative;
+ .shadow_overlay {
+  min-height: 50px;
+ }
+}
+
 .image_preview {
   .image_placeholder {
     label#uploaded_image_file.file_selected{
@@ -763,13 +770,14 @@ body.suggested_tiles-update{
   }
   .image_credit {
     position: absolute;
-    top: 290px;
+     padding-top: 20px;
+     bottom: 10px;
   }
   .image_credit_view{
-    padding-top: 20px;
-    padding-bottom: 15px;
-    padding-left: 15px;
-    padding-right: 5px;
+    /*padding-top: 20px;*/
+    /*padding-bottom: 15px;*/
+    /*padding-left: 15px;*/
+    /*padding-right: 5px;*/
   }
 }
 

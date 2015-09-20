@@ -37,6 +37,7 @@ Airbo.TileCreator = (function(){
    tileBuilderForm = $(tileBuilderFormSelector);
    initFormValidator(tileBuilderForm);
 
+   Airbo.TileImagesMgr.init();
    Airbo.TileImageCredit.init();
    Airbo.TilePointsSlider.init();
    Airbo.TileSuportingContentTextManager.init();
@@ -183,7 +184,7 @@ Airbo.TileCreator = (function(){
       success: function(data, status,xhr){
         imagesModal.html(data);
         openImageSelectorModal();
-        Airbo.TileImagesMgr.init();
+        //Airbo.TileImagesMgr.init();
         libaryLoaded = true;
       },
       error: function(jqXHR, textStatus, error){
@@ -364,7 +365,6 @@ Airbo.TileCreator = (function(){
     $("body").on("click", addImageSelector, function(event){
       event.preventDefault();
       if(libaryLoaded){
-        Airbo.TileImagesMgr.init();
         openImageSelectorModal();
       }else{
         getImageLibrary($(this).data("libraryUrl"));

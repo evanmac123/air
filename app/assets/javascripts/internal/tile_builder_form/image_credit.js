@@ -17,7 +17,7 @@ Airbo.TileImageCredit = (function(){
     });
 
     imageCreditView.keydown(function(e) {
-      if (isStatus('truncated') && e.keyCode === backspaceKeyCode()) {
+      if (isStatus('truncated') && e.keyCode === backspaceKeyCode) {
         setStatus('');
         imageCreditView.text('');
       }
