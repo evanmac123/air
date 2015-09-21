@@ -428,6 +428,9 @@ body.suggested_tiles-update{
     }
 
 
+
+   
+
     .medium-editor-placeholder:after {
       content: attr(data-placeholder)!important;
       color: #a9a9a9;
@@ -475,6 +478,12 @@ body.suggested_tiles-update{
           }
         }
 
+        #supporting_content_editor {
+          max-height: 450px;
+          min-height: 250px;
+          height: auto;
+        }
+
         #tile_builder_form_headline{
           font-size: 2.5em;
           line-height: 1.15em;
@@ -513,10 +522,23 @@ body.suggested_tiles-update{
           background-color: rgba(188, 76, 64,.20); //pinkish*/
 
         }
-
+        
         & label.tile_builder_error{
-          color: #bc4c40;
+          color: #e3402d;
           text-align: left;
+          font-size: 0.625em;
+          font-weight: 700;
+          padding-top: 10px;
+        }
+
+        & .character-counter {
+          padding-top: 10px;
+
+        //FIXME should probably consolidate all error styels under tile_builder_error
+
+          &.exceeded_maxlength_counter {
+            color: #e3402d;
+          }
         }
 
         &:last-child:not(:only-child) {
