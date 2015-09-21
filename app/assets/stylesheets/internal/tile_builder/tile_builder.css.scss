@@ -421,6 +421,7 @@ body.suggested_tiles-update{
 
     &.reveal-modal{
       top: 0px;
+      padding-top: 0px;
     }
 
     .medium-editor-placeholder:after {
@@ -446,7 +447,7 @@ body.suggested_tiles-update{
       right: 0px;
       left: .6875em;
       width: 2em;
-      margin-top: 1em;
+      margin-top: 0.2em;
       .fa-2x{
         font-size: 1.5em;
       }
