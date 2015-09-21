@@ -411,6 +411,15 @@ body.suggested_tiles-update{
     display: none;
   }
 
+
+//
+  // => Modal builder customizations
+  //
+  & #images_modal{
+    background: transparent;
+    border: none;
+  }
+
   //
   // => Modal builder customizations
   //
