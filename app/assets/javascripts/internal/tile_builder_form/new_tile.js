@@ -201,7 +201,7 @@ Airbo.TileCreator = (function(){
       success: function(data, status,xhr){
         imagesModal.html(data);
         openImageSelectorModal();
-        //Airbo.TileImagesMgr.init();
+        Airbo.TileImagesMgr.init();
         libaryLoaded = true;
       },
       error: function(jqXHR, textStatus, error){
