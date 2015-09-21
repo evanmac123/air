@@ -18,7 +18,7 @@
     </li>
 
     <li class="preview_menu_item destroy" >
-      <%=link_to client_admin_tile_path(tile), data: {confirm: {body: "Are you sure you want to delete this tile? Deleting a tile is irrevocable and you'll loose all data associated with it", modal_class: 'destroy_confirm_modal'}, method: "delete"} do %>
+      <%=link_to client_admin_tile_path(tile), data: {confirm: {body: "Are you sure you want to delete this tile? Deleting a tile is irrevocable and you'll loose all data associated with it"}, method: "delete"} do %>
         <i class="fa fa-trash fa-1x"></i>
         <span class="header_text">
         Delete

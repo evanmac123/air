@@ -136,7 +136,6 @@ module ClientAdmin::TilesHelper
     else
       {
         body: message,
-        modal_class: "destroy_confirm_modal"
       }
     end
   end

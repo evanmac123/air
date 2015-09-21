@@ -46,6 +46,14 @@ Airbo.Utils = {
     }
   },
 
+  confirmWithRevealConfig: {
+    modal_class: 'small confirm-with-reveal destroy_confirm_modal',
+    ok_class: 'confirm',
+    cancel_class: 'cancel',
+    password: false,
+    reverse_buttons: true
+  },
+
   mediumEditor:  (function() {
     return {
       init: function() {

@@ -157,16 +157,7 @@ Airbo.TileCreator = (function(){
    openTileFormModal();
  }
 
- function initDeletionConfirmation(){
-   $("body").on("confirm.reveal", "a[data-confirm]", function(event){
 
-   });
-
-   //TODO figure why this needs a timer
-   $("body").on("cancel.reveal", "a[data-confirm]", function(event){
-     setTimeout(function(){setupModalFor()}, 200);
-   });
- }
 
 
   function initNewTileModal(){
@@ -331,7 +322,6 @@ Airbo.TileCreator = (function(){
 
   function refreshTileDataPageWide(data){
     preventCloseMsg = false; // Allow modal to be closed sans confirmation
-    //tileModal.find(modalContentSelector).html(data.preview);
     refreshCurrentPreview(data.preview)
     prepShow();
     updateTileSection(data);
@@ -389,6 +379,17 @@ Airbo.TileCreator = (function(){
     });
   }
 
+ function initDeletionConfirmation(){
+   $("body").on("confirm.reveal", "a[data-confirm]", function(event){
+     preventCloseMsg=false;
+     $(this).parents(".reveal-modal").foundation("reveal", "close");
+   });
+
+   //TODO figure why this needs a timer
+   $("body").on("cancel.reveal", "a#tilebuilder_close[data-confirm]", function(event){
+     setTimeout(function(){setupModalFor()}, 200);
+   });
+ }
 
  function tileModalOpenClose(){
 
@@ -417,11 +418,6 @@ Airbo.TileCreator = (function(){
      var msg;
      if(preventCloseMsg){
 
-       msg = "Are you sure you want to stop " + preventCloseMsg + " this tile?"
-       + "\nAny changes you've made will be lost."
-       + "\n\nClick 'cancel' to continue " + preventCloseMsg + " this tile."
-       + "\n\nOtherwise click 'Ok' to discard your changes.";
-
        if (confirm(msg)){
          keepOpen = false;
          preventCloseMsg = undefined;
@@ -429,6 +425,7 @@ Airbo.TileCreator = (function(){
        }else{
          keepOpen = true;
        }
+       
      }
    });
  }
@@ -441,8 +438,16 @@ Airbo.TileCreator = (function(){
 
 
   function openTileFormModal(){
-    tileModal.foundation("reveal", "open", {animation: "fade"});
-    keepOpen = false;
+    tileModal.foundation("reveal", "open", {animation: "fade",closeOnBackgroundClick: false });
+    initCancelBeforeSave();
+  }
+
+
+  function initCancelBeforeSave(){
+    var msg = "Are you sure you want to stop " + preventCloseMsg + " this tile?"
+    + " Any changes you've made will be lost.", 
+    config = $.extend({}, Airbo.Utils.confirmWithRevealConfig, {body: msg});
+    $("a.close-reveal-modal").confirmWithReveal(config)
   }
 
   function openImageSelectorModal(){

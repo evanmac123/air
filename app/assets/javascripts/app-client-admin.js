@@ -14,7 +14,7 @@
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.ui.touch-punch.min
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.scrollTo.min
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.form.min
-//= require ../../../vendor/assets/javascripts/client_admin/confirm_with_reveal
+//= require ../../../vendor/assets/javascripts/confirm_with_reveal.modified
 
 //= require ../../../vendor/assets/javascripts/internal/jquery.jpanelmenu.min
 //= require ../../../vendor/assets/javascripts/internal/jRespond.min
@@ -53,7 +53,8 @@ $(document).ready(function() {
   $('.client_admin-users, .client_admins-show').foundation();
 });
 $(document).foundation();
-$(document).confirmWithReveal();
+
+$(document).confirmwithreveal(airbo.utils.confirmwithrevealconfig);
 
 
 //FIXME This is only here because jQuery is not required at the top of the
