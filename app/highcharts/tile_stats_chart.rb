@@ -128,7 +128,7 @@ JS
         },
         headerFormat: "<div style='color:{series.color};'>{point.key}</div>",
         pointFormat: "<div style='padding-top:3px;'>{point.y}</div>",
-        shadow: false
+        # shadow: false
       }
     end
 
