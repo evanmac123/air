@@ -2,11 +2,13 @@ class GridQuery::TileActions
   attr_reader :tile, :query_type, :answer_filter
   # query_type: all, viewed, not_viewed, viewed_and_interacted, viewed_and_not_interacted
   GRID_TYPES = {
+    "live" => "Live",
     "viewed_and_interacted" => "Viewed and interacted",
     "viewed_only" => "Viewed only",
     "not_viewed" => "Didn't view",
     "all" => "All"
   }.freeze
+
   def initialize tile, query_type, answer_filter = nil
     @tile = tile
     @query_type = query_type
@@ -26,6 +28,10 @@ class GridQuery::TileActions
   protected
     def answer_index
       tile.multiple_choice_answers.index(answer_filter)
+    end
+
+    def live
+      all.where{ tile_viewings.id != nil }
     end
 
     def viewed_only

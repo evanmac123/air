@@ -3,8 +3,11 @@ var Airbo = window.Airbo || {};
 Airbo.TileStatsGrid = (function(){
   // Selectros
   var tileGridSectionSel = ".tile_grid_section",
-      linkInGridSel = tileGridSectionSel + " a:not(.download_as_csv)",
+      paginationLinkSel = tileGridSectionSel + " .pagination a",
+      sortLinkSel = tileGridSectionSel + " th a",
+      linkInGridSel = [paginationLinkSel + sortLinkSel].join(", "),
       gridLinkSel = ".grid_types a",
+      gridTypeSel = "#grid_type_select",
       currentGridLinkSel = gridLinkSel + ".current",
       answerCellSel = tileGridSectionSel + " tbody .answer_column",
       surveyTableSel = "#survey_table";
@@ -21,6 +24,7 @@ Airbo.TileStatsGrid = (function(){
       if(data.success){
         tileGridSection.replaceWith(data.grid);
         initVars();
+        $(document).foundation();
       }
     };
   }
@@ -90,6 +94,14 @@ Airbo.TileStatsGrid = (function(){
     $(document).on("click", gridLinkSel, function(){
       unmarkAnswerInSurveyTable();
     });
+
+    $(document).on("change", gridTypeSel, function(e){
+      e.preventDefault();
+      unmarkAnswerInSurveyTable();
+
+      input = $(this);
+      gridRequest(updateLink + "?grid_type=" + input.val());
+    })
 
     $(document).on("click", answerCellSel, function(e){
       e.preventDefault();
