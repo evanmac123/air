@@ -12,6 +12,7 @@ Airbo.TileCreator = (function(){
     , tileBuilderSubmitButton
     , inExistingTile = false
     , keepOpen = false
+    , visileTilePlaceholderSelector = ".tile_container.placeholder_container:visible"
     , tilePreviewStatusSelector = "#preview_tile_status"
     , tileWrapperSelector =".tile_container"
     , modalContentSelector = "#modal_content"
@@ -94,15 +95,31 @@ Airbo.TileCreator = (function(){
 
  function updateTileSection(data){
 
-   var selector
-     , section = pageSectionByStatus(data.tileStatus);
-   ;
+   var selector , section = pageSectionByStatus(data.tileStatus); 
+
    if(inExistingTile){
      replaceTileContent(data)
    } else{
      section.prepend(data.tile); //Add tile to section
+     setPlaceHolders(section);
    }
  }
+
+ function setPlaceHolders(section){
+  var node, placeHolders = section.find(visileTilePlaceholderSelector);
+  if(placeHolders.length > 0){
+     placeHolders.last().remove();
+  }else if (placeHolders.length ===1){
+    //do nothing 
+  }else if (placeHolders.length ===0){
+     node = $(".no_tiles_section .tile_container.placeholder_container").first();
+     node.css("display", "block");
+     for (var i = 0; i<5; i++){
+       section.append(node.clone());
+     } 
+  }
+ }
+
 
  function replaceTileContent(data){
    selector = tileWrapperSelector + "[data-tile-id=" + data.tileId + "]";
