@@ -169,6 +169,8 @@ Airbo.TileQuestionBuilder = (function(){
 
   function editAnswerContainer(display, text, index, correct) {
     var type = $(".selected.button").attr("id");
+    var subType = findTileSubtype();
+    var containerDisplay;
     var edit_answer_container = $('<ul class="answer_option"></ul>');
     var option_radio = $(
       ['<li class="option_radio">',
@@ -190,16 +192,18 @@ Airbo.TileQuestionBuilder = (function(){
 
             edit_answer_container.append(option_input);
            
-            edit_answer_container.append($("<li class='del-answer'> <i class='fa fa-remove fa-1x'></i></li>"));
+            if(subType !=="true_false" && subType !== "rsvp_to_event"){ 
+              edit_answer_container.append($("<li class='del-answer'> <i class='fa fa-remove fa-1x'></i></li>"));
+              containerDisplay = "block";
+            }else{
+              containerDisplay = display;
+            }
 
             text_input = edit_answer_container.find(".answer-field.answer-part");
             text_input.val(text);
 
-            //FIXME quick hack to force display of multiple choice type questions
-            //mod_display = type == "Action" ? display : "block";
-            mod_display = overrideDisplay(type, display)
 
-            edit_answer_container.css("display", "block");
+            edit_answer_container.css("display", containerDisplay);
             if(correct){
               edit_answer_container.find(".option_radio").addClass("option_selected");
               edit_answer_container.find(".correct-answer-button.answer-part").attr("checked", true);
