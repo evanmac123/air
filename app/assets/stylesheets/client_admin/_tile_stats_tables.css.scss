@@ -182,6 +182,9 @@ body.client_admin-tile_stats, #tile_stats_modal {
   #tile_stats_grid {
     padding-top: 50px;
   }
+  .grid_no_record {
+    padding-top: 60px;
+  }
   .tile_grid_section table {
     @extend %stats-table;
     .new_records {

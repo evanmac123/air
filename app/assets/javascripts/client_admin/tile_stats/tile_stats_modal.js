@@ -37,25 +37,37 @@ Airbo.TileStatsModal = (function(){
     });
   }
 
+  function modalOpenClose() {
+   $(document).on('open', modalSel, function () {
+     $("body").scrollTop(50);
+     var modalHeight = modal.height() + 200;
+     $(".main").css({"max-height": modalHeight, "overflow-y": "hidden"});
+   });
+
+   $(document).on('close', modalSel, function (event) {
+     $(".main").css({"max-height": "", "overflow": ""});
+   });
+  }
+
   function initEvents(){
     $(document).on("click", tileStatsLinkSel, function(e) {
       e.preventDefault();
       getPage( $(this).data("href") );
     });
+    modalOpenClose();
+    // $(document).on('open', modalSel, function(){
+    //   $("body").addClass('overflow_hidden');
+    // });
+    //
+    // $(document).on('closed', modalSel, function(){
+    //   $("body").removeClass('overflow_hidden');
+    // });
 
-    $(document).on('open', modalSel, function(){
-      $("body").addClass('overflow_hidden');
-    });
-
-    $(document).on('closed', modalSel, function(){
-      $("body").removeClass('overflow_hidden');
-    });
-
-    $(document).on('mousewheel DOMMouseScroll', modalBgSel, function(e){
-      var delta = modalContent.scrollTop() - e.originalEvent.wheelDelta;
-      // console.log(delta);
-      modalContent.scrollTop(delta);
-    });
+    // $(document).on('mousewheel DOMMouseScroll', modalBgSel, function(e){
+    //   var delta = modalContent.scrollTop() - e.originalEvent.wheelDelta;
+    //   // console.log(delta);
+    //   modalContent.scrollTop(delta);
+    // });
   }
 
   function initVars(){
