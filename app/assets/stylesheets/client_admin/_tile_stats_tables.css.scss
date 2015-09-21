@@ -186,8 +186,8 @@ body.client_admin-tile_stats, #tile_stats_modal {
     @extend %stats-table;
     .new_records {
       background: #f6fcfc;
-      border: 1px solid #cbeaff;
-      border-radius: 3px;
+      // border: 1px solid #cbeaff;
+      // border-radius: 3px;
       text-align: center;
       color: #4b61a6;
       cursor: pointer;
