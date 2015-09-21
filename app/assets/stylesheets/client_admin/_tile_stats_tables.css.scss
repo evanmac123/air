@@ -1,9 +1,23 @@
 body.client_admin-tile_stats, #tile_stats_modal {
   @import "../mixins/sort_arrows";
+
+  .table_title {
+    text-transform: uppercase;
+    color: $text-color;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 24px;
+  }
   // Grid Controls
   .grid_controls {
     margin-bottom: 20px;
-    overflow: auto;
+    .table_title {
+      float: left;
+      margin: 9px 25px 0 0;
+    }
+    .grid_types {
+      float: left;
+    }
   }
   .download_as_csv {
     @include light-button(#919191);
@@ -18,25 +32,25 @@ body.client_admin-tile_stats, #tile_stats_modal {
       border-color: $med-gray;
     }
   }
-  .grid_types {
-    overflow: auto;
-    margin-bottom: 28px;
-    a {
-      float: left;
-      text-transform: uppercase;
-      color: $med-gray;
-      padding: 6px 5px;
-      margin-right: 40px;
-      font-size: 12px;
-      &:hover {
-        color: #737373;
-      }
-      &.current {
-        color: $text-color;
-        border-bottom: 2px solid $sky-blue;
-      }
-    }
-  }
+  // .grid_types {
+  //   overflow: auto;
+  //   margin-bottom: 28px;
+  //   a {
+  //     float: left;
+  //     text-transform: uppercase;
+  //     color: $med-gray;
+  //     padding: 6px 5px;
+  //     margin-right: 40px;
+  //     font-size: 12px;
+  //     &:hover {
+  //       color: #737373;
+  //     }
+  //     &.current {
+  //       color: $text-color;
+  //       border-bottom: 2px solid $sky-blue;
+  //     }
+  //   }
+  // }
   %stats-table {
     border-radius: 3px;
     -webkit-border-radius: 3px;
@@ -46,6 +60,13 @@ body.client_admin-tile_stats, #tile_stats_modal {
     font-size: 14px;
     margin: 0;
     box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.22);
+    // tbody td, thead th {
+    //   &:first-child, &:last-child {
+    //
+    //   }
+    // }
+    // tbody {
+    //   box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.22);
     // tr {
     //   border: 1px solid #e3e3e3;
     //   border-radius: 3px;
@@ -110,14 +131,6 @@ body.client_admin-tile_stats, #tile_stats_modal {
       }
     }
   }
-
-  .survey_question {
-    text-transform: uppercase;
-    color: $text-color;
-    font-size: 13px;
-    font-weight: 700;
-    margin-bottom: 24px;
-  }
   .survey-chart-table {
     @extend %stats-table;
     margin-bottom: 60px;
@@ -166,6 +179,9 @@ body.client_admin-tile_stats, #tile_stats_modal {
       margin-right: 10px;
     }
   }
+  #tile_stats_grid {
+    padding-top: 50px;
+  }
   .tile_grid_section table {
     @extend %stats-table;
     .new_records {
@@ -175,6 +191,12 @@ body.client_admin-tile_stats, #tile_stats_modal {
       text-align: center;
       color: #4b61a6;
       cursor: pointer;
+    }
+    tbody tr:last-child td {
+      box-shadow: 2px 3px 2px 0px rgba(0, 0, 0, 0.05);
+    }
+    tfoot td {
+      box-shadow: 0px 2px 2px 3px $off-white;
     }
     .name_column {
       width: 25%;

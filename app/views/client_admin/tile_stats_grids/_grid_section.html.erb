@@ -1,13 +1,11 @@
 <div class="tile_grid_section" data-update-link="<%= client_admin_tile_tile_stats_grids_path(@tile) %>" data-updates-checker-link="<%= new_completions_count_client_admin_tile_tile_stats_grids_path(@tile) %>">
   <div class="grid_controls">
-    <form class="custom">
-      <%= select_tag "grid_type_select", options_for_select(GridQuery::TileActions::GRID_TYPES.invert, @current_grid) %>
-    </form>
     <div class="large-9 columns">
+      <div class="table_title">Activity</div>
       <div class="grid_types">
-        <% GridQuery::TileActions::GRID_TYPES.each do |type, name| %>
-          <%= link_to name, client_admin_tile_tile_stats_grids_path(@tile, grid_type: type, answer_filter: ""), class: (type == @current_grid ? "current" : "")  %>
-        <% end %>
+        <form class="custom">
+          <%= select_tag "grid_type_select", options_for_select(GridQuery::TileActions::GRID_TYPES.invert, @current_grid) %>
+        </form>
       </div>
     </div>
     <div class="large-3 columns">
