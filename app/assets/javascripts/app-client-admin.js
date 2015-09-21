@@ -56,6 +56,9 @@ $(document).foundation();
 $(document).confirmWithReveal();
 
 
+//FIXME This is only here because jQuery is not required at the top of the
+//heirarchy ugh!!!!!!!
+//
 jQuery.validator.addMethod("maxTextLength", function(value, element, param) {
   function textLength(value){
     var length = 0;
@@ -65,4 +68,4 @@ jQuery.validator.addMethod("maxTextLength", function(value, element, param) {
     return length;
   }
   return this.optional(element) || textLength(value) <= param;
-}, jQuery.validator.format("Please enter {0} characters or less"));
+}, jQuery.validator.format("Character Limit Reached"));
