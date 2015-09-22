@@ -188,11 +188,11 @@ body.client_admin-tile_stats, #tile_stats_modal {
   .tile_grid_section table {
     @extend %stats-table;
     .new_records {
-      background: #f6fcfc;
+      background: #f5fcfc;
       // border: 1px solid #cbeaff;
       // border-radius: 3px;
       text-align: center;
-      color: #4b61a6;
+      color: #1f7cb2;
       cursor: pointer;
     }
     tbody tr:last-child td {
