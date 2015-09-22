@@ -295,9 +295,9 @@ Airbo.TileCreator = (function(){
       },
 
       messages: {
-        "tile_builder_form[question_subtype]": "Question option is required",
-        "tile_builder_form[correct_answer_index]": "Please select one choice as the correct answer",
-        "tile_builder_form[answers][]": "Please provide text for all answer options"
+        "tile_builder_form[question_subtype]": "Question option is required.",
+        "tile_builder_form[correct_answer_index]": "Please select one choice as the correct answer.",
+        "tile_builder_form[answers][]": "Please provide text for all answer options."
       },
 
       errorPlacement: function(error, element) {
