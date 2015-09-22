@@ -374,23 +374,44 @@ Airbo.TileQuestionBuilder = (function(){
 
   function turnOnEditAnswer(answer_show) {
     var container = $(answer_show).parent(), type = findTileType();
-    
     container.find(".answer_option").css("display", "block");
-
-    //FIXME
 
     if(type == "Quiz" || type =="Survey"){ 
       container.find(".option_input").css("display", "list-item");
     }else{
       $(answer_show).css("display", "none");
+      container.find(".option_input").css("display", "list-item");
     }
 
+    container.find(".del-answer").hide();
     highlightText($(answer_show).parent().find(".answer-field"));
   }
 
   function turnOffEditQuestion() {
     $(".tile_question").css("display", "block");
     $("#tile_builder_form_question").css("display", "none");
+  }
+
+  function turnOffEditAnswer(answer_div) {
+
+    // FIXME hack to keep form elements visible for multiple choice tiles
+    var type = findTileType();
+
+    if(type == "Quiz" || type =="Survey"){ 
+      $(answer_div).find(".option_input").css("display", "none")
+    }else{
+      $(answer_div).find("a").css("display", "block");
+      $(answer_div).find(".answer_option").css("display", "none");
+    }
+    $(answer_div).find(".del-answer").show();
+  }
+
+  function tryTurnOffEditAnswer(element) {
+    $(".tile_multiple_choice_answer").each(function() {
+      if( !$(this).is( $(element).closest(".tile_multiple_choice_answer") ) ) {
+        turnOffEditAnswer(this);
+      };
+    });
   }
 
   function initTileQuestion(){
@@ -421,26 +442,7 @@ Airbo.TileQuestionBuilder = (function(){
 
 
 
-  function turnOffEditAnswer(answer_div) {
 
-    // FIXME hack to keep form elements visible for multiple choice tiles
-    var type = findTileType();
-
-    if(type == "Quiz" || type =="Survey"){ 
-      $(answer_div).find(".option_input").css("display", "none")
-    }else{
-      $(answer_div).find("a").css("display", "block");
-      $(answer_div).find(".answer_option").css("display", "none");
-    }
-  }
-
-  function tryTurnOffEditAnswer(element) {
-    $(".tile_multiple_choice_answer").each(function() {
-      if( !$(this).is( $(element).closest(".tile_multiple_choice_answer") ) ) {
-        turnOffEditAnswer(this);
-      };
-    });
-  }
 
   function makeAnswerGreen(radio) {
     answer_show = $(radio).closest(".tile_multiple_choice_answer").find("a");
