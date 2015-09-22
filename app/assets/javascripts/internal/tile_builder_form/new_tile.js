@@ -47,6 +47,7 @@ Airbo.TileCreator = (function(){
    Airbo.TilePointsSlider.init();
    Airbo.TileQuestionBuilder.init();
    enableCloseModalConfirmation();
+   Airbo.TileSuportingContentTextManager.init();
  }
 
 
@@ -419,7 +420,9 @@ Airbo.TileCreator = (function(){
      var modalHeight = tileModal.height() + 300;
      $(".main").css({"max-height": modalHeight, "overflow-y": "hidden"});
 
-     Airbo.TileSuportingContentTextManager.init();//TODO create after previewOpen / editOpen function for things that need to happen after the modal has opened
+     //TODO create after previewOpen / editOpen function for things that need to happen after the modal has opened
+
+    Airbo.Utils.mediumEditor.init();
    });
 
    $(document).on('closed.fndtn.reveal', tileModalSelector, function (event) {
@@ -634,7 +637,6 @@ Airbo.TileSuportingContentTextManager = (function(){
     var pasteNoFormattingIE;
     addCharacterCounterFor('#tile_builder_form_headline');
     addCharacterCounterFor(contentEditorSelector);
-    Airbo.Utils.mediumEditor.init();
   };
 
   function initjQueryObjects(){
