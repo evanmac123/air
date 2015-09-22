@@ -203,7 +203,7 @@ Airbo.TileQuestionBuilder = (function(){
             text_input.val(text);
 
 
-            edit_answer_container.css("display", containerDisplay);
+            edit_answer_container.css("display", 'block');
             if(correct){
               edit_answer_container.find(".option_radio").addClass("option_selected");
               edit_answer_container.find(".correct-answer-button.answer-part").attr("checked", true);
@@ -247,7 +247,7 @@ Airbo.TileQuestionBuilder = (function(){
         correct = false;
       }
 
-      answer = $('<div class="tile_multiple_choice_answer"></div>');
+      answer = $('<div class="tile_multiple_choice_answer"></div>').addClass(subtype);
       answers_group.append(answer); 
       answer.append(showAnswerContainer("block", answers[i], correct));
       answer.append(editAnswerContainer("none", answers[i], i, correct));
@@ -376,15 +376,16 @@ Airbo.TileQuestionBuilder = (function(){
     var container = $(answer_show).parent(), type = findTileType();
     
     container.find(".answer_option").css("display", "block");
-    highlightText($(answer_show).parent().find(".answer-field"));
 
     //FIXME
 
-    if(type == "Quiz"){ 
+    if(type == "Quiz" || type =="Survey"){ 
       container.find(".option_input").css("display", "list-item");
     }else{
       $(answer_show).css("display", "none");
     }
+
+    highlightText($(answer_show).parent().find(".answer-field"));
   }
 
   function turnOffEditQuestion() {

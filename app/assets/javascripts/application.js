@@ -51,6 +51,7 @@ Airbo.Utils = {
     ok_class: 'confirm',
     cancel_class: 'cancel',
     password: false,
+    title: "",
     reverse_buttons: true
   },
 

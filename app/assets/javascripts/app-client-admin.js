@@ -54,7 +54,7 @@ $(document).ready(function() {
 });
 $(document).foundation();
 
-$(document).confirmwithreveal(airbo.utils.confirmwithrevealconfig);
+$(document).confirmWithReveal(Airbo.Utils.confirmWithRevealConfig);
 
 
 //FIXME This is only here because jQuery is not required at the top of the

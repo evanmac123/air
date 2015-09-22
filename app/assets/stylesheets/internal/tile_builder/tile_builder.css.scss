@@ -587,6 +587,7 @@ body.suggested_tiles-update{
           ul.answer_option{
             display: block;
             margin-top: -45px;
+            min-height: 42px;
             .option_input{
               display: none;
             }
@@ -606,25 +607,45 @@ body.suggested_tiles-update{
 
         &.quiz{
           .tile_multiple_choice_answer{
+            ul.answer_option{
+              width: 100%;
 
-            li.option_radio{
-              background: inherit;
-              border-color: #d2d2d2;
+              li.option_radio{
+                background: inherit;
+                border-color: #d2d2d2;
+              }
+              li.option_selected{
+                background-color: #d2d2d2;
+              }
             }
-            li.option_selected{
-              background-color: #d2d2d2;
+
+            &.true_false{
+              a {
+                width: 90%;
+              }
+            }
+
+            a {
+              width:85%;
+              margin-left: 10%;
             }
           }
 
-          a {
-            width:85%;
-            margin-left: 10%;
-          }
         }
 
         &.survey{
-          a {
-            width:95%;
+          .tile_multiple_choice_answer{
+
+            a {
+              width:95%;
+            }
+
+            .answer-div {
+              input.answer-field.answer-part{
+                margin-left: auto;
+              }
+            } 
+
           }
         }
 
