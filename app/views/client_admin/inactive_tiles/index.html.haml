@@ -9,6 +9,9 @@
       .clearfix
       .pagination-centered
         = paginate @raw_tiles
+
+= render "shared/tile_builder_modals"
+
 - content_for :javascript do
   :javascript
     $().ready(function(){
