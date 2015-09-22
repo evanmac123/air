@@ -39,10 +39,12 @@ Airbo.TileCreator = (function(){
    tileBuilderForm = $(tileBuilderFormSelector);
    initFormValidator(tileBuilderForm);
 
+   //TODO create funciton for setup that needs to take place only after the
+   //modal has opened
+
    Airbo.TileImagesMgr.init();
    Airbo.TileImageCredit.init();
    Airbo.TilePointsSlider.init();
-   Airbo.TileSuportingContentTextManager.init();
    Airbo.TileQuestionBuilder.init();
    enableCloseModalConfirmation();
  }
@@ -414,6 +416,8 @@ Airbo.TileCreator = (function(){
      $('.reveal-modal-bg').css({'background-color':'#212C33', 'opacity': 0.9});
      var modalHeight = tileModal.height() + 300;
      $(".main").css({"max-height": modalHeight, "overflow-y": "hidden"});
+
+     Airbo.TileSuportingContentTextManager.init();//TODO create after previewOpen / editOpen function for things that need to happen after the modal has opened
    });
 
    $(document).on('closed.fndtn.reveal', tileModalSelector, function (event) {
