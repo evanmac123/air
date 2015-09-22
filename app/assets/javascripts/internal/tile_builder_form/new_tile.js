@@ -12,6 +12,7 @@ Airbo.TileCreator = (function(){
     , tileBuilderSubmitButton
     , inExistingTile = false
     , keepOpen = false
+    , tileBuilderCloseSelector = "#tilebuilder_close"
     , visileTilePlaceholderSelector = ".tile_container.placeholder_container:visible"
     , tilePreviewStatusSelector = "#preview_tile_status"
     , tileWrapperSelector =".tile_container"
@@ -43,6 +44,16 @@ Airbo.TileCreator = (function(){
    Airbo.TilePointsSlider.init();
    Airbo.TileSuportingContentTextManager.init();
    Airbo.TileQuestionBuilder.init();
+   enableCloseModalConfirmation();
+ }
+
+
+ function disableCloseModalConfirmation(){
+   $(tileBuilderCloseSelector).removeAttr("data-confirm");
+ }
+
+ function enableCloseModalConfirmation(){
+   $(tileBuilderCloseSelector).attr("data-confirm", "");
  }
 
  function prepShow(){
@@ -52,6 +63,7 @@ Airbo.TileCreator = (function(){
 
    Airbo.TileCarouselPage.init();
    initPreviewMenuTooltips();
+   disableCloseModalConfirmation();
  }
 
  function tooltipBefore(){
@@ -447,7 +459,7 @@ Airbo.TileCreator = (function(){
     var msg = "Are you sure you want to stop " + preventCloseMsg + " this tile?"
     + " Any changes you've made will be lost.", 
     config = $.extend({}, Airbo.Utils.confirmWithRevealConfig, {body: msg});
-    $("a.close-reveal-modal").confirmWithReveal(config)
+    $(".client_admin-tiles-edit a.close-reveal-modal").confirmWithReveal(config)
   }
 
   function openImageSelectorModal(){
