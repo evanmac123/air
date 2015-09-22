@@ -58,12 +58,8 @@ class TilePublicForm
   end
 
   def set_tile_public_params
-    if parameters[:is_public].present? && parameters[:is_copyable].present?
-      tile.attributes = {
-        is_public:   parameters[:is_public],
-        is_copyable: parameters[:is_copyable]
-      }
-    end
+    tile.is_public = parameters[:is_public] if parameters[:is_public].present?
+    tile.is_copyable = parameters[:is_copyable] if parameters[:is_copyable].present?
   end
 
   def tile_tag_ids
