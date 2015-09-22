@@ -418,6 +418,10 @@ body.suggested_tiles-update{
   & #images_modal{
     background: transparent;
     border: none;
+    &.reveal-modal{
+      top: 0px;
+    }
+
   }
 
   //
