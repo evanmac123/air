@@ -80,7 +80,7 @@ Airbo.TileTagger = (function(){
   }
 
   function noTags() {
-    $('.tile_tags a').length === 0;
+    return $('.tile_tags a').length === 0;
   }
 
   function enableShareLink() {
@@ -191,7 +191,7 @@ Airbo.TileTagger = (function(){
       }
       shareRadios = $('#share_to_explore_buttons input[type=radio]');
       uncheckedRadio = shareRadios.not(':checked').first();
-      uncheckedRadio.click();
+      uncheckedRadio.click(); //TODO fix this just set the state
     });
   }
 
