@@ -21,12 +21,12 @@ class TileStatsChartForm
 
   def initialize tile, params = {}
     @tile = tile
+    @action_type = params.delete(:action_type) || ACTION_TYPES[0]
+    @value_type = params.delete(:value_type) || VALUE_TYPES[0]
     params = initial_params if params.empty?
     @time_handler = TimeHandler.new(
       params.slice(:interval_type, :start_date, :end_date, :date_range_type, :changed_field)
     ).handle
-    @action_type = params[:action_type] || ACTION_TYPES[0]
-    @value_type = params[:value_type] || VALUE_TYPES[0]
   end
 
   def changed_field

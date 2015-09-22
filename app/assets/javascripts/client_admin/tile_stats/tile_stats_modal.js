@@ -2,7 +2,7 @@ var Airbo = window.Airbo || {};
 
 Airbo.TileStatsModal = (function(){
   // Selectors
-  var tileStatsLinkSel = ".tile_stats",
+  var tileStatsLinkSel = ".tile_stats .stat_action",
       modalSel = "#tile_stats_modal",
       modalContentSel = modalSel + " #modal_content",
       modalBgSel = '.reveal-modal-bg';
@@ -18,7 +18,7 @@ Airbo.TileStatsModal = (function(){
     return function (data){
       modalContent.html(data.page);
       reloadComponents();
-      modal.foundation("reveal", "open", {animation: 'none'});
+      modal.foundation("reveal", "open");//, {animation: 'none'});
       // modal.reveal({animation: 'fade'});
     };
   }

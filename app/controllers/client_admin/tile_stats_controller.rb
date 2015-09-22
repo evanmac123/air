@@ -2,7 +2,7 @@ class ClientAdmin::TileStatsController < ClientAdminBaseController
   def index
     @tile = Tile.find(params[:tile_id])
 
-    @chart_form = TileStatsChartForm.new @tile
+    @chart_form = TileStatsChartForm.new @tile, {action_type: params[:action_type]}
     @chart = TileStatsChart.new(*@chart_form.chart_params).draw
 
     @survey_chart = @tile.survey_chart if @tile.is_survey?
