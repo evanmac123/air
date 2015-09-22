@@ -605,6 +605,13 @@ body.suggested_tiles-update{
           } 
         }
 
+
+        &.action {
+          ul.answer_option{
+            margin-top: 0;
+          }
+        }
+
         &.quiz{
           .tile_multiple_choice_answer{
             ul.answer_option{
