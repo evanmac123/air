@@ -390,6 +390,8 @@ Airbo.TileCreator = (function(){
       }else{
         getImageLibrary($(this).data("libraryUrl"));
       }
+
+      disableCloseModalConfirmation();
     });
   }
 
@@ -449,6 +451,7 @@ Airbo.TileCreator = (function(){
   function imagesModalOpenclose(){
     $(document).on('closed.fndtn.reveal', imagesModalSelector, function () {
       openTileFormModal();
+      enableCloseModalConfirmation();
     });
   }
 
@@ -458,7 +461,6 @@ Airbo.TileCreator = (function(){
     initCancelBeforeSave();
   }
 
-
   function initCancelBeforeSave(){
     var msg = "Are you sure you want to stop " + preventCloseMsg + " this tile?"
     + " Any changes you've made will be lost.", 
@@ -467,7 +469,7 @@ Airbo.TileCreator = (function(){
   }
 
   function openImageSelectorModal(){
-    imagesModal.foundation("reveal", "open", {animation: "fade"});
+    imagesModal.foundation("reveal", "open", {animation: "fade", closeOnBackgroundClick: true});
   }
 
   function initModalOpenClose(){
