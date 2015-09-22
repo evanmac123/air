@@ -340,6 +340,7 @@ Airbo.TileCreator = (function(){
     refreshCurrentPreview(data.preview)
     prepShow();
     updateTileSection(data);
+    scrollPageToTop();
   }
 
   function refreshCurrentPreview(content){
@@ -408,11 +409,14 @@ Airbo.TileCreator = (function(){
    });
  }
 
+ function scrollPageToTop(){
+   $("body").scrollTop(50);
+ }
+
  function tileModalOpenClose(){
 
    $(document).on('open.fndtn.reveal',tileModalSelector, function () {
-     $("body").scrollTop(50)
-
+     scrollPageToTop();
    });
 
    $(document).on('opened.fndtn.reveal',tileModalSelector, function () {
