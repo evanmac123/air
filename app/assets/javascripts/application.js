@@ -62,7 +62,6 @@ Airbo.Utils = {
 
           var editor = new MediumEditor(this, {
             staticToolbar:true, 
-            placeholder: $(this).data("placeholder"),
             buttonLabels: 'fontawesome',
             toolbar: {
               buttons: ['bold', 'italic', 'unorderedlist', 'orderedlist', "anchor"]
