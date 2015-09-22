@@ -77,7 +77,8 @@ Airbo.GridUpdatesChecker = (function(){
   function initEvents() {
     $(document).on("click", newRecordsSectionSel, function(e) {
       e.preventDefault();
-      $(".grid_types a").first().click();
+      $("#grid_type_select").find('option').eq(0).prop('selected', true);
+      $("#grid_type_select").trigger("change", true);
       updateStartTime();
     });
   }

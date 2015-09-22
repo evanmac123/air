@@ -14,8 +14,8 @@ class ClientAdmin::TileStatsGridsController < ClientAdminBaseController
   def new_completions_count
     tile = Tile.find(params[:tile_id])
     start_time = Time.at params[:start_time_in_ms].to_i/1000
-    count = tile.tile_completions.where{created_at >= start_time }.count
-    text = count > 0 ? "Load #{count} new events".pluralize(count) : ""
+    count = tile.tile_completions.where{created_at >= start_time }.count 
+    text = count > 0 ? "Load #{count} new event".pluralize(count) : ""
     render json: { text: text }
   end
 
