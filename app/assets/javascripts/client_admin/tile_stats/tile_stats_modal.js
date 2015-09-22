@@ -40,7 +40,7 @@ Airbo.TileStatsModal = (function(){
   function modalOpenClose() {
    $(document).on('open', modalSel, function () {
      $("body").scrollTop(50);
-     var modalHeight = modal.height() + 200;
+     var modalHeight = modal.height() + 700;
      $(".main").css({"max-height": modalHeight, "overflow-y": "hidden"});
    });
 
