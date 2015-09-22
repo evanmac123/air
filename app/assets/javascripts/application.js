@@ -70,11 +70,10 @@ Airbo.Utils = {
 
           $(this).html($("#" + $(this).data("field")).val());
 
-
-          $(this).on('input', function() {
-            var obj =$(this),  textLength = obj.text().trim().length
-            , fieldName = obj.data('field')
-            , field = $("#" + fieldName)
+          editor.subscribe('editableInput', function (event, editable) {
+            var obj =$(editable),  textLength = obj.text().trim().length
+              , fieldName = obj.data('field')
+              , field = $("#" + fieldName)
             ;
 
             if(textLength > 0){
@@ -85,6 +84,7 @@ Airbo.Utils = {
 
             field.blur();
           });
+
         })
       }
     };
