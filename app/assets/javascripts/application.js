@@ -64,7 +64,7 @@ Airbo.Utils = {
             staticToolbar:true, 
             buttonLabels: 'fontawesome',
             toolbar: {
-              buttons: ['bold', 'italic', 'unorderedlist', 'orderedlist', "anchor"]
+              buttons: ['bold', 'italic', 'underline', 'unorderedlist', 'orderedlist', "anchor"]
             }
           });
 
