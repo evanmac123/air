@@ -25,6 +25,33 @@ class GridQuery::TileActions
     end
   end
 
+  def guest_query
+    guest_users_viewings_subquery = TileViewing.guest_users_viewings(tile.id)
+    guest_users_completions_subquery = TileCompletion.where(tile_id: tile.id, user_type: 'GuestUser')
+
+    tile.demo.guest_users.
+      joins do
+        "LEFT JOIN (" +
+         guest_users_completions_subquery.to_sql +
+        ") AS tile_completions " +
+        "ON tile_completions.user_id = guest_users.id"
+      end.
+      joins do
+        "LEFT JOIN (" +
+         guest_users_viewings_subquery.to_sql +
+        ") AS tile_viewings " +
+        "ON tile_viewings.user_id = guest_users.id"
+      end.
+      select(
+        "guest_users.id AS user_id, \
+         'Guest User[' || guest_users.id || ']' AS user_name, \
+         'guest_user' || guest_users.id || '@example.com' AS user_email, \
+         tile_viewings.views AS tile_views, \
+         tile_completions.answer_index AS tile_answer_index, \
+         tile_completions.created_at AS completion_date"
+      )
+  end
+
   protected
     def answer_index
       tile.multiple_choice_answers.index(answer_filter)
