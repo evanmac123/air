@@ -161,7 +161,6 @@ module TilePreviewsHelper
 
   def share_to_explore_css_config tile 
     copy_switch_classes = %w(switch tiny round allow_copy)
-    copy_switch_classes << "disabled" unless tile.tile_tags.present?
 
     share_to_explore_classes = %w(share_to_explore)
     share_to_explore_classes << "disabled" unless tile.tile_tags.present?
