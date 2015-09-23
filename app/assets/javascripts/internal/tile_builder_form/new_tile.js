@@ -80,8 +80,13 @@ Airbo.TileCreator = (function(){
      position: "bottom",
      contentAsHTML: true,
      functionReady: prepareToolTip,
-     autoClose: true,
+     autoClose: shouldAutoClose()
    });
+ }
+
+
+ function shouldAutoClose(){
+   return Airbo.Utils.urlParamValueByname("dactt") ? false : true;
  }
 
  function initSharing(){
