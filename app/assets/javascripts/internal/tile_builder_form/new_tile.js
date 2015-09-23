@@ -79,12 +79,13 @@ Airbo.TileCreator = (function(){
      interactive: true,
      position: "bottom",
      contentAsHTML: true,
-     functionReady: initSharing,
+     functionReady: prepareToolTip,
      autoClose: true,
    });
  }
 
  function initSharing(){
+   inExistingTile = true;
    Airbo.TileSharingMgr.init();
    Airbo.TileTagger.init({
        submitSuccess:  function(data){
@@ -94,6 +95,10 @@ Airbo.TileCreator = (function(){
        },
      }
    );
+ }
+
+ function prepareToolTip(origin, content){
+  initSharing();
  }
 
 
@@ -111,7 +116,6 @@ Airbo.TileCreator = (function(){
  function updateTileSection(data){
 
    var selector , section = pageSectionByStatus(data.tileStatus); 
-
    if(inExistingTile){
      replaceTileContent(data)
    } else{
