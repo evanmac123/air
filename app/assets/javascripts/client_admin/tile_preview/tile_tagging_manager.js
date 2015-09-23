@@ -253,7 +253,6 @@ Airbo.TileTagger = (function(){
         if (noTags()) {
           highlightAddTag();
           disableShareLink();
-          disableCopySwitch();
         }
         submitTileForm();
       }
