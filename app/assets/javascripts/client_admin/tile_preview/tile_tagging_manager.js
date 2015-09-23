@@ -49,39 +49,7 @@ Airbo.TileTagger = (function(){
     submitFail: Airbo.Utils.noop
   }
 
-  function jumpTagSelected(event, ui) {
-    var startedWithNoTags;
-    startedWithNoTags = noTags();
-    if (ui.item.value.found) {
-      appendSelectedTags(ui.item.value.id, ui.item.label);
-    } else {
-      addNewTag(ui.item.value.name);
-    }
 
-    tagList.addClass("has_tags");
-    submitTileForm();
-    addTagId.val("");
-    unhighlightAddTag();
-    enableShareLink(); // TODO very if of to remove this functionality from tile tagging and sharing to explore
-    enableCopySwitch();
-
-    if (startedWithNoTags) {
-     allowCopyingOn.click(); //FIXME just set the appropriate state
-    }
-    event.preventDefault();
-  }
-
-  function unhighlightAddTag() {
-    addTagId.removeClass('highlighted');
-  }
-
-  function highlightAddTag() {
-    addTagId.addClass('highlighted');
-  }
-
-  function noTags() {
-    return $('.tile_tags a').length === 0;
-  }
 
   function enableShareLink() {
     shareToExplore.removeClass('disabled');
@@ -91,13 +59,6 @@ Airbo.TileTagger = (function(){
     shareToExplore.addClass('disabled');
   }
 
-  function enableCopySwitch() {
-    allowCopy.removeClass('disabled');
-  }
-
-  function disableCopySwitch() {
-    allowCopy.addClass('disabled');
-  }
 
   function toggleShareRemove(nowPosted) {
     if (nowPosted) {
@@ -116,13 +77,16 @@ Airbo.TileTagger = (function(){
     }
   }
 
-  function addNewTag(name) {
-    $.ajax({
-      url: "/client_admin/tile_tags/add?term=" + name,
-      success: function(id) {
-        appendSelectedTags(id, name);
-      }
-    });
+  function unhighlightAddTag() {
+    addTagId.removeClass('highlighted');
+  }
+
+  function highlightAddTag() {
+    addTagId.addClass('highlighted');
+  }
+
+  function noTags() {
+    return $('.tile_tags a').length === 0;
   }
 
 
@@ -135,19 +99,52 @@ Airbo.TileTagger = (function(){
     return tagList.find("#"+id).length === 0;
   }
 
+  function jumpTagSelected(event, ui) {
+    event.preventDefault();
+
+    if (ui.item.value.found) {
+      appendSelectedTags(ui.item.value.id, ui.item.label);
+    } else {
+      addNewTag(ui.item.value.name);
+    }
+
+  }
+
+
+  function updateTags(){
+    tagList.addClass("has_tags");
+    enableCopying();
+    submitTileForm();
+
+    addTagId.val("");
+    unhighlightAddTag();
+  }
+
+  function enableCopying(){
+   allowCopyingOn.prop("checked",true);
+  }
+
+  function addNewTag(name) {
+    $.ajax({
+      url: "/client_admin/tile_tags/add?term=" + name,
+      success: function(id) {
+        appendSelectedTags(id, name);
+      }
+    });
+  }
 
   function appendSelectedTags(id, name) {
     publicTileForm.find('.tag_alert').hide();
 
     if (tagIdNotInList(id)) {
-
       tagList.append("<li id='" + id + "'>" + name + "<a class='fa fa-times'></a> </li>");
-
       if (selectedTagIds.val() === "") {
         selectedTagIds.val(id);
       } else {
         selectedTagIds.val(selectedTagIds.val() + ("," + id));
       }
+
+      updateTags();
     }
   }
 
@@ -284,6 +281,7 @@ Airbo.TileTagger = (function(){
       if (isValidToShareToExplore()){
         ajaxHandler.submit($(this), config.submitSuccess, config.submitFail);
       }
+      return false;
     });
   }
 
