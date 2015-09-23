@@ -78,7 +78,7 @@ module TilePreviewsHelper
   end
 
   def tile_preview_menu_action_item tile, config
-    link_to  status_change_client_admin_tile_path(tile), data: {status: config[:status]},  class: 'update_status' do
+    link_to  status_change_client_admin_tile_path(tile), data: {status: config[:status], tileId: tile.id},  class: 'update_status' do
       menu_item_text_and_icon(config[:action], config[:icon])
     end
   end
