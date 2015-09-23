@@ -10,7 +10,7 @@ Airbo.TileCreator = (function(){
     , tileBuilderForm
     , validator
     , tileBuilderSubmitButton
-    , inExistingTile = false
+    , isExistingTile = false
     , keepOpen = false
     , tileBuilderCloseSelector = "#tilebuilder_close"
     , visileTilePlaceholderSelector = ".tile_container.placeholder_container:visible"
@@ -19,7 +19,7 @@ Airbo.TileCreator = (function(){
     , modalContentSelector = "#modal_content"
     , modalBackgroundSelector = '.reveal-modal-bg'
     , sectionSelector = ".manage_section"
-    , newSelector = "a#add_new_tile, #add_new_tile.preview_menu_item a"
+    , newSelector = "a#add_new_tile"
     , editSelector = ".tile_buttons .edit_button>a, .preview_menu_item.edit>a"
     , previewSelector = ".tile-wrapper a.tile_thumb_link"
     , tileNavigationSelector = "#prev, #next"
@@ -90,7 +90,6 @@ Airbo.TileCreator = (function(){
  }
 
  function initSharing(){
-   inExistingTile = true;
    Airbo.TileSharingMgr.init();
    Airbo.TileTagger.init({
        submitSuccess:  function(data){
@@ -121,7 +120,7 @@ Airbo.TileCreator = (function(){
  function updateTileSection(data){
 
    var selector , section = pageSectionByStatus(data.tileStatus); 
-   if(inExistingTile){
+   if(isExistingTile){
      replaceTileContent(data)
    } else{
      section.prepend(data.tile); //Add tile to section
@@ -189,7 +188,8 @@ Airbo.TileCreator = (function(){
     $("body").on("click", modalActivationSelectors, function(event){
       event.preventDefault(); 
       modalTrigger = $(this);
-      inExistingTile = true
+
+      isExistingTile = modalTrigger.is(newSelector) ? false : true;
       $.ajax({
         type: "GET",
         dataType: "html",
@@ -230,7 +230,6 @@ Airbo.TileCreator = (function(){
     $("body").on("submit", tileBuilderFormSelector, function(event){
       event.preventDefault(); 
       var form = $(this);
-
       if(form.valid()){
         disableTileBuilderFormSubmit();
         ajaxHandler.submit(form, refreshTileDataPageWide, enableTileBuilderFormSubmit);
@@ -453,7 +452,7 @@ Airbo.TileCreator = (function(){
      if(keepOpen){
         openTileFormModal();
      }else{
-      inExistingTile = false;
+      isExistingTile = false;
       $(".main").css({"max-height": "", "overflow": ""});
      }
    });
