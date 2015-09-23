@@ -377,15 +377,14 @@ Airbo.TileCreator = (function(){
       var tile, target = $(this) ;
 
       tile = tileByStatusChangeTriggerLocation(target);
-
       $.ajax({
         url: target.attr("href"),
         type: "put",
         data: {"update_status": target.data("status")},
         dataType: "html",
         success: function(data, status,xhr){
+          closeModal();
           moveTile(tile, data);
-          $(modalBackgroundSelector).trigger("click");
         },
 
       });
@@ -491,6 +490,10 @@ Airbo.TileCreator = (function(){
   function initModalOpenClose(){
     tileModalOpenClose();
     imagesModalOpenclose();
+  }
+
+  function closeModal(){
+    $(tileBuilderCloseSelector).trigger("click");
   }
 
   function initJQueryObjects(){
@@ -676,5 +679,7 @@ Airbo.TileSuportingContentTextManager = (function(){
 
 
 $(function(){
+
+  
 Airbo.TileCreator.init();
 })
