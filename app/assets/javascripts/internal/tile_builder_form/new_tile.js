@@ -381,6 +381,7 @@ Airbo.TileCreator = (function(){
 
   }
 
+
   function initStatusUpdate(){
     $("body").on("click", ".update_status", function(event) {
       event.preventDefault();
@@ -388,20 +389,20 @@ Airbo.TileCreator = (function(){
       var tile, target = $(this) ;
 
       tile = tileByStatusChangeTriggerLocation(target);
+
       $.ajax({
         url: target.attr("href"),
         type: "put",
         data: {"update_status": target.data("status")},
         dataType: "html",
         success: function(data, status,xhr){
-          closeModal();
+          closeModal(tileModal);
           moveTile(tile, data);
         },
 
       });
     });
   }
-
 
   function initImageLibraryModal(){
     $("body").on("click", addImageSelector, function(event){
@@ -479,6 +480,10 @@ Airbo.TileCreator = (function(){
       openTileFormModal();
       enableCloseModalConfirmation();
     });
+
+    $(document).on('close.fndtn.reveal', imagesModalSelector, function (event) {
+      //noop
+    });
   }
 
 
@@ -503,8 +508,8 @@ Airbo.TileCreator = (function(){
     imagesModalOpenclose();
   }
 
-  function closeModal(){
-    $(tileBuilderCloseSelector).trigger("click");
+  function closeModal(modal){
+   modal.foundation("reveal", "close");
   }
 
   function initJQueryObjects(){

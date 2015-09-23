@@ -65,7 +65,9 @@ $(function() {
         //TODO decouple from the new tile builder modal
 
         $("#remote_media_url").focusout();
-        $("#images_modal").foundation("reveal", "close");
+        if($("#images_modal").hasClass("open")){
+          $("#images_modal").foundation("reveal", "close");
+        }
       }
 
       function showFileName(file){
