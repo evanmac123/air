@@ -44,7 +44,7 @@ Airbo.TileStatsModal = (function(){
      $(".main").css({"max-height": modalHeight, "overflow-y": "hidden"});
    });
 
-   $(document).on('close', modalSel, function (event) {
+   $(document).on('closed', modalSel, function (event) {
      $(".main").css({"max-height": "", "overflow": ""});
    });
   }
