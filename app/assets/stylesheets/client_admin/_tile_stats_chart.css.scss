@@ -4,7 +4,6 @@ body.client_admin-tile_stats, #tile_stats_modal {
     overflow: hidden;
     margin-bottom: 55px;
     margin-right: -10px;
-    // padding-left: 20px;
   }
   .actions_column {
     width: 200px;
@@ -43,21 +42,17 @@ body.client_admin-tile_stats, #tile_stats_modal {
     &.selected {
       border-color: $sky-blue;
       .action_num {
-        // color: #007BC2;
         font-weight: 400;
       }
       .action_name {
         font-weight: 500;
-        // color: #006BA8;
       }
     }
     &:hover {
       .action_num {
-        // color: #007BC2;
         font-weight: 400;
       }
       .action_name {
-        // color: #006BA8;
         font-weight: 500;
       }
     }
@@ -74,7 +69,6 @@ body.client_admin-tile_stats, #tile_stats_modal {
       font-size: 30px;
       font-weight: 300;
       padding-bottom: 2px;
-      // line-height: 37px;
       line-height: 27px;
     }
     .action_name {
@@ -159,7 +153,6 @@ body.client_admin-tile_stats, #tile_stats_modal {
   // Specific dropdowns
   .interval_custom_drop {
     width: 95px !important;
-    // margin-left: 7px !important;
     margin-left: 45px !important;
   }
   .value_custom_drop {

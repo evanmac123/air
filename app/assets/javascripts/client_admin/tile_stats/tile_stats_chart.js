@@ -36,16 +36,13 @@ Airbo.TileStatsChart = (function(){
   function formResponse(){
     return function (data){
       if(data.success){
-        // console.log(data.chart);
         $(".tile_chart_section").replaceWith(data.chart);
         initVars();
-        // updateChartSection(data.chart);
       }
     };
   }
 
   function submitForm(){
-    // form.submit();
     form.ajaxSubmit({
       success: formResponse(),
       dataType: 'json'
@@ -112,7 +109,7 @@ Airbo.TileStatsChart = (function(){
     initVars();
     initEvents();
 
-    setTimeout(submitForm, 100); 
+    setTimeout(submitForm, 100);
   }
   return {
     init: init

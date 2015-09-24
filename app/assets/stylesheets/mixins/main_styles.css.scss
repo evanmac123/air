@@ -228,7 +228,7 @@ a, a:link, a:visited {@include link($blue);}
   background: -o-linear-gradient(top,  $color 40%,darken($color, 5%) 100%);
   background: -ms-linear-gradient(top,  $color 40%,darken($color, 5%) 100%);
   background: linear-gradient(to bottom,  $color 40%,darken($color, 5%) 100%);
-  
+
   border:1px $color solid;
   border-radius:$border-radius;
 
@@ -397,7 +397,7 @@ input[type="number"], select, .text-input {
     transition:none;
   }
 }
-input[type="text"], input[type="password"], 
+input[type="text"], input[type="password"],
 input[type="file"], textarea, .text-input {
   color: $text-color;
   border-radius: $border-radius;
@@ -430,7 +430,6 @@ input:focus, select, textarea {outline: 0;}
 label { @extend h5; }
 
 form.custom .custom.dropdown {
-  //font-size: 14px;
   ul li {
     color: $med-gray;
     &.selected, &:hover{

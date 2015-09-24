@@ -40,7 +40,6 @@ Airbo.GridUpdatesChecker = (function(){
   }
 
   function checkForUpdate() {
-    //console.log(timeoutID);
     $.ajax({
       url: checkLink,
       data: {start_time_in_ms: startTimeInMs},

@@ -32,25 +32,6 @@ body.client_admin-tile_stats, #tile_stats_modal {
       border-color: $med-gray;
     }
   }
-  // .grid_types {
-  //   overflow: auto;
-  //   margin-bottom: 28px;
-  //   a {
-  //     float: left;
-  //     text-transform: uppercase;
-  //     color: $med-gray;
-  //     padding: 6px 5px;
-  //     margin-right: 40px;
-  //     font-size: 12px;
-  //     &:hover {
-  //       color: #737373;
-  //     }
-  //     &.current {
-  //       color: $text-color;
-  //       border-bottom: 2px solid $sky-blue;
-  //     }
-  //   }
-  // }
   %stats-table {
     border-radius: 3px;
     -webkit-border-radius: 3px;
@@ -59,24 +40,6 @@ body.client_admin-tile_stats, #tile_stats_modal {
 
     font-size: 14px;
     margin: 0;
-    // box-shadow: 0px 2px 3px -2px rgba(0,0,0,0.22);
-    // tbody td, thead th {
-    //   &:first-child, &:last-child {
-    //
-    //   }
-    // }
-    // tbody {
-    //   box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.22);
-    // tr {
-    //   border: 1px solid #e3e3e3;
-    //   border-radius: 3px;
-    // }
-    // tbody {
-    //   border: 1px solid #e3e3e3;
-    //   border-top-width: 0;
-    //   border-bottom-width: 0;
-    //   border-radius: 3px;
-    // }
     th, td {
       padding: 14px 20px;
     }
@@ -134,25 +97,6 @@ body.client_admin-tile_stats, #tile_stats_modal {
   .survey-chart-table {
     @extend %stats-table;
     margin-bottom: 51px;
-    // th {
-    //   // cursor: pointer;
-    //   // span {
-    //   //   @include sort-arrows(transparent);
-    //   // }
-    //   // &:hover span {
-    //   //   @include sort-arrows(#8c8c8c);
-    //   // }
-    //   // &.sort-up {
-    //   //   span {
-    //   //     @include sort-arrows($text-color);
-    //   //   }
-    //   // }
-    //   // &.sort-down {
-    //   //   span {
-    //   //     @include sort-arrows($text-color, 'down');
-    //   //   }
-    //   // }
-    // }
     tr.selected {
       td {
         background: #e9f0f7;
@@ -168,8 +112,6 @@ body.client_admin-tile_stats, #tile_stats_modal {
     }
     .percent {
       width: 35%;
-      // padding-top: 7px;
-      // padding-bottom: 7px;
     }
     .progress, .percent_num {
       float: left;
@@ -191,18 +133,9 @@ body.client_admin-tile_stats, #tile_stats_modal {
     @extend %stats-table;
     .new_records {
       background: #f5fcfc;
-      // border: 1px solid #cbeaff;
-      // border-radius: 3px;
       text-align: center;
       color: #1f7cb2;
       cursor: pointer;
-    }
-    // tbody tr:last-child td {
-    //   box-shadow: 0px 2px 3px -2px rgba(0,0,0,0.22);
-    // }
-    // tfoot td {
-    //   box-shadow: 0px 2px 2px 3px $off-white;
-    // }
     .name_column {
       width: 25%;
     }

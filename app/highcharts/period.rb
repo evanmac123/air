@@ -7,19 +7,6 @@ class Period
     @end_date = from_american_format end_date
   end
 
-  # def x_axis_label_format
-  #   case @interval_type
-  #   when 'monthly'
-  #     "%b %Y"
-  #   when 'weekly'
-  #     "%b %d"
-  #   when 'daily'
-  #     "%b %d"
-  #   when 'hourly'
-  #     "%l %p"
-  #   end
-  # end
-
   def point_interval
     case @interval_type
     when 'monthly'
@@ -69,11 +56,10 @@ class Period
 
   def each_point
     curr_point = q_start_date.send ("beginning_of_" + time_unit).to_sym
-    stop_point  = q_end_date#.send ("beginning_of_" + time_unit).to_sym
+    stop_point  = q_end_date
 
     while curr_point <= stop_point
       yield show_date(curr_point, :utc_str)
-      # curr_point = (curr_point + point_interval).send ("beginning_of_" + time_unit).to_sym
       curr_point = curr_point + point_interval
     end
   end

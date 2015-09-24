@@ -11,22 +11,18 @@ Airbo.TileStatsModal = (function(){
       modalContent,
       chart,
       grid;
-      // surveyTable;
-  //
 
   function ajaxResponse(){
     return function (data){
       modalContent.html(data.page);
       reloadComponents();
-      modal.foundation("reveal", "open");//, {animation: 'none'});
-      // modal.reveal({animation: 'fade'});
+      modal.foundation("reveal", "open");
     };
   }
 
   function reloadComponents() {
     chart.init();
     grid.init();
-    // surveyTable.init();
   }
 
   function getPage(link) {
@@ -38,15 +34,6 @@ Airbo.TileStatsModal = (function(){
   }
 
   function modalOpenClose() {
-  //  $(document).on('open', modalSel, function () {
-  //    $("body").scrollTop(0);
-  //    var modalHeight = modal.height() + 700;//550;
-  //    $(".main").css({"max-height": modalHeight, "overflow-y": "hidden"});
-  //  });
-   //
-  //  $(document).on('closed', modalSel, function (event) {
-  //    $(".main").css({"max-height": "", "overflow": ""});
-  //  });
     $(document).on('open', modalSel, function(){
       $("body").addClass('overflow_hidden');
     });
@@ -62,19 +49,6 @@ Airbo.TileStatsModal = (function(){
       getPage( $(this).data("href") );
     });
     modalOpenClose();
-    // $(document).on('open', modalSel, function(){
-    //   $("body").addClass('overflow_hidden');
-    // });
-    //
-    // $(document).on('closed', modalSel, function(){
-    //   $("body").removeClass('overflow_hidden');
-    // });
-
-    // $(document).on('mousewheel DOMMouseScroll', modalBgSel, function(e){
-    //   var delta = modalContent.scrollTop() - e.originalEvent.wheelDelta;
-    //   // console.log(delta);
-    //   modalContent.scrollTop(delta);
-    // });
   }
 
   function initVars(){
@@ -82,7 +56,6 @@ Airbo.TileStatsModal = (function(){
     modalContent = $(modalContentSel);
     chart = Airbo.TileStatsChart;
     grid = Airbo.TileStatsGrid;
-    // surveyTable = Airbo.SurveyTable;
   }
 
   function init(){
