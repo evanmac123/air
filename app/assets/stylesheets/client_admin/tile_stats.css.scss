@@ -1,6 +1,9 @@
 @import 'tile_stats_chart';
 @import 'tile_stats_tables';
 body.client_admin-tile_stats, #tile_stats_modal {
+  .content {
+    background: $off-white;
+  }
   .title_block {
     position: relative;
     padding: 30px 40px;
