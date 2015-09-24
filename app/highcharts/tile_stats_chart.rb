@@ -114,7 +114,11 @@ JS
         line: {
           pointStart: period.start_date(:date),
           pointInterval: period.point_interval,
-          #shadow: false
+          lineWidth: 3,
+          shadow: false,
+          marker: {
+            radius: 6
+          }
         }
       }
     end
@@ -128,7 +132,7 @@ JS
         },
         headerFormat: "<div style='color:{series.color};'>{point.key}</div>",
         pointFormat: "<div style='padding-top:3px;'>{point.y}</div>",
-        # shadow: false
+        shadow: false
       }
     end
 
