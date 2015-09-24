@@ -174,29 +174,54 @@ Airbo.TileCreator = (function(){
  function setupModalFor(action){
    action = action || modalTrigger.data("action");
 
-   tileModal.find(modalContentSelector).html(modalContent);
-
+   tileModal.find(modalContentSelector).empty().append(modalContent);
    processEvent(action);
    openTileFormModal();
  }
 
 
+ function getImageHeight(img){
+   var domImage = img[0]
+     , h = domImage.height
+     , w = domImage.weight
+     , maxWidth = 600
+     , ratio = maxWidth/w
+   ;
 
+   return ratio*h;
+ }
 
-  function initNewTileModal(){
+   function initNewTileModal(){
 
     $("body").on("click", modalActivationSelectors, function(event){
+      var img, imgHeight;
       event.preventDefault(); 
+    
+
       modalTrigger = $(this);
 
-      isExistingTile = modalTrigger.is(newSelector) ? false : true;
+      isExistingTile = modalTrigger.is(newSelector) ? false : true; 
+
+      if(isExistingTile){
+        selector =  tileWrapperSelector + "[data-tile-id=" + modalTrigger.data("tileId") + "]";
+        img =  $(selector).find(".tile_thumbnail_image img");
+        imgHeight = getImageHeight(img);
+      }else{
+        imgHeight = "";
+      }
+
       $.ajax({
         type: "GET",
         dataType: "html",
         url: modalTrigger.attr("href") ,
         success: function(data, status,xhr){
-          modalContent = data;
-          setupModalFor(modalTrigger.data("action"));
+          var newImage  = new Image();
+          newImage.onload = function(){ // always fires the event.
+            modalContent = $(data);
+            modalContent.find(".tile_full_image").css("min-height", imgHeight);
+            setupModalFor(modalTrigger.data("action"));
+          };
+          newImage.src = img[0].src
         },
 
         error: function(jqXHR, textStatus, error){
@@ -432,15 +457,19 @@ Airbo.TileCreator = (function(){
    $("body").scrollTop(50);
  }
 
+
+
  function tileModalOpenClose(){
 
    $(document).on('open.fndtn.reveal',tileModalSelector, function () {
      scrollPageToTop();
-   });
+
+       });
 
    $(document).on('opened.fndtn.reveal',tileModalSelector, function () {
      $('.reveal-modal-bg').css({'background-color':'#212C33', 'opacity': 0.9});
      var modalHeight = tileModal.height() + 300;
+
      $(".main").css({"max-height": modalHeight, "overflow-y": "hidden"});
 
      //TODO create after previewOpen / editOpen function for things that need to happen after the modal has opened
