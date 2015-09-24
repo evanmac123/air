@@ -17,7 +17,6 @@ Airbo.TileCreator = (function(){
     , tilePreviewStatusSelector = "#preview_tile_status"
     , tileWrapperSelector =".tile_container"
     , modalContentSelector = "#modal_content"
-    , modalBackgroundSelector = '.reveal-modal-bg'
     , sectionSelector = ".manage_section"
     , newSelector = "a#add_new_tile"
     , editSelector = ".tile_buttons .edit_button>a, .preview_menu_item.edit>a"
@@ -62,7 +61,7 @@ Airbo.TileCreator = (function(){
  function prepShow(){
 
    $("body").addClass("client_admin-tiles-show").removeClass("client_admin-tiles-edit");
-   $(".tile_preview_container").removeClass("large-9").addClass("large-12");
+   //$(".tile_preview_container").removeClass("large-9").addClass("large-12");
 
    Airbo.TileCarouselPage.init();
    initPreviewMenuTooltips();
@@ -93,9 +92,10 @@ Airbo.TileCreator = (function(){
    Airbo.TileSharingMgr.init();
    Airbo.TileTagger.init({
        submitSuccess:  function(data){
-        refreshCurrentPreview(data.preview);
-        prepShow();
-        updateTileSection(data);
+         refreshCurrentPreview(data.preview);
+         prepShow();
+         updateTileSection(data);
+         $(".tipsy.explore").tooltipster("show");
        },
      }
    );
@@ -230,6 +230,7 @@ Airbo.TileCreator = (function(){
     $("body").on("submit", tileBuilderFormSelector, function(event){
       event.preventDefault(); 
       var form = $(this);
+      debugger
       if(form.valid()){
         disableTileBuilderFormSubmit();
         ajaxHandler.submit(form, refreshTileDataPageWide, enableTileBuilderFormSubmit);
@@ -486,7 +487,7 @@ Airbo.TileCreator = (function(){
 
 
   function openTileFormModal(){
-    tileModal.foundation("reveal", "open", {animation: "fade",closeOnBackgroundClick: false });
+    tileModal.foundation("reveal", "open", {animation: "fade",closeOnBackgroundClick: true });
     initCancelBeforeSave();
   }
 
@@ -531,6 +532,13 @@ Airbo.TileCreator = (function(){
     initImageLibraryModal();
 
     initTileBuilderFormSubmission();
+
+    $(tileModalSelector).click(function(event){
+      if($(event.target).is(tileModalSelector)){
+        $(tileBuilderCloseSelector).trigger("click");
+        //tileModal.foundation("reveal", "close");
+      }
+    });
   }
 
 
