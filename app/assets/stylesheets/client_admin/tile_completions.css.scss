@@ -1,3 +1,6 @@
+// We don't need these styles because we don't have this page anymore.
+// But if you try to remove this file it will brake styles for  'add new tile' button in IE9.
+// I have no idea why. They are completele unconnected
 $tile_completion_button_height: 2.0em;
 body.client_admin-tile_completions {
   .pagination_status {
