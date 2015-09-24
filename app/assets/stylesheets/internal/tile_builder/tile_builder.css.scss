@@ -429,12 +429,40 @@ body.suggested_tiles-update{
   //
   & #new_tile_modal{
 
-    background: transparent;
-    border: none;
+    /*background: transparent;*/
+    /*border: none;*/
 
-    &.reveal-modal{
-      top: 0px;
-      padding-top: 0px;
+    background: transparent;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    top: 0 !important;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: scroll;
+
+
+    #modal_content {
+      width: 1007px;
+      margin: auto;
+      padding: 50px 0 50px 55px;
+    }
+
+ 
+    .close-reveal-modal {
+      position: fixed;
+      top: 47px;
+      right: 50%;
+      margin-right: 506px;
+      color: $white;
+      i {
+        font-size: 32px;
+        &:hover {
+          opacity: 0.7;
+        }
+      }
     }
 
     .medium-editor-placeholder:after {
@@ -453,18 +481,6 @@ body.suggested_tiles-update{
       padding-top: 14px;
       display: block;
       position: relative;
-    }
-
-
-    .close-reveal-modal {
-      right: 0px;
-      left: .6875em;
-      width: 2em;
-      margin-top: 0.2em;
-      .fa-2x{
-        font-size: 1.5em;
-      }
-
     }
 
 
@@ -852,3 +868,6 @@ body.suggested_tiles-update{
   color: #4face0
 }
 
+.reveal-modal-bg{
+  background: rgba(14, 23, 29, 0.8);
+}
