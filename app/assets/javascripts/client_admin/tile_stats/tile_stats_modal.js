@@ -38,15 +38,22 @@ Airbo.TileStatsModal = (function(){
   }
 
   function modalOpenClose() {
-   $(document).on('open', modalSel, function () {
-     $("body").scrollTop(0);
-     var modalHeight = modal.height() + 700;//550;
-     $(".main").css({"max-height": modalHeight, "overflow-y": "hidden"});
-   });
+  //  $(document).on('open', modalSel, function () {
+  //    $("body").scrollTop(0);
+  //    var modalHeight = modal.height() + 700;//550;
+  //    $(".main").css({"max-height": modalHeight, "overflow-y": "hidden"});
+  //  });
+   //
+  //  $(document).on('closed', modalSel, function (event) {
+  //    $(".main").css({"max-height": "", "overflow": ""});
+  //  });
+    $(document).on('open', modalSel, function(){
+      $("body").addClass('overflow_hidden');
+    });
 
-   $(document).on('closed', modalSel, function (event) {
-     $(".main").css({"max-height": "", "overflow": ""});
-   });
+    $(document).on('closed', modalSel, function(){
+      $("body").removeClass('overflow_hidden');
+    });
   }
 
   function initEvents(){
