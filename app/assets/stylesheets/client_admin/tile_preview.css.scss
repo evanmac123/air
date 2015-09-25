@@ -8,6 +8,13 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
         height:auto;
         top: 300px;
       }
+
+      a#prev{
+        left: -2.5em;
+      }
+      a#next{
+        right: -2.5em;
+      }
     }
   }
 
