@@ -173,7 +173,9 @@ $(function() {
       };
 
       function initImageChooser(){
-        $("body").on("click", imageFromLibrarySelector, function() {
+        $("body").on("click", imageFromLibrarySelector, function(event) {
+          event.stopPropagation();
+          event.stopImmediatePropagation();
           select($(this));
         });
       }
