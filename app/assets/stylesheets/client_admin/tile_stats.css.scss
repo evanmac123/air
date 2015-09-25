@@ -41,15 +41,15 @@ body.client_admin-tile_stats, #tile_stats_modal {
   bottom: 0;
   overflow-y: scroll;
   #modal_content {
-    width: 1007px;
+    width: 1158px;
     margin: auto;
-    padding: 50px 0 50px 55px;
+    padding: 50px 0 50px 150px;
   }
   .close-reveal-modal {
     position: fixed;
     top: 47px;
     right: 50%;
-    margin-right: 506px;
+    margin-right: 492px;
     color: $white;
     i {
       font-size: 32px;

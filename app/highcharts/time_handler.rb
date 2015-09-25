@@ -81,7 +81,7 @@ class TimeHandler
 
     def handle_interval_type
       date_diff = from_american_format(end_date) - from_american_format(start_date)
-      self.interval_type = if date_diff <= 96.hours
+      self.interval_type = if date_diff <= 24.hours
                             'hourly'
                           elsif date_diff <= 30.days
                             'daily'

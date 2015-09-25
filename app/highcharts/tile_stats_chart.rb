@@ -117,7 +117,7 @@ JS
           lineWidth: 3,
           shadow: false,
           marker: {
-            radius: 6
+            radius: 5
           }
         }
       }
