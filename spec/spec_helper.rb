@@ -93,4 +93,3 @@ def metal_testing_hack(klass)
   end
 end
 
-Rails.logger.level = 4
