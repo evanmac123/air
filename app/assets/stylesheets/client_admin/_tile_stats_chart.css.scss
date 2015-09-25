@@ -190,6 +190,9 @@ body.client_admin-tile_stats, #tile_stats_modal {
         color: #424242;
         border-color: #808080;
       }
+      &.opened {
+        border-color: $sky-blue;
+      }
     }
     span {
       float: left;

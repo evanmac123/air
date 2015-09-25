@@ -79,13 +79,13 @@ JS
         tickColor: 'white',
         maxPadding: 0.04,
         minPadding: 0.04,
-        units: [
-          [ 'hour',   [2, 3, 4, 6, 8, 12] ],
-          [ 'day',    [2, 3, 4, 6] ],
-          [ 'week',   [] ],
-          [ 'month',  [2, 3, 6] ],
-          [ 'year',   [1, 2, 3] ]
-        ]
+        # units: [
+        #   [ 'hour',   [2, 3, 4, 6, 8, 12] ],
+        #   [ 'day',    [1, 2, 3, 4, 6] ],
+        #   [ 'week',   [] ],
+        #   [ 'month',  [1, 2, 3, 6] ],
+        #   [ 'year',   [1, 2, 3] ]
+        # ]
       }
     end
 

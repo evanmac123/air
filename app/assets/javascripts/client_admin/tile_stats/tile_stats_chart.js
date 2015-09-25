@@ -62,7 +62,10 @@ Airbo.TileStatsChart = (function(){
       showOtherMonths: true,
       selectOtherMonths: true,
       dateFormat: 'M d, yy',
-      maxDate: 0
+      maxDate: 0,
+      onClose: function(dateText, inst) {
+        $(inst.input).removeClass("opened");
+      }
     });
   }
 
@@ -78,7 +81,7 @@ Airbo.TileStatsChart = (function(){
       if(input.val() == "pick_a_date_range"){
         dateRangeBlock.hide();
         datesSelection.show();
-        datePickers.first().datepicker("show");
+        datePickers.first().trigger("click").datepicker("show");
       }else if(input == dateRange && input.find("option").eq(0).attr("selected")){
         return;
       }else{
@@ -104,6 +107,9 @@ Airbo.TileStatsChart = (function(){
 
       downloadChart.find('option').eq(0).prop('selected', true);
       downloadChart.trigger("change", true); // to update custom select
+    });
+    $(document).on("click", dateStartSel + ", " + dateEndSel, function(){
+      $(this).addClass("opened");
     });
   }
 
