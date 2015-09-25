@@ -902,8 +902,13 @@ body.suggested_tiles-update{
 
 // medium editor overrides
 
-.medium-editor-toolbar li button:hover{
-  color: #4face0
+.medium-editor-toolbar { 
+  li {
+    width: 50px; //required fix for ie9
+    button:hover {
+      color: #4face0
+    }
+  }
 }
 
 .reveal-modal-bg{
