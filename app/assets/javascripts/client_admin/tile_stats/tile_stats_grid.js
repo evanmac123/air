@@ -5,10 +5,8 @@ Airbo.TileStatsGrid = (function(){
   var tileGridSectionSel = ".tile_grid_section",
       paginationLinkSel = tileGridSectionSel + " .pagination a",
       sortLinkSel = tileGridSectionSel + " th a",
-      linkInGridSel = [paginationLinkSel + sortLinkSel].join(", "),
-      gridLinkSel = ".grid_types a",
+      linkInGridSel = [paginationLinkSel, sortLinkSel].join(", "),
       gridTypeSel = "#grid_type_select",
-      currentGridLinkSel = gridLinkSel + ".current",
       answerCellSel = tileGridSectionSel + " tbody .answer_column",
       surveyTableSel = "#survey_table";
   // JQuery Objects
@@ -48,12 +46,7 @@ Airbo.TileStatsGrid = (function(){
 
   function markAnswerInSurveyTable(answer){
     selectedRow = surveyTable.find("td:contains('" + answer + "')").closest('tr');
-    // prevRow = selectedRow.prev();
-    // if( prevRow.length == 0 ){
-    //   prevRow = surveyTable.find('thead tr');
-    // }
     selectedRow.addClass("selected");
-    // prevRow.addClass("selected");
   }
 
   function unmarkAnswerInSurveyTable() {
@@ -89,10 +82,6 @@ Airbo.TileStatsGrid = (function(){
     $(document).on("click", linkInGridSel, function(e){
       e.preventDefault();
       updateGrid( $(this) );
-    });
-
-    $(document).on("click", gridLinkSel, function(){
-      unmarkAnswerInSurveyTable();
     });
 
     $(document).on("change", gridTypeSel, function(e){

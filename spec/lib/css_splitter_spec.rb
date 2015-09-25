@@ -38,7 +38,7 @@ describe CssSplitter::Splitter do
         file = get_file name
         sel_number = count_selectors(file)
         stylesheets_number = sel_number / max_selectors + 1
-        #p name.to_s + " " + sel_number.to_s + " " + stylesheets_number.to_s
+        # p name.to_s + " " + sel_number.to_s + " " + stylesheets_number.to_s
         check_stylesheets_num name, stylesheets_number
       end
     end

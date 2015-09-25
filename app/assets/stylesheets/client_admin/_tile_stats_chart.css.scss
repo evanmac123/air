@@ -3,7 +3,7 @@ body.client_admin-tile_stats, #tile_stats_modal {
   .tile_chart_section {
     overflow: hidden;
     margin-bottom: 55px;
-    padding-left: 20px;
+    margin-right: -10px;
   }
   .actions_column {
     width: 200px;
@@ -33,8 +33,8 @@ body.client_admin-tile_stats, #tile_stats_modal {
   }
 
   .action_type_block {
-    margin-bottom: 30px;
-    padding-left: 18px;
+    margin-bottom: 27px;
+    padding: 8px 0 8px 18px;
     border-left: 3px solid transparent;
     &:last-child {
       margin-bottom: 0;
@@ -42,21 +42,17 @@ body.client_admin-tile_stats, #tile_stats_modal {
     &.selected {
       border-color: $sky-blue;
       .action_num {
-        // color: #007BC2;
         font-weight: 400;
       }
       .action_name {
         font-weight: 500;
-        // color: #006BA8;
       }
     }
     &:hover {
       .action_num {
-        // color: #007BC2;
         font-weight: 400;
       }
       .action_name {
-        // color: #006BA8;
         font-weight: 500;
       }
     }
@@ -73,10 +69,13 @@ body.client_admin-tile_stats, #tile_stats_modal {
       font-size: 30px;
       font-weight: 300;
       padding-bottom: 2px;
+      line-height: 27px;
     }
     .action_name {
       font-size: 16px;
       font-weight: 400;
+      line-height: 14px;
+      padding-top: 10px;
     }
   }
   //
@@ -92,6 +91,7 @@ body.client_admin-tile_stats, #tile_stats_modal {
     margin: 0;
     margin-right: 12px;
     float: left;
+    height: 31px;
     &:hover {
       border-color:  #A8A8A8;
       .current {
@@ -122,7 +122,9 @@ body.client_admin-tile_stats, #tile_stats_modal {
       color: #919191;
     }
     ul {
-      box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.22);
+      box-shadow: 0px 2px 3px -2px rgba(0,0,0,0.22);
+      border-radius: 3px;
+      border-color: #dedede;
       li {
         padding: 4px 12px;
         line-height: 1;
@@ -151,7 +153,7 @@ body.client_admin-tile_stats, #tile_stats_modal {
   // Specific dropdowns
   .interval_custom_drop {
     width: 95px !important;
-    margin-left: 7px !important;
+    margin-left: 45px !important;
   }
   .value_custom_drop {
     width: 115px !important;
@@ -179,6 +181,7 @@ body.client_admin-tile_stats, #tile_stats_modal {
       height: 32px;
       color: #919191;
       border-color: #c4c4c4;
+      height: 31px;
       &:hover {
         color: #636363;
         border-color: #9E9E9E;
@@ -203,6 +206,7 @@ body.client_admin-tile_stats, #tile_stats_modal {
       font-size: $font-size;
       font-weight: $font-weight;
       padding: 8px 13px;
+      height: 30px;
     }
   }
 
@@ -232,10 +236,9 @@ body.client_admin-tile_stats, body.client_admin-tiles.client_admin-tiles-index {
   #ui-datepicker-div {
     $color-passive: #818385;
     $color-active: #454545;
-    $color-hover: #0c0c0b;
-    $border-color: #c7c7c7;
+    $border-color: #d6d6d6;
 
-    margin-top: 10px;
+    margin-top: 12px;
     margin-left: -44px;
     font-size: 13px;
     padding: 0;
@@ -306,11 +309,14 @@ body.client_admin-tile_stats, body.client_admin-tiles.client_admin-tiles-index {
           }
         }
       }
+      .ui-datepicker-month {
+        color: $text-color;
+      }
     }
     table.ui-datepicker-calendar {
       margin: 0;
       width: 87%;
-      box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.22);
+      box-shadow: 0px 2px 3px -2px rgba(0,0,0,0.22);
       thead tr {
         border: 1px solid $border-color;
       }
@@ -335,11 +341,8 @@ body.client_admin-tile_stats, body.client_admin-tiles.client_admin-tiles-index {
           color: $color-passive;
           font-weight: 700;
           line-height: 1.6;
-          &:hover {
-            color: $color-hover;
-          }
-          &.ui-state-active {
-            color: $color-hover;
+          &:hover, &.ui-state-active {
+            color: #2e2e2c;
           }
         }
       }

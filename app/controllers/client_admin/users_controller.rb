@@ -15,7 +15,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
     ping_page("Manage - Users", current_user)
     respond_to do |format|
       @demo = current_user.demo
-      format.html do        
+      format.html do
         if browse_request?
           render_browse_page
         else
@@ -90,7 +90,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
     @offset = params[:offset].present? ? params[:offset].to_i : 0
 
     @users = current_user.demo.users.where(is_site_admin: false).alphabetical.limit(PAGE_SIZE).offset(@offset)
-    
+
     @result_description = "everyone"
 
     @show_previous_link = @offset > 0
@@ -120,13 +120,13 @@ class ClientAdmin::UsersController < ClientAdminBaseController
 
   def search_result(user)
     {
-      label: ERB::Util.h(user.name), 
+      label: ERB::Util.h(user.name),
       value: {
         found: true,
         url:   edit_client_admin_user_url(user),
         id: user.id
       }
-    } 
+    }
   end
 
   def add_user_json(normalized_name)
@@ -147,7 +147,8 @@ class ClientAdmin::UsersController < ClientAdminBaseController
   end
 
   def find_user
-    @user = current_user.demo.users.find_by_slug(params[:id])
+    @user = current_user.demo.users.find_by_slug(params[:id]) ||
+              current_user.demo.users.find(params[:id])
   end
 
   def normalize_characteristic_ids_to_integers

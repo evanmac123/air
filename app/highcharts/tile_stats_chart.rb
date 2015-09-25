@@ -67,7 +67,7 @@ JS
         	month: '%b %Y',
         	year: '%Y'
         },
-        offset: 20,
+        offset: 16,
         labels: {
           align: 'center',
           style: {
@@ -80,10 +80,10 @@ JS
         maxPadding: 0.04,
         minPadding: 0.04,
         units: [
-          [ 'hour',   [1, 2, 3, 4, 6, 8, 12] ],
-          [ 'day',    [1, 2, 3, 4, 6] ],
+          [ 'hour',   [2, 3, 4, 6, 8, 12] ],
+          [ 'day',    [2, 3, 4, 6] ],
           [ 'week',   [] ],
-          [ 'month',  [1, 2, 3, 6] ],
+          [ 'month',  [2, 3, 6] ],
           [ 'year',   [1, 2, 3] ]
         ]
       }
@@ -93,7 +93,7 @@ JS
       {
         allowDecimals: false,
         gridLineColor: '#d6d6d6',
-        offset: 20,
+        offset: 12,
         labels: {
           style: {
             color: '#a8a8a8',
@@ -114,7 +114,11 @@ JS
         line: {
           pointStart: period.start_date(:date),
           pointInterval: period.point_interval,
-          #shadow: false
+          lineWidth: 3,
+          shadow: false,
+          marker: {
+            radius: 6
+          }
         }
       }
     end
@@ -128,7 +132,7 @@ JS
         },
         headerFormat: "<div style='color:{series.color};'>{point.key}</div>",
         pointFormat: "<div style='padding-top:3px;'>{point.y}</div>",
-        # shadow: false
+        shadow: false
       }
     end
 

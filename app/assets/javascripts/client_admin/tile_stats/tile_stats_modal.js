@@ -2,7 +2,7 @@ var Airbo = window.Airbo || {};
 
 Airbo.TileStatsModal = (function(){
   // Selectors
-  var tileStatsLinkSel = ".tile_stats",
+  var tileStatsLinkSel = ".tile_stats .stat_action",
       modalSel = "#tile_stats_modal",
       modalContentSel = modalSel + " #modal_content",
       modalBgSel = '.reveal-modal-bg';
@@ -11,22 +11,18 @@ Airbo.TileStatsModal = (function(){
       modalContent,
       chart,
       grid;
-      // surveyTable;
-  //
 
   function ajaxResponse(){
     return function (data){
       modalContent.html(data.page);
       reloadComponents();
-      modal.foundation("reveal", "open", {animation: 'none'});
-      // modal.reveal({animation: 'fade'});
+      modal.foundation("reveal", "open");
     };
   }
 
   function reloadComponents() {
     chart.init();
     grid.init();
-    // surveyTable.init();
   }
 
   function getPage(link) {
@@ -37,12 +33,7 @@ Airbo.TileStatsModal = (function(){
     });
   }
 
-  function initEvents(){
-    $(document).on("click", tileStatsLinkSel, function(e) {
-      e.preventDefault();
-      getPage( $(this).data("href") );
-    });
-
+  function modalOpenClose() {
     $(document).on('open', modalSel, function(){
       $("body").addClass('overflow_hidden');
     });
@@ -50,12 +41,14 @@ Airbo.TileStatsModal = (function(){
     $(document).on('closed', modalSel, function(){
       $("body").removeClass('overflow_hidden');
     });
+  }
 
-    $(document).on('mousewheel DOMMouseScroll', modalBgSel, function(e){
-      var delta = modalContent.scrollTop() - e.originalEvent.wheelDelta;
-      // console.log(delta);
-      modalContent.scrollTop(delta);
+  function initEvents(){
+    $(document).on("click", tileStatsLinkSel, function(e) {
+      e.preventDefault();
+      getPage( $(this).data("href") );
     });
+    modalOpenClose();
   }
 
   function initVars(){
@@ -63,7 +56,6 @@ Airbo.TileStatsModal = (function(){
     modalContent = $(modalContentSel);
     chart = Airbo.TileStatsChart;
     grid = Airbo.TileStatsGrid;
-    // surveyTable = Airbo.SurveyTable;
   }
 
   function init(){

@@ -13,7 +13,7 @@ body.client_admin-tile_stats, #tile_stats_modal {
     margin-bottom: 20px;
     .table_title {
       float: left;
-      margin: 9px 25px 0 0;
+      margin: 9px 30px 0 0;
     }
     .grid_types {
       float: left;
@@ -32,25 +32,6 @@ body.client_admin-tile_stats, #tile_stats_modal {
       border-color: $med-gray;
     }
   }
-  // .grid_types {
-  //   overflow: auto;
-  //   margin-bottom: 28px;
-  //   a {
-  //     float: left;
-  //     text-transform: uppercase;
-  //     color: $med-gray;
-  //     padding: 6px 5px;
-  //     margin-right: 40px;
-  //     font-size: 12px;
-  //     &:hover {
-  //       color: #737373;
-  //     }
-  //     &.current {
-  //       color: $text-color;
-  //       border-bottom: 2px solid $sky-blue;
-  //     }
-  //   }
-  // }
   %stats-table {
     border-radius: 3px;
     -webkit-border-radius: 3px;
@@ -59,24 +40,6 @@ body.client_admin-tile_stats, #tile_stats_modal {
 
     font-size: 14px;
     margin: 0;
-    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.22);
-    // tbody td, thead th {
-    //   &:first-child, &:last-child {
-    //
-    //   }
-    // }
-    // tbody {
-    //   box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.22);
-    // tr {
-    //   border: 1px solid #e3e3e3;
-    //   border-radius: 3px;
-    // }
-    // tbody {
-    //   border: 1px solid #e3e3e3;
-    //   border-top-width: 0;
-    //   border-bottom-width: 0;
-    //   border-radius: 3px;
-    // }
     th, td {
       padding: 14px 20px;
     }
@@ -88,11 +51,11 @@ body.client_admin-tile_stats, #tile_stats_modal {
         font-weight: 700;
         @include sort-arrows(transparent);
         &:hover {
-          @include sort-arrows(rgba(140, 140, 140, 0.6));
+          @include sort-arrows(rgba(89, 89, 89, 0.6));
         }
       }
       &.sorted a {
-        @include sort-arrows(rgb(140, 140, 140));
+        @include sort-arrows(rgb(89, 89, 89));
       }
       &:first-child {
         border-top-left-radius: 3px;
@@ -133,41 +96,22 @@ body.client_admin-tile_stats, #tile_stats_modal {
   }
   .survey-chart-table {
     @extend %stats-table;
-    margin-bottom: 60px;
-    // th {
-    //   // cursor: pointer;
-    //   // span {
-    //   //   @include sort-arrows(transparent);
-    //   // }
-    //   // &:hover span {
-    //   //   @include sort-arrows(#8c8c8c);
-    //   // }
-    //   // &.sort-up {
-    //   //   span {
-    //   //     @include sort-arrows($text-color);
-    //   //   }
-    //   // }
-    //   // &.sort-down {
-    //   //   span {
-    //   //     @include sort-arrows($text-color, 'down');
-    //   //   }
-    //   // }
-    // }
-    tr.selected, tr:hover {
+    margin-bottom: 51px;
+    tr.selected {
+      td {
+        background: #e9f0f7;
+      }
+    }
+    tr:hover {
       td {
         background: #f5f9fc;
       }
-      // td, th {
-      //   border-bottom: 1px solid $sky-blue;
-      // }
     }
     .answer {
       width: 50%;
     }
     .percent {
       width: 35%;
-      // padding-top: 7px;
-      // padding-bottom: 7px;
     }
     .progress, .percent_num {
       float: left;
@@ -175,28 +119,23 @@ body.client_admin-tile_stats, #tile_stats_modal {
     .progress {
       border-radius: 8px;
       background: $sky-blue;
-      height: 16px;
-      margin-right: 10px;
+      height: 12px;
+      margin: 2px 10px 0 0;
     }
   }
   #tile_stats_grid {
     padding-top: 50px;
   }
+  .grid_no_record {
+    padding-top: 60px;
+  }
   .tile_grid_section table {
     @extend %stats-table;
     .new_records {
-      background: #f6fcfc;
-      // border: 1px solid #cbeaff;
-      // border-radius: 3px;
+      background: #f5fcfc;
       text-align: center;
-      color: #4b61a6;
+      color: #1f7cb2;
       cursor: pointer;
-    }
-    tbody tr:last-child td {
-      box-shadow: 2px 3px 2px 0px rgba(0, 0, 0, 0.05);
-    }
-    tfoot td {
-      box-shadow: 0px 2px 2px 3px $off-white;
     }
     .name_column {
       width: 25%;

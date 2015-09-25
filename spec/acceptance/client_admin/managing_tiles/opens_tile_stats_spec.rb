@@ -41,7 +41,7 @@ feature "Client admin opens tile stats" do
   def open_stats(tile)
     visit client_admin_tiles_path(as: client_admin)
     within tile_cell(tile) do
-      page.find(".tile_stats").click
+      page.find(".tile_stats .unique_views").click
     end
   end
 
@@ -65,11 +65,11 @@ feature "Client admin opens tile stats" do
     end
 
     it "should show tile stats modal", js: true do
-      expect_content "VIEWED AND INTERACTED"
+      expect_content "UNIQUE VIEWS"
       within "#tile_stats_modal" do
         page.find(".close-reveal-modal").click
       end
-      expect_no_content "VIEWED AND INTERACTED"
+      expect_no_content "UNIQUE VIEWS"
     end
 
     it "should show empty graph stats", js: true do
@@ -169,42 +169,53 @@ feature "Client admin opens tile stats" do
       end
     end
 
-    context "tabs in user table" do
-      it "should show VIEWED AND INTERACTED tab by defult", js: true do
+    context "user table types" do
+      it "should show LIVE table by default", js: true do
+        u = FactoryGirl.create(:user, demo: demo, name: "LIVE user")
+        FactoryGirl.create(:tile_completion, user: u, tile: @tile)
+        FactoryGirl.create(:tile_viewing, user: u, tile: @tile)
+
+        open_stats(@tile)
+
+        first_name.should == "LIVE user"
+      end
+
+      it "should show VIEWED AND INTERACTED table", js: true do
         u = FactoryGirl.create(:user, demo: demo, name: "VIEWED AND INTERACTED user")
         FactoryGirl.create(:tile_completion, user: u, tile: @tile)
         FactoryGirl.create(:tile_viewing, user: u, tile: @tile)
 
         open_stats(@tile)
+        select "Viewed and interacted", :from => "grid_type_select"
 
         first_name.should == "VIEWED AND INTERACTED user"
       end
 
-      it "should open VIEWED ONLY tab", js: true, driver: :webkit do
+      it "should open VIEWED ONLY table", js: true, driver: :webkit do
         u = FactoryGirl.create(:user, demo: demo, name: "VIEWED ONLY user")
         FactoryGirl.create(:tile_viewing, user: u, tile: @tile)
 
         open_stats(@tile)
-        click_link "Viewed only"
+        select "Viewed only", :from => "grid_type_select"
 
         first_name.should == "VIEWED ONLY user"
       end
 
-      it "should open DIDN'T VIEW tab", js: true, driver: :webkit do
+      it "should open DIDN'T VIEW table", js: true, driver: :webkit do
         u = FactoryGirl.create(:user, demo: demo, name: "a DIDN'T VIEW user")
 
         open_stats(@tile)
-        click_link "Didn't view"
+        select "Didn't view", :from => "grid_type_select"
 
         first_name.should == "a DIDN'T VIEW user"
       end
 
-      it "should open ALL tab", js: true, driver: :webkit do
+      it "should open ALL table", js: true, driver: :webkit do
         u = FactoryGirl.create(:user, demo: demo, name: "ALL user")
         FactoryGirl.create(:tile_completion, user: u, tile: @tile)
 
         open_stats(@tile)
-        click_link "All"
+        select "All", :from => "grid_type_select"
 
         first_name.should == "ALL user"
       end

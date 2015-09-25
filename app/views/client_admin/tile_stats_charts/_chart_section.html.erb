@@ -18,9 +18,9 @@
         <%= f.select :date_range_type, options_for_select(f.object.date_range_types_select_list, f.object.date_range_types_disabled_option), {}, { class: "date_range_custom_drop"} %>
       </span>
       <div class="dates_selection" style="display:<%= f.object.show_dates_selection %>;">
-        <%= f.text_field :start_date, class: "datepicker" %>
+        <%= f.text_field :start_date, class: "datepicker", readonly: true %>
         <span>-</span>
-        <%= f.text_field :end_date, class: "datepicker" %>
+        <%= f.text_field :end_date, class: "datepicker", readonly: true %>
         <%= link_to "Done", "" %>
       </div>
       <div class="download_chart_block">
