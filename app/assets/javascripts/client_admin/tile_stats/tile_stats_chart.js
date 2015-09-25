@@ -61,7 +61,8 @@ Airbo.TileStatsChart = (function(){
     datePickers.datepicker({
       showOtherMonths: true,
       selectOtherMonths: true,
-      dateFormat: 'M d, yy'
+      dateFormat: 'M d, yy',
+      maxDate: 0
     });
   }
 
@@ -77,6 +78,7 @@ Airbo.TileStatsChart = (function(){
       if(input.val() == "pick_a_date_range"){
         dateRangeBlock.hide();
         datesSelection.show();
+        datePickers.first().datepicker("show");
       }else if(input == dateRange && input.find("option").eq(0).attr("selected")){
         return;
       }else{

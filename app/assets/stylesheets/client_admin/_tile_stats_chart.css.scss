@@ -330,9 +330,20 @@ body.client_admin-tile_stats, body.client_admin-tiles.client_admin-tiles-index {
       td {
         padding: 0;
         border: 1px solid $border-color;
-        &.ui-datepicker-other-month a {
+        &.ui-datepicker-other-month {
+          a {
+            opacity: 1;
+            color: lighten($color-passive, 25%);
+          }
+        }
+        &.ui-datepicker-unselectable {
           opacity: 1;
-          color: lighten($color-passive, 25%);
+          span {
+            background: $white;
+            border: none;
+            text-align: center;
+            color: lighten($color-passive, 25%);
+          }
         }
         a {
           background: white;
@@ -341,8 +352,12 @@ body.client_admin-tile_stats, body.client_admin-tiles.client_admin-tiles-index {
           color: $color-passive;
           font-weight: 700;
           line-height: 1.6;
-          &:hover, &.ui-state-active {
+          &:hover {
             color: #2e2e2c;
+          }
+          &.ui-state-active {
+            background: $sky-blue;
+            color: $white;
           }
         }
       }
