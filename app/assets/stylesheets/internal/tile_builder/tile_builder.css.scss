@@ -513,7 +513,16 @@ body.suggested_tiles-update{
           font-size: 1.6em;
           padding-bottom: 0;
         }
-        
+
+        input[type="text"],textarea, .text-input {
+          border: none;
+          background: transparent; 
+        }
+
+        textarea {
+          resize: none;
+        }
+ 
 
       }
 
@@ -527,15 +536,7 @@ body.suggested_tiles-update{
           display: none;
         }
 
-        input[type="text"],textarea, .text-input {
-          border: none;
-          background: transparent; 
-        }
-
-        textarea {
-          resize: none;
-        }
-
+       
         width: 100%;
         border-bottom: 2px dashed #f3f3f3;
         padding-left: 5%;
