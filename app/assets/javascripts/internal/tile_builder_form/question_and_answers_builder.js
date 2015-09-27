@@ -23,23 +23,96 @@ Airbo.TileQuestionBuilder = (function(){
   function initSubType() {
 
     $("body").on("click", subtypeSelector, function(){
-      var subtypeId = $(this).attr("id");
-      var type = getTileType(subtypeId);
-      var subtype = getTileSubtype(subtypeId);
-      
-      makeButtonsSelected(type, subtypeId);
-      showQuestionAndAnswers(tileTypes[type][subtype]);
-      showSelectAndAddAnswer(type, subtype);
-      $(this).remove
-      saveTypeToForm();
+      var obj = {}
+      obj.subtypeId = $(this).attr("id");
+      obj.type = getTileType(obj.subtypeId);
+      obj.subtype = getTileSubtype(obj.subtypeId);
 
+
+      addSubTypeAnswer(obj)
+
+      saveTypeToForm();
       _.each($(answerFieldSelector), addCharacterCounterFor);
       turnRadioGreen();
-      selectMessage();
       rebindEvents();
       showSlider();
     });
   }
+
+
+  function addSubTypeAnswer(obj){
+    makeButtonsSelected(obj.type, obj.subtypeId);
+    showQuestionAndAnswers(tileTypes[obj.type][obj.subtype]);
+    showSelectAndAddAnswer(obj.type, obj.subtype);
+  }
+
+  function addNewAnswer(){
+    var answer_text = "Add Answer Option";
+    var type_name = findTileType();
+    var subtype_name = findTileSubtype();
+    var subtype = tileTypes[type_name][subtype_name];
+    var i =0;
+    if(subtype["answers"]){
+      i = subtype["answers"].length
+    }else{
+      tileTypes[type_name][subtype_name]["answers"] = [];
+    }
+
+    tileTypes[type_name][subtype_name]["answers"][i] = answer_text; 
+
+    addIndividualAnswer(subtype)
+
+    rebindEvents();
+  }
+
+
+  function addAnswers(container, answers, correct_index) {
+    var type = findTileType();
+    var subtype = findTileSubtype();
+
+    var answers_group = $('<div class="multiple_choice_group"></div>').addClass(type.toLowerCase());
+    container.append(answers_group);
+    for(i in answers) {
+
+      if(correct_index == i){
+        correct = true;
+      }else{
+        correct = false;
+      }
+      addAnswerToGroup(answers, correct,subtype, i);
+    }
+  };
+
+  function addIndividualAnswer(subtype){
+    addAnswerToGroup(["Add Answer Option"], false, subtype, 0)
+  }
+
+  function addAnswerToGroup(answerList, correct,subtype, i){
+    answer = $('<div class="tile_multiple_choice_answer"></div>').addClass(subtype);
+    $(".multiple_choice_group").append(answer); 
+    addToShowAndEditContainers(answer, answerList, correct, i)
+  }
+
+  function addToShowAndEditContainers(answer, answerList, correct, i){
+    answer.append(showAnswerContainer("block", answerList[i], correct));
+    answer.append(editAnswerContainer("none", answerList[i], i, correct));
+  }
+
+  function showQuestionAndAnswers(subtype) {
+    $(".quiz_content").html("");
+    quiz_content = $(".quiz_content");
+    addQuestion(quiz_content, subtype["question"]);
+    addAnswers(quiz_content, subtype["answers"], subtype["correct"]);
+  };
+
+  function buildContainer(display, text, html) {
+    var container = $(html); 
+    container.html(text);
+    if(display.length > 0 ){
+      container.css("display", display);
+    }
+    return container;
+  };
 
   function showSlider(){
     $(sliderSelector).css("display", "block");
@@ -63,6 +136,7 @@ Airbo.TileQuestionBuilder = (function(){
   function initRemoveAnswer(){
     $("body").on("click", delAnswerSelector, function(event){
       $(this).parents(multipleChoiceAnswerSelector).remove();
+
     });
   }
 
@@ -100,6 +174,8 @@ Airbo.TileQuestionBuilder = (function(){
     var initialAnswerField = $('.answer_option').eq(0);
 
     $('.add_answer').click(function(e) {
+      e.stopPropagation();
+      e.stopImmediatePropagation();
       addNewAnswer();
     });
 
@@ -161,6 +237,7 @@ Airbo.TileQuestionBuilder = (function(){
 
   function showAnswerContainer(display, text, correct) {
     container = buildContainer(display, text, '<a></a>');
+
     if(correct){
       container.addClass("clicked_right_answer");
     }
@@ -215,53 +292,6 @@ Airbo.TileQuestionBuilder = (function(){
     return type == "Quiz" ? "block" : display;
   }
 
-  function addNewAnswer(){
-    var answer_text = "Add Answer Option";
-    var type_name = findTileType();
-    var subtype_name = findTileSubtype();
-    var  subtype = tileTypes[type_name][subtype_name];
-
-    if(subtype["answers"]){
-      i = subtype["answers"].length
-    }else{
-      tileTypes[type_name][subtype_name]["answers"] = [];
-      i = 0
-    }
-    tileTypes[type_name][subtype_name]["answers"][i] = answer_text; 
-
-    $("li.selected").click();
-    $("li.selected").click();
-  }
-
-  function addAnswers(container, answers, correct_index) {
-    var type = findTileType();
-    var subtype = findTileSubtype();
-
-    answers_group = $('<div class="multiple_choice_group"></div>').addClass(type.toLowerCase());
-    container.append(answers_group);
-    for(i in answers) {
-
-      if(correct_index == i){
-        correct = true;
-      }else{
-        correct = false;
-      }
-
-      answer = $('<div class="tile_multiple_choice_answer"></div>').addClass(subtype);
-      answers_group.append(answer); 
-      answer.append(showAnswerContainer("block", answers[i], correct));
-      answer.append(editAnswerContainer("none", answers[i], i, correct));
-    }
-  };
-
-  function buildContainer(display, text, html) {
-    var container = $(html); 
-    container.html(text);
-    if(display.length > 0 ){
-      container.css("display", display);
-    }
-    return container;
-  };
 
   function showQuestionContainer(display, text) {
     return buildContainer(display, text, '<div class="tile_question"></div>');
@@ -278,12 +308,6 @@ Airbo.TileQuestionBuilder = (function(){
     quiz_question.append(editQuestionContainer("none", question));
   };
 
-  function showQuestionAndAnswers(subtype) {
-    $(".quiz_content").html("");
-    quiz_content = $(".quiz_content");
-    addQuestion(quiz_content, subtype["question"]);
-    addAnswers(quiz_content, subtype["answers"], subtype["correct"]);
-  };
 
   function addAnswerSelectedMessage(container) {
     answer_container = $('<div class="choose_answer"></div>');
@@ -311,23 +335,7 @@ Airbo.TileQuestionBuilder = (function(){
     $(".quiz_content").append(after_answers);
   }
 
-  function selectMessage() {
-    //select_message = $(".choose_answer");
-    //if($(".option_selected").length > 0) {
-      //select_message.removeClass("no_answer").addClass("have_answer");
-      //icon = $('<i class="fa fa-check"></i>');
-      //meassage = "  Correct answer selected";
-    //}else {
-      //select_message.removeClass("have_answer").addClass("no_answer");
-      //icon = $('<i class="fa fa-info-circle"></i>');
-      //meassage = "  Correct answer not selected";
-    //}
-    //select_message.text(meassage).prepend(icon);
-  }
-
   function makeButtonsSelected(type, subtype) {
-
-    $("#" + type).click();
 
     $(".button.selected").removeClass("selected");
     $(".subtype.selected").removeClass("selected");
@@ -454,7 +462,6 @@ Airbo.TileQuestionBuilder = (function(){
 
   function markRightAnswer(element) {
     makeAnswerGreen(element); 
-    selectMessage();
     saveRightAnswer(element);
   }
 
