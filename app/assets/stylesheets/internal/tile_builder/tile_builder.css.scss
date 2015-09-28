@@ -640,6 +640,9 @@ body.suggested_tiles-update{
               margin-left: 2%;
             }
           } 
+          a {
+             min-height:45px;
+          }
         }
 
 
@@ -669,6 +672,12 @@ body.suggested_tiles-update{
               }
             }
 
+            &.multiple_choice{
+              .answer-div {
+                width:93%;
+              }
+            }
+
             a {
               width:85%;
               margin-left: 10%;
@@ -686,8 +695,14 @@ body.suggested_tiles-update{
 
             .answer-div {
               input.answer-field.answer-part{
-                margin-left: auto;
+                margin-left: 0;
+                width:95%;
               }
+
+              .character-counter{
+                margin-right: 5%;
+              }
+
             } 
 
           }

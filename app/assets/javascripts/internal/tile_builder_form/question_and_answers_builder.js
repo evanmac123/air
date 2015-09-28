@@ -236,7 +236,7 @@ Airbo.TileQuestionBuilder = (function(){
   };
 
   function showAnswerContainer(display, text, correct) {
-    container = buildContainer(display, text, '<a></a>');
+    container = buildContainer(display, text, '<a class="answer_text"></a>');
 
     if(correct){
       container.addClass("clicked_right_answer");
@@ -258,7 +258,7 @@ Airbo.TileQuestionBuilder = (function(){
         var option_input = $(
           ['<li class="option_input">',
             '<div class="answer-div">',
-            '<input class="answer-field answer-part" data="' + index,
+            '<input placeholder="Answer Option" class="answer-field answer-part" data="' + index,
             '" maxlength="50" name="tile_builder_form[answers][]" type="text">',
             '</div>',
             '</li>'].join(''));
@@ -381,7 +381,7 @@ Airbo.TileQuestionBuilder = (function(){
   }
 
   function turnOnEditAnswer(answer_show) {
-    var container = $(answer_show).parent(), type = findTileType();
+    var container = $(answer_show).parent(".tile_multiple_choice_answer"), type = findTileType();
     container.find(".answer_option").css("display", "block");
 
     if(type == "Quiz" || type =="Survey"){ 
@@ -391,9 +391,14 @@ Airbo.TileQuestionBuilder = (function(){
       container.find(".option_input").css("display", "list-item");
     }
 
-    container.find(".del-answer").hide();
-    highlightText($(answer_show).parent().find(".answer-field"));
+    allowEditOnly(container);
   }
+
+  function allowEditOnly(container){
+    container.find(".del-answer").hide();
+    highlightText(container.find(".answer-field"));
+  }
+
 
   function turnOffEditQuestion() {
     $(".tile_question").css("display", "block");
@@ -437,10 +442,11 @@ Airbo.TileQuestionBuilder = (function(){
   function initTileAnswer(){
     $("body").on("blur", "input[name='tile_builder_form[answers][]']", function(event){
       var answer =$(this);
+      var container = $(answer).parents(".tile_multiple_choice_answer")
       if((answer.val().trim() ==="")){
         event.preventDefault();
-        answer.valid();
-        answer.parents(".option_input").css("display", "list-item");
+        answer.valid(); //trigger jquery validate functionality
+        turnOnEditAnswer(container.find(".answer_text"));
         answer.focus();
       }else{
         turnOffEditAnswer();
