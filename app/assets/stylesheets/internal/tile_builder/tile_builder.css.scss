@@ -418,10 +418,20 @@ body.suggested_tiles-update{
   & #images_modal{
     background: transparent;
     border: none;
-    &.reveal-modal{
-      top: 0px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: scroll;
+    #modal_content {
+      .image_library{
+        margin-left: 90px;
+      }
     }
-
   }
 
   //
@@ -451,6 +461,7 @@ body.suggested_tiles-update{
       margin: auto;
       /*padding: 50px 0 50px 55px;*/
       padding-top: 50px;
+
     }
 
 

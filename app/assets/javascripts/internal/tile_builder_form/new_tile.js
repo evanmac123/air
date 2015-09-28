@@ -61,7 +61,6 @@ Airbo.TileCreator = (function(){
  function prepShow(){
 
    $("body").addClass("client_admin-tiles-show").removeClass("client_admin-tiles-edit");
-   //$(".tile_preview_container").removeClass("large-9").addClass("large-12");
 
    Airbo.TileCarouselPage.init();
    initPreviewMenuTooltips();
@@ -215,7 +214,7 @@ Airbo.TileCreator = (function(){
       dataType: "html",
       url: libaryUrl,
       success: function(data, status,xhr){
-        imagesModal.prepend($(data));
+        imagesModal.find(modalContentSelector).append($(data));
         openImageSelectorModal();
         Airbo.TileImagesMgr.init();
         libaryLoaded = true;
@@ -231,7 +230,6 @@ Airbo.TileCreator = (function(){
     $("body").on("submit", tileBuilderFormSelector, function(event){
       event.preventDefault(); 
       var form = $(this);
-      debugger
       if(form.valid()){
         disableTileBuilderFormSubmit();
         ajaxHandler.submit(form, refreshTileDataPageWide, enableTileBuilderFormSubmit);
@@ -484,6 +482,11 @@ Airbo.TileCreator = (function(){
     $(document).on('close.fndtn.reveal', imagesModalSelector, function (event) {
       //noop
     });
+
+    $(document).on('opened.fndtn.reveal',imagesModalSelector, function () {
+      $("body").css({"overflow-y": "hidden"});
+    });
+
   }
 
 
