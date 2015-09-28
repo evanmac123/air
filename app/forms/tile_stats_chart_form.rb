@@ -7,7 +7,8 @@ class TileStatsChartForm
   attr_reader :tile,
               :time_handler,
               :action_type,
-              :value_type
+              :value_type,
+              :new_chart
 
   delegate  :interval_type,
             :date_range_type,
@@ -24,8 +25,9 @@ class TileStatsChartForm
     @action_type = params.delete(:action_type) || ACTION_TYPES[0]
     @value_type = params.delete(:value_type) || VALUE_TYPES[0]
     params = initial_params if params.empty?
+    @new_chart = params[:new_chart]
     @time_handler = TimeHandler.new(
-      params.slice(:interval_type, :start_date, :end_date, :date_range_type, :changed_field)
+      params.slice(:interval_type, :start_date, :end_date, :date_range_type, :changed_field, :new_chart)
     ).handle
   end
 
@@ -69,7 +71,8 @@ class TileStatsChartForm
       {
         start_date: tile.created_at.strftime("%b %d, %Y"),
         end_date: Time.now.strftime("%b %d, %Y"),
-        changed_field: 'end_date' # to trigger time handler
+        changed_field: 'end_date', # to trigger time handler
+        new_chart: true
       }
     end
 end

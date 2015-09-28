@@ -82,7 +82,7 @@ Airbo.TileStatsChart = (function(){
         dateRangeBlock.hide();
         datesSelection.show();
         datePickers.first().trigger("click").datepicker("show");
-      }else if(input == dateRange && input.find("option").eq(0).attr("selected")){
+      }else if(input[0] == dateRange[0] && input.find("option").eq(0).attr("selected")){
         return;
       }else{
         changedFiled.val(input.attr("name").match(/\[(.*)\]/)[1]);
@@ -92,8 +92,8 @@ Airbo.TileStatsChart = (function(){
     $(document).on("click", doneBtnSel, function(e){
       e.preventDefault();
 
-      dateRangeBlock.show();
       datesSelection.hide();
+      dateRangeBlock.show();
 
       dateRange.val(0);
       dateRange.trigger("change", true); // to update custom select
