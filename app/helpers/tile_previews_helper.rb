@@ -43,7 +43,7 @@ module TilePreviewsHelper
 
   def preview_menu_item_config_by_status status
     {
-      draft: {txt: "Draft", icon: "fa-edit", status: "draft", action: "Draft"},
+      draft: {txt: "Drafted", icon: "fa-edit", status: "draft", action: "Draft"},
       active: {txt: "Posted", icon: "fa-check", status: "active", action: "Post"}, 
       archive: {txt: "Archived", icon: "fa-archive", status: "archive", action: "Archive"}
     }[status.to_sym]

@@ -124,7 +124,6 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
      border: none;
 
      a {
-       border-bottom: 1px solid #DDD;
        display: table;
        padding-bottom: 8px;
 
@@ -141,6 +140,9 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
        .header_text{
          margin-left: .25em;
        }
+     }
+     a:not(.update_status){
+       border-bottom: 1px solid #DDD;
      }
    }
 

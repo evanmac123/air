@@ -77,6 +77,7 @@ Airbo.TileCreator = (function(){
      theme: "tooltipster-shadow",
      interactive: true,
      position: "bottom",
+     trigger: "click",
      contentAsHTML: true,
      functionReady: prepareToolTip,
      autoClose: shouldAutoClose()
