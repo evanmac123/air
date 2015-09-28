@@ -214,7 +214,7 @@ Airbo.TileCreator = (function(){
       dataType: "html",
       url: libaryUrl,
       success: function(data, status,xhr){
-        imagesModal.html(data);
+        imagesModal.prepend($(data));
         openImageSelectorModal();
         Airbo.TileImagesMgr.init();
         libaryLoaded = true;
@@ -430,7 +430,7 @@ Airbo.TileCreator = (function(){
  }
 
  function scrollPageToTop(){
-   $("body").scrollTop(50);
+   $("body").scrollTop(0);
  }
 
 

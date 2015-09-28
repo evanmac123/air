@@ -447,23 +447,10 @@ body.suggested_tiles-update{
     #modal_content {
       width: 1007px;
       margin: auto;
-      padding: 50px 0 50px 55px;
+      /*padding: 50px 0 50px 55px;*/
+      padding-top: 50px;
     }
 
- 
-    .close-reveal-modal {
-      position: fixed;
-      top: 47px;
-      right: 50%;
-      margin-right: 506px;
-      color: $white;
-      i {
-        font-size: 32px;
-        &:hover {
-          opacity: 0.7;
-        }
-      }
-    }
 
     .medium-editor-placeholder:after {
       color: #b3b3b1;
@@ -911,6 +898,46 @@ body.suggested_tiles-update{
   }
 }
 
+//Reveal modal ovverides
+//TODO consolidate reveal-modal customizations in one place
+
+
 .reveal-modal-bg{
   background: rgba(14, 23, 29, 0.8);
+}
+
+#new_tile_modal, #images_modal {
+  .close-reveal-modal {
+    position: fixed;
+    top: 47px;
+    right: 50%;
+    margin-right: 490px;
+    color: $white;
+    i {
+      &:hover {
+        opacity: 0.7;
+      }
+
+    }
+
+  }
+}
+
+#images_modal {
+  .close-reveal-modal {
+    i {
+      font-size: 26px;
+    }
+  }
+}
+
+
+
+
+#new_tile_modal {
+  .close-reveal-modal {
+    i {
+      font-size: 32px;
+    }
+  }
 }
