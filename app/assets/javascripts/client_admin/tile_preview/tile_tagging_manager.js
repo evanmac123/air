@@ -262,6 +262,7 @@ Airbo.TileTagger = (function(){
 
   function isValidToShareToExplore(){
     if ($(appliedTagsSelector).length < 1) {
+      highlightAddTag();
       return false;
     } else {
       tagAlert.hide();

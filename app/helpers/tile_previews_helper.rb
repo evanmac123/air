@@ -171,7 +171,7 @@ module TilePreviewsHelper
     h[:copy_switch_classes] = copy_switch_classes
     h[:share_to_explore_classes] = share_to_explore_classes
 
-    h[:add_tag_class] = tile.tile_tags.present? ? "" : "highlighted"
+    #h[:add_tag_class] = tile.tile_tags.present? ? "" : "highlighted"
     h[:share_to_explore_text] = tile.is_public ? "Remove" : "Share"
     h
   end
