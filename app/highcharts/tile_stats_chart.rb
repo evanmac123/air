@@ -108,6 +108,7 @@ JS
           text: nil
         },
         min: 0,
+        max: (plot_data.data.max == 0 ? 10 : nil), # set max when there is no data to draw y axis lines
         tickPixelInterval: 47
       }
     end
