@@ -429,8 +429,10 @@ body.suggested_tiles-update{
   //
   & #new_tile_modal{
 
-    /*background: transparent;*/
-    /*border: none;*/
+   .tile_holder_container {
+     width: 600px;
+     padding-top: 0px;
+   }
 
     background: transparent;
     width: 100%;
