@@ -79,13 +79,16 @@ JS
         tickColor: 'white',
         maxPadding: 0.04,
         minPadding: 0.04,
-        # units: [
-        #   [ 'hour',   [2, 3, 4, 6, 8, 12] ],
-        #   [ 'day',    [1, 2, 3, 4, 6] ],
-        #   [ 'week',   [] ],
-        #   [ 'month',  [1, 2, 3, 6] ],
-        #   [ 'year',   [1, 2, 3] ]
-        # ]
+        labels: {
+          step: 1
+        },
+        units: [
+          [ 'hour',   [2, 3, 4, 6, 8, 12] ],
+          [ 'day',    [1, 2, 3, 4, 6] ],
+          [ 'week',   [] ],
+          [ 'month',  [1, 2, 3, 6] ],
+          [ 'year',   [1, 2, 3] ]
+        ]
       }
     end
 
@@ -112,7 +115,7 @@ JS
     def plot_options_params
       {
         line: {
-          pointStart: period.start_date(:date),
+          pointStart: period.start_date(:date).beginning_of_month,
           pointInterval: period.point_interval,
           lineWidth: 3,
           shadow: false,

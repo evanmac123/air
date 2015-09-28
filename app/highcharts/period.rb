@@ -75,7 +75,12 @@ class Period
   def show_date time, format
     case format
     when :date
-      time.to_date
+      date = time.to_date
+      if time_unit == 'month' || time_unit == 'week'
+        date.send(:"beginning_of_#{time_unit}")
+      else
+        date
+      end
     when :american
       time.to_s(:chart_start_end_day)
     when :time
