@@ -1,10 +1,9 @@
 class ClientAdmin::TilesController < ClientAdminBaseController
   include ClientAdmin::TilesHelper
   include ClientAdmin::TilesPingsHelper
-  
+
   before_filter :get_demo
   before_filter :load_tags, only: [:new, :edit, :update]
-  before_filter :load_image_library, only: [:new, :edit,  :update]
 
   def index
     # Update 'status' for tiles with 'start_time' and 'end_time' attributes (before you fetch the different tile groups)
@@ -24,58 +23,82 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
     record_index_ping
   end
-  
+
   def new
-    @tile_builder_form = TileBuilderForm.new(@demo, params)
+    @tile_builder_form = TileBuilderForm.new(@demo, builder_options)
     record_new_ping
+
+    if request.xhr? 
+      render partial: "shared/tiles/builder", layout: false and return
+    else
+      load_image_library
+      #normal rails render
+    end
+
   end
 
+
+  def edit
+    tile = get_tile
+    load_image_library
+    record_edit_ping
+    @tile_builder_form = TileBuilderForm.new(@demo,builder_options.merge(tile: tile))
+
+    if request.xhr? 
+      render layout: false and return
+    else
+      #normal rails render
+    end
+
+  end
+
+  #TODO consider refactoring with custom responders
   def create
-    @tile_builder_form =  TileBuilderForm.new(
-                            @demo,
-                            parameters: params[:tile_builder_form],
-                            creator: current_user
-                          )
+    @tile_builder_form =  TileBuilderForm.new(@demo,builder_options)
     if @tile_builder_form.create_tile
       set_after_save_flash(@tile_builder_form.tile)
       schedule_tile_creation_ping(@tile_builder_form.tile)
-      redirect_to client_admin_tile_path(@tile_builder_form.tile)
+      if request.xhr?
+        @tile = @tile_builder_form.tile
+        render_preview_and_single 
+      else
+        redirect_to client_admin_tile_path(@tile_builder_form.tile)
+      end
     else
-      flash.now[:failure] = @tile_builder_form.error_message
-			load_tags
-			load_image_library
-      render "new"
+      if request.xhr?
+        response.headers["X-Message"]= @tile_builder_form.error_message
+        head :unprocessable_entity and return
+      else
+        flash.now[:failure] = @tile_builder_form.error_message
+        load_tags
+        load_image_library
+        render "new"
+      end
     end
   end
 
-	def blank
-     render "blank", layout: "empty_layout"
-	end
 
   def update
     @tile = get_tile
-    
     if params[:update_status]
       update_status
       record_update_status_ping
     else
-      update_fields        
+      update_fields
     end
   end
 
   def show
     @tile = get_tile
-    return show_partial if params[:partial_only]
-
-    @show_share_section_intro = show_share_section_intro
-    @show_submitted_tile_menu_intro = show_submitted_tile_menu_intro
+    prepTilePreview
     tile_in_box_viewed_ping @tile
+    if request.xhr? 
+      render layout: false
+    end
   end
 
-  def edit
-    tile = get_tile
-    @tile_builder_form = tile.to_form_builder
-    record_edit_ping
+  def blank
+    render "blank", layout: "empty_layout"
   end
 
   def destroy
@@ -111,12 +134,34 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
     #FIXME is this really important for tracking?
     tile_status_updated_ping @tile, "Dragged tile to move"
-    
+
+  end
+  
+  #FIXME should refactor and cosolidate the existing update method but the functionality is too
+  #convoluted to fix now.
+
+  def status_change
+    @tile = get_tile
+
+    @tile.update_status(params[:update_status])
+    presenter = SingleTilePresenter.new(@tile, :html, @is_client_admin_action, browser.ie?)
+    render partial: 'client_admin/tiles/manage_tiles/single_tile', locals: { presenter: presenter}
   end
 
-  
+  def update_explore_settings
+    tpf = TilePublicForm.new(get_tile, params[:tile_public_form])
+    tpf.save
+    @tile = tpf.tile
+    render_preview_and_single
+  end
+
   private
 
+  def prepTilePreview
+    @prev, @next = @demo.bracket @tile
+    @show_share_section_intro = show_share_section_intro
+    @show_submitted_tile_menu_intro = show_submitted_tile_menu_intro
+  end
   
   def intro_flags_index
     @board_is_brand_new = @demo.tiles.limit(1).first.nil? && params[:show_suggestion_box] != "true"
@@ -157,7 +202,12 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def get_tile
-    current_user.demo.tiles.find params[:id]
+    tile = current_user.demo.tiles.find params[:id]
+    if params[:offset].present?
+      tile = Tile.next_manage_tile(tile, params[:offset].to_i)
+    end
+
+    tile
   end
 
   def flash_status_messages
@@ -180,12 +230,14 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def update_status
     result = @tile.update_status(params[:update_status])
-
     respond_to do |format|
       format.js { update_status_js(result) }
       format.html { update_status_html(result) }
     end
   end
+
+
+
 
   def update_status_html result
     success, failure = flash_status_messages
@@ -211,7 +263,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
       render json: {
         success: true,
-        tile: render_tile(@tile),
+        tile: render_tile_string,
         tile_id: @tile.id
       }
     else
@@ -219,36 +271,50 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     end
   end
 
-  def render_tile tile
+  def render_tile_string 
     render_to_string( 
-      partial: 'client_admin/tiles/manage_tiles/single_tile', 
-      locals: { presenter: SingleTilePresenter.new(@tile, :html, @is_client_admin_action, browser.ie?) }
-    ) 
+                     partial: 'client_admin/tiles/manage_tiles/single_tile', 
+                     locals: { presenter:  tile_presenter}
+                    ) 
   end
-  
+
+  def render_single_tile
+    render partial: 'client_admin/tiles/manage_tiles/single_tile', locals: { presenter: tile_presenter}
+  end
+
+  def tile_presenter
+    @presenter ||= SingleTilePresenter.new(@tile, :html, @is_client_admin_action, browser.ie?)
+  end
+
+  def render_tile_preview_string
+    render_to_string(action: 'show', layout:false) 
+  end
+
   def update_fields
-    @tile_builder_form =  TileBuilderForm.new( 
-                            @demo,
-                            parameters: params[:tile_builder_form],
-                            tile: @tile
-                          )
+    @tile_builder_form =  TileBuilderForm.new( @demo, builder_options.merge(tile: @tile))
+
     if @tile_builder_form.update_tile
-      set_after_save_flash(@tile_builder_form.tile)
-      redirect_to client_admin_tile_path(@tile_builder_form.tile)
+      set_after_save_flash(@tile)
+      if request.xhr?
+        render_preview_and_single
+      else
+        redirect_to client_admin_tile_path(@tile_builder_form.tile)
+      end
     else
-      flash.now[:failure] = "Sorry, we couldn't update this tile: " + @tile_builder_form.error_messages
-      set_flash_for_no_image
-      render :edit
+      flash.now[:failure] = msg = "Sorry, we couldn't update this tile: " + @tile_builder_form.error_messages
+      if request.xhr?
+        response.headers["X-Message"]= msg
+        head :unprocessable_entity and return
+      else
+        set_flash_for_no_image
+        load_image_library
+        render :edit
+      end
+
     end
   end
 
-  def show_partial
-    @tile = Tile.next_manage_tile(@tile, params[:offset].to_i)
-    render json: {
-      tile_id:      @tile.id,
-      tile_content: render_to_string("client_admin/tiles/show", :layout => false)
-    }
-  end
+
 
   def set_after_save_flash(new_tile)
     flash[:success] ="Tile #{params[:action] || 'create' }d! We're resizing the graphics, which usually takes less than a minute."
@@ -263,5 +329,27 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def load_image_library
     @tile_images = TileImage.all_ready.first(TileImage::PAGINATION_PADDING)
+    @curr_page = 0
   end
+
+  def builder_options
+    {
+      form_params: params[:tile_builder_form],
+      creator: current_user,
+      action: params[:action]
+    }
+  end
+
+
+  def render_preview_and_single
+    prepTilePreview
+    render json: {
+      tileStatus: @tile.status,
+      tileId: @tile.id,
+      tile: render_tile_string,
+      preview: render_tile_preview_string,
+    }
+
+  end
+
 end

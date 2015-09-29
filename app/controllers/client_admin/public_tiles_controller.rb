@@ -1,3 +1,4 @@
+#FIXME delete this controller and refactor functionality back into TilePublicForm
 class ClientAdmin::PublicTilesController < ClientAdminBaseController
   before_filter :get_tile
 

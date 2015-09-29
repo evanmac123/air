@@ -1,11 +1,11 @@
 %ul.tile_buttons
   - if presenter.has_archive_button?
     %li.archive_button
-      = link_to client_admin_tile_path(presenter, update_status: Tile::ARCHIVE), method: :put do
+      = link_to status_change_client_admin_tile_path(presenter), class: "update_status", data: {status: Tile::ARCHIVE} do
         %span Archive
   - if presenter.has_activate_button?
     %li.activate_button
-      = link_to client_admin_tile_path(presenter, update_status: Tile::ACTIVE, path: :via_index), method: :put do
+      = link_to status_change_client_admin_tile_path(presenter), class: "update_status", data: {status: Tile::ACTIVE} do
         %span 
           = presenter.post_link_text
   - if presenter.has_destroy_button? 
@@ -14,7 +14,7 @@
         = fa_icon 'trash'
   - if presenter.has_edit_button?              
     %li.edit_button
-      = link_to edit_client_admin_tile_path(presenter) do
+      = link_to edit_client_admin_tile_path(presenter), data:{action: "edit", tile_id: presenter.tile_id, status: presenter.status} do
         = fa_icon 'pencil'
   - if presenter.has_ignore_button?
     %li.ignore_button

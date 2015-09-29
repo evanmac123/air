@@ -1,7 +1,7 @@
-<div class="tile_texts_container">
-  <div class="tile_quiz">
+<div class="tile_texts_container" data-tile-types='<%= set_tile_types(@tile_builder_form).to_json%>' data-question-config= '<%= @tile_builder_form.question_config.to_json%>'>
+  <div class="tile_quiz content_sections" id="question_type_container">
     <%= form.hidden_field :question_type %>
-    <%= form.hidden_field :question_subtype %>
+    <%= form.hidden_field :question_subtype, data:{proxyid: "question_type_container"} %>
     <div class="tile_types">
       <ul class="button-group">
         <% tile_types.each do |type, subtypes| %>
@@ -15,20 +15,13 @@
             </ul>
           </li>
         <% end %>
-      </ul>      
+      </ul>
     </div>
     <div class="quiz_content">
-      <p class="placeholder">Pick what users will earn points for.</p>
+      <p class="placeholder">Pick 1 option and select what users will earn points for.</p>
     </div>
   </div>
   <%= render partial: 'shared/tiles/form/points', locals: {form: form} %>
 </div>
 
-<% tile_has_question_type = params[:action] == "edit" || params[:action] == "update" || (params[:action] == "create" && @tile_builder_form.question_type.present?) %>
-<% tile_types_for_js = set_tile_types(tile_has_question_type, @tile_builder_form) %>
-<% content_for :javascript do %>
-  <% javascript_tag do %>
-    window.tileTypes = <%= raw(tile_types_for_js.to_json) %>;
-    window.questionAndAnswersBuilder(<%= tile_has_question_type %>, "<%= raw @tile_builder_form.question_type %>", "<%= raw @tile_builder_form.question_subtype %>");
-  <% end %>
-<% end %>
+

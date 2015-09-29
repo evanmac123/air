@@ -1,6 +1,7 @@
 //= require ../../../vendor/assets/javascripts/pace.min
 //= require mobvious-rails
 //= require_tree ./client_admin
+//= require ./ajax-response-handler
 //= require_tree ../../../vendor/assets/javascripts/external/
 
 // highcharts.js and exporting.js are both from Highcharts, and the load order matters
@@ -13,7 +14,7 @@
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.ui.touch-punch.min
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.scrollTo.min
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.form.min
-//= require ../../../vendor/assets/javascripts/client_admin/confirm_with_reveal
+//= require ../../../vendor/assets/javascripts/confirm_with_reveal.modified
 
 //= require ../../../vendor/assets/javascripts/internal/jquery.jpanelmenu.min
 //= require ../../../vendor/assets/javascripts/internal/jRespond.min
@@ -33,6 +34,7 @@
 //= require internal/create_new_board
 //= require internal/validate_new_board
 //= require introjs
+//= require jquery.tooltipster.min
 //= require ./external/placeholder_ie.js
 //= require internal/offcanvas_menu
 //= require internal/board_switch_dropdown
@@ -41,6 +43,7 @@
 //= require internal/preflight
 //= require_tree ./internal/tile_builder_form/
 //= require_tree ./internal/tile_manager/
+//= require  medium-editor.min
 //= require internal/byte_counter
 //= require_tree ../../../vendor/assets/javascripts/internal/tile_builder_form
 
@@ -50,4 +53,20 @@ $(document).ready(function() {
   $('.client_admin-users, .client_admins-show').foundation();
 });
 $(document).foundation();
-$(document).confirmWithReveal();
+
+$(document).confirmWithReveal(Airbo.Utils.confirmWithRevealConfig);
+
+
+//FIXME This is only here because jQuery is not required at the top of the
+//heirarchy ugh!!!!!!!
+//
+jQuery.validator.addMethod("maxTextLength", function(value, element, param) {
+  function textLength(value){
+    var length = 0;
+    $(value).each(function(idx, obj){
+       length += $(obj).text().length;
+    })
+    return length;
+  }
+  return this.optional(element) || textLength(value) <= param;
+}, jQuery.validator.format("Character Limit Reached"));

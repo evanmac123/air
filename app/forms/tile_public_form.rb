@@ -1,3 +1,5 @@
+#FIXME this whole form object is completely unnecessary this naive attempt at
+#modularization.
 class TilePublicForm
   include ActiveModel::Conversion
   include ActiveModel::Validations
@@ -56,12 +58,8 @@ class TilePublicForm
   end
 
   def set_tile_public_params
-    if parameters[:is_public].present? && parameters[:is_copyable].present?
-      tile.attributes = {
-        is_public:   parameters[:is_public],
-        is_copyable: parameters[:is_copyable]
-      }
-    end
+    tile.is_public = parameters[:is_public] if parameters[:is_public].present?
+    tile.is_copyable = parameters[:is_copyable] if parameters[:is_copyable].present?
   end
 
   def tile_tag_ids
@@ -70,16 +68,15 @@ class TilePublicForm
   end
 
   def set_tile_taggings
+
     if parameters[:tile_tag_ids].present?
       tile_tag_ids = parameters[:tile_tag_ids].split(',').map(&:to_i)
-
       new_tile_tag_ids = tile_tag_ids
-      
       if tile.persisted?
         existing_tile_tag_ids = @tile.tile_taggings.map(&:tile_tag_id)
         new_tile_tag_ids = tile_tag_ids - existing_tile_tag_ids                    
       end
-      
+
       #only keep the new and non-removed tile taggings
       associated_tile_taggings = tile.tile_taggings.where(tile_tag_id: tile_tag_ids)
       new_tile_tag_ids.each do |tile_tag_id|
@@ -92,12 +89,9 @@ class TilePublicForm
   end
 
   def main_objects_all_valid
-    if !tile.is_sharable?
-      errors.add(:base, 'tile share link must be turned on for public tile')      
-    elsif  tile.is_public? && 
+    if tile.is_public? && 
         tile.tile_taggings.size < 1 && 
         tile.tile_tags.size < 1
-
       errors.add(:base, 'at least one tag must exist for public tile')
     end
   end

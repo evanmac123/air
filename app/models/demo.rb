@@ -115,6 +115,13 @@ class Demo < ActiveRecord::Base
     tiles.draft
   end
 
+
+  def  bracket tile
+    arr = by_status_and_position_of_tile tile.status
+    [prev_in_group(arr, tile.id), next_in_group(arr, tile.id)]
+  end
+
+
   #NOTE technically position should never be nil so the use of compact should
   #not be necessary here
   def next_draft_tile_position 
@@ -425,4 +432,23 @@ class Demo < ActiveRecord::Base
     placeholders_to_add.times { tiles << TileOddRowPlaceholder.new }
     tiles
   end
+
+  private
+
+  def next_in_group array, id
+   tile_offset(array, id, 1) || array.first
+  end
+
+  def prev_in_group array, id
+   tile_offset(array, id, -1) || array.last
+  end
+
+  def tile_offset array, id, offset
+    array[array.index(id) + offset]
+  end
+
+  def by_status_and_position_of_tile status
+    tiles.where(status: status).ordered_by_position.map(&:id)
+  end
+
 end

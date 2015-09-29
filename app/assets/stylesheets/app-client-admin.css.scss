@@ -1,3 +1,9 @@
+/*
+*= require tooltipster/tooltipster
+*= require tooltipster/themes/tooltipster-shadow
+*= require medium-editor/medium-editor
+*= require medium-editor/themes/default
+*/
 @import "./vendor/pace-theme-center-simple.css.scss";
 @import "./vendor/normalize.css.scss";
 @import "./foundation_and_overrides.scss";
@@ -38,3 +44,5 @@
 @import './internal/large_tile_viewer_desktop';
 @import "./client_admin/tile_preview.css.scss";
 @import "./internal/character_counter.css.scss";
+
+

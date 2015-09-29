@@ -11,6 +11,3 @@
 
 <%= image_tag "spinner_gears.gif", id: "submit_spinner", style: "display: none" %>
 
-<% js_at_end do %>
-  bindDebounceTileSubmit('#<%= form.options[:html][:id] %>');
-<% end %>

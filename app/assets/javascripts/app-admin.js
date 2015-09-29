@@ -8,14 +8,7 @@
 //= require ../../../vendor/assets/javascripts/internal/jRespond.min
 //= require ./internal_and_external/underscore-min
 //= require_tree ../../../vendor/assets/javascripts/admin/.
-//= require jquery-fileupload/vendor/jquery.ui.widget
-//= require jquery-fileupload/vendor/load-image.all.min
-//= require jquery-fileupload/vendor/canvas-to-blob
-//= require jquery-fileupload/jquery.iframe-transport
-//= require jquery-fileupload/jquery.fileupload
-//= require jquery-fileupload/jquery.fileupload-process
-//= require jquery-fileupload/jquery.fileupload-image
-//= require jquery-fileupload/jquery.fileupload-validate
+//= require ./file-uploader
 //= require_tree ./admin/.
 //= require jquery.validate
 //= require jquery.validate.additional-methods

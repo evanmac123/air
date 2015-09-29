@@ -1,27 +1,30 @@
 var Airbo = window.Airbo || {};
 
 Airbo.TileImageCredit = (function(){
-  var  imageCreditInput, 
-  imageCreditView, 
-  maxLength = 50, 
-  maxLengthAfterTruncation = maxLength + '...'.length, 
-  backspaceKeyCode=8;
+  var  imageCreditInput 
+    , imageCreditView
+    , imageCreditViewSelector ='.image_credit_view'
+    , imageCreditInputSelector ='#tile_builder_form_image_credit'
+    , maxLength = 50 
+    , maxLengthAfterTruncation = maxLength + '...'.length 
+    , backspaceKeyCode=8;
 
   function initImageCreditHandlers(){
 
-    imageCreditView.keyup(function() {
+    imageCreditView.keyup(function(event) {
       saveImageCreditChanges('keyup');
       truncateImageCreditView();
     });
 
     imageCreditView.keydown(function(e) {
-      if (isStatus('truncated') && e.keyCode === backspaceKeyCode()) {
+      if (isStatus('truncated') && e.keyCode === backspaceKeyCode) {
         setStatus('');
         imageCreditView.text('');
       }
     });
 
-    imageCreditView.click(function() {
+    imageCreditView.click(function(event) {
+      event.stopImmediatePropagation();
       if (isStatus('empty')) {
         imageCreditView.text('').focus();
       }
@@ -54,7 +57,7 @@ Airbo.TileImageCredit = (function(){
   };
 
   function setStatus(status) {
-    return imageCreditView.data("status", status);
+    imageCreditView.data("status", status);
   };
 
   function isStatus(status) {
@@ -68,7 +71,7 @@ Airbo.TileImageCredit = (function(){
   function truncateImageCreditView() {
     if (!isStatus('truncated') && isTooLong()) {
       truncate();
-      return setStatus('truncated');
+      setStatus('truncated');
     }
   };
 
@@ -91,13 +94,15 @@ Airbo.TileImageCredit = (function(){
 
   function init(){
 
-    imageCreditView = $('.image_credit_view');
-    imageCreditInput = $('#tile_builder_form_image_credit');
+    if (Airbo.Utils.supportsFeatureByPresenceOfSelector(imageCreditViewSelector)) {
+      imageCreditView = $(imageCreditViewSelector);
+      imageCreditInput = $(imageCreditInputSelector);
 
-    initImageCreditHandlers();
-    saveImageCreditChanges();
-    truncateImageCreditView();
-  };
+      initImageCreditHandlers();
+      saveImageCreditChanges();
+      truncateImageCreditView();
+    } 
+  }
 
 
   return {
@@ -107,7 +112,5 @@ Airbo.TileImageCredit = (function(){
 }());
 
 $(function(){
-  if (Airbo.Utils.isAtPage(Airbo.Utils.Pages.TILE_BUILDER)) {
-    Airbo.TileImageCredit.init();
-  }
+    //Airbo.TileImageCredit.init();
 })

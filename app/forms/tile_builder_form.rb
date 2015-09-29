@@ -27,7 +27,8 @@ class TileBuilderForm
 
   def initialize(demo, options = {})
     @demo = demo
-    @parameters = (options[:parameters] || {})
+    @action = options[:action]
+    @form_params = (options[:form_params] || {})
     @tile = (options[:tile] || MultipleChoiceTile.new(demo: @demo, position: demo.next_draft_tile_position))
     @creator = options[:creator]
 
@@ -61,7 +62,7 @@ class TileBuilderForm
   end
 
   def no_image
-    @parameters[:no_image] == "true"
+    @form_params[:no_image] == "true"
   end
 
   def image_from_library
@@ -114,6 +115,14 @@ class TileBuilderForm
     false
   end
 
+  def has_question_type?
+    @action == "edit" || @action == "update" || ( @action == "create" && question_type.present?)
+  end
+
+  def question_config
+    { hasQuestionType: has_question_type?, type: question_type, subType: question_subtype}
+  end
+
   protected
 
   def save_tile
@@ -141,7 +150,7 @@ class TileBuilderForm
   end
 
   def set_tile_attributes
-    if @parameters.present?
+    if @form_params.present?
       @tile.assign_attributes filtered_tile_attributes 
     end
   end
@@ -152,17 +161,17 @@ class TileBuilderForm
 
   def image_builder
     @image_builder ||= ImageBuilder.new(
-      @parameters[:image],
-      @parameters[:image_container],
-      @parameters[:old_image_container],
+      @form_params[:image],
+      @form_params[:image_container],
+      @form_params[:old_image_container],
       no_image,
-      @parameters[:image_from_library]
+      @form_params[:image_from_library]
     )
   end
 
   def sanitized_supporting_content
     Sanitize.fragment(
-      @parameters[:supporting_content].strip, 
+      @form_params[:supporting_content].strip, 
       elements: [
         'ul', 'ol', 'li',               # lists
         'b', 'strong', 'i', 'em', 'u',  # text style
@@ -185,8 +194,8 @@ class TileBuilderForm
 
   def answers_normalizer
     @answers_builder ||= AnswersNormalizer.new(
-      @parameters[:answers], 
-      @parameters[:correct_answer_index]
+      @form_params[:answers], 
+      @form_params[:correct_answer_index]
     )
   end
   #
@@ -209,7 +218,7 @@ class TileBuilderForm
   private
 
   def filtered_tile_attributes
-    @parameters.except(*@exclude_attrs).merge({
+    @form_params.except(*@exclude_attrs).merge({
       supporting_content:      sanitized_supporting_content,
       correct_answer_index:    normalized_correct_answer_index,
       multiple_choice_answers: normalized_answers,
@@ -229,7 +238,7 @@ class TileBuilderForm
   end
 
   def image_changed?
-    @tile_image_changed ||= @parameters[:remote_media_url].present? && ((@tile.new_record? ) || (@parameters[:remote_media_url] != @tile.remote_media_url))
+    @tile_image_changed ||= @form_params[:remote_media_url].present? && ((@tile.new_record? ) || (@form_params[:remote_media_url] != @tile.remote_media_url))
   end
 
   def image_processing_attributes

@@ -10,10 +10,14 @@ body.suggested_tiles-new,
 body.suggested_tiles-create,
 body.suggested_tiles-edit,
 body.suggested_tiles-show,
-body.suggested_tiles-update {
+body.suggested_tiles-update{
   .builder-width {
     width:600px;
     padding: 0 !important;
+  }
+
+  .core {
+    overflow-y: visible;
   }
   .content form {
     #publish { margin-top: 2em; }
@@ -171,7 +175,6 @@ body.suggested_tiles-update {
       overflow-y: scroll;
       line-height: 1.25em;
       &.exceeded_maxlength_field {
-        border-color: $red;
       }
     }
     #tile_builder_form_supporting_content {
@@ -407,6 +410,359 @@ body.suggested_tiles-update {
     padding-top: 10px;
     display: none;
   }
+
+
+//
+  // => Modal builder customizations
+  //
+  & #images_modal{
+    background: transparent;
+    border: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: scroll;
+    #modal_content {
+      .image_library{
+        margin-left: 90px;
+      }
+    }
+  }
+
+  //
+  // => Modal builder customizations
+  //
+  & #new_tile_modal{
+
+   .tile_holder_container {
+     width: 600px;
+     padding-top: 0px;
+   }
+
+    background: transparent;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    top: 0 !important;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: scroll;
+
+
+    #modal_content {
+      width: 1007px;
+      margin: auto;
+      /*padding: 50px 0 50px 55px;*/
+      padding-top: 50px;
+      padding-bottom: 50px;
+
+    }
+
+
+    .medium-editor-placeholder:after {
+      color: #b3b3b1;
+    }
+
+
+
+   
+
+    .medium-editor-placeholder:after {
+      content: attr(data-placeholder)!important;
+      color: #a9a9a9;
+      font-size: 20px;
+      font-style: normal;
+      padding-top: 14px;
+      display: block;
+      position: relative;
+    }
+
+
+    // => Text content and submit buttons
+    form {
+      .builder_content {
+
+        padding-bottom: 0;
+
+        .show_placeholder {
+          border-bottom: none;
+
+          &:hover {
+            border-bottom: none;
+          }
+        }
+
+        #supporting_content_editor {
+          max-height: 450px;
+          min-height: 250px;
+          height: auto;
+        }
+
+        #tile_builder_form_headline{
+          font-size: 2.5em;
+          line-height: 1.15em;
+          height: 4.0em;
+        }
+        #tile_builder_form_link_address{
+          font-size: 1.6em;
+          padding-bottom: 0;
+        }
+
+        input[type="text"],textarea, .text-input {
+          border: none;
+          background: transparent; 
+        }
+
+        textarea {
+          resize: none;
+        }
+ 
+
+      }
+
+      .tile_builder_section {
+        padding: 0;
+      }
+
+      .content_sections {
+       
+        .show_if_ie9{
+          display: none;
+        }
+
+       
+        width: 100%;
+        border-bottom: 2px dashed #f3f3f3;
+        padding-left: 5%;
+        padding-right: 5%;
+        padding-bottom: 2%;
+        margin-bottom: 0;
+
+        &.tile_builder_error{
+          background-color: rgba(188, 76, 64,.20); //pinkish*/
+        }
+        
+        & label.tile_builder_error{
+          color: #e3402d;
+          text-align: left;
+          font-size: 0.625em;
+          font-weight: 700;
+          padding-top: 10px;
+        }
+
+        & .character-counter {
+          padding-top: 10px;
+
+        //FIXME should probably consolidate all error styels under tile_builder_error
+
+          &.exceeded_maxlength_counter {
+            color: #e3402d;
+          }
+        }
+
+        &:last-child:not(:only-child) {
+          border-bottom: none;
+        }
+      }
+
+      .ie9 {
+
+        #image_uploader {
+          &:hover {border-style:solid;}
+        }
+
+          .tile_builder_section {
+            padding: 2em 0;
+            width: 90%;
+          }
+
+        .content_sections:not(#image_uploader) {
+          border-bottom: none;
+
+          input[type="text"],textarea, .text-input {
+            border: 2px #f3f3f3 dashed;
+            &:hover, &:focus {
+              border-style: solid;
+            }
+          }
+
+          textarea {
+            resize: both;
+          }
+          label.show_if_ie9{
+           display: block;
+          }
+
+
+        }
+      }
+
+
+      #image_uploader {
+        &:hover {border-style:dashed;}
+        &.content_sections {
+          padding: 0;
+          label.tile_builder_error{
+            padding-left: 5%;
+            padding-bottom: 2%;
+          }
+        }
+      }
+
+      #publish {
+        .cancel_tile_builder{
+          display: none;
+        }
+
+        input[type="submit"] {
+          width: 100%;
+          padding: .6em .75em;
+        }
+      }
+
+      // => End Text content and submit buttons
+
+      // Multiple choice answers
+      .multiple_choice_group {
+
+        .tile_multiple_choice_answer{
+          ul.answer_option{
+            display: block;
+            margin-top: -45px;
+            min-height: 42px;
+            .option_input{
+              display: none;
+            }
+
+            li.del-answer{
+              float: right;
+              line-height: 2.65em;
+            }
+          }
+
+          .answer-div {
+            input.answer-field.answer-part{
+              margin-left: 2%;
+            }
+          } 
+          a {
+             min-height:45px;
+          }
+        }
+
+
+        &.action {
+          ul.answer_option{
+            margin-top: 0;
+          }
+        }
+
+        &.quiz{
+          .tile_multiple_choice_answer{
+            ul.answer_option{
+              width: 100%;
+
+              li.option_radio{
+                background: inherit;
+                border-color: #d2d2d2;
+              }
+              li.option_selected{
+                background-color: #d2d2d2;
+              }
+            }
+
+            &.true_false{
+              a {
+                width: 90%;
+              }
+            }
+
+            &.multiple_choice{
+              .answer-div {
+                width:93%;
+              }
+            }
+
+            a {
+              width:85%;
+              margin-left: 10%;
+            }
+          }
+
+        }
+
+        &.survey{
+          .tile_multiple_choice_answer{
+
+            a {
+              width:95%;
+            }
+
+            .answer-div {
+              input.answer-field.answer-part{
+                margin-left: 0;
+                width:95%;
+              }
+
+              .character-counter{
+                margin-right: 5%;
+              }
+
+            } 
+
+          }
+        }
+
+      }
+
+      .after_answers {
+        .choose_answer{
+          width: auto; 
+          float: left;
+        }
+        .add_answer {
+          width: auto;
+          float: right;
+        }
+      }
+
+
+
+    } //End Form
+
+    .tile_preview_menu {
+      width: 600px;
+      margin:auto;
+      margin-bottom: 50px;
+
+      .preview_menu_item {
+        min-width: 13%;
+        width: auto;
+        padding: 0px;
+        .header_text {
+          font-size: 12px;
+          margin-left: 0.25em;
+        }
+        a {
+          padding: 0.65em;
+        }
+      }
+
+    }
+
+    #tile_external_link {
+      margin-bottom: 0px;
+      margin-top: 0px;
+    }
+  }
+
 }
 
 body.client_admin-tiles-new, 
@@ -416,7 +772,7 @@ body.client_admin-tiles-update,
 body.suggested_tiles-new, 
 body.suggested_tiles-create,
 body.suggested_tiles-edit,
-body.suggested_tiles-update {
+body.suggested_tiles-update{
   #flash {
     width: 100%;
   }
@@ -474,7 +830,7 @@ body.suggested_tiles-update {
         display: block;
       }
       label {
-      color: white;
+        color: white;
       }
       .upload_new_image {
         opacity: 0;
@@ -504,9 +860,8 @@ body.suggested_tiles-update {
   .tile_holder_container {
     float: none;
     width: auto;
-    height: calc(100vh - 47px);
     min-height: 646px;
-    overflow: auto;
+    overflow: hidden;
     padding-top: 20px;
     padding-bottom: 50px;
     .tile_form_holder{
@@ -526,6 +881,13 @@ body.suggested_tiles-update {
   background: lighten($light-gray, 8%);
 }
 
+.shadows{
+  position: relative;
+  .shadow_overlay {
+    min-height: 50px;
+  }
+}
+
 .image_preview {
   .image_placeholder {
     label#uploaded_image_file.file_selected{
@@ -534,6 +896,17 @@ body.suggested_tiles-update {
     }
 
   }
+  .image_credit {
+    position: absolute;
+    padding-top: 20px;
+    bottom: 10px;
+  }
+  .image_credit_view{
+    /*padding-top: 20px;*/
+    /*padding-bottom: 15px;*/
+    /*padding-left: 15px;*/
+    /*padding-right: 5px;*/
+  }
 }
 
 #ie9_uploader.tile_image_block.upload_image.ie9_or_older {
@@ -541,4 +914,65 @@ body.suggested_tiles-update {
   label#upload_trigger_ie9 {
     cursor: pointer;
   }
+}
+
+// medium editor overrides
+
+.medium-editor-toolbar { 
+  li {
+    width: 50px; //required fix for ie9
+    button:hover {
+      color: #4face0
+    }
+  }
+}
+
+//Reveal modal ovverides
+//TODO consolidate reveal-modal customizations in one place
+
+
+.reveal-modal-bg{
+  background: rgba(14, 23, 29, 0.8);
+}
+
+#new_tile_modal, #images_modal {
+  .close-reveal-modal {
+    position: fixed;
+    top: 47px;
+    right: 50%;
+    margin-right: 490px;
+    color: $white;
+    i {
+      &:hover {
+        opacity: 0.7;
+      }
+
+    }
+
+  }
+}
+
+#images_modal {
+  .close-reveal-modal {
+    i {
+      font-size: 26px;
+    }
+  }
+}
+
+
+
+
+#new_tile_modal {
+  .close-reveal-modal {
+    i {
+      font-size: 32px;
+    }
+  }
+
+
+}
+
+.reveal-modal.tiny.confirm-with-reveal.destroy_confirm_modal.open {
+  width: 350px;
 }

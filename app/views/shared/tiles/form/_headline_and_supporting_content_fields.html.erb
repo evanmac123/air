@@ -1,18 +1,16 @@
-<div id="tile_headline" class="content_sections">
-  <%= form.label :headline %>
-  <%= form.text_area :headline, {maxlength: 75, placeholder:'Give this tile a headline'} %>
+<div class="<%='ie9' if  ie9_or_older? %>">
+  <div id="tile_headline" class="content_sections">
+    <%= form.label :headline,  class: "show_if_ie9" %>
+    <%= form.text_area :headline, {maxlength: 75, placeholder:'Give this tile a headline'} %>
+  </div>
+  <div id="tile_supporting_content" class="content_sections">
+    <%= form.label :supporting_content, class: "show_if_ie9" %>
+    <%= content_tag :div, "", data: {placeholder: "Tell your users more about this topic.", field: "tile_builder_form_supporting_content"}, id: "supporting_content_editor", class: "medium-editable text-input", maxlength: 600, exceed_maxlength: true%>
+    <%= form.text_area :supporting_content, data: {proxyid: "tile_supporting_content"} %>
+  </div>
+  <div id="tile_external_link" class="content_sections">
+    <%= form.label :link_address, "Add a link (optional)", class: "show_if_ie9" %>
+    <%= form.text_field :link_address, placeholder: "Add a link (optional)" %>
+    <%= form.hidden_field :position %>
+  </div>
 </div>
-<div id="tile_supporting_content" class="content_sections">
-  <%= form.label :supporting_content %>
-  <%= content_tag :div, id: "supporting_content_editor", class: "text-input", maxlength: 600, exceed_maxlength: true, placeholder:'Tell your users more about this topic.' do %><%= raw tile.supporting_content %><% end %>
-  <%= form.text_area :supporting_content %>
-</div>
-<div id="tile_external_link" class="content_sections">
-  <%= form.label :link_address, "Add a link (optional)" %>
-  <%= form.text_field :link_address %>
-  <%= form.hidden_field :position %>
-</div>
-
-<% js_at_end do %>
-  window.headlineAndSupportingContentBuilder();
-<% end %>

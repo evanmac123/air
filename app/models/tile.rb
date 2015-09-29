@@ -69,7 +69,7 @@ class Tile < ActiveRecord::Base
       .ordered_by_position
   end
   scope :digest, ->(demo, cutoff_time) { cutoff_time.nil? ? active : active.where("activated_at > ?", cutoff_time) }
-  scope :viewable_in_public, -> { where(is_sharable: true, is_public: true, status: [Tile::ACTIVE, Tile::ARCHIVE]) }
+  scope :viewable_in_public, -> { where(is_public: true, status: [Tile::ACTIVE, Tile::ARCHIVE]) }
   scope :copyable, -> { viewable_in_public.where(is_copyable: true) }
   scope :tagged_with, ->(tag_id) do
     if tag_id.present?

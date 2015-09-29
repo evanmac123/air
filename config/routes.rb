@@ -116,13 +116,16 @@ Health::Application.routes.draw do
     resources :locations, :only => :create
 
     resources :tiles do
-			collection do
-				get "blank"
-			end
+      collection do
+        get "blank"
+      end
+
       resource :image, :only => [:update, :show]
       resources :tile_completions, :only => [:index]      
       member do
         post 'sort'
+        put  'status_change' #FIXME this is a temporary hack to avoid having to rewrite all of the existing code related to tile status update.
+        put  'update_explore_settings' #FIXME this is a temporary hack to avoid having to rewrite all of the existing code related to tile explore settings update.
       end
     end
 

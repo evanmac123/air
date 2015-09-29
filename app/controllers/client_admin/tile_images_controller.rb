@@ -1,31 +1,28 @@
 class ClientAdmin::TileImagesController < ClientAdminBaseController
   def index
-    @tile_images = TileImage.all_ready
-                            .page(params[:page])
-                            .padding(TileImage::PAGINATION_PADDING)
-    render json: {
-      tileImages: tile_image_containers,
-      nextPageLink: next_page_link
-    }
+    set_images_page_context
+    render partial: @partial_to_render, layout: false
   end
 
-  protected
 
-  def tile_image_containers
-    @tile_images.map do |tile_image|
-      render_to_string("shared/tile_images/_tile_image", 
-        locals: {tile_image: tile_image}, 
-        layout: false
-      )
-    end.to_json
+  private
+
+  def ready_images
+    TileImage.all_ready
   end
 
-  def next_page_link
-    if @tile_images.last_page?
-      nil
+  def set_images_page_context
+    if params[:page]
+      @curr_page = params[:page].to_i + 1
+      @tile_images = ready_images.page(@curr_page).padding(TileImage::PAGINATION_PADDING)
+      @last_page = @tile_images.last_page?
+      @partial_to_render ="/shared/tiles/form/tile_images"
     else
-      next_page = params[:page].to_i + 1
-      client_admin_tile_images_path(page: next_page)
+      @curr_page=0
+      @tile_images = ready_images.limit(TileImage::PAGINATION_PADDING)
+      @partial_to_render = "/shared/tiles/form/image_library"
     end
+
   end
+
 end
