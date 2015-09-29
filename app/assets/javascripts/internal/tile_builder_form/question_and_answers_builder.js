@@ -28,14 +28,16 @@ Airbo.TileQuestionBuilder = (function(){
       obj.type = getTileType(obj.subtypeId);
       obj.subtype = getTileSubtype(obj.subtypeId);
 
-
       addSubTypeAnswer(obj)
 
       saveTypeToForm();
       _.each($(answerFieldSelector), addCharacterCounterFor);
+
+      $(".tile_quiz").removeClass("tile_builder_error");
       turnRadioGreen();
       rebindEvents();
       showSlider();
+
     });
   }
 
@@ -72,6 +74,7 @@ Airbo.TileQuestionBuilder = (function(){
 
     var answers_group = $('<div class="multiple_choice_group"></div>').addClass(type.toLowerCase());
     container.append(answers_group);
+    
     for(i in answers) {
 
       if(correct_index == i){
@@ -236,7 +239,8 @@ Airbo.TileQuestionBuilder = (function(){
   };
 
   function showAnswerContainer(display, text, correct) {
-    container = buildContainer(display, text, '<a class="answer_text"></a>');
+    var answer = text ==="" ? "Add Answer Option" : text;
+    container = buildContainer(display, answer, '<a class="answer_text"></a>');
 
     if(correct){
       container.addClass("clicked_right_answer");
@@ -441,16 +445,22 @@ Airbo.TileQuestionBuilder = (function(){
 
   function initTileAnswer(){
     $("body").on("blur", "input[name='tile_builder_form[answers][]']", function(event){
+
       var answer =$(this);
-      var container = $(answer).parents(".tile_multiple_choice_answer")
+      var container = $(answer).parents(".tile_multiple_choice_answer");
+      var answerText = container.find(".answer_text");
       if((answer.val().trim() ==="")){
-        event.preventDefault();
-        answer.valid(); //trigger jquery validate functionality
-        turnOnEditAnswer(container.find(".answer_text"));
         answer.focus();
+        answer.valid(); //trigger jquery validate functionality
+        answer.val("Add Answer Option");
+        saveAnswerChanges(answer);
+        turnOnEditAnswer(answerText);
+
       }else{
+        $("li.subtype").removeAttr("disabled")
         turnOffEditAnswer();
       }
+
     });
   }
 
