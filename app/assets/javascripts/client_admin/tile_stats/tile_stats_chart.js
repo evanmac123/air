@@ -102,7 +102,7 @@ Airbo.TileStatsChart = (function(){
       text = downloadChart.val();
 
       if(text == "Download") return;
-      $("#exportButton").click();
+      $(".highcharts-button").click();
       $( ".highcharts-container div:contains(" + "Download " + text + ")" ).last().click();
 
       downloadChart.find('option').eq(0).prop('selected', true);

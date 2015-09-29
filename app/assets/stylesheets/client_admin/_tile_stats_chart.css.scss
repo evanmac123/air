@@ -16,14 +16,13 @@ body.client_admin-tile_stats, #tile_stats_modal {
     margin-top: 6px;
     // hide download in chart
     &:after {
-      // content: " ";
+      content: " ";
       position: absolute;
       right: 9px;
       top: 63px;;
-      width: 26px;
-      height: 21px;
+      width: 21px;
+      height: 23px;
       background: $off-white;
-      border-top: 1px solid #d6d6d6;
     }
   }
   form.custom {

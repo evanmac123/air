@@ -42,6 +42,7 @@ JS
       # export to PNG, JPEG, PDF, SVG
       # Remove 'Print'
       {
+        allowHTML: true,
         buttons: {
           printButton: {
             enabled: false
@@ -117,6 +118,9 @@ JS
       {
         line: {
           pointStart: period.start_date(:date),
+          # FIXME
+          # 0.001 is set if interval is month. gem multiplies it by 1000 to get Milliseconds.
+          # so it's 1 in the end. And then pointIntervalUnit is used for monthes.
           pointInterval: (period.point_interval_unit ? 0.001 : period.point_interval),
           pointIntervalUnit: period.point_interval_unit,
           lineWidth: 3,
