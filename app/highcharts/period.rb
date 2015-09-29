@@ -10,7 +10,7 @@ class Period
   def point_interval
     case @interval_type
     when 'monthly'
-      1.month
+      1.month# + 1.day
     when 'weekly'
       1.week
     when 'daily'
@@ -76,8 +76,10 @@ class Period
     case format
     when :date
       date = time.to_date
-      if time_unit == 'month' || time_unit == 'week'
+      if time_unit == 'week'
         date.send(:"beginning_of_#{time_unit}")
+      elsif time_unit == 'month'
+        date.send(:"beginning_of_#{time_unit}") + 5.days
       else
         date
       end
