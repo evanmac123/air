@@ -4,9 +4,9 @@
 //= require ./ajax-response-handler
 //= require_tree ../../../vendor/assets/javascripts/external/
 
-// highcharts.js and exporting.js are both from Highcharts, and the load order matters
-//= require ../../../vendor/assets/javascripts/client_admin/highcharts
-//= require ../../../vendor/assets/javascripts/client_admin/exporting
+//= require highcharts/highcharts
+//= require highcharts/highcharts-more
+//= require highcharts/modules/exporting
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.slider.min
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.payment
 //= require ../../../vendor/assets/javascripts/client_admin/jquery-dialog.min
