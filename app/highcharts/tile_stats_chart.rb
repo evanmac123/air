@@ -79,17 +79,7 @@ JS
         },
         tickColor: 'white',
         maxPadding: 0.04,
-        minPadding: 0.04,
-        labels: {
-          step: 1
-        },
-        units: [
-          [ 'hour',   [2, 3, 4, 6, 8, 12] ],
-          [ 'day',    [1, 2, 3, 4, 6] ],
-          [ 'week',   [1] ],
-          [ 'month',  [1, 2, 3, 6] ],
-          [ 'year',   [1, 2, 3] ]
-        ]
+        minPadding: 0.04
       }
     end
 
@@ -118,7 +108,7 @@ JS
       {
         line: {
           pointStart: period.start_date(:date),
-          # FIXME
+          # FIXME maybe
           # 0.001 is set if interval is month. gem multiplies it by 1000 to get Milliseconds.
           # so it's 1 in the end. And then pointIntervalUnit is used for monthes.
           pointInterval: (period.point_interval_unit ? 0.001 : period.point_interval),
