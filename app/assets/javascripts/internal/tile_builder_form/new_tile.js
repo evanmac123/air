@@ -13,6 +13,7 @@ Airbo.TileCreator = (function(){
     , isExistingTile = false
     , keepOpen = false
     , tileBuilderCloseSelector = "#tilebuilder_close"
+    , imageLibraryCloseSelector = "#image_library_close"
     , visileTilePlaceholderSelector = ".tile_container.placeholder_container:visible"
     , tilePreviewStatusSelector = "#preview_tile_status"
     , tileWrapperSelector =".tile_container"
@@ -540,9 +541,17 @@ Airbo.TileCreator = (function(){
     $(tileModalSelector).click(function(event){
       if($(event.target).is(tileModalSelector) || $(event.srcElement).is(".tile_preview_container") || $(event.srcElement).is(".row")){
         $(tileBuilderCloseSelector).trigger("click");
-        //tileModal.foundation("reveal", "close");
       }
     });
+
+ 
+    $(imagesModalSelector).click(function(event){
+      if($(event.target).is(imagesModalSelector) || $(event.srcElement).is(".tile_preview_container") || $(event.srcElement).is(".row")){
+        $(imageLibraryCloseSelector).trigger("click");
+      }
+    });
+
+
   }
 
 
