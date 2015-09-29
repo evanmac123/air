@@ -10,7 +10,7 @@ class TilesDigestMailer < BaseTilesDigestMailer
     @demo = Demo.find demo_id
 
 
-    presenter_class = follow_up_email ? TilesDigestMailFollowupPresenter : TilesDigestMailDigestPresenter
+    presenter_class = follow_up_email ? TilesDigestMailFollowUpPresenter : TilesDigestMailDigestPresenter
     @presenter = presenter_class.new(@user, @demo, custom_from, custom_headline, custom_message, is_new_invite)
 
 
