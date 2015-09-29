@@ -15,15 +15,18 @@ body.client_admin-tile_stats, #tile_stats_modal {
     width: calc(100% - 200px);
     margin-top: 6px;
     // hide download in chart
-    &:after {
-      content: " ";
-      position: absolute;
-      right: 9px;
-      top: 63px;;
-      width: 21px;
-      height: 23px;
-      background: $off-white;
+    .highcharts-button {
+      display: none;
     }
+    // &:after {
+    //   content: " ";
+    //   position: absolute;
+    //   right: 9px;
+    //   top: 63px;;
+    //   width: 25px;
+    //   height: 23px;
+    //   background: $off-white;
+    // }
   }
   form.custom {
     select {
