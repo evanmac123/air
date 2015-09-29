@@ -538,7 +538,7 @@ Airbo.TileCreator = (function(){
     initTileBuilderFormSubmission();
 
     $(tileModalSelector).click(function(event){
-      if($(event.target).is(tileModalSelector)){
+      if($(event.target).is(tileModalSelector) || $(event.srcElement).is(".tile_preview_container") || $(event.srcElement).is(".row")){
         $(tileBuilderCloseSelector).trigger("click");
         //tileModal.foundation("reveal", "close");
       }
