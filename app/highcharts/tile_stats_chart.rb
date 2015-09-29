@@ -117,8 +117,8 @@ JS
       {
         line: {
           pointStart: period.start_date(:date),
-          pointInterval: period.point_interval,
-          # pointIntervalUnit: 'month',
+          pointInterval: (period.point_interval_unit ? 0.001 : period.point_interval),
+          pointIntervalUnit: period.point_interval_unit,
           lineWidth: 3,
           shadow: false,
           marker: {
@@ -144,7 +144,6 @@ JS
     def series_params
       {
         data: plot_data.data,
-        # pointIntervalUnit: 'month',
         color: '#4FACE0'
       }
     end

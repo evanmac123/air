@@ -16,7 +16,7 @@ body.client_admin-tile_stats, #tile_stats_modal {
     margin-top: 6px;
     // hide download in chart
     &:after {
-      content: " ";
+      // content: " ";
       position: absolute;
       right: 9px;
       top: 63px;;

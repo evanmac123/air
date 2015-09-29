@@ -10,13 +10,21 @@ class Period
   def point_interval
     case @interval_type
     when 'monthly'
-      1.month# + 1.day
+      1.month
     when 'weekly'
       1.week
     when 'daily'
       1.day
     when 'hourly'
       1.hour
+    end
+  end
+
+  def point_interval_unit
+    if @interval_type == 'monthly'
+      "month"
+    else
+      nil
     end
   end
 
@@ -79,7 +87,7 @@ class Period
       if time_unit == 'week'
         date.send(:"beginning_of_#{time_unit}")
       elsif time_unit == 'month'
-        date.send(:"beginning_of_#{time_unit}") + 5.days
+        date.send(:"beginning_of_#{time_unit}")
       else
         date
       end

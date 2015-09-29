@@ -5,7 +5,6 @@
 //= require_tree ../../../vendor/assets/javascripts/external/
 
 //= require highcharts/highcharts
-//= require highcharts/highcharts-more
 //= require highcharts/modules/exporting
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.slider.min
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.payment
