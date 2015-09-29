@@ -114,15 +114,15 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     #would simplify this whole process
     @tile = get_tile
     Tile.insert_tile_between(
-      params[:left_tile_id], 
-      @tile.id, 
-      params[:right_tile_id], 
+      params[:left_tile_id],
+      @tile.id,
+      params[:right_tile_id],
       params[:status]
     )
     @tile.reload
 
     @last_tiles = []
- 
+
     if params[:source_section].present?
       @last_tiles = Tile.find_additional_tiles_for_manage_section(
                       params[:source_section][:name],
@@ -163,6 +163,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @show_submitted_tile_menu_intro = show_submitted_tile_menu_intro
   end
   
+
   def intro_flags_index
     @board_is_brand_new = @demo.tiles.limit(1).first.nil? && params[:show_suggestion_box] != "true"
     @show_suggestion_box_intro =  if !current_user.suggestion_box_intro_seen
@@ -170,7 +171,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
                                     current_user.suggestion_box_intro_seen = true
                                     current_user.save
                                   end
-    @user_submitted_tile_intro =  if  params[:user_submitted_tile_intro] && 
+    @user_submitted_tile_intro =  if  params[:user_submitted_tile_intro] &&
                                       !current_user.user_submitted_tile_intro_seen &&
                                       @demo.tiles.user_submitted.first.present? &&
                                       !@show_suggestion_box_intro
@@ -178,7 +179,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
                                     current_user.user_submitted_tile_intro_seen = true
                                     current_user.save
                                   end
-    @manage_access_prompt = !current_user.manage_access_prompt_seen 
+    @manage_access_prompt = !current_user.manage_access_prompt_seen
   end
 
   def show_submitted_tile_menu_intro
@@ -196,7 +197,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       true
     end
   end
-  
+
   def get_demo
     @demo = current_user.demo
   end
@@ -292,6 +293,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def update_fields
     @tile_builder_form =  TileBuilderForm.new( @demo, builder_options.merge(tile: @tile))
+
 
     if @tile_builder_form.update_tile
       set_after_save_flash(@tile)

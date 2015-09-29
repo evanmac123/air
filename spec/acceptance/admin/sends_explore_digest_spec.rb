@@ -1,11 +1,11 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Sends explore digest' do
-  SEND_BUTTON_COPY = "Send real digest"  
-  TEST_BUTTON_COPY = "Send test digest to self"  
+  SEND_BUTTON_COPY = "Send real digest"
+  TEST_BUTTON_COPY = "Send test digest to self"
 
   def valid_subject
-    "I am thy Subjekt"  
+    "I am thy Subjekt"
   end
 
   def valid_headline
@@ -13,7 +13,7 @@ feature 'Sends explore digest' do
   end
 
   def valid_custom_message
-    "Now is the time for all good men to come to."  
+    "Now is the time for all good men to come to."
   end
 
   def fill_in_valid_message_entries

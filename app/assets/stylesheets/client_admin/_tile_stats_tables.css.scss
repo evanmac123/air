@@ -1,0 +1,209 @@
+body.client_admin-tile_stats, #tile_stats_modal {
+  @import "../mixins/sort_arrows";
+
+  .table_title {
+    text-transform: uppercase;
+    color: $text-color;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 24px;
+  }
+  // Grid Controls
+  .grid_controls {
+    margin-bottom: 20px;
+    .table_title {
+      float: left;
+      margin: 9px 30px 0 0;
+    }
+    .grid_types {
+      float: left;
+    }
+  }
+  .download_as_csv {
+    @include light-button(#919191);
+    background: $white;
+    border-color: #ccc;
+    font-size:13px;
+    font-weight: 500;
+    padding: 8px 12px;
+    float: right;
+    &:hover {
+      color: #636363;
+      border-color: $med-gray;
+    }
+  }
+  %stats-table {
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-collapse: separate;
+
+    font-size: 14px;
+    margin: 0;
+    th, td {
+      padding: 14px 20px;
+    }
+    th {
+      background: #dde3e9;
+      border: 0;
+      a {
+        color: $text-color;
+        font-weight: 700;
+        @include sort-arrows(transparent);
+        &:hover {
+          @include sort-arrows(rgba(89, 89, 89, 0.6));
+        }
+      }
+      &.sorted a {
+        @include sort-arrows(rgb(89, 89, 89));
+      }
+      &:first-child {
+        border-top-left-radius: 3px;
+      }
+      &:last-child {
+        border-top-right-radius: 3px;
+      }
+    }
+    td {
+      color: $text-color;
+      font-weight: 500;
+      border-width: 0;
+      border: 0 solid #e3e3e3;
+      border-bottom-width: 1px;
+      background: $white;
+      &:first-child, a {
+        font-weight: 500;
+        color: #2e2e2c;
+      }
+      &:first-child {
+        border-left-width: 1px;
+      }
+      &:last-child {
+        border-right-width: 1px;
+      }
+      a:hover {
+        color: $sky-blue;
+      }
+    }
+    tr:last-child td {
+      &:first-child {
+        border-bottom-left-radius: 3px;
+      }
+      &:last-child {
+        border-bottom-right-radius: 3px;
+      }
+    }
+  }
+  .survey-chart-table {
+    @extend %stats-table;
+    margin-bottom: 51px;
+    tr.selected {
+      td {
+        background: #e9f0f7;
+      }
+    }
+    tr:hover {
+      td {
+        background: #f5f9fc;
+      }
+    }
+    .answer {
+      width: 50%;
+    }
+    .percent {
+      width: 35%;
+    }
+    .progress, .percent_num {
+      float: left;
+    }
+    .progress {
+      border-radius: 8px;
+      background: $sky-blue;
+      height: 12px;
+      margin: 2px 10px 0 0;
+    }
+  }
+  #tile_stats_grid {
+    padding-top: 50px;
+  }
+  .grid_no_record {
+    padding-top: 60px;
+  }
+  .tile_grid_section table {
+    @extend %stats-table;
+    .new_records {
+      background: #f5fcfc;
+      text-align: center;
+      color: #1f7cb2;
+      cursor: pointer;
+    }
+    .name_column {
+      width: 25%;
+    }
+    .email_column {
+      width: 30%;
+    }
+    .views_column {
+      width: 10%;
+    }
+    .answer_column {
+      width: 25%;
+      cursor: pointer;
+    }
+    tfoot{
+      td {
+        border: 0;
+        padding: 0;
+      }
+    }
+  }
+  // Pagination in grid restyling
+  .pagination_status {
+    display: none;
+  }
+  .pagination {
+    float: none;
+  }
+  div.pagination {
+    padding: 20px 14px;
+    background: $off-white;
+  }
+  ul.pagination {
+    margin-left: 40%;
+    margin-top: 14px;
+    font-size: 13px;
+    li {
+      margin-left: 7px;
+      a {
+        color: #919191;
+        background: $white;
+        border-radius: 3px;
+        border: 1px solid #c2c2c2;
+        padding: 4px 10px;
+        font-weight: 500;
+        &:hover {
+          color: #595959;
+          border-color: #949494;
+          background: $white;
+        }
+
+      }
+      &:last-child a[rel='next'], &:first-child a[rel='prev'] {
+        display: none;
+      }
+      &.disabled a {
+        border: 0;
+        padding-left: 0;
+        padding-right: 0;
+        cursor: default;
+        &:hover {
+          color: #919191;
+        }
+      }
+      &.active a {
+        color: #404040;
+        border-color: #8A8A8A;
+      }
+    }
+  }
+}

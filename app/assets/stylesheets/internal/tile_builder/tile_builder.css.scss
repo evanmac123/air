@@ -146,7 +146,8 @@ body.suggested_tiles-update{
           .image_credit_view{
             cursor: pointer;
             text-align: right;
-            min-width: 25px;
+            min-width: 10px;
+            height: 16px;
           }
         }
         i { color: $gray; }

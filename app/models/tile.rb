@@ -84,6 +84,7 @@ class Tile < ActiveRecord::Base
   alias_attribute :like_count, :user_tile_likes_count 
   alias_attribute :total_views, :total_viewings_count
   alias_attribute :unique_views, :unique_viewings_count
+  alias_attribute :interactions, :tile_completions_count
 
   # Custom Attribute Setter: ensure that setting/updating the 'status' updates the corresponding time-stamp
 

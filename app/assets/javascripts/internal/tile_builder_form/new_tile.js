@@ -437,17 +437,16 @@ Airbo.TileCreator = (function(){
 
  function tileModalOpenClose(){
 
-   $(document).on('open.fndtn.reveal',tileModalSelector, function () {
+   $(document).on('open',tileModalSelector, function () {
      scrollPageToTop();
      $("body").css({"overflow-y": "hidden"});
-
    });
 
-   $(document).on('opened.fndtn.reveal',tileModalSelector, function () {
+   $(document).on('opened',tileModalSelector, function () {
     Airbo.Utils.mediumEditor.init();
    });
 
-   $(document).on('closed.fndtn.reveal', tileModalSelector, function (event) {
+   $(document).on('closed', tileModalSelector, function (event) {
 
      if(keepOpen){
         openTileFormModal();
@@ -458,7 +457,7 @@ Airbo.TileCreator = (function(){
    });
 
 
-   $(document).on('close.fndtn.reveal', tileModalSelector, function (event) {
+   $(document).on('close', tileModalSelector, function (event) {
      var msg;
      if(preventCloseMsg){
 

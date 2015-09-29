@@ -98,14 +98,14 @@ $pagination-link-current-active-bg: #4face0 !default;
       }
 
       &:hover a,
-      a:focus { 
-        background: $pagination-link-active-bg; 
+      a:focus {
+        background: $pagination-link-active-bg;
         color: $pagination-link-font-color-active;
       }
 
       @if $use-default-classes {
         &.unavailable { @include pagination-unavailable-item(); }
-        &.current { @include pagination-current-item(); }
+        &.current, &.active { @include pagination-current-item(true); }
       }
     }
   }

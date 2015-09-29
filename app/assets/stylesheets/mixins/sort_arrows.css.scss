@@ -1,0 +1,32 @@
+@mixin sort-arrows($color, $default-arrow-direction: 'up') {
+  $fa-long-arrow-up: "\f176";
+  $fa-long-arrow-down: "\f175";
+  $default-arrow: $fa-long-arrow-up;
+
+  @if $default-arrow-direction == 'down' {
+    $default-arrow: $fa-long-arrow-down;
+  }
+
+  background: none;
+  padding-right: 18px;
+  position: relative;
+  &:after {
+    @extend .fa;
+    content: $default-arrow;
+    color: $color;
+    position: absolute;
+    right: 2px;
+    top: 2px;
+  }
+  &.asc {
+    &:after {
+      content: $fa-long-arrow-up;
+    }
+  }
+
+  &.desc {
+    &:after {
+      content: $fa-long-arrow-down;
+    }
+  }
+}

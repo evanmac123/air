@@ -20,7 +20,7 @@ describe CssSplitter::Splitter do
     (1..number).to_a.each do |i|
       name = i == 1 ? original_name : "#{original_name}_split#{i}"
       unless get_file(name).present?
-        raise "Expected asset file #{name} not present, remember that you must manually create split files as needed, and update split_count in corresponding layout"
+        raise "Expected asset file #{name} not present, remember that you must: 1. manually create split files as needed; 2. update split_count in corresponding layout; 3. add filename to precompile list."
       end
     end
   end
@@ -38,7 +38,7 @@ describe CssSplitter::Splitter do
         file = get_file name
         sel_number = count_selectors(file)
         stylesheets_number = sel_number / max_selectors + 1
-        #p name.to_s + " " + sel_number.to_s + " " + stylesheets_number.to_s
+        # p name.to_s + " " + sel_number.to_s + " " + stylesheets_number.to_s
         check_stylesheets_num name, stylesheets_number
       end
     end

@@ -1,0 +1,31 @@
+<% tile_stats_grid ||= @tile_stats_grid %>
+<% tile ||= @tile %>
+<%= grid(tile_stats_grid, hide_csv_button: true) do |g|
+  g.blank_slate "<div class='grid_no_record'>#{empty_grid_message(@current_grid)}</div>".html_safe
+  g.column name: 'Name', attribute: 'name', html: {class: "name_column"}, in_csv: false do |row|
+    link_to row.user_name, edit_client_admin_user_path(row.user_id)
+  end
+  g.column name: 'Name', attribute: 'name', in_html: false do |row|
+    row.user_name
+  end
+  g.column name: 'Email', attribute: 'email', html: {class: "email_column"} do |row|
+    row.user_email
+  end
+  g.column name: 'Views', model: 'TileViewing', attribute: 'views', html: {class: "views_column"}  do |row|
+    row.tile_views || "-"
+  end
+  g.column name: 'Answer', model: "TileCompletion", attribute: 'answer_index', html: {class: "answer_column"} do |row|
+    if row.tile_answer_index
+      tile.multiple_choice_answers[row.tile_answer_index.to_i]
+    else
+      "-"
+    end
+  end
+  g.column name: 'Date', model: 'TileCompletion', attribute: 'id', html: {class: "date"}  do |row|
+    if row.completion_date
+      Time.parse(row.completion_date + " UTC").strftime(Wice::Defaults::DATE_FORMAT)
+    else
+      "-"
+    end
+  end
+end -%>
