@@ -118,7 +118,6 @@ Airbo.TileCreator = (function(){
  }
 
  function updateTileSection(data){
-
    var selector , section = pageSectionByStatus(data.tileStatus); 
    if(isExistingTile){
      replaceTileContent(data)
@@ -189,7 +188,6 @@ Airbo.TileCreator = (function(){
       modalTrigger = $(this);
 
       isExistingTile = modalTrigger.is(newSelector) ? false : true; 
-
       $.ajax({
         type: "GET",
         dataType: "html",
@@ -450,7 +448,6 @@ Airbo.TileCreator = (function(){
      if(keepOpen){
         openTileFormModal();
      }else{
-      isExistingTile = false;
       $("body").css({"overflow": ""});
      }
    });
