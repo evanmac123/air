@@ -340,6 +340,7 @@ Airbo.TileQuestionBuilder = (function(){
   }
 
   function makeButtonsSelected(type, subtype) {
+    $("#" + type).click(); //FIXME this is weird correlation with the medium editor causes the editor to blur and which induces the desired editor behavior.
 
     $(".button.selected").removeClass("selected");
     $(".subtype.selected").removeClass("selected");
