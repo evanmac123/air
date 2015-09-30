@@ -11,6 +11,7 @@ body.client_admin-tile_stats, #tile_stats_modal {
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
     border: 1px solid #E3E3E3;
+    width: 1007px;
   }
   h1 {
     color: $dark-gray;
@@ -41,15 +42,15 @@ body.client_admin-tile_stats, #tile_stats_modal {
   bottom: 0;
   overflow-y: scroll;
   #modal_content {
-    width: 1007px;
+    // width: 1157px;
     margin: auto;
-    padding: 50px 0 50px 55px;
+    padding: 50px 0 50px 142px;
   }
   .close-reveal-modal {
     position: fixed;
     top: 47px;
     right: 50%;
-    margin-right: 506px;
+    margin-right: 492px;
     color: $white;
     i {
       font-size: 32px;

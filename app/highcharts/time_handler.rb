@@ -9,11 +9,11 @@ class TimeHandler
     "pick_a_date_range" => {text: "Pick a date range..."}
   }.freeze
 
-  attr_accessor :interval_type, :start_date, :end_date, :date_range_type, :changed_field
+  attr_accessor :interval_type, :start_date, :end_date, :date_range_type, :changed_field, :new_chart
 
   def initialize params
-    @interval_type, @start_date, @end_date, @date_range_type, @changed_field =
-      params.values_at(:interval_type, :start_date, :end_date, :date_range_type, :changed_field)
+    @interval_type, @start_date, @end_date, @date_range_type, @changed_field, @new_chart =
+      params.values_at(:interval_type, :start_date, :end_date, :date_range_type, :changed_field, :new_chart)
   end
 
   def handle
@@ -47,7 +47,7 @@ class TimeHandler
 
   protected
     def show_date_selection?
-      date_range_type == "pick_a_date_range"
+      !new_chart && (changed_field == "start_date" || changed_field == "end_date")
     end
 
     def handle_date_range
@@ -81,7 +81,7 @@ class TimeHandler
 
     def handle_interval_type
       date_diff = from_american_format(end_date) - from_american_format(start_date)
-      self.interval_type = if date_diff <= 96.hours
+      self.interval_type = if date_diff <= 24.hours
                             'hourly'
                           elsif date_diff <= 30.days
                             'daily'

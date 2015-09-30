@@ -20,6 +20,14 @@ class Period
     end
   end
 
+  def point_interval_unit
+    if @interval_type == 'monthly'
+      "month"
+    else
+      nil
+    end
+  end
+
   def time_unit
     case @interval_type
     when 'monthly'
@@ -75,7 +83,14 @@ class Period
   def show_date time, format
     case format
     when :date
-      time.to_date
+      date = time.to_date
+      if time_unit == 'week'
+        date.send(:"beginning_of_#{time_unit}")
+      elsif time_unit == 'month'
+        date.send(:"beginning_of_#{time_unit}")
+      else
+        date
+      end
     when :american
       time.to_s(:chart_start_end_day)
     when :time

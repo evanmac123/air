@@ -83,7 +83,7 @@ feature "Client admin opens tile stats" do
     end
 
     it "should show empty users table", js: true do
-      expect_content "No users have completed this action yet."
+      expect_content "No users have viewed or interacted with Tiles."
     end
   end
 

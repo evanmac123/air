@@ -42,6 +42,7 @@ JS
       # export to PNG, JPEG, PDF, SVG
       # Remove 'Print'
       {
+        allowHTML: true,
         buttons: {
           printButton: {
             enabled: false
@@ -78,14 +79,7 @@ JS
         },
         tickColor: 'white',
         maxPadding: 0.04,
-        minPadding: 0.04,
-        units: [
-          [ 'hour',   [2, 3, 4, 6, 8, 12] ],
-          [ 'day',    [2, 3, 4, 6] ],
-          [ 'week',   [] ],
-          [ 'month',  [2, 3, 6] ],
-          [ 'year',   [1, 2, 3] ]
-        ]
+        minPadding: 0.04
       }
     end
 
@@ -105,6 +99,7 @@ JS
           text: nil
         },
         min: 0,
+        max: (plot_data.data.max == 0 ? 10 : nil), # set max when there is no data to draw y axis lines
         tickPixelInterval: 47
       }
     end
@@ -113,11 +108,15 @@ JS
       {
         line: {
           pointStart: period.start_date(:date),
-          pointInterval: period.point_interval,
+          # FIXME maybe
+          # 0.001 is set if interval is month. gem multiplies it by 1000 to get Milliseconds.
+          # so it's 1 in the end. And then pointIntervalUnit is used for monthes.
+          pointInterval: (period.point_interval_unit ? 0.001 : period.point_interval),
+          pointIntervalUnit: period.point_interval_unit,
           lineWidth: 3,
           shadow: false,
           marker: {
-            radius: 6
+            radius: 5
           }
         }
       }

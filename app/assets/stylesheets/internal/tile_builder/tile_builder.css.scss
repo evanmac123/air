@@ -1,12 +1,12 @@
 @import "mixins/lightbox";
 @import "mixins/green_paddle_switch";
 
-body.client_admin-tiles-new, 
+body.client_admin-tiles-new,
 body.client_admin-tiles-create,
 body.client_admin-tiles-edit,
 body.client_admin-tiles-show,
 body.client_admin-tiles-update,
-body.suggested_tiles-new, 
+body.suggested_tiles-new,
 body.suggested_tiles-create,
 body.suggested_tiles-edit,
 body.suggested_tiles-show,
@@ -19,7 +19,7 @@ body.suggested_tiles-update{
   .core {
     overflow-y: visible;
   }
-  .content form {
+  .content form.new_tile_builder_form {
     #publish { margin-top: 2em; }
     #publish * {vertical-align: top;}
     #publish input[type="submit"] {@include app-button($sky-blue);}
@@ -54,7 +54,7 @@ body.suggested_tiles-update{
     }
     // External link
     #tile_external_link {
-      margin:2em auto; 
+      margin:2em auto;
       input {border-color:$light-gray;}
     }
   }
@@ -152,7 +152,7 @@ body.suggested_tiles-update{
         }
         i { color: $gray; }
         .image_placeholder {
-          label { 
+          label {
             margin-top: 1em;
             cursor: default;
           }
@@ -181,7 +181,7 @@ body.suggested_tiles-update{
     #tile_builder_form_supporting_content {
       color:$text-color;
       font-size:1.5em;
-      display: none;   
+      display: none;
     }
   }
   .tile_quiz {
@@ -201,7 +201,7 @@ body.suggested_tiles-update{
           background: transparent;
           border: 0px;
           margin-bottom: 3px;
-        } 
+        }
         ul {
           z-index:10;
           width: 33%;
@@ -213,7 +213,7 @@ body.suggested_tiles-update{
           li {
             border: 1px $light-gray solid;
             border-top: 0;
-            background: $white; 
+            background: $white;
             color: $gray;
             padding: 0.75em;
             font-weight: bold;
@@ -354,8 +354,8 @@ body.suggested_tiles-update{
       height: 10px;
       border-radius: 4px;
       background: $light-gray;
-      .ui-slider-range { 
-        background: #8ecded; 
+      .ui-slider-range {
+        background: #8ecded;
         .points_pop_up{
           cursor: pointer;
           position: absolute;
@@ -396,7 +396,7 @@ body.suggested_tiles-update{
           }
         }
       }
-      .ui-slider-handle { 
+      .ui-slider-handle {
         visibility: hidden;
         -webkit-transition: none; -moz-transition: none;
       }
@@ -473,7 +473,7 @@ body.suggested_tiles-update{
 
 
 
-   
+
 
     .medium-editor-placeholder:after {
       content: attr(data-placeholder)!important;
@@ -518,13 +518,13 @@ body.suggested_tiles-update{
 
         input[type="text"],textarea, .text-input {
           border: none;
-          background: transparent; 
+          background: transparent;
         }
 
         textarea {
           resize: none;
         }
- 
+
 
       }
 
@@ -533,12 +533,12 @@ body.suggested_tiles-update{
       }
 
       .content_sections {
-       
+
         .show_if_ie9{
           display: none;
         }
 
-       
+
         width: 100%;
         border-bottom: 2px dashed #f3f3f3;
         padding-left: 5%;
@@ -549,7 +549,7 @@ body.suggested_tiles-update{
         &.tile_builder_error{
           background-color: rgba(188, 76, 64,.20); //pinkish*/
         }
-        
+
         & label.tile_builder_error{
           color: #e3402d;
           text-align: left;
@@ -652,7 +652,7 @@ body.suggested_tiles-update{
             input.answer-field.answer-part{
               margin-left: 2%;
             }
-          } 
+          }
           a {
              min-height:45px;
           }
@@ -716,7 +716,7 @@ body.suggested_tiles-update{
                 margin-right: 5%;
               }
 
-            } 
+            }
 
           }
         }
@@ -725,7 +725,7 @@ body.suggested_tiles-update{
 
       .after_answers {
         .choose_answer{
-          width: auto; 
+          width: auto;
           float: left;
         }
         .add_answer {
@@ -766,11 +766,11 @@ body.suggested_tiles-update{
 
 }
 
-body.client_admin-tiles-new, 
+body.client_admin-tiles-new,
 body.client_admin-tiles-create,
 body.client_admin-tiles-edit,
 body.client_admin-tiles-update,
-body.suggested_tiles-new, 
+body.suggested_tiles-new,
 body.suggested_tiles-create,
 body.suggested_tiles-edit,
 body.suggested_tiles-update{
@@ -797,7 +797,7 @@ body.suggested_tiles-update{
     .pagination {
       display: none;
     }
-    .jscroll-loading { // div with our standard spinner 
+    .jscroll-loading { // div with our standard spinner
       text-align: center;
       img {
         width: 50px;
@@ -919,7 +919,7 @@ body.suggested_tiles-update{
 
 // medium editor overrides
 
-.medium-editor-toolbar { 
+.medium-editor-toolbar {
   li {
     width: 50px; //required fix for ie9
     button:hover {

@@ -15,15 +15,8 @@ body.client_admin-tile_stats, #tile_stats_modal {
     width: calc(100% - 200px);
     margin-top: 6px;
     // hide download in chart
-    &:after {
-      content: " ";
-      position: absolute;
-      right: 10px;
-      top: 63px;;
-      width: 26px;
-      height: 21px;
-      background: $off-white;
-      border-top: 1px solid #d6d6d6;
+    .highcharts-button {
+      display: none;
     }
   }
   form.custom {
@@ -174,6 +167,7 @@ body.client_admin-tile_stats, #tile_stats_modal {
       float: left;
       width: 105px;
       margin-right: 12px;
+      margin-bottom: 0;
       padding: 8px 12px;
       line-height: 1;
       font-size: $font-size;
@@ -189,6 +183,9 @@ body.client_admin-tile_stats, #tile_stats_modal {
       &:active {
         color: #424242;
         border-color: #808080;
+      }
+      &.opened {
+        border-color: $sky-blue;
       }
     }
     span {
@@ -226,8 +223,11 @@ body.client_admin-tile_stats, #tile_stats_modal {
   }
 
   #tile_chart {
+    position: absolute;
+    top: 53px;
+    left: 0;
     height: 207px;
-    margin-top: 53px;
+    width: 737px;
   }
 }
 
@@ -330,9 +330,21 @@ body.client_admin-tile_stats, body.client_admin-tiles.client_admin-tiles-index {
       td {
         padding: 0;
         border: 1px solid $border-color;
-        &.ui-datepicker-other-month a {
+        background: $white;
+        &.ui-datepicker-other-month {
+          a {
+            opacity: 1;
+            color: lighten($color-passive, 25%);
+          }
+        }
+        &.ui-datepicker-unselectable {
           opacity: 1;
-          color: lighten($color-passive, 25%);
+          span {
+            background: $white;
+            border: none;
+            text-align: center;
+            color: lighten($color-passive, 25%);
+          }
         }
         a {
           background: white;
@@ -341,8 +353,12 @@ body.client_admin-tile_stats, body.client_admin-tiles.client_admin-tiles-index {
           color: $color-passive;
           font-weight: 700;
           line-height: 1.6;
-          &:hover, &.ui-state-active {
+          &:hover {
             color: #2e2e2c;
+          }
+          &.ui-state-active {
+            background: $sky-blue;
+            color: $white;
           }
         }
       }

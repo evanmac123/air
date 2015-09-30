@@ -3,7 +3,7 @@ class ClientAdmin::TileStatsChartsController < ClientAdminBaseController
     @tile = Tile.find(params[:tile_id])
     @chart_form = TileStatsChartForm.new @tile, params[:tile_stats_chart_form]
     @chart = TileStatsChart.new(*@chart_form.chart_params).draw
-    render json: { chart: chart_to_string, success: true }
+    render json: { chart: chart_to_string, success: true}
   end
 
   protected
