@@ -79,7 +79,8 @@ Airbo.TileCreator = (function(){
      position: "bottom",
      contentAsHTML: true,
      functionReady: prepareToolTip,
-     autoClose: shouldAutoClose()
+     trigger: "click",
+     autoClose: false,
    });
  }
 
@@ -102,7 +103,7 @@ Airbo.TileCreator = (function(){
  }
 
  function prepareToolTip(origin, content){
-  initSharing();
+   initSharing();
  }
 
 
@@ -395,9 +396,14 @@ Airbo.TileCreator = (function(){
         success: function(data, status,xhr){
           closeModal(tileModal);
           moveTile(tile, data);
+          if((target).parents(".tooltipster-base").length > 0){
+            $("li#stat_toggle").tooltipster("hide"); 
+          }
         },
 
       });
+       
+
     });
   }
 
