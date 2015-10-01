@@ -8,6 +8,7 @@ Airbo.TileQuestionBuilder = (function(){
     , defaultType
     , defaultSubtype
     , tilebuilderform
+    , nextAnswerIndex=0
     , multipleChoiceAnswerSelector = ".tile_multiple_choice_answer"
     , delAnswerSelector = ".fa.fa-remove"
     , tileTextContainerSelector = "#new_tile_builder_form .tile_texts_container"
@@ -74,7 +75,6 @@ Airbo.TileQuestionBuilder = (function(){
 
     var answers_group = $('<div class="multiple_choice_group"></div>').addClass(type.toLowerCase());
     container.append(answers_group);
-    
     for(i in answers) {
 
       if(correct_index == i){
@@ -82,23 +82,26 @@ Airbo.TileQuestionBuilder = (function(){
       }else{
         correct = false;
       }
-      addAnswerToGroup(answers, correct,subtype, i);
+      addAnswerToGroup(answers[i], correct,subtype, i);
     }
+
+      nextAnswerIndex = answers.length;
   };
 
   function addIndividualAnswer(subtype){
-    addAnswerToGroup(["Add Answer Option"], false, subtype, 0)
+    addAnswerToGroup("Add Answer Option", false, subtype, nextAnswerIndex)
+    nextAnswerIndex++;
   }
 
-  function addAnswerToGroup(answerList, correct,subtype, i){
+  function addAnswerToGroup(answerVal, correct,subtype, i){
     answer = $('<div class="tile_multiple_choice_answer"></div>').addClass(subtype);
     $(".multiple_choice_group").append(answer); 
-    addToShowAndEditContainers(answer, answerList, correct, i)
+    addToShowAndEditContainers(answer, answerVal, correct, i)
   }
 
-  function addToShowAndEditContainers(answer, answerList, correct, i){
-    answer.append(showAnswerContainer("block", answerList[i], correct));
-    answer.append(editAnswerContainer("none", answerList[i], i, correct));
+  function addToShowAndEditContainers(answer, answerVal,  correct, i){
+    answer.append(showAnswerContainer("block", answerVal, correct));
+    answer.append(editAnswerContainer("none", answerVal, i, correct));
   }
 
   function showQuestionAndAnswers(subtype) {
@@ -170,7 +173,8 @@ Airbo.TileQuestionBuilder = (function(){
       turnOnEditQuestion(this);
     });
 
-    $(".tile_multiple_choice_answer a").click(function() {
+    $(".tile_multiple_choice_answer a").click(function(event) {
+     event.preventDefault();
       turnOnEditAnswer(this);
     });
 
@@ -319,7 +323,7 @@ Airbo.TileQuestionBuilder = (function(){
   }
 
   function showAddAnswer(container) {
-    add_container = $('<div class="add_answer"></div>');
+    add_container = $('<a class="add_answer"></a>');
     icon = $('<i class="fa fa-plus"></i>');
     meassage = "  Add another answer";
     add_container.text(meassage).prepend(icon);
