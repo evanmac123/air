@@ -439,12 +439,6 @@ body.suggested_tiles-update{
   // => Modal builder customizations
   //
   & #new_tile_modal{
-
-   .tile_holder_container {
-     width: 600px;
-     padding-top: 0px;
-   }
-
     background: transparent;
     width: 100%;
     margin: 0;
@@ -454,9 +448,12 @@ body.suggested_tiles-update{
     left: 0;
     right: 0;
     bottom: 0;
-    overflow-y: scroll;
-
-
+    overflow-y: auto;
+    border-width: 0;
+    .tile_holder_container {
+      width: 600px;
+      padding-top: 0px;
+    }
     #modal_content {
       width: 1007px;
       margin: auto;
@@ -873,29 +870,24 @@ body.suggested_tiles-update{
     display: none;
   }
 }
-
 #new_tag_lightbox {
   @include lightbox-form;
 }
-
 #tile_tag_select {
   background: lighten($light-gray, 8%);
 }
-
 .shadows{
   position: relative;
   .shadow_overlay {
     min-height: 50px;
   }
 }
-
 .image_preview {
   .image_placeholder {
     label#uploaded_image_file.file_selected{
       color: #50698C;
       font-weight: bold;
     }
-
   }
   .image_credit {
     position: absolute;
@@ -909,16 +901,13 @@ body.suggested_tiles-update{
     /*padding-right: 5px;*/
   }
 }
-
 #ie9_uploader.tile_image_block.upload_image.ie9_or_older {
   cursor: auto;
   label#upload_trigger_ie9 {
     cursor: pointer;
   }
 }
-
 // medium editor overrides
-
 .medium-editor-toolbar {
   li {
     width: 50px; //required fix for ie9
@@ -927,32 +916,25 @@ body.suggested_tiles-update{
     }
   }
 }
-
 //Reveal modal ovverides
 //TODO consolidate reveal-modal customizations in one place
-
-
 .reveal-modal-bg{
   background: rgba(14, 23, 29, 0.8);
 }
-
 #new_tile_modal, #images_modal {
   .close-reveal-modal {
     position: fixed;
-    top: 47px;
+    top: 45px;
     right: 50%;
-    margin-right: 490px;
+    margin-right: 492px;
     color: $white;
     i {
       &:hover {
         opacity: 0.7;
       }
-
     }
-
   }
 }
-
 #images_modal {
   .close-reveal-modal {
     i {
@@ -960,20 +942,17 @@ body.suggested_tiles-update{
     }
   }
 }
-
-
-
-
 #new_tile_modal {
   .close-reveal-modal {
     i {
       font-size: 32px;
+      &:hover {
+        opacity: 0.7;
+      }
     }
   }
-
-
 }
-
 .reveal-modal.tiny.confirm-with-reveal.destroy_confirm_modal.open {
   width: 350px;
+  margin-left: -175px;
 }
