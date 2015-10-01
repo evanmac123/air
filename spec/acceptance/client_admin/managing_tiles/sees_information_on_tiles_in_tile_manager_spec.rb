@@ -34,6 +34,10 @@ feature 'Sees helpful information in tile manager' do
     tile_stat(tile, ".completions").to_i
   end
 
+  before do
+    pending
+  end
+
   after do
     Timecop.return
   end

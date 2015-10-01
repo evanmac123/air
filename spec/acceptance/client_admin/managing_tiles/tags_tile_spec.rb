@@ -4,6 +4,7 @@ feature 'Tags tile' do
   include WaitForAjax
 
   before do
+    pending
     @client_admin = FactoryGirl.create(:client_admin)
   end
 

@@ -29,6 +29,7 @@ feature "Client Admin Interacts With Share And Public Section" do
   end
 
   before do
+    pending
     @client_admin = FactoryGirl.create(:client_admin)
   end
 

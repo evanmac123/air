@@ -15,6 +15,10 @@ feature "interacts with a tile from the explore-preview page" do
   let (:last_actor) {FactoryGirl.create(:client_admin, name: "John Lastactor")}
   let (:second_actor) {FactoryGirl.create(:client_admin, name: "Suzanne von Secondactor")}
 
+  before do
+   pending
+  end
+
   shared_examples_for 'copies/likes tile' do
     scenario "by clicking the proper link", js: true do
       close_intro

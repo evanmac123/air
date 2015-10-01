@@ -13,7 +13,7 @@ feature 'Creates tile' do
   end
 
   before do
-
+    pending
     visit new_client_admin_tile_path(as: client_admin)
     choose_question_type_and_subtype Tile::QUIZ, Tile::MULTIPLE_CHOICE
   end

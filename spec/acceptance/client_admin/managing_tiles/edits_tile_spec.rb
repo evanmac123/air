@@ -94,6 +94,7 @@ feature "Client admin edits tile" do
 
   context "multiple choice tile" do
     before do
+      pending
       @tile = FactoryGirl.create :multiple_choice_tile
       crank_dj_clear
 

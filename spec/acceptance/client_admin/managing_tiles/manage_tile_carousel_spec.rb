@@ -8,6 +8,7 @@ feature 'Carousel on Client Admin Tile Page' do
   let!(:demo)  { admin.demo  }
 
   background do
+    pending
     bypass_modal_overlays(admin)
     signin_as(admin, admin.password)
   end

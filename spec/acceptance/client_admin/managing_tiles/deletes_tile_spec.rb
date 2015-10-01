@@ -18,6 +18,7 @@ feature 'Client admin deletes tile' do
   end
 
   before do
+    pending
     @demo = FactoryGirl.create :demo
     @client_admin = FactoryGirl.create :client_admin, demo: @demo
     @tile = FactoryGirl.create :multiple_choice_tile, demo: @demo
