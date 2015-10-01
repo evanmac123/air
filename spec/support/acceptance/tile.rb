@@ -142,9 +142,8 @@ module TileHelpers
   end
 
   def fill_in_answer_field(index, text)
-    page.find(".tile_question").click #just to close possible edit answer
-    page.all(answer_link_selector)[index].click
-    page.all(answer_field_selector)[index].set(text)
+    page.all(answer_link_selector)[index].trigger("click")
+    page.find(answer_field_selector, visible: true).set(text)
   end
 
   def fill_in_external_link_field(text)
@@ -152,8 +151,9 @@ module TileHelpers
   end
 
   def fill_in_question text
-    page.find(".tile_question").click if page.all(".tile_question").count > 0
-    page.find("#tile_builder_form_question").set(text)
+    page.find(".tile_question").trigger("click")
+    #FIXME shouldn't clicking make the form element visible?
+    page.find("#tile_builder_form_question", visible: false).set(text)
   end
 
   def click_make_copyable
@@ -165,9 +165,8 @@ module TileHelpers
   end
 
   def select_correct_answer(index)
-    page.find(".tile_question").click #just to close possible edit answer
-    page.all(".tile_multiple_choice_answer a")[index].click
-    page.find(".correct-answer-button[value=\"#{index}\"]").click
+    page.all(".tile_multiple_choice_answer a")[index].trigger("click")
+    page.all(".correct-answer-button")[index].trigger("click")
   end
 
   def add_tile_tag(tag)
@@ -193,7 +192,7 @@ module TileHelpers
   end
 
   def click_add_answer
-    page.find(".add_answer").click
+    page.find(".add_answer").trigger("click")
   end
 
   def fill_in_image_credit text
@@ -279,7 +278,7 @@ module TileHelpers
   end
 
   def fill_in_supporting_content(text)
-    page.execute_script("$('#supporting_content_editor').keydown().html('#{text}').keyup()")
+    page.execute_script("$('#supporting_content_editor').focus().html('#{text}').blur()")
   end
 
   def fill_in_valid_form_entries options = {}
@@ -318,8 +317,8 @@ module TileHelpers
   end
 
   def choose_question_type_and_subtype question_type, question_subtype
-    page.find("##{question_type}").click()
-    page.find("##{question_type}-#{question_subtype}").click()
+    page.find("##{question_type}").trigger('click')
+    page.find("##{question_type}-#{question_subtype}").trigger('click')
   end
 
 
