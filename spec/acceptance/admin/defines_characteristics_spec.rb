@@ -11,7 +11,7 @@ feature "Admin Defines Characteristics" do
   end
 
   def expect_allowed_value_text_field(expected_value)
-    page.find(:css, %{[@name="characteristic[allowed_values][]"][@value="#{expected_value}"]}).should be_present 
+    page.find(:css, %{[name="characteristic[allowed_values][]"][value="#{expected_value}"]}).should be_present 
   end
 
   # We have all this nonsense because before(:each) and :js=>true do not play well together.
@@ -52,7 +52,7 @@ feature "Admin Defines Characteristics" do
       # value fields they fill in, i.e. blank ones should get skipped over silently.
       
       10.times{ click_button "More allowed values" }
-      allowed_value_fields = page.all('input[@name="characteristic[allowed_values][]"]')
+      allowed_value_fields = page.all('input[name="characteristic[allowed_values][]"]')
 
       allowed_value_fields[1].set("Medium")
       allowed_value_fields[3].set("Large")
@@ -74,14 +74,14 @@ feature "Admin Defines Characteristics" do
       fill_in "characteristic[description]", :with => "How big are your pants?"
 
       # Overwrite some allowed values, blank out some others, add some new ones, whee.
-      allowed_value_fields = page.all('input[@name="characteristic[allowed_values][]"]')
+      allowed_value_fields = page.all('input[name="characteristic[allowed_values][]"]')
       allowed_value_fields.length.should == 3
     
       allowed_value_fields[1].set('   ')
       allowed_value_fields[2].set('cheese whiz')
 
       3.times{ click_button "More allowed values" }
-      allowed_value_fields = page.all('input[@name="characteristic[allowed_values][]"]')
+      allowed_value_fields = page.all('input[name="characteristic[allowed_values][]"]')
 
       allowed_value_fields[4].set('oh yeah')
       click_button 'Update Characteristic'
@@ -181,20 +181,20 @@ feature "Admin Defines Characteristics" do
       visit admin_characteristics_path(as: an_admin)
 
       select "Number", :from => "characteristic[datatype]"
-      page.all('input[@name="characteristic[allowed_values][]"]').select(&:visible?).should be_empty
+      page.all('input[name="characteristic[allowed_values][]"]').select(&:visible?).should be_empty
 
       select "Date", :from => "characteristic[datatype]"
-      page.all('input[@name="characteristic[allowed_values][]"]').select(&:visible?).should be_empty
+      page.all('input[name="characteristic[allowed_values][]"]').select(&:visible?).should be_empty
 
       select "Boolean", :from => "characteristic[datatype]"
-      page.all('input[@name="characteristic[allowed_values][]"]').select(&:visible?).should be_empty
+      page.all('input[name="characteristic[allowed_values][]"]').select(&:visible?).should be_empty
 
       select "Time", :from => "characteristic[datatype]"
-      page.all('input[@name="characteristic[allowed_values][]"]').select(&:visible?).should be_empty
+      page.all('input[name="characteristic[allowed_values][]"]').select(&:visible?).should be_empty
 
       # And bring that field back
       select "Discrete", :from => "characteristic[datatype]"
-      page.all('input[@name="characteristic[allowed_values][]"]').select(&:visible?).should_not be_empty
+      page.all('input[name="characteristic[allowed_values][]"]').select(&:visible?).should_not be_empty
     end
   end
 end
