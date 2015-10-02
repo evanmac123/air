@@ -117,7 +117,7 @@ feature 'Highchart Plot' do
       label_should_be 'Every other'
 
       # And finally, make sure page contains the highchart-button to save chart to an image file
-      page.should have_selector '#exportButton'
+      page.should have_selector '.highcharts-button'
     end
 
     # -------------------------------------------------
