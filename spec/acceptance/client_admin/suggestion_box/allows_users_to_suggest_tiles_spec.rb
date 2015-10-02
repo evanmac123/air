@@ -63,9 +63,10 @@ feature 'Client admin segments on characteristics' do
       end
 
       scenario "specific users should be checked by default without any users selected", js: true do
-        specific_users_switcher_on.should be_checked
-        all_users_switcher_on.should_not be_checked
-
+        within ".switcher" do
+          expect(page).to have_css ".specific_users_copy.on"
+          expect(page).to_not have_css ".all_users_copy.on"
+        end
         user_rows.count.should == 0
       end
 
@@ -123,14 +124,23 @@ feature 'Client admin segments on characteristics' do
           manage_access_link.click
         end
 
-        it "should remove user", js: true do
-          demo.users_that_allowed_to_suggest_tiles.pluck(:name).should == ["User1"]
+        scenario "should remove user", js: true do
+          id = users.first.id
+          user_row = "tr.allowed_to_suggest_user[data-user-id='#{id}']"
 
-          user_rows[0].find(".user_remove a").click
-          user_rows.count.should == 0
-
+          within  user_row do
+            page.find(".user_remove a").click
+          end
           save_button.click
-          demo.users_that_allowed_to_suggest_tiles.count.should == 0
+
+          #automatically waits for ajax without the need for any WaitForAjax
+          #This confirms that the modal was closed susccessfully
+          expect(page).to_not have_content("Add people to suggestion box") 
+
+          manage_access_link.click #reopen modal
+          within "table#allowed_to_suggest_users" do
+            expect(page).to_not have_selector user_row
+          end
         end
       end
     end
@@ -144,7 +154,12 @@ feature 'Client admin segments on characteristics' do
       end
 
       it "should confirm leaving if there is some unsaved changes", js: true do
-        user_rows[0].find(".user_remove a").click
+        user_row = "tr.allowed_to_suggest_user[data-user-id='#{users.first.id}']"
+
+        within  user_row do
+          page.find(".user_remove a").click
+        end
+
         user_rows.count.should == 0
 
         suggestion_box_cancel.click
