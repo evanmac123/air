@@ -11,7 +11,7 @@ class TilesDigestMailPreviewDigestPresenter < TilesDigestMailBasePresenter
   end
 
   def link_options
-    {target: '_blank'}  
+    {target: '_blank'}
   end
 
   def is_preview
