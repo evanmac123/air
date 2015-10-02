@@ -62,16 +62,16 @@ body.suggested_tiles-update{
     background: white;
   }
   .builder_content {
-    background:$white;
+    // background:$white;
 
     // Image uploader
     #image_uploader {
+      text-align: center;
+      border-radius: 3px;
+      &:hover {border-style:solid;}
       .tile_image{
         width: 100%;
       }
-      text-align: center;
-      &:hover {border-style:solid;}
-
       p {
         color:$gray;
         margin:1em 0;
@@ -457,10 +457,7 @@ body.suggested_tiles-update{
     #modal_content {
       width: 1007px;
       margin: auto;
-      /*padding: 50px 0 50px 55px;*/
-      padding-top: 50px;
-      padding-bottom: 50px;
-
+      padding: 50px 0;
     }
 
 
@@ -604,7 +601,15 @@ body.suggested_tiles-update{
 
 
       #image_uploader {
-        &:hover {border-style:dashed;}
+        &:hover {
+          border-style:dashed;
+          cursor: pointer;
+          .image_placeholder {
+            i, label {
+              color: $darker-gray;
+            }
+          }
+        }
         &.content_sections {
           padding: 0;
           label.tile_builder_error{
@@ -862,9 +867,9 @@ body.suggested_tiles-update{
     overflow: hidden;
     padding-top: 20px;
     padding-bottom: 50px;
-    .tile_form_holder{
-      max-width: 52.8vw;
-    }
+    // .tile_form_holder{
+    //   max-width: 52.8vw;
+    // }
   }
   #footer {
     display: none;
