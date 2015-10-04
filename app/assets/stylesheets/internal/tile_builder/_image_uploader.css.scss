@@ -1,0 +1,97 @@
+// Image uploader
+#image_uploader {
+  text-align: center;
+  border-radius: 3px;
+  &:hover {border-style:solid;}
+  .tile_image{
+    width: 100%;
+  }
+  p {
+    color:$gray;
+    margin:1em 0;
+  }
+  #tile_builder_form_image {display:none;}
+  // for IE
+  .pick_image {
+    margin: 2em;
+    padding-top: 3em;
+    padding-bottom: 0;
+    border:2px lighten($light-gray, 8%) dashed;
+  }
+  .image_text {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #tile_builder_form_image {
+    margin-top: 2em;
+    margin-bottom: 3em;
+    margin-left: auto;
+    margin-right: auto;
+    background:$blue;
+    border:0;
+    color:$white;
+    padding:1em 2em;
+    width:auto;
+    &:hover {background:darken($blue, 5%);}
+  }
+  // end for IE
+  .show_shadows {
+    background:$text-color;
+    border-style:solid;
+    #upload_preview {display:block;}
+    .image_placeholder {display:none;}
+    .shadows {display:block;}
+  }
+  .show_placeholder {
+    border-bottom:2px lighten($light-gray, 8%) dashed;
+    #upload_preview {display:none;}
+    .image_placeholder {display:block;}
+    .shadows {display:none;}
+    &:hover, &:focus {
+      border-style:solid;
+    }
+  }
+  .image_preview {
+    position: relative;
+    .clear_image {
+      display: block;
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      i {
+        color: $white;
+        &:hover, &:focus {
+          cursor: pointer;
+          color: $red;
+        }
+      }
+    }
+    .image_credit {
+      textarea {
+        display:none;
+      }
+      .character-counter{
+        display:block;
+        position: absolute;
+        bottom: 1px;
+        right:2px;
+        font-size: 0.6rem;
+      }
+      .image_credit_view{
+        cursor: pointer;
+        text-align: right;
+        min-width: 10px;
+        height: 16px;
+      }
+    }
+    i { color: $gray; }
+    .image_placeholder {
+      label {
+        margin-top: 1em;
+        cursor: default;
+      }
+      padding-top: 5em;
+      padding-bottom: 5em;
+    }
+  }
+}

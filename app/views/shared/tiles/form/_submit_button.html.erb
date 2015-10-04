@@ -1,13 +1,3 @@
 <div id="publish">
   <%= form.submit submit_button_text %>
-  
-  <%= link_to return_button_text,
-      client_admin_tiles_path,
-       confirm: "Are you sure you want to cancel?",
-       :class => "cancel_tile_builder"
-    %>
 </div>
-<div class="supporting_content_error">Shorten the supporting content to save the Tile.</div>
-
-<%= image_tag "spinner_gears.gif", id: "submit_spinner", style: "display: none" %>
-

@@ -1,0 +1,66 @@
+// Points
+.slider{
+  display: none;
+  padding-top: 2.3em;
+  padding-bottom: 2.5em;
+  background: #f3f3f3;
+  padding-left: 2.5em;
+  padding-right: 2.5em;
+  #points_slider{
+    float:left;
+    bottom: -3px;
+    width: 100%;
+    height: 10px;
+    border-radius: 4px;
+    background: $light-gray;
+    .ui-slider-range {
+      background: #8ecded;
+      .points_pop_up{
+        cursor: pointer;
+        position: absolute;
+        right:-30px;
+        bottom:0px;
+        width: 60px;
+        height: 48px;
+        background: transparent;
+        .tooltip{
+          display: block;
+          text-transform: capitalize;
+          font-size: 10px;
+          color: white;
+          text-align: center;
+          margin: 0;
+          max-width: 100%;
+          left: 0;
+          line-height: 1.1;
+          padding: 0.3em;
+          //background gradient
+          background: $sky-blue; /* old browsers */
+          background: linear-gradient(to bottom, $sky-blue, #66b9e5);
+          .points_nub{
+            border: solid 5px;
+            border-color: #66b9e5 transparent transparent transparent;
+            left: 41%;
+            margin: 0;
+            bottom: -9px;
+            display: block;
+            position: absolute;
+            width: 0;
+            height: 0;
+
+          }
+          .points_num{
+            font-size: 20px;
+          }
+        }
+      }
+    }
+    .ui-slider-handle {
+      visibility: hidden;
+      -webkit-transition: none; -moz-transition: none;
+    }
+  }
+}
+#set_points {
+  display: none;
+}

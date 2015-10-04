@@ -1,0 +1,58 @@
+//
+//  => Headline,
+//     supporting content,
+//     link,
+//     submit button
+//
+input[type="text"],textarea, .text-input {
+  border:2px lighten($light-gray, 8%) dashed;
+  display: block;
+  font-size:1.3em;
+  margin-bottom:0;
+  padding:.5em;
+  width:100%;
+  &:hover, &:focus {border-style:solid;}
+}
+.content_sections {
+  margin:0 auto 2em auto;
+  width:90%;
+  &:after{@include clear;}
+  &:last-of-type{margin-bottom:0;}
+}
+#tile_external_link {
+  margin:2em auto;
+  input {border-color:$light-gray;}
+}
+// Copy for the tile
+#tile_builder_form_headline {
+  color:$dark-gray;
+  @include font-light;
+  font-size:2.25em;
+  line-height:1.15em;
+  height:3.75em;
+  padding:.35em;
+}
+#supporting_content_editor {
+  @include with-lists();
+  height: 450px;
+  overflow-y: scroll;
+  line-height: 1.25em;
+  &.exceeded_maxlength_field {
+  }
+}
+#tile_builder_form_supporting_content {
+  color:$text-color;
+  font-size:1.5em;
+  display: none;
+}
+#publish {
+  margin-top: 2em;
+  input[type="submit"] {
+    @include app-button($sky-blue);
+    width: 100%;
+    padding: .6em .75em;
+    &:disabled {
+      @include app-button($med-gray);
+    }
+  }
+}

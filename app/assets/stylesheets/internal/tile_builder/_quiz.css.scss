@@ -1,0 +1,145 @@
+.tile_quiz {
+  .selected {
+    color: $sky-blue !important;
+  }
+  .tile_types {
+    .tile_type {
+      width: 33.33%;
+      height:100%;
+      text-align: center;
+      border-left:1px $light-gray solid;
+      .type {
+        font-size: 1em;
+        color: $gray;
+        width: 100%;
+        background: transparent;
+        border: 0px;
+        margin-bottom: 3px;
+      }
+      ul {
+        z-index:10;
+        width: 33%;
+        margin:0;
+        margin-top: 6px;
+        text-align: left;
+        position: absolute;
+        left: -99999px;
+        li {
+          border: 1px $light-gray solid;
+          border-top: 0;
+          background: $white;
+          color: $gray;
+          padding: 0.75em;
+          font-weight: bold;
+          cursor: pointer;
+          &:hover, &:focus {
+            color: $dark-gray;
+          }
+        }
+      }
+    }
+  }
+  .quiz_content {
+    position: relative;
+    padding: 2.5em;
+    .tile_question {
+      margin: 0;
+      width: 100%;
+      padding: 0;
+      margin-bottom: 2em;
+      cursor: pointer;
+    }
+    .multiple_choice_group {
+      margin: 0;
+      margin-bottom: 0em;
+      width: 100%;
+    }
+    .placeholder {
+      text-align: center;
+      padding-top: 3em;
+      padding-bottom: 2.5em;
+      color: $gray;
+      font-weight: 700;
+    }
+  }
+}
+// Quiz section of the tile
+.builder_quiz, .tile_quiz {
+  .answer-div{
+    position: relative;
+    .character-counter{
+      position: absolute;
+      bottom: -0.75em;
+      right: 0.75em;
+    }
+  }
+  input[type="text"], #tile_builder_form_question {
+    background:lighten($light-gray, 5%);
+    border-color:lighten($light-gray, 10%);
+    &.answer-field {
+      color:$sky-blue;
+      @include font-semibold;
+      text-align: center;
+    }
+    &:focus {background:$white;}
+  }
+  #tile_builder_form_question {
+    color:$text-color;
+    height:3em;
+  }
+  .answer_option {
+    li {
+      float:left;
+      &.option_radio {
+        background:darken($light-gray, 5%);
+        border:2px transparent solid;
+        margin-top:1px;
+        height:47px;
+        padding:.7em 0;
+        text-align: center;
+        width:8%;
+        &:hover {cursor: pointer;}
+      }
+      &.option_selected {
+        background: $dark-green;
+        border-color:darken($dark-green, 5%);
+      }
+      &.option_input {
+        float:none; overflow:hidden;
+      }
+    }
+    span.character-counter {
+      display:block;
+      padding-bottom:1em;
+    }
+    &:after{@include clear;}
+  }
+  #add-answer-link {@include app-button($med-gray);}
+  .after_answers {
+    padding-bottom: 1.1em;
+    position: absolute;
+    bottom: 0;
+    font-size:0.9em;
+    width: 86.5%;
+    margin-left: 0em;
+    overflow: hidden;
+    font-weight: 700;
+    .choose_answer{
+      padding: 0;
+      width:70%;
+      &.no_answer{
+        color: $text-color;
+      }
+      &.have_answer{
+        color: $dark-green;
+      }
+    }
+    .add_answer {
+      width: 30%;
+      padding: 0;
+      cursor: pointer;
+      color: $blue;
+      text-align: right;
+    }
+  }
+}
