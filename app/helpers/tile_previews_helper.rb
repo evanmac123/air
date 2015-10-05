@@ -59,6 +59,7 @@ module TilePreviewsHelper
 
   def tile_preview_status_change_tooltip tile
     change_statuses = [Tile::DRAFT, Tile::ACTIVE, Tile::ARCHIVE].reject{|x|x==tile.status}
+    change_statuses = change_statuses.reject{|x|x==Tile::DRAFT} if tile.tile_completions.count > 0
 
     content_tag :div, id: "stat_change_sub", class: "preview_menu_item" do
       s=""
