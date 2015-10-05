@@ -30,6 +30,18 @@ body.client_admin-tiles-edit {
     padding-top: 20px;
     padding-bottom: 50px;
   }
+  // medium editor overrides
+  .medium-editor-toolbar {
+    li {
+      width: 50px; //required fix for ie9
+      button:hover {
+        color: #4face0;
+      }
+    }
+  }
+}
+body.client_admin-tiles-show {
+  @import "modals";
   // TODO move to tile preview stuff
   .tile_preview_menu {
     width: 600px;
@@ -46,15 +58,6 @@ body.client_admin-tiles-edit {
       }
       a {
         padding: 0.65em;
-      }
-    }
-  }
-  // medium editor overrides
-  .medium-editor-toolbar {
-    li {
-      width: 50px; //required fix for ie9
-      button:hover {
-        color: #4face0;
       }
     }
   }
