@@ -5,19 +5,53 @@
 //     submit button
 //
 input[type="text"],textarea, .text-input {
-  border:2px lighten($light-gray, 8%) dashed;
+  // border:2px lighten($light-gray, 8%) dashed;
+  border: none;
   display: block;
   font-size:1.3em;
   margin-bottom:0;
   padding:.5em;
   width:100%;
-  &:hover, &:focus {border-style:solid;}
+  background: transparent;
+  // &:hover, &:focus {border-style:solid;}
+}
+textarea {
+  resize: none;
+}
+label.show_if_ie9{
+  display: none;
 }
 .content_sections {
   margin:0 auto 2em auto;
   width:90%;
   &:after{@include clear;}
   &:last-of-type{margin-bottom:0;}
+}
+.content_sections {
+  width: 100%;
+  border-bottom: 2px dashed #f3f3f3;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-bottom: 2%;
+  margin-bottom: 0;
+
+  &.tile_builder_error{
+    background-color: rgba(188, 76, 64,.20); //pinkish*/
+  }
+
+  & .character-counter {
+    padding-top: 10px;
+
+  //FIXME should probably consolidate all error styels under tile_builder_error
+
+    &.exceeded_maxlength_counter {
+      color: #e3402d;
+    }
+  }
+
+  &:last-child:not(:only-child) {
+    border-bottom: none;
+  }
 }
 #tile_external_link {
   margin:2em auto;
@@ -27,23 +61,34 @@ input[type="text"],textarea, .text-input {
 #tile_builder_form_headline {
   color:$dark-gray;
   @include font-light;
-  font-size:2.25em;
-  line-height:1.15em;
-  height:3.75em;
   padding:.35em;
+  font-size: 2.5em;
+  line-height: 1.15em;
+  height: 4.0em;
 }
 #supporting_content_editor {
   @include with-lists();
   height: 450px;
-  overflow-y: scroll;
+  overflow-y: auto;
   line-height: 1.25em;
-  &.exceeded_maxlength_field {
-  }
+  max-height: 450px;
+  min-height: 250px;
+  height: auto;
+  // &.exceeded_maxlength_field {
+  // }
 }
 #tile_builder_form_supporting_content {
   color:$text-color;
   font-size:1.5em;
   display: none;
+}
+#tile_builder_form_link_address{
+  font-size: 1.25em;
+  padding-bottom: 0;
+}
+#tile_external_link {
+  margin-bottom: 0px;
+  margin-top: 0px;
 }
 #publish {
   margin-top: 2em;
@@ -55,4 +100,13 @@ input[type="text"],textarea, .text-input {
       @include app-button($med-gray);
     }
   }
+}
+.medium-editor-placeholder:after {
+  content: attr(data-placeholder)!important;
+  color: #a9a9a9;
+  font-size: 20px;
+  font-style: normal;
+  padding-top: 14px;
+  display: block;
+  position: relative;
 }
