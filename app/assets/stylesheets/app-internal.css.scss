@@ -1,6 +1,9 @@
 /*
 *= require_self
+*= require medium-editor/medium-editor
+*= require medium-editor/themes/default
 */
+
 @import "./vendor/pace-theme-center-simple.css.scss";
 @import "./vendor/normalize.css.scss";
 @import "./foundation_and_overrides.scss";
