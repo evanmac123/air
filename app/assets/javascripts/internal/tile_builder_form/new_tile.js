@@ -736,7 +736,7 @@ var TileCreatorContext = {
     submitSuccessName: "refreshTileDataPageWide"
   },
   suggestion_box: {
-    newSelector: "a#submit_tile",
+    newSelector: "a#submit_tile, a#create_new_tile",
     submitSuccessName: "refreshTileDataForUser"
   }
 }
