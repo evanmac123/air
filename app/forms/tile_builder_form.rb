@@ -1,6 +1,6 @@
 class TileBuilderForm
   #TODO remove Deprecated methods and move others to private if not being called
-  #from outside 
+  #from outside
   extend  ActiveModel::Naming
   include ActiveModel::Conversion
   include ActiveModel::Validations
@@ -10,17 +10,17 @@ class TileBuilderForm
 
   validate :main_objects_all_valid
 
-  delegate  :headline, 
-            :supporting_content, 
-            :question, 
-            :question_type, 
-            :question_subtype, 
-            :thumbnail, 
-            :image, 
-            :image_credit, 
-            :link_address, 
+  delegate  :headline,
+            :supporting_content,
+            :question,
+            :question_type,
+            :question_subtype,
+            :thumbnail,
+            :image,
+            :image_credit,
+            :link_address,
             :points,
-            :position, 
+            :position,
             :remote_media_url,
             :remote_media_type,
             :to => :tile
@@ -32,8 +32,8 @@ class TileBuilderForm
     @tile = (options[:tile] || MultipleChoiceTile.new(demo: @demo, position: demo.next_draft_tile_position))
     @creator = options[:creator]
 
-    @exclude_attrs = [:supporting_content, :correct_answer_index, 
-                      :multiple_choice_answers, :image_container, 
+    @exclude_attrs = [:supporting_content, :correct_answer_index,
+                      :multiple_choice_answers, :image_container,
                       :old_image_container, :no_image, :image_from_library, :answers]
   end
 
@@ -151,7 +151,7 @@ class TileBuilderForm
 
   def set_tile_attributes
     if @form_params.present?
-      @tile.assign_attributes filtered_tile_attributes 
+      @tile.assign_attributes filtered_tile_attributes
     end
   end
 
@@ -171,7 +171,7 @@ class TileBuilderForm
 
   def sanitized_supporting_content
     Sanitize.fragment(
-      @form_params[:supporting_content].strip, 
+      @form_params[:supporting_content].strip,
       elements: [
         'ul', 'ol', 'li',               # lists
         'b', 'strong', 'i', 'em', 'u',  # text style
@@ -194,7 +194,7 @@ class TileBuilderForm
 
   def answers_normalizer
     @answers_builder ||= AnswersNormalizer.new(
-      @form_params[:answers], 
+      @form_params[:answers],
       @form_params[:correct_answer_index]
     )
   end
@@ -204,14 +204,14 @@ class TileBuilderForm
   def main_objects_all_valid
     tile_validation = TileValidation.new(tile)
     return if tile_validation.valid?
-    
-    tile_validation.errors_values.each do |error| 
+
+    tile_validation.errors_values.each do |error|
       errors.add :base, error
     end
   end
 
   def newly_built_tile_status
-    Tile::DRAFT  
+    Tile::DRAFT
   end
 
 
@@ -233,7 +233,7 @@ class TileBuilderForm
       tile.image = tile_image.image
       tile.thumbnail = tile_image.thumbnail
     elsif new_image != :leave_old
-      tile.image = tile.thumbnail = new_image 
+      tile.image = tile.thumbnail = new_image
     end
   end
 
@@ -244,7 +244,7 @@ class TileBuilderForm
   def image_processing_attributes
     #forces delayed paperclip to think the tile is being processed before the
     #attachment is actually assigned in the background job
-    image_changed? ? {thumbnail_processing: true, image_processing: true} : {} 
+    image_changed? ? {thumbnail_processing: true, image_processing: true} : {}
   end
 
 end

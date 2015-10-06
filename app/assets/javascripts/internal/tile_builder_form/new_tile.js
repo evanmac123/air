@@ -30,6 +30,7 @@ Airbo.TileCreator = (function(){
     , tileBuilderSubmitButtonSelector = '#new_tile_builder_form input[type=submit]'
     , ajaxHandler = Airbo.AjaxResponseHandler
     , modalActivationSelectors = [editSelector, previewSelector, tileNavigationSelector].join(",")
+    , submitSuccess
   ;
 
  function prepEditOrNew(action){
@@ -232,7 +233,7 @@ Airbo.TileCreator = (function(){
       var form = $(this);
       if(form.valid()){
         disableTileBuilderFormSubmit();
-        ajaxHandler.submit(form, refreshTileDataPageWide, enableTileBuilderFormSubmit);
+        ajaxHandler.submit(form, submitSuccess, enableTileBuilderFormSubmit);
       }else{
 
         validator.focusInvalid();
@@ -343,9 +344,15 @@ Airbo.TileCreator = (function(){
     validator = form.validate(config);
   }
 
+  function refreshTileDataForUser(data) {
+    console.log(data);
+    preventCloseMsg = false; // Allow modal to be closed sans confirmation
+    refreshCurrentPreview(data.preview);
+  }
+
   function refreshTileDataPageWide(data){
     preventCloseMsg = false; // Allow modal to be closed sans confirmation
-    refreshCurrentPreview(data.preview)
+    refreshCurrentPreview(data.preview);
     prepShow();
     updateTileSection(data);
     scrollPageToTop();
@@ -522,6 +529,11 @@ Airbo.TileCreator = (function(){
   function initContext(context) {
     newSelector = context.newSelector;
     modalActivationSelectors += ", " + newSelector;
+    if(context.submitSuccessName == "refreshTileDataPageWide"){
+      submitSuccess = refreshTileDataPageWide;
+    } else {
+      submitSuccess = refreshTileDataForUser;
+    }
   }
 
   function init(context){
@@ -717,10 +729,12 @@ Airbo.TileSuportingContentTextManager = (function(){
 
 var TileCreatorContext = {
   client_admin: {
-    newSelector: "a#add_new_tile"
+    newSelector: "a#add_new_tile",
+    submitSuccessName: "refreshTileDataPageWide"
   },
   suggestion_box: {
-    newSelector: "a#submit_tile"
+    newSelector: "a#submit_tile, a#create_new_tile",
+    submitSuccessName: "refreshTileDataForUser"
   }
 }
 

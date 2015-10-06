@@ -1,9 +1,18 @@
 <% show_client_admin_menu ||= false %>
 
 <div class="large-9 large-centered columns tile_preview_container">
-  <%= render partial: 'client_admin/tiles/tile_preview/menu', locals: {tile: @tile, show_client_admin_menu: show_client_admin_menu} %>
   <% if show_client_admin_menu %>
-    <%# render partial: 'client_admin/tiles/tile_preview/share_section', locals: {tile: @tile} %>
+    <%= render partial: 'client_admin/tiles/tile_preview/menu', locals: {tile: @tile, show_client_admin_menu: show_client_admin_menu} %>
+  <% else %>
+    <div class="suggested_preview_header">
+      <div class="acceptance_status">
+        Tile submitted, waiting for acceptance
+      </div>
+      <%= link_to new_suggested_tile_path, id: 'create_new_tile', data:{action: "new"} do %>
+        <%= fa_icon "plus" %>
+        <span>Create New Tile</span>
+      <% end %>
+    </div>
   <% end %>
 
   <div class='viewer'>
@@ -13,5 +22,4 @@
       </div>
     <%= link_to "",  client_admin_tile_path(@next) , :id => :next, data:{action: "show", tile_id: @next} %>
   </div>
-
 </div>

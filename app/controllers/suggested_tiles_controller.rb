@@ -21,18 +21,17 @@ class SuggestedTilesController < ApplicationController
   def create
     @tile_builder_form =  UserTileBuilderForm.new(
                             current_user.demo,
-                            parameters: params[:tile_builder_form],
-                            creator: current_user
+                            form_params: params[:tile_builder_form],
+                            creator: current_user,
+                            action: params[:action]
                           )
 
     if @tile_builder_form.create_tile
-      set_success_flash
-      redirect_to suggested_tile_path(@tile_builder_form.tile)
-      user_action_ping "Tile Created"
+      @tile = @tile_builder_form.tile
+      render_preview
     else
-      flash.now[:failure] = @tile_builder_form.error_message
-      get_tile_images
-      render "new"
+      response.headers["X-Message"]= @tile_builder_form.error_message
+      head :unprocessable_entity and return
     end
   end
 
@@ -46,11 +45,10 @@ class SuggestedTilesController < ApplicationController
     @tile = current_user.tiles.find(params[:id])
   end
 
-  def set_success_flash
-    flash[:success] = "The administrator has been notified that you've submitted a Tile to the Suggestion Box. You'll be notified if your Tile is accepted."
-  end
-
-  def user_action_ping action
-    ping('Suggestion Box', {user_action: action}, current_user)
+  def render_preview
+    @prev = @next = @tile
+    render json: {
+      preview: render_to_string(action: 'show', layout: false)
+    }
   end
 end
