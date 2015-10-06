@@ -1,3 +1,4 @@
+//= require ./ajax-response-handler
 //= require ../../../vendor/assets/javascripts/pace.min
 //= require jquery
 //= require jquery.effects.highlight
