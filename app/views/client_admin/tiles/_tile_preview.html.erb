@@ -1,5 +1,9 @@
+<% show_client_admin_menu ||= false %>
+
 <div class="large-9 large-centered columns tile_preview_container">
-  <%= render partial: 'client_admin/tiles/tile_preview/menu', locals: {tile: @tile, show_client_admin_menu: show_client_admin_menu} %>
+  <% if show_client_admin_menu %>
+    <%= render partial: 'client_admin/tiles/tile_preview/menu', locals: {tile: @tile, show_client_admin_menu: show_client_admin_menu} %>
+  <% end %>
 
   <div class='viewer'>
     <%= link_to "" , client_admin_tile_path(@prev), :id => :prev, data:{action: "show", tile_id: @prev} %>

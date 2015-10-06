@@ -46,6 +46,7 @@ class SuggestedTilesController < ApplicationController
   end
 
   def render_preview
+    @prev = @next = @tile
     render json: {
       preview: render_to_string(action: 'show', layout: false)
     }
