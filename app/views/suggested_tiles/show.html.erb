@@ -1,1 +1,7 @@
-<%= render 'client_admin/tiles/tile_preview', show_client_admin_menu: false %>
+<div class="large-9 large-centered columns tile_preview_container">
+  <div class='viewer'>
+      <div id="slideshow">
+        <%= render "tiles/full_size_tile", tile: @tile, is_preview: true %>
+      </div>
+  </div>
+</div>

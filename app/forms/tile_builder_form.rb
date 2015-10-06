@@ -38,7 +38,6 @@ class TileBuilderForm
   end
 
   def create_tile
-    binding.pry
     build_tile
     delete_old_image_container
     save_tile

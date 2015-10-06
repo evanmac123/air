@@ -345,11 +345,13 @@ Airbo.TileCreator = (function(){
 
   function refreshTileDataForUser(data) {
     console.log(data);
+    preventCloseMsg = false; // Allow modal to be closed sans confirmation
+    refreshCurrentPreview(data.preview);
   }
 
   function refreshTileDataPageWide(data){
     preventCloseMsg = false; // Allow modal to be closed sans confirmation
-    refreshCurrentPreview(data.preview)
+    refreshCurrentPreview(data.preview);
     prepShow();
     updateTileSection(data);
     scrollPageToTop();
