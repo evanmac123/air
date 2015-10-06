@@ -28,8 +28,6 @@
 //= require wice_grid
 //= require ../../../vendor/assets/javascripts/external/foundation.min
 //= require history_jquery
-//= require jquery.validate
-//= require jquery.validate.additional-methods
 //= require internal/create_new_board
 //= require internal/validate_new_board
 //= require introjs
@@ -56,17 +54,4 @@ $(document).foundation();
 $(document).confirmWithReveal(Airbo.Utils.confirmWithRevealConfig);
 
 
-//FIXME This is only here because jQuery is not required at the top of the
-//heirarchy ugh!!!!!!!
-//
-jQuery.validator.addMethod("maxTextLength", function(value, element, param) {
-  function textLength(value){
-    var length = 0, content= $("<div></div>");
-    content.html(value).each(function(idx, obj){
-      length += $(obj).text().length;
-    })
 
-    return length;
-  }
-  return this.optional(element) || textLength(value) <= param;
-}, jQuery.validator.format("Character Limit Reached"));
