@@ -1,5 +1,5 @@
 <% if user.can_submit_tile? %>
-  <%= link_to new_suggested_tile_path, id: "submit_tile" do %>
+  <%= link_to new_suggested_tile_path, id: "submit_tile", data: {action: "new"} do %>
     <%= fa_icon 'pencil' %>
     <span>Submit Tile</span>
   <% end %>
