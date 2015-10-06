@@ -88,38 +88,55 @@ Airbo.Utils = {
   },
 
   mediumEditor:  (function() {
-    return {
-      init: function() {
-        $('.medium-editable').each(function(){
+    var editor, field, fieldName;
 
-          var editor = new MediumEditor(this, {
-            staticToolbar:true, 
-            buttonLabels: 'fontawesome',
-            toolbar: {
-              buttons: ['bold', 'italic', 'underline', 'unorderedlist', 'orderedlist', "anchor"]
-            }
-          });
-
-          $(this).html($("#" + $(this).data("field")).val());
-
-          editor.subscribe('editableInput', function (event, editable) {
-            var obj =$(editable),  textLength = obj.text().trim().length
-              , fieldName = obj.data('field')
-              , field = $("#" + fieldName)
-            ;
-
-            if(textLength > 0){
-              field.val(obj.html());
-            }else{
-              field.val("");
-            }
-
-            field.blur();
-          });
-
-        })
+    function reset(){
+      if(editor){
+        editor.destroy();
       }
+    }
+
+    function init() {
+      reset();
+
+      $('.medium-editable').each(function(){
+
+         editor = new MediumEditor(this, {
+          staticToolbar:true, 
+          buttonLabels: 'fontawesome',
+          toolbar: {
+            buttons: ['bold', 'italic', 'underline', 'unorderedlist', 'orderedlist', "anchor"]
+          }
+        });
+        editor.trigger("focus");
+
+        fieldName = $(this).data('field')
+        field = $("#" + fieldName);
+
+        //$(this).html($("#" + $(this).data("field")).val());
+        content =  $("#" + $(this).data("field")).val();
+
+        editor.setContent(content);
+
+        editor.subscribe('editableInput', function (event, editable) {
+          var obj =$(editable),  textLength = obj.text().trim().length;
+
+          if(textLength > 0){
+            field.val(obj.html());
+          }else{
+            field.val("");
+          }
+
+          field.blur();
+        });
+
+      })
+    }
+
+    return {
+      init: init 
     };
+
   }())
 
 }

@@ -48,6 +48,7 @@ Airbo.TileCreator = (function(){
    Airbo.TileQuestionBuilder.init();
    enableCloseModalConfirmation();
    Airbo.TileSuportingContentTextManager.init();
+   Airbo.Utils.mediumEditor.init();
  }
 
 
@@ -443,10 +444,6 @@ Airbo.TileCreator = (function(){
    $(document).on('open',tileModalSelector, function () {
      scrollPageToTop();
      $("body").css({"overflow-y": "hidden"});
-   });
-
-   $(document).on('opened',tileModalSelector, function () {
-    Airbo.Utils.mediumEditor.init();
    });
 
    $(document).on('closed', tileModalSelector, function (event) {
