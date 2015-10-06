@@ -1,4 +1,5 @@
-class ClientAdmin::TileImagesController < ClientAdminBaseController
+#FIXME move out of the client admin namespace
+class ClientAdmin::TileImagesController < ApplicationController
   def index
     set_images_page_context
     render partial: @partial_to_render, layout: false
