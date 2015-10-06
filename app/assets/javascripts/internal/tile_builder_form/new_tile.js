@@ -19,7 +19,7 @@ Airbo.TileCreator = (function(){
     , tileWrapperSelector =".tile_container"
     , modalContentSelector = "#modal_content"
     , sectionSelector = ".manage_section"
-    , newSelector = "a#add_new_tile"
+    , newSelector// = "a#add_new_tile"
     , editSelector = ".tile_buttons .edit_button>a, .preview_menu_item.edit>a"
     , previewSelector = ".tile-wrapper a.tile_thumb_link"
     , tileNavigationSelector = "#prev, #next"
@@ -29,7 +29,7 @@ Airbo.TileCreator = (function(){
     , tileBuilderFormSelector ="#new_tile_builder_form"
     , tileBuilderSubmitButtonSelector = '#new_tile_builder_form input[type=submit]'
     , ajaxHandler = Airbo.AjaxResponseHandler
-    , modalActivationSelectors = [newSelector, editSelector, previewSelector, tileNavigationSelector].join(",")
+    , modalActivationSelectors = [editSelector, previewSelector, tileNavigationSelector].join(",")
   ;
 
  function prepEditOrNew(action){
@@ -501,7 +501,7 @@ Airbo.TileCreator = (function(){
     var msg = "Are you sure you want to stop " + preventCloseMsg + " this tile?"
     + " Any changes you've made will be lost.",
     config = $.extend({}, Airbo.Utils.confirmWithRevealConfig, {body: msg});
-    $(".client_admin-tiles-edit a.close-reveal-modal").confirmWithReveal(config)
+    $("#tilebuilder_close").confirmWithReveal(config);
   }
 
   function openImageSelectorModal(){
@@ -522,8 +522,13 @@ Airbo.TileCreator = (function(){
     imagesModal = $(imagesModalSelector);
   }
 
+  function initContext(context) {
+    newSelector = context.newSelector;
+    modalActivationSelectors += ", " + newSelector;
+  }
 
-  function init(){
+  function init(context){
+    initContext(context);
 
     initDeletionConfirmation();
 
@@ -713,7 +718,19 @@ Airbo.TileSuportingContentTextManager = (function(){
 
 }());
 
+var TileCreatorContext = {
+  client_admin: {
+    newSelector: "a#add_new_tile"
+  },
+  suggestion_box: {
+    newSelector: "a#submit_tile"
+  }
+}
+
 
 $(function(){
-  Airbo.TileCreator.init();
+  context = $("#new_tile_modal").data("context");
+  if(context) {
+    Airbo.TileCreator.init(TileCreatorContext[context]);
+  }
 })

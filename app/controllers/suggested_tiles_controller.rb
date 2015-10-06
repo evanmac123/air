@@ -2,6 +2,7 @@ class SuggestedTilesController < ApplicationController
   def new
     get_tile_images
     @tile_builder_form = UserTileBuilderForm.new(current_user.demo)
+    render partial: "shared/tiles/builder", layout: false and return
   end
 
   def index
@@ -23,7 +24,7 @@ class SuggestedTilesController < ApplicationController
                             parameters: params[:tile_builder_form],
                             creator: current_user
                           )
-    
+
     if @tile_builder_form.create_tile
       set_success_flash
       redirect_to suggested_tile_path(@tile_builder_form.tile)
@@ -46,7 +47,7 @@ class SuggestedTilesController < ApplicationController
   end
 
   def set_success_flash
-    flash[:success] = "The administrator has been notified that you've submitted a Tile to the Suggestion Box. You'll be notified if your Tile is accepted." 
+    flash[:success] = "The administrator has been notified that you've submitted a Tile to the Suggestion Box. You'll be notified if your Tile is accepted."
   end
 
   def user_action_ping action

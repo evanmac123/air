@@ -19,7 +19,7 @@
 <% end %>
 
 
-<%=render "shared/tile_builder_modals"%>
+<%= render partial: "shared/tile_builder_modals", locals: {context: "client_admin"} %>
 <%=render partial: 'client_admin/tile_stats/modal'%>
 
 <% content_for :javascript do %>
@@ -32,4 +32,3 @@ $().ready(function(){
 
   </script>
 <% end %>
-

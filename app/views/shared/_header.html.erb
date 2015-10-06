@@ -6,7 +6,7 @@
     <div class="large-2 columns" id="logo">
       <a class="go_home" href="<%= home_path %>"><%= image_tag user.logo_url %></a>
     </div>
-    <%# If we don't need the guest user controls, steal their space for the 
+    <%# If we don't need the guest user controls, steal their space for the
     navigation, so we can use it for the current board. %>
     <% unless user.show_user_nav? %>
       <nav id="navigation" class="columns large-7"> <!-- offcanvas menu -->
@@ -41,3 +41,5 @@
 <% if user.show_submit_tile_intro? %>
   <%= render "shared/header/submit_tile_modal", user: user %>
 <% end %>
+
+<%=render partial: "shared/tile_builder_modals", locals: {context: "suggestion_box"} %>

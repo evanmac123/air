@@ -3,8 +3,8 @@ class UserInHeaderPresenter
   include ActionView::Helpers::FormOptionsHelper
   include ApplicationHelper
 
-  attr_reader :params, 
-              :public_tile_page, 
+  attr_reader :params,
+              :public_tile_page,
               :current_user,
               :request
 
@@ -55,8 +55,8 @@ class UserInHeaderPresenter
   end
 
   def show_board_switcher?
-    boards_to_switch_to.present? && 
-    boards_to_switch_to.length > 1 && 
+    boards_to_switch_to.present? &&
+    boards_to_switch_to.length > 1 &&
     current_user.try(:can_switch_boards?)
   end
 
@@ -66,16 +66,16 @@ class UserInHeaderPresenter
 
   def after_login_link
     if current_user.can_open_board_settings?
-      "" 
+      ""
     else
       "#{request.path}?pop_board_settings_modal=true"
     end
   end
 
   def guest_user_header_button_style
-    if show_save_progress_button 
+    if show_save_progress_button
       ''
-    else 
+    else
       'display: none'
     end
   end
@@ -85,8 +85,8 @@ class UserInHeaderPresenter
   end
 
   def can_create_board?
-    current_user.is_site_admin || 
-    current_user.not_in_any_paid_boards? || 
+    current_user.is_site_admin ||
+    current_user.not_in_any_paid_boards? ||
     current_user.is_client_admin_in_any_board
   end
 
@@ -110,7 +110,7 @@ class UserInHeaderPresenter
     return if is_not_user?
     if current_user.is_site_admin
       Demo.alphabetical
-    else 
+    else
       current_user.demos.alphabetical
     end
   end
@@ -147,13 +147,13 @@ class UserInHeaderPresenter
   end
 
   def can_submit_tile?
-    can_make_tile_suggestions? && 
-    !authorized_to?(:client_admin) &&
-    request[:controller] != "suggested_tiles"
+    can_make_tile_suggestions? &&
+    ["acts", "tiles"].include?(request[:controller])
   end
 
   def show_submit_tile_intro?
-    @show_submit_tile_intro ||= (can_submit_tile? && show_submit_tile_intro!)
+    # @show_submit_tile_intro ||= (can_submit_tile? && show_submit_tile_intro!)
+    false
   end
 
   protected
