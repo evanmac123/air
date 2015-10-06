@@ -230,8 +230,7 @@ Airbo.TileCreator = (function(){
     $("body").on("submit", tileBuilderFormSelector, function(event){
       event.preventDefault();
       var form = $(this);
-      // FIXME just for now
-      if(true || form.valid()){
+      if(form.valid()){
         disableTileBuilderFormSubmit();
         ajaxHandler.submit(form, submitSuccess, enableTileBuilderFormSubmit);
       }else{
@@ -342,6 +341,10 @@ Airbo.TileCreator = (function(){
 
     config = $.extend({}, Airbo.Utils.validationConfig, config);
     validator = form.validate(config);
+  }
+
+  function refreshTileDataForUser(data) {
+    console.log(data);
   }
 
   function refreshTileDataPageWide(data){
@@ -530,7 +533,7 @@ Airbo.TileCreator = (function(){
     if(context.submitSuccessName == "refreshTileDataPageWide"){
       submitSuccess = refreshTileDataPageWide;
     } else {
-      submitSuccess = function() {};
+      submitSuccess = refreshTileDataForUser;
     }
   }
 
@@ -732,7 +735,7 @@ var TileCreatorContext = {
   },
   suggestion_box: {
     newSelector: "a#submit_tile",
-    submitSuccessName: ""
+    submitSuccessName: "refreshTileDataForUser"
   }
 }
 

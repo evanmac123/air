@@ -28,7 +28,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @tile_builder_form = TileBuilderForm.new(@demo, builder_options)
     record_new_ping
 
-    if request.xhr? 
+    if request.xhr?
       render partial: "shared/tiles/builder", layout: false and return
     else
       load_image_library
@@ -44,7 +44,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     record_edit_ping
     @tile_builder_form = TileBuilderForm.new(@demo,builder_options.merge(tile: tile))
 
-    if request.xhr? 
+    if request.xhr?
       render layout: false and return
     else
       #normal rails render
@@ -60,7 +60,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       schedule_tile_creation_ping(@tile_builder_form.tile)
       if request.xhr?
         @tile = @tile_builder_form.tile
-        render_preview_and_single 
+        render_preview_and_single
       else
         redirect_to client_admin_tile_path(@tile_builder_form.tile)
       end
@@ -92,7 +92,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @tile = get_tile
     prepTilePreview
     tile_in_box_viewed_ping @tile
-    if request.xhr? 
+    if request.xhr?
       render layout: false
     end
   end
@@ -136,7 +136,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     tile_status_updated_ping @tile, "Dragged tile to move"
 
   end
-  
+
   #FIXME should refactor and cosolidate the existing update method but the functionality is too
   #convoluted to fix now.
 
@@ -162,7 +162,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @show_share_section_intro = show_share_section_intro
     @show_submitted_tile_menu_intro = show_submitted_tile_menu_intro
   end
-  
+
 
   def intro_flags_index
     @board_is_brand_new = @demo.tiles.limit(1).first.nil? && params[:show_suggestion_box] != "true"
@@ -272,11 +272,11 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     end
   end
 
-  def render_tile_string 
-    render_to_string( 
-                     partial: 'client_admin/tiles/manage_tiles/single_tile', 
+  def render_tile_string
+    render_to_string(
+                     partial: 'client_admin/tiles/manage_tiles/single_tile',
                      locals: { presenter:  tile_presenter}
-                    ) 
+                    )
   end
 
   def render_single_tile
@@ -288,7 +288,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def render_tile_preview_string
-    render_to_string(action: 'show', layout:false) 
+    render_to_string(action: 'show', layout:false)
   end
 
   def update_fields
@@ -351,7 +351,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       tile: render_tile_string,
       preview: render_tile_preview_string,
     }
-
   end
 
 end
