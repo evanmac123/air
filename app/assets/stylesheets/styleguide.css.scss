@@ -1,6 +1,6 @@
 @import "./vendor/normalize.css.scss";
 @import "./foundation_and_overrides.scss";
-@import "introjs";
+@import "./vendor/introjs.min.css";
 @import "./mixins/main_styles.css.scss";
 @import "./mixins/green_paddle_switch.css.scss";
 @import "font-awesome";
@@ -12,7 +12,7 @@ section:after{@include clear;}
   position: static;
 }
 .example {
-  border:1px $light-gray dashed; 
+  border:1px $light-gray dashed;
   padding:1em;
   img {max-width:15em;}
 }
@@ -28,7 +28,7 @@ section:after{@include clear;}
 }
 
 .logos .example {
-  padding:1em 1em; 
+  padding:1em 1em;
   text-align: center;
   img{
     max-height: 3em;
@@ -58,11 +58,11 @@ section:after{@include clear;}
   padding:1.5em .5em;
   text-align: center;
   text-transform: uppercase;
-  
-  &#almost-white, 
-  &#light-gray, 
-  &#lightest-gray, 
-  &#white, 
+
+  &#almost-white,
+  &#light-gray,
+  &#lightest-gray,
+  &#white,
   &#off-white,
   &#header-color,
   &#tile-tag-border,
@@ -100,7 +100,7 @@ input[type="text"] {
 }
 .sections{
   .example_section{
-    border:1px $light-gray dashed; 
+    border:1px $light-gray dashed;
   }
   .dividing_line{
     section {

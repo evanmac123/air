@@ -30,7 +30,7 @@
 //= require history_jquery
 //= require internal/create_new_board
 //= require internal/validate_new_board
-//= require introjs
+//= require ../../../vendor/assets/javascripts/intro.min
 //= require jquery.tooltipster.min
 //= require ./external/placeholder_ie.js
 //= require internal/offcanvas_menu
@@ -52,6 +52,3 @@ $(document).ready(function() {
 $(document).foundation();
 
 $(document).confirmWithReveal(Airbo.Utils.confirmWithRevealConfig);
-
-
-
