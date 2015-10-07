@@ -345,9 +345,10 @@ Airbo.TileCreator = (function(){
   }
 
   function refreshTileDataForUser(data) {
-    console.log(data);
     preventCloseMsg = false; // Allow modal to be closed sans confirmation
     refreshCurrentPreview(data.preview);
+    disableCloseModalConfirmation();
+    scrollPageToTop();
   }
 
   function refreshTileDataPageWide(data){
@@ -441,14 +442,14 @@ Airbo.TileCreator = (function(){
  }
 
  function scrollPageToTop(){
-   $("body").scrollTop(0);
+   $(tileModalSelector).scrollTop(0);
  }
 
 
 
  function tileModalOpenClose(){
 
-   $(document).on('open',tileModalSelector, function () {
+   $(document).on('opened',tileModalSelector, function () {
      scrollPageToTop();
      $("body").css({"overflow-y": "hidden"});
    });
