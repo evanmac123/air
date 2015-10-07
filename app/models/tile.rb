@@ -63,6 +63,9 @@ class Tile < ActiveRecord::Base
   scope :after_start_time, -> { where("start_time < ? OR start_time IS NULL", Time.now) }
   scope :before_end_time, -> { where("end_time > ? OR end_time IS NULL", Time.now) }
   scope :after_start_time_and_before_end_time, -> { after_start_time.before_end_time }
+  
+  #FIXME suggested and status are not the same thing!
+
   scope :suggested, -> do
     where{ (status == USER_SUBMITTED) | (status == IGNORED) }
       .order{ status.desc } # first submitted then ignored

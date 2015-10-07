@@ -1,7 +1,7 @@
 <% show_client_admin_menu ||= false %>
 <%  if show_client_admin_menu %>
-  <%= render partial: "client_admin/tiles/tile_preview/ca_created_menu", locals:{tile: tile} if menu_type=='client_admin_created' %>
-  <%= render partial: "client_admin/tiles/tile_preview/suggested_menu", locals:{tile: tile} if menu_type=='suggested' %>
+  <%= render partial: "client_admin/tiles/tile_preview/ca_created_menu", locals:{tile: tile} unless tile.suggested? %>
+  <%= render partial: "client_admin/tiles/tile_preview/suggested_menu", locals:{tile: tile} if  tile.suggested? %>
 <%else%>
   presenter = TilePreview::MenuPresenter::User.new(tile, browser)
   <ul class="tile_preview_menu">
