@@ -2,7 +2,7 @@
   <li class="preview_menu_item" id="stat_toggle">
     <a>
       <span class="header_text">
-        Submitted
+        <%="Submitted by: #{tile.creator.name} on #{tile.created_at.strftime('%m/%d/%Y')}"%>
       </span>
     </a>
   </li>
@@ -23,13 +23,5 @@
         Ignore
       </span>
     <%end%>
-  </li>
-
-  <li class="preview_menu_item">
-    <a>
-      <span class="header_text">
-        <%="Suggested By: #{tile.creator.name} #{tile.created_at.strftime('%m/%d/%Y')}"%>
-      </span>
-    </a>
   </li>
 </ul>
