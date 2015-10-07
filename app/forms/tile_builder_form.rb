@@ -171,7 +171,7 @@ class TileBuilderForm
 
   def sanitized_supporting_content
     Sanitize.fragment(
-      @form_params[:supporting_content].strip,
+      (@form_params[:supporting_content] || "").strip,
       elements: [
         'ul', 'ol', 'li',               # lists
         'b', 'strong', 'i', 'em', 'u',  # text style
