@@ -1,17 +1,7 @@
 class SuggestedTilesController < ApplicationController
   def new
     get_tile_images
-    @tile_builder_form = UserTileBuilderForm.new(
-      current_user.demo,
-      form_params: {
-        question_type: Tile::ACTION,
-        question_subtype: Tile::READ_TILE,
-        question: "Points for reading tile",
-        answers: ["I read it"]
-      }
-    )
-    @tile_builder_form.send(:set_tile_attributes)
-    
+    @tile_builder_form = UserTileBuilderForm.new(current_user.demo)
     render partial: "shared/tiles/builder", layout: false and return
   end
 

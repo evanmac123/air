@@ -7,8 +7,10 @@ Airbo.TileQuestionBuilder = (function(){
     , tileTextContainer
     , defaultType
     , defaultSubtype
-    , tilebuilderform
+    , tilebuilderform 
     , nextAnswerIndex=0
+    , quizContentSelector = ".quiz_content"
+    , quizContentMultipleChoiceGroupSelector =  quizContentSelector + " " +".multiple_choice_group"
     , multipleChoiceAnswerSelector = ".tile_multiple_choice_answer"
     , delAnswerSelector = ".fa.fa-remove"
     , tileTextContainerSelector = "#new_tile_builder_form .tile_texts_container"
@@ -21,27 +23,32 @@ Airbo.TileQuestionBuilder = (function(){
     , tileTextContainerSelector = "#new_tile_builder_form .tile_texts_container"
   ;
 
+  var DEFAULT_QUESTION_IDENTIFIER="Action-read_tile";  //TODO This is a quick hack make configurable in future
+
   function initSubType() {
 
     $("body").on("click", subtypeSelector, function(){
-      var obj = {}
-      obj.subtypeId = $(this).attr("id");
-      obj.type = getTileType(obj.subtypeId);
-      obj.subtype = getTileSubtype(obj.subtypeId);
-
-      addSubTypeAnswer(obj)
-
-      saveTypeToForm();
-      _.each($(answerFieldSelector), addCharacterCounterFor);
-
-      $(".tile_quiz").removeClass("tile_builder_error");
-      turnRadioGreen();
-      rebindEvents();
-      showSlider();
-
+      handleSubTypeSelection($(this).attr("id"));
     });
   }
 
+  function handleSubTypeSelection(identifier){
+
+    var obj = {}
+    obj.subtypeId = identifier;
+    obj.type = getTileType(obj.subtypeId);
+    obj.subtype = getTileSubtype(obj.subtypeId);
+    addSubTypeAnswer(obj)
+
+    saveTypeToForm();
+    _.each($(answerFieldSelector), addCharacterCounterFor);
+
+    $(".tile_quiz").removeClass("tile_builder_error");
+    turnRadioGreen();
+    rebindEvents();
+    debugger
+    showSlider();
+  }
 
   function addSubTypeAnswer(obj){
     makeButtonsSelected(obj.type, obj.subtypeId);
@@ -95,18 +102,22 @@ Airbo.TileQuestionBuilder = (function(){
 
   function addAnswerToGroup(answerVal, correct,subtype, i){
     answer = $('<div class="tile_multiple_choice_answer"></div>').addClass(subtype);
-    $(".multiple_choice_group").append(answer); 
     addToShowAndEditContainers(answer, answerVal, correct, i)
+    $(quizContentMultipleChoiceGroupSelector).append(answer); 
   }
 
   function addToShowAndEditContainers(answer, answerVal,  correct, i){
-    answer.append(showAnswerContainer("block", answerVal, correct));
-    answer.append(editAnswerContainer("none", answerVal, i, correct));
+
+    var show = showAnswerContainer("block", answerVal, correct)
+      , edit = editAnswerContainer("none", answerVal, i, correct)
+    ;
+    answer.append(show);
+    answer.append(edit);
   }
 
   function showQuestionAndAnswers(subtype) {
-    $(".quiz_content").html("");
-    quiz_content = $(".quiz_content");
+    $(quizContentSelector).html("");
+    quiz_content = $(quizContentSelector);
     addQuestion(quiz_content, subtype["question"]);
     addAnswers(quiz_content, subtype["answers"], subtype["correct"]);
   };
@@ -340,7 +351,7 @@ Airbo.TileQuestionBuilder = (function(){
     if(subtype == "multiple_choice" && (type == "Quiz" || type == "Survey")){
       showAddAnswer(after_answers);
     }
-    $(".quiz_content").append(after_answers);
+    $(quizContentSelector).append(after_answers);
   }
 
   function makeButtonsSelected(type, subtype) {
@@ -507,10 +518,12 @@ Airbo.TileQuestionBuilder = (function(){
   }
 
   function initialTypeSetUp(){
+    var identifier;
+
     if(tileHasQuestionType == true){
-      $("#" + defaultType + "-" + defaultSubtype).click().click();
-      $(".slider").css("display", "block");
+      identifier = defaultType + "-" + defaultSubtype
     }
+      handleSubTypeSelection(identifier ||DEFAULT_QUESTION_IDENTIFIER);
   }
 
   function setUp() {
@@ -522,7 +535,9 @@ Airbo.TileQuestionBuilder = (function(){
     _.each($('.answer-field'), addCharacterCounterFor);
     turnRadioGreen();
     initialTypeSetUp(tileHasQuestionType, defaultType, defaultSubtype);
+    closeMenuDropDowns();
   }
+
 
   function getTileTypes(){
     tileTypes=  tileTextContainer.data('tileTypes');
