@@ -71,3 +71,11 @@ body.client_admin-tiles-show {
     }
   }
 }
+
+body.tiles-index,
+body.acts-index {
+  // for intro js
+  #new_tile_modal {
+    // z-index: 99 !important;
+  }
+}
