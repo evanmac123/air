@@ -43,7 +43,9 @@ module TilePreviewsHelper
     {
       draft: {txt: "Draft", icon: "fa-edit", status: "draft", action: "Draft"},
       active: {txt: "Posted", icon: "fa-check", status: "active", action: "Post"}, 
-      archive: {txt: "Archived", icon: "fa-archive", status: "archive", action: "Archive"}
+      archive: {txt: "Archived", icon: "fa-archive", status: "archive", action: "Archive"},
+      user_submitted: {txt: "Submitted", icon: "fa-archive", status: "Accept", action: "Accept"},
+      ignored: {txt: "Ignored", icon: "fa-trash", status:  "ignored", action: "Ignore"}
     }[status.to_sym]
   end
 
@@ -56,7 +58,7 @@ module TilePreviewsHelper
   end
 
   def tile_preview_status_change_tooltip tile
-    change_statuses = [Tile::DRAFT, Tile::ACTIVE, Tile::ARCHIVE].reject{|x|x==tile.status}
+    change_statuses = [Tile::DRAFT, Tile::ACTIVE, Tile::ARCHIVE, Tile::USER_SUBMITTED, Tile::IGNORED].reject{|x|x==tile.status}
     change_statuses = change_statuses.reject{|x|x==Tile::DRAFT} if tile.tile_completions.count > 0
 
     content_tag :div, id: "stat_change_sub", class: "preview_menu_item" do
