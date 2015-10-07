@@ -46,7 +46,6 @@ Airbo.TileQuestionBuilder = (function(){
     $(".tile_quiz").removeClass("tile_builder_error");
     turnRadioGreen();
     rebindEvents();
-    debugger
     showSlider();
   }
 
@@ -137,7 +136,7 @@ Airbo.TileQuestionBuilder = (function(){
 
   function initQuestionLostFocus(){
     $('body').click(function(event) {
-      //FIXME hak hack hack !!!!
+      //FIXME hak hack hack WTF!!!!
       if(tileBuilderForm.length>0) {
         if(!$(event.target).attr("data-dropdown")){
           closeMenuDropDowns();
@@ -165,7 +164,7 @@ Airbo.TileQuestionBuilder = (function(){
   }
 
   function initQuestionTypeMenus(){
-    $("body").on("click", typeSelector, function(){
+    $("body").on("click", typeSelector, function(event){
      closeMenuDropDowns();
       $(this).addClass("open");
     });
@@ -355,7 +354,6 @@ Airbo.TileQuestionBuilder = (function(){
   }
 
   function makeButtonsSelected(type, subtype) {
-    $("#" + type).click(); //FIXME this is weird correlation with the medium editor causes the editor to blur and which induces the desired editor behavior.
 
     $(".button.selected").removeClass("selected");
     $(".subtype.selected").removeClass("selected");
@@ -440,6 +438,8 @@ Airbo.TileQuestionBuilder = (function(){
   }
 
   function tryTurnOffEditAnswer(element) {
+   //FIXME not sure if this is the best approach
+
     $(".tile_multiple_choice_answer").each(function() {
       if( !$(this).is( $(element).closest(".tile_multiple_choice_answer") ) ) {
         turnOffEditAnswer(this);
@@ -474,7 +474,7 @@ Airbo.TileQuestionBuilder = (function(){
 
       }else{
         $("li.subtype").removeAttr("disabled")
-        turnOffEditAnswer();
+        turnOffEditAnswer();  //FIXME needs a selector
       }
 
     });
@@ -524,6 +524,7 @@ Airbo.TileQuestionBuilder = (function(){
       identifier = defaultType + "-" + defaultSubtype
     }
       handleSubTypeSelection(identifier ||DEFAULT_QUESTION_IDENTIFIER);
+      tryTurnOffEditAnswer();
   }
 
   function setUp() {
