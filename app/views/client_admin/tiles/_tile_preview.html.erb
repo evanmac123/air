@@ -14,12 +14,12 @@
       <% end %>
     </div>
   <% end %>
-
+  <%#FIXME change the menu_type local since it's being used to control more than which menu is displayed" %>
   <div class='viewer'>
-    <%= link_to "" , client_admin_tile_path(@prev), :id => :prev, data:{action: "show", tile_id: @prev} %>
+    <%= link_to "" , client_admin_tile_path(@prev), :id => :prev, data:{action: "show", tile_id: @prev} unless menu_type=="suggested" %>
       <div id="slideshow">
         <%= render "tiles/full_size_tile", tile: @tile, is_preview: true %>
       </div>
-    <%= link_to "",  client_admin_tile_path(@next) , :id => :next, data:{action: "show", tile_id: @next} %>
+    <%= link_to "",  client_admin_tile_path(@next) , :id => :next, data:{action: "show", tile_id: @next} unless menu_type=="suggested"%>
   </div>
 </div>
