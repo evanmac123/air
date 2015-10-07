@@ -39,7 +39,7 @@ Airbo.TileCreator = (function(){
    tileBuilderSubmitButton= $(tileBuilderSubmitButtonSelector);
    tileBuilderForm = $(tileBuilderFormSelector);
    initFormValidator(tileBuilderForm);
-
+   //initIntroTooltips();
    //TODO create funciton for setup that needs to take place only after the
    //modal has opened
 
@@ -85,6 +85,22 @@ Airbo.TileCreator = (function(){
      autoClose: false,
    });
  }
+
+ function initIntroTooltips(){
+   $(".intro-tipsy").tooltipster({
+     theme: "tooltipster-shadow",
+     interactive: true,
+     position: "left",
+     contentAsHTML: true,
+     trigger: "custom",
+     positionTracker: "true",
+     autoClose: false,
+   });
+
+   $("#image_uploader").tooltipster("show");
+
+ }
+
 
 
  function shouldAutoClose(){
@@ -450,8 +466,12 @@ Airbo.TileCreator = (function(){
  function tileModalOpenClose(){
 
    $(document).on('opened',tileModalSelector, function () {
+   //  $("#image_uploader").tooltipster("show");
      scrollPageToTop();
      $("body").css({"overflow-y": "hidden"});
+   });
+
+   $(document).on('open',tileModalSelector, function () {
    });
 
    $(document).on('closed', tileModalSelector, function (event) {
@@ -466,6 +486,7 @@ Airbo.TileCreator = (function(){
 
    $(document).on('close', tileModalSelector, function (event) {
      var msg;
+     //$(".tipsy").tooltipster("hide");
      if(preventCloseMsg){
 
        if (confirm(msg)){
