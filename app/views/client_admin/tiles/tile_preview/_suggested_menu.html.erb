@@ -1,7 +1,35 @@
 <ul class="tile_preview_menu" >
-  <li class="preview_menu_item tipsy" id="stat_toggle" title= '<%=suggested_tile_status_change_tooltip tile %>'>
-  <%=tile_preview_menu_status_item tile %>
+  <li class="preview_menu_item" id="stat_toggle">
+    <a>
+      <span class="header_text">
+        Submitted
+      </span>
+    </a>
   </li>
 
+  <li class="preview_menu_item" >
+    <%=link_to status_change_client_admin_tile_path(tile) , class: 'update_status', data:{tileId: tile.id, status: Tile::DRAFT} do %>
+      <i class="fa fa-check fa-1x"></i>
+      <span class="header_text">
+        Accept
+      </span>
+    <%end%>
+  </li>
 
+  <li class="preview_menu_item" >
+    <%=link_to status_change_client_admin_tile_path(tile), class: 'update_status', data:{tileId: tile.id, status: Tile::IGNORED} do %>
+      <i class="fa fa-close fa-1x"></i>
+      <span class="header_text">
+        Ignore
+      </span>
+    <%end%>
+  </li>
+
+  <li class="preview_menu_item">
+    <a>
+      <span class="header_text">
+        <%="Suggested By: #{tile.creator.name} #{tile.created_at.strftime('%m/%d/%Y')}"%>
+      </span>
+    </a>
+  </li>
 </ul>
