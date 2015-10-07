@@ -739,14 +739,23 @@ var TileCreatorContext = {
   }
 }
 
+Airbo.TileCreatorIE8 = (function(){
+  function init(context) {
+    $(context.newSelector).on("click", function(e) {
+      e.preventDefault();
+      alert("Sorry, it looks like you're using an unsupported browser. Please use Chrome, Firefox, Safari or Internet Explorer 9 and above.");
+    });
+  }
+  return {
+    init: init
+  };
+}());
+
 $(function(){
   context = $("#new_tile_modal").data("context");
   if(context) {
     if(isIE() == 8) {
-      $(TileCreatorContext[context]["newSelector"]).on("click", function(e) {
-        e.preventDefault();
-        alert("Sorry, it looks like you're using an unsupported browser. Please use Chrome, Firefox, Safari or Internet Explorer 9 and above.");
-      });
+      Airbo.TileCreatorIE8.init(TileCreatorContext[context]);
     } else {
       Airbo.TileCreator.init(TileCreatorContext[context]);
     }
