@@ -45,7 +45,6 @@ gem 'kaminari'
 gem 'browser'
 gem "squeel"
 gem 'draper', '~> 1.3'
-gem 'introjs-rails'
 gem 'redis-rails'
 gem 'strong_parameters'
 gem 'intercom'

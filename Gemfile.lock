@@ -236,9 +236,6 @@ GEM
     inflecto (0.0.2)
     intercom (2.4.2)
       json
-    introjs-rails (0.5.0)
-      sass-rails (>= 3.2)
-      thor (~> 0.14)
     ipaddress (0.8.0)
     journey (1.0.4)
     jquery-fileupload-rails (0.4.5)
@@ -555,7 +552,6 @@ DEPENDENCIES
   historyjs-rails
   htmlentities
   intercom
-  introjs-rails
   jquery-fileupload-rails
   jquery-rails
   jquery-ui-rails
@@ -612,3 +608,6 @@ DEPENDENCIES
   uglifier
   unicorn
   wice_grid!
+
+BUNDLED WITH
+   1.10.6

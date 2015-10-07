@@ -739,10 +739,16 @@ var TileCreatorContext = {
   }
 }
 
-
 $(function(){
   context = $("#new_tile_modal").data("context");
   if(context) {
-    Airbo.TileCreator.init(TileCreatorContext[context]);
+    if(isIE() == 8) {
+      $(TileCreatorContext[context]["newSelector"]).on("click", function(e) {
+        e.preventDefault();
+        alert("Sorry, it looks like you're using an unsupported browser. Please use Chrome, Firefox, Safari or Internet Explorer 9 and above.");
+      });
+    } else {
+      Airbo.TileCreator.init(TileCreatorContext[context]);
+    }
   }
-})
+});

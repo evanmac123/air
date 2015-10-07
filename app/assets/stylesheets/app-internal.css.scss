@@ -10,7 +10,7 @@
 @import "./vendor/facebox.css.scss";
 @import "./vendor/flutie.css.scss";
 @import "./internal/intercom.css.scss";
-@import "introjs";
+@import "./vendor/introjs.min";
 
 /* MIXIN DEFINITIONS NEXT (so we can use them later) */
 @import "./mixins/main_styles.css.scss";
