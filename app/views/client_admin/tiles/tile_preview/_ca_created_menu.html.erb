@@ -1,0 +1,50 @@
+<ul class="tile_preview_menu" >
+  <li class="preview_menu_item tipsy" id="stat_toggle" title= '<%=tile_preview_status_change_tooltip tile %>'>
+  <%=tile_preview_menu_status_item tile %>
+  </li>
+
+  <li class="preview_menu_item edit" >
+    <%=link_to edit_client_admin_tile_path(tile),  data:{tile_id: tile.id, action: "edit", status: tile.status} do %>
+      <i class="fa fa-pencil fa-1x"></i>
+      <span class="header_text">
+        Edit
+      </span>
+    <%end%>
+  </li>
+
+  <li class="preview_menu_item destroy" >
+    <%=link_to client_admin_tile_path(tile), data: {confirm: {body: "Are you sure you want to delete this tile? Deleting a tile is irrevocable and you'll loose all data associated with it"}, method: "delete"} do %>
+      <i class="fa fa-trash fa-1x"></i>
+      <span class="header_text">
+      Delete
+      </span>
+      <%end%>
+  </li>
+
+  <li class="preview_menu_item explore tipsy"  title='<%=share_via_explore tile %>'>
+    <%=link_to "#" do %>
+      <i class="fa fa-rocket fa-1x"></i>
+      <span class="header_text">
+        Airbo Explore
+      </span>
+    <%end%>
+  </li>
+
+  <li class="preview_menu_item share tipsy" title='<%=social_share_links tile %>'>
+    <%=link_to "#" do %>
+      <i class="fa fa-share-alt fa-1x"></i>
+      <span class="header_text">
+        Share
+      </span>
+    <%end%>
+  </li>
+
+  <li class="preview_menu_item link tipsy" title='<%=tile_share_public_link_block tile%>' >
+    <%=link_to "#" do %>
+      <i class="fa fa-link fa-1x"></i>
+      <span class="header_text">
+        Link
+      </span>
+    <%end%>
+  </li>
+</ul>

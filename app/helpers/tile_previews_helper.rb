@@ -49,6 +49,39 @@ module TilePreviewsHelper
     }[status.to_sym]
   end
 
+  def suggested_menu_item_config_by_status status
+    {
+      user_submitted: {txt: "Submitted", icon: "fa-archive", status: "Accept", action: "Accept"},
+      ignored: {txt: "Ignored", icon: "fa-trash", status:  "ignored", action: "Ignore"}
+    }[status.to_sym]
+  end
+
+
+  def suggested_tile_status_change_tooltip tile 
+    build_status_change_action_menu tile, [Tile::USER_SUBMITTED, Tile::IGNORED]
+  end
+
+  def tile_preview_status_change_tooltip tile
+    change_statuses = [Tile::DRAFT, Tile::ACTIVE, Tile::ARCHIVE, ].reject{|x|x==tile.status}
+    change_statuses = change_statuses.reject{|x|x==Tile::DRAFT} if tile.tile_completions.count > 0
+    build_status_change_action_menu tile, change_statuses
+  end
+
+  def tile_preview_menu_status_item tile
+   build_menu_item_link preview_menu_item_config_by_status(tile.status)
+  end
+
+
+  def suggested_tile_menu_status_item tile
+    build_menu_item_link  suggested_menu_item_config_by_status(tile.status)
+  end
+
+  def tile_preview_menu_action_item tile, config
+    link_to  status_change_client_admin_tile_path(tile), data: {status: config[:status], tileId: tile.id},  class: 'update_status' do
+      menu_item_text_and_icon(config[:action], config[:icon])
+    end
+  end
+
   def menu_item_text_and_icon txt, icon
     s = content_tag :i,  class: "fa #{icon} fa-1x" do; end
     s+= content_tag :span,  class: "header_text " do
@@ -57,13 +90,16 @@ module TilePreviewsHelper
     s
   end
 
-  def tile_preview_status_change_tooltip tile
-    change_statuses = [Tile::DRAFT, Tile::ACTIVE, Tile::ARCHIVE, Tile::USER_SUBMITTED, Tile::IGNORED].reject{|x|x==tile.status}
-    change_statuses = change_statuses.reject{|x|x==Tile::DRAFT} if tile.tile_completions.count > 0
+  def build_menu_item_link config
+    content_tag :a do
+      menu_item_text_and_icon(config[:txt], config[:icon])
+    end
+  end
 
+  def build_status_change_action_menu tile, statuses
     content_tag :div, id: "stat_change_sub", class: "preview_menu_item" do
       s=""
-      change_statuses.each do |stat|
+      statuses.each do |stat|
         config = preview_menu_item_config_by_status(stat)
         s+= tile_preview_menu_action_item tile, config
       end
@@ -71,18 +107,6 @@ module TilePreviewsHelper
     end
   end
 
-  def tile_preview_menu_status_item tile
-    config = preview_menu_item_config_by_status tile.status
-    content_tag :a do
-      menu_item_text_and_icon(config[:txt], config[:icon])
-    end
-  end
-
-  def tile_preview_menu_action_item tile, config
-    link_to  status_change_client_admin_tile_path(tile), data: {status: config[:status], tileId: tile.id},  class: 'update_status' do
-      menu_item_text_and_icon(config[:action], config[:icon])
-    end
-  end
 
   def tile_preview_menu_social_share tile, site
     site_link = "sharable_tile_on_#{site}".to_sym

@@ -2,7 +2,7 @@
 
 <div class="large-9 large-centered columns tile_preview_container">
   <% if show_client_admin_menu %>
-    <%= render partial: 'client_admin/tiles/tile_preview/menu', locals: {tile: @tile, show_client_admin_menu: show_client_admin_menu} %>
+    <%= render partial: 'client_admin/tiles/tile_preview/menu', locals: {tile: @tile, show_client_admin_menu: show_client_admin_menu, menu_type: menu_type} %>
   <% else %>
     <div class="suggested_preview_header">
       <div class="acceptance_status">
