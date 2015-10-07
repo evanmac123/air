@@ -18,7 +18,7 @@
           </div>
           <%= render 'shared/tiles/form/question_and_answer_section', form: f %>
         </div>
-        <%= render 'shared/tiles/form/submit_button', submit_button_text: tile_builder_form.submit_button_text, return_button_text: tile_builder_form.return_button_text, form: f %>
+        <%= render 'shared/tiles/form/submit_button', form: f %>
     </div>
   </div>
 
@@ -30,4 +30,3 @@
 <%= s3_uploader_form post: client_admin_tiles_url, as: "tile_builder_form[upload_url]", style: "visibility:hidden;height:0px;width:0px" do %>
   <%= file_field_tag :file, id:"media_file" %>
 <% end %>
-

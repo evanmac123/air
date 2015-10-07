@@ -1,3 +1,8 @@
 <div id="publish">
-  <%= form.submit submit_button_text %>
+  <%= form.submit form.object.submit_button_text %>
 </div>
+<% if form.object.has_submit_caution? %>
+  <div class="submit_caution">
+    Once you submit a Tile, it cannot be edited.
+  </div>
+<% end %>

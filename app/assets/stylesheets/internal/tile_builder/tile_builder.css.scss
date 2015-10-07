@@ -32,6 +32,13 @@ body.client_admin-tiles-edit {
     padding-top: 20px;
     padding-bottom: 50px;
   }
+  .submit_caution {
+    font-size: 14px;
+    color: $white;
+    text-align: center;
+    font-weight: 700;
+    margin-top: 26px;
+  }
   // medium editor overrides
   .medium-editor-toolbar {
     li {

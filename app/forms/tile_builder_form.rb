@@ -95,10 +95,6 @@ class TileBuilderForm
     tile.new_record? ? "Save tile" : "Update tile"
   end
 
-  def return_button_text
-    tile.new_record? ? "Back" : "Cancel"
-  end
-
   def error_messages
     errors.values.join(", ") + "."
   end
@@ -121,6 +117,10 @@ class TileBuilderForm
 
   def question_config
     { hasQuestionType: has_question_type?, type: question_type, subType: question_subtype}
+  end
+
+  def has_submit_caution?
+    false
   end
 
   protected

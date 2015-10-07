@@ -15,4 +15,12 @@ class UserTileBuilderForm < TileBuilderForm
 		super
 		tile.user_created = true
 	end
+
+  def submit_button_text
+    "Submit tile"
+  end
+
+  def has_submit_caution?
+    true
+  end
 end
