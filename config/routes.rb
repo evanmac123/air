@@ -102,7 +102,7 @@ Health::Application.routes.draw do
 
   resources :locations, only: :index
 
-  resources :suggested_tiles
+  resources :suggested_tiles, only: [:new, :show, :create]
 
   namespace :client_admin do
     resource :segmentation

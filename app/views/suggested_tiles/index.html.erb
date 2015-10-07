@@ -1,9 +1,0 @@
-<%= render 'section', section_id: 'creation', header_text: "Draft", tooltip_params: {id: "info_draft_tile", data: {tooltip: true}, title: "Create a Tile and submit to your administrator to share on this board."}, wrapper_id: 'draft', tiles: @creation_placeholder, type: :user_draft, help: true %>
-
-<%= render 'section', section_id: "submitted_tiles", header_text: "Submitted", tooltip_params: {id: "info_submitted_tile", data: {tooltip: true}, title: "Tiles you submitted to your administrator."}, wrapper_id: "submitted", tiles: @submitted_tiles, type: :user_submitted %>
-
-<%= render 'section', section_id: "posted_tiles", header_text: "Posted", tooltip_params: {id: "info_posted_tile", data: {tooltip: true}, title: "Tiles you created that your administrator shared with others in the board."}, wrapper_id: "posted", tiles: @posted_tiles, type: :active %>
-
-<%= render 'section', section_id: "archived_tiles", header_text: "Archived", tooltip_params: {id: "info_archived_tile", data: {tooltip: true}, title: "Tiles you created that your administrator shared and archived."}, wrapper_id: "archived", tiles: @archived_tiles, type: :archived %>
-
-<%= render "shared/header/submit_tile_modal" %>
