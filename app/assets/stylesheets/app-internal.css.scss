@@ -4,6 +4,10 @@
 *= require medium-editor/themes/default
 */
 
+/*
+*= require tooltipster/tooltipster
+*= require tooltipster/themes/tooltipster-shadow
+*/
 @import "./vendor/pace-theme-center-simple.css.scss";
 @import "./vendor/normalize.css.scss";
 @import "./foundation_and_overrides.scss";
