@@ -363,6 +363,7 @@ Airbo.TileCreator = (function(){
   function refreshTileDataForUser(data) {
     preventCloseMsg = false; // Allow modal to be closed sans confirmation
     refreshCurrentPreview(data.preview);
+    prepShow();
     disableCloseModalConfirmation();
     scrollPageToTop();
   }
