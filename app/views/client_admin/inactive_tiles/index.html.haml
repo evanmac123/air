@@ -10,7 +10,7 @@
       .pagination-centered
         = paginate @raw_tiles
 
-= render "shared/tile_builder_modals"
+= render partial: "shared/tile_builder_modals", locals: {context: "client_admin"}
 
 - content_for :javascript do
   :javascript
