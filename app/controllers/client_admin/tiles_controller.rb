@@ -179,14 +179,16 @@ class ClientAdmin::TilesController < ClientAdminBaseController
                                     current_user.user_submitted_tile_intro_seen = true
                                     current_user.save
                                   end
-    @manage_access_prompt = !current_user.manage_access_prompt_seen ||
+    @manage_access_prompt = !current_user.manage_access_prompt_seen &&
       if @user_submitted_tiles_counter > 0 ||
          @allowed_to_suggest_users.count > 0 ||
          @demo.everyone_can_make_tile_suggestions
-         
+
         current_user.manage_access_prompt_seen = true
         current_user.save
         false
+      else
+        true
       end
   end
 

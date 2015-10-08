@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   FIELDS_TRIGGERING_SEGMENTATION_UPDATE = %w(characteristics points location_id date_of_birth gender demo_id accepted_invitation_at last_acted_at phone_number email)
 
   MISSING_AVATAR_PATH = "/assets/avatars/thumb/missing.png"
-  TAKEN_PHONE_NUMBER_ERR_MSG = "Sorry, but that phone number has already been taken. Need help? Contact support@airbo.com" 
+  TAKEN_PHONE_NUMBER_ERR_MSG = "Sorry, but that phone number has already been taken. Need help? Contact support@airbo.com"
   UNMONITORED_MAILBOX_RESPONSE_THRESHOLD = ENV['UNMONITORED_MAILBOX_RESPONSE_THRESHOLD'].try(:to_i) || 3600 # seconds
 
   include Clearance::User
@@ -49,7 +49,7 @@ class User < ActiveRecord::Base
   has_one    :billing_information
   validate :normalized_phone_number_unique, :normalized_new_phone_number_unique, :normalized_new_phone_number_not_taken_by_board
   validate :new_phone_number_has_valid_number_of_digits
-  validate :sms_slug_does_not_match_commands 
+  validate :sms_slug_does_not_match_commands
   validate :date_of_birth_in_the_past
 
   validates_uniqueness_of :slug
@@ -115,7 +115,7 @@ class User < ActiveRecord::Base
   before_validation do
     downcase_sms_slug
   end
-  
+
   before_validation do
     if @role.present?
       self.is_client_admin = self.role == 'Administrator'
@@ -125,10 +125,10 @@ class User < ActiveRecord::Base
       end
       true
     else
-      true      
+      true
     end
   end
-  
+
   before_create do
     set_invitation_code
     set_explore_token
@@ -175,7 +175,7 @@ class User < ActiveRecord::Base
   def email_optional?
     true if phone_number
   end
-  
+
   def role
     @role ||= begin
       if self.is_client_admin || (self.current_board_membership && self.current_board_membership.is_client_admin)
@@ -185,13 +185,13 @@ class User < ActiveRecord::Base
       end
     end
   end
-  
+
   def role_in(demo)
     board_membership = self.board_memberships.find_by_demo_id(demo.id)
     if board_membership && board_membership.is_client_admin
       'Administrator'
     else
-      'User'      
+      'User'
     end
   end
   def update_last_acted_at
@@ -530,15 +530,15 @@ class User < ActiveRecord::Base
     _demo = options[:demo_id].present? ? Demo.find(options[:demo_id]) : self.demo
 
     if referrer && !(options[:ignore_invitation_limit])
-      peer_num = self.peer_invitations_as_invitee.where(demo: _demo).length 
+      peer_num = self.peer_invitations_as_invitee.where(demo: _demo).length
       return if peer_num >= PeerInvitation::CUTOFF
     end
 
     unless options[:is_new_invite]
       Mailer.delay_mail(:invitation, self, referrer, options)
     else
-      TilesDigestMailer.delay.notify_one(_demo.id, id, 
-        _demo.digest_tiles(nil).pluck(:id), "Join my #{_demo.name}", false, nil, 
+      TilesDigestMailer.delay.notify_one(_demo.id, id,
+        _demo.digest_tiles(nil).pluck(:id), "Join my #{_demo.name}", false, nil,
         options[:custom_message], options[:custom_from], options[:is_new_invite])
     end
     if referrer && !(options[:ignore_invitation_limit])
@@ -758,11 +758,11 @@ class User < ActiveRecord::Base
   def email_with_name
     "#{name} <#{email}>"
   end
-  
+
   def email_with_name_via_airbo
-    "#{name} via Airbo <#{email}>"    
+    "#{name} via Airbo <#{email}>"
   end
-  
+
   def mute_for_now
     self.update_attributes(:last_muted_at => Time.now)
   end
@@ -958,7 +958,7 @@ class User < ActiveRecord::Base
     "ordinary user"
   end
 
-  def mark_own_tile_completed(tile)    
+  def mark_own_tile_completed(tile)
     self.has_own_tile_completed = true
     self.has_own_tile_completed_displayed = false
     self.has_own_tile_completed_id = tile.id
@@ -969,7 +969,7 @@ class User < ActiveRecord::Base
   def can_start_over?
     false
   end
- 
+
   def non_current_boards
     current_demo_id = demo_id
     demos.where(id: demo_ids - [current_demo_id])
@@ -1010,7 +1010,7 @@ class User < ActiveRecord::Base
   def likes_tile?(tile)
     tile.user_tile_likes.where(user_id: self.id).exists?
   end
-  
+
   def copied_tile?(tile)
     tile.user_tile_copies.where(user_id: self.id).exists?
   end
@@ -1029,15 +1029,15 @@ class User < ActiveRecord::Base
 
   def show_onboarding?
     # onboarding is already turned off
-    if self.current_board_membership.not_show_onboarding 
+    if self.current_board_membership.not_show_onboarding
       false
     # onboarding is turned off for board. so turn off it for admin
-    elsif (self.is_client_admin || self.is_site_admin) 
+    elsif (self.is_client_admin || self.is_site_admin)
       self.current_board_membership.update_attribute(:not_show_onboarding, true)
       self.get_started_lightbox_displayed = true
       self.displayed_activity_page_admin_guide = true
       self.save!
-      false 
+      false
     else
       true
     end
@@ -1132,7 +1132,7 @@ class User < ActiveRecord::Base
     && demo.tiles.active.present? \
     && show_onboarding?
   end
-  
+
   def is_parent_board_user?
     false
   end
@@ -1158,8 +1158,10 @@ class User < ActiveRecord::Base
   end
 
   def can_make_tile_suggestions? _demo = demo
+    bm = board_memberships.where(demo: _demo).first
     _demo.everyone_can_make_tile_suggestions ||
-      board_memberships.where(demo: _demo).first.allowed_to_make_tile_suggestions
+      bm.allowed_to_make_tile_suggestions ||
+      bm.is_client_admin == true
   end
 
   def self.allow_to_make_tile_suggestions _user_ids, _demo
@@ -1176,7 +1178,7 @@ class User < ActiveRecord::Base
         .update_all(allowed_to_make_tile_suggestions: true)
 
       joins{board_memberships}
-        .where do 
+        .where do
           (board_memberships.demo == _demo) &
           (board_memberships.is_current == true) &
           (allowed_to_make_tile_suggestions == true)
@@ -1184,10 +1186,10 @@ class User < ActiveRecord::Base
         .update_all(allowed_to_make_tile_suggestions: false)
 
       joins{board_memberships}
-        .where do 
+        .where do
           (board_memberships.demo == _demo) &
           (board_memberships.is_current == true) &
-          (id.in _user_ids) 
+          (id.in _user_ids)
         end
         .update_all(allowed_to_make_tile_suggestions: true)
     end
@@ -1255,7 +1257,7 @@ class User < ActiveRecord::Base
 
     found = Demo.find_by_phone_number(num)
     if found
-      self.errors.add(:new_phone_number, TAKEN_PHONE_NUMBER_ERR_MSG) 
+      self.errors.add(:new_phone_number, TAKEN_PHONE_NUMBER_ERR_MSG)
       return false
     else
       true
@@ -1317,7 +1319,7 @@ class User < ActiveRecord::Base
   end
 
 
-  
+
   private
 
   def self.add_joining_to_activity_stream(user)

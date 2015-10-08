@@ -543,6 +543,8 @@ button {
   border-radius: $border-radius;
   border-color: $lightest-gray;
   &.confirm-with-reveal {
+    position: fixed !important;
+    top: 250px !important;
     p[data-confirm-body] {
       @include regular-text;
     }
