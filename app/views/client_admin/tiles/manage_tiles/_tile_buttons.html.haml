@@ -22,7 +22,7 @@
         %span Ignore
   - if presenter.has_accept_button?
     %li.accept_button
-      = link_to status_change_client_admin_tile_path(presenter), class: "update_status", data: {status: Tile::DRAFT} do
+      = link_to "#", class: "accept",  data: {status: Tile::DRAFT, confirm:"", url: status_change_client_admin_tile_path(presenter)} do
         %span Accept
   - if presenter.has_undo_ignore_button?
     %li.undo_ignore_button

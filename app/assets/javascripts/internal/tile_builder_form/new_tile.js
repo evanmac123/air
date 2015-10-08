@@ -68,6 +68,7 @@ Airbo.TileCreator = (function(){
    Airbo.TileCarouselPage.init();
    initPreviewMenuTooltips();
    disableCloseModalConfirmation();
+   //initAcceptTileConfirm();
  }
 
  function tooltipBefore(){
@@ -425,29 +426,35 @@ Airbo.TileCreator = (function(){
   function initStatusUpdate(){
     $("body").on("click", ".update_status", function(event) {
       event.preventDefault();
-
-      var tile, target = $(this) ;
-
+      var resp, tile, target = $(this);
       tile = tileByStatusChangeTriggerLocation(target);
 
+      function closeAnyToolTips(){
+        if((target).parents(".tooltipster-base").length > 0){
+          $("li#stat_toggle").tooltipster("hide");
+        }
+      }
+
+      submitTileForUpadte(tile,target, closeAnyToolTips);
+    });
+  }
+
+
+  function submitTileForUpadte(tile,target, postProcess ){
       $.ajax({
-        url: target.attr("href"),
+        url: target.data("url") || target.attr("href"),
         type: "put",
         data: {"update_status": target.data("status")},
         dataType: "html",
         success: function(data, status,xhr){
           closeModal(tileModal);
           moveTile(tile, data);
-          if((target).parents(".tooltipster-base").length > 0){
-            $("li#stat_toggle").tooltipster("hide");
-          }
+          postProcess();
         },
-
       });
-
-
-    });
   }
+
+
 
   function initImageLibraryModal(){
     $("body").on("click", addImageSelector, function(event){
@@ -463,7 +470,7 @@ Airbo.TileCreator = (function(){
   }
 
  function initDeletionConfirmation(){
-   $("body").on("confirm.reveal", "a[data-confirm]", function(event){
+   $("body").on("confirm.reveal", "a[data-confirm]:not(.accept)", function(event){
      preventCloseMsg=false;
      $(this).parents(".reveal-modal").foundation("reveal", "close");
    });
@@ -474,6 +481,7 @@ Airbo.TileCreator = (function(){
    });
  }
 
+
  function scrollPageToTop(){
    $(tileModalSelector).scrollTop(0);
  }
@@ -483,18 +491,13 @@ Airbo.TileCreator = (function(){
  function tileModalOpenClose(){
 
    $(document).on('opened',tileModalSelector, function (event) {
-   //  $("#image_uploader").tooltipster("show");
      if($(event.target).is(tileModal)){
        scrollPageToTop();
        $("body").css({"overflow-y": "hidden"});
      }
    });
 
-   $(document).on('open',tileModalSelector, function () {
-   });
-
    $(document).on('closed', tileModalSelector, function (event) {
-
      if(keepOpen){
         openTileFormModal();
      }else{
@@ -504,19 +507,7 @@ Airbo.TileCreator = (function(){
 
 
    $(document).on('close', tileModalSelector, function (event) {
-     var msg;
-     //$(".tipsy").tooltipster("hide");
-     if(preventCloseMsg){
-
-       if (confirm(msg)){
-         keepOpen = false;
-         preventCloseMsg = undefined;
-
-       }else{
-         keepOpen = true;
-       }
-
-     }
+     $(".tipsy").tooltipster("hide");
    });
  }
 
@@ -548,6 +539,36 @@ Airbo.TileCreator = (function(){
     config = $.extend({}, Airbo.Utils.confirmWithRevealConfig, {body: msg});
     $("#tilebuilder_close").confirmWithReveal(config);
   }
+
+  function initAcceptTileConfirm(){
+    var msg = "Are you sure you want to accept this tile";
+
+    config = $.extend({}, Airbo.Utils.confirmWithRevealConfig, {body: msg});
+
+
+    $(".accept").confirmWithReveal(config);
+    $("body").on("confirm.reveal", "a.accept", function(event){
+
+      event.preventDefault();
+      var resp, tile, target = $(this);
+      tile = tileByStatusChangeTriggerLocation(target);
+
+      function closeConfirmation(){
+        $(".reveal-modal.tiny.confirm-with-reveal").foundation("reveal", "close");
+      }
+
+      submitTileForUpadte(tile, target, closeConfirmation);
+      return false;
+    });
+
+
+    $("body").on("cancel.reveal", "a.accept.preview", function(event){
+      setTimeout(function(){setupModalFor("show")}, 200);
+    });
+
+  }
+
+
 
   function openImageSelectorModal(){
     imagesModal.foundation("reveal", "open", {animation: "fade", closeOnBackgroundClick: true});
@@ -583,7 +604,7 @@ Airbo.TileCreator = (function(){
     initContext(context);
 
     initDeletionConfirmation();
-
+    initAcceptTileConfirm()
     initStatusUpdate();
 
     initModalOpenClose();
