@@ -753,7 +753,7 @@ Airbo.TileSuportingContentTextManager = (function(){
 
 var TileCreatorContext = {
   client_admin: {
-    newSelector: "a#add_new_tile",
+    newSelector: "a#add_new_tile, a#submit_tile",
     submitSuccessName: "refreshTileDataPageWide"
   },
   suggestion_box: {
