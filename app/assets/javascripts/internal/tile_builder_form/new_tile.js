@@ -315,14 +315,14 @@ Airbo.TileCreator = (function(){
         if (errors) {
           if($(validator.errorList[0].element).is(":visible"))
             {
-              $('html, body').animate({
+              $(tileModalSelector).animate({
                 scrollTop: $(validator.errorList[0].element).offset().top
               }, 250);
             }
             else
               {
 
-                $('html, body').animate({
+                $(tileModalSelector).animate({
                   scrollTop: $("#" + $(validator.errorList[0].element).data("proxyid")).offset().top
                 }, 1000);
               }
