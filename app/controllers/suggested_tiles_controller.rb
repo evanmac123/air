@@ -7,6 +7,7 @@ class SuggestedTilesController < ApplicationController
 
   def show
     get_tile
+    render layout: false
   end
 
   def create
