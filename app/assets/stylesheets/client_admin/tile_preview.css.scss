@@ -97,6 +97,18 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
   }
   .preview_menu_item {
     width: 16%;
+    &#suggested_info{
+     width: 65%;
+     text-align:left;
+    }
+
+    &#suggested_accept{
+     width: 20%;
+    }
+
+    &#suggested_ignore{
+     width: 15%;
+    }
   }
   .preview_menu_text {
     width: 48%;

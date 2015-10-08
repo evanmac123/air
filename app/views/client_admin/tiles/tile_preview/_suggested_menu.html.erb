@@ -1,5 +1,5 @@
 <ul class="tile_preview_menu" >
-  <li class="preview_menu_item" id="stat_toggle">
+  <li class="preview_menu_item" id="suggested_info">
     <a>
       <span class="header_text">
         <%="Submitted by: #{tile.creator.name} on #{tile.created_at.strftime('%m/%d/%Y')}"%>
@@ -7,7 +7,7 @@
     </a>
   </li>
 
-  <li class="preview_menu_item" >
+  <li class="preview_menu_item" id="suggested_accept" >
     <%=link_to status_change_client_admin_tile_path(tile) , class: 'update_status', data:{tileId: tile.id, status: Tile::DRAFT} do %>
       <i class="fa fa-check fa-1x"></i>
       <span class="header_text">
@@ -16,7 +16,7 @@
     <%end%>
   </li>
 
-  <li class="preview_menu_item" >
+  <li class="preview_menu_item" id="suggested_ignore" >
     <%=link_to status_change_client_admin_tile_path(tile), class: 'update_status', data:{tileId: tile.id, status: Tile::IGNORED} do %>
       <i class="fa fa-close fa-1x"></i>
       <span class="header_text">
