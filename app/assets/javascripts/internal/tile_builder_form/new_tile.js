@@ -126,14 +126,24 @@ Airbo.TileCreator = (function(){
 
 
  function moveTile(currTile, data){
+   sections = {
+      "active": "active",
+      "draft": "draft",
+      "archive": "archive",
+      "user_submitted": "suggestion_box",
+      "ignored": "suggestion_box"
+   }
    var newTile = $(data)
      , status = newTile.data("status")
-     , newSection = "#" + status + sectionSelector
+     , newSection = "#" + sections[status]
    ;
 
+  if(status !=="user_submitted" && status!=="ignored"){
    currTile.remove();
-
    $(newSection).prepend(newTile);
+  }else{
+    replaceTileContent(data);
+  }
  }
 
  function updateTileSection(data){
