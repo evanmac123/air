@@ -142,14 +142,14 @@ Airbo.TileCreator = (function(){
    currTile.remove();
    $(newSection).prepend(newTile);
   }else{
-    replaceTileContent(data);
+    replaceTileContent(newTile, newTile.data("tileId"));
   }
  }
 
  function updateTileSection(data){
    var selector , section = pageSectionByStatus(data.tileStatus);
    if(isExistingTile){
-     replaceTileContent(data)
+     replaceTileContent(data.tile, data.tileId)
    } else{
      section.prepend(data.tile); //Add tile to section
      setPlaceHolders(section);
@@ -172,9 +172,9 @@ Airbo.TileCreator = (function(){
  }
 
 
- function replaceTileContent(data){
-   selector = tileWrapperSelector + "[data-tile-id=" + data.tileId + "]";
-   $(selector).replaceWith(data.tile);
+ function replaceTileContent(tile, id){
+   selector = tileWrapperSelector + "[data-tile-id=" + id + "]";
+   $(selector).replaceWith(tile);
  }
 
  function pageSectionByStatus(status){
@@ -215,6 +215,12 @@ Airbo.TileCreator = (function(){
 
 
       modalTrigger = $(this);
+
+      if(isIE() == 8){
+        alert("Sorry, it looks like you're using an unsupported browser. Please use Chrome, Firefox, Safari or Internet Explorer 9 and above.");
+
+        return;
+      }
 
       isExistingTile = modalTrigger.is(newSelector) ? false : true;
       $.ajax({
@@ -561,6 +567,8 @@ Airbo.TileCreator = (function(){
     imagesModal = $(imagesModalSelector);
   }
 
+
+  //FIXME not what I had in mind
   function initContext(context) {
     newSelector = context.newSelector;
     modalActivationSelectors += ", " + newSelector;
@@ -772,18 +780,6 @@ var TileCreatorContext = {
     submitSuccessName: "refreshTileDataForUser"
   }
 }
-
-Airbo.TileCreatorIE8 = (function(){
-  function init(context) {
-    $(context.newSelector).on("click", function(e) {
-      e.preventDefault();
-      alert("Sorry, it looks like you're using an unsupported browser. Please use Chrome, Firefox, Safari or Internet Explorer 9 and above.");
-    });
-  }
-  return {
-    init: init
-  };
-}());
 
 $(function(){
   context = $("#new_tile_modal").data("context");
