@@ -34,8 +34,8 @@ Airbo.TileCreator = (function(){
   ;
 
  function prepEditOrNew(action){
-   $("body").removeClass("client_admin-tiles-show").addClass("client_admin-tiles-edit");
-   preventCloseMsg = action;
+   $("body").removeClass("client_admin-tiles-show").addClass("client_admin-tiles-edit");;
+   preventCloseMsg = action
    tileBuilderSubmitButton= $(tileBuilderSubmitButtonSelector);
    tileBuilderForm = $(tileBuilderFormSelector);
    initFormValidator(tileBuilderForm);
@@ -322,14 +322,14 @@ Airbo.TileCreator = (function(){
         if (errors) {
           if($(validator.errorList[0].element).is(":visible"))
             {
-              $(tileModalSelector).animate({
+              $('html, body').animate({
                 scrollTop: $(validator.errorList[0].element).offset().top
               }, 250);
             }
             else
               {
 
-                $(tileModalSelector).animate({
+                $('html, body').animate({
                   scrollTop: $("#" + $(validator.errorList[0].element).data("proxyid")).offset().top
                 }, 1000);
               }
@@ -501,11 +501,8 @@ Airbo.TileCreator = (function(){
      if(keepOpen){
         openTileFormModal();
      }else{
-       $("body")
-         .css({"overflow": ""})
-         .removeClass("client_admin-tiles-show")
-         .removeClass("client_admin-tiles-edit");
-      }
+      $("body").css({"overflow": ""});
+     }
    });
 
 
@@ -525,9 +522,7 @@ Airbo.TileCreator = (function(){
     });
 
     $(document).on('opened.fndtn.reveal',imagesModalSelector, function () {
-      $("body")
-        .css({"overflow-y": "hidden"})
-        .addClass("client_admin-tiles-edit");
+      $("body").css({"overflow-y": "hidden"});
     });
 
   }
@@ -802,7 +797,7 @@ var TileCreatorContext = {
     submitSuccessName: "refreshTileDataPageWide"
   },
   suggestion_box: {
-    newSelector: "a#submit_tile, a#create_new_tile, a.suggest_tile_redirect",
+    newSelector: "a#submit_tile, a#create_new_tile",
     submitSuccessName: "refreshTileDataForUser"
   }
 }
