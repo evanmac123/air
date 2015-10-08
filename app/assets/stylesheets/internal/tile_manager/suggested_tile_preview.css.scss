@@ -1,35 +1,33 @@
-body.acts-index, body.tiles-index {
-  #new_tile_modal {
-    .tile_holder.client_created {
-      width: 600px;
+#new_tile_modal {
+  .tile_holder.client_created {
+    width: 600px;
+  }
+  .suggested_preview_header {
+    margin-bottom: 40px;
+  }
+  .acceptance_status {
+    font-size: 14px;
+    color: $white;
+    text-align: center;
+    font-weight: 700;
+  }
+  #create_new_tile {
+    @include light-button($white);
+    position: absolute;
+    top: -6px;
+    right: -135px;
+    z-index: 1;
+    font-weight: 700;
+    font-size: 12px;
+    padding: 6px 10px;
+    i {
+      float: left;
+      font-size: 15px;
+      padding-right: 8px;
     }
-    .suggested_preview_header {
-      margin-bottom: 40px;
-    }
-    .acceptance_status {
-      font-size: 14px;
-      color: $white;
-      text-align: center;
-      font-weight: 700;
-    }
-    #create_new_tile {
-      @include light-button($white);
-      position: absolute;
-      top: -6px;
-      right: -135px;
-      z-index: 1;
-      font-weight: 700;
-      font-size: 12px;
-      padding: 6px 10px;
-      i {
-        float: left;
-        font-size: 15px;
-        padding-right: 8px;
-      }
-      span {
-        float: left;
-        padding-top: 1px;
-      }
+    span {
+      float: left;
+      padding-top: 1px;
     }
   }
 }

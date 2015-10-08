@@ -492,11 +492,11 @@ Airbo.TileCreator = (function(){
      if(keepOpen){
         openTileFormModal();
      }else{
-      $("body")
-        .css({"overflow": ""})
-        .removeClass("client_admin-tiles-show")
-        .removeClass("client_admin-tiles-edit");
-     }
+       $("body")
+         .css({"overflow": ""})
+         .removeClass("client_admin-tiles-show")
+         .removeClass("client_admin-tiles-edit");
+      }
    });
 
 
@@ -528,7 +528,9 @@ Airbo.TileCreator = (function(){
     });
 
     $(document).on('opened.fndtn.reveal',imagesModalSelector, function () {
-      $("body").css({"overflow-y": "hidden"});
+      $("body")
+        .css({"overflow-y": "hidden"})
+        .addClass("client_admin-tiles-edit");
     });
 
   }
