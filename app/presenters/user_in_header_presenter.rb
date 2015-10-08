@@ -148,8 +148,7 @@ class UserInHeaderPresenter
   end
 
   def can_submit_tile?
-    can_make_tile_suggestions? &&
-    ["acts", "tiles"].include?(request[:controller])
+    can_make_tile_suggestions? && !request.original_url.include?("explore")
   end
 
   def show_submit_tile_intro?
