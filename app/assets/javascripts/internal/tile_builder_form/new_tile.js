@@ -465,10 +465,12 @@ Airbo.TileCreator = (function(){
 
  function tileModalOpenClose(){
 
-   $(document).on('opened',tileModalSelector, function () {
+   $(document).on('opened',tileModalSelector, function (event) {
    //  $("#image_uploader").tooltipster("show");
-     scrollPageToTop();
-     $("body").css({"overflow-y": "hidden"});
+     if($(event.target).is(tileModal)){
+       scrollPageToTop();
+       $("body").css({"overflow-y": "hidden"});
+     }
    });
 
    $(document).on('open',tileModalSelector, function () {
