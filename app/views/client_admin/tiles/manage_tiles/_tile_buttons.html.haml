@@ -18,13 +18,13 @@
         = fa_icon 'pencil'
   - if presenter.has_ignore_button?
     %li.ignore_button
-      = link_to client_admin_tile_path(presenter, update_status: Tile::IGNORED) do
+      = link_to status_change_client_admin_tile_path(presenter), class:"update_status", data: {status:Tile::IGNORED} do
         %span Ignore
   - if presenter.has_accept_button?
     %li.accept_button
-      = link_to client_admin_tile_path(presenter, update_status: Tile::DRAFT) do
+      = link_to status_change_client_admin_tile_path(presenter), class: "update_status", data: {status: Tile::DRAFT} do
         %span Accept
   - if presenter.has_undo_ignore_button?
     %li.undo_ignore_button
-      = link_to client_admin_tile_path(presenter, update_status: Tile::USER_SUBMITTED) do
+      = link_to status_change_client_admin_tile_path(presenter), class: "update_status", data: {status: Tile::USER_SUBMITTED} do
         %span Undo Ignore
