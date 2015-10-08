@@ -34,8 +34,8 @@ Airbo.TileCreator = (function(){
   ;
 
  function prepEditOrNew(action){
-   $("body").removeClass("client_admin-tiles-show").addClass("client_admin-tiles-edit");;
-   preventCloseMsg = action
+   $("body").removeClass("client_admin-tiles-show").addClass("client_admin-tiles-edit");
+   preventCloseMsg = action;
    tileBuilderSubmitButton= $(tileBuilderSubmitButtonSelector);
    tileBuilderForm = $(tileBuilderFormSelector);
    initFormValidator(tileBuilderForm);
@@ -492,7 +492,10 @@ Airbo.TileCreator = (function(){
      if(keepOpen){
         openTileFormModal();
      }else{
-      $("body").css({"overflow": ""});
+      $("body")
+        .css({"overflow": ""})
+        .removeClass("client_admin-tiles-show")
+        .removeClass("client_admin-tiles-edit");
      }
    });
 
