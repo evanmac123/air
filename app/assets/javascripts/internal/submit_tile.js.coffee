@@ -29,7 +29,7 @@ window.submitTileIntro = ->
   $(document).on "click", "." + explainBtnClass(), (e) ->
     e.preventDefault()
     intro.exit()
-    modal().foundation 'reveal', 'open'
+    modal().foundation 'reveal', 'open', {animation: "fade", closeOnBackgroundClick: true}
 #
 # => Modal
 #
@@ -58,7 +58,7 @@ window.submitTileModal = ->
 
   infoIcon().click (e) ->
     e.preventDefault()
-    modal().foundation 'reveal', 'open'
+    modal().foundation 'reveal', 'open', {animation: "fade", closeOnBackgroundClick: true}
 
   # suggestLink().click (e) ->
   #   e.preventDefault()
