@@ -68,7 +68,6 @@ Airbo.TileCreator = (function(){
    Airbo.TileCarouselPage.init();
    initPreviewMenuTooltips();
    disableCloseModalConfirmation();
-   //initAcceptTileConfirm();
  }
 
  function tooltipBefore(){
@@ -541,7 +540,7 @@ Airbo.TileCreator = (function(){
   }
 
   function initAcceptTileConfirm(){
-    var msg = "Are you sure you want to accept this tile";
+    var msg = "Are you sure you want to accept this tile? You cannot undo this action.";
 
     config = $.extend({}, Airbo.Utils.confirmWithRevealConfig, {body: msg});
 

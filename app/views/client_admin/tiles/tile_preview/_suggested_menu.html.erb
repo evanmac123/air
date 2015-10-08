@@ -8,7 +8,7 @@
   </li>
 
   <li class="preview_menu_item" id="suggested_accept" >
-    <%=link_to "#"  , class: 'accept preview', data:{confirm:"", tileId: tile.id, status: Tile::DRAFT, url: status_change_client_admin_tile_path(tile)} do %>
+    <%=link_to  status_change_client_admin_tile_path(tile)  , class: 'update_status', data:{ tileId: tile.id, status: Tile::DRAFT } do %>
       <i class="fa fa-check fa-1x"></i>
       <span class="header_text">
         Accept
