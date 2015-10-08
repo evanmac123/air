@@ -17,10 +17,10 @@
   </li>
 
   <li class="preview_menu_item" id="suggested_ignore" >
-    <%=link_to status_change_client_admin_tile_path(tile), class: 'update_status', data:{tileId: tile.id, status: Tile::IGNORED} do %>
+    <%=link_to status_change_client_admin_tile_path(tile), class: 'update_status', data:{tileId: tile.id, status: (tile.status == Tile::USER_SUBMITTED ? Tile::IGNORED : Tile::USER_SUBMITTED)} do %>
       <i class="fa fa-close fa-1x"></i>
       <span class="header_text">
-        Ignore
+        <%=tile.status == Tile::USER_SUBMITTED ? "Ignore" : "Undo Ignore"%>
       </span>
     <%end%>
   </li>
