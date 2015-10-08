@@ -153,8 +153,7 @@ class UserInHeaderPresenter
   end
 
   def show_submit_tile_intro?
-    # @show_submit_tile_intro ||= (can_submit_tile? && show_submit_tile_intro!)
-    false
+    @show_submit_tile_intro ||= (can_submit_tile? && show_submit_tile_intro!)
   end
 
   protected

@@ -1,13 +1,8 @@
 <% if user.can_submit_tile? || user.is_client_admin%>
-  <%= link_to new_suggested_tile_path, id: "submit_tile", data: {action: "new"} do %>
+  <%= link_to new_suggested_tile_path, id: "submit_tile", data: {action: "new", intro: "Add a Tile to the Suggestion Box. If it's accepted, it will be featured on this Board."} do %>
     <%= fa_icon 'pencil' %>
     <span>Suggest Tile</span>
   <% end %>
-  <!-- <%= link_to suggested_tiles_path, id: "submit_tile", data: { intro: "Add a Tile to the Suggestion Box. If it's accepted, it will be featured on this Board." } do %>
-    <%= fa_icon 'pencil' %>
-    <span>Submit Tile</span>
-  <% end %>
-
   <% if user.show_submit_tile_intro? %>
     <% content_for :javascript do %>
       <%= javascript_tag do %>
@@ -16,6 +11,5 @@
         });
       <% end %>
     <% end %>
-  <% end %> -->
-
+  <% end %>
 <% end %>
