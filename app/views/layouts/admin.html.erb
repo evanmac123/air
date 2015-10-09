@@ -1,31 +1,29 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8" />
-  <title>Airbo</title>
-  <%= stylesheet_link_tag "app-admin" %>
-  <%= javascript_include_tag 'application' %>
-  <%= javascript_include_tag 'app-admin' %>
+  <head>
+    <meta charset="utf-8" />
+    <title>Airbo</title>
+    <%= stylesheet_link_tag "app-admin" %>
+    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag 'app-admin' %>
 
-  <%= csrf_meta_tag %>
-  <%= mobvious_javascript %>
-  <%= render 'shared/nerf_animations_in_test' %>
-</head>
-<body class="<%= body_class %>">
+    <%= csrf_meta_tag %>
+    <%= mobvious_javascript %>
+    <%= render 'shared/nerf_animations_in_test' %>
+  </head>
+  <body class="<%= body_class %>">
 
-  <%= render 'shared/header', :show_play_box => false %>
-  <%= render 'shared/flashes' %>
-  <%= render 'shared/offcanvas_menu_signedin' %>
-  <div class="content">
-    <%= yield %>
-  </div>
-  <div id="footer">
-		Copyright © 2013 H.Engage, Inc.
-  </div>
+    <%= render 'shared/header', :show_play_box => false %>
+    <%= render 'shared/flashes' %>
+    <%= render 'shared/offcanvas_menu_signedin' %>
+      <%= yield %>
+    <div id="footer">
+      Copyright © 2013 H.Engage, Inc.
+    </div>
 
-  
-  <%= render "shared/intercom" %>
-  <%= render :partial => 'shared/javascript' %><!-- This is where 'yield :javascript' takes place -->
-  <div id='gradient-triangle'></div>
-</body>
+
+    <%= render "shared/intercom" %>
+    <%= render :partial => 'shared/javascript' %><!-- This is where 'yield :javascript' takes place -->
+    <div id='gradient-triangle'></div>
+  </body>
 </html>

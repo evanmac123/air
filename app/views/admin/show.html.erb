@@ -1,0 +1,43 @@
+<div class="row ">
+  <div class="columns large-12">
+    <h1 class="first">Admin</h1>
+    <%= form_for :user, :url => admin_lost_user_path do |f| %>
+      <label  style="display:inline">Find a lost user</label>
+      <%= f.text_field :email, :placeholder => 'email', style: "display:inline" %>
+      <%= f.submit "Find" %>
+    <% end %>
+  </div>
+</div>
+<div class="row ">
+  <div class="columns large-6">
+    <h2>Games<span><%= button_to 'Create New Game', new_admin_demo_path  %> </span>
+    </h2>
+    <ul class="demos">
+      <% @demos.each do |demo|  %>
+        <% link_text = demo.name  %>
+        <% extra_info = []  %>
+        <% link_text << " (#{extra_info.join(', ')})" unless extra_info.empty?  %>
+        <li>
+          <%= link_to link_text, admin_demo_path(demo) %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="columns large-6">
+    <h2>Game-Agnostic Features</h2>
+    <p>
+    <%= link_to 'Tags', admin_tags_path %>
+    </p>
+    <p>
+    <%= link_to 'Standard characteristics', admin_characteristics_path %>
+    </p>
+    <p>
+    <%= link_to 'Explore Digest', new_admin_explore_digest_path %>
+    </p>
+    <p>
+    <%= link_to 'Image Library', admin_tile_images_path %>
+    </p>
+  </div>
+  </div>
+</div>
+
