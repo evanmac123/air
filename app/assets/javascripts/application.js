@@ -104,6 +104,7 @@ Airbo.Utils = {
          editor = new MediumEditor(this, {
           staticToolbar:true, 
           buttonLabels: 'fontawesome',
+          targetBlank: true,
           toolbar: {
             buttons: ['bold', 'italic', 'underline', 'unorderedlist', 'orderedlist', "anchor"]
           }
