@@ -148,7 +148,7 @@ class UserInHeaderPresenter
   end
 
   def can_submit_tile?
-    can_make_tile_suggestions? &&
+    (can_make_tile_suggestions? || is_client_admin) &&
       ["acts", "tiles"].include?(request[:controller]) &&
       !request.original_url.include?("client_admin") &&
       !request.original_url.include?("explore")
