@@ -132,9 +132,9 @@ module TileHelpers
   def have_num_tile_links(num)
     have_selector ".tile_link", count: num
   end
- 
+
   def answer_field_selector
-    "input[name='tile_builder_form[answers][]']"  
+    "input[name='tile_builder_form[answers][]']"
   end
 
   def answer_link_selector
@@ -171,12 +171,12 @@ module TileHelpers
 
   def add_tile_tag(tag)
     field = 'add-tag'
-    fill_in field, with: tag    
+    fill_in field, with: tag
     page.execute_script %Q{ $('##{field}').trigger('focus') }
     page.execute_script %Q{ $('##{field}').trigger('keydown') }
-    
+
     normalized_tag = tag.strip.capitalize.gsub(/\s+/, ' ')
-    
+
     selector = %Q{ul.ui-autocomplete li.ui-menu-item a:contains("#{normalized_tag}")}
     page.should have_selector("ul.ui-autocomplete li.ui-menu-item a:contains('#{normalized_tag}')")
     page.execute_script %Q{ $('#{selector}').trigger('mouseenter').click() }
@@ -197,11 +197,11 @@ module TileHelpers
 
   def fill_in_image_credit text
     #it's not easy to write in div though capybara
-    #in few words about events: keydown deletes placeholder, 
+    #in few words about events: keydown deletes placeholder,
     #html inputs text, keyup copies text to real textarea
     page.execute_script( "$('.image_credit_view').keydown().html('#{text}').keyup()" )
   end
-  
+
   def normalized_tag(tag)
     tag.strip.gsub(/\s+/, ' ')
   end
@@ -223,24 +223,24 @@ module TileHelpers
 
     page.execute_script %Q{ $('##{field}').trigger('focus') }
     page.execute_script %Q{ $('##{field}').trigger('keydown') }
-  end  
+  end
 
   def open_public_section
     find(".share_via_explore").click
   end
-  
+
   def click_make_public
-    find('#share_on').click    
+    find('#share_on').click
   end
 
   def click_make_sharable
-    find('#sharable_tile_link_on').click 
+    find('#sharable_tile_link_on').click
   end
 
   def click_make_nonpublic
     find('#share_off').trigger('click') # I know it's not visible, fuck you Poltergeist
   end
-  
+
   def click_make_noncopyable
     find('#allow_copying_off').click
   end
@@ -248,7 +248,7 @@ module TileHelpers
   def click_make_copyable
     find('#allow_copying_on').click
   end
-    
+
   def click_create_tile_button
     click_button "Save tile"
   end
@@ -267,7 +267,7 @@ module TileHelpers
 
   def fill_in_image_credit text
     #it's not easy to write in div though capybara
-    #in few words about events: keydown deletes placeholder, 
+    #in few words about events: keydown deletes placeholder,
     #html inputs text, keyup copies text to real textarea
     page.execute_script( "$('.image_credit_view').keydown().html('#{text}').keyup()" )
   end
@@ -307,7 +307,7 @@ module TileHelpers
 
     fill_in_external_link_field  "http://www.google.com/foobar"
   end
-  
+
   def click_edit_link
     click_here_link[1].click
   end
@@ -364,7 +364,7 @@ module TileHelpers
   end
 
   def answer(index)
-    page.all('.tile_multiple_choice_answer')[index]  
+    page.all('.tile_multiple_choice_answer')[index]
   end
 
   def expect_answer(index, text)
@@ -408,7 +408,7 @@ module TileHelpers
   def expect_thumbnail_count(expected_count, tile_wrapper='.tile-wrapper')
     page.all(tile_wrapper).should have(expected_count).thumbnails
   end
-  
+
   def expect_placeholder_count(expected_count)
     page.all('.placeholder_tile').should have(expected_count).placeholders
   end
@@ -428,12 +428,12 @@ module TileHelpers
     page.should have_selector('.image_placeholder', visible: true)
   end
 
-  # First "copy" in these next method name refers to the act of copying 
+  # First "copy" in these next method name refers to the act of copying
   # something.
   # Second "copy" means a piece of text.
-  # If you have a problem with this, don't blame me, sue the President of 
+  # If you have a problem with this, don't blame me, sue the President of
   # English.
-  
+
   def post_copy_copy
     "Success! Tile has been copied to your board's drafts section."
   end
@@ -447,7 +447,7 @@ module TileHelpers
   end
 
   def voteup_intro_copy
-    "Got it, thanks"  
+    "Got it, thanks"
   end
 
   def close_intro
@@ -468,7 +468,7 @@ module TileHelpers
 
 
   def fake_upload_image filename
-    url = "#{ASSET_HOST}/#{filename}" 
+    url = "#{ASSET_HOST}/#{filename}"
     page.execute_script("$('#remote_media_url').val('#{url}');")
     page.execute_script("$('#upload_preview').attr('src', '#{url}');")
   end

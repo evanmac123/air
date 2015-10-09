@@ -1,34 +1,59 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Creates draft tile' do
-  let(:user) {FactoryGirl.create(:user, allowed_to_make_tile_suggestions: true)}
-
-  def click_add_new_tile
-    page.find("#add_new_tile_link").click
+  let(:user) do
+    user = FactoryGirl.create :user, allowed_to_make_tile_suggestions: true
+    user.board_memberships.first.update_attribute :allowed_to_make_tile_suggestions, true
+    user
   end
 
-  it "should send ping on index page" do
-    visit suggested_tiles_path(as: user)
-    expect_ping 'Suggestion Box', {user_action: "Suggestion Box Opened"}, user
+  def submit_tile_btn
+    page.find("#submit_tile")
   end
 
-  it "should link properly from the tile to the appropriate edit page" do
-    visit suggested_tiles_path(as: user)
-    click_add_new_tile
-    should_be_on new_suggested_tile_path
+  def form
+    page.find("#new_tile_builder_form")
   end
 
-  it "should let them create and save a draft tile", js: true do
-    visit new_suggested_tile_path(as: user)
-    create_good_tile
-    expect_ping 'Suggestion Box', {user_action: "Tile Created"}, user
+  def form_text
+    "Once you submit a Tile, it cannot be edited."
+  end
 
-    Tile.count.should == 1
-    tile = Tile.last
-    tile.creator.should == user
-    tile.status.should == Tile::USER_SUBMITTED
-    
-    should_be_on suggested_tile_path(tile.id)
-    page.should have_content("The administrator has been notified that you've submitted a Tile to the Suggestion Box. You'll be notified if your Tile is accepted.")
+  def preview
+    page.find(".tile_preview_container")
+  end
+
+  def preview_status_text
+    "Tile submitted, waiting for acceptance"
+  end
+
+  before do
+    visit activity_path(as: user)
+  end
+
+  it "should open form", js: true do
+    submit_tile_btn.click
+    within form do
+      expect_content form_text
+    end
+  end
+
+  it "should let them submit tile", js: true do
+    submit_tile_btn.click
+    within form do
+      expect_content form_text
+      fill_in_valid_form_entries
+      # FIXME fill not work for sup.content
+      page.execute_script("$('#tile_builder_form_supporting_content').val('Ten pounds of cheese. Yes? Or no?')")
+      click_button "Submit tile"
+    end
+    within preview do
+      expect_content preview_status_text
+      expect(page).to  have_content "by Society"
+      expect(page).to  have_content "Ten pounds of cheese"
+      expect(page).to  have_content "Ten pounds of cheese. Yes? Or no?"
+      expect(page).to  have_content "Who rules?"
+      expect(page).to  have_content "http://www.google.com/foobar"
+    end
   end
 end
