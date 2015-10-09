@@ -804,10 +804,6 @@ var TileCreatorContext = {
 $(function(){
   context = $("#new_tile_modal").data("context");
   if(context) {
-    if(isIE() == 8) {
-      Airbo.TileCreatorIE8.init(TileCreatorContext[context]);
-    } else {
-      Airbo.TileCreator.init(TileCreatorContext[context]);
-    }
+    Airbo.TileCreator.init(TileCreatorContext[context]);
   }
 });
