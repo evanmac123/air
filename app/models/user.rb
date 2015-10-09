@@ -1160,8 +1160,7 @@ class User < ActiveRecord::Base
   def can_make_tile_suggestions? _demo = demo
     bm = board_memberships.where(demo: _demo).first
     _demo.everyone_can_make_tile_suggestions ||
-      bm.allowed_to_make_tile_suggestions ||
-      bm.is_client_admin == true
+      bm.allowed_to_make_tile_suggestions
   end
 
   def self.allow_to_make_tile_suggestions _user_ids, _demo
