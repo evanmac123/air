@@ -26,7 +26,7 @@ initIntro = (intro) ->
 
     intro.setOptions
       showStepNumbers: false
-      skipLabel: 'Got it'
+      doneLabel: 'Got it'
       tooltipClass: tooltipClass()
     intro.start()
     addExplainBtn()
@@ -71,5 +71,3 @@ window.suggestionBoxHelpModal = ->
   pickUsersBtn().click (e) ->
     e.preventDefault()
     accessModal().foundation 'reveal', 'open'
-
-

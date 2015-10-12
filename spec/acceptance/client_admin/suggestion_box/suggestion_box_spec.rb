@@ -59,14 +59,10 @@ feature 'Client uses suggestion box' do
 
 				@tile = submitted_tiles[1]
 				accept_button(@tile).click
-				expect_content accept_modal_copy
 			end
 
 			scenario "accepts tile", js: true do
-				within accept_modal do
-					click_link "Got it"
-				end
-				
+
 				visible_tiles.count.should == 2
 				wait_for_ajax
 				draft_title.click
@@ -75,14 +71,14 @@ feature 'Client uses suggestion box' do
 				headline(page.find(:tile, @tile)).should == headline(visible_tiles[0])
 			end
 
-			scenario "clicks 'accept', then 'undo' action", js: true do
-				page.find(".undo").click
-				expect_no_content accept_modal_copy
-				draft_title.click
-				visible_tiles.count.should == 1
-				suggestion_box_title.click
-				visible_tiles.count.should == 3
-			end
+			# scenario "clicks 'accept', then 'undo' action", js: true do
+			# 	page.find(".undo").click
+			# 	expect_no_content accept_modal_copy
+			# 	draft_title.click
+			# 	visible_tiles.count.should == 1
+			# 	suggestion_box_title.click
+			# 	visible_tiles.count.should == 3
+			# end
 		end
 
 		context "show more button" do
@@ -132,7 +128,7 @@ feature 'Client uses suggestion box' do
 				headline(page.find(:tile, tile)).should == headline(ignored_tiles[0])
 			end
 
-			scenario "ignore tile", js: true do
+			scenario "unignore tile", js: true do
 				tile = @ignored_tile
 				undo_ignore_button(tile).click
 				wait_for_ajax
@@ -140,7 +136,7 @@ feature 'Client uses suggestion box' do
 				Tile.where(status: Tile::IGNORED).count.should == 0
 
 				visible_tiles.count.should == 5
-				headline(page.find(:tile, tile)).should == headline(user_submitted_tiles[0])
+				headline(page.find(:tile, tile)).should == headline(user_submitted_tiles[4])
 			end
 		end
 	end
