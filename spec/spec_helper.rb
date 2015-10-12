@@ -74,10 +74,14 @@ Capybara.javascript_driver = :poltergeist
 #  Capybara::Poltergeist::Driver.new(app, debug: true)
 #end
 Capybara.register_driver :poltergeist do |app|
- Capybara::Poltergeist::Driver.new(app, timeout: 600)
+ Capybara::Poltergeist::Driver.new(app, timeout: 600, block_unknown_urls: true)
 end
+
 Capybara.register_driver :webkit do |app|
- Capybara::Webkit::Driver.new(app, timeout: 600)
+  Capybara::Webkit.configure do |config|
+    config.block_unknown_urls
+  end
+  Capybara::Webkit::Driver.new(app, timeout: 600, block_unknown_urls: true)
 end
 
 require 'capybara-screenshot/rspec'
@@ -93,4 +97,3 @@ def metal_testing_hack(klass)
     include Rails.application.routes.url_helpers
   end
 end
-

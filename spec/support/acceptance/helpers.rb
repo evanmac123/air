@@ -59,7 +59,7 @@ module SteakHelperMethods
   # reads much better than the alternative using just FactoryGirl
 
   def an_admin
-    FactoryGirl.create :user, is_site_admin: true  
+    FactoryGirl.create :user, is_site_admin: true
   end
 
   def a_client_admin(demo = nil)
@@ -154,11 +154,11 @@ module SteakHelperMethods
   end
 
   def find_select_element(select_identifier)
-    page.find(:xpath, XPath::HTML.select(select_identifier).to_xpath)  
+    page.find(:xpath, XPath::HTML.select(select_identifier).to_xpath)
   end
 
   def find_select_element(select_identifier)
-    page.find(:xpath, XPath::HTML.select(select_identifier).to_xpath)  
+    page.find(:xpath, XPath::HTML.select(select_identifier).to_xpath)
   end
 
   def find_input_element(input_identifier)
@@ -213,15 +213,15 @@ module SteakHelperMethods
   end
 
   def tile_fixture_path(filename)
-    Rails.root.join('spec/support/fixtures/tiles', filename)  
+    Rails.root.join('spec/support/fixtures/tiles', filename)
   end
 
   def logo_fixture_path(filename)
-    Rails.root.join('spec/support/fixtures/logos', filename)  
+    Rails.root.join('spec/support/fixtures/logos', filename)
   end
 
   def buttons_with_text(text)
-    page.all(:xpath, "//input[@type='submit'][@value='#{text}']")  
+    page.all(:xpath, "//input[@type='submit'][@value='#{text}']")
   end
 
   def expect_button(text)
@@ -286,7 +286,7 @@ module SteakHelperMethods
     element["disabled"].should be_nil
   end
 
-  def wait_until(timeout = Capybara.default_wait_time)
+  def wait_until(timeout = Capybara.default_max_wait_time)
     Capybara.send(:timeout, timeout, page.driver) { yield }
   end
 
@@ -336,7 +336,7 @@ module SteakHelperMethods
   def expect_no_site_tutorial_lightbox
     page.all(site_tutorial_lightbox_selector).should be_empty
   end
-  
+
   def close_conversion_form
     evaluate_script("$('#guest_conversion_form_wrapper').trigger('close')")
     page.find('#guest_conversion_form_wrapper', visible: false)
@@ -351,7 +351,7 @@ module SteakHelperMethods
   end
 
   def expect_conversion_form
-    Capybara.default_wait_time = 30
+    Capybara.default_max_wait_time = 30
     wait_for_conversion_form
 
     within(conversion_form_selector) do
@@ -371,7 +371,7 @@ module SteakHelperMethods
   end
 
   def counter_text(max_characters)
-    "#{max_characters} CHARACTERS"  
+    "#{max_characters} CHARACTERS"
   end
 
   def expect_character_counter_for_each(selector, max_characters)
@@ -381,7 +381,7 @@ module SteakHelperMethods
   end
 
   def counter_selector(associated_selector)
-    "#{associated_selector} + .character-counter"  
+    "#{associated_selector} + .character-counter"
   end
 
   def expect_ping event, properties = {}, user = nil
@@ -400,7 +400,7 @@ module SteakHelperMethods
       event = ping[0]
       properties = ping[1]
       user = ping[2]
-      
+
       properties.merge!(user.data_for_mixpanel) if user
       FakeMixpanelTracker.should have_event_matching(event, properties)
     end
