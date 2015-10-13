@@ -1,7 +1,7 @@
 // Points
 .slider{
   display: none;
-  padding-top: 2.3em;
+  padding-top: 4.8em;
   padding-bottom: 2.5em;
   background: #f3f3f3;
   padding-left: 2.5em;
@@ -18,8 +18,8 @@
       .points_pop_up{
         cursor: pointer;
         position: absolute;
-        right:-30px;
-        bottom:0px;
+        right:-29px;
+        bottom: 15px;
         width: 60px;
         height: 48px;
         background: transparent;
@@ -38,11 +38,11 @@
           background: $sky-blue; /* old browsers */
           background: linear-gradient(to bottom, $sky-blue, #66b9e5);
           .points_nub{
-            border: solid 5px;
+            border: solid 10px;
             border-color: #66b9e5 transparent transparent transparent;
-            left: 41%;
+            left: 35%;
             margin: 0;
-            bottom: -9px;
+            bottom: -18px;
             display: block;
             position: absolute;
             width: 0;
@@ -56,8 +56,11 @@
       }
     }
     .ui-slider-handle {
-      visibility: hidden;
+      // visibility: hidden;
       -webkit-transition: none; -moz-transition: none;
+      border-radius: 12px;
+      background: #58addb;
+      border: none;
     }
   }
 }

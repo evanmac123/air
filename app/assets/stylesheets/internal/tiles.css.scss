@@ -1,4 +1,4 @@
-@import 'tiles_fullsize';
+@import './internal/tile_fullsize/tiles_fullsize';
 @import './internal/tile_thumbnail/tiles_thumbnails';
 
 #tile_wall {
@@ -21,14 +21,14 @@
       &[disabled] {
         color: $light-gray !important;;
         @include app-button($med-gray);
-        
+
         &:before, &:after {
           visibility:hidden;
         }
       }
       #show_more_tiles_spinner {
-        display: inline-block; 
-        vertical-align: top; 
+        display: inline-block;
+        vertical-align: top;
         height:1em;
       }
     }
@@ -67,7 +67,7 @@
 
   // Tile itself
   #slideshow {
-    width:100%; 
+    width:100%;
     padding-top: 2rem;
   }
   .viewer {
