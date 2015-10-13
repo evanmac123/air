@@ -217,7 +217,7 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
             content: " (Required)";
           }
 
-          &:-ms-input-placeholder:after {  
+          &:-ms-input-placeholder:after {
             content: " (Required)";
           }
 
@@ -235,7 +235,7 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
               color: #ed8980;
             }
 
-            &:-ms-input-placeholder:after {  
+            &:-ms-input-placeholder:after {
               color: #ed8980;
             }
           }
@@ -245,7 +245,7 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
         .tile_tags{
           color: rgba(76, 76, 76, .60);
           line-height: 1.757;
-          font-size: 1em; 
+          font-size: 1em;
 
           &.has_tags{
             padding-bottom: 10px;
@@ -293,7 +293,7 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
           width: auto;
           width: 30px;
           height: 30px;
-          padding: 4px; 
+          padding: 4px;
           text-align: center;
           border-radius: 3px;
         }
@@ -304,26 +304,27 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
       .share_via_link{
         width: 100%;
         overflow: hidden;
-        padding-left: 15px;
-        &:hover {
-          background-color:#f7fafc;
-        }
-
         input {
           border: none;
           background-color:inherit;
           padding: 0;
           margin-bottom: 0;
+          padding-left: 15px;
+          &:hover {
+            background-color:#f7fafc;
+          }
         }
-
         input#sharable_tile_link[disabled]{
-          color: #949494
+          color: #949494;
+          &:hover {
+            background-color: transparent;
+          }
         }
       }
 
       .share_link_block{
         margin-top: -2px;
-        padding-top: 20px;
+        padding-top: 10px;
         .fa-question-circle{
           color: $med-gray;
           padding-left: 15px;
@@ -449,16 +450,29 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
       }
       .share_via_facebook{
         background: #3b5998;
+        &:hover {
+          background: #324a80;
+        }
       }
       .share_via_twitter{
         background: #00aced;
+        &:hover {
+          background: #4c99d4;
+        }
       }
       .share_via_linkedin{
         background: #007bb6;
+        &:hover {
+          background: #00659c;
+        }
       }
       .share_via_email{
         background: $text-color;
         padding-top: 5px;
+        margin: 0;
+        &:hover {
+          background: #314157;
+        }
       }
       .share_via_link{
         float: none;
