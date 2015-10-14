@@ -154,8 +154,9 @@ Airbo.TileQuestionBuilder = (function(){
 
   function initRemoveAnswer(){
     $("body").on("click", delAnswerSelector, function(event){
-      $(this).parents(multipleChoiceAnswerSelector).remove();
-
+      if( $("#new_tile_builder_form").find(".tile_multiple_choice_answer").length > 1 ) {
+        $(this).parents(multipleChoiceAnswerSelector).remove();
+      }
     });
   }
 
