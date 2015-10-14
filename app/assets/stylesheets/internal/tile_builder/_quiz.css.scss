@@ -127,10 +127,7 @@
   }
   #add-answer-link {@include app-button($med-gray);}
   .after_answers {
-    // padding-bottom: 1.1em;
-    // position: absolute;
-    // bottom: 0;
-    padding-right: 4.5em;
+    padding: 0 4.5em 0 2.8em;
     font-size:0.9em;
     width: 100%;
     margin-left: 0em;
@@ -138,9 +135,8 @@
     font-weight: 700;
     border-bottom: 2px dashed $light-gray;
     .choose_answer{
-      // padding: 0;
       padding-bottom: 2em;
-      width:70%;
+      width:68%;
       &.no_answer{
         color: $text-color;
       }
@@ -149,7 +145,7 @@
       }
     }
     .add_answer {
-      width: 30%;
+      width: 32%;
       // padding: 0;
       padding-bottom: 2em;
       cursor: pointer;

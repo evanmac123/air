@@ -273,6 +273,22 @@ Airbo.TileCreator = (function(){
     });
   }
 
+  function errorClassName(element, errorClass) {
+    name = $(element).attr("name");
+    switch(name) {
+      case "tile_builder_form[question_subtype]":
+        errorClass = "question_" + errorClass;
+        break;
+      case "tile_builder_form[correct_answer_index]":
+        errorClass = "index_" + errorClass;
+        break;
+      case "tile_builder_form[answers][]":
+        errorClass = "answer_" + errorClass;
+        break;
+    }
+    return errorClass;
+  }
+
 
   function initFormValidator(form){
     var config ={
@@ -307,7 +323,7 @@ Airbo.TileCreator = (function(){
         },
 
         "tile_builder_form[correct_answer_index]": {
-          required:  true,
+          required:  true
         },
 
         "tile_builder_form[answers][]": {
@@ -321,14 +337,14 @@ Airbo.TileCreator = (function(){
         if (errors) {
           if($(validator.errorList[0].element).is(":visible"))
             {
-              $('html, body').animate({
+              $(tileModalSelector).animate({
                 scrollTop: $(validator.errorList[0].element).offset().top
               }, 250);
             }
             else
               {
 
-                $('html, body').animate({
+                $(tileModalSelector).animate({
                   scrollTop: $("#" + $(validator.errorList[0].element).data("proxyid")).offset().top
                 }, 1000);
               }
@@ -359,16 +375,11 @@ Airbo.TileCreator = (function(){
       },
 
       highlight: function(element, errorClass) {
-
-        $(element).parents(".content_sections").addClass(errorClass);
+        $(element).parents(".content_sections").addClass( errorClassName(element, errorClass) );
       },
 
       unhighlight: function(element, errorClass) {
-        if($(element).attr("name")=="tile_builder_form[correct_answer_index]" && $(".after_answers label:visible").length >0){
-          return;
-        }else{
-          $(element).parents(".content_sections").removeClass(errorClass);
-        }
+        $(element).parents(".content_sections").removeClass( errorClassName(element, errorClass) );
       }
     },
 
