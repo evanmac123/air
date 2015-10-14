@@ -144,7 +144,13 @@ Airbo.TileCreator = (function(){
     window.updateTilesAndPlaceholdersAppearance();
   }else{
     replaceTileContent(newTile, newTile.data("tileId"));
+    updateUserSubmittedTilesCounter();
   }
+ }
+
+ function updateUserSubmittedTilesCounter() {
+   submittedTile = $(".tile_thumbnail.user_submitted");
+   $("#user_submitted_tiles_counter").html(submittedTile.length);
  }
 
  function updateTileSection(data){
@@ -154,7 +160,6 @@ Airbo.TileCreator = (function(){
    } else{
      section.prepend(data.tile); //Add tile to section
      window.updateTilesAndPlaceholdersAppearance();
-    //  setPlaceHolders(section);
    }
  }
 
