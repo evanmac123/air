@@ -139,8 +139,9 @@ Airbo.TileCreator = (function(){
    ;
 
   if(status !=="user_submitted" && status!=="ignored"){
-   currTile.remove();
-   $(newSection).prepend(newTile);
+    currTile.remove();
+    $(newSection).prepend(newTile);
+    window.updateTilesAndPlaceholdersAppearance();
   }else{
     replaceTileContent(newTile, newTile.data("tileId"));
   }
@@ -152,24 +153,25 @@ Airbo.TileCreator = (function(){
      replaceTileContent(data.tile, data.tileId)
    } else{
      section.prepend(data.tile); //Add tile to section
-     setPlaceHolders(section);
+     window.updateTilesAndPlaceholdersAppearance();
+    //  setPlaceHolders(section);
    }
  }
 
- function setPlaceHolders(section){
-  var node, placeHolders = section.find(visileTilePlaceholderSelector);
-  if(placeHolders.length > 0){
-     placeHolders.last().remove();
-  }else if (placeHolders.length ===1){
-    //do nothing
-  }else if (placeHolders.length ===0){
-     node = $(".no_tiles_section .tile_container.placeholder_container").first();
-     node.css("display", "block");
-     for (var i = 0; i<5; i++){
-       section.append(node.clone());
-     }
-  }
- }
+ // function setPlaceHolders(section){
+ //  var node, placeHolders = section.find(visileTilePlaceholderSelector);
+ //  if(placeHolders.length > 0){
+ //     placeHolders.last().remove();
+ //  }else if (placeHolders.length ===1){
+ //    //do nothing
+ //  }else if (placeHolders.length ===0){
+ //     node = $(".no_tiles_section .tile_container.placeholder_container").first();
+ //     node.css("display", "block");
+ //     for (var i = 0; i<5; i++){
+ //       section.append(node.clone());
+ //     }
+ //  }
+ // }
 
 
  function replaceTileContent(tile, id){

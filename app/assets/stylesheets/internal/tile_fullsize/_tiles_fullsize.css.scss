@@ -51,7 +51,7 @@ body.client_admin-tiles-show,
 body.tiles.tiles-index {
   // Actual tile, holds everything together
   .tile_holder {
-    background:transparent;
+    //background:transparent;
     border-radius:$border-radius;
     box-shadow:0 0 1px 1px lighten($med-gray, 5%);
     @include font-regular;
@@ -144,5 +144,5 @@ body.tile_previews-show {
   #back_to_explore {
     @include app-button($dark-green);
     float: left;
-  }  
+  }
 }
