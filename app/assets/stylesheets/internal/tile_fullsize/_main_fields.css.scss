@@ -4,7 +4,8 @@
   word-wrap: break-word;
 }
 .tile_headline {
-  @extend h1;
+  font-size: 32px;
+  font-weight: 300;
   color:$dark-gray;
   line-height:1.15em;
   padding:.5em 0;
