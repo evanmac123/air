@@ -1,3 +1,4 @@
+@import './internal/tile_fullsize/quiz';
 .tile_quiz {
   padding: 0 !important;
   .selected {
@@ -42,7 +43,11 @@
   }
   .quiz_content {
     position: relative;
-    padding: 2.5em;
+    // padding: 2.5em;
+    #quiz_question {
+      padding: 2.5em;
+      padding-bottom: 0;
+    }
     .tile_question {
       margin: 0;
       width: 100%;
@@ -54,6 +59,11 @@
       margin: 0;
       margin-bottom: 0em;
       width: 100%;
+      padding: 1em 2.5em;
+      overflow: auto;
+      border-top: 2px dashed $light-gray;
+      // border-left: none;
+      // border-right: none;
     }
     .placeholder {
       text-align: center;
@@ -117,17 +127,16 @@
   }
   #add-answer-link {@include app-button($med-gray);}
   .after_answers {
-    padding-bottom: 1.1em;
-    position: absolute;
-    bottom: 0;
+    padding: 0 4.5em 0 2.8em;
     font-size:0.9em;
-    width: 86.5%;
+    width: 100%;
     margin-left: 0em;
     overflow: hidden;
     font-weight: 700;
+    border-bottom: 2px dashed $light-gray;
     .choose_answer{
-      padding: 0;
-      width:70%;
+      padding-bottom: 2em;
+      width:68%;
       &.no_answer{
         color: $text-color;
       }
@@ -136,11 +145,15 @@
       }
     }
     .add_answer {
-      width: 30%;
-      padding: 0;
+      width: 32%;
+      // padding: 0;
+      padding-bottom: 2em;
       cursor: pointer;
       color: $blue;
       text-align: right;
+      &:hover {
+        color: #415673;
+      }
     }
   }
 }
@@ -169,6 +182,10 @@
     }
     a {
        min-height:45px;
+    }
+    .clicked_right_answer {
+      background: $blue !important;
+      border-color: $blue !important;
     }
   }
 

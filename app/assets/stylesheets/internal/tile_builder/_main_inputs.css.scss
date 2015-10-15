@@ -35,7 +35,10 @@ label.show_if_ie9{
   padding-bottom: 2%;
   margin-bottom: 0;
 
-  &.tile_builder_error{
+  &.tile_builder_error,
+  &.index_tile_builder_error,
+  &.answer_tile_builder_error,
+  &.question_tile_builder_error{
     background-color: rgba(188, 76, 64,.20); //pinkish*/
   }
 

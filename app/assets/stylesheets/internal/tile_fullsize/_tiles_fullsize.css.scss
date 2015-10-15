@@ -1,0 +1,148 @@
+@import "mixins/lightbox";
+
+// Page where the fullsize tile sits
+body.client_admin-tiles-new,
+body.client_admin-tiles-create,
+body.client_admin-tiles-edit,
+body.client_admin-tiles-show,
+body.client_admin-tiles-update,
+body.tiles.tiles-index,
+body.suggested_tiles-new,
+body.suggested_tiles-show{
+  background:$tile-wall-bg;
+  .core, .content {background:$tile-wall-bg;}
+}
+
+body.suggested_tiles-new {
+  main {
+    position: relative;
+    top: 2px;
+  }
+}
+
+body.tiles.tiles-index {
+  .completed {
+    &:before {
+      background: $white;
+      border-radius: 2em;
+      z-index: 100;
+      content: "\f058";
+      font-family: FontAwesome;
+      font-style: normal;
+      font-weight: normal;
+      text-align: center;
+      text-decoration: inherit;
+    /*--adjust as necessary--*/
+      display: block;
+      position: absolute;
+      color: $dark-green;
+      font-size: 36px;
+      line-height: 1.1em;
+      padding-top: 1px;
+      top: 0px;
+      right: 0px;
+      width: 1.15em;
+    }
+  }
+}
+
+body.tile_previews-show,
+body.client_admin-tiles-show,
+body.tiles.tiles-index {
+  // Actual tile, holds everything together
+  .tile_holder {
+    //background:transparent;
+    border-radius:$border-radius;
+    box-shadow:0 0 1px 1px lighten($med-gray, 5%);
+    @include font-regular;
+    font-size:1em;
+    display: block;
+    margin:0 auto;
+    position: relative;
+    text-align: left;
+    width:100%;
+
+    @import './internal/tile_fullsize/image';
+    .tile_texts_container {
+      background:$white;
+      line-height: 1.125em;
+      padding-top:1em;
+      @import './internal/tile_fullsize/main_fields';
+      @import './internal/tile_fullsize/quiz';
+    }
+    // FIXME do we even need these two?
+    // &.client_created .tile_full_image {
+    //   background:$text-color;
+    //   padding:0;
+    // }
+    // &.admin_created .tile_full_image {
+    //   background:$white;
+    //   padding:.5em 0;
+    // }
+
+    // Spinner
+    #spinner_large {
+      display: none;
+      background:$light-gray;
+      opacity: .75;
+      filter: alpha(opacity=70);
+      position: absolute;
+      top:0;
+      text-align: center;
+      width:100%;
+      height: 100%;
+      img {
+        margin:auto;
+        top:0;
+        bottom:0;
+        left:0;
+        right:0;
+        position: absolute;
+      }
+    }
+  }
+}
+
+body.explores-show,
+body.tile_previews-show {
+  #tile_spinner {
+    float: right;
+    position: relative;
+    right: 1em;
+    top: 0.5em;
+  }
+
+  #tile_copied_reveal p {
+    margin-top: 1em;
+  }
+
+  #tile_copied_lightbox {
+    h2 {
+      margin-bottom: 0.5em;
+    }
+
+    #post_copy_buttons {
+      margin-top: 1.5em;
+
+      a {
+        @include light-button($med-gray);
+        margin-right: 0.6em;
+      }
+
+      #close_tile_copied_lightbox {
+        @include light-button($sky-blue);
+      }
+    }
+  }
+
+  #back_to_explore_button_wrapper {
+    max-width: 600px;
+    margin: 0 auto 1em auto;
+    padding-bottom: 2em;
+  }
+
+  #back_to_explore {
+    @include app-button($dark-green);
+    float: left;
+  }
+}

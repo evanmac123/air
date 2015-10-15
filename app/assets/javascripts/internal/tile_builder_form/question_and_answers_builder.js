@@ -1,5 +1,5 @@
 var Airbo = window.Airbo || {};
-//FIXME this entire module is shit and needs to be Completely rewritten !!!!!!!!!!! 
+//FIXME this entire module is shit and needs to be Completely rewritten !!!!!!!!!!!
 
 Airbo.TileQuestionBuilder = (function(){
   var tileTypes = []
@@ -7,7 +7,7 @@ Airbo.TileQuestionBuilder = (function(){
     , tileTextContainer
     , defaultType
     , defaultSubtype
-    , tilebuilderform 
+    , tilebuilderform
     , nextAnswerIndex=0
     , quizContentSelector = ".quiz_content"
     , quizContentMultipleChoiceGroupSelector =  quizContentSelector + " " +".multiple_choice_group"
@@ -43,7 +43,10 @@ Airbo.TileQuestionBuilder = (function(){
     saveTypeToForm();
     _.each($(answerFieldSelector), addCharacterCounterFor);
 
-    $(".tile_quiz").removeClass("tile_builder_error");
+    $(".tile_quiz").removeClass("tile_builder_error")
+                   .removeClass("index_tile_builder_error")
+                   .removeClass("answer_tile_builder_error")
+                   .removeClass("question_tile_builder_error");
     turnRadioGreen();
     rebindEvents();
     showSlider();
@@ -67,7 +70,7 @@ Airbo.TileQuestionBuilder = (function(){
       tileTypes[type_name][subtype_name]["answers"] = [];
     }
 
-    tileTypes[type_name][subtype_name]["answers"][i] = answer_text; 
+    tileTypes[type_name][subtype_name]["answers"][i] = answer_text;
 
     addIndividualAnswer(subtype)
 
@@ -102,7 +105,7 @@ Airbo.TileQuestionBuilder = (function(){
   function addAnswerToGroup(answerVal, correct,subtype, i){
     answer = $('<div class="tile_multiple_choice_answer"></div>').addClass(subtype);
     addToShowAndEditContainers(answer, answerVal, correct, i)
-    $(quizContentMultipleChoiceGroupSelector).append(answer); 
+    $(quizContentMultipleChoiceGroupSelector).append(answer);
   }
 
   function addToShowAndEditContainers(answer, answerVal,  correct, i){
@@ -122,7 +125,7 @@ Airbo.TileQuestionBuilder = (function(){
   };
 
   function buildContainer(display, text, html) {
-    var container = $(html); 
+    var container = $(html);
     container.html(text);
     if(display.length > 0 ){
       container.css("display", display);
@@ -141,7 +144,7 @@ Airbo.TileQuestionBuilder = (function(){
         if(!$(event.target).attr("data-dropdown")){
           closeMenuDropDowns();
         }
-        if($("li.selected").length > 0){ 
+        if($("li.selected").length > 0){
           tryTurnOffEditAnswer(event.target);
         }
       }
@@ -151,8 +154,9 @@ Airbo.TileQuestionBuilder = (function(){
 
   function initRemoveAnswer(){
     $("body").on("click", delAnswerSelector, function(event){
-      $(this).parents(multipleChoiceAnswerSelector).remove();
-
+      if( $("#new_tile_builder_form").find(".tile_multiple_choice_answer").length > 1 ) {
+        $(this).parents(multipleChoiceAnswerSelector).remove();
+      }
     });
   }
 
@@ -223,13 +227,13 @@ Airbo.TileQuestionBuilder = (function(){
     $('.option_radio').click(function() {
       var radioButton = $(this).find('input:radio');
       if($(this).hasClass('option_selected')){
-        $('.option_radio').removeClass('option_selected');  
+        $('.option_radio').removeClass('option_selected');
         radioButton.prop('checked', false);
       }else {
-        $('.option_radio').removeClass('option_selected');  
+        $('.option_radio').removeClass('option_selected');
         radioButton.attr('checked','true');
         $(this).addClass('option_selected');
-      } 
+      }
       markRightAnswer(this);
     });
   };
@@ -286,8 +290,8 @@ Airbo.TileQuestionBuilder = (function(){
             };
 
             edit_answer_container.append(option_input);
-           
-            if(subType !=="true_false" && subType !== "rsvp_to_event"){ 
+
+            if(subType !=="true_false" && subType !== "rsvp_to_event"){
               edit_answer_container.append($("<li class='del-answer'> <i class='fa fa-remove fa-1x'></i></li>"));
               containerDisplay = "block";
             }else{
@@ -402,7 +406,7 @@ Airbo.TileQuestionBuilder = (function(){
     var container = $(answer_show).parent(".tile_multiple_choice_answer"), type = findTileType();
     container.find(".answer_option").css("display", "block");
 
-    if(type == "Quiz" || type =="Survey"){ 
+    if(type == "Quiz" || type =="Survey"){
       container.find(".option_input").css("display", "list-item");
     }else{
       $(answer_show).css("display", "none");
@@ -428,7 +432,7 @@ Airbo.TileQuestionBuilder = (function(){
     // FIXME hack to keep form elements visible for multiple choice tiles
     var type = findTileType();
 
-    if(type == "Quiz" || type =="Survey"){ 
+    if(type == "Quiz" || type =="Survey"){
       $(answer_div).find(".option_input").css("display", "none")
     }else{
       $(answer_div).find("a").css("display", "block");
@@ -493,7 +497,7 @@ Airbo.TileQuestionBuilder = (function(){
   }
 
   function markRightAnswer(element) {
-    makeAnswerGreen(element); 
+    makeAnswerGreen(element);
     saveRightAnswer(element);
   }
 
@@ -514,7 +518,7 @@ Airbo.TileQuestionBuilder = (function(){
     var subtype = findTileSubtype();
 
     $("#tile_builder_form_question_type").val(type);
-    $("#tile_builder_form_question_subtype").val(subtype); 
+    $("#tile_builder_form_question_subtype").val(subtype);
   }
 
   function initialTypeSetUp(){
