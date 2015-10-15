@@ -51,7 +51,7 @@ Then you'll need to create a database user (Postgres keeps its own lists of user
 
 It will ask if the new user should be a superuser: say yes. Again, this is fine for a development machine but not a production server.
 
-#### Ruby Version Manager (RVM)
+#### Ruby Version Manager (RVM) or Better yet RBENV
 Additional packages need to be installed when using RVM with (MRI) Ruby. Enter this command to see the list: `rvm requirements`
 
 We use MRI Ruby 1.9.2 => Run this command: `rvm install 1.9.2`
