@@ -11,7 +11,7 @@
   padding-right: 18px;
   position: relative;
   &:after {
-    @extend .fa;
+    font: normal normal normal 14px/1 FontAwesome;
     content: $default-arrow;
     color: $color;
     position: absolute;
