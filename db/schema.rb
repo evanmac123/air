@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150731160622) do
+ActiveRecord::Schema.define(:version => 20151020120848) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -726,7 +726,10 @@ ActiveRecord::Schema.define(:version => 20150731160622) do
     t.string   "title",      :default => ""
     t.datetime "created_at",                 :null => false
     t.datetime "updated_at",                 :null => false
+    t.integer  "topic_id"
   end
+
+  add_index "tile_tags", ["topic_id"], :name => "index_tile_tags_on_topic_id"
 
   create_table "tile_viewings", :force => true do |t|
     t.integer  "tile_id"
@@ -808,6 +811,13 @@ ActiveRecord::Schema.define(:version => 20150731160622) do
   end
 
   add_index "timed_bonus", ["demo_id", "user_id"], :name => "index_timed_bonus_on_demo_id_and_user_id"
+
+  create_table "topics", :force => true do |t|
+    t.string   "name",       :null => false
+    t.string   "image"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "trigger_demographic_triggers", :force => true do |t|
     t.integer  "tile_id"
