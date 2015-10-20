@@ -105,6 +105,9 @@ Airbo.Utils = {
           staticToolbar:true, 
           buttonLabels: 'fontawesome',
           targetBlank: true,
+          anchor: {
+            linkValidation: true,
+          },
           toolbar: {
             buttons: ['bold', 'italic', 'underline', 'unorderedlist', 'orderedlist', "anchor"]
           }
