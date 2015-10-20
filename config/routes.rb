@@ -90,6 +90,7 @@ Health::Application.routes.draw do
     member do
       get 'tile_tag_show'
     end
+    resources :topics, only: [:show]
   end
 
 

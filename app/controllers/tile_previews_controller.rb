@@ -1,4 +1,4 @@
-require Rails.root.join('app/presenters/tile_preview/intros_presenter')
+# require Rails.root.join('app/presenters/tile_preview/intros_presenter')
 
 class TilePreviewsController < ApplicationController
   skip_before_filter :authorize

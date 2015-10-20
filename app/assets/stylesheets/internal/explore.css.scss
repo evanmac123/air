@@ -2,7 +2,7 @@
 @import "external/_case_study";
 @import "mixins/small_tile_tag";
 
-.client_admin_explore_tile_tag{
+.client_admin_explore_tile_tag {
   margin-bottom: 50px;
   padding-left: 0;
   ul {
@@ -418,5 +418,11 @@ body.explores-show {
       text-align: center;
       margin: auto;
     }
+  }
+}
+
+body.topics-show {
+  .core, .content {
+    background: #d9dfe9;
   }
 }

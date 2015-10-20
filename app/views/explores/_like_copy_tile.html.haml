@@ -12,7 +12,7 @@
 
   - if presenter.user_copied_tile
     %span.copied
-      = render "copy_link", presenter: presenter
+      = render "explores/copy_link", presenter: presenter
 
   - elsif presenter.tile_not_copyable
     %span.viewonly_message

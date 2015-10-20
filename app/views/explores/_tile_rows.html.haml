@@ -1,7 +1,7 @@
 - tile_presenters = nr_trace('instantiate tile presenters') {tiles.map{|tile| ExploreSingleTilePresenter.new(tile, @tile_tag, @copied_tile_ids.include?(tile.id), @liked_tile_ids.include?(tile.id))}}
 - main_cache_key = [__FILE__, 'v7.pwd', 'main', @tile_tag.try(:id), *(tile_presenters.map(&:cache_key))]
 
-- cache main_cache_key do 
+- cache main_cache_key do
   - tile_presenters.each_slice(4) do |presenter_slice|
     - slice_cache_key = [__FILE__, 'v5.pwd', 'slice', *(presenter_slice.map(&:cache_key))]
     - cache slice_cache_key do
@@ -24,7 +24,7 @@
                   -# it nice and clickable.
                   =link_to '', explore_tile_preview_path(presenter, tag: @tile_tag, thumb_click_source: thumb_click_source)
                   .like_copy_tile
-                    = render 'like_copy_tile', presenter: presenter
+                    = render 'explores/like_copy_tile', presenter: presenter
                 .headline
                   = link_to explore_tile_preview_path(presenter, tag: @tile_tag, thumb_click_source: thumb_click_source) do
                     %span.text= presenter.headline
@@ -45,4 +45,3 @@
   - tile_presenters.each do |presenter|
     :javascript
       bindPreflightToEvent('ready', document, '#{presenter.full_size_url}');
-
