@@ -9,6 +9,7 @@ class ExploresController < ClientAdminBaseController
 
   def show
     @tile_tags = TileTag.alphabetical.with_public_non_draft_tiles
+    @topics = Topic.order{ id.desc }
     @path_for_more_tiles = explore_path
     @parent_boards = Demo.where(is_parent: true)
 
@@ -20,11 +21,11 @@ class ExploresController < ClientAdminBaseController
 
     email_clicked_ping(current_user)
   end
-  
+
   def tile_tag_show
     @tile_tag = TileTag.find(params[:tile_tag])
     @path_for_more_tiles = tile_tag_show_explore_path(tile_tag: params[:tile_tag])
-    
+
     render_partial_if_requested(tag_click_source: "Explore Topic Page - Clicked Tag On Tile", thumb_click_source: 'Explore Topic Page - Tile Thumbnail Clicked')
 
     if params[:tag_click_source].present?
@@ -54,7 +55,7 @@ class ExploresController < ClientAdminBaseController
   end
 
   def set_all_tiles_displayed
-    @all_tiles_displayed = @tiles.count <= tile_batch_size  
+    @all_tiles_displayed = @tiles.count <= tile_batch_size
   end
 
   def limit_tiles_to_batch_size

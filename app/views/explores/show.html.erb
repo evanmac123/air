@@ -2,19 +2,20 @@
 
 <div class="row client_admin_explore">
   <div class='large-12 column'>
-  <%= render partial: 'parent_boards', locals: {boards: @parent_boards} %>
+    <%= render partial: 'parent_boards', locals: {boards: @parent_boards} %>
     <h1>Tile Subjects</h1>
-
-    <div class="row tags">
-      <% @tile_tags.each do |tile_tag| %>
-        <%= link_to tile_tag_show_explore_path(tile_tag: tile_tag.id, tag_click_source: 'Explore Main Page - Clicked Tile Subject Tag') do %>
-          <div class="tag_name"><%= tile_tag.title.truncate(27) %></div>
+    <div class="row topics">
+      <% @topics.each do |topic| %>
+        <%= link_to "#", class: "topic" do %>
+          <div class="topic_cell">
+            <%= image_tag("topics/#{topic.name.parameterize.underscore}.png") %>
+            <p class="title"><%= topic.name %></p>
+          </div>
         <% end %>
       <% end %>
     </div>
-
+    <% render partial: 'tags', locals: {tile_tags: @tile_tags} %>
     <h1>Recent Posts</h1>
-
     <div class='row tile_with_tags'>
       <%= render partial: 'tile_with_tags', locals: {tiles: @tiles, path_for_more_tiles: @path_for_more_tiles, tag_click_source: "Explore Main Page - Clicked Tag On Tile", thumb_click_source: 'Explore Main Page - Tile Thumbnail Clicked'} %>
     </div>
