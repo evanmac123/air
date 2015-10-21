@@ -398,6 +398,12 @@ body.explores-show {
     float: left;
     border-radius: 3px;
     margin: 0 50px 28px 0;
+    overflow: hidden;
+    &:hover {
+      .shadow_overlay {
+        background: rgba(14, 23, 29, 0.92);
+      }
+    }
     .topic_cell {
       display: table-cell;
       vertical-align: middle;
@@ -408,6 +414,15 @@ body.explores-show {
       position: absolute;
       top: 0;
       left: 0;
+    }
+    .shadow_overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(14, 23, 29, 0.82);
+      display: block;
     }
     .title {
       max-width: 150px;

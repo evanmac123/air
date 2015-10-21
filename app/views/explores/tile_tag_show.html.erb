@@ -10,8 +10,8 @@
         <% end %>
       </li>
       <li class='tile_tag'>
+        <%= @tile_tag.topic.try(:name) || "No Topic" %>:
         <%= @tile_tag.title %>
-        <%= fa_icon 'tag' %>
       </li>
     </ul>
   </div>

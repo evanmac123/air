@@ -9,6 +9,7 @@
         <%= link_to explore_topic_path(topic), class: "topic" do %>
           <div class="topic_cell">
             <%= image_tag("topics/#{topic.name.parameterize.underscore}.png") %>
+            <div class="shadow_overlay"></div>
             <p class="title"><%= topic.name %></p>
           </div>
         <% end %>
