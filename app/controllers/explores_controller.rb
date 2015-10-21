@@ -10,7 +10,7 @@ class ExploresController < ClientAdminBaseController
 
   def show
     # @tile_tags = TileTag.alphabetical.with_public_non_draft_tiles
-    @topics = Topic.order{ id.desc }
+    @topics = Topic.all
     @path_for_more_tiles = explore_path
     @parent_boards = Demo.where(is_parent: true)
 
@@ -37,7 +37,9 @@ class ExploresController < ClientAdminBaseController
   add_method_tracer :show
   add_method_tracer :tile_tag_show
 
-  # protected
-  #
-  #
+  protected
+
+  def find_tile_tags
+    params[:tile_tag]
+  end
 end

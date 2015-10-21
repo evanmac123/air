@@ -5,7 +5,7 @@ module ExploreHelper
   end
 
   def eligible_tiles
-    Tile.viewable_in_public.tagged_with(params[:tile_tag])
+    Tile.viewable_in_public.tagged_with(find_tile_tags)
   end
 
   def find_tiles
