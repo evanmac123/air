@@ -4,12 +4,10 @@ module ExploreHelper
     16
   end
 
-  def eligible_tiles
-    Tile.viewable_in_public.tagged_with(find_tile_tags)
-  end
-
   def find_tiles
-    @tiles = eligible_tiles.
+    @eligible_tiles = Tile.viewable_in_public.tagged_with(find_tile_tags)
+
+    @tiles = @eligible_tiles.
       ordered_for_explore.
       offset(offset).
       includes(:creator).
