@@ -32,6 +32,7 @@ class ExploresController < ClientAdminBaseController
     if params[:tag_click_source].present?
       ping_action_after_dash(params[:tag_click_source], {tag: @tile_tag.title}, current_user)
     end
+    ping("Viewed Collection", {tag: @tile_tag.title}, current_user)
   end
 
   add_method_tracer :show
