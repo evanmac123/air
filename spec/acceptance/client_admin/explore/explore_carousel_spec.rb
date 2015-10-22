@@ -16,8 +16,8 @@ feature 'Carousel on Explore Tile Preview Page' do
 
     0.upto(5) do |i|
       tag = i.even? ? @tags[0] : @tags[1]
-      FactoryGirl.create(:multiple_choice_tile, 
-        :copyable, headline: "Tile#{i}", created_at: Time.now + i.day, 
+      FactoryGirl.create(:multiple_choice_tile,
+        :copyable, headline: "Tile#{i}", created_at: Time.now + i.day,
         tile_tags: [tag], creator: creator, demo: creator.demo)
     end
 
@@ -69,43 +69,43 @@ feature 'Carousel on Explore Tile Preview Page' do
       FakeMixpanelTracker.should have_event_matching("Explore page - Interaction", "action" => 'Clicked Answer', 'tile_id' => @tiles[0].id.to_s)
     end
   end
-
-  context "if user comes from explore topic page" do
-    before(:each) do
-      visit explore_path(as: admin)
-      within page.find(".tags") do
-        click_link @tags.last.title
-      end
-    end
-
-    it "should show tiles with chosen tag upwards", js: true do
-      click_link @tiles.first.headline
-      expect_content @tiles.first.headline
-
-      [2,4].each do |i|
-        show_next_tile
-        expect_content @tiles[i].headline
-      end
-    end
-
-    it "should show tiles with chosen tag backwards", js: true do
-      click_link @tiles.first.headline
-      expect_content @tiles.first.headline
-
-      [4,2].each do |i|
-        show_previous_tile
-        expect_content @tiles[i].headline
-      end
-    end
-
-    it "should move to next tile after clicking right answer", js: true do
-      click_link @tiles.first.headline
-      expect_content @tiles.first.headline
-
-      page.find('.right_multiple_choice_answer').click
-      expect_content @tiles[2].headline
-    end
-  end
+  # FIXME use on topic page
+  # context "if user comes from explore topic page" do
+  #   before(:each) do
+  #     visit explore_path(as: admin)
+  #     within page.find(".tags") do
+  #       click_link @tags.last.title
+  #     end
+  #   end
+  #
+  #   it "should show tiles with chosen tag upwards", js: true do
+  #     click_link @tiles.first.headline
+  #     expect_content @tiles.first.headline
+  #
+  #     [2,4].each do |i|
+  #       show_next_tile
+  #       expect_content @tiles[i].headline
+  #     end
+  #   end
+  #
+  #   it "should show tiles with chosen tag backwards", js: true do
+  #     click_link @tiles.first.headline
+  #     expect_content @tiles.first.headline
+  #
+  #     [4,2].each do |i|
+  #       show_previous_tile
+  #       expect_content @tiles[i].headline
+  #     end
+  #   end
+  #
+  #   it "should move to next tile after clicking right answer", js: true do
+  #     click_link @tiles.first.headline
+  #     expect_content @tiles.first.headline
+  #
+  #     page.find('.right_multiple_choice_answer').click
+  #     expect_content @tiles[2].headline
+  #   end
+  # end
 
   context "interacts with tile after mooving" do
     before(:each) do

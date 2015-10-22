@@ -111,12 +111,12 @@ feature "Client admin opens tile stats" do
         expect_content "Date"
       end
 
-      it "should intialy sorted by name asc", js: true do
+      it "should intialy sorted by name asc", js: true, driver: :webkit do
         first_name.should == @user_first_name.name
       end
 
       it "should sort by name", js: true, driver: :webkit do
-      table_column("name").click
+        table_column("name").click
         first_name.should == @user_last_name.name
       end
 

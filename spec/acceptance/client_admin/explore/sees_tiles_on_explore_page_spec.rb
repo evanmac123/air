@@ -64,214 +64,215 @@ feature 'Sees tiles on explore page' do
     end
   end
 
-  context "by picking tagged ones" do
-    it "lists tags that have active or archived tiles on the explore page in alpha order" do
-      %w(Spam Fish Cheese Groats Bouillabase).each do |title|
-        FactoryGirl.create(:tile_tag, title: title)
-      end
-
-      tags = TileTag.all
-
-      tags[0,2].each do |tile_tag|
-        tile = FactoryGirl.create(:tile, :public, status: Tile::ACTIVE)
-        tile.tile_tags << tile_tag
-      end
-
-      tags[2,3].each do |tile_tag|
-        tile = FactoryGirl.create(:tile, :public, status: Tile::ARCHIVE)
-        tile.tile_tags << tile_tag
-      end
-
-
-      visit explore_path(as: a_client_admin)
-      expect_content "Bouillabase Cheese Fish Groats Spam"
-    end
-
-    it "omits tags that have no active or archived public tiles on the explore page" do
-      %w(Spam Fish Cheese Groats Bouillabase).each do |title|
-        FactoryGirl.create(:tile_tag, title: title)
-      end
-
-      %w(Nope None Nil).each do |title|
-        tag = FactoryGirl.create(:tile_tag, title: title)
-        tile = FactoryGirl.create(:tile)
-        tile.tile_tags << tag
-      end
-
-      visit explore_path(as: a_client_admin)
-      %w(Spam Fish Cheese Groats Bouillabase).each {|title| expect_no_content title}
-      %w(Nope None Nil).each {|title| expect_no_content title}
-    end
-
-    it "truncate long tags on the explore page" do
-      %w(Spam FishCheeseGroatsBouillabasePotato).each do |title|
-        tag = FactoryGirl.create(:tile_tag, title: title)
-        tile = FactoryGirl.create(:tile, :public, status: Tile::ACTIVE)
-        tile.tile_tags << tag
-      end
-
-      visit explore_path(as: a_client_admin)
-      %w(Spam FishCheeseGroatsBouillab...).each {|title| expect_content title}
-    end
-
-    context "when a tag is clicked" do
-      before do
-        @tag_to_click = FactoryGirl.create(:tile_tag, title: "Click me")
-        @other_tags = FactoryGirl.create_list(:tile_tag, 5)
-
-        @tagged_tiles = FactoryGirl.create_list(:tile, 2, :public)
-        @tagged_tiles.each {|tagged_tile| tagged_tile.tile_tags << @tag_to_click}
-
-        @other_tagged_tiles = FactoryGirl.create_list(:tile, 2, :public)
-        @other_tagged_tiles.each{|other_tagged_tile| other_tagged_tile.tile_tags = @other_tags}
-
-        @untagged_tiles = FactoryGirl.create_list(:tile, 4, :public)
-      end
-
-      it "shows tiles only with the chosen tag when clicked" do
-        visit explore_path(as: a_client_admin)
-        within '.tags' do
-          click_link "Click me"
-        end
-        @tagged_tiles.each {|tagged_tile| expect_content tagged_tile.headline}
-        @other_tagged_tiles.each {|other_tagged_tile| expect_no_content other_tagged_tile.headline}
-        @untagged_tiles.each {|untagged_tile| expect_no_content untagged_tile.headline}
-      end
-
-      it "respects the tag when See More is clicked", js: true do
-        # This, plus the two above, makes 33 tiles total.
-        31.times do
-          tile = FactoryGirl.create(:tile, :public)
-          tile.tile_tags << @tag_to_click
-          @tagged_tiles << tile
-        end
-
-        visit explore_path(as: a_client_admin)
-        within '.tags' do
-          click_link "Click me"
-        end
-        expect_thumbnail_count 16, '.explore_tile'
-        expect_only_headlines_in(@tagged_tiles)
-
-        show_more_tiles_link.click
-        expect_thumbnail_count 32, '.explore_tile'
-        expect_only_headlines_in(@tagged_tiles)
-
-        show_more_tiles_link.click
-        expect_thumbnail_count 33, '.explore_tile'
-        expect_only_headlines_in(@tagged_tiles)
-      end
-
-      it "pings when clicking a tag in the tile subjects section", js: true do
-        visit explore_path(as: a_client_admin)
-        within '.tags' do
-          click_link 'Click me'
-        end
-
-        page.should have_content('Explore: Click me') # wait till load is done
-        FakeMixpanelTracker.clear_tracked_events
-        crank_dj_clear
-        FakeMixpanelTracker.should have_event_matching('Explore Main Page', {action: 'Clicked Tile Subject Tag', tag: 'Click me'})
-      end
-
-      it "pings when clicking a tag on a tile", js: true do
-        visit explore_path(as: a_client_admin)
-        tag_name = nil
-        within(page.first('.explore_tile')) do
-          tag_link = page.first('li.tile_tag a')
-          tag_name = tag_link.text
-
-          tag_link.click
-        end
-
-        page.should have_content("Explore: #{tag_name}") # wait till load is done
-        FakeMixpanelTracker.clear_tracked_events
-        crank_dj_clear
-
-        FakeMixpanelTracker.should have_event_matching('Explore Main Page', {action: 'Clicked Tag On Tile', tag: tag_name})
-      end
-
-      it "pings when clicking a tag on a tile in a later batch", js: true do
-        19.times do
-          tile = FactoryGirl.create(:tile, :public)
-          tile.tile_tags << @tag_to_click
-        end
-
-        visit explore_path(as: a_client_admin)
-        click_link 'More'
-
-        crank_dj_clear
-        FakeMixpanelTracker.clear_tracked_events
-
-        within(page.all('.explore_tile')[11]) do
-          click_link 'Click me'
-        end
-
-        FakeMixpanelTracker.clear_tracked_events
-        crank_dj_clear
-        FakeMixpanelTracker.should have_event_matching('Explore Main Page', {action: 'Clicked Tag On Tile', tag: 'Click me'})
-      end
-
-      it "pings when clicking a tag on a tile, on the topic page", js: true do
-        visit tile_tag_show_explore_path(tile_tag: @tag_to_click, as: a_client_admin)
-        within(page.first('.explore_tile .all_tile_tags')) do
-          click_link "Click me"
-        end
-
-        page.should have_content('Explore: Click me') # wait till load is done
-        FakeMixpanelTracker.clear_tracked_events
-        crank_dj_clear
-        FakeMixpanelTracker.should have_event_matching('Explore Topic Page', {action: 'Clicked Tag On Tile', tag: "Click me"})
-      end
-
-      it "pings when clicking a tag on a tile, on the topic page, in a later batch", js: true do
-        19.times do
-          tile = FactoryGirl.create(:tile, :public)
-          tile.tile_tags << @tag_to_click
-        end
-
-        visit tile_tag_show_explore_path(tile_tag: @tag_to_click, as: a_client_admin)
-        click_link 'More'
-
-        crank_dj_clear
-        FakeMixpanelTracker.clear_tracked_events
-
-        within(page.all('.explore_tile')[19]) do
-          click_link 'Click me'
-        end
-
-        crank_dj_clear
-        FakeMixpanelTracker.should have_event_matching('Explore Topic Page', {action: 'Clicked Tag On Tile', tag: "Click me"})
-      end
-
-      it "pings when clicking a tile thumbnail on the topic page", js: true do
-        visit tile_tag_show_explore_path(tile_tag: @tag_to_click, as: a_client_admin)
-        page.first('.explore_tile .headline a').click
-
-        FakeMixpanelTracker.clear_tracked_events
-        crank_dj_clear
-        FakeMixpanelTracker.should have_event_matching('Explore Topic Page', action: 'Tile Thumbnail Clicked')
-      end
-
-      it "pings when clicking a tile thumbnail on the topic page in a later batch", js: true do
-        19.times do
-          tile = FactoryGirl.create(:tile, :public)
-          tile.tile_tags << @tag_to_click
-        end
-
-        visit tile_tag_show_explore_path(tile_tag: @tag_to_click, as: a_client_admin)
-        click_link 'More'
-
-        crank_dj_clear
-        FakeMixpanelTracker.clear_tracked_events
-
-        page.all('.explore_tile .headline a')[19].click
-
-        crank_dj_clear
-        FakeMixpanelTracker.should have_event_matching('Explore Topic Page', action: 'Tile Thumbnail Clicked')
-      end
-    end
-  end
+  # FIXME use on topic page
+  # context "by picking tagged ones" do
+  #   it "lists tags that have active or archived tiles on the explore page in alpha order" do
+  #     %w(Spam Fish Cheese Groats Bouillabase).each do |title|
+  #       FactoryGirl.create(:tile_tag, title: title)
+  #     end
+  #
+  #     tags = TileTag.all
+  #
+  #     tags[0,2].each do |tile_tag|
+  #       tile = FactoryGirl.create(:tile, :public, status: Tile::ACTIVE)
+  #       tile.tile_tags << tile_tag
+  #     end
+  #
+  #     tags[2,3].each do |tile_tag|
+  #       tile = FactoryGirl.create(:tile, :public, status: Tile::ARCHIVE)
+  #       tile.tile_tags << tile_tag
+  #     end
+  #
+  #
+  #     visit explore_path(as: a_client_admin)
+  #     expect_content "Bouillabase Cheese Fish Groats Spam"
+  #   end
+  #
+  #   it "omits tags that have no active or archived public tiles on the explore page" do
+  #     %w(Spam Fish Cheese Groats Bouillabase).each do |title|
+  #       FactoryGirl.create(:tile_tag, title: title)
+  #     end
+  #
+  #     %w(Nope None Nil).each do |title|
+  #       tag = FactoryGirl.create(:tile_tag, title: title)
+  #       tile = FactoryGirl.create(:tile)
+  #       tile.tile_tags << tag
+  #     end
+  #
+  #     visit explore_path(as: a_client_admin)
+  #     %w(Spam Fish Cheese Groats Bouillabase).each {|title| expect_no_content title}
+  #     %w(Nope None Nil).each {|title| expect_no_content title}
+  #   end
+  #
+  #   it "truncate long tags on the explore page" do
+  #     %w(Spam FishCheeseGroatsBouillabasePotato).each do |title|
+  #       tag = FactoryGirl.create(:tile_tag, title: title)
+  #       tile = FactoryGirl.create(:tile, :public, status: Tile::ACTIVE)
+  #       tile.tile_tags << tag
+  #     end
+  #
+  #     visit explore_path(as: a_client_admin)
+  #     %w(Spam FishCheeseGroatsBouillab...).each {|title| expect_content title}
+  #   end
+  #
+  #   context "when a tag is clicked" do
+  #     before do
+  #       @tag_to_click = FactoryGirl.create(:tile_tag, title: "Click me")
+  #       @other_tags = FactoryGirl.create_list(:tile_tag, 5)
+  #
+  #       @tagged_tiles = FactoryGirl.create_list(:tile, 2, :public)
+  #       @tagged_tiles.each {|tagged_tile| tagged_tile.tile_tags << @tag_to_click}
+  #
+  #       @other_tagged_tiles = FactoryGirl.create_list(:tile, 2, :public)
+  #       @other_tagged_tiles.each{|other_tagged_tile| other_tagged_tile.tile_tags = @other_tags}
+  #
+  #       @untagged_tiles = FactoryGirl.create_list(:tile, 4, :public)
+  #     end
+  #
+  #     it "shows tiles only with the chosen tag when clicked" do
+  #       visit explore_path(as: a_client_admin)
+  #       within '.tags' do
+  #         click_link "Click me"
+  #       end
+  #       @tagged_tiles.each {|tagged_tile| expect_content tagged_tile.headline}
+  #       @other_tagged_tiles.each {|other_tagged_tile| expect_no_content other_tagged_tile.headline}
+  #       @untagged_tiles.each {|untagged_tile| expect_no_content untagged_tile.headline}
+  #     end
+  #
+  #     it "respects the tag when See More is clicked", js: true do
+  #       # This, plus the two above, makes 33 tiles total.
+  #       31.times do
+  #         tile = FactoryGirl.create(:tile, :public)
+  #         tile.tile_tags << @tag_to_click
+  #         @tagged_tiles << tile
+  #       end
+  #
+  #       visit explore_path(as: a_client_admin)
+  #       within '.tags' do
+  #         click_link "Click me"
+  #       end
+  #       expect_thumbnail_count 16, '.explore_tile'
+  #       expect_only_headlines_in(@tagged_tiles)
+  #
+  #       show_more_tiles_link.click
+  #       expect_thumbnail_count 32, '.explore_tile'
+  #       expect_only_headlines_in(@tagged_tiles)
+  #
+  #       show_more_tiles_link.click
+  #       expect_thumbnail_count 33, '.explore_tile'
+  #       expect_only_headlines_in(@tagged_tiles)
+  #     end
+  #
+  #     it "pings when clicking a tag in the tile subjects section", js: true do
+  #       visit explore_path(as: a_client_admin)
+  #       within '.tags' do
+  #         click_link 'Click me'
+  #       end
+  #
+  #       page.should have_content('Explore: Click me') # wait till load is done
+  #       FakeMixpanelTracker.clear_tracked_events
+  #       crank_dj_clear
+  #       FakeMixpanelTracker.should have_event_matching('Explore Main Page', {action: 'Clicked Tile Subject Tag', tag: 'Click me'})
+  #     end
+  #
+  #     it "pings when clicking a tag on a tile", js: true do
+  #       visit explore_path(as: a_client_admin)
+  #       tag_name = nil
+  #       within(page.first('.explore_tile')) do
+  #         tag_link = page.first('li.tile_tag a')
+  #         tag_name = tag_link.text
+  #
+  #         tag_link.click
+  #       end
+  #
+  #       page.should have_content("Explore: #{tag_name}") # wait till load is done
+  #       FakeMixpanelTracker.clear_tracked_events
+  #       crank_dj_clear
+  #
+  #       FakeMixpanelTracker.should have_event_matching('Explore Main Page', {action: 'Clicked Tag On Tile', tag: tag_name})
+  #     end
+  #
+  #     it "pings when clicking a tag on a tile in a later batch", js: true do
+  #       19.times do
+  #         tile = FactoryGirl.create(:tile, :public)
+  #         tile.tile_tags << @tag_to_click
+  #       end
+  #
+  #       visit explore_path(as: a_client_admin)
+  #       click_link 'More'
+  #
+  #       crank_dj_clear
+  #       FakeMixpanelTracker.clear_tracked_events
+  #
+  #       within(page.all('.explore_tile')[11]) do
+  #         click_link 'Click me'
+  #       end
+  #
+  #       FakeMixpanelTracker.clear_tracked_events
+  #       crank_dj_clear
+  #       FakeMixpanelTracker.should have_event_matching('Explore Main Page', {action: 'Clicked Tag On Tile', tag: 'Click me'})
+  #     end
+  #
+  #     it "pings when clicking a tag on a tile, on the topic page", js: true do
+  #       visit tile_tag_show_explore_path(tile_tag: @tag_to_click, as: a_client_admin)
+  #       within(page.first('.explore_tile .all_tile_tags')) do
+  #         click_link "Click me"
+  #       end
+  #
+  #       page.should have_content('Explore: Click me') # wait till load is done
+  #       FakeMixpanelTracker.clear_tracked_events
+  #       crank_dj_clear
+  #       FakeMixpanelTracker.should have_event_matching('Explore Topic Page', {action: 'Clicked Tag On Tile', tag: "Click me"})
+  #     end
+  #
+  #     it "pings when clicking a tag on a tile, on the topic page, in a later batch", js: true do
+  #       19.times do
+  #         tile = FactoryGirl.create(:tile, :public)
+  #         tile.tile_tags << @tag_to_click
+  #       end
+  #
+  #       visit tile_tag_show_explore_path(tile_tag: @tag_to_click, as: a_client_admin)
+  #       click_link 'More'
+  #
+  #       crank_dj_clear
+  #       FakeMixpanelTracker.clear_tracked_events
+  #
+  #       within(page.all('.explore_tile')[19]) do
+  #         click_link 'Click me'
+  #       end
+  #
+  #       crank_dj_clear
+  #       FakeMixpanelTracker.should have_event_matching('Explore Topic Page', {action: 'Clicked Tag On Tile', tag: "Click me"})
+  #     end
+  #
+  #     it "pings when clicking a tile thumbnail on the topic page", js: true do
+  #       visit tile_tag_show_explore_path(tile_tag: @tag_to_click, as: a_client_admin)
+  #       page.first('.explore_tile .headline a').click
+  #
+  #       FakeMixpanelTracker.clear_tracked_events
+  #       crank_dj_clear
+  #       FakeMixpanelTracker.should have_event_matching('Explore Topic Page', action: 'Tile Thumbnail Clicked')
+  #     end
+  #
+  #     it "pings when clicking a tile thumbnail on the topic page in a later batch", js: true do
+  #       19.times do
+  #         tile = FactoryGirl.create(:tile, :public)
+  #         tile.tile_tags << @tag_to_click
+  #       end
+  #
+  #       visit tile_tag_show_explore_path(tile_tag: @tag_to_click, as: a_client_admin)
+  #       click_link 'More'
+  #
+  #       crank_dj_clear
+  #       FakeMixpanelTracker.clear_tracked_events
+  #
+  #       page.all('.explore_tile .headline a')[19].click
+  #
+  #       crank_dj_clear
+  #       FakeMixpanelTracker.should have_event_matching('Explore Topic Page', action: 'Tile Thumbnail Clicked')
+  #     end
+  #   end
+  # end
 
   context "when clicking through a tile" do
     before do
@@ -281,7 +282,7 @@ feature 'Sees tiles on explore page' do
     it "pings" do
       visit explore_path(as: a_client_admin)
       page.first('.explore_tile .headline a').click
-      
+
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear
       FakeMixpanelTracker.should have_event_matching('Explore Main Page', {action: "Tile Thumbnail Clicked"})
@@ -320,7 +321,7 @@ feature 'Sees tiles on explore page' do
       admin = FactoryGirl.create(:client_admin, voteup_intro_seen: true, share_link_intro_seen: true)
       visit explore_tile_preview_path(tile.id, as: admin)
       click_link 'Eggs'
-      
+
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear
 

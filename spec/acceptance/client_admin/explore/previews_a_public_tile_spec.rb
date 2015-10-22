@@ -12,17 +12,17 @@ feature 'Previews a public tile' do
     before do
       click_link @first_tag.title
     end
-
-    it "pings when the user clicks through the tag" do
-      FakeMixpanelTracker.clear_tracked_events
-      crank_dj_clear
-
-      FakeMixpanelTracker.should have_event_matching('Explore Tile Preview Page', action: 'Clicked Tile Tag', tag: @first_tag.title)
-    end
-
-    it "takes us to where we would want" do
-      should_be_on tile_tag_show_explore_path
-      page.should have_content "Explore: #{@first_tag.title}"
-    end
+    # FIXME use on topic page
+    # it "pings when the user clicks through the tag" do
+    #   FakeMixpanelTracker.clear_tracked_events
+    #   crank_dj_clear
+    #
+    #   FakeMixpanelTracker.should have_event_matching('Explore Tile Preview Page', action: 'Clicked Tile Tag', tag: @first_tag.title)
+    # end
+    #
+    # it "takes us to where we would want" do
+    #   should_be_on tile_tag_show_explore_path
+    #   page.should have_content "Explore: #{@first_tag.title}"
+    # end
   end
 end
