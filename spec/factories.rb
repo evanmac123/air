@@ -40,11 +40,11 @@ FactoryGirl.define do
 
     trait :sample_tile_not_yet_done do
       sample_tile_completed false
-    end  
+    end
 
     trait :with_tickets do
       tickets 3
-    end  
+    end
   end
 
   factory :brand_new_user, :parent => :user do
@@ -97,7 +97,7 @@ FactoryGirl.define do
 
     sequence(:public_slug) {|i| "public_#{i}"}
 
-    trait :with_public_slug do |demo|  
+    trait :with_public_slug do |demo|
       is_public true
     end
 
@@ -195,11 +195,11 @@ FactoryGirl.define do
 
     trait :user_submitted do
       status Tile::USER_SUBMITTED
-    end   
+    end
 
     trait :ignored do
       status Tile::IGNORED
-    end    
+    end
 
     trait :sharable do
       is_sharable true
@@ -344,9 +344,14 @@ FactoryGirl.define do
     association :tile_tag
     association :tile
   end
-  
+
   factory :tile_tag do
+    association :topic
     sequence(:title) {|n| "Tile Tag #{n}"}
+  end
+
+  factory :topic do
+    name "Good Topic"
   end
 
   factory :billing_information do
@@ -361,9 +366,9 @@ FactoryGirl.define do
   end
 
   factory :raffle do
-    association :demo 
+    association :demo
     starts_at DateTime.now.change({:hour => 0 , :min => 0 , :sec => 0 })
-    ends_at DateTime.now.change({:hour => 0 , :min => 0 , :sec => 0 }) + 8.days - 1.minute 
+    ends_at DateTime.now.change({:hour => 0 , :min => 0 , :sec => 0 }) + 8.days - 1.minute
     prizes ["First Prize", "Second Prize"]
     other_info "Play raffles - it's fun"
 
