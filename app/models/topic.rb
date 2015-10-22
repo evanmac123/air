@@ -5,7 +5,7 @@ class Topic < ActiveRecord::Base
   #   "Benefits" => ["Health Plan Basics", "Rx Benefits", "Health Care Reform", "Health Care Consumerism", "Dental", "Vision", "Open Enrollment Process", "Decision Support"],
   #   "Compliance" => ["Policy", "Sexual Harassment", "Compliance Form"]
   # }
-  def make_topics_with_tags full_topics
+  def self.make_topics_with_tags full_topics
     full_topics.each do |name, tag_titles|
       topic = find_or_create name
       tag_titles.each do |title|
@@ -15,7 +15,7 @@ class Topic < ActiveRecord::Base
     end
   end
 
-  def find_or_create name
+  def self.find_or_create name
     Topic.where(name: name).first || Topic.create(name: name)
   end
 end
