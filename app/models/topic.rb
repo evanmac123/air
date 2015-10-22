@@ -1,5 +1,6 @@
 class Topic < ActiveRecord::Base
   has_many :tile_tags
+   validates :name, :uniqueness => true
 
   # full_topics = {
   #   "Benefits" => ["Health Plan Basics", "Rx Benefits", "Health Care Reform", "Health Care Consumerism", "Dental", "Vision", "Open Enrollment Process", "Decision Support"],
