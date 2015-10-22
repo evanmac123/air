@@ -10,8 +10,7 @@ class Topic < ActiveRecord::Base
     full_topics.each do |name, tag_titles|
       topic = find_or_create name
       tag_titles.each do |title|
-        tag = TileTag.have_tag(title) || TileTag.create(title: title)
-        topic.tile_tags.push(tag)
+        topic.tile_tags.where(:title => title).first_or_create
       end
     end
   end
