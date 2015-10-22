@@ -20,10 +20,14 @@ class ClientAdmin::TileTagsController < ClientAdminBaseController
   end
   
   def search_results_as_json
-    tags = TileTag.tag_name_like(normalized_title).order(:title).limit(10)
+
+
+
+    other_tags = Topic.where(name: "Other").first.tile_tags
+    tags = other_tags.tag_name_like(normalized_title).order(:title).limit(10)
 
     result = tags.map{|tag| search_result(tag)}
-    if tags.empty? || TileTag.have_tag(normalized_title).nil?
+    if tags.empty? || other_tags.have_tag(normalized_title).nil?
       result += add_tag(normalized_title) 
     end
     result.to_json
