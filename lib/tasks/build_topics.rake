@@ -7,16 +7,17 @@ namespace :db do
 
       topics = {
         "Wellness" => [
-          "Recipe Of The Week",
-          "Workout Of The Week",
+          "Healthy Recipe of the Week",
+          "Workout of the Week",
         ],
         "Compliance" => [
-          "Introduce a Policy", 
-          "Sign a Policy", 
-          "Other"
+          "Explain a Complex Policy", 
+          "Gather Policy Acknowledgment", 
+          "Update Contact Information",
+          "Gather Policy Feedback"
         ],
         "Recruitment" => [
-          "Social Recruiting", 
+          "Promote Job Referrals", 
         ],
         "Other" => [
         ]
