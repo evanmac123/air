@@ -2,6 +2,7 @@ class TileTag < ActiveRecord::Base
   has_many :tile_taggings, dependent: :destroy
   has_many :tiles, through: :tile_taggings
   belongs_to :topic
+  before_validation :set_topic
 
   def self.alphabetical
     # We use the C collation because we want tags that start with an @ sign to
@@ -24,5 +25,13 @@ class TileTag < ActiveRecord::Base
 
   def self.have_tag(text)
     TileTag.where("title ILIKE ?", "#{text}").first
+  end
+
+  private
+
+  def set_topic
+    if topic.nil? 
+      self.topic = Topic.where(:name => "Other").first
+    end
   end
 end
