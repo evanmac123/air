@@ -23,11 +23,12 @@ class ClientAdmin::TileTagsController < ClientAdminBaseController
 
 
 
-    other_tags = Topic.where(name: "Other").first.tile_tags
-    tags = other_tags.tag_name_like(normalized_title).order(:title).limit(10)
+    visible_tags = current_user.is_site_admin? ? TileTag.scoped : Topic.where(name: "Other").first.tile_tags
+
+    tags = visible_tags.tag_name_like(normalized_title).order(:title).limit(10)
 
     result = tags.map{|tag| search_result(tag)}
-    if tags.empty? || other_tags.have_tag(normalized_title).nil?
+    if tags.empty? || visible_tags.have_tag(normalized_title).nil?
       result += add_tag(normalized_title) 
     end
     result.to_json
