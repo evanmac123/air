@@ -26,11 +26,10 @@ class TopicsController < ClientAdminBaseController
     @eligible_tiles = Tile.viewable_in_public.tagged_with(find_tile_tags)
 
     @tiles = @eligible_tiles.
-      ordered_by_position.
       offset(offset).
       includes(:creator).
       includes(:tile_tags).
-      includes(:demo)
+      includes(:demo).order("position asc")
   end
 
   def find_tile_tags
