@@ -68,7 +68,7 @@ JS
         	month: '%b %Y',
         	year: '%Y'
         },
-        offset: 16,
+        offset: 10,
         labels: {
           align: 'center',
           style: {
@@ -87,7 +87,7 @@ JS
       {
         allowDecimals: false,
         gridLineColor: '#d6d6d6',
-        offset: 12,
+        offset: 7,
         labels: {
           style: {
             color: '#a8a8a8',

@@ -13,6 +13,7 @@ body.client_admin-tile_stats, #tile_stats_modal {
     float: left !important;
     position: relative;
     width: calc(100% - 200px);
+    height: 275px;
     margin-top: 6px;
     // hide download in chart
     .highcharts-button {
@@ -27,7 +28,7 @@ body.client_admin-tile_stats, #tile_stats_modal {
 
   .action_type_block {
     margin-bottom: 27px;
-    padding: 8px 0 8px 18px;
+    padding: 4px 0 7px 18px;
     border-left: 3px solid transparent;
     &:last-child {
       margin-bottom: 0;
@@ -226,7 +227,7 @@ body.client_admin-tile_stats, #tile_stats_modal {
     position: absolute;
     top: 53px;
     left: 0;
-    height: 207px;
+    height: 228px;
     width: 737px;
   }
 }
@@ -331,6 +332,7 @@ body.client_admin-tile_stats, body.client_admin-tiles.client_admin-tiles-index {
         padding: 0;
         border: 1px solid $border-color;
         background: $white;
+        // height: 26px;
         &.ui-datepicker-other-month {
           a {
             opacity: 1;
@@ -349,15 +351,13 @@ body.client_admin-tile_stats, body.client_admin-tiles.client_admin-tiles-index {
         a {
           background: white;
           text-align: center;
-          border-color: white;
+          // border-color: white;
+          border: none;
           color: $color-passive;
           font-weight: 700;
-          line-height: 1.6;
-          &:hover {
-            color: #2e2e2c;
-          }
-          &.ui-state-active {
-            background: $sky-blue;
+          line-height: 1.7;
+          &:hover, &.ui-state-active {
+            background: $gray;
             color: $white;
           }
         }
