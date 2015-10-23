@@ -24,10 +24,7 @@ class ExploresController < ClientAdminBaseController
   end
 
   def tile_tag_show
-    #TODO fix duplication
-    @eligible_tiles = Tile.viewable_in_public.tagged_with(find_tile_tags)
-
-    @tiles = @tiles.reorder("position asc")
+    @tiles = @tiles.ordered_by_position
 
     @tile_tag = TileTag.find(params[:tile_tag])
     @path_for_more_tiles = tile_tag_show_explore_path(tile_tag: params[:tile_tag])
