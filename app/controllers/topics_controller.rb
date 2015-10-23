@@ -10,6 +10,8 @@ class TopicsController < ClientAdminBaseController
   before_filter :find_liked_and_copied_tile_ids
 
   def show
+
+    @tiles = @tiles.order(:position)
     @tile_tags = @topic.tile_tags.alphabetical # TileTag.alphabetical.with_public_non_draft_tiles.where(topic: @topic)
     @path_for_more_tiles = explore_topic_path(@topic)
     render_partial_if_requested(tag_click_source: "Explore Topic Page - Clicked Tag On Tile", thumb_click_source: 'Explore Topic Page - Tile Thumbnail Clicked')
