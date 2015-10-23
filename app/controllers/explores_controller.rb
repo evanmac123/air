@@ -3,7 +3,7 @@ class ExploresController < ClientAdminBaseController
   include LoginByExploreToken
   include ExploreHelper
 
-  before_filter :find_tiles
+  before_filter :find_tiles, only: [:show]
   before_filter :set_all_tiles_displayed
   before_filter :limit_tiles_to_batch_size
   before_filter :find_liked_and_copied_tile_ids
@@ -24,6 +24,16 @@ class ExploresController < ClientAdminBaseController
   end
 
   def tile_tag_show
+    #TODO fix duplication
+    @eligible_tiles = Tile.viewable_in_public.tagged_with(find_tile_tags)
+
+    @tiles = @eligible_tiles.
+      ordered_by_position.
+      offset(offset).
+      includes(:creator).
+      includes(:tile_tags).
+      includes(:demo)
+
     @tile_tag = TileTag.find(params[:tile_tag])
     @path_for_more_tiles = tile_tag_show_explore_path(tile_tag: params[:tile_tag])
 
@@ -39,8 +49,7 @@ class ExploresController < ClientAdminBaseController
   add_method_tracer :tile_tag_show
 
   protected
-
-  def find_tile_tags
+     def find_tile_tags
     params[:tile_tag]
   end
 end
