@@ -125,15 +125,63 @@ JS
     def tooltip_params
       {
         useHTML: true,
+        backgroundColor: "white",
         style: {
           padding: 8,
           fontSize: 13
         },
-        headerFormat: "<div style='color:{series.color};'>{point.key}</div>",
-        pointFormat: "<div style='padding-top:3px;'>{point.y}</div>",
-        shadow: false
+        headerFormat: "<div style='color:#0489d1;'>{point.key}</div>",
+        pointFormatter: percent_metric.js_code
+        # pointFormat: "<div style='padding-top:3px;'>{point.y} {" + "point.series.data[point.key]" + "}</div>",
+        # shadow: false
       }
     end
+
+    def percent_metric
+      <<-JS
+      function() {
+        prevY = this.series.yData[this.index - 1];
+        if(prevY){
+          precentInc = 100.0 * (this.y - prevY) / prevY;
+        } else {
+          if(this.y == 0) {
+            precentInc = 0;
+          } else {
+            precentInc = 100;
+          }
+        }
+
+        sign = "";
+        if(precentInc > 0){
+          sign = "+";
+        }
+
+
+        return "<div style='padding-top:3px;'>" + this.y +
+                 " <span style='color:#0489d1;'>" + sign + precentInc + "%</span>" +
+               "</div>";
+      }
+JS
+    end
+    # // censor = function(censor) {
+    # //   var i = 0;
+    # //
+    # //   return function(key, value) {
+    # //     if(i !== 0 && typeof(censor) === 'object' && typeof(value) == 'object' && censor == value)
+    # //       return '[Circular]';
+    # //
+    # //     if(i >= 29) // seems to be a harded maximum of 30 serialized objects?
+    # //       return '[Unknown]';
+    # //
+    # //     ++i; // so we know we aren't using the original object anymore
+    # //
+    # //     return value;
+    # //   }
+    # // };
+    # // obj = Object.keys(this.series.data["0"].index);
+    # // obj = Object.keys(this.series.yData);
+    # // obj = this.series.yData[this.index - 1];
+    # // precent_inc = JSON.stringify(obj, censor(obj));
 
     def series_params
       {
