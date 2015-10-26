@@ -131,13 +131,13 @@ JS
           fontSize: 13
         },
         headerFormat: "<div style='color:#0489d1;'>{point.key}</div>",
-        pointFormatter: percent_metric.js_code
+        pointFormatter: point_formatter.js_code
         # pointFormat: "<div style='padding-top:3px;'>{point.y} {" + "point.series.data[point.key]" + "}</div>",
         # shadow: false
       }
     end
 
-    def percent_metric
+    def point_formatter
       <<-JS
       function() {
         prevY = this.series.yData[this.index - 1];
