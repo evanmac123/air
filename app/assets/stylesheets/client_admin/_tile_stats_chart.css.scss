@@ -2,7 +2,7 @@ body.client_admin-tile_stats, #tile_stats_modal {
   // General styles
   .tile_chart_section {
     overflow: hidden;
-    margin-bottom: 55px;
+    margin-bottom: 40px;
     margin-right: -10px;
   }
   .actions_column {
@@ -181,13 +181,13 @@ body.client_admin-tile_stats, #tile_stats_modal {
         color: #636363;
         border-color: #9E9E9E;
       }
-      &:active {
+      &:active, &.opened {
         color: #424242;
         border-color: #808080;
       }
-      &.opened {
-        border-color: $sky-blue;
-      }
+      // &.opened {
+      //   border-color: $sky-blue;
+      // }
     }
     span {
       float: left;
