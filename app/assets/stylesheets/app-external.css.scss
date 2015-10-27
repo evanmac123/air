@@ -1,3 +1,6 @@
+/*
+ *= require jquery.tocify
+ */
 /* For all */
 @import "./vendor/normalize.css.scss";
 @import "./vendor/foundation.min.css.scss";
@@ -37,6 +40,7 @@
 
 /* External unsubscribe page */
 @import "./external/_unsubscribe.css.scss";
+
 
 /* RWD */
 @media only screen and (min-width: $foundation) {

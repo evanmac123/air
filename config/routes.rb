@@ -72,6 +72,8 @@ Health::Application.routes.draw do
   get "terms" => "pages#terms", :as => "terms"
   get "privacy" => "pages#privacy", :as => "privacy"
 
+  resource :support, only: :show
+
   resource :home,  :only => :show
   resource :admin, :only => :show
   resource :client_admin, :only => :show
