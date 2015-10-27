@@ -148,7 +148,7 @@ Note: The maximum size for a property key is 100 bytes and the maximum property 
 <ol>
 <li><p>Generate a secret key for your SupportKit app. You can do this from the <a href="https://app.supportkit.io">SupportKit dashboard</a> under the Settings tab.</p>
 
-<p><img alt="Secret Keys" src="../images/secret_keys.png"></p></li>
+<p><%= image_tag "marketing/welcome_page/piggy.jpg" %></p></li>
 <li><p>Implement server side code to sign new JWTs using the key ID and secret provided. The JWT header must specify the key ID (<code class="prettyprint">kid</code>). The JWT body must specify a <code class="prettyprint">scope</code> of ‘appUser’ and the <code class="prettyprint">userId</code> you’ve assigned to the app user.</p>
 
 <p>A node.js sample is provided below:</p>
@@ -219,7 +219,7 @@ If your secret key is ever compromised you can generate a new one. SupportKit wi
 
 <p>When the user taps your button, it’ll open whatever link you specified in a new tab. </p>
 
-<p><span class="half-width-img"><img alt="Action buttons" src="../images/action_button_web.png"></span></p>
+<p><span class="half-width-img"><%= image_tag "marketing/welcome_page/piggy.jpg" %></span></p>
 
 <p></p><aside class="notice">
 Buttons will always be appended at the bottom of your message bubble.
@@ -231,7 +231,7 @@ Buttons will always be appended at the bottom of your message bubble.
 
 <p>When users send you a message using SupportKit, you will receive an email at the configured address(es). This e-mail contains the user’s message, device information, and any profile information about the user that you captured in your app. You can respond to your user’s message by responding directly to the email.</p>
 
-<p><img src="/images/email_with_context.png" alt="Drawing" style="width: 80%;"></p>
+<p><%= image_tag "marketing/welcome_page/piggy.jpg" %></p>
 <h3 id="getting-help-from-your-team">Getting help from your team</h3>
 <p>If you want multiple team members to respond to your SupportKit requests, you can specify multiple email addresses, or use a mailing list. Whenever a team member replies, the incoming email address and associated name will be used to determine the team member displayed to the user alongside the message.</p>
 
@@ -242,7 +242,7 @@ Buttons will always be appended at the bottom of your message bubble.
 
 <iframe style="margin-left:42px;" src="//player.vimeo.com/video/117524819?color=a02b8f&amp;byline=0&amp;portrait=0" width="500" height="281" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
 <h3 id="configuring-slack">Configuring Slack</h3><h4 id="step-1--quotauthorizifyquot-supportkit-so-that-it-can-talk-to-your-slack">Step 1. “Authorizify” SupportKit so that it can talk to your Slack</h4><h4 id="step-2--set-up-a-new-quotslash-commandquot-so-that-you-can-send-messages-to-supportkit">Step 2. Set up a new “slash command” so that you can send messages to SupportKit</h4>
-<p><img src="/images/slashcmd.png" alt="Slash Command Setup"></p>
+<p><%= image_tag "marketing/welcome_page/piggy.jpg" %></p>
 
 <p></p><aside class="notice">
 Make sure you remember to fill in the “Token” field of the form in Step 2 with the token that Slack’s slash command setup page provides you.
@@ -279,7 +279,7 @@ Make sure you remember to fill in the “Token” field of the form in Step 2 wi
 <li><p>Now, pick the mailbox you want to recieve app user messages in, and next time one of your users messages you using SupportKit, the conversation will appear in the Help Scout mailbox.</p></li>
 </ol>
 
-<p><img style="width:50%; min-width:400px; max-width:800px;" src="/images/helpscout_settings.png" alt="Configure Help Scout integration page"></p>
+<p><%= image_tag "marketing/welcome_page/piggy.jpg" %></p>
 <h3 id="instant-messaging-from-a-help-scout-mailbox">Instant messaging from a Help Scout mailbox</h3>
 <p>You can change or delete the Help Scout mailbox that SupportKit sends messages to, but you should note that conversations will not automatically migrate to the new mailbox. You must move the conversations you wish to have in the new mailbox via the Help Scout UI. Otherwise they will continue in the previously configured mailbox. Update your settings before deleting a Help Scout mailbox. If the mailbox configured on SupportKit no longer exists, messages will be lost.</p>
 
@@ -288,15 +288,15 @@ Make sure you remember to fill in the “Token” field of the form in Step 2 wi
 <h3 id="configuring-zendesk-ticketing">Configuring Zendesk ticketing</h3>
 <p>Configuring SupportKit to communicate with Zendesk is easy. Go to your app settings on the SupportKit admin page, and in the Zendesk settings, enter your Zendesk subdomain and click on the authenticate button.</p>
 
-<p><img style="width:50%; min-width:400px; max-width:800px;" src="/images/zendesk_integration.png" alt="Configure Zendesk integration page"></p>
+<p><%= image_tag "marketing/welcome_page/piggy.jpg" %></p>
 
 <p>In order to maintain all your interactions with an app user under a single Zendesk End-user profile, it’s important to <a href="#identifying-your-users">set the email</a> of your user in your app’s SupportKit integration.</p>
 <h4 id="configuring-agent-images">Configuring agent images</h4>
 <p>You can set an agent’s image in your app (as pictured below) by creating a <a href="http://www.gravatar.com/">Gravatar</a> image associated with the agent’s email address.
-<img style="width:50%; min-width:200px; max-width:400px;" src="/images/agent_thumb.png" alt="Set agent images"></p>
+<%= image_tag "marketing/welcome_page/piggy.jpg" %></p>
 <h4 id="working-with-zendesk-email-signatures">Working with Zendesk email signatures</h4>
 <p>SupportKit automagically removes agent’s personal signatures from messages. Global signatures can be set, but must be prefixed with <code class="prettyprint">--</code>, if they aren’t, you’ll see them appear in SK message bubbles, and it can be unsightly.
-<img style="width:50%; min-width:200px; max-width:400px;" src="/images/unsightly_signature.png" alt="Oops, how unsightly"></p>
+<%= image_tag "marketing/welcome_page/piggy.jpg" %></p>
 <h4 id="optional-additional-information-on-configuration">Optional additional information on Configuration</h4>
 <p>Once you are authenticated with your Zendesk app, SupportKit will automatically configure targets and triggers so that your Zendesk agents can communicate with your SupportKit app users.</p>
 
@@ -338,7 +338,7 @@ Make sure you remember to fill in the “Token” field of the form in Step 2 wi
 <div name="how-do-whispers-work" data-unique="how-do-whispers-work"></div><h2 id="how-do-whispers-work">How do Whispers work</h2>
 <p>You create Whispers from within the <a href="https://app.supportkit.io">SupportKit dashboard</a> by specifying which users should receive your message, the message you’d like to send to your users and the event that should trigger delivery of this message. For example, to create a Whisper that would <span class="search-highlight">check</span> in to see how users are doing 2 days after installing an app, you’d create a custom Whisper with these settings:</p>
 
-<p><img alt="Whisper creation form" src="../images/create_whisper.png"></p>
+<p><%= image_tag "marketing/welcome_page/piggy.jpg" %></p>
 <h3 id="targeting-a-group-of-users">Targeting a group of users</h3>
 <p>You can target your users based on any information that you’ve stored in <code class="prettyprint">properties</code> array first set during <code class="prettyprint">init</code>. We also provide several built-in properties that you can use without instrumenting your app with calls to SupportKit object.</p>
 
@@ -371,12 +371,12 @@ Make sure you remember to fill in the “Token” field of the form in Step 2 wi
           <div name="adding-user-actions-to-a-whisper" data-unique="adding-user-actions-to-a-whisper"></div><h2 id="adding-user-actions-to-a-whisper">Adding user actions to a Whisper</h2>
 <p>You can prompt your users to take actions by adding action buttons to your Whisper. Clicking on ‘Add an action’ will open up a new input box where you can specify the button text and what action to take when the user clicks on the button.</p>
 
-<p><img alt="Whisper add action" src="../images/whisper_action.png"></p>
+<p><%= image_tag "marketing/welcome_page/piggy.jpg" %></p>
 
 <p>For more information on whisper actions, see <a href="#sending-action-buttons">this section</a> of the docs.</p>
 
           <div name="managing-whispers" data-unique="managing-whispers"></div><h2 id="managing-whispers">Managing Whispers</h2>
-<p><img alt="Manage Whispers" src="../images/whisper_manage.png"></p>
+<p><%= image_tag "marketing/welcome_page/piggy.jpg" %></p>
 
 <p>Once you’ve created a Whisper you can manage it from within the SupportKit web interface. By clicking on the “Whispers” link in the navigation bar, you’ll be presented with a list of Whispers as well as the number of users who have been exposed to them while running your app.</p>
 

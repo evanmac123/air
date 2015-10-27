@@ -1,7 +1,7 @@
 body.supports-show {
   // @import "jquery.tocify";
   @import "tocify.modified";
-  header {
+  header, footer {
     display: none;
   }
   $nav-width: 300px;
@@ -36,7 +36,7 @@ body.supports-show {
     .tocify {
       margin-top: 20px;
       li {
-        font-size: 15px;
+        font-size: 14px;
         font-weight: 600;
         line-height: 40px;
         margin-left: 36px;
@@ -49,7 +49,12 @@ body.supports-show {
       }
       .tocify-item {
         a {
+          display: block;
           color: $white;
+          padding: 0;
+          overflow-x: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
         }
         &.active a, a:hover {
           color:#133F58;
@@ -79,6 +84,79 @@ body.supports-show {
     position: relative;
     // z-index: 30;
     max-width: 1200px;
-    padding-top: 30px;
+    padding: 30px;
+    img {
+      display: block;
+      margin: auto;
+      width: 50%;
+    }
+    p {
+      line-height: 1.6;
+    }
+    a {
+      color: #2E92CC;
+    }
+    pre {
+      font-family: Consolas, Menlo, Monaco, "Lucida Console", "Liberation Mono", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Courier New", monospace, serif;
+      font-size: 12px;
+      line-height: 1.5;
+      border-left-color:#2F95D0;
+      background-color: #292929;
+      color: #fff;
+      padding: 2em 28px;
+      margin: 0;
+      margin-right: 28px;
+      float: none;
+      clear: none;
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      background-color: #362d38;
+      border-radius: 3px;
+      margin-left: 42px;
+      padding: 0.8em 18px;
+      background-color: #242632;
+      border-left: 6px solid #912d8d;
+      color: #dee3ec;
+      font-size: 13px;
+      line-height: 1.6;
+      margin: 0;
+      margin-bottom: 1.4em;
+    }
+    code {
+      background-color: rgba(0,0,0,0.05);
+      padding: 3px;
+      border-radius: 3px;
+      text-shadow: none;
+    }
+    aside {
+      padding-top: 1em;
+      padding-bottom: 1em;
+      text-shadow: 0 1px 0 #c6dde9;
+      margin-top: 1.5em;
+      margin-bottom: 1.5em;
+      margin-right: 28px;
+      background: #8fbcd4;
+      line-height: 1.6;
+      background: #efd7ee;
+      padding: 0.8em 20px;
+      text-shadow: none;
+      border: 1px solid #912d8d;
+      border-radius: 3px;
+      border: none;
+      background:#C0E6FC;
+      &.notice:before {
+        font: normal normal normal 14px/1 FontAwesome;
+        // speak: none;
+        // font-style: normal;
+        // font-weight: normal;
+        // font-variant: normal;
+        // text-transform: none;
+        // line-height: 1;
+        font-size: 16px;
+        content: "\f05a";
+        color:#2D8FC8
+      }
+    }
   }
 }
