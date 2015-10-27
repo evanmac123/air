@@ -319,8 +319,8 @@ body.client_admin-tile_stats, body.client_admin-tiles.client_admin-tiles-index {
       width: 87%;
       box-shadow: 0px 2px 3px -2px rgba(0,0,0,0.22);
 
-      border-bottom-left-radius: 8px;
-      border-bottom-right-radius: 8px;
+      // border-bottom-left-radius: 8px;
+      // border-bottom-right-radius: 8px;
       border-collapse: separate;
       overflow: hidden;
       th {
@@ -337,6 +337,16 @@ body.client_admin-tile_stats, body.client_admin-tiles.client_admin-tiles-index {
         }
         span {
           color: #4c4c4c;
+        }
+      }
+      tr:last-child {
+        td:first-child {
+          border-bottom-left-radius: 6px;
+          overflow: hidden;
+        }
+        td:last-child {
+          border-bottom-right-radius: 6px;
+          overflow: hidden;
         }
       }
       td {
