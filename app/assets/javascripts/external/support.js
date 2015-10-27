@@ -1,7 +1,7 @@
 $(function() {
   //Calls the tocify method on your HTML div.
-  support = $("#support_tocify");
+  support = $("#toc");
   if(support.length > 0){
-    $("#support_tocify").tocify({context: "#support_content"});
+    support.tocify({context: ".content"});
   }
 });
