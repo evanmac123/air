@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151020120848) do
+ActiveRecord::Schema.define(:version => 20151028142209) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -601,6 +601,12 @@ ActiveRecord::Schema.define(:version => 20151020120848) do
   end
 
   add_index "suggestions", ["user_id"], :name => "index_suggestions_on_user_id"
+
+  create_table "supports", :force => true do |t|
+    t.text     "body",       :default => ""
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+  end
 
   create_table "survey_answers", :force => true do |t|
     t.integer  "user_id"
