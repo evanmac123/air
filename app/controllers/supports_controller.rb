@@ -4,6 +4,6 @@ class SupportsController < ApplicationController
 
   def show
     @support = Support.instance
-    @content_path = "supports/demo_content"
+    @content_path = "supports/content"
   end
 end
