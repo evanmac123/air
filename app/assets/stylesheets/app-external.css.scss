@@ -1,3 +1,7 @@
+/*
+*= require medium-editor/medium-editor
+*= require medium-editor/themes/default
+*/
 /* For all */
 @import "./vendor/normalize.css.scss";
 @import "./vendor/foundation.min.css.scss";
@@ -6,6 +10,7 @@
 @import "./mixins/lightbox.css.scss";
 @import "./internal/intercom.css.scss";
 @import "./internal/flash.css.scss";
+@import "font-awesome";
 
 @import './internal/tile_thumbnail/tiles_thumbnails_desktop';
 @import './internal/tile_fullsize/tiles_fullsize';
@@ -37,6 +42,9 @@
 
 /* External unsubscribe page */
 @import "./external/_unsubscribe.css.scss";
+
+@import "./external/support.css.scss";
+
 
 /* RWD */
 @media only screen and (min-width: $foundation) {

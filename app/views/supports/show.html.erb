@@ -1,0 +1,17 @@
+<a href="#" id="nav-button" class="" data-select-like-a-boss="1">
+  <span>NAV</span>
+</a>
+<div class="tocify-wrapper">
+  <%= image_tag "airbo_logo_white.png" %>
+  <div class="separator separator-top"></div>
+  <div class="search">
+    <input type="text" class="search" id="input-search" placeholder="Search">
+  </div>
+  <ul class="search-results"></ul>
+  <div id="toc"></div>
+</div>
+<div class="page-wrapper">
+  <div class="content">
+    <%= render partial: @content_path %>
+  </div>
+</div>

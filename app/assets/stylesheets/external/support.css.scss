@@ -1,0 +1,179 @@
+body.supports-show, body.admin-supports-show, body.admin-supports-edit {
+  // @import "jquery.tocify";
+  @import "tocify.modified";
+  header, footer {
+    display: none;
+  }
+  $nav-width: 300px;
+  //
+  //  => Navigation
+  //
+  .tocify-wrapper {
+    // -moz-transition: left 0.3s ease-in-out;
+    // -o-transition: left 0.3s ease-in-out;
+    // -webkit-transition: left 0.3s ease-in-out;
+    // transition: left 0.3s ease-in-out;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: fixed;
+    // z-index: 30;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    // background-color: #f3f5f6;
+    font-size: 13px;
+    font-weight: bold;
+    background-color: #2F95D0;
+    // box-shadow: inset -30px 0 39px -18px rgba(0,0,0,0.15);
+    padding: 34px 0;
+    width: $nav-width;
+    img {
+      display: block;
+      margin: auto;
+      margin-bottom: 30px;
+      width: 100px;
+    }
+    .tocify {
+      margin-top: 20px;
+      li {
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 40px;
+        margin-left: 36px;
+        margin-right: 36px;
+      }
+      .tocify-subheader .tocify-item>a {
+        font-size: 13px;
+        font-weight: 500;
+        padding-left: 25px;
+      }
+      .tocify-item {
+        a {
+          display: block;
+          color: $white;
+          padding: 0;
+          overflow-x: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+        &.active a, a:hover {
+          color:#133F58;
+        }
+      }
+    }
+  }
+  .separator {
+    border-top: 1px solid #49A8DF;
+  }
+  .separator-top {
+    margin-top: 10px;
+  }
+  //
+  //  => Content
+  //
+  .page-wrapper {
+    position: relative;
+    z-index: 10;
+    background-color: #ffffff;
+    min-height: 100%;
+    padding-bottom: 1px;
+    background-color: transparent;
+    margin-left: $nav-width;
+  }
+  .content {
+    position: relative;
+    // z-index: 30;
+    max-width: 1200px;
+    padding: 30px;
+    img {
+      display: block;
+      margin: auto;
+      width: 50%;
+    }
+    p {
+      line-height: 1.6;
+    }
+    a {
+      color: #2E92CC;
+    }
+    pre {
+      font-family: Consolas, Menlo, Monaco, "Lucida Console", "Liberation Mono", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Courier New", monospace, serif;
+      font-size: 12px;
+      line-height: 1.5;
+      border-left-color:#2F95D0;
+      background-color: #292929;
+      color: #fff;
+      padding: 2em 28px;
+      margin: 0;
+      margin-right: 28px;
+      float: none;
+      clear: none;
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      background-color: #362d38;
+      border-radius: 3px;
+      margin-left: 42px;
+      padding: 0.8em 18px;
+      background-color: #242632;
+      border-left: 6px solid #912d8d;
+      color: #dee3ec;
+      font-size: 13px;
+      line-height: 1.6;
+      margin: 0;
+      margin-bottom: 1.4em;
+    }
+    code {
+      background-color: rgba(0,0,0,0.05);
+      padding: 3px;
+      border-radius: 3px;
+      text-shadow: none;
+    }
+    aside {
+      padding-top: 1em;
+      padding-bottom: 1em;
+      text-shadow: 0 1px 0 #c6dde9;
+      margin-top: 1.5em;
+      margin-bottom: 1.5em;
+      margin-right: 28px;
+      background: #8fbcd4;
+      line-height: 1.6;
+      background: #efd7ee;
+      padding: 0.8em 20px;
+      text-shadow: none;
+      border: 1px solid #912d8d;
+      border-radius: 3px;
+      border: none;
+      background:#C0E6FC;
+      &.notice:before {
+        font: normal normal normal 14px/1 FontAwesome;
+        // speak: none;
+        // font-style: normal;
+        // font-weight: normal;
+        // font-variant: normal;
+        // text-transform: none;
+        // line-height: 1;
+        font-size: 16px;
+        content: "\f05a";
+        color:#2D8FC8
+      }
+    }
+  }
+}
+// Form styling
+body.admin-supports-edit{
+  textarea {
+    width: 100%;
+    height: 100%;
+    display: none;
+  }
+  input[type="submit"]{
+    @include light-button($white);
+    position: fixed;
+    top: 185px;
+    left: 75px;
+  }
+  .medium-editable {
+    min-height: 100px;
+  }
+}

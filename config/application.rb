@@ -49,6 +49,7 @@ module Health
       external/standalone_ie8.css
       internal/internal_ie8.css
       client_admin/client_admin_ie8.css
+      app-support.css
       app-admin.js
       app-internal.js
       app-external.js
@@ -72,6 +73,7 @@ module Health
       resizing_gears_fullsize.gif
       internal/guest_user_conversion.js
       client_admin/public_board_controls.js
+      app-support.js
       internal/explore.css
       Explore_tile_page/antioxidents.png
       Explore_tile_page/drink_water.png

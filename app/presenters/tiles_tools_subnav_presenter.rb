@@ -118,7 +118,7 @@ class TilesToolsSubnavPresenter
       },
       {
         item_id: "admin_help", 
-        link: DeskSSO.new(current_user).url, 
+        link: support_path,
         icon: "question", 
         text: "Help",
         link_options: { target: "_blank" }

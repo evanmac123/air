@@ -72,6 +72,8 @@ Health::Application.routes.draw do
   get "terms" => "pages#terms", :as => "terms"
   get "privacy" => "pages#privacy", :as => "privacy"
 
+  resource :support, only: :show
+
   resource :home,  :only => :show
   resource :admin, :only => :show
   resource :client_admin, :only => :show
@@ -295,5 +297,6 @@ Health::Application.routes.draw do
     resources :tile_images, only: [:create, :index, :destroy]
     resource :bulk_upload_progress, only: [:show]
     resource :bulk_upload_errors, only: [:show]
+    resource :support, only: [:show, :edit, :update]
   end
 end
