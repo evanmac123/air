@@ -1,6 +1,8 @@
 //= require jquery
 //= require jquery.ui.autocomplete
 //= require mobvious-rails
+//= require application
+//= require  medium-editor.min
 //= require ./internal_and_external/underscore-min
 //= require_tree ../../../vendor/assets/javascripts/external/
 //= require ./external/prefilled_input.js

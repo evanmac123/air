@@ -1,5 +1,6 @@
 <div class="content">
   <%= form_for @support, url: admin_support_path do |f| %>
+    <%= content_tag :div, "", id: "support_body_editor", class: "medium-editable", data: {field: "support_body"} %>
     <%= f.text_area :body %>
     <%= f.submit %>
   <% end %>
