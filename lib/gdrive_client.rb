@@ -7,7 +7,7 @@ class GdriveClient
   SCOPE= ["https://www.googleapis.com/auth/drive", "https://spreadsheets.google.com/feeds/"] 
   FREE_HRM_ROW_INDEX = 8 
   
-  attr_accessor :google_api_session, :mixpanel_client, :kpi_worksheet
+  attr_accessor :google_api_session, :mixpanel_client, :kpi_worksheet, :mixpanel_worksheet
 
    def initialize
      auth_to_google_drive
@@ -18,7 +18,8 @@ class GdriveClient
 
    def run_report 
      file = google_api_session.spreadsheet_by_title(ENV['KPI_SPREADSHEET_NAME'])
-     @kpi_worksheet = file.worksheets[1]
+     @kpi_worksheet = file.worksheet_by_title("KPIs")
+     @mixpanel_worksheet = file.worksheet_by_title("Mixpanel Data")
      setup_kpi_worksheet
 
      populate_data
@@ -33,7 +34,7 @@ class GdriveClient
    #------------------------------------------
 
    def populate_data
-     mixpanel_free_hrm_activity
+     #mixpanel_free_hrm_activity
      mixpanel_all_activity_by_user_type
      #update_free_hrms
    end
@@ -49,7 +50,7 @@ class GdriveClient
    #------------------------------------------
 
    def mixpanel_free_hrm_activity
-     data = mixpanel_client.request(
+     result = mixpanel_client.request(
        'segmentation',
        event:     'Activity Session - New',
        from_date: '2015-10-12',
@@ -63,7 +64,7 @@ class GdriveClient
    end
 
    def mixpanel_all_activity_by_user_type
-     data = mixpanel_client.request(
+     result = mixpanel_client.request(
        'segmentation/multiseg',
        event:     'Activity Session - New',
        from_date: '2015-10-12',
@@ -73,7 +74,9 @@ class GdriveClient
        inner:    'properties["user_type"]',
        outer:     'properties["game"]',
      )
-    binding.pry
+
+     process_mixpanel_all_activity_by_user_type result["data"]["values"]
+     mixpanel_worksheet.save
    end
 
    #-----------------------------------------
@@ -92,6 +95,29 @@ class GdriveClient
    def paid_client_admins_by_user_type
      @paid_client_admins_by_user_type ||= User.joins(:board_memberships).joins(:demos).where("users.is_client_admin is true and demos.is_paid is true").pluck("users.id").uniq
    end
+
+   #-----------------------------------------
+   # Process mixpanel date
+   #------------------------------------------
+
+    def process_mixpanel_all_activity_by_user_type data
+      export=[]
+      ["Board", "Client Admin","User","Guest"].each_with_index do|header,idx|
+        mixpanel_worksheet[1,idx+1] = header
+      end
+
+      row_idx =2
+
+      data.each_with_index do |(board,types), idx| 
+        row = []
+        mixpanel_worksheet[row_idx, 1]=board
+        mixpanel_worksheet[row_idx, 2]=data[board]["client admin"].values.first
+        mixpanel_worksheet[row_idx, 3]=data[board]["ordinary user"].values.first
+        mixpanel_worksheet[row_idx, 4]=data[board]["guest"].values.first
+       row_idx+=1
+      end
+      mixpanel_worksheet.save
+    end
 
 
    #-----------------------------------------
