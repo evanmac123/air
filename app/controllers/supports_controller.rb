@@ -3,5 +3,6 @@ class SupportsController < ApplicationController
   layout "external"
 
   def show
+    @content_path = "supports/content"
   end
 end

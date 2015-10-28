@@ -297,6 +297,6 @@ Health::Application.routes.draw do
     resources :tile_images, only: [:create, :index, :destroy]
     resource :bulk_upload_progress, only: [:show]
     resource :bulk_upload_errors, only: [:show]
-    resource :support, only: :show
+    resource :support, only: [:show, :edit, :update]
   end
 end
