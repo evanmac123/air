@@ -611,6 +611,3 @@ DEPENDENCIES
   uglifier
   unicorn
   wice_grid!
-
-BUNDLED WITH
-   1.10.6
