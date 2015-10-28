@@ -16,6 +16,6 @@ class Admin::SupportsController < AdminBaseController
   def update
     @support = Support.instance
     @support.update_attributes(params[:support])
-    redirect_to 'edit'
+    redirect_to edit_admin_support_path
   end
 end
