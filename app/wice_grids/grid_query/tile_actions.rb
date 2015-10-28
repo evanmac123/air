@@ -3,7 +3,7 @@ class GridQuery::TileActions
   # query_type: all, viewed, not_viewed, viewed_and_interacted, viewed_and_not_interacted
   GRID_TYPES = {
     "live" => "Live",
-    "viewed_and_interacted" => "Viewed and interacted",
+    "interacted" => "Interacted",
     "viewed_only" => "Viewed only",
     "not_viewed" => "Didn't view",
     "all" => "All"
@@ -65,7 +65,7 @@ class GridQuery::TileActions
       all.where{ tile_viewings.id != nil }.where{ tile_completions.id == nil }
     end
 
-    def viewed_and_interacted
+    def interacted
       all.where{ tile_viewings.id != nil }.where{ tile_completions.id != nil }
     end
 

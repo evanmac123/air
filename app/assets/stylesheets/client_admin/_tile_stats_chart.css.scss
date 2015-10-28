@@ -2,7 +2,7 @@ body.client_admin-tile_stats, #tile_stats_modal {
   // General styles
   .tile_chart_section {
     overflow: hidden;
-    margin-bottom: 55px;
+    margin-bottom: 40px;
     margin-right: -10px;
   }
   .actions_column {
@@ -13,6 +13,7 @@ body.client_admin-tile_stats, #tile_stats_modal {
     float: left !important;
     position: relative;
     width: calc(100% - 200px);
+    height: 275px;
     margin-top: 6px;
     // hide download in chart
     .highcharts-button {
@@ -27,7 +28,7 @@ body.client_admin-tile_stats, #tile_stats_modal {
 
   .action_type_block {
     margin-bottom: 27px;
-    padding: 8px 0 8px 18px;
+    padding: 4px 0 7px 18px;
     border-left: 3px solid transparent;
     &:last-child {
       margin-bottom: 0;
@@ -180,13 +181,13 @@ body.client_admin-tile_stats, #tile_stats_modal {
         color: #636363;
         border-color: #9E9E9E;
       }
-      &:active {
+      &:active, &.opened {
         color: #424242;
         border-color: #808080;
       }
-      &.opened {
-        border-color: $sky-blue;
-      }
+      // &.opened {
+      //   border-color: $sky-blue;
+      // }
     }
     span {
       float: left;
@@ -226,7 +227,7 @@ body.client_admin-tile_stats, #tile_stats_modal {
     position: absolute;
     top: 53px;
     left: 0;
-    height: 207px;
+    height: 228px;
     width: 737px;
   }
 }
@@ -264,7 +265,7 @@ body.client_admin-tile_stats, body.client_admin-tiles.client_admin-tiles-index {
     }
 
     .ui-datepicker-header {
-      width: 87%;
+      width: 88.5%;
       background: #f5f5f5;
       border: 1px solid $border-color;
       border-bottom-width: 0;
@@ -273,10 +274,10 @@ body.client_admin-tile_stats, body.client_admin-tiles.client_admin-tiles-index {
       border-top-right-radius: 5px;
       border-top-left-radius: 5px;
       .ui-icon-circle-triangle-w, .ui-icon-circle-triangle-e {
-        border: 5px solid #f5f5f5;
+        border: 4px solid #f5f5f5;
         background-image: none;
-        height: 10px;
-        margin-top: -5px;
+        height: 8px;
+        margin-top: -4px;
         &:hover {
           background-image: none;
         }
@@ -317,20 +318,42 @@ body.client_admin-tile_stats, body.client_admin-tiles.client_admin-tiles-index {
       margin: 0;
       width: 87%;
       box-shadow: 0px 2px 3px -2px rgba(0,0,0,0.22);
-      thead tr {
-        border: 1px solid $border-color;
-      }
+
+      // border-bottom-left-radius: 8px;
+      // border-bottom-right-radius: 8px;
+      border-collapse: separate;
+      overflow: hidden;
       th {
         background-color: #f5f5f5;
         padding: 6px 0;
+        border: 1px solid $border-color;
+        border-left-width: 0;
+        border-right-width: 0;
+        &:first-child {
+          border-left-width: 1px;
+        }
+        &:last-child {
+          border-right-width: 1px;
+        }
         span {
           color: #4c4c4c;
+        }
+      }
+      tr:last-child {
+        td:first-child {
+          border-bottom-left-radius: 6px;
+          overflow: hidden;
+        }
+        td:last-child {
+          border-bottom-right-radius: 6px;
+          overflow: hidden;
         }
       }
       td {
         padding: 0;
         border: 1px solid $border-color;
         background: $white;
+        // height: 26px;
         &.ui-datepicker-other-month {
           a {
             opacity: 1;
@@ -349,15 +372,15 @@ body.client_admin-tile_stats, body.client_admin-tiles.client_admin-tiles-index {
         a {
           background: white;
           text-align: center;
-          border-color: white;
+          // border-color: white;
+          border: none;
           color: $color-passive;
           font-weight: 700;
-          line-height: 1.6;
-          &:hover {
-            color: #2e2e2c;
-          }
-          &.ui-state-active {
-            background: $sky-blue;
+          line-height: 2;
+          padding: 0;
+          width: 26px;
+          &:hover, &.ui-state-active {
+            background: $gray;
             color: $white;
           }
         }
