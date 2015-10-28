@@ -1,9 +1,9 @@
 class SupportsController < ApplicationController
   skip_before_filter :authorize
-  layout "external"
+  layout "support"
 
   def show
     @support = Support.instance
-    @content_path = "supports/content"
+    @content_path = "supports/demo_content"
   end
 end
