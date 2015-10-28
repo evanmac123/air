@@ -1,5 +1,5 @@
 class Admin::SupportsController < AdminBaseController
-  layout "external"
+  layout "support"
 
   def show
     @support = Support.instance
