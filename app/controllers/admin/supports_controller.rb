@@ -2,6 +2,7 @@ class Admin::SupportsController < AdminBaseController
   layout "external"
 
   def show
+    @support = Support.instance
     @content_path = "supports/content"
     render 'supports/show'
   end

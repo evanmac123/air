@@ -96,22 +96,24 @@ Airbo.Utils = {
       }
     }
 
-    function init() {
+    function init(params) {
+      params = params || {};
       reset();
 
       $('.medium-editable').each(function(){
 
-         editor = new MediumEditor(this, {
-          staticToolbar:true, 
+        defaultParams = {
+          staticToolbar:true,
           buttonLabels: 'fontawesome',
           targetBlank: true,
           anchor: {
-            linkValidation: true,
+           linkValidation: true,
           },
           toolbar: {
-            buttons: ['bold', 'italic', 'underline', 'unorderedlist', 'orderedlist', "anchor"]
+           buttons: ['bold', 'italic', 'underline', 'unorderedlist', 'orderedlist', "anchor"]
           }
-        });
+        };
+        editor = new MediumEditor(this, $.extend(defaultParams, params) );
         editor.trigger("focus");
 
         fieldName = $(this).data('field')
@@ -138,7 +140,7 @@ Airbo.Utils = {
     }
 
     return {
-      init: init 
+      init: init
     };
 
   }())
@@ -170,7 +172,7 @@ Airbo.Utils.PluginExtentions = (function(){
   }
 
   function init(){
-    forJQueryValidator(); 
+    forJQueryValidator();
   }
  return {
   init: init
@@ -184,4 +186,3 @@ $(function(){
 
 //FIXME Deprecated
 Airbo.LoadedSingletonModules = [];
-
