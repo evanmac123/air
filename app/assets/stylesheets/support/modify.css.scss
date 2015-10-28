@@ -1,3 +1,6 @@
+#nav-button span {
+  background-color:#2F95D0;
+}
 .tocify-wrapper {
   background-color:  #2F95D0;
   padding: 34px 0;
@@ -32,5 +35,19 @@
   .tocify-focus {
     color:#133F58;
     background: transparent;
+  }
+}
+.content{
+  a{
+    color: #2E92CC !important;
+  }
+  pre {
+    border-left-color:#2F95D0;
+  }
+  aside {
+    background:#C0E6FC;
+    &.notice:before {
+      color:#2D8FC8;
+    }
   }
 }
