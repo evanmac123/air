@@ -4,6 +4,6 @@ class SupportsController < ApplicationController
 
   def show
     @support = Support.instance
-    @content_path = "supports/content"
+    @content_path = params[:demo] == "true" ? "supports/demo_content" : "supports/content"
   end
 end
