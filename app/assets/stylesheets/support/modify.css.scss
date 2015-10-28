@@ -1,0 +1,36 @@
+.tocify-wrapper {
+  background-color:  #2F95D0;
+  padding: 34px 0;
+  img {
+    width: 100px;
+    margin: auto;
+    margin-bottom:30px;
+  }
+  .search {
+    margin-bottom: 0;
+    border-bottom: none;
+    &:before {
+      color:#fff;
+      opacity: 0.95;
+    }
+    input::-webkit-input-placeholder {
+      color: white;
+      opacity: 0.95;
+    }
+  }
+  .search-results {
+    box-shadow: none;
+    border-bottom: 1px solid #49A8DF;
+    margin-bottom:1.5em;
+    li a {
+      color:#fff;
+    }
+  }
+  .separator {
+    border-color: #49A8DF;
+  }
+  .tocify-focus {
+    color:#133F58;
+    background: transparent;
+  }
+}
