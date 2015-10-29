@@ -27,10 +27,24 @@ class TileTag < ActiveRecord::Base
     TileTag.where("title ILIKE ?", "#{text}").first
   end
 
+  def self.rearrange_by_other
+    self.rearrange "Other"
+  end
+
+  def self.rearrange last_tag_name
+    tags = self.all
+    i = tags.index{|t| t.title == last_tag_name}
+    if i
+      last_tag = tags.delete_at(i)
+      tags.push(last_tag)
+    end
+    tags
+  end
+
   private
 
   def set_topic
-    if topic.nil? 
+    if topic.nil?
       self.topic = Topic.where(:name => "Other").first
     end
   end
