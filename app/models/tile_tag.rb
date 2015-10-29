@@ -45,7 +45,7 @@ class TileTag < ActiveRecord::Base
 
   def set_topic
     if topic.nil?
-      self.topic = Topic.where(:name => "Other").first
+      self.topic = Topic.find_or_create("Other")
     end
   end
 end

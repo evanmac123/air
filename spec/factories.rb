@@ -351,7 +351,7 @@ FactoryGirl.define do
   end
 
   factory :topic do
-    name "Good Topic"
+    sequence(:name) {|n| "Good Topic #{n}"}
   end
 
   factory :billing_information do
