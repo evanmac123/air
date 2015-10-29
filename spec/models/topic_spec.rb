@@ -47,4 +47,16 @@ describe Topic do
       old_topic == topic
     end
   end
+
+  describe ".rearrange" do
+    it "should put topic to last position by name" do
+      ["Wellness", "Compliance", "Other", "Recruitment"].each{|name| Topic.create(name: name)}
+      Topic.rearrange("Other").map(&:name).should == ["Wellness", "Compliance", "Recruitment", "Other"]
+    end
+
+    it "should leave topics unchangable if topic with the name is not present" do
+      ["Wellness", "Compliance", "Recruitment"].each{|name| Topic.create(name: name)}
+      Topic.rearrange("Other").map(&:name).should == ["Wellness", "Compliance", "Recruitment"]
+    end
+  end
 end
