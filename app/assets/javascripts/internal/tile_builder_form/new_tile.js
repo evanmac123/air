@@ -541,7 +541,7 @@ Airbo.TileCreator = (function(){
     });
 
     $(document).on('opened.fndtn.reveal',imagesModalSelector, function () {
-      $("body").css({"overflow-y": "hidden"});
+      $("body").css({"overflow-y": "hidden"}).addClass("client_admin-tiles-edit");
     });
 
   }
