@@ -45,14 +45,14 @@ feature "Client admin downloads tile stats" do
   end
 
   it "should download" do
-    visit download_link("viewed_and_interacted")
+    visit download_link("interacted")
 
     page.response_headers['Content-Type'].should =~ %r{text/csv}
     page.response_headers['Content-Disposition'].should =~ report_name
   end
 
-  it "should download 'Viewed and Interacted' report" do
-    visit download_link("viewed_and_interacted")
+  it "should download 'Interacted' report" do
+    visit download_link("interacted")
 
     expected_data = <<CSV
 Name,Email,Views,Answer,Date
