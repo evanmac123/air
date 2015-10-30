@@ -19,28 +19,6 @@ feature 'Client Admin uses menu on tile preview page of suggested tile' do
     page.find(".tile_preview_intro")
   end
 
-  def intro_text
-    "Accept the tile to use it in your Board, or Ignore it to mark it as reviewed."
-  end
-
-  context "Intro For Submitted Tile" do
-    let!(:tile) { FactoryGirl.create :multiple_choice_tile, :user_submitted, demo: demo }
-
-    before do
-      client_admin.update_attribute(:submitted_tile_menu_intro_seen, false)
-      visit client_admin_tile_path(tile, as: client_admin)
-    end
-
-    it "should show intro first time", js: true do
-      intro_tooltip.should be_present
-      expect_content intro_text
-      click_link "Got it"
-      expect_no_content intro_text
-      visit client_admin_tile_path(tile, as: client_admin)
-      expect_no_content intro_text
-    end
-  end
-
   context "Submitted Tile" do
     let!(:tile) { FactoryGirl.create :multiple_choice_tile, :user_submitted, demo: demo }
 
@@ -70,7 +48,7 @@ feature 'Client Admin uses menu on tile preview page of suggested tile' do
     end
 
     context "Accept Link" do
-      before do 
+      before do
         click_link "Accept"
         # moved to draft section on tile manager page
         current_path.should == client_admin_tiles_path

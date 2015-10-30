@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151028142209) do
+ActiveRecord::Schema.define(:version => 20151030191149) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -985,7 +985,6 @@ ActiveRecord::Schema.define(:version => 20151028142209) do
     t.datetime "last_unmonitored_mailbox_response_at"
     t.boolean  "allowed_to_make_tile_suggestions",                    :default => false,       :null => false
     t.boolean  "submitted_tile_menu_intro_seen",                      :default => false,       :null => false
-    t.boolean  "submit_tile_intro_seen",                              :default => false,       :null => false
     t.boolean  "suggestion_box_intro_seen",                           :default => false,       :null => false
     t.boolean  "send_weekly_activity_report",                         :default => true
     t.boolean  "user_submitted_tile_intro_seen",                      :default => false,       :null => false
