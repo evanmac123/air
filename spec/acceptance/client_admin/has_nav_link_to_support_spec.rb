@@ -1,7 +1,7 @@
 require 'acceptance/acceptance_helper'
 
-feature 'Has nav link to desk' do
-  let(:fake_url)            { "https://www.example.com/hengage-desk" }
+feature 'Has nav link to support' do
+  let(:fake_url)            { "/support" }
   let(:desk_link_selector)  { "a[href='#{fake_url}']" }
   let(:desk_link_text)      { "Help" }
 
