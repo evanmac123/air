@@ -1,0 +1,16 @@
+<%= form_for board, url: cover_message_client_admin_board_settings_path, html: { id: "edit_board_cover_message"} do |form| %>
+  <%= form.label :cover_message, "Cover Message" %>
+  <%= form.text_area :cover_message, placeholder: "Cover me", rows: 5, maxlength: 160 %>
+  <div class="error_message">
+    Sorry, that message is invalid.
+  </div>
+  <%= form.submit "Update", disabled: true %>
+  <a class="clear_form">Clear</a>
+<% end %>
+
+<% js_at_end do %>
+  $().ready(function(){
+    addCharacterCounterFor( $("#demo_cover_message") );
+    window.formWithClearableTextField("#demo_cover_message");
+  })
+<% end %>

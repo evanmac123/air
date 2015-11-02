@@ -35,7 +35,7 @@ class ClientAdmin::BoardSettingsController < ClientAdminBaseController
   end
 
   def weekly_activity_email
-		@board_membership.send_weekly_activity_report= params[:board_membership][:send_weekly_activity_report]	
+		@board_membership.send_weekly_activity_report= params[:board_membership][:send_weekly_activity_report]
     render json: { success: @board_membership.save }
   end
 
@@ -56,7 +56,11 @@ class ClientAdmin::BoardSettingsController < ClientAdminBaseController
 
   def welcome_message
     @board.persistent_message = params[:demo][:persistent_message]
-    
+    render json: { success: @board.save }
+  end
+
+  def cover_message
+    @board.cover_message = params[:demo][:cover_message]
     render json: { success: @board.save }
   end
 

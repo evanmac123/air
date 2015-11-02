@@ -201,6 +201,7 @@ Health::Application.routes.draw do
         put 'public_link'
         put 'welcome_message'
 				put 'weekly_activity_email'
+        put 'cover_message'
       end
     end
 
