@@ -42,8 +42,8 @@ $(function() {
       }
 
       function setFormFieldsForSelectedImage(url, type){
-        remoteMediaUrl.val(url); 
-        remoteMediaType.val(type || "image"); 
+        remoteMediaUrl.val(url);
+        remoteMediaType.val(type || "image");
       }
 
 
@@ -110,14 +110,14 @@ $(function() {
           return this;
         }
       }
-     
+
 
       return {
         init: init,
         showImagePreview: showImagePreview,
         showFileName: showFileName,
         directUploadCompleted: directUploadCompleted,
-        libraryImageSelected: libraryImageSelected, 
+        libraryImageSelected: libraryImageSelected,
         remoteMediaUrl: getRemoteMediaURL,
       };
 
@@ -126,8 +126,8 @@ $(function() {
 
     /************************************************
      *
-     * Provides the functionality for 
-     * interacting with the image library 
+     * Provides the functionality for
+     * interacting with the image library
      *
      * **********************************************/
 
@@ -186,8 +186,8 @@ $(function() {
           loadingHtml: "<img src='" + library.data("loadingImageUrl") + "' />",
           nextSelector: nextPageSelector,
           debug: true,
-          padding: 0,
-          callback: false 
+          padding: 100,
+          callback: false
         } );
       };
 
@@ -216,8 +216,8 @@ $(function() {
 
     /************************************************
      *
-     * Provides the image preview functionality for 
-     * both images selected from the library and 
+     * Provides the image preview functionality for
+     * both images selected from the library and
      * images that are uploaded by the user
      *
      * **********************************************/
@@ -249,7 +249,7 @@ $(function() {
         $('#upload_preview').attr("src", imageUrl);
       };
 
-      function showFileName(file){ 
+      function showFileName(file){
         $("#uploaded_image_file").text(file.name).addClass("file_selected")
       }
 
@@ -263,7 +263,7 @@ $(function() {
         init: init,
         setPreviewImage: setPreviewImage,
         showFileName: showFileName,
-        clearPreviewImage: clearPreviewImage 
+        clearPreviewImage: clearPreviewImage
       };
 
     })();
