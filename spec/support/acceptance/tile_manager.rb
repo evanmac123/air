@@ -4,13 +4,11 @@ module TileManagerHelpers
   end
 
   def have_archive_link_for(tile)
-    have_link 'Archive', href: client_admin_tile_path(tile, 
-      update_status: Tile::ARCHIVE)
+    have_selector("a[data-status='archive'][href='#{status_change_client_admin_tile_path(tile)}']")
   end
 
   def have_reactivate_link_for(tile)
-    have_link 'Post again', href: client_admin_tile_path(tile, 
-      update_status: Tile::ACTIVE, path: :via_index)
+    have_selector("a[data-status='active'][href='#{status_change_client_admin_tile_path(tile)}']")
   end
 
   def edit_link_for(tile)

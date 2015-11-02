@@ -10,9 +10,9 @@ describe Topic do
       new_tags = ["Health Plan Basics", "Health Care Reform"]
       present_tags = ["Sexual Harassment", "Rx Benefits"]
       # create present
-      Topic.create(name: "Compliance")
+      topic = Topic.create(name: "Compliance")
       present_tags.each do |title|
-        TileTag.create(title: title)
+        TileTag.create(title: title, topic: topic)
       end
 
       Topic.count.should == 1
@@ -29,7 +29,7 @@ describe Topic do
       Topic.find_or_create("Benefits").tile_tags.pluck(:title).should ==
         ["Rx Benefits", "Health Plan Basics"] # order by creation time
       Topic.find_or_create("Compliance").tile_tags.pluck(:title).should ==
-        ["Sexual Harassment", "Health Care Reform"]
+        ["Health Care Reform", "Sexual Harassment"]
     end
   end
 
@@ -45,6 +45,18 @@ describe Topic do
       old_topic = Topic.create(name: "Good Topic")
       topic = Topic.find_or_create("Good Topic")
       old_topic == topic
+    end
+  end
+
+  describe ".rearrange" do
+    it "should put topic to last position by name" do
+      ["Wellness", "Compliance", "Other", "Recruitment"].each{|name| Topic.create(name: name)}
+      Topic.rearrange("Other").map(&:name).should == ["Wellness", "Compliance", "Recruitment", "Other"]
+    end
+
+    it "should leave topics unchangable if topic with the name is not present" do
+      ["Wellness", "Compliance", "Recruitment"].each{|name| Topic.create(name: name)}
+      Topic.rearrange("Other").map(&:name).should == ["Wellness", "Compliance", "Recruitment"]
     end
   end
 end

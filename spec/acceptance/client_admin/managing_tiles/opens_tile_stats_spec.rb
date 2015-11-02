@@ -43,6 +43,7 @@ feature "Client admin opens tile stats" do
     within tile_cell(tile) do
       page.find(".tile_stats .unique_views").click
     end
+    expect_content "UNIQUE VIEWS"
   end
 
   def first_name
@@ -180,18 +181,18 @@ feature "Client admin opens tile stats" do
         first_name.should == "LIVE user"
       end
 
-      it "should show VIEWED AND INTERACTED table", js: true do
+      it "should show INTERACTED table", js: true do
         u = FactoryGirl.create(:user, demo: demo, name: "VIEWED AND INTERACTED user")
         FactoryGirl.create(:tile_completion, user: u, tile: @tile)
         FactoryGirl.create(:tile_viewing, user: u, tile: @tile)
 
         open_stats(@tile)
-        select "Viewed and interacted", :from => "grid_type_select"
+        select "Interacted", :from => "grid_type_select"
 
         first_name.should == "VIEWED AND INTERACTED user"
       end
 
-      it "should open VIEWED ONLY table", js: true, driver: :webkit do
+      it "should open VIEWED ONLY table", js: true do
         u = FactoryGirl.create(:user, demo: demo, name: "VIEWED ONLY user")
         FactoryGirl.create(:tile_viewing, user: u, tile: @tile)
 
@@ -201,7 +202,7 @@ feature "Client admin opens tile stats" do
         first_name.should == "VIEWED ONLY user"
       end
 
-      it "should open DIDN'T VIEW table", js: true, driver: :webkit do
+      it "should open DIDN'T VIEW table", js: true do
         u = FactoryGirl.create(:user, demo: demo, name: "a DIDN'T VIEW user")
 
         open_stats(@tile)
@@ -210,7 +211,7 @@ feature "Client admin opens tile stats" do
         first_name.should == "a DIDN'T VIEW user"
       end
 
-      it "should open ALL table", js: true, driver: :webkit do
+      it "should open ALL table", js: true do
         u = FactoryGirl.create(:user, demo: demo, name: "ALL user")
         FactoryGirl.create(:tile_completion, user: u, tile: @tile)
 
@@ -235,14 +236,14 @@ feature "Client admin opens tile stats" do
         all_names.should == ["user0", "user1", "user2", "user3", "user4", "user5", "user6", "user7", "user8"]
       end
 
-      it "should filter by 'Yes' answer", js: true, driver: :webkit do
-        page.all("td.answer_column:contains('Yes')").first.click
+      it "should filter by 'Yes' answer", js: true do
+        page.all("td.answer_column").to_a.keep_if{|a| a.text == "Yes"}.first.click
 
         all_names.should == ["user0", "user3", "user6"]
       end
 
-      it "should filter by 'No' answer", js: true, driver: :webkit do
-        page.all("td.answer_column:contains('No')").first.click
+      it "should filter by 'No' answer", js: true do
+        page.all("td.answer_column").to_a.keep_if{|a| a.text == "No"}.first.click
 
         all_names.should == ["user1", "user4", "user7"]
       end

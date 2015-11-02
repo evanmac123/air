@@ -8,6 +8,10 @@ feature 'Tags on Explore' do
     end
   end
 
+  def tag_page_header(tag)
+    "Explore: #{tag.topic.name}: #{tag.title}"
+  end
+
   before do
     @tag_to_click = FactoryGirl.create(:tile_tag, title: "Click me")
     @other_tags = FactoryGirl.create_list(:tile_tag, 5)
@@ -54,13 +58,13 @@ feature 'Tags on Explore' do
   it "pings when clicking a tag in the tile subjects section", js: true do
     visit explore_topic_path(@tag_to_click.topic, as: a_client_admin)
     within '.tags' do
-      click_link 'Click me'
+      click_link @tag_to_click.title
     end
 
-    page.should have_content('Explore: Good Topic: Click me') # wait till load is done
+    page.should have_content(tag_page_header(@tag_to_click)) # wait till load is done
     FakeMixpanelTracker.clear_tracked_events
     crank_dj_clear
-    FakeMixpanelTracker.should have_event_matching('Explore Main Page', {action: 'Clicked Tile Subject Tag', tag: 'Click me'})
+    FakeMixpanelTracker.should have_event_matching('Explore Main Page', {action: 'Clicked Tile Subject Tag', tag: @tag_to_click.title})
   end
 
   it "pings when clicking a tag on a tile", js: true do
@@ -72,8 +76,7 @@ feature 'Tags on Explore' do
 
       tag_link.click
     end
-
-    page.should have_content("Explore: Good Topic: #{tag_name}") # wait till load is done
+    
     FakeMixpanelTracker.clear_tracked_events
     crank_dj_clear
 
@@ -107,7 +110,7 @@ feature 'Tags on Explore' do
       click_link "Click me"
     end
 
-    page.should have_content('Explore: Good Topic: Click me') # wait till load is done
+    page.should have_content(tag_page_header(@tag_to_click)) # wait till load is done
     FakeMixpanelTracker.clear_tracked_events
     crank_dj_clear
     FakeMixpanelTracker.should have_event_matching('Explore Topic Page', {action: 'Clicked Tag On Tile', tag: "Click me"})
