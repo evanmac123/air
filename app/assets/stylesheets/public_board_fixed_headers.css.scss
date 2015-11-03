@@ -167,6 +167,17 @@ h1 {
 }
 
 @media only screen and (max-width: 766px) {
+  // Top header
+  #logo {
+    width: 50%;
+    .go_home {
+      margin-top: 0;
+      margin-bottom: 5px;
+    }
+  }
+  #save_progress {
+    width: 50%;
+  }
   // .main_h {
   //   padding-top: 25px;
   //   margin-top: 107px;
@@ -198,6 +209,7 @@ h1 {
   .hero {
     background: white;
     padding: 15px;
+    padding-top: 60px;
     .cover {
       border-radius: 0;
       border-width: 0;
