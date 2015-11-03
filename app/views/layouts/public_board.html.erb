@@ -36,8 +36,8 @@
       <a class="go_home" href="<%= home_path %>"><%= image_tag user.logo_url %></a>
     </div>
 
-    <div id="save_progress" class="large-4 columns" style="<%= user.guest_user_header_button_style %>">
-      <a href="#" id="schedule_demo" class="open_save_progress_form">Schedule a Demo</a>
+    <div id="demo_request" class="large-4 columns" style="">
+      <a href="#" id="schedule_demo" class="">Schedule a Demo</a>
     </div>
   </div>
 </header>
@@ -61,8 +61,30 @@
 
   <%= render 'shared/intercom' %>
   <%= render :partial => 'shared/javascript' %><!-- This is where 'yield :javascript' takes place -->
-  
+
   <div id='gradient-triangle'></div>
+
+  <div id="schedule_demo_modal" class="reveal-modal small" style="background: white" >
+    <div id="modal_content" style="height: 500px;padding:50px">
+      <div style="height: 2.75em;max-width:10em;width:100%;margin:auto;margin-bottom:50px">
+        <%=image_tag "airbo_logo_lightblue_square_smile.png", style: "max-height:100%"%>
+      </div>
+      <p style="font-weight:bold;text-align:center;margin-bottom:50px">
+    Enter your work email address, and we'll</br>
+    contact you to schedule a demo
+      </p>
+      <div style="width: 80%;margin:auto">
+        <%=form_for DemoRequest.new do |f| %>  
+          <div style="width: 80%;margin:auto;text-align:center">
+            <%=f.text_field :email, placeholder: "name@example.com", style: "border:none;border-bottom: 1px solid #CCC"%>
+            <%=f.submit "Schedule a demo"%>
+          </div>
+        <%end%>
+
+      </div>
+    </div>
+  </div>
+
   <%= javascript_include_tag 'rem.min.js' %>
 </body>
 </html>
