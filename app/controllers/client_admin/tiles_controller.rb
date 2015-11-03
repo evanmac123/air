@@ -160,7 +160,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   def prepTilePreview
     @prev, @next = @demo.bracket @tile
     @show_share_section_intro = show_share_section_intro
-    @show_submitted_tile_menu_intro = show_submitted_tile_menu_intro
   end
 
 
@@ -190,14 +189,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       else
         true
       end
-  end
-
-  def show_submitted_tile_menu_intro
-    if !current_user.submitted_tile_menu_intro_seen && @tile.suggested?
-      current_user.submitted_tile_menu_intro_seen = true
-      current_user.save!
-      true
-    end
   end
 
   def show_share_section_intro

@@ -6,7 +6,7 @@ FactoryGirl.define do
     # association(:location)
     password  "password"
     sequence(:email) {|n| "darth_#{n}@sunni.ru" }
-    submit_tile_intro_seen true
+    #submit_tile_intro_seen true
     suggestion_box_intro_seen true
     user_submitted_tile_intro_seen true
     manage_access_prompt_seen true
@@ -64,14 +64,12 @@ FactoryGirl.define do
     name          "Sylvester McAdmin"
     is_site_admin true
     share_section_intro_seen true
-    submitted_tile_menu_intro_seen true
   end
 
   factory :client_admin, :parent => :claimed_user do
     name            "Bo Diddley"
     is_client_admin true
     share_section_intro_seen true
-    submitted_tile_menu_intro_seen true
   end
 
   factory :guest_user do
@@ -351,7 +349,7 @@ FactoryGirl.define do
   end
 
   factory :topic do
-    name "Good Topic"
+    sequence(:name) {|n| "Good Topic #{n}"}
   end
 
   factory :billing_information do

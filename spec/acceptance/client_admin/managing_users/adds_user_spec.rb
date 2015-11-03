@@ -10,7 +10,7 @@ feature 'Adds user' do
   def expect_add_message(name, claim_code, url)
     # Hack to account for the fact that when we use Poltergeist, it generates
     # an invitation URL based on the server it itself is running
-   
+
     if Capybara.current_driver == :poltergeist
       url.gsub!("www.example.com", "127.0.0.1:#{page.server.port}")
     end
@@ -30,7 +30,7 @@ feature 'Adds user' do
   end
 
   def newest_user(demo)
-    demo.users.order("created_at DESC").first  
+    demo.users.order("created_at DESC").first
   end
 
   def expect_new_user(demo, with_details=true)
@@ -59,7 +59,7 @@ feature 'Adds user' do
     demo.users.reload.count.should == 2
     expect_new_user(demo)
     newest_user(demo).demos.should have(1).demo
-  end 
+  end
 
   it "should strip email", js: true do
     demo.users.count.should == 1 # just the admin
@@ -84,9 +84,9 @@ feature 'Adds user' do
 
     demo.users.reload.count.should == 2
     new_user = demo.users.order("created_at DESC").first
-    new_user.is_client_admin.should == false    
+    new_user.is_client_admin.should == false
   end
-  
+
   it 'should make user with user role', js: true do
     demo.users.count.should == 1 # just the admin
     fill_in_user_information
@@ -97,7 +97,7 @@ feature 'Adds user' do
 
     demo.users.reload.count.should == 2
     new_user = demo.users.order("created_at DESC").first
-    new_user.is_client_admin.should == true    
+    new_user.is_client_admin.should == true
   end
 
   it 'should ping if new user is client admin', js: true do
@@ -105,11 +105,11 @@ feature 'Adds user' do
     page.find('select.user-role-select').select 'Administrator'
     click_button "Add User"
 
-    FakeMixpanelTracker.clear_tracked_events 
-    crank_dj_clear 
+    FakeMixpanelTracker.clear_tracked_events
+    crank_dj_clear
     FakeMixpanelTracker.should have_event_matching("Creator - New", source: 'Client Admin')
   end
-  
+
   it "should show meaningful errors when entered data is invalid" do
     click_button "Add User"
     should_be_on client_admin_users_path

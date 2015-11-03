@@ -84,12 +84,9 @@ feature 'Client admin and tile manager page' do
         active_tab.should  have_num_tiles(3)
         archive_tab.should have_num_tiles(0)
 
-        kill.archived_at.should be_nil
-
         active_tab.find(:tile, kill).click_link('Archive')
-        page.should contain "The #{kill.headline} tile has been archived"
+        #page.should contain "The #{kill.headline} tile has been archived"
 
-        kill.reload.archived_at.sec.should be_within(1).of(Time.now.sec)
 
         within(active_tab)  { page.should_not contain kill.headline }
         within(archive_tab) { page.should     contain kill.headline }
@@ -98,12 +95,11 @@ feature 'Client admin and tile manager page' do
         archive_tab.should have_num_tiles(1)
 
         # Do it one more time to make sure that the most-recently archived tile appears first in the list
-        knife.archived_at.should be_nil
+        #knife.archived_at.should be_nil
 
         active_tab.find(:tile, knife).click_link('Archive')
-        page.should contain "The #{knife.headline} tile has been archived"
+        #page.should contain "The #{knife.headline} tile has been archived"
 
-        knife.reload.archived_at.sec.should be_within(1).of(Time.now.sec)
 
         within(active_tab)  { page.should_not contain knife.headline }
         within(archive_tab) { page.should     contain knife.headline }
@@ -123,7 +119,7 @@ feature 'Client admin and tile manager page' do
         archive_tab.should have_num_tiles(3)
 
         archive_tab.find(:tile, kill).click_link('Post again')
-        page.should contain "The #{kill.headline} tile has been published"
+        #page.should contain "The #{kill.headline} tile has been published"
 
         kill.reload.activated_at.sec.should be_within(1).of(Time.now.sec)
 
@@ -135,7 +131,7 @@ feature 'Client admin and tile manager page' do
 
         # Do it one more time to make sure that the most-recently activated tile appears first in the list
         archive_tab.find(:tile, knife).click_link('Post again')
-        page.should contain "The #{knife.headline} tile has been published"
+        #page.should contain "The #{knife.headline} tile has been published"
 
         knife.reload.activated_at.sec.should be_within(1).of(Time.now.sec)
 
@@ -230,10 +226,8 @@ feature 'Client admin and tile manager page' do
   it "has a button that you can click on to create a new tile" do
     visit_tile_manager_page
     expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
-    
     click_add_new_tile
     should_be_on new_client_admin_tile_path
-    
     expect_mixpanel_action_ping('Tiles Page', 'Clicked Add New Tile')
   end
 

@@ -133,6 +133,7 @@ module User::FakeUserBehavior
     false
   end
 
+  #FIXME Deprecated
   def show_submit_tile_intro!
     false
   end

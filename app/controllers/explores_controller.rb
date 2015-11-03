@@ -10,7 +10,7 @@ class ExploresController < ClientAdminBaseController
 
   def show
     # @tile_tags = TileTag.alphabetical.with_public_non_draft_tiles
-    @topics = Topic.all
+    @topics = Topic.rearrange_by_other
     @path_for_more_tiles = explore_path
     @parent_boards = Demo.where(is_parent: true)
 
