@@ -14,12 +14,6 @@
   top: -100px;
   padding-bottom: 6px;
 }
-@media only screen and (max-width: 766px) {
-  .main_h {
-    padding-top: 25px;
-    margin-top: 107px;
-  }
-}
 
 .open-nav {
   max-height: 400px !important;
@@ -49,11 +43,7 @@
   margin-bottom: 10px;
 }
 
-@media only screen and (max-width: 766px) {
-  .logo {
-    float: none;
-  }
-}
+
 
 nav {
   float: right;
@@ -79,30 +69,6 @@ nav ul a {
   font-size: 12px;
 }
 
-@media only screen and (max-width: 766px) {
-  nav {
-    width: 100%;
-  }
-}
-
-
-@media only screen and (max-width: 766px) {
-  nav ul {
-    padding-top: 10px;
-    margin-bottom: 22px;
-    float: left;
-    text-align: center;
-    width: 100%;
-  }
-}
-@media only screen and (max-width: 766px) {
-  nav ul li {
-    width: 100%;
-    padding: 7px 0;
-    margin: 0;
-  }
-}
-
 .mobile-toggle {
   display: none;
   cursor: pointer;
@@ -114,12 +80,6 @@ nav ul a {
   -webkit-transition: all 200ms ease-in;
   -moz-transition: all 200ms ease-in;
   transition: all 200ms ease-in;
-}
-
-@media only screen and (max-width: 766px) {
-  .mobile-toggle {
-    display: block;
-  }
 }
 
 .mobile-toggle span {
@@ -194,16 +154,53 @@ h1 {
     }
   }
 }
-// .hero
-// .hero h1 span {
-//   font-size: 25px;
-//   color: #fff;
-//   border-bottom: 2px solid #e8f380;
-//   padding-bottom: 12px;
-//   line-height: 3;
-// }
 
-
+@media only screen and (max-width: 766px) {
+  .main_h {
+    padding-top: 25px;
+    margin-top: 107px;
+  }
+  .logo {
+    float: none;
+  }
+  nav {
+    width: 100%;
+  }
+  nav ul {
+    padding-top: 10px;
+    margin-bottom: 22px;
+    float: left;
+    text-align: center;
+    width: 100%;
+  }
+  nav ul li {
+    width: 100%;
+    padding: 7px 0;
+    margin: 0;
+  }
+  .mobile-toggle {
+    display: block;
+  }
+  .hero {
+    background: white;
+    padding: 15px;
+    .cover {
+      border-radius: 0;
+      border-width: 0;
+      border-bottom-width: 1px;
+    }
+    .cover_image {
+      height: 200px;
+      padding-top: 70px;
+    }
+    .cover_desc {
+      padding: 17px 16px;
+      p {
+        font-size: 15px;
+      }
+    }
+  }
+}
 
 @-webkit-keyframes scroll {
   0% {
