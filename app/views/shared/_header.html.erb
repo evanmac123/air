@@ -38,9 +38,10 @@
 
 <%= render 'shared/board_settings/modal', user: user %>
 
-<% if user.show_submit_tile_intro? %>
-  <%= render "shared/header/submit_tile_modal", user: user %>
-<% end %>
+<%#FIXME Deprecated %>
+<%# if user.show_submit_tile_intro? %>
+  <%# render "shared/header/submit_tile_modal", user: user %>
+<%# end %>
 
 <% if user.can_submit_tile? %>
   <%=render partial: "shared/tile_builder_modals", locals: {context: "suggestion_box"} %>

@@ -20,7 +20,6 @@ class UserInHeaderPresenter
               :name,
               :email,
               :can_make_tile_suggestions?,
-              :show_submit_tile_intro!,
               :is_client_admin,
               to: :current_user
 
@@ -153,9 +152,11 @@ class UserInHeaderPresenter
       !request.original_url.include?("client_admin") &&
       !request.original_url.include?("explore")
   end
-
+ 
+  #FIXME  Deprecated
   def show_submit_tile_intro?
-    @show_submit_tile_intro ||= (can_submit_tile? && show_submit_tile_intro!)
+    #@show_submit_tile_intro ||= (can_submit_tile? && show_submit_tile_intro!)
+    false
   end
 
   protected

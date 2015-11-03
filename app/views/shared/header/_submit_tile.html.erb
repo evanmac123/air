@@ -3,13 +3,14 @@
     <%= fa_icon 'pencil' %>
     <span>Suggest Tile</span>
   <% end %>
-  <% if user.show_submit_tile_intro? %>
-    <% content_for :javascript do %>
-      <%= javascript_tag do %>
+  <%#FIXME Deprecated %>
+  <%# if user.show_submit_tile_intro? %>
+    <%#content_for :javascript do %>
+      <%# javascript_tag do %>
         $().ready(function(){
-          window.submitTileIntro();
+          //window.submitTileIntro();
         });
-      <% end %>
-    <% end %>
-  <% end %>
+      <%#end %>
+    <%# end %>
+  <%# end %>
 <% end %>
