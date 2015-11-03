@@ -97,6 +97,7 @@ Health::Application.routes.draw do
 
 
 
+  resources :demo_requests, only: :create
   resources :board_name_validations, only: :show
   resources :board_memberships, only: :destroy
   resources :mute_followups, only: :update
