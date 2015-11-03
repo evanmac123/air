@@ -16,7 +16,7 @@ class Demo < ActiveRecord::Base
   has_many :peer_invitations
   has_many :push_messages
 
-  has_many :tile_completions, through: :tiles 
+  has_many :tile_completions, through: :tiles
   has_many :tile_viewings, through: :tiles
 
   has_many :follow_up_digest_emails
@@ -51,6 +51,14 @@ class Demo < ActiveRecord::Base
       :bucket => S3_LOGO_BUCKET
     }.merge(DEMO_LOGO_OPTIONS)
 
+  has_attached_file :cover_image,
+    {
+      :styles => {:thumb => ["x200>", :png]},
+      :default_style => :thumb,
+      :default_url => "/assets/logo.png",
+      :bucket => S3_LOGO_BUCKET
+    }.merge(DEMO_LOGO_OPTIONS)
+
   validates_attachment_content_type :logo, content_type: valid_image_mime_types, message: invalid_mime_type_error
 
   # We go through this rigamarole since we can move a user from one demo to
@@ -66,7 +74,7 @@ class Demo < ActiveRecord::Base
     end
   end
   include ActsWithCurrentDemoChecked
-  
+
   def activate_tiles_if_showtime
     tiles.activate_if_showtime
   end
@@ -124,7 +132,7 @@ class Demo < ActiveRecord::Base
 
   #NOTE technically position should never be nil so the use of compact should
   #not be necessary here
-  def next_draft_tile_position 
+  def next_draft_tile_position
     (draft_tiles.map(&:position).compact.max ||0) + 1
   end
 
@@ -151,7 +159,7 @@ class Demo < ActiveRecord::Base
     default = "went for a walk"
     example_tooltip.blank? ? default : example_tooltip
   end
-  
+
   def welcome_message(user=nil)
     custom_message(
       :custom_welcome_message,
@@ -261,7 +269,7 @@ class Demo < ActiveRecord::Base
       self.locations.each {|location| breakdown[location] = location.users.count}
     end
   end
-  
+
   def self.number_not_found_response(receiving_number)
     demo = self.where(:phone_number => receiving_number).first
     demo ? demo.number_not_found_response : default_number_not_found_response
@@ -277,15 +285,15 @@ class Demo < ActiveRecord::Base
     else
       name
     end
-  end      
-  
+  end
+
   def print_pending_friendships
     total_friendships = Friendship.where(:user_id => user_ids).count / 2
     number_accepted = Friendship.where(:user_id => user_ids, :state => "accepted").count / 2
     percent = 100.0 * number_accepted / total_friendships
     "#{name} has #{total_friendships} initiated connections, #{number_accepted} of which have been accepted (#{percent}%)"
   end
-  
+
   def ticket_spread
     return nil unless self.uses_tickets
 
@@ -365,7 +373,7 @@ class Demo < ActiveRecord::Base
 	def non_activated? # CUT?  #TODO find a way to do this without doing a query every time.
     self.tiles.active.empty? && self.tiles.where('activated_at IS NOT NULL').count < 1
   end
-  
+
   def has_normal_users?
     (self.users.non_admin.count > 0) || (self.guest_users.count > 0)
   end

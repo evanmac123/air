@@ -1,0 +1,18 @@
+<%= form_for board, url: cover_image_client_admin_board_settings_path, html: { id: "edit_board_cover_image", multipart: true } do |form| %>
+  <%= form.label :cover_image, "Cover Image" %>
+  <i class="fa fa-question-circle has-tip" id="board_logo_tooltip" data-tooltip="true" title="COver Image"></i>
+  <%= form.file_field :cover_image %>
+  <div class="error_message">
+    Sorry that doesn't look like an image file. Please use a  <br/>
+    file with the extension .jpg, .jpeg, .gif, .bmp or .png.
+  </div>
+  <%= form.submit "Update", disabled: true %>
+  <a class="clear_form">Clear</a>
+  <%= image_tag board.cover_image.url, id: "cover_image" %>
+<% end %>
+
+<% js_at_end do %>
+  $().ready(function(){
+    window.formWithClearableLogoField("#demo_cover_image", <%= ie9_or_older? %>);
+  })
+<% end %>

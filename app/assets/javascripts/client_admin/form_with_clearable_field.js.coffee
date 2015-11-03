@@ -80,9 +80,15 @@ updateLogo = (field, data) ->
   form = findForm field
   form[0].reset()
 
+updateCoverImage = (field, data) ->
+  $("#cover_image").attr("src", data.logo_url)
+  form = findForm field
+  form[0].reset()
+
 tableOfSpecificFormResponses = () ->
   demo_name: updateCurrentBoardName
   demo_logo: updateLogo
+  demo_cover_image: updateCoverImage
 
 specificFormResponse = (field, data) ->
   fieldSelector = field.attr("id")
@@ -115,7 +121,7 @@ formResponse = (form) ->
       disableSubmit(form, true)
 
       field = findField(form)
-      updateOldValue(field) 
+      updateOldValue(field)
 
       specificFormResponse(field, data)
     else
@@ -128,7 +134,7 @@ fieldEvents = (field) ->
 
     disableSubmit(form, false)
 
-    if fieldHasInitialValue $(@) 
+    if fieldHasInitialValue $(@)
       form.removeClass("dirty")
       disableSubmit(form, true)
 
@@ -192,7 +198,7 @@ window.formWithClearableLogoField = (fieldSelector, old_ie) ->
     field = connectedField $(@)
     form = $(@).closest("form")
 
-    if field.val().length > 0 
+    if field.val().length > 0
       form[0].reset()
       form.removeClass("dirty").removeClass("has_error")
     else
@@ -208,4 +214,3 @@ window.urlField = (fieldSelector) ->
     replaceSpacesInField $(@), "-"
 
     $(@).setCursorPosition cursorPos
-      

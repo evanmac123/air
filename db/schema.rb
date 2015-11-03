@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151102201119) do
+ActiveRecord::Schema.define(:version => 20151102204450) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -261,6 +261,10 @@ ActiveRecord::Schema.define(:version => 20151102201119) do
     t.boolean  "is_parent",                                            :default => false,             :null => false
     t.boolean  "everyone_can_make_tile_suggestions",                   :default => false,             :null => false
     t.string   "cover_message",                                        :default => "",                :null => false
+    t.string   "cover_image_file_name"
+    t.string   "cover_image_content_type"
+    t.integer  "cover_image_file_size"
+    t.datetime "cover_image_updated_at"
   end
 
   add_index "demos", ["public_slug"], :name => "index_demos_on_public_slug"

@@ -202,6 +202,7 @@ Health::Application.routes.draw do
         put 'welcome_message'
 				put 'weekly_activity_email'
         put 'cover_message'
+        put 'cover_image'
       end
     end
 
