@@ -1,3 +1,14 @@
+@import "./mixins/main_styles.css.scss";
+// Top Header
+#save_progress {
+  float: right;
+  margin-top: 9px;
+}
+#schedule_demo {
+  @include light-button($sky-blue);
+  float: right;
+}
+
 .main_h {
   position: fixed;
   top: 0px;
@@ -156,30 +167,33 @@ h1 {
 }
 
 @media only screen and (max-width: 766px) {
+  // .main_h {
+  //   padding-top: 25px;
+  //   margin-top: 107px;
+  // }
+  // .logo {
+  //   float: none;
+  // }
+  // nav {
+  //   width: 100%;
+  // }
+  // nav ul {
+  //   padding-top: 10px;
+  //   margin-bottom: 22px;
+  //   float: left;
+  //   text-align: center;
+  //   width: 100%;
+  // }
+  // nav ul li {
+  //   width: 100%;
+  //   padding: 7px 0;
+  //   margin: 0;
+  // }
+  // .mobile-toggle {
+  //   display: block;
+  // }
   .main_h {
-    padding-top: 25px;
-    margin-top: 107px;
-  }
-  .logo {
-    float: none;
-  }
-  nav {
-    width: 100%;
-  }
-  nav ul {
-    padding-top: 10px;
-    margin-bottom: 22px;
-    float: left;
-    text-align: center;
-    width: 100%;
-  }
-  nav ul li {
-    width: 100%;
-    padding: 7px 0;
-    margin: 0;
-  }
-  .mobile-toggle {
-    display: block;
+    display: none;
   }
   .hero {
     background: white;
