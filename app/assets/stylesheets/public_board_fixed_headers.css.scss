@@ -1,3 +1,16 @@
+@import "./mixins/main_styles.css.scss";
+// Top Header
+header {
+  #save_progress {
+    float: right;
+    margin-top: 9px;
+  }
+  #schedule_demo {
+    @include light-button($sky-blue);
+    float: right;
+  }
+}
+
 .main_h {
   position: fixed;
   top: 0px;
@@ -13,12 +26,6 @@
   opacity: 0;
   top: -100px;
   padding-bottom: 6px;
-}
-@media only screen and (max-width: 766px) {
-  .main_h {
-    padding-top: 25px;
-    margin-top: 107px;
-  }
 }
 
 .open-nav {
@@ -49,11 +56,7 @@
   margin-bottom: 10px;
 }
 
-@media only screen and (max-width: 766px) {
-  .logo {
-    float: none;
-  }
-}
+
 
 nav {
   float: right;
@@ -79,30 +82,6 @@ nav ul a {
   font-size: 12px;
 }
 
-@media only screen and (max-width: 766px) {
-  nav {
-    width: 100%;
-  }
-}
-
-
-@media only screen and (max-width: 766px) {
-  nav ul {
-    padding-top: 10px;
-    margin-bottom: 22px;
-    float: left;
-    text-align: center;
-    width: 100%;
-  }
-}
-@media only screen and (max-width: 766px) {
-  nav ul li {
-    width: 100%;
-    padding: 7px 0;
-    margin: 0;
-  }
-}
-
 .mobile-toggle {
   display: none;
   cursor: pointer;
@@ -114,12 +93,6 @@ nav ul a {
   -webkit-transition: all 200ms ease-in;
   -moz-transition: all 200ms ease-in;
   transition: all 200ms ease-in;
-}
-
-@media only screen and (max-width: 766px) {
-  .mobile-toggle {
-    display: block;
-  }
 }
 
 .mobile-toggle span {
@@ -147,35 +120,117 @@ h1 {
 
 .hero {
   position: relative;
-  background: url(http://www.philippefercha.com/cd/toggle-menu-bg.jpg) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  background-size: cover;
-  text-align: center;
-  color: #fff;
-  padding-top: 110px;
-  min-height: 500px;
-  letter-spacing: 2px;
-}
-.hero h1 {
-  font-size: 50px;
-  line-height: 1.3;
-}
-.hero h1 span {
-  font-size: 25px;
-  color: #fff;
-  border-bottom: 2px solid #e8f380;
-  padding-bottom: 12px;
-  line-height: 3;
+  background: #d9dfe9;
+  padding-top: 105px;
+  .cover {
+    max-width: 69.25em;
+    margin: auto;
+    border: 1px solid #c8cdd5;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .cover_image {
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    color: #fff;
+    padding-top: 95px;
+    letter-spacing: 2px;
+    height: 250px;
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+    }
+    .shadow_overlay {
+      display: block;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    h1 {
+      font-size: 50px;
+      line-height: 1.3;
+      position: relative;
+      font-weight: 700;
+    }
+  }
+  .cover_desc {
+    background: white;
+    padding: 20px 22px;
+    p {
+      font-size: 16px;
+      color: #4c4c4c;
+      line-height: 1.5;
+    }
+  }
 }
 
-.modal_content{
- img {
-    height:i 
- }
- 
-}
 
+@media only screen and (max-width: 766px) {
+  // Top header
+  #logo {
+    width: 50%;
+    .go_home {
+      margin-top: 0;
+      margin-bottom: 5px;
+    }
+  }
+  #save_progress {
+    width: 50%;
+    margin-top: 15px;
+  }
+  // .main_h {
+  //   padding-top: 25px;
+  //   margin-top: 107px;
+  // }
+  // .logo {
+  //   float: none;
+  // }
+  // nav {
+  //   width: 100%;
+  // }
+  // nav ul {
+  //   padding-top: 10px;
+  //   margin-bottom: 22px;
+  //   float: left;
+  //   text-align: center;
+  //   width: 100%;
+  // }
+  // nav ul li {
+  //   width: 100%;
+  //   padding: 7px 0;
+  //   margin: 0;
+  // }
+  // .mobile-toggle {
+  //   display: block;
+  // }
+  .main_h {
+    display: none;
+  }
+  .hero {
+    background: white;
+    padding: 15px;
+    padding-top: 60px;
+    .cover {
+      border-radius: 0;
+      border-width: 0;
+      border-bottom-width: 1px;
+    }
+    .cover_image {
+      height: 200px;
+      padding-top: 70px;
+    }
+    .cover_desc {
+      padding: 17px 16px;
+      p {
+        font-size: 15px;
+      }
+    }
+  }
+}
 
 @-webkit-keyframes scroll {
   0% {
@@ -215,4 +270,3 @@ header {
     display:block;
   }
 }
-

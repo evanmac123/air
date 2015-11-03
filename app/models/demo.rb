@@ -53,8 +53,8 @@ class Demo < ActiveRecord::Base
 
   has_attached_file :cover_image,
     {
-      :styles => {:thumb => ["x200>", :png]},
-      :default_style => :thumb,
+      #:styles => {:thumb => ["x200>", :png]},
+      #:default_style => :thumb,
       :default_url => "/assets/logo.png",
       :bucket => S3_LOGO_BUCKET
     }.merge(DEMO_LOGO_OPTIONS)
