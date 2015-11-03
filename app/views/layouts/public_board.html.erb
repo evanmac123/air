@@ -13,7 +13,6 @@
   <%= javascript_include_tag "https://api.intercom.io/api/js/library.js" %>
   <%= javascript_include_tag 'application' %>
   <%= javascript_include_tag 'app-internal' %>
-  <%= javascript_include_tag 'file-uploader' %>
   <%= javascript_include_tag asset_path('ga.js') if ENV['USE_GA'] %>
   <%= javascript_include_tag 'public_board_fixed_headers' %>
   <!--[if lt IE 9]>
@@ -26,13 +25,24 @@
   <%= csrf_meta_tag %>
   <%= render 'shared/mixpanel' unless @is_admin_page %>
   <%= mobvious_javascript %>
-  <%= render 'shared/nerf_animations_in_test' %>
 </head>
 <body class="<%= body_class %>" style="-webkit-overflow-scrolling: touch; overflow:visible;"><%# only works with inline style? WTF. but leave it: this fixes scroll problems in ios7 and doesn't seem to work if included via stylesheet. %>
 
-  <%= render 'shared/header', :show_play_box => true %>
-  <div id='js-flashes'><%# render 'shared/flashes' %> </div> 
-  <%= render 'shared/offcanvas_menu_signedin' %>
+<% user = UserInHeaderPresenter.new(current_user, @public_tile_page, params, request) %>
+<header class="">
+  <div class="row" id="top_bar">
+
+    <div class="large-2 columns" id="logo">
+      <a class="go_home" href="<%= home_path %>"><%= image_tag user.logo_url %></a>
+    </div>
+
+    <div id="save_progress" class="large-4 columns" style="<%= user.guest_user_header_button_style %>">
+      <a href="#" id="schedule_demo" class="open_save_progress_form">Schedule a Demo</a>
+    </div>
+  </div>
+</header>
+
+<div id='js-flashes'><%# render 'shared/flashes' %> </div> 
 
 
   <main class="main">
