@@ -58,7 +58,9 @@ class ActsController < ApplicationController
     decide_if_tiles_can_be_done(@displayable_categorized_tiles[:not_completed_tiles])
 
     respond_to do |format|
-      format.html
+      format.html do
+        render layout: "public_board" if params[:public_slug].present?
+      end
 
       format.js do
         render_act_update
