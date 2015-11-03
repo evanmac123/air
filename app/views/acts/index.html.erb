@@ -1,31 +1,82 @@
 <%= javascript_include_tag 'jquery.lightbox_me' %>
-<%= render partial: 'shared/tiles/user_progress', locals: {raffle: current_user.demo.raffle} %>
-<%= render 'shared/tile_wall', @displayable_categorized_tiles.merge(path_for_more_tiles: tiles_path) %>
+<!--
+<div class="row banners">
 
+  <div class="orange" >
+    <h1>This is Banner</h1>
+  </div>
+
+</div>
+
+  <nav class="main-nav">
+    <div class="internal">
+      <h1>This is a Sticky Nav Demo!</h1>
+    </div>
+  </nav>
+ -->
+
+<header class="main_h">
+
+    <div class="row">
+        <a class="logo" href="#">P/F</a>
+
+        <div class="mobile-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href=".sec01">Section 01</a></li>
+                <li><a href=".sec02">Section 02</a></li>
+                <li><a href=".sec03">Section 03</a></li>
+                <li><a href=".sec04">Section 04</a></li>
+            </ul>
+        </nav>
+
+    </div> <!-- / row -->
+
+</header>
+
+<div class="hero">
+
+    <h1><span>I'm a cool</span><br>Navigation</h1>
+
+    <div class="mouse">
+        <span></span>
+    </div>
+
+</div>
+
+
+<%= render partial: 'shared/tiles/user_progress', locals: {raffle: current_user.demo.raffle} %>
+ 
+<%= render 'shared/tile_wall', @displayable_categorized_tiles.merge(path_for_more_tiles: tiles_path) %>
 <div class="row">
   <div id="feed_wrapper" class="large-4 columns">
     <div class="feeds module">
 
       <h3 id="feeds_title">Activity</h3>
 
-  	    <% content_for :javascript do %>
-          <%= javascript_tag do %>
-            bindShowMoreTilesLink('.show_more_tiles', '.tile-wrapper', '#show_more_tiles_spinner', '#tile_wall', 'replace');
-          <% end %>
-  	    <% end %>
-
-        <ul id="user-acts">
-  	      <%= render :partial => "shared/act", :collection => @acts, :as => :act %>
-        </ul>
-
-        <%= render 'shared/see_more' %>
-
-        <%= image_tag 'spinner_gears.gif', :id => 'see-more-spinner', :style => 'display:none;' %>
-
-        <% js_at_end do %>
-          bindSeeMoreActs('<%= acts_path(format: :js) %>', <%= @acts.length %>)
+      <% content_for :javascript do %>
+        <%= javascript_tag do %>
+          bindShowMoreTilesLink('.show_more_tiles', '.tile-wrapper', '#show_more_tiles_spinner', '#tile_wall', 'replace');
         <% end %>
-  	</div>
+      <% end %>
+
+      <ul id="user-acts">
+        <%= render :partial => "shared/act", :collection => @acts, :as => :act %>
+      </ul>
+
+      <%= render 'shared/see_more' %>
+
+      <%= image_tag 'spinner_gears.gif', :id => 'see-more-spinner', :style => 'display:none;' %>
+
+      <% js_at_end do %>
+        bindSeeMoreActs('<%= acts_path(format: :js) %>', <%= @acts.length %>)
+      <% end %>
+    </div>
   </div>
 
   <div class="large-4 columns">
