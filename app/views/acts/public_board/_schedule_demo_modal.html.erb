@@ -10,7 +10,9 @@
       </p>
       <%= form_for DemoRequest.new, html:{id: "schedule_demo_form"} do |f| %>
         <div class="form_data">
-          <%= f.text_field :email, placeholder: "Your company email" %>
+          <div class="email_field">
+            <%= f.text_field :email, placeholder: "Your company email" %>
+          </div>
           <%= f.submit "Schedule a demo", id: "submit_demo_request" %>
         </div>
       <% end %>

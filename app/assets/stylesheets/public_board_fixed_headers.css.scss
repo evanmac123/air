@@ -213,11 +213,20 @@ nav ul a {
     .form_data {
       input[type="text"] {
         width: 100%;
+        background: white;
         border-color: #dfdfdf;
         font-size: 18px;
         font-weight: 400;
         line-height: 24px;
         margin-bottom: 20px;
+      }
+      .err {
+        color: #bc4c40;
+        font-size: 16px;
+        font-weight: 400;
+        text-transform: none;
+        margin-top: -5px;
+        margin-bottom: 15px;
       }
       #submit_demo_request{
         @include app-button($sky-blue);
