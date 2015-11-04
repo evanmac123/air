@@ -222,7 +222,7 @@ nav ul a {
       }
       .err {
         color: #bc4c40;
-        font-size: 16px;
+        font-size: 14px;
         font-weight: 400;
         text-transform: none;
         margin-top: -5px;
@@ -314,6 +314,37 @@ nav ul a {
       padding: 17px 16px;
       p {
         font-size: 15px;
+      }
+    }
+  }
+  //
+  // => Schedule Demo Modal
+  //
+  #schedule_demo_modal{
+    padding: 16px;
+    .close-reveal-modal {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+    }
+    #modal_content{
+      width: 100%;
+      max-width: 360px;
+      margin: auto;
+      padding: 25px;
+      .banner_img {
+        margin-bottom: 25px;
+        img {
+          width: 72px;
+        }
+      }
+      p.greeting {
+        margin-bottom: 25px;
+      }
+      .form_data {
+        input[type="text"] {
+          margin-bottom: 15px;
+        }
       }
     }
   }
