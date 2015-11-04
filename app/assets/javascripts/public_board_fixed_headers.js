@@ -49,7 +49,7 @@ Airbo.PublicBoardManager = (function(){
   }
 
   function initFormValidator(){
-    var form = $("#schedule_demo_form")
+    form = $("#schedule_demo_form")
     var config={
       rules: {
         "demo_request[email]": {
@@ -71,7 +71,7 @@ Airbo.PublicBoardManager = (function(){
 
     $("#schedule_demo_form").submit(function(event){
       event.preventDefault();
-      var form= $(this);
+      // var form= $(this);
       if(form.valid()){
         $.post( $(this).attr("action"), form.serialize())
         .done(function(){
@@ -87,6 +87,7 @@ Airbo.PublicBoardManager = (function(){
   function init(){
     setupStickyHeaders();
     initScheduleDemoModal();
+    initFormValidator();
     initFormSubmit();
   }
 
