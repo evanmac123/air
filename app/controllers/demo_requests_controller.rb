@@ -7,5 +7,9 @@ class DemoRequestsController < ApplicationController
     head :ok
   end
 
-end
+  protected
 
+  def modal_ping
+    ping "Viewed HRM CTA Modal", {action: "Submitted Email Address"}, current_user
+  end
+end

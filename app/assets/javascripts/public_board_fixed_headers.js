@@ -42,8 +42,19 @@ Airbo.PublicBoardManager = (function(){
     });
   }
 
+  function modalPing(action, option){
+    $.post("/ping", {
+      event: 'Viewed HRM CTA Modal',
+      properties: {
+        action: action,
+        option: option
+      }
+    });
+  }
+
   function initScheduleDemoModal(){
     $("#demo_request").click(function(){
+      modalPing("Source", "Top Nav");
       openModal();
     });
   }
