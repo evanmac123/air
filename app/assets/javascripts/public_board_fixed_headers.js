@@ -57,6 +57,13 @@ Airbo.PublicBoardManager = (function(){
       modalPing("Source", "Top Nav");
       openModal();
     });
+
+    $("#schedule_demo_modal").bind('closed.fndtn.reveal', function(){
+      if( !localStorage.getItem("demoRequested") ){
+        console.log(11);
+        modalPing("Closed Modal", "Yes");
+      }
+    });
   }
 
   function openModal(){
@@ -88,6 +95,7 @@ Airbo.PublicBoardManager = (function(){
       event.preventDefault();
       // var form= $(this);
       if(form.valid()){
+        localStorage.setItem("demoRequested", true);
         $.post( $(this).attr("action"), form.serialize())
         .done(function(){
           showConfirmation();
