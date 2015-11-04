@@ -7,6 +7,8 @@ class TilesController < ApplicationController
   prepend_before_filter :allow_guest_user, :only => [:index, :show]
 
   def index
+    @demo = current_user.demo
+
     if params[:partial_only]
       set_parent_board_user(params[:board_id])
       @current_user = current_user
@@ -26,10 +28,10 @@ class TilesController < ApplicationController
       schedule_viewed_tile_ping(@start_tile)
       increment_tile_views_counter @start_tile, current_user
       session.delete(:start_tile)
+      @hide_cover = true
+      render layout: "public_board" if @in_public_board
     end
-    @hide_cover = true
-    @demo = current_user.demo
-    render layout: "public_board" if params[:public_slug].present?
+
   end
 
   def show
