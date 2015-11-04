@@ -32,6 +32,9 @@ class ActsController < ApplicationController
     # This is handy for debugging the lightbox or working on its styles
     @display_get_started_lightbox ||= params[:display_get_started_lightbox]
 
+    #disable display of the 
+    @display_get_started_lightbox = false if params[:public_slug].present?
+
     if @display_get_started_lightbox
       @get_started_lightbox_message = persistent_message_or_default(current_user)
       if @demo.allow_raw_in_persistent_message
@@ -41,6 +44,7 @@ class ActsController < ApplicationController
       current_user.get_started_lightbox_displayed = true
       current_user.save
     end
+
     saw_welcome_pop_up_ping @display_get_started_lightbox
 
     @display_activity_page_admin_guide = current_user.is_a?(User) \
@@ -56,6 +60,7 @@ class ActsController < ApplicationController
 
     show_conversion_form_provided_that { @demo.tiles.active.empty? }
     decide_if_tiles_can_be_done(@displayable_categorized_tiles[:not_completed_tiles])
+
 
     respond_to do |format|
       format.html do
