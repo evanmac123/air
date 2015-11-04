@@ -30,6 +30,9 @@ var Airbo = window.Airbo || {};
 
 Airbo.Utils = {
 
+
+
+
   supportsFeatureByPresenceOfSelector: function(identifier){
     return $(identifier).length > 0
   },
@@ -186,3 +189,38 @@ $(function(){
 
 //FIXME Deprecated
 Airbo.LoadedSingletonModules = [];
+
+Airbo.Utils.TextSelectionDector = (function(){
+  function getSelected(){
+    var evtTarget; callback;
+    var t = '';
+    if(window.getSelection){
+      t = window.getSelection();
+    }else if(document.getSelection){
+      t = document.getSelection();
+    }else if(document.selection){
+      t = document.selection.createRange().text;
+    }
+    return t;
+  }
+
+  function mouseup(event){
+    var st = getSelected();
+    if(st!='' && $(eventTarget).is($(event.target))){
+      callback();
+    }
+  }
+
+  function init(target, cb){
+    eventTarget = target;
+    callback = cb;
+    $(document).bind("mouseup", mouseup);
+  }
+
+  return {
+    init: init
+  };
+
+}());
+
+
