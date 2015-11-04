@@ -27,6 +27,9 @@ class TilesController < ApplicationController
       increment_tile_views_counter @start_tile, current_user
       session.delete(:start_tile)
     end
+    @show_cover = false
+    @demo = current_user.demo
+    render layout: "public_board" if params[:public_slug].present?
   end
 
   def show
