@@ -6,6 +6,16 @@ class TilesController < ApplicationController
 
   prepend_before_filter :allow_guest_user, :only => [:index, :show]
 
+
+
+     #FIXME FIXME this logic is sooooooo convoluted!!!!!
+  # so I don't forget the next time i look at this crazy code
+  # Index and show essentially do the same thing display a single tiles_path
+  # index renders it in the slideshow
+  # the first time around the else path is triggered and we render the index
+  # template
+  # the second time we render the partial via ajax.
+
   def index
     @demo = current_user.demo
 
