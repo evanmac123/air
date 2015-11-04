@@ -26,12 +26,12 @@
   <%= render 'shared/mixpanel' unless @is_admin_page %>
   <%= mobvious_javascript %>
 </head>
-<body class="<%= body_class %>" style="-webkit-overflow-scrolling: touch; overflow:visible;"><%# only works with inline style? WTF. but leave it: this fixes scroll problems in ios7 and doesn't seem to work if included via stylesheet. %>
+<body class="<%= body_class %>" style="-webkit-overflow-scrolling: touch; overflow:visible;" data-public-board="<%=@in_public_board ? true : false%>"><%# only works with inline style? WTF. but leave it: this fixes scroll problems in ios7 and doesn't seem to work if included via stylesheet. %>
   <%= render partial: "acts/public_board/main_header" %>
   <div id='js-flashes'><%# render 'shared/flashes' %> </div>
-  <main class="main">
+  <main class="main" >
     <div class="core">
-      <div class="content">
+      <div class="content" >
         <%= render partial: "acts/public_board/banner_nav" unless @hide_cover %>
         <%= yield %>
       </div>

@@ -44,8 +44,12 @@ Airbo.PublicBoardManager = (function(){
 
   function initScheduleDemoModal(){
     $("#demo_request").click(function(){
-      $("#schedule_demo_modal").foundation("reveal", "open", {animation: "fade",closeOnBackgroundClick: true });
+      openModal();
     });
+  }
+
+  function openModal(){
+    $("#schedule_demo_modal").foundation("reveal", "open", {animation: "fade",closeOnBackgroundClick: true });
   }
 
   function initFormValidator(){
@@ -92,7 +96,8 @@ Airbo.PublicBoardManager = (function(){
   }
 
   return {
-    init: init
+    init: init,
+    openModal: openModal
   }
 }());
 

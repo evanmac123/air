@@ -29,7 +29,13 @@
 
   - if show_conversion_form
     = javascript_tag do
+      $(function(){
+      if($("body").data("public-board")==true){
+      Airbo.PublicBoardManager.openModal();
+      }else{
       lightboxConversionForm();
+      }
+      });
 
     
   = javascript_include_tag 'internal/guest_user_conversion'

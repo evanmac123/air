@@ -18,7 +18,6 @@ class TilesController < ApplicationController
 
   def index
     @demo = current_user.demo
-
     if params[:partial_only]
       set_parent_board_user(params[:board_id])
       @current_user = current_user
@@ -26,6 +25,7 @@ class TilesController < ApplicationController
       render_tile_wall_as_partial
       ignore_all_newrelic if @current_user.is_site_admin
     else
+      @in_public_board = params[:public_slug].present?
       set_parent_board_user_by_tile(session[:start_tile])
       @current_user = current_user
 
