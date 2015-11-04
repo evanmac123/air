@@ -1,0 +1,30 @@
+<div id="schedule_demo_modal" class="reveal-modal small"  >
+  <div id="modal_content" style="">
+    <div class="banner_img">
+      <%=image_tag "airbo_logo_lightblue_square_smile.png" %>
+    </div>
+    <div class="greeting" id="request_content">
+      <p class="greeting">
+      Enter your work email address, and we'll</br>
+      contact you to schedule a demo.
+      </p>
+      <div >
+        <%=form_for DemoRequest.new, html:{id: "schedule_demo_form"} do |f| %>
+          <div class="form_data">
+            <%=f.text_field :email, placeholder: "name@example.com", style: "border:none;border-bottom: 1px solid #CCC"%>
+            <%=f.submit "Schedule a demo", id: "submit_demo_request"%>
+          </div>
+        <%end%>
+      </div>
+    </div>
+    <div class="greeting" id="confirmation_content">
+      <p>
+      Great! We’ll be in touch. In the meantime, you can use this link to share this Airbo Board.
+      </p>
+
+          <div class="form_data">
+            <span class="link_for_copy"><%=link_to public_board_url(@demo.public_slug)%>
+          </div>
+    </div>
+  </div>
+</div>
