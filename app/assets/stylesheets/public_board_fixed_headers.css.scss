@@ -6,6 +6,9 @@ header {
   position: fixed;
   width: 100%;
   z-index: 90;
+  #logo {
+    min-width: 200px;
+  }
 
   nav{
     display:block;
@@ -292,9 +295,11 @@ header {
   header {
     #logo {
       width: 50%;
+      min-width: 50%;
       .go_home {
         margin-top: 0;
         margin-bottom: 5px;
+        width: 100%;
       }
     }
     #demo_request {
