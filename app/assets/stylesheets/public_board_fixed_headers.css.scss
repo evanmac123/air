@@ -6,6 +6,9 @@ header {
   position: fixed;
   width: 100%;
   z-index: 90;
+  #logo {
+    min-width: 200px;
+  }
 
   nav{
     display:block;
@@ -26,92 +29,124 @@ header {
 .main_h {
   position: fixed;
   top: 0px;
-  max-height: 70px;
+  // max-height: 70px;
+  margin: auto;
   margin-top: 48px;
-  z-index: 91;
+  z-index: 89;
   width: 100%;
-  padding-top: 17px;
+  // max-width: 69.25em;
+  // padding-top: 17px;
   background: none;
   overflow: hidden;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   opacity: 0;
   top: -100px;
-  padding-bottom: 6px;
+  // padding-bottom: 6px;
+  &.sticky {
+    opacity: 1;
+    top: 0px;
+    border-bottom: 1px solid gainsboro;
+  }
+  .row_nav {
+    width: 100%;
+    max-width: 69.25em;
+    margin: auto;
+    background-color: white;
+    overflow: auto;
+    padding: 9px;
+    border: 1px solid #c5c9cf;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+  }
+  img#mini_cover {
+    height: 30px;
+    float: left;
+  }
+  .mini_name {
+    float: left;
+    color: #2e2e2c;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 30px;
+    padding-left: 10px;
+  }
+  // .row_nav {
+  //   width: 100%;
+  //   max-width: 940px;
+  //   margin: 0 auto;
+  //   position: relative;
+  //   padding: 0 2%;
+  // }
 }
-.open-nav {
-  max-height: 400px !important;
-}
-.open-nav .mobile-toggle {
-  transform: rotate(-90deg);
-  -webkit-transform: rotate(-90deg);
-}
-.sticky {
-  background-color: rgba(255, 255, 255, 0.98);
-  opacity: 1;
-  top: 0px;
-  border-bottom: 1px solid gainsboro;
-}
-.logo {
-  width: 50px;
-  font-size: 25px;
-  color: #8f8f8f;
-  text-transform: uppercase;
-  float: left;
-  display: block;
-  margin-top: 0;
-  line-height: 1;
-  margin-bottom: 10px;
-}
-nav {
-  float: right;
-  width: 60%;
-}
-nav ul {
-  list-style: none;
-  overflow: hidden;
-  text-align: right;
-  float: right;
-}
-nav ul li {
-  display: inline-block;
-  margin-left: 35px;
-  line-height: 1.5;
-}
-nav ul a {
-  color: #888888;
-  text-transform: uppercase;
-  font-size: 12px;
-}
-.mobile-toggle {
-  display: none;
-  cursor: pointer;
-  font-size: 20px;
-  position: absolute;
-  right: 22px;
-  top: 0;
-  width: 30px;
-  -webkit-transition: all 200ms ease-in;
-  -moz-transition: all 200ms ease-in;
-  transition: all 200ms ease-in;
-}
-
-.mobile-toggle span {
-  width: 30px;
-  height: 4px;
-  margin-bottom: 6px;
-  border-radius: 1000px;
-  background: #8f8f8f;
-  display: block;
-}
-
-.row_nav {
-  width: 100%;
-  max-width: 940px;
-  margin: 0 auto;
-  position: relative;
-  padding: 0 2%;
-}
+// .open-nav {
+//   max-height: 400px !important;
+// }
+// .open-nav .mobile-toggle {
+//   transform: rotate(-90deg);
+//   -webkit-transform: rotate(-90deg);
+// }
+//
+// .logo {
+//   width: 50px;
+//   font-size: 25px;
+//   color: #8f8f8f;
+//   text-transform: uppercase;
+//   float: left;
+//   display: block;
+//   margin-top: 0;
+//   line-height: 1;
+//   margin-bottom: 10px;
+// }
+// nav {
+//   float: right;
+//   width: 60%;
+// }
+// nav ul {
+//   list-style: none;
+//   overflow: hidden;
+//   text-align: right;
+//   float: right;
+// }
+// nav ul li {
+//   display: inline-block;
+//   margin-left: 35px;
+//   line-height: 1.5;
+// }
+// nav ul a {
+//   color: #888888;
+//   text-transform: uppercase;
+//   font-size: 12px;
+// }
+// .mobile-toggle {
+//   display: none;
+//   cursor: pointer;
+//   font-size: 20px;
+//   position: absolute;
+//   right: 22px;
+//   top: 0;
+//   width: 30px;
+//   -webkit-transition: all 200ms ease-in;
+//   -moz-transition: all 200ms ease-in;
+//   transition: all 200ms ease-in;
+// }
+//
+// .mobile-toggle span {
+//   width: 30px;
+//   height: 4px;
+//   margin-bottom: 6px;
+//   border-radius: 1000px;
+//   background: #8f8f8f;
+//   display: block;
+// }
+//
+// .row_nav {
+//   width: 100%;
+//   max-width: 940px;
+//   margin: 0 auto;
+//   position: relative;
+//   padding: 0 2%;
+// }
 // h1 {
 //   font-size: 30px;
 //   line-height: 1.8;
@@ -260,9 +295,11 @@ nav ul a {
   header {
     #logo {
       width: 50%;
+      min-width: 50%;
       .go_home {
         margin-top: 0;
         margin-bottom: 5px;
+        width: 100%;
       }
     }
     #demo_request {
