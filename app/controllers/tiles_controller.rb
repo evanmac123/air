@@ -169,7 +169,7 @@ class TilesController < ApplicationController
       show_conversion_form_provided_that { satisfiable_tiles.empty? }
     else
       tile_completion_count = @current_user.tile_completions.joins(:tile).where("#{Tile.table_name}.demo_id" => @current_user.demo_id).count
-      allow_reshow = tile_completion_count == active_tile_count
+      allow_reshow = false #tile_completion_count == active_tile_count
 
       show_conversion_form_provided_that(allow_reshow) { tile_completion_count == 2 || tile_completion_count == active_tile_count }
     end
