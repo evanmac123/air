@@ -2,6 +2,7 @@
 <%= render partial: 'shared/tiles/user_progress', locals: {raffle: current_user.demo.raffle} %>
  
 <%= render 'shared/tile_wall', @displayable_categorized_tiles.merge(path_for_more_tiles: tiles_path) %>
+<%if !@demo.is_parent?%>
 <div class="row">
   <div id="feed_wrapper" class="large-4 columns">
     <div class="feeds module">
@@ -41,6 +42,7 @@
   </div>
 
 </div>
+<%end%>
 
 <%= render "shared/guest_conversion_lightbox", user: @current_user, show_conversion_form: @show_conversion_form, demo: @current_user.demo %>
 
