@@ -179,16 +179,18 @@ h1 {
 
 @media only screen and (max-width: 766px) {
   // Top header
-  #logo {
-    width: 50%;
-    .go_home {
-      margin-top: 0;
-      margin-bottom: 5px;
+  header {
+    #logo {
+      width: 50%;
+      .go_home {
+        margin-top: 0;
+        margin-bottom: 5px;
+      }
     }
-  }
-  #save_progress {
-    width: 50%;
-    margin-top: 15px;
+    #save_progress {
+      width: 50%;
+      margin-top: 15px;
+    }
   }
   // .main_h {
     //   padding-top: 25px;
@@ -299,15 +301,15 @@ h1 {
   }
 
   :-moz-placeholder { /* Firefox 18- */
-    text-align: center;  
+    text-align: center;
   }
 
   ::-moz-placeholder {  /* Firefox 19+ */
-    text-align: center;  
+    text-align: center;
   }
 
-  :-ms-input-placeholder {  
-    text-align: center; 
+  :-ms-input-placeholder {
+    text-align: center;
   }
 
   #submit_demo_request{

@@ -93,10 +93,8 @@ Airbo.PublicBoardManager = (function(){
   return {
     init: init
   }
-
-
-}())
+}());
 
 $(function(){
-Airbo.PublicBoardManager.init();
+  Airbo.PublicBoardManager.init();
 });
