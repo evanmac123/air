@@ -177,6 +177,9 @@ nav ul a {
 //
 #schedule_demo_modal{
   padding: 0;
+  width: 100%;
+  margin: 0;
+  left: 0;
   top: 22%;
   .close-reveal-modal {
     position: absolute;
@@ -196,6 +199,7 @@ nav ul a {
     padding:50px;
     background: white;
     border-radius: 3px;
+    margin: auto;
     .banner_img{
       text-align: center;
       margin-bottom: 40px;
