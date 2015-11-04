@@ -97,7 +97,8 @@ Airbo.PublicBoardManager = (function(){
 
   return {
     init: init,
-    openModal: openModal
+    openModal: openModal,
+    modalPing: modalPing
   }
 }());
 

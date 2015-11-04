@@ -63,6 +63,7 @@ loadNextTileWithOffset = (offset, preloadAnimations, predisplayAnimations, tileP
           if data.show_conversion_form == true
             if($("body").data("public-board")==true)
                Airbo.PublicBoardManager.openModal()
+               Airbo.PublicBoardManager.modalPing("Source", "Auto");
             else
                lightboxConversionForm()
     )
