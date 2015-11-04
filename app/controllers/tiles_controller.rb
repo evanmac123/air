@@ -39,7 +39,7 @@ class TilesController < ApplicationController
       increment_tile_views_counter @start_tile, current_user
       session.delete(:start_tile)
       @hide_cover = true
-      render layout: "public_board" if @in_public_board
+      render layout: "public_board" if @in_public_board and @demo.is_parent?
     end
 
   end
@@ -59,7 +59,7 @@ class TilesController < ApplicationController
     else
       session[:start_tile] = params[:id]
       if params[:public_slug]
-        redirect_to public_tiles_path(params[:public_slug])
+        redirect_to public_tiles_path(params[:public_slug]) and current_user.demo.is_parent?
       else
         redirect_to tiles_path
       end

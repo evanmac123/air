@@ -64,7 +64,7 @@ class ActsController < ApplicationController
 
     respond_to do |format|
       format.html do
-        render layout: "public_board" if params[:public_slug].present?
+        render layout: "public_board" if @demo.is_parent? & params[:public_slug].present?
       end
 
       format.js do
