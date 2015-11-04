@@ -1,14 +1,6 @@
 <header class="main_h">
   <div class="row_nav">
-    <a class="logo" href="#"></a>
-    <div class="mobile-toggle">
-    </div>
-
-    <nav>
-      <!--ul>
-        <li><a href=".sec01">Subnav</a></li>
-      </ul-->
-    </nav>
-
-  </div> <!-- / row_nav -->
+    <%= image_tag @demo.cover_image, id: "mini_cover" %>
+    <p class="mini_name"><%= @demo.name %></p>
+  </div>
 </header>
