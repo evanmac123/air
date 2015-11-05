@@ -1,5 +1,4 @@
 class PublicBoardsController < ApplicationController
-  include MixpanelHelper
   skip_before_filter :authorize
   before_filter :allow_guest_user
 
@@ -7,7 +6,7 @@ class PublicBoardsController < ApplicationController
   #resource!!!!
 
   def show
-    ping "Public Parent Board", {:url => request.url}, current_user
+    ping("Public Parent Board", {:url => request.url}, current_user)
     redirect_to public_activity_path(params[:public_slug])
   end
 
