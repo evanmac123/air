@@ -114,7 +114,7 @@ Create your development and test databases. (Note: Two distinct steps: 1 for dev
     rake db:create
 
 Migrate the development database:
-
+### change this to rake db:load
     rake db:migrate
 
 Prepare the test database:
