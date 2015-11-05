@@ -1000,7 +1000,6 @@ ActiveRecord::Schema.define(:version => 20151103200947) do
     t.boolean  "send_weekly_activity_report",                         :default => true
     t.boolean  "user_submitted_tile_intro_seen",                      :default => false,       :null => false
     t.boolean  "manage_access_prompt_seen",                           :default => false,       :null => false
-    t.boolean  "suggestion_box_prompt_seen",                          :default => false,       :null => false
   end
 
   add_index "users", ["cancel_account_token"], :name => "index_users_on_cancel_account_token"
