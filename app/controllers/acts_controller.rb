@@ -33,7 +33,7 @@ class ActsController < ApplicationController
     @display_get_started_lightbox ||= params[:display_get_started_lightbox]
 
     #disable display of the 
-    @display_get_started_lightbox = false if params[:public_slug].present?
+    @display_get_started_lightbox = false if params[:public_slug].present? and @demo.is_parent?
 
     if @display_get_started_lightbox
       @get_started_lightbox_message = persistent_message_or_default(current_user)
