@@ -6,15 +6,15 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= content_for :meta %>
-  <title>Airbo</title>
+  <title>Airbo Public Board <%=@demo.name%></title>
   <%= split_stylesheet_link_tag "app-internal", :media => "all", :split_count => 3 %>
   <%= stylesheet_link_tag "app-user-progress" %>
+  <%= stylesheet_link_tag "public_board_fixed_headers" %>
   <%= javascript_include_tag "https://api.intercom.io/api/js/library.js" %>
   <%= javascript_include_tag 'application' %>
   <%= javascript_include_tag 'app-internal' %>
-  <%= javascript_include_tag 'file-uploader' %>
   <%= javascript_include_tag asset_path('ga.js') if ENV['USE_GA'] %>
-
+  <%= javascript_include_tag 'public_board_fixed_headers' %>
   <!--[if lt IE 9]>
     <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <style type="text/css">.gradient {filter: none;}</style>
@@ -24,33 +24,28 @@
 
   <%= csrf_meta_tag %>
   <%= render 'shared/mixpanel' unless @is_admin_page %>
+  <%= mp_track_page "Public Parent Board " %>
+
   <%= mobvious_javascript %>
-  <%= render 'shared/nerf_animations_in_test' %>
 </head>
-<body class="<%= body_class %>" style="-webkit-overflow-scrolling: touch; overflow:visible;"><%# only works with inline style? WTF. but leave it: this fixes scroll problems in ios7 and doesn't seem to work if included via stylesheet. %>
-
-  <%= render 'shared/header', :show_play_box => true %>
-  <div id='js-flashes'><%# render 'shared/flashes' %> </div> 
-  <%= render 'shared/offcanvas_menu_signedin' %>
-
-
-  <main class="main">
-    <%= render partial: 'shared/tiles_tools_subnav/tiles_tools_subnav' %>
+<body class="<%= body_class %>" style="-webkit-overflow-scrolling: touch; overflow:visible;" data-public-board="<%=@in_public_board ? true : false%>"><%# only works with inline style? WTF. but leave it: this fixes scroll problems in ios7 and doesn't seem to work if included via stylesheet. %>
+  <%= render partial: "acts/public_board/main_header" %>
+  <div id='js-flashes'><%# render 'shared/flashes' %> </div>
+  <main class="main" >
     <div class="core">
-      <div class="content">
-
-               <%= yield %>
+      <div class="content" >
+        <%= render partial: "acts/public_board/banner_nav" unless @hide_cover %>
+        <%= yield %>
       </div>
       <div id="footer">
         Copyright © 2013 H.Engage, Inc.
       </div>
     </div>
   </main>
+  <%= render partial: "acts/public_board/schedule_demo_modal" %>
 
   <%= render 'shared/intercom' %>
   <%= render :partial => 'shared/javascript' %><!-- This is where 'yield :javascript' takes place -->
-  
-  <div id='gradient-triangle'></div>
   <%= javascript_include_tag 'rem.min.js' %>
 </body>
 </html>

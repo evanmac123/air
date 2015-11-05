@@ -97,6 +97,7 @@ Health::Application.routes.draw do
 
 
 
+  resources :demo_requests, only: :create
   resources :board_name_validations, only: :show
   resources :board_memberships, only: :destroy
   resources :mute_followups, only: :update
@@ -201,6 +202,8 @@ Health::Application.routes.draw do
         put 'public_link'
         put 'welcome_message'
 				put 'weekly_activity_email'
+        put 'cover_message'
+        put 'cover_image'
       end
     end
 

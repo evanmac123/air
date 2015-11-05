@@ -6,7 +6,18 @@ class TilesController < ApplicationController
 
   prepend_before_filter :allow_guest_user, :only => [:index, :show]
 
+
+
+     #FIXME FIXME this logic is sooooooo convoluted!!!!!
+  # so I don't forget the next time i look at this crazy code
+  # Index and show essentially do the same thing display a single tiles_path
+  # index renders it in the slideshow
+  # the first time around the else path is triggered and we render the index
+  # template
+  # the second time we render the partial via ajax.
+
   def index
+    @demo = current_user.demo
     if params[:partial_only]
       set_parent_board_user(params[:board_id])
       @current_user = current_user
@@ -14,6 +25,7 @@ class TilesController < ApplicationController
       render_tile_wall_as_partial
       ignore_all_newrelic if @current_user.is_site_admin
     else
+      @in_public_board = params[:public_slug].present?
       set_parent_board_user_by_tile(session[:start_tile])
       @current_user = current_user
 
@@ -26,7 +38,10 @@ class TilesController < ApplicationController
       schedule_viewed_tile_ping(@start_tile)
       increment_tile_views_counter @start_tile, current_user
       session.delete(:start_tile)
+      @hide_cover = true
+      render layout: "public_board" if @in_public_board and @demo.is_parent?
     end
+
   end
 
   def show
@@ -44,7 +59,7 @@ class TilesController < ApplicationController
     else
       session[:start_tile] = params[:id]
       if params[:public_slug]
-        redirect_to public_tiles_path(params[:public_slug])
+        redirect_to public_tiles_path(params[:public_slug]) and current_user.demo.is_parent?
       else
         redirect_to tiles_path
       end
@@ -154,7 +169,7 @@ class TilesController < ApplicationController
       show_conversion_form_provided_that { satisfiable_tiles.empty? }
     else
       tile_completion_count = @current_user.tile_completions.joins(:tile).where("#{Tile.table_name}.demo_id" => @current_user.demo_id).count
-      allow_reshow = tile_completion_count == active_tile_count
+      allow_reshow = false #tile_completion_count == active_tile_count
 
       show_conversion_form_provided_that(allow_reshow) { tile_completion_count == 2 || tile_completion_count == active_tile_count }
     end

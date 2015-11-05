@@ -27,8 +27,9 @@ module TilesHelper
   end
 
   def all_tiles_done_link
-    if params[:public_slug]
-      public_activity_path(params[:public_slug]) 
+    if params[:public_slug] || current_user.is_a?(GuestUser)
+      slug = params[:public_slug] || current_user.demo.public_slug
+      public_activity_path(slug)
     else
       activity_path(board_id: current_user.demo_id) 
     end

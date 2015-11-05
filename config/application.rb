@@ -50,6 +50,8 @@ module Health
       internal/internal_ie8.css
       client_admin/client_admin_ie8.css
       app-support.css
+      public_board_fixed_headers.css
+      public_board_fixed_headers.js
       app-admin.js
       app-internal.js
       app-external.js

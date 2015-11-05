@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151030191149) do
+ActiveRecord::Schema.define(:version => 20151103200947) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -203,6 +203,12 @@ ActiveRecord::Schema.define(:version => 20151030191149) do
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
+  create_table "demo_requests", :force => true do |t|
+    t.string   "email"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "demos", :force => true do |t|
     t.string   "name",                                                 :default => "",                :null => false
     t.datetime "created_at",                                                                          :null => false
@@ -260,6 +266,11 @@ ActiveRecord::Schema.define(:version => 20151030191149) do
     t.boolean  "allow_raw_in_persistent_message",                      :default => false
     t.boolean  "is_parent",                                            :default => false,             :null => false
     t.boolean  "everyone_can_make_tile_suggestions",                   :default => false,             :null => false
+    t.string   "cover_message",                                        :default => "",                :null => false
+    t.string   "cover_image_file_name"
+    t.string   "cover_image_content_type"
+    t.integer  "cover_image_file_size"
+    t.datetime "cover_image_updated_at"
   end
 
   add_index "demos", ["public_slug"], :name => "index_demos_on_public_slug"
@@ -989,7 +1000,6 @@ ActiveRecord::Schema.define(:version => 20151030191149) do
     t.boolean  "send_weekly_activity_report",                         :default => true
     t.boolean  "user_submitted_tile_intro_seen",                      :default => false,       :null => false
     t.boolean  "manage_access_prompt_seen",                           :default => false,       :null => false
-    t.boolean  "suggestion_box_prompt_seen",                          :default => false,       :null => false
   end
 
   add_index "users", ["cancel_account_token"], :name => "index_users_on_cancel_account_token"
