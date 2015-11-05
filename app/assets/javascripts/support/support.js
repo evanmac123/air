@@ -14,4 +14,12 @@ $(function() {
       Airbo.Utils.mediumEditor.init(params);
     }
   }
+
+  var i = function() {
+      $(".tocify-wrapper").removeClass("open"), $("#nav-button").removeClass("open")
+  };
+  $("#nav-button").click(function() {
+      return $(".tocify-wrapper").toggleClass("open"), $("#nav-button").toggleClass("open"), !1
+  });
+  $(".page-wrapper").click(i), $(".tocify-item").click(i);
 });

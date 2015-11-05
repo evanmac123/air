@@ -3,4 +3,4 @@
 //= require medium-editor.min
 //= require jquery.ui.autocomplete
 //= require jquery.tocify
-//= require ./external/support
+//= require ./support/support
