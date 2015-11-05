@@ -71,7 +71,7 @@ Airbo.PublicBoardManager = (function(){
   }
 
   function initFormValidator(){
-    form = $("#schedule_demo_form")
+    form = $("#schedule_demo_form");
     var config={
       rules: {
         "demo_request[email]": {
@@ -93,7 +93,6 @@ Airbo.PublicBoardManager = (function(){
 
     $("#schedule_demo_form").submit(function(event){
       event.preventDefault();
-      // var form= $(this);
       if(form.valid()){
         localStorage.setItem("demoRequested", true);
         $.post( $(this).attr("action"), form.serialize())
