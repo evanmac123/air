@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= content_for :meta %>
-  <title>Airbo</title>
+  <title>Airbo Public Board <%=@demo.name%></title>
   <%= split_stylesheet_link_tag "app-internal", :media => "all", :split_count => 3 %>
   <%= stylesheet_link_tag "app-user-progress" %>
   <%= stylesheet_link_tag "public_board_fixed_headers" %>
@@ -24,7 +24,17 @@
 
   <%= csrf_meta_tag %>
   <%= render 'shared/mixpanel' unless @is_admin_page %>
+  <%= mp_track_page "Public Parent Board " %>
+
   <%= mobvious_javascript %>
+  <script type="text/javascript">
+console.log(window.location.href);
+mixpanel.track('view page', 
+    { 'page_name' : 'Public Parent Board ',
+      'url' : window.location.href,
+      'title' :document.title 
+    });
+</script>
 </head>
 <body class="<%= body_class %>" style="-webkit-overflow-scrolling: touch; overflow:visible;" data-public-board="<%=@in_public_board ? true : false%>"><%# only works with inline style? WTF. but leave it: this fixes scroll problems in ios7 and doesn't seem to work if included via stylesheet. %>
   <%= render partial: "acts/public_board/main_header" %>
