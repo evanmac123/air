@@ -6,8 +6,7 @@ class PublicBoardsController < ApplicationController
   #resource!!!!
 
   def show
-    ping("Public Parent Board", {:url => request.url}, current_user)
-    redirect_to public_activity_path(params[:public_slug])
+    redirect_to public_activity_path(params: request.params.except("action", "controller")
   end
 
   protected
