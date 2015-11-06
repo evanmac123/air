@@ -6,7 +6,7 @@ class PublicBoardsController < ApplicationController
   #resource!!!!
 
   def show
-    redirect_to public_activity_path(params: request.params.except("action", "controller")
+    redirect_to public_activity_path(params: request.params.except("action", "controller"))
   end
 
   protected
