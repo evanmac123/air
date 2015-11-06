@@ -35,15 +35,26 @@
   .separator {
     border-color: #49A8DF;
   }
-  .tocify-focus, .tocify-item.active {
-    color:#174159;
-    background: transparent;
+  .tocify-item {
+    font-weight: 500;
+    &.active, &:hover {
+      color:#0F3D57;
+      background: transparent;
+    }
   }
+  .tocify-subheader .tocify-item>a {
+    border-width: 0;
+  }
+  // .tocify-focus, .tocify-item.active {
+  //   color:#0F3D57;
+  //   background: transparent;
+  // }
 }
 body {
   color: #4c4c4c;
 }
 .content{
+  margin-top: 0.5em;
   h1 {
     color: #2e2e2c;
     font-weight: 300;
