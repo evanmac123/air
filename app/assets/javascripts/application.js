@@ -190,31 +190,19 @@ $(function(){
 //FIXME Deprecated
 Airbo.LoadedSingletonModules = [];
 
-Airbo.Utils.TextSelectionDector = (function(){
-  function getSelected(){
-    var evtTarget; callback;
-    var t = '';
-    if(window.getSelection){
-      t = window.getSelection();
-    }else if(document.getSelection){
-      t = document.getSelection();
-    }else if(document.selection){
-      t = document.selection.createRange().text;
-    }
-    return t;
+Airbo.Utils.TextSelectionDetector = (function(){
+  var eventTarget, callback;
+
+  function initAutoSelect(cb){
+    eventTarget.click(function(){
+      $(this).select();
+      cb();
+    });
   }
 
-  function mouseup(event){
-    var st = getSelected();
-    if(st!='' && $(eventTarget).is($(event.target))){
-      callback();
-    }
-  }
-
-  function init(target, cb){
-    eventTarget = target;
-    callback = cb;
-    $(document).bind("mouseup", mouseup);
+  function init(targetSelector, cb){
+    eventTarget = $(targetSelector);
+    initAutoSelect(cb);
   }
 
   return {

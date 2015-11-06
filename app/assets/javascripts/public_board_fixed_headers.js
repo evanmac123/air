@@ -111,6 +111,7 @@ Airbo.PublicBoardManager = (function(){
    modalPing("Copied Share Link");
   }
 
+
   function init(){
     setupStickyHeaders();
     initScheduleDemoModal();
@@ -128,5 +129,5 @@ Airbo.PublicBoardManager = (function(){
 
 $(function(){
   Airbo.PublicBoardManager.init();
-  Airbo.Utils.TextSelectionDector.init("#link_for_copy", Airbo.PublicBoardManager.linkCopied);
+  Airbo.Utils.TextSelectionDetector.init("#link_for_copy", Airbo.PublicBoardManager.linkCopied);
 });
