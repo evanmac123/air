@@ -8,7 +8,7 @@ Airbo.PublicBoardManager = (function(){
     // Sticky Header
     $(window).scroll(function() {
 
-      if ($(window).scrollTop() > 300) {
+      if ($(window).scrollTop() > $(".user_container").position().top) {
         $('.main_h').addClass('sticky');
       } else {
         $('.main_h').removeClass('sticky');
