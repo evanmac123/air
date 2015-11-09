@@ -228,18 +228,18 @@ body > header {
   //
   // => Top Header
   //
-  header {
+  body > header {
     #logo {
       width: 50%;
       min-width: 50%;
       .go_home {
-        margin-top: 0;
-        margin-bottom: 5px;
+        margin-top: 3px;
+        margin-bottom: 3px;
         width: 100%;
       }
     }
     #demo_request {
-      width: 50%;
+      width: 187px;
       margin-top: 13px;
     }
   }
@@ -254,8 +254,7 @@ body > header {
   //
   .hero {
     background: white;
-    padding: 15px;
-    padding-top: 60px;
+    padding: 60px 0 15px 0;
     .cover {
       border-radius: 0;
       border-width: 0;
