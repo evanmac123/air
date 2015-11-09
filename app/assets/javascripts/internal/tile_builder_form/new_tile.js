@@ -495,7 +495,10 @@ Airbo.TileCreator = (function(){
 
    //TODO figure why this needs a timer
    $("body").on("cancel.reveal", "a#tilebuilder_close[data-confirm]", function(event){
-     setTimeout(function(){setupModalFor()}, 200);
+     setTimeout(function(){
+       $("body").css({"overflow-y": "hidden"}).addClass("client_admin-tiles-edit");
+       openTileFormModal();
+     }, 200);
    });
  }
 
