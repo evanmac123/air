@@ -41,12 +41,29 @@ Airbo.TileSuportingContentTextManager = (function(){
     contentInput = $(contentInputSelector);
   }
 
+  function initHeadline(){
+    //wrapper = $("#tile_headline");
+    //headline = $("#tile_builder_form_headline");
+    //headHeight= headline.height();
+    //wrapperHeight = wrapper.height();
+    //begRatio = wrapperHeight/headHeight;
+
+    autosize('#tile_builder_form_headline');
+
+    //$('#tile_builder_form_headline').keyup(function(){
+      
+      //headHeight= headline.height();
+      //$("#tile_headline").css("height", "300px" )
+    //})
+  }
+
 
   function init(){
 
     if (Airbo.Utils.supportsFeatureByPresenceOfSelector(contentEditorSelector) ) {
       initjQueryObjects();
       initializeEditor();
+      initHeadline();
       return this;
     }
   }
