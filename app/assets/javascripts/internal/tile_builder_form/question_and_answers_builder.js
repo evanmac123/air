@@ -144,7 +144,7 @@ Airbo.TileQuestionBuilder = (function(){
         if(!$(event.target).attr("data-dropdown")){
           closeMenuDropDowns();
         }
-        if($("li.selected").length > 0){
+        if($(".tile_types li.selected.subtype").length > 0){
           tryTurnOffEditAnswer(event.target);
         }
       }
