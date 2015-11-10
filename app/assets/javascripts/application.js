@@ -109,6 +109,11 @@ Airbo.Utils = {
           staticToolbar:true,
           buttonLabels: 'fontawesome',
           targetBlank: true,
+
+          paste: {
+            forcePlainText: false,
+            cleanPastedHTML: false,
+          },
           anchor: {
            linkValidation: true,
           },
