@@ -7,7 +7,7 @@
     font-size:1em;
     margin:0 auto;
   }
-  
+
   // Large Prev and Next buttons
   .viewer {
     position:relative;
@@ -67,5 +67,8 @@
       }
     }
   }
-  
+
+}
+.client_admin-tiles.client_admin-tiles-show {
+  .content .row {max-width:71.25em;}
 }
