@@ -71,10 +71,8 @@ label.show_if_ie9{
 
 #supporting_content_editor {
   @include with-lists();
-  height: 450px;
   overflow-y: auto;
   line-height: 1.25em;
-  max-height: 450px;
   min-height: 250px;
   height: auto;
   // &.exceeded_maxlength_field {
