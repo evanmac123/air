@@ -55,6 +55,7 @@ Airbo.TileSuportingContentTextManager = (function(){
       //headHeight= headline.height();
       //$("#tile_headline").css("height", "300px" )
     //})
+    autosize($('#tile_builder_form_headline'));
   }
 
 

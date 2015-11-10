@@ -1,7 +1,7 @@
 //= require jquery
 //= require jquery.validate
 //= require jquery.validate.additional-methods
-
+//= require ../../../vendor/assets/javascripts/autosize
 
 
 //FIXME add to airbo utils
