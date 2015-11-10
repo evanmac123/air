@@ -608,6 +608,20 @@ Airbo.TileCreator = (function(){
     }
   }
 
+  function getSelectedText(){
+    var t;
+    if(window.getSelection){
+      t = window.getSelection();
+    }else if(document.getSelection){
+      t = document.getSelection();
+    }else if(document.selection){
+      t = document.selection.createRange().text;
+    }
+    return t
+  }
+
+
+
   function init(context){
     initContext(context);
 
@@ -625,8 +639,26 @@ Airbo.TileCreator = (function(){
 
     initTileBuilderFormSubmission();
 
+    /* NOTE
+     * Because of UX desired by the user the normal modal background is not
+     * available so we have to capture the click on event and manually tricker what would
+     * otherwise the "close on background click" behaviore
+     */
+
     $(tileModalSelector).click(function(event){
-      if($(event.target).is(tileModalSelector) || $(event.srcElement).is(".tile_preview_container") || $(event.srcElement).is(".row")){
+      /*
+      * NOTE This is a bit of a hack/workaroud to solve an issue with mouseup
+      * and mousedown events simulating a click outside of the main tile area.
+      * This conflicts with the editor because selecting text and accidentally
+      * releasing the mouse (mouseup) outside the editor triggers the medium
+      * toolbar and the close modal confirmation. This hack just checks to see
+      * if there is any selected text and no-ops if there is to avoid displaying
+      * the confirmation modal.
+      *
+      */
+      var hasNoSelection = getSelectedText() == "";
+
+      if( hasNoSelection && ($(event.target).is(tileModalSelector) || $(event.srcElement).is(".tile_preview_container") || $(event.srcElement).is(".row"))){
         $(tileBuilderCloseSelector).trigger("click");
       }
     });
@@ -637,8 +669,6 @@ Airbo.TileCreator = (function(){
         $(imageLibraryCloseSelector).trigger("click");
       }
     });
-
-
   }
 
 
