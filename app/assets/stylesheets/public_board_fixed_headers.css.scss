@@ -102,12 +102,17 @@ body > header {
     height: $img-height;
     display: table;
     width: 100%;
-    img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-    }
+
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    // background-image: attr(data-image-src url);
+    // img {
+    //   position: absolute;
+    //   top: 0;
+    //   left: 0;
+    //   width: 100%;
+    // }
     .shadow_overlay {
       background: rgba(14, 23, 29, 0.82);
       display: block;
@@ -262,7 +267,7 @@ body > header {
     }
     .cover_image {
       height: 200px;
-      padding-top: 70px;
+      // padding-top: 70px;
     }
     .cover_desc {
       padding: 17px 16px;
