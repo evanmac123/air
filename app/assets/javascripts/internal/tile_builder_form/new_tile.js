@@ -42,6 +42,7 @@ Airbo.TileCreator = (function(){
    //initIntroTooltips();
    //TODO create funciton for setup that needs to take place only after the
    //modal has opened
+  //  tileBuilderForm.find(".character-counter").remove();
 
    Airbo.TileImagesMgr.init();
    Airbo.TileImageCredit.init();
@@ -479,7 +480,10 @@ Airbo.TileCreator = (function(){
 
    //TODO figure why this needs a timer
    $("body").on("cancel.reveal", "a#tilebuilder_close[data-confirm]", function(event){
-     setTimeout(function(){setupModalFor()}, 200);
+     setTimeout(function(){
+       $("body").css({"overflow-y": "hidden"}).addClass("client_admin-tiles-edit");
+       openTileFormModal();
+     }, 200);
    });
  }
 
@@ -540,14 +544,14 @@ Airbo.TileCreator = (function(){
   function initCancelBeforeSave(){
     var msg = "Are you sure you want to stop " + preventCloseMsg + " this tile?"
     + " Any changes you've made will be lost.",
-    config = $.extend({}, Airbo.Utils.confirmWithRevealConfig, {body: msg});
+    config = $.extend({}, Airbo.Utils.confirmWithRevealConfig, {body: msg, modal_class: 'tiny confirm-with-reveal tile_builder_confirm_modal'});
     $("#tilebuilder_close").confirmWithReveal(config);
   }
 
   function initAcceptTileConfirm(){
     var msg = "Are you sure you want to accept this tile? You cannot undo this action.";
 
-    config = $.extend({}, Airbo.Utils.confirmWithRevealConfig, {body: msg});
+    config = $.extend({}, Airbo.Utils.confirmWithRevealConfig, {body: msg, modal_class: 'tiny confirm-with-reveal accept_confirm_modal'});
 
 
     $(".accept").confirmWithReveal(config);
