@@ -1,9 +1,10 @@
 <div class="hero" id="banner">
   <div class="cover">
-    <div class="cover_image">
-      <%= image_tag @demo.cover_image %>
+    <div class="cover_image" style="background-image: url('<%= @demo.cover_image.url %>');" >
       <div class="shadow_overlay"></div>
-      <h1><%= @demo.name %></h1>
+      <div class="name_section">
+        <h1><%= @demo.name %></h1>
+      </div>
     </div>
     <div class="cover_desc">
       <p>
