@@ -320,7 +320,7 @@ Airbo.TileQuestionBuilder = (function(){
   };
 
   function editQuestionContainer(display, text) {
-    return buildContainer(display, text, '<textarea cols="40" id="tile_builder_form_question" name="tile_builder_form[question]" rows="20"></textarea>');
+    return buildContainer(display, text, '<textarea cols="40" id="tile_builder_form_question" name="tile_builder_form[question]" rows="2"></textarea>');
   };
 
   function addQuestion(container, question) {

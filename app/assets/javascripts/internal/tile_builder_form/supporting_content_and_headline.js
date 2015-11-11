@@ -28,6 +28,7 @@ Airbo.TileSuportingContentTextManager = (function(){
 
   function initHeadline(){
     autosize($('#tile_builder_form_headline'));
+    autosize($('#tile_builder_form_question'));
   }
 
 
