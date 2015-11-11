@@ -25,6 +25,9 @@ body > header {
     margin-right: 1px;
   }
 }
+.core {
+  padding-top: 48px;
+}
 //
 // => Secondary Header
 //
@@ -84,7 +87,7 @@ body > header {
   background: #d9dfe9;
   // padding-top: 108px;
   // padding-bottom: 4px;
-  padding: 108px 15px 4px 15px;
+  padding: 60px 15px 4px 15px;
   .cover {
     max-width: 69.25em;
     margin: auto;
@@ -230,6 +233,9 @@ body > header {
 }
 
 @media only screen and (max-width: 766px) {
+  .core {
+    padding-top: 49px;
+  }
   //
   // => Top Header
   //
@@ -259,7 +265,7 @@ body > header {
   //
   .hero {
     background: white;
-    padding: 60px 0 15px 0;
+    padding: 8px 0 15px 0;
     .cover {
       border-radius: 0;
       border-width: 0;
@@ -275,6 +281,12 @@ body > header {
         font-size: 15px;
       }
     }
+  }
+  //
+  // => Progress Bar
+  //
+  .user_container {
+    padding-top: 7px;
   }
   //
   // => Schedule Demo Modal
