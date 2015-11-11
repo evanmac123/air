@@ -1,0 +1,26 @@
+<main>
+  <div class="hero">
+    <div class="shadow_overlay"></div>
+    <header id="pageHeader">
+      <div class="row top">
+        <div class="columns logo">
+          <a href="/"><%= image_tag "landing/logo-white.png", alt: "Airbo" %></a>
+        </div>
+        <div class="columns headerMenu">
+          <ul>
+            <li><%= link_to "Home", "" %></li>
+            <li><%= link_to "Company", "#!" %></li>
+            <li><%= link_to "Blog", "http://blog.airbo.com", target: "_blank" %></li>
+            <li><%= link_to "Sign in", sign_in_path %></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <div class="hero_section">
+      <div class="hero_content">
+        <h1>Software for HR to create engaging employee programs & communications in minutes</h1>
+        <%= link_to "Request Demo", "", class: "request_demo" %>
+      </div>
+    </div>
+  </div>
+</main>

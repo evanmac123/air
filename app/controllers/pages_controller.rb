@@ -35,9 +35,9 @@ class PagesController < HighVoltage::PagesController
     case page_name
     when 'privacy', 'terms'
       'external'
-    when 'welcome', 'product'
+    when 'welcome', 'product', 'landing'
       'standalone'
-    when 'more_info', 
+    when 'more_info',
       @body_id = "homepage"
       'external_marketing'
     when 'asha', 'heineken', 'miltoncat', 'fujifilm', 'customer_tiles'
@@ -88,7 +88,7 @@ class PagesController < HighVoltage::PagesController
   def page_name_for_mixpanel
     if (name = PAGE_NAMES_FOR_MIXPANEL[page_name]).present?
       name
-    else 
+    else
       page_name
     end
   end
@@ -103,6 +103,6 @@ class PagesController < HighVoltage::PagesController
   end
 
   def handle_disabled_pages
-    raise ActionController::RoutingError.new("Page not Found") if DISABLED_PAGES.include?(params[:id]) 
+    raise ActionController::RoutingError.new("Page not Found") if DISABLED_PAGES.include?(params[:id])
   end
 end
