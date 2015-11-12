@@ -322,4 +322,14 @@ body.pages-show.landing {
       // }
     }
   }
+
+  @media only screen and (max-width: $foundation) {
+    .hero {
+      background-image: url('landing/hero-mobile.jpg');
+      height: 568px;
+      .hero_section {
+        height: calc(100% - 56px); // header height
+      }
+    }
+  }
 }
