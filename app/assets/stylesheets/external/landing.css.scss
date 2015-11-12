@@ -275,6 +275,9 @@ body.pages-show.landing {
     .menu_block {
       float: right;
       min-width: 530px;
+      ul {
+        line-height: 1;
+      }
       li {
         display: inline-block;
         margin-right: 40px;
@@ -397,6 +400,42 @@ body.pages-show.landing {
         .name {
           font-size: 14px;
           line-height: 21px;
+        }
+      }
+    }
+    footer#pageFtr {
+      .menu_block {
+        min-width: auto;
+        ul {
+          margin-top: 27px;
+        }
+        li {
+          // width: 24%;
+          margin-right: 30px;
+          // text-align: center;
+          &.sign_in_link {
+            float: right;
+            margin: 0;
+          }
+        }
+      }
+      .contacts_block {
+        height: auto;
+        a {
+          // padding-top: 17px;
+          padding-bottom: 20px;
+          display: block;
+          float: left;
+          img {
+            width: 51px;
+          }
+        }
+        .contacts {
+          float: none;
+          width: auto;
+          overflow: hidden;
+          padding: 0;
+          padding-top: 38px;
         }
       }
     }
