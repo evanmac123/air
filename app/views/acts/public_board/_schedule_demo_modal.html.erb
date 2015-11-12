@@ -1,4 +1,4 @@
-<div id="schedule_demo_modal" class="reveal-modal small">
+<div id="schedule_demo_modal" class="reveal-modal small transparent">
   <a class="close-reveal-modal"><i class="fa fa-times fa-2x"></i></a>
   <div id="modal_content" style="">
     <div class="banner_img">
@@ -22,8 +22,9 @@
       Great! We’ll be in touch. In the meantime, you can use this link to share this Airbo Board.
       </p>
       <div class="form_data">
-        <%= text_field_tag "link_for_copy", public_board_url(@demo.public_slug, utm_source: "Share Link") %>
-        <!-- <span class="link_for_copy"><%=link_to public_board_url(@demo.public_slug)%> -->
+        <%# TODO consider moving to the controller? %>
+        <%slug = @demo ? @demo.public_slug : DEFAULT_DEMO_PARENT_BOARD %>
+        <%= text_field_tag "link_for_copy", public_board_url(slug, utm_source: "Share Link") %>
       </div>
     </div>
   </div>

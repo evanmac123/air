@@ -15,6 +15,8 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
+DEFAULT_DEMO_PARENT_BOARD = ENV['DEFAULT_DEMO_PARENT_BOARD'] || "healthplanbasics"
+
 module Health
   class Application < Rails::Application
     config.generators do |generate|
