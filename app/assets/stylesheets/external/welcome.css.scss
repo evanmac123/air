@@ -1,4 +1,4 @@
-body.pages-show.landing, body.pages.pages-product{
+body.pages.pages-product{
   .button{
     box-shadow: none;
   }
@@ -159,98 +159,98 @@ body.pages-show.landing{
     }
   }
 }
-body.pages-show.landing{
-  @media only screen and (max-width: 90em){
-    main{
-      h1.heading {
-        padding-top: 10%;
-      }
-    }
-  }
-  @media only screen and (max-width: $large-desktop){
-    main{
-      background-size: 130%;
-      h1.heading{
-        padding-top: 7%;
-      }
-      h2.sub_heading{
-        padding: 22px;
-        padding-bottom: 0;
-      }
-      .tiles{
-        margin-top: -20px;
-        .tile{
-          &:nth-child(n+5){
-            height: 100px;
-          }
-        }
-      }
-    }
-  }
-  @media only screen and (max-width: $foundation){
-    #pageHeader{
-      .headerMenu{
-        width: 100%;
-        ul{
-          li{
-            margin: 0;
-            width: 33%;
-            display: block;
-            float: left;
-            text-align: center;
-          }
-        }
-      }
-    }
-    main{
-      background-size: 155%;
-      h1.heading{
-        font-size: 33px;
-      }
-      h2.sub_heading{
-        font-size: 21px;
-      }
-      #regForm{
-        ul{
-          width: 100%;
-          li{
-            width: 50%;
-          }
-        }
-        #create_account_btn{
-          width: 100%;
-        }
-      }
-      .tiles{
-        .tile{
-          width: 50%;
-          &:nth-child(n+3){
-            height: 120px;
-          }
-          &:nth-child(n+5){
-            display: none;
-          }
-        }
-      }
-    }
-  }
-  @media only screen and (max-width: 530px){
-    main{
-      background-size: 220%;
-      #regForm{
-        ul{
-          li{
-            width: 100%;
-          }
-        }
-      }
-      .tiles{
-        .tile{
-          &:nth-child(n+3){
-            height: 80px;
-          }
-        }
-      }
-    }
-  }
-}
+// body.pages-show.landing{
+//   @media only screen and (max-width: 90em){
+//     main{
+//       h1.heading {
+//         padding-top: 10%;
+//       }
+//     }
+//   }
+//   @media only screen and (max-width: $large-desktop){
+//     main{
+//       background-size: 130%;
+//       h1.heading{
+//         padding-top: 7%;
+//       }
+//       h2.sub_heading{
+//         padding: 22px;
+//         padding-bottom: 0;
+//       }
+//       .tiles{
+//         margin-top: -20px;
+//         .tile{
+//           &:nth-child(n+5){
+//             height: 100px;
+//           }
+//         }
+//       }
+//     }
+//   }
+//   @media only screen and (max-width: $foundation){
+//     #pageHeader{
+//       .headerMenu{
+//         width: 100%;
+//         ul{
+//           li{
+//             margin: 0;
+//             width: 33%;
+//             display: block;
+//             float: left;
+//             text-align: center;
+//           }
+//         }
+//       }
+//     }
+//     main{
+//       background-size: 155%;
+//       h1.heading{
+//         font-size: 33px;
+//       }
+//       h2.sub_heading{
+//         font-size: 21px;
+//       }
+//       #regForm{
+//         ul{
+//           width: 100%;
+//           li{
+//             width: 50%;
+//           }
+//         }
+//         #create_account_btn{
+//           width: 100%;
+//         }
+//       }
+//       .tiles{
+//         .tile{
+//           width: 50%;
+//           &:nth-child(n+3){
+//             height: 120px;
+//           }
+//           &:nth-child(n+5){
+//             display: none;
+//           }
+//         }
+//       }
+//     }
+//   }
+//   @media only screen and (max-width: 530px){
+//     main{
+//       background-size: 220%;
+//       #regForm{
+//         ul{
+//           li{
+//             width: 100%;
+//           }
+//         }
+//       }
+//       .tiles{
+//         .tile{
+//           &:nth-child(n+3){
+//             height: 80px;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }

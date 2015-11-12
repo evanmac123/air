@@ -65,7 +65,7 @@ Health::Application.routes.draw do
 
   root :to => 'pages#show', :id => 'welcome'
   get "product" => 'pages#product', as: 'product'
-  get "landing" => 'pages#landing', as: 'landing'
+  # get "landing" => 'pages#landing', as: 'landing'
   get "faq" => "pages#faq", :as => "faq"
   get "faq_body" => "pages#faq_body", :as => "faq_toc"
   get "faq_toc" => "pages#faq_toc", :as => "faq_body"
