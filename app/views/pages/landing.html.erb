@@ -9,7 +9,7 @@
         <div class="columns headerMenu">
           <ul>
             <li><%= link_to "Home", "" %></li>
-            <li><%= link_to "Company", "#!" %></li>
+            <li><%= link_to "Company", "#!", class: "company_link" %></li>
             <li><%= link_to "Blog", "http://blog.airbo.com", target: "_blank" %></li>
             <li><%= link_to "Sign in", sign_in_path %></li>
           </ul>
@@ -105,3 +105,22 @@
     </div>
   </div>
 </main>
+<footer id="pageFtr">
+  <div class="row page_footer_section">
+    <div class="menu_block columns large-6">
+      <ul class="ftrMenu">
+        <li><%= link_to "Home", "" %></li>
+        <li><%= link_to "Company", "#!", class: "company_link" %></li>
+        <li><%= link_to "Blog", "http://blog.airbo.com", target: "_blank" %></li>
+        <li><%= link_to "Sign in", sign_in_path %></li>
+        <li><%= link_to "Request Demo", "#!", class: "request_demo_link" %></li>
+      </ul>
+    </div>
+    <div class="columns large-6 contacts_block">
+      <a href="/"><%= image_tag "landing/logo-blue.png", alt: "Airbo" %></a>
+      <div class="contacts">
+        Contact Sales: (866) 247-2632
+      </div>
+    </div>
+  </div>
+</footer>

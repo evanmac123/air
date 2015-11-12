@@ -262,4 +262,51 @@ body.pages.pages-landing.landing {
       font-weight: 700;
     }
   }
+  footer#pageFtr {
+    background-color: #f7f8fa;
+    .menu_block {
+      float: right;
+      li {
+        display: inline-block;
+        margin-right: 40px;
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+      a {
+        // display: block;
+        color: #66676d;
+        font-size: 15px;
+        font-weight: 400;
+        // display: inline;
+      }
+      .request_demo_link {
+        @include app-button($sky-blue);
+        font-size: 14px;
+        font-weight: 400;
+        padding: 11px;
+        width: 140px;
+        margin: 31px 0;
+      }
+    }
+    .contacts_block {
+      height: 100px;
+      display: table;
+      img {
+        float: left;
+      }
+      .contacts {
+        // float: right;
+        color: #66676d;
+        font-size: 15px;
+        font-style: italic;
+        text-align: right;
+        padding-right: 10px;
+      }
+      a, .contacts {
+        display: table-cell;
+        vertical-align: middle;
+      }
+    }
+  }
 }
