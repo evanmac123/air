@@ -9,5 +9,11 @@
 //= require ./external/marketing_slider.js
 //= require internal/flashes
 //= require ../../../vendor/assets/javascripts/external/foundation.min
+//= require application
+//= require schedule_demo
 
-$(document).foundation();
+$(function(){
+  $(document).foundation();
+  Airbo.ScheduleDemoModal.init();
+  Airbo.Utils.TextSelectionDetector.init("#link_for_copy", Airbo.ScheduleDemoModal.linkCopied);
+});

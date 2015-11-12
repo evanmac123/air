@@ -14,6 +14,7 @@
     <%= render 'shared/mixpanel' %>
     <%= mp_track_page @page_name_for_mixpanel if @page_name_for_mixpanel.present? %>
     <%= stylesheet_link_tag 'app-landing' %>
+    <%= stylesheet_link_tag "public_board_fixed_headers" %>
     <%= javascript_include_tag 'app-landing' %>
     <%= mobvious_javascript %>
     
@@ -33,7 +34,8 @@
 
     <%= yield %>
 
-    <%= render "shared/request_demo" %>
+    <%= render partial: "acts/public_board/schedule_demo_modal" %>
+    <%# render "shared/request_demo" %>
 
     <%= javascript_include_tag asset_path('ga-marketing.js') if ENV['USE_GA'] %>
     <%= yield :javascript %>  
