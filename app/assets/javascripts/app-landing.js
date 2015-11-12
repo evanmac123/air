@@ -9,5 +9,6 @@
 //= require ./external/marketing_slider.js
 //= require internal/flashes
 //= require ../../../vendor/assets/javascripts/external/foundation.min
+//= require ./external/landing.js
 
 $(document).foundation();
