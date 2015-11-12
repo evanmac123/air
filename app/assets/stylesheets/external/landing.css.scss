@@ -11,6 +11,7 @@ body.pages-show.landing {
     opacity: 0.78;
   }
 
+
   header#pageHeader{
     background: transparent;
     box-shadow: none;
@@ -52,13 +53,14 @@ body.pages-show.landing {
     position: relative;
     .hero_section {
       position: relative;
-      height: calc(100% - 65px); // header height
+      height: calc(100% - 75px); // header height
       width: 100%;
       display: table;
     }
     .hero_content {
       display: table-cell;
       vertical-align: middle;
+      padding: 20px;
       h1 {
         display: block;
         margin: auto;
@@ -86,7 +88,7 @@ body.pages-show.landing {
     // max-width: 900px !important;
     // text-align: center;
     background-color: #f7f8fa;
-    padding: 50px 10px;
+    padding: 50px 20px;
     h5{
       display: block;
       margin: auto;
@@ -99,6 +101,8 @@ body.pages-show.landing {
       color: #949799;
       text-transform: none;
       margin-bottom: 30px;
+      padding-left: 15px;
+      padding-right: 15px;
     }
     .client_logos {
       max-width: 680px;
@@ -121,7 +125,7 @@ body.pages-show.landing {
   }
 
   .money {
-    padding: 80px 10px 100px 10px;
+    padding: 80px 20px 100px;
     // .money_section{
     //   max-width:
     // }
@@ -134,6 +138,8 @@ body.pages-show.landing {
       font-weight: 300;
       line-height: 52.5px;
       text-align: center;
+      padding-left: 15px;
+      padding-right: 15px;
     }
     img {
       display: block;
@@ -172,7 +178,7 @@ body.pages-show.landing {
     background-position: center center;
     background-size: cover;
     position: relative;
-    padding: 80px 10px 115px;
+    padding: 80px 20px 115px;
     .try_section {
       position: relative;
     }
@@ -208,20 +214,20 @@ body.pages-show.landing {
     }
   }
   .case_study {
-    padding: 85px 10px 110px;
+    padding: 85px 20px 110px;
     // .case_study_section {
     //
     // }
-    h2 {
-      display: block;
-      margin: auto;
-      color: #2e2e2c;
-      font-size: 35px;
-      font-weight: 300;
-      line-height: 52.5px;
-      margin-bottom: 50px;
-      text-align: center;
-    }
+    // h2 {
+    //   display: block;
+    //   margin: auto;
+    //   color: #2e2e2c;
+    //   font-size: 35px;
+    //   font-weight: 300;
+    //   line-height: 52.5px;
+    //   margin-bottom: 50px;
+    //   text-align: center;
+    // }
     .quote {
       // display: block;
       // margin: auto;
@@ -242,8 +248,10 @@ body.pages-show.landing {
         overflow: auto;
       }
       .name {
-        float: left;
-        width: 372px;
+        float: none;
+        overflow: auto;
+        width: auto;
+        max-width: 372px;
         color: #4c4c4c;
         font-size: 15px;
         font-style: italic;
@@ -329,7 +337,71 @@ body.pages-show.landing {
       height: 568px;
       .hero_section {
         height: calc(100% - 56px); // header height
+        h1{
+          font-size: 25px;
+          line-height: 37.5px;
+        }
+        .request_demo {
+          width: 176px;
+          font-size: 16px;
+          padding: 16px;
+        }
       }
+    }
+    .clients {
+      padding: 40px 5px;
+      h5 {
+        font-size: 16px;
+      }
+    }
+    .money {
+      padding: 50px 5px;
+      h2 {
+        font-size: 25px;
+        line-height: 37.5px;
+        margin-bottom: 15px;
+      }
+      .benefits_group {
+        .benefit_block {
+          max-width: none;
+          margin-top: 20px;
+        }
+      }
+    }
+    .try{
+      background-image: url('landing/option-mobile.jpg');
+      padding: 55px 20px;
+      h2 {
+        font-size: 25px;
+        line-height: 37.5px;
+        margin-bottom: 33px;
+      }
+      p {
+        font-size: 16px;
+        line-height: 24px;
+      }
+      a {
+        margin-top: 37px;
+      }
+    }
+    .case_study {
+      padding: 60px 20px;
+      .quote {
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 27px;
+        margin-bottom: 24px;
+      }
+      .user {
+        max-width: 422px;
+        .name {
+          font-size: 14px;
+          line-height: 21px;
+        }
+      }
+    }
+    .desktop_only {
+      display: none !important;
     }
   }
 }
