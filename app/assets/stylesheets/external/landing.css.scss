@@ -11,6 +11,14 @@ body.pages-show.landing {
     opacity: 0.78;
   }
 
+  .request_demo_link {
+    @include app-button($sky-blue);
+    font-size: 14px;
+    font-weight: 400;
+    padding: 11px;
+    width: 140px;
+  }
+
 
   header#pageHeader{
     background: transparent;
@@ -23,10 +31,26 @@ body.pages-show.landing {
     &.sticky {
       position: fixed;
       width: 100%;
-      z-index: 100;
-      background: black;
-      .headerMenu ul li a {
-        color: #818385;
+      z-index: 1;
+      background: white;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      .logo .logo_image {
+        background-image: url('landing/logo-blue.png');
+      }
+      .headerMenu {
+        width: 535px;
+        ul {
+          display: inline-block;
+          li a {
+            color: #818385;
+          }
+        }
+      }
+      .request_demo_link {
+        display: inline-block;
+        color: white;
+        margin-left: 40px;
       }
     }
     .logo {
@@ -40,19 +64,22 @@ body.pages-show.landing {
 
       }
     }
+    .request_demo_link {
+      display: none;
+    }
     .headerMenu{
       width: 365px;
       padding-top: 5px;
       float: right;
       ul{
-        li{
+        li {
           font-size: 16px;
           display: inline;
           margin-right: 40px;
           &:last-child {
             margin-right: 0;
           }
-          a{
+          a {
             color: #fff;
             font-weight: 500;
           }
@@ -67,6 +94,7 @@ body.pages-show.landing {
     background-size: cover;
     height: 750px;
     position: relative;
+    padding: 0;
     .hero_section {
       position: relative;
       height: calc(100% - 75px); // header height
@@ -309,11 +337,11 @@ body.pages-show.landing {
         // display: inline;
       }
       .request_demo_link {
-        @include app-button($sky-blue);
-        font-size: 14px;
-        font-weight: 400;
-        padding: 11px;
-        width: 140px;
+        // @include app-button($sky-blue);
+        // font-size: 14px;
+        // font-weight: 400;
+        // padding: 11px;
+        // width: 140px;
         margin: 31px 0;
       }
     }
