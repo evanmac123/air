@@ -380,6 +380,11 @@ body.pages-show.landing {
   }
 
   @media only screen and (max-width: $foundation) {
+    header#pageHeader {
+      &.sticky {
+        display: none;
+      }
+    }
     .hero {
       background-image: url('landing/hero-mobile.jpg');
       height: 568px;
