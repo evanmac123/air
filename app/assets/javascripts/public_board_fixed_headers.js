@@ -29,5 +29,6 @@ Airbo.PublicBoardManager = (function(){
 
 $(function(){
   Airbo.ScheduleDemoModal.init();
+  Airbo.Utils.TextSelectionDetector.init("#link_for_copy", Airbo.ScheduleDemoModal.linkCopied);
   Airbo.PublicBoardManager.init();
 });
