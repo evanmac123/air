@@ -17,6 +17,7 @@
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.slider.min.js
 //= require  medium-editor.min
 //= require jquery.tooltipster.min
+//= require schedule_demo
 
 $(document).ready(function() {
   $('.settings-edit').foundation();
