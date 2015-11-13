@@ -18,7 +18,7 @@
         <div class="columns headerMenu">
           <ul>
             <li><%= link_to "Home", "" %></li>
-            <li><%= link_to "Support", support_path %></li>
+            <li><%= link_to "Support", support_path, target: "_blank" %></li>
             <li><%= link_to "Blog", "http://blog.airbo.com/?utm_source=airbo&utm_medium=marketing%20page&utm_campaign=marketing%20page", target: "_blank" %></li>
             <li><%= link_to "Sign in", sign_in_path %></li>
           </ul>
@@ -92,7 +92,7 @@
       <p>
         The Health Plan Basics Board is a free resource to help teach employees the basics of health insurance in 15 minutes. Created by Airbo with data sourced from healthcare.gov and Kaiser Family Foundation.
       </p>
-      <%= link_to "Try This Board Out", "#" %>
+      <%= link_to "Try This Board Out",   public_board_url("healthplanbasics", utm_source: "Share Link")%>
     </div>
   </div>
 
@@ -119,10 +119,10 @@
     <div class="menu_block columns large-6">
       <ul class="ftrMenu">
         <li><%= link_to "Home", "" %></li>
-        <li><%= link_to "Support", support_path %></li>
+        <li><%= link_to "Support", support_path , target: "_blank"%></li>
         <li><%= link_to "Blog", "http://blog.airbo.com/?utm_source=airbo&utm_medium=marketing%20page&utm_campaign=marketing%20page", target: "_blank" %></li>
         <li class="sign_in_link"><%= link_to "Sign in", sign_in_path %></li>
-        <li><%= link_to "Request Demo", "#!", class: "request_demo_link desktop_only" %></li>
+        <li><%= link_to "Request Demo", "#", class: "request_demo request_demo_link desktop_only" %></li>
       </ul>
     </div>
     <div class="columns large-6 contacts_block">
