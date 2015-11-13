@@ -68,7 +68,6 @@ Airbo.ScheduleDemoModal = (function(){
     };
 
       config = $.extend({}, Airbo.Utils.validationConfig, config);
-      debugger
       validator = form.validate(config);
   }
 
