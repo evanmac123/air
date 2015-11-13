@@ -403,16 +403,20 @@ body.pages-show.landing {
       //   display: none;
       // }
       background: white;
-      transition: all 0.3s;
+      // transition: all 0.3s;
       padding-top: 10px;
       padding-bottom: 0px;
       position: absolute;
       width: 100%;
       z-index: 1;
-      transition: all 200ms ease-in;
+      transition: all 0.3s;
+      // transition: all 200ms ease-in;
+      height: 56px;
+      overflow: hidden;
       // -webkit-transition: all 0.3s;
       &.open-nav {
-        transition: all 0.3s;
+        height: 237px;
+        // transition: all 0.3s;
         .mobile-toggle {
           transform: rotate(-90deg);
           // -webkit-transform: rotate(-90deg);
@@ -483,7 +487,7 @@ body.pages-show.landing {
       }
       ul {
         // transition: all 0.3s;
-        transition: all 0.3s;
+        // transition: all 0.3s;
         display: none;
       }
     }
