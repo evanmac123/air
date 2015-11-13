@@ -19,6 +19,9 @@ body.pages-show.landing {
     width: 140px;
   }
 
+  .mobiile_only {
+    display: none;
+  }
 
   header#pageHeader{
     background: transparent;
@@ -28,29 +31,36 @@ body.pages-show.landing {
     // .top {
     //   // max-width: 1000px;
     // }
-    &.sticky {
-      position: fixed;
-      width: 100%;
-      z-index: 1;
-      background: white;
-      padding-top: 15px;
-      padding-bottom: 15px;
-      .logo .logo_image {
-        background-image: url('landing/logo-blue.png');
-      }
-      .headerMenu {
-        width: 574px;
-        ul {
-          display: inline-block;
-          li a {
-            color: #818385;
+    @media only screen and (min-width: $foundation) {
+      &.sticky {
+        position: fixed;
+        width: 100%;
+        z-index: 1;
+        background: white;
+        padding-top: 11px;
+        padding-bottom: 15px;
+        .logo .logo_image {
+          background-image: url('landing/logo-blue.png');
+        }
+        .headerMenu {
+          // width: 574px;
+          ul {
+            display: inline-block;
+            li a {
+              color: #818385;
+            }
           }
         }
-      }
-      .request_demo_link {
-        display: inline-block;
-        color: white;
-        margin-left: 40px;
+        .request_demo_block {
+          float: right;
+          width: auto;
+          display: block;
+        }
+        .request_demo_link {
+          display: inline-block;
+          color: white;
+          // margin-left: 40px;
+        }
       }
     }
     .logo {
@@ -64,13 +74,17 @@ body.pages-show.landing {
 
       }
     }
-    .request_demo_link {
+    .request_demo_block {
       display: none;
     }
     .headerMenu{
-      width: 365px;
+      // width: 365px;
       padding-top: 5px;
       float: right;
+      // float: none;
+      overflow: auto;
+      width: auto;
+      text-align: right;
       ul{
         li {
           font-size: 16px;
@@ -321,6 +335,7 @@ body.pages-show.landing {
       min-width: 530px;
       ul {
         line-height: 1;
+        text-align: right;
       }
       li {
         display: inline-block;
@@ -380,8 +395,95 @@ body.pages-show.landing {
   }
 
   @media only screen and (max-width: $foundation) {
+    .mobiile_only {
+      display: block;
+    }
     header#pageHeader {
-      &.sticky {
+      // &.sticky {
+      //   display: none;
+      // }
+      background: white;
+      transition: all 0.3s;
+      padding-top: 10px;
+      padding-bottom: 0px;
+      position: absolute;
+      width: 100%;
+      z-index: 1;
+      transition: all 200ms ease-in;
+      // -webkit-transition: all 0.3s;
+      &.open-nav {
+        transition: all 0.3s;
+        .mobile-toggle {
+          transform: rotate(-90deg);
+          // -webkit-transform: rotate(-90deg);
+        }
+        .headerMenu {
+          width: 100%;
+          padding: 0;
+          ul {
+            display: block;
+            width: 100%;
+            li {
+              font-size: 15px;
+              margin: 0;
+              display: block;
+              text-align: center;
+              padding: 10px;
+              border-bottom: 1px solid #d8dfe6;
+              &:first-child {
+                border-top: 1px solid #d8dfe6;
+              }
+              a {
+                color: #818385;
+                font-weight: 400;
+              }
+            }
+          }
+        }
+      }
+      .logo {
+        width: 90px;
+        .logo_image {
+          height: 35px;
+          background-image: url('landing/logo-blue.png');
+        }
+      }
+      .request_demo_block {
+        display: block;
+        float: none;
+        width: auto;
+        overflow: hidden;
+        text-align: center;
+        margin-bottom: 8px;
+      }
+      .mobile-toggle {
+        // display: none;
+        cursor: pointer;
+        font-size: 20px;
+        // position: absolute;
+        // right: 22px;
+        // top: 0;
+        width: 67px;
+        padding-top: 10px;
+        float: right;
+        // -webkit-transition: all 200ms ease-in;
+        // -moz-transition: all 200ms ease-in;
+        transition: all 200ms ease-in;
+        span {
+          width: 24px;
+          height: 2px;
+          margin-bottom: 6px;
+          border-radius: 1000px;
+          background: $sky-blue;
+          display: block;
+        }
+      }
+      .headerMenu {
+        padding: 0;
+      }
+      ul {
+        // transition: all 0.3s;
+        transition: all 0.3s;
         display: none;
       }
     }
@@ -458,6 +560,7 @@ body.pages-show.landing {
         min-width: auto;
         ul {
           margin-top: 27px;
+          text-align: left;
         }
         li {
           // width: 24%;

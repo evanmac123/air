@@ -7,6 +7,14 @@
           <div class="logo_image"></div>
           <!-- <a href="/"><%= image_tag "landing/logo-white.png", alt: "Airbo" %></a> -->
         </div>
+        <div class="columns mobile-toggle mobiile_only">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="columns request_demo_block">
+          <%= link_to "Request Demo", "#!", class: "request_demo request_demo_link" %>
+        </div>
         <div class="columns headerMenu">
           <ul>
             <li><%= link_to "Home", "" %></li>
@@ -14,7 +22,6 @@
             <li><%= link_to "Blog", "http://blog.airbo.com/?utm_source=airbo&utm_medium=marketing%20page&utm_campaign=marketing%20page", target: "_blank" %></li>
             <li><%= link_to "Sign in", sign_in_path %></li>
           </ul>
-          <%= link_to "Request Demo", "#!", class: "request_demo request_demo_link" %>
         </div>
       </div>
     </header>
