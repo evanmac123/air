@@ -35,7 +35,6 @@
     <%= yield %>
 
     <%= render partial: "acts/public_board/schedule_demo_modal" %>
-    <%# render "shared/request_demo" %>
 
     <%= javascript_include_tag asset_path('ga-marketing.js') if ENV['USE_GA'] %>
     <%= yield :javascript %>  
