@@ -9,6 +9,7 @@ Airbo.ScheduleDemoModal = (function(){
     , requestContent
     , confirmationContent
     , demoModalSelector = "#schedule_demo_modal"
+    , closeModalSelector = "#schedule_demo_modal .close-reveal-modal"
     , demoFormSelector =  "#schedule_demo_form"
     , demoRequestButtonSelector =  "#demo_request, .request_demo"
     , requestContentSelector = "#request_content"
@@ -32,7 +33,7 @@ Airbo.ScheduleDemoModal = (function(){
       openModal();
     });
 
-    $("#schedule_demo_modal").bind('closed.fndtn.reveal', function(){
+    demoModal.bind('closed.fndtn.reveal', function(){
       if( !localStorage.getItem("demoRequested") ){
         console.log(11);
         modalPing("Closed Modal", "Yes");
@@ -42,6 +43,7 @@ Airbo.ScheduleDemoModal = (function(){
 
   function openModal(){
     $("#schedule_demo_modal").foundation("reveal", "open", {animation: "fade",closeOnBackgroundClick: true });
+    demoModal.foundation("reveal", "open", {animation: "fade",closeOnBackgroundClick: true });
   }
 
   function initFormValidator(){
@@ -86,6 +88,7 @@ Airbo.ScheduleDemoModal = (function(){
 
   function initJQueryObjects(){
 
+    demoModal= $(demoModalSelector);
     demoRequestButton = $(demoRequestButtonSelector);
     demoModal = $(demoModalSelector);
     demoForm = $(demoFormSelector);
@@ -93,11 +96,20 @@ Airbo.ScheduleDemoModal = (function(){
     confirmationContent = $(confirmationContentSelector);
   }
 
+  function initCloseOnBackgroundClick(){
+    $(demoModalSelector).click(function(event){
+      if($(event.target).is(demoModalSelector)){
+        $(closeModalSelector).trigger("click");
+      }
+    });
+  }
+
   function init(){
     initJQueryObjects();
     initScheduleDemoModal();
     initFormValidator();
     initFormSubmit();
+    initCloseOnBackgroundClick();
   }
 
   return {
