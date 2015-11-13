@@ -43,6 +43,8 @@ Airbo.ScheduleDemoModal = (function(){
 
   function openModal(){
     scrollPageToTop();
+    form[0].reset();
+    validator.resetForm();
     demoModal.foundation("reveal", "open", {animation: "fade",closeOnBackgroundClick: true });
   }
 
@@ -53,14 +55,20 @@ Airbo.ScheduleDemoModal = (function(){
   function initFormValidator(){
     form = $("#schedule_demo_form");
     var config={
+      onkeyup: false,
+      onfocusout: function(event){
+        validator.resetForm();
+      },
       rules: {
         "demo_request[email]": {
           required: true,
           email: true
         }
-      }};
+      }
+    };
 
       config = $.extend({}, Airbo.Utils.validationConfig, config);
+      debugger
       validator = form.validate(config);
   }
 
