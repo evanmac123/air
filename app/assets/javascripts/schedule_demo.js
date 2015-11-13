@@ -8,6 +8,8 @@ Airbo.ScheduleDemoModal = (function(){
     , demoForm
     , requestContent
     , confirmationContent
+    , submitAnother
+    , submitAnotherSelector= "#submit_another"
     , demoModalSelector = "#schedule_demo_modal"
     , closeModalSelector = "#schedule_demo_modal .close-reveal-modal"
     , demoFormSelector =  "#schedule_demo_form"
@@ -43,10 +45,10 @@ Airbo.ScheduleDemoModal = (function(){
 
   function openModal(){
     scrollPageToTop();
-    form[0].reset();
-    validator.resetForm();
+    prepareForm();
     demoModal.foundation("reveal", "open", {animation: "fade",closeOnBackgroundClick: true });
   }
+
 
   function scrollPageToTop(){
     $('html,body').animate({ scrollTop: 0}, 5);
@@ -76,6 +78,13 @@ Airbo.ScheduleDemoModal = (function(){
    $("#request_content").hide();
   }
 
+  function prepareForm(){
+    form[0].reset();
+    validator.resetForm();
+    $("#request_content").show();
+    $("#confirmation_content").hide();
+  }
+
   function initFormSubmit(){
 
     $("#schedule_demo_form").submit(function(event){
@@ -98,6 +107,7 @@ Airbo.ScheduleDemoModal = (function(){
   }
 
   function initJQueryObjects(){
+    submitAnother= $(submitAnotherSelector);
     demoModal= $(demoModalSelector);
     demoRequestButton = $(demoRequestButtonSelector);
     demoModal = $(demoModalSelector);
@@ -114,12 +124,19 @@ Airbo.ScheduleDemoModal = (function(){
     });
   }
 
+  function initSubmitAnother(){
+    $(submitAnother).click(function(){
+      prepareForm();
+    })
+  }
+
   function init(){
     initJQueryObjects();
     initScheduleDemoModal();
     initFormValidator();
     initFormSubmit();
     initCloseOnBackgroundClick();
+    initSubmitAnother();
   }
 
   return {
