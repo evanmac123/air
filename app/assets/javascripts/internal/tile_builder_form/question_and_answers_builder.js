@@ -50,6 +50,7 @@ Airbo.TileQuestionBuilder = (function(){
     turnRadioGreen();
     rebindEvents();
     showSlider();
+    autosize($('#tile_builder_form_question'));
   }
 
   function addSubTypeAnswer(obj){
