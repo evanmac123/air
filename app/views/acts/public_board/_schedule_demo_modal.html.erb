@@ -19,13 +19,18 @@
     </div>
     <div id="confirmation_content">
       <p class="greeting greeting_after">
-      Great! We’ll be in touch. In the meantime, you can use this link to share this Airbo Board.
+      <%if @demo %>
+        Great! We’ll be in touch. In the meantime, you can use this link to share this Airbo Board.
+      <%else%>
+        Thanks! Someone from customer success team wil be in touch with you shortly.
+      <%end%>
       </p>
-      <div class="form_data">
-        <%# TODO consider moving to the controller? %>
-        <%slug = @demo ? @demo.public_slug : DEFAULT_DEMO_PARENT_BOARD %>
-        <%= text_field_tag "link_for_copy", public_board_url(slug, utm_source: "Share Link") %>
-      </div>
+      <%if @demo %>
+        <div class="form_data">
+          <%slug = @demo ? @demo.public_slug : DEFAULT_DEMO_PARENT_BOARD %>
+          <%= text_field_tag "link_for_copy", public_board_url(slug, utm_source: "Share Link")%>
+        </div>
+      <%end%>
     </div>
   </div>
 </div>
