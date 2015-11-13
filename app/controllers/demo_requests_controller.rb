@@ -5,7 +5,7 @@ class DemoRequestsController < ApplicationController
     request = EmailInfoRequest.create!(params[:demo_request])
     request.notify_the_ks_of_demo_request
     modal_ping
-    head :ok
+    render json: {email: params[:demo_request][:email]}
   end
 
   protected

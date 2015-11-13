@@ -73,7 +73,8 @@ Airbo.ScheduleDemoModal = (function(){
       validator = form.validate(config);
   }
 
-  function showConfirmation(){
+  function showConfirmation(email){
+   $("#confirmation_email").text(email);
    $("#confirmation_content").show();
    $("#request_content").hide();
   }
@@ -92,8 +93,8 @@ Airbo.ScheduleDemoModal = (function(){
       if(form.valid()){
         localStorage.setItem("demoRequested", true);
         $.post( $(this).attr("action"), form.serialize())
-        .done(function(){
-          showConfirmation();
+        .done(function(data, textStatus, jqXHR){
+          showConfirmation(data.email);
         });
       }else{
         validator.focusInvalid();
