@@ -42,8 +42,12 @@ Airbo.ScheduleDemoModal = (function(){
   }
 
   function openModal(){
-    $("#schedule_demo_modal").foundation("reveal", "open", {animation: "fade",closeOnBackgroundClick: true });
+    scrollPageToTop();
     demoModal.foundation("reveal", "open", {animation: "fade",closeOnBackgroundClick: true });
+  }
+
+  function scrollPageToTop(){
+    $('html,body').animate({ scrollTop: 0}, 5);
   }
 
   function initFormValidator(){
@@ -87,7 +91,6 @@ Airbo.ScheduleDemoModal = (function(){
   }
 
   function initJQueryObjects(){
-
     demoModal= $(demoModalSelector);
     demoRequestButton = $(demoRequestButtonSelector);
     demoModal = $(demoModalSelector);
