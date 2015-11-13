@@ -185,7 +185,7 @@ body > header {
     }
     p.greeting {
       text-align:center;
-      margin-bottom: 40px;
+      margin-bottom: 25px;
       color: $text-color;
       font-size: 20px;
       font-weight: 400;
@@ -200,7 +200,8 @@ body > header {
         font-weight: 400;
         line-height: 24px;
         margin-bottom: 20px;
-        &:focus {
+        padding: .5em .85em;
+        &:focus, &:hover {
           border-color: $text-color;
         }
       }
@@ -209,15 +210,15 @@ body > header {
         font-size: 14px;
         font-weight: 400;
         text-transform: none;
-        margin-top: -5px;
-        margin-bottom: 15px;
+        margin-top: 7px;
+        margin-bottom: 12px;
       }
       #submit_demo_request{
         @include app-button($sky-blue);
         width: 100%;
         font-size: 16px;
         font-weight: 500;
-        line-height: 24px;
+        line-height: 28px;
       }
     }
     #confirmation_content{
@@ -297,7 +298,7 @@ body > header {
   // => Schedule Demo Modal
   //
   #schedule_demo_modal{
-    padding: 16px;
+    padding: 50px 16px;
     .close-reveal-modal {
       position: fixed;
       top: 16px;
