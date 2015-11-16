@@ -1,5 +1,5 @@
 #schedule_demo_modal{
-  padding: 0;
+  padding: 0 30px;
   width: 100%;
   margin: 0;
   left: 0;
@@ -20,11 +20,21 @@
   :-ms-input-placeholder {
      text-align: center;
   }
+
+  .modal_container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    padding-top: 100px;
+    margin: auto;
+  }
   .close-reveal-modal {
     position: absolute;
-    top: -70px;
-    right: 50%;
-    margin-right: 355px;
+    top: 0;
+    left: 0;
+    // top: -70px;
+    // right: 50%;
+    // margin-right: 355px;
     color: $white;
     i {
       font-size: 32px;
@@ -101,6 +111,9 @@
       position: fixed;
       top: 16px;
       left: 14px;
+    }
+    .modal_container {
+      padding: 0;
     }
     #modal_content{
       width: 100%;
