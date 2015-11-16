@@ -15,7 +15,6 @@
     <%= render 'shared/mixpanel' %>
     <%= mp_track_page @page_name_for_mixpanel if @page_name_for_mixpanel.present? %>
     <%= stylesheet_link_tag 'app-landing' %>
-    <%= stylesheet_link_tag "public_board_fixed_headers" %>
     <%= javascript_include_tag 'app-landing' %>
     <%= mobvious_javascript %>
 

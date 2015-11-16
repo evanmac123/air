@@ -1,4 +1,5 @@
 body.pages-show.landing {
+  @import "./external/schedule_demo_modal.css.scss";
   .shadow_overlay {
     display: block;
     position: absolute;
