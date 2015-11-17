@@ -1,19 +1,36 @@
+@import './internal/tile_fullsize/main_fields';
 //
 //  => Headline,
 //     supporting content,
 //     link,
 //     submit button
 //
+.content_sections {
+  border-bottom: 2px dashed #f3f3f3;
+  // padding-bottom: 12px;
+  &:last-child:not(:only-child) {
+    border-bottom: none;
+  }
+  &.tile_builder_error,
+  &.index_tile_builder_error,
+  &.answer_tile_builder_error,
+  &.question_tile_builder_error{
+    background-color: rgba(188, 76, 64,.20); //pinkish*/
+  }
+  .character-counter {
+    padding: 10px 0;
+    &.exceeded_maxlength_counter {
+      color: #e3402d;
+    }
+  }
+}
 input[type="text"],textarea, .text-input {
-  // border:2px lighten($light-gray, 8%) dashed;
   border: none;
   display: block;
-  font-size:1.3em;
   margin-bottom:0;
-  padding:.5em;
+  padding: 0;
   width:100%;
   background: transparent;
-  // &:hover, &:focus {border-style:solid;}
 }
 textarea {
   resize: none;
@@ -21,75 +38,14 @@ textarea {
 label.show_if_ie9{
   display: none;
 }
-.content_sections {
-  margin:0 auto 2em auto;
-  width:90%;
-  &:after{@include clear;}
-  &:last-of-type{margin-bottom:0;}
-}
-.content_sections {
-  width: 100%;
-  border-bottom: 2px dashed #f3f3f3;
-  padding-left: 5%;
-  padding-right: 5%;
-  padding-bottom: 2%;
-  margin-bottom: 0;
-
-  &.tile_builder_error,
-  &.index_tile_builder_error,
-  &.answer_tile_builder_error,
-  &.question_tile_builder_error{
-    background-color: rgba(188, 76, 64,.20); //pinkish*/
-  }
-
-  & .character-counter {
-    padding-top: 10px;
-
-  //FIXME should probably consolidate all error styels under tile_builder_error
-
-    &.exceeded_maxlength_counter {
-      color: #e3402d;
-    }
-  }
-
-  &:last-child:not(:only-child) {
-    border-bottom: none;
-  }
-}
-#tile_external_link {
-  margin:2em auto;
-  input {border-color:$light-gray;}
-}
-// Copy for the tile
-#tile_builder_form_headline {
-  color:$dark-gray;
-  @include font-light;
-  padding:.35em;
-  font-size: 2.5em;
-  line-height: 1.15em;
-}
-
-#supporting_content_editor {
-  @include with-lists();
-  overflow-y: auto;
-  line-height: 1.25em;
-  min-height: 250px;
-  height: auto;
-  // &.exceeded_maxlength_field {
-  // }
-}
 #tile_builder_form_supporting_content {
-  color:$text-color;
-  font-size:1.5em;
   display: none;
 }
-#tile_builder_form_link_address{
-  font-size: 1.25em;
-  padding-bottom: 0;
-}
 #tile_external_link {
-  margin-bottom: 0px;
-  margin-top: 0px;
+  height: 58px;
+  input {
+    line-height: 58px;
+  }
 }
 #publish {
   margin-top: 2em;

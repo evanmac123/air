@@ -1,10 +1,13 @@
 .tile_full_image {
   text-align: center;
   position: relative;
-  img {
-    width:100%;
-  }
+  // img {
+  //   width:100%;
+  // }
   &:after{@include clear;}
+}
+.tile_image{
+  width: 100%;
 }
 .shadow_overlay {
   display: block;
