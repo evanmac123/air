@@ -10,7 +10,7 @@
   font-size: 32px;
   font-weight: 300;
   color:$dark-gray;
-  line-height:1.15em;
+  line-height:1.35em;
   padding-top:.5em;
   padding-bottom:.5em;
 }
@@ -19,17 +19,23 @@
   color:$text-color;
   font-size:1.25em;
   line-height:1.3em;
-  margin-bottom:1em;
-  margin-top:.75em;
+  margin-bottom:1.3em;
+  margin-top:.25em;
   p {
     white-space: pre-wrap;
+    line-height:1.5em;
+    margin-bottom:1em;
+  }
+  ul {
+    line-height: 1.5em;
   }
 }
 .tile_external_link, #tile_builder_form_link_address {
   font-size: 1.25em;
 }
 .tile_external_link {
-  margin-bottom: 2em;
+  margin-top: 0;
+  margin-bottom: 1.6em;
   .fa-external-link {
     color: $med-gray;
     font-size: 75%;

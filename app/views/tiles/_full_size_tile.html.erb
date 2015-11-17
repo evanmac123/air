@@ -20,7 +20,7 @@
         </div>
       </div>
     </div>
-
+    <!-- FIXME do we need this appears_client_created. what the hack is that? -->
     <% if tile.appears_client_created %>
       <div class="tile_texts_container">
         <div class="tile_headline content_sections"><%= tile.headline %></div>
@@ -32,6 +32,7 @@
             Visit <%= link_to truncate(tile.link_address, length: 30), tile.link_address, target: '_blank' %> <%= link_to fa_icon("external-link"), tile.link_address, target: '_blank' %>
           </div>
         <% end %>
+      </div>
 
         <div class="tile_quiz">
           <% if tile.points %>
@@ -47,7 +48,6 @@
           <div class="tile_question content_sections"><%= tile.question %></div>
           <%= render 'tiles/multiple_choice_answers', tile: tile %>
         </div>
-      </div>
     <% end %>
 
     <% overlay_style = overlay_displayed ? "display:block" : "" %>
