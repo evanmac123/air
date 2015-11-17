@@ -1,7 +1,31 @@
-.sweet-alert.airbo fieldset {
+.sweet-alert.airbo {
+  button{
+    &.confirm[disabled]{
+
+      /*opacity: 1;*/
+      /*visibility: visible;*/
+      /*transition-delay: 0s;*/
+
+       background-image: url("/assets/spinner_gears.gif");
+       background-repeat: no-repeat;
+       background-position: center;
+    }
+  } 
+
+
+
+  fieldset {
     margin: 0;
     padding: 0;
     input[type="text"]{
-     display: none;
+      display: none;
     }
+  }
+
+  button.confirm[disabled] ~ .la-ball-fall {
+    opacity: 0;
+    visibility: hidden;
+    /*transition-delay: 0s;*/
+  }
+
 }

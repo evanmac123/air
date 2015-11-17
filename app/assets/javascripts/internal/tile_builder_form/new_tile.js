@@ -630,11 +630,13 @@ Airbo.TileCreator = (function(){
 
     swal(
       {
-        title: "Are you sure?",
-        text: "You will not be able to recover this imaginary file!",
+        title: "Are you sure you want to delete this tile?",
+        text: "Deleting a tile is irrevocable and you'll loose all data associated with it.",
         customClass: "airbo",
         animation: false,
+        closeOnConfirm: false,
         showCancelButton: true,
+        showLoaderOnConfirm: true,
       },
 
       function(isConfirm){   
@@ -659,6 +661,7 @@ Airbo.TileCreator = (function(){
         url: target.data("url") || target.attr("href"),
         type: "delete",
         success: function(data, status,xhr){
+          swal.close();
           closeModal(tileModal);
           postProcess();
         },
