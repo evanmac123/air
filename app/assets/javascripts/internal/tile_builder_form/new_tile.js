@@ -621,23 +621,64 @@ Airbo.TileCreator = (function(){
   }
 
 
+  function confirmDeletion(trigger){
+    var tile = tileByStatusChangeTriggerLocation(trigger);
+    function postProcess(){
+      tile.remove();
+      Airbo.Utils.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
+    }
+
+    swal(
+      {
+        title: "Are you sure?",
+        text: "You will not be able to recover this imaginary file!",
+        customClass: "airbo",
+        animation: false,
+        showCancelButton: true,
+      },
+
+      function(isConfirm){   
+        if (isConfirm) {
+          submitTileForDeletion(tile, trigger,postProcess); 
+        }
+      }
+    );
+  }
+
+  function initDeletion(){
+    $("body").on("click", ".delete_tile", function(event){
+      event.preventDefault();
+      confirmDeletion($(this))
+    });
+  }
+
+
+
+  function submitTileForDeletion(tile,target, postProcess ){
+      $.ajax({
+        url: target.data("url") || target.attr("href"),
+        type: "delete",
+        success: function(data, status,xhr){
+          closeModal(tileModal);
+          postProcess();
+        },
+      });
+  }
+
 
   function init(context){
     initContext(context);
-
     initDeletionConfirmation();
     initAcceptTileConfirm()
     initStatusUpdate();
-
+    initDeletion();
     initModalOpenClose();
-
     initJQueryObjects();
-
     initNewTileModal();
-
     initImageLibraryModal();
-
     initTileBuilderFormSubmission();
+    Airbo.Utils.TilePlaceHolderManager.init(); //noop
+
 
     /* NOTE
      * Because of UX desired by the user the normal modal background is not

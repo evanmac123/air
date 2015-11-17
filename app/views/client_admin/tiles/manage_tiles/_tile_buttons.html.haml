@@ -10,7 +10,7 @@
           = presenter.post_link_text
   - if presenter.has_destroy_button? 
     %li.destroy_button
-      = link_to client_admin_tile_path(presenter, page: 'Edit'), method: :delete, data: { confirm: destroy_tile_message_params } do
+      = link_to client_admin_tile_path(presenter, page: 'Edit'), class: "delete_tile"  do
         = fa_icon 'trash'
   - if presenter.has_edit_button?              
     %li.edit_button

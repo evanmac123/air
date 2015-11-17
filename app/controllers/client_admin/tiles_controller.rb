@@ -106,7 +106,11 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     flash[:success] = "You've successfully deleted the #{@tile.headline} Tile."
     @tile.destroy
     destroy_tile_ping params[:page]
-    redirect_to client_admin_tiles_path
+    if request.xhr?
+      head :ok
+    else
+      redirect_to client_admin_tiles_path
+    end
   end
 
   def sort
