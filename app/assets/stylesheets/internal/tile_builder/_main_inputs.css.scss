@@ -38,13 +38,21 @@ textarea {
 label.show_if_ie9{
   display: none;
 }
+#supporting_content_editor {
+  overflow-y: auto;
+  line-height: 1.25em;
+  min-height: 250px;
+  height: auto;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
 #tile_builder_form_supporting_content {
   display: none;
 }
 #tile_external_link {
   height: 58px;
   input {
-    line-height: 58px;
+    padding-top: 10px;
   }
 }
 #publish {
