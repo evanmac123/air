@@ -3,6 +3,7 @@
 *= require tooltipster/themes/tooltipster-shadow
 *= require medium-editor/medium-editor
 *= require medium-editor/themes/default
+*= require sweetalert
 */
 @import "./vendor/pace-theme-center-simple.css.scss";
 @import "./vendor/normalize.css.scss";
@@ -46,3 +47,4 @@
 @import "./internal/tile_manager/suggested_tile_preview.css.scss";
 @import "./internal/character_counter.css.scss";
 @import "./client_admin/tile_stats.css.scss";
+@import "./vendor_customization/sweetalert.css.scss";
