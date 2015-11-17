@@ -151,6 +151,28 @@ Airbo.Utils = {
 
 }
 
+Airbo.Utils.TextSelectionDetector = (function(){
+  var eventTarget, callback;
+
+  function initAutoSelect(cb){
+    eventTarget.click(function(){
+      $(this).select();
+      cb();
+    });
+  }
+
+  function init(targetSelector, cb){
+    eventTarget = $(targetSelector);
+    initAutoSelect(cb);
+  }
+
+  return {
+    init: init
+  };
+
+}());
+
+
 Airbo.Utils.TilePlaceHolderManager = (function(){
 
   var placeholderSelector =".tile_container.placeholder_container:not(.hidden_tile)"
@@ -313,7 +335,7 @@ Airbo.Utils.PluginExtentions = (function(){
       }, jQuery.validator.format("Character Limit Reached"));
     }
 
-    /* --------INVOKE INDIVIDUAL EXTENSIONS HERE---------------*/
+    /* --------INVOKE INDIVIDUAL VALIDATOR EXTENSIONS HERE---------------*/
     addMaxTextLength();
 
   }
@@ -333,26 +355,5 @@ $(function(){
 
 //FIXME Deprecated
 Airbo.LoadedSingletonModules = [];
-
-Airbo.Utils.TextSelectionDetector = (function(){
-  var eventTarget, callback;
-
-  function initAutoSelect(cb){
-    eventTarget.click(function(){
-      $(this).select();
-      cb();
-    });
-  }
-
-  function init(targetSelector, cb){
-    eventTarget = $(targetSelector);
-    initAutoSelect(cb);
-  }
-
-  return {
-    init: init
-  };
-
-}());
 
 
