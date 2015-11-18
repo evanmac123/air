@@ -51,7 +51,7 @@
   background: rgba(14, 23, 29, 0.8);
 }
 #new_tile_modal, #images_modal {
-  .close-reveal-modal {
+  .close-reveal-modal, .airbo-close-reveal-modal {
     position: fixed;
     top: 45px;
     right: 50%;
@@ -65,14 +65,14 @@
   }
 }
 #images_modal {
-  .close-reveal-modal {
+  .close-reveal-modal, .airbo-close-reveal-modal {
     i {
       font-size: 26px;
     }
   }
 }
 #new_tile_modal {
-  .close-reveal-modal {
+  .close-reveal-modal, .airbo-close-reveal-modal {
     i {
       font-size: 32px;
       &:hover {
