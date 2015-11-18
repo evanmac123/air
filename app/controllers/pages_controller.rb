@@ -18,8 +18,8 @@ class PagesController < HighVoltage::PagesController
 
   PAGE_NAMES_FOR_MIXPANEL = {
     'welcome'        => "Marketing Page",
-    'customer_tiles' => 'customer tiles',
-    'more_info'      => 'More Info, marketing',
+    'customer_tiles' => 'customer tiles', # FIXME dead url?
+    'more_info'      => 'More Info, marketing', # FIXME dead url?
     'privacy'        => 'privacy policy',
     'terms'          => 'terms and conditions'
   }
@@ -37,7 +37,7 @@ class PagesController < HighVoltage::PagesController
       'external'
     when 'welcome', 'product'
       'standalone'
-    when 'more_info',
+    when 'more_info',  # FIXME dead url?
       @body_id = "homepage"
       'external_marketing'
     when 'asha', 'heineken', 'miltoncat', 'fujifilm', 'customer_tiles'

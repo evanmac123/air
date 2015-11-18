@@ -65,13 +65,14 @@ Health::Application.routes.draw do
 
   root :to => 'pages#show', :id => 'welcome'
   get "product" => 'pages#product', as: 'product'
-  get "faq" => "pages#faq", :as => "faq"
-  get "faq_body" => "pages#faq_body", :as => "faq_toc"
-  get "faq_toc" => "pages#faq_toc", :as => "faq_body"
+  get "faq" => "pages#faq", :as => "faq" # FIXME dead url?
+  get "faq_body" => "pages#faq_body", :as => "faq_toc" # FIXME dead url?
+  get "faq_toc" => "pages#faq_toc", :as => "faq_body" # FIXME dead url?
 
   get "terms" => "pages#terms", :as => "terms"
   get "privacy" => "pages#privacy", :as => "privacy"
 
+  resources :pages, :only => :show
   resource :support, only: :show
 
   resource :home,  :only => :show
@@ -211,8 +212,6 @@ Health::Application.routes.draw do
     resources :suggestions_access, only: [:index]
     resources :allowed_to_suggest_users, only: [:destroy, :show]
   end
-
-  resources :pages, :only => :show
 
   resource :account, :only => [:update] do
     resource :phone, :only => [:update]

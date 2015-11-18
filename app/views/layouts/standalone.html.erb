@@ -28,7 +28,7 @@
     <%= javascript_include_tag asset_path('ga.js') if ENV['USE_GA'] %>
     <%= render 'shared/nerf_animations_in_test' %>
   </head>
-  <body class="<%= body_class %> landing" style="-webkit-overflow-scrolling: touch; overflow:visible;">
+  <body class="<%= body_pages_class %> landing" style="-webkit-overflow-scrolling: touch; overflow:visible;">
     <%= render 'pages/qualaroo_marketing' %>
     <%= render 'shared/flashes' %>
 
