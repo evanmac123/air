@@ -3,6 +3,10 @@ body.pages.pages-asha.landing {
   @import "landing/hero.css.scss";
   @import "landing/footer.css.scss";
 
+  main {
+    padding-bottom: 105px;
+  }
+
   .hero {
     background-image: url('landing/asha/People_Working_At_Wikimedia.jpg');
     height: 450px;
@@ -17,6 +21,99 @@ body.pages.pages-asha.landing {
     h1 {
       font-size: 40px;
       line-height: 60px;
+    }
+  }
+  img {
+    display: block;
+    margin: auto;
+  }
+  p {
+    width: 100%;
+    max-width: 710px;
+    margin: auto;
+    color: $text-color;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 29px;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+  .divider {
+    width: 100%;
+    max-width: 966px;
+    height: 1px;
+    background-color: #dfe2e6;
+    margin: 70px auto;
+    &.divider-300 {
+      max-width: 300px;
+    }
+    &.divider-200 {
+      margin: 50px auto;
+      max-width: 200px;
+    }
+  }
+  .company_logo {
+    padding-top: 70px;
+  }
+  .client_group {
+    .quote {
+      color: #50698c;
+      font-weight: 700;
+      font-style: italic;
+      max-width: 750px;
+    }
+    .user {
+      display: block;
+      margin: auto;
+      max-width: 340px;
+      overflow: auto;
+      margin-top: 35px;
+      .image{
+        width: 88px;
+        overflow: auto;
+      }
+      .name {
+        float: none;
+        overflow: auto;
+        width: auto;
+        // max-width: 372px;
+        color: #595959;
+        padding-top: 2px;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 27px;
+        .full_name {
+          color: #2e2e2c;
+        }
+      }
+    }
+  }
+  .story {
+    padding-top: 50px;
+    &.janet, &.expanding {
+      padding-top: 0;
+    }
+    p {
+      text-align: left;
+      padding-top: 25px;
+      &.headline {
+        padding-top: 0;
+        color: #2e2e2c;
+        font-weight: 700;
+      }
+    }
+    img {
+      padding-top: 38px;
+    }
+  }
+  .story_italic {
+    padding-top: 0;
+    p {
+      font-style: italic;
+      color: #818385;
+      &:first-child {
+        padding-top: 0;
+      }
     }
   }
 }
