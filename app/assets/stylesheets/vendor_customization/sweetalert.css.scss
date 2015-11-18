@@ -1,16 +1,35 @@
 .sweet-alert.airbo {
+  width: 400px;
+  margin-left: -200px;
+  h2 {
+    @include font-light;
+    font-size: 18px;
+    line-height: 1.35em;
+    color: $sky-blue;
+    margin: 10px;
+  }
+  p {
+    @include regular-text;
+  }
   button{
-    &.confirm[disabled]{
-
-      /*opacity: 1;*/
-      /*visibility: visible;*/
-      /*transition-delay: 0s;*/
-
-       background-image: url("/assets/spinner_gears.gif");
-       background-repeat: no-repeat;
-       background-position: center;
+    margin-top: 15px;
+    &.cancel {
+      @include light-button($sky-blue);
     }
-  } 
+    &.confirm {
+      @include app-button($sky-blue);
+      [disabled]{
+
+        /*opacity: 1;*/
+        /*visibility: visible;*/
+        /*transition-delay: 0s;*/
+
+         background-image: url("/assets/spinner_gears.gif");
+         background-repeat: no-repeat;
+         background-position: center;
+      }
+    }
+  }
 
 
 
