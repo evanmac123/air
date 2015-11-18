@@ -31,8 +31,8 @@ class FullSizeTilePresenter
     appears_client_created ? 'client_created' : 'admin_created'
   end
 
-  def old_supporting_class
-    true ? 'old_supporting' : ''
+  def custom_supporting_content_class
+    @tile.use_old_line_break_css? ? 'old_line_break_css' : ''
   end
 
   def supporting_content
