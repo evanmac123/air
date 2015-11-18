@@ -17,6 +17,7 @@ class FullSizeTilePresenter
             :original_creator,
             :tile_completions,
             :full_size_image_height,
+            :custom_supporting_content_class,
             to: :tile
 
   def initialize(tile, user, is_preview, current_tile_ids, browser)
@@ -29,10 +30,6 @@ class FullSizeTilePresenter
 
   def creator_class
     appears_client_created ? 'client_created' : 'admin_created'
-  end
-
-  def custom_supporting_content_class
-    @tile.use_old_line_break_css? ? 'old_line_break_css' : ''
   end
 
   def supporting_content
