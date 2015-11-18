@@ -1,0 +1,32 @@
+@media only screen and (min-width: $foundation) {
+  header#pageHeader.sticky {
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+    background: white;
+    padding-top: 11px;
+    padding-bottom: 15px;
+    .logo .logo_image {
+      background-image: url('landing/logo-blue.png');
+    }
+    .headerMenu {
+      // width: 574px;
+      ul {
+        display: inline-block;
+        li a {
+          color: #818385;
+        }
+      }
+    }
+    .request_demo_block {
+      float: right;
+      width: auto;
+      display: block;
+    }
+    .request_demo_link {
+      display: inline-block;
+      color: white;
+      // margin-left: 40px;
+    }
+  }
+}

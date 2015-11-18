@@ -1,29 +1,7 @@
 <main>
   <div class="hero">
     <div class="shadow_overlay"></div>
-    <header id="pageHeader">
-      <div class="row top">
-        <div class="columns logo">
-          <div class="logo_image"></div>
-        </div>
-        <div class="columns mobile-toggle mobiile_only">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-        <div class="columns request_demo_block">
-          <%= link_to "Request Demo", "#!", class: "request_demo request_demo_link" %>
-        </div>
-        <div class="columns headerMenu">
-          <ul>
-            <li><%= link_to "Home", "" %></li>
-            <li><%= link_to "Support", support_path, target: "_blank" %></li>
-            <li><%= link_to "Blog", "http://blog.airbo.com/?utm_source=airbo&utm_medium=marketing%20page&utm_campaign=marketing%20page", target: "_blank" %></li>
-            <li><%= link_to "Sign in", sign_in_path %></li>
-          </ul>
-        </div>
-      </div>
-    </header>
+    <%= render partial: "pages/landing/header" %>
     <div class="hero_section">
       <div class="hero_content">
         <h1>Software for HR to create engaging employee programs & communications in minutes</h1>
@@ -113,27 +91,4 @@
     </div>
   </div>
 </main>
-<footer id="pageFtr">
-  <div class="row page_footer_section">
-    <div class="menu_block columns large-6">
-      <ul class="ftrMenu">
-        <li><%= link_to "Home", "" %></li>
-        <li><%= link_to "Support", support_path , target: "_blank"%></li>
-        <li><%= link_to "Blog", "http://blog.airbo.com/?utm_source=airbo&utm_medium=marketing%20page&utm_campaign=marketing%20page", target: "_blank" %></li>
-        <li class="sign_in_link"><%= link_to "Sign in", sign_in_path %></li>
-        <li><%= link_to "Request Demo", "#", class: "request_demo request_demo_link desktop_only" %></li>
-      </ul>
-    </div>
-    <div class="columns large-6 contacts_block">
-      <a href="/"><%= image_tag "landing/logo-blue.png", alt: "Airbo" %></a>
-      <div class="contacts">
-        <span>
-          Contact Sales:
-        </span>
-        <span>
-          (866)-AIRBO-32
-        </span>
-      </div>
-    </div>
-  </div>
-</footer>
+<%= render partial: "pages/landing/footer" %>
