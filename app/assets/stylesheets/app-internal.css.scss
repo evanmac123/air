@@ -7,6 +7,7 @@
 /*
 *= require tooltipster/tooltipster
 *= require tooltipster/themes/tooltipster-shadow
+*= require sweetalert
 */
 @import "./vendor/pace-theme-center-simple.css.scss";
 @import "./vendor/normalize.css.scss";
@@ -53,6 +54,7 @@
 @import './client_admin/tile_preview';
 @import './internal/tile_builder/tile_builder';
 @import "./internal/character_counter.css.scss";
+@import "./vendor_customization/sweetalert.css.scss";
 
 /* RWD */
 @media only screen and (min-width: 319px) {
