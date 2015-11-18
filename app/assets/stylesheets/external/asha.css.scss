@@ -3,6 +3,7 @@ body.pages.pages-asha.landing {
   @import "landing/hero.css.scss";
   @import "landing/footer.css.scss";
 
+  $max-width: 966px;
   main {
     padding-bottom: 105px;
   }
@@ -40,7 +41,7 @@ body.pages.pages-asha.landing {
   }
   .divider {
     width: 100%;
-    max-width: 966px;
+    max-width: $max-width;
     height: 1px;
     background-color: #dfe2e6;
     margin: 70px auto;
@@ -87,6 +88,11 @@ body.pages.pages-asha.landing {
         }
       }
     }
+  }
+  .tiles_section {
+    overflow: auto;
+    max-width: $max-width;
+    margin: auto;
   }
   .story {
     padding-top: 50px;
