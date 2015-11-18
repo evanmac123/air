@@ -567,8 +567,8 @@ Airbo.TileCreator = (function(){
 
     swal(
       {
-        title: "Are you sure you want to delete this tile?",
-        text: "Deleting a tile is irrevocable and you'll loose all data associated with it.",
+        title: "",
+        text: "Are you sure you want to delete this tile? Deleting a tile is irrevocable and you'll loose all data associated with it.",
         customClass: "airbo",
         animation: false,
         closeOnConfirm: false,
@@ -594,8 +594,8 @@ Airbo.TileCreator = (function(){
 
     swal(
       {
-        title: "Are you sure you want to accept this tile?",
-        text: "This action cannot be undone",
+        title: "",
+        text: "Are you sure you want to accept this tile? This action cannot be undone",
         customClass: "airbo",
         animation: false,
         closeOnConfirm: false,
@@ -615,8 +615,8 @@ Airbo.TileCreator = (function(){
 function confirmModalClose(postProcess){
     swal(
       {
-        title: "Are you sure you want to stop " + preventCloseMsg + " this tile",
-        text: "Any changes you've made will be lost",
+        title: "",
+        text: "Are you sure you want to stop " + preventCloseMsg + " this tile? Any changes you've made will be lost",
         customClass: "airbo",
         animation: false,
         closeOnConfirm: true,
