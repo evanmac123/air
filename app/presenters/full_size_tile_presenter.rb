@@ -4,19 +4,19 @@ class FullSizeTilePresenter
 
   attr_reader :tile, :user, :is_preview, :browser
   delegate  :id,
-            :image, 
+            :image,
             :headline,
-            :image_credit, 
-            :link_address, 
-            :points, 
-            :question, 
-            :multiple_choice_answers, 
-            :correct_answer_index, 
-            :is_survey?, 
-            :is_action?, 
-            :original_creator, 
+            :image_credit,
+            :link_address,
+            :points,
+            :question,
+            :multiple_choice_answers,
+            :correct_answer_index,
+            :is_survey?,
+            :is_action?,
+            :original_creator,
             :tile_completions,
-            :full_size_image_height, 
+            :full_size_image_height,
             to: :tile
 
   def initialize(tile, user, is_preview, current_tile_ids, browser)
@@ -31,6 +31,10 @@ class FullSizeTilePresenter
     appears_client_created ? 'client_created' : 'admin_created'
   end
 
+  def old_supporting_class
+    true ? 'old_supporting' : ''
+  end
+
   def supporting_content
     return @supporting_content if @supporting_content
 
@@ -41,7 +45,7 @@ class FullSizeTilePresenter
   end
 
   def non_preview_of_completed_tile?
-    !is_preview && user_completed_tile?   
+    !is_preview && user_completed_tile?
   end
 
   def user_completed_tile?
@@ -64,7 +68,7 @@ class FullSizeTilePresenter
   end
 
   def current_tile_ids_joined
-    @current_tile_ids && @current_tile_ids.join(',') 
+    @current_tile_ids && @current_tile_ids.join(',')
   end
 
   def adjacent_tile_image_urls
@@ -99,6 +103,6 @@ class FullSizeTilePresenter
   end
 
   def html_escape(*args)
-    ERB::Util.h(*args)  
+    ERB::Util.h(*args)
   end
 end

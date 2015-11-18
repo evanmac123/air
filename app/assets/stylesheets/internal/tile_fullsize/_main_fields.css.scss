@@ -29,6 +29,15 @@
   ul {
     line-height: 1.5em;
   }
+  &.old_supporting {
+    p {
+      line-height: 25px;
+      margin-bottom: 0;
+    }
+    ul {
+      line-height: 32px;
+    }
+  }
 }
 .tile_external_link, #tile_builder_form_link_address {
   font-size: 1.25em;
@@ -41,6 +50,3 @@
     font-size: 75%;
   }
 }
-// .tile_question {
-//   color: $text-color;
-// }

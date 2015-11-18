@@ -24,7 +24,7 @@
     <% if tile.appears_client_created %>
       <div class="tile_texts_container">
         <div class="tile_headline content_sections"><%= tile.headline %></div>
-        <div class="tile_supporting_content content_sections">
+        <div class="tile_supporting_content content_sections <%= tile.old_supporting_class %>">
           <%= unescape_html(tile.supporting_content) %>
         </div>
         <% if tile.link_address.present? %>
