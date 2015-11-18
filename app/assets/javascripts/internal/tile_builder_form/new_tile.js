@@ -48,19 +48,12 @@ Airbo.TileCreator = (function(){
    Airbo.TileImageCredit.init();
    Airbo.TilePointsSlider.init();
    Airbo.TileQuestionBuilder.init();
-   enableCloseModalConfirmation();
    Airbo.TileSuportingContentTextManager.init();
    Airbo.Utils.mediumEditor.init();
  }
 
 
- function disableCloseModalConfirmation(){
-   $(tileBuilderCloseSelector).removeAttr("data-confirm");
- }
 
- function enableCloseModalConfirmation(){
-   $(tileBuilderCloseSelector).attr("data-confirm", "");
- }
 
  function prepShow(){
 
@@ -68,7 +61,6 @@ Airbo.TileCreator = (function(){
 
    Airbo.TileCarouselPage.init();
    initPreviewMenuTooltips();
-   disableCloseModalConfirmation();
  }
 
  function tooltipBefore(){
@@ -205,7 +197,6 @@ Airbo.TileCreator = (function(){
     $("body").on("click", modalActivationSelectors, function(event){
       var img, imgHeight;
       event.preventDefault();
-
 
       modalTrigger = $(this);
 
@@ -384,7 +375,6 @@ Airbo.TileCreator = (function(){
     preventCloseMsg = false; // Allow modal to be closed sans confirmation
     refreshCurrentPreview(data.preview);
     prepShow();
-    disableCloseModalConfirmation();
     scrollPageToTop();
   }
 
@@ -443,6 +433,7 @@ Airbo.TileCreator = (function(){
   }
 
 
+
   function submitTileForUpadte(tile,target, postProcess ){
       $.ajax({
         url: target.data("url") || target.attr("href"),
@@ -468,24 +459,8 @@ Airbo.TileCreator = (function(){
         getImageLibrary($(this).data("libraryUrl"));
       }
 
-      disableCloseModalConfirmation();
     });
   }
-
- function initDeletionConfirmation(){
-   $("body").on("confirm.reveal", "a[data-confirm]:not(.accept)", function(event){
-     preventCloseMsg=false;
-     $(this).parents(".reveal-modal").foundation("reveal", "close");
-   });
-
-   //TODO figure why this needs a timer
-   $("body").on("cancel.reveal", "a#tilebuilder_close[data-confirm]", function(event){
-     setTimeout(function(){
-       $("body").css({"overflow-y": "hidden"}).addClass("client_admin-tiles-edit");
-       openTileFormModal();
-     }, 200);
-   });
- }
 
 
  function scrollPageToTop(){
@@ -522,7 +497,6 @@ Airbo.TileCreator = (function(){
   function imagesModalOpenclose(){
     $(document).on('closed.fndtn.reveal', imagesModalSelector, function () {
       openTileFormModal();
-      enableCloseModalConfirmation();
     });
 
     $(document).on('close.fndtn.reveal', imagesModalSelector, function (event) {
@@ -538,44 +512,7 @@ Airbo.TileCreator = (function(){
 
   function openTileFormModal(){
     tileModal.foundation("reveal", "open", {animation: "fade",closeOnBackgroundClick: true });
-    initCancelBeforeSave();
   }
-
-  function initCancelBeforeSave(){
-    var msg = "Are you sure you want to stop " + preventCloseMsg + " this tile?"
-    + " Any changes you've made will be lost.",
-    config = $.extend({}, Airbo.Utils.confirmWithRevealConfig, {body: msg, modal_class: 'tiny confirm-with-reveal tile_builder_confirm_modal'});
-    $("#tilebuilder_close").confirmWithReveal(config);
-  }
-
-  function initAcceptTileConfirm(){
-    var msg = "Are you sure you want to accept this tile? You cannot undo this action.";
-
-    config = $.extend({}, Airbo.Utils.confirmWithRevealConfig, {body: msg, modal_class: 'tiny confirm-with-reveal accept_confirm_modal'});
-
-
-    $(".accept").confirmWithReveal(config);
-    $("body").on("confirm.reveal", "a.accept", function(event){
-
-      event.preventDefault();
-      var resp, tile, target = $(this);
-      tile = tileByStatusChangeTriggerLocation(target);
-
-      function closeConfirmation(){
-        $(".reveal-modal.tiny.confirm-with-reveal").foundation("reveal", "close");
-      }
-
-      submitTileForUpadte(tile, target, closeConfirmation);
-      return false;
-    });
-
-
-    $("body").on("cancel.reveal", "a.accept.preview", function(event){
-      setTimeout(function(){setupModalFor("show")}, 200);
-    });
-
-  }
-
 
 
   function openImageSelectorModal(){
@@ -647,13 +584,67 @@ Airbo.TileCreator = (function(){
     );
   }
 
+  function confirmAcceptance(trigger){
+    var tile = tileByStatusChangeTriggerLocation(trigger);
+
+    function postProcess(){
+      Airbo.Utils.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
+      swal.close();
+    }
+
+    swal(
+      {
+        title: "Are you sure you want to accept this tile?",
+        text: "This action cannot be undone",
+        customClass: "airbo",
+        animation: false,
+        closeOnConfirm: false,
+        showCancelButton: true,
+        showLoaderOnConfirm: true,
+      },
+
+      function(isConfirm){
+        if (isConfirm) {
+          submitTileForUpadte(tile,trigger, postProcess);
+        }
+      }
+    );
+  }
+
+
+function confirmModalClose(postProcess){
+    swal(
+      {
+        title: "Are you sure you want to stop " + preventCloseMsg + " this tile",
+        text: "Any changes you've made will be lost",
+        customClass: "airbo",
+        animation: false,
+        closeOnConfirm: true,
+        closeOnCancel: true,
+        showCancelButton: true,
+      },
+
+      function(isConfirm){   
+        if (isConfirm) {
+         postProcess();
+        }
+      }
+    );
+  }
+
+
   function initDeletion(){
     $("body").on("click", ".delete_tile", function(event){
       event.preventDefault();
       confirmDeletion($(this))
     });
   }
-
+  function initAcceptTile(){
+    $("body").on("click", ".accept", function(event){
+      event.preventDefault();
+      confirmAcceptance($(this))
+    });
+  }
 
 
   function submitTileForDeletion(tile,target, postProcess ){
@@ -669,18 +660,16 @@ Airbo.TileCreator = (function(){
   }
 
 
-  function init(context){
-    initContext(context);
-    initDeletionConfirmation();
-    initAcceptTileConfirm()
-    initStatusUpdate();
-    initDeletion();
-    initModalOpenClose();
-    initJQueryObjects();
-    initNewTileModal();
-    initImageLibraryModal();
-    initTileBuilderFormSubmission();
-    Airbo.Utils.TilePlaceHolderManager.init(); //noop
+  function initCustomModalClose(){
+    $(tileBuilderCloseSelector).click(function(){
+      if (preventCloseMsg){
+        confirmModalClose(function(){ 
+          $(tileModal).foundation('reveal','close');
+        });
+      }else{
+        $(tileModal).foundation('reveal','close');
+      }
+    });
 
 
     /* NOTE
@@ -691,15 +680,15 @@ Airbo.TileCreator = (function(){
 
     $(tileModalSelector).click(function(event){
       /*
-      * NOTE This is a bit of a hack/workaroud to solve an issue with mouseup
-      * and mousedown events simulating a click outside of the main tile area.
-      * This conflicts with the editor because selecting text and accidentally
-      * releasing the mouse (mouseup) outside the editor triggers the medium
-      * toolbar and the close modal confirmation. This hack just checks to see
-      * if there is any selected text and no-ops if there is to avoid displaying
-      * the confirmation modal.
-      *
-      */
+       * NOTE This is a bit of a hack/workaroud to solve an issue with mouseup
+       * and mousedown events simulating a click outside of the main tile area.
+       * This conflicts with the editor because selecting text and accidentally
+       * releasing the mouse (mouseup) outside the editor triggers the medium
+       * toolbar and the close modal confirmation. This hack just checks to see
+       * if there is any selected text and no-ops if there is to avoid displaying
+       * the confirmation modal.
+       *
+       */
       var hasNoSelection = getSelectedText() == "";
 
       if( hasNoSelection && ($(event.target).is(tileModalSelector) || $(event.srcElement).is(".tile_preview_container") || $(event.srcElement).is(".row"))){
@@ -713,6 +702,24 @@ Airbo.TileCreator = (function(){
         $(imageLibraryCloseSelector).trigger("click");
       }
     });
+  }
+
+
+
+  function init(context){
+    initContext(context);
+    initAcceptTile();
+    initStatusUpdate();
+    initDeletion();
+    initModalOpenClose();
+    initJQueryObjects();
+    initNewTileModal();
+    initImageLibraryModal();
+    initTileBuilderFormSubmission();
+    Airbo.Utils.TilePlaceHolderManager.init(); //noop
+    initCustomModalClose();
+
+
   }
 
 
@@ -746,3 +753,5 @@ $(function(){
     Airbo.TileCreator.init(TileCreatorContext[context]);
   }
 });
+
+

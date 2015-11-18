@@ -18,11 +18,7 @@
     }
     &.confirm {
       @include app-button($sky-blue);
-      [disabled]{
-
-        /*opacity: 1;*/
-        /*visibility: visible;*/
-        /*transition-delay: 0s;*/
+    &[disabled]{
 
          background-image: url("/assets/spinner_gears.gif");
          background-repeat: no-repeat;
