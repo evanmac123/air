@@ -582,6 +582,8 @@ Airbo.TileCreator = (function(){
         }
       }
     );
+
+    swapModalButtons();
   }
 
   function confirmAcceptance(trigger){
@@ -609,6 +611,7 @@ Airbo.TileCreator = (function(){
         }
       }
     );
+    swapModalButtons();
   }
 
 
@@ -630,8 +633,14 @@ function confirmModalClose(postProcess){
         }
       }
     );
+
+    swapModalButtons();
   }
 
+
+  function swapModalButtons(){
+    $("button.cancel").before($("button.confirm"))
+  }
 
   function initDeletion(){
     $("body").on("click", ".delete_tile", function(event){
