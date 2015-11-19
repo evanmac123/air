@@ -64,6 +64,7 @@ Health::Application.routes.draw do
   match "sign_out" => "sessions#destroy"
 
   root :to => 'pages#show', :id => 'welcome'
+  get "company" => 'pages#company', as: 'company'
   get "product" => 'pages#product', as: 'product'
   get "faq" => "pages#faq", :as => "faq" # FIXME dead url?
   get "faq_body" => "pages#faq_body", :as => "faq_toc" # FIXME dead url?

@@ -1,0 +1,10 @@
+body.pages-company.landing {
+  @import "landing/header.css.scss";
+  @import "landing/hero.css.scss";
+  @import "landing/footer.css.scss";
+
+  .hero {
+    background-image: url('landing/company/People_Working_At_Wikimedia.jpg');
+    height: 450px;
+  }
+}

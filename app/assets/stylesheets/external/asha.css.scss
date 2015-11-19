@@ -12,18 +12,6 @@ body.pages.pages-asha.landing {
   .hero {
     background-image: url('landing/asha/People_Working_At_Wikimedia.jpg');
     height: 450px;
-    h3 {
-      color: $white;
-      font-size: 16px;
-      font-weight: 700;
-      text-transform: uppercase;
-      text-align: center;
-      margin-bottom: 25px;
-    }
-    h1 {
-      font-size: 40px;
-      line-height: 60px;
-    }
   }
   img {
     display: block;
@@ -134,10 +122,6 @@ body.pages.pages-asha.landing {
     }
     .hero {
       height: 335px;
-      h3 {
-        font-size: 12px;
-        margin-bottom: 20px;
-      }
     }
     p {
       font-size: 16px;
