@@ -91,7 +91,7 @@ function initFileUploader() {
 
   $(uploaderSelector).fileupload(
     {
-      replaceFileInput: false,
+      replaceFileInput: true,
       disableImagePreview: true,
       maxFileSize: 2500000, //2.5Mb
       acceptFileTypes: /(\.|\/)(gif|jpe?g|png|bmp)$/i,
