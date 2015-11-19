@@ -497,6 +497,7 @@ Airbo.TileCreator = (function(){
   function imagesModalOpenclose(){
     $(document).on('closed.fndtn.reveal', imagesModalSelector, function () {
       openTileFormModal();
+      validator.element("#remote_media_url");
     });
 
     $(document).on('close.fndtn.reveal', imagesModalSelector, function (event) {
