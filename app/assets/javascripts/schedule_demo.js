@@ -16,7 +16,7 @@ Airbo.ScheduleDemoModal = (function(){
     , demoRequestButtonSelector =  "#demo_request, .request_demo"
     , requestContentSelector = "#request_content"
     , confirmationContentSelector = "#confirmation_content"
-  ; 
+  ;
 
   function modalPing(action, option){
     $.post("/ping", {
@@ -120,6 +120,12 @@ Airbo.ScheduleDemoModal = (function(){
   function initCloseOnBackgroundClick(){
     $(demoModalSelector).click(function(event){
       if($(event.target).is(demoModalSelector)){
+        $(closeModalSelector).trigger("click");
+      }
+    });
+
+    $(".modal_container").click(function(event){
+      if($(event.target).is(".modal_container")){
         $(closeModalSelector).trigger("click");
       }
     });

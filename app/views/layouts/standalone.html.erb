@@ -15,7 +15,6 @@
     <%= render 'shared/mixpanel' %>
     <%= mp_track_page @page_name_for_mixpanel if @page_name_for_mixpanel.present? %>
     <%= stylesheet_link_tag 'app-landing' %>
-    <%= stylesheet_link_tag "public_board_fixed_headers" %>
     <%= javascript_include_tag 'app-landing' %>
     <%= mobvious_javascript %>
 
@@ -29,7 +28,7 @@
     <%= javascript_include_tag asset_path('ga.js') if ENV['USE_GA'] %>
     <%= render 'shared/nerf_animations_in_test' %>
   </head>
-  <body class="<%= body_class %> landing" style="-webkit-overflow-scrolling: touch; overflow:visible;">
+  <body class="<%= body_pages_class %> landing" style="-webkit-overflow-scrolling: touch; overflow:visible;">
     <%= render 'pages/qualaroo_marketing' %>
     <%= render 'shared/flashes' %>
 

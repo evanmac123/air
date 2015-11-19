@@ -1,0 +1,62 @@
+.hero {
+  background-image: url('landing/hero.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  height: 750px;
+  position: relative;
+  padding: 0;
+  .hero_section {
+    position: relative;
+    height: calc(100% - 75px); // header height
+    width: 100%;
+    display: table;
+  }
+  .hero_content {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 20px;
+    h1, h3 {
+      letter-spacing: 1px;
+    }
+    h1 {
+      display: block;
+      margin: auto;
+      color: white;
+      font-size: 50px;
+      font-weight: 700;
+      line-height: 75px;
+      text-align: center;
+      max-width: 950px;
+    }
+    .request_demo {
+      @include app-button($sky-blue);
+      display: block;
+      margin: auto;
+      margin-top: 54px;
+      padding: 18px;
+      width: 200px;
+      font-size: 18px;
+      font-weight: 500;
+    }
+  }
+}
+
+@media only screen and (max-width: $foundation) {
+  .hero {
+    background-image: url('landing/hero-mobile.jpg');
+    height: 568px;
+    .hero_section {
+      height: calc(100% - 56px); // header height
+      h1{
+        font-size: 25px;
+        line-height: 37.5px;
+      }
+      .request_demo {
+        width: 176px;
+        font-size: 16px;
+        padding: 16px;
+      }
+    }
+  }
+}

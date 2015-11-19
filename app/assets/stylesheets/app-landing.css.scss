@@ -2,27 +2,29 @@
 @import "./vendor/foundation.min.css.scss";
 @import "font-awesome";
 @import "./mixins/main_styles.css.scss";
-@import "./internal/mast.css.scss";
+// @import "./internal/mast.css.scss";
 @import "./internal/flash.css.scss";
-@import "./mixins/placeholder_color.css.scss";
-@import "./external/mast_public.css.scss";
-@import "./external/_request_demo.css.scss";
-@import "./external/welcome.css.scss";
+@import "./external/landing/common.css.scss";
+// @import "./mixins/placeholder_color.css.scss";
+// @import "./external/mast_public.css.scss";
+// @import "./external/_request_demo.css.scss";
 @import "./external/product.css.scss";
-@import "./external/landing.css.scss";
+@import "./external/schedule_demo_modal.css.scss";
+@import "./external/welcome.css.scss";
+@import "./external/asha.css.scss";
 
 
-@media only screen and (min-width: 530px) {
-}
-
-@media only screen and (min-width: $foundation) {
-  @import "./internal/mast_desktop.css.scss";
-  @import "./external/mast_desktop_public.css.scss";
-}
-
-@media only screen and (min-width: $large-desktop) {
-
-}
+// @media only screen and (min-width: 530px) {
+// }
+//
+// @media only screen and (min-width: $foundation) {
+//   @import "./internal/mast_desktop.css.scss";
+//   @import "./external/mast_desktop_public.css.scss";
+// }
+//
+// @media only screen and (min-width: $large-desktop) {
+//
+// }
 
 #airbo_announcement {
   .row {

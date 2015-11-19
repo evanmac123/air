@@ -1,0 +1,32 @@
+.shadow_overlay {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  // background: rgba(14, 23, 29, 0.82);
+  background-color: #152f3d;
+  opacity: 0.78;
+}
+
+a.request_demo_link {
+  @include app-button($sky-blue);
+  font-size: 14px;
+  font-weight: 400;
+  padding: 11px;
+  width: 140px;
+}
+
+.mobiile_only {
+  display: none;
+}
+
+@media only screen and (max-width: $foundation) {
+  .mobiile_only {
+    display: block;
+  }
+  .desktop_only {
+    display: none !important;
+  }
+}

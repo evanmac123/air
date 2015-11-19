@@ -1,0 +1,104 @@
+footer#pageFtr {
+  background-color: #f7f8fa;
+  .menu_block {
+    float: right;
+    min-width: 530px;
+    ul {
+      line-height: 1;
+      text-align: right;
+    }
+    li {
+      display: inline-block;
+      margin-right: 40px;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+    a {
+      // display: block;
+      color: #66676d;
+      font-size: 15px;
+      font-weight: 400;
+      // display: inline;
+    }
+    .request_demo_link {
+      // @include app-button($sky-blue);
+      // font-size: 14px;
+      // font-weight: 400;
+      // padding: 11px;
+      // width: 140px;
+      color: white;
+      margin: 31px 0;
+    }
+  }
+  .contacts_block {
+    height: 100px;
+    width: auto;
+    float: none;
+    overflow: hidden;
+    // display: table;
+    a {
+      padding-top: 30px;
+      display: block;
+      img {
+        float: left;
+      }
+    }
+    .contacts {
+      // float: right;
+      color: #66676d;
+      font-size: 15px;
+      line-height: 18px;
+      font-style: italic;
+      text-align: right;
+      padding-right: 10px;
+      padding-top: 12px;
+      span {
+        white-space: nowrap;
+      }
+    }
+    // a, .contacts {
+    //   display: table-cell;
+    //   vertical-align: middle;
+    // }
+  }
+}
+@media only screen and (max-width: $foundation) {
+  footer#pageFtr {
+    .menu_block {
+      min-width: auto;
+      ul {
+        margin-top: 27px;
+        text-align: left;
+      }
+      li {
+        // width: 24%;
+        margin-right: 30px;
+        // text-align: center;
+        &.sign_in_link {
+          float: right;
+          margin: 0;
+        }
+      }
+    }
+    .contacts_block {
+      height: auto;
+      a {
+        // padding-top: 17px;
+        padding-bottom: 20px;
+        display: block;
+        float: left;
+        img {
+          width: 51px;
+        }
+      }
+      .contacts {
+        float: none;
+        width: auto;
+        overflow: hidden;
+        padding: 0;
+        padding-top: 38px;
+      }
+    }
+  }
+}

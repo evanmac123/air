@@ -30,7 +30,7 @@
 <body class="<%= body_class %>" style="-webkit-overflow-scrolling: touch; overflow:visible;"><%# only works with inline style? WTF. but leave it: this fixes scroll problems in ios7 and doesn't seem to work if included via stylesheet. %>
 
   <%= render 'shared/header', :show_play_box => true %>
-  <div id='js-flashes'><%# render 'shared/flashes' %> </div> 
+  <div id='js-flashes'><%# render 'shared/flashes' %> </div>
   <%= render 'shared/offcanvas_menu_signedin' %>
 
 
@@ -49,7 +49,7 @@
 
   <%= render 'shared/intercom' %>
   <%= render :partial => 'shared/javascript' %><!-- This is where 'yield :javascript' takes place -->
-  
+
   <div id='gradient-triangle'></div>
   <%= javascript_include_tag 'rem.min.js' %>
 </body>
