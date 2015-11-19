@@ -3,8 +3,18 @@ body.pages-company.landing {
   @import "landing/hero.css.scss";
   @import "landing/footer.css.scss";
 
+  main {
+    padding: 80px 20px 110px;
+  }
+  p {
+    max-width: 750px;
+  }
+  .divider {
+    margin: 80px auto;
+  }
   .hero {
     background-image: url('landing/company/People_Working_At_Wikimedia.jpg');
     height: 450px;
   }
+
 }
