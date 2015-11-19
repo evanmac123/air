@@ -5,7 +5,8 @@ body.pages.pages-asha.landing {
 
   $max-width: 966px;
   main {
-    padding-bottom: 105px;
+    padding: 0 20px 105px;
+    // padding-bottom: 105px;
   }
 
   .hero {
@@ -36,7 +37,7 @@ body.pages.pages-asha.landing {
     font-size: 18px;
     font-weight: 400;
     line-height: 29px;
-    text-align: center;
+    // text-align: center;
     letter-spacing: 1px;
   }
   .divider {
@@ -62,6 +63,7 @@ body.pages.pages-asha.landing {
       font-weight: 700;
       font-style: italic;
       max-width: 750px;
+      text-align: center;
     }
     .user {
       display: block;
@@ -79,7 +81,6 @@ body.pages.pages-asha.landing {
         width: auto;
         // max-width: 372px;
         color: #595959;
-        padding-top: 2px;
         font-size: 16px;
         font-weight: 500;
         line-height: 27px;
@@ -87,6 +88,11 @@ body.pages.pages-asha.landing {
           color: #2e2e2c;
         }
       }
+    }
+  }
+  .company_background {
+    p {
+      text-align: center;
     }
   }
   .tiles_section {
@@ -120,6 +126,70 @@ body.pages.pages-asha.landing {
       &:first-child {
         padding-top: 0;
       }
+    }
+  }
+  @media only screen and (max-width: $foundation) {
+    main {
+      padding-bottom: 60px;
+    }
+    .hero {
+      height: 335px;
+      h3 {
+        font-size: 12px;
+        margin-bottom: 20px;
+      }
+    }
+    p {
+      font-size: 16px;
+      letter-spacing: normal;
+    }
+    .divider {
+      margin: 50px auto;
+      &.divider-300 {
+        max-width: 230px;
+      }
+      &.divider-200 {
+        margin: 37px auto;
+        max-width: 80px;
+      }
+    }
+    .company_logo {
+      padding-top: 50px;
+    }
+    .client_group {
+      margin-top: 30px;
+      .quote {
+        letter-spacing: 1px;
+      }
+      .name {
+        font-size: 14px;
+      }
+    }
+    .company_background {
+      p {
+        text-align: left;
+        letter-spacing: 0.5px;
+      }
+    }
+    .tiles_section {
+      .small-6:nth-of-type(-n+2) {
+        padding-bottom: 27px;
+      }
+    }
+    .story {
+      padding-top: 40px;
+      &.janet, &.airbo_helps {
+        padding-top: 0;
+      }
+      p {
+        padding-top: 20px;
+      }
+      img {
+        padding-top: 20px;
+      }
+    }
+    .story_italic {
+      padding-top: 0;
     }
   }
 }

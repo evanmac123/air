@@ -1,15 +1,15 @@
-<main>
-  <div class="hero">
-    <div class="shadow_overlay"></div>
-    <%= render partial: "pages/landing/header" %>
-    <div class="hero_section">
-      <div class="hero_content">
-        <h3>Case Study</h3>
-        <h1>American-Speech-Language-Hearig Association (ASHA)</h1>
-      </div>
+<div class="hero">
+  <div class="shadow_overlay"></div>
+  <%= render partial: "pages/landing/header" %>
+  <div class="hero_section">
+    <div class="hero_content">
+      <h3>Case Study</h3>
+      <h1>American-Speech-Language-Hearig Association (ASHA)</h1>
     </div>
   </div>
+</div>
 
+<main>
   <div class="company_logo">
     <%= image_tag "landing/asha/asha_logo.jpg" %>
   </div>
@@ -35,19 +35,21 @@
     </div>
     <div class="divider"></div>
 
-    <p>
-      ASHA is a nonprofit scientific and professional association with over 280 employees in Maryland. Staff range from administrators to PhDs. In 2015, ASHA was recognized as one of Greater Washington’s Great Place to Work by Washingtonian Magazine and the Washington Post.
-    </p>
-    <div class="divider"></div>
+    <div class="company_background">
+      <p>
+        ASHA is a nonprofit scientific and professional association with over 280 employees in Maryland. Staff range from administrators to PhDs. In 2015, ASHA was recognized as one of Greater Washington’s Great Place to Work by Washingtonian Magazine and the Washington Post.
+      </p>
+      <div class="divider"></div>
 
-    <p>
-      ASHA started using Airbo to motivate employees to share job openings on social networks. Today 95% of employees participate. ASHA uses Airbo to support a variety of HR activities like introducing new hires, sharing organizational performance, and other news.
-    </p>
-    <div class="divider"></div>
+      <p class="desktop_only">
+        ASHA started using Airbo to motivate employees to share job openings on social networks. Today 95% of employees participate. ASHA uses Airbo to support a variety of HR activities like introducing new hires, sharing organizational performance, and other news.
+      </p>
+      <div class="divider desktop_only"></div>
+    </div>
 
     <div class="tiles_section">
       <% (1..4).to_a.each do |i| %>
-        <div class="small-3 columns">
+        <div class="large-3 small-6 columns">
           <%= image_tag "landing/asha/tile#{i}.png" %>
         </div>
       <% end %>
@@ -66,7 +68,7 @@
       </p>
     </div>
 
-    <div class="story">
+    <div class="story desktop_only">
       <p class="headline">
         Stretching a Limited Budget
       </p>
@@ -78,19 +80,32 @@
       </p>
     </div>
   </div>
-  <div class="divider divider-200"></div>
+
+  <div class="story">
+    <p class="headline">
+      Ten Thousand Social Media Impressions
+    </p>
+    <p>
+      Janet started her free trial by focusing on social recruiting, her main priority. She created Tiles that promoted job openings and rewarded employees with points when they shared them on Facebook, Twitter, or LinkedIn.
+    </p>
+    <p>
+      “Airbo is a fun and easy way to communicate,” says Janet. “You just go into Airbo, create a Tile with an image, then add your text and an interaction. It’s a very easy way to reinforce things that people need to know.”
+    </p>
+  </div>
+</div>
+<div class="divider divider-200"></div>
 
   <div class="story story_italic">
     <p>
       Tiles are the primary content format on Airbo. Each Tile has an image, up to 600 characters of content, and an interaction prompt at the bottom. Upon completing a Tile, the user is automatically sent to the next Tile in a sequence set by the administrator. Employees earn points for interacting with tiles and most organizations that use Airbo will let employees convert their points into prizes.
     </p>
-    <p>
+    <p class="desktop_only">
       It didn’t take long for Janet to see results. Using Airbo’s analytics functions, she was able to see that in the first 8 weeks, 13 jobs were shared 289 times, reaching more than 10,000 potential recruits. “People thought we were going through a big growth spurt, when in fact these jobs were posted for months,” says Janet.
     </p>
   </div>
   <div class="divider divider-200"></div>
 
-  <div class="story expanding">
+  <div class="story expanding desktop_only">
     <p class="headline">
       Expanding the Use of Airbo
     </p>
@@ -102,7 +117,7 @@
     </p>
   </div>
 
-  <div class="story">
+  <div class="story desktop_only">
     <p class="headline">
       Discovering Surprising Demographics
     </p>
@@ -112,7 +127,7 @@
     <%= image_tag "landing/asha/graph.png" %>
   </div>
 
-  <div class="story">
+  <div class="story airbo_helps">
     <p class="headline">
       Airbo Helps the ASHA Achieve National Recognition
     </p>
