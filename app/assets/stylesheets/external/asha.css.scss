@@ -3,7 +3,6 @@ body.pages.pages-asha.landing {
   @import "landing/hero.css.scss";
   @import "landing/footer.css.scss";
 
-  $max-width: 966px;
   main {
     padding: 0 20px 105px;
     // padding-bottom: 105px;
@@ -12,47 +11,6 @@ body.pages.pages-asha.landing {
   .hero {
     background-image: url('landing/asha/People_Working_At_Wikimedia.jpg');
     height: 450px;
-    h3 {
-      color: $white;
-      font-size: 16px;
-      font-weight: 700;
-      text-transform: uppercase;
-      text-align: center;
-      margin-bottom: 25px;
-    }
-    h1 {
-      font-size: 40px;
-      line-height: 60px;
-    }
-  }
-  img {
-    display: block;
-    margin: auto;
-  }
-  p {
-    width: 100%;
-    max-width: 710px;
-    margin: auto;
-    color: $text-color;
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 29px;
-    // text-align: center;
-    letter-spacing: 1px;
-  }
-  .divider {
-    width: 100%;
-    max-width: $max-width;
-    height: 1px;
-    background-color: #dfe2e6;
-    margin: 70px auto;
-    &.divider-300 {
-      max-width: 300px;
-    }
-    &.divider-200 {
-      margin: 50px auto;
-      max-width: 200px;
-    }
   }
   .company_logo {
     padding-top: 70px;
@@ -97,25 +55,12 @@ body.pages.pages-asha.landing {
   }
   .tiles_section {
     overflow: auto;
-    max-width: $max-width;
+    max-width: $max-page-width;
     margin: auto;
   }
   .story {
-    padding-top: 50px;
     &.janet, &.expanding {
       padding-top: 0;
-    }
-    p {
-      text-align: left;
-      padding-top: 25px;
-      &.headline {
-        padding-top: 0;
-        color: #2e2e2c;
-        font-weight: 700;
-      }
-    }
-    img {
-      padding-top: 38px;
     }
   }
   .story_italic {
@@ -134,24 +79,6 @@ body.pages.pages-asha.landing {
     }
     .hero {
       height: 335px;
-      h3 {
-        font-size: 12px;
-        margin-bottom: 20px;
-      }
-    }
-    p {
-      font-size: 16px;
-      letter-spacing: 0.5px;
-    }
-    .divider {
-      margin: 50px auto;
-      &.divider-300 {
-        max-width: 230px;
-      }
-      &.divider-200 {
-        margin: 37px auto;
-        max-width: 80px;
-      }
     }
     .company_logo {
       padding-top: 50px;
@@ -177,15 +104,8 @@ body.pages.pages-asha.landing {
       }
     }
     .story {
-      padding-top: 40px;
       &.janet, &.airbo_helps {
         padding-top: 0;
-      }
-      p {
-        padding-top: 20px;
-      }
-      img {
-        padding-top: 20px;
       }
     }
     .story_italic {

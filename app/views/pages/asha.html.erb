@@ -1,19 +1,13 @@
-<div class="hero">
-  <div class="shadow_overlay"></div>
-  <%= render partial: "pages/landing/header" %>
-  <div class="hero_section">
-    <div class="hero_content">
-      <h3>Case Study</h3>
-      <h1>American-Speech-Language-Hearig Association (ASHA)</h1>
-    </div>
-  </div>
-</div>
+<%= render layout: "pages/landing/hero" do %>
+  <h3>Case Study</h3>
+  <h2>American-Speech-Language-Hearig Association (ASHA)</h2>
+<% end %>
 
 <main>
   <div class="company_logo">
     <%= image_tag "landing/asha/asha_logo.jpg" %>
   </div>
-  <div class="divider divider-300"></div>
+  <div class="divider divider-small"></div>
 
   <div class="client_group">
     <p class="quote">
@@ -93,7 +87,7 @@
     </p>
   </div>
 </div>
-<div class="divider divider-200"></div>
+<div class="divider divider-tiny"></div>
 
   <div class="story story_italic">
     <p>
@@ -103,7 +97,7 @@
       It didn’t take long for Janet to see results. Using Airbo’s analytics functions, she was able to see that in the first 8 weeks, 13 jobs were shared 289 times, reaching more than 10,000 potential recruits. “People thought we were going through a big growth spurt, when in fact these jobs were posted for months,” says Janet.
     </p>
   </div>
-  <div class="divider divider-200"></div>
+  <div class="divider divider-tiny"></div>
 
   <div class="story expanding desktop_only">
     <p class="headline">
