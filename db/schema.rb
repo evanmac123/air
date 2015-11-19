@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151106000048) do
+ActiveRecord::Schema.define(:version => 20151118212727) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -816,6 +816,7 @@ ActiveRecord::Schema.define(:version => 20151106000048) do
     t.boolean  "user_created"
     t.string   "remote_media_url"
     t.string   "remote_media_type"
+    t.boolean  "use_old_line_break_css",  :default => false
   end
 
   add_index "tiles", ["is_copyable"], :name => "index_tiles_on_is_copyable"

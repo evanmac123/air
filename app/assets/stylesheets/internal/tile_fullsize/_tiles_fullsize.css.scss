@@ -63,14 +63,15 @@ body.tiles.tiles-index {
     text-align: left;
     width:100%;
 
-    @import './internal/tile_fullsize/image';
     .tile_texts_container {
       background:$white;
       line-height: 1.125em;
       padding-top:1em;
-      @import './internal/tile_fullsize/main_fields';
-      @import './internal/tile_fullsize/quiz';
+      padding-bottom: 0.4em;
     }
+    @import './internal/tile_fullsize/image';
+    @import './internal/tile_fullsize/main_fields';
+    @import './internal/tile_fullsize/quiz';
     // FIXME do we even need these two?
     // &.client_created .tile_full_image {
     //   background:$text-color;

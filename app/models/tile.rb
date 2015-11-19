@@ -241,6 +241,11 @@ class Tile < ActiveRecord::Base
       .order("position ASC").first
   end
 
+
+  def custom_supporting_content_class
+    use_old_line_break_css? ? 'old_line_break_css' : ''
+  end
+
   protected
 
   def ensure_protocol_on_link_address
