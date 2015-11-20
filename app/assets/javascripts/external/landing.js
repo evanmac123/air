@@ -21,7 +21,7 @@ Airbo.Landing = (function(){
 
 $(function(){
   // so specific selectors because we have product page with old header
-  if( $(".pages.pages-welcome.landing, .pages.pages-asha.landing").length > 0 ){
+  if( $("header.sticky_desktop").length > 0 ){
     Airbo.Landing.init();
   }
 });

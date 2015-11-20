@@ -61,11 +61,27 @@ body.pages-welcome.landing {
       padding-left: 15px;
       padding-right: 15px;
     }
-    img {
+    .animation_block {
+      position: relative;
       display: block;
       margin: auto;
       margin-top: 65px;
       margin-bottom: 65px;
+      width: 100%;
+      max-width: 935px;
+      // padding: 106px;
+      // padding: 2.2% 10.1% 5.5%;
+      // padding-bottom: 0;
+      // padding-top: 2.2%;
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+      }
+      .animation {
+        padding: 2.5% 11.2% 6.1% 11.6%;
+      }
     }
     .benefits_group {
       max-width: 830px;

@@ -25,7 +25,14 @@
       <h2>
         Airbo helps HR get more programs done faster, for less, and with higher participation.
       </h2>
-      <%= image_tag "landing/mac-full.png" ,class: "desktop_only" %>
+
+      <div class="animation_block desktop_only">
+        <%= image_tag "landing/mac-full.png" %>
+        <div class="animation">
+          <script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/E-v1.js" async></script><div class="wistia_responsive_padding" style="padding:62.5% 0 0 0;position:relative;"><div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;"><div class="wistia_embed wistia_async_8b2r68jpkw videoFoam=true" style="height:100%;width:100%">&nbsp;</div></div></div>
+        </div>
+      </div>
+
       <div class="benefits_group">
         <div class="large-4 columns">
           <div class="benefit_block">
@@ -80,7 +87,7 @@
           - Janet McNichol, Director of HR at The American Speech–Language–Hearing Association
         </div>
       </div>
-      <!-- <%= link_to "Read This Case Study", "#" %> -->
+      <%= link_to "Read This Case Study", page_path("asha") %>
     </div>
   </div>
 </main>

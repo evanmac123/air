@@ -1,7 +1,9 @@
-<header id="pageHeader">
+<header id="pageHeader" class="sticky_desktop">
   <div class="row top">
     <div class="columns logo">
-      <div class="logo_image"></div>
+      <%= link_to "/" do %>
+        <div class="logo_image"></div>
+      <% end %>
     </div>
     <div class="columns mobile-toggle mobiile_only">
         <span></span>
@@ -14,7 +16,8 @@
     <div class="columns headerMenu">
       <ul>
         <li><%= link_to "Home", "" %></li>
-        <li><%= link_to "Support", support_path, target: "_blank" %></li>
+        <!-- <li><%= link_to "Support", support_path, target: "_blank" %></li> -->
+        <li><%= link_to "Company", company_path, target: "_blank" %></li>
         <li><%= link_to "Blog", "http://blog.airbo.com/?utm_source=airbo&utm_medium=marketing%20page&utm_campaign=marketing%20page", target: "_blank" %></li>
         <li><%= link_to "Sign in", sign_in_path %></li>
       </ul>
