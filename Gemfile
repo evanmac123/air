@@ -50,7 +50,7 @@ gem 'strong_parameters'
 gem 'intercom'
 gem 'counter_culture'
 gem 'require_all'
-gem 'css_splitter', :git => "git@github.com:/theairbo/css_splitter.git" 
+gem 'css_splitter', :git => "https://github.com/theairbo/css_splitter.git" 
 gem 'sanitize'
 gem 'htmlentities'
 gem 'rack-mini-profiler', require: false

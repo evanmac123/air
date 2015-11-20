@@ -1,11 +1,4 @@
 GIT
-  remote: git@github.com:/theairbo/css_splitter.git
-  revision: 02afb2ae7695bcd66e1c9079dadfa831e6bb2aa2
-  specs:
-    css_splitter (0.4.2)
-      sprockets (>= 2.0.0)
-
-GIT
   remote: https://github.com/avbrychak/wice_grid
   revision: a3795c4953d325ec11229cc8127058803df4f145
   branch: rails3
@@ -20,6 +13,13 @@ GIT
     stripe (1.8.6)
       multi_json (>= 1.0.4, < 2)
       rest-client (~> 1.4)
+
+GIT
+  remote: https://github.com/theairbo/css_splitter.git
+  revision: 02afb2ae7695bcd66e1c9079dadfa831e6bb2aa2
+  specs:
+    css_splitter (0.4.2)
+      sprockets (>= 2.0.0)
 
 GEM
   remote: https://www.rubygems.org/
