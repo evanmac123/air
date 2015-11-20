@@ -57,6 +57,7 @@ Airbo.TileCreator = (function(){
 
  function prepShow(){
 
+   preventCloseMsg = false;
    $("body").addClass("client_admin-tiles-show").removeClass("client_admin-tiles-edit");
 
    Airbo.TileCarouselPage.init();
