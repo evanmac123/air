@@ -73,7 +73,7 @@ body.pages-welcome.landing {
       // padding: 2.2% 10.1% 5.5%;
       // padding-bottom: 0;
       // padding-top: 2.2%;
-      img {
+      .mac_book {
         position: absolute;
         top: 0;
         left: 0;
@@ -81,6 +81,10 @@ body.pages-welcome.landing {
       }
       .animation {
         padding: 2.5% 11.2% 6.1% 11.6%;
+        position: relative;
+        img {
+          width: 100%;
+        }
       }
     }
     .benefits_group {
