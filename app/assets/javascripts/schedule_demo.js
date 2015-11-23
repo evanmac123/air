@@ -47,6 +47,7 @@ Airbo.ScheduleDemoModal = (function(){
     scrollPageToTop();
     prepareForm();
     demoModal.foundation("reveal", "open", {animation: "fade",closeOnBackgroundClick: true });
+    $.post("/guest_user_reset/saw_modal");
   }
 
 
