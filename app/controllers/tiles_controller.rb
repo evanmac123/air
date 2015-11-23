@@ -110,7 +110,7 @@ class TilesController < ApplicationController
     }
     !(all_tiles_done && after_posting)
   end
- 
+
   def tile_content(all_tiles_done, after_posting)
     if all_tiles_done && after_posting
       render_to_string("tiles/_all_tiles_done", layout: false)
@@ -123,11 +123,11 @@ class TilesController < ApplicationController
     @current_tile_ids ||= begin
       not_completed_tile_ids = satisfiable_tiles.map(&:id)
       new_tile_ids = not_completed_tile_ids - previous_tile_ids
-      current_tile_ids = previous_tile_ids + new_tile_ids      
+      current_tile_ids = previous_tile_ids + new_tile_ids
       current_tile_ids
     end
   end
-  
+
   def previous_tile_ids
     @_previous_tile_ids ||= (params[:previous_tile_ids] && params[:previous_tile_ids].split(',').collect{|el| el.to_i}) || []
   end
@@ -135,11 +135,11 @@ class TilesController < ApplicationController
   def reference_tile_id
     params[:id] || start_tile_id
   end
-  
-  def current_tile_id    
+
+  def current_tile_id
     current_tile_ids[current_tile_index]
   end
-  
+
   def current_tile
     @_current_tile ||= Tile.find(current_tile_id)
   end
@@ -150,7 +150,7 @@ class TilesController < ApplicationController
 
   def current_tile_index
     return 0 if satisfiable_tiles.empty?
-    return (previous_tile_index + params[:offset].to_i) % 
+    return (previous_tile_index + params[:offset].to_i) %
     (current_tile_ids.length > 0 ? current_tile_ids.length : 1) unless previous_tile_ids.empty?
     return (current_tile_ids.find_index{|element| element.to_i == reference_tile_id.to_i}) || 0
   end
@@ -169,18 +169,19 @@ class TilesController < ApplicationController
       show_conversion_form_provided_that { satisfiable_tiles.empty? }
     else
       tile_completion_count = @current_user.tile_completions.joins(:tile).where("#{Tile.table_name}.demo_id" => @current_user.demo_id).count
+      tile_viewings_count = @current_user.tile_viewings.count
       allow_reshow = false #tile_completion_count == active_tile_count
 
-      show_conversion_form_provided_that(allow_reshow) { tile_completion_count == 2 || tile_completion_count == active_tile_count }
+      show_conversion_form_provided_that(allow_reshow) { tile_completion_count == 2 || tile_completion_count == active_tile_count || tile_viewings_count == 2 }
     end
   end
 
   def show_completed_tiles
-    @show_completed_tiles ||=  (params[:completed_only] == 'true') || 
-      (session[:start_tile] && 
+    @show_completed_tiles ||=  (params[:completed_only] == 'true') ||
+      (session[:start_tile] &&
         current_user.tile_completions.where(tile_id: session[:start_tile]).exists?) || false
   end
-  
+
   def satisfiable_tiles
     @_satisfiable_tiles ||= begin
       unless show_completed_tiles

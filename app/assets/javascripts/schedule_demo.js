@@ -37,7 +37,7 @@ Airbo.ScheduleDemoModal = (function(){
 
     demoModal.bind('closed.fndtn.reveal', function(){
       if( !localStorage.getItem("demoRequested") ){
-        console.log(11);
+        // console.log(11);
         modalPing("Closed Modal", "Yes");
       }
     });
