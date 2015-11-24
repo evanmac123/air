@@ -7,7 +7,7 @@
       </div>
     </div>
     <div class="cover_desc">
-      <%= unescape_html @demo.cover_message.split(/\n/).map{|line| "<p>" + line + "</p>"}.join %>
+      <%= unescape_html brake_to_paragraphs(@demo.cover_message) %>
     </div>
   </div>
 </div>
