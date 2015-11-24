@@ -1,25 +1,24 @@
 #any_objective {
-	background:$dark-green;
-	padding-bottom:3em;
-	.copy {
-		background:$white;
-		border:3px $light-gray solid;
-		margin-bottom:1em;
-		padding-top:1em;
-		padding-bottom:1em;
-	}
+  background:$dark-green;
+  padding-bottom:3em;
+  .copy {
+    background:$white;
+    border:3px $light-gray solid;
+    margin-bottom:1em;
+    padding-top:1em;
+    padding-bottom:1em;
+  }
 
-	.mobile_left, .mobile_right {
-		padding:0 3.5%;
-		width:50%;
-		ul + ul {li {border-top:1px darken($dark-green, 5%) solid;}}
-	}
-	.mobile_left {float:left;}
-	.mobile_right {float: right;}
-	.objective_examples ul {
-		@extend p.caption;
-		color:lighten($dark-green, 40%);
-		li {padding:.5em 0;}
-		li + li {border-top:1px darken($dark-green, 5%) solid;}
-	}
+  .mobile_left, .mobile_right {
+    padding:0 3.5%;
+    width:50%;
+    ul + ul {li {border-top:1px darken($dark-green, 5%) solid;}}
+  }
+  .mobile_left {float:left;}
+  .mobile_right {float: right;}
+  .objective_examples ul {
+    color:lighten($dark-green, 40%);
+    li {padding:.5em 0;}
+    li + li {border-top:1px darken($dark-green, 5%) solid;}
+  }
 }
