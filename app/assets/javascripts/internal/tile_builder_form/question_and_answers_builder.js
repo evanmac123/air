@@ -563,6 +563,14 @@ Airbo.TileQuestionBuilder = (function(){
     initTileAnswer();
     initRemoveAnswer();
     setUp();
+
+    $("body").on("click",".answer_text", function(){
+      $(this).css("visibility", "hidden");
+    });
+
+    $("body").on("blur", ".answer-field", function(){
+       $(".answer_text").css("visibility", "visible")
+    });
   }
 
   return {
