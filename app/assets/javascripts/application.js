@@ -120,6 +120,9 @@ Airbo.Utils = {
               [new RegExp(/<strong>/gi), '<b>'],
               [new RegExp(/<\/strong>/gi), '</b>'],
 
+              [new RegExp(/<h[1-6]>/gi), '<p'],
+              [new RegExp(/<\/h[1-6]>/gi), '</p>'],
+
               [new RegExp(/<center>/gi), ''],
               [new RegExp(/<\/center>/gi), ''],
 
