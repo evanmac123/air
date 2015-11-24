@@ -17,6 +17,11 @@ class GuestUserResetsController < ApplicationController
     redirect_to public_activity_path(current_user.demo.public_slug)
   end
 
+  def saw_modal
+    session[:conversion_form_shown_already] = true
+    render nothing: true
+  end
+
   protected
 
   def find_current_board
