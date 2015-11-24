@@ -143,11 +143,12 @@ body > header {
   }
   .cover_desc {
     background: white;
-    padding: 14px 20px;
+    padding: 14px 20px 4px 20px;
     p {
       font-size: 16px;
       color: #4c4c4c;
       line-height: 1.5;
+      margin-bottom: 1em;
     }
   }
 }
