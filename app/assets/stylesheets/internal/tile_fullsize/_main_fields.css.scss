@@ -38,6 +38,18 @@
       line-height: 32px;
     }
   }
+
+  h1,h2,h3,h4,h5,h6{
+    color: #111;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: "helvetica neue", Helvetica, arial, sans-serif;
+    font-style: normal;
+    text-transform: none;
+    margin-bottom: 12px;
+    letter-spacing: 0.1em;
+    line-height: 1.5em;
+  }
 }
 .tile_external_link, #tile_builder_form_link_address {
   font-size: 1.25em;

@@ -110,6 +110,24 @@ Airbo.Utils = {
           staticToolbar:true,
           buttonLabels: 'fontawesome',
           targetBlank: true,
+          paste: {
+            forcePlainText: false,
+            cleanPastedHTML: true,
+            cleanReplacements: [
+              [new RegExp(/<div>/gi), '<p>'],
+              [new RegExp(/<\/div>/gi), '</p>'],
+
+              [new RegExp(/<strong>/gi), '<b>'],
+              [new RegExp(/<\/strong>/gi), '</b>'],
+
+              [new RegExp(/<center>/gi), ''],
+              [new RegExp(/<\/center>/gi), ''],
+
+              [new RegExp(/<font>/gi), ''],
+              [new RegExp(/<\/font>/gi), ''],
+            ],
+            cleanAttrs: ['class', 'style', 'dir', 'color', 'face', 'size', 'align', "border"],
+          },
           anchor: {
            linkValidation: true,
           },
@@ -117,15 +135,13 @@ Airbo.Utils = {
            buttons: ['bold', 'italic', 'underline', 'unorderedlist', 'orderedlist', "anchor"]
           }
         };
-        editor = new MediumEditor(this, $.extend(defaultParams, params) );
+        var newPars = $.extend({}, defaultParams, params);
+        editor = new MediumEditor(this,  newPars);
         editor.trigger("focus");
 
         fieldName = $(this).data('field')
         field = $("#" + fieldName);
-
-        //$(this).html($("#" + $(this).data("field")).val());
-        content =  $("#" + $(this).data("field")).val();
-
+        content =  field.val();
         editor.setContent(content);
 
         editor.subscribe('editableInput', function (event, editable) {
