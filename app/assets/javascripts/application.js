@@ -147,6 +147,13 @@ Airbo.Utils = {
         content =  field.val();
         editor.setContent(content);
 
+        editor.subscribe('blur', function (event, editable) {
+          var obj =$(editable),  textLength = obj.text().trim().length;
+          var val = obj.html();
+          var re = new RegExp( /(<p><br><\/p>)+$/g);
+          field.val( val.replace(re, "") );
+        });
+
         editor.subscribe('editableInput', function (event, editable) {
           var obj =$(editable),  textLength = obj.text().trim().length;
 
@@ -197,8 +204,8 @@ Airbo.Utils.TilePlaceHolderManager = (function(){
   var placeholderSelector =".tile_container.placeholder_container:not(.hidden_tile)"
     , notDraggedTileSelector = ".tile_container:not(.ui-sortable-helper):not(.hidden_tile)"
     , sectionNames = ["draft", "active", "archive", "suggestion_box"]
-    , placeholderHTML = '<div class="tile_container placeholder_container">' + 
-  '<div class="tile_thumbnail placeholder_tile"></div></div>' 
+    , placeholderHTML = '<div class="tile_container placeholder_container">' +
+  '<div class="tile_thumbnail placeholder_tile"></div></div>'
 ;
 
 
@@ -244,7 +251,7 @@ Airbo.Utils.TilePlaceHolderManager = (function(){
       results.push(updateTileVisibilityIn(section));
     }
     return results;
-  }; 
+  };
 
   function updateAllPlaceholders() {
     var i, len, section, results=[];
@@ -327,7 +334,7 @@ Airbo.Utils.TilePlaceHolderManager = (function(){
   }
   return {
     init: init,
-    updateTilesAndPlaceholdersAppearance: updateTilesAndPlaceholdersAppearance 
+    updateTilesAndPlaceholdersAppearance: updateTilesAndPlaceholdersAppearance
   };
 
 }());
@@ -374,5 +381,3 @@ $(function(){
 
 //FIXME Deprecated
 Airbo.LoadedSingletonModules = [];
-
-

@@ -91,6 +91,7 @@
       color:$sky-blue;
       @include font-semibold;
       text-align: center;
+      font-size: 20px;
     }
     &:focus {background:$white;}
   }
