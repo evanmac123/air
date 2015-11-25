@@ -8,9 +8,11 @@
     <%= content_tag :div, "", data: {placeholder: "Tell your users more about this topic.", field: "tile_builder_form_supporting_content"}, id: "supporting_content_editor", class: "medium-editable text-input #{tile.custom_supporting_content_class}", maxlength: 700, exceed_maxlength: true%>
     <%= form.text_area :supporting_content, data: {proxyid: "tile_supporting_content"} %>
   </div>
-  <div id="tile_external_link" class="content_sections">
-    <%= form.label :link_address, "Add a link (optional)", class: "show_if_ie9" %>
-    <%= form.text_field :link_address, placeholder: "Add a link (optional)" %>
-    <%= form.hidden_field :position %>
-  </div>
+  <% if tile.show_external_link? %>
+    <div id="tile_external_link" class="content_sections">
+      <%= form.label :link_address, "Add a link (optional)", class: "show_if_ie9" %>
+      <%= form.text_field :link_address, placeholder: "Add a link (optional)" %>
+      <%= form.hidden_field :position %>
+    </div>
+  <% end %>
 </div>

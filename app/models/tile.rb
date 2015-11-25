@@ -63,7 +63,7 @@ class Tile < ActiveRecord::Base
   scope :after_start_time, -> { where("start_time < ? OR start_time IS NULL", Time.now) }
   scope :before_end_time, -> { where("end_time > ? OR end_time IS NULL", Time.now) }
   scope :after_start_time_and_before_end_time, -> { after_start_time.before_end_time }
-  
+
   #FIXME suggested and status are not the same thing!
 
   scope :suggested, -> do
@@ -84,7 +84,7 @@ class Tile < ActiveRecord::Base
   scope :ordered_by_position, -> { order "position DESC" }
 
   alias_attribute :copy_count, :user_tile_copies_count
-  alias_attribute :like_count, :user_tile_likes_count 
+  alias_attribute :like_count, :user_tile_likes_count
   alias_attribute :total_views, :total_viewings_count
   alias_attribute :unique_views, :unique_viewings_count
   alias_attribute :interactions, :tile_completions_count
@@ -92,7 +92,7 @@ class Tile < ActiveRecord::Base
   # Custom Attribute Setter: ensure that setting/updating the 'status' updates the corresponding time-stamp
 
   STATUS.each do |status_name|
-    define_method(status_name + "?") do 
+    define_method(status_name + "?") do
       self.status == status_name
     end
   end
@@ -246,6 +246,10 @@ class Tile < ActiveRecord::Base
     use_old_line_break_css? ? 'old_line_break_css' : ''
   end
 
+  def show_external_link?
+    use_old_line_break_css
+  end
+
   protected
 
   def ensure_protocol_on_link_address
@@ -281,4 +285,3 @@ class Tile < ActiveRecord::Base
   end
 
 end
-
