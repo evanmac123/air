@@ -51,6 +51,7 @@ Airbo.TileQuestionBuilder = (function(){
     rebindEvents();
     showSlider();
     autosize($('#tile_builder_form_question'));
+    autosize($('textarea.answer-field'));
   }
 
   function addSubTypeAnswer(obj){
@@ -281,8 +282,8 @@ Airbo.TileQuestionBuilder = (function(){
         var option_input = $(
           ['<li class="option_input">',
             '<div class="answer-div">',
-            '<input placeholder="Answer Option" class="answer-field answer-part" data="' + index,
-            '" maxlength="50" name="tile_builder_form[answers][]" type="text">',
+            '<textarea placeholder="Answer Option" class="answer-field answer-part" data="' + index,
+            '" maxlength="50" name="tile_builder_form[answers][]" >',
             '</div>',
             '</li>'].join(''));
 
