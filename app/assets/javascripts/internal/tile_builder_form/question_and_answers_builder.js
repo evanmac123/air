@@ -569,7 +569,9 @@ Airbo.TileQuestionBuilder = (function(){
       $(this).css("visibility", "hidden");
     });
 
-    $("body").on("blur", ".answer-field", function(){
+    $("body").on("blur", ".answer-field", function(event){
+      event.preventDefault();
+      $("body").trigger("click");
        $(".answer_text").css("visibility", "visible")
     });
   }
