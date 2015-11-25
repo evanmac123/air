@@ -114,13 +114,19 @@ Airbo.Utils = {
             forcePlainText: false,
             cleanPastedHTML: true,
             cleanReplacements: [
-              [new RegExp(/<div>/gi), '<p>'],
+              [new RegExp(/<div(\d+=\d+)>/gi), '<p>'],
               [new RegExp(/<\/div>/gi), '</p>'],
+
+              [new RegExp(/<div/gi), '<p'],
+
+              [new RegExp(/<span>/gi), ''],
+              [new RegExp(/<\/span>/gi), ''],
 
               [new RegExp(/<strong>/gi), '<b>'],
               [new RegExp(/<\/strong>/gi), '</b>'],
 
-              [new RegExp(/<h[1-6]>/gi), '<p'],
+
+              [new RegExp(/<h[1-6]/gi), '<p'],
               [new RegExp(/<\/h[1-6]>/gi), '</p>'],
 
               [new RegExp(/<center>/gi), ''],
@@ -129,7 +135,8 @@ Airbo.Utils = {
               [new RegExp(/<font>/gi), ''],
               [new RegExp(/<\/font>/gi), ''],
             ],
-            cleanAttrs: ['class', 'style', 'dir', 'color', 'face', 'size', 'align', "border"],
+            cleanAttrs: ['class', 'data', 'style', 'dir', 'color', 'face', 'size', 'align', "border"],
+            cleanTags: ['button', 'code', 'pre', 'img','table', 'meta', 'script', 'iframe', 'label', 'input', 'textarea', 'select', 'form'],
           },
           anchor: {
            linkValidation: true,
