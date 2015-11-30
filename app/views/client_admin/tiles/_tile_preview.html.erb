@@ -1,24 +1,12 @@
 <% show_client_admin_menu ||= false %>
 
 <div class="large-9 large-centered columns tile_preview_container">
-  <% if show_client_admin_menu %>
-    <%= render partial: 'client_admin/tiles/tile_preview/menu', locals: {tile: @tile, show_client_admin_menu: show_client_admin_menu, menu_type: menu_type} %>
-  <% else %>
-    <div class="suggested_preview_header">
-      <div class="acceptance_status">
-        Tile submitted, waiting for acceptance
-      </div>
-      <%= link_to new_suggested_tile_path, id: 'create_new_tile', data:{action: "new"} do %>
-        <%= fa_icon "plus" %>
-        <span>Create New Tile</span>
-      <% end %>
-    </div>
-  <% end %>
+  <%= render partial: 'client_admin/tiles/tile_preview/menu', locals: {tile: @tile, show_client_admin_menu: show_client_admin_menu, menu_type: menu_type} %>
   <div class='viewer'>
-    <%= link_to "" , client_admin_tile_path(@prev), :id => :prev, data:{action: "show", tile_id: @prev} if show_client_admin_menu %>
+    <%= link_to "" , client_admin_tile_path(@prev), :id => :prev, data:{action: "show", tile_id: @prev} %>
       <div id="slideshow">
         <%= render "tiles/full_size_tile", tile: @tile, is_preview: true %>
       </div>
-    <%= link_to "",  client_admin_tile_path(@next) , :id => :next, data:{action: "show", tile_id: @next} if show_client_admin_menu %>
+    <%= link_to "",  client_admin_tile_path(@next) , :id => :next, data:{action: "show", tile_id: @next} %>
   </div>
 </div>
