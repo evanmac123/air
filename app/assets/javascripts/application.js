@@ -110,43 +110,15 @@ Airbo.Utils = {
           staticToolbar:true,
           buttonLabels: 'fontawesome',
           targetBlank: true,
-          paste: {
-            forcePlainText: false,
-            cleanPastedHTML: true,
-            cleanReplacements: [
-              [new RegExp(/<div(\d+=\d+)>/gi), '<p>'],
-              [new RegExp(/<\/div>/gi), '</p>'],
-
-              [new RegExp(/<div/gi), '<p'],
-
-              [new RegExp(/<span>/gi), ''],
-              [new RegExp(/<\/span>/gi), ''],
-
-              [new RegExp(/<strong>/gi), '<b>'],
-              [new RegExp(/<\/strong>/gi), '</b>'],
-
-
-              [new RegExp(/<h[1-6]/gi), '<p'],
-              [new RegExp(/<\/h[1-6]>/gi), '</p>'],
-
-              [new RegExp(/<center>/gi), ''],
-              [new RegExp(/<\/center>/gi), ''],
-
-              [new RegExp(/<font>/gi), ''],
-              [new RegExp(/<\/font>/gi), ''],
-            ],
-            cleanAttrs: ['class', 'data', 'style', 'dir', 'color', 'face', 'size', 'align', "border"],
-            cleanTags: ['button', 'code', 'pre', 'img','table', 'meta', 'script', 'iframe', 'label', 'input', 'textarea', 'select', 'form'],
-          },
           anchor: {
-           linkValidation: true,
+            linkValidation: true,
           },
           toolbar: {
            buttons: ['bold', 'italic', 'underline', 'unorderedlist', 'orderedlist', "anchor"]
           }
         };
-        var newPars = $.extend({}, defaultParams, params);
-        editor = new MediumEditor(this,  newPars);
+
+        editor = new MediumEditor(this, $.extend(defaultParams, params) );
         editor.trigger("focus");
 
         fieldName = $(this).data('field')
@@ -161,6 +133,7 @@ Airbo.Utils = {
           field.val( val.replace(re, "") );
         });
 
+       
         editor.subscribe('editableInput', function (event, editable) {
           var obj =$(editable),  textLength = obj.text().trim().length;
 
