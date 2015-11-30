@@ -291,7 +291,7 @@ Airbo.TileCreator = (function(){
         "tile_builder_form[supporting_content]": {
           required: true,
           minWords: 1,
-          maxTextLength: 600
+          maxTextLength: 700
         },
 
         "tile_builder_form[headline]": {
