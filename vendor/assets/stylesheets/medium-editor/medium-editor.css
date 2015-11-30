@@ -150,9 +150,6 @@
   position: fixed;
   top: 1px; }
 
-.medium-editor-relative-toolbar {
-  position: relative; }
-
 .medium-editor-toolbar-active.medium-editor-stalker-toolbar {
   -webkit-animation: medium-editor-pop-upwards 160ms forwards linear;
           animation: medium-editor-pop-upwards 160ms forwards linear; }
@@ -183,9 +180,7 @@
     display: inline-block; }
     .medium-editor-toolbar-form .medium-editor-toolbar-input:focus,
     .medium-editor-toolbar-form label:focus {
-      -webkit-appearance: none;
-         -moz-appearance: none;
-              appearance: none;
+      appearance: none;
       border: none;
       box-shadow: none;
       outline: 0; }
