@@ -22,7 +22,9 @@ Airbo.TileCreator = (function(){
     , newSelector// = "a#add_new_tile"
     , editSelector = ".tile_buttons .edit_button>a, .preview_menu_item.edit>a"
     , previewSelector = ".tile-wrapper a.tile_thumb_link"
-    , tileNavigationSelector = "#new_tile_modal #prev, #new_tile_modal #next"
+    , tileNavigationSelectorLeft = "#new_tile_modal #prev"
+    , tileNavigationSelectorRight = "#new_tile_modal #next"
+    , tileNavigationSelector = tileNavigationSelectorLeft + ', ' + tileNavigationSelectorRight
     , tileModalSelector = "#new_tile_modal"
     , imagesModalSelector ="#images_modal"
     , addImageSelector ="#image_uploader"
@@ -109,6 +111,7 @@ Airbo.TileCreator = (function(){
          prepShow();
          updateTileSection(data);
          $(".tipsy.explore").tooltipster("show");
+        //  positionArrows();
        },
      }
    );
@@ -215,6 +218,7 @@ Airbo.TileCreator = (function(){
         success: function(data, status,xhr){
           modalContent = $(data);
           setupModalFor(modalTrigger.data("action"));
+          positionArrows();
         },
 
         error: function(jqXHR, textStatus, error){
@@ -377,6 +381,7 @@ Airbo.TileCreator = (function(){
     refreshCurrentPreview(data.preview);
     prepShow();
     scrollPageToTop();
+    positionArrows();
   }
 
   function refreshTileDataPageWide(data){
@@ -385,6 +390,7 @@ Airbo.TileCreator = (function(){
     prepShow();
     updateTileSection(data);
     scrollPageToTop();
+    positionArrows();
   }
 
   function refreshCurrentPreview(content){
@@ -468,7 +474,15 @@ Airbo.TileCreator = (function(){
    $(tileModalSelector).scrollTop(0);
  }
 
+ function positionArrows() {
+   tileContainer = $(".tile_full_image")[0];
+   if( !tileContainer ) return;
 
+   sizes = tileContainer.getBoundingClientRect();
+   $(tileNavigationSelectorLeft).css("left", sizes.left - 65);
+   $(tileNavigationSelectorRight).css("left", sizes.right);
+   $(tileNavigationSelector).css("display", "block");
+ }
 
  function tileModalOpenClose(){
 
@@ -477,6 +491,7 @@ Airbo.TileCreator = (function(){
        scrollPageToTop();
        $("body").css({"overflow-y": "hidden"});
      }
+     positionArrows();
    });
 
    $(document).on('closed', tileModalSelector, function (event) {
@@ -578,9 +593,9 @@ Airbo.TileCreator = (function(){
         showLoaderOnConfirm: true,
       },
 
-      function(isConfirm){   
+      function(isConfirm){
         if (isConfirm) {
-          submitTileForDeletion(tile, trigger,postProcess); 
+          submitTileForDeletion(tile, trigger,postProcess);
         }
       }
     );
@@ -629,7 +644,7 @@ function confirmModalClose(postProcess){
         showCancelButton: true,
       },
 
-      function(isConfirm){   
+      function(isConfirm){
         if (isConfirm) {
          postProcess();
         }
@@ -674,7 +689,7 @@ function confirmModalClose(postProcess){
   function initCustomModalClose(){
     $(tileBuilderCloseSelector).click(function(){
       if (preventCloseMsg){
-        confirmModalClose(function(){ 
+        confirmModalClose(function(){
           $(tileModal).foundation('reveal','close');
         });
       }else{
@@ -764,5 +779,3 @@ $(function(){
     Airbo.TileCreator.init(TileCreatorContext[context]);
   }
 });
-
-
