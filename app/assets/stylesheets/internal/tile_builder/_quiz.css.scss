@@ -92,6 +92,8 @@
       @include font-semibold;
       text-align: center;
       font-size: 20px;
+      line-height: 23px;
+      padding-top: 15px;
     }
     &:focus {background:$white;}
   }

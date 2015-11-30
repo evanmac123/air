@@ -283,7 +283,7 @@ Airbo.TileQuestionBuilder = (function(){
           ['<li class="option_input">',
             '<div class="answer-div">',
             '<textarea placeholder="Answer Option" class="answer-field answer-part" data="' + index,
-            '" maxlength="50" name="tile_builder_form[answers][]" >',
+            '" maxlength="50" name="tile_builder_form[answers][]" rows="1">',
             '</div>',
             '</li>'].join(''));
 
