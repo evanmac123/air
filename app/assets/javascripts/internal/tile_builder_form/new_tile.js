@@ -111,7 +111,6 @@ Airbo.TileCreator = (function(){
          prepShow();
          updateTileSection(data);
          $(".tipsy.explore").tooltipster("show");
-        //  positionArrows();
        },
      }
    );
@@ -479,6 +478,8 @@ Airbo.TileCreator = (function(){
    if( !tileContainer ) return;
 
    sizes = tileContainer.getBoundingClientRect();
+   if (sizes.left == 0 && sizes.right == 0) return;
+
    $(tileNavigationSelectorLeft).css("left", sizes.left - 65);
    $(tileNavigationSelectorRight).css("left", sizes.right);
    $(tileNavigationSelector).css("display", "block");
@@ -507,6 +508,10 @@ Airbo.TileCreator = (function(){
 
    $(document).on('close', tileModalSelector, function (event) {
      $(".tipsy").tooltipster("hide");
+   });
+
+   $( window ).resize(function() {
+     positionArrows();
    });
  }
 
