@@ -53,8 +53,9 @@ class Tile < ActiveRecord::Base
 
   validates_presence_of :remote_media_url, message: "image is missing" , if: :requires_remote_media_url
 
-
   before_save :ensure_protocol_on_link_address, :handle_status_change
+  before_save :set_image_credit_to_blank_if_default
+
   before_post_process :no_post_process_on_copy
 
   STATUS.each do |status_name|
@@ -265,6 +266,10 @@ class Tile < ActiveRecord::Base
   end
 
   private
+
+  def set_image_credit_to_blank_if_default
+    self.image_credit ="" if image_credit == "Add Image Credit"
+  end
 
   def handle_status_change
     if changed.map(&:to_sym).include?(:status)
