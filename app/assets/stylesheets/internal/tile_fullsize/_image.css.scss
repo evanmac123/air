@@ -5,10 +5,24 @@
   //   width:100%;
   // }
   &:after{@include clear;}
+  &.loading{
+    background: url("spinner_large.gif");
+    background-color: white;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 400px;
+  }
 }
 .tile_image{
   width: 100%;
+  display:none;
 }
+
+#tile_full_img_loading{
+ background: white;
+}
+
+
 .shadow_overlay {
   display: block;
   width: 100%;

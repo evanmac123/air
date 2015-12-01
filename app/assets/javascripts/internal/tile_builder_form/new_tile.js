@@ -53,7 +53,12 @@ Airbo.TileCreator = (function(){
  }
 
 
-
+ function initImgLoadingPlaceHolder(){
+   $("#tile_img_preview").on("load", function(){
+     $(".tile_full_image").removeClass("loading");
+     $(this).fadeIn(500);
+   });
+ }
 
  function prepShow(){
 
@@ -62,6 +67,7 @@ Airbo.TileCreator = (function(){
 
    Airbo.TileCarouselPage.init();
    initPreviewMenuTooltips();
+   initImgLoadingPlaceHolder();
  }
 
  function tooltipBefore(){
@@ -729,8 +735,6 @@ function confirmModalClose(postProcess){
     initTileBuilderFormSubmission();
     Airbo.Utils.TilePlaceHolderManager.init(); //noop
     initCustomModalClose();
-
-
   }
 
 
