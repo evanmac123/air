@@ -84,13 +84,14 @@
       right: 0.75em;
     }
   }
-  input[type="text"], #tile_builder_form_question {
+  input[type="text"],textarea, #tile_builder_form_question {
     background:lighten($light-gray, 5%);
     border-color:lighten($light-gray, 10%);
     &.answer-field {
       color:$sky-blue;
       @include font-semibold;
       text-align: center;
+      font-size: 20px;
     }
     &:focus {background:$white;}
   }

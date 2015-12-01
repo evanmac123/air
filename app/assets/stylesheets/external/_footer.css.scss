@@ -75,7 +75,6 @@ footer {
         a, a:link {@include link($dark-green);}
       }
       .post_description {
-        @extend p.caption;
         color:darken($light-gray, 5%);
         font-size:.875em;
         line-height: 1.35em;
