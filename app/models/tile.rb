@@ -49,7 +49,7 @@ class Tile < ActiveRecord::Base
 
   #FIXME should be use a constant instead of magic numbers here.
   validates_length_of :headline, maximum: 75, message: "headline is too long (maximum is 75 characters)"
-  validates_with RawTextLengthInHTMLFieldValidator, field: :supporting_content, maximum: 600, message: "supporting content is too long (maximum is 600 characters)"
+  validates_with RawTextLengthInHTMLFieldValidator, field: :supporting_content, maximum: 700, message: "supporting content is too long (maximum is 600 characters)"
 
   validates_presence_of :remote_media_url, message: "image is missing" , if: :requires_remote_media_url
 
