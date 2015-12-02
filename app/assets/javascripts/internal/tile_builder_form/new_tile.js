@@ -56,7 +56,7 @@ Airbo.TileCreator = (function(){
  function initImgLoadingPlaceHolder(){
    $("#tile_img_preview").on("load", function(){
      $(".tile_full_image").removeClass("loading");
-     $(this).fadeIn(500);
+     $(this).hide().fadeIn(500);
    });
  }
 
