@@ -50,6 +50,16 @@ Airbo.TileCreator = (function(){
    Airbo.TileQuestionBuilder.init();
    Airbo.TileSuportingContentTextManager.init();
    Airbo.Utils.mediumEditor.init();
+
+   if(action == "creating"){
+    return;
+   }
+   $("#upload_preview").on("load", function(){
+     //$(".image_preview").removeClass("loading");
+     //$(this).fadeIn(1000);
+   });
+
+
  }
 
 
@@ -58,6 +68,7 @@ Airbo.TileCreator = (function(){
      $(".tile_full_image").removeClass("loading");
      $(this).hide().fadeIn(500);
    });
+
  }
 
  function prepShow(){

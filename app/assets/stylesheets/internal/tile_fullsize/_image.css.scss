@@ -11,6 +11,9 @@
     background-repeat: no-repeat;
     background-position: center;
     height: 400px;
+    .shadow_overlay {
+     display: none;
+    }
   }
 }
 .tile_image{
