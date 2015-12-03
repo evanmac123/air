@@ -4,7 +4,7 @@
 
     <%= form.text_field :remote_media_url, id: "remote_media_url", style: "display:none" , data:{proxyid: "image_uploader"} %>
     <% image_class = tile_image_present(@tile_builder_form.image_url) ? "show_shadows" : "show_placeholder" %>
-    <div class="intro-tipsy image_preview loading <%= image_class %>">
+    <div class="intro-tipsy image_preview <%= image_class %> loading">
       <%= image_tag @tile_builder_form.image_url, class: "tile_image", id: "upload_preview" %>
 
       <!--div class="image_loading">

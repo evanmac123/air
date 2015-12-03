@@ -36,12 +36,31 @@
   .show_shadows {
     background:$text-color;
     border-style:solid;
+    &.loading{
+      background-color: $off-white;
+      border-bottom: 1px solid #e3e3e3;
+      // #upload_preview {display:none;}
+      &:before {
+        content: "\f1c5";
+        font-family: FontAwesome;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: inherit;
+        position: absolute;
+        font-size: 70px;
+        color: #A2A3A4;
+        top: 50%;
+        left: 0;
+        margin: auto;
+        z-index: 1;
+        width: 100%;
+      }
+    }
     #upload_preview {display:block;}
     .image_placeholder {display:none;}
     .shadows {display:block;}
   }
   .show_placeholder {
-    // border-bottom:2px lighten($light-gray, 8%) dashed;
     #upload_preview {display:none;}
     .image_placeholder {display:block;}
     .shadows {display:none;}
@@ -51,28 +70,6 @@
   }
   .image_preview {
     position: relative;
-    &.loading{
-      background-color: white;
-      /*background-repeat: no-repeat;*/
-      /*background-position: center;*/
-      // min-height: 400px;
-
-      &::after {
-        content: "\f013";
-        font-family: FontAwesome;
-        font-style: normal;
-        font-weight: normal;
-        text-decoration: inherit;
-        position: absolute;
-        font-size: 70px;
-        color: lightblue;
-        top: 50%;
-        left: 0;
-        margin: auto;
-        z-index: 1;
-        width: 100%;
-    }
-   }
     .clear_image {
       display: block;
       position: absolute;

@@ -51,15 +51,12 @@ Airbo.TileCreator = (function(){
    Airbo.TileSuportingContentTextManager.init();
    Airbo.Utils.mediumEditor.init();
 
-   if(action == "creating"){
-    return;
-   }
+  //  if(action == "creating"){
+  //   return;
+  //  }
    $("#upload_preview").on("load", function(){
      $(".image_preview").removeClass("loading");
-     $(this).fadeIn(1000);
    });
-
-
  }
 
 

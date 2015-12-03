@@ -6,9 +6,6 @@
   // }
   &:after{@include clear;}
   &.loading{
-    // background: url("spinner_large.gif");
-    // background-repeat: no-repeat;
-    // background-position: center;
     background-color: $off-white;
     border-bottom: 1px solid #e3e3e3;
     &:before {
