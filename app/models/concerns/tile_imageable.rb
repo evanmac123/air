@@ -21,7 +21,7 @@ module Concerns::TileImageable
 
     has_attached_file :thumbnail,
       {
-        styles: { 
+        styles: {
           carousel:     ["238x238#", :png],
           email_digest: ["190x160#", :png]
         },
@@ -30,12 +30,12 @@ module Concerns::TileImageable
         bucket:         S3_TILE_THUMBNAIL_BUCKET
       }.merge(TILE_THUMBNAIL_OPTIONS)
 
-    process_in_background :image, 
-                          processing_image_url: :processing_image_fallback, 
+    process_in_background :image,
+                          processing_image_url: :processing_image_fallback,
                           priority:             TILE_IMAGE_PROCESSING_PRIORITY
 
-    process_in_background :thumbnail, 
-                          processing_image_url: :processing_image_fallback, 
+    process_in_background :thumbnail,
+                          processing_image_url: :processing_image_fallback,
                           priority:             TILE_IMAGE_PROCESSING_PRIORITY
 
 

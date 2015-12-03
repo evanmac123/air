@@ -1,6 +1,7 @@
 <% overlay_displayed ||= false %>
 <% show_copy_button ||= false %>
 <% is_preview ||= false %>
+<% is_manage ||= false %>
 <% tile = FullSizeTilePresenter.new(tile, current_user, is_preview, @current_tile_ids, browser) %>
 
 <div class="tile_holder <%= tile.creator_class %>"
@@ -11,7 +12,7 @@
   data-current-tile-ids="<%= tile.current_tile_ids_joined %>">
 
   <div class="<%=tile_class(tile)%>">
-    <div class="tile_full_image <%= tile.is_preview ? 'loading' : '' %>" style="<%= tile.image_styles %>">
+    <div class="tile_full_image <%= is_manage ? 'loading' : '' %>" style="<%= tile.image_styles %>">
       <%= image_tag tile.image.url, :class => :tile_image, :alt => tile.headline, id:"tile_img_preview" %>
       <div class="shadow_overlay"></div>
       <div class="image_credit">
