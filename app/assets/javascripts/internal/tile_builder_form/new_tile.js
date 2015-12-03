@@ -55,8 +55,8 @@ Airbo.TileCreator = (function(){
     return;
    }
    $("#upload_preview").on("load", function(){
-     //$(".image_preview").removeClass("loading");
-     //$(this).fadeIn(1000);
+     $(".image_preview").removeClass("loading");
+     $(this).fadeIn(1000);
    });
 
 
