@@ -39,7 +39,7 @@
     &.loading{
       background-color: $off-white;
       border-bottom: 1px solid #e3e3e3;
-      // #upload_preview {display:none;}
+      #upload_preview {display:none;}
       &:before {
         content: "\f1c5";
         font-family: FontAwesome;

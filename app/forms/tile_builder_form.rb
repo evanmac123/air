@@ -123,6 +123,10 @@ class TileBuilderForm
     false
   end
 
+  def image_styles
+    tile.new_record? ? "" : "height:#{tile.full_size_image_height}px;"
+  end
+
   protected
 
   def save_tile
@@ -213,7 +217,6 @@ class TileBuilderForm
   def newly_built_tile_status
     Tile::DRAFT
   end
-
 
   private
 
