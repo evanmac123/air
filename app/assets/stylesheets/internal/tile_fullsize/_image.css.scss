@@ -6,11 +6,26 @@
   // }
   &:after{@include clear;}
   &.loading{
-    background: url("spinner_large.gif");
-    background-color: white;
-    background-repeat: no-repeat;
-    background-position: center;
-    // height: 400px;
+    // background: url("spinner_large.gif");
+    // background-repeat: no-repeat;
+    // background-position: center;
+    background-color: $off-white;
+    border-bottom: 1px solid #e3e3e3;
+    &:before {
+      content: "\f1c5";
+      font-family: FontAwesome;
+      font-style: normal;
+      font-weight: normal;
+      text-decoration: inherit;
+      position: absolute;
+      font-size: 70px;
+      color: #A2A3A4;
+      top: 50%;
+      left: 0;
+      margin: auto;
+      z-index: 1;
+      width: 100%;
+    }
     .shadow_overlay, .tile_image {
       opacity: 0;
     }
