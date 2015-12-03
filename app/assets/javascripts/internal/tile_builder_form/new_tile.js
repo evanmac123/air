@@ -66,7 +66,6 @@ Airbo.TileCreator = (function(){
  function initImgLoadingPlaceHolder(){
    $("#tile_img_preview").on("load", function(){
      $(".tile_full_image").removeClass("loading");
-     $(this).hide().fadeIn(500);
    });
 
  }
@@ -595,9 +594,9 @@ Airbo.TileCreator = (function(){
         showLoaderOnConfirm: true,
       },
 
-      function(isConfirm){   
+      function(isConfirm){
         if (isConfirm) {
-          submitTileForDeletion(tile, trigger,postProcess); 
+          submitTileForDeletion(tile, trigger,postProcess);
         }
       }
     );
@@ -646,7 +645,7 @@ function confirmModalClose(postProcess){
         showCancelButton: true,
       },
 
-      function(isConfirm){   
+      function(isConfirm){
         if (isConfirm) {
          postProcess();
         }
@@ -691,7 +690,7 @@ function confirmModalClose(postProcess){
   function initCustomModalClose(){
     $(tileBuilderCloseSelector).click(function(){
       if (preventCloseMsg){
-        confirmModalClose(function(){ 
+        confirmModalClose(function(){
           $(tileModal).foundation('reveal','close');
         });
       }else{
@@ -779,5 +778,3 @@ $(function(){
     Airbo.TileCreator.init(TileCreatorContext[context]);
   }
 });
-
-

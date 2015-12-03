@@ -73,7 +73,7 @@ class FullSizeTilePresenter
   end
 
   def image_styles
-    ie9_or_older? ? "height:#{full_size_image_height}px;" : ""
+    (is_preview || ie9_or_older?) ? "height:#{full_size_image_height}px;" : ""
   end
 
   def appears_client_created
