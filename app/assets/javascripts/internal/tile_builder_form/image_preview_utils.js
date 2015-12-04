@@ -35,10 +35,10 @@ $(function() {
         setFormFieldsForSelectedImage(filepath, file.type);
       }
 
-      function libraryImageSelected(url){
+      function libraryImageSelected(url, imgWidth, imgHeight){
         updateHiddenImageFields();
         setFormFieldsForSelectedImage(url, imgTypeFromFilename(url));
-        showImagePreview(url);
+        showImagePreview(url, imgWidth, imgHeight);
       }
 
       function setFormFieldsForSelectedImage(url, type){
@@ -160,8 +160,10 @@ $(function() {
       }
 
       function select(imageBlock) {
-        var url = imageBlock.data('image-url')
-        imageMgr.libraryImageSelected(url);
+        var url = imageBlock.data('image-url');
+        var imgWidth = imageBlock.data('image-width');
+        var imgHeight = imageBlock.data('image-height');
+        imageMgr.libraryImageSelected(url, imgWidth, imgHeight);
         setSelectedState(imageBlock);
       };
 
