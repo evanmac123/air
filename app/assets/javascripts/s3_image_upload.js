@@ -1,12 +1,12 @@
 var Airbo = window.Airbo || {}
-Airbo.DirectToS3ImageUploader = (function(){ 
+Airbo.DirectToS3ImageUploader = (function(){
   var customHandler = {
     added: NOOP,
-    progressed: NOOP, 
-    processed: NOOP, 
+    progressed: NOOP,
+    processed: NOOP,
     done: NOOP,
     fileInfo: NOOP
-  } 
+  }
   , uploaderSelector = "#fileupload"
   , imageUploaderSelector = "#image_uploader"
   , imagePreviewSelector = ".image_preview"
@@ -31,8 +31,8 @@ function imagePreview(data){
     node.html(file.preview);
   }else{
     //Manually perform our image preview (no scaling)
-    loadImage(file, function (img) { 
-      customHandler.processed(img.toDataURL());
+    loadImage(file, function (img) {
+      customHandler.processed(img.toDataURL(), img.width, img.height);
     },{canvas: true} );
   }
 
@@ -124,7 +124,7 @@ function initCustomHandlers(handler){
   //TODO build this out properly
   return $.extend(customHandler,handler);
 
-} 
+}
 
 
 function init(handler){
@@ -140,4 +140,3 @@ return {
 };
 
 }());
-

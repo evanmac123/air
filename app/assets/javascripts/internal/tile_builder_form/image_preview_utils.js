@@ -60,8 +60,8 @@ $(function() {
         remoteMediaUrl.val(undefined)
       }
 
-      function showImagePreview(imgUrl){
-        previewer.setPreviewImage(imgUrl);
+      function showImagePreview(imgUrl, imgWidth, imgHeight){
+        previewer.setPreviewImage(imgUrl, imgWidth, imgHeight);
         //TODO decouple from the new tile builder modal
 
         $("#remote_media_url").focusout();
@@ -244,8 +244,11 @@ $(function() {
       };
 
 
-      function setPreviewImage(imageUrl) {
+      function setPreviewImage(imageUrl, imgWidth, imgHeight) {
+        width = 600;
+        fullHeight = parseInt( imgHeight * width / imgWidth );
         showShadows();
+        imgPreview.addClass("loading").css("height", fullHeight);
         $('#upload_preview').attr("src", imageUrl);
       };
 
