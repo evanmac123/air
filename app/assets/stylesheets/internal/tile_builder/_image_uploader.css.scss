@@ -39,7 +39,7 @@
     &.loading{
       background-color: $off-white;
       border-bottom: 1px solid #e3e3e3;
-      #upload_preview {
+      #upload_preview, .shadows {
         opacity: 0;
       }
       &:before {
@@ -58,7 +58,7 @@
         width: 100%;
       }
     }
-    #upload_preview {
+    #upload_preview, .shadows {
       display:block;
       transition: all 0.5s;
       opacity: 1;
