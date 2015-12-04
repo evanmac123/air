@@ -39,7 +39,9 @@
     &.loading{
       background-color: $off-white;
       border-bottom: 1px solid #e3e3e3;
-      #upload_preview {display:none;}
+      #upload_preview {
+        opacity: 0;
+      }
       &:before {
         content: "\f1c5";
         font-family: FontAwesome;
@@ -56,7 +58,11 @@
         width: 100%;
       }
     }
-    #upload_preview {display:block;}
+    #upload_preview {
+      display:block;
+      transition: all 0.5s;
+      opacity: 1;
+    }
     .image_placeholder {display:none;}
     .shadows {display:block;}
   }
