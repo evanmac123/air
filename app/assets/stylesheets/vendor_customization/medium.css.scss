@@ -11,8 +11,7 @@
   display: inline-block;
 }
 .medium-editor-toolbar-anchor-preview {
-  padding: 9px 13px;
-  a, i {
+  a, i, input {
     color: $white;
     font-size: 14px;
     font-weight: 500;
@@ -20,6 +19,31 @@
     &:hover, &:visited {
       color: #4FACE0;
       cursor: pointer;
+    }
+  }
+}
+.medium-editor-toolbar-anchor-preview {
+  padding: 9px 13px;
+}
+.medium-editor-toolbar-form {
+  padding: 10px 10px;
+  .medium-editor-toolbar-input {
+    width: 207px;
+    height: 30px;
+    font-weight: 500;
+    border-right: 1px solid #666 !important;
+    border-radius: 0;
+    margin-right: 6px;
+    &:focus {
+      background: #242424;
+      color: white;
+    }
+  }
+  i {
+    font-size: 20px;
+    color: white;
+    &:hover {
+      color: #4FACE0;
     }
   }
 }
