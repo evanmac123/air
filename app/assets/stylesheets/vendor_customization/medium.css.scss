@@ -1,0 +1,25 @@
+.medium-toolbar-arrow-over:before {
+  margin-left: -6px;
+  border-width: 0 6px 6px 6px;
+  top: -6px;
+}
+.sep-vertical {
+  margin: 0 12px -2px;
+  height: 16px;
+  width: 1px;
+  background: #666;
+  display: inline-block;
+}
+.medium-editor-toolbar-anchor-preview {
+  padding: 9px 13px;
+  a, i {
+    color: $white;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+    &:hover, &:visited {
+      color: #4FACE0;
+      cursor: pointer;
+    }
+  }
+}

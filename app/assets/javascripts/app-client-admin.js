@@ -43,6 +43,7 @@
 //= require  medium-editor.min
 //= require internal/byte_counter
 //= require_tree ../../../vendor/assets/javascripts/internal/tile_builder_form
+//= require_tree ./vendor_customization
 
 var Airbo = window.Airbo || {};
 

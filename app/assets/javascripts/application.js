@@ -4,7 +4,6 @@
 //= require ../../../vendor/assets/javascripts/autosize
 //= require ../../../vendor/assets/javascripts/sweetalert/sweetalert.min
 
-
 //FIXME add to airbo utils
 function isIE11() {
   return !!window.MSInputMethodContext;
@@ -107,6 +106,9 @@ Airbo.Utils = {
       $('.medium-editable').each(function(){
 
         defaultParams = {
+          extensions: {
+            anchorPreview: new Airbo.CustomAnchorPreview()
+          },
           staticToolbar:true,
           buttonLabels: 'fontawesome',
           targetBlank: true,
@@ -133,7 +135,7 @@ Airbo.Utils = {
           field.val( val.replace(re, "") );
         });
 
-       
+
         editor.subscribe('editableInput', function (event, editable) {
           var obj =$(editable),  textLength = obj.text().trim().length;
 
