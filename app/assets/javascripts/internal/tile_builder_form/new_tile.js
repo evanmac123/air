@@ -323,6 +323,7 @@ Airbo.TileCreator = (function(){
       invalidHandler: function(form, validator) {
         var errors = validator.numberOfInvalids();
         if (errors) {
+          
           if($(validator.errorList[0].element).is(":visible"))
             {
               $(tileModalSelector).animate({
@@ -373,7 +374,17 @@ Airbo.TileCreator = (function(){
 
     config = $.extend({}, Airbo.Utils.validationConfig, config);
     validator = form.validate(config);
+
   }
+
+  function resetForm(){
+    var jqFormResetForm =  $.fn.resetForm;
+    delete $.fn.resetForm;
+    validator.resetForm();
+    $.fn.resetForm = jqFormResetForm;
+  }
+
+
 
   function refreshTileDataForUser(data) {
     preventCloseMsg = false; // Allow modal to be closed sans confirmation
@@ -521,7 +532,8 @@ Airbo.TileCreator = (function(){
 
       // small hack to prevent image validation from appearing even thought
       // image has been selected.
-      validator.resetForm();
+
+      resetForm();
 
     });
 
