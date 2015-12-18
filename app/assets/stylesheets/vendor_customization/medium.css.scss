@@ -1,16 +1,21 @@
+//
+// => Link Preview
+//
 .medium-toolbar-arrow-over:before {
   margin-left: -6px;
   border-width: 0 6px 6px 6px;
   top: -6px;
 }
 .sep-vertical {
-  margin: 0 12px -2px;
+  margin: 0 8px -3px;
   height: 16px;
   width: 1px;
   background: #666;
   display: inline-block;
 }
 .medium-editor-toolbar-anchor-preview {
+  padding: 5px 13px 7px;
+  box-shadow: 0 0 3px #000;
   a, i, input {
     color: $white;
     font-size: 14px;
@@ -22,9 +27,9 @@
     }
   }
 }
-.medium-editor-toolbar-anchor-preview {
-  padding: 9px 13px;
-}
+//
+// => Link Editor
+//
 .medium-editor-toolbar-form {
   padding: 12.5px 10px;
   .medium-editor-toolbar-input {
