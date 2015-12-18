@@ -19,5 +19,9 @@ Airbo.CustomAnchorPreview = MediumEditor.extensions.anchorPreview.extend({
             '  <span class="sep-vertical medium-editor-toolbar-anchor-preview-inner"></span>' +
             '  <i class="fa fa-pencil"></i>' +
             '</div>';
+  },
+  attachToEditables: function () {
+    // show link preview on click instead of mouse over
+    this.subscribe('editableClick', this.handleEditableMouseover.bind(this));
   }
 });
