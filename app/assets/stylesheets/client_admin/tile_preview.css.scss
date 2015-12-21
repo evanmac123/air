@@ -47,6 +47,7 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
   }
   .tile_preview_container{
     max-width: 784px;
+    padding-top: 83px;
   }
   //
   // => Tile Preview Menu
@@ -55,6 +56,9 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
     background: white;
     border-radius: $border-radius;
     overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 78px;
     &.sticky {
       position: fixed;
       z-index: 1;

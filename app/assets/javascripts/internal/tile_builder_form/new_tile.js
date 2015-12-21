@@ -85,13 +85,18 @@ Airbo.TileCreator = (function(){
    Airbo.TileCarouselPage.init();
    initPreviewMenuTooltips();
    initImgLoadingPlaceHolder();
+   initStickyPreviewMenu();
+ }
 
-   $("#new_tile_modal").scroll(function() {
-     if ($("#new_tile_modal").scrollTop() > 50) {
+ function initStickyPreviewMenu() {
+   var modal = $(tileModalSelector);
+   var previewMenu = $('.tile_preview_menu');
+   modal.scroll(function() {
+     if (modal.scrollTop() > 50) {
        sizes = tileContainerSizes();
-       $('.tile_preview_menu').addClass('sticky').css("left", sizes.left);
+       previewMenu.addClass('sticky').css("left", sizes.left);
      } else {
-       $('.tile_preview_menu').removeClass('sticky').css("left", null);
+       previewMenu.removeClass('sticky').css("left", "");
      }
    });
  }
