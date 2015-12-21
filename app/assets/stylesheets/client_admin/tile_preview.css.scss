@@ -55,6 +55,13 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
     background: white;
     border-radius: $border-radius;
     overflow: hidden;
+    &.sticky {
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      border-radius: 0 0 3px 3px;
+      border-bottom: #dcdcdc;
+    }
   }
   .preview_menu_header {
     float: left;
