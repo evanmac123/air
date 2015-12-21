@@ -17,12 +17,15 @@ Airbo.CustomAnchorForm = MediumEditor.extensions.anchor.extend({
 
       if (!this.isDisplayed()) {
           link = $(MediumEditor.selection.getSelectionHtml(this.document));
-          // href = $(htmlEl).attr("href");
-          this.showForm({
-            url: link.attr("href"),
-            target: link.attr('target'),
-            buttonClass: link.attr('class')
-          });
+          var opt = null;
+          if (link.attr("href")) {
+            opt = {
+              url: link.attr("href"),
+              target: link.attr('target'),
+              buttonClass: link.attr('class')
+            }
+          }
+          this.showForm(opt);
       }
 
       return false;
