@@ -107,7 +107,8 @@ Airbo.Utils = {
 
         defaultParams = {
           extensions: {
-            anchorPreview: new Airbo.CustomAnchorPreview()
+            anchorPreview: new Airbo.CustomAnchorPreview(),
+            anchor: new Airbo.CustomAnchorForm()
           },
           staticToolbar:true,
           buttonLabels: 'fontawesome',
