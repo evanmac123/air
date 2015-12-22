@@ -64,7 +64,11 @@ body.client_admin-tiles-show {
     width: 600px;
     margin:auto;
     margin-bottom: 40px;
-
+    &.archive_menu {
+      .preview_menu_item a {
+        padding: 11px 20px 13px 19px;
+      }
+    }
     .preview_menu_item {
       min-width: 13%;
       width: auto;
