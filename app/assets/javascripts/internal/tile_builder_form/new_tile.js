@@ -30,6 +30,7 @@ Airbo.TileCreator = (function(){
     , addImageSelector ="#image_uploader"
     , tileBuilderFormSelector ="#new_tile_builder_form"
     , tileBuilderSubmitButtonSelector = '#new_tile_builder_form input[type=submit]'
+    , IE8_NOT_SUPPORTED_ERROR="Sorry, it looks like you're using an unsupported browser. Please use Chrome, Firefox, Safari or Internet Explorer 9 and above."
     , ajaxHandler = Airbo.AjaxResponseHandler
     , modalActivationSelectors = [editSelector, previewSelector, tileNavigationSelector].join(",")
     , submitSuccess
@@ -198,24 +199,21 @@ Airbo.TileCreator = (function(){
    function initNewTileModal(){
 
     $("body").on("click", modalActivationSelectors, function(event){
-      var img, imgHeight;
-      event.preventDefault();
-
-      modalTrigger = $(this);
-
       if(isIE() == 8){
-        alert("Sorry, it looks like you're using an unsupported browser. Please use Chrome, Firefox, Safari or Internet Explorer 9 and above.");
-
+        alert(IE8_NOT_SUPPORTED_ERROR);
         return;
       }
 
+      var img,action, imgHeight;
+      modalTrigger = $(this);
+      action = modalTrigger.data("action");
+      event.preventDefault();
+
       isExistingTile = modalTrigger.is(newSelector) ? false : true;
-      if(isExistingTile){
+
+      if(action == "show"){
         modalContent = $("#tile-placeholder").html();
-        setupModalFor(modalTrigger.data("action"));
-        //tileModal.find(modalContentSelector).empty().append(modalContent);
-        //prepShow();
-        //openTileFormModal();
+        setupModalFor(action);
       }
 
       $.ajax({
@@ -224,7 +222,7 @@ Airbo.TileCreator = (function(){
         url: modalTrigger.attr("href") ,
         success: function(data, status,xhr){
           modalContent = $(data);
-          setupModalFor(modalTrigger.data("action"));
+          setupModalFor(action);
           positionArrows();
         },
 

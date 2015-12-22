@@ -22,7 +22,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @accepted_tile = Tile.find(session.delete(:accepted_tile_id)) if session[:accepted_tile_id]
 
     record_index_ping
-    @tile = Tile.new
   end
 
   def new
