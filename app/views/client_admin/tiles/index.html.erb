@@ -22,6 +22,10 @@
 <%= render partial: "shared/tile_builder_modals", locals: {context: "client_admin"} %>
 <%=render partial: 'client_admin/tile_stats/modal'%>
 
+<div id="tile-placeholder" style="display:none">
+  <%=render partial: 'client_admin/tiles/tile_preview/empty_placeholder'%>
+</div>
+
 <% content_for :javascript do %>
   <script>
 

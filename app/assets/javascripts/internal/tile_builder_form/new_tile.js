@@ -210,6 +210,14 @@ Airbo.TileCreator = (function(){
       }
 
       isExistingTile = modalTrigger.is(newSelector) ? false : true;
+      if(isExistingTile){
+        modalContent = $("#tile-placeholder").html();
+        setupModalFor(modalTrigger.data("action"));
+        //tileModal.find(modalContentSelector).empty().append(modalContent);
+        //prepShow();
+        //openTileFormModal();
+      }
+
       $.ajax({
         type: "GET",
         dataType: "html",
