@@ -17,16 +17,20 @@ Airbo.CustomAnchorForm = MediumEditor.extensions.anchor.extend({
       }
 
       if (!this.isDisplayed()) {
-          link = $(MediumEditor.selection.getSelectionHtml(this.document));
+          selectionStr = MediumEditor.selection.getSelectionHtml(this.document);
+          selectionHTML = $.parseHTML( selectionStr );
+          link = $(selectionHTML);
           var opt = null;
-          if (link.attr("href")) {
+          if (selectionHTML[0].nodeName.toLowerCase() == 'a' && link.attr("href")) {
             opt = {
               url: link.attr("href"),
               target: link.attr('target'),
               buttonClass: link.attr('class')
             }
+            this.showForm(opt);
+          } else {
+            this.showForm();
           }
-          this.showForm(opt);
       }
 
       return false;
