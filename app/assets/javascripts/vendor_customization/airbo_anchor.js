@@ -1,6 +1,7 @@
 var Airbo = window.Airbo || {};
 
 Airbo.CustomAnchorForm = MediumEditor.extensions.anchor.extend({
+  linkValidation: true,
   // Called when the button the toolbar is clicked
   // Overrides ButtonExtension.handleClick
   handleClick: function (event) {
