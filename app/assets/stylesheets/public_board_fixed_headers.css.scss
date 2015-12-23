@@ -32,7 +32,7 @@ body > header {
   #demo_request {
     float: right;
     margin-top: 9px;
-    min-width: 187px;
+    width: 170px;
   }
   #schedule_demo {
     @include light-button($sky-blue);
