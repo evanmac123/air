@@ -2,7 +2,13 @@
 <div class="row">
   <div class="large-9 large-centered columns ">
     <ul class="tile_preview_menu" >
-      <li class="preview_menu_item" > </li>
+         <li class="preview_menu_item" >
+        <%=link_to "#"  do %>
+          <i class="fa fa-gears fa-1x"></i>
+          <span class="header_text">
+          </span>
+        <%end%>
+      </li>
 
       <li class="preview_menu_item" >
         <%=link_to "#"  do %>
@@ -49,20 +55,20 @@
         <%end%>
       </li>
     </ul>
-
     <div class='preview_placeholder'>
-      <div class="tile_holder" >
 
-        <div class="pholder image" >
-          <i class="fa fa-file-picture-o fa-1x" ></i>
+    <div class='viewer'>
+        <a href="#" id="prev" ></a>
+        <div class="tile_holder" >
+          <div class="pholder image" >
+            <i class="fa fa-file-picture-o fa-1x"></i>
+          </div>
+          <div class="pholder text" >
+            <i class="fa fa-file-text fa-1x"></i>
+          </div>
         </div>
-
-
-        <div class="pholder text" >
-          <i class="fa fa-file-text fa-1x"></i>
-        </div>
-
-      </div>
+        <a href="#" id="next" ></a>
+    </div>
     </div>
   </div>
 </div>

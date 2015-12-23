@@ -445,6 +445,9 @@ body.tile_previews.tile_previews-show {
 }
 
 .preview_placeholder{
+  .viewer{
+    a#next, a#prev {display: block}
+  }
   .tile_holder{
     .pholder{
       height: 400px;

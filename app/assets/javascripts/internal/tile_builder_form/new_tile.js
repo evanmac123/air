@@ -22,9 +22,14 @@ Airbo.TileCreator = (function(){
     , newSelector// = "a#add_new_tile"
     , editSelector = ".tile_buttons .edit_button>a, .preview_menu_item.edit>a"
     , previewSelector = ".tile-wrapper a.tile_thumb_link"
-    , tileNavigationSelectorLeft = "#new_tile_modal #prev"
-    , tileNavigationSelectorRight = "#new_tile_modal #next"
+    , tileNavigationSelectorLeft = "#new_tile_modal .tile_preview_container .viewer  #prev"
+    , tileNavigationSelectorRight = "#new_tile_modal .tile_preview_container .viewer #next"
+    , dummyTileNavigationSelectorLeft = "#new_tile_modal .preview_placeholder #prev"
+    , dummyTileNavigationSelectorRight = "#new_tile_modal .preview_placeholder #next"
     , tileNavigationSelector = tileNavigationSelectorLeft + ', ' + tileNavigationSelectorRight
+    , tileNavLeft = tileNavigationSelectorLeft + ', ' + dummyTileNavigationSelectorLeft
+    , tileNavRight = tileNavigationSelectorRight + ', ' + dummyTileNavigationSelectorRight
+    , tileNavSelectors = tileNavLeft + ', ' + tileNavRight
     , tileModalSelector = "#new_tile_modal"
     , imagesModalSelector ="#images_modal"
     , addImageSelector ="#image_uploader"
@@ -229,6 +234,7 @@ Airbo.TileCreator = (function(){
       if(action == "show"){
         modalContent = $("#tile-placeholder").html();
         setupModalFor(action);
+        positionArrows();
       }
 
       $.ajax({
@@ -506,15 +512,14 @@ Airbo.TileCreator = (function(){
  }
 
  function positionArrows() {
-   tileContainer = $(".tile_full_image")[0];
+   tileContainer = $(".tile_full_image")[0] || $(".pholder.image")[0];
    if( !tileContainer ) return;
-
    sizes = tileContainer.getBoundingClientRect();
    if (sizes.left == 0 && sizes.right == 0) return;
 
-   $(tileNavigationSelectorLeft).css("left", sizes.left - 65);
-   $(tileNavigationSelectorRight).css("left", sizes.right);
-   $(tileNavigationSelector).css("display", "block");
+   $(tileNavLeft).css("left", sizes.left - 65);
+   $(tileNavRight).css("left", sizes.right);
+   $(tileNavSelectors).css("display", "block");
  }
 
  function tileModalOpenClose(){
