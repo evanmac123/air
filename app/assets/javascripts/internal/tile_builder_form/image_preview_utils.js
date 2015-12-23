@@ -54,10 +54,10 @@ $(function() {
 
       function removeImage(){
         updateHiddenImageFields();
-        noImage.val('true')
+        noImage.val('true');
         previewer.clearPreviewImage();
         library.clearSelectedImage();
-        remoteMediaUrl.val(undefined)
+        remoteMediaUrl.val(undefined);
       }
 
       function showImagePreview(imgUrl, imgWidth, imgHeight){

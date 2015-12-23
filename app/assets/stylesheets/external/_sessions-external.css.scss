@@ -133,7 +133,6 @@ body.invitations-show #session-wrapper {
 // Autocomplete suggestions 
 #indented_to_match_inputs {
   #autocomplete_status {
-    @extend p.caption;
     @include font-semibold;
   }
 }

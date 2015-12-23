@@ -22,12 +22,15 @@ Airbo.TileCreator = (function(){
     , newSelector// = "a#add_new_tile"
     , editSelector = ".tile_buttons .edit_button>a, .preview_menu_item.edit>a"
     , previewSelector = ".tile-wrapper a.tile_thumb_link"
-    , tileNavigationSelector = "#new_tile_modal #prev, #new_tile_modal #next"
+    , tileNavigationSelectorLeft = "#new_tile_modal #prev"
+    , tileNavigationSelectorRight = "#new_tile_modal #next"
+    , tileNavigationSelector = tileNavigationSelectorLeft + ', ' + tileNavigationSelectorRight
     , tileModalSelector = "#new_tile_modal"
     , imagesModalSelector ="#images_modal"
     , addImageSelector ="#image_uploader"
     , tileBuilderFormSelector ="#new_tile_builder_form"
     , tileBuilderSubmitButtonSelector = '#new_tile_builder_form input[type=submit]'
+    , IE8_NOT_SUPPORTED_ERROR="Sorry, it looks like you're using an unsupported browser. Please use Chrome, Firefox, Safari or Internet Explorer 9 and above."
     , ajaxHandler = Airbo.AjaxResponseHandler
     , modalActivationSelectors = [editSelector, previewSelector, tileNavigationSelector].join(",")
     , submitSuccess
@@ -211,25 +214,31 @@ Airbo.TileCreator = (function(){
    function initNewTileModal(){
 
     $("body").on("click", modalActivationSelectors, function(event){
-      var img, imgHeight;
-      event.preventDefault();
-
-      modalTrigger = $(this);
-
       if(isIE() == 8){
-        alert("Sorry, it looks like you're using an unsupported browser. Please use Chrome, Firefox, Safari or Internet Explorer 9 and above.");
-
+        alert(IE8_NOT_SUPPORTED_ERROR);
         return;
       }
 
+      var img,action, imgHeight;
+      modalTrigger = $(this);
+      action = modalTrigger.data("action");
+      event.preventDefault();
+
       isExistingTile = modalTrigger.is(newSelector) ? false : true;
+
+      if(action == "show"){
+        modalContent = $("#tile-placeholder").html();
+        setupModalFor(action);
+      }
+
       $.ajax({
         type: "GET",
         dataType: "html",
         url: modalTrigger.attr("href") ,
         success: function(data, status,xhr){
           modalContent = $(data);
-          setupModalFor(modalTrigger.data("action"));
+          setupModalFor(action);
+          positionArrows();
         },
 
         error: function(jqXHR, textStatus, error){
@@ -303,7 +312,7 @@ Airbo.TileCreator = (function(){
         "tile_builder_form[supporting_content]": {
           required: true,
           minWords: 1,
-          maxTextLength: 600
+          maxTextLength: 700
         },
 
         "tile_builder_form[headline]": {
@@ -335,6 +344,7 @@ Airbo.TileCreator = (function(){
       invalidHandler: function(form, validator) {
         var errors = validator.numberOfInvalids();
         if (errors) {
+          
           if($(validator.errorList[0].element).is(":visible"))
             {
               $(tileModalSelector).animate({
@@ -385,13 +395,24 @@ Airbo.TileCreator = (function(){
 
     config = $.extend({}, Airbo.Utils.validationConfig, config);
     validator = form.validate(config);
+
   }
+
+  function resetForm(){
+    var jqFormResetForm =  $.fn.resetForm;
+    delete $.fn.resetForm;
+    validator.resetForm();
+    $.fn.resetForm = jqFormResetForm;
+  }
+
+
 
   function refreshTileDataForUser(data) {
     preventCloseMsg = false; // Allow modal to be closed sans confirmation
     refreshCurrentPreview(data.preview);
     prepShow();
     scrollPageToTop();
+    positionArrows();
   }
 
   function refreshTileDataPageWide(data){
@@ -400,6 +421,7 @@ Airbo.TileCreator = (function(){
     prepShow();
     updateTileSection(data);
     scrollPageToTop();
+    positionArrows();
   }
 
   function refreshCurrentPreview(content){
@@ -483,7 +505,17 @@ Airbo.TileCreator = (function(){
    $(tileModalSelector).scrollTop(0);
  }
 
+ function positionArrows() {
+   tileContainer = $(".tile_full_image")[0];
+   if( !tileContainer ) return;
 
+   sizes = tileContainer.getBoundingClientRect();
+   if (sizes.left == 0 && sizes.right == 0) return;
+
+   $(tileNavigationSelectorLeft).css("left", sizes.left - 65);
+   $(tileNavigationSelectorRight).css("left", sizes.right);
+   $(tileNavigationSelector).css("display", "block");
+ }
 
  function tileModalOpenClose(){
 
@@ -492,6 +524,7 @@ Airbo.TileCreator = (function(){
        scrollPageToTop();
        $("body").css({"overflow-y": "hidden"});
      }
+     positionArrows();
    });
 
    $(document).on('closed', tileModalSelector, function (event) {
@@ -508,12 +541,21 @@ Airbo.TileCreator = (function(){
    $(document).on('close', tileModalSelector, function (event) {
      $(".tipsy").tooltipster("hide");
    });
+
+   $( window ).resize(function() {
+     positionArrows();
+   });
  }
 
   function imagesModalOpenclose(){
     $(document).on('closed.fndtn.reveal', imagesModalSelector, function () {
       openTileFormModal();
-      validator.element("#remote_media_url");
+
+      // small hack to prevent image validation from appearing even thought
+      // image has been selected.
+
+      resetForm();
+
     });
 
     $(document).on('close.fndtn.reveal', imagesModalSelector, function (event) {

@@ -7,9 +7,7 @@
       </div>
     </div>
     <div class="cover_desc">
-      <p>
-        <%= @demo.cover_message %>
-      </p>
+      <%= unescape_html brake_to_paragraphs(@demo.cover_message) %>
     </div>
   </div>
 </div>

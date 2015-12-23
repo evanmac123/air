@@ -15,10 +15,24 @@ body > header {
   nav{
     display:block;
   }
-
+  .to_marketing {
+    float: right;
+    text-align: right;
+    margin-top: 9px;
+    a {
+      font-size: 14px;
+      font-weight: 500;
+      color: $sky-blue;
+      line-height: 31px;
+      &:hover {
+        color:darken($sky-blue, 11%);
+      }
+    }
+  }
   #demo_request {
     float: right;
     margin-top: 9px;
+    min-width: 187px;
   }
   #schedule_demo {
     @include light-button($sky-blue);
@@ -143,11 +157,12 @@ body > header {
   }
   .cover_desc {
     background: white;
-    padding: 14px 20px;
+    padding: 14px 20px 4px 20px;
     p {
       font-size: 16px;
       color: #4c4c4c;
       line-height: 1.5;
+      margin-bottom: 1em;
     }
   }
 }
@@ -169,8 +184,13 @@ body > header {
         width: 100%;
       }
     }
+    .to_marketing {
+      display: none;
+    }
     #demo_request {
-      width: 187px;
+      width: 50%;
+      min-width: 50%;
+      // width: 187px;
       margin-top: 13px;
     }
   }
