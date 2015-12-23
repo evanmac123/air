@@ -222,6 +222,55 @@ Transfer production data to staging:
     heroku pgbackups:capture --remote production
     heroku pgbackups:restore DATABASE `heroku pgbackups:url --remote production` --remote staging
     
+CONFIG vars
+-----------
+Make sure to set these vars as appropriate.  Below is for example purpose only
+
+MAX_SELECTORS_DEFAULT                             3072 
+
+(IE9 craps out after this number of css selectors
+Acutally the limit is 4095 but there maybe a file size limitation as well so we
+set the number to 3072 which should also keep us under the file size limit. Yes
+it's a hack but it's IE9)
+
+ACTIVITY_SESSION_THRESHOLD:                       120
+APP_HOST:                                         hengage-dev.herokuapp.com
+AVATAR_BUCKET:                                    hengage-avatars-development
+AWS_ACCESS_KEY_ID:                                [KEY]
+AWS_BULK_UPLOAD_ACCESS_KEY_ID:                    [KEY] 
+AWS_BULK_UPLOAD_SECRET_ACCESS_KEY:                [SECRET]
+AWS_SECRET_ACCESS_KEY:                            [KEY]
+BILLING_INFORMATION_ENTERED_NOTIFICATION_ADDRESS: team@air.bo
+DATABASE_URL:                                     [URL]
+EMAIL_HOST:                                       hengage-dev.herokuapp.com
+EMAIL_PROTOCOL:                                   https
+FOG_DIRECTORY:                                    hengage-tiles-development
+FOG_PROVIDER:                                     AWS
+HEROKU_APP_NAME:                                  hengage-dev
+LOG_LEVEL:                                        INFO
+MAX_SELECTORS_DEFAULT:                            3072
+MIXPANEL_API_KEY:                                 [KEY_ID]
+MIXPANEL_API_SECRET:                              [SECRET]
+MIXPANEL_TOKEN:                                   [TOKEN]
+MONGOHQ_URL:                                      [URL]
+MONGOLAB_URI:                                     [URL]
+NEW_RELIC_APP_NAME:                               hengage-dev
+NEW_RELIC_LICENSE_KEY:                            [KEY]
+NEW_RELIC_LOG:                                    stdout
+PROFILABLE_USERS:                                 herby@airbo.com,a.v.brychak@gmail.com,kate-admin@airbo.com
+RACK_ENV:                                         development
+RAILS_ENV:                                        production
+REDISTOGO_URL:                                    [URL]
+S3_TILE_BUCKET:                                   hengage-tiles-development
+SENDGRID_PASSWORD:                                [PWD]
+SENDGRID_USERNAME:                                [USER]
+STRIPE_API_PRIVATE_KEY:                           [KEY]
+STRIPE_API_PUBLIC_KEY:                            [KEY]
+TILE_BUCKET:                                      hengage-tiles-development
+
+
+
+
 Miscellaneous Things That I Just Want To Get Up Here On A Friday Night
 ----------------------------------------------------------------------
 SOFTWARE NEEDED TO RUN OUR APP
