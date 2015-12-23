@@ -2,7 +2,6 @@
 //= require jquery.validate
 //= require jquery.validate.additional-methods
 //= require ../../../vendor/assets/javascripts/autosize
-//= require ../../../vendor/assets/javascripts/sweetalert/sweetalert.min
 
 
 //FIXME add to airbo utils
@@ -133,7 +132,7 @@ Airbo.Utils = {
           field.val( val.replace(re, "") );
         });
 
-       
+
         editor.subscribe('editableInput', function (event, editable) {
           var obj =$(editable),  textLength = obj.text().trim().length;
 

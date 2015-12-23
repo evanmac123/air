@@ -15,7 +15,6 @@
 //= require jquery.validate.additional-methods
 //= require jquery.ui.autocomplete
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.slider.min.js
-//= require  medium-editor.min
 //= require jquery.tooltipster.min
 //= require schedule_demo
 
