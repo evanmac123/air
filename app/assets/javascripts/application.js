@@ -3,7 +3,6 @@
 //= require jquery.validate.additional-methods
 //= require ../../../vendor/assets/javascripts/autosize
 
-
 //FIXME add to airbo utils
 function isIE11() {
   return !!window.MSInputMethodContext;
@@ -106,12 +105,16 @@ Airbo.Utils = {
       $('.medium-editable').each(function(){
 
         defaultParams = {
+          extensions: {
+            anchorPreview: new Airbo.CustomAnchorPreview(),
+            anchor: new Airbo.CustomAnchorForm()
+          },
           staticToolbar:true,
           buttonLabels: 'fontawesome',
           targetBlank: true,
-          anchor: {
-            linkValidation: true,
-          },
+          // anchor: {
+          //   linkValidation: true,
+          // },
           toolbar: {
            buttons: ['bold', 'italic', 'underline', 'unorderedlist', 'orderedlist', "anchor"]
           }
