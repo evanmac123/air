@@ -1,11 +1,20 @@
 <ul class="tile_buttons">
-  <% if presenter.has_destroy_button?  %>
+  <% if true %>
+    <li class="more_button">
+      <span></span>
+      <span></span>
+      <span></span>
+    </li>
+  <% end %>
+
+  <!-- <% if presenter.has_destroy_button?  %>
     <li class="destroy_button">
       <%= link_to client_admin_tile_path(presenter, page: 'Edit'), class: "delete_tile"  do %>
         <%= fa_icon 'trash' %>
       <% end %>
     </li>
-  <% end %>
+  <% end %> -->
+
   <% if presenter.has_edit_button? %>
     <li class="edit_button">
       <%= link_to edit_client_admin_tile_path(presenter), data:{action: "edit", tile_id: presenter.tile_id, status: presenter.status} do %>
@@ -13,6 +22,7 @@
       <% end %>
     </li>
   <% end %>
+
   <% if presenter.has_archive_button? %>
     <li class="archive_button">
       <%= link_to status_change_client_admin_tile_path(presenter), class: "update_status", data: {status: Tile::ARCHIVE} do %>
@@ -20,6 +30,7 @@
       <% end %>
     </li>
   <% end %>
+
   <% if presenter.has_activate_button? %>
     <li class="activate_button">
       <%= link_to status_change_client_admin_tile_path(presenter), class: "update_status", data: {status: Tile::ACTIVE} do %>
@@ -29,6 +40,7 @@
       <% end %>
     </li>
   <% end %>
+
   <% if presenter.has_ignore_button? %>
     <li class="ignore_button">
       <%= link_to status_change_client_admin_tile_path(presenter), class:"update_status", data: {status:Tile::IGNORED} do %>
@@ -36,6 +48,7 @@
       <% end %>
     </li>
   <% end %>
+
   <% if presenter.has_accept_button? %>
     <li class="accept_button">
       <%= link_to status_change_client_admin_tile_path(presenter), class: "accept",  data: {status: Tile::DRAFT } do %>
@@ -43,6 +56,7 @@
       <% end %>
     </li>
   <% end %>
+
   <% if presenter.has_undo_ignore_button? %>
     <li class="undo_ignore_button">
       <%= link_to status_change_client_admin_tile_path(presenter), class: "update_status", data: {status: Tile::USER_SUBMITTED} do %>
