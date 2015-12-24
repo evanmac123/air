@@ -23,8 +23,6 @@ body.client_admin-tiles-edit {
   }
   .tile_holder {
     background: white;
-  }
-  .tile_form_holder {
     overflow: hidden;
     border-radius: 3px;
   }
@@ -69,6 +67,11 @@ body.client_admin-tiles-show {
     width: 600px;
     margin:auto;
     margin-bottom: 40px;
+    &.draft_menu {
+      .preview_menu_item a {
+        padding: 11px 22px 13px 21px;
+      }
+    }
     &.archive_menu {
       .preview_menu_item a {
         padding: 11px 20px 13px 19px;
@@ -83,7 +86,6 @@ body.client_admin-tiles-show {
         margin-left: 0.25em;
       }
       a {
-        padding: 0.65em;
         padding: 11px 21px 13px 20px;
       }
     }
