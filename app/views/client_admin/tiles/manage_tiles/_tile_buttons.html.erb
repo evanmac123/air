@@ -1,4 +1,18 @@
 <ul class="tile_buttons">
+  <% if presenter.has_destroy_button?  %>
+    <li class="destroy_button">
+      <%= link_to client_admin_tile_path(presenter, page: 'Edit'), class: "delete_tile"  do %>
+        <%= fa_icon 'trash' %>
+      <% end %>
+    </li>
+  <% end %>
+  <% if presenter.has_edit_button? %>
+    <li class="edit_button">
+      <%= link_to edit_client_admin_tile_path(presenter), data:{action: "edit", tile_id: presenter.tile_id, status: presenter.status} do %>
+        <%= fa_icon 'pencil' %>
+      <% end %>
+    </li>
+  <% end %>
   <% if presenter.has_archive_button? %>
     <li class="archive_button">
       <%= link_to status_change_client_admin_tile_path(presenter), class: "update_status", data: {status: Tile::ARCHIVE} do %>
@@ -12,20 +26,6 @@
         <span>
           <%= presenter.post_link_text %>
         </span>
-      <% end %>
-    </li>
-  <% end %>
-  <% if presenter.has_destroy_button?  %>
-    <li class="destroy_button">
-      <%= link_to client_admin_tile_path(presenter, page: 'Edit'), class: "delete_tile"  do %>
-        <%= fa_icon 'trash' %>
-      <% end %>
-    </li>
-  <% end %>
-  <% if presenter.has_edit_button?               %>
-    <li class="edit_button">
-      <%= link_to edit_client_admin_tile_path(presenter), data:{action: "edit", tile_id: presenter.tile_id, status: presenter.status} do %>
-        <%= fa_icon 'pencil' %>
       <% end %>
     </li>
   <% end %>
