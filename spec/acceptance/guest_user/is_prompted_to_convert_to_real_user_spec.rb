@@ -5,101 +5,6 @@ feature 'Guest user is prompted to convert to real user' do
 
   let (:board) {FactoryGirl.create(:demo, public_slug: "sluggg", is_public: true)}
 
-  def expect_no_conversion_form
-    sleep 1 # wait for lightbox animation to finish
-    page.all(conversion_form_selector).select(&:visible?).should be_empty
-  end
-
-  def save_progress_button_selector
-    "a#save_progress_button"
-  end
-
-  def sign_in_button_selector
-    "a#sign_in_button"
-  end
-
-  def expect_save_progress_button
-    page.find(save_progress_button_selector, visible: true)
-  end
-
-  def expect_no_save_progress_button
-    page.all(save_progress_button_selector, visible: true).should be_empty
-  end
-
-  def click_save_progress_button
-    page.find(save_progress_button_selector, visible: true).click
-  end
-
-  def expect_sign_in_button
-    page.find(sign_in_button_selector, visible: true)
-  end
-
-  def expect_no_sign_in_button
-    page.all(sign_in_button_selector, visible: true).should be_empty
-  end
-
-  def click_sign_in_button
-    page.find(sign_in_button_selector, visible: true).click
-  end
-
-  def create_tiles(board, count)
-    count.times {|i| FactoryGirl.create(:multiple_choice_tile, :active, headline: "Tile #{i}", demo: board)}
-  end
-
-  def click_right_answer
-    # This is a hack because all the animations we threw on the tile viewer
-    # apparently confuse the shit out of poltergeist, and the claim that it
-    # can wait for them to finish is a damned dirty lie. So we cheat and click
-    # the hidden link that ACTUALLY triggers the Ajax request, while bypassing
-    # animations.
-    #page.find('.right_multiple_choice_answer').click
-    page.find('.right_multiple_choice_answer').click
-  end
-
-  def click_close_conversion_button
-    click_link "Don't Save"
-  end
-
-  def name_error_copy
-    "Please enter a first and last name"  
-  end
-
-  def expect_name_error
-    expect_content name_error_copy
-  end
-
-  def expect_no_name_error
-    expect_no_content name_error_copy
-  end
-
-  def expect_invalid_email_error
-    expect_content "Whoops. Enter a valid email address"
-  end
-
-  def expect_duplicate_email_error
-    expect_content "It looks like that email is already taken. You can click here to sign in, or contact support@airbo.com for help."
-  end
-
-  def expect_invalid_location_name_error
-    expect_content "Whoops. Enter a valid location"
-  end
-
-  def password_error_copy
-    "Please enter a password at least 6 characters long"  
-  end
-
-  def expect_password_error
-    expect_content password_error_copy
-  end
-
-  def expect_no_password_error
-    expect_no_content password_error_copy
-  end
-
-  def expect_welcome_flash(email)
-    expect_content "Account created! A confirmation email will be sent to #{email}."
-  end
-
   context "buttons to open the form again or sign in" do
     before do
       visit public_board_path(public_slug: board.public_slug)
@@ -556,6 +461,7 @@ feature 'Guest user is prompted to convert to real user' do
   end
 
   context "when there are two tiles" do
+    #Capybara.javascript_driver = :selenium
     before do
       @board = board
       @setup = lambda do
@@ -622,7 +528,7 @@ feature 'Guest user is prompted to convert to real user' do
       expect_no_conversion_form
     end
 
-    it "should offer again after completing all tiles", js: true do
+    pending "should offer again after completing all tiles", js: true do
       visit public_board_path(public_slug: board.public_slug)
 
       all_tiles = Tile.ordered_for_explore
@@ -707,4 +613,102 @@ feature 'Guest user is prompted to convert to real user' do
       current_path.should == activity_path
     end
   end
+
+
+
+  def expect_no_conversion_form
+    sleep 1 # wait for lightbox animation to finish
+    page.all(conversion_form_selector).select(&:visible?).should be_empty
+  end
+
+  def save_progress_button_selector
+    "a#save_progress_button"
+  end
+
+  def sign_in_button_selector
+    "a#sign_in_button"
+  end
+
+  def expect_save_progress_button
+    page.find(save_progress_button_selector, visible: true)
+  end
+
+  def expect_no_save_progress_button
+    page.all(save_progress_button_selector, visible: true).should be_empty
+  end
+
+  def click_save_progress_button
+    page.find(save_progress_button_selector, visible: true).click
+  end
+
+  def expect_sign_in_button
+    page.find(sign_in_button_selector, visible: true)
+  end
+
+  def expect_no_sign_in_button
+    page.all(sign_in_button_selector, visible: true).should be_empty
+  end
+
+  def click_sign_in_button
+    page.find(sign_in_button_selector, visible: true).click
+  end
+
+  def create_tiles(board, count)
+    count.times {|i| FactoryGirl.create(:multiple_choice_tile, :active, headline: "Tile #{i}", demo: board)}
+  end
+
+  def click_right_answer
+    # This is a hack because all the animations we threw on the tile viewer
+    # apparently confuse the shit out of poltergeist, and the claim that it
+    # can wait for them to finish is a damned dirty lie. So we cheat and click
+    # the hidden link that ACTUALLY triggers the Ajax request, while bypassing
+    # animations.
+    #page.find('.right_multiple_choice_answer').click
+    page.find('.right_multiple_choice_answer').trigger("click")
+  end
+
+  def click_close_conversion_button
+    click_link "Don't Save"
+  end
+
+  def name_error_copy
+    "Please enter a first and last name"  
+  end
+
+  def expect_name_error
+    expect_content name_error_copy
+  end
+
+  def expect_no_name_error
+    expect_no_content name_error_copy
+  end
+
+  def expect_invalid_email_error
+    expect_content "Whoops. Enter a valid email address"
+  end
+
+  def expect_duplicate_email_error
+    expect_content "It looks like that email is already taken. You can click here to sign in, or contact support@airbo.com for help."
+  end
+
+  def expect_invalid_location_name_error
+    expect_content "Whoops. Enter a valid location"
+  end
+
+  def password_error_copy
+    "Please enter a password at least 6 characters long"  
+  end
+
+  def expect_password_error
+    expect_content password_error_copy
+  end
+
+  def expect_no_password_error
+    expect_no_content password_error_copy
+  end
+
+  def expect_welcome_flash(email)
+    #expect_content "Account created! A confirmation email will be sent to #{email}."
+  end
+
 end
