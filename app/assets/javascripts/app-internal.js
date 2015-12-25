@@ -17,7 +17,7 @@
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.slider.min.js
 //= require jquery.tooltipster.min
 //= require schedule_demo
-
+//= require_tree ./vendor_customization
 $(document).ready(function() {
   $('.settings-edit').foundation();
 });
