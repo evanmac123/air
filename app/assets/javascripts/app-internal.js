@@ -10,6 +10,7 @@
 //= require ../../../vendor/assets/javascripts/confirm_with_reveal.modified
 //= require_self
 //= require_tree ./internal
+//= require ./client_admin/tile_preview/tile_carousel
 //= require_tree ./internal_and_external/.
 //= require jquery.validate
 //= require jquery.validate.additional-methods
@@ -18,6 +19,7 @@
 //= require jquery.tooltipster.min
 //= require schedule_demo
 //= require_tree ./vendor_customization
+
 $(document).ready(function() {
   $('.settings-edit').foundation();
 });

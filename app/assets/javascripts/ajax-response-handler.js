@@ -62,7 +62,7 @@ Airbo.AjaxResponseHandler = (function(){
 
     }).fail(function(xhr, status, errorThrown){
       fail( xhr, status, function(){
-        failCallBack(data);
+        failCallBack(status);
       });
 
     });

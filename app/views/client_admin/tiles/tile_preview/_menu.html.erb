@@ -3,15 +3,16 @@
   <%= render partial: "client_admin/tiles/tile_preview/ca_created_menu", locals:{tile: tile} unless tile.suggested? %>
   <%= render partial: "client_admin/tiles/tile_preview/suggested_menu", locals:{tile: tile} if  tile.suggested? %>
 <%else%>
-  presenter = TilePreview::MenuPresenter::User.new(tile, browser)
-  <ul class="tile_preview_menu">
-    <li class="preview_menu_header <%= presenter.status %>">        
-      <%= presenter.status_name %>
+  <%#presenter = TilePreview::MenuPresenter::User.new(tile, browser)%>
+  <%#TODO should there be a menu %>
+  <!--ul class="tile_preview_menu">
+    <li class="preview_menu_header <%# presenter.status %>">        
+      <%# presenter.status_name %>
     </li>
-    <% presenter.menu_cells.each do |menu_cell| %>
-      <%= render menu_cell, menu_cell.locals %>
-    <% end %>
-  </ul>
+    <%# presenter.menu_cells.each do |menu_cell| %>
+      <%# render menu_cell, menu_cell.locals %>
+    <%# end %>
+  </ul-->
 <%end %>
 
 

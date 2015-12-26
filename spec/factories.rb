@@ -193,6 +193,7 @@ FactoryGirl.define do
 
     trait :user_submitted do
       status Tile::USER_SUBMITTED
+      association :creator, factory: :user
     end
 
     trait :ignored do
