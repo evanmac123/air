@@ -1,0 +1,15 @@
+<ul class="tile_thumbnail_menu">
+  <li class="duplicate_button">
+    <%= link_to "#" do %>
+      <%= fa_icon 'copy' %>
+      <span>Duplicate</span>
+    <% end %>
+  </li>
+
+  <li class="destroy_button">
+    <%= link_to client_admin_tile_path(presenter, page: 'Edit'), class: "delete_tile"  do %>
+      <%= fa_icon 'trash' %>
+      <span>Delete</span>
+    <% end %>
+  </li>
+</ul>
