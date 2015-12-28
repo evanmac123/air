@@ -84,7 +84,6 @@ feature "Client admin creates tiles", js: true do
     fill_in_answer_field 2, "Hipster#{edit_text}"
     click_answer.times { select_correct_answer 2 } if question_type == Tile::QUIZ
     fill_in_points points
-    fill_in_external_link_field  "http://www.google.com/#{edit_text}"
   end
 
 end

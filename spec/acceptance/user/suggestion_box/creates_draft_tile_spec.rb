@@ -7,25 +7,6 @@ feature 'Creates draft tile' do
     user
   end
 
-  def submit_tile_btn
-    page.find("#submit_tile")
-  end
-
-  def form
-    page.find("#new_tile_builder_form")
-  end
-
-  def form_text
-    "Once you submit a Tile, it cannot be edited."
-  end
-
-  def preview
-    page.find(".tile_preview_container")
-  end
-
-  def preview_status_text
-    "Tile submitted, waiting for acceptance"
-  end
 
   before do
     visit activity_path(as: user)
@@ -40,20 +21,54 @@ feature 'Creates draft tile' do
 
   it "should let them submit tile", js: true do
     submit_tile_btn.click
-    within form do
-      expect_content form_text
-      fill_in_valid_form_entries
-      # FIXME fill not work for sup.content
-      page.execute_script("$('#tile_builder_form_supporting_content').val('Ten pounds of cheese. Yes? Or no?')")
-      click_button "Submit tile"
-    end
-    within preview do
-      expect_content preview_status_text
+    fill_in_tile_form_entries
+    click_create_button
+    within ".viewer" do 
       expect(page).to  have_content "by Society"
       expect(page).to  have_content "Ten pounds of cheese"
       expect(page).to  have_content "Ten pounds of cheese. Yes? Or no?"
       expect(page).to  have_content "Who rules?"
-      expect(page).to  have_content "http://www.google.com/foobar"
     end
+  end
+
+
+  def submit_tile_btn
+    page.find("#submit_tile")
+  end
+
+  def form
+    page.find("#new_tile_builder_form")
+  end
+
+  def form_text
+    "Once you submit a Tile, it cannot be edited."
+  end
+
+
+  def fill_in_tile_form_entries options = {}
+    click_answer = options[:click_answer] || 1
+    question_type = options[:question_type] || Tile::QUIZ
+    question_subtype = options[:question_subtype] || Tile::MULTIPLE_CHOICE
+    edit_text = options[:edit_text] || "foobar"
+    points = options[:points] || "18"
+ 
+
+    choose_question_type_and_subtype question_type, question_subtype
+    fake_upload_image "cov1.png" 
+
+    fill_in_image_credit "by Society#{edit_text}"
+    page.find("#tile_builder_form_headline").set("Ten pounds of cheese#{edit_text}")
+    page.find("#tile_supporting_content").native.send_key("Ten pounds of cheese. Yes? Or no?#{edit_text}")
+    fill_in_question "Who rules?#{edit_text}"
+    2.times {click_add_answer}
+    fill_in_answer_field 0, "Me#{edit_text}"
+    fill_in_answer_field 1, "You#{edit_text}"
+    fill_in_answer_field 2, "Hipster#{edit_text}"
+    click_answer.times { select_correct_answer 2 } if question_type == Tile::QUIZ
+    fill_in_points points
+  end
+
+  def click_create_button
+    page.find("#new_tile_builder_form input[type=submit]").trigger("click")
   end
 end
