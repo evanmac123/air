@@ -134,7 +134,7 @@ module TileHelpers
   end
 
   def answer_field_selector
-    "input[name='tile_builder_form[answers][]']"
+    "input[name='tile_builder_form[answers][]'], textarea[name='tile_builder_form[answers][]']"
   end
 
   def answer_link_selector
