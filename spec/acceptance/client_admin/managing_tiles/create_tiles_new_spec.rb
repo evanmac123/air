@@ -17,7 +17,6 @@ feature "Client admin creates tiles", js: true do
         expect(page).to  have_content "Ten pounds of cheese"
         expect(page).to  have_content "Ten pounds of cheese. Yes? Or no?"
         expect(page).to  have_content "Who rules?"
-        expect(page).to  have_content "http://www.google.com/foobar"
       end
 
       expect(page).to have_selector(".tile_multiple_choice_answer a.right_multiple_choice_answer", text: "Hipster")
@@ -50,7 +49,6 @@ feature "Client admin creates tiles", js: true do
         expect(page).to  have_content "Ten pounds of cheese#{edit_text}"
         expect(page).to  have_content "Ten pounds of cheese. Yes? Or no?#{edit_text}"
         expect(page).to  have_content "Who rules?#{edit_text}"
-        expect(page).to  have_content "http://www.google.com/#{edit_text}"
       end
 
       expect(page).to have_selector("a.right_multiple_choice_answer", text: "Hipster#{edit_text}")
