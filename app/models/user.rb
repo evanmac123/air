@@ -1202,16 +1202,6 @@ class User < ActiveRecord::Base
       end
   end
 
-
-    #FIXME Deprecated 
-  def show_submit_tile_intro!
-    #if can_make_tile_suggestions? && !submit_tile_intro_seen
-      #update_attribute :submit_tile_intro_seen, true
-      #true
-    #end
-    false
-  end
-
   protected
 
   def downcase_email
