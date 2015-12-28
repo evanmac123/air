@@ -1,21 +1,11 @@
 <ul class="tile_buttons">
   <% if presenter.has_menu? %>
-    <% #fdfd %>
     <li class="more_button tipsy"  data-title="<%= CGI::escapeHTML thumb_menu(presenter) %>">
-    <!-- <li class="more_button tipsy"  title="&lt;img src=&quot;my-image.png&quot; /&gt; &lt;strong&gt; This text is in bold case !&lt;/strong&gt;"> -->
       <span></span>
       <span></span>
       <span></span>
     </li>
   <% end %>
-
-  <!-- <% if presenter.has_destroy_button?  %>
-    <li class="destroy_button">
-      <%= link_to client_admin_tile_path(presenter, page: 'Edit'), class: "delete_tile"  do %>
-        <%= fa_icon 'trash' %>
-      <% end %>
-    </li>
-  <% end %> -->
 
   <% if presenter.has_edit_button? %>
     <li class="edit_button">
