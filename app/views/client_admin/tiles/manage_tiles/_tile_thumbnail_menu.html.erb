@@ -7,7 +7,7 @@
   </li>
 
   <li class="destroy_button">
-    <%= link_to client_admin_tile_path(presenter, page: 'Edit'), class: "delete_tile"  do %>
+    <%= link_to client_admin_tile_path(presenter, page: 'Edit'), class: "delete_tile", data: {tileid: presenter.id}  do %>
       <%= fa_icon 'trash-o' %>
       <span>Delete</span>
     <% end %>

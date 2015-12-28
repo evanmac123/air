@@ -6,7 +6,7 @@ Airbo.TileThumbnailMenu = (function() {
     e.innerHTML = input;
     return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
   }
-  function init() {
+  function init(tileCreator) {
     $(".tipsy.more_button").each(function(){
       var menu_button = $(this);
       menu_button.tooltipster({
@@ -19,7 +19,13 @@ Airbo.TileThumbnailMenu = (function() {
           return $(decodedMenu);
         },
         trigger: "click",
-        autoClose: true
+        autoClose: true,
+        functionReady: function(){
+          $(".tile_thumbnail_menu .delete_tile").click(function(event){
+            event.preventDefault();
+            tileCreator.confirmDeletion($(this));
+          });
+        }
       });
     });
   }
@@ -29,6 +35,6 @@ Airbo.TileThumbnailMenu = (function() {
 
 }());
 
-$(function(){
-  Airbo.TileThumbnailMenu.init();
-});
+// $(function(){
+//   Airbo.TileThumbnailMenu.init();
+// });

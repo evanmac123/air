@@ -458,12 +458,12 @@ Airbo.TileCreator = (function(){
 
 
   function tileByStatusChangeTriggerLocation(target){
-    var criteria = "[data-tile-id=" + target.data("tileid") + "][data-status='draft']"
+    var criteria = "[data-tile-id=" + target.data("tileid") + "]";//"[data-status='draft']"
 
     if(target.parents(tileWrapperSelector).length !== 0){
       //Trigger directly by action button on the tile outside of the modal
       return target.parents(tileWrapperSelector)
-    }else if(modalTrigger.parents(tileWrapperSelector).length !=0){
+    }else if(modalTrigger && modalTrigger.parents(tileWrapperSelector).length !=0){
       //Triggered inside modal of a prexisting tile
       return modalTrigger.parents(tileWrapperSelector);
     }else{
@@ -729,7 +729,7 @@ function confirmModalClose(postProcess){
   function initDeletion(){
     $("body").on("click", ".delete_tile", function(event){
       event.preventDefault();
-      confirmDeletion($(this))
+      confirmDeletion($(this));
     });
   }
   function initAcceptTile(){
@@ -811,13 +811,15 @@ function confirmModalClose(postProcess){
     initTileBuilderFormSubmission();
     Airbo.Utils.TilePlaceHolderManager.init(); //noop
     initCustomModalClose();
+    Airbo.TileThumbnailMenu.init(this);
   }
 
 
 
   return {
 
-    init: init
+    init: init,
+    confirmDeletion: confirmDeletion
 
   };
 
