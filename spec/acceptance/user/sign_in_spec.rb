@@ -1,17 +1,6 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Sign in' do
-  def fill_in_password_fields(email_or_username, password)
-    fill_in "session[email]", with: email_or_username
-    fill_in "session[password]", with: password
-  end
-
-  def try_login_with(email_or_username, password)
-    visit sign_in_path
-    fill_in_password_fields(email_or_username, password)
-    click_button "Log In"
-  end
-
   let(:user) do
     u = FactoryGirl.create(:user)
     has_password(u, "foobar")
@@ -76,4 +65,18 @@ feature 'Sign in' do
     try_login_with user.sms_slug.capitalize, "foobar"
     should_be_signed_in
   end
+
+
+  def fill_in_password_fields(email_or_username, password)
+    fill_in "session[email]", with: email_or_username
+    fill_in "session[password]", with: password
+  end
+
+  def try_login_with(email_or_username, password)
+    visit sign_in_path
+    fill_in_password_fields(email_or_username, password)
+    click_button "Log In"
+  end
+
+
 end

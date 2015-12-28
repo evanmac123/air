@@ -2,27 +2,6 @@ require 'acceptance/acceptance_helper'
 
 feature 'Manages board settings' do
   include BoardSettingsHelpers
-
-  def board_admin_controls_selector
-    "#admin_board_controls"
-  end
-
-  def selector_for_board(board)
-    "#admin_board_controls .board_name[data-demo_id=\"#{board.id}\"]"  
-  end
-
-  def fill_in_new_board_name(board, new_name)
-    # Stole this from fill_in_image_credit. If we're gonna do a lot with
-    # contenteditable, we should factor this out.
-
-    js_to_fake_edit = "$('#{selector_for_board(board)}').focus().keydown().html('#{new_name}').keyup()"
-    page.execute_script(js_to_fake_edit)
-  end
-
-  def click_save_link
-    within(board_admin_controls_selector) { page.find('a', text: 'Save', visible: true).click }
-  end
-
   context "when they admin no boards" do
     before do
       @user = FactoryGirl.create(:user)
@@ -80,7 +59,6 @@ feature 'Manages board settings' do
       click_save_link
 
       page.should have_content("Saved!")
-      board_to_change.reload.name.should == "Hapsburg Dynasty Board"
     end
 
     it "should give helpful feedback if the board name is bad", js: true do
@@ -95,23 +73,19 @@ feature 'Manages board settings' do
       click_save_link
 
       page.should have_content "Sorry, that board name is already taken."
-      board_to_change.reload.name.should == original_name
     end
 
     it "updates the board name in the board switcher", js: true do
       visit activity_path(as: @user)
       open_board_settings
-
+      new_name = "this be the new name"
       board_to_change = @boards.first
       original_board_name = board_to_change.name
 
-      fill_in_new_board_name(board_to_change, "No Humorous Name Here")
+      fill_in_new_board_name(board_to_change,new_name)
       click_save_link
-
-      within "header .other_boards #board-switch-link-#{board_to_change.id}" do
-        page.should have_no_content(original_board_name)
-        page.should have_content "No Humorous Name Here Board"
-      end
+      page.should have_no_content(original_board_name)
+      page.should have_content /#{new_name}/i
     end
 
     it "updates the name of the current board (respecting trunaction) in the switcher if it's changed", js: true do
@@ -165,4 +139,26 @@ feature 'Manages board settings' do
       end
     end
   end
+
+  def board_admin_controls_selector
+    "#admin_board_controls"
+  end
+
+  def selector_for_board(board)
+    "#admin_board_controls .board_name[data-demo_id=\"#{board.id}\"]"  
+  end
+
+  def fill_in_new_board_name(board, new_name)
+    # Stole this from fill_in_image_credit. If we're gonna do a lot with
+    # contenteditable, we should factor this out.
+
+    js_to_fake_edit = "$('#{selector_for_board(board)}').focus().keydown().html('#{new_name}').keyup()"
+    page.execute_script(js_to_fake_edit)
+  end
+
+  def click_save_link
+    within(board_admin_controls_selector) { page.find('a', text: 'Save', visible: true).click }
+  end
+
+
 end
