@@ -8,22 +8,7 @@ feature 'User changes their own password' do
     visit edit_account_settings_path
   end
 
-  def expect_new_password_works(new_password)
-    click_link "Sign Out"
-    signin_as @user, new_password
-    should_be_on "/activity.html"
-  end
-
-  def expect_new_password_doesnt_work(new_password)
-    click_link "Sign Out"
-    signin_as @user, new_password
-    should_be_on session_path
-  end
-
-  def click_save_password_button
-    click_button "Save"
-  end
-
+  
   scenario 'correctly' do
     fill_in "New password", :with => "barbaz"
     fill_in "Confirm new password", :with => "barbaz"
@@ -79,4 +64,21 @@ feature 'User changes their own password' do
     expect_content "Sorry, we couldn't set your password to that: it must have at least 6 characters."
     expect_new_password_doesnt_work('quux')
   end
+
+def expect_new_password_works(new_password)
+    click_link "Sign Out"
+    signin_as @user, new_password
+    should_be_on "/activity.html"
+  end
+
+  def expect_new_password_doesnt_work(new_password)
+    click_link "Sign Out"
+    signin_as @user, new_password
+    should_be_on session_path
+  end
+
+  def click_save_password_button
+    click_button "Save"
+  end
+
 end
