@@ -123,6 +123,30 @@
       // }
     }
   }
+  .tooltipster-content .tile_thumbnail_menu {
+    padding: 5px 2px;
+    li{
+      &:first-child{
+        padding-bottom: 10px;
+      }
+      &:hover {
+        i, span {
+          color: #262626;
+        }
+      }
+    }
+    i, span {
+      color: #5c5c5c;
+    }
+    i {
+      font-size: 15px;
+      padding-right: 10px;
+    }
+    span {
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
   //
   // => Tile Thumbnail transition on hover
   //

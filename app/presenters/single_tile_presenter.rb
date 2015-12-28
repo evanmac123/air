@@ -1,6 +1,6 @@
 class SingleTilePresenter
   include ActionView::Helpers::NumberHelper
-  include TileFooterTimestamper 
+  include TileFooterTimestamper
   include Rails.application.routes.url_helpers
 
   def initialize tile, format, as_admin, is_ie
@@ -37,20 +37,24 @@ class SingleTilePresenter
     show_admin_buttons? && (type? :draft, :active, :archive)
   end
 
-  def has_destroy_button? 
+  def has_destroy_button?
     show_admin_buttons? && (type? :draft, :active, :archive)
   end
 
-  def has_accept_button? 
+  def has_accept_button?
     show_admin_buttons? && (type? :user_submitted)
   end
 
-  def has_ignore_button? 
+  def has_ignore_button?
     show_admin_buttons? && (type? :user_submitted)
   end
 
   def has_undo_ignore_button?
     show_admin_buttons? && (type? :ignored)
+  end
+
+  def has_menu?
+    show_admin_buttons? && (type? :draft, :active, :archive)
   end
 
   def has_tile_stats?
@@ -65,7 +69,7 @@ class SingleTilePresenter
     if viewing_as_regular_user?
       suggested_tile_path(self)
     else
-      client_admin_tile_path(self)    
+      client_admin_tile_path(self)
     end
   end
 
@@ -74,7 +78,7 @@ class SingleTilePresenter
   end
 
   def completion_percentage
-    @completion_percentage ||= 
+    @completion_percentage ||=
       number_to_percentage claimed_completion_percentage, precision: 1
   end
 
@@ -87,13 +91,13 @@ class SingleTilePresenter
   end
 
   def creator
-    original_creator.name 
+    original_creator.name
   end
 
   def tile_id
     @tile_id ||= id
   end
-  
+
   def tile_position
    @tile.position || 0
   end
@@ -114,14 +118,14 @@ class SingleTilePresenter
     @cache_key ||= [
       self.class,
       'v2.ant',
-      timestamp, 
-      completion_percentage, 
+      timestamp,
+      completion_percentage,
       thumbnail,
-      type, 
-      tile_id, 
-      headline, 
-      tile_completions_count, 
-      total_views, 
+      type,
+      tile_id,
+      headline,
+      tile_completions_count,
+      total_views,
       unique_views,
       @as_admin,
       @is_ie
@@ -130,9 +134,9 @@ class SingleTilePresenter
 
   attr_reader :tile, :type
   delegate  :id,
-            :status, 
-            :thumbnail, 
-            :headline, 
+            :status,
+            :thumbnail,
+            :headline,
             :active?,
             :total_views,
             :unique_views,
