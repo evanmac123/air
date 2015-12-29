@@ -146,6 +146,10 @@ class Tile < ActiveRecord::Base
     false
   end
 
+  def copy_inside_demo new_demo, copying_user
+    CopyTile.new(new_demo, copying_user).copy_tile self, false
+  end
+
   def copy_to_new_demo(new_demo, copying_user)
     CopyTile.new(new_demo, copying_user).copy_tile self
   end

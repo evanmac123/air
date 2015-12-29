@@ -23,7 +23,25 @@ Airbo.TileThumbnailMenu = (function() {
         functionReady: function(){
           $(".tile_thumbnail_menu .delete_tile").click(function(event){
             event.preventDefault();
+            $(".tipsy").tooltipster("hide");
             tileCreator.confirmDeletion($(this));
+          });
+
+          $(".tile_thumbnail_menu .duplicate_tile").click(function(event){
+            event.preventDefault();
+            $(".tipsy").tooltipster("hide");
+            $.ajax({
+              type: "POST",
+              dataType: "json",
+              url: $(this).attr("href") ,
+              success: function(data, status,xhr){
+                tileCreator.updateTileSection(data);
+              },
+
+              error: function(jqXHR, textStatus, error){
+                console.log(error);
+              }
+            });
           });
         }
       });

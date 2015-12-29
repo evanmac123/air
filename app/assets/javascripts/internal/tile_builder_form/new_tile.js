@@ -819,8 +819,8 @@ function confirmModalClose(postProcess){
   return {
 
     init: init,
-    confirmDeletion: confirmDeletion
-
+    confirmDeletion: confirmDeletion,
+    updateTileSection: updateTileSection
   };
 
 }());

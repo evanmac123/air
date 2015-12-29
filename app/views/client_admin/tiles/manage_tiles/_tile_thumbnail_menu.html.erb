@@ -1,6 +1,6 @@
 <ul class="tile_thumbnail_menu">
   <li class="duplicate_button">
-    <%= link_to "#" do %>
+    <%= link_to duplicate_client_admin_tile_path(presenter, page: 'Edit'), class: "duplicate_tile" do %>
       <%= fa_icon 'copy' %>
       <span>Duplicate</span>
     <% end %>

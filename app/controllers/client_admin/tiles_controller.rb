@@ -159,6 +159,13 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     render_preview_and_single
   end
 
+  def duplicate
+    @tile = get_tile.copy_inside_demo(current_user.demo, current_user)
+    render_preview_and_single
+    # presenter = SingleTilePresenter.new(new_tile, :html, @is_client_admin_action, browser.ie?)
+    # render partial: 'client_admin/tiles/manage_tiles/single_tile', locals: { presenter: presenter}
+  end
+
   private
 
   def prepTilePreview
@@ -357,5 +364,4 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       preview: render_tile_preview_string,
     }
   end
-
 end
