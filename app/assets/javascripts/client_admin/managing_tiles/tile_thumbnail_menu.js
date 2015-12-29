@@ -7,7 +7,7 @@ Airbo.TileThumbnailMenu = (function() {
     return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
   }
   function init(tileCreator) {
-    $(".tipsy.more_button").each(function(){
+    $(".more_button").each(function(){
       var menu_button = $(this);
       menu_button.tooltipster({
         theme: "tooltipster-shadow",
@@ -23,13 +23,13 @@ Airbo.TileThumbnailMenu = (function() {
         functionReady: function(){
           $(".tile_thumbnail_menu .delete_tile").click(function(event){
             event.preventDefault();
-            $(".tipsy").tooltipster("hide");
+            $(".more_button").tooltipster("hide");
             tileCreator.confirmDeletion($(this));
           });
 
           $(".tile_thumbnail_menu .duplicate_tile").click(function(event){
             event.preventDefault();
-            $(".tipsy").tooltipster("hide");
+            $(".more_button").tooltipster("hide");
             $.ajax({
               type: "POST",
               dataType: "json",
