@@ -1,6 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-feature "Client admin opens tile stats" do
+feature "Client admin opens tile stats" , js: true, type: :feature do
 
   let!(:demo) { FactoryGirl.create :demo }
   let!(:client_admin) { FactoryGirl.create :client_admin, demo: demo }
@@ -204,11 +204,10 @@ feature "Client admin opens tile stats" do
 
       it "should open DIDN'T VIEW table", js: true do
         u = FactoryGirl.create(:user, demo: demo, name: "a DIDN'T VIEW user")
-
         open_stats(@tile)
         select "Didn't view", :from => "grid_type_select"
 
-        first_name.should == "a DIDN'T VIEW user"
+        all_names.should include("a DIDN'T VIEW user")
       end
 
       it "should open ALL table", js: true do
