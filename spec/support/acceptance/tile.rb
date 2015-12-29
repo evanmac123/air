@@ -344,7 +344,7 @@ module TileHelpers
   end
 
   def click_add_new_tile
-    page.find('#add_new_tile').click
+    page.find('#add_new_tile').trigger("click")
   end
 
   def expect_supporting_content(expected_content)
