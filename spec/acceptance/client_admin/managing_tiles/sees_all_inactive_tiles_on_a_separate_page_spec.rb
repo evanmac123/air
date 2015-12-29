@@ -17,7 +17,7 @@ feature 'Sees all inactive tiles on a separate page' do
   end
 
   it "should be linked to from the main tiles page" do
-    FactoryGirl.create(:tile, :archived, demo: demo)
+    5.times {FactoryGirl.create(:tile, :archived, demo: demo) }
     visit client_admin_tiles_path(as: client_admin)
     click_see_all_inactive_tiles_link
     should_be_on client_admin_inactive_tiles_path
