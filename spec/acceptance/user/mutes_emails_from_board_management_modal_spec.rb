@@ -75,12 +75,12 @@ feature 'Mutes emails from board management modal' do
   end
 
   def expect_first_digest_slider_in_mute_position
-    page.first(digest_mute_selector)['checked'].should be_true
+    page.first(digest_mute_selector, visible: false)['checked'].should be_true
     page.first(digest_unmute_selector)['checked'].should_not be_true
   end
 
   def expect_first_followup_slider_in_mute_position
-    page.first(followup_mute_selector)['checked'].should be_true
+    page.first(followup_mute_selector, visible:false)['checked'].should be_true
     page.first(followup_unmute_selector)['checked'].should_not be_true
   end
 
@@ -90,13 +90,13 @@ feature 'Mutes emails from board management modal' do
   end
 
   def expect_followup_slider_in_mute_position_for_board(board)
-    page.first(selector_for_board followup_mute_selector, board)['checked'].should be_true
+    page.first((selector_for_board followup_mute_selector, board), visible: false)['checked'].should be_true
     page.first(selector_for_board followup_unmute_selector, board)['checked'].should be_false
   end
 
   def expect_followup_slider_in_unmute_position_for_board(board)
     page.first(selector_for_board followup_mute_selector, board)['checked'].should be_false
-    page.first(selector_for_board followup_unmute_selector, board)['checked'].should be_true
+    page.first((selector_for_board followup_unmute_selector, board), visible: false)['checked'].should be_true
   end
 
   def followup_input_selectors
@@ -109,7 +109,7 @@ feature 'Mutes emails from board management modal' do
 
   def expect_first_followup_slider_not_disabled
     followup_input_selectors.each do |input_selector|
-      page.first(input_selector)['disabled'].should_not be_present
+      page.first(input_selector, visible: false)['disabled'].should_not be_present
     end
 
     followup_presentation_selectors.each do |presentation_selector|
@@ -119,7 +119,7 @@ feature 'Mutes emails from board management modal' do
 
   def expect_first_followup_slider_disabled
     followup_input_selectors.each do |input_selector|
-      page.first(input_selector)['disabled'].should be_present
+      page.first(input_selector, visible: false)['disabled'].should be_present
     end
 
     followup_presentation_selectors.each do |presentation_selector|
