@@ -461,7 +461,6 @@ feature 'Guest user is prompted to convert to real user' do
   end
 
   context "when there are two tiles" do
-    #Capybara.javascript_driver = :selenium
     before do
       @board = board
       @setup = lambda do

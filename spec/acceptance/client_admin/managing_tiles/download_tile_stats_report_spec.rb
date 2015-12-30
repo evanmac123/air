@@ -1,5 +1,4 @@
 require 'acceptance/acceptance_helper'
-Capybara.javascript_driver  =:selenium
 feature "Client admin downloads tile stats" do
 
   let!(:demo) { FactoryGirl.create :demo }
