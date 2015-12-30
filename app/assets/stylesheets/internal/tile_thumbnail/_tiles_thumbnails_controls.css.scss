@@ -158,7 +158,7 @@
     }
   }
   .tile-wrapper {
-    &:hover {
+    &:hover, &.active_menu {
       .shadow_overlay, .tile_buttons {
         opacity: 1;
       }

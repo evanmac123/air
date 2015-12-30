@@ -8,6 +8,9 @@ Airbo.TileThumbnailMenu = (function() {
     e.innerHTML = input;
     return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
   }
+  function findTile(tileId){
+    return $(".tile_container[data-tile-id='"+tileId+"']");
+  }
   function initMoreBtn(menu_button){
     menu_button.tooltipster({
       theme: "tooltipster-shadow",
@@ -20,23 +23,32 @@ Airbo.TileThumbnailMenu = (function() {
       },
       trigger: "click",
       autoClose: true,
-      functionReady: function(){
+      functionBefore: function(origin, continueTooltip){
+        // console.log("before")
+        origin.closest(".tile-wrapper").addClass("active_menu");
+        continueTooltip();
+      },
+      functionAfter: function(origin){
+        // console.log("after")
+        origin.closest(".tile-wrapper").removeClass("active_menu");
+      },
+      functionReady: function(origin, tooltip){
         $(".tile_thumbnail_menu .delete_tile").click(function(event){
           event.preventDefault();
-          $(".more_button").tooltipster("hide");
+          origin.tooltipster("hide");
           tileCreator.confirmDeletion($(this));
         });
 
         $(".tile_thumbnail_menu .duplicate_tile").click(function(event){
           event.preventDefault();
-          $(".more_button").tooltipster("hide");
+          origin.tooltipster("hide");
           $.ajax({
             type: "POST",
             dataType: "json",
             url: $(this).attr("href") ,
             success: function(data, status,xhr){
               tileCreator.updateTileSection(data);
-              new_tile = $(".tile_container[data-tile-id='"+data.tileId+"']");
+              new_tile = findTile(data.tileId);
               initMoreBtn(new_tile.find(".more_button"));
             },
 
@@ -60,7 +72,3 @@ Airbo.TileThumbnailMenu = (function() {
   }
 
 }());
-
-// $(function(){
-//   Airbo.TileThumbnailMenu.init();
-// });
