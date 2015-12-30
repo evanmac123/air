@@ -8,48 +8,6 @@ feature 'User invites user to board' do
     not_found: "User not found."
   }
 
-  def autocomplete_status status
-    page.find("#autocomplete_status").should have_content status
-  end
-
-  def should_find_user name
-    within ".single_suggestion" do
-      page.should have_content name
-    end
-  end
-
-  def should_find_no_user name
-    page.all(".single_suggestion", text: name).count.should == 0
-  end
-
-  def found_users_count
-    page.all(".single_suggestion").count
-  end
-
-  def should_have_invite_button user
-    page.find("#invitee_id[value='#{user.id}']").should be_present
-  end
-
-  def should_not_have_invite_button user
-    page.all("#invitee_id[value='#{user.id}']").count.should == 0
-  end
-
-  def should_send_email invitee, referrer, demo
-    autocomplete_status AUTOCOMPLETE_STATUS[:sent]
-    crank_dj_clear
-
-    open_email invitee.email
-    current_email.to_s.should have_content "#{referrer.name} invited you to"
-    current_email.to_s.should have_content " join the #{demo.name}"
-  end
-
-  def should_send_friend_invitation_ping user
-    FakeMixpanelTracker.clear_tracked_events
-    crank_dj_clear
-    event = "Email Sent"
-    properties = {email_type: "Friend Invitation"}.merge user.data_for_mixpanel 
-    FakeMixpanelTracker.should have_event_matching(event, properties)
-  end
 
   before(:each) do
     @demo1 = FactoryGirl.create(:demo, :name => "Bratwurst")
@@ -219,4 +177,50 @@ feature 'User invites user to board' do
       end
     end
   end
+
+
+  def autocomplete_status status
+    page.find("#autocomplete_status").should have_content status
+  end
+
+  def should_find_user name
+    within ".single_suggestion" do
+      page.should have_content name
+    end
+  end
+
+  def should_find_no_user name
+    page.all(".single_suggestion", text: name).count.should == 0
+  end
+
+  def found_users_count
+    page.all(".single_suggestion").count
+  end
+
+  def should_have_invite_button user
+    page.find("#invitee_id[value='#{user.id}']", visible: false).should be_present
+  end
+
+  def should_not_have_invite_button user
+    page.all("#invitee_id[value='#{user.id}']").count.should == 0
+  end
+
+  def should_send_email invitee, referrer, demo
+    autocomplete_status AUTOCOMPLETE_STATUS[:sent]
+    crank_dj_clear
+
+    open_email invitee.email
+    current_email.to_s.should have_content "#{referrer.name} invited you to"
+    current_email.to_s.should have_content " join the #{demo.name}"
+  end
+
+  def should_send_friend_invitation_ping user
+    FakeMixpanelTracker.clear_tracked_events
+    crank_dj_clear
+    event = "Email Sent"
+    properties = {email_type: "Friend Invitation"}.merge user.data_for_mixpanel 
+    FakeMixpanelTracker.should have_event_matching(event, properties)
+  end
+
+
 end
