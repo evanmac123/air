@@ -95,7 +95,7 @@ feature 'Client admin and the digest email for tiles' do
     end
 
     scenario 'Text is correct when follow-up emails are scheduled to be sent, and emails can be cancelled', js: true, driver: :webkit do  # (Didn't work with poltergeist)
-      page.driver.accept_js_confirms!
+      accept_confirm do
       create_follow_up_emails
       visit client_admin_share_path(as: admin)
 
@@ -110,11 +110,12 @@ feature 'Client admin and the digest email for tiles' do
       page.should_not contain 'Monday, July 01, 2013'
       page.should contain 'Tuesday, July 02, 2013'
       page.should contain 'Wednesday, July 03, 2013'
+      end
     end
 
     context "when a followup is cancelled" do
       it "sends a ping", js: true, driver: :webkit do
-        page.driver.accept_js_confirms!
+      accept_confirm do
         create_follow_up_emails
         visit client_admin_share_path(as: admin)
 
@@ -123,6 +124,7 @@ feature 'Client admin and the digest email for tiles' do
         crank_dj_clear
 
         FakeMixpanelTracker.should have_event_matching('Followup - Cancelled')
+      end
       end
     end
   end
@@ -173,22 +175,23 @@ feature 'Client admin and the digest email for tiles' do
       # We've had this stupid fucking problem before. Luckily Phil figured out it is some kind of timing problem.
       # We've also had the stupid fucking problem of stuff like this not working in poltergeist => have to use webkit
       # (Man, testing is great... but sometimes it can be such a royal fucking pain in the ass)
-      page.driver.accept_js_confirms!
-      create_tile
-      create_follow_up_emails
+      accept_confirm do
+        create_tile
+        create_follow_up_emails
 
-      visit client_admin_share_path(as: admin)
+        visit client_admin_share_path(as: admin)
 
-      expect_follow_up_header
-      page.should contain 'Monday, July 01, 2013'
-      page.should contain 'Tuesday, July 02, 2013'
-      page.should contain 'Wednesday, July 03, 2013'
+        expect_follow_up_header
+        page.should contain 'Monday, July 01, 2013'
+        page.should contain 'Tuesday, July 02, 2013'
+        page.should contain 'Wednesday, July 03, 2013'
 
-      page.all('.cancel_button a').first.click
+        page.all('.cancel_button a').first.click
 
-      page.should_not contain 'Monday, July 01, 2013'
-      page.should contain 'Tuesday, July 02, 2013'
-      page.should contain 'Wednesday, July 03, 2013'
+        page.should_not contain 'Monday, July 01, 2013'
+        page.should contain 'Tuesday, July 02, 2013'
+        page.should contain 'Wednesday, July 03, 2013'
+      end
     end
 
     scenario 'The last-digest-email-sent-on date is correct' do
