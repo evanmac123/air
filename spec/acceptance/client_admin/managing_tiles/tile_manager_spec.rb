@@ -1,6 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-feature 'Client admin and tile manager page' do
+feature 'Client admin and tile manager page', js: true do
   include TileManagerHelpers
   include WaitForAjax
 
@@ -80,7 +80,6 @@ feature 'Client admin and tile manager page' do
         tiles.each { |tile| tile.update_attributes status: Tile::ACTIVE }
         visit_tile_manager_page
         expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
-
         active_tab.should  have_num_tiles(3)
         archive_tab.should have_num_tiles(0)
 
@@ -93,10 +92,8 @@ feature 'Client admin and tile manager page' do
 
         active_tab.should  have_num_tiles(2)
         archive_tab.should have_num_tiles(1)
-
         # Do it one more time to make sure that the most-recently archived tile appears first in the list
         #knife.archived_at.should be_nil
-
         active_tab.find(:tile, knife).click_link('Archive')
         #page.should contain "The #{knife.headline} tile has been archived"
 
@@ -227,7 +224,6 @@ feature 'Client admin and tile manager page' do
     visit_tile_manager_page
     expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
     click_add_new_tile
-    should_be_on new_client_admin_tile_path
     expect_mixpanel_action_ping('Tiles Page', 'Clicked Add New Tile')
   end
 
