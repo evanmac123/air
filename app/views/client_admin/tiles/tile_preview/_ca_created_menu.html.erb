@@ -12,6 +12,15 @@
     <%end%>
   </li>
 
+  <li class="preview_menu_item duplicate" >
+    <%=link_to duplicate_client_admin_tile_path(tile, page: 'Edit'), class: "duplicate_tile" do %>
+      <i class="fa fa-copy fa-1x"></i>
+      <span class="header_text">
+        Copy
+      </span>
+    <%end%>
+  </li>
+
   <li class="preview_menu_item destroy" >
     <%=link_to client_admin_tile_path(tile), class: "delete_tile" do %>
       <i class="fa fa-trash fa-1x"></i>

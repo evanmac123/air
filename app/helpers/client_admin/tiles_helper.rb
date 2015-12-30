@@ -171,7 +171,7 @@ module ClientAdmin::TilesHelper
     end
   end
 
-  def thumb_menu(presenter)
+  def tile_thumbnail_menu(presenter)
     render(partial: 'client_admin/tiles/manage_tiles/tile_thumbnail_menu', locals: {presenter: presenter})
   end
 end

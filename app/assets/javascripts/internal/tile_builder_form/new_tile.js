@@ -39,6 +39,7 @@ Airbo.TileCreator = (function(){
     , ajaxHandler = Airbo.AjaxResponseHandler
     , modalActivationSelectors = [editSelector, previewSelector, tileNavigationSelector].join(",")
     , submitSuccess
+    , thumbnailMenu
   ;
 
  function prepEditOrNew(action){
@@ -183,15 +184,19 @@ Airbo.TileCreator = (function(){
    submittedTile = $(".tile_thumbnail.user_submitted");
    $("#user_submitted_tiles_counter").html(submittedTile.length);
  }
-
+ function findTile(tileId){
+   return $(".tile_container[data-tile-id='"+tileId+"']");
+ }
  function updateTileSection(data){
    var selector , section = pageSectionByStatus(data.tileStatus);
-   if(isExistingTile){
+   if(findTile(data.tileId).length > 0){
      replaceTileContent(data.tile, data.tileId)
    } else{
      section.prepend(data.tile); //Add tile to section
      window.updateTilesAndPlaceholdersAppearance();
    }
+   new_tile = findTile(data.tileId);
+   thumbnailMenu.initMoreBtn(new_tile.find(".more_button"));
  }
 
 
@@ -641,6 +646,21 @@ Airbo.TileCreator = (function(){
     return t
   }
 
+  function makeDuplication(trigger) {
+    $.ajax({
+      type: "POST",
+      dataType: "json",
+      url: trigger.attr("href") ,
+      success: function(data, status,xhr){
+        updateTileSection(data);
+      },
+
+      error: function(jqXHR, textStatus, error){
+        console.log(error);
+      }
+    });
+  }
+
 
   function confirmDeletion(trigger){
     var tile = tileByStatusChangeTriggerLocation(trigger);
@@ -726,6 +746,13 @@ function confirmModalClose(postProcess){
     $("button.cancel").before($("button.confirm"))
   }
 
+  function initDuplication(){
+    $("body").on("click", ".duplicate_tile", function(event){
+      event.preventDefault();
+      makeDuplication($(this));
+    });
+  }
+
   function initDeletion(){
     $("body").on("click", ".delete_tile", function(event){
       event.preventDefault();
@@ -804,6 +831,7 @@ function confirmModalClose(postProcess){
     initAcceptTile();
     initStatusUpdate();
     initDeletion();
+    initDuplication();
     initModalOpenClose();
     initJQueryObjects();
     initNewTileModal();
@@ -811,7 +839,9 @@ function confirmModalClose(postProcess){
     initTileBuilderFormSubmission();
     Airbo.Utils.TilePlaceHolderManager.init(); //noop
     initCustomModalClose();
-    Airbo.TileThumbnailMenu.init(this);
+    if(Airbo.TileThumbnailMenu){
+      thumbnailMenu = Airbo.TileThumbnailMenu.init(this);
+    }
   }
 
 
@@ -820,7 +850,7 @@ function confirmModalClose(postProcess){
 
     init: init,
     confirmDeletion: confirmDeletion,
-    updateTileSection: updateTileSection
+    makeDuplication: makeDuplication
   };
 
 }());
