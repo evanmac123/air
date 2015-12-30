@@ -255,6 +255,7 @@ Airbo.TileCreator = (function(){
         setupModalFor(action);
         positionArrows();
       }
+      // activateModal(modalTrigger.attr("href"));
 
       $.ajax({
         type: "GET",
@@ -273,7 +274,22 @@ Airbo.TileCreator = (function(){
     });
   }
 
-
+  // function activateModal(url) {
+  //   $.ajax({
+  //     type: "GET",
+  //     dataType: "html",
+  //     url: url,
+  //     success: function(data, status,xhr){
+  //       modalContent = $(data);
+  //       setupModalFor(action);
+  //       positionArrows();
+  //     },
+  //
+  //     error: function(jqXHR, textStatus, error){
+  //       console.log(error);
+  //     }
+  //   });
+  // }
 
   function getImageLibrary(libaryUrl){
     $.ajax({
@@ -646,6 +662,28 @@ Airbo.TileCreator = (function(){
     return t
   }
 
+  function afterDuplicationModal(tileId){
+    swal(
+      {
+        title: "Success!",
+        text: "Tile has been copied to drafts section.",
+        customClass: "airbo",
+        animation: false,
+        showCancelButton: true,
+        cancelButtonText: "Edit Tile"
+      },
+
+      function(isConfirm){
+        if (!isConfirm) {
+          findTile(tileId).find(editSelector).trigger("click");
+          // action = "edit";
+          // url =
+          // activateModal(url);
+        }
+      }
+    );
+  }
+
   function makeDuplication(trigger) {
     $.ajax({
       type: "POST",
@@ -653,6 +691,7 @@ Airbo.TileCreator = (function(){
       url: trigger.attr("href") ,
       success: function(data, status,xhr){
         updateTileSection(data);
+        afterDuplicationModal(data.tileId);
       },
 
       error: function(jqXHR, textStatus, error){
