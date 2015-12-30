@@ -85,6 +85,20 @@ Airbo.TileCreator = (function(){
    Airbo.TileCarouselPage.init();
    initPreviewMenuTooltips();
    initImgLoadingPlaceHolder();
+   initStickyPreviewMenu();
+ }
+
+ function initStickyPreviewMenu() {
+   var modal = $(tileModalSelector);
+   var previewMenu = $('.tile_preview_menu');
+   modal.scroll(function() {
+     if (modal.scrollTop() > 50) {
+       sizes = tileContainerSizes();
+       previewMenu.addClass('sticky').css("left", sizes.left);
+     } else {
+       previewMenu.removeClass('sticky').css("left", "");
+     }
+   });
  }
 
  function tooltipBefore(){
@@ -350,7 +364,7 @@ Airbo.TileCreator = (function(){
       invalidHandler: function(form, validator) {
         var errors = validator.numberOfInvalids();
         if (errors) {
-          
+
           if($(validator.errorList[0].element).is(":visible"))
             {
               $(tileModalSelector).animate({
@@ -511,11 +525,17 @@ Airbo.TileCreator = (function(){
    $(tileModalSelector).scrollTop(0);
  }
 
+ function tileContainerSizes() {
+   tileContainer = $(".tile_full_image")[0]  || $(".pholder.image")[0];
+   if( !tileContainer ) {
+     return null;
+   }
+   return tileContainer.getBoundingClientRect();
+ }
+
  function positionArrows() {
-   tileContainer = $(".tile_full_image")[0] || $(".pholder.image")[0];
-   if( !tileContainer ) return;
-   sizes = tileContainer.getBoundingClientRect();
-   if (sizes.left == 0 && sizes.right == 0) return;
+   sizes = tileContainerSizes();
+   if (!sizes || sizes.left == 0 && sizes.right == 0) return;
 
    $(tileNavLeft).css("left", sizes.left - 65);
    $(tileNavRight).css("left", sizes.right);

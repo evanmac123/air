@@ -28,6 +28,8 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
   .tile_holder {
     width: 600px;
     margin-top: 50px;
+    box-shadow: none;
+    overflow: hidden;
   }
   .tile_control, h5 {
     display: inline-block;
@@ -47,6 +49,7 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
   }
   .tile_preview_container{
     max-width: 784px;
+    padding-top: 83px;
   }
   //
   // => Tile Preview Menu
@@ -55,6 +58,16 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
     background: white;
     border-radius: $border-radius;
     overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 78px;
+    &.sticky {
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      border-radius: 0 0 3px 3px;
+      border-bottom: 1px solid #dcdcdc;
+    }
   }
   .preview_menu_header {
     float: left;
@@ -88,12 +101,15 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
     padding: .55em;
     text-align: center;
     color: $gray;
-    &:last-child {
-      border-right: 1px $tile-wall-bg solid;
+    &:first-child {
+      border-left: none;
     }
-    &:nth-child(n+5) {
-      border-right: none;
-    }
+    // &:last-child {
+    //   border-right: 1px $tile-wall-bg solid;
+    // }
+    // &:nth-child(n+5) {
+    //   border-right: none;
+    // }
     .header_text {
       margin-top: .25em;
       font-weight: bold;
@@ -637,7 +653,7 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
   }
   .viewer{
     margin: auto;
-    margin-top: 1em;
+    // margin-top: 1em;
     a#next, a#prev{
       width: 4em !important;
     }

@@ -23,6 +23,8 @@ body.client_admin-tiles-edit {
   }
   .tile_holder {
     background: white;
+    overflow: hidden;
+    border-radius: 3px;
   }
   .tile_holder_container {
     float: none;
@@ -38,6 +40,15 @@ body.client_admin-tiles-edit {
     text-align: center;
     font-weight: 700;
     margin-top: 26px;
+  }
+  .edit_mode {
+    color: $white;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 40px;
+    // padding-top: 21px;
+    line-height: 43px;
   }
   // medium editor overrides
   .medium-editor-toolbar {
@@ -55,8 +66,17 @@ body.client_admin-tiles-show {
   .tile_preview_menu {
     width: 600px;
     margin:auto;
-    margin-bottom: 50px;
-
+    margin-bottom: 40px;
+    &.draft_menu {
+      .preview_menu_item a {
+        padding: 11px 22px 13px 21px;
+      }
+    }
+    &.archive_menu {
+      .preview_menu_item a {
+        padding: 11px 20px 13px 19px;
+      }
+    }
     .preview_menu_item {
       min-width: 13%;
       width: auto;
@@ -66,7 +86,7 @@ body.client_admin-tiles-show {
         margin-left: 0.25em;
       }
       a {
-        padding: 0.65em;
+        padding: 11px 21px 13px 20px;
       }
     }
   }
