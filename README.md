@@ -9,6 +9,8 @@ Laptop setup
 ### Mac
 [Thoughtbot Laptop](https://github.com/thoughtbot/laptop) is a script to set up a Mac OS X laptop for Rails development.
 
+Or just install [homebrew](http://brew.sh) then do brew install postgres, redis, mongodb, Qt, ImageMagick  
+
 Many Mac users use [Textmate](http://macromates.com/) to write their code.
 If you use Textmate, set your tabs to "Soft Tabs: 2". This is one of the drop-down options at the very bottom of your window.
 
@@ -51,20 +53,7 @@ Then you'll need to create a database user (Postgres keeps its own lists of user
 
 It will ask if the new user should be a superuser: say yes. Again, this is fine for a development machine but not a production server.
 
-#### Ruby Version Manager (RVM) or Better yet RBENV
-Additional packages need to be installed when using RVM with (MRI) Ruby. Enter this command to see the list: `rvm requirements`
-
-We use MRI Ruby 1.9.2 => Run this command: `rvm install 1.9.2`
-
-Create an _hengage_ gemset and make it the default:
-
-    joe@hengage:~$ rvm gemset create hengage
-    gemset created hengage    => /home/joe/.rvm/gems/ruby-1.9.2-p320@hengage
-    joe@hengage:~$ rvm use ruby-1.9.2-p320@hengage --default
-    Using /home/joe/.rvm/gems/ruby-1.9.2-p320 with gemset hengage
-    joe@hengage:~$ rvm current
-    ruby-1.9.2-p320@hengage
-
+####  Use  [RBENV](https://github.com/rbenv/rbenv) if you have need to support multiple ruby versions *
 
 Aliases for faster workflow
 ---------------------------
@@ -87,16 +76,6 @@ Shell aliases: add to ~/.aliases
       source "$HOME/.aliases"
     fi
     
-Getting dependencies
---------------------
-
-Download Qt:
-
-    http://get.qt.nokia.com/qt/source/qt-mac-opensource-4.7.3.dmg
-
-To make life easier, install a few Ruby gems:
-
-    gem install heroku bundler git_remote_branch
 
 Setting up the app itself
 -------------------------
@@ -113,9 +92,8 @@ Create your development and test databases. (Note: Two distinct steps: 1 for dev
 
     rake db:create
 
-Migrate the development database:
-### change this to rake db:load
-    rake db:migrate
+Load the development database:
+    rake db:schema:load
 
 Prepare the test database:
 
