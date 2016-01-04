@@ -23,11 +23,13 @@ Airbo.TileThumbnailMenu = (function() {
       autoClose: true,
       functionBefore: function(origin, continueTooltip){
         // console.log("before")
+        origin.addClass("active");
         origin.closest(".tile-wrapper").addClass("active_menu");
         continueTooltip();
       },
       functionAfter: function(origin){
         // console.log("after")
+        origin.removeClass("active");
         origin.closest(".tile-wrapper").removeClass("active_menu");
       },
       functionReady: function(origin, tooltip){
@@ -41,18 +43,6 @@ Airbo.TileThumbnailMenu = (function() {
           event.preventDefault();
           origin.tooltipster("hide");
           tileCreator.makeDuplication($(this));
-          // $.ajax({
-          //   type: "POST",
-          //   dataType: "json",
-          //   url: $(this).attr("href") ,
-          //   success: function(data, status,xhr){
-          //     tileCreator.updateTileSection(data);
-          //   },
-          //
-          //   error: function(jqXHR, textStatus, error){
-          //     console.log(error);
-          //   }
-          // });
         });
       }
     });
