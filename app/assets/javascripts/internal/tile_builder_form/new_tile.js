@@ -661,6 +661,7 @@ Airbo.TileCreator = (function(){
         }
       }
     );
+    swapModalButtons();
   }
 
   function makeDuplication(trigger) {
