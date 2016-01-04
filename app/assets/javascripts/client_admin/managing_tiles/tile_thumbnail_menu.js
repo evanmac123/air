@@ -22,13 +22,11 @@ Airbo.TileThumbnailMenu = (function() {
       trigger: "click",
       autoClose: true,
       functionBefore: function(origin, continueTooltip){
-        // console.log("before")
         origin.addClass("active");
         origin.closest(".tile-wrapper").addClass("active_menu");
         continueTooltip();
       },
       functionAfter: function(origin){
-        // console.log("after")
         origin.removeClass("active");
         origin.closest(".tile-wrapper").removeClass("active_menu");
       },
@@ -57,7 +55,7 @@ Airbo.TileThumbnailMenu = (function() {
   }
   return {
     init: init,
-    initMoreBtn
+    initMoreBtn: initMoreBtn
   }
 
 }());
