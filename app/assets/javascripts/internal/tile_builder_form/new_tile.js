@@ -664,7 +664,25 @@ Airbo.TileCreator = (function(){
     swapModalButtons();
   }
 
+  function processingDuplicationModal() {
+    swal(
+      {
+        title: "Copying...",
+        text: "Tile is being copied to drafts section... <div class='spinner_large'></div>",
+        customClass: "airbo",
+        animation: false,
+        showConfirmButton: false,
+        html: true
+        // showCancelButton: true,
+        // cancelButtonText: "Edit Tile"
+      }
+    );
+    swapModalButtons();
+  }
+
   function makeDuplication(trigger) {
+    processingDuplicationModal();
+
     $.ajax({
       type: "POST",
       dataType: "json",
