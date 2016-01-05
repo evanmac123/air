@@ -1,30 +1,17 @@
-<div class="row">
-  <div class="large-12 columns">
-    <h1>Airbo Style Guide</h1>
-  </div>
-</div>
-
-<div class="row">
-  <div class="large-12 columns">
-    <h3>Logo</h3>
-    <div class="" style="width:200px;">
-      <%= image_tag "logo.png", alt: "H.Engage" %>
+<div class="large-8 row large-centered">
+  <section class="logos">
+    <div class="large-12 large-centered">
+      <h5>Our logos</h5>
+      <div class="example large-6 columns light-bg">
+        <%= image_tag "logo.png", alt: "H.Engage" %>
+      </div>
+      <div class="example large-6 columns light-bg">
+        <%= image_tag "airbo_logo_lightblue_square_smile.png", alt: "H.Engage" %>
+      </div>
     </div>
-  </div>
-</div>
+  </section>
 
-<div class="row">
-  <div class="large-12 columns">
-    <h3>Typography</h3>
-    <h1>Header 1</h1>
-    <h2>Header 2</h2>
-    <h3>Header 3</h3>
-    <h4>Header 4</h4>
-    <p>This is paragraph text.</p>
-  </div>
-</div>
-
-  <!-- <section class="colors">
+  <section class="colors">
     <%
       palettes = {
         "Color palette" => {
@@ -62,6 +49,20 @@
     <% end %>
   </section>
 
+  <section class="headers">
+    <h5>Headers</h5>
+    <div class="large-12 columns large-centered">
+      <div class="example row">
+        <h1>This is my top level header. H1</h1>
+        <h2>Sometimes I need a subhead. H2</h2>
+        <h3>Occasionally, this. H3</h3>
+        <h4>Say hi to H4</h4>
+        <h5>And the last one is H5</h5>
+        <p class="regular_text">Regular text</p>
+        <p id="caption">Caption</p>
+      </div>
+    </div>
+  </section>
   <section class="buttons">
     <h5>Primary buttons, with importance in order</h5>
     <h5>@include app-button($color)</h5>
@@ -247,7 +248,7 @@
             <li>Click items of toolbar to toggle effects</li>
           </ol>
           <p>
-            For more information visit:
+            For more information visit: 
             <%= link_to "http://sofish.github.io/pen/", "http://sofish.github.io/pen/" %>
           </p>
         <% end %>
@@ -263,4 +264,4 @@
       </div>
     </div>
   </section>
-</div> -->
+</div>

@@ -1,0 +1,14 @@
+@import "./color";
+@import "./normalize";
+@import "./typography";
+
+* {
+  -webkit-font-smoothing: antialiased;
+}
+
+body { // TODO: maybe move this?
+  background: #F9F9F9;
+  color: #333;
+  @include font-weight-regular;
+  font-size: $font-size-medium;
+}
