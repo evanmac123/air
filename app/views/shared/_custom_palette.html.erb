@@ -58,8 +58,9 @@ body.acts-index .user_container,
   background: <%=@palette.content_background_reset %>;
 }
 
-.clicked_right_answer{
-  color: <%=@primary_color%>;
+body.tiles.tiles-index .tile_holder .tile_quiz .tile_multiple_choice_answer .clicked_right_answer { 
+  background: <%=@primary_color%> !important;
+  border-color: <%=@primary_color%> !important;
 }
 
 body.acts-index #user_progress #tile_section #tile_progress_bar, 
