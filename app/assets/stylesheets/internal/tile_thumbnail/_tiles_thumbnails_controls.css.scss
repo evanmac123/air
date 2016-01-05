@@ -123,32 +123,35 @@
       // }
     }
   }
-  .tooltipster-content .tile_thumbnail_menu {
-    padding: 5px 2px;
-    li{
-      &:first-child{
-        padding-bottom: 10px;
-      }
-      &:hover {
-        i, span {
-          color: #262626;
+  .tooltipster-thumbnail-menu {
+    .tooltipster-content {
+      padding: 13px 14px;
+    }
+    .tile_thumbnail_menu {
+      li{
+        &:first-child{
+          padding-bottom: 8px;
+        }
+        &:hover {
+          i, span {
+            color: #262626;
+          }
         }
       }
-    }
-    i, span {
-      color: #5c5c5c;
-    }
-    i {
-      font-size: 15px;
-      // padding-right: 10px;
-      width: 25px;
-      &.fa-trash-o {
-        padding-left: 2px;
+      i, span {
+        color: #5c5c5c;
       }
-    }
-    span {
-      font-size: 14px;
-      font-weight: 500;
+      i {
+        font-size: 15px;
+        width: 19px;
+        &.fa-trash-o {
+          padding-left: 2px;
+        }
+      }
+      span {
+        font-size: 14px;
+        font-weight: 500;
+      }
     }
   }
   //

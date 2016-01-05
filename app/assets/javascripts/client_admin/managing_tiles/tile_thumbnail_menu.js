@@ -11,7 +11,7 @@ Airbo.TileThumbnailMenu = (function() {
 
   function initMoreBtn(menu_button){
     menu_button.tooltipster({
-      theme: "tooltipster-shadow",
+      theme: "tooltipster-shadow tooltipster-thumbnail-menu",
       interactive: true,
       position: "bottom",
       content: function(){
