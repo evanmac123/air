@@ -47,7 +47,7 @@ body.client_admin-tiles-show, body.suggested_tiles-show {
     float:right;
     padding:.75em 1em;
   }
-  .tile_preview_container{
+  .tile_preview_container, .preview_placeholder {
     max-width: 784px;
     padding-top: 83px;
   }
