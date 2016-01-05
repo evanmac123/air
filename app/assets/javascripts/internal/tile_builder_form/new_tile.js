@@ -644,8 +644,7 @@ Airbo.TileCreator = (function(){
   function afterDuplicationModal(tileId){
     swal(
       {
-        title: "Success!",
-        text: "Tile has been copied to drafts section.",
+        title: "Tile Copied to Drafts",
         customClass: "airbo",
         animation: false,
         showCancelButton: true,
@@ -667,8 +666,8 @@ Airbo.TileCreator = (function(){
   function processingDuplicationModal() {
     swal(
       {
-        title: "Copying...",
-        text: "Tile is being copied to drafts section... <div class='spinner'><i class='fa fa-spinner fa-spin fa-3x'></i></div>",
+        title: "Tile Copying to Drafts",
+        text: "<div class='spinner'><i class='fa fa-spinner fa-spin fa-3x'></i></div>",
         customClass: "airbo",
         animation: false,
         showConfirmButton: false,
