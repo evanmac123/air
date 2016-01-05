@@ -667,7 +667,7 @@ Airbo.TileCreator = (function(){
     swal(
       {
         title: "Tile Copying to Drafts",
-        text: "<div class='spinner'><i class='fa fa-spinner fa-spin fa-3x'></i></div>",
+        text: "<div class='spinner'><i class='fa fa-cog fa-spin fa-3x'></i></div>",
         customClass: "airbo",
         animation: false,
         showConfirmButton: false,

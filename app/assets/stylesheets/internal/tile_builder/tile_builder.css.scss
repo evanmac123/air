@@ -68,27 +68,32 @@ body.client_admin-tiles-show {
     margin:auto;
     // margin-bottom: 40px;
     &.placeholder_menu {
-      .preview_menu_item a {
-        padding: 11px 13px 13px 13px;
+      .preview_menu_item {
+        &:first-child a {
+          width: 74px;
+        }
+        a {
+          padding: 11px 14px 13px 15px;
+        }
       }
     }
     &.draft_menu {
       .preview_menu_item a {
-        padding: 11px 13px 13px 13px;
+        padding: 11px 14px 13px 15px;
       }
     }
     &.active_menu {
       .preview_menu_item a {
-        padding: 11px 12px 13px 13px;
+        padding: 11px 14px 13px 14px;
       }
     }
     &.archive_menu {
       .preview_menu_item a {
-        padding: 11px 10px 13px 11px;
+        padding: 11px 13px 13px 13px;
       }
     }
     .preview_menu_item {
-      min-width: 13%;
+      // min-width: 13%;
       width: auto;
       padding: 0px;
       .header_text {
