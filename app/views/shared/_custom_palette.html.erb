@@ -1,0 +1,143 @@
+<%@primary_color = @demo.custom_color_palette.primary_color%>
+<% @solid_filled_styles = "background: #{@primary_color}; border-color: #{@primary_color}; color: white;" %>
+<% @solid_hover_styles = "opacity: .80;" %>
+<% @unfilled_styles = "border-color: #{@primary_color}; color: #{@primary_color};" %>
+
+<style>
+<% if @demo.custom_color_palette.enable_reset %>
+/*Mini Reset Styles */
+h3, h4, h5, label {
+  color:  <%=@demo.custom_color_palette.static_text_color %>;
+}
+
+.act .avatar43 .points {
+  border-color:  #dfdfdf;
+  color: #dfdfdf; 
+}
+
+#tile_wall{
+  background:  <%=@demo.custom_color_palette.content_background_reset %>
+}
+
+body.tiles.tiles-index .core, 
+body.tiles.tiles-index .content, 
+body.suggested_tiles-new .core, 
+body.suggested_tiles-new .content, 
+body.suggested_tiles-show .core, 
+body.suggested_tiles-show .content,
+body.acts-index .user_container,
+#tile_wall{
+  background: <%=@demo.custom_color_palette.content_background_reset %>;
+}
+
+
+
+body.acts-index #user_progress #tile_section #tile_progress_bar, 
+body.tiles-index #user_progress #tile_section #tile_progress_bar{
+  background: <%=@demo.custom_color_palette.tile_progress_background_reset %>;
+  box-shadow: none;
+}
+
+body.tiles-index #user_progress .progress_header, 
+body.acts-index #user_progress .progress_header {
+  background: <%=@demo.custom_color_palette.tile_progress_background_reset %>;
+ color: <%=@demo.custom_color_palette.static_text_color %>
+}
+
+body.tiles-index #user_progress, 
+body.acts-index #user_progress {
+ color: <%=@demo.custom_color_palette.static_text_color %>
+}
+
+body.tiles-index #user_progress #tile_section #tile_progress_bar #all_tiles, 
+body.acts-index #user_progress #tile_section #tile_progress_bar #all_tiles {
+  color: <%=@demo.custom_color_palette.tile_progress_all_tiles_text_reset %>;
+}
+
+body.tiles-index #user_progress #tile_section #tile_progress_bar #completed_tiles , 
+body.acts-index #user_progress #tile_section #tile_progress_bar #completed_tiles{
+
+  color: <%=@demo.custom_color_palette.tile_progress_completed_tiles_text_reset %>;
+}
+
+/* End Mini Reset Styles */
+<%end%>
+#submit_tile {
+<%=@unfilled_styles%>
+}
+
+body .find_users {
+<%=@unfilled_styles%>
+}
+
+#tile_wall #tile_links .show_more_tiles {
+<%=@solid_filled_styles%>
+}
+
+body .content .seemore a {
+<%=@solid_filled_styles%>
+}
+
+#search #find_button {
+
+<%=@solid_filled_styles%>
+}
+
+#submit_tile:active{
+<%=@solid_filled_styles%>
+}
+
+body .content .seemore a:hover {
+<%=@solid_filled_styles%>
+<%=@solid_hover_styles%>
+}
+#search #find_button:hover {
+<%=@solid_filled_styles%>
+<%=@solid_hover_styles%>
+}
+
+body .find_users:hover {
+<%=@solid_filled_styles%>
+<%=@solid_hover_styles%>
+}
+
+#submit_tile:hover {
+<%=@solid_filled_styles%>
+<%=@solid_hover_styles%>
+}
+
+#tile_wall #tile_links .show_more_tiles:after,  
+#tile_wall #tile_links .show_more_tiles:before{
+  border-color: <%=@primary_color%>;
+}
+
+.tile_thumbnail .tile-wrapper:hover {
+  border-bottom-color: <%=@primary_color%>;
+}
+
+
+body.tiles-index #user_progress #total_section #total_points, 
+body.acts-index #user_progress #total_section #total_points {
+
+color: <%=@primary_color%>;
+}
+
+body.tiles-index #user_progress #completed_tiles, body.acts-index #user_progress #completed_tiles {
+
+background: <%=@primary_color%>;
+}
+
+body.tile.tile-show .tile_holder .tile_quiz .tile_points_bar .earnable_points, 
+body.tile.tile-show .tile_holder .tile_quiz .tile_types .earnable_points, 
+body.tile_previews-show .tile_holder .tile_quiz .tile_points_bar .earnable_points, 
+body.tile_previews-show .tile_holder .tile_quiz .tile_types .earnable_points, 
+body.tiles.tiles-index .tile_holder .tile_quiz .tile_points_bar .earnable_points, 
+body.tiles.tiles-index .tile_holder .tile_quiz .tile_types .earnable_points{
+
+background: <%=@primary_color%>;
+}
+
+
+
+
+</style>

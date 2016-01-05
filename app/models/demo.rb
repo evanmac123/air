@@ -24,6 +24,7 @@ class Demo < ActiveRecord::Base
   has_one :claim_state_machine
   has_one :custom_invitation_email
   has_one :raffle
+  has_one :custom_color_palette
 
   validates_inclusion_of :join_type, :in => JOIN_TYPES
 
@@ -41,6 +42,7 @@ class Demo < ActiveRecord::Base
   before_save :normalize_phone_number_if_changed
   after_create :create_public_slug!
 
+  accepts_nested_attributes_for :custom_color_palette
   has_alphabetical_column :name
 
   has_attached_file :logo,

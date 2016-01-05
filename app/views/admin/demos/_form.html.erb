@@ -1,56 +1,78 @@
-<%= semantic_form_for [:admin, demo] do |form| %>
-  <%= form.inputs do %>
-    <%= form.input :name, :label => "Name of Demo" %>
-    <%= form.input :client_name %>
-    <%= form.input :phone_number %>
-    <%= form.input :email %>
-    <%= form.input :custom_reply_email_name, label: "Email mask" %>
-    <%= form.input :seed_points, :label => "Starting player score" %>
-    <%= form.input :custom_welcome_message, {:maxlength => 160} %>
-    <%= add_byte_counter_for 'Custom welcome message' %>
-    <%= form.input :prize, :label => "Prize text", :as => :text %>
-    <%= form.input :help_message, :as => :text %>
-    <%= form.input :unrecognized_user_message, :label => 'Phone-number-not-recognized message', :input_html => {:maxlength => 160} %>
-    <%= add_byte_counter_for "Phone-number-not-recognized message" %>
-    <%= form.input :act_too_early_message, :label => "Response to command before game begins", :input_html => {:maxlength => 160} %>
-    <%= add_byte_counter_for "Response to command before game begins" %>
-    <%= form.input :act_too_late_message, :label => "Response to command after game ends", :input_html => {:maxlength => 160} %>
-    <%= add_byte_counter_for "Response to command after game ends" %>
-    <%= form.input :custom_already_claimed_message, :label => "Custom already-claimed message", :input_html => {:maxlength => 160} %>
-    <%= add_byte_counter_for "Custom already-claimed message" %>
-    <%= form.input :custom_support_reply %>
-    <%= add_byte_counter_for "Custom support reply" %>
-    <%= form.input :allow_raw_in_persistent_message, :label => "Allow raw HTML in persistent message" %>
-    <%= form.input :persistent_message, :label => "Persistent message", :input_html => {:maxlength => 250} %>
-    <%= add_byte_counter_for "Persistent message" %>
-    <%= form.input :login_announcement, :label => "Message user sees on login" %>
-    <%= form.input :mute_notice_threshold %>
-    <%= form.input :use_location_in_conversion %>
-    <%= form.input :use_post_act_summaries, label: "Send post-act summaries with act replies" %>
-    <%= label_tag :use_multiple_choice_tiles, "Talking chicken should use multiple-choice sample tile" %>
-    <%= check_box_tag :use_multiple_choice_tiles, '1', demo.tutorial_type == 'multiple_choice' %>
+<div class="row">
+  <div class="columns small-12">
 
-    <%= form.input :ticket_threshold, :label => "Points for ticket award"  %>
-  <% end %>
+    <%= semantic_form_for [:admin, demo] do |form| %>
+      <%= form.inputs do %>
+        <%= form.input :name, :label => "Name of Demo" %>
+        <%= form.input :client_name %>
+        <%= form.input :phone_number %>
+        <%= form.input :email %>
+        <%= form.input :custom_reply_email_name, label: "Email mask" %>
+        <%= form.input :seed_points, :label => "Starting player score" %>
+        <%= form.input :custom_welcome_message, {:maxlength => 160} %>
+        <%= add_byte_counter_for 'Custom welcome message' %>
+        <%= form.input :prize, :label => "Prize text", :as => :text %>
+        <%= form.input :help_message, :as => :text %>
+        <%= form.input :unrecognized_user_message, :label => 'Phone-number-not-recognized message', :input_html => {:maxlength => 160} %>
+        <%= add_byte_counter_for "Phone-number-not-recognized message" %>
+        <%= form.input :act_too_early_message, :label => "Response to command before game begins", :input_html => {:maxlength => 160} %>
+        <%= add_byte_counter_for "Response to command before game begins" %>
+        <%= form.input :act_too_late_message, :label => "Response to command after game ends", :input_html => {:maxlength => 160} %>
+        <%= add_byte_counter_for "Response to command after game ends" %>
+        <%= form.input :custom_already_claimed_message, :label => "Custom already-claimed message", :input_html => {:maxlength => 160} %>
+        <%= add_byte_counter_for "Custom already-claimed message" %>
+        <%= form.input :custom_support_reply %>
+        <%= add_byte_counter_for "Custom support reply" %>
+        <%= form.input :allow_raw_in_persistent_message, :label => "Allow raw HTML in persistent message" %>
+        <%= form.input :persistent_message, :label => "Persistent message", :input_html => {:maxlength => 250} %>
+        <%= add_byte_counter_for "Persistent message" %>
+        <%= form.input :login_announcement, :label => "Message user sees on login" %>
+        <%= form.input :mute_notice_threshold %>
+        <%= form.input :use_location_in_conversion %>
+        <%= form.input :use_post_act_summaries, label: "Send post-act summaries with act replies" %>
+        <%= label_tag :use_multiple_choice_tiles, "Talking chicken should use multiple-choice sample tile" %>
+        <%= check_box_tag :use_multiple_choice_tiles, '1', demo.tutorial_type == 'multiple_choice' %>
 
-  <%= form.inputs :name => "Followup welcome message" do %>
-    <%= form.input :followup_welcome_message %>
-    <%= add_byte_counter_for 'Followup welcome message' %>
-    <%= form.input :followup_welcome_message_delay, :label => "Followup welcome message delay (in minutes)" %>
-  <% end %>
+        <%= form.input :ticket_threshold, :label => "Points for ticket award"  %>
+      <% end %>
 
-  <%= form.inputs :name => "Referral Bonus" do %>
-    <p>Note that for this functionality to be active, you need to set both the threshold and the bonus for referring another.</p>
-    <%= form.input :game_referrer_bonus, :label => 'Bonus for referring another to the game' %>
-    <%= form.input :referred_credit_bonus, :label => 'Bonus for crediting the user who referred you to the game' %>
-    <%= form.input :credit_game_referrer_threshold, :label => "Threshold to credit user who referred you to the game (in minutes)" %>
-  <% end %>
+      <%= form.inputs :name => "Followup welcome message" do %>
+        <%= form.input :followup_welcome_message %>
+        <%= add_byte_counter_for 'Followup welcome message' %>
+        <%= form.input :followup_welcome_message_delay, :label => "Followup welcome message delay (in minutes)" %>
+      <% end %>
 
-  <%= form.input :turn_off_admin_onboarding, :label => "Turn off admin onboarding" %>
-  <%= form.input :is_parent, :label => "Is parent board (posted tiles can be copied by client admins from other boards)" %>
+      <%= form.inputs :name => "Referral Bonus" do %>
+        <p>Note that for this functionality to be active, you need to set both the threshold and the bonus for referring another.</p>
+        <%= form.input :game_referrer_bonus, :label => 'Bonus for referring another to the game' %>
+        <%= form.input :referred_credit_bonus, :label => 'Bonus for crediting the user who referred you to the game' %>
+        <%= form.input :credit_game_referrer_threshold, :label => "Threshold to credit user who referred you to the game (in minutes)" %>
+      <% end %>
 
-  <%= form.actions do %>
-    <% button_text = demo.new_record? ? 'Create Game' : 'Update Game' %>
-    <%= form.submit button_text, :disable_with => 'Please wait...' %>
-  <% end %>
-<% end %>
+      <%= form.input :turn_off_admin_onboarding, :label => "Turn off admin onboarding" %>
+      <%= form.input :is_parent, :label => "Is parent board (posted tiles can be copied by client admins from other boards)" %>
+
+      <%= form.semantic_fields_for :custom_color_palette do|palette| %>
+        <%= palette.inputs :name => "Custom Colors" do %>
+          <%= palette.input :enabled,  :label => 'Enabled' %>
+          <%= palette.input :primary_color, :label => 'Primary text color' %>
+          <fieldset>
+            <legend>Page Style Reset</legend>
+          <%= palette.input :enable_reset, :label => 'Enable a customizable neutral color palette in case client branding is unfriendly' %>
+          <%= palette.input :static_text_color, :label => "color for h1,h2,...headers and  label text (recommended: #4C4C4C -> default text color on airbo)"%>
+          <%= palette.input :content_background_reset, :label => "Main page background (recommended: #eeeeee)"%>
+          <%= palette.input :tile_progress_background_reset, :label => "Tile Progress Background (recommended: #f7f7f7 -> neutral gray)"%> 
+          <%= palette.input :tile_progress_completed_tiles_text_reset, :label => "Tile Progress Completed Tiles Text (recommended: #FFFFFF -> white primary color not white itself)"%>
+          <%= palette.input :tile_progress_all_tiles_text_reset, :label => "Tile Progress All Tiles Text (recommended: primary color)"%>
+          </fieldset>
+        <% end %>
+      <% end %>
+
+
+      <%= form.actions do %>
+        <% button_text = demo.new_record? ? 'Create Game' : 'Update Game' %>
+        <%= form.submit button_text, :disable_with => 'Please wait...' %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
