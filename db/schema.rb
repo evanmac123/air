@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151204193100) do
+ActiveRecord::Schema.define(:version => 20160105010722) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -180,6 +180,21 @@ ActiveRecord::Schema.define(:version => 20151204193100) do
   end
 
   add_index "claim_state_machines", ["demo_id"], :name => "index_claim_state_machines_on_demo_id"
+
+  create_table "custom_color_palettes", :force => true do |t|
+    t.integer  "demo_id"
+    t.integer  "company_id"
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
+    t.boolean  "enabled"
+    t.boolean  "enable_reset"
+    t.string   "content_background_reset"
+    t.string   "tile_progress_background_reset"
+    t.string   "tile_progress_all_tiles_text_reset"
+    t.string   "tile_progress_completed_tiles_text_reset"
+    t.string   "primary_color"
+    t.string   "static_text_color"
+  end
 
   create_table "custom_invitation_emails", :force => true do |t|
     t.text     "custom_html_text"
