@@ -6,14 +6,42 @@
 <style>
 <% if @demo.custom_color_palette.enable_reset %>
 /*Mini Reset Styles */
-h3, h4, h5, label {
-  color:  <%=@demo.custom_color_palette.static_text_color %>;
-}
-
 .act .avatar43 .points {
   border-color:  #dfdfdf;
   color: #dfdfdf; 
 }
+
+.tiles.tiles-index .viewer a#prev, 
+.tiles.tiles-index .viewer a#next, 
+.tile_previews.tile_previews-show .viewer a#prev, 
+.tile_previews.tile_previews-show .viewer a#next {
+  background: #e3e3e3;
+  border-color: #ddd;
+}
+
+.tiles.tiles-index .viewer a#prev:hover, 
+.tiles.tiles-index .viewer a#next:hover, 
+.tile_previews.tile_previews-show .viewer a#prev:hover, 
+.tile_previews.tile_previews-show .viewer a#next:hover {
+  background: #ccc;
+  border-color: #ccc;
+}
+.tiles.tiles-index .viewer a#prev:after, 
+.tile_previews.tile_previews-show .viewer a#prev:after{
+ border-right: 2em solid #f7f7f7;
+
+}
+
+.tiles.tiles-index .viewer a#next:after, 
+.tile_previews.tile_previews-show .viewer a#next:after{
+  border-left: 2em solid #f7f7f7;
+}
+
+
+h3, h4, h5, label {
+  color:  <%=@demo.custom_color_palette.static_text_color %>;
+}
+
 
 #tile_wall{
   background:  <%=@demo.custom_color_palette.content_background_reset %>
