@@ -5,6 +5,7 @@ class UsersController < Clearance::UsersController
   skip_before_filter :authorize, only: :show
 
   def index
+    @palette = current_user.demo.custom_color_palette
     @friend_ids = current_user.friend_ids
     @search_link_text = "our search bar"
     @search_string = params[:search_string]

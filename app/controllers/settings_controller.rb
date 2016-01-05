@@ -3,6 +3,7 @@ class SettingsController < ApplicationController
   before_filter :authorize_without_guest_checks
 
   def edit
+    @palette = current_user.demo.custom_color_palette
   end
 
   def update
