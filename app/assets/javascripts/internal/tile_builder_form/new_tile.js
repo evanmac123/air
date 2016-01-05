@@ -672,10 +672,10 @@ Airbo.TileCreator = (function(){
       success: function(data, status,xhr){
         updateTileSection(data);
 
-        originalTile = findTile(trigger.data("tileid"));
-        originalTileSrc = originalTile.find(".tile_thumbnail_image img").attr("src");
-        tile = findTile(data.tileId);
-        tile.find(".tile_thumbnail_image img").attr("src", originalTileSrc);
+        // originalTile = findTile(trigger.data("tileid"));
+        // originalTileSrc = originalTile.find(".tile_thumbnail_image img").attr("src");
+        // tile = findTile(data.tileId);
+        // tile.find(".tile_thumbnail_image img").attr("src", originalTileSrc);
 
         afterDuplicationModal(data.tileId);
       },
