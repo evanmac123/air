@@ -1,10 +1,10 @@
-<%@primary_color = @demo.custom_color_palette.primary_color%>
+<%@primary_color = @palette.primary_color%>
 <% @solid_filled_styles = "background: #{@primary_color}; border-color: #{@primary_color}; color: white;" %>
 <% @solid_hover_styles = "opacity: .80;" %>
 <% @unfilled_styles = "border-color: #{@primary_color}; color: #{@primary_color};" %>
 
 <style>
-<% if @demo.custom_color_palette.enable_reset %>
+<% if @palette.enable_reset %>
 /*Mini Reset Styles */
 .act .avatar43 .points {
   border-color:  #dfdfdf;
@@ -39,12 +39,12 @@
 
 
 h3, h4, h5, label {
-  color:  <%=@demo.custom_color_palette.static_text_color %>;
+  color:  <%=@palette.static_text_color %>;
 }
 
 
 #tile_wall{
-  background:  <%=@demo.custom_color_palette.content_background_reset %>
+  background:  <%=@palette.content_background_reset %>
 }
 
 body.tiles.tiles-index .core, 
@@ -55,37 +55,39 @@ body.suggested_tiles-show .core,
 body.suggested_tiles-show .content,
 body.acts-index .user_container,
 #tile_wall{
-  background: <%=@demo.custom_color_palette.content_background_reset %>;
+  background: <%=@palette.content_background_reset %>;
 }
 
-
+.clicked_right_answer{
+  color: <%=@primary_color%>;
+}
 
 body.acts-index #user_progress #tile_section #tile_progress_bar, 
 body.tiles-index #user_progress #tile_section #tile_progress_bar{
-  background: <%=@demo.custom_color_palette.tile_progress_background_reset %>;
+  background: <%=@palette.tile_progress_background_reset %>;
   box-shadow: none;
 }
 
 body.tiles-index #user_progress .progress_header, 
 body.acts-index #user_progress .progress_header {
-  background: <%=@demo.custom_color_palette.tile_progress_background_reset %>;
- color: <%=@demo.custom_color_palette.static_text_color %>
+  background: <%=@palette.tile_progress_background_reset %>;
+ color: <%=@palette.static_text_color %>
 }
 
 body.tiles-index #user_progress, 
 body.acts-index #user_progress {
- color: <%=@demo.custom_color_palette.static_text_color %>
+ color: <%=@palette.static_text_color %>
 }
 
 body.tiles-index #user_progress #tile_section #tile_progress_bar #all_tiles, 
 body.acts-index #user_progress #tile_section #tile_progress_bar #all_tiles {
-  color: <%=@demo.custom_color_palette.tile_progress_all_tiles_text_reset %>;
+  color: <%=@palette.tile_progress_all_tiles_text_reset %>;
 }
 
 body.tiles-index #user_progress #tile_section #tile_progress_bar #completed_tiles , 
 body.acts-index #user_progress #tile_section #tile_progress_bar #completed_tiles{
 
-  color: <%=@demo.custom_color_palette.tile_progress_completed_tiles_text_reset %>;
+  color: <%=@palette.tile_progress_completed_tiles_text_reset %>;
 }
 
 /* End Mini Reset Styles */

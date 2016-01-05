@@ -27,7 +27,7 @@
   <%= render 'shared/mixpanel' unless @is_admin_page %>
   <%= mobvious_javascript %>
   <%= render 'shared/nerf_animations_in_test' %>
-  <%= render "shared/custom_palette"  if @demo && @demo.custom_color_palette && @demo.custom_color_palette.enabled?%>
+  <%= render "shared/custom_palette"  if @palette && @palette.enabled?%>
 
 </head>
 <body class="<%= body_class %>" style="-webkit-overflow-scrolling: touch; overflow:visible;"><%# only works with inline style? WTF. but leave it: this fixes scroll problems in ios7 and doesn't seem to work if included via stylesheet. %>

@@ -35,6 +35,7 @@ class UsersController < Clearance::UsersController
 
     @user = current_user.demo.users.find_by_slug(params[:id])
     @current_user = current_user
+    @palette = current_user.demo.custom_color_palette
     unless @user
       not_found
       return

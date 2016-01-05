@@ -27,6 +27,8 @@ class ActsController < ApplicationController
     @demo                  = current_user.demo
     @acts                  = find_requested_acts(@demo)
 
+    @palette = @demo.custom_color_palette
+
     @display_get_started_lightbox = current_user.display_get_started_lightbox
 
     # This is handy for debugging the lightbox or working on its styles

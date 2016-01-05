@@ -18,6 +18,8 @@ class TilesController < ApplicationController
 
   def index
     @demo = current_user.demo
+    @palette = @demo.custom_color_palette
+
     if params[:partial_only]
       set_parent_board_user(params[:board_id])
       @current_user = current_user
