@@ -7,7 +7,7 @@ describe CopyTile do
       @ct = CopyTile.new(@original_tile.demo, @original_tile.creator)
     end
 
-    it "should copy tile without email" do
+    it "should copy tile" do
       tile = @ct.copy_tile(@original_tile, false)
 
       attr_list.each do |attr_name|
