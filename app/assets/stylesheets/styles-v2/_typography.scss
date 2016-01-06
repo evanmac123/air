@@ -5,35 +5,30 @@ $font-family-primary: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 /* Font Weights */
 
 @mixin font-weight-thin {
-  font-family: $font-family-primary;
   font-style:normal;
   font-weight:lighter;
   font-weight: 100;
 }
 
 @mixin font-weight-light {
-  font-family: $font-family-primary;
   font-style:normal;
   font-weight:lighter;
   font-weight: 300;
 }
 
 @mixin font-weight-regular {
-  font-family: $font-family-primary;
   font-style:normal;
   font-weight:normal;
   font-weight: 400;
 }
 
 @mixin font-weight-semibold {
-  font-family: $font-family-primary;
   font-style:normal;
   font-weight:bold;
   font-weight: 500;
 }
 
 @mixin font-weight-bold {
-  font-family: $font-family-primary;
   font-style:normal;
   font-weight:bolder;
   font-weight: 700;
@@ -41,8 +36,47 @@ $font-family-primary: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
 /* Font Sizes */
 
-$font-size-x-small: 10px;
-$font-size-small: 13px;
-$font-size-medium: 16px;
-$font-size-large: 24px;
-$font-size-x-large: 40px;
+$font-size-0: 10px;
+$font-size-1: 14px;
+$font-size-2: 16px;
+$font-size-3: 18px;
+$font-size-4: 28px;
+$font-size-5: 36px;
+
+/* Headers */
+
+h1 {
+  @include font-weight-light;
+  font-size: $font-size-5;
+  line-height: 1.25em;
+  margin: 20px 0;
+}
+
+h2 {
+  @include font-weight-semibold;
+  font-size: $font-size-4;
+  line-height: 1.25em;
+}
+
+h3 {
+  @include font-weight-semibold;
+  font-size: $font-size-3;
+  line-height: 1.25em;
+}
+
+h4 {
+  @include font-weight-semibold;
+  font-size: $font-size-2;
+}
+
+/* Standard Type Elements */
+
+p {
+  line-height: 1.5em;
+  margin: 1.75em 0;
+}
+
+ul, ol {
+  line-height: 1.5em;
+  margin: 1.75em 0;
+}
