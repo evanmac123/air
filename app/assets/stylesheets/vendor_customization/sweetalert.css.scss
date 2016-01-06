@@ -21,8 +21,11 @@
     }
     &.confirm {
       @include app-button($sky-blue);
-    &[disabled]{
-
+      box-shadow: none !important;
+      &:hover {
+        background:darken($sky-blue, 5%) !important;
+      }
+      &[disabled]{
          background-image: url("/assets/spinner_gears.gif");
          background-repeat: no-repeat;
          background-position: center;
