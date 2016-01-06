@@ -6,6 +6,9 @@
 <style>
 <% if @palette.enable_reset %>
 /*Mini Reset Styles */
+
+/* Basic Styles */
+/* ------------------ */
 .act .avatar43 .points {
   border-color:  #dfdfdf;
   color: #dfdfdf; 
@@ -43,10 +46,6 @@ h3, h4, h5, label {
 }
 
 
-#tile_wall{
-  background:  <%=@palette.content_background_reset %>
-}
-
 body.tiles.tiles-index .core, 
 body.tiles.tiles-index .content, 
 body.suggested_tiles-new .core, 
@@ -58,6 +57,10 @@ body.acts-index .user_container,
   background: <%=@palette.content_background_reset %>;
 }
 
+
+
+/* Tile Show */
+/* ------------------ */
 body.tiles.tiles-index .tile_holder .tile_quiz .tile_multiple_choice_answer .clicked_right_answer { 
   background: <%=@primary_color%> !important;
   border-color: <%=@primary_color%> !important;
@@ -89,6 +92,46 @@ body.tiles-index #user_progress #tile_section #tile_progress_bar #completed_tile
 body.acts-index #user_progress #tile_section #tile_progress_bar #completed_tiles{
 
   color: <%=@palette.tile_progress_completed_tiles_text_reset %>;
+}
+
+/* Prizes and Raffles */
+/* ------------------ */
+body.tiles-index .prize_box .tickets_row, 
+body.acts-index .prize_box .tickets_row, 
+body.client_admin-prizes .prize_box .tickets_row {
+
+  background: <%=@primary_color%>;
+}
+
+
+body.tiles-index #user_progress #raffle_section.round_bar, 
+body.acts-index #user_progress #raffle_section.round_bar{
+  background: <%=@primary_color%>;
+}
+
+body.tiles-index #user_progress #raffle_section.round_bar .progress-radial .overlay, 
+body.acts-index #user_progress #raffle_section.round_bar .progress-radial .overlay{
+color: <%=@primary_color%>;
+
+}
+
+body.tiles-index #user_progress #raffle_section.round_bar .progress-radial, 
+body.acts-index #user_progress #raffle_section.round_bar .progress-radial{
+  color: #ddd
+}
+
+body.tiles-index .prize_box .prizes_container .prize_row .icon_container, 
+body.acts-index .prize_box .prizes_container .prize_row .icon_container, 
+body.client_admin-prizes .prize_box .prizes_container .prize_row .icon_container{
+  color: <%=@primary_color%>;
+}
+
+body.tiles-index .prize_box .other_info_row .close_modal, 
+body.acts-index .prize_box .other_info_row .close_modal, 
+body.client_admin-prizes .prize_box .other_info_row .close_modal{
+
+  color: <%=@primary_color%>;
+  border-color: <%=@primary_color%>;
 }
 
 /* End Mini Reset Styles */
