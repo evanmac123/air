@@ -17,38 +17,36 @@ feature 'Client admin duplicates tile' do
     end
   end
 
-  context "on Edit Page" do
+  before do
+    visit client_admin_tiles_path(as: client_admin)
+  end
+
+  it "should show only one tile in posted section", js: true do
+    expect(section_tile_headlines("#draft")).to eq([])
+    expect(section_tile_headlines("#active")).to eq(["Copy me!"])
+    expect(section_tile_headlines("#archive")).to eq([])
+  end
+
+  context "from thumbnail menu" do
     before do
-      visit client_admin_tiles_path(as: client_admin)
-    end
-
-    it "should show only one tile in posted section", js: true do
-      expect(section_tile_headlines("#draft")).to eq([])
-      expect(section_tile_headlines("#active")).to eq(["Copy me!"])
-      expect(section_tile_headlines("#archive")).to eq([])
-    end
-
-    context "From thumbnail menu" do
-      before do
-        within find(:tile, original_tile) do
-          more_btn.click
-        end
-        within ".tooltipster-content .tile_thumbnail_menu" do
-          click_link "Copy"
-        end
+      within find(:tile, original_tile) do
+        more_btn.click
       end
-
-      it_should_behave_like "duplicating a tile"
-    end
-
-    context "Duplicate tile" do
-      before do
-        find(:tile, original_tile).click
+      within ".tooltipster-content .tile_thumbnail_menu" do
         click_link "Copy"
       end
-
-      it_should_behave_like "duplicating a tile"
     end
+
+    it_should_behave_like "duplicating a tile"
+  end
+
+  context "from preview" do
+    before do
+      find(:tile, original_tile).click
+      click_link "Copy"
+    end
+
+    it_should_behave_like "duplicating a tile"
   end
 
   #

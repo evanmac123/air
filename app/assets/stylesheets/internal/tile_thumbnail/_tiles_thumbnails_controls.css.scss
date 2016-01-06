@@ -31,11 +31,9 @@
     top: 8px;
     right: 8px;
     width: calc(100% - 8px);
-    // font-size: 15px;
     li {
       display: inline-block;
       float: right;
-      // text-align: center;
       width: auto;
       cursor: pointer;
       &:hover {
@@ -46,12 +44,8 @@
       i {
         display: block;
         font-size: 15px;
-        // padding-top: 5px;
         color: #5c5c5c;
         padding: 6px;
-        // &:hover {
-        //   color: #262626;
-        // }
       }
       a.update_status span {
         font-size: 15px;
@@ -59,8 +53,6 @@
         font-weight: 500;
       }
       &.edit_button, &.more_button {
-        // padding-left: 20px;
-        // font-size: 15px;
         width: 30px;
         height: 29px;
         border: 1px solid $border-color;
@@ -90,14 +82,6 @@
           }
         }
       }
-      // &.edit_button {
-      //   float: left;
-      //   padding-left: 28px;
-      // }
-      // &.destroy_button {
-      //   float: left;
-      //   padding-left: 22px;
-      // }
       &.ignore_button, &.undo_ignore_button, &.submit_button, &.unsubmit_button {
         span {
           @include light-button($gray);
@@ -114,13 +98,6 @@
           @include app-button($sky-blue);
         }
       }
-      // &.ignore_button, &.undo_ignore_button, &.submit_button, &.unsubmit_button,
-      // &.archive_button, &.activate_button, &.accept_button {
-      //   span {
-      //     padding: 6px 14px;
-      //     font-weight: 500;
-      //   }
-      // }
     }
   }
   .tooltipster-thumbnail-menu {
@@ -172,12 +149,6 @@
     }
   }
 
-  // .archive {
-  //   .tile_buttons li a span {
-  //     padding-left:  0.5em;
-  //     padding-right: 0.5em;
-  //   }
-  // }
   .user_submitted {
     .accept_button {
       margin-right: 4em;

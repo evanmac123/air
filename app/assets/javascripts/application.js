@@ -155,8 +155,13 @@ Airbo.Utils = {
       init: init
     };
 
-  }())
+  }()),
 
+  htmlDecode: function(input){
+    var e = document.createElement('div');
+    e.innerHTML = input;
+    return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+  }
 }
 
 Airbo.Utils.TextSelectionDetector = (function(){

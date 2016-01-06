@@ -3,10 +3,14 @@ var Airbo = window.Airbo || {};
 Airbo.TileThumbnailMenu = (function() {
   var tileCreator;
 
-  function htmlDecode(input){
-    var e = document.createElement('div');
-    e.innerHTML = input;
-    return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+  function setMenuActiveState(origin, active) {
+    if(active) {
+      origin.addClass("active");
+      origin.closest(".tile-wrapper").addClass("active_menu");
+    } else {
+      origin.removeClass("active");
+      origin.closest(".tile-wrapper").removeClass("active_menu");
+    }
   }
 
   function initMoreBtn(menu_button){
@@ -16,19 +20,17 @@ Airbo.TileThumbnailMenu = (function() {
       position: "bottom",
       content: function(){
         encodedMenu = menu_button.data('title');
-        decodedMenu = htmlDecode(encodedMenu);
+        decodedMenu = Airbo.Utils.htmlDecode(encodedMenu);
         return $(decodedMenu);
       },
       trigger: "click",
       autoClose: true,
       functionBefore: function(origin, continueTooltip){
-        origin.addClass("active");
-        origin.closest(".tile-wrapper").addClass("active_menu");
+        setMenuActiveState(origin, true);
         continueTooltip();
       },
       functionAfter: function(origin){
-        origin.removeClass("active");
-        origin.closest(".tile-wrapper").removeClass("active_menu");
+        setMenuActiveState(origin, false);
       },
       functionReady: function(origin, tooltip){
         $(".tile_thumbnail_menu .delete_tile").click(function(event){
@@ -57,5 +59,4 @@ Airbo.TileThumbnailMenu = (function() {
     init: init,
     initMoreBtn: initMoreBtn
   }
-
 }());
