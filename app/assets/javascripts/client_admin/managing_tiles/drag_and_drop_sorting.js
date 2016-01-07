@@ -1,5 +1,8 @@
 replaceMovedTile = function(tile_id, updated_tile_container){
-  $("#single-tile-" + tile_id).closest(".tile_container").replaceWith(updated_tile_container)
+  tile = $("#single-tile-" + tile_id).closest(".tile_container");
+  tile.replaceWith(updated_tile_container);
+  tile = $("#single-tile-" + tile_id).closest(".tile_container");
+  Airbo.TileThumbnailMenu.initMoreBtn(tile.find(".more_button"));
 }
 
 updateShareTilesNumber = function(number){
@@ -9,9 +12,9 @@ updateShareTilesNumber = function(number){
 updateShowMoreDraftTilesButton = function(){
   button = $(".show_all_draft_section")
   if( showMoreDraftTiles() || showMoreSuggestionBox() ){
-    button.show()
+    button.show();
   }else{
-    button.hide()
+    button.hide();
   }
 }
 
