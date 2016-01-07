@@ -544,10 +544,18 @@ Airbo.TileCreator = (function(){
 
  function tileModalOpenClose(){
 
+   $(document).on('open',tileModalSelector, function (event) {
+     if($(event.target).is(tileModal)){
+      //  scrollPageToTop();
+       $("body").css({"overflow-y": "hidden"});
+     }
+    //  positionArrows();
+   });
+
    $(document).on('opened',tileModalSelector, function (event) {
      if($(event.target).is(tileModal)){
        scrollPageToTop();
-       $("body").css({"overflow-y": "hidden"});
+      //  $("body").css({"overflow-y": "hidden"});
      }
      positionArrows();
    });
