@@ -14,17 +14,24 @@ var animateCounter = function(domID, previous, current, duration, callback) {
 
 var progressBar = function() {return $('#completed_progress')};
 var radialProgressBar = function() {return $('.progress-radial')};
+
 var currentProgress = function() {
   progressStr = $('.progress-radial').attr('class').match( /progress\-([0-9]+).*/)[1];
   return parseInt(progressStr);
 };
+
 var changeRadialProgressBarTo = function(progressNew){
+ //FIXME small hack to disable progress bar animation when using custom colors.
+      if($("meta[name='custom-palette']").length > 0){
+        return;
+      }
   radialProgressBar()
         .removeClass("progress-" + currentProgress())
         .addClass("progress-" + progressNew);
 };
 
 var fillBarToFinalProgress = function(finalProgress, allTilesDone, callback) {
+ 
   radialProgressBar().addClass('counting');
   startProgress = currentProgress();
   stepsNumber = finalProgress - startProgress;
@@ -32,6 +39,10 @@ var fillBarToFinalProgress = function(finalProgress, allTilesDone, callback) {
     duration: 750,
     easing: 'linear',
     step: function(progressCount){
+      //FIXME small hack to disable progress bar animation when using custom colors.
+      if($("meta[name='custom-palette']").length > 0){
+        return;
+      }
       progressNew = startProgress + parseInt(progressCount);
       changeRadialProgressBarTo(progressNew);
     },

@@ -1,3 +1,4 @@
+<meta name="custom-palette">
 <%@primary_color = @palette.primary_color%>
 <% @solid_filled_styles = "background: #{@primary_color}; border-color: #{@primary_color}; color: white;" %>
 <% @solid_hover_styles = "opacity: .80;" %>
@@ -57,7 +58,8 @@ body.acts-index .user_container,
   background: <%=@palette.content_background_reset %>;
 }
 
-
+/* End Mini Reset Styles */
+<%end%>
 
 /* Tile Show */
 /* ------------------ */
@@ -115,10 +117,6 @@ color: <%=@primary_color%>;
 
 }
 
-body.tiles-index #user_progress #raffle_section.round_bar .progress-radial, 
-body.acts-index #user_progress #raffle_section.round_bar .progress-radial{
-  color: #ddd
-}
 
 body.tiles-index .prize_box .prizes_container .prize_row .icon_container, 
 body.acts-index .prize_box .prizes_container .prize_row .icon_container, 
@@ -129,17 +127,20 @@ body.client_admin-prizes .prize_box .prizes_container .prize_row .icon_container
 body.tiles-index .prize_box .other_info_row .close_modal, 
 body.acts-index .prize_box .other_info_row .close_modal, 
 body.client_admin-prizes .prize_box .other_info_row .close_modal{
-
   color: <%=@primary_color%>;
   border-color: <%=@primary_color%>;
 }
 
-/* End Mini Reset Styles */
-<%end%>
 
 body.settings input[type="submit"], #search #find_button{
   background: <%=@primary_color%>; 
   border-color: <%=@primary_color%>;
+}
+
+
+body.tiles-index #user_progress #raffle_section.round_bar .progress-radial, 
+body.acts-index #user_progress #raffle_section.round_bar .progress-radial{
+  color: <%=@primary_color%>
 }
 
 #submit_tile {
