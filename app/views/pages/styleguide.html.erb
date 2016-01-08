@@ -27,16 +27,44 @@
 
 <div class="row">
   <div class="large-5 columns large-centered">
-    <h1>Log In</h1>
+    <h2>Forms</h2>
     <form>
       <div class="columns">
         <div class="row">
-          <label>Email Address</label>
-          <input type="text" placeholder="large-12.columns">
+          <label>Text Input</label>
+          <input type="text" placeholder="placeholder text">
         </div>
         <div class="row">
-          <label>Password</label>
-          <input type="password" placeholder="large-12.columns">
+          <label>Password Input</label>
+          <input type="password" placeholder="abc123">
+        </div>
+        <div class="row">
+          <label>Select Menu</label>
+          <select>
+            <option>Option 1</option>
+            <option>Option 2</option>
+          </select>
+        </div>
+        <div class="row">
+          <label>Large Checkbox</label>
+          <div class="input-group">
+            <label class="checkbox small"><input name="check1" type="checkbox" checked> And Option 1</label>
+            <label class="checkbox small"><input name="check2" type="checkbox"> And Option 2</label>
+          </div>
+        </div>
+        <div class="row">
+          <label>Small Checkbox</label>
+          <div class="input-group">
+            <label class="checkbox"><input name="check1" type="checkbox" checked> And Option 1</label>
+            <label class="checkbox"><input name="check2" type="checkbox"> And Option 2</label>
+          </div>
+        </div>
+        <div class="row">
+          <label>Radio Buttons</label>
+          <div class="input-group">
+            <label class="radio"><input name="radio1" type="radio" checked> Or Option 1</label>
+            <label class="radio"><input name="radio2" type="radio"> Or Option 2</label>
+          </div>
         </div>
       </div>
     </form>
@@ -59,7 +87,7 @@
   </div>
 </div>
 
-  <!-- <section class="colors">
+  <section class="colors">
     <%
       palettes = {
         "Color palette" => {
@@ -298,4 +326,4 @@
       </div>
     </div>
   </section>
-</div> -->
+</div>
