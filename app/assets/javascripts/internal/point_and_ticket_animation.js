@@ -16,7 +16,7 @@ var progressBar = function() {return $('#completed_progress')};
 var radialProgressBar = function() {return $('.progress-radial')};
 
 var currentProgress = function() {
-  progressStr = $('.progress-radial').attr('class').match( /progress\-([0-9]+).*/)[1];
+  progressStr = $('.progress-radial').data("progress")
   return parseInt(progressStr);
 };
 

@@ -12,7 +12,7 @@
         %span.fa.fa-trophy
         Info
     -#FIXME a small hack to disable radial progress color fill when using custom colors 
-    .progress-radial{class: @palette ? '' : ("progress-" + (raffle_progress_bar * 10).to_s)}
+    .progress-radial{class: @palette ? '' : ("progress-" + (raffle_progress_bar * 10).to_s), "data-progress" => raffle_progress_bar * 10}
       #raffle_entries.overlay
         = starting_tickets
       .point_container_ie
