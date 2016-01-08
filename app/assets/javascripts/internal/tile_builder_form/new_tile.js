@@ -440,6 +440,7 @@ Airbo.TileCreator = (function(){
     refreshCurrentPreview(data.preview);
     prepShow();
     updateTileSection(data);
+    updateShowMoreDraftTilesButton();
     scrollPageToTop();
     positionArrows();
   }
@@ -693,7 +694,7 @@ Airbo.TileCreator = (function(){
       url: trigger.attr("href") ,
       success: function(data, status,xhr){
         updateTileSection(data);
-
+        updateShowMoreDraftTilesButton();
         afterDuplicationModal(data.tileId);
       },
 
@@ -709,6 +710,7 @@ Airbo.TileCreator = (function(){
     function postProcess(){
       tile.remove();
       Airbo.Utils.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
+      updateShowMoreDraftTilesButton();
     }
 
     swal(
