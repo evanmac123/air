@@ -1,0 +1,59 @@
+<ul class="tile_buttons">
+  <% if presenter.has_menu? %>
+    <li class="more_button"  data-title="<%= CGI::escapeHTML tile_thumbnail_menu(presenter) %>">
+      <span></span>
+      <span></span>
+      <span></span>
+    </li>
+  <% end %>
+
+  <% if presenter.has_edit_button? %>
+    <li class="edit_button">
+      <%= link_to edit_client_admin_tile_path(presenter), data:{action: "edit", tile_id: presenter.tile_id, status: presenter.status} do %>
+        <%= fa_icon 'pencil' %>
+      <% end %>
+    </li>
+  <% end %>
+
+  <% if presenter.has_archive_button? %>
+    <li class="archive_button">
+      <%= link_to status_change_client_admin_tile_path(presenter), class: "update_status", data: {status: Tile::ARCHIVE} do %>
+        <span>Archive</span>
+      <% end %>
+    </li>
+  <% end %>
+
+  <% if presenter.has_activate_button? %>
+    <li class="activate_button">
+      <%= link_to status_change_client_admin_tile_path(presenter), class: "update_status", data: {status: Tile::ACTIVE} do %>
+        <span>
+          <%= presenter.post_link_text %>
+        </span>
+      <% end %>
+    </li>
+  <% end %>
+
+  <% if presenter.has_ignore_button? %>
+    <li class="ignore_button">
+      <%= link_to status_change_client_admin_tile_path(presenter), class:"update_status", data: {status:Tile::IGNORED} do %>
+        <span>Ignore</span>
+      <% end %>
+    </li>
+  <% end %>
+
+  <% if presenter.has_accept_button? %>
+    <li class="accept_button">
+      <%= link_to status_change_client_admin_tile_path(presenter), class: "accept",  data: {status: Tile::DRAFT } do %>
+        <span>Accept</span>
+      <% end %>
+    </li>
+  <% end %>
+
+  <% if presenter.has_undo_ignore_button? %>
+    <li class="undo_ignore_button">
+      <%= link_to status_change_client_admin_tile_path(presenter), class: "update_status", data: {status: Tile::USER_SUBMITTED} do %>
+        <span>Undo Ignore</span>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

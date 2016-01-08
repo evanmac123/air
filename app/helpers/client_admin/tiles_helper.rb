@@ -21,7 +21,7 @@ module ClientAdmin::TilesHelper
 
     (is_preview || user.claimed?) ? acts_url(email_link_hash): invitation_url(user.invitation_code, email_link_hash)
   end
-  
+
   def activate
     current_user.demo.tiles.archive.update_all(status: Tile::ACTIVE)
   end
@@ -36,7 +36,7 @@ module ClientAdmin::TilesHelper
         Tile::TAKE_ACTION => {
           name: "Take Action",
           question: "Points for taking action",
-          answers: ["I did it"] 
+          answers: ["I did it"]
         },
         Tile::READ_TILE => {
           name: "Read Tile",
@@ -51,17 +51,17 @@ module ClientAdmin::TilesHelper
         Tile::SHARE_ON_SOCIAL_MEDIA => {
           name: "Share On Social Media",
           question: "Points for sharing on social media (e.g., Facebook, Twitter)",
-          answers: ["I shared"] 
+          answers: ["I shared"]
         },
         Tile::VISIT_WEB_SITE => {
           name: "Visit Web Site",
           question: "Points for visiting web site",
-          answers: ["I visited"] 
+          answers: ["I visited"]
         },
         Tile::WATCH_VIDEO => {
           name: "Watch Video",
           question: "Points for watching video",
-          answers: ["I watched"] 
+          answers: ["I watched"]
         },
         Tile::CUSTOM => {
           name: "Custom...",
@@ -100,7 +100,7 @@ module ClientAdmin::TilesHelper
 
   def update_tile_types tile_types, tile_builder
     old_tile_type(tile_builder.tile) unless tile_builder.tile.question_type
-    type = tile_builder.tile.question_type 
+    type = tile_builder.tile.question_type
     subtype = tile_builder.tile.question_subtype
     question = tile_builder.tile.question
     answers = tile_builder.tile.multiple_choice_answers
@@ -117,11 +117,11 @@ module ClientAdmin::TilesHelper
   end
 
   def single_tile_for_sort_js(tile)
-    escape_javascript( 
-      render( 
-        partial: 'client_admin/tiles/manage_tiles/single_tile', 
+    escape_javascript(
+      render(
+        partial: 'client_admin/tiles/manage_tiles/single_tile',
         locals: {presenter: SingleTilePresenter.new(tile, :html, @is_client_admin_action, browser.ie?)}
-      ) 
+      )
     )
   end
 
@@ -164,10 +164,14 @@ module ClientAdmin::TilesHelper
   end
 
   def suggestion_box_intro_params(show)
-    if show 
+    if show
       {intro: "Give the people ability to create Tiles and submit them for your review."}
     else
       {}
     end
+  end
+
+  def tile_thumbnail_menu(presenter)
+    render(partial: 'client_admin/tiles/manage_tiles/tile_thumbnail_menu', locals: {presenter: presenter})
   end
 end

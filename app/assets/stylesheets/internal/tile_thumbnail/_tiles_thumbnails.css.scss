@@ -36,7 +36,7 @@
     position: relative;
     width:100%;
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.22);
-    
+
     .tile_thumbnail_image, .headline {
       margin:0 auto;
       width:100%;
@@ -60,6 +60,7 @@
         margin:auto;
         max-width:none;
         max-height:238px;
+        width: 100%;
       }
     }
     .headline{
@@ -75,7 +76,7 @@
         font-size:1em;
       }
     }
-  } 
+  }
 }
 
 // Placeholder tile thumbnail
@@ -84,4 +85,3 @@
   border-radius:6px;
   height:16.25em;
 }
-

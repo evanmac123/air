@@ -1,13 +1,5 @@
 @import "mixins/green_paddle_switch"; // TODO can't remove. breaks app-internal why?
 
-// body.client_admin-tiles-create,
-// body.client_admin-tiles-show,
-// body.client_admin-tiles-update,
-// body.suggested_tiles-new,
-// body.suggested_tiles-create,
-// body.suggested_tiles-edit,
-// body.suggested_tiles-show,
-// body.suggested_tiles-update{
 body.tiles-index,
 body.acts-index,
 body.client_admin-tiles-new,
@@ -47,7 +39,6 @@ body.client_admin-tiles-edit {
     font-weight: 500;
     text-align: center;
     margin-bottom: 40px;
-    // padding-top: 21px;
     line-height: 43px;
   }
   // medium editor overrides
@@ -66,27 +57,37 @@ body.client_admin-tiles-show {
   .tile_preview_menu {
     width: 600px;
     margin:auto;
-    margin-bottom: 40px;
+    &.placeholder_menu {
+      .preview_menu_item {
+        &:first-child a {
+          width: 74px;
+        }
+        a {
+          padding: 11px 14px 13px 15px;
+        }
+      }
+    }
     &.draft_menu {
       .preview_menu_item a {
-        padding: 11px 22px 13px 21px;
+        padding: 11px 14px 13px 15px;
+      }
+    }
+    &.active_menu {
+      .preview_menu_item a {
+        padding: 11px 13px 13px 14px;
       }
     }
     &.archive_menu {
       .preview_menu_item a {
-        padding: 11px 20px 13px 19px;
+        padding: 11px 13px 13px 13px;
       }
     }
     .preview_menu_item {
-      min-width: 13%;
       width: auto;
       padding: 0px;
       .header_text {
         font-size: 12px;
         margin-left: 0.25em;
-      }
-      a {
-        padding: 11px 21px 13px 20px;
       }
     }
   }

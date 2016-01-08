@@ -25,31 +25,62 @@
   }
   // Default buttons
   .tile_buttons {
+    $border-color: #999;
+    $border-hover: #636363;
     position:absolute;
     top: 8px;
     right: 8px;
     width: calc(100% - 8px);
     li {
-      display:inline-block;
-      float:right;
-      text-align: center;
-      width:auto;
-      i {
-        display: block;
-        font-size: 22px;
-        padding-top: 5px;
-        color: #5c5c5c;
-        &:hover {
+      display: inline-block;
+      float: right;
+      width: auto;
+      cursor: pointer;
+      &:hover {
+        i {
           color: #262626;
         }
       }
-      &.edit_button {
-        float: left;
-        padding-left: 28px;
+      i {
+        display: block;
+        font-size: 15px;
+        color: #5c5c5c;
+        padding: 6px;
       }
-      &.destroy_button {
-        float: left;
-        padding-left: 22px;
+      a.update_status span {
+        font-size: 15px;
+        padding: 6px 14px;
+        font-weight: 500;
+      }
+      &.edit_button, &.more_button {
+        width: 30px;
+        height: 29px;
+        border: 1px solid $border-color;
+        border-radius: 3px;
+        margin-left: 6px;
+        &.active, &:hover {
+          border-color: $border-hover;
+        }
+      }
+      &.more_button {
+        padding-top: 12px;
+        span {
+          display: block;
+          float: left;
+          width: 4px;
+          height: 4px;
+          border-radius: 3px;
+          margin-left: 2px;
+          background: #5c5c5c;
+          &:first-child {
+            margin-left: 6px;
+          }
+        }
+        &.active, &:hover {
+          span {
+            background: #262626;
+          }
+        }
       }
       &.ignore_button, &.undo_ignore_button, &.submit_button, &.unsubmit_button {
         span {
@@ -67,12 +98,36 @@
           @include app-button($sky-blue);
         }
       }
-      &.ignore_button, &.undo_ignore_button, &.submit_button, &.unsubmit_button,
-      &.archive_button, &.activate_button, &.accept_button {
-        span {
-          padding: 7px 14px;
-          font-weight: 500;
+    }
+  }
+  .tooltipster-thumbnail-menu {
+    .tooltipster-content {
+      padding: 13px 14px;
+    }
+    .tile_thumbnail_menu {
+      li{
+        &:first-child{
+          padding-bottom: 8px;
         }
+        &:hover {
+          i, span {
+            color: #262626;
+          }
+        }
+      }
+      i, span {
+        color: #5c5c5c;
+      }
+      i {
+        font-size: 15px;
+        width: 19px;
+        &.fa-trash-o {
+          padding-left: 2px;
+        }
+      }
+      span {
+        font-size: 14px;
+        font-weight: 500;
       }
     }
   }
@@ -87,19 +142,13 @@
     }
   }
   .tile-wrapper {
-    &:hover {
+    &:hover, &.active_menu {
       .shadow_overlay, .tile_buttons {
         opacity: 1;
       }
     }
   }
 
-  .archive {
-    .tile_buttons li a span {
-      padding-left:  0.5em;
-      padding-right: 0.5em;
-    }
-  }
   .user_submitted {
     .accept_button {
       margin-right: 4em;

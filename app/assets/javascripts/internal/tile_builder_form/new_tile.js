@@ -39,6 +39,7 @@ Airbo.TileCreator = (function(){
     , ajaxHandler = Airbo.AjaxResponseHandler
     , modalActivationSelectors = [editSelector, previewSelector, tileNavigationSelector].join(",")
     , submitSuccess
+    , thumbnailMenu
   ;
 
  function prepEditOrNew(action){
@@ -101,10 +102,6 @@ Airbo.TileCreator = (function(){
    });
  }
 
- function tooltipBefore(){
-   console.log($(this).tooltipster("content"))
- }
-
  function initPreviewMenuTooltips(){
    $(".tipsy").tooltipster({
      theme: "tooltipster-shadow",
@@ -113,7 +110,7 @@ Airbo.TileCreator = (function(){
      contentAsHTML: true,
      functionReady: prepareToolTip,
      trigger: "click",
-     autoClose: false,
+     autoClose: false
    });
  }
 
@@ -125,7 +122,7 @@ Airbo.TileCreator = (function(){
      contentAsHTML: true,
      trigger: "custom",
      positionTracker: "true",
-     autoClose: false,
+     autoClose: false
    });
 
    $("#image_uploader").tooltipster("show");
@@ -141,14 +138,13 @@ Airbo.TileCreator = (function(){
  function initSharing(){
    Airbo.TileSharingMgr.init();
    Airbo.TileTagger.init({
-       submitSuccess:  function(data){
-         refreshCurrentPreview(data.preview);
-         prepShow();
-         updateTileSection(data);
-         $(".tipsy.explore").tooltipster("show");
-       },
+     submitSuccess:  function(data){
+       refreshCurrentPreview(data.preview);
+       prepShow();
+       updateTileSection(data);
+       $(".tipsy.explore").tooltipster("show");
      }
-   );
+   });
  }
 
  function prepareToolTip(origin, content){
@@ -163,7 +159,7 @@ Airbo.TileCreator = (function(){
       "archive": "archive",
       "user_submitted": "suggestion_box",
       "ignored": "suggestion_box"
-   }
+   };
    var newTile = $(data)
      , status = newTile.data("status")
      , newSection = "#" + sections[status]
@@ -183,15 +179,19 @@ Airbo.TileCreator = (function(){
    submittedTile = $(".tile_thumbnail.user_submitted");
    $("#user_submitted_tiles_counter").html(submittedTile.length);
  }
-
+ function findTile(tileId){
+   return $(".tile_container[data-tile-id='"+tileId+"']");
+ }
  function updateTileSection(data){
    var selector , section = pageSectionByStatus(data.tileStatus);
-   if(isExistingTile){
-     replaceTileContent(data.tile, data.tileId)
+   if(findTile(data.tileId).length > 0){
+     replaceTileContent(data.tile, data.tileId);
    } else{
      section.prepend(data.tile); //Add tile to section
      window.updateTilesAndPlaceholdersAppearance();
    }
+   new_tile = findTile(data.tileId);
+   thumbnailMenu.initMoreBtn(new_tile.find(".more_button"));
  }
 
 
@@ -218,6 +218,7 @@ Airbo.TileCreator = (function(){
        prepShow();
        break;
      default:
+      console.log("no action");
        // code
    }
  }
@@ -250,6 +251,7 @@ Airbo.TileCreator = (function(){
         setupModalFor(action);
         positionArrows();
       }
+      // activateModal(modalTrigger.attr("href"));
 
       $.ajax({
         type: "GET",
@@ -268,8 +270,6 @@ Airbo.TileCreator = (function(){
     });
   }
 
-
-
   function getImageLibrary(libaryUrl){
     $.ajax({
       type: "GET",
@@ -284,7 +284,7 @@ Airbo.TileCreator = (function(){
       error: function(jqXHR, textStatus, error){
         console.log(error);
       }
-    })
+    });
   }
 
   function initTileBuilderFormSubmission(){
@@ -336,19 +336,19 @@ Airbo.TileCreator = (function(){
         },
 
         "tile_builder_form[headline]": {
-          required: true,
+          required: true
         },
 
         "tile_builder_form[remote_media_url]": {
-          required: true,
+          required: true
         },
 
         "tile_builder_form[question_subtype]": {
-          required: true,
+          required: true
         },
 
         "tile_builder_form[question]": {
-          required:  true,
+          required:  true
         },
 
         "tile_builder_form[correct_answer_index]": {
@@ -356,7 +356,7 @@ Airbo.TileCreator = (function(){
         },
 
         "tile_builder_form[answers][]": {
-          required: true,
+          required: true
         }
 
       },
@@ -411,7 +411,7 @@ Airbo.TileCreator = (function(){
       unhighlight: function(element, errorClass) {
         $(element).parents(".content_sections").removeClass( errorClassName(element, errorClass) );
       }
-    },
+    };
 
     config = $.extend({}, Airbo.Utils.validationConfig, config);
     validator = form.validate(config);
@@ -440,6 +440,7 @@ Airbo.TileCreator = (function(){
     refreshCurrentPreview(data.preview);
     prepShow();
     updateTileSection(data);
+    updateShowMoreDraftTilesButton();
     scrollPageToTop();
     positionArrows();
   }
@@ -458,12 +459,12 @@ Airbo.TileCreator = (function(){
 
 
   function tileByStatusChangeTriggerLocation(target){
-    var criteria = "[data-tile-id=" + target.data("tileid") + "][data-status='draft']"
+    var criteria = "[data-tile-id=" + target.data("tileid") + "]";//"[data-status='draft']"
 
     if(target.parents(tileWrapperSelector).length !== 0){
       //Trigger directly by action button on the tile outside of the modal
-      return target.parents(tileWrapperSelector)
-    }else if(modalTrigger.parents(tileWrapperSelector).length !=0){
+      return target.parents(tileWrapperSelector);
+    }else if(modalTrigger && modalTrigger.parents(tileWrapperSelector).length !=0){
       //Triggered inside modal of a prexisting tile
       return modalTrigger.parents(tileWrapperSelector);
     }else{
@@ -502,7 +503,7 @@ Airbo.TileCreator = (function(){
           closeModal(tileModal);
           moveTile(tile, data);
           postProcess();
-        },
+        }
       });
   }
 
@@ -544,10 +545,18 @@ Airbo.TileCreator = (function(){
 
  function tileModalOpenClose(){
 
+   $(document).on('open',tileModalSelector, function (event) {
+     if($(event.target).is(tileModal)){
+      //  scrollPageToTop();
+       $("body").css({"overflow-y": "hidden"});
+     }
+    //  positionArrows();
+   });
+
    $(document).on('opened',tileModalSelector, function (event) {
      if($(event.target).is(tileModal)){
        scrollPageToTop();
-       $("body").css({"overflow-y": "hidden"});
+      //  $("body").css({"overflow-y": "hidden"});
      }
      positionArrows();
    });
@@ -638,7 +647,61 @@ Airbo.TileCreator = (function(){
     }else if(document.selection){
       t = document.selection.createRange().text;
     }
-    return t
+    return t;
+  }
+
+  function afterDuplicationModal(tileId){
+    swal(
+      {
+        title: "Tile Copied to Drafts",
+        customClass: "airbo",
+        animation: false,
+        showCancelButton: true,
+        cancelButtonText: "Edit Tile"
+      },
+
+      function(isConfirm){
+        if (!isConfirm) {
+          findTile(tileId).find(editSelector).trigger("click");
+        }
+      }
+    );
+    swapModalButtons();
+  }
+
+  function processingDuplicationModal() {
+    swal(
+      {
+        title: "Tile Copying to Drafts",
+        text: "<div class='spinner'><i class='fa fa-cog fa-spin fa-3x'></i></div>",
+        customClass: "airbo",
+        animation: false,
+        showConfirmButton: false,
+        html: true
+        // showCancelButton: true,
+        // cancelButtonText: "Edit Tile"
+      }
+    );
+    swapModalButtons();
+  }
+
+  function makeDuplication(trigger) {
+    processingDuplicationModal();
+
+    $.ajax({
+      type: "POST",
+      dataType: "json",
+      url: trigger.attr("href") ,
+      success: function(data, status,xhr){
+        updateTileSection(data);
+        updateShowMoreDraftTilesButton();
+        afterDuplicationModal(data.tileId);
+      },
+
+      error: function(jqXHR, textStatus, error){
+        console.log(error);
+      }
+    });
   }
 
 
@@ -647,6 +710,7 @@ Airbo.TileCreator = (function(){
     function postProcess(){
       tile.remove();
       Airbo.Utils.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
+      updateShowMoreDraftTilesButton();
     }
 
     swal(
@@ -657,7 +721,7 @@ Airbo.TileCreator = (function(){
         animation: false,
         closeOnConfirm: false,
         showCancelButton: true,
-        showLoaderOnConfirm: true,
+        showLoaderOnConfirm: true
       },
 
       function(isConfirm){
@@ -686,7 +750,7 @@ Airbo.TileCreator = (function(){
         animation: false,
         closeOnConfirm: false,
         showCancelButton: true,
-        showLoaderOnConfirm: true,
+        showLoaderOnConfirm: true
       },
 
       function(isConfirm){
@@ -708,7 +772,7 @@ function confirmModalClose(postProcess){
         animation: false,
         closeOnConfirm: true,
         closeOnCancel: true,
-        showCancelButton: true,
+        showCancelButton: true
       },
 
       function(isConfirm){
@@ -723,19 +787,26 @@ function confirmModalClose(postProcess){
 
 
   function swapModalButtons(){
-    $("button.cancel").before($("button.confirm"))
+    $("button.cancel").before($("button.confirm"));
+  }
+
+  function initDuplication(){
+    $("body").on("click", ".duplicate_tile", function(event){
+      event.preventDefault();
+      makeDuplication($(this));
+    });
   }
 
   function initDeletion(){
     $("body").on("click", ".delete_tile", function(event){
       event.preventDefault();
-      confirmDeletion($(this))
+      confirmDeletion($(this));
     });
   }
   function initAcceptTile(){
     $("body").on("click", ".accept", function(event){
       event.preventDefault();
-      confirmAcceptance($(this))
+      confirmAcceptance($(this));
     });
   }
 
@@ -748,7 +819,7 @@ function confirmModalClose(postProcess){
           swal.close();
           closeModal(tileModal);
           postProcess();
-        },
+        }
       });
   }
 
@@ -804,6 +875,7 @@ function confirmModalClose(postProcess){
     initAcceptTile();
     initStatusUpdate();
     initDeletion();
+    initDuplication();
     initModalOpenClose();
     initJQueryObjects();
     initNewTileModal();
@@ -811,15 +883,19 @@ function confirmModalClose(postProcess){
     initTileBuilderFormSubmission();
     Airbo.Utils.TilePlaceHolderManager.init(); //noop
     initCustomModalClose();
+    if(Airbo.TileThumbnailMenu){
+      thumbnailMenu = Airbo.TileThumbnailMenu.init(this);
+    }
   }
 
 
 
   return {
 
-    init: init
-
-  };
+    init: init,
+    confirmDeletion: confirmDeletion,
+    makeDuplication: makeDuplication
+  }
 
 }());
 

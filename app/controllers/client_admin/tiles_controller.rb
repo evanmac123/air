@@ -159,6 +159,11 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     render_preview_and_single
   end
 
+  def duplicate
+    @tile = get_tile.copy_inside_demo(current_user.demo, current_user)
+    render_preview_and_single
+  end
+
   private
 
   def prepTilePreview
@@ -357,5 +362,4 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       preview: render_tile_preview_string,
     }
   end
-
 end
