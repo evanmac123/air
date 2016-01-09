@@ -1,3 +1,21 @@
+/* Foundation Imports */
+
 @import './vendor/foundation/components/grid';
 @import './vendor/foundation/components/clearing';
 @import './vendor/foundation/components/tables';
+
+/* Custom Structure */
+
+// .content {
+//   padding: 40px 0;
+// }
+
+section {
+  //margin: 20px 0;
+  display: inline-block;
+  width: 100%;
+}
+
+.center {
+  text-align: center;
+}

@@ -26,67 +26,111 @@
 
 
 <div class="row">
-  <div class="large-5 columns large-centered">
-    <h2>Forms</h2>
-    <form>
-      <div class="columns">
-        <div class="row">
-          <label>Text Input</label>
-          <input type="text" placeholder="placeholder text">
-        </div>
-        <div class="row">
-          <label>Password Input</label>
-          <input type="password" placeholder="abc123">
-        </div>
-        <div class="row">
-          <label>Select Menu</label>
-          <select>
-            <option>Option 1</option>
-            <option>Option 2</option>
-          </select>
-        </div>
-        <div class="row">
-          <label>Large Checkbox</label>
+  <div class="large-6 columns large-centered background-white">
+    <section>
+      <h2>Forms</h2>
+      <h3>Standard Elements</h3>
+      <form>
+        <div class="columns">
+          <div class="row">
+            <label>Text Input</label>
+            <input type="text" placeholder="placeholder text" />
+          </div>
+          <div class="row">
+            <label>Password Input</label>
+            <input type="password" placeholder="abc123" />
+          </div>
+          <div class="row">
+            <label>Input Error</label>
+            <input type="text" class="error" value="Bad bad value" />
+          </div>
+          <div class="row">
+            <label>Select Menu</label>
+            <select>
+              <option>Option 1</option>
+              <option>Option 2</option>
+            </select>
+          </div>
+          <div class="row">
+            <div class="input-group">
+              <label style="margin-bottom:20px;">Small Checkbox</label>
+              <label class="checkbox small"><input name="check1" type="checkbox" checked> And Option 1</label>
+              <label class="checkbox small"><input name="check2" type="checkbox"> And Option 2</label>
+            </div>
+          </div>
+          <div class="row">
           <div class="input-group">
-            <label class="checkbox small"><input name="check1" type="checkbox" checked> And Option 1</label>
-            <label class="checkbox small"><input name="check2" type="checkbox"> And Option 2</label>
+              <label style="margin-bottom:20px;">Large Checkbox</label>
+              <label class="checkbox"><input name="check1" type="checkbox" checked> And Option 1</label>
+              <label class="checkbox"><input name="check2" type="checkbox"> And Option 2</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-group">
+              <label style="margin-bottom:20px;">Radio Buttons</label>
+              <label class="radio"><input name="radio1" type="radio" checked> Or Option 1</label>
+              <label class="radio"><input name="radio2" type="radio"> Or Option 2</label>
+            </div>
           </div>
         </div>
-        <div class="row">
-          <label>Small Checkbox</label>
-          <div class="input-group">
-            <label class="checkbox"><input name="check1" type="checkbox" checked> And Option 1</label>
-            <label class="checkbox"><input name="check2" type="checkbox"> And Option 2</label>
-          </div>
-        </div>
-        <div class="row">
-          <label>Radio Buttons</label>
-          <div class="input-group">
-            <label class="radio"><input name="radio1" type="radio" checked> Or Option 1</label>
-            <label class="radio"><input name="radio2" type="radio"> Or Option 2</label>
-          </div>
-        </div>
+      </form>
+      <h3>Buttons</h3>
+      <p><a class="button">Primary CTA</a></p>
+      <p><a class="button outlined">Secondary CTA</a></p>
+      <p>
+        <a class="button icon">
+          <i class="fa fa-plus"></i>
+          <span>Primary CTA with Icon</span>
+        </a>
+      </p>
+      <p>
+        <a class="button outlined icon">
+          <i class="fa fa-plus"></i>
+          <span>Secondary CTA with Icon</span>
+        </a>
+      </p>
+      <div class="row center" style="background-color:#AAA;">
+        <p>
+        <a class="button reversed">Secondary CTA Reversed</a></p>
       </div>
-    </form>
+      <div class="switch-container on">
+        <div class="label">Off</div>
+          <div class="switch">
+            <div class="indicator"></div>
+          </div>
+        <div class="label">On</div>
+      </div>
+    </section>
   </div>
 </div>
 
 <div class="row">
   <div class="large-8 columns background-white large-centered">
-    <h1>86% of Employees Are Health Insurance Illiterate</h1>
-    <p>At this very moment, thousands of employees across the United States are choosing their health insurance. That’s scary, because there’s an emerging body of data that shows that most people don’t understand the basics of how health plans work. That knowledge gap may be causing some serious issues: From sick people not going to the doctor, to employees over-paying for health insurance.</p>
-    <p><b>Terms You Need To Know</b></p>
-    <ul>
-      <li>Deductible </li>
-      <li>Copay</li>
-      <li>Coinsurance</li>
-      <li>Out-of-pocket maximum</li>
-    </ul>
-    <h2>What To Do Today</h2>
-    <p>Many organizations have already kicked off Open Enrollment, and it may feel like this blog post comes at an odd time: Too late for many companies to do much about the issue, but just in time to add some stress. The good news is that health care consumerism isn’t a one-time event. It requires ongoing education and the start of the year is as good a time as ever to begin.</p>
+    <section>
+      <h1>86% of Employees Are Health Insurance Illiterate</h1>
+      <p>At this very moment, thousands of employees across the United States are choosing their health insurance. That’s scary, because there’s an emerging body of data that shows that most people don’t understand the basics of how health plans work. That knowledge gap may be causing some serious issues: From sick people not going to the doctor, to employees over-paying for health insurance.</p>
+      <p><b>Terms You Need To Know</b></p>
+      <ul>
+        <li>Deductible</li>
+        <li>Copay</li>
+        <li>Coinsurance</li>
+        <li>Out-of-pocket maximum</li>
+      </ul>
+      <h2>What To Do Today</h2>
+      <p>Many organizations have already kicked off Open Enrollment, and it may feel like this blog post comes at an odd time: Too late for many companies to do much about the issue, but just in time to add some stress. The good news is that health care consumerism isn’t a one-time event. It requires ongoing education and the start of the year is as good a time as ever to begin.</p>
+      <ol>
+        <li>Survey your employees to see what percentage understand basic health plan concepts.</li>
+        <li>Send a weekly email to all employees defining each health care term, one at a time.</li>
+        <li>Re-survey your employees with the exact same questions to measure the change.</li>
+      </ol>
+      <p><b>If only there were a tool that could make this easy for you.</b></p>
+      <p><i>Really really easy.</i></p>
+      <p><a href="" onclick="return false;">There is.</a></p>
+      <p><small>We might need small text.</small></p>
+    </section>
   </div>
 </div>
-
+<!--
   <section class="colors">
     <%
       palettes = {
@@ -327,3 +371,4 @@
     </div>
   </section>
 </div>
+-->

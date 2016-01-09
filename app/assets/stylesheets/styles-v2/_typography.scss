@@ -77,16 +77,44 @@ h4 {
 
 /* Standard Type Elements */
 
-b, strong {
+b,
+strong {
   @include font-weight-demibold;
+}
+
+small {
+  font-size: $font-size-1;
 }
 
 p {
   line-height: 1.5em;
-  margin: 1.75em 0;
+  margin: 1.5em 0;
 }
 
-ul, ol {
+ul,
+ol {
   line-height: 1.5em;
   margin: 1.75em 0;
+  padding: 0 40px;
+}
+
+li {
+  padding: 0.25em 0;
+}
+
+a {
+  color: darken($blue, 10%);
+  //outline: 0;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &:active {
+    color: $blue;
+  }
+
+  &:focus {
+    outline: 0;
+  }
 }
