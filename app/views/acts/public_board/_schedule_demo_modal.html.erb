@@ -1,45 +1,40 @@
-<div id="schedule_demo_modal" class="reveal-modal">
-  <div class="modal_container">
-    <a class="close-reveal-modal"><i class="fa fa-times fa-2x"></i></a>
-    <div id="modal_content" style="">
-      <div class="banner_img">
-        <%=image_tag "airbo_logo_lightblue_square_smile.png" %>
-      </div>
-      <div id="request_content">
-        <p class="greeting">
-        Submit your company email address to schedule a demo.
-        </p>
-        <%= form_for DemoRequest.new, html:{id: "schedule_demo_form"} do |f| %>
-          <div class="form_data">
-            <div class="email_field">
-              <%= f.text_field :email, placeholder: "Your company email" %>
-            </div>
-            <%= f.submit "Request Demo", id: "submit_demo_request" %>
-          </div>
-        <% end %>
-      </div>
-      <div id="confirmation_content">
-        <p class="greeting greeting_after">
-        <span id="confirmation_email"></span><br/>
-        <%if @demo %>
-          Great! We’ll be in touch. In the meantime, you can use this link to share this Airbo Board.
-        <%else%>
-          Thanks! Someone from the Customer Success Team will be in touch with you shortly.
-        <%end%>
-        </p>
-
-        <%if @demo %>
-          <div class="form_data">
-            <%slug = @demo ? @demo.public_slug : DEFAULT_DEMO_PARENT_BOARD %>
-            <%= text_field_tag "link_for_copy", public_board_url(slug, utm_source: "Share Link")%>
-          </div>
-        <%end%>
-
-        <div class="text-center">
-          <a href="#" id="submit_another">Change Submitted Email </a>
-        </div>
-
-      </div>
-    </div>
+<%= render layout: "/shared/standard_modal", locals: {modal_id: "schedule_demo_modal"} do %>
+  <div class="banner_img">
+    <%=image_tag "airbo_logo_lightblue_square_smile.png" %>
   </div>
-</div>
+  <div id="request_content">
+    <p class="greeting">
+    Submit your company email address to schedule a demo.
+    </p>
+    <%= form_for DemoRequest.new, html:{id: "schedule_demo_form"} do |f| %>
+      <div class="form_data">
+        <div class="email_field">
+          <%= f.text_field :email, placeholder: "Your company email" %>
+        </div>
+        <%= f.submit "Request Demo", id: "submit_demo_request" %>
+      </div>
+    <% end %>
+  </div>
+  <div id="confirmation_content">
+    <p class="greeting greeting_after">
+    <span id="confirmation_email"></span><br/>
+    <%if @demo %>
+      Great! We’ll be in touch. In the meantime, you can use this link to share this Airbo Board.
+    <%else%>
+      Thanks! Someone from the Customer Success Team will be in touch with you shortly.
+    <%end%>
+    </p>
+
+    <%if @demo %>
+      <div class="form_data">
+        <%slug = @demo ? @demo.public_slug : DEFAULT_DEMO_PARENT_BOARD %>
+        <%= text_field_tag "link_for_copy", public_board_url(slug, utm_source: "Share Link")%>
+      </div>
+    <%end%>
+
+    <div class="text-center">
+      <a href="#" id="submit_another">Change Submitted Email </a>
+    </div>
+
+  </div>
+<% end %>
