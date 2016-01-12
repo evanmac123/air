@@ -582,3 +582,4 @@ button {
 .introjs-tooltip {
   @include intro-js-restyling;
 }
+@import "mixins/fixed_modal";

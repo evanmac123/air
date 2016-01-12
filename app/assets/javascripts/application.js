@@ -2,6 +2,7 @@
 //= require jquery.validate
 //= require jquery.validate.additional-methods
 //= require ../../../vendor/assets/javascripts/autosize
+//= require ./utils/fixed_modal
 
 //FIXME add to airbo utils
 function isIE11() {
@@ -27,10 +28,7 @@ var Airbo = window.Airbo || {};
 
 //FIXME Remove Deprecated PAGes features
 
-Airbo.Utils = {
-
-
-
+$.extend(Airbo.Utils, {
 
   supportsFeatureByPresenceOfSelector: function(identifier){
     return $(identifier).length > 0
@@ -162,7 +160,7 @@ Airbo.Utils = {
     e.innerHTML = input;
     return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
   }
-}
+});
 
 Airbo.Utils.TextSelectionDetector = (function(){
   var eventTarget, callback;

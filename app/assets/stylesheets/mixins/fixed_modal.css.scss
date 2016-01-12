@@ -1,0 +1,40 @@
+@mixin fixed-modal($container-width: 68.5em, $content-width: 700px) {
+  background: rgba(14, 23, 29, 0.8);
+  position: fixed;
+  padding: 50px 30px;
+  width: 100%;
+  margin: 0;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+  border-width: 0;
+  .modal_container {
+    position: relative;
+    width: 100%;
+    max-width: $container-width;
+    padding-top: 100px;
+    margin: auto;
+  }
+  .close-reveal-modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: $white;
+    i {
+      font-size: 32px;
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+  #modal_content {
+    margin: auto;
+    width: 100%;
+    max-width: $content-width;
+  }
+  @media only screen and (max-width: 766px) {
+    padding: 16px;
+  }
+}

@@ -1,3 +1,4 @@
+
 var Airbo = window.Airbo || {};
 
 Airbo.ScheduleDemoModal = (function(){
@@ -16,6 +17,7 @@ Airbo.ScheduleDemoModal = (function(){
     , demoRequestButtonSelector =  "#demo_request, .request_demo"
     , requestContentSelector = "#request_content"
     , confirmationContentSelector = "#confirmation_content"
+    , modalObj = Airbo.Utils.FixedModal()
   ;
 
   function modalPing(action, option){
@@ -28,25 +30,24 @@ Airbo.ScheduleDemoModal = (function(){
     });
   }
 
+  function closeModalAfterRequestPing() {
+    if( !localStorage.getItem("demoRequested") ){
+      modalPing("Closed Modal", "Yes");
+    }
+  }
+
   function initScheduleDemoModal(){
    demoRequestButton.click(function(event){
      event.preventDefault();
       modalPing("Source", "Top Nav");
       openModal();
     });
-
-    demoModal.bind('closed.fndtn.reveal', function(){
-      if( !localStorage.getItem("demoRequested") ){
-        // console.log(11);
-        modalPing("Closed Modal", "Yes");
-      }
-    });
   }
 
   function openModal(){
     scrollPageToTop();
     prepareForm();
-    demoModal.foundation("reveal", "open", {animation: "fade",closeOnBackgroundClick: true });
+    modalObj.open();
     $.post("/guest_user_reset/saw_modal");
   }
 
@@ -118,32 +119,25 @@ Airbo.ScheduleDemoModal = (function(){
     confirmationContent = $(confirmationContentSelector);
   }
 
-  function initCloseOnBackgroundClick(){
-    $(demoModalSelector).click(function(event){
-      if($(event.target).is(demoModalSelector)){
-        $(closeModalSelector).trigger("click");
-      }
-    });
-
-    $(".modal_container").click(function(event){
-      if($(event.target).is(".modal_container")){
-        $(closeModalSelector).trigger("click");
-      }
-    });
-  }
-
   function initSubmitAnother(){
     $(submitAnother).click(function(){
       prepareForm();
     })
   }
 
+  function initModalObj() {
+    modalObj.init({
+      modalSel: demoModalSelector,
+      onClosedEvent: closeModalAfterRequestPing
+    });
+  }
+
   function init(){
+    initModalObj();
     initJQueryObjects();
     initScheduleDemoModal();
     initFormValidator();
     initFormSubmit();
-    initCloseOnBackgroundClick();
     initSubmitAnother();
   }
 
@@ -153,4 +147,4 @@ Airbo.ScheduleDemoModal = (function(){
     modalPing: modalPing,
     linkCopied: linkCopied
   }
-}())
+}());

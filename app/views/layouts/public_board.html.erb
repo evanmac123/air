@@ -11,6 +11,7 @@
   <%= stylesheet_link_tag "app-user-progress" %>
   <%= stylesheet_link_tag "public_board_fixed_headers" %>
   <%= javascript_include_tag "https://api.intercom.io/api/js/library.js" %>
+  <%= javascript_include_tag 'for-modern-browsers' unless browser.ie8? %>
   <%= javascript_include_tag 'application' %>
   <%= javascript_include_tag 'app-internal' %>
   <%= javascript_include_tag asset_path('ga.js') if ENV['USE_GA'] %>
