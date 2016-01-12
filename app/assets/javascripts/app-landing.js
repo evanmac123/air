@@ -11,7 +11,7 @@
 //= require ../../../vendor/assets/javascripts/external/foundation.min
 //= require ./external/landing.js
 //= require application
-//= require schedule_demo
+//= require ./external/schedule_demo
 
 $(function(){
   $(document).foundation();
