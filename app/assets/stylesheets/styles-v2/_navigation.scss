@@ -1,4 +1,4 @@
-/* Drop-down Menus */ // TODO: move to _menus.scss
+/* Drop-down Menus */
 
 ul.menu,
 .dropdown ul {
@@ -23,7 +23,7 @@ ul.menu,
     padding: 0 10px;
 
     &:hover {
-      background-color: #F9F9F9;
+      background-color: $gray-1;
     }
 
     &:active {
@@ -63,7 +63,7 @@ ul.menu,
     text-decoration: none;
 
     &:hover {
-      background-color: #F9F9F9; // TODO: replace with color var
+      background-color: $gray-1;
     }
 
     &:active {
@@ -97,7 +97,7 @@ ul.menu,
     }
 
     &:hover + a {
-      background-color: #F9F9F9;
+      background-color: $gray-1;
     }
   }
 
@@ -153,7 +153,7 @@ ul.tabs {
 
       &:hover {
         color: darken($blue, 10%);
-        border-bottom: 3px solid #EEE;
+        border-bottom: 3px solid $gray-3;
       }
     }
   }

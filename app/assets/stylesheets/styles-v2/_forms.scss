@@ -33,7 +33,7 @@ textarea {
   appearance: none;
 
   &:hover {
-    background-color: #F9F9F9; // TODO: replace with color var
+    background-color: $gray-1;
   }
 
   &:focus {
@@ -165,7 +165,7 @@ label.checkbox {
 
   .switch {
     @include ease(0.2s);
-    background-color: #EEEEEE;
+    background-color: $gray-3;
     border: 1px solid $border-color-1;
     @include radius(15px);
     cursor: pointer;
@@ -177,7 +177,7 @@ label.checkbox {
     width: 55px;
 
     &:hover {
-      background-color: $border-color-1;
+      background-color: $gray-1;
 
       .indicator {
         border-color: $blue;
@@ -188,7 +188,7 @@ label.checkbox {
   .indicator {
     @include ease(0.2s);
     background-color: $white;
-    border: 1px solid #EEEEEE;
+    border: 1px solid $gray-3;
     @include radius(13px);
     display: inline-block;
     position: absolute;
@@ -212,7 +212,7 @@ label.checkbox {
 
     &:hover {
       .indicator {
-        background-color: #EEE;
+        background-color: $gray-3;
         border-color: $blue;
       }
     }
@@ -220,7 +220,7 @@ label.checkbox {
 }
 
 .progress-bar { //TODO: maybe move to charts or something
-  background-color: #EEEEEE;
+  background-color: $gray-3;
   border: 1px solid $border-color-1;
   @include radius(5px);
   height: 10px;

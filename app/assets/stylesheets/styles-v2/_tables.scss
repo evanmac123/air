@@ -10,10 +10,6 @@ $table-row-padding: 10px;
 
 @import "./vendor/foundation/components/tables";
 
-table {
-  //border: 0;
-}
-
 th {
   @include font-weight-demibold;
 }
@@ -27,5 +23,5 @@ table tr.even:hover,
 table tr.alt:hover,
 table tr:nth-of-type(even):hover {
   @include ease(0.2s);
-  background-color: #F9F9F9; // TODO: replace with color var
+  background-color: $gray-1;
 }

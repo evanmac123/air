@@ -4,8 +4,8 @@
 @import "tables";
 @import "mixins";
 
-body { // TODO: maybe move this?
-  background: $background-light-contrast;
+body {
+  background: $gray-2;
   color: $text-color-1;
   font-family: $font-family-primary;
   @include font-weight-regular;
@@ -19,4 +19,11 @@ body { // TODO: maybe move this?
 .hidden,
 .hidden-field { // TODO: see if .hidden-field can be merged into .hidden
   display: none;
+}
+
+hr {
+  background-color: $gray-4;
+  border: 0;
+  height: 1px;
+  margin: 1.5em auto;
 }
