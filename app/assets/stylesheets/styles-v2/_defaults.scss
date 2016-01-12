@@ -1,7 +1,8 @@
-@import "./color";
-@import "./normalize";
-@import "./typography";
-@import "./mixins";
+@import "color";
+@import "normalize";
+@import "typography";
+@import "tables";
+@import "mixins";
 
 body { // TODO: maybe move this?
   background: $background-light-contrast;

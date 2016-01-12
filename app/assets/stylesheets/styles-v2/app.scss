@@ -1,5 +1,8 @@
 @import "./vendor/foundation/components/global"; // required by components in imports below
-@import "./defaults";
 @import "font-awesome";
-@import "./structure";
-@import "./forms";
+@import 'animation';
+@import "defaults";
+@import "structure";
+@import "modals";
+@import "navigation";
+@import "forms";

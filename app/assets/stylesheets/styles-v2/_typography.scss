@@ -62,17 +62,20 @@ h2 {
   @include font-weight-demibold;
   font-size: $font-size-4;
   line-height: 1.25em;
+  margin: 20px 0;
 }
 
 h3 {
   @include font-weight-demibold;
   font-size: $font-size-3;
   line-height: 1.25em;
+  margin: 1.5em 0;
 }
 
 h4 {
   @include font-weight-demibold;
   font-size: $font-size-2;
+  margin: 1.5em 0;
 }
 
 /* Standard Type Elements */
@@ -91,10 +94,15 @@ p {
   margin: 1.5em 0;
 }
 
-ul,
+ul {
+  line-height: 1.5em;
+  margin: -0.75em 0 1.75em;
+  padding: 0 40px;
+}
+
 ol {
   line-height: 1.5em;
-  margin: 1.75em 0;
+  margin: -0.5em 0 1.75em;
   padding: 0 40px;
 }
 
