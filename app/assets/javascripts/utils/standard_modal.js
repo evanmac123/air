@@ -23,16 +23,23 @@ Airbo.Utils.StandardModal = (function(){
       modal.foundation("reveal", "close");
     }
     function bodyScrollVisibility(show) {
-      value = "";
+      overflow = "";
+      width = "";
       if(!show) {
-        value = "hidden";
+        overflow = "hidden";
+        width = $("body").width()
       }
-      $("body").css({"overflow-y": value});
+
+      $("body").css({"overflow-y": overflow});
+      $("body, header").css("width", width);
     }
 
     function initEvents() {
-      modal.bind('opened.fndtn.reveal', function(){
+      modal.bind('open.fndtn.reveal', function(){
         bodyScrollVisibility(false);
+      });
+
+      modal.bind('opened.fndtn.reveal', function(){
         onOpenedEvent();
       });
 
