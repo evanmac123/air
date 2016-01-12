@@ -20,6 +20,8 @@
   </head>
   <body class="<%= body_class %> external">
     <%= yield %>
+
+    <div class="modals"><%= yield :modals %></div>
     <%= yield :javascript %>
   </body>
 </html>

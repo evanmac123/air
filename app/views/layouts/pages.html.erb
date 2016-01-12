@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <title>Airbo</title>
 
     <%= render "shared/opengraph_meta_tags" %>
@@ -26,10 +26,11 @@
     <%= render 'shared/nerf_animations_in_test' %>
   </head>
   <body class="<%= body_class %>">
-      
+
       <%= yield %>
 
+      <div class="modals"><%= yield :modals %></div>
       <%= javascript_include_tag asset_path('ga-marketing.js') if ENV['USE_GA'] %>
-    <%= yield :javascript %>  
+    <%= yield :javascript %>
   </body>
 </html>
