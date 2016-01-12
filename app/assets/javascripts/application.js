@@ -2,7 +2,7 @@
 //= require jquery.validate
 //= require jquery.validate.additional-methods
 //= require ../../../vendor/assets/javascripts/autosize
-//= require ./utils/fixed_modal
+//= require ./utils/standard_modal
 
 //FIXME add to airbo utils
 function isIE11() {

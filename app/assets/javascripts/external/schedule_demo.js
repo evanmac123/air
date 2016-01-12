@@ -12,12 +12,11 @@ Airbo.ScheduleDemoModal = (function(){
     , submitAnother
     , submitAnotherSelector= "#submit_another"
     , demoModalSelector = "#schedule_demo_modal"
-    , closeModalSelector = "#schedule_demo_modal .close-reveal-modal"
     , demoFormSelector =  "#schedule_demo_form"
     , demoRequestButtonSelector =  "#demo_request, .request_demo"
     , requestContentSelector = "#request_content"
     , confirmationContentSelector = "#confirmation_content"
-    , modalObj = Airbo.Utils.FixedModal()
+    , modalObj = Airbo.Utils.StandardModal()
   ;
 
   function modalPing(action, option){

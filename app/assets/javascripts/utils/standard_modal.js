@@ -1,7 +1,7 @@
 var Airbo = window.Airbo || {};
 Airbo.Utils = Airbo.Utils || {};
 
-Airbo.Utils.FixedModal = (function(){
+Airbo.Utils.StandardModal = (function(){
   return function(){
     var modal
       , modalSel

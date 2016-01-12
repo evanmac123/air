@@ -582,4 +582,5 @@ button {
 .introjs-tooltip {
   @include intro-js-restyling;
 }
-@import "mixins/fixed_modal";
+@import "mixins/standard_modal";
+@import "mixins/standard_small_modal";

@@ -1,62 +1,8 @@
 #schedule_demo_modal{
-  @include fixed-modal(576px, 450px);
-  // display: flex !important;
-  // padding: 0 30px;
-  // width: 100%;
-  // margin: 0;
-  // left: 0;
-  // top: 22%;
+  @include standard-small-modal();
 
-  // .modal_container {
-  //   position: relative;
-  //   width: 100%;
-  //   max-width: 800px;
-  //   padding-top: 100px;
-  //   margin: auto;
-  // }
-  // .close-reveal-modal {
-  //   position: absolute;
-  //   top: 0;
-  //   left: 0;
-  //   // top: -70px;
-  //   // right: 50%;
-  //   // margin-right: 355px;
-  //   color: $white;
-  //   i {
-  //     font-size: 32px;
-  //     &:hover {
-  //       opacity: 0.7;
-  //     }
-  //   }
-  // }
-  ::-webkit-input-placeholder {
+  ::-webkit-input-placeholder, :-moz-placeholder, ::-moz-placeholder, :-ms-input-placeholder {
      text-align: center;
-  }
-
-  :-moz-placeholder { /* Firefox 18- */
-     text-align: center;
-  }
-
-  ::-moz-placeholder {  /* Firefox 19+ */
-     text-align: center;
-  }
-
-  :-ms-input-placeholder {
-     text-align: center;
-  }
-  .modal_container {
-    padding-top: 28px;
-    position: absolute;
-    top: 16%;
-    left: 50%;
-    margin-left: -268px;
-  }
-  #modal_content{
-    // width: 450px;
-    // margin: auto;
-    padding:50px;
-    background: white;
-    border-radius: 3px;
   }
   .banner_img{
     text-align: center;
@@ -114,26 +60,6 @@
 
 @media only screen and (max-width: 766px) {
   #schedule_demo_modal{
-    // padding: 22px 16px;
-    // top: 12%;
-    // .close-reveal-modal {
-    //   position: fixed;
-    //   top: 16px;
-    //   left: 14px;
-    // }
-    .modal_container {
-      position: relative;
-      margin: 0;
-      top: 0;
-      left: 0;
-      padding-top: 100px;
-    }
-    #modal_content{
-      // width: 100%;
-      // margin: auto;
-      max-width: 382px;
-      padding: 25px;
-    }
     .banner_img {
       margin-bottom: 25px;
       img {
