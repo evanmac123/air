@@ -132,7 +132,6 @@ function init(handler){
   initCustomHandlers(handler);
   initChooseFileDelegator();
   initFileUploader();
-  Airbo.LoadedSingletonModules.push(this);
 }
 
 return {
