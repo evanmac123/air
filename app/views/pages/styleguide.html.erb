@@ -45,13 +45,6 @@
             <input type="text" class="error" value="Bad bad value" />
           </div>
           <div class="row">
-            <label>Select Menu</label>
-            <select>
-              <option>Option 1</option>
-              <option>Option 2</option>
-            </select>
-          </div>
-          <div class="row">
             <div class="input-group">
               <label style="margin-bottom:20px;">Small Checkbox</label>
               <label class="checkbox small"><input name="check1" type="checkbox" checked> And Option 1</label>
@@ -74,6 +67,26 @@
           </div>
         </div>
       </form>
+      <h2>Menus</h2>
+      <form class="custom" style="width:300px;">
+        <div class="columns">
+          <div class="row">
+            <label>Select Menu</label>
+            <select>
+              <option>Option 1</option>
+              <option>Option 2</option>
+            </select>
+          </div>
+          <div class="row">
+            <label>Drop-down Menu</label>
+            <ul class="menu">
+              <li>Option 1</li>
+              <li>Option 2</li>
+              <li>Option 2</li>
+            </ul>
+          </div>
+        </div>
+      </form>
       <h3>Buttons</h3>
       <p><a class="button">Primary CTA</a></p>
       <p><a class="button outlined">Secondary CTA</a></p>
@@ -93,6 +106,8 @@
         <p>
         <a class="button reversed">Secondary CTA Reversed</a></p>
       </div>
+
+      <p><label>Switch</label></p>
       <div class="switch-container on">
         <div class="label">Off</div>
           <div class="switch">
@@ -100,12 +115,23 @@
           </div>
         <div class="label">On</div>
       </div>
+      <p>
+        <label>Progress Bars</label>
+        <div class="progress-bar">
+          <div class="indicator" style="width:50%;"></div>
+        </div>
+      </p>
+      <p>
+        <div class="progress-bar green">
+          <div class="indicator" style="width:50%;"></div>
+        </div>
+      </p>
     </section>
   </div>
 </div>
 
 <div class="row">
-  <div class="large-8 columns background-white large-centered">
+  <div class="large-8 columns background-white large-centered" style="margin-top:20px;">
     <section>
       <h1>86% of Employees Are Health Insurance Illiterate</h1>
       <p>At this very moment, thousands of employees across the United States are choosing their health insurance. That’s scary, because there’s an emerging body of data that shows that most people don’t understand the basics of how health plans work. That knowledge gap may be causing some serious issues: From sick people not going to the doctor, to employees over-paying for health insurance.</p>
@@ -130,7 +156,22 @@
     </section>
   </div>
 </div>
+
+<!-- ORIGINAL STYLE GUIDE -->
 <!--
+<div class="large-8 row large-centered">
+  <section class="logos">
+    <div class="large-12 large-centered">
+      <h5>Our logos</h5>
+      <div class="example large-6 columns light-bg">
+        <%= image_tag "logo.png", alt: "H.Engage" %>
+      </div>
+      <div class="example large-6 columns light-bg">
+        <%= image_tag "airbo_logo_lightblue_square_smile.png", alt: "H.Engage" %>
+      </div>
+    </div>
+  </section>
+
   <section class="colors">
     <%
       palettes = {
@@ -169,6 +210,20 @@
     <% end %>
   </section>
 
+  <section class="headers">
+    <h5>Headers</h5>
+    <div class="large-12 columns large-centered">
+      <div class="example row">
+        <h1>This is my top level header. H1</h1>
+        <h2>Sometimes I need a subhead. H2</h2>
+        <h3>Occasionally, this. H3</h3>
+        <h4>Say hi to H4</h4>
+        <h5>And the last one is H5</h5>
+        <p class="regular_text">Regular text</p>
+        <p id="caption">Caption</p>
+      </div>
+    </div>
+  </section>
   <section class="buttons">
     <h5>Primary buttons, with importance in order</h5>
     <h5>@include app-button($color)</h5>

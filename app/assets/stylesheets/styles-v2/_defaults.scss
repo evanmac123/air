@@ -1,14 +1,11 @@
 @import "./color";
 @import "./normalize";
 @import "./typography";
-
-// * {
-//   -webkit-font-smoothing: antialiased;
-// }
+@import "./mixins";
 
 body { // TODO: maybe move this?
   background: $background-light-contrast;
-  color: $gray-dark;
+  color: $text-color-1;
   font-family: $font-family-primary;
   @include font-weight-regular;
   font-size: $font-size-2;
@@ -16,4 +13,9 @@ body { // TODO: maybe move this?
 
 .background-white {
   background-color: $white;
+}
+
+.hidden,
+.hidden-field { // TODO: see if .hidden-field can be merged into .hidden
+  display: none;
 }

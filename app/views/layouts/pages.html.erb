@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js"><!--<![endif]-->
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -9,7 +9,7 @@
 
     <title>Airbo</title>
 
-    <%= render "shared/opengraph_meta_tags" %>
+    <%# render "shared/opengraph_meta_tags" %>
     <%= stylesheet_link_tag 'styles-v2/app' %>
     <%= javascript_include_tag 'app-pages' %>
 
@@ -18,18 +18,17 @@
       <style type="text/css">
       .gradient {filter: none;}</style>
     <![endif]-->
-    <%= javascript_include_tag asset_path('ga.js') if ENV['USE_GA'] %>
+    <%# javascript_include_tag asset_path('ga.js') if ENV['USE_GA'] %>
 
-    <%= render 'shared/mixpanel' %>
-    <%= mp_track_page @page_name_for_mixpanel if @page_name_for_mixpanel.present? %>
-    <%= mobvious_javascript %>
-    <%= render 'shared/nerf_animations_in_test' %>
+    <%# render 'shared/mixpanel' %>
+    <%# mp_track_page @page_name_for_mixpanel if @page_name_for_mixpanel.present? %>
+    <%# mobvious_javascript %>
+    <%# render 'shared/nerf_animations_in_test' %>
   </head>
   <body class="<%= body_class %>">
 
       <%= yield %>
-
-      <%= javascript_include_tag asset_path('ga-marketing.js') if ENV['USE_GA'] %>
-    <%= yield :javascript %>
+      <%# javascript_include_tag asset_path('ga-marketing.js') if ENV['USE_GA'] %>
+      <%= yield :javascript %>
   </body>
 </html>
