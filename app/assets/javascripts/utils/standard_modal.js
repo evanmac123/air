@@ -22,6 +22,9 @@ Airbo.Utils.StandardModal = (function(){
     function close() {
       modal.foundation("reveal", "close");
     }
+    function setContent(content) {
+      $(modalContentSel).html(content);
+    }
     function bodyScrollVisibility(show) {
       overflow = "";
       width = "";
@@ -62,12 +65,21 @@ Airbo.Utils.StandardModal = (function(){
           });
         });
       }
+
+      // if(fixedX) {
+      //
+      // }
     }
     function initVars(params) {
-      modalSel = params.modalSel;
+      if(params.useAjaxModal) {
+        $(".ajax_modal").attr("id", params.modalId);
+      }
+      modalId = params.modalId;
+      modalSel = "#" + modalId;
       modal = $(modalSel);
       modalContainerSel = modalSel + " .modal_container";
       modalContentSel = modalSel + " #modal_content";
+      // modalXSel = modalSel + ".close-reveal-modal";
       closeSel = params.closeSel || "";
       onOpenedEvent = params.onOpenedEvent || Airbo.Utils.noop;
       onClosedEvent = params.onClosedEvent || Airbo.Utils.noop;
@@ -79,7 +91,8 @@ Airbo.Utils.StandardModal = (function(){
     }
     return {
      init: init,
-     open: open
+     open: open,
+     setContent: setContent
     }
   }
 }());

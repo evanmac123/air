@@ -11,7 +11,7 @@ Airbo.ScheduleDemoModal = (function(){
     , confirmationContent
     , submitAnother
     , submitAnotherSelector= "#submit_another"
-    , demoModalSelector = "#schedule_demo_modal"
+    , demoModalId = "schedule_demo_modal"
     , demoFormSelector =  "#schedule_demo_form"
     , demoRequestButtonSelector =  "#demo_request, .request_demo"
     , requestContentSelector = "#request_content"
@@ -126,7 +126,7 @@ Airbo.ScheduleDemoModal = (function(){
 
   function initModalObj() {
     modalObj.init({
-      modalSel: demoModalSelector,
+      modalId: demoModalSelector,
       onClosedEvent: closeModalAfterRequestPing
     });
   }
