@@ -21,7 +21,7 @@ Airbo.TileFormModal = (function(){
   }
 
   function disableSubmitBtn(){
-    submitBtn.addAttr("disabled");
+    submitBtn.attr("disabled", "disabled");
   }
 
   function initFormElements() {

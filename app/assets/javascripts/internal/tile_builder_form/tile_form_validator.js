@@ -1,7 +1,8 @@
 var Airbo = window.Airbo || {};
 
 Airbo.TileFormValidator = (function(){
-  var form;
+  var form,
+      tileModalSelector = "#tile_form_modal";
   var config = {
     debug: true,
     ignore: [],
