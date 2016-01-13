@@ -34,7 +34,7 @@ Airbo.TileFormModal = (function(){
     Airbo.TileSuportingContentTextManager.init();
     Airbo.Utils.mediumEditor.init();
     imageLibraryModal = Airbo.ImageLibraryModal;
-    imageLibraryModal.init();
+    imageLibraryModal.init(Airbo.TileFormModal);
 
     $("#upload_preview").on("load", function(){
       $(".image_preview").removeClass("loading").attr("style", ""); // remove height
@@ -79,6 +79,10 @@ Airbo.TileFormModal = (function(){
     submitBtn = form.find("input[type=submit]");
   }
 
+  function openModal(){
+    modalObj.open();
+  }
+
   function open(url) {
     $.ajax({
       type: "GET",
@@ -105,6 +109,7 @@ Airbo.TileFormModal = (function(){
 
   return {
     init: init,
-    open: open
+    open: open,
+    openModal: openModal
   }
 }());

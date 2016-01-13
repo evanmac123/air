@@ -4,6 +4,7 @@ Airbo.ImageLibraryModal = (function(){
   var modalId ="images_modal"
   ;
   var modalObj = Airbo.Utils.StandardModal()
+    , tileFormModal
   ;
   function getImageLibraryCall(libaryUrl){
     $.ajax({
@@ -38,12 +39,15 @@ Airbo.ImageLibraryModal = (function(){
   function initModalObj() {
     modalObj.init({
       modalId: modalId,
-      useAjaxModal: true
+      useAjaxModal: true,
+      onClosedEvent: function() {
+        tileFormModal.openModal();
+      }
     });
   }
-  function init() {
+  function init(AirboTileFormModal) {
+    tileFormModal = AirboTileFormModal;
     initModalObj();
-    return this;
   }
   return {
     init: init,
