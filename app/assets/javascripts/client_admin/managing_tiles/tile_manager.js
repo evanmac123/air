@@ -42,14 +42,12 @@ Airbo.TileManager = (function(){
     });
   }
   function initVars() {
-    // newTileBtn = $(newTileBtnSel);
+    Airbo.TileThumbnail.init(this);
+    thumbnailMenu = Airbo.TileThumbnailMenu.init(this);
   }
   function init() {
     initVars();
     initEvents();
-    if(Airbo.TileThumbnailMenu){
-      thumbnailMenu = Airbo.TileThumbnailMenu.init(this);
-    }
   }
   return {
     init: init,
