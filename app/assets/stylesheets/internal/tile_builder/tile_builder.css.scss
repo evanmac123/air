@@ -65,8 +65,13 @@ body.client_admin-tiles-edit,
     }
   }
 }
-body.client_admin-tiles-show {
-  @import "modals";
+#tile_preview_modal {
+  // @import "modals";
+  @include standard-modal($content-width: 1007px);
+  padding-left: 67px;
+  .modal_container {
+    padding-top: 0px;
+  }
   // TODO move to tile preview stuff
   .tile_preview_menu {
     width: 600px;
@@ -107,10 +112,10 @@ body.client_admin-tiles-show {
   }
 }
 
-body.tiles-index,
-body.acts-index {
-  // for intro js
-  #new_tile_modal {
-    // z-index: 99 !important;
-  }
-}
+// body.tiles-index,
+// body.acts-index {
+//   // for intro js
+//   #new_tile_modal {
+//     // z-index: 99 !important;
+//   }
+// }

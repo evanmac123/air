@@ -51,6 +51,10 @@ Airbo.TileFormModal = (function(){
   function submitSuccess(data) {
     tileManager.updateTileSection(data);
     updateShowMoreDraftTilesButton();
+
+    var tilePreview = Airbo.TilePreviewModal;
+    tilePreview.init();
+    tilePreview.open(data.preview);
   }
 
   function initEvents() {

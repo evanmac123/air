@@ -49,7 +49,8 @@ body.tiles.tiles-index {
 body.tile.tile-show,
 body.tile_previews-show,
 body.client_admin-tiles-show,
-body.tiles.tiles-index {
+body.tiles.tiles-index,
+#tile_preview_modal {
   // Actual tile, holds everything together
   .tile_holder {
     //background:transparent;

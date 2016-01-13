@@ -1,0 +1,91 @@
+var Airbo = window.Airbo || {};
+
+Airbo.TilePreviewModal = (function(){
+  var modalId = "tile_preview_modal"
+  ;
+  var modalObj = Airbo.Utils.StandardModal()
+    , tileManager
+  ;
+  function tileContainerSizes() {
+    tileContainer = $(".tile_full_image")[0]  || $(".pholder.image")[0];
+    if( !tileContainer ) {
+      return null;
+    }
+    return tileContainer.getBoundingClientRect();
+  }
+  function positionArrows() {
+    sizes = tileContainerSizes();
+    if (!sizes || sizes.left == 0 && sizes.right == 0) return;
+
+    $(tileNavLeft).css("left", sizes.left - 65);
+    $(tileNavRight).css("left", sizes.right);
+    $(tileNavSelectors).css("display", "block");
+  }
+  function initSharing(){
+    Airbo.TileSharingMgr.init();
+    Airbo.TileTagger.init({
+      submitSuccess:  function(data){
+        modalObj.setContent(data.preview);
+        initPreviewElements();
+        $(".tipsy.explore").tooltipster("show");
+      }
+    });
+  }
+  function prepareToolTip(origin, content){
+    initSharing();
+  }
+  function initPreviewMenuTooltips(){
+    $(".tipsy").tooltipster({
+      theme: "tooltipster-shadow",
+      interactive: true,
+      position: "bottom",
+      contentAsHTML: true,
+      functionReady: prepareToolTip,
+      trigger: "click",
+      autoClose: false
+    });
+  }
+  function initImgLoadingPlaceHolder(){
+    $("#tile_img_preview").on("load", function(){
+      $(".tile_full_image").removeClass("loading").attr("style", "");
+    });
+  }
+  function initStickyPreviewMenu() {
+    var modal = $("#" + modalId);
+    var previewMenu = $('.tile_preview_menu');
+    modal.scroll(function() {
+      if (modal.scrollTop() > 50) {
+        sizes = tileContainerSizes();
+        previewMenu.addClass('sticky').css("left", sizes.left);
+      } else {
+        previewMenu.removeClass('sticky').css("left", "");
+      }
+    });
+  }
+  function initPreviewElements() {
+    Airbo.TileCarouselPage.init();
+    initPreviewMenuTooltips();
+    initImgLoadingPlaceHolder();
+    initStickyPreviewMenu();
+  }
+  function open(preview) {
+    modalObj.setContent(preview);
+    initPreviewElements();
+    modalObj.open();
+    positionArrows();
+  }
+  function initModalObj() {
+    modalObj.init({
+      modalId: modalId,
+      useAjaxModal: true
+    });
+  }
+  function init(AirboTileManager){
+    initModalObj();
+    tileManager = AirboTileManager;
+  }
+  return {
+    init: init,
+     open: open
+  }
+}());
