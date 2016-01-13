@@ -131,9 +131,9 @@ Airbo.TileCreator = (function(){
 
 
 
- function shouldAutoClose(){
-   return Airbo.Utils.urlParamValueByname("dactt") ? false : true;
- }
+ // function shouldAutoClose(){
+ //   return Airbo.Utils.urlParamValueByname("dactt") ? false : true;
+ // }
 
  function initSharing(){
    Airbo.TileSharingMgr.init();
