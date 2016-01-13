@@ -36,7 +36,7 @@ Airbo.TileThumbnailMenu = (function() {
         $(".tile_thumbnail_menu .delete_tile").click(function(event){
           event.preventDefault();
           origin.tooltipster("hide");
-          tileCreator.confirmDeletion($(this));
+          Airbo.TileAction.confirmDeletion($(this));
         });
 
         $(".tile_thumbnail_menu .duplicate_tile").click(function(event){

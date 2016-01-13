@@ -12,13 +12,13 @@ Airbo.TileAction = (function(){
   }
   function tileByStatusChangeTriggerLocation(target){
     var criteria = "[data-tile-id=" + target.data("tileid") + "]";//"[data-status='draft']"
-
+    // var
     if(target.parents(tileWrapperSelector).length !== 0){
       //Trigger directly by action button on the tile outside of the modal
       return target.parents(tileWrapperSelector);
-    }else if(modalTrigger && modalTrigger.parents(tileWrapperSelector).length !=0){
-      //Triggered inside modal of a prexisting tile
-      return modalTrigger.parents(tileWrapperSelector);
+    // }else if(modalTrigger && modalTrigger.parents(tileWrapperSelector).length !=0){
+    //   //Triggered inside modal of a prexisting tile
+    //   return modalTrigger.parents(tileWrapperSelector);
     }else{
       //newly created tile so no trigger was present prior to the tile being created. Assume it is currently in dreaft
       return $(tileWrapperSelector).filter(criteria);
@@ -137,8 +137,51 @@ Airbo.TileAction = (function(){
       }
     });
   }
+  //
+  // => Deletion
+  //
+  function submitTileForDeletion(tile,target, postProcess ){
+      $.ajax({
+        url: target.data("url") || target.attr("href"),
+        type: "delete",
+        success: function(data, status,xhr){
+          swal.close();
+          closeModal( $(tileModalSelector) );
+          postProcess();
+        }
+      });
+  }
+  function confirmDeletion(trigger){
+    var tile = tileByStatusChangeTriggerLocation(trigger);
+    function postProcess(){
+      tile.remove();
+      Airbo.Utils.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
+      updateShowMoreDraftTilesButton();
+    }
+
+    swal(
+      {
+        title: "",
+        text: "Are you sure you want to delete this tile? Deleting a tile is irrevocable and you'll loose all data associated with it.",
+        customClass: "airbo",
+        animation: false,
+        closeOnConfirm: false,
+        showCancelButton: true,
+        showLoaderOnConfirm: true
+      },
+
+      function(isConfirm){
+        if (isConfirm) {
+          submitTileForDeletion(tile, trigger,postProcess);
+        }
+      }
+    );
+
+    swapModalButtons();
+  }
   return {
     updateStatus: updateStatus,
-    makeDuplication: makeDuplication
+    makeDuplication: makeDuplication,
+    confirmDeletion: confirmDeletion
   }
 }());
