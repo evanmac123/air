@@ -41,8 +41,7 @@ Airbo.TilePreviewModal = (function(){
       position: "bottom",
       contentAsHTML: true,
       functionReady: prepareToolTip,
-      trigger: "click",
-      autoClose: false
+      trigger: "click"
     });
   }
   function initImgLoadingPlaceHolder(){
