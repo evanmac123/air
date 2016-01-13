@@ -69,11 +69,33 @@ Airbo.TilePreviewModal = (function(){
       }
     });
   }
+  function initEvents() {
+    $(tileNavigationSelector).click(function(e){
+      e.preventDefault();
+
+      $.ajax({
+        type: "GET",
+        dataType: "html",
+        url: $(this).attr("href") ,
+        success: function(data, status,xhr){
+          // var tilePreview = Airbo.TilePreviewModal;
+          // tilePreview.init();
+          open(data);
+          positionArrows();
+        },
+
+        error: function(jqXHR, textStatus, error){
+          console.log(error);
+        }
+      });
+    })
+  }
   function initPreviewElements() {
     Airbo.TileCarouselPage.init();
     initPreviewMenuTooltips();
     initImgLoadingPlaceHolder();
     initStickyPreviewMenu();
+    initEvents();
   }
   function open(preview) {
     modalObj.setContent(preview);
