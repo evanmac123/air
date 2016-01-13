@@ -22,7 +22,7 @@
   </li>
 
   <li class="preview_menu_item destroy" >
-    <%=link_to client_admin_tile_path(tile), class: "delete_tile" do %>
+    <%=link_to client_admin_tile_path(tile), class: "delete_tile", data: {"tileid" => tile.id} do %>
       <i class="fa fa-trash fa-1x"></i>
       <span class="header_text">
       Delete

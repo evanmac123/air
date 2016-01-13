@@ -2,7 +2,7 @@ var Airbo = window.Airbo || {};
 
 Airbo.TileAction = (function(){
   var tileWrapperSelector =".tile_container"
-    , tileModalSelector = "#tile_form_modal"
+    , tileModalSelector = "#tile_preview_modal"
   ;
   //
   // => Update Status
@@ -12,18 +12,18 @@ Airbo.TileAction = (function(){
   }
   function tileByStatusChangeTriggerLocation(target){
     var criteria = "[data-tile-id=" + target.data("tileid") + "]";//"[data-status='draft']"
+    return $(".tile_container" + criteria);
     // var
-    if(target.parents(tileWrapperSelector).length !== 0){
-      //Trigger directly by action button on the tile outside of the modal
-      return target.parents(tileWrapperSelector);
-    // }else if(modalTrigger && modalTrigger.parents(tileWrapperSelector).length !=0){
-    //   //Triggered inside modal of a prexisting tile
-    //   return modalTrigger.parents(tileWrapperSelector);
-    }else{
-      //newly created tile so no trigger was present prior to the tile being created. Assume it is currently in dreaft
-      return $(tileWrapperSelector).filter(criteria);
-    }
-
+    // if(target.parents(tileWrapperSelector).length !== 0){
+    //   //Trigger directly by action button on the tile outside of the modal
+    //   return target.parents(tileWrapperSelector);
+    // // }else if(modalTrigger && modalTrigger.parents(tileWrapperSelector).length !=0){
+    // //   //Triggered inside modal of a prexisting tile
+    // //   return modalTrigger.parents(tileWrapperSelector);
+    // }else{
+    //   //newly created tile so no trigger was present prior to the tile being created. Assume it is currently in dreaft
+    //   return $(tileWrapperSelector).filter(criteria);
+    // }
   }
   function replaceTileContent(tile, id){
     selector = tileWrapperSelector + "[data-tile-id=" + id + "]";

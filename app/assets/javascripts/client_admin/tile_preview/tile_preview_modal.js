@@ -33,9 +33,11 @@ Airbo.TilePreviewModal = (function(){
     Airbo.TileSharingMgr.init();
     Airbo.TileTagger.init({
       submitSuccess:  function(data){
-        modalObj.setContent(data.preview);
-        initPreviewElements();
-        $(".tipsy.explore").tooltipster("show");
+        // no need to update tags
+
+        // modalObj.setContent(data.preview);
+        // initPreviewElements();
+        // $(".tipsy.explore").tooltipster("show");
       }
     });
   }
@@ -88,7 +90,33 @@ Airbo.TilePreviewModal = (function(){
           console.log(error);
         }
       });
-    })
+    });
+
+    $(".preview_menu_item.edit a").click(function(e){
+      e.preventDefault();
+      url = $(this).attr("href");
+
+      tileForm = Airbo.TileFormModal;
+      tileForm.init(Airbo.TileManager);
+      tileForm.open(url);
+    });
+
+    $(".preview_menu_item .update_status").click(function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      target = $(this);
+      Airbo.TileAction.updateStatus(target);
+    });
+
+    $(".preview_menu_item .delete_tile").click(function(event){
+      event.preventDefault();
+      Airbo.TileAction.confirmDeletion($(this));
+    });
+
+    $(".preview_menu_item .duplicate_tile").click(function(event){
+      event.preventDefault();
+      Airbo.TileAction.makeDuplication($(this));
+    });
   }
   function initPreviewElements() {
     Airbo.TileCarouselPage.init();
