@@ -4,6 +4,9 @@ Airbo.TileAction = (function(){
   var tileWrapperSelector =".tile_container"
     , tileModalSelector = "#tile_form_modal"
   ;
+  //
+  // => Update Status
+  //
   function closeModal(modal){
    modal.foundation("reveal", "close");
   }
@@ -77,7 +80,65 @@ Airbo.TileAction = (function(){
 
     submitTileForUpadte(tile,target, closeAnyToolTips);
   }
+  //
+  // => Duplication
+  //
+  function processingDuplicationModal() {
+    swal(
+      {
+        title: "Tile Copying to Drafts",
+        text: "<div class='spinner'><i class='fa fa-cog fa-spin fa-3x'></i></div>",
+        customClass: "airbo",
+        animation: false,
+        showConfirmButton: false,
+        html: true
+        // showCancelButton: true,
+        // cancelButtonText: "Edit Tile"
+      }
+    );
+    swapModalButtons();
+  }
+  function swapModalButtons(){
+    $("button.cancel").before($("button.confirm"));
+  }
+  function afterDuplicationModal(tileId){
+    swal(
+      {
+        title: "Tile Copied to Drafts",
+        customClass: "airbo",
+        animation: false,
+        showCancelButton: true,
+        cancelButtonText: "Edit Tile"
+      },
+
+      function(isConfirm){
+        if (!isConfirm) {
+          findTile(tileId).find(editSelector).trigger("click");
+        }
+      }
+    );
+    swapModalButtons();
+  }
+  function makeDuplication(trigger) {
+    processingDuplicationModal();
+
+    $.ajax({
+      type: "POST",
+      dataType: "json",
+      url: trigger.attr("href") ,
+      success: function(data, status,xhr){
+        Airbo.TileManager.updateTileSection(data);
+        updateShowMoreDraftTilesButton();
+        afterDuplicationModal(data.tileId);
+      },
+
+      error: function(jqXHR, textStatus, error){
+        console.log(error);
+      }
+    });
+  }
   return {
-    updateStatus: updateStatus
+    updateStatus: updateStatus,
+    makeDuplication: makeDuplication
   }
 }());

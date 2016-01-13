@@ -42,13 +42,13 @@ Airbo.TileThumbnailMenu = (function() {
         $(".tile_thumbnail_menu .duplicate_tile").click(function(event){
           event.preventDefault();
           origin.tooltipster("hide");
-          tileCreator.makeDuplication($(this));
+          Airbo.TileAction.makeDuplication($(this));
         });
       }
     });
   }
-  function init(AirboTileCreator) {
-    tileCreator = AirboTileCreator;
+  function init() {
+    // tileCreator = AirboTileCreator;
 
     // $(".more_button").each(function(){
     //   initMoreBtn($(this));
