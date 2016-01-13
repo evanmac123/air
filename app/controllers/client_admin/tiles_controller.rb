@@ -1,6 +1,8 @@
+require 'custom_responder'
 class ClientAdmin::TilesController < ClientAdminBaseController
   include ClientAdmin::TilesHelper
   include ClientAdmin::TilesPingsHelper
+  include CustomResponder
 
   before_filter :get_demo
   before_filter :load_tags, only: [:new, :edit, :update]
@@ -25,16 +27,28 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def new
-    @tile_builder_form = TileBuilderForm.new(@demo, builder_options)
-    record_new_ping
+    #@tile_builder_form = TileBuilderForm.new(@demo, builder_options)
+    #record_new_ping
 
-    if request.xhr?
-      render partial: "shared/tiles/builder", layout: false and return
-    else
-      load_image_library
-      #normal rails render
-    end
+    #if request.xhr?
+      #render partial: "shared/tiles/builder", layout: false and return
+    #else
+      #head :ok
+    #end
+    load_image_library
+    no_image = params[:no_image] == "true",
 
+    @image_builder ||= TileBuilderForm::ImageBuilder.new(
+       
+      params[:image],
+      params[:image_container],
+      params[:old_image_container],
+      no_image,
+      params[:image_from_library]
+    )
+   @tile_builder_form =  @demo.m_tiles.build
+
+   render partial: "form", layout: false and return
   end
 
 

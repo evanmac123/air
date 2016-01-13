@@ -2,6 +2,7 @@ class MultipleChoiceTile < Tile
   serialize :multiple_choice_answers, Array
   validate  :points_positive
   validate :at_least_one_answer_present
+  belongs_to :demo
 
   def points_positive
     unless points.present? && points > 0

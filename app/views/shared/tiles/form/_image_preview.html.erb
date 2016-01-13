@@ -3,9 +3,10 @@
   <div id="image_uploader" class="intro-tipsy content_sections"  data-library-url=<%=client_admin_tile_images_path%> >
 
     <%= form.text_field :remote_media_url, id: "remote_media_url", style: "display:none" , data:{proxyid: "image_uploader"} %>
-    <% image_class = tile_image_present(@tile_builder_form.image_url) ? "show_shadows" : "show_placeholder" %>
-    <div class="intro-tipsy image_preview <%= image_class %> loading" style="<%= @tile_builder_form.image_styles %>">
-      <%= image_tag @tile_builder_form.image_url, class: "tile_image", id: "upload_preview" %>
+    <% image_class = tile_image_present(@tile_builder_form.remote_media_url) ? "show_shadows" : "show_placeholder" %>
+
+    <div class="intro-tipsy image_preview <%= image_class %> loading" data-img-height='<%= @tile_builder_form.full_size_image_height%>'>
+      <%= image_tag @tile_builder_form.remote_media_url, class: "tile_image", id: "upload_preview" %>
 
       <!--div class="image_loading">
         <i class="fa fa-cog fa-4x" ></i>
@@ -24,13 +25,13 @@
         <div class="image_credit ">
           <% if ie9_or_older? %>
             <div class="image_credit_view">
-              <%= @tile_builder_form.tile.image_credit %>
+              <%# @tile_builder_form.image_credit %>
             </div>
           <% else %>
             <div class="image_credit_view" contenteditable="true">
-              <%= @tile_builder_form.tile.image_credit%>
+              <%= @tile_builder_form.image_credit%>
             </div>
-            <%= form.text_area :image_credit %>
+            <%# form.text_area :image_credit %>
           <% end %>
         </div>
       </div>

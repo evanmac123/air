@@ -11,6 +11,8 @@ class Demo < ActiveRecord::Base
   has_many :users, through: :board_memberships
   has_many :acts
   has_many :tiles, :dependent => :destroy
+  # NOTE m_tiles is an unfortunate hack to compensate for shitty code implementation of MultipleChoiceTile
+  has_many :m_tiles, :dependent => :destroy, class_name: 'MultipleChoiceTile' 
   has_many :locations, :dependent => :destroy
   has_many :characteristics, :dependent => :destroy
   has_many :peer_invitations

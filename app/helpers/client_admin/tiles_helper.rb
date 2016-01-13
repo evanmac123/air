@@ -126,7 +126,7 @@ module ClientAdmin::TilesHelper
   end
 
   def tile_image_present(image_url)
-    !(image_url.include? User::MISSING_AVATAR_PATH)
+    !image_url.nil? && !(image_url.include? User::MISSING_AVATAR_PATH)
   end
 
   def destroy_tile_message_params
