@@ -1,9 +1,11 @@
 var Airbo = window.Airbo || {};
 
-Airbo.ImageLibrary = (function(){
+Airbo.ImageLibraryModal = (function(){
   var modalId ="images_modal"
   ;
-  function getImageLibrary(libaryUrl){
+  var modalObj = Airbo.Utils.StandardModal()
+  ;
+  function getImageLibraryCall(libaryUrl){
     $.ajax({
       type: "GET",
       dataType: "html",
@@ -18,8 +20,20 @@ Airbo.ImageLibrary = (function(){
       }
     });
   }
-  function open(libraryUrl) {
-    getImageLibrary(libaryUrl);
+  function open(url) {
+    $.ajax({
+      type: "GET",
+      dataType: "html",
+      url: url,
+      success: function(data, status,xhr){
+        modalObj.setContent( $(data) );
+        modalObj.open();
+        Airbo.TileImagesMgr.init();
+      },
+      error: function(jqXHR, textStatus, error){
+        console.log(error);
+      }
+    });
   }
   function initModalObj() {
     modalObj.init({

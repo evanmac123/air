@@ -33,7 +33,8 @@ Airbo.TileFormModal = (function(){
     Airbo.TileQuestionBuilder.init();
     Airbo.TileSuportingContentTextManager.init();
     Airbo.Utils.mediumEditor.init();
-    imageLibrary = Airbo.ImageLibrary.init();
+    imageLibraryModal = Airbo.ImageLibraryModal;
+    imageLibraryModal.init();
 
     $("#upload_preview").on("load", function(){
       $(".image_preview").removeClass("loading").attr("style", ""); // remove height
@@ -55,8 +56,8 @@ Airbo.TileFormModal = (function(){
   function initEvents() {
     pickImage.click(function(e){
       e.preventDefault();
-      var libraryUrl = $(this).data("libraryUrl")
-      imageLibrary.open(libraryUrl);
+      var libraryUrl = $(this).data("libraryUrl");
+      imageLibraryModal.open(libraryUrl);
     });
 
     form.submit(function(e) {

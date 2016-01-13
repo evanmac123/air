@@ -71,11 +71,18 @@ Airbo.Utils.StandardModal = (function(){
       // }
     }
     function initVars(params) {
-      if(params.useAjaxModal) {
-        $(".ajax_modal").attr("id", params.modalId);
-      }
       modalId = params.modalId;
       modalSel = "#" + modalId;
+      if(params.useAjaxModal) {
+        modal = $(modalSel);
+        if( modal.length == 0 ) {
+          modal = $(".ajax_modal").clone();
+          modal.removeClass("ajax_modal");
+          modal.appendTo( $(".modals") );
+          modal.attr("id", params.modalId);
+        }
+        // $(".ajax_modal").attr("id", params.modalId);
+      }
       modal = $(modalSel);
       modalContainerSel = modalSel + " .modal_container";
       modalContentSel = modalSel + " #modal_content";
