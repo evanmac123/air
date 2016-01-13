@@ -24,6 +24,25 @@ Airbo.TileThumbnail = (function() {
       tileForm.init(Airbo.TileManager);
       tileForm.open(url);
     });
+
+    tileContainer.find(".tile-wrapper a.tile_thumb_link").click(function(e){
+      e.preventDefault();
+
+      $.ajax({
+        type: "GET",
+        dataType: "html",
+        url: $(this).attr("href") ,
+        success: function(data, status,xhr){
+          var tilePreview = Airbo.TilePreviewModal;
+          tilePreview.init();
+          tilePreview.open(data);
+        },
+
+        error: function(jqXHR, textStatus, error){
+          console.log(error);
+        }
+      });
+    });
   }
   function initEvents(){
     tileIds = $(".tile_container:not(.placeholder_container)").map(function(){
