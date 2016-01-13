@@ -1,7 +1,8 @@
 /* -- Large tile viewer -- */
 .tiles.tiles-index,
 .tile_previews.tile_previews-show,
-.client_admin-tiles.client_admin-tiles-show {
+.client_admin-tiles.client_admin-tiles-show,
+#tile_preview_modal {
   .content .row {max-width:70em;}
   .tile_holder {
     font-size:1em;
