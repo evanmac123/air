@@ -3,8 +3,8 @@ var Airbo = window.Airbo || {};
 Airbo.TileManager = (function(){
   var newTileBtnSel = "#add_new_tile"
     , sectionSelector = ".manage_section"
-    , editTileBtnSel = ".edit_button a"
-    , openFormSel = [newTileBtnSel, editTileBtnSel].join(", ")
+    // , editTileBtnSel = ".edit_button a"
+    // , openFormSel = [newTileBtnSel, editTileBtnSel].join(", ")
     , tileWrapperSelector =".tile_container"
   ;
   var newTileBtn
@@ -28,11 +28,12 @@ Airbo.TileManager = (function(){
       section.prepend(data.tile); //Add tile to section
       window.updateTilesAndPlaceholdersAppearance();
     }
-    new_tile = findTile(data.tileId);
-    thumbnailMenu.initMoreBtn(new_tile.find(".more_button"));
+    tileThumbnail.initTile(data.tileId);
+    // new_tile = findTile(data.tileId);
+    // thumbnailMenu.initMoreBtn(new_tile.find(".more_button"));
   }
   function initEvents() {
-    $(openFormSel).click(function(e){
+    $(newTileBtnSel).click(function(e){
       e.preventDefault();
       url = $(this).attr("href");
 
@@ -42,8 +43,7 @@ Airbo.TileManager = (function(){
     });
   }
   function initVars() {
-    Airbo.TileThumbnail.init(this);
-    thumbnailMenu = Airbo.TileThumbnailMenu.init(this);
+    tileThumbnail = Airbo.TileThumbnail.init(this);
   }
   function init() {
     initVars();

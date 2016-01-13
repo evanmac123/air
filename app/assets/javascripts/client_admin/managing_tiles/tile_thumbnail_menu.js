@@ -50,9 +50,9 @@ Airbo.TileThumbnailMenu = (function() {
   function init(AirboTileCreator) {
     tileCreator = AirboTileCreator;
 
-    $(".more_button").each(function(){
-      initMoreBtn($(this));
-    });
+    // $(".more_button").each(function(){
+    //   initMoreBtn($(this));
+    // });
     return this;
   }
   return {
