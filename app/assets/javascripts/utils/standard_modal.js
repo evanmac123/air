@@ -47,7 +47,9 @@ Airbo.Utils.StandardModal = (function(){
       });
 
       modal.bind('closed.fndtn.reveal', function(){
-        bodyScrollVisibility(true);
+        if( $(".reveal-modal.open").length == 0 ) {
+          bodyScrollVisibility(true);
+        }
         onClosedEvent();
       });
 
