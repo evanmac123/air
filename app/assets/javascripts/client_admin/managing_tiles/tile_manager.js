@@ -2,6 +2,7 @@ var Airbo = window.Airbo || {};
 
 Airbo.TileManager = (function(){
   var newTileBtnSel = "#add_new_tile"
+    , sectionSelector = ".manage_section"
   ;
   var newTileBtn
     , thumbnailMenu
@@ -33,7 +34,7 @@ Airbo.TileManager = (function(){
       url = $(this).attr("href");
 
       tileForm = Airbo.TileFormModal;
-      tileForm.init(Airbo.TileFormModal);
+      tileForm.init(Airbo.TileManager);
       tileForm.open(url);
     });
   }
