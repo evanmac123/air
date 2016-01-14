@@ -23,7 +23,7 @@ Airbo.Utils.StandardModal = (function(){
       modal.foundation("reveal", "close");
     }
     function setContent(content) {
-      $(modalContentSel).html(content);
+      modal.find("#modal_content").html(content);
     }
     function bodyScrollVisibility(show) {
       overflow = "";
