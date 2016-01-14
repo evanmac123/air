@@ -7,6 +7,9 @@ Airbo.TileThumbnail = (function() {
   function initTile(tileId) {
     tileContainer = $(".tile_container[data-tile-id='" + tileId + "']");
 
+    // FIXME
+    // there are same events in Airbo.TilePreviewModal (edit, update, delete, duplicate)
+    // reason: i want to have object, its elements and its events in one place
     thumbnailMenu.initMoreBtn(tileContainer.find(".more_button"));
 
     tileContainer.find(".update_status").click(function(e){

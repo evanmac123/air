@@ -587,3 +587,9 @@ button {
 .reveal-modal-bg {
   background: rgba(14, 23, 29, 0.8);
 }
+.reveal-modal.standard_modal {
+  @include standard-modal();
+  &.standard_small_modal {
+    @include standard-small-modal();
+  }
+}

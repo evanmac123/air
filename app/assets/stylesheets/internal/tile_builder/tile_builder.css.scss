@@ -1,7 +1,7 @@
 @import "mixins/green_paddle_switch"; // TODO can't remove. breaks app-internal why?
 
 #images_modal{
-  @include standard-modal($content-width: 1007px);
+  // @include standard-modal($content-width: 1007px);
   @import "image_library";
 }
 
@@ -11,7 +11,7 @@
 // body.client_admin-tiles-edit,
 #tile_form_modal {
   // @import "modals";
-  @include standard-modal($content-width: 1007px);
+  // @include standard-modal($content-width: 1007px);
   form.new_tile_builder_form {
     @import "main_inputs";
     @import "image_uploader";
@@ -62,11 +62,10 @@
 }
 #tile_preview_modal {
   // @import "modals";
-  @include standard-modal($content-width: 1007px);
-  padding-left: 67px;
-  .modal_container {
-    padding-top: 0px;
-  }
+  // @include standard-modal($content-width: 1007px);
+  // .modal_container {
+  //   padding-top: 0px;
+  // }
   // TODO move to tile preview stuff
   .tile_preview_menu {
     width: 600px;

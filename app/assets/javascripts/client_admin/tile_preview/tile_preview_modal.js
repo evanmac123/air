@@ -34,10 +34,6 @@ Airbo.TilePreviewModal = (function(){
     Airbo.TileTagger.init({
       submitSuccess:  function(data){
         // no need to update tags
-
-        // modalObj.setContent(data.preview);
-        // initPreviewElements();
-        // $(".tipsy.explore").tooltipster("show");
       }
     });
   }
@@ -91,7 +87,9 @@ Airbo.TilePreviewModal = (function(){
         }
       });
     });
-
+    // FIXME
+    // there are same events in Airbo.TileThumbnail (edit, update, delete, duplicate)
+    // reason: i want to have object, its elements and its events in one place
     $(".preview_menu_item.edit a").click(function(e){
       e.preventDefault();
       url = $(this).attr("href");

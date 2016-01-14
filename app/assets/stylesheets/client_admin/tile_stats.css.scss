@@ -30,6 +30,6 @@ body.client_admin-tile_stats, #tile_stats_modal {
     padding: 41px 40px 50px 40px;
   }
 }
-#tile_stats_modal {
-  @include standard-modal($content-width: 1007px);
-}
+// #tile_stats_modal {
+//   // @include standard-modal($content-width: 1007px);
+// }

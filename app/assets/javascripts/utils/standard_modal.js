@@ -91,6 +91,9 @@ Airbo.Utils.StandardModal = (function(){
       onOpenedEvent = params.onOpenedEvent || Airbo.Utils.noop;
       onClosedEvent = params.onClosedEvent || Airbo.Utils.noop;
       closeOnBgClick = params.closeOnBgClick || true;
+      if(params.smallModal) {
+        modal.addClass("standard_small_modal")
+      }
     }
     function init(params) {
       initVars(params);

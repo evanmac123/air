@@ -126,7 +126,8 @@ Airbo.ScheduleDemoModal = (function(){
   function initModalObj() {
     modalObj.init({
       modalId: demoModalId,
-      onClosedEvent: closeModalAfterRequestPing
+      onClosedEvent: closeModalAfterRequestPing,
+      smallModal: true
     });
   }
 

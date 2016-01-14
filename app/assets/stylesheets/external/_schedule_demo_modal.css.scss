@@ -1,6 +1,4 @@
 #schedule_demo_modal{
-  @include standard-small-modal();
-
   ::-webkit-input-placeholder, :-moz-placeholder, ::-moz-placeholder, :-ms-input-placeholder {
      text-align: center;
   }
