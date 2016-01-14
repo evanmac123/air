@@ -1,6 +1,7 @@
 @import './internal/tile_fullsize/quiz';
 .tile_quiz {
   padding: 0 !important;
+  overflow: visible;
   .selected {
     color: $sky-blue !important;
   }

@@ -251,11 +251,11 @@ Airbo.TileQuestionBuilder = (function(){
   };
 
   function findTileType() {
-    return getTileType($("li.selected").attr("id"));
+    return getTileType($(".tile_types li.selected").attr("id"));
   };
 
   function findTileSubtype() {
-    return getTileSubtype($("li.selected").attr("id"));
+    return getTileSubtype($(".tile_types li.selected").attr("id"));
   };
 
   function showAnswerContainer(display, text, correct) {
