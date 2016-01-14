@@ -37,7 +37,3 @@
 <% end %>
 
 <%= render 'shared/board_settings/modal', user: user %>
-
-<% if user.can_submit_tile? %>
-  <%=render partial: "shared/tile_builder_modals", locals: {context: "suggestion_box"} %>
-<% end %>
