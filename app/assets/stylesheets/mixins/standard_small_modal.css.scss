@@ -1,5 +1,6 @@
 @mixin standard-small-modal($container-width: 576px, $content-width: 450px) {
   @include standard-modal($container-width, $content-width);
+  padding: 50px 30px;
   .modal_container {
     padding-top: 28px;
     position: absolute;
@@ -11,6 +12,12 @@
     padding:50px;
     background: white;
     border-radius: 3px;
+  }
+  .close-reveal-modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
   }
   @media only screen and (max-width: 766px) {
     .modal_container {

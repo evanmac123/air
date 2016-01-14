@@ -2,24 +2,16 @@
 
 #images_modal{
   @include standard-modal($content-width: 1007px);
-  padding-left: 67px;
-  .modal_container {
-    padding-top: 0px;
-  }
   @import "image_library";
 }
 
-body.tiles-index,
-body.acts-index,
-body.client_admin-tiles-new,
-body.client_admin-tiles-edit,
+// body.tiles-index,
+// body.acts-index,
+// body.client_admin-tiles-new,
+// body.client_admin-tiles-edit,
 #tile_form_modal {
   // @import "modals";
   @include standard-modal($content-width: 1007px);
-  padding-left: 67px;
-  .modal_container {
-    padding-top: 0px;
-  }
   form.new_tile_builder_form {
     @import "main_inputs";
     @import "image_uploader";
@@ -39,6 +31,9 @@ body.client_admin-tiles-edit,
     overflow: hidden;
     padding-top: 20px;
     padding-bottom: 50px;
+    width: 600px;
+    padding-top: 0px;
+    margin: auto;
   }
   .submit_caution {
     font-size: 14px;

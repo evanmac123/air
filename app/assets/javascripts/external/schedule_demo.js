@@ -110,9 +110,8 @@ Airbo.ScheduleDemoModal = (function(){
 
   function initJQueryObjects(){
     submitAnother= $(submitAnotherSelector);
-    demoModal= $(demoModalSelector);
     demoRequestButton = $(demoRequestButtonSelector);
-    demoModal = $(demoModalSelector);
+    demoModal = $("#" + demoModalId);
     demoForm = $(demoFormSelector);
     requestContent = $(requestContentSelector);
     confirmationContent = $(confirmationContentSelector);
@@ -126,7 +125,7 @@ Airbo.ScheduleDemoModal = (function(){
 
   function initModalObj() {
     modalObj.init({
-      modalId: demoModalSelector,
+      modalId: demoModalId,
       onClosedEvent: closeModalAfterRequestPing
     });
   }
