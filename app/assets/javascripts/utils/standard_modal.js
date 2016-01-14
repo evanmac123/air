@@ -94,6 +94,9 @@ Airbo.Utils.StandardModal = (function(){
       if(params.smallModal) {
         modal.addClass("standard_small_modal")
       }
+      // if(params.modalClass) {
+      //   modal.addClass(params.modalClass)
+      // }
     }
     function init(params) {
       initVars(params);

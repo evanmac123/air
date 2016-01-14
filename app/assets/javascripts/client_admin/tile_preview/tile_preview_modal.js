@@ -143,6 +143,6 @@ Airbo.TilePreviewModal = (function(){
   }
   return {
     init: init,
-     open: open
+    open: open
   }
 }());
