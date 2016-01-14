@@ -14,9 +14,7 @@ Airbo.Utils.StandardModal = (function(){
     ;
     function open() {
       modal.foundation("reveal", "open", {
-        animation: "fade",
-        closeOnBackgroundClick: true,
-        bgClass: "fixed_modal_bg"
+        animation: "fade"
       });
     }
     function close() {
