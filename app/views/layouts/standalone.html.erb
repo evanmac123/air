@@ -36,7 +36,7 @@
 
     <%= render partial: "acts/public_board/schedule_demo_modal" %>
 
-    <div class="modals"><%= yield :modals %></div>
+    <%= render :partial => 'shared/modals/modals' %>
     <%= javascript_include_tag asset_path('ga-marketing.js') if ENV['USE_GA'] %>
     <%= yield :javascript %>
     <%= javascript_include_tag 'jquery.lightbox_me' %>

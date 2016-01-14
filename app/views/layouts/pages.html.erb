@@ -29,7 +29,7 @@
 
       <%= yield %>
 
-      <div class="modals"><%= yield :modals %></div>
+      <%= render :partial => 'shared/modals/modals' %>
       <%= javascript_include_tag asset_path('ga-marketing.js') if ENV['USE_GA'] %>
     <%= yield :javascript %>
   </body>

@@ -21,7 +21,7 @@
   <body class="<%= body_class %> external">
     <%= yield %>
 
-    <div class="modals"><%= yield :modals %></div>
+    <%= render :partial => 'shared/modals/modals' %>
     <%= yield :javascript %>
   </body>
 </html>

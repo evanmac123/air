@@ -37,7 +37,7 @@
     </div>
     <%= render "pages/footer" %>
 
-    <div class="modals"><%= yield :modals %></div>
+    <%= render :partial => 'shared/modals/modals' %>
     <%= javascript_include_tag 'jquery.lightbox_me' %>
     <%= javascript_include_tag asset_path('ga-marketing.js') if ENV['USE_GA'] %>
   </body>

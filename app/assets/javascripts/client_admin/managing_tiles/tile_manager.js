@@ -32,6 +32,10 @@ Airbo.TileManager = (function(){
     // new_tile = findTile(data.tileId);
     // thumbnailMenu.initMoreBtn(new_tile.find(".more_button"));
   }
+  function updateSections(data) {
+    updateTileSection(data);
+    updateShowMoreDraftTilesButton();
+  }
   function initEvents() {
     $(newTileBtnSel).click(function(e){
       e.preventDefault();
@@ -51,10 +55,13 @@ Airbo.TileManager = (function(){
   }
   return {
     init: init,
-    updateTileSection: updateTileSection
+    updateTileSection: updateTileSection,
+    updateSections: updateSections
   }
 }());
 
 $(function(){
-  Airbo.TileManager.init();
+  if( $(".manage_tiles").length > 0 ) {
+    Airbo.TileManager.init();
+  }
 });

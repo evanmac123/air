@@ -45,7 +45,7 @@
   </main>
   <%= render partial: "acts/public_board/schedule_demo_modal" %>
 
-  <div class="modals"><%= yield :modals %></div>
+  <%= render :partial => 'shared/modals/modals' %>
   <%= render 'shared/intercom' %>
   <%= render :partial => 'shared/javascript' %><!-- This is where 'yield :javascript' takes place -->
   <%= javascript_include_tag 'rem.min.js' %>

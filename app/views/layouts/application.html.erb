@@ -50,7 +50,7 @@
     </div>
   </main>
 
-  <div class="modals"><%= yield :modals %></div>
+  <%= render :partial => 'shared/modals/modals' %>
   <%= render 'shared/intercom' %>
   <%= render :partial => 'shared/javascript' %><!-- This is where 'yield :javascript' takes place -->
 

@@ -11,6 +11,7 @@
 //= require_self
 //= require_tree ./internal
 //= require ./client_admin/tile_preview/tile_carousel
+//= require ./client_admin/tile_preview/tile_preview_modal
 //= require_tree ./internal_and_external/.
 //= require jquery.validate
 //= require jquery.validate.additional-methods
