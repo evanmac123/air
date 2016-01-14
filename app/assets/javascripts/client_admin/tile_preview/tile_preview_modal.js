@@ -39,6 +39,13 @@ Airbo.TilePreviewModal = (function(){
   }
   function prepareToolTip(origin, content){
     initSharing();
+
+    $(".preview_menu_item .update_status").click(function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      target = $(this);
+      Airbo.TileAction.updateStatus(target);
+    });
   }
   function initPreviewMenuTooltips(){
     $(".tipsy").tooltipster({
@@ -97,13 +104,6 @@ Airbo.TilePreviewModal = (function(){
       tileForm = Airbo.TileFormModal;
       tileForm.init(Airbo.TileManager);
       tileForm.open(url);
-    });
-
-    $(".preview_menu_item .update_status").click(function(e){
-      e.preventDefault();
-      e.stopPropagation();
-      target = $(this);
-      Airbo.TileAction.updateStatus(target);
     });
 
     $(".preview_menu_item .delete_tile").click(function(event){
