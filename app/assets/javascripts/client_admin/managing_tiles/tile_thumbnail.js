@@ -19,6 +19,13 @@ Airbo.TileThumbnail = (function() {
       Airbo.TileAction.updateStatus(target);
     });
 
+    tileContainer.find(".accept").click(function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      target = $(this);
+      Airbo.TileAction.confirmAcceptance(target);
+    });
+
     tileContainer.find(".edit_button a").click(function(e){
       e.preventDefault();
       url = $(this).attr("href");

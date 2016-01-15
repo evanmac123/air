@@ -179,9 +179,40 @@ Airbo.TileAction = (function(){
 
     swapModalButtons();
   }
+  //
+  // => Acceptance
+  //
+  function confirmAcceptance(trigger){
+    var tile = tileByStatusChangeTriggerLocation(trigger);
+
+    function postProcess(){
+      Airbo.Utils.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
+      swal.close();
+    }
+
+    swal(
+      {
+        title: "",
+        text: "Are you sure you want to accept this tile? This action cannot be undone",
+        customClass: "airbo",
+        animation: false,
+        closeOnConfirm: false,
+        showCancelButton: true,
+        showLoaderOnConfirm: true
+      },
+
+      function(isConfirm){
+        if (isConfirm) {
+          submitTileForUpadte(tile,trigger, postProcess);
+        }
+      }
+    );
+    swapModalButtons();
+  }
   return {
     updateStatus: updateStatus,
     makeDuplication: makeDuplication,
-    confirmDeletion: confirmDeletion
+    confirmDeletion: confirmDeletion,
+    confirmAcceptance: confirmAcceptance
   }
 }());
