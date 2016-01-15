@@ -16,81 +16,24 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @draft_tiles = @demo.draft_tiles_with_placeholders
     @suggested_tiles = @demo.suggested_tiles_with_placeholders
     @user_submitted_tiles_counter = @demo.tiles.user_submitted.count
-
     @allowed_to_suggest_users = @demo.users_that_allowed_to_suggest_tiles
-
     intro_flags_index
-
     @accepted_tile = Tile.find(session.delete(:accepted_tile_id)) if session[:accepted_tile_id]
-
     record_index_ping
   end
 
   def new
-    #@tile_builder_form = TileBuilderForm.new(@demo, builder_options)
-    #record_new_ping
-
-    #if request.xhr?
-      #render partial: "shared/tiles/builder", layout: false and return
-    #else
-      #head :ok
-    #end
-    load_image_library
-    no_image = params[:no_image] == "true",
-
-    @image_builder ||= TileBuilderForm::ImageBuilder.new(
-       
-      params[:image],
-      params[:image_container],
-      params[:old_image_container],
-      no_image,
-      params[:image_from_library]
-    )
-   @tile_builder_form =  @demo.m_tiles.build
-
-   render partial: "form", layout: false and return
+   @tile_builder_form =  @demo.m_tiles.build(status: Tile::DRAFT)
+   new_or_edit @tile_builder_form
   end
 
 
   def edit
-    tile = get_tile
-    load_image_library
-    record_edit_ping
-    @tile_builder_form = TileBuilderForm.new(@demo,builder_options.merge(tile: tile))
-
-    if request.xhr?
-      render layout: false and return
-    else
-      #normal rails render
-    end
-
-  end
-
-  #TODO consider refactoring with custom responders
-  def create
-    @tile_builder_form =  TileBuilderForm.new(@demo,builder_options)
-    if @tile_builder_form.create_tile
-      set_after_save_flash(@tile_builder_form.tile)
-      schedule_tile_creation_ping(@tile_builder_form.tile)
-      if request.xhr?
-        @tile = @tile_builder_form.tile
-        render_preview_and_single
-      else
-        redirect_to client_admin_tile_path(@tile_builder_form.tile)
-      end
-    else
-      if request.xhr?
-        response.headers["X-Message"]= @tile_builder_form.error_message
-        head :unprocessable_entity and return
-      else
-        flash.now[:failure] = @tile_builder_form.error_message
-        load_tags
-        load_image_library
-        render "new"
-      end
+    @tile_builder_form =  get_tile
+    new_or_edit @tile_builder_form do
+      record_edit_ping
     end
   end
-
 
   def update
     @tile = get_tile
@@ -102,7 +45,20 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     end
   end
 
-  def show
+
+
+  #TODO consider refactoring with custom responders
+  def create
+    @tile_builder_form =  @tile = @demo.m_tiles.build(params[:tile_builder_form])
+
+    update_or_create @tile_builder_form do
+      schedule_tile_creation_ping(@tile_builder_form)
+      render_preview_and_single
+    end
+  end
+
+
+   def show
     @tile = get_tile
     prepTilePreview
     tile_in_box_viewed_ping @tile
@@ -227,6 +183,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def get_tile
+    #FIXME what is this offset
     tile = current_user.demo.tiles.find params[:id]
     if params[:offset].present?
       tile = Tile.next_manage_tile(tile, params[:offset].to_i)
@@ -316,11 +273,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def update_fields
-    @tile_builder_form =  TileBuilderForm.new( @demo, builder_options.merge(tile: @tile))
 
-
-    if @tile_builder_form.update_tile
-      set_after_save_flash(@tile)
+    if @tile.update_attributes(params[:tile_builder_form])
       if request.xhr?
         render_preview_and_single
       else
@@ -333,7 +287,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
         head :unprocessable_entity and return
       else
         set_flash_for_no_image
-        load_image_library
         render :edit
       end
 
