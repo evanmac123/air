@@ -17,7 +17,7 @@
 
   <% if presenter.has_archive_button? %>
     <li class="archive_button">
-      <%= link_to status_change_client_admin_tile_path(presenter), class: "update_status", data: {status: Tile::ARCHIVE} do %>
+      <%= link_to status_change_client_admin_tile_path(presenter), class: "update_status", data: {status: Tile::ARCHIVE, tileid: presenter.tile_id} do %>
         <span>Archive</span>
       <% end %>
     </li>
@@ -25,7 +25,7 @@
 
   <% if presenter.has_activate_button? %>
     <li class="activate_button">
-      <%= link_to status_change_client_admin_tile_path(presenter), class: "update_status", data: {status: Tile::ACTIVE} do %>
+      <%= link_to status_change_client_admin_tile_path(presenter), class: "update_status", data: {status: Tile::ACTIVE, tileid: presenter.tile_id} do %>
         <span>
           <%= presenter.post_link_text %>
         </span>
@@ -35,7 +35,7 @@
 
   <% if presenter.has_ignore_button? %>
     <li class="ignore_button">
-      <%= link_to status_change_client_admin_tile_path(presenter), class:"update_status", data: {status:Tile::IGNORED} do %>
+      <%= link_to status_change_client_admin_tile_path(presenter), class:"update_status", data: {status:Tile::IGNORED, tileid: presenter.tile_id} do %>
         <span>Ignore</span>
       <% end %>
     </li>
@@ -43,7 +43,7 @@
 
   <% if presenter.has_accept_button? %>
     <li class="accept_button">
-      <%= link_to status_change_client_admin_tile_path(presenter), class: "accept",  data: {status: Tile::DRAFT } do %>
+      <%= link_to status_change_client_admin_tile_path(presenter), class: "accept",  data: {status: Tile::DRAFT, tileid: presenter.tile_id } do %>
         <span>Accept</span>
       <% end %>
     </li>
@@ -51,7 +51,7 @@
 
   <% if presenter.has_undo_ignore_button? %>
     <li class="undo_ignore_button">
-      <%= link_to status_change_client_admin_tile_path(presenter), class: "update_status", data: {status: Tile::USER_SUBMITTED} do %>
+      <%= link_to status_change_client_admin_tile_path(presenter), class: "update_status", data: {status: Tile::USER_SUBMITTED, tileid: presenter.tile_id} do %>
         <span>Undo Ignore</span>
       <% end %>
     </li>

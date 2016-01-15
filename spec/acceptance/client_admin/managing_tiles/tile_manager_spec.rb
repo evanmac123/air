@@ -87,8 +87,8 @@ feature 'Client admin and tile manager page', js: true do
         #page.should contain "The #{kill.headline} tile has been archived"
 
 
-        within within(archive_tab).find(:tile, kill) { page.should     contain kill.headline }
         within(active_tab)  { page.should_not contain kill.headline }
+        within(archive_tab) { page.should     contain kill.headline }
 
         active_tab.should  have_num_tiles(2)
         archive_tab.should have_num_tiles(1)
