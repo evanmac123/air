@@ -35,7 +35,7 @@ $(function() {
         setFormFieldsForSelectedImage(filepath, file.type);
       }
 
-      function libraryImageSelected(url, imgWidth, imgHeight){
+      function libraryImageSelected(url, imgWidth, imgHeight, id){
         updateHiddenImageFields();
         setFormFieldsForSelectedImage(url, imgTypeFromFilename(url));
         showImagePreview(url, imgWidth, imgHeight);
@@ -155,15 +155,18 @@ $(function() {
         imageFromLibraryField.val('');
       }
 
-      function setSelectedImageId(){
-        imageFromLibraryField.val(selectedImageFromLibrary().data('tile-image-id'));
+      function setSelectedImageId(id){
+        imageFromLibraryField.val(id);
       }
 
       function select(imageBlock) {
         var url = imageBlock.data('image-url');
         var imgWidth = imageBlock.data('image-width');
         var imgHeight = imageBlock.data('image-height');
-        imageMgr.libraryImageSelected(url, imgWidth, imgHeight);
+        var id = imageBlock.data('tile-image-id');
+
+        setSelectedImageId(id)
+        imageMgr.libraryImageSelected(url, imgWidth, imgHeight, id);
         setSelectedState(imageBlock);
       };
 
