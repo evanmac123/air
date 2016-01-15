@@ -22,6 +22,7 @@ module CustomResponder
 
   def update_or_create resource, location=nil, msg=nil
     if resource.valid?
+      resource.save
       if block_given?
         success(resource, location, msg, &Proc.new)
       else
