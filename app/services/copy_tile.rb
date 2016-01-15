@@ -11,8 +11,8 @@ class CopyTile
   end
 
   def copy_tile(tile, mark_tile_as_copied = true)
-    @copy = Tile.new
     @tile = tile
+    @copy =tile.class.new
 
     copy_tile_data
     set_new_data_for_copy
@@ -20,7 +20,7 @@ class CopyTile
       mark_tile_as_copied_by_user
       @tile.save
     end
-    @copy.remote_media_url= @tile.image.url #if @copy.remote_media_url.blank?
+    @copy.remote_media_url= @tile.image.url(:original)
     @copy.save
     @copy
   end
@@ -36,10 +36,6 @@ class CopyTile
       "points",
       "question",
       "supporting_content",
-      "type",
-      "image_meta",
-      "thumbnail_meta",
-      # "remote_media_url",
       "image",
       "thumbnail"
     ].each do |field_to_copy|
