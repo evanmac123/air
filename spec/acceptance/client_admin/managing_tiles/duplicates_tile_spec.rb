@@ -43,7 +43,9 @@ feature 'Client admin duplicates tile' do
   context "from preview" do
     before do
       find(:tile, original_tile).click
-      click_link "Copy"
+      within "#tile_preview_modal" do
+        click_link "Copy"
+      end
     end
 
     it_should_behave_like "duplicating a tile"

@@ -42,9 +42,9 @@ feature 'Client admin and tile manager page', js: true do
       tiles.each { |tile| tile.update_attributes status: Tile::ACTIVE }
 
       visit_tile_manager_page
-      
+
       expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
-      
+
       active_tab.should have_num_tiles(3)
 
       within active_tab do
@@ -64,7 +64,7 @@ feature 'Client admin and tile manager page', js: true do
 
       visit_tile_manager_page
       expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
-      
+
       page.should have_num_tiles(3)
 
       tiles.each do |tile|
@@ -87,8 +87,8 @@ feature 'Client admin and tile manager page', js: true do
         #page.should contain "The #{kill.headline} tile has been archived"
 
 
+        within within(archive_tab).find(:tile, kill) { page.should     contain kill.headline }
         within(active_tab)  { page.should_not contain kill.headline }
-        within(archive_tab) { page.should     contain kill.headline }
 
         active_tab.should  have_num_tiles(2)
         archive_tab.should have_num_tiles(1)
@@ -142,7 +142,7 @@ feature 'Client admin and tile manager page', js: true do
       end
     end
   end
-  
+
   context "New client admin visits client_admin/tiles page" do
     context "For new client admin, when there is no tile in the demo", js: true do
       before do
@@ -157,7 +157,7 @@ feature 'Client admin and tile manager page', js: true do
     context "when there is atleast one activated tile in demo", js: true do
       before do
         @tile = FactoryGirl.create :tile, demo: admin.demo, status: Tile::ACTIVE, creator: admin
-        FactoryGirl.create :tile, demo: admin.demo, status: Tile::ACTIVE, creator: admin        
+        FactoryGirl.create :tile, demo: admin.demo, status: Tile::ACTIVE, creator: admin
         visit_tile_manager_page
       end
 
@@ -192,24 +192,24 @@ feature 'Client admin and tile manager page', js: true do
           "Tile 1", "Tile 8", "Tile 6", "Tile 4",
           "Tile 2", "Tile 0"
         ]
-      expected_tile_table.reverse.each do|tile| 
+      expected_tile_table.reverse.each do|tile|
         demo.tiles.find_by_headline(tile).update_status(Tile::ACTIVE)
       end
 
       visit_tile_manager_page
       expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
-      
+
       section_tile_headlines('#active').should == expected_tile_table
     end
 
     it "for Archived tiles, showing only a limited selection of them" do
       expected_tile_table =
-        [ 
-          "Tile 9", "Tile 7", "Tile 5", "Tile 3", 
+        [
+          "Tile 9", "Tile 7", "Tile 5", "Tile 3",
           "Tile 1", "Tile 8", "Tile 6", "Tile 4",
           "Tile 2", "Tile 0"
         ]
-      expected_tile_table.reverse.each do|tile| 
+      expected_tile_table.reverse.each do|tile|
         demo.tiles.find_by_headline(tile).update_status(Tile::ARCHIVE)
       end
 
@@ -228,11 +228,11 @@ feature 'Client admin and tile manager page', js: true do
   end
 
   it "pads odd rows, in both the inactive and active sections, with blank placeholder cells, so the table comes out right", js: true do
-    
+
     # 1 tile, 6 places in row, so
     FactoryGirl.create_list(:tile, 1, :draft, demo: admin.demo)
     visit_tile_manager_page
-    expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')    
+    expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
     expect_draft_tile_placeholders(5)
 
     FactoryGirl.create_list(:tile, 3, :draft, demo: admin.demo)
@@ -253,7 +253,7 @@ feature 'Client admin and tile manager page', js: true do
      # There's now the creation placeholder, plus 4 other draft tiles.
     # If we DID show all of them, there's be an odd row with 1 tile, and we'd
     # expect 3 placeholders. But we only show the first 4 draft tiles
-    # (really the first 3 + creation placeholder) and those two rows are full 
+    # (really the first 3 + creation placeholder) and those two rows are full
     # now, so...
     FactoryGirl.create(:tile, :draft, demo: admin.demo)
     visit_tile_manager_page
@@ -315,7 +315,7 @@ feature 'Client admin and tile manager page', js: true do
     # There's now the creation placeholder, plus eight other archived tiles.
     # If we DID show all of them, there's be an odd row with 1 tile, and we'd
     # expect 3 placeholders. But we only show the first 8 archive tiles
-    # and those two rows are full 
+    # and those two rows are full
     # now, so...
     visit_tile_manager_page
     expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
