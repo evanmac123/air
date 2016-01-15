@@ -42,6 +42,7 @@ class Tile < ActiveRecord::Base
 
   has_alphabetical_column :headline
 
+  before_validation :sanitize_supporting_content
   validates_presence_of :headline, :allow_blank => false, :message => "headline can't be blank"
   validates_presence_of :supporting_content, :allow_blank => false, :message => "supporting content can't be blank", :on => :client_admin
   validates_presence_of :question, :allow_blank => false, :message => "question can't be blank", :on => :client_admin
@@ -270,6 +271,24 @@ class Tile < ActiveRecord::Base
   end
 
   private
+
+  def sanitize_supporting_content
+    self.supporting_content = Sanitize.fragment(
+      strip_content, 
+      elements: [ 
+        'ul', 'ol', 'li',
+        'b', 'strong', 'i', 'em', 'u',
+        'span', 'div', 'p',
+        'br', 'a' 
+      ],
+      attributes: { 'a' => ['href', 'target'] }
+    ).strip
+  end
+
+  def strip_content
+    supporting_content.try(:strip) || ""
+  end 
+
 
   def set_image_credit_to_blank_if_default
     self.image_credit ="" if image_credit == "Add Image Credit"
