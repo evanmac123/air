@@ -25,13 +25,13 @@
         <div class="image_credit ">
           <% if ie9_or_older? %>
             <div class="image_credit_view">
-              <%# @tile_builder_form.image_credit %>
+              <%= @tile_builder_form.image_credit %>
             </div>
           <% else %>
             <div class="image_credit_view" contenteditable="true">
               <%= @tile_builder_form.image_credit%>
             </div>
-            <%# form.text_area :image_credit %>
+            <%= form.text_area :image_credit %>
           <% end %>
         </div>
       </div>
