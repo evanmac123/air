@@ -82,10 +82,10 @@ describe GridQuery::TileActions do
     ]
   end
 
-  it "should return 'viewed_and_interacted'" do
+  it "should return 'interacted'" do
     # result is set of rows(arrays) with columns:
     # user_name | user_email | tile_views | tile_answer_index
-    table = make_table(GridQuery::TileActions.new(tile, "viewed_and_interacted").query.order("users.id ASC"))
+    table = make_table(GridQuery::TileActions.new(tile, "interacted").query.order("users.id ASC"))
     table.should == [
       ["Good guy0", "good_guy0@gmail.com", "1", "0"],
       ["Good guy1", "good_guy1@gmail.com", "2", "1"],
