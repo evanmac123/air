@@ -24,7 +24,7 @@ class Tile < ActiveRecord::Base
   TRUE_FALSE            = "True / False".parameterize("_").freeze
   MULTIPLE_CHOICE       = "Multiple Choice".parameterize("_").freeze
   RSVP_TO_EVENT         = "RSVP to event".parameterize("_").freeze
-
+  
 
   belongs_to :demo
   belongs_to :creator, class_name: 'User'
@@ -248,6 +248,13 @@ class Tile < ActiveRecord::Base
       .order("position ASC").first
   end
 
+  def is_cloned?
+    @cloned || false
+  end
+
+  def is_cloned= val
+    @cloned = val 
+  end
 
   def custom_supporting_content_class
     use_old_line_break_css? ? 'old_line_break_css' : ''
@@ -314,7 +321,7 @@ class Tile < ActiveRecord::Base
   end
 
   def process_image
-    ImageProcessJob.new(id).perform 
+    ImageProcessJob.new(id, image_from_library).perform unless is_cloned?
   end
 
   def image_changed?

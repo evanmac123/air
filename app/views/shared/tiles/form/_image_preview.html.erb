@@ -6,7 +6,7 @@
     <% image_class = tile_image_present(@tile_builder_form.remote_media_url) ? "show_shadows" : "show_placeholder" %>
 
     <div class="intro-tipsy image_preview <%= image_class %> loading" data-img-height='<%= @tile_builder_form.full_size_image_height%>'>
-      <%= image_tag @tile_builder_form.remote_media_url, class: "tile_image", id: "upload_preview" %>
+      <%= image_tag @tile_builder_form.image.url, class: "tile_image", id: "upload_preview" %>
 
       <!--div class="image_loading">
         <i class="fa fa-cog fa-4x" ></i>

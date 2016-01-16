@@ -7,11 +7,8 @@
     <%= form_for [:client_admin, @tile_builder_form], as: :tile_builder_form, url: url_for([:client_admin, @tile_builder_form]), html: { id: "new_tile_builder_form", class: "new_tile_builder_form"} do |f| %>
 
     <%= f.hidden_field :status %>
-    <%= f.hidden_field :remote_media_type, id: "remote_media_type" %>
-    <%= hidden_field_tag :image_container, id: "image_container" %>
-    <%= hidden_field_tag :old_image_container %>
-    <%= hidden_field_tag :no_image, id: "no_image" %>
-    <%= hidden_field_tag :image_from_library, id: "image_from_library" %>
+    <%= f.hidden_field :remote_media_type,  id: "remote_media_type" %>
+    <%= f.hidden_field :image_from_library, id: "image_from_library"%>
 
     <div class="tile_holder_container">
       <div class="tile_form_holder">

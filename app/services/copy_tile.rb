@@ -21,6 +21,7 @@ class CopyTile
       @tile.save
     end
     @copy.remote_media_url= @tile.image.url(:original)
+    @copy.is_cloned = true
     @copy.save
     @copy
   end
