@@ -66,7 +66,7 @@ body.suggested_tiles-index {
 
   // Add New Tile Btn
   #add_new_tile {
-    @include app-button($sky-blue);
+    @include app-button($n-blue);
     position: absolute;
     top: 4px;
     right: 57px;
