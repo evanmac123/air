@@ -1,4 +1,4 @@
-body.client_admin-tiles-index, 
+body.client_admin-tiles-index,
 body.client_admin-inactive_tiles,
 body.suggested_tiles-index {
   //
@@ -71,18 +71,18 @@ body.suggested_tiles-index {
     top: 4px;
     right: 57px;
     z-index: 1;
-    font-weight: 700;
-    font-size: 12px;
-    padding: 6px 10px;
-    i {
-      float: left;
-      font-size: 15px;
-      padding-right: 8px;
-    }
-    span {
-      float: left;
-      padding-top: 1px;
-    }
+    // font-weight: 700;
+    // font-size: 12px;
+    // padding: 6px 10px;
+    // i {
+    //   float: left;
+    //   font-size: 15px;
+    //   padding-right: 8px;
+    // }
+    // span {
+    //   float: left;
+    //   padding-top: 1px;
+    // }
   }
   //
   // => Draft Header Block
@@ -95,7 +95,7 @@ body.suggested_tiles-index {
       float: left;
       padding: 18px;
       position: relative;
-    }  
+    }
     .draft_title_block {
       width: 7%;
     }

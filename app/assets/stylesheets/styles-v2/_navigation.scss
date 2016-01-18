@@ -27,8 +27,8 @@ ul.menu,
     }
 
     &:active {
-      background-color: $blue;
-      color: $white;
+      background-color: $n-blue;
+      color: $n-white;
     }
 
     &.selected {
@@ -39,7 +39,7 @@ ul.menu,
 
 .dropdown {
   // Note: built to work with existing JS
-  background-color: $white;
+  background-color: $n-white;
   border: 1px solid $border-color-1;
   font-size: $font-size-2;
   line-height: 2.5em;
@@ -67,8 +67,8 @@ ul.menu,
     }
 
     &:active {
-      background-color: $white;
-      border-color: $blue;
+      background-color: $n-white;
+      border-color: $n-blue;
     }
   }
 
@@ -102,7 +102,7 @@ ul.menu,
   }
 
   ul {
-    background-color: $white;
+    background-color: $n-white;
     @include box-sizing(content-box);
     display: none;
     position: absolute;
@@ -148,11 +148,11 @@ ul.tabs {
       text-decoration: none;
 
       &.selected {
-        border-bottom: 3px solid $blue;
+        border-bottom: 3px solid $n-blue;
       }
 
       &:hover {
-        color: darken($blue, 10%);
+        color: darken($n-blue, 10%);
         border-bottom: 3px solid $gray-3;
       }
     }
