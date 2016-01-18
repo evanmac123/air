@@ -22,6 +22,21 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     record_index_ping
   end
 
+
+  def show
+    @tile = get_tile
+    prepTilePreview
+    tile_in_box_viewed_ping @tile
+    if request.xhr?
+      render layout: false
+    end
+  end
+
+  def blank
+    render "blank", layout: "empty_layout"
+  end
+
+
   def new
    @tile_builder_form =  @demo.m_tiles.build(status: Tile::DRAFT)
    new_or_edit @tile_builder_form
@@ -41,13 +56,13 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       update_status
       record_update_status_ping
     else
-      update_fields
+      @tile.assign_attributes(params[:tile_builder_form])
+      update_or_create @tile do
+        render_preview_and_single
+      end
     end
   end
 
-
-
-  #TODO consider refactoring with custom responders
   def create
     @tile_builder_form =  @tile = @demo.m_tiles.build(params[:tile_builder_form])
 
@@ -55,20 +70,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       schedule_tile_creation_ping(@tile_builder_form)
       render_preview_and_single
     end
-  end
-
-
-   def show
-    @tile = get_tile
-    prepTilePreview
-    tile_in_box_viewed_ping @tile
-    if request.xhr?
-      render layout: false
-    end
-  end
-
-  def blank
-    render "blank", layout: "empty_layout"
   end
 
   def destroy
@@ -135,6 +136,47 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   private
+
+  def update_status
+    result = @tile.update_status(params[:update_status])
+    respond_to do |format|
+      format.js { update_status_js(result) }
+      format.html { update_status_html(result) }
+    end
+  end
+
+  def update_status_html result
+    success, failure = flash_status_messages
+    #is_new = @tile.activated_at.nil?
+    if result
+      tile_status_updated_ping @tile, "Clicked button to move"
+      if @tile.draft?
+        session[:accepted_tile_id] = @tile.id
+        redirect_to client_admin_tiles_path
+      else
+        flash[:success] = "The #{@tile.headline} tile has been #{success}"
+        redirect_to :back
+      end
+    else
+      flash[:failure] = "There was a problem #{failure} this tile. Please try again."
+      redirect_to :back
+    end
+  end
+
+  def update_status_js result
+    if result
+      tile_in_box_updated_ping @tile
+
+      render json: {
+        success: true,
+        tile: render_tile_string,
+        tile_id: @tile.id
+      }
+    else
+      render json: {success: false}
+    end
+  end
+
 
   def prepTilePreview
     @prev, @next = @demo.bracket @tile
@@ -210,48 +252,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     [success, failure]
   end
 
-  def update_status
-    result = @tile.update_status(params[:update_status])
-    respond_to do |format|
-      format.js { update_status_js(result) }
-      format.html { update_status_html(result) }
-    end
-  end
 
-
-
-
-  def update_status_html result
-    success, failure = flash_status_messages
-    #is_new = @tile.activated_at.nil?
-    if result
-      tile_status_updated_ping @tile, "Clicked button to move"
-      if @tile.draft?
-        session[:accepted_tile_id] = @tile.id
-        redirect_to client_admin_tiles_path
-      else
-        flash[:success] = "The #{@tile.headline} tile has been #{success}"
-        redirect_to :back
-      end
-    else
-      flash[:failure] = "There was a problem #{failure} this tile. Please try again."
-      redirect_to :back
-    end
-  end
-
-  def update_status_js result
-    if result
-      tile_in_box_updated_ping @tile
-
-      render json: {
-        success: true,
-        tile: render_tile_string,
-        tile_id: @tile.id
-      }
-    else
-      render json: {success: false}
-    end
-  end
 
   def render_tile_string
     render_to_string(
@@ -272,26 +273,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     render_to_string(action: 'show', layout:false)
   end
 
-  def update_fields
 
-    if @tile.update_attributes(params[:tile_builder_form])
-      if request.xhr?
-        render_preview_and_single
-      else
-        redirect_to client_admin_tile_path(@tile_builder_form.tile)
-      end
-    else
-      flash.now[:failure] = msg = "Sorry, we couldn't update this tile: " + @tile_builder_form.error_messages
-      if request.xhr?
-        response.headers["X-Message"]= msg
-        head :unprocessable_entity and return
-      else
-        set_flash_for_no_image
-        render :edit
-      end
-
-    end
-  end
 
 
 
