@@ -1,6 +1,17 @@
+@font-face {
+  font-family: 'Avenir Next Regular';
+  font-style: normal;
+  font-weight: normal;
+  src: font-url('avenirnextltpro-regular.eot');
+  src: font-url('avenirnextltpro-regular.eot?#iefix') format('embedded-opentype'),
+  font-url('avenirnextltpro-regular.woff') format('woff'),
+  font-url('avenirnextltpro-regular.ttf') format('truetype'),
+  font-url('avenirnextltpro-regular.svg#avenirnextltpro-regular') format('svg');
+}
+
 /* Font Families */
 
-$font-family-primary: 'avenir next', avenir, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font-family-primary: 'Avenir Next Regular', 'avenir next', avenir, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
 /* Font Weights */
 
