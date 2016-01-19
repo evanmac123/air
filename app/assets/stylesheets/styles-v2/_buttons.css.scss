@@ -13,6 +13,20 @@
     border-color: darken($bg-color, 5%);
   }
 }
+@mixin button-outlined-color($text-color: $n-blue, $bg-color: transparent) {
+  color: $text-color;
+  background-color: $bg-color;
+  &:hover {
+    background-color: $text-color;
+    border-color: $text-color;
+    color: $n-white;
+  }
+  &:active {
+    background-color: darken($text-color, 5%);
+    border-color: darken($text-color, 5%);
+    color: $n-white;
+  }
+}
 /* Buttons */
 @mixin button($bg-color: $n-blue, $text-color: $n-white) {
   @include button-color($bg-color, $text-color);
@@ -29,9 +43,11 @@
   white-space: nowrap;
   overflow: hidden;
   padding: 0 20px;
+  margin: 0;
   cursor: pointer;
   height: 32px;
   line-height: 32px;
+  box-shadow: none;
   @include ease(0.2s);
 }
 
@@ -40,22 +56,14 @@
   &.button-gray {
     @include button-color($gray-4);
   }
-}
-
-.button.outlined {
-  color: $n-blue;
-  background-color: transparent;
-
-  &:hover {
-    background-color: $n-blue;
-    border-color: $n-blue;
-    color: $n-white;
+  &.button-blue {
+    @include button-color($n-blue);
   }
-
-  &:active {
-    background-color: darken($n-blue, 5%);
-    border-color: darken($n-blue, 5%);
-    color: $n-white;
+  &.outlined {
+    @include button-outlined-color;
+    &.button-gray {
+      @include button-outlined-color($gray-4);
+    }
   }
 }
 

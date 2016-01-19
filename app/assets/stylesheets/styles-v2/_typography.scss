@@ -95,13 +95,17 @@ ol, ul {
 }
 li {
   margin:0;
-  padding: 0.25em 0;
+  padding: 0;
 }
 ul, ol {
   &.list {
     line-height: 1.5em;
     margin: -0.75em 0 1.75em;
     padding: 0 40px;
+    li {
+      margin:0;
+      padding: 0.25em 0;
+    }
   }
 }
 ul.list {
