@@ -2,7 +2,7 @@
   <%= form.submit  %>
 </div>
 <%#TODO FIXME %>
-<% if form.object.is_a? UserTileBuilderForm%>
+<% if @tile_builder_form.user_created && @tile_builder_form.status==Tile::USER_SUBMITTED%>
   <div class="submit_caution">
     Once you submit a Tile, it cannot be edited.
   </div>
