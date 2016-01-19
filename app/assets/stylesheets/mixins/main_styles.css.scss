@@ -45,7 +45,8 @@ $ca-subnav-color:   darken($blue, 15%);     // #34445b
 // }
 
 // ------------------------ * Typography * ------------------------
-$default:   'Helvetica Neue', Helvetica, Arial, sans-serif;
+// $default:   'Helvetica Neue', Helvetica, Arial, sans-serif;
+$default: $font-family-primary;
 $small_cap_size: .625rem; // 10px
 
 @mixin font-thin {
@@ -219,7 +220,7 @@ $border-light:      1px #fff solid;
   &:hover {color:darken($color, 10%);}
   &:active {color:lighten($color, 10%);}
 }
-a, a:link, a:visited {@include link($blue);}
+// a, a:link, a:visited {@include link($blue);}
 
 @mixin app-button($color) {
   @include button($color);

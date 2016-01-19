@@ -90,9 +90,9 @@
       &.ignore_button {
         margin-left: 15px;
       }
-      &.archive_button  {
-        @include app-button($med-gray);
-      }
+      // &.archive_button  a {
+      //   @include app-button($med-gray);
+      // }
       &.activate_button, &.accept_button {
         span {
           @include app-button($sky-blue);

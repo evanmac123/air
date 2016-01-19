@@ -1,8 +1,21 @@
-/* Buttons */
-@mixin button($bg-color: $n-blue, $text-color: $n-white) {
+@mixin button-color($bg-color: $n-blue, $text-color: $n-white) {
   color: $text-color;
   background-color: $bg-color;
   border: 1px solid $bg-color;
+  &:hover {
+    color: $text-color;
+    background-color: lighten($bg-color, 5%);
+    border-color: lighten($bg-color, 5%);
+  }
+  &:active {
+    color: $text-color;
+    background-color: darken($bg-color, 5%);
+    border-color: darken($bg-color, 5%);
+  }
+}
+/* Buttons */
+@mixin button($bg-color: $n-blue, $text-color: $n-white) {
+  @include button-color($bg-color, $text-color);
   @include radius(4px);
   display: inline-block;
   font-size: $font-size-1;
@@ -20,20 +33,13 @@
   height: 32px;
   line-height: 32px;
   @include ease(0.2s);
-
-  &:hover {
-    background-color: lighten($bg-color, 5%);
-    border-color: lighten($bg-color, 5%);
-  }
-
-  &:active {
-    background-color: darken($bg-color, 5%);
-    border-color: darken($bg-color, 5%);
-  }
 }
 
 .button {
   @include button;
+  &.button-gray {
+    @include button-color($gray-4);
+  }
 }
 
 .button.outlined {
