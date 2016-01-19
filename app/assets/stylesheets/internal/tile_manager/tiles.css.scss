@@ -41,11 +41,11 @@ body.suggested_tiles-index {
     height: 400px;
   }
   .download_csv, .minimize {
-    @include light-button(#8d8d8d);
-    border-color: #b9b9b9;
-    padding: 6px 10px;
-    font-size: 12px;
-    font-weight: 700;
+    // @include light-button(#8d8d8d);
+    // border-color: #b9b9b9;
+    // padding: 6px 10px;
+    // font-size: 12px;
+    // font-weight: 700;
     position: absolute;
     top: -10px;
     right: 73px;
@@ -72,19 +72,9 @@ body.suggested_tiles-index {
     }
   }
   .all_draft, .all_inactive {
-    @include light-button(#858585);
-    border-color: #b5b5b5;
-    font-weight: 500;
-    font-size: 12px;
     width: 100px;
-    padding-top: 8px;
-    padding-bottom: 7px;
     display: block;
     margin: auto;
-    &:hover {
-      color: #5c5c5c;
-      border-color: #8c8c8c;
-    }
   }
   //
   // => Archive section

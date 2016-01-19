@@ -33,6 +33,7 @@
   @include radius(4px);
   display: inline-block;
   font-size: $font-size-1;
+  line-height: $font-size-1;
   @include font-weight-regular;
   text-align: center;
   vertical-align: middle;
@@ -42,11 +43,11 @@
   user-select: none;
   white-space: nowrap;
   overflow: hidden;
-  padding: 0 20px;
+  padding: 8px 20px;
   margin: 0;
   cursor: pointer;
-  height: 32px;
-  line-height: 32px;
+  // height: 32px;
+  // line-height: 32px;
   box-shadow: none;
   @include ease(0.2s);
 }
@@ -88,8 +89,8 @@
 // Font Awesome icon button
 
 .button.icon {
-  padding: 0 10px;
-
+  padding-left: 10px;
+  padding-right: 10px;
   .fa {
     font-size: 0.8em;
     margin-right: 5px;

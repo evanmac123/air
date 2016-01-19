@@ -8,11 +8,11 @@
 
   <%= render partial: 'client_admin/suggestions_access/all_users', locals: { display_all_users: display_all_users } %>
 
-  <%= render partial: 'client_admin/suggestions_access/specific_users', locals: { users: users, display_specific_users: display_specific_users } %>  
+  <%= render partial: 'client_admin/suggestions_access/specific_users', locals: { users: users, display_specific_users: display_specific_users } %>
 
   <div class="control_buttons">
-    <%= form.submit 'Save', id: "save_suggestions_access" %>
-    <%= link_to 'Cancel', '', id: "cancel_suggestions_access" %>
+    <%= form.submit 'Save', id: "save_suggestions_access", class: "button button-blue" %>
+    <%= link_to 'Cancel', '', id: "cancel_suggestions_access", class: "button button-gray outlined" %>
 
     <%= image_tag "spinner_gears.gif", id: "submit_spinner" %>
   </div>
