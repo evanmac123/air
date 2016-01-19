@@ -392,8 +392,8 @@ ActiveRecord::Schema.define(:version => 20160105010722) do
     t.integer  "tickets",                              :default => 0
     t.integer  "ticket_threshold_base",                :default => 0
     t.integer  "demo_id"
-    t.datetime "created_at",                                              :null => false
-    t.datetime "updated_at",                                              :null => false
+    t.datetime "created_at",                                             :null => false
+    t.datetime "updated_at",                                             :null => false
     t.integer  "converted_user_id"
     t.boolean  "get_started_lightbox_displayed"
     t.datetime "last_acted_at"
@@ -401,7 +401,6 @@ ActiveRecord::Schema.define(:version => 20160105010722) do
     t.boolean  "voteup_intro_seen"
     t.boolean  "share_link_intro_seen"
     t.boolean  "seeing_marketing_page_for_first_time", :default => true
-    t.boolean  "onboarding_seen",                      :default => false
   end
 
   add_index "guest_users", ["demo_id"], :name => "index_guest_users_on_demo_id"
@@ -1018,7 +1017,6 @@ ActiveRecord::Schema.define(:version => 20160105010722) do
     t.boolean  "send_weekly_activity_report",                         :default => true
     t.boolean  "user_submitted_tile_intro_seen",                      :default => false,       :null => false
     t.boolean  "manage_access_prompt_seen",                           :default => false,       :null => false
-    t.boolean  "suggestion_box_prompt_seen",                          :default => false,       :null => false
   end
 
   add_index "users", ["cancel_account_token"], :name => "index_users_on_cancel_account_token"
