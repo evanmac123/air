@@ -121,6 +121,8 @@ Health::Application.routes.draw do
 
     resources :locations, :only => :create
 
+    resources :multiple_choice_tiles, controller: 'tiles'
+
     resources :tiles do
       collection do
         get "blank"

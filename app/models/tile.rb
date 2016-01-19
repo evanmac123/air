@@ -24,7 +24,7 @@ class Tile < ActiveRecord::Base
   TRUE_FALSE            = "True / False".parameterize("_").freeze
   MULTIPLE_CHOICE       = "Multiple Choice".parameterize("_").freeze
   RSVP_TO_EVENT         = "RSVP to event".parameterize("_").freeze
-
+  
 
   belongs_to :demo
   belongs_to :creator, class_name: 'User'
@@ -42,6 +42,8 @@ class Tile < ActiveRecord::Base
 
   has_alphabetical_column :headline
 
+  before_validation :sanitize_supporting_content
+  before_validation :set_image_processing, if: :image_changed?
   validates_presence_of :headline, :allow_blank => false, :message => "headline can't be blank"
   validates_presence_of :supporting_content, :allow_blank => false, :message => "supporting content can't be blank", :on => :client_admin
   validates_presence_of :question, :allow_blank => false, :message => "question can't be blank", :on => :client_admin
@@ -55,7 +57,7 @@ class Tile < ActiveRecord::Base
 
   before_save :ensure_protocol_on_link_address, :handle_status_change
   before_save :set_image_credit_to_blank_if_default
-
+  after_save :process_image, if: :image_changed? 
   before_post_process :no_post_process_on_copy
 
   STATUS.each do |status_name|
@@ -246,6 +248,13 @@ class Tile < ActiveRecord::Base
       .order("position ASC").first
   end
 
+  def is_cloned?
+    @cloned || false
+  end
+
+  def is_cloned= val
+    @cloned = val 
+  end
 
   def custom_supporting_content_class
     use_old_line_break_css? ? 'old_line_break_css' : ''
@@ -271,6 +280,24 @@ class Tile < ActiveRecord::Base
 
   private
 
+  def sanitize_supporting_content
+    self.supporting_content = Sanitize.fragment(
+      strip_content, 
+      elements: [ 
+        'ul', 'ol', 'li',
+        'b', 'strong', 'i', 'em', 'u',
+        'span', 'div', 'p',
+        'br', 'a' 
+      ],
+      attributes: { 'a' => ['href', 'target'] }
+    ).strip
+  end
+
+  def strip_content
+    supporting_content.try(:strip) || ""
+  end 
+
+
   def set_image_credit_to_blank_if_default
     self.image_credit ="" if image_credit == "Add Image Credit"
   end
@@ -293,4 +320,16 @@ class Tile < ActiveRecord::Base
     self.new_record? && !image.present?
   end
 
+  def process_image
+    ImageProcessJob.new(id, image_from_library).perform unless is_cloned?
+  end
+
+  def image_changed?
+    changes.keys.include? "remote_media_url"
+  end
+
+  def set_image_processing
+    self.thumbnail_processing = true
+    self.image_processing =  true
+  end
 end

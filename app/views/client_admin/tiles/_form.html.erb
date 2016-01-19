@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="large-centered columns large-8">
+    <div class="edit_mode">
+      Edit Tile
+    </div>
+
+    <%= form_for [:client_admin, @tile_builder_form], as: :tile_builder_form, url: url_for([:client_admin, @tile_builder_form]), html: { id: "new_tile_builder_form", class: "new_tile_builder_form"} do |f| %>
+
+    <%= f.hidden_field :status %>
+    <%= f.hidden_field :remote_media_type,  id: "remote_media_type" %>
+    <%= f.hidden_field :image_from_library, id: "image_from_library"%>
+
+    <div class="tile_holder_container">
+      <div class="tile_form_holder">
+        <div class="tile_holder">
+          <%= render '/shared/tiles/form/image_preview', form: f %>
+          <div class="builder_content tile_builder_section">
+            <%= render 'shared/tiles/form/headline_and_supporting_content_fields', form: f, tile: @tile_builder_form %>
+          </div>
+          <%= render 'shared/tiles/form/question_and_answer_section', form: f %>
+        </div>
+        <%= render 'shared/tiles/form/submit_button', form: f %>
+      </div>
+    </div>
+
+<% end %>
+  </div>
+</div>
+
+
+<%= s3_uploader_form post: client_admin_tiles_url, as: "tile_builder_form[upload_url]", style: "visibility:hidden;height:0px;width:0px" do %>
+  <%= file_field_tag :file, id:"media_file" %>
+<% end %>
