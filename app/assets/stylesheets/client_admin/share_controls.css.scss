@@ -43,7 +43,7 @@ body.client_admin-shares{
     .status_div{
       margin-top: 8px;
       width: 170px;
-      .public, .private{ 
+      .public, .private{
         @include regular-text;
         float: left;
         margin: 0 3px;
@@ -51,10 +51,10 @@ body.client_admin-shares{
           color: $dark-gray;
         }
         &.disengaged {
-          color: $light-gray;          
+          color: $light-gray;
         }
       }
-      
+
       .switch{
         @include green-paddle-switch;
         @include switch-size(16px, 9px, 2.3em);
@@ -86,18 +86,18 @@ body.client_admin-shares{
   #digest_management {
     padding-top: 32px;
     &:after {@include clear;}
-    
+
     .large-3 {
       &.columns {
         padding-left: 0;
         padding-right: 0;
-      }    
+      }
     }
     .notification_controls {
-      float: left;    
+      float: left;
       .send_to, .follow_up, .intro_message, .custom_subject, .custom_headline {
         margin-bottom: 2.75em;
-        .drop_down{          
+        .drop_down{
           *{
             color: $med-gray;font-weight: normal;
           }
@@ -132,36 +132,13 @@ body.client_admin-shares{
           color: $med-gray;
           margin-left: 5px;
         }
-        button {
-          @include light-button($dark-gray);
-          font-size: 14px;
-          padding: 0;
-          display: block;
-          text-transform: none;
-          border: none;
-          font-weight: 400;
-          padding-top: 0.5em;
-          line-height: 2em;
-          &:active, &:focus, &:hover {
-            color: $sky-blue;// !important;
-            background: transparent;
-            box-shadow: none;
-          }
-          &[disabled] {
-            color: $dark-gray;// !important;
-          }
-          i {
-            font-weight: 400;
-            font-size: 16px;
-            padding: 0 3px;
-          }
-        }
       }
       .total_users {
         border:1px $light-gray solid;
         padding: 10px;
         margin-bottom: 2.75em;
         color: $gray;
+        overflow: auto;
         h5{
           float: left;
           margin: 0;
@@ -195,14 +172,9 @@ body.client_admin-shares{
           padding-right: 1px;
         }
         a {
-          @include light-button($sky-blue);
+          @include light-button($gray-4);
           width: 100%;
-          margin: 0;
-          height: 33px;
-          padding-top: 8px;
-          color: $light-gray;// !important;
-          border-color: $light-gray;
-          &.selected {
+          &.selected, &:hover {
             @include light-button($sky-blue);
           }
         }
@@ -220,11 +192,6 @@ body.client_admin-shares{
       border-left:1px $light-gray solid;
       padding-left:1em;
       width:40%;
-    }
-
-    input[type="submit"] {
-      @include app-button($sky-blue);
-      width: 100%;
     }
     .update-digest-spinner {
       display: none;

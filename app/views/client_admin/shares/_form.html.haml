@@ -25,15 +25,14 @@
       = text_area_tag "digest[custom_message]", @tiles_digest_form.custom_message, size: "50x6", maxlength: 160
       :javascript
         addCharacterCounterFor('#digest_custom_message');
-    
+
     = hidden_field_tag "digest_type", "digest_and_follow_up"
 
     .send_test
-      %label 
+      %label
         Test
         %i.fa.fa-question-circle.has-tip{"data-tooltip" => true, title:"Send yourself a test Tiles Email, and if scheduled, a test Follow-Up Email."}
-      .editorial_divider
-      = button_tag id: "send_test_digest", disabled: @digest_tiles.empty? do
+      = button_tag id: "send_test_digest", disabled: @digest_tiles.empty?, class: "button button-gray outlined full_width icon" do
         = fa_icon "envelope-o"
         Send a Test Email to Myself
 
@@ -43,7 +42,7 @@
       %p#all_users= @all_users
       %p#activated_users= @activated_users
       .clearfix
-    = submit_tag "Send", confirm: 'Are you sure you want to send the digest email?', disabled: @digest_tiles.empty?
+    = submit_tag "Send", confirm: 'Are you sure you want to send the digest email?', disabled: @digest_tiles.empty?, class: "button full_width"
     - if @digest_tiles.empty?
       .add_tiles_message
         Post new tiles to send them to your users.
