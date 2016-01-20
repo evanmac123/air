@@ -23,6 +23,7 @@ class TileBuilderForm
             :position,
             :remote_media_url,
             :remote_media_type,
+            :full_size_image_height,
             :to => :tile
 
   def initialize(demo, options = {})
