@@ -231,32 +231,34 @@ $border-light:      1px #fff solid;
   padding:.5em 1em;
 }
 @mixin light-button($outlineColor) {
-  background:transparent;
-  border:1px $outlineColor solid;
-  border-radius:$border-radius;
-  color:$outlineColor;//!important;
-  display: inline-block;
-  @include font-semibold;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1em;
-  padding:.35em .75em;
-  text-align: center;
-  text-transform: capitalize;
-  &:hover {
-    border-color:darken($outlineColor, 11%);
-    color:darken($outlineColor, 11%);//!important;
-  }
-  &:active {
-    //@include ease(0);
-    background:$outlineColor;
-    color:$white;
-  }
-  @if $outlineColor == $white {
-    &:active {
-      color:$light-gray;
-    }
-  }
+  @include button;
+  @include button-outlined-color($outlineColor);
+  // background:transparent;
+  // border:1px $outlineColor solid;
+  // border-radius:$border-radius;
+  // color:$outlineColor;//!important;
+  // display: inline-block;
+  // @include font-semibold;
+  // font-size: 16px;
+  // font-weight: 400;
+  // line-height: 1em;
+  // padding:.35em .75em;
+  // text-align: center;
+  // text-transform: capitalize;
+  // &:hover {
+  //   border-color:darken($outlineColor, 11%);
+  //   color:darken($outlineColor, 11%);//!important;
+  // }
+  // &:active {
+  //   //@include ease(0);
+  //   background:$outlineColor;
+  //   color:$white;
+  // }
+  // @if $outlineColor == $white {
+  //   &:active {
+  //     color:$light-gray;
+  //   }
+  // }
 }
 // ------------------------ * Arrows * ------------------------
 @mixin arrow-up($color, $size) {

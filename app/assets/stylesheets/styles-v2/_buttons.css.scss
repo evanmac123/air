@@ -2,29 +2,34 @@
   color: $text-color;
   background-color: $bg-color;
   border: 1px solid $bg-color;
-  &:hover {
-    color: $text-color;
-    background-color: lighten($bg-color, 5%);
-    border-color: lighten($bg-color, 5%);
-  }
-  &:active {
-    color: $text-color;
-    background-color: darken($bg-color, 5%);
-    border-color: darken($bg-color, 5%);
+  &:not([disabled]) {
+    &:hover {
+      color: $text-color;
+      background-color: lighten($bg-color, 5%);
+      border-color: lighten($bg-color, 5%);
+    }
+    &:active {
+      color: $text-color;
+      background-color: darken($bg-color, 5%);
+      border-color: darken($bg-color, 5%);
+    }
   }
 }
 @mixin button-outlined-color($text-color: $n-blue, $bg-color: transparent) {
   color: $text-color;
   background-color: $bg-color;
-  &:hover {
-    background-color: $text-color;
-    border-color: $text-color;
-    color: $n-white;
-  }
-  &:active {
-    background-color: darken($text-color, 5%);
-    border-color: darken($text-color, 5%);
-    color: $n-white;
+  border-color: $text-color;
+  &:not([disabled]) {
+    &:hover {
+      background-color: $text-color;
+      border-color: $text-color;
+      color: $n-white;
+    }
+    &:active {
+      background-color: darken($text-color, 5%);
+      border-color: darken($text-color, 5%);
+      color: $n-white;
+    }
   }
 }
 /* Buttons */
