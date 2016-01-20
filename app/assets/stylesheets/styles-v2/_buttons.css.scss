@@ -1,7 +1,9 @@
 @mixin button-color($bg-color: $n-blue, $text-color: $n-white) {
-  color: $text-color;
-  background-color: $bg-color;
-  border: 1px solid $bg-color;
+  &, &[disabled], &[disabled]:hover, &[disabled]:active {
+    color: $text-color;
+    background-color: $bg-color;
+    border: 1px solid $bg-color;
+  }
   &:not([disabled]) {
     &:hover {
       color: $text-color;
@@ -16,9 +18,11 @@
   }
 }
 @mixin button-outlined-color($text-color: $n-blue, $bg-color: transparent) {
-  color: $text-color;
-  background-color: $bg-color;
-  border-color: $text-color;
+  &, &[disabled], &[disabled]:hover, &[disabled]:active {
+    color: $text-color;
+    background-color: $bg-color;
+    border-color: $text-color;
+  }
   &:not([disabled]) {
     &:hover {
       background-color: $text-color;
@@ -30,6 +34,21 @@
       border-color: darken($text-color, 5%);
       color: $n-white;
     }
+  }
+}
+@mixin button-with-spinner($spinner-color: $n-white) {
+  position: relative;
+  &, &:active, &:hover {
+    color: transparent;
+  }
+  &:before {
+    font: normal normal normal 14px/1 FontAwesome;
+    content: "\f013";
+    animation: fa-spin 2s infinite linear;
+    display: block;
+    position: absolute;
+    left: 48%;
+    color: $n-white;
   }
 }
 /* Buttons */
@@ -49,12 +68,13 @@
   white-space: nowrap;
   overflow: hidden;
   padding: 8px 20px;
-  margin: 0;
+  // margin: 0;
   cursor: pointer;
-  // height: 32px;
-  // line-height: 32px;
   box-shadow: none;
   @include ease(0.2s);
+  &[disabled] {
+    cursor: default;
+  }
 }
 
 .button {
@@ -65,39 +85,58 @@
   &.button-blue {
     @include button-color($n-blue);
   }
+
   &.outlined {
     @include button-outlined-color;
     &.button-gray {
       @include button-outlined-color($gray-4);
     }
+    &.button-blue {
+      @include button-outlined-color($n-blue);
+    }
   }
-}
 
-.button.reversed {
-  border-color: $n-white;
-  background-color: transparent;
-  color: $n-white;
-
-  &:hover {
-    background-color: $n-blue;
-    border-color: $n-blue;
+  &.reversed {
+    border-color: $n-white;
+    background-color: transparent;
     color: $n-white;
+
+    &:hover {
+      background-color: $n-blue;
+      border-color: $n-blue;
+      color: $n-white;
+    }
+
+    &:active {
+      background-color: darken($n-blue, 5%);
+      border-color: darken($n-blue, 5%);
+      color: $n-white;
+    }
+  }
+  // Font Awesome icon button
+  &.icon {
+    padding-left: 10px;
+    padding-right: 10px;
+    .fa {
+      font-size: 0.8em;
+      margin-right: 5px;
+    }
   }
 
-  &:active {
-    background-color: darken($n-blue, 5%);
-    border-color: darken($n-blue, 5%);
-    color: $n-white;
+  &.with_spinner {
+    @include button-with-spinner;
+    &.outlined {
+      @include button-with-spinner($n-blue);
+      &.button-gray {
+        @include button-with-spinner($gray-4);
+      }
+      &.button-blue {
+        @include button-with-spinner($n-blue);
+      }
+    }
   }
-}
 
-// Font Awesome icon button
-
-.button.icon {
-  padding-left: 10px;
-  padding-right: 10px;
-  .fa {
-    font-size: 0.8em;
-    margin-right: 5px;
+  &.full_width {
+    width: 100%;
   }
 }

@@ -1,65 +1,72 @@
-- if raffle.status == Raffle::SET_UP
-  .buttons_section
-    .button#save_draft
+<% if raffle.status == Raffle::SET_UP %>
+  <div class="buttons_section">
+    <div class="button outlined" id="save_draft">
       Save Draft
-    .button.blue_button#start
+    </div>
+    <div class="button" id="start">
       Start
-  .clear_form
+    </div>
+  </div>
+  <div class="clear_form">
     Clear
-    #clear_dialog{title: "Clear the form?"}
-      %p
+    <div id="clear_dialog" title="Clear the form?">
+      <p>
         This form will be cleared. Are you sure?
-  - content_for :javascript do
-    :javascript
+      </p>
+    </div>
+  </div>
+  <% content_for :javascript do %>
+    <script>
       $(function() {
         clearAllDialog();
         window.draft_saved = true;
       });
-
       $("#save_draft").click(function() {
         saveDraft();
       });
-
       $(".clear_form").click(function(){
         $( "#clear_dialog" ).dialog( "open" );
       });
-
       //enable save draft button
       $("form textarea, form input").bind('input propertychange', function(){
         unsavedDraft();
       });
-
       $("form textarea, form input").change(function(){
         unsavedDraft();
       });
-
       $(window).on("beforeunload", function(){
         if(!window.draft_saved){
           return "If you leave this page, you’ll lose any changes you made. Please, save them before leaving."
         }
       });
-
       $("#start").click(function(){
         startLive();
       });
-- elsif raffle.status == Raffle::LIVE
-  .buttons_section
-    .button#edit_or_save
+    </script>
+  <% end %>
+<% elsif raffle.status == Raffle::LIVE %>
+  <div class="buttons_section">
+    <div class="button" id="edit_or_save">
       Edit
-    %button.blue_button#progress_or_cancel{disabled: true}
+    </div>
+    <button class="button" disabled id="progress_or_cancel">
       In progress
-  .buttons_section
-    %a.button.finish_button#end_early.has-tip.tip-bottom{"data-tooltip" => true, title: 'End Early, pick a winner', href: end_early_client_admin_prizes_path, "data-confirm-message" => "Confirm?"}
+    </button>
+  </div>
+  <div class="buttons_section">
+    <a class="button button-gray outlined finish_button has-tip tip-bottom" data-confirm-message="Confirm?" data-tooltip="<%= true %>" href="<%= end_early_client_admin_prizes_path %>" id="end_early" title="End Early, pick a winner">
       End Early
-    %a.button.finish_button#cancel_raffle.tip-bottom{"data-tooltip" => true, title: 'Cancel, no winner', href: cancel_client_admin_prizes_path, "data-confirm-message" => "Confirm?"}
+    </a>
+    <a class="button button-gray outlined finish_button tip-bottom" data-confirm-message="Confirm?" data-tooltip="<%= true %>" href="<%= cancel_client_admin_prizes_path %>" id="cancel_raffle" title="Cancel, no winner">
       Cancel
-  - content_for :javascript do
-    :javascript
+    </a>
+  </div>
+  <% content_for :javascript do %>
+    <script>
       $(function() {
         disableForm();
         window.prizeFormStatus = 'live_show';
       });
-
       $("#edit_or_save").click(function(){
         if( window.prizeFormStatus == 'live_show' ){
           turnLiveEdit();
@@ -67,23 +74,28 @@
           updateRaffle();
         }
       });
-
       $("#progress_or_cancel").click(function(){
         turnLiveShow();
       });
-
       $(".finish_button").click(function(e){
         if( !$(this).hasClass("confirmation") ){
           e.preventDefault();
           makeConfirmButton( $(this) );
         }
       });
-- else
-  .buttons_section
-    %button.blue_button#period_complete{ disabled: true }
-      Prize Period Complete 
-  - content_for :javascript do
-    :javascript
+    </script>
+  <% end %>
+<% else %>
+  <div class="buttons_section">
+    <button class="button full_width" disabled id="period_complete">
+      Prize Period Complete
+    </button>
+  </div>
+  <% content_for :javascript do %>
+    <script>
       $(function() {
         disableForm();
       });
+    </script>
+  <% end %>
+<% end %>

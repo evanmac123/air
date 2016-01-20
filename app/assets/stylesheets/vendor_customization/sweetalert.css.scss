@@ -16,15 +16,15 @@
   }
   button{
     margin-top: 15px;
+    margin-left: 10px;
     &.cancel {
-      @include light-button($sky-blue);
+      @include light-button($n-blue);
     }
     &.confirm {
-      @include app-button($sky-blue);
+      @include app-button($n-blue);
       box-shadow: none !important;
-      &:hover {
-        background:darken($sky-blue, 5%) !important;
-      }
+      border-color: $n-blue !important;
+      background-color: $n-blue !important;
       &[disabled]{
          background-image: url("/assets/spinner_gears.gif");
          background-repeat: no-repeat;
