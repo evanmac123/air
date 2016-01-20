@@ -54,10 +54,11 @@ module Concerns::TileImageable
   def full_size_image_height
     return nil if image_file_name.nil?
 
+   #FIXME  this fails if height or width are nil?
     height, width = if image_processing?
                       [484, 666]
                     else
-                      [image.height, image.width]
+                      [image.height||484, image.width||666] #FIXME temporary hack
                     end
 
     full_width = 600.0 # px for full size tile
