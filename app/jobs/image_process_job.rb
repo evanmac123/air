@@ -20,7 +20,6 @@ class ImageProcessJob
     if library_image
       @tile.thumbnail = library_image.thumbnail
       @tile.image = library_image.image
-      #@tile.remote_media_url = @tile.image.url(:original)
     else
       @tile.image = @tile.thumbnail = image_path
     end
@@ -29,6 +28,7 @@ class ImageProcessJob
 
 
   def image_path
+    #TODO fix me in test
     URI.parse(URI.encode(@tile.remote_media_url))
   end
 
