@@ -64,6 +64,7 @@ body.suggested_tiles-index {
   .show_all_section {
     &.show_all_draft_section {
       background: $almost-white;
+      margin-top: -4px;
     }
     .button_container {
       position: relative;

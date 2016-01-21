@@ -267,15 +267,15 @@
       position: relative;
       vertical-align: middle;
     }
-  //   &[disabled] {
-  //     color: $light-gray !important;;
-  //     @include app-button($med-gray);
-  //     padding:.75em .5em 0.6em;
-  //
-  //     &:before, &:after {
-  //       visibility:hidden;
-  //     }
-  //   }
+    &[disabled] {
+      color: $light-gray !important;;
+      @include app-button($med-gray);
+      padding:.75em .5em 0.6em;
+
+      &:before, &:after {
+        visibility:hidden;
+      }
+    }
     #show_more_tiles_spinner {
       display: inline-block;
       vertical-align: top;
