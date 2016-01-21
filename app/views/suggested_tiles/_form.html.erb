@@ -4,7 +4,7 @@
       Edit Tile
     </div>
 
-    <%= form_for [:client_admin, @tile_builder_form], as: :tile_builder_form, url: url_for([:client_admin, @tile_builder_form]), html: { id: "new_tile_builder_form", class: "new_tile_builder_form"} do |f| %>
+    <%= form_for @tile_builder_form, as: :tile_builder_form, url: suggested_tiles_path, html: { id: "new_tile_builder_form", class: "new_tile_builder_form"} do |f| %>
 
     <%= f.hidden_field :status %>
     <%= f.hidden_field :remote_media_type,  id: "remote_media_type" %>
