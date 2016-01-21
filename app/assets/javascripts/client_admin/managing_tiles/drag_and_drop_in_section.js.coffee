@@ -21,7 +21,7 @@ window.dragAndDropInSection = ->
     });
 
   findTileId = (tile) ->
-    tile.find(".tile_thumbnail").data("tile_id")
+    tile.find(".tile_thumbnail").data("tile-id")
 
   saveUrl = (id) ->
     section_name = $(".manage_section").attr("id")

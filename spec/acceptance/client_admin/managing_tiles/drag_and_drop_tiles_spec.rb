@@ -1,19 +1,10 @@
 require 'acceptance/acceptance_helper'
-
 feature 'Client admin drags and drops tiles' do
   include TileManagerHelpers
   include WaitForAjax
 
   let!(:admin) { FactoryGirl.create :client_admin }
   let!(:demo)  { admin.demo  }
-
-  def move_modal_text
-    "Are you sure you want to re-use this Tile? Users who completed it before won't see it again. If you want to re-use the content, please create a new Tile."
-  end
-
-  def move_modal_selector
-    ".move-tile-confirm"
-  end
 
   background do
     bypass_modal_overlays(admin)
@@ -25,7 +16,8 @@ feature 'Client admin drags and drops tiles' do
       create_tiles_for_sections section => tiles_num
       visit current_path #reload page
       tiles = demo.send(:"#{section}_tiles").to_a
-      move_tile tiles[i1], tiles[i2]
+      t1, t2 = tiles[i1], tiles[i2]
+      move_tile t1, t2 
 
       wait_for_ajax
       tile_id = tiles[i1].id
@@ -80,8 +72,7 @@ feature 'Client admin drags and drops tiles' do
     it_should_behave_like "Moves tile in one section", "archive", 4, 0, 2
 
     it_should_behave_like "Moves tile between sections", "active",  7, 2, "draft",   2, 1
-    # works only with capybara. who knows why
-    # it_should_behave_like "Moves tile between sections", "active",  4, 2, "archive", 2, 1
+
     it_should_behave_like "Moves tile between sections", "archive", 4, 3, "draft",   2, 1
     it_should_behave_like "Moves tile between sections", "archive", 4, 2, "active",  3, 2
 
@@ -141,4 +132,13 @@ feature 'Client admin drags and drops tiles' do
     before(:each) { visit client_admin_inactive_tiles_path }
     it_should_behave_like "Moves tile in one section", "archive", 4, 0, 2
   end
+
+  def move_modal_text
+    "Are you sure you want to re-use this Tile? Users who completed it before won't see it again. If you want to re-use the content, please create a new Tile."
+  end
+
+  def move_modal_selector
+    ".move-tile-confirm"
+  end
+
 end
