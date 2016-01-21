@@ -225,11 +225,11 @@ $border-light:      1px #fff solid;
 @mixin app-button($color) {
   @include button($n-blue);
 }
-// @mixin fat-app-button($color) {
-//   @include app-button($n-blue);
-//   font-size:1.375em;
-//   padding:.5em 1em;
-// }
+@mixin fat-app-button($color) {
+  @include app-button($n-blue);
+  font-size:1.375em;
+  padding:.5em 1em;
+}
 @mixin light-button($outlineColor) {
   @include button;
   @include button-outlined-color;
