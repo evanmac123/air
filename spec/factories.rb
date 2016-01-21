@@ -243,7 +243,8 @@ FactoryGirl.define do
     question "Which of the following comes out of a bird?"
     points 99
     #TODO fix this so that the tile uses the native multiple_choice_answers_field
-    answers ["Ham", "Eggs", "A V8 Buick"]
+    #answers ["Ham", "Eggs", "A V8 Buick"]
+    multiple_choice_answers ["Ham", "Eggs", "A V8 Buick"]
     correct_answer_index 1
   end
 
