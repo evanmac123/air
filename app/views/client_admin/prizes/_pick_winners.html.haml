@@ -10,7 +10,7 @@
     - if raffle.status == Raffle::PICK_WINNERS
       = submit_tag 'Pick Winners!', class: "button"
     - else
-      = submit_tag 'Re-Pick List', class: "re-pick button button-gray outlined"
+      = submit_tag 'Re-Pick List', class: "re-pick button  outlined"
     = image_tag "spinner_gears.gif", id: "submit_spinner", style: "display:none"
 .winners_output
   .title

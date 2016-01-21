@@ -109,43 +109,43 @@ html, body {
   height:100%;
 }
 body {
-  // background:$body-bg;
-  // @include font-regular;
-  // font-size:100%;
-  // font-style:normal;
+  background:$body-bg;
+  @include font-regular;
+  font-size:100%;
+  font-style:normal;
   .content {
     padding:2em 0 0 0;
   }
 }
 * {-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;}
-h1 {
-  @include font-light;
-  font-size: 32px;
-}
-h2 {
-  @include font-light;
-  font-size: 18px;
-  line-height: 1.35em;
-  color: $sky-blue;
-}
-h3 {
-  margin-bottom: 15px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: $sky-blue;
-}
-h4 {
-  @extend h3;
-  color: $text-color;
-}
-h5 {
-  @extend h4;
-  font-weight: 400;
-  margin-bottom: 0.75em;
-}
-p {line-height:1.25em; margin:0; padding:0;}
+// h1 {
+//   @include font-light;
+//   font-size: 32px;
+// }
+// h2 {
+//   @include font-light;
+//   font-size: 18px;
+//   line-height: 1.35em;
+//   color: $sky-blue;
+// }
+// h3 {
+//   margin-bottom: 15px;
+//   font-size: 12px;
+//   font-weight: 700;
+//   letter-spacing: 0.1em;
+//   text-transform: uppercase;
+//   color: $sky-blue;
+// }
+// h4 {
+//   @extend h3;
+//   color: $text-color;
+// }
+// h5 {
+//   @extend h4;
+//   font-weight: 400;
+//   margin-bottom: 0.75em;
+// }
+// p {line-height:1.25em; margin:0; padding:0;}
 
 // ------------------------ * Breakpoints & measurements * ------------------------
 $foundation: 768px;
@@ -223,16 +223,16 @@ $border-light:      1px #fff solid;
 // a, a:link, a:visited {@include link($blue);}
 
 @mixin app-button($color) {
-  @include button($color);
+  @include button($n-blue);
 }
-@mixin fat-app-button($color) {
-  @include app-button($color);
-  font-size:1.375em;
-  padding:.5em 1em;
-}
+// @mixin fat-app-button($color) {
+//   @include app-button($n-blue);
+//   font-size:1.375em;
+//   padding:.5em 1em;
+// }
 @mixin light-button($outlineColor) {
   @include button;
-  @include button-outlined-color($outlineColor);
+  @include button-outlined-color;
   // background:transparent;
   // border:1px $outlineColor solid;
   // border-radius:$border-radius;
@@ -331,12 +331,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', e
 
 * {-moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;}
 body {
-  background:$body-bg;
+  // background:$body-bg;
   border-top:none;
-  color:$text-color;
-  @include font-regular;
+  color:$text-color-1;
+  // @include font-regular;
   font-size:100%;
-  line-height: 1em;
+  // line-height: 1em;
   margin:0;
   position: static;
   height:100%;
@@ -344,38 +344,38 @@ body {
   .row {max-width:$large-desktop;}
 
 }
-img {border:0; margin:0; padding:0;}
+// img {border:0; margin:0; padding:0;}
 
-ol, ul {list-style-position:outside; list-style-type:none; margin:0; padding:0;}
+// ol, ul {list-style-position:outside; list-style-type:none; margin:0; padding:0;}
 
-input[type="text"], input[type="password"],textarea,
-input[type="file"], input[type="checkbox"], input[type="radio"],
-input[type="number"], select, .text-input {
-  @include regular-text;
-  border:$border-dark;
-  box-shadow:none;
-  color:$text-color;
-  margin:0;
-  padding:.5em;
-  transition:none;
-  width:auto;
-  &:hover{border-color:$blue;}
-  &:focus {
-    background:$white;
-    border:1px $blue solid;
-    box-shadow:none;
-    color:$text-color;
-    transition:none;
-  }
-}
-input[type="text"], input[type="password"],
-input[type="file"], textarea, .text-input {
-  color: $text-color;
-  border-radius: $border-radius;
-  font-size: 14px;
-  margin-bottom: 0.5em;
-}
-input:focus, select, textarea {outline: 0;}
+// input[type="text"], input[type="password"],textarea,
+// input[type="file"], input[type="checkbox"], input[type="radio"],
+// input[type="number"], select, .text-input {
+//   @include regular-text;
+//   border:$border-dark;
+//   box-shadow:none;
+//   color:$text-color;
+//   margin:0;
+//   padding:.5em;
+//   transition:none;
+//   width:auto;
+//   &:hover{border-color:$blue;}
+//   &:focus {
+//     background:$white;
+//     border:1px $blue solid;
+//     box-shadow:none;
+//     color:$text-color;
+//     transition:none;
+//   }
+// }
+// input[type="text"], input[type="password"],
+// input[type="file"], textarea, .text-input {
+//   color: $text-color;
+//   border-radius: $border-radius;
+//   font-size: 14px;
+//   margin-bottom: 0.5em;
+// }
+// input:focus, select, textarea {outline: 0;}
 
 @mixin input-with-fix($type: post, $width: 30%) { // you can use px as well
   $side: left;
@@ -395,37 +395,39 @@ input:focus, select, textarea {outline: 0;}
     float: left;
     border-bottom-#{$side}-radius: 3px;
     border-top-#{$side}-radius: 3px;
+    height: 37px;
+    line-height: 37px;
   }
 }
 
-label { @extend h5; }
+// label { @extend h5; }
 
-form.custom .custom.dropdown {
-  ul li {
-    color: $med-gray;
-    &.selected, &:hover{
-      color: $med-gray;
-    }
-  }
-  .current{
-    color: $med-gray;
-    font-size: 14px;
-    font-weight: 400;
-  }
-}
+// form.custom .custom.dropdown {
+//   ul li {
+//     color: $med-gray;
+//     &.selected, &:hover{
+//       color: $med-gray;
+//     }
+//   }
+//   .current{
+//     color: $med-gray;
+//     font-size: 14px;
+//     font-weight: 400;
+//   }
+// }
 
-input::-moz-focus-inner { // fix for Firefox thickening buttons
-  border: 0;
-  padding: 0;
-  margin-top:-2px;
-  margin-bottom: -2px;
-}
+// input::-moz-focus-inner { // fix for Firefox thickening buttons
+//   border: 0;
+//   padding: 0;
+//   margin-top:-2px;
+//   margin-bottom: -2px;
+// }
 
-button {
-  &:focus, &:active {
-    outline:0 !important;
-  }
-}
+// button {
+//   &:focus, &:active {
+//     outline:0 !important;
+//   }
+// }
 
 // Breadcrumbs
 .breadcrumbs {

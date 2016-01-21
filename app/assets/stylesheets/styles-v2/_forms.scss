@@ -8,6 +8,7 @@ form {
 label {
   @include font-weight-demibold;
   font-size: $font-size-1;
+  color: $text-color-1;
   margin: 0 0 10px;
   display: block;
 }
@@ -31,14 +32,16 @@ textarea {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-
+  box-shadow: none;
   &:hover {
     background-color: $gray-1;
+    box-shadow: none;
   }
 
   &:focus {
     background-color: $n-white;
     border-color: $n-blue;
+    box-shadow: none;
   }
 
   &.error {

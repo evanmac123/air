@@ -17,7 +17,7 @@
 
   <% if presenter.has_archive_button? %>
     <li class="archive_button">
-      <%= link_to status_change_client_admin_tile_path(presenter), class: "button button-gray update_status", data: {status: Tile::ARCHIVE} do %>
+      <%= link_to status_change_client_admin_tile_path(presenter), class: "button outlined update_status", data: {status: Tile::ARCHIVE} do %>
         Archive
       <% end %>
     </li>
@@ -25,7 +25,7 @@
 
   <% if presenter.has_activate_button? %>
     <li class="activate_button">
-      <%= link_to status_change_client_admin_tile_path(presenter), class: "button button-blue update_status", data: {status: Tile::ACTIVE} do %>
+      <%= link_to status_change_client_admin_tile_path(presenter), class: "button  update_status", data: {status: Tile::ACTIVE} do %>
         <%= presenter.post_link_text %>
       <% end %>
     </li>
@@ -33,7 +33,7 @@
 
   <% if presenter.has_ignore_button? %>
     <li class="ignore_button">
-      <%= link_to status_change_client_admin_tile_path(presenter), class:"update_status button button-gray outlined", data: {status:Tile::IGNORED} do %>
+      <%= link_to status_change_client_admin_tile_path(presenter), class:"update_status button  outlined", data: {status:Tile::IGNORED} do %>
         Ignore
       <% end %>
     </li>
@@ -41,7 +41,7 @@
 
   <% if presenter.has_accept_button? %>
     <li class="accept_button">
-      <%= link_to status_change_client_admin_tile_path(presenter), class: "accept button button-blue",  data: {status: Tile::DRAFT } do %>
+      <%= link_to status_change_client_admin_tile_path(presenter), class: "accept button ",  data: {status: Tile::DRAFT } do %>
         Accept
       <% end %>
     </li>
@@ -49,7 +49,7 @@
 
   <% if presenter.has_undo_ignore_button? %>
     <li class="undo_ignore_button">
-      <%= link_to status_change_client_admin_tile_path(presenter), class: "update_status button button-gray outlined", data: {status: Tile::USER_SUBMITTED} do %>
+      <%= link_to status_change_client_admin_tile_path(presenter), class: "update_status button  outlined", data: {status: Tile::USER_SUBMITTED} do %>
         Undo Ignore
       <% end %>
     </li>

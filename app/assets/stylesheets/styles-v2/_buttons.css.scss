@@ -71,32 +71,34 @@
   // margin: 0;
   cursor: pointer;
   box-shadow: none;
+  margin-bottom: 0;
   @include ease(0.2s);
   &:active, &:hover {
     box-shadow: none;
   }
   &[disabled] {
     cursor: default;
+    // opacity: 0.85;
   }
 }
 
 .button {
   @include button;
-  &.button-gray {
-    @include button-color($gray-4);
-  }
-  &.button-blue {
-    @include button-color($n-blue);
-  }
+  // &. {
+  //   @include button-color($gray-4);
+  // }
+  // &. {
+  //   @include button-color($n-blue);
+  // }
 
   &.outlined {
     @include button-outlined-color;
-    &.button-gray {
-      @include button-outlined-color($gray-4);
-    }
-    &.button-blue {
-      @include button-outlined-color($n-blue);
-    }
+    // &. {
+    //   @include button-outlined-color($gray-4);
+    // }
+    // &. {
+    //   @include button-outlined-color($n-blue);
+    // }
   }
 
   &.reversed {
@@ -129,13 +131,13 @@
   &.with_spinner {
     @include button-with-spinner;
     &.outlined {
-      @include button-with-spinner($n-blue);
-      &.button-gray {
-        @include button-with-spinner($gray-4);
-      }
-      &.button-blue {
-        @include button-with-spinner($n-blue);
-      }
+      @include button-with-spinner;//($n-blue);
+      // &. {
+      //   @include button-with-spinner($gray-4);
+      // }
+      // &. {
+      //   @include button-with-spinner($n-blue);
+      // }
     }
   }
 

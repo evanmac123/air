@@ -53,16 +53,16 @@
 
 #board_settings {
 
-  h1 {
-    font-size: 24px;
-    display: inline-block;
-    color: $sky-blue;
-    font-weight: 500;
-    padding-bottom: 0.5rem;
-    /* This is a tiny cheat to make the h1 line up with the h3's below it */
-    //position: relative;
-    //left: -2px;
-  }
+  // h1 {
+  //   font-size: 24px;
+  //   display: inline-block;
+  //   color: $sky-blue;
+  //   font-weight: 500;
+  //   padding-bottom: 0.5rem;
+  //   /* This is a tiny cheat to make the h1 line up with the h3's below it */
+  //   //position: relative;
+  //   //left: -2px;
+  // }
 
   #board_settings_content_wrapper {
     position: relative;
@@ -116,8 +116,8 @@
     margin-bottom: $board_control_bottom_margin;
   }*/
 
-  .delete_board_icon, 
-  .save_board_name, .board_saving, 
+  .delete_board_icon,
+  .save_board_name, .board_saving,
   .board_saved, .edit_board_name_link{
     @include light-button($light-gray);
     float: right;

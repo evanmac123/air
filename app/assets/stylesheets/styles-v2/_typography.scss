@@ -43,6 +43,9 @@ $font-size-4: 28px;
 $font-size-5: 36px;
 
 /* Headers */
+h1, h2, h3, h4 {
+  color: $text-color-1;
+}
 
 h1 {
   @include font-weight-demibold;
@@ -123,6 +126,7 @@ a.link, .with_link a {
   text-decoration: underline;
   &:hover {
     text-decoration: none;
+    color: darken($n-blue, 10%);
   }
   &:active {
     color: $n-blue;

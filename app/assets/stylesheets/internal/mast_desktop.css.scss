@@ -209,6 +209,9 @@ header {
       font-weight: 400;
       color: $text-color;
     }
+    p {
+      margin: 0;
+    }
   }
 
   #board_switch, .other_boards, .other_boards a, #no_other_boards {
