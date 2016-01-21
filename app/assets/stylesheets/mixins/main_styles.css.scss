@@ -562,3 +562,7 @@ body {
 .introjs-tooltip {
   @include intro-js-restyling;
 }
+
+.hidden.hidden.hidden {
+  display: none;
+}

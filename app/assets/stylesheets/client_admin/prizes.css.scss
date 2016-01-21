@@ -82,19 +82,19 @@ body.client_admin-prizes {
   .form_section{
     width:34%;
     form{
-      margin-bottom: 4em;
-      textarea{
-        width: 100%;
-        margin-bottom: 0.5em;
-        resize: none;
-      }
-      input, textarea{
-        &:disabled{
-          border-color:transparent;
-        }
-      }
+      // margin-bottom: 4em;
+      // textarea{
+      //   width: 100%;
+      //   margin-bottom: 0.5em;
+      //   resize: none;
+      // }
+      // input, textarea{
+      //   &:disabled{
+      //     border-color:transparent;
+      //   }
+      // }
       .content_section{
-        margin-bottom: 2em;
+        // margin-bottom: 2em;
         position: relative;
       }
       .duration{
@@ -113,16 +113,16 @@ body.client_admin-prizes {
           width: 46.5%;
         }
       }
-      .outer_tip{
-        color: $med-gray;
-        font-size: 10px;
-        font-weight: 700;
-        padding-top: 0.5em;
-        padding-left: 0.5em;
-      }
+      // .outer_tip{
+      //   color: $med-gray;
+      //   font-size: 10px;
+      //   font-weight: 700;
+      //   padding-top: 0.5em;
+      //   padding-left: 0.5em;
+      // }
       .add_another{
         position: absolute;
-        bottom: 0.46em;
+        bottom: 1.46em;
         left: 0;
         font-size: 12px;
         color: $med-gray;
@@ -164,9 +164,9 @@ body.client_admin-prizes {
       margin-bottom: 20px;
       .button, button{
         width: 46.5%;
-        &.confirmation{
-          @include light-button($red);
-        }
+        // &.confirmation{
+        //   @include light-button($red);
+        // }
         &:nth-child(odd){
           margin-right: 7%;
         }

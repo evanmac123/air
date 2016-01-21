@@ -8,7 +8,7 @@
           = form_tag users_path, :method => :get do
             = label_tag "search_string", "search bar", :class => :hidden
             = text_field_tag "search_string", nil, :placeholder => "Type name"
-            = submit_tag "Find!", :id => "find_button", :class => "button_norm"
+            = submit_tag "Find!", :id => "find_button button", :class => "button_norm"
   #main.large-7.columns
     #directory_wrapper
       .directory.module
@@ -16,6 +16,6 @@
           = render 'search_results', search_string: @search_string, other_users: @other_users
         - if @users_cropped
           .focus_on_search_bar{:style => "display: inline;"}
-            = "(First #{@users_cropped} results returned. Didn't find who you're looking for? Try" 
+            = "(First #{@users_cropped} results returned. Didn't find who you're looking for? Try"
             = link_to @search_link_text, '#'
-            )    
+            )
