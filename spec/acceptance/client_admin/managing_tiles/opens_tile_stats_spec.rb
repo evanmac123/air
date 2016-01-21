@@ -35,7 +35,7 @@ feature "Client admin opens tile stats" , js: true, type: :feature do
   end
 
   def tile_cell(tile)
-    "[data-tile_id='#{tile.id}']"
+    ".tile_thumbnail[data-tile-id='#{tile.id}']"
   end
 
   def open_stats(tile)
@@ -112,6 +112,7 @@ feature "Client admin opens tile stats" , js: true, type: :feature do
         expect_content "Date"
       end
 
+      #FIXME why do these test require webkit
       it "should intialy sorted by name asc", js: true, driver: :webkit do
         first_name.should == @user_first_name.name
       end

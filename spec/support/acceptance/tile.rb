@@ -332,7 +332,7 @@ module TileHelpers
   end
 
   def have_first_tile(tile, status)
-    have_selector ".#{status}[data-tile_id='#{tile.id}']"
+    have_selector ".#{status}[data-tile-id='#{tile.id}']"
   end
 
   def expect_current_tile_id(tile)
