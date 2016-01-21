@@ -20,7 +20,7 @@ Airbo.TileAction = (function(){
       return tileContainerByDataTileId(target.data("tileid"));
       }
   function replaceTileContent(tile, id){
-    selector = tileWrapperSelector + "[data-tile-id=" + id + "]";
+    selector = tileWrapperSelector + "[data-tile-container-id=" + id + "]";
     $(selector).replaceWith(tile);
   }
   function moveTile(currTile, data){
@@ -41,7 +41,7 @@ Airbo.TileAction = (function(){
      $(newSection).prepend(newTile);
      window.updateTilesAndPlaceholdersAppearance();
    }else{
-     replaceTileContent(newTile, newTile.data("tileId"));
+     replaceTileContent(newTile, newTile.data("tile-container-id"));
      updateUserSubmittedTilesCounter();
    }
   }
@@ -59,7 +59,7 @@ Airbo.TileAction = (function(){
           closeModal( $(tileModalSelector) );
           moveTile(tile, data);
           postProcess();
-          Airbo.TileThumbnail.initTile( $(data).data("tileId") );
+          Airbo.TileThumbnail.initTile( $(data).data("tile-container-id") );
         }
       });
   }
@@ -107,7 +107,7 @@ Airbo.TileAction = (function(){
 
       function(isConfirm){
         if (!isConfirm) {
-          findTile(tileId).find(editSelector).trigger("click");
+          tileContainerByDataTileId(tileId).find(editSelector).trigger("click");
         }
       }
     );
