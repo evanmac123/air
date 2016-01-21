@@ -1,5 +1,5 @@
 <% cache [__FILE__, 'v11.ant', presenter.cache_key] do %>
-  <%=content_tag :div,  class: "tile_container",  data: {"tile-id" =>"#{presenter.tile_id}", "status" => presenter.status} do%>
+  <%=content_tag :div,  class: "tile_container",  data: {"tile-container-id" =>"#{presenter.tile_id}", "status" => presenter.status} do%>
     <%=content_tag :div, class: "tile_thumbnail #{presenter.type}", id: "single-tile-#{presenter.tile_id}", data: {"tile_id" =>"#{presenter.tile_id}"} do %>
       <div class="tile-wrapper">
         <%= link_to presenter.show_tile_path, class:'tile_thumb_link' , data:{action: "show", tile_id: presenter.tile_id} do %>

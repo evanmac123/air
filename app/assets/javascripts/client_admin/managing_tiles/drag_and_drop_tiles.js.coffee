@@ -117,7 +117,7 @@ window.dragAndDropTiles = ->
     ["draft", "active", "archive", "suggestion_box"]
 
   findTileId = (tile) ->
-    tile.find(".tile_thumbnail").data("tile_id")
+    tile.find(".tile_thumbnail").data("tile-id")
 
   getTilesSection = (tile) ->
     tile.closest(".manage_section").attr("id")
@@ -207,7 +207,7 @@ window.dragAndDropTiles = ->
   sectionParams = (section) ->
     name = section.attr("id")
     tiles = section.find(".tile_thumbnail:not(.placeholder_tile)")
-    presented_ids = ($(tile).data("tile_id") for tile in tiles)
+    presented_ids = ($(tile).data("tile-id") for tile in tiles)
     {name: name, presented_ids: presented_ids}
 
   tileCompletionsNum = (tile) ->

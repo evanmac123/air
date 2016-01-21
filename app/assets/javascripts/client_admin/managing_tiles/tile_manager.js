@@ -14,22 +14,24 @@ Airbo.TileManager = (function(){
     return $("#" + status + sectionSelector);
   }
   function replaceTileContent(tile, id){
-    selector = tileWrapperSelector + "[data-tile-id=" + id + "]";
+    selector = tileContainerByDataTileId(id);
     $(selector).replaceWith(tile);
   }
-  function findTile(tileId){
-    return $(".tile_container[data-tile-id='"+tileId+"']");
+
+  function tileContainerByDataTileId(id){
+   return  $(tileWrapperSelector + "[data-tile-container-id=" + id + "]");
   }
+
   function updateTileSection(data){
     var selector , section = pageSectionByStatus(data.tileStatus);
-    if(findTile(data.tileId).length > 0){
+    if(tileContainerByDataTileId(data.tileId).length > 0){
       replaceTileContent(data.tile, data.tileId);
     } else{
       section.prepend(data.tile); //Add tile to section
       window.updateTilesAndPlaceholdersAppearance();
     }
     tileThumbnail.initTile(data.tileId);
-    // new_tile = findTile(data.tileId);
+    // new_tile = tileContainerByDataTileId(data.tileId);
     // thumbnailMenu.initMoreBtn(new_tile.find(".more_button"));
   }
   function updateSections(data) {

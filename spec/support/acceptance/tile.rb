@@ -7,7 +7,7 @@ module TileHelpers
   # Usage: find(:tile, tile)
   #
   Capybara.add_selector(:tile) do
-    xpath { |tile| ".//div[@data-tile_id='#{tile.id}']" }
+    xpath { |tile| ".//div[@data-tile-id='#{tile.id}']" }
   end
 
   Capybara.add_selector(:tile_image) do

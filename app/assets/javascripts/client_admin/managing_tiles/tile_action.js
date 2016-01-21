@@ -3,6 +3,7 @@ var Airbo = window.Airbo || {};
 Airbo.TileAction = (function(){
   var tileWrapperSelector =".tile_container"
     , tileModalSelector = "#tile_preview_modal"
+    , tileWrapperSelector =".tile_container"
   ;
   //
   // => Update Status
@@ -10,9 +11,15 @@ Airbo.TileAction = (function(){
   function closeModal(modal){
    modal.foundation("reveal", "close");
   }
+
+   function tileContainerByDataTileId(id){
+   return  $(tileWrapperSelector + "[data-tile-container-id=" + id + "]");
+  }
+
   function tileByStatusChangeTriggerLocation(target){
-    var criteria = "[data-tile-id=" + target.data("tileid") + "]";//"[data-status='draft']"
-    return $(".tile_container" + criteria);
+    //var criteria = "[data-tile-id=" + target.data("tileid") + "]";//"[data-status='draft']"
+    //return $(".tile_container" + criteria);
+    return tileContainerByDataTileId(target.data("tileid"));
     // var
     // if(target.parents(tileWrapperSelector).length !== 0){
     //   //Trigger directly by action button on the tile outside of the modal
