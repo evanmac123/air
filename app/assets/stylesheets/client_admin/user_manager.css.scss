@@ -165,15 +165,15 @@ body.client_admin-users {
     input[type="text"]{width:100%;}
   }
 
-  // #show-everyone {
-  //   display: block;
-  //   margin-top: 1em;
+  #show-everyone {
+    display: block;
+    margin-bottom: 1em;
   //   font-weight: 500;
   //   color: $med-gray;
   //   font-size: 12px;
   //
   //   &:hover {color: $blue;}
-  // }
+  }
 }
 
 body.client_admin-users {
