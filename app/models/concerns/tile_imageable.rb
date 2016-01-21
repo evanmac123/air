@@ -58,7 +58,7 @@ module Concerns::TileImageable
     height, width = if image_processing?
                       [484, 666]
                     else
-                      [image.height||484, image.width||666] #FIXME temporary hack
+                      [image.height, image.width] 
                     end
 
     full_width = 600.0 # px for full size tile
