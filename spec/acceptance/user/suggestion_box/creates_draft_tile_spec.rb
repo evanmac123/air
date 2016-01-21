@@ -69,6 +69,6 @@ feature 'Creates draft tile' do
   end
 
   def click_create_button
-    page.find("#new_tile_builder_form input[type=submit]").trigger("click")
+    page.find("#publish input[type=submit]").trigger("click")
   end
 end
