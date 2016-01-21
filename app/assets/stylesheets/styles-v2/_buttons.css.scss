@@ -72,6 +72,9 @@
   cursor: pointer;
   box-shadow: none;
   @include ease(0.2s);
+  &:active, &:hover {
+    box-shadow: none;
+  }
   &[disabled] {
     cursor: default;
   }
