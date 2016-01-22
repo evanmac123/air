@@ -25,6 +25,7 @@
         margin-bottom: 3px;
       }
       ul {
+        background-color: $white;
         z-index:10;
         width: 33%;
         margin:0;
@@ -33,15 +34,25 @@
         position: absolute;
         left: -99999px;
         li {
-          border: 1px $light-gray solid;
-          border-top: 0;
-          background: $white;
-          color: $gray;
-          padding: 0.75em;
-          font-weight: bold;
+          @include ease(0.1s);
+          border-top: 1px solid $border-color-1;
           cursor: pointer;
-          &:hover, &:focus {
-            color: $dark-gray;
+          font-size: $font-size-2;
+          line-height: 2.5em;
+          margin: 0;
+          padding: 0 10px;
+
+          &:hover {
+            background-color: $gray-1;
+          }
+
+          &:active {
+            background-color: $n-blue;
+            color: $n-white;
+          }
+
+          &.selected {
+            color: #AAA;
           }
         }
       }
