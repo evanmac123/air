@@ -142,7 +142,7 @@ module SteakHelperMethods
   end
 
   def expect_content(expected_content)
-    page.should have_content(expected_content)
+    expect(page).to have_content(/#{Regexp.escape(expected_content)}/i)
   end
 
   def expect_content_case_insensitive(expected_content)
