@@ -1,4 +1,8 @@
 @import "./vendor/foundation/components/global"; // required by components in imports below
+@import "./vendor/foundation/components/buttons";
+@import "./vendor/foundation/components/button-groups";
+@import "./vendor/foundation/components/dropdown-buttons";
+@import "./vendor/foundation/components/tooltips";
 @import "font-awesome";
 @import 'animation';
 @import "defaults";

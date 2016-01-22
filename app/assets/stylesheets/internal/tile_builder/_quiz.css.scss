@@ -7,9 +7,15 @@
   .tile_types {
     .tile_type {
       width: 33.33%;
-      height:100%;
       text-align: center;
       border-left:1px $light-gray solid;
+      .button {
+        height: 43px;
+        padding-top: 16px;
+        &:before {
+          display: none;
+        }
+      }
       .type {
         font-size: 1em;
         color: $gray;
@@ -22,7 +28,7 @@
         z-index:10;
         width: 33%;
         margin:0;
-        margin-top: 6px;
+        margin-top: 3px;
         text-align: left;
         position: absolute;
         left: -99999px;
