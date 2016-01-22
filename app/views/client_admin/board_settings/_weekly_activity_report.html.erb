@@ -1,7 +1,7 @@
 <%= form_for :board_membership, url: weekly_activity_email_client_admin_board_settings_path, method: :put, html: { id: "weekly_activity_email"} do |form|  %>
   <%= label_tag :weekly_report, "Receive weekly activity report" %>
   <i class="fa fa-question-circle has-tip" id="board_email_tooltip" data-tooltip="true" title="Determines whether you receive a weekly Tile activity report for this board."></i>
- 
+
 	<div id="notification_settings">
 		<ul>
 			<li>
@@ -14,8 +14,8 @@
 			</li>
 		</ul>
 	</div>
- 
-  <%= form.submit "Update", disabled: true, id: "report_submit" %>
+
+  <%= form.submit "Update", disabled: true, id: "report_submit", class: "button" %>
 <% end %>
 
 <% js_at_end do %>
@@ -25,7 +25,7 @@
 	$("#report_submit").attr("disabled", false)
 	$("#weekly_activity_email").addClass("dirty");
 	});
-	
+
 	$("#weekly_activity_email").submit(function(e){
 	e.preventDefault();
 	var submitButton = $("#report_submit");

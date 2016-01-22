@@ -28,7 +28,7 @@ header {
     img {
       margin: auto auto auto 0;
       max-height: 100%;
-      position: absolute;  
+      position: absolute;
       bottom: 0; left: 0; top: 0; right: 0;
     }
     &:hover {
@@ -87,10 +87,10 @@ header {
       &:after{color:$gray;}
     }
     &:active {background: $white;}
-  } 
+  }
 
-  // Toggles 
-  
+  // Toggles
+
   #user_info #me_toggle {
     border-left-width: 1px;
     padding-left:.5em;
@@ -128,14 +128,14 @@ header {
       background:$dark-gray;
       box-shadow:none;
     }
-  } 
+  }
   #me_toggle{
     padding-bottom: 0.5em !important;
   }
 
   // User info
   #user_info {
-    margin:0; 
+    margin:0;
     overflow: hidden;
     padding-left:0;
     text-align: right;
@@ -166,7 +166,7 @@ header {
     }
     li + li {a{border-top:1px lighten($toggled-menu-bg, 5%) solid;}}
   }
-  
+
   .other_boards {
     z-index: 5000; // so it goes over top of the image picker in the new tiles page
 
@@ -209,6 +209,9 @@ header {
       font-weight: 400;
       color: $text-color;
     }
+    p {
+      margin: 0;
+    }
   }
 
   #board_switch, .other_boards, .other_boards a, #no_other_boards {
@@ -228,7 +231,7 @@ header {
       color: $text-color;
       font-size: 14px;
       height:100%;
-      max-height:$header-total-height;      
+      max-height:$header-total-height;
       padding:1.125em 0.3em;
       &:hover {&:before {
         background:darken($gray, 5%);
@@ -360,26 +363,11 @@ header {
   p {
     margin-bottom: 20px;
   }
-  a {
-    color: $sky-blue;
-    font-weight: normal; 
-  }
   ol {
     margin-bottom: 20px;
   }
   li {
     margin-bottom: 2px;
-  }
-  .submit {
-    @include light-button($sky-blue);
-    font-size: 14px;
-  }
-  .close {
-    @include app-button($sky-blue);  
-    margin-left: 7px;
-    font-size: 14px;
-    padding-left: 15px;
-    padding-right: 15px;
   }
   .close-reveal-modal {
     color: $med-gray;
@@ -507,5 +495,3 @@ body.explores {
   position: relative;
   min-height: 490px;
 }
-
-

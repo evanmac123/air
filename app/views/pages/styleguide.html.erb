@@ -1,242 +1,240 @@
-<div class="large-8 row large-centered">
-  <section class="logos">
-    <div class="large-12 large-centered">
-      <h5>Our logos</h5>
-      <div class="example large-6 columns light-bg">
+<div class="row">
+  <div class="large-12 columns center">
+    <h1>Airbo Style Guide</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="large-6 columns large-centered background-white">
+    <section>
+      <h2>Logo</h2>
+      <div class="" style="width:200px; margin: 20px 0;">
         <%= image_tag "logo.png", alt: "H.Engage" %>
       </div>
-      <div class="example large-6 columns light-bg">
-        <%= image_tag "airbo_logo_lightblue_square_smile.png", alt: "H.Engage" %>
-      </div>
-    </div>
-  </section>
+    </section>
+  </div>
+</div>
 
-  <section class="colors">
-    <%
-      palettes = {
-        "Color palette" => {
-          "sky-blue"        => "#4face0",
-          "blue"            => "#50698C",
-          "light-blue"      => "#a7d5ef",
-          "dark"            => "#0c0c0b",
-          "dark-gray"       => "#2e2e2c",
-          "darker-gray"     => "#66676d",
-          "gray"            => "#818385",
-          "med-gray"        => "#a8a8a8",
-          "light-gray"      => "#dfdfdf",
-          "lightest-gray"      => "#f2f2f2",
-          "off-white"    => "#fafafa",
-          "almost-white"    => "#fefefe",
-          "white"           => "#fff",
-          "dark-green"      => "#4FAA60",
-          "red"             => "#BC4C40"
-        }
-      }
-    %>
-    <% palettes.each do |palette_name, palette| %>
-      <h5><%= palette_name %></h5>
-      <div class="large-12 columns large-centered">
-        <div class="example row">
-          <% palette.each do |name, color| %>
-            <%= content_tag :div, id: name, class: "large-3 columns", style: "background:#{color};" do %>
-              <%= name %>
-              <br/>
-              <%= color %>
-            <% end %>
-          <% end %>
+<div class="row">
+  <div class="large-6 columns large-centered background-white" style="margin-top:20px;">
+    <section>
+      <h2>Typography</h2>
+      <h1>Header 1</h1>
+      <h2>Header 2</h2>
+      <h3>Header 3</h3>
+      <h4>Header 4</h4>
+      <p>This is paragraph text. With <b>bold</b> and <i>italic</i> text.</p>
+      <p><a href="#" onclick="return false;" class="link">This is a link.</a></p>
+      <p><small>Small</small></p>
+      <h4>Unordered List</h4>
+      <ul class="list">
+        <li>List item 1</li>
+        <li>List item 2</li>
+      </ul>
+      <h4>Ordered List</h4>
+      <ol class="list">
+        <li>List item 1</li>
+        <li>List item 2</li>
+      </ol>
+    </section>
+  </div>
+</div>
+
+<div class="row">
+  <div class="large-6 columns large-centered background-white" style="margin-top:20px;">
+    <section>
+      <h2>Navigation</h2>
+      <ul class="tabs">
+        <li><a href="#" onclick="return false;" class="selected">Tab 1</a></li>
+        <li><a href="#" onclick="return false;">Tab 2</a></li>
+        <li><a href="#" onclick="return false;">Tab 3</a></li>
+      </div>
+    </section>
+  </div>
+</div>
+
+<div class="row">
+  <div class="large-12 columns large-centered background-white" style="margin-top:20px;">
+    <section>
+      <h2>Tables</h2>
+      <table>
+  <thead>
+    <tr>
+      <th width="200">Table Header</th>
+      <th>Table Header</th>
+      <th width="150">Table Header</th>
+      <th width="150">Table Header</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Content Goes Here</td>
+      <td>This is longer content Donec id elit non mi porta gravida at eget metus.</td>
+      <td>Content Goes Here</td>
+      <td>Content Goes Here</td>
+    </tr>
+    <tr>
+      <td>Content Goes Here</td>
+      <td>This is longer Content Goes Here Donec id elit non mi porta gravida at eget metus.</td>
+      <td>Content Goes Here</td>
+      <td>Content Goes Here</td>
+    </tr>
+    <tr>
+      <td>Content Goes Here</td>
+      <td>This is longer Content Goes Here Donec id elit non mi porta gravida at eget metus.</td>
+      <td>Content Goes Here</td>
+      <td>Content Goes Here</td>
+    </tr>
+  </tbody>
+</table>
+    </section>
+  </div>
+</div>
+
+<div class="row">
+  <div class="large-6 columns large-centered background-white" style="margin-top:20px;">
+    <section>
+      <h2>Forms</h2>
+      <h3>Standard Elements</h3>
+
+      <form>
+        <div class="columns">
+          <div class="row">
+            <label>Text Input</label>
+            <input type="text" placeholder="placeholder text" />
+          </div>
+          <div class="row">
+            <label>Password Input</label>
+            <input type="password" placeholder="abc123" />
+          </div>
+          <div class="row">
+            <label>Input Error</label>
+            <input type="text" class="error" value="Bad bad value" />
+          </div>
+          <div class="row">
+            <div class="input-group">
+              <label style="margin-bottom:20px;">Small Checkbox</label>
+              <label class="checkbox small"><input name="check1" type="checkbox" checked> And Option 1</label>
+              <label class="checkbox small"><input name="check2" type="checkbox"> And Option 2</label>
+            </div>
+          </div>
+          <div class="row">
+          <div class="input-group">
+              <label style="margin-bottom:20px;">Large Checkbox</label>
+              <label class="checkbox"><input name="check1" type="checkbox" checked> And Option 1</label>
+              <label class="checkbox"><input name="check2" type="checkbox"> And Option 2</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-group">
+              <label style="margin-bottom:20px;">Radio Buttons</label>
+              <label class="radio"><input name="radio1" type="radio" checked> Or Option 1</label>
+              <label class="radio"><input name="radio2" type="radio"> Or Option 2</label>
+            </div>
+          </div>
         </div>
-      </div>
-    <% end %>
-  </section>
+      </form>
 
-  <section class="headers">
-    <h5>Headers</h5>
-    <div class="large-12 columns large-centered">
-      <div class="example row">
-        <h1>This is my top level header. H1</h1>
-        <h2>Sometimes I need a subhead. H2</h2>
-        <h3>Occasionally, this. H3</h3>
-        <h4>Say hi to H4</h4>
-        <h5>And the last one is H5</h5>
-        <p class="regular_text">Regular text</p>
-        <p id="caption">Caption</p>
-      </div>
-    </div>
-  </section>
-  <section class="buttons">
-    <h5>Primary buttons, with importance in order</h5>
-    <h5>@include app-button($color)</h5>
-    <h5>Regular: 16px / 1 em, Small 10px / .625em</h5>
-    <div class="large-12 columns large-centered full-buttons">
-      <div class="example row">
-        <a class="big_button" id="sky-blue">Click me</a>
-        <a class="big_button" id="gray">Click me</a>
-      </div>
-      <div class="example row">
-        <a class="big_button small_button" id="sky-blue">Click me</a>
-        <a class="big_button small_button" id="gray">Click me</a>
-      </div>
-    </div>
+      <h2>Menus</h2>
 
-    <h5>Disabled buttons</h5>
-    <div class="large-12 columns large-centered full-buttons">
-      <div class="example row">
-        <button class="big_button" disabled="disabled" id="sky-blue">Click me</button>
-        <button class="big_button" disabled="disabled" id="gray">Click me</button>
-      </div>
-      <div class="example row">
-        <button class="big_button small_button" disabled="disabled" id="sky-blue">Click me</button>
-        <button class="big_button small_button" disabled="disabled" id="gray">Click me</button>
-      </div>
-    </div>
-
-    <h5>Secondary buttons, with importance in order</h5>
-    <h5>@include light-button($color)</h5>
-    <div class="large-12 columns large-centered light-buttons">
-      <div class="light-bg example row">
-        <a class="light_button" id="sky-blue">Click me</a>
-        <a class="light_button" id="gray">Click me</a>
-      </div>
-      <div class="light-bg example row">
-        <a class="light_button small_button" id="sky-blue">Click me</a>
-        <a class="light_button small_button" id="gray">Click me</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="forms">
-    <h5>Form</h5>
-    <div class="large-12 columns large-centered">
-      <div class="example row">
-        <form class="custom">
-          <label for="input">Label</label>
-          <input type="text" id="input" placeholder="Placeholder">
-
-          <label for="big_select">Select</label>
-          <select id="big_select">
-            <option>Option 1</option>
-            <option>Option 2</option>
-          </select>
-
-          <label for="small_select">Small select</label>
-          <select id="small_select" class="small">
-            <option>Option 1</option>
-            <option>Option 2</option>
-          </select>
-
-          <div class="switcher">
-            <div class="off disengaged">Off</div>
-              <div class="switch small round">
-                <%= radio_button_tag 'switcher', "true", true, id: "switcher_on" %>
-                <%= radio_button_tag 'switcher', "false", false, id: "switcher_off" %>
-                <span class='green-paddle'></span>
-              </div>
-            <div class="on engaged">On</div>
+      <form class="custom" style="width:300px;">
+        <div class="columns">
+          <div class="row">
+            <label>Select Menu</label>
+            <select>
+              <option>Option 1</option>
+              <option>Option 2</option>
+            </select>
           </div>
-
-          <h5>Icon with tooltip</h5>
-          <i class="fa fa-question-circle has-tip" data-tooltip="true" title="Tooltip has max-width so at some point it becomes multiline"></i>
-
-          <%= label_tag :email, "Input with postfix" %>
-          <div class="input_with_postfix">
-            <%= text_field_tag :email, "someguy" %>
-            <span class="postfix">@ourairbo.com</span>
+          <div class="row">
+            <label>Drop-down Menu</label>
+            <ul class="menu">
+              <li>Option 1</li>
+              <li>Option 2</li>
+              <li>Option 2</li>
+            </ul>
           </div>
+        </div>
+      </form>
 
-          <%= label_tag :public_slug, "Input with prefix" %>
-          <div class="input_with_prefix">
-            <span class="prefix">
-              <%= request.host + '/ard/' %>
-            </span>
-            <%= text_field_tag :public_slug, "unique_link" %>
+      <h3>Buttons</h3>
+      <p><a class="button">Primary CTA</a></p>
+      <p><a class="button outlined">Secondary CTA</a></p>
+      <p>
+        <a class="button icon">
+          <i class="fa fa-plus"></i>
+          <span>Primary CTA with Icon</span>
+        </a>
+      </p>
+      <p>
+        <a class="button outlined icon">
+          <i class="fa fa-plus"></i>
+          <span>Secondary CTA with Icon</span>
+        </a>
+      </p>
+      <p>
+        <a class="button with_spinner">
+          Button with spinner
+        </a>
+      </p>
+      <div class="row center" style="background-color:#AAA;">
+        <p>
+        <a class="button reversed">Secondary CTA Reversed</a></p>
+      </div>
+
+      <p><label>Switch</label></p>
+      <div class="switch-container on">
+        <div class="label">Off</div>
+          <div class="switch">
+            <div class="indicator"></div>
           </div>
-        </form>
+        <div class="label">On</div>
       </div>
-    </div>
-  </section>
+      <p>
+        <label>Progress Bars</label>
+        <div class="progress-bar">
+          <div class="indicator" style="width:50%;"></div>
+        </div>
+      </p>
+      <p>
+        <div class="progress-bar green">
+          <div class="indicator" style="width:75%;"></div>
+        </div>
+      </p>
+    </section>
+  </div>
+</div>
 
-  <section class="sections">
-    <h5>Sections</h5>
-    <div class="large-12 columns large-centered">
-      <div class="example row">
-        <h5>Section distances</h5>
-        <section class="example_section">
-          <h5>Section 1</h5>
-          <p class="regular_text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-          </p>
-        </section>
+<div class="row">
+  <div class="large-8 columns background-white large-centered" style="margin:20px auto;">
+    <section>
+      <h1>86% of Employees Are Health Insurance Illiterate</h1>
+      <p>At this very moment, thousands of employees across the United States are choosing their health insurance. That’s scary, because there’s an emerging body of data that shows that most people don’t understand the basics of how health plans work. That knowledge gap may be causing some serious issues: From sick people not going to the doctor, to employees over-paying for health insurance.</p>
+      <p><b>Terms You Need To Know</b></p>
+      <ul>
+        <li>Deductible</li>
+        <li>Copay</li>
+        <li>Coinsurance</li>
+        <li>Out-of-pocket maximum</li>
+      </ul>
+      <h2>What To Do Today</h2>
+      <p>Many organizations have already kicked off Open Enrollment, and it may feel like this blog post comes at an odd time: Too late for many companies to do much about the issue, but just in time to add some stress. The good news is that health care consumerism isn’t a one-time event. It requires ongoing education and the start of the year is as good a time as ever to begin.</p>
+      <h3>What To Do Today</h3>
+      <p>Many organizations have already kicked off Open Enrollment, and it may feel like this blog post comes at an odd time: Too late for many companies to do much about the issue, but just in time to add some stress. The good news is that health care consumerism isn’t a one-time event. It requires ongoing education and the start of the year is as good a time as ever to begin.</p>
+      <ol>
+        <li>Survey your employees to see what percentage understand basic health plan concepts.</li>
+        <li>Send a weekly email to all employees defining each health care term, one at a time.</li>
+        <li>Re-survey your employees with the exact same questions to measure the change.</li>
+      </ol>
+      <p><b>If only there were a tool that could make this easy for you.</b></p>
+      <p><i>Really really easy.</i></p>
+      <p><a href="#" onclick="return false;">There is.</a></p>
+      <p><small>We might need small text.</small></p>
+    </section>
+  </div>
+</div>
 
-        <section class="example_section">
-          <h5>Section 2</h5>
-          <p class="regular_text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
-        </section>
-
-        <section class="example_section">
-          <h5>Section 3</h5>
-          <p class="regular_text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-          </p>
-        </section>
-      </div>
-      <div class="example row dividing_line">
-        <h5>Dividing line</h5>
-        <section>
-          <h5>Section 1</h5>
-          <p class="regular_text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-          </p>
-        </section>
-
-        <section>
-          <h5>Section 2</h5>
-          <p class="regular_text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
-        </section>
-      </div>
-    </div>
-  </section>
-
-  <section class="modals">
-    <h5>Modals</h5>
-    <div class="large-12 columns large-centered">
-      <div class="example row">
-        <section>
-          <h5>Simple modal</h5>
-
-          <a href="#" data-reveal-id="example_modal">Click for a modal</a>
-          <div id="example_modal" class="reveal-modal" data-reveal>
-            <h2>Congratulations!</h2>
-            <p>Your've succesfully opened our reveal modal from Foundation framework.</p>
-            <a class="close-reveal-modal">&#215;</a>
-          </div>
-        </section>
-        <section>
-          <h5>Confirmation Modal</h5>
-          <%= link_to 'Delete', '', method: :delete, data: { confirm: destroy_tile_message_params } %>
-        </section>
-      </div>
-    </div>
-  </section>
-
-  <section class="intro-js">
-    <h5>Intro JS</h5>
-    <div class="large-12 columns large-centered">
-      <div class="example row">
-        <%= content_tag :section, data: {intro: "This turns on intro js", "step-name" => "button", step: 1} do %>
-          <%=  link_to "Turn on Intro JS", '#', id: "turn-on-intro-js", class: "big_button"%>
-        <% end %>
-        <section>
-          <%= text_field_tag :url, "http://usablica.github.io/intro.js/", data: {intro: "This is link to library and demos. We are using gem 'introjs-rails' for it.", "step-name" => "link", step: 2} %>
-        </section>
-      </div>
-    </div>
-  </section>
-
-  <section class="pen">
+<section class="pen" style="display:none;">
     <h5>Pen editor</h5>
     <div class="large-12 columns large-centered">
       <div class="example row">
@@ -248,7 +246,7 @@
             <li>Click items of toolbar to toggle effects</li>
           </ol>
           <p>
-            For more information visit: 
+            For more information visit:
             <%= link_to "http://sofish.github.io/pen/", "http://sofish.github.io/pen/" %>
           </p>
         <% end %>
@@ -256,12 +254,34 @@
     </div>
   </section>
 
-  <section class="dividers">
-    <h5>Dividers</h5>
-    <div class="row editorial_divider">
-      <div class="large-12 columns">
-        <p class="editorial_title">Next:</p>
+<div class="row">
+  <div class="large-8 columns background-white large-centered" style="margin:20px auto;">
+    <section>
+      <h2>Modals</h2>
+      <%# link_to 'Delete', '', method: :delete, data: { confirm: destroy_tile_message_params } %>
+      <p><a href="#" data-reveal-id="example_modal">Click for a modal</a></p>
+      <div id="example_modal" class="reveal-modal" data-reveal>
+        <h2>Woohoo!</h2>
+        <p>This is a modal window. Very handy.</p>
+        <a class="close-reveal-modal">&#215;</a>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
+</div>
+
+<div class="row">
+  <div class="large-8 columns background-white large-centered" style="margin:20px auto;">
+    <section>
+      <h2>Guidelines</h2>
+      <ul>
+        <li>There can only be 1 h1 per page.</li>
+        <li>There can only be 1 primary CTA (call-to-action) per page.</li>
+        <li>Don't be too small (micro content is not friendly).</li>
+      </ul>
+      <hr />
+      <p>This style guide is a living document. A work-in-progress.</p>
+      <p>We should seek to minimize the number of styles needed and always use the same defaults. That way it's easy to maintain the code and the design and updates are easy.</p>
+      <p>Sticking to the styles documented here will keep everything on-brand and consistent, so that every message communicated to customers speaks with the Airbo voice.</p>
+    </section>
+  </div>
 </div>

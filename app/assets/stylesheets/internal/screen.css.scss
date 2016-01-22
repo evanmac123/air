@@ -23,10 +23,6 @@ body {
   }
   .module {font-size:.875em; margin-bottom:2em;}
   .find_users {
-      @include light-button($sky-blue);
-      font-size: 10px;
-      font-weight: 400 !important;
-      margin-left:.5em;
       vertical-align: top;
   }
 }

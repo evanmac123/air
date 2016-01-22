@@ -12,11 +12,11 @@
       How do prizes work?
   -elsif raffle.status == Raffle::LIVE
     .pick_winners_from
-      You can pick winners starting 
+      You can pick winners starting
       = raffle.ends_at ? (raffle.ends_at + 1.minute).strftime("%A, %B %e at %l:%M %p") : "[Day of week, MM DD at 12:00 AM]"
       ET
   -elsif raffle.status == Raffle::PICKED_WINNERS
-    %a.button.new_prize{href: start_new_client_admin_prizes_path, "data-confirm-message" => "Winners for this prize period will be cleared. Confirm?"}
+    %a.button.outlined.new_prize{href: start_new_client_admin_prizes_path, "data-confirm-message" => "Winners for this prize period will be cleared. Confirm?"}
       %i.fa.fa-gift
       New Prize
 :javascript

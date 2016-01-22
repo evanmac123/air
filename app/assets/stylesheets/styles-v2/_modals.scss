@@ -1,0 +1,18 @@
+// Foundation Variable Overrides
+$reveal-border-width: 0;
+$reveal-box-shadow: 0;
+
+// Foundation table docs:
+// http://foundation.zurb.com/sites/docs/v/4.3.2/components/reveal.html
+
+@import "./vendor/foundation/components/reveal";
+
+.reveal-modal {
+  @include radius(3px);
+}
+
+.close-reveal-modal {
+  &:hover {
+    color: $n-blue;
+  }
+}

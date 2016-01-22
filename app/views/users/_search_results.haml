@@ -1,4 +1,4 @@
-%h3 
+%h3
   Showing search results for
   = search_string
 
@@ -12,9 +12,8 @@
       %li.user.relative
         .user-avatar
           =link_to user_path(u) do
-            = avatar_96(u) 
+            = avatar_96(u)
         .user-info
           .user-name_email
-            %p= link_to u.name, user_path(u), :class => 'name-of-user'
+            = link_to u.name, user_path(u), :class => 'name-of-user'
           = render 'follow_buttons', :user => u
-

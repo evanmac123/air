@@ -7,21 +7,21 @@
   = label_tag :number_of_winners, 'Number of Winners'
   = text_field_tag :number_of_winners, winners.present? ? winners.count : raffle.prizes.count, maxlength: 2
   .pick_winners_submit
-    - if raffle.status == Raffle::PICK_WINNERS 
-      = submit_tag 'Pick Winners!'
+    - if raffle.status == Raffle::PICK_WINNERS
+      = submit_tag 'Pick Winners!', class: "button"
     - else
-      = submit_tag 'Re-Pick List', class: "re-pick"
+      = submit_tag 'Re-Pick List', class: "re-pick button  outlined"
     = image_tag "spinner_gears.gif", id: "submit_spinner", style: "display:none"
 .winners_output
   .title
     %i.fa.fa-trophy
     Winners
   .winners
-    - if raffle.status == Raffle::PICK_WINNERS 
+    - if raffle.status == Raffle::PICK_WINNERS
       %p
         Your prize period is complete. Pick and curate the winners!
     - else
-      = render 'winners', winners: winners 
+      = render 'winners', winners: winners
 #no_potential_winners_error
 :javascript
   $().ready(function(){

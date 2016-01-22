@@ -25,10 +25,10 @@
       position: absolute;
       right:0;
       padding-top: 15px;
-      #show-chart-link {
-        @include app-button($sky-blue);
-        margin:0;
-      }
+      // #show-chart-link {
+      //   // @include app-button($sky-blue);
+      //   // margin:0;
+      // }
     }
     &#chart-labeling {
       margin-right:.25em;
@@ -56,8 +56,8 @@
     font-size:.875em;
   }
   input {
-    color:$gray;
     &.datepicker {
+      color:$gray;
       background:#fff;
       border:$border-dark;
       width: 7em;

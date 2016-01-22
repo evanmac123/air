@@ -38,15 +38,15 @@ body.client_admin-board_settings-index{
     }
     form{
       margin-bottom: 2em;
-      &:not(.dirty){
-        input[type="submit"]{
-          @include light-button($gray);
-        }
-      }
+      // &:not(.dirty){
+      //   input[type="submit"]{
+      //     @include light-button($gray);
+      //   }
+      // }
       &.dirty {
-        input[type="submit"]{
-          @include app-button($sky-blue);
-        }
+        // input[type="submit"]{
+        //   @include app-button($sky-blue);
+        // }
         .clear_form{
           display: inline-block;
         }

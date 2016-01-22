@@ -1,0 +1,31 @@
+// Foundation Variable Overrides
+$table-border-size: 0;
+$table-head-bg: #EEE;
+$table-even-row-bg: $n-white;
+$table-head-padding: 10px;
+$table-row-padding: 10px;
+
+// Foundation table docs:
+// http://foundation.zurb.com/sites/docs/v/4.3.2/components/tables.html
+
+@import "./vendor/foundation/components/tables";
+
+table {
+  width: 100%;
+}
+
+th {
+  @include font-weight-demibold;
+}
+
+td {
+  border-bottom: 1px solid $border-color-1;
+}
+
+tr:hover,
+table tr.even:hover,
+table tr.alt:hover,
+table tr:nth-of-type(even):hover {
+  @include ease(0.2s);
+  background-color: $gray-1;
+}

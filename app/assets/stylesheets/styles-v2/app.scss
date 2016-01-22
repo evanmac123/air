@@ -1,0 +1,11 @@
+@import "./vendor/foundation/components/global"; // required by components in imports below
+@import "font-awesome";
+@import 'animation';
+@import "defaults";
+@import "structure";
+@import "modals";
+@import "navigation";
+@import "buttons";
+@import "forms";
+
+$joyride-tip-nub-size: 14px;

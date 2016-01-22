@@ -7,7 +7,7 @@
   <%= hidden_field_tag 'signature',               @uploader.signature %>
 
   <%= file_field_tag 'file' %>
-  <%= submit_tag 'Upload user file', id: 'file-upload-submit' %>
+  <%= submit_tag 'Upload user file', id: 'file-upload-submit', class: "button" %>
 <% end %>
 
 <%= content_for :javascript do %>

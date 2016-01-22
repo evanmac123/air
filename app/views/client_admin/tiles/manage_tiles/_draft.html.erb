@@ -9,7 +9,7 @@
       <div class="draft_title_block">
         <h4 id="draft_title">Draft</h4>
       </div>
-      <%= link_to new_client_admin_tile_path(path: :via_index), id: 'add_new_tile', data:{action: "new"} do %>
+      <%= link_to new_client_admin_tile_path(path: :via_index), id: 'add_new_tile', data:{action: "new"}, class: "button  icon" do %>
         <%= fa_icon "plus" %>
         <span>Add New Tile</span>
       <% end %>

@@ -1,0 +1,137 @@
+@font-face {
+  font-family: 'Avenir Next Regular';
+  font-style: normal;
+  font-weight: normal;
+  src: font-url('avenirnextltpro-regular.eot');
+  src: font-url('avenirnextltpro-regular.eot?#iefix') format('embedded-opentype'),
+  font-url('avenirnextltpro-regular.woff') format('woff'),
+  font-url('avenirnextltpro-regular.ttf') format('truetype'),
+  font-url('avenirnextltpro-regular.svg#avenirnextltpro-regular') format('svg');
+}
+
+/* Font Families */
+
+$font-family-primary: 'Avenir Next Regular', 'avenir next', avenir, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+/* Font Weights */
+
+@mixin font-weight-regular {
+  font-style:normal;
+  font-weight:normal;
+  font-weight: 400;
+}
+
+@mixin font-weight-medium {
+  font-style:normal;
+  font-weight:bold;
+  font-weight: 500;
+}
+
+@mixin font-weight-demibold {
+  font-style:normal;
+  font-weight:bold;
+  font-weight: 600;
+}
+
+/* Font Sizes */
+
+$font-size-0: 10px;
+$font-size-1: 14px;
+$font-size-2: 16px;
+$font-size-3: 18px;
+$font-size-4: 28px;
+$font-size-5: 36px;
+
+/* Headers */
+h1, h2, h3, h4 {
+  color: $text-color-1;
+}
+
+h1 {
+  @include font-weight-demibold;
+  font-size: $font-size-5;
+  line-height: 1.25em;
+  margin: 20px 0;
+}
+
+h2 {
+  @include font-weight-demibold;
+  font-size: $font-size-4;
+  line-height: 1.25em;
+  margin: 20px 0;
+}
+
+h3 {
+  @include font-weight-demibold;
+  font-size: $font-size-3;
+  line-height: 1.25em;
+  margin: 1.5em 0;
+}
+
+h4 {
+  @include font-weight-demibold;
+  font-size: $font-size-2;
+  margin: 1.5em 0;
+}
+
+/* Standard Type Elements */
+
+b,
+strong {
+  @include font-weight-demibold;
+}
+
+small {
+  font-size: $font-size-1;
+}
+
+p {
+  line-height: 1.6em;
+  margin: 1.5em 0;
+}
+
+ol, ul {
+  list-style-position:outside;
+  list-style-type:none;
+  margin:0;
+  padding:0;
+}
+li {
+  margin:0;
+  padding: 0;
+}
+ul, ol {
+  &.list {
+    line-height: 1.5em;
+    margin: -0.75em 0 1.75em;
+    padding: 0 40px;
+    li {
+      margin:0;
+      padding: 0.25em 0;
+    }
+  }
+}
+ul.list {
+  list-style-type: decimal;
+}
+ol.list {
+  list-style-type: disc;
+}
+
+a {
+  text-decoration: none;
+  color: darken($n-blue, 10%);
+}
+a.link, .with_link a {
+  text-decoration: underline;
+  &:hover {
+    text-decoration: none;
+    color: darken($n-blue, 10%);
+  }
+  &:active {
+    color: $n-blue;
+  }
+  &:focus {
+    outline: 0;
+  }
+}
