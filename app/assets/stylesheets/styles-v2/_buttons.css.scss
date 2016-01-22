@@ -73,7 +73,7 @@
   box-shadow: none;
   margin-bottom: 0;
   @include ease(0.2s);
-  &:active, &:hover {
+  &:active, &:hover, &:focus {
     box-shadow: none;
   }
   &[disabled] {
@@ -82,7 +82,7 @@
   }
 }
 
-.button {
+.button.button {
   @include button;
   // &. {
   //   @include button-color($gray-4);

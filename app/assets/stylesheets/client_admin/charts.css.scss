@@ -1,10 +1,10 @@
-// Need to specify this or else page jumps to the top every time you re-plot with new params
-#my-chart { height: 400px; }
-
 .charting {
+  @include form-group;
   form {border:0; margin:0; padding:0;}
+  // Need to specify this or else page jumps to the top every time you re-plot with new params
+  #my-chart { height: 400px; }
+
 }
-#chart-header .subsection-head {display:inline-block;}
 
 #chart-options {
   position: relative;
@@ -20,11 +20,10 @@
       text-transform: uppercase;
     }
     &#show-button {
-      margin-right:0;
-      margin-top: 0;
+      // margin-right:0;
+      // margin-top: 0;
       position: absolute;
       right:0;
-      padding-top: 15px;
       // #show-chart-link {
       //   // @include app-button($sky-blue);
       //   // margin:0;
@@ -50,20 +49,24 @@
         }
     }
 
-    img {margin: 0em;}
+    // img {margin: 0em;}
   }
-  input, select {
-    font-size:.875em;
+  #display-options {
+    width: 137px;
   }
-  input {
-    &.datepicker {
-      color:$gray;
-      background:#fff;
-      border:$border-dark;
-      width: 7em;
-    }
+  #chart-intervals {
+    width: 100px;
   }
-  .custom.dropdown{
-    margin-bottom: 0;
+  #chart-labeling {
+    width: 127px;
   }
+  // input, select {
+  //   font-size:.875em;
+  // }
+  .datepicker {
+    width: 7em;
+  }
+  // .custom.dropdown{
+  //   margin-bottom: 0;
+  // }
 }
