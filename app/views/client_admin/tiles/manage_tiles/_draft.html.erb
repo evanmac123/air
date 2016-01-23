@@ -5,17 +5,43 @@
 </div>
 <div class="row">
   <div class="large-12 columns">
-    <div class="draft_header_block">
-      <div class="draft_title_block">
-        <h4 id="draft_title">Draft</h4>
-      </div>
-      <%= link_to new_client_admin_tile_path(path: :via_index), id: 'add_new_tile', data:{action: "new"}, class: "button  icon" do %>
+  <ul class="tabs">
+    <li id="draft_title"><a href="#" class="for-draft selected">Draft</a>
+      <%= link_to new_client_admin_tile_path(path: :via_index), id: 'add_new_tile', data:{action: "new"}, class: " righty button  icon" do %>
         <%= fa_icon "plus" %>
         <span>Add New Tile</span>
       <% end %>
-      <%= render partial: 'client_admin/suggestions_access/suggestion_box_header' if  policy(:board).tile_suggestion_enabled?  %>
-    </div>
-  </div>
+    </li>
+    <%if  policy(:board).tile_suggestion_enabled?%>
+      <li id="suggestion_box_title">
+        <a href="#" class="">Suggestion Box
+          <span class="num-items">
+            (<%= @user_submitted_tiles_counter %>)
+          </span>
+        </a>
+        <ul id="suggeston_box_sub_menu" class="margin-right-5pct thorizontal righty gray-5 hidden">
+          <li class="">
+            <a href="#" class="mini-text">
+              <i class="fa fa-users"></i>
+              Manage Access
+            </a>
+          </li>
+          <li >
+            <a href="#" class="mini-text"><i class="fa fa-info-circle"></i>
+              Help
+            </a>
+          </li>
+        </ul>
+      </li>
+    <%end%>
+
+    
+  </ul>
+
+
+      
+
+
 </div>
 <div class="row">
   <div class="large-12 columns">
@@ -37,15 +63,17 @@
     </div>
   </div>
 </div>
+<%= render partial: 'client_admin/suggestions_access/modal' %>
+<%= render partial: 'client_admin/suggestions_access/help_modal' %>
 <% content_for :javascript do %>
   <script>
 
     $().ready(function(){
       window.suggestionBox();
       window.userSubmittedTileIntro("<%= @user_submitted_tile_intro %>");
+      window.suggestionsAccess();
+      window.suggestionBoxIntro();
     })
-
 
   </script>
 <% end %>
-<%= render partial: 'client_admin/tiles/manage_tiles/accept_tile_modal' %>
