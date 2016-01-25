@@ -15,16 +15,20 @@
         <% end %>
       <% end %>
 
-      <ul id="user-acts">
-        <%= render :partial => "shared/act", :collection => @acts, :as => :act %>
-      </ul>
+      <% if @acts.present? %>
+        <ul id="user-acts">
+          <%= render :partial => "shared/act", :collection => @acts, :as => :act %>
+        </ul>
 
-      <%= render 'shared/see_more' %>
+        <%= render 'shared/see_more' %>
 
-      <%= image_tag 'spinner_gears.gif', :id => 'see-more-spinner', :style => 'display:none;' %>
+        <%= image_tag 'spinner_gears.gif', :id => 'see-more-spinner', :style => 'display:none;' %>
 
-      <% js_at_end do %>
-        bindSeeMoreActs('<%= acts_path(format: :js) %>', <%= @acts.length %>)
+        <% js_at_end do %>
+          bindSeeMoreActs('<%= acts_path(format: :js) %>', <%= @acts.length %>)
+        <% end %>
+      <% else %>
+        <%= render :partial => "acts/example_act" %>
       <% end %>
     </div>
   </div>
