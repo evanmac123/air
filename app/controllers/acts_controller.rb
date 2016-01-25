@@ -81,7 +81,9 @@ class ActsController < ApplicationController
 
   def find_requested_acts(demo)
     offset = params[:offset].present? ? params[:offset].to_i : 0
-    Act.displayable_to_user(current_user, demo, ACT_BATCH_SIZE, offset)
+    acts = Act.displayable_to_user(current_user, demo, ACT_BATCH_SIZE, offset)
+    @show_more_acts_btn = (acts.count == ACT_BATCH_SIZE)
+    acts
   end
 
   def render_act_update
