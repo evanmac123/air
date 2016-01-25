@@ -3,22 +3,20 @@
   <div class="large-3 columns quick_stats">
     <div class="stats section">
       <ul class="stat-group">
-        <li class="labels">Participants</li>
-        <li class="numbers"><h1><%= number_with_delimiter @claimed_user_count %></h1></li>
+        <h4>Participants</h4>
+        <h1><%= number_with_delimiter @claimed_user_count %></h1>
       </ul>
       <ul class="stat-group">
-        <li class="labels">Added Mobile Numbers</li>
-        <li class="numbers"><h1><%= @with_phone_percentage %></h1></li>
+        <h4>Added Mobile Numbers</h4>
+        <h1><%= @with_phone_percentage %></h1>
       </ul>
       <ul class="stat-group">
-        <li class="labels">Recruited By Peer</li>
-        <li class="numbers"><h1><%= @with_peer_invitation_fraction %></h1></li>
+        <h4>Recruited By Peer</h4>
+        <h1><%= @with_peer_invitation_fraction %></h1>
       </ul>
     </div>
   </div>
   <div class="large-9 columns">
-    <div id="chart-header">
-    </div>
     <%= render partial: 'client_admin/charts/chart' %>
   </div>
 </div>

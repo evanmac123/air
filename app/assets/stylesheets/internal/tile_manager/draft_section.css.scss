@@ -21,13 +21,6 @@ body.suggested_tiles-index {
       #draft {
         display: block;
       }
-      #draft_title {
-        color: $text-color;
-        border-bottom: 2px solid $sky-blue;
-      }
-      #suggestion_box {
-        display: none;
-      }
       .suggestion_box_header {
         .manage_access, .help {
           display: none;
@@ -44,16 +37,7 @@ body.suggested_tiles-index {
       #suggestion_box {
         display: block;
       }
-      #suggestion_box_title{
-        border-bottom: 2px solid $sky-blue;
-        h3 {
-          color: $text-color;
-        }
-        #user_submitted_tiles_counter {
-          border-color: $text-color;
-          color: $text-color;
-        }
-      }
+    
     }
     &.suggestion_box_gated {
       margin-top: 0;

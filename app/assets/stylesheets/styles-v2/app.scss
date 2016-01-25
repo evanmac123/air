@@ -1,4 +1,12 @@
+$has-tip-border-bottom: none;
+$has-tip-border-bottom-hover: none;
+$has-tip-cursor-type: pointer;
+
 @import "./vendor/foundation/components/global"; // required by components in imports below
+@import "./vendor/foundation/components/buttons";
+@import "./vendor/foundation/components/button-groups";
+@import "./vendor/foundation/components/dropdown-buttons";
+@import "./vendor/foundation/components/tooltips";
 @import "font-awesome";
 @import 'animation';
 @import "defaults";
@@ -7,5 +15,6 @@
 @import "navigation";
 @import "buttons";
 @import "forms";
+@import "shame";
 
 $joyride-tip-nub-size: 14px;

@@ -5,6 +5,7 @@
   background:lighten($light-gray, 8%);
   padding:0 0 1.5em 0;
   position: relative;
+  overflow: visible;
 
   // Points bar
   .tile_points_bar, .tile_types {
@@ -71,6 +72,7 @@
     width:100%;
     a, a:link, a:visited {
       @include app-button($blue);
+      background: $blue;
       @include font-semibold;
       color:$white;
       display: block;

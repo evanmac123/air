@@ -32,6 +32,7 @@ body.client_admin-shares{
       margin-top: 8px;
       .public_board_title{
         float: left;
+        margin: 0;
       }
       .fa-question-circle{
         float: left;
@@ -55,16 +56,16 @@ body.client_admin-shares{
         }
       }
 
-      .switch{
-        @include green-paddle-switch;
-        @include switch-size(16px, 9px, 2.3em);
-        margin-top: -2px;
-        margin-right: 2px;
-        span.switch_button {
-          -webkit-box-shadow: 2px 0 10px 0 rgba(0, 0, 0, 0.07), 1000px 0 0 1000px #dfdfdf, -2px 0 10px 0 rgba(0, 0, 0, 0.07), -1000px 0 0 1000px $sky-blue;
-          box-shadow: 2px 0 10px 0 rgba(0, 0, 0, 0.07), 1000px 0 0 988px #dfdfdf, -2px 0 10px 0 rgba(0, 0, 0, 0.07), -1000px 0 0 1000px $sky-blue;
-        }
-      }
+      // .switch{
+      //   @include green-paddle-switch;
+      //   @include switch-size(16px, 9px, 2.3em);
+      //   margin-top: -2px;
+      //   margin-right: 2px;
+      //   span.switch_button {
+      //     -webkit-box-shadow: 2px 0 10px 0 rgba(0, 0, 0, 0.07), 1000px 0 0 1000px #dfdfdf, -2px 0 10px 0 rgba(0, 0, 0, 0.07), -1000px 0 0 1000px $sky-blue;
+      //     box-shadow: 2px 0 10px 0 rgba(0, 0, 0, 0.07), 1000px 0 0 988px #dfdfdf, -2px 0 10px 0 rgba(0, 0, 0, 0.07), -1000px 0 0 1000px $sky-blue;
+      //   }
+      // }
     }
     .share_link_div{
       position: relative;
@@ -84,7 +85,7 @@ body.client_admin-shares{
     padding:1rem 0;
   }
   #digest_management {
-    padding-top: 32px;
+    // padding-top: 32px;
     &:after {@include clear;}
 
     .large-3 {
@@ -95,14 +96,14 @@ body.client_admin-shares{
     }
     .notification_controls {
       float: left;
-      .send_to, .follow_up, .intro_message, .custom_subject, .custom_headline {
-        margin-bottom: 2.75em;
-        .drop_down{
-          *{
-            color: $med-gray;font-weight: normal;
-          }
-        }
-      }
+      // .send_to, .follow_up, .intro_message, .custom_subject, .custom_headline {
+      //   margin-bottom: 2.75em;
+      //   .drop_down{
+      //     *{
+      //       color: $med-gray;font-weight: normal;
+      //     }
+      //   }
+      // }
       .follow_up {
         p span {
           @include share-instructions;
@@ -115,12 +116,12 @@ body.client_admin-shares{
           height: 4.5em;
         }
       }
-      input[type="checkbox"], label, select {display: inline-block;}
+      // input[type="checkbox"], label, select {display: inline-block;}
 
       .character-counter {
         padding: 0;
         margin-right: 3px;
-        margin-top: -20px;
+        margin-top: -15px;
       }
       .send_test {
         margin-bottom: 2.75em;
@@ -172,10 +173,10 @@ body.client_admin-shares{
           padding-right: 1px;
         }
         a {
-          @include light-button($gray-4);
-          width: 100%;
-          &.selected, &:hover {
-            @include light-button($sky-blue);
+          // @include light-button($gray-4);
+          // width: 100%;
+          &.selected {
+            @include app-button($sky-blue);
           }
         }
         #show_email_preview {
@@ -206,7 +207,7 @@ body.client_admin-shares{
     }
 
     .ready_to_send {
-      margin-bottom: 20px;
+      // margin-bottom: 20px;
       padding: 0;
       position: relative;
       .go_post_tiles_message {
@@ -251,7 +252,7 @@ body.client_admin-shares{
 
   #public_board {
     overflow: auto;
-    margin-bottom: 2em;
+    // margin-bottom: 2em;
     padding-top: 2em;
     max-width: 100%;
     background: $off-white;
@@ -260,11 +261,11 @@ body.client_admin-shares{
     }
   }
 
-  #public_board_field {
-    display: inline;
-    width: 60%;
-    height: $public_slug_height;
-  }
+  // #public_board_field {
+  //   display: inline;
+  //   // width: 60%;
+  //   // height: $public_slug_height;
+  // }
 
   #public_board_instructions {
     @include share-instructions;
