@@ -7,3 +7,6 @@
 %>
 
 $('#see-more').parents('form.button_to').show();
+<% unless @show_more_acts_btn %>
+  $('#see-more').hide();
+<% end %>

@@ -56,16 +56,16 @@ body.client_admin-shares{
         }
       }
 
-      // .switch{
-      //   @include green-paddle-switch;
-      //   @include switch-size(16px, 9px, 2.3em);
-      //   margin-top: -2px;
-      //   margin-right: 2px;
-      //   span.switch_button {
-      //     -webkit-box-shadow: 2px 0 10px 0 rgba(0, 0, 0, 0.07), 1000px 0 0 1000px #dfdfdf, -2px 0 10px 0 rgba(0, 0, 0, 0.07), -1000px 0 0 1000px $sky-blue;
-      //     box-shadow: 2px 0 10px 0 rgba(0, 0, 0, 0.07), 1000px 0 0 988px #dfdfdf, -2px 0 10px 0 rgba(0, 0, 0, 0.07), -1000px 0 0 1000px $sky-blue;
-      //   }
-      // }
+      .switch{
+        @include green-paddle-switch;
+        @include switch-size(16px, 9px, 2.3em);
+        margin-top: -2px;
+        margin-right: 2px;
+        span.switch_button {
+          -webkit-box-shadow: 2px 0 10px 0 rgba(0, 0, 0, 0.07), 1000px 0 0 1000px #dfdfdf, -2px 0 10px 0 rgba(0, 0, 0, 0.07), -1000px 0 0 1000px $sky-blue;
+          box-shadow: 2px 0 10px 0 rgba(0, 0, 0, 0.07), 1000px 0 0 988px #dfdfdf, -2px 0 10px 0 rgba(0, 0, 0, 0.07), -1000px 0 0 1000px $sky-blue;
+        }
+      }
     }
     .share_link_div{
       position: relative;

@@ -1,7 +1,7 @@
 - demo = current_user.try(:demo)
 - unless demo && $rollout.active?(:suppress_conversion_modal, demo)
   %h3 Connections
-  =link_to "Add", users_path, :class => "find_users link"
+  =link_to "Add", users_path, :class => "margin-left-5px link"
 
   .wrap
     = render 'shared/connections_list', user: current_user

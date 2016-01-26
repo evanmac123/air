@@ -1,0 +1,24 @@
+<ul id="user-acts">
+  <li class="act">
+    <div class="avatar43">
+      <%= default_avatar_tag User.new, :class => 'avatar_image' %>
+
+      <div class="points">
+        <span class="point-value small_cap"><%= pluralize 10, 'pt' %></span>
+      </div>
+    </div>
+
+    <div class="act-details">
+      <div class="user">
+        Exmple User completed a tile
+      </div>
+
+      <span class="when small_cap">
+        10 minutes ago
+      </span>
+    </div>
+    <div class="cf"></div>
+  </li>
+  <li class="act-shim">
+  </li>
+</ul>

@@ -71,8 +71,7 @@
     margin:1em auto;
     width:100%;
     a, a:link, a:visited {
-      @include app-button($blue);
-      background: $blue;
+      @include button($blue);
       @include font-semibold;
       color:$white;
       display: block;
