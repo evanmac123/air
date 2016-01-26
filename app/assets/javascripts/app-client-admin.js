@@ -47,8 +47,8 @@
 var Airbo = window.Airbo || {};
 
 $(document).ready(function() {
-  $('.client_admin-users, .client_admins-show').foundation();
+  $('.client_admin-users, .client_admins-show').foundation('reveal', {animation: "fade"});
 });
-$(document).foundation();
+$(document).foundation('reveal', {animation: "fade"});
 
 $(document).confirmWithReveal(Airbo.Utils.confirmWithRevealConfig);
