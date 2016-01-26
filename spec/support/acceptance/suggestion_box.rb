@@ -79,7 +79,7 @@ module SuggestionBox
   # => Manage Access Modal
   #
   def manage_access_link
-    page.find(".manage_access")
+    page.find("#manage_access")
   end
 
   def all_users_switcher_on

@@ -16,10 +16,10 @@ boxTitle = function() {
 showSection = function(section) {
   if (section === 'draft') {
     $("#draft_tiles").addClass('draft_selected').removeClass('suggestion_box_selected');
-    $("#suggeston_box_sub_menu").hide();
+    $("#suggestion_box_sub_menu").hide();
   } else {
     $("#draft_tiles").removeClass('draft_selected').addClass('suggestion_box_selected');
-    $("#suggeston_box_sub_menu").show();
+    $("#suggestion_box_sub_menu").show();
   }
   updateShowMoreDraftTilesButton();
   return window.compressSection();
