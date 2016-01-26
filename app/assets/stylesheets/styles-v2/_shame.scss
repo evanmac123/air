@@ -27,5 +27,17 @@
 }
 
 .margin-left-5px {
-	margin-left: 5px;
+  margin-left: 5px;
 }
+
+.board_settings {
+  input[type="text"], input[type="file"], textarea{
+    width: 80%;
+    display: block;
+  }
+
+  .character-counter{
+    margin-right: 115px;
+  }
+}
+

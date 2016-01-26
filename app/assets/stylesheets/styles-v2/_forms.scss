@@ -50,6 +50,21 @@ textarea {
   }
 }
 
+/* Character counter for text and textarea*/
+.character-counter {
+  @include font-weight-demibold;
+  color:$gray-5;
+  float:right;
+  font-size:10px;
+  text-transform: uppercase;
+  padding-top:.5em;
+  margin-top: -15px;
+  margin-right: 3px;
+  &.exceeded_maxlength_counter {
+    color: #FF0000;
+  }
+}
+
 input[type="submit"],
 button {
   @include button;
