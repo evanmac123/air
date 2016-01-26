@@ -55,7 +55,7 @@ accessModal = ->
   $('#suggestions_access_modal')
 
 helpBtn = ->
-  $("#suggeston_box_sub_menu .help")
+  $("#suggestion_box_sub_menu .help")
 
 window.suggestionBoxHelpModal = ->
   # modal().foundation 'reveal', 'open'
