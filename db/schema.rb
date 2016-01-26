@@ -819,7 +819,6 @@ ActiveRecord::Schema.define(:version => 20160105010722) do
     t.boolean  "is_sharable",             :default => false, :null => false
     t.integer  "tile_completions_count",  :default => 0
     t.integer  "explore_page_priority"
-    t.integer  "views",                   :default => 0
     t.integer  "unique_viewings_count",   :default => 0,     :null => false
     t.integer  "total_viewings_count",    :default => 0,     :null => false
     t.integer  "user_tile_copies_count",  :default => 0
@@ -1013,8 +1012,8 @@ ActiveRecord::Schema.define(:version => 20160105010722) do
     t.datetime "last_unmonitored_mailbox_response_at"
     t.boolean  "allowed_to_make_tile_suggestions",                    :default => false,       :null => false
     t.boolean  "submitted_tile_menu_intro_seen",                      :default => false,       :null => false
-    t.boolean  "suggestion_box_intro_seen",                           :default => false,       :null => false
     t.boolean  "send_weekly_activity_report",                         :default => true
+    t.boolean  "suggestion_box_intro_seen",                           :default => false,       :null => false
     t.boolean  "user_submitted_tile_intro_seen",                      :default => false,       :null => false
     t.boolean  "manage_access_prompt_seen",                           :default => false,       :null => false
   end
