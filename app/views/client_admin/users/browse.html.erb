@@ -25,15 +25,13 @@
           <td class="results-name"><%= link_to user.name, edit_client_admin_user_path(user), class: 'edit-user link' %></td>
           <td class="results-email"><%= user.email %></td>
           <td class="results-joined">
-            <% if user.claimed? %>
-              <span class="joined">Yes</span>
-            <% else %>
-              <span class="not-joined">No</span>
-            <% end %>
+            <%= user.claimed? ? "Yes" : "No" %>
           </td>
           <td class="results-send-invite">
             <% if user.invitable? %>
-              <%= link_to "Send", client_admin_user_invitation_path(user), method: :post, class: 'send-invite' %>
+              <%= link_to  client_admin_user_invitation_path(user), {method: :post} do %>
+                <i class="fa fa-envelope"></i>
+              <% end %>
             <% end %>
           </td>
         </tr>

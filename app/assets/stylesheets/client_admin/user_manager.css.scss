@@ -3,13 +3,7 @@
 // ================== For all Manage Users pages ==================
 body.client_admin-users {
 
-  // #user_count{
-  //   color: $sky-blue;
-  // }
-  //
-  // #total_user_count_row, #find_users_row {
-  //   margin-bottom: 3em;
-  // }
+
 
   form.user-profile {
     .field_with_errors {
@@ -57,12 +51,7 @@ body.client_admin-users {
       // padding-top: 1em;
       padding-left: $upload-user-left-padding;
 
-      // p {
-      //   font-size: 14px;
-      //   color: $med-gray;
-      //   margin-bottom: 1em;
-      //   line-height: 1.6em;
-      // }
+
 
       #upload-in-progress {
         font-size: 16px;
@@ -74,22 +63,10 @@ body.client_admin-users {
         width: 50%;
       }
 
-      // input[type="submit"] {
-      //   &[disabled] {
-      //     @include light-button($light-gray);
-      //   }
-      //
-      //   @include light-button($sky-blue);
-      // }
+
     }
 
-    // h2 {
-    //   color: $text-color;
-    //   font-size: 16px;
-    //   font-weight: 500;
-    //   padding-left: $upload-user-left-padding;
-    //   margin: 0.25em 0;
-    // }
+
     b {
       margin: 7px;
       display: block;
@@ -115,22 +92,12 @@ body.client_admin-users {
     // height: 18px;
 
     .fa-users {
-      // font-size: 16px;
-      // color: $sky-blue;
       margin-right: 0.5em;
     }
 
     $fake-bottom-padding: 4px;
 
-    // h1 {
-    //   display: inline-block;
-    //   position: absolute;
-    //   bottom: $fake-bottom-padding;
-    //   left: 0;
-    //   font-size: 18px;
-    //   color: $sky-blue;
-    //   margin-bottom: 0;
-    // }
+
 
     #last-added-users {
       display: inline-block;
@@ -168,11 +135,6 @@ body.client_admin-users {
   #show-everyone {
     display: block;
     margin-bottom: 1em;
-  //   font-weight: 500;
-  //   color: $med-gray;
-  //   font-size: 12px;
-  //
-  //   &:hover {color: $blue;}
   }
 }
 
@@ -192,71 +154,7 @@ body.client_admin-users {
     }
   }
 }
-body.client_admin-users-index {
-  // ================== Search results ==================
-  #search-results-table {
-  //   margin-top:1em;
-  //   table-layout: fixed;
-  //   width:100%;
-  //   td {
-  //     @include regular-text;
-  //     border:0;
-  //     vertical-align: top;
-  //     word-wrap:break-word;
-  //   }
-  //   .results-name, .results-email {width:33%;}
-  //   .results-joined, .results-send-invite{
-  //     text-align:center;
-  //     width:6%;
-  //   }
-    .results-joined .joined, .results-joined .not-joined, .results-send-invite a {
-      @include hide-text;
-      background:image-url('client_admin/sprites.png') no-repeat transparent;
-      display:inline-block;
-      vertical-align: middle;
-    }
-    .results-joined .joined {
-      background-position: -58px -55px;
-      height:17px;
-      width:18px;
-    }
-    .results-joined .not-joined {
-      background-position: -77px -56px;
-      height:16px;
-      width:13px;
-    }
-    .results-send-invite a {
-      @include ease(0);
-      height:19px;
-      width:22px;
-      &.send-invite {
-        background-position: -30px -94px;
-        &:hover{background-position: -55px -94px;}
-      }
-      &.resend-invite {
-        background-position: -30px -75px;
-        &:hover{background-position:-56px -75px;}
-      }
-    }
-  //   #search-labels th {
-  //     // h3
-  //     margin-bottom: 15px;
-  //     font-size: 12px;
-  //     font-weight: 700;
-  //     letter-spacing: 0.1em;
-  //     text-transform: uppercase;
-  //     color: $sky-blue;
-  //
-  //     border-bottom:$border-dark;
-  //     padding:.5em;
-  //   }
-  //   .found-user {
-  //     background:$white;
-  //     border-bottom:$border-dark;
-  //     td {padding:1em .5em;}
-  //   }
-  }
-}
+
 
 
 // ================== User profile ==================
@@ -289,14 +187,14 @@ body.client_admin-users-edit, body.client_admin-users-update {
         margin-bottom: 0em;
       }
       .selector:after {
-          content: "\f0d7";
-          font-family: FontAwesome;
-          font-style: normal;
-          font-weight: normal;
-          text-decoration: inherit;
-          border: none;
-          margin-top: 5px;
-          top: inherit;
+        content: "\f0d7";
+        font-family: FontAwesome;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: inherit;
+        border: none;
+        margin-top: 5px;
+        top: inherit;
       }
     }
     #user-join-status a, #user-join-status a:link {
