@@ -45,7 +45,7 @@ feature 'Manages board settings' do
       open_board_settings
       @boards.each do |board|
         within(board_admin_controls_selector) do
-          page.should have_content(board.name.upcase)
+          expect_content(board.name.upcase)
         end
       end
     end
@@ -58,7 +58,7 @@ feature 'Manages board settings' do
       fill_in_new_board_name(board_to_change, "Hapsburg Dynasty")
       click_save_link
 
-      page.should have_content("Saved!")
+      expect_content("Saved!")
     end
 
     it "should give helpful feedback if the board name is bad", js: true do
@@ -68,11 +68,10 @@ feature 'Manages board settings' do
       open_board_settings
 
       board_to_change = @boards.first
-      original_name = board_to_change.name
       fill_in_new_board_name(board_to_change, "Nuclear Lemmings")
       click_save_link
 
-      page.should have_content "Sorry, that board name is already taken."
+      expect_content "Sorry, that board name is already taken."
     end
 
     it "updates the board name in the board switcher", js: true do
@@ -85,7 +84,7 @@ feature 'Manages board settings' do
       fill_in_new_board_name(board_to_change,new_name)
       click_save_link
       page.should have_no_content(original_board_name)
-      page.should have_content /#{new_name}/i
+      expect_content new_name
     end
 
     it "updates the name of the current board (respecting trunaction) in the switcher if it's changed", js: true do
@@ -96,7 +95,7 @@ feature 'Manages board settings' do
       click_save_link
 
       within "#board_switch #current_board_name" do
-        page.should have_content "A Name That ..."
+        expect_content "A Name That ..."
       end
     end
   end
@@ -128,13 +127,13 @@ feature 'Manages board settings' do
 
       within(board_admin_controls_selector) do
         @user.boards_as_admin.each do |board|
-          page.should have_content board.name.upcase
+          expect_content board.name.upcase
         end
       end
 
       within(board_regular_user_controls_selector) do
         @user.boards_as_regular_user.each do |board|
-          page.should have_content board.name.upcase
+          expect_content board.name.upcase
         end
       end
     end
