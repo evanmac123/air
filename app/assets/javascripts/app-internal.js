@@ -22,8 +22,9 @@
 //= require_tree ./vendor_customization
 
 $(document).ready(function() {
-  $('.settings-edit').foundation('reveal', {animation: "fade"});
+  $('.settings-edit').foundation();
 });
+$(document).foundation();
 $(document).foundation('reveal', {animation: "fade"});
 $(document).confirmWithReveal(Airbo.Utils.confirmWithRevealConfig);
 
