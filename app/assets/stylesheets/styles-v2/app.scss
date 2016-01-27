@@ -1,6 +1,9 @@
+// tooltips
 $has-tip-border-bottom: none;
 $has-tip-border-bottom-hover: none;
 $has-tip-cursor-type: pointer;
+// table
+// $table-bg: transparent;
 
 @import "./vendor/foundation/components/global"; // required by components in imports below
 @import "./vendor/foundation/components/buttons";

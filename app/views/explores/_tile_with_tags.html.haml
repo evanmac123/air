@@ -2,7 +2,7 @@
 - thumb_click_source ||= nil
 
 #tile_wall
-  %table.tiles.large-12.columns
+  %table.tiles.large-12.columns.transparent-bg
     %tbody
       = render 'explores/tile_rows', tiles: tiles, tag: @tile_tag, thumb_click_source: thumb_click_source, tag_click_source: tag_click_source
   .clearfix

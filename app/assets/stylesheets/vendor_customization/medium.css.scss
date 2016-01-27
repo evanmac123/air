@@ -23,7 +23,7 @@ body {
       font-weight: 500;
       margin: 0;
       &:hover, &:visited {
-        color: #4FACE0;
+        color: $n-blue;
         cursor: pointer;
       }
     }
@@ -56,7 +56,7 @@ body {
       color: white;
       padding: 3px 0;
       &:hover {
-        color: #4FACE0;
+        color: $n-blue;
       }
     }
   }

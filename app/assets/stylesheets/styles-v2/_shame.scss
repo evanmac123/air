@@ -41,3 +41,8 @@
   }
 }
 
+table.transparent-bg {
+  &, &:hover, & tr:hover {
+    background-color: transparent;
+  }
+}
