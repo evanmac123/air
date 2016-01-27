@@ -20,9 +20,9 @@ body.client_admin-users {
         padding-bottom:.75em;
       }
     }
-    input[type="text"] {
-      width:90%;
-    }
+    // input[type="text"] {
+    //   width:90%;
+    // }
   }
 
   input[type="submit"]#add-user {
@@ -110,7 +110,7 @@ body.client_admin-users {
       font-weight: bold;
     }
 
-    border-bottom: solid 1px $med-gray;
+    // border-bottom: solid 1px $med-gray;
   }
 
   #name-autocomplete-target {
@@ -134,7 +134,7 @@ body.client_admin-users {
 
   #show-everyone {
     display: block;
-    margin-bottom: 1em;
+    margin-bottom: 2em;
   }
 }
 
@@ -222,8 +222,8 @@ body.client_admin-users-edit, body.client_admin-users-update {
     li#toggle-more-options a {
       margin-right: 0.5em;
     }
-    li#add-user-button input[type='submit'] {
-      @include light-button($med-gray);
-    }
+    // li#add-user-button input[type='submit'] {
+    //   @include light-button($med-gray);
+    // }
   }
 }

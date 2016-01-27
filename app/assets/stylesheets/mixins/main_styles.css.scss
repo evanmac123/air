@@ -400,6 +400,7 @@ body {
     height: 37px;
     line-height: 37px;
     float: left;
+    overflow: hidden;
 
     width: $width;
     border-bottom-#{$side}-radius: 3px;

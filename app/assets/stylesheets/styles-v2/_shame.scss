@@ -46,3 +46,13 @@ table.transparent-bg {
     background-color: transparent;
   }
 }
+
+input, textarea {
+  &.with_counter {
+    margin-bottom: 35px;
+  }
+}
+.with_input_margin {
+  margin-bottom: 20px;
+  display: block;
+}
