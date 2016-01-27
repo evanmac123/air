@@ -10,7 +10,7 @@ selectedBlockName = ->
 compressSection = (animate = false) ->
   if animate
     # two simultaneous actions
-    scrollUp()
+    scrollUp( -compressSectionMargin() )
     animateSectionSliding -compressSectionMargin(), 0 , "up"
   else
     setCompressedSectionClass("add")
@@ -59,9 +59,9 @@ animateSectionSliding = (stepsNum, startProgress, direction = "down") ->
       else
         setCompressedSectionClass("add")
 
-scrollUp = ->
+scrollUp = (duration) ->
   unless iOSdevice()
-    $('html, body').scrollTo section(), {duration: 1000}
+    $('html, body').scrollTo section(), {duration: duration}
 
 iOSdevice = ->
   navigator.userAgent.match(/(iPad|iPhone|iPod)/g)

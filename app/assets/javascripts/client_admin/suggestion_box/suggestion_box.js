@@ -53,11 +53,13 @@ ping = function(action) {
 
 window.suggestionBox = function() {
   var acceptTile, acceptTileFromPreviewPage, acceptingTileVisibility, ignoreTile, insertIgnoredTile, insertUserSubmittedTile, prepareAccessModal, undoIgnoreTile, updateUserSubmittedTilesCounter;
-  draftTitle().click(function() {
+  draftTitle().click(function(e) {
+    e.preventDefault();
     return showSection('draft');
   });
 
-  boxTitle().click(function() {
+  boxTitle().click(function(e) {
+    e.preventDefault();
     removeNewTileTip();
     showSection('box');
     return ping("Suggestion Box Opened");
