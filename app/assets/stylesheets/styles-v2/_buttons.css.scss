@@ -73,6 +73,7 @@
   box-shadow: none;
   margin-bottom: 0;
   background-image: none;
+  outline: none !important;
   @include ease(0.2s);
   &:active, &:hover, &:focus {
     box-shadow: none;

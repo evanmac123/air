@@ -121,6 +121,7 @@ ol.list {
 a {
   text-decoration: none;
   color: darken($n-blue, 10%);
+  outline: none !important;
 }
 a.link, .with_link a {
   text-decoration: underline;
