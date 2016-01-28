@@ -115,6 +115,20 @@ Airbo.TilePreviewModal = (function(){
       event.preventDefault();
       Airbo.TileAction.makeDuplication($(this));
     });
+
+    $(".preview_menu_item .update_status").click(function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      target = $(this);
+      Airbo.TileAction.updateStatus(target);
+    });
+
+    $(".preview_menu_item .accept").click(function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      target = $(this);
+      Airbo.TileAction.confirmAcceptance(target);
+    });
   }
   function initPreviewElements() {
     Airbo.TileCarouselPage.init();

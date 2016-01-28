@@ -8,7 +8,7 @@
   </li>
 
   <li class="preview_menu_item" id="suggested_accept" >
-    <%=link_to  status_change_client_admin_tile_path(tile)  , class: 'accept', data:{ tileId: tile.id, status: Tile::DRAFT } do %>
+    <%=link_to  status_change_client_admin_tile_path(tile)  , class: 'accept', data:{ "tile-id" =>  tile.id, status: Tile::DRAFT } do %>
       <i class="fa fa-check fa-1x"></i>
       <span class="header_text">
         Accept
@@ -17,7 +17,7 @@
   </li>
 
   <li class="preview_menu_item" id="suggested_ignore" >
-    <%=link_to status_change_client_admin_tile_path(tile), class: 'update_status', data:{tileId: tile.id, status: (tile.status == Tile::USER_SUBMITTED ? Tile::IGNORED : Tile::USER_SUBMITTED)} do %>
+    <%=link_to status_change_client_admin_tile_path(tile), class: 'update_status', data:{"tile-id" =>  tile.id, status: (tile.status == Tile::USER_SUBMITTED ? Tile::IGNORED : Tile::USER_SUBMITTED)} do %>
       <i class="fa fa-close fa-1x"></i>
       <span class="header_text">
         <%=tile.status == Tile::USER_SUBMITTED ? "Ignore" : "Undo Ignore"%>
