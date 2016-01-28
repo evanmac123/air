@@ -18,7 +18,7 @@
     Winners
   .winners
     - if raffle.status == Raffle::PICK_WINNERS
-      %p
+      %p.margin-left-10px
         Your prize period is complete. Pick and curate the winners!
     - else
       = render 'winners', winners: winners
