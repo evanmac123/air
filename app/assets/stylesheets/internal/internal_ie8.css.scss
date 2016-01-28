@@ -1,5 +1,5 @@
 @import "mixins/main_styles.css.scss";
-$default: "Arial";
+// $default: "Arial";
 @import "screen.css.scss";
 $small_cap_size: .625em;
 $under_small_cap: .25em; // space under small cap text
@@ -12,7 +12,8 @@ $top-bar-height: #{($bar-height + $small_cap_size + $under_small_cap)};
 
 
 body {
-  border-top:none; font-size:16px; font-family:$default;
+  border-top:none; font-size:16px; 
+  // font-family:$default;
   h1.headline {@include font-bold;}
   a, a:link, a:visited {@include font-bold;}
 }
