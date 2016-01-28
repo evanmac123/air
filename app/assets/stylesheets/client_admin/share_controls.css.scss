@@ -140,6 +140,9 @@ body.client_admin-shares{
           float: left;
           margin: 0;
           line-height: 1.7;
+          span {
+            margin-left: 10px;
+          }
         }
         p{
           float: right;

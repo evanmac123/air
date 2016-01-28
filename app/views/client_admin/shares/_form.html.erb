@@ -1,0 +1,76 @@
+<%= form_tag client_admin_tiles_digest_notification_path, class: :custom, id: "tiles_digest_form" do %>
+  <div class="notification_controls">
+    <div class="send_to">
+      <label for="digest_send_to">Recipients</label>
+      <div class="drop_down">
+        <%= select_tag "digest[digest_send_to]", options_for_select(@tiles_digest_form.digest_send_to_options, @tiles_digest_form.digest_send_to_selected) %>
+      </div>
+    </div>
+    <div class="follow_up">
+      <label for="follow_up_day">Follow-up email</label>
+      <div class="drop_down">
+        <%= select_tag "digest[follow_up_day]", options_for_select(@tiles_digest_form.follow_up_day_options, selected: @tiles_digest_form.default_follow_up_day) %>
+      </div>
+    </div>
+    <div class="custom_subject">
+      <label for="digest_custom_subject">Email subject</label>
+      <%= text_area_tag "digest[custom_subject]", @tiles_digest_form.custom_subject, size: "50x3", maxlength: 80, placeholder: 'New Tiles' %>
+      <script>
+        
+        addCharacterCounterFor('#digest_custom_subject');
+
+
+      </script>
+    </div>
+    <div class="custom_headline">
+      <label for="digest_custom_headline">Custom headline</label>
+      <%= text_area_tag "digest[custom_headline]", @tiles_digest_form.custom_headline, size: "50x3", maxlength: 75, placeholder: 'Your New Tiles Are Here!' %>
+      <script>
+        
+        addCharacterCounterFor('#digest_custom_headline');
+
+
+      </script>
+    </div>
+    <div class="intro_message">
+      <label for="digest_custom_message">Intro message</label>
+      <%= text_area_tag "digest[custom_message]", @tiles_digest_form.custom_message, size: "50x6", maxlength: 160 %>
+      <script>
+        
+        addCharacterCounterFor('#digest_custom_message');
+
+
+      </script>
+    </div>
+    <%= hidden_field_tag "digest_type", "digest_and_follow_up" %>
+    <div class="send_test">
+      <label>
+        Test
+        <i class="fa fa-question-circle has-tip" data-tooltip="<%= true %>" title="Send yourself a test Tiles Email, and if scheduled, a test Follow-Up Email."></i>
+      </label>
+      <%= button_tag id: "send_test_digest", disabled: @digest_tiles.empty?, class: "button  outlined full_width icon" do %>
+        <%= fa_icon "envelope-o" %>
+        Send a Test Email to Myself
+      <% end %>
+    </div>
+    <label>Send to users</label>
+    <div class="total_users">
+      <h5> Recipients
+      <span id="all_users">
+        <%= @all_users %>
+      </span>
+      <span id="activated_users">
+        <%= @activated_users %>
+      </span>
+</h5>
+      <div class="clearfix"></div>
+    </div>
+    <%= submit_tag "Send", confirm: 'Are you sure you want to send the digest email?', disabled: @digest_tiles.empty?, class: "button full_width" %>
+    <% if @digest_tiles.empty? %>
+      <div class="add_tiles_message">
+        Post new tiles to send them to your users.
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
