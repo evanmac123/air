@@ -2,7 +2,7 @@
   #following.module
     - if @current_user == @user 
       %h3 Your Connections
-      =link_to "Add", users_path, :class => "find_users small_button"
+      =link_to "Add", users_path, :class => "link margin-left-5px"
     - else
       %h3= "#{@user.first_name}'s connections"
 
