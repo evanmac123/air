@@ -56,3 +56,8 @@ input, textarea {
   margin-bottom: 20px;
   display: block;
 }
+
+/* Fixes random table layout structure in explore */
+#tile_wall table.tiles tr {
+ background: none;
+}
