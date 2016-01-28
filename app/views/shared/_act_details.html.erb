@@ -3,7 +3,7 @@
     <% if user.is_guest? || user.is_parent_board_user? %>
       <%= user.name %>
     <% else %>
-      <%= link_to(user.name, user, :class => 'name-of-user link') %> 
+      <%= link_to(user.name, user, :class => 'name-of-user') %> 
     <% end %>
     <%= (act.text) %>
   </div>

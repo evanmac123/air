@@ -33,6 +33,13 @@
   margin-left: 10px;
 }
 
+.no_margin_top {
+  margin-top: 0;
+}
+.no_margin_bottom {
+  margin-bottom: 0;
+}
+
 .board_settings {
   input[type="text"], input[type="file"], textarea{
     width: 80%;
