@@ -46,35 +46,35 @@ $ca-subnav-color:   darken($blue, 15%);     // #34445b
 
 // ------------------------ * Typography * ------------------------
 // $default:   'Helvetica Neue', Helvetica, Arial, sans-serif;
-$default: $font-family-primary;
+// $default: $font-family-primary;
 $small_cap_size: .625rem; // 10px
 
 @mixin font-thin {
-  font-family: $default;
+  // font-family: $default;
   font-style:normal;
   font-weight:lighter;
   font-weight: 100;
 }
 @mixin font-light {
-  font-family: $default;
+  // font-family: $default;
   font-style:normal;
   font-weight:lighter;
   font-weight: 300;
 }
 @mixin font-regular {
-  font-family: $default;
+  // font-family: $default;
   font-style:normal;
   font-weight:normal;
   font-weight: 400;
 }
 @mixin font-semibold {
-  font-family: $default;
+  // font-family: $default;
   font-style:normal;
   font-weight:bold;
   font-weight: 500;
 }
 @mixin font-bold {
-  font-family: $default;
+  // font-family: $default;
   font-style:normal;
   font-weight:bolder;
   font-weight: 700;
