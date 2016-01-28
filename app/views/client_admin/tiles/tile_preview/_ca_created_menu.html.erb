@@ -4,7 +4,7 @@
   </li>
 
   <li class="preview_menu_item edit" >
-    <%=link_to edit_client_admin_tile_path(tile),  data:{tile_id: tile.id, action: "edit", status: tile.status} do %>
+    <%=link_to edit_client_admin_tile_path(tile),  data:{"tile-id" => tile.id, action: "edit", status: tile.status} do %>
       <i class="fa fa-pencil fa-1x"></i>
       <span class="header_text">
         Edit
@@ -13,7 +13,7 @@
   </li>
 
   <li class="preview_menu_item duplicate" >
-    <%=link_to duplicate_client_admin_tile_path(tile, page: 'Edit'), class: "duplicate_tile" do %>
+    <%=link_to duplicate_client_admin_tile_path(tile, page: 'Edit'), class: "duplicate_tile", data: {"tile-id" => tile.id} do %>
       <i class="fa fa-copy fa-1x"></i>
       <span class="header_text">
         Copy
@@ -22,7 +22,7 @@
   </li>
 
   <li class="preview_menu_item destroy" >
-    <%=link_to client_admin_tile_path(tile), class: "delete_tile", data: {"tileid" => tile.id} do %>
+    <%=link_to client_admin_tile_path(tile), class: "delete_tile", data: {"tile-id" => tile.id} do %>
       <i class="fa fa-trash fa-1x"></i>
       <span class="header_text">
       Delete

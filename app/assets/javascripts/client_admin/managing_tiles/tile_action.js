@@ -17,7 +17,7 @@ Airbo.TileAction = (function(){
   }
 
   function tileByStatusChangeTriggerLocation(target){
-      return tileContainerByDataTileId(target.data("tileid"));
+      return tileContainerByDataTileId(target.data("tile-id"));
       }
   function replaceTileContent(tile, id){
     selector = tileWrapperSelector + "[data-tile-container-id=" + id + "]";

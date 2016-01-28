@@ -99,8 +99,11 @@ body.client_admin-tile_stats, #tile_stats_modal {
         border-top-color: #666 !important;
       }
     }
-    .selector:after { //caret
-      border-top-color: #b0b0b0 !important;
+    .selector {
+      height: 2em;
+      &:after { //caret
+        border-top-color: #b0b0b0 !important;
+      }
     }
     .current { // closed dropdown
       margin-left: 0;
