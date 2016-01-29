@@ -39,6 +39,10 @@
 .no_margin_bottom {
   margin-bottom: 0;
 }
+.small_margin {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+}
 
 .board_settings {
   input[type="text"], input[type="file"], textarea{

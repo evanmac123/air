@@ -36,10 +36,10 @@
           padding: 0.3em;
           //background gradient
           background: $sky-blue; /* old browsers */
-          background: linear-gradient(to bottom, $sky-blue, #66b9e5);
+          // background: linear-gradient(to bottom, $sky-blue, #66b9e5);
           .points_nub{
             border: solid 10px;
-            border-color: #66b9e5 transparent transparent transparent;
+            border-color: $sky-blue transparent transparent transparent;
             left: 35%;
             margin: 0;
             bottom: -18px;

@@ -1,12 +1,12 @@
 <%= cache [__FILE__, 'v4.ant', act, user] do %>
-  <div class="user">
+  <p class="user small_margin">
     <% if user.is_guest? || user.is_parent_board_user? %>
       <%= user.name %>
     <% else %>
       <%= link_to(user.name, user, :class => 'name-of-user') %> 
     <% end %>
     <%= (act.text) %>
-  </div>
+  </p>
 <% end %>
 
 <span class="when small_cap">
