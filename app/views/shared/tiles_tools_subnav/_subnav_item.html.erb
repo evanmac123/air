@@ -1,6 +1,6 @@
 <% unless blocked %>
   <li id="<%= item_id %>">
-    <%= link_to link, link_options do %>
+    <%= link_to link, link_options.merge({class: "mini-text white"}) do %>
       <% if icon.present? %>
         <%= fa_icon icon %>
       <% elsif image.present? %>
@@ -17,7 +17,7 @@
   </li>
 <% else %>
   <li id="<%= item_id %>" class="has-tip text-center" data-tooltip="true" title="Create and post at least one tile to unlock">
-    <div class="blocked_nav">
+    <div class="blocked_nav white mini-text">
       <%= fa_icon "lock" %>
       <%= text %>
     </div>
