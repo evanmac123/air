@@ -1,36 +1,12 @@
-@font-face {
-  font-family: 'Avenir Next Regular';
-  font-style: normal;
-  font-weight: normal;
-  src: font-url('avenirnextltpro-regular.eot');
-  src: font-url('avenirnextltpro-regular.eot?#iefix') format('embedded-opentype'),
-  font-url('avenirnextltpro-regular.woff') format('woff'),
-  font-url('avenirnextltpro-regular.ttf') format('truetype'),
-  font-url('avenirnextltpro-regular.svg#avenirnextltpro-regular') format('svg');
-}
-
 /* Font Families */
 
-$font-family-primary: 'Avenir Next Regular', 'avenir next', avenir, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-
+$font-family-primary: 'Avenir Next Airbo', "avenir next", avenir, "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 /* Font Weights */
 
-@mixin font-weight-regular {
-  font-style:normal;
-  font-weight:normal;
-  font-weight: 400;
-}
-
-@mixin font-weight-medium {
-  font-style:normal;
-  font-weight:bold;
-  font-weight: 500;
-}
-
-@mixin font-weight-demibold {
-  font-style:normal;
-  font-weight:bold;
+@mixin font-weight-bold {
+  font-style: normal;
+  font-weight: bold;
   font-weight: 600;
 }
 
@@ -44,43 +20,35 @@ $font-size-4: 28px;
 $font-size-5: 36px;
 
 /* Headers */
-// h1, h2, h3, h4 {
-//   color: $text-color-1;
-// }
 
 h1 {
-  @include font-weight-demibold;
   font-size: $font-size-5;
+  @include font-weight-bold;
   line-height: 1.25em;
   margin: 20px 0;
 }
 
 h2 {
-  @include font-weight-demibold;
   font-size: $font-size-4;
+  @include font-weight-bold;
   line-height: 1.25em;
   margin: 20px 0;
 }
 
 h3 {
-  @include font-weight-demibold;
   font-size: $font-size-3;
+  @include font-weight-bold;
   line-height: 1.25em;
   margin: 1.5em 0;
 }
 
 h4 {
-  @include font-weight-demibold;
   font-size: $font-size-2;
+  @include font-weight-bold;
   margin: 1.5em 0;
 }
 
 /* Standard Type Elements */
-
-b,
-strong {
-  @include font-weight-demibold;
-}
 
 small {
   font-size: $font-size-1;
@@ -97,10 +65,12 @@ ol, ul {
   margin:0;
   padding:0;
 }
+
 li {
   margin:0;
   padding: 0;
 }
+
 ul, ol {
   &.list {
     line-height: 1.5em;
@@ -112,9 +82,11 @@ ul, ol {
     }
   }
 }
+
 ul.list {
   list-style-type: decimal;
 }
+
 ol.list {
   list-style-type: disc;
 }

@@ -42,7 +42,7 @@ Rails.application.routes.default_url_options[:host] = ENV['APP_HOST'] || 'localh
   # Expands the lines which load the assets
   config.assets.debug = true
   #########################################
-  
+
   ##
 
   #config.action_mailer.delivery_method = :test
