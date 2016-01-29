@@ -7,15 +7,15 @@
         <%= text_field_tag :chart_end_date, params[:chart_end_date], class: "datepicker" %>
       </li>
       <li id="display-options">
-        <%= select_tag :chart_plot_content, options_for_select(['Total activity', 'Unique users', 'Both'], selected: params[:chart_plot_content]) %>
+        <%= select_tag :chart_plot_content, options_for_select(['Total activity', 'Unique users', 'Both'], selected: params[:chart_plot_content]), {class: 'horizontal_form_height'} %>
       </li>
       <li id="chart-intervals">
         <% options = current_user.is_site_admin ? %w(Weekly Daily Hourly) : %w(Weekly Daily) %>
-        <%= select_tag :chart_interval, options_for_select(options, selected: params[:chart_interval]) %>
+        <%= select_tag :chart_interval, options_for_select(options, selected: params[:chart_interval]), {class: 'horizontal_form_height'} %>
       </li>
       <li id="chart-labeling">
         <%= label_tag "chart_label_points", "Show label" %>
-        <%= select_tag :chart_label_points, options_for_select([ ['None', 0], ['All points', 1], ['Every other', 2] ], selected: params[:chart_label_points]) %>
+        <%= select_tag :chart_label_points, options_for_select([ ['None', 0], ['All points', 1], ['Every other', 2] ], selected: params[:chart_label_points]), {class: 'horizontal_form_height'} %>
       </li>
       <li id="chart-spinner">
         <%= image_tag 'spinner_gears_bg.gif', :style => "display: none;", :id => 'show-user-spinner', :size => '25x25' %>

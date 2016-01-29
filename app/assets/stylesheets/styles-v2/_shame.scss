@@ -104,3 +104,13 @@ iframe {
   border: none;
 }
 
+.custom.dropdown {
+  &.horizontal_form_height {
+    .current {
+      height: 35px;
+    }
+    li {
+      line-height: 2.3em;
+    }
+  }
+}
