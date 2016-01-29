@@ -51,11 +51,12 @@ header#pageHeader{
     // &.sticky {
     //   display: none;
     // }
+    position: absolute;
     background: white;
     // transition: all 0.3s;
     padding-top: 10px;
     padding-bottom: 0px;
-    position: relative;
+    // position: relative;
     width: 100%;
     z-index: 1;
     transition: all 0.3s;
