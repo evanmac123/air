@@ -14,9 +14,17 @@
       margin: 10px 0 -37px;
     }
   }
+  .sa-button-container {
+    padding-right: 85px;
+    overflow: visible;
+  }
+  .sa-confirm-button-container {
+    float: right;
+  }
   button{
     margin-top: 15px;
     margin-left: 10px;
+    float: right;
     &.cancel {
       @include light-button($n-blue);
     }
@@ -33,9 +41,6 @@
       }
     }
   }
-
-
-
   fieldset {
     margin: 0;
     padding: 0;
@@ -43,10 +48,8 @@
       display: none;
     }
   }
-
   button.confirm[disabled] ~ .la-ball-fall {
     opacity: 0;
     visibility: hidden;
   }
-
 }
