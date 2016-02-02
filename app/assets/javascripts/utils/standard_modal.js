@@ -15,9 +15,7 @@ Airbo.Utils.StandardModal = (function(){
       , modalXSel
     ;
     function open() {
-      modal.foundation("reveal", "open", {
-        animation: "fade"
-      });
+      modal.foundation("reveal", "open");
     }
     function closeModal() {
       message = "Are you sure you want to stop editing this tile?" + 
@@ -78,6 +76,7 @@ Airbo.Utils.StandardModal = (function(){
 
       $(modalXSel).click(function(e){
         e.preventDefault();
+        e.stopPropagation();
         close();
       });
 
@@ -118,7 +117,7 @@ Airbo.Utils.StandardModal = (function(){
       modal = $(modalSel);
       modalContainerSel = modalSel + " .modal_container";
       modalContentSel = modalSel + " #modal_content";
-      modalXSel = modalSel + ".close-reveal-modal";
+      modalXSel = modalSel + " .close-reveal-modal";
       closeSel = params.closeSel || "";
       onOpenedEvent = params.onOpenedEvent || Airbo.Utils.noop;
       onClosedEvent = params.onClosedEvent || Airbo.Utils.noop;
