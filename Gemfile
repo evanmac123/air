@@ -2,7 +2,7 @@ source "https://www.rubygems.org"
 
 ruby '2.0.0'
 
-gem "rails", "=3.2.21"
+gem "rails", "=3.2.22.1"
 gem "rack"  # Update rack to 1.3.0 or later to get rid of utf8 string regex warnings
 gem 'delayed_job_active_record'
 gem "high_voltage"
