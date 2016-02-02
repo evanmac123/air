@@ -30,8 +30,8 @@ module ClientAdmin::SharesHelper
     params = {
       mini: true,
       url: explore_tile_preview_url(tile),
-      title: tile.headline,
-      summary: tile.supporting_content,
+      title: h(tile.headline),
+      summary: h(Nokogiri::HTML::Document.parse(tile.supporting_content).text),
       source: "http://www.airbo.com"
     }
     "https://www.linkedin.com/shareArticle?#{params.to_query}"

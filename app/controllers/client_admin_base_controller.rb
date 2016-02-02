@@ -21,7 +21,7 @@ class ClientAdminBaseController < ApplicationController
   end
 
   def param_path
-    @param_path ||= params[:path].nil? ? :undefined : params[:path].to_sym
+    @param_path ||= params[:path].nil? ? :undefined : params[:path]
   end
 
   def set_is_client_admin_action
