@@ -26,8 +26,8 @@ module ClientAdmin::TilesHelper
     current_user.demo.tiles.archive.update_all(status: Tile::ACTIVE)
   end
 
-  def set_tile_types( tile_builder)
-    tile_builder.has_question_type? ? update_tile_types(tile_types, tile_builder) : tile_types
+  def set_tile_types(tile)
+    tile.new_record? ? tile_types : update_tile_types(tile_types, tile)
   end
 
   def tile_types
@@ -98,13 +98,13 @@ module ClientAdmin::TilesHelper
     }
   end
 
-  def update_tile_types tile_types, tile_builder
-    old_tile_type(tile_builder.tile) unless tile_builder.tile.question_type
-    type = tile_builder.tile.question_type
-    subtype = tile_builder.tile.question_subtype
-    question = tile_builder.tile.question
-    answers = tile_builder.tile.multiple_choice_answers
-    correct = tile_builder.tile.correct_answer_index
+  def update_tile_types tile_types, tile
+    # old_tile_type(tile_builder.tile) unless tile_builder.tile.question_type
+    type = tile.question_type
+    subtype = tile.question_subtype
+    question = tile.question
+    answers = tile.multiple_choice_answers
+    correct = tile.correct_answer_index
     tile_types[type][subtype][:question] = question
     tile_types[type][subtype][:answers] = answers
     tile_types[type][subtype][:correct] = correct
