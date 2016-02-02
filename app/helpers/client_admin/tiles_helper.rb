@@ -99,7 +99,7 @@ module ClientAdmin::TilesHelper
   end
 
   def update_tile_types tile_types, tile
-    old_tile_type(tile_builder.tile) unless tile_builder.tile.question_type
+    old_tile_type(tile) unless tile.question_type
     type = tile.question_type
     subtype = tile.question_subtype
     question = tile.question
