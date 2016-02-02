@@ -1,6 +1,8 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
+
   PRIVACY_LEVELS = %w(everybody connected nobody).freeze
 
   GENDERS = ["female", "male", "other", nil].freeze
@@ -159,10 +161,6 @@ class User < ActiveRecord::Base
 
   attr_accessor :password_confirmation, :converting_from_guest, :must_have_location, :creating_board, :role
 
-  # Changed from attr_protected to attr_accessible to address vulnerability CVE-2013-0276
-
-  attr_accessible :name, :email, :invited, :demo_id, :created_at, :updated_at, :invitation_code, :phone_number, :points, :encrypted_password, :salt, :remember_token, :slug, :claim_code, :confirmation_token, :won_at, :sms_slug, :last_suggested_items, :avatar_file_name, :avatar_content_type, :avatar_file_size, :avatar_updated_at, :ranking_query_offset, :accepted_invitation_at, :game_referrer_id, :notification_method, :location_id, :new_phone_number, :new_phone_validation, :date_of_birth, :gender, :session_count, :privacy_level, :last_muted_at, :last_told_about_mute, :mt_texts_today, :suppress_mute_notice, :follow_up_message_sent_at, :flashes_for_next_request, :characteristics, :overflow_email, :tickets, :zip_code, :is_employee, :ssn_hash, :employee_id, :spouse_id, :last_acted_at, :ticket_threshold_base, :terms_and_conditions, :get_started_lightbox_displayed, :send_weekly_activity_report, :spouse_id
-  #attr_protected :is_site_admin, :is_client_admin, :invitation_method
 
   has_alphabetical_column :name
 

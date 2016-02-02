@@ -138,6 +138,13 @@ class ApplicationController < ActionController::Base
 
   alias authorize_without_guest_checks authorize
 
+
+  def permitted_params
+    @permitted_params ||= PermittedParams.new(params, current_user)
+  end
+
+  helper_method :permitted_params
+
   def authorize
     #debugger if self.class == Users::PingsController
     return if authorize_as_potential_user

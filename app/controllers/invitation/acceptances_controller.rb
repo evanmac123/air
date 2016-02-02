@@ -9,8 +9,8 @@ class Invitation::AcceptancesController < ApplicationController
 
   def update
     # Set this as true so presence of name is validated
-    @user.attributes = params[:user]
-
+    @user.attributes = permitted_params.user
+    
     @user.password = @user.password_confirmation = params[:user][:password]
     @user.invitation_code = params[:invitation_code] if params[:invitation_code].present?
     

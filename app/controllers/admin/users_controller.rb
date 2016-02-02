@@ -39,13 +39,14 @@ class Admin::UsersController < AdminBaseController
   end
 
   def update
-    new_demo_id = params[:user].delete(:demo_id)
 
-    @user.attributes = params[:user]
+    @user.attributes = permitted_params.user #params[:user]
+
     @user.is_client_admin = params[:user][:is_client_admin] # protected attribute
- 
+
     @user.claim_code = nil if params[:user].has_key?(:claim_code) && params[:user][:claim_code].blank?
 
+    new_demo_id = user_params.delete(:demo_id)
     if ! params[:user][:phone_number].blank?
       @user.new_phone_number = @user.new_phone_validation = ""
       @user.phone_number = PhoneNumber.normalize @user.phone_number
@@ -76,6 +77,8 @@ class Admin::UsersController < AdminBaseController
   end
 
   protected
+  
+
 
   def find_user
     @user = @demo.users.find_by_slug(params[:id])
@@ -85,5 +88,11 @@ class Admin::UsersController < AdminBaseController
     if user.is_client_admin && was_changed
       ping('Creator - New', {source: 'Site Admin'}, current_user)
     end
+  end
+
+  private
+
+  def user_params
+   params[:user]
   end
 end
