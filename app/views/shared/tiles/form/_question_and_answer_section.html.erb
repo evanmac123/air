@@ -1,4 +1,4 @@
-<div class="tile_texts_container" data-tile-types='<%= set_tile_types(tile).to_json%>' data-question-config= '<%= { hasQuestionType: @tile_builder_form.question_type?, type: @tile_builder_form.question_type, subType: @tile_builder_form.question_subtype}.to_json %>'>
+<div class="tile_texts_container" data-tile-types='<%= set_tile_types(form.object).to_json%>' data-question-config= '<%= { hasQuestionType: @tile_builder_form.question_type?, type: @tile_builder_form.question_type, subType: @tile_builder_form.question_subtype}.to_json %>'>
   <div class="tile_quiz content_sections" id="question_type_container">
     <%= form.hidden_field :question_type %>
     <%= form.hidden_field :question_subtype, data:{proxyid: "question_type_container"} %>
