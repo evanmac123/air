@@ -67,12 +67,12 @@ class User < ActiveRecord::Base
 
   validates_inclusion_of :gender, :in => GENDERS, :allow_blank => true
 
-  validates_format_of :slug, :with => /^[0-9a-z]+$/, :if => :name_present?
-  validates_format_of :sms_slug, :with => /^[0-9a-z]{2,}$/,
+  validates_format_of :slug, :with => /\A[0-9a-z]+\z/, :if => :name_present?
+  validates_format_of :sms_slug, :with => /\A[0-9a-z]{2,}\z/,
                       :message => "Sorry, the username must consist of letters or digits only.",
                       :if => :name_present?
 
-  validates_format_of :zip_code, with: /^\d{5}$/, allow_blank: true
+  validates_format_of :zip_code, with: /\A\d{5}\z/, allow_blank: true
 
   validates_length_of :password, :minimum => 6, :allow_blank => true, :message => 'must have at least 6 characters', :unless => :converting_from_guest
   validates :email, :with => :email_distinct_from_all_overflow_emails
