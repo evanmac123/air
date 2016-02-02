@@ -39,6 +39,16 @@ feature "Client admin creates tiles", js: true do
       end
     end
 
+    scenario "check tile content in form fields" do
+      within ".new_tile_builder_form" do
+        expect(page).to  have_content "This is some extra text by the tile"
+        expect(page).to  have_content "Which of the following comes out of a bird?"
+        expect(page).to  have_content "Ham"
+        expect(page).to  have_content "Eggs"
+        expect(page).to  have_content "A V8 Buick"
+      end
+    end
+
     scenario  "edit all tile fields" do
       
       fill_in_tile_form_entries edit_text: edit_text, points: points
