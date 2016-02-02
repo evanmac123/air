@@ -2,7 +2,7 @@
   <div class="share_title">Share</div>
   <div class="share_link_icons">
     <div class="share_linkedin share_icon">
-      <%= link_to image_tag("client_admin/linkedin_icon.gif"), share_tile_by_linkedin(tile), id: 'share_linkedin_icon' %>
+      <%= link_to image_tag("client_admin/linkedin_icon.gif"), h(share_tile_by_linkedin(tile)), id: 'share_linkedin_icon' %>
     </div> 
     <div class="share_mail share_icon">
       <%= mail_to '', fa_icon("envelope-square"), subject: 'Tile shared via Airbo', body: " I want to share this tile with you from Airbo: #{explore_tile_preview_url(tile)}" %>
