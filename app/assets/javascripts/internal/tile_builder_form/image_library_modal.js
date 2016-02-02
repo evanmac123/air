@@ -40,7 +40,7 @@ Airbo.ImageLibraryModal = (function(){
     modalObj.init({
       modalId: modalId,
       useAjaxModal: true,
-      onClosedEvent: function() {
+      closeAlt: function() {
         tileFormModal.openModal();
       }
     });

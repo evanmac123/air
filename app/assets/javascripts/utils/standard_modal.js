@@ -13,6 +13,7 @@ Airbo.Utils.StandardModal = (function(){
       , modalContent
       , confirmOnClose
       , modalXSel
+      , closeAlt
     ;
     function open() {
       modal.foundation("reveal", "open");
@@ -37,7 +38,9 @@ Airbo.Utils.StandardModal = (function(){
       );
     }
     function close() {
-      if(confirmOnClose){
+      if(closeAlt){
+        closeAlt();
+      } else if(confirmOnClose){
         closeModal();
       }else{
         modal.foundation("reveal", "close");  
@@ -121,6 +124,7 @@ Airbo.Utils.StandardModal = (function(){
       closeSel = params.closeSel || "";
       onOpenedEvent = params.onOpenedEvent || Airbo.Utils.noop;
       onClosedEvent = params.onClosedEvent || Airbo.Utils.noop;
+      closeAlt = params.closeAlt || null;
       closeOnBgClick = params.closeOnBgClick || true;
       confirmOnClose = params.confirmOnClose || false;
       if(params.smallModal) {
