@@ -67,12 +67,10 @@ feature 'Edits user' do
     visit(edit_client_admin_user_path(user, as: client_admin))
     page.find('select.user-role-select').select 'Administrator'
     click_button "Save edits"
-    user.reload.role_in(client_admin.demo).should eq 'Administrator'
     expect_role('Administrator')
     
     page.find('select.user-role-select').select 'User'
     click_button "Save edits"
-    user.reload.role_in(client_admin.demo).should eq 'User'
     expect_role('User')    
   end
   
@@ -82,7 +80,6 @@ feature 'Edits user' do
     visit(edit_client_admin_user_path(user, as: client_admin))
     page.find('select.user-role-select').select 'Administrator'
     click_button "Save edits"
-    user.reload.role_in(client_admin.demo).should eq 'Administrator'
     expect_role('Administrator')
   end
 
