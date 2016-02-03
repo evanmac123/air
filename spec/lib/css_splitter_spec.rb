@@ -13,7 +13,7 @@ describe CssSplitter::Splitter do
   end
 
   def max_selectors
-    4095
+    ENV['MAX_SELECTORS_DEFAULT'].to_i #3072 
   end
 
   def check_stylesheets_num original_name, number

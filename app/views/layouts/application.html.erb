@@ -7,8 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= content_for :meta %>
   <title>Airbo</title>
-  <%= split_stylesheet_link_tag "app-internal", :media => "all", :split_count => 4 %>
-  <%= stylesheet_link_tag "app-user-progress" %>
+  <%= split_stylesheet_link_tag "app-internal", :media => "all", :split_count => 5 %>
+  <%= split_stylesheet_link_tag "app-user-progress", :media => "all", :split_count => 2 %>
   <%= javascript_include_tag "https://api.intercom.io/api/js/library.js" %>
   <%= javascript_include_tag 'for-modern-browsers' unless browser.ie8? %>
   <%= javascript_include_tag 'application' %>

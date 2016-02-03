@@ -45,6 +45,7 @@ module Health
       app-internal_split4.css
       app-landing.css
       app-user-progress.css
+      app-user-progress_split2.css
       styleguide.css
       vendor/ie8-grid16-foundation-4.css
       vendor/ie8-grid12-foundation-4.css
