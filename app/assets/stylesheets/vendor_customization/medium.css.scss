@@ -1,4 +1,7 @@
 body {
+  .medium-editor-toolbar li button:hover {
+    color: $n-blue; 
+  }
   //
   // => Link Preview
   //

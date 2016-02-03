@@ -64,10 +64,10 @@ textarea {
   }
 }
 
-input[type="submit"],
-button {
-  @include button;
-}
+// input[type="submit"],
+// button {
+//   @include button;
+// }
 
 select { // TODO: fix with JS select replace; using crappy available image here as stand in
   background: url(/assets/down_triangle.png) no-repeat right center $n-white;
