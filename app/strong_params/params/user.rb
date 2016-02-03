@@ -5,6 +5,7 @@ module Params
       params.require(:user).permit(*user_attributes)
     end
 
+    #Todo make all fields allowed if site admin
     def user_attributes
      attrs = [:name, :email, :invited, :invitation_code, 
      :phone_number, :points,  :remember_token, :slug, 
@@ -20,8 +21,8 @@ module Params
      :get_started_lightbox_displayed, :send_weekly_activity_report
     ]
 
-     attrs.concat [:is_site_admin, :is_client_admin, :demo_id] if current_user.is_site_admin?
-     attrs.concat [ :is_client_admin, :demo_id] if current_user.is_client_admin?
+     attrs.concat [:is_site_admin, :is_client_admin, :demo_id, :role] if current_user.is_site_admin?
+     attrs.concat [ :is_client_admin, :demo_id, :role] if current_user.is_client_admin?
      attrs
     end
   end
