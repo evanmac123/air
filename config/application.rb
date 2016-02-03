@@ -42,6 +42,7 @@ module Health
       app-internal.css
       app-internal_split2.css
       app-internal_split3.css
+      app-internal_split4.css
       app-landing.css
       app-user-progress.css
       styleguide.css
