@@ -31,7 +31,8 @@ class ClientAdmin::UsersController < ClientAdminBaseController
 
   def create
     @demo = current_user.demo
-    user_maker = MakeSimpleUser.new user_params, @demo, current_user
+    params2 =  user_params.merge({email: params[:user][:email].try(:downcase).try(:strip)})
+    user_maker = MakeSimpleUser.new params2, @demo, current_user
 
     if user_maker.existing_user_in_board?
       flash[:notice] = "It looks like #{user_maker.existing_user.email} is already in your board."
@@ -57,8 +58,6 @@ class ClientAdmin::UsersController < ClientAdminBaseController
 
   def update
     @demo = current_user.demo
-
-    user_params = params[:user].slice(*SETTABLE_USER_ATTRIBUTES)
     user_maker = MakeSimpleUser.new user_params, @demo, current_user, @user
     user_saved = user_maker.update
     @user = user_maker.user
@@ -80,9 +79,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
   private
 
   def user_params
-   @user_params ||= permitted_params.user
-      .slice(*SETTABLE_USER_ATTRIBUTES)
-      .merge({email: params[:user][:email].try(:downcase).try(:strip)})
+   @user_params ||= permitted_params.user.slice(*SETTABLE_USER_ATTRIBUTES)
   end
 
   def browse_request?
