@@ -40,7 +40,7 @@ class Admin::UsersController < AdminBaseController
 
   def update
 
-    @user.attributes = permitted_params.user #params[:user]
+    @user.attributes = permitted_params.user 
 
     @user.is_client_admin = params[:user][:is_client_admin] # protected attribute
 

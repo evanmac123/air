@@ -9,7 +9,7 @@ class Admin::DemosController < AdminBaseController
 
   def create
     Demo.transaction do
-      @demo = Demo.new(params[:demo])
+      @demo = Demo.new(permitted_params.demo)
       @demo.save!
       schedule_creation_ping
     end
@@ -37,7 +37,7 @@ class Admin::DemosController < AdminBaseController
   def update
 
 
-    if @demo.update_attributes(params[:demo])
+    if @demo.update_attributes(permitted_params.demo)
       flash[:success] = "Demo updated"
       redirect_to admin_demo_path(@demo)
     else
