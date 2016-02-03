@@ -31,9 +31,6 @@ class ClientAdmin::UsersController < ClientAdminBaseController
 
   def create
     @demo = current_user.demo
-    user_params = params[:user].
-                    slice(*SETTABLE_USER_ATTRIBUTES).
-                    merge({email: params[:user][:email].try(:downcase).try(:strip)})
     user_maker = MakeSimpleUser.new user_params, @demo, current_user
 
     if user_maker.existing_user_in_board?
@@ -80,7 +77,13 @@ class ClientAdmin::UsersController < ClientAdminBaseController
     redirect_to client_admin_users_path
   end
 
-  protected
+  private
+
+  def user_params
+   @user_params ||= permitted_params.user
+      .slice(*SETTABLE_USER_ATTRIBUTES)
+      .merge({email: params[:user][:email].try(:downcase).try(:strip)})
+  end
 
   def browse_request?
     params[:show_everyone].present?
