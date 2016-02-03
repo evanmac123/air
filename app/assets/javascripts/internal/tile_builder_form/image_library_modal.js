@@ -6,20 +6,8 @@ Airbo.ImageLibraryModal = (function(){
   var modalObj = Airbo.Utils.StandardModal()
     , tileFormModal
   ;
-  function getImageLibraryCall(libaryUrl){
-    $.ajax({
-      type: "GET",
-      dataType: "html",
-      url: libaryUrl,
-      success: function(data, status,xhr){
-        modalObj.setContent( $(data) );
-        modalObj.open();
-        Airbo.TileImagesMgr.init();
-      },
-      error: function(jqXHR, textStatus, error){
-        console.log(error);
-      }
-    });
+  function close() {
+    modalObj.close();
   }
   function open(url) {
     $.ajax({
@@ -29,7 +17,7 @@ Airbo.ImageLibraryModal = (function(){
       success: function(data, status,xhr){
         modalObj.setContent( $(data) );
         modalObj.open();
-        Airbo.TileImagesMgr.init();
+        Airbo.TileImagesMgr.init(Airbo.ImageLibraryModal);
       },
       error: function(jqXHR, textStatus, error){
         console.log(error);
@@ -51,6 +39,7 @@ Airbo.ImageLibraryModal = (function(){
   }
   return {
     init: init,
-    open: open
+    open: open,
+    close: close
   };
 }());

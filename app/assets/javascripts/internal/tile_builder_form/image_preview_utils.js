@@ -12,6 +12,7 @@ $(function() {
 
     Airbo.TileImagesMgr = (function(){
       var initialized
+        , modal
         , previewer
         , library
         , noImage
@@ -66,7 +67,8 @@ $(function() {
 
         $("#remote_media_url").focusout();
         if($("#images_modal").hasClass("open")){
-          $("#images_modal").foundation("reveal", "close");
+          // $("#images_modal").foundation("reveal", "close");
+          modal.close();
         }
       }
 
@@ -93,11 +95,12 @@ $(function() {
         return remoteMediaUrl.val();
       }
 
-      function init(){
-        if (Airbo.Utils.supportsFeatureByPresenceOfSelector("#new_tile_builder_form") ) {
+      function init(libraryModal){
+        // if (Airbo.Utils.supportsFeatureByPresenceOfSelector("#new_tile_builder_form") ) {
           initjQueryObjects();
           initClearImage();
 
+          modal = libraryModal;
           previewer = Airbo.ImagePreviewer.init(this)
           library = Airbo.ImageLibrary.init(this)
 
@@ -108,7 +111,7 @@ $(function() {
           });
 
           return this;
-        }
+        // }
       }
 
 

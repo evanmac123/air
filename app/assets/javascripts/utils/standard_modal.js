@@ -15,8 +15,12 @@ Airbo.Utils.StandardModal = (function(){
       , modalXSel
       , closeAlt
     ;
+    function scrollModalToTop() {
+      modal.scrollTop();
+    }
     function open() {
       modal.foundation("reveal", "open");
+      // scrollModalToTop();
     }
     function closeModal() {
       message = "Are you sure you want to stop editing this tile?" + 
@@ -141,6 +145,7 @@ Airbo.Utils.StandardModal = (function(){
     return {
      init: init,
      open: open,
+     close: close,
      setContent: setContent
     }
   }
