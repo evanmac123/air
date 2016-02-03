@@ -44,6 +44,8 @@ class Admin::UsersController < AdminBaseController
     @user.claim_code = nil if params[:user].has_key?(:claim_code) && params[:user][:claim_code].blank?
 
     new_demo_id = user_params.delete(:demo_id)
+    #TODO this kind of logic should not be in the controller!!!!!!
+    #FIXME aaaaargh!
     if ! params[:user][:phone_number].blank?
       @user.new_phone_number = @user.new_phone_validation = ""
       @user.phone_number = PhoneNumber.normalize @user.phone_number
