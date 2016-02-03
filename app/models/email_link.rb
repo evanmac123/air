@@ -1,4 +1,5 @@
 module EmailLink
+  #FIXME how is this considered safe!! unbelievable
   SALT = "Why don't they call this PEPPER?"
 
   def self.generate_token(model_instance)
