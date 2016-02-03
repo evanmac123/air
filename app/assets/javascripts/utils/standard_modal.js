@@ -141,6 +141,7 @@ Airbo.Utils.StandardModal = (function(){
     return {
      init: init,
      open: open,
+     close: close,
      setContent: setContent
     }
   }
