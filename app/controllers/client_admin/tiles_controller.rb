@@ -6,6 +6,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   before_filter :get_demo
   before_filter :load_tags, only: [:new, :edit, :update]
+  before_filter :permit_params, only: [:create, :update]
 
   def index
     # Update 'status' for tiles with 'start_time' and 'end_time' attributes (before you fetch the different tile groups)
@@ -136,6 +137,9 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   private
+  def permit_params
+    params.require(:tile_builder_form).permit!
+  end
 
   def update_status
     result = @tile.update_status(params[:update_status])
