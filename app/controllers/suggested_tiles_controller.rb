@@ -16,7 +16,7 @@ class SuggestedTilesController < ApplicationController
   def create
     @tile_builder_form =  UserTileBuilderForm.new(
                             current_user.demo,
-                            form_params: params[:tile_builder_form],
+                            form_params:params.require(:tile_builder_form).permit!,
                             creator: current_user,
                             action: params[:action]
                           )
