@@ -1,6 +1,7 @@
 @import "mixins/main_styles";
 @import "external/_case_study";
 @import "mixins/small_tile_tag";
+@import "explore_intro";
 
 .client_admin_explore_tile_tag {
   margin-bottom: 50px;
@@ -286,10 +287,10 @@
 
 
 .explores, .topics {
-  .reveal-modal {
-    width: 548px;
-    margin-left: -274px;
-  }
+  // .reveal-modal {
+  //   width: 548px;
+  //   margin-left: -274px;
+  // }
   .explore_tile {
     .extra_tags_list{
       width: 100%;
