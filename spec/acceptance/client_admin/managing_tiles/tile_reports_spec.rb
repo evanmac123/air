@@ -24,16 +24,17 @@ feature 'client admin views tiles reports' do
     let!(:unclaimed_users) { FactoryGirl.create_list :user, 5,            demo: demo }
 
     let!(:tiles) do
+      # Active tiles: 9, 5, 7, 3, 1
+      # Archive tiles: 8, 6, 4, 2, 0
+      
       on_day '7/4/2013' do
-        positions = [0, 5, 1, 6, 2, 7, 3, 8, 4, 9]
         num_tiles.times do |i|
           awhile_from_now = Time.now + i.days
-          tile = FactoryGirl.create :tile, demo: demo, headline: "Tile , #{i}", created_at: awhile_from_now,
-                                    activated_at: awhile_from_now, archived_at: awhile_from_now + 1.day, position: positions[i]
+          tile = FactoryGirl.create :tile, demo: demo, headline: "Tile , #{i}", created_at: awhile_from_now, activated_at: awhile_from_now, archived_at: awhile_from_now + 1.day, status: Tile::ACTIVE
 
           if i.even?
             awhile_ago = tile.created_at - 2.weeks
-            tile.update_attributes(activated_at: awhile_ago, archived_at: awhile_ago + 1.day)
+            tile.update_attributes(activated_at: awhile_ago, archived_at: awhile_ago + 1.day, status: Tile::ARCHIVE)
           end
 
           (i * 10).times do |j| 
@@ -44,31 +45,17 @@ feature 'client admin views tiles reports' do
       end
     end
 
-    let(:expected_tile_table) do
-      # No need to test for images as that is done in other tests; this is for reporting numbers
-      # CSV processing initially barfed on commas in headlines. Easiest way to test the fix is to stick a comma in all headlines.
-      [ ["Image", "Headline", "Completions", "% of participants"],
-        [  "",     "Tile , 9",      "90",           "90.0%"       ],
-        [  "",     "Tile , 7",      "70",           "70.0%"       ],
-        [  "",     "Tile , 5",      "50",           "50.0%"       ],
-        [  "",     "Tile , 3",      "30",           "30.0%"       ],
-        [  "",     "Tile , 1",      "10",           "10.0%"       ],
-        [  "",     "Tile , 8",      "80",           "80.0%"       ],
-        [  "",     "Tile , 6",      "60",           "60.0%"       ],
-        [  "",     "Tile , 4",      "40",           "40.0%"       ],
-        [  "",     "Tile , 2",      "20",           "20.0%"       ],
-        [  "",     "Tile , 0",      "0",            "0.0%"        ]
-      ]
-    end
-
     def initial_filename(tile_type)
       %r{#{tile_type}_tiles_report_#{Time.zone.now.to_s(:csv_file_date_stamp)}.csv}
+    end
+
+    def get_tile_nums csv
+      csv.split("\n").drop(1).map{|line| line[/\"Tile , (\d+)\"/,1]}
     end
 
     context "Active tiles" do
       it 'csv file name and content are correct' do
         on_day '7/4/2013' do
-          demo.tiles.update_all status: Tile::ACTIVE
           visit client_admin_tiles_path(as: admin)
 
           click_download_active_link
@@ -83,12 +70,12 @@ Headline,Status,Total Views,Unique Views,Completions,% of participants
 \"Tile , 5\",Active: 5 days Since: 7/9/2013,100,50,50,50.0%
 \"Tile , 3\",Active: 3 days Since: 7/7/2013,60,30,30,30.0%
 \"Tile , 1\",Active: 1 day Since: 7/5/2013,20,10,10,10.0%
-\"Tile , 8\",Active: 6 days Since: 6/28/2013,160,80,80,80.0%
-\"Tile , 6\",Active: 8 days Since: 6/26/2013,120,60,60,60.0%
-\"Tile , 4\",Active: 10 days Since: 6/24/2013,80,40,40,40.0%
-\"Tile , 2\",Active: 12 days Since: 6/22/2013,40,20,20,20.0%
-\"Tile , 0\",Active: 14 days Since: 6/20/2013,0,0,0,0.0%
 CSV
+          
+          csv_tile_nums = get_tile_nums page.body
+          expected_csv_tile_nums = get_tile_nums expected_csv
+          expect(csv_tile_nums).to eq(expected_csv_tile_nums)
+
           page.body.should == expected_csv
         end
       end
@@ -97,7 +84,6 @@ CSV
     context "Archived tiles" do
       it 'csv file name and content are correct' do
         on_day '7/4/2013' do
-          demo.tiles.update_all status: Tile::ARCHIVE
           visit client_admin_tiles_path(as: admin)
           click_download_archive_link
 
@@ -106,17 +92,16 @@ CSV
 
           expected_csv = <<CSV
 Headline,Status,Total Views,Unique Views,Completions,% of participants
-\"Tile , 9\",Active: 1 day Deactivated: 7/14/2013,180,90,90,90.0%
-\"Tile , 7\",Active: 1 day Deactivated: 7/12/2013,140,70,70,70.0%
-\"Tile , 5\",Active: 1 day Deactivated: 7/10/2013,100,50,50,50.0%
-\"Tile , 3\",Active: 1 day Deactivated: 7/8/2013,60,30,30,30.0%
-\"Tile , 1\",Active: 1 day Deactivated: 7/6/2013,20,10,10,10.0%
-\"Tile , 8\",Active: 1 day Deactivated: 6/29/2013,160,80,80,80.0%
-\"Tile , 6\",Active: 1 day Deactivated: 6/27/2013,120,60,60,60.0%
-\"Tile , 4\",Active: 1 day Deactivated: 6/25/2013,80,40,40,40.0%
-\"Tile , 2\",Active: 1 day Deactivated: 6/23/2013,40,20,20,20.0%
-\"Tile , 0\",Active: 1 day Deactivated: 6/21/2013,0,0,0,0.0%
+\"Tile , 8\",Active: 6 days Deactivated: 7/4/2013,160,80,80,80.0%
+\"Tile , 6\",Active: 8 days Deactivated: 7/4/2013,120,60,60,60.0%
+\"Tile , 4\",Active: 10 days Deactivated: 7/4/2013,80,40,40,40.0%
+\"Tile , 2\",Active: 12 days Deactivated: 7/4/2013,40,20,20,20.0%
+\"Tile , 0\",Active: 14 days Deactivated: 7/4/2013,0,0,0,0.0%
 CSV
+          csv_tile_nums = get_tile_nums page.body
+          expected_csv_tile_nums = get_tile_nums expected_csv
+          expect(csv_tile_nums).to eq(expected_csv_tile_nums)
+
           page.body.should == expected_csv
         end
       end
