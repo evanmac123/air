@@ -1,6 +1,6 @@
 source "https://www.rubygems.org"
 
-ruby '2.2.4'
+ruby '2.0.0'
 
 gem "rails", "=3.2.22.1"
 gem "rack"  # Update rack to 1.3.0 or later to get rid of utf8 string regex warnings
@@ -47,7 +47,7 @@ gem "squeel"
 gem 'draper', '~> 1.3'
 gem 'redis-rails'
 gem 'strong_parameters'
-gem 'intercom'
+gem 'intercom', '~>2.4.2'
 gem 'counter_culture'
 gem 'require_all'
 gem 'css_splitter', :git => "https://github.com/theairbo/css_splitter.git" #Allow customization of MAX_SELECTORS_DEFAULT via environment variable
