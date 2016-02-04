@@ -114,4 +114,12 @@ iframe {
   }
 }
 
-
+.no_outline {
+  outline: none;
+}
+.no_inline_span_styling {
+  span[style] {
+    font-size: inherit !important;
+    line-height: inherit !important;
+  }
+}

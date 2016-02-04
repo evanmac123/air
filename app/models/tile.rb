@@ -55,6 +55,7 @@ class Tile < ActiveRecord::Base
 
   validates_presence_of :remote_media_url, message: "image is missing" , if: :requires_remote_media_url
 
+  before_create :set_on_first_position
   before_save :ensure_protocol_on_link_address, :handle_status_change
   before_save :set_image_credit_to_blank_if_default
   after_save :process_image, if: :image_changed? 
@@ -265,6 +266,10 @@ class Tile < ActiveRecord::Base
   end
 
   protected
+
+  def set_on_first_position
+    self.position = find_new_first_position
+  end
 
   def ensure_protocol_on_link_address
     return unless link_address_changed?

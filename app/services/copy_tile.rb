@@ -38,7 +38,8 @@ class CopyTile
       "question",
       "supporting_content",
       "image",
-      "thumbnail"
+      "thumbnail",
+      "use_old_line_break_css"
     ].each do |field_to_copy|
       @copy.send("#{field_to_copy}=", @tile.send(field_to_copy))
     end

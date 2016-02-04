@@ -11,14 +11,44 @@ Airbo.Utils.StandardModal = (function(){
       , closeOnBgClick
       , modalContainer
       , modalContent
+      , confirmOnClose
+      , modalXSel
+      , closeAlt
     ;
+    function scrollModalToTop() {
+      modal.scrollTop();
+    }
     function open() {
-      modal.foundation("reveal", "open", {
-        animation: "fade"
-      });
+      modal.foundation("reveal", "open");
+      // scrollModalToTop();
+    }
+    function closeModal() {
+      message = "Are you sure you want to stop editing this tile?" + 
+                " Any changes you've made will be lost";
+      swal(
+        {
+          title: "",
+          text: message,
+          customClass: "airbo",
+          animation: false,
+          showCancelButton: true
+        },
+
+        function(isConfirm){
+          if (isConfirm) {
+            modal.foundation("reveal", "close");
+          }
+        }
+      );
     }
     function close() {
-      modal.foundation("reveal", "close");
+      if(closeAlt){
+        closeAlt();
+      } else if(confirmOnClose){
+        closeModal();
+      }else{
+        modal.foundation("reveal", "close");  
+      }
     }
     function setContent(content) {
       modal.find("#modal_content").html(content);
@@ -51,6 +81,12 @@ Airbo.Utils.StandardModal = (function(){
         onClosedEvent();
       });
 
+      $(modalXSel).click(function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        close();
+      });
+
       $(closeSel).click(function(e){
         e.preventDefault();
         close();
@@ -65,7 +101,9 @@ Airbo.Utils.StandardModal = (function(){
           });
         });
       }
+      // if(confirmOnClose) {
 
+      // }
       // if(fixedX) {
       //
       // }
@@ -86,11 +124,13 @@ Airbo.Utils.StandardModal = (function(){
       modal = $(modalSel);
       modalContainerSel = modalSel + " .modal_container";
       modalContentSel = modalSel + " #modal_content";
-      // modalXSel = modalSel + ".close-reveal-modal";
+      modalXSel = modalSel + " .close-reveal-modal";
       closeSel = params.closeSel || "";
       onOpenedEvent = params.onOpenedEvent || Airbo.Utils.noop;
       onClosedEvent = params.onClosedEvent || Airbo.Utils.noop;
+      closeAlt = params.closeAlt || null;
       closeOnBgClick = params.closeOnBgClick || true;
+      confirmOnClose = params.confirmOnClose || false;
       if(params.smallModal) {
         modal.addClass("standard_small_modal")
       }
@@ -105,6 +145,7 @@ Airbo.Utils.StandardModal = (function(){
     return {
      init: init,
      open: open,
+     close: close,
      setContent: setContent
     }
   }

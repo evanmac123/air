@@ -13,12 +13,12 @@ body {
 }
 
 // only safari
-@supports (overflow:-webkit-marquee) and (justify-content:inherit)
-{
-  body {
-    font-family: 'avenir next' !important;
-  }
-}
+// @supports (overflow:-webkit-marquee) and (justify-content:inherit)
+// {
+//   body {
+//     font-family: 'avenir next' !important;
+//   }
+// }
 
 .background-white {
   background-color: $n-white;
