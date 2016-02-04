@@ -1,7 +1,6 @@
 class Demo < ActiveRecord::Base
   extend NormalizeBoardName
   include Assets::Normalizer # normalize filename of paperclip attachment
-  include ActiveModel::ForbiddenAttributesProtection
   extend ValidImageMimeTypes
 
   JOIN_TYPES = %w(pre-populated self-inviting public).freeze

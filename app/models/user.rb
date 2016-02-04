@@ -1,7 +1,6 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
-  include ActiveModel::ForbiddenAttributesProtection
 
   PRIVACY_LEVELS = %w(everybody connected nobody).freeze
 
