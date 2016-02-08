@@ -1,6 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.Explore = (function(){
+Airbo.ExploreIntro = (function(){
   var modalObj = Airbo.Utils.StandardModal();
   function initModalObj() {
     modalObj.init({
@@ -21,5 +21,7 @@ Airbo.Explore = (function(){
 }());
 
 $(document).ready(function(){
-  Airbo.Explore.init();
+  if( $("#explore_intro_modal").length > 0 ) {
+    Airbo.ExploreIntro.init();
+  }
 });

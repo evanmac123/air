@@ -16,6 +16,8 @@ class ExploresController < ClientAdminBaseController
 
     render_partial_if_requested(tag_click_source: 'Explore Main Page - Clicked Tag On Tile', thumb_click_source: 'Explore Main Page - Tile Thumbnail Clicked')
 
+    @show_explore_intro = true
+
     if params[:return_to_explore_source]
       ping_action_after_dash params[:return_to_explore_source], {}, current_user
     end

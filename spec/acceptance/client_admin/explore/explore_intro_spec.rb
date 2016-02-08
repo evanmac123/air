@@ -11,13 +11,13 @@ feature 'Explore Intro', js: true do#, driver: :selenium do
       should_be_on client_admin_explore_path
     end
 
-    it "souls show explore modal" do
+    it "should show explore modal" do
       within active_slide do
         expect_content "Next"
       end
     end
 
-    it "sould show right text" do
+    it "should show right text" do
       within active_slide do
         expect_content "Welcome to Airbo! Just a quick word about how this works..."
         click_link "Next"
@@ -32,6 +32,46 @@ feature 'Explore Intro', js: true do#, driver: :selenium do
     end
 
     it "should not show modal after refresh" do
+      find_active_slide.should be_present
+      visit current_path
+      find_active_slide.should_not be_present
+    end
+  end
+
+  context "by link from explore email" do
+    let(:admin)   { FactoryGirl.create :client_admin, name: 'Robbie Williams', email: 'robbie@williams.com' }
+    let(:tile) { FactoryGirl.create :multiple_choice_tile, :public, headline: 'Phil Kills Kittens', supporting_content: '6 kittens were killed' }
+
+    before do
+      visit explore_tile_preview_path(tile, explore_token: admin.explore_token)
+    end
+
+    it "sould show tile" do
+      expect_content 'Phil Kills Kittens'
+    end
+
+    it "should show explore modal" do
+      within active_slide do
+        expect_content "Next"
+      end
+    end
+
+    it "should show right text" do
+      within active_slide do
+        expect_content "Hello! Welcome back ti Airbo, where you can find engaging content like:"
+        click_link "Next"
+        expect_content "Tile Save time by finding beautiful, bite-sized content that your employees will see and love."
+        click_link "Next"
+        expect_content "Board Organize and share tiles as easily as sending an email."
+        click_link "Next"
+        expect_content "Explore Are you ready to find amazing content?!"
+        click_link "Close and Explore"
+      end
+      find_active_slide.should_not be_present
+    end
+
+    it "should not show modal after refresh" do
+      find_active_slide.should be_present
       visit current_path
       find_active_slide.should_not be_present
     end
