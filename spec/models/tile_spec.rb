@@ -11,6 +11,23 @@ describe Tile do
 
   pending { should_have_valid_mime_type(Tile, :image_content_type) }
 
+  context "status and activated_at" do
+    it "doesn't change activated_it if the current tile is already activated" do
+      tile  = FactoryGirl.create :tile
+      expect{tile.status=Tile::ACTIVE;tile.save}.to_not change{tile.activated_at}
+    end
+
+    it "changes activated_it if the current status is archive" do
+      tile  = FactoryGirl.create :tile, status: Tile::ARCHIVE
+      expect{tile.status=Tile::ACTIVE;tile.save}.to change{tile.activated_at}
+    end 
+
+    it "changes activated_it if the current status is DRAFT" do
+      tile  = FactoryGirl.create :tile, status: Tile::DRAFT
+      expect{tile.status=Tile::ACTIVE;tile.save}.to change{tile.activated_at}
+    end 
+  end
+
   describe 'finders based on status' do
     # The test below was written first and exercises all tile-status combinations pretty thoroughly.
     # We then decided to not initially set a demo's 'tile_digest_email_sent_at' => all 'active' tiles should

@@ -101,12 +101,15 @@ class Tile < ActiveRecord::Base
     end
   end
 
-  def status=(status)
-    case status
-    when ACTIVE  then self.activated_at = Time.now
+  def status=(new_status)
+    case new_status
+    when ACTIVE  then 
+      if !already_activated
+        self.activated_at = Time.now
+      end
     when ARCHIVE then self.archived_at  = Time.now
     end
-    write_attribute(:status, status)
+    write_attribute(:status, new_status)
   end
 
   def points= p
@@ -284,6 +287,10 @@ class Tile < ActiveRecord::Base
   end
 
   private
+
+  def already_activated
+    status == ACTIVE && activated_at.present?
+  end
 
   def sanitize_supporting_content
     self.supporting_content = Sanitize.fragment(
