@@ -5,6 +5,7 @@ Airbo.Explore = (function(){
   function initModalObj() {
     modalObj.init({
       modalId: "explore_intro_modal",
+      closeSel: ".close_explore_intro",
       onOpenedEvent: function() {
         $(document).foundation();
       }
