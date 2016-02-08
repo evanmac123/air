@@ -1,96 +1,99 @@
+.orbit-container {
+  .orbit-bullets {
+    margin: 0 auto;
+    text-align: center;
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+    right: 0;
+    top: inherit;
+    z-index: 22;
+    li {
+      border: 1px solid $white;
+      border-radius: 6px;
+      display: inline-block;
+      height: 12px;
+      margin: 0 5px;
+      width: 12px;
+      float: none;
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.5);
+        cursor: pointer;
+      }
+      &.active {
+        background-color: $white;
+      }
+    }
+  }
+}
 .intro-slide-container {
-  background-color: #48BFFF;
-  color: #FFF;
-  font-family: "Avenir Next", Avenir;
+  background-color: $n-blue;
+  color: $white;
+  // font-family: "Avenir Next", Avenir;
   padding: 50px 50px 100px;
   position: relative;
   max-width: 700px;
   min-height: 492px;
   width: 100%;
   margin: auto;
-}
-.intro-slide-container * {
-  -webkit-font-smoothing: antialiased;
-}
-.intro-slide-container img {
-  padding-right: 15px;
-}
-.intro-slide-container .content {
-  margin: 0 auto;
-  max-width: 500px;
-  width: 100%;
-}
-.intro-slide-container h1 {
-  color: #FFF;
-  font-family: "Avenir Next", Avenir;
-  font-size: 40px;
-  font-weight: 400;
-  line-height: 1em;
-  margin: 5px 0 15px;
-  text-transform: none;
-}
-.intro-slide-container p {
-  font-size: 18px;
-  line-height: 1.7em;
-  margin: 15px 0;
-  padding: 0;
-}
-.intro-slide-container a.skip {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  color: #FFF;
-  font-weight: 400;
-  font-size: 13px;
-  opacity: 0.75;
-}
-.intro-slide-container .intro-button {
-  border: 1px solid #FFF;
-  border-radius: 4px;
-  -webkit-border-radius: 4px;
-  color: #FFF;
-  display: inline-block;
-  font-family: "Avenir Next", Avenir;
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 30px;
-  margin-top: 5px;
-  text-align: center;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  white-space: nowrap;
-  overflow: hidden;
-  padding: 8px 20px;
-  cursor: pointer;
-  -webkit-transition: all 0.2s ease-in-out;
-  -moz-transition: all 0.2s ease-in-out;
-  -ms-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-}
-.intro-slide-container .intro-button i {
-  margin: 0 5px 0 -5px;
-}
-.intro-slide-container .dots {
-  margin: 0 auto;
-  text-align: center;
-  position: absolute;
-  bottom: 50px;
-  left: 0;
-  right: 0;
-}
-.intro-slide-container .dots .dot {
-  border: 1px solid #FFF;
-  border-radius: 6px;
-  display: inline-block;
-  height: 12px;
-  margin: 0 5px;
-  width: 12px;
-}
-.intro-slide-container .dots .dot:hover {
-  background-color: rgba(255, 255, 255, 0.5)
-}
-.intro-slide-container .dots .dot.active {
-  background-color: #FFF;
+  img {
+    padding-right: 15px;
+  }
+  .intro-content {
+    margin: 0 auto;
+    max-width: 500px;
+    width: 100%;
+  }
+  h1 {
+    color: $white;
+    // font-family: "Avenir Next", Avenir;
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 1em;
+    margin: 5px 0 15px;
+    text-transform: none;
+  }
+  p {
+    font-size: 18px;
+    line-height: 1.7em;
+    margin: 15px 0;
+    padding: 0;
+  }
+  a.skip {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: $white;
+    font-weight: 400;
+    font-size: 13px;
+    opacity: 0.75;
+  }
+  .intro-button {
+    border: 1px solid $white;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    color: $white;
+    display: inline-block;
+    // font-family: "Avenir Next", Avenir;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 30px;
+    margin-top: 5px;
+    text-align: center;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 8px 20px;
+    cursor: pointer;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+  }
+  .intro-button i {
+    margin: 0 5px 0 -5px;
+  }
 }
