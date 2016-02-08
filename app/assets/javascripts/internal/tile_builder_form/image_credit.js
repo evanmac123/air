@@ -92,11 +92,17 @@ Airbo.TileImageCredit = (function(){
     return imageCreditInput.text(text);
   };
 
+  function initImageCreditText() {
+    var initText = imageCreditInput.text();
+    imageCreditView.text(initText);
+  }
+
   function init(){
 
     if (Airbo.Utils.supportsFeatureByPresenceOfSelector(imageCreditViewSelector)) {
       imageCreditView = $(imageCreditViewSelector);
       imageCreditInput = $(imageCreditInputSelector);
+      initImageCreditText();
 
       initImageCreditHandlers();
       saveImageCreditChanges();
