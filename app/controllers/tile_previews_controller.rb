@@ -20,7 +20,7 @@ class TilePreviewsController < ApplicationController
       @tile = Tile.viewable_in_public.where(id: params[:id]).first
       @tag = TileTag.where(id: params[:tag]).first
 
-      @show_explore_intro = true
+      @show_explore_intro = current_user.intros.show_explore_intro!
       @intros = create_intros_presenter unless @show_explore_intro
       schedule_mixpanel_pings @tile
     end

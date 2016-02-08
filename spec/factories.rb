@@ -409,4 +409,9 @@ FactoryGirl.define do
     association :tile
     association :user
   end
+
+  factory :user_intro do
+    association :user
+    explore_intro_seen false
+  end
 end
