@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160105010722) do
+ActiveRecord::Schema.define(:version => 20160208230108) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -481,6 +481,16 @@ ActiveRecord::Schema.define(:version => 20160105010722) do
 
   add_index "more_info_requests", ["user_id"], :name => "index_more_info_requests_on_user_id"
 
+  create_table "organizations", :force => true do |t|
+    t.string   "name"
+    t.integer  "num_employees"
+    t.string   "sales_channel"
+    t.boolean  "churned"
+    t.text     "churn_reason"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
   create_table "outgoing_emails", :force => true do |t|
     t.string   "subject"
     t.string   "from"
@@ -819,6 +829,7 @@ ActiveRecord::Schema.define(:version => 20160105010722) do
     t.boolean  "is_sharable",             :default => false, :null => false
     t.integer  "tile_completions_count",  :default => 0
     t.integer  "explore_page_priority"
+    t.integer  "views",                   :default => 0
     t.integer  "unique_viewings_count",   :default => 0,     :null => false
     t.integer  "total_viewings_count",    :default => 0,     :null => false
     t.integer  "user_tile_copies_count",  :default => 0
@@ -1012,8 +1023,8 @@ ActiveRecord::Schema.define(:version => 20160105010722) do
     t.datetime "last_unmonitored_mailbox_response_at"
     t.boolean  "allowed_to_make_tile_suggestions",                    :default => false,       :null => false
     t.boolean  "submitted_tile_menu_intro_seen",                      :default => false,       :null => false
-    t.boolean  "send_weekly_activity_report",                         :default => true
     t.boolean  "suggestion_box_intro_seen",                           :default => false,       :null => false
+    t.boolean  "send_weekly_activity_report",                         :default => true
     t.boolean  "user_submitted_tile_intro_seen",                      :default => false,       :null => false
     t.boolean  "manage_access_prompt_seen",                           :default => false,       :null => false
   end

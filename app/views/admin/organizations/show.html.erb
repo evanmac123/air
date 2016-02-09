@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @organization.name %>
+</p>
+
+<p>
+  <b>Num employees:</b>
+  <%= @organization.num_employees %>
+</p>
+
+<p>
+  <b>Sales channel:</b>
+  <%= @organization.sales_channel %>
+</p>
+
+<p>
+  <b>Churned:</b>
+  <%= @organization.churned %>
+</p>
+
+<p>
+  <b>Churn reason:</b>
+  <%= @organization.churn_reason %>
+</p>
+
+
+<%= link_to 'Edit', edit_organization_path(@organization) %> |
+<%= link_to 'Back', organizations_path %>

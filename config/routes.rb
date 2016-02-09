@@ -1,4 +1,6 @@
 Health::Application.routes.draw do
+
+
   match "sms"           => "sms#create", :via => :post
   match "email"         => "email_command#create", :via => :post
   match "activity"      => "acts#index"
@@ -247,6 +249,9 @@ Health::Application.routes.draw do
   resources :cancel_account, :only => [:show, :destroy]
 
   namespace :admin do
+
+    resources :organizations
+
     resources :rule_values, :only => [:destroy]
 
     resources :tags

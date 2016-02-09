@@ -8,6 +8,21 @@ Health::Application.configure do
     keep :xhr  # Disables caching of ajax requests
   end
 
+  config.generators do |g|
+    g.template_engine :erb
+    g.stylesheets = false
+    g.javascripts = false
+    g.helper = false
+    g.assets = false
+    g.fixtures = false
+    g.view_specs false
+    g.routing_specs false
+    g.controller_specs false
+    g.helper_specs false
+    g.decorator false
+    g.factories false
+  end
+
   # In the development environment your application's code is reloaded on
   # every request.  This slows down response time but is perfect for development
   # since you don't have to restart the webserver when you make code changes.
