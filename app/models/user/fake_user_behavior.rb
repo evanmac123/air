@@ -137,4 +137,8 @@ module User::FakeUserBehavior
   def show_submit_tile_intro!
     false
   end
+
+  def intros
+    UserIntro.new(explore_intro_seen: true)
+  end
 end

@@ -25,7 +25,7 @@ Airbo.Utils.StandardModal = (function(){
     ;
     function scrollModalToTop() {
       if(params.scrollOnOpen) {
-        modal.scrollTo(0);
+        modal.scrollTop(0);
       }
     }
     function open() {
