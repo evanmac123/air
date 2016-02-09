@@ -1,0 +1,22 @@
+{
+  "name": "hengage",
+  "homepage": "https://github.com/theairbo/hengage",
+  "authors": [
+    "avbrychak <a.v.brychak@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor/assets/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "slick-carousel": "^1.5.9"
+  }
+}
