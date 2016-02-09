@@ -12,13 +12,13 @@ feature 'Explore Intro', js: true do#, driver: :selenium do
     end
 
     it "should show explore modal" do
-      within active_slide do
+      within active_slide_sel do
         expect_content "Next"
       end
     end
 
     it "should show right text" do
-      within active_slide do
+      within active_slide_sel do
         expect_content "Welcome to Airbo! Just a quick word about how this works..."
         click_link "Next"
         expect_content "Tile Save time by finding beautiful, bite-sized content that your employees will see and love."
@@ -28,13 +28,13 @@ feature 'Explore Intro', js: true do#, driver: :selenium do
         expect_content "Explore Are you ready to find amazing content?!"
         click_link "Close and Explore"
       end
-      find_active_slide.should_not be_present
+      expect(page).to have_selector(active_slide_sel, visible: false)
     end
 
     it "should not show modal after refresh" do
-      find_active_slide.should be_present
+      expect(page).to have_selector(active_slide_sel, visible: true)
       visit current_path
-      find_active_slide.should_not be_present
+      expect(page).to_not have_selector(active_slide_sel)
     end
   end
 
@@ -51,13 +51,13 @@ feature 'Explore Intro', js: true do#, driver: :selenium do
     end
 
     it "should show explore modal" do
-      within active_slide do
+      within active_slide_sel do
         expect_content "Next"
       end
     end
 
     it "should show right text" do
-      within active_slide do
+      within active_slide_sel do
         expect_content "Hello! Welcome back ti Airbo, where you can find engaging content like:"
         click_link "Next"
         expect_content "Tile Save time by finding beautiful, bite-sized content that your employees will see and love."
@@ -67,13 +67,13 @@ feature 'Explore Intro', js: true do#, driver: :selenium do
         expect_content "Explore Are you ready to find amazing content?!"
         click_link "Close and Explore"
       end
-      find_active_slide.should_not be_present
+      expect(page).to have_selector(active_slide_sel, visible: false)
     end
 
     it "should not show modal after refresh" do
-      find_active_slide.should be_present
+      expect(page).to have_selector(active_slide_sel, visible: true)
       visit current_path
-      find_active_slide.should_not be_present
+      expect(page).to_not have_selector(active_slide_sel)
     end
   end
 
@@ -86,11 +86,7 @@ feature 'Explore Intro', js: true do#, driver: :selenium do
     click_button "Sign Up"
   end
 
-  def active_slide
-    page.find(".orbit-slides-container>li.active")
-  end
-
-  def find_active_slide
-    page.all(".orbit-slides-container>li.active").first
+  def active_slide_sel
+    ".explore_intro .slick-current"
   end
 end
