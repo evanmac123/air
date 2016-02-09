@@ -7,7 +7,12 @@ Airbo.ExploreIntro = (function(){
       modalId: "explore_intro_modal",
       closeSel: ".close_explore_intro",
       onOpenedEvent: function() {
-        $(document).foundation();
+        // $(document).foundation();
+        $(".explore_intro").slick({
+          autoplay: false,
+          dots: true,
+          arrows: false
+        });
       }
     });
   }

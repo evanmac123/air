@@ -3,48 +3,54 @@
     max-width: 700px;
   }
 }
-.orbit-container {
-  .orbit-bullets {
-    margin: 0 auto;
-    text-align: center;
-    position: absolute;
-    bottom: 50px;
-    left: 0;
-    right: 0;
-    top: inherit;
-    z-index: 22;
-    li {
-      border: 1px solid $white;
-      border-radius: 6px;
+//
+// => Slick rerstyling
+//
+.slick-dots {
+  margin: 0;
+  bottom: 50px;
+  left: 0;
+  right: 0;
+  top: inherit;
+  li {
+    margin: 0;
+    button {
+      box-shadow: none;
       display: inline-block;
       height: 12px;
       margin: 0 5px;
       width: 12px;
       float: none;
       background-color: transparent;
+      border: 1px solid $white;
+      border-radius: 6px;
+      &:before {
+        content: none;
+      }
       &:hover {
         background-color: rgba(255, 255, 255, 0.5);
         cursor: pointer;
       }
-      &.active {
+    }
+    &.slick-active {
+      button {
         background-color: $white;
       }
     }
   }
 }
+
 .explore_intro {
-  min-height: 527px;
+  max-height: 527px;
+  overflow: hidden;
 }
 .intro-slide-container {
   background-color: $n-blue;
   color: $white;
-  // font-family: "Avenir Next", Avenir;
   padding: 50px 50px 100px;
   position: relative;
-  // max-width: 700px;
-  min-height: 527px;
+  height: 527px;
   width: 100%;
-  // margin: auto;
   img {
     padding-right: 15px;
   }
