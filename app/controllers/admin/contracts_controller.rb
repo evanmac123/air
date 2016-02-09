@@ -1,4 +1,4 @@
-class ContractsController < ApplicationController
+class ContractsController < AdminBaseController
   # GET /contracts
   # GET /contracts.json
   def index
