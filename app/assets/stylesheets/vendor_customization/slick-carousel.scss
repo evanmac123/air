@@ -1,0 +1,36 @@
+//
+// => Slick rerstyling
+//
+.slick-dots {
+  margin: 0;
+  bottom: 50px;
+  left: 0;
+  right: 0;
+  top: inherit;
+  li {
+    margin: 0;
+    button {
+      box-shadow: none;
+      display: inline-block;
+      height: 12px;
+      margin: 0 5px;
+      width: 12px;
+      float: none;
+      background-color: transparent;
+      border: 1px solid $white;
+      border-radius: 6px;
+      &:before {
+        content: none;
+      }
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.5);
+        cursor: pointer;
+      }
+    }
+    &.slick-active {
+      button {
+        background-color: $white;
+      }
+    }
+  }
+}

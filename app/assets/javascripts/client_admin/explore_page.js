@@ -2,6 +2,12 @@ var Airbo = window.Airbo || {};
 
 Airbo.ExploreIntro = (function(){
   var modalObj = Airbo.Utils.StandardModal();
+  function initEvents() {
+    $(".slick_next").click(function(e) {
+      e.preventDefault();
+      $(".explore_intro").slick('slickNext');
+    })
+  }
   function initModalObj() {
     modalObj.init({
       modalId: "explore_intro_modal",
@@ -19,6 +25,7 @@ Airbo.ExploreIntro = (function(){
   function init() {
     initModalObj();
     modalObj.open();
+    initEvents();
   }
   return {
     init: init
