@@ -1,3 +1,8 @@
+#explore_intro_modal {
+  .modal_container {
+    max-width: 700px;
+  }
+}
 .orbit-container {
   .orbit-bullets {
     margin: 0 auto;
@@ -28,7 +33,7 @@
   }
 }
 .explore_intro {
-  height: 492px;
+  min-height: 527px;
 }
 .intro-slide-container {
   background-color: $n-blue;
@@ -36,10 +41,10 @@
   // font-family: "Avenir Next", Avenir;
   padding: 50px 50px 100px;
   position: relative;
-  max-width: 700px;
-  min-height: 492px;
+  // max-width: 700px;
+  min-height: 527px;
   width: 100%;
-  margin: auto;
+  // margin: auto;
   img {
     padding-right: 15px;
   }
