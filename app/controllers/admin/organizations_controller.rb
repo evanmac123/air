@@ -10,11 +10,11 @@ class Admin::OrganizationsController < AdminBaseController
 
   def new
     @organization = Organization.new
-   new_or_edit @organization 
+    new_or_edit @organization 
   end
 
   def edit
-     new_or_edit @organization 
+    new_or_edit @organization
   end
 
   def update
@@ -26,7 +26,8 @@ class Admin::OrganizationsController < AdminBaseController
   def find_organization
     @Organization = Organization.find(id)
   end
-    def organization_params
-      params.require(:organization).permit(:churn_reason, :churned, :name, :num_employees, :sales_channel)
-    end
+
+  def organization_params
+    params.require(:organization).permit(:churn_reason, :churned, :name, :num_employees, :sales_channel)
+  end
 end

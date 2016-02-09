@@ -1,49 +1,56 @@
-<h1>Listing contracts</h1>
+<div class="row">
+  <div class="columns small-12">
+    <h1>Contracts</h1>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Organization</th>
-    <th>Start date</th>
-    <th>End date</th>
-    <th>Mrr</th>
-    <th>Arr</th>
-    <th>Amt booked</th>
-    <th>Date booked</th>
-    <th>Estimate type</th>
-    <th>Rank</th>
-    <th>Term</th>
-    <th>Plan</th>
-    <th>Max users</th>
-    <th>Notes</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @contracts.each do |contract| %>
-  <tr>
-    <td><%= contract.name %></td>
-    <td><%= contract.organization %></td>
-    <td><%= contract.start_date %></td>
-    <td><%= contract.end_date %></td>
-    <td><%= contract.mrr %></td>
-    <td><%= contract.arr %></td>
-    <td><%= contract.amt_booked %></td>
-    <td><%= contract.date_booked %></td>
-    <td><%= contract.estimate_type %></td>
-    <td><%= contract.rank %></td>
-    <td><%= contract.term %></td>
-    <td><%= contract.plan %></td>
-    <td><%= contract.max_users %></td>
-    <td><%= contract.notes %></td>
-    <td><%= link_to 'Show', contract %></td>
-    <td><%= link_to 'Edit', edit_contract_path(contract) %></td>
-    <td><%= link_to 'Destroy', contract, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Organization</th>
+          <th>Start date</th>
+          <th>End date</th>
+          <th>Mrr</th>
+          <th>Arr</th>
+          <th>Amt booked</th>
+          <th>Date booked</th>
+          <th>Estimate type</th>
+          <th>Rank</th>
+          <th>Term</th>
+          <th>Plan</th>
+          <th>Max users</th>
+          <th>Notes</th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <% @contracts.each do |contract| %>
+        <tbody>
+          <tr>
+            <td><%= contract.name %></td>
+            <td><%= contract.organization %></td>
+            <td><%= contract.start_date %></td>
+            <td><%= contract.end_date %></td>
+            <td><%= contract.mrr %></td>
+            <td><%= contract.arr %></td>
+            <td><%= contract.amt_booked %></td>
+            <td><%= contract.date_booked %></td>
+            <td><%= contract.estimate_type %></td>
+            <td><%= contract.rank %></td>
+            <td><%= contract.term %></td>
+            <td><%= contract.plan %></td>
+            <td><%= contract.max_users %></td>
+            <td><%= contract.notes %></td>
+            <td><%= link_to 'Show', contract %></td>
+            <td><%= link_to 'Edit', edit_admin_contract_path(contract) %></td>
+            <td><%= link_to 'Destroy', contract, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+        </tbody>
+    </table>
 
 <br />
 
-<%= link_to 'New Contract', new_contract_path %>
+<%= link_to 'New Contract', new_admin_contract_path, class:"button" %>
+  </div>
+</div>

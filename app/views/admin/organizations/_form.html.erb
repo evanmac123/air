@@ -1,37 +1,44 @@
+<div class="row">
+<div class="columns small-6 small-centered">
 <%= form_for([:admin, @organization]) do |f| %>
   <% if @organization.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@organization.errors.count, "error") %> prohibited this organization from being saved:</h2>
-
       <ul>
-      <% @organization.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
+        <% @organization.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
+  <div class="row">
+    <%= f.label :name %>
     <%= f.text_field :name %>
   </div>
-  <div class="field">
-    <%= f.label :num_employees %><br />
+  <div class="row">
+    <%= f.label :num_employees %>
     <%= f.number_field :num_employees %>
   </div>
-  <div class="field">
-    <%= f.label :sales_channel %><br />
+  <div class="row">
+    <%= f.label :sales_channel %>
     <%= f.text_field :sales_channel %>
   </div>
-  <div class="field">
-    <%= f.label :churned %><br />
-    <%= f.check_box :churned %>
-  </div>
-  <div class="field">
-    <%= f.label :churn_reason %><br />
+  
+  <div class="row" >
+    <%= f.label :churn_reason %>
     <%= f.text_area :churn_reason %>
   </div>
+
+  <div class="row">
+    <%= label_tag :churned, class:"checkbox" do %>
+      <%= f.check_box :churned %>
+      Churned
+    <%end%>
+  </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Submit",  class: "button"%>
   </div>
 <% end %>
+  </div>
+</div>

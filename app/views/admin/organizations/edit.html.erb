@@ -1,6 +1,10 @@
-<h1>Editing organization</h1>
+<div class="row">
+  <div class="columns small-12">
+    <h1>Edit <%=@organization.name%></h1>
 
 <%= render 'form' %>
 
 <%= link_to 'Show', @organization %> |
 <%= link_to 'Back', admin_organizations_path %>
+  </div>
+</div>
