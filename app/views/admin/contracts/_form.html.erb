@@ -1,0 +1,73 @@
+<%= form_for(@contract) do |f| %>
+  <% if @contract.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@contract.errors.count, "error") %> prohibited this contract from being saved:</h2>
+
+      <ul>
+      <% @contract.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :organization %><br />
+    <%= f.text_field :organization %>
+  </div>
+  <div class="field">
+    <%= f.label :start_date %><br />
+    <%= f.date_select :start_date %>
+  </div>
+  <div class="field">
+    <%= f.label :end_date %><br />
+    <%= f.date_select :end_date %>
+  </div>
+  <div class="field">
+    <%= f.label :mrr %><br />
+    <%= f.text_field :mrr %>
+  </div>
+  <div class="field">
+    <%= f.label :arr %><br />
+    <%= f.text_field :arr %>
+  </div>
+  <div class="field">
+    <%= f.label :amt_booked %><br />
+    <%= f.text_field :amt_booked %>
+  </div>
+  <div class="field">
+    <%= f.label :date_booked %><br />
+    <%= f.date_select :date_booked %>
+  </div>
+  <div class="field">
+    <%= f.label :estimate_type %><br />
+    <%= f.text_field :estimate_type %>
+  </div>
+  <div class="field">
+    <%= f.label :rank %><br />
+    <%= f.text_field :rank %>
+  </div>
+  <div class="field">
+    <%= f.label :term %><br />
+    <%= f.number_field :term %>
+  </div>
+  <div class="field">
+    <%= f.label :plan %><br />
+    <%= f.text_field :plan %>
+  </div>
+  <div class="field">
+    <%= f.label :max_users %><br />
+    <%= f.number_field :max_users %>
+  </div>
+  <div class="field">
+    <%= f.label :notes %><br />
+    <%= f.text_area :notes %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

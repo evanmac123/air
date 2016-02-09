@@ -1,6 +1,5 @@
 Health::Application.routes.draw do
 
-
   match "sms"           => "sms#create", :via => :post
   match "email"         => "email_command#create", :via => :post
   match "activity"      => "acts#index"
@@ -251,6 +250,8 @@ Health::Application.routes.draw do
   namespace :admin do
 
     resources :organizations
+
+    resources :contracts
 
     resources :rule_values, :only => [:destroy]
 

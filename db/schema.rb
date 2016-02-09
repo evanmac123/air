@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160208230108) do
+ActiveRecord::Schema.define(:version => 20160209032659) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -174,6 +174,27 @@ ActiveRecord::Schema.define(:version => 20160208230108) do
   end
 
   add_index "claim_state_machines", ["demo_id"], :name => "index_claim_state_machines_on_demo_id"
+
+  create_table "contracts", :force => true do |t|
+    t.string   "name"
+    t.integer  "organization_id"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.decimal  "mrr"
+    t.decimal  "arr"
+    t.decimal  "amt_booked"
+    t.date     "date_booked"
+    t.string   "estimate_type"
+    t.string   "rank"
+    t.integer  "term"
+    t.string   "plan"
+    t.integer  "max_users"
+    t.text     "notes"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "contracts", ["organization_id"], :name => "index_contracts_on_organization_id"
 
   create_table "custom_color_palettes", :force => true do |t|
     t.integer  "demo_id"
