@@ -39,7 +39,7 @@ feature 'Explore Intro', js: true do#, driver: :selenium do
   end
 
   context "by link from explore email" do
-    let(:admin)   { FactoryGirl.create :client_admin, name: 'Robbie Williams', email: 'robbie@williams.com' }
+    let(:admin)   { FactoryGirl.create :client_admin, :with_explore_intro, name: 'Robbie Williams', email: 'robbie@williams.com' }
     let(:tile) { FactoryGirl.create :multiple_choice_tile, :public, headline: 'Phil Kills Kittens', supporting_content: '6 kittens were killed' }
 
     before do
