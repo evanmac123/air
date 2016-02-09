@@ -23,4 +23,10 @@
 //= require internal_and_external/intercom_setup
 //= require internal/tile_manager/tile_polling
 //= require ./internal/byte_counter
+//= require  ../../../vendor/assets/javascripts/pickadate/picker
+//= require  ../../../vendor/assets/javascripts/pickadate/picker.date
+//= require  ../../../vendor/assets/javascripts/pickadate/picker.time
 
+$(function(){
+$(".datepicker").pickadate();
+})

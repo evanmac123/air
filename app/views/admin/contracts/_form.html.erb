@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="columns small-6 small-centered">
+  <div class="columns small-8 small-centered">
     <%= form_for([:admin,  @contract]) do |f| %>
       <% if @contract.errors.any? %>
         <div id="error_explanation">
@@ -12,58 +12,62 @@
           </ul>
         </div>
       <% end %>
+      <div class="row">
+        <div class="columns small-5">
+          <div class="row">
+            <%= f.label :name %>
+            <%= f.text_field :name %>
+          </div>
 
-      <div class="row">
-        <%= f.label :name %>
-        <%= f.text_field :name %>
-      </div>
-      <div class="row">
-        <%= f.label :organization %>
-        <%= f.text_field :organization %>
-      </div>
-      <div class="row">
-        <%= f.label :start_date %>
-        <%= f.date_select :start_date %>
-      </div>
-      <div class="row">
-        <%= f.label :end_date %>
-        <%= f.date_select :end_date %>
-      </div>
-      <div class="row">
-        <%= f.label :mrr %>
-        <%= f.text_field :mrr %>
-      </div>
-      <div class="row">
-        <%= f.label :arr %>
-        <%= f.text_field :arr %>
-      </div>
-      <div class="row">
-        <%= f.label :amt_booked %>
-        <%= f.text_field :amt_booked %>
-      </div>
-      <div class="row">
-        <%= f.label :date_booked %>
-        <%= f.date_select :date_booked %>
-      </div>
-      <div class="row">
-        <%= f.label :estimate_type %>
-        <%= f.text_field :estimate_type %>
-      </div>
-      <div class="row">
-        <%= f.label :rank %>
-        <%= f.text_field :rank %>
-      </div>
-      <div class="row">
-        <%= f.label :term %>
-        <%= f.number_field :term %>
-      </div>
-      <div class="row">
-        <%= f.label :plan %>
-        <%= f.text_field :plan %>
-      </div>
-      <div class="row">
-        <%= f.label :max_users %>
-        <%= f.number_field :max_users %>
+          <div class="row">
+            <%= f.label :start_date %>
+            <%= f.text_field :start_date, class: "datepicker"%>
+          </div>
+
+          <div class="row end_date">
+            <%= f.label :end_date %>
+            <%= f.text_field :end_date, class: "datepicker"%>
+          </div>
+            <div class="row">
+            <%= f.label :mrr, "MRR" %>
+            <%= f.text_field :mrr %>
+            </div>
+            <div class="row">
+            <%= f.label :arr, "ARR" %>
+            <%= f.text_field :arr %>
+            </div>
+            <div class="row">
+            <%= f.label :amt_booked %>
+            <%= f.text_field :amt_booked %>
+            </div>
+        </div>
+        <div class="columns small-5">
+            <div class="row">
+            <%= f.label :estimate_type, "Projection/Actual" %>
+            <%= f.select :estimate_type, ["Projected", "Annual"], include_blank: true %>
+            </div>
+            <div class="row">
+            <%= f.label :rank %>
+            <%= f.text_field :rank %>
+            </div>
+            <div class="row">
+            <%= f.label :term %>
+            <%= f.number_field :term %>
+            </div>
+            <div class="row">
+            <%= f.label :plan %>
+            <%= f.text_field :plan %>
+            </div>
+            <div class="row">
+            <%= f.label :max_users %>
+            <%= f.number_field :max_users %>
+            </div>
+
+            <div class="row">
+            <%= f.label :date_booked %>
+            <%= f.text_field :date_booked, class: "datepicker" %>
+            </div>
+        </div>
       </div>
       <div class="row">
         <%= f.label :notes %>
