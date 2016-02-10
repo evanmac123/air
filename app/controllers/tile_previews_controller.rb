@@ -12,6 +12,7 @@ class TilePreviewsController < ApplicationController
   layout "client_admin_layout"
 
   include LoginByExploreToken
+  include ExploreHelper
 
   def show
     if params[:partial_only]
@@ -23,6 +24,7 @@ class TilePreviewsController < ApplicationController
       @show_explore_intro = current_user.intros.show_explore_intro!
       @intros = create_intros_presenter unless @show_explore_intro
       schedule_mixpanel_pings @tile
+      explore_intro_ping @show_explore_intro, params
     end
   end
 

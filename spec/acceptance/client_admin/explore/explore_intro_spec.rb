@@ -17,6 +17,10 @@ feature 'Explore Intro', js: true do#, driver: :selenium do
       end
     end
 
+    it "should ping about new user" do
+      expect_ping("Explore Onboarding", {"Source" => "New User"})
+    end
+
     it "should show right text" do
       within active_slide_sel do
         expect_content "Welcome to Airbo! Just a quick word about how this works..."
@@ -61,6 +65,10 @@ feature 'Explore Intro', js: true do#, driver: :selenium do
       within active_slide_sel do
         expect_content "Next"
       end
+    end
+
+    it "should ping about email" do
+      expect_ping("Explore Onboarding", {"Source" => "Tiles Email"})
     end
 
     it "should show right text" do
