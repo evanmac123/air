@@ -25,9 +25,9 @@
           <td><%= organization.sales_channel %></td>
           <td><%= organization.churned %></td>
           <td><%= organization.churn_reason %></td>
-          <td><%= link_to 'Show', organization %></td>
+          <td><%= link_to 'Show', [:admin, organization] %></td>
           <td><%= link_to 'Edit', edit_admin_organization_path(organization) %></td>
-          <td><%= link_to 'Destroy', organization, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Destroy', [:admin, organization], method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
       <% end %>
     </tbody>

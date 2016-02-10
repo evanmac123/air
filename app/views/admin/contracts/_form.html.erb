@@ -12,6 +12,13 @@
           </ul>
         </div>
       <% end %>
+
+      <div class="row">
+        <%= f.label :organization %>
+        <%= f.select :organization, options_from_collection_for_select(@organizations, :id, :name) %>
+      </div>
+
+
       <div class="row">
         <div class="columns small-5">
           <div class="row">

@@ -1,30 +1,86 @@
 <p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="columns small-12 small-centered">
+    <table class="left-header">
+      <tbody>
+        <tr>
+          <th>Name:</th>
+          <td><%= @organization.name %></td>
+        </tr>
 
-<p>
-  <b>Name:</b>
-  <%= @organization.name %>
-</p>
+        <tr>
+          <th>Num employees:</th>
+          <td><%= @organization.num_employees %></td>
+        </tr>
 
-<p>
-  <b>Num employees:</b>
-  <%= @organization.num_employees %>
-</p>
+        <tr>
+          <th>Sales channel:</th>
+          <td><%= @organization.sales_channel %></td>
+        </tr>
 
-<p>
-  <b>Sales channel:</b>
-  <%= @organization.sales_channel %>
-</p>
+        <tr>
+          <th>Churned:</th>
+          <td><%= @organization.churned %></td>
+        </tr>
 
-<p>
-  <b>Churned:</b>
-  <%= @organization.churned %>
-</p>
+        <tr>
+          <th>Churn reason:</th>
+          <td><%= @organization.churn_reason %></td>
+        </tr>
+      </tbody>
+    </table>
+    <%= link_to 'Edit', edit_admin_organization_path(@organization) %> |
+    <%= link_to 'Back', admin_organizations_path %>
+  </div>
+</div>
 
-<p>
-  <b>Churn reason:</b>
-  <%= @organization.churn_reason %>
-</p>
+<div class="row">
+  <div class="columns small-12 small-centered">
+    <h3> Contracts </h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Start date</th>
+          <th>End date</th>
+          <th>Mrr</th>
+          <th>Arr</th>
+          <th>Amt booked</th>
+          <th>Date booked</th>
+          <th>Estimate type</th>
+          <th>Is Upgrade</th>
+          <th>Term</th>
+          <th>Plan</th>
+          <th>Max users</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @organization.contracts.each do |contract| %>
+          <tr> 
+            <td><%= contract.name %></td>
+            <td><%= contract.start_date %></td>
+            <td><%= contract.end_date %></td>
+            <td><%= contract.mrr %></td>
+            <td><%= contract.arr %></td>
+            <td><%= contract.amt_booked %></td>
+            <td><%= contract.date_booked %></td>
+            <td><%= contract.estimate_type %></td>
+            <td><%= contract.is_upgrade %></td>
+            <td><%= contract.term %></td>
+            <td><%= contract.plan %></td>
+            <td><%= contract.max_users %></td>
+            <td><%= contract.notes %></td>
+            <td><%= link_to 'Show', contract %></td>
+            <td><%= link_to 'Edit', edit_admin_contract_path(contract) %></td>
+            <td><%= link_to 'Destroy', contract, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
 
+        <%end%>
+      </tbody>
+    </table>
 
-<%= link_to 'Edit', edit_admin_organization_path(@organization) %> |
-<%= link_to 'Back', admin_organizations_path %>
+    <div>
+      <%= link_to 'Add New Contract', new_admin_organization_contract_path(@organization), class: "button" %>
+    </div>
+  </div>
+</div>

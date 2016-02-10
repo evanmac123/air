@@ -1,75 +1,80 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="columns small-8 small-centered">
+    <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Name:</b>
-  <%= @contract.name %>
-</p>
+    <p>
+    <b>Name:</b>
+    <%= @contract.name %>
+    </p>
 
-<p>
-  <b>Organization:</b>
-  <%= @contract.organization %>
-</p>
+    <p>
+    <b>Organization:</b>
+    <%= @contract.organization %>
+    </p>
 
-<p>
-  <b>Start date:</b>
-  <%= @contract.start_date %>
-</p>
+    <p>
+    <b>Start date:</b>
+    <%= @contract.start_date %>
+    </p>
 
-<p>
-  <b>End date:</b>
-  <%= @contract.end_date %>
-</p>
+    <p>
+    <b>End date:</b>
+    <%= @contract.end_date %>
+    </p>
 
-<p>
-  <b>Mrr:</b>
-  <%= @contract.mrr %>
-</p>
+    <p>
+    <b>Mrr:</b>
+    <%= @contract.mrr %>
+    </p>
 
-<p>
-  <b>Arr:</b>
-  <%= @contract.arr %>
-</p>
+    <p>
+    <b>Arr:</b>
+    <%= @contract.arr %>
+    </p>
 
-<p>
-  <b>Amt booked:</b>
-  <%= @contract.amt_booked %>
-</p>
+    <p>
+    <b>Amt booked:</b>
+    <%= @contract.amt_booked %>
+    </p>
 
-<p>
-  <b>Date booked:</b>
-  <%= @contract.date_booked %>
-</p>
+    <p>
+    <b>Date booked:</b>
+    <%= @contract.date_booked %>
+    </p>
 
-<p>
-  <b>Estimate type:</b>
-  <%= @contract.estimate_type %>
-</p>
+    <p>
+    <b>Estimate type:</b>
+    <%= @contract.estimate_type %>
+    </p>
 
-<p>
-  <b>Is Upgrade?</b>
-  <%= @contract.is_upgrade ? "Yes", "No" %>
-</p>
+    <p>
+    <b>Is Upgrade?</b>
+    <%= @contract.is_upgrade ? "Yes", "No" %>
+    </p>
 
-<p>
-  <b>Term:</b>
-  <%= @contract.term %>
-</p>
+    <p>
+    <b>Term:</b>
+    <%= @contract.term %>
+    </p>
 
-<p>
-  <b>Plan:</b>
-  <%= @contract.plan %>
-</p>
+    <p>
+    <b>Plan:</b>
+    <%= @contract.plan %>
+    </p>
 
-<p>
-  <b>Max users:</b>
-  <%= @contract.max_users %>
-</p>
+    <p>
+    <b>Max users:</b>
+    <%= @contract.max_users %>
+    </p>
 
-<p>
-  <b>Notes:</b>
-  <%= @contract.notes %>
-</p>
+    <p>
+    <b>Notes:</b>
+    <%= @contract.notes %>
+    </p>
 
 
-<%= link_to 'Edit', edit_admin_contract_path(@contract) %> |
-<%= link_to 'Back', admin_contracts_path %>
+
+    <%= link_to 'Edit', edit_admin_contract_path(@contract) %> |
+    <%= link_to 'Back', admin_contracts_path %>
+  </div>
+</div>
