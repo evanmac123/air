@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160210060204) do
+ActiveRecord::Schema.define(:version => 20160210141302) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -191,14 +191,14 @@ ActiveRecord::Schema.define(:version => 20160210060204) do
     t.decimal  "amt_booked"
     t.date     "date_booked"
     t.string   "estimate_type"
-    t.string   "rank"
     t.integer  "term"
     t.string   "plan"
     t.integer  "max_users"
     t.text     "notes"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.integer  "parent_contract_id"
+    t.boolean  "is_upgrade",         :default => false
   end
 
   add_index "contracts", ["organization_id"], :name => "index_contracts_on_organization_id"

@@ -431,13 +431,13 @@ FactoryGirl.define do
 
       term  12
       estimate_type  "actual"
-      rank  "primary"
       plan  "engage"
       max_users 100
     end
 
     factory :upgrade , class: Contract do
       complete
+      is_upgrade true
       trait :valid do
         association :parent_contract, factory: [:contract, :complete]
       end

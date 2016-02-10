@@ -50,9 +50,8 @@
         <div class="columns small-5">
           <div class="row">
             <div class="inline-input-group">
-              <label>Contract Sequence</label>
-              <label class="radio inline"><%=f.radio_button :rank, "primary" %>Primary</label>
-              <label class="radio inline"><%=f.radio_button :rank, "upgrade" %>Upgrade</label>
+              <label>Upgrade?</label>
+              <label class="checkbox inline"><%=f.check_box :is_upgrade %>Yes</label>
             </div>
           </div>
           <div class="row">
