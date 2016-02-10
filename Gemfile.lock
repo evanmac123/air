@@ -486,6 +486,8 @@ GEM
       rack (~> 1.0)
     thor (0.19.1)
     tilt (1.4.1)
+    time_difference (0.4.2)
+      activesupport
     timecop (0.5.3)
     treetop (1.4.15)
       polyglot
@@ -611,6 +613,7 @@ DEPENDENCIES
   strong_parameters
   test_after_commit
   thin
+  time_difference
   timecop
   twilio-rb
   uglifier

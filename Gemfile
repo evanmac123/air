@@ -23,6 +23,7 @@ gem "mixpanel_client"
 gem "mongoid"
 gem "bson_ext"
 gem "pundit"
+gem "time_difference"
 
 gem 'jquery-rails'
 gem 'jquery-validation-rails'
