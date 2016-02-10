@@ -2,10 +2,16 @@ var Airbo = window.Airbo || {};
 
 Airbo.ExploreIntro = (function(){
   var modalObj = Airbo.Utils.StandardModal();
+  function ping(property, option) {
+    var properties = {};
+    properties[property] = option;
+    Airbo.Utils.ping("Explore Onboarding", properties);
+  }
   function initEvents() {
     $(".slick_next").click(function(e) {
       e.preventDefault();
       $(".explore_intro").slick('slickNext');
+      ping("Clicked Buttons", "Next");
     })
   }
   function initModalObj() {
@@ -13,7 +19,6 @@ Airbo.ExploreIntro = (function(){
       modalId: "explore_intro_modal",
       closeSel: ".close_explore_intro",
       onOpenedEvent: function() {
-        // $(document).foundation();
         $(".explore_intro").slick({
           autoplay: false,
           dots: true,
