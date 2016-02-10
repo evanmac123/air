@@ -22,7 +22,7 @@
       </thead>
       <% @contracts.each do |contract| %>
         <tbody>
-          <tr data-url>
+          <tr class="resource-row" data-url='<%=admin_contract_path(contract)%>'>
             <td><%= contract.organization.name %></td>
             <td><%= contract.name %></td>
             <td><%= contract.plan %></td>
@@ -36,9 +36,6 @@
             <td><%= contract.projection_type %></td>
             <td><%= contract.role_type %></td>
             <td><%= simple_number_format contract.max_users %></td>
-            <!--td><%= link_to 'Show', [:admin, contract] %></td>
-            <td><%= link_to 'Edit', edit_admin_contract_path(contract) %></td>
-            <td><%= link_to 'Destroy', [:admin, contract], method: :delete, data: { confirm: 'Are you sure?' } %></td-->
           </tr>
         <% end %>
         </tbody>

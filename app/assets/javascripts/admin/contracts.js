@@ -8,6 +8,7 @@ Airbo.ContractManager= (function(){
     , optMrrSelector = "#opt_mrr"
     , termSelector = "#contract_term"
     , revenueSelector= ".revenue"
+    , resourceSelector= ".resource-row"
     , optMrr
     , optcArr
     , mrr
@@ -47,10 +48,23 @@ Airbo.ContractManager= (function(){
   }
 
 
+  function initResourceRowClick(){
+    $("body").on("click", resourceSelector, function(event){
+      var resource = $(this);
+      url = resource.data("url");
+      if(url !== undefined){
+       window.location.href = url
+      }
+    })
+
+  }
+
+
   function init(){
    initDatePickers();
    initJQueryObjects();
    initArrMrrCalc();
+   initResourceRowClick();
   }
 
  return {
