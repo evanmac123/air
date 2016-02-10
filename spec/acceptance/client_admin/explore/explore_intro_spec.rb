@@ -63,13 +63,22 @@ feature 'Explore Intro', js: true do#, driver: :selenium do
         expect_content "Hello! Welcome back ti Airbo, where you can find engaging content like:"
         click_link "Next"
         expect_ping("Explore Onboarding", {"Clicked Buttons" => "Next"})
-        
+
         expect_content "Tile Save time by finding beautiful, bite-sized content that your employees will see and love."
         click_link "Next"
         expect_content "Board Organize and share tiles as easily as sending an email."
         click_link "Next"
         expect_content "Explore Ready to find some amazing content?"
         click_link "Close and Explore"
+      end
+      expect(page).to have_selector(active_slide_sel, visible: false)
+    end
+
+    it "should skip" do
+      within active_slide_sel do
+        expect_content "Hello! Welcome back ti Airbo, where you can find engaging content like:"
+        click_link "Skip"
+        expect_ping("Explore Onboarding", {"Clicked Buttons" => "Skip"})
       end
       expect(page).to have_selector(active_slide_sel, visible: false)
     end

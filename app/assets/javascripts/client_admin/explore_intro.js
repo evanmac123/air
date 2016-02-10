@@ -1,25 +1,37 @@
 var Airbo = window.Airbo || {};
 
 Airbo.ExploreIntro = (function(){
-  var modalObj = Airbo.Utils.StandardModal();
+  var modalObj = Airbo.Utils.StandardModal()
+    , slickIntroSel = ".explore_intro"
+    , slickIntro
+    , nextBtnSel = ".slick_next"
+    , nextBtn
+    , modalId = "explore_intro_modal"
+    , modalSel = "#" + modalId
+    , skipSel = modalSel + " .skip"
+    , skipLink
+  ;
   function ping(property, option) {
     var properties = {};
     properties[property] = option;
     Airbo.Utils.ping("Explore Onboarding", properties);
   }
   function initEvents() {
-    $(".slick_next").click(function(e) {
+    nextBtn.click(function(e) {
       e.preventDefault();
-      $(".explore_intro").slick('slickNext');
+      slickIntro.slick('slickNext');
       ping("Clicked Buttons", "Next");
-    })
+    });
+    skipLink.click(function() {
+      ping("Clicked Buttons", "Skip");
+    });
   }
   function initModalObj() {
     modalObj.init({
-      modalId: "explore_intro_modal",
+      modalId: modalId,
       closeSel: ".close_explore_intro",
       onOpenedEvent: function() {
-        $(".explore_intro").slick({
+        slickIntro.slick({
           autoplay: false,
           dots: true,
           arrows: false
@@ -27,18 +39,25 @@ Airbo.ExploreIntro = (function(){
       }
     });
   }
+  function initVars() {
+    slickIntro = $(slickIntroSel);
+    nextBtn = $(nextBtnSel);
+    skipLink = $(skipSel);
+  }
   function init() {
     initModalObj();
     modalObj.open();
+    initVars();
     initEvents();
   }
   return {
-    init: init
+    init: init,
+    modalSel: modalSel
   }
 }());
 
 $(document).ready(function(){
-  if( $("#explore_intro_modal").length > 0 ) {
+  if( $(Airbo.ExploreIntro.modalSel).length > 0 ) {
     Airbo.ExploreIntro.init();
   }
 });
