@@ -41,38 +41,34 @@
       <thead>
         <tr>
           <th>Name</th>
-          <th>Start date</th>
-          <th>End date</th>
-          <th>Mrr</th>
-          <th>Arr</th>
+          <th>Plan</th>
+          <th>Start</th>
+          <th>End</th>
+          <th>Length</th>
+          <th>MRR</th>
+          <th>ARR</th>
           <th>Amt booked</th>
           <th>Date booked</th>
-          <th>Estimate type</th>
-          <th>Is Upgrade</th>
-          <th>Term</th>
-          <th>Plan</th>
-          <th>Max users</th>
+          <th>Estimate</th>
+          <th>Type</th>
+          <th>Max Users</th>
         </tr>
       </thead>
       <tbody>
         <% @organization.contracts.each do |contract| %>
           <tr> 
             <td><%= contract.name %></td>
-            <td><%= contract.start_date %></td>
-            <td><%= contract.end_date %></td>
-            <td><%= contract.mrr %></td>
-            <td><%= contract.arr %></td>
-            <td><%= contract.amt_booked %></td>
-            <td><%= contract.date_booked %></td>
+            <td><%= contract.plan %></td>
+            <td><%= simple_date_format contract.start_date %></td>
+            <td><%= simple_date_format contract.end_date %></td>
+            <td><%= contract.term %></td>
+            <td><%= simple_money_format contract.mrr %></td>
+            <td><%= simple_money_format contract.arr %></td>
+            <td><%= simple_money_format contract.amt_booked %></td>
+            <td><%= simple_date_format contract.date_booked %></td>
             <td><%= contract.estimate_type %></td>
             <td><%= contract.is_upgrade %></td>
-            <td><%= contract.term %></td>
-            <td><%= contract.plan %></td>
-            <td><%= contract.max_users %></td>
-            <td><%= contract.notes %></td>
-            <td><%= link_to 'Show', contract %></td>
-            <td><%= link_to 'Edit', edit_admin_contract_path(contract) %></td>
-            <td><%= link_to 'Destroy', contract, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= simple_number_format contract.max_users %></td>
           </tr>
 
         <%end%>
