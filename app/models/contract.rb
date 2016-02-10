@@ -3,7 +3,9 @@ class Contract < ActiveRecord::Base
   belongs_to :parent_contract, class_name: "Contract"
   has_many :child_contracts, class_name: "Contract", foreign_key: "parent_contract_id"
 
-  validates  :organization, :name, :start_date, :end_date, :max_users, :term, :estimate_type, :plan, presence: true
+  validates :organization, :name, :start_date, :end_date, :max_users, :term, :estimate_type, :plan, presence: true
+  validates :parent_contract,presence: true, if: :is_upgrade
+
   validates :max_users, :term, numericality: { only_integer: true }
   validates :arr, :mrr, numericality: true, allow_nil: true
   validate :arr_or_mrr_provided

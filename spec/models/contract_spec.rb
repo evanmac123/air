@@ -12,11 +12,11 @@ describe Contract do
  end
 
  it "is a valid upgrade if all fields provided and has valid parent" do
-   c = FactoryGirl.build(:upgrade, :valid)
+   c = FactoryGirl.build(:upgrade, :with_parent)
    expect(c.valid?).to be_true
  end
 
- pending "upgrade is invalid wthout parent contract " do
+ it "is an invalid upgrade wthout parent contract " do
    c = FactoryGirl.build(:upgrade )
    expect(c.valid?).to be_false
  end

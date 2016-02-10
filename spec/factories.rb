@@ -412,6 +412,20 @@ FactoryGirl.define do
   
   factory :organization  do
     name "Omni Corp"
+   
+    trait :with_contracts do
+      after(:create) do |org, evaluator|
+        create(:contract, :complete, organization: org, start_date: '2012-01-01', end_date: '2012-12-31' )
+        create(:contract, :complete, organization: org, start_date: '2013-01-01', end_date: '2013-12-31' )
+        create(:contract, :complete, organization: org, start_date: '2014-01-01', end_date: '2014-12-31' )
+      end
+    end
+   
+   trait :active do
+
+   end
+
+
   end
 
   factory :contract do
@@ -438,7 +452,7 @@ FactoryGirl.define do
     factory :upgrade , class: Contract do
       complete
       is_upgrade true
-      trait :valid do
+      trait :with_parent do
         association :parent_contract, factory: [:contract, :complete]
       end
     end
