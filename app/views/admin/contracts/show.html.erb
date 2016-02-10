@@ -2,77 +2,96 @@
   <div class="columns small-8 small-centered">
     <p id="notice"><%= notice %></p>
 
-    <p>
-    <b>Name:</b>
-    <%= @contract.name %>
-    </p>
+    <h1><%= @contract.name %>/<%= @contract.organization_name %></h1>
 
-    <p>
-    <b>Organization:</b>
-    <%= @contract.organization %>
-    </p>
+    <table>
+      <tbody> 
+        <tr>
+          <th>Start date:</th>
+          <td>
+            <%= simple_date_format @contract.start_date %>
+          </td>
+        </tr>
 
-    <p>
-    <b>Start date:</b>
-    <%= @contract.start_date %>
-    </p>
+        <tr>
+          <th>End date:</th>
+          <td>
+            <%= simple_date_format @contract.end_date %>
+          </td>
+        </tr>
 
-    <p>
-    <b>End date:</b>
-    <%= @contract.end_date %>
-    </p>
+        <tr>
+          <th>Mrr:</th>
+          <td>
+            <%=simple_money_format @contract.mrr %>
+          </td>
+        </tr>
 
-    <p>
-    <b>Mrr:</b>
-    <%= @contract.mrr %>
-    </p>
+        <tr>
+          <th>Arr:</th>
+          <td>
+            <%= simple_money_format @contract.arr %>
+          </td>
+        </tr>
 
-    <p>
-    <b>Arr:</b>
-    <%= @contract.arr %>
-    </p>
+        <tr>
+          <th>Amt booked:</th>
+          <td>
+            <%= simple_money_format @contract.amt_booked %>
+          </td>
+        </tr>
 
-    <p>
-    <b>Amt booked:</b>
-    <%= @contract.amt_booked %>
-    </p>
+        <tr>
+          <th>Date booked:</th>
+          <td>
+            <%= simple_date_format @contract.date_booked %>
+          </td>
+        </tr>
 
-    <p>
-    <b>Date booked:</b>
-    <%= @contract.date_booked %>
-    </p>
+        <tr>
+          <th>Estimate type:</th>
+          <td>
+            <%= @contract.projection_type %>
+          </td>
+        </tr>
 
-    <p>
-    <b>Estimate type:</b>
-    <%= @contract.estimate_type %>
-    </p>
+        <tr>
+          <th>Type</th>
+          <td>
+            <%= @contract.role_type %>
+          </td>
+        </tr>
 
-    <p>
-    <b>Is Upgrade?</b>
-    <%= @contract.is_upgrade ? "Yes", "No" %>
-    </p>
+        <tr>
+          <th>Term:</th>
+          <td>
+            <%= @contract.contract_length_in_months %>
+          </td>
+        </tr>
 
-    <p>
-    <b>Term:</b>
-    <%= @contract.term %>
-    </p>
+        <tr>
+          <th>Plan:</th>
+          <td>
+            <%= @contract.plan %>
+          </td>
+        </tr>
 
-    <p>
-    <b>Plan:</b>
-    <%= @contract.plan %>
-    </p>
+        <tr>
+          <th>Max users:</th>
+          <td>
+            <%= @contract.max_users %>
+          </td>
+        </tr>
 
-    <p>
-    <b>Max users:</b>
-    <%= @contract.max_users %>
-    </p>
+        <tr>
+          <th>Notes:</th>
+          <td>
+            <%= @contract.notes %>
+          </td>
+        </tr>
 
-    <p>
-    <b>Notes:</b>
-    <%= @contract.notes %>
-    </p>
-
-
+      </tbody>
+    </table>
 
     <%= link_to 'Edit', edit_admin_contract_path(@contract) %> |
     <%= link_to 'Back', admin_contracts_path %>

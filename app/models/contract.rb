@@ -25,6 +25,10 @@ class Contract < ActiveRecord::Base
     TimeDifference.between(end_date, start_date).in_months
   end
 
+  def organization_name
+    organization.name
+  end
+
   private
 
   def arr_or_mrr_provided
