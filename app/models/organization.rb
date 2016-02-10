@@ -15,8 +15,6 @@ class Organization < ActiveRecord::Base
     customer_end_date >= Date.today 
   end
 
-
-
   def life_time
     TimeDifference.between(customer_start_date, customer_end_date).in_months
   end

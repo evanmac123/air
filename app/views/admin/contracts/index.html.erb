@@ -28,13 +28,13 @@
             <td><%= contract.plan %></td>
             <td><%= simple_date_format contract.start_date %></td>
             <td><%= simple_date_format contract.end_date %></td>
-            <td><%= contract.term %></td>
+            <td><%= contract.contract_length_in_months %></td>
             <td><%= simple_money_format contract.mrr %></td>
             <td><%= simple_money_format contract.arr %></td>
             <td><%= simple_money_format contract.amt_booked %></td>
             <td><%= simple_date_format contract.date_booked %></td>
-            <td><%= contract.estimate_type %></td>
-            <td><%= contract.is_upgrade %></td>
+            <td><%= contract.projection_type %></td>
+            <td><%= contract.role_type %></td>
             <td><%= simple_number_format contract.max_users %></td>
             <!--td><%= link_to 'Show', [:admin, contract] %></td>
             <td><%= link_to 'Edit', edit_admin_contract_path(contract) %></td>

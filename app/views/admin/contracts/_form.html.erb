@@ -14,10 +14,8 @@
       <% end %>
 
       <div class="row">
-        <%= f.label :organization %>
-        <%= f.select :organization_id, options_from_collection_for_select(@organizations, :id, :name) %>
+        <h3>Organization: <%=@organization.name%></h3>
       </div>
-
 
       <div class="row">
         <div class="columns small-5">
@@ -28,12 +26,12 @@
 
           <div class="row">
             <%= f.label :start_date %>
-            <%= f.text_field :start_date, class: "datepicker"%>
+            <%= f.text_field :start_date%>
           </div>
 
           <div class="row end_date">
             <%= f.label :end_date %>
-            <%= f.text_field :end_date, class: "datepicker"%>
+            <%= f.text_field :end_date%>
           </div>
 
           <div class="row">
@@ -57,16 +55,10 @@
         <div class="columns small-5">
           <div class="row">
             <div class="inline-input-group">
-              <label>Upgrade?</label>
-              <label class="checkbox inline"><%=f.check_box :is_upgrade %>Yes</label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="inline-input-group">
               <label >Plan Name</label>
-              <label class="radio inline"><%=f.radio_button :plan,"engage" %>Engage</label>
-              <label class="radio inline"><%=f.radio_button :plan,"enterprise" %>Enterprise</label>
-              <label class="radio inline"><%=f.radio_button :plan,"activate" %>Activate</label>
+              <label class="radio inline"><%=f.radio_button :plan,"Activate" %>Activate</label>
+              <label class="radio inline"><%=f.radio_button :plan,"Engage" %>Engage</label>
+              <label class="radio inline"><%=f.radio_button :plan,"Enterprise" %>Enterprise</label>
             </div>
           </div>
 
@@ -97,7 +89,7 @@
 
           <div class="row">
             <%= f.label :date_booked %>
-            <%= f.text_field :date_booked, class: "datepicker" %>
+            <%= f.text_field :date_booked %>
           </div>
 
         </div>
