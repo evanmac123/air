@@ -11,6 +11,7 @@ Airbo.ExploreIntro = (function(){
     , skipSel = modalSel + " .skip"
     , skipLink
     , navDotsSel = ".slick-dots button"
+    , slideName = ["Welcome - New User", "Tile", "Board", "Explore"]
   ;
   function ping(property, option) {
     var properties = {};
@@ -29,6 +30,9 @@ Airbo.ExploreIntro = (function(){
     $(navDotsSel).click(function() {
       ping("Clicked Buttons", "Nav buttons");
     });
+    slickIntro.on('afterChange', function(event, slick, currentSlide){
+      ping("Viewed Slide", slideName[currentSlide]);
+    });
   }
   function initModalObj() {
     modalObj.init({
@@ -40,6 +44,7 @@ Airbo.ExploreIntro = (function(){
           dots: true,
           arrows: false
         });
+        ping("Viewed Slide", slideName[0]);
         initEvents();
       }
     });

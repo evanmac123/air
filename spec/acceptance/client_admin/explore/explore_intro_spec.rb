@@ -20,13 +20,18 @@ feature 'Explore Intro', js: true do#, driver: :selenium do
     it "should show right text" do
       within active_slide_sel do
         expect_content "Welcome to Airbo! Just a quick word about how this works..."
+        expect_ping("Explore Onboarding", {"Viewed Slide" => "Welcome - New User"})
         click_link "Next"
-        expect_ping("Explore Onboarding", {"Clicked Buttons" => "Next"})
 
+        expect_ping("Explore Onboarding", {"Viewed Slide" => "Tile"})
         expect_content "Tile Save time by finding beautiful, bite-sized content that your employees will see and love."
         click_link "Next"
+
+        expect_ping("Explore Onboarding", {"Viewed Slide" => "Board"})
         expect_content "Board Organize and share tiles as easily as sending an email."
         click_link "Next"
+
+        expect_ping("Explore Onboarding", {"Viewed Slide" => "Explore"})
         expect_content "Explore Ready to find some amazing content?"
         click_link "Close and Explore"
       end
