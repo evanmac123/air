@@ -15,7 +15,12 @@ class Admin::SupportsController < AdminBaseController
 
   def update
     @support = Support.instance
-    @support.update_attributes(params[:support])
+    @support.update_attributes(permit_params)
     redirect_to edit_admin_support_path
   end
+
+  private
+    def permit_params
+      params.require(:support).permit!
+    end
 end
