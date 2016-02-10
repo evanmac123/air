@@ -144,6 +144,18 @@ module ApplicationHelper
     result
   end
 
+  def simple_date_format date
+    date.try(:strftime, "%m/%d/%Y")
+  end
+
+  def simple_money_format amt
+   number_to_currency amt, precision:0
+  end
+
+  def simple_number_format num
+    number_with_delimiter num.to_i
+  end
+
   def unescape_html html
     coder = HTMLEntities.new
     raw coder.decode("" + html + "")
