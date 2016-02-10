@@ -3,25 +3,21 @@ require 'spec_helper'
 describe Contract do
   it "is invalid without all required fields" do
    c = Contract.new
-   expect(c.save).to be_false
+   expect(c.valid?).to be_false
  end
 
-  it "is valid with required fields" do
-   org = Organization.create({name: "Omni Corp"})
-   c = Contract.new
-   c.organization = org 
-
-   c.name = "Con Tract"
-   c.start_date = Date.today 
-   c.end_date = 1.year.from_now 
-   c.arr = 60000
-
-   c.term = 12
-   c.estimate_type = "Con Tract"
-   c.rank = "primary"
-   c.plan = Contract.plan_name_for :engage
-   c.max_users = 100
-   expect(c.save).to be_true
+ it "is valid if all required fields provided" do
+   c = FactoryGirl.build(:contract, :complete)
+   expect(c.valid?).to be_true
  end
 
+ it "is a valid upgrade if all fields provided and has valid parent" do
+   c = FactoryGirl.build(:upgrade, :valid)
+   expect(c.valid?).to be_true
+ end
+
+ pending "upgrade is invalid wthout parent contract " do
+   c = FactoryGirl.build(:upgrade )
+   expect(c.valid?).to be_false
+ end
 end

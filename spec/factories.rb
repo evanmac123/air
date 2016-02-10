@@ -409,4 +409,39 @@ FactoryGirl.define do
     association :tile
     association :user
   end
+  
+  factory :organization  do
+    name "Omni Corp"
+  end
+
+  factory :contract do
+    name "Con Tract"
+
+    trait :with_parent do
+      after_build do|c|
+        c.parent_contract  #factory: :contract, class: "Contract" 
+      end
+    end
+
+    trait :complete do
+      organization FactoryGirl.create(:organization)
+      start_date  Date.today 
+      end_date  1.year.from_now 
+      arr  60000
+
+      term  12
+      estimate_type  "actual"
+      rank  "primary"
+      plan  "engage"
+      max_users 100
+    end
+
+    factory :upgrade , class: Contract do
+      complete
+      trait :valid do
+        association :parent_contract, factory: [:contract, :complete]
+      end
+    end
+  end
+
 end
