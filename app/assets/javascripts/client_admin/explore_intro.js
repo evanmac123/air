@@ -38,6 +38,7 @@ Airbo.ExploreIntro = (function(){
     modalObj.init({
       modalId: modalId,
       closeSel: ".close_explore_intro",
+      closeOnBgClick: false,
       onOpenedEvent: function() {
         slickIntro.slick({
           autoplay: false,
