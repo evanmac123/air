@@ -28,45 +28,72 @@
             <%= f.label :end_date %>
             <%= f.text_field :end_date, class: "datepicker"%>
           </div>
-            <div class="row">
-            <%= f.label :mrr, "MRR" %>
-            <%= f.text_field :mrr %>
-            </div>
-            <div class="row">
-            <%= f.label :arr, "ARR" %>
-            <%= f.text_field :arr %>
-            </div>
-            <div class="row">
-            <%= f.label :amt_booked %>
-            <%= f.text_field :amt_booked %>
-            </div>
-        </div>
-        <div class="columns small-5">
-            <div class="row">
-            <%= f.label :estimate_type, "Projection/Actual" %>
-            <%= f.select :estimate_type, ["Projected", "Annual"], include_blank: true %>
-            </div>
-            <div class="row">
-            <%= f.label :rank, "Primary/Upgrade" %>
-            <%= f.text_field :rank %>
-            </div>
-            <div class="row">
+
+          <div class="row">
             <%= f.label :term %>
             <%= f.number_field :term %>
-            </div>
-            <div class="row">
-            <%= f.label :plan %>
-            <%= f.text_field :plan %>
-            </div>
-            <div class="row">
+          </div>
+
+          <div class="row">
             <%= f.label :max_users %>
             <%= f.number_field :max_users %>
-            </div>
+          </div>
 
-            <div class="row">
+          <div class="row ">
+            <%= f.label :amt_booked %>
+            <%= f.text_field :amt_booked %>
+          </div>
+
+
+             
+        </div>
+        <div class="columns small-5">
+          <div class="row">
+            <div class="inline-input-group">
+              <label>Contract Sequence</label>
+              <label class="radio inline"><%=f.radio_button :rank, "primary" %>Primary</label>
+              <label class="radio inline"><%=f.radio_button :rank, "upgrade" %>Upgrade</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="inline-input-group">
+              <label >Plan Name</label>
+              <label class="radio inline"><%=f.radio_button :plan,"engage" %>Engage</label>
+              <label class="radio inline"><%=f.radio_button :plan,"enterprise" %>Enterprise</label>
+              <label class="radio inline"><%=f.radio_button :plan,"activate" %>Activate</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="inline-input-group">
+              <label>Revenue Estimate Type</label>
+              <label class="radio inline"><input name="estimate_type" type="radio" value="actual">Actual</label>
+              <label class="radio inline"><input name="estimate_type" type="radio" value="projected" >Projected </label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="inline-input-group">
+              <label>Recurring Revenue Type</label>
+              <label class="radio inline"><input name="revenue_basis" type="radio" checked="" id="opt_mrr">Monthly</label>
+              <label class="radio inline"><input name="revenue_basis" type="radio" id="opt_arr" >Annual </label>
+            </div>
+          </div>
+
+          <div class="row revenue">
+            <%= f.label :mrr, "Monthly Recurring Revenue (MRR)" %>
+            <%= f.text_field :mrr %>
+          </div>
+          <div class="row revenue hidden">
+            <%= f.label :arr, "Annual Recurring Revenue (ARR)" %>
+            <%= f.text_field :arr %>
+          </div>
+
+          <div class="row">
             <%= f.label :date_booked %>
             <%= f.text_field :date_booked, class: "datepicker" %>
-            </div>
+          </div>
+
         </div>
       </div>
       <div class="row">
@@ -74,7 +101,7 @@
         <%= f.text_area :notes %>
       </div>
       <div class="actions">
-        <%= f.submit %>
+        <%= f.submit "Submit", class: "button"  %>
       </div>
     <% end %>
   </div>
