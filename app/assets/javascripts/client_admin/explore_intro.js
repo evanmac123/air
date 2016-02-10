@@ -10,6 +10,7 @@ Airbo.ExploreIntro = (function(){
     , modalSel = "#" + modalId
     , skipSel = modalSel + " .skip"
     , skipLink
+    , navDotsSel = ".slick-dots button"
   ;
   function ping(property, option) {
     var properties = {};
@@ -25,6 +26,9 @@ Airbo.ExploreIntro = (function(){
     skipLink.click(function() {
       ping("Clicked Buttons", "Skip");
     });
+    $(navDotsSel).click(function() {
+      ping("Clicked Buttons", "Nav buttons");
+    });
   }
   function initModalObj() {
     modalObj.init({
@@ -36,6 +40,7 @@ Airbo.ExploreIntro = (function(){
           dots: true,
           arrows: false
         });
+        initEvents();
       }
     });
   }
@@ -48,7 +53,6 @@ Airbo.ExploreIntro = (function(){
     initModalObj();
     modalObj.open();
     initVars();
-    initEvents();
   }
   return {
     init: init,

@@ -83,6 +83,19 @@ feature 'Explore Intro', js: true do#, driver: :selenium do
       expect(page).to have_selector(active_slide_sel, visible: false)
     end
 
+    it "should navigate by dots" do
+      within active_slide_sel do
+        expect_content "Hello! Welcome back ti Airbo, where you can find engaging content like:"
+      end
+      within ".slick-dots" do
+        click_button "3"
+      end
+      expect_ping("Explore Onboarding", {"Clicked Buttons" => "Nav buttons"})
+      within active_slide_sel do
+        expect_content "Board Organize and share tiles as easily as sending an email."
+      end
+    end
+
     it "should not show modal after refresh" do
       expect(page).to have_selector(active_slide_sel, visible: true)
       visit current_path
