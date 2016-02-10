@@ -26,7 +26,5 @@
 //= require  ../../../vendor/assets/javascripts/pickadate/picker
 //= require  ../../../vendor/assets/javascripts/pickadate/picker.date
 //= require  ../../../vendor/assets/javascripts/pickadate/picker.time
+//= requre ./admin/contracts
 
-$(function(){
-$(".datepicker").pickadate();
-})
