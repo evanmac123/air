@@ -249,9 +249,13 @@ Health::Application.routes.draw do
 
   namespace :admin do
 
-    resources :organizations
+    resources :organizations do
+      resources :contracts, controller: "contracts"
+    end
 
-    resources :contracts
+    resources :contracts do
+      resources :upgrades, controller: "contracts"
+    end
 
     resources :rule_values, :only => [:destroy]
 
