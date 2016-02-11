@@ -9,22 +9,29 @@
         </tr>
 
         <tr>
-          <th>Num employees:</th>
+          <th>Num employees</th>
           <td><%= @organization.num_employees %></td>
         </tr>
 
         <tr>
-          <th>Sales channel:</th>
+          <th>Sales channel</th>
           <td><%= @organization.sales_channel %></td>
         </tr>
-
         <tr>
-          <th>Churned:</th>
+          <th>Start</th>
+          <td><%= simple_date_format @organization.customer_start_date %></td>
+        </tr>
+        <tr>
+          <th>End</th>
+          <td><%= simple_date_format @organization.customer_end_date %></td>
+        </tr>
+        <tr>
+          <th>Churned</th>
           <td><%= @organization.churned %></td>
         </tr>
 
         <tr>
-          <th>Churn reason:</th>
+          <th>Churn reason</th>
           <td><%= @organization.churn_reason %></td>
         </tr>
       </tbody>
@@ -56,7 +63,7 @@
       </thead>
       <tbody>
         <% @organization.contracts.each do |contract| %>
-          <tr> 
+          <tr class="resource-row" data-url="<%=admin_contract_path(contract)%>">
             <td><%= contract.name %></td>
             <td><%= contract.plan %></td>
             <td><%= simple_date_format contract.start_date %></td>
