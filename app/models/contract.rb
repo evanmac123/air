@@ -30,11 +30,15 @@ class Contract < ActiveRecord::Base
   end
 
   def calc_mrr
-     mrr || arr/12 
+    if (mrr || arr)
+      mrr || arr/12 
+    end
   end
 
   def calc_arr
-     arr || mrr*12
+    if(mrr || arr)
+      arr || mrr*12
+    end
   end
 
   def pepm
@@ -42,7 +46,9 @@ class Contract < ActiveRecord::Base
   end
 
   def calculated_rr
-    arr.nil? ? (mrr*12).to_i :  (arr/12).to_i
+    if mrr || arr
+      arr.nil? ? (mrr*12).to_i :  (arr/12).to_i
+    end
   end
 
   def booked_months
