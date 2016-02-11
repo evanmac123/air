@@ -30,20 +30,25 @@ class Contract < ActiveRecord::Base
   end
 
   def calc_mrr
-     mrr.nil? ? arr/12 : mrr
+     mrr || arr/12 
   end
 
   def calc_arr
-     arr.nil? ? mrr*12 : arr
+     arr || mrr*12
   end
 
   def pepm
     calc_mrr/max_users
   end
 
+  def calculated_rr
+    arr.nil? ? (mrr*12).to_i :  (arr/12).to_i
+  end
+
   def booked_months
    amt_booked/calc_mrr
   end
+
 
   private
 

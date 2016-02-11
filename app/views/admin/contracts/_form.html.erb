@@ -14,7 +14,7 @@
       <% end %>
 
       <div class="row">
-        <h3>Organization: <%=@organization.name%></h3>
+        <h3>Organization: <%=@contract.organization.name%></h3>
       </div>
 
       <div class="row">
@@ -65,26 +65,34 @@
           <div class="row">
             <div class="inline-input-group">
               <label>Revenue Estimate Type</label>
-              <label class="radio inline"><input name="estimate_type" type="radio" value="actual">Actual</label>
-              <label class="radio inline"><input name="estimate_type" type="radio" value="projected" >Projected </label>
+              <label class="checkbox inline">
+                <%=f.check_box :is_actual%>
+                Actual<span class="mini-text"> (Uncheck  if projection)</span>
+              </label>
             </div>
           </div>
 
           <div class="row">
             <div class="inline-input-group">
               <label>Recurring Revenue Type</label>
-              <label class="radio inline"><input name="revenue_basis" type="radio" checked="" id="opt_mrr">Monthly</label>
-              <label class="radio inline"><input name="revenue_basis" type="radio" id="opt_arr" >Annual </label>
+              <label class="radio inline"><input name="revenue_basis" value="monthly" type="radio" checked="<%=@contract.arr.nil?%>" id="opt_mrr">Monthly</label>
+              <label class="radio inline"><input name="revenue_basis" value="annual" type="radio" id="opt_arr" checked="<%=@contract.mrr.nil?%>">Annual </label>
             </div>
           </div>
 
-          <div class="row revenue">
+          <div class="row revenue <%=show_mrr? ? '': 'hidden' %>">
             <%= f.label :mrr, "Monthly Recurring Revenue (MRR)" %>
-            <%= f.text_field :mrr %>
+            <%= f.number_field :mrr, class: "recurring-amt" %>
           </div>
-          <div class="row revenue hidden">
+
+          <div class="row revenue <%=show_mrr? ? 'hidden': '' %>%>">
             <%= f.label :arr, "Annual Recurring Revenue (ARR)" %>
-            <%= f.text_field :arr %>
+            <%= f.number_field :arr , class: "recurring-amt" %>
+          </div>
+
+          <div class="row">
+            <label id="calc_rev_label" class="disabled"><%=calced_rr%> Recurring Revenue (*calculated)</label>
+            <%=text_field_tag "rev",@contract.calculated_rr,  id: "calculated_revenue", readonly: "readonly",  class:"disabled" %> 
           </div>
 
           <div class="row">
@@ -99,7 +107,8 @@
         <%= f.text_area :notes %>
       </div>
       <div class="actions">
-        <%= f.submit "Submit", class: "button"  %>
+        <%= f.submit "Submit", class: "button"  %> 
+        <%=link_to "Cancel", admin_contracts_path,  class: "button"  %>
       </div>
     <% end %>
   </div>
