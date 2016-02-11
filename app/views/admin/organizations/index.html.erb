@@ -2,6 +2,9 @@
   <div class="columns small-12 small-centered">
     <h1>Organizations</h1>
 
+    <p class="padded right">
+      <%= link_to 'Add Organization', new_admin_organization_path, class: "button button-small" %>
+    </p> 
     <table>
 
       <thead>
@@ -11,27 +14,20 @@
         <th>Sales channel</th>
         <th>Churned</th>
         <th>Churn reason</th>
-        <th></th>
-        <th></th>
-        <th></th>
       </tr>
     </thead>
     <tbody>
       <% @organizations.each do |organization| %>
         
-        <tr>
+        <tr class="resource-row" data-url='<%=admin_organization_path(organization)%>'>
           <td><%= organization.name %></td>
           <td><%= organization.num_employees %></td>
           <td><%= organization.sales_channel %></td>
           <td><%= organization.churned %></td>
           <td><%= organization.churn_reason %></td>
-          <td><%= link_to 'Show', [:admin, organization] %></td>
-          <td><%= link_to 'Edit', edit_admin_organization_path(organization) %></td>
-          <td><%= link_to 'Destroy', [:admin, organization], method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
       <% end %>
     </tbody>
     </table>
-    <%= link_to 'Add Organization', new_admin_organization_path, class: "button button-small" %>
   </div>
 </div>
