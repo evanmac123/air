@@ -31,6 +31,9 @@ class Admin::ContractsController < AdminBaseController
     update_or_create @contract, admin_contracts_path
   end
 
+  def destroy
+    delete_resource @contract, admin_contracts_path
+  end
 
   private
 
