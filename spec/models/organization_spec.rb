@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Organization do
   it "is valid when complete" do
-    o = FactoryGirl.build(:organization)
+    o = FactoryGirl.build(:organization, :complete)
     expect(o.valid?).to be_true
   end
 

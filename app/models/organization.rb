@@ -1,8 +1,8 @@
 class Organization < ActiveRecord::Base
   has_many :contracts
 
-  validates :name, :sales_channel, presence: true
-
+  validates :name, :sales_channel, :num_employees, presence: true
+  validates :num_employees, numericality: {integer_only: true}
   def customer_start_date
     @cust_start ||=ordered_contracts.first.try(:start_date)
   end
