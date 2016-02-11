@@ -104,6 +104,7 @@ Airbo.TileImageCredit = (function(){
     initImageCreditText();
 
     initImageCreditHandlers();
+    saveImageCreditChanges();
     truncateImageCreditView();
   }
 
