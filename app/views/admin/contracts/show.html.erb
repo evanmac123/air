@@ -7,84 +7,51 @@
     <table>
       <tbody> 
         <tr>
-          <th>Start date:</th>
-          <td>
-            <%= simple_date_format @contract.start_date %>
-          </td>
+          <th>Plan</th> <td> <%= @contract.plan.titleize %> </td>
+        </tr>
+        <tr>
+          <th>Status</th> <td> <%= @contract.status %> </td>
+        </tr>
+        <tr>
+          <th>Start</th> <td> <%= simple_date_format @contract.start_date %> </td>
+        </tr>
+        <tr>
+          <th>End</th> <td> <%= simple_date_format @contract.end_date %> </td>
+        </tr>
+        <tr>
+          <th>Mrr</th> <td> <%=simple_money_format @contract.calc_mrr %> </td>
         </tr>
 
         <tr>
-          <th>End date:</th>
-          <td>
-            <%= simple_date_format @contract.end_date %>
-          </td>
+          <th>Arr</th> <td> <%= simple_money_format @contract.calc_arr %></td>
         </tr>
 
         <tr>
-          <th>Mrr:</th>
-          <td>
-            <%=simple_money_format @contract.mrr %>
-          </td>
+          <th>Amt Booked</th><td><%= simple_money_format @contract.amt_booked %> </td>
         </tr>
 
         <tr>
-          <th>Arr:</th>
-          <td>
-            <%= simple_money_format @contract.arr %>
-          </td>
+          <th>Date Booked</th><td><%= simple_date_format @contract.date_booked %> </td>
         </tr>
-
         <tr>
-          <th>Amt booked:</th>
-          <td>
-            <%= simple_money_format @contract.amt_booked %>
-          </td>
+          <th>Months Booked</th><td><%= simple_number_format @contract.booked_months %> </td>
+        </tr> <tr>
+          <th>Estimate Type</th><td> <%= @contract.projection_type %> </td>
         </tr>
-
         <tr>
-          <th>Date booked:</th>
-          <td>
-            <%= simple_date_format @contract.date_booked %>
-          </td>
+          <th>Type</th> <td> <%= @contract.role_type %> </td>
         </tr>
-
         <tr>
-          <th>Estimate type:</th>
-          <td>
-            <%= @contract.projection_type %>
-          </td>
+          <th>Conract Length</th> <td> <%= simple_number_format @contract.contract_length_in_months %> </td>
         </tr>
-
         <tr>
-          <th>Type</th>
-          <td>
-            <%= @contract.role_type %>
-          </td>
+          <th>Max Users</th> <td> <%= simple_number_format @contract.max_users %> </td>
         </tr>
-
         <tr>
-          <th>Term:</th>
-          <td>
-            <%= @contract.contract_length_in_months %>
-          </td>
+          <th>Price Per Employee Month</th> <td> <%= simple_money_format @contract.pepm %> </td>
         </tr>
-
         <tr>
-          <th>Plan:</th>
-          <td>
-            <%= @contract.plan %>
-          </td>
-        </tr>
-
-        <tr>
-          <th>Max users:</th>
-          <td>
-            <%= @contract.max_users %>
-          </td>
-        </tr>
-
-        <tr>
-          <th>Notes:</th>
+          <th>Notes</th>
           <td>
             <%= @contract.notes %>
           </td>

@@ -12,7 +12,7 @@ class Organization < ActiveRecord::Base
   end
 
   def active
-    customer_end_date >= Date.today 
+    customer_end_date >= Date.today
   end
 
   def life_time

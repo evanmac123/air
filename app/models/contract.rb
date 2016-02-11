@@ -10,7 +10,7 @@ class Contract < ActiveRecord::Base
   validate :arr_or_mrr_provided
 
   def status
-    end_date > Date.today
+    end_date > Date.today ? "Active" : "Closed"
   end
 
   def projection_type
@@ -27,6 +27,22 @@ class Contract < ActiveRecord::Base
 
   def organization_name
     organization.name
+  end
+
+  def calc_mrr
+     mrr.nil? ? arr/12 : mrr
+  end
+
+  def calc_arr
+     arr.nil? ? mrr*12 : arr
+  end
+
+  def pepm
+    calc_mrr/max_users
+  end
+
+  def booked_months
+   amt_booked/calc_mrr
   end
 
   private
