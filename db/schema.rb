@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160210223659) do
+ActiveRecord::Schema.define(:version => 20160211154813) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -95,6 +95,13 @@ ActiveRecord::Schema.define(:version => 20160210223659) do
   end
 
   add_index "billing_informations", ["user_id"], :name => "index_billing_informations_on_user_id"
+
+  create_table "billings", :force => true do |t|
+    t.decimal  "amount"
+    t.date     "posted"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "blacklists", :force => true do |t|
     t.integer  "raffle_id"
