@@ -28,12 +28,12 @@
 
           <div class="row">
             <%= f.label :start_date %>
-            <%= f.text_field :start_date%>
+            <%= f.text_field :start_date, type: :date%>
           </div>
 
           <div class="row end_date">
             <%= f.label :end_date %>
-            <%= f.text_field :end_date%>
+            <%= f.text_field :end_date, type: :date%>
           </div>
 
           <div class="row">
@@ -99,7 +99,7 @@
 
           <div class="row">
             <%= f.label :date_booked %>
-            <%= f.text_field :date_booked %>
+            <%= f.text_field :date_booked, type: :date %>
           </div>
 
         </div>
