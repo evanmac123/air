@@ -86,7 +86,7 @@ class Admin::ContractsController < AdminBaseController
     @contract = if @parent_org
                   @parent_org.contracts.build({name: @parent_org.name})
                 else
-                  @parent_contract.upgrades.build({name: @parent_contract.name})
+                  @parent_contract.upgrades.build({name: @parent_contract.name, organization_id: @parent_contract.organization_id})
                 end
   end
 

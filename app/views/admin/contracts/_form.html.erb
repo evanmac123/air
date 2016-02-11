@@ -14,7 +14,7 @@
       <% end %>
 
       <div class="row">
-        <h3>Organization: <%=@contract.organization.name%></h3>
+      <h3>Organization: <%=@contract.organization_name%> <%=" / Parent Contract: #{@contract.parent_contract.name}" if @contract.parent_contract.present?%></h3>
       </div>
 
       <div class="row">
