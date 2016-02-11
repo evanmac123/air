@@ -5,7 +5,6 @@ class Admin::ContractsController < AdminBaseController
   before_filter :set_organizations
   before_filter :set_related_contracts
   before_filter :build_new_contract, only:[:new]
-  before_filter :select_revenue_basis, only:[:update, :create]
   include CustomResponder
 
   def index
@@ -53,6 +52,10 @@ class Admin::ContractsController < AdminBaseController
     @contract.new_record? || @contract.mrr.present?
   end
 
+  def show_arr?
+    @contract.new_record? || @contract.mrr.present?
+  end
+
   def calced_rr
     show_mrr? ? "Annual" : "Monthly"
   end
@@ -68,14 +71,6 @@ class Admin::ContractsController < AdminBaseController
   def set_parent_org
     if params[:organization_id]
       @parent_org = Organization.where(id:  params[:organization_id]).first
-    end
-  end
-
-  def select_revenue_basis
-    if params[:revenue_basis]=="monthly"
-      params[:contract][:arr]=""
-    else
-      params[:contract][:mrr]=""
     end
   end
 

@@ -77,23 +77,23 @@
           <div class="row">
             <div class="inline-input-group">
               <label>Recurring Revenue Type</label>
-              <label class="radio inline"><input name="revenue_basis" value="monthly" type="radio" checked="<%=@contract.arr.nil?%>" id="opt_mrr">Monthly</label>
-              <label class="radio inline"><input name="revenue_basis" value="annual" type="radio" id="opt_arr" checked="<%=@contract.mrr.nil?%>">Annual </label>
+              <label class="radio inline"><%=f.radio_button :revenue_basis, "annual", id: "opt_arr" %>Annual</label>
+              <label class="radio inline"><%=f.radio_button :revenue_basis, "monthly", id: "opt_mrr" %>Monthly</label>
             </div>
           </div>
 
-          <div class="row revenue <%=show_mrr? ? '': 'hidden' %>">
-            <%= f.label :mrr, "Monthly Recurring Revenue (MRR)" %>
-            <%= f.text_field :mrr, class: "recurring-amt" %>
+          <div class="row revenue <%=@contract.revenue_basis=='monthly' ? 'hidden': ''%>">
+            <%= f.label :arr, "Annual Recurring Revenue (ARR)" %>
+            <%= f.text_field :arr , class: "recurring-amt", disabled: @contract.revenue_basis=='monthly'%>
           </div>
 
-          <div class="row revenue <%=show_mrr? ? 'hidden': '' %>%>">
-            <%= f.label :arr, "Annual Recurring Revenue (ARR)" %>
-            <%= f.text_field :arr , class: "recurring-amt" %>
+          <div class="row revenue <%=@contract.revenue_basis=='annual' ? 'hidden': ''%>">
+            <%= f.label :mrr, "Monthly Recurring Revenue (MRR)" %>
+            <%= f.text_field :mrr, class: "recurring-amt", disabled: @contract.revenue_basis=='annual'%>
           </div>
 
           <div class="row">
-            <label id="calc_rev_label" class="disabled"><%=calced_rr%> Recurring Revenue (*calculated)</label>
+            <label id="calc_rev_label" class="disabled"><%="Calculated #{@contract.alt_revenue_basis} Recurring Revenue "%></label>
             <%=text_field_tag "rev",@contract.calculated_rr,  id: "calculated_revenue", readonly: "readonly",  class:"disabled" %> 
           </div>
 

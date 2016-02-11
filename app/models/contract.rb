@@ -9,6 +9,7 @@ class Contract < ActiveRecord::Base
   validates :arr, :mrr, numericality: true, allow_nil: true
   validate :arr_or_mrr_provided
 
+
   def status
     end_date > Date.today ? "Active" : "Closed"
   end
@@ -55,6 +56,13 @@ class Contract < ActiveRecord::Base
    amt_booked/calc_mrr
   end
 
+  def revenue_basis
+    mrr.present? ? "monthly" : "annual"
+  end
+
+  def alt_revenue_basis
+    revenue_basis == "monthly" ? "Annual" : "Monthly"
+  end
 
   private
 

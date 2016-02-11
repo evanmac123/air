@@ -58,18 +58,21 @@ Airbo.ContractManager= (function(){
 
 
   function toggleArrMRR(radioNode){
-    var calcNode, prefix;
+    var calcNode, type;
     calcFactor=1/calcFactor;
 
     if (radioNode.is(optMrr)){
       calcNode = mrr;
-      prefix="Annual ";
+      arr.prop("disabled", true);
+      type="Annual ";
     }else{
       calcNode = arr;
-      prefix="Monthly ";
+      mrr.prop("disabled", true);
+      type="Monthly ";
     }
 
-    calcRevLabel.text(prefix + "Recurring Revenue (*calculated");
+    calcNode.prop("disabled", false);
+    calcRevLabel.text( "Calculated " + type +"Recurring Revenue");
     calcRevenue(calcNode)
     calcNode.parent(".row").removeClass("hidden")
   }
