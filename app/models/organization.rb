@@ -1,7 +1,7 @@
 class Organization < ActiveRecord::Base
   has_many :contracts
 
-  validates :name, presence: true
+  validates :name, :sales_channel, presence: true
 
   def customer_start_date
     @cust_start ||=ordered_contracts.try(:first).start_date
