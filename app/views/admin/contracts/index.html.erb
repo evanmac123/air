@@ -26,7 +26,7 @@
       <% @contracts.each do |contract| %>
         <tbody>
           <tr class="resource-row" data-url='<%=admin_contract_path(contract)%>'>
-            <td><%= contract.organization.name.titleize %></td>
+            <td><%= contract.organization_name %></td>
             <td><%= contract.name %></td>
             <td><%= contract.plan.titleize %></td>
             <td><%= contract.status %></td>
