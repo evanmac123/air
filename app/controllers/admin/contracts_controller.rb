@@ -40,12 +40,12 @@ class Admin::ContractsController < AdminBaseController
   # params.require(:person).permit(:name, :age)
   # Also, you can specialize this method with per-user checking of permissible attributes.
   def contract_params
-    params.require(:contract).permit(:organization_id,:parent_contract_id,:plan,
+    params.require(:contract).permit(:organization_id, :parent_contract_id, :plan,
                                      :end_date,:start_date, 
                                      :arr, :mrr, :name,  
                                      :amt_booked, :date_booked, 
                                      :is_actual, :max_users,
-                                     :term, :notes,)
+                                     :term, :notes)
   end
 
   def show_mrr?
