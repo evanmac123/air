@@ -38,12 +38,12 @@
 
           <div class="row">
             <%= f.label :term %>
-            <%= f.number_field :term %>
+            <%= f.text_field :term %>
           </div>
 
           <div class="row">
             <%= f.label :max_users %>
-            <%= f.number_field :max_users %>
+            <%= f.text_field :max_users %>
           </div>
 
           <div class="row ">
@@ -84,12 +84,12 @@
 
           <div class="row revenue <%=show_mrr? ? '': 'hidden' %>">
             <%= f.label :mrr, "Monthly Recurring Revenue (MRR)" %>
-            <%= f.number_field :mrr, class: "recurring-amt" %>
+            <%= f.text_field :mrr, class: "recurring-amt" %>
           </div>
 
           <div class="row revenue <%=show_mrr? ? 'hidden': '' %>%>">
             <%= f.label :arr, "Annual Recurring Revenue (ARR)" %>
-            <%= f.number_field :arr , class: "recurring-amt" %>
+            <%= f.text_field :arr , class: "recurring-amt" %>
           </div>
 
           <div class="row">
