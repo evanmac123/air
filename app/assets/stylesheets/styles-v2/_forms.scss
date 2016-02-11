@@ -10,6 +10,9 @@ label {
   color: $text-color-1;
   margin: 0 0 10px;
   display: block;
+  &.disabled{
+   color: $gray-5;
+  }
 }
 
 input[type=url],
@@ -42,10 +45,17 @@ textarea {
     background-color: $n-white;
     border-color: $n-blue;
     box-shadow: none;
+    &.disabled{
+
+    border-color:$border-color-1;
+    }
   }
 
   &.error {
     border-color: $n-red;
+  }
+  &.disabled{
+    background-color: $gray-1;
   }
 }
 
@@ -93,6 +103,13 @@ label.checkbox {
 
 .input-group { // TODO: not sure this is needed
   margin: 20px 0;
+}
+
+.inline-input-group {
+  margin-bottom: 41px;
+  label.radio.inline {
+    margin-right:15px;
+  }
 }
 
 /* Custom Form Elements */
