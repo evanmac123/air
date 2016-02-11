@@ -434,7 +434,7 @@ FactoryGirl.define do
   end
 
   factory :contract do
-    name "Con Tract"
+    sequence(:name) {|n|"Contract-#{n}"}
 
     trait :complete do
       association :organization, factory: [:organization, :complete]
