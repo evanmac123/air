@@ -4,11 +4,11 @@ class Organization < ActiveRecord::Base
   validates :name, :sales_channel, presence: true
 
   def customer_start_date
-    @cust_start ||=ordered_contracts.try(:first).start_date
+    @cust_start ||=ordered_contracts.first.try(:start_date)
   end
 
   def customer_end_date
-   @cust_end ||= ordered_contracts.try(:last).end_date
+   @cust_end ||= ordered_contracts.last.try(:end_date)
   end
 
   def active
