@@ -962,6 +962,15 @@ ActiveRecord::Schema.define(:version => 20160211154813) do
 
   add_index "user_in_raffle_infos", ["user_id", "user_type", "raffle_id"], :name => "user_in_raffle", :unique => true
 
+  create_table "user_intros", :force => true do |t|
+    t.integer  "user_id"
+    t.boolean  "explore_intro_seen", :default => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
+  end
+
+  add_index "user_intros", ["user_id"], :name => "index_user_intros_on_user_id"
+
   create_table "user_tile_copies", :force => true do |t|
     t.integer  "tile_id"
     t.integer  "user_id"

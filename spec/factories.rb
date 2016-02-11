@@ -2,6 +2,7 @@ FactoryGirl.define do
 
   factory :unnamed_user, :class => User do
     association(:demo)
+    association :user_intro
     # Need to find a way to set the location of a user without creating an entirely new demo
     # association(:location)
     password  "password"
@@ -10,6 +11,9 @@ FactoryGirl.define do
     suggestion_box_intro_seen true
     user_submitted_tile_intro_seen true
     manage_access_prompt_seen true
+    trait :with_explore_intro do
+      user_intro { FactoryGirl.create :user_intro, explore_intro_seen: false }
+    end
   end
 
   factory :user,  :parent => :unnamed_user do
@@ -446,4 +450,7 @@ FactoryGirl.define do
     end
   end
 
+  factory :user_intro do
+    explore_intro_seen true
+  end
 end

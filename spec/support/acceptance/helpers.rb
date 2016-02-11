@@ -387,7 +387,7 @@ module SteakHelperMethods
   def expect_ping event, properties = {}, user = nil
     FakeMixpanelTracker.clear_tracked_events
     crank_dj_clear
-    #p FakeMixpanelTracker.tracked_events
+    # p FakeMixpanelTracker.tracked_events
     properties.merge!(user.data_for_mixpanel) if user
     FakeMixpanelTracker.should have_event_matching(event, properties)
   end

@@ -48,6 +48,7 @@ class User < ActiveRecord::Base
   has_one    :demo, through: :current_board_membership
   has_one    :original_guest_user, :class_name => "GuestUser", :foreign_key => :converted_user_id, :inverse_of => :converted_user
   has_one    :billing_information
+  has_one    :user_intro
   validate :normalized_phone_number_unique, :normalized_new_phone_number_unique, :normalized_new_phone_number_not_taken_by_board
   validate :new_phone_number_has_valid_number_of_digits
   validate :sms_slug_does_not_match_commands
@@ -1197,6 +1198,10 @@ class User < ActiveRecord::Base
         (board_memberships.demo == _demo) &
         (board_memberships.allowed_to_make_tile_suggestions == true)
       end
+  end
+
+  def intros
+    user_intro || UserIntro.create(user: self)
   end
 
   protected

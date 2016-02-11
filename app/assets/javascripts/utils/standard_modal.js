@@ -5,22 +5,31 @@ Airbo.Utils.StandardModal = (function(){
   return function(){
     var modal
       , modalSel
-      , closeSel
-      , onOpenedEvent
-      , onClosedEvent
-      , closeOnBgClick
       , modalContainer
       , modalContent
-      , confirmOnClose
       , modalXSel
-      , closeAlt
+      , ajaxModalClass = "ajax_modal"
+      , ajaxModalSel = "." + ajaxModalClass
+      , defaultParams = {
+          useAjaxModal: false,
+          closeSel: "",
+          onOpenedEvent: Airbo.Utils.noop,
+          onClosedEvent: Airbo.Utils.noop,
+          closeAlt: null,
+          closeOnBgClick: true,
+          confirmOnClose: false,
+          scrollOnOpen: true,
+          smallModal: false
+        }
+      , params
     ;
     function scrollModalToTop() {
-      modal.scrollTop();
+      if(params.scrollOnOpen) {
+        modal.scrollTop(0);
+      }
     }
     function open() {
       modal.foundation("reveal", "open");
-      // scrollModalToTop();
     }
     function closeModal() {
       message = "Are you sure you want to stop editing this tile?" + 
@@ -42,9 +51,9 @@ Airbo.Utils.StandardModal = (function(){
       );
     }
     function close() {
-      if(closeAlt){
-        closeAlt();
-      } else if(confirmOnClose){
+      if(params.closeAlt){
+        params.closeAlt();
+      } else if(params.confirmOnClose){
         closeModal();
       }else{
         modal.foundation("reveal", "close");  
@@ -54,8 +63,8 @@ Airbo.Utils.StandardModal = (function(){
       modal.find("#modal_content").html(content);
     }
     function bodyScrollVisibility(show) {
-      overflow = "";
-      width = "";
+      var overflow = "";
+      var width = "";
       if(!show) {
         overflow = "hidden";
         width = $("body").width()
@@ -71,14 +80,15 @@ Airbo.Utils.StandardModal = (function(){
       });
 
       modal.bind('opened.fndtn.reveal', function(){
-        onOpenedEvent();
+        scrollModalToTop();
+        params.onOpenedEvent();
       });
 
       modal.bind('closed.fndtn.reveal', function(){
         if( $(".reveal-modal.open").length == 0 ) {
           bodyScrollVisibility(true);
         }
-        onClosedEvent();
+        params.onClosedEvent();
       });
 
       $(modalXSel).click(function(e){
@@ -87,12 +97,12 @@ Airbo.Utils.StandardModal = (function(){
         close();
       });
 
-      $(closeSel).click(function(e){
+      $(params.closeSel).click(function(e){
         e.preventDefault();
         close();
       });
 
-      if(closeOnBgClick) {
+      if(params.closeOnBgClick) {
         [modalSel, modalContainerSel, modalContentSel].forEach(function(el){
           $("body").on("click", el, function(event){
             if($(event.target).is(el)){
@@ -101,45 +111,30 @@ Airbo.Utils.StandardModal = (function(){
           });
         });
       }
-      // if(confirmOnClose) {
-
-      // }
-      // if(fixedX) {
-      //
-      // }
     }
-    function initVars(params) {
+    function makeModal() {
       modalId = params.modalId;
       modalSel = "#" + modalId;
-      if(params.useAjaxModal) {
-        modal = $(modalSel);
-        if( modal.length == 0 ) {
-          modal = $(".ajax_modal").clone();
-          modal.removeClass("ajax_modal");
-          modal.appendTo( $(".modals") );
-          modal.attr("id", params.modalId);
-        }
-        // $(".ajax_modal").attr("id", params.modalId);
-      }
       modal = $(modalSel);
+      // make ajax modal
+      if(params.useAjaxModal && modal.length == 0) {
+        modal = $(ajaxModalSel).clone();
+        modal.removeClass(ajaxModalClass);
+        modal.appendTo( $(".modals") );
+        modal.attr("id", modalId);
+      }
+      // parts of modal
       modalContainerSel = modalSel + " .modal_container";
       modalContentSel = modalSel + " #modal_content";
       modalXSel = modalSel + " .close-reveal-modal";
-      closeSel = params.closeSel || "";
-      onOpenedEvent = params.onOpenedEvent || Airbo.Utils.noop;
-      onClosedEvent = params.onClosedEvent || Airbo.Utils.noop;
-      closeAlt = params.closeAlt || null;
-      closeOnBgClick = params.closeOnBgClick || true;
-      confirmOnClose = params.confirmOnClose || false;
+      // small modals for some messages etc.
       if(params.smallModal) {
         modal.addClass("standard_small_modal")
       }
-      // if(params.modalClass) {
-      //   modal.addClass(params.modalClass)
-      // }
     }
-    function init(params) {
-      initVars(params);
+    function init(userParams) {
+      params = $.extend(defaultParams, userParams);
+      makeModal();
       initEvents();
     }
     return {

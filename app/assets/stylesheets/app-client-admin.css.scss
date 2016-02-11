@@ -4,6 +4,8 @@
 *= require medium-editor/medium-editor
 *= require medium-editor/themes/default
 *= require sweetalert
+*= require slick-carousel/slick/slick.scss
+*= require slick-carousel/slick/slick-theme.scss
 */
 @import "./vendor/pace-theme-center-simple.css.scss";
 
@@ -46,3 +48,4 @@
 @import "./client_admin/tile_stats.css.scss";
 @import "./vendor_customization/sweetalert.css.scss";
 @import "./vendor_customization/medium.css.scss";
+@import "./vendor_customization/slick-carousel.scss";
