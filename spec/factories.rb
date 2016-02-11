@@ -441,6 +441,7 @@ FactoryGirl.define do
       start_date  Date.today 
       end_date  1.year.from_now 
       arr  60000
+      amt_booked  5000
 
       term  12
       plan  "engage"
