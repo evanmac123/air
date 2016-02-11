@@ -409,10 +409,11 @@ FactoryGirl.define do
     association :tile
     association :user
   end
-  
+
   factory :organization  do
     name "Omni Corp"
-   
+    sales_channel "Direct"
+
     trait :with_contracts do
       after(:create) do |org, evaluator|
         create(:contract, :complete, organization: org, start_date: '2012-01-01', end_date: '2012-12-31' )
@@ -420,25 +421,14 @@ FactoryGirl.define do
         create(:contract, :complete, organization: org, start_date: '2014-01-01', end_date: '2014-12-31' )
       end
     end
-   
-   trait :active do
-
-   end
-
 
   end
 
   factory :contract do
     name "Con Tract"
 
-    trait :with_parent do
-      after_build do|c|
-        c.parent_contract  #factory: :contract, class: "Contract" 
-      end
-    end
-
     trait :complete do
-      organization FactoryGirl.create(:organization)
+      association :organization
       start_date  Date.today 
       end_date  1.year.from_now 
       arr  60000
