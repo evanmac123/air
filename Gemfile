@@ -60,6 +60,10 @@ gem "unicorn"   # Some of our capybara webkit tests fail with thin, so we use un
 gem "newrelic_rpm"
 gem "jquery-fileupload-rails"#
 gem "acts_as_singleton"
+
+gem "roo", :git => "git://github.com/Empact/roo.git"
+gem "hashugar" 
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

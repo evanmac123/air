@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/Empact/roo.git
+  revision: 6aa6a731222a26a3cd5ea26a3e78445387b1193d
+  specs:
+    roo (2.3.1)
+      nokogiri (~> 1)
+      rubyzip (~> 1.1, < 2.0.0)
+
+GIT
   remote: https://github.com/avbrychak/wice_grid
   revision: a3795c4953d325ec11229cc8127058803df4f145
   branch: rails3
@@ -231,6 +239,7 @@ GEM
       haml (~> 3.1)
       railties (>= 3.1, < 4.1)
     hash-deep-merge (0.1.1)
+    hashugar (1.0.1)
     high_voltage (1.2.1)
     hike (1.2.3)
     historyjs-rails (1.0.1)
@@ -558,6 +567,7 @@ DEPENDENCIES
   formtastic
   getopt
   haml-rails
+  hashugar
   high_voltage
   historyjs-rails
   htmlentities
@@ -598,6 +608,7 @@ DEPENDENCIES
   redis-rails
   require_all
   rollout
+  roo!
   rspec-mocks
   rspec-rails
   sanitize
