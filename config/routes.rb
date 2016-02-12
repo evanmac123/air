@@ -15,6 +15,9 @@ Health::Application.routes.draw do
   match "ard/:public_slug/tiles" => "tiles#index", :as => "public_tiles", :via => :get
   match "ard/:public_slug/tile/:id" => "tiles#show", :as => "public_tile", :via => :get
 
+  get "admin/organizations/metrics" => "admin/organizations#metrics", :as => "organization_metrics"
+  post "admin/organizations/metrics" => "admin/organizations#metrics_recalc", :as => "organization_metrics"
+
   resources :tiles, :only => [:index, :show]
   resources :tile, :only => [:show], as: "sharable_tile"
   resources :tile_completions, :only => [:create]

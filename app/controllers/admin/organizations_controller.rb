@@ -11,6 +11,13 @@ class Admin::OrganizationsController < AdminBaseController
   def show
   end
 
+  def metrics
+  end
+
+  def metrics_recalc
+
+  end
+
   def new
     @organization = Organization.new
     new_or_edit @organization 

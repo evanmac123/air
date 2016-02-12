@@ -1,0 +1,65 @@
+
+<h1> Metrics and KPIs Calculator </h1>
+<div class="row">
+  <div class="columns small-10 small-centered">
+    <%=form_tag organization_metrics_path do %> 
+      <table>
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Period Start</th>
+            <th>Period End</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Started</td>
+            <td><input type="date" name="active_sdate"></td>
+            <td><input type="date" name="active_edate"></td>
+            <td><input type="text" disabled="disabled" class="disabled"></td>
+          </tr>
+          <tr>
+            <td>Added</td>
+            <td><input type="date" name="added_sdate"></td>
+            <td><input type="date" name="added_edate"></td>
+            <td><input type="text" disabled="disabled" class="disabled"></td>
+          </tr>
+          <tr>
+            <td>Possible Churn</td>
+            <td><input type="date" name="poss_churn_sdate"></td>
+            <td><input type="date"></td>
+            <td><input type="text" disabled="disabled" class="disabled"></td>
+          </tr>
+          <tr>
+            <td>Churned</td>
+            <td><input type="date" name="churned_sdate"></td>
+            <td><input type="date"></td>
+            <td><input type="text" disabled="disabled" class="disabled"></td></tr>
+          <tr>
+            <td>% Churn</td>
+            <td></td>
+            <td></td>
+            <td><input type="text" disabled="disabled" class="disabled"></td>
+          </tr>
+          <tr>
+            <td>Change</td>
+            <td></td>
+            <td></td>
+            <td><input type="text" disabled="disabled" class="disabled"></td></tr>
+          <tr>
+            <td>Ending</td>
+            <td></td>
+            <td></td><td>
+              <input type="text" disabled="disabled" class="disabled"></td></tr>
+          <tr>
+            <td>Weekly Change %</td>
+            <td></td>
+            <td></td>
+            <td><input type="text" disabled="disabled" class="disabled"></td></tr>
+        </tbody>
+      </table>
+      <%=submit_tag "Submit"%>
+    <%end%>
+  </div>
+</div>
