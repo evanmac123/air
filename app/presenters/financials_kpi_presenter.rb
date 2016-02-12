@@ -12,11 +12,11 @@ class FinancialsKpiPresenter
     Organization.active_by_date date
   end
 
-  def possible_churn_by date 
-    Organization.active_by_date date
+  def possible_churn_by sdate, edate 
+    Organization.possible_churn sdate, edate
   end
 
-  def chured
+  def churned
 
   end
 
