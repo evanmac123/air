@@ -3,6 +3,26 @@ class Organization < ActiveRecord::Base
 
   validates :name, :sales_channel, :num_employees, presence: true
   validates :num_employees, numericality: {integer_only: true}
+
+  def self.active_by_date date
+    joins(:contracts).where("contracts.end_date > ?", date)
+  end
+
+  def self.expiring_within_date_range sdate, edate
+    joins(:contracts).where("contracts.end_date > ? and contracts.end_date < ?", sdate, edate)
+  end
+
+  def self.still_active_beyond_date_range sdate, edate
+    joins(:contracts).where("contracts.end_date > ? and contracts.end_date > ?", sdate, edate)
+  end
+
+  def self.possible_churn sdate, edate
+    still_active_beyond_date_range(sdate, edate)
+      .select("organization.id, organization.name")
+      .group("organization.id, organization.name")
+      .having("count(organization.id)") > 0
+  end
+
   def customer_start_date
     @cust_start ||=ordered_contracts.first.try(:start_date)
   end

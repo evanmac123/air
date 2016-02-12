@@ -10,6 +10,14 @@ class Contract < ActiveRecord::Base
   validates :arr, :mrr, numericality: true, allow_nil: true
   validate :arr_or_mrr_provided
 
+  def self.active
+    where("end_date > ?", Date.today)
+  end
+
+  def self.expiring_within_date_range sdate, edate
+    where("contracts.end_date > ? and contracts.end_date < ?", sdate, edate)
+  end
+
 
   def status
     end_date > Date.today ? "Active" : "Closed"
