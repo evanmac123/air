@@ -7,4 +7,28 @@ body.pages-home {
     background-image: linear-gradient(to bottom, #48bfff 0, #379fd7 100%);
     // height: 428px;
   }
+  .clients{
+    background-color: #f9f9f9;
+    padding: 50px 20px;
+    h5{
+      display: block;
+      margin: auto;
+      font-size: 20px;
+      line-height: 30px;
+      color: #666666;
+      text-transform: none;
+      margin-bottom: 30px;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+    .client_logos {
+      max-width: 750px;
+      margin: auto;
+      overflow: auto;
+      img {
+        display: block;
+        margin: auto;
+      }
+    }
+  }
 }
