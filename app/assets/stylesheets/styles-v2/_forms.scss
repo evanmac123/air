@@ -2,6 +2,17 @@
 
 form {
   width: 100%;
+  &.inline {
+    input[type=text] {
+      width: 250px;
+      margin-right: 10px;
+    }
+    .button {
+      height: 37px;
+      width: 75px;
+      margin-top: -3px;
+    }
+  }
 }
 
 label {

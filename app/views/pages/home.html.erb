@@ -1,0 +1,15 @@
+<div class="hero">
+  <%= render partial: "pages/landing/header" %>
+  <div class="hero_section">
+    <div class="hero_content">
+      <h1>Engaging employee communications that get HR priorities done.</h1>
+      <h3>Join to explore best practices and content you can use today, it's free forever.</h3>
+      <%= form_tag demo_requests_url, class: "inline align_center" do %>
+        <%= text_field_tag "user[name]", "", placeholder: "First and Last Name" %>
+        <%= text_field_tag "user[email]", "", placeholder: "Work Email" %>
+        <%= submit_tag "Join", class: "button green" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<%= render partial: "pages/landing/footer" %>

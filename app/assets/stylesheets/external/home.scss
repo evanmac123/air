@@ -1,0 +1,10 @@
+body.pages-home {
+  @import "landing/header.css.scss";
+  @import "landing/hero.css.scss";
+  @import "landing/footer.css.scss";
+  .hero {
+    background-image: none;
+    background-image: linear-gradient(to bottom, #48bfff 0, #379fd7 100%);
+    // height: 428px;
+  }
+}
