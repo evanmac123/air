@@ -4,9 +4,9 @@ class Contract < ActiveRecord::Base
   has_many :upgrades, class_name: "Contract", foreign_key: "parent_contract_id"
   has_many :billings
 
-  validates :organization, :name, :start_date, :end_date, :max_users, :term, :amt_booked, :plan, presence: true
+  validates :organization, :name, :start_date, :end_date, :max_users, :amt_booked, :plan, presence: true
 
-  validates :max_users, :term, numericality: { only_integer: true }
+  validates :max_users, numericality: { only_integer: true }
   validates :arr, :mrr, numericality: true, allow_nil: true
   validate :arr_or_mrr_provided
 

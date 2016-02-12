@@ -1,6 +1,9 @@
 require 'custom_responder'
+require 'file_upload_wrapper'
+require 'contract_from_data_row'
+
 class Admin::ContractsController < AdminBaseController
-  before_filter :find_contract, except: [:new, :create, :index]
+  before_filter :find_contract, except: [:new, :create, :index, :import]
   before_filter :set_parent_org
   before_filter :set_organizations
   before_filter :set_related_contracts
@@ -32,6 +35,29 @@ class Admin::ContractsController < AdminBaseController
 
   def destroy
     delete_resource @contract, admin_contracts_path
+  end
+
+  def import
+    importer = ContractImporter.new(FileUploadWrapper.new(params[:file]))
+    heads = importer.header
+    org = nil
+    importer.rows.each do |row| 
+      org = Organization.where(name: row["Company"]).first_or_initialize
+      org.num_employees = 1
+      org.sales_channel = "Direct"
+      org.save
+
+      contract = org.contracts.build
+      data = heads.reject{|h| h=="Company"}
+
+      data.each do|head| 
+        contract[field_mapping[head]]=row[head]
+      end
+
+      contract.name = org.name + (org.contracts.count +1).to_s
+      contract.save
+    end
+    redirect_to admin_contracts_path
   end
 
   private
@@ -90,4 +116,17 @@ class Admin::ContractsController < AdminBaseController
 
   helper_method :show_mrr?, :calced_rr
 
+  def field_mapping
+    @mapping ||= {
+      "Company"=>"name",
+      "Start Date"=>"start_date",
+      "End Date"=>"end_date",
+      "Amount Booked"=>"amt_booked",
+      "Date Booked"=>"date_booked",
+      "Plan"=>"plan",
+      "MRR"=>"marr",
+      "ARR"=>"arr",
+      "Max Users"=>"max_users"
+    }
+  end
 end

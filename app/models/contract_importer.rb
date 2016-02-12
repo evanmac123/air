@@ -1,0 +1,2 @@
+class ContractImporter < SpreadsheetImporter
+end

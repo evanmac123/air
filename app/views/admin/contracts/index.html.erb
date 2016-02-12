@@ -47,7 +47,11 @@
         </tbody>
     </table>
 
-<br />
+
+    <%=form_tag contracts_import_path, multipart: true do %>
+      <%=file_field_tag :file %>
+      <%=submit_tag "submit"%>
+  <%end%>
 
 <%# link_to 'New Contract', new_admin_contract_path, class:"button" %>
   </div>

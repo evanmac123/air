@@ -18,6 +18,8 @@ Health::Application.routes.draw do
   get "admin/organizations/metrics" => "admin/organizations#metrics", :as => "organization_metrics"
   post "admin/organizations/metrics" => "admin/organizations#metrics_recalc", :as => "organization_metrics"
 
+  post "admin/contracts/import" => "admin/contracts#import", :as => "contracts_import"
+
   resources :tiles, :only => [:index, :show]
   resources :tile, :only => [:show], as: "sharable_tile"
   resources :tile_completions, :only => [:create]
