@@ -2,6 +2,7 @@ class Contract < ActiveRecord::Base
   belongs_to :organization
   belongs_to :parent_contract, class_name: "Contract"
   has_many :upgrades, class_name: "Contract", foreign_key: "parent_contract_id"
+  has_many :billings
 
   validates :organization, :name, :start_date, :end_date, :max_users, :term, :amt_booked, :plan, presence: true
 

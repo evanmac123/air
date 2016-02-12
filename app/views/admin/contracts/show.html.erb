@@ -1,8 +1,8 @@
 <div class="row">
-  <div class="columns small-8 small-centered">
+  <div class="columns small-12 ">
     <p id="notice"><%= notice %></p>
 
-    <h1><%= @contract.name %>/<%= @contract.organization_name %></h1>
+    <h2><%= @contract.name %>/<%= @contract.organization_name %></h2>
 
     <table>
       <tbody> 
@@ -60,9 +60,19 @@
       </tbody>
     </table>
 
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="columns small-5 ">
     <%= link_to 'Edit', edit_admin_contract_path(@contract), class: "button" %>
     <%= link_to 'Add Upgrade', new_admin_contract_upgrade_path(@contract), class: "button"  %>
+    <%= link_to 'Add Billing', new_admin_contract_billing_path(@contract), class: "button"  %>
+  </div>
+  <div class="columns small-5 small-centered">
     <%= link_to 'Delete', admin_contract_path(@contract), method: :delete, class: "button", confirm: "Are you sure" %>
     <%= link_to 'Back', admin_contracts_path , class: "button" %>
+
   </div>
 </div>

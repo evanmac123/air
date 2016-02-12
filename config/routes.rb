@@ -251,11 +251,15 @@ Health::Application.routes.draw do
 
     resources :organizations do
       resources :contracts, controller: "contracts"
+      resources :billings
     end
 
     resources :contracts do
       resources :upgrades, controller: "contracts"
+      resources :billings
     end
+
+    resources :billings
 
     resources :rule_values, :only => [:destroy]
 

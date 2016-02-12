@@ -1,0 +1,89 @@
+<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="columns small-12 small-centered">
+    <table class="left-header">
+      <tbody>
+        <tr>
+          <th>Name:</th>
+          <td><%= @organization.name %></td>
+        </tr>
+
+        <tr>
+          <th>Num employees</th>
+          <td><%= @organization.num_employees %></td>
+        </tr>
+
+        <tr>
+          <th>Sales channel</th>
+          <td><%= @organization.sales_channel %></td>
+        </tr>
+        <tr>
+          <th>Start</th>
+          <td><%= simple_date_format @organization.customer_start_date %></td>
+        </tr>
+        <tr>
+          <th>End</th>
+          <td><%= simple_date_format @organization.customer_end_date %></td>
+        </tr>
+        <tr>
+          <th>Churned</th>
+          <td><%= @organization.churned %></td>
+        </tr>
+
+        <tr>
+          <th>Churn reason</th>
+          <td><%= @organization.churn_reason %></td>
+        </tr>
+      </tbody>
+    </table>
+    <%= link_to 'Edit', edit_admin_organization_path(@organization) %> |
+    <%= link_to 'Back', admin_organizations_path %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="columns small-12 small-centered">
+    <h3> Contracts </h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Plan</th>
+          <th>Start</th>
+          <th>End</th>
+          <th>Length</th>
+          <th>MRR</th>
+          <th>ARR</th>
+          <th>Amt booked</th>
+          <th>Date booked</th>
+          <th>Estimate</th>
+          <th>Type</th>
+          <th>Max Users</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @organization.contracts.each do |contract| %>
+          <tr class="resource-row" data-url="<%=admin_contract_path(contract)%>">
+            <td><%= contract.name %></td>
+            <td><%= contract.plan %></td>
+            <td><%= simple_date_format contract.start_date %></td>
+            <td><%= simple_date_format contract.end_date %></td>
+            <td><%= contract.term %></td>
+            <td><%= simple_money_format contract.mrr %></td>
+            <td><%= simple_money_format contract.arr %></td>
+            <td><%= simple_money_format contract.amt_booked %></td>
+            <td><%= simple_date_format contract.date_booked %></td>
+            <td><%= contract.projection_type %></td>
+            <td><%= contract.role_type %></td>
+            <td><%= simple_number_format contract.max_users %></td>
+          </tr>
+
+        <%end%>
+      </tbody>
+    </table>
+
+    <div>
+      <%= link_to 'Add New Contract', new_admin_organization_contract_path(@organization), class: "button" %>
+    </div>
+  </div>
+</div>

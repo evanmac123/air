@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160211154813) do
+ActiveRecord::Schema.define(:version => 20160211232707) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -99,8 +99,10 @@ ActiveRecord::Schema.define(:version => 20160211154813) do
   create_table "billings", :force => true do |t|
     t.decimal  "amount"
     t.date     "posted"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.integer  "contract_id"
+    t.integer  "organization_id"
   end
 
   create_table "blacklists", :force => true do |t|
@@ -205,6 +207,7 @@ ActiveRecord::Schema.define(:version => 20160211154813) do
     t.datetime "updated_at",                           :null => false
     t.integer  "parent_contract_id"
     t.boolean  "is_actual",          :default => true
+    t.boolean  "auto_renew",         :default => true
   end
 
   add_index "contracts", ["organization_id"], :name => "index_contracts_on_organization_id"
