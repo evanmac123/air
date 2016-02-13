@@ -3,6 +3,7 @@ class Admin::OrganizationsController < AdminBaseController
   include CustomResponder
 
   before_filter :find_organization, only: [:edit, :show, :update, :destroy]
+  before_filter :parse_dates, only: [:metrics_recalc]
 
   def index
     @organizations = Organization.all
@@ -12,10 +13,16 @@ class Admin::OrganizationsController < AdminBaseController
   end
 
   def metrics
+    @data = {}
   end
 
   def metrics_recalc
-
+    @data = {}
+    @data["active"] = Organization.active_during_period @sdate, @edate 
+    @data["added"] = Organization.added_during_period @sdate, @edate
+    @data["possible_churn"] = Organization.possible_churn_during_period @sdate, @edate
+    @data["churned"] = Organization.churned_during_period @sdate, @edate
+    render "metrics"
   end
 
   def new
@@ -38,7 +45,10 @@ class Admin::OrganizationsController < AdminBaseController
   end
 
   private
-
+  def parse_dates
+   @sdate = Date.strptime(params[:sdate], "%Y-%m-%d")
+   @edate = Date.strptime(params[:edate], "%Y-%m-%d")
+  end
   def find_organization
     @organization = Organization.find(params[:id])
   end
