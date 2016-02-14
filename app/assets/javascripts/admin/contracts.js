@@ -112,7 +112,23 @@ Airbo.ContractManager= (function(){
    initArrMrrCalc();
    initCalcFactor();
    initResourceRowClick();
+   toggleTabs();
 
+  }
+
+  function toggleTabs(){
+    $('#tabs div').hide();
+    $('#tabs div:first').show();
+    $('#tabs ul li:first a').addClass('selected');
+
+    $('#tabs ul li a').click(function(){
+      $('#tabs ul li a').removeClass('selected');
+      $(this).addClass('selected');
+      var currentTab = $(this).attr('href');
+      $('#tabs div').hide();
+      $(currentTab).show();
+      return false;
+    }); 
   }
 
  return {
