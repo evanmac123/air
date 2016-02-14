@@ -10,22 +10,34 @@ $table-row-padding: 10px;
 
 @import "./vendor/foundation/components/tables";
 
-table {
-  width: 100%;
-}
 
 th {
   @include font-weight-bold;
 }
+table:not(.first-column-header){
 
-td {
-  border-bottom: 1px solid $border-color-1;
+  width: 100%;
+  tr:hover,
+  table tr.even:hover,
+  table tr.alt:hover,
+  table tr:nth-of-type(even):hover {
+    @include ease(0.2s);
+    background-color: $gray-1;
+  }
+
+  td {
+    border-bottom: 1px solid $border-color-1;
+  }
+
 }
 
-tr:hover,
-table tr.even:hover,
-table tr.alt:hover,
-table tr:nth-of-type(even):hover {
-  @include ease(0.2s);
-  background-color: $gray-1;
+table.first-column-header{
+ th {
+   text-align:left;
+   padding-right: 75px;
+ }
+
+ tr {
+   background-color: inherit;
+ }
 }

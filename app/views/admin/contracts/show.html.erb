@@ -2,9 +2,9 @@
   <div class="columns small-12 ">
     <p id="notice"><%= notice %></p>
 
-    <h2><%= @contract.name %>/<%= @contract.organization_name %></h2>
+    <h3><%= @contract.name %>/<%= @contract.organization_name %></h3>
 
-    <table>
+    <table class="first-column-header">
       <tbody> 
         <tr>
           <th>Plan</th> <td> <%= @contract.plan.titleize %> </td>
@@ -19,11 +19,11 @@
           <th>End</th> <td> <%= simple_date_format @contract.end_date %> </td>
         </tr>
         <tr>
-          <th>Mrr</th> <td> <%=simple_money_format @contract.calc_mrr %> </td>
+          <th>MRR</th> <td> <%=simple_money_format @contract.calc_mrr %> </td>
         </tr>
 
         <tr>
-          <th>Arr</th> <td> <%= simple_money_format @contract.calc_arr %></td>
+          <th>ARR</th> <td> <%= simple_money_format @contract.calc_arr %></td>
         </tr>
 
         <tr>

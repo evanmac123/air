@@ -77,12 +77,14 @@ th, td{
   text-align: center;
   margin-top: -5mm; 
 }
-tr:hover{
-  background: #babeb8;
-  .hidden_tags, .tile_details{
-    display: block;
+table:not(.first-column-header){
+  tr:hover{
+    background: #babeb8;
+    .hidden_tags, .tile_details{
+      display: block;
+    }
   }
-} 
+}
 .hidden_tags, .tile_details{
   margin-top: 1ex;
   display: none;
