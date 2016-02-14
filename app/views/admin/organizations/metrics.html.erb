@@ -28,13 +28,26 @@
         </tr>
       </thead>
       <tbody>
-        <%@data.each do|k, v| %>
-          <tr>
-            <th><%=k.titleize%></th>
-            <td><%=v.count%></td>
-          </tr>
-        <%end%>
+        <tr><th>Organizations</th><td><%=@kpi.active_organizations_during_period%></td></tr>
+        <tr><th>Orgs Added</th><td><%=@kpi.added_organizations_during_period%></td></tr>
+        <tr><th>Possible Churn</th><td><%=@kpi.possible_churn_during_period%></td></tr>
+        <tr><th>Churned</th><td><%=@kpi.churned_during_period%></td></tr>
+        <tr><th>New Customer MRR</th><td><%=@kpi.new_customer_mrr_added_during_period%></td></tr>
+        <tr><th>New Customer Arr</th><td><%=@kpi.new_customer_arr_added_during_period%></td></tr>
+        <tr><th>Active Contracts</th><td><%=@kpi.active_contracts_during_period%></td></tr>
+        <tr><th>Added Contracts</th><td><%=@kpi.added_contracts_during_period%></td></tr>
+        <tr><th>Upgrade ARR Added</th><td><%=@kpi.arr_added_from_upgrades_during_period%></td></tr>
+        <tr><th>Upgrade MRR Added</th><td><%=@kpi.mrr_added_from_upgrades_during_period%></td></tr>
+        <tr><th>ARR Added</th><td><%=@kpi.arr_added_during_period%></td></tr>
+        <tr><th>MRR Added</th><td><%=@kpi.mrr_added_during_period%></td></tr>
+        <tr><th>ARR</th><td><%=@kpi.arr_during_period%></td></tr>
+        <tr><th>MRR</th><td><%=@kpi.mrr_during_period%></td></tr>
+        <tr><th>MRR Possible Churn</th><td><%=@kpi.mrr_possibly_churning_during_period%></td></tr>
+        <tr><th>Arr Possible Churn</th><td><%=@kpi.arr_possibly_churning_during_period%></td></tr>
       </tbody>
     </table>
   </div>
 </div>
+
+
+

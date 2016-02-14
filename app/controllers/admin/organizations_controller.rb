@@ -13,16 +13,11 @@ class Admin::OrganizationsController < AdminBaseController
   end
 
   def metrics
-    @data = {}
+    @kpi =FinancialsKpiPresenter.new 
   end
 
   def metrics_recalc
-    @data = {}
-    @data["active"] = Organization.active_during_period @sdate, @edate 
-    @data["added"] = Organization.added_during_period @sdate, @edate
-    @data["possible_churn"] = Organization.possible_churn_during_period @sdate, @edate
-    @data["churned"] = Organization.churned_during_period @sdate, @edate
-    render "metrics"
+    @kpi = FinancialsKpiPresenter.new(@sdate, @Date)
   end
 
   def new

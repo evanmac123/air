@@ -10,14 +10,62 @@ class Contract < ActiveRecord::Base
   validates :arr, :mrr, numericality: true, allow_nil: true
   validate :arr_or_mrr_provided
 
+
+  def self.upgrades
+    where("parent_contract_id is not NULL")
+  end
+
   def self.active
     where("end_date > ?", Date.today)
   end
-
-  def self.expiring_within_date_range sdate, edate
-    where("contracts.end_date > ? and contracts.end_date < ?", sdate, edate)
+ 
+  def self.auto_renewing
+    where(auto_renew: true)
   end
 
+  def self.expiring_within_date_range sdate, edate
+    where("end_date >= ? and end_date <= ?", sdate, edate)
+  end
+
+  def self.active_during_period sdate, edate
+    where("start_date <= ? and end_date > ?", edate, edate)
+  end
+
+  def self.added_during_period sdate, edate
+    where("start_date >= ? and start_date < ?", sdate, edate)
+  end
+
+  def self.arr_added_from_upgrades_during_period sdate, edate
+   added_during_period(sdate, edate).upgrades.sum(&:calc_arr)
+  end
+
+  def self.mrr_added_from_upgrades_during_period sdate, edate
+   added_during_period(sdate, edate).upgrades.sum(&:calc_mrr)
+  end
+
+  def self.arr_added_during_period sdate, edate
+    added_during_period(sdate, edate).sum(&:calc_arr)
+  end
+
+  def self.mrr_added_during_period sdate, edate
+    added_during_period(sdate, edate).sum(&:calc_mrr)
+  end
+
+  def self.arr_during_period sdate, edate
+    active_during_period(sdate, edate).sum(&:calc_arr)
+  end
+
+  def self.mrr_during_period sdate, edate
+    active_during_period(sdate, edate).sum(&:calc_mrr)
+  end
+
+  def self.mrr_possibly_churning_during_period sdate, edate
+    expiring_within_date_range(sdate, edate).sum(&:calc_mrr)
+  end
+
+  def self.arr_possibly_churning_during_period sdate, edate
+    expiring_within_date_range(sdate, edate).sum(&:calc_arr)
+  end
 
   def status
     end_date > Date.today ? "Active" : "Closed"
@@ -38,6 +86,7 @@ class Contract < ActiveRecord::Base
   def organization_name
     organization.name
   end
+
 
   def calc_mrr
     if (mrr || arr)
