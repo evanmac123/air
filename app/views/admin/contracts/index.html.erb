@@ -12,6 +12,7 @@
           <th>Start </th>
           <th>End</th>
           <th>Length</th>
+          <th>Status</th>
           <th>MRR</th>
           <th>ARR</th>
           <th>Amt Booked</th>
@@ -33,6 +34,7 @@
             <td><%= simple_date_format contract.start_date %></td>
             <td><%= simple_date_format contract.end_date %></td>
             <td><%= simple_number_format contract.contract_length_in_months %></td>
+            <td><%= contract.status %></td>
             <td><%= simple_money_format contract.calc_mrr %></td>
             <td><%= simple_money_format contract.calc_arr %></td>
             <td><%= simple_money_format contract.amt_booked %></td>

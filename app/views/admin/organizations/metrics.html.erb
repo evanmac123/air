@@ -13,8 +13,8 @@
         </thead>
         <tbody>
           <tr>
-            <td><input type="date" name="sdate"></td>
-            <td><input type="date" name="edate"></td>
+            <td><%=text_field_tag "sdate", simple_date_format(@kpi.sdate)%></td>
+            <td><%=text_field_tag "edate", simple_date_format(@kpi.edate)%></td>
           </tr> 
         </tbody>
       </table>

@@ -2,18 +2,25 @@
   <div class="columns small-12 small-centered">
     <h1>Organizations</h1>
 
-    <p class="padded right">
-      <%= link_to 'Add Organization', new_admin_organization_path, class: "button button-small" %>
-    </p> 
-    <table>
+ <div id="tabs">
+    <ul class="tabs">
+      <li><a href="#tab-1" >Current Customers</a></li>
+      <li><a href="#tab-2">Churned</a></li>
+    </ul>
+    <div id="tab-1">
 
+      <h3>Active Customers </h3>
+      <p class="padded right">
+      <%= link_to 'Add Organization', new_admin_organization_path, class: "button button-small" %>
+      </p> 
+       <table>
       <thead>
       <tr>
         <th>Name</th>
         <th>Employees</th>
-        <th>Sales channel</th>
-        <th>Churned</th>
-        <th>Churn Reason</th>
+        <th>Plan</th>
+        <th>Sales Channel</th>
+        <th>Start</th>
       </tr>
     </thead>
     <tbody>
@@ -22,12 +29,48 @@
         <tr class="resource-row" data-url='<%=admin_organization_path(organization)%>'>
           <td><%= organization.name %></td>
           <td><%= organization.num_employees %></td>
+          <td><%= organization.plan %></td>
           <td><%= organization.sales_channel %></td>
-          <td><%= organization.churned %></td>
-          <td><%= organization.churn_reason %></td>
+          <td><%= simple_date_format organization.customer_start_date %></td>
         </tr>
       <% end %>
     </tbody>
     </table>
+
+    </div>
+    <div id="tab-2">
+      <h3>Churned </h3>
+   <table>
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Employees</th>
+        <th>Plan</th>
+        <th>Sales Channel</th>
+        <th>Start</th>
+        <th>End</th>
+        <th>Churned</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @organizations.each do |organization| %>
+        
+        <tr class="resource-row" data-url='<%=admin_organization_path(organization)%>'>
+          <td><%= organization.name %></td>
+          <td><%= organization.num_employees %></td>
+          <td><%= organization.plan %></td>
+          <td><%= organization.sales_channel %></td>
+          <td><%= simple_date_format organization.customer_start_date %></td>
+          <td><%= simple_date_format organization.customer_end_date %></td>
+          <td><%= organization.churned %></td>
+        </tr>
+      <% end %>
+    </tbody>
+    </table>
+    </div>
+    
+
+  </div>
+  
   </div>
 </div>
