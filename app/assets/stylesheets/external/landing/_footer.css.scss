@@ -1,11 +1,15 @@
 footer#pageFtr {
-  background-color: #f7f8fa;
+  // background-color: #f7f8fa;
+  .contact_us.contact_us {
+    color: #15adff;
+  }
   .menu_block {
     float: right;
     min-width: 530px;
     ul {
       line-height: 1;
       text-align: right;
+      padding: 32px 0;
     }
     li {
       display: inline-block;
@@ -16,7 +20,7 @@ footer#pageFtr {
     }
     a {
       // display: block;
-      color: #66676d;
+      color: $home-gray;
       font-size: 15px;
       font-weight: 400;
       // display: inline;
@@ -32,13 +36,13 @@ footer#pageFtr {
     }
   }
   .contacts_block {
-    height: 100px;
+    height: 80px;
     width: auto;
     float: none;
     overflow: hidden;
     // display: table;
     a {
-      padding-top: 30px;
+      padding-top: 20px;
       display: block;
       img {
         float: left;
@@ -49,7 +53,7 @@ footer#pageFtr {
       color: #66676d;
       font-size: 15px;
       line-height: 18px;
-      font-style: italic;
+      // font-style: italic;
       text-align: right;
       padding-right: 10px;
       padding-top: 12px;
