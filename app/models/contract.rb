@@ -21,7 +21,7 @@ class Contract < ActiveRecord::Base
   end
 
   def self.active
-    where("end_date > ?", Date.today)
+    where("end_date >= ?", Date.today)
   end
 
   def self.inactive
@@ -85,7 +85,7 @@ class Contract < ActiveRecord::Base
   end
 
   def status
-    end_date > Date.today ? "Active" : "Closed"
+    end_date >= Date.today ? "Active" : "Closed"
   end
 
   def projection_type
