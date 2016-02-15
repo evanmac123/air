@@ -1,60 +1,107 @@
 <div class="row">
   <div class="columns small-12">
     <h1>Contracts</h1>
+    <div id="tabs">
+      <ul class="tabs">
+        <li><a href="#tab-1" >Active</a></li>
+        <li><a href="#tab-2">Closed</a></li>
+      </ul>
+      <div id="tab-1" class="tab">
+        
+        <table class="tablesorter sortable">
+          <thead>
+            <tr>
+              <th>Organization</th>
+              <th>Contract</th>
+              <th>Plan</th>
+              <th>Start </th>
+              <th>End</th>
+              <th>Length</th>
+              <th>MRR</th>
+              <th>ARR</th>
+              <th>Amt Booked</th>
+              <th>Date Booked</th>
+              <th>Booked Months</th>
+              <th>Estimate</th>
+              <th>Type</th>
+              <th>Max Users</th>
+              <th>PEPM</th>
+            </tr>
+          </thead>
+          <% @active.each do |contract| %>
+            <tbody>
+              <tr class="resource-row" data-url='<%=admin_contract_path(contract)%>'>
+                <td><%= contract.organization_name %></td>
+                <td><%= contract.name %></td>
+                <td><%= contract.plan.titleize %></td>
+                <td><%= simple_date_format contract.start_date %></td>
+                <td><%= simple_date_format contract.end_date %></td>
+                <td><%= simple_number_format contract.contract_length_in_months %></td>
+                <td><%= simple_money_format contract.calc_mrr %></td>
+                <td><%= simple_money_format contract.calc_arr %></td>
+                <td><%= simple_money_format contract.amt_booked %></td>
+                <td><%= simple_date_format contract.date_booked %></td>
+                <td><%= simple_number_format contract.booked_months %></td>
+                <td><%= contract.projection_type %></td>
+                <td><%= contract.role_type %></td>
+                <td><%= simple_number_format contract.max_users %></td>
+                <td><%= simple_money_format contract.pepm %></td>
+              </tr>
+            <% end %>
+            </tbody>
+        </table>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Organization</th>
-          <th>Contract</th>
-          <th>Plan</th>
-          <th>Status </th>
-          <th>Start </th>
-          <th>End</th>
-          <th>Length</th>
-          <th>Status</th>
-          <th>MRR</th>
-          <th>ARR</th>
-          <th>Amt Booked</th>
-          <th>Date Booked</th>
-          <th>Booked Months</th>
-          <th>Estimate</th>
-          <th>Type</th>
-          <th>Max Users</th>
-          <th>PEPM</th>
-        </tr>
-      </thead>
-      <% @contracts.each do |contract| %>
-        <tbody>
-          <tr class="resource-row" data-url='<%=admin_contract_path(contract)%>'>
-            <td><%= contract.organization_name %></td>
-            <td><%= contract.name %></td>
-            <td><%= contract.plan.titleize %></td>
-            <td><%= contract.status %></td>
-            <td><%= simple_date_format contract.start_date %></td>
-            <td><%= simple_date_format contract.end_date %></td>
-            <td><%= simple_number_format contract.contract_length_in_months %></td>
-            <td><%= contract.status %></td>
-            <td><%= simple_money_format contract.calc_mrr %></td>
-            <td><%= simple_money_format contract.calc_arr %></td>
-            <td><%= simple_money_format contract.amt_booked %></td>
-            <td><%= simple_date_format contract.date_booked %></td>
-            <td><%= simple_number_format contract.booked_months %></td>
-            <td><%= contract.projection_type %></td>
-            <td><%= contract.role_type %></td>
-            <td><%= simple_number_format contract.max_users %></td>
-            <td><%= simple_money_format contract.pepm %></td>
-          </tr>
-        <% end %>
-        </tbody>
-    </table>
 
+        <%=form_tag contracts_import_path, multipart: true do %>
+          <%=file_field_tag :file %>
+          <%=submit_tag "submit"%>
+        <%end%>
 
-    <%=form_tag contracts_import_path, multipart: true do %>
-      <%=file_field_tag :file %>
-      <%=submit_tag "submit"%>
-  <%end%>
+      </div>
+      <div id="tab-2" class="tab">
+        <table class ="tablesorter sortable">
+          <thead>
+            <tr>
+              <th>Organization</th>
+              <th>Contract</th>
+              <th>Plan</th>
+              <th>Start </th>
+              <th>End</th>
+              <th>Length</th>
+              <th>MRR</th>
+              <th>ARR</th>
+              <th>Amt Booked</th>
+              <th>Date Booked</th>
+              <th>Booked Months</th>
+              <th>Estimate</th>
+              <th>Type</th>
+              <th>Max Users</th>
+              <th>PEPM</th>
+            </tr>
+          </thead>
+          <% @inactive.each do |contract| %>
+            <tbody>
+              <tr class="resource-row" data-url='<%=admin_contract_path(contract)%>'>
+                <td><%= contract.organization_name %></td>
+                <td><%= contract.name %></td>
+                <td><%= contract.plan.titleize %></td>
+                <td><%= simple_date_format contract.start_date %></td>
+                <td><%= simple_date_format contract.end_date %></td>
+                <td><%= simple_number_format contract.contract_length_in_months %></td>
+                <td><%= simple_money_format contract.calc_mrr %></td>
+                <td><%= simple_money_format contract.calc_arr %></td>
+                <td><%= simple_money_format contract.amt_booked %></td>
+                <td><%= simple_date_format contract.date_booked %></td>
+                <td><%= simple_number_format contract.booked_months %></td>
+                <td><%= contract.projection_type %></td>
+                <td><%= contract.role_type %></td>
+                <td><%= simple_number_format contract.max_users %></td>
+                <td><%= simple_money_format contract.pepm %></td>
+              </tr>
+            <% end %>
+            </tbody>
+        </table>
 
-<%# link_to 'New Contract', new_admin_contract_path, class:"button" %>
+      </div>
+    </div>
   </div>
-</div>

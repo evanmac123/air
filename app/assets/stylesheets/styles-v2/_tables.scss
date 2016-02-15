@@ -46,6 +46,12 @@ tr.resource-row{
   cursor: pointer
 }
 
+table.sortable{
+ thead>th{
+  cursor:hand;
+ }
+}
+
 caption{
   @include font-weight-bold;
   padding: 0 0 10px 0;

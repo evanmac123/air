@@ -2,72 +2,72 @@
   <div class="columns small-12 small-centered">
     <h1>Customers</h1>
 
- <div id="tabs">
-    <ul class="tabs">
-      <li><a href="#tab-1" >Active</a></li>
-      <li><a href="#tab-2">Churned</a></li>
-    </ul>
-    <div id="tab-1" class="tab">
-      <div class="right">
-      <%= link_to 'Add Customer', new_admin_organization_path, class: "button button-small" %>
-      </div> 
-       <table>
-         <caption>Active Customers</caption>
-      <thead>
-      <tr>
-        <th>Name</th>
-        <th>Employees</th>
-        <th>Sales Channel</th>
-        <th>Start</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% Organization.active.each do |organization| %>
-        
-        <tr class="resource-row" data-url='<%=admin_organization_path(organization)%>'>
-          <td><%= organization.name %></td>
-          <td><%= organization.num_employees %></td>
-          <td><%= organization.sales_channel %></td>
-          <td><%= simple_date_format organization.customer_start_date %></td>
-        </tr>
-      <% end %>
-    </tbody>
-    </table>
+    <div id="tabs">
+      <ul class="tabs">
+        <li><a href="#tab-1" >Active</a></li>
+        <li><a href="#tab-2">Churned</a></li>
+      </ul>
+      <div id="tab-1" class="tab">
+        <div class="right">
+          <%= link_to 'Add Customer', new_admin_organization_path, class: "button button-small" %>
+        </div> 
+        <table class="sortable tablesorter">
+          <caption>Active Customers</caption>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Employees</th>
+              <th>Sales Channel</th>
+              <th>Start</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% Organization.active.each do |organization| %>
+
+              <tr class="resource-row" data-url='<%=admin_organization_path(organization)%>'>
+                <td><%= organization.name %></td>
+                <td><%= organization.num_employees %></td>
+                <td><%= organization.sales_channel %></td>
+                <td><%= simple_date_format organization.customer_start_date %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+      </div>
+      <div id="tab-2" class="tab">
+        <table class="tablesorter sortable">
+
+          <caption class="text-center">Churned Customers</caption>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Employees</th>
+              <th>Sales Channel</th>
+              <th>Start</th>
+              <th>End</th>
+              <th>Churned</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% Organization.churned.each do |organization| %>
+
+              <tr class="resource-row" data-url='<%=admin_organization_path(organization)%>'>
+                <td><%= organization.name %></td>
+                <td><%= organization.num_employees %></td>
+                <td><%= organization.sales_channel %></td>
+                <td><%= simple_date_format organization.customer_start_date %></td>
+                <td><%= simple_date_format organization.customer_end_date %></td>
+                <td><%= organization.churned %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
 
     </div>
-    <div id="tab-2" class="tab">
-   <table>
-
-     <caption class="text-center">Churned Customers</caption>
-      <thead>
-      <tr>
-        <th>Name</th>
-        <th>Employees</th>
-        <th>Sales Channel</th>
-        <th>Start</th>
-        <th>End</th>
-        <th>Churned</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% Organization.churned.each do |organization| %>
-        
-        <tr class="resource-row" data-url='<%=admin_organization_path(organization)%>'>
-          <td><%= organization.name %></td>
-          <td><%= organization.num_employees %></td>
-          <td><%= organization.sales_channel %></td>
-          <td><%= simple_date_format organization.customer_start_date %></td>
-          <td><%= simple_date_format organization.customer_end_date %></td>
-          <td><%= organization.churned %></td>
-        </tr>
-      <% end %>
-    </tbody>
-    </table>
-    </div>
-
-  </div>
-  <p>
-  <%=link_to "Metrics & KPI Summary", organization_metrics_path%> 
-  </p>
+    <p>
+    <%=link_to "Metrics & KPI Summary", organization_metrics_path%> 
+    </p>
   </div>
 </div>

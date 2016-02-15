@@ -106,13 +106,18 @@ Airbo.ContractManager= (function(){
   }
 
 
+  function initTableSorting(){
+    $("table.sortable").tablesorter(); 
+  }
+
   function init(){
-   initDatePickers();
-   initJQueryObjects();
-   initArrMrrCalc();
-   initCalcFactor();
-   initResourceRowClick();
-   toggleTabs();
+    initDatePickers();
+    initJQueryObjects();
+    initArrMrrCalc();
+    initCalcFactor();
+    initResourceRowClick();
+    initTableSorting();  
+    toggleTabs();
 
   }
 
