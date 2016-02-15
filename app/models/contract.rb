@@ -23,7 +23,11 @@ class Contract < ActiveRecord::Base
   def self.active
     where("end_date > ?", Date.today)
   end
- 
+
+  def self.inactive
+    where("end_date < ?", Date.today)
+  end
+
   def self.auto_renewing
     where(auto_renew: true)
   end

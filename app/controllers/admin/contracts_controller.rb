@@ -11,7 +11,8 @@ class Admin::ContractsController < AdminBaseController
   include CustomResponder
 
   def index
-    @contracts = Contract.all
+    @active = Contract.active
+    @inactive = Contract.inactive
   end
 
   def new

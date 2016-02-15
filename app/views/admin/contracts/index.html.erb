@@ -50,13 +50,10 @@
             <% end %>
             </tbody>
         </table>
-
-
         <%=form_tag contracts_import_path, multipart: true do %>
           <%=file_field_tag :file %>
           <%=submit_tag "submit"%>
         <%end%>
-
       </div>
       <div id="tab-2" class="tab">
         <table class ="tablesorter sortable">
@@ -105,3 +102,4 @@
       </div>
     </div>
   </div>
+</div>
