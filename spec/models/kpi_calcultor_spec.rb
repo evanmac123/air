@@ -28,11 +28,11 @@ describe FinancialsKpiPresenter do
   end
 
   it "has is correct added " do
-    expect(Organization.added_during_period(@sdate, @edate).count).to eq 2
+    expect(Organization.added_during_period(@sdate, @edate).count).to eq 0
   end
 
   it "has is correct possible churn " do
-    expect(Organization.possible_churn_during_period(@sdate, @edate).count).to eq 2
+    expect(Organization.possible_churn_during_period(@sdate, @edate).count).to eq 0 
   end
 
 

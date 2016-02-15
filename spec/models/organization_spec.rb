@@ -98,17 +98,17 @@ describe Organization do
     describe ".churned_during_period" do
       it "counts churned clients for period" do
         #not churned
-        FactoryGirl.create(:contract, :complete, start_date: 1.year.ago, end_date: 5.days.ago, organization: @client)
-        FactoryGirl.create(:contract, :complete, start_date: 1.year.ago, end_date: 9.months.from_now, organization: @client)
+        FactoryGirl.create(:contract, :complete, :canceled, start_date: 1.year.ago, end_date: 5.days.ago, organization: @client)
+        FactoryGirl.create(:contract, :complete, :canceled, start_date: 1.year.ago, end_date: 9.months.from_now, organization: @client)
 
         #just churned
-        FactoryGirl.create(:contract, :complete, start_date: 1.year.ago, end_date: 2.months.ago, organization: @client2)
-        FactoryGirl.create(:contract, :complete, start_date: 1.year.ago, end_date: 5.days.ago, organization: @client2)
+        FactoryGirl.create(:contract, :complete, :canceled, start_date: 1.year.ago, end_date: 2.months.ago, organization: @client2)
+        FactoryGirl.create(:contract, :complete, :canceled, start_date: 1.year.ago, end_date: 5.days.ago, organization: @client2)
 
         #churned prior to period
 
-        FactoryGirl.create(:contract, :complete, start_date: 3.years.ago, end_date: 5.weeks.ago, organization: @client3)
-        FactoryGirl.create(:contract, :complete, start_date: 5.months.ago, end_date: 55.weeks.ago, organization: @client3)
+        FactoryGirl.create(:contract, :complete, :canceled, start_date: 3.years.ago, end_date: 5.weeks.ago, organization: @client3)
+        FactoryGirl.create(:contract, :complete, :canceled, start_date: 5.months.ago, end_date: 55.weeks.ago, organization: @client3)
         expect(Organization.churned_during_period(1.week.ago.to_date, Date.today).size()).to eq 1
       end
     end

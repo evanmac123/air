@@ -38,6 +38,8 @@ FactoryGirl.define do
       association :game_referrer, :factory => :user
     end
 
+ 
+
     trait :with_location do
       association :location
     end
@@ -455,6 +457,10 @@ FactoryGirl.define do
 
     trait :custom do
       cycle Contract::CUSTOM
+    end
+
+    trait :canceled do
+      auto_renew false
     end
 
     trait :custom_valid do
