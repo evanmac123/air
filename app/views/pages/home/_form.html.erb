@@ -1,0 +1,7 @@
+<% btn_clr ||= "" %>
+
+<%= form_tag demo_requests_url, class: "inline align_center" do %>
+  <%= text_field_tag "user[name]", "", placeholder: "First and Last Name" %>
+  <%= text_field_tag "user[email]", "", placeholder: "Work Email" %>
+  <%= submit_tag "Join", class: "button #{btn_clr}" %>
+<% end %>

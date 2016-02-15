@@ -6,6 +6,7 @@ body.pages-home {
   $home-gray: #666666;
   $h2-size: 24px;
 
+  color: $home-gray;
   h2 {
     font-size: 24px;
   }
@@ -14,6 +15,15 @@ body.pages-home {
     background-image: none;
     background-image: linear-gradient(to bottom, #48bfff 0, #379fd7 100%);
     // height: 428px;
+  }
+  .client_logos {
+    max-width: 750px;
+    margin: auto;
+    overflow: auto;
+    img {
+      display: block;
+      margin: auto;
+    }
   }
   .clients{
     background-color: #f9f9f9;
@@ -24,20 +34,11 @@ body.pages-home {
       font-size: 20px;
       font-weight: 400;
       line-height: 30px;
-      color: $home-gray;
+      // color: $home-gray;
       text-transform: none;
       margin-bottom: 30px;
       padding-left: 15px;
       padding-right: 15px;
-    }
-    .client_logos {
-      max-width: 750px;
-      margin: auto;
-      overflow: auto;
-      img {
-        display: block;
-        margin: auto;
-      }
     }
   }
 
@@ -49,7 +50,7 @@ body.pages-home {
     h2{
       display: block;
       margin: auto;
-      color: $home-gray;
+      // color: $home-gray;
       font-size: $h2-size;
       font-weight: 400;
       line-height: 30px;
@@ -90,14 +91,14 @@ body.pages-home {
         margin: auto;
       }
       .title {
-        color: $home-gray;
+        // color: $home-gray;
         font-size: 19px;
         line-height: 20px;
         margin-bottom: 16px;
         font-weight: 600;
       }
       .desc {
-        color: $home-gray;
+        // color: $home-gray;
         font-size: 17px;
         line-height: 30px;
       }
@@ -114,6 +115,26 @@ body.pages-home {
     }
     .desc {
       font-size: 17px;
+    }
+  }
+  .join {
+    background-image: url('landing/explore-sign-up-bg.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    .join_block{
+      max-width: 700px;
+      margin-top: 215px;
+      margin-bottom: 215px;
+      padding: 40px;
+      background-color: rgba(249, 249, 249, 0.9);
+      p {
+        margin-bottom: 30px;
+      }
+    }
+    .client_logos {
+      margin-top: 10px;
+      max-width: 430px;
     }
   }
   @media only screen and (max-width: $foundation) {
