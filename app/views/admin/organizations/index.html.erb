@@ -18,7 +18,6 @@
       <tr>
         <th>Name</th>
         <th>Employees</th>
-        <th>Plan</th>
         <th>Sales Channel</th>
         <th>Start</th>
       </tr>
@@ -29,7 +28,6 @@
         <tr class="resource-row" data-url='<%=admin_organization_path(organization)%>'>
           <td><%= organization.name %></td>
           <td><%= organization.num_employees %></td>
-          <td><%= organization.plan %></td>
           <td><%= organization.sales_channel %></td>
           <td><%= simple_date_format organization.customer_start_date %></td>
         </tr>
@@ -45,7 +43,6 @@
       <tr>
         <th>Name</th>
         <th>Employees</th>
-        <th>Plan</th>
         <th>Sales Channel</th>
         <th>Start</th>
         <th>End</th>
@@ -58,7 +55,6 @@
         <tr class="resource-row" data-url='<%=admin_organization_path(organization)%>'>
           <td><%= organization.name %></td>
           <td><%= organization.num_employees %></td>
-          <td><%= organization.plan %></td>
           <td><%= organization.sales_channel %></td>
           <td><%= simple_date_format organization.customer_start_date %></td>
           <td><%= simple_date_format organization.customer_end_date %></td>

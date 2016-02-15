@@ -19,11 +19,12 @@
           <th>Start</th>
           <td><%= simple_date_format @organization.customer_start_date %></td>
         </tr>
-        <tr>
+      
+        <%if @organization.churned%>
+       <tr>
           <th>End</th>
           <td><%= simple_date_format @organization.customer_end_date %></td>
-        </tr>
-        <tr>
+        </tr>   <tr>
           <th>Churned</th>
           <td><%= @organization.churned %></td>
         </tr>
@@ -32,6 +33,7 @@
           <th>Churn reason</th>
           <td><%= @organization.churn_reason %></td>
         </tr>
+      <%end%>
       </tbody>
     </table>
   </div>

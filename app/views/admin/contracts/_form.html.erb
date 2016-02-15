@@ -37,6 +37,11 @@
           </div>
 
           <div class="row">
+            <%= f.label :cycle %>
+            <%= f.select :cycle, [Contract::ANNUAL, Contract::SEMI_ANNUAL, Contract::QUARTERLY, Contract::MONTHLY, Contract::CUSTOM]  %>
+          </div>
+
+          <div class="row">
             <%= f.label :term %>
             <%= f.text_field :term %>
           </div>
@@ -51,8 +56,6 @@
             <%= f.text_field :amt_booked %>
           </div>
 
-
-             
         </div>
         <div class="columns small-5">
           <div class="row">
