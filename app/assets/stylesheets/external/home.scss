@@ -6,6 +6,10 @@ body.pages-home {
   $home-gray: #666666;
   $h2-size: 24px;
 
+  h2 {
+    font-size: 24px;
+  }
+
   .hero {
     background-image: none;
     background-image: linear-gradient(to bottom, #48bfff 0, #379fd7 100%);
@@ -97,6 +101,19 @@ body.pages-home {
         font-size: 17px;
         line-height: 30px;
       }
+    }
+  }
+  .explore {
+    padding: 40px 20px;
+    .explore_block {
+      max-width: 770px;
+      margin: auto;
+    }
+    .explore_img {
+      max-height: 150px;
+    }
+    .desc {
+      font-size: 17px;
     }
   }
   @media only screen and (max-width: $foundation) {
