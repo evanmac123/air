@@ -59,9 +59,13 @@
 @media only screen and (max-width: $foundation) {
   .hero {
     background-image: url('landing/hero-mobile.jpg');
-    height: 568px;
+    // height: 568px;
+    height: auto !important;
     .hero_section {
-      height: calc(100% - 56px); // header height
+      padding-top: 56px;
+      overflow: auto;
+      height: auto;
+      min-height: calc(100% - 56px); // header height
       h1, h2 {
         font-size: 25px;
         line-height: 37.5px;

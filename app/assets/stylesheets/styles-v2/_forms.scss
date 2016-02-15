@@ -13,6 +13,14 @@ form {
       margin-top: -4px;
       font-size: 16px;
     }
+    @media only screen and (max-width: $foundation) {
+      input[type=text], .button {
+        width: 100%;
+      }
+      .button {
+        margin-bottom: 20px;
+      }
+    }
   }
 }
 
