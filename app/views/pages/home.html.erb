@@ -1,6 +1,6 @@
 <div class="hero">
   <%= render partial: "pages/landing/header" %>
-  <div class="hero_section">
+  <section class="hero_section">
     <div class="hero_content">
       <h1>Engaging employee communications that get HR priorities done.</h1>
       <h3>Join to explore best practices and content you can use today, it's free forever.</h3>
@@ -10,10 +10,10 @@
         <%= submit_tag "Join", class: "button green" %>
       <% end %>
     </div>
-  </div>
+  </section>
 </div>
 <main>
-  <div class="clients">
+  <section class="clients">
     <div class="clients_section row">
       <h5 class="align_center">Used by organizations with 20 to 75,000 employees.</h5>
       <div class="client_logos">
@@ -28,6 +28,48 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
+
+  <section class="money">
+    <div class="money_section row">
+      <h2 class="align_center">
+        The bulletin board reinvented.
+      </h2>
+
+      <div class="animation_block desktop_only">
+        <%= image_tag "landing/product-intro.png", class: "mac_book" %>
+        <div class="animation">
+          <img src="/images/engage_new_2.gif" >
+        </div>
+      </div>
+
+      <div class="benefits_group">
+        <div class="large-4 columns">
+          <div class="benefit_block">
+            <div class="title">Earn More Appreciation</div>
+            <div class="desc">
+              Share interactive content your employees will read, understand and even enjoy.
+            </div>
+          </div>
+        </div>
+        <div class="large-4 columns">
+          <div class="benefit_block">
+            <div class="title">Get More Participation</div>
+            <div class="desc">
+              Higher engagement improves ROI from the programs you invest in.
+            </div>
+          </div>
+        </div>
+        <div class="large-4 columns">
+          <div class="benefit_block">
+            <div class="title">Spend Less Time</div>
+            <div class="desc">
+              Use stock content, track engagement and automate follow-ups.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
 <%= render partial: "pages/landing/footer" %>

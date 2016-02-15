@@ -2,6 +2,10 @@ body.pages-home {
   @import "landing/header.css.scss";
   @import "landing/hero.css.scss";
   @import "landing/footer.css.scss";
+
+  $home-gray: #666666;
+  $h2-size: 24px;
+
   .hero {
     background-image: none;
     background-image: linear-gradient(to bottom, #48bfff 0, #379fd7 100%);
@@ -14,8 +18,9 @@ body.pages-home {
       display: block;
       margin: auto;
       font-size: 20px;
+      font-weight: 400;
       line-height: 30px;
-      color: #666666;
+      color: $home-gray;
       text-transform: none;
       margin-bottom: 30px;
       padding-left: 15px;
@@ -28,6 +33,91 @@ body.pages-home {
       img {
         display: block;
         margin: auto;
+      }
+    }
+  }
+
+  .money {
+    padding: 55px 20px 100px;
+    // .money_section{
+    //   max-width:
+    // }
+    h2{
+      display: block;
+      margin: auto;
+      color: $home-gray;
+      font-size: $h2-size;
+      font-weight: 400;
+      line-height: 30px;
+      text-align: center;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+    .animation_block {
+      position: relative;
+      display: block;
+      margin: auto;
+      margin-top: 50px;
+      margin-bottom: 10px;
+      width: 100%;
+      max-width: 935px;
+      // padding: 106px;
+      // padding: 2.2% 10.1% 5.5%;
+      // padding-bottom: 0;
+      // padding-top: 2.2%;
+      .mac_book {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+      }
+      .animation {
+        padding: 13.5% 16.7% 9% 17.1%;
+        position: relative;
+      }
+    }
+    .benefits_group {
+      // max-width: 885px;
+      display: block;
+      margin: auto;
+      overflow: auto;
+      .benefit_block {
+        max-width: 255px;
+        margin: auto;
+      }
+      .title {
+        color: $home-gray;
+        font-size: 19px;
+        line-height: 20px;
+        margin-bottom: 16px;
+        font-weight: 600;
+      }
+      .desc {
+        color: $home-gray;
+        font-size: 17px;
+        line-height: 30px;
+      }
+    }
+  }
+  @media only screen and (max-width: $foundation) {
+    .clients {
+      padding: 40px 5px;
+      h5 {
+        font-size: 16px;
+      }
+    }
+    .money {
+      padding: 50px 5px;
+      h2 {
+        font-size: 25px;
+        line-height: 37.5px;
+        margin-bottom: 15px;
+      }
+      .benefits_group {
+        .benefit_block {
+          max-width: none;
+          margin-top: 20px;
+        }
       }
     }
   }
