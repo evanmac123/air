@@ -28,6 +28,10 @@ class Contract < ActiveRecord::Base
     where(auto_renew: true)
   end
 
+  def self.cancelled
+    where(auto_renew: false)
+  end
+
   def self.expiring_within_date_range sdate, edate
     where("end_date >= ? and end_date <= ?", sdate, edate)
   end
@@ -66,6 +70,10 @@ class Contract < ActiveRecord::Base
 
   def self.mrr_possibly_churning_during_period sdate, edate 
     expiring_within_date_range(sdate, edate).sum(&:calc_mrr)
+  end
+
+  def self.mrr_churned_during_period sdate, edate 
+    expiring_within_date_range(sdate, edate).cancelled.sum(&:calc_mrr)
   end
 
   def self.arr_possibly_churning_during_period sdate, edate

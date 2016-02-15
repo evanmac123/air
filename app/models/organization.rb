@@ -29,6 +29,10 @@ class Organization < ActiveRecord::Base
     added_during_period(sdate,edate).inject(0){|sum,org | sum+= org.mrr_during_period(sdate,edate)}
   end
 
+  def active_mrr 
+    contracts.active.sum(&:calc_mrr)
+  end
+
   def arr_during_period sdate, edate
     contracts.arr_during_period(sdate, edate)
   end
@@ -44,6 +48,14 @@ class Organization < ActiveRecord::Base
       .group("organizations.id, organizations.name")
   end
 
+  def self.active
+    all.select{|o|o.churned==false}
+  end
+
+  def self.churned
+    all.select{|o|o.churned==true}
+  end
+
   def customer_start_date
     @cust_start ||=ordered_contracts.first.try(:start_date)
   end
@@ -54,6 +66,10 @@ class Organization < ActiveRecord::Base
 
   def active
     customer_end_date >= Date.today
+  end
+
+  def churned 
+   !active 
   end
 
   def has_start_and_end
