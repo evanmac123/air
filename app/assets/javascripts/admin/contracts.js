@@ -117,15 +117,15 @@ Airbo.ContractManager= (function(){
   }
 
   function toggleTabs(){
-    $('#tabs div').hide();
-    $('#tabs div:first').show();
+    $('#tabs .tab').hide();
+    $('#tabs div.tab:first').show();
     $('#tabs ul li:first a').addClass('selected');
 
     $('#tabs ul li a').click(function(){
       $('#tabs ul li a').removeClass('selected');
       $(this).addClass('selected');
       var currentTab = $(this).attr('href');
-      $('#tabs div').hide();
+      $('#tabs .tab').hide();
       $(currentTab).show();
       return false;
     }); 

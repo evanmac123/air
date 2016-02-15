@@ -16,6 +16,10 @@
           <td><%= @organization.sales_channel %></td>
         </tr>
         <tr>
+          <th>MRR</th>
+          <td><%= simple_money_format @organization.active_mrr %></td>
+        </tr>
+        <tr>
           <th>Start</th>
           <td><%= simple_date_format @organization.customer_start_date %></td>
         </tr>
@@ -36,13 +40,15 @@
       <%end%>
       </tbody>
     </table>
+    <hr/>
   </div>
 </div>
 
 <div class="row">
   <div class="columns small-12 small-centered">
-    <h3> Contracts </h4>
+      <%= link_to 'Add New Contract', new_admin_organization_contract_path(@organization), class: "button righty" %>
     <table>
+      <caption> Contracts </caption>
       <thead>
         <tr>
           <th>Name</th>
@@ -85,10 +91,9 @@
     </table>
 
     <div>
-      <%= link_to 'Add New Contract', new_admin_organization_contract_path(@organization), class: "button" %>
+      <%= link_to 'Customer List', admin_organizations_path %>
     </div>
   </div>
 </div>
 
 <%# link_to 'Edit', edit_admin_organization_path(@organization) %> |
-<%# link_to 'Back', admin_organizations_path %>

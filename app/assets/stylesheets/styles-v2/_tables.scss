@@ -41,3 +41,14 @@ table.first-column-header{
    background-color: inherit;
  }
 }
+
+tr.resource-row{
+  cursor: pointer
+}
+
+caption{
+  @include font-weight-bold;
+  padding: 0 0 10px 0;
+  font-size: 24px;
+}
+

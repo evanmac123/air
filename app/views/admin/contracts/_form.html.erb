@@ -16,10 +16,20 @@
       <% end %>
 
       <div class="row">
-      <h3>Organization: <%=@contract.organization_name%> <%=" / Parent Contract: #{@contract.parent_contract.name}" if @contract.parent_contract.present?%></h3>
+        <table class="first-column-header">
+          <% if @contract.parent_contract.present?%>
+            <tr>
+              <th>Parent Contract</th> <td><%=link_to @contract.parent_contract.name, admin_contract_path(@contract.parent_contract)%></td>
+            </tr>
+          <%end%>
+          <tr>
+            <th>Customer</th><td><%=link_to @contract.organization_name,admin_organization_path(@contract.organization) %></td></div>
+          </tr>
+        </table>
       </div>
 
       <div class="row">
+        <hr/>
         <div class="columns small-5">
           <div class="row">
             <%= f.label :name %>
@@ -112,8 +122,11 @@
         <%= f.text_area :notes %>
       </div>
       <div class="actions">
+        <%=link_to "Customers List", admin_organizations_path,  class: ""  %>
+        <div class="righty">
         <%= f.submit "Submit", class: "button"  %> 
         <%=link_to "Cancel", admin_contracts_path,  class: "button"  %>
+        </div>
       </div>
     <% end %>
   </div>

@@ -1,5 +1,7 @@
 
 <h1> Metrics and KPIs </h1>
+
+
 <div class="row">
 
   <div class="columns small-10 small-centered">
@@ -13,14 +15,12 @@
         </thead>
         <tbody>
           <tr>
-            <td><%=text_field_tag "sdate", simple_date_format(@kpi.sdate)%></td>
-            <td><%=text_field_tag "edate", simple_date_format(@kpi.edate)%></td>
+            <td><%=text_field_tag "sdate", @kpi.sdate, type: :date%></td>
+            <td><%=text_field_tag "edate",@kpi.edate, type: :date%></td>
           </tr> 
         </tbody>
       </table>
-      <%=submit_tag "Submit"%>
-    <%end%>
-    <table>
+    <table class="first-column-header">
       <thead>
         <tr>
           <th>Metric</th>
@@ -28,24 +28,33 @@
         </tr>
       </thead>
       <tbody>
-        <tr><th>Organizations</th><td><%=@kpi.active_organizations_during_period%></td></tr>
-        <tr><th>Orgs Added</th><td><%=@kpi.added_organizations_during_period%></td></tr>
+        <tr><th>Starting Customers</th><td><%=@kpi.active_organizations_during_period%></td></tr>
+        <tr><th>Customers Added</th><td><%=@kpi.added_organizations_during_period%></td></tr>
         <tr><th>Possible Churn</th><td><%=@kpi.possible_churn_during_period%></td></tr>
         <tr><th>Churned</th><td><%=@kpi.churned_during_period%></td></tr>
-        <tr><th>New Customer MRR</th><td><%=@kpi.new_customer_mrr_added_during_period%></td></tr>
-        <tr><th>New Customer Arr</th><td><%=@kpi.new_customer_arr_added_during_period%></td></tr>
-        <tr><th>Active Contracts</th><td><%=@kpi.active_contracts_during_period%></td></tr>
-        <tr><th>Added Contracts</th><td><%=@kpi.added_contracts_during_period%></td></tr>
-        <tr><th>Upgrade ARR Added</th><td><%=@kpi.arr_added_from_upgrades_during_period%></td></tr>
-        <tr><th>Upgrade MRR Added</th><td><%=@kpi.mrr_added_from_upgrades_during_period%></td></tr>
-        <tr><th>ARR Added</th><td><%=@kpi.arr_added_during_period%></td></tr>
-        <tr><th>MRR Added</th><td><%=@kpi.mrr_added_during_period%></td></tr>
-        <tr><th>ARR</th><td><%=@kpi.arr_during_period%></td></tr>
-        <tr><th>MRR</th><td><%=@kpi.mrr_during_period%></td></tr>
-        <tr><th>MRR Possible Churn</th><td><%=@kpi.mrr_possibly_churning_during_period%></td></tr>
-        <tr><th>Arr Possible Churn</th><td><%=@kpi.arr_possibly_churning_during_period%></td></tr>
+        <tr><th>Starting MRR</th><td><%=simple_money_format @kpi.mrr_during_period%></td></tr>
+        <tr><th>MRR Added</th><td><%=simple_money_format @kpi.mrr_added_during_period%></td></tr>
+        <tr><th>New Customer MRR</th><td><%=simple_money_format @kpi.new_customer_mrr_added_during_period%></td></tr>
+        <tr><th>Upgrade MRR </th><td><%=simple_money_format @kpi.mrr_upgrades_during_period%></td></tr>
+        <tr><th>MRR Possible Churn</th><td><%=simple_money_format @kpi.mrr_possibly_churning_during_period%></td></tr>
+        <tr><th>MRR Churned</th><td><%=simple_money_format @kpi.mrr_churned_during_period%></td></tr>
+        <tr><th>Percent MRR Churn</th><td>%<%=@kpi.percent_mrr_churn_during_period%></td></tr>
+        <tr><th>Net MRR Churn</th><td>%<%=@kpi.net_mrr_churn_during_period%></td></tr>
+        <!--
+        <tr><th>Active Contracts</th><td><%#@kpi.active_contracts_during_period%></td></tr>
+        <tr><th>Added Contracts</th><td><%#@kpi.added_contracts_during_period%></td></tr>
+        <tr><th>Upgrade ARR Added</th><td><%#@kpi.arr_added_from_upgrades_during_period%></td></tr>
+        <tr><th>New Customer Arr</th><td><%#@kpi.new_customer_arr_added_during_period%></td></tr>
+        <tr><th>ARR Added</th><td><%#@kpi.arr_added_during_period%></td></tr>
+        <tr><th>ARR</th><td><%#@kpi.arr_during_period%></td></tr>
+        <tr><th>Arr Possible Churn</th><td><%#@kpi.arr_possibly_churning_during_period%></td></tr>
+        -->
       </tbody>
     </table>
+
+      <%=submit_tag "Submit", class:"button"%> <%=link_to "Download CSV", organization_metrics_path(sdate:@kpi.sdate, edate: @kpi.edate, format: :csv),  class:"button"%> 
+<%=link_to "View all Customer", admin_organizations_path%>
+    <%end%>
   </div>
 </div>
 
