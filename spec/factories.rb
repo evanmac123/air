@@ -448,9 +448,18 @@ FactoryGirl.define do
       amt_booked  5000
       start_date '2012-01-01'
       end_date '2012-12-31'
-      term  12
+      cycle Contract::ANNUAL 
       plan  "engage"
       max_users 100
+    end
+
+    trait :custom do
+      cycle Contract::CUSTOM
+    end
+
+    trait :custom_valid do
+      custom
+      term 9
     end
 
     trait :active do

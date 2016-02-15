@@ -4,12 +4,17 @@ class Contract < ActiveRecord::Base
   has_many :upgrades, class_name: "Contract", foreign_key: "parent_contract_id"
   has_many :billings
 
-  validates :organization, :name, :start_date, :end_date, :max_users, :amt_booked, :plan, presence: true
-
+  validates :organization, :name, :start_date, :end_date, :max_users, :amt_booked, :cycle, :plan, presence: true
+  validates :term, presence: true, if: Proc.new{|c|c.cycle == CUSTOM}
   validates :max_users, numericality: { only_integer: true }
   validates :arr, :mrr, numericality: true, allow_nil: true
   validate :arr_or_mrr_provided
 
+  ANNUAL="annual"
+  MONTHLY="monthly"
+  QUARTERLY="quarterly"
+  SEMI_ANNUAL="semi_annual"
+  CUSTOM = "custom"
 
   def self.upgrades
     where("parent_contract_id is not NULL")
@@ -59,7 +64,7 @@ class Contract < ActiveRecord::Base
     active_during_period(sdate, edate).sum(&:calc_mrr)
   end
 
-  def self.mrr_possibly_churning_during_period sdate, edate
+  def self.mrr_possibly_churning_during_period sdate, edate 
     expiring_within_date_range(sdate, edate).sum(&:calc_mrr)
   end
 
@@ -87,6 +92,13 @@ class Contract < ActiveRecord::Base
     organization.name
   end
 
+  def renew
+    dup = self.dup
+    dup.start_date = end_date.advance(days:1)
+    dup.end_date = new_end_date end_date
+    dup.save
+    dup
+  end
 
   def calc_mrr
     if (mrr || arr)
@@ -124,6 +136,31 @@ class Contract < ActiveRecord::Base
 
   private
 
+  def new_end_date date
+    e = cal_end_date date 
+    if is_last_day(end_date) && !is_last_day(e)
+      e.end_of_month
+    else
+      e
+    end 
+  end
+
+  def cal_end_date new_start
+
+    d = case cycle 
+        when ANNUAL
+          new_start.advance(years:1)
+        when SEMI_ANNUAL
+          new_start.advance(months:6)
+        when QUARTERLY
+          new_start.advance(months:3)
+        when MONTHLY
+          new_start.advance(months:1)
+        when CUSTOM
+          new_start.advance(months: contract_length_in_months)
+        end
+  end
+
   def arr_or_mrr_provided
     if !(arr || mrr)
       errors.add(:mrr,"ARR or MRR must be provided") 
@@ -133,6 +170,10 @@ class Contract < ActiveRecord::Base
 
   def is_upgrade
     parent_contract.present?
+  end
+
+  def is_last_day(mydate)
+    mydate.month != mydate.next_day.month 
   end
 
 end
