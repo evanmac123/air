@@ -102,7 +102,7 @@ body.pages-home {
     }
   }
   .explore {
-    padding: 40px 20px;
+    padding: 40px 5px;
     .explore_block {
       max-width: 700px;
       margin: auto;
@@ -175,6 +175,8 @@ body.pages-home {
     .join {
       .join_block {
         margin: 0;
+        max-width: none;
+        width: 100%;
       }
     }
     .money .animation_block {
