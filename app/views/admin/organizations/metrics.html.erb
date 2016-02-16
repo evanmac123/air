@@ -4,23 +4,27 @@
 
 <div class="row">
 
-  <div class="columns small-10 small-centered">
+  <div class="columns small-8 small-centered">
     <%=form_tag organization_metrics_path do %> 
       <table>
+        <caption>Reporting Period</caption>
         <thead>
           <tr>
-            <th>Period Start</th>
-            <th>Period End</th>
+            <th>Start</th>
+            <th>End</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td><%=text_field_tag "sdate", @kpi.sdate, type: :date%></td>
             <td><%=text_field_tag "edate",@kpi.edate, type: :date%></td>
+    <td><%=submit_tag "Get Data", class:"button td-button"%></td>
+            
           </tr> 
         </tbody>
       </table>
-    <table class="first-column-header">
+    <table class="first-column-header" width="100%">
       <thead>
         <tr>
           <th>Metric</th>
@@ -52,9 +56,9 @@
       </tbody>
     </table>
 
-<%=link_to "Cutomer List", admin_organizations_path%>
-      <%=submit_tag "Submit", class:"button small-right-margin"%> <%=link_to "Download CSV", organization_metrics_path(sdate:@kpi.sdate, edate: @kpi.edate, format: :csv),  class:"button"%> 
-    <%end%>
+    <%=link_to "Manage Customers", admin_organizations_path, class: "button righty"%>
+    <%=link_to "Download KPI For Period", organization_metrics_path(sdate:@kpi.sdate, edate: @kpi.edate, format: :csv),  class:"button"%> 
+  <%end%>
   </div>
 </div>
 
