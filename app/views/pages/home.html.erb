@@ -1,13 +1,13 @@
-<%= render layout: "pages/landing/hero", locals: {with_shadow: false} do %>
+<%= render layout: "pages/landing/hero", locals: {no_shadow: true} do %>
   <h1>Engaging employee communications that get HR priorities done.</h1>
   <p>Join to explore best practices and content you can use today, it's free forever.</p>
-  <%= render partial: "pages/home/form", locals: {btn_clr: "green"} %>
+  <%= render partial: "pages/landing/form", locals: {btn_clr: "green"} %>
 <% end %>
 <main>
   <section class="clients">
     <div class="clients_section row">
       <h3 class="align_center">Used by organizations with 20 to 75,000 employees.</h3>
-      <%= render partial: "pages/home/logos" %>
+      <%= render partial: "pages/landing/logos" %>
     </div>
   </section>
 
@@ -65,8 +65,8 @@
     <div class="join_block center">
       <h2 class="align_center">Join Airbo Explore to discover engaging content.</h2>
       <p class="align_center">Get started exploring today, it's free forever.</p>
-      <%= render partial: "pages/home/form" %>
-      <%= render partial: "pages/home/logos" %>
+      <%= render partial: "pages/landing/form" %>
+      <%= render partial: "pages/landing/logos" %>
     </div>
   </section>
 </main>

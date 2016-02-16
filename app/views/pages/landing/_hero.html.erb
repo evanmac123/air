@@ -1,4 +1,6 @@
-<% with_shadow ||= true %>
+<% no_shadow ||= false %>
+<% with_shadow = !no_shadow %>
+
 <div class="hero">
   <% if with_shadow %>
     <div class="shadow_overlay"></div>
