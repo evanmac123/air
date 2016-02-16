@@ -90,7 +90,7 @@ class BoardsController < ApplicationController
         if params[:page_name] == "welcome"
           redirect_to :controller => 'pages', \
                       :action => 'show', \
-                      :id => "welcome", \
+                      :id => "home", \
                       flash: { failure: set_errors }
         elsif params[:page_name] == "product"
           redirect_to :controller => 'pages', \

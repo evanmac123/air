@@ -1,7 +1,0 @@
-<% btn_clr ||= "" %>
-
-<%= form_tag email_info_requests_url, class: "inline align_center" do %>
-  <%= text_field_tag "contact_name", "", placeholder: "First and Last Name" %>
-  <%= text_field_tag "contact_email", "", placeholder: "Work Email" %>
-  <%= submit_tag "Join", class: "button #{btn_clr}" %>
-<% end %>
