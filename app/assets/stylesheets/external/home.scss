@@ -28,6 +28,10 @@ body.pages-home {
         text-align: center;
         margin: 20px auto;
       }
+      .button {
+        font-size: 18px; 
+        padding: 15px 40px;
+      }
     }
   }
   .client_logos {
@@ -127,12 +131,12 @@ body.pages-home {
     background-repeat: no-repeat;
     background-position: center center;
     .join_block{
-      max-width: 700px;
-      margin-top: 200px;
-      margin-bottom: 200px;
       padding: 40px 20px;
       background-color: #F9F9F9;
-      background-color: rgba(255, 255, 255, 0.9);
+      background-color: rgba(255, 255, 255, 0.95);
+      margin-top: 40px;
+      margin-bottom: 40px;
+      max-width: 600px;
       h2 {
         color: #666666;
         font-size: 20px;
@@ -142,6 +146,15 @@ body.pages-home {
         font-size: 16px;
         letter-spacing: 0;
         margin-bottom: 30px;
+      }
+      .sign_up {
+        max-width: 300px;
+        width: 100%;
+        margin: 40px auto; 
+        // text-align: left;
+      }
+      .button {
+        margin-top: 5px;
       }
     }
     .client_logos {

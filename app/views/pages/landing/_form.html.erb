@@ -1,17 +1,17 @@
 <% btn_clr ||= "" %>
 
-<%= form_tag set_new_board_url, class: "align_center", style: "width: 300px; margin: 40px auto 40px; text-align: left; " do %>
-  
-  <label>First and Last Name</label>
+<%= form_tag set_new_board_url, class: "sign_up" do %>
+
+  <%= label_tag "user[name]", "First and Last Name" %>
   <%= text_field_tag "user[name]", "", placeholder: "" %>
 
-  <label>Company Name</label>
+  <%= label_tag "board[name]", "Company Name" %>
   <%= text_field_tag "board[name]", "", placeholder: "" %>
 
-  <label>Email</label>
+  <%= label_tag "user[email]", "Email" %>
   <%= text_field_tag "user[email]", "", placeholder: "Work Email" %>
 
-  <label>Create a new Password</label>
+  <%= label_tag "user[password]", "Create a new Password" %>
   <%= password_field_tag "user[password]", "", placeholder: "At least 6 characters long please" %>
 
   <%= hidden_field_tag "page_name", sign_up_form_page_name(params) %>
