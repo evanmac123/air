@@ -24,10 +24,6 @@ Airbo.ContractManager= (function(){
     , calcFactor
   ;
 
-  function initDatePickers(){
-    $(datePickerSelector).pickadate();
-  }
-
 
   function initJQueryObjects(){
     arr = $(arrSelector); 
@@ -111,7 +107,6 @@ Airbo.ContractManager= (function(){
   }
 
   function init(){
-    initDatePickers();
     initJQueryObjects();
     initArrMrrCalc();
     initCalcFactor();
