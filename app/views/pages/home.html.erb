@@ -1,7 +1,7 @@
 <%= render layout: "pages/landing/hero", locals: {no_shadow: true} do %>
   <h1>Engaging employee communications that get HR priorities done.</h1>
   <p>Join to explore best practices and content you can use today, it's free forever.</p>
-  <%= render partial: "pages/landing/form", locals: {btn_clr: "green"} %>
+  <div class="align_center"><%= link_to "Join", "#", class: "large button green", style: "font-size: 18px; padding: 15px 40px;" %></div>
 <% end %>
 <main>
   <section class="clients">
@@ -62,7 +62,12 @@
   </section>
 
   <section class="join">
-    <div class="join_block center">
+    <div class="join_block center" style="
+  background-color: rgba(255, 255, 255, 0.95);
+  margin-top: 40px;
+  margin-bottom: 40px;
+  max-width: 600px;
+  ">
       <h2 class="align_center">Join Airbo Explore to discover engaging content.</h2>
       <p class="align_center">Get started exploring today, it's free forever.</p>
       <%= render partial: "pages/landing/form" %>

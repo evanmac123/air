@@ -1,7 +1,22 @@
 <% btn_clr ||= "" %>
 
-<%= form_tag email_info_requests_url, class: "inline align_center" do %>
-  <%= text_field_tag "contact_name", "", placeholder: "First and Last Name" %>
-  <%= text_field_tag "contact_email", "", placeholder: "Work Email" %>
-  <%= submit_tag "Join", class: "button #{btn_clr}" %>
+<%= form_tag set_new_board_url, class: "align_center", style: "width: 300px; margin: 40px auto 40px; text-align: left; " do %>
+  
+  <label>First and Last Name</label>
+  <%= text_field_tag "user[name]", "", placeholder: "" %>
+
+  <label>Company Name</label>
+  <%= text_field_tag "board[name]", "", placeholder: "" %>
+
+  <label>Email</label>
+  <%= text_field_tag "user[email]", "", placeholder: "Work Email" %>
+
+  <label>Create a new Password</label>
+  <%= password_field_tag "user[password]", "", placeholder: "At least 6 characters long please" %>
+
+  <%= hidden_field_tag "page_name", sign_up_form_page_name(params) %>
+  <%= hidden_field_tag "creation_source_board", creation_source(params) %>
+  <%= hidden_field_tag "creation_source_creator", creation_source(params) %>
+
+  <%= submit_tag "Join", class: "button #{btn_clr} full_width" %>
 <% end %>

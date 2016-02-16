@@ -21,11 +21,5 @@ class EmailInfoRequestsController < ApplicationController
     if params[:silent]
       render inline: ''
     end
-    respond_to do |format|
-      format.html do
-        flash[:success] = "We will contact you! Thanks"
-        redirect_to page_path("home")
-      end
-    end
   end
 end
