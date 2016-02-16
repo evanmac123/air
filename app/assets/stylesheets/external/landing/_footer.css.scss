@@ -1,5 +1,4 @@
 footer#pageFtr {
-  // background-color: #f7f8fa;
   .contact_us.contact_us {
     color: #15adff;
   }
@@ -19,18 +18,11 @@ footer#pageFtr {
       }
     }
     a {
-      // display: block;
       color: $home-gray;
       font-size: 15px;
       font-weight: 400;
-      // display: inline;
     }
     .request_demo_link {
-      // @include app-button($sky-blue);
-      // font-size: 14px;
-      // font-weight: 400;
-      // padding: 11px;
-      // width: 140px;
       color: white;
       margin: 31px 0;
     }
@@ -40,7 +32,6 @@ footer#pageFtr {
     width: auto;
     float: none;
     overflow: hidden;
-    // display: table;
     a {
       padding-top: 20px;
       display: block;
@@ -49,11 +40,9 @@ footer#pageFtr {
       }
     }
     .contacts {
-      // float: right;
       color: #66676d;
       font-size: 15px;
       line-height: 18px;
-      // font-style: italic;
       text-align: right;
       padding-right: 10px;
       padding-top: 12px;
@@ -61,10 +50,6 @@ footer#pageFtr {
         white-space: nowrap;
       }
     }
-    // a, .contacts {
-    //   display: table-cell;
-    //   vertical-align: middle;
-    // }
   }
 }
 @media only screen and (max-width: $foundation) {
@@ -77,9 +62,7 @@ footer#pageFtr {
         text-align: left;
       }
       li {
-        // width: 24%;
         margin-right: 30px;
-        // text-align: center;
         &.sign_in_link {
           float: right;
           margin: 0;
@@ -89,7 +72,6 @@ footer#pageFtr {
     .contacts_block {
       height: auto;
       a {
-        // padding-top: 17px;
         padding-bottom: 20px;
         display: block;
         float: left;
