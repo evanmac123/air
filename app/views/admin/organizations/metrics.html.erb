@@ -52,8 +52,8 @@
       </tbody>
     </table>
 
-      <%=submit_tag "Submit", class:"button"%> <%=link_to "Download CSV", organization_metrics_path(sdate:@kpi.sdate, edate: @kpi.edate, format: :csv),  class:"button"%> 
-<%=link_to "View all Customer", admin_organizations_path%>
+<%=link_to "Cutomer List", admin_organizations_path%>
+      <%=submit_tag "Submit", class:"button small-right-margin"%> <%=link_to "Download CSV", organization_metrics_path(sdate:@kpi.sdate, edate: @kpi.edate, format: :csv),  class:"button"%> 
     <%end%>
   </div>
 </div>
