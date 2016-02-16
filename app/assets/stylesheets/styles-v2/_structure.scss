@@ -6,10 +6,11 @@
 /* Custom Structure */
 
 section {
-  display: inline-block;
+  display: block;
+  overflow: auto;
   width: 100%;
 }
 
-.center {
-  text-align: center;
-}
+// .center {
+//   text-align: center;
+// }

@@ -91,7 +91,9 @@
   // &. {
   //   @include button-color($n-blue);
   // }
-
+  &.green {
+    @include button-color(#4fd4c0);
+  }
   &.outlined {
     @include button-outlined-color;
     // &. {

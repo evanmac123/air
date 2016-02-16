@@ -1,0 +1,78 @@
+<div class="hero">
+  <%= render partial: "pages/landing/header", locals: { menu_new: true } %>
+  <section class="hero_section">
+    <div class="hero_content">
+      <h1>Engaging employee communications that get HR priorities done.</h1>
+      <p>Join to explore best practices and content you can use today, it's free forever.</p>
+      <%= render partial: "pages/home/form", locals: {btn_clr: "green"} %>
+    </div>
+  </section>
+</div>
+<main>
+  <section class="clients">
+    <div class="clients_section row">
+      <h3 class="align_center">Used by organizations with 20 to 75,000 employees.</h3>
+      <%= render partial: "pages/home/logos" %>
+    </div>
+  </section>
+
+  <section class="money">
+    <div class="money_section row">
+      <h2 class="align_center">
+        The bulletin board reinvented.
+      </h2>
+
+      <div class="animation_block">
+        <%= image_tag "landing/product-intro.png", class: "mac_book" %>
+        <div class="animation">
+          <img src="/images/engage_new_2.gif" >
+        </div>
+      </div>
+
+      <div class="benefits_group">
+        <div class="large-4 columns">
+          <div class="benefit_block">
+            <h3>Earn More Appreciation</h3>
+            <p>Share interactive content your employees will read, understand and even enjoy.</p>
+          </div>
+        </div>
+        <div class="large-4 columns">
+          <div class="benefit_block">
+            <h3>Get More Participation</h3>
+            <p>Higher engagement improves ROI from the programs you invest in.</p>
+          </div>
+        </div>
+        <div class="large-4 columns">
+          <div class="benefit_block">
+            <h3>Spend Less Time</h3>
+            <p>Use stock content, track engagement and automate follow-ups.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="explore bg-blue">
+    <div class="explore_block">
+      <div class="large-2 columns">
+        <%= image_tag "landing/icon-rocket-big.png", class: "explore_img" %>
+      </div>
+      <div class="large-10 columns">
+        <h3 class="white">Introducing Airbo Explore</h3>
+        <p class="white">
+          Join an HR community of over 700 companies. Discover best practice content your employees will love. Sign up below.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="join">
+    <div class="join_block center">
+      <h2 class="align_center">Join Airbo Explore to discover engaging content.</h2>
+      <p class="align_center">Get started exploring today, it's free forever.</p>
+      <%= render partial: "pages/home/form" %>
+      <%= render partial: "pages/home/logos" %>
+    </div>
+  </section>
+</main>
+<%= render partial: "pages/landing/footer" %>

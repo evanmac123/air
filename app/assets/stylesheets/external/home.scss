@@ -1,0 +1,190 @@
+body.pages-home {
+  @import "landing/header.css.scss";
+  @import "landing/hero.css.scss";
+  @import "landing/footer.css.scss";
+
+  $h2-size: 24px;
+
+  color: $home-gray;
+  h2 {
+    font-size: 24px;
+  }
+
+  .hero {
+    background-color: #379fd7;
+    background-image: linear-gradient(to bottom, #48bfff 0, #379fd7 100%);
+    height: 500px;
+    .hero_content {
+      h1 {
+        font-weight: 400;
+        font-size: 30px;
+        line-height: 1.5em;
+        margin-bottom: 40px;
+        max-width: 570px;
+      }
+      p {
+        color: #FFF;
+        letter-spacing: 0;
+        text-align: center;
+        margin: 20px auto;
+      }
+    }
+  }
+  .client_logos {
+    max-width: 750px;
+    margin: auto;
+    overflow: auto;
+    img {
+      display: block;
+      margin: auto;
+    }
+  }
+  .clients{
+    background-color: #f9f9f9;
+    padding: 50px 20px;
+    h3 {
+      color: #666666;
+      font-weight: 400;
+      margin-bottom: 30px;
+      margin-top: 0;
+    }
+  }
+
+  .money {
+    padding: 60px 20px;
+    h2{
+      display: block;
+      margin: auto;
+      font-size: $h2-size;
+      font-weight: 400;
+      line-height: 30px;
+      text-align: center;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+    .animation_block {
+      position: relative;
+      display: block;
+      margin: auto;
+      margin-top: 50px;
+      width: 100%;
+      max-width: 750px;
+      .mac_book {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+      }
+      .animation {
+        padding: 13.5% 16.7% 9% 17.1%;
+        position: relative;
+      }
+    }
+    .benefits_group {
+      display: block;
+      margin: auto;
+      max-width: 800px;
+      overflow: auto;
+      .benefit_block {
+        h3 {
+          color: #666666;
+        }
+        p {
+          color: #666666;
+          // overrides for common.css.scss
+          font-size: $font-size-2;
+          letter-spacing: 0;
+          line-height: 1.6em;
+          margin: 1.5em 0;
+        }
+      }
+
+    }
+  }
+  .explore {
+    padding: 40px 20px;
+    .explore_block {
+      max-width: 700px;
+      margin: auto;
+    }
+    .explore_img {
+      max-height: 150px;
+    }
+    h3 {
+      font-size: 24px;
+      // font-weight: 400;
+      margin: 20px 0;
+      -webkit-font-smoothing: antialiased;
+    }
+    p {
+      font-size: $font-size-2;
+      letter-spacing: 0;
+    }
+  }
+  .join {
+    background-color: #777777;
+    background-image: url('landing/explore-sign-up-bg.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    .join_block{
+      max-width: 700px;
+      margin-top: 200px;
+      margin-bottom: 200px;
+      padding: 40px 20px;
+      background-color: #F9F9F9;
+      background-color: rgba(255, 255, 255, 0.9);
+      h2 {
+        color: #666666;
+        font-size: 20px;
+      }
+      p {
+        color: #666666;
+        font-size: 16px;
+        letter-spacing: 0;
+        margin-bottom: 30px;
+      }
+    }
+    .client_logos {
+      margin-top: 10px;
+      max-width: 430px;
+    }
+  }
+  @media only screen and (max-width: $foundation) {
+    .clients {
+      padding: 40px 5px;
+      h5 {
+        font-size: 16px;
+      }
+    }
+    .money {
+      padding: 50px 5px;
+      h2 {
+        font-size: 25px;
+        line-height: 37.5px;
+        margin-bottom: 15px;
+      }
+      .benefits_group {
+        .benefit_block {
+          max-width: none;
+          margin-top: 20px;
+        }
+      }
+    }
+  }
+  @media only screen and (max-width: $foundation) {
+    .join {
+      .join_block {
+        margin: 0;
+      }
+    }
+    .money .animation_block {
+      .mac_book {
+        display: none;
+      }
+      .animation {
+        padding: 0;
+        margin: 20px 0 50px 0;
+      }
+    }
+  }
+}

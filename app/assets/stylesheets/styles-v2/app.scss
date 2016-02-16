@@ -1,3 +1,5 @@
+$foundation: 768px;
+
 @import "./vendor/foundation/components/global"; // required by components in imports below
 @import "fonts";
 @import "font-awesome";
