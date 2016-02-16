@@ -1,5 +1,8 @@
+<% with_shadow ||= true %>
 <div class="hero">
-  <div class="shadow_overlay"></div>
+  <% if with_shadow %>
+    <div class="shadow_overlay"></div>
+  <% end %>
   <%= render partial: "pages/landing/header" %>
   <div class="hero_section">
     <div class="hero_content">

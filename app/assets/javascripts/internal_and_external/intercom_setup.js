@@ -45,3 +45,7 @@ function bindIntercomOpen(selector) {
     openIntercom();
   });
 }
+
+$(document).ready(function() {
+  bindIntercomOpen('.open_intercom');
+});

@@ -1,13 +1,8 @@
-<div class="hero">
-  <%= render partial: "pages/landing/header", locals: { menu_new: true } %>
-  <section class="hero_section">
-    <div class="hero_content">
-      <h1>Engaging employee communications that get HR priorities done.</h1>
-      <p>Join to explore best practices and content you can use today, it's free forever.</p>
-      <%= render partial: "pages/home/form", locals: {btn_clr: "green"} %>
-    </div>
-  </section>
-</div>
+<%= render layout: "pages/landing/hero", locals: {with_shadow: false} do %>
+  <h1>Engaging employee communications that get HR priorities done.</h1>
+  <p>Join to explore best practices and content you can use today, it's free forever.</p>
+  <%= render partial: "pages/home/form", locals: {btn_clr: "green"} %>
+<% end %>
 <main>
   <section class="clients">
     <div class="clients_section row">
