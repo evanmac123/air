@@ -15,6 +15,7 @@
     <%= render 'shared/mixpanel' %>
     <%= mp_track_page @page_name_for_mixpanel if @page_name_for_mixpanel.present? %>
     <%= stylesheet_link_tag 'app-landing' %>
+    <%= javascript_include_tag "https://api.intercom.io/api/js/library.js" %>
     <%= javascript_include_tag 'app-landing' %>
     <%= mobvious_javascript %>
 
@@ -37,6 +38,8 @@
     <%= render partial: "acts/public_board/schedule_demo_modal" %>
 
     <%= render :partial => 'shared/modals/modals' %>
+
+    <%= render 'shared/intercom' %>
     <%= javascript_include_tag asset_path('ga-marketing.js') if ENV['USE_GA'] %>
     <%= yield :javascript %>
     <%= javascript_include_tag 'jquery.lightbox_me' %>
