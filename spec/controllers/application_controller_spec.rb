@@ -1,8 +1,12 @@
 require 'spec_helper'
+#TODO refactor when I actually understand how this works.!
+
+class AnyController < ApplicationController; end
 
 describe "any controller descended from ApplicationController" do
   context "redirecting" do
-    controller do
+    controller do:w
+
       skip_before_filter :authorize
 
       def index
@@ -50,13 +54,20 @@ describe "any controller descended from ApplicationController" do
     end
   end
 
+
+end
+
+describe AnyController do
   context "invalid ping logger" do
     controller do
       skip_before_filter :authorize
-
+      
       def index
-        render :inline => 'some nonsense'
+        user = params[:user].present? ? FactoryGirl.create(:guest_user) : nil
+        ping("some event", {}, user )
+        head :ok
       end
+
     end
 
     before do
@@ -64,18 +75,22 @@ describe "any controller descended from ApplicationController" do
       # about its name and claim to be a controller that does exist and has a
       # routed index action, for use with url_for type URL generation.
       @controller.stubs(:controller_name).returns("acts")
-      $test_force_ssl = true
-    end
-
-    after do
       $test_force_ssl = false
     end
 
+
+    after do
+      $test_force_ssl = true
+    end
+
     it "should log ping without user" do
-      # expect(Rails.logger).to receive(:warn).with("INVALID USER PING SENT")
-      # debugger
-      Rails.logger.should_receive(:info).with("some message")
+      Rails.logger.expects(:warn).with("INVALID USER PING SENT some event")
       get :index
+    end
+
+    it "should log ping without user" do
+      Rails.logger.expects(:warn).never
+      get :index, :user => true
     end
   end
 end
