@@ -79,7 +79,10 @@ Airbo.Utils.StandardModal = (function(){
         bodyScrollVisibility(false);
       });
 
-      modal.bind('opened.fndtn.reveal', function(){
+      modal.bind('opened.fndtn.reveal', function(event){
+        if (!$(event.target).hasClass("reveal-modal")){
+          return;
+        }
         scrollModalToTop();
         params.onOpenedEvent();
       });
