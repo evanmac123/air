@@ -49,4 +49,33 @@ describe "any controller descended from ApplicationController" do
       end
     end
   end
+
+  context "invalid ping logger" do
+    controller do
+      skip_before_filter :authorize
+
+      def index
+        render :inline => 'some nonsense'
+      end
+    end
+
+    before do
+      # We don't want to route this anonymous dummy controller, so have it lie
+      # about its name and claim to be a controller that does exist and has a
+      # routed index action, for use with url_for type URL generation.
+      @controller.stubs(:controller_name).returns("acts")
+      $test_force_ssl = true
+    end
+
+    after do
+      $test_force_ssl = false
+    end
+
+    it "should log ping without user" do
+      # expect(Rails.logger).to receive(:warn).with("INVALID USER PING SENT")
+      # debugger
+      Rails.logger.should_receive(:info).with("some message")
+      get :index
+    end
+  end
 end
