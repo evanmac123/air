@@ -51,4 +51,13 @@ class ClientAdmin::UsersInvitesController < ClientAdminBaseController
 
     render 'tiles_digest_mailer/notify_one', :layout => false
   end
+
+  def preview_explore
+    @user  = current_user
+    @presenter = TilesDigestMailExplorePresenter.new(nil, "custom_message", "email_heading", @user.explore_token)
+    undecorated_tiles = Tile.viewable_in_public.first(10)
+    @tiles = TileExploreDigestDecorator.decorate_collection undecorated_tiles, context: { user: @user }
+    
+    render 'tiles_digest_mailer/notify_one', :layout => false
+  end
 end
