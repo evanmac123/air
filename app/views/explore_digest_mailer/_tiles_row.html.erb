@@ -1,0 +1,24 @@
+<!-- 2-col image/text -->
+<table width="436" align="center" cellpadding="0" cellspacing="0" border="0" class="columnsNoPadding">
+<% @tiles.each_slice(2) do |tiles| %>
+  <tr>
+    <td width="208" valign="top" class="column">
+      <% if @presenter.is_empty_preview? %>
+        <%= render partial: "tiles_digest_mailer/tile_placeholder" %>
+      <% else %>
+        <%= render partial: "tiles_digest_mailer/tile", locals: {tile: tiles[0], link_options: link_options} %>
+      <% end %>
+    </td>
+    <td width="20" class="verticalGap">
+      &nbsp;
+    </td>
+    <td width="208" valign="top" class="column">
+      <% if @presenter.is_empty_preview? %>
+        <%= render partial: "tiles_digest_mailer/tile_placeholder" %>
+      <% elsif tiles[1] %>
+        <%= render partial: "tiles_digest_mailer/tile", locals: {tile: tiles[1], link_options: link_options} %>
+      <% end %>
+    </td>
+  </tr>
+<% end %>
+</table>

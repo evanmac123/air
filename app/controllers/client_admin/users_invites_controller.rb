@@ -54,10 +54,12 @@ class ClientAdmin::UsersInvitesController < ClientAdminBaseController
 
   def preview_explore
     @user  = current_user
-    @presenter = TilesDigestMailExplorePresenter.new(nil, "custom_message", "email_heading", @user.explore_token)
+    custom_message = "Recently, we released the Health Plan Basics Collection. In 2 weeks, 4 companies used the Tiles to educate their employees. This week, we're releasing a complementary Collection called Prescription Drug Basics. With nearly 60% of Americans using a prescription, prescription drug insurance is more important than ever. These Tiles help educate employees on how to pick and use their plan."
+    email_heading = "More Americans than ever are taking prescription drugs"
+    @presenter = TilesDigestMailExplorePresenter.new(nil, custom_message, email_heading, @user.explore_token)
     undecorated_tiles = Tile.viewable_in_public.first(10)
     @tiles = TileExploreDigestDecorator.decorate_collection undecorated_tiles, context: { user: @user }
     
-    render 'tiles_digest_mailer/notify_one', :layout => false
+    render 'explore_digest_mailer/notify_one', :layout => false
   end
 end

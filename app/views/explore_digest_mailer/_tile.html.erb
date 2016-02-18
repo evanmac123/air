@@ -1,0 +1,63 @@
+<% tile_link_args = [tile.email_site_link, tile.email_link_options.merge({style: "width:100% !important;border:0;margin:0;padding:0;display:block;text-decoration:none;color:#2e2e2c;word-break: break-word;overflow-wrap: break-word;-ms-word-wrap:break-word;", class: "tile_link"})] %>
+<%= link_to *tile_link_args do %>
+  <table width="208" align="center" cellpadding="0" cellspacing="0" border="0" class="columnsNoPadding" style="width: 100% !important;">
+    <tbody width="208" style="width: 100% !important;">
+      <tr>
+        <td width="208" align="center" class="column tile_thumbnail" style="width:100% !important; border:0;margin:0;padding:0;border-left:1px solid #dfdfdf;border-right:1px solid #dfdfdf;border-top:1px solid #dfdfdf;">
+          <%= link_to *tile_link_args do %>
+            <%= image_tag(tile.email_img_url, alt: tile.headline,  width: '208', style: 'display:block; border-style:none;width:100% !important;') %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td width="208" height="100" valign="top" style="font-family:Helvetica,Arial,sans-serif;font-size:16px;color:#2e2e2c;mso-line-height-rule:exactly;line-height:22px;padding-top:20px;padding-left:10px;padding-right:10px;border-left:1px solid #dfdfdf;border-right:1px solid #dfdfdf;width: 100% !important;">
+          <span class="appleLinks2">
+            <%= link_to *tile_link_args do %>
+              <%= tile.headline %>
+            <% end %>
+          </span>
+        </td>
+      </tr>
+      <tr>
+				<td class="column" style="width:100% !important;">
+
+					<%if @presenter.email_type==TilesDigestMailActivityPresenter::ACTIVITY_EMAIL%>
+					 <table width="208" align="center" cellpadding="0" cellspacing="0" border="0" class="columnsNoPadding" style="width:100% !important;">
+            <tbody style="width: 100% !important;">
+              <tr>
+                <td style="font-family:Helvetica,Arial,sans-serif;color:#2e2e2c;font-weight:500;font-size:14px;mso-line-height-rule:exactly;line-height:22px;padding-top:5px;padding-bottom:5px;padding-left:10px;padding-right:5px;border:1px solid #dfdfdf;border-bottom:none;width:25px;">
+							<%="Viewed:  #{pluralize(tile.total_views, 'time')} by #{pluralize(tile.unique_views, 'user')}"%>
+                </td>
+              </tr>
+							<tr>
+								<td style="font-family:Helvetica,Arial,sans-serif;color:#2e2e2c;font-weight:500;font-size:14px;mso-line-height-rule:exactly;line-height:22px;padding-bottom:5px;padding-left:10px;padding-right:5px;border:1px solid #dfdfdf;border-top:none;width:25px;">
+							<%="Completed: #{pluralize(tile.tile_completions.count, 'user')}"%>
+                </td>
+							</tr>
+            </tbody>
+          </table>
+
+					<%else%>
+          <table width="208" align="center" cellpadding="0" cellspacing="0" border="0" class="columnsNoPadding" style="width:100% !important;">
+            <tbody style="width: 100% !important;">
+              <tr>
+                <td style="font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#48BFFF;mso-line-height-rule:exactly;line-height:22px;padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;border:1px solid #48BFFF;width:25px;">
+                  +<%= tile.points %>
+                </td>
+                <td style="font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#818385;mso-line-height-rule:exactly;line-height:22px;padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;border:1px solid #dfdfdf;border-left:0;word-break: break-word;">
+                  <%= tile.question.truncate(22) %>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+				<%end%>
+        </td>
+      </tr>
+      <tr>
+        <td height="60" class="horizontalGap">
+          &nbsp;
+        </td>
+      </tr>
+    </tbody>
+  </table>
+<% end %>
