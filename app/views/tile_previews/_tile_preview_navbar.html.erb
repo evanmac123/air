@@ -1,18 +1,6 @@
 <div class='columns large-centered tile_preview_navbar'>
     <div class='tile-head tile_holder'>
-      <% if tag.present? %>
-        <%= link_to tile_tag_show_explore_path(tile_tag: tag.id), id: "back-link" do %>
-          <%= fa_icon "arrow-left" %>Explore: <%= tag.title %>
-        <% end %>
-      <% else %>
-        <%= link_to explore_path, id: "back-link" do %>
-          <%= fa_icon "arrow-left" %>Explore
-        <% end %>
-      <% end %>
-
-      <%= link_to explore_random_tile_path(cb: rand.to_s), id: "random-tile-link" do %>
-        Random Tile<%= fa_icon :random %>
-      <% end %>
+      <%= link_to "Explore more great content", explore_path(explore_content_link: true), class: "link" %>
     </div>
 
     <div class='basic-info tile_holder justify'>

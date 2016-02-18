@@ -31,51 +31,51 @@ body.tile_previews.tile_previews-show {
     .tile-head{
       font-size: 18px;
       border: none;
-      background: #cfd7e3;
-      color: $white;
+      background: $white;
+      // color: $white;
       line-height: 1;
-      padding: 11px 28px 11px 22px;
+      padding: 15px;
       margin-top: 2rem;
-      margin-bottom: 2px;
+      margin-bottom: 1px;
+      text-align: center;
+      // a {
+      //   color: $white;
+      //   font-size: 18px;
+      //   font-weight: 600;
+      //   display: inline-block;
+      //   vertical-align: middle;
 
-      a {
-        color: $white;
-        font-size: 18px;
-        font-weight: 600;
-        display: inline-block;
-        vertical-align: middle;
-
-        &:active{
-          color: $sky-blue;
-        }
+      //   &:active{
+      //     color: $sky-blue;
+      //   }
 
 
-        .fa{
-          vertical-align: middle;
-        }
-      }
-      span{
-        display: inline-block;
-        vertical-align: middle;
-      }
+      //   .fa{
+      //     vertical-align: middle;
+      //   }
+      // }
+      // span{
+      //   display: inline-block;
+      //   vertical-align: middle;
+      // }
 
-      $fa-margin: 14px;
-      #back-link {
-        .fa {
-          margin-right: $fa-margin;
-          margin-top: -4px;
-        }
-      }
+      // $fa-margin: 14px;
+      // #back-link {
+      //   .fa {
+      //     margin-right: $fa-margin;
+      //     margin-top: -4px;
+      //   }
+      // }
 
-      #random-tile-link {
-        float: right;
+      // #random-tile-link {
+      //   float: right;
 
-        .fa {
-          margin-left: $fa-margin;
-        }
-      }
+      //   .fa {
+      //     margin-left: $fa-margin;
+      //   }
+      // }
 
-      font-weight: 600;
+      // font-weight: 600;
     }
     .basic-info{
       background: $white;
