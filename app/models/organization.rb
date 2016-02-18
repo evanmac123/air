@@ -49,7 +49,7 @@ class Organization < ActiveRecord::Base
   end
 
   def self.active
-    all.select{|o|o.churned==false}
+    all.select{|o|o.active==true}
   end
 
   def self.churned
@@ -65,11 +65,11 @@ class Organization < ActiveRecord::Base
   end
 
   def active
-    customer_end_date >= Date.today
+   !churned 
   end
 
   def churned 
-   !active 
+   customer_end_date && customer_end_date < Date.today 
   end
 
   def has_start_and_end

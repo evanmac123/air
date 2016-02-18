@@ -1,10 +1,16 @@
 
+<div class="row">
+
+  <div class="columns small-12 small-centered">
 <h1> Metrics and KPIs </h1>
 
 
+<%= render "cust_kpi_menu", active: "kpi" %>
+  </div>
+</div>
 <div class="row">
 
-  <div class="columns small-8 small-centered">
+  <div class="columns small-12 small-centered">
     <%=form_tag organization_metrics_path do %> 
       <table>
         <caption>Reporting Period</caption>
@@ -56,8 +62,7 @@
       </tbody>
     </table>
 
-    <%=link_to "Manage Customers", admin_organizations_path, class: "button righty"%>
-    <%=link_to "Download KPI For Period", organization_metrics_path(sdate:@kpi.sdate, edate: @kpi.edate, format: :csv),  class:"button"%> 
+    <%=link_to "Download KPI For Period", organization_metrics_path(sdate:@kpi.sdate, edate: @kpi.edate, format: :csv),  class:"button right"%> 
   <%end%>
   </div>
 </div>
