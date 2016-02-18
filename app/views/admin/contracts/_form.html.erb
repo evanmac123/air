@@ -122,10 +122,9 @@
         <%= f.text_area :notes %>
       </div>
       <div class="actions">
-        <%=link_to "Customers List", admin_organizations_path,  class: ""  %>
         <div class="righty">
         <%= f.submit "Submit", class: "button"  %> 
-        <%=link_to "Cancel", admin_contracts_path,  class: "button"  %>
+        <%=link_to "Cancel", admin_contracts_path,  class: "button reversed"  %>
         </div>
       </div>
     <% end %>

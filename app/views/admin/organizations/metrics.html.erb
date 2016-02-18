@@ -25,7 +25,7 @@
           <tr>
             <td><%=text_field_tag "sdate", @kpi.sdate, type: :date%></td>
             <td><%=text_field_tag "edate",@kpi.edate, type: :date%></td>
-    <td><%=submit_tag "Get Data", class:"button td-button"%></td>
+    <td><%=submit_tag "Get Data", class:"button td-button right"%></td>
             
           </tr> 
         </tbody>
@@ -62,7 +62,7 @@
       </tbody>
     </table>
 
-    <%=link_to "Download KPI For Period", organization_metrics_path(sdate:@kpi.sdate, edate: @kpi.edate, format: :csv),  class:"button right"%> 
+    <%=link_to "Download CSV", organization_metrics_path(sdate:@kpi.sdate, edate: @kpi.edate, format: :csv),  class:"button right"%> 
   <%end%>
   </div>
 </div>
