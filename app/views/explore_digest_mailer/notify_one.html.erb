@@ -11,10 +11,10 @@
               <td width="600" align="center">
                 <%= render partial: 'explore_digest_mailer/title' %>
                 <%= render partial: 'explore_digest_mailer/tiles' %>
-                <%= render partial: 'tiles_digest_mailer/notify_one_body' %>
               </td>
             </tr>
           </table>
+          <%= render partial: 'explore_digest_mailer/forward' %>
           <%= render partial: "mailer/footer", locals: { ie_link: @presenter.general_site_url } %>
         </td>
       </tr>
