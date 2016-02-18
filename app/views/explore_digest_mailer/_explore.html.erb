@@ -1,0 +1,74 @@
+<% img_link_args = [@presenter.general_site_url, @presenter.link_options.merge({style: "text-decoration:none;"})] %>
+<% text_link_args = [@presenter.general_site_url, @presenter.link_options.merge({style: "color:#48bfff;text-decoration:none;"})] %>
+<% btn_link_args = [@presenter.general_site_url, @presenter.link_options.merge({style: "color:#ffffff;text-decoration:none;display:block;vertical-align:middle;mso-line-height-rule:exactly;line-height:40px;border-radius:5px;"})] %>
+
+<table bgcolor="#ffffff" align="center" cellpadding="0" cellspacing="0">
+<tr>
+  <td width="600" align="center">
+    <table align="center" cellpadding="0" cellspacing="0">
+    <tr>
+      <td width="540" align="center">
+        <table width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="120" align="center" style="text-align:center;vertical-align:top;font-size:0;">
+            <div style="width:120px;display:inline-block;vertical-align:top;" class="wMax">
+              <table width="100%" cellpadding="0" cellspacing="0">
+              <tr>
+                <td align="center" style="padding-top:25px;padding-bottom:25px;padding-left:20px;padding-right:20px;">
+                  <%= link_to *img_link_args do %>
+                    <%= image_tag assets_url('rocket.png'), {width: "80", border: "0", style: "display:block;"} %>
+                  <% end %>
+                </td>
+              </tr>
+              </table>
+            </div>
+          <!--[if mso]>
+          </td>
+          <td width="420" align="center" style="text-align:center;vertical-align:top;font-size:0;">
+          <![endif]-->
+            <div style="width:420px;display:inline-block;vertical-align:top;" class="wMax">
+              <table width="100%" cellpadding="0" cellspacing="0">
+              <tr>
+                <td height="230" align="left" class="autoHeight">
+                  <table width="100%" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td align="left" style="font-family:Avenir Next Airbo,Arial,Helvetica,sans-serif;font-size:15px;color:#3c3c3c;mso-line-height-rule:exactly;line-height:24px;font-weight:bold;padding-left:20px;padding-right:20px;">
+                      Explore
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="left" valign="top" style="font-family:Avenir Next Airbo,Arial,Helvetica,sans-serif;font-size:15px;color:#404040;mso-line-height-rule:exactly;line-height:24px;padding-top:10px;padding-left:20px;padding-right:20px;">
+                      There's much more to see! Visit 
+                      <%= link_to *text_link_args do %>
+                        Airbo Explore
+                      <% end %>
+                       today to discover best practice content your employees will love.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="left" style="padding-top:20px;padding-bottom:20px;padding-left:20px;padding-right:20px;">
+                      <table cellpadding="0" cellspacing="0" style="border-collapse:separate;border-radius:5px;border:solid 1px #00aeef;">
+                      <tr>
+                        <td width="170"  height="40" bgcolor="#00aeef" align="center" style="font-family:Avenir Next Airbo,Arial,Helvetica,sans-serif;font-size:16px;color:#ffffff;white-space:nowrap;">
+                          <%= link_to *btn_link_args do %>
+                            &nbsp;Find&nbsp;Great&nbsp;Content&nbsp;
+                          <% end %>
+                        </td>
+                      </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  </table>
+                </td>
+              </tr>
+              </table>
+            </div>
+          </td>
+        </tr>
+        </table>
+      </td>
+    </tr>
+    </table>
+  </td>
+</tr>
+</table>
