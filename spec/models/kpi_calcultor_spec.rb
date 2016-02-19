@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe FinancialsKpiPresenter do
+describe FinancialsCalcService do
   before do 
     Timecop.freeze(Date.new(2015,11,8))
     setup_test_data

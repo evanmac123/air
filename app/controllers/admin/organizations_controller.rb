@@ -14,9 +14,9 @@ class Admin::OrganizationsController < AdminBaseController
 
   def metrics
     @kpi =if @sdate && @edate 
-            FinancialsKpiPresenter.new @sdate,@edate
+            FinancialsCalcService.new @sdate,@edate
           else
-            FinancialsKpiPresenter.new
+            FinancialsCalcService.new
           end
 
     respond_to do |format| 
@@ -26,7 +26,7 @@ class Admin::OrganizationsController < AdminBaseController
   end
 
   def metrics_recalc
-    @kpi = FinancialsKpiPresenter.new(@sdate, @edate)
+    @kpi = FinancialsCalcService.new(@sdate, @edate)
     render :metrics
   end
 
