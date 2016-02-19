@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160214223826) do
+ActiveRecord::Schema.define(:version => 20160219193203) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -508,6 +508,23 @@ ActiveRecord::Schema.define(:version => 20160214223826) do
   add_index "locations", ["demo_id"], :name => "index_locations_on_demo_id"
   add_index "locations", ["name"], :name => "location_name_trigram"
   add_index "locations", ["normalized_name"], :name => "location_normalized_name_trigram"
+
+  create_table "metrics", :force => true do |t|
+    t.integer  "starting_customers"
+    t.integer  "added_customers"
+    t.integer  "cust_possible_churn"
+    t.integer  "cust_churned"
+    t.decimal  "starting_mrr"
+    t.decimal  "added_mrr"
+    t.decimal  "new_cust_mrr"
+    t.decimal  "upgrade_mrr"
+    t.decimal  "possible_churn_mrr"
+    t.decimal  "churned_mrr"
+    t.float    "percent_churned_mrr"
+    t.float    "net_churned_mrr"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
 
   create_table "more_info_requests", :force => true do |t|
     t.string   "phone_number"
