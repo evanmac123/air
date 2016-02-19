@@ -3,7 +3,7 @@ namespace :reports do
     desc "Runs the weekly Financials report for the previous week"
     task :weekly_financials => :environment do
       today = Date.today
-      if today.wday ==0
+      if today.wday ==0 || ENV["FORCE_FIN_CALC"]="on"
         sdate = today.beginning_of_week
         edate = today
         FinancialsReporterService.execute sdate, edate
@@ -22,12 +22,9 @@ namespace :reports do
         edate = min_start.end_of_week
         while sdate < Date.today do 
           FinancialsReporterService.execute sdate, edate
+          sdate = sdate.next_week
         end
       end
     end
-
-
-
-
   end
 end
