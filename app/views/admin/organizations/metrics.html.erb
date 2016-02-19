@@ -35,6 +35,7 @@
         <tr>
           <th>Metric</th>
           <th>Value</th>
+
         </tr>
       </thead>
       <tbody>
@@ -50,15 +51,6 @@
         <tr><th>MRR Churned</th><td><%=simple_money_format @kpi.mrr_churned_during_period%></td></tr>
         <tr><th>Percent MRR Churn</th><td>%<%=@kpi.percent_mrr_churn_during_period%></td></tr>
         <tr><th>Net MRR Churn</th><td>%<%=@kpi.net_mrr_churn_during_period%></td></tr>
-        <!--
-        <tr><th>Active Contracts</th><td><%#@kpi.active_contracts_during_period%></td></tr>
-        <tr><th>Added Contracts</th><td><%#@kpi.added_contracts_during_period%></td></tr>
-        <tr><th>Upgrade ARR Added</th><td><%#@kpi.arr_added_from_upgrades_during_period%></td></tr>
-        <tr><th>New Customer Arr</th><td><%#@kpi.new_customer_arr_added_during_period%></td></tr>
-        <tr><th>ARR Added</th><td><%#@kpi.arr_added_during_period%></td></tr>
-        <tr><th>ARR</th><td><%#@kpi.arr_during_period%></td></tr>
-        <tr><th>Arr Possible Churn</th><td><%#@kpi.arr_possibly_churning_during_period%></td></tr>
-        -->
       </tbody>
     </table>
 
