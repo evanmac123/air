@@ -94,6 +94,7 @@ $.extend(Airbo.Utils, {
   },
 
   ping: function(event, properties) {
-    $.post("/ping", { event: event, properties: properties });
+    // $.post("/ping", { event: event, properties: properties });
+    mixpanel.track(event, properties);
   }
 });
