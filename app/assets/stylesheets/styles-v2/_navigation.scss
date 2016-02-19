@@ -186,4 +186,15 @@ ul.simple-nav {
     }
 
   }
+
+  &.airbo{
+    li {
+      a {
+        &.active {
+          background-color: #48bfff ;
+        }
+      }
+
+    }
+  }
 }
