@@ -16,7 +16,7 @@ class TilesDigestMailExplorePresenter < TilesDigestMailBasePresenter
     if @custom_from.present?
       @custom_from
     else
-      "Airbo Explore <play@ourairbo.com>"
+      "Airbo Explore <airboexplore@ourairbo.com>"
     end
   end
 

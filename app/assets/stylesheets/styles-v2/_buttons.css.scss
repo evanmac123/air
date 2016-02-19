@@ -94,6 +94,9 @@
   &.green {
     @include button-color(#4fd4c0);
   }
+  &.red {
+    @include button-color(#BE2625);
+  }
   &.outlined {
     @include button-outlined-color;
     // &. {

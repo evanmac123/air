@@ -48,7 +48,7 @@ class PagesController < HighVoltage::PagesController
   end
 
   def signed_out_only_on_root
-    return unless params[:id] == 'welcome'
+    return unless params[:id] == 'home'
     redirect_to home_path if signed_in?
   end
 
