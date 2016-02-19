@@ -1,9 +1,9 @@
 class FinancialsReporterService
 
-  def execute sdate, edate
+  def self.execute sdate, edate
     kpi =  FinancialsCalcService.new(sdate, edate)
 
-    m = Metric.new
+    m = Metrics.new
 
     m.starting_customers= kpi.active_organizations_during_period
     m.added_customers= kpi.added_organizations_during_period
@@ -20,4 +20,5 @@ class FinancialsReporterService
     m.weekending_date=edate
     m.save
   end
+
 end
