@@ -59,7 +59,7 @@ module ExploreHelper
 
   def explore_content_link_ping
     if params[:explore_content_link]
-      ping "Explore page - Interaction", {"Action" => 'Clicked "Explore more great content"'}, current_user
+      ping "Explore page - Interaction", {"action" => 'Clicked "Explore more great content"'}, current_user
     end
   end
 end
