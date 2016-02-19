@@ -28,7 +28,9 @@
               </tr>
               <tr>
                 <td align="left" valign="top" style="font-family:Avenir Next Airbo,Arial,Helvetica,sans-serif;font-size:13px;color:#404040;mso-line-height-rule:exactly;line-height:19px;padding-top:10px;padding-bottom:10px;padding-left:10px;padding-right:10px;">
-                  by <%= tile.creator.name %>
+                  <% if tile.creator %>
+                    by <%= tile.creator.name %>
+                  <% end %>
                 </td>
               </tr>
               </table>
