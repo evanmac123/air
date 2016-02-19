@@ -127,7 +127,8 @@ class Admin::ContractsController < AdminBaseController
       "Plan"=>"plan",
       "MRR"=>"marr",
       "ARR"=>"arr",
-      "Max Users"=>"max_users"
+      "Max Users"=>"max_users",
+      "Cycle" => "cycle"
     }
   end
 end
