@@ -1,10 +1,12 @@
-class FinancialsKpiPresenter
+class FinancialsCalcService
   attr_accessor :sdate, :edate 
 
   def initialize(sdate = 1.week.ago.to_date, edate=Date.today)
     @sdate = sdate
     @edate = edate
   end
+
+ 
 
   def active_organizations_during_period 
     Organization.active_during_period(sdate, edate).count
