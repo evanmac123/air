@@ -23,11 +23,17 @@ Airbo.TileManager = (function(){
   }
 
   function updateTileSection(data){
-    var selector , section = pageSectionByStatus(data.tileStatus);
+    var selector
+      , section = pageSectionByStatus(data.tileStatus)
+      , tile = $(data.tile)
+      img = tile.find(".tile_thumbnail_image>img")[0];
+
+      $(img).css({height:"100%",width:"100%"});
+
     if(tileContainerByDataTileId(data.tileId).length > 0){
-      replaceTileContent(data.tile, data.tileId);
+      replaceTileContent(tile, data.tileId);
     } else{
-      section.prepend(data.tile); //Add tile to section
+      section.prepend(tile); //Add tile to section
       window.updateTilesAndPlaceholdersAppearance();
     }
     tileThumbnail.initTile(data.tileId);

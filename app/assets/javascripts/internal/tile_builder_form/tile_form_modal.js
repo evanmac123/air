@@ -110,9 +110,9 @@ Airbo.TileFormModal = (function(){
     });
   }
 
-  function init(AirboTileManager) {
+  function init(mgr) {
     initModalObj();
-    tileManager = AirboTileManager;
+    tileManager = mgr;
   }
 
   return {
