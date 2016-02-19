@@ -24,6 +24,7 @@ class ExploresController < ClientAdminBaseController
 
     email_clicked_ping(current_user)
     explore_intro_ping @show_explore_intro, params
+    explore_content_link_ping
   end
 
   def tile_tag_show

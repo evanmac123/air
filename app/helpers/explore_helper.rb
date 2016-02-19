@@ -56,4 +56,10 @@ module ExploreHelper
     end
     ping "Explore Onboarding", {"Source" => source}, current_user
   end
+
+  def explore_content_link_ping
+    if params[:explore_content_link]
+      ping "Explore Page - Interaction", {"Action" => 'Clicked "Explore more great content"'}, current_user
+    end
+  end
 end
