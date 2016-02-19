@@ -85,7 +85,7 @@ class FinancialsCalcService
 
   private
 
-def active_contracts_during_period
+  def active_contracts_during_period
     Contract.active_during_period(sdate, edate).count
   end
 
