@@ -1,13 +1,10 @@
+
 <div class="row">
   <div class="columns small-12 ">
-    <%= render "cust_kpi_menu", active: "customer" %>
-  </div>
-</div>
-<div class="row">
-  <div class="columns small-12 ">
-    <p id="notice"><%= notice %></p>
 
     <h2><span class="margin-right-medium">Contract: </span><%=@contract.name %></h2>
+
+    <%= render "admin/organizations/cust_kpi_menu", active: "customer" %>
     <hr/>
     <table class="first-column-header">
       <tbody> 
@@ -73,9 +70,6 @@
 
 
 <div class="row">
-  <div class="columns small-2 ">
-    <%= link_to 'Customer List', admin_organizations_path %>
-  </div>
   <div class="columns small-8 small-centered">
     <%= link_to 'Add Upgrade', new_admin_contract_upgrade_path(@contract), class: "button"  %>
     <%= link_to 'Add Billing', new_admin_contract_billing_path(@contract), class: "button"  %>
