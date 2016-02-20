@@ -52,10 +52,10 @@ class Admin::ContractsController < AdminBaseController
       data = heads.reject{|h| h=="Company"}
 
       data.each do|head| 
-        contract[field_mapping[head]]=row[head]
+        contract[field_mapping[head]]=row[head] if field_mapping[head]
       end
 
-      contract.name = org.name + (org.contracts.count +1).to_s
+      contract.name = "#{org.name} #{org.contracts.count +1}"
       contract.save
     end
     redirect_to admin_contracts_path
