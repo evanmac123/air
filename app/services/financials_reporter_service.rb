@@ -28,7 +28,7 @@ class FinancialsReporterService
       sdate = min_start.beginning_of_week
       edate = sdate.end_of_week
       while sdate < Date.today do 
-        FinancialsReporterService.execute sdate, edate
+        FinancialsReporterService.build_week sdate, edate
         sdate = sdate.advance(weeks: 1)
         edate = edate.advance(weeks: 1)
       end
