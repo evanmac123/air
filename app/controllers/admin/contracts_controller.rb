@@ -71,7 +71,7 @@ class Admin::ContractsController < AdminBaseController
                                      :end_date,:start_date, 
                                      :arr, :mrr, :name,  
                                      :amt_booked, :date_booked, 
-                                     :is_actual, :max_users,
+                                     :is_actual, :max_users,:cycle
                                      :term, :notes)
   end
 
