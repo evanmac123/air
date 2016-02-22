@@ -424,8 +424,8 @@ ActiveRecord::Schema.define(:version => 20160219203725) do
     t.integer  "tickets",                              :default => 0
     t.integer  "ticket_threshold_base",                :default => 0
     t.integer  "demo_id"
-    t.datetime "created_at",                                             :null => false
-    t.datetime "updated_at",                                             :null => false
+    t.datetime "created_at",                                              :null => false
+    t.datetime "updated_at",                                              :null => false
     t.integer  "converted_user_id"
     t.boolean  "get_started_lightbox_displayed"
     t.datetime "last_acted_at"
@@ -433,6 +433,7 @@ ActiveRecord::Schema.define(:version => 20160219203725) do
     t.boolean  "voteup_intro_seen"
     t.boolean  "share_link_intro_seen"
     t.boolean  "seeing_marketing_page_for_first_time", :default => true
+    t.boolean  "onboarding_seen",                      :default => false
   end
 
   add_index "guest_users", ["demo_id"], :name => "index_guest_users_on_demo_id"

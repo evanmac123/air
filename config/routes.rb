@@ -124,6 +124,7 @@ Health::Application.routes.draw do
     end
     resources :users_invites, only: :create
     get 'preview_invite_email', to: 'users_invites#preview_invite_email'
+    get 'preview_explore', to: 'users_invites#preview_explore'
 
     resources :locations, :only => :create
 

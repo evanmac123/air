@@ -1,27 +1,34 @@
-<%= link_to "Back to admin", admin_path %>
+<div class="row">
+  <div class="columns small-12">
+    <h1>Explore Digest</h1>
+    <div class="row">
+      <div class="columns small-6 small-centered">
+        <%= form_for @explore_digest_form, url: admin_explore_digest_path do |form| %>
+          <%= form.label :subject %>
+          <%= form.text_field :subject %>
 
-<%= form_for @explore_digest_form, url: admin_explore_digest_path do |form| %>
-  <%= form.label :subject %>
-  <%= form.text_field :subject %>
+          <%= form.label :headline %>
+          <%= form.text_field :headline %>
 
-  <%= form.label :headline %>
-  <%= form.text_field :headline %>
+          <%= form.label :custom_message %>
+          <%= form.text_area :custom_message, rows: 5, columns: 60 %>
 
-  <%= form.label :custom_message %>
-  <%= form.text_area :custom_message, rows: 5, columns: 60 %>
+          <%= form.label "Tile IDs" %>
+          <div id="tile_ids_container">
+            <% form.object.tile_ids.each_with_index do |tile_id| %>
+              <%= text_field_tag "explore_digest_form[tile_ids][]", tile_id %>
+            <% end %>
+          </div>
 
-  <%= form.label "Tile IDs" %>
-  <div id="tile_ids_container">
-    <% form.object.tile_ids.each_with_index do |tile_id| %>
-      <%= text_field_tag "explore_digest_form[tile_ids][]", tile_id %>
-    <% end %>
+          <%= form.submit "Add another tile ID", id: 'add_tile_id', class: "button" %>
+
+          <%= form.submit "Send test digest to self", class: "button" %>
+          <%= form.submit "Send real digest", confirm: "Reorder tiles and send real digest?", class: "button red" %>
+        <% end %>
+      </div>
+    </div>
   </div>
-
-  <%= form.submit "Add another tile ID", id: 'add_tile_id' %>
-
-  <%= form.submit "Send test digest to self" %>
-  <%= form.submit "Send real digest", confirm: "Reorder tiles and send real digest?" %>
-<% end %>
+</div>
 
 <% js_at_end do %>
   bindAddExploreDigestTileIDField();

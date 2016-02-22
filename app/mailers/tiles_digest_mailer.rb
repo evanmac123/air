@@ -38,7 +38,7 @@ class TilesDigestMailer < BaseTilesDigestMailer
 		mail to: @user.email_with_name, 
 			from: @presenter.from_email, 
 			subject: subject, 
-			template_path: 'tiles_digest_mailer', 
+			template_path: 'explore_digest_mailer', 
 			template_name: 'notify_one'
   end
 
