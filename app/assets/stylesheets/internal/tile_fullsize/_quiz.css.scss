@@ -76,6 +76,8 @@
       font-size:1.25em !important;
       line-height:1em;
       padding:.5em 1em;
+      white-space: normal;
+      text-transform: none;
       &.clicked_wrong {
         background:darken($light-gray, 10%);
         border-color:$light-gray;
