@@ -4,7 +4,7 @@ class Metrics < ActiveRecord::Base
     where(["weekending_date >= ? and weekending_date < ?",sdate, edate]).aggregate
   end
 
-  def self.current_week(sdate, edate)
+  def self.current_week
     sdate, edate = default_date_range
     by_start_and_end(sdate, edate)
   end
