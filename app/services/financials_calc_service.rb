@@ -58,30 +58,7 @@ class FinancialsCalcService
     (mrr_upgrades_during_period-mrr_churned_during_period)/mrr_during_period
   end
 
-  def to_csv
-    meths = { 
-      
-      "Starting" => :active_organizations_during_period,
-      "Added" =>:added_organizations_during_period,
-      "Possible Churn" =>:possible_churn_during_period,
-      "Churned" => :churned_during_period,
-      "Starting MRR" =>:mrr_during_period,
-      "MRR Added" => :mrr_added_during_period,
-      "New MRR Added" => :new_customer_mrr_added_during_period,
-      "Upgrade MRR Added " => :mrr_upgrades_during_period,
-      "MRR Possible Churn" => :mrr_possibly_churning_during_period,
-      "MRR Churned " => :mrr_churned_during_period,
-      "Percent MRR Churn" => :percent_mrr_churn_during_period,
-      "Net MRR Churn" => :net_mrr_churn_during_period
-    } 
 
-
-    CSV.generate(headers: false) do |csv|
-      meths.each do |k,v|
-        csv <<  [k, send(v)]
-      end
-    end
-  end
 
   private
 

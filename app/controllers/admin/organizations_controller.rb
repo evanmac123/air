@@ -22,7 +22,8 @@ class Admin::OrganizationsController < AdminBaseController
     respond_to do |format| 
       format.html
       format.csv do 
-        send_data @kpi.to_csv, filename: "kpi-#{Date.today}.csv" 
+        data = FinancialsReporterService.to_csv @sdate, @edate
+        send_data data, filename: "kpi-#{Date.today}.csv" 
       end 
     end
   end

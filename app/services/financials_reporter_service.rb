@@ -35,6 +35,28 @@ class FinancialsReporterService
     end
   end
 
-  
+  def self.to_csv sdate, edate 
+    data = Metrics.by_start_and_end sdate, edate
+    table = self.to_table data
+    CSV.generate do |csv|
+      table.each do|row|
+        csv << row
+      end
+    end
+  end
 
+  def self.to_table data
+    table =[]
+    Metrics.field_mapping.each do|mapping, meth|
+      rows=[]  
+      rows[0]=mapping[0]
+      data.each do|h,v|
+        rows << h[meth] 
+      end
+      table << rows
+    end
+   table
+  end
+
+    
 end
