@@ -1,5 +1,4 @@
 class FinancialsReporterService
-
   def self.execute sdate, edate
     kpi =  FinancialsCalcService.new(sdate, edate)
 
@@ -20,5 +19,22 @@ class FinancialsReporterService
     m.weekending_date=edate
     m.save
   end
+
+  def self.build_historical 
+    if Contract.count==0 || Organization.count == 0
+      Rails.logger.warn "Skipping Activity Report Not Monday"
+    else
+      min_start = Contract.minimum(:start_date)
+      sdate = min_start.beginning_of_week
+      edate = sdate.end_of_week
+      while sdate < Date.today do 
+        FinancialsReporterService.execute sdate, edate
+        sdate = sdate.advance(weeks: 1)
+        edate = edate.advance(weeks: 1)
+      end
+    end
+  end
+
+  
 
 end

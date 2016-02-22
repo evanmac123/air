@@ -14,19 +14,21 @@ class Admin::OrganizationsController < AdminBaseController
 
   def metrics
     @kpi =if @sdate && @edate 
-            FinancialsCalcService.new @sdate,@edate
+            Metrics.by_start_and_end @sdate,@edate
           else
-            FinancialsCalcService.new
+            @sdate, @edate = Metrics.default_date_range
+            Metrics.current_week
           end
-
     respond_to do |format| 
       format.html
-      format.csv { send_data @kpi.to_csv, filename: "kpi-#{Date.today}.csv" } 
+      format.csv do 
+        send_data @kpi.to_csv, filename: "kpi-#{Date.today}.csv" 
+      end 
     end
   end
 
   def metrics_recalc
-    @kpi = FinancialsCalcService.new(@sdate, @edate)
+    @kpi = Metrics.by_start_and_end @sdate,@edate
     render :metrics
   end
 
@@ -50,6 +52,8 @@ class Admin::OrganizationsController < AdminBaseController
   end
 
   private
+
+
   def parse_dates
     @sdate = params[:sdate].present? ? Date.strptime(params[:sdate], "%Y-%m-%d") : nil
     @edate =  params[:edate].present? ? Date.strptime(params[:edate], "%Y-%m-%d") : nil

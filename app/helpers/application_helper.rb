@@ -144,6 +144,20 @@ module ApplicationHelper
     result
   end
 
+
+  def simple_format_by_type type, val
+    case type 
+    when "date"
+      simple_date_format val 
+    when "money" 
+      simple_money_format val
+    when "pct"
+      "#{simple_number_format val}%"
+    else 
+      val
+    end
+  end
+
   def simple_date_format date
     date.try(:strftime, "%m/%d/%Y")
   end
