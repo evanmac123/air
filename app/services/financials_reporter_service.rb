@@ -1,5 +1,5 @@
 class FinancialsReporterService
-  def self.execute sdate, edate
+  def self.build_week sdate, edate
     kpi =  FinancialsCalcService.new(sdate, edate)
 
     m = Metrics.new
