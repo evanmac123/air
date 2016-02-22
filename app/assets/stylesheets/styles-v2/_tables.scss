@@ -52,6 +52,13 @@ table.sortable{
  }
 }
 
+
+tbody {
+ th{
+   text-align:left;
+ }
+}
+
 caption{
   @include font-weight-bold;
   padding: 0 0 10px 0;
