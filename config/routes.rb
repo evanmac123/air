@@ -19,6 +19,7 @@ Health::Application.routes.draw do
   post "admin/customer/metrics" => "admin/organizations#metrics_recalc", :as => "organization_metrics"
 
   post "admin/contracts/import" => "admin/contracts#import", :as => "contracts_import"
+  post "admin/metrics/historical" => "admin/metrics#historical", :as => "historical_metrics"
 
   resources :tiles, :only => [:index, :show]
   resources :tile, :only => [:show], as: "sharable_tile"

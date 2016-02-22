@@ -50,6 +50,9 @@
     <%=link_to "Download CSV", organization_metrics_path(sdate:@sdate, edate: @edate, format: :csv),  class:"button right"%> 
   <%end%>
   </div>
+  <%=form_tag historical_metrics_path do%> 
+    <%=submit_tag "Process Historical Metrics", class: "button outlined"%>
+  <%end%>
 </div>
 
 
