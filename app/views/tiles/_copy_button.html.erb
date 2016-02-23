@@ -39,7 +39,8 @@
             $('.copy_message').find('#copy_value').show();
             $('.copy_message').find('#copy_msg').show();
             $('#edit_copied_tile_link').attr('href', data.editTilePath);
-            $('#tile_copied_lightbox').foundation('reveal', 'open');
+            // $('#tile_copied_lightbox').foundation('reveal', 'open');
+            Airbo.CopyAlert.open();
             $('.copy_button.uncopied').removeClass('uncopied');
             copyButton.find('copy_button').show();
           }
