@@ -41,7 +41,7 @@ class Contract < ActiveRecord::Base
   end
 
   def self.active_during_period sdate, edate
-    where("start_date <= ? and end_date > ?", edate, edate)
+    where("start_date <= ? and end_date > ?", sdate, edate)
   end
 
   def self.added_during_period sdate, edate
