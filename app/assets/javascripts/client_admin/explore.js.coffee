@@ -81,7 +81,6 @@ $(document).ready ->
                                 <i class="fa fa-copy"></i>');
           spinner.hide()
           wrapper.show()
-          # $('#tile_copied_lightbox').foundation('reveal', 'open')
           Airbo.CopyAlert.open();
       ,
       'json'
