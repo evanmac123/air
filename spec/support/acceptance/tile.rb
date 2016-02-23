@@ -435,7 +435,7 @@ module TileHelpers
   # English.
 
   def post_copy_copy
-    "Success! Tile has been copied to your board's drafts section."
+    "Tile has been copied to your board's drafts section."
   end
 
   def completed_tiles_number

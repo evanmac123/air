@@ -47,7 +47,7 @@ feature "interacts with a tile from the explore-preview page" do
     scenario "should show a helpful message in a modal after copying", js: true do
       close_intro
       click_copy_button
-      page.find('#tile_copied_lightbox', visible: true)
+      page.find('.tile_copied_lightbox', visible: true)
 
       expect_content post_copy_copy
     end
@@ -56,7 +56,7 @@ feature "interacts with a tile from the explore-preview page" do
       close_intro
       @original_tile.update_attributes(creator: nil)
       click_copy_button
-      page.find('#tile_copied_lightbox', visible: true)
+      page.find('.tile_copied_lightbox', visible: true)
 
       expect_content post_copy_copy
     end
