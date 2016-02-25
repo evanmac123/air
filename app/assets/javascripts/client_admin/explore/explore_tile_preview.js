@@ -20,6 +20,7 @@ Airbo.ExploreTilePreview = (function(){
   }
   function initVars() {
     copyBtn = $(copyBtnSel);
+    Airbo.ShareLink.init();
   }
   function init() {
     initVars();

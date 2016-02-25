@@ -12,11 +12,3 @@
     <%= text_field_tag 'share_tile_link', explore_tile_preview_url(tile), id: "share_link" %>
   </div>
 <% end %>
-
-<%= content_for :javascript do %>
-  <%= javascript_tag do %>
-    $().ready(function(){
-      tileShareLink();
-    });
-  <% end %>
-<% end %>
