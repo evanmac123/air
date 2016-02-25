@@ -1,0 +1,6 @@
+<div class="categories">
+  <h4>Categories</h4>
+  <% tile.tile_tags.each do |tile_tag| %>
+    <%= link_to tile_tag.title, tile_tag_show_explore_path(tile_tag: tile_tag.id, tag_click_source: 'Explore Tile Preview Page - Clicked Tile Tag'), class: "tag white bg-blue" %>
+  <% end %>
+</div>
