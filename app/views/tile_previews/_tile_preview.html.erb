@@ -7,9 +7,9 @@
   <% end %>
 <% end %>
 
-<%=render partial: 'tile_preview_navbar', locals: {tile: tile, tag: tag} %>
-<%=render partial: 'like_copy_tag_bar', locals: {tile: tile, intros: intros} %>
-<%=render partial: 'share_bar', locals: {tile: tile, intros: intros} %>
+<%render partial: 'tile_preview_navbar', locals: {tile: tile, tag: tag} %>
+<%render partial: 'like_copy_tag_bar', locals: {tile: tile, intros: intros} %>
+<%render partial: 'share_bar', locals: {tile: tile, intros: intros} %>
 <%=render partial: 'copy_btn', locals: {tile: tile} %>
 
 <div class="large-centered columns">

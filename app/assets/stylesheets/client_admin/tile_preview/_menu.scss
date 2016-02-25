@@ -118,6 +118,14 @@
       padding: 11px 13px 13px 13px;
     }
   }
+  &.explore_menu {
+    position: relative;
+    left: 0;
+    margin-bottom: 10px;
+    .preview_menu_item {
+      width: 100%;
+    }
+  }
   .preview_menu_item {
     width: auto;
     padding: 0px;

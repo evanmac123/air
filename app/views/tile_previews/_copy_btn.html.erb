@@ -1,9 +1,9 @@
 <ul class="tile_preview_menu explore_menu" >
-  <li class="preview_menu_item duplicate" >
-    <%=link_to duplicate_client_admin_tile_path(tile, page: 'Edit'), class: "duplicate_tile", data: {"tile-id" => tile.id} do %>
+  <li class="preview_menu_item" >
+    <%=link_to explore_copy_tile_path(tile_id: tile.id, path: :via_explore_page_tile_view), class: "copy_to_board", data: {"tile-id" => tile.id} do %>
       <i class="fa fa-copy fa-1x"></i>
       <span class="header_text">
-        Copy
+        Copy to Board
       </span>
     <%end%>
   </li>
