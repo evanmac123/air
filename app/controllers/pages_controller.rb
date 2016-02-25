@@ -40,7 +40,7 @@ class PagesController < HighVoltage::PagesController
     when 'more_info',  # FIXME dead url?
       @body_id = "homepage"
       'external_marketing'
-    when 'heineken', 'miltoncat', 'fujifilm', 'customer_tiles'
+    when 'heineken', 'miltoncat', 'customer_tiles'
       'external_marketing'
     else
       'pages'
