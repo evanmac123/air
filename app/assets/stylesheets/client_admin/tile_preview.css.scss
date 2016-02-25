@@ -8,14 +8,6 @@
       top: 450px;
       display: none;
     }
-    // a#next {
-    //   // right: 50%;
-    //   // margin-right: -365px;
-    // }
-    // a#prev {
-    //   // left: 50%;
-    //   // margin-left: -380px;
-    // }
   }
 
   .switch{
@@ -47,103 +39,6 @@
   .tile_preview_container, .preview_placeholder {
     max-width: 784px;
     padding-top: 33px;
-  }
-  //
-  // => Tile Preview Menu
-  //
-  .tile_preview_menu{
-    background: white;
-    border-radius: $border-radius;
-    overflow: hidden;
-    position: absolute;
-    top: 0;
-    left: 78px;
-    &.sticky {
-      position: fixed;
-      z-index: 1;
-      top: 0;
-      border-radius: 0 0 3px 3px;
-      border-bottom: 1px solid #dcdcdc;
-    }
-  }
-  .preview_menu_header {
-    float: left;
-    width: 20%;
-    font-size: 27px;
-    color: white;
-    padding: .5em 1em;
-    border-top-left-radius: 3px;
-    border-bottom-left-radius: 3px;
-    &.draft, &.archive, &.user_draft {
-      background: $blue;
-    }
-    &.active {
-      background: $sky-blue;
-    }
-    &.user_submitted {
-      color: $sky-blue;
-      border: 2px $sky-blue solid;
-      padding: 0.45em;
-    }
-    &.ignored {
-      color: $med-gray;
-      border: 2px $med-gray solid;
-      padding: 0.45em 1em;
-    }
-  }
-  .preview_menu_item, .preview_menu_text {
-    float: left;
-    border-left: 1px $tile-wall-bg solid;
-    font-size: 14px;
-    padding: .55em;
-    text-align: center;
-    color: $gray;
-    &:first-child {
-      border-left: none;
-    }
-    // &:last-child {
-    //   border-right: 1px $tile-wall-bg solid;
-    // }
-    // &:nth-child(n+5) {
-    //   border-right: none;
-    // }
-    .header_text {
-      margin-top: .25em;
-      font-weight: bold;
-    }
-    a {
-      color: $gray;
-      display: block;
-      &:hover {color: darken($gray, 10%);}
-    }
-  }
-  .preview_menu_item {
-    width: 16%;
-    a {
-      padding: 11px 13px 13px 14px;
-    }
-    &#suggested_info{
-     width: 60%;
-     text-align:left;
-    }
-
-    &#suggested_accept{
-     width: 20%;
-    }
-
-    &#suggested_ignore{
-     width: 20%;
-    }
-  }
-  .preview_menu_text {
-    width: 48%;
-  }
-  .submitted_tile_menu {
-    float: left;
-    width: 32%;
-    li {
-      width: 50%;
-    }
   }
 }
 body.client_admin-tiles.client_admin-tiles-index {

@@ -1,0 +1,10 @@
+<ul class="tile_preview_menu explore_menu" >
+  <li class="preview_menu_item duplicate" >
+    <%=link_to duplicate_client_admin_tile_path(tile, page: 'Edit'), class: "duplicate_tile", data: {"tile-id" => tile.id} do %>
+      <i class="fa fa-copy fa-1x"></i>
+      <span class="header_text">
+        Copy
+      </span>
+    <%end%>
+  </li>
+</ul>
