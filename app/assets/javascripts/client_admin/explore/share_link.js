@@ -4,12 +4,9 @@ Airbo.ShareLink = (function(){
   function pingShareTile(action) {
     var tile_id;
     tile_id = $("[data-current-tile-id]").data("current-tile-id");
-    return $.post("/ping", {
-      event: 'Explore page - Interaction',
-      properties: {
-        action: action,
-        tile_id: tile_id
-      }
+    Airbo.Utils.ping('Explore page - Interaction', properties: {
+      action: action,
+      tile_id: tile_id
     });
   };
   function initEvents(){
@@ -29,16 +26,6 @@ Airbo.ShareLink = (function(){
       cut: function() {
         return pingShareTile("Copied tile link");
       }
-    });
-    $(".share_linkedin").click(function(e) {
-      var url;
-      e.preventDefault();
-      url = $(".share_linkedin a").attr("href");
-      window.open(url, '', 'width=620, height=500');
-      return pingShareTile("Clicked share tile via LinkedIn");
-    });
-    $(".share_mail").click(function() {
-      return pingShareTile("Clicked share tile via email");
     });
   }
   function init() {
