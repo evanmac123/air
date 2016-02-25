@@ -1,0 +1,10 @@
+<div class="creator bg-white center bar_for_preview align_left offset_top">
+  <%= image_tag tile.demo.logo(:thumb), class: "horizontal company_logo" %>
+  <span>
+    Tile 
+    <% if tile.creator %>
+      by <%= tile.creator.try(:name) %> 
+    <% end %>
+    of <%= tile.demo.name %>
+  </span>
+</div>

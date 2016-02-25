@@ -4,10 +4,7 @@ Airbo.ShareLink = (function(){
   function pingShareTile(action) {
     var tile_id;
     tile_id = $("[data-current-tile-id]").data("current-tile-id");
-    Airbo.Utils.ping('Explore page - Interaction', properties: {
-      action: action,
-      tile_id: tile_id
-    });
+    Airbo.Utils.ping('Explore page - Interaction', {action: action, tile_id: tile_id});
   };
   function initEvents(){
     $("#share_link").on('click', function(event) {

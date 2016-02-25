@@ -140,6 +140,9 @@ td .button.td-button {
 .align_center {
   text-align: center;
 }
+.align_left {
+  text-align: left;
+}
 // .width_700.width_700 {
 //   width: 700;
 // }
@@ -150,6 +153,9 @@ td .button.td-button {
 
 .bg-whitish {
   background-color: #f9f9f9;
+}
+.bg-white {
+  background: $n-white;
 }
 
 .center {

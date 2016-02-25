@@ -2,14 +2,14 @@ var Airbo = window.Airbo || {};
 
 Airbo.TilePreviewModal = (function(){
   var modalId = "tile_preview_modal"
-  , tileNavigationSelectorLeft = ".tile_preview_container .viewer  #prev"
-  , tileNavigationSelectorRight = ".tile_preview_container .viewer #next"
-  , dummyTileNavigationSelectorLeft = ".preview_placeholder #prev"
-  , dummyTileNavigationSelectorRight = ".preview_placeholder #next"
-  , tileNavigationSelector = tileNavigationSelectorLeft + ', ' + tileNavigationSelectorRight
-  , tileNavLeft = tileNavigationSelectorLeft + ', ' + dummyTileNavigationSelectorLeft
-  , tileNavRight = tileNavigationSelectorRight + ', ' + dummyTileNavigationSelectorRight
-  , tileNavSelectors = tileNavLeft + ', ' + tileNavRight
+    , tileNavigationSelectorLeft = ".tile_preview_container .viewer  #prev"
+    , tileNavigationSelectorRight = ".tile_preview_container .viewer #next"
+    , dummyTileNavigationSelectorLeft = ".preview_placeholder #prev"
+    , dummyTileNavigationSelectorRight = ".preview_placeholder #next"
+    , tileNavigationSelector = tileNavigationSelectorLeft + ', ' + tileNavigationSelectorRight
+    , tileNavLeft = tileNavigationSelectorLeft + ', ' + dummyTileNavigationSelectorLeft
+    , tileNavRight = tileNavigationSelectorRight + ', ' + dummyTileNavigationSelectorRight
+    , tileNavSelectors = tileNavLeft + ', ' + tileNavRight
   ;
   var modalObj = Airbo.Utils.StandardModal()
     , tileManager

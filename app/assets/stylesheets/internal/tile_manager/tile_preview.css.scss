@@ -393,7 +393,7 @@ body.tile_previews.tile_previews-show {
 
   .share_bar{
     background: $white;
-    margin: 10px 68px 30px 68px;
+    margin-top: 10px;// 68px 30px 68px;
     padding: 20px 42px;
     font-size: 16px;
     .share_title{
@@ -413,6 +413,21 @@ body.tile_previews.tile_previews-show {
         width: 100%;
         background: $white;
       }
+    }
+  }
+
+  .bar_for_preview {
+    width: 600px;
+    padding: 20px 42px;
+  }
+
+  .offset_top {
+    margin-top: 10px;
+  }
+
+  .creator {
+    .company_logo {
+      height: 30px;
     }
   }
 }
