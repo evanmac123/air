@@ -4,15 +4,7 @@
 <%= javascript_include_tag "internal/countUp.min" %>
 <%= javascript_include_tag "internal/point_and_ticket_animation" %>
 
-<div class='viewer'>
-  <%= link_to "", "#", :id => "prev_tile", class: "button_arrow" %>
-
-  <div id="tile_preview_section"> 
-    <%= render partial: 'tile_preview', locals: { tile: @tile, tag: @tag } %>
-  </div>
-
-  <%= link_to "" ,"#", :id => "next_tile", class: "button_arrow" %>
-</div>
+<%= render partial: 'tile_preview', locals: { tile: @tile, tag: @tag, next_tile: @next_tile, prev_tile: @prev_tile } %>
 
 <% if guest_for_tile_preview? || user_is_guest_for_tile_preview? %>
   <%= javascript_tag do %>

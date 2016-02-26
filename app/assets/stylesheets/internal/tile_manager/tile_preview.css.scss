@@ -36,14 +36,14 @@ body.tile_previews.tile_previews-show {
         border-right-color: lighten($gray-4, 15%);
       }
     }
-    &#prev_tile {
+    &.prev_tile {
       padding: 10px 17px 10px 13px;
       left: 20px;
       &:after {
         @include arrow-left($gray-4, 10px);
       }
     }
-    &#next_tile {
+    &.next_tile {
       padding: 10px 13px 10px 17px;
       right: 20px;
       &:after {

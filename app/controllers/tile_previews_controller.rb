@@ -15,12 +15,15 @@ class TilePreviewsController < ApplicationController
   include ExploreHelper
 
   def show
+    @tile = Tile.viewable_in_public.where(id: params[:id]).first
+    @next_tile = Tile.next_public_tile params[:id], 1, params[:tag]
+    @prev_tile = Tile.next_public_tile params[:id], -1, params[:tag]
+    @tag = TileTag.where(id: params[:tag]).first
     if params[:partial_only]
-      show_partial
+      render partial: "tile_previews/tile_preview", 
+             locals: {tile: @tile, tag: @tag, next_tile: @next_tile, prev_tile: @prev_tile},
+             layout: false
     else
-      @tile = Tile.viewable_in_public.where(id: params[:id]).first
-      @tag = TileTag.where(id: params[:tag]).first
-
       @show_explore_intro = current_user.intros.show_explore_intro!
       @intros = create_intros_presenter unless @show_explore_intro
       schedule_mixpanel_pings @tile
@@ -32,14 +35,15 @@ class TilePreviewsController < ApplicationController
 
   def show_partial
     tag = TileTag.where(id: params[:tag]).first
-    next_tile = Tile.next_public_tile params[:id], params[:offset].to_i, params[:tag]
-
-    render json: {
-      tile_id:      next_tile.id,
-      tile_content: render_to_string(partial: "tile_previews/tile_preview", locals: { tile: next_tile, tag: tag })
-    }
-    ping_on_arrow params[:offset].to_i
-    return
+    # next_tile = Tile.next_public_tile params[:id], params[:offset].to_i, params[:tag]
+    tile = Tile.viewable_in_public.where(id: params[:id]).first
+    render partial: "tile_previews/tile_preview", locals: { tile: tile, tag: tag }, layout: false
+    # render json: {
+    #   tile_id:      tile.id,
+    #   tile_content: render_to_string(partial: "tile_previews/tile_preview", locals: { tile: tile, tag: tag })
+    # }
+    # ping_on_arrow params[:offset].to_i
+    # return
   end
 
   def ping_on_arrow offset

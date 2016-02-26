@@ -3,6 +3,7 @@ var Airbo = window.Airbo || {};
 Airbo.ExploreTilePreview = (function(){
   var copyBtnSel = ".copy_to_board"
     , copyBtn
+    , tileNavigationSelector = ".button_arrow"
   ;
   function initEvents() {
     copyBtn.click(function(event) {
@@ -16,6 +17,25 @@ Airbo.ExploreTilePreview = (function(){
         },
         'json'
       );
+    });
+
+    $(tileNavigationSelector).click(function(e){
+      e.preventDefault();
+
+      $.ajax({
+        type: "GET",
+        dataType: "html",
+        url: $(this).attr("href") ,
+        data: {partial_only: true},
+        success: function(data, status,xhr){
+          $(".viewer").html(data);
+          // positionArrows();
+        },
+
+        error: function(jqXHR, textStatus, error){
+          console.log(error);
+        }
+      });
     });
   }
   function initVars() {
