@@ -17,6 +17,41 @@ body.tile_previews.tile_previews-show {
     }
   }
 
+  .button_arrow {
+    position: absolute;
+    z-index: 1;
+    top: 500px;
+    height: 40px;
+    background: $gray-2;
+    border-radius: 3px;
+    &:after {
+      position: relative;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+    &:hover {
+      &:after {
+        border-right-color: lighten($gray-4, 15%);
+      }
+    }
+    &#prev_tile {
+      padding: 10px 17px 10px 13px;
+      left: 20px;
+      &:after {
+        @include arrow-left($gray-4, 10px);
+      }
+    }
+    &#next_tile {
+      padding: 10px 13px 10px 17px;
+      right: 20px;
+      &:after {
+        @include arrow-right($gray-4, 10px);
+      }
+    }
+  }
+
   .tile_preview_navbar {
     background-color: transparent;
     padding-left: 0;
