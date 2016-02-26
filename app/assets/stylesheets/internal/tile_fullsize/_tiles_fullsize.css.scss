@@ -47,7 +47,7 @@ body.tiles.tiles-index {
 }
 
 body.tile.tile-show,
-body.tile_previews-show,
+.tile_previews-show,
 body.client_admin-tiles-show,
 body.tiles.tiles-index,
 #tile_preview_modal {
@@ -108,7 +108,7 @@ body.tiles.tiles-index,
 
 body.explores-show,
 body.explores-tile_tag_show,
-body.tile_previews-show {
+.tile_previews-show {
   #tile_spinner {
     float: right;
     position: relative;

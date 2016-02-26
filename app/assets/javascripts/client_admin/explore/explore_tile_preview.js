@@ -4,6 +4,8 @@ Airbo.ExploreTilePreview = (function(){
   var copyBtnSel = ".copy_to_board"
     , copyBtn
     , tileNavigationSelector = ".button_arrow"
+    , modalObj = Airbo.Utils.StandardModal()
+    , modalId = "explore_tile_preview"
   ;
   function initEvents() {
     copyBtn.click(function(event) {
@@ -43,7 +45,22 @@ Airbo.ExploreTilePreview = (function(){
       $("#next_tile").trigger("click");
     });
   }
+  function open(preview) {
+    modalObj.setContent(preview);
+    modalObj.open();
+  }
+  function initModalObj() {
+    modalObj.init({
+      modalId: modalId,
+      modalClass: "tile_previews tile_previews-show",
+      useAjaxModal: true,
+      onOpenedEvent: function() {
+        initEvents();
+      }
+    });
+  }
   function initVars() {
+    initModalObj();
     copyBtn = $(copyBtnSel);
     Airbo.ShareLink.init();
     Airbo.TileCarouselPage.init();
@@ -53,7 +70,8 @@ Airbo.ExploreTilePreview = (function(){
     initEvents();
   }
   return {
-    init: init
+    init: init,
+    open: open
   }
 }());
 

@@ -19,7 +19,8 @@ Airbo.Utils.StandardModal = (function(){
           closeOnBgClick: true,
           confirmOnClose: false,
           scrollOnOpen: true,
-          smallModal: false
+          smallModal: false,
+          modalClass: ""
         }
       , params
     ;
@@ -126,6 +127,7 @@ Airbo.Utils.StandardModal = (function(){
         modal.appendTo( $(".modals") );
         modal.attr("id", modalId);
       }
+      modal.addClass(params.modalClass);
       // parts of modal
       modalContainerSel = modalSel + " .modal_container";
       modalContentSel = modalSel + " #modal_content";
