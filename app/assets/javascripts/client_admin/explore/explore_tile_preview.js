@@ -37,10 +37,16 @@ Airbo.ExploreTilePreview = (function(){
         }
       });
     });
+
+    $('.right_multiple_choice_answer').one("click", function(event) {
+      event.preventDefault();
+      $("#next_tile").trigger("click");
+    });
   }
   function initVars() {
     copyBtn = $(copyBtnSel);
     Airbo.ShareLink.init();
+    Airbo.TileCarouselPage.init();
   }
   function init() {
     initVars();

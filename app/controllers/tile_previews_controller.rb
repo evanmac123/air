@@ -33,18 +33,18 @@ class TilePreviewsController < ApplicationController
 
   protected
 
-  def show_partial
-    tag = TileTag.where(id: params[:tag]).first
-    # next_tile = Tile.next_public_tile params[:id], params[:offset].to_i, params[:tag]
-    tile = Tile.viewable_in_public.where(id: params[:id]).first
-    render partial: "tile_previews/tile_preview", locals: { tile: tile, tag: tag }, layout: false
-    # render json: {
-    #   tile_id:      tile.id,
-    #   tile_content: render_to_string(partial: "tile_previews/tile_preview", locals: { tile: tile, tag: tag })
-    # }
-    # ping_on_arrow params[:offset].to_i
-    # return
-  end
+  # def show_partial
+  #   tag = TileTag.where(id: params[:tag]).first
+  #   # next_tile = Tile.next_public_tile params[:id], params[:offset].to_i, params[:tag]
+  #   tile = Tile.viewable_in_public.where(id: params[:id]).first
+  #   render partial: "tile_previews/tile_preview", locals: { tile: tile, tag: tag }, layout: false
+  #   # render json: {
+  #   #   tile_id:      tile.id,
+  #   #   tile_content: render_to_string(partial: "tile_previews/tile_preview", locals: { tile: tile, tag: tag })
+  #   # }
+  #   # ping_on_arrow params[:offset].to_i
+  #   # return
+  # end
 
   def ping_on_arrow offset
     action = offset > 0 ? "Clicked arrow to next tile" : "Clicked arrow to previous tile"
