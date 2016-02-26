@@ -1,0 +1,41 @@
+/* Styles for marketing pages like case studies, blogs, etc. */
+
+body.pages {
+  background-color: $n-white;
+}
+
+.pages hr {
+  background-color: #404040;
+  margin: 50px 0;
+  width: 100px;
+}
+
+blockquote {
+
+}
+
+.pullquote {
+  font-size: $font-size-3;
+  margin: 20px 0;
+}
+
+.attribution {
+  display: table;
+  margin: 20px 0;
+
+  .image {
+    @include radius(30px);
+    display: table-cell;
+    height: 60px;
+    overflow: hidden;
+    width: 60px;
+  }
+
+  .text {
+    display: table-cell;
+    font-size: $font-size-1;
+    line-height: 1.6em;
+    padding-left: 20px;
+    vertical-align: middle;
+  }
+}

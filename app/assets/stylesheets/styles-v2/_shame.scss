@@ -9,6 +9,7 @@
 .gray-5{
   color: $gray-5;
 }
+
 .white {
   color: $n-white;
 }
@@ -28,7 +29,6 @@
 .margin-right-medium {
   margin-right: 20px;
 }
-
 
 .margin-right-5pct{
   margin-right: 5%;
@@ -134,7 +134,7 @@ iframe {
 }
 
 td .button.td-button {
- margin-bottom: 12px; 
+ margin-bottom: 12px;
 
 }
 .align_center {
@@ -145,11 +145,15 @@ td .button.td-button {
 // }
 
 .bg-blue {
-  background: #48bfff;
+  background: $n-blue;
 }
 
 .bg-whitish {
   background-color: #f9f9f9;
+}
+
+.bg-gray {
+  background-color: $gray-2;
 }
 
 .center {
