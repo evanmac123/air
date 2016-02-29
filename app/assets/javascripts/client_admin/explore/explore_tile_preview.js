@@ -2,11 +2,19 @@ var Airbo = window.Airbo || {};
 
 Airbo.ExploreTilePreview = (function(){
   var copyBtnSel = ".copy_to_board"
-    , copyBtn
-    , tileNavigationSelector = ".button_arrow"
+    // , copyBtn
+    // , tileNavigationSelector = ".button_arrow"
     , modalObj = Airbo.Utils.StandardModal()
     , modalId = "explore_tile_preview"
+    , arrowsObj// = Airbo.TilePreivewArrows()
   ;
+  function tileContainerSizes() {
+    tileContainer = $(".tile_full_image")[0]  || $(".pholder.image")[0];
+    if( !tileContainer ) {
+      return null;
+    }
+    return tileContainer.getBoundingClientRect();
+  }
   function initEvents() {
     $(copyBtnSel).click(function(event) {
       event.preventDefault();
@@ -21,38 +29,39 @@ Airbo.ExploreTilePreview = (function(){
       );
     });
 
-    $(tileNavigationSelector).click(function(e){
-      e.preventDefault();
+    // $(tileNavigationSelector).click(function(e){
+    //   e.preventDefault();
 
-      $.ajax({
-        type: "GET",
-        dataType: "html",
-        url: $(this).attr("href") ,
-        data: {partial_only: true},
-        success: function(data, status,xhr){
-          open(data);
-          // $(".viewer").html(data);
-          // positionArrows();
-          // initEvents();
-        },
+    //   $.ajax({
+    //     type: "GET",
+    //     dataType: "html",
+    //     url: $(this).attr("href") ,
+    //     data: {partial_only: true},
+    //     success: function(data, status,xhr){
+    //       open(data);
+    //       // $(".viewer").html(data);
+    //       // positionArrows();
+    //       // initEvents();
+    //     },
 
-        error: function(jqXHR, textStatus, error){
-          console.log(error);
-        }
-      });
-    });
+    //     error: function(jqXHR, textStatus, error){
+    //       console.log(error);
+    //     }
+    //   });
+    // });
 
-    $('.right_multiple_choice_answer').one("click", function(event) {
-      event.preventDefault();
-      $("#next_tile").trigger("click");
-    });
+    // $('.right_multiple_choice_answer').one("click", function(event) {
+    //   event.preventDefault();
+    //   $("#next_tile").trigger("click");
+    // });
   }
   function open(preview) {
     modalObj.setContent(preview);
     modalObj.open();
-    
+
     Airbo.ShareLink.init();
     Airbo.TileCarouselPage.init();
+    arrowsObj.initEvents();
     initEvents();
   }
   function initModalObj() {
@@ -62,20 +71,25 @@ Airbo.ExploreTilePreview = (function(){
       useAjaxModal: true,
       onOpenedEvent: function() {
         // initEvents();
+        arrowsObj.position();
       }
     });
   }
-  function initVars() {
-    initModalObj();
-    // copyBtn = $(copyBtnSel);
-  }
+  // function initVars() {
+    
+  //   // copyBtn = $(copyBtnSel);
+  // }
   function init() {
-    initVars();
+    initModalObj();
+    arrowsObj = Airbo.TilePreivewArrows();
+    arrowsObj.init(this, {buttonSize: 40, offset: 20});
+
     initEvents();
   }
   return {
     init: init,
-    open: open
+    open: open,
+    tileContainerSizes: tileContainerSizes
   }
 }());
 

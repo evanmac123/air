@@ -18,12 +18,14 @@
   }
 
   .button_arrow {
-    position: absolute;
+    position: fixed;
+    top: 450px;
     z-index: 1;
-    top: 500px;
+    // top: 500px;
     height: 40px;
     background: $gray-2;
     border-radius: 3px;
+    display: none;
     &:after {
       position: relative;
       top: 0;
@@ -38,14 +40,14 @@
     }
     &.prev_tile {
       padding: 10px 17px 10px 13px;
-      left: 20px;
+      // left: 20px;
       &:after {
         @include arrow-left($gray-4, 10px);
       }
     }
     &.next_tile {
       padding: 10px 13px 10px 17px;
-      right: 20px;
+      // right: 20px;
       &:after {
         @include arrow-right($gray-4, 10px);
       }
