@@ -8,7 +8,7 @@ Airbo.ExploreTilePreview = (function(){
     , modalId = "explore_tile_preview"
   ;
   function initEvents() {
-    copyBtn.click(function(event) {
+    $(copyBtnSel).click(function(event) {
       event.preventDefault();
       copyUrl = $(this).attr("href");
       $.post(copyUrl, {},
@@ -67,7 +67,7 @@ Airbo.ExploreTilePreview = (function(){
   }
   function initVars() {
     initModalObj();
-    copyBtn = $(copyBtnSel);
+    // copyBtn = $(copyBtnSel);
   }
   function init() {
     initVars();

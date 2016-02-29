@@ -146,7 +146,8 @@ Airbo.Utils.StandardModal = (function(){
      init: init,
      open: open,
      close: close,
-     setContent: setContent
+     setContent: setContent,
+     // scrollModalToTop: scrollModalToTop
     }
   }
 }());
