@@ -30,8 +30,10 @@ Airbo.ExploreTilePreview = (function(){
         url: $(this).attr("href") ,
         data: {partial_only: true},
         success: function(data, status,xhr){
-          $(".viewer").html(data);
+          open(data);
+          // $(".viewer").html(data);
           // positionArrows();
+          // initEvents();
         },
 
         error: function(jqXHR, textStatus, error){
@@ -48,6 +50,10 @@ Airbo.ExploreTilePreview = (function(){
   function open(preview) {
     modalObj.setContent(preview);
     modalObj.open();
+    
+    Airbo.ShareLink.init();
+    Airbo.TileCarouselPage.init();
+    initEvents();
   }
   function initModalObj() {
     modalObj.init({
@@ -55,15 +61,13 @@ Airbo.ExploreTilePreview = (function(){
       modalClass: "tile_previews tile_previews-show",
       useAjaxModal: true,
       onOpenedEvent: function() {
-        initEvents();
+        // initEvents();
       }
     });
   }
   function initVars() {
     initModalObj();
     copyBtn = $(copyBtnSel);
-    Airbo.ShareLink.init();
-    Airbo.TileCarouselPage.init();
   }
   function init() {
     initVars();
