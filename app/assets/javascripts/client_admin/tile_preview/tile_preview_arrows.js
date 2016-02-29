@@ -29,11 +29,12 @@ Airbo.TilePreivewArrows = (function(){
     function initEvents() {
       $(tileNavigationSelector).click(function(e){
         e.preventDefault();
-
+        var link = $(this);
         $.ajax({
           type: "GET",
           dataType: "html",
-          url: $(this).attr("href") ,
+          url: link.attr("href"),
+          data: {partial_only: true},
           success: function(data, status,xhr){
             // var tilePreview = Airbo.TilePreviewModal;
             // tilePreview.init();
