@@ -28,6 +28,7 @@ class TilePreviewsController < ApplicationController
       @intros = create_intros_presenter unless @show_explore_intro
       schedule_mixpanel_pings @tile
       explore_intro_ping @show_explore_intro, params
+      render "show", layout: "empty_layout" if  logged_in_as_guest?
     end
   end
 
