@@ -19,13 +19,19 @@ class TilePreviewsController < ApplicationController
     @next_tile = Tile.next_public_tile params[:id], 1, params[:tag]
     @prev_tile = Tile.next_public_tile params[:id], -1, params[:tag]
     @tag = TileTag.where(id: params[:tag]).first
+
+    @show_explore_intro = current_user.intros.show_explore_intro!
+    # unless @show_explore_intro
+    @show_explore_preview_copy_intro = current_user.intros.show_explore_preview_copy!
+    # end
+
     if params[:partial_only]
       render partial: "tile_previews/tile_preview", 
              locals: {tile: @tile, tag: @tag, next_tile: @next_tile, prev_tile: @prev_tile},
              layout: false
     else
-      @show_explore_intro = current_user.intros.show_explore_intro!
-      @intros = create_intros_presenter unless @show_explore_intro
+      
+      # @intros = create_intros_presenter unless @show_explore_intro
       schedule_mixpanel_pings @tile
       explore_intro_ping @show_explore_intro, params
       render "show", layout: "single_tile_guest_layout" if  logged_in_as_guest?

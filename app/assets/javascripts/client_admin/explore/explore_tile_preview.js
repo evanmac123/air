@@ -59,8 +59,8 @@ Airbo.ExploreTilePreview = (function(){
   function runIntro() {
     if (introShowed) return;
     introShowed = true;
-    var menuElWithIntro = $(".preview_menu_item[data-intro]");
-    if( menuElWithIntro.length == 0 ) return;
+    var menuElWithIntro = $(".preview_menu_item");
+    if( menuElWithIntro.data('intro').length == 0 ) return;
 
     var intro = introJs();
     intro.setOptions({
