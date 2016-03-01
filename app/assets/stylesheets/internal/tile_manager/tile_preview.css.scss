@@ -22,31 +22,6 @@
     overflow: hidden;
   }
 
-  .airbo_preview_intro {
-    min-width: 610px;
-    border-radius: 0;
-    background: $n-blue;
-    padding: 20px;
-    .introjs-tooltiptext {
-      line-height: 1.5;
-      font-size: 16px;
-      color: $n-white;
-    }
-    .introjs-arrow.top {
-      border-bottom-color: $n-blue;
-    }
-    .introjs-skipbutton {
-      @include button-outlined-color($n-white);
-      float: left;
-      font-size: 18px;
-      padding: 16px 20px;
-      margin-top: 20px;
-      &:hover {
-        color: $n-blue !important;
-      }
-    }
-  }
-
   .button_arrow {
     position: fixed;
     top: 450px;

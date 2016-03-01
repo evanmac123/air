@@ -78,7 +78,6 @@ Airbo.ExploreTilePreview = (function(){
     Airbo.TileCarouselPage.init();
     arrowsObj.initEvents();
     initEvents();
-    runIntro();
   }
   function initModalObj() {
     modalObj.init({
@@ -88,6 +87,7 @@ Airbo.ExploreTilePreview = (function(){
       onOpenedEvent: function() {
         // initEvents();
         arrowsObj.position();
+        runIntro();
       }
     });
   }
@@ -97,6 +97,7 @@ Airbo.ExploreTilePreview = (function(){
       containerSel: ".content",
       onOpenedEvent: function() {
         arrowsObj.position();
+        runIntro();
       }
     });
   }
