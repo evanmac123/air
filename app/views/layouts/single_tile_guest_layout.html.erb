@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=1280, maximum-scale=1.0" />
+  <%= content_for :meta %>
+  <title>Airbo</title>
+
+  <%= javascript_include_tag "https://api.intercom.io/api/js/library.js" %>
+  <%= javascript_include_tag 'app-admin' %>
+  <%= javascript_include_tag 'app-client-admin' %>
+  <%= csrf_meta_tag %>
+  <%= stylesheet_link_tag "styles-v2/app" %>
+  <%= content_for :head %>
+</head>
+<body class="<%= body_class %> client_admin_main" style="-webkit-overflow-scrolling: touch; overflow:visible; ">
+
+  <div class="row">
+    <div class="columns small-7 small-centered">
+      <%=image_tag "landing/logo-blue.png"%>
+    </div>
+  </div>
+  <main class="main">
+  <div class="core">
+    <div class="content">
+      <%= yield %>
+    </div>
+  </div>
+  </main>
+  <footer class="bg-blue tall" >
+    <div class="row">
+      <div class="columns small-6 small-centered">
+        <p class="medium margin-none">
+        Welcome to Airbo
+        </p>
+        <p class="margin-medium">
+    Airbo is the bulletin board reinvented. Get more HR priorities done using engaging employee communications.
+        </p>
+        <p class="margin-medium">
+        <a href="http://www.airbo.com" class="button reversed">See How It Works</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
