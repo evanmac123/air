@@ -31,6 +31,7 @@ Airbo.Utils.StandardModal = (function(){
     }
     function open() {
       modal.foundation("reveal", "open");
+      scrollModalToTop();
     }
     function closeModal() {
       message = "Are you sure you want to stop editing this tile?" + 

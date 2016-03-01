@@ -50,10 +50,10 @@ Airbo.ExploreTilePreview = (function(){
     //   });
     // });
 
-    // $('.right_multiple_choice_answer').one("click", function(event) {
-    //   event.preventDefault();
-    //   $("#next_tile").trigger("click");
-    // });
+    $('.right_multiple_choice_answer').one("click", function(event) {
+      event.preventDefault();
+      $("#next_tile").trigger("click");
+    });
   }
   function open(preview) {
     modalObj.setContent(preview);
