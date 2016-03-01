@@ -75,16 +75,30 @@ Airbo.ExploreTilePreview = (function(){
       }
     });
   }
+  function initFakeModalObj() {
+    modalObj = Airbo.Utils.FakeModal();
+    modalObj.init({
+      containerSel: ".content",
+      onOpenedEvent: function() {
+        arrowsObj.position();
+      }
+    });
+  }
   // function initVars() {
     
   //   // copyBtn = $(copyBtnSel);
   // }
-  function init() {
-    initModalObj();
+  function init(fakeModal) {
+    if(fakeModal) {
+      initFakeModalObj();
+    } else {
+      initModalObj();
+    }
     arrowsObj = Airbo.TilePreivewArrows();
     arrowsObj.init(this, {buttonSize: 40, offset: 20});
 
     initEvents();
+    return this;
   }
   return {
     init: init,
@@ -95,6 +109,7 @@ Airbo.ExploreTilePreview = (function(){
 
 $(document).ready(function(){
   if( $(".explore_menu").length > 0 ) {
-    Airbo.ExploreTilePreview.init();
+    preview = Airbo.ExploreTilePreview.init(true);
+    preview.open();
   }
 });
