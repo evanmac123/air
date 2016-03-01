@@ -124,6 +124,9 @@
     margin-bottom: 10px;
     .preview_menu_item {
       width: 100%;
+      a:hover {
+        color: $n-blue;
+      }
     }
   }
   .preview_menu_item {
