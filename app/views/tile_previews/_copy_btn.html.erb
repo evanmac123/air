@@ -1,7 +1,7 @@
 <ul class="tile_preview_menu explore_menu" >
-  <% intro = @show_explore_preview_copy_intro ? "If you see a Tile you like, click this button to save it for later. You'll be able to customize the content." : '' %>
+  <% intro_text = @show_explore_preview_copy_intro ? "If you see a Tile you like, click this button to save it for later. You'll be able to customize the content." : '' %>
   
-  <li class="preview_menu_item" data-intro="<%= intro %>" >
+  <li class="preview_menu_item" data-intro="<%= intro_text %>" >
     <%=link_to explore_copy_tile_path(tile_id: tile.id, path: :via_explore_page_tile_view), class: "copy_to_board", data: {"tile-id" => tile.id} do %>
       <i class="fa fa-copy fa-1x"></i>
       <span class="header_text">
