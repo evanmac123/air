@@ -11,6 +11,7 @@ Airbo.Utils.FakeModal = (function(){
     ;
     function open() {
       params.onOpenedEvent();
+      $("body").scrollTop(0);
     }
     function close() {
 

@@ -1,8 +1,8 @@
 <%content_for :head do%>
-<%= render partial: 'meta_tags', locals: { tile: @tile } %>
-<%= stylesheet_link_tag "app-internal" %>
-<%= javascript_include_tag "internal/countUp.min" %>
-<%= javascript_include_tag "internal/point_and_ticket_animation" %>
+  <%= render partial: 'meta_tags', locals: { tile: @tile } %>
+  <%= stylesheet_link_tag "app-internal" %>
+  <%= javascript_include_tag "internal/countUp.min" %>
+  <%= javascript_include_tag "internal/point_and_ticket_animation" %>
 <%end%>
 <%= render partial: 'tile_preview', locals: { tile: @tile, tag: @tag, next_tile: @next_tile, prev_tile: @prev_tile } %>
 

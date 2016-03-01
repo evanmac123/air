@@ -7,6 +7,7 @@ Airbo.ExploreTilePreview = (function(){
     , modalObj = Airbo.Utils.StandardModal()
     , modalId = "explore_tile_preview"
     , arrowsObj// = Airbo.TilePreivewArrows()
+    , introShowed = false
   ;
   function tileContainerSizes() {
     tileContainer = $(".tile_full_image")[0]  || $(".pholder.image")[0];
@@ -55,6 +56,20 @@ Airbo.ExploreTilePreview = (function(){
       $("#next_tile").trigger("click");
     });
   }
+  function runIntro() {
+    if (introShowed) return;
+    introShowed = true;
+    var menuElWithIntro = $(".preview_menu_item[data-intro]");
+    if( menuElWithIntro.length == 0 ) return;
+
+    var intro = introJs();
+    intro.setOptions({
+      showStepNumbers: false,
+      doneLabel: 'Got it',
+      tooltipClass: "airbo_preview_intro"
+    });
+    intro.start();
+  }
   function open(preview) {
     modalObj.setContent(preview);
     modalObj.open();
@@ -63,6 +78,7 @@ Airbo.ExploreTilePreview = (function(){
     Airbo.TileCarouselPage.init();
     arrowsObj.initEvents();
     initEvents();
+    runIntro();
   }
   function initModalObj() {
     modalObj.init({
