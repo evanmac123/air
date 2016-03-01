@@ -11,10 +11,10 @@ class UserIntro < ActiveRecord::Base
   end
 
   def show_explore_preview_copy!
-    if self.explore_preview_copy_seeen
+    if self.explore_preview_copy_seen
       false
     else
-      self.explore_preview_copy_seeen = true
+      self.explore_preview_copy_seen = true
       self.save
     end
   end

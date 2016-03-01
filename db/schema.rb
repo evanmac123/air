@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160219203725) do
+ActiveRecord::Schema.define(:version => 20160301185245) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -424,8 +424,8 @@ ActiveRecord::Schema.define(:version => 20160219203725) do
     t.integer  "tickets",                              :default => 0
     t.integer  "ticket_threshold_base",                :default => 0
     t.integer  "demo_id"
-    t.datetime "created_at",                                              :null => false
-    t.datetime "updated_at",                                              :null => false
+    t.datetime "created_at",                                             :null => false
+    t.datetime "updated_at",                                             :null => false
     t.integer  "converted_user_id"
     t.boolean  "get_started_lightbox_displayed"
     t.datetime "last_acted_at"
@@ -433,7 +433,6 @@ ActiveRecord::Schema.define(:version => 20160219203725) do
     t.boolean  "voteup_intro_seen"
     t.boolean  "share_link_intro_seen"
     t.boolean  "seeing_marketing_page_for_first_time", :default => true
-    t.boolean  "onboarding_seen",                      :default => false
   end
 
   add_index "guest_users", ["demo_id"], :name => "index_guest_users_on_demo_id"
@@ -880,7 +879,6 @@ ActiveRecord::Schema.define(:version => 20160219203725) do
     t.boolean  "is_sharable",             :default => false, :null => false
     t.integer  "tile_completions_count",  :default => 0
     t.integer  "explore_page_priority"
-    t.integer  "views",                   :default => 0
     t.integer  "unique_viewings_count",   :default => 0,     :null => false
     t.integer  "total_viewings_count",    :default => 0,     :null => false
     t.integer  "user_tile_copies_count",  :default => 0
@@ -982,9 +980,10 @@ ActiveRecord::Schema.define(:version => 20160219203725) do
 
   create_table "user_intros", :force => true do |t|
     t.integer  "user_id"
-    t.boolean  "explore_intro_seen", :default => false
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
+    t.boolean  "explore_intro_seen",        :default => false
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
+    t.boolean  "explore_preview_copy_seen", :default => false
   end
 
   add_index "user_intros", ["user_id"], :name => "index_user_intros_on_user_id"
@@ -1083,8 +1082,8 @@ ActiveRecord::Schema.define(:version => 20160219203725) do
     t.datetime "last_unmonitored_mailbox_response_at"
     t.boolean  "allowed_to_make_tile_suggestions",                    :default => false,       :null => false
     t.boolean  "submitted_tile_menu_intro_seen",                      :default => false,       :null => false
-    t.boolean  "suggestion_box_intro_seen",                           :default => false,       :null => false
     t.boolean  "send_weekly_activity_report",                         :default => true
+    t.boolean  "suggestion_box_intro_seen",                           :default => false,       :null => false
     t.boolean  "user_submitted_tile_intro_seen",                      :default => false,       :null => false
     t.boolean  "manage_access_prompt_seen",                           :default => false,       :null => false
   end
