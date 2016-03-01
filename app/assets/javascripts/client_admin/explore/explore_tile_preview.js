@@ -124,9 +124,27 @@ Airbo.ExploreTilePreview = (function(){
   }
 }());
 
+Airbo.GuestExploreTilePreview = (function(){
+  function open() {
+
+  }
+  function init() {
+    Airbo.ShareLink.init();
+    Airbo.TileCarouselPage.init();
+    return this;
+  }
+  return {
+    init: init,
+    open: open
+  }
+}());
+
 $(document).ready(function(){
   if( $(".explore_menu").length > 0 ) {
-    preview = Airbo.ExploreTilePreview.init(true);
+    var preview = Airbo.ExploreTilePreview.init(true);
     preview.open();
+  }
+  if( $(".single_tile_guest_layout").length > 0 ) {
+    Airbo.GuestExploreTilePreview.init();
   }
 });
