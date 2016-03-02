@@ -22,6 +22,9 @@
     .tile_full_image {
       height: auto !important;
     }
+    footer {
+      height: auto;
+    }
   }
   background:$tile-wall-bg;
   .core, .content{ background:$tile-wall-bg; }
@@ -498,8 +501,19 @@
   }
 
   .bar_for_preview {
-    width: 600px;
+    max-width: 600px;
+    width: 100%;
     padding: 20px 42px;
+    // margin-left: auto;
+    // margin-right: auto;
+    // @media only screen and (max-width: $foundation) {
+    //   margin-left: auto;
+    //   margin-right: auto;
+    //   float: none;
+    // }
+  }
+  .bars {
+    padding: 0 30px;
   }
 
   .offset_top {

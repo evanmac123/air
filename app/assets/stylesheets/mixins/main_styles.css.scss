@@ -579,3 +579,7 @@ body {
     @include standard-small-modal();
   }
 }
+
+.clearfix {
+  @include clearfix();
+}
