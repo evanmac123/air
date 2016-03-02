@@ -16,7 +16,8 @@ Airbo.SignUpFromPreview = (function(){
     if(data.status == 'success'){
       if( window.pathForActionAfterRegistration ){
         localStorage.setItem("pathForActionAfterRegistration", window.pathForActionAfterRegistration);
-        window.location.href = window.location.href.match(/(.*)\?/i) ? window.location.href.match(/(.*)\?/i)[1] : window.location.href;
+        location.reload();
+        // window.location.href = window.location.href.match(/(.*)\?/i) ? window.location.href.match(/(.*)\?/i)[1] : window.location.href;
       }else{
         window.location.href = "/client_admin/tiles";
       }
