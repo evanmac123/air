@@ -17,7 +17,7 @@
     }
   }
 }
-@mixin button-outlined-color($text-color: $n-blue, $bg-color: transparent) {
+@mixin button-outlined-color($text-color: $n-blue, $bg-color: transparent, $hover-color: $n-white) {
   &, &[disabled], &[disabled]:hover, &[disabled]:active {
     color: $text-color;
     background-color: $bg-color;
@@ -27,12 +27,12 @@
     &:hover {
       background-color: $text-color;
       border-color: $text-color;
-      color: $n-white;
+      color: $hover-color;
     }
     &:active {
       background-color: darken($text-color, 5%);
       border-color: darken($text-color, 5%);
-      color: $n-white;
+      color: $hover-color;
     }
   }
 }
@@ -99,9 +99,9 @@
   }
   &.outlined {
     @include button-outlined-color;
-    // &. {
-    //   @include button-outlined-color($gray-4);
-    // }
+    &.white {
+      @include button-outlined-color($text-color: $n-white, $hover-color: $n-blue);
+    }
     // &. {
     //   @include button-outlined-color($n-blue);
     // }

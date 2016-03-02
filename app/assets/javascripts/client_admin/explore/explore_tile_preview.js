@@ -17,7 +17,7 @@ Airbo.ExploreTilePreview = (function(){
     return tileContainer.getBoundingClientRect();
   }
   function initEvents() {
-    $(copyBtnSel).click(function(event) {
+    $(copyBtnSel + ":not([disabled])").click(function(event) {
       event.preventDefault();
       var button = $(this);
       button.attr("disabled", "disabled");
