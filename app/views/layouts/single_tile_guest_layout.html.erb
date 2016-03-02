@@ -19,8 +19,13 @@
 <body class="<%= body_class %> client_admin_main single_tile_guest_layout" style="-webkit-overflow-scrolling: touch; overflow:visible; ">
 
   <div class="row">
-    <div class="columns small-7 small-centered">
+    <div class="center tile_width header">
       <%=image_tag "landing/logo-blue.png"%>
+      <span class="see_airbo_block righty">
+        Want to see more? 
+        <%= link_to "Explore", "#", class: "see_airbo" %>
+        .
+      </span>
     </div>
   </div>
   <main class="main">

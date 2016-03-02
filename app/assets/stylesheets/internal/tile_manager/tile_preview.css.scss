@@ -2,7 +2,17 @@
 @import "external/_case_study";
 @import "mixins/small_tile_tag";
 
+
+
 .tile_previews.tile_previews-show {
+  &.single_tile_guest_layout {
+    .see_airbo_block {
+      padding-top: 15px;
+    }
+    .header {
+      margin-top: 20px;
+    }
+  }
   background:$tile-wall-bg;
   .core, .content{ background:$tile-wall-bg; }
 
