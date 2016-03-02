@@ -38,7 +38,15 @@
     width: 100%;
     // max-width: $content-width;
   }
-  @media only screen and (max-width: 766px) {
+  @media only screen and (max-width: 900px) {
     padding: 16px;
+    padding-top: 50px;
+    .close-reveal-modal {
+      position: absolute;
+      top: -43px;
+      right: 0px;
+      left: auto;
+      margin: 0;
+    }
   }
 }

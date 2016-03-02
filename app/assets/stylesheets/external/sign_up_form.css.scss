@@ -12,7 +12,8 @@ body.tile_previews.client_admin_main, body.tile.tile-show{
   .sign_up_section{
     overflow: hidden;
     background: white;
-    width: 700px;
+    max-width: 700px;
+    width: 100%;
     margin: auto;
     padding: 2rem;
     padding-bottom: 2rem;
