@@ -3,7 +3,7 @@
   background: transparent;
   position: fixed;
   padding: 50px 30px;
-  padding-left: 67px;
+  // padding-right: 67px;
   width: 100%;
   margin: 0;
   left: 0;
@@ -22,9 +22,9 @@
   .close-reveal-modal {
     position: fixed;
     top: 47px;
-    right: 50%;
-    left: auto;
-    margin-right: 510px;
+    right: auto;
+    left: 50%;
+    margin-left: 510px;
     color: $white;
     i {
       font-size: 32px;
