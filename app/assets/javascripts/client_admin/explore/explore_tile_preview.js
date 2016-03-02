@@ -19,10 +19,13 @@ Airbo.ExploreTilePreview = (function(){
   function initEvents() {
     $(copyBtnSel).click(function(event) {
       event.preventDefault();
-      copyUrl = $(this).attr("href");
+      var button = $(this);
+      button.attr("disabled", "disabled");
+      copyUrl = button.attr("href");
       $.post(copyUrl, {},
         function(data) {
           if(data.success) {
+            button.removeAttr("disabled");
             Airbo.CopyAlert.open();
           }
         },
