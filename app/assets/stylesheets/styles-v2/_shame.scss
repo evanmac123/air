@@ -151,7 +151,8 @@ td .button.td-button {
 //   width: 700;
 // }
 .tile_width {
-  width: 600px;
+  max-width: 600px;
+  width: 100%;
 }
 
 .bg-blue {
