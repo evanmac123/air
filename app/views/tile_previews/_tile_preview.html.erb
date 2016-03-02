@@ -15,19 +15,17 @@
 
   <div id="tile_preview_section"> 
     <%=render partial: 'copy_btn', locals: {tile: tile} unless guest_for_tile_preview?%>
-    <div class="large-centered columns clearfix">
+    <div class="large-centered columns clearfix tile_preview_block">
       <%= render "tiles/full_size_tile", tile: tile, is_preview: true %>
     </div>
   </div>
 
   <%= link_to "", explore_tile_preview_path(next_tile), :id => "next_tile", class: "button_arrow next_tile", data:{action: "show", tile_id: @next_tile.id} %>
 </div>
-<div class="columns">
-  <div class="columns">
-    <%=render partial: 'share_bar', locals: {tile: tile, intros: intros} %>
-    <div class="bg-white center bar_for_preview align_left offset_top">
-      <%=render partial: 'creator', locals: { tile: tile } %>
-      <%=render partial: 'categories', locals: { tile: tile } %>
-    </div>
+<div class="bars">
+  <%=render partial: 'share_bar', locals: {tile: tile, intros: intros} %>
+  <div class="bg-white center bar_for_preview align_left offset_top">
+    <%=render partial: 'creator', locals: { tile: tile } %>
+    <%=render partial: 'categories', locals: { tile: tile } %>
   </div>
 </div>

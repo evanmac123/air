@@ -25,6 +25,11 @@
     footer {
       height: auto;
     }
+    @media only screen and (max-width: $foundation) {
+      .tile_preview_block {
+        padding: 0;
+      }
+    }
   }
   background:$tile-wall-bg;
   .core, .content{ background:$tile-wall-bg; }
@@ -513,7 +518,8 @@
     // }
   }
   .bars {
-    padding: 0 30px;
+    width: 95%;
+    margin: auto;
   }
 
   .offset_top {
