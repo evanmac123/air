@@ -7,3 +7,10 @@
 <%= render partial: 'tile_preview', locals: { tile: @tile, tag: @tag, next_tile: @next_tile, prev_tile: @prev_tile } %>
 
 <%= render partial: 'explores/explore_intro' if @show_explore_intro %>
+
+<% if guest_for_tile_preview? || user_is_guest_for_tile_preview? %>
+  <%= javascript_tag do %>
+    window.guestForTilePreview = true;
+  <% end %>
+  <%= render partial: 'sign_up_form' %>
+<% end %>

@@ -1,7 +1,5 @@
-<div id="sign_up_modal" class="reveal-modal" data-reveal>
+<% render layout: "/shared/modals/standard_modal", locals: {modal_id: "sign_up_modal"} do %>
   <div class="sign_up_section">
     <%= render partial: 'shared/sign_up_form', locals: { user: User.new, board: Demo.new, headline: "Create an account to interact with this tile and many others.", remote_type: true } %>
   </div>
-  <a href="#" class="close_sign_up_modal"><span class="fa fa-times"></span></a>
-</div>
-<a href="#" id="modal_link" data-reveal-id="sign_up_modal" data-animation="fadeAndPop" data-animationspeed="300" data-closeonbackgroundclick="true" data-dismissmodalclass="close_sign_up_modal" style="display:none;">Click for a modal</a>
+<% end %>
