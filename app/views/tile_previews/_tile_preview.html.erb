@@ -1,12 +1,3 @@
-<% intros = @intros || TilePreview::NullIntrosPresenter.new %>
-<% if intros.any_active? %>
-  <%= content_for :javascript do %>
-    <%= javascript_tag do %>
-      bindTilePreviewIntros();
-    <% end %>
-  <% end %>
-<% end %>
-
 <%render partial: 'like_copy_tag_bar', locals: {tile: tile, intros: intros} %>
 <%render partial: 'tile_preview_navbar', locals: {tile: tile, tag: tag} %>
 

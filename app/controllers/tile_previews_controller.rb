@@ -72,37 +72,4 @@ class TilePreviewsController < ApplicationController
       login_as_guest(@tile.demo)
     end
   end
-
-  # def mark_user_voteup_intro_seen!
-  #   current_user.voteup_intro_seen = true
-  #   current_user.save!
-  # end
-
-  # def mark_user_share_link_intro_seen!
-  #   current_user.share_link_intro_seen = true
-  #   current_user.save!
-  # end
-
-  # def create_intros_presenter
-  #   show_voteup_intro = current_user && current_user.voteup_intro_never_seen
-  #   show_share_link_intro = current_user && current_user.share_link_intro_never_seen
-
-  #   if show_voteup_intro
-  #     mark_user_voteup_intro_seen!
-  #   end
-
-  #   if !(show_voteup_intro) && show_share_link_intro
-  #     mark_user_share_link_intro_seen!
-  #   end
-
-  #   # show_voteup_intro = show_share_link_intro = true
-  #   TilePreview::IntrosPresenter.new([
-  #     ['like-button', "Like a tile? Vote it up to give the creator positive feedback.", show_voteup_intro],
-  #     ['share_bar',   "Want to share a tile? Email it using the email icon. Or, share to your social networks using the LinkedIn icon or copying the link.", show_share_link_intro]
-  #   ])
-  # end
-
-  # def override_public_board_setting
-  #   @tile && @tile.is_public && @tile.is_sharable
-  # end
 end
