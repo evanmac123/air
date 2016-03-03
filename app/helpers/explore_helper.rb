@@ -52,7 +52,7 @@ module ExploreHelper
     source = if params[:explore_token].present?
       "Tiles Email"
     else
-      (current_user.created_at - Time.now > 1.minute) ? "Existing User" : "New User"
+      (current_user.accepted_invitation_at - Time.now > 1.minute) ? "Existing User" : "New User"
     end
     ping "Explore Onboarding", {"Source" => source}, current_user
   end
