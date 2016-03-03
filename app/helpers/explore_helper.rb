@@ -47,12 +47,16 @@ module ExploreHelper
     @_offset = params[:offset].present? ? params[:offset].to_i : 0
   end
 
+  def new_user?
+    Time.now - current_user.accepted_invitation_at < 1.minute
+  end
+
   def explore_intro_ping show, params
     return unless show
     source = if params[:explore_token].present?
       "Tiles Email"
     else
-      (current_user.accepted_invitation_at - Time.now > 1.minute) ? "Existing User" : "New User"
+      new_user? ? "New User" : "Existing User"
     end
     ping "Explore Onboarding", {"Source" => source}, current_user
   end
