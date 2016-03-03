@@ -224,6 +224,11 @@
     ul.answer_option{
       margin-top: 0;
     }
+
+    .answer_text {
+      position: relative;
+    }
+
   }
 
   &.quiz{
