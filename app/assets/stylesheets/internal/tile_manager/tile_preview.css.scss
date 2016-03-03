@@ -105,119 +105,119 @@
     width: 600px;
   }
 
-  .tile_preview_navbar {
-    background-color: transparent;
-    padding-left: 0;
-    padding-right: 0;
+  // .tile_preview_navbar {
+  //   background-color: transparent;
+  //   padding-left: 0;
+  //   padding-right: 0;
 
-    .tile_holder{
-      border: none;
-      box-shadow: none;
-      border-radius: 0;
-    }
+  //   .tile_holder{
+  //     border: none;
+  //     box-shadow: none;
+  //     border-radius: 0;
+  //   }
 
-    .tile-head{
-      font-size: 16px;
-      border: none;
-      background: $white;
-      // color: $white;
-      line-height: 1;
-      padding: 15px;
-      margin-top: 2rem;
-      margin-bottom: 1px;
-      text-align: center;
-      // a {
-      //   color: $white;
-      //   font-size: 18px;
-      //   font-weight: 600;
-      //   display: inline-block;
-      //   vertical-align: middle;
+  //   .tile-head{
+  //     font-size: 16px;
+  //     border: none;
+  //     background: $white;
+  //     // color: $white;
+  //     line-height: 1;
+  //     padding: 15px;
+  //     margin-top: 2rem;
+  //     margin-bottom: 1px;
+  //     text-align: center;
+  //     // a {
+  //     //   color: $white;
+  //     //   font-size: 18px;
+  //     //   font-weight: 600;
+  //     //   display: inline-block;
+  //     //   vertical-align: middle;
 
-      //   &:active{
-      //     color: $sky-blue;
-      //   }
+  //     //   &:active{
+  //     //     color: $sky-blue;
+  //     //   }
 
 
-      //   .fa{
-      //     vertical-align: middle;
-      //   }
-      // }
-      // span{
-      //   display: inline-block;
-      //   vertical-align: middle;
-      // }
+  //     //   .fa{
+  //     //     vertical-align: middle;
+  //     //   }
+  //     // }
+  //     // span{
+  //     //   display: inline-block;
+  //     //   vertical-align: middle;
+  //     // }
 
-      // $fa-margin: 14px;
-      // #back-link {
-      //   .fa {
-      //     margin-right: $fa-margin;
-      //     margin-top: -4px;
-      //   }
-      // }
+  //     // $fa-margin: 14px;
+  //     // #back-link {
+  //     //   .fa {
+  //     //     margin-right: $fa-margin;
+  //     //     margin-top: -4px;
+  //     //   }
+  //     // }
 
-      // #random-tile-link {
-      //   float: right;
+  //     // #random-tile-link {
+  //     //   float: right;
 
-      //   .fa {
-      //     margin-left: $fa-margin;
-      //   }
-      // }
+  //     //   .fa {
+  //     //     margin-left: $fa-margin;
+  //     //   }
+  //     // }
 
-      // font-weight: 600;
-    }
-    .basic-info{
-      background: $white;
-      margin-bottom: 1px;
-      color: $text-color;
-      font-weight: 300;
-      font-size: 16px;
-      padding: 15px 23px 10px;
+  //     // font-weight: 600;
+  //   }
+  //   .basic-info{
+  //     background: $white;
+  //     margin-bottom: 1px;
+  //     color: $text-color;
+  //     font-weight: 300;
+  //     font-size: 16px;
+  //     padding: 15px 23px 10px;
 
-      a{
-        color: $text-color;
+  //     a{
+  //       color: $text-color;
 
-        &:active{
-          color: $sky-blue;
-        }
-      }
+  //       &:active{
+  //         color: $sky-blue;
+  //       }
+  //     }
 
-      .creator{
-        width: 33.33%;
-      }
+  //     .creator{
+  //       width: 33.33%;
+  //     }
 
-      #company-name-header {
-        text-align: center;
-        width: 33.33%;
+  //     #company-name-header {
+  //       text-align: center;
+  //       width: 33.33%;
 
-        #company-icon {
-          float: left;
-        }
+  //       #company-icon {
+  //         float: left;
+  //       }
 
-        #company-name {
-          overflow: hidden;
-          padding-left: 5px;
-          text-align: left;
-        }
-      }
+  //       #company-name {
+  //         overflow: hidden;
+  //         padding-left: 5px;
+  //         text-align: left;
+  //       }
+  //     }
 
-      #board-name-header{
-        width: 33.33%;
+  //     #board-name-header{
+  //       width: 33.33%;
 
-        #board-icon {
-          float: left;
-        }
+  //       #board-icon {
+  //         float: left;
+  //       }
 
-        #board-name {
-          overflow: hidden;
-          padding-left: 5px;
-        }
-      }
+  //       #board-name {
+  //         overflow: hidden;
+  //         padding-left: 5px;
+  //       }
+  //     }
 
-      .fa{
-        margin-right: 6px;
-      }
-    }
-  }
+  //     .fa{
+  //       margin-right: 6px;
+  //     }
+  //   }
+  // }
   
   // .tile_tag_bar {
     // .info-bar {

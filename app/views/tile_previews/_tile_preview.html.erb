@@ -1,5 +1,3 @@
-<%render partial: 'tile_preview_navbar', locals: {tile: tile, tag: tag} %>
-
 <div class='viewer'>
   <%= link_to "", explore_tile_preview_path(prev_tile), :id => "prev_tile", class: "button_arrow prev_tile", data:{action: "show", tile_id: @prev_tile.id} %>
 
