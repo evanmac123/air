@@ -1,4 +1,3 @@
-<%render partial: 'like_copy_tag_bar', locals: {tile: tile, intros: intros} %>
 <%render partial: 'tile_preview_navbar', locals: {tile: tile, tag: tag} %>
 
 <div class='viewer'>
@@ -14,7 +13,7 @@
   <%= link_to "", explore_tile_preview_path(next_tile), :id => "next_tile", class: "button_arrow next_tile", data:{action: "show", tile_id: @next_tile.id} %>
 </div>
 <div class="bars">
-  <%=render partial: 'share_bar', locals: {tile: tile, intros: intros} %>
+  <%=render partial: 'share_bar', locals: {tile: tile} %>
   <div class="bg-white center bar_for_preview align_left offset_top">
     <%=render partial: 'creator', locals: { tile: tile } %>
     <%=render partial: 'categories', locals: { tile: tile } %>

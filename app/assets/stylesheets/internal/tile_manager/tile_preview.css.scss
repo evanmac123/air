@@ -219,265 +219,265 @@
     }
   }
   
-  .tile_tag_bar {
-    .info-bar {
-      padding: 14px 21px 13px 21px;
-      background: $white;
-      margin-bottom: 1px;
-      @include clearfix();
+  // .tile_tag_bar {
+    // .info-bar {
+    //   padding: 14px 21px 13px 21px;
+    //   background: $white;
+    //   margin-bottom: 1px;
+    //   @include clearfix();
 
-      &.tile_holder{
-        box-shadow: none;
-        border: none;
-        border-radius: 0;
-      }
+    //   &.tile_holder{
+    //     box-shadow: none;
+    //     border: none;
+    //     border-radius: 0;
+    //   }
 
-      .tags{
-        width: 66.66%;
-        float: left;
-        margin-bottom: -12px;
-        .tag{
-          font-size: 12px;
-          color: $tile-text;
-          display: inline-block;
-          margin-right: 10px;
-          margin-bottom: 12px;
-          font-weight: 400;
+    //   .tags{
+    //     width: 66.66%;
+    //     float: left;
+    //     margin-bottom: -12px;
+    //     .tag{
+    //       font-size: 12px;
+    //       color: $tile-text;
+    //       display: inline-block;
+    //       margin-right: 10px;
+    //       margin-bottom: 12px;
+    //       font-weight: 400;
 
-          &:last-child{
-            margin-right: 0;
-          }
+    //       &:last-child{
+    //         margin-right: 0;
+    //       }
 
-          a{
-            color: $tile-text;
-            display: inline-block;
-            border: 1px solid $tile-tag-border;
-            font-weight: 400;
-            padding: 1px 10px;
+    //       a{
+    //         color: $tile-text;
+    //         display: inline-block;
+    //         border: 1px solid $tile-tag-border;
+    //         font-weight: 400;
+    //         padding: 1px 10px;
 
-            &:active{
-              color: $sky-blue;
-              border-color: $sky-blue;
-            }
-          }
-        }
-      }
-      .like_info{
-        width: 50%;
-        float: left;
-      }
-    }
+    //         &:active{
+    //           color: $sky-blue;
+    //           border-color: $sky-blue;
+    //         }
+    //       }
+    //     }
+    //   }
+    //   .like_info{
+    //     width: 50%;
+    //     float: left;
+    //   }
+    // }
 
-    .like-copy-section{
-      float: left;
-      width: 33.33%;
-      text-align: left;
+    // .like-copy-section{
+    //   float: left;
+    //   width: 33.33%;
+    //   text-align: left;
 
-      .likes-count, .copy-count{
-        display: inline-block;
-        font-size: 12px;
-        color: $tile-text;
-        vertical-align: middle;
-        padding: 1px 0;
+    //   .likes-count, .copy-count{
+    //     display: inline-block;
+    //     font-size: 12px;
+    //     color: $tile-text;
+    //     vertical-align: middle;
+    //     padding: 1px 0;
 
-        &:last-child{
-          margin-right: 0;
-          margin-left: -3px;
-        }
-        div:last-child{
-          margin-right: 20px;
-        }
-        .fa{
-          font-size: 14px;
-          margin-right: 4px;
-        }
+    //     &:last-child{
+    //       margin-right: 0;
+    //       margin-left: -3px;
+    //     }
+    //     div:last-child{
+    //       margin-right: 20px;
+    //     }
+    //     .fa{
+    //       font-size: 14px;
+    //       margin-right: 4px;
+    //     }
 
-        .like-offset-right{
-          display: inline-block;
-          width: 128px;
-          text-align: left;
-          height: 10px;
-        }
+    //     .like-offset-right{
+    //       display: inline-block;
+    //       width: 128px;
+    //       text-align: left;
+    //       height: 10px;
+    //     }
 
-      }
-    }
+    //   }
+    // }
 
 
 
-    .likes-copy-buttons {
-      padding: 17px 21px 2px;
-      @include clearfix();
+    // .likes-copy-buttons {
+    //   padding: 17px 21px 2px;
+    //   @include clearfix();
 
-      .reveal-modal{
-        text-align: left;
-        width: 548px;
-        margin-left: -(548px / 2);
-      }
-      &.tile_holder{
-        background: $white;
-        box-shadow: none;
-        border: none;
-        border-radius: 0;
-      }
+    //   .reveal-modal{
+    //     text-align: left;
+    //     width: 548px;
+    //     margin-left: -(548px / 2);
+    //   }
+    //   &.tile_holder{
+    //     background: $white;
+    //     box-shadow: none;
+    //     border: none;
+    //     border-radius: 0;
+    //   }
 
-      .like-button, .copy-button {
-        width: 259px;
-        float: left;
-        margin-right: 33px;
-        text-align: center;
+    //   .like-button, .copy-button {
+    //     width: 259px;
+    //     float: left;
+    //     margin-right: 33px;
+    //     text-align: center;
 
-        img.full_size_copy_tile_spinner{
-          margin-top: 14px;
-        }
-        &:last-child{
-          margin-right: 0;
-        }
+    //     img.full_size_copy_tile_spinner{
+    //       margin-top: 14px;
+    //     }
+    //     &:last-child{
+    //       margin-right: 0;
+    //     }
 
-        > a, > div > a{
-          display: block;
-          text-align: center;
-          line-height: 46px;
-          height: 46px;
-          border: 1px solid $tile-tag-border;
-          color: $text-color;
-          font-size: 16px;
-          font-weight: 400;
+    //     > a, > div > a{
+    //       display: block;
+    //       text-align: center;
+    //       line-height: 46px;
+    //       height: 46px;
+    //       border: 1px solid $tile-tag-border;
+    //       color: $text-color;
+    //       font-size: 16px;
+    //       font-weight: 400;
 
-          &#copy_tile_button {
-            border: none;
-            line-height: 44px;
-            height: 44px;
+    //       &#copy_tile_button {
+    //         border: none;
+    //         line-height: 44px;
+    //         height: 44px;
 
-            .copy_button{
-              border: 1px solid $sky-blue;
-              &.uncopied{
-                color: $text-color;
-                border-color: $tile-tag-border;
-              }
-              &.viewonly {
-                color: $text-color;
-                border: none;
-              }
-            }
+    //         .copy_button{
+    //           border: 1px solid $sky-blue;
+    //           &.uncopied{
+    //             color: $text-color;
+    //             border-color: $tile-tag-border;
+    //           }
+    //           &.viewonly {
+    //             color: $text-color;
+    //             border: none;
+    //           }
+    //         }
 
-          }
+    //       }
 
-          &:active, .copy_button{
+    //       &:active, .copy_button{
 
-            color: $sky-blue;
-            border-color: $sky-blue;
+    //         color: $sky-blue;
+    //         border-color: $sky-blue;
 
-            &.uncopied{
-              color: $text-color;
-              border-color: $tile-tag-border;
-            }
+    //         &.uncopied{
+    //           color: $text-color;
+    //           border-color: $tile-tag-border;
+    //         }
 
-          }
-        }
-        a[id*="tile-like"]{
-          color: $sky-blue;
-          border-color: $sky-blue;
-        }
-      }
+    //       }
+    //     }
+    //     a[id*="tile-like"]{
+    //       color: $sky-blue;
+    //       border-color: $sky-blue;
+    //     }
+    //   }
 
-      .like-button-without-copy {
-        margin-right: 108px;
-      }
-    }
+    //   .like-button-without-copy {
+    //     margin-right: 108px;
+    //   }
+    // }
 
-    .viewonly {
-      float: left;
-      width: 33.33%;
-      color: $light-gray;
-      border: none;
-      height: 46px;
-      line-height: 46px;
-    }
+    // .viewonly {
+    //   float: left;
+    //   width: 33.33%;
+    //   color: $light-gray;
+    //   border: none;
+    //   height: 46px;
+    //   line-height: 46px;
+    // }
 
-    .like-copy-info{
-      float: left;
-      width: 35%;
-      margin-top: -3px;
-      margin-left: 5px;
-      color: $med-gray;
-      .liked_by, .copied_by{
-        float: bottom;
-        font-size: 10px;
-      }
-    }
-    .like-view-info{      
-      float: left;
-      width: 56%;
-      color: $med-gray;
-      .liked_by {
-        float: bottom;
-        font-size: 10px;
-      }
-      .view-only{
-        color: $light-gray;
-        float: left;
-        font-size: 10px;
-        div {
-          display: inline-block;
-        }
-        .text{
-          padding-top: 5px;
-        }
-      }
-      .liked_by_non_copyable{
-        float: left;
-        width: 70%;
-        font-size: 10px;
-        color: $med-gray;
-        padding-top: 5px;
-      }
-    }
-    .all_tile_tags {
-      float: right;
-      width: 40%;
+    // .like-copy-info{
+    //   float: left;
+    //   width: 35%;
+    //   margin-top: -3px;
+    //   margin-left: 5px;
+    //   color: $med-gray;
+    //   .liked_by, .copied_by{
+    //     float: bottom;
+    //     font-size: 10px;
+    //   }
+    // }
+    // .like-view-info{      
+    //   float: left;
+    //   width: 56%;
+    //   color: $med-gray;
+    //   .liked_by {
+    //     float: bottom;
+    //     font-size: 10px;
+    //   }
+    //   .view-only{
+    //     color: $light-gray;
+    //     float: left;
+    //     font-size: 10px;
+    //     div {
+    //       display: inline-block;
+    //     }
+    //     .text{
+    //       padding-top: 5px;
+    //     }
+    //   }
+    //   .liked_by_non_copyable{
+    //     float: left;
+    //     width: 70%;
+    //     font-size: 10px;
+    //     color: $med-gray;
+    //     padding-top: 5px;
+    //   }
+    // }
+    // .all_tile_tags {
+    //   float: right;
+    //   width: 40%;
 
-      .tile_tag {
-        float: right;
-      }
-    }
-    .tile_tags {
-      color: $light-gray;
-      float: right;
-      padding-right: 10px;
+    //   .tile_tag {
+    //     float: right;
+    //   }
+    // }
+    // .tile_tags {
+    //   color: $light-gray;
+    //   float: right;
+    //   padding-right: 10px;
       
-      li { display: inline-block;}
-      .tag-icon { 
-        float: left; 
-      }
-      .tile_tag {
-        @include small-tile-tag;
-      }
-    }
-    .extra_tags_list{
-      max-width: 600px;
-      margin-top: 1.7em;
-      margin-left: 0.7em;
-      width: 100%;
+    //   li { display: inline-block;}
+    //   .tag-icon { 
+    //     float: left; 
+    //   }
+    //   .tile_tag {
+    //     @include small-tile-tag;
+    //   }
+    // }
+    // .extra_tags_list{
+    //   max-width: 600px;
+    //   margin-top: 1.7em;
+    //   margin-left: 0.7em;
+    //   width: 100%;
       
-      z-index: 2;
-      background-color: $white;
-      display: none;
-      position: absolute;
-      border: 1px solid $light-gray;
-      border-radius: 5px;
-      .tile_tag { 
-        margin-top: 5px;
-        margin-left: 4px;
-        padding: 0 6px 3px 6px;
-        border-bottom: 1px solid $light-gray;
-        float: none;
-        a {
-          font-size: 10px;
-          color: $med-gray;
-        }
-      }
-    }    
-  }
+    //   z-index: 2;
+    //   background-color: $white;
+    //   display: none;
+    //   position: absolute;
+    //   border: 1px solid $light-gray;
+    //   border-radius: 5px;
+    //   .tile_tag { 
+    //     margin-top: 5px;
+    //     margin-left: 4px;
+    //     padding: 0 6px 3px 6px;
+    //     border-bottom: 1px solid $light-gray;
+    //     float: none;
+    //     a {
+    //       font-size: 10px;
+    //       color: $med-gray;
+    //     }
+    //   }
+    // }    
+  // }
 
   .share_bar{
     background: $white;

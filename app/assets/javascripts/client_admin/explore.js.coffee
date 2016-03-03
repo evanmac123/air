@@ -33,9 +33,9 @@ hideExplorePageExtraTags = () ->
 
 $(document).ready ->
    
-  $('.tile_tag_bar').find(".tile_tags").each (index) ->
-    extra_tags_list = $('.tile_tag_bar').find('ul.extra_tags_list')
-    hideExtraTags($(this), extra_tags_list, 40, true)
+  # $('.tile_tag_bar').find(".tile_tags").each (index) ->
+  #   extra_tags_list = $('.tile_tag_bar').find('ul.extra_tags_list')
+  #   hideExtraTags($(this), extra_tags_list, 40, true)
 
   hideExplorePageExtraTags()
 
@@ -45,19 +45,19 @@ $(document).ready ->
   )
   
   #show/hide extended tile tags list on clicking the '...' button in tile_preview page
-  $('.tile_tag_bar').find(".extra_tags").on('click', (event) ->
-    $('.tile_tag_bar').find('ul.extra_tags_list').toggle()
-    false
-  )
+  # $('.tile_tag_bar').find(".extra_tags").on('click', (event) ->
+  #   $('.tile_tag_bar').find('ul.extra_tags_list').toggle()
+  #   false
+  # )
     
   #show extended tile tags list on clicking the '...' button in explore page
   $('body.explores').on('click', (event) ->
     $(this).find('ul.extra_tags_list').hide()
   )
   #show/hide extended tile tags list on clicking the '...' button in tile preview page
-  $('body.tile_previews').on('click', (event) ->
-    $(this).find('ul.extra_tags_list').hide()
-  )
+  # $('body.tile_previews').on('click', (event) ->
+  #   $(this).find('ul.extra_tags_list').hide()
+  # )
 
   $('body.explores .copy_tile_link').live('click', (event) ->
     copyButton = $(event.target)
