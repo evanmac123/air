@@ -20,11 +20,7 @@
       <% end %>
     <% end %>
     <% content_for :javascript do %>
-      <% if tile.is_preview %>
-        <%= javascript_tag do %>
-          setUpAnswersForPreview();
-        <% end %>
-      <% else %>
+      <% unless tile.is_preview %>
         <%= javascript_tag do %>
           setUpAnswers();
         <% end %>
