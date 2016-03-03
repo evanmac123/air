@@ -13,10 +13,13 @@ Airbo.TilePreivewArrows = (function(){
       , tileNavRight = [tileNavigationSelectorRight, dummyTileNavigationSelectorRight, exploreTileNavRight].join(", ")
       , tileNavSelectors = tileNavLeft + ', ' + tileNavRight
       , tilePreview
-      , params = {
+      , defaultParams = {
           buttonSize: 100,
-          offset: 10
+          offset: 10,
+          afterNext: Airbo.Utils.noop,
+          afterPrev: Airbo.Utils.noop,
         }
+      , params
     ;
     function position() {
       sizes = tilePreview.tileContainerSizes();
@@ -29,6 +32,11 @@ Airbo.TilePreivewArrows = (function(){
     function initEvents() {
       $(tileNavigationSelector).click(function(e){
         e.preventDefault();
+        if( $(this)[0] == $(tileNavLeft)[0] ) {
+          params.afterPrev();
+        } else if( $(this)[0] == $(tileNavRight)[0] ) {
+          params.afterNext();
+        }
         var link = $(this);
         $.ajax({
           type: "GET",
@@ -50,9 +58,7 @@ Airbo.TilePreivewArrows = (function(){
     }
     function init(AirboTilePreview, userParams) {
       tilePreview = AirboTilePreview;
-      if(userParams) {
-        params = userParams;
-      }
+      params = $.extend(defaultParams, userParams);
     }
     return {
       init: init,

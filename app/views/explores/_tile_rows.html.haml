@@ -26,7 +26,7 @@
                   .like_copy_tile
                     = render 'explores/like_copy_tile', presenter: presenter
                 .headline
-                  = link_to explore_tile_preview_path(presenter, tag: @tile_tag, thumb_click_source: thumb_click_source) do
+                  = link_to explore_tile_preview_path(presenter, tag: @tile_tag, thumb_click_source: thumb_click_source), class: "preview_link" do
                     %span.text= presenter.headline
                 .author_info
                   = presenter.creator_name

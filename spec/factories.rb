@@ -14,6 +14,9 @@ FactoryGirl.define do
     trait :with_explore_intro do
       user_intro { FactoryGirl.create :user_intro, explore_intro_seen: false }
     end
+    trait :with_explore_preview_copy_intro do
+      user_intro { FactoryGirl.create :user_intro, explore_preview_copy_seen: false }
+    end
   end
 
   factory :user,  :parent => :unnamed_user do
@@ -483,5 +486,6 @@ FactoryGirl.define do
 
   factory :user_intro do
     explore_intro_seen true
+    explore_preview_copy_seen true
   end
 end
