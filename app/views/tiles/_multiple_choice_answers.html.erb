@@ -19,5 +19,16 @@
         <div class="answer_target" style="display: none"></div>
       <% end %>
     <% end %>
+    <% content_for :javascript do %>
+      <% if tile.is_preview %>
+        <%= javascript_tag do %>
+          setUpAnswersForPreview();
+        <% end %>
+      <% else %>
+        <%= javascript_tag do %>
+          setUpAnswers();
+        <% end %>
+      <% end %>
+    <% end %>
   </div>
 <% end %>
