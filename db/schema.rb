@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160303145511) do
+ActiveRecord::Schema.define(:version => 20160303153930) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -430,7 +430,6 @@ ActiveRecord::Schema.define(:version => 20160303145511) do
     t.boolean  "get_started_lightbox_displayed"
     t.datetime "last_acted_at"
     t.datetime "last_session_activity_at"
-    t.boolean  "share_link_intro_seen"
     t.boolean  "seeing_marketing_page_for_first_time", :default => true
   end
 
@@ -1074,7 +1073,6 @@ ActiveRecord::Schema.define(:version => 20160303145511) do
     t.integer  "has_own_tile_completed_id"
     t.string   "explore_token"
     t.boolean  "is_test_user"
-    t.boolean  "share_link_intro_seen"
     t.boolean  "share_section_intro_seen"
     t.string   "mixpanel_distinct_id"
     t.datetime "last_unmonitored_mailbox_response_at"
