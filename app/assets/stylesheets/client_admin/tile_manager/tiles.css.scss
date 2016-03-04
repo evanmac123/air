@@ -1,11 +1,11 @@
 @import './tile/tile_fullsize/tiles_fullsize';
 @import 'tile_preview';
 @import './tile/tile_builder/tile_builder';
-@import './internal/tile_manager/_joyride_tip_guide';
+@import './client_admin/tile_manager/_joyride_tip_guide';
 
-@import './internal/tile_manager/draft_section';
-@import './internal/tile_manager/suggested_tiles';
-@import './internal/tile_manager/suggestion_access';
+@import './client_admin/tile_manager/draft_section';
+@import './client_admin/tile_manager/suggested_tiles';
+@import './client_admin/tile_manager/suggestion_access';
 
 @import './tile/tile_thumbnail/tiles_thumbnails';
 @import './tile/tile_thumbnail/tiles_thumbnails_desktop';
