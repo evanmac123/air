@@ -1,7 +1,8 @@
-@import "mixins/lightbox.css.scss";
-
+@import 'share_controls';
 .client_admin-shares-show {
+  @import 'email_client';
 
+  $public_slug_height: 2.25em;
   #next_top_disabled, #next_bottom_disabled{
     .light_button{
       @include light-button($gray);
@@ -381,19 +382,6 @@
   #share_tiles_email_preview {
     min-height: 735px;
   }
-
-  /*  #progress{
-      float:left;
-      margin-top: 17px;
-      &.share_progress {
-        @include progress-container;
-        @include radius(6px);
-        & > span {
-          @include progress-meter($dark-green);
-          @include radius(5px);
-        }
-      }
-    }*/
 }
 .light_button{
   @include light-button($dark-green);

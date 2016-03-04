@@ -10,10 +10,8 @@
   padding-bottom:.5em;
 }
 
-$public_slug_height: 2.25em;
-
 body.client_admin-shares{
-  @import 'email_client';
+  
 
   .content{
     padding: 0;
@@ -96,14 +94,6 @@ body.client_admin-shares{
     }
     .notification_controls {
       float: left;
-      // .send_to, .follow_up, .intro_message, .custom_subject, .custom_headline {
-      //   margin-bottom: 2.75em;
-      //   .drop_down{
-      //     *{
-      //       color: $med-gray;font-weight: normal;
-      //     }
-      //   }
-      // }
       .follow_up {
         p span {
           @include share-instructions;
@@ -116,9 +106,6 @@ body.client_admin-shares{
           height: 4.5em;
         }
       }
-      // input[type="checkbox"], label, select {display: inline-block;}
-
-    
       .send_test {
         margin-bottom: 2.75em;
         label {
@@ -259,12 +246,6 @@ body.client_admin-shares{
       padding: 1em;
     }
   }
-
-  // #public_board_field {
-  //   display: inline;
-  //   // width: 60%;
-  //   // height: $public_slug_height;
-  // }
 
   #public_board_instructions {
     @include share-instructions;

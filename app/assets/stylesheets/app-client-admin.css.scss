@@ -21,8 +21,7 @@
 @import "./internal/mast_desktop.css.scss";
 
 /* CLIENT ADMIN */
-@import './client_admin/share_controls.css.scss';
-@import './client_admin/shares.css.scss';
+@import './client_admin/share/shares.css.scss';
 @import "./client_admin/board_activity.css.scss";
 @import "./client_admin/segmentations.css.scss";
 @import "./client_admin/user_manager.css.scss";
