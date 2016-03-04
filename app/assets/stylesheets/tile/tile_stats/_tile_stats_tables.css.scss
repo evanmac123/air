@@ -1,5 +1,5 @@
 body.client_admin-tile_stats, #tile_stats_modal {
-  @import "../mixins/sort_arrows";
+  @import "mixins/sort_arrows";
 
   .table_title {
     text-transform: uppercase;
