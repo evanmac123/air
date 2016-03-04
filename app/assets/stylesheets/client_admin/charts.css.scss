@@ -20,14 +20,8 @@
       text-transform: uppercase;
     }
     &#show-button {
-      // margin-right:0;
-      // margin-top: 0;
       position: absolute;
       right:0;
-      // #show-chart-link {
-      //   // @include app-button($sky-blue);
-      //   // margin:0;
-      // }
     }
     &#chart-labeling {
       margin-right:.25em;
@@ -48,8 +42,6 @@
           padding-top: 6px;
         }
     }
-
-    // img {margin: 0em;}
   }
   #display-options {
     width: 137px;
@@ -60,13 +52,7 @@
   #chart-labeling {
     width: 127px;
   }
-  // input, select {
-  //   font-size:.875em;
-  // }
   .datepicker {
     width: 7em;
   }
-  // .custom.dropdown{
-  //   margin-bottom: 0;
-  // }
 }
