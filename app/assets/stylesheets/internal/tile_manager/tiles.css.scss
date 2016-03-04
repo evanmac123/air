@@ -13,6 +13,8 @@
 @import './tile/tile_thumbnail/tiles_thumbnails_small_with_controls';
 @import './tile/tile_thumbnail/tiles_thumbnails_transition';
 
+@import "mixins/green_paddle_switch";
+
 body.client_admin-tiles-index,
 body.client_admin-inactive_tiles,
 body.suggested_tiles-index {

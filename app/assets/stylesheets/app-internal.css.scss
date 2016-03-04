@@ -57,7 +57,6 @@
 /* RWD */
 @media only screen and (min-width: 319px) {
   @import "./internal/screen_iphone.css.scss";
-  @import "./tile/tile_builder/pen.css.scss";
 }
 @media only screen and (min-width: 500px) {
   @import "./internal/screen_tablet.css.scss";
