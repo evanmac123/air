@@ -89,10 +89,6 @@ module TileHelpers
 
   # -------------------------------------------------
 
-  def tab(label)
-    find("#tile-manager-tabs, #tile-reports-tabs").find("##{label.downcase}")
-  end
-
   def active_tab
     find("section#active_tiles")
   end

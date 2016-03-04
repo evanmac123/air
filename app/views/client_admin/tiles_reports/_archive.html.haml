@@ -1,5 +1,0 @@
-- if @archive_tiles.empty?
-  %div.no_tiles_message There are no archived tiles.
-- else
-  = link_to 'Download CSV', client_admin_tiles_reports_path(report: Tile::ARCHIVE, format: 'csv'), class: 'tile-reports-csv-link'
-  = render partial: 'table', locals: {tiles: @archive_tiles}
