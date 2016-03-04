@@ -21,35 +21,32 @@
         </div>
       </div>
     </div>
-    <!-- FIXME do we need this appears_client_created. what the heck is that? -->
-    <% if tile.appears_client_created %>
-      <div class="tile_texts_container">
-        <div class="tile_headline content_sections"><%= tile.headline %></div>
-        <div class="tile_supporting_content content_sections <%= tile.custom_supporting_content_class %>">
-          <%= unescape_html(tile.supporting_content) %>
+    <div class="tile_texts_container">
+      <div class="tile_headline content_sections"><%= tile.headline %></div>
+      <div class="tile_supporting_content content_sections <%= tile.custom_supporting_content_class %>">
+        <%= unescape_html(tile.supporting_content) %>
+      </div>
+      <% if tile.link_address.present? %>
+        <div class="tile_external_link content_sections">
+          Visit <%= link_to truncate(tile.link_address, length: 30), tile.link_address, target: '_blank' %> <%= link_to fa_icon("external-link"), tile.link_address, target: '_blank' %>
         </div>
-        <% if tile.link_address.present? %>
-          <div class="tile_external_link content_sections">
-            Visit <%= link_to truncate(tile.link_address, length: 30), tile.link_address, target: '_blank' %> <%= link_to fa_icon("external-link"), tile.link_address, target: '_blank' %>
+      <% end %>
+    </div>
+
+      <div class="tile_quiz">
+        <% if tile.points %>
+          <div class="tile_points_bar">
+            <div class="earnable_points">
+              <span class="num_of_points" id="tile_point_value"><%= tile.points %></span>
+              <span class="points_label"><%= tile.points > 1 ? "Points" : "Point" %></span>
+            </div>
           </div>
         <% end %>
+
+
+        <div class="tile_question content_sections"><%= tile.question %></div>
+        <%= render 'tiles/multiple_choice_answers', tile: tile %>
       </div>
-
-        <div class="tile_quiz">
-          <% if tile.points %>
-            <div class="tile_points_bar">
-              <div class="earnable_points">
-                <span class="num_of_points" id="tile_point_value"><%= tile.points %></span>
-                <span class="points_label"><%= tile.points > 1 ? "Points" : "Point" %></span>
-              </div>
-            </div>
-          <% end %>
-
-
-          <div class="tile_question content_sections"><%= tile.question %></div>
-          <%= render 'tiles/multiple_choice_answers', tile: tile %>
-        </div>
-    <% end %>
 
     <% overlay_style = overlay_displayed ? "display:block" : "" %>
     <div id="spinner_large" style="<%= overlay_style %>">

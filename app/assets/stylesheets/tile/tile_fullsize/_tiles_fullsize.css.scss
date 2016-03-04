@@ -4,6 +4,7 @@ body.tiles.tiles-index {
 }
 
 body.tiles.tiles-index {
+  // completed mark
   .tile_holder .completed {
     &:before {
       background: $white;
@@ -50,7 +51,7 @@ body.tiles.tiles-index {
   @import './tile/tile_fullsize/main_fields';
   @import './tile/tile_fullsize/quiz';
 
-  // Spinner
+  // That's fading. it appears when moving to the next tile
   #spinner_large {
     display: none;
     background:$light-gray;
