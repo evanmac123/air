@@ -3,7 +3,6 @@
 @import './client_admin/tile_manager/_joyride_tip_guide';
 
 @import './client_admin/tile_manager/draft_section';
-@import './client_admin/tile_manager/suggested_tiles';
 @import './client_admin/tile_manager/suggestion_access';
 
 @import './tile/tile_thumbnail/tiles_thumbnails';
@@ -15,8 +14,7 @@
 @import "mixins/green_paddle_switch";
 
 body.client_admin-tiles-index,
-body.client_admin-inactive_tiles,
-body.suggested_tiles-index {
+body.client_admin-inactive_tiles {
   //
   // => General styles
   //

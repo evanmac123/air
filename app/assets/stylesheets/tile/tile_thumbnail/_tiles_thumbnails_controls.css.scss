@@ -194,7 +194,7 @@
     text-transform: none;
   }
 }
-.client_admin_main, .suggested_tiles-index {
+.client_admin_main {
   .tooltip.tip-bottom { // tip is used in tile stats
     $tooltip-bg: #000;
     $tooltip-pip-size: 5px;
