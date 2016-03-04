@@ -1,231 +1,200 @@
-.client_admin_main, .suggested_tiles-index {
-  .tile_thumbnail {
-    .shadow_overlay {
-      background: rgba(255, 255, 255, 0.92);
-      height:12em;
-      width:100%;
-      top:0;
-      left:0;
-      &:after {
-        color: #666666;
-        content:"Preview";
-        display: block;
-        margin-top:6em;
-        text-align: center;
-        text-transform: uppercase;
-      }
-    }
-    .tile_overlay {
-      position: absolute;
-      top:0;
-      left:0;
-      width:100%;
-      height: 100%;
+.tile_thumbnail {
+  .shadow_overlay {
+    background: rgba(255, 255, 255, 0.92);
+    height:12em;
+    width:100%;
+    top:0;
+    left:0;
+    &:after {
+      color: #666666;
+      content:"Preview";
+      display: block;
+      margin-top:6em;
+      text-align: center;
+      text-transform: uppercase;
     }
   }
-  // Default buttons
-  .tile_buttons {
-    $border-color: #999;
-    $border-hover: #636363;
-    position:absolute;
-    top: 8px;
-    right: 8px;
-    width: calc(100% - 8px);
-    li {
-      display: inline-block;
-      float: right;
-      width: auto;
-      cursor: pointer;
-      margin-left: 5px;
+  .tile_overlay {
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height: 100%;
+  }
+}
+// Default buttons
+.tile_buttons {
+  $border-color: #999;
+  $border-hover: #636363;
+  position:absolute;
+  top: 8px;
+  right: 8px;
+  width: calc(100% - 8px);
+  li {
+    display: inline-block;
+    float: right;
+    width: auto;
+    cursor: pointer;
+    margin-left: 5px;
+    &:hover {
+      i {
+        color: #262626;
+      }
+    }
+    i {
+      display: block;
+      font-size: 15px;
+      color: #5c5c5c;
+      padding: 6px;
+    }
+    &.edit_button, &.more_button {
+      width: 32px;
+      height: 32px;
+      border: 1px solid $border-color;
+      border-radius: 3px;
+      padding-top: 1px;
+      padding-left: 1px;
+      &.active, &:hover {
+        border-color: $border-hover;
+      }
+    }
+    &.more_button {
+      padding-top: 13px;
+      span {
+        display: block;
+        float: left;
+        width: 4px;
+        height: 4px;
+        border-radius: 3px;
+        margin-left: 2px;
+        background: #5c5c5c;
+        &:first-child {
+          margin-left: 6px;
+        }
+      }
+      &.active, &:hover {
+        span {
+          background: #262626;
+        }
+      }
+    }
+    &.ignore_button, &.accept_button {
+      a {
+        padding-left: 12px;
+        padding-right: 11px;
+      }
+    }
+  }
+}
+.tooltipster-thumbnail-menu {
+  .tooltipster-content {
+    padding: 13px 14px;
+  }
+  .tile_thumbnail_menu {
+    li{
+      &:first-child{
+        padding-bottom: 8px;
+      }
       &:hover {
-        i {
+        i, span {
           color: #262626;
         }
       }
-      i {
-        display: block;
-        font-size: 15px;
-        color: #5c5c5c;
-        padding: 6px;
-      }
-      // a.update_status span {
-      //   font-size: 15px;
-      //   padding: 6px 14px;
-      //   font-weight: 500;
-      // }
-      &.edit_button, &.more_button {
-        width: 32px;
-        height: 32px;
-        border: 1px solid $border-color;
-        border-radius: 3px;
-        padding-top: 1px;
-        padding-left: 1px;
-        &.active, &:hover {
-          border-color: $border-hover;
-        }
-      }
-      &.more_button {
-        padding-top: 13px;
-        span {
-          display: block;
-          float: left;
-          width: 4px;
-          height: 4px;
-          border-radius: 3px;
-          margin-left: 2px;
-          background: #5c5c5c;
-          &:first-child {
-            margin-left: 6px;
-          }
-        }
-        &.active, &:hover {
-          span {
-            background: #262626;
-          }
-        }
-      }
-      &.ignore_button, &.accept_button {
-        a {
-          padding-left: 12px;
-          padding-right: 11px;
-        }
-      }
-      // &.accept_button {
-      //   margin-right: 1em;
-      // }
-      // &.ignore_button, &.undo_ignore_button, &.submit_button, &.unsubmit_button {
-      //   span {
-      //     @include light-button($gray);
-      //   }
-      // }
-      // &.ignore_button {
-      //   margin-left: 15px;
-      // }
-      // &.archive_button  a {
-      //   @include app-button($med-gray);
-      // }
-      // &.activate_button, &.accept_button {
-      //   span {
-      //     @include app-button($sky-blue);
-      //   }
-      // }
     }
-  }
-  .tooltipster-thumbnail-menu {
-    .tooltipster-content {
-      padding: 13px 14px;
+    i, span {
+      color: #5c5c5c;
     }
-    .tile_thumbnail_menu {
-      li{
-        &:first-child{
-          padding-bottom: 8px;
-        }
-        &:hover {
-          i, span {
-            color: #262626;
-          }
-        }
-      }
-      i, span {
-        color: #5c5c5c;
-      }
-      i {
-        font-size: 15px;
-        width: 19px;
-        &.fa-trash-o {
-          padding-left: 2px;
-        }
-      }
-      span {
-        font-size: 14px;
-        font-weight: 500;
-      }
-    }
-  }
-  //
-  // => Tile Thumbnail transition on hover
-  //
-  .tile_thumbnail {
-    .shadow_overlay, .tile_buttons {
-      opacity: 0;
-      transition: opacity 250ms ease;
-      display: block;
-    }
-  }
-  .tile-wrapper {
-    &:hover, &.active_menu {
-      .shadow_overlay, .tile_buttons {
-        opacity: 1;
-      }
-    }
-  }
-
-  // .user_submitted {
-  //   .accept_button {
-  //     margin-right: 4em;
-  //   }
-  // }
-  // Tile stats
-  %stat_item {
-    border-radius: 3px;
-    padding: 3.5px 7px;
-    font-size: 12px;
-    font-weight: 700;
     i {
+      font-size: 15px;
+      width: 19px;
+      &.fa-trash-o {
+        padding-left: 2px;
+      }
+    }
+    span {
       font-size: 14px;
-      padding-right: 7px;
+      font-weight: 500;
     }
   }
-  .activation_dates {
+}
+//
+// => Tile Thumbnail transition on hover
+//
+.tile_thumbnail {
+  .shadow_overlay, .tile_buttons {
+    opacity: 0;
+    transition: opacity 250ms ease;
+    display: block;
+  }
+}
+.tile-wrapper {
+  &:hover, &.active_menu {
+    .shadow_overlay, .tile_buttons {
+      opacity: 1;
+    }
+  }
+}
+// Tile stats
+%stat_item {
+  border-radius: 3px;
+  padding: 3.5px 7px;
+  font-size: 12px;
+  font-weight: 700;
+  i {
+    font-size: 14px;
+    padding-right: 7px;
+  }
+}
+.activation_dates {
+  @extend %stat_item;
+  position: absolute;
+  top: 169px;
+  right: 0px;
+  background: rgba(255, 255, 255, 0.91);
+  color: #454545;
+  border-radius: 0;
+  border-top-left-radius: 3px;
+  z-index: 1;
+}
+.tile_stats {
+  padding-top: 10px;
+  cursor: pointer;
+  .unique_views, .views, .completions {
     @extend %stat_item;
-    position: absolute;
-    top: 169px;
-    right: 0px;
-    background: rgba(255, 255, 255, 0.91);
-    color: #454545;
-    border-radius: 0;
-    border-top-left-radius: 3px;
-    z-index: 1;
-  }
-  .tile_stats {
-    padding-top: 10px;
-    cursor: pointer;
-    .unique_views, .views, .completions {
-      @extend %stat_item;
-      float: left;
-      width: 76px;
-      border: 1px solid #b5b5b5;
-      color: #616161;
-      text-align: left;
-      &:hover {
-        border-color: #858585;
-        color: #383838;
-      }
-      i {
-        padding-right: 4px;
-      }
+    float: left;
+    width: 76px;
+    border: 1px solid #b5b5b5;
+    color: #616161;
+    text-align: left;
+    &:hover {
+      border-color: #858585;
+      color: #383838;
     }
-
-    .unique_views, .views {
-      margin-right: 5px;
-    }
-
-    .creator {
-      @include caption;
-      background: image-url('v5/bg_light.png');
-      color:$dark-gray;
-      display: block;
-      font-size:.75em;
-      font-weight:bold;
-      font-weight:500;
-      line-height:1.35em;
-      margin-bottom:1px;
-      padding:.5em 1em;
-      text-align: left;
-      text-transform: none;
+    i {
+      padding-right: 4px;
     }
   }
 
+  .unique_views, .views {
+    margin-right: 5px;
+  }
+
+  .creator {
+    @include caption;
+    background: image-url('v5/bg_light.png');
+    color:$dark-gray;
+    display: block;
+    font-size:.75em;
+    font-weight:bold;
+    font-weight:500;
+    line-height:1.35em;
+    margin-bottom:1px;
+    padding:.5em 1em;
+    text-align: left;
+    text-transform: none;
+  }
+}
+.client_admin_main, .suggested_tiles-index {
   .tooltip.tip-bottom { // tip is used in tile stats
     $tooltip-bg: #000;
     $tooltip-pip-size: 5px;
