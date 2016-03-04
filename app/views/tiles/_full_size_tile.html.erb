@@ -4,7 +4,7 @@
 <% is_manage ||= false %>
 <% tile = FullSizeTilePresenter.new(tile, current_user, is_preview, @current_tile_ids, browser) %>
 
-<div class="tile_holder <%= tile.creator_class %>"
+<div class="tile_holder"
   data-current-tile-id="<%= tile.id %>"
   data-completed-only="<%= @show_completed_tiles %>"
   data-show-conversion-form="<%= @show_conversion_form||false %>"

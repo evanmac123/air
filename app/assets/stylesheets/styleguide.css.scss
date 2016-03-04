@@ -2,7 +2,7 @@
 @import "./mixins/main_styles.css.scss";
 @import "./mixins/green_paddle_switch.css.scss";
 @import "font-awesome";
-@import "./internal/tile_builder/pen.css.scss";
+@import "./tile/tile_builder/pen.css.scss";
 
 section:after{@include clear;}
 .row section {margin:2em auto;}

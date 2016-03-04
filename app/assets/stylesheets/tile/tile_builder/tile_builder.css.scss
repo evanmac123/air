@@ -1,12 +1,9 @@
 @import "mixins/green_paddle_switch"; // TODO can't remove. breaks app-internal why?
 
 #images_modal{
-  // @include standard-modal($content-width: 1007px);
   @import "image_library";
 }
 #tile_form_modal {
-  // @import "modals";
-  // @include standard-modal($content-width: 1007px);
   form.new_tile_builder_form {
     @import "main_inputs";
     @import "image_uploader";
@@ -47,14 +44,5 @@
     text-align: center;
     margin-bottom: 40px;
     line-height: 43px;
-  }
-  // medium editor overrides
-  .medium-editor-toolbar {
-    li {
-      width: 50px; //required fix for ie9
-      button:hover {
-        color: $n-blue;
-      }
-    }
   }
 }

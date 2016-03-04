@@ -48,7 +48,7 @@
 @import "./external/sign_up_form_ie.css.scss";
 @import './client_admin/tiles_tools_subnav';
 @import './client_admin/tile_preview';
-@import './internal/tile_builder/tile_builder';
+@import './tile/tile_builder/tile_builder';
 @import "./internal/character_counter.css.scss";
 @import "./vendor_customization/sweetalert.css.scss";
 @import "./vendor_customization/medium.css.scss";
@@ -57,7 +57,7 @@
 /* RWD */
 @media only screen and (min-width: 319px) {
   @import "./internal/screen_iphone.css.scss";
-  @import "./internal/tile_builder/pen.css.scss";
+  @import "./tile/tile_builder/pen.css.scss";
 }
 @media only screen and (min-width: 500px) {
   @import "./internal/screen_tablet.css.scss";

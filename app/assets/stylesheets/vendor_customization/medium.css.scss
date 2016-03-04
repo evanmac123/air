@@ -1,4 +1,13 @@
 body {
+  // medium editor overrides
+  .medium-editor-toolbar {
+    li {
+      width: 50px; //required fix for ie9
+      button:hover {
+        color: $n-blue;
+      }
+    }
+  }
   .medium-editor-toolbar li button:hover {
     color: $n-blue; 
   }
