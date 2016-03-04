@@ -1,5 +1,6 @@
 .tile_previews.tile_previews-show {
   &.single_tile_guest_layout {
+    background:$tile-wall-bg;
     .see_airbo_block {
       padding-top: 15px;
     }
@@ -25,7 +26,7 @@
       }
     }
   }
-  background:$tile-wall-bg;
+  // background:$tile-wall-bg;
   .core, .content{ background:$tile-wall-bg; }
 
 
