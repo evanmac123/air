@@ -9,7 +9,7 @@
 @import "./internal/intercom.css.scss";
 @import "./internal/flash.css.scss";
 
-@import './internal/tile_thumbnail/tiles_thumbnails_desktop';
+@import './tile/tile_thumbnail/tiles_thumbnails_desktop';
 @import './internal/tile_fullsize/tiles_fullsize';
 
 
@@ -48,7 +48,7 @@
 }
 @media only screen and (min-width: $mid-desktop) {
 	@import "./external/screen_desktop.css.scss";
-	@import './internal/tile_thumbnail/tiles_thumbnails_desktop';
+	@import './internal/tile/tiles_thumbnails_desktop';
 }
 @media only screen and (min-width: $large-desktop) {
 	@import "./external/screen_large.css.scss";

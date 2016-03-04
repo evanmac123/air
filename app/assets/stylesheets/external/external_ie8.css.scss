@@ -3,7 +3,7 @@
 @import "screen_medium.css.scss";
 @import "more_info/general_moreinfo.css.scss";
 @import "screen_desktop.css.scss";
-@import '../internal/tile_thumbnail/tiles_thumbnails_desktop';
+@import '../tile/tile_thumbnail/tiles_thumbnails_desktop';
 @import "screen_large.css.scss";
 
 .tile_thumbnail {border:1px $light-gray solid;}
