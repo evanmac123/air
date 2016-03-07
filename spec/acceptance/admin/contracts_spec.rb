@@ -1,5 +1,5 @@
 require 'acceptance/acceptance_helper'
-feature "Contracts", js:true do
+feature "Contracts", js:true, driver: :webkit do
   before do
     @org = FactoryGirl.create(:organization, :complete)
   end
@@ -22,11 +22,12 @@ feature "Contracts", js:true do
     end
   end
 
+  # FIXME don't know business logic
   context "as upgrade" do
     before do
       @parent = FactoryGirl.create(:contract, :complete, organization: @org)
     end
-    scenario "creates a upgrade contract with mrr for organization" do
+    scenario "creates a upgrade contract with mrr for organization" do#, driver: :selenium do
       begin_contract
 
       page.find("tr", text: @parent.name).click
@@ -46,7 +47,8 @@ feature "Contracts", js:true do
 
   def begin_contract
     visit admin_path(as: an_admin)
-    click_link "Manage Organizations"
+    click_link "Customer Metrics & KPIs"
+    click_link "Customers"
     page.find("tr", text: @org.name).click
   end
 
