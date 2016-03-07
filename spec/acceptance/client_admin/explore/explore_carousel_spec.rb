@@ -44,14 +44,6 @@ feature 'Carousel on Explore Tile Preview Page' do
       page.find('.right_multiple_choice_answer').click
       expect_content @tiles[1].headline
     end
-
-    it "should send ping on clicked right answer", js: true do
-      page.find('.right_multiple_choice_answer').click
-
-      FakeMixpanelTracker.clear_tracked_events
-      crank_dj_clear
-      FakeMixpanelTracker.should have_event_matching("Explore page - Interaction", "action" => 'Clicked Answer', 'tile_id' => @tiles[0].id.to_s)
-    end
   end
 
   context "if user comes to tag page" do

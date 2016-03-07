@@ -1,7 +1,7 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Client admin gets limited access by token' do
-  let(:client_admin) do 
+  let(:client_admin) do
     admin = FactoryGirl.create(:client_admin)
     admin.password = admin.password_confirmation = "foobar"
     admin.save!
@@ -106,7 +106,7 @@ feature 'Client admin gets limited access by token' do
   describe 'the login modal' do
     def expect_login_modal_after
       visit explore_path(explore_token: client_admin.explore_token)
-      
+
       yield
 
       page.all('.other_boards', visible: true).should be_empty
@@ -131,32 +131,6 @@ feature 'Client admin gets limited access by token' do
       end
 
       login_modal_goes_to activity_path
-    end
-
-    scenario "Manage My board link in post-copy modal is nerfed", js: true do
-      FactoryGirl.create(:multiple_choice_tile, :public, :copyable)
-      crank_dj_clear # for image resizing
-
-      expect_login_modal_after do
-        page.first('.copy_tile_link').click
-        page.should have_content("Manage Your Board")
-        within("#post_copy_buttons") {click_link "Manage Your Board"}
-      end
-
-      login_modal_goes_to client_admin_tiles_path
-    end
-
-    scenario "Edit link in post-copy modal is nerfed", js: true do
-      FactoryGirl.create(:multiple_choice_tile, :public, :copyable)
-      crank_dj_clear # for image resizing
-
-      expect_login_modal_after do
-        page.first('.copy_tile_link').click
-        page.should have_content("Manage Your Board")
-        within("#post_copy_buttons") {click_link "Edit"}
-      end
-
-      login_modal_goes_to edit_client_admin_tile_path(Tile.last.id)
     end
 
     scenario "find-users link in dropdown is nerfed", js: true do
@@ -209,7 +183,7 @@ feature 'Client admin gets limited access by token' do
         fill_in "session[password]", with: 'foobar'
         click_login_button
       end
-      
+
       should_be_on activity_path(format: 'html')
     end
 

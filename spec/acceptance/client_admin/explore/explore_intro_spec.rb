@@ -73,7 +73,7 @@ feature 'Explore Intro', js: true do#, driver: :selenium do
 
     it "should show right text" do
       within active_slide_sel do
-        expect_content "Hello! Welcome back to Airbo, where you can find engaging content like"
+        expect_content "Hello! Welcome to Airbo, where you can find engaging content like"
         click_link "Next"
         # expect_ping("Explore Onboarding", {"Clicked Buttons" => "Next"})
 
@@ -89,7 +89,7 @@ feature 'Explore Intro', js: true do#, driver: :selenium do
 
     it "should skip" do
       within active_slide_sel do
-        expect_content "Hello! Welcome back to Airbo, where you can find engaging content like"
+        expect_content "Hello! Welcome to Airbo, where you can find engaging content like"
         click_link "Skip"
         # expect_ping("Explore Onboarding", {"Clicked Buttons" => "Skip"})
       end
@@ -98,7 +98,7 @@ feature 'Explore Intro', js: true do#, driver: :selenium do
 
     it "should navigate by dots" do
       within active_slide_sel do
-        expect_content "Hello! Welcome back to Airbo, where you can find engaging content like"
+        expect_content "Hello! Welcome to Airbo, where you can find engaging content like"
       end
       within ".slick-dots" do
         click_button "3"
