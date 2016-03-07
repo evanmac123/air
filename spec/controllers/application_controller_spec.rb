@@ -5,7 +5,7 @@ class AnyController < ApplicationController; end
 
 describe "any controller descended from ApplicationController" do
   context "redirecting" do
-    controller do:w
+    controller do
 
       skip_before_filter :authorize
 
