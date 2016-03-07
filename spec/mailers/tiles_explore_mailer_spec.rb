@@ -20,23 +20,20 @@ describe 'Explore digest email' do
 
     describe 'Delivery' do
       it { should be_delivered_to   'Robbie Williams <robbie@williams.com>' }
-      it { should be_delivered_from "Airbo <play@ourairbo.com>" }
+      it { should be_delivered_from "Airbo Explore <airboexplore@ourairbo.com>" }
       it { should have_subject      'Test explore digest email' }
     end
 
     describe 'Logo. Display the H.Engage logo and alt-text' do
-      it { should have_selector "img[src $= '/assets/airbo_logo_lightblue.png'][alt = 'Airbo']" }
+      it { should have_selector "img[src $= '/assets/logo-white.png'][alt = 'Airbo']" }
     end
 
     describe "Display its title and button" do
-      it { should have_link 'Heading' }
-      it { should have_link 'See Tiles' }
-      it { should have_body_text "You won't have to log in." }
-      it { should_not have_body_text "Works on mobile." }
+      it { should have_body_text 'Heading' }
     end
 
     describe 'Links' do
-      it { should have_selector "a[href *= 'explore?email_type=explore_v_1&explore_token=#{admin.explore_token}']", count: 2 }
+      it { should have_selector "a[href *= 'explore?email_type=explore_v_1&explore_token=#{admin.explore_token}']", count: 3 }
       it "should have an explore-token link to each tile" do
         tile_ids.each do |tile_id|
           should have_selector "a[href *= 'explore/tile/#{tile_id}?email_type=explore_v_1&explore_token=#{admin.explore_token}']"
@@ -66,13 +63,12 @@ describe 'Explore digest email' do
     end
 
     describe 'Footer' do
-      it { should have_body_text "This email is unique for you. Please do not forward it." }
-      it { should have_body_text 'For assistance contact' }
-      it { should have_link      'support@airbo.com' }
-      it { should have_body_text "Our mailing address is 292 Newbury Street, Suite 547, Boston, MA 02115" }
+      it { should have_body_text "Engaging employee communications that get HR priorities done." }
+      it { should have_link      'Unsubscribe from this email' }
+      it { should have_body_text "1600 Main Street, Venice CA 90291" }
 
-      it { should have_link      'Unsubscribe' }
-      it { should have_body_text "If using a web browser that's IE8 or below, copy and paste this link into IE8 and above, Firefox or Chrome:" }
+      it { should have_link      'Contact Us' }
+      it { should have_link      'Terms & Conditions' }
     end
   end
 end
