@@ -48,8 +48,7 @@
 }
 @media only screen and (min-width: $mid-desktop) {
 	@import "./external/screen_desktop.css.scss";
-	@import './internal/tile/tiles_thumbnails_desktop';
 }
-@media only screen and (min-width: $large-desktop) {
-	@import "./external/screen_large.css.scss";
-}
+// @media only screen and (min-width: $large-desktop) {
+// 	@import "./external/screen_large.css.scss";
+// }

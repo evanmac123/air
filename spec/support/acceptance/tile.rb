@@ -442,14 +442,6 @@ module TileHelpers
     page.find("#total_points").text.to_i
   end
 
-  def voteup_intro_copy
-    "Got it, thanks"
-  end
-
-  def close_intro
-    click_link voteup_intro_copy
-  end
-
   def tile_manager_nav
     page.find("#tile_manager_nav")
   end

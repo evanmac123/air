@@ -40,7 +40,7 @@ feature 'The order of the tiles in the Tile Manager and the Tile Carousel are in
 
   #------------------------------------------------------------------------------------
 
-  scenario 'Bounce back and forth between the Manager and the Carousel', js: true do
+  scenario 'Bounce back and forth between the Manager and the Carousel', js: true do#, driver: :selenium do
     admin = FactoryGirl.create :client_admin
     demo = admin.demo
 
