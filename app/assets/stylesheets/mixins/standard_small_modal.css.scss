@@ -17,7 +17,8 @@
   .close-reveal-modal {
     position: absolute;
     top: 0;
-    left: 0;
+    right: 0;
+    left: auto;
     margin: 0;
   }
   @media only screen and (max-width: 766px) {

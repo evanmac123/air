@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160219203725) do
+ActiveRecord::Schema.define(:version => 20160302191636) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -424,8 +424,8 @@ ActiveRecord::Schema.define(:version => 20160219203725) do
     t.integer  "tickets",                              :default => 0
     t.integer  "ticket_threshold_base",                :default => 0
     t.integer  "demo_id"
-    t.datetime "created_at",                                              :null => false
-    t.datetime "updated_at",                                              :null => false
+    t.datetime "created_at",                                             :null => false
+    t.datetime "updated_at",                                             :null => false
     t.integer  "converted_user_id"
     t.boolean  "get_started_lightbox_displayed"
     t.datetime "last_acted_at"
@@ -433,7 +433,6 @@ ActiveRecord::Schema.define(:version => 20160219203725) do
     t.boolean  "voteup_intro_seen"
     t.boolean  "share_link_intro_seen"
     t.boolean  "seeing_marketing_page_for_first_time", :default => true
-    t.boolean  "onboarding_seen",                      :default => false
   end
 
   add_index "guest_users", ["demo_id"], :name => "index_guest_users_on_demo_id"
@@ -982,9 +981,10 @@ ActiveRecord::Schema.define(:version => 20160219203725) do
 
   create_table "user_intros", :force => true do |t|
     t.integer  "user_id"
-    t.boolean  "explore_intro_seen", :default => false
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
+    t.boolean  "explore_intro_seen",        :default => false
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
+    t.boolean  "explore_preview_copy_seen", :default => false
   end
 
   add_index "user_intros", ["user_id"], :name => "index_user_intros_on_user_id"
@@ -1075,7 +1075,6 @@ ActiveRecord::Schema.define(:version => 20160219203725) do
     t.boolean  "has_own_tile_completed_displayed",                    :default => false
     t.integer  "has_own_tile_completed_id"
     t.string   "explore_token"
-    t.boolean  "voteup_intro_seen"
     t.boolean  "is_test_user"
     t.boolean  "share_link_intro_seen"
     t.boolean  "share_section_intro_seen"

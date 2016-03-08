@@ -78,7 +78,7 @@
       margin-bottom: 0em;
       width: 100%;
       padding: 1em 2.5em;
-      overflow: auto;
+      // overflow: auto;
       border-top: 2px dashed $light-gray;
       // border-left: none;
       // border-right: none;
@@ -181,11 +181,19 @@
 }
 // Multiple choice answers
 .multiple_choice_group {
-
+  overflow: visible;
   .tile_multiple_choice_answer{
+    position: relative;
+    min-height: 47px;
+    .answer_text {
+      position: absolute;
+      z-index: 1;
+    }
     ul.answer_option{
+      // position: absolute;
+      // top: 0;
       display: block;
-      margin-top: -45px;
+      // margin-top: -45px;
       min-height: 42px;
       .option_input{
         display: none;
@@ -216,6 +224,11 @@
     ul.answer_option{
       margin-top: 0;
     }
+
+    .answer_text {
+      position: relative;
+    }
+
   }
 
   &.quiz{
@@ -226,6 +239,7 @@
         li.option_radio{
           background: inherit;
           border-color: #d2d2d2;
+          margin-right: 10px;
         }
         li.option_selected{
           background-color: #d2d2d2;
@@ -240,7 +254,7 @@
 
       &.multiple_choice{
         .answer-div {
-          width:93%;
+          width:95%;
         }
       }
 

@@ -17,4 +17,19 @@ section {
 section:not(.manage_tiles){
   overflow: auto;
 }
+// .center {
+//   text-align: center;
+// }
 
+footer {
+  &.bg-blue{
+    background-color: $n-blue; 
+    color: white;
+  }
+  &.tall{
+    margin-top:30px;
+    height: 294px;
+    padding: 60px 0px;
+  }
+
+}

@@ -1,0 +1,13 @@
+<div class="creator">
+  <% is_default_logo = !tile.demo.logo.present? %>
+  <!-- <div class="logo_block horizontal <%= is_default_logo ? 'default_logo' : '' %>"> -->
+  <%= image_tag tile.demo.logo(:thumb), class: "company_logo #{is_default_logo ? 'default_logo' : ''}" %>
+  <!-- </div> -->
+  <span class="creator_name">
+    Tile 
+    <% if tile.creator %>
+      by <%= tile.creator.try(:name) %> 
+    <% end %>
+    of <%= tile.demo.name %>
+  </span>
+</div>

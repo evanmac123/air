@@ -44,7 +44,7 @@
 .no_margin_top {
   margin-top: 0;
 }
-.no_margin_bottom {
+.no_margin_bottom.no_margin_bottom {
   margin-bottom: 0;
 }
 .small_margin {
@@ -54,6 +54,10 @@
 
 .margin-bottom-medium {
   margin-bottom:15px;
+}
+
+.no_margin {
+  margin: 0;
 }
 
 .board_settings {
@@ -140,9 +144,16 @@ td .button.td-button {
 .align_center {
   text-align: center;
 }
+.align_left {
+  text-align: left;
+}
 // .width_700.width_700 {
 //   width: 700;
 // }
+.tile_width {
+  max-width: 600px;
+  width: 100%;
+}
 
 .bg-blue {
   background: $n-blue;
@@ -150,6 +161,9 @@ td .button.td-button {
 
 .bg-whitish {
   background-color: #f9f9f9;
+}
+.bg-white {
+  background: $n-white;
 }
 
 .bg-gray {

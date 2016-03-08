@@ -22,7 +22,7 @@
 
                   -# No content for this link--it's given a background, via CSS, of the appropriate image, which makes
                   -# it nice and clickable.
-                  =link_to '', explore_tile_preview_path(presenter, tag: @tile_tag, thumb_click_source: thumb_click_source)
+                  =link_to '', explore_tile_preview_path(presenter, tag: @tile_tag, thumb_click_source: thumb_click_source), class: "preview_link"
                   .like_copy_tile
                     = render 'explores/like_copy_tile', presenter: presenter
                 .headline

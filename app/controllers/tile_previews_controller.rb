@@ -15,36 +15,30 @@ class TilePreviewsController < ApplicationController
   include ExploreHelper
 
   def show
-    if params[:partial_only]
-      show_partial
-    else
-      @tile = Tile.viewable_in_public.where(id: params[:id]).first
-      @tag = TileTag.where(id: params[:tag]).first
+    @tile = Tile.viewable_in_public.where(id: params[:id]).first
+    @next_tile = Tile.next_public_tile params[:id], 1, params[:tag]
+    @prev_tile = Tile.next_public_tile params[:id], -1, params[:tag]
+    @tag = TileTag.where(id: params[:tag]).first
 
+    
+    if params[:partial_only]
+      explore_preview_copy_intro
+      render partial: "tile_previews/tile_preview", 
+             locals: {tile: @tile, tag: @tag, next_tile: @next_tile, prev_tile: @prev_tile},
+             layout: false
+    else
       @show_explore_intro = current_user.intros.show_explore_intro!
-      @intros = create_intros_presenter unless @show_explore_intro
+      explore_preview_copy_intro unless @show_explore_intro
       schedule_mixpanel_pings @tile
       explore_intro_ping @show_explore_intro, params
+      render "show", layout: "single_tile_guest_layout" if  logged_in_as_guest?
     end
   end
 
   protected
 
-  def show_partial
-    tag = TileTag.where(id: params[:tag]).first
-    next_tile = Tile.next_public_tile params[:id], params[:offset].to_i, params[:tag]
-
-    render json: {
-      tile_id:      next_tile.id,
-      tile_content: render_to_string(partial: "tile_previews/tile_preview", locals: { tile: next_tile, tag: tag })
-    }
-    ping_on_arrow params[:offset].to_i
-    return
-  end
-
-  def ping_on_arrow offset
-    action = offset > 0 ? "Clicked arrow to next tile" : "Clicked arrow to previous tile"
-    ping "Explore page - Interaction", {action: action}, current_user
+  def explore_preview_copy_intro
+    @show_explore_preview_copy_intro = current_user.intros.show_explore_preview_copy!
   end
 
   def schedule_mixpanel_pings(tile)
@@ -79,36 +73,36 @@ class TilePreviewsController < ApplicationController
     end
   end
 
-  def mark_user_voteup_intro_seen!
-    current_user.voteup_intro_seen = true
-    current_user.save!
-  end
+  # def mark_user_voteup_intro_seen!
+  #   current_user.voteup_intro_seen = true
+  #   current_user.save!
+  # end
 
-  def mark_user_share_link_intro_seen!
-    current_user.share_link_intro_seen = true
-    current_user.save!
-  end
+  # def mark_user_share_link_intro_seen!
+  #   current_user.share_link_intro_seen = true
+  #   current_user.save!
+  # end
 
-  def create_intros_presenter
-    show_voteup_intro = current_user && current_user.voteup_intro_never_seen
-    show_share_link_intro = current_user && current_user.share_link_intro_never_seen
+  # def create_intros_presenter
+  #   show_voteup_intro = current_user && current_user.voteup_intro_never_seen
+  #   show_share_link_intro = current_user && current_user.share_link_intro_never_seen
 
-    if show_voteup_intro
-      mark_user_voteup_intro_seen!
-    end
+  #   if show_voteup_intro
+  #     mark_user_voteup_intro_seen!
+  #   end
 
-    if !(show_voteup_intro) && show_share_link_intro
-      mark_user_share_link_intro_seen!
-    end
+  #   if !(show_voteup_intro) && show_share_link_intro
+  #     mark_user_share_link_intro_seen!
+  #   end
 
-    # show_voteup_intro = show_share_link_intro = true
-    TilePreview::IntrosPresenter.new([
-      ['like-button', "Like a tile? Vote it up to give the creator positive feedback.", show_voteup_intro],
-      ['share_bar',   "Want to share a tile? Email it using the email icon. Or, share to your social networks using the LinkedIn icon or copying the link.", show_share_link_intro]
-    ])
-  end
+  #   # show_voteup_intro = show_share_link_intro = true
+  #   TilePreview::IntrosPresenter.new([
+  #     ['like-button', "Like a tile? Vote it up to give the creator positive feedback.", show_voteup_intro],
+  #     ['share_bar',   "Want to share a tile? Email it using the email icon. Or, share to your social networks using the LinkedIn icon or copying the link.", show_share_link_intro]
+  #   ])
+  # end
 
-  def override_public_board_setting
-    @tile && @tile.is_public && @tile.is_sharable
-  end
+  # def override_public_board_setting
+  #   @tile && @tile.is_public && @tile.is_sharable
+  # end
 end

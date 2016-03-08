@@ -47,7 +47,7 @@ body.tiles.tiles-index {
 }
 
 body.tile.tile-show,
-body.tile_previews-show,
+.tile_previews-show,
 body.client_admin-tiles-show,
 body.tiles.tiles-index,
 #tile_preview_modal {
@@ -119,23 +119,9 @@ body.tile_previews-show {
   #tile_copied_reveal p {
     margin-top: 1em;
   }
-
-  #tile_copied_lightbox {
-    h2 {
-      margin-bottom: 0.5em;
-    }
-
-    #post_copy_buttons {
-      margin-top: 1.5em;
-
-      a {
-        @include light-button($med-gray);
-        margin-right: 0.6em;
-      }
-
-      #close_tile_copied_lightbox {
-        @include light-button($sky-blue);
-      }
+  .tile_copied_lightbox {
+    .sa-button-container {
+      padding-right: 50px;
     }
   }
 

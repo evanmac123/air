@@ -4,11 +4,6 @@
   // @include standard-modal($content-width: 1007px);
   @import "image_library";
 }
-
-// body.tiles-index,
-// body.acts-index,
-// body.client_admin-tiles-new,
-// body.client_admin-tiles-edit,
 #tile_form_modal {
   // @import "modals";
   // @include standard-modal($content-width: 1007px);
@@ -63,56 +58,3 @@
     }
   }
 }
-#tile_preview_modal {
-  // @import "modals";
-  // @include standard-modal($content-width: 1007px);
-  // .modal_container {
-  //   padding-top: 0px;
-  // }
-  // TODO move to tile preview stuff
-  .tile_preview_menu {
-    width: 600px;
-    margin:auto;
-    &.placeholder_menu {
-      .preview_menu_item {
-        &:first-child a {
-          width: 74px;
-        }
-        a {
-          padding: 11px 14px 13px 15px;
-        }
-      }
-    }
-    &.draft_menu {
-      .preview_menu_item a {
-        padding: 11px 14px 13px 15px;
-      }
-    }
-    &.active_menu {
-      .preview_menu_item a {
-        padding: 11px 13px 13px 14px;
-      }
-    }
-    &.archive_menu {
-      .preview_menu_item a {
-        padding: 11px 13px 13px 13px;
-      }
-    }
-    .preview_menu_item {
-      width: auto;
-      padding: 0px;
-      .header_text {
-        font-size: 12px;
-        margin-left: 0.25em;
-      }
-    }
-  }
-}
-
-// body.tiles-index,
-// body.acts-index {
-//   // for intro js
-//   #new_tile_modal {
-//     // z-index: 99 !important;
-//   }
-// }

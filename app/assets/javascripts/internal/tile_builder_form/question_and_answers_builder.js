@@ -105,7 +105,7 @@ Airbo.TileQuestionBuilder = (function(){
   }
 
   function addAnswerToGroup(answerVal, correct,subtype, i){
-    answer = $('<div class="tile_multiple_choice_answer"></div>').addClass(subtype);
+    answer = $('<div class="tile_multiple_choice_answer"></div>').addClass( findTileSubtype() );
     addToShowAndEditContainers(answer, answerVal, correct, i)
     $(quizContentMultipleChoiceGroupSelector).append(answer);
   }
@@ -117,6 +117,9 @@ Airbo.TileQuestionBuilder = (function(){
     ;
     answer.append(show);
     answer.append(edit);
+
+    addCharacterCounterFor( edit.find(".answer-field") );
+    edit.find(".answer-field").trigger("keyup");
   }
 
   function showQuestionAndAnswers(subtype) {
@@ -279,37 +282,37 @@ Airbo.TileQuestionBuilder = (function(){
         '" name="tile_builder_form[correct_answer_index]" type="radio" value="' + index, '">',
         '</li>'].join(''));
 
-        var option_input = $(
-          ['<li class="option_input">',
-            '<div class="answer-div">',
-            '<textarea placeholder="Answer Option" class="answer-field answer-part" data="' + index,
-            '" maxlength="50" name="tile_builder_form[answers][]" rows="1">',
-            '</div>',
-            '</li>'].join(''));
+    var option_input = $(
+      ['<li class="option_input">',
+        '<div class="answer-div">',
+        '<textarea placeholder="Answer Option" class="answer-field answer-part" data="' + index,
+        '" maxlength="50" name="tile_builder_form[answers][]" rows="1">',
+        '</div>',
+        '</li>'].join(''));
 
-            if(type == "Quiz") {
-              edit_answer_container.append(option_radio);
-            };
+    if(type == "Quiz") {
+      edit_answer_container.append(option_radio);
+    };
 
-            edit_answer_container.append(option_input);
+    edit_answer_container.append(option_input);
 
-            if(subType !=="true_false" && subType !== "rsvp_to_event"){
-              edit_answer_container.append($("<li class='del-answer'> <i class='fa fa-remove fa-1x'></i></li>"));
-              containerDisplay = "block";
-            }else{
-              containerDisplay = display;
-            }
+    if(subType !=="true_false" && subType !== "rsvp_to_event"){
+      edit_answer_container.append($("<li class='del-answer'> <i class='fa fa-remove fa-1x'></i></li>"));
+      containerDisplay = "block";
+    }else{
+      containerDisplay = display;
+    }
 
-            text_input = edit_answer_container.find(".answer-field.answer-part");
-            text_input.val(text);
+    text_input = edit_answer_container.find(".answer-field.answer-part");
+    text_input.val(text);
 
 
-            edit_answer_container.css("display", 'block');
-            if(correct){
-              edit_answer_container.find(".option_radio").addClass("option_selected");
-              edit_answer_container.find(".correct-answer-button.answer-part").attr("checked", true);
-            }
-            return edit_answer_container;
+    edit_answer_container.css("display", 'block');
+    if(correct){
+      edit_answer_container.find(".option_radio").addClass("option_selected");
+      edit_answer_container.find(".correct-answer-button.answer-part").attr("checked", true);
+    }
+    return edit_answer_container;
   };
 
   function overrideDisplay(type, display){

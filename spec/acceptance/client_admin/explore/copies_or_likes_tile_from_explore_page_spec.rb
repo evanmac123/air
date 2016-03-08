@@ -187,14 +187,16 @@ feature "Client admin copies or likes tile" do
 
   def click_copy
     first('.not_copied').find('.copy_tile_link').click
-    within '#tile_copied_lightbox' do 
+    within '.tile_copied_lightbox' do 
       expect(page).to have_content(post_copy_copy)
     end
   end
 
 
   def click_close
-    page.find('#close_tile_copied_lightbox').click
+    within '.tile_copied_lightbox' do 
+      click_button "OK"
+    end
   end
 
   def click_like
