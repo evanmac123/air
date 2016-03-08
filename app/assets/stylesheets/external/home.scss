@@ -1,7 +1,4 @@
 body.pages-home {
-  @import "landing/header.css.scss";
-  @import "landing/hero.css.scss";
-  @import "landing/footer.css.scss";
 
   $h2-size: 24px;
 
@@ -29,7 +26,7 @@ body.pages-home {
         margin: 20px auto;
       }
       .button {
-        font-size: 18px; 
+        font-size: 18px;
         padding: 15px 40px;
       }
     }
@@ -150,7 +147,7 @@ body.pages-home {
       .sign_up {
         max-width: 300px;
         width: 100%;
-        margin: 40px auto; 
+        margin: 40px auto;
         // text-align: left;
       }
       .button {
