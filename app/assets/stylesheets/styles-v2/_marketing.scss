@@ -1,13 +1,17 @@
 /* Styles for marketing pages like case studies, blogs, etc. */
 
-body.pages {
+.pages {
   background-color: $n-white;
-}
 
-.pages hr {
-  background-color: #404040;
-  margin: 50px 0;
-  width: 100px;
+  hr {
+    background-color: #404040;
+    margin: 50px 0;
+    width: 100px;
+  }
+
+  table {
+    margin: 1.5em 0;
+  }
 }
 
 blockquote {
@@ -38,4 +42,11 @@ blockquote {
     padding-left: 20px;
     vertical-align: middle;
   }
+}
+
+/* Case Studies */
+
+.pages-fujifilm .hero {
+  background-image: url('case_studies/fujifilm_mainpic.png');
+  height: 400px;
 }

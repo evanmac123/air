@@ -1,10 +1,13 @@
-<%= render partial: "pages/landing/header" %>
+<%= render layout: "pages/landing/hero" do %>
+  <h1>How FujiFilm Uses Airbo</h1>
+<% end %>
 
+<section class="padded">
 <div class="row" >
   <div class="large-8 large-centered columns">
-    <h1>How FujiFilm Uses Airbo</h1>
-    <%=image_tag "case_studies/fujifilm/Fujifilm-logo-small.png",  style:"margin:auto;display:block;max-width: 200px;"%>
-    <h3>About FujiFilm</h3>
+
+    <%=image_tag "case_studies/fujifilm/Fujifilm-logo-small.png",  style:"margin:0 0 -20px;max-width: 100px;"%>
+    <!-- <h3>About FujiFilm</h3> -->
     <p>
     Fujifilm is a decentralized and diverse company. It employs 4,400 employees across more than 60 locations. Its employees represent a socio-economic cross-section of America, from remote sales people to hourly manufacturing employees.
     </p>
@@ -13,6 +16,7 @@
     </p>
   </div>
 </div>
+</section>
 
 <section class="padded bg-blue">
   <div class="row">
