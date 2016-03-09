@@ -30,17 +30,17 @@ a.request_demo_link {
 //   margin: auto;
 // }
 
-// p {
-//   width: 100%;
-//   max-width: 710px;
-//   margin: auto;
-//   color: $text-color;
-//   font-size: 18px;
-//   font-weight: 400;
-//   line-height: 29px;
-//   // text-align: center;
-//   letter-spacing: 1px;
-// }
+p.article {
+  width: 100%;
+  max-width: 710px;
+  margin: auto;
+  color: $text-color;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 29px;
+  // text-align: center;
+  letter-spacing: 1px;
+}
 .divider {
   width: 100%;
   max-width: $max-page-width;
@@ -104,7 +104,7 @@ a.request_demo_link {
   .desktop_only {
     display: none !important;
   }
-  p {
+  p.article {
     font-size: 16px;
     letter-spacing: 0.5px;
   }
