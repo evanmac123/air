@@ -1,0 +1,18 @@
+<%= render layout: "pages/landing/hero", locals: {no_shadow: true} do %>
+  <h1>Case Studies</h1>
+<% end %>
+
+<div class="row case_study">
+  <div class="large-6 columns">
+    <%=image_tag "landing/case-studies/fuji.png" %>
+  </div>
+  <div class="large-6 columns">
+    <h3>FujiFilm</h3>
+    <p>
+      Carolyn Gordon, Director of Benefits at Fujifilm, was looking for new ways to engage a diverse workforce. Now, over 60% of Fujifilm employees participate in Airbo. Health Assessment completion rates jumped from 17% to 54% within a year.
+    </p>
+    <%= link_to "Read Case Study", page_path('fujifilm'), class: "button outlined" %>
+  </div>
+</div>
+
+<%= render partial: "pages/landing/footer" %>
