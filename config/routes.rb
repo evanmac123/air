@@ -72,6 +72,7 @@ Health::Application.routes.draw do
 
   root :to => 'pages#show', :id => 'home'
   get "company" => 'pages#company', as: 'company'
+  get "case-studies" => 'pages#case-studies', as: 'case_studies'
   get "product" => 'pages#product', as: 'product'
   get "faq" => "pages#faq", :as => "faq" # FIXME dead url?
   get "faq_body" => "pages#faq_body", :as => "faq_toc" # FIXME dead url?
