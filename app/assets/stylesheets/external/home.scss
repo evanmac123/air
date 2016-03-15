@@ -51,9 +51,12 @@ body.pages-home {
     }
   }
   .topics {
+    margin-bottom: 20px;
     h3 {
       // font-size: 24px;
+      margin-top: 60px;
       color: $home-gray;
+      font-weight: 500;
     }
     .topics_container {
       margin: auto;
@@ -71,7 +74,7 @@ body.pages-home {
       position: relative;
       float: left;
       border-radius: 3px;
-      margin: 0 25px 28px 25px;
+      margin: 0 25px 40px 25px;
       overflow: hidden;
       &:hover {
         .shadow_overlay {
