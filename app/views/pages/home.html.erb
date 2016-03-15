@@ -16,12 +16,12 @@
       <h3 class="medium align_center">What's your most important priority today?</h3>
       
       <div class="topics_container">
-        <%= render partial: "pages/landing/topic" %>
-        <%= render partial: "pages/landing/topic" %>
-        <%= render partial: "pages/landing/topic" %>
-        <%= render partial: "pages/landing/topic" %>
-        <%= render partial: "pages/landing/topic" %>
-        <%= render partial: "pages/landing/topic" %>
+        <%= render partial: "pages/landing/topic", locals: {title: "Wellness", link: "", img: "wellness",  comming_soon: false} %>
+        <%= render partial: "pages/landing/topic", locals: {title: "Compliance", link: "", img: "compliance",  comming_soon: false} %>
+        <%= render partial: "pages/landing/topic", locals: {title: "Onboarding", link: "", img: "recruitment",  comming_soon: true} %>
+        <%= render partial: "pages/landing/topic", locals: {title: "Benefits", link: "", img: "wellness",  comming_soon: true} %>
+        <%= render partial: "pages/landing/topic", locals: {title: "Management", link: "", img: "wellness",  comming_soon: true} %>
+        <%= render partial: "pages/landing/topic", locals: {title: "Events", link: "", img: "wellness",  comming_soon: true} %>
       </div>
     </div>
   </section>

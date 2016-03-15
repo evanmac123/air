@@ -1,8 +1,10 @@
-<%= link_to "", class: "topic" do %>
+<%= link_to link, class: "topic" do %>
   <div class="topic_cell">
-    <%= image_tag("topics/wellness.png") %>
+    <%= image_tag("topics/#{img}.png") %>
     <div class="shadow_overlay"></div>
-    <p class="title">Wellness</p>
-    <p class="subtitle">Coming soon</p>
+    <p class="title"><%= title %></p>
+    <% if comming_soon %>
+      <p class="subtitle">Coming soon</p>
+    <% end %>
   </div>
 <% end %>
