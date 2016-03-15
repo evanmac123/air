@@ -408,7 +408,8 @@ body.explores-show {
     .topic_cell {
       display: table-cell;
       vertical-align: middle;
-      width: 234px;
+      // width: 100%;
+      max-width: 234px;
       height: 117px;
     }
     img {
