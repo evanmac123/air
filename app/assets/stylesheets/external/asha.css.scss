@@ -9,6 +9,19 @@ body.pages.pages-asha.landing {
     background-image: url('landing/case-studies/janet_mcnichol.jpg');
     height: 450px;
   }
+
+  @media only screen and (min-width: 760px) {
+    .hero {
+      background-position-y: -35px;
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    .hero {
+      background-position-y: 50px;
+    }
+  }
+
   .company_logo {
     padding-top: 70px;
   }
