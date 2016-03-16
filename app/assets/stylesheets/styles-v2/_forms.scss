@@ -17,12 +17,17 @@ form {
       margin-top: -4px;
       font-size: 16px;
     }
+    // span, input[type=text], input[type=email], .button {
+    //   margin-bottom: 20px;
+    // }
     @media only screen and (max-width: $foundation) {
-      input[type=text], input[type=email], .button {
+      span, input[type=text], input[type=email], .button {
+        display: block;
         width: 100%;
-      }
-      .button {
         margin-bottom: 20px;
+      }
+      .horizontal {
+        display: block;
       }
     }
   }
