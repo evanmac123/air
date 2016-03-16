@@ -28,6 +28,27 @@
   <%= mp_track_page "Public Parent Board " %>
 
   <%= mobvious_javascript %>
+  <script>
+$(function(){
+  function runIntro() {
+   /* if (introShowed) return;
+    introShowed = true;
+    var menuElWithIntro = $(".preview_menu_item");
+    if( menuElWithIntro.data('intro').length == 0 ) return;
+  */
+    var intro = introJs();
+    intro.setOptions({
+      showStepNumbers: false,
+      doneLabel: 'Got it',
+      tooltipClass: "airbo_preview_intro"
+    });
+    intro.start();
+  }
+
+  runIntro();
+});
+
+  </script>
 </head>
 <body class="<%= body_class %>" style="-webkit-overflow-scrolling: touch; overflow:visible;" data-public-board="<%=@in_public_board ? true : false%>"><%# only works with inline style? WTF. but leave it: this fixes scroll problems in ios7 and doesn't seem to work if included via stylesheet. %>
   <%= render partial: "pages/landing/header_simple" %>
