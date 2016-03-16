@@ -1,10 +1,7 @@
-<%= render layout: "pages/landing/hero", locals: {no_shadow: true, content_class: "vertical_bottom", header_path: "pages/landing/header_simple"}  do %>
-  <div class="large-8 large-centered columns">
-    <h1 class="align_left">Wellness</h1>
-  </div>
-<% end %>
-
+<%= render partial: "pages/landing/header_simple" %>  
 <main>
+<%= render partial: "pages/landing/hero_board", locals: {name: "Wellness", img_url: image_path("topics/recruitment.png") } %>
+
 <section class="topic_desc_section row">
   <div class="large-8 large-centered columns main_text">
     <p>

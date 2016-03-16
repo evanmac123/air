@@ -150,7 +150,8 @@ td .button.td-button {
 .align_right {
   text-align: right; 
 }
-.vertical_bottom.vertical_bottom.vertical_bottom {
+.vertical_bottom {
+  display: table-cell;
   vertical-align: bottom;
 }
 // .width_700.width_700 {
