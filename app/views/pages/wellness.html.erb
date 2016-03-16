@@ -1,5 +1,7 @@
-<%= render layout: "pages/landing/hero" do %>
-  <h1>Wellness</h1>
+<%= render layout: "pages/landing/hero", locals: {no_shadow: true, content_class: "vertical_bottom"}  do %>
+  <div class="large-8 large-centered columns">
+    <h1 class="align_left">Wellness</h1>
+  </div>
 <% end %>
 
 <main>
