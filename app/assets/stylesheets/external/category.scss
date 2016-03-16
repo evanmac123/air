@@ -1,79 +1,69 @@
-body.pages.pages-wellness.landing {
-  .board_hero_section {
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-    position: relative;
-    background-image: url('topics/wellness.png');
-    height: 250px;
-    display: table;
-  }
-  .topic_desc_section {
-    &.full_height {
-      .main_text {
-        max-height: none;
-        &:after {
-          background: none;
-        }
-      }
-    }
-    p {
-      line-height: 1.8;
-    }
+.board_hero_section {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  position: relative;
+  background-image: url('topics/wellness.png');
+  height: 250px;
+  display: table;
+}
+.topic_desc_section {
+  &.full_height {
     .main_text {
-      max-height: 350px;
-      overflow: hidden;
-      // background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.0), #ffffff);
-      position: relative;
+      max-height: none;
       &:after {
-        position: absolute;
-        bottom: 0;  
-        height: 100%;
-        width: 100%;
-        content: "";
-        background: linear-gradient(to top,
-           rgba(255,255,255, 1) 0%, 
-           rgba(255,255,255, 0) 35%
-        );
-        pointer-events: none; /* so the text is still selectable */
+        background: none;
       }
     }
-    .full_main_text {
-      margin: auto;
-      margin-top: 20px;
-      display: block;
-      width: 110px;
+  }
+  p {
+    line-height: 1.8;
+  }
+  .main_text {
+    max-height: 350px;
+    overflow: hidden;
+    position: relative;
+    &:after {
+      position: absolute;
+      bottom: 0;  
+      height: 100%;
+      width: 100%;
+      content: "";
+      background: linear-gradient(to top,
+         rgba(255,255,255, 1) 0%, 
+         rgba(255,255,255, 0) 35%
+      );
+      pointer-events: none; /* so the text is still selectable */
     }
   }
-  .board_section {
-    padding: 0 20px;
+  .full_main_text {
+    margin: auto;
+    margin-top: 20px;
+    display: block;
+    width: 110px;
   }
-  .board_card {
-    // max-width: 712px;
-    margin-top: 40px;
-    margin-bottom: 40px;
-    padding: 20px 5px;
-    overflow: auto;
-    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
-    // img {
-    //   float: left;
-    // }
-    h3 {
-      margin-top: 0;
-      margin-bottom: 15px;
-    }
-    small {
-      font-size: 13px;
-    }
-    p {
-      font-size: 14px;
-      margin: 15px 0;
-    }
-    .button {
-      margin-top: 17px;
-    }
-    // @media only screen and (min-width: $foundation) {
-
-    // }
+}
+.board_section {
+  padding: 0 20px;
+}
+.board_card {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  padding: 20px 5px;
+  overflow: auto;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
+  h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+  }
+  small {
+    font-size: 13px;
+  }
+  p {
+    font-size: 14px;
+    margin: 15px 0;
+  }
+  .button {
+    margin-top: 17px;
   }
 }
