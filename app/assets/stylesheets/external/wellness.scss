@@ -4,6 +4,14 @@ body.pages.pages-wellness.landing {
     height: 450px;
   }
   .topic_desc_section {
+    &.full_height {
+      .main_text {
+        max-height: none;
+        &:after {
+          background: none;
+        }
+      }
+    }
     p {
       line-height: 1.8;
     }
