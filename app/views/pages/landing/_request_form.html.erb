@@ -1,13 +1,18 @@
 <section class="request_form_section bg-blue">
   <div class="row">
-    <form class="inline align_center">
+    <%= form_for DemoRequest.new, html:{id: "request_form", class: "inline align_center request_form"} do |f| %>
       <span class="white">
         Schedule time with an HR Specialist to chat about your specific needs.
       </span>
       <div class="horizontal">
-        <input type="email" id="contact_email" placeholder="Your email here" />
-        <input type="submit" value="Request a Demo", class="button outlined white" />
+        <%= f.email_field :email, placeholder: "Your email here" %>
+        <%= f.submit "Request a Demo", id: "submit_request", class: "button outlined white" %>
       </div>
-    </form>
+      <div class="info">
+        <div class="greeting_after hidden">
+          Thanks! Someone from the Customer Success Team will be in touch with you shortly.
+        </div>
+      </div>
+    <% end %>
   </div>
 </section>

@@ -14,6 +14,7 @@
 //= require ./external/category
 //= require application
 //= require ./external/schedule_demo
+//= require ./external/request_form
 
 $(function(){
   $(document).foundation();
