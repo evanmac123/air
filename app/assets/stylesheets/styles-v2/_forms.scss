@@ -3,18 +3,22 @@
 form {
   width: 100%;
   &.inline {
-    input[type=text] {
+    span {
+      margin-right: 10px;
+    }
+    input[type=text], input[type=email] {
       width: 250px;
       margin-right: 10px;
+      margin-bottom: 0;
     }
     .button {
       height: 37px;
-      width: 75px;
+      // width: 75px;
       margin-top: -4px;
       font-size: 16px;
     }
     @media only screen and (max-width: $foundation) {
-      input[type=text], .button {
+      input[type=text], input[type=email], .button {
         width: 100%;
       }
       .button {
