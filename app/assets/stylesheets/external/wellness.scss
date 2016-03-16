@@ -3,4 +3,28 @@ body.pages.pages-wellness.landing {
     background-image: url('topics/wellness.png');
     height: 450px;
   }
+  .board_card {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding: 20px 5px;
+    overflow: auto;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
+    // img {
+    //   float: left;
+    // }
+    h3 {
+      margin-top: 0;
+      margin-bottom: 15px;
+    }
+    small {
+      font-size: 13px;
+    }
+    p {
+      font-size: 14px;
+      margin: 15px 0;
+    }
+    .button {
+      margin-top: 17px;
+    }
+  }
 }
