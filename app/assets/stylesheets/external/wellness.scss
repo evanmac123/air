@@ -3,7 +3,16 @@ body.pages.pages-wellness.landing {
     background-image: url('topics/wellness.png');
     height: 450px;
   }
+  .topic_desc_section {
+    p {
+      line-height: 1.8;
+    }
+  }
+  .board_section {
+    padding: 0 20px;
+  }
   .board_card {
+    // max-width: 712px;
     margin-top: 40px;
     margin-bottom: 40px;
     padding: 20px 5px;
@@ -26,5 +35,8 @@ body.pages.pages-wellness.landing {
     .button {
       margin-top: 17px;
     }
+    // @media only screen and (min-width: $foundation) {
+
+    // }
   }
 }
