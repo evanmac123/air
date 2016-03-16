@@ -1,6 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.Topic = (function(){
+Airbo.Category = (function(){
 
   function init() {
     btn = $(".full_main_text");
@@ -20,6 +20,6 @@ Airbo.Topic = (function(){
 $(function(){
   // so specific selectors because we have product page with old header
   if( $(".full_main_text").length > 0 ){
-    Airbo.Topic.init();
+    Airbo.Category.init();
   }
 });
