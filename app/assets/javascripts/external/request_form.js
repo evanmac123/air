@@ -10,6 +10,10 @@ Airbo.RequestForm = (function(){
     , validator
   ;
 
+  function ping() {
+    Airbo.Utils.ping("New Lead", {"action": "Submitted Email - v. 3.17.16", page_name: window.location.pathname});
+  }
+
   function initFormValidator(){
     var config={
       onkeyup: false,
@@ -44,6 +48,7 @@ Airbo.RequestForm = (function(){
           showConfirmation(data.email);
           form[0].reset();
           validator.resetForm();
+          ping();
           // $('html,body').animate({ scrollTop: $(document).height()}, 2000);
         });
       }else{
