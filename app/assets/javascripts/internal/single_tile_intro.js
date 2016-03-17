@@ -2,7 +2,7 @@ Airbo = window.Airbo ||{}
 
 Airbo.SingleTileIntro= (function(){
   var intro 
-    , introable = true,
+    , introable = true
   ;
 
   function initIntro() {
