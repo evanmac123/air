@@ -10,7 +10,7 @@
 //= require internal/flashes
 //= require ../../../vendor/assets/javascripts/external/foundation.min
 //= require internal_and_external/intercom_setup
-//= require ./external/landing.js
+//= require ./external/sticky_header.js
 //= require ./external/category
 //= require application
 //= require ./external/schedule_demo

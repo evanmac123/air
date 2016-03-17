@@ -1,6 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.Landing = (function(){
+Airbo.StickyHeader = (function(){
   function init() {
     $(window).scroll(function() {
       if ($(window).scrollTop() > 100) {
@@ -22,6 +22,6 @@ Airbo.Landing = (function(){
 $(function(){
   // so specific selectors because we have product page with old header
   if( $("header.sticky_desktop").length > 0 ){
-    Airbo.Landing.init();
+    Airbo.StickyHeader.init();
   }
 });
