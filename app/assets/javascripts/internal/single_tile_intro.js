@@ -3,7 +3,25 @@ Airbo = window.Airbo ||{}
 Airbo.SingleTileIntro= (function(){
   var intro 
     , introable = true
+    , pingName = {
+        "tile_holder": "Tile",
+        "tile_full_image": "Image",
+        "tile_headline": "Text",
+        "tile_supporting_content": "Interaction"
+      }
   ;
+  function getPingName(el) {
+    for (var elClass in pingName) {
+      if( el.hasClass(elClass) ){
+        return pingName[elClass];
+      }
+    }
+    return "";
+  }
+  function introPing(el) {
+    name = getPingName(el);
+    Airbo.Utils.ping("Viewed Tile", {"Tile Onboarding - Viewed": name});
+  }
 
   function initIntro() {
     /* if (introShowed) return;
@@ -57,7 +75,10 @@ Airbo.SingleTileIntro= (function(){
 
     intro.onchange(function(targetElement) {
       var el = $(targetElement);
-      if(el.hasClass("tile_quiz")==true){
+
+      introPing(el);
+
+      if( el.hasClass("tile_quiz") ){
         $(".introjs-skipbutton").addClass("button-outlined-big"); 
         $(".introjs-nextbutton").hide();
       } 
