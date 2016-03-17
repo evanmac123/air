@@ -1,145 +1,113 @@
 <%= render layout: "pages/landing/hero" do %>
-  <h3>Case Study</h3>
-  <h2>American-Speech-Language-Hearing Association (ASHA)</h2>
+  <h1>American-Speech-Language-Hearing Association (ASHA)</h1>
 <% end %>
 
-<main>
-  <div class="company_logo">
-    <%= image_tag "landing/asha/asha_logo.jpg", class: "center" %>
-  </div>
-  <div class="divider divider-small"></div>
-
-  <div class="client_group">
-    <p class="article quote">
-      "I wanted to get people the information they needed to do their jobs, make good decisions, and feel good about being a member of the ASHA staff. Airbo makes this kind of sharing easy for me and engaging and fun for everyone."
+<section>
+  <div class="row" >
+    <div class="large-8 large-centered columns">
+      <%= image_tag "landing/asha/asha_logo.jpg" ,  style:"margin-top:20px "%>
+    <p>
+    ASHA is a nonprofit scientific and professional association with over 280 employees in Maryland. Staff range from administrators to PhDs. In 2015, ASHA was recognized as one of Greater Washington’s "Great Place to Work" by Washingtonian Magazine and the Washington Post.
     </p>
 
-    <div class="user">
-      <div class="image columns">
-        <%= image_tag "landing/asha/userpic.png" %>
-      </div>
-      <div class="name columns">
-        <div class="full_name">
-          Janet McNichol
+    <p>
+    ASHA started using Airbo to motivate employees to share job openings on social networks. Today, ASHA uses Airbo to support a variety of HR activities like introducing new hires, sharing organizational performance, and other news.
+    </p>
+
+    </div>
+  </div>
+</section>
+
+
+<section class="padded bg-blue">
+  <div class="row">
+    <div class="large-8 large-centered columns">
+      <p class="pullquote white">
+      "I wanted to get people the information they needed to do their jobs, make good decisions, and feel good about being a member of the ASHA staff. Airbo makes this kind of sharing easy for me and engaging and fun for everyone."
+      </p>
+      <div class="attribution">
+        <div class="image">
+          <%=image_tag "landing/asha/userpic.png" %>
         </div>
-        <div class="position">
+        <div class="text white">
+          <b>Janet McNichol</b><br />
           Director of Human Resources
         </div>
       </div>
     </div>
-    <div class="divider"></div>
+  </div>
+</section>
 
-    <div class="company_background">
-      <p class="article">
-        ASHA is a nonprofit scientific and professional association with over 280 employees in Maryland. Staff range from administrators to PhDs. In 2015, ASHA was recognized as one of Greater Washington’s "Great Place to Work" by Washingtonian Magazine and the Washington Post.
-      </p>
-      <div class="divider"></div>
-
-      <p class="article desktop_only">
-        ASHA started using Airbo to motivate employees to share job openings on social networks. Today, ASHA uses Airbo to support a variety of HR activities like introducing new hires, sharing organizational performance, and other news.
-      </p>
-      <div class="divider desktop_only"></div>
-    </div>
-
-    <div class="tiles_section">
+<section>
+  <div class="row">
+    <div class="large-8 large-centered columns">
+      <h3 class="align_center">Tiles Created by Asha</h3>
       <% (1..4).to_a.each do |i| %>
         <div class="large-3 small-6 columns">
           <%= image_tag "landing/asha/tile#{i}.png" %>
         </div>
       <% end %>
     </div>
-    <div class="divider"></div>
-
-    <div class="story janet">
-      <p class="article headline">
-      Getting Employess The Information They Need
-      </p>
-      <p  class="article">
-        Janet McNichol, Director of Human Resources at the American Speech-Language-Hearing Association (ASHA), needed to find new ways to capture the attention of more than 280 busy employees ranging from administrative staff to PhD-holding professionals. Communications were already being posted to ASHA’s intranet, Facebook, Janet’s blog Inside Workplace Wellness, and sent in weekly emails.
-      </p>
-      <p class="article">
-        Even with such broad distribution, Janet still felt like something was missing. “I wanted to get people the information they needed to do their jobs, make good decisions, and feel good about being a member of the ASHA staff.” Janet says. Her challenge was to find a way to do this effectively, and within her budget.
-      </p>
-    </div>
-
-    <div class="story desktop_only">
-      <p class="article headline">
-        Stretching a Limited Budget
-      </p>
-      <p class="article">
-        Janet’s short-term objective was to motivate employees to share new job openings through social media. She believed that a social recruiting system that incorporates new technologies, such as mobile access and gamification, would be a good way to drive engagement. However, she quickly realized that social recruiting systems were too expensive.
-      </p>
-      <p class="article">
-        While searching for a better solution, Janet found Airbo. She felt that she could accomplish her original goals, and support many other priorities, all within her limited recruiting budget.
-      </p>
-    </div>
   </div>
+</section>
 
-  <div class="story">
-    <p class="article headline">
-      Ten Thousand Social Media Impressions
-    </p>
-    <p class="article">
-      Janet started her free trial by focusing on social recruiting, her main priority. She created Tiles that promoted job openings and rewarded employees with points when they shared them on Facebook, Twitter, or LinkedIn.
-    </p>
-    <p class="article">
-      “Airbo is a fun and easy way to communicate,” says Janet. “You just go into Airbo, create a Tile with an image, then add your text and an interaction. It’s a very easy way to reinforce things that people need to know.”
-    </p>
-  </div>
-</div>
-<div class="divider divider-tiny"></div>
 
-  <div class="story story_italic">
-    <p class="article">
-      Tiles are the primary content format on Airbo. Each Tile has an image, up to 600 characters of content, and an interaction prompt at the bottom. Upon completing a Tile, the user is automatically sent to the next Tile in a sequence set by the administrator. Employees earn points for interacting with tiles and most organizations that use Airbo will let employees convert their points into prizes.
+<div class="row">
+  <div class="large-8 large-centered columns">
+    <h3> Getting Employess The Information They Need </h3>
+    <p>
+    Janet McNichol, Director of Human Resources at the American Speech-Language-Hearing Association (ASHA), needed to find new ways to capture the attention of more than 280 busy employees ranging from administrative staff to PhD-holding professionals. Communications were already being posted to ASHA’s intranet, Facebook, Janet’s blog Inside Workplace Wellness, and sent in weekly emails.
     </p>
-  </div>
+    <p>
+    Even with such broad distribution, Janet still felt like something was missing. “I wanted to get people the information they needed to do their jobs, make good decisions, and feel good about being a member of the ASHA staff.” Janet says. Her challenge was to find a way to do this effectively, and within her budget.
+    </p>
 
-  <div class="divider divider-tiny"></div>
-  <br/>
-    <p class="article desktop_only">
+    <h3> Stretching a Limited Budget </h3>
+    <p>
+    Janet’s short-term objective was to motivate employees to share new job openings through social media. She believed that a social recruiting system that incorporates new technologies, such as mobile access and gamification, would be a good way to drive engagement. However, she quickly realized that social recruiting systems were too expensive.
+    </p>
+    <p>
+    While searching for a better solution, Janet found Airbo. She felt that she could accomplish her original goals, and support many other priorities, all within her limited recruiting budget.
+    </p>
+
+    <h3> Ten Thousand Social Media Impressions </h3>
+    <p>
+    Janet started her free trial by focusing on social recruiting, her main priority. She created Tiles that promoted job openings and rewarded employees with points when they shared them on Facebook, Twitter, or LinkedIn.
+    </p>
+    <p>
+    “Airbo is a fun and easy way to communicate,” says Janet. “You just go into Airbo, create a Tile with an image, then add your text and an interaction. It’s a very easy way to reinforce things that people need to know.”
+    </p>
+
+    <p>
+    Tiles are the primary content format on Airbo. Each Tile has an image, up to 600 characters of content, and an interaction prompt at the bottom. Upon completing a Tile, the user is automatically sent to the next Tile in a sequence set by the administrator. Employees earn points for interacting with tiles and most organizations that use Airbo will let employees convert their points into prizes.
+    </p>
+    <p>
     It didn’t take long for Janet to see results. Using Airbo’s analytics functions, she was able to see that in the first 8 weeks, 13 jobs were shared 289 times, reaching more than 10,000 potential recruits. “People thought we were going through a big growth spurt, when in fact these jobs were posted for months,” says Janet.
     </p>
 
-  <br/>
-  <br/>
-  <br/>
+    <h3> Expanding the Use of Airbo </h3>
+    <p>
+    Janet went on to use Airbo for other areas. “We have an intranet with boatloads of information. It even has a news section,” Janet explains. “But it’s hard to make the right stuff bubble up so people see it. The intranet just doesn’t highlight things very well. I pull a lot of content off our intranet and put it into Tiles so people don’t miss key things they need to know.”
+    </p>
+    <p>
+    Now, Janet sends four to six Tiles every few weeks on a variety of topics, from introducing new hires, to driving consumerism in ASHA’s self-insured health plans. Every few months, she rewards employee participation by giving out a prize like a Kindle Paperwhite.
+    </p>
 
-  <div class="story expanding desktop_only">
-    <p class="article headline">
-      Expanding the Use of Airbo
+    <h3> Discovering Surprising Demographics </h3>
+    <p>
+    Eager to get the most out of Airbo, understanding the demographics of users became an important goal for Janet. When she started using Airbo, she expected participants to lean younger. To her surprise, Airbo’s analytics revealed that participants were actually evenly distributed across all age groups.
     </p>
-    <p class="article">
-      Janet went on to use Airbo for other areas. “We have an intranet with boatloads of information. It even has a news section,” Janet explains. “But it’s hard to make the right stuff bubble up so people see it. The intranet just doesn’t highlight things very well. I pull a lot of content off our intranet and put it into Tiles so people don’t miss key things they need to know.”
-    </p>
-    <p class="article">
-      Now, Janet sends four to six Tiles every few weeks on a variety of topics, from introducing new hires, to driving consumerism in ASHA’s self-insured health plans. Every few months, she rewards employee participation by giving out a prize like a Kindle Paperwhite.
-    </p>
-  </div>
 
-  <div class="story desktop_only">
-    <p class="article headline">
-      Discovering Surprising Demographics
+    <h3> Airbo Helps the ASHA Achieve National Recognition </h3>
+    <p>
+    In September of 2015, ASHA was recognized as an adopter of innovative communication strategies by Employee Benefit News.
     </p>
-    <p class="article">
-      Eager to get the most out of Airbo, understanding the demographics of users became an important goal for Janet. When she started using Airbo, she expected participants to lean younger. To her surprise, Airbo’s analytics revealed that participants were actually evenly distributed across all age groups.
+    <%= image_tag "landing/asha/EBN-Cover.jpg", class: "center", style:"max-height:400px" %>
+    <p >
+    As EBN put it: “In a world of constant distraction, the barrage of emails and ever increasing social media chatter, employers are finding it harder than ever to connect with employees. But one thing is clear: When it comes to benefits, historical means of communication no longer cut it.”
     </p>
-    <%# image_tag "landing/asha/graph.png" %>
-  </div>
 
-  <div class="story airbo_helps">
-    <p class="article headline">
-      Airbo Helps the ASHA Achieve National Recognition
-    </p>
-    <p class="article">
-      In September of 2015, ASHA was recognized as an adopter of innovative communication strategies by Employee Benefit News.
-    </p>
-    <%= image_tag "landing/asha/EBN-Cover.jpg", class: "center" %>
-    <p class="article">
-      As EBN put it: “In a world of constant distraction, the barrage of emails and ever increasing social media chatter, employers are finding it harder than ever to connect with employees. But one thing is clear: When it comes to benefits, historical means of communication no longer cut it.”
-    </p>
   </div>
 </div>
-</div>
-</main>
+
 <%= render partial: "pages/landing/footer" %>

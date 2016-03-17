@@ -1,5 +1,5 @@
 <%= render layout: "pages/landing/hero" do %>
-  <h1>How FujiFilm Uses Airbo</h1>
+  <h1>Fujifilm Case Study</h1>
 <% end %>
 
 <section class="padded">
@@ -18,30 +18,16 @@
 </div>
 </section>
 
-<section class="padded bg-blue">
-  <div class="row">
-    <div class="large-8 large-centered columns">
-      <p class="pullquote white">
-        Lorem ipsum dolor sit amet, qualisque necessitatibus eu usu, cum veritus legendos te. Ius ut mediocrem sententiae. Qui ad tale deleniti. Vidit facilisi eleifend nec ad, facete malorum qui ex. Partiendo neglegentur per et, ad tincidunt liberavisse qui. Te rebum viderer detraxit duo, at eam liber.
-      </p>
-      <div class="attribution">
-        <div class="image">
-          <%=image_tag "case_studies/fujifilm/userpic.png " %>
-        </div>
-        <div class="text white">
-          <b>Carolyn Gordon</b><br />
-          Director of Benefits, FujiFilm
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<section class="bg-gray" style="height:200px;">
+<section >
   <div class="row">
     <div class="large-8 large-centered columns">
-      <h3 class="align_center">Tiles Created by FujiFilm</h3>
-      <p>[tiles go here!]</p>
+      <h3 class="align_center">Tiles Created by Fujifilm</h3>
+       <% (1..4).to_a.each do |i| %>
+        <div class="large-3 small-6 columns" style1="min-height:205px">
+          <%= image_tag "case_studies/fujifilm/fujitile#{i}.png", style1:'box-shadow: 1px 3px 2px #888888; max-height:200px;' %>
+        </div>
+      <% end %>
     </div>
   </div>
 </section>
@@ -81,7 +67,7 @@
     <h3>The ROI: Higher HRA Participation, Lower Medical Trend</h3>
 
     <p>
-    Carolyn decided to roll out Airbo to the entire employee population across all locations. It didn’t take long to see results. Within the first year, Health Assessment completion rates increased from 17% to 54%. Incentive reward program participation jumped, and health care trend decreased from 12% in 2011 to 0% in 2012. By 2013, health care trend dropped even further to -5%. According to Carolyn, Airbocontributed to Fujifilm saving more than $5 million of their $565 million medical budget.
+    Carolyn decided to roll out Airbo to the entire employee population across all locations. It didn’t take long to see results. Within the first year, Health Assessment completion rates increased from 17% to 54%. Incentive reward program participation jumped, and health care trend decreased from 12% in 2011 to 0% in 2012. By 2013, health care trend dropped even further to -5%. According to Carolyn, Airbo contributed to Fujifilm saving more than $5 million of their $565 million medical budget.
     </p>
 
     <p>
@@ -96,7 +82,7 @@
     </p>
 
     <p>
-    Just like Facebook builds a habit of engagement in its users, Fujifilm wanted to build a habit of engagement in its employees. So, the team began transitioning from campaigns to a regular communication schedule that more closely matched the way consumer tools drive ongoing
+    Just like Facebook builds a habit of engagement in its users, Fujifilm wanted to build a habit of engagement in its employees. So, the team began transitioning from campaigns to a regular communication schedule that more closely matched the way consumer tools drive ongoing engagement. They settled on releasing content every other week. At first, there was a fair bit of concern that communicating with employees so frequently would actually decrease engagement. After all, who wants to constantly hear about wellness and benefits? As it turns out, a lot of people do. Moving from campaigns to regular communication drove more employees to engage more frequently.
     </p>
 
   </div>
@@ -105,7 +91,7 @@
 <div class="row">
   <div class="large-9 large-centered columns">
     <p>
-    <%=image_tag "case_studies/fujifilm/graph.png"%>
+    <%=image_tag "case_studies/fujifilm/activeparticipantmonthly.png"%>
     </p>
   </div>
 </div>
@@ -123,7 +109,7 @@
 <div class="row">
   <div class="large-9 large-centered columns">
     <p>
-    <%=image_tag "case_studies/fujifilm/chart.png"%>
+    <%=image_tag "case_studies/fujifilm/agedistribution.png"%>
     </p>
   </div>
 </div>
