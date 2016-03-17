@@ -11,6 +11,9 @@ $home-gray: #666666;
   // background: rgba(14, 23, 29, 0.82);
   background-color: #152f3d;
   opacity: 0.78;
+  &.non-landing{
+  top:auto;
+  }
 }
 
 a.request_demo_link {
