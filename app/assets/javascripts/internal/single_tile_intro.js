@@ -62,7 +62,12 @@ Airbo.SingleTileIntro= (function(){
         $(".introjs-nextbutton").hide();
       } 
     });
+  }
 
+  function initCloseOnTileInteraction(){
+    $("body").on("click", ".right_multiple_choice_answer, .wrong_multiple_choice_answer", function(){
+     intro.exit();
+    });
   }
 
   function run(){
@@ -71,6 +76,8 @@ Airbo.SingleTileIntro= (function(){
 
   function init(){
     if(introable && $(".tile_holder").length >0){
+
+      initCloseOnTileInteraction();
       initIntro();
       run();
     }
