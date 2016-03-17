@@ -2,22 +2,15 @@ Airbo = window.Airbo ||{}
 
 Airbo.SingleTileIntro= (function(){
   var intro
-    ,  anatomyCookie= "tile-anatomy"
-    , introSeen = Airbo.CookieMonster.getCookie(anatomyCookie)
+    , anatomyCookie= "tile-anatomy"
+    , viewTileCookie= "view-tile"
+    , anatomySeen = Airbo.CookieMonster.getCookie(anatomyCookie)
+    , viewTile = Airbo.CookieMonster.getCookie(viewTileCookie)
+    , config = { showStepNumbers: false, doneLabel: 'Got it', tooltipClass: "airbo_preview_intro" }
   ;
 
-  function initIntro() {
-    /* if (introShowed) return;
-       introShowed = true;
-       var menuElWithIntro = $(".preview_menu_item");
-       if( menuElWithIntro.data('intro').length == 0 ) return;
-       */
-    intro = introJs();
-    intro.setOptions({
-      showStepNumbers: false,
-      doneLabel: 'Got it',
-      tooltipClass: "airbo_preview_intro",
-
+  function initTileAnatomyIntro(){
+    var  options = {
       steps: [
         { 
           element: ".tile_holder",
@@ -45,7 +38,7 @@ Airbo.SingleTileIntro= (function(){
 
           step: 3
         },
-         {
+        {
           element: '.tile_quiz',
           intro: "<p>The Interaction section is where you engage your viewers with a short question you'd like them to answer. </p>The response type can be one of various formats from a simple one button confirmation, to a quiz, multiple choice answer,  to a survey. </p><p>Finally, you can assign a number of points to each Tile which employees earn as they complete the Tile interactions. Use the point totals to setup incentive rewards for employees who engage with your content. </br>Airbo tracks both Tile views completions automatically so you don't have to.</p> Go ahead, try it now.",
           position: 'bottom',
@@ -53,8 +46,9 @@ Airbo.SingleTileIntro= (function(){
           step: 4
         },
       ]
-    });
-
+    };
+   var options = $.extend({},config, options) 
+    intro.setOptions(options);
 
     intro.onchange(function(targetElement) {
       var el = $(targetElement);
@@ -63,7 +57,24 @@ Airbo.SingleTileIntro= (function(){
         $(".introjs-nextbutton").hide();
       } 
     });
+  }
 
+  function initViewTileIntro(){
+
+
+  }
+
+  function initIntro() {
+  
+    intro = introJs();
+
+    if(!anatomySeen && $(".tile_holder").length >0){
+      initTileAnatomyIntro();
+    }
+
+    if(!viewTile && $(".tile_holder").length >0){
+      initViewTileIntro();
+    }
     intro.onexit(function(targetElement){
       setCookie();
     });
@@ -88,12 +99,9 @@ Airbo.SingleTileIntro= (function(){
   }
 
   function init(){
-    if(!introSeen && $(".tile_holder").length >0){
-
       initCloseOnTileInteraction();
       initIntro();
       run();
-    }
   }
 
   return {
