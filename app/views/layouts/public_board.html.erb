@@ -36,7 +36,7 @@
   <main class="main" >
     <div class="core">
       <div class="content" >
-        <%= render partial: "pages/landing/hero_board", locals:{name: "Wellness Starter Kit", img_url: image_path("topics/recruitment.png")} unless @hide_cover %>
+        <%= render partial: "acts/public_board/cover" unless @hide_cover%>
         <%= yield %>
       </div>
       <div id="footer">
@@ -49,7 +49,6 @@
 
 
 <%= render partial: "pages/landing/footer_simple" %>
-
   <%= render 'shared/intercom' %>
   <%= render :partial => 'shared/javascript' %><!-- This is where 'yield :javascript' takes place -->
   <%= javascript_include_tag 'rem.min.js' %>
