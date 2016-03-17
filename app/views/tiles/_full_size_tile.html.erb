@@ -13,9 +13,9 @@
   >
 
   <div class="<%=tile_class(tile)%>">
-    <div class="tile_full_image <%= is_manage ? 'loading' : '' %>" style="<%= tile.image_styles %>"  data-intro="Hi, this walkthrough helps you understand the anatomy of a tile. </br>All tiles have an image which is a powerful way to get your viewer's attention." data-position="top" data-step=1>
+    <div class="tile_full_image <%= is_manage ? 'loading' : '' %>" style="<%= tile.image_styles %>" >
       <%= image_tag tile.image.url, :class => :tile_image, :alt => tile.headline, id:"tile_img_preview" %>
-      <div class="shadow_overlay"></div>
+      <div class="shadow_overlay non-landing"></div>
       <div class="image_credit">
         <div class="image_credit_view">
           <%= link_to_if is_url?(tile.image_credit), truncate(tile.image_credit, length: 50), make_full_url(tile.image_credit), target: "_blank" %>
@@ -24,9 +24,9 @@
     </div>
     <!-- FIXME do we need this appears_client_created. what the heck is that? -->
     <% if tile.appears_client_created %>
-      <div class="tile_texts_container" data-step=2 data-intro="The Headline provides a quick overview of what a Tile is about. The Supporting Content section is where you fill in the core information you wish to share. There is a 750 character limit but you can always insert a link to documents on the web or your intranet if the 750 characters is not enough.">
-        <div class="tile_headline content_sections"><%= tile.headline %></div>
-        <div class="tile_supporting_content content_sections <%= tile.custom_supporting_content_class %>">
+      <div class="tile_texts_container" >
+        <div class="tile_headline content_sections" ><%= tile.headline %></div>
+        <div class="tile_supporting_content content_sections <%= tile.custom_supporting_content_class %>" >
           <%= unescape_html(tile.supporting_content) %>
         </div>
         <% if tile.link_address.present? %>
@@ -36,7 +36,8 @@
         <% end %>
       </div>
 
-      <div class="tile_quiz" data-intro="The Interaction section is where you engage your viewers with a short question which you'd like them to answer. The response type Interaction supports various formats from simple one button confirmation, to a quizes, multiple choice,  and Surveys. Finally, you can assign a number of points to each Tile which employees earn as they complete the Tile interactions. Use the point totals to setup incentive rewards for employees who engage with your content. Airbo tracks both who has viewed a Tile and completed the interaction automatically so you don't have to.">         <% if tile.points %>
+      <div class="tile_quiz">        
+        <% if tile.points %>
             <div class="tile_points_bar">
               <div class="earnable_points">
                 <span class="num_of_points" id="tile_point_value"><%= tile.points %></span>
