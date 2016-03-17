@@ -2,11 +2,13 @@ Airbo = window.Airbo ||{}
 
 Airbo.StarterKitActivationIntro= (function(){
   var intro
-    , introPageSelector= "public-board"
+    , currCookie
+    , anatomyIntroSelector= ".public-board .tile_holder"
+    , viewTileIntroSelector= ".public-board #tile_wall"
     , anatomyCookie= "tile-anatomy"
     , viewTileCookie= "view-tile"
     , anatomySeen = Airbo.CookieMonster.getCookie(anatomyCookie)
-    , viewTile = Airbo.CookieMonster.getCookie(viewTileCookie)
+    , viewTileSeen = Airbo.CookieMonster.getCookie(viewTileCookie)
     , config = { showStepNumbers: false, doneLabel: 'Got it', tooltipClass: "airbo_preview_intro" }
   ;
 
@@ -14,7 +16,7 @@ Airbo.StarterKitActivationIntro= (function(){
     var  options = {
       steps: [
         { 
-          element: ".tile_holder",
+          element: anatomyIntroSelector,
           intro: "Hi, this walkthrough helps you understand the anatomy of a tile.",
           position: "top"
         },
@@ -48,7 +50,9 @@ Airbo.StarterKitActivationIntro= (function(){
         },
       ]
     };
-   var options = $.extend({},config, options) 
+
+    currCookie= anatomyCookie;
+    options = $.extend({},config, options) 
     intro.setOptions(options);
 
     intro.onchange(function(targetElement) {
@@ -61,19 +65,30 @@ Airbo.StarterKitActivationIntro= (function(){
   }
 
   function initViewTileIntro(){
-    var options = $.extend({},config, {}) 
-    intro.setOptions(options);
+    currCookie= viewTileCookie;
+    var options = {
+      steps: [{ 
+          element: ".all_tile_thumbnails",
+          intro: "Go ahead click a tile",
+          position: "top"
+        },
+      ]
+    };
+
+
+   $(".introjs-skipbutton").addClass("button-outlined-big"); 
+   options = $.extend({},config,options) 
+   intro.setOptions(options);
   }
 
   function initIntro() {
   
     intro = introJs();
 
-    if(!anatomySeen && $(".public_board .tile_holder").length >0){
+    if(!anatomySeen && $(anatomyIntroSelector).length >0){
       initTileAnatomyIntro();
     }
-
-    if(!viewTile && $(".public_board #tile_wall").length >0){
+    if(!viewTileSeen && $(viewTileIntroSelector).length >0){
       initViewTileIntro();
     }
     intro.onexit(function(targetElement){
@@ -86,7 +101,7 @@ Airbo.StarterKitActivationIntro= (function(){
   }
 
   function setCookie(){
-      Airbo.CookieMonster.setCookie(anatomyCookie, "true");
+      Airbo.CookieMonster.setCookie(currCookie, "true");
   }
 
   function initCloseOnTileInteraction(){
