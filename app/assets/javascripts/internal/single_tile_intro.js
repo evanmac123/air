@@ -1,6 +1,6 @@
 Airbo = window.Airbo ||{}
 
-Airbo.SingleTileIntro= (function(){
+Airbo.StarterKitActivationIntro= (function(){
   var intro
     , anatomyCookie= "tile-anatomy"
     , viewTileCookie= "view-tile"
@@ -112,5 +112,5 @@ Airbo.SingleTileIntro= (function(){
 }())
 
 $(function(){
-  Airbo.SingleTileIntro.init();
+  Airbo.StarterKitActivationIntro.init();
 });
