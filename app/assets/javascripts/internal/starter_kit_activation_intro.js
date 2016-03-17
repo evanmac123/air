@@ -25,15 +25,20 @@ Airbo.StarterKitActivationIntro= (function(){
     }
     return "";
   }
-  function introPing(el) {
+  function introAnatomyPing(el) {
     name = getPingName(el);
     Airbo.Utils.ping("Viewed Tile", {"Tile Onboarding - Viewed": name});
+  }
+
+  function introViewTilePing() {
+    var game = $("body").data("board-id");
+    Airbo.Utils.ping("Viewed Parent Board", {"Saw Tile Prompt": true, "Game": game});
   }
 
   function initTileAnatomyIntro(){
     var  options = {
       steps: [
-        { 
+        {
           element: anatomyIntroSelector,
           intro: "Hi, this walkthrough helps you understand the anatomy of a tile.",
           position: "top"
@@ -70,17 +75,17 @@ Airbo.StarterKitActivationIntro= (function(){
     };
 
     currCookie= anatomyCookie;
-    options = $.extend({},config, options) 
+    options = $.extend({},config, options)
     intro.setOptions(options);
 
     intro.onchange(function(targetElement) {
       var el = $(targetElement);
       if(el.hasClass("tile_quiz")){
 
-      introPing(el);
-        $(".introjs-skipbutton").addClass("button-outlined-big"); 
+      introAnatomyPing(el);
+        $(".introjs-skipbutton").addClass("button-outlined-big");
         $(".introjs-nextbutton").hide();
-      } 
+      }
     });
   }
 
@@ -88,7 +93,7 @@ Airbo.StarterKitActivationIntro= (function(){
     currCookie= viewTileCookie;
     var options = {
       overlayOpacity: 0,
-      steps: [{ 
+      steps: [{
           element: ".all_tile_thumbnails",
           intro: "Go ahead click a tile",
           position: "top"
@@ -97,13 +102,13 @@ Airbo.StarterKitActivationIntro= (function(){
     };
 
 
-   options = $.extend({},config,options) 
+   options = $.extend({},config,options)
    intro.setOptions(options);
-   $(".introjs-skipbutton").addClass("button-outlined-big"); 
+   $(".introjs-skipbutton").addClass("button-outlined-big");
   }
 
   function initIntro() {
-  
+
     intro = introJs();
 
     if(!anatomySeen && $(anatomyIntroSelector).length >0){
@@ -114,10 +119,12 @@ Airbo.StarterKitActivationIntro= (function(){
     }
     intro.onexit(function(targetElement){
       setCookie();
+      introViewTilePing();
     });
 
     intro.oncomplete(function(targetElement){
       setCookie();
+      introViewTilePing();
     });
   }
 
