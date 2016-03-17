@@ -4,7 +4,7 @@ class DemoRequestsController < ApplicationController
   def create
     request = EmailInfoRequest.create!(permitted_params)
     request.notify_the_ks_of_demo_request
-    modal_ping
+    # ping
     render json: {email: permitted_params[:email]}
   end
 
@@ -14,7 +14,7 @@ class DemoRequestsController < ApplicationController
     params[:demo_request].permit!
   end
 
-  def modal_ping
-    ping "Viewed HRM CTA Modal", {action: "Submitted Email Address"}, current_user
-  end
+  # def ping
+  #   ping "New Lead", {action: "Submitted Email - v. 3.17.16", page_name: ""}, current_user
+  # end
 end

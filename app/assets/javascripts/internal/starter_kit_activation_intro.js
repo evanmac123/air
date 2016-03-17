@@ -10,7 +10,25 @@ Airbo.StarterKitActivationIntro= (function(){
     , anatomySeen = Airbo.CookieMonster.getCookie(anatomyCookie)
     , viewTileSeen = Airbo.CookieMonster.getCookie(viewTileCookie)
     , config = { showStepNumbers: false, doneLabel: 'Got it', tooltipClass: "airbo_preview_intro" }
+    , pingName = {
+        "tile_holder": "Tile",
+        "tile_full_image": "Image",
+        "tile_headline": "Text",
+        "tile_supporting_content": "Interaction"
+      }
   ;
+  function getPingName(el) {
+    for (var elClass in pingName) {
+      if( el.hasClass(elClass) ){
+        return pingName[elClass];
+      }
+    }
+    return "";
+  }
+  function introPing(el) {
+    name = getPingName(el);
+    Airbo.Utils.ping("Viewed Tile", {"Tile Onboarding - Viewed": name});
+  }
 
   function initTileAnatomyIntro(){
     var  options = {
@@ -58,6 +76,8 @@ Airbo.StarterKitActivationIntro= (function(){
     intro.onchange(function(targetElement) {
       var el = $(targetElement);
       if(el.hasClass("tile_quiz")){
+
+      introPing(el);
         $(".introjs-skipbutton").addClass("button-outlined-big"); 
         $(".introjs-nextbutton").hide();
       } 
