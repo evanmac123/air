@@ -1,8 +1,9 @@
 Airbo = window.Airbo ||{}
 
 Airbo.SingleTileIntro= (function(){
-  var intro 
-    , introable = true
+  var intro
+    ,  anatomyCookie= "tile-anatomy"
+    , introSeen = Airbo.CookieMonster.getCookie(anatomyCookie)
   ;
 
   function initIntro() {
@@ -62,6 +63,18 @@ Airbo.SingleTileIntro= (function(){
         $(".introjs-nextbutton").hide();
       } 
     });
+
+    intro.onexit(function(targetElement){
+      setCookie();
+    });
+
+    intro.oncomplete(function(targetElement){
+      setCookie();
+    });
+  }
+
+  function setCookie(){
+      Airbo.CookieMonster.setCookie(anatomyCookie, "true");
   }
 
   function initCloseOnTileInteraction(){
@@ -75,7 +88,7 @@ Airbo.SingleTileIntro= (function(){
   }
 
   function init(){
-    if(introable && $(".tile_holder").length >0){
+    if(!introSeen && $(".tile_holder").length >0){
 
       initCloseOnTileInteraction();
       initIntro();
