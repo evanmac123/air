@@ -2,6 +2,7 @@ Airbo = window.Airbo ||{}
 
 Airbo.StarterKitActivationIntro= (function(){
   var intro
+    , introPageSelector= "public-board"
     , anatomyCookie= "tile-anatomy"
     , viewTileCookie= "view-tile"
     , anatomySeen = Airbo.CookieMonster.getCookie(anatomyCookie)
@@ -52,7 +53,7 @@ Airbo.StarterKitActivationIntro= (function(){
 
     intro.onchange(function(targetElement) {
       var el = $(targetElement);
-      if(el.hasClass("tile_quiz")==true){
+      if(el.hasClass("tile_quiz")){
         $(".introjs-skipbutton").addClass("button-outlined-big"); 
         $(".introjs-nextbutton").hide();
       } 
@@ -60,19 +61,19 @@ Airbo.StarterKitActivationIntro= (function(){
   }
 
   function initViewTileIntro(){
-
-
+    var options = $.extend({},config, {}) 
+    intro.setOptions(options);
   }
 
   function initIntro() {
   
     intro = introJs();
 
-    if(!anatomySeen && $(".tile_holder").length >0){
+    if(!anatomySeen && $(".public_board .tile_holder").length >0){
       initTileAnatomyIntro();
     }
 
-    if(!viewTile && $(".tile_holder").length >0){
+    if(!viewTile && $(".public_board #tile_wall").length >0){
       initViewTileIntro();
     }
     intro.onexit(function(targetElement){
