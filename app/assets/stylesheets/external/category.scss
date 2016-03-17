@@ -67,3 +67,18 @@
     margin-top: 17px;
   }
 }
+
+.request_form_section {
+  padding: 21px;
+  .greeting_after {
+    margin-top: 20px;
+    color: $white;
+  }
+  .err {
+    margin-top: 20px;
+    display: block;
+    color: $white;
+    font-size: 16px;
+    font-weight: 400;
+  }
+}
