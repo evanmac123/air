@@ -67,6 +67,7 @@ Airbo.StarterKitActivationIntro= (function(){
   function initViewTileIntro(){
     currCookie= viewTileCookie;
     var options = {
+      overlayOpacity: 0,
       steps: [{ 
           element: ".all_tile_thumbnails",
           intro: "Go ahead click a tile",
@@ -76,9 +77,9 @@ Airbo.StarterKitActivationIntro= (function(){
     };
 
 
-   $(".introjs-skipbutton").addClass("button-outlined-big"); 
    options = $.extend({},config,options) 
    intro.setOptions(options);
+   $(".introjs-skipbutton").addClass("button-outlined-big"); 
   }
 
   function initIntro() {
