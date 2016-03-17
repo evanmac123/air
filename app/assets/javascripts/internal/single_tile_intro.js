@@ -46,7 +46,7 @@ Airbo.SingleTileIntro= (function(){
         },
          {
           element: '.tile_quiz',
-          intro: "<p>The Interaction section is where you engage your viewers with a short question which you'd like them to answer. </p>The response type can be one of various formats from a simple one button confirmation, to a quiz, multiple choice answer,  to a survey. </p><p>Finally, you can assign a number of points to each Tile which employees earn as they complete the Tile interactions. Use the point totals to setup incentive rewards for employees who engage with your content. </br>Airbo tracks both Tile views completions automatically so you don't have to.</p> Go ahead, try it now.",
+          intro: "<p>The Interaction section is where you engage your viewers with a short question you'd like them to answer. </p>The response type can be one of various formats from a simple one button confirmation, to a quiz, multiple choice answer,  to a survey. </p><p>Finally, you can assign a number of points to each Tile which employees earn as they complete the Tile interactions. Use the point totals to setup incentive rewards for employees who engage with your content. </br>Airbo tracks both Tile views completions automatically so you don't have to.</p> Go ahead, try it now.",
           position: 'bottom',
 
           step: 4
