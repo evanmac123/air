@@ -74,7 +74,7 @@ Airbo.StarterKitActivationIntro= (function(){
 
         {
           element: '.multiple_choice_group',
-          intro: "In this interactive section of your Tile, your team can answer questions or choose from multiple options. You'll get to see who did what and track engagement.<p>The next uncompleted Tile will automatically load after each interaction/p>",
+          intro: "In this interactive section of your Tile, your team can answer questions or choose from multiple options. You'll get to see who did what and track engagement.<p>The next uncompleted Tile will automatically load after each interaction</p>",
           position: 'bottom',
 
           step: 5
