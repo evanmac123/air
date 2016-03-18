@@ -9,7 +9,7 @@ Airbo.StarterKitActivationIntro= (function(){
     , viewTileCookie= "view-tile"
     , anatomySeen = Airbo.CookieMonster.getCookie(anatomyCookie)
     , viewTileSeen = Airbo.CookieMonster.getCookie(viewTileCookie)
-    , config = { showStepNumbers: false, doneLabel: 'Got it', tooltipClass: "airbo_preview_intro" }
+    , config = { showStepNumbers: false, doneLabel: 'Got it', tooltipClass: "airbo_preview_intro", nextLabel: "Next", prevLabel: "Back" }
     , pingName = {
         "tile_holder": "Tile",
         "tile_full_image": "Image",
@@ -40,36 +40,44 @@ Airbo.StarterKitActivationIntro= (function(){
       steps: [
         {
           element: anatomyIntroSelector,
-          intro: "Hi, this walkthrough helps you understand the anatomy of a tile.",
+          intro: "Welcome! This is a quick tour to show you how Tiles will help you engage your team.",
           position: "top"
         },
         {
           element: document.querySelector('.tile_full_image'),
-          intro: "All tiles have an image which is a powerful way to get your viewer's attention.",
+          intro: "Pick an interesting image from our huge library of photos or use one of your own. Images help grab your team's attention and encourage them to click on your Tile.",
 
           position: 'top',
           step: 1
         },
         {
           element: document.querySelector('.tile_headline'),
-          intro: "The Headline provides a quick overview of what a Tile is about.",
+          intro: "Give your Tile a good headline to give your team an idea of what it's about.",
           position: 'top',
 
           step: 2
         },
         {
           element: '.tile_supporting_content',
-          intro: 'The Supporting Content section is where you fill in the core information you wish to share. There is a 750 character limit but you can always insert a link to documents on the web or your intranet if the 750 characters is not enough.',
+          intro: 'Add supporting content to communicate what your team needs to learn or do. You can even link to other websites or your intranet.',
           position: 'top',
 
           step: 3
         },
-        {
-          element: '.tile_quiz',
-          intro: "<p>The Interaction section is where you engage your viewers with a short question you'd like them to answer. </p>The response type can be one of various formats from a simple one button confirmation, to a quiz, multiple choice answer,  to a survey. </p><p>Finally, you can assign a number of points to each Tile which employees earn as they complete the Tile interactions. Use the point totals to setup incentive rewards for employees who engage with your content. </br>Airbo tracks both Tile views completions automatically so you don't have to.</p> Go ahead, try it now.",
-          position: 'bottom',
+ {
+          element: '.tile_points_bar',
+          intro: "Reward your team with points to make Tiles even more engaging. Some HR pros use points to award gift cards or other enticing goodies to their most engaged employees.",
+          position: 'top',
 
           step: 4
+        },
+
+        {
+          element: '.multiple_choice_group',
+          intro: "In this interactive section of your Tile, your team can answer questions or choose from multiple options. You'll get to see who did what and track engagement.<p>The next uncompleted Tile will automatically load after each interaction</p>",
+          position: 'bottom',
+
+          step: 5
         },
       ]
     };
@@ -80,7 +88,7 @@ Airbo.StarterKitActivationIntro= (function(){
 
     intro.onchange(function(targetElement) {
       var el = $(targetElement);
-      if(el.hasClass("tile_quiz")){
+      if(el.hasClass("multiple_choice_group")){
 
       introAnatomyPing(el);
         $(".introjs-skipbutton").addClass("button-outlined-big");
@@ -93,18 +101,21 @@ Airbo.StarterKitActivationIntro= (function(){
     currCookie= viewTileCookie;
     var options = {
       overlayOpacity: 0,
+      tooltipClass: "airbo_preview_intro small",
       steps: [{
-          element: ".all_tile_thumbnails",
-          intro: "Go ahead click a tile",
-          position: "top"
-        },
+        element:  document.querySelector(".tile_thumbnail"),
+        intro: "Go ahead click a tile",
+        position: "top",
+      },
       ]
     };
 
 
-   options = $.extend({},config,options)
-   intro.setOptions(options);
-   $(".introjs-skipbutton").addClass("button-outlined-big");
+    options = $.extend({},config,options)
+    intro.setOptions(options);
+    intro.onafterchange(function(targetElement) {
+      $(".introjs-skipbutton").hide();
+    });
   }
 
   function initIntro() {
