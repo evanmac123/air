@@ -69,6 +69,9 @@
 }
 
 .request_form_section {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
   padding: 21px;
   .greeting_after {
     margin-top: 20px;
@@ -81,11 +84,13 @@
     font-size: 16px;
     font-weight: 400;
   }
-
   &.bg-blue {
    input[type=text], input[type=email]  {
      border-color: $white;
    }
+  }
+  @media only screen and (max-width: $foundation) {
+    position: relative;
   }
 }
 

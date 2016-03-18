@@ -27,12 +27,12 @@ Airbo.StarterKitActivationIntro= (function(){
   }
   function introAnatomyPing(el) {
     name = getPingName(el);
-    Airbo.Utils.ping("Viewed Tile", {"Tile Onboarding - Viewed": name});
+    Airbo.Utils.ping("Tile - Viewed", {"Tile Onboarding - Viewed": name});
   }
 
   function introViewTilePing() {
-    var game = $("body").data("board-id");
-    Airbo.Utils.ping("Viewed Parent Board", {"Saw Tile Prompt": true, "Game": game});
+    // var game = $("body").data("board-id");
+    Airbo.Utils.ping("Viewed Parent Board", {"Saw Tile Prompt": true});
   }
 
   function initTileAnatomyIntro(){
