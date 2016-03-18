@@ -1,10 +1,19 @@
-<%= link_to link, class: "topic" do %>
+
+<% if comming_soon %>
+  <div class="topic">
   <div class="topic_cell">
     <%= image_tag("topics/#{img}.png") %>
     <div class="shadow_overlay"></div>
     <p class="title"><%= title %></p>
-    <% if comming_soon %>
-      <p class="subtitle">Coming soon</p>
-    <% end %>
+    <p class="subtitle">Coming soon</p>
   </div>
+  </div>
+<%else%>
+  <%= link_to link, class: "topic" do %>
+    <div class="topic_cell">
+      <%= image_tag("topics/#{img}.png") %>
+      <div class="shadow_overlay"></div>
+      <p class="title"><%= title %></p>
+    </div>
+  <% end %>
 <% end %>
