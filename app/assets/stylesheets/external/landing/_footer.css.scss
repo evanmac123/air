@@ -1,6 +1,9 @@
 .footer_simple {
   padding: 28px 0;
   line-height: 1.5;
+  body.public-board.tiles.tiles-index > & {
+    margin-top: 50px;
+  }
 }
 footer#pageFtr {
   .contact_us.contact_us {
