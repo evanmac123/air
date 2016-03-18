@@ -5,9 +5,9 @@
   position: relative;
   height: 250px;
   display: table;
-  margin-bottom: 20px;
 }
 .topic_desc_section {
+  margin-top: 20px;
   &.full_height {
     .main_text {
       max-height: none;
