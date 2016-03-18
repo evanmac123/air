@@ -10,6 +10,7 @@ Airbo.Category = (function(){
     btn.click(function(e){
       e.preventDefault();
       desc_section.toggleClass("full_height");
+      btn.hide();
     });
   }
   return {
