@@ -81,6 +81,12 @@
     font-size: 16px;
     font-weight: 400;
   }
+
+  &.bg-blue {
+   input[type=text], input[type=email]  {
+     border-color: $white;
+   }
+  }
 }
 
 .hero-mask {
