@@ -38,10 +38,17 @@
 header#pageHeader.header_simple.header_simple {
   position: relative;
   box-shadow: none;
-  .links {
-    padding-top: 12px;
-    a {
-      color: $home-gray;
+}
+@media only screen and (max-width: $foundation) {
+  header#pageHeader.header_simple.header_simple {
+    position: absolute;
+    top: 0;
+    height: 56px;
+    margin-bottom: 56px;
+    overflow: visible;
+    border: none;
+    &.open-nav {
+      height: 168px;
     }
   }
 }

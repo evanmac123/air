@@ -21,7 +21,7 @@ Airbo.StickyHeader = (function(){
 
 $(function(){
   // so specific selectors because we have product page with old header
-  if( $("header.sticky_desktop").length > 0 ){
+  if( $("header.sticky_desktop, header.header_simple").length > 0 ){
     Airbo.StickyHeader.init();
   }
 });

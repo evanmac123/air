@@ -1,12 +1,20 @@
 <header id="pageHeader" class="header_simple">
   <div class="row top">
-    <div class="columns logo small-6">
+    <div class="columns logo">
       <%= link_to "/" do %>
         <div class="logo_image"></div>
       <% end %>
     </div>
-    <div class="columns small-6 links align_right">
-      <%= link_to "Home", home_path %>
+    <div class="columns mobile-toggle mobiile_only">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <div class="columns headerMenu">
+      <ul>
+        <li><%= link_to "Home", home_path %></li>
+        <li><%= link_to "Request a Demo", "", class: "scroll_to_demo" %></li>
+      </ul>
     </div>
   </div>
 </header>

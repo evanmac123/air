@@ -8,10 +8,15 @@ Airbo.RequestForm = (function(){
     , submitBtn
     , config
     , validator
+    , linkToFormSel = ".scroll_to_demo"
   ;
 
   function ping() {
     Airbo.Utils.ping("New Lead", {"action": "Submitted Email - v. 3.17.16", page_name: window.location.pathname});
+  }
+
+  function scrollToBottom() {
+    $('html,body').animate({ scrollTop: $(document).height()}, 2000);
   }
 
   function initFormValidator(){
@@ -55,14 +60,21 @@ Airbo.RequestForm = (function(){
         validator.focusInvalid();
         $(".greeting_after").hide();
       }
-      $('html,body').animate({ scrollTop: $(document).height()}, 2000);
+      scrollToBottom();
     });
+  }
+  function initEvents() {
+    $(linkToFormSel).click(function(e){
+      e.preventDefault();
+      scrollToBottom();
+    })
   }
   function init(){
     form = $(formSel);
     submitBtn = $(submitBtnSel);
     initFormValidator();
     initFormSubmit();
+    initEvents();
   }
   return {
     init: init
