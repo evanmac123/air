@@ -29,7 +29,9 @@
 <section class="board_section row">
   <div class="large-8 large-centered columns board_card">
     <div class="large-4 columns">
-      <%=image_tag "topics/board/wellness.png" %>
+      <%= link_to  public_board_path(public_slug: "wellness-starter-kit") do %>
+        <%=image_tag "topics/board/wellness.png" %>
+      <%end%>
     </div>
     <div class="large-8 columns">
       <h3>Wellness Starter Kit</h3>
