@@ -40,44 +40,38 @@ Airbo.StarterKitActivationIntro= (function(){
       steps: [
         {
           element: anatomyIntroSelector,
-          intro: "Welcome! This is a quick tour to show you how Tiles will help you engage your team.",
+          intro: "Tiles capture employee attention. You can copy and modify Tiles, or create your own.",
           position: "top"
         },
         {
           element: document.querySelector('.tile_full_image'),
-          intro: "Pick an interesting image from our huge library of photos or use one of your own. Images help grab your team's attention and encourage them to click on your Tile.",
+          intro: "Images capture employee attention so they want to read your content.",
 
           position: 'top',
           step: 1
         },
         {
-          element: document.querySelector('.tile_headline'),
-          intro: "Give your Tile a good headline to give your team an idea of what it's about.",
+          element: document.querySelector('.tile_texts_container'),
+          intro: "Content is kept short for short attention spans. You can link employees to more info on your intranet or any web page",
           position: 'top',
 
           step: 2
         },
+   
         {
-          element: '.tile_supporting_content',
-          intro: 'Add supporting content to communicate what your team needs to learn or do. You can even link to other websites or your intranet.',
+          element: '.tile_points_bar',
+          intro: "Points reward the employee for reading, answering questions and taking actions. Some HR pros provide employees with prizes.",
           position: 'top',
 
           step: 3
         },
- {
-          element: '.tile_points_bar',
-          intro: "Reward your team with points to make Tiles even more engaging. Some HR pros use points to award gift cards or other enticing goodies to their most engaged employees.",
-          position: 'top',
-
-          step: 4
-        },
 
         {
           element: '.multiple_choice_group',
-          intro: "In this interactive section of your Tile, your team can answer questions or choose from multiple options. You'll get to see who did what and track engagement.<p>The next uncompleted Tile will automatically load after each interaction</p>",
+          intro: "Interactions are fun for employees and provides data on exactly who read and took an action. Try it by clicking one of the buttons.",
           position: 'bottom',
 
-          step: 5
+          step: 4
         },
       ]
     };
