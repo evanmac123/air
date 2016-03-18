@@ -27,7 +27,7 @@ Airbo.StarterKitActivationIntro= (function(){
   }
   function introAnatomyPing(el) {
     name = getPingName(el);
-    Airbo.Utils.ping("Viewed Tile", {"Tile Onboarding - Viewed": name});
+    Airbo.Utils.ping("Tile - Viewed", {"Tile Onboarding - Viewed": name});
   }
 
   function introViewTilePing() {

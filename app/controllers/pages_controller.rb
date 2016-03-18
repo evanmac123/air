@@ -18,6 +18,7 @@ class PagesController < HighVoltage::PagesController
 
   PAGE_NAMES_FOR_MIXPANEL = {
     'welcome'        => "Marketing Page",
+    'home'           => "Landing Page V. 3/17/16",
     'customer_tiles' => 'customer tiles', # FIXME dead url?
     'more_info'      => 'More Info, marketing', # FIXME dead url?
     'privacy'        => 'privacy policy',
