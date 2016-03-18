@@ -104,7 +104,7 @@ Airbo.StarterKitActivationIntro= (function(){
       tooltipClass: "airbo_preview_intro small",
       steps: [{
         element:  document.querySelector(".tile_thumbnail"),
-        intro: "Go ahead click a tile",
+        intro: "Please click on one of the Tiles below",
         position: "top",
       },
       ]
@@ -119,13 +119,16 @@ Airbo.StarterKitActivationIntro= (function(){
   }
 
   function initIntro() {
-
+   var inactivation = false;
     intro = introJs();
 
     if(!anatomySeen && $(anatomyIntroSelector).length >0){
+      inactivation =true;
       initTileAnatomyIntro();
+      
     }
     if(!viewTileSeen && $(viewTileIntroSelector).length >0){
+      inactivation =true;
       initViewTileIntro();
     }
     intro.onexit(function(targetElement){
@@ -137,6 +140,10 @@ Airbo.StarterKitActivationIntro= (function(){
       setCookie();
       introViewTilePing();
     });
+
+    if(inactivation){
+      run();
+    }
   }
 
   function setCookie(){
@@ -156,7 +163,6 @@ Airbo.StarterKitActivationIntro= (function(){
   function init(){
       initCloseOnTileInteraction();
       initIntro();
-      run();
   }
 
   return {
