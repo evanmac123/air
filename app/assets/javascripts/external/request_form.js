@@ -67,7 +67,15 @@ Airbo.RequestForm = (function(){
     $(linkToFormSel).click(function(e){
       e.preventDefault();
       scrollToBottom();
-    })
+    });
+    // $(window).scroll(function() {
+    //   var pageBottom = $(document).height() - $(window).height();
+    //   if ($(window).scrollTop() < pageBottom - 150) {
+    //     $('.request_form_section').addClass('sticky');
+    //   } else {
+    //     $('.request_form_section').removeClass('sticky');
+    //   }
+    // });
   }
   function init(){
     form = $(formSel);

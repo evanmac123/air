@@ -73,6 +73,10 @@
   bottom: 0;
   width: 100%;
   padding: 21px;
+  z-index: 1;
+  // &.sticky {
+  //   position: fixed;
+  // }
   .greeting_after {
     margin-top: 20px;
     color: $white;
@@ -91,6 +95,12 @@
   }
   @media only screen and (max-width: $foundation) {
     position: relative;
+  }
+}
+.request_form_placeholder {
+  height: 80px;
+  @media only screen and (max-width: $foundation) {
+    height: 0;
   }
 }
 
