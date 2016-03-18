@@ -31,8 +31,8 @@ Airbo.StarterKitActivationIntro= (function(){
   }
 
   function introViewTilePing() {
-    var game = $("body").data("board-id");
-    Airbo.Utils.ping("Viewed Parent Board", {"Saw Tile Prompt": true, "Game": game});
+    // var game = $("body").data("board-id");
+    Airbo.Utils.ping("Viewed Parent Board", {"Saw Tile Prompt": true});
   }
 
   function initTileAnatomyIntro(){
