@@ -1,3 +1,15 @@
+@mixin button-outlined-big{
+
+  @include button-outlined-color($n-white);
+
+  font-size: 18px;
+  padding: 16px 20px;
+  margin-top: 20px;
+  &:hover {
+    color: $n-blue !important;
+  }
+}
+
 .airbo_preview_intro.introjs-tooltip {
   min-width: 610px;
   border-radius: 0;
@@ -22,19 +34,23 @@
     }
   }
   .introjs-skipbutton {
-    float: left;
+    float: right;
+    margin-top: 35px;
     &.button-outlined-big{
-
-      @include button-outlined-color($n-white);
-
-      font-size: 18px;
-      padding: 16px 20px;
-      margin-top: 20px;
-      &:hover {
-        color: $n-blue !important;
-      }
+      float: left;
     }
   }
 
+  .introjs-prevbutton,.introjs-nextbutton{
+    float: left;
+  }
+
+  .introjs-skipbutton,  .introjs-prevbutton,.introjs-nextbutton{
+    &.button-outlined-big{
+      @include button-outlined-big;
+    }
+  }
 
 }
+
+

@@ -9,7 +9,7 @@ Airbo.StarterKitActivationIntro= (function(){
     , viewTileCookie= "view-tile"
     , anatomySeen = Airbo.CookieMonster.getCookie(anatomyCookie)
     , viewTileSeen = Airbo.CookieMonster.getCookie(viewTileCookie)
-    , config = { showStepNumbers: false, doneLabel: 'Got it', tooltipClass: "airbo_preview_intro", nextLabel: "Next", prevLabel: "Back" }
+    , config = { showStepNumbers: false, skipLabel: 'Exit Intro', doneLabel: 'Got it', tooltipClass: "airbo_preview_intro", nextLabel: "Got it", prevLabel: "Back" }
     , pingName = {
         "tile_holder": "Tile",
         "tile_full_image": "Image",
@@ -36,7 +36,11 @@ Airbo.StarterKitActivationIntro= (function(){
   }
 
   function initTileAnatomyIntro(){
+   var nextLabels= ["Why Are Tiles Engaging?", "Where Does Content Go?", "What are points?", "Why are Tiles Interactive?" ]
+     , currStep = 0
+   ;
     var  options = {
+      nextLabeL: nextLabels[0], 
       steps: [
         {
           element: anatomyIntroSelector,
@@ -47,13 +51,13 @@ Airbo.StarterKitActivationIntro= (function(){
           element: document.querySelector('.tile_full_image'),
           intro: "Images capture employee attention so they want to read your content.",
 
-          position: 'top',
+          position: 'bottom',
           step: 1
         },
         {
           element: document.querySelector('.tile_texts_container'),
           intro: "Content is kept short for short attention spans. You can link employees to more info on your intranet or any web page",
-          position: 'top',
+          position: 'bottom',
 
           step: 2
         },
@@ -61,7 +65,7 @@ Airbo.StarterKitActivationIntro= (function(){
         {
           element: '.tile_points_bar',
           intro: "Points reward the employee for reading, answering questions and taking actions. Some HR pros provide employees with prizes.",
-          position: 'top',
+          position: 'bottom',
 
           step: 3
         },
@@ -80,8 +84,17 @@ Airbo.StarterKitActivationIntro= (function(){
     options = $.extend({},config, options)
     intro.setOptions(options);
 
+    intro.onafterchange(function(targetElement) {
+
+      $(".introjs-tooltip").css("left", 0)
+      $(".introjs-prevbutton").hide();
+      $(".introjs-nextbutton").addClass("button-outlined-big");
+    });
+
     intro.onchange(function(targetElement) {
       var el = $(targetElement);
+
+      $(".introjs-tooltip").css("left", 0)
       if(el.hasClass("multiple_choice_group")){
 
       introAnatomyPing(el);
