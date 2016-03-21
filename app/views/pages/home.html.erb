@@ -1,7 +1,6 @@
 <%= render layout: "pages/landing/hero", locals: {no_shadow: true} do %>
   <h1>Engaging employee communications that get HR priorities done.</h1>
-  <p>Join to explore best practices and content you can use today, it's free forever.</p>
-  <div class="align_center"><%= link_to "Join", "#sign_up_block", class: "large button green" %></div>
+  <%= render "pages/landing/schedule_demo_form" %>
 <% end %>
 <main>
   <section class="clients">
