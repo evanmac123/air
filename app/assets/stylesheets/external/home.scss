@@ -103,8 +103,13 @@ body.pages-home {
         }
       }
 
-      &.coming-soon .title {
-        color: darkgray;
+      &.coming-soon{ 
+        .title {
+          color: darkgray;
+        }
+        .subtitle {
+          color: darkgray;
+        }
       }
       .topic_cell {
         display: table-cell;
