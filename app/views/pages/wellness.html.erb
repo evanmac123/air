@@ -45,5 +45,7 @@
 </section>
 </main>
 
+  <%content_for :footer do%>
+  <%= render partial: "pages/landing/request_form" %>
+<%end%>
 <%= render partial: "pages/landing/footer_simple" %>
-<%= render partial: "pages/landing/request_form" %>
