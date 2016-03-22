@@ -77,9 +77,23 @@
     }
   }
 
-  .success{
-  }
+  &.success{
+    padding: 10px 20px;
+    margin:0;
+    height: 37px;
+    margin-top: -4px;
+    font-size: 16px;
 
+    &.icon{
+      .fa{
+        font-size: 24px;
+        line-height:10px;
+        vertical-align: middle;
+        margin-left: 10px;
+        margin-right: 0px;
+      }
+    }
+  } 
 
 
   &.reversed {
