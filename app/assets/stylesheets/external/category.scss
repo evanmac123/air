@@ -69,7 +69,6 @@
 }
 
 .request_form_section {
-  position: fixed;
   bottom: 0;
   width: 100%;
   padding: 21px;
@@ -97,7 +96,7 @@
   }
 }
 .request_form_placeholder {
-  height: 80px;
+  height: 0px;
   @media only screen and (max-width: $foundation) {
     height: 0;
   }
