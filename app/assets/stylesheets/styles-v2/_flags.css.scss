@@ -39,15 +39,15 @@
   text-align: center;
   vertical-align: middle;
   text-transform: capitalize;
+  margin:0;
+  padding: 10px 20px;
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
   white-space: nowrap;
   overflow: hidden;
-  padding: 8px 20px;
   cursor: pointer;
   box-shadow: none;
-  margin-bottom: 0;
   background-image: none;
   outline: none !important;
   @include ease(0.2s);
@@ -65,10 +65,10 @@
   @include flag;
 
   &.green {
-    @include flag-color(#47c998);
+    @include flag-color($n-green);
   }
   &.red {
-    @include flag-color(#BE2625);
+    @include flag-color($n-red2);
   }
   &.outlined {
     @include flag-outlined-color;
@@ -77,23 +77,15 @@
     }
   }
 
-  &.success{
-    padding: 10px 20px;
-    margin:0;
-    height: 37px;
-    margin-top: -4px;
-    font-size: 16px;
-
-    &.icon{
-      .fa{
-        font-size: 24px;
-        line-height:10px;
-        vertical-align: middle;
-        margin-left: 10px;
-        margin-right: 0px;
-      }
+  &.icon{
+    .fa{
+      font-size: 24px;
+      line-height:10px;
+      vertical-align: middle;
+      margin-left: 10px;
+      margin-right: 0px;
     }
-  } 
+  }
 
 
   &.reversed {
@@ -113,27 +105,11 @@
       color: $n-white;
     }
   }
-  // Font Awesome icon flag
-  &.icon {
-    padding-left: 10px;
-    padding-right: 10px;
-    .fa {
-      font-size: 0.8em;
-      margin-right: 5px;
-    }
-  }
-
   &.with_spinner {
     @include flag-with-spinner;
     &.outlined {
       @include flag-with-spinner;//($n-blue);
-      // &. {
-      //   @include flag-with-spinner($gray-4);
-      // }
-      // &. {
-      //   @include flag-with-spinner($n-blue);
-      // }
-    }
+         }
   }
 
   &.full_width {
