@@ -45,7 +45,7 @@ Airbo.RequestForm = (function(){
   }
   function showConfirmation(email){
     $(".err").hide();
-    $(".greeting_after").fadeIn( 1000 );;
+    $("#request_form .info").fadeIn( 1000 );;
     successState()
   }
 
@@ -72,7 +72,7 @@ Airbo.RequestForm = (function(){
         });
       }else{
         validator.focusInvalid();
-        $(".greeting_after").hide();
+        $(".info").hide();
       }
       //scrollToBottom();
     });
@@ -82,14 +82,7 @@ Airbo.RequestForm = (function(){
       e.preventDefault();
       scrollToBottom();
     });
-    // $(window).scroll(function() {
-    //   var pageBottom = $(document).height() - $(window).height();
-    //   if ($(window).scrollTop() < pageBottom - 150) {
-    //     $('.request_form_section').addClass('sticky');
-    //   } else {
-    //     $('.request_form_section').removeClass('sticky');
-    //   }
-    // });
+
   }
   function init(){
     form = $(formSel);
