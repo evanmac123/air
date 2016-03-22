@@ -50,7 +50,7 @@ Airbo.RequestForm = (function(){
   function successState(){
     submitBtn.hide();
     $("#demo_request_email").prop("disabled",true).addClass("disabled")
-    successBtn.removeClass("hidden").css("width", "180px");
+    successBtn.removeClass("hidden").css("width", submitBtn.outerWidth());
   }
 
   function initFormSubmit(){
