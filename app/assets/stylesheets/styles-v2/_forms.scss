@@ -85,7 +85,9 @@ textarea {
     border-color: $n-red;
   }
   &.disabled{
-    background-color: $gray-1;
+    background-color: $gray-6;
+    border-color: $gray-6;
+    color: $gray-5;
   }
 }
 

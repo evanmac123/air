@@ -16,7 +16,7 @@ body.pages-home {
         font-weight: 400;
         font-size: 30px;
         line-height: 1.5em;
-        margin-bottom: 40px;
+        margin-bottom: 5px;
         max-width: 570px;
       }
       p {
@@ -25,9 +25,33 @@ body.pages-home {
         text-align: center;
         margin: 20px auto;
       }
-      .button {
+      .button, .flag {
         font-size: 18px;
-        padding: 15px 40px;
+      }
+
+     .flag.success{
+      padding: 10px 20px;
+      margin:0;
+      height: 37px;
+      margin-top: -4px;
+      font-size: 16px;
+
+      &.icon{
+        .fa{
+          font-size: 24px;
+          line-height:10px;
+          vertical-align: middle;
+          margin-left: 10px;
+          margin-right: 0px;
+        }
+      }
+     } 
+
+      .info{
+        padding: 20px;
+        .greeting_after {
+          color: $white;
+        }
       }
     }
   }
@@ -49,6 +73,8 @@ body.pages-home {
       margin-bottom: 30px;
       margin-top: 0;
     }
+
+
   }
   .topics {
     margin-bottom: 20px;
@@ -76,10 +102,14 @@ body.pages-home {
       border-radius: 3px;
       margin: 0 25px 40px 25px;
       overflow: hidden;
-      &:hover {
+      &:not(.coming-soon):hover {
         .shadow_overlay {
           background-color: rgba(0, 0, 0, 0.6);
         }
+      }
+
+      &.coming-soon .title {
+        color: darkgray;
       }
       .topic_cell {
         display: table-cell;
@@ -114,6 +144,10 @@ body.pages-home {
         text-align: center;
         margin: auto;
       }
+
+     
+
+   
       .subtitle {
         font-size: 13px;
         color: $white;

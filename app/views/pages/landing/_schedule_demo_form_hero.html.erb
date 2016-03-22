@@ -1,8 +1,8 @@
 <div class="row">
   <%= form_for DemoRequest.new, html:{id: "request_form", class: "inline center align_center request_form"} do |f| %>
-    <span class="white text-center">
+    <p class="white text-center">
       Schedule time with an HR Specialist to chat about your specific needs.
-    </span>
+    </p>
     <div class="horizontal">
       <%= f.email_field :email, placeholder: "email@yourcompany.com" %>
       <%= f.submit "Request a Demo", id: "submit_request", class: "button outlined white" %>
