@@ -3,7 +3,7 @@
 form {
   width: 100%;
   &.inline {
-    span {
+    span.label {
       margin-right: 10px;
     }
     input[type=text], input[type=email] {
