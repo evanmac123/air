@@ -4,7 +4,9 @@ var Airbo = window.Airbo || {};
 Airbo.RequestForm = (function(){
   var formSel = "#request_form"
     , submitBtnSel = "#submit_request"
-    , successBtnSel = ".success"
+    , successFlagSel = ".flag.green"
+    , successBtn
+    , successFlag
     , form
     , submitBtn
     , config
@@ -48,9 +50,10 @@ Airbo.RequestForm = (function(){
   }
 
   function successState(){
+    var w = submitBtn.outerWidth();
     submitBtn.hide();
     $("#demo_request_email").prop("disabled",true).addClass("disabled")
-    successBtn.removeClass("hidden").css("width", submitBtn.outerWidth());
+    successFlag.css("width",w ).removeClass("hidden");
   }
 
   function initFormSubmit(){
@@ -91,7 +94,7 @@ Airbo.RequestForm = (function(){
   function init(){
     form = $(formSel);
     submitBtn = $(submitBtnSel);
-    successBtn = $(successBtnSel);
+    successFlag = $(successFlagSel);
     initFormValidator();
     initFormSubmit();
     initEvents();
