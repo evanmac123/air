@@ -45,11 +45,17 @@ Airbo.RequestForm = (function(){
   }
   function showConfirmation(email){
     $(".err").hide();
-    $("#request_form .info").fadeIn( 1000 );;
-    successState()
+    var txt = $("footer #request_form .greeting_after").text();
+    if($("#request_form").parents("footer").length == 0){
+      $("#request_form .info").fadeIn( 1000 );;
+    }else{
+
+      $("#cta_label").text(txt);
+    }
+    swapFlagAndButton()
   }
 
-  function successState(){
+  function swapFlagAndButton(){
     var w = submitBtn.outerWidth();
     submitBtn.hide();
     $("#demo_request_email").prop("disabled",true).addClass("disabled")
