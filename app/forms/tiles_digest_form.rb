@@ -29,7 +29,7 @@ class TilesDigestForm
   end
 
   def digest_send_to_selected
-    demo.unclaimed_users_also_get_digest
+    @unclaimed_users_also_get_digest || demo.unclaimed_users_also_get_digest
   end
 
   def follow_up_day_options
