@@ -10,7 +10,7 @@ window.publicBoardControls = ->
   )
 
   $(document).ready ->
-    $('#activated_users').hide()
+    # $('#activated_users').hide()
     $('#digest_digest_send_to').on('change', (event) ->
       if $('#digest_digest_send_to option:selected').text() == "All Users"
         $('#all_users').show()
@@ -19,6 +19,8 @@ window.publicBoardControls = ->
         $('#all_users').hide()
         $('#activated_users').show()
     )
+
+    $('#digest_digest_send_to').trigger('change')
 
     $('.status_div').find('.private').on 'click', (event) ->
       $('.status_div').find('.switch > #private_button').click()
