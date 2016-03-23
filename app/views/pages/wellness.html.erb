@@ -1,3 +1,64 @@
+<%content_for :head do%>
+  <script>
+$(function(){
+
+  function initToggleTabs(){
+    $('#tabs .tab').hide();
+    $('#tabs div.tab:first').show();
+    $('#tabs ul li:first a').addClass('selected');
+
+    $('#tabs ul li a').click(function(){
+      $('#tabs ul li a').removeClass('selected');
+      $(this).addClass('selected');
+      var currentTab = $(this).attr('href');
+      $('#tabs .tab').hide();
+      $(currentTab).show();
+      return false;
+    }); 
+  }
+
+  initToggleTabs();
+  
+});
+  </script>
+  <style>
+ul.tabs {
+  margin-top: -35px;
+  margin-bottom: 46px;
+  color: white;
+}
+
+ #tabs .shadow_overlay{
+    height: 43px;
+    opacity: 0.35;
+ }
+
+ .shadow_overlay.long{
+    height: 50px;
+    top: 260px;
+    position: absolute;
+ }
+
+.padded-v-40{
+ padding: 40px 0px;
+}
+
+
+  @media only screen and (min-width: 760px) {
+    .shadow_overlay.long{
+      top: 260px;
+    }
+  }
+
+  @media only screen and (max-width: 300px) {
+    .shadow_overlay.long{
+      top: 200px;
+    }
+  }
+
+
+  </style>
+<%end%>
 <%= render partial: "pages/landing/header_simple" %>  
 <main>
 <%= render partial: "pages/landing/hero_board", locals: {name: "Wellness", img_url: image_path("topics/wellness.png") } %>
