@@ -46,12 +46,23 @@
 .board_section {
   padding: 0 20px;
 }
+
+.board_card_wrapper{
+  &.gray{
+    background-color: #d9dfe9
+  }
+}
+
 .board_card {
   margin-top: 40px;
   margin-bottom: 40px;
   padding: 20px 5px;
   overflow: auto;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
+  .board_card_wrapper.gray &{
+    background-color: white;
+  }
+
   h3 {
     margin-top: 0;
     margin-bottom: 15px;

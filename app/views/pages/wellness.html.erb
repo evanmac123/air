@@ -62,51 +62,94 @@ ul.tabs {
 <%= render partial: "pages/landing/header_simple" %>  
 <main>
 <%= render partial: "pages/landing/hero_board", locals: {name: "Wellness", img_url: image_path("topics/wellness.png") } %>
+<div class="shadow_overlay long "></div>
+<div class="row">
+  <div class="small-9 small-centered columns">
+    <div id="tabs" >
+      <ul class="tabs">
+        <li><a href="#tab-1" class="selected">Boards</a></li>
+        <li><a href="#tab-2">About</a></li>
+      </ul>
+      <!--div class="shadow_overlay"></div-->
+      <div id="tab-1" class="tab">
+        <h2 class="text-center padded-v-40" >Create an Engaging Wellness Program</h2>
+        <div class="row text-center">
+          <div class="small-4 columns">
+            <i class="fa fa-plus-circle fa-3x"></i>
+            <h4>Add Content</h4>
+            <p> Pick content, customize it, or create your own. Airbo publishes new content every week on a variety of topics including fitness, nutrition, mindfulness, financial education and sleep.</p>
+          </div>
 
-<section class="topic_desc_section row">
-  <div class="large-8 large-centered columns main_text">
-    <p>
-      There was a time when company “wellness” meant little more than encouraging employees to join a gym. But recently there’s been a surge in interest in company-sponsored wellness programs, with two thirds of U.S. employers now participating, and the majority reporting positive results. According to RAND Corporation’s 2012 
-      <%= link_to "Workplace Wellness Programs Study", "" %> 
-      (funded by the U.S. Departments of Labor and Health and Human Services, and containing the latest and most comprehensive data available), up to 80 percent of those surveyed reported improvements in productivity, absenteeism or lowered medical costs thanks to their wellness programs. 
-    </p>
 
-    <p>
-      But when it comes to wellness, one size definitely does not fit all. Some employees respond best to health and nutrition tips, while others are looking to set fitness goals and track their progress. Some want to engage in fun activities they can do with their co-workers, while others are eager
-    </p>
-    <p>
-      There was a time when company “wellness” meant little more than encouraging employees to join a gym. But recently there’s been a surge in interest in company-sponsored wellness programs, with two thirds of U.S. employers now participating, and the majority reporting positive results. According to RAND Corporation’s 2012 
-      <%= link_to "Workplace Wellness Programs Study", "" %> 
-      (funded by the U.S. Departments of Labor and Health and Human Services, and containing the latest and most comprehensive data available), up to 80 percent of those surveyed reported improvements in productivity, absenteeism or lowered medical costs thanks to their wellness programs. 
-    </p>
+          <div class="small-4 columns">
+            <i class="fa fa-users fa-3x"></i>
+            <h4>Engage Employees</h4>
+            <p>Share content with employees as easily as sending an email. Fun, interactive features like quizzes captures employee attention and drives participation.</p>
+          </div>
 
-    <p>
-      But when it comes to wellness, one size definitely does not fit all. Some employees respond best to health and nutrition tips, while others are looking to set fitness goals and track their progress. Some want to engage in fun activities they can do with their co-workers, while others are eager
-    </p>
+          <div class="small-4 columns">
+            <i class="fa fa-bar-chart fa-3x"></i>
+            <h4>Measure Appreciation</h4>
+            <p>No more wondering what happened after you clicked “Send.” You’ll see exactly who’s participating and receive valuable feedback that helps demonstrate ROI.</p>
+          </div>
+
+        </div>
+      </div> 
+
+      <div id="tab-2" class="tab">
+        <p>
+        Starting a wellness program may feel overwhelming, but it can actually be quite simple. In fact, there’s a good chance that you already have some pieces in place: according to the Kaiser Family Foundation, over 90% of all firms with 25 or more employees already offer at least one wellness activity. 
+        </p>
+        <p>
+        But what does it take to create a successful wellness program? 
+        </p>
+        <h3>A Variety of Options</h3>
+        <p>
+        According to Dr. Laura Linnan, head of the Centers for Disease Control and Prevention-funded Workplace Health Research Network, “[companies] who offer comprehensive programs have better health outcomes.” That’s because some employees respond best to health and nutrition tips, while others are looking to set fitness goals and track their progress. That’s why Airbo’s approach helps cover all the bases. Content is provided in five major areas: fitness, nutrition, mindfulness, financial education and improving sleep. 
+        </p>
+        <h3>Engagement</h3>
+        <p>
+        It’s pretty intuitive: It’s hard to improve employee well being if employees don’t participate. But, low participation rates are common. According to a joint survey of employers conducted by Willis Towers Watson and the National Business Group on Health, almost half of employees don’t participate in any wellness or activity or health management program. 
+        </p>
+        <p>
+        Airbo drives participation by making content feel fun and interactive. As a result, companies that use Airbo achieve higher participation rates than they can with traditional means, like intranets and emails. 
+        </p>
+        <h3>Consistency</h3>
+        <p>
+        Just like Facebook builds a habit of engagement for its users, you need to do the same to drive engagement in your wellness program. We’ve seen consistent communication do wonders for customers like Fujifilm, where it drastically boosted employee engagement .  
+        </p>
+        </p>
+        Airbo publishes new content every week so you can continue to drive engagement, even in the busiest times of year. You can personalize the stock content, and create your own.  
+        </p>
+        <h3>Get Started</h3>
+
+        <p>Try Airbo by browsing the Wellness Starter Kit. Then, schedule time with an HR Specialist to chat about your specific needs.</p>
+      </div>
+    </div><!--tabs -->
   </div>
-  <%= link_to "Read More", "#", class: "button outlined full_main_text" %>
-</section>
-
-<section class="board_section row">
-  <div class="large-8 large-centered columns board_card">
-    <div class="large-4 columns">
-      <%= link_to  public_board_path(public_slug: "wellness-starter-kit") do %>
-        <%=image_tag "topics/board/wellness.png" %>
-      <%end%>
+</div>
+<div class="board_card_wrapper gray">
+  <section class="board_section row">
+    <div class="large-8 large-centered columns board_card">
+      <div class="large-4 columns">
+        <%= link_to  public_board_path(public_slug: "wellness-starter-kit") do %>
+          <%=image_tag "topics/board/wellness.png" %>
+        <%end%>
+      </div>
+      <div class="large-8 columns">
+        <h3>Wellness Starter Kit</h3>
+        <small>by Airbo</small>
+        <p>
+     Find everything you need to launch your wellness program on Airbo, from surveys to help you assess your company’s wellness needs, to tips and activities to get your employees excited and engaged! 
+        </p>
+        <%= link_to "See Board", public_board_path(public_slug: "wellness-starter-kit"), class: "button outlined" %>
+      </div>
     </div>
-    <div class="large-8 columns">
-      <h3>Wellness Starter Kit</h3>
-      <small>by Airbo</small>
-      <p>
-        Find everything you need to launch your wellness program on Airbo, from surveys to help you assess your company’s wellness needs, to tips, information and action-based activities to get your employees...
-      </p>
-      <%= link_to "See Board", public_board_path(public_slug: "wellness-starter-kit"), class: "button outlined" %>
-    </div>
-  </div>
-</section>
+  </section>
+</div>
 </main>
 
-  <%content_for :footer do%>
+<%content_for :footer do%>
   <%= render partial: "pages/landing/request_form" %>
 <%end%>
 <%= render partial: "pages/landing/footer" %>
