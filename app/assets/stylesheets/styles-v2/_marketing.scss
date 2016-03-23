@@ -29,17 +29,17 @@ blockquote {
 
   .image {
     @include radius(30px);
-    display: table-cell;
+    display: inline-block;
     height: 60px;
     overflow: hidden;
     width: 60px;
+    margin-right: 20px;
   }
 
   .text {
     display: table-cell;
     font-size: $font-size-1;
     line-height: 1.6em;
-    padding-left: 20px;
     vertical-align: middle;
   }
 }
