@@ -13,18 +13,36 @@ $(function(){
       var currentTab = $(this).attr('href');
       $('#tabs .tab').hide();
       $(currentTab).show();
+      if($(this).attr("href")=="#tab-2"){
+        $("#quote").hide();
+        shrinkTabSpacing();
+      }else{
+        $("#quote").show();
+        expandTabSpacing();
+      }
       return false;
     }); 
   }
 
+  function hideQuote(){
+    $("#quote").hide();
+  }
+
+  function shrinkTabSpacing(){
+    $("ul.tabs").css({"margin-top": "-35px", "margin-bottom": "46px"});
+  }
+
+  function expandTabSpacing(){
+    $("ul.tabs").css({"margin-top": "-235px", "margin-bottom": "246px"});
+  }
   initToggleTabs();
   
 });
   </script>
   <style>
 ul.tabs {
-  margin-top: -35px;
-  margin-bottom: 46px;
+  margin-top: -235px;
+  margin-bottom: 246px;
   color: white;
 }
 
@@ -69,6 +87,7 @@ ul.tabs {
 <%= render partial: "pages/landing/header_simple" %>  
 <main>
 <%= render partial: "pages/landing/hero_board", locals: {name: "Wellness", img_url: image_path("topics/wellness.png") } %>
+
 <div class="shadow_overlay long "></div>
 <section class="padded bg-blue" id="quote">
   <div class="row">
