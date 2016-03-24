@@ -1,10 +1,9 @@
-<%= render "public_board_html_head" %>
-<a id="best-practices"></a>
 <%= render partial: "pages/landing/header_simple" %>  
-<main>
-</main>
-<%= render "wellness_content" %>
-
+<div class="core">
+  <div class="content" >
+    <%= render "wellness_content" %>
+  </div>
+</div>
 <%content_for :footer do%>
   <%= render partial: "pages/landing/request_form" %>
 <%end%>
