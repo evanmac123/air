@@ -5,8 +5,32 @@ $(function(){
 
   function initTab2(){
     if(window.location.hash=="#best-practices"){
-       $("#tab-link-2").trigger("click")
+      switchTabs($("#tab-link-2"));
+      postClick($("#tab-link-2"))
     }
+  }
+
+  function postClick(obj){
+
+    if(obj.attr("href")=="#best-practices-tab"){
+      $("#quote").hide();
+      window.location.hash = '#best-practices';
+      shrinkTabSpacing();
+    }else{
+      $("#quote").show();
+      window.location.hash = '';
+      expandTabSpacing();
+    }
+
+  }
+
+  function switchTabs(currLink){
+
+      $('#tabs ul li a').removeClass('selected');
+      currLink.addClass('selected');
+      var currentTab = currLink.attr('href');
+      $('#tabs .tab').hide();
+      $(currentTab).show();
   }
 
   function initToggleTabs(){
@@ -15,20 +39,9 @@ $(function(){
     $('#tabs ul li:first a').addClass('selected');
 
     $('#tabs ul li a').click(function(){
-      $('#tabs ul li a').removeClass('selected');
-      $(this).addClass('selected');
-      var currentTab = $(this).attr('href');
-      $('#tabs .tab').hide();
-      $(currentTab).show();
-      if($(this).attr("href")=="#best-practices"){
-        $("#quote").hide();
-        window.location.hash = '#best-practices';
-        shrinkTabSpacing();
-      }else{
-        $("#quote").show();
-        window.location.hash = '';
-        expandTabSpacing();
-      }
+      switchTabs($(this));
+      postClick($(this));
+      window.scrollTo(0,0)
       return false;
     }); 
   }
@@ -97,8 +110,17 @@ ul.tabs {
     margin-top: 50px;
   }
 
+  header#pageHeader .headerMenu ul li a {
+    color: #818385;
+  }
+
+
+  header#pageHeader .logo .logo_image {
+    background-image: url("landing/logo-blue.png");
+  }
   </style>
 <%end%>
+<a id="best-practices"></a>
 <%= render partial: "pages/landing/header_simple" %>  
 <main>
 <%= render partial: "pages/landing/hero_board", locals: {name: "Wellness", img_url: image_path("topics/wellness.png") } %>
@@ -127,7 +149,7 @@ ul.tabs {
     <div id="tabs" >
       <ul class="tabs">
         <li><a href="#tab-1" class="selected">Introduction</a></li>
-        <li><a id="tab-link-2" href="#best-practices">Best Practices</a></li>
+        <li><a id="tab-link-2" href="#best-practices-tab">Best Practices</a></li>
       </ul>
       <!--div class="shadow_overlay"></div-->
       <div id="tab-1" class="tab">
@@ -155,7 +177,7 @@ ul.tabs {
         </div>
       </div> 
 
-      <div id="best-practices" class="tab">
+      <div id="best-practices-tab" class="tab">
         <p>
         Starting a wellness program may feel overwhelming, but it can actually be quite simple. In fact, there’s a good chance that you already have some pieces in place: according to the Kaiser Family Foundation, more than 90% of all firms with 25 or more employees already offer at least one wellness activity.
         </p>
