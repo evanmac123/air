@@ -16,7 +16,9 @@
 //= require application
 //= require ./external/schedule_demo
 //= require ./external/request_form
+//= require ./internal/starter_kit_activation_intro
 
+//= require ../../../vendor/assets/javascripts/intro.min
 $(function(){
   $(document).foundation();
   Airbo.ScheduleDemoModal.init();
