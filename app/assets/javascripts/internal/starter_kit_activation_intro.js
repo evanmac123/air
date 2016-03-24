@@ -5,6 +5,7 @@ Airbo.StarterKitActivationIntro= (function(){
     , currCookie
     , anatomyIntroSelector= ".public-board .tile_holder"
     , viewTileIntroSelector= ".public-board #tile_wall"
+    , openBoardIntroSelector= ".board_card #open_board"
     , anatomyCookie= "tile-anatomy"
     , viewTileCookie= "view-tile"
     , anatomySeen = Airbo.CookieMonster.getCookie(anatomyCookie)
@@ -117,6 +118,25 @@ Airbo.StarterKitActivationIntro= (function(){
       ]
     };
 
+    options = $.extend({},config,options)
+    intro.setOptions(options);
+    intro.onafterchange(function(targetElement) {
+      $(".introjs-skipbutton").hide();
+    });
+  }
+
+
+  function initOpenBoardIntro(){
+    var options = {
+      //overlayOpacity: 0,
+      tooltipClass: "airbo_preview_intro small",
+      steps: [{
+        element:  document.querySelector(".board_card"),
+        intro: "Start by opening this board",
+        position: "top",
+      },
+      ]
+    };
 
     options = $.extend({},config,options)
     intro.setOptions(options);
@@ -128,16 +148,23 @@ Airbo.StarterKitActivationIntro= (function(){
   function initIntro() {
    var inactivation = false;
     intro = introJs();
-
     if(!anatomySeen && $(anatomyIntroSelector).length >0){
       inactivation =true;
       initTileAnatomyIntro();
       
     }
+
     if(!viewTileSeen && $(viewTileIntroSelector).length >0){
       inactivation =true;
       initViewTileIntro();
     }
+
+ 
+    if((openBoardIntroSelector).length >0){
+      inactivation =true;
+      initOpenBoardIntro();
+    }
+
     intro.onexit(function(targetElement){
       setCookie();
       introViewTilePing();
