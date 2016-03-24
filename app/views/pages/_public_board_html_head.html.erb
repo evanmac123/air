@@ -1,0 +1,122 @@
+<%content_for :head do%>
+  <script>
+$(function(){
+
+
+  function initTab2(){
+    if(window.location.hash=="#best-practices"){
+      switchTabs($("#tab-link-2"));
+      postClick($("#tab-link-2"))
+    }
+  }
+
+  function postClick(obj){
+
+    if(obj.attr("href")=="#best-practices-tab"){
+      $("#quote").hide();
+      window.location.hash = '#best-practices';
+      shrinkTabSpacing();
+    }else{
+      $("#quote").show();
+      window.location.hash = '';
+      expandTabSpacing();
+    }
+
+  }
+
+  function switchTabs(currLink){
+
+      $('#tabs ul li a').removeClass('selected');
+      currLink.addClass('selected');
+      var currentTab = currLink.attr('href');
+      $('#tabs .tab').hide();
+      $(currentTab).show();
+  }
+
+  function initToggleTabs(){
+    $('#tabs .tab').hide();
+    $('#tabs div.tab:first').show();
+    $('#tabs ul li:first a').addClass('selected');
+
+    $('#tabs ul li a').click(function(){
+      switchTabs($(this));
+      postClick($(this));
+      window.scrollTo(0,0)
+      return false;
+    }); 
+  }
+
+  function hideQuote(){
+    $("#quote").hide();
+  }
+
+  function shrinkTabSpacing(){
+    $("ul.tabs").css({"margin-top": "-35px", "margin-bottom": "46px"});
+  }
+
+  function expandTabSpacing(){
+    $("ul.tabs").css({"margin-top": "-235px", "margin-bottom": "246px"});
+  }
+
+  function init(){
+    initToggleTabs();
+    initTab2();
+  }
+
+  init();
+  
+});
+  </script>
+  <style>
+ul.tabs {
+  margin-top: -235px;
+  margin-bottom: 246px;
+  color: white;
+}
+
+ #tabs .shadow_overlay{
+    height: 43px;
+    opacity: 0.35;
+ }
+
+ .shadow_overlay.long{
+    height: 50px;
+    top: 260px;
+    position: absolute;
+ }
+
+.padded-v-40{
+ padding: 40px 0px;
+}
+
+
+  @media only screen and (min-width: 760px) {
+    .shadow_overlay.long{
+      top: 260px;
+    }
+  }
+
+  @media only screen and (max-width: 300px) {
+    .shadow_overlay.long{
+      top: 200px;
+    }
+  }
+
+  h3 {
+   font-weight:600;
+  }
+
+  .board_card_wrapper{
+    margin-top: 50px;
+  }
+
+  header#pageHeader .headerMenu ul li a {
+    color: #818385;
+  }
+
+
+  header#pageHeader .logo .logo_image {
+    background-image: url("landing/logo-blue.png");
+  }
+  </style>
+<%end%>
