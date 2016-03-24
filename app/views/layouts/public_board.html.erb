@@ -37,7 +37,10 @@
   <div id='js-flashes'><%# render 'shared/flashes' %> </div>
   <main class="main" >
     <div class="core">
-      <div class="content" >
+      <div class="content">
+        <%if @demo.is_parent? && @current_user.is_guest?%>
+    <%= render partial: "pages/wellness_content"%>
+  <%end%>
         <%= render partial: "acts/public_board/cover" unless @hide_cover%>
         <%= yield %>
       </div>
