@@ -2,6 +2,13 @@
   <script>
 $(function(){
 
+
+  function initTab2(){
+    if(window.location.hash=="#best-practices"){
+       $("#tab-link-2").trigger("click")
+    }
+  }
+
   function initToggleTabs(){
     $('#tabs .tab').hide();
     $('#tabs div.tab:first').show();
@@ -13,11 +20,13 @@ $(function(){
       var currentTab = $(this).attr('href');
       $('#tabs .tab').hide();
       $(currentTab).show();
-      if($(this).attr("href")=="#tab-2"){
+      if($(this).attr("href")=="#best-practices"){
         $("#quote").hide();
+        window.location.hash = '#best-practices';
         shrinkTabSpacing();
       }else{
         $("#quote").show();
+        window.location.hash = '';
         expandTabSpacing();
       }
       return false;
@@ -35,7 +44,13 @@ $(function(){
   function expandTabSpacing(){
     $("ul.tabs").css({"margin-top": "-235px", "margin-bottom": "246px"});
   }
-  initToggleTabs();
+
+  function init(){
+    initToggleTabs();
+    initTab2();
+  }
+
+  init();
   
 });
   </script>
@@ -112,7 +127,7 @@ ul.tabs {
     <div id="tabs" >
       <ul class="tabs">
         <li><a href="#tab-1" class="selected">Introduction</a></li>
-        <li><a href="#tab-2">Best Practices</a></li>
+        <li><a id="tab-link-2" href="#best-practices">Best Practices</a></li>
       </ul>
       <!--div class="shadow_overlay"></div-->
       <div id="tab-1" class="tab">
@@ -140,7 +155,7 @@ ul.tabs {
         </div>
       </div> 
 
-      <div id="tab-2" class="tab">
+      <div id="best-practices" class="tab">
         <p>
         Starting a wellness program may feel overwhelming, but it can actually be quite simple. In fact, there’s a good chance that you already have some pieces in place: according to the Kaiser Family Foundation, more than 90% of all firms with 25 or more employees already offer at least one wellness activity.
         </p>
