@@ -48,40 +48,41 @@ Airbo.StarterKitActivationIntro= (function(){
      , currStep = 0
    ;
     var  options = {
+      overlayOpacity: 0,
       nextLabeL: nextLabels[0], 
       steps: [
         {
           element: anatomyIntroSelector,
-          intro: "Tiles capture employee attention. You can copy and modify Tiles, or create your own.",
+          intro: "This is a Tile, an interactive bit of content that's funny and easy to read.",
           position: "top"
         },
         {
           element: document.querySelector('.tile_full_image'),
-          intro: "Images capture employee attention so they want to read your content.",
+          intro: "People pay more attention to images than text, so a Tile always starts with an image",
 
-          position: 'bottom',
+          position: 'top',
           step: 1
         },
         {
           element: document.querySelector('.tile_texts_container'),
-          intro: "Content is kept short for short attention spans. You can link employees to more info on your intranet or any web page",
-          position: 'bottom',
+          intro: "Text is short so employees can get to the point fast.",
+          position: 'top',
 
           step: 2
         },
    
         {
           element: '.tile_points_bar',
-          intro: "Points reward the employee for reading, answering questions and taking actions. Some HR pros provide employees with prizes.",
-          position: 'bottom',
+          intro: "Tiles are interactive. That's fun for employees and helps reinforce key points.",
+          position: 'top',
 
           step: 3
         },
 
         {
           element: '.multiple_choice_group',
-          intro: "Interactions are fun for employees and provides data on exactly who read and took an action. Try it by clicking one of the buttons.",
-          position: 'bottom',
+          intro: "Employees earn points for each tile they interact with. Next, Interact with the Tile.",
+          position: 'top',
 
           step: 4
         },
@@ -115,10 +116,11 @@ Airbo.StarterKitActivationIntro= (function(){
   function initViewTileIntro(){
     currCookie= viewTileCookie;
     var options = {
-      tooltipClass: "airbo_preview_intro small",
+      overlayOpacity: 0,
+      tooltipClass: "airbo_preview_intro no-min",
       steps: [{
-        element:  document.querySelector(".tile_thumbnail"),
-        intro: "Please click on one of the Tiles below",
+        element:  document.querySelector("#inc0"),
+        intro: "Start by opening this Tile",
         position: "top",
       },
       ]
@@ -127,7 +129,10 @@ Airbo.StarterKitActivationIntro= (function(){
     options = $.extend({},config,options)
     intro.setOptions(options);
     intro.onafterchange(function(targetElement) {
+      var width = $(".introjs-tooltipReferenceLayer").css("width");
       $(".introjs-skipbutton").hide();
+      $(".introjs-tooltip").css({"width": width, "left": "0px"});
+ 
     });
   }
 
