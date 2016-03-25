@@ -10,7 +10,14 @@ Airbo.StarterKitActivationIntro= (function(){
     , viewTileCookie= "view-tile"
     , anatomySeen = Airbo.CookieMonster.getCookie(anatomyCookie)
     , viewTileSeen = Airbo.CookieMonster.getCookie(viewTileCookie)
-    , config = { showStepNumbers: false, skipLabel: 'Exit Intro', doneLabel: 'Got it', tooltipClass: "airbo_preview_intro", nextLabel: "Got it", prevLabel: "Back" }
+    , config = { 
+  showStepNumbers: false,
+  skipLabel: 'Exit Intro',
+  doneLabel: 'Got it',
+  tooltipClass: "airbo_preview_intro",
+  nextLabel: "Got it",
+  prevLabel: "Back"
+    }
     , pingName = {
         "tile_holder": "Tile",
         "tile_full_image": "Image",
@@ -108,7 +115,6 @@ Airbo.StarterKitActivationIntro= (function(){
   function initViewTileIntro(){
     currCookie= viewTileCookie;
     var options = {
-      overlayOpacity: 0,
       tooltipClass: "airbo_preview_intro small",
       steps: [{
         element:  document.querySelector(".tile_thumbnail"),
@@ -143,10 +149,9 @@ Airbo.StarterKitActivationIntro= (function(){
     intro.setOptions(options);
     intro.onafterchange(function(targetElement) {
 
+      var width = $(".introjs-tooltipReferenceLayer").css("width");
       $(".introjs-skipbutton").hide();
-      //var len = $(".introjs-tooltipReferenceLayer").width();
-      //$(".introjs-tooltip").css({"width": len, "left": "0px"});
-      //$(".introjs-tooltip").css({"left": "0px"});
+      $(".introjs-tooltip").css({"width": width, "left": "0px"});
     });
   }
 
