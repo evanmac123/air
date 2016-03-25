@@ -193,6 +193,7 @@ window.dragAndDropTiles = ->
       url: '/client_admin/tiles/' + id + '/sort'
       success: ->
         updateTileVisibility()
+        Airbo.TileThumbnail.initTile(id)
     });
 
   sourceSectionParams = ->
