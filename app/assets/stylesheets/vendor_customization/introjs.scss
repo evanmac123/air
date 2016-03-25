@@ -20,6 +20,16 @@
     padding: 10px;
   }
 
+  &.no-min{
+    min-width: none;
+  }
+
+  &.no-max{
+   max-width: none;
+  }
+
+
+
   .introjs-tooltiptext {
     line-height: 1.5;
     font-size: 16px;
@@ -31,6 +41,7 @@
     }
     &.bottom {
       border-top-color: $n-blue;
+      left: 50%;
     }
   }
   .introjs-skipbutton {
@@ -40,6 +51,8 @@
       float: left;
     }
   }
+
+  
 
   .introjs-prevbutton,.introjs-nextbutton{
     float: left;
