@@ -31,8 +31,6 @@ class ConvertToFullUser
         @pre_user.converted_user = @converted_user
         @pre_user.save!
 
-        # @converted_user.voteup_intro_seen = @pre_user.voteup_intro_seen
-        @converted_user.share_link_intro_seen = @pre_user.share_link_intro_seen
         @converted_user.save!
       end
       @converted_user.add_board(demo.id, true)
@@ -88,11 +86,6 @@ class ConvertToFullUser
     @converted_user.original_guest_user = @pre_user if @converting_from_guest
     @converted_user.cancel_account_token = @pre_user.generate_cancel_account_token(@converted_user)
     @converted_user.last_acted_at = @pre_user.last_acted_at
-<<<<<<< HEAD
-    # @converted_user.voteup_intro_seen = @pre_user.voteup_intro_seen
-    @converted_user.share_link_intro_seen = @pre_user.share_link_intro_seen
-=======
->>>>>>> logged-out-tile
     @converted_user.location_id = find_location @location_name
     @converted_user.converting_from_guest = @converting_from_guest
     @converted_user.must_have_location = true if @location_name.present?
