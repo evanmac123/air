@@ -24,9 +24,10 @@
 
 $(document).ready(function() {
   $('.settings-edit').foundation();
+
+  $(document).foundation();
+  $(document).foundation('reveal', {animation: "fade"});
+  //$(document).confirmWithReveal(Airbo.Utils.confirmWithRevealConfig);
 });
-$(document).foundation();
-$(document).foundation('reveal', {animation: "fade"});
-$(document).confirmWithReveal(Airbo.Utils.confirmWithRevealConfig);
 
 if(undefined) {undefined};
