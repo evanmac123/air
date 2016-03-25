@@ -5,7 +5,7 @@ Airbo.StarterKitActivationIntro= (function(){
     , currCookie
     , anatomyIntroSelector= ".public-board .tile_holder"
     , viewTileIntroSelector= ".public-board #tile_wall"
-    , openBoardIntroSelector= ".board_card #open_board"
+    , openBoardIntroSelector= ".board_card_wrapper"
     , anatomyCookie= "tile-anatomy"
     , viewTileCookie= "view-tile"
     , anatomySeen = Airbo.CookieMonster.getCookie(anatomyCookie)
@@ -128,8 +128,9 @@ Airbo.StarterKitActivationIntro= (function(){
 
   function initOpenBoardIntro(){
     var options = {
-      //overlayOpacity: 0,
-      tooltipClass: "airbo_preview_intro small",
+      overlayOpacity: 0,
+      tooltipClass: "airbo_preview_intro no-max",
+      scrollToElement: false,
       steps: [{
         element:  document.querySelector(".board_card"),
         intro: "Start by opening this board",
@@ -141,7 +142,11 @@ Airbo.StarterKitActivationIntro= (function(){
     options = $.extend({},config,options)
     intro.setOptions(options);
     intro.onafterchange(function(targetElement) {
+
       $(".introjs-skipbutton").hide();
+      //var len = $(".introjs-tooltipReferenceLayer").width();
+      //$(".introjs-tooltip").css({"width": len, "left": "0px"});
+      //$(".introjs-tooltip").css({"left": "0px"});
     });
   }
 
@@ -159,8 +164,7 @@ Airbo.StarterKitActivationIntro= (function(){
       initViewTileIntro();
     }
 
- 
-    if((openBoardIntroSelector).length >0){
+    if($(openBoardIntroSelector).length >0){
       inactivation =true;
       initOpenBoardIntro();
     }
@@ -175,6 +179,8 @@ Airbo.StarterKitActivationIntro= (function(){
       introViewTilePing();
     });
 
+
+
     if(inactivation){
       run();
     }
@@ -186,7 +192,7 @@ Airbo.StarterKitActivationIntro= (function(){
 
   function initCloseOnTileInteraction(){
     $("body").on("click", ".right_multiple_choice_answer, .wrong_multiple_choice_answer", function(){
-     intro.exit();
+     exit();
     });
   }
 
@@ -194,14 +200,23 @@ Airbo.StarterKitActivationIntro= (function(){
     intro.start();
   }
 
+
+
+
   function init(){
       initCloseOnTileInteraction();
       initIntro();
   }
 
+  function exit(){
+   intro.exit();
+  }
+
+
   return {
     init: init,
-    run: run
+    run: run,
+    exit: exit,
   }
 
 }())

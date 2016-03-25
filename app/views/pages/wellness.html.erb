@@ -1,9 +1,7 @@
 <%= render partial: "pages/landing/header_simple" %>  
-<div class="core">
-  <div class="content" >
-    <%= render "wellness_content" %>
-  </div>
-</div>
+<main>
+<%= render "wellness_content" %>
+</main>
 <%content_for :footer do%>
   <%= render partial: "pages/landing/request_form" %>
 <%end%>
