@@ -119,7 +119,7 @@ Airbo.StarterKitActivationIntro= (function(){
       overlayOpacity: 0,
       tooltipClass: "airbo_preview_intro no-min",
       steps: [{
-        element:  document.querySelector("#inc0"),
+        element:  document.querySelector(".tile_thumbnail"),
         intro: "Start by opening this Tile",
         position: "top",
       },
