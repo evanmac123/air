@@ -37,7 +37,7 @@ body.suggested_tiles-index {
       #suggestion_box {
         display: block;
       }
-    
+
     }
     &.suggestion_box_gated {
       margin-top: 0;
@@ -50,23 +50,11 @@ body.suggested_tiles-index {
 
   // Add New Tile Btn
   #add_new_tile {
-    // @include app-button($n-blue);
     position: absolute;
     top: 4px;
     right: 57px;
     z-index: 1;
-    // font-weight: 700;
-    // font-size: 12px;
-    // padding: 6px 10px;
-    // i {
-    //   float: left;
-    //   font-size: 15px;
-    //   padding-right: 8px;
-    // }
-    // span {
-    //   float: left;
-    //   padding-top: 1px;
-    // }
+    border: 1px solid #48bfff;
   }
   //
   // => Draft Header Block
