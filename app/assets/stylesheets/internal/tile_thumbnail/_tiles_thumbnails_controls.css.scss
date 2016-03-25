@@ -186,6 +186,7 @@
     border-radius: 0;
     border-top-left-radius: 3px;
     z-index: 1;
+    pointer-events: none; // so tile is not clicked after drag-and-drop draft->posted
   }
   .tile_stats {
     padding-top: 10px;
