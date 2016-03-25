@@ -10,13 +10,11 @@ Airbo.StarterKitActivationIntro= (function(){
     , viewTileCookie= "view-tile"
     , anatomySeen = Airbo.CookieMonster.getCookie(anatomyCookie)
     , viewTileSeen = Airbo.CookieMonster.getCookie(viewTileCookie)
-    , config = { 
-  showStepNumbers: false,
-  skipLabel: 'Exit Intro',
+    , config = { showStepNumbers: false, skipLabel: 'Exit Intro',
   doneLabel: 'Got it',
-  tooltipClass: "airbo_preview_intro",
-  nextLabel: "Got it",
-  prevLabel: "Back"
+    tooltipClass: 'airbo_preview_intro',
+    nextLabel: 'Got it',
+    prevLabel: 'Back'
     }
     , pingName = {
         "tile_holder": "Tile",
@@ -25,6 +23,7 @@ Airbo.StarterKitActivationIntro= (function(){
         "tile_supporting_content": "Interaction"
       }
   ;
+
   function getPingName(el) {
     for (var elClass in pingName) {
       if( el.hasClass(elClass) ){
@@ -33,13 +32,13 @@ Airbo.StarterKitActivationIntro= (function(){
     }
     return "";
   }
+
   function introAnatomyPing(el) {
     name = getPingName(el);
     Airbo.Utils.ping("Tile - Viewed", {"Tile Onboarding - Viewed": name});
   }
 
   function introViewTilePing() {
-    // var game = $("body").data("board-id");
     Airbo.Utils.ping("Viewed Parent Board", {"Saw Tile Prompt": true});
   }
 
@@ -47,6 +46,7 @@ Airbo.StarterKitActivationIntro= (function(){
    var nextLabels= ["Why Are Tiles Engaging?", "Where Does Content Go?", "What are points?", "Why are Tiles Interactive?" ]
      , currStep = 0
    ;
+
     var  options = {
       overlayOpacity: 0,
       nextLabeL: nextLabels[0], 
@@ -161,12 +161,11 @@ Airbo.StarterKitActivationIntro= (function(){
   }
 
   function initIntro() {
-   var inactivation = false;
+    var inactivation = false;
     intro = introJs();
     if(!anatomySeen && $(anatomyIntroSelector).length >0){
       inactivation =true;
       initTileAnatomyIntro();
-      
     }
 
     if(!viewTileSeen && $(viewTileIntroSelector).length >0){
@@ -189,15 +188,13 @@ Airbo.StarterKitActivationIntro= (function(){
       introViewTilePing();
     });
 
-
-
     if(inactivation){
       run();
     }
   }
 
   function setCookie(){
-      Airbo.CookieMonster.setCookie(currCookie, "true");
+    Airbo.CookieMonster.setCookie(currCookie, "true");
   }
 
   function initCloseOnTileInteraction(){
@@ -209,8 +206,6 @@ Airbo.StarterKitActivationIntro= (function(){
   function run(){
     intro.start();
   }
-
-
 
 
   function init(){
