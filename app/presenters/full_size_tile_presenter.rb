@@ -28,10 +28,6 @@ class FullSizeTilePresenter
     @browser = browser
   end
 
-  def creator_class
-    appears_client_created ? 'client_created' : 'admin_created'
-  end
-
   def supporting_content
     return @supporting_content if @supporting_content
 
@@ -74,10 +70,6 @@ class FullSizeTilePresenter
 
   def image_styles
     (is_preview || ie9_or_older?) ? "height:#{full_size_image_height}px;" : ""
-  end
-
-  def appears_client_created
-    supporting_content.present? && question.present?
   end
 
   protected

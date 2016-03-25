@@ -5,7 +5,7 @@ feature 'Carousel on Explore Tile Preview Page' do
   include TilePreviewHelpers
 
   let (:creator) {FactoryGirl.create(:client_admin, name: "Charlotte McTilecreator")}
-  let(:admin) {FactoryGirl.create(:client_admin, voteup_intro_seen: true, share_link_intro_seen: true)}
+  let(:admin) {FactoryGirl.create(:client_admin)}
 
   before(:each) do
     %w(Spam Fish).each do |title|
@@ -39,34 +39,10 @@ feature 'Carousel on Explore Tile Preview Page' do
       end
     end
 
-    it "should send ping on #next button click", js: true do
-      show_next_tile
-
-      FakeMixpanelTracker.clear_tracked_events
-      crank_dj_clear
-      FakeMixpanelTracker.should have_event_matching('Explore page - Interaction', action: "Clicked arrow to next tile")
-    end
-
-    it "should send ping on #prev button click", js: true do
-      show_previous_tile
-
-      FakeMixpanelTracker.clear_tracked_events
-      crank_dj_clear
-      FakeMixpanelTracker.should have_event_matching('Explore page - Interaction', action: "Clicked arrow to previous tile")
-    end
-
     it "should move to next tile after clicking right answer", js: true do
       expect_content @tiles[0].headline
       page.find('.right_multiple_choice_answer').click
       expect_content @tiles[1].headline
-    end
-
-    it "should send ping on clicked right answer", js: true do
-      page.find('.right_multiple_choice_answer').click
-
-      FakeMixpanelTracker.clear_tracked_events
-      crank_dj_clear
-      FakeMixpanelTracker.should have_event_matching("Explore page - Interaction", "action" => 'Clicked Answer', 'tile_id' => @tiles[0].id.to_s)
     end
   end
 
@@ -122,5 +98,13 @@ feature 'Carousel on Explore Tile Preview Page' do
       crank_dj_clear
       expect_tile_copied(@tile, admin)
     end
+  end
+
+  def show_next_tile
+    page.find("#next_tile").click
+  end
+
+  def show_previous_tile
+    page.find("#prev_tile").click
   end
 end

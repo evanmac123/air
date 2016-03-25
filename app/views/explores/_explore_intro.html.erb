@@ -7,7 +7,7 @@
         <div class="intro-content">
           <% if @tile %>
             <h1>Hello!</h1>
-            <p>Welcome back to Airbo, where you can find engaging content like:</p>
+            <p>Welcome <%= new_user? ? '' : 'back' %> to Airbo, where you can find engaging content like:</p>
             <p>"<%= @tile.headline %>"</p>
             <p>Just a quick word about how this works...</p>
           <% else %>

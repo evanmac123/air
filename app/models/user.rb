@@ -1103,14 +1103,6 @@ class User < ActiveRecord::Base
     demos.where(is_paid: true).first.nil?
   end
 
-  def voteup_intro_never_seen
-    !(voteup_intro_seen)
-  end
-
-  def share_link_intro_never_seen
-    !(share_link_intro_seen)
-  end
-
   def can_see_raffle_modal?
     true
   end

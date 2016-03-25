@@ -98,7 +98,6 @@ Health::Application.routes.draw do
     resources :tile_previews, only: [:show], :path => "tile"
     resource :copy_tile, only: [:create]
     resource :tile_likes, :only => [:create, :destroy, :show]
-    resource :random_tile, only: [:show]
     member do
       get 'tile_tag_show'
     end
@@ -112,7 +111,6 @@ Health::Application.routes.draw do
   resources :board_memberships, only: :destroy
   resources :mute_followups, only: :update
   resources :mute_digests, only: :update
-  resource  :intro_viewed_status, only: :update
 
   resources :locations, only: :index
 

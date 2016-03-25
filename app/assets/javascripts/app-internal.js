@@ -18,6 +18,7 @@
 //= require jquery.validate.additional-methods
 //= require jquery.ui.autocomplete
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.slider.min.js
+//= require ../../../vendor/assets/javascripts/client_admin/jquery.jscroll
 //= require jquery.tooltipster.min
 //= require ./external/schedule_demo
 //= require_tree ./vendor_customization

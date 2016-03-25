@@ -139,18 +139,4 @@ feature 'Sees tiles on explore page' do
       FakeMixpanelTracker.should have_event_matching('Explore Topic Page', action: 'Back To Explore')
     end
   end
-
-  context "when answering a tile in the preview page" do
-    it "should ping", js: true do
-      tile = FactoryGirl.create(:multiple_choice_tile, :public)
-      admin = FactoryGirl.create(:client_admin, voteup_intro_seen: true, share_link_intro_seen: true)
-      visit explore_tile_preview_path(tile.id, as: admin)
-      click_link 'Eggs'
-
-      FakeMixpanelTracker.clear_tracked_events
-      crank_dj_clear
-
-      FakeMixpanelTracker.should have_event_matching('Explore page - Interaction', "action" => 'Clicked Answer', 'tile_id' => tile.id.to_s)
-    end
-  end
 end

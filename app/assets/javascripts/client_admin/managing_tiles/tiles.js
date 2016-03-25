@@ -1,6 +1,4 @@
 $(document).ready(function() {
-  $('#tile-manager-tabs, #tile-reports-tabs').tabs();
-
   $('#tile-joyride').foundation('joyride', 'start', {
       nextButton: false,
       tipLocation: 'left',

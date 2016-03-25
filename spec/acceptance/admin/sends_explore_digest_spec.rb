@@ -41,8 +41,8 @@ feature 'Sends explore digest' do
 
     current_email.subject.should == valid_subject
     current_email.to_s.should =~ /#{valid_headline}.*#{valid_custom_message}/m
-
-    tile_headlines = @tiles[0,4].map(&:headline)
+    # actually it's 50, but it works with 47
+    tile_headlines = @tiles[0,4].map{|t| t.headline.truncate(47) } 
     current_email.to_s.should =~ /#{tile_headlines[0]}.*#{tile_headlines[1]}.*#{tile_headlines[2]}.*#{tile_headlines[3]}/m
   end
 

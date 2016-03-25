@@ -89,10 +89,6 @@ module TileHelpers
 
   # -------------------------------------------------
 
-  def tab(label)
-    find("#tile-manager-tabs, #tile-reports-tabs").find("##{label.downcase}")
-  end
-
   def active_tab
     find("section#active_tiles")
   end
@@ -444,14 +440,6 @@ module TileHelpers
 
   def total_points
     page.find("#total_points").text.to_i
-  end
-
-  def voteup_intro_copy
-    "Got it, thanks"
-  end
-
-  def close_intro
-    click_link voteup_intro_copy
   end
 
   def tile_manager_nav

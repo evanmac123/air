@@ -9,6 +9,11 @@ Airbo.ExploreTilePreview = (function(){
     , arrowsObj// = Airbo.TilePreivewArrows()
     , introShowed = false
   ;
+  function ping(action) {
+    var tile_id;
+    tile_id = $("[data-current-tile-id]").data("current-tile-id");
+    Airbo.Utils.ping('Explore page - Interaction', {action: action, tile_id: tile_id});
+  }
   function tileContainerSizes() {
     tileContainer = $(".tile_full_image")[0]  || $(".pholder.image")[0];
     if( !tileContainer ) {
@@ -33,30 +38,10 @@ Airbo.ExploreTilePreview = (function(){
       );
     });
 
-    // $(tileNavigationSelector).click(function(e){
-    //   e.preventDefault();
-
-    //   $.ajax({
-    //     type: "GET",
-    //     dataType: "html",
-    //     url: $(this).attr("href") ,
-    //     data: {partial_only: true},
-    //     success: function(data, status,xhr){
-    //       open(data);
-    //       // $(".viewer").html(data);
-    //       // positionArrows();
-    //       // initEvents();
-    //     },
-
-    //     error: function(jqXHR, textStatus, error){
-    //       console.log(error);
-    //     }
-    //   });
-    // });
-
     $('.right_multiple_choice_answer').one("click", function(event) {
       event.preventDefault();
       $("#next_tile").trigger("click");
+      ping("Clicked Answer");
     });
   }
   function runIntro() {
@@ -115,7 +100,16 @@ Airbo.ExploreTilePreview = (function(){
       initModalObj();
     }
     arrowsObj = Airbo.TilePreivewArrows();
-    arrowsObj.init(this, {buttonSize: 40, offset: 20});
+    arrowsObj.init(this, {
+      buttonSize: 40, 
+      offset: 20,
+      afterNext: function() {
+        ping("Clicked arrow to next tile");
+      },
+      afterPrev: function() {
+        ping("Clicked arrow to previous tile");
+      },
+    });
 
     initEvents();
     return this;

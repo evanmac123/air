@@ -93,12 +93,6 @@ class PotentialUser < ActiveRecord::Base
     user || potential_user
   end
 
-  def voteup_intro_seen
-  end
-
-  def share_link_intro_seen
-  end
-
   def to_ticket_progress_calculator
     NullTicketProgressCalculator.new
   end
