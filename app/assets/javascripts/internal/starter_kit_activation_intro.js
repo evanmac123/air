@@ -54,7 +54,7 @@ Airbo.StarterKitActivationIntro= (function(){
         {
           element: anatomyIntroSelector,
           intro: "This is a Tile, an interactive bit of content that's funny and easy to read.",
-          position: "top"
+          position: "top",
         },
         {
           element: document.querySelector('.tile_full_image'),
@@ -93,11 +93,16 @@ Airbo.StarterKitActivationIntro= (function(){
     options = $.extend({},config, options)
     intro.setOptions(options);
 
+    intro.onbeforechange(function(targetElement) {
+      $(".introjs-tooltip").css("left", "0px");
+    })
+
     intro.onafterchange(function(targetElement) {
 
+      $(".introjs-skipbutton").hide();
       $(".introjs-tooltip").css("left", "0px");
       $(".introjs-prevbutton").hide();
-      $(".introjs-nextbutton").addClass("button-outlined-big");
+      $(".introjs-nextbutton").addClass("button-outlined-intro");
     });
 
     intro.onchange(function(targetElement) {
@@ -107,7 +112,7 @@ Airbo.StarterKitActivationIntro= (function(){
       if(el.hasClass("multiple_choice_group")){
 
       introAnatomyPing(el);
-        $(".introjs-skipbutton").addClass("button-outlined-big");
+        $(".introjs-skipbutton").addClass("button-outlined-intro");
         $(".introjs-nextbutton").hide();
       }
     });

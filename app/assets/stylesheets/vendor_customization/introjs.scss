@@ -1,10 +1,6 @@
-@mixin button-outlined-big{
+@mixin button-outlined-intro{
 
   @include button-outlined-color($n-white);
-
-  font-size: 18px;
-  padding: 16px 20px;
-  margin-top: 20px;
   &:hover {
     color: $n-blue !important;
   }
@@ -56,11 +52,12 @@
 
   .introjs-prevbutton,.introjs-nextbutton{
     float: left;
+    border-color: #fff;
   }
 
   .introjs-skipbutton,  .introjs-prevbutton,.introjs-nextbutton{
     &.button-outlined-big{
-      @include button-outlined-big;
+      @include button-outlined-intro;
     }
   }
 
