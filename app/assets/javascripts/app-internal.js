@@ -27,7 +27,6 @@ $(document).ready(function() {
 
   $(document).foundation();
   $(document).foundation('reveal', {animation: "fade"});
-  //$(document).confirmWithReveal(Airbo.Utils.confirmWithRevealConfig);
 });
 
 if(undefined) {undefined};
