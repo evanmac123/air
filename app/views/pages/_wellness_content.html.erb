@@ -2,7 +2,17 @@
 <%= render "pages/public_board_html_head" %>
 <a id="best-practices"></a>
 <%= render partial: "pages/landing/hero_board", locals: {name: "Wellness", img_url: image_path("topics/wellness.png") } %>
-<div class="shadow_overlay long "></div>
+<div class="shadow_overlay long">
+
+  <div class="row">
+    <div class="small-9 small-centered columns">
+      <ul class="tabs tab-switch" >
+        <li><a href="#tab-1" class="selected ">Introduction</a></li>
+        <li><a id="tab-link-2" href="#best-practices-tab">Best Practices</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
 <section class="padded bg-blue" id="quote">
   <div class="row">
     <div class="large-9 large-centered columns">

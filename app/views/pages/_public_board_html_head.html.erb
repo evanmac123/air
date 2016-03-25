@@ -2,11 +2,17 @@
   <script>
 $(function(){
 
+  var tabLinkSelector = 'ul.tab-switch li a'
+    , tabPanels ='#tab-panel .tab'
+    , firstTabLink = 'ul.tab-switch li:first a' 
+    , firstTabPanel = '#tab-panel .tab:first' 
 
   function initTab2(){
     if(window.location.hash=="#best-practices"){
+      Airbo.StarterKitActivationIntro.exit();
       switchTabs($("#tab-link-2"));
-      postClick($("#tab-link-2"))
+      postClick($("#tab-link-2"));
+      Airbo.StarterKitActivationIntro.run()
     }
   }
 
@@ -15,30 +21,28 @@ $(function(){
     if(obj.attr("href")=="#best-practices-tab"){
       $("#quote").hide();
       window.location.hash = '#best-practices';
-      shrinkTabSpacing();
     }else{
       $("#quote").show();
       window.location.hash = '';
-      expandTabSpacing();
     }
 
   }
 
   function switchTabs(currLink){
 
-      $('#tabs ul li a').removeClass('selected');
+      $(tabLinkSelector).removeClass('selected');
       currLink.addClass('selected');
       var currentTab = currLink.attr('href');
-      $('#tabs .tab').hide();
+      $(tabPanels).hide();
       $(currentTab).show();
   }
 
   function initToggleTabs(){
-    $('#tabs .tab').hide();
-    $('#tabs div.tab:first').show();
-    $('#tabs ul li:first a').addClass('selected');
+    $(tabPanels).hide();
+    $(firstTabPanel).show();
+    $(firstTabLink).addClass('selected');
 
-    $('#tabs ul li a').click(function(){
+    $(tabLinkSelector).click(function(){
       switchTabs($(this));
       postClick($(this));
       window.scrollTo(0,0)
@@ -48,14 +52,6 @@ $(function(){
 
   function hideQuote(){
     $("#quote").hide();
-  }
-
-  function shrinkTabSpacing(){
-    $("ul.tabs").css({"margin-top": "-35px", "margin-bottom": "46px"});
-  }
-
-  function expandTabSpacing(){
-    $("ul.tabs").css({"margin-top": "-235px", "margin-bottom": "246px"});
   }
 
   function init(){
@@ -69,8 +65,9 @@ $(function(){
   </script>
   <style>
 ul.tabs {
-  margin-top: -235px;
+ /* margin-top: -235px;
   margin-bottom: 246px;
+    */
   color: white;
 }
 
