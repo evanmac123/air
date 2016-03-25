@@ -95,7 +95,7 @@ Airbo.StarterKitActivationIntro= (function(){
 
     intro.onafterchange(function(targetElement) {
 
-      $(".introjs-tooltip").css("left", 0)
+      $(".introjs-tooltip").css("left", "0px");
       $(".introjs-prevbutton").hide();
       $(".introjs-nextbutton").addClass("button-outlined-big");
     });
@@ -103,7 +103,7 @@ Airbo.StarterKitActivationIntro= (function(){
     intro.onchange(function(targetElement) {
       var el = $(targetElement);
 
-      $(".introjs-tooltip").css("left", 0)
+      $(".introjs-tooltip").css("left", "0px");
       if(el.hasClass("multiple_choice_group")){
 
       introAnatomyPing(el);
