@@ -10,21 +10,19 @@
   min-width: 610px;
   border-radius: 0;
   background: $n-blue;
-  padding: 20px;
+  padding: 10px;
   &.small{
     min-width: auto;
     padding: 10px;
   }
 
   &.no-min{
-    min-width: none;
+    min-width: auto;
   }
 
   &.no-max{
    max-width: none;
   }
-
-
 
   .introjs-tooltiptext {
     line-height: 1.5;
