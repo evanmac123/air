@@ -20,8 +20,9 @@
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.slider.min.js
 //= require jquery.tooltipster.min
 //= require ./external/schedule_demo
+//= require ./external/request_form
+//= require ./internal/starter_kit_activation_intro
 //= require_tree ./vendor_customization
-
 $(document).ready(function() {
   $('.settings-edit').foundation();
 
