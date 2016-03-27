@@ -4,7 +4,7 @@
 //= require jquery.effects.highlight
 //= require jquery_ujs
 //= require mobvious-rails
-//= require ../../../vendor/assets/javascripts/intro.min
+//= require ../../../vendor/assets/javascripts/intro.airbo.custom
 //= require_tree ../../../vendor/assets/javascripts/external/
 //= require_tree ../../../vendor/assets/javascripts/internal/.
 //= require ../../../vendor/assets/javascripts/confirm_with_reveal.modified

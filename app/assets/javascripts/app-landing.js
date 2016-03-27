@@ -13,7 +13,7 @@
 //= require ./external/sticky_header
 //= require ./external/landing
 //= require ./external/category
-//= require ../../../vendor/assets/javascripts/intro.min
+//= require ../../../vendor/assets/javascripts/intro.airbo.custom
 //= require application
 //= require ./external/schedule_demo
 //= require ./external/request_form
