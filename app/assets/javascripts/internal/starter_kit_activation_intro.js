@@ -22,6 +22,8 @@ Airbo.StarterKitActivationIntro= (function(){
         "tile_headline": "Text",
         "tile_supporting_content": "Interaction"
       }
+    , tileAnatomyTopOffsets = [false, true, true, true, true]
+    , tileAnatomyCurrStep = 0
   ;
 
   function getPingName(el) {
@@ -43,13 +45,10 @@ Airbo.StarterKitActivationIntro= (function(){
   }
 
   function initTileAnatomyIntro(){
-   var nextLabels= ["Why Are Tiles Engaging?", "Where Does Content Go?", "What are points?", "Why are Tiles Interactive?" ]
-     , currStep = 0
-   ;
 
-    var  options = {
+    options = {
+      tooltipClass: "airbo_preview_intro no-min no-max single-tile",
       overlayOpacity: 0,
-      nextLabeL: nextLabels[0], 
       steps: [
         {
           element: anatomyIntroSelector,
@@ -72,7 +71,7 @@ Airbo.StarterKitActivationIntro= (function(){
         },
    
         {
-          element: '.tile_points_bar',
+          element: '.tile_quiz',
           intro: "Tiles are interactive. That's fun for employees and helps reinforce key points.",
           position: 'top',
 
@@ -93,14 +92,9 @@ Airbo.StarterKitActivationIntro= (function(){
     options = $.extend({},config, options)
     intro.setOptions(options);
 
-    intro.onbeforechange(function(targetElement) {
-      $(".introjs-tooltip").css("left", "0px");
-    })
-
     intro.onafterchange(function(targetElement) {
-
+      repositionResizeTooltip(targetElement);
       $(".introjs-skipbutton").hide();
-      $(".introjs-tooltip").css("left", "0px");
       $(".introjs-prevbutton").hide();
       $(".introjs-nextbutton").addClass("button-outlined-intro");
     });
@@ -108,7 +102,6 @@ Airbo.StarterKitActivationIntro= (function(){
     intro.onchange(function(targetElement) {
       var el = $(targetElement);
 
-      $(".introjs-tooltip").css("left", "0px");
       if(el.hasClass("multiple_choice_group")){
 
       introAnatomyPing(el);
@@ -116,6 +109,21 @@ Airbo.StarterKitActivationIntro= (function(){
         $(".introjs-nextbutton").hide();
       }
     });
+  }
+
+
+  function repositionResizeTooltip(targetElement){
+    $(".introjs-tooltip").css("width", $("#user_progress").css("width"));
+    $(".introjs-tooltipReferenceLayer").css("left", $("#tile_section").position().left);
+    if(tileAnatomyTopOffsets[[tileAnatomyCurrStep]]){
+      setPositionTop(targetElement);
+    }
+    tileAnatomyCurrStep++;
+  }
+
+  function setPositionTop(targetElement){
+    currTop = $(targetElement).offset().top +20;
+    $(".introjs-tooltipReferenceLayer").css("top", currTop+"px");
   }
 
   function initViewTileIntro(){
@@ -168,6 +176,7 @@ Airbo.StarterKitActivationIntro= (function(){
   function initIntro() {
     var inactivation = false;
     intro = introJs();
+
     if(!anatomySeen && $(anatomyIntroSelector).length >0){
       inactivation =true;
       initTileAnatomyIntro();

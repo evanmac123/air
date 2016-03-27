@@ -23,6 +23,9 @@
   &.no-max{
    max-width: none;
   }
+  &.single-tile{
+   /*width: 744px;*/
+  }
 
   .introjs-tooltiptext {
     line-height: 1.5;
@@ -34,14 +37,18 @@
       border-bottom-color: $n-blue;
     }
     &.bottom {
+      border: 10px solid;
+      border-right-color: transparent;
+      border-bottom-color: transparent;
+      border-left-color: transparent;
       border-top-color: $n-blue;
+      bottom: -20px;
       left: 50%;
     }
   }
   .introjs-skipbutton {
     float: right;
-    margin-top: 35px;
-    &.button-outlined-big{
+    &.button-outlined-intro{
       float: left;
     }
   }
@@ -54,7 +61,7 @@
   }
 
   .introjs-skipbutton,  .introjs-prevbutton,.introjs-nextbutton{
-    &.button-outlined-big{
+    &.button-outlined-intro{
       @include button-outlined-intro;
     }
   }
