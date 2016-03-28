@@ -485,7 +485,7 @@
         if (hintMode) {
           var tooltipLayerStyleLeft = 0;
         } else {
-          var tooltipLayerStyleLeft = 0; //Customize to remove auto left position of 15px;
+          var tooltipLayerStyleLeft = 15; //Customize to remove auto left position of 15px;
         }
 
         _checkRight(targetOffset, tooltipLayerStyleLeft, tooltipOffset, windowSize, tooltipLayer);

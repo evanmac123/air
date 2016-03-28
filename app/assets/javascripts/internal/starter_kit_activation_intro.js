@@ -12,9 +12,8 @@ Airbo.StarterKitActivationIntro= (function(){
     , viewTileSeen = Airbo.CookieMonster.getCookie(viewTileCookie)
     , config = { showStepNumbers: false, skipLabel: 'Exit Intro',
   doneLabel: 'Got it',
-    tooltipClass: 'airbo_preview_intro',
     nextLabel: 'Got it',
-    prevLabel: 'Back'
+    prevLabel: 'Back', scrollToElement: false,
     }
     , pingName = {
         "tile_holder": "Tile",
@@ -47,7 +46,6 @@ Airbo.StarterKitActivationIntro= (function(){
   function initTileAnatomyIntro(){
 
     options = {
-      tooltipClass: "airbo_preview_intro no-min no-max single-tile",
       overlayOpacity: 0,
       steps: [
         {
@@ -57,7 +55,7 @@ Airbo.StarterKitActivationIntro= (function(){
         },
         {
           element: document.querySelector('.tile_full_image'),
-          intro: "People pay more attention to images than text, so a Tile always starts with an image",
+          intro: "People pay more attention to images than text, so a Tile always starts with an image.",
 
           position: 'top',
           step: 1
@@ -96,7 +94,7 @@ Airbo.StarterKitActivationIntro= (function(){
       repositionResizeTooltip(targetElement);
       $(".introjs-skipbutton").hide();
       $(".introjs-prevbutton").hide();
-      $(".introjs-nextbutton").addClass("button-outlined-intro");
+      //$(".introjs-nextbutton").addClass("button-outlined-intro");
     });
 
     intro.onchange(function(targetElement) {
@@ -105,7 +103,7 @@ Airbo.StarterKitActivationIntro= (function(){
       if(el.hasClass("multiple_choice_group")){
 
       introAnatomyPing(el);
-        $(".introjs-skipbutton").addClass("button-outlined-intro");
+        //$(".introjs-skipbutton").addClass("button-outlined-intro");
         $(".introjs-nextbutton").hide();
       }
     });
@@ -113,8 +111,8 @@ Airbo.StarterKitActivationIntro= (function(){
 
 
   function repositionResizeTooltip(targetElement){
-    $(".introjs-tooltip").css("width", $("#user_progress").css("width"));
-    $(".introjs-tooltipReferenceLayer").css("left", $("#tile_section").position().left);
+    //$(".introjs-tooltip").css("width", $("#user_progress").css("width"));
+    //$(".introjs-tooltipReferenceLayer").css("left", $("#tile_section").position().left);
     if(tileAnatomyTopOffsets[[tileAnatomyCurrStep]]){
       setPositionTop(targetElement);
     }
@@ -123,14 +121,13 @@ Airbo.StarterKitActivationIntro= (function(){
 
   function setPositionTop(targetElement){
     currTop = $(targetElement).offset().top +20;
-    $(".introjs-tooltipReferenceLayer").css("top", currTop+"px");
+    //$(".introjs-tooltipReferenceLayer").css("top", currTop+"px");
   }
 
   function initViewTileIntro(){
     currCookie= viewTileCookie;
     var options = {
       overlayOpacity: 0,
-      tooltipClass: "airbo_preview_intro no-min",
       steps: [{
         element:  document.querySelector(".tile_thumbnail"),
         intro: "Start by opening this Tile",
@@ -142,9 +139,9 @@ Airbo.StarterKitActivationIntro= (function(){
     options = $.extend({},config,options)
     intro.setOptions(options);
     intro.onafterchange(function(targetElement) {
-      var width = $(".introjs-tooltipReferenceLayer").css("width");
+      //var width = $(".introjs-tooltipReferenceLayer").css("width");
       $(".introjs-skipbutton").hide();
-      $(".introjs-tooltip").css({"width": width, "left": "0px"});
+      //$(".introjs-tooltip").css({"width": width, "left": "0px"});
  
     });
   }
@@ -153,7 +150,6 @@ Airbo.StarterKitActivationIntro= (function(){
   function initOpenBoardIntro(){
     var options = {
       overlayOpacity: 0,
-      tooltipClass: "airbo_preview_intro no-max",
       scrollToElement: false,
       steps: [{
         element:  document.querySelector(".board_card"),
@@ -167,9 +163,9 @@ Airbo.StarterKitActivationIntro= (function(){
     intro.setOptions(options);
     intro.onafterchange(function(targetElement) {
 
-      var width = $(".introjs-tooltipReferenceLayer").css("width");
+      //var width = $(".introjs-tooltipReferenceLayer").css("width");
       $(".introjs-skipbutton").hide();
-      $(".introjs-tooltip").css({"width": width, "left": "0px"});
+      //$(".introjs-tooltip").css({"width": width, "left": "0px"});
     });
   }
 
