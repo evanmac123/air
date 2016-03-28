@@ -59,6 +59,9 @@ footer#pageFtr {
     }
   }
 }
+
+
+
 @media only screen and (max-width: $foundation) {
   footer#pageFtr {
     .menu_block {
@@ -95,4 +98,9 @@ footer#pageFtr {
       }
     }
   }
+}
+
+/*Shame */
+.public-board.tiles.tiles-index footer{
+ margin-top: 40px;
 }
