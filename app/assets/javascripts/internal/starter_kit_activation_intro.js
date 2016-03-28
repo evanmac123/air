@@ -52,7 +52,7 @@ Airbo.StarterKitActivationIntro= (function(){
       steps: [
         {
           element: anatomyIntroSelector,
-          intro: "This is a Tile, an interactive bit of content that's funny and easy to read.",
+          intro: "This is a Tile, an interactive bit of content that's fun and easy to read.",
           position: "top",
         },
         {
