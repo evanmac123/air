@@ -185,7 +185,7 @@ Airbo.StarterKitActivationIntro= (function(){
 
     if($(openBoardIntroSelector).length >0){
       inactivation =true;
-      initOpenBoardIntro();
+      //initOpenBoardIntro();
     }
 
     intro.onexit(function(targetElement){
