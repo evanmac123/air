@@ -11,6 +11,9 @@ $home-gray: #666666;
   // background: rgba(14, 23, 29, 0.82);
   background-color: #152f3d;
   opacity: 0.78;
+  &.non-landing{
+  top:auto;
+  }
 }
 
 a.request_demo_link {
@@ -96,6 +99,15 @@ p.article {
     padding-top: 38px;
   }
 }
+
+#request_form {
+  .flag {
+    height: 37px;
+    margin-top: -4px;
+    font-size: 16px;
+  }
+}
+
 
 @media only screen and (max-width: $foundation) {
   .mobiile_only {

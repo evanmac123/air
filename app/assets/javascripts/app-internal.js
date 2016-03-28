@@ -4,7 +4,7 @@
 //= require jquery.effects.highlight
 //= require jquery_ujs
 //= require mobvious-rails
-//= require ../../../vendor/assets/javascripts/intro.min
+//= require ../../../vendor/assets/javascripts/intro.airbo.custom
 //= require_tree ../../../vendor/assets/javascripts/external/
 //= require_tree ../../../vendor/assets/javascripts/internal/.
 //= require ../../../vendor/assets/javascripts/confirm_with_reveal.modified
@@ -21,13 +21,14 @@
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.jscroll
 //= require jquery.tooltipster.min
 //= require ./external/schedule_demo
+//= require ./external/request_form
+//= require ./internal/starter_kit_activation_intro
 //= require_tree ./vendor_customization
-
 $(document).ready(function() {
   $('.settings-edit').foundation();
+
+  $(document).foundation();
+  $(document).foundation('reveal', {animation: "fade"});
 });
-$(document).foundation();
-$(document).foundation('reveal', {animation: "fade"});
-$(document).confirmWithReveal(Airbo.Utils.confirmWithRevealConfig);
 
 if(undefined) {undefined};

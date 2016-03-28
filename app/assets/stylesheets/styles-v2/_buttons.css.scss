@@ -74,13 +74,14 @@
   background-image: none;
   outline: none !important;
   @include ease(0.2s);
-  &:active, &:hover, &:focus {
-    box-shadow: none;
-  }
-  &[disabled] {
-    cursor: default;
-    opacity: 0.85;
-  }
+    &:active, &:hover, &:focus {
+      box-shadow: none;
+    }
+
+    &[disabled] {
+      cursor: default;
+      opacity: 0.85;
+    }
 }
 
 .button.button {
@@ -106,6 +107,13 @@
     //   @include button-outlined-color($n-blue);
     // }
   }
+
+  .success{
+    background-color:white;
+    color: $n-blue;
+  }
+
+
 
   &.reversed {
     border-color: $n-white;

@@ -1,24 +1,71 @@
+@mixin button-outlined-intro{
+
+  @include button-outlined-color($n-white);
+  &:hover {
+    color: $n-blue !important;
+  }
+}
+
 .airbo_preview_intro.introjs-tooltip {
   min-width: 610px;
   border-radius: 0;
   background: $n-blue;
-  padding: 20px;
+  padding: 10px;
+  &.small{
+    min-width: auto;
+    padding: 10px;
+  }
+
+  &.no-min{
+    min-width: auto;
+  }
+
+  &.no-max{
+   max-width: none;
+  }
+  &.single-tile{
+   /*width: 744px;*/
+  }
+
   .introjs-tooltiptext {
     line-height: 1.5;
     font-size: 16px;
     color: $n-white;
   }
-  .introjs-arrow.top {
-    border-bottom-color: $n-blue;
-  }
-  .introjs-skipbutton {
-    @include button-outlined-color($n-white);
-    float: left;
-    font-size: 18px;
-    padding: 16px 20px;
-    margin-top: 20px;
-    &:hover {
-      color: $n-blue !important;
+  .introjs-arrow{
+    &.top {
+      border-bottom-color: $n-blue;
+    }
+    &.bottom {
+      border: 10px solid;
+      border-right-color: transparent;
+      border-bottom-color: transparent;
+      border-left-color: transparent;
+      border-top-color: $n-blue;
+      bottom: -20px;
+      left: 50%;
     }
   }
+  .introjs-skipbutton {
+    float: right;
+    &.button-outlined-intro{
+      float: left;
+    }
+  }
+
+  
+
+  .introjs-prevbutton,.introjs-nextbutton{
+    float: left;
+    border-color: #fff;
+  }
+
+  .introjs-skipbutton,  .introjs-prevbutton,.introjs-nextbutton{
+    &.button-outlined-intro{
+      @include button-outlined-intro;
+    }
+  }
+
 }
+
+

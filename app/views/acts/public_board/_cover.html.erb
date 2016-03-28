@@ -1,13 +1,11 @@
-<div class="hero" id="banner">
-  <div class="cover">
-    <div class="cover_image" style="background-image: url('<%= @demo.cover_image.url %>');" >
-      <div class="shadow_overlay"></div>
-      <div class="name_section">
-        <h1><%= @demo.name %></h1>
+<%= render partial: "pages/landing/hero_board", locals:{name: @demo.name, img_url: @demo.cover_image.url}%>
+<section>
+    <div class="row">
+      <div class="large-8 large-centered columns">
+
+        <%= unescape_html brake_to_paragraphs(@demo.cover_message) %>
       </div>
     </div>
-    <div class="cover_desc">
-      <%= unescape_html brake_to_paragraphs(@demo.cover_message) %>
-    </div>
-  </div>
-</div>
+</section>
+
+

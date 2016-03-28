@@ -1,0 +1,118 @@
+@mixin flag-color($bg-color: $n-blue, $text-color: $n-white) {
+  &, &[disabled],  &[disabled]:active {
+    color: $text-color;
+    background-color: $bg-color;
+    border: 1px solid $bg-color;
+  }
+}
+@mixin flag-outlined-color($text-color: $n-blue, $bg-color: transparent, $hover-color: $n-white) {
+  &, &[disabled], &[disabled]:hover, &[disabled]:active {
+    color: $text-color;
+    background-color: $bg-color;
+    border-color: $text-color;
+  }
+}
+
+@mixin flag-with-spinner($spinner-color: $n-white) {
+  position: relative;
+  &, &:active, &:hover {
+    color: transparent;
+  }
+  &:before {
+    font: normal normal normal 14px/1 FontAwesome;
+    content: "\f013";
+    animation: fa-spin 2s infinite linear;
+    display: block;
+    position: absolute;
+    left: 48%;
+    color: $spinner-color;
+  }
+}
+/* Buttons */
+@mixin flag($bg-color: $n-blue, $text-color: $n-white) {
+  @include flag-color($bg-color, $text-color);
+  @include radius(4px);
+  display: inline-block;
+  font-size: $font-size-1;
+  font-weight: normal;
+  line-height: $font-size-1;
+  text-align: center;
+  vertical-align: middle;
+  text-transform: capitalize;
+  margin:0;
+  padding: 10px 20px;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  white-space: nowrap;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: none;
+  background-image: none;
+  outline: none !important;
+  @include ease(0.2s);
+    &:active, &:hover, &:focus {
+      box-shadow: none;
+    }
+
+    &[disabled] {
+      cursor: default;
+      opacity: 0.85;
+    }
+}
+
+.flag {
+  @include flag;
+
+  &.green {
+    @include flag-color(#4fd4c0);
+  }
+  &.red {
+    @include flag-color($n-red2);
+  }
+  &.outlined {
+    @include flag-outlined-color;
+    &.white {
+      @include flag-outlined-color($text-color: $n-white, $hover-color: $n-blue);
+    }
+  }
+
+  &.icon{
+    .fa{
+      font-size: 24px;
+      line-height:10px;
+      vertical-align: middle;
+      margin-left: 10px;
+      margin-right: 0px;
+    }
+  }
+
+
+  &.reversed {
+    border-color: $n-white;
+    background-color: transparent;
+    color: $n-white;
+
+    &:hover {
+      background-color: $n-blue;
+      border-color: $n-blue;
+      color: $n-white;
+    }
+
+    &:active {
+      background-color: darken($n-blue, 5%);
+      border-color: darken($n-blue, 5%);
+      color: $n-white;
+    }
+  }
+  &.with_spinner {
+    @include flag-with-spinner;
+    &.outlined {
+      @include flag-with-spinner;//($n-blue);
+         }
+  }
+
+  &.full_width {
+    width: 100%;
+  }
+}

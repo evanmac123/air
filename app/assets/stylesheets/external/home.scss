@@ -16,7 +16,7 @@ body.pages-home {
         font-weight: 400;
         font-size: 30px;
         line-height: 1.5em;
-        margin-bottom: 40px;
+        margin-bottom: 5px;
         max-width: 570px;
       }
       p {
@@ -25,10 +25,29 @@ body.pages-home {
         text-align: center;
         margin: 20px auto;
       }
-      .button {
+      .button, .flag {
         font-size: 18px;
-        padding: 15px 40px;
       }
+
+     .flag.success{
+      padding: 10px 20px;
+      margin:0;
+      height: 37px;
+      margin-top: -4px;
+      font-size: 16px;
+
+      &.icon{
+        .fa{
+          font-size: 24px;
+          line-height:10px;
+          vertical-align: middle;
+          margin-left: 10px;
+          margin-right: 0px;
+        }
+      }
+     } 
+
+   
     }
   }
   .client_logos {
@@ -49,77 +68,93 @@ body.pages-home {
       margin-bottom: 30px;
       margin-top: 0;
     }
-  }
 
-  .money {
-    padding: 60px 20px;
-    h2{
-      display: block;
-      margin: auto;
-      font-size: $h2-size;
-      font-weight: 400;
-      line-height: 30px;
-      text-align: center;
-      padding-left: 15px;
-      padding-right: 15px;
+
+  }
+  .topics {
+    margin-bottom: 20px;
+    h3 {
+      // font-size: 24px;
+      margin-top: 60px;
+      color: $home-gray;
+      font-weight: 500;
     }
-    .animation_block {
-      position: relative;
-      display: block;
+    .topics_container {
       margin: auto;
-      margin-top: 50px;
-      width: 100%;
-      max-width: 750px;
-      .mac_book {
+      overflow: auto;
+      max-width: 900px;
+      @media only screen and (max-width: 900px) {
+        max-width: 600px;
+      }
+      @media only screen and (max-width: 600px) {
+        max-width: 300px;
+      }
+    }
+    .topic {
+      display: block;
+      position: relative;
+      float: left;
+      border-radius: 3px;
+      margin: 0 25px 40px 25px;
+      overflow: hidden;
+      &:not(.coming-soon):hover {
+        .shadow_overlay {
+          background-color: rgba(0, 0, 0, 0.6);
+        }
+      }
+
+      &.coming-soon{ 
+        .title {
+          color: darkgray;
+        }
+        .subtitle {
+          color: darkgray;
+        }
+      }
+      .topic_cell {
+        display: table-cell;
+        // vertical-align: middle;
+        padding-top: 70px;
+        width: 250px;
+        height: 170px;
+      }
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+      }
+      .shadow_overlay {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+        display: block;
       }
-      .animation {
-        padding: 13.5% 16.7% 9% 17.1%;
+      .title {
+        max-width: 150px;
+        font-size: 18px;
+        color: $white;
+        font-weight: bold;
+        line-height: 1.5;
         position: relative;
-      }
-    }
-    .benefits_group {
-      display: block;
-      margin: auto;
-      max-width: 800px;
-      overflow: auto;
-      .benefit_block {
-        h3 {
-          color: #666666;
-        }
-        p {
-          color: #666666;
-          // overrides for common.css.scss
-          font-size: $font-size-2;
-          letter-spacing: 0;
-          line-height: 1.6em;
-          margin: 1.5em 0;
-        }
+        text-align: center;
+        margin: auto;
       }
 
-    }
-  }
-  .explore {
-    padding: 40px 5px;
-    .explore_block {
-      max-width: 700px;
-      margin: auto;
-    }
-    .explore_img {
-      max-height: 150px;
-    }
-    h3 {
-      font-size: 24px;
-      // font-weight: 400;
-      margin: 20px 0;
-      -webkit-font-smoothing: antialiased;
-    }
-    p {
-      font-size: $font-size-2;
-      letter-spacing: 0;
+     
+
+   
+      .subtitle {
+        font-size: 13px;
+        color: $white;
+        position: relative;
+        text-align: center;
+        margin-top: 5px;
+      }
     }
   }
   .join {

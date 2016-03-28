@@ -3,22 +3,31 @@
 form {
   width: 100%;
   &.inline {
-    input[type=text] {
+    span.label {
+      margin-right: 10px;
+    }
+    input[type=text], input[type=email] {
       width: 250px;
       margin-right: 10px;
+      margin-bottom: 0;
     }
     .button {
       height: 37px;
-      width: 75px;
+      // width: 75px;
       margin-top: -4px;
       font-size: 16px;
     }
+    // span, input[type=text], input[type=email], .button {
+    //   margin-bottom: 20px;
+    // }
     @media only screen and (max-width: $foundation) {
-      input[type=text], .button {
+      span, input[type=text], input[type=email], .button {
+        display: block;
         width: 100%;
-      }
-      .button {
         margin-bottom: 20px;
+      }
+      .horizontal {
+        display: block;
       }
     }
   }
@@ -76,7 +85,9 @@ textarea {
     border-color: $n-red;
   }
   &.disabled{
-    background-color: $gray-1;
+    background-color: $gray-6;
+    border-color: $gray-6;
+    color: $gray-5;
   }
 }
 
@@ -218,6 +229,25 @@ label.checkbox {
   &.green {
     .indicator {
       @include linear-gradient-horizontal($n-green, lighten($n-green, 10%));
+    }
+  }
+}
+
+
+.hero_content #request_form.inline {
+  span.label{
+    margin:20px 0px;
+    display:block;
+  }
+
+}
+
+#request_form {
+  .info{
+    padding: 20px;
+    float: none;
+    .greeting_after {
+      color: #FFF;;
     }
   }
 }

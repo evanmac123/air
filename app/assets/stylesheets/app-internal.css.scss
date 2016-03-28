@@ -52,6 +52,14 @@
 @import "./vendor_customization/introjs.scss";
 @import "./client_admin/explore/tile_preview.css.scss";
 
+@import "./external/landing/common.css.scss";
+@import "external/landing/header.css.scss";
+@import "external/landing/hero.css.scss";
+@import "external/landing/footer.css.scss";
+
+
+@import "./external/category.scss";
+
 /* RWD */
 @media only screen and (min-width: 319px) {
   @import "./internal/screen_iphone.css.scss";

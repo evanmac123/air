@@ -3,8 +3,8 @@ class PagesController < HighVoltage::PagesController
   before_filter :allow_guest_user
   before_filter :force_html_format
   before_filter :signed_out_only_on_root
-  before_filter :set_login_url
-  before_filter :set_new_board_url
+  # before_filter :set_login_url
+  # before_filter :set_new_board_url
   before_filter :display_social_links_if_marketing_page
   before_filter :set_page_name
   before_filter :set_page_name_for_mixpanel
@@ -18,6 +18,7 @@ class PagesController < HighVoltage::PagesController
 
   PAGE_NAMES_FOR_MIXPANEL = {
     'welcome'        => "Marketing Page",
+    'home'           => "Landing Page V. 3/17/16",
     'customer_tiles' => 'customer tiles', # FIXME dead url?
     'more_info'      => 'More Info, marketing', # FIXME dead url?
     'privacy'        => 'privacy policy',
@@ -35,15 +36,15 @@ class PagesController < HighVoltage::PagesController
     case page_name
     when 'privacy', 'terms'
       'external'
-    when 'welcome', 'product', 'asha', 'company', 'home', 'fujifilm', 'case-studies'
-      'standalone'
+    # when 'welcome', 'product', 'asha', 'company', 'home', 'fujifilm', 'case-studies', 'wellness'
+      # 'standalone'
     when 'more_info',  # FIXME dead url?
       @body_id = "homepage"
       'external_marketing'
     when 'heineken', 'miltoncat', 'customer_tiles'
       'external_marketing'
     else
-      'pages'
+      'standalone'
     end
   end
 
@@ -52,21 +53,21 @@ class PagesController < HighVoltage::PagesController
     redirect_to home_path if signed_in?
   end
 
-  def set_login_url
-    @login_url = if Rails.env.staging? || Rails.env.production?
-                   session_url(:protocol => 'https', :host => hostname_with_subdomain)
-                 else
-                   session_path
-                 end
-  end
+  # def set_login_url
+  #   @login_url = if Rails.env.staging? || Rails.env.production?
+  #                  session_url(:protocol => 'https', :host => hostname_with_subdomain)
+  #                else
+  #                  session_path
+  #                end
+  # end
 
-  def set_new_board_url
-    @new_board_url = if Rails.env.production?
-                       boards_url(protocol: 'https', host: hostname_with_subdomain)
-                     else
-                       boards_url
-                     end
-  end
+  # def set_new_board_url
+  #   @new_board_url = if Rails.env.production?
+  #                      boards_url(protocol: 'https', host: hostname_with_subdomain)
+  #                    else
+  #                      boards_url
+  #                    end
+  # end
 
   def display_social_links_if_marketing_page
     display_social_links if %w(more_info asha miltoncat heineken fujifilm customer_tiles).include?(params[:id])

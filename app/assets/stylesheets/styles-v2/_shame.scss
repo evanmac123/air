@@ -144,8 +144,21 @@ td .button.td-button {
 .align_center {
   text-align: center;
 }
-.align_left {
+.align_left.align_left.align_left {
   text-align: left;
+}
+.align_right {
+  text-align: right; 
+}
+.vertical_bottom {
+  display: table-cell;
+  vertical-align: bottom;
+}
+
+
+.vertical_middle {
+  display: table-cell;
+  vertical-align: middle;
 }
 // .width_700.width_700 {
 //   width: 700;
@@ -176,4 +189,8 @@ td .button.td-button {
 }
 .blue.blue.blue.blue.blue.blue.blue.blue.blue {
   color: $n-blue;
+}
+
+.padded-v-20{
+ padding: 20px 0px;
 }

@@ -1,0 +1,19 @@
+<%#TODO use the image from the board instead of this convention which assumes png with name of the topic%>
+<% if comming_soon %>
+  <div class="topic coming-soon">
+  <div class="topic_cell">
+    <%= image_tag("topics/#{img}.png") %>
+    <div class="shadow_overlay"></div>
+    <p class="title"><%= title %></p>
+    <p class="subtitle">Coming soon</p>
+  </div>
+  </div>
+<%else%>
+  <%= link_to link, class: "topic" do %>
+    <div class="topic_cell">
+      <%= image_tag("topics/#{img}.png") %>
+      <div class="shadow_overlay"></div>
+      <p class="title"><%= title %></p>
+    </div>
+  <% end %>
+<% end %>

@@ -1,0 +1,116 @@
+
+<%= render "pages/public_board_html_head" %>
+<a id="best-practices"></a>
+<%= render partial: "pages/landing/hero_board", locals: {name: "Wellness", img_url: image_path("topics/wellness.png") } %>
+<div class="shadow_overlay long">
+
+  <div class="row">
+    <div class="small-9 small-centered columns">
+      <ul class="tabs tab-switch" >
+        <li><a href="#tab-1" class="selected ">Introduction</a></li>
+        <li><a id="tab-link-2" href="#best-practices-tab">Best Practices</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<section class="padded bg-blue" id="quote">
+  <div class="row">
+    <div class="large-9 large-centered columns">
+      <p class="pullquote white">
+      “I love our wellness program because it demonstrates that we really care about our employees as people. We want them to eat well, sleep well, exercise, and know how to combat stress.”
+            </p>
+      <div class="attribution">
+        <div class="text white">
+          <b>Marianne Davis</b><br />
+          Director of Human Resources at Natick Public Schools
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<div class="row">
+  <div class="small-9 small-centered columns">
+    <div id="tab-panel" >
+
+      <div id="tab-1" class="tab">
+        <h2 class="text-center padded-v-40" >Create an Engaging Wellness Program</h2>
+        <div class="row text-center">
+          <div class="small-4 columns">
+            <i class="fa fa-plus-circle fa-2x"></i>
+            <h3>Add Content</h3>
+            <p> Receive curated wellness content, customize it, or create your own.</p>
+          </div>
+
+
+          <div class="small-4 columns">
+            <i class="fa fa-users fa-2x"></i>
+            <h3>Engage Employees</h3>
+            <p>Send interactive content every 1 to 2 weeks to drive participation.</p>
+          </div>
+
+          <div class="small-4 columns">
+            <i class="fa fa-bar-chart fa-2x"></i>
+            <h3>Boost Appreciation</h3>
+            <p>See real-time employee activity and feedback.</p>
+          </div>
+
+        </div>
+      </div> 
+
+      <div id="best-practices-tab" class="tab hidden" >
+        <p>
+        Starting a wellness program may feel overwhelming, but it can actually be quite simple. In fact, there’s a good chance that you already have some pieces in place: according to the Kaiser Family Foundation, more than 90% of all firms with 25 or more employees already offer at least one wellness activity.
+        </p>
+      
+        <h2>Be Comprensive</h2>
+        <p>
+        The first key to a great wellness program is  a comprehensive approach. “What we know from the literature is that [companies] who offer comprehensive programs have better health outcomes,” noted <a href="http://fortune.com/2015/04/13/corporate-wellness/" target="_blank">Dr. Laura Linnan</a>, head of the Workplace Health Research Network, an organization funded by the Centers for Disease Control and Prevention. Employees want variety, everything from health and nutrition tips to programs that help them set fitness goals and track their progress. 
+        </p>
+        <p>
+But providing a rich selection of  exciting and accurate wellness content can be challenging for most employers. At Airbo, we’ve organized our content into the five areas that we’ve found generate the highest employee interest and engagement: fitness, nutrition, mindfulness, financial education and getting good sleep. In each area, we’ve reviewed and synthesized the newest and most useful health information and developed innovative action plans that will entice your employees to tune in, get excited and stay engaged.
+        </p>
+        <h2>Be Engaging</h2>
+        <p>The second key to a great wellness program is high employee engagement. Afterall, it’s pretty hard to impact employee well being if employees aren’t participating. But low participation rates are quite common. According to a <a href="https://www.towerswatson.com/en-US/Insights/IC-Types/Survey-Research-Results/2015/11/full-report-2015-towers-watson-nbgh-best-practices-in-health-care-employer-survey" target="_blank">joint survey</a> conducted by Willis Towers Watson and the National Business Group on Health, almost half of U.S. employees don’t participate in any wellness or activity or health management program. 
+        </p>
+<p>
+In an era of information overload, driving employee engagement using intranets, email and posters is a tall order. Our approach is to help your wellness content standout by making it fun and interactive, like the  apps employees already love. A game-like scoreboard and activity feed helps drive competition and support. And you can make things even more exciting by addings prizes that reward engaged employees. As Marianne Davis, Director of Human Resources at Natick Public Schools, puts it: “In the past, my presence in a worksite might have meant that someone was in trouble. Now it might mean the opposite—that someone is going to win a great prize! That makes me happy.”
+</p>
+        <h2>Be Consistent</h2>
+        <p>
+        The third key to success is consistency. Just like Facebook builds a habit of engagement for its users by sending them weekly notifications about new content, you should aim to share new content with employees on a consistent schedule.  We’ve seen regular communication do wonders for customers like <%=link_to "Fujifilm", page_path("fujifilm"), target: "blank"%>, which saw a 93 % jump in employee engagement in their wellness program once they moved to sending new content every two weeks. Of course, during busy times of year staying consistent is easier said than done. That’s why Airbo helps you stay on track. Every week you’ll receive a new collection of Wellness Tiles to share with your employees, including surveys to assess your company’s specific needs as well as tips, information and activities in each of our five wellness areas. You can use Airbo’s stock content, personalize it with your company’s information, and even create your own messaging to promote your company’s initiatives like flu shots, biometric screenings, or a company-wide walking challenge.
+        </p>
+        </p>
+        <h2>How to Get Started</h2>
+
+        <p>Try Airbo by browsing the Wellness Starter Kit. Then, schedule time with an HR Specialist to chat about your specific needs.</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="board_card_wrapper gray">
+  <div class="text-center padded-v-20 small-6 columns small-centered">
+  <h1>Try the Employee Experience</h1>
+  <h3>Content is shared with employees on using a Board.  Like a bulletin board Airbo is your space to post what you'd like employees to read and do.
+  </h3>
+  </div>
+  <section class="board_section row">
+    <div class="large-8 large-centered columns board_card">
+      <div class="large-4 columns">
+        <%= link_to  public_board_path(public_slug: "wellness-starter-kit") do %>
+          <%=image_tag "topics/board/wellness.png" %>
+        <%end%>
+      </div>
+      <div class="large-8 columns">
+        <h3>Wellness Starter Kit</h3>
+        <small>by Airbo</small>
+        <p>
+     Start here to see sample content you can use to launch your wellness program.
+        </p>
+        <%= link_to "See Board", public_board_path(public_slug: "wellness-starter-kit"), class: "button outlined" %>
+      </div>
+    </div>
+  </section>
+</div>
+

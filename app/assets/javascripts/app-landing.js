@@ -10,9 +10,14 @@
 //= require internal/flashes
 //= require ../../../vendor/assets/javascripts/external/foundation.min
 //= require internal_and_external/intercom_setup
-//= require ./external/landing.js
+//= require ./external/sticky_header
+//= require ./external/landing
+//= require ./external/category
+//= require ../../../vendor/assets/javascripts/intro.airbo.custom
 //= require application
 //= require ./external/schedule_demo
+//= require ./external/request_form
+//= require ./internal/starter_kit_activation_intro
 
 $(function(){
   $(document).foundation();

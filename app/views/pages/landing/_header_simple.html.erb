@@ -1,0 +1,19 @@
+<header id="pageHeader" class="header_simple">
+  <div class="row top">
+    <div class="columns logo">
+      <%= link_to "/" do %>
+        <div class="logo_image"></div>
+      <% end %>
+    </div>
+    <div class="columns mobile-toggle mobiile_only">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <div class="columns headerMenu">
+      <ul>
+        <%= render partial: "pages/landing/menu" %>
+      </ul>
+    </div>
+  </div>
+</header>

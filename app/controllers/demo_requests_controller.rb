@@ -2,15 +2,19 @@ class DemoRequestsController < ApplicationController
   skip_before_filter :authorize
 
   def create
-    request = EmailInfoRequest.create!(params[:demo_request])
+    request = EmailInfoRequest.create!(permitted_params)
     request.notify_the_ks_of_demo_request
-    modal_ping
-    render json: {email: params[:demo_request][:email]}
+    # ping
+    render json: {email: permitted_params[:email]}
   end
 
   protected
 
-  def modal_ping
-    ping "Viewed HRM CTA Modal", {action: "Submitted Email Address"}, current_user
+  def permitted_params
+    params[:demo_request].permit!
   end
+
+  # def ping
+  #   ping "New Lead", {action: "Submitted Email - v. 3.17.16", page_name: ""}, current_user
+  # end
 end

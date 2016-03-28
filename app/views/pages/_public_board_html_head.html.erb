@@ -1,0 +1,121 @@
+<%content_for :head do%>
+  <script>
+$(function(){
+
+  var tabLinkSelector = 'ul.tab-switch li a'
+    , tabPanels ='#tab-panel .tab'
+    , firstTabLink = 'ul.tab-switch li:first a' 
+    , firstTabPanel = '#tab-panel .tab:first' 
+
+  function initTab2(){
+    if(window.location.hash=="#best-practices"){
+      Airbo.StarterKitActivationIntro.exit();
+      switchTabs($("#tab-link-2"));
+      postClick($("#tab-link-2"));
+      Airbo.StarterKitActivationIntro.run()
+    }
+  }
+
+  function postClick(obj){
+
+    if(obj.attr("href")=="#best-practices-tab"){
+      $("#quote").hide();
+      window.location.hash = '#best-practices';
+    }else{
+      $("#quote").show();
+      window.location.hash = '';
+    }
+
+  }
+
+  function switchTabs(currLink){
+
+      $(tabLinkSelector).removeClass('selected');
+      currLink.addClass('selected');
+      var currentTab = currLink.attr('href');
+      $(tabPanels).hide();
+      $(currentTab).show();
+  }
+
+  function initToggleTabs(){
+    $(tabPanels).hide();
+    $(firstTabPanel).show();
+    $(firstTabLink).addClass('selected');
+
+    $(tabLinkSelector).click(function(){
+      switchTabs($(this));
+      postClick($(this));
+      window.scrollTo(0,0)
+      return false;
+    }); 
+  }
+
+  function hideQuote(){
+    $("#quote").hide();
+  }
+
+  function init(){
+    initToggleTabs();
+    initTab2();
+  }
+
+  init();
+  
+});
+  </script>
+  <style>
+ul.tabs {
+  color: white;
+}
+
+ #tabs .shadow_overlay{
+    height: 43px;
+    opacity: 0.35;
+ }
+
+ .shadow_overlay.long{
+    height: 50px;
+    top: 260px;
+    position: absolute;
+ }
+
+.padded-v-40{
+ padding: 40px 0px;
+}
+
+
+  @media only screen and (min-width: 760px) {
+    .shadow_overlay.long{
+      top: 260px;
+    }
+  }
+
+  @media only screen and (max-width: 300px) {
+    .shadow_overlay.long{
+      top: 200px;
+    }
+  }
+
+  h3 {
+   font-weight:600;
+  }
+
+  .board_card_wrapper{
+    margin-top: 50px;
+  }
+
+  header#pageHeader .headerMenu ul li a {
+    color: #818385;
+  }
+
+
+  header#pageHeader .logo .logo_image {
+    background-image: url("landing/logo-blue.png");
+  }
+
+ body .content{
+   padding:0px;
+   position:static;
+  }
+  </style>
+<%end%>
