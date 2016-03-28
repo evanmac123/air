@@ -1,7 +1,10 @@
 <div class="row">
   <%= form_for DemoRequest.new, html:{id: "request_form", class: "inline center align_center request_form"} do |f| %>
     <span class="label white text-center cta-hero" id="cta_label">
-      Post company news, education, and anything else you need employees to read in one place. </br>Airbo is fun and interactive so it captures employee attention, boosts participation, and saves you time on follow-ups and questions. 
+      Post company news, education, and anything else you need employees to read in one place. 
+     </br>
+     </br>
+    Airbo is fun and interactive so it captures employee attention, boosts participation, and saves you time on follow-ups and questions. 
     </span>
     <div class="horizontal">
       <%= f.email_field :email, placeholder: "email@yourcompany.com" %>
