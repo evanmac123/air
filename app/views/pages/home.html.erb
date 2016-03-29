@@ -1,27 +1,42 @@
 <%content_for :head do%>
   <style>
+body.pages-home .hero {
+  height: 300px;
+  margin-bottom:30px;
+}
+
+   .panel-text {
+
+     padding-top: 25%;
+     padding-bottom: 20%;
+   }
    .home-panel{
      min-height:350px;
-       background-size:100%;
-       margin-top:10px;
-      background-repeat: no-repeat;
+     background-size:100%;
+     margin-top:10px;
+     background-repeat: no-repeat;
    }
    .full-band{
+    margin-bottom: 100px;
     min-width: auto;
+   }
+
+   .center-panel{
+     text-align:center
    }
   </style>
 <%end%>
 <%= render layout: "pages/landing/hero", locals: {no_shadow: true} do %>
-  <h1>The bulletin board, reinvented</h1>
+  <h1>Employee Communications that Employees Love.</h1>
   <%= render "pages/landing/schedule_demo_form" %>
 <% end %>
+<!--
 <div class="row  full-band">
 
   <div class="columns small-6">
     <div class="home-panel" style="background-image:url(<%=image_path('landing/problem.png')%>)">
     </div>
   </div>
-
   <div class="columns small-6 full-band">
     <div class="home-panel">
       <h2>HR invests a lot in employees.</h2> 
@@ -31,20 +46,20 @@ But attention spans have become short. Investments don’t pay off if employees 
     </div>
   </div>
 </div>
-<div class="row 6 full-band">
+-->
+<div class="row full-band">
   <div class="columns small-6 ">
-    <div class="home-panel" >
-      <h2>Airbo drives employee engagement</h2> 
-      <p>
-      Communicate with employees using Tiles. They’re bite-sized, visual and fun so employees read, understand and participate. Create your own Tiles in minutes, or copy them from a robust content library.
+    <div class="home-panel panel-text" style="vertical-align:middle">
+      <h2>Interactive content for today's attention span.</h2> 
+      <p>Use Tiles to connect with employees in a way that's relevant for them. Tiles are bite-sized, visual and fun so employees read, understand and participate.
       </p>
     </div>
   </div>
 
   <div class="columns small-6">
-      <div class="home-panel" style1="background-image:url(<%=image_path("landing/engage-inf.gif")%>)">
+      <div class="home-panel" style1="">
 
-      <%=image_tag("landing/engage-inf.gif")%>
+      <%=image_tag("landing/tilevsemail.png")%>
     </div>
   </div>
  
@@ -57,21 +72,21 @@ But attention spans have become short. Investments don’t pay off if employees 
     </div>
   </div>
 
-  <div class="columns small-6 full-band">
-    <div class="home-panel">
-      <h2>Organized like a bulletin board.</h2> 
+  <div class="columns small-6">
+    <div class="home-panel panel-text" style="padding-top:15%">
+      <h2>One place to get many priorities done.</h2> 
       <p>
-      Post Tiles that you want employees to read to your organization’s Board. Sharing what’s new as easily as sending an email. 
-     </p>
+      Post Tiles about company news, benefits, events and more to your organization’s Board, a private site hosted by Airbo. Whereas an intranet is like a filing cabinet that stores content out of view, Airbo is like a bulletin board that showcases what's new.
+      </p>
     </div>
   </div>
 </div>
 <div class="row 6 full-band">
   <div class="columns small-6 ">
-    <div class="home-panel" >
-      <h2>Track appreciation.</h2> 
+    <div class="home-panel panel-text" style="padding-top:15%" >
+      <h2>Track engagement in real-time.</h2> 
       <p>
-      See that employees read content, discover areas of interest, and spend less time following up.
+      See that employees read content, spend less time following up, and find out what employees are interested in.
       </p>
     </div>
   </div>
@@ -80,10 +95,35 @@ But attention spans have become short. Investments don’t pay off if employees 
       <div class="home-panel" style="background-image:url(<%=image_path("landing/measure-inf.gif")%>)">
     </div>
   </div>
- 
 </div>
 
-<div class="row 6 full-band">
+<div class="row">
+
+  <div class="small-10 columns small-centered center-panel">
+    <div class="row">
+      <h2 class="text-center padded-v-20">Easy to Use.</h2>
+      <div class="small-4 columns center-panel">
+        <%=image_tag "landing/sb-wellness-icon01.png"%>
+        <h3>1. Add Tiles to Your Board</h3>
+        <p> Copy Tiles from a robust library, or create your own in minutes.</p>
+      </div>
+
+      <div class="small-4 columns center-panel">
+        <%=image_tag "landing/sb-wellness-icon02.png"%>
+        <h3>2. Engage Employees</h3>
+        <p>New Tiles are summarized in an attention-grabbing email that you send to employees every 1 to 2 weeks.</p>
+      </div>
+
+      <div class="small-4 columns center-panel" >
+        <%=image_tag "landing/sb-wellness-icon03.png"%>
+        <h3>3. See Results</h3>
+        <p>Employees use the email to log into Airbo. As they interact with Tiles, you see real-time activity and feedback.</p>
+      </div>
+    </div>
+  </div>
+
+
+<div class="row full-band">
   <div class="columns small-6 ">
     <div class="home-panel" >
       <h2>Explore Tiles</h2> 
@@ -95,8 +135,8 @@ But attention spans have become short. Investments don’t pay off if employees 
 
   <div class="columns small-6">
   </div>
- 
 </div>
+
 
 <main>
 
