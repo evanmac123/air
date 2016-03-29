@@ -1,8 +1,105 @@
+<%content_for :head do%>
+  <style>
+   .home-panel{
+     min-height:350px;
+       background-size:100%;
+       margin-top:10px;
+      background-repeat: no-repeat;
+   }
+   .full-band{
+    min-width: auto;
+   }
+  </style>
+<%end%>
 <%= render layout: "pages/landing/hero", locals: {no_shadow: true} do %>
   <h1>The bulletin board, reinvented</h1>
   <%= render "pages/landing/schedule_demo_form" %>
 <% end %>
+<div class="row  full-band">
+
+  <div class="columns small-6">
+    <div class="home-panel" style="background-image:url(<%=image_path('landing/problem.png')%>)">
+    </div>
+  </div>
+
+  <div class="columns small-6 full-band">
+    <div class="home-panel">
+      <h2>HR invests a lot in employees.</h2> 
+      <p>
+But attention spans have become short. Investments don’t pay off if employees miss communications. 
+      </p>
+    </div>
+  </div>
+</div>
+<div class="row 6 full-band">
+  <div class="columns small-6 ">
+    <div class="home-panel" >
+      <h2>Airbo drives employee engagement</h2> 
+      <p>
+      Communicate with employees using Tiles. They’re bite-sized, visual and fun so employees read, understand and participate. Create your own Tiles in minutes, or copy them from a robust content library.
+      </p>
+    </div>
+  </div>
+
+  <div class="columns small-6">
+      <div class="home-panel" style1="background-image:url(<%=image_path("landing/engage-inf.gif")%>)">
+
+      <%=image_tag("landing/engage-inf.gif")%>
+    </div>
+  </div>
+ 
+</div>
+
+<div class="row  full-band">
+
+  <div class="columns small-6">
+    <div class="home-panel" style="background-image:url(<%=image_path('landing/organize-inf.gif')%>)">
+    </div>
+  </div>
+
+  <div class="columns small-6 full-band">
+    <div class="home-panel">
+      <h2>Organized like a bulletin board.</h2> 
+      <p>
+      Post Tiles that you want employees to read to your organization’s Board. Sharing what’s new as easily as sending an email. 
+     </p>
+    </div>
+  </div>
+</div>
+<div class="row 6 full-band">
+  <div class="columns small-6 ">
+    <div class="home-panel" >
+      <h2>Track appreciation.</h2> 
+      <p>
+      See that employees read content, discover areas of interest, and spend less time following up.
+      </p>
+    </div>
+  </div>
+
+  <div class="columns small-6">
+      <div class="home-panel" style="background-image:url(<%=image_path("landing/measure-inf.gif")%>)">
+    </div>
+  </div>
+ 
+</div>
+
+<div class="row 6 full-band">
+  <div class="columns small-6 ">
+    <div class="home-panel" >
+      <h2>Explore Tiles</h2> 
+      <p>
+      See how other companies are using Airbo to engage their employees. Get Ideas. Copy what you like.
+      </p>
+    </div>
+  </div>
+
+  <div class="columns small-6">
+  </div>
+ 
+</div>
+
 <main>
+
   <section class="topics">
     <div class="topics_section row">
       <h3 class="medium align_center">What's your most important priority?</h3>
