@@ -2,7 +2,6 @@
   <style>
 body.pages-home .hero {
   height: 300px;
-  margin-bottom:30px;
 }
 
    .panel-text {
@@ -24,29 +23,24 @@ body.pages-home .hero {
    .center-panel{
      text-align:center
    }
+
+   section.clients{
+     margin-bottom:30px;
+   }
   </style>
 <%end%>
 <%= render layout: "pages/landing/hero", locals: {no_shadow: true} do %>
   <h1>Employee Communications that Employees Love.</h1>
   <%= render "pages/landing/schedule_demo_form" %>
 <% end %>
-<!--
-<div class="row  full-band">
 
-  <div class="columns small-6">
-    <div class="home-panel" style="background-image:url(<%=image_path('landing/problem.png')%>)">
-    </div>
+<a id="tour"></a>
+<section class="clients">
+  <div class="clients_section row">
+    <h3 class="align_center">Used by organizations with 20 to 75,000 employees.</h3>
+    <%= render partial: "pages/landing/logos" %>
   </div>
-  <div class="columns small-6 full-band">
-    <div class="home-panel">
-      <h2>HR invests a lot in employees.</h2> 
-      <p>
-But attention spans have become short. Investments don’t pay off if employees miss communications. 
-      </p>
-    </div>
-  </div>
-</div>
--->
+</section>
 <div class="row full-band">
   <div class="columns small-6 ">
     <div class="home-panel panel-text" style="vertical-align:middle">
@@ -57,7 +51,7 @@ But attention spans have become short. Investments don’t pay off if employees 
   </div>
 
   <div class="columns small-6">
-      <div class="home-panel" style1="">
+      <div class="home-panel" >
 
       <%=image_tag("landing/tilevsemail.png")%>
     </div>
@@ -121,9 +115,9 @@ But attention spans have become short. Investments don’t pay off if employees 
       </div>
     </div>
   </div>
+</div>
 
-
-<div class="row full-band">
+<!--div class="row full-band">
   <div class="columns small-6 ">
     <div class="home-panel" >
       <h2>Explore Tiles</h2> 
@@ -135,7 +129,7 @@ But attention spans have become short. Investments don’t pay off if employees 
 
   <div class="columns small-6">
   </div>
-</div>
+</div-->
 
 
 <main>
@@ -154,10 +148,11 @@ But attention spans have become short. Investments don’t pay off if employees 
     </div>
   </section>
 
-  <section class="clients" style="border-bottom: 1px solid #EFEFEF" >
-    <div class="clients_section row">
-      <h3 class="align_center">Used by organizations with 20 to 75,000 employees.</h3>
-      <%= render partial: "pages/landing/logos" %>
+  <section id="sign_up_block" class="join">
+    <div class="join_block center">
+      <h2 class="align_center">Join Airbo Explore to discover engaging content.</h2>
+      <p class="align_center">Get started exploring today, it's free forever.</p>
+      <%= render partial: "pages/landing/form" %>
     </div>
   </section>
 
