@@ -24,5 +24,5 @@ Airbo.Utils.ExternalLinkHandler= (function(){
 }());
 
 $(function(){
-  Airbo.Utils.ExternalLinkHandler.init();
+  //Airbo.Utils.ExternalLinkHandler.init();
 });

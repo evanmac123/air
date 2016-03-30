@@ -1,4 +1,3 @@
-
 Airbo.TileCarouselPage = (function() {
 
   function updateNavbarURL(newTileId) {
@@ -74,11 +73,18 @@ Airbo.TileCarouselPage = (function() {
     }
   }
 
+
+  function initLinkFixer(){
+    Airbo.Utils.ExternalLinkHandler.init();
+  }
+
   function init(){
     grayoutTile();
     //updateNavbarURL(data.tile_id);
     setUpAnswersForPreview();
     ungrayoutTile();
+    initLinkFixer();
+
   }
   return {
     init: init

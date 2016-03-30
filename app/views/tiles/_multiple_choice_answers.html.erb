@@ -22,7 +22,8 @@
     <% content_for :javascript do %>
       <% unless tile.is_preview %>
         <%= javascript_tag do %>
-          setUpAnswers();
+          Airbo.SingleTilePreview.init();
+          //setUpAnswers();
         <% end %>
       <% end %>
     <% end %>
