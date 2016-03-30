@@ -47,8 +47,8 @@ $(function(){
 <%= render layout: "pages/landing/hero", locals: {no_shadow: true} do %>
   <h1>Employee Communications that Employees Love.</h1>
 
-  <div class="align_center"><%= link_to "Join", "#sign_up_block", class: "large button green",  style: "padding:15px 40px" %></div>
-  <%# render "pages/landing/schedule_demo_form" %>
+  <!--div class="align_center"><%# link_to "Join", "#sign_up_block", class: "large button green",  style: "padding:15px 40px" %></div-->
+  <%= render "pages/landing/schedule_demo_form" %>
 <% end %>
 
 <section class="clients">
@@ -86,7 +86,7 @@ $(function(){
     <div class="home-panel panel-text" style="padding-top:15%">
       <h2>One place to get many priorities done.</h2> 
       <p>
-      Post Tiles about company news, benefits, events and more to your organization’s Board, a private site hosted by Airbo. Unlike an intranet, Airbo is your dedicated space to showcase what's new and important.
+      Post Tiles about company news, benefits, events and more to your organization’s Board, a private site hosted by Airbo. Whereas an intranet is like a filing cabinet that stores content out of view, Airbo is like a bulletin board that showcases what's new.
       </p>
     </div>
   </div>
@@ -109,7 +109,7 @@ $(function(){
 <div class="row">
   <div class="small-10 columns small-centered center-panel">
     <div class="row">
-      <h2 class="text-center padded-v-20">Easy to Use.</h2>
+      <h2 class="text-center padded-v-20">Easy to Use</h2>
       <div class="small-4 columns center-panel">
         <%=image_tag "landing/sb-wellness-icon01.png"%>
       </div>
