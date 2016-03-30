@@ -27,6 +27,10 @@ body.pages-home .hero {
    section.clients{
      margin-bottom:30px;
    }
+
+   body.pages-home .topics h3 {
+     margin-top: auto;
+   }
   </style>
 <%end%>
 <%= render layout: "pages/landing/hero", locals: {no_shadow: true} do %>
@@ -70,7 +74,7 @@ body.pages-home .hero {
     <div class="home-panel panel-text" style="padding-top:15%">
       <h2>One place to get many priorities done.</h2> 
       <p>
-      Post Tiles about company news, benefits, events and more to your organization’s Board, a private site hosted by Airbo. Whereas an intranet is like a filing cabinet that stores content out of view, Airbo is like a bulletin board that showcases what's new.
+      Post Tiles about company news, benefits, events and more to your organization’s Board, a private site hosted by Airbo. Unlike an intranet Airbo helps you showcase what's new and imoportant.
       </p>
     </div>
   </div>
@@ -136,7 +140,8 @@ body.pages-home .hero {
 
   <section class="topics">
     <div class="topics_section row">
-      <h3 class="medium align_center">What's your most important priority?</h3>
+      <h2 class="text-center" >Explore Tiles</h2>
+      <h3 class="text-center">What's your most important priority?</h3>
       <div class="topics_container">
         <%= render partial: "pages/landing/topic", locals: {title: "Wellness", link: page_path("wellness"), img: "wellness",  comming_soon: false} %>
         <%= render partial: "pages/landing/topic", locals: {title: "Compliance", link: "", img: "compliance",  comming_soon: true} %>
