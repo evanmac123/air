@@ -27,7 +27,12 @@ module Concerns::TileImageable
         },
         default_style:  :carousel,
         default_url:    "/assets/avatars/thumb/missing.png",
-        bucket:         S3_TILE_THUMBNAIL_BUCKET
+        bucket:         S3_TILE_THUMBNAIL_BUCKET,
+        preserve_files: true  # preserve old attachments on update and delete. WHY?
+                              # to fix next scenario: CA sends digest email
+                              # but then changes an image in some tile.
+                              # so user gets email with a link to the old 
+                              # image which was removed
       }.merge(TILE_THUMBNAIL_OPTIONS)
 
     process_in_background :image,
