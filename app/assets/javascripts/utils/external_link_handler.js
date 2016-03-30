@@ -6,8 +6,7 @@ Airbo.Utils.ExternalLinkHandler= (function(){
 
 
   function init(){
-    if(Airbo.Utils.supportsFeatureByPresenceOfSelector(tilePresenceSelector)){
-      $('a').each(function() {
+      $('body .tile_texts_container a').each(function() {
         var a = new RegExp('/' + window.location.host + '/');
         if(!a.test(this.href)) {
           $(this).click(function(event) {
@@ -18,7 +17,6 @@ Airbo.Utils.ExternalLinkHandler= (function(){
         }
       });
      }
-  }
 
   return {
    init: init,
