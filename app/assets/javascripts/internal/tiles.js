@@ -281,17 +281,3 @@ bindTileCarouselNavigationButtons = function() {
 }());
 
 
-var attachRightAnswerMessage, attachRightAnswers, attachRightAnswersForPreview, attachWrongAnswer, attachWrongAnswers, checkInTile, disableAllAnswers, findCsrfToken, getURLParameter, grayoutTile, isOnClientAdminPage, isOnExplorePage, loadNextTileWithOffset, loadNextTileWithOffsetForExplorePreview, loadNextTileWithOffsetForManagePreview, markCompletedRightAnswer, nerfNerfedAnswers, pingRightAnswerInPreview, postTileCompletion, rightAnswerClicked, rightAnswerClickedForPreview, setUpAnswers, setUpAnswersForPreview, showOrHideStartOverButton, ungrayoutTile, updateNavbarURL;
-
-window.loadNextTileWithOffset = loadNextTileWithOffset;
-
-window.setUpAnswers = setUpAnswers;
-
-window.setUpAnswersForPreview = setUpAnswersForPreview;
-
-window.grayoutTile = grayoutTile;
-
-window.ungrayoutTile = ungrayoutTile;
-
-window.
-
