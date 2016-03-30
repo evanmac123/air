@@ -242,7 +242,7 @@ function isOnClientAdminPage() {
 };
 
 
-bindTileCarouselNavigationButtons = function() {
+ function bindTileCarouselNavigationButtons() {
   return $(function() {
     $("body").on('click', '#next', function(event) {
       event.preventDefault();
@@ -272,6 +272,7 @@ bindTileCarouselNavigationButtons = function() {
 
 
   function init(){
+    bindTileCarouselNavigationButtons();
     setUpAnswers();
   }
   return {
