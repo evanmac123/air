@@ -4,6 +4,26 @@ body.pages-home .hero {
   height: 300px;
 }
 
+   body.pages-home section.clients {
+
+     margin-bottom:30px;
+     padding-top:40px;
+     padding-bottom:40px;
+   }
+
+ body.pages-home .topics h3 {
+     margin-top: auto;
+   }
+
+ body.pages-home .hero .hero_content h1 {
+   line-height: 1.65em;
+ }
+
+ body.pages-home .topics {
+  margin-bottom: 100px;
+ }
+
+
    .panel-text {
 
      padding-top: 25%;
@@ -24,13 +44,9 @@ body.pages-home .hero {
      text-align:center
    }
 
-   section.clients{
-     margin-bottom:30px;
-   }
+ 
 
-   body.pages-home .topics h3 {
-     margin-top: auto;
-   }
+  
   </style>
 
   <script>
@@ -45,7 +61,7 @@ $(function(){
   </script>
 <%end%>
 <%= render layout: "pages/landing/hero", locals: {no_shadow: true} do %>
-  <h1>Employee Communications that Employees Love.</h1>
+  <h1>Employee Communications </br>that Employees Love</h1>
 
   <!--div class="align_center"><%# link_to "Join", "#sign_up_block", class: "large button green",  style: "padding:15px 40px" %></div-->
   <%= render "pages/landing/schedule_demo_form" %>
@@ -53,16 +69,15 @@ $(function(){
 
 <section class="clients">
   <div class="clients_section row">
-    <h3 class="align_center">Used by organizations with 20 to 75,000 employees.</h3>
+    <h3 class="align_center">Used by organizations with 20 to 75,000 employees</h3>
     <%= render partial: "pages/landing/logos" %>
   </div>
 </section>
 <div class="row full-band">
   <div class="columns small-6 ">
     <div class="home-panel panel-text" style="vertical-align:middle">
-      <h2>Interactive content for today's attention span.</h2> 
-      <p>Use Tiles to connect with employees in a way that's relevant for them. Tiles are bite-sized, visual and fun so employees read, understand and participate.
-      </p>
+      <h2>Interactive content for today's attention span</h2> 
+      <p>Communicate with employees using Tiles. They're bite-sized, visual and fun pieces of content that motivate employees to read, understand and participate.      </p>
     </div>
   </div>
 
@@ -84,20 +99,18 @@ $(function(){
 
   <div class="columns small-6">
     <div class="home-panel panel-text" style="padding-top:15%">
-      <h2>One place to get many priorities done.</h2> 
+      <h2>One place to promote many priorities</h2> 
       <p>
-      Post Tiles about company news, benefits, events and more to your organization’s Board, a private site hosted by Airbo. Whereas an intranet is like a filing cabinet that stores content out of view, Airbo is like a bulletin board that showcases what's new.
-      </p>
+      Post Tiles about company news, benefits, events and more to your organization’s Board, a private site hosted by Airbo. While an intranet is like a filing cabinet that stores content out of view, Airbo is like a bulletin board that showcases what's new.      </p>
     </div>
   </div>
 </div>
-<div class="row 6 full-band">
+<div class="row full-band">
   <div class="columns small-6 ">
     <div class="home-panel panel-text" style="padding-top:15%" >
-      <h2>Track engagement in real-time.</h2> 
+      <h2>Track engagement in real-time</h2> 
       <p>
-      See your employees engage, find out what employees are interested in, and spend less time following up.
-      </p>
+      See your employees engage in content, find out what they’re interested in, and spend less time following up.      </p>
     </div>
   </div>
 
@@ -109,7 +122,7 @@ $(function(){
 <div class="row">
   <div class="small-10 columns small-centered center-panel">
     <div class="row">
-      <h2 class="text-center padded-v-20">Easy to Use</h2>
+      <h2 class="text-center padded-v-20">Airbo is easy to use</h2>
       <div class="small-4 columns center-panel">
         <%=image_tag "landing/sb-wellness-icon01.png"%>
       </div>
@@ -124,24 +137,21 @@ $(function(){
     </div>
   </div>
 </div>
-<div class="row">
+<div class="row full-band">
   <div class="small-10 columns small-centered center-panel">
     <div class="row">
       <!--h2 class="text-center padded-v-20">Easy to Use.</h2-->
       <div class="small-4 columns center-panel">
-        <%#image_tag "landing/sb-wellness-icon01.png"%>
         <h3>1. Add Tiles to Your Board</h3>
         <p> Copy Tiles from a robust library, or create your own in minutes.</p>
       </div>
 
       <div class="small-4 columns center-panel">
-        <%#image_tag "landing/sb-wellness-icon02.png"%>
         <h3>2. Engage Employees</h3>
         <p>New Tiles are summarized in an attention-grabbing email that you send to employees every 1 to 2 weeks.</p>
       </div>
 
       <div class="small-4 columns center-panel" >
-        <%#image_tag "landing/sb-wellness-icon03.png"%>
         <h3>3. See Results</h3>
         <p>Employees use the email to log into Airbo. As they interact with Tiles, you see real-time activity and feedback.</p>
       </div>
@@ -150,7 +160,6 @@ $(function(){
 </div>
 
 
-<main>
 
   <section class="topics">
     <div class="topics_section row">
@@ -169,11 +178,10 @@ $(function(){
 
   <section id="sign_up_block" class="join">
     <div class="join_block center">
-      <h2 class="align_center">Join Airbo to discover engaging content.</h2>
+      <h2 class="align_center">Join Airbo to discover engaging content</h2>
       <p class="align_center">Get started exploring today, it's free forever.</p>
       <%= render partial: "pages/landing/form" %>
     </div>
   </section>
 
-</main>
 <%= render partial: "pages/landing/footer" %>
