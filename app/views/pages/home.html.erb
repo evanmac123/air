@@ -6,7 +6,7 @@ body.pages-home .hero {
 
    body.pages-home section.clients {
 
-     margin-bottom:30px;
+     margin-bottom:100px;
      padding-top:40px;
      padding-bottom:40px;
    }
@@ -61,7 +61,7 @@ $(function(){
   </script>
 <%end%>
 <%= render layout: "pages/landing/hero", locals: {no_shadow: true} do %>
-  <h1>Employee Communications </br>that Employees Love</h1>
+  <h1>Airbo is HR's Employee  Communication Assistant</h1>
 
   <!--div class="align_center"><%# link_to "Join", "#sign_up_block", class: "large button green",  style: "padding:15px 40px" %></div-->
   <%= render "pages/landing/schedule_demo_form" %>
@@ -69,33 +69,11 @@ $(function(){
 
 <section class="clients">
   <div class="clients_section row">
-    <h3 class="align_center">Used by organizations with 20 to 75,000 employees</h3>
+    <h3 class="align_center">Organizations from 20 to 75,000 employees use Airbo to communicate more effictively with their employees.</h3>
     <%= render partial: "pages/landing/logos" %>
   </div>
 </section>
-<div class="row full-band">
-  <div class="columns small-6 ">
-    <div class="home-panel panel-text" style="vertical-align:middle">
-      <h2>Interactive content for today's attention span</h2> 
-      <p>Communicate with employees using Tiles. They're bite-sized, visual and fun pieces of content that motivate employees to read, understand and participate.      </p>
-    </div>
-  </div>
-
-  <div class="columns small-6">
-<a id="tour"></a>
-      <div class="home-panel" >
-      <%=image_tag("landing/tilevsemail.png")%>
-    </div>
-  </div>
- 
-</div>
-
-<div class="row  full-band">
-
-  <div class="columns small-6">
-    <div class="home-panel" style="background-image:url(<%=image_path('landing/organize-inf.gif')%>)">
-    </div>
-  </div>
+<div class="row  full-band" style="margin-bottom:50px">
 
   <div class="columns small-6">
     <div class="home-panel panel-text" style="padding-top:15%">
@@ -104,7 +82,30 @@ $(function(){
       Post Tiles about company news, benefits, events and more to your organization’s Board, a private site hosted by Airbo. While an intranet is like a filing cabinet that stores content out of view, Airbo is like a bulletin board that showcases what's new.      </p>
     </div>
   </div>
+  <div class="columns small-6">
+    <div class="home-panel" style="background-image:url(<%=image_path('landing/organize-inf.gif')%>)">
+    </div>
+  </div>
+
 </div>
+
+<div class="row full-band">
+
+  <div class="columns small-6">
+<a id="tour"></a>
+      <div class="home-panel" >
+      <%=image_tag("landing/tilevsemail.png")%>
+    </div>
+  </div>
+ 
+  <div class="columns small-6 ">
+    <div class="home-panel panel-text" style="vertical-align:middle">
+      <h2>Interactive content for today's attention span</h2> 
+      <p>Communicate with employees using Tiles. They're bite-sized, visual and fun pieces of content that motivate employees to read, understand and participate.      </p>
+    </div>
+  </div>
+</div>
+
 <div class="row full-band">
   <div class="columns small-6 ">
     <div class="home-panel panel-text" style="padding-top:15%" >
@@ -113,11 +114,12 @@ $(function(){
       See your employees engage in content, find out what they’re interested in, and spend less time following up.      </p>
     </div>
   </div>
-
   <div class="columns small-6">
       <div class="home-panel" style="background-image:url(<%=image_path("landing/measure-inf.gif")%>)">
     </div>
   </div>
+
+
 </div>
 <div class="row">
   <div class="small-10 columns small-centered center-panel">
@@ -163,8 +165,8 @@ $(function(){
 
   <section class="topics">
     <div class="topics_section row">
-      <h2 class="text-center" >Explore Tiles</h2>
-      <h3 class="text-center">What's your most important priority?</h3>
+      <h2 class="text-center" >Use Stock Content To Save Time</h2>
+      <h3 class="text-center">Use content created by experts to get your employees’ attention</h3>
       <div class="topics_container">
         <%= render partial: "pages/landing/topic", locals: {title: "Wellness", link: page_path("wellness"), img: "wellness",  comming_soon: false} %>
         <%= render partial: "pages/landing/topic", locals: {title: "Compliance", link: "", img: "compliance",  comming_soon: true} %>
