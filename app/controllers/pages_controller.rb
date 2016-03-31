@@ -20,7 +20,6 @@ class PagesController < HighVoltage::PagesController
   before_filter :find_tiles, if: :new_home?
   before_filter :set_all_tiles_displayed, if: :new_home? 
   before_filter :limit_tiles_to_batch_size, if: :new_home?
-  before_filter :find_liked_and_copied_tile_ids, if: :new_home?
   before_filter :prep_explore_content
 
 
@@ -57,7 +56,6 @@ class PagesController < HighVoltage::PagesController
 
     render_partial_if_requested(tag_click_source: 'Explore Main Page - Clicked Tag On Tile', thumb_click_source: 'Explore Main Page - Tile Thumbnail Clicked')
 
-    @show_explore_intro = current_user.intros.show_explore_intro!
 
    #if params[:return_to_explore_source]
      #ping_action_after_dash params[:return_to_explore_source], {}, current_user
