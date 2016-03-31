@@ -10,8 +10,6 @@ body.pages-home .hero.modified {
 
 
    body.pages-home section.clients {
-
-     margin-bottom:100px;
      padding-top:40px;
      padding-bottom:40px;
    }
@@ -55,9 +53,6 @@ body.pages-home .hero .hero_content h2 {
      text-align:center
    }
 
- 
-
-  
   </style>
 
   <script>
@@ -71,7 +66,7 @@ $(function(){
 })
   </script>
 <%end%>
-<%= render layout: "pages/landing/hero", locals: {no_shadow: true, no_header:false} do %>
+<%= render layout: "pages/landing/hero", locals: {no_shadow: true, no_header:false,  hero_class: "modified"} do %>
   <h1>Airbo is a modern way for HR to communicate with employees</h1>
   <h2>It’s fun, visual and short, so employees read, understand, and participate</h2>
 <% end %>
@@ -83,9 +78,9 @@ $(function(){
   </div>
 </section>
 
-<%= render layout: "pages/landing/hero2", locals: {no_shadow: true, no_header:false} do %>
-  <h1>Airbo is a modern way for HR to communicate with employees</h1>
-  <h2>It’s fun, visual and short, so employees read, understand, and participate</h2>
+<%= render layout: "pages/landing/hero", locals: {no_shadow: true, no_header:true, hero_class: ""} do %>
+  <h1>Explore examples of how other companies have used Airbo</h1>
+  <h2>Here’s what you need to know to get started:</h2>
 <% end %>
 
 
