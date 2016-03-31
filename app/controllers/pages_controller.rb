@@ -20,6 +20,7 @@ class PagesController < HighVoltage::PagesController
   before_filter :find_tiles, if: :new_home?
   before_filter :set_all_tiles_displayed, if: :new_home? 
   before_filter :limit_tiles_to_batch_size, if: :new_home?
+  before_filter :find_liked_and_copied_tile_ids
   before_filter :prep_explore_content
 
 
@@ -47,6 +48,11 @@ class PagesController < HighVoltage::PagesController
 
   def new_home?
     true
+  end
+
+  def find_liked_and_copied_tile_ids
+    @liked_tile_ids = []
+    @copied_tile_ids =[]
   end
 
   def prep_explore_content
