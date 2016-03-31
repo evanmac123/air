@@ -61,7 +61,7 @@ $(function(){
   </script>
 <%end%>
 <%= render layout: "pages/landing/hero", locals: {no_shadow: true} do %>
-  <h1>Airbo is HR's Employee </br>  Communication Assistant</h1>
+  <h1>Airbo is HR's Employee </br> Communication Assistant</h1>
 
   <!--div class="align_center"><%# link_to "Join", "#sign_up_block", class: "large button green",  style: "padding:15px 40px" %></div-->
   <%= render "pages/landing/schedule_demo_form" %>
@@ -69,10 +69,12 @@ $(function(){
 
 <section class="clients">
   <div class="clients_section row">
-    <h3 class="align_center">Organizations from 20 to 75,000 employees use Airbo to communicate more effictively with their employees.</h3>
+    <h3 class="align_center">Organizations from 20 to 75,000 employees use Airbo to communicate more effectively with their employees.</h3>
     <%= render partial: "pages/landing/logos" %>
   </div>
 </section>
+
+<a id="tour"></a>
 <div class="row  full-band" >
   <div class="columns small-4">
     <div class="home-panel panel-text" style="padding-top:15%">
@@ -91,7 +93,6 @@ $(function(){
 <div class="row full-band">
 
   <div class="columns small-6">
-<a id="tour"></a>
       <div class="home-panel" >
       <%=image_tag("landing/tilevsemail.png")%>
     </div>
