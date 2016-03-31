@@ -13,6 +13,17 @@ class PagesController < HighVoltage::PagesController
 
   after_filter :update_seeing_marketing_page_for_first_time
 
+  include TileBatchHelper
+  include LoginByExploreToken
+  include ExploreHelper
+
+  before_filter :find_tiles, if: :new_home?
+  before_filter :set_all_tiles_displayed, if: :new_home? 
+  before_filter :limit_tiles_to_batch_size, if: :new_home?
+  before_filter :find_liked_and_copied_tile_ids, if: :new_home?
+  before_filter :prep_explore_content
+
+
   layout :layout_for_page
   DISABLED_PAGES = ["customer_tiles"]
 
@@ -30,7 +41,33 @@ class PagesController < HighVoltage::PagesController
     super
   end
 
-  protected
+  private
+  def find_tile_tags
+    params[:tile_tag]
+  end
+
+  def new_home?
+    true
+  end
+
+  def prep_explore_content
+    @topics = Topic.rearrange_by_other
+    @path_for_more_tiles = explore_path
+    @parent_boards = Demo.where(is_parent: true)
+
+    render_partial_if_requested(tag_click_source: 'Explore Main Page - Clicked Tag On Tile', thumb_click_source: 'Explore Main Page - Tile Thumbnail Clicked')
+
+    @show_explore_intro = current_user.intros.show_explore_intro!
+
+   #if params[:return_to_explore_source]
+     #ping_action_after_dash params[:return_to_explore_source], {}, current_user
+   #end
+
+   #email_clicked_ping(current_user)
+   #explore_intro_ping @show_explore_intro, params
+   #explore_content_link_ping
+
+ end 
 
   def layout_for_page
     case page_name
@@ -53,21 +90,8 @@ class PagesController < HighVoltage::PagesController
     redirect_to home_path if signed_in?
   end
 
-  # def set_login_url
-  #   @login_url = if Rails.env.staging? || Rails.env.production?
-  #                  session_url(:protocol => 'https', :host => hostname_with_subdomain)
-  #                else
-  #                  session_path
-  #                end
-  # end
 
-  # def set_new_board_url
-  #   @new_board_url = if Rails.env.production?
-  #                      boards_url(protocol: 'https', host: hostname_with_subdomain)
-  #                    else
-  #                      boards_url
-  #                    end
-  # end
+
 
   def display_social_links_if_marketing_page
     display_social_links if %w(more_info asha miltoncat heineken fujifilm customer_tiles).include?(params[:id])
