@@ -71,7 +71,7 @@ $(function(){
 })
   </script>
 <%end%>
-<%= render layout: "pages/landing/hero", locals: {no_shadow: true} do %>
+<%= render layout: "pages/landing/hero", locals: {no_shadow: true, no_header:false} do %>
   <h1>Airbo is a modern way for HR to communicate with employees</h1>
   <h2>It’s fun, visual and short, so employees read, understand, and participate</h2>
 <% end %>
@@ -83,6 +83,10 @@ $(function(){
   </div>
 </section>
 
+<%= render layout: "pages/landing/hero2", locals: {no_shadow: true, no_header:false} do %>
+  <h1>Airbo is a modern way for HR to communicate with employees</h1>
+  <h2>It’s fun, visual and short, so employees read, understand, and participate</h2>
+<% end %>
 
 
 <%=render template: "explores/show" %>
