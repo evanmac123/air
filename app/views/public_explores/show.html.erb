@@ -1,4 +1,5 @@
 <div class="row client_admin_explore">
+  <!--
   <div class='large-12 column'>
     <%= render partial: 'explores/parent_boards', locals: {boards: @parent_boards} %>
     <h1>Tile Subjects</h1>
@@ -12,7 +13,8 @@
           </div>
         <% end %>
       <% end %>
-    </div>
+      </div>
+  -->
     <h1>Recent Posts</h1>
     <div class='row tile_with_tags'>
       <%= render partial: 'explores/tile_with_tags', locals: {tiles: @tiles, path_for_more_tiles: @path_for_more_tiles, tag_click_source: "Explore Main Page - Clicked Tag On Tile", thumb_click_source: 'Explore Main Page - Tile Thumbnail Clicked'} %>
