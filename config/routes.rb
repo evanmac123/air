@@ -84,6 +84,10 @@ Health::Application.routes.draw do
   resources :pages, :only => :show
   resource :support, only: :show
 
+  resource :public_explore, only: [:show]
+  resources :public_topics, only: [:show]
+
+
   resource :home,  :only => :show
   resource :admin, :only => :show
   resource :client_admin, :only => :show

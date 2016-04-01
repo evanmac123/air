@@ -1,0 +1,21 @@
+<%= mp_track_page 'explore topic' %>
+
+<div class='row'>
+  <div class='large-12 columns client_admin_explore_tile_tag'>
+    <ul class='large-12'>
+      <li class='explore_section'>
+        <%= link_to client_admin_explore_path(return_to_explore_source: 'Explore Topic Page - Back To Explore') do %>
+          Explore:
+        <% end %>
+      </li>
+      <li class='tile_tag'>
+        <%= @tile_tag.topic.try(:name) || "No Topic" %>:
+        <%= @tile_tag.title %>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class='row tile_with_tags'>
+  <%= render partial: 'tile_with_tags', locals: {tiles: @tiles, tag: @tile_tag,  path_for_more_tiles: @path_for_more_tiles, all_tiles_displayed: @all_tiles_displayed, tag_click_source: 'Explore Topic Page - Clicked Tag On Tile', thumb_click_source: 'Explore Topic Page - Tile Thumbnail Clicked'}%>
+</div>
