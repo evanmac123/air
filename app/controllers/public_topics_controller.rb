@@ -1,9 +1,9 @@
-class TopicsController <  ApplicationController
-  skip_before_filter :authorize
-  before_filter :allow_guest_user
+class PublicTopicsController <  ApplicationController
   include TileBatchHelper
   include ExploreHelper
 
+  skip_before_filter :authorize
+  before_filter :allow_guest_user
   before_filter :find_topic
   before_filter :find_tiles
   before_filter :set_all_tiles_displayed
@@ -19,7 +19,7 @@ class TopicsController <  ApplicationController
 
   protected
 
-    def explore_token_allowed
+  def explore_token_allowed
     true
   end
 
@@ -27,8 +27,8 @@ class TopicsController <  ApplicationController
     @topic = Topic.find(params[:id])
   end
 
- def find_tiles
-   #FIXME remove duplication
+  def find_tiles
+    #FIXME remove duplication
     @eligible_tiles = Tile.viewable_in_public.tagged_with(find_tile_tags)
 
     @tiles = @eligible_tiles.
@@ -42,3 +42,4 @@ class TopicsController <  ApplicationController
   def find_tile_tags
     @topic.tile_tags.pluck(:id).push(-1)
   end
+end
