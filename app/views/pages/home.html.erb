@@ -1,10 +1,13 @@
 <%content_for :head do%>
   <style>
 body.pages-home .hero {
-  height: 300px;
-    color:white;
+  height: 500px;
+  color:white;
 }
 
+body.pages-home .hero h1{
+  line-height:1.57
+}
 
 body.pages-home .hero.modified {
   background-image: url(<%=image_path('landing/fluff.png')%>);
@@ -22,12 +25,36 @@ body.pages-home section.clients {
   padding-bottom:40px;
 }
 
+.tile_with_tags .explore_tile .like_copy_tile, .client_admin_explore .tiles .explore_tile .like_copy_tile {
+  display:none;
+}
+
+.all_tile_tags {
+    background: #fff;
+    padding: 0 7px 5px 7px;
+}
+
+.tile_with_tags .explore_tile .all_tile_tags .tile_tag, .client_admin_explore .tiles .explore_tile .all_tile_tags .tile_tag {
+    background-color: transparent;
+    margin-top: 5px;
+    margin-left: 3px;
+    border-radius: 2px;
+    display: inline-block;
+    font-size: 12px;
+    color: #a8a8a8;
+    border: 1px solid #a8a8a8;
+}
+
 
 
 body.pages-home .topics .topic {
   margin-right: 5px;
   margin-left: 15px;
 }
+
+h3{
+ margin:1em 0;
+} 
 
  .explore-content{
    background-color: rgb(217,223,233);
@@ -67,8 +94,7 @@ $(function(){
   </script>
 <%end%>
 <%= render layout: "pages/landing/hero", locals: {no_shadow: true, no_header:false,  hero_class: ""} do %>
-  <h2 class="text-center">Airbo is a modern way for HR to communicate with employees</h2>
-  <h3 class="text-center">It’s fun, visual and short, so employees read, understand, and participate</h3>
+  <h1 class="text-center">Airbo is a modern way for HR </br> to communicate with employees</h1>
 <% end %>
 
 <section class="clients">
@@ -78,30 +104,44 @@ $(function(){
   </div>
 </section>
 
-<div class="row">
-  <div class="columns">
-    <h2 class="text-center">Explore examples of how other companies have used Airbo</h2>
-    <h3 class="text-center">Here’s what you need to know to get started:</h3>
-    <div class="row">
-      <div class="columns small-10 small-centered">
-        <div class="columns small-4">
-          <h4>1. Tiles</h4>
-          Bite-sized pieces of content.
-        </div>
-        <div class="columns small-4">
-          <h4>2. Boards</h4>
-          A space to post Tiles for employees to read.
-        </div>
+<div class="row" style="padding-top:70px" >
+  <div class="small-8 columns small-centered center-panel" >
+    <div class="row" >
+      <div class="small-4 columns center-panel">
+        <%=image_tag "landing/sb-wellness-icon01.png"%>
+      </div>
 
-        <div class="columns small-4">
-          <h4>3. Engagement</h4>
-          A space to post Tiles for employees to read.
-        </div>
+      <div class="small-4 columns center-panel">
+        <%=image_tag "landing/sb-wellness-icon02.png"%>
+      </div>
+
+      <div class="small-4 columns center-panel" >
+        <%=image_tag "landing/sb-wellness-icon03.png"%>
       </div>
     </div>
   </div>
 </div>
+<div class="row full-band">
+  <div class="small-8 columns small-centered center-panel">
+    <div class="row">
+      <div class="small-4 columns center-panel">
+        <h3>Tile</h3>
+        <p>Bite-sized, interactive</br> piece of content.</p>
+      </div>
 
+      <div class="small-4 columns center-panel">
+        <h3>Board</h3>
+        <p>Place to post Tiles for employees to read.
+</p>
+      </div>
+
+      <div class="small-4 columns center-panel" >
+        <h3>Metrics</h3>
+        <p>See who read and</br> took action.</p>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="explore-content">
 <%=render template: "explores/show" %>
 </div>
