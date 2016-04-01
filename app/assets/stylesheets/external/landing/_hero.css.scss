@@ -18,26 +18,28 @@
     display: table-cell;
     vertical-align: middle;
     padding: 20px;
-    h1, h2, h3 {
-      display: block;
-      margin: auto;
-      color: $white;
-      text-align: center;
-      max-width: 950px;
-      font-weight: 700;
-    }
-    // h1 {
-    //   font-size: 50px;
-    //   line-height: 75px;
-    // }
-    h2 {
-      font-size: 40px;
-      line-height: 60px;
-    }
-    h3 {
-      font-size: 16px;
-      text-transform: uppercase;
-      margin-bottom: 25px;
+    &.custom-headers{
+      h1, h2, h3 {
+        display: block;
+        margin: auto;
+        color: $white;
+        text-align: center;
+        max-width: 950px;
+        font-weight: 700;
+      }
+      // h1 {
+        //   font-size: 50px;
+        //   line-height: 75px;
+      // }
+      h2 {
+        font-size: 40px;
+        line-height: 60px;
+      }
+      h3 {
+        font-size: 16px;
+        text-transform: uppercase;
+        margin-bottom: 25px;
+      }
     }
     .request_demo {
       @include app-button($sky-blue);

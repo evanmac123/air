@@ -3,27 +3,32 @@ body.pages-home {
   $h2-size: 24px;
 
   color: $home-gray;
+  
+  /*
   h2 {
     font-size: 24px;
   }
-
+   */
+  
   .hero {
     background-color: #379fd7;
     background-image: linear-gradient(to bottom, #48bfff 0, #379fd7 100%);
     height: 500px;
     .hero_content {
-      h1 {
-        font-weight: 400;
-        font-size: 30px;
-        line-height: 1.5em;
-        margin-bottom: 5px;
-        max-width: 570px;
-      }
-      p {
-        color: #FFF;
-        letter-spacing: 0;
-        text-align: center;
-        margin: 20px auto;
+      &.custom-text{
+        h1 {
+          font-weight: 400;
+          font-size: 30px;
+          line-height: 1.5em;
+          margin-bottom: 5px;
+          max-width: 570px;
+        }
+        p {
+          color: #FFF;
+          letter-spacing: 0;
+          text-align: center;
+          margin: 20px auto;
+        }
       }
       .button, .flag {
         font-size: 18px;

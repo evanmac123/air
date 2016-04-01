@@ -2,56 +2,56 @@
   <style>
 body.pages-home .hero {
   height: 300px;
+    color:white;
 }
+
 
 body.pages-home .hero.modified {
   background-image: url(<%=image_path('landing/fluff.png')%>);
 }
 
-
-   body.pages-home section.clients {
-     padding-top:40px;
-     padding-bottom:40px;
-   }
-
- body.pages-home .topics h3 {
-     margin-top: auto;
-   }
-
- body.pages-home .hero .hero_content h1 {
-   line-height: 1.65em;
-   max-width: none;
- }
-
-body.pages-home .hero .hero_content h2 {
-  font-weight:normal;
-  font-size: 24px;
+body.pages-home .topics h3 {
+  margin-top: auto;
 }
 
- body.pages-home .topics {
-  margin-bottom: 100px;
+
+
+
+body.pages-home section.clients {
+  padding-top:40px;
+  padding-bottom:40px;
+}
+
+
+
+body.pages-home .topics .topic {
+  margin-right: 5px;
+  margin-left: 15px;
+}
+
+ .explore-content{
+   background-color: rgb(217,223,233);
+  }
+
+ .panel-text {
+
+   padding-top: 25%;
+   padding-bottom: 20%;
+ }
+ .home-panel{
+   min-height:550px;
+   background-size:100%;
+   margin-top:10px;
+   background-repeat: no-repeat;
+ }
+ .full-band{
+   margin-bottom: 50px;
+   min-width: auto;
  }
 
-
-   .panel-text {
-
-     padding-top: 25%;
-     padding-bottom: 20%;
-   }
-   .home-panel{
-     min-height:550px;
-     background-size:100%;
-     margin-top:10px;
-     background-repeat: no-repeat;
-   }
-   .full-band{
-    margin-bottom: 50px;
-    min-width: auto;
-   }
-
-   .center-panel{
-     text-align:center
-   }
+ .center-panel{
+   text-align:center
+ }
 
   </style>
 
@@ -66,9 +66,9 @@ $(function(){
 })
   </script>
 <%end%>
-<%= render layout: "pages/landing/hero", locals: {no_shadow: true, no_header:false,  hero_class: "modified"} do %>
-  <h1>Airbo is a modern way for HR to communicate with employees</h1>
-  <h2>It’s fun, visual and short, so employees read, understand, and participate</h2>
+<%= render layout: "pages/landing/hero", locals: {no_shadow: true, no_header:false,  hero_class: ""} do %>
+  <h2 class="text-center">Airbo is a modern way for HR to communicate with employees</h2>
+  <h3 class="text-center">It’s fun, visual and short, so employees read, understand, and participate</h3>
 <% end %>
 
 <section class="clients">
@@ -78,13 +78,32 @@ $(function(){
   </div>
 </section>
 
-<%= render layout: "pages/landing/hero", locals: {no_shadow: true, no_header:true, hero_class: ""} do %>
-  <h1>Explore examples of how other companies have used Airbo</h1>
-  <h2>Here’s what you need to know to get started:</h2>
-<% end %>
+<div class="row">
+  <div class="columns">
+    <h2 class="text-center">Explore examples of how other companies have used Airbo</h2>
+    <h3 class="text-center">Here’s what you need to know to get started:</h3>
+    <div class="row">
+      <div class="columns small-10 small-centered">
+        <div class="columns small-4">
+          <h4>1. Tiles</h4>
+          Bite-sized pieces of content.
+        </div>
+        <div class="columns small-4">
+          <h4>2. Boards</h4>
+          A space to post Tiles for employees to read.
+        </div>
 
+        <div class="columns small-4">
+          <h4>3. Engagement</h4>
+          A space to post Tiles for employees to read.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
+<div class="explore-content">
 <%=render template: "explores/show" %>
-
+</div>
 
 <%= render partial: "pages/landing/footer" %>
