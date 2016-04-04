@@ -290,7 +290,10 @@ function isOnClientAdminPage() {
   return {
    init: init
   }
-
 }());
 
-
+$(document).ready(function() {
+  if( $(".tiles-index").length > 0) {
+    Airbo.SingleTilePreview.init();
+  }
+});

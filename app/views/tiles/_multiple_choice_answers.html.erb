@@ -19,13 +19,5 @@
         <div class="answer_target" style="display: none"></div>
       <% end %>
     <% end %>
-    <%#TODO  move this javascript block and init call into js file %>
-    <% content_for :javascript do %>
-      <% unless tile.is_preview %>
-        <%= javascript_tag do %>
-          Airbo.SingleTilePreview.init();
-        <% end %>
-      <% end %>
-    <% end %>
   </div>
 <% end %>
