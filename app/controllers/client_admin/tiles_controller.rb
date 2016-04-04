@@ -40,14 +40,14 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def new
     @tile_builder_form =  @demo.m_tiles.build(status: Tile::DRAFT)
-    new_or_edit @tile_builder_form 
+    new_or_edit @tile_builder_form
     record_new_ping
   end
 
 
   def edit
     @tile_builder_form =  get_tile
-    new_or_edit @tile_builder_form 
+    new_or_edit @tile_builder_form
     record_edit_ping
   end
 
@@ -75,9 +75,11 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def destroy
     @tile = get_tile
-    flash[:success] = "You've successfully deleted the #{@tile.headline} Tile."
-    @tile.destroy
-    destroy_tile_ping params[:page]
+    if @tile
+      @tile.destroy
+      destroy_tile_ping params[:page]
+    end
+
     if request.xhr?
       head :ok
     else
@@ -230,7 +232,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def get_tile
     #FIXME what is this offset
-    tile = current_user.demo.tiles.find params[:id]
+    tile = current_user.demo.tiles.where(id: params[:id]).first
     if params[:offset].present?
       tile = Tile.next_manage_tile(tile, params[:offset].to_i)
     end
