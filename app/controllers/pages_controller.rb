@@ -3,8 +3,6 @@ class PagesController < HighVoltage::PagesController
   before_filter :allow_guest_user
   before_filter :force_html_format
   before_filter :signed_out_only_on_root
-  # before_filter :set_login_url
-  # before_filter :set_new_board_url
   before_filter :display_social_links_if_marketing_page
   before_filter :set_page_name
   before_filter :set_page_name_for_mixpanel
@@ -14,16 +12,6 @@ class PagesController < HighVoltage::PagesController
   after_filter :update_seeing_marketing_page_for_first_time
 
   include TileBatchHelper
-  include LoginByExploreToken
-  include ExploreHelper
-
-  before_filter :find_tiles, if: :new_home?
-  before_filter :set_all_tiles_displayed, if: :new_home? 
-  before_filter :limit_tiles_to_batch_size, if: :new_home?
-  before_filter :find_liked_and_copied_tile_ids
-  before_filter :prep_explore_content
-
-
   layout :layout_for_page
   DISABLED_PAGES = ["customer_tiles"]
 
@@ -42,36 +30,12 @@ class PagesController < HighVoltage::PagesController
   end
 
   private
-  def find_tile_tags
-    params[:tile_tag]
+
+
   end
 
-  def new_home?
-    true
-  end
-
-  def find_liked_and_copied_tile_ids
-    @liked_tile_ids = []
-    @copied_tile_ids =[]
-  end
-
-  def prep_explore_content
-    @topics = Topic.rearrange_by_other
-    @path_for_more_tiles = explore_path
-    @parent_boards = Demo.where(is_parent: true)
-
-    render_partial_if_requested(tag_click_source: 'Explore Main Page - Clicked Tag On Tile', thumb_click_source: 'Explore Main Page - Tile Thumbnail Clicked')
 
 
-   #if params[:return_to_explore_source]
-     #ping_action_after_dash params[:return_to_explore_source], {}, current_user
-   #end
-
-   #email_clicked_ping(current_user)
-   #explore_intro_ping @show_explore_intro, params
-   #explore_content_link_ping
-
- end 
 
   def layout_for_page
     case page_name
@@ -93,8 +57,6 @@ class PagesController < HighVoltage::PagesController
     return unless params[:id] == 'home'
     redirect_to home_path if signed_in?
   end
-
-
 
 
   def display_social_links_if_marketing_page
