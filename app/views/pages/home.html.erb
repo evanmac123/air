@@ -1,4 +1,7 @@
 <%content_for :head do%>
+
+  <%= split_stylesheet_link_tag "app-internal", :media => "all", :split_count => 5 %>
+  <%= javascript_include_tag 'app-internal' %>
   <style>
 body.pages-home .hero {
   height: 500px;
@@ -146,8 +149,22 @@ $(function(){
     </div>
   </div>
 </div>
-<div class="explore-content">
-<%=render template: "public_explores/show" %>
+<div id="tabs">
+  <ul class="tabs text-center">
+    <li><a href="#tab-1" >Wellness Starter Kit</a></li>
+    <li><a href="#tab-2">Health Plan Basics</a></li>
+    <li><a href="#tab-3">Internal Validation</a></li>
+  </ul>
+  <div class="explore-content">
+    <%@tile_set.each_with_index do |set, idx| %>. 
+      <%params[:public_slug] = @homepage_boards.keys[idx]%>
+      <div id="tab-<%=idx+1%>" class="tab">
+        <%# render partial: 'shared/tiles/user_progress', locals: {raffle: current_user.demo.raffle} %>
+        <%= render 'shared/tile_wall', set.merge(path_for_more_tiles: tiles_path, hdr_text: @homepage_boards.values[idx]) %>
+      </div>  
+    <%end%>
+  </div>
 </div>
+
 <%= render partial: "pages/landing/request_form" %>
 <%= render partial: "pages/landing/footer" %>

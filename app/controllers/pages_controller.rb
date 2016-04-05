@@ -1,4 +1,6 @@
 class PagesController < HighVoltage::PagesController
+  include TileBatchHelper
+
   skip_before_filter :authorize
   before_filter :allow_guest_user
   before_filter :force_html_format
@@ -8,11 +10,11 @@ class PagesController < HighVoltage::PagesController
   before_filter :set_page_name_for_mixpanel
   before_filter :set_user_for_mixpanel
   before_filter :handle_disabled_pages
-
+  before_filter :set_homepage_boards
   after_filter :update_seeing_marketing_page_for_first_time
 
-  include TileBatchHelper
   layout :layout_for_page
+
   DISABLED_PAGES = ["customer_tiles"]
 
   PAGE_NAMES_FOR_MIXPANEL = {
@@ -24,17 +26,41 @@ class PagesController < HighVoltage::PagesController
     'terms'          => 'terms and conditions'
   }
 
+
   def show
-    login_as_guest(Demo.new) unless current_user
+    @demos = Demo.where(public_slug: @homepage_boards.keys)
+    prep_boards
+    @demo = @sorted_demos.first
+    
+    login_as_guest(@demo) unless current_user
     super
   end
 
   private
 
+  def set_homepage_boards
 
+    @homepage_boards=  {
+      "wellness-starter-kit" => "Wellness Starter Kit" , 
+      "healthplanbasics" => "Health Plan Basics", 
+      "internal-validation" =>"Internal Validation" 
+    }
   end
 
+  def sort_demos
+    @sorted_demos = @homepage_boards.map do|slug, title|
+      @demos.where(public_slug: slug).first
+    end
+  end
 
+  def prep_boards
+    @tile_set = []
+    sort_demos
+    @sorted_demos.each do |demo|
+      current_user.demo = demo
+      @tile_set << Tile.displayable_categorized_to_user(current_user, tile_batch_size)
+    end
+  end
 
 
   def layout_for_page
