@@ -152,9 +152,9 @@ $(function(){
 </div>
 <div id="tabs">
   <ul class="tabs text-center">
-    <li><a href="#tab-1" >Wellness Starter Kit</a></li>
-    <li><a href="#tab-2">Health Plan Basics</a></li>
-    <li><a href="#tab-3">Internal Validation</a></li>
+    <%@homepage_boards.values.each_with_index do |name, idx|%>
+      <li><a href="#tab-<%=idx+1%>" ><%=name%></a></li>
+  <%end%>
   </ul>
   <div class="explore-content">
     <%@tile_set.each_with_index do |set, idx| %>. 
