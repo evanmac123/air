@@ -12,39 +12,13 @@
   return $('#spinner_large').fadeOut('slow');
 };
 
-
-
-
 var Airbo = window.Airbo || {};
 
-Airbo.SingleTilePreview =(function(){
-
+Airbo.UserTilePreview =(function(){
 
   function checkInTile() {
     return $(".tile_multiple_choice_answer").length === 1;
   };
-
-  function isOnExplorePage() {
-    return window.location.href.match(/explore/) !== null;
-  };
-
-  function isOnClientAdminPage() {
-    return window.location.href.match(/client_admin/) !== null;
-  };
-
-   function getURLParameter(sParam) {
-    var i, j, ref, sPageURL, sParameterName, sURLVariables;
-    sPageURL = window.location.search.substring(1);
-    sURLVariables = sPageURL.split('&');
-    for (i = j = 0, ref = sURLVariables.length; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
-      sParameterName = sURLVariables[i].split('=');
-      if (sParameterName[0] === sParam) {
-        return sParameterName[1];
-      }
-    }
-  };
-
-
 
   function showOrHideStartOverButton(showFlag) {
     if (showFlag) {
@@ -52,16 +26,6 @@ Airbo.SingleTilePreview =(function(){
     } else {
       return $('#guest_user_start_over_button').hide();
     }
-  };
-
-  function updateNavbarURL(newTileId) {
-    var newURL, tag;
-    newURL = newTileId.toString();
-    tag = getURLParameter('tag');
-    if (tag != null) {
-      newURL += "?tag=" + tag;
-    }
-    return History.pushState(null, null, newURL);
   };
 
   function loadNextTileWithOffset(offset, preloadAnimations, predisplayAnimations, tilePosting) {
@@ -107,39 +71,6 @@ Airbo.SingleTilePreview =(function(){
           }
         });
       });
-    });
-  };
-
-  function loadNextTileWithOffsetForExplorePreview(offset) {
-    var url;
-    url = '/explore/tile/' + $('#tile_preview_section .tile_holder[data-current-tile-id]').data('current-tile-id');
-    return $.get(url, {
-      partial_only: true,
-      offset: offset,
-      tag: getURLParameter("tag")
-    }, function(data) {
-      $('#tile_preview_section').html(data.tile_content);
-      updateNavbarURL(data.tile_id);
-      $('#spinner_large').css("display", "block");
-      setUpAnswersForPreview();
-      return ungrayoutTile();
-    });
-  };
-
-  function loadNextTileWithOffsetForManagePreview(offset) {
-    var url;
-    url = '/client_admin/tiles/' + $('[data-current-tile-id]').data('current-tile-id');
-    return $.get(url, {
-      partial_only: true,
-      offset: offset
-    }, function(data) {
-      $('.content').children(".row").replaceWith($(data.tile_content));
-      updateNavbarURL(data.tile_id);
-      $('#spinner_large').css("display", "block");
-      window.sharableTileLink();
-      window.bindTagNameSearchAutocomplete('#add-tag', '#tag-autocomplete-target', "/client_admin/tile_tags");
-      setUpAnswersForPreview();
-      return ungrayoutTile();
     });
   };
 
@@ -206,31 +137,10 @@ Airbo.SingleTilePreview =(function(){
     }
   };
 
-  function rightAnswerClickedForPreview(event) {
-    markCompletedRightAnswer(event);
-    return attachRightAnswerMessage(event);
-  };
-
   function attachRightAnswers() {
     return $('.right_multiple_choice_answer').one("click", function(event) {
       event.preventDefault();
       return rightAnswerClicked(event);
-    });
-  };
-
-
-  function attachRightAnswersForPreview() {
-    return $('.right_multiple_choice_answer').one("click", function(event) {
-      event.preventDefault();
-      rightAnswerClickedForPreview(event);
-      disableAllAnswers();
-      if (isOnExplorePage()) {
-        pingRightAnswerInPreview($(event.target).data('tile-id'));
-        if (!window.guestForTilePreview) {
-          grayoutTile();
-          return loadNextTileWithOffsetForExplorePreview(1);
-        }
-      }
     });
   };
 
@@ -246,38 +156,20 @@ Airbo.SingleTilePreview =(function(){
   function setUpAnswers() {
     nerfNerfedAnswers();
     attachRightAnswers();
-    return attachWrongAnswers();
+    attachWrongAnswers();
   };
-
-  function setUpAnswersForPreview() {
-    attachRightAnswersForPreview();
-    return attachWrongAnswers();
-  };
-
 
   function bindTileCarouselNavigationButtons() {
     return $(function() {
       $("body").on('click', '#next', function(event) {
         event.preventDefault();
         grayoutTile();
-        if (isOnExplorePage()) {
-          return loadNextTileWithOffsetForExplorePreview(1);
-        } else if (isOnClientAdminPage()) {
-          return loadNextTileWithOffsetForManagePreview(1);
-        } else {
-          return loadNextTileWithOffset(1);
-        }
+        loadNextTileWithOffset(1);
       });
       return $("body").on('click', '#prev', function(event) {
         event.preventDefault();
         grayoutTile();
-        if (isOnExplorePage()) {
-          return loadNextTileWithOffsetForExplorePreview(-1);
-        } else if (isOnClientAdminPage()) {
-          return loadNextTileWithOffsetForManagePreview(-1);
-        } else {
-          return loadNextTileWithOffset(-1);
-        }
+        loadNextTileWithOffset(-1);
       });
     });
   };
@@ -295,6 +187,6 @@ Airbo.SingleTilePreview =(function(){
 
 $(document).ready(function() {
   if( $(".tiles-index").length > 0) {
-    Airbo.SingleTilePreview.init();
+    Airbo.UserTilePreview.init();
   }
 });

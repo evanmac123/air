@@ -21,7 +21,7 @@
 //= require slick-carousel/slick/slick
 
 //= require ./internal_and_external/underscore-min
-//= require ./internal/tiles
+//= require ./internal/user_tile_preview
 //= require ./internal/show_more_tiles_link
 //= require ./internal/countUp.min
 //= require ./internal/byte_counter
