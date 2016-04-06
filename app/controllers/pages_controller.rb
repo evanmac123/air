@@ -47,9 +47,9 @@ class PagesController < HighVoltage::PagesController
     @homepage_boards={}
     @sorted_demos = board_slugs.map do|slug|
       d = @demos.where(public_slug: slug).first
-      @homepage_boards[slug]=d.name
+      @homepage_boards[slug]=d.name unless d.nil?
       d
-    end
+    end.compact
   end
 
   def prep_boards
