@@ -92,6 +92,31 @@ h3{
   display:none;
  }
 
+ .board-panel{
+   border:1px solid #D5D5D5;
+   height:325px;
+   width: 100%;
+   background-color:#f9f9f9;
+   border-radius: 8px;
+   padding: 5px;
+ }
+ .board-panel h1 {
+   font-size: 18px;
+   text-align:center; 
+ }
+
+ .board-info  {
+   padding-top: 10px;
+   font-size: 14px;
+ }
+ .board-info .num-tiles {
+   opacity: .54;
+ }
+
+ .tile-block img{
+   width: 100%
+ }
+
   </style>
 
   <script>
@@ -154,8 +179,15 @@ $(function(){
     </div>
   </div>
 </div>
+
+<h2 class="text-center padded-v-20">Explore how other organizations use Airbo to communicate with their employees in a more engaging way</h2>
+
+<div class="row padded-v-20">
+  <div class="columns small-10 small-centered">
+    <%= render "board_panel" %>
+  </div>
+</div>
 <div id="tabs">
-  <h3 class="text-center padded-v-20">Explore how other organizations use Airbo to communicate with their employees in a more engaging way</h3>
   <ul class="tabs text-center">
     <%@homepage_boards.values.each_with_index do |name, idx|%>
       <li><a href="#tab-<%=idx+1%>" ><%=name%></a></li>
@@ -165,7 +197,6 @@ $(function(){
     <%@tile_set.each_with_index do |set, idx| %>. 
       <%params[:public_slug] = @homepage_boards.keys[idx]%>
       <div id="tab-<%=idx+1%>" class="tab">
-        <%# render partial: 'shared/tiles/user_progress', locals: {raffle: current_user.demo.raffle} %>
         <%= render 'shared/tile_wall', set.merge(path_for_more_tiles: tiles_path, hdr_text: @homepage_boards.values[idx]) %>
       </div>  
     <%end%>
