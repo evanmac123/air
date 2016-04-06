@@ -20,10 +20,14 @@ body.pages-home .hero.modified {
 body.pages-home .topics h3 {
   margin-top: auto;
 }
+.tile-wall-header{
+  color: #48bfff;
+}
 
 
-
-
+#tile_wall #tile_links .show_more_tiles[disabled], #tile_wall #tile_links .show_more_tiles {
+display:none;
+}
 body.pages-home section.clients {
   padding-top:40px;
   padding-bottom:40px;
@@ -151,6 +155,7 @@ $(function(){
   </div>
 </div>
 <div id="tabs">
+  <h3 class="text-center padded-v-20">Explore how other organizations use Airbo to communicate with their employees in a more engaging way</h3>
   <ul class="tabs text-center">
     <%@homepage_boards.values.each_with_index do |name, idx|%>
       <li><a href="#tab-<%=idx+1%>" ><%=name%></a></li>

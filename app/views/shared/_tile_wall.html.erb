@@ -6,7 +6,7 @@
 <% tiles_length =  not_completed_tiles.try(:length).to_i + completed_tiles.try(:length).to_i %>
 
 <div id="tile_wall">
-  <%=content_tag :h1, hdr_text, class:"text-center" if hdr_text %>
+  <%=content_tag :h1, hdr_text, class:"tile-wall-header text-center padded-v-20" if hdr_text %>
   <%= render 'shared/tile_tags', tags: tags %>
    
   <div class="all_tile_thumbnails row">
