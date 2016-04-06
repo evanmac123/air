@@ -67,8 +67,12 @@ Airbo.TileCarouselPage = (function() {
     return $(".right_multiple_choice_answer").removeAttr("href").unbind();
   }
 
+  function checkInTile() {
+    return $(".tile_multiple_choice_answer").length === 1;
+  };
+
   function attachRightAnswerMessage(event) {
-    if ( $(".tile_multiple_choice_answer").length == 1) {
+    if ( checkInTile() ) {
       return $(event.target).siblings('.answer_target').html("Correct!").slideDown(250);
     }
   }

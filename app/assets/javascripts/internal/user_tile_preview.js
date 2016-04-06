@@ -4,12 +4,12 @@
  * so we need to keep them global for now
 */
 
- function grayoutTile() {
-  $('#spinner_large').fadeIn('slow');
+function grayoutTile() {
+  return $('#spinner_large').fadeIn('slow');
 };
 
- function ungrayoutTile() {
-  $('#spinner_large').fadeOut('slow');
+function ungrayoutTile() {
+  return $('#spinner_large').fadeOut('slow');
 };
 
 var Airbo = window.Airbo || {};
@@ -69,29 +69,6 @@ Airbo.UserTilePreview =(function(){
     });
   };
 
-  function checkInTile() {
-    return $(".tile_multiple_choice_answer").length === 1;
-  };
-
-  function attachWrongAnswer(answerLink, target) {
-    answerLink.click(function(event) {
-      event.preventDefault();
-      target.html("Sorry, that's not it. Try again!");
-      target.slideDown(250);
-      $(this).addClass("clicked_wrong");
-    });
-  };
-
-  function nerfNerfedAnswers() {
-    $('.nerfed_answer').click(function(event) {
-      event.preventDefault();
-    });
-  };
-
-  function disableAllAnswers() {
-    $(".right_multiple_choice_answer").removeAttr("href").unbind();
-  };
-
   function findCsrfToken() {
     return $('meta[name="csrf-token"]').attr('content');
   };
@@ -108,54 +85,17 @@ Airbo.UserTilePreview =(function(){
     });
   };
 
-  function pingRightAnswerInPreview(tileId) {
-    $.post("/ping", {
-      event: 'Explore page - Interaction',
-      properties: {
-        action: 'Clicked Answer',
-        tile_id: tileId
-      }
-    });
-  };
-
   function rightAnswerClicked(event) {
     var posting, preloadAnimationsDone;
     posting = postTileCompletion(event);
-    markCompletedRightAnswer(event);
     preloadAnimationsDone = tileCompletedPreloadAnimations(event);
     loadNextTileWithOffset(1, preloadAnimationsDone, predisplayAnimations, posting);
   };
 
-  function markCompletedRightAnswer(event) {
-    $(event.target).addClass('clicked_right_answer');
-  };
-
-  function attachRightAnswerMessage(event) {
-    if (!checkInTile()) {
-      $(event.target).siblings('.answer_target').html("Correct!").slideDown(250);
-    }
-  };
-
-  function attachRightAnswers() {
-    $('.right_multiple_choice_answer').one("click", function(event) {
-      event.preventDefault();
-      rightAnswerClicked(event);
-    });
-  };
-
-  function attachWrongAnswers() {
-    _.each($('.wrong_multiple_choice_answer'), function(wrongAnswerLink) {
-      var target;
-      wrongAnswerLink = $(wrongAnswerLink);
-      target = wrongAnswerLink.siblings('.answer_target');
-      attachWrongAnswer(wrongAnswerLink, target);
-    });
-  };
-
   function setUpAnswers() {
-    nerfNerfedAnswers();
-    attachRightAnswers();
-    attachWrongAnswers();
+    Airbo.TileAnswers.init({
+      onRightAnswer: rightAnswerClicked
+    });
   };
 
   function bindTileCarouselNavigationButtons() {
@@ -173,7 +113,6 @@ Airbo.UserTilePreview =(function(){
     });
   };
 
-
   function init(){
     bindTileCarouselNavigationButtons();
     setUpAnswers();
@@ -181,7 +120,6 @@ Airbo.UserTilePreview =(function(){
   return {
    init: init
   }
-
 }());
 
 $(document).ready(function() {
