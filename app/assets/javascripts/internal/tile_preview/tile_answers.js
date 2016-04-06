@@ -7,6 +7,7 @@ Airbo.TileAnswers = (function(){
       }
     , nerfedAnswerSel = '.nerfed_answer'
     , rightAnswerSel = '.right_multiple_choice_answer'
+    , answerSel = ".tile_multiple_choice_answer"
   ;
   function attachWrongAnswer(answerLink, target) {
     answerLink.click(function(event) {
@@ -27,7 +28,20 @@ Airbo.TileAnswers = (function(){
   function markCompletedRightAnswer(event) {
     $(event.target).addClass('clicked_right_answer');
   };
-
+  function disableRightAnswers() {
+    $(rightAnswerSel).unbind();
+    $(rightAnswerSel).one("click", function(event) {
+      event.preventDefault();
+    });
+  }
+  function checkInTile() {
+    return $(answerSel).length === 1;
+  }
+  function attachRightAnswerMessage(event) {
+    if ( !checkInTile() ) {
+      $(event.target).siblings('.answer_target').html("Correct!").slideDown(250);
+    }
+  }
   function initEvents() {
     $(nerfedAnswerSel).click(function(event) {
       event.preventDefault();
@@ -35,6 +49,8 @@ Airbo.TileAnswers = (function(){
     $(rightAnswerSel).one("click", function(event) {
       event.preventDefault();
       markCompletedRightAnswer(event);
+      disableRightAnswers();
+      attachRightAnswerMessage(event);
       params.onRightAnswer(event);
     });
     attachWrongAnswers();
