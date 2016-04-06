@@ -3,7 +3,7 @@
 .user_container
   #user_progress
     - if raffle
-      = render partial: "shared/tiles/raffle_progress", locals: {raffle: raffle}   
+      = render partial: "shared/tiles/raffle_progress", locals: {raffle: raffle}
     #total_section
       #total_header.progress_header
         Total
@@ -32,8 +32,8 @@
       window.oldBrowser = true;
   :javascript
     $().ready(function(){
-      setTileBar(#{ presenter.available_tile_count }, #{ presenter.completed_tile_count });
-      setCongratText();
+      Airbo.ProgressAndPrizeBar.setTileBar(#{ presenter.available_tile_count }, #{ presenter.completed_tile_count });
+      Airbo.ProgressAndPrizeBar.setCongratText();
     });
 
 - if raffle && current_user.can_see_raffle_modal?

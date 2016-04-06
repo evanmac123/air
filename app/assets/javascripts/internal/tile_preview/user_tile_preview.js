@@ -88,8 +88,8 @@ Airbo.UserTilePreview =(function(){
   function rightAnswerClicked(event) {
     var posting, preloadAnimationsDone;
     posting = postTileCompletion(event);
-    preloadAnimationsDone = tileCompletedPreloadAnimations(event);
-    loadNextTileWithOffset(1, preloadAnimationsDone, predisplayAnimations, posting);
+    preloadAnimationsDone = Airbo.ProgressAndPrizeBar.tileCompletedPreloadAnimations(event);
+    loadNextTileWithOffset(1, preloadAnimationsDone, Airbo.ProgressAndPrizeBar.predisplayAnimations, posting);
   };
 
   function setUpAnswers() {
