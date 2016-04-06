@@ -5,26 +5,21 @@
 */
 
  function grayoutTile() {
-  return $('#spinner_large').fadeIn('slow');
+  $('#spinner_large').fadeIn('slow');
 };
 
  function ungrayoutTile() {
-  return $('#spinner_large').fadeOut('slow');
+  $('#spinner_large').fadeOut('slow');
 };
 
 var Airbo = window.Airbo || {};
 
 Airbo.UserTilePreview =(function(){
-
-  function checkInTile() {
-    return $(".tile_multiple_choice_answer").length === 1;
-  };
-
   function showOrHideStartOverButton(showFlag) {
     if (showFlag) {
-      return $('#guest_user_start_over_button').show();
+      $('#guest_user_start_over_button').show();
     } else {
-      return $('#guest_user_start_over_button').hide();
+      $('#guest_user_start_over_button').hide();
     }
   };
 
@@ -43,15 +38,15 @@ Airbo.UserTilePreview =(function(){
       };
     }
     url = '/tiles/' + $('#slideshow .tile_holder').data('current-tile-id');
-    return $.when(preloadAnimations, tilePosting).then(function() {
-      return $.get(url, {
+    $.when(preloadAnimations, tilePosting).then(function() {
+      $.get(url, {
         partial_only: true,
         offset: offset,
         after_posting: afterPosting,
         completed_only: $('#slideshow .tile_holder').data('completed-only'),
         previous_tile_ids: $('#slideshow .tile_holder').data('current-tile-ids')
       }, function(data) {
-        return $.when(predisplayAnimations(data, tilePosting)).then(function() {
+        $.when(predisplayAnimations(data, tilePosting)).then(function() {
           if (data.all_tiles_done === true && afterPosting) {
             $('.content .container.row').replaceWith(data.tile_content);
             showOrHideStartOverButton(data.show_start_over_button === true);
@@ -64,9 +59,9 @@ Airbo.UserTilePreview =(function(){
           if (data.show_conversion_form === true) {
             if ($("body").data("public-board") === true) {
               Airbo.ScheduleDemoModal.openModal();
-              return Airbo.ScheduleDemoModal.modalPing("Source", "Auto");
+              Airbo.ScheduleDemoModal.modalPing("Source", "Auto");
             } else {
-              return lightboxConversionForm();
+              lightboxConversionForm();
             }
           }
         });
@@ -74,23 +69,27 @@ Airbo.UserTilePreview =(function(){
     });
   };
 
+  function checkInTile() {
+    return $(".tile_multiple_choice_answer").length === 1;
+  };
+
   function attachWrongAnswer(answerLink, target) {
-    return answerLink.click(function(event) {
+    answerLink.click(function(event) {
       event.preventDefault();
       target.html("Sorry, that's not it. Try again!");
       target.slideDown(250);
-      return $(this).addClass("clicked_wrong");
+      $(this).addClass("clicked_wrong");
     });
   };
 
   function nerfNerfedAnswers() {
-    return $('.nerfed_answer').click(function(event) {
-      return event.preventDefault();
+    $('.nerfed_answer').click(function(event) {
+      event.preventDefault();
     });
   };
 
   function disableAllAnswers() {
-    return $(".right_multiple_choice_answer").removeAttr("href").unbind();
+    $(".right_multiple_choice_answer").removeAttr("href").unbind();
   };
 
   function findCsrfToken() {
@@ -110,7 +109,7 @@ Airbo.UserTilePreview =(function(){
   };
 
   function pingRightAnswerInPreview(tileId) {
-    return $.post("/ping", {
+    $.post("/ping", {
       event: 'Explore page - Interaction',
       properties: {
         action: 'Clicked Answer',
@@ -124,32 +123,32 @@ Airbo.UserTilePreview =(function(){
     posting = postTileCompletion(event);
     markCompletedRightAnswer(event);
     preloadAnimationsDone = tileCompletedPreloadAnimations(event);
-    return loadNextTileWithOffset(1, preloadAnimationsDone, predisplayAnimations, posting);
+    loadNextTileWithOffset(1, preloadAnimationsDone, predisplayAnimations, posting);
   };
 
   function markCompletedRightAnswer(event) {
-    return $(event.target).addClass('clicked_right_answer');
+    $(event.target).addClass('clicked_right_answer');
   };
 
   function attachRightAnswerMessage(event) {
     if (!checkInTile()) {
-      return $(event.target).siblings('.answer_target').html("Correct!").slideDown(250);
+      $(event.target).siblings('.answer_target').html("Correct!").slideDown(250);
     }
   };
 
   function attachRightAnswers() {
-    return $('.right_multiple_choice_answer').one("click", function(event) {
+    $('.right_multiple_choice_answer').one("click", function(event) {
       event.preventDefault();
-      return rightAnswerClicked(event);
+      rightAnswerClicked(event);
     });
   };
 
   function attachWrongAnswers() {
-    return _.each($('.wrong_multiple_choice_answer'), function(wrongAnswerLink) {
+    _.each($('.wrong_multiple_choice_answer'), function(wrongAnswerLink) {
       var target;
       wrongAnswerLink = $(wrongAnswerLink);
       target = wrongAnswerLink.siblings('.answer_target');
-      return attachWrongAnswer(wrongAnswerLink, target);
+      attachWrongAnswer(wrongAnswerLink, target);
     });
   };
 
@@ -160,13 +159,13 @@ Airbo.UserTilePreview =(function(){
   };
 
   function bindTileCarouselNavigationButtons() {
-    return $(function() {
+    $(function() {
       $("body").on('click', '#next', function(event) {
         event.preventDefault();
         grayoutTile();
         loadNextTileWithOffset(1);
       });
-      return $("body").on('click', '#prev', function(event) {
+      $("body").on('click', '#prev', function(event) {
         event.preventDefault();
         grayoutTile();
         loadNextTileWithOffset(-1);
