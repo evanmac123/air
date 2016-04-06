@@ -10,7 +10,6 @@ class PagesController < HighVoltage::PagesController
   before_filter :set_page_name_for_mixpanel
   before_filter :set_user_for_mixpanel
   before_filter :handle_disabled_pages
-  before_filter :set_homepage_boards
   after_filter :update_seeing_marketing_page_for_first_time
 
   layout :layout_for_page
@@ -28,7 +27,7 @@ class PagesController < HighVoltage::PagesController
 
 
   def show
-    @demos = Demo.where(public_slug: @homepage_boards.keys)
+    @demos = Demo.where(public_slug:board_slugs)
     prep_boards
     @demo = @sorted_demos.first
     
@@ -38,18 +37,18 @@ class PagesController < HighVoltage::PagesController
 
   private
 
-  def set_homepage_boards
-
-    @homepage_boards=  {
-      "wellness-starter-kit" => "Wellness Starter Kit" , 
-      "healthplanbasics" => "Health Plan Basics", 
-      "internal-validation" =>"Internal Validation" 
-    }
+  def board_slugs
+    @slugs ||= ENV['HOMEPAGE_BOARD_SLUGS'].split(",")
   end
 
+
+
   def sort_demos
-    @sorted_demos = @homepage_boards.map do|slug, title|
-      @demos.where(public_slug: slug).first
+    @homepage_boards={}
+    @sorted_demos = board_slugs.map do|slug|
+      d = @demos.where(public_slug: slug).first
+      @homepage_boards[slug]=d.name
+      d
     end
   end
 
