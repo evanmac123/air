@@ -1,0 +1,72 @@
+<%content_for :head do%>
+  <style>
+   .panel-text {
+
+     padding-top: 25%;
+     padding-bottom: 20%;
+   }
+   .home-panel{
+     min-height:550px;
+     background-size:100%;
+     margin-top:10px;
+     background-repeat: no-repeat;
+   }
+   .full-band{
+    margin-bottom: 50px;
+    min-width: auto;
+   }
+  </style>
+<%end%>
+<%= render layout: "pages/landing/hero", locals: {no_shadow: true} do %>
+  <h1 class="white text-center" >How Airbo Works</h1>
+<% end %>
+
+<div class="row  full-band" >
+  <div class="columns small-4">
+    <div class="home-panel panel-text" style="padding-top:15%">
+      <h2>One simple place to organize content and resources</h2> 
+      <p>
+      Your organization’s Board is a private site hosted by Airbo. While an intranet is like a filing cabinet that stores content out of view, Airbo is like a bulletin board that showcases what's new.      </p>
+    </div>
+  </div>
+  <div class="columns small-8">
+    <div class="home-panel" style1="background-image:url(<%=image_path('landing/board_on_mac.png')%>)">
+      <%=image_tag("landing/board_on_mac.png")%>
+    </div>
+  </div>
+
+</div>
+
+<div class="row full-band">
+
+  <div class="columns small-6">
+    <div class="home-panel" >
+      <%=image_tag("landing/tilevsemail.png")%>
+    </div>
+  </div>
+
+  <div class="columns small-6 ">
+    <div class="home-panel panel-text" style="vertical-align:middle">
+      <h2>Content is presented in bite-sized pieces called Tiles</h2> 
+      <p>Tiles are made for today's attention span. They're fun and visual, so more employees read, understand and participate. You can use ours or create your own in minutes.</p>
+    </div>
+  </div>
+</div>
+
+<div class="row full-band" style="margin-bottom:30px">
+  <div class="columns small-4 ">
+    <div class="home-panel panel-text" style="padding-top:15%" >
+      <h2>Send Tiles and see engagement in real-time</h2> 
+      <p>
+      When you're ready, click "send" and watch employees engage. See exactly who read, understood, and took actions. Answer fewer questions and spend less time following up.</p>
+    </div>
+  </div>
+  <div class="columns small-8">
+    <div class="home-panel" style1="background-image:url(<%=image_path("landing/metrics-2.png")%>)">
+      <%=image_tag("landing/metrics-2.png")%>
+    </div>
+  </div>
+</div>
+
+<%= render partial: "pages/landing/footer" %>
+
