@@ -1,13 +1,11 @@
 <%= link_to public_board_path(public_slug:board.public_slug), class: "topic" do %>
   <div class="topic_cell" style="background-image: url('<%=board.cover_image.url%>')">
     <div class="shadow_overlay"></div>
-    <div class="text-container">
-      <section class="board-name">
-      <h1 class="title"><%= board.name %></h1>
-      </section>
-    </div>
+    <section class="board-name">
+      <h3 class="title"><%= board.name %></h3>
+    </section>
     <section class="cover-footer">
-      <div class="subtitle">
+      <div class="num-tiles subtitle">
         10 Tiles
       </div>
       <%=content_tag :h2, (board.client_name.blank? ? "&nbsp;".html_safe: truncate(board.client_name, length:30)), class:"subtitle"  %>

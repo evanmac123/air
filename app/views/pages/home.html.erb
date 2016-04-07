@@ -22,7 +22,6 @@ body.pages-home section.clients {
   padding-bottom:40px;
 }
 
-
 h3{
  margin:1em 0;
 } 
@@ -43,7 +42,8 @@ h3{
   <style version="v9-starter-kit">
 
 body.pages-home .topics{
-  background-color:rgb(217, 223, 233);
+  background-color:#f9f9f9; /*rgb(217, 223, 233);*/
+
   margin-bottom:0px;
 }
 body.pages-home .topics .topic {
@@ -71,7 +71,8 @@ body.pages-home .topics .topic .topic_cell {
   display: table-cell;
   padding-top: 0px;
   width: 238px;
-  height: 192px;
+  min-width:238px;
+  height: 300px;
   border-radius: 3px;
   background-size: cover;
   border-bottom:3px solid #dfdfdf;
@@ -92,14 +93,16 @@ body.pages-home .topics .topic h1.title {
   color: white;
   font-weight: 500;
   line-height: 1.5;
-  position: relative;
   text-align:left;
   margin: 0;
+}
+body.pages-home .topics .topic h3.title {
+  text-align:left;
+  margin:0;
 }
 
 /* line 156, ../../app/assets/stylesheets/external/home.scss */
 body.pages-home .topics .topic .subtitle {
-  font-size: 12px;
   color: white;
   line-height:1.5;
   text-align: left;
@@ -115,13 +118,22 @@ body.pages-home .topics .topic .shadow_overlay {
 body.pages-home .topics .topic .shadow_overlay:hover {
     background-color: rgba(21, 47, 61, 0.9);
 }
-.text-container{
-  position:relative;
+
+.board-name h3{
+  margin:0;
+}
+
+body.pages-home .topics .topic .subtitle.num-tiles{
+  font-size: 10px;
 }
 
 .cover-footer{
   position:absolute;
   bottom:17px;
+}
+body.pages-home .topics .topic .cover-footer h2 {
+ font-weight: bold; 
+ font-size:14px;
 }
 
 
@@ -190,8 +202,8 @@ $(function(){
   </div>
 </div>
 
-<h2 class="text-center padded-v-20">Boards</h2>
  <section class="topics">
+<h2 class="text-center padded-v-20">Boards</h2>
 <div class="row padded-v-20">
   <div class="columns small-12 small-centered">
     <div class="row ">
