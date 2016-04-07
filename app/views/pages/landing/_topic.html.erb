@@ -5,10 +5,13 @@
       <section class="board-name">
       <h1 class="title"><%= board.name %></h1>
       </section>
-      <%=content_tag :h2, board.client_name, class:"subtitle" unless board.client_name.blank?%>
     </div>
-    <section class="num-tiles">
-      10 Tiles
+    <section class="cover-footer">
+      <div class="subtitle">
+        10 Tiles
+      </div>
+      <%=content_tag :h2, truncate(board.client_name, length:30), class:"subtitle" unless board.client_name.blank?%>
     </section>
+
   </div>
 <% end %>
