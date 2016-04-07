@@ -38,21 +38,14 @@ h3{
    text-align:center
  }
 
- .board-info  {
-   padding-top: 10px;
-   font-size: 14px;
- }
- .board-info .num-tiles {
-   opacity: .54;
- }
-
- .tile-block img{
-   width: 100%
- }
-
   </style>
 
   <style version="v9-starter-kit">
+
+body.pages-home .topics{
+  background-color:rgb(217, 223, 233);
+  margin-bottom:0px;
+}
 body.pages-home .topics .topic {
   display: block;
   position: relative;
@@ -62,8 +55,6 @@ body.pages-home .topics .topic {
   overflow: hidden;
   background-size: cover;
   background-color: #000;
- margin-right: 5px;
-  margin-left: 15px;
 }
 
 /* line 126, ../../app/assets/stylesheets/external/home.scss */
@@ -84,10 +75,11 @@ body.pages-home .topics .topic .topic_cell {
   border-radius: 3px;
   background-size: cover;
   border-bottom:3px solid #dfdfdf;
-  box-shadow: 0 2px 3px rgba(0,0,0,0.22);
+  box-shadow: 0 2px 3px rgba(0,0,0,0.5);
+  padding: 17px 17px;
+  position: relative;
 }
 body.pages-home .topics .topic .topic_cell:hover {
-
   border-bottom-color: #48bfff;
 }
 
@@ -96,10 +88,10 @@ body.pages-home .topics .topic .topic_cell:hover {
 /* line 142, ../../app/assets/stylesheets/external/home.scss */
 body.pages-home .topics .topic h1.title {
   max-width: none;
-  font-size: 18px;
+  font-size: 16px;
   color: white;
-  font-weight: normal;
-  line-height: 1;
+  font-weight: 500;
+  line-height: 1.5;
   position: relative;
   text-align:left;
   margin: 0;
@@ -107,14 +99,32 @@ body.pages-home .topics .topic h1.title {
 
 /* line 156, ../../app/assets/stylesheets/external/home.scss */
 body.pages-home .topics .topic .subtitle {
-  font-size: 15px;
+  font-size: 12px;
   color: white;
+  line-height:1.5;
   text-align: left;
-  margin-top: 5px;
+  margin-top: 10px;
+}
+
+body.pages-home .topics .topic .shadow_overlay {
+  background-color: rgba(21, 47, 61, 0.1);
+}
+
+body.pages-home .topics .topic .shadow_overlay:hover {
+    background-color: rgba(21, 47, 61, 0.9);
 }
 .text-container{
-  margin-top: 20px;
-  margin-left: 10px;
+  position:relative;
+}
+.num-tiles{
+  font-size: 12px;
+  color: white;
+  line-height:1.5;
+  text-align: left;
+  margin-top: 10px;
+
+  position:absolute;
+  bottom: 17px;
 }
 
   </style>
