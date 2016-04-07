@@ -237,5 +237,5 @@ Airbo.StarterKitActivationIntro= (function(){
 }())
 
 $(function(){
-  Airbo.StarterKitActivationIntro.init();
+ //Airbo.StarterKitActivationIntro.init();
 });
