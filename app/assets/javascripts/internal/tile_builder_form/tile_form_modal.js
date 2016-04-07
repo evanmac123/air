@@ -46,6 +46,7 @@ Airbo.TileFormModal = (function(){
       modalId: modalId,
       useAjaxModal: true,
       confirmOnClose: true,
+      modalClass: "bg-user-side",
       onOpenedEvent: function() {
         autosize.update( $('textarea') );
       }
