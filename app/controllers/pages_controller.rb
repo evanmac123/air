@@ -27,11 +27,8 @@ class PagesController < HighVoltage::PagesController
 
 
   def show
-    @demos = Demo.where(public_slug:board_slugs)
-    prep_boards
-    @demo = @sorted_demos.first
-    
-    login_as_guest(@demo) unless current_user
+    login_as_guest(Demo.new) unless current_user
+    sort_demos
     super
   end
 
@@ -44,21 +41,10 @@ class PagesController < HighVoltage::PagesController
 
 
   def sort_demos
-    @homepage_boards={}
+    @demos = Demo.where(public_slug:board_slugs)
     @sorted_demos = board_slugs.map do|slug|
-      d = @demos.where(public_slug: slug).first
-      @homepage_boards[slug]=d.name unless d.nil?
-      d
+     @demos.where(public_slug: slug).first
     end.compact
-  end
-
-  def prep_boards
-    @tile_set = []
-    sort_demos
-    @sorted_demos.each do |demo|
-      current_user.demo = demo
-      @tile_set << Tile.displayable_categorized_to_user(current_user, tile_batch_size)
-    end
   end
 
 

@@ -17,9 +17,7 @@ body.pages-home .hero.modified {
   background-image: url(<%=image_path('landing/fluff.png')%>);
 }
 
-body.pages-home .topics h3 {
-  margin-top: auto;
-}
+
 .tile-wall-header{
   color: #48bfff;
 }
@@ -53,12 +51,6 @@ body.pages-home section.clients {
     border: 1px solid #a8a8a8;
 }
 
-
-
-body.pages-home .topics .topic {
-  margin-right: 5px;
-  margin-left: 15px;
-}
 
 h3{
  margin:1em 0;
@@ -119,6 +111,74 @@ h3{
 
   </style>
 
+  <style version="v9-starter-kit">
+body.pages-home .topics .topic {
+  display: block;
+  position: relative;
+  float: left;
+  border-radius: 3px;
+  margin: 0 25px 40px 25px;
+  overflow: hidden;
+ 
+  margin-right: 5px;
+  margin-left: 15px;
+}
+
+/* line 126, ../../app/assets/stylesheets/external/home.scss */
+body.pages-home .topics .topic img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+/* line 119, ../../app/assets/stylesheets/external/home.scss */
+body.pages-home .topics .topic .topic_cell {
+  display: table-cell;
+  padding-top: 0px;
+  width: 250px;
+  height: 318px;
+  border-radius: 3px;
+}
+
+/* line 133, ../../app/assets/stylesheets/external/home.scss */
+body.pages-home .topics .topic .shadow_overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: block;
+}
+
+
+/* line 142, ../../app/assets/stylesheets/external/home.scss */
+body.pages-home .topics .topic h1.title {
+  max-width: none;
+  font-size: 18px;
+  color: white;
+  font-weight: normal;
+  line-height: 1;
+  position: relative;
+  text-align:left;
+  margin: 0;
+}
+
+/* line 156, ../../app/assets/stylesheets/external/home.scss */
+body.pages-home .topics .topic .subtitle {
+  font-size: 15px;
+  color: white;
+  text-align: left;
+  margin-top: 5px;
+}
+.text-container{
+  margin-top: 20px;
+  margin-left: 10px;
+}
+
+  </style>
   <script>
 $(function(){
 
@@ -180,28 +240,19 @@ $(function(){
   </div>
 </div>
 
-<h2 class="text-center padded-v-20">Explore how other organizations use Airbo to communicate with their employees in a more engaging way</h2>
-
+<h2 class="text-center padded-v-20">Boards</h2>
+ <section class="topics">
 <div class="row padded-v-20">
-  <div class="columns small-10 small-centered">
-    <%= render "board_panel" %>
-  </div>
-</div>
-<div id="tabs">
-  <ul class="tabs text-center">
-    <%@homepage_boards.values.each_with_index do |name, idx|%>
-      <li><a href="#tab-<%=idx+1%>" ><%=name%></a></li>
-  <%end%>
-  </ul>
-  <div class="explore-content">
-    <%@tile_set.each_with_index do |set, idx| %>. 
-      <%params[:public_slug] = @homepage_boards.keys[idx]%>
-      <div id="tab-<%=idx+1%>" class="tab">
-        <%= render 'shared/tile_wall', set.merge(path_for_more_tiles: tiles_path, hdr_text: @homepage_boards.values[idx]) %>
-      </div>  
+  <div class="columns small-12 small-centered">
+    <div class="row collapse">
+      <%@sorted_demos.each do |board|%>
+      <div class="columns small-3">
+        <%= render partial: "pages/landing/topic", locals: {board:board}%> 
+      </div>
     <%end%>
+    </div>
   </div>
 </div>
-
+ </section>
 <%= render partial: "pages/landing/request_form" %>
 <%= render partial: "pages/landing/footer" %>
