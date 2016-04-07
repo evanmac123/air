@@ -217,5 +217,15 @@ $(function(){
   </div>
 </div>
  </section>
-<%= render partial: "pages/landing/request_form" %>
+<%# render partial: "pages/landing/request_form" %>
+<a id="sign_up_form">
+<section id="sign_up_block" class="join">
+  <div class="join_block center">
+    <h2 class="align_center">Join to Discover</h2>
+    <p class="align_center">Create a free account to see how companies use Airbo.</p>
+    <%= render partial: "pages/landing/form" %>
+    <%= render partial: "pages/landing/logos" %>
+  </div>
+</section>
+</a>
 <%= render partial: "pages/landing/footer" %>
