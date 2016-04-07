@@ -1,3 +1,17 @@
+//FIXME
+/*
+ * Note  these functions are called from point_and_ticket_animation.js as globals
+ * so we need to keep them global for now
+*/
+
+function grayoutTile() {
+  return $('#spinner_large').fadeIn('slow');
+};
+
+function ungrayoutTile() {
+  return $('#spinner_large').fadeOut('slow');
+};
+
 var Airbo = window.Airbo || {};
 
 Airbo.TileAnswers = (function(){
