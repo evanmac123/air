@@ -1,16 +1,4 @@
 #tile_preview_modal {
-  .viewer {
-    a#next, a#prev {
-      border: none;
-      background: transparent;
-      height:auto;
-      width: 32px !important;
-      position: fixed;
-      top: 450px;
-      display: none;
-    }
-  }
-
   .switch{
     @include green-paddle-switch;
   }
@@ -551,10 +539,6 @@ body.client_admin-tiles.client_admin-tiles-index {
   }
   .viewer{
     margin: auto;
-    // margin-top: 1em;
-    a#next, a#prev{
-      width: 4em !important;
-    }
   }
 }
 
