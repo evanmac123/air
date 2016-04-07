@@ -60,17 +60,17 @@ label.show_if_ie9{
     padding-top: 10px;
   }
 }
-#publish {
-  margin-top: 2em;
-  input[type="submit"] {
-    @include app-button($sky-blue);
-    width: 100%;
-    padding: .6em .75em;
-    &:disabled {
-      @include app-button($med-gray);
-    }
-  }
-}
+// #publish {
+//   margin-top: 2em;
+//   input[type="submit"] {
+//     @include app-button($sky-blue);
+//     width: 100%;
+//     padding: .6em .75em;
+//     &:disabled {
+//       @include app-button($med-gray);
+//     }
+//   }
+// }
 .medium-editor-placeholder:after {
   content: attr(data-placeholder)!important;
   color: #a9a9a9;

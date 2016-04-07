@@ -13,15 +13,15 @@ Airbo.TileFormModal = (function(){
     , validator
     , form
     , imageLibrary
-    , submitBtn
+    , submitLink
   ;
 
-  function enableSubmitBtn(){
-    submitBtn.removeAttr("disabled");
+  function enablesubmitLink(){
+    submitLink.removeAttr("disabled");
   }
 
-  function disableSubmitBtn(){
-    submitBtn.attr("disabled", "disabled");
+  function disablesubmitLink(){
+    submitLink.attr("disabled", "disabled");
   }
 
   function initFormElements() {
@@ -68,13 +68,18 @@ Airbo.TileFormModal = (function(){
       imageLibraryModal.open(libraryUrl);
     });
 
+    submitLink.click(function(e){
+      e.preventDefault();
+      form.submit();
+    });
+
     form.submit(function(e) {
       e.preventDefault();
 
       var formObj = $(this);
       if(formObj.valid()){
-        disableSubmitBtn();
-        ajaxHandler.submit(formObj, submitSuccess, enableSubmitBtn);
+        disablesubmitLink();
+        ajaxHandler.submit(formObj, submitSuccess, enablesubmitLink);
       }else{
         validator.focusInvalid();
       }
@@ -84,7 +89,8 @@ Airbo.TileFormModal = (function(){
   function initVars() {
     form = $(formSel);
     pickImage = $(pickImageSel);
-    submitBtn = form.find("input[type=submit]");
+    submitLink = form.find(".submit_tile_form");
+    // submitBtn = form.find("input[type=submit]");
   }
 
   function openModal(){
