@@ -1,11 +1,14 @@
-<%#TODO use the image from the board instead of this convention which assumes png with name of the topic%>
-
 <%= link_to public_board_path(public_slug:board.public_slug), class: "topic" do %>
   <div class="topic_cell" style="background-image: url('<%=board.cover_image.url%>')">
     <div class="shadow_overlay"></div>
     <div class="text-container">
+      <section class="board-name">
       <h1 class="title"><%= board.name %></h1>
+      </section>
       <%=content_tag :h2, board.client_name, class:"subtitle" unless board.client_name.blank?%>
     </div>
+    <section class="num-tiles">
+      10 Tiles
+    </section>
   </div>
 <% end %>
