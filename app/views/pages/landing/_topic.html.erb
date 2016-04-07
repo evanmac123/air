@@ -10,7 +10,7 @@
       <div class="subtitle">
         10 Tiles
       </div>
-      <%=content_tag :h2, truncate(board.client_name, length:30), class:"subtitle" unless board.client_name.blank?%>
+      <%=content_tag :h2, (board.client_name.blank? ? "&nbsp;".html_safe: truncate(board.client_name, length:30)), class:"subtitle"  %>
     </section>
 
   </div>
