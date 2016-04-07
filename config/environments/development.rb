@@ -1,4 +1,4 @@
-ENV['HOMEPAGE_BOARD_SLUGS']="wellness-starter-kit,healthplanbasics,internal-validation"
+ENV['HOMEPAGE_BOARD_SLUGS']="wellness-starter-kit,healthplanbasics,internal-validation,airbo-2"
 Health::Application.configure do
 
   require(Rails.root + 'config/initializers/sendgrid')
