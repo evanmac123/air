@@ -79,22 +79,18 @@ body.pages-home .topics .topic img {
 body.pages-home .topics .topic .topic_cell {
   display: table-cell;
   padding-top: 0px;
-  width: 250px;
-  height: 318px;
+  width: 238px;
+  height: 192px;
   border-radius: 3px;
   background-size: cover;
+  border-bottom:3px solid #dfdfdf;
+  box-shadow: 0 2px 3px rgba(0,0,0,0.22);
+}
+body.pages-home .topics .topic .topic_cell:hover {
+
+  border-bottom-color: #48bfff;
 }
 
-/* line 133, ../../app/assets/stylesheets/external/home.scss */
-body.pages-home .topics .topic .shadow_overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  display: block;
-}
 
 
 /* line 142, ../../app/assets/stylesheets/external/home.scss */
@@ -131,6 +127,9 @@ $(function(){
         scrollTop: $("#tour").offset().top-60
     }, 500);  });
 })
+
+
+
   </script>
 <%end%>
 <%= render layout: "pages/landing/hero", locals: {no_shadow: true, no_header:false,  hero_class: ""} do %>
@@ -187,9 +186,9 @@ $(function(){
  <section class="topics">
 <div class="row padded-v-20">
   <div class="columns small-12 small-centered">
-    <div class="row collapse">
+    <div class="row ">
       <%@sorted_demos.each do |board|%>
-      <div class="columns small-3">
+        <div class="columns small-3">
         <%= render partial: "pages/landing/topic", locals: {board:board}%> 
       </div>
     <%end%>
