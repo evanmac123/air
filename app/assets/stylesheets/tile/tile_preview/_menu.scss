@@ -49,12 +49,6 @@
     &:first-child {
       border-left: none;
     }
-    // &:last-child {
-    //   border-right: 1px $tile-wall-bg solid;
-    // }
-    // &:nth-child(n+5) {
-    //   border-right: none;
-    // }
     .header_text {
       margin-top: .25em;
       font-weight: bold;
@@ -122,6 +116,11 @@
     position: relative;
     left: 0;
     margin-bottom: 10px;
+  }
+  &.form_menu {
+    left: 35px;
+  }
+  &.explore_menu, &.form_menu {
     .preview_menu_item {
       width: 100%;
       a{
@@ -133,17 +132,6 @@
         }
         &[disabled] {
           @include button-with-spinner($n-blue);
-        }
-      }
-    }
-  }
-  &.form_menu {
-    left: 35px;
-    .preview_menu_item {
-      width: 100%;
-      a{
-        &:hover {
-          color: $n-blue;
         }
       }
     }
