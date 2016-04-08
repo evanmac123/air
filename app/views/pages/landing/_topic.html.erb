@@ -6,7 +6,7 @@
     </section>
     <section class="cover-footer">
       <div class="num-tiles subtitle">
-        <%="#{board.tiles.count} Tiles"%>
+        <%="#{board.tiles.active.count} Tiles"%>
       </div>
       <%=content_tag :h2, (board.client_name.blank? ? "&nbsp;".html_safe: truncate(board.client_name, length:30)), class:"subtitle"  %>
     </section>
