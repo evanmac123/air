@@ -50,16 +50,6 @@ Airbo.TilePreviewModal = (function(){
   }
   function initStickyPreviewMenu() {
     Airbo.StickyMenu.init(self);
-    // var modal = $("#" + modalId);
-    // var previewMenu = $('.tile_preview_menu');
-    // modal.scroll(function() {
-    //   if (modal.scrollTop() > 50) {
-    //     sizes = tileContainerSizes();
-    //     previewMenu.addClass('sticky').css("left", sizes.left);
-    //   } else {
-    //     previewMenu.removeClass('sticky').css("left", "");
-    //   }
-    // });
   }
   function initEvents() {
     // FIXME

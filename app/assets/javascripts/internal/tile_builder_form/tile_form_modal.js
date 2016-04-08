@@ -6,6 +6,7 @@ Airbo.TileFormModal = (function(){
     , formSel ="#new_tile_builder_form"
     , pickImageSel ="#image_uploader"
     , ajaxHandler = Airbo.AjaxResponseHandler
+    , self
   ;
 
   var modalObj = Airbo.Utils.StandardModal()
@@ -24,6 +25,14 @@ Airbo.TileFormModal = (function(){
     submitLink.attr("disabled", "disabled");
   }
 
+  function tileContainerSizes() {
+    tileContainer = $(".tile_holder_container")[0];
+    if( !tileContainer ) {
+      return null;
+    }
+    return tileContainer.getBoundingClientRect();
+  }
+
   function initFormElements() {
     validator = Airbo.TileFormValidator.init(form);
 
@@ -35,6 +44,7 @@ Airbo.TileFormModal = (function(){
     Airbo.Utils.mediumEditor.init();
     imageLibraryModal = Airbo.ImageLibraryModal;
     imageLibraryModal.init(Airbo.TileFormModal);
+    Airbo.StickyMenu.init(self);
 
     $("#upload_preview").on("load", function(){
       $(".image_preview").removeClass("loading").attr("style", ""); // remove height
@@ -118,6 +128,7 @@ Airbo.TileFormModal = (function(){
   }
 
   function init(mgr) {
+    self = this;
     initModalObj();
     tileManager = mgr;
   }
@@ -125,6 +136,8 @@ Airbo.TileFormModal = (function(){
   return {
     init: init,
     open: open,
-    openModal: openModal
+    openModal: openModal,
+    tileContainerSizes: tileContainerSizes,
+    modalId: modalId
   }
 }());
