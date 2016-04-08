@@ -52,15 +52,15 @@
  <section class="topics">
 <h2 class="text-center padded-v-20">Explore Boards</h2>
 <div class="row padded-v-20">
-  <div class="columns small-12 small-centered">
-    <div class="row ">
+  <!--div class="columns ">
+    <div class="row "-->
       <%@sorted_demos.each do |board|%>
-        <div class="columns small-3">
+        <div class="columns large-3 small-12 small-centered">
         <%= render partial: "pages/landing/topic", locals: {board:board}%> 
       </div>
     <%end%>
-    </div>
-  </div>
+    <!--/div>
+  </div-->
 </div>
  </section>
 <%# render partial: "pages/landing/request_form" %>
