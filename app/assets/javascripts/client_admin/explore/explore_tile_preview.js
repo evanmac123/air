@@ -70,7 +70,7 @@ Airbo.ExploreTilePreview = (function(){
   function initModalObj() {
     modalObj.init({
       modalId: modalId,
-      modalClass: "tile_previews tile_previews-show",
+      modalClass: "tile_previews tile_previews-show bg-user-side",
       useAjaxModal: true,
       onOpenedEvent: function() {
         // initEvents();
@@ -90,7 +90,7 @@ Airbo.ExploreTilePreview = (function(){
     });
   }
   // function initVars() {
-    
+
   //   // copyBtn = $(copyBtnSel);
   // }
   function init(fakeModal) {
@@ -101,7 +101,7 @@ Airbo.ExploreTilePreview = (function(){
     }
     arrowsObj = Airbo.TilePreivewArrows();
     arrowsObj.init(this, {
-      buttonSize: 40, 
+      buttonSize: 40,
       offset: 20,
       afterNext: function() {
         ping("Clicked arrow to next tile");
