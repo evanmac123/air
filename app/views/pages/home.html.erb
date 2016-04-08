@@ -55,7 +55,7 @@
   <div class="columns small-12 small-centered">
     <div class="row ">
       <%@sorted_demos.each do |board|%>
-        <div class="columns small-3 ">
+        <div class="columns small-12 large-3 ">
           <%= render partial: "pages/landing/topic", locals: {board:board}%> 
         </div>
       <%end%>
