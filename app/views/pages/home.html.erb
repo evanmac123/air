@@ -1,5 +1,4 @@
 <%content_for :head do%>
-
 <!-- Begin Inspectlet Embed Code -->
 <script type="text/javascript" id="inspectletjs">
 window.__insp = window.__insp || [];
@@ -12,6 +11,7 @@ setTimeout(ldinsp, 500); document.readyState != "complete" ? (window.attachEvent
 <!-- End Inspectlet Embed Code -->
 
 
+    <%= stylesheet_link_tag "app-internal" %>
   <style>
    .hiw-item img{
     height:64px;
@@ -20,6 +20,10 @@ setTimeout(ldinsp, 500); document.readyState != "complete" ? (window.attachEvent
    header#pageHeader .headerMenu .hide-in-header{
      display:none; 
    }
+
+   footer.tall {
+    margin-top: 0px;
+}
    
   </style>
 
@@ -32,7 +36,16 @@ $(function(){
       scrollTop: $("#tour").offset().top-60
     }, 500);  
   });
+
+  $(".see_airbo").click(function(){
+    $("#sign_up_block").show();
+  })
+
+
 })
+
+
+
   </script>
 
 <%end%>
@@ -68,7 +81,7 @@ $(function(){
           <%=image_tag "landing/sb-wellness-icon02.png"%>
           <div class="hiw-text">
             <h3>Board</h3>
-            <p>Simple place to post Tiles for employees to read.</p>
+            <p>A private site to post Tiles for employees to read.</p>
           </div>
         </div>
       </div>
@@ -101,8 +114,7 @@ $(function(){
 </div>
  </section>
 <%# render partial: "pages/landing/request_form" %>
-<a id="sign_up_form"> </a>
-<section id="sign_up_block" class="join">
+<section id="sign_up_block" class="join hidden">
   <div class="join_block center">
     <h2 class="align_center">Join to Discover</h2>
     <p class="align_center">Create a free account to see how companies use Airbo.</p>
@@ -110,4 +122,23 @@ $(function(){
     <%= render partial: "pages/landing/logos" %>
   </div>
 </section>
+
+
+<a id="sign_up_form"> </a>
+  <footer class="bg-blue tall" >
+    <div class="row">
+      <div class="columns large-6 small-11 small-centered">
+        <p class="medium margin-none">
+          Welcome to Airbo
+        </p>
+        <p>
+          Airbo is the bulletin board reinvented. Get more HR priorities done using engaging employee communications.
+        </p>
+        <p>
+          <a class="button outlined see_airbo white">Sign Up For Airbo</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
 <%= render partial: "pages/landing/footer" %>
