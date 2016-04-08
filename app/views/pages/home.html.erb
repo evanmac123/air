@@ -22,17 +22,24 @@ setTimeout(ldinsp, 500); document.readyState != "complete" ? (window.attachEvent
 
    footer.tall {
     margin-top: 0px;
-}
+   }
+
+   .padded-v-40{
+     padding-top:40px;
+     padding-bottom:40px;
+   }
    
   </style>
 
   <script>
 $(function(){
 
-  $("#tour-menu").on("click", function(event) {
+  $("#tour-menu, #signup_menu").on("click", function(event) {
     event.preventDefault();
+    var anchor = event.target.hash
+    debugger
     $('html, body').animate({
-      scrollTop: $("#tour").offset().top-60
+      scrollTop: $(anchor).offset().top-60
     }, 500);  
   });
 
@@ -98,7 +105,7 @@ $(function(){
   </div>
 </div>
 <a id="boards"> </a>
- <section class="topics">
+ <section class="topics padded-v-40">
 <h2 class="text-center padded-v-20">Explore Boards</h2>
 <div class="row padded-v-20">
   <div class="columns small-12 small-centered">
@@ -110,10 +117,12 @@ $(function(){
       <%end%>
     </div>
   </div>
+<a id="sign_up_form"></a>
 </div>
  </section>
 <%# render partial: "pages/landing/request_form" %>
-<section id="sign_up_block" class="join hidden">
+
+<section id="sign_up_block" class="join">
   <div class="join_block center">
     <h2 class="align_center">Join to Discover</h2>
     <p class="align_center">Create a free account to see how companies use Airbo.</p>
@@ -121,23 +130,5 @@ $(function(){
     <%= render partial: "pages/landing/logos" %>
   </div>
 </section>
-
-
-<a id="sign_up_form"> </a>
-  <footer class="bg-blue tall" >
-    <div class="row">
-      <div class="columns large-6 small-11 small-centered">
-        <p class="medium margin-none">
-          Welcome to Airbo
-        </p>
-        <p>
-          Airbo is the bulletin board reinvented. Get more HR priorities done using engaging employee communications.
-        </p>
-        <p>
-          <a class="button outlined see_airbo white">Sign Up For Airbo</a>
-        </p>
-      </div>
-    </div>
-  </footer>
 
 <%= render partial: "pages/landing/footer" %>
