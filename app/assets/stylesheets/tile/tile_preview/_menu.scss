@@ -118,7 +118,7 @@
       padding: 11px 13px 13px 13px;
     }
   }
-  &.explore_menu, &.form_menu {
+  &.explore_menu {
     position: relative;
     left: 0;
     margin-bottom: 10px;
@@ -133,6 +133,17 @@
         }
         &[disabled] {
           @include button-with-spinner($n-blue);
+        }
+      }
+    }
+  }
+  &.form_menu {
+    left: 34px;
+    .preview_menu_item {
+      width: 100%;
+      a{
+        &:hover {
+          color: $n-blue;
         }
       }
     }
