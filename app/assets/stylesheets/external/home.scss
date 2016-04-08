@@ -13,7 +13,7 @@ body.pages-home {
   .hero {
     background-color: #379fd7;
     background-image: linear-gradient(to bottom, #48bfff 0, #379fd7 100%);
-    height: 500px;
+    height: 400px;
     color:white;
     .hero_content {
       &.custom-text{
@@ -260,9 +260,15 @@ body.pages-home {
 
  .full-band{
    margin-bottom: 50px;
+   margin-top: 50px;
    min-width: auto;
  }
 
  .center-panel{
    text-align:center
  }
+
+ .hiw-item img{
+   height:64px;
+ }
+

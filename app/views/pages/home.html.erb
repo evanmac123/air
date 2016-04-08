@@ -1,50 +1,69 @@
+<%content_for :head do%>
+  <style>
+   .hiw-item img{
+    height:64px;
+   }
+  </style>
 
+  <script>
+$(function(){
+
+  $("#tour-menu").on("click", function(event) {
+    event.preventDefault();
+    $('html, body').animate({
+      scrollTop: $("#tour").offset().top-60
+    }, 500);  
+  });
+})
+  </script>
+
+<%end%>
 <%= render layout: "pages/landing/hero", locals: {no_shadow: true, no_header:false,  hero_class: ""} do %>
   <h1 class="text-center">Modern Employee Communications for HR</h1>
-  <h3 class="text-center">Airbo is a simple and engaging Employee Communication Platform.</h3>
 <% end %>
+
+
 
 <section class="clients">
   <div class="clients_section row">
-    <h3 class="align_center">Organizations from 20 to 75,000 employees use Airbo to make employee communications more effective.</h3>
+    <h3 class="align_center">Airbo is a simple and engaging Employee Communications Platform used by organizations from 20 to 75,000 employees.</h3>
     <%= render partial: "pages/landing/logos" %>
   </div>
 </section>
+
 <a id="tour"></a>
-<div class="row" style="padding-top:70px" >
+<div class="row full-band">
   <div class="small-8 columns small-centered center-panel" >
     <div class="row" >
-      <div class="small-4 columns center-panel">
-        <%=image_tag "landing/sb-wellness-icon01.png"%>
-      </div>
-
-      <div class="small-4 columns center-panel">
-        <%=image_tag "landing/sb-wellness-icon02.png"%>
-      </div>
-
-      <div class="small-4 columns center-panel" >
-        <%=image_tag "landing/sb-wellness-icon03.png"%>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="row full-band">
-  <div class="small-8 columns small-centered center-panel">
-    <div class="row">
-      <div class="small-4 columns center-panel">
+      <div class="small-12 large-4 columns center-panel">
+        <div class="hiw-item">
+          <%=image_tag "landing/sb-wellness-icon01.png"%>
+      <div class="hiw-text">
         <h3>Tile</h3>
         <p>Bite-sized, interactive content that's fast to create.</p>
       </div>
-
-      <div class="small-4 columns center-panel">
-        <h3>Board</h3>
-        <p>Simple place to post Tiles for employees to read.</p>
+        </div>
       </div>
 
-      <div class="small-4 columns center-panel" >
-        <h3>Metrics</h3>
-        <p>Send Tiles and see who read and took action.</p>
+      <div class="small-12 large-4 columns center-panel">
+        <div class="hiw-item">
+          <%=image_tag "landing/sb-wellness-icon02.png"%>
+          <div class="hiw-text">
+            <h3>Board</h3>
+            <p>Simple place to post Tiles for employees to read.</p>
+          </div>
+        </div>
       </div>
+
+      <div class="small-12 large-4 columns center-panel">
+        <div class="hiw-item">
+          <%=image_tag "landing/sb-wellness-icon03.png"%>
+          <div class="hiw-text">
+            <h3>Metrics</h3>
+            <p>Send Tiles and see who read and took action.</p>
+          </div>
+        </div>
+    </div>
     </div>
   </div>
 </div>
