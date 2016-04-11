@@ -1,3 +1,4 @@
+//TODO delete this joyride
 $(document).ready(function() {
   $('#tile-joyride').foundation('joyride', 'start', {
       nextButton: false,
