@@ -33,8 +33,15 @@ footer {
   }
 
 }
+.padded-v-20{
+ padding: 20px 0px;
+}
 
-
+.padded-v-40{
+  padding-top:40px;
+  padding-bottom:40px;
+}
+   
 
 .align_center {
   text-align: center;
@@ -61,4 +68,36 @@ footer {
    min-width: auto;
  }
 
+.margin-right-medium {
+  margin-right: 20px;
+}
 
+.margin-right-5pct{
+  margin-right: 5%;
+}
+
+.margin-left-5px {
+  margin-left: 5px;
+}
+.margin-left-10px {
+  margin-left: 10px;
+}
+
+.no_margin_top {
+  margin-top: 0;
+}
+.no_margin_bottom.no_margin_bottom {
+  margin-bottom: 0;
+}
+.small_margin {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+}
+
+.margin-bottom-medium {
+  margin-bottom:15px;
+}
+
+.no_margin {
+  margin: 0;
+}

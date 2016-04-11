@@ -26,39 +26,7 @@
  font-size: $font-size-1;
 }
 
-.margin-right-medium {
-  margin-right: 20px;
-}
 
-.margin-right-5pct{
-  margin-right: 5%;
-}
-
-.margin-left-5px {
-  margin-left: 5px;
-}
-.margin-left-10px {
-  margin-left: 10px;
-}
-
-.no_margin_top {
-  margin-top: 0;
-}
-.no_margin_bottom.no_margin_bottom {
-  margin-bottom: 0;
-}
-.small_margin {
-  margin-top: 0;
-  margin-bottom: 0.5em;
-}
-
-.margin-bottom-medium {
-  margin-bottom:15px;
-}
-
-.no_margin {
-  margin: 0;
-}
 
 .board_settings {
   input[type="text"], input[type="file"], textarea{
@@ -172,9 +140,7 @@ td .button.td-button {
   color: $n-blue;
 }
 
-.padded-v-20{
- padding: 20px 0px;
-}
+
 
 .public-board .tiles .tiles-index footer{
  margin-top: 40px;
