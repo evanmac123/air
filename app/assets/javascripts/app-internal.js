@@ -10,6 +10,7 @@
 //= require_self
 //= require_tree ./internal
 //= require ./client_admin/tile_preview/tile_carousel
+//= require ./client_admin/tile_preview/sticky_menu
 //= require ./client_admin/tile_preview/tile_preview_arrows
 //= require ./client_admin/tile_preview/tile_preview_modal
 //= require_tree ./internal_and_external/.
