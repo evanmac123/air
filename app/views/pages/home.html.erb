@@ -12,23 +12,7 @@ setTimeout(ldinsp, 500); document.readyState != "complete" ? (window.attachEvent
 
 
   <style>
-   .hiw-item img{
-    height:64px;
-   }
 
-   header#pageHeader .headerMenu .hide-in-header{
-     display:none; 
-   }
-
-   footer.tall {
-    margin-top: 0px;
-   }
-
-   .padded-v-40{
-     padding-top:40px;
-     padding-bottom:40px;
-   }
-   
   </style>
 
   <script>
@@ -55,9 +39,29 @@ $(function(){
   </script>
 
 <%end%>
-<%= render layout: "pages/landing/hero", locals: {no_shadow: true, no_header:false,  hero_class: ""} do %>
-  <h1 class="text-center">Modern Employee Communications for HR</h1>
-<% end %>
+
+
+  <section class="bg-blue tall white text-center " >
+    <%= render partial: "pages/landing/header" %>
+
+    <!--div class="row full-band">
+      <div class="columns large-12 small-12 small-centered"-->
+        <div class="full-band">
+        <h1>Welcome to Airbo</h1>
+        <p>
+          Airbo is the bulletin board reinvented. Get more HR priorities done using engaging employee communications.
+        </p>
+        <p>
+          <a class="button outlined see_airbo white">See How It Works</a>
+        </p>
+        </div>
+      <!--/div>
+    </div-->
+  </section>
+
+<%# render layout: "pages/landing/hero", locals: {no_shadow: true, no_header:false,  hero_class: ""} do %>
+  <!--h1 class="text-center">Modern Employee Communications for HR</h1-->
+<%# end %>
 
 
 
@@ -130,5 +134,6 @@ $(function(){
     <%= render partial: "pages/landing/logos" %>
   </div>
 </section>
+
 
 <%= render partial: "pages/landing/footer" %>
