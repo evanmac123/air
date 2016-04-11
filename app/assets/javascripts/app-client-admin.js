@@ -1,4 +1,3 @@
-//= require ../../../vendor/assets/javascripts/pace.min
 //= require mobvious-rails
 //= require_tree ./client_admin
 //= require ./ajax-response-handler
