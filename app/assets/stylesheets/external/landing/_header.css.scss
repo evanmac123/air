@@ -40,6 +40,10 @@ header#pageHeader{
             opacity: 0.9;
           }
         }
+        &.hide-in-header{
+          display:none; 
+        }
+
       }
     }
   }
@@ -80,7 +84,8 @@ header#pageHeader{
               color: #818385;
               font-weight: 400;
             }
-          }
+
+                     }
         }
       }
     }
@@ -134,3 +139,5 @@ header#pageHeader{
 .pages-case-studies  a#pg-case-studies{
   font-weight:bold; 
 }
+
+
