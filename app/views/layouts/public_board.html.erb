@@ -28,6 +28,7 @@
 
   <%= mobvious_javascript %>
 
+  <%= content_for :head %>
 </head>
 <body class="public-board <%= body_class %>" style="-webkit-overflow-scrolling: touch; overflow:visible;" data-public-board="<%=@in_public_board ? true : false%>" data-board-id="<%= current_user.demo.id %>"><%# only works with inline style? WTF. but leave it: this fixes scroll problems in ios7 and doesn't seem to work if included via stylesheet. %>
   <%= render partial: "pages/landing/header_simple" %>
