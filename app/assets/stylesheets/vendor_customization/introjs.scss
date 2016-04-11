@@ -67,5 +67,11 @@
   }
 
 }
-
-
+.introjs-hint-dot {
+  border: 10px solid $n-blue;
+  top: -20px;
+  left: -20px;
+}
+.introjs-hint-pulse {
+  border-color: $n-blue;
+}
