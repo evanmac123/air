@@ -35,7 +35,7 @@ footer {
 }
 
 
-}
+
 .align_center {
   text-align: center;
 }
@@ -50,8 +50,15 @@ footer {
   vertical-align: bottom;
 }
 
-
 .vertical_middle {
   display: table-cell;
   vertical-align: middle;
 }
+
+ .full-band{
+   padding-bottom: 50px;
+   padding-top: 50px;
+   min-width: auto;
+ }
+
+
