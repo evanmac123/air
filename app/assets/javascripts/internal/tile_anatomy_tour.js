@@ -1,16 +1,11 @@
-//TODO remove Tile Anatomy tour from this file and reference Airbo.TileAnatomyTour
 Airbo = window.Airbo ||{}
 
-Airbo.StarterKitActivationIntro= (function(){
+Airbo.TileAnatomyTour= (function(){
   var intro
     , currCookie
     , anatomyIntroSelector= ".public-board .tile_holder"
-    , viewTileIntroSelector= ".public-board #tile_wall"
-    , openBoardIntroSelector= ".board_card_wrapper"
     , anatomyCookie= "tile-anatomy"
-    , viewTileCookie= "view-tile"
     , anatomySeen = Airbo.CookieMonster.getCookie(anatomyCookie)
-    , viewTileSeen = Airbo.CookieMonster.getCookie(viewTileCookie)
     , config = { showStepNumbers: false, skipLabel: 'Exit Intro',
   doneLabel: 'Got it',
     nextLabel: 'Got it',
@@ -40,9 +35,6 @@ Airbo.StarterKitActivationIntro= (function(){
     Airbo.Utils.ping("Tile - Viewed", {"Tile Onboarding - Viewed": name});
   }
 
-  function introViewTilePing() {
-    Airbo.Utils.ping("Viewed Parent Board", {"Saw Tile Prompt": true});
-  }
 
   function initTileAnatomyIntro(){
 
@@ -122,51 +114,19 @@ Airbo.StarterKitActivationIntro= (function(){
 
   function setPositionTop(targetElement){
     currTop = $(targetElement).offset().top +20;
-    //$(".introjs-tooltipReferenceLayer").css("top", currTop+"px");
   }
 
-  function initViewTileIntro(){
-    currCookie= viewTileCookie;
-    var options = {
-      overlayOpacity: 0,
-      steps: [{
-        element:  document.querySelector(".tile_thumbnail"),
-        intro: "Start by opening this Tile",
-        position: "top",
-      },
-      ]
-    };
-
-    options = $.extend({},config,options)
-    intro.setOptions(options);
-    intro.onafterchange(function(targetElement) {
-      //var width = $(".introjs-tooltipReferenceLayer").css("width");
-      $(".introjs-skipbutton").hide();
-      //$(".introjs-tooltip").css({"width": width, "left": "0px"});
- 
-    });
+  function introViewTilePing() {
+    Airbo.Utils.ping("Viewed Parent Board", {"Saw Tile Prompt": true});
   }
 
+  function setCookie(){
+    Airbo.CookieMonster.setCookie(currCookie, "true");
+  }
 
-  function initOpenBoardIntro(){
-    var options = {
-      overlayOpacity: 0,
-      scrollToElement: false,
-      steps: [{
-        element:  document.querySelector(".board_card"),
-        intro: "Start by opening this board",
-        position: "top",
-      },
-      ]
-    };
-
-    options = $.extend({},config,options)
-    intro.setOptions(options);
-    intro.onafterchange(function(targetElement) {
-
-      //var width = $(".introjs-tooltipReferenceLayer").css("width");
-      $(".introjs-skipbutton").hide();
-      //$(".introjs-tooltip").css({"width": width, "left": "0px"});
+  function initCloseOnTileInteraction(){
+    $("body").on("click", ".right_multiple_choice_answer, .wrong_multiple_choice_answer", function(){
+     exit();
     });
   }
 
@@ -177,16 +137,6 @@ Airbo.StarterKitActivationIntro= (function(){
     if(!anatomySeen && $(anatomyIntroSelector).length >0){
       inactivation =true;
       initTileAnatomyIntro();
-    }
-
-    if(!viewTileSeen && $(viewTileIntroSelector).length >0){
-      inactivation =true;
-      initViewTileIntro();
-    }
-
-    if($(openBoardIntroSelector).length >0){
-      inactivation =true;
-      //initOpenBoardIntro();
     }
 
     intro.onexit(function(targetElement){
@@ -204,15 +154,7 @@ Airbo.StarterKitActivationIntro= (function(){
     }
   }
 
-  function setCookie(){
-    Airbo.CookieMonster.setCookie(currCookie, "true");
-  }
 
-  function initCloseOnTileInteraction(){
-    $("body").on("click", ".right_multiple_choice_answer, .wrong_multiple_choice_answer", function(){
-     exit();
-    });
-  }
 
   function run(){
     intro.start();
@@ -238,5 +180,5 @@ Airbo.StarterKitActivationIntro= (function(){
 }())
 
 $(function(){
- //Airbo.StarterKitActivationIntro.init();
+ //Airbo.TileAnatomyTour.init();
 });
