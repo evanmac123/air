@@ -75,3 +75,29 @@
 .introjs-hint-pulse {
   border-color: $n-blue;
 }
+
+.simple-blue{
+  &.introjs-tooltip{
+    background-color: $n-blue;
+    opacity: .85;
+    color: white;
+    max-width: none;
+  }
+}
+.introjs-arrow.top {
+      top: -10px;
+      border-top-color: transparent;
+      border-right-color: transparent;
+      border-bottom-color: $n-blue;
+      border-left-color: transparent;
+    }
+
+.introjs-helperLayer {
+  position: absolute;
+  z-index: 9999998;
+  background-color: #f3f3f3; 
+  border:none;
+  border-radius: 4px;
+  box-shadow: none;
+}
+
