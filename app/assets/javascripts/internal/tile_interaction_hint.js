@@ -27,6 +27,6 @@ Airbo.TileInteractionHint = (function(){
 
 $(function(){
   $(window).load(function(){
-    Airbo.TileInteractionHint.init();
+    //Airbo.TileInteractionHint.init();
   });
 });
