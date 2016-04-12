@@ -30,7 +30,7 @@ Airbo.TileAnswerIntro= (function(){
 
     function initTileAnatomyIntro(){
      var points = $("#tile_point_value").text();
-     var prompt = "Click to earn " + points + " points"
+     var prompt = "This is the right answer. </br>Click to earn " + points + " points"
       options = {
         overlayOpacity: 0,
         tooltipClass: "simple-blue",
@@ -41,10 +41,11 @@ Airbo.TileAnswerIntro= (function(){
         doneLabel: 'Got it',
         nextLabel: 'Got it',
         prevLabel: 'Back', scrollToElement: false,
+        steps:[],
         hints: [
           {
             element: $('.right_multiple_choice_answer')[0],
-            hint: "This is the right answer. Go ahead click it,  it's fun",
+            hint: prompt,
             hintPosition: 'top-middle'
           },
         ],
@@ -53,8 +54,8 @@ Airbo.TileAnswerIntro= (function(){
       currCookie= anatomyCookie;
       intro.setOptions(options);
     }
-
-
+ 
+    
     function introViewTilePing() {
       Airbo.Utils.ping("Viewed Parent Board", {"Saw Tile Prompt": true});
     }
@@ -104,6 +105,11 @@ Airbo.TileAnswerIntro= (function(){
       setTop();
     }
 
+    function repositionPulse(){
+      var hintTop = parseInt($(".introjs-hint").css("top"));
+      $(".introjs-hint").css("top", (hintTop+2) +"px")
+    }
+
     function styleTooltipButton(){
       $(".introjs-tooltiptext .introjs-button").addClass("button").addClass("outlined");
     }
@@ -128,13 +134,29 @@ Airbo.TileAnswerIntro= (function(){
       showHintToolTip();
       styleTooltipButton();
       repositionTooltip();
-
+      repositionPulse();
     }
 
     function init(){
       initCloseOnTileInteraction();
       initIntro();
       initRedraw();
+
+      $("body").on("click", function(event){
+        
+        if($(".introjs-tooltip").is(":visible")){
+          if($(event.target).is("#next, #prev, .right_multiple_choice_answer")){
+
+            $(".introjs-hintReference").remove();
+            $(".introjs-hints").remove();
+          }else{
+            event.stopPropagation();
+            event.stopImmediatePropagation();
+            event.preventDefault();
+          }
+        }
+      });
+
     }
 
     function exit(){
