@@ -6,6 +6,7 @@ Airbo.TileAnatomyTour= (function(){
     , anatomyIntroSelector= ".public-board .tile_holder"
     , anatomyCookie= "tile-anatomy"
     , anatomySeen = Airbo.CookieMonster.getCookie(anatomyCookie)
+
     , config = { showStepNumbers: false, skipLabel: 'Exit Intro',
   doneLabel: 'Got it',
     nextLabel: 'Got it',
@@ -40,42 +41,14 @@ Airbo.TileAnatomyTour= (function(){
 
     options = {
       overlayOpacity: 0,
+      tooltipClass: "simple-blue",
       steps: [
         {
-          element: anatomyIntroSelector,
-          intro: "This is a Tile, an interactive bit of content that's fun and easy to read.",
-          position: "top",
+          element: $(".right_multiple_choice_answer")[0],
+          intro: "(hint) Click me. I'm the right answer",
+          position: "bottom",
         },
-        {
-          element: document.querySelector('.tile_full_image'),
-          intro: "People pay more attention to images than text, so a Tile always starts with an image.",
-
-          position: 'top',
-          step: 1
-        },
-        {
-          element: document.querySelector('.tile_texts_container'),
-          intro: "Text is short so employees can get to the point fast.",
-          position: 'top',
-
-          step: 2
-        },
-   
-        {
-          element: '.tile_quiz',
-          intro: "Tiles are interactive. That's fun for employees and helps reinforce key points.",
-          position: 'top',
-
-          step: 3
-        },
-
-        {
-          element: '.multiple_choice_group',
-          intro: "Employees earn points for each tile they interact with. Next, Interact with the Tile.",
-          position: 'top',
-
-          step: 4
-        },
+  
       ]
     };
 
@@ -87,7 +60,6 @@ Airbo.TileAnatomyTour= (function(){
       repositionResizeTooltip(targetElement);
       $(".introjs-skipbutton").hide();
       $(".introjs-prevbutton").hide();
-      //$(".introjs-nextbutton").addClass("button-outlined-intro");
     });
 
     intro.onchange(function(targetElement) {
@@ -96,7 +68,6 @@ Airbo.TileAnatomyTour= (function(){
       if(el.hasClass("multiple_choice_group")){
 
       introAnatomyPing(el);
-        //$(".introjs-skipbutton").addClass("button-outlined-intro");
         $(".introjs-nextbutton").hide();
       }
     });
@@ -104,12 +75,6 @@ Airbo.TileAnatomyTour= (function(){
 
 
   function repositionResizeTooltip(targetElement){
-    //$(".introjs-tooltip").css("width", $("#user_progress").css("width"));
-    //$(".introjs-tooltipReferenceLayer").css("left", $("#tile_section").position().left);
-    if(tileAnatomyTopOffsets[[tileAnatomyCurrStep]]){
-      setPositionTop(targetElement);
-    }
-    tileAnatomyCurrStep++;
   }
 
   function setPositionTop(targetElement){
@@ -133,7 +98,6 @@ Airbo.TileAnatomyTour= (function(){
   function initIntro() {
     var inactivation = false;
     intro = introJs();
-
     if(!anatomySeen && $(anatomyIntroSelector).length >0){
       inactivation =true;
       initTileAnatomyIntro();
@@ -180,5 +144,5 @@ Airbo.TileAnatomyTour= (function(){
 }())
 
 $(function(){
- //Airbo.TileAnatomyTour.init();
+ Airbo.TileAnatomyTour.init();
 });
