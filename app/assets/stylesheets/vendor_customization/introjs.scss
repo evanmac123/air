@@ -67,6 +67,9 @@
   }
 
 }
+.introjs-hint{
+ z-index: 10000000
+}
 .introjs-hint-dot {
   border: 10px solid $n-blue;
   top: -20px;
@@ -78,18 +81,29 @@
 
 .simple-blue{
   &.introjs-tooltip{
-    background-color: $n-blue;
-    opacity: .85;
-    color: white;
+    /*background-color: $n-blue;*/
+    /*color: white;*/
     max-width: none;
+    padding:8px;
+
+    .introjs-tooltiptext{
+      font-size:14px;
+      line-height:1em;
+      text-align: center;
+
+      .introjs-button{
+        text-shadow: none;
+      }
+    }
   }
 }
 .introjs-arrow.top {
-      top: -10px;
-      border-top-color: transparent;
-      border-right-color: transparent;
-      border-bottom-color: $n-blue;
-      border-left-color: transparent;
+      /*top: -10px;*/
+      /*border-top-color: transparent;*/
+      /*border-right-color: transparent;*/
+      /*border-bottom-color: $n-blue;*/
+      /*border-left-color: transparent;*/
+      left: 50%;
     }
 
 .introjs-helperLayer {
