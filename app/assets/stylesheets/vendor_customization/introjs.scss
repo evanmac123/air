@@ -79,10 +79,8 @@
   border-color: $n-blue;
 }
 
-.simple-blue{
+.simple{
   &.introjs-tooltip{
-    /*background-color: $n-blue;*/
-    /*color: white;*/
     max-width: none;
     padding:8px;
 
@@ -98,13 +96,8 @@
   }
 }
 .introjs-arrow.top {
-      /*top: -10px;*/
-      /*border-top-color: transparent;*/
-      /*border-right-color: transparent;*/
-      /*border-bottom-color: $n-blue;*/
-      /*border-left-color: transparent;*/
-      left: 50%;
-    }
+  left: 50%;
+}
 
 .introjs-helperLayer {
   position: absolute;

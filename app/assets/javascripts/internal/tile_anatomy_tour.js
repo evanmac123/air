@@ -33,7 +33,7 @@ Airbo.TileAnswerIntro= (function(){
      var prompt = "This is the right answer. </br>Click to earn " + points + " points"
       options = {
         overlayOpacity: 0,
-        tooltipClass: "simple-blue",
+        tooltipClass: "simple",
         scrollToElement: false,
         showStepNumbers: false, 
         skipLabel: 'Exit Intro',
@@ -142,8 +142,7 @@ Airbo.TileAnswerIntro= (function(){
       initIntro();
       initRedraw();
 
-      $("body").on("click", function(event){
-        
+      $("html").on("click","body",  function(event){
         if($(".introjs-tooltip").is(":visible")){
           if($(event.target).is("#next, #prev, .right_multiple_choice_answer")){
 
