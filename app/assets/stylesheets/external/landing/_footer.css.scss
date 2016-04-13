@@ -23,6 +23,10 @@ footer#pageFtr {
       &:last-child {
         margin-right: 0;
       }
+
+      &.show-on-home{
+        display:none;
+      }
     }
     a {
       color: $home-gray;
@@ -103,4 +107,14 @@ footer#pageFtr {
 /*Shame */
 .public-board.tiles.tiles-index footer{
  margin-top: 40px;
+}
+
+body.pages-home {
+  footer#pageFtr {
+    .menu_block ul li {
+      &.show-on-home{
+        display: inline;
+      }
+    }
+  }
 }

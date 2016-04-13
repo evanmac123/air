@@ -141,13 +141,10 @@ header#pageHeader{
 }
 
 body.pages-home {
-
   header#pageHeader{
-    ul{
-      li {
-        &.show-on-home{
-          display: inline;
-        }
+    ul li {
+      &.show-on-home{
+        display: inline;
       }
     }
   }
