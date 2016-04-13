@@ -144,7 +144,7 @@ Airbo.TileAnswerIntro= (function(){
 
       $("html").on("click","body",  function(event){
         if($(".introjs-tooltip").is(":visible")){
-          if($(event.target).is("#next, #prev, .right_multiple_choice_answer")){
+          if($(event.target).is("#next, #prev, .right_multiple_choice_answer, .headerMenu a")){
 
             $(".introjs-hintReference").remove();
             $(".introjs-hints").remove();
