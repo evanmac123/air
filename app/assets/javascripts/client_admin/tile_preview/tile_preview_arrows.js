@@ -6,11 +6,9 @@ Airbo.TilePreivewArrows = (function(){
       , tileNavigationSelectorRight = ".tile_preview_container .viewer #next"
       , exploreTileNavLeft = ".button_arrow.prev_tile"
       , exploreTileNavRight = ".button_arrow.next_tile"
-      , dummyTileNavigationSelectorLeft = ".preview_placeholder #prev"
-      , dummyTileNavigationSelectorRight = ".preview_placeholder #next"
       , tileNavigationSelector = [tileNavigationSelectorLeft, tileNavigationSelectorRight, exploreTileNavLeft, exploreTileNavRight].join(", ")
-      , tileNavLeft = [tileNavigationSelectorLeft, dummyTileNavigationSelectorLeft, exploreTileNavLeft].join(", ")
-      , tileNavRight = [tileNavigationSelectorRight, dummyTileNavigationSelectorRight, exploreTileNavRight].join(", ")
+      , tileNavLeft = [tileNavigationSelectorLeft, exploreTileNavLeft].join(", ")
+      , tileNavRight = [tileNavigationSelectorRight, exploreTileNavRight].join(", ")
       , tileNavSelectors = tileNavLeft + ', ' + tileNavRight
       , tilePreview
       , defaultParams = {
