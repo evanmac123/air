@@ -72,7 +72,6 @@ Airbo.TileAnswerIntro= (function(){
 
     function initIntro() {
       intro = introJs();
-
       intro.onexit(function(targetElement){
         setCookie();
         introViewTilePing();
@@ -171,5 +170,7 @@ Airbo.TileAnswerIntro= (function(){
 }())
 
 $(function(){
-  Airbo.TileAnswerIntro.init();
+  $(window).on("load", function(){
+    Airbo.TileAnswerIntro.init();
+  });
 });
