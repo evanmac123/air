@@ -11,30 +11,24 @@ setTimeout(ldinsp, 500); document.readyState != "complete" ? (window.attachEvent
 <!-- End Inspectlet Embed Code -->
 
 
-  <style>
-
-  </style>
-
   <script>
 $(function(){
 
-  $("#tour-menu, #signup_menu").on("click", function(event) {
+  $("#tour-menu, #signup_menu, #see-tour").on("click", function(event) {
     event.preventDefault();
     var anchor = event.target.hash
-    debugger
+      
     $('html, body').animate({
-      scrollTop: $(anchor).offset().top-60
+      scrollTop: $(anchor).offset().top-100
     }, 500);  
+
   });
 
   $(".see_airbo").click(function(){
     $("#sign_up_block").show();
   })
 
-
 })
-
-
 
   </script>
 
@@ -43,31 +37,19 @@ $(function(){
 
   <section class="bg-blue tall white text-center " >
     <%= render partial: "pages/landing/header" %>
-
-    <!--div class="row full-band">
-      <div class="columns large-12 small-12 small-centered"-->
-        <div class="full-band">
-        <h1>Welcome to Airbo</h1>
-        <p>
-          Airbo is the bulletin board reinvented. Get more HR priorities done using engaging employee communications.
-        </p>
-        <p>
-          <a class="button outlined see_airbo white">See How It Works</a>
-        </p>
-        </div>
-      <!--/div>
-    </div-->
+    <div class="full-band">
+      <h1>Welcome to Airbo</h1>
+      <p>
+      Get more HR priorities done using engaging employee communications.</p>
+      <p>
+      <a class="button outlined see_airbo white" href="#tour" id="see-tour">See How It Works</a>
+      </p>
+    </div>
   </section>
-
-<%# render layout: "pages/landing/hero", locals: {no_shadow: true, no_header:false,  hero_class: ""} do %>
-  <!--h1 class="text-center">Modern Employee Communications for HR</h1-->
-<%# end %>
-
-
 
 <section class="clients">
   <div class="clients_section row">
-    <h3 class="align_center">Airbo is a simple and engaging Employee Communications Platform used by organizations from 20 to 75,000 employees.</h3>
+    <p class="align_center">Used by organizations from 20 to 75,000 employees.</p>
     <%= render partial: "pages/landing/logos" %>
   </div>
 </section>
