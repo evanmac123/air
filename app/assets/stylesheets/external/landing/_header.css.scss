@@ -40,7 +40,7 @@ header#pageHeader{
             opacity: 0.9;
           }
         }
-        &.hide-in-header{
+        &.hide-in-header,&.show-on-home{
           display:none; 
         }
 
@@ -140,4 +140,15 @@ header#pageHeader{
   font-weight:bold; 
 }
 
+body.pages-home {
 
+  header#pageHeader{
+    ul{
+      li {
+        &.show-on-home{
+          display: inline;
+        }
+      }
+    }
+  }
+}
