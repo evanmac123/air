@@ -9,7 +9,7 @@
     <% end %>
 
     <div id="slideshow">
-      <%= render "tiles/full_size_tile", tile: @tile, is_preview: true, is_manage: true %>
+      <%= render "tiles/full_size_tile", tile: @tile, is_preview: true, image_is_loading: true %>
     </div>
 
     <% if show_client_admin_menu %>

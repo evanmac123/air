@@ -1,10 +1,10 @@
 <div class='viewer'>
   <%= link_to "", explore_tile_preview_path(prev_tile), :id => "prev_tile", class: "button_arrow prev_tile", data:{action: "show", tile_id: @prev_tile.id} %>
 
-  <div id="tile_preview_section"> 
+  <div id="tile_preview_section">
     <%=render partial: 'copy_btn', locals: {tile: tile} unless guest_for_tile_preview?%>
     <div class="large-centered columns clearfix tile_preview_block">
-      <%= render "tiles/full_size_tile", tile: tile, is_preview: true %>
+      <%= render "tiles/full_size_tile", tile: tile, is_preview: true, image_is_loading: true %>
     </div>
   </div>
 

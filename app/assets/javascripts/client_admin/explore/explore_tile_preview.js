@@ -43,6 +43,10 @@ Airbo.ExploreTilePreview = (function(){
       $("#next_tile").trigger("click");
       ping("Clicked Answer");
     });
+
+    $("#tile_img_preview").on("load", function(){
+      $(".tile_full_image").removeClass("loading").attr("style", "");
+    });
   }
   function runIntro() {
     if (introShowed) return;
