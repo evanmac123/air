@@ -9,7 +9,7 @@ Airbo.TilePreviewModal = (function(){
     , tileManager
   ;
   function tileContainerSizes() {
-    tileContainer = $(".tile_full_image")[0]  || $(".pholder.image")[0];
+    tileContainer = $(".tile_full_image")[0];
     if( !tileContainer ) {
       return null;
     }

@@ -15,7 +15,7 @@ Airbo.ExploreTilePreview = (function(){
     Airbo.Utils.ping('Explore page - Interaction', {action: action, tile_id: tile_id});
   }
   function tileContainerSizes() {
-    tileContainer = $(".tile_full_image")[0]  || $(".pholder.image")[0];
+    tileContainer = $(".tile_full_image")[0];
     if( !tileContainer ) {
       return null;
     }
