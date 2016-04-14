@@ -15,6 +15,14 @@ body.pages-home {
     background-image: linear-gradient(to bottom, #48bfff 0, #379fd7 100%);
     height: 400px;
     color:white;
+    &.v-04-14-2016{
+      height:auto;
+      h3{
+
+        line-height:1.75em;
+        font-size:22px;
+      }
+    }
     .hero_content {
       &.custom-text{
         h1 {
@@ -259,4 +267,9 @@ body.pages-home {
   height:64px;
 }
 
+.hiw-text{
+  &.short p{
+    margin-bottom:0px; 
+  }
+}
 
