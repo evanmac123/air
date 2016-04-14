@@ -13,6 +13,7 @@ Airbo.Utils.StandardModal = (function(){
       , defaultParams = {
           useAjaxModal: false,
           closeSel: "",
+          closeSticky: false,
           onOpenedEvent: Airbo.Utils.noop,
           onClosedEvent: Airbo.Utils.noop,
           closeAlt: null,
@@ -102,6 +103,18 @@ Airbo.Utils.StandardModal = (function(){
         close();
       });
 
+      // stickable closeX
+      if(params.closeSticky) {
+        modal.scroll(function() {
+          sizes = $(modalXSel)[0].getBoundingClientRect();
+          if (modal.scrollTop() > 50) {
+            $(modalXSel).addClass('sticky').css("left", sizes.left);
+          } else {
+            $(modalXSel).removeClass('sticky').css("left", "");
+          }
+        });
+      }
+
       $(params.closeSel).click(function(e){
         e.preventDefault();
         close();
@@ -136,6 +149,9 @@ Airbo.Utils.StandardModal = (function(){
       // small modals for some messages etc.
       if(params.smallModal) {
         modal.addClass("standard_small_modal")
+      }
+      if(params.closeSticky) {
+        $(modalXSel).addClass("stickable");
       }
     }
     function init(userParams) {

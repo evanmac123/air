@@ -106,6 +106,7 @@ Airbo.TilePreviewModal = (function(){
       modalId: modalId,
       useAjaxModal: true,
       modalClass: "bg-user-side",
+      closeSticky: true,
       onOpenedEvent: function() {
         arrowsObj.position();
       }
