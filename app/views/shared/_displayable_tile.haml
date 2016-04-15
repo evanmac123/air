@@ -10,7 +10,7 @@
   %img{src: displayable_tile.thumbnail, style: "display: none; visibility: hidden;"}
 
   %li
-    = link_to tile_thumbnail_url do
+    = link_to tile_thumbnail_url, data:{id: displayable_tile.id} do
       .tile-wrapper
         .tile_thumbnail_image{id: thumbnail_id}
         .headline
