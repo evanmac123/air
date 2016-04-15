@@ -1,4 +1,4 @@
-<%= link_to public_board_path(public_slug:board.public_slug), class: "topic" do %>
+<%= link_to public_board_path(public_slug:board.public_slug), class: "topic", data:{name: board.name, id:board.id} do %>
   <div class="topic_cell" style="background-image: url('<%=board.cover_image.url%>')">
     <div class="shadow_overlay"></div>
     <section class="board-name">
