@@ -35,7 +35,7 @@ Airbo.Utils.StandardModal = (function(){
       scrollModalToTop();
     }
     function closeModal() {
-      message = "Are you sure you want to stop editing this tile?" + 
+      message = "Are you sure you want to stop editing this tile?" +
                 " Any changes you've made will be lost";
       swal(
         {
@@ -59,7 +59,7 @@ Airbo.Utils.StandardModal = (function(){
       } else if(params.confirmOnClose){
         closeModal();
       }else{
-        modal.foundation("reveal", "close");  
+        modal.foundation("reveal", "close");
       }
     }
     function setContent(content) {
@@ -77,9 +77,21 @@ Airbo.Utils.StandardModal = (function(){
       $("body, header").css("width", width);
     }
 
+    function triggerStickyX() {
+      if(params.closeSticky) {
+        sizes = $(modalXSel)[0].getBoundingClientRect();
+        if (modal.scrollTop() > 50) {
+          $(modalXSel).addClass('sticky').css("left", sizes.left);
+        } else {
+          $(modalXSel).removeClass('sticky').css("left", "");
+        }
+      }
+    }
+
     function initEvents() {
       modal.bind('open.fndtn.reveal', function(){
         bodyScrollVisibility(false);
+        triggerStickyX();
       });
 
       modal.bind('opened.fndtn.reveal', function(event){
@@ -104,16 +116,9 @@ Airbo.Utils.StandardModal = (function(){
       });
 
       // stickable closeX
-      if(params.closeSticky) {
-        modal.scroll(function() {
-          sizes = $(modalXSel)[0].getBoundingClientRect();
-          if (modal.scrollTop() > 50) {
-            $(modalXSel).addClass('sticky').css("left", sizes.left);
-          } else {
-            $(modalXSel).removeClass('sticky').css("left", "");
-          }
-        });
-      }
+      modal.scroll(function() {
+        triggerStickyX();
+      });
 
       $(params.closeSel).click(function(e){
         e.preventDefault();
