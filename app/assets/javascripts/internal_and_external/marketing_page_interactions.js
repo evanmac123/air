@@ -1,17 +1,16 @@
 Airbo = window.Airbo ||{};
 
 
-Airbo.TileAnswerIntro= (function(){
+Airbo.TileInteractionHint= (function(){
   var intro
-    , currCookie
+    , tileInteractionCookie= "interacted-with-mp-tile"
     , anatomyIntroSelector= ".public-board .tile_holder"
-    , anatomyCookie= "tile-anatomy"
-    , anatomySeen = Airbo.CookieMonster.getCookie(anatomyCookie)
+    , anatomySeen = Airbo.CookieMonster.getCookie()
     , hintClicked = false
   ;
 
-  function setCookie(){
-    Airbo.CookieMonster.setCookie(currCookie, "true");
+  function setCookie(name){
+    Airbo.CookieMonster.setCookie(name, "true");
   }
 
   function repositionTooltip(){
@@ -48,7 +47,7 @@ Airbo.TileAnswerIntro= (function(){
     $("body").on("click", ".right_multiple_choice_answer",  function(event){
       var id= $(this).data("tile-id");
       var board= $("body").data("board-id");
-      setCookie();
+      setCookie(tileInteractionCookie);
       Airbo.Utils.ping("Marketing Page - Answered Tile", {"id":id, "game": board});
       removeHint();
     });
@@ -75,9 +74,16 @@ Airbo.TileAnswerIntro= (function(){
 
   function initRedraw(){
     showHintToolTip();
+restyleTooltip();
+    //styleTooltipButton();
+    //repositionTooltip();
+    repositionPulse();
+  }
+
+  function restyleTooltip(){
+
     styleTooltipButton();
     repositionTooltip();
-    repositionPulse();
   }
 
   function initIntro() {
@@ -97,14 +103,13 @@ Airbo.TileAnswerIntro= (function(){
         ],
       };
 
-      currCookie= anatomyCookie;
 
       intro = introJs();
 
       intro.setOptions(options);
 
       intro.onhintclick(function(event) {
-        setTimeout(repositionTooltip, 0);
+        setTimeout(restyleTooltip, 0);
       });
 
       intro.onhintclose(function() {
@@ -168,6 +173,6 @@ Airbo.LandingPageHandler = (function(){
 $(function(){
   Airbo.LandingPageHandler.init();
   $(window).on("load", function(){
-    Airbo.TileAnswerIntro.init();
+    Airbo.TileInteractionHint.init();
   });
 });
