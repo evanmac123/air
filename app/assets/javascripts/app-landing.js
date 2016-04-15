@@ -17,7 +17,7 @@
 //= require application
 //= require ./external/schedule_demo
 //= require ./external/request_form
-//= require ./internal_and_external/tile_anatomy_tour
+//= require ./internal_and_external/marketing_page_interactions
 
 $(function(){
   $(document).foundation();
