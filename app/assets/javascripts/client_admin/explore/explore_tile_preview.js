@@ -79,6 +79,7 @@ Airbo.ExploreTilePreview = (function(){
       modalId: modalId,
       modalClass: "tile_previews tile_previews-show bg-user-side",
       useAjaxModal: true,
+      closeSticky: true,
       onOpenedEvent: function() {
         // initEvents();
         arrowsObj.position();

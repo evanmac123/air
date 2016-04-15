@@ -3,6 +3,7 @@
   margin:auto;
   background: white;
   border-radius: $border-radius;
+  border-bottom: 1px solid #dcdcdc;
   overflow: hidden;
   position: absolute;
   top: 0;
@@ -12,7 +13,6 @@
     z-index: 1;
     top: 0;
     border-radius: 0 0 3px 3px;
-    // border-bottom: 1px solid #dcdcdc;
   }
   .preview_menu_item, .preview_menu_text {
     float: left;
@@ -98,7 +98,7 @@
   &.explore_menu, &.form_menu {
     border: 1px solid $n-blue;
     .preview_menu_item {
-      border-left: 1px $n-blue  solid;
+      // border-left: 1px $n-blue  solid;
       color: $n-blue;
       width: 100%;
       a{
