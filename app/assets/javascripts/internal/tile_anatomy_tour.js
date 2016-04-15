@@ -66,6 +66,8 @@ Airbo.TileAnswerIntro= (function(){
 
     function initCloseOnTileInteraction(){
       $("body").on("click", ".right_multiple_choice_answer",  function(){
+        $(".introjs-hintReference").remove();
+        $(".introjs-hints").remove();
         exit();
       });
     }
@@ -82,17 +84,13 @@ Airbo.TileAnswerIntro= (function(){
         introViewTilePing();
       });
 
-      intro.onchange(function(targetElement) {
-        var el = $(targetElement);
-
-        if(el.hasClass("multiple_choice_group")){
-
-          introAnatomyPing(el);
-        }
-      });
+      intro.onhintclose(function() {
+        $(".introjs-hint").removeClass("introjs-hidehint")
+      }); 
 
       if(!anatomySeen && $(anatomyIntroSelector).length >0){
         initTileAnatomyIntro();
+        introAnatomyPing(el);
         intro.addHints();
       }
 
