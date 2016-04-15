@@ -117,6 +117,7 @@ Airbo.TilePreviewModal = (function(){
     initModalObj();
     arrowsObj.init(self, {buttonSize: 40, offset: 20});
     tileManager = AirboTileManager;
+    return this;
   }
   return {
     init: init,

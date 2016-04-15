@@ -8,6 +8,7 @@ Airbo.ExploreTilePreview = (function(){
     , modalId = "explore_tile_preview"
     , arrowsObj// = Airbo.TilePreivewArrows()
     , introShowed = false
+    , self
   ;
   function ping(action) {
     var tile_id;
@@ -22,6 +23,8 @@ Airbo.ExploreTilePreview = (function(){
     return tileContainer.getBoundingClientRect();
   }
   function initEvents() {
+    Airbo.StickyMenu.init(self);
+
     $(copyBtnSel + ":not([disabled])").click(function(event) {
       event.preventDefault();
       var button = $(this);
@@ -98,6 +101,7 @@ Airbo.ExploreTilePreview = (function(){
   //   // copyBtn = $(copyBtnSel);
   // }
   function init(fakeModal) {
+    self = this;
     if(fakeModal) {
       initFakeModalObj();
     } else {
@@ -115,13 +119,14 @@ Airbo.ExploreTilePreview = (function(){
       },
     });
 
-    initEvents();
-    return this;
+    // initEvents();
+    return self;
   }
   return {
     init: init,
     open: open,
-    tileContainerSizes: tileContainerSizes
+    tileContainerSizes: tileContainerSizes,
+    modalId: modalId
   }
 }());
 
