@@ -5,7 +5,7 @@ Airbo.TileInteractionHint= (function(){
   var intro
     , tileInteractionCookie= "interacted-with-mp-tile"
     , anatomyIntroSelector= ".public-board .tile_holder"
-    , anatomySeen = Airbo.CookieMonster.getCookie()
+    , anatomySeen = Airbo.CookieMonster.getCookie(tileInteractionCookie)
     , hintClicked = false
     , pingName="Marketing Page Interaction"
   ;
