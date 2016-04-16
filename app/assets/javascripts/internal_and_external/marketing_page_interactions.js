@@ -7,6 +7,7 @@ Airbo.TileInteractionHint= (function(){
     , anatomyIntroSelector= ".public-board .tile_holder"
     , anatomySeen = Airbo.CookieMonster.getCookie()
     , hintClicked = false
+    , pingName="Marketing Page Interaction"
   ;
 
   function setCookie(name){
@@ -48,7 +49,7 @@ Airbo.TileInteractionHint= (function(){
       var id= $(this).data("tile-id");
       var board= $("body").data("board-id");
       setCookie(tileInteractionCookie);
-      Airbo.Utils.ping("Marketing Page - Answered Tile", {"id":id, "game": board});
+      Airbo.Utils.ping(pingName, {"action":"Completed Tile",  "id":id, "game": board});
       removeHint();
     });
   }
@@ -139,11 +140,13 @@ restyleTooltip();
 
 Airbo.LandingPageHandler = (function(){
 
+  var pingName="Marketing Page Interaction";
+
   function initPingOnBoardOpen(){
     $(".topic").click(function(event){
       event.preventDefault();
       var name = $(this).data("name");
-      Airbo.Utils.ping("Marketing Page - Viewed Board", {"name":name});
+      Airbo.Utils.ping(pingName, {"action": "Viewed Board", "name":name} );
       window.location = $(this).attr('href');
     })
   }
@@ -152,7 +155,7 @@ Airbo.LandingPageHandler = (function(){
   function initPingOnTileOpen() {
     $(".tile_thumbnail a").click(function(event){
       var id= $(this).data("id");
-      Airbo.Utils.ping("Marketing Page - Viewed Tile", {"id": id});
+      Airbo.Utils.ping(pingName,  {"action": "Viewed Tile", "id": id} );
       window.location = $(this).attr('href');
     });
   }
