@@ -8,12 +8,12 @@
       <%= link_to "" , client_admin_tile_path(@prev), :id => "prev_tile", class: "button_arrow prev_tile", data:{action: "show", tile_id: @prev} %>
     <% end %>
 
+    <% if show_client_admin_menu %>
+      <%= link_to "",  client_admin_tile_path(@next) , :id => "next_tile", class: "button_arrow next_tile", data:{action: "show", tile_id: @next} %>
+    <% end %>
     <div id="slideshow">
       <%= render "tiles/full_size_tile", tile: @tile, is_preview: true, image_is_loading: true %>
     </div>
 
-    <% if show_client_admin_menu %>
-      <%= link_to "",  client_admin_tile_path(@next) , :id => "next_tile", class: "button_arrow next_tile", data:{action: "show", tile_id: @next} %>
-    <% end %>
   </div>
 </div>
