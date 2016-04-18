@@ -60,6 +60,7 @@ Airbo.TileAction = (function(){
           moveTile(tile, data);
           postProcess();
           Airbo.TileThumbnail.initTile( $(data).data("tile-container-id") );
+          Airbo.Utils.ping("Moved Tile in Manage", {action: "Clicked button to move", tile_id: tile.data("tile-container-id")});
         }
       });
   }
