@@ -6,6 +6,7 @@ Airbo.TileFormModal = (function(){
     , formSel ="#new_tile_builder_form"
     , pickImageSel ="#image_uploader"
     , ajaxHandler = Airbo.AjaxResponseHandler
+    , self
   ;
 
   var modalObj = Airbo.Utils.StandardModal()
@@ -13,15 +14,23 @@ Airbo.TileFormModal = (function(){
     , validator
     , form
     , imageLibrary
-    , submitBtn
+    , submitLink
   ;
 
-  function enableSubmitBtn(){
-    submitBtn.removeAttr("disabled");
+  function enablesubmitLink(){
+    submitLink.removeAttr("disabled");
   }
 
-  function disableSubmitBtn(){
-    submitBtn.attr("disabled", "disabled");
+  function disablesubmitLink(){
+    submitLink.attr("disabled", "disabled");
+  }
+
+  function tileContainerSizes() {
+    tileContainer = $(".tile_holder_container")[0];
+    if( !tileContainer ) {
+      return null;
+    }
+    return tileContainer.getBoundingClientRect();
   }
 
   function initFormElements() {
@@ -35,6 +44,7 @@ Airbo.TileFormModal = (function(){
     Airbo.Utils.mediumEditor.init();
     imageLibraryModal = Airbo.ImageLibraryModal;
     imageLibraryModal.init(Airbo.TileFormModal);
+    Airbo.StickyMenu.init(self);
 
     $("#upload_preview").on("load", function(){
       $(".image_preview").removeClass("loading").attr("style", ""); // remove height
@@ -46,6 +56,8 @@ Airbo.TileFormModal = (function(){
       modalId: modalId,
       useAjaxModal: true,
       confirmOnClose: true,
+      modalClass: "bg-user-side",
+      closeSticky: true,
       onOpenedEvent: function() {
         autosize.update( $('textarea') );
       }
@@ -68,13 +80,18 @@ Airbo.TileFormModal = (function(){
       imageLibraryModal.open(libraryUrl);
     });
 
+    submitLink.click(function(e){
+      e.preventDefault();
+      form.submit();
+    });
+
     form.submit(function(e) {
       e.preventDefault();
 
       var formObj = $(this);
       if(formObj.valid()){
-        disableSubmitBtn();
-        ajaxHandler.submit(formObj, submitSuccess, enableSubmitBtn);
+        disablesubmitLink();
+        ajaxHandler.submit(formObj, submitSuccess, enablesubmitLink);
       }else{
         validator.focusInvalid();
       }
@@ -84,7 +101,8 @@ Airbo.TileFormModal = (function(){
   function initVars() {
     form = $(formSel);
     pickImage = $(pickImageSel);
-    submitBtn = form.find("input[type=submit]");
+    submitLink = form.find(".submit_tile_form");
+    // submitBtn = form.find("input[type=submit]");
   }
 
   function openModal(){
@@ -111,6 +129,7 @@ Airbo.TileFormModal = (function(){
   }
 
   function init(mgr) {
+    self = this;
     initModalObj();
     tileManager = mgr;
   }
@@ -118,6 +137,8 @@ Airbo.TileFormModal = (function(){
   return {
     init: init,
     open: open,
-    openModal: openModal
+    openModal: openModal,
+    tileContainerSizes: tileContainerSizes,
+    modalId: modalId
   }
 }());

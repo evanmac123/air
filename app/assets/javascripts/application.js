@@ -4,36 +4,14 @@
 //= require ../../../vendor/assets/javascripts/autosize
 //= require_tree ./utils
 
-//FIXME add to airbo utils
-function isIE11() {
-  return !!window.MSInputMethodContext;
-};
-
-function isIE() {
-  var myNav;
-  myNav = navigator.userAgent.toLowerCase();
-  if (myNav.indexOf('msie') !== -1) {
-    return parseInt(myNav.split('msie')[1]);
-  } else if (isIE11()) {
-    return 11;
-  } else {
-    return false;
-  }
-};
-
-
-
-
 var Airbo = window.Airbo || {};
-
-//FIXME Remove Deprecated PAGes features
-
-$.extend(Airbo.Utils, {
+var DefaultUtils = {
 
   supportsFeatureByPresenceOfSelector: function(identifier){
     return $(identifier).length > 0
   },
 
+//FIXME Remove Deprecated PAGes features
   Pages: {
     TILE_BUILDER: "#new_tile_builder_form",
     TILE_STATS_CHART: "#new_tile_stats_chart_form",
@@ -97,4 +75,25 @@ $.extend(Airbo.Utils, {
     // $.post("/ping", { event: event, properties: properties });
     mixpanel.track(event, properties);
   }
-});
+}
+
+
+//FIXME add to airbo utils
+function isIE11() {
+  return !!window.MSInputMethodContext;
+};
+
+function isIE() {
+  var myNav;
+  myNav = navigator.userAgent.toLowerCase();
+  if (myNav.indexOf('msie') !== -1) {
+    return parseInt(myNav.split('msie')[1]);
+  } else if (isIE11()) {
+    return 11;
+  } else {
+    return false;
+  }
+};
+
+
+$.extend(Airbo.Utils, DefaultUtils);

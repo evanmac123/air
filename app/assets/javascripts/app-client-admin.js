@@ -1,4 +1,3 @@
-//= require ../../../vendor/assets/javascripts/pace.min
 //= require mobvious-rails
 //= require_tree ./client_admin
 //= require ./ajax-response-handler
@@ -21,7 +20,7 @@
 //= require slick-carousel/slick/slick
 
 //= require ./internal_and_external/underscore-min
-//= require ./internal/tiles
+//= require ./internal/tile_preview/tile_answers
 //= require ./internal/show_more_tiles_link
 //= require ./internal/countUp.min
 //= require ./internal/byte_counter
@@ -51,6 +50,6 @@ $(document).ready(function() {
   $('.client_admin-users, .client_admins-show').foundation();
 });
 $(document).foundation();
-$(document).foundation('reveal', {animation: "fade"});
+$(document).foundation('reveal', {animation: "none"});
 
 $(document).confirmWithReveal(Airbo.Utils.confirmWithRevealConfig);

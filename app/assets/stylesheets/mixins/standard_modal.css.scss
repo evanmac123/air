@@ -32,6 +32,16 @@
         opacity: 0.7;
       }
     }
+    &.stickable {
+      position: absolute;
+      top: 0;
+      &.sticky {
+        position: fixed;
+        right: auto;
+        left: auto;
+        margin-left: 0;
+      }
+    }
   }
   #modal_content {
     margin: auto;

@@ -7,8 +7,6 @@
 *= require slick-carousel/slick/slick.scss
 *= require slick-carousel/slick/slick-theme.scss
 */
-@import "./vendor/pace-theme-center-simple.css.scss";
-
 @import "font-awesome";
 @import "wice_grid";
 @import "./vendor/introjs.min";
@@ -36,6 +34,7 @@
 @import "./client_admin/tile_manager/tiles.css.scss";
 @import './internal/large_tile_viewer_desktop';
 @import "./tile/tile_preview/menu.scss";
+@import "./tile/tile_preview/arrows.scss";
 @import "./client_admin/tile_manager/tile_preview.css.scss";
 @import "./client_admin/explore/tile_preview.css.scss";
 @import "./internal/character_counter.css.scss";

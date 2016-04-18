@@ -1,0 +1,41 @@
+.button_arrow {
+  position: fixed;
+  top: 450px;
+  z-index: 1;
+  // top: 500px;
+  height: 40px;
+  background: $gray-2;
+  border-radius: 3px;
+  display: none;
+  &:after {
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  &:hover {
+    &.prev_tile {
+      &:after {
+        @include arrow-left($n-blue, 10px);
+      }
+    }
+    &.next_tile {
+      &:after {
+        @include arrow-right($n-blue, 10px);
+      }
+    }
+  }
+  &.prev_tile {
+    padding: 10px 17px 10px 13px;
+    &:after {
+      @include arrow-left($gray-4, 10px);
+    }
+  }
+  &.next_tile {
+    padding: 10px 13px 10px 17px;
+    &:after {
+      @include arrow-right($gray-4, 10px);
+    }
+  }
+}

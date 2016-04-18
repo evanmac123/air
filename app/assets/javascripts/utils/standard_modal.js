@@ -13,6 +13,7 @@ Airbo.Utils.StandardModal = (function(){
       , defaultParams = {
           useAjaxModal: false,
           closeSel: "",
+          closeSticky: false,
           onOpenedEvent: Airbo.Utils.noop,
           onClosedEvent: Airbo.Utils.noop,
           closeAlt: null,
@@ -34,7 +35,7 @@ Airbo.Utils.StandardModal = (function(){
       scrollModalToTop();
     }
     function closeModal() {
-      message = "Are you sure you want to stop editing this tile?" + 
+      message = "Are you sure you want to stop editing this tile?" +
                 " Any changes you've made will be lost";
       swal(
         {
@@ -58,7 +59,7 @@ Airbo.Utils.StandardModal = (function(){
       } else if(params.confirmOnClose){
         closeModal();
       }else{
-        modal.foundation("reveal", "close");  
+        modal.foundation("reveal", "close");
       }
     }
     function setContent(content) {
@@ -76,9 +77,21 @@ Airbo.Utils.StandardModal = (function(){
       $("body, header").css("width", width);
     }
 
+    function triggerStickyX() {
+      if(params.closeSticky) {
+        sizes = $(modalXSel)[0].getBoundingClientRect();
+        if (modal.scrollTop() > 50) {
+          $(modalXSel).addClass('sticky').css("left", sizes.left);
+        } else {
+          $(modalXSel).removeClass('sticky').css("left", "");
+        }
+      }
+    }
+
     function initEvents() {
       modal.bind('open.fndtn.reveal', function(){
         bodyScrollVisibility(false);
+        triggerStickyX();
       });
 
       modal.bind('opened.fndtn.reveal', function(event){
@@ -100,6 +113,11 @@ Airbo.Utils.StandardModal = (function(){
         e.preventDefault();
         e.stopPropagation();
         close();
+      });
+
+      // stickable closeX
+      modal.scroll(function() {
+        triggerStickyX();
       });
 
       $(params.closeSel).click(function(e){
@@ -136,6 +154,9 @@ Airbo.Utils.StandardModal = (function(){
       // small modals for some messages etc.
       if(params.smallModal) {
         modal.addClass("standard_small_modal")
+      }
+      if(params.closeSticky) {
+        $(modalXSel).addClass("stickable");
       }
     }
     function init(userParams) {

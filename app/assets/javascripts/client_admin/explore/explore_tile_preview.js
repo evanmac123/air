@@ -8,6 +8,7 @@ Airbo.ExploreTilePreview = (function(){
     , modalId = "explore_tile_preview"
     , arrowsObj// = Airbo.TilePreivewArrows()
     , introShowed = false
+    , self
   ;
   function ping(action) {
     var tile_id;
@@ -15,13 +16,15 @@ Airbo.ExploreTilePreview = (function(){
     Airbo.Utils.ping('Explore page - Interaction', {action: action, tile_id: tile_id});
   }
   function tileContainerSizes() {
-    tileContainer = $(".tile_full_image")[0]  || $(".pholder.image")[0];
+    tileContainer = $(".tile_full_image")[0];
     if( !tileContainer ) {
       return null;
     }
     return tileContainer.getBoundingClientRect();
   }
   function initEvents() {
+    Airbo.StickyMenu.init(self);
+
     $(copyBtnSel + ":not([disabled])").click(function(event) {
       event.preventDefault();
       var button = $(this);
@@ -42,6 +45,10 @@ Airbo.ExploreTilePreview = (function(){
       event.preventDefault();
       $("#next_tile").trigger("click");
       ping("Clicked Answer");
+    });
+
+    $("#tile_img_preview").on("load", function(){
+      $(".tile_full_image").removeClass("loading").attr("style", "");
     });
   }
   function runIntro() {
@@ -70,8 +77,9 @@ Airbo.ExploreTilePreview = (function(){
   function initModalObj() {
     modalObj.init({
       modalId: modalId,
-      modalClass: "tile_previews tile_previews-show",
+      modalClass: "tile_previews tile_previews-show bg-user-side",
       useAjaxModal: true,
+      closeSticky: true,
       onOpenedEvent: function() {
         // initEvents();
         arrowsObj.position();
@@ -90,10 +98,11 @@ Airbo.ExploreTilePreview = (function(){
     });
   }
   // function initVars() {
-    
+
   //   // copyBtn = $(copyBtnSel);
   // }
   function init(fakeModal) {
+    self = this;
     if(fakeModal) {
       initFakeModalObj();
     } else {
@@ -101,7 +110,7 @@ Airbo.ExploreTilePreview = (function(){
     }
     arrowsObj = Airbo.TilePreivewArrows();
     arrowsObj.init(this, {
-      buttonSize: 40, 
+      buttonSize: 40,
       offset: 20,
       afterNext: function() {
         ping("Clicked arrow to next tile");
@@ -111,13 +120,14 @@ Airbo.ExploreTilePreview = (function(){
       },
     });
 
-    initEvents();
-    return this;
+    // initEvents();
+    return self;
   }
   return {
     init: init,
     open: open,
-    tileContainerSizes: tileContainerSizes
+    tileContainerSizes: tileContainerSizes,
+    modalId: modalId
   }
 }());
 

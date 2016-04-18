@@ -2,13 +2,14 @@ var Airbo = window.Airbo || {};
 
 Airbo.TilePreviewModal = (function(){
   var modalId = "tile_preview_modal"
+    , self
   ;
   var modalObj = Airbo.Utils.StandardModal()
     , arrowsObj = Airbo.TilePreivewArrows()
     , tileManager
   ;
   function tileContainerSizes() {
-    tileContainer = $(".tile_full_image")[0]  || $(".pholder.image")[0];
+    tileContainer = $(".tile_full_image")[0];
     if( !tileContainer ) {
       return null;
     }
@@ -48,16 +49,7 @@ Airbo.TilePreviewModal = (function(){
     });
   }
   function initStickyPreviewMenu() {
-    var modal = $("#" + modalId);
-    var previewMenu = $('.tile_preview_menu');
-    modal.scroll(function() {
-      if (modal.scrollTop() > 50) {
-        sizes = tileContainerSizes();
-        previewMenu.addClass('sticky').css("left", sizes.left);
-      } else {
-        previewMenu.removeClass('sticky').css("left", "");
-      }
-    });
+    Airbo.StickyMenu.init(self);
   }
   function initEvents() {
     // FIXME
@@ -113,19 +105,24 @@ Airbo.TilePreviewModal = (function(){
     modalObj.init({
       modalId: modalId,
       useAjaxModal: true,
+      modalClass: "bg-user-side",
+      closeSticky: true,
       onOpenedEvent: function() {
         arrowsObj.position();
       }
     });
   }
   function init(AirboTileManager){
+    self = this;
     initModalObj();
-    arrowsObj.init(this, {buttonSize: 32, offset: 20});
+    arrowsObj.init(self, {buttonSize: 40, offset: 20});
     tileManager = AirboTileManager;
+    return this;
   }
   return {
     init: init,
     open: open,
-    tileContainerSizes: tileContainerSizes
+    tileContainerSizes: tileContainerSizes,
+    modalId: modalId
   }
 }());
