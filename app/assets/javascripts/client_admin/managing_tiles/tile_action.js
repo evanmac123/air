@@ -49,6 +49,20 @@ Airbo.TileAction = (function(){
     submittedTile = $(".tile_thumbnail.user_submitted");
     $("#user_submitted_tiles_counter").html(submittedTile.length);
   }
+  function movePing(tile){
+    var mess = {
+       "active": "Posted",
+       "draft": "Drafted",
+       "archive": "Archived",
+       "user_submitted": "Unignored",
+       "ignored": "Ignored"
+    };
+
+    var tileId = tile.data("tile-container-id")
+      , status = tile.data("status");
+
+    Airbo.Utils.ping("Tile " + mess[status], {action: "Clicked button to move", tile_id: tileId});
+  }
   function submitTileForUpadte(tile,target, postProcess ){
       $.ajax({
         url: target.data("url") || target.attr("href"),
@@ -60,7 +74,7 @@ Airbo.TileAction = (function(){
           moveTile(tile, data);
           postProcess();
           Airbo.TileThumbnail.initTile( $(data).data("tile-container-id") );
-          Airbo.Utils.ping("Moved Tile in Manage", {action: "Clicked button to move", tile_id: tile.data("tile-container-id")});
+          movePing( $(data) );
         }
       });
   }
