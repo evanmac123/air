@@ -49,7 +49,7 @@ Airbo.TileAction = (function(){
     submittedTile = $(".tile_thumbnail.user_submitted");
     $("#user_submitted_tiles_counter").html(submittedTile.length);
   }
-  function movePing(tile){
+  function movePing(tileId, status, action){
     var mess = {
        "active": "Posted",
        "draft": "Drafted",
@@ -58,10 +58,7 @@ Airbo.TileAction = (function(){
        "ignored": "Ignored"
     };
 
-    var tileId = tile.data("tile-container-id")
-      , status = tile.data("status");
-
-    Airbo.Utils.ping("Tile " + mess[status], {action: "Clicked button to move", tile_id: tileId});
+    Airbo.Utils.ping("Tile " + mess[status], {action: action, tile_id: tileId});
   }
   function submitTileForUpadte(tile,target, postProcess ){
       $.ajax({
@@ -74,7 +71,10 @@ Airbo.TileAction = (function(){
           moveTile(tile, data);
           postProcess();
           Airbo.TileThumbnail.initTile( $(data).data("tile-container-id") );
-          movePing( $(data) );
+
+          var tileId = $(data).data("tile-container-id");
+          var status = $(data).data("status");
+          movePing(tileId, status, "Clicked button to move");
         }
       });
   }
@@ -222,6 +222,7 @@ Airbo.TileAction = (function(){
     updateStatus: updateStatus,
     makeDuplication: makeDuplication,
     confirmDeletion: confirmDeletion,
-    confirmAcceptance: confirmAcceptance
+    confirmAcceptance: confirmAcceptance,
+    movePing: movePing
   }
 }());

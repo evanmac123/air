@@ -111,7 +111,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
 
     #FIXME is this really important for tracking?
-    tile_status_updated_ping @tile, "Dragged tile to move"
+    # tile_status_updated_ping @tile, "Dragged tile to move"
 
   end
 
