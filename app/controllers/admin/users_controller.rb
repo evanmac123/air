@@ -6,7 +6,7 @@ class Admin::UsersController < AdminBaseController
 
   def index
     respond_to do |format|
-      format.html do 
+      format.html do
         starts_with = params[:starts_with]
         if starts_with == "non-alpha"
           @users = @demo.users.name_starts_with_non_alpha
@@ -40,7 +40,7 @@ class Admin::UsersController < AdminBaseController
 
   def update
 
-    @user.attributes = permitted_params.user 
+    @user.attributes = permitted_params.user
     @user.claim_code = nil if params[:user].has_key?(:claim_code) && params[:user][:claim_code].blank?
 
     new_demo_id = user_params.delete(:demo_id)
@@ -52,7 +52,7 @@ class Admin::UsersController < AdminBaseController
     end
 
     # calling #save wipes this out so we have to remember it now
-    client_admin_changed = @user.changed.include?('is_client_admin') 
+    client_admin_changed = @user.changed.include?('is_client_admin')
     if @user.save
       if new_demo_id
         @user.add_board(new_demo_id)
@@ -76,7 +76,7 @@ class Admin::UsersController < AdminBaseController
   end
 
   protected
-  
+
 
 
   def find_user
@@ -85,7 +85,7 @@ class Admin::UsersController < AdminBaseController
 
   def ping_if_made_client_admin(user, was_changed)
     if user.is_client_admin && was_changed
-      ping('Creator - New', {source: 'Site Admin'}, current_user)
+      ping('claimed account', {source: 'Site Admin'}, current_user)
     end
   end
 

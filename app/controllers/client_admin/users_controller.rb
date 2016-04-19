@@ -182,7 +182,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
 
   def ping_if_made_client_admin(user, was_changed)
     if user.is_client_admin && was_changed
-      ping('Creator - New', {source: 'Client Admin'}, current_user)
+      ping('claimed account', {source: 'Client Admin'}, current_user)
     end
   end
 end

@@ -582,7 +582,7 @@ class User < ActiveRecord::Base
   end
 
   def record_claim_in_mixpanel(channel)
-    TrackEvent.ping('claimed account', {:channel => channel}, self)
+    TrackEvent.ping('claimed account', {:channel => channel, source: "Joined via invite"}, self)
   end
 
   def update_points(point_increment, channel=nil)
