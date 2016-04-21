@@ -39,13 +39,14 @@ $(function(){
 
 <section class="clients">
   <div class="clients_section row">
-    <p class="align_center">Used by organizations from 20 to 75,000 employees.</p>
+    <p class="text-center short">Used by organizations from 20 to 75,000 employees.</p>
     <%= render partial: "pages/landing/logos" %>
   </div>
 </section>
 
 <a id="tour"></a>
-<div class="row full-band">
+<div class="row full-band hiw">
+  <h2 class="text-center ">How it Works</h2>
   <div class="small-8 columns small-centered text-center" >
     <div class="row" >
       <div class="small-12 large-4 columns">
@@ -53,7 +54,7 @@ $(function(){
           <%=image_tag "landing/sb-wellness-icon01.png"%>
       <div class="hiw-text">
         <h3>Tile</h3>
-        <p>Bite-sized, interactive content that's fast to create.</p>
+        <p class="short">Bite-sized, interactive content that's fast to create.</p>
       </div>
         </div>
       </div>
@@ -63,7 +64,7 @@ $(function(){
           <%=image_tag "landing/sb-wellness-icon02.png"%>
           <div class="hiw-text">
             <h3>Board</h3>
-            <p>A private site to post Tiles for employees to read.</p>
+            <p class="short">A private site to post Tiles for employees to read.</p>
           </div>
         </div>
       </div>
@@ -73,7 +74,7 @@ $(function(){
           <%=image_tag "landing/sb-wellness-icon03.png"%>
           <div class="hiw-text">
             <h3>Metrics</h3>
-            <p>Send Tiles and see who read and took action.</p>
+            <p class="short">Send Tiles and see who read and took action.</p>
           </div>
         </div>
     </div>
@@ -100,8 +101,8 @@ $(function(){
 
 <section id="sign_up_block" class="join">
   <div class="join_block center">
-    <h2 class="align_center">Join to Discover</h2>
-    <p class="align_center">Create a free account to see how companies use Airbo.</p>
+    <h2 class="text-center">Join to Discover</h2>
+    <p class="text-center">Create a free account to see how companies use Airbo.</p>
     <%= render partial: "pages/landing/form" %>
     <%= render partial: "pages/landing/logos" %>
   </div>

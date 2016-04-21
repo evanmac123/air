@@ -67,6 +67,7 @@ body.pages-home {
   .client_logos {
     max-width: 750px;
     margin: auto;
+    margin-top:24px;
     overflow: auto;
     img {
       display: block;
@@ -271,5 +272,18 @@ body.pages-home {
   &.short p{
     margin-bottom:0px; 
   }
+
 }
 
+p {
+ &.short{
+   margin-bottom:0px;
+   margin-top: 0px;
+ }
+}
+.hiw{
+  h2 {
+    margin-top:0px;
+    margin-bottom:40px;
+  }
+}
