@@ -86,7 +86,9 @@ window.dragAndDropTiles = ->
       cancelTileMoving()
     else if isTileMoved(tile, "archive", "active") && tileCompletionsNum(tile) > 0
       moveComfirmationModal()
-
+    else if isTileMoved(tile, "draft", "active") 
+      id = findTileId tile
+      Airbo.TileAction.movePing(id, "active", "Dragged tile to move")
 
   stopEvent = (event, tile, section) ->
     turnOffDraftBlocking tile, section
@@ -194,7 +196,8 @@ window.dragAndDropTiles = ->
       success: ->
         updateTileVisibility()
         Airbo.TileThumbnail.initTile(id)
-        Airbo.TileAction.movePing(id, status, "Dragged tile to move")
+        
+          
     });
 
   sourceSectionParams = ->
