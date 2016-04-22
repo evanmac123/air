@@ -43,6 +43,9 @@ header#pageHeader{
         &.hide-in-header,&.show-on-home{
           display:none; 
         }
+        &.hide-in-home{
+        display:inline;
+        }
 
       }
     }
@@ -145,6 +148,9 @@ body.pages-home {
     ul li {
       &.show-on-home{
         display: inline;
+      }
+      &.hide-on-home{
+        display: none;
       }
     }
   }

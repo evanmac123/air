@@ -3,22 +3,59 @@
 
   <script>
 $(function(){
+  var handleScroll=  function (event){
+    console.log("scrolling");
+    toggleExploreMenu(false);
+  }
 
-  $("#tour-menu, #signup_menu, #see-tour").on("click", function(event) {
+
+  $(".tour-menu").on("click", function(event) {
     event.preventDefault();
     var anchor = event.target.hash
-      
+      , srcEl = $(this)
+      , offset
+      ;
+
+    if(srcEl.parents("footer").length>0){
+      offset = 40;
+    }else{
+      offset = 100;
+    }
+
+
     $('html, body').animate({
-      scrollTop: $(anchor).offset().top-100
-    }, 500);  
+        scrollTop: $(anchor).offset().top-offset
+    }, 500, handleExplore );  
 
   });
+
+  function handleExplore(){
+    bindScroll();
+    setTimeout(function(){
+      toggleExploreMenu(true);
+    }, 0);
+  }
+
+  function toggleExploreMenu(on){
+    if (on){
+      $("#pg-home").css({"font-weight":"normal"});
+      $(".tour-menu").css({"font-weight":"bold"});
+    }else{
+      $("#pg-home").css({"font-weight":"bold"});
+      $(".tour-menu").css({"font-weight":"normal"});
+    }
+  }
+  
 
   $(".see_airbo").click(function(){
     $("#sign_up_block").show();
   })
 
-})
+ 
+  function bindScroll(){
+    $(window).on("scroll", handleScroll);
+  }
+});
 
   </script>
 
