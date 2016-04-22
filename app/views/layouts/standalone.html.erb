@@ -13,6 +13,7 @@
 
     <%= render "shared/opengraph_meta_tags" %>
     <%= render 'shared/mixpanel' %>
+    <%= render 'shared/inspectlet' %>
     <%= mp_track_page @page_name_for_mixpanel if @page_name_for_mixpanel.present? %>
     <%= stylesheet_link_tag 'app-landing' %>
     <%= javascript_include_tag "https://api.intercom.io/api/js/library.js" %>
