@@ -25,6 +25,7 @@
 
   <%= csrf_meta_tag %>
   <%= render 'shared/mixpanel' unless @is_admin_page %>
+  <%= render 'shared/inspectlet' %>
   <%= mobvious_javascript %>
   <%= render 'shared/nerf_animations_in_test' %>
   <%= render "shared/custom_palette"  if @palette && @palette.enabled?%>

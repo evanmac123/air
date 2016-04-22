@@ -24,6 +24,7 @@
 
   <%= csrf_meta_tag %>
   <%= render 'shared/mixpanel' unless @is_admin_page %>
+  <%= render 'shared/inspectlet' %>
   <%= mp_track_page "Public Parent Board " %>
 
   <%= mobvious_javascript %>
