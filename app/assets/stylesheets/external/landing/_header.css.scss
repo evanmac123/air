@@ -88,7 +88,11 @@ header#pageHeader{
               font-weight: 400;
             }
 
-                     }
+            &.show-on-home{
+              display: block;
+            }
+
+          }
         }
       }
     }
