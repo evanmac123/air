@@ -56,9 +56,9 @@ Airbo.ExploreIntro = (function(){
     skipLink = $(skipSel);
   }
   function init() {
+    initVars();
     initModalObj();
     modalObj.open();
-    initVars();
   }
   return {
     init: init,
