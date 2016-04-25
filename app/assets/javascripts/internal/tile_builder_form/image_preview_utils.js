@@ -190,12 +190,18 @@ $(function() {
 
 
       function initScrolling() {
+        var scrollOnFirstLoad = true;
         library.jscroll({
           loadingHtml: "<img src='" + library.data("loadingImageUrl") + "' />",
           nextSelector: nextPageSelector,
           debug: true,
           padding: 100,
-          callback: false
+          callback: function() {
+            if(scrollOnFirstLoad) {
+              scrollOnFirstLoad = false;
+              $(".image_library").scrollTop(0);
+            }
+          }
         } );
       };
 
