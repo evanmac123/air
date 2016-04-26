@@ -2,7 +2,7 @@ class CreateUserWithBoard
   attr_reader :user, :board
 
   def initialize params
-    @board_name = params[:board][:name] 
+    @board_name = params[:board][:name]
     @user_name  = params[:user][:name]
     @email      = params[:user][:email]
     @password   = params[:user][:password]
@@ -15,7 +15,7 @@ class CreateUserWithBoard
     ActiveRecord::Base.transaction do
       create_board
       create_user
-      
+
       unless success?
         raise ActiveRecord::Rollback
       end
@@ -31,7 +31,7 @@ class CreateUserWithBoard
   end
 
   def set_errors
-    @error_message ||= begin 
+    @error_message ||= begin
       errors = []
       errors.concat board_errors
       errors.concat user_errors
@@ -61,9 +61,9 @@ class CreateUserWithBoard
 
   def user_creator
     @user_creator ||= ConvertToFullUser.new({
-      pre_user:              @pre_user, 
-      name:                  @user_name, 
-      email:                 @email, 
+      pre_user:              @pre_user,
+      name:                  @user_name,
+      email:                 @email,
       password:              @password,
       converting_from_guest: true
     })
@@ -107,6 +107,6 @@ class CreateUserWithBoard
 
   def schedule_creation_pings
     TrackEvent.ping 'Boards - New',  {source: @creation_source_board},   @user
-    TrackEvent.ping 'Creator - New', {source: @creation_source_creator}, @user
+    TrackEvent.ping 'claimed account', {source: @creation_source_creator}, @user
   end
 end
