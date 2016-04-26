@@ -6,9 +6,11 @@
           <div class="tile_thumbnail_image">
             <%= image_tag presenter.thumbnail %>
           </div>
-          <div class="activation_dates">
-            <%= presenter.timestamp %>
-          </div>
+          <% if presenter.has_activation_dates? %>
+            <div class="activation_dates">
+              <%= presenter.timestamp %>
+            </div>
+          <% end %>
           <div class="headline">
             <div class="text">
               <%= presenter.headline %>
@@ -23,4 +25,3 @@
     <% end %>
   <% end %>
 <% end %>
-

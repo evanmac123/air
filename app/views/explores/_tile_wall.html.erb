@@ -1,6 +1,6 @@
 <div id="tile_wall">
   <% tiles.each do |tile| %>
-    <% presenter = SingleTilePresenter.new(tile, :html, false, browser.ie?) %>
+    <% presenter = SingleTilePresenter.new(tile, :html, "explore", browser.ie?) %>
     <%= render 'client_admin/tiles/manage_tiles/single_tile', presenter: presenter %>
   <% end %>
 </div>
