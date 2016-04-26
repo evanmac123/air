@@ -14,7 +14,7 @@ class ExploresController < ClientAdminBaseController
     @path_for_more_tiles = explore_path
     @parent_boards = Demo.where(is_parent: true)
 
-    render_partial_if_requested(tag_click_source: 'Explore Main Page - Clicked Tag On Tile', thumb_click_source: 'Explore Main Page - Tile Thumbnail Clicked')
+    render_partial_if_requested#(tag_click_source: 'Explore Main Page - Clicked Tag On Tile', thumb_click_source: 'Explore Main Page - Tile Thumbnail Clicked')
 
     @show_explore_intro = current_user.intros.show_explore_intro!
 
@@ -33,7 +33,7 @@ class ExploresController < ClientAdminBaseController
     @tile_tag = TileTag.find(params[:tile_tag])
     @path_for_more_tiles = tile_tag_show_explore_path(tile_tag: params[:tile_tag])
 
-    render_partial_if_requested(tag_click_source: "Explore Topic Page - Clicked Tag On Tile", thumb_click_source: 'Explore Topic Page - Tile Thumbnail Clicked')
+    render_partial_if_requested#(tag_click_source: "Explore Topic Page - Clicked Tag On Tile", thumb_click_source: 'Explore Topic Page - Tile Thumbnail Clicked')
 
     if params[:tag_click_source].present?
       ping_action_after_dash(params[:tag_click_source], {tag: @tile_tag.title}, current_user)

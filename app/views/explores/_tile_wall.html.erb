@@ -1,6 +1,4 @@
 <div id="tile_wall">
-  <% tiles.each do |tile| %>
-    <% presenter = SingleTilePresenter.new(tile, :html, "explore", browser.ie?) %>
-    <%= render 'client_admin/tiles/manage_tiles/single_tile', presenter: presenter %>
-  <% end %>
+  <%= render partial: 'explores/tiles', locals: {tiles: tiles} %>
 </div>
+<%= render partial: 'explores/tile_wall_show_more_link', locals: {path_for_more_tiles: @path_for_more_tiles, all_tiles_displayed: @all_tiles_displayed} %>
