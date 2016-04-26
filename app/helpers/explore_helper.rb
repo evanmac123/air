@@ -5,16 +5,16 @@ module ExploreHelper
   end
 
   def find_tiles
-    # @eligible_tiles = Tile.viewable_in_public.tagged_with(find_tile_tags)
-    #
-    # @tiles = @eligible_tiles.
-    #   ordered_for_explore.
-    #   offset(offset).
-    #   includes(:creator).
-    #   includes(:tile_tags).
-    #   includes(:demo)
-    @eligible_tiles = Tile.where(true)
-    @tiles = @eligible_tiles.offset(offset)
+    @eligible_tiles = Tile.viewable_in_public.tagged_with(find_tile_tags)
+
+    @tiles = @eligible_tiles.
+      ordered_for_explore.
+      offset(offset).
+      includes(:creator).
+      includes(:tile_tags).
+      includes(:demo)
+    # @eligible_tiles = Tile.where(true)
+    # @tiles = @eligible_tiles.offset(offset)
   end
 
   def set_all_tiles_displayed

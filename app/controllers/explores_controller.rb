@@ -46,6 +46,6 @@ class ExploresController < ClientAdminBaseController
 
   protected
      def find_tile_tags
-    params[:tile_tag]
-  end
+      params[:tile_tag]
+    end
 end
