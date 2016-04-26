@@ -5,14 +5,16 @@ module ExploreHelper
   end
 
   def find_tiles
-    @eligible_tiles = Tile.viewable_in_public.tagged_with(find_tile_tags)
-
-    @tiles = @eligible_tiles.
-      ordered_for_explore.
-      offset(offset).
-      includes(:creator).
-      includes(:tile_tags).
-      includes(:demo)
+    # @eligible_tiles = Tile.viewable_in_public.tagged_with(find_tile_tags)
+    #
+    # @tiles = @eligible_tiles.
+    #   ordered_for_explore.
+    #   offset(offset).
+    #   includes(:creator).
+    #   includes(:tile_tags).
+    #   includes(:demo)
+    @eligible_tiles = Tile.where(true)
+    @tiles = @eligible_tiles.offset(offset)
   end
 
   def set_all_tiles_displayed
@@ -29,11 +31,11 @@ module ExploreHelper
     @copied_tile_ids = UserTileCopy.where(user_id: current_user.id, tile_id: tile_ids).pluck(:tile_id)
   end
 
-  def render_partial_if_requested(extra_locals)
+  def render_partial_if_requested
     if params[:partial_only]
       ping("Explore Topic Page", {action: "Clicked See More"}, current_user)
 
-      html_content = render_to_string partial: "explores/tile_rows", locals: {tiles: @tiles, path_for_more_tiles: @path_for_more_tiles, show_back_to_explore_link_in_post_copy_modal: false}.merge(extra_locals)
+      html_content = render_to_string partial: "explores/tiles", locals: {tiles: @tiles}
       last_batch = @eligible_tiles.count <= offset + tile_batch_size
 
       render json: {

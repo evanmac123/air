@@ -2,7 +2,7 @@ var Airbo = window.Airbo || {};
 
 Airbo.ExploreTileManager = (function(){
   function initEvents() {
-    $("body").on("click", ".preview_link", function(e){
+    $("body").on("click", ".tile_thumb_link", function(e){
       e.preventDefault();
       $.ajax({
         type: "GET",
