@@ -21,6 +21,14 @@ class SingleAdminTilePresenter
     end
   end
 
+  def has_activation_dates?
+    true
+  end
+
+  def has_tile_buttons?
+    true
+  end
+
   def has_archive_button?
     show_admin_buttons? && (type? :active)
   end
