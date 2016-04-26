@@ -15,10 +15,9 @@
     </div>
     <h1>Recent Posts</h1>
     <div class='row tile_with_tags'>
-      <%= render partial: 'explores/tile_with_tags', locals: {tiles: @tiles, path_for_more_tiles: @path_for_more_tiles, tag_click_source: "Explore Main Page - Clicked Tag On Tile", thumb_click_source: 'Explore Main Page - Tile Thumbnail Clicked'} %>
+      <%= render partial: 'explores/tile_wall', locals: {tiles: @tiles} %>
     </div>
   </div>
 </div>
 <%= mp_track_page 'explore' %>
 <%= render partial: 'explores/explore_intro' if @show_explore_intro %>
-
