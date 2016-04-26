@@ -1,4 +1,4 @@
-class SingleTilePresenter
+class SingleAdminTilePresenter
   include ActionView::Helpers::NumberHelper
   include TileFooterTimestamper
   include Rails.application.routes.url_helpers

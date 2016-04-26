@@ -1,6 +1,6 @@
 require 'new_relic/agent/method_tracer'
 
-class ExploreSingleTilePresenter
+class ExploreSingleAdminTilePresenter
   include ActionView::Helpers::TextHelper
   include ::NewRelic::Agent::MethodTracer
 
