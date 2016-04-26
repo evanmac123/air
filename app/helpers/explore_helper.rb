@@ -1,5 +1,5 @@
 module ExploreHelper
-  # fix number for explore page
+  # fixed number for explore page
   def tile_batch_size
     16
   end
@@ -9,10 +9,7 @@ module ExploreHelper
 
     @tiles = @eligible_tiles.
       ordered_for_explore.
-      offset(offset).
-      includes(:creator).
-      includes(:tile_tags).
-      includes(:demo)
+      offset(offset)
     # @eligible_tiles = Tile.where(true)
     # @tiles = @eligible_tiles.offset(offset)
   end
@@ -25,24 +22,18 @@ module ExploreHelper
     @tiles = @tiles.limit(tile_batch_size)
   end
 
-  def find_liked_and_copied_tile_ids
-    tile_ids = @tiles.pluck(:id)
-    @liked_tile_ids = UserTileLike.where(user_id: current_user.id, tile_id: tile_ids).pluck(:tile_id)
-    @copied_tile_ids = UserTileCopy.where(user_id: current_user.id, tile_id: tile_ids).pluck(:tile_id)
-  end
-
   def render_partial_if_requested
-    if params[:partial_only]
-      ping("Explore Topic Page", {action: "Clicked See More"}, current_user)
+    return unless params[:partial_only]
 
-      html_content = render_to_string partial: "explores/tiles", locals: {tiles: @tiles}
-      last_batch = @eligible_tiles.count <= offset + tile_batch_size
+    ping("Explore Topic Page", {action: "Clicked See More"}, current_user)
 
-      render json: {
-        htmlContent: html_content,
-        lastBatch:   last_batch
-      }
-    end
+    html_content = render_to_string partial: "explores/tiles", locals: {tiles: @tiles}
+    last_batch = @eligible_tiles.count <= offset + tile_batch_size
+
+    render json: {
+      htmlContent: html_content,
+      lastBatch:   last_batch
+    }
   end
 
   def offset
