@@ -122,7 +122,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @tile = get_tile
 
     @tile.update_status(params[:update_status])
-    presenter = SingleTilePresenter.new(@tile, :html, @is_client_admin_action, browser.ie?)
+    presenter = SingleAdminTilePresenter.new(@tile, :html, @is_client_admin_action, browser.ie?)
     render partial: 'client_admin/tiles/manage_tiles/single_tile', locals: { presenter: presenter}
   end
 
@@ -272,7 +272,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def tile_presenter
-    @presenter ||= SingleTilePresenter.new(@tile, :html, @is_client_admin_action, browser.ie?)
+    @presenter ||= SingleAdminTilePresenter.new(@tile, :html, @is_client_admin_action, browser.ie?)
   end
 
   def render_tile_preview_string
