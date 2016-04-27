@@ -74,11 +74,11 @@ class TilesToolsSubnavPresenter
         icon: "rocket", 
         text: "Explore"
       },
-{
+      {
         item_id: "library", 
-        link: explore_path, 
-        icon: "rocket", 
-        text: "Explore"
+        link: client_admin_stock_boards_path, 
+        icon: "bank", 
+        text: "Library"
       },
 
       {
@@ -134,6 +134,8 @@ class TilesToolsSubnavPresenter
   end
 
   def list_of_blocked_items
-    ["Share", "Activity", "Prizes", "Users"]
+    list = ["Share", "Activity", "Prizes", "Users"]
+    list << "Explore" if demo.explore_disabled?
+    list
   end
 end
