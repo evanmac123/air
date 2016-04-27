@@ -34,8 +34,8 @@
   max-width:238px;
   position: relative;
   vertical-align: top;
-  .completed {
-    li {
+  &.completed {
+    .tile-wrapper {
       @include ease(.5s);
       filter: alpha(opacity=25);
       opacity: 0.25;

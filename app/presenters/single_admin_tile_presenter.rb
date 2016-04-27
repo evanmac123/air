@@ -21,6 +21,10 @@ class SingleAdminTilePresenter
     end
   end
 
+  def completed_class
+    ""
+  end
+
   def has_activation_dates?
     true
   end
