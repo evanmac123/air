@@ -8,17 +8,14 @@
 <div id="tile_wall">
   <%=content_tag :h1, hdr_text, class:"tile-wall-header text-center padded-v-20" if hdr_text %>
   <%= render 'shared/tile_tags', tags: tags %>
-   
+
   <div class="all_tile_thumbnails row">
     <% if not_completed_tiles.present? %>
       <% not_completed_tiles.each do |tile| %>
-        <div class="tile_thumbnail">
-          <div class='not-completed'>
-            <%= render 'shared/displayable_tile', displayable_tile: tile, tile_thumbnail_url: tile_thumbnail_target(tile, selected_tag_id) %>
-          </div>
-        </div>
+        <% presenter = SingleTilePresenter.new(tile, params, "user", browser.ie?) %>
+        <%= render 'client_admin/tiles/manage_tiles/single_tile', presenter: presenter %>
       <% end %>
-    <% end %>       
+    <% end %>
     <% if completed_tiles.present? %>
       <% completed_tiles.each do |tile| %>
         <div class="tile_thumbnail">
@@ -27,7 +24,7 @@
          </div>
         </div>
       <% end %>
-    <% end %>       
+    <% end %>
     <% odd_row_length = tiles_length % tile_row_size %>
     <% if odd_row_length != 0 || @no_tiles_to_do %>
       <% (tile_row_size - odd_row_length).times do %>

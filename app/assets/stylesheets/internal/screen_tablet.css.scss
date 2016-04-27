@@ -11,10 +11,10 @@
 
 /* -- Tile wall -- */
 @import 'tile/tile_thumbnail/tiles_thumbnails_desktop';
-.tile_thumbnail {
-  margin-bottom:1em;
-  width:32%;
-}
+// .tile_thumbnail {
+//   margin-bottom:1em;
+//   width:32%;
+// }
 #tile_links .show_more_tiles {
   display: inline-block;
   width:auto;
@@ -57,7 +57,7 @@
     }
     #gender_change {
       float:right;
-      padding-left:1em; 
+      padding-left:1em;
     }
   }
 }
@@ -67,6 +67,6 @@
     display: inline-block;
     float: left;
     width: 50%;
-  } 
+  }
   ul + ul {padding-top:1em;}
 }

@@ -1,10 +1,10 @@
 class SingleTilePresenter
   include Rails.application.routes.url_helpers
 
-  def initialize tile, format, type, is_ie
+  def initialize tile, params, type, is_ie
     @tile = tile
-    @type = type
-    @format = format
+    @type = type # explore or user
+    @params = params
     @is_ie = is_ie
   end
 
@@ -27,6 +27,8 @@ class SingleTilePresenter
   def show_tile_path
     if type == 'explore'
       explore_tile_preview_path(self)
+    else
+      @params[:public_slug] ? public_tile_path(@params[:public_slug], self) : tile_path(self)
     end
   end
 
