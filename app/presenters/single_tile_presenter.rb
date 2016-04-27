@@ -1,15 +1,26 @@
 class SingleTilePresenter
   include Rails.application.routes.url_helpers
 
-  def initialize tile, params, type, is_ie
+  def initialize tile, params, type, is_ie, completed = nil
     @tile = tile
     @type = type # explore or user
     @params = params
     @is_ie = is_ie
+    @completed = completed
   end
 
   def status
     type
+  end
+
+  def completed_class
+    if @completed.nil?
+      ""
+    elsif @completed
+      "completed"
+    else
+      "not-completed"
+    end
   end
 
   def has_tile_stats?
