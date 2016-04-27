@@ -132,6 +132,8 @@ Health::Application.routes.draw do
 
     resources :multiple_choice_tiles, controller: 'tiles'
 
+    resources :stock_boards
+
     resources :tiles do
       collection do
         get "blank"

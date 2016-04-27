@@ -74,6 +74,13 @@ class TilesToolsSubnavPresenter
         icon: "rocket", 
         text: "Explore"
       },
+{
+        item_id: "library", 
+        link: explore_path, 
+        icon: "rocket", 
+        text: "Explore"
+      },
+
       {
         item_id: "home_nav", 
         link: activity_path, 
