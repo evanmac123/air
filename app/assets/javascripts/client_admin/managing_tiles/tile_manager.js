@@ -6,10 +6,14 @@ Airbo.TileManager = (function(){
     // , editTileBtnSel = ".edit_button a"
     // , openFormSel = [newTileBtnSel, editTileBtnSel].join(", ")
     , tileWrapperSelector =".tile_container"
+    , managerType // main or archived
   ;
   var newTileBtn
     , thumbnailMenu
   ;
+  function getManagerType() {
+    return managerType;
+  }
   function pageSectionByStatus(status){
     return $("#" + status + sectionSelector);
   }
@@ -57,19 +61,28 @@ Airbo.TileManager = (function(){
   function initVars() {
     tileThumbnail = Airbo.TileThumbnail.init(this);
   }
-  function init() {
+  function init(type) {
+    managerType = type;
     initVars();
     initEvents();
   }
   return {
     init: init,
     updateTileSection: updateTileSection,
-    updateSections: updateSections
+    updateSections: updateSections,
+    getManagerType: getManagerType
   }
 }());
 
 $(function(){
-  if( $(".manage_tiles").length > 0 ) {
-    Airbo.TileManager.init();
+  var manageType;
+  var manageNum = $(".manage_tiles").length;
+  if( manageNum > 0 ) {
+    if(manageNum == 3) {
+      manageType = "main";
+    } else {
+      manageType = "archived";
+    }
+    Airbo.TileManager.init(manageType);
   }
 });

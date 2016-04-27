@@ -164,8 +164,10 @@ Airbo.TileAction = (function(){
     var tile = tileByStatusChangeTriggerLocation(trigger);
     function postProcess(){
       tile.remove();
-      Airbo.Utils.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
-      updateShowMoreDraftTilesButton();
+      if(Airbo.TileManager.getManagerType() == "main") {
+        Airbo.Utils.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
+        updateShowMoreDraftTilesButton();
+      }
     }
 
     swal(
