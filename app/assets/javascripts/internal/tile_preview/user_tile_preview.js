@@ -38,7 +38,7 @@ Airbo.UserTilePreview =(function(){
             showOrHideStartOverButton(data.show_start_over_button === true);
           } else {
             $('#slideshow').html(data.tile_content);
-            setUpAnswers();
+            initTile();
             showOrHideStartOverButton($('#slideshow .tile_holder').data('show-start-over') === true);
             ungrayoutTile();
           }
@@ -78,6 +78,11 @@ Airbo.UserTilePreview =(function(){
     loadNextTileWithOffset(1, preloadAnimationsDone, Airbo.ProgressAndPrizeBar.predisplayAnimations, posting);
   };
 
+
+  function initTile(){
+   setUpAnswers();
+   Airbo.Utils.ExternalLinkHandler.init();
+  }
   function setUpAnswers() {
     Airbo.TileAnswers.init({
       onRightAnswer: rightAnswerClicked
@@ -101,7 +106,7 @@ Airbo.UserTilePreview =(function(){
 
   function init(){
     bindTileCarouselNavigationButtons();
-    setUpAnswers();
+    initTile();
   }
   return {
    init: init
