@@ -52,6 +52,7 @@ $joyride-screenfill: rgba(0,0,0,0.5) !default;
     font-family: inherit;
     font-weight: normal;
     width: 95%;
+    border: $joyride-tip-border;
   }
 
   .lt-ie9 .joyride-tip-guide {
