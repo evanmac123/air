@@ -1,6 +1,6 @@
 <div class='viewer'>
-  <%= link_to "", explore_tile_preview_path(prev_tile), :id => "prev_tile", class: "button_arrow prev_tile", data:{action: "show", tile_id: @prev_tile.id} %>
-  <%= link_to "", explore_tile_preview_path(next_tile), :id => "next_tile", class: "button_arrow next_tile", data:{action: "show", tile_id: @next_tile.id} %>
+  <%= link_to "", explore_tile_preview_path(prev_tile, tag:tag), :id => "prev_tile", class: "button_arrow prev_tile", data:{action: "show", tile_id: @prev_tile.id} %>
+  <%= link_to "", explore_tile_preview_path(next_tile, tag:tag), :id => "next_tile", class: "button_arrow next_tile", data:{action: "show", tile_id: @next_tile.id} %>
 
   <div id="tile_preview_section">
     <%=render partial: 'copy_btn', locals: {tile: tile} unless guest_for_tile_preview?%>
