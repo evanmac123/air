@@ -4,6 +4,26 @@
   float: left;
   padding-bottom: 1.5rem;
   // height: 400px;
+  &[data-status=user] {
+    float: none;
+    text-align: center;
+    min-width: 140px;
+    width: 100%;
+    max-width: 238px;
+    position: relative;
+    vertical-align: top;
+
+    display: inline-block;
+    padding: 0;
+    width: 100%;
+    @media only screen and (min-width: 319px) {
+      width:49%;
+    }
+    @media only screen and (min-width: 500px) {
+      width:32%;
+      margin-bottom:1em;
+    }
+  }
 }
 
 .tile_thumbnail {
