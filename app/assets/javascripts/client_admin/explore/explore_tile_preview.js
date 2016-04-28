@@ -135,9 +135,22 @@ Airbo.GuestExploreTilePreview = (function(){
   function open() {
 
   }
+  function removeLoadingPlaceholder() {
+    $(".tile_full_image").removeClass("loading").attr("style", "");
+  }
+  function loadImage() {
+    if( $("#tile_img_preview")[0].complete ) {
+      removeLoadingPlaceholder();
+    }else{
+      $("#tile_img_preview").on("load", function(){
+        removeLoadingPlaceholder();
+      });
+    }
+  }
   function init() {
     Airbo.ShareLink.init();
     Airbo.TileCarouselPage.init();
+    loadImage();
     return this;
   }
   return {
