@@ -43,11 +43,6 @@ Airbo.TilePreviewModal = (function(){
       trigger: "click"
     });
   }
-  function initImgLoadingPlaceHolder(){
-    $("#tile_img_preview").on("load", function(){
-      $(".tile_full_image").removeClass("loading").attr("style", "");
-    });
-  }
   function initStickyPreviewMenu() {
     Airbo.StickyMenu.init(self);
   }
@@ -91,7 +86,7 @@ Airbo.TilePreviewModal = (function(){
   function initPreviewElements() {
     Airbo.TileCarouselPage.init();
     initPreviewMenuTooltips();
-    initImgLoadingPlaceHolder();
+    Airbo.ImageLoadingPlaceholder.init();
     initStickyPreviewMenu();
     arrowsObj.initEvents();
     initEvents();

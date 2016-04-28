@@ -9,6 +9,7 @@
 //= require ../../../vendor/assets/javascripts/confirm_with_reveal.modified
 //= require_self
 //= require_tree ./internal
+//= require ./client_admin/tile_preview/image_loading_placeholder
 //= require ./client_admin/tile_preview/tile_carousel
 //= require ./client_admin/tile_preview/sticky_menu
 //= require ./client_admin/tile_preview/tile_preview_arrows
@@ -29,4 +30,3 @@ $(document).ready(function() {
   $(document).foundation();
   $(document).foundation('reveal', {animation: "fade"});
 });
-
