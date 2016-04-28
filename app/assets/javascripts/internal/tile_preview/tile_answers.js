@@ -49,7 +49,9 @@ Airbo.TileAnswers = (function(){
     });
   }
   function checkInTile() {
-    return $(answerSel).length === 1;
+    var isAction = $(answerSel).length === 1;
+    var isSurvey = $(rightAnswerSel).length > 1;
+    return isAction || isSurvey;
   }
   function attachRightAnswerMessage(event) {
     if ( !checkInTile() ) {
