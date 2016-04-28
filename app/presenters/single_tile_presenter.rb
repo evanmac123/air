@@ -1,6 +1,13 @@
 class SingleTilePresenter
   include Rails.application.routes.url_helpers
 
+  attr_reader :tile, :type
+  delegate  :id,
+            :thumbnail,
+            :headline,
+            :demo,
+            to: :tile
+
   def initialize tile, params, type, is_ie, completed = nil
     @tile = tile
     @type = type # explore or user
@@ -59,14 +66,8 @@ class SingleTilePresenter
       type,
       tile_id,
       headline,
-      @is_ie
+      @is_ie,
+      @completed
     ].join('-')
   end
-
-  attr_reader :tile, :type
-  delegate  :id,
-            :thumbnail,
-            :headline,
-            :demo,
-            to: :tile
 end
