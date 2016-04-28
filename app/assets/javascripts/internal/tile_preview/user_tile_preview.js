@@ -117,4 +117,8 @@ $(document).ready(function() {
   if( $(".tiles-index").length > 0) {
     Airbo.UserTilePreview.init();
   }
+  // external tile preview
+  if( $(".tile.tile-show").length > 0 ) {
+    Airbo.TileAnswers.init();
+  }
 });
