@@ -19,6 +19,7 @@ updateShowMoreDraftTilesButton = function(){
 }
 
 updateShowMoreArchiveTilesButton = function(){
+  return;
   button = $(".show_all_inactive_section")
   if( notTilePlaceholdersInSection( $("#archive") ).length > 4 ){
     button.show()

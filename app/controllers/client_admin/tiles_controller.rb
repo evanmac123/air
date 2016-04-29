@@ -138,6 +138,11 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     render_preview_and_single
   end
 
+  def next_tile
+    @tile = Tile.next_manage_tile get_tile, 1
+    render_preview_and_single
+  end
+
   private
   def permit_params
     params.require(:tile_builder_form).permit!

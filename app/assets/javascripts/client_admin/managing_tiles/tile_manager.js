@@ -77,6 +77,7 @@ Airbo.TileManager = (function(){
 $(function(){
   var manageType;
   var manageNum = $(".manage_tiles").length;
+  
   if( manageNum > 0 ) {
     if(manageNum == 3) {
       manageType = "main";
