@@ -173,7 +173,7 @@ Airbo.TileAction = (function(){
       dataType: "json",
       url: '/client_admin/tiles/' + lastTileId + '/next_tile',
       success: function(data, status,xhr){
-        if(data.tileId) {
+        if(data.tileId && lastTileId != data.tileId) {
           placeholders.first().replaceWith(data.tile);
         }
       },
