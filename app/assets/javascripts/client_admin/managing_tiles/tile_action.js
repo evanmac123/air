@@ -122,7 +122,11 @@ Airbo.TileAction = (function(){
 
       function(isConfirm){
         if (!isConfirm) {
-          tileContainerByDataTileId(tileId).find(editSelector).trigger("click");
+          if( Airbo.TileManager.managerType == "main" ) {
+            tileContainerByDataTileId(tileId).find(editSelector).trigger("click");
+          } else {
+            window.location = "/client_admin/tiles";
+          }
         }
       }
     );
