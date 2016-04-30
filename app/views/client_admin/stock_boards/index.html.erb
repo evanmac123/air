@@ -5,7 +5,7 @@
       <div class="row ">
         <%@sorted_demos.each do |board|%>
           <div class="columns small-12 large-3 ">
-            <%= render partial: "pages/landing/topic", locals: {board:board}%> 
+            <%= render partial: "pages/landing/topic", locals: {board:board, path: stock_board_path(public_slug:board.public_slug)}%> 
           </div>
         <%end%>
       </div>
