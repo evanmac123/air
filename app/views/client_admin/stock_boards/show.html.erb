@@ -1,0 +1,16 @@
+<div id="tile_wall">
+  <div class="all_tile_thumbnails row">
+    <% @tiles.each do |tile| %>
+      <div class="tile_thumbnail">
+        <div class='not-completed'>
+          <%= render 'shared/displayable_tile', displayable_tile: tile, tile_thumbnail_url: tile_thumbnail_target(tile) %>
+        </div>
+      </div>
+    <% end %>
+    <span id="justifier" style="visibility:hidden; width:35%; display:inline-block;">&nbps;</span>
+    <%# render 'shared/tiles_wall_client_admin_tools', disable_button: all_tiles_displayed %>
+  </div>
+</div>
+
+
+
