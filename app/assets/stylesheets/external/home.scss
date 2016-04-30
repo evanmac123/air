@@ -1,14 +1,16 @@
+
 body.pages-home {
 
   $h2-size: 24px;
 
-  color: $home-gray;
-  
-  /*
-  h2 {
-    font-size: 24px;
-  }
-   */
+
+    color: $home-gray;
+
+    /*
+    h2 {
+      font-size: 24px;
+    }
+     */
 
   .hero {
     background-color: #379fd7;
@@ -43,25 +45,25 @@ body.pages-home {
         font-size: 18px;
       }
 
-     .flag.success{
-      padding: 10px 20px;
-      margin:0;
-      height: 37px;
-      margin-top: -4px;
-      font-size: 16px;
+      .flag.success{
+        padding: 10px 20px;
+        margin:0;
+        height: 37px;
+        margin-top: -4px;
+        font-size: 16px;
 
-      &.icon{
-        .fa{
-          font-size: 24px;
-          line-height:10px;
-          vertical-align: middle;
-          margin-left: 10px;
-          margin-right: 0px;
+        &.icon{
+          .fa{
+            font-size: 24px;
+            line-height:10px;
+            vertical-align: middle;
+            margin-left: 10px;
+            margin-right: 0px;
+          }
         }
-      }
-     } 
+      } 
 
-   
+
     }
   }
   .client_logos {
@@ -84,7 +86,6 @@ body.pages-home {
       margin-bottom: 30px;
       margin-top: 0;
     }
-
 
   }
 
@@ -199,3 +200,5 @@ p {
     margin-bottom:40px;
   }
 }
+
+
