@@ -5,6 +5,9 @@ class ClientAdmin::StockBoardsController < ClientAdminBaseController
   end
 
   def show
+    @current_user = current_user
+    @demo = Demo.public_board_by_public_slug(params[:public_slug])
+    @tiles = @demo.tiles
   end
 
  private
