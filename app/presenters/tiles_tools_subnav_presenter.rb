@@ -17,6 +17,7 @@ class TilesToolsSubnavPresenter
   end
 
   def items_with_corrected_params
+
     set_subnav_elements.each do |item_params|
       yield correct_params(item_params)
     end
@@ -42,7 +43,11 @@ class TilesToolsSubnavPresenter
     else
       subnav_elements
     end
+
+    subnav_elements.reject!{|el|el[:item_id]=="explore" if demo.explore_disabled?}
+    subnav_elements
   end
+
 
   def correct_params params = {}
     params[:icon] ||= nil
@@ -135,7 +140,5 @@ class TilesToolsSubnavPresenter
 
   def list_of_blocked_items
     list = ["Share", "Activity", "Prizes", "Users"]
-    list << "Explore" if demo.explore_disabled?
-    list
   end
 end
