@@ -1,4 +1,4 @@
-// FIXME extract out all functionality not related to tagging 
+// FIXME extract out all functionality not related to tagging
 var Airbo = window.Airbo || {};
 
 Airbo.TileTagger = (function(){
@@ -179,7 +179,7 @@ Airbo.TileTagger = (function(){
   }
 
   function initShareToExploreToggle(){
-
+isValidToShareToExplore()
     shareToExplore.click(function(event) {
       var shareRadios, uncheckedRadio;
       event.preventDefault();
@@ -280,7 +280,10 @@ Airbo.TileTagger = (function(){
     publicTileForm.on('submit', function(event) {
       event.preventDefault();
       if (isValidToShareToExplore()){
+        enableShareLink();
         ajaxHandler.submit($(this), config.submitSuccess, config.submitFail);
+      } else {
+        disableShareLink();
       }
       return false;
     });
@@ -323,4 +326,3 @@ Airbo.TileTagger = (function(){
 
 
 }());
-
