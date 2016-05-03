@@ -4,11 +4,7 @@
 
       <h3 id="feeds_title">Activity</h3>
 
-      <% content_for :javascript do %>
-        <%= javascript_tag do %>
-          bindShowMoreTilesLink('.show_more_tiles', '.tile-wrapper', '#show_more_tiles_spinner', '#tile_wall', 'replace');
-        <% end %>
-      <% end %>
+ 
 
       <% if @acts.present? %>
         <ul id="user-acts">
