@@ -139,8 +139,12 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def next_tile
-    @tile = Tile.next_manage_tile get_tile, 1
-    render_preview_and_single
+    @tile = Tile.next_manage_tile get_tile, 1, false
+    if @tile
+      render_preview_and_single
+    else
+      render nothing: true
+    end
   end
 
   private

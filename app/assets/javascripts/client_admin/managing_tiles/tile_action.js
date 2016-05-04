@@ -178,7 +178,8 @@ Airbo.TileAction = (function(){
       url: '/client_admin/tiles/' + lastTileId + '/next_tile',
       success: function(data, status,xhr){
         if(data.tileId && lastTileId != data.tileId) {
-          placeholders.first().replaceWith(data.tile);
+          fillInLastTile(data.tileId, "archive", data.tile);
+          // placeholders.first().replaceWith(data.tile);
         }
       },
 

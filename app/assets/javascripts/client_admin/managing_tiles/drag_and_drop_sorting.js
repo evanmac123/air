@@ -85,7 +85,8 @@ sectionHasFreePlace = function(section){
 }
 
 sectionIsFull = function(section){
-  return (notTilePlaceholdersInSection(section).length >= 8)
+  var tileNum = Airbo.Utils.TilePlaceHolderManager.visibleTilesNumberIn(section);
+  return (notTilePlaceholdersInSection(section).length >= tileNum);
 }
 
 notTilePlaceholdersInSection = function(section){
