@@ -26,6 +26,7 @@
   <%= render 'shared/nerf_animations_in_test' %>
   <%= render partial: '/shared/mixpanel' %>
   <%= render 'shared/inspectlet' %>
+  <%=content_for :head%>
 </head>
 <body class="<%= body_class %> client_admin_main" style="-webkit-overflow-scrolling: touch; overflow:visible; ">
   <%= render 'shared/header' %>
