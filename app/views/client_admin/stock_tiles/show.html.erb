@@ -1,0 +1,20 @@
+<%#TODO move init to js file%>
+<%content_for :head do%>
+  <script>
+$(function(){
+  Airbo.TileCarouselPage.init();
+})
+  </script>
+<%end%>
+
+<div class="container row">
+  <div class="viewer">
+    <%= link_to "", client_admin_stock_tile_path(@prev), :id => :prev  %>
+    <div id="slideshow">
+      <%= render 'tiles/full_size_tile', :tile => @tile, :current_tiles => @current_tiles %>
+    </div>
+    <%= link_to "", client_admin_stock_tile_path(@next), :id => :next %>
+  </div>
+</div>
+
+

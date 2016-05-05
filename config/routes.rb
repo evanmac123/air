@@ -134,6 +134,7 @@ Health::Application.routes.draw do
     resources :multiple_choice_tiles, controller: 'tiles'
 
     resources :stock_boards
+    resources :stock_tiles
 
     resources :tiles do
       collection do

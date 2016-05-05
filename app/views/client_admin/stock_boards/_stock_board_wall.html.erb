@@ -1,0 +1,21 @@
+<div id="tile_wall" class="no-margin-top">
+  <div class="all_tile_thumbnails row">
+    <% @tiles.each do |tile| %>
+      <div class="tile_thumbnail">
+        <div class='not-completed'>
+          <%= render 'shared/displayable_tile', displayable_tile: tile, tile_thumbnail_url: tile_thumbnail_target(tile) %>
+        </div>
+      </div>
+    <% end %>
+    <span id="justifier" style="visibility:hidden; width:35%; display:inline-block;">&nbps;</span>
+  </div>``
+  <%if @show_more_tiles%>
+    <div id='tile_links'>
+      <%=link_to  stock_board_path(public_slug: params[:public_slug]), class: 'show_more_tiles', data:{contentType: "html"} do %>
+        More
+        <%=image_tag "spinner_gears_bg.gif", :style => 'display: none', :id => 'show_more_tiles_spinner'%>
+      <%end%>
+    </div>
+  <%end%>
+</div>
+
