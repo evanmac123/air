@@ -22,7 +22,7 @@
 
 /* -- Large tile viewer -- */
 .tiles.tiles-index,
-.tile_previews.tile_previews-show {
+.tile_previews.tile_previews-show, .client_admin-stock_tiles.client_admin-stock_tiles-show {
   .content .row, .tile_holder {max-width:600px;}
 }
 
