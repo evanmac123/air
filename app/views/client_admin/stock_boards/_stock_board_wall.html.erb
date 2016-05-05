@@ -7,6 +7,13 @@
         </div>
       </div>
     <% end %>
+    <% odd_row_length = @tiles.count % tile_row_size %>
+    <% if odd_row_length != 0 || @no_tiles_to_do %>
+      <% (tile_row_size - odd_row_length).times do %>
+        <div class='placeholder_tile tile_thumbnail'></div>
+      <% end %>
+    <% end %>
+
     <span id="justifier" style="visibility:hidden; width:35%; display:inline-block;">&nbps;</span>
   </div>``
   <%if @show_more_tiles%>

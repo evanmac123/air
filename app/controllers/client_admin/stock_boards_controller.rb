@@ -1,4 +1,5 @@
 class ClientAdmin::StockBoardsController < ClientAdminBaseController
+  include TileBatchHelper
   def index
      sort_demos
 
