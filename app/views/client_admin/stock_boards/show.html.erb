@@ -1,16 +1,8 @@
-<div id="tile_wall">
-  <div class="all_tile_thumbnails row">
-    <% @tiles.each do |tile| %>
-      <div class="tile_thumbnail">
-        <div class='not-completed'>
-          <%= render 'shared/displayable_tile', displayable_tile: tile, tile_thumbnail_url: tile_thumbnail_target(tile) %>
-        </div>
-      </div>
-    <% end %>
-    <span id="justifier" style="visibility:hidden; width:35%; display:inline-block;">&nbps;</span>
-    <%= render 'shared/tiles_wall_client_admin_tools', disable_button: false %>
-  </div>
-</div>
-
+<% content_for :javascript do %>
+  <%= javascript_tag do %>
+    bindShowMoreTilesLink('.show_more_tiles', '.tile-wrapper', '#show_more_tiles_spinner', '.all_tile_thumbnails', 'append');
+  <% end %>
+<% end %>
+<%= render "stock_board_wall" %>
 
 

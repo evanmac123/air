@@ -10,7 +10,7 @@ Health::Application.routes.draw do
   # moved these to top level but don't want to break old links
   match "client_admin/explore"     => "explores#show"
   match "client_admin/explore_new" => "explores#show"
-  match "library/:public_slug" => "client_admin/stock_boards#show", :as => "stock_board", :via => :get
+  match "library/:library_slug" => "client_admin/stock_boards#show", :as => "stock_board", :via => :get
   match "ard/:public_slug" => "public_boards#show", :as => "public_board", :via => :get
   match "ard/:public_slug/activity" => "acts#index", :as => "public_activity", :via => :get
   match "ard/:public_slug/tiles" => "tiles#index", :as => "public_tiles", :via => :get

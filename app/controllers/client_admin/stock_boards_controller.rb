@@ -6,9 +6,14 @@ class ClientAdmin::StockBoardsController < ClientAdminBaseController
 
   def show
     @current_user = current_user
-    @demo = Demo.public_board_by_public_slug(params[:public_slug])
-    @tiles = @demo.tiles.active
+    @demo = Demo.public_board_by_public_slug(params[:library_slug])
+    @tiles = @demo.tiles.active.order("activated_at desc").limit(16).offset(params[:offset])
+    if request.xhr?
+      render :partial => "stock_board_wall", :layout => false and return
+    end
+    @show_more_tiles = true
   end
+
 
  private
 
