@@ -133,8 +133,8 @@ Health::Application.routes.draw do
 
     resources :multiple_choice_tiles, controller: 'tiles'
 
-    resources :stock_boards
-    resources :stock_tiles
+    resources :stock_boards, path: 'library'
+    resources :stock_tiles, path: 'library_tiles'
 
     resources :tiles do
       collection do
