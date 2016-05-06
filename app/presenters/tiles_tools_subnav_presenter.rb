@@ -17,8 +17,9 @@ class TilesToolsSubnavPresenter
   end
 
   def items_with_corrected_params
-
-    set_subnav_elements.each do |item_params|
+set_subnav_elements
+    elements = set_subnav_elements.reject{|el|el[:item_id]=="explore" if demo.explore_disabled?}
+    elements.each do |item_params|
       yield correct_params(item_params)
     end
   end
@@ -44,8 +45,6 @@ class TilesToolsSubnavPresenter
       subnav_elements
     end
 
-    subnav_elements.reject!{|el|el[:item_id]=="explore" if demo.explore_disabled?}
-    subnav_elements
   end
 
 
