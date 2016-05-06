@@ -118,7 +118,7 @@ body.client_admin-inactive_tiles {
 
 
 .topics {
-  @include topic-set
- background: transparent;
+  @include topic-set;
+  background: transparent;
 }
 
