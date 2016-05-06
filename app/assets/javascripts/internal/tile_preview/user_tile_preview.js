@@ -114,11 +114,11 @@ Airbo.UserTilePreview =(function(){
 }());
 
 $(document).ready(function() {
-  if( $(".tiles-index").length > 0) {
+  if( $(".tiles-index, .client_admin-stock_tiles-show" ).length > 0) {
     Airbo.UserTilePreview.init();
   }
   // external tile preview
-  if( $(".tile.tile-show").length > 0 ) {
+  if( $(".tile.tile-show, .client_admin-stock_tiles-show").length > 0 ) {
     Airbo.TileAnswers.init();
   }
 });

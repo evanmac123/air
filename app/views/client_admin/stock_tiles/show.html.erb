@@ -1,12 +1,3 @@
-<%#TODO move init to js file%>
-<%content_for :head do%>
-  <script>
-$(function(){
-  Airbo.TileCarouselPage.init();
-})
-  </script>
-<%end%>
-
 <%= render partial: 'shared/tiles/user_progress', locals: { raffle: current_user.demo.raffle } %>
 <div class="container row">
   <div class="viewer">
@@ -18,4 +9,4 @@ $(function(){
   </div>
 </div>
 
-
+:

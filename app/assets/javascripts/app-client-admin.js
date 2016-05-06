@@ -21,6 +21,8 @@
 
 //= require ./internal_and_external/underscore-min
 //= require ./internal/tile_preview/tile_answers
+//= require ./internal/tile_preview/progress_and_prize_bar
+//= require ./internal/tile_preview/user_tile_preview
 //= require ./internal/show_more_tiles_link
 //= require ./internal/countUp.min
 //= require ./internal/byte_counter
