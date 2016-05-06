@@ -33,6 +33,9 @@
 @import "./internal/screen_desktop.css.scss";
 @import "./internal/large_tile_viewer_desktop.css.scss";
 @import "./tile/tile_fullsize/_tiles_fullsize.css.scss";
+@import "./external/category.scss";
+@import "./internal/user_progress.css.scss";
+@import "internal/user_progress_desktop.css.scss";
 @import "internal/screen_tablet.css.scss";
 @import 'client_admin/tiles_tools_subnav';
 @import "./client_admin/board_settings.css.scss";

@@ -1,10 +1,10 @@
-body.acts-index{
+body.acts-index, .client_admin-stock_boards, .client_admin-stock_tiles{
   .user_container{
     height: 10rem;
     background: #d9dfe9;
   }
 }
-body.tiles-index, body.acts-index{
+body.tiles-index, body.acts-index, .client_admin-stock_boards, .client_admin-stock_tiles{
   #user_progress{
     //max-width: 600px;
     max-width: 46.8rem;

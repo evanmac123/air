@@ -7,6 +7,7 @@ $(function(){
   </script>
 <%end%>
 
+<%= render partial: 'shared/tiles/user_progress', locals: { raffle: current_user.demo.raffle } %>
 <div class="container row">
   <div class="viewer">
     <%= link_to "", client_admin_stock_tile_path(@prev), :id => :prev  %>
