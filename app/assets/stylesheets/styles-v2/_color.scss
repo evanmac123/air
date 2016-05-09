@@ -10,6 +10,7 @@ $text-color-1: #404040; /* body copy, headers...*/
 
 $border-color-1: #DDDDDD; /* for tables, form elements...*/
 
+
 /* TODO: not sure yet the gray scale here is the best idea */
 $gray-1: #F9F9F9;
 $gray-2: #F0F0F0; /* board background */
@@ -17,10 +18,46 @@ $gray-3: #EEEEEE;
 $gray-4: #999999;
 $gray-5: #A8A8A8;
 $gray-6: #DDDDDD;
+$gray-7: #e8e8e8;
 
 $home-gray: #666666;
 
+$darker-gray:       #66676d;
+$light-gray:        #dfdfdf;
+$lightest-gray:     #f2f2f2;
+
+$dark-gray:         #2e2e2c;
+$med-gray:          #a8a8a8;
+$gray:              #818385;
 /*    */
+
+
+// ------------------------ * Colors * ------------------------
+// Various grays
+$almost-white:      #fefefe;
+$off-white:         #fafafa;
+$dark:              #0c0c0b;
+
+// Our palette
+$blue:              #50698C;
+$light-blue:        #a7d5ef;
+$sky-blue:          $n-blue;//#4face0;
+$dark-green:        #4FAA60;
+$red:               #BC4C40;
+$white:             #fff;
+
+// App elements
+$header-color:      #fff;
+$offcanvas-gray:    $dark-gray;
+$text-color:        #4c4c4c;
+$tile-text:         #a8a8a8;
+$tile-tag-border:   #dfdfdf;
+$body-bg:           lighten($blue, 56.5%);  // #fefefe
+$tile-wall-bg:      lighten($blue, 45%);    // #d9dfe9
+$form-bg:           lighten($blue, 53%);    // #f2f5f8
+$ca-subnav-color:   darken($blue, 15%);     // #34445b
+
+
 
 .gradient-blue {
   background-color: #379fd7;

@@ -1,35 +1,4 @@
 @import "styles-v2/app.scss";
-// ------------------------ * Colors * ------------------------
-// Various grays
-$dark-gray:         #2e2e2c;
-$med-gray:          #a8a8a8;
-$gray:              #818385;
-$almost-white:      #fefefe;
-$off-white:         #fafafa;
-$darker-gray:       #66676d;
-$light-gray:        #dfdfdf;
-$lightest-gray:     #f2f2f2;
-$dark:              #0c0c0b;
-
-// Our palette
-$blue:              #50698C;
-$light-blue:        #a7d5ef;
-$sky-blue:          $n-blue;//#4face0;
-$dark-green:        #4FAA60;
-$red:               #BC4C40;
-$white:             #fff;
-
-// App elements
-$header-color:      #fff;
-$offcanvas-gray:    $dark-gray;
-$text-color:        #4c4c4c;
-$tile-text:         #a8a8a8;
-$tile-tag-border:   #dfdfdf;
-$body-bg:           lighten($blue, 56.5%);  // #fefefe
-$tile-wall-bg:      lighten($blue, 45%);    // #d9dfe9
-$form-bg:           lighten($blue, 53%);    // #f2f5f8
-$ca-subnav-color:   darken($blue, 15%);     // #34445b
-
 // ------------------------ * Misc dependents * ------------------------
 @mixin clear {
   clear:both;
