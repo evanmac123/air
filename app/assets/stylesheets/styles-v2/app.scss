@@ -4,6 +4,13 @@ $foundation: 768px;
 @import "fonts";
 @import "font-awesome";
 @import 'animation';
+@import "color";
+@import "normalize";
+@import "typography";
+@import "tables";
+@import "mixins";
+
+
 @import "defaults";
 
 $has-tip-border-bottom: none;
@@ -34,5 +41,4 @@ $joyride-tip-border: solid 1px $border-color-1;;
 @import "forms";
 @import "shame";
 @import "marketing";
-
 $joyride-tip-nub-size: 14px;
