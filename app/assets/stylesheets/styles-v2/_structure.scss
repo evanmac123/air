@@ -104,11 +104,14 @@ footer {
 
 
 .breadcrumbs {
-  background-color: #34445B;
-  padding: 10px 0px;
-  color: white;
-  .spacer{
-    padding: 0px 3px;
+  &.library{  background-color: #34445B;
+    padding: 10px 0px;
+    border: none;
+    border-radius: initial;
+    color: white;
+    .spacer{
+      padding: 0px 3px;
+    }
   }
 }
 
