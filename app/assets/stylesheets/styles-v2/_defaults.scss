@@ -14,14 +14,7 @@ body {
 //   }
 // }
 
-.background-white {
-  background-color: $n-white;
-}
 
-.hidden,
-.hidden-field { // TODO: see if .hidden-field can be merged into .hidden
-  display: none;
-}
 
 hr {
   background-color: $gray-4;

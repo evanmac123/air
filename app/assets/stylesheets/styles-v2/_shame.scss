@@ -154,6 +154,15 @@ td .button.td-button {
  background-color: #d9dfe9;
 }
 
+.background-white {
+  background-color: $n-white;
+}
+
+.hidden,
+.hidden-field { // TODO: see if .hidden-field can be merged into .hidden
+  display: none;
+}
+
 .client_admin-stock_boards-index {
   .core, .content {
     background: #d9dfe9;
