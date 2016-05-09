@@ -1,13 +1,5 @@
 
-<section style="background-color: #d9dfe9">
-<div class="row" >
-  <div class="columns small-10 small-centered">
-    <div class="breadcrumb" style="padding-top:20px">
-      <%=link_to "Content Library", client_admin_stock_boards_path %> > <span><%=@demo.name%></span> 
-    </div>
-  </div>
-</div>
-</section>
+
 <%= render partial: 'shared/tiles/user_progress', locals: { raffle: current_user.demo.raffle } %>
 <div id="tile_wall" class="no-margin-top">
   <div class="all_tile_thumbnails row">

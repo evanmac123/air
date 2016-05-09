@@ -1,10 +1,8 @@
-<section style="background-color: #d9dfe9" style="max-width:46.8rem; margin:auto;">
-<div class="row" >
-  <div class="columns small-8 small-centered">
-  <div class="breadcrumb" style="padding-top:30px">
-    <%=link_to "Content Library", client_admin_stock_boards_path %> > <%=link_to @tile.demo.name, stock_board_path(library_slug: @tile.demo.public_slug) %> > <span><%=@tile.headline%></span> 
-  </div>
-  </div>
+<section class="breadcrumbs">
+<div class="row collapse" >
+  <div class="columns small-12 large-10">
+    <%=link_to "Content Library", client_admin_stock_boards_path %> <i class="fa fa-caret-right"></i> <%=link_to @tile.demo.name, stock_board_path(library_slug: @tile.demo.public_slug) %> <i class="fa fa-caret-right"></i>Tiles<span> 
+ </div>
 </div>
 </section>
 <%= render partial: 'shared/tiles/user_progress', locals: { raffle: current_user.demo.raffle } %>
