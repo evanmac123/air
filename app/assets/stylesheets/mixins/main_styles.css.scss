@@ -412,12 +412,18 @@ body {
   border-left:none;
   border-right:none;
   a {
-    color: $blue;
+    color: $n-blue;
+    &:hover{
+      text-decoration:underline;
+    }
   }
   color: $blue;
   .spacer{
     padding: 0px 3px;
-    color: $n-blue;
+    color: $blue;
+  }
+  .terminus{
+    color: $blue;
   }
 }
 
