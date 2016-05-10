@@ -1,3 +1,4 @@
+<%if Rails.env.production?%>
 <!-- Begin Inspectlet Embed Code -->
 <script type="text/javascript" id="inspectletjs">
 window.__insp = window.__insp || [];
@@ -8,3 +9,4 @@ setTimeout(ldinsp, 500); document.readyState != "complete" ? (window.attachEvent
 })();
 </script>
 <!-- End Inspectlet Embed Code -->
+<%end%>
