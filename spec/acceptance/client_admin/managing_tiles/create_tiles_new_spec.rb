@@ -54,7 +54,9 @@ feature "Client admin creates tiles", js: true do
       fill_in_tile_form_entries edit_text: edit_text, points: points
       click_create_button
 
+      expect(page).to  have_css ".tile_preview_menu.active_menu"
       within ".viewer" do 
+
         expect(page).to  have_content "by Society#{edit_text}"
         expect(page).to  have_content "Ten pounds of cheese#{edit_text}"
         expect(page).to  have_content "Ten pounds of cheese. Yes? Or no?#{edit_text}"
@@ -68,7 +70,7 @@ feature "Client admin creates tiles", js: true do
 
 
   def click_create_button
-    page.find("#new_tile_builder_form input[type=submit]").trigger("click")
+    page.find(".submit_tile_form").trigger("click")
   end
 
   def fill_in_tile_form_entries options = {}
