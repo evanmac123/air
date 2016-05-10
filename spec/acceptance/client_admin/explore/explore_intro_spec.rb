@@ -1,7 +1,11 @@
 require 'acceptance/acceptance_helper'
 
+#NOTE These tests are no longer valid as 05/2016 and introduction of Content Library new users are no directed to the content libary instead of Explore
+#TODO delete this feature spec  
+
 feature 'Explore Intro', js: true do#, driver: :selenium do
-  context "first sign in" do
+  pending "first sign in" do
+
     # let!(:client_admin) { FactoryGirl.create(:client_admin) }
     before do
       sign_up
@@ -49,7 +53,7 @@ feature 'Explore Intro', js: true do#, driver: :selenium do
     end
   end
 
-  context "by link from explore email" do
+  pending "by link from explore email" do
     let(:admin)   { FactoryGirl.create :client_admin, :with_explore_intro, name: 'Robbie Williams', email: 'robbie@williams.com' }
     let(:tile) { FactoryGirl.create :multiple_choice_tile, :public, headline: 'Phil Kills Kittens', supporting_content: '6 kittens were killed' }
 

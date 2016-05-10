@@ -1,11 +1,14 @@
 require 'acceptance/acceptance_helper'
+#NOTE This spec is no longer valid since the new onboarding doesn't require
+#these steps
+#TODO remove this conversion spec
 
 feature 'Guest user is prompted to convert to real user' do
   include GuestUserConversionHelpers
 
   let (:board) {FactoryGirl.create(:demo, public_slug: "sluggg", is_public: true)}
 
-  context "buttons to open the form again or sign in" do
+  pending "buttons to open the form again or sign in" do
     before do
       visit public_board_path(public_slug: board.public_slug)
       wait_for_conversion_form
@@ -43,7 +46,7 @@ feature 'Guest user is prompted to convert to real user' do
     end
   end
 
-  context "close button in conversion form" do
+  pending "close button in conversion form" do
     before do
       visit public_board_path(public_slug: board.public_slug)
       wait_for_conversion_form
@@ -126,7 +129,7 @@ feature 'Guest user is prompted to convert to real user' do
       FakeMixpanelTracker.should have_event_matching('User - New', source: 'public link')
     end
     
-    context "when the email is used but unclaimed" do
+    pending "when the email is used but unclaimed" do
       before do
         @setup.call
         wait_for_conversion_form
@@ -192,7 +195,7 @@ feature 'Guest user is prompted to convert to real user' do
 
     it_should_behave_like "a successful conversion"
 
-    context "when a location is chosen" do
+    pending "when a location is chosen" do
       def local_setup
         setup_before_visit
         visit public_board_path(public_slug: board.public_slug)
@@ -255,7 +258,7 @@ feature 'Guest user is prompted to convert to real user' do
       wait_for_conversion_form
     end
 
-    context "when the name is missing" do
+    pending "when the name is missing" do
       before do
         fill_in_conversion_email "jimmy@example.com"
         fill_in_conversion_password "jimbim"
@@ -269,7 +272,7 @@ feature 'Guest user is prompted to convert to real user' do
       it_should_behave_like "no user creation"
     end
 
-    context "when the email is missing" do
+    pending "when the email is missing" do
       before do
         fill_in_conversion_name "Jim Jones"
         fill_in_conversion_password "jimbim"
@@ -283,7 +286,7 @@ feature 'Guest user is prompted to convert to real user' do
       it_should_behave_like "no user creation"
     end
 
-    context "when the email given is in the wrong format" do
+    pending "when the email given is in the wrong format" do
       before do
         fill_in_conversion_name "Jim Jones"
         fill_in_conversion_email "asdasdasdasdasdasdasdasdasdasd"
@@ -298,7 +301,7 @@ feature 'Guest user is prompted to convert to real user' do
       it_should_behave_like "no user creation"
     end
 
-    context "when the password is missing" do
+    pending "when the password is missing" do
       before do
         fill_in_conversion_name "Jim Jones"
         fill_in_conversion_email "jim@example.com"
@@ -317,7 +320,7 @@ feature 'Guest user is prompted to convert to real user' do
       it_should_behave_like "no user creation"
     end
 
-    context "when the password is too short" do
+    pending "when the password is too short" do
       before do
         fill_in_conversion_name "Jim Jones"
         fill_in_conversion_email "jim@example.com"
@@ -332,7 +335,7 @@ feature 'Guest user is prompted to convert to real user' do
       it_should_behave_like "no user creation"
     end
 
-    context "when the email is already taken and claimed" do
+    pending "when the email is already taken and claimed" do
       before do
         FactoryGirl.create(:user, :claimed, email: 'jimmy@example.com')
         wait_for_conversion_form
@@ -362,7 +365,7 @@ feature 'Guest user is prompted to convert to real user' do
       end
     end
    
-    context "when a bad location name is present" do
+    pending "when a bad location name is present" do
       before do
         @board = board
         @board.update_attributes(use_location_in_conversion: true)
@@ -406,7 +409,7 @@ feature 'Guest user is prompted to convert to real user' do
     end
   end
 
-  context "when there are no tiles" do
+  pending "when there are no tiles" do
     before do
       @board = board
       @setup = lambda{ visit public_board_path(public_slug: board.public_slug) }
@@ -426,7 +429,7 @@ feature 'Guest user is prompted to convert to real user' do
     it_should_behave_like "conversion unhappy path"
   end
 
-  context "when there is one tile" do
+  pending "when there is one tile" do
     before do
       @board = board
       @setup = lambda do
@@ -460,7 +463,7 @@ feature 'Guest user is prompted to convert to real user' do
     it_should_behave_like "conversion unhappy path"
   end
 
-  context "when there are two tiles" do
+  pending "when there are two tiles" do
     before do
       @board = board
       @setup = lambda do
@@ -500,7 +503,7 @@ feature 'Guest user is prompted to convert to real user' do
     it_should_behave_like "conversion unhappy path"
   end
 
-  context "when there are more than two tiles" do
+  pending "when there are more than two tiles" do
     before do
       create_tiles(board, 4) 
     end
@@ -553,7 +556,7 @@ feature 'Guest user is prompted to convert to real user' do
     end
   end
 
-  context "returns user after conversion to last visited page" do
+  pending "returns user after conversion to last visited page" do
     def local_setup
       wait_for_conversion_form
       fill_in_conversion_name "Jimmy Jones"
@@ -588,7 +591,7 @@ feature 'Guest user is prompted to convert to real user' do
     end
   end
 
-  context "log out" do
+  pending "log out" do
     def local_setup
       wait_for_conversion_form
       fill_in_conversion_name "Jimmy Jones"
