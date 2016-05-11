@@ -30,6 +30,9 @@ class ImageProcessJob
   def image_path
     #TODO fix me in test
     URI.parse(URI.encode(@tile.remote_media_url))
+
+  rescue TypeError
+    nil
   end
 
   def library_image
