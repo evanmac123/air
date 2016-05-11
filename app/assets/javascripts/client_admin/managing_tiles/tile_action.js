@@ -4,6 +4,7 @@ Airbo.TileAction = (function(){
   var tileWrapperSelector =".tile_container"
     , tileModalSelector = "#tile_preview_modal"
     , tileWrapperSelector =".tile_container"
+    , editSelector = ".edit_button a"
   ;
   //
   // => Update Status
