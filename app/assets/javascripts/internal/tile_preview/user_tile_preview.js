@@ -25,35 +25,45 @@ Airbo.UserTilePreview =(function(){
     }
     url = '/tiles/' + $('#slideshow .tile_holder').data('current-tile-id');
     $.when(preloadAnimations, tilePosting).then(function() {
-      $.get(url, {
-        partial_only: true,
-        offset: offset,
-        after_posting: afterPosting,
-        completed_only: $('#slideshow .tile_holder').data('completed-only'),
-        previous_tile_ids: $('#slideshow .tile_holder').data('current-tile-ids')
-      }, function(data) {
-        $.when(predisplayAnimations(data, tilePosting)).then(function() {
-          if (data.all_tiles_done === true && afterPosting) {
-            $('.content .container.row').replaceWith(data.tile_content);
-            showOrHideStartOverButton(data.show_start_over_button === true);
-          } else {
-            $('#slideshow').html(data.tile_content);
-            initTile();
-            showOrHideStartOverButton($('#slideshow .tile_holder').data('show-start-over') === true);
-            ungrayoutTile();
-          }
-          if (data.show_conversion_form === true) {
-            if ($("body").data("public-board") === true) {
-              Airbo.ScheduleDemoModal.openModal();
-              Airbo.ScheduleDemoModal.modalPing("Source", "Auto");
-            } else {
-              lightboxConversionForm();
-            }
-          }
-        });
-      });
+      getTile(url,afterPosting,tilePosting, offset, predisplayAnimations);
+
     });
   };
+
+  function getTile(url, afterPosting, tilePosting, offset, predisplayAnimations){
+      $.get(
+        url, 
+        {
+          partial_only: true,
+          offset: offset,
+          after_posting: afterPosting,
+          completed_only: $('#slideshow .tile_holder').data('completed-only'),
+          previous_tile_ids: $('#slideshow .tile_holder').data('current-tile-ids')
+        }, 
+        function(data) {
+          $.when(predisplayAnimations(data, tilePosting)).then(function() {
+            if (data.all_tiles_done === true && afterPosting) {
+              $('.content .container.row').replaceWith(data.tile_content);
+              showOrHideStartOverButton(data.show_start_over_button === true);
+            } else {
+              $('#slideshow').html(data.tile_content);
+              initTile();
+              showOrHideStartOverButton($('#slideshow .tile_holder').data('show-start-over') === true);
+              ungrayoutTile();
+            }
+            if (data.show_conversion_form === true) {
+              if ($("body").data("public-board") === true) {
+                Airbo.ScheduleDemoModal.openModal();
+                Airbo.ScheduleDemoModal.modalPing("Source", "Auto");
+              } else {
+                lightboxConversionForm();
+              }
+            }
+          });
+        }
+      );
+  }
+
 
   function findCsrfToken() {
     return $('meta[name="csrf-token"]').attr('content');
