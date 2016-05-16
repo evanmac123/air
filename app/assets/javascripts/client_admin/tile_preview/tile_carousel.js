@@ -4,9 +4,7 @@ Airbo.TileCarouselPage = (function() {
   }
 
   function init(){
-    // grayoutTile();
     Airbo.TileAnswers.init();
-    // ungrayoutTile();
     initLinkFixer();
   }
   return {
