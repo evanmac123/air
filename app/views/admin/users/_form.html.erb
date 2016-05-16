@@ -1,0 +1,66 @@
+<%= semantic_form_for @user, :url => admin_demo_user_path(@user.demo, @user) do |form| %>
+  <%= form.input :name %>
+  <%= form.input :email %>
+  <%= form.input :phone_number %>
+  <%= form.input :zip_code, hint: '5 digits' %>
+  <%= form.input :date_of_birth, start_year: 1930, end_year: Time.now.year - 10, order: [:month, :day, :year], include_blank: true %>
+  <%= form.input :claim_code %>
+  <%= form.label :is_client_admin, "Is client admin:" %>
+  <%= form.check_box :is_client_admin %>
+  <br/>
+  <%= form.submit "Submit", class: "button" %>
+<% end %>
+
+<fieldset>
+  <legend>This User's Tiles</legend>
+
+  <%= button_to "Reset tiles for this user in #{@user.demo.name}",  admin_reset_tiles_path(:demo_id => @user.demo, :user_id => @user.id), :method => :delete, class: "button" %>
+</fieldset>
+
+<%= form_tag admin_demo_user_characteristics_path(@user.demo, @user), :method => :put do %>
+  <fieldset>
+    <legend>Characteristics</legend>
+    <div id="agnostic-characteristics">
+      <h2>Demo-agnostic characteristics</h2>
+      <%= characteristic_inputs @agnostic_characteristics, @user %>
+    </div>
+
+    <div id="specific-characteristics">
+      <h2>Demo-specific characteristics</h2>
+      <%= characteristic_inputs @demo_specific_characteristics, @user %>
+    </div>
+
+    <%= submit_tag "Set characteristics", class: "button" %>
+  </fieldset>
+<% end %>
+
+<%= form_tag admin_demo_user_test_status_path(@user.demo, @user), method: :put do %>
+  <fieldset>
+    <% if @user.is_test_user %>
+      <legend>Make this user not a test user</legend>
+      <%= hidden_field_tag "user[is_test_user]", false %>
+      <%= submit_tag "Make non-test user", class: "button" %>
+    <% else %>
+      <legend>Make this user a test user</legend>
+      <%= hidden_field_tag "user[is_test_user]", true %>
+      <%= submit_tag "Make test user", class: "button" %>
+    <% end %>
+  </fieldset>
+<% end %>
+
+<%= semantic_form_for @user, :url => admin_demo_user_path(@user.demo, @user) do |form| %>
+  <fieldset>
+    <legend>Move User To A Different Demo</legend>
+    <p>If you move this user, any actions they did under the original demo will still exist in the database, but won't show up until such time as you move them back to that original demo.</p>
+    <%= form.input :demo, :collection => @demos, :label_method => :name, :include_blank => false %>
+    <%= form.submit 'Move User', class: "button" %>
+  </fieldset>
+<% end %>
+
+<%= form_tag admin_demo_user_path(@user.demo, @user), :method => :delete do %>
+  <fieldset>
+    <legend>Delete User</legend>
+    Deleting users is <strong>irrevocable</strong>. There is <strong>no undo</strong>. All the history we have on this user (activities, friendships, everything) will be <strong>gone forever</strong> if you push this button.
+    <%= submit_tag 'Destroy user', :confirm => "Don't say I didn't warn you. Are you sure you want to delete #{@user.name}?", class: "button red" %>
+  </fieldset>
+<% end %>
