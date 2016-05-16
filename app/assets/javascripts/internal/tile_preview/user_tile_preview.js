@@ -10,20 +10,26 @@ Airbo.UserTilePreview =(function(){
   };
 
   function loadNextTileWithOffset(offset, preloadAnimations, predisplayAnimations, tilePosting) {
-    var afterPosting, url;
+    var afterPosting
+      , url = '/tiles/' + $('#slideshow .tile_holder').data('current-tile-id')
+    ;
+
     afterPosting = typeof tilePosting !== 'undefined';
+
     if (preloadAnimations == null) {
       preloadAnimations = $.Deferred().resolve();
     }
+
     if (tilePosting == null) {
       tilePosting = $.Deferred().resolve();
     }
+
     if (predisplayAnimations == null) {
       predisplayAnimations = function() {
         return $.Deferred().resolve();
       };
     }
-    url = '/tiles/' + $('#slideshow .tile_holder').data('current-tile-id');
+
     $.when(preloadAnimations, tilePosting).then(function() {
       getTile(url,afterPosting,tilePosting, offset, predisplayAnimations);
 
