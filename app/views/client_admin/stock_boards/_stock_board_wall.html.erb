@@ -1,6 +1,6 @@
 
 
-<%= render partial: 'shared/tiles/user_progress', locals: { raffle: current_user.demo.raffle } %>
+<%= render partial: 'shared/tiles/user_progress', locals: { as_null: true, raffle:nil, demo: @demo } %>
 <div id="tile_wall" class="no-margin-top">
   <div class="all_tile_thumbnails row">
     <% @tiles.each do |tile| %>

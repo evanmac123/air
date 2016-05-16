@@ -5,7 +5,7 @@
  </div>
 </div>
 </section>
-<%= render partial: 'shared/tiles/user_progress', locals: { raffle: current_user.demo.raffle } %>
+<%= render partial: 'shared/tiles/user_progress', locals: { as_null: true, raffle: nil, demo: @tile.demo } %>
 <div class="container row">
   <div class="viewer">
     <%= link_to "", client_admin_stock_tile_path(@prev), :id => :prev  %>
