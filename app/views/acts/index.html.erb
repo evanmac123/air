@@ -3,7 +3,7 @@
 <%= render partial: 'shared/tiles/user_progress', locals: {raffle: current_user.demo.raffle} %>
 <%= render 'shared/tile_wall', @displayable_categorized_tiles.merge(path_for_more_tiles: tiles_path) %>
 
-<%if !@demo.is_parent?%>
+<% unless @demo.is_parent? && current_user.is_guest? %>
   <%= render "activity_feed" %>
 <%end%>
 
@@ -16,4 +16,4 @@
 <% elsif @display_get_started_lightbox %>
   <% suppress_conversion_modal = @current_user.demo && $rollout.active?(:suppress_conversion_modal, @current_user.demo) %>
   <%= render "get_started_lightbox", board_name: current_user.demo.name, is_guest: @current_user.is_guest?, get_started_lightbox_message: @get_started_lightbox_message, suppress_conversion_modal: suppress_conversion_modal %>
-<% end %>      
+<% end %>
