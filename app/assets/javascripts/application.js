@@ -25,8 +25,9 @@ var DefaultUtils = {
 
   noop:  function(){},
 
-  urlParamValueByname: function getQueryVariable(variable){
-    var query = window.location.search.substring(1);
+  urlParamValueByname: function getQueryVariable(variable, target){
+    var haystack = target || window.location.search;
+    var query = haystack.substring(1);
     var vars = query.split("&");
     for (var i=0;i<vars.length;i++) {
       var pair = vars[i].split("=");
