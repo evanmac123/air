@@ -4,13 +4,7 @@
  * so we need to keep them global for now
 */
 
-function grayoutTile() {
-  return $('#spinner_large').fadeIn('slow');
-};
 
-function ungrayoutTile() {
-  return $('#spinner_large').fadeOut('slow');
-};
 
 var Airbo = window.Airbo || {};
 
