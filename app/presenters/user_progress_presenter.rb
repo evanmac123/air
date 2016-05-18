@@ -33,4 +33,12 @@ class UserProgressPresenter
   def old_browser?
     @browser.ie6? || @browser.ie7? || @browser.ie8?  
   end
+
+  def persist_locally?
+    false
+  end
+
+  def config
+    {user: @user.id, demo: @user.demo.id, available: available_tile_count, completed: completed_tile_count, points: points}.to_json
+  end
 end
