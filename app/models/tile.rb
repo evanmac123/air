@@ -24,7 +24,7 @@ class Tile < ActiveRecord::Base
   TRUE_FALSE            = "True / False".parameterize("_").freeze
   MULTIPLE_CHOICE       = "Multiple Choice".parameterize("_").freeze
   RSVP_TO_EVENT         = "RSVP to event".parameterize("_").freeze
-  
+
 
   belongs_to :demo
   belongs_to :creator, class_name: 'User'
@@ -58,7 +58,7 @@ class Tile < ActiveRecord::Base
   before_create :set_on_first_position
   before_save :ensure_protocol_on_link_address, :handle_status_change
   before_save :set_image_credit_to_blank_if_default
-  after_save :process_image, if: :image_changed? 
+  after_save :process_image, if: :image_changed?
   before_post_process :no_post_process_on_copy
 
   STATUS.each do |status_name|
@@ -103,7 +103,7 @@ class Tile < ActiveRecord::Base
 
   def status=(new_status)
     case new_status
-    when ACTIVE  then 
+    when ACTIVE  then
       if !already_activated
         self.activated_at = Time.now
       end
@@ -192,9 +192,10 @@ class Tile < ActiveRecord::Base
     next_tile || tile # i.e. we have only one tile so next tile is nil
   end
 
-  def self.next_manage_tile tile, offset
+  def self.next_manage_tile tile, offset, carousel = true
     tiles = where(status: tile.status, demo: tile.demo).ordered_by_position
-    tiles[tiles.index(tile) + offset] || tiles.first
+    first_tile = carousel ? tiles.first : nil
+    tiles[tiles.index(tile) + offset] || first_tile
   end
 
   # ------------------------------------------------------------------------------------------------------------------
@@ -257,7 +258,7 @@ class Tile < ActiveRecord::Base
   end
 
   def is_cloned= val
-    @cloned = val 
+    @cloned = val
   end
 
   def custom_supporting_content_class
@@ -294,12 +295,12 @@ class Tile < ActiveRecord::Base
 
   def sanitize_supporting_content
     self.supporting_content = Sanitize.fragment(
-      strip_content, 
-      elements: [ 
+      strip_content,
+      elements: [
         'ul', 'ol', 'li',
         'b', 'strong', 'i', 'em', 'u',
         'span', 'div', 'p',
-        'br', 'a' 
+        'br', 'a'
       ],
       attributes: { 'a' => ['href', 'target'] }
     ).strip
@@ -307,7 +308,7 @@ class Tile < ActiveRecord::Base
 
   def strip_content
     supporting_content.try(:strip) || ""
-  end 
+  end
 
 
   def set_image_credit_to_blank_if_default

@@ -123,7 +123,11 @@ Airbo.TileAction = (function(){
 
       function(isConfirm){
         if (!isConfirm) {
-          tileContainerByDataTileId(tileId).find(editSelector).trigger("click");
+          if( Airbo.TileManager.managerType == "main" ) {
+            tileContainerByDataTileId(tileId).find(editSelector).trigger("click");
+          } else {
+            window.location = "/client_admin/tiles";
+          }
         }
       }
     );
@@ -161,12 +165,42 @@ Airbo.TileAction = (function(){
         }
       });
   }
+  function loadLastArchiveTile() {
+    var archiveSection = $(".manage_section#archive");
+    var placeholders = tilePlaceholdersInSection( archiveSection );
+    if(placeholders.length == 0 ) {
+      return;
+    }
+    var tiles = notTilePlaceholdersInSection( archiveSection );
+    var lastTileId = tiles.last().data("tile-container-id");
+    $.ajax({
+      type: "GET",
+      dataType: "json",
+      url: '/client_admin/tiles/' + lastTileId + '/next_tile',
+      success: function(data, status,xhr){
+        if(data.tileId && lastTileId != data.tileId) {
+          fillInLastTile(data.tileId, "archive", data.tile);
+          // placeholders.first().replaceWith(data.tile);
+        }
+      },
+
+      error: function(jqXHR, textStatus, error){
+        console.log(error);
+      }
+    });
+  }
   function confirmDeletion(trigger){
     var tile = tileByStatusChangeTriggerLocation(trigger);
     function postProcess(){
+      var isArhciveSection = tile.data("status") == "archive";
       tile.remove();
+      // if(Airbo.TileManager.getManagerType() == "main") {
       Airbo.Utils.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
       updateShowMoreDraftTilesButton();
+      // }
+      if(isArhciveSection) {
+        loadLastArchiveTile();
+      }
     }
 
     swal(
