@@ -3,22 +3,23 @@ class FullSizeTilePresenter
   SAFE_NBSP = "&nbsp;".html_safe.freeze
 
   attr_reader :tile, :user, :is_preview, :browser
-  delegate  :id,
-            :image,
-            :headline,
-            :image_credit,
-            :link_address,
-            :points,
-            :question,
-            :multiple_choice_answers,
-            :correct_answer_index,
-            :is_survey?,
-            :is_action?,
-            :original_creator,
-            :tile_completions,
-            :full_size_image_height,
-            :custom_supporting_content_class,
-            to: :tile
+  delegate :id,
+    :demo,
+    :image,
+    :headline,
+    :image_credit,
+    :link_address,
+    :points,
+    :question,
+    :multiple_choice_answers,
+    :correct_answer_index,
+    :is_survey?,
+    :is_action?,
+    :original_creator,
+    :tile_completions,
+    :full_size_image_height,
+    :custom_supporting_content_class,
+    to: :tile
 
   def initialize(tile, user, is_preview, current_tile_ids, browser)
     @tile = tile
@@ -26,6 +27,10 @@ class FullSizeTilePresenter
     @is_preview = is_preview
     @current_tile_ids = current_tile_ids
     @browser = browser
+  end
+
+  def storage_key
+    "progress.#{demo.id}.#{id}"
   end
 
   def supporting_content
