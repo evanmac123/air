@@ -194,6 +194,7 @@ function initDom(){
     $('.raffle_entries_num').html(tileData.ending_tickets);
   }
 
+  //TODO simplify this usage of promises
   function predisplayAnimations(tileData, response) {
     var startingData = $.parseJSON(response) || {};
     setFlashes(tileData);
