@@ -27,7 +27,7 @@ class NullUserProgressPresenter
   end
 
   def config
-    {user: @user_id, demo: @demo_id, available: available_tile_count, completed: completed_tile_count, points: 0, tile_points: tile_points, key:storage_key}.to_json
+    {user: @user_id, demo: @demo_id, available: available_tile_count, completed: completed_tile_count, points: 0, tile_points: tile_points, key:storage_key}
    
   end
 
