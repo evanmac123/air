@@ -99,7 +99,7 @@ Airbo.UserTilePreview =(function(){
 
       };
 
-      $.when(Airbo.ProgressAndPrizeBar.predisplayAnimations(data)).then(handler);
+      $.when(Airbo.ProgressAndPrizeBar.predisplayAnimations(data, responseText)).then(handler);
     };
 
     getTile(params, cb);
