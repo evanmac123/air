@@ -198,15 +198,15 @@ function initDom(){
     var startingData = $.parseJSON(response) || {};
     setFlashes(tileData);
 
-      //second, fill tile bar
-      return $.when( fillTileBar(tileData.all_tiles, tileData.completed_tiles) ).then(function(){
-        //third, animate total points. fourth, animate raffle antries
-        return $.when(animateCounter('total_points', startingData.starting_points, tileData.ending_points, 0.5)).then(function() {
-          if( radialProgressBar.length > 0 ){
-            return fillBar(startingData.starting_tickets, tileData.ending_tickets, tileData.raffle_progress_bar, tileData.all_tiles_done);
-          }
-        });
+    //second, fill tile bar
+    return $.when( fillTileBar(tileData.all_tiles, tileData.completed_tiles) ).then(function(){
+      //third, animate total points. fourth, animate raffle antries
+      return $.when(animateCounter('total_points', startingData.starting_points, tileData.ending_points, 0.25)).then(function() {
+        if( radialProgressBar.length > 0 ){
+          return fillBar(startingData.starting_tickets, tileData.ending_tickets, tileData.raffle_progress_bar, tileData.all_tiles_done);
+        }
       });
+    });
   }
 
 
