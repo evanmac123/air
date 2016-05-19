@@ -40,13 +40,11 @@ function initDom(){
   
 
   function animateCounter(domID, previous, current, duration, callback) {
-    debugger
     var counter = new countUp(domID, previous, current, 0, duration);
     counter.useEasing = false;
 
     var element = $('#' + domID);
     element.addClass('counting');
-    debugger
     counter.start(function() {
       element.removeClass('counting');
       if(typeof(callback) === 'function') {
@@ -190,10 +188,6 @@ function initDom(){
     return deferred.promise();
   }
 
-  //
-  //  Makes all progress animation
-  //
-  //
   function setFlashes(tileData){
 
     $('#js-flashes').html(tileData.flash_content);
