@@ -22,6 +22,7 @@ Airbo.ProgressAndPrizeBar = (function(){
     , tileAll
     , progressBar
     , radialProgressBar
+    , legacyBrowser
   ;
 
 function initDom(){
@@ -143,7 +144,7 @@ function initDom(){
 
   function setCongratText(){
     mq = window.matchMedia( "(min-width: 500px)" );
-    if (mq.matches || window.oldBrowser) {
+    if (mq.matches || legacyBrowser) {
       $("#congrat_text").text("You've finished all new tiles!");
     }
   }
@@ -244,3 +245,12 @@ function initDom(){
     init: init
   }
 }());
+
+$(document).ready(function() {
+  if ($(".user_container").length > 0){
+    var config = $(".user_container").data("config")
+    legacyBrowser= config.legacyBrowser;
+    Airbo.ProgressAndPrizeBar.init(config);
+
+  }
+});

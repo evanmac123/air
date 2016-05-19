@@ -1,8 +1,8 @@
 <% presenter = as_null ? NullUserProgressPresenter.new(current_user.id, demo, @tile.try(:points)) : UserProgressPresenter.new(current_user, raffle, browser) %>
-<div class="user_container">
+<%=content_tag :div,  class: "user_container", data:{config:presenter.config} do%> 
   <div id="user_progress">
     <% if raffle %>
-      <%= render partial: "shared/tiles/raffle_progress", locals: {raffle: raffle} %>
+      <%= render partial: "shared/tiles/raffle_progress", locals: {raffle: raffle}  %>
     <% end %>
     <div id="total_section">
       <div class="progress_header" id="total_header">
@@ -39,23 +39,8 @@
       </div>
     </div>
   </div>
-</div>
-<% content_for :javascript do %>
-  <% if presenter.old_browser? %>
-    <script>
-      
-      window.oldBrowser = true;
+<%end%>
 
-    </script>
-  <% end %>
-  <script>
-    
-    $().ready(function(){
-      Airbo.ProgressAndPrizeBar.init(<%=presenter.config.to_json.html_safe%>);
-    });
-
-  </script>
-<% end %>
 <% if raffle && current_user.can_see_raffle_modal? %>
   <%= render partial: "client_admin/prizes/prize_modal", locals: {raffle: raffle} %>
 <% end %>

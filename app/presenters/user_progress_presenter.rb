@@ -39,6 +39,12 @@ class UserProgressPresenter
   end
 
   def config
-    {user: @user.id, demo: @user.demo.id, available: available_tile_count, completed: completed_tile_count, points: points}.to_json
+    {user: @user.id, 
+     demo: @user.demo.id, 
+     available: available_tile_count, 
+     completed: completed_tile_count, 
+     points: points, 
+     legacyBrowser: old_browser?
+    }
   end
 end
