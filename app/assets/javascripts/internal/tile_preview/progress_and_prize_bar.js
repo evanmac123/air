@@ -74,7 +74,7 @@ function initDom(){
     startProgress = currentProgress();
     stepsNumber = finalProgress - startProgress;
     return $({progressCount: 0}).animate({progressCount: stepsNumber}, {
-      duration: 750,
+      duration: 250,
       easing: 'linear',
       step: function(progressCount){
         //FIXME small hack to disable progress bar animation when using custom colors.
