@@ -30,10 +30,7 @@ Airbo.UserTilePreview =(function(){
   };
 
   function grayoutAndScroll() {
-    //$.when(grayoutTile(function(){window.scrollTo(0,0) })).
-      //then(function(){callbacksDoneDeferred.resolve()});
     grayoutTile(function(){
-      console.log("in grayout callback");
       window.scrollTo(0,0) 
     })
   }
@@ -77,9 +74,7 @@ Airbo.UserTilePreview =(function(){
 
 
   function getTileAftherAnswer(responseText){
-
     var params = $.extend(nextTileParams, {offset: 1, afterPosting: true});
-
 
     var cb = function(data) {
       var handler = function() {
