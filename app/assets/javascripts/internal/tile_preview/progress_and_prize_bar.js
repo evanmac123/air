@@ -1,12 +1,52 @@
 var Airbo = window.Airbo || {};
 
 Airbo.ProgressAndPrizeBar = (function(){
+
+
+  //
+  //  All tile progress functions and set up
+  //
+  var  tileCompletedBarSel = "#completed_tiles"
+    , tileCompletedNumSel = "#completed_tiles_num" 
+    , tileCongratSel = "#congrat_header"
+    , tileFullBarSel = "#tile_progress_bar" 
+    , tileCompleteDataSel = "#complete_info" 
+    , tileAllSel = "#all_tiles"
+    , progressBarSel = '#completed_progress'
+    , radialProgressBarSel  = '.progress-radial'
+    , tileCompletedBar
+    , tileCompletedNum
+    , tileCongrat
+    , tileFullBar
+    , tileCompleteData
+    , tileAll
+    , progressBar
+    , radialProgressBar
+  ;
+
+function initDom(){
+
+  tileCompletedBar = $(tileCompletedBarSel) ;
+  tileCompletedNum = $(tileCompletedNumSel); 
+  tileCongrat = $(tileCongratSel);
+  tileFullBar  = $(tileFullBarSel);
+  tileCompleteData = $(tileCompleteDataSel) 
+  tileAll = $(tileAllSel);
+  progressBar = $(progressBarSel);
+  radialProgressBar = $(radialProgressBarSel); 
+
+}
+
+  
+
   function animateCounter(domID, previous, current, duration, callback) {
+    debugger
     var counter = new countUp(domID, previous, current, 0, duration);
     counter.useEasing = false;
 
     var element = $('#' + domID);
     element.addClass('counting');
+    debugger
     counter.start(function() {
       element.removeClass('counting');
       if(typeof(callback) === 'function') {
@@ -14,12 +54,12 @@ Airbo.ProgressAndPrizeBar = (function(){
       }
     });
   }
-  function progressBar() {return $('#completed_progress')};
-  function radialProgressBar() {return $('.progress-radial')};
+
   function currentProgress() {
     progressStr = $('.progress-radial').data("progress")
     return parseInt(progressStr);
   };
+
   function changeRadialProgressBarTo(progressNew){
    //FIXME small hack to disable progress bar animation when using custom colors.
         if($("meta[name='custom-palette']").length > 0){
@@ -29,6 +69,7 @@ Airbo.ProgressAndPrizeBar = (function(){
           .removeClass("progress-" + currentProgress())
           .addClass("progress-" + progressNew);
   };
+
   function fillBarToFinalProgress(finalProgress, allTilesDone, callback) {
 
     radialProgressBar().addClass('counting');
@@ -53,6 +94,7 @@ Airbo.ProgressAndPrizeBar = (function(){
       }
     });
   };
+
   function fillBarEntirely(previousTickets, currentTickets, finalProgress, allTilesDone) {
     var deferred = $.Deferred();
 
@@ -66,6 +108,7 @@ Airbo.ProgressAndPrizeBar = (function(){
     fillBarToFinalProgress(200, allTilesDone, emptyBarCallback);
     return deferred.promise();
   };
+
   function fillBar(previousTickets, currentTickets, finalProgress, allTilesDone) {
     var ticketsIncreased = (previousTickets < currentTickets);
     if(ticketsIncreased) {
@@ -74,30 +117,12 @@ Airbo.ProgressAndPrizeBar = (function(){
       return(fillBarToFinalProgress(finalProgress, allTilesDone));
     }
   }
-  function scrollToTop() { $.Deferred(window.scrollTo(0,0)).promise(); }
-  function tileCompletedPreloadAnimations() {
-    var callbacksDoneDeferred = $.Deferred();
 
-    $.when(grayoutTile()).
-      then(scrollToTop).
-      then(function(){callbacksDoneDeferred.resolve()});
-
-    return callbacksDoneDeferred.promise();
-  }
-  //
-  //  All tile progress functions and set up
-  //
-  function tileCompletedBar(){ return $("#completed_tiles"); }
-  function tileCompletedNum(){ return $("#completed_tiles_num"); }
-  function tileCongrat(){ return $("#congrat_header"); }
-  var tileFullBar = function(){ return $("#tile_progress_bar"); }
-  var tileCompleteData = function() { return $("#complete_info"); }
-  var tileAll = function(){ return $("#all_tiles"); }
 
   function calculateTileProgressWidth(allTiles, completedTiles){
-    fullWidth = tileFullBar().outerWidth();
+    fullWidth = tileFullBar.outerWidth();
     if(allTiles != completedTiles){
-      fullWidth -= tileAll().outerWidth();
+      fullWidth -= tileAll.outerWidth();
     }
     newWidth = parseInt( fullWidth * completedTiles / allTiles);
     if(completedTiles == 0){
@@ -109,42 +134,45 @@ Airbo.ProgressAndPrizeBar = (function(){
     }
     return newWidth;
   }
+
   function setTileBar(allTiles, completedTiles){
-    window.minWidth = parseInt( tileCompletedBar().css("width") );
+    window.minWidth = parseInt( tileCompletedBar.css("width") );
     newWidth = calculateTileProgressWidth(allTiles, completedTiles);
-    tileCompletedBar().css("width", newWidth);
+    tileCompletedBar.css("width", newWidth);
     hideTileNumbers(allTiles, completedTiles);
     showTileNumbers(allTiles, completedTiles);
   }
+
   function setCongratText(){
     mq = window.matchMedia( "(min-width: 500px)" );
     if (mq.matches || window.oldBrowser) {
       $("#congrat_text").text("You've finished all new tiles!");
     }
   }
+
   function hideTileNumbers(allTiles, completedTiles){
-    tileCompletedBar().css("display", "block");       //show progress bar
-    tileCongrat().css("display", "none");             //not show congrat message
-    tileCompleteData().css("display", "none");
-    tileCompletedNum().text(completedTiles);
-    tileAll().text(allTiles);
+    tileCompletedBar.css("display", "block");       //show progress bar
+    tileCongrat.css("display", "none");             //not show congrat message
+    tileCompleteData.css("display", "none");
+    tileCompletedNum.text(completedTiles);
+    tileAll.text(allTiles);
     if(allTiles == completedTiles){
-      tileAll().css("display", "none")
+      tileAll.css("display", "none")
     }else{
-      tileAll().css("visibility", "hidden");
+      tileAll.css("visibility", "hidden");
     }
   }
 
   function showTileNumbers(allTiles, completedTiles){
-    tileCompleteData().css("display", "block");              //show earned points
-    tileAll().css("display", "block").css("visibility", "visible");//show all points
+    tileCompleteData.css("display", "block");              //show earned points
+    tileAll.css("display", "block").css("visibility", "visible");//show all points
 
     if( allTiles == 0 || completedTiles == 0 ){
-      tileCompletedBar().css("display", "none");
+      tileCompletedBar.css("display", "none");
     }else if(allTiles == completedTiles){
-      tileCompleteData().css("display", "none");
-      tileCongrat().css("display", "block");
-      tileAll().css("display", "none");
+      tileCompleteData.css("display", "none");
+      tileCongrat.css("display", "block");
+      tileAll.css("display", "none");
     }
   }
 
@@ -153,7 +181,8 @@ Airbo.ProgressAndPrizeBar = (function(){
 
     newWidth = calculateTileProgressWidth(allTiles, completedTiles);
     hideTileNumbers(allTiles, completedTiles);
-    tileCompletedBar().animate({width: newWidth}, 750, 'linear', function(){
+
+    tileCompletedBar.animate({width: newWidth}, 750, 'linear', function(){
       showTileNumbers(allTiles, completedTiles);
       deferred.resolve();
     });
@@ -164,27 +193,59 @@ Airbo.ProgressAndPrizeBar = (function(){
   //
   //  Makes all progress animation
   //
-  function predisplayAnimations(tileData, tilePosting) {
-    //first, we post new tile
-    $.when(tilePosting).then(function() {
-      var startingData = $.parseJSON(tilePosting.responseText);
-      $('#js-flashes').html(tileData.flash_content);
-      $('.raffle_entries_num').html(tileData.ending_tickets);
+  //
+  function setFlashes(tileData){
+
+    $('#js-flashes').html(tileData.flash_content);
+    $('.raffle_entries_num').html(tileData.ending_tickets);
+  }
+
+  function predisplayAnimations(tileData, response) {
+    var startingData = $.parseJSON(response) || {};
+    setFlashes(tileData);
+
       //second, fill tile bar
       return $.when( fillTileBar(tileData.all_tiles, tileData.completed_tiles) ).then(function(){
         //third, animate total points. fourth, animate raffle antries
         return $.when(animateCounter('total_points', startingData.starting_points, tileData.ending_points, 0.5)).then(function() {
-          if( radialProgressBar().length > 0 ){
+          if( radialProgressBar.length > 0 ){
             return fillBar(startingData.starting_tickets, tileData.ending_tickets, tileData.raffle_progress_bar, tileData.all_tiles_done);
           }
         });
       });
-    })
+  }
+
+
+
+
+ function getUserProgress(config){
+   if (config.completed === null) {
+     return Airbo.LocalStorage.get(config.key) || 0;
+   }else{
+     return config.completed 
+   }
+ }
+
+ function initLocalUserProgress(config){
+   var progress={ 
+     tileId: config.tileId,
+     tilePoints: tilePoints,
+   }
+
+  Airbo.LocalStorage.set(key,progress); 
+ }
+
+
+  function init(config){
+    var progress = getUserProgress(config)
+    initDom();
+    setTileBar(config.available, progress);
+    setCongratText();
   }
   return {
-    predisplayAnimations: predisplayAnimations,
-    tileCompletedPreloadAnimations: tileCompletedPreloadAnimations,
     setTileBar: setTileBar,
-    setCongratText: setCongratText
+    setCongratText: setCongratText,
+    predisplayAnimations: predisplayAnimations,
+    init: init
   }
 }());
