@@ -6,6 +6,8 @@ Airbo.UserTilePreview =(function(){
     , tileId
     , nextTileUrl
     , progressType = "remote"
+    , progress 
+    , config 
     , nextTileParams = { }
   ;
   function findCsrfToken() {
@@ -157,7 +159,9 @@ Airbo.UserTilePreview =(function(){
 
     tileId = configObj.data("current-tile-id");
     pointValue = configObj.data("point-value");
-    storageKey = configObj.data("key");
+    config = $(".user_container").data("config")
+    storageKey = config.key
+
     if($(".client_admin-stock_tiles-show").length>0){
       progressType = "local";
     }
