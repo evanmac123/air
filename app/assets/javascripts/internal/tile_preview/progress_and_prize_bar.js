@@ -23,6 +23,8 @@ Airbo.ProgressAndPrizeBar = (function(){
     , progressBar
     , radialProgressBar
     , legacyBrowser
+    , config
+    , progress
   ;
 
 function initDom(){
@@ -197,7 +199,8 @@ function initDom(){
 
   //TODO simplify this usage of promises
   function predisplayAnimations(tileData, response) {
-    var startingData = $.parseJSON(response) || {};
+
+    var startingData = (typeof response ==="string") ?  $.parseJSON(response) : response;
     setFlashes(tileData);
 
     //second, fill tile bar
@@ -215,20 +218,16 @@ function initDom(){
 
 
  function getUserProgress(config){
-   if (config.completed === null) {
-     return Airbo.LocalStorage.get(config.key) || 0;
+   if (config.persistLocally === true) {
+     return Airbo.LocalStorage.get(config.key);
    }else{
      return config.completed 
    }
  }
 
- function initLocalUserProgress(config){
-   var progress={ 
-     tileId: config.tileId,
-     tilePoints: tilePoints,
-   }
-
-  Airbo.LocalStorage.set(key,progress); 
+ function initLocalUserProgress(){
+   progress = Airbo.LocalStorage.get(config.key) ||{completed:[], tileCount: config.tileCount, starting_points: 0,starting_tickets:0}
+   Airbo.LocalStorage.set(config.key,progress); 
  }
 
 
@@ -239,7 +238,7 @@ function initDom(){
     initLocalUserProgress();
 
     initDom();
-    setTileBar(config.available, progress);
+    setTileBar(config.available, progress.completed.length);
     setCongratText();
   }
   return {
