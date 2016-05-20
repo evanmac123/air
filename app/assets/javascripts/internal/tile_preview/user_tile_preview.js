@@ -158,7 +158,7 @@ Airbo.UserTilePreview =(function(){
       promise.then(function(data){
 
       progress.starting_points += data.value;
-        progress.completed.push(data.tileId);
+        progress.completed[data.tileId]=data.answer;
         Airbo.LocalStorage.set(storageKey, progress);
       });
       return promise;

@@ -226,19 +226,21 @@ function initDom(){
  }
 
  function initLocalUserProgress(){
-   progress = Airbo.LocalStorage.get(config.key) ||{completed:[], tileCount: config.tileCount, starting_points: 0,starting_tickets:0}
+   progress = Airbo.LocalStorage.get(config.key) ||{completed:{}, tileCount: config.tileCount, starting_points: 0,starting_tickets:0}
    Airbo.LocalStorage.set(config.key,progress); 
  }
 
 
   function init(){
     config = $(".user_container").data("config")
+
+    if(config.persistLocally){
+      initLocalUserProgress();
+    }
+
     legacyBrowser= config.legacyBrowser;
-
-    initLocalUserProgress();
-
     initDom();
-    setTileBar(config.available, progress.completed.length);
+    setTileBar(config.available, Object.keys(progress.completed).length);
     setCongratText();
   }
   return {
