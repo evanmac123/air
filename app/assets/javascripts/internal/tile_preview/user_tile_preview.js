@@ -80,17 +80,17 @@ Airbo.UserTilePreview =(function(){
 
     var cb = function(data) {
       var handler = function() {
-        if (data.all_tiles_done === true) {
-          $('.content .container.row').replaceWith(data.tile_content);
+        if (result.all_tiles_done === true) {
+          $('.content .container.row').replaceWith(result.tile_content);
           showOrHideStartOverButton(data.show_start_over_button === true);
         } else {
-          $('#slideshow').html(data.tile_content);
+          $('#slideshow').html(result.tile_content);
           initTile();
           showOrHideStartOverButton($('#slideshow .tile_holder').data('show-start-over') === true);
           ungrayoutTile();
         }
 
-        if (data.show_conversion_form === true) {
+        if (result.show_conversion_form === true) {
           if ($("body").data("public-board") === true) {
             Airbo.ScheduleDemoModal.openModal();
             Airbo.ScheduleDemoModal.modalPing("Source", "Auto");
@@ -100,8 +100,7 @@ Airbo.UserTilePreview =(function(){
         }
 
       };
-
-      $.when(Airbo.ProgressAndPrizeBar.predisplayAnimations(data, responseText)).then(handler);
+      $.when(Airbo.ProgressAndPrizeBar.predisplayAnimations(result, responseText)).then(handler);
     };
 
     getTile(params, cb);
