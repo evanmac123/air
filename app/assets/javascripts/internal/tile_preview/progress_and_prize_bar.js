@@ -232,8 +232,12 @@ function initDom(){
  }
 
 
-  function init(config){
-    var progress = getUserProgress(config)
+  function init(){
+    config = $(".user_container").data("config")
+    legacyBrowser= config.legacyBrowser;
+
+    initLocalUserProgress();
+
     initDom();
     setTileBar(config.available, progress);
     setCongratText();
@@ -248,9 +252,6 @@ function initDom(){
 
 $(document).ready(function() {
   if ($(".user_container").length > 0){
-    var config = $(".user_container").data("config")
-    legacyBrowser= config.legacyBrowser;
-    Airbo.ProgressAndPrizeBar.init(config);
-
+    Airbo.ProgressAndPrizeBar.init();
   }
 });
