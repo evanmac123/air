@@ -5,6 +5,7 @@ class UserProgressPresenter
     @user = user
     @raffle = raffle
     @browser = browser
+    @demo = user.demo
   end
 
 #  def cache_key
@@ -38,13 +39,25 @@ class UserProgressPresenter
     false
   end
 
+  def storage_key
+    "progress.#{@demo.id}.#{@user.id}"
+  end
+
+  def tile_ids
+     @demo.tiles.active.map(&:id)
+  end
+
   def config
     {user: @user.id, 
-     demo: @user.demo.id, 
+     demo: @demo.id, 
+     tileIds: tile_ids,
+     tileCount: tile_ids.size,
      available: available_tile_count, 
      completed: completed_tile_count, 
      points: points, 
-     legacyBrowser: old_browser?
+     persistLocally: persist_locally?, 
+     legacyBrowser: old_browser?,
+     key: storage_key
     }
   end
 end
