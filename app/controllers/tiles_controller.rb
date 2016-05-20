@@ -19,7 +19,6 @@ class TilesController < ApplicationController
   def index
     @demo = current_user.demo
     @palette = @demo.custom_color_palette
-
     if params[:partial_only]
       set_parent_board_user(params[:board_id])
       @current_user = current_user
@@ -49,7 +48,6 @@ class TilesController < ApplicationController
   def show
     if params[:partial_only]
       set_parent_board_user_by_tile(params[:id])
-
       decide_whether_to_show_conversion_form
 
       new_tile_was_rendered = render_new_tile
@@ -95,7 +93,7 @@ class TilesController < ApplicationController
 
   def render_new_tile
     after_posting = params[:after_posting] == "true"
-    all_tiles_done = Tile.satisfiable_to_user(current_user).empty?
+    all_tiles_done = user_satisfiable_tiles.empty?
     all_tiles = current_user.available_tiles_on_current_demo.count
     completed_tiles = current_user.completed_tiles_on_current_demo.count
     render json: {
@@ -184,10 +182,15 @@ class TilesController < ApplicationController
         current_user.tile_completions.where(tile_id: session[:start_tile]).exists?) || false
   end
 
+  def user_satisfiable_tiles
+    @user_tiles ||=Tile.satisfiable_to_user(current_user, params[:demo])
+  end
+
+
   def satisfiable_tiles
     @_satisfiable_tiles ||= begin
       unless show_completed_tiles
-        Tile.satisfiable_to_user(current_user)
+        user_satisfiable_tiles
       else
         current_user.tile_completions.order("#{TileCompletion.table_name}.id desc").includes(:tile).where("#{Tile.table_name}.demo_id" => current_user.demo_id).map(&:tile)
       end
