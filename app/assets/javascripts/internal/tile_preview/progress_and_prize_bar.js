@@ -233,14 +233,15 @@ function initDom(){
 
   function init(){
     config = $(".user_container").data("config")
-
+    var completed = config.completed
     if(config.persistLocally){
       initLocalUserProgress();
+      completed = Object.keys(progress.completed).length
     }
 
     legacyBrowser= config.legacyBrowser;
     initDom();
-    setTileBar(config.available, Object.keys(progress.completed).length);
+    setTileBar(config.available, completed);
     setCongratText();
   }
   return {
