@@ -151,10 +151,7 @@ Airbo.UserTilePreview =(function(){
         });
         return response;
     }else{
-      progress = Airbo.LocalStorage.get(storageKey);
-      answer = Airbo.Utils.urlParamValueByname("answer_index", event.target.search);
-      promise = $.Deferred().resolve({answer: answer, tileId: tileId, value: pointValue,responseText: {starting_points: progress.starting_points, starting_tickets: 0 }});
-
+      promise = postToLocalStorage();
       promise.then(function(data){
 
       progress.starting_points += data.value;
@@ -165,6 +162,12 @@ Airbo.UserTilePreview =(function(){
     }
   };
 
+
+  function postToLocalStorage(){
+    progress = Airbo.LocalStorage.get(storageKey);
+    answer = Airbo.Utils.urlParamValueByname("answer_index", event.target.search);
+    return $.Deferred().resolve({answer: answer, tileId: tileId, value: pointValue,responseText: {starting_points: progress.starting_points, starting_tickets: 0 }});
+  }
 
   function rightAnswerClicked(event) {
     var tileCompletionPosted = postTileCompletion(event)
