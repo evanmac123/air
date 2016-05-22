@@ -99,7 +99,6 @@ Airbo.UserTilePreview =(function(){
     var cb = function(data) {
       console.log("in callback", Date.now());
       var result = $.extend({}, data);
-
       if(isLocal()){    
         result.all_tiles = progress.tileCount
         result.completed_tiles = completed_tiles(progress.completed)
@@ -136,7 +135,6 @@ Airbo.UserTilePreview =(function(){
     };
 
     getTile(params, cb);
-
     console.log("get tile called", Date.now());
   }
 
@@ -147,6 +145,7 @@ Airbo.UserTilePreview =(function(){
       , answer
       , promise
     ;
+
     if (isRemote()){
       var response = $.ajax({
           type: "POST",
@@ -157,8 +156,7 @@ Airbo.UserTilePreview =(function(){
     }else{
       promise = postToLocalStorage();
       promise.then(function(data){
-
-      progress.starting_points += data.value;
+        progress.starting_points += data.value;
         progress.completed[data.tileId]=data.answer;
         Airbo.LocalStorage.set(storageKey, progress);
       });
@@ -192,6 +190,7 @@ Airbo.UserTilePreview =(function(){
    };
 
    nextTileUrl = '/tiles/' + $('#slideshow .tile_holder').data('current-tile-id')
+   
  }
 
 
