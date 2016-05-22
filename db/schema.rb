@@ -37,7 +37,6 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
   add_index "acts", ["rule_value_id"], :name => "index_acts_on_rule_value_id"
   add_index "acts", ["text"], :name => "index_acts_on_text"
   add_index "acts", ["user_id"], :name => "index_acts_on_player_id"
-  add_index "acts", ["user_type"], :name => "index_acts_on_user_type"
 
   create_table "bad_message_replies", :force => true do |t|
     t.string   "body",           :limit => 160
@@ -71,12 +70,17 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.datetime "updated_at"
   end
 
+  add_index "bad_words", ["demo_id"], :name => "index_bad_words_on_demo_id"
+  add_index "bad_words", ["value"], :name => "index_bad_words_on_value"
+
   create_table "balances", :force => true do |t|
     t.integer  "amount",     :default => 0, :null => false
     t.integer  "demo_id",                   :null => false
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
   end
+
+  add_index "balances", ["demo_id"], :name => "index_balances_on_demo_id"
 
   create_table "billing_informations", :force => true do |t|
     t.string   "expiration_month", :default => "", :null => false
@@ -90,6 +94,8 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.datetime "updated_at",                       :null => false
   end
 
+  add_index "billing_informations", ["user_id"], :name => "index_billing_informations_on_user_id"
+
   create_table "billings", :force => true do |t|
     t.decimal  "amount"
     t.date     "posted"
@@ -97,6 +103,13 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.datetime "updated_at",      :null => false
     t.integer  "contract_id"
     t.integer  "organization_id"
+  end
+
+  create_table "blacklists", :force => true do |t|
+    t.integer  "raffle_id"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "board_memberships", :force => true do |t|
@@ -110,14 +123,17 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.integer  "user_id"
     t.datetime "created_at",                                          :null => false
     t.datetime "updated_at",                                          :null => false
-    t.boolean  "not_show_onboarding",              :default => false
     t.boolean  "displayed_tile_post_guide",        :default => false
     t.boolean  "displayed_tile_success_guide",     :default => false
+    t.boolean  "not_show_onboarding",              :default => false
     t.boolean  "digest_muted",                     :default => false
     t.boolean  "followup_muted",                   :default => false
-    t.boolean  "send_weekly_activity_report",      :default => true
     t.boolean  "allowed_to_make_tile_suggestions", :default => false, :null => false
+    t.boolean  "send_weekly_activity_report",      :default => true
   end
+
+  add_index "board_memberships", ["demo_id"], :name => "index_board_memberships_on_demo_id"
+  add_index "board_memberships", ["user_id"], :name => "index_board_memberships_on_user_id"
 
   create_table "bonus_thresholds", :force => true do |t|
     t.integer  "min_points", :null => false
@@ -128,10 +144,17 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.datetime "updated_at"
   end
 
+  add_index "bonus_thresholds", ["demo_id"], :name => "index_bonus_thresholds_on_demo_id"
+  add_index "bonus_thresholds", ["max_points"], :name => "index_bonus_thresholds_on_max_points"
+  add_index "bonus_thresholds", ["min_points"], :name => "index_bonus_thresholds_on_min_points"
+
   create_table "bonus_thresholds_users", :id => false, :force => true do |t|
     t.integer "user_id"
     t.integer "bonus_threshold_id"
   end
+
+  add_index "bonus_thresholds_users", ["bonus_threshold_id"], :name => "index_bonus_thresholds_users_on_bonus_threshold_id"
+  add_index "bonus_thresholds_users", ["user_id"], :name => "index_bonus_thresholds_users_on_user_id"
 
   create_table "characteristics", :force => true do |t|
     t.string   "name"
@@ -143,6 +166,8 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.string   "datatype"
   end
 
+  add_index "characteristics", ["demo_id"], :name => "index_characteristics_on_demo_id"
+
   create_table "claim_attempt_histories", :force => true do |t|
     t.string   "from",              :default => "", :null => false
     t.text     "claim_information"
@@ -152,6 +177,9 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.integer  "demo_id"
   end
 
+  add_index "claim_attempt_histories", ["demo_id"], :name => "index_claim_attempt_histories_on_demo_id"
+  add_index "claim_attempt_histories", ["from"], :name => "index_claim_attempt_histories_on_from"
+
   create_table "claim_state_machines", :force => true do |t|
     t.text     "states"
     t.integer  "demo_id"
@@ -159,6 +187,8 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "claim_state_machines", ["demo_id"], :name => "index_claim_state_machines_on_demo_id"
 
   create_table "contracts", :force => true do |t|
     t.string   "name"
@@ -180,6 +210,8 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.boolean  "auto_renew",         :default => true
     t.string   "cycle"
   end
+
+  add_index "contracts", ["organization_id"], :name => "index_contracts_on_organization_id"
 
   create_table "custom_color_palettes", :force => true do |t|
     t.integer  "demo_id"
@@ -205,6 +237,8 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "custom_invitation_emails", ["demo_id"], :name => "index_custom_invitation_emails_on_demo_id"
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -293,6 +327,8 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.boolean  "explore_disabled",                                     :default => true
   end
 
+  add_index "demos", ["public_slug"], :name => "index_demos_on_public_slug"
+
   create_table "email_commands", :force => true do |t|
     t.integer  "user_id"
     t.string   "status"
@@ -307,6 +343,8 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.datetime "updated_at"
     t.text     "clean_subject"
   end
+
+  add_index "email_commands", ["user_id"], :name => "index_email_commands_on_user_id"
 
   create_table "email_info_requests", :force => true do |t|
     t.string   "email",      :default => "(email not entered)"
@@ -333,12 +371,17 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.text     "user_ids_to_deliver_to"
   end
 
+  add_index "follow_up_digest_emails", ["demo_id"], :name => "index_follow_up_digest_emails_on_demo_id"
+
   create_table "former_friendships", :force => true do |t|
     t.integer  "user_id"
     t.integer  "friend_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "former_friendships", ["friend_id"], :name => "index_former_friendships_on_friend_id"
+  add_index "former_friendships", ["user_id"], :name => "index_former_friendships_on_user_id"
 
   create_table "friendships", :force => true do |t|
     t.integer  "user_id"
@@ -348,6 +391,10 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.string   "state",         :default => "pending", :null => false
     t.integer  "request_index"
   end
+
+  add_index "friendships", ["friend_id"], :name => "index_friendships_on_friend_id"
+  add_index "friendships", ["request_index"], :name => "index_friendships_on_request_index"
+  add_index "friendships", ["state", "user_id"], :name => "index_friendships_on_state_and_user_id"
 
   create_table "game_creation_requests", :force => true do |t|
     t.string   "customer_name",  :default => "", :null => false
@@ -365,6 +412,9 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.datetime "updated_at"
   end
 
+  add_index "goal_completions", ["goal_id"], :name => "index_goal_completions_on_goal_id"
+  add_index "goal_completions", ["user_id"], :name => "index_goal_completions_on_user_id"
+
   create_table "goals", :force => true do |t|
     t.string   "name",                :default => "", :null => false
     t.integer  "demo_id"
@@ -374,20 +424,23 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.string   "completion_sms_text", :default => "", :null => false
   end
 
+  add_index "goals", ["demo_id"], :name => "index_goals_on_demo_id"
+
   create_table "guest_users", :force => true do |t|
     t.integer  "points",                               :default => 0
     t.integer  "tickets",                              :default => 0
     t.integer  "ticket_threshold_base",                :default => 0
     t.integer  "demo_id"
-    t.datetime "created_at",                                              :null => false
-    t.datetime "updated_at",                                              :null => false
+    t.datetime "created_at",                                             :null => false
+    t.datetime "updated_at",                                             :null => false
     t.integer  "converted_user_id"
     t.boolean  "get_started_lightbox_displayed"
     t.datetime "last_acted_at"
     t.datetime "last_session_activity_at"
     t.boolean  "seeing_marketing_page_for_first_time", :default => true
-    t.boolean  "onboarding_seen",                      :default => false
   end
+
+  add_index "guest_users", ["demo_id"], :name => "index_guest_users_on_demo_id"
 
   create_table "image_containers", :force => true do |t|
     t.string   "image_file_name"
@@ -412,12 +465,16 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.datetime "updated_at"
   end
 
+  add_index "keys", ["name"], :name => "index_keys_on_name"
+
   create_table "labels", :force => true do |t|
     t.integer  "rule_id"
     t.integer  "tag_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "labels", ["rule_id", "tag_id"], :name => "index_labels_on_rule_id_and_tag_id"
 
   create_table "levels", :force => true do |t|
     t.string   "name",              :default => "", :null => false
@@ -428,10 +485,16 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.integer  "index_within_demo"
   end
 
+  add_index "levels", ["demo_id"], :name => "index_levels_on_demo_id"
+  add_index "levels", ["threshold"], :name => "index_levels_on_threshold"
+
   create_table "levels_users", :id => false, :force => true do |t|
     t.integer "level_id"
     t.integer "user_id"
   end
+
+  add_index "levels_users", ["level_id"], :name => "index_levels_users_on_level_id"
+  add_index "levels_users", ["user_id"], :name => "index_levels_users_on_user_id"
 
   create_table "locations", :force => true do |t|
     t.string   "name",            :default => "", :null => false
@@ -440,6 +503,10 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.datetime "updated_at"
     t.string   "normalized_name"
   end
+
+  add_index "locations", ["demo_id"], :name => "index_locations_on_demo_id"
+  add_index "locations", ["name"], :name => "location_name_trigram"
+  add_index "locations", ["normalized_name"], :name => "location_normalized_name_trigram"
 
   create_table "metrics", :force => true do |t|
     t.integer  "starting_customers"
@@ -467,6 +534,8 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.integer  "user_id"
   end
 
+  add_index "more_info_requests", ["user_id"], :name => "index_more_info_requests_on_user_id"
+
   create_table "organizations", :force => true do |t|
     t.string   "name"
     t.integer  "num_employees"
@@ -486,6 +555,10 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.datetime "updated_at"
   end
 
+  add_index "outgoing_emails", ["created_at"], :name => "index_outgoing_emails_on_created_at"
+  add_index "outgoing_emails", ["subject"], :name => "index_outgoing_emails_on_subject"
+  add_index "outgoing_emails", ["to"], :name => "index_outgoing_emails_on_to"
+
   create_table "outgoing_sms", :force => true do |t|
     t.string   "body"
     t.string   "to"
@@ -493,6 +566,8 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "outgoing_sms", ["mate_id"], :name => "index_outgoing_sms_on_mate_id"
 
   create_table "parent_board_users", :force => true do |t|
     t.integer  "points",                   :default => 0
@@ -516,6 +591,8 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.datetime "updated_at",        :null => false
   end
 
+  add_index "payments", ["demo_id", "user_id"], :name => "index_payments_on_demo_id_and_user_id"
+
   create_table "peer_invitations", :force => true do |t|
     t.integer  "inviter_id"
     t.integer  "invitee_id"
@@ -524,6 +601,11 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.datetime "updated_at"
     t.string   "invitee_type", :default => "User"
   end
+
+  add_index "peer_invitations", ["created_at"], :name => "index_peer_invitations_on_created_at"
+  add_index "peer_invitations", ["demo_id"], :name => "index_peer_invitations_on_demo_id"
+  add_index "peer_invitations", ["invitee_id"], :name => "index_peer_invitations_on_invitee_id"
+  add_index "peer_invitations", ["inviter_id"], :name => "index_peer_invitations_on_inviter_id"
 
   create_table "potential_users", :force => true do |t|
     t.string   "email"
@@ -538,6 +620,9 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.integer "prerequisite_tile_id", :null => false
     t.integer "tile_id",              :null => false
   end
+
+  add_index "prerequisites", ["prerequisite_tile_id"], :name => "index_prerequisites_on_prerequisite_id"
+  add_index "prerequisites", ["tile_id"], :name => "index_prerequisites_on_task_id"
 
   create_table "push_messages", :force => true do |t|
     t.text     "subject"
@@ -578,6 +663,9 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.datetime "updated_at"
   end
 
+  add_index "rule_values", ["is_primary"], :name => "index_rule_values_on_is_primary"
+  add_index "rule_values", ["rule_id"], :name => "index_rule_values_on_rule_id"
+
   create_table "rules", :force => true do |t|
     t.integer  "points"
     t.datetime "created_at"
@@ -593,12 +681,17 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.integer  "primary_tag_id"
   end
 
+  add_index "rules", ["demo_id"], :name => "index_rules_on_demo_id"
+  add_index "rules", ["goal_id", "primary_tag_id"], :name => "index_rules_on_goal_id_and_primary_tag_id"
+
   create_table "suggestions", :force => true do |t|
     t.string   "value",      :default => "", :null => false
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "suggestions", ["user_id"], :name => "index_suggestions_on_user_id"
 
   create_table "supports", :force => true do |t|
     t.text     "body",       :default => ""
@@ -614,6 +707,10 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.integer  "survey_valid_answer_id"
   end
 
+  add_index "survey_answers", ["survey_question_id"], :name => "index_survey_answers_on_survey_question_id"
+  add_index "survey_answers", ["survey_valid_answer_id"], :name => "index_survey_answers_on_survey_valid_answer_id"
+  add_index "survey_answers", ["user_id"], :name => "index_survey_answers_on_user_id"
+
   create_table "survey_prompts", :force => true do |t|
     t.datetime "send_time",                  :null => false
     t.string   "text",       :default => "", :null => false
@@ -621,6 +718,8 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "survey_prompts", ["survey_id"], :name => "index_survey_prompts_on_survey_id"
 
   create_table "survey_questions", :force => true do |t|
     t.string   "text",       :default => "", :null => false
@@ -631,12 +730,18 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.integer  "points"
   end
 
+  add_index "survey_questions", ["index"], :name => "index_survey_questions_on_index"
+  add_index "survey_questions", ["survey_id"], :name => "index_survey_questions_on_survey_id"
+
   create_table "survey_valid_answers", :force => true do |t|
     t.string   "value",              :default => "", :null => false
     t.integer  "survey_question_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "survey_valid_answers", ["survey_question_id"], :name => "index_survey_valid_answers_on_survey_question_id"
+  add_index "survey_valid_answers", ["value"], :name => "index_survey_valid_answers_on_value"
 
   create_table "surveys", :force => true do |t|
     t.string   "name",       :default => "", :null => false
@@ -646,6 +751,10 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.datetime "open_at",                    :null => false
     t.datetime "close_at"
   end
+
+  add_index "surveys", ["close_at"], :name => "index_surveys_on_close_at"
+  add_index "surveys", ["demo_id"], :name => "index_surveys_on_demo_id"
+  add_index "surveys", ["open_at"], :name => "index_surveys_on_open_at"
 
   create_table "tags", :force => true do |t|
     t.string   "name"
@@ -665,6 +774,9 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.integer  "answer_index"
     t.boolean  "not_show_in_tile_progress", :default => false
   end
+
+  add_index "tile_completions", ["tile_id"], :name => "index_task_suggestions_on_task_id"
+  add_index "tile_completions", ["user_id"], :name => "index_task_suggestions_on_user_id"
 
   create_table "tile_images", :force => true do |t|
     t.string   "image_file_name"
@@ -695,6 +807,8 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.datetime "updated_at",            :null => false
   end
 
+  add_index "tile_media", ["tile_id"], :name => "index_tile_media_on_tile_id"
+
   create_table "tile_taggings", :force => true do |t|
     t.integer  "tile_id"
     t.integer  "tile_tag_id"
@@ -702,12 +816,17 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.datetime "updated_at",  :null => false
   end
 
+  add_index "tile_taggings", ["tile_id"], :name => "index_tile_taggings_on_tile_id"
+  add_index "tile_taggings", ["tile_tag_id"], :name => "index_tile_taggings_on_tile_tag_id"
+
   create_table "tile_tags", :force => true do |t|
     t.string   "title",      :default => ""
     t.datetime "created_at",                 :null => false
     t.datetime "updated_at",                 :null => false
     t.integer  "topic_id"
   end
+
+  add_index "tile_tags", ["topic_id"], :name => "index_tile_tags_on_topic_id"
 
   create_table "tile_viewings", :force => true do |t|
     t.integer  "tile_id"
@@ -717,6 +836,8 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
   end
+
+  add_index "tile_viewings", ["tile_id", "user_id", "user_type"], :name => "index_tile_viewings_on_tile_and_user", :unique => true
 
   create_table "tiles", :force => true do |t|
     t.integer  "demo_id"
@@ -751,14 +872,15 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.integer  "points"
     t.boolean  "image_processing"
     t.boolean  "thumbnail_processing"
+    t.integer  "image_container_id"
+    t.boolean  "is_public",               :default => false, :null => false
+    t.boolean  "is_copyable",             :default => false, :null => false
     t.integer  "creator_id"
+    t.integer  "original_creator_id"
+    t.datetime "original_created_at"
     t.string   "question_type"
     t.string   "question_subtype"
     t.text     "image_credit"
-    t.boolean  "is_public",               :default => false, :null => false
-    t.boolean  "is_copyable",             :default => false, :null => false
-    t.integer  "original_creator_id"
-    t.datetime "original_created_at"
     t.boolean  "is_sharable",             :default => false, :null => false
     t.integer  "tile_completions_count",  :default => 0
     t.integer  "explore_page_priority"
@@ -772,6 +894,9 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.boolean  "use_old_line_break_css",  :default => false
   end
 
+  add_index "tiles", ["is_copyable"], :name => "index_tiles_on_is_copyable"
+  add_index "tiles", ["is_public"], :name => "index_tiles_on_is_public"
+
   create_table "timed_bonus", :force => true do |t|
     t.datetime "expires_at",                    :null => false
     t.boolean  "fulfilled",  :default => false, :null => false
@@ -782,6 +907,8 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "timed_bonus", ["demo_id", "user_id"], :name => "index_timed_bonus_on_demo_id_and_user_id"
 
   create_table "topics", :force => true do |t|
     t.string   "name",       :null => false
@@ -796,6 +923,8 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.datetime "updated_at"
   end
 
+  add_index "trigger_demographic_triggers", ["tile_id"], :name => "index_trigger_demographic_triggers_on_task_id"
+
   create_table "trigger_rule_triggers", :force => true do |t|
     t.integer  "rule_id"
     t.integer  "tile_id"
@@ -804,12 +933,19 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.boolean  "referrer_required", :default => false, :null => false
   end
 
+  add_index "trigger_rule_triggers", ["referrer_required"], :name => "index_trigger_rule_triggers_on_referrer_required"
+  add_index "trigger_rule_triggers", ["rule_id"], :name => "index_trigger_rule_triggers_on_rule_id"
+  add_index "trigger_rule_triggers", ["tile_id"], :name => "index_trigger_rule_triggers_on_task_id"
+
   create_table "trigger_survey_triggers", :force => true do |t|
     t.integer  "survey_id"
     t.integer  "tile_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "trigger_survey_triggers", ["survey_id"], :name => "index_trigger_survey_triggers_on_survey_id"
+  add_index "trigger_survey_triggers", ["tile_id"], :name => "index_trigger_survey_triggers_on_task_id"
 
   create_table "tutorials", :force => true do |t|
     t.integer  "user_id",                         :null => false
@@ -822,12 +958,16 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.datetime "updated_at"
   end
 
+  add_index "tutorials", ["user_id"], :name => "index_tutorials_on_user_id"
+
   create_table "unsubscribes", :force => true do |t|
     t.integer  "user_id",                    :null => false
     t.text     "reason",     :default => "", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "unsubscribes", ["user_id"], :name => "index_unsubscribes_on_user_id"
 
   create_table "user_in_raffle_infos", :force => true do |t|
     t.integer  "user_id"
@@ -841,6 +981,8 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.string   "user_type",     :default => "User"
   end
 
+  add_index "user_in_raffle_infos", ["user_id", "user_type", "raffle_id"], :name => "user_in_raffle", :unique => true
+
   create_table "user_intros", :force => true do |t|
     t.integer  "user_id"
     t.boolean  "explore_intro_seen",        :default => false
@@ -849,6 +991,8 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.boolean  "explore_preview_copy_seen", :default => false
   end
 
+  add_index "user_intros", ["user_id"], :name => "index_user_intros_on_user_id"
+
   create_table "user_tile_copies", :force => true do |t|
     t.integer  "tile_id"
     t.integer  "user_id"
@@ -856,12 +1000,19 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.datetime "updated_at", :null => false
   end
 
+  add_index "user_tile_copies", ["tile_id"], :name => "index_user_tile_copies_on_tile_id"
+  add_index "user_tile_copies", ["user_id"], :name => "index_user_tile_copies_on_user_id"
+
   create_table "user_tile_likes", :force => true do |t|
     t.integer  "tile_id"
     t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "user_tile_likes", ["tile_id", "user_id"], :name => "index_user_tile_likes_on_tile_id_and_user_id", :unique => true
+  add_index "user_tile_likes", ["tile_id"], :name => "index_user_tile_likes_on_tile_id"
+  add_index "user_tile_likes", ["user_id"], :name => "index_user_tile_likes_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "name",                                                :default => "",          :null => false
@@ -923,21 +1074,44 @@ ActiveRecord::Schema.define(:version => 20160427210107) do
     t.boolean  "has_own_tile_completed",                              :default => false
     t.boolean  "displayed_tile_post_guide",                           :default => false
     t.boolean  "displayed_tile_success_guide",                        :default => false
+    t.boolean  "displayed_activity_page_admin_guide",                 :default => false
     t.boolean  "displayed_active_tile_guide",                         :default => false
     t.boolean  "has_own_tile_completed_displayed",                    :default => false
     t.integer  "has_own_tile_completed_id"
-    t.boolean  "displayed_activity_page_admin_guide",                 :default => false
     t.string   "explore_token"
     t.boolean  "is_test_user"
     t.boolean  "share_section_intro_seen"
     t.string   "mixpanel_distinct_id"
     t.datetime "last_unmonitored_mailbox_response_at"
-    t.boolean  "send_weekly_activity_report",                         :default => true
     t.boolean  "allowed_to_make_tile_suggestions",                    :default => false,       :null => false
     t.boolean  "submitted_tile_menu_intro_seen",                      :default => false,       :null => false
+    t.boolean  "send_weekly_activity_report",                         :default => true
     t.boolean  "suggestion_box_intro_seen",                           :default => false,       :null => false
     t.boolean  "user_submitted_tile_intro_seen",                      :default => false,       :null => false
     t.boolean  "manage_access_prompt_seen",                           :default => false,       :null => false
+    t.boolean  "suggestion_box_prompt_seen",                          :default => false,       :null => false
   end
+
+  add_index "users", ["cancel_account_token"], :name => "index_users_on_cancel_account_token"
+  add_index "users", ["claim_code"], :name => "index_users_on_claim_code"
+  add_index "users", ["email"], :name => "index_users_on_email"
+  add_index "users", ["email"], :name => "user_email_trigram"
+  add_index "users", ["employee_id"], :name => "index_users_on_employee_id"
+  add_index "users", ["explore_token"], :name => "index_users_on_explore_token"
+  add_index "users", ["game_referrer_id"], :name => "index_users_on_game_referrer_id"
+  add_index "users", ["invitation_code"], :name => "index_users_on_invitation_code"
+  add_index "users", ["is_employee"], :name => "index_users_on_is_employee"
+  add_index "users", ["location_id"], :name => "index_users_on_location_id"
+  add_index "users", ["name"], :name => "user_name_trigram"
+  add_index "users", ["overflow_email"], :name => "index_users_on_overflow_email"
+  add_index "users", ["phone_number"], :name => "index_users_on_phone_number"
+  add_index "users", ["privacy_level"], :name => "index_users_on_privacy_level"
+  add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
+  add_index "users", ["slug"], :name => "index_users_on_slug"
+  add_index "users", ["slug"], :name => "user_slug_trigram"
+  add_index "users", ["sms_slug"], :name => "index_users_on_sms_slug"
+  add_index "users", ["spouse_id"], :name => "index_users_on_spouse_id"
+  add_index "users", ["ssn_hash"], :name => "index_users_on_ssn_hash"
+  add_index "users", ["zip_code"], :name => "index_users_on_zip_code"
 
 end
