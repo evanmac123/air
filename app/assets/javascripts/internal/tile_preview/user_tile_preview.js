@@ -24,7 +24,7 @@ Airbo.UserTilePreview =(function(){
   };
 
   function grayoutTile(callback) {
-    return $('#spinner_large').fadeIn('slow', callback);
+    $('#spinner_large').fadeIn('slow', callback);
   };
 
   function ungrayoutTile() {
@@ -35,6 +35,7 @@ Airbo.UserTilePreview =(function(){
     grayoutTile(function(){
       window.scrollTo(0,0) 
     })
+    return true;
   }
 
   function nextTileRequested(data) {
@@ -176,8 +177,8 @@ Airbo.UserTilePreview =(function(){
     var tileCompletionPosted = postTileCompletion(event)
       , grayedOutAndScrolled = grayoutAndScroll(event)
     ;
+    $.when( tileCompletionPosted,grayedOutAndScrolled).done(function(data, res) {
 
-    $.when( grayedOutAndScrolled, tileCompletionPosted).then(function(res1, data) {
       getTileAftherAnswer(data.responseText);
     });
   }
