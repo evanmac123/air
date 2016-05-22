@@ -251,7 +251,7 @@ $(document).ready(function() {
     Airbo.UserTilePreview.init();
   }
   // external tile preview
-  if( $(".tile.tile-show, .client_admin-stock_tiles-show").length > 0 ) {
+  if( $(".tile.tile-show").length > 0 ) {
     Airbo.TileAnswers.init();
   }
 });
