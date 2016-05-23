@@ -1,0 +1,4 @@
+<% tiles.each do |tile| %>
+  <% presenter = SingleTilePresenter.new(tile, :html, "explore", browser.ie?) %>
+  <%= render 'client_admin/tiles/manage_tiles/single_tile', presenter: presenter %>
+<% end %>
