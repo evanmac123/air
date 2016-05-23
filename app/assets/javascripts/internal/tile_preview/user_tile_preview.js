@@ -110,7 +110,7 @@ Airbo.UserTilePreview =(function(){
       params =  $.extend(params, {demo: config.demo});
     }
 
-    var cb = function(data) {
+    var cb = function(data, status, xhr) {
       console.log("in callback", Date.now());
       var result = $.extend({}, data);
       if(isLocal()){    
@@ -148,7 +148,12 @@ Airbo.UserTilePreview =(function(){
       $.when(Airbo.ProgressAndPrizeBar.predisplayAnimations(result, responseText)).then(handler);
     };
 
-    getTile(params, cb);
+
+    if(isLocal() && allTilesCompleted()){
+      alert("hi");
+    }else{
+      getTile(params, cb);
+    }
     console.log("get tile called", Date.now());
   }
 
@@ -170,7 +175,8 @@ Airbo.UserTilePreview =(function(){
         return response;
     }else{
       promise = postToLocalStorage();
-      promise.then(function(data){
+      promise.then(function(response){
+        var data = response[2];
         progress.starting_points += data.value;
         progress.completed[data.tileId]=data.answer;
         Airbo.LocalStorage.set(storageKey, progress);
@@ -194,16 +200,17 @@ Airbo.UserTilePreview =(function(){
     progress = Airbo.LocalStorage.get(storageKey);
     answer = Airbo.Utils.urlParamValueByname("answer_index", event.target.search);
     removeTileIdFromAvailable();
-    return $.Deferred().resolve({answer: answer, tileId: tileId, value: pointValue,responseText: {starting_points: progress.starting_points, starting_tickets: 0 }});
+    //resolve with an object the simulates the return signature of jQuery ajax call i.e. [data, "statusText", xhr]
+    //TODO flatten the returned object?
+    return $.Deferred().resolve([null, "success", {answer: answer, tileId: tileId, value: pointValue,responseText: {starting_points: progress.starting_points, starting_tickets: 0 }}]);
   }
 
   function rightAnswerClicked(event) {
     var tileCompletionPosted = postTileCompletion(event)
       , grayedOutAndScrolled = grayoutAndScroll(event)
     ;
-    $.when( tileCompletionPosted,grayedOutAndScrolled).then(function(xhrResponse, res) {
-
-      getTileAfterAnswer(xhrResponse[0]);
+    $.when( tileCompletionPosted,grayedOutAndScrolled).then(function(xhr, res) {
+      getTileAfterAnswer(xhr[2].responseText);
     });
   }
 
