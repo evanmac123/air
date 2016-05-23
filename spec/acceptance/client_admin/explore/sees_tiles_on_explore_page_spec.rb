@@ -113,12 +113,13 @@ feature 'Sees tiles on explore page' do
       FakeMixpanelTracker.should have_event_matching('Explore Main Page', {action: "Tile Thumbnail Clicked"})
     end
 
-    it "pings when clicking through a tile in a later batch", js: true do
-      FactoryGirl.create_list(:tile, 19, :public)
+    it "pings when clicking through a tile in a later batch", js: true do#, driver: :selenium do
+      FactoryGirl.create_list(:tile, 38, :public)
       visit explore_path(as: a_client_admin)
-      3.times { click_link 'More' }
 
-      page.all('.explore_tile .headline a')[19].click
+      2.times { click_link 'More' }
+
+      page.all('.explore_tile .headline a')[38].click
 
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear
