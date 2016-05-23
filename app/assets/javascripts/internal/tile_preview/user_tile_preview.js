@@ -4,7 +4,6 @@ Airbo.UserTilePreview =(function(){
   var pointValue
     , storageKey
     , tileId
-    , nextTileUrl
     , progressType = "remote"
     , progress 
     , config 
@@ -81,10 +80,11 @@ Airbo.UserTilePreview =(function(){
 
 
   function getTile(params, cb){
-    $.ajax({
+    var url = params.url || nextTileUrl();
+     $.ajax({
       type: "GET",
-      url: nextTileUrl,
-      data:params,
+      url: url,
+      data: params,
       success: cb
     });
   }
@@ -199,11 +199,20 @@ Airbo.UserTilePreview =(function(){
      completed_only: $('#slideshow .tile_holder').data('completed-only'),
      previous_tile_ids: $('#slideshow .tile_holder').data('current-tile-ids')
    };
+ function nextTileUrl(){
+   var url;
 
-   nextTileUrl = '/tiles/' + $('#slideshow .tile_holder').data('current-tile-id')
-   
+   if(isRemote()){
+     url ='/tiles/' + $('#slideshow .tile_holder').data('current-tile-id')
+   }else{
+     url ='/client_admin/library_tiles/' + nextTile(); 
+   }
+   return url;
  }
 
+ function nextTile(){
+   return progress.available[0];
+ }
 
   function initTile(){
     var configObj = $(".tile_holder");
