@@ -39,7 +39,11 @@ Airbo.UserTilePreview =(function(){
     return  !isRemote();
   }
 
-  function completed_tiles(obj){
+  function completedTiles(){
+    return numKeys(progress.completed)
+  }
+
+  function numKeys(obj){
     return Object.keys(obj).length;
   }
 
@@ -111,7 +115,7 @@ Airbo.UserTilePreview =(function(){
       var result = $.extend({}, data);
       if(isLocal()){    
         result.all_tiles = progress.tileCount
-        result.completed_tiles = completed_tiles(progress.completed)
+        result.completed_tiles = completedTiles()
         result.ending_points = progress.starting_points
         result.ending_tickets = 0
         result.raffle_progress_bar = false 
@@ -203,6 +207,9 @@ Airbo.UserTilePreview =(function(){
     });
   }
 
+ function allTilesCompleted(){
+   return (completedTiles() === progress.tileCount)
+ }
 
  function initNextTileParams(){
    nextTileParams = {
