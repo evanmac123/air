@@ -103,24 +103,29 @@ Airbo.UserTilePreview =(function(){
     });
   }
 
+  function mergeReturnedDataWithLocal(data){
+    var result = $.extend({}, data);
+    if(isLocal()){    
+      result.all_tiles = progress.tileCount
+      result.completed_tiles = completedTiles()
+      result.ending_points = progress.starting_points
+      result.ending_tickets = 0
+      result.raffle_progress_bar = false 
+      result.all_tiles_done = progress.tileCount === completedTiles();
+    }
+    return result;
+  }
+
   function getTileAfterAnswer(responseText){
     var params = $.extend(nextTileParams, {offset: 1, afterPosting: true});
     if(isLocal()){
-
       params =  $.extend(params, {demo: config.demo});
     }
 
     var cb = function(data, status, xhr) {
       console.log("in callback", Date.now());
-      var result = $.extend({}, data);
-      if(isLocal()){    
-        result.all_tiles = progress.tileCount
-        result.completed_tiles = completedTiles()
-        result.ending_points = progress.starting_points
-        result.ending_tickets = 0
-        result.raffle_progress_bar = false 
-        result.all_tiles_done = progress.tileCount === progress.completed.length
-      }
+
+      var result = mergeReturnedDataWithLocal(data);
 
       var handler = function() {
         if (result.all_tiles_done === true) {
@@ -150,11 +155,20 @@ Airbo.UserTilePreview =(function(){
 
 
     if(isLocal() && allTilesCompleted()){
-      alert("hi");
+
+      showAllFinished(responseText);
     }else{
       getTile(params, cb);
     }
     console.log("get tile called", Date.now());
+  }
+
+  function showAllFinished(responseText){
+
+    var result = mergeReturnedDataWithLocal({});
+    $.when(Airbo.ProgressAndPrizeBar.predisplayAnimations(result, responseText)).then(function(){
+      $('.content .container.row').html("<div id='tiles_done_message'><a href='/client_admin/library'>Return to homepage</a></div>");
+    });
   }
 
 
