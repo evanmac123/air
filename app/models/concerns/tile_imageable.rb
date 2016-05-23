@@ -60,7 +60,7 @@ module Concerns::TileImageable
     return nil if image_file_name.nil?
 
    #FIXME  this fails if height or width are nil?
-    height, width = if image_processing?
+    height, width = if image_processing? || image.height.nil? || image.width.nil?
                       [484, 666]
                     else
                       [image.height, image.width] 
