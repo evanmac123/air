@@ -51,12 +51,13 @@ Airbo.UserTilePreview =(function(){
     return true;
   }
 
-  function nextTileRequested(data) {
+  function onNextTileReceived(data) {
+   var container = $('.content .container.row');
     if (data.all_tiles_done === true) {
-      $('.content .container.row').replaceWith(data.tile_content);
+    container.replaceWith(data.tile_content);
       showOrHideStartOverButton(data.show_start_over_button === true);
     } else {
-      $('#slideshow').html(data.tile_content);
+      container.html(data.tile_content);
       initTile();
       showOrHideStartOverButton($('#slideshow .tile_holder').data('show-start-over') === true);
       ungrayoutTile();
@@ -73,9 +74,18 @@ Airbo.UserTilePreview =(function(){
   }
 
 
-  function getTileSimple(offset){
-    var params = $.extend(nextTileParams, {offset: offset, afterPosting: false});
-    getTile(params, nextTileRequested)
+  function navigationParams(target){
+    var dir = target.is("#next") ? 1 : -1;
+    if(isRemote()){
+      return {offset: dir };
+    }else{
+      return {url: target.attr("href"), offset: 0 };
+    }
+  }
+
+  function getTileByNavigation(target){
+    var params = $.extend(nextTileParams,  navigationParams(target), {afterPosting: false});
+    getTile(params, onNextTileReceived);
   }
 
 
@@ -89,7 +99,7 @@ Airbo.UserTilePreview =(function(){
     });
   }
 
-  function getTileAftherAnswer(responseText){
+  function getTileAfterAnswer(responseText){
     var params = $.extend(nextTileParams, {offset: 1, afterPosting: true});
     if(isLocal()){
 
@@ -150,7 +160,8 @@ Airbo.UserTilePreview =(function(){
       var response = $.ajax({
           type: "POST",
           url: $(event.target).attr('href'),
-          headers: { 'X-CSRF-Token': findCsrfToken() }
+          headers: { 'X-CSRF-Token': findCsrfToken() },
+          dataType: "json"
         });
         return response;
     }else{
@@ -186,9 +197,9 @@ Airbo.UserTilePreview =(function(){
     var tileCompletionPosted = postTileCompletion(event)
       , grayedOutAndScrolled = grayoutAndScroll(event)
     ;
-    $.when( tileCompletionPosted,grayedOutAndScrolled).done(function(data, res) {
+    $.when( tileCompletionPosted,grayedOutAndScrolled).then(function(xhrResponse, res) {
 
-      getTileAftherAnswer(data.responseText);
+      getTileAfterAnswer(xhrResponse[0]);
     });
   }
 
@@ -199,6 +210,8 @@ Airbo.UserTilePreview =(function(){
      completed_only: $('#slideshow .tile_holder').data('completed-only'),
      previous_tile_ids: $('#slideshow .tile_holder').data('current-tile-ids')
    };
+ }
+
  function nextTileUrl(){
    var url;
 
@@ -214,22 +227,23 @@ Airbo.UserTilePreview =(function(){
    return progress.available[0];
  }
 
-  function initTile(){
-    var configObj = $(".tile_holder");
 
-    tileId = configObj.data("current-tile-id");
-    pointValue = configObj.data("point-value");
-    config = $(".user_container").data("config")
-    storageKey = config.key
+ function initTile(){
+   var configObj = $(".tile_holder");
 
-    if($(".client_admin-stock_tiles-show").length>0){
-      progressType = "local";
-    }
+   tileId = configObj.data("current-tile-id");
+   pointValue = configObj.data("point-value");
+   config = $(".user_container").data("config")
+   storageKey = config.key
 
-    initNextTileParams();
-    setUpAnswers();
-    Airbo.Utils.ExternalLinkHandler.init();
-  }
+   if($(".client_admin-stock_tiles-show").length>0){
+     progressType = "local";
+   }
+
+   initNextTileParams();
+   setUpAnswers();
+   Airbo.Utils.ExternalLinkHandler.init();
+ }
 
   function setUpAnswers() {
     Airbo.TileAnswers.init({
@@ -238,21 +252,15 @@ Airbo.UserTilePreview =(function(){
   };
 
   function bindTileCarouselNavigationButtons() {
-    $(function() {
-      $("body").on('click', '#next', function(event) {
-        event.preventDefault();
-        grayoutTile();
-        getTileSimple(1);
-      });
-
-      $("body").on('click', '#prev', function(event) {
-        event.preventDefault();
-        grayoutTile();
-        getTileSimple(-1);
-      });
+    $("body").on('click', '#next, #prev', function(event) {
+      var target = $(event.target)
+      ;
+      event.preventDefault();
+      grayoutTile();
+      getTileByNavigation(target);
     });
-  };
 
+  };
 
 
   function init(){
@@ -266,7 +274,6 @@ Airbo.UserTilePreview =(function(){
 
 $(document).ready(function() {
   if( $(".tiles-index, .client_admin-stock_tiles-show" ).length > 0) {
-   console.log("UserTilePreview")
     Airbo.UserTilePreview.init();
   }
   // external tile preview
