@@ -31,7 +31,7 @@ class ClientAdmin::StockTilesController < ClientAdminBaseController
   end
 
   def tile_content
-    render_to_string("viewer", layout: false)
+    render_to_string("_viewer", layout: false)
   end
 
 
