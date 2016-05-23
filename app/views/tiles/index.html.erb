@@ -6,13 +6,7 @@
   <%= render 'all_tiles_done' %>
 <% else %>
   <div class="container row">
-    <div class="viewer">
-      <%= link_to "", "#", :id => :prev  %>
-      <div id="slideshow">
-        <%= render 'full_size_tile', :tile => @start_tile, :current_tiles => @current_tiles %>
-      </div>
-      <%= link_to "", "#", :id => :next %>
-    </div>
+    <%= render "viewer", locals:{tile: @start_tile}%>
   </div>
 <% end %>
 <%= render "shared/guest_conversion_lightbox", user: @current_user, show_conversion_form: @show_conversion_form, demo: @current_user.demo %>
