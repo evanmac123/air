@@ -7,7 +7,6 @@ class TilesController < ApplicationController
   prepend_before_filter :allow_guest_user, :only => [:index, :show]
 
 
-
      #FIXME FIXME this logic is sooooooo convoluted!!!!!
   # so I don't forget the next time i look at this crazy code
   # Index and show essentially do the same thing display a single tiles_path
@@ -91,6 +90,7 @@ class TilesController < ApplicationController
     satisfiable_tiles.first.try(:id)
   end
 
+
   def render_new_tile
     after_posting = params[:after_posting] == "true"
     all_tiles_done = user_satisfiable_tiles.empty?
@@ -115,9 +115,29 @@ class TilesController < ApplicationController
     if all_tiles_done && after_posting
       render_to_string("tiles/_all_tiles_done", layout: false)
     else
-      render_to_string("tiles/_full_size_tile", locals: {tile: current_tile, current_tile_ids: current_tile_ids, overlay_displayed: true}, layout: false)
+      @start_tile  = current_tile
+      render_to_string("tiles/_viewer",  layout: false)
     end
   end
+
+  def current_tile_index
+    @idx ||= if satisfiable_tiles.empty?
+            0
+    elsif not previous_tile_ids.empty?
+      (previous_tile_index + params[:offset].to_i) % (current_tile_ids.length > 0 ? current_tile_ids.length : 1) 
+    else 
+      (current_tile_ids.find_index{|element| element.to_i == reference_tile_id.to_i}) || 0
+    end
+  end
+
+  def current_tile_id
+    current_tile_ids[current_tile_index]
+  end
+
+  def current_tile
+    @tile ||= Tile.find(current_tile_id)
+  end
+
 
   def current_tile_ids
     @current_tile_ids ||= begin
@@ -136,24 +156,10 @@ class TilesController < ApplicationController
     params[:id] || start_tile_id
   end
 
-  def current_tile_id
-    current_tile_ids[current_tile_index]
-  end
-
-  def current_tile
-    @_current_tile ||= Tile.find(current_tile_id)
-  end
-
   def previous_tile_index
     (previous_tile_ids.find_index{|element| element.to_i == reference_tile_id.to_i})||0
   end
 
-  def current_tile_index
-    return 0 if satisfiable_tiles.empty?
-    return (previous_tile_index + params[:offset].to_i) %
-    (current_tile_ids.length > 0 ? current_tile_ids.length : 1) unless previous_tile_ids.empty?
-    return (current_tile_ids.find_index{|element| element.to_i == reference_tile_id.to_i}) || 0
-  end
 
   def render_tile_wall_as_partial
     html_content = render_to_string partial: "shared/tile_wall", locals: (Tile.displayable_categorized_to_user(current_user, maximum_tiles_wanted)).merge(path_for_more_tiles: tiles_path(board_id: params[:board_id]))
