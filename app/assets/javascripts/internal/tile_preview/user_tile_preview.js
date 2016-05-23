@@ -164,10 +164,21 @@ Airbo.UserTilePreview =(function(){
     }
   };
 
+  function removeTileIdFromAvailable(){
+    var idx = findTileInAvailable()
+    if (idx >= 0){
+     progress.available.splice(idx, 1);
+    }
+  }
+
+  function findTileInAvailable(){
+    return $.inArray(tileId,progress.available) 
+  }
 
   function postToLocalStorage(){
     progress = Airbo.LocalStorage.get(storageKey);
     answer = Airbo.Utils.urlParamValueByname("answer_index", event.target.search);
+    removeTileIdFromAvailable();
     return $.Deferred().resolve({answer: answer, tileId: tileId, value: pointValue,responseText: {starting_points: progress.starting_points, starting_tickets: 0 }});
   }
 
