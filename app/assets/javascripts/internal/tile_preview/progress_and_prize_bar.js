@@ -226,7 +226,7 @@ function initDom(){
  }
 
  function initLocalUserProgress(){
-   progress = Airbo.LocalStorage.get(config.key) ||{completed:{}, tileCount: config.tileCount, starting_points: 0,starting_tickets:0}
+   progress = Airbo.LocalStorage.get(config.key) ||{available: config.tileIds, completed:{}, tileCount: config.tileCount, starting_points: 0,starting_tickets:0}
    Airbo.LocalStorage.set(config.key,progress); 
  }
 
