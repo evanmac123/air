@@ -31,6 +31,20 @@ Airbo.UserTilePreview =(function(){
     return $('#spinner_large').fadeOut('slow');
   };
 
+  function isRemote(){
+    return progressType=="remote"
+  }
+
+
+  function isLocal(){
+    return  !isRemote();
+  }
+
+  function completed_tiles(obj){
+    return Object.keys(obj).length;
+  }
+
+
   function grayoutAndScroll() {
     grayoutTile(function(){
       window.scrollTo(0,0) 
@@ -73,20 +87,6 @@ Airbo.UserTilePreview =(function(){
       data:params,
       success: cb
     });
-  }
-
-
-  function isRemote(){
-    return progressType=="remote"
-  }
-
-
-  function isLocal(){
-    return  !isRemote();
-  }
-
-  function completed_tiles(obj){
-    return Object.keys(obj).length;
   }
 
   function getTileAftherAnswer(responseText){
