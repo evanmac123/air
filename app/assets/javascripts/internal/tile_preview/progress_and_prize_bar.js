@@ -199,7 +199,6 @@ function initDom(){
 
   //TODO simplify this usage of promises
   function predisplayAnimations(tileData, response) {
-
     var startingData = (typeof response ==="string") ?  $.parseJSON(response) : response;
     setFlashes(tileData);
 
@@ -225,9 +224,14 @@ function initDom(){
    }
  }
 
+ function setPointsFromLocal(){
+  $("#total_points").html(progress.starting_points);
+ }
+
  function initLocalUserProgress(){
-   progress = Airbo.LocalStorage.get(config.key) ||{available: config.tileIds, completed:{}, tileCount: config.tileCount, starting_points: 0,starting_tickets:0}
+   progress = Airbo.LocalStorage.get(config.key) ||{available: config.tileIds, completed:{}, tileCount: config.tileCount, starting_points: 0,starting_tickets:0, ending_points:0}
    Airbo.LocalStorage.set(config.key,progress); 
+   setPointsFromLocal();
  }
 
 
