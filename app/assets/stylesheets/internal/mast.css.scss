@@ -31,7 +31,7 @@ header #small-toggle.off-canvas-toggle a {
       @include font-bold;
       padding:1em;
       &:active {background:lighten($dark-gray, 15%);}
-    }    
+    }
   }
   .admin_options {
     background:lighten($dark-gray, 4%);
@@ -108,7 +108,7 @@ header {
       @include completed_progress;
       &.counting {background: $dark-green;}
     }
-  } // Progress bar 
+  } // Progress bar
 
   #user_info {  // ============== User info
     text-align:center;
@@ -148,7 +148,8 @@ header {
   }
 
   #save_progress {
-    margin-top: 1em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
     float: left;
     text-align: center;
   }
