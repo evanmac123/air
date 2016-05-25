@@ -9,7 +9,7 @@
   -#Preload base image image to prevent blinking in IE8
   %img{src: displayable_tile.thumbnail, style: "display: none; visibility: hidden;"}
 
-  %li
+  %div
     = link_to tile_thumbnail_url, data:{id: displayable_tile.id} do
       .tile-wrapper
         .tile_thumbnail_image{id: thumbnail_id}
