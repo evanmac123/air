@@ -39,12 +39,16 @@ Airbo.UserTilePreview =(function(){
     return  !isRemote();
   }
 
-  function completedTiles(){
-    return numKeys(progress.completed)
+  function completedTileCount(){
+    return completedTileIds().length;
   }
 
-  function numKeys(obj){
-    return Object.keys(obj).length;
+  function completedTileIds(){
+    return keys(progress.completed).map(function(num){return parseInt(num);});
+  }
+
+  function keys(obj){
+    return Object.keys(obj)
   }
 
 
@@ -103,15 +107,53 @@ Airbo.UserTilePreview =(function(){
     });
   }
 
+  function getAnswerIndex(){
+    return progress.completed[tileId];
+  }
+
+  function disableNonSelectedAnswers(answerIndex){
+    $(".tile_multiple_choice_answer").each(function(idx, el){
+      if(idx !== answerIndex){
+        $(this).children("a").attr("class","").addClass("nerfed_answer");
+      }
+    });
+  }
+
+  function setCompletedRightAnswer(answerIndex){
+    var  clickAnswerTemplate = $("<div class='clicked_right_answer'></div>");
+
+
+    el = $($(".tile_multiple_choice_answer")[answerIndex]).children('a');
+    clickAnswerTemplate.text(el.text());
+    el.replaceWith(clickAnswerTemplate);
+  }
+
+  function setCompletionUI(){
+    var answerIndex = getAnswerIndex();
+
+    $(".tile_holder>.not_completed").removeClass("not_completed").addClass("completed");
+
+    setCompletedRightAnswer(answerIndex);
+    disableNonSelectedAnswers(answerIndex);
+  }
+
+  function applyCompletionCheck(){
+    if(completedTileIds().indexOf(tileId) !=-1){
+      setCompletionUI();
+    }
+  }
+
   function mergeReturnedDataWithLocal(data){
     var result = $.extend({}, data);
     if(isLocal()){    
       result.all_tiles = progress.tileCount
-      result.completed_tiles = completedTiles()
+      result.completed_tiles = completedTileCount()
       result.ending_points = progress.starting_points
       result.ending_tickets = 0
       result.raffle_progress_bar = false 
-      result.all_tiles_done = progress.tileCount === completedTiles();
+      result.all_tiles_done = progress.tileCount === completedTileCount();
+
+      applyCompletionCheck();
     }
     return result;
   }
@@ -211,7 +253,6 @@ Airbo.UserTilePreview =(function(){
   }
 
   function postToLocalStorage(){
-    progress = Airbo.LocalStorage.get(storageKey);
     answer = Airbo.Utils.urlParamValueByname("answer_index", event.target.search);
     removeTileIdFromAvailable();
     //resolve with an object the simulates the return signature of jQuery ajax call i.e. [data, "statusText", xhr]
@@ -229,7 +270,7 @@ Airbo.UserTilePreview =(function(){
   }
 
  function allTilesCompleted(){
-   return (completedTiles() === progress.tileCount)
+   return (completedTileCount() === progress.tileCount)
  }
 
  function initNextTileParams(){
@@ -266,7 +307,11 @@ Airbo.UserTilePreview =(function(){
 
    if($(".client_admin-stock_tiles-show").length>0){
      progressType = "local";
+     progress = Airbo.LocalStorage.get(storageKey);
+
+     applyCompletionCheck();
    }
+
 
    initNextTileParams();
    setUpAnswers();
