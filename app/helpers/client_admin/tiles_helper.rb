@@ -38,37 +38,58 @@ module ClientAdmin::TilesHelper
         Tile::TAKE_ACTION => {
           name: "Take Action",
           question: "Points for taking action",
-          answers: ["I did it"]
+          answers: ["I did it"],
+          choose: false,
+          remove: false,
+          add: false
         },
         Tile::READ_TILE => {
           name: "Read Tile",
           question: "Points for reading tile",
-          answers: ["I read it"]
+          answers: ["I read it"],
+          choose: false,
+          remove: false,
+          add: false
         },
         Tile::READ_ARTICLE => {
           name: "Read Article",
           question: "Points for reading article",
-          answers: ["I read it"]
+          answers: ["I read it"],
+          choose: false,
+          remove: false,
+          add: false
         },
         Tile::SHARE_ON_SOCIAL_MEDIA => {
           name: "Share On Social Media",
           question: "Points for sharing on social media (e.g., Facebook, Twitter)",
-          answers: ["I shared"]
+          answers: ["I shared"],
+          choose: false,
+          remove: false,
+          add: false
         },
         Tile::VISIT_WEB_SITE => {
           name: "Visit Web Site",
           question: "Points for visiting web site",
-          answers: ["I visited"]
+          answers: ["I visited"],
+          choose: false,
+          remove: false,
+          add: false
         },
         Tile::WATCH_VIDEO => {
           name: "Watch Video",
           question: "Points for watching video",
-          answers: ["I watched"]
+          answers: ["I watched"],
+          choose: false,
+          remove: false,
+          add: false
         },
         Tile::CUSTOM => {
           name: "Custom...",
           question: "Points for taking an action",
-          answers: ["Add Action"]
+          answers: ["Add Action"],
+          choose: false,
+          remove: false,
+          add: false
         }
       },
 
@@ -76,12 +97,18 @@ module ClientAdmin::TilesHelper
         Tile::TRUE_FALSE.parameterize("_") => {
           name: "True / False",
           question: "Fill in statement",
-          answers: ["True", "False"]
+          answers: ["True", "False"],
+          choose: true,
+          remove: false,
+          add: false
         },
         Tile::MULTIPLE_CHOICE.parameterize("_") => {
           name: "Multiple Choice",
           question: "Ask a question",
-          answers: ["Add Answer Option", "Add Answer Option"]
+          answers: ["Add Answer Option", "Add Answer Option"],
+          choose: true,
+          remove: true,
+          add: true
         }
       },
 
@@ -89,12 +116,27 @@ module ClientAdmin::TilesHelper
         Tile::MULTIPLE_CHOICE.parameterize("_") => {
           name: "Multiple Choice",
           question: "Add question",
-          answers: ["Add Answer Option", "Add Answer Option"]
+          answers: ["Add Answer Option", "Add Answer Option"],
+          choose: false,
+          remove: true,
+          add: true
         },
         Tile::RSVP_TO_EVENT.parameterize("_") => {
           name: "RSVP To Event",
           question: "Will you be attending?",
-          answers: ["Yes", "No", "Maybe"]
+          answers: ["Yes", "No", "Maybe"],
+          choose: false,
+          remove: false,
+          add: false
+        },
+        Tile::INVITE_SPOUSE.parameterize("_") => {
+          name: "Invite Spouse",
+          question: "Do you want to invite your spouse?",
+          answers: ["have a dependent and want to invite them", "have a dependent but don't want to invite them", "don't have a dependent"],
+          choose: true,
+          remove: true,
+          add: true,
+          correct: 0
         }
       }
     }

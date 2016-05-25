@@ -290,13 +290,13 @@ Airbo.TileQuestionBuilder = (function(){
         '</div>',
         '</li>'].join(''));
 
-    if(type == "Quiz") {
+    if(tileTypes[type][subType]["choose"]) {
       edit_answer_container.append(option_radio);
     };
 
     edit_answer_container.append(option_input);
 
-    if(subType !=="true_false" && subType !== "rsvp_to_event"){
+    if(tileTypes[type][subType]["remove"]){
       edit_answer_container.append($("<li class='del-answer'> <i class='fa fa-remove fa-1x'></i></li>"));
       containerDisplay = "block";
     }else{
@@ -351,12 +351,12 @@ Airbo.TileQuestionBuilder = (function(){
 
   function showSelectAndAddAnswer(type, subtype) {
     after_answers = $('<div class="after_answers"></div>');
-    if(type == "Quiz"){
+    if(tileTypes[type][subtype]["choose"]){
       addAnswerSelectedMessage(after_answers);
     }else{
       after_answers.append('<div class=""></div>');
     }
-    if(subtype == "multiple_choice" && (type == "Quiz" || type == "Survey")){
+    if(tileTypes[type][subtype]["add"]){
       showAddAnswer(after_answers);
     }
     $(quizContentSelector).append(after_answers);

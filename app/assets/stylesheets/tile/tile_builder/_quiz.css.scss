@@ -269,6 +269,12 @@
 
   &.survey{
     .tile_multiple_choice_answer{
+      &.invite_spouse{
+        a {
+          width:85%;
+          margin-left: 10%;
+        }
+      }
       a {
         width:95%;
       }

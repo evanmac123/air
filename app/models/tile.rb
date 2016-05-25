@@ -24,6 +24,7 @@ class Tile < ActiveRecord::Base
   TRUE_FALSE            = "True / False".parameterize("_").freeze
   MULTIPLE_CHOICE       = "Multiple Choice".parameterize("_").freeze
   RSVP_TO_EVENT         = "RSVP to event".parameterize("_").freeze
+  INVITE_SPOUSE         = "Invite Spouse".parameterize("_").freeze
 
 
   belongs_to :demo
