@@ -3,7 +3,7 @@ body.tiles.tiles-index, .client_admin-stock_tiles.client_admin-stock_tiles-show{
   .core, .content {background:$tile-wall-bg;}
 }
 
-body.tiles.tiles-index {
+body.tiles.tiles-index, .client_admin-stock_tiles.client_admin-stock_tiles-show{
   // completed mark
   .tile_holder .completed {
     &:before {
