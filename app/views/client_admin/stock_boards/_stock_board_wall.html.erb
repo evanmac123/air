@@ -4,10 +4,8 @@
 <div id="tile_wall" class="no-margin-top">
   <div class="all_tile_thumbnails row">
     <% @tiles.each do |tile| %>
-      <div class="tile_thumbnail">
-        <div class='not-completed'>
-          <%= render 'shared/displayable_tile', displayable_tile: tile, tile_thumbnail_url: tile_thumbnail_target(tile) %>
-        </div>
+      <div class="tile_thumbnail" id="tile-<%=tile.id%>">
+        <%= render 'shared/displayable_tile', displayable_tile: tile, tile_thumbnail_url: tile_thumbnail_target(tile) %>
       </div>
     <% end %>
     <% odd_row_length = @tiles.count % tile_row_size %>
