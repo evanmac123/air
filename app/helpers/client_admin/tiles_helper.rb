@@ -29,11 +29,31 @@ module ClientAdmin::TilesHelper
   end
 
   def set_tile_types(tile)
+    tile_types = default_tile_types
+    if current_user.demo.dependent_board_enabled ||
+       tile.question_subtype == Tile::INVITE_SPOUSE
+       
+      tile_types = add_invite_item tile_types
+    end
+
     tile.new_record? ? tile_types : update_tile_types(tile_types, tile)
   end
 
-  def tile_types
-    {
+  def add_invite_item tile_types
+    tile_types[Tile::SURVEY][Tile::INVITE_SPOUSE] = {
+      name: "Invite Spouse",
+      question: "Do you want to invite your spouse?",
+      answers: ["have a dependent and want to invite them", "have a dependent but don't want to invite them", "don't have a dependent"],
+      choose: true,
+      remove: true,
+      add: true,
+      correct: 0
+    }
+    tile_types
+  end
+
+  def default_tile_types
+    type_parms = {
       Tile::ACTION => {
         Tile::TAKE_ACTION => {
           name: "Take Action",
@@ -128,18 +148,10 @@ module ClientAdmin::TilesHelper
           choose: false,
           remove: false,
           add: false
-        },
-        Tile::INVITE_SPOUSE.parameterize("_") => {
-          name: "Invite Spouse",
-          question: "Do you want to invite your spouse?",
-          answers: ["have a dependent and want to invite them", "have a dependent but don't want to invite them", "don't have a dependent"],
-          choose: true,
-          remove: true,
-          add: true,
-          correct: 0
         }
       }
     }
+    type_parms
   end
 
   def update_tile_types tile_types, tile
