@@ -310,6 +310,7 @@ Airbo.UserTilePreview =(function(){
      progress = Airbo.LocalStorage.get(storageKey);
 
      applyCompletionCheck();
+     window.history.replaceState("", "", "/client_admin/library_tiles/"+tileId);
    }
 
 
