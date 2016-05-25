@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160525175826) do
+ActiveRecord::Schema.define(:version => 20160525180436) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -1092,6 +1092,7 @@ ActiveRecord::Schema.define(:version => 20160525175826) do
     t.boolean  "user_submitted_tile_intro_seen",                      :default => false,       :null => false
     t.boolean  "manage_access_prompt_seen",                           :default => false,       :null => false
     t.boolean  "suggestion_box_prompt_seen",                          :default => false,       :null => false
+    t.integer  "dependent_user_id"
   end
 
   add_index "users", ["cancel_account_token"], :name => "index_users_on_cancel_account_token"
