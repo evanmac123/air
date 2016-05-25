@@ -207,9 +207,11 @@ Airbo.UserTilePreview =(function(){
 
   function showAllFinished(responseText){
 
-    var result = mergeReturnedDataWithLocal({});
+    var result = mergeReturnedDataWithLocal({})
+      , backToHomepage = "<div id='tiles_done_message'><a href='/library/" + config.slug + "'>Return to homepage</a></div>"
+    ;
     $.when(Airbo.ProgressAndPrizeBar.predisplayAnimations(result, responseText)).then(function(){
-      $('.content .container.row').html("<div id='tiles_done_message'><a href='/client_admin/library'>Return to homepage</a></div>");
+      $('.content .container.row').html(backToHomepage);
     });
   }
 

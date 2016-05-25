@@ -36,6 +36,7 @@ class NullUserProgressPresenter
     {
       user: @user_id, 
       demo: @demo_id, 
+      slug: @demo.public_slug, 
       tileIds: tile_ids,
       tileCount: tile_ids.size,
       available: available_tile_count, 
