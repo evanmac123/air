@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160525152315) do
+ActiveRecord::Schema.define(:version => 20160525175826) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -326,6 +326,7 @@ ActiveRecord::Schema.define(:version => 20160525152315) do
     t.datetime "cover_image_updated_at"
     t.boolean  "explore_disabled",                                     :default => true
     t.integer  "dependent_board_id"
+    t.boolean  "dependent_board_enabled",                              :default => false
   end
 
   add_index "demos", ["public_slug"], :name => "index_demos_on_public_slug"
