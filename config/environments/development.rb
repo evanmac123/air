@@ -1,4 +1,4 @@
-ENV['HOMEPAGE_BOARD_SLUGS']="wellness-starter-kit,healthplanbasics,internal-validation,airbo-2"
+HOMEPAGE_BOARD_SLUGS = ENV['HOMEPAGE_BOARD_SLUGS'] || "wellness-starter-kit,healthplanbasics,internal-validation,airbo-2"
 ENV['INSPECTLET_WID']="1234567890"
 Health::Application.configure do
 

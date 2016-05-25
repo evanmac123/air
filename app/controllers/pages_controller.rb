@@ -35,7 +35,7 @@ class PagesController < HighVoltage::PagesController
   private
 
   def board_slugs
-    @slugs ||= ENV['HOMEPAGE_BOARD_SLUGS'].split(",")
+    @slugs ||= HOMEPAGE_BOARD_SLUGS.split(",")
   end
 
 
