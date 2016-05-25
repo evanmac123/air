@@ -122,7 +122,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @tile = get_tile
 
     @tile.update_status(params[:update_status])
-    presenter = SingleTilePresenter.new(@tile, :html, @is_client_admin_action, browser.ie?)
+    presenter = SingleAdminTilePresenter.new(@tile, :html, @is_client_admin_action, browser.ie?)
     render partial: 'client_admin/tiles/manage_tiles/single_tile', locals: { presenter: presenter}
   end
 
@@ -136,6 +136,15 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   def duplicate
     @tile = get_tile.copy_inside_demo(current_user.demo, current_user)
     render_preview_and_single
+  end
+
+  def next_tile
+    @tile = Tile.next_manage_tile get_tile, 1, false
+    if @tile
+      render_preview_and_single
+    else
+      render nothing: true
+    end
   end
 
   private
@@ -272,7 +281,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def tile_presenter
-    @presenter ||= SingleTilePresenter.new(@tile, :html, @is_client_admin_action, browser.ie?)
+    @presenter ||= SingleAdminTilePresenter.new(@tile, :html, @is_client_admin_action, browser.ie?)
   end
 
   def render_tile_preview_string

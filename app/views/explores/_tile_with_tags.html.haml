@@ -1,9 +1,0 @@
-- tag_click_source ||= nil
-- thumb_click_source ||= nil
-
-#tile_wall
-  %table.tiles.large-12.columns.transparent-bg
-    %tbody
-      = render 'explores/tile_rows', tiles: tiles, tag: @tile_tag, thumb_click_source: thumb_click_source, tag_click_source: tag_click_source
-  .clearfix
-  =render partial: 'shared/tile_wall_show_more_link', locals: {path_for_more_tiles: path_for_more_tiles, all_tiles_displayed: @all_tiles_displayed}

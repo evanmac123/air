@@ -13,6 +13,7 @@
     = link_to tile_thumbnail_url, data:{id: displayable_tile.id} do
       .tile-wrapper
         .tile_thumbnail_image{id: thumbnail_id}
+          .shadow_overlay
         .headline
           %div{data: {'for-test' => displayable_tile.headline.downcase.sub(' ', '-')}, class: 'text'}= displayable_tile.headline
 

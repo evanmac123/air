@@ -38,6 +38,7 @@ Airbo.TileThumbnail = (function() {
       tileForm.open(url);
     });
 
+    $("body").off("click", curTileContainerSelector + thumbLinkSel);
     $("body").on("click", curTileContainerSelector + thumbLinkSel, function(e){
       e.preventDefault();
       $.ajax({

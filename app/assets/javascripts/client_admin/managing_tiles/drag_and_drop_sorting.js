@@ -19,6 +19,10 @@ updateShowMoreDraftTilesButton = function(){
 }
 
 updateShowMoreArchiveTilesButton = function(){
+  if( Airbo.TileManager.managerType == "archived" ) {
+    return;
+  }
+
   button = $(".show_all_inactive_section")
   if( notTilePlaceholdersInSection( $("#archive") ).length > 4 ){
     button.show()
@@ -84,7 +88,8 @@ sectionHasFreePlace = function(section){
 }
 
 sectionIsFull = function(section){
-  return (notTilePlaceholdersInSection(section).length >= 8)
+  var tileNum = Airbo.Utils.TilePlaceHolderManager.visibleTilesNumberIn(section);
+  return (notTilePlaceholdersInSection(section).length >= tileNum);
 }
 
 notTilePlaceholdersInSection = function(section){

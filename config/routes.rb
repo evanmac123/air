@@ -100,7 +100,6 @@ Health::Application.routes.draw do
   resource :explore, only: [:show] do
     resources :tile_previews, only: [:show], :path => "tile"
     resource :copy_tile, only: [:create]
-    resource :tile_likes, :only => [:create, :destroy, :show]
     member do
       get 'tile_tag_show'
     end
@@ -154,6 +153,7 @@ Health::Application.routes.draw do
         put  'status_change' #FIXME this is a temporary hack to avoid having to rewrite all of the existing code related to tile status update.
         put  'update_explore_settings' #FIXME this is a temporary hack to avoid having to rewrite all of the existing code related to tile explore settings update.
         post 'duplicate'
+        get 'next_tile'
       end
     end
 
