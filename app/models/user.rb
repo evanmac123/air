@@ -49,6 +49,8 @@ class User < ActiveRecord::Base
   has_one    :original_guest_user, :class_name => "GuestUser", :foreign_key => :converted_user_id, :inverse_of => :converted_user
   has_one    :billing_information
   has_one    :user_intro
+  has_one    :dependent_user
+
   validate :normalized_phone_number_unique, :normalized_new_phone_number_unique, :normalized_new_phone_number_not_taken_by_board
   validate :new_phone_number_has_valid_number_of_digits
   validate :sms_slug_does_not_match_commands
