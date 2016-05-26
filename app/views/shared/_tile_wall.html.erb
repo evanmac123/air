@@ -12,14 +12,16 @@
   <div class="all_tile_thumbnails row">
     <% if not_completed_tiles.present? %>
       <% not_completed_tiles.each do |tile| %>
-        <% presenter = SingleTilePresenter.new(tile, params, "user", browser.ie?, false) %>
+        <% present(tile,SingleTilePresenter, {public_slug: params[:public_slug], type: "user", is_ie: browser.ie?, completed: false}) do |presenter| %>
         <%= render 'client_admin/tiles/manage_tiles/single_tile', presenter: presenter %>
+      <% end %>
       <% end %>
     <% end %>
     <% if completed_tiles.present? %>
       <% completed_tiles.each do |tile| %>
-        <% presenter = SingleTilePresenter.new(tile, params, "user", browser.ie?, true) %>
+        <% present(tile,SingleTilePresenter, {public_slug: params[:public_slug], type: "user", is_ie: browser.ie?, completed: true}) do |presenter|%>
         <%= render 'client_admin/tiles/manage_tiles/single_tile', presenter: presenter %>
+      <% end %>
       <% end %>
     <% end %>
     <% odd_row_length = tiles_length % tile_row_size %>

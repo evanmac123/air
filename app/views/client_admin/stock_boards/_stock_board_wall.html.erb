@@ -4,14 +4,15 @@
 <div id="tile_wall" class="no-margin-top">
   <div class="all_tile_thumbnails row">
     <% @tiles.each do |tile| %>
-      <div class="tile_thumbnail" id="tile-<%=tile.id%>">
-        <%= render 'shared/displayable_tile', displayable_tile: tile, tile_thumbnail_url: tile_thumbnail_target(tile) %>
-      </div>
-    <% end %>
-    <% odd_row_length = @tiles.count % tile_row_size %>
-    <% if odd_row_length != 0 || @no_tiles_to_do %>
-      <% (tile_row_size - odd_row_length).times do %>
-        <div class='placeholder_tile tile_thumbnail'></div>
+      <% present(tile, SingleLibraryTilePresenter, {public_slug: params[:public_slug], type: "user", is_ie: browser.ie?, completed: false}) do |presenter| %>
+        <%= render 'client_admin/tiles/manage_tiles/single_tile', presenter: presenter  %>
+      <%end%>
+
+      <% odd_row_length = @tiles.count % tile_row_size %>
+      <% if odd_row_length != 0 || @no_tiles_to_do %>
+        <% (tile_row_size - odd_row_length).times do %>
+          <div class='placeholder_tile tile_thumbnail'></div>
+        <% end %>
       <% end %>
     <% end %>
 

@@ -16,11 +16,16 @@ class SingleAdminTilePresenter < BasePresenter
             to: :tile
   attr_reader :tile, :type
 
+  presents :tile
+
   def initialize object,template, options
     super
   end
 
-  presents :tile
+  def tile_id
+    @tile_id ||= id
+  end
+
 
   def type? *types
     if types.size == 0
@@ -36,17 +41,24 @@ class SingleAdminTilePresenter < BasePresenter
     ""
   end
 
-
-  #def has_activation_dates?
-    #true
-  #end
-
   def has_tile_buttons?
     true
   end
 
   def activation_dates
-    h.content_tag :div, timestamp, class: "activation_dates"
+    content_tag :div, timestamp, class: "activation_dates"
+  end
+
+  def has_tile_stats?
+    show_admin_buttons? && (type? :active, :archive)
+  end
+
+  def show_tile_path
+    if viewing_as_regular_user?
+      suggested_tile_path(self)
+    else
+      client_admin_tile_path(self)
+    end
   end
 
   def has_archive_button?
@@ -85,24 +97,12 @@ class SingleAdminTilePresenter < BasePresenter
     show_admin_buttons? && (type? :draft, :active, :archive)
   end
 
-  def has_tile_stats?
-    show_admin_buttons? && (type? :active, :archive)
-  end
-
   def shows_creator?
     type? :user_submitted
   end
 
-  def show_tile_path
-    if viewing_as_regular_user?
-      suggested_tile_path(self)
-    else
-      client_admin_tile_path(self)
-    end
-  end
-
   def timestamp
-    #@timestamp ||= footer_timestamp
+    @timestamp ||= footer_timestamp
   end
 
   def completion_percentage
@@ -120,10 +120,6 @@ class SingleAdminTilePresenter < BasePresenter
 
   def creator
     original_creator.name
-  end
-
-  def tile_id
-    @tile_id ||= id
   end
 
   def tile_position

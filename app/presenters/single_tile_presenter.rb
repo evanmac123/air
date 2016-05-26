@@ -1,5 +1,4 @@
-class SingleTilePresenter
-  include Rails.application.routes.url_helpers
+class SingleTilePresenter < BasePresenter
 
   attr_reader :tile, :type
   delegate  :id,
@@ -8,12 +7,22 @@ class SingleTilePresenter
             :demo,
             to: :tile
 
-  def initialize tile, params, type, is_ie, completed = nil
-    @tile = tile
-    @type = type # explore or user
-    @params = params
-    @is_ie = is_ie
-    @completed = completed
+  presents :tile
+
+  def initialize object,template, options 
+    super
+
+    @type = options[:type] # explore or user
+    @public_slug = options[:public_slug]
+    @completed = options[:completed]
+  end
+
+  def tile_id
+    @tile_id ||= id
+  end
+
+  def to_param
+    @to_param ||= tile.to_param
   end
 
   def status
@@ -30,15 +39,15 @@ class SingleTilePresenter
     end
   end
 
-  def has_tile_stats?
-    false
-  end
-
   def has_tile_buttons?
     false
   end
 
-  def has_activation_dates?
+  def activation_dates
+    #noop
+  end
+
+  def has_tile_stats?
     false
   end
 
@@ -46,17 +55,11 @@ class SingleTilePresenter
     if type == 'explore'
       explore_tile_preview_path(self)
     else
-      @params[:public_slug] ? public_tile_path(@params[:public_slug], self) : tile_path(self)
+      @public_slug ? public_tile_path(@public_slug, tile) : tile_path(tile)
     end
   end
 
-  def tile_id
-    @tile_id ||= id
-  end
 
-  def to_param
-    @to_param ||= tile.to_param
-  end
 
   def cache_key
     @cache_key ||= [
