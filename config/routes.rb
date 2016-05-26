@@ -41,6 +41,7 @@ Health::Application.routes.draw do
     end
     get "autocompletion" => "autocompletions#index", :as => "autocompletion"
     post "invite_friend" => "friend_invitations#create", :as => "invite_friend"
+    resource :dependent_user_invitation, only: :create
   end
 
   resources :acts,        :only => [:index, :create]

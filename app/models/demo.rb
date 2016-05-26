@@ -12,7 +12,7 @@ class Demo < ActiveRecord::Base
   has_many :acts
   has_many :tiles, :dependent => :destroy
   # NOTE m_tiles is an unfortunate hack to compensate for shitty code implementation of MultipleChoiceTile
-  has_many :m_tiles, :dependent => :destroy, class_name: 'MultipleChoiceTile' 
+  has_many :m_tiles, :dependent => :destroy, class_name: 'MultipleChoiceTile'
   has_many :locations, :dependent => :destroy
   has_many :characteristics, :dependent => :destroy
   has_many :peer_invitations
@@ -27,7 +27,7 @@ class Demo < ActiveRecord::Base
   has_one :custom_invitation_email
   has_one :raffle
   has_one :custom_color_palette
-  has_one :dependent_board, class_name: "Demo", dependent: :destroy
+  has_one :dependent_board, class_name: "Demo", foreign_key: :dependent_board_id, dependent: :destroy
 
 
   validates_inclusion_of :join_type, :in => JOIN_TYPES

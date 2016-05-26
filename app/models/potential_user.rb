@@ -9,10 +9,14 @@ class PotentialUser < ActiveRecord::Base
   include CancelAccountToken
   include User::FakeUserBehavior
 
-  def is_invited_by referrer 
+  def is_invited_by referrer
     return if self.peer_invitations.length >= PeerInvitation::CUTOFF
     Mailer.delay_mail(:invitation, self, referrer)
     PeerInvitation.create!(inviter: referrer, invitee: self, demo: demo)
+  end
+
+  def invite_as_dependent(subject, body)
+    DependentUserMailer.delay.notify(self.demo_id, self.email, subject, body, self.game_referrer_id)
   end
 
   def email_with_name
@@ -48,9 +52,9 @@ class PotentialUser < ActiveRecord::Base
 
   def convert_to_full_user! name
     ConvertToFullUser.new({
-      pre_user: self, 
-      name: name, 
-      email: email, 
+      pre_user: self,
+      name: name,
+      email: email,
       password: SecureRandom.hex(8)
     }).convert!
   end
