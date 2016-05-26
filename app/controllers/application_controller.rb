@@ -558,5 +558,11 @@ class ApplicationController < ActionController::Base
 
 	def prod_or_testing_ssl_outside_of_prod
     Rails.env.production? || $test_force_ssl 
-	end
+  end
+
+
+  def present(object, klass = nil)
+    klass ||= "#{object.class}Presenter".constantize
+    klass.new(object, view_context)
+  end
 end
