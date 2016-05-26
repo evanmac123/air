@@ -1,15 +1,26 @@
-class SingleAdminTilePresenter
-  include ActionView::Helpers::NumberHelper
-  include TileFooterTimestamper
-  include Rails.application.routes.url_helpers
+class SingleAdminTilePresenter < BasePresenter
 
-  def initialize tile, format, as_admin, is_ie
-    @tile = tile
-    @type = tile.status.to_sym
-    @format = format
-    @as_admin = as_admin
-    @is_ie = is_ie
+  include TileFooterTimestamper
+  delegate  :id,
+            :status,
+            :thumbnail,
+            :headline,
+            :active?,
+            :total_views,
+            :unique_views,
+            :thumbnail_processing,
+            :tile_completions_count,
+            :original_creator,
+            :demo,
+            :is_placeholder?,
+            to: :tile
+  attr_reader :tile, :type
+
+  def initialize object,template, options
+    super
   end
+
+  presents :tile
 
   def type? *types
     if types.size == 0
@@ -25,12 +36,17 @@ class SingleAdminTilePresenter
     ""
   end
 
-  def has_activation_dates?
-    true
-  end
+
+  #def has_activation_dates?
+    #true
+  #end
 
   def has_tile_buttons?
     true
+  end
+
+  def activation_dates
+    h.content_tag :div, timestamp, class: "activation_dates"
   end
 
   def has_archive_button?
@@ -86,7 +102,7 @@ class SingleAdminTilePresenter
   end
 
   def timestamp
-    @timestamp ||= footer_timestamp
+    #@timestamp ||= footer_timestamp
   end
 
   def completion_percentage
@@ -144,18 +160,5 @@ class SingleAdminTilePresenter
     ].join('-')
   end
 
-  attr_reader :tile, :type
-  delegate  :id,
-            :status,
-            :thumbnail,
-            :headline,
-            :active?,
-            :total_views,
-            :unique_views,
-            :thumbnail_processing,
-            :tile_completions_count,
-            :original_creator,
-            :demo,
-            :is_placeholder?,
-            to: :tile
+
 end

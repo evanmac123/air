@@ -1,7 +1,9 @@
 class BasePresenter
-  def initialize(template, object)
+  def initialize(object, template, options)
     @object = object
     @template = template
+    @as_admin =options[:as_admin] || false
+    @is_ie = options[:is_ie] || false
   end
 
 private

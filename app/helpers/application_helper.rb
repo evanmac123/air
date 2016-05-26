@@ -148,9 +148,9 @@ module ApplicationHelper
     result
   end
 
-  def present(object, klass = nil)
+  def present(object, klass = nil, opts)
     klass ||= "#{object.class}Presenter".constantize
-    presenter = klass.new(object, self)
+    presenter = klass.new(object, self, opts)
     yield presenter if block_given?
     presenter
   end
