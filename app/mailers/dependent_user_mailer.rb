@@ -3,12 +3,16 @@ class DependentUserMailer < ActionMailer::Base
   layout "mailer"
   default :reply_to => 'support@airbo.com'
 
-	def notify(demo_id, dependent_email, subject, body, user_id)
-    @demo = Demo.find demo_id
-    @user  = User.find user_id
-    @accept_url = home_path
+	def notify(dependent_user_id, subject, body)
+    @dependent_user = PotentialUser.find dependent_user_id
+    return unless @dependent_user
+
+    @dependent_email = @dependent_user.email
+    @demo = @dependent_user.demo
+    @user  = @dependent_user.game_referrer
+    @accept_url = invitation_url(@dependent_user.invitation_code)
     @subhead_text = body
 
-		mail to: dependent_email, subject: subject, from: "#{@user.name} via Airbo"
+		mail to: @dependent_email, subject: subject, from: "#{@user.name} via Airbo"
   end
 end

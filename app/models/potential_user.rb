@@ -16,7 +16,7 @@ class PotentialUser < ActiveRecord::Base
   end
 
   def invite_as_dependent(subject, body)
-    DependentUserMailer.delay.notify(self.demo_id, self.email, subject, body, self.game_referrer_id)
+    DependentUserMailer.delay.notify(self.id, subject, body)
   end
 
   def email_with_name
