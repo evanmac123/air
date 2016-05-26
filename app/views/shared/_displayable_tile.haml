@@ -15,7 +15,8 @@
         .tile_thumbnail_image{id: thumbnail_id}
           .shadow_overlay
         .headline
-          %div{data: {'for-test' => displayable_tile.headline.downcase.sub(' ', '-')}, class: 'text'}= displayable_tile.headline
+          %div{data: {'for-test' => displayable_tile.headline.downcase.sub(' ', '-')}, class: 'text'}
+            = displayable_tile.headline
 
 - js_at_end do
   bindPreflightToEvent('ready', document, '#{displayable_tile.image.url}');
