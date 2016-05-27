@@ -1,6 +1,7 @@
 class PotentialUser < ActiveRecord::Base
   belongs_to :demo
   belongs_to :game_referrer, class_name: "User"
+  belongs_to :primary_user, class_name: "User"
   has_many   :peer_invitations, as: :invitee
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i}
   validates_uniqueness_of :invitation_code

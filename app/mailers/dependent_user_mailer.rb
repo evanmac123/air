@@ -9,7 +9,7 @@ class DependentUserMailer < ActionMailer::Base
 
     @dependent_email = @dependent_user.email
     @demo = @dependent_user.demo
-    @user  = @dependent_user.game_referrer
+    @user  = @dependent_user.primary_user
     @accept_url = invitation_url(@dependent_user.invitation_code)
     @subhead_text = body
 

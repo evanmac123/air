@@ -1,6 +1,6 @@
 class Invitation::DependentUserInvitationsController < ApplicationController
   def create
-    dependent_user = PotentialUser.where(email: permit_params[:email], game_referrer_id: current_user.id, demo_id: current_user.demo.dependent_board_id).first_or_create
+    dependent_user = PotentialUser.where(email: permit_params[:email], primary_user_id: current_user.id, demo_id: current_user.demo.dependent_board_id).first_or_create
     if dependent_user.valid?
       dependent_user.invite_as_dependent(permit_params[:subject], permit_params[:body])
 

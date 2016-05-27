@@ -89,9 +89,9 @@ class ConvertToFullUser
     @converted_user.location_id = find_location @location_name
     @converted_user.converting_from_guest = @converting_from_guest
     @converted_user.must_have_location = true if @location_name.present?
-    
+
     if @pre_user && @pre_user.is_potential_user?
-      @converted_user.primary_user = @pre_user.game_referrer
+      @converted_user.primary_user = @pre_user.primary_user
     end
   end
 
