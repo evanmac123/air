@@ -66,14 +66,14 @@ function initDom(){
         if($("meta[name='custom-palette']").length > 0){
           return;
         }
-    radialProgressBar()
+    radialProgressBar
           .removeClass("progress-" + currentProgress())
           .addClass("progress-" + progressNew);
   };
 
   function fillBarToFinalProgress(finalProgress, allTilesDone, callback) {
 
-    radialProgressBar().addClass('counting');
+    radialProgressBar.addClass('counting');
     startProgress = currentProgress();
     stepsNumber = finalProgress - startProgress;
     return $({progressCount: 0}).animate({progressCount: stepsNumber}, {
@@ -88,7 +88,7 @@ function initDom(){
         changeRadialProgressBarTo(progressNew);
       },
       complete: function() {
-        radialProgressBar().removeClass('counting');
+        radialProgressBar.removeClass('counting');
         if(typeof(callback) === 'function') {
           callback();
         }
