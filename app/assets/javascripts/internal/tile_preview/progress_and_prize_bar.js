@@ -234,18 +234,39 @@ function initDom(){
    setPointsFromLocal();
  }
 
+//TODO refactor this code since this logic for finding completed tiles is also
+ //in user_tile_preview.js
+
+ function completedTileCount(){
+   return completedTileIds().length;
+ }
+
+  function completedTileIds(){
+    return keys(progress.completed).map(function(num){return parseInt(num);});
+  }
+
+  function keys(obj){
+    return Object.keys(obj)
+  }
+
+ function setCompletedTiles(){
+   completedTileIds().forEach(function(id){
+     $("#single-tile-" + id).removeClass("not-completed").addClass("completed");
+   })
+ }
 
   function init(){
     config = $(".user_container").data("config")
-    var completed = config.completed
+    var completedCount = config.completed
     if(config.persistLocally){
       initLocalUserProgress();
-      completed = Object.keys(progress.completed).length
+      completedCount = completedTileCount();
+      setCompletedTiles();
     }
 
     legacyBrowser= config.legacyBrowser;
     initDom();
-    setTileBar(config.available, completed);
+    setTileBar(config.available, completedCount);
     setCongratText();
   }
   return {

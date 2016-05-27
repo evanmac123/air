@@ -39,6 +39,8 @@ Airbo.UserTilePreview =(function(){
     return  !isRemote();
   }
 
+//TODO refactor this code since this logic for finding completed tiles is also
+ //in progress_and_prize_bar.js 
   function completedTileCount(){
     return completedTileIds().length;
   }
