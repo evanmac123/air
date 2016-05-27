@@ -122,7 +122,7 @@ module ClientAdmin::TilesHelper
     escape_javascript(
       render(
         partial: 'client_admin/tiles/manage_tiles/single_tile',
-        locals: {presenter: SingleAdminTilePresenter.new(tile, :html, @is_client_admin_action, browser.ie?)}
+        locals: {presenter: present(tile, SingleAdminTilePresenter, {is_ie: browser.ie?})}
       )
     )
   end

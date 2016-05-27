@@ -281,7 +281,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def tile_presenter
-    @presenter ||= SingleAdminTilePresenter.new(@tile, :html, @is_client_admin_action, browser.ie?)
+    @presenter ||= present(@tile, SingleAdminTilePresenter, {is_ie: browser.ie?})
   end
 
   def render_tile_preview_string
