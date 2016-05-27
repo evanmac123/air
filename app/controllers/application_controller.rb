@@ -561,8 +561,8 @@ class ApplicationController < ActionController::Base
   end
 
 
-  def present(object, klass = nil)
+  def present(object, klass = nil, opts)
     klass ||= "#{object.class}Presenter".constantize
-    klass.new(object, view_context)
+    klass.new(object, view_context, opts)
   end
 end
