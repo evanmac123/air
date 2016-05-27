@@ -21,6 +21,7 @@ class SingleAdminTilePresenter < BasePresenter
   def initialize object,template, options
     super
     @type = tile.status.to_sym
+    @format =  options[:format]||:html
   end
 
   def tile_id
