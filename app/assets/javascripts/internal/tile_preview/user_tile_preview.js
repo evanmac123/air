@@ -98,6 +98,52 @@ Airbo.UserTilePreview =(function(){
     getTile(params, onNextTileReceived);
   }
 
+  function getTileAfterAnswer(responseText){
+    var params = $.extend(nextTileParams, {offset: 1, afterPosting: true});
+    if(isLocal()){
+      params =  $.extend(params, {demo: config.demo});
+    }
+
+    var cb = function(data, status, xhr) {
+      console.log("in callback", Date.now());
+
+      var result = mergeReturnedDataWithLocal(data);
+
+      var handler = function() {
+        if (result.all_tiles_done === true) {
+          $('.content .container.row').replaceWith(result.tile_content);
+          showOrHideStartOverButton(data.show_start_over_button === true);
+        } else {
+          $('#slideshow').html(result.tile_content);
+          initTile();
+          showOrHideStartOverButton($('#slideshow .tile_holder').data('show-start-over') === true);
+          ungrayoutTile();
+
+          console.log("tiles displayed", Date.now());
+        }
+
+        if (result.show_conversion_form === true) {
+          if ($("body").data("public-board") === true) {
+            Airbo.ScheduleDemoModal.openModal();
+            Airbo.ScheduleDemoModal.modalPing("Source", "Auto");
+          } else {
+            lightboxConversionForm();
+          }
+        }
+
+      };
+      $.when(Airbo.ProgressAndPrizeBar.predisplayAnimations(result, responseText)).then(handler);
+    };
+
+
+    if(isLocal() && allTilesCompleted()){
+
+      showAllFinished(responseText);
+    }else{
+      getTile(params, cb);
+    }
+    console.log("get tile called", Date.now());
+  }
 
   function getTile(params, cb){
     var url = params.url || nextTileUrl();
@@ -160,52 +206,7 @@ Airbo.UserTilePreview =(function(){
     return result;
   }
 
-  function getTileAfterAnswer(responseText){
-    var params = $.extend(nextTileParams, {offset: 1, afterPosting: true});
-    if(isLocal()){
-      params =  $.extend(params, {demo: config.demo});
-    }
 
-    var cb = function(data, status, xhr) {
-      console.log("in callback", Date.now());
-
-      var result = mergeReturnedDataWithLocal(data);
-
-      var handler = function() {
-        if (result.all_tiles_done === true) {
-          $('.content .container.row').replaceWith(result.tile_content);
-          showOrHideStartOverButton(data.show_start_over_button === true);
-        } else {
-          $('#slideshow').html(result.tile_content);
-          initTile();
-          showOrHideStartOverButton($('#slideshow .tile_holder').data('show-start-over') === true);
-          ungrayoutTile();
-
-          console.log("tiles displayed", Date.now());
-        }
-
-        if (result.show_conversion_form === true) {
-          if ($("body").data("public-board") === true) {
-            Airbo.ScheduleDemoModal.openModal();
-            Airbo.ScheduleDemoModal.modalPing("Source", "Auto");
-          } else {
-            lightboxConversionForm();
-          }
-        }
-
-      };
-      $.when(Airbo.ProgressAndPrizeBar.predisplayAnimations(result, responseText)).then(handler);
-    };
-
-
-    if(isLocal() && allTilesCompleted()){
-
-      showAllFinished(responseText);
-    }else{
-      getTile(params, cb);
-    }
-    console.log("get tile called", Date.now());
-  }
 
   function showAllFinished(responseText){
 
