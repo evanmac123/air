@@ -51,23 +51,19 @@ class SingleAdminTilePresenter < BasePresenter
   end
 
   def has_tile_stats?
-    show_admin_buttons? && (type? :active, :archive)
+    type? :active, :archive
   end
 
   def show_tile_path
-    if viewing_as_regular_user?
-      suggested_tile_path(self)
-    else
-      client_admin_tile_path(self)
-    end
+    client_admin_tile_path(tile)
   end
 
   def has_archive_button?
-    show_admin_buttons? && (type? :active)
+    type? :active
   end
 
   def has_activate_button?
-    show_admin_buttons? && (type? :archive, :draft)
+    type? :archive, :draft
   end
 
   def post_link_text
@@ -75,27 +71,27 @@ class SingleAdminTilePresenter < BasePresenter
   end
 
   def has_edit_button?
-    show_admin_buttons? && (type? :draft, :active, :archive)
+   type? :draft, :active, :archive
   end
 
   def has_destroy_button?
-    show_admin_buttons? && (type? :draft, :active, :archive)
+   type? :draft, :active, :archive
   end
 
   def has_accept_button?
-    show_admin_buttons? && (type? :user_submitted)
+    type? :user_submitted
   end
 
   def has_ignore_button?
-    show_admin_buttons? && (type? :user_submitted)
+    type? :user_submitted
   end
 
   def has_undo_ignore_button?
-    show_admin_buttons? && (type? :ignored)
+    type? :ignored
   end
 
   def has_menu?
-    show_admin_buttons? && (type? :draft, :active, :archive)
+    type? :draft, :active, :archive
   end
 
   def shows_creator?
@@ -131,13 +127,6 @@ class SingleAdminTilePresenter < BasePresenter
     @to_param ||= tile.to_param
   end
 
-  def show_admin_buttons?
-    @as_admin.present?
-  end
-
-  def viewing_as_regular_user?
-    !@as_admin
-  end
 
   def cache_key
     @cache_key ||= [
@@ -152,7 +141,6 @@ class SingleAdminTilePresenter < BasePresenter
       tile_completions_count,
       total_views,
       unique_views,
-      @as_admin,
       @is_ie
     ].join('-')
   end
