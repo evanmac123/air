@@ -1,5 +1,5 @@
 class ClientAdmin::StockTilesController < ClientAdminBaseController
-
+  before_filter :clear_server_side_tile_completions
   def show
     @current_user = current_user
     @tile = Tile.find(params[:id])
@@ -32,6 +32,16 @@ class ClientAdmin::StockTilesController < ClientAdminBaseController
 
   def tile_content
     render_to_string("_viewer", layout: false)
+  end
+
+  def clear_server_side_tile_completions
+    #NOTE this is a small hack to prevent the shared tile display logic from 
+    #showing library tiles as completed  if the tile happened to be completed by
+    #the current_user in another context e.g public boards.
+    #
+    # In the library tile completion status is tracked on the client only and ignores server
+    # side tile completion state
+    current_user.tile_completions=[]
   end
 
 
