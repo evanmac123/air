@@ -186,9 +186,13 @@ Airbo.UserTilePreview =(function(){
   }
 
   function applyCompletionCheck(){
-    if(completedTileIds().indexOf(tileId) !=-1){
+    if(isTileCompletedLocally()){
       setCompletionUI();
     }
+  }
+
+  function isTileCompletedLocally(){
+    return completedTileIds().indexOf(tileId) !=-1;
   }
 
   function mergeReturnedDataWithLocal(data){
