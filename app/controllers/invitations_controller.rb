@@ -34,7 +34,11 @@ class InvitationsController < ApplicationController
     @user = PotentialUser.search_by_invitation_code(params[:id]) unless @user
 
     if @user
-      @referrer = User.find(params[:referrer_id]) if params[:referrer_id] =~ /^\d+$/
+      @referrer = if params[:referrer_id] =~ /^\d+$/
+                    User.find(params[:referrer_id])
+                  else
+                    @user.game_referrer
+                  end
       @demo = Demo.find(params[:demo_id]) if params[:demo_id] =~ /^\d+$/
       # so many pings
       @user.ping_page('invitation acceptance', 'invitation acceptance version' => "v. 6/25/14")
@@ -85,7 +89,7 @@ class InvitationsController < ApplicationController
   end
 
   def accept_claimed_user_to_new_board
-    if @user.claimed? 
+    if @user.claimed?
       if @demo.is_public?
         @user.add_board @demo
         @user.move_to_new_demo @demo
@@ -102,19 +106,19 @@ class InvitationsController < ApplicationController
   def accept_unclaimed_user
     if @user.unclaimed?
       log_out_if_logged_in
-      
+
       unless @user.is_client_admin || @user.is_site_admin
-        redirect_to generate_password_invitation_acceptance_path( 
-          user_id: @user.id, 
-          demo_id: @demo.try(:id), 
-          invitation_code: @user.invitation_code, 
+        redirect_to generate_password_invitation_acceptance_path(
+          user_id: @user.id,
+          demo_id: @demo.try(:id),
+          invitation_code: @user.invitation_code,
           referrer_id: @referrer.try(:id)
         )
       else
         render 'show'
       end
     end
-  end 
+  end
 
   def process_potential_user_invitation
     log_out_if_logged_in

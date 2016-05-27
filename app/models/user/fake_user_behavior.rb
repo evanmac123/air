@@ -141,4 +141,8 @@ module User::FakeUserBehavior
   def intros
     UserIntro.new(explore_intro_seen: true)
   end
+
+  def is_potential_user?
+    false
+  end
 end

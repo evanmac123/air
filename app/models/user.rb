@@ -953,6 +953,10 @@ class User < ActiveRecord::Base
     false
   end
 
+  def is_potential_user?
+    false
+  end
+
   def highest_ranking_user_type
     return "site admin" if self.is_site_admin
     return "client admin" if self.is_client_admin

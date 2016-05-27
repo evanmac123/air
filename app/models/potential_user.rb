@@ -63,6 +63,10 @@ class PotentialUser < ActiveRecord::Base
     false
   end
 
+  def is_potential_user?
+    true
+  end
+
   def get_started_lightbox_displayed
     false
   end
