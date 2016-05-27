@@ -41,7 +41,10 @@ class ClientAdmin::StockTilesController < ClientAdminBaseController
     #
     # In the library tile completion status is tracked on the client only and ignores server
     # side tile completion state
-    current_user.tile_completions=[]
+
+   def current_user.tile_completions
+     User.new.tile_completions
+   end 
   end
 
 
