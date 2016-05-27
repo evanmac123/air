@@ -47,7 +47,7 @@ class SingleAdminTilePresenter < BasePresenter
   end
 
   def activation_dates
-    content_tag :div, timestamp, class: "activation_dates"
+    content_tag :div, raw(timestamp), class: "activation_dates"
   end
 
   def has_tile_stats?
