@@ -268,6 +268,8 @@ function initDom(){
     initDom();
     setTileBar(config.available, completedCount);
     setCongratText();
+
+    bindShowMoreTilesLink('.show_more_tiles', '.tile-wrapper', '#show_more_tiles_spinner', '#tile_wall', 'replace');
   }
   return {
     setTileBar: setTileBar,
