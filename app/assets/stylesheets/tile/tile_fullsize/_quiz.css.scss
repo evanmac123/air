@@ -69,15 +69,15 @@
     margin:1em auto;
     width:100%;
     a, a:link, a:visited {
-      @include button($blue);
-      @include font-semibold;
-      color:$white;
-      display: block;
-      font-size:1.25em !important;
-      line-height:1em;
-      padding:.5em 1em;
-      white-space: normal;
-      text-transform: none;
+      // @include button($blue);
+      // @include font-semibold;
+      // color:$white;
+      // display: block;
+      // font-size:1.25em !important;
+      // line-height:1em;
+      // padding:.5em 1em;
+      // white-space: normal;
+      // text-transform: none;
       &.clicked_wrong {
         background:darken($light-gray, 10%);
         border-color:$light-gray;
