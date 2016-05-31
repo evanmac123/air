@@ -8,15 +8,23 @@ class ClientAdmin::StockBoardsController < ClientAdminBaseController
   def show
     @current_user = current_user
     @demo = Demo.public_board_by_public_slug(params[:library_slug])
-    @tiles = @demo.tiles.active.order("activated_at desc").limit(16).offset(params[:offset])
+    @tiles = @demo.tiles.active.order("activated_at desc").limit(max_tiles)
+    @show_more_tiles = true
     if request.xhr?
       render :partial => "stock_board_wall", :layout => false and return
     end
-    @show_more_tiles = true
   end
 
 
- private
+  private
+
+  def max_tiles 
+    curr_page * 16 
+  end
+
+  def curr_page
+    @page ||= params[:page].try(:to_i) || 1
+  end
 
  def board_slugs
    @slugs ||= HOMEPAGE_BOARD_SLUGS.split(",")

@@ -1,5 +1,5 @@
 var bindShowMoreTilesLink;
-
+var currentPage = 1;
 bindShowMoreTilesLink = function(moreTilesSelector, tileSelector, spinnerSelector, targetSelector, updateMethod, afterRenderCallback) {
    $(moreTilesSelector).on('click', function(event) {
     var offset;
@@ -7,7 +7,7 @@ bindShowMoreTilesLink = function(moreTilesSelector, tileSelector, spinnerSelecto
     var path = self.data('tile-path') || self.attr("href");
     var contentType = self.data('contentType') 
     event.preventDefault();
-
+    currentPage= currentPage + 1;
     if (self.attr('disabled') == 'disabled') {
       return;
     }
@@ -16,7 +16,7 @@ bindShowMoreTilesLink = function(moreTilesSelector, tileSelector, spinnerSelecto
 
     offset = $(tileSelector).length;
 
-    $.get(path, { offset: offset, partial_only: 'true' }, (function(data) {
+    $.get(path, { offset: offset, partial_only: 'true', page: currentPage  }, (function(data) {
     var content = data.htmlContent || data;
       $(spinnerSelector).hide();
       switch (updateMethod) {
