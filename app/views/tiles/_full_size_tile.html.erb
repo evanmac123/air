@@ -23,8 +23,7 @@
       </div>
     </div>
 
-    <% render partial: 'tiles/tile_main', locals: {tile: tile} %>
-    <%= render partial: 'tiles/dependent_email_form' %>
+    <%= render partial: 'tiles/tile_main', locals: {tile: tile} %>
 
     <% overlay_style = overlay_displayed ? "display:block" : "" %>
     <div id="spinner_large" style="<%= overlay_style %>">
