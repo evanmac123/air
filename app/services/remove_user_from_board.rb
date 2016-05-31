@@ -16,6 +16,7 @@ class RemoveUserFromBoard
 
       board_membership_to_leave.delete
     end
+    true
   end
 
   def error_messages
@@ -63,7 +64,7 @@ class RemoveUserFromBoard
   end
 
   def most_recently_posted_board
-    @most_recently_posted_board ||= possible_boards_to_move_into.most_recently_posted_to.first.try(:demo)  
+    @most_recently_posted_board ||= possible_boards_to_move_into.most_recently_posted_to.first.try(:demo)
   end
 
   def possible_boards_to_move_into
