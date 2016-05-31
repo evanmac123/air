@@ -8,8 +8,8 @@ class Invitation::DependentUserInvitationsController < ApplicationController
     if dependent_user.valid?
       dependent_user.invite_as_dependent(permit_params[:subject], permit_params[:body])
 
-      head :ok
-      render 'success'
+      # head :ok
+      render partial: 'success'
     else
       head :unprocessable_entity
     end
