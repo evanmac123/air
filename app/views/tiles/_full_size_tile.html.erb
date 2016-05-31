@@ -23,8 +23,8 @@
       </div>
     </div>
 
-    <% render partial: 'tiles/tile_main', locals: {tile: tile} %>
-    <%= render partial: 'invitation/dependent_user_invitations/success' %>
+    <%= render partial: 'tiles/tile_main', locals: {tile: tile} %>
+    <% render partial: 'invitation/dependent_user_invitations/success' %>
 
     <% overlay_style = overlay_displayed ? "display:block" : "" %>
     <div id="spinner_large" style="<%= overlay_style %>">
