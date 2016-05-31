@@ -254,6 +254,11 @@ function initDom(){
      $("#single-tile-" + id).removeClass("not-completed").addClass("completed");
    })
  }
+  function onMoreTilesDisplayed(){
+    if($(".placeholder_tile").length > 0){
+      $('.show_more_tiles').hide();
+    }
+  }
 
   function init(){
     config = $(".user_container").data("config")
@@ -269,7 +274,7 @@ function initDom(){
     setTileBar(config.available, completedCount);
     setCongratText();
 
-    bindShowMoreTilesLink('.show_more_tiles', '.tile-wrapper', '#show_more_tiles_spinner', '#tile_wall', 'replace');
+    bindShowMoreTilesLink('.show_more_tiles', '.tile-wrapper', '#show_more_tiles_spinner', '#tile_wall', 'replace', onMoreTilesDisplayed );
   }
   return {
     setTileBar: setTileBar,
