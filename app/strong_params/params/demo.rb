@@ -68,7 +68,7 @@ module Params
                :cover_image_updated_at]
 
      if current_user.is_site_admin?
-       attrs.concat [:is_paid, :dependent_board_enabled] 
+       attrs.concat [:is_paid, :dependent_board_enabled, :dependent_board_id] 
      end
      attrs.concat [ ] if current_user.is_client_admin?
      attrs

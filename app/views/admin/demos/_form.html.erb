@@ -52,6 +52,8 @@
       <%= form.input :turn_off_admin_onboarding, :label => "Turn off admin onboarding" %>
       <%= form.input :is_parent, :label => "Is parent board (posted tiles can be copied by client admins from other boards)" %>
       <%= form.input :dependent_board_enabled, :label => "Dependent board enabled (Turns on 'Invite spouse' item in Survey)" %>
+      <%= select :demo, :dependent_board_id, Demo.all.map { |d| [d.name, d.id] }, {seleced: demo.dependent_board_id} %>
+
 
       <%= form.semantic_fields_for :custom_color_palette do|palette| %>
         <%= palette.inputs :name => "Custom Colors" do %>
