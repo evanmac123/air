@@ -104,7 +104,7 @@ class BoardsController < ApplicationController
   end
 
   def post_creation_path
-    LIBRARY_ENABLED ? client_admin_stock_boards_path : client_admin_explore_path
+    LIBRARY_ENABLED=="true" ? client_admin_stock_boards_path : client_admin_explore_path
   end
 
   def find_current_board
