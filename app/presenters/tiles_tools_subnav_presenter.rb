@@ -17,8 +17,8 @@ class TilesToolsSubnavPresenter
   end
 
   def items_with_corrected_params
-set_subnav_elements
-    elements = set_subnav_elements.reject{|el|el[:item_id]=="explore" if demo.explore_disabled?}
+    elements =set_subnav_elements
+    #elements = set_subnav_elements.reject{|el|el[:item_id]=="explore" if demo.explore_disabled?}
     elements.each do |item_params|
       yield correct_params(item_params)
     end
@@ -36,7 +36,15 @@ set_subnav_elements
     end
   end
 
-  protected
+  private
+
+  def show_explore?
+    current_user.is_site_admin? || EXPLORE_ENABLED == "true"
+  end
+
+  def show_library?
+    current_user.is_site_admin? || LIBRARY_ENABLED == "true"
+ end
 
   def set_subnav_elements
     if block_nav?
@@ -71,73 +79,78 @@ set_subnav_elements
   end
 
   def subnav_elements
-    [
-      {
+     nav = []
+
+    nav.tap do |els|
+      els.concat([{
         item_id: "explore", 
         link: explore_path, 
         icon: "rocket", 
         text: "Explore"
-      },
-      {
+      }]) if show_explore?
+
+      els.concat([{
         item_id: "library", 
         link: client_admin_stock_boards_path, 
         icon: "bank", 
         text: "Library"
-      },
+      }]) if show_library? 
 
-      {
-        item_id: "home_nav", 
-        link: activity_path, 
-        image: "airbo_logo_lightblue_square.png", 
-        text: "Preview"
-      },
-      {
-        item_id: "managing_tiles", 
-        link: client_admin_tiles_path, 
-        icon: "pencil", 
-        text: "Edit"
-      },
-      {
-        item_id: "share_tiles", 
-        link: client_admin_share_path, 
-        icon: "share-alt", 
-        text: "Share"
-      },
-      {
-        item_id: "board_activity", 
-        link: client_admin_path, 
-        icon: "line-chart", 
-        text: "Activity"
-      },
-      {
-        item_id: "prizes_nav", 
-        link: client_admin_prizes_path, 
-        icon: "trophy", 
-        text: "Prizes"
-      },
-      {
-        item_id: "users", 
-        link: client_admin_users_path, 
-        icon: "users", 
-        text: "Users"
-      },
-      {
-        item_id: "settings", 
-        link: client_admin_board_settings_path, 
-        icon: "cog", 
-        text: "Settings"
-      },
-      {
-        item_id: "admin_help", 
-        link: support_path,
-        icon: "question", 
-        text: "Help",
-        link_options: { target: "_blank" }
-      }
-    ]
+      els.concat(
+        [{
+          item_id: "home_nav", 
+          link: activity_path, 
+          image: "airbo_logo_lightblue_square.png", 
+          text: "Preview"
+        },
+        {
+          item_id: "managing_tiles", 
+          link: client_admin_tiles_path, 
+          icon: "pencil", 
+          text: "Edit"
+        },
+        {
+          item_id: "share_tiles", 
+          link: client_admin_share_path, 
+          icon: "share-alt", 
+          text: "Share"
+        },
+        {
+          item_id: "board_activity", 
+          link: client_admin_path, 
+          icon: "line-chart", 
+          text: "Activity"
+        },
+        {
+          item_id: "prizes_nav", 
+          link: client_admin_prizes_path, 
+          icon: "trophy", 
+          text: "Prizes"
+        },
+        {
+          item_id: "users", 
+          link: client_admin_users_path, 
+          icon: "users", 
+          text: "Users"
+        },
+        {
+          item_id: "settings", 
+          link: client_admin_board_settings_path, 
+          icon: "cog", 
+          text: "Settings"
+        },
+        {
+          item_id: "admin_help", 
+          link: support_path,
+          icon: "question", 
+          text: "Help",
+          link_options: { target: "_blank" }
+        }]
+      )
+    end
   end
 
   def list_of_blocked_items
-    list = ["Share", "Activity", "Prizes", "Users"]
+   ["Share", "Activity", "Prizes", "Users"]
   end
 end
