@@ -1,6 +1,7 @@
 var Airbo = window.Airbo || {};
 
 Airbo.DependentEmailForm = (function() {
+  var deferred;
   function initEvents() {
     $("form.dependent_email_form").submit(function(e) {
       e.preventDefault();
@@ -8,6 +9,7 @@ Airbo.DependentEmailForm = (function() {
         dataType: 'html',
         success: function(data, status, xhr) {
           $(".tile_main").html(data);
+          deferred.resolve();
         }
       });
     });
@@ -22,6 +24,9 @@ Airbo.DependentEmailForm = (function() {
         initEvents();
       }
     });
+    
+    deferred = $.Deferred();
+    return deferred.promise();
   }
   return {
     get: get
