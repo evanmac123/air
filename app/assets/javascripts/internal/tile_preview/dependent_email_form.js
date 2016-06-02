@@ -12,7 +12,7 @@ Airbo.DependentEmailForm = (function() {
         dataType: 'html',
         success: function(data, status, xhr) {
           $(".tile_main").html(data);
-          deferred.resolve();
+          setTimeout(deferred.resolve, 1000);
         }
       });
     });
