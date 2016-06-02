@@ -72,7 +72,12 @@ Airbo.UserTilePreview =(function(){
   };
 
   function rightAnswerClicked(event) {
-    $.when(Airbo.DependentEmailForm.get()).then(function() {
+    var invitationFormFun = function() {};
+    if( $(event.target).hasClass("invitation_answer") ){
+      invitationFormFun = Airbo.DependentEmailForm.get;
+    }
+
+    $.when(invitationFormFun()).then(function() {
       var posting, preloadAnimationsDone;
       posting = postTileCompletion(event);
       preloadAnimationsDone = Airbo.ProgressAndPrizeBar.tileCompletedPreloadAnimations(event);
