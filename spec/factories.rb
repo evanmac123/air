@@ -422,6 +422,7 @@ FactoryGirl.define do
     sequence(:email) {|n| "potential_#{n}@user.com" }
     invitation_code "MyString"
     association(:demo)
+    association :primary_user, factory: :user
   end
 
   factory :tile_viewing do
