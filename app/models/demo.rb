@@ -27,7 +27,7 @@ class Demo < ActiveRecord::Base
   has_one :custom_invitation_email
   has_one :raffle
   has_one :custom_color_palette
-  has_one :dependent_board, class_name: "Demo", foreign_key: :dependent_board_id, dependent: :destroy
+  belongs_to :dependent_board, class_name: "Demo", foreign_key: :dependent_board_id, dependent: :destroy
 
 
   validates_inclusion_of :join_type, :in => JOIN_TYPES
