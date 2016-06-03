@@ -61,26 +61,12 @@ Airbo.UserTilePreview =(function(){
     return true;
   }
 
-  function onNextTileReceived(data) {
-   var container = $('.content .container.row');
-    if (data.all_tiles_done === true) {
-    container.replaceWith(data.tile_content);
-      showOrHideStartOverButton(data.show_start_over_button === true);
-    } else {
-      container.html(data.tile_content);
-      initTile();
-      showOrHideStartOverButton($('#slideshow .tile_holder').data('show-start-over') === true);
-      ungrayoutTile();
-    }
-
-    if (data.show_conversion_form === true) {
-      if ($("body").data("public-board") === true) {
-        Airbo.ScheduleDemoModal.openModal();
-        Airbo.ScheduleDemoModal.modalPing("Source", "Auto");
-      } else {
-        lightboxConversionForm();
-      }
-    }
+  function onNextTileReceivedByNavigation(data) {
+    var container = $('.content .container.row');
+    container.html(data.tile_content);
+    initTile();
+    showOrHideStartOverButton($('#slideshow .tile_holder').data('show-start-over') === true);
+    ungrayoutTile();
   }
 
 
@@ -95,7 +81,7 @@ Airbo.UserTilePreview =(function(){
 
   function getTileByNavigation(target){
     var params = $.extend(nextTileParams,  navigationParams(target), {afterPosting: false});
-    getTile(params, onNextTileReceived);
+    getTile(params, onNextTileReceivedByNavigation);
   }
 
   function getTileAfterAnswer(responseText){
