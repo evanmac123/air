@@ -1,7 +1,7 @@
 var bindShowMoreTilesLink;
 var currentPage = 1;
 bindShowMoreTilesLink = function(moreTilesSelector, tileSelector, spinnerSelector, targetSelector, updateMethod, afterRenderCallback) {
-   $(moreTilesSelector).on('click', function(event) {
+   $("body").on('click', moreTilesSelector,  function(event) {
     var offset;
     var self = $(this);
     var path = self.data('tile-path') || self.attr("href");
