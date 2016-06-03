@@ -62,16 +62,6 @@ feature 'Adds user' do
     expect_content "Success! Next, send invite to"
   end
 
-  it 'should ping if new user is client admin', js: true do
-    fill_in_user_information
-    select_role("Administrator")
-    click_button "Add User"
-
-    FakeMixpanelTracker.clear_tracked_events
-    crank_dj_clear
-    FakeMixpanelTracker.should have_event_matching("Creator - New", source: 'Client Admin')
-  end
-
   it "should show meaningful errors when entered data is invalid" do
     click_button "Add User"
     should_be_on client_admin_users_path

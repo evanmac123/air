@@ -12,7 +12,7 @@ feature "Client admin creates tiles", js: true do
       page.find("#add_new_tile").trigger("click")
       fill_in_tile_form_entries
       click_create_button
-      within ".viewer" do 
+      within ".viewer" do
         expect(page).to  have_content "by Society"
         expect(page).to  have_content "Ten pounds of cheese"
         expect(page).to  have_content "Ten pounds of cheese. Yes? Or no?"
@@ -50,11 +50,11 @@ feature "Client admin creates tiles", js: true do
     end
 
     scenario  "edit all tile fields" do
-      
+
       fill_in_tile_form_entries edit_text: edit_text, points: points
       click_create_button
 
-      within ".viewer" do 
+      within ".viewer" do
         expect(page).to  have_content "by Society#{edit_text}"
         expect(page).to  have_content "Ten pounds of cheese#{edit_text}"
         expect(page).to  have_content "Ten pounds of cheese. Yes? Or no?#{edit_text}"
@@ -68,7 +68,7 @@ feature "Client admin creates tiles", js: true do
 
 
   def click_create_button
-    page.find("#new_tile_builder_form input[type=submit]").trigger("click")
+    page.find("#new_tile_builder_form .submit_tile_form").trigger("click")
   end
 
   def fill_in_tile_form_entries options = {}
@@ -77,10 +77,10 @@ feature "Client admin creates tiles", js: true do
     question_subtype = options[:question_subtype] || Tile::MULTIPLE_CHOICE
     edit_text = options[:edit_text] || "foobar"
     points = options[:points] || "18"
- 
+
 
     choose_question_type_and_subtype question_type, question_subtype
-    fake_upload_image "cov1.png" 
+    fake_upload_image "cov1.png"
 
     fill_in_image_credit "by Society#{edit_text}"
     page.find("#tile_builder_form_headline").set("Ten pounds of cheese#{edit_text}")
