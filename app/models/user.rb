@@ -1300,7 +1300,7 @@ class User < ActiveRecord::Base
       current_value = new_board_membership.send(field)
       send("#{field}=", current_value)
     end
-
+    # binding.pry
     save!
   end
 
