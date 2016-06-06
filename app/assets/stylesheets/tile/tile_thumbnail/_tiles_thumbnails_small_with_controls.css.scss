@@ -1,7 +1,7 @@
 //
 // => Small tile thumbnail (66.7%)
 //
-#draft_tiles .tile_container:not(.tile_in_active):not(.tile_in_achive),
+#draft_tiles .tile_container:not(.tile_in_active):not(.tile_in_archive),
 .tile_container.tile_in_draft {
   height: 240px;
   width: 16%;
@@ -40,4 +40,7 @@
       right: 0px;
     }
   }
+}
+.tile_in_active, .tile_in_archive {
+  width: 25% !important;
 }
