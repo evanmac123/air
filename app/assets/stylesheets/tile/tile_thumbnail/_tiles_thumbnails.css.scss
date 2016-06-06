@@ -4,7 +4,7 @@
   float: left;
   padding-bottom: 1.5rem;
   // height: 400px;
-  &[data-status=user] {
+  // &[data-status=user] {
     float: none;
     text-align: center;
     min-width: 140px;
@@ -23,7 +23,7 @@
       width:32%;
       margin-bottom:1em;
     }
-  }
+  // }
 }
 
 .tile_thumbnail {

@@ -3,7 +3,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=1280, maximum-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <%= content_for :meta %>
   <title>Airbo</title>
 
@@ -21,7 +21,7 @@
     <%= stylesheet_link_tag 'client_admin/client_admin_ie8' %>
   <![endif]-->
 
-    <%= stylesheet_link_tag 'app-user-progress' %>
+  <%= stylesheet_link_tag 'app-user-progress' %>
   <%= csrf_meta_tag %>
   <%= mobvious_javascript %>
   <%= render 'shared/nerf_animations_in_test' %>
