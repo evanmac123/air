@@ -2,15 +2,17 @@
   <div class='large-12 column'>
     <%= render partial: 'explores/parent_boards', locals: {boards: @parent_boards} %>
     <h1>Tile Subjects</h1>
-    <div class="row topics">
+    <div class="topics">
       <% @topics.each do |topic| %>
-        <%= link_to explore_topic_path(topic), class: "topic" do %>
-          <div class="topic_cell">
-            <%= image_tag("topics/#{topic.name.parameterize.underscore}.png") %>
-            <div class="shadow_overlay"></div>
-            <p class="title"><%= topic.name %></p>
-          </div>
-        <% end %>
+        <div class="tile_container">
+          <%= link_to explore_topic_path(topic), class: "topic" do %>
+            <div class="topic_cell">
+              <%= image_tag("topics/#{topic.name.parameterize.underscore}.png") %>
+              <div class="shadow_overlay"></div>
+              <p class="title"><%= topic.name %></p>
+            </div>
+          <% end %>
+        </div>
       <% end %>
     </div>
     <h1>Recent Posts</h1>

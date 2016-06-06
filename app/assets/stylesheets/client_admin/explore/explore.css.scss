@@ -56,12 +56,16 @@
 }
 
 body.explores-show {
+  .topics {
+    overflow: auto;
+  }
   a.topic {
     display: block;
     position: relative;
     float: left;
     border-radius: 3px;
-    margin: 0 50px 28px 0;
+    // margin: 0 50px 28px 0;
+    width: 100%;
     overflow: hidden;
     &:hover {
       .shadow_overlay {
@@ -69,9 +73,10 @@ body.explores-show {
       }
     }
     .topic_cell {
-      display: table-cell;
-      vertical-align: middle;
-      width: 234px;
+      display: flex;
+      // vertical-align: middle;
+      // width: 234px;
+      min-width: auto;
       height: 117px;
     }
     img {
