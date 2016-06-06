@@ -4,6 +4,7 @@ Airbo.DependentEmailForm = (function() {
   var deferred
     , formSel = "form.dependent_email_form"
     , noInviteLinkSel = formSel + " .no_invitation"
+    , tileMainSecSel = ".tile_main"
   ;
   function initEvents() {
     $(formSel).submit(function(e) {
@@ -11,7 +12,7 @@ Airbo.DependentEmailForm = (function() {
       $(this).ajaxSubmit({
         dataType: 'html',
         success: function(data, status, xhr) {
-          $(".tile_main").html(data);
+          $(formSel).html(data);
           setTimeout(deferred.resolve, 1000);
         }
       });
@@ -19,7 +20,10 @@ Airbo.DependentEmailForm = (function() {
 
     $(noInviteLinkSel).click(function(e) {
       e.preventDefault();
-      deferred.resolve();
+      deferred.reject();
+
+      $(tileMainSecSel).show();
+      $(formSel).hide();
     });
   }
   function get() {
@@ -28,7 +32,7 @@ Airbo.DependentEmailForm = (function() {
       url: '/invitation/dependent_user_invitation/new',
       dataType: "html",
       success: function(data, status, xhr) {
-        $(".tile_main").html(data);
+        $(tileMainSecSel).hide().after(data);
         initEvents();
       }
     });
