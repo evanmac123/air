@@ -8,4 +8,7 @@
   <%= text_area_tag "dependent_user_invitation[body]", "It would be really nice" %>
 
   <%= submit_tag "Send", class: "tile_button" %>
+  <p>
+    <%= link_to "Nevermind, I don’t want to send an invitation.", "", class: "no_invitation righty" %>
+  </p>
 <% end %>

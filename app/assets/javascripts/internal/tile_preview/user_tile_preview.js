@@ -72,13 +72,17 @@ Airbo.UserTilePreview =(function(){
   };
 
   function rightAnswerClicked(event) {
-    Airbo.DependentEmailForm.get();
-    return;
-    
-    var posting, preloadAnimationsDone;
-    posting = postTileCompletion(event);
-    preloadAnimationsDone = Airbo.ProgressAndPrizeBar.tileCompletedPreloadAnimations(event);
-    loadNextTileWithOffset(1, preloadAnimationsDone, Airbo.ProgressAndPrizeBar.predisplayAnimations, posting);
+    var invitationFormFun = function() {};
+    if( $(event.target).hasClass("invitation_answer") ){
+      invitationFormFun = Airbo.DependentEmailForm.get;
+    }
+
+    $.when(invitationFormFun()).then(function() {
+      var posting, preloadAnimationsDone;
+      posting = postTileCompletion(event);
+      preloadAnimationsDone = Airbo.ProgressAndPrizeBar.tileCompletedPreloadAnimations(event);
+      loadNextTileWithOffset(1, preloadAnimationsDone, Airbo.ProgressAndPrizeBar.predisplayAnimations, posting);
+    });
   };
 
 

@@ -1,15 +1,25 @@
 var Airbo = window.Airbo || {};
 
 Airbo.DependentEmailForm = (function() {
+  var deferred
+    , formSel = "form.dependent_email_form"
+    , noInviteLinkSel = formSel + " .no_invitation"
+  ;
   function initEvents() {
-    $("form.dependent_email_form").submit(function(e) {
+    $(formSel).submit(function(e) {
       e.preventDefault();
       $(this).ajaxSubmit({
         dataType: 'html',
         success: function(data, status, xhr) {
           $(".tile_main").html(data);
+          setTimeout(deferred.resolve, 1000);
         }
       });
+    });
+
+    $(noInviteLinkSel).click(function(e) {
+      e.preventDefault();
+      deferred.resolve();
     });
   }
   function get() {
@@ -22,6 +32,9 @@ Airbo.DependentEmailForm = (function() {
         initEvents();
       }
     });
+
+    deferred = $.Deferred();
+    return deferred.promise();
   }
   return {
     get: get

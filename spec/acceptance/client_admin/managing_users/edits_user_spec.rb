@@ -7,8 +7,8 @@ feature 'Edits user' do
   let (:unclaimed_user) { FactoryGirl.create(:user, demo: demo) }
 
   let (:user) do
-    FactoryGirl.create(:user, 
-                       :claimed, 
+    FactoryGirl.create(:user,
+                       :claimed,
                        demo:          demo,
                        name:          "Francis X. McGillicuddy",
                        email:         "frank@example.com",
@@ -19,7 +19,7 @@ feature 'Edits user' do
                        zip_code:      "02139"
                       )
   end
-  
+
   before do
     FactoryGirl.create :tile, demo: demo
   end
@@ -57,23 +57,23 @@ feature 'Edits user' do
 
     expect_content "OK, we've updated this user's information"
   end
-  
+
   it 'should have user set with role user at creation' do
     visit(edit_client_admin_user_path(user, as: client_admin))
     expect_role('User')
   end
-  
+
   it 'should change user roles when selected' do
     visit(edit_client_admin_user_path(user, as: client_admin))
     page.find('select.user-role-select').select 'Administrator'
     click_button "Save edits"
     expect_role('Administrator')
-    
+
     page.find('select.user-role-select').select 'User'
     click_button "Save edits"
-    expect_role('User')    
+    expect_role('User')
   end
-  
+
   it "should set user with role if user's current board isn't this one" do
     user.add_board(demo2, true)
 
@@ -83,16 +83,6 @@ feature 'Edits user' do
     expect_role('Administrator')
   end
 
-  it 'should make ping if user was given role Administrator' do
-    visit(edit_client_admin_user_path(user, as: client_admin))
-    page.find('select.user-role-select').select 'Administrator'
-    click_button "Save edits"
-    
-    FakeMixpanelTracker.clear_tracked_events 
-    crank_dj_clear 
-    FakeMixpanelTracker.should have_event_matching("Creator - New", source: 'Client Admin')
-  end
-  
   it "should show errors on bad data" do
     visit(edit_client_admin_user_path(user, as: client_admin))
     expect_name "Francis X. McGillicuddy"
@@ -140,7 +130,7 @@ feature 'Edits user' do
   it "should allow the user to be deleted", js: true do
     visit(edit_client_admin_user_path(user, as: client_admin))
     click_link "Delete user"
-    
+
     should_be_on client_admin_users_path
     expect {user.reload}.to raise_error(ActiveRecord::RecordNotFound)
   end

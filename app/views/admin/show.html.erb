@@ -10,8 +10,10 @@
 </div>
 <div class="row ">
   <div class="columns large-6">
-    <h2>Games<span><%= button_to 'Create New Game', new_admin_demo_path  %> </span>
-    </h2>
+    <h2>Games</h2>
+    <p>
+      <%= link_to 'Create New Game', new_admin_demo_path, class: "button"  %>
+    </p>
     <ul class="demos">
       <% @demos.each do |demo|  %>
         <% link_text = demo.name  %>

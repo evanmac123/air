@@ -17,15 +17,13 @@ feature 'Client admin drags and drops tiles' do
       visit current_path #reload page
       tiles = demo.send(:"#{section}_tiles").to_a
       t1, t2 = tiles[i1], tiles[i2]
-      move_tile t1, t2 
+      move_tile t1, t2
 
       wait_for_ajax
       tile_id = tiles[i1].id
       tiles.insert i2, tiles.delete_at(i1)
       section_tile_headlines("##{section}").should == tiles.map(&:headline)
       demo.reload.send(:"#{section}_tiles").should == tiles
-
-      expect_tile_status_updated_ping tile_id, admin
     end
   end
 
@@ -55,7 +53,7 @@ feature 'Client admin drags and drops tiles' do
       i2 = 0
       tiles1 = demo.send(:"#{section1}_tiles").to_a
       tiles2 = demo.send(:"#{section2}_tiles").to_a
-      
+
       visit current_path
       expect_no_content tiles1[i1 + 1].headline
       move_tile_between_sections tiles1[0], tiles2[i2]
@@ -78,7 +76,7 @@ feature 'Client admin drags and drops tiles' do
 
     it_should_behave_like "Tile is loaded after drag and drop if needed", "archive", "active"
     it_should_behave_like "Tile is loaded after drag and drop if needed", "archive", "draft"
-  
+
     context "Move Confirmation Modal when user moves tile from archive to active" do
       before do
         @section1, @num1, @i1 = "archive", 4, 3
@@ -108,7 +106,7 @@ feature 'Client admin drags and drops tiles' do
         FactoryGirl.create :tile_completion, user: admin, tile: @tiles1[@i1]
         visit current_path
         move_tile_between_sections @tiles1[@i1], @tiles2[@i2]
-        
+
         expect_content move_modal_text
         within move_modal_selector do
           click_link "Cancel"

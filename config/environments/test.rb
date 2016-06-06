@@ -1,10 +1,11 @@
+ENV['INSPECTLET_WID']="1234567890"
 silence_warnings do
   begin
     require 'ruby-debug'
   rescue LoadError
   end
 end unless ENV['NO_DEBUGGER']
- 
+
 # config/environments/test.rb
 class ClearanceBackDoor
   def initialize(app)
@@ -38,7 +39,7 @@ module Airbrake
   end
 
 end
- 
+
 
 Health::Application.configure do
   config.cache_classes = true
@@ -79,7 +80,7 @@ Health::Application.configure do
   Twilio::Config.setup \
     :account_sid => FAKE_TWILIO_ACCOUNT_SID,
     :auth_token => FAKE_TWILIO_AUTH_TOKEN
-    
+
   #########  ASSETS   ##################################################################
   # Configure static asset server for tests with Cache-Control for performance
   config.serve_static_assets = true
@@ -88,9 +89,8 @@ Health::Application.configure do
   # Allow pass debug_assets=true as a query parameter to load pages with unpackaged assets
   config.assets.allow_debugging = true
   ##########################################################################################
-  
+
   config.middleware.use ClearanceBackDoor
 
   config.action_mailer.asset_host = "//example.com"
 end
-
