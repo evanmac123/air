@@ -91,7 +91,6 @@ Airbo.UserTilePreview =(function(){
     }
 
     var cb = function(data, status, xhr) {
-      console.log("in callback", Date.now());
 
       var result = mergeReturnedDataWithLocal(data);
 
@@ -105,7 +104,6 @@ Airbo.UserTilePreview =(function(){
           showOrHideStartOverButton($('#slideshow .tile_holder').data('show-start-over') === true);
           ungrayoutTile();
 
-          console.log("tiles displayed", Date.now());
         }
 
         if (result.show_conversion_form === true) {
@@ -128,7 +126,6 @@ Airbo.UserTilePreview =(function(){
     }else{
       getTile(params, cb);
     }
-    console.log("get tile called", Date.now());
   }
 
   function getTile(params, cb){
