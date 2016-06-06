@@ -77,11 +77,13 @@ Airbo.UserTilePreview =(function(){
       invitationFormFun = Airbo.DependentEmailForm.get;
     }
 
-    $.when(invitationFormFun()).then(function() {
+    $.when(invitationFormFun()).done(function() {
       var posting, preloadAnimationsDone;
       posting = postTileCompletion(event);
       preloadAnimationsDone = Airbo.ProgressAndPrizeBar.tileCompletedPreloadAnimations(event);
       loadNextTileWithOffset(1, preloadAnimationsDone, Airbo.ProgressAndPrizeBar.predisplayAnimations, posting);
+    }).fail(function() {
+      Airbo.TileAnswers.reinitEvents();
     });
   };
 
