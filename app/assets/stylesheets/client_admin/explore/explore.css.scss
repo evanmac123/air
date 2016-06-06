@@ -108,5 +108,12 @@ body.topics-show {
 }
 
 #tile_wall_explore {
+  // @include clear;
   text-align: justify;
+  &:after {
+    content: "&nbps;";
+    visibility:hidden;
+    width:35%;
+    display:inline-block;
+  }
 }
