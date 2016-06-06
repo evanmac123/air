@@ -35,6 +35,7 @@
   }
 }
 .all_tile_thumbnails {
+  @include clear;
   background: transparent;
   margin:2em auto 1em auto;
   padding:0 1em;
@@ -114,6 +115,6 @@
 /*shame*/
 .client_admin-stock_boards-show{
   .content {
-    padding-top: 0px; 
+    padding-top: 0px;
   }
 }
