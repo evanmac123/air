@@ -5,7 +5,7 @@
   <label>Subject</label>
   <%= text_field_tag "dependent_user_invitation[subject]", "#{current_user.name} #{DEFAULT_INVITE_DEPENDENT_SUBJECT_LINE} #{current_user.demo.dependent_board.name}" %>
 
-  <%= text_area_tag "dependent_user_invitation[body]", DEFAULT_INVITE_DEPENDENT_BODY %>
+  <%= text_area_tag "dependent_user_invitation[body]", DEFAULT_INVITE_DEPENDENT_EMAIL_BODY %>
 
   <%= submit_tag "Send", class: "tile_button" %>
   <p>
