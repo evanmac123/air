@@ -13,6 +13,6 @@ class DependentUserMailer < ActionMailer::Base
     @accept_url = invitation_url(@dependent_user.invitation_code)
     @subhead_text = body
 
-		mail to: @dependent_email, subject: subject, from: "#{@user.name} via Airbo"
+		mail to: @dependent_email, subject: subject, from: "#{@user.name} via Airbo<#{@user.email}>"
   end
 end
