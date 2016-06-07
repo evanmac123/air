@@ -43,7 +43,7 @@ module ClientAdmin::TilesHelper
     tile_types[Tile::SURVEY][Tile::INVITE_SPOUSE] = {
       name: "Invite Spouse",
       question: "Do you want to invite your spouse?",
-      answers: ["have a dependent and want to invite them", "have a dependent but don't want to invite them", "don't have a dependent"],
+      answers: ["I have a dependent and want to invite them", "I have a dependent but don't want to invite them", "I don't have a dependent"],
       choose: true,
       remove: true,
       add: true,
