@@ -1,0 +1,3 @@
+<% content_for(:ie_link){ @accept_url } %>
+<%= render partial: 'mailer/main_text', locals: {head_text: "You are invited to #{@demo.name}", subhead_text: @subhead_text} %>
+<%= render partial: 'mailer/main_button', locals: {button_text: "Accept", button_url: @accept_url } %>

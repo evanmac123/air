@@ -7,6 +7,7 @@
 //= require_tree ../../../vendor/assets/javascripts/external/
 //= require_tree ../../../vendor/assets/javascripts/internal/.
 //= require ../../../vendor/assets/javascripts/confirm_with_reveal.modified
+//= require ../../../vendor/assets/javascripts/client_admin/jquery.form.min
 //= require_self
 //= require_tree ./internal
 //= require ./client_admin/tile_preview/image_loading_placeholder

@@ -41,7 +41,7 @@ FactoryGirl.define do
       association :game_referrer, :factory => :user
     end
 
- 
+
 
     trait :with_location do
       association :location
@@ -85,6 +85,12 @@ FactoryGirl.define do
     association :demo
   end
 
+  # factory :board_membership do
+  #   demo { FactoryGirl.create :demo }
+  #   user { FactoryGirl.create :user, demo: demo }
+  #   association :location
+  # end
+
   factory :demo do
     sequence(:name) {|n| "Coolio_#{n} Board" }
 
@@ -126,6 +132,10 @@ FactoryGirl.define do
     trait :parent do
       is_parent true
       is_public true
+    end
+
+    trait :with_dependent_board do
+      association :dependent_board, factory: :demo
     end
   end
 
@@ -412,6 +422,7 @@ FactoryGirl.define do
     sequence(:email) {|n| "potential_#{n}@user.com" }
     invitation_code "MyString"
     association(:demo)
+    association :primary_user, factory: :user
   end
 
   factory :tile_viewing do
@@ -453,7 +464,7 @@ FactoryGirl.define do
       amt_booked  5000
       start_date '2012-01-01'
       end_date '2012-12-31'
-      cycle Contract::ANNUAL 
+      cycle Contract::ANNUAL
       plan  "engage"
       max_users 100
     end
@@ -472,8 +483,8 @@ FactoryGirl.define do
     end
 
     trait :active do
-      start_date  Date.today 
-      end_date  1.year.from_now 
+      start_date  Date.today
+      end_date  1.year.from_now
     end
 
     factory :upgrade , class: Contract do

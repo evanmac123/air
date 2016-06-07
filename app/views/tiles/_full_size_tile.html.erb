@@ -13,44 +13,20 @@
   "key" => tile.storage_key 
    } do %>
 
- <div class="<%=tile_class(tile)%>">
-   <div class="tile_full_image <%= image_is_loading ? 'loading' : '' %>" style="<%= tile.image_styles %>">
-     <%= image_tag tile.image.url, :class => :tile_image, :alt => tile.headline, id:"tile_img_preview" %>
-     <div class="shadow_overlay non-landing"></div>
-     <div class="image_credit">
-       <div class="image_credit_view">
-         <%= link_to_if is_url?(tile.image_credit), truncate(tile.image_credit, length: 50), make_full_url(tile.image_credit), target: "_blank" %>
-       </div>
-     </div>
-   </div>
-   <div class="tile_texts_container">
-     <div class="tile_headline content_sections"><%= tile.headline %></div>
-     <div class="tile_supporting_content content_sections <%= tile.custom_supporting_content_class %>">
-       <%= unescape_html(tile.supporting_content) %>
 
-     </div>
-     <% if tile.link_address.present? %>
-       <div class="tile_external_link content_sections">
-         Visit <%= link_to truncate(tile.link_address, length: 30), tile.link_address, target: '_blank' %> <%= link_to fa_icon("external-link"), tile.link_address, target: '_blank' %>
-     </div>
-   <% end %>
-   </div>
+  <div class="<%=tile_class(tile)%>">
+    <div class="tile_full_image <%= image_is_loading ? 'loading' : '' %>" style="<%= tile.image_styles %>">
+      <%= image_tag tile.image.url, :class => :tile_image, :alt => tile.headline, id:"tile_img_preview" %>
+      <div class="shadow_overlay non-landing"></div>
+      <div class="image_credit">
+        <div class="image_credit_view">
+          <%= link_to_if is_url?(tile.image_credit), truncate(tile.image_credit, length: 50), make_full_url(tile.image_credit), target: "_blank" %>
+        </div>
+      </div>
+    </div>
 
-   <div class="tile_quiz">
-     <% if tile.points %>
-       <div class="tile_points_bar">
-         <div class="earnable_points">
-           <span class="num_of_points" id="tile_point_value"><%= tile.points %></span>
-           <span class="points_label"><%= tile.points > 1 ? "Points" : "Point" %></span>
-
-         </div>
-       </div>
-     <% end %>
-
-
-     <div class="tile_question content_sections"><%= tile.question %></div>
-     <%= render 'tiles/multiple_choice_answers', tile: tile %>
-   </div>
+    <%= render partial: 'tiles/tile_main', locals: {tile: tile} %>
+    <% render partial: 'invitation/dependent_user_invitations/success' %>
 
    <% overlay_style = overlay_displayed ? "display:block" : "" %>
    <div id="spinner_large" style="<%= overlay_style %>"> </div>

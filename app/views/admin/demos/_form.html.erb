@@ -51,6 +51,10 @@
 
       <%= form.input :turn_off_admin_onboarding, :label => "Turn off admin onboarding" %>
       <%= form.input :is_parent, :label => "Is parent board (posted tiles can be copied by client admins from other boards)" %>
+      <%= form.input :dependent_board_enabled, :label => "Dependent board enabled (Turns on 'Invite spouse' item in Survey)" %>
+      <%= form.label :dependent_board_id, "Dependent board" %>
+      <%= select :demo, :dependent_board_id, Demo.order(:name).map { |d| [d.name, d.id] }, {seleced: demo.dependent_board_id, :include_blank => true} %>
+
 
       <%= form.semantic_fields_for :custom_color_palette do|palette| %>
         <%= palette.inputs :name => "Custom Colors" do %>
@@ -61,7 +65,7 @@
           <%= palette.input :enable_reset, :label => 'Enable a customizable neutral color palette in case client branding is unfriendly' %>
           <%= palette.input :static_text_color, :label => "color for h1,h2,...headers and  label text (recommended: #4C4C4C -> default text color on airbo)"%>
           <%= palette.input :content_background_reset, :label => "Main page background (recommended: #eeeeee)"%>
-          <%= palette.input :tile_progress_background_reset, :label => "Tile Progress Background (recommended: #f7f7f7 -> neutral gray)"%> 
+          <%= palette.input :tile_progress_background_reset, :label => "Tile Progress Background (recommended: #f7f7f7 -> neutral gray)"%>
           <%= palette.input :tile_progress_completed_tiles_text_reset, :label => "Tile Progress Completed Tiles Text (recommended: #FFFFFF -> white primary color not white itself)"%>
           <%= palette.input :tile_progress_all_tiles_text_reset, :label => "Tile Progress All Tiles Text (recommended: primary color)"%>
           </fieldset>

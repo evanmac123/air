@@ -49,6 +49,9 @@ class User < ActiveRecord::Base
   has_one    :original_guest_user, :class_name => "GuestUser", :foreign_key => :converted_user_id, :inverse_of => :converted_user
   has_one    :billing_information
   has_one    :user_intro
+  has_one    :dependent_user,  class_name: "User", foreign_key: :primary_user_id
+  belongs_to :primary_user, class_name: "User"
+
   validate :normalized_phone_number_unique, :normalized_new_phone_number_unique, :normalized_new_phone_number_not_taken_by_board
   validate :new_phone_number_has_valid_number_of_digits
   validate :sms_slug_does_not_match_commands
@@ -950,6 +953,10 @@ class User < ActiveRecord::Base
     false
   end
 
+  def is_potential_user?
+    false
+  end
+
   def highest_ranking_user_type
     return "site admin" if self.is_site_admin
     return "client admin" if self.is_client_admin
@@ -1293,7 +1300,7 @@ class User < ActiveRecord::Base
       current_value = new_board_membership.send(field)
       send("#{field}=", current_value)
     end
-
+    # binding.pry
     save!
   end
 

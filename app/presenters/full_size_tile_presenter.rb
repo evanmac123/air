@@ -61,6 +61,11 @@ class FullSizeTilePresenter
     answer_index == tile.correct_answer_index || tile.is_survey? || tile.is_action?
   end
 
+  def is_invitation_answer?(answer_index)
+    answer_index == tile.correct_answer_index &&
+    tile.question_subtype == Tile::INVITE_SPOUSE
+  end
+
   def user_completed_tile_with_answer_index(answer_index)
     user_tile_completion.answer_index == answer_index
   end

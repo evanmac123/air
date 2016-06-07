@@ -127,16 +127,20 @@
       &.option_radio {
         background:darken($light-gray, 5%);
         border:2px transparent solid;
-        margin-top:1px;
-        height:47px;
+        // margin-top:1px;
+        height:46px;
         padding:.7em 0;
         text-align: center;
         width:8%;
+        background: inherit;
+        border-color: #d2d2d2;
+        margin-right: 10px;
         &:hover {cursor: pointer;}
       }
       &.option_selected {
-        background: $dark-green;
-        border-color:darken($dark-green, 5%);
+        // background: $dark-green;
+        // border-color:darken($dark-green, 5%);
+        background-color: #d2d2d2;
       }
       &.option_input {
         float:none; overflow:hidden;
@@ -237,14 +241,14 @@
       ul.answer_option{
         width: 100%;
 
-        li.option_radio{
-          background: inherit;
-          border-color: #d2d2d2;
-          margin-right: 10px;
-        }
-        li.option_selected{
-          background-color: #d2d2d2;
-        }
+        // li.option_radio{
+        //   background: inherit;
+        //   border-color: #d2d2d2;
+        //   margin-right: 10px;
+        // }
+        // li.option_selected{
+        //   background-color: #d2d2d2;
+        // }
       }
 
       &.true_false{
@@ -269,6 +273,12 @@
 
   &.survey{
     .tile_multiple_choice_answer{
+      &.invite_spouse{
+        a {
+          width:85%;
+          margin-left: 10%;
+        }
+      }
       a {
         width:95%;
       }

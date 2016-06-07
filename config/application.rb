@@ -15,9 +15,6 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
-HOMEPAGE_BOARD_SLUGS = ENV['HOMEPAGE_BOARD_SLUGS'] || "wellness-starter-kit,healthplanbasics,internal-validation,airbo-2"
-DEFAULT_DEMO_PARENT_BOARD = ENV['DEFAULT_DEMO_PARENT_BOARD'] || "healthplanbasics"
-
 module Health
   class Application < Rails::Application
     config.generators do |generate|

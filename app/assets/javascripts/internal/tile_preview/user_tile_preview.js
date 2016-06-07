@@ -252,15 +252,6 @@ Airbo.UserTilePreview =(function(){
     return $.Deferred().resolve([null, "success", {answer: answer, tileId: tileId, value: pointValue,responseText: {starting_points: progress.starting_points, starting_tickets: 0 }}]);
   }
 
-  function rightAnswerClicked(event) {
-    var tileCompletionPosted = postTileCompletion(event)
-      , grayedOutAndScrolled = grayoutAndScroll(event)
-    ;
-    $.when( tileCompletionPosted,grayedOutAndScrolled).then(function(xhr, res) {
-      getTileAfterAnswer(xhr[2].responseText);
-    });
-  }
-
  function allTilesCompleted(){
    return (completedTileCount() === progress.tileCount)
  }
@@ -271,6 +262,29 @@ Airbo.UserTilePreview =(function(){
      completed_only: $('#slideshow .tile_holder').data('completed-only'),
      previous_tile_ids: $('#slideshow .tile_holder').data('current-tile-ids')
    };
+ }
+
+ //TODO make sure not broken
+ function targetAnswerClicked(event) {
+   var tileCompletionPosted = postTileCompletion(event)
+     , grayedOutAndScrolled = grayoutAndScroll(event)
+   ;
+   $.when( tileCompletionPosted,grayedOutAndScrolled).then(function(xhr, res) {
+     getTileAfterAnswer(xhr[2].responseText);
+   });
+ }
+
+ function rightAnswerClicked(event){
+   var invitationFormFun = function() {};
+   if( $(event.target).hasClass("invitation_answer") ){
+     invitationFormFun = Airbo.DependentEmailForm.get;
+   }
+
+   $.when(invitationFormFun()).done(function() {
+     targetAnswerClicked(event);
+   }).fail(function() {
+     Airbo.TileAnswers.reinitEvents();
+   });
  }
 
  function nextTileUrl(){

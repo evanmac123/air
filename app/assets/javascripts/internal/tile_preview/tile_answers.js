@@ -16,6 +16,7 @@ Airbo.TileAnswers = (function(){
     , nerfedAnswerSel = '.nerfed_answer'
     , rightAnswerSel = '.right_multiple_choice_answer'
     , answerSel = ".tile_multiple_choice_answer"
+    , clickedRightAnsCls = "clicked_right_answer"
   ;
   function attachWrongAnswer(answerLink, target) {
     answerLink.click(function(event) {
@@ -34,7 +35,7 @@ Airbo.TileAnswers = (function(){
     });
   };
   function markCompletedRightAnswer(event) {
-    $(event.target).addClass('clicked_right_answer');
+    $(event.target).addClass(clickedRightAnsCls);
   };
   function disableRightAnswers() {
     $(rightAnswerSel).unbind();
@@ -65,11 +66,18 @@ Airbo.TileAnswers = (function(){
     });
     attachWrongAnswers();
   }
+  function reinitEvents() {
+    $("." + clickedRightAnsCls).removeClass(clickedRightAnsCls);
+    $(rightAnswerSel).unbind();
+    $(nerfedAnswerSel).unbind();
+    initEvents();
+  }
   function init(initParams) {
     params = $.extend(defaultParams, initParams);
     initEvents();
   }
   return {
-    init: init
+    init: init,
+    reinitEvents: reinitEvents
   }
 }());

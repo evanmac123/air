@@ -26,7 +26,9 @@
  font-size: $font-size-1;
 }
 
-
+.text-center {
+  text-align: center;
+}
 
 .board_settings {
   input[type="text"], input[type="file"], textarea{
@@ -134,6 +136,10 @@ td .button.td-button {
 
 .bg-user-side.bg-user-side.bg-user-side {
   background: #d9dfe9;
+}
+
+.bg-gray-quiz{
+  background: #f3f3f3;
 }
 
 .center {
