@@ -91,6 +91,12 @@ textarea {
   }
 }
 
+textarea#dependent_user_invitation_body{
+  line-height:1.5em;
+  resize:none;
+}
+
+
 /* Character counter for text and textarea*/
 .character-counter {
   color:$gray-5;
