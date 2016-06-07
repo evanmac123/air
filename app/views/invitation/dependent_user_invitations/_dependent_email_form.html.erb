@@ -1,11 +1,11 @@
 <%= form_tag invitation_dependent_user_invitation_path, class: "bg-gray-quiz dependent_email content_sections dependent_email_form" do %>
   <label>To</label>
-  <%= text_field_tag "dependent_user_invitation[email]", "good@email.com" %>
+  <%= text_field_tag "dependent_user_invitation[email]", "", placeholder: "dependent@email.com" %>
 
   <label>Subject</label>
-  <%= text_field_tag "dependent_user_invitation[subject]", "Please, join us" %>
+  <%= text_field_tag "dependent_user_invitation[subject]", "#{DEFAULT_INVITE_DEPENDENT_SUBJECT_LINE} #{current_user.demo.name}" %>
 
-  <%= text_area_tag "dependent_user_invitation[body]", "It would be really nice" %>
+  <%= text_area_tag "dependent_user_invitation[body]", DEFAULT_INVITE_DEPENDENT_BODY %>
 
   <%= submit_tag "Send", class: "tile_button" %>
   <p>
