@@ -6,7 +6,7 @@ Airbo.TileFormValidator = (function(){
   var config = {
     debug: true,
     ignore: [],
-    errorClass: "tile_builder_error",
+    errorclass: "tile_builder_error",
     rules: {
       "tile_builder_form[supporting_content]": {
         required: true,

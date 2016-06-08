@@ -5,6 +5,7 @@
   <label>Subject</label>
   <%= text_field_tag "dependent_user_invitation[subject]", dependent_board_email_subject%>
 
+  <label>Body</label>
   <%= text_area_tag "dependent_user_invitation[body]", dependent_board_email_body, rows: "4" %>
 
   <%= submit_tag "Send", class: "tile_button" %>
