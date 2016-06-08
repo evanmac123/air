@@ -3,9 +3,9 @@
   <%= text_field_tag "dependent_user_invitation[email]", "", placeholder: "example@email.com" %>
 
   <label>Subject</label>
-  <%= text_field_tag "dependent_user_invitation[subject]", "#{current_user.name} #{DEFAULT_INVITE_DEPENDENT_SUBJECT_LINE} #{current_user.demo.dependent_board.name}" %>
+  <%= text_field_tag "dependent_user_invitation[subject]", dependent_board_email_subject%>
 
-  <%= text_area_tag "dependent_user_invitation[body]", DEFAULT_INVITE_DEPENDENT_EMAIL_BODY, rows: "4" %>
+  <%= text_area_tag "dependent_user_invitation[body]", dependent_board_email_body, rows: "4" %>
 
   <%= submit_tag "Send", class: "tile_button" %>
   <p>

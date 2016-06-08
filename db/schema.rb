@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160527171030) do
+ActiveRecord::Schema.define(:version => 20160608195439) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -293,6 +293,8 @@ ActiveRecord::Schema.define(:version => 20160527171030) do
     t.boolean  "explore_disabled",                                     :default => true
     t.integer  "dependent_board_id"
     t.boolean  "dependent_board_enabled",                              :default => false
+    t.string   "dependent_board_email_subject"
+    t.text     "dependent_board_email_body"
   end
 
   create_table "email_commands", :force => true do |t|

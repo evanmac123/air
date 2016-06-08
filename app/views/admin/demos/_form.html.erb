@@ -51,11 +51,15 @@
 
       <%= form.input :turn_off_admin_onboarding, :label => "Turn off admin onboarding" %>
       <%= form.input :is_parent, :label => "Is parent board (posted tiles can be copied by client admins from other boards)" %>
+      <fieldset>
+        <legend>Dependent Board Settings</legend>
       <%= form.input :dependent_board_enabled, :label => "Dependent board enabled (Turns on 'Invite spouse' item in Survey)" %>
       <%= form.label :dependent_board_id, "Dependent board" %>
       <%= select :demo, :dependent_board_id, Demo.order(:name).map { |d| [d.name, d.id] }, {seleced: demo.dependent_board_id, :include_blank => true} %>
 
-
+        <%= form.input :dependent_board_email_subject %>
+        <%= form.input :dependent_board_email_body, type: :text %>
+       </fieldset>
       <%= form.semantic_fields_for :custom_color_palette do|palette| %>
         <%= palette.inputs :name => "Custom Colors" do %>
           <%= palette.input :enabled,  :label => 'Enabled' %>

@@ -184,4 +184,12 @@ module ApplicationHelper
     coder = HTMLEntities.new
     raw coder.decode("" + html + "")
   end
+
+  def dependent_board_email_subject 
+    current_user.demo.dependent_board_email_subject || DEFAULT_INVITE_DEPENDENT_SUBJECT_LINE
+  end
+
+  def dependent_board_email_body
+    current_user.demo.dependent_board_email_body || DEFAULT_INVITE_DEPENDENT_EMAIL_BODY
+  end
 end
