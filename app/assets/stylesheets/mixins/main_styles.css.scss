@@ -411,20 +411,22 @@ body {
   border: 1px solid $gray-7;
   border-left:none;
   border-right:none;
-  font-size: .8rem;
+  a, span, .spacer {
+    font-size: 13px;
+  }
   a {
     color: $n-blue;
     &:hover{
       text-decoration:underline;
     }
   }
-  color: $blue;
+  color: $text-color-1;
   .spacer{
     padding: 0px 3px;
-    color: $blue;
+    // color: $blue;
   }
   .terminus{
-    color: $blue;
+    // color: $blue;
   }
 }
 
