@@ -27,7 +27,9 @@
     <% odd_row_length = tiles_length % tile_row_size %>
     <% if odd_row_length != 0 || @no_tiles_to_do %>
       <% (tile_row_size - odd_row_length).times do %>
-        <div class='placeholder_tile tile_thumbnail'></div>
+        <div class="tile_container placeholder_container">
+          <div class="tile_thumbnail placeholder_tile"></div>
+        </div>
       <% end %>
     <% end %>
   </div>
