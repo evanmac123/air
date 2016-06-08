@@ -16,8 +16,8 @@
       <% end %>
     </div>
     <h1>Recent Posts</h1>
-    <%= render partial: 'explores/tile_wall', locals: {tiles: @tiles} %>
   </div>
+  <%= render partial: 'explores/tile_wall', locals: {tiles: @tiles} %>
 </div>
 <%= mp_track_page 'explore' %>
 <%= render partial: 'explores/explore_intro' if @show_explore_intro %>
