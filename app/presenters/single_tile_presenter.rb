@@ -9,7 +9,7 @@ class SingleTilePresenter < BasePresenter
 
   presents :tile
 
-  def initialize object,template, options 
+  def initialize object,template, options
     super
 
     @type = options[:type] # explore or user
@@ -70,7 +70,9 @@ class SingleTilePresenter < BasePresenter
       tile_id,
       headline,
       @is_ie,
-      @completed
+      @completed,
+      @type,
+      @public_slug
     ].join('-')
   end
 end
