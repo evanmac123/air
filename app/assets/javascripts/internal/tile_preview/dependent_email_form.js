@@ -37,7 +37,7 @@ Airbo.DependentEmailForm = (function() {
   }
 
   function initValidator(){
-    var config = {   
+    var config = {
 
     errorClass: "dependent_user_invitation_error",
       rules: {
@@ -48,7 +48,7 @@ Airbo.DependentEmailForm = (function() {
       messages: {
         "dependent_user_invitation[email]": "Email is required",
         "dependent_user_invitation[subject]": "Subject is required",
-        "dependent_user_invitation[body]": "Email body is required" 
+        "dependent_user_invitation[body]": "Email body is required"
       },
 
       errorPlacement: function(error, element) {
@@ -75,6 +75,9 @@ Airbo.DependentEmailForm = (function() {
       success: function(data, status, xhr) {
         $(tileQuizSecSel).hide().after(data);
         init();
+
+        var tileId = $(".tile_holder").data("current-tile-id");
+        Airbo.Utils.ping('Opened Invite Form', {tile_id: tileId});
       }
     });
 

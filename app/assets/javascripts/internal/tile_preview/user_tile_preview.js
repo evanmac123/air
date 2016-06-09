@@ -5,8 +5,8 @@ Airbo.UserTilePreview =(function(){
     , storageKey
     , tileId
     , progressType = "remote"
-    , progress 
-    , config 
+    , progress
+    , config
     , nextTileParams = { }
   ;
   function findCsrfToken() {
@@ -40,7 +40,7 @@ Airbo.UserTilePreview =(function(){
   }
 
 //TODO refactor this code since this logic for finding completed tiles is also
- //in progress_and_prize_bar.js 
+ //in progress_and_prize_bar.js
   function completedTileCount(){
     return completedTileIds().length;
   }
@@ -56,7 +56,7 @@ Airbo.UserTilePreview =(function(){
 
   function grayoutAndScroll() {
     grayoutTile(function(){
-      window.scrollTo(0,0) 
+      window.scrollTo(0,0)
     })
     return true;
   }
@@ -180,12 +180,12 @@ Airbo.UserTilePreview =(function(){
 
   function mergeReturnedDataWithLocal(data){
     var result = $.extend({}, data);
-    if(isLocal()){    
+    if(isLocal()){
       result.all_tiles = progress.tileCount
       result.completed_tiles = completedTileCount()
       result.ending_points = progress.starting_points
       result.ending_tickets = 0
-      result.raffle_progress_bar = false 
+      result.raffle_progress_bar = false
       result.all_tiles_done = progress.tileCount === completedTileCount();
 
       applyCompletionCheck();
@@ -205,7 +205,25 @@ Airbo.UserTilePreview =(function(){
     });
   }
 
-
+  function postTileCompletionPing(event) {
+    var tileId = $(".tile_holder").data("current-tile-id");
+    var tileType;
+    if( $('body').hasClass("public-board") ) {
+      tileType = "Public Tile";
+    } else if( $(".tile_multiple_choice_answer a").hasClass("invitation_answer") ) {
+      tileType = "Spouse Invite";
+    } else {
+      tileType = "User";
+    }
+    var pingParams = {
+      tile_id: tileId,
+      tile_type: tileType
+    };
+    if( tileType == "Spouse Invite" ) {
+      pingParams["sent_invite"] = $(event.target).hasClass("invitation_answer");
+    }
+    Airbo.Utils.ping('Tile - Completed', pingParams);
+  }
 
   function postTileCompletion(event) {
     var response
@@ -214,6 +232,7 @@ Airbo.UserTilePreview =(function(){
     ;
 
     if (isRemote()){
+      postTileCompletionPing(event);
       var response = $.ajax({
           type: "POST",
           url: $(event.target).attr('href'),
@@ -241,7 +260,7 @@ Airbo.UserTilePreview =(function(){
   }
 
   function findTileInAvailable(){
-    return $.inArray(tileId,progress.available) 
+    return $.inArray(tileId,progress.available)
   }
 
   function postToLocalStorage(){
@@ -293,7 +312,7 @@ Airbo.UserTilePreview =(function(){
    if(isRemote()){
      url ='/tiles/' + $('#slideshow .tile_holder').data('current-tile-id')
    }else{
-     url ='/client_admin/library_tiles/' + nextTile(); 
+     url ='/client_admin/library_tiles/' + nextTile();
    }
    return url;
  }
