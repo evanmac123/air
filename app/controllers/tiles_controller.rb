@@ -124,8 +124,8 @@ class TilesController < ApplicationController
     @idx ||= if satisfiable_tiles.empty?
             0
     elsif not previous_tile_ids.empty?
-      (previous_tile_index + params[:offset].to_i) % (current_tile_ids.length > 0 ? current_tile_ids.length : 1) 
-    else 
+      (previous_tile_index + params[:offset].to_i) % (current_tile_ids.length > 0 ? current_tile_ids.length : 1)
+    else
       (current_tile_ids.find_index{|element| element.to_i == reference_tile_id.to_i}) || 0
     end
   end
@@ -210,7 +210,8 @@ class TilesController < ApplicationController
   def schedule_viewed_tile_ping(tile)
     return unless tile.present?
     board_type = tile.demo.is_paid ? "Paid" : "Free"
-    ping('Tile - Viewed', {tile_type: "User", tile_id: tile.id, board_type: board_type}, current_user)
+    tile_type = tile.is_invite_spouse? ? "Spouse Invite" : "User"
+    ping('Tile - Viewed', {tile_type: tile_type, tile_id: tile.id, board_type: board_type}, current_user)
   end
 
   def maximum_tiles_wanted

@@ -141,6 +141,10 @@ class Tile < ActiveRecord::Base
     question_type == ACTION
   end
 
+  def is_invite_spouse?
+    question_subtype == INVITE_SPOUSE
+  end
+
   def survey_chart
     SurveyChart.new(self).build
   end
