@@ -17,7 +17,7 @@ Airbo.DependentEmailForm = (function() {
        formObj.ajaxSubmit({
           dataType: 'html',
           success: function(data, status, xhr) {
-            $(formSel).html(data);
+            $(formSel).replaceWith(data);
             setTimeout(deferred.resolve, 1000);
           }
         });
