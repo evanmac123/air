@@ -47,7 +47,7 @@
     animation: fa-spin 2s infinite linear;
     display: block;
     position: absolute;
-    left: 48%;
+    left: calc(50% - 5px);
     color: $spinner-color;
   }
 }
@@ -78,11 +78,11 @@
       box-shadow: none;
     }
 
-    &[disabled] {
-      cursor: default;
-      opacity: 0.85;
-      display:none;
-    }
+    // &[disabled] {
+    //   cursor: default;
+    //   opacity: 0.85;
+    //   display:none;
+    // }
 }
 
 .button.button {

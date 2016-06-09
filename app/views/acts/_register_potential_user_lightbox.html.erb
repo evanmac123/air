@@ -3,7 +3,8 @@
   <%= form_tag potential_user_conversions_path do %>
     <%= label_tag "potential_user_name", "Enter your first and last name to continue:" %>
     <%= text_field_tag "potential_user_name" %>
-    <%= submit_tag "Next", disabled: true %>
+    <%= link_to "Next", "", disabled: true, class: "submit button" %>
+    <%= submit_tag "Submit", class: "real_submit" %>
   <% end %>
 </div>
 
