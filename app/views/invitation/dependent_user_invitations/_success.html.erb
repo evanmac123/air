@@ -1,6 +1,7 @@
 <div class="bg-gray-quiz content_sections dependent_email">
-  <div class="text-center">
-    <h2>Invite Sent!</h2>
-    <%= fa_icon "check 5x", class: "blue" %>
+  <div class="multiple_choice_group content_sections">
+      <%= content_tag "div", class: "tile_multiple_choice_answer" do %>
+        <%= content_tag :div , "Invite Sent!", class: 'clicked_right_answer' %>
+     <%end%>
   </div>
 </div>
