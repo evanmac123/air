@@ -7,6 +7,7 @@ Airbo.UserTilePreview =(function(){
     , progressType = "remote"
     , progress
     , config
+    , tileSelectedByNav = true
     , nextTileParams = { }
   ;
   function findCsrfToken() {
@@ -63,6 +64,7 @@ Airbo.UserTilePreview =(function(){
 
   function onNextTileReceivedByNavigation(data) {
     var container = $('.content .container.row');
+    tileSelectedByNav = true;
     container.html(data.tile_content);
     initTile();
     showOrHideStartOverButton($('#slideshow .tile_holder').data('show-start-over') === true);
@@ -86,6 +88,7 @@ Airbo.UserTilePreview =(function(){
 
   function getTileAfterAnswer(responseText){
     var params = $.extend(nextTileParams, {offset: 1, afterPosting: true});
+    tileSelectedByNav =false;
     if(isLocal()){
       params =  $.extend(params, {demo: config.demo});
     }
@@ -161,9 +164,10 @@ Airbo.UserTilePreview =(function(){
 
   function setCompletionUI(){
     var answerIndex = getAnswerIndex();
-
-    $(".tile_holder>.not_completed").removeClass("not_completed").addClass("completed");
-
+    var el = $(".tile_holder>.not_completed").removeClass("not_completed").addClass("special completed");
+    if(tileSelectedByNav){
+      el.removeClass("special");
+    }
     setCompletedRightAnswer(answerIndex);
     disableNonSelectedAnswers(answerIndex);
   }

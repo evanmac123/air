@@ -251,7 +251,7 @@ function initDom(){
 
  function setCompletedTiles(){
    completedTileIds().forEach(function(id){
-     $("#single-tile-" + id).removeClass("not-completed").addClass("completed");
+     $("#single-tile-" + id).removeClass("not-completed").removeClass("special").addClass("completed")
    })
  }
   function onMoreTilesDisplayed(){

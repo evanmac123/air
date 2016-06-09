@@ -16,7 +16,9 @@ body.tiles.tiles-index, .client_admin-stock_tiles.client_admin-stock_tiles-show{
       font-weight: normal;
       text-align: center;
       text-decoration: inherit;
+
     /*--adjust as necessary--*/
+
       display: block;
       position: absolute;
       color: $dark-green;
@@ -26,6 +28,11 @@ body.tiles.tiles-index, .client_admin-stock_tiles.client_admin-stock_tiles-show{
       top: 0px;
       right: 0px;
       width: 1.15em;
+    }
+    &.special{
+     &:before{
+       display:none;
+     }
     }
   }
 }
