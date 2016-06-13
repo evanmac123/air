@@ -80,6 +80,10 @@
         max-width:none;
         max-height:238px;
         width: 100%;
+        @media only screen and (max-width: 600px) {
+          width: auto;
+          height: 100%;
+        }
       }
     }
     .headline{
