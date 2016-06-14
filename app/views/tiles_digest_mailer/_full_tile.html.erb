@@ -1,5 +1,7 @@
 <!-- 2-col image/text -->
-<% tile_link_args = [tile.email_site_link, tile.email_link_options.merge(style: "text-decoration:none;display:block;color:#2e2e2c;word-break:break-word;", target: "_blank", class: "tile_link")] %>
+<%site_link = subject ? "#{tile.email_site_link}&subject_line=#{subject}":  tile.email_site_link%>
+<% tile_link_args = [site_link, tile.email_link_options.merge(style: "text-decoration:none;display:block;color:#2e2e2c;word-break:break-word;", target: "_blank", class: "tile_link"), subject] %>
+
 <%= link_to *tile_link_args do %>
 <table align="center" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #dfdfdf;" class="columnsNoPadding">
 <tr>

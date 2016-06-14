@@ -18,7 +18,7 @@
 <% else %>
   <% @tiles.each do |tile| %>
     <% if tile %>
-      <%= render partial: "tiles_digest_mailer/full_tile", locals: {tile: tile} %>
+      <%= render partial: "tiles_digest_mailer/full_tile", locals: {tile: tile, subject: @presenter.link_options[:subject]} %>
     <% else %>
       <%= render partial: "tiles_digest_mailer/full_tile_placeholder" %>
     <% end %>

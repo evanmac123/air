@@ -11,7 +11,7 @@ class TilesDigestMailer < BaseTilesDigestMailer
 
 
     presenter_class = follow_up_email ? TilesDigestMailFollowUpPresenter : TilesDigestMailDigestPresenter
-    @presenter = presenter_class.new(@user, @demo, custom_from, custom_headline, custom_message, is_new_invite)
+    @presenter = presenter_class.new(@user, @demo, custom_from, custom_headline, custom_message, is_new_invite, subject)
 
 
     @tiles = TileBoardDigestDecorator.decorate_collection(

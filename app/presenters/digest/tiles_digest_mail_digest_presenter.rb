@@ -5,13 +5,14 @@ class TilesDigestMailDigestPresenter < TilesDigestMailBasePresenter
   include ClientAdmin::TilesHelper
   include Rails.application.routes.url_helpers
 
-  def initialize(user, demo, custom_from, custom_headline, custom_message, is_new_invite)
+  def initialize(user, demo, custom_from, custom_headline, custom_message, is_new_invite, subject=nil)
     super(custom_message)
     @user = user
     @demo = demo
     @custom_from = custom_from
     @is_new_invite = is_new_invite
     @custom_headline = custom_headline
+    @subject = subject
   end
 
   def follow_up_email
@@ -27,6 +28,14 @@ class TilesDigestMailDigestPresenter < TilesDigestMailBasePresenter
       @custom_from
     else
       @demo.reply_email_address
+    end
+  end
+
+  def link_options
+    if @subject
+      {subject: @subject}
+    else
+      {}
     end
   end
 
