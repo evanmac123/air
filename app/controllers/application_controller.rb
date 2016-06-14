@@ -138,7 +138,9 @@ class ApplicationController < ActionController::Base
       email_ping_text = EMAIL_PING_TEXT_TYPES[params[:email_type]]
       rack_timestamp = request.env['rack.timestamp']
       event_time = (rack_timestamp || Time.now) - 5.seconds
-      ping("Email clicked", { email_type: email_ping_text, time: event_time}, user) if email_ping_text.present?
+      hsh = { email_type: email_ping_text, time: event_time }
+      hsh.merge({subject_line: params[:subject_line]}) if params[:subject_line]
+      ping("Email clicked",hsh , user) if email_ping_text.present?
     end
   end
 
