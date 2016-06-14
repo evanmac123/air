@@ -48,15 +48,17 @@ class TilesDigestMailer < BaseTilesDigestMailer
     end	
   end
 
-  def notify_all(demo, unclaimed_users_also_get_digest, tile_ids, custom_headline, custom_message, subject)
+  def notify_all(demo, unclaimed_users_also_get_digest, tile_ids, custom_headline, custom_message, subject, alt_subject=nil)
     user_ids = demo.users_for_digest(unclaimed_users_also_get_digest).pluck(:id)
 
     user_ids.reject! do |user_id| 
       BoardMembership.where(demo_id: demo.id, user_id: user_id, digest_muted: true).first.present? 
     end
 
-    user_ids.each do |user_id| 
-      TilesDigestMailer.delay.notify_one(demo.id, user_id, tile_ids, subject, false, custom_headline, custom_message) 
+    user_ids.each_with_index do |user_id, idx| 
+      subj = resolve_subject(subject, alt_subject,idx)
+      TilesDigestMailer.delay.notify_one(demo.id, user_id, tile_ids, subj, false, custom_headline, custom_message) 
+
     end 
   end
 
@@ -82,6 +84,14 @@ class TilesDigestMailer < BaseTilesDigestMailer
   def notify_all_explore tile_ids, subject, email_heading, custom_message, custom_from=nil
     user_ids = User.where{ (is_client_admin) == true | (is_site_admin == true) }
     user_ids.each{ |user_id| TilesDigestMailer.delay.notify_one_explore(user_id, tile_ids, subject, email_heading, custom_message, custom_from=nil) }
+  end
+
+  def resolve_subject subject, alt_subject, idx
+      unless alt_subject
+        subject
+      else
+         idx.even? ? alt_subject : subject
+      end
   end
 
 

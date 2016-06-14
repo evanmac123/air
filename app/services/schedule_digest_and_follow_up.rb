@@ -4,6 +4,7 @@ class ScheduleDigestAndFollowUp
               :custom_headline,
               :custom_message,
               :custom_subject,
+              :alt_custom_subject,
               :follow_up_day,
               :current_user
 
@@ -13,6 +14,7 @@ class ScheduleDigestAndFollowUp
     @custom_headline = params[:custom_headline]
     @custom_message = params[:custom_message]
     @custom_subject = params[:custom_subject]
+    @alt_custom_subject = params[:alt_custom_subject]
     @follow_up_day = params[:follow_up_day]
     @current_user = params[:current_user]
   end
@@ -27,12 +29,13 @@ class ScheduleDigestAndFollowUp
   protected
 
   def send_digest
-    TilesDigestMailer.delay.notify_all  demo, 
+    TilesDigestMailer.delay.notify_all(demo, 
                                         unclaimed_users_also_get_digest, 
                                         tile_ids, 
                                         custom_headline, 
                                         custom_message, 
-                                        digest_subject
+                                        digest_subject,
+                                        alt_custom_subject)
   end
 
   def schedule_followup

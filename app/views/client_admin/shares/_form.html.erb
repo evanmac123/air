@@ -16,12 +16,18 @@
       <label for="digest_custom_subject">Email subject</label>
       <%= text_area_tag "digest[custom_subject]", @tiles_digest_form.custom_subject, size: "50x3", maxlength: 80, placeholder: 'New Tiles' %>
       <script>
-        
         addCharacterCounterFor('#digest_custom_subject');
-
-
       </script>
     </div>
+
+    <div class="custom_subject">
+      <label for="digest_alt_custom_subject">Alternate subject</label>
+      <%= text_area_tag "digest[alt_custom_subject]", @tiles_digest_form.alt_custom_subject, size: "50x3", maxlength: 80, placeholder: 'Alternate subject line' %>
+      <script>
+        addCharacterCounterFor('#digest_alt_custom_subject');
+      </script>
+    </div>
+
     <div class="custom_headline">
       <label for="digest_custom_headline">Custom headline</label>
       <%= text_area_tag "digest[custom_headline]", @tiles_digest_form.custom_headline, size: "50x3", maxlength: 75, placeholder: 'Your New Tiles Are Here!' %>
