@@ -96,6 +96,13 @@ Airbo.TileFormModal = (function(){
         validator.focusInvalid();
       }
     });
+
+    $("#tile_builder_form_embed_video").on("keyup paste", function() {
+      $("#image_uploader").hide();
+      var embedCode = $(this).val();
+      $(".video_section").html(embedCode);
+    });
+    autosize($('#tile_builder_form_embed_video'));
   }
 
   function initVars() {
