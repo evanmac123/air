@@ -1,5 +1,10 @@
 <div class="video_section" style="display:none">
-  <%= unescape_html(tile.embed_video) %>
+  <div class="video_frame_block">
+    <%= unescape_html(tile.embed_video) %>
+  </div>
+  <div class="clear_video has-tip tip-top">
+    <i class="fa fa-times fa-2x"></i>
+  </div>
 </div>
 <div class="<%='ie9' if  ie9_or_older? %>">
   <div id="tile_embed_video" class="content_sections">

@@ -10,13 +10,26 @@
   position: relative;
   width: 100%;
   padding-top: 57%;
-    iframe {
-      width: 100%;
-      position: absolute;
-      height: 100%;
-      top: 0;
+  iframe {
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    top: 0;
+  }
+  .clear_video {
+    display: block;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    i {
+      color: $white;
+      &:hover, &:focus {
+        cursor: pointer;
+        color: $red;
+      }
     }
- }
+  }
+}
 
 .tile_headline, #tile_builder_form_headline, #tile_builder_form_embed_video {
   font-size: 32px;

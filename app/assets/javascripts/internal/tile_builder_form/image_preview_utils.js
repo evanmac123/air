@@ -122,6 +122,7 @@ $(function() {
         directUploadCompleted: directUploadCompleted,
         libraryImageSelected: libraryImageSelected,
         remoteMediaUrl: getRemoteMediaURL,
+        removeImage: removeImage
       };
 
     }());
