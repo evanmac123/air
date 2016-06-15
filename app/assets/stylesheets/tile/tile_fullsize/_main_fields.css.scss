@@ -7,10 +7,15 @@
 }
 
 .video_section {
-   iframe {
-     width: 100%;
-     height: 420px;
-   }
+  position: relative;
+  width: 100%;
+  padding-top: 60%;
+    iframe {
+      width: 100%;
+      position: absolute;
+      height: 100%;
+      top: 0;
+    }
  }
 
 .tile_headline, #tile_builder_form_headline, #tile_builder_form_embed_video {
