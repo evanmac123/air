@@ -80,7 +80,18 @@ class FullSizeTilePresenter
   end
 
   def image_styles
-    (is_preview || ie9_or_older?) ? "height:#{full_size_image_height}px;" : ""
+    styles = ""
+    styles += (is_preview || ie9_or_older?) ? "height:#{full_size_image_height}px;" : ""
+    # styles += "display:#{show_image? ? 'none' : 'block'};"
+    styles
+  end
+
+  def show_image?
+    !show_video?
+  end
+
+  def show_video?
+    tile.embed_video.present?
   end
 
   protected

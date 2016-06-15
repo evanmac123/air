@@ -2,7 +2,7 @@ var Airbo = window.Airbo || {};
 
 Airbo.ImageLoadingPlaceholder = (function(){
   function removeLoadingPlaceholder() {
-    $(".tile_full_image").removeClass("loading").attr("style", "");
+    $(".tile_full_image").removeClass("loading").css("height", "");
   }
   function loadImage() {
     if( $("#tile_img_preview")[0].complete ) {

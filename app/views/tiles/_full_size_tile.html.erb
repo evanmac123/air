@@ -15,11 +15,11 @@
 
 
   <div class="<%=tile_class(tile)%>">
-    <% if tile.embed_video.present? %>
-      <div class="video_section">
-        <%= unescape_html(tile.embed_video) %>
-      </div>
-    <% else %>
+    <div class="video_section" style="display:<%= tile.show_video? ? 'block' : 'none' %>">
+      <%= unescape_html(tile.embed_video) %>
+    </div>
+
+    <div class="image_section" style="height:<%= tile.show_image? ? '' : '0px' %>">
       <div class="tile_full_image <%= image_is_loading ? 'loading' : '' %>" style="<%= tile.image_styles %>">
         <%= image_tag tile.image.url, :class => :tile_image, :alt => tile.headline, id:"tile_img_preview" %>
         <div class="shadow_overlay non-landing"></div>
@@ -29,7 +29,7 @@
           </div>
         </div>
       </div>
-    <% end %>
+    </div>
 
     <%= render partial: 'tiles/tile_main', locals: {tile: tile} %>
     <% render partial: 'invitation/dependent_user_invitations/success' %>
