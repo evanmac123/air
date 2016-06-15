@@ -1,4 +1,6 @@
-<div class="video_section"></div>
+<div class="video_section" style="display:none;">
+  <%= unescape_html(tile.embed_video) %>
+</div>
 <div class="<%='ie9' if  ie9_or_older? %>">
   <div id="tile_embed_video" class="content_sections">
     <%= form.text_area :embed_video,  {rows: 1, placeholder:'Embed Video Code'} %>
