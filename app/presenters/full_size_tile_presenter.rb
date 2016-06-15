@@ -19,6 +19,7 @@ class FullSizeTilePresenter
     :tile_completions,
     :full_size_image_height,
     :custom_supporting_content_class,
+    :embed_video,
     to: :tile
 
   def initialize(tile, user, is_preview, current_tile_ids, browser)

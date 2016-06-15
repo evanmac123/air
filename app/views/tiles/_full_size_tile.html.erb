@@ -4,26 +4,32 @@
 <% image_is_loading ||= false %>
 <% tile = FullSizeTilePresenter.new(tile, current_user, is_preview, @current_tile_ids, browser) %>
 
-<%=content_tag :div, class: "tile_holder", :data => { "current-tile-id" => tile.id, 
-  "completed-only" => @show_completed_tiles, 
-  "show-conversion-form" => (@show_conversion_form||false), 
-  "show-start-over" => session[:display_start_over_button], 
-  "current-tile-ids" => tile.current_tile_ids_joined, 
-  "point-value" => tile.points, 
-  "key" => tile.storage_key 
+<%=content_tag :div, class: "tile_holder", :data => { "current-tile-id" => tile.id,
+  "completed-only" => @show_completed_tiles,
+  "show-conversion-form" => (@show_conversion_form||false),
+  "show-start-over" => session[:display_start_over_button],
+  "current-tile-ids" => tile.current_tile_ids_joined,
+  "point-value" => tile.points,
+  "key" => tile.storage_key
    } do %>
 
 
   <div class="<%=tile_class(tile)%>">
-    <div class="tile_full_image <%= image_is_loading ? 'loading' : '' %>" style="<%= tile.image_styles %>">
-      <%= image_tag tile.image.url, :class => :tile_image, :alt => tile.headline, id:"tile_img_preview" %>
-      <div class="shadow_overlay non-landing"></div>
-      <div class="image_credit">
-        <div class="image_credit_view">
-          <%= link_to_if is_url?(tile.image_credit), truncate(tile.image_credit, length: 50), make_full_url(tile.image_credit), target: "_blank" %>
+    <% if tile.embed_video.present? %>
+      <div class="video_section">
+        <%= unescape_html(tile.embed_video) %>
+      </div>
+    <% else %>
+      <div class="tile_full_image <%= image_is_loading ? 'loading' : '' %>" style="<%= tile.image_styles %>">
+        <%= image_tag tile.image.url, :class => :tile_image, :alt => tile.headline, id:"tile_img_preview" %>
+        <div class="shadow_overlay non-landing"></div>
+        <div class="image_credit">
+          <div class="image_credit_view">
+            <%= link_to_if is_url?(tile.image_credit), truncate(tile.image_credit, length: 50), make_full_url(tile.image_credit), target: "_blank" %>
+          </div>
         </div>
       </div>
-    </div>
+    <% end %>
 
     <%= render partial: 'tiles/tile_main', locals: {tile: tile} %>
     <% render partial: 'invitation/dependent_user_invitations/success' %>

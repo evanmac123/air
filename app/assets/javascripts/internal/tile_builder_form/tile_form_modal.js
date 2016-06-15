@@ -99,8 +99,12 @@ Airbo.TileFormModal = (function(){
 
     $("#tile_builder_form_embed_video").on("keyup paste", function() {
       $("#image_uploader").hide();
+      
       var embedCode = $(this).val();
       $(".video_section").html(embedCode);
+
+      var videoImage = $("#remote_media_url").data("video-image");
+      $("#remote_media_url").val(videoImage);
     });
     autosize($('#tile_builder_form_embed_video'));
   }

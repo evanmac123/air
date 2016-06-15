@@ -2,7 +2,7 @@
 
   <div id="image_uploader" class="intro-tipsy content_sections"  data-library-url=<%=client_admin_tile_images_path%> >
 
-    <%= form.text_field :remote_media_url, id: "remote_media_url", style: "display:none" , data:{proxyid: "image_uploader"} %>
+    <%= form.text_field :remote_media_url, id: "remote_media_url", style: "display:none" , data:{proxyid: "image_uploader", "video-image" => image_path("video.png")} %>
     <% image_class = tile_image_present(@tile_builder_form.remote_media_url) ? "show_shadows" : "show_placeholder" %>
 
     <div class="intro-tipsy image_preview <%= image_class %> loading" data-img-height='<%= @tile_builder_form.full_size_image_height%>'>
