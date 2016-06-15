@@ -6,12 +6,15 @@
   overflow: hidden;
 }
 
-.tile_headline, #tile_builder_form_headline {
+.tile_headline, #tile_builder_form_headline, #tile_builder_form_embed_video {
   font-size: 32px;
   color:$dark-gray;
   line-height:1.35em;
   padding-top:.5em;
   padding-bottom:.5em;
+}
+#tile_builder_form_embed_video {
+  font-size: 20px;
 }
 .tile_supporting_content, #supporting_content_editor {
   @include with-lists();
