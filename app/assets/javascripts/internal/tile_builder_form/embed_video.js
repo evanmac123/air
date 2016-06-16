@@ -15,7 +15,7 @@ Airbo.EmbedVideo = (function() {
     Airbo.TileImagesMgr.removeImage(); // image with video icon
   }
   function addVideo(embedCode) {
-    if( $(embedCode).prop("tagName") != "IFRAME" ) return;
+    // if( $(embedCode).prop("tagName") != "IFRAME" ) return;
 
     $("#image_uploader").hide();
     $(".video_section").show();
@@ -42,11 +42,25 @@ Airbo.EmbedVideo = (function() {
       modalObj.open();
     });
   }
+  function isIframe(text) {
+    return $( text ).prop("tagName") == "IFRAME";
+  }
+  function getValidCode(text) {
+    if( isIframe(text) ){
+      return text;
+    }
+    text = $(text).find("iframe").prop('outerHTML');
+    return text;
+  }
   function initModalEvents() {
     // modal events
     $("#embed_video_field").on("keyup paste", function() {
-      var validFormat =  $( $(this).val() ).prop("tagName") != "IFRAME"
-      submitVideo.prop("disabled", validFormat);
+      var embedCode =  getValidCode( $(this).val() );
+      var blockSubmit = embedCode == undefined;
+      if( !blockSubmit ) {
+        $(this).val(embedCode);
+      }
+      submitVideo.prop("disabled", blockSubmit);
     });
     submitVideo.click(function() {
       modalObj.close();
