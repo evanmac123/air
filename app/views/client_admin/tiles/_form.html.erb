@@ -1,6 +1,6 @@
 <div class="row">
   <div class="large-centered columns large-8">
-    
+
     <% form_url = @user_side ? suggested_tiles_path : url_for([:client_admin, @tile_builder_form]) %>
     <%= form_for @tile_builder_form, as: :tile_builder_form, url: form_url, html: { id: "new_tile_builder_form", class: "new_tile_builder_form"} do |f| %>
       <%= f.hidden_field :status %>
@@ -14,6 +14,7 @@
           <div class="tile_holder">
             <%= render '/shared/tiles/form/image_preview', form: f %>
             <div class="builder_content tile_builder_section">
+              <%= render 'shared/tiles/form/video_section', form: f, tile: @tile_builder_form %>
               <%= render 'shared/tiles/form/headline_and_supporting_content_fields', form: f, tile: @tile_builder_form %>
             </div>
             <%= render 'shared/tiles/form/question_and_answer_section', form: f %>
