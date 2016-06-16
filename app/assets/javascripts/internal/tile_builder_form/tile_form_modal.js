@@ -4,7 +4,7 @@ Airbo.TileFormModal = (function(){
   // Selectors
   var modalId = "tile_form_modal"
     , formSel ="#new_tile_builder_form"
-    , pickImageSel ="#image_uploader"
+    , pickImageSel =".image_placeholder, .image_preview.show_shadows"
     , ajaxHandler = Airbo.AjaxResponseHandler
     , self
   ;
@@ -75,9 +75,10 @@ Airbo.TileFormModal = (function(){
   }
 
   function initEvents() {
-    pickImage.click(function(e){
+    form.on("click", pickImageSel, function(e){
+    // $(pickImageSel).click(function(e){
       e.preventDefault();
-      var libraryUrl = $(this).data("libraryUrl");
+      var libraryUrl = $("#image_uploader").data("libraryUrl");
       imageLibraryModal.open(libraryUrl);
     });
 
@@ -101,7 +102,7 @@ Airbo.TileFormModal = (function(){
 
   function initVars() {
     form = $(formSel);
-    pickImage = $(pickImageSel);
+    // pickImage = $(pickImageSel);
     submitLink = form.find(".submit_tile_form");
     // submitBtn = form.find("input[type=submit]");
   }
