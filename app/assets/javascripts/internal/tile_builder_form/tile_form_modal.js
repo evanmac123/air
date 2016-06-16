@@ -45,7 +45,7 @@ Airbo.TileFormModal = (function(){
     imageLibraryModal = Airbo.ImageLibraryModal;
     imageLibraryModal.init(Airbo.TileFormModal);
     Airbo.StickyMenu.init(self);
-    Airbo.EmbedVideo.init();
+    Airbo.EmbedVideo.initForm();
 
     $("#upload_preview").on("load", function(){
       $(".image_preview").removeClass("loading").attr("style", ""); // remove height
@@ -133,6 +133,7 @@ Airbo.TileFormModal = (function(){
     self = this;
     initModalObj();
     tileManager = mgr;
+    Airbo.EmbedVideo.init();
   }
 
   return {

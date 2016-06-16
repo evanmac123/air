@@ -5,6 +5,7 @@ Airbo.EmbedVideo = (function() {
     , modalId = "embed_video_modal"
     , submitVideoSel = "#submit_embed_video"
     , submitVideo
+    , modalInitialized = false
   ;
   function addVideoImage() {
     var videoImage = $("#remote_media_url").data("video-image");
@@ -30,16 +31,19 @@ Airbo.EmbedVideo = (function() {
     $(".video_frame_block").html("");
     $("#tile_builder_form_embed_video").val("");
   }
-  function initEvents() {
-    $("#tile_builder_form_embed_video").on("keyup paste", function() {
-      addVideo( $(this).val() );
-    });
+  function initFormEvents() {
+    // form events
+    // $("body").on("click", ".clear_video", function() {
     $(".clear_video").click(function() {
       removeVideo();
     });
+    // $("body").on("click", ".video_placeholder", function() {
     $(".video_placeholder").click(function() {
       modalObj.open();
     });
+  }
+  function initModalEvents() {
+    // modal events
     $("#embed_video_field").on("keyup paste", function() {
       var validFormat =  $( $(this).val() ).prop("tagName") != "IFRAME"
       submitVideo.prop("disabled", validFormat);
@@ -64,17 +68,23 @@ Airbo.EmbedVideo = (function() {
   function initVars() {
     submitVideo = $(submitVideoSel);
   }
-  function init() {
-    initVars();
+  function initForm() {
     if( $("#tile_builder_form_embed_video").val().length > 0 ) {
       $("#image_uploader").hide();
       $(".video_section").show();
     }
-    initEvents();
-    autosize($('#tile_builder_form_embed_video'));
+    initFormEvents();
+  }
+  function init() {
+    if( modalInitialized ) return;
+    modalInitialized = true;
+
+    initVars();
     initModalObj();
+    initModalEvents();
   }
   return {
-   init: init
+   init: init,
+   initForm: initForm
   }
 }());
