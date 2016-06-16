@@ -1,15 +1,4 @@
-<div class="video_section" style="display:none">
-  <div class="video_frame_block">
-    <%= unescape_html(tile.embed_video) %>
-  </div>
-  <div class="clear_video has-tip tip-top">
-    <i class="fa fa-times fa-2x"></i>
-  </div>
-</div>
 <div class="<%='ie9' if  ie9_or_older? %>">
-  <div id="tile_embed_video" class="content_sections">
-    <%= form.text_area :embed_video,  {rows: 1, placeholder:'Embed Video Code'} %>
- </div>
   <div id="tile_headline" class="content_sections">
     <%= form.label :headline,  class: "show_if_ie9" %>
     <%= form.text_area :headline,  {rows: 1, maxlength: 75, placeholder:'Give this tile a headline'} %>
