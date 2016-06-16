@@ -69,7 +69,16 @@ module Params
       ]
 
       if current_user.is_site_admin?
-        attrs.concat [:is_paid, :dependent_board_enabled, :dependent_board_id, :dependent_board_email_subject, :dependent_board_email_body, :custom_color_palette_attributes, :alt_subject_enabled, :allow_embed_video ] 
+        attrs.concat [
+          :is_paid,
+          :dependent_board_enabled,
+          :dependent_board_id,
+          :dependent_board_email_subject,
+          :dependent_board_email_body,
+          :custom_color_palette_attributes,
+          :alt_subject_enabled,
+          :allow_embed_video
+        ]
       end
 
      attrs.concat [ ] if current_user.is_client_admin?
