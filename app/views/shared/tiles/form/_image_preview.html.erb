@@ -8,14 +8,18 @@
     <div class="intro-tipsy image_preview <%= image_class %> loading" data-img-height='<%= @tile_builder_form.full_size_image_height%>'>
       <%= image_tag @tile_builder_form.image.url, class: "tile_image", id: "upload_preview" %>
 
-      <!--div class="image_loading">
-        <i class="fa fa-cog fa-4x" ></i>
-        <label id="uploaded_image_file">Pick an image</label>
-      </div-->
+      <div class="media_placeholders">
+        <% if true %>
+        <div class="video_placeholder">
+          <i class="fa fa-video-camera fa-4x"></i>
+          <label>Embed Video Code</label>
+        </div>
+        <% end %>
 
-      <div class="image_placeholder">
-        <i class="fa fa-picture-o fa-4x"></i>
-        <label id="uploaded_image_file">Pick an image</label>
+        <div class="image_placeholder">
+          <i class="fa fa-picture-o fa-4x"></i>
+          <label id="uploaded_image_file">Pick an image</label>
+        </div>
       </div>
       <div class="shadows">
         <div class="shadow_overlay"></div>
