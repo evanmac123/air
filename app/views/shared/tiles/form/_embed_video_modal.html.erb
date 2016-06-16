@@ -1,0 +1,5 @@
+<% render layout: "/shared/modals/standard_modal", locals: {modal_id: "embed_video_modal", modal_class: "bg-user-side"} do %>
+  <h3>Please insert embed video code</h3>
+  <%= text_area_tag "embed_video_field", "", rows: 5 %>
+  <%= submit_tag "Save", id: "submit_embed_video", disabled: true, class: "button" %>
+<% end %>

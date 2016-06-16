@@ -76,7 +76,6 @@ Airbo.TileFormModal = (function(){
 
   function initEvents() {
     form.on("click", pickImageSel, function(e){
-    // $(pickImageSel).click(function(e){
       e.preventDefault();
       var libraryUrl = $("#image_uploader").data("libraryUrl");
       imageLibraryModal.open(libraryUrl);
