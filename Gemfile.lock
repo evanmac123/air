@@ -532,6 +532,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts_as_singleton
+  addressable
   airbrake
   asset_sync
   aws-s3

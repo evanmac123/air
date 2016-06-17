@@ -62,7 +62,8 @@ gem "jquery-fileupload-rails"#
 gem "acts_as_singleton"
 
 gem "roo", :git => "git://github.com/Empact/roo.git"
-gem "hashugar" 
+gem "hashugar"
+gem 'addressable'
 
 # Gems used only for assets and not required
 # in production environments by default.
