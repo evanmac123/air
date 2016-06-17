@@ -1,3 +1,4 @@
+require 'addressable/uri'
 class TileDigestDecorator < Draper::Decorator
   include EmailHelper
   decorates :tile
