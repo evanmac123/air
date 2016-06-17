@@ -61,6 +61,7 @@ textarea {
   padding: 0.5em;
   outline: 0;
   width: 100%;
+  resize: vertical;
   @include radius(3px);
   -webkit-appearance: none;
   -moz-appearance: none;
