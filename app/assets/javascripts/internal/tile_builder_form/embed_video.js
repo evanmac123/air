@@ -61,6 +61,7 @@ Airbo.EmbedVideo = (function() {
         $(this).val(embedCode);
       }
       submitVideo.prop("disabled", blockSubmit);
+      $(".embed_video_err").toggle(blockSubmit);
     });
     submitVideo.click(function() {
       modalObj.close();
