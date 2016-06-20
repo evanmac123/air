@@ -111,11 +111,14 @@
     .media_placeholders {
       overflow: auto;
       position: relative;
+      width: 200px;
+      margin: auto;
     }
     .image_placeholder, .video_placeholder {
       label {
-        margin-top: 1em;
+        margin-top: 8px;
         cursor: default;
+        font-size: 12px;
       }
       padding-top: 5em;
       padding-bottom: 5em;
@@ -128,7 +131,6 @@
     .video_placeholder {
       float: right;
       width: 50%;
-      border-left: 2px dashed #f3f3f3;
     }
     .image_placeholder {
       float: none;
