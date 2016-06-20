@@ -96,22 +96,20 @@ $(function() {
       }
 
       function init(libraryModal){
-        // if (Airbo.Utils.supportsFeatureByPresenceOfSelector("#new_tile_builder_form") ) {
-          initjQueryObjects();
-          initClearImage();
+        initjQueryObjects();
+        initClearImage();
 
-          modal = libraryModal;
-          previewer = Airbo.ImagePreviewer.init(this)
-          library = Airbo.ImageLibrary.init(this)
+        modal = libraryModal;
+        previewer = Airbo.ImagePreviewer.init(this)
+        library = Airbo.ImageLibrary.init(this)
 
-          Airbo.DirectToS3ImageUploader.init( {
-            processed: showImagePreview,
-            done: directUploadCompleted,
-            added: showFileName,
-          });
+        Airbo.DirectToS3ImageUploader.init( {
+          processed: showImagePreview,
+          done: directUploadCompleted,
+          added: showFileName,
+        });
 
-          return this;
-        // }
+        return this;
       }
 
 
