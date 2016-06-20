@@ -1,0 +1,24 @@
+body {
+  background: $gray-2;
+  color: $text-color-1;
+  font-family: $font-family-primary;
+  font-size: $font-size-2;
+  font-weight: normal;
+}
+
+// only safari
+// @supports (overflow:-webkit-marquee) and (justify-content:inherit)
+// {
+//   body {
+//     font-family: 'avenir next' !important;
+//   }
+// }
+
+
+
+hr {
+  background-color: $gray-4;
+  border: 0;
+  height: 1px;
+  margin: 1.5em auto;
+}

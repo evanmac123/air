@@ -3,5 +3,5 @@
 -# Also, notice the "!=" which is Haml's way of not escaping HTML. Need this so commas in headlines are processed correctly.
 Headline,Status,Total Views,Unique Views,Completions,% of participants
 - @tiles.each do |tile|
-  - presenter = SingleTilePresenter.new(tile, :plain, false, browser.ie?)
+  - presenter = present(tile, SingleAdminTilePresenter, {is_ie: browser.ie?, format: :plain})
   != CSV.generate_line([presenter.headline, presenter.timestamp, presenter.total_views, presenter.unique_views, presenter.tile_completions_count, presenter.completion_percentage]).strip

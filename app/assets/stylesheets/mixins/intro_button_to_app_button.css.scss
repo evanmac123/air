@@ -1,10 +1,10 @@
 @mixin intro-button-to-app-button($color, $size) {
   @include app-button($color);
   text-shadow: none;
-  font-size: $size;
+  // font-size: $size;
 
   &.introjs-disabled {
     @include app-button($light-gray);
-    font-size: $size;
+    // font-size: $size;
   }
 }

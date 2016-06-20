@@ -22,7 +22,7 @@ feature 'Previews a public tile' do
 
     it "takes us to where we would want" do
       should_be_on tile_tag_show_explore_path
-      page.should have_content "Explore: #{@first_tag.title}"
+      page.should have_content "Explore: #{@first_tag.topic.name}: #{@first_tag.title}"
     end
   end
 end

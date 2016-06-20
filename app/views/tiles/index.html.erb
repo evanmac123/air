@@ -1,0 +1,12 @@
+<%content_for :head do%>
+<%= javascript_include_tag 'jquery.lightbox_me' %>
+<%end%>
+<%= render partial: 'shared/tiles/user_progress', locals: { as_null:false, raffle: current_user.demo.raffle } %>
+<% if @all_tiles_done %>
+  <%= render 'all_tiles_done' %>
+<% else %>
+  <div class="container row">
+    <%= render "viewer", locals:{tile: @start_tile}%>
+  </div>
+<% end %>
+<%= render "shared/guest_conversion_lightbox", user: @current_user, show_conversion_form: @show_conversion_form, demo: @current_user.demo %>

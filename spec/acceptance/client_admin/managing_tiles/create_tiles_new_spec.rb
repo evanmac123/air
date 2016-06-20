@@ -12,12 +12,11 @@ feature "Client admin creates tiles", js: true do
       page.find("#add_new_tile").trigger("click")
       fill_in_tile_form_entries
       click_create_button
-      within ".viewer" do 
+      within ".viewer" do
         expect(page).to  have_content "by Society"
         expect(page).to  have_content "Ten pounds of cheese"
         expect(page).to  have_content "Ten pounds of cheese. Yes? Or no?"
         expect(page).to  have_content "Who rules?"
-        expect(page).to  have_content "http://www.google.com/foobar"
       end
 
       expect(page).to have_selector(".tile_multiple_choice_answer a.right_multiple_choice_answer", text: "Hipster")
@@ -40,17 +39,27 @@ feature "Client admin creates tiles", js: true do
       end
     end
 
+    scenario "check tile content in form fields" do
+      within ".new_tile_builder_form" do
+        expect(page).to  have_content "This is some extra text by the tile"
+        expect(page).to  have_content "Which of the following comes out of a bird?"
+        expect(page).to  have_content "Ham"
+        expect(page).to  have_content "Eggs"
+        expect(page).to  have_content "A V8 Buick"
+      end
+    end
+
     scenario  "edit all tile fields" do
-      
+
       fill_in_tile_form_entries edit_text: edit_text, points: points
       click_create_button
 
-      within ".viewer" do 
+
+      within ".viewer" do
         expect(page).to  have_content "by Society#{edit_text}"
         expect(page).to  have_content "Ten pounds of cheese#{edit_text}"
         expect(page).to  have_content "Ten pounds of cheese. Yes? Or no?#{edit_text}"
         expect(page).to  have_content "Who rules?#{edit_text}"
-        expect(page).to  have_content "http://www.google.com/#{edit_text}"
       end
 
       expect(page).to have_selector("a.right_multiple_choice_answer", text: "Hipster#{edit_text}")
@@ -60,7 +69,8 @@ feature "Client admin creates tiles", js: true do
 
 
   def click_create_button
-    page.find("#new_tile_builder_form input[type=submit]").trigger("click")
+
+    page.find("#new_tile_builder_form .submit_tile_form").trigger("click")
   end
 
   def fill_in_tile_form_entries options = {}
@@ -69,10 +79,10 @@ feature "Client admin creates tiles", js: true do
     question_subtype = options[:question_subtype] || Tile::MULTIPLE_CHOICE
     edit_text = options[:edit_text] || "foobar"
     points = options[:points] || "18"
- 
+
 
     choose_question_type_and_subtype question_type, question_subtype
-    fake_upload_image "cov1.png" 
+    fake_upload_image "cov1.png"
 
     fill_in_image_credit "by Society#{edit_text}"
     page.find("#tile_builder_form_headline").set("Ten pounds of cheese#{edit_text}")
@@ -84,7 +94,6 @@ feature "Client admin creates tiles", js: true do
     fill_in_answer_field 2, "Hipster#{edit_text}"
     click_answer.times { select_correct_answer 2 } if question_type == Tile::QUIZ
     fill_in_points points
-    fill_in_external_link_field  "http://www.google.com/#{edit_text}"
   end
 
 end

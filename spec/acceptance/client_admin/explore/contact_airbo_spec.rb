@@ -5,6 +5,7 @@ feature "Client admin contacts airbo" do
 
   context "clicks 'contact airbo' button" do
     before do
+      p client_admin.user_intro
       visit explore_path(as: client_admin)
       page.find("#contact-airbo").click
     end

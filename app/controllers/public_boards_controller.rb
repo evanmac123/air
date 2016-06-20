@@ -2,8 +2,11 @@ class PublicBoardsController < ApplicationController
   skip_before_filter :authorize
   before_filter :allow_guest_user
 
+ #FIXME why have a separate resource that simply redirects to another
+  #resource!!!!
+
   def show
-    redirect_to public_activity_path(params[:public_slug])
+    redirect_to public_activity_path(params: request.params.except("action", "controller"))
   end
 
   protected

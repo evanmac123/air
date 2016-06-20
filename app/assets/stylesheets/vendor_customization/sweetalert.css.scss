@@ -1,0 +1,55 @@
+.sweet-alert.airbo {
+  width: 400px;
+  margin-left: -200px;
+  h2 {
+    @include font-light;
+    font-size: 18px;
+    line-height: 1.35em;
+    color: $sky-blue;
+    margin: 10px;
+  }
+  p {
+    @include regular-text;
+    .spinner {
+      margin: 10px 0 -37px;
+    }
+  }
+  .sa-button-container {
+    padding-right: 85px;
+    overflow: visible;
+  }
+  .sa-confirm-button-container {
+    float: right;
+  }
+  button{
+    margin-top: 15px;
+    margin-left: 10px;
+    float: right;
+    &.cancel {
+      @include light-button($n-blue);
+    }
+    &.confirm {
+      @include app-button($n-blue);
+      box-shadow: none !important;
+      border-color: $n-blue !important;
+      background-color: $n-blue !important;
+      &[disabled]{
+         background-image: url("/assets/spinner_gears.gif");
+         background-repeat: no-repeat;
+         background-position: center;
+         color: rgba(255, 255, 255, 0);
+      }
+    }
+  }
+  fieldset {
+    margin: 0;
+    padding: 0;
+    input[type="text"]{
+      display: none;
+    }
+  }
+  button.confirm[disabled] ~ .la-ball-fall {
+    opacity: 0;
+    visibility: hidden;
+  }
+}

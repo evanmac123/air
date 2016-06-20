@@ -1,0 +1,68 @@
+// Foundation Variable Overrides
+$table-border-size: 0;
+$table-head-bg: #EEE;
+$table-even-row-bg: $n-white;
+$table-head-padding: 10px;
+$table-row-padding: 10px;
+$table-line-height: 1.5em;
+
+// Foundation table docs:
+// http://foundation.zurb.com/sites/docs/v/4.3.2/components/tables.html
+
+@import "./vendor/foundation/components/tables";
+
+
+th {
+  @include font-weight-bold;
+}
+table:not(.first-column-header){
+
+  width: 100%;
+  tr:hover,
+  table tr.even:hover,
+  table tr.alt:hover,
+  table tr:nth-of-type(even):hover {
+    @include ease(0.2s);
+    background-color: $gray-1;
+  }
+
+  td {
+    border-bottom: 1px solid $border-color-1;
+  }
+
+}
+
+table.first-column-header{
+ th {
+   text-align:left;
+   padding-right: 75px;
+ }
+
+ tr {
+   background-color: inherit;
+ }
+}
+
+tr.resource-row{
+  cursor: pointer
+}
+
+table.sortable{
+ thead>th{
+  cursor:hand;
+ }
+}
+
+
+tbody {
+ th{
+   text-align:left;
+ }
+}
+
+caption{
+  @include font-weight-bold;
+  padding: 0 0 10px 0;
+  font-size: 24px;
+}
+

@@ -1,0 +1,11 @@
+<%= render partial: "pages/landing/hero_board", locals:{name: @demo.name, img_url: @demo.cover_image.url}%>
+<section>
+    <div class="row">
+      <div class="large-8 large-centered columns">
+
+        <%= unescape_html brake_to_paragraphs(@demo.cover_message) %>
+      </div>
+    </div>
+</section>
+
+

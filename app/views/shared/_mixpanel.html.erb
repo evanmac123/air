@@ -3,9 +3,7 @@ mixpanel.init("<%= MIXPANEL_TOKEN %>");</script><!-- end Mixpanel -->
 
 <% if current_user.present? %>
   <%= javascript_tag do %>
-    mixpanel.identify("<%= current_user.mixpanel_distinct_id %>");
-    mixpanel.name_tag("<%= current_user.name %>");
-    mixpanel.register({user_type: "<%= current_user.highest_ranking_user_type %>"});
+    mixpanel.register(JSON.parse('<%= (current_user.data_for_mixpanel.merge({signed_in: signed_in?})).to_json.html_safe%>'));
   <% end %>
 <% end %>
 <%= javascript_tag do %>

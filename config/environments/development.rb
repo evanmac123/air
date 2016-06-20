@@ -1,3 +1,4 @@
+ENV['INSPECTLET_WID']="1234567890"
 Health::Application.configure do
 
   require(Rails.root + 'config/initializers/sendgrid')
@@ -6,6 +7,21 @@ Health::Application.configure do
 
   config.dev_tweaks.autoload_rules do
     keep :xhr  # Disables caching of ajax requests
+  end
+
+  config.generators do |g|
+    g.template_engine :erb
+    g.stylesheets = false
+    g.javascripts = false
+    g.helper = false
+    g.assets = false
+    g.fixtures = false
+    g.view_specs false
+    g.routing_specs false
+    g.controller_specs false
+    g.helper_specs false
+    g.decorator false
+    g.factories false
   end
 
   # In the development environment your application's code is reloaded on
@@ -42,7 +58,7 @@ Rails.application.routes.default_url_options[:host] = ENV['APP_HOST'] || 'localh
   # Expands the lines which load the assets
   config.assets.debug = true
   #########################################
-  
+
   ##
 
   #config.action_mailer.delivery_method = :test

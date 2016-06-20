@@ -1,0 +1,131 @@
+/* Font Families */
+
+$font-family-primary: 'Avenir Next Airbo', "avenir next", avenir, "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+/* Font Weights */
+
+@mixin font-weight-bold {
+  font-style: normal;
+  font-weight: bold;
+  font-weight: 400;
+}
+
+/* Font Sizes */
+
+$font-size-0: 10px;
+$font-size-1: 14px;
+$font-size-2: 16px;
+$font-size-3: 18px;
+$font-size-3a: 24px;
+$font-size-4: 28px;
+$font-size-5: 36px;
+
+/* Headers */
+
+h1 {
+  font-size: $font-size-5;
+  @include font-weight-bold;
+  line-height: 1.25em;
+  margin: 20px 0;
+}
+
+h2 {
+  font-size: $font-size-4;
+  @include font-weight-bold;
+  line-height: 1.25em;
+  margin: 20px 0;
+}
+
+h3 {
+  font-size: $font-size-3;
+  @include font-weight-bold;
+  line-height: 1.25em;
+  margin: 1.5em 0;
+}
+
+h4 {
+  font-size: $font-size-2;
+  @include font-weight-bold;
+  margin: 1.5em 0;
+}
+
+/* Standard Type Elements */
+
+small {
+  font-size: $font-size-1;
+}
+
+.medium {
+  font-size: $font-size-3a;
+}
+
+p {
+  line-height: 1.6em;
+  margin: 1.5em 0;
+  &.margin-small{
+    margin-top:10px;
+    margin-bottom:10px;
+  }
+  &.margin-medium{
+    margin-top:15px;
+    margin-bottom:15px;
+  }
+
+  &.margin-none{
+    margin-top:0px;
+    margin-bottom:0px;
+  }
+}
+
+
+
+ol, ul {
+  list-style-position:outside;
+  list-style-type:none;
+  margin:0;
+  padding:0;
+}
+
+li {
+  margin:0;
+  padding: 0;
+}
+
+ul, ol {
+  &.list {
+    line-height: 1.5em;
+    margin: -0.75em 0 1.75em;
+    padding: 0 40px;
+    li {
+      margin:0;
+      padding: 0.25em 0;
+    }
+  }
+}
+
+ul.list {
+  list-style-type: disc;
+}
+
+ol.list {
+  list-style-type: decimal;
+}
+
+a {
+  text-decoration: none;
+  color: darken($n-blue, 10%);
+  outline: none !important;
+}
+a.link, .with_link a {
+  text-decoration: underline;
+  &:hover {
+    text-decoration: none;
+    color: darken($n-blue, 10%);
+  }
+  &:active {
+    color: $n-blue;
+  }
+  &:focus {
+    outline: 0;
+  }
+}

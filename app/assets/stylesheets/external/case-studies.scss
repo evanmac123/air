@@ -1,0 +1,12 @@
+body.pages.pages-case-studies.landing {
+  .hero {
+    background: $n-blue;
+    height: 300px;
+  }
+  .case_study {
+    max-width: 830px;
+    img {
+      margin: 1.5em 0;
+    }
+  }
+}

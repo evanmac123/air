@@ -12,6 +12,7 @@ $(function() {
 
     Airbo.TileImagesMgr = (function(){
       var initialized
+        , modal
         , previewer
         , library
         , noImage
@@ -35,15 +36,15 @@ $(function() {
         setFormFieldsForSelectedImage(filepath, file.type);
       }
 
-      function libraryImageSelected(url){
+      function libraryImageSelected(url, imgWidth, imgHeight, id){
         updateHiddenImageFields();
         setFormFieldsForSelectedImage(url, imgTypeFromFilename(url));
-        showImagePreview(url);
+        showImagePreview(url, imgWidth, imgHeight);
       }
 
       function setFormFieldsForSelectedImage(url, type){
-        remoteMediaUrl.val(url); 
-        remoteMediaType.val(type || "image"); 
+        remoteMediaUrl.val(url);
+        remoteMediaType.val(type || "image");
       }
 
 
@@ -54,19 +55,20 @@ $(function() {
 
       function removeImage(){
         updateHiddenImageFields();
-        noImage.val('true')
+        noImage.val('true');
         previewer.clearPreviewImage();
         library.clearSelectedImage();
-        remoteMediaUrl.val(undefined)
+        remoteMediaUrl.val(undefined);
       }
 
-      function showImagePreview(imgUrl){
-        previewer.setPreviewImage(imgUrl);
+      function showImagePreview(imgUrl, imgWidth, imgHeight){
+        previewer.setPreviewImage(imgUrl, imgWidth, imgHeight);
         //TODO decouple from the new tile builder modal
 
         $("#remote_media_url").focusout();
         if($("#images_modal").hasClass("open")){
-          $("#images_modal").foundation("reveal", "close");
+          // $("#images_modal").foundation("reveal", "close");
+          modal.close();
         }
       }
 
@@ -93,11 +95,12 @@ $(function() {
         return remoteMediaUrl.val();
       }
 
-      function init(){
-        if (Airbo.Utils.supportsFeatureByPresenceOfSelector("#new_tile_builder_form") ) {
+      function init(libraryModal){
+        // if (Airbo.Utils.supportsFeatureByPresenceOfSelector("#new_tile_builder_form") ) {
           initjQueryObjects();
           initClearImage();
 
+          modal = libraryModal;
           previewer = Airbo.ImagePreviewer.init(this)
           library = Airbo.ImageLibrary.init(this)
 
@@ -108,16 +111,16 @@ $(function() {
           });
 
           return this;
-        }
+        // }
       }
-     
+
 
       return {
         init: init,
         showImagePreview: showImagePreview,
         showFileName: showFileName,
         directUploadCompleted: directUploadCompleted,
-        libraryImageSelected: libraryImageSelected, 
+        libraryImageSelected: libraryImageSelected,
         remoteMediaUrl: getRemoteMediaURL,
       };
 
@@ -126,8 +129,8 @@ $(function() {
 
     /************************************************
      *
-     * Provides the functionality for 
-     * interacting with the image library 
+     * Provides the functionality for
+     * interacting with the image library
      *
      * **********************************************/
 
@@ -155,13 +158,18 @@ $(function() {
         imageFromLibraryField.val('');
       }
 
-      function setSelectedImageId(){
-        imageFromLibraryField.val(selectedImageFromLibrary().data('tile-image-id'));
+      function setSelectedImageId(id){
+        imageFromLibraryField.val(id);
       }
 
       function select(imageBlock) {
-        var url = imageBlock.data('image-url')
-        imageMgr.libraryImageSelected(url);
+        var url = imageBlock.data('image-url');
+        var imgWidth = imageBlock.data('image-width');
+        var imgHeight = imageBlock.data('image-height');
+        var id = imageBlock.data('tile-image-id');
+
+        setSelectedImageId(id)
+        imageMgr.libraryImageSelected(url, imgWidth, imgHeight, id);
         setSelectedState(imageBlock);
       };
 
@@ -182,12 +190,18 @@ $(function() {
 
 
       function initScrolling() {
+        var scrollOnFirstLoad = true;
         library.jscroll({
           loadingHtml: "<img src='" + library.data("loadingImageUrl") + "' />",
           nextSelector: nextPageSelector,
           debug: true,
-          padding: 0,
-          callback: false 
+          padding: 100,
+          callback: function() {
+            if(scrollOnFirstLoad) {
+              scrollOnFirstLoad = false;
+              $(".image_library").scrollTop(0);
+            }
+          }
         } );
       };
 
@@ -216,8 +230,8 @@ $(function() {
 
     /************************************************
      *
-     * Provides the image preview functionality for 
-     * both images selected from the library and 
+     * Provides the image preview functionality for
+     * both images selected from the library and
      * images that are uploaded by the user
      *
      * **********************************************/
@@ -244,12 +258,15 @@ $(function() {
       };
 
 
-      function setPreviewImage(imageUrl) {
+      function setPreviewImage(imageUrl, imgWidth, imgHeight) {
+        width = 600;
+        fullHeight = parseInt( imgHeight * width / imgWidth );
         showShadows();
+        imgPreview.addClass("loading").css("height", fullHeight);
         $('#upload_preview').attr("src", imageUrl);
       };
 
-      function showFileName(file){ 
+      function showFileName(file){
         $("#uploaded_image_file").text(file.name).addClass("file_selected")
       }
 
@@ -263,7 +280,7 @@ $(function() {
         init: init,
         setPreviewImage: setPreviewImage,
         showFileName: showFileName,
-        clearPreviewImage: clearPreviewImage 
+        clearPreviewImage: clearPreviewImage
       };
 
     })();

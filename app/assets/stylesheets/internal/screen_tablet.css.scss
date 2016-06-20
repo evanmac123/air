@@ -10,11 +10,11 @@
 }
 
 /* -- Tile wall -- */
-@import 'internal/tile_thumbnail/tiles_thumbnails_desktop';
-.tile_thumbnail {
-  margin-bottom:1em;
-  width:32%;
-}
+@import 'tile/tile_thumbnail/tiles_thumbnails_desktop';
+// .tile_thumbnail {
+//   margin-bottom:1em;
+//   width:32%;
+// }
 #tile_links .show_more_tiles {
   display: inline-block;
   width:auto;
@@ -22,7 +22,7 @@
 
 /* -- Large tile viewer -- */
 .tiles.tiles-index,
-.tile_previews.tile_previews-show {
+.tile_previews.tile_previews-show, .client_admin-stock_tiles.client_admin-stock_tiles-show {
   .content .row, .tile_holder {max-width:600px;}
 }
 
@@ -57,7 +57,7 @@
     }
     #gender_change {
       float:right;
-      padding-left:1em; 
+      padding-left:1em;
     }
   }
 }
@@ -67,6 +67,6 @@
     display: inline-block;
     float: left;
     width: 50%;
-  } 
+  }
   ul + ul {padding-top:1em;}
 }

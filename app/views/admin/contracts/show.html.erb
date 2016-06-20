@@ -1,0 +1,80 @@
+
+<div class="row">
+  <div class="columns small-12 ">
+
+    <h2><span class="margin-right-medium">Contract: </span><%=@contract.name %></h2>
+
+    <%= render "admin/organizations/cust_kpi_menu", active: "customer" %>
+    <hr/>
+    <table class="first-column-header">
+      <tbody> 
+        <tr>
+          <th>Customer</th> <td> <%= link_to @contract.organization_name, admin_organization_path(@contract.organization) %> </td>
+        </tr>
+        <tr>
+          <th>Plan</th> <td> <%= @contract.plan.titleize %> </td>
+        </tr>
+        <tr>
+          <th>Status</th> <td> <%= @contract.status %> </td>
+        </tr>
+        <tr>
+          <th>Start</th> <td> <%= simple_date_format @contract.start_date %> </td>
+        </tr>
+        <tr>
+          <th>End</th> <td> <%= simple_date_format @contract.end_date %> </td>
+        </tr>
+        <tr>
+          <th>MRR</th> <td> <%=simple_money_format @contract.calc_mrr %> </td>
+        </tr>
+
+        <tr>
+          <th>ARR</th> <td> <%= simple_money_format @contract.calc_arr %></td>
+        </tr>
+
+        <tr>
+          <th>Amt Booked</th><td><%= simple_money_format @contract.amt_booked %> </td>
+        </tr>
+
+        <tr>
+          <th>Date Booked</th><td><%= simple_date_format @contract.date_booked %> </td>
+        </tr>
+        <tr>
+          <th>Months Booked</th><td><%= simple_number_format @contract.booked_months %> </td>
+        </tr> <tr>
+          <th>Estimate Type</th><td> <%= @contract.projection_type %> </td>
+        </tr>
+        <tr>
+          <th>Type</th> <td> <%= @contract.role_type %> </td>
+        </tr>
+        <tr>
+          <th>Conract Length</th> <td> <%= simple_number_format @contract.contract_length_in_months %> </td>
+        </tr>
+        <tr>
+          <th>Max Users</th> <td> <%= simple_number_format @contract.max_users %> </td>
+        </tr>
+        <tr>
+          <th>Price Per Employee Month</th> <td> <%= simple_money_format @contract.pepm %> </td>
+        </tr>
+        <tr>
+          <th>Notes</th>
+          <td>
+            <%= @contract.notes %>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="columns small-8 small-centered">
+    <%= link_to 'Add Upgrade', new_admin_contract_upgrade_path(@contract), class: "button"  %>
+    <%= link_to 'Add Billing', new_admin_contract_billing_path(@contract), class: "button"  %>
+    <%= link_to 'Edit', edit_admin_contract_path(@contract), class: "button" %>
+    <%= link_to 'Delete', admin_contract_path(@contract), method: :delete, class: "button", confirm: "Are you sure" %>
+
+  </div>
+</div>

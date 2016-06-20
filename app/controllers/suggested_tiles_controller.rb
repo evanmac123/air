@@ -1,8 +1,8 @@
 class SuggestedTilesController < ApplicationController
   def new
-    get_tile_images
-    @tile_builder_form = UserTileBuilderForm.new(current_user.demo)
-    render partial: "shared/tiles/builder", layout: false and return
+    @tile_builder_form =  current_user.demo.m_tiles.build(status: Tile::USER_SUBMITTED, user_created: true)
+    @user_side = true
+    render partial: "client_admin/tiles/form", layout: false and return
   end
 
   def show
@@ -13,7 +13,7 @@ class SuggestedTilesController < ApplicationController
   def create
     @tile_builder_form =  UserTileBuilderForm.new(
                             current_user.demo,
-                            form_params: params[:tile_builder_form],
+                            form_params:params.require(:tile_builder_form).permit!,
                             creator: current_user,
                             action: params[:action]
                           )

@@ -1,145 +1,78 @@
-class SingleTilePresenter
-  include ActionView::Helpers::NumberHelper
-  include TileFooterTimestamper 
-  include Rails.application.routes.url_helpers
+class SingleTilePresenter < BasePresenter
 
-  def initialize tile, format, as_admin, is_ie
-    @tile = tile
-    @type = tile.status.to_sym
-    @format = format
-    @as_admin = as_admin
-    @is_ie = is_ie
-  end
+  attr_reader :tile, :type
+  delegate  :id,
+            :thumbnail,
+            :headline,
+            :demo,
+            to: :tile
 
-  def type? *types
-    if types.size == 0
-      false
-    elsif types.size == 1
-      type == types.first
-    else
-      types.any? {|t| t == type}
-    end
-  end
+  presents :tile
 
-  def has_archive_button?
-    show_admin_buttons? && (type? :active)
-  end
+  def initialize object,template, options
+    super
 
-  def has_activate_button?
-    show_admin_buttons? && (type? :archive, :draft)
-  end
-
-  def post_link_text
-    'Post' + (type?(:archive) ? ' again' : '')
-  end
-
-  def has_edit_button?
-    show_admin_buttons? && (type? :draft, :active, :archive)
-  end
-
-  def has_destroy_button? 
-    show_admin_buttons? && (type? :draft, :active, :archive)
-  end
-
-  def has_accept_button? 
-    show_admin_buttons? && (type? :user_submitted)
-  end
-
-  def has_ignore_button? 
-    show_admin_buttons? && (type? :user_submitted)
-  end
-
-  def has_undo_ignore_button?
-    show_admin_buttons? && (type? :ignored)
-  end
-
-  def has_tile_stats?
-    show_admin_buttons? && (type? :active, :archive)
-  end
-
-  def shows_creator?
-    type? :user_submitted
-  end
-
-  def show_tile_path
-    if viewing_as_regular_user?
-      suggested_tile_path(self)
-    else
-      client_admin_tile_path(self)    
-    end
-  end
-
-  def timestamp
-    @timestamp ||= footer_timestamp
-  end
-
-  def completion_percentage
-    @completion_percentage ||= 
-      number_to_percentage claimed_completion_percentage, precision: 1
-  end
-
-  def claimed_completion_percentage
-    100.0 * tile_completions_count / demo.users.claimed.count
-  end
-
-  def has_creator?
-    original_creator
-  end
-
-  def creator
-    original_creator.name 
+    @type = options[:type] # explore or user
+    @public_slug = options[:public_slug]
+    @completed = options[:completed]
   end
 
   def tile_id
     @tile_id ||= id
-  end
-  
-  def tile_position
-   @tile.position || 0
   end
 
   def to_param
     @to_param ||= tile.to_param
   end
 
-  def show_admin_buttons?
-    @as_admin.present?
+  def status
+    type
   end
 
-  def viewing_as_regular_user?
-    !@as_admin
+  def completed_class
+    if @completed.nil?
+      ""
+    elsif @completed
+      "completed"
+    else
+      "not-completed"
+    end
   end
+
+  def has_tile_buttons?
+    false
+  end
+
+  def activation_dates
+    #noop
+  end
+
+  def has_tile_stats?
+    false
+  end
+
+  def show_tile_path
+    if type == 'explore'
+      explore_tile_preview_path(self)
+    else
+      @public_slug ? public_tile_path(@public_slug, tile) : tile_path(tile)
+    end
+  end
+
+
 
   def cache_key
     @cache_key ||= [
       self.class,
       'v2.ant',
-      timestamp, 
-      completion_percentage, 
       thumbnail,
-      type, 
-      tile_id, 
-      headline, 
-      tile_completions_count, 
-      total_views, 
-      unique_views,
-      @as_admin,
-      @is_ie
+      type,
+      tile_id,
+      headline,
+      @is_ie,
+      @completed,
+      @type,
+      @public_slug
     ].join('-')
   end
-
-  attr_reader :tile, :type
-  delegate  :id,
-            :status, 
-            :thumbnail, 
-            :headline, 
-            :active?,
-            :total_views,
-            :unique_views,
-            :thumbnail_processing,
-            :tile_completions_count,
-            :original_creator,
-            :demo,
-            :is_placeholder?,
-            to: :tile
 end

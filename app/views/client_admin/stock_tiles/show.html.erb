@@ -1,0 +1,12 @@
+<section class="library-breadcrumbs">
+<div class="row collapse" >
+  <div class="columns small-12 large-10">
+    <%=link_to "Content Library", client_admin_stock_boards_path %> <i class="spacer fa fa-caret-right"></i> <%=link_to @tile.demo.name, stock_board_path(library_slug: @tile.demo.public_slug) %> <i class="spacer fa fa-caret-right"></i><span class="terminus">Tiles</span>
+ </div>
+</div>
+</section>
+<%= render partial: 'shared/tiles/user_progress', locals: { as_null: true, raffle: nil, demo: @tile.demo } %>
+<div class="container row">
+  <%= render "viewer",  locals: {tile: @tile, current_tile_ids: @current_tile_ids, overlay_displayed: true}%>
+</div>
+

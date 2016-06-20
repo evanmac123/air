@@ -1,0 +1,23 @@
+<div class='row'>
+  <div class='large-12 columns client_admin_explore_tile_tag'>
+    <ul class='large-12'>
+      <li class='explore_section'>
+        <%= link_to client_admin_explore_path do %>
+          Explore:
+        <% end %>
+      </li>
+      <li class='tile_tag'>
+        <%= @topic.name %>
+        <%= fa_icon 'tag' %>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="row client_admin_explore">
+  <div class='large-12 column'>
+    <%= render partial: 'tags', locals: {tile_tags: @tile_tags} %>
+  </div>
+  <%= render partial: 'explores/tile_wall', locals: {tiles: @tiles} %>
+</div>
+<%= mp_track_page 'explore' %>

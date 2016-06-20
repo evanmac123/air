@@ -21,7 +21,7 @@ footer {
   .contact_us {
     a, a:link, a:visited, .reach_us {
       color:$white;
-      font-family:$default;
+      // font-family:$default;
       font-size:1.125em;
     }
     .up_top:link, .up_top:visited {
@@ -75,7 +75,6 @@ footer {
         a, a:link {@include link($dark-green);}
       }
       .post_description {
-        @extend p.caption;
         color:darken($light-gray, 5%);
         font-size:.875em;
         line-height: 1.35em;

@@ -1,0 +1,120 @@
+.footer_simple {
+  padding: 28px 0;
+  line-height: 1.5;
+  body.public-board.tiles.tiles-index > & {
+    margin-top: 50px;
+  }
+}
+footer#pageFtr {
+  .contact_us.contact_us {
+    color: #15adff;
+  }
+  .menu_block {
+    float: right;
+    min-width: 530px;
+    ul {
+      line-height: 1;
+      text-align: right;
+      padding: 32px 0;
+    }
+    li {
+      display: inline-block;
+      margin-right: 40px;
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &.show-on-home{
+        display:none;
+      }
+    }
+    a {
+      color: $home-gray;
+      font-size: 15px;
+      font-weight: 400;
+    }
+    .request_demo_link {
+      color: white;
+      margin: 31px 0;
+    }
+  }
+  .contacts_block {
+    height: 80px;
+    width: auto;
+    float: none;
+    overflow: hidden;
+    a {
+      padding-top: 20px;
+      display: block;
+      img {
+        float: left;
+      }
+    }
+    .contacts {
+      color: #66676d;
+      font-size: 15px;
+      line-height: 18px;
+      text-align: right;
+      padding-right: 10px;
+      padding-top: 12px;
+      span {
+        white-space: nowrap;
+      }
+    }
+  }
+}
+
+
+
+@media only screen and (max-width: $foundation) {
+  footer#pageFtr {
+    .menu_block {
+      min-width: 300px;
+      width: 100%;
+      ul {
+        margin-top: 27px;
+        text-align: left;
+      }
+      li {
+        margin-right: 30px;
+        &.sign_in_link {
+          float: right;
+          margin: 0;
+        }
+      }
+    }
+    .contacts_block {
+      height: auto;
+      a {
+        padding-bottom: 20px;
+        display: block;
+        float: left;
+        img {
+          width: 51px;
+        }
+      }
+      .contacts {
+        float: none;
+        width: auto;
+        overflow: hidden;
+        padding: 0;
+        padding-top: 38px;
+      }
+    }
+  }
+}
+
+/*Shame */
+.public-board.tiles.tiles-index footer{
+ margin-top: 40px;
+}
+
+body.pages-home {
+  footer#pageFtr {
+    .menu_block ul li {
+      &.show-on-home{
+        display: inline;
+      }
+    }
+  }
+}

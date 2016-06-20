@@ -9,6 +9,8 @@ Laptop setup
 ### Mac
 [Thoughtbot Laptop](https://github.com/thoughtbot/laptop) is a script to set up a Mac OS X laptop for Rails development.
 
+Or just install [homebrew](http://brew.sh) then do brew install postgres, redis, mongodb, Qt, ImageMagick  
+
 Many Mac users use [Textmate](http://macromates.com/) to write their code.
 If you use Textmate, set your tabs to "Soft Tabs: 2". This is one of the drop-down options at the very bottom of your window.
 
@@ -51,20 +53,7 @@ Then you'll need to create a database user (Postgres keeps its own lists of user
 
 It will ask if the new user should be a superuser: say yes. Again, this is fine for a development machine but not a production server.
 
-#### Ruby Version Manager (RVM) or Better yet RBENV
-Additional packages need to be installed when using RVM with (MRI) Ruby. Enter this command to see the list: `rvm requirements`
-
-We use MRI Ruby 1.9.2 => Run this command: `rvm install 1.9.2`
-
-Create an _hengage_ gemset and make it the default:
-
-    joe@hengage:~$ rvm gemset create hengage
-    gemset created hengage    => /home/joe/.rvm/gems/ruby-1.9.2-p320@hengage
-    joe@hengage:~$ rvm use ruby-1.9.2-p320@hengage --default
-    Using /home/joe/.rvm/gems/ruby-1.9.2-p320 with gemset hengage
-    joe@hengage:~$ rvm current
-    ruby-1.9.2-p320@hengage
-
+####  Use  [RBENV](https://github.com/rbenv/rbenv) if you have need to support multiple ruby versions *
 
 Aliases for faster workflow
 ---------------------------
@@ -87,16 +76,6 @@ Shell aliases: add to ~/.aliases
       source "$HOME/.aliases"
     fi
     
-Getting dependencies
---------------------
-
-Download Qt:
-
-    http://get.qt.nokia.com/qt/source/qt-mac-opensource-4.7.3.dmg
-
-To make life easier, install a few Ruby gems:
-
-    gem install heroku bundler git_remote_branch
 
 Setting up the app itself
 -------------------------
@@ -113,9 +92,8 @@ Create your development and test databases. (Note: Two distinct steps: 1 for dev
 
     rake db:create
 
-Migrate the development database:
-
-    rake db:migrate
+Load the development database:
+    rake db:schema:load
 
 Prepare the test database:
 
@@ -222,6 +200,55 @@ Transfer production data to staging:
     heroku pgbackups:capture --remote production
     heroku pgbackups:restore DATABASE `heroku pgbackups:url --remote production` --remote staging
     
+CONFIG vars
+-----------
+Make sure to set these vars as appropriate.  Below is for example purpose only
+
+MAX_SELECTORS_DEFAULT                             3072 
+
+(IE9 craps out after this number of css selectors
+Acutally the limit is 4095 but there maybe a file size limitation as well so we
+set the number to 3072 which should also keep us under the file size limit. Yes
+it's a hack but it's IE9)
+
+ACTIVITY_SESSION_THRESHOLD:                       120
+APP_HOST:                                         hengage-dev.herokuapp.com
+AVATAR_BUCKET:                                    hengage-avatars-development
+AWS_ACCESS_KEY_ID:                                [KEY]
+AWS_BULK_UPLOAD_ACCESS_KEY_ID:                    [KEY] 
+AWS_BULK_UPLOAD_SECRET_ACCESS_KEY:                [SECRET]
+AWS_SECRET_ACCESS_KEY:                            [KEY]
+BILLING_INFORMATION_ENTERED_NOTIFICATION_ADDRESS: team@air.bo
+DATABASE_URL:                                     [URL]
+EMAIL_HOST:                                       hengage-dev.herokuapp.com
+EMAIL_PROTOCOL:                                   https
+FOG_DIRECTORY:                                    hengage-tiles-development
+FOG_PROVIDER:                                     AWS
+HEROKU_APP_NAME:                                  hengage-dev
+LOG_LEVEL:                                        INFO
+MAX_SELECTORS_DEFAULT:                            3072
+MIXPANEL_API_KEY:                                 [KEY_ID]
+MIXPANEL_API_SECRET:                              [SECRET]
+MIXPANEL_TOKEN:                                   [TOKEN]
+MONGOHQ_URL:                                      [URL]
+MONGOLAB_URI:                                     [URL]
+NEW_RELIC_APP_NAME:                               hengage-dev
+NEW_RELIC_LICENSE_KEY:                            [KEY]
+NEW_RELIC_LOG:                                    stdout
+PROFILABLE_USERS:                                 herby@airbo.com,a.v.brychak@gmail.com,kate-admin@airbo.com
+RACK_ENV:                                         development
+RAILS_ENV:                                        production
+REDISTOGO_URL:                                    [URL]
+S3_TILE_BUCKET:                                   hengage-tiles-development
+SENDGRID_PASSWORD:                                [PWD]
+SENDGRID_USERNAME:                                [USER]
+STRIPE_API_PRIVATE_KEY:                           [KEY]
+STRIPE_API_PUBLIC_KEY:                            [KEY]
+TILE_BUCKET:                                      hengage-tiles-development
+
+
+
+
 Miscellaneous Things That I Just Want To Get Up Here On A Friday Night
 ----------------------------------------------------------------------
 SOFTWARE NEEDED TO RUN OUR APP

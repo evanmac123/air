@@ -4,7 +4,7 @@ tooltipClass = ->
 initIntro = (intro) ->
   intro.setOptions
     showStepNumbers: false
-    skipLabel: 'Got it'
+    doneLabel: 'Got it'
     tooltipClass: tooltipClass()
   intro.start()
 
@@ -19,4 +19,3 @@ window.userSubmittedTileIntro = (show) ->
 
   intro = introJs()
   initIntro(intro)
-

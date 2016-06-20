@@ -1,0 +1,52 @@
+/* Styles for marketing pages like case studies, blogs, etc. */
+
+.pages {
+  background-color: $n-white;
+
+  hr {
+    background-color: #404040;
+    margin: 50px 0;
+    width: 100px;
+  }
+
+  table {
+    margin: 1.5em 0;
+  }
+}
+
+blockquote {
+
+}
+
+.pullquote {
+  font-size: $font-size-3;
+  margin: 20px 0;
+}
+
+.attribution {
+  display: table;
+  margin: 20px 0;
+
+  .image {
+    @include radius(30px);
+    display: inline-block;
+    height: 60px;
+    overflow: hidden;
+    width: 60px;
+    margin-right: 20px;
+  }
+
+  .text {
+    display: table-cell;
+    font-size: $font-size-1;
+    line-height: 1.6em;
+    vertical-align: middle;
+  }
+}
+
+/* Case Studies */
+
+.pages-fujifilm .hero {
+  background-image: url('case_studies/fujifilm_mainpic.png');
+  height: 400px;
+}

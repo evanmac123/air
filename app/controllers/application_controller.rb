@@ -105,9 +105,17 @@ class ApplicationController < ActionController::Base
     session[:conversion_form_shown_already] = @show_conversion_form
   end
 
+  def invalid_ping_logger(event, data_hash, user)
+    if !user && !(["sessions", "pages"].include? params[:controller])
+      Rails.logger.warn "INVALID USER PING SENT #{event}"
+    end
+  end
+
   def ping_with_device_type(event, data_hash = {}, user = nil)
     _data_hash = data_hash.merge(device_type: device_type)
     ping_without_device_type(event, _data_hash, user)
+
+    invalid_ping_logger(event, data_hash, user)
   end
 
   def ping_page(page, user = nil, additional_properties={})
@@ -130,13 +138,22 @@ class ApplicationController < ActionController::Base
       email_ping_text = EMAIL_PING_TEXT_TYPES[params[:email_type]]
       rack_timestamp = request.env['rack.timestamp']
       event_time = (rack_timestamp || Time.now) - 5.seconds
-      ping("Email clicked", { email_type: email_ping_text, time: event_time}, user) if email_ping_text.present?
+      hsh = { email_type: email_ping_text, time: event_time }
+      hsh.merge!({subject_line: params[:subject_line]}) if params[:subject_line]
+      ping("Email clicked",hsh , user) if email_ping_text.present?
     end
   end
 
   private
 
   alias authorize_without_guest_checks authorize
+
+
+  def permitted_params
+    @permitted_params ||= PermittedParams.new(params, current_user)
+  end
+
+  helper_method :permitted_params
 
   def authorize
     #debugger if self.class == Users::PingsController
@@ -543,5 +560,11 @@ class ApplicationController < ActionController::Base
 
 	def prod_or_testing_ssl_outside_of_prod
     Rails.env.production? || $test_force_ssl 
-	end
+  end
+
+
+  def present(object, klass = nil, opts)
+    klass ||= "#{object.class}Presenter".constantize
+    klass.new(object, view_context, opts)
+  end
 end

@@ -1,5 +1,9 @@
 /*
 *= require_self
+*= require ../../../vendor/assets/stylesheets/pickadate/classic
+*= require ../../../vendor/assets/stylesheets/pickadate/classic.date
+*= require ../../../vendor/assets/stylesheets/tablesorter/themes/blue/style
+*
 */
 
 
@@ -14,9 +18,7 @@
 
 
 /* THIRD PARTY STYLESHEETS FIRST (so we have the options of overwriting them later) */
-@import "./vendor/normalize.css.scss";
-@import "./vendor/foundation.min.css.scss";
-@import "./vendor/flutie.css.scss";
+
 
 /* MIXIN DEFINITIONS NEXT (so we can use them later) */
 @import "./mixins/main_styles.css.scss";

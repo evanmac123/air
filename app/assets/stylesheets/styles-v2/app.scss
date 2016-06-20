@@ -1,0 +1,44 @@
+$foundation: 768px;
+
+@import "./vendor/foundation/components/global"; // required by components in imports below
+@import "fonts";
+@import "font-awesome";
+@import 'animation';
+@import "color";
+@import "normalize";
+@import "typography";
+@import "tables";
+@import "mixins";
+
+
+@import "defaults";
+
+$has-tip-border-bottom: none;
+$has-tip-border-bottom-hover: none;
+$has-tip-cursor-type: pointer;
+$row-width: em-calc(1000);
+$joyride-tip-bg: $n-white;
+$joyride-tip-border: solid 1px $border-color-1;;
+// $orbit-container-bg: transparent;
+// $orbit-bullet-nav-color: transparent;
+// $orbit-bullet-nav-color-active: $n-white;
+
+
+@import "./vendor/foundation/components/buttons";
+@import "./vendor/foundation/components/button-groups";
+@import "./vendor/foundation/components/dropdown-buttons";
+@import "./vendor/foundation/components/tooltips";
+@import "./vendor/foundation/components/switch";
+@import "./vendor/foundation/components/pagination";
+@import "./vendor/foundation/components/top-bar";
+@import "./vendor/foundation/components/joyride";
+// @import "./vendor/foundation/components/orbit";
+@import "structure";
+@import "modals";
+@import "navigation";
+@import "buttons";
+@import "flags";
+@import "forms";
+@import "shame";
+@import "marketing";
+$joyride-tip-nub-size: 14px;

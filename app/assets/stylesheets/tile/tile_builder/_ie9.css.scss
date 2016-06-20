@@ -1,0 +1,33 @@
+.ie9 {
+  #image_uploader {
+    &:hover {border-style:solid;}
+  }
+  .content_sections:not(#image_uploader) {
+    border-bottom: none;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    input[type="text"],textarea, .text-input {
+      border: 2px #f3f3f3 dashed;
+      padding: 7px;
+      &:hover, &:focus {
+        border-style: solid;
+      }
+    }
+    textarea {
+      resize: both;
+    }
+    label.tile_builder_error{
+      color: #e3402d;
+      text-align: left;
+      font-size: 0.625em;
+      font-weight: 700;
+      padding-top: 10px;
+    }
+    label.show_if_ie9{
+     display: block;
+    }
+    &#tile_external_link {
+      padding-bottom: 85px;
+    }
+  }
+}

@@ -1,5 +1,8 @@
 replaceMovedTile = function(tile_id, updated_tile_container){
-  $("#single-tile-" + tile_id).closest(".tile_container").replaceWith(updated_tile_container)
+  tile = $("#single-tile-" + tile_id).closest(".tile_container");
+  tile.replaceWith(updated_tile_container);
+  tile = $("#single-tile-" + tile_id).closest(".tile_container");
+  Airbo.TileThumbnailMenu.initMoreBtn(tile.find(".more_button"));
 }
 
 updateShareTilesNumber = function(number){
@@ -9,13 +12,17 @@ updateShareTilesNumber = function(number){
 updateShowMoreDraftTilesButton = function(){
   button = $(".show_all_draft_section")
   if( showMoreDraftTiles() || showMoreSuggestionBox() ){
-    button.show()
+    button.show();
   }else{
-    button.hide()
+    button.hide();
   }
 }
 
 updateShowMoreArchiveTilesButton = function(){
+  if( Airbo.TileManager.managerType == "archived" ) {
+    return;
+  }
+
   button = $(".show_all_inactive_section")
   if( notTilePlaceholdersInSection( $("#archive") ).length > 4 ){
     button.show()
@@ -81,7 +88,8 @@ sectionHasFreePlace = function(section){
 }
 
 sectionIsFull = function(section){
-  return (notTilePlaceholdersInSection(section).length >= 8)
+  var tileNum = Airbo.Utils.TilePlaceHolderManager.visibleTilesNumberIn(section);
+  return (notTilePlaceholdersInSection(section).length >= tileNum);
 }
 
 notTilePlaceholdersInSection = function(section){

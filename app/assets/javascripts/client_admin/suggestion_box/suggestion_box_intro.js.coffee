@@ -26,7 +26,7 @@ initIntro = (intro) ->
 
     intro.setOptions
       showStepNumbers: false
-      skipLabel: 'Got it'
+      doneLabel: 'Got it'
       tooltipClass: tooltipClass()
     intro.start()
     addExplainBtn()
@@ -55,7 +55,7 @@ accessModal = ->
   $('#suggestions_access_modal')
 
 helpBtn = ->
-  $(".suggestion_box_header .help")
+  $("#suggestion_box_sub_menu .help")
 
 window.suggestionBoxHelpModal = ->
   # modal().foundation 'reveal', 'open'
@@ -71,5 +71,3 @@ window.suggestionBoxHelpModal = ->
   pickUsersBtn().click (e) ->
     e.preventDefault()
     accessModal().foundation 'reveal', 'open'
-
-

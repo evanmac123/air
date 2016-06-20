@@ -1,106 +1,14 @@
 require 'acceptance/acceptance_helper'
+#NOTE This spec is no longer valid since the new onboarding doesn't require
+#these steps
+#TODO remove this conversion spec
 
 feature 'Guest user is prompted to convert to real user' do
   include GuestUserConversionHelpers
 
   let (:board) {FactoryGirl.create(:demo, public_slug: "sluggg", is_public: true)}
 
-  def expect_no_conversion_form
-    sleep 1 # wait for lightbox animation to finish
-    page.all(conversion_form_selector).select(&:visible?).should be_empty
-  end
-
-  def save_progress_button_selector
-    "a#save_progress_button"
-  end
-
-  def sign_in_button_selector
-    "a#sign_in_button"
-  end
-
-  def expect_save_progress_button
-    page.find(save_progress_button_selector, visible: true)
-  end
-
-  def expect_no_save_progress_button
-    page.all(save_progress_button_selector, visible: true).should be_empty
-  end
-
-  def click_save_progress_button
-    page.find(save_progress_button_selector, visible: true).click
-  end
-
-  def expect_sign_in_button
-    page.find(sign_in_button_selector, visible: true)
-  end
-
-  def expect_no_sign_in_button
-    page.all(sign_in_button_selector, visible: true).should be_empty
-  end
-
-  def click_sign_in_button
-    page.find(sign_in_button_selector, visible: true).click
-  end
-
-  def create_tiles(board, count)
-    count.times {|i| FactoryGirl.create(:multiple_choice_tile, :active, headline: "Tile #{i}", demo: board)}
-  end
-
-  def click_right_answer
-    # This is a hack because all the animations we threw on the tile viewer
-    # apparently confuse the shit out of poltergeist, and the claim that it
-    # can wait for them to finish is a damned dirty lie. So we cheat and click
-    # the hidden link that ACTUALLY triggers the Ajax request, while bypassing
-    # animations.
-    #page.find('.right_multiple_choice_answer').click
-    page.find('.right_multiple_choice_answer').click
-  end
-
-  def click_close_conversion_button
-    click_link "Don't Save"
-  end
-
-  def name_error_copy
-    "Please enter a first and last name"  
-  end
-
-  def expect_name_error
-    expect_content name_error_copy
-  end
-
-  def expect_no_name_error
-    expect_no_content name_error_copy
-  end
-
-  def expect_invalid_email_error
-    expect_content "Whoops. Enter a valid email address"
-  end
-
-  def expect_duplicate_email_error
-    expect_content "It looks like that email is already taken. You can click here to sign in, or contact support@airbo.com for help."
-  end
-
-  def expect_invalid_location_name_error
-    expect_content "Whoops. Enter a valid location"
-  end
-
-  def password_error_copy
-    "Please enter a password at least 6 characters long"  
-  end
-
-  def expect_password_error
-    expect_content password_error_copy
-  end
-
-  def expect_no_password_error
-    expect_no_content password_error_copy
-  end
-
-  def expect_welcome_flash(email)
-    expect_content "Account created! A confirmation email will be sent to #{email}."
-  end
-
-  context "buttons to open the form again or sign in" do
+  pending "buttons to open the form again or sign in" do
     before do
       visit public_board_path(public_slug: board.public_slug)
       wait_for_conversion_form
@@ -138,7 +46,7 @@ feature 'Guest user is prompted to convert to real user' do
     end
   end
 
-  context "close button in conversion form" do
+  pending "close button in conversion form" do
     before do
       visit public_board_path(public_slug: board.public_slug)
       wait_for_conversion_form
@@ -221,7 +129,7 @@ feature 'Guest user is prompted to convert to real user' do
       FakeMixpanelTracker.should have_event_matching('User - New', source: 'public link')
     end
     
-    context "when the email is used but unclaimed" do
+    pending "when the email is used but unclaimed" do
       before do
         @setup.call
         wait_for_conversion_form
@@ -287,7 +195,7 @@ feature 'Guest user is prompted to convert to real user' do
 
     it_should_behave_like "a successful conversion"
 
-    context "when a location is chosen" do
+    pending "when a location is chosen" do
       def local_setup
         setup_before_visit
         visit public_board_path(public_slug: board.public_slug)
@@ -350,7 +258,7 @@ feature 'Guest user is prompted to convert to real user' do
       wait_for_conversion_form
     end
 
-    context "when the name is missing" do
+    pending "when the name is missing" do
       before do
         fill_in_conversion_email "jimmy@example.com"
         fill_in_conversion_password "jimbim"
@@ -364,7 +272,7 @@ feature 'Guest user is prompted to convert to real user' do
       it_should_behave_like "no user creation"
     end
 
-    context "when the email is missing" do
+    pending "when the email is missing" do
       before do
         fill_in_conversion_name "Jim Jones"
         fill_in_conversion_password "jimbim"
@@ -378,7 +286,7 @@ feature 'Guest user is prompted to convert to real user' do
       it_should_behave_like "no user creation"
     end
 
-    context "when the email given is in the wrong format" do
+    pending "when the email given is in the wrong format" do
       before do
         fill_in_conversion_name "Jim Jones"
         fill_in_conversion_email "asdasdasdasdasdasdasdasdasdasd"
@@ -393,7 +301,7 @@ feature 'Guest user is prompted to convert to real user' do
       it_should_behave_like "no user creation"
     end
 
-    context "when the password is missing" do
+    pending "when the password is missing" do
       before do
         fill_in_conversion_name "Jim Jones"
         fill_in_conversion_email "jim@example.com"
@@ -412,7 +320,7 @@ feature 'Guest user is prompted to convert to real user' do
       it_should_behave_like "no user creation"
     end
 
-    context "when the password is too short" do
+    pending "when the password is too short" do
       before do
         fill_in_conversion_name "Jim Jones"
         fill_in_conversion_email "jim@example.com"
@@ -427,7 +335,7 @@ feature 'Guest user is prompted to convert to real user' do
       it_should_behave_like "no user creation"
     end
 
-    context "when the email is already taken and claimed" do
+    pending "when the email is already taken and claimed" do
       before do
         FactoryGirl.create(:user, :claimed, email: 'jimmy@example.com')
         wait_for_conversion_form
@@ -457,7 +365,7 @@ feature 'Guest user is prompted to convert to real user' do
       end
     end
    
-    context "when a bad location name is present" do
+    pending "when a bad location name is present" do
       before do
         @board = board
         @board.update_attributes(use_location_in_conversion: true)
@@ -501,7 +409,7 @@ feature 'Guest user is prompted to convert to real user' do
     end
   end
 
-  context "when there are no tiles" do
+  pending "when there are no tiles" do
     before do
       @board = board
       @setup = lambda{ visit public_board_path(public_slug: board.public_slug) }
@@ -521,7 +429,7 @@ feature 'Guest user is prompted to convert to real user' do
     it_should_behave_like "conversion unhappy path"
   end
 
-  context "when there is one tile" do
+  pending "when there is one tile" do
     before do
       @board = board
       @setup = lambda do
@@ -555,7 +463,7 @@ feature 'Guest user is prompted to convert to real user' do
     it_should_behave_like "conversion unhappy path"
   end
 
-  context "when there are two tiles" do
+  pending "when there are two tiles" do
     before do
       @board = board
       @setup = lambda do
@@ -595,7 +503,7 @@ feature 'Guest user is prompted to convert to real user' do
     it_should_behave_like "conversion unhappy path"
   end
 
-  context "when there are more than two tiles" do
+  pending "when there are more than two tiles" do
     before do
       create_tiles(board, 4) 
     end
@@ -622,7 +530,7 @@ feature 'Guest user is prompted to convert to real user' do
       expect_no_conversion_form
     end
 
-    it "should offer again after completing all tiles", js: true do
+    pending "should offer again after completing all tiles", js: true do
       visit public_board_path(public_slug: board.public_slug)
 
       all_tiles = Tile.ordered_for_explore
@@ -648,7 +556,7 @@ feature 'Guest user is prompted to convert to real user' do
     end
   end
 
-  context "returns user after conversion to last visited page" do
+  pending "returns user after conversion to last visited page" do
     def local_setup
       wait_for_conversion_form
       fill_in_conversion_name "Jimmy Jones"
@@ -683,7 +591,7 @@ feature 'Guest user is prompted to convert to real user' do
     end
   end
 
-  context "log out" do
+  pending "log out" do
     def local_setup
       wait_for_conversion_form
       fill_in_conversion_name "Jimmy Jones"
@@ -707,4 +615,102 @@ feature 'Guest user is prompted to convert to real user' do
       current_path.should == activity_path
     end
   end
+
+
+
+  def expect_no_conversion_form
+    sleep 1 # wait for lightbox animation to finish
+    page.all(conversion_form_selector).select(&:visible?).should be_empty
+  end
+
+  def save_progress_button_selector
+    "a#save_progress_button"
+  end
+
+  def sign_in_button_selector
+    "a#sign_in_button"
+  end
+
+  def expect_save_progress_button
+    page.find(save_progress_button_selector, visible: true)
+  end
+
+  def expect_no_save_progress_button
+    page.all(save_progress_button_selector, visible: true).should be_empty
+  end
+
+  def click_save_progress_button
+    page.find(save_progress_button_selector, visible: true).click
+  end
+
+  def expect_sign_in_button
+    page.find(sign_in_button_selector, visible: true)
+  end
+
+  def expect_no_sign_in_button
+    page.all(sign_in_button_selector, visible: true).should be_empty
+  end
+
+  def click_sign_in_button
+    page.find(sign_in_button_selector, visible: true).click
+  end
+
+  def create_tiles(board, count)
+    count.times {|i| FactoryGirl.create(:multiple_choice_tile, :active, headline: "Tile #{i}", demo: board)}
+  end
+
+  def click_right_answer
+    # This is a hack because all the animations we threw on the tile viewer
+    # apparently confuse the shit out of poltergeist, and the claim that it
+    # can wait for them to finish is a damned dirty lie. So we cheat and click
+    # the hidden link that ACTUALLY triggers the Ajax request, while bypassing
+    # animations.
+    #page.find('.right_multiple_choice_answer').click
+    page.find('.right_multiple_choice_answer').trigger("click")
+  end
+
+  def click_close_conversion_button
+    click_link "Don't Save"
+  end
+
+  def name_error_copy
+    "Please enter a first and last name"  
+  end
+
+  def expect_name_error
+    expect_content name_error_copy
+  end
+
+  def expect_no_name_error
+    expect_no_content name_error_copy
+  end
+
+  def expect_invalid_email_error
+    expect_content "Whoops. Enter a valid email address"
+  end
+
+  def expect_duplicate_email_error
+    expect_content "It looks like that email is already taken. You can click here to sign in, or contact support@airbo.com for help."
+  end
+
+  def expect_invalid_location_name_error
+    expect_content "Whoops. Enter a valid location"
+  end
+
+  def password_error_copy
+    "Please enter a password at least 6 characters long"  
+  end
+
+  def expect_password_error
+    expect_content password_error_copy
+  end
+
+  def expect_no_password_error
+    expect_no_content password_error_copy
+  end
+
+  def expect_welcome_flash(email)
+    #expect_content "Account created! A confirmation email will be sent to #{email}."
+  end
+
 end

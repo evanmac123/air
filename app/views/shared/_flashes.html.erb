@@ -11,7 +11,7 @@
             <% result = if raw_allowed_in_flash?(key) %>
               <% bracketless.length == 1 ? bracketless.first : bracketless %>
             <% else %>
-              <% bracketless = bracketless.map{|value_part| "<p>" + h(value_part) + "</p>"}.join %>
+              <% bracketless = bracketless.map{|value_part| "<div>" + h(value_part) + "</div>"}.join %>
               <% bracketless.gsub! "support@airbo.com", link_to("support@airbo.com", "mailto:support@airbo.com") %>
               <% bracketless %>
             <% end %>

@@ -1,19 +1,10 @@
 require 'acceptance/acceptance_helper'
-
 feature 'Client admin drags and drops tiles' do
   include TileManagerHelpers
   include WaitForAjax
 
   let!(:admin) { FactoryGirl.create :client_admin }
   let!(:demo)  { admin.demo  }
-
-  def move_modal_text
-    "Are you sure you want to re-use this Tile? Users who completed it before won't see it again. If you want to re-use the content, please create a new Tile."
-  end
-
-  def move_modal_selector
-    ".move-tile-confirm"
-  end
 
   background do
     bypass_modal_overlays(admin)
@@ -25,15 +16,14 @@ feature 'Client admin drags and drops tiles' do
       create_tiles_for_sections section => tiles_num
       visit current_path #reload page
       tiles = demo.send(:"#{section}_tiles").to_a
-      move_tile tiles[i1], tiles[i2]
+      t1, t2 = tiles[i1], tiles[i2]
+      move_tile t1, t2
 
       wait_for_ajax
       tile_id = tiles[i1].id
       tiles.insert i2, tiles.delete_at(i1)
       section_tile_headlines("##{section}").should == tiles.map(&:headline)
       demo.reload.send(:"#{section}_tiles").should == tiles
-
-      expect_tile_status_updated_ping tile_id, admin
     end
   end
 
@@ -63,7 +53,7 @@ feature 'Client admin drags and drops tiles' do
       i2 = 0
       tiles1 = demo.send(:"#{section1}_tiles").to_a
       tiles2 = demo.send(:"#{section2}_tiles").to_a
-      
+
       visit current_path
       expect_no_content tiles1[i1 + 1].headline
       move_tile_between_sections tiles1[0], tiles2[i2]
@@ -80,14 +70,13 @@ feature 'Client admin drags and drops tiles' do
     it_should_behave_like "Moves tile in one section", "archive", 4, 0, 2
 
     it_should_behave_like "Moves tile between sections", "active",  7, 2, "draft",   2, 1
-    # works only with capybara. who knows why
-    # it_should_behave_like "Moves tile between sections", "active",  4, 2, "archive", 2, 1
+
     it_should_behave_like "Moves tile between sections", "archive", 4, 3, "draft",   2, 1
     it_should_behave_like "Moves tile between sections", "archive", 4, 2, "active",  3, 2
 
     it_should_behave_like "Tile is loaded after drag and drop if needed", "archive", "active"
     it_should_behave_like "Tile is loaded after drag and drop if needed", "archive", "draft"
-  
+
     context "Move Confirmation Modal when user moves tile from archive to active" do
       before do
         @section1, @num1, @i1 = "archive", 4, 3
@@ -117,7 +106,7 @@ feature 'Client admin drags and drops tiles' do
         FactoryGirl.create :tile_completion, user: admin, tile: @tiles1[@i1]
         visit current_path
         move_tile_between_sections @tiles1[@i1], @tiles2[@i2]
-        
+
         expect_content move_modal_text
         within move_modal_selector do
           click_link "Cancel"
@@ -141,4 +130,13 @@ feature 'Client admin drags and drops tiles' do
     before(:each) { visit client_admin_inactive_tiles_path }
     it_should_behave_like "Moves tile in one section", "archive", 4, 0, 2
   end
+
+  def move_modal_text
+    "Are you sure you want to re-use this Tile? Users who completed it before won't see it again. If you want to re-use the content, please create a new Tile."
+  end
+
+  def move_modal_selector
+    ".move-tile-confirm"
+  end
+
 end

@@ -11,7 +11,7 @@
             <% end %>
             <% if current_user.avatar_file_name %>
               <%= form_for current_user, :url => account_avatar_path, :html => {:multipart => true, :method => :delete, :class => 'clear-avatar'} do |form| %>
-                <%= form.submit "Clear", :class => 'clear' %>
+                <%= form.submit "Clear", :class => 'clear button outlined' %>
               <% end %>
             <% end %>
           </div>

@@ -1,0 +1,59 @@
+<% img_link_args = [tile.email_site_link, tile.email_link_options.merge({style: "text-decoration:none;"})] %>
+<% text_link_args = [tile.email_site_link, tile.email_link_options.merge({style: "color:#00aeef;text-decoration:none;display:block;vertical-align:middle;mso-line-height-rule:exactly;line-height:40px;border-radius:3px;"})] %>
+
+<div style="width:260px;display:inline-block;vertical-align:top;" class="wMax">
+  <table align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="center" style="padding-bottom:30px;">
+      <table align="center" cellpadding="0" cellspacing="0" style="border-collapse:separate;box-shadow:0 0 5px 0 rgba(0, 0, 0, 0.3);border:solid 1px #dddddd;">
+      <tr>
+        <td width="240" align="center">
+          <table width="100%" cellpadding="0" cellspacing="0">
+          <tr>
+            <td align="center">
+              <%= link_to *img_link_args do %>
+                <%= image_tag(tile.email_img_url, alt: tile.headline,  width: '240', style: "width:100%!important;height:auto!important;display:block;") %>
+              <% end %>
+            </td>
+          </tr>
+          </table>
+          <table width="100%" cellpadding="0" cellspacing="0">
+          <tr>
+            <td height="120" align="left" valign="top" class="autoHeight">
+              <table width="100%" cellpadding="0" cellspacing="0">
+              <tr>
+                <td align="left" style="font-family: Avenir Next,'Avenir Next Airbo',Arial,Helvetica,sans-serif;font-size:16px;color:#3c3c3c;mso-line-height-rule:exactly;line-height:24px;font-weight:600;padding-top:10px;padding-left:10px;padding-right:10px;">
+                  <%= tile.headline.truncate(50) %>
+                </td>
+              </tr>
+              <tr>
+                <td align="left" valign="top" style="font-family: Avenir Next,'Avenir Next Airbo',Arial,Helvetica,sans-serif;font-size:13px;color:#404040;mso-line-height-rule:exactly;line-height:19px;padding-top:10px;padding-bottom:10px;padding-left:10px;padding-right:10px;">
+                  <% if tile.creator %>
+                    by <%= tile.creator.name %>
+                  <% end %>
+                </td>
+              </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td align="center" style="padding-bottom:10px;padding-left:10px;padding-right:10px;">
+              <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:separate;border-radius:5px;border:solid 1px #00aeef;">
+              <tr>
+                <td height="40" align="center" style="font-family: Avenir Next,'Avenir Next Airbo',Arial,Helvetica,sans-serif;font-size:16px;color:#00aeef;white-space:nowrap;">
+                  <%= link_to *text_link_args do %>
+                    &nbsp;See&nbsp;Tile&nbsp;
+                  <% end %>
+                </td>
+              </tr>
+              </table>
+            </td>
+          </tr>
+          </table>
+        </td>
+      </tr>
+      </table>
+    </td>
+  </tr>
+  </table>
+</div>

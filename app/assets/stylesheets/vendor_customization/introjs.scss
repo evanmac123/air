@@ -1,0 +1,110 @@
+@mixin button-outlined-intro{
+
+  @include button-outlined-color($n-white);
+  &:hover {
+    color: $n-blue !important;
+  }
+}
+
+.airbo_preview_intro.introjs-tooltip {
+  min-width: 610px;
+  border-radius: 0;
+  background: $n-blue;
+  padding: 10px;
+  &.small{
+    min-width: auto;
+    padding: 10px;
+  }
+
+  &.no-min{
+    min-width: auto;
+  }
+
+  &.no-max{
+   max-width: none;
+  }
+  &.single-tile{
+   /*width: 744px;*/
+  }
+
+  .introjs-tooltiptext {
+    line-height: 1.5;
+    font-size: 16px;
+    color: $n-white;
+  }
+  .introjs-arrow{
+    &.top {
+      border-bottom-color: $n-blue;
+    }
+    &.bottom {
+      border: 10px solid;
+      border-right-color: transparent;
+      border-bottom-color: transparent;
+      border-left-color: transparent;
+      border-top-color: $n-blue;
+      bottom: -20px;
+      left: 50%;
+    }
+  }
+  .introjs-skipbutton {
+    float: right;
+    &.button-outlined-intro{
+      float: left;
+    }
+  }
+
+  
+
+  .introjs-prevbutton,.introjs-nextbutton{
+    float: left;
+    border-color: #fff;
+  }
+
+  .introjs-skipbutton,  .introjs-prevbutton,.introjs-nextbutton{
+    &.button-outlined-intro{
+      @include button-outlined-intro;
+    }
+  }
+
+}
+.introjs-hint{
+ z-index: 10000000
+}
+.introjs-hint-dot {
+  border: 10px solid $n-blue;
+  top: -20px;
+  left: -20px;
+}
+.introjs-hint-pulse {
+  border-color: $n-blue;
+}
+
+.simple{
+  &.introjs-tooltip{
+    max-width: none;
+    padding:8px;
+
+    .introjs-tooltiptext{
+      font-size:14px;
+      line-height:1em;
+      text-align: center;
+
+      .introjs-button{
+        text-shadow: none;
+      }
+    }
+  }
+}
+.introjs-arrow.top {
+  left: 50%;
+}
+
+.introjs-helperLayer {
+  position: absolute;
+  z-index: 9999998;
+  background-color: #f3f3f3; 
+  border:none;
+  border-radius: 4px;
+  box-shadow: none;
+}
+

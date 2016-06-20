@@ -5,6 +5,7 @@ class UsersController < Clearance::UsersController
   skip_before_filter :authorize, only: :show
 
   def index
+    @palette = current_user.demo.custom_color_palette
     @friend_ids = current_user.friend_ids
     @search_link_text = "our search bar"
     @search_string = params[:search_string]
@@ -35,6 +36,7 @@ class UsersController < Clearance::UsersController
 
     @user = current_user.demo.users.find_by_slug(params[:id])
     @current_user = current_user
+    @palette = current_user.demo.custom_color_palette
     unless @user
       not_found
       return

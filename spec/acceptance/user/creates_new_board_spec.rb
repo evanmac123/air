@@ -22,7 +22,7 @@ feature 'Create new board' do
   end
 
   def wait_for_board_modal
-    page.should have_content "Create a new board" # slow your roll, Poltergeist  
+    expect_content "Create a new board" # slow your roll, Poltergeist  
   end
 
   def try_to_create_new_board(user = a_regular_user)
@@ -41,7 +41,7 @@ feature 'Create new board' do
   scenario "via the create-board link in das switcher", js: true do
     try_to_create_new_board
 
-    page.should have_content "CURRENT BOARD Buttons Board"
+    expect_content "CURRENT BOARD Buttons Board"
     should_be_on client_admin_tiles_path
   end
 
@@ -56,18 +56,18 @@ feature 'Create new board' do
 
     it "should warn the user", js: true do
       fill_in_new_board_name "Buttons"
-      page.should have_content board_name_taken_message
+      expect_content board_name_taken_message
     end
 
     it "should ignore case when comparing names", js: true do
       fill_in_new_board_name "buttons"
-      page.should have_content board_name_taken_message
+      expect_content board_name_taken_message
 
       fill_in_new_board_name "BUTTONS"
-      page.should have_content board_name_taken_message
+      expect_content board_name_taken_message
 
       fill_in_new_board_name "BuTtOnS"
-      page.should have_content board_name_taken_message
+      expect_content board_name_taken_message
     end
   end
 end

@@ -40,8 +40,11 @@ module Health
       app-internal.css
       app-internal_split2.css
       app-internal_split3.css
+      app-internal_split4.css
+      app-internal_split5.css
       app-landing.css
       app-user-progress.css
+      app-user-progress_split2.css
       styleguide.css
       vendor/ie8-grid16-foundation-4.css
       vendor/ie8-grid12-foundation-4.css
@@ -49,12 +52,16 @@ module Health
       external/standalone_ie8.css
       internal/internal_ie8.css
       client_admin/client_admin_ie8.css
+      app-support.css
+      public_board_fixed_headers.css
+      public_board_fixed_headers.js
       app-admin.js
       app-internal.js
       app-external.js
       app-landing.js
       app-pages.js
       app-client-admin.js
+      for-modern-browsers.js
       file-uploader.js
       client_admin/add_new_item_via_select.js
       errors.css
@@ -72,6 +79,7 @@ module Health
       resizing_gears_fullsize.gif
       internal/guest_user_conversion.js
       client_admin/public_board_controls.js
+      app-support.js
       internal/explore.css
       Explore_tile_page/antioxidents.png
       Explore_tile_page/drink_water.png
@@ -81,7 +89,6 @@ module Health
       Explore_tile_page/recycle_yourself.png
       Explore_tile_page/notebook.png
       Explore_tile_page/open_book.png
-      internal/tiles.js
       client_admin/tile_tag_callback.js
       internal/countUp.min.js
       internal/point_and_ticket_animation.js

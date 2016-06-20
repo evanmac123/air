@@ -3,21 +3,23 @@ class FullSizeTilePresenter
   SAFE_NBSP = "&nbsp;".html_safe.freeze
 
   attr_reader :tile, :user, :is_preview, :browser
-  delegate  :id,
-            :image, 
-            :headline,
-            :image_credit, 
-            :link_address, 
-            :points, 
-            :question, 
-            :multiple_choice_answers, 
-            :correct_answer_index, 
-            :is_survey?, 
-            :is_action?, 
-            :original_creator, 
-            :tile_completions,
-            :full_size_image_height, 
-            to: :tile
+  delegate :id,
+    :demo,
+    :image,
+    :headline,
+    :image_credit,
+    :link_address,
+    :points,
+    :question,
+    :multiple_choice_answers,
+    :correct_answer_index,
+    :is_survey?,
+    :is_action?,
+    :original_creator,
+    :tile_completions,
+    :full_size_image_height,
+    :custom_supporting_content_class,
+    to: :tile
 
   def initialize(tile, user, is_preview, current_tile_ids, browser)
     @tile = tile
@@ -27,8 +29,8 @@ class FullSizeTilePresenter
     @browser = browser
   end
 
-  def creator_class
-    appears_client_created ? 'client_created' : 'admin_created'
+  def storage_key
+    "progress.#{demo.id}.#{id}"
   end
 
   def supporting_content
@@ -41,7 +43,7 @@ class FullSizeTilePresenter
   end
 
   def non_preview_of_completed_tile?
-    !is_preview && user_completed_tile?   
+    !is_preview && user_completed_tile?
   end
 
   def user_completed_tile?
@@ -59,12 +61,17 @@ class FullSizeTilePresenter
     answer_index == tile.correct_answer_index || tile.is_survey? || tile.is_action?
   end
 
+  def is_invitation_answer?(answer_index)
+    answer_index == tile.correct_answer_index &&
+    tile.question_subtype == Tile::INVITE_SPOUSE
+  end
+
   def user_completed_tile_with_answer_index(answer_index)
     user_tile_completion.answer_index == answer_index
   end
 
   def current_tile_ids_joined
-    @current_tile_ids && @current_tile_ids.join(',') 
+    @current_tile_ids && @current_tile_ids.join(',')
   end
 
   def adjacent_tile_image_urls
@@ -72,11 +79,7 @@ class FullSizeTilePresenter
   end
 
   def image_styles
-    ie9_or_older? ? "height:#{full_size_image_height}px;" : ""
-  end
-
-  def appears_client_created
-    supporting_content.present? && question.present?
+    (is_preview || ie9_or_older?) ? "height:#{full_size_image_height}px;" : ""
   end
 
   protected
@@ -99,6 +102,6 @@ class FullSizeTilePresenter
   end
 
   def html_escape(*args)
-    ERB::Util.h(*args)  
+    ERB::Util.h(*args)
   end
 end

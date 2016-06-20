@@ -36,7 +36,7 @@ feature "Client Admin Changes Board Settings" do
     "Sorry that doesn't look like an image file. Please use a " +
     "file with the extension .jpg, .jpeg, .gif, .bmp or .png."
   end
-  
+
   context "board name form" do
     before(:each) do
       (2..4).to_a.each do |i|
@@ -228,7 +228,7 @@ feature "Client Admin Changes Board Settings" do
         fill_in "Public Link", with: "board-2"
         click_button "Update"
       end
-      
+
       expect_content "Sorry, that public link is already taken."
       demo.reload.public_slug.should == "board-1"
     end
@@ -238,7 +238,7 @@ feature "Client Admin Changes Board Settings" do
         fill_in "Public Link", with: ""
         click_button "Update"
       end
-      
+
       expect_no_content "Sorry, that public link is already taken."
       expect_content "Sorry, you must enter a public link."
       demo.reload.public_slug.should == "board-1"

@@ -21,25 +21,32 @@ module Concerns::TileImageable
 
     has_attached_file :thumbnail,
       {
-        styles: { 
+        styles: {
           carousel:     ["238x238#", :png],
           email_digest: ["190x160#", :png]
         },
         default_style:  :carousel,
         default_url:    "/assets/avatars/thumb/missing.png",
-        bucket:         S3_TILE_THUMBNAIL_BUCKET
+        bucket:         S3_TILE_THUMBNAIL_BUCKET,
+        preserve_files: true  # preserve old attachments on update and delete. WHY?
+                              # to fix next scenario: CA sends digest email
+                              # but then changes an image in some tile.
+                              # so user gets email with a link to the old 
+                              # image which was removed
       }.merge(TILE_THUMBNAIL_OPTIONS)
 
-    process_in_background :image, 
-                          processing_image_url: :processing_image_fallback, 
+    process_in_background :image,
+                          processing_image_url: :processing_image_fallback,
                           priority:             TILE_IMAGE_PROCESSING_PRIORITY
 
-    process_in_background :thumbnail, 
-                          processing_image_url: :processing_image_fallback, 
+    process_in_background :thumbnail,
+                          processing_image_url: :processing_image_fallback,
                           priority:             TILE_IMAGE_PROCESSING_PRIORITY
 
 
   end
+
+  attr_accessor :image_from_library
 
   def processing_image_fallback
     remote_media_url || IMAGE_PROCESSING_URL
@@ -52,10 +59,11 @@ module Concerns::TileImageable
   def full_size_image_height
     return nil if image_file_name.nil?
 
-    height, width = if image_processing?
+   #FIXME  this fails if height or width are nil?
+    height, width = if image_processing? || image.height.nil? || image.width.nil?
                       [484, 666]
                     else
-                      [image.height, image.width]
+                      [image.height, image.width] 
                     end
 
     full_width = 600.0 # px for full size tile

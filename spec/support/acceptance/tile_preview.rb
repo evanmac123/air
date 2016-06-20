@@ -4,10 +4,13 @@ module TilePreviewHelpers
   end
 
   def click_copy_button
-    page.find('#copy_tile_button').click
+    page.find('.copy_to_board').click
     register_if_guest
     expect_copied_lightbox
-    page.find('#close_tile_copied_lightbox').click
+    
+    within '.tile_copied_lightbox' do 
+      click_button "OK"
+    end
   end
 
   def click_copy_link

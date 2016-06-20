@@ -1,0 +1,110 @@
+// Gray quiz area
+.tile_quiz {
+  background:lighten($light-gray, 8%);
+  padding:0 0 1.5em 0;
+  position: relative;
+  overflow: visible;
+
+  // Points bar
+  .tile_points_bar, .tile_types {
+    background: #f7f7f7;
+    background: -moz-linear-gradient(top,  #f7f7f7 0%, #f7f7f7 45%, #eaeaea 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f7f7f7), color-stop(45%,#f7f7f7), color-stop(100%,#eaeaea));
+    background: -webkit-linear-gradient(top,  #f7f7f7 0%,#f7f7f7 45%,#eaeaea 100%);
+    background: -o-linear-gradient(top,  #f7f7f7 0%,#f7f7f7 45%,#eaeaea 100%);
+    background: -ms-linear-gradient(top,  #f7f7f7 0%,#f7f7f7 45%,#eaeaea 100%);
+    background: linear-gradient(to bottom,  #f7f7f7 0%,#f7f7f7 45%,#eaeaea 100%);
+
+    border-top:1px $white solid;
+    border-bottom:1px darken($light-gray, 2%) solid;
+    box-shadow:  0px 0 1px 1px lighten($light-gray, 3%);
+    height:47px;
+    position: relative;
+    &:after {@include clear;}
+    .earnable_points {
+      @include font-bold;
+      background: $sky-blue;
+      @include light-to-color-gradient($sky-blue, 10%);
+      border: {
+        style:solid;
+        color:$light-gray;
+        left:{width:1px;}
+        right:{width:1px;}
+        top:{width:0}
+        bottom:{width:0}
+      }
+      color:$white;
+      display: inline-block;
+      height:47px;
+      margin-left:7%;
+      overflow: hidden;
+      padding:.75em 1em .85em;
+      position:absolute;
+      top:-1px;
+      * {vertical-align: middle;}
+      .num_of_points {
+        font-size:2em;
+        font-size:2rem;
+        line-height:.75em;
+      }
+      .points_label {
+        @include caption;
+        margin-left:.5em;
+        text-transform: uppercase;
+      }
+    }
+  }
+  // Question portion
+  .tile_question {
+    @include font-semibold;
+    font-size:1.25em;
+    line-height:1.35em;
+    padding-top:1.5em;
+    padding-bottom: 1em;
+  }
+
+
+  // Multiple choice answers
+  .tile_multiple_choice_answer {
+    margin:1em auto;
+    width:100%;
+    a, a:link, a:visited {
+      // @include button($blue);
+      // @include font-semibold;
+      // color:$white;
+      // display: block;
+      // font-size:1.25em !important;
+      // line-height:1em;
+      // padding:.5em 1em;
+      // white-space: normal;
+      // text-transform: none;
+      &.clicked_wrong {
+        background:darken($light-gray, 10%);
+        border-color:$light-gray;
+        color:$med-gray;
+        text-decoration: line-through!important;
+      }
+    }
+    .clicked_right_answer {
+      background: $sky-blue !important;
+      border-color: $sky-blue !important;
+      @include font-semibold;
+      color:$white;
+      display: block;
+      font-size:1.25em;
+      line-height:1em;
+      padding:.5em 1em;
+      text-align: center;
+    }
+  }
+  .nerfed_answer:hover {
+    background: $blue !important;
+    border-color: darken($blue, 10%) !important;
+  }
+  .answer_target {
+    color:$gray;
+    @include font-bold;
+    padding:.5em;
+    text-align: center;
+  }
+}

@@ -6,7 +6,18 @@ class TilesController < ApplicationController
 
   prepend_before_filter :allow_guest_user, :only => [:index, :show]
 
+
+     #FIXME FIXME this logic is sooooooo convoluted!!!!!
+  # so I don't forget the next time i look at this crazy code
+  # Index and show essentially do the same thing display a single tiles_path
+  # index renders it in the slideshow
+  # the first time around the else path is triggered and we render the index
+  # template
+  # the second time we render the partial via ajax.
+
   def index
+    @demo = current_user.demo
+    @palette = @demo.custom_color_palette
     if params[:partial_only]
       set_parent_board_user(params[:board_id])
       @current_user = current_user
@@ -14,6 +25,7 @@ class TilesController < ApplicationController
       render_tile_wall_as_partial
       ignore_all_newrelic if @current_user.is_site_admin
     else
+      @in_public_board = params[:public_slug].present?
       set_parent_board_user_by_tile(session[:start_tile])
       @current_user = current_user
 
@@ -26,13 +38,15 @@ class TilesController < ApplicationController
       schedule_viewed_tile_ping(@start_tile)
       increment_tile_views_counter @start_tile, current_user
       session.delete(:start_tile)
+      @hide_cover = true
+      render layout: "public_board" if @in_public_board and @demo.is_parent?
     end
+
   end
 
   def show
     if params[:partial_only]
       set_parent_board_user_by_tile(params[:id])
-
       decide_whether_to_show_conversion_form
 
       new_tile_was_rendered = render_new_tile
@@ -44,7 +58,7 @@ class TilesController < ApplicationController
     else
       session[:start_tile] = params[:id]
       if params[:public_slug]
-        redirect_to public_tiles_path(params[:public_slug])
+        redirect_to public_tiles_path(params[:public_slug]) and current_user.demo.is_parent?
       else
         redirect_to tiles_path
       end
@@ -76,9 +90,10 @@ class TilesController < ApplicationController
     satisfiable_tiles.first.try(:id)
   end
 
+
   def render_new_tile
-    after_posting = params[:after_posting] == "true"
-    all_tiles_done = Tile.satisfiable_to_user(current_user).empty?
+    after_posting = params[:afterPosting] == "true"
+    all_tiles_done = user_satisfiable_tiles.empty?
     all_tiles = current_user.available_tiles_on_current_demo.count
     completed_tiles = current_user.completed_tiles_on_current_demo.count
     render json: {
@@ -95,24 +110,44 @@ class TilesController < ApplicationController
     }
     !(all_tiles_done && after_posting)
   end
- 
+
   def tile_content(all_tiles_done, after_posting)
     if all_tiles_done && after_posting
       render_to_string("tiles/_all_tiles_done", layout: false)
     else
-      render_to_string("tiles/_full_size_tile", locals: {tile: current_tile, current_tile_ids: current_tile_ids, overlay_displayed: true}, layout: false)
+      @start_tile  = current_tile
+      render_to_string("tiles/_viewer",  layout: false)
     end
   end
+
+  def current_tile_index
+    @idx ||= if satisfiable_tiles.empty?
+            0
+    elsif not previous_tile_ids.empty?
+      (previous_tile_index + params[:offset].to_i) % (current_tile_ids.length > 0 ? current_tile_ids.length : 1)
+    else
+      (current_tile_ids.find_index{|element| element.to_i == reference_tile_id.to_i}) || 0
+    end
+  end
+
+  def current_tile_id
+    current_tile_ids[current_tile_index]
+  end
+
+  def current_tile
+    @tile ||= Tile.find(current_tile_id)
+  end
+
 
   def current_tile_ids
     @current_tile_ids ||= begin
       not_completed_tile_ids = satisfiable_tiles.map(&:id)
       new_tile_ids = not_completed_tile_ids - previous_tile_ids
-      current_tile_ids = previous_tile_ids + new_tile_ids      
+      current_tile_ids = previous_tile_ids + new_tile_ids
       current_tile_ids
     end
   end
-  
+
   def previous_tile_ids
     @_previous_tile_ids ||= (params[:previous_tile_ids] && params[:previous_tile_ids].split(',').collect{|el| el.to_i}) || []
   end
@@ -120,25 +155,11 @@ class TilesController < ApplicationController
   def reference_tile_id
     params[:id] || start_tile_id
   end
-  
-  def current_tile_id    
-    current_tile_ids[current_tile_index]
-  end
-  
-  def current_tile
-    @_current_tile ||= Tile.find(current_tile_id)
-  end
 
   def previous_tile_index
     (previous_tile_ids.find_index{|element| element.to_i == reference_tile_id.to_i})||0
   end
 
-  def current_tile_index
-    return 0 if satisfiable_tiles.empty?
-    return (previous_tile_index + params[:offset].to_i) % 
-    (current_tile_ids.length > 0 ? current_tile_ids.length : 1) unless previous_tile_ids.empty?
-    return (current_tile_ids.find_index{|element| element.to_i == reference_tile_id.to_i}) || 0
-  end
 
   def render_tile_wall_as_partial
     html_content = render_to_string partial: "shared/tile_wall", locals: (Tile.displayable_categorized_to_user(current_user, maximum_tiles_wanted)).merge(path_for_more_tiles: tiles_path(board_id: params[:board_id]))
@@ -154,22 +175,28 @@ class TilesController < ApplicationController
       show_conversion_form_provided_that { satisfiable_tiles.empty? }
     else
       tile_completion_count = @current_user.tile_completions.joins(:tile).where("#{Tile.table_name}.demo_id" => @current_user.demo_id).count
-      allow_reshow = tile_completion_count == active_tile_count
+      tile_viewings_count = @current_user.tile_viewings.count
+      allow_reshow = false #tile_completion_count == active_tile_count
 
-      show_conversion_form_provided_that(allow_reshow) { tile_completion_count == 2 || tile_completion_count == active_tile_count }
+      show_conversion_form_provided_that(allow_reshow) { tile_completion_count == 2 || tile_completion_count == active_tile_count || tile_viewings_count == 2 }
     end
   end
 
   def show_completed_tiles
-    @show_completed_tiles ||=  (params[:completed_only] == 'true') || 
-      (session[:start_tile] && 
+    @show_completed_tiles ||=  (params[:completed_only] == 'true') ||
+      (session[:start_tile] &&
         current_user.tile_completions.where(tile_id: session[:start_tile]).exists?) || false
   end
-  
+
+  def user_satisfiable_tiles
+    @user_tiles ||=Tile.satisfiable_to_user(current_user, params[:demo])
+  end
+
+
   def satisfiable_tiles
     @_satisfiable_tiles ||= begin
       unless show_completed_tiles
-        Tile.satisfiable_to_user(current_user)
+        user_satisfiable_tiles
       else
         current_user.tile_completions.order("#{TileCompletion.table_name}.id desc").includes(:tile).where("#{Tile.table_name}.demo_id" => current_user.demo_id).map(&:tile)
       end
@@ -183,7 +210,8 @@ class TilesController < ApplicationController
   def schedule_viewed_tile_ping(tile)
     return unless tile.present?
     board_type = tile.demo.is_paid ? "Paid" : "Free"
-    ping('Tile - Viewed', {tile_type: "User", tile_id: tile.id, board_type: board_type}, current_user)
+    tile_type = tile.is_invite_spouse? ? "Spouse Invite" : "User"
+    ping('Tile - Viewed', {tile_type: tile_type, tile_id: tile.id, board_type: board_type}, current_user)
   end
 
   def maximum_tiles_wanted

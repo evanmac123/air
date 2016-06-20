@@ -83,6 +83,8 @@ module ApplicationHelper
     request.env['mobvious.device_type'] == :desktop
   end
 
+  #FIXME this fucking code, once again fucking sucks! 
+  #
   def tile_thumbnail_target(tile, selected_tag_id = nil)
     # It would have been much neater to deal with this via inheritance.
     # Too bad you can't inherit views, and doing it with helpers didn't seem
@@ -91,6 +93,8 @@ module ApplicationHelper
     # So instead we get this hack:
     if params[:controller] == 'explores'
       explore_tile_preview_path(tile, tag_id: selected_tag_id)
+    elsif params[:library_slug] 
+      client_admin_stock_tile_path(tile)
     else
       params[:public_slug] ? public_tile_path(params[:public_slug], tile) : tile_path(tile)
     end
@@ -144,8 +148,48 @@ module ApplicationHelper
     result
   end
 
+  def present(object, klass = nil, opts)
+    klass ||= "#{object.class}Presenter".constantize
+    presenter = klass.new(object, self, opts)
+    yield presenter if block_given?
+    presenter
+  end
+
+  def simple_format_by_type type, val
+    case type 
+    when "date"
+      simple_date_format val 
+    when "money" 
+      simple_money_format val
+    when "pct"
+      "#{simple_number_format val}%"
+    else 
+      val
+    end
+  end
+
+  def simple_date_format date
+    date.try(:strftime, "%m/%d/%Y")
+  end
+
+  def simple_money_format amt
+   number_to_currency amt, precision:0
+  end
+
+  def simple_number_format num
+    number_with_delimiter num.to_i
+  end
+
   def unescape_html html
     coder = HTMLEntities.new
     raw coder.decode("" + html + "")
+  end
+
+  def dependent_board_email_subject 
+    current_user.demo.dependent_board_email_subject || DEFAULT_INVITE_DEPENDENT_SUBJECT_LINE
+  end
+
+  def dependent_board_email_body
+    current_user.demo.dependent_board_email_body || DEFAULT_INVITE_DEPENDENT_EMAIL_BODY
   end
 end

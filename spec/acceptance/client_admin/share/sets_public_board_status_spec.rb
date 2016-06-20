@@ -36,13 +36,13 @@ feature "Client admin sets board's public status themself" do
   end
 
   def expect_on_engaged
-    page.find('#private_button')['checked'].should_not be_present
-    page.find('#public_button')['checked'].should be_present
+    page.find('#private_button', visible: false)['checked'].should_not be_present
+    page.find('#public_button', visible: false)['checked'].should be_present
   end
 
   def expect_off_engaged
-    page.find('#private_button')['checked'].should be_present
-    page.find('#public_button')['checked'].should_not be_present
+    page.find('#private_button', visible: false)['checked'].should be_present
+    page.find('#public_button', visible: false)['checked'].should_not be_present
   end
 
   def public_board_section

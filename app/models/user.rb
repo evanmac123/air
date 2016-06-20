@@ -1,6 +1,7 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
+
   PRIVACY_LEVELS = %w(everybody connected nobody).freeze
 
   GENDERS = ["female", "male", "other", nil].freeze
@@ -47,6 +48,10 @@ class User < ActiveRecord::Base
   has_one    :demo, through: :current_board_membership
   has_one    :original_guest_user, :class_name => "GuestUser", :foreign_key => :converted_user_id, :inverse_of => :converted_user
   has_one    :billing_information
+  has_one    :user_intro
+  has_one    :dependent_user,  class_name: "User", foreign_key: :primary_user_id
+  belongs_to :primary_user, class_name: "User"
+
   validate :normalized_phone_number_unique, :normalized_new_phone_number_unique, :normalized_new_phone_number_not_taken_by_board
   validate :new_phone_number_has_valid_number_of_digits
   validate :sms_slug_does_not_match_commands
@@ -67,12 +72,12 @@ class User < ActiveRecord::Base
 
   validates_inclusion_of :gender, :in => GENDERS, :allow_blank => true
 
-  validates_format_of :slug, :with => /^[0-9a-z]+$/, :if => :name_present?
-  validates_format_of :sms_slug, :with => /^[0-9a-z]{2,}$/,
+  validates_format_of :slug, :with => /\A[0-9a-z]+\z/, :if => :name_present?
+  validates_format_of :sms_slug, :with => /\A[0-9a-z]{2,}\z/,
                       :message => "Sorry, the username must consist of letters or digits only.",
                       :if => :name_present?
 
-  validates_format_of :zip_code, with: /^\d{5}$/, allow_blank: true
+  validates_format_of :zip_code, with: /\A\d{5}\z/, allow_blank: true
 
   validates_length_of :password, :minimum => 6, :allow_blank => true, :message => 'must have at least 6 characters', :unless => :converting_from_guest
   validates :email, :with => :email_distinct_from_all_overflow_emails
@@ -159,10 +164,6 @@ class User < ActiveRecord::Base
 
   attr_accessor :password_confirmation, :converting_from_guest, :must_have_location, :creating_board, :role
 
-  # Changed from attr_protected to attr_accessible to address vulnerability CVE-2013-0276
-
-  attr_accessible :name, :email, :invited, :demo_id, :created_at, :updated_at, :invitation_code, :phone_number, :points, :encrypted_password, :salt, :remember_token, :slug, :claim_code, :confirmation_token, :won_at, :sms_slug, :last_suggested_items, :avatar_file_name, :avatar_content_type, :avatar_file_size, :avatar_updated_at, :ranking_query_offset, :accepted_invitation_at, :game_referrer_id, :notification_method, :location_id, :new_phone_number, :new_phone_validation, :date_of_birth, :gender, :session_count, :privacy_level, :last_muted_at, :last_told_about_mute, :mt_texts_today, :suppress_mute_notice, :follow_up_message_sent_at, :flashes_for_next_request, :characteristics, :overflow_email, :tickets, :zip_code, :is_employee, :ssn_hash, :employee_id, :spouse_id, :last_acted_at, :ticket_threshold_base, :terms_and_conditions, :get_started_lightbox_displayed, :send_weekly_activity_report
-  #attr_protected :is_site_admin, :is_client_admin, :invitation_method
 
   has_alphabetical_column :name
 
@@ -584,7 +585,7 @@ class User < ActiveRecord::Base
   end
 
   def record_claim_in_mixpanel(channel)
-    TrackEvent.ping('claimed account', {:channel => channel}, self)
+    TrackEvent.ping('claimed account', {:channel => channel, source: "Joined via invite"}, self)
   end
 
   def update_points(point_increment, channel=nil)
@@ -952,6 +953,10 @@ class User < ActiveRecord::Base
     false
   end
 
+  def is_potential_user?
+    false
+  end
+
   def highest_ranking_user_type
     return "site admin" if self.is_site_admin
     return "client admin" if self.is_client_admin
@@ -1105,14 +1110,6 @@ class User < ActiveRecord::Base
     demos.where(is_paid: true).first.nil?
   end
 
-  def voteup_intro_never_seen
-    !(voteup_intro_seen)
-  end
-
-  def share_link_intro_never_seen
-    !(share_link_intro_seen)
-  end
-
   def can_see_raffle_modal?
     true
   end
@@ -1202,11 +1199,8 @@ class User < ActiveRecord::Base
       end
   end
 
-  def show_submit_tile_intro!
-    if can_make_tile_suggestions? && !submit_tile_intro_seen
-      update_attribute :submit_tile_intro_seen, true
-      true
-    end
+  def intros
+    user_intro || UserIntro.create(user: self)
   end
 
   protected
@@ -1306,7 +1300,7 @@ class User < ActiveRecord::Base
       current_value = new_board_membership.send(field)
       send("#{field}=", current_value)
     end
-
+    # binding.pry
     save!
   end
 

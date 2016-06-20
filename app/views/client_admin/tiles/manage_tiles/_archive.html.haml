@@ -3,7 +3,7 @@
 .row
   .large-12.columns
     %h4 Archive
-    = link_to "Download Stats", client_admin_tiles_report_path(report: Tile::ARCHIVE, format: "csv"), class: 'download_csv', title: "Download Excel file with statistics for all of the Tiles in this section.", data: {tooltip: true}
+    = link_to "Download Stats", client_admin_tiles_report_path(report: Tile::ARCHIVE, format: "csv"), class: 'download_csv button  outlined', title: "Download Excel file with statistics for all of the Tiles in this section.", data: {tooltip: true}
     %div#archive.manage_section
       = render partial: 'client_admin/tiles/manage_tiles/no_tiles_section', locals: {display_no_tiles_section: @archive_tiles.empty?}
       = render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: {tiles: @archive_tiles}

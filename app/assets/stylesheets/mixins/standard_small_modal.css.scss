@@ -1,0 +1,37 @@
+@mixin standard-small-modal($container-width: 576px, $content-width: 450px) {
+  @include standard-modal($container-width);
+  padding: 50px 30px;
+  .modal_container {
+    padding-top: 28px;
+    position: absolute;
+    top: 16%;
+    left: 50%;
+    margin-left: -268px;
+  }
+  #modal_content{
+    padding:50px;
+    background: white;
+    border-radius: 3px;
+    max-width: $content-width;
+  }
+  .close-reveal-modal {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: auto;
+    margin: 0;
+  }
+  @media only screen and (max-width: 766px) {
+    .modal_container {
+      position: relative;
+      margin: 0;
+      top: 0;
+      left: 0;
+      padding-top: 100px;
+    }
+    #modal_content{
+      max-width: 382px;
+      padding: 25px;
+    }
+  }
+}

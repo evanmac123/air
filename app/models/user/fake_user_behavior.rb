@@ -133,7 +133,16 @@ module User::FakeUserBehavior
     false
   end
 
+  #FIXME Deprecated
   def show_submit_tile_intro!
+    false
+  end
+
+  def intros
+    UserIntro.new(explore_intro_seen: true)
+  end
+
+  def is_potential_user?
     false
   end
 end

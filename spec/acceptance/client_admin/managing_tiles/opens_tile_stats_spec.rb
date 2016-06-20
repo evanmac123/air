@@ -1,6 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-feature "Client admin opens tile stats" do
+feature "Client admin opens tile stats" , js: true, type: :feature do
 
   let!(:demo) { FactoryGirl.create :demo }
   let!(:client_admin) { FactoryGirl.create :client_admin, demo: demo }
@@ -34,29 +34,6 @@ feature "Client admin opens tile stats" do
     FactoryGirl.create(:tile_viewing, user: @user_last_completed, tile: tile)
   end
 
-  def tile_cell(tile)
-    "[data-tile_id='#{tile.id}']"
-  end
-
-  def open_stats(tile)
-    visit client_admin_tiles_path(as: client_admin)
-    within tile_cell(tile) do
-      page.find(".tile_stats .unique_views").click
-    end
-  end
-
-  def first_name
-    page.all("td.name_column").first.text
-  end
-
-  def all_names
-    page.all("td.name_column").map(&:text)
-  end
-
-  def table_column name
-    column_name = name == "date" ? name : (name + "_column")
-    page.find("th.#{column_name} a")
-  end
 
   context "tile with empty stats" do
     before do
@@ -64,9 +41,9 @@ feature "Client admin opens tile stats" do
       open_stats(@tile)
     end
 
-    it "should show tile stats modal", js: true do
-      expect_content "UNIQUE VIEWS"
-      within "#tile_stats_modal" do
+    pending "should show tile stats modal" do
+      within "#tile_stats_modal.open" do
+        expect_content "0 UNIQUE VIEWS"
         page.find(".close-reveal-modal").click
       end
       expect_no_content "UNIQUE VIEWS"
@@ -89,7 +66,6 @@ feature "Client admin opens tile stats" do
 
   context "tile with completions" do
     before do
-      # @tile = FactoryGirl.create :tile, status: Tile::ACTIVE, demo: demo#, question: "Is survey table present?"
       @tile = FactoryGirl.create :survey_tile,
                                   demo: demo,
                                   question: "Doy you like stats page?",
@@ -111,16 +87,17 @@ feature "Client admin opens tile stats" do
         expect_content "Date"
       end
 
+      #FIXME why do these test require webkit
       it "should intialy sorted by name asc", js: true do
         first_name.should == @user_first_name.name
       end
 
-      it "should sort by name", js: true, driver: :webkit do
-      table_column("name").click
+      it "should sort by name", js: true do
+        table_column("name").click
         first_name.should == @user_last_name.name
       end
 
-      it "should sort by email", js: true, driver: :webkit do
+      it "should sort by email", js: true do
         table_column("email").click
         first_name.should == @user_first_email.name
 
@@ -128,7 +105,7 @@ feature "Client admin opens tile stats" do
         first_name.should == @user_last_email.name
       end
 
-      it "should sort by views", js: true, driver: :webkit do
+      it "should sort by views", js: true do
         table_column("views").click
         first_name.should == @user_least_views.name
 
@@ -136,7 +113,7 @@ feature "Client admin opens tile stats" do
         first_name.should == @user_most_views.name
       end
 
-      it "should sort by date", js: true, driver: :webkit do
+      it "should sort by date", js: true do
         table_column("date").click
         first_name.should == @user_first_completed.name
 
@@ -161,7 +138,7 @@ feature "Client admin opens tile stats" do
         end
       end
 
-      it "should paginate", js: true, driver: :webkit do
+      it "should paginate", js: true do
         within "tfoot" do
           click_link "5"
         end
@@ -180,42 +157,42 @@ feature "Client admin opens tile stats" do
         first_name.should == "LIVE user"
       end
 
-      it "should show VIEWED AND INTERACTED table", js: true do
+      it "should show INTERACTED table", js: true do
         u = FactoryGirl.create(:user, demo: demo, name: "VIEWED AND INTERACTED user")
         FactoryGirl.create(:tile_completion, user: u, tile: @tile)
         FactoryGirl.create(:tile_viewing, user: u, tile: @tile)
 
         open_stats(@tile)
-        select "Viewed and interacted", :from => "grid_type_select"
+        select_grid_type ("Interacted")
 
         first_name.should == "VIEWED AND INTERACTED user"
       end
 
-      it "should open VIEWED ONLY table", js: true, driver: :webkit do
+      it "should open VIEWED ONLY table", js: true do
         u = FactoryGirl.create(:user, demo: demo, name: "VIEWED ONLY user")
         FactoryGirl.create(:tile_viewing, user: u, tile: @tile)
 
         open_stats(@tile)
-        select "Viewed only", :from => "grid_type_select"
+        select_grid_type "Viewed only"
 
         first_name.should == "VIEWED ONLY user"
       end
 
-      it "should open DIDN'T VIEW table", js: true, driver: :webkit do
+      it "should open DIDN'T VIEW table", js: true do
         u = FactoryGirl.create(:user, demo: demo, name: "a DIDN'T VIEW user")
-
         open_stats(@tile)
-        select "Didn't view", :from => "grid_type_select"
 
-        first_name.should == "a DIDN'T VIEW user"
+        select_grid_type "Didn't view"
+
+        all_names.should include("a DIDN'T VIEW user")
       end
 
-      it "should open ALL table", js: true, driver: :webkit do
+      it "should open ALL table", js: true do
         u = FactoryGirl.create(:user, demo: demo, name: "ALL user")
         FactoryGirl.create(:tile_completion, user: u, tile: @tile)
 
         open_stats(@tile)
-        select "All", :from => "grid_type_select"
+        select_grid_type "All"
 
         first_name.should == "ALL user"
       end
@@ -232,19 +209,23 @@ feature "Client admin opens tile stats" do
       end
 
       it "should show all users initally", js: true do
-        all_names.should == ["user0", "user1", "user2", "user3", "user4", "user5", "user6", "user7", "user8"]
+        within "#tile_stats_grid" do
+          all_names.should == ["user0", "user1", "user2", "user3", "user4", "user5", "user6", "user7", "user8"]
+        end
       end
 
-      it "should filter by 'Yes' answer", js: true, driver: :webkit do
-        page.all("td.answer_column:contains('Yes')").first.click
-
-        all_names.should == ["user0", "user3", "user6"]
+      it "should filter by 'Yes' answer", js: true do
+        within "#tile_stats_grid" do
+          page.first("td.answer_column", text: "Yes").click
+          all_names.should == ["user0", "user3", "user6"]
+        end
       end
 
-      it "should filter by 'No' answer", js: true, driver: :webkit do
-        page.all("td.answer_column:contains('No')").first.click
-
-        all_names.should == ["user1", "user4", "user7"]
+      it "should filter by 'No' answer", js: true do
+        within "#tile_stats_grid" do
+          page.first("td.answer_column", text: "No").click
+          all_names.should == ["user1", "user4", "user7"]
+        end
       end
     end
 
@@ -271,15 +252,53 @@ feature "Client admin opens tile stats" do
         FactoryGirl.create(:tile_completion, tile: @tile, answer_index: 2)
 
         open_stats(@tile)
+       within  ".survey-chart-table" do
+         users = page.all("tr td.users")
+         expect(users[0]).to have_content "1"
+         expect(users[1]).to have_content "2"
+         expect(users[2]).to have_content "2"
 
-        page.all(".survey-chart-table tr td.users")[0].should have_content "1"
-        page.all(".survey-chart-table tr td.users")[1].should have_content "2"
-        page.all(".survey-chart-table tr td.users")[2].should have_content "2"
-
-        page.all(".survey-chart-table tr td.percent")[0].should have_content "20.0%"
-        page.all(".survey-chart-table tr td.percent")[1].should have_content "40.0%"
-        page.all(".survey-chart-table tr td.percent")[2].should have_content "40.0%"
+         percents = page.all("tr td.percent")
+         expect(percents[0]).to have_content "20.0%"
+         expect(percents[1]).to have_content "40.0%"
+         expect(percents[2]).to have_content "40.0%"
+       end
       end
     end
   end
+
+  def select_grid_type type
+    page.find('.grid_types .custom.dropdown').click
+    within '.grid_types .custom.dropdown.open' do
+      page.find("li", text: type).click
+    end
+  end
+
+  def tile_cell(tile)
+    ".tile_thumbnail[data-tile-id='#{tile.id}']"
+  end
+
+  def open_stats(tile)
+    visit client_admin_tiles_path(as: client_admin)
+    within tile_cell(tile) do
+      page.find(".tile_stats .unique_views").click
+    end
+    expect_content "UNIQUE VIEWS"
+  end
+
+  def first_name
+    within "#tile_stats_modal.open" do
+      page.all("td.name_column").first.text
+    end
+  end
+
+  def all_names
+    page.all("td.name_column").map(&:text)
+  end
+
+  def table_column name
+    column_name = name == "date" ? name : (name + "_column")
+    page.find("th.#{column_name} a")
+  end
+
 end

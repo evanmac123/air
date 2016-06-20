@@ -1,22 +1,6 @@
-<%= content_tag 'div', class: 'share_bar', data: intros.data_for('share_bar') do %>
-  <div class="share_title">Share</div>
-  <div class="share_link_icons">
-    <div class="share_linkedin share_icon">
-      <%= link_to image_tag("client_admin/linkedin_icon.gif"), share_tile_by_linkedin(tile), id: 'share_linkedin_icon' %>
-    </div> 
-    <div class="share_mail share_icon">
-      <%= mail_to '', fa_icon("envelope-square"), subject: 'Tile shared via Airbo', body: " I want to share this tile with you from Airbo: #{explore_tile_preview_url(tile)}" %>
-    </div>   
-  </div>
+<%= content_tag 'div', class: 'share_bar bar_for_preview center' do %>
+  <div class="share_title">Share Link</div>
   <div class="share_link_block">
-    <%= text_field_tag 'share_tile_link', sharable_tile_link(tile), id: "share_link" %>
+    <%= text_field_tag 'share_tile_link', explore_tile_preview_url(tile), id: "share_link", class: "no_margin_bottom" %>
   </div>
-<% end %>
-
-<%= content_for :javascript do %>
-  <%= javascript_tag do %>
-    $().ready(function(){
-      tileShareLink();
-    });
-  <% end %>
 <% end %>

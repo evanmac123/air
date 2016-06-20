@@ -1,147 +1,86 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Client uses suggestion box' do
-	include WaitForAjax
-	include SuggestionBox
+  include SuggestionBox
 
-	context "user is not site admin" do
+  let!(:demo) { FactoryGirl.create :demo }
+  let!(:client_admin) { FactoryGirl.create :site_admin, demo: demo }
 
-		let!(:admin) { FactoryGirl.create :client_admin, is_site_admin: false }
-		let!(:demo)  { admin.demo  }
-		let!(:submitted_tiles) { FactoryGirl.create_list :multiple_choice_tile, 3, :user_submitted, demo: demo }
+  context "Submitted Tile", js: true do
 
-		background do
-			bypass_modal_overlays(admin)
-			signin_as(admin, admin.password)
-		end
+    let!(:tile) { FactoryGirl.create :multiple_choice_tile, :user_submitted, demo: demo }
 
-		before do
-			FactoryGirl.create :multiple_choice_tile, :draft, demo: demo
-		end
+    before do
+      visit client_admin_tiles_path(as: client_admin)
+      page.find("#suggestion_box_title").click
+    end
 
-		scenario "switches between drafts and suggestion box", js: true do
-			visit client_admin_tiles_path
-			expect_no_content "#suggestion_box_title"
-		end
-	end
+    scenario "tile preview works properly" do
+      page.find("#single-tile-#{tile.id}.user_submitted").click
+
+      within "#suggested_info" do
+        page.find(".header_text").text.should have_content("Submitted")
+      end
+
+      items = menu_items.map(&:text)
+      items.should include("Accept")
+      items.should include("Ignore")
+
+      expect_ping 'Suggestion Box', {client_admin_action: "Tile Viewed"}, client_admin
+    end
+
+    scenario "accepts tile" do
+      click_link "Accept"
+      within ".sweet-alert.visible" do
+        click_button "OK"
+      end
+      #this waits for the ajax to finish and the alert window to close
+      page.should_not have_css(".sweet-alert.visible")
+      page.find("#draft_title").click
+      within "#draft" do
+        page.should have_css("#single-tile-#{tile.id}")
+      end
+    end
+
+    context "Ignored Tile" do
+
+      before  do
+
+        within "#suggestion_box #single-tile-#{tile.id}" do
+          click_link "Ignore"
+        end 
+      end
+
+      scenario "should ignore tile" do
+        within "#suggestion_box #single-tile-#{tile.id}" do
+          page.should have_content("Undo Ignore")
+        end
+      end
+
+      scenario "should undo ignore" do
+        within "#suggestion_box #single-tile-#{tile.id}" do
+          click_link("Undo Ignore")
+        end
+
+        within "#suggestion_box #single-tile-#{tile.id}" do
+          page.should_not have_content("Undo Ignore")
+        end
+      end
+    end
+  end
 
 
-	context "user is site admin" do
+  def menu_header
+    page.find(".preview_menu_header")
+  end
 
-		let!(:admin) { FactoryGirl.create :client_admin, is_site_admin: true }
-		let!(:demo)  { admin.demo  }
-		let!(:submitted_tiles) { FactoryGirl.create_list :multiple_choice_tile, 3, :user_submitted, demo: demo }
+  def menu_items
+    page.all(".preview_menu_item .header_text")
+  end
 
-		background do
-			bypass_modal_overlays(admin)
-			signin_as(admin, admin.password)
-		end
+  def intro_tooltip
+    page.find(".tile_preview_intro")
+  end
 
-		before do
-			FactoryGirl.create :multiple_choice_tile, :draft, demo: demo
-		end
 
-		scenario "switches between drafts and suggestion box", js: true do
-			visit client_admin_tiles_path
-			# in draft section
-			visible_tiles.count.should == 1
-			suggestion_box_title.click
-			# in suggestion box
-			visible_tiles.count.should == 3
-			draft_title.click
-			# and again in draft section
-			visible_tiles.count.should == 1
-		end
-
-		context "accepting process" do
-			before do
-				visit client_admin_tiles_path(show_suggestion_box: true)
-
-				@tile = submitted_tiles[1]
-				accept_button(@tile).click
-				expect_content accept_modal_copy
-			end
-
-			scenario "accepts tile", js: true do
-				within accept_modal do
-					click_link "Got it"
-				end
-				
-				visible_tiles.count.should == 2
-				wait_for_ajax
-				draft_title.click
-				sleep 1
-				visible_tiles.count.should == 2
-				headline(page.find(:tile, @tile)).should == headline(visible_tiles[0])
-			end
-
-			scenario "clicks 'accept', then 'undo' action", js: true do
-				page.find(".undo").click
-				expect_no_content accept_modal_copy
-				draft_title.click
-				visible_tiles.count.should == 1
-				suggestion_box_title.click
-				visible_tiles.count.should == 3
-			end
-		end
-
-		context "show more button" do
-			before do
-				# 3 + 5 = 8 user_submitted
-				FactoryGirl.create_list :multiple_choice_tile, 5, :user_submitted, demo: demo
-				# 1 + 6 = 7 draft
-				FactoryGirl.create_list :multiple_choice_tile, 6, :draft, demo: demo
-			end
-
-			scenario "expand and minimize suggestion box", js: true do
-				visit client_admin_tiles_path
-				# in draft section
-				visible_tiles.count.should == 6
-				show_more_button.click
-				visible_tiles.count.should == 7
-
-				suggestion_box_title.click
-				# in suggestion box
-				visible_tiles.count.should == 6
-				show_more_button.click
-				visible_tiles.count.should == 8
-				show_more_button.click
-				visible_tiles.count.should == 6
-			end
-		end
-
-		context "ignorring process" do
-			before do
-				# 3 + 1 = 4 user_submitted
-				FactoryGirl.create :multiple_choice_tile, :user_submitted, demo: demo
-				# 1 ignored
-				@ignored_tile = FactoryGirl.create :multiple_choice_tile, :ignored, demo: demo
-				visit client_admin_tiles_path(show_suggestion_box: true)
-
-				visible_tiles.count.should == 5
-			end
-
-			scenario "ignore tile", js: true do
-				tile = submitted_tiles[1]
-				ignore_button(tile).click
-				wait_for_ajax
-				Tile.where(status: Tile::USER_SUBMITTED).count.should == 3
-				Tile.where(status: Tile::IGNORED).count.should == 2
-
-				visible_tiles.count.should == 5
-				headline(page.find(:tile, tile)).should == headline(ignored_tiles[0])
-			end
-
-			scenario "ignore tile", js: true do
-				tile = @ignored_tile
-				undo_ignore_button(tile).click
-				wait_for_ajax
-				Tile.where(status: Tile::USER_SUBMITTED).count.should == 5
-				Tile.where(status: Tile::IGNORED).count.should == 0
-
-				visible_tiles.count.should == 5
-				headline(page.find(:tile, tile)).should == headline(user_submitted_tiles[0])
-			end
-		end
-	end
 end

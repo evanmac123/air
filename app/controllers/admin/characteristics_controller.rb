@@ -34,6 +34,7 @@ class Admin::CharacteristicsController < AdminBaseController
   end
 
   def remove_blank_allowed_values
+    params.require(:characteristic).permit!
     params[:characteristic][:allowed_values] = params[:characteristic][:allowed_values].select(&:present?)
   end
 

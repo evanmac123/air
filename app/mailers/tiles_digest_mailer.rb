@@ -1,7 +1,7 @@
 class TilesDigestMailer < BaseTilesDigestMailer
 
-	def notify_one(demo_id, user_id, tile_ids, subject, follow_up_email,
-								 custom_headline, custom_message, custom_from=nil, is_new_invite = nil)
+  def notify_one(demo_id, user_id, tile_ids, subject, follow_up_email,
+                 custom_headline, custom_message, custom_from=nil, is_new_invite = nil)
 
     @user  = User.find user_id # XTR
     return nil unless @user.email.present? 
@@ -11,17 +11,17 @@ class TilesDigestMailer < BaseTilesDigestMailer
 
 
     presenter_class = follow_up_email ? TilesDigestMailFollowUpPresenter : TilesDigestMailDigestPresenter
-    @presenter = presenter_class.new(@user, @demo, custom_from, custom_headline, custom_message, is_new_invite)
+    @presenter = presenter_class.new(@user, @demo, custom_from, custom_headline, custom_message, is_new_invite, subject)
 
 
-		@tiles = TileBoardDigestDecorator.decorate_collection(
-			tiles_by_position,  
-			context: { demo: @demo, user: @user, follow_up_email: @follow_up_email, email_type:  @presenter.email_type }
-		)     
+    @tiles = TileBoardDigestDecorator.decorate_collection(
+      tiles_by_position,  
+      context: { demo: @demo, user: @user, follow_up_email: @follow_up_email, email_type:  @presenter.email_type }
+    )     
 
     ping_on_digest_email  @presenter.email_type, @user
     mail  to: @user.email_with_name, from: @presenter.from_email, subject: subject 
-	end
+  end
 
   def notify_one_explore  user_id, tile_ids, subject, email_heading, custom_message, custom_from=nil
     @user  = User.find user_id
@@ -35,54 +35,64 @@ class TilesDigestMailer < BaseTilesDigestMailer
 
     ping_on_digest_email(@presenter.email_type, @user)
 
-		mail to: @user.email_with_name, 
-			from: @presenter.from_email, 
-			subject: subject, 
-			template_path: 'tiles_digest_mailer', 
-			template_name: 'notify_one'
+    mail to: @user.email_with_name, 
+      from: @presenter.from_email, 
+      subject: subject, 
+      template_path: 'explore_digest_mailer', 
+      template_name: 'notify_one'
   end
 
-	def notify_all_follow_up_from_delayed_job
-		FollowUpDigestEmail.send_follow_up_digest_email.each do |followup| 
-			TilesDigestMailer.delay(run_at: noon).notify_all_follow_up(followup.id) 
-		end	
-	end
+  def notify_all_follow_up_from_delayed_job
+    FollowUpDigestEmail.send_follow_up_digest_email.each do |followup| 
+      TilesDigestMailer.delay(run_at: noon).notify_all_follow_up(followup.id) 
+    end	
+  end
 
-	def notify_all(demo, unclaimed_users_also_get_digest, tile_ids, custom_headline, custom_message, subject)
-		user_ids = demo.users_for_digest(unclaimed_users_also_get_digest).pluck(:id)
+  def notify_all(demo, unclaimed_users_also_get_digest, tile_ids, custom_headline, custom_message, subject, alt_subject=nil)
+    user_ids = demo.users_for_digest(unclaimed_users_also_get_digest).pluck(:id)
 
-		user_ids.reject! do |user_id| 
-			BoardMembership.where(demo_id: demo.id, user_id: user_id, digest_muted: true).first.present? 
-		end
+    user_ids.reject! do |user_id| 
+      BoardMembership.where(demo_id: demo.id, user_id: user_id, digest_muted: true).first.present? 
+    end
 
-		user_ids.each do |user_id| 
-			TilesDigestMailer.delay.notify_one(demo.id, user_id, tile_ids, subject, false, custom_headline, custom_message) 
-		end 
-	end
+    user_ids.each_with_index do |user_id, idx| 
+      subj = resolve_subject(subject, alt_subject,idx)
+      TilesDigestMailer.delay.notify_one(demo.id, user_id, tile_ids, subj, false, custom_headline, custom_message) 
 
-	def notify_all_follow_up(followup_id)
-		followup = FollowUpDigestEmail.find followup_id
-		subject = if followup.original_digest_subject.present?
-								"Don't Miss: #{followup.original_digest_subject}"              
-							else
-								"Don't Miss Your New Tiles"              
-							end
-		headline = followup.original_digest_headline
+    end 
+  end
 
-		tile_ids = followup.tile_ids
-		user_ids = followup.demo.users_for_digest(followup.unclaimed_users_also_get_digest).where(id: followup.user_ids_to_deliver_to).pluck(:id)
+  def notify_all_follow_up(followup_id)
+    followup = FollowUpDigestEmail.find followup_id
+    subject = if followup.original_digest_subject.present?
+                "Don't Miss: #{followup.original_digest_subject}"              
+              else
+                "Don't Miss Your New Tiles"              
+              end
+    headline = followup.original_digest_headline
 
-		user_ids.reject! { |user_id| TileCompletion.user_completed_any_tiles?(user_id, tile_ids)}
-		user_ids.reject! { |user_id| BoardMembership.where(demo_id: followup.demo_id, user_id: user_id, followup_muted: true).first.present? }
-		user_ids.each    { |user_id| TilesDigestMailer.delay.notify_one(followup.demo.id, user_id, tile_ids, subject, true, headline, nil) }
+    tile_ids = followup.tile_ids
+    user_ids = followup.demo.users_for_digest(followup.unclaimed_users_also_get_digest).where(id: followup.user_ids_to_deliver_to).pluck(:id)
 
-		followup.destroy
-	end
+    user_ids.reject! { |user_id| TileCompletion.user_completed_any_tiles?(user_id, tile_ids)}
+    user_ids.reject! { |user_id| BoardMembership.where(demo_id: followup.demo_id, user_id: user_id, followup_muted: true).first.present? }
+    user_ids.each    { |user_id| TilesDigestMailer.delay.notify_one(followup.demo.id, user_id, tile_ids, subject, true, headline, nil) }
 
-	def notify_all_explore tile_ids, subject, email_heading, custom_message, custom_from=nil
-		user_ids = User.where{ (is_client_admin) == true | (is_site_admin == true) }
-		user_ids.each{ |user_id| TilesDigestMailer.delay.notify_one_explore(user_id, tile_ids, subject, email_heading, custom_message, custom_from=nil) }
-	end
+    followup.destroy
+  end
+
+  def notify_all_explore tile_ids, subject, email_heading, custom_message, custom_from=nil
+    user_ids = User.where{ (is_client_admin) == true | (is_site_admin == true) }
+    user_ids.each{ |user_id| TilesDigestMailer.delay.notify_one_explore(user_id, tile_ids, subject, email_heading, custom_message, custom_from=nil) }
+  end
+
+  def resolve_subject subject, alt_subject, idx
+      unless alt_subject
+        subject
+      else
+         idx.even? ? alt_subject : subject
+      end
+  end
 
 
 end

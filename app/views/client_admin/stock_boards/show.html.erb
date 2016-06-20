@@ -1,0 +1,13 @@
+<section class="library-breadcrumbs">
+<div class="row collapse" >
+  <div class="columns small-12 large-10">
+    <div>
+      <%=link_to "Content Library", client_admin_stock_boards_path %> <i class="spacer fa fa-caret-right"></i> <span><%=@demo.name%></span> 
+    </div>
+  </div>
+</div>
+</section>
+<%= render partial: "acts/public_board/cover" %>
+<%= render "stock_board_wall" %>
+
+

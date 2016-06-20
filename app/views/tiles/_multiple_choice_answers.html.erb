@@ -1,5 +1,5 @@
 <% if tile.multiple_choice_answers.present? %>
-  <div class="multiple_choice_group">
+  <div class="multiple_choice_group content_sections">
     <% tile.multiple_choice_answers.each_with_index do |answer, answer_index| %>
       <%= content_tag "div", class: "tile_multiple_choice_answer" do %>
         <% if tile.non_preview_of_completed_tile? %>
@@ -9,25 +9,14 @@
             <%= link_to answer, '#', class: "nerfed_answer" %>
           <% end %>
         <% else %>
-          <% if tile.is_possible_correct_answer?(answer_index) %> 
-            <%= link_to answer, tile_completions_path(tile_id: tile.id, answer_index: answer_index), class: "right_multiple_choice_answer", data: {tile_id: tile.id} %>
+          <% if tile.is_possible_correct_answer?(answer_index) %>
+            <%= link_to answer, tile_completions_path(tile_id: tile.id, answer_index: answer_index), class: "right_multiple_choice_answer #{tile.is_invitation_answer?(answer_index) ? 'invitation_answer' : ''}", data: {tile_id: tile.id} %>
           <% else %>
             <%= link_to answer, '#', class: "wrong_multiple_choice_answer" %>
           <% end %>
         <% end %>
 
         <div class="answer_target" style="display: none"></div>
-      <% end %>
-    <% end %>
-    <% content_for :javascript do %>
-      <% if tile.is_preview %>
-        <%= javascript_tag do %>
-          setUpAnswersForPreview();
-        <% end %>
-      <% else %>
-        <%= javascript_tag do %>
-          setUpAnswers();
-        <% end %>
       <% end %>
     <% end %>
   </div>

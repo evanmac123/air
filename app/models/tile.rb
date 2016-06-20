@@ -24,6 +24,7 @@ class Tile < ActiveRecord::Base
   TRUE_FALSE            = "True / False".parameterize("_").freeze
   MULTIPLE_CHOICE       = "Multiple Choice".parameterize("_").freeze
   RSVP_TO_EVENT         = "RSVP to event".parameterize("_").freeze
+  INVITE_SPOUSE         = "Invite Spouse".parameterize("_").freeze
 
 
   belongs_to :demo
@@ -42,6 +43,8 @@ class Tile < ActiveRecord::Base
 
   has_alphabetical_column :headline
 
+  before_validation :sanitize_supporting_content
+  before_validation :set_image_processing, if: :image_changed?
   validates_presence_of :headline, :allow_blank => false, :message => "headline can't be blank"
   validates_presence_of :supporting_content, :allow_blank => false, :message => "supporting content can't be blank", :on => :client_admin
   validates_presence_of :question, :allow_blank => false, :message => "question can't be blank", :on => :client_admin
@@ -49,12 +52,14 @@ class Tile < ActiveRecord::Base
 
   #FIXME should be use a constant instead of magic numbers here.
   validates_length_of :headline, maximum: 75, message: "headline is too long (maximum is 75 characters)"
-  validates_with RawTextLengthInHTMLFieldValidator, field: :supporting_content, maximum: 600, message: "supporting content is too long (maximum is 600 characters)"
+  validates_with RawTextLengthInHTMLFieldValidator, field: :supporting_content, maximum: 700, message: "supporting content is too long (maximum is 600 characters)"
 
   validates_presence_of :remote_media_url, message: "image is missing" , if: :requires_remote_media_url
 
-
+  before_create :set_on_first_position
   before_save :ensure_protocol_on_link_address, :handle_status_change
+  before_save :set_image_credit_to_blank_if_default
+  after_save :process_image, if: :image_changed?
   before_post_process :no_post_process_on_copy
 
   STATUS.each do |status_name|
@@ -63,7 +68,7 @@ class Tile < ActiveRecord::Base
   scope :after_start_time, -> { where("start_time < ? OR start_time IS NULL", Time.now) }
   scope :before_end_time, -> { where("end_time > ? OR end_time IS NULL", Time.now) }
   scope :after_start_time_and_before_end_time, -> { after_start_time.before_end_time }
-  
+
   #FIXME suggested and status are not the same thing!
 
   scope :suggested, -> do
@@ -84,7 +89,7 @@ class Tile < ActiveRecord::Base
   scope :ordered_by_position, -> { order "position DESC" }
 
   alias_attribute :copy_count, :user_tile_copies_count
-  alias_attribute :like_count, :user_tile_likes_count 
+  alias_attribute :like_count, :user_tile_likes_count
   alias_attribute :total_views, :total_viewings_count
   alias_attribute :unique_views, :unique_viewings_count
   alias_attribute :interactions, :tile_completions_count
@@ -92,17 +97,20 @@ class Tile < ActiveRecord::Base
   # Custom Attribute Setter: ensure that setting/updating the 'status' updates the corresponding time-stamp
 
   STATUS.each do |status_name|
-    define_method(status_name + "?") do 
+    define_method(status_name + "?") do
       self.status == status_name
     end
   end
 
-  def status=(status)
-    case status
-    when ACTIVE  then self.activated_at = Time.now
+  def status=(new_status)
+    case new_status
+    when ACTIVE  then
+      if !already_activated
+        self.activated_at = Time.now
+      end
     when ARCHIVE then self.archived_at  = Time.now
     end
-    write_attribute(:status, status)
+    write_attribute(:status, new_status)
   end
 
   def points= p
@@ -133,6 +141,10 @@ class Tile < ActiveRecord::Base
     question_type == ACTION
   end
 
+  def is_invite_spouse?
+    question_subtype == INVITE_SPOUSE
+  end
+
   def survey_chart
     SurveyChart.new(self).build
   end
@@ -143,6 +155,10 @@ class Tile < ActiveRecord::Base
 
   def is_placeholder?
     false
+  end
+
+  def copy_inside_demo new_demo, copying_user
+    CopyTile.new(new_demo, copying_user).copy_tile self, false
   end
 
   def copy_to_new_demo(new_demo, copying_user)
@@ -167,8 +183,9 @@ class Tile < ActiveRecord::Base
     DisplayCategorizedTiles.new(user, maximum_tiles).displayable_categorized_tiles
   end
 
-  def self.satisfiable_to_user(user)
-    tiles_due_in_demo = after_start_time_and_before_end_time.where(demo_id: user.demo.id, status: ACTIVE)
+  def self.satisfiable_to_user(user, curr_demo=nil)
+    board = curr_demo || user.demo.id
+    tiles_due_in_demo = after_start_time_and_before_end_time.where(demo_id: board, status: ACTIVE)
     ids_completed = user.tile_completions.map(&:tile_id)
     satisfiable_tiles = tiles_due_in_demo.reject {|t| ids_completed.include? t.id}
     satisfiable_tiles.sort_by(&:position).reverse
@@ -181,9 +198,10 @@ class Tile < ActiveRecord::Base
     next_tile || tile # i.e. we have only one tile so next tile is nil
   end
 
-  def self.next_manage_tile tile, offset
+  def self.next_manage_tile tile, offset, carousel = true
     tiles = where(status: tile.status, demo: tile.demo).ordered_by_position
-    tiles[tiles.index(tile) + offset] || tiles.first
+    first_tile = carousel ? tiles.first : nil
+    tiles[tiles.index(tile) + offset] || first_tile
   end
 
   # ------------------------------------------------------------------------------------------------------------------
@@ -241,7 +259,27 @@ class Tile < ActiveRecord::Base
       .order("position ASC").first
   end
 
+  def is_cloned?
+    @cloned || false
+  end
+
+  def is_cloned= val
+    @cloned = val
+  end
+
+  def custom_supporting_content_class
+    use_old_line_break_css? ? 'old_line_break_css' : ''
+  end
+
+  def show_external_link?
+    use_old_line_break_css
+  end
+
   protected
+
+  def set_on_first_position
+    self.position = find_new_first_position
+  end
 
   def ensure_protocol_on_link_address
     return unless link_address_changed?
@@ -256,6 +294,32 @@ class Tile < ActiveRecord::Base
   end
 
   private
+
+  def already_activated
+    status == ACTIVE && activated_at.present?
+  end
+
+  def sanitize_supporting_content
+    self.supporting_content = Sanitize.fragment(
+      strip_content,
+      elements: [
+        'ul', 'ol', 'li',
+        'b', 'strong', 'i', 'em', 'u',
+        'span', 'div', 'p',
+        'br', 'a'
+      ],
+      attributes: { 'a' => ['href', 'target'] }
+    ).strip
+  end
+
+  def strip_content
+    supporting_content.try(:strip) || ""
+  end
+
+
+  def set_image_credit_to_blank_if_default
+    self.image_credit ="" if image_credit == "Add Image Credit"
+  end
 
   def handle_status_change
     if changed.map(&:to_sym).include?(:status)
@@ -275,5 +339,16 @@ class Tile < ActiveRecord::Base
     self.new_record? && !image.present?
   end
 
-end
+  def process_image
+    ImageProcessJob.new(id, image_from_library).perform unless is_cloned?
+  end
 
+  def image_changed?
+    changes.keys.include? "remote_media_url"
+  end
+
+  def set_image_processing
+    self.thumbnail_processing = true
+    self.image_processing =  true
+  end
+end

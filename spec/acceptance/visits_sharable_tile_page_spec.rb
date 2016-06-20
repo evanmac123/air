@@ -15,7 +15,7 @@ feature "visits sharable tile page" do
   end
 
   shared_examples_for 'gets registration form' do |name, selector|
-    scenario "when clicks #{name}", js: true do
+    scenario "when clicks #{name}", js: true, driver: :selenium do
       page.find(selector).click
       register_if_guest
     end

@@ -9,7 +9,7 @@
     = render partial: 'buttons', locals: { raffle: @raffle }
   .action_section.columns
     - if @raffle.status == Raffle::SET_UP || @raffle.status == Raffle::LIVE
-      %h5
+      %label
         User preview
       .preview_container
         = render partial: 'prize', locals: { raffle: @raffle, entries: 0 }

@@ -1,0 +1,181 @@
+.horizontal {
+  display: inline-block;
+}
+
+.mini-text.mini-text{
+  font-size:12px;
+}
+
+.gray-5{
+  color: $gray-5;
+}
+
+.white {
+  color: $n-white;
+}
+
+.righty {
+  float:right;
+}
+
+.lefty {
+  float:left;
+}
+
+.num-items{
+ font-size: $font-size-1;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.board_settings {
+  input[type="text"], input[type="file"], textarea{
+    width: 80%;
+    display: block;
+  }
+
+  .character-counter{
+    margin-right: 115px;
+  }
+}
+
+table.transparent-bg {
+  &, &:hover, & tr:hover {
+    background-color: transparent;
+  }
+}
+
+input, textarea {
+  &.with_counter {
+    margin-bottom: 35px;
+  }
+}
+.with_input_margin {
+  margin-bottom: 20px;
+  display: block;
+}
+
+/* Fixes random table layout structure in explore */
+#tile_wall table.tiles tr {
+ background: none;
+}
+
+#tile_stats_modal .action_type_block:hover {
+
+  cursor: pointer;
+  .action_name.action_name {
+    cursor: pointer;
+    font-weight: 900;
+  }
+
+  .action_num.action_num {
+    cursor: pointer;
+    font-weight: 900;
+  }
+
+}
+
+body.client_admin-tiles-index .download_csv {
+
+ margin-right: 43px;
+}
+
+iframe {
+  border: none;
+}
+
+.custom.dropdown {
+  &.horizontal_form_height {
+    .current {
+      height: 35px;
+    }
+    li {
+      line-height: 2.3em;
+    }
+  }
+}
+
+.no_outline {
+  outline: none;
+}
+.no_inline_span_styling {
+  span[style] {
+    font-size: inherit !important;
+    line-height: inherit !important;
+  }
+}
+
+td .button.td-button {
+ margin-bottom: 12px;
+
+}
+// .width_700.width_700 {
+//   width: 700;
+// }
+.tile_width {
+  max-width: 600px;
+  width: 100%;
+}
+
+.bg-blue {
+  background: $n-blue;
+}
+
+.bg-whitish {
+  background-color: #f9f9f9;
+}
+.bg-white {
+  background: $n-white;
+}
+
+.bg-gray {
+  background-color: $gray-2;
+}
+
+.bg-user-side.bg-user-side.bg-user-side {
+  background: #d9dfe9;
+}
+
+.bg-gray-quiz{
+  background: #f3f3f3;
+}
+
+.center {
+  display: block;
+  margin: auto;
+}
+.blue.blue.blue.blue.blue.blue.blue.blue.blue {
+  color: $n-blue;
+}
+
+
+.public-board .tiles .tiles-index footer{
+ margin-top: 40px;
+}
+
+
+#images_modal{
+ background-color: #d9dfe9;
+}
+
+.background-white {
+  background-color: $n-white;
+}
+
+.hidden,
+.hidden-field { // TODO: see if .hidden-field can be merged into .hidden
+  display: none;
+}
+
+.client_admin-stock_boards-index {
+  .core, .content {
+    background: #d9dfe9;
+  }
+}
+
+.dependent_user_invitation_error{
+  color: #ff8a58;
+  text-align: right;
+}

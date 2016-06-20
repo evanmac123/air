@@ -14,13 +14,7 @@
 </div>
 
 <%= render partial: 'client_admin/tiles/manage_tiles/move_tile_confirmation_modal' %>
-<% if @board_is_brand_new %>
-  <%= render partial: 'client_admin/tiles/manage_tiles/add_new_tile_joyride' %>
-<% end %>
 
-
-<%= render partial: "shared/tile_builder_modals", locals: {context: "client_admin"} %>
-<%=render partial: 'client_admin/tile_stats/modal'%>
 
 <% content_for :javascript do %>
   <script>

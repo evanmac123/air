@@ -25,7 +25,7 @@ feature 'Uploads file to fake bulk uploader' do
   end
 
   def expect_total_users_display(count)
-    page.should have_content("Total users #{count}")
+    page.should have_content("Activated users #{count}")
   end
 
   def template_url
@@ -64,6 +64,7 @@ feature 'Uploads file to fake bulk uploader' do
     @client_admin.demo.users.claimed.should be_empty
 
     visit client_admin_users_path(as: @client_admin)
+    save_and_open_page
     expect_total_users_display 0
 
     3.times do 

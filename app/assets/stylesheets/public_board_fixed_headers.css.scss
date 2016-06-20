@@ -1,0 +1,260 @@
+@import "./mixins/main_styles.css.scss";
+@import "./external/schedule_demo_modal.css.scss";
+//
+// => Top Header
+//
+body > header {
+  position: fixed;
+  width: 100%;
+  z-index: 90;
+  border-bottom: 1px solid #dcdcdc;
+  #logo {
+    min-width: 200px;
+  }
+
+  nav{
+    display:block;
+  }
+  .to_marketing {
+    float: right;
+    text-align: right;
+    margin-top: 9px;
+    a {
+      font-size: 14px;
+      font-weight: 500;
+      color: $sky-blue;
+      line-height: 31px;
+      &:hover {
+        color:darken($sky-blue, 11%);
+      }
+    }
+  }
+  #demo_request {
+    float: right;
+    margin-top: 9px;
+    width: 170px;
+  }
+  #schedule_demo {
+    @include light-button($sky-blue);
+    float: right;
+    margin-right: 1px;
+  }
+}
+.core {
+  padding-top: 48px;
+}
+//
+// => Secondary Header
+//
+.main_h {
+  position: fixed;
+  top: 0px;
+  margin: auto;
+  margin-top: 48px;
+  z-index: 89;
+  width: 100%;
+  background: none;
+  overflow: hidden;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  opacity: 0;
+  top: -100px;
+  padding-left: 16px;
+  padding-right: 16px;
+  // padding-bottom: 6px;
+  &.sticky {
+    opacity: 1;
+    top: 0px;
+    // border-bottom: 1px solid gainsboro;
+  }
+  .row_nav {
+    width: 100%;
+    max-width: 69.25em;
+    margin: auto;
+    background-color: white;
+    overflow: auto;
+    padding: 9px 11px;
+    border: 1px solid #dcdcdc;
+    border-top-width: 0;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    cursor: pointer;
+  }
+  img#mini_cover {
+    height: 30px;
+    float: left;
+    border-radius: 3px;
+  }
+  .mini_name {
+    float: left;
+    color: #2e2e2c;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 30px;
+    padding-left: 11px;
+  }
+}
+//
+// => Banner
+//
+.hero {
+  position: relative;
+  background: #d9dfe9;
+  // padding-top: 108px;
+  // padding-bottom: 4px;
+  padding: 60px 15px 4px 15px;
+  .cover {
+    max-width: 69.25em;
+    margin: auto;
+    border: 1px solid #c8cdd5;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .cover_image {
+    $img-height: 250px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    color: #fff;
+    letter-spacing: 2px;
+    height: $img-height;
+    display: table;
+    width: 100%;
+
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    // background-image: attr(data-image-src url);
+    // img {
+    //   position: absolute;
+    //   top: 0;
+    //   left: 0;
+    //   width: 100%;
+    // }
+    .shadow_overlay {
+      background: rgba(14, 23, 29, 0.82);
+      display: block;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .name_section {
+      display: table-cell;
+      height: $img-height;
+      vertical-align: middle;
+    }
+    h1 {
+      font-size: 48px;
+      line-height: 1.3;
+      position: relative;
+      font-weight: 700;
+      color: white;
+      margin: 0;
+      margin: auto;
+      max-width: 85%;
+    }
+  }
+  .cover_desc {
+    background: white;
+    padding: 14px 20px 4px 20px;
+    p {
+      font-size: 16px;
+      color: #4c4c4c;
+      line-height: 1.5;
+      margin-bottom: 1em;
+    }
+  }
+}
+
+@media only screen and (max-width: 766px) {
+  .core {
+    padding-top: 49px;
+  }
+  //
+  // => Top Header
+  //
+  body > header {
+    #logo {
+      width: 50%;
+      min-width: 50%;
+      .go_home {
+        margin-top: 3px;
+        margin-bottom: 3px;
+        width: 100%;
+      }
+    }
+    .to_marketing {
+      display: none;
+    }
+    #demo_request {
+      width: 50%;
+      min-width: 50%;
+      // width: 187px;
+      margin-top: 13px;
+    }
+  }
+  //
+  // => Secondary Header
+  //
+  .main_h {
+    display: none;
+  }
+  //
+  // => Banner
+  //
+  .hero {
+    background: white;
+    padding: 8px 0 15px 0;
+    .cover {
+      border-radius: 0;
+      border-width: 0;
+      border-bottom-width: 1px;
+    }
+    .cover_image {
+      height: 200px;
+      // padding-top: 70px;
+    }
+    .cover_desc {
+      padding: 17px 16px;
+      p {
+        font-size: 15px;
+      }
+    }
+  }
+  //
+  // => Progress Bar
+  //
+  .user_container {
+    padding-top: 7px;
+  }
+}
+
+@-webkit-keyframes scroll {
+  0% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    -webkit-transform: translateY(20px);
+    transform: translateY(20px);
+  }
+}
+@keyframes scroll {
+  0% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    -webkit-transform: translateY(20px);
+    -ms-transform: translateY(20px);
+    transform: translateY(20px);
+  }
+}

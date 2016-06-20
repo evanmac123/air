@@ -7,19 +7,15 @@
 /*
 *= require tooltipster/tooltipster
 *= require tooltipster/themes/tooltipster-shadow
+*= require sweetalert
 */
-@import "./vendor/pace-theme-center-simple.css.scss";
-@import "./vendor/normalize.css.scss";
-@import "./foundation_and_overrides.scss";
-@import "./vendor/facebox.css.scss";
-@import "./vendor/flutie.css.scss";
 @import "./internal/intercom.css.scss";
 @import "./vendor/introjs.min";
 
 /* MIXIN DEFINITIONS NEXT (so we can use them later) */
 @import "./mixins/main_styles.css.scss";
 @import "./mixins/lightbox.css.scss";
-
+@import "./mixins/board_topics.css.scss";
 @import "font-awesome";
 
 /* CUSTOM STYLESHEETS LAST */
@@ -41,23 +37,30 @@
 @import "./internal/guest_conversion_form.css.scss";
 
 @import "./internal/tags.css.scss";
-@import "./internal/explore.css.scss";
-@import "./internal/tile_manager/tile_preview.css.scss";
-@import "./internal/tile_manager/suggested_tile_preview.css.scss";
-@import "./internal/tile_manager/tiles.css.scss";
+@import "./client_admin/tile_manager/tiles.css.scss";
 @import "./internal/board_settings_iphone.css.scss";
 @import "./internal/tile.css.scss";
 @import "./external/sign_up_form.css.scss";
 @import "./external/sign_up_form_ie.css.scss";
 @import './client_admin/tiles_tools_subnav';
-@import './client_admin/tile_preview';
-@import './internal/tile_builder/tile_builder';
+@import './client_admin/tile_manager/tile_preview';
+@import './tile/tile_builder/tile_builder';
+@import './tile/tile_preview/menu';
 @import "./internal/character_counter.css.scss";
+@import "./vendor_customization/sweetalert.css.scss";
+@import "./vendor_customization/medium.css.scss";
+@import "./vendor_customization/introjs.scss";
+@import "./client_admin/explore/tile_preview.css.scss";
 
+@import "./external/landing/common.css.scss";
+@import "external/landing/header.css.scss";
+@import "external/landing/hero.css.scss";
+@import "external/landing/footer.css.scss";
+
+@import "./external/category.scss";
 /* RWD */
 @media only screen and (min-width: 319px) {
   @import "./internal/screen_iphone.css.scss";
-  @import "./internal/tile_builder/pen.css.scss";
 }
 @media only screen and (min-width: 500px) {
   @import "./internal/screen_tablet.css.scss";

@@ -1,30 +1,13 @@
-@import 'charts';
+body.client_admins-show {
+  @import 'charts';
 
-.stats {
-  &:after{@include clear;}
-}
-.stat-group {
-  @include form-group;
-  margin-bottom:2em;
-  text-align: center;
-  .labels {
-    color:$text-color;
-    @extend h3;
-    margin-bottom:20px;
+  .stats {
+    &:after{@include clear;}
   }
-  .numbers h1 {
-    color:$sky-blue;
-    display:block;
-    margin:0 auto;
-    padding:.5em;
-    padding-top: 0;
-    overflow-wrap:break-word;
-    vertical-align: middle;
-    word-wrap:break-word;
+  .stat-group {
+    @include form-group;
+    padding: 0;
+    margin-bottom:2em;
+    text-align: center;
   }
-  .labels + .labels {padding:.25em 0;}
-}
-
-.charting {
-  @include form-group;
 }

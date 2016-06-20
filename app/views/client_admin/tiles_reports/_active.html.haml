@@ -1,5 +1,0 @@
-- if @active_tiles.empty?
-  %div.no_tiles_message There are no active tiles.
-- else
-  = link_to 'Download CSV', client_admin_tiles_reports_path(report: Tile::ACTIVE, format: 'csv'), class: 'tile-reports-csv-link'
-  = render partial: 'table', locals: {tiles: @active_tiles}

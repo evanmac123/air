@@ -25,14 +25,12 @@ class ConvertToFullUser
       @converted_user.original_guest_user = @pre_user
       @converted_user.mixpanel_distinct_id = @pre_user.mixpanel_distinct_id
     end
-    
+
     if @converted_user.save
       if @pre_user && @pre_user.is_guest?
         @pre_user.converted_user = @converted_user
         @pre_user.save!
 
-        @converted_user.voteup_intro_seen = @pre_user.voteup_intro_seen
-        @converted_user.share_link_intro_seen = @pre_user.share_link_intro_seen
         @converted_user.save!
       end
       @converted_user.add_board(demo.id, true)
@@ -68,7 +66,7 @@ class ConvertToFullUser
   def copy_errors_to_pre_user
     @converted_user.errors.messages.each do |field, error_messages|
       # the #uniq gets rid of duplicate password errors
-      @pre_user.errors.set(field, error_messages.uniq) 
+      @pre_user.errors.set(field, error_messages.uniq)
     end
   end
 
@@ -88,21 +86,23 @@ class ConvertToFullUser
     @converted_user.original_guest_user = @pre_user if @converting_from_guest
     @converted_user.cancel_account_token = @pre_user.generate_cancel_account_token(@converted_user)
     @converted_user.last_acted_at = @pre_user.last_acted_at
-    @converted_user.voteup_intro_seen = @pre_user.voteup_intro_seen
-    @converted_user.share_link_intro_seen = @pre_user.share_link_intro_seen
     @converted_user.location_id = find_location @location_name
     @converted_user.converting_from_guest = @converting_from_guest
     @converted_user.must_have_location = true if @location_name.present?
+
+    if @pre_user && @pre_user.is_potential_user?
+      @converted_user.primary_user = @pre_user.primary_user
+    end
   end
 
   def set_basic_data_for_new_user
     @converted_user = User.new(
-      name: @name, 
-      email: @email, 
-      points: @pre_user.points, 
-      tickets: @pre_user.tickets, 
-      get_started_lightbox_displayed: @pre_user.get_started_lightbox_displayed, 
-      accepted_invitation_at: Time.now, 
+      name: @name,
+      email: @email,
+      points: @pre_user.points,
+      tickets: @pre_user.tickets,
+      get_started_lightbox_displayed: @pre_user.get_started_lightbox_displayed,
+      accepted_invitation_at: Time.now,
       characteristics: {}
     )
   end
@@ -118,7 +118,7 @@ class ConvertToFullUser
   end
 
   def find_location location_name
-    if location_name.present? 
+    if location_name.present?
       Location.where(name: location_name)
               .where(demo_id: @pre_user.demo_id)
               .pluck(:id).first

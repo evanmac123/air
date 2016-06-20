@@ -1,4 +1,5 @@
 Health::Application.routes.draw do
+
   match "sms"           => "sms#create", :via => :post
   match "email"         => "email_command#create", :via => :post
   match "activity"      => "acts#index"
@@ -9,10 +10,17 @@ Health::Application.routes.draw do
   # moved these to top level but don't want to break old links
   match "client_admin/explore"     => "explores#show"
   match "client_admin/explore_new" => "explores#show"
+  match "library/:library_slug" => "client_admin/stock_boards#show", :as => "stock_board", :via => :get
   match "ard/:public_slug" => "public_boards#show", :as => "public_board", :via => :get
   match "ard/:public_slug/activity" => "acts#index", :as => "public_activity", :via => :get
   match "ard/:public_slug/tiles" => "tiles#index", :as => "public_tiles", :via => :get
   match "ard/:public_slug/tile/:id" => "tiles#show", :as => "public_tile", :via => :get
+
+  get "admin/customer/metrics" => "admin/organizations#metrics", :as => "organization_metrics"
+  post "admin/customer/metrics" => "admin/organizations#metrics_recalc", :as => "organization_metrics"
+
+  post "admin/contracts/import" => "admin/contracts#import", :as => "contracts_import"
+  post "admin/metrics/historical" => "admin/metrics#historical", :as => "historical_metrics"
 
   resources :tiles, :only => [:index, :show]
   resources :tile, :only => [:show], as: "sharable_tile"
@@ -34,6 +42,7 @@ Health::Application.routes.draw do
     end
     get "autocompletion" => "autocompletions#index", :as => "autocompletion"
     post "invite_friend" => "friend_invitations#create", :as => "invite_friend"
+    resource :dependent_user_invitation, only: [:new, :create]
   end
 
   resources :acts,        :only => [:index, :create]
@@ -63,14 +72,21 @@ Health::Application.routes.draw do
   match "sign_up"  => "users#new"
   match "sign_out" => "sessions#destroy"
 
-  root :to => 'pages#show', :id => 'welcome'
+  root :to => 'pages#show', :id => 'home'
+  get "tour" => 'pages#tour', as: 'tour'
+  get "company" => 'pages#company', as: 'company'
+  get "case-studies" => 'pages#case-studies', as: 'case_studies'
   get "product" => 'pages#product', as: 'product'
-  get "faq" => "pages#faq", :as => "faq"
-  get "faq_body" => "pages#faq_body", :as => "faq_toc"
-  get "faq_toc" => "pages#faq_toc", :as => "faq_body"
+  get "faq" => "pages#faq", :as => "faq" # FIXME dead url?
+  get "faq_body" => "pages#faq_body", :as => "faq_toc" # FIXME dead url?
+  get "faq_toc" => "pages#faq_toc", :as => "faq_body" # FIXME dead url?
 
   get "terms" => "pages#terms", :as => "terms"
   get "privacy" => "pages#privacy", :as => "privacy"
+
+  resources :pages, :only => :show
+  resource :support, only: :show
+
 
   resource :home,  :only => :show
   resource :admin, :only => :show
@@ -85,20 +101,19 @@ Health::Application.routes.draw do
   resource :explore, only: [:show] do
     resources :tile_previews, only: [:show], :path => "tile"
     resource :copy_tile, only: [:create]
-    resource :tile_likes, :only => [:create, :destroy, :show]
-    resource :random_tile, only: [:show]
     member do
       get 'tile_tag_show'
     end
+    resources :topics, only: [:show]
   end
 
 
 
+  resources :demo_requests, only: :create
   resources :board_name_validations, only: :show
   resources :board_memberships, only: :destroy
   resources :mute_followups, only: :update
   resources :mute_digests, only: :update
-  resource  :intro_viewed_status, only: :update
 
   resources :locations, only: :index
 
@@ -112,8 +127,14 @@ Health::Application.routes.draw do
     end
     resources :users_invites, only: :create
     get 'preview_invite_email', to: 'users_invites#preview_invite_email'
+    get 'preview_explore', to: 'users_invites#preview_explore'
 
     resources :locations, :only => :create
+
+    resources :multiple_choice_tiles, controller: 'tiles'
+
+    resources :stock_boards, path: 'library'
+    resources :stock_tiles, path: 'library_tiles'
 
     resources :tiles do
       collection do
@@ -132,6 +153,8 @@ Health::Application.routes.draw do
         post 'sort'
         put  'status_change' #FIXME this is a temporary hack to avoid having to rewrite all of the existing code related to tile status update.
         put  'update_explore_settings' #FIXME this is a temporary hack to avoid having to rewrite all of the existing code related to tile explore settings update.
+        post 'duplicate'
+        get 'next_tile'
       end
     end
 
@@ -198,6 +221,8 @@ Health::Application.routes.draw do
         put 'public_link'
         put 'welcome_message'
 				put 'weekly_activity_email'
+        put 'cover_message'
+        put 'cover_image'
       end
     end
 
@@ -205,8 +230,6 @@ Health::Application.routes.draw do
     resources :suggestions_access, only: [:index]
     resources :allowed_to_suggest_users, only: [:destroy, :show]
   end
-
-  resources :pages, :only => :show
 
   resource :account, :only => [:update] do
     resource :phone, :only => [:update]
@@ -228,12 +251,29 @@ Health::Application.routes.draw do
 
   resources :potential_user_conversions, :only => [:create]
   resources :guest_user_conversions, :only => [:create]
-  resource :guest_user_reset, :only => [:update]
+  resource :guest_user_reset, :only => [:update] do
+    member do
+      post 'saw_modal'
+    end
+  end
 
   # See CancelAccountController for why this isn't rolled into AccountController
   resources :cancel_account, :only => [:show, :destroy]
 
   namespace :admin do
+
+    resources :organizations, path: "customers" do
+      resources :contracts, controller: "contracts"
+      resources :billings
+    end
+
+    resources :contracts do
+      resources :upgrades, controller: "contracts"
+      resources :billings
+    end
+
+    resources :billings
+
     resources :rule_values, :only => [:destroy]
 
     resources :tags
@@ -294,5 +334,6 @@ Health::Application.routes.draw do
     resources :tile_images, only: [:create, :index, :destroy]
     resource :bulk_upload_progress, only: [:show]
     resource :bulk_upload_errors, only: [:show]
+    resource :support, only: [:show, :edit, :update]
   end
 end

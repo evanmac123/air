@@ -11,7 +11,7 @@ window.dragAndDropProperties =
   handle: ".tile-wrapper"
 
 window.dragAndDropTiles = ->
-  $("#draft").droppable({ 
+  $("#draft").droppable({
     accept: ".tile_container",
     out: (event, ui) ->
       showDraftBlockedOverlay false
@@ -27,25 +27,25 @@ window.dragAndDropTiles = ->
       tile = ui.item
       $.when(window.moveConfirmation).then ->
         updateEvent(event, tile, section)
-      
+
     over: (event, ui) ->
       #console.log("over")
       section = $(this)
       tile = ui.item
       overEvent(event, tile, section)
-      
+
     start: (event, ui) ->
       #console.log("start")
       section = $(this)
       tile = ui.item
       startEvent(event, tile, section)
-      
+
     receive: (event, ui) ->
       #console.log("receive")
       section = $(this)
       tile = ui.item
       receiveEvent(event, tile, section)
-      
+
     stop: (event, ui) ->
       #console.log("stop")
       section = $(this)
@@ -55,9 +55,9 @@ window.dragAndDropTiles = ->
       , ->
         cancelTileMoving()
         updateTilesAndPlaceholdersAppearance()
-      
-      
-  window.tileSortable = $( "#draft, #active, #archive" ).sortable( 
+
+
+  window.tileSortable = $( "#draft, #active, #archive" ).sortable(
     $.extend(window.dragAndDropProperties, dragAndDropTilesEvents)
   ).disableSelection()
 
@@ -86,7 +86,9 @@ window.dragAndDropTiles = ->
       cancelTileMoving()
     else if isTileMoved(tile, "archive", "active") && tileCompletionsNum(tile) > 0
       moveComfirmationModal()
-      
+    else if isTileMoved(tile, "draft", "active") 
+      id = findTileId tile
+      Airbo.TileAction.movePing(id, "active", "Dragged tile to move")
 
   stopEvent = (event, tile, section) ->
     turnOffDraftBlocking tile, section
@@ -117,7 +119,7 @@ window.dragAndDropTiles = ->
     ["draft", "active", "archive", "suggestion_box"]
 
   findTileId = (tile) ->
-    tile.find(".tile_thumbnail").data("tile_id")
+    tile.find(".tile_thumbnail").data("tile-id")
 
   getTilesSection = (tile) ->
     tile.closest(".manage_section").attr("id")
@@ -151,7 +153,7 @@ window.dragAndDropTiles = ->
     $("#" + section).children( placeholderSelector() ).remove()
 
   addPlaceholders = (section, number) ->
-    $("#" + section).append placeholderHTML().times(number) 
+    $("#" + section).append placeholderHTML().times(number)
 
   updateAllNoTilesSections = ->
     for section in sectionNames()
@@ -184,7 +186,7 @@ window.dragAndDropTiles = ->
 
     $.ajax({
       data: {
-        left_tile_id: left_tile_id, 
+        left_tile_id: left_tile_id,
         right_tile_id: right_tile_id,
         status: status,
         source_section: sourceSectionParams()
@@ -193,6 +195,9 @@ window.dragAndDropTiles = ->
       url: '/client_admin/tiles/' + id + '/sort'
       success: ->
         updateTileVisibility()
+        Airbo.TileThumbnail.initTile(id)
+        
+          
     });
 
   sourceSectionParams = ->
@@ -207,7 +212,7 @@ window.dragAndDropTiles = ->
   sectionParams = (section) ->
     name = section.attr("id")
     tiles = section.find(".tile_thumbnail:not(.placeholder_tile)")
-    presented_ids = ($(tile).data("tile_id") for tile in tiles)
+    presented_ids = ($(tile).data("tile-id") for tile in tiles)
     {name: name, presented_ids: presented_ids}
 
   tileCompletionsNum = (tile) ->

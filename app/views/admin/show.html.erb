@@ -10,8 +10,10 @@
 </div>
 <div class="row ">
   <div class="columns large-6">
-    <h2>Games<span><%= button_to 'Create New Game', new_admin_demo_path  %> </span>
-    </h2>
+    <h2>Games</h2>
+    <p>
+      <%= link_to 'Create New Game', new_admin_demo_path, class: "button"  %>
+    </p>
     <ul class="demos">
       <% @demos.each do |demo|  %>
         <% link_text = demo.name  %>
@@ -37,7 +39,13 @@
     <p>
     <%= link_to 'Image Library', admin_tile_images_path %>
     </p>
+    <p>
+      <%= link_to 'Edit Support Page', edit_admin_support_path %>
+    </p>
+<p>
+      <%= link_to 'Customer Metrics & KPIs', organization_metrics_path %>
+
+    </p>
   </div>
   </div>
 </div>
-

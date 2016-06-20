@@ -1,0 +1,200 @@
+/* Drop-down Menus */
+
+ul.menu,
+.dropdown ul {
+  border-width: 0 1px 1px;
+  border-color: $border-color-1;
+  border-style: solid;
+  @include radius(0 0 3px 3px);
+  display: inline-block;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  @include box-shadow(0, 2px, 2px, rgba(0, 0, 0, 0.1));
+
+  li {
+    @include ease(0.1s);
+    border-top: 1px solid $border-color-1;
+    cursor: pointer;
+    font-size: $font-size-2;
+    line-height: 2.5em;
+    margin: 0;
+    padding: 0 10px;
+
+    &:hover {
+      background-color: $gray-1;
+    }
+
+    &:active {
+      background-color: $n-blue;
+      color: $n-white;
+    }
+
+    &.selected {
+      color: #AAA;
+    }
+  }
+}
+
+.dropdown {
+  // Note: built to work with existing JS
+  background-color: $n-white;
+  border: 1px solid $border-color-1;
+  font-size: $font-size-2;
+  line-height: 2.5em;
+  margin: 0 0 20px;
+  position: relative;
+  outline: 0;
+  white-space: nowrap;
+  width: 100%;
+  @include radius(3px);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  a.current {
+    @include ease(0.1s);
+    @include radius(3px);
+    color: inherit;
+    display: block;
+    line-height: 2.5em;
+    padding: 0 0.5em;
+    text-decoration: none;
+
+    &:hover {
+      background-color: $gray-1;
+    }
+
+    &:active {
+      background-color: $n-white;
+      border-color: $n-blue;
+    }
+  }
+
+  .selector {
+    position: absolute;
+    width: 2.5em;
+    height: 2.5em;
+    display: block;
+    right: 0;
+    top: 0;
+
+    &:after {
+      content: "";
+      display: block;
+      content: "";
+      display: block;
+      width: 0;
+      height: 0;
+      border: inset 5px;
+      border-color: $text-color-1 transparent transparent transparent;
+      border-top-style: solid;
+      position: absolute;
+      left: 0.9375em;
+      top: 50%;
+      margin-top: -2px;
+    }
+
+    &:hover + a {
+      background-color: $gray-1;
+    }
+  }
+
+  ul {
+    background-color: $n-white;
+    @include box-sizing(content-box);
+    display: none;
+    position: absolute;
+    left: -1px;
+    top: auto;
+  }
+
+  &.open {
+    @include radius(3px 3px 0 0);
+
+    ul {
+      display: block;
+      min-width: 100%;
+      z-index: 10;
+    }
+  }
+}
+
+ul.tabs {
+  list-style-type: none;
+  margin: 20px 0;
+  padding: 0;
+
+  li {
+    display: inline;
+    margin: 0 15px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    a {
+      @include ease(0.1s);
+      border-bottom: 3px solid transparent;
+      color: inherit;
+      font-size: $font-size-2;
+      @include font-weight-bold;
+      padding: 0 0 5px;
+      text-decoration: none;
+
+      &.selected {
+        border-bottom: 3px solid $n-blue;
+      }
+
+      &:hover {
+        color: darken($n-blue, 10%);
+        border-bottom: 3px solid $gray-3;
+      }
+    }
+  }
+}
+
+ul.simple-nav {
+  list-style-type: none;
+  margin:0;
+  margin-bottom: 75px;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #e7e7e7;
+  background-color: #f3f3f3;
+
+  li {
+    float: left;
+    a {
+      display: block;
+      color: #666;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      &:hover:not(.active) {
+        background-color: #ddd;
+      }
+     &.active {
+       color: white;
+       background-color: #4CAF50;
+      }
+    }
+
+  }
+
+  &.airbo{
+    li {
+      a {
+        &.active {
+          background-color: #48bfff ;
+        }
+      }
+
+    }
+  }
+}

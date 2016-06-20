@@ -1,4 +1,5 @@
-<% tile_link_args = [tile.email_site_link, tile.email_link_options.merge({style: "width:100% !important;border:0;margin:0;padding:0;display:block;text-decoration:none;color:#2e2e2c;word-break: break-word;overflow-wrap: break-word;-ms-word-wrap:break-word;", class: "tile_link"})] %>
+<%site_link = subject ? "#{tile.email_site_link}&subject_line=#{subject}":  tile.email_site_link%>
+<% tile_link_args = [site_link, tile.email_link_options.merge({style: "width:100% !important;border:0;margin:0;padding:0;display:block;text-decoration:none;color:#2e2e2c;word-break: break-word;overflow-wrap: break-word;-ms-word-wrap:break-word;", class: "tile_link"})] %>
 <%= link_to *tile_link_args do %>
   <table width="208" align="center" cellpadding="0" cellspacing="0" border="0" class="columnsNoPadding" style="width: 100% !important;">
     <tbody width="208" style="width: 100% !important;">
@@ -41,7 +42,7 @@
           <table width="208" align="center" cellpadding="0" cellspacing="0" border="0" class="columnsNoPadding" style="width:100% !important;">
             <tbody style="width: 100% !important;">
               <tr>
-                <td style="font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#4face0;mso-line-height-rule:exactly;line-height:22px;padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;border:1px solid #4face0;width:25px;">
+                <td style="font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#48BFFF;mso-line-height-rule:exactly;line-height:22px;padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;border:1px solid #48BFFF;width:25px;">
                   +<%= tile.points %>
                 </td>
                 <td style="font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#818385;mso-line-height-rule:exactly;line-height:22px;padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;border:1px solid #dfdfdf;border-left:0;word-break: break-word;">

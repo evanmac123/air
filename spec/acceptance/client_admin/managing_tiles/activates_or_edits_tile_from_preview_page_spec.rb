@@ -11,11 +11,13 @@ feature 'Activates or edits tile from preview page', js:true do
         page.find("#single-tile-#{@tile.id} .tile-wrapper a.tile_thumb_link").click
       end
 
-      page.find("#stat_toggle").trigger(:mouseover)
+      page.find("#stat_toggle").click
     end
 
     it "should allow the tile to be deactivated"  do
-      click_deactivate_link
+      within status_change_sub do
+        click_deactivate_link
+      end
       expect_tile_to_section_change "#active_tiles", "#archived_tiles"
     end
 
@@ -52,12 +54,14 @@ feature 'Activates or edits tile from preview page', js:true do
       within "#archived_tiles" do
         page.find("#single-tile-#{@tile.id} .tile-wrapper a.tile_thumb_link").click
       end
-      page.find("#stat_toggle").trigger(:mouseover)
+      page.find("#stat_toggle").click
     end
 
     it "should allow the tile to be activated" do
-      click_reactivate_link
-      expect_tile_to_section_change "#archived_tiles", "#active_tiles" 
+      within status_change_sub do
+        click_reactivate_link
+      end
+      expect_tile_to_section_change "#archived_tiles", "#active_tiles"
     end
 
     pending "should link to the edit page" do
@@ -96,41 +100,43 @@ feature 'Activates or edits tile from preview page', js:true do
       within "#draft.manage_section" do
         page.find("#single-tile-#{@tile.id} .tile-wrapper a.tile_thumb_link").click
       end
-      page.find("#stat_toggle").trigger(:mouseover)
+      page.find("#stat_toggle").click
     end
 
     it "should allow the tile to be activated" do
-      click_reactivate_link
-      expect_tile_to_section_change "#draft.manage_section", "#active_tiles" 
+      within status_change_sub do
+        click_reactivate_link
+      end
+      expect_tile_to_section_change "#draft.manage_section", "#active_tiles"
     end
 
-    
+
     pending "should link to the edit page" do
-      click_edit_link      
+      click_edit_link
       expect_mixpanel_action_ping('Tile Preview Page - Draft', 'Clicked Edit button')
     end
-    
+
     pending "should ping on clicking back to tiles button" do
-      click_link "Back to Tiles"      
+      click_link "Back to Tiles"
       expect_mixpanel_action_ping('Tile Preview Page - Draft', 'Clicked Back to Tiles button')
     end
-    
+
     pending "should ping on clicking new tile button" do
-      click_link "New Tile"      
+      click_link "New Tile"
       expect_mixpanel_action_ping('Tile Preview Page - Draft', 'Clicked New Tile button')
-    end    
+    end
   end
 
   def activate_link_text
-    "Post"  
+    "Post"
   end
 
   def reactivate_link_text
-    "Repost"  
+    "Repost"
   end
 
   def deactivate_link_text
-    "Archive"  
+    "Archive"
   end
 
   def edit_link_text
@@ -150,7 +156,7 @@ feature 'Activates or edits tile from preview page', js:true do
   end
 
   def click_deactivate_link
-    page.find("a", text: "Archive").trigger("click");
+    page.find("a", text: "Archive").click
   end
 
   def click_edit_link
@@ -176,7 +182,7 @@ feature 'Activates or edits tile from preview page', js:true do
   def expect_reactivate_link
     reactivate_links.should_not be_empty
   end
-  
+
   def expect_deactivate_link
     deactivate_links.should_not be_empty
   end
@@ -197,11 +203,15 @@ feature 'Activates or edits tile from preview page', js:true do
     expect_content "The #{tile.headline} tile has been archived"
   end
 
+  def status_change_sub
+    "#stat_change_sub"
+  end
+
   def expect_mixpanel_action_ping(event, action)
     FakeMixpanelTracker.clear_tracked_events
     crank_dj_clear
     properties = {action: action}
-    FakeMixpanelTracker.should have_event_matching(event, properties)    
+    FakeMixpanelTracker.should have_event_matching(event, properties)
   end
 
 
@@ -209,9 +219,9 @@ feature 'Activates or edits tile from preview page', js:true do
     selector = "#single-tile-#{@tile.id} .tile-wrapper a.tile_thumb_link"
      within from do
        expect(page).to_not have_css selector
-     end 
+     end
      within to do
        expect(page).to have_css selector
-     end 
+     end
   end
 end

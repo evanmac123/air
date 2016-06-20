@@ -1,72 +1,74 @@
 class PagesController < HighVoltage::PagesController
+  include TileBatchHelper
+
   skip_before_filter :authorize
   before_filter :allow_guest_user
   before_filter :force_html_format
   before_filter :signed_out_only_on_root
-  before_filter :set_login_url
-  before_filter :set_new_board_url
   before_filter :display_social_links_if_marketing_page
   before_filter :set_page_name
   before_filter :set_page_name_for_mixpanel
   before_filter :set_user_for_mixpanel
   before_filter :handle_disabled_pages
-
   after_filter :update_seeing_marketing_page_for_first_time
 
   layout :layout_for_page
+
   DISABLED_PAGES = ["customer_tiles"]
 
   PAGE_NAMES_FOR_MIXPANEL = {
     'welcome'        => "Marketing Page",
-    'customer_tiles' => 'customer tiles',
-    'more_info'      => 'More Info, marketing',
+    'home'           => "Landing Page V. #{MP_HOMPAGE_TAG_VERSION}",
+    'customer_tiles' => 'customer tiles', # FIXME dead url?
+    'more_info'      => 'More Info, marketing', # FIXME dead url?
     'privacy'        => 'privacy policy',
     'terms'          => 'terms and conditions'
   }
 
+
   def show
     login_as_guest(Demo.new) unless current_user
+    sort_demos
     super
   end
 
-  protected
+  private
+
+  def board_slugs
+    @slugs ||= HOMEPAGE_BOARD_SLUGS.split(",")
+  end
+
+
+
+  def sort_demos
+    @demos = Demo.where(public_slug:board_slugs)
+    @sorted_demos = board_slugs.map do|slug|
+     @demos.where(public_slug: slug).first
+    end.compact
+  end
+
 
   def layout_for_page
     case page_name
     when 'privacy', 'terms'
       'external'
-    when 'welcome', 'product'
-      'standalone'
-    when 'more_info', 
+    # when 'welcome', 'product', 'asha', 'company', 'home', 'fujifilm', 'case-studies', 'wellness'
+      # 'standalone'
+    when 'more_info',  # FIXME dead url?
       @body_id = "homepage"
       'external_marketing'
-    when 'asha', 'heineken', 'miltoncat', 'fujifilm', 'customer_tiles'
+    when 'heineken', 'miltoncat', 'customer_tiles'
       'external_marketing'
     else
-      'pages'
+      'standalone'
     end
   end
 
   def signed_out_only_on_root
-    return unless params[:id] == 'welcome'
+    return unless params[:id] == 'home'
     redirect_to home_path if signed_in?
   end
 
-  def set_login_url
-    @login_url = if Rails.env.staging? || Rails.env.production?
-                   session_url(:protocol => 'https', :host => hostname_with_subdomain)
-                 else
-                   session_path
-                 end
-  end
-
-  def set_new_board_url
-    @new_board_url = if Rails.env.production?
-                       boards_url(protocol: 'https', host: hostname_with_subdomain)
-                     else
-                       boards_url
-                     end
-  end
 
   def display_social_links_if_marketing_page
     display_social_links if %w(more_info asha miltoncat heineken fujifilm customer_tiles).include?(params[:id])
@@ -88,7 +90,7 @@ class PagesController < HighVoltage::PagesController
   def page_name_for_mixpanel
     if (name = PAGE_NAMES_FOR_MIXPANEL[page_name]).present?
       name
-    else 
+    else
       page_name
     end
   end
@@ -103,6 +105,6 @@ class PagesController < HighVoltage::PagesController
   end
 
   def handle_disabled_pages
-    raise ActionController::RoutingError.new("Page not Found") if DISABLED_PAGES.include?(params[:id]) 
+    raise ActionController::RoutingError.new("Page not Found") if DISABLED_PAGES.include?(params[:id])
   end
 end

@@ -9,5 +9,18 @@
 //= require ./external/marketing_slider.js
 //= require internal/flashes
 //= require ../../../vendor/assets/javascripts/external/foundation.min
+//= require internal_and_external/intercom_setup
+//= require ./external/sticky_header
+//= require ./external/landing
+//= require ./external/category
+//= require ../../../vendor/assets/javascripts/intro.min
+//= require application
+//= require ./external/schedule_demo
+//= require ./external/request_form
+//= require ./internal_and_external/marketing_page_interactions
 
-$(document).foundation();
+$(function(){
+  $(document).foundation();
+  Airbo.ScheduleDemoModal.init();
+  Airbo.Utils.TextSelectionDetector.init("#link_for_copy", Airbo.ScheduleDemoModal.linkCopied);
+});

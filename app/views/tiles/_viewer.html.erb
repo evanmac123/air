@@ -1,0 +1,8 @@
+<div class="viewer">
+
+  <%= link_to "", "#", :id => :prev  %>
+  <div id="slideshow">
+    <%= render partial: 'full_size_tile', locals:{ tile: @start_tile} %>
+  </div>
+  <%= link_to "", "#", :id => :next %>
+</div>

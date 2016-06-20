@@ -21,7 +21,7 @@ feature "interacts with a tile from the explore-preview page" do
 
   shared_examples_for 'copies/likes tile' do
     scenario "by clicking the proper link", js: true do
-      close_intro
+      
       click_copy_button
    
       crank_dj_clear
@@ -32,7 +32,7 @@ feature "interacts with a tile from the explore-preview page" do
     context "when the tile has no creator", js: true do
       before do
         @original_tile.update_attributes(creator: nil)
-        close_intro
+        
       end
 
       it "should work", js: true do
@@ -45,24 +45,24 @@ feature "interacts with a tile from the explore-preview page" do
     end
 
     scenario "should show a helpful message in a modal after copying", js: true do
-      close_intro
+      
       click_copy_button
-      page.find('#tile_copied_lightbox', visible: true)
+      page.find('.tile_copied_lightbox', visible: true)
 
       expect_content post_copy_copy
     end
 
     scenario "works if no creator is set", js: true do
-      close_intro
+      
       @original_tile.update_attributes(creator: nil)
       click_copy_button
-      page.find('#tile_copied_lightbox', visible: true)
+      page.find('.tile_copied_lightbox', visible: true)
 
       expect_content post_copy_copy
     end
 
     scenario "should ping", js: true do
-      close_intro
+      
       crank_dj_clear
       FakeMixpanelTracker.clear_tracked_events
 
@@ -77,14 +77,14 @@ feature "interacts with a tile from the explore-preview page" do
     end
 
     scenario "should record user who copied", js: true do
-      close_intro
+      
       click_copy_button
     
       @original_tile.user_tile_copies.reload.first.user_id.should eq @user.id
     end
   
     scenario "should not show the link for a non-copyable tile", js: true do
-      close_intro
+      
       tile = FactoryGirl.create(:multiple_choice_tile, :public)
       visit explore_tile_preview_path(tile, as: @user)
       page.should have_content("View Only")
@@ -93,7 +93,7 @@ feature "interacts with a tile from the explore-preview page" do
 
   shared_examples_for 'gets registration form after closing intro' do |name, selector|
     scenario "when clicks #{name}", js: true do
-      close_intro
+      
       page.find(selector).click
       register_if_guest
     end
@@ -139,7 +139,7 @@ feature "interacts with a tile from the explore-preview page" do
 
   shared_examples_for 'uses share tile link' do
     before(:each) do
-      close_intro
+      
     end
 
     scenario "ping when click linkedin icon", js: true do
@@ -185,7 +185,7 @@ feature "interacts with a tile from the explore-preview page" do
       visit explore_path(as: client_admin)    
       click_tile
       page.find(:xpath,"//span[contains(@class, 'like_message')]/div[@id='like_value']").should have_content("1")
-      close_intro
+      
       click_unlike_link_in_preview
       page.find(:xpath,"//span[contains(@class, 'like_message')]/div[@id='like_value']").should_not be_visible
     end

@@ -36,4 +36,8 @@ module BoardsHelper
   def invite_friends_placeholder
     "Type Name" + (current_user.demo.is_public? ? " or Email" : "")
   end
+
+  def brake_to_paragraphs str
+    str.split(/\n/).map{|line| "<p>" + line + "</p>"}.join
+  end
 end

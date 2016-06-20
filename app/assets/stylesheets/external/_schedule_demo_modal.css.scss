@@ -1,0 +1,84 @@
+#schedule_demo_modal{
+  ::-webkit-input-placeholder, :-moz-placeholder, ::-moz-placeholder, :-ms-input-placeholder {
+     text-align: center;
+  }
+  .banner_img{
+    text-align: center;
+    margin-bottom: 40px;
+    img {
+      width: 116px;
+    }
+  }
+  p.greeting {
+    text-align:center;
+    margin-bottom: 25px;
+    color: $text-color;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 30px;
+  }
+  .form_data {
+    input[type="text"] {
+      width: 100%;
+      background: white;
+      border-color: #dfdfdf;
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 24px;
+      margin-bottom: 20px;
+      padding: .5em .85em;
+      text-align: center;
+      &:focus, &:hover {
+        border-color: $text-color;
+      }
+    }
+    .err {
+      color: #bc4c40;
+      font-size: 14px;
+      font-weight: 400;
+      text-transform: none;
+      margin-top: 7px;
+      margin-bottom: 12px;
+    }
+    #submit_demo_request{
+      @include app-button($sky-blue);
+      width: 100%;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 28px;
+    }
+  }
+  #confirmation_content{
+    display:none;
+    .greeting_after {
+      color: $sky-blue;
+    }
+  }
+}
+
+@media only screen and (max-width: 766px) {
+  #schedule_demo_modal{
+    .banner_img {
+      margin-bottom: 25px;
+      img {
+        width: 80px;
+        margin-bottom: 17px;
+      }
+    }
+    p.greeting {
+      margin-bottom: 17px;
+    }
+    .form_data {
+      input[type="text"] {
+        margin-bottom: 15px;
+      }
+    }
+  }
+}
+
+/*FIXME delete this styling from other stylesheets and use this one */
+.reveal-modal.transparent{
+  background: transparent;
+  box-shadow: none;
+  border: 0;
+}

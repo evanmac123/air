@@ -1,10 +1,10 @@
-<ul class="tile_preview_menu" >
+<ul class="tile_preview_menu <%= tile.status + '_menu' %>" >
   <li class="preview_menu_item tipsy" id="stat_toggle" title= '<%=tile_preview_status_change_tooltip tile %>'>
   <%=tile_preview_menu_status_item tile %>
   </li>
 
   <li class="preview_menu_item edit" >
-    <%=link_to edit_client_admin_tile_path(tile),  data:{tile_id: tile.id, action: "edit", status: tile.status} do %>
+    <%=link_to edit_client_admin_tile_path(tile),  data:{"tile-id" => tile.id, action: "edit", status: tile.status} do %>
       <i class="fa fa-pencil fa-1x"></i>
       <span class="header_text">
         Edit
@@ -12,8 +12,17 @@
     <%end%>
   </li>
 
+  <li class="preview_menu_item duplicate" >
+    <%=link_to duplicate_client_admin_tile_path(tile, page: 'Edit'), class: "duplicate_tile", data: {"tile-id" => tile.id} do %>
+      <i class="fa fa-copy fa-1x"></i>
+      <span class="header_text">
+        Copy
+      </span>
+    <%end%>
+  </li>
+
   <li class="preview_menu_item destroy" >
-    <%=link_to client_admin_tile_path(tile), data: {confirm: {body: "Are you sure you want to delete this tile? Deleting a tile is irrevocable and you'll loose all data associated with it"}, method: "delete"} do %>
+    <%=link_to client_admin_tile_path(tile), class: "delete_tile", data: {"tile-id" => tile.id} do %>
       <i class="fa fa-trash fa-1x"></i>
       <span class="header_text">
       Delete

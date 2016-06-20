@@ -35,6 +35,18 @@ module EmailHelper
     image_tag logo_url, image_options
   end
 
+  def default_logo
+    image_options = { border: "0", style: "display:block;", width: "72", height: "42"}
+    logo_url = assets_url 'logo-white.png'
+    image_options.merge!(alt: 'Airbo')
+    image_tag logo_url, image_options
+  end
+
+  def assets_url filename
+    expanded_logo_path = ActionController::Base.helpers.asset_path(filename)
+    "#{::Rails.application.config.action_mailer.asset_host}#{expanded_logo_path}"
+  end
+
   # Had to define environment variables on Heroku so that SendGrid sends emails to the right place in staging and production
   # In staging this will be: 'www.hengagestaging.com' while in production it's: 'www.hengage.com'
   def email_link_host

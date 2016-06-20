@@ -31,11 +31,11 @@ module SuggestionBox
   end
 
   def submit_tile_selector(tile)
-    "a[href *= '#{suggested_tile_path(tile, update_status: Tile::USER_SUBMITTED)}']"  
+    "a[href *= '#{suggested_tile_path(tile, update_status: Tile::USER_SUBMITTED)}']"
   end
 
   def unsubmit_tile_selector(tile)
-    "a[href *= '#{suggested_tile_path(tile, update_status: Tile::USER_DRAFT)}']"  
+    "a[href *= '#{suggested_tile_path(tile, update_status: Tile::USER_DRAFT)}']"
   end
 
   # submit_tile_button because the name submit_button is taken
@@ -50,26 +50,20 @@ module SuggestionBox
   end
 
   def accept_button tile
-    show_thumbnail_buttons
-    page.find("a[href *= '#{client_admin_tile_path(tile, update_status: Tile::DRAFT)}']")
+    thumbnail_action_button tile, Tile::DRAFT
   end
 
   def ignore_button tile
-    show_thumbnail_buttons
-    page.find("a[href *= '#{client_admin_tile_path(tile, update_status: Tile::IGNORED)}']")
+    thumbnail_action_button tile, Tile::IGNORED
   end
 
   def undo_ignore_button tile
+    thumbnail_action_button tile, Tile::USER_SUBMITTED
+  end
+
+  def thumbnail_action_button tile, status
     show_thumbnail_buttons
-    page.find("a[href *= '#{client_admin_tile_path(tile, update_status: Tile::USER_SUBMITTED)}']")
-  end
-
-  def accept_modal
-    page.find("#accept-tile-modal")
-  end
-
-  def accept_modal_copy
-    "Tile Accepted and Moved to Draft"
+    page.find("a[href *= '#{status_change_client_admin_tile_path(tile)}'][data-status='#{status}']")
   end
 
   def headline tile
@@ -85,7 +79,7 @@ module SuggestionBox
   # => Manage Access Modal
   #
   def manage_access_link
-    page.find(".manage_access")
+    page.find("#manage_access")
   end
 
   def all_users_switcher_on

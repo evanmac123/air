@@ -1,0 +1,8 @@
+<li><%= link_to "Home", root_path, id:"pg-home" %></li>
+<li class ="show-on-home"><%= link_to "Explore", "#tour", class:"tour-menu" %></li>
+<li class ="hide-on-home"><%= link_to "Explore", root_path(anchor: "tour"), class:"tour-menu" %></li>
+<li class="hide-in-header"><%= link_to "Company", company_path , id:"pg-company"%></li>
+<li class="hide-in-header"><%= link_to "Case Studies", case_studies_path , id:"pg-case-studies"%></li>
+<li class="sign_in_link"><%= link_to "Login", sign_in_path %></li>
+<!--li><%# link_to "Sign Up", "#sign_up_form", id:"signup-menu" %></li-->
+<li class="hide-in-header"><%= link_to "Contact Us", "", class: "contact_us open_intercom" %></li>

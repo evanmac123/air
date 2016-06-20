@@ -1,7 +1,7 @@
 <div class="row">
   <div class="columns large-12">
     <div id="upload-user-header">
-      <h1><%= fa_icon "users" %>Upload Users</h1>
+      <h3>Upload Users</h3>
       <% if @demo.users_last_loaded.present? %>
         <span id="last-added-users">
           Last added users on <%= @demo.users_last_loaded.strftime("%B %e, %Y") %>
@@ -15,7 +15,7 @@
   <div class="columns large-6">
     <div class="upload-user-section upload-half-width-section">
       <div class="upload-user-section-header">
-        <h2>1. Download Template</h2>
+        <b>1. Download Template</b>
       </div>
 
       <div class="upload-user-section-content">
@@ -28,7 +28,7 @@
   <div class="columns large-6">
     <div class="upload-user-section upload-half-width-section">
       <div class="upload-user-section-header">
-        <h2>2. Add Users To Template</h2>
+        <b>2. Add Users To Template</b>
       </div>
 
       <div class="upload-user-section-content" id="section-2">
@@ -46,7 +46,7 @@
   <div class="columns large-12">
     <div class="upload-user-section">
       <div class="upload-user-section-header">
-        <h2>3. Upload Users</h2>
+        <b>3. Upload Users</b>
       </div>
 
       <div class="upload-user-section-content" id="upload-form-content">

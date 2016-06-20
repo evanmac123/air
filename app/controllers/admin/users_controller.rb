@@ -6,7 +6,7 @@ class Admin::UsersController < AdminBaseController
 
   def index
     respond_to do |format|
-      format.html do 
+      format.html do
         starts_with = params[:starts_with]
         if starts_with == "non-alpha"
           @users = @demo.users.name_starts_with_non_alpha
@@ -39,20 +39,20 @@ class Admin::UsersController < AdminBaseController
   end
 
   def update
-    new_demo_id = params[:user].delete(:demo_id)
+    new_demo_id = user_params.delete(:demo_id)
 
-    @user.attributes = params[:user]
-    @user.is_client_admin = params[:user][:is_client_admin] # protected attribute
- 
+    @user.attributes = permitted_params.user if user_params.present?
     @user.claim_code = nil if params[:user].has_key?(:claim_code) && params[:user][:claim_code].blank?
 
+    #TODO this kind of logic should not be in the controller!!!!!!
+    #FIXME aaaaargh!
     if ! params[:user][:phone_number].blank?
       @user.new_phone_number = @user.new_phone_validation = ""
       @user.phone_number = PhoneNumber.normalize @user.phone_number
     end
 
     # calling #save wipes this out so we have to remember it now
-    client_admin_changed = @user.changed.include?('is_client_admin') 
+    client_admin_changed = @user.changed.include?('is_client_admin')
     if @user.save
       if new_demo_id
         @user.add_board(new_demo_id)
@@ -77,13 +77,21 @@ class Admin::UsersController < AdminBaseController
 
   protected
 
+
+
   def find_user
     @user = @demo.users.find_by_slug(params[:id])
   end
 
   def ping_if_made_client_admin(user, was_changed)
     if user.is_client_admin && was_changed
-      ping('Creator - New', {source: 'Site Admin'}, current_user)
+      ping('claimed account', {source: 'Site Admin'}, current_user)
     end
+  end
+
+  private
+
+  def user_params
+   params[:user]
   end
 end

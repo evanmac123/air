@@ -5,14 +5,14 @@
   h5 {display: none;}
   #search_string {
     float: left;
-    height: 29px;
-    margin: 0;
-    width: 242px;
+  //   height: 29px;
+  //   margin: 0;
+  //   width: 242px;
   }
   #find_button {
-    @include app-button($sky-blue);
+    // @include app-button($sky-blue);
     float: none;
-    margin-left: 1em;
+    // margin-left: 1em;
   }
 }
 
@@ -44,7 +44,7 @@
       text-overflow: ellipsis;
       width:100%;
     }
-    .name-of-user {font-size:1.5em;}
+    // .name-of-user {font-size:1.5em;}
   }
   .follow_buttons {
     margin-top:.5em;

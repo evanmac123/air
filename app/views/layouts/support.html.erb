@@ -1,0 +1,29 @@
+<!doctype html>
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Airbo Documentation</title>
+
+    <%= render "shared/opengraph_meta_tags" %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <%= stylesheet_link_tag 'app-support' %>
+    <%= javascript_include_tag 'app-support' %>
+
+    <% unless @is_admin_page %>
+      <%= render 'shared/mixpanel' %>
+      <%= mp_track_page "Help Documentation" %>
+    <% end %>
+
+  </head>
+  <body class="<%= body_class %> external">
+    <%= yield %>
+
+    <%= render :partial => 'shared/modals/modals' %>
+    <%= yield :javascript %>
+  </body>
+</html>

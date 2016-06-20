@@ -1,8 +1,10 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Admin conducts raffle' do
+
   def expect_winner_line(winner)
-    expect_content "And the winner is...#{winner.name} (#{winner.email})"
+    s = "And the winner is...#{winner.name} (#{winner.email})"
+    expect_content s
   end
 
   def expect_no_winner_text

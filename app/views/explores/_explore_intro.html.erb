@@ -1,0 +1,71 @@
+<% render layout: "/shared/modals/standard_modal", locals: {modal_id: "explore_intro_modal"} do %>
+  <ul class="explore_intro">
+
+    <li>
+      <div class="intro-slide-container">
+        <a href="#" class="skip close_explore_intro">Skip</a>
+        <div class="intro-content">
+          <% if @tile %>
+            <h1>Hello!</h1>
+            <p>Welcome <%= new_user? ? '' : 'back' %> to Airbo, where you can find engaging content like:</p>
+            <p>"<%= @tile.headline %>"</p>
+            <p>Just a quick word about how this works...</p>
+          <% else %>
+            <h1>Welcome to Airbo!</h1>
+            <p>Just a quick word about how this works...</p>
+            <p>Airbo is your bulletin Board reinvented.</p>
+            <p>It helps get more HR priorities done using engaging employee communications.</p>
+          <% end %>
+          <p><a href="#" class="intro-button slick_next">Next</a></p>
+        </div>
+      </div>
+    </li>
+
+    <li>
+      <div class="intro-slide-container">
+        <a href="#" class="skip close_explore_intro">Skip</a>
+        <div class="row">
+          <div class="large-6 columns">
+            <%= image_tag "explore_intro/intro-tile-simple.png", alt: "Airbo" %>
+          </div>
+          <div class="large-6 columns">
+            <h1>Tile</h1>
+            <p>Save time by finding beautiful, bite-sized content that your employees will see and love.</p>
+            <p>Fun, interactive features like quizzes help you share news &amp; announcements, events, and programs.</p>
+            <p><a href="#" class="intro-button slick_next">Next</a></p>
+          </div>
+        </div>
+      </div>
+    </li>
+
+    <li>
+      <div class="intro-slide-container">
+        <a href="#" class="skip close_explore_intro">Skip</a>
+        <div class="row">
+          <div class="large-6 columns">
+            <%= image_tag "explore_intro/intro-board-simple.png", alt: "Airbo" %>
+          </div>
+          <div class="large-6 columns">
+            <h1>Board</h1>
+            <p>Organize and share Tiles as easily as sending an email.</p>
+            <p>Real-time metrics mean less administration, follow-ups, and employee questions.</p>
+            <p><a href="#" class="intro-button slick_next">Next</a></p>
+          </div>
+        </div>
+      </div>
+    </li>
+
+    <li>
+      <div class="intro-slide-container">
+        <div class="intro-content">
+          <h1>Explore</h1>
+          <p>Ready to find some amazing content?</p>
+          <p>If you see a Tile you want to save for later, just click "Copy".</p>
+          <p>You'll be able to customize Tiles and decide how they're shared.</p>
+          <p><a href="#" class="intro-button close_explore_intro"><i class="fa fa-rocket"></i> Close and Explore</a></p>
+        </div>
+      </div>
+    </li>
+
+  </ul>
+<% end %>

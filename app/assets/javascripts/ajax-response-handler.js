@@ -46,7 +46,7 @@ Airbo.AjaxResponseHandler = (function(){
   }
 
   function flash(type, msg){
-   Airbo.Utils.noop
+    Airbo.Utils.noop
   }
 
   function submit(form, successCallback, failCallBack){
@@ -62,7 +62,7 @@ Airbo.AjaxResponseHandler = (function(){
 
     }).fail(function(xhr, status, errorThrown){
       fail( xhr, status, function(){
-        failCallBack(data);
+        failCallBack(status);
       });
 
     });

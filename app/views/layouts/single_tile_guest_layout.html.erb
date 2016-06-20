@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <%= content_for :meta %>
+  <title>Airbo</title>
+
+  <%= javascript_include_tag "https://api.intercom.io/api/js/library.js" %>
+  <%= javascript_include_tag 'for-modern-browsers' unless browser.ie8? %>
+  <%= javascript_include_tag 'application' %>
+  <%= javascript_include_tag 'app-admin' %>
+  <%= javascript_include_tag 'app-client-admin' %>
+  <%= stylesheet_link_tag "app-internal" %>
+  <%= csrf_meta_tag %>
+  <%= content_for :head %>
+</head>
+<body class="<%= body_class %> client_admin_main single_tile_guest_layout" style="-webkit-overflow-scrolling: touch; overflow:visible; ">
+
+  <div class="row">
+    <div class="center header">
+      <%=image_tag "landing/logo-blue.png"%>
+      <span class="see_airbo_block righty">
+        Want to see more? 
+        <%= link_to "Explore.", "#", class: "see_airbo" %>
+      </span>
+    </div>
+  </div>
+  
+  <main class="main">
+  <div class="core">
+    <div class="content">
+      <%= yield %>
+    </div>
+  </div>
+  </main>
+
+  <footer class="bg-blue tall" >
+    <div class="row">
+      <div class="columns large-6 small-11 small-centered">
+        <p class="medium margin-none">
+          Welcome to Airbo
+        </p>
+        <p>
+          Airbo is the bulletin board reinvented. Get more HR priorities done using engaging employee communications.
+        </p>
+        <p>
+          <a class="button outlined see_airbo white">See How It Works</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+  <%= render partial: 'tile_previews/sign_up_form' %>
+
+  <%= render :partial => 'shared/modals/modals' %>
+</body>
+</html>

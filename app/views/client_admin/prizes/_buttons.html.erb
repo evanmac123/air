@@ -1,0 +1,101 @@
+<% if raffle.status == Raffle::SET_UP %>
+  <div class="buttons_section">
+    <div class="button outlined" id="save_draft">
+      Save Draft
+    </div>
+    <div class="button" id="start">
+      Start
+    </div>
+  </div>
+  <div class="clear_form">
+    Clear
+    <div id="clear_dialog" title="Clear the form?">
+      <p>
+        This form will be cleared. Are you sure?
+      </p>
+    </div>
+  </div>
+  <% content_for :javascript do %>
+    <script>
+      $(function() {
+        clearAllDialog();
+        window.draft_saved = true;
+      });
+      $("#save_draft").click(function() {
+        saveDraft();
+      });
+      $(".clear_form").click(function(){
+        $( "#clear_dialog" ).dialog( "open" );
+      });
+      //enable save draft button
+      $("form textarea, form input").bind('input propertychange', function(){
+        unsavedDraft();
+      });
+      $("form textarea, form input").change(function(){
+        unsavedDraft();
+      });
+      $(window).on("beforeunload", function(){
+        if(!window.draft_saved){
+          return "If you leave this page, you’ll lose any changes you made. Please, save them before leaving."
+        }
+      });
+      $("#start").click(function(){
+        startLive();
+      });
+    </script>
+  <% end %>
+<% elsif raffle.status == Raffle::LIVE %>
+  <div class="buttons_section">
+    <div class="button" id="edit_or_save">
+      Edit
+    </div>
+    <button class="button outlined" disabled id="progress_or_cancel">
+      In progress
+    </button>
+  </div>
+  <div class="buttons_section">
+    <a class="button  outlined finish_button has-tip tip-bottom" data-confirm-message="Confirm?" data-tooltip="<%= true %>" href="<%= end_early_client_admin_prizes_path %>" id="end_early" title="End Early, pick a winner">
+      End Early
+    </a>
+    <a class="button  outlined finish_button tip-bottom" data-confirm-message="Confirm?" data-tooltip="<%= true %>" href="<%= cancel_client_admin_prizes_path %>" id="cancel_raffle" title="Cancel, no winner">
+      Cancel
+    </a>
+  </div>
+  <% content_for :javascript do %>
+    <script>
+      $(function() {
+        disableForm();
+        window.prizeFormStatus = 'live_show';
+      });
+      $("#edit_or_save").click(function(){
+        if( window.prizeFormStatus == 'live_show' ){
+          turnLiveEdit();
+        }else{
+          updateRaffle();
+        }
+      });
+      $("#progress_or_cancel").click(function(){
+        turnLiveShow();
+      });
+      $(".finish_button").click(function(e){
+        if( !$(this).hasClass("confirmation") ){
+          e.preventDefault();
+          makeConfirmButton( $(this) );
+        }
+      });
+    </script>
+  <% end %>
+<% else %>
+  <div class="buttons_section">
+    <button class="button full_width" disabled id="period_complete">
+      Prize Period Complete
+    </button>
+  </div>
+  <% content_for :javascript do %>
+    <script>
+      $(function() {
+        disableForm();
+      });
+    </script>
+  <% end %>
+<% end %>

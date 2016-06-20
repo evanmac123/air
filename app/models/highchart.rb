@@ -119,7 +119,7 @@ class Highchart
       #hc.plotOptions(tooltip: {formatter: "function() { return Highcharts.dateFormat('%A, %b %e, %l %p', this.value); }".js_code }) if interval == 'Hourly'
 
       hc.series(name: 'Acts',  data: act_points,  color: '#4FAA60') if plot_acts
-      hc.series(name: 'Users', data: user_points, color: '#4face0') if plot_users
+      hc.series(name: 'Users', data: user_points, color: '#48BFFF') if plot_users
     end
   end
 

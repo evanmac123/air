@@ -23,6 +23,7 @@ class TileBuilderForm
             :position,
             :remote_media_url,
             :remote_media_type,
+            :full_size_image_height,
             :to => :tile
 
   def initialize(demo, options = {})
@@ -123,6 +124,10 @@ class TileBuilderForm
     false
   end
 
+  def image_styles
+    tile.new_record? ? "" : "height:#{tile.full_size_image_height}px;"
+  end
+
   protected
 
   def save_tile
@@ -214,7 +219,6 @@ class TileBuilderForm
     Tile::DRAFT
   end
 
-
   private
 
   def filtered_tile_attributes
@@ -225,17 +229,6 @@ class TileBuilderForm
     }).merge(image_processing_attributes)
   end
 
-  def set_tile_image
-    # TODO Deprecated
-    new_image = image_builder.set_tile_image
-    if new_image == :image_from_library
-      tile_image = image_builder.find_image_from_library
-      tile.image = tile_image.image
-      tile.thumbnail = tile_image.thumbnail
-    elsif new_image != :leave_old
-      tile.image = tile.thumbnail = new_image
-    end
-  end
 
   def image_changed?
     @tile_image_changed ||= @form_params[:remote_media_url].present? && ((@tile.new_record? ) || (@form_params[:remote_media_url] != @tile.remote_media_url))

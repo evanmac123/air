@@ -1,0 +1,59 @@
+<% thumbnail_id = "tile-thumbnail-#{displayable_tile.id}" %>
+<%= cache [__FILE__, 'v1.pwd', displayable_tile, tile_thumbnail_url] do %>
+  <css>
+    
+    ##{thumbnail_id} {
+      background-image: url('#{displayable_tile.thumbnail}');
+    }
+
+
+  </css>
+  <% #Preload base image image to prevent blinking in IE8 %>
+  <img src="<%= displayable_tile.thumbnail %>" style="display: none; visibility: hidden;"/>
+  <div>
+    <%= link_to tile_thumbnail_url, data:{id: displayable_tile.id} do %>
+      <div class="tile-wrapper">
+        <div class="tile_thumbnail_image" id="<%= thumbnail_id %>">
+          <div class="shadow_overlay"></div>
+        </div>
+        <div class="headline">
+          <div>{data: {'for-test' => displayable_tile.headline.downcase.sub(' ', '-')}, class: 'text'}
+            <%= displayable_tile.headline %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+<% js_at_end do %>
+  bindPreflightToEvent('ready', document, '#{displayable_tile.image.url}');
+<% end %>
+
+
+<% cache [__FILE__, 'v11.ant', presenter.cache_key] do %>
+  <%=content_tag :div,  class: "tile_container",  data: {"tile-container-id" =>"#{presenter.tile_id}", "status" => presenter.status} do%>
+    <%=content_tag :div, class: "tile_thumbnail #{presenter.type} #{presenter.completed_class}", id: "single-tile-#{presenter.tile_id}", data: {"tile_id" =>"#{presenter.tile_id}"} do %>
+      <div class="tile-wrapper">
+        <%= link_to presenter.show_tile_path, class:'tile_thumb_link' , data:{action: "show", tile_id: presenter.tile_id} do %>
+          <div class="tile_thumbnail_image">
+            <%= image_tag presenter.thumbnail %>
+          </div>
+          <% if presenter.has_activation_dates? %>
+            <div class="activation_dates">
+              <%= presenter.timestamp %>
+            </div>
+          <% end %>
+          <div class="headline">
+            <div class="text">
+              <%= presenter.headline %>
+            </div>
+          </div>
+          <div class="shadow_overlay"></div>
+          <div class="tile_overlay"></div>
+        <% end %>
+        <%= render partial: 'client_admin/tiles/manage_tiles/tile_buttons', locals: { presenter: presenter } %>
+      </div>
+      <%= render partial: 'client_admin/tiles/manage_tiles/tile_stats', locals: { presenter: presenter } %>
+    <% end %>
+  <% end %>
+<% end %>

@@ -1,0 +1,31 @@
+<div id="tile_wall" class="no-margin-top">
+  <div class="all_tile_thumbnails row">
+    <% @tiles.each do |tile| %>
+      <% present(tile, SingleLibraryTilePresenter, {public_slug: params[:public_slug], type: "user", is_ie: browser.ie?, completed: false}) do |presenter| %>
+        <%= render 'client_admin/tiles/manage_tiles/single_tile', presenter: presenter  %>
+      <%end%>
+    <% end %>
+
+    <% odd_row_length = @tiles.count % tile_row_size %>
+    <% if odd_row_length != 0 || @no_tiles_to_do %>
+      <% (tile_row_size - odd_row_length).times do %>
+        <div class = "tile_container">
+          <div class='placeholder_tile tile_thumbnail'></div>
+        </div>
+      <% end %>
+    <% end %>
+
+    <span id="justifier" style="visibility:hidden; width:35%; display:inline-block;">&nbps;</span>
+  </div>
+
+  <%if @show_more_tiles%>
+    <div id='tile_links'>
+      <%=link_to  stock_board_path(public_slug: params[:public_slug]), class: 'show_more_tiles', data:{contentType: "html"} do %>
+        More
+        <%=image_tag "spinner_gears_bg.gif", :style => 'display: none', :id => 'show_more_tiles_spinner'%>
+      <%end%>
+    </div>
+  <%end%>
+
+
+</div>

@@ -9,7 +9,7 @@
     <%# If we don't need the guest user controls, steal their space for the
     navigation, so we can use it for the current board. %>
     <% unless user.show_user_nav? %>
-      <nav id="navigation" class="columns large-7"> <!-- offcanvas menu -->
+      <nav id="navigation" class="columns large-6"> <!-- offcanvas menu -->
         <%= render 'shared/header/user_options', user: user %>
         <%= render 'shared/header/board_switch_toggler', user: user %>
         <%= render 'shared/header/desktop_board_switcher', user: user %>
@@ -37,11 +37,3 @@
 <% end %>
 
 <%= render 'shared/board_settings/modal', user: user %>
-
-<% if user.show_submit_tile_intro? %>
-  <%= render "shared/header/submit_tile_modal", user: user %>
-<% end %>
-
-<% if user.can_submit_tile? %>
-  <%=render partial: "shared/tile_builder_modals", locals: {context: "suggestion_box"} %>
-<% end %>

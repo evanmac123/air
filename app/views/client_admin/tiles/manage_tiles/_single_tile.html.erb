@@ -1,0 +1,23 @@
+<% cache [__FILE__, 'v11.ant', presenter.cache_key] do %>
+  <%=content_tag :div,  class: "tile_container",  data: {"tile-container-id" =>"#{presenter.tile_id}", "status" => presenter.status} do%>
+    <%=content_tag :div, class: "tile_thumbnail #{presenter.type} #{presenter.completed_class}", id: "single-tile-#{presenter.tile_id}", data: {"tile_id" =>"#{presenter.tile_id}"} do %>
+      <div class="tile-wrapper">
+        <%= link_to presenter.show_tile_path, class:'tile_thumb_link' , data:{action: "show", tile_id: presenter.tile_id} do %>
+          <div class="tile_thumbnail_image">
+            <%= image_tag presenter.thumbnail %>
+          </div>
+          <%= presenter.activation_dates %>
+          <div class="headline">
+            <div class="text">
+              <%= presenter.headline %>
+            </div>
+          </div>
+          <div class="shadow_overlay"></div>
+          <div class="tile_overlay"></div>
+        <% end %>
+        <%= render partial: 'client_admin/tiles/manage_tiles/tile_buttons', locals: { presenter: presenter } %>
+      </div>
+      <%= render partial: 'client_admin/tiles/manage_tiles/tile_stats', locals: { presenter: presenter } %>
+    <% end %>
+  <% end %>
+<% end %>

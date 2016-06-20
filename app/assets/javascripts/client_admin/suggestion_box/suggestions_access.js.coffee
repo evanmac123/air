@@ -20,7 +20,7 @@ modal = ->
   $(modalSelector())
 
 manageAccessBtn = ->
-  $('.manage_access')
+  $('#manage_access')
 
 saveBtn = ->
   $("#save_suggestions_access")

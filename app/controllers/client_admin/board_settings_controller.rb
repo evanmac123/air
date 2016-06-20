@@ -35,7 +35,7 @@ class ClientAdmin::BoardSettingsController < ClientAdminBaseController
   end
 
   def weekly_activity_email
-		@board_membership.send_weekly_activity_report= params[:board_membership][:send_weekly_activity_report]	
+		@board_membership.send_weekly_activity_report= params[:board_membership][:send_weekly_activity_report]
     render json: { success: @board_membership.save }
   end
 
@@ -56,8 +56,37 @@ class ClientAdmin::BoardSettingsController < ClientAdminBaseController
 
   def welcome_message
     @board.persistent_message = params[:demo][:persistent_message]
-    
     render json: { success: @board.save }
+  end
+
+  def cover_message
+    @board.cover_message = params[:demo][:cover_message]
+    render json: { success: @board.save }
+  end
+
+  def cover_image
+    @board.cover_image = if params[:demo].present? && params[:demo][:cover_image].present?
+                          params[:demo][:cover_image]
+                        else
+                          nil # remove
+                        end
+
+    respond_to do |format|
+      if @board.save
+        format.json { render json: { success: true, logo_url: @board.cover_image.url } }
+        format.html do
+          flash[:success] = "Cover image is updated"
+          redirect_to :back
+        end
+      else
+        format.json { render json: { success: false } }
+        format.html do
+          flash[:failure] = "Sorry that doesn't look like an image file. Please use a " +
+                            "file with the extension .jpg, .jpeg, .gif, .bmp or .png."
+          redirect_to :back
+        end
+      end
+    end
   end
 
   protected

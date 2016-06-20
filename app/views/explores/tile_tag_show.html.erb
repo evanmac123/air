@@ -1,4 +1,3 @@
-<%= stylesheet_link_tag 'internal/explore' %>
 <%= mp_track_page 'explore topic' %>
 
 <div class='row'>
@@ -10,13 +9,11 @@
         <% end %>
       </li>
       <li class='tile_tag'>
+        <%= @tile_tag.topic.try(:name) || "No Topic" %>:
         <%= @tile_tag.title %>
-        <%= fa_icon 'tag' %>
       </li>
     </ul>
-  </div>
-</div>
 
-<div class='row tile_with_tags'>
-  <%= render partial: 'tile_with_tags', locals: {tiles: @tiles, tag: @tile_tag,  path_for_more_tiles: @path_for_more_tiles, all_tiles_displayed: @all_tiles_displayed, tag_click_source: 'Explore Topic Page - Clicked Tag On Tile', thumb_click_source: 'Explore Topic Page - Tile Thumbnail Clicked'}%>
+  </div>
+  <%= render partial: 'explores/tile_wall', locals: {tiles: @tiles} %>
 </div>

@@ -4,11 +4,12 @@ class Admin::DemosController < AdminBaseController
 
   def new
     @demo = Demo.new
+    @palette = @demo.build_custom_color_palette
   end
 
   def create
     Demo.transaction do
-      @demo = Demo.new(params[:demo])
+      @demo = Demo.new(permitted_params.demo)
       @demo.save!
       schedule_creation_ping
     end
@@ -30,12 +31,13 @@ class Admin::DemosController < AdminBaseController
   end
 
   def edit
+    @palette = @demo.custom_color_palette || @demo.build_custom_color_palette
   end
 
   def update
-    @demo.attributes = params[:demo]
 
-    if @demo.save
+
+    if @demo.update_attributes(permitted_params.demo)
       flash[:success] = "Demo updated"
       redirect_to admin_demo_path(@demo)
     else

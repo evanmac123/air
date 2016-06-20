@@ -11,12 +11,14 @@ class Demo < ActiveRecord::Base
   has_many :users, through: :board_memberships
   has_many :acts
   has_many :tiles, :dependent => :destroy
+  # NOTE m_tiles is an unfortunate hack to compensate for shitty code implementation of MultipleChoiceTile
+  has_many :m_tiles, :dependent => :destroy, class_name: 'MultipleChoiceTile'
   has_many :locations, :dependent => :destroy
   has_many :characteristics, :dependent => :destroy
   has_many :peer_invitations
   has_many :push_messages
 
-  has_many :tile_completions, through: :tiles 
+  has_many :tile_completions, through: :tiles
   has_many :tile_viewings, through: :tiles
 
   has_many :follow_up_digest_emails
@@ -24,6 +26,9 @@ class Demo < ActiveRecord::Base
   has_one :claim_state_machine
   has_one :custom_invitation_email
   has_one :raffle
+  has_one :custom_color_palette
+  belongs_to :dependent_board, class_name: "Demo", foreign_key: :dependent_board_id, dependent: :destroy
+
 
   validates_inclusion_of :join_type, :in => JOIN_TYPES
 
@@ -39,14 +44,24 @@ class Demo < ActiveRecord::Base
   validates_with EmailFormatValidator, allow_blank: true
 
   before_save :normalize_phone_number_if_changed
+  before_save :override_explore_disabled, on: :create
   after_create :create_public_slug!
 
+  accepts_nested_attributes_for :custom_color_palette
   has_alphabetical_column :name
 
   has_attached_file :logo,
     {
       :styles => {:thumb => ["x46>", :png]},
       :default_style => :thumb,
+      :default_url => "/assets/logo.png",
+      :bucket => S3_LOGO_BUCKET
+    }.merge(DEMO_LOGO_OPTIONS)
+
+  has_attached_file :cover_image,
+    {
+      :styles => {:thumb => ["30x30#", :png]},
+      #:default_style => :thumb,
       :default_url => "/assets/logo.png",
       :bucket => S3_LOGO_BUCKET
     }.merge(DEMO_LOGO_OPTIONS)
@@ -66,7 +81,7 @@ class Demo < ActiveRecord::Base
     end
   end
   include ActsWithCurrentDemoChecked
-  
+
   def activate_tiles_if_showtime
     tiles.activate_if_showtime
   end
@@ -124,7 +139,7 @@ class Demo < ActiveRecord::Base
 
   #NOTE technically position should never be nil so the use of compact should
   #not be necessary here
-  def next_draft_tile_position 
+  def next_draft_tile_position
     (draft_tiles.map(&:position).compact.max ||0) + 1
   end
 
@@ -151,7 +166,7 @@ class Demo < ActiveRecord::Base
     default = "went for a walk"
     example_tooltip.blank? ? default : example_tooltip
   end
-  
+
   def welcome_message(user=nil)
     custom_message(
       :custom_welcome_message,
@@ -261,7 +276,7 @@ class Demo < ActiveRecord::Base
       self.locations.each {|location| breakdown[location] = location.users.count}
     end
   end
-  
+
   def self.number_not_found_response(receiving_number)
     demo = self.where(:phone_number => receiving_number).first
     demo ? demo.number_not_found_response : default_number_not_found_response
@@ -277,15 +292,15 @@ class Demo < ActiveRecord::Base
     else
       name
     end
-  end      
-  
+  end
+
   def print_pending_friendships
     total_friendships = Friendship.where(:user_id => user_ids).count / 2
     number_accepted = Friendship.where(:user_id => user_ids, :state => "accepted").count / 2
     percent = 100.0 * number_accepted / total_friendships
     "#{name} has #{total_friendships} initiated connections, #{number_accepted} of which have been accepted (#{percent}%)"
   end
-  
+
   def ticket_spread
     return nil unless self.uses_tickets
 
@@ -365,7 +380,7 @@ class Demo < ActiveRecord::Base
 	def non_activated? # CUT?  #TODO find a way to do this without doing a query every time.
     self.tiles.active.empty? && self.tiles.where('activated_at IS NOT NULL').count < 1
   end
-  
+
   def has_normal_users?
     (self.users.non_admin.count > 0) || (self.guest_users.count > 0)
   end
@@ -377,6 +392,8 @@ class Demo < ActiveRecord::Base
   def self.default_persistent_message
     "Airbo is an interactive communication tool. Get started by clicking on a tile. Interact and answer questions to earn points."
   end
+
+  
 
   protected
 
@@ -451,4 +468,10 @@ class Demo < ActiveRecord::Base
     tiles.where(status: status).ordered_by_position.map(&:id)
   end
 
+  def override_explore_disabled
+    if EXPLORE_ENABLED
+      self.explore_disabled =false 
+    end
+    true
+  end
 end

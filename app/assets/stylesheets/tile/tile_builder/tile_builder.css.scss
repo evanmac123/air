@@ -1,0 +1,50 @@
+#images_modal{
+  @import "image_library";
+}
+#tile_form_modal {
+  form.new_tile_builder_form {
+    @import "main_inputs";
+    @import "image_uploader";
+    @import "quiz";
+    @import "slider";
+    @import "ie9";
+    .character-counter {
+      margin-top: -25px;
+    }
+  }
+  .tile_form_holder {
+    margin-top: 83px;
+  }
+  .tile_holder {
+    background: white;
+    overflow: hidden;
+    border-radius: 3px;
+  }
+  .tile_holder_container {
+    float: none;
+    width: auto;
+    min-height: 646px;
+    overflow: hidden;
+    padding-top: 20px;
+    padding-bottom: 50px;
+    width: 600px;
+    padding-top: 0px;
+    padding-left: 1px;
+    margin: auto;
+  }
+  .submit_caution {
+    font-size: 14px;
+    color: $white;
+    text-align: center;
+    font-weight: 700;
+    margin-top: 26px;
+  }
+  .edit_mode {
+    color: $white;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 40px;
+    line-height: 43px;
+  }
+}

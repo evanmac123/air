@@ -64,7 +64,7 @@ body.client_admin-prizes {
         }
       }
       a.new_prize{
-        @include light-button($sky-blue);
+        // @include light-button($sky-blue);
         margin: 0;
       }
       .pick_winners_from{
@@ -82,19 +82,19 @@ body.client_admin-prizes {
   .form_section{
     width:34%;
     form{
-      margin-bottom: 4em;
-      textarea{
-        width: 100%;
-        margin-bottom: 0.5em;
-        resize: none;
-      }
-      input, textarea{
-        &:disabled{
-          border-color:transparent;
-        }
-      }
+      // margin-bottom: 4em;
+      // textarea{
+      //   width: 100%;
+      //   margin-bottom: 0.5em;
+      //   resize: none;
+      // }
+      // input, textarea{
+      //   &:disabled{
+      //     border-color:transparent;
+      //   }
+      // }
       .content_section{
-        margin-bottom: 2em; 
+        // margin-bottom: 2em;
         position: relative;
       }
       .duration{
@@ -113,16 +113,16 @@ body.client_admin-prizes {
           width: 46.5%;
         }
       }
-      .outer_tip{
-        color: $med-gray;
-        font-size: 10px;
-        font-weight: 700;
-        padding-top: 0.5em;
-        padding-left: 0.5em;
-      }
+      // .outer_tip{
+      //   color: $med-gray;
+      //   font-size: 10px;
+      //   font-weight: 700;
+      //   padding-top: 0.5em;
+      //   padding-left: 0.5em;
+      // }
       .add_another{
         position: absolute;
-        bottom: 0.46em;
+        bottom: 1.46em;
         left: 0;
         font-size: 12px;
         color: $med-gray;
@@ -134,7 +134,7 @@ body.client_admin-prizes {
       }
       #prizes{
         .prize_section{
-          padding-bottom: 3.5em;
+          padding-bottom: 2.5em;
           &:first-child{
             .remove_prize{
               display: none;
@@ -149,6 +149,7 @@ body.client_admin-prizes {
             font-size: 14px;
             font-weight: 400;
             float: left;
+            margin-top: -25px;
           }
           .character-counter{
             padding-top: 0.4em;
@@ -161,21 +162,12 @@ body.client_admin-prizes {
     }
     .buttons_section{
       display: flex;
+      margin-bottom: 20px;
       .button, button{
-        &#save_draft, &#edit_or_save{
-          @include light-button($sky-blue);
-        }
-        &.blue_button{
-          box-shadow: none;
-          @include app-button($sky-blue); 
-        }
-        &.finish_button{
-          @include light-button($med-gray);
-          &.confirmation{
-            @include light-button($red);
-          }
-        }
         width: 46.5%;
+        // &.confirmation{
+        //   @include light-button($red);
+        // }
         &:nth-child(odd){
           margin-right: 7%;
         }
@@ -219,29 +211,33 @@ body.client_admin-prizes {
         margin-right: 1em;
       }
       label{
-        line-height: 30px;
+        line-height: 41px;
       }
       input[type=text]{
-        height: 30px;
-        color: $text-color;
+        // height: 30px;
+        // color: $text-color;
         text-align: center;
         width: 5em;
       }
       .pick_winners_submit{
         position: relative;
+        overflow: hidden;
         input[type=submit]{
-          @include app-button($sky-blue);
-          width: 10em;
-          &.re-pick{
-            @include light-button($med-gray);
-          }
+          // @include app-button($sky-blue);
+          // width: 10em;
+          // &.re-pick{
+          //   // @include light-button($med-gray);
+          //   &:disabled {
+          //     // @include button-with-spinner($gray-4);
+          //   }
+          // }
           &:disabled{
             color: transparent;// !important;
           }
         }
         #submit_spinner{
           position: absolute;
-          left: 4.5em;
+          left: 2.5em;
           bottom: 0.3em;
         }
       }
@@ -259,82 +255,85 @@ body.client_admin-prizes {
           font-size: 18px;
         }
       }
-      .winners{
-        color: $med-gray;
-        font-size: 14px;
-        p{
-          padding: 0.55em;
-          line-height: 1.5;
-        }
-        table{
-          margin: 0;
-          color: $med-gray;
-          font-size: 10px;
-          .winner_number{
-            text-align: right;
-            padding-right: 0.4em;
-            width: 4%;
-          }
-          .winner_name{
-            text-align: left;
-            padding-left: 0.4em;
-            width: 25%;
-          }
-          .winner_chances{
-            text-align: right;
-            width:10%;
-          }
-          .winner_email{
-            padding-left: 5rem;
-            a{
-              color: $med-gray;
-            }
-          }
-          .winner_delete, .winner_repick{
-            width: 10%;
-            a{
-              color: $sky-blue;
-              visibility: hidden;
-            }
-          }
-          thead{
-            background: $blue;
-            color: $white;
-            text-transform: uppercase;
-            th{
-              border: 0;
-              padding-left: 1em;
-            }
-          }
-          tbody{
-            font-size: 12px;
-            font-weight: 700;
-            tr{
-              &:hover{
-                color: $sky-blue;
-                a{
-                  color: $sky-blue;
-                }
-                .winner_delete a, .winner_repick a{
-                  visibility: visible;
-                }
-                .winner_number, .winner_name, .winner_chances{
-                  color: $text-color;
-                }
-              }
-              &:last-child{
-                td{
-                  border: 0;
-                }
-              }
-            }
-            td{
-              padding-top: 1em;
-              padding-bottom: 1em;
-            }
-          }
-        }
+      table {
+        margin-bottom: 0;
       }
+      // .winners{
+      //   color: $med-gray;
+      //   font-size: 14px;
+      //   p{
+      //     padding: 0.55em;
+      //     line-height: 1.5;
+      //   }
+      //   table{
+      //     margin: 0;
+      //     color: $med-gray;
+      //     font-size: 10px;
+      //     .winner_number{
+      //       text-align: right;
+      //       padding-right: 0.4em;
+      //       width: 4%;
+      //     }
+      //     .winner_name{
+      //       text-align: left;
+      //       padding-left: 0.4em;
+      //       width: 25%;
+      //     }
+      //     .winner_chances{
+      //       text-align: right;
+      //       width:10%;
+      //     }
+      //     .winner_email{
+      //       padding-left: 5rem;
+      //       a{
+      //         color: $med-gray;
+      //       }
+      //     }
+      //     .winner_delete, .winner_repick{
+      //       width: 10%;
+      //       a{
+      //         color: $sky-blue;
+      //         visibility: hidden;
+      //       }
+      //     }
+      //     thead{
+      //       background: $blue;
+      //       color: $white;
+      //       text-transform: uppercase;
+      //       th{
+      //         border: 0;
+      //         padding-left: 1em;
+      //       }
+      //     }
+      //     tbody{
+      //       font-size: 12px;
+      //       font-weight: 700;
+      //       tr{
+      //         &:hover{
+      //           color: $sky-blue;
+      //           a{
+      //             color: $sky-blue;
+      //           }
+      //           .winner_delete a, .winner_repick a{
+      //             visibility: visible;
+      //           }
+      //           .winner_number, .winner_name, .winner_chances{
+      //             color: $text-color;
+      //           }
+      //         }
+      //         &:last-child{
+      //           td{
+      //             border: 0;
+      //           }
+      //         }
+      //       }
+      //       td{
+      //         padding-top: 1em;
+      //         padding-bottom: 1em;
+      //       }
+      //     }
+      //   }
+      // }
     }
     #no_potential_winners_error {
       font-size: 14px;
@@ -400,4 +399,3 @@ body.client_admin-prizes {
     }
   }
 }
-

@@ -2,21 +2,20 @@ var Airbo = window.Airbo || {};
 
 Airbo.TileStatsModal = (function(){
   // Selectors
-  var tileStatsLinkSel = ".tile_stats .stat_action",
-      modalSel = "#tile_stats_modal",
-      modalContentSel = modalSel + " #modal_content",
-      modalBgSel = '.reveal-modal-bg';
-  // DOM elements
-  var modal,
-      modalContent,
-      chart,
-      grid;
+  var tileStatsLinkSel = ".tile_stats .stat_action"
+    , modalId = "tile_stats_modal"
+    , modalObj = Airbo.Utils.StandardModal()
+    ;
+
+  var chart
+    , grid
+    ;
 
   function ajaxResponse(){
     return function (data){
-      modalContent.html(data.page);
+      modalObj.setContent(data.page);
       reloadComponents();
-      modal.foundation("reveal", "open");
+      modalObj.open();
     };
   }
 
@@ -33,32 +32,27 @@ Airbo.TileStatsModal = (function(){
     });
   }
 
-  function modalOpenClose() {
-    $(document).on('open', modalSel, function(){
-      $("body").addClass('overflow_hidden');
-    });
-
-    $(document).on('closed', modalSel, function(){
-      $("body").removeClass('overflow_hidden');
-    });
-  }
-
   function initEvents(){
     $(document).on("click", tileStatsLinkSel, function(e) {
       e.preventDefault();
       getPage( $(this).data("href") );
     });
-    modalOpenClose();
   }
 
   function initVars(){
-    modal = $(modalSel);
-    modalContent = $(modalContentSel);
     chart = Airbo.TileStatsChart;
     grid = Airbo.TileStatsGrid;
   }
 
+  function initModalObj() {
+    modalObj.init({
+      modalId: modalId,
+      useAjaxModal: true
+    });
+  }
+
   function init(){
+    initModalObj();
     initVars();
     initEvents();
   }
@@ -68,7 +62,9 @@ Airbo.TileStatsModal = (function(){
 }());
 
 $(function(){
-  if( $(".client_admin-tiles.client_admin-tiles-index.client_admin_main").length > 0 ){
+  var mainTilePage = $(".client_admin-tiles.client_admin-tiles-index.client_admin_main");
+  var archivedTilePage = $(".client_admin-inactive_tiles.client_admin-inactive_tiles-index.client_admin_main");
+  if( mainTilePage.length > 0 || archivedTilePage.length > 0){
     Airbo.TileStatsModal.init();
   }
 });

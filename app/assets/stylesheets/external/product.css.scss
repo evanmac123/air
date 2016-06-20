@@ -1,4 +1,101 @@
 body.pages.pages-product{
+  .button{
+    box-shadow: none;
+  }
+  background: $white;
+  #pageHeader{
+    background: #4eace0;box-shadow: none;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    position: relative;
+    .logo {
+      height: 50px;
+      width: 110px;
+      img{
+        width: 80px;
+      }
+    }
+    .headerMenu{
+      width: 380px;
+      padding-top: 15px;
+      float: right;
+      ul{
+        li{
+          font-size: 18px;
+          display: inline;
+          margin-right: 50px;
+          &:last-child {
+            margin-right: 0;
+          }
+          a{
+            color: #fff;
+            font-weight: 400;
+          }
+        }
+      }
+    }
+    .signin{
+      height: 50px;
+      width: 125px;
+      float: right;
+      a{
+        @include app-button($light-blue);
+        padding: 10px 20px;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        float: right;
+        font-size: 18px;
+        width: 110px;
+      }
+    }
+  }
+  .regFormSection{
+    overflow: auto;
+    #regForm{
+      max-width: 1075px;
+      margin: 20px auto 80px auto;
+      padding: 0 15px;
+      ul{
+        overflow: hidden;
+        li{
+          float: left;
+          font-size: 14px;
+          input[type="text"], input[type="password"]{
+            border-color: $light-gray;
+            border-radius: 3px;
+            padding: 4px 10px;
+            height: 40px;
+          }
+        }
+      }
+      #create_account_btn{
+        @include app-button($sky-blue);
+        padding: 10px 20px;
+        height: 40px;
+      }
+    }
+  }
+  #pageFtr{
+    background: $almost-white;
+    box-shadow: 0px 1px 6px 1.2px $med-gray;
+    position: relative;
+    .ftrMenu{
+      text-align: center;
+      padding: 10px;
+    }
+    li{
+      font-size: 14px;
+      display: inline;
+      margin-right: 50px;
+      &:last-child{margin-right: 0;}
+      a{
+        color: $dark-gray;
+        font-weight: 500;
+      }
+    }
+  }
+}
+body.pages.pages-product{
   .heading{
     font-size: 24px;
     color: $sky-blue;
@@ -154,7 +251,7 @@ body.pages.pages-product{
         position: relative;
         min-height: 267px;
         .slide{
-          background: #4face0;
+          background: $n-blue;
           border-radius: 4px;
           padding: 40px 60px 60px;
           color: #fff;
@@ -183,7 +280,7 @@ body.pages.pages-product{
           text-align: center;
           a{
             color: $white;
-          } 
+          }
         }
       }
     }

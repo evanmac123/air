@@ -1,0 +1,11 @@
+<div class="row">
+  <div class="columns small-12">
+    <h1>Edit <%=@billing.contract_name%> <%=@billing.posted%></h1>
+
+<%= render 'form' %>
+
+
+<%= link_to 'Show', [:admin, @billing] %> |
+<%= link_to 'Back', admin_billings_path %>
+  </div>
+</div>

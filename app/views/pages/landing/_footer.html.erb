@@ -1,0 +1,21 @@
+<footer id="pageFtr" class="bg-whitish">
+  <%=content_for :footer%>
+  <div class="row page_footer_section">
+    <div class="menu_block columns large-7">
+      <ul class="ftrMenu">
+        <%= render partial: "pages/landing/menu" %>
+      </ul>
+    </div>
+    <div class="columns large-5 contacts_block">
+      <a href="/"><%= image_tag "landing/logo-blue.png", alt: "Airbo" %></a>
+      <div class="contacts">
+        <span>
+          Questions? Call us 
+        </span>
+        <span>
+          at 1-866-646-4402
+        </span>
+      </div>
+    </div>
+  </div>
+</footer>

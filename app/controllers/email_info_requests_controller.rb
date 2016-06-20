@@ -6,13 +6,13 @@ class EmailInfoRequestsController < ApplicationController
 
   def create
     hash = {
-      email:   params[:contact_email],
-      name:    params[:contact_name],
-      comment: params[:contact_comment],
-      role:    params[:contact_role],
-      size:    params[:contact_size],
-      company: params[:contact_company],
-      source:  params[:source]
+      email:   params[:contact_email].to_s,
+      name:    params[:contact_name].to_s,
+      comment: params[:contact_comment].to_s,
+      role:    params[:contact_role].to_s,
+      size:    params[:contact_size].to_s,
+      company: params[:contact_company].to_s,
+      source:  params[:source].to_s
     }
 
     request = EmailInfoRequest.create!(hash)

@@ -1,6 +1,6 @@
 /* layout/reset/fonts/etc */
 $dark-green: #588b3d;
-$gotham: 'Ubuntu', Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+// $gotham: 'Ubuntu', Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
 a {
 	text-decoration:none!important;
@@ -122,7 +122,7 @@ ul {list-style-position:outside; list-style-type:none; margin:0; padding:0;}
 	@include rounded-nav;
 	border:0;
 	color:#fff;
-	font-family:$gotham;
+	// font-family:$gotham;
 	font-size:11px!important;
 	font-weight: bold;
 	padding:5px 15px;
@@ -138,7 +138,7 @@ ul {list-style-position:outside; list-style-type:none; margin:0; padding:0;}
 }
 @mixin heading-black {
 	color:$dark-gray;
-	font-family:$gotham;
+	// font-family:$gotham;
 	font-size:20px;
 	font-weight: 900;
 	padding-bottom:15px;
@@ -146,7 +146,7 @@ ul {list-style-position:outside; list-style-type:none; margin:0; padding:0;}
 }
 @mixin heading-gray {	
 	color:$gray;
-	font-family:$gotham;
+	// font-family:$gotham;
 	font-size:14px;
 	font-weight:900;
 	padding:$gutter 0;
@@ -177,7 +177,7 @@ ul {list-style-position:outside; list-style-type:none; margin:0; padding:0;}
 }
 @mixin orange-text {
 	color:#ffb901;
-	font-family:$gotham;
+	// font-family:$gotham;
 	font-weight:700;
 	text-shadow:1px 1px 1px darken(#ffb901, 20%);
 	text-transform:uppercase;

@@ -10,9 +10,37 @@ require 'rspec/autorun'
 require 'mocha/setup'
 require 'capybara/poltergeist'
 
+require 'capybara-screenshot/rspec'
+Capybara::Screenshot.autosave_on_failure = false
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+
+# Regarding Poltergeist vs. Capy-Webkit: We prefer the former over the latter for JS testing.
+# However, there are some tests that work fine with Webkit but not with Poltergeist.
+# Rather than shave that yak, you can use Webkit on a single scenario by giving the options
+# js: true, driver: :webkit.
+
+Capybara.javascript_driver = :poltergeist
+
+# Uncomment these lines for debug output
+#Capybara.register_driver :poltergeist do |app|
+#  Capybara::Poltergeist::Driver.new(app, debug: true)
+#end
+Capybara.register_driver :poltergeist do |app|
+ Capybara::Poltergeist::Driver.new(app, timeout: 600, block_unknown_urls: true)
+end
+
+Capybara.register_driver :webkit do |app|
+  Capybara::Webkit.configure do |config|
+    config.block_unknown_urls
+  end
+  Capybara::Webkit::Driver.new(app, timeout: 600, block_unknown_urls: true)
+end
+
+
+
+
 
 RSpec.configure do |config|
   config.mock_with :mocha
@@ -62,26 +90,6 @@ RSpec.configure do |config|
   #end
 end
 
-# Regarding Poltergeist vs. Capy-Webkit: We prefer the former over the latter for JS testing.
-# However, there are some tests that work fine with Webkit but not with Poltergeist.
-# Rather than shave that yak, you can use Webkit on a single scenario by giving the options
-# js: true, driver: :webkit.
-
-Capybara.javascript_driver = :poltergeist
-
-# Uncomment these lines for debug output
-#Capybara.register_driver :poltergeist do |app|
-#  Capybara::Poltergeist::Driver.new(app, debug: true)
-#end
-Capybara.register_driver :poltergeist do |app|
- Capybara::Poltergeist::Driver.new(app, timeout: 600)
-end
-Capybara.register_driver :webkit do |app|
- Capybara::Webkit::Driver.new(app, timeout: 600)
-end
-
-require 'capybara-screenshot/rspec'
-Capybara::Screenshot.autosave_on_failure = false
 
 # Hack to allow us to use regular controller tests to test, among others, SmsController
 # (which is an ActionController::Metal).
@@ -93,4 +101,3 @@ def metal_testing_hack(klass)
     include Rails.application.routes.url_helpers
   end
 end
-

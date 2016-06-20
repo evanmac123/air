@@ -1,39 +1,39 @@
-/* ---------- masthead ---------- */
-.app_bar {
-	background-color:$dark-gray;
-	color:$gray;
-	@include font-regular;;
-	padding-top:.35em;
-	padding-bottom:.35em;
-	&:after{@include clear;}
-	
-	a, a:link, a:visited {
-		@include font-regular;;
-		color:$med-gray;
-		text-decoration: none;
-		&:hover {color:$dark-green;}
-		&:active {
-			color:$dark-gray!important; 
-			text-shadow: none!important;
-		}
-	}
-	li {
-		display:inline;
-		position:relative;
-		.nav-contact-us:before {
-			background:url('client_admin/sprites.png') top left no-repeat transparent;
-			display:inline-block;
-			content:"";
-			margin-right:.35em;
-			position:relative;
-			vertical-align: middle;
-			width:18px;
-			height:18px;
-		}
-	}
-	.app_by, .app_settings {font-size:.875em;}
-	.app_settings {
-		text-align: right;
-		li {padding-left:20px; font-size: 12px;}
-	}
-}
+// /* ---------- masthead ---------- */
+// .app_bar {
+// 	background-color:$dark-gray;
+// 	color:$gray;
+// 	@include font-regular;;
+// 	padding-top:.35em;
+// 	padding-bottom:.35em;
+// 	&:after{@include clear;}
+//
+// 	a, a:link, a:visited {
+// 		@include font-regular;;
+// 		color:$med-gray;
+// 		text-decoration: none;
+// 		&:hover {color:$dark-green;}
+// 		&:active {
+// 			color:$dark-gray!important;
+// 			text-shadow: none!important;
+// 		}
+// 	}
+// 	li {
+// 		display:inline;
+// 		position:relative;
+// 		.nav-contact-us:before {
+// 			background:url('client_admin/sprites.png') top left no-repeat transparent;
+// 			display:inline-block;
+// 			content:"";
+// 			margin-right:.35em;
+// 			position:relative;
+// 			vertical-align: middle;
+// 			width:18px;
+// 			height:18px;
+// 		}
+// 	}
+// 	.app_by, .app_settings {font-size:.875em;}
+// 	.app_settings {
+// 		text-align: right;
+// 		li {padding-left:20px; font-size: 12px;}
+// 	}
+// }

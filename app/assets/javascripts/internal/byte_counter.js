@@ -69,6 +69,8 @@ function addCounter(locator, countUpdater) {
       countUpdater(locator, '#'+ghettoUniqueId);
     }, 1);
   });
+  $(locator).addClass("with_counter");
+  
   return ghettoUniqueId;
 }
 

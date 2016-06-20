@@ -1,0 +1,62 @@
+@mixin standard-modal($container-width: 1007px, $content-width: 700px) {
+  // background: rgba(14, 23, 29, 0.8);
+  background: transparent;
+  position: fixed;
+  padding: 50px 30px;
+  // padding-right: 67px;
+  width: 100%;
+  margin: 0;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+  border-width: 0;
+  .modal_container {
+    position: relative;
+    width: 100%;
+    max-width: $container-width;
+    padding-top: 0px;
+    margin: auto;
+  }
+  .close-reveal-modal {
+    position: fixed;
+    top: 47px;
+    right: auto;
+    left: 50%;
+    margin-left: 510px;
+    color: $white;
+    i {
+      font-size: 32px;
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+    &.stickable {
+      position: absolute;
+      top: 0;
+      &.sticky {
+        position: fixed;
+        right: auto;
+        left: auto;
+        margin-left: 0;
+      }
+    }
+  }
+  #modal_content {
+    margin: auto;
+    width: 100%;
+    // max-width: $content-width;
+  }
+  @media only screen and (max-width: 900px) {
+    padding: 16px;
+    padding-top: 50px;
+    .close-reveal-modal {
+      position: absolute;
+      top: -43px;
+      right: 0px;
+      left: auto;
+      margin: 0;
+    }
+  }
+}

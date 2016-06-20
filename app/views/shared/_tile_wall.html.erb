@@ -2,37 +2,36 @@
 <% completed_tiles ||= nil %>
 <% tags ||= [] %>
 <% selected_tag_id ||= nil %>
+<% hdr_text ||= nil %>
 <% tiles_length =  not_completed_tiles.try(:length).to_i + completed_tiles.try(:length).to_i %>
 
 <div id="tile_wall">
+  <%=content_tag :h1, hdr_text, class:"tile-wall-header text-center padded-v-20" if hdr_text %>
   <%= render 'shared/tile_tags', tags: tags %>
 
   <div class="all_tile_thumbnails row">
     <% if not_completed_tiles.present? %>
       <% not_completed_tiles.each do |tile| %>
-        <div class="tile_thumbnail">
-          <div class='not-completed'>
-            <%= render 'shared/displayable_tile', displayable_tile: tile, tile_thumbnail_url: tile_thumbnail_target(tile, selected_tag_id) %>
-          </div>
-        </div>
+        <% present(tile,SingleTilePresenter, {public_slug: params[:public_slug], type: "user", is_ie: browser.ie?, completed: false}) do |presenter| %>
+        <%= render 'client_admin/tiles/manage_tiles/single_tile', presenter: presenter %>
       <% end %>
-    <% end %>       
+      <% end %>
+    <% end %>
     <% if completed_tiles.present? %>
       <% completed_tiles.each do |tile| %>
-        <div class="tile_thumbnail">
-          <div class='completed'>
-            <%= render 'shared/displayable_tile', displayable_tile: tile, tile_thumbnail_url: tile_thumbnail_target(tile, selected_tag_id) %>
-         </div>
-        </div>
+        <% present(tile,SingleTilePresenter, {public_slug: params[:public_slug], type: "user", is_ie: browser.ie?, completed: true}) do |presenter|%>
+        <%= render 'client_admin/tiles/manage_tiles/single_tile', presenter: presenter %>
       <% end %>
-    <% end %>       
+      <% end %>
+    <% end %>
     <% odd_row_length = tiles_length % tile_row_size %>
     <% if odd_row_length != 0 || @no_tiles_to_do %>
       <% (tile_row_size - odd_row_length).times do %>
-        <div class='placeholder_tile tile_thumbnail'></div>
+        <div class="tile_container placeholder_container">
+          <div class="tile_thumbnail placeholder_tile"></div>
+        </div>
       <% end %>
     <% end %>
-    <span id="justifier" style="visibility:hidden; width:35%; display:inline-block;">&nbps;</span>
-    <%= render 'shared/tiles_wall_client_admin_tools', disable_button: all_tiles_displayed %>
   </div>
+  <%= render 'shared/tiles_wall_client_admin_tools', disable_button: all_tiles_displayed %>
 </div>

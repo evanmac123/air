@@ -7,16 +7,19 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <meta name="format-detection" content="telephone=no">
+
     <title>Welcome to Airbo</title>
 
     <%= render "shared/opengraph_meta_tags" %>
     <%= render 'shared/mixpanel' %>
+    <%= render 'shared/inspectlet' %>
     <%= mp_track_page @page_name_for_mixpanel if @page_name_for_mixpanel.present? %>
     <%= stylesheet_link_tag 'app-landing' %>
+    <%= javascript_include_tag "https://api.intercom.io/api/js/library.js" %>
     <%= javascript_include_tag 'app-landing' %>
     <%= mobvious_javascript %>
-    
+
     <!--[if lt IE 9]>
       <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
       <style type="text/css">
@@ -26,17 +29,23 @@
     <![endif]-->
     <%= javascript_include_tag asset_path('ga.js') if ENV['USE_GA'] %>
     <%= render 'shared/nerf_animations_in_test' %>
+
+  <%= content_for :head %>
+
   </head>
-  <body class="<%= body_class %> landing" style="-webkit-overflow-scrolling: touch; overflow:visible;">
+  <body class="<%= body_pages_class %> landing" style="-webkit-overflow-scrolling: touch; overflow:visible;">
     <%= render 'pages/qualaroo_marketing' %>
     <%= render 'shared/flashes' %>
 
     <%= yield %>
 
-    <%= render "shared/request_demo" %>
+    <%= render partial: "acts/public_board/schedule_demo_modal" %>
 
+    <%= render :partial => 'shared/modals/modals' %>
+
+    <%= render 'shared/intercom' %>
     <%= javascript_include_tag asset_path('ga-marketing.js') if ENV['USE_GA'] %>
-    <%= yield :javascript %>  
+    <%= yield :javascript %>
     <%= javascript_include_tag 'jquery.lightbox_me' %>
     <%= javascript_include_tag 'rem.min.js' %>
   </body>

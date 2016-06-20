@@ -1,0 +1,132 @@
+<div class="row">
+  <div class="columns small-8 small-centered">
+    <%= form_for([:admin,  @contract]) do |f| %>
+      <%= f.hidden_field :organization_id %>
+      <%= f.hidden_field :parent_contract_id %>
+      <% if @contract.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@contract.errors.count, "error") %> prohibited this contract from being saved:</h2>
+
+          <ul>
+            <% @contract.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="row">
+        <table class="first-column-header">
+          <% if @contract.parent_contract.present?%>
+            <tr>
+              <th>Parent Contract</th> <td><%=link_to @contract.parent_contract.name, admin_contract_path(@contract.parent_contract)%></td>
+            </tr>
+          <%end%>
+          <tr>
+            <th>Customer</th><td><%=link_to @contract.organization_name,admin_organization_path(@contract.organization) %></td></div>
+          </tr>
+        </table>
+      </div>
+
+      <div class="row">
+        <hr/>
+        <div class="columns small-5">
+          <div class="row">
+            <%= f.label :name %>
+            <%= f.text_field :name %>
+          </div>
+
+          <div class="row">
+            <%= f.label :start_date %>
+            <%= f.text_field :start_date, type: :date%>
+          </div>
+
+          <div class="row end_date">
+            <%= f.label :end_date %>
+            <%= f.text_field :end_date, type: :date%>
+          </div>
+
+          <div class="row">
+            <%= f.label :cycle %>
+            <%= f.select :cycle, [Contract::ANNUAL, Contract::SEMI_ANNUAL, Contract::QUARTERLY, Contract::MONTHLY, Contract::CUSTOM]  %>
+          </div>
+
+          <div class="row">
+            <%= f.label :term %>
+            <%= f.text_field :term %>
+          </div>
+
+          <div class="row">
+            <%= f.label :max_users %>
+            <%= f.text_field :max_users %>
+          </div>
+
+          <div class="row ">
+            <%= f.label :amt_booked %>
+            <%= f.text_field :amt_booked %>
+          </div>
+
+        </div>
+        <div class="columns small-5">
+          <div class="row">
+            <div class="inline-input-group">
+              <label >Plan Name</label>
+              <label class="radio inline"><%=f.radio_button :plan,"Activate" %>Activate</label>
+              <label class="radio inline"><%=f.radio_button :plan,"Engage" %>Engage</label>
+              <label class="radio inline"><%=f.radio_button :plan,"Enterprise" %>Enterprise</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="inline-input-group">
+              <label>Revenue Estimate Type</label>
+              <label class="checkbox inline">
+                <%=f.check_box :is_actual%>
+                Actual<span class="mini-text"> (Uncheck  if projection)</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="inline-input-group">
+              <label>Recurring Revenue Type</label>
+              <label class="radio inline"><%=f.radio_button :revenue_basis, "annual", id: "opt_arr" %>Annual</label>
+              <label class="radio inline"><%=f.radio_button :revenue_basis, "monthly", id: "opt_mrr" %>Monthly</label>
+            </div>
+          </div>
+
+          <div class="row revenue <%=@contract.revenue_basis=='monthly' ? 'hidden': ''%>">
+            <%= f.label :arr, "Annual Recurring Revenue (ARR)" %>
+            <%= f.text_field :arr , class: "recurring-amt", disabled: @contract.revenue_basis=='monthly'%>
+          </div>
+
+          <div class="row revenue <%=@contract.revenue_basis=='annual' ? 'hidden': ''%>">
+            <%= f.label :mrr, "Monthly Recurring Revenue (MRR)" %>
+            <%= f.text_field :mrr, class: "recurring-amt", disabled: @contract.revenue_basis=='annual'%>
+          </div>
+
+          <div class="row">
+            <label id="calc_rev_label" class="disabled"><%="Calculated #{@contract.alt_revenue_basis} Recurring Revenue "%></label>
+            <%=text_field_tag "rev",@contract.calculated_rr,  id: "calculated_revenue", readonly: "readonly",  class:"disabled" %> 
+          </div>
+
+          <div class="row">
+            <%= f.label :date_booked %>
+            <%= f.text_field :date_booked, type: :date %>
+          </div>
+
+        </div>
+      </div>
+      <div class="row">
+        <%= f.label :notes %>
+        <%= f.text_area :notes %>
+      </div>
+      <div class="actions">
+        <div class="righty">
+        <%= f.submit "Submit", class: "button"  %> 
+        <%=link_to "Cancel", admin_contracts_path,  class: "button outlined"  %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,124 @@
+@import './tile/tile_fullsize/tiles_fullsize';
+@import './tile/tile_builder/tile_builder';
+@import './client_admin/tile_manager/_joyride_tip_guide';
+
+@import './client_admin/tile_manager/draft_section';
+@import './client_admin/tile_manager/suggestion_access';
+
+@import './tile/tile_thumbnail/tiles_thumbnails';
+@import './tile/tile_thumbnail/tiles_thumbnails_desktop';
+@import './tile/tile_thumbnail/tiles_thumbnails_controls';
+@import './tile/tile_thumbnail/tiles_thumbnails_small_with_controls';
+@import './tile/tile_thumbnail/tiles_thumbnails_transition';
+
+@import "mixins/green_paddle_switch";
+
+body.client_admin-tiles-index,
+body.client_admin-inactive_tiles {
+  //
+  // => General styles
+  //
+  .core {
+    background: $off-white;
+  }
+  .content {
+    background: $off-white;
+    padding: 0;
+  }
+  .manage_tiles {
+    position: relative;
+
+    h4{
+      display: inline-block;
+      margin-bottom: 2em;
+      margin-left: 1.5em;
+      margin-top: 10px;
+    }
+  }
+  // .tile_container {
+  //   min-width: 24%;
+  //   text-align: center;
+  //   float: left;
+  //   padding-bottom: 1.5rem;
+  //   height: 400px;
+  // }
+  .download_csv, .minimize {
+    float: right;
+
+    &:hover {
+      color: #666666;
+      border-color: #8c8c8c;
+    }
+  }
+  .switch{
+    @include green-paddle-switch;
+    @include switch-size(16px, 9px, 2.3em);
+  }
+  //
+  // => Show All Btns
+  //
+  .show_all_section {
+    &.show_all_draft_section {
+      background: $almost-white;
+      margin-top: -4px;
+    }
+    .button_container {
+      position: relative;
+      height: 60px;
+      margin-left: -45px;
+    }
+  }
+  .all_draft, .all_inactive {
+    width: 100px;
+    display: block;
+    margin: auto;
+  }
+  //
+  // => Archive section
+  //
+  #archived_tiles{
+    background: $off-white;
+    position: relative;
+    #archive{
+      &:after{ @include clear; }
+    }
+    .tile_thumbnail.placeholder_tile {
+      border-color: $almost-white;
+    }
+  }
+  //
+  // => Other sections
+  //
+  #active_tiles, #submitted_tiles, #accepted_tiles, #posted_tiles {
+    padding:2em 0 0 0;
+    z-index: 1;
+    #active{
+      &:after{ @include clear; }
+    }
+  }
+  #active_tiles {
+    box-shadow: 0px 1px 6px 1.2px $med-gray;
+    background: $almost-white;
+  }
+  #submitted_tiles, #accepted_tiles, #posted_tiles, #archived_tiles {
+    box-shadow: 0px -6px 7px -5.8px $med-gray;
+  }
+  #archived_tiles {
+    padding:2em 0 0 0;
+  }
+  @media only screen and (max-width: 1200px) {
+    #add_new_tile {
+      right: 44px;
+    }
+    .download_csv, .minimize {
+      right: 64px;
+    }
+  }
+}
+
+
+.topics {
+  @include topic-set;
+  background: transparent;
+}
+

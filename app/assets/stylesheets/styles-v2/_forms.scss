@@ -1,0 +1,259 @@
+/* Standard Form Elements */
+
+form {
+  width: 100%;
+  &.inline {
+    span.label {
+      margin-right: 10px;
+    }
+    input[type=text], input[type=email] {
+      width: 250px;
+      margin-right: 10px;
+      margin-bottom: 0;
+    }
+    .button {
+      height: 37px;
+      // width: 75px;
+      margin-top: -4px;
+      font-size: 16px;
+    }
+    // span, input[type=text], input[type=email], .button {
+    //   margin-bottom: 20px;
+    // }
+    @media only screen and (max-width: $foundation) {
+      span, input[type=text], input[type=email], .button {
+        display: block;
+        width: 100%;
+        margin-bottom: 20px;
+      }
+      .horizontal {
+        display: block;
+      }
+    }
+  }
+}
+
+label {
+  font-size: $font-size-1;
+  @include font-weight-bold;
+  color: $text-color-1;
+  margin: 0 0 10px;
+  display: block;
+  &.disabled{
+   color: $gray-5;
+  }
+}
+
+input[type=url],
+input[type=text],
+input[type=tel],
+input[type=number],
+input[type=date],
+input[type=email],
+input[type=password],
+input[type=file],
+select,
+textarea {
+  background-color: $n-white;
+  border: 1px solid $border-color-1;
+  font-size: $font-size-2;
+  margin: 0 0 20px;
+  padding: 0.5em;
+  outline: 0;
+  width: 100%;
+  @include radius(3px);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  box-shadow: none;
+  &:hover {
+    background-color: $gray-1;
+    box-shadow: none;
+  }
+
+  &:focus {
+    background-color: $n-white;
+    border-color: $n-blue;
+    box-shadow: none;
+    &.disabled{
+
+    border-color:$border-color-1;
+    }
+  }
+
+  &.error {
+    border-color: $n-red;
+  }
+  &.disabled{
+    background-color: $gray-6;
+    border-color: $gray-6;
+    color: $gray-5;
+  }
+}
+
+textarea#dependent_user_invitation_body{
+  line-height:1.5em;
+  resize:none;
+}
+
+
+/* Character counter for text and textarea*/
+.character-counter {
+  color:$gray-5;
+  float:right;
+  font-size:10px;
+  @include font-weight-bold;
+  text-transform: uppercase;
+  padding-top:.5em;
+  margin-top: -15px;
+  margin-right: 3px;
+  &.exceeded_maxlength_counter {
+    color: #FF0000;
+  }
+}
+
+// input[type="submit"],
+// button {
+//   @include button;
+// }
+
+select { // TODO: fix with JS select replace; using crappy available image here as stand in
+  background: url(/assets/down_triangle.png) no-repeat right center $n-white;
+  background-size: 10px 5px;
+  background-position-x: 98%;
+  padding-right: 25px;
+}
+
+label.radio,
+label.checkbox {
+  font-size: $font-size-2;
+  font-weight: normal;
+  margin-bottom: 15px;
+
+  input {
+    margin-right: 6px;
+  }
+
+  &.small {
+    font-size: $font-size-1;
+  }
+}
+
+.input-group { // TODO: not sure this is needed
+  margin: 20px 0;
+}
+
+.inline-input-group {
+  margin-bottom: 41px;
+  label.radio.inline {
+    margin-right:15px;
+  }
+}
+
+/* Custom Form Elements */
+
+.switch-container {
+  margin: 20px 0;
+
+  .label {
+    display: inline;
+    font-size: $font-size-1;
+  }
+
+  .switch {
+    @include ease(0.2s);
+    background-color: $gray-3;
+    border: 1px solid $border-color-1;
+    @include radius(15px);
+    cursor: pointer;
+    display: inline-block;
+    height: 25px;
+    margin: 0 5px;
+    position: relative;
+    vertical-align: middle;
+    width: 55px;
+
+    &:hover {
+      background-color: $gray-1;
+
+      .indicator {
+        border-color: $n-blue;
+      }
+    }
+  }
+
+  .indicator {
+    @include ease(0.2s);
+    background-color: $n-white;
+    border: 1px solid $gray-3;
+    @include radius(13px);
+    display: inline-block;
+    position: absolute;
+    height: 23px;
+    right: 30px;
+    top: 0;
+    width: 23px;
+  }
+
+  &.on {
+    .switch {
+      background-color: $n-blue;
+      border-color: $n-blue;
+      @include linear-gradient-horizontal(darken($n-blue, 5%), lighten($n-blue, 10%));
+    }
+
+    .indicator {
+      border-color: $n-blue;
+      right: 0;
+    }
+
+    &:hover {
+      .indicator {
+        background-color: $gray-3;
+        border-color: $n-blue;
+      }
+    }
+  }
+}
+
+.progress-bar { //TODO: maybe move to charts or something
+  background-color: $gray-3;
+  border: 1px solid $border-color-1;
+  @include radius(5px);
+  height: 10px;
+  margin: 0 5px;
+  position: relative;
+  vertical-align: middle;
+  width: 100%;
+
+  .indicator {
+    background-color: #CCCCCC;
+    @include radius(5px);
+    height: 8px;
+  }
+
+  &.green {
+    .indicator {
+      @include linear-gradient-horizontal($n-green, lighten($n-green, 10%));
+    }
+  }
+}
+
+
+.hero_content #request_form.inline {
+  span.label{
+    margin:20px 0px;
+    display:block;
+  }
+
+}
+
+#request_form {
+  .info{
+    padding: 20px;
+    float: none;
+    .greeting_after {
+      color: #FFF;;
+    }
+  }
+}

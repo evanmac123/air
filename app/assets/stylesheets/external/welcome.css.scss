@@ -1,254 +1,262 @@
-body.pages-show.landing, body.pages.pages-product{
-  .button{
-    box-shadow: none;
-  }
-  background: $white;
-  #pageHeader{
-    background: #4eace0;box-shadow: none;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    position: relative;
-    .logo {
-      height: 50px;
-      width: 110px;
-      img{
-        width: 80px;
-      }
-    }
-    .headerMenu{
-      width: 380px;
-      padding-top: 15px;
-      float: right;
-      ul{
-        li{
-          font-size: 18px;
-          display: inline;
-          margin-right: 50px;
-          &:last-child {
-            margin-right: 0;
-          }
-          a{
-            color: #fff;
-            font-weight: 400;
-          }
-        }
-      }
-    }
-    .signin{
-      height: 50px;
-      width: 125px;
-      float: right;
-      a{
-        @include app-button($light-blue);
-        padding: 10px 20px;
-        margin-top: 10px;
-        margin-bottom: 20px;
-        float: right;
-        font-size: 18px;
-        width: 110px;
-      }
-    }
-  }
-  .regFormSection{
-    overflow: auto;
-    #regForm{
-      max-width: 1075px;
-      margin: 20px auto 80px auto;
-      padding: 0 15px;
-      ul{
-        overflow: hidden;
-        li{
-          float: left;
-          font-size: 14px;
-          input[type="text"], input[type="password"]{
-            border-color: $light-gray;
-            border-radius: 3px;
-            padding: 4px 10px;
-            height: 40px;
-          }
-        }
-      }
-      #create_account_btn{
-        @include app-button($sky-blue);
-        padding: 10px 20px;
-        height: 40px;
-      }
-    }
-  }
-  #pageFtr{
-    background: $almost-white;
-    box-shadow: 0px 1px 6px 1.2px $med-gray;
-    position: relative;
-    .ftrMenu{
-      text-align: center;
-      padding: 10px;
-    }
-    li{
-      font-size: 14px;
-      display: inline;
-      margin-right: 50px;
-      &:last-child{margin-right: 0;}
-      a{
-        color: $dark-gray;
-        font-weight: 500;
-      }
-    }
-  }
-}
-body.pages-show.landing{
-  main {
-    background-image: url("marketing/welcome_page/hero_dark.png");
-    background-repeat: no-repeat;
-    background-size: 100%;
-    background-position-x: center;
-    h1.heading {
-      color: $white;
-      padding-top: 12%;
-      margin: 0;
-      text-align: center;
-      font-size: 48px;
-      font-weight: 400;
-    }
-    h2.sub_heading {
-      color: $white;
-      font-size: 26px;
-      text-align: center;
-      padding: 55px;
+body.pages-welcome.landing {
+
+  .clients{
+    // margin-top: 30px;
+    // max-width: 900px !important;
+    // text-align: center;
+    background-color: #f7f8fa;
+    padding: 50px 20px;
+    h5{
+      display: block;
       margin: auto;
-      max-width: 1070px;
+      // margin-bottom: 25px;
+      text-align: center;
+      // max-width: 657px;
+      font-size: 20px;
+      font-weight: 300;
+      line-height: 24px;
+      color: #949799;
+      text-transform: none;
+      margin-bottom: 30px;
+      padding-left: 15px;
+      padding-right: 15px;
     }
-    #regForm{
-      max-width: 1075px;
-      ul{
-        float: left;
-        width: 80%;
-        padding-right: 1px;
-        li{
-          width: 25%;
-          input{
-            width: 99%;
-          }
-        }
-      }
-      #create_account_btn{
-        width: 20%;
-        float: left;
-      }
-    }
-    .tiles{
-      position: relative;
+    .client_logos {
+      max-width: 680px;
+      margin: auto;
       overflow: auto;
-      max-width: 1000px;
+      img {
+        display: block;
+        margin: auto;
+      }
+    }
+    // .columns{
+    //   text-align: center;
+    //   img[alt="Fujifilm"]{
+    //     padding-top: 26px;
+    //   }
+    //   img[alt="Heineken"], img[alt="Cat"]{
+    //     padding-top: 17px;
+    //   }
+    // }
+  }
+
+  .money {
+    padding: 80px 20px 100px;
+    // .money_section{
+    //   max-width:
+    // }
+    h2{
+      display: block;
       margin: auto;
-      padding: 15px;
-      padding-bottom: 0;
+      max-width: 758px;
+      color: #2e2e2c;
+      font-size: 35px;
+      font-weight: 300;
+      line-height: 52.5px;
       text-align: center;
-      .tile{
-        float: left;
-        width: 25%;
-        margin-top: 40px;
-        height: auto;
-        overflow: hidden;
-        &:nth-child(n+5){
-          height: 140px;
-        }
-        img{
-          width: 90%;
-        }
-      }
+      padding-left: 15px;
+      padding-right: 15px;
     }
-  }
-}
-body.pages-show.landing{
-  @media only screen and (max-width: 90em){
-    main{
-      h1.heading {
-        padding-top: 10%;
-      }
-    }
-  }
-  @media only screen and (max-width: $large-desktop){
-    main{
-      background-size: 130%;
-      h1.heading{
-        padding-top: 7%;
-      }
-      h2.sub_heading{
-        padding: 22px;
-        padding-bottom: 0;
-      }
-      .tiles{
-        margin-top: -20px;
-        .tile{
-          &:nth-child(n+5){
-            height: 100px;
-          }
-        }
-      }
-    }
-  }
-  @media only screen and (max-width: $foundation){
-    #pageHeader{
-      .headerMenu{
+    .animation_block {
+      position: relative;
+      display: block;
+      margin: auto;
+      margin-top: 65px;
+      margin-bottom: 65px;
+      width: 100%;
+      max-width: 935px;
+      // padding: 106px;
+      // padding: 2.2% 10.1% 5.5%;
+      // padding-bottom: 0;
+      // padding-top: 2.2%;
+      .mac_book {
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
-        ul{
-          li{
-            margin: 0;
-            width: 33%;
-            display: block;
-            float: left;
-            text-align: center;
-          }
+      }
+      .animation {
+        padding: 2.5% 11.2% 6.1% 11.6%;
+        position: relative;
+        img {
         }
       }
     }
-    main{
-      background-size: 155%;
-      h1.heading{
-        font-size: 33px;
+    .benefits_group {
+      max-width: 830px;
+      display: block;
+      margin: auto;
+      overflow: auto;
+      .benefit_block {
+        max-width: 215px;
+        margin: auto;
       }
-      h2.sub_heading{
-        font-size: 21px;
+      .title {
+        color: #1c1c1a;
+        font-size: 15px;
+        font-weight: 700;
+        line-height: 18px;
+        margin-bottom: 16px;
       }
-      #regForm{
-        ul{
-          width: 100%;
-          li{
-            width: 50%;
-          }
-        }
-        #create_account_btn{
-          width: 100%;
-        }
-      }
-      .tiles{
-        .tile{
-          width: 50%;
-          &:nth-child(n+3){
-            height: 120px;
-          }
-          &:nth-child(n+5){
-            display: none;
-          }
-        }
+      .desc {
+        color: #4c4c4c;
+        font-size: 15px;
+        font-weight: 400;
+        line-height: 22.5px;
       }
     }
   }
-  @media only screen and (max-width: 530px){
-    main{
-      background-size: 220%;
-      #regForm{
-        ul{
-          li{
-            width: 100%;
-          }
+
+  .try{
+    background-image: url('landing/option11.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    position: relative;
+    padding: 80px 20px 115px;
+    .try_section {
+      position: relative;
+    }
+    h2{
+      display: block;
+      margin: auto;
+      color: white;
+      font-size: 35px;
+      font-weight: 300;
+      line-height: 52.5px;
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    p{
+      display: block;
+      margin: auto;
+      max-width: 758px;
+      color: white;
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 30px;
+      text-align: center;
+    }
+    a {
+      @include light-button($white);
+      display: block;
+      margin: auto;
+      margin-top: 60px;
+      padding: 13px;
+      width: 200px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+  }
+  .case_study {
+    padding: 85px 20px 110px;
+    // .case_study_section {
+    //
+    // }
+    // h2 {
+    //   display: block;
+    //   margin: auto;
+    //   color: #2e2e2c;
+    //   font-size: 35px;
+    //   font-weight: 300;
+    //   line-height: 52.5px;
+    //   margin-bottom: 50px;
+    //   text-align: center;
+    // }
+    .quote {
+      // display: block;
+      // margin: auto;
+      color: #4c4c4c;
+      font-size: 22px;
+      font-weight: 300;
+      line-height: 33px;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .user {
+      display: block;
+      margin: auto;
+      max-width: 475px;
+      overflow: auto;
+      .image{
+        width: 88px;
+        overflow: auto;
+      }
+      .name {
+        float: none;
+        overflow: auto;
+        width: auto;
+        max-width: 372px;
+        color: #4c4c4c;
+        font-size: 15px;
+        font-style: italic;
+        line-height: 22.5px;
+        padding-top: 8px;
+      }
+    }
+    a {
+      @include light-button($sky-blue);
+      display: block;
+      margin: auto;
+      margin-top: 60px;
+      padding: 13px;
+      width: 206px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+  }
+
+  @media only screen and (max-width: $foundation) {
+    .clients {
+      padding: 40px 5px;
+      h5 {
+        font-size: 16px;
+      }
+    }
+    .money {
+      padding: 50px 5px;
+      h2 {
+        font-size: 25px;
+        line-height: 37.5px;
+        margin-bottom: 15px;
+      }
+      .benefits_group {
+        .benefit_block {
+          max-width: none;
+          margin-top: 20px;
         }
       }
-      .tiles{
-        .tile{
-          &:nth-child(n+3){
-            height: 80px;
-          }
+    }
+    .try{
+      background-image: url('landing/option-mobile.jpg');
+      padding: 55px 20px;
+      h2 {
+        font-size: 25px;
+        line-height: 37.5px;
+        margin-bottom: 33px;
+      }
+      p {
+        font-size: 16px;
+        line-height: 24px;
+      }
+      a {
+        margin-top: 37px;
+      }
+    }
+    .case_study {
+      padding: 60px 20px;
+      .quote {
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 27px;
+        margin-bottom: 24px;
+      }
+      .user {
+        max-width: 422px;
+        .name {
+          font-size: 14px;
+          line-height: 21px;
         }
       }
     }

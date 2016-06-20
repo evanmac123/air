@@ -1,6 +1,5 @@
 # vim: set ft=ruby:
 
-require 'rails/console'
 if defined?(::Rails) && Rails.env
   if Rails::VERSION::MAJOR == 3
     verbose, $VERBOSE = $VERBOSE, nil

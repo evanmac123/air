@@ -2,14 +2,21 @@ FactoryGirl.define do
 
   factory :unnamed_user, :class => User do
     association(:demo)
+    association :user_intro
     # Need to find a way to set the location of a user without creating an entirely new demo
     # association(:location)
     password  "password"
     sequence(:email) {|n| "darth_#{n}@sunni.ru" }
-    submit_tile_intro_seen true
+    #submit_tile_intro_seen true
     suggestion_box_intro_seen true
     user_submitted_tile_intro_seen true
     manage_access_prompt_seen true
+    trait :with_explore_intro do
+      user_intro { FactoryGirl.create :user_intro, explore_intro_seen: false }
+    end
+    trait :with_explore_preview_copy_intro do
+      user_intro { FactoryGirl.create :user_intro, explore_preview_copy_seen: false }
+    end
   end
 
   factory :user,  :parent => :unnamed_user do
@@ -34,17 +41,19 @@ FactoryGirl.define do
       association :game_referrer, :factory => :user
     end
 
+
+
     trait :with_location do
       association :location
     end
 
     trait :sample_tile_not_yet_done do
       sample_tile_completed false
-    end  
+    end
 
     trait :with_tickets do
       tickets 3
-    end  
+    end
   end
 
   factory :brand_new_user, :parent => :user do
@@ -64,19 +73,23 @@ FactoryGirl.define do
     name          "Sylvester McAdmin"
     is_site_admin true
     share_section_intro_seen true
-    submitted_tile_menu_intro_seen true
   end
 
   factory :client_admin, :parent => :claimed_user do
     name            "Bo Diddley"
     is_client_admin true
     share_section_intro_seen true
-    submitted_tile_menu_intro_seen true
   end
 
   factory :guest_user do
     association :demo
   end
+
+  # factory :board_membership do
+  #   demo { FactoryGirl.create :demo }
+  #   user { FactoryGirl.create :user, demo: demo }
+  #   association :location
+  # end
 
   factory :demo do
     sequence(:name) {|n| "Coolio_#{n} Board" }
@@ -97,7 +110,7 @@ FactoryGirl.define do
 
     sequence(:public_slug) {|i| "public_#{i}"}
 
-    trait :with_public_slug do |demo|  
+    trait :with_public_slug do |demo|
       is_public true
     end
 
@@ -119,6 +132,10 @@ FactoryGirl.define do
     trait :parent do
       is_parent true
       is_public true
+    end
+
+    trait :with_dependent_board do
+      association :dependent_board, factory: :demo
     end
   end
 
@@ -165,7 +182,7 @@ FactoryGirl.define do
   factory :tile do
     headline {"Tile #{SecureRandom.uuid}, y'all"}
     require_images false
-    remote_media_url "/assets/avatars/thumb/missing.png"
+    remote_media_url "/images/avatars/thumb/missing.png"
     association :demo
     sequence(:position){ |n| n }
     status Tile::ACTIVE
@@ -195,11 +212,12 @@ FactoryGirl.define do
 
     trait :user_submitted do
       status Tile::USER_SUBMITTED
-    end   
+      association :creator, factory: :user
+    end
 
     trait :ignored do
       status Tile::IGNORED
-    end    
+    end
 
     trait :sharable do
       is_sharable true
@@ -243,6 +261,8 @@ FactoryGirl.define do
     type 'MultipleChoiceTile'
     question "Which of the following comes out of a bird?"
     points 99
+    #TODO fix this so that the tile uses the native multiple_choice_answers_field
+    #answers ["Ham", "Eggs", "A V8 Buick"]
     multiple_choice_answers ["Ham", "Eggs", "A V8 Buick"]
     correct_answer_index 1
   end
@@ -344,9 +364,14 @@ FactoryGirl.define do
     association :tile_tag
     association :tile
   end
-  
+
   factory :tile_tag do
+    association :topic
     sequence(:title) {|n| "Tile Tag #{n}"}
+  end
+
+  factory :topic do
+    sequence(:name) {|n| "Good Topic #{n}"}
   end
 
   factory :billing_information do
@@ -361,9 +386,9 @@ FactoryGirl.define do
   end
 
   factory :raffle do
-    association :demo 
+    association :demo
     starts_at DateTime.now.change({:hour => 0 , :min => 0 , :sec => 0 })
-    ends_at DateTime.now.change({:hour => 0 , :min => 0 , :sec => 0 }) + 8.days - 1.minute 
+    ends_at DateTime.now.change({:hour => 0 , :min => 0 , :sec => 0 }) + 8.days - 1.minute
     prizes ["First Prize", "Second Prize"]
     other_info "Play raffles - it's fun"
 
@@ -397,10 +422,81 @@ FactoryGirl.define do
     sequence(:email) {|n| "potential_#{n}@user.com" }
     invitation_code "MyString"
     association(:demo)
+    association :primary_user, factory: :user
   end
 
   factory :tile_viewing do
     association :tile
     association :user
+  end
+
+  factory :organization  do
+
+    trait :complete do
+      sequence(:name){|n| "Client-#{n}"}
+      sales_channel "Direct"
+      num_employees   5000
+    end
+
+   trait :with_active_contract do
+      after(:create) do |org, evaluator|
+        create(:contract, :complete, :active, organization: org)
+      end
+   end
+
+    trait :with_contracts do
+      complete
+      after(:create) do |org, evaluator|
+        create(:contract, :complete, organization: org, start_date: '2012-01-01', end_date: '2012-12-31' )
+        create(:contract, :complete, organization: org, start_date: '2013-01-01', end_date: '2013-12-31' )
+        create(:contract, :complete, organization: org, start_date: '2014-01-01', end_date: '2014-12-31' )
+      end
+    end
+
+  end
+
+  factory :contract do
+    sequence(:name) {|n|"Contract-#{n}"}
+
+    trait :complete do
+      association :organization, factory: [:organization, :complete]
+      arr  60000
+      amt_booked  5000
+      start_date '2012-01-01'
+      end_date '2012-12-31'
+      cycle Contract::ANNUAL
+      plan  "engage"
+      max_users 100
+    end
+
+    trait :custom do
+      cycle Contract::CUSTOM
+    end
+
+    trait :canceled do
+      auto_renew false
+    end
+
+    trait :custom_valid do
+      custom
+      term 9
+    end
+
+    trait :active do
+      start_date  Date.today
+      end_date  1.year.from_now
+    end
+
+    factory :upgrade , class: Contract do
+      complete
+      trait :with_parent do
+        association :parent_contract, factory: [:contract, :complete]
+      end
+    end
+  end
+
+  factory :user_intro do
+    explore_intro_seen true
+    explore_preview_copy_seen true
   end
 end

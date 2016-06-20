@@ -1,4 +1,3 @@
-//= require ../../../vendor/assets/javascripts/pace.min
 //= require mobvious-rails
 //= require_tree ./client_admin
 //= require ./ajax-response-handler
@@ -13,13 +12,17 @@
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.ui.touch-punch.min
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.scrollTo.min
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.form.min
+//= require ../../../vendor/assets/javascripts/client_admin/jquery.jscroll
 //= require ../../../vendor/assets/javascripts/confirm_with_reveal.modified
 
 //= require ../../../vendor/assets/javascripts/internal/jquery.jpanelmenu.min
 //= require ../../../vendor/assets/javascripts/internal/jRespond.min
+//= require slick-carousel/slick/slick
 
 //= require ./internal_and_external/underscore-min
-//= require ./internal/tiles
+//= require ./internal/tile_preview/tile_answers
+//= require ./internal/tile_preview/progress_and_prize_bar
+//= require ./internal/tile_preview/user_tile_preview
 //= require ./internal/show_more_tiles_link
 //= require ./internal/countUp.min
 //= require ./internal/byte_counter
@@ -40,9 +43,8 @@
 //= require internal/preflight
 //= require_tree ./internal/tile_builder_form/
 //= require_tree ./internal/tile_manager/
-//= require  medium-editor.min
 //= require internal/byte_counter
-//= require_tree ../../../vendor/assets/javascripts/internal/tile_builder_form
+//= require_tree ./vendor_customization
 
 var Airbo = window.Airbo || {};
 
@@ -50,5 +52,6 @@ $(document).ready(function() {
   $('.client_admin-users, .client_admins-show').foundation();
 });
 $(document).foundation();
+$(document).foundation('reveal', {animation: "none"});
 
 $(document).confirmWithReveal(Airbo.Utils.confirmWithRevealConfig);

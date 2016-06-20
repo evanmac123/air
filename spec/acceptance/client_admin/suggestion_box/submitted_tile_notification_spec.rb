@@ -36,9 +36,9 @@ feature 'Client admin visits link from submitted tile notification' do
   end
 
   it "should show intro", js: true do
-    expect_content intro_text
     current_path.should == client_admin_tiles_path
     within intro_sel do
+      expect_content intro_text
       click_link "Got it"
     end
     expect_no_content intro_text

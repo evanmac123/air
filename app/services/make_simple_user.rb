@@ -41,7 +41,7 @@ class MakeSimpleUser
   end
 
   def user_errors
-    user.errors.smarter_full_messages.join(', ') + '.'  
+    user.errors.smarter_full_messages.join(', ') + '.'
   end
 
   def user
@@ -57,7 +57,7 @@ class MakeSimpleUser
   end
 
   def set_existing_user
-    if email.present? 
+    if email.present?
       User.find_by_email(email)
     end
   end
@@ -79,7 +79,7 @@ class MakeSimpleUser
 
   def ping_if_made_client_admin(user, was_changed)
     if user.is_client_admin && was_changed
-      TrackEvent.ping('Creator - New', {source: 'Client Admin'}, current_user)
+      TrackEvent.ping('claimed account', {source: 'Client Admin'}, current_user)
     end
   end
 end

@@ -12,26 +12,26 @@
     <p>Showing results for <span><%= @result_description %></span>:</p>
 
     <table id="search-results-table">
-      <tr id="search-labels">
-        <th class="results-name">Name</th>
-        <th class="results-email">Email</th>
-        <th class="results-joined">Joined?</th>
-        <th class="results-send-invite">Invite</th>
-      </tr>
+      <thead>
+        <tr id="search-labels">
+          <th class="results-name">Name</th>
+          <th class="results-email">Email</th>
+          <th class="results-joined">Joined?</th>
+          <th class="results-send-invite">Invite</th>
+        </tr>
+      </thead>
       <% @users.each do |user| %>
-        <tr class="found-user">
-          <td class="results-name"><%= link_to user.name, edit_client_admin_user_path(user), class: 'edit-user' %></td>
+        <tr class="found-user" data-user-id='<%=user.id%>'>
+          <td class="results-name"><%= link_to user.name, edit_client_admin_user_path(user), class: 'edit-user link' %></td>
           <td class="results-email"><%= user.email %></td>
           <td class="results-joined">
-            <% if user.claimed? %>
-              <span class="joined">Yes</span>
-            <% else %>
-              <span class="not-joined">No</span>
-            <% end %>
+            <%= user.claimed? ? "Yes" : "No" %>
           </td>
           <td class="results-send-invite">
             <% if user.invitable? %>
-              <%= link_to "Send", client_admin_user_invitation_path(user), method: :post, class: 'send-invite' %>
+              <%= link_to  client_admin_user_invitation_path(user), {method: :post, class: "send-invite-link"} do %>
+                <i class="fa fa-envelope"></i>
+              <% end %>
             <% end %>
           </td>
         </tr>

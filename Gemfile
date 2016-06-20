@@ -2,7 +2,7 @@ source "https://www.rubygems.org"
 
 ruby '2.0.0'
 
-gem "rails", "=3.2.21"
+gem "rails", "=3.2.22.1"
 gem "rack"  # Update rack to 1.3.0 or later to get rid of utf8 string regex warnings
 gem 'delayed_job_active_record'
 gem "high_voltage"
@@ -24,6 +24,7 @@ gem "mongoid"
 gem "bson_ext"
 gem "pundit"
 gem "google_drive"
+gem "time_difference"
 
 gem 'jquery-rails'
 gem 'jquery-validation-rails'
@@ -48,10 +49,10 @@ gem "squeel"
 gem 'draper', '~> 1.3'
 gem 'redis-rails'
 gem 'strong_parameters'
-gem 'intercom'
+gem 'intercom', '~>2.4.2'
 gem 'counter_culture'
 gem 'require_all'
-gem 'css_splitter'
+gem 'css_splitter', :git => "https://github.com/theairbo/css_splitter.git" #Allow customization of MAX_SELECTORS_DEFAULT via environment variable
 gem 'sanitize'
 gem 'htmlentities'
 gem 'rack-mini-profiler', require: false
@@ -59,6 +60,11 @@ gem 'flamegraph'
 gem "unicorn"   # Some of our capybara webkit tests fail with thin, so we use unicorn
 gem "newrelic_rpm"
 gem "jquery-fileupload-rails"#
+gem "acts_as_singleton"
+
+gem "roo", :git => "git://github.com/Empact/roo.git"
+gem "hashugar" 
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

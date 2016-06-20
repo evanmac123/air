@@ -11,17 +11,18 @@ class CopyTile
   end
 
   def copy_tile(tile, mark_tile_as_copied = true)
-    @copy = Tile.new
     @tile = tile
+    @copy =tile.class.new
 
     copy_tile_data
     set_new_data_for_copy
     if mark_tile_as_copied
-      mark_tile_as_copied_by_user 
+      mark_tile_as_copied_by_user
       @tile.save
     end
-    @copy.remote_media_url= @tile.image.url if @copy.remote_media_url.blank?
-    @copy.save  
+    @copy.remote_media_url= @tile.image.url(:original)
+    @copy.is_cloned = true
+    @copy.save
     @copy
   end
 
@@ -32,16 +33,15 @@ class CopyTile
       "correct_answer_index",
       "headline",
       "link_address",
-      "multiple_choice_answers", 
-      "points", 
+      "multiple_choice_answers",
+      "points",
       "question",
       "supporting_content",
-      "type",
-      "image_meta",
-      "thumbnail_meta", 
-      "remote_media_url", 
       "image",
-      "thumbnail"
+      "thumbnail",
+      "use_old_line_break_css",
+      "question_type",
+      "question_subtype"
     ].each do |field_to_copy|
       @copy.send("#{field_to_copy}=", @tile.send(field_to_copy))
     end

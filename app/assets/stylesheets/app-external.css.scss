@@ -1,14 +1,16 @@
+/*
+*= require medium-editor/medium-editor
+*= require medium-editor/themes/default
+*/
 /* For all */
-@import "./vendor/normalize.css.scss";
-@import "./vendor/foundation.min.css.scss";
 @import "./mixins/main_styles.css.scss";
 @import "./mixins/placeholder_color.css.scss";
 @import "./mixins/lightbox.css.scss";
 @import "./internal/intercom.css.scss";
 @import "./internal/flash.css.scss";
 
-@import './internal/tile_thumbnail/tiles_thumbnails_desktop';
-@import './internal/tile_fullsize/tiles_fullsize';
+@import './tile/tile_thumbnail/tiles_thumbnails_desktop';
+@import './tile/tile_fullsize/tiles_fullsize';
 
 
 /* Base mobile styles */
@@ -38,6 +40,7 @@
 /* External unsubscribe page */
 @import "./external/_unsubscribe.css.scss";
 
+
 /* RWD */
 @media only screen and (min-width: $foundation) {
 	@import "./external/screen_medium.css.scss";
@@ -45,8 +48,7 @@
 }
 @media only screen and (min-width: $mid-desktop) {
 	@import "./external/screen_desktop.css.scss";
-	@import './internal/tile_thumbnail/tiles_thumbnails_desktop';
 }
-@media only screen and (min-width: $large-desktop) {
-	@import "./external/screen_large.css.scss";
-}
+// @media only screen and (min-width: $large-desktop) {
+// 	@import "./external/screen_large.css.scss";
+// }

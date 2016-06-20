@@ -1,23 +1,23 @@
-<%= stylesheet_link_tag "internal/explore" %>
-
 <div class="row client_admin_explore">
   <div class='large-12 column'>
-  <%= render partial: 'parent_boards', locals: {boards: @parent_boards} %>
+    <%= render partial: 'explores/parent_boards', locals: {boards: @parent_boards} %>
     <h1>Tile Subjects</h1>
-
-    <div class="row tags">
-      <% @tile_tags.each do |tile_tag| %>
-        <%= link_to tile_tag_show_explore_path(tile_tag: tile_tag.id, tag_click_source: 'Explore Main Page - Clicked Tile Subject Tag') do %>
-          <div class="tag_name"><%= tile_tag.title.truncate(27) %></div>
-        <% end %>
+    <div class="topics">
+      <% @topics.each do |topic| %>
+        <div class="tile_container">
+          <%= link_to explore_topic_path(topic), class: "topic" do %>
+            <div class="topic_cell">
+              <%= image_tag("topics/#{topic.name.parameterize.underscore}.png") %>
+              <div class="shadow_overlay"></div>
+              <p class="title"><%= topic.name %></p>
+            </div>
+          <% end %>
+        </div>
       <% end %>
     </div>
-
     <h1>Recent Posts</h1>
-
-    <div class='row tile_with_tags'>
-      <%= render partial: 'tile_with_tags', locals: {tiles: @tiles, path_for_more_tiles: @path_for_more_tiles, tag_click_source: "Explore Main Page - Clicked Tag On Tile", thumb_click_source: 'Explore Main Page - Tile Thumbnail Clicked'} %>
-    </div>
   </div>
+  <%= render partial: 'explores/tile_wall', locals: {tiles: @tiles} %>
 </div>
 <%= mp_track_page 'explore' %>
+<%= render partial: 'explores/explore_intro' if @show_explore_intro %>

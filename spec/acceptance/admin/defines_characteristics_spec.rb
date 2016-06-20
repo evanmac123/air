@@ -11,7 +11,7 @@ feature "Admin Defines Characteristics" do
   end
 
   def expect_allowed_value_text_field(expected_value)
-    page.find(:css, %{[name="characteristic[allowed_values][]"][value="#{expected_value}"]}).should be_present 
+    page.find(:css, %{[name="characteristic[allowed_values][]"][value="#{expected_value}"]}).should be_present
   end
 
   # We have all this nonsense because before(:each) and :js=>true do not play well together.
@@ -20,12 +20,13 @@ feature "Admin Defines Characteristics" do
     @agnostic_characteristic = FactoryGirl.create :characteristic, :name => "Favorite pill", :description => "what kind of pill you like", :allowed_values => %w(Viagra Clonozepam Warfarin)
     @characteristic_1 = FactoryGirl.create :characteristic, :demo_specific, :demo => @demo, :name => "Cheese preference", :description => "what sort of cheese does you best", :allowed_values => %w(Stinky Extra-Smelly)
     @characteristic_2 = FactoryGirl.create :characteristic, :demo_specific, :name => "Cake or death", :description => "A simple question really", :allowed_values => %w(Cake Death)
-    
+
     @characteristic_2.demo.should_not == @demo
   end
 
   def click_edit_link
-    within('.content') {click_link "Edit"}  
+    within('.admin') {click_link "Edit"}  
+    # click_link "Edit"
   end
 
   context "For demo-agnostic characteristics" do
@@ -50,7 +51,7 @@ feature "Admin Defines Characteristics" do
 
       # Should do the Right Thing even if the admin is sloppy about which allowed
       # value fields they fill in, i.e. blank ones should get skipped over silently.
-      
+
       10.times{ click_button "More allowed values" }
       allowed_value_fields = page.all('input[name="characteristic[allowed_values][]"]')
 
@@ -76,7 +77,7 @@ feature "Admin Defines Characteristics" do
       # Overwrite some allowed values, blank out some others, add some new ones, whee.
       allowed_value_fields = page.all('input[name="characteristic[allowed_values][]"]')
       allowed_value_fields.length.should == 3
-    
+
       allowed_value_fields[1].set('   ')
       allowed_value_fields[2].set('cheese whiz')
 
@@ -88,7 +89,7 @@ feature "Admin Defines Characteristics" do
 
       expect_characteristic_row 'Pants size', "How big are your pants?", 'Discrete', ["Viagra", "cheese whiz", "oh yeah"]
       expect_no_content "Favorite pill"
-      expect_no_content "what kind of pill you like"    
+      expect_no_content "what kind of pill you like"
       expect_no_content 'Clonozepam'
       expect_no_content 'Warfarin'
     end
@@ -100,7 +101,7 @@ feature "Admin Defines Characteristics" do
       click_button "Destroy"
       should_be_on admin_characteristics_path
       expect_no_content "Favorite pill"
-      expect_no_content "what kind of pill you like"    
+      expect_no_content "what kind of pill you like"
       expect_no_content 'Viagra'
       expect_no_content 'Clonozepam'
       expect_no_content 'Warfarin'

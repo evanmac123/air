@@ -1,0 +1,28 @@
+body.pages-company.landing {
+
+  main {
+    padding: 80px 20px 110px;
+  }
+  p {
+    max-width: 750px;
+  }
+  .divider {
+    margin: 80px auto;
+  }
+  .hero {
+    background-image: url('landing/company/People_Working_At_Wikimedia.jpg');
+    height: 450px;
+  }
+  @media only screen and (max-width: $foundation) {
+    main {
+      padding-top: 55px;
+      padding-bottom: 55px;
+    }
+    .divider {
+      margin: 50px auto;
+    }
+    .hero {
+      height: 335px;
+    }
+  }
+}

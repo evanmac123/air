@@ -104,14 +104,6 @@ class GuestUser < ActiveRecord::Base
     User::TileProgressCalculator.new(self).not_show_all_completed_tiles_in_progress
   end
 
-  def voteup_intro_never_seen
-    !(voteup_intro_seen)
-  end
-
-  def share_link_intro_never_seen
-    !(share_link_intro_seen)
-  end
-
   def can_see_raffle_modal?
     true
   end

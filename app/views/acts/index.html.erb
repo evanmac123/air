@@ -1,46 +1,15 @@
+<% content_for :javascript do %>
+  <%= javascript_tag do %>
+    bindShowMoreTilesLink('.show_more_tiles', '.tile-wrapper', '#show_more_tiles_spinner', '#tile_wall', 'replace');
+  <% end %>
+<% end %>
 <%= javascript_include_tag 'jquery.lightbox_me' %>
-<%= render partial: 'shared/tiles/user_progress', locals: {raffle: current_user.demo.raffle} %>
+<%= render partial: 'shared/tiles/user_progress', locals: {as_null:false, raffle: current_user.demo.raffle} %>
 <%= render 'shared/tile_wall', @displayable_categorized_tiles.merge(path_for_more_tiles: tiles_path) %>
 
-<div class="row">
-  <div id="feed_wrapper" class="large-4 columns">
-    <div class="feeds module">
-
-      <h3 id="feeds_title">Activity</h3>
-
-  	    <% content_for :javascript do %>
-          <%= javascript_tag do %>
-            bindShowMoreTilesLink('.show_more_tiles', '.tile-wrapper', '#show_more_tiles_spinner', '#tile_wall', 'replace');
-          <% end %>
-  	    <% end %>
-
-        <ul id="user-acts">
-  	      <%= render :partial => "shared/act", :collection => @acts, :as => :act %>
-        </ul>
-
-        <%= render 'shared/see_more' %>
-
-        <%= image_tag 'spinner_gears.gif', :id => 'see-more-spinner', :style => 'display:none;' %>
-
-        <% js_at_end do %>
-          bindSeeMoreActs('<%= acts_path(format: :js) %>', <%= @acts.length %>)
-        <% end %>
-  	</div>
-  </div>
-
-  <div class="large-4 columns">
-    <div class="module" id="scoreboard-module">
-      <%= render 'scoreboard', :user => @current_user %>
-    </div>
-  </div>
-
-  <div class="large-4 columns">
-    <div class="module" id="invite-module">
-      <%= render(:partial => "invite_your_friends") unless @current_user.is_guest? %>  
-    </div>
-  </div>
-
-</div>
+<% unless @demo.is_parent? && current_user.is_guest? %>
+  <%= render "activity_feed" %>
+<%end%>
 
 <%= render "shared/guest_conversion_lightbox", user: @current_user, show_conversion_form: @show_conversion_form, demo: @current_user.demo %>
 
@@ -51,4 +20,4 @@
 <% elsif @display_get_started_lightbox %>
   <% suppress_conversion_modal = @current_user.demo && $rollout.active?(:suppress_conversion_modal, @current_user.demo) %>
   <%= render "get_started_lightbox", board_name: current_user.demo.name, is_guest: @current_user.is_guest?, get_started_lightbox_message: @get_started_lightbox_message, suppress_conversion_modal: suppress_conversion_modal %>
-<% end %>      
+<% end %>

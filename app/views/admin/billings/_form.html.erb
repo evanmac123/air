@@ -1,0 +1,48 @@
+<div class="row">
+  <div class="columns small-6 small-centered">
+    <p>
+    <table>
+      <tbody>
+        <tr>
+          <th>Organization</th>
+          <td><%=@billing.organization_name%></td>
+        </tr>
+        <tr>
+          <th>Contract</th>
+          <td><%=@billing.contract_name%></td>
+        </tr>
+      </tbody>
+    </table>
+    </p>
+
+    <p>
+    <%= form_for([:admin, @billing]) do |f| %>
+      <% if @billing.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@billing.errors.count, "error") %> prohibited this billing from being saved:</h2>
+          <ul>
+            <% @billing.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= f.hidden_field :contract_id %>
+      <%= f.hidden_field :organization_id %>
+      <div class="row">
+        <%= f.label :amount %>
+        <%= f.text_field :amount %>
+      </div>
+      <div class="row">
+        <%= f.label :posted %>
+        <%= f.text_field :posted, type: :date %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Submit", class: "button" %>
+      </div>
+    <% end %>
+    </p>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="columns small-12 small-centered">
+    <h1>Billings</h1>
+
+    <p class="padded right">
+      <%# link_to 'Add Organization', new_admin_billing_path, class: "button button-small" %>
+    </p> 
+    <table>
+
+      <thead>
+      <tr>
+        <th>Organization</th>
+        <th>Conract</th>
+        <th>Amount</th>
+        <th>Date Posted</th>
+        <th>Date Entered</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @billings.each do |billing| %>
+        
+        <tr class="resource-row" data-url='<%=admin_billing_path(billing)%>'>
+          <td><%= billing.organization_name %></td>
+          <td><%= billing.contract_name %></td>
+          <td><%= billing.amount %></td>
+          <td><%= simple_date_format billing.posted %></td>
+          <td><%= simple_date_format billing.created_at %></td>
+        </tr>
+      <% end %>
+    </tbody>
+    </table>
+  </div>
+</div>

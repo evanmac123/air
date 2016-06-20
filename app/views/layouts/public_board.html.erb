@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= content_for :meta %>
+  <title>Airbo Public Board <%=@demo.name%></title>
+  <%= split_stylesheet_link_tag "app-internal", :media => "all", :split_count => 5 %>
+  <%= split_stylesheet_link_tag "app-user-progress", :media => "all", :split_count => 2 %>
+  <%# stylesheet_link_tag "app-landing" %>
+  <%= javascript_include_tag "https://api.intercom.io/api/js/library.js" %>
+  <%= javascript_include_tag 'for-modern-browsers' unless browser.ie8? %>
+  <%= javascript_include_tag 'application' %>
+  <%= javascript_include_tag 'app-internal' %>
+  <%= javascript_include_tag asset_path('ga.js') if ENV['USE_GA'] %>
+  <!--[if lt IE 9]>
+    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <style type="text/css">.gradient {filter: none;}</style>
+    <%= stylesheet_link_tag 'vendor/ie8-grid12-foundation-4.css' %>
+    <%= stylesheet_link_tag 'internal/internal_ie8' %>
+  <![endif]-->
+
+  <%= csrf_meta_tag %>
+  <%= render 'shared/mixpanel' unless @is_admin_page %>
+  <%= render 'shared/inspectlet' %>
+  <%= mp_track_page "Public Parent Board " %>
+
+  <%= mobvious_javascript %>
+
+  <%= content_for :head %>
+</head>
+<body class="public-board <%= body_class %>" style="-webkit-overflow-scrolling: touch; overflow:visible;" data-public-board="<%=@in_public_board ? true : false%>" data-board-id="<%= current_user.demo.id %>"><%# only works with inline style? WTF. but leave it: this fixes scroll problems in ios7 and doesn't seem to work if included via stylesheet. %>
+  <%= render partial: "pages/landing/header_simple" %>
+  <div id='js-flashes'><%# render 'shared/flashes' %> </div>
+  <main class="main" >
+    <div class="core">
+      <div class="content">
+        <%= render partial: "acts/public_board/cover" unless @hide_cover%>
+        <%= yield %>
+      </div>
+    </div>
+  </main>
+  <%= render partial: "acts/public_board/schedule_demo_modal" %>
+  <%= render :partial => 'shared/modals/modals' %>
+
+  <%content_for :footer do%>
+    <%= render partial: "pages/landing/request_form" %>
+  <%end%>
+<%= render partial: "pages/landing/footer" %>
+  <%= render 'shared/intercom' %>
+  <%= render :partial => 'shared/javascript' %><!-- This is where 'yield :javascript' takes place -->
+  <%= javascript_include_tag 'rem.min.js' %>
+</body>
+</html>

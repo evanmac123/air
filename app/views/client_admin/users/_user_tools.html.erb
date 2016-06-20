@@ -1,7 +1,7 @@
 <div class="row" id="total_user_count_row">
   <div class="large-12 columns">
-    <label>Total users</label>
-    <h1 id="user_count"><%= @total_user_count %></h1>
+    <h3 class="no_margin_bottom">Activated users</h3>
+    <h1 id="user_count" ><%= @total_user_count %></h1>
   </div>
 </div>
 
@@ -14,7 +14,7 @@
           <%= text_field_tag 'name-substring', nil, placeholder: "Enter first or last name" %>
           <div id="name-autocomplete-target"></div>
         </div>
-        <%= link_to "Show everyone", client_admin_users_path(show_everyone: true), id: "show-everyone" %>
+        <%= link_to "Show everyone", client_admin_users_path(show_everyone: true), id: "show-everyone", class: "link" %>
       </div>
     </div>
   </div>
@@ -40,7 +40,7 @@
       event.preventDefault();
       var postURL = $(this).attr('href');
       $('#inviting-message').show();
-      $.post(postURL, function() { 
+      $.post(postURL, function() {
         $('#inviting-message').hide();
         $('a.invite-user').remove();
       });

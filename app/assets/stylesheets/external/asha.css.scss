@@ -1,0 +1,125 @@
+body.pages.pages-asha.landing {
+
+  main {
+    padding: 0 20px 105px;
+    // padding-bottom: 105px;
+  }
+
+  .hero {
+    background-image: url('landing/case-studies/janet_mcnichol.jpg');
+    height: 450px;
+  }
+
+  @media only screen and (min-width: 760px) {
+    .hero {
+      background-position-y: -35px;
+    }
+  }
+
+  @media only screen and (max-width: 760px) {
+    .hero {
+      background-position-y: 50px;
+    }
+  }
+
+  .company_logo {
+    padding-top: 70px;
+  }
+  .client_group {
+    .quote {
+      color: #50698c;
+      font-weight: 700;
+      font-style: italic;
+      max-width: 750px;
+      text-align: center;
+    }
+    .user {
+      display: block;
+      margin: auto;
+      max-width: 340px;
+      overflow: auto;
+      margin-top: 35px;
+      .image{
+        width: 88px;
+        overflow: auto;
+      }
+      .name {
+        float: none;
+        overflow: auto;
+        width: auto;
+        // max-width: 372px;
+        color: #595959;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 27px;
+        .full_name {
+          color: #2e2e2c;
+        }
+      }
+    }
+  }
+  .company_background {
+    p {
+      text-align: center;
+    }
+  }
+  .tiles_section {
+    overflow: auto;
+    max-width: $max-page-width;
+    margin: auto;
+  }
+  .story {
+    &.janet, &.expanding {
+      padding-top: 0;
+    }
+  }
+  .story_italic {
+    padding-top: 0;
+    p {
+      font-style: italic;
+      color: #818385;
+      &:first-child {
+        padding-top: 0;
+      }
+    }
+  }
+  @media only screen and (max-width: $foundation) {
+    main {
+      padding-bottom: 60px;
+    }
+    .hero {
+      height: 335px;
+    }
+    .company_logo {
+      padding-top: 50px;
+    }
+    .client_group {
+      margin-top: 30px;
+      .quote {
+        letter-spacing: 1px;
+      }
+      .name {
+        font-size: 14px;
+      }
+    }
+    .company_background {
+      p {
+        text-align: left;
+        letter-spacing: 1px;
+      }
+    }
+    .tiles_section {
+      .small-6:nth-of-type(-n+2) {
+        padding-bottom: 27px;
+      }
+    }
+    .story {
+      &.janet, &.airbo_helps {
+        padding-top: 0;
+      }
+    }
+    .story_italic {
+      padding-top: 0;
+    }
+  }
+}

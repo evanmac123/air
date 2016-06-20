@@ -1,10 +1,10 @@
-body.acts-index{
+body.acts-index, .client_admin-stock_boards, .client_admin-stock_tiles{
   .user_container{
     height: 10rem;
     background: #d9dfe9;
   }
 }
-body.tiles-index, body.acts-index{
+body.tiles-index, body.acts-index, .client_admin-stock_boards, .client_admin-stock_tiles{
   #user_progress{
     //max-width: 600px;
     max-width: 46.8rem;
@@ -62,7 +62,7 @@ body.tiles-index, body.acts-index{
        * Bar container
        * ------------------------------------- */
       .progress-radial{
-        margin-left: 6.5em;
+        margin-left: 5.9em;
         margin-top: -1.5em;
         position: relative;
         width: 60px;
@@ -191,13 +191,7 @@ body.tiles-index, body.acts-index{
       }
     }
     #completed_tiles{
-      background: -moz-linear-gradient(top,  rgba(32,173,233,1) 0%, rgba(32,173,233,0.9) 100%); /* FF3.6+ */
-      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(32,173,233,1)), color-stop(100%,rgba(32,173,233,0.9))); /* Chrome,Safari4+ */
-      background: -webkit-linear-gradient(top,  rgba(32,173,233,1) 0%,rgba(32,173,233,0.9) 100%); /* Chrome10+,Safari5.1+ */
-      background: -o-linear-gradient(top,  rgba(32,173,233,1) 0%,rgba(32,173,233,0.9) 100%); /* Opera 11.10+ */
-      background: -ms-linear-gradient(top,  rgba(32,173,233,1) 0%,rgba(32,173,233,0.9) 100%); /* IE10+ */
-      background: linear-gradient(to bottom,  rgba(32,173,233,1) 0%,rgba(32,173,233,0.9) 100%); /* W3C */
-      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#20ade9', endColorstr='#e620ade9',GradientType=0 ); /* IE6-9 */
+      background: $sky-blue;
     }
   }
 }

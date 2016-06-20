@@ -8,7 +8,7 @@
         = f.label :ends_at, "to"
       .date_input
         = f.text_field :ends_at, value: date_in_pick_format(raffle.ends_at), class: "datepicker", placeholder: "End", size: 10
-    .outer_tip
+    %small.with_input_margin
       Starts at 12:00 AM ET of start date. Ends at 11:59 PM ET of end date.
   .content_section
     = f.label "prizes_", "Prize"
@@ -78,7 +78,7 @@
         updatePrivewPrizeField(index);
       });
 
-      $(".remove_prize").unbind();  
+      $(".remove_prize").unbind();
       $(".remove_prize").click(function(){
         if(!window.prizeFormStatus || window.prizeFormStatus == 'live_edit'){
           index = $(".prize_section").index( $(this).closest( $(".prize_section") ) );

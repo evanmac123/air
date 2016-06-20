@@ -24,7 +24,7 @@ body.settings {
           display: inline;
         }
         input[type="file"] {margin-bottom:1em; width:80%;}
-        input[type="submit"].clear {@include app-button($light-gray);}
+        // input[type="submit"].clear {@include app-button($light-gray);}
     }
 }
 

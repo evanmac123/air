@@ -15,8 +15,8 @@
       }
     }
     .points {
-      border:1px $light-blue solid;
-      color:$light-blue;
+      border:1px $n-blue solid;
+      color:$n-blue;
       display: block;
       @include font-bold;
       font-size:1em, 1rem;
@@ -29,6 +29,7 @@
   .act-details {
     position:relative;
     width:75%;
+    line-height:1.6em;
     .user {display: block;}
     .when, .flag {
       color:$light-gray;
@@ -49,7 +50,7 @@
   }
 }
 #see-more-spinner {
-  display: block;  
+  display: block;
   margin:0 auto;
   opacity:.5em;
 }
@@ -70,6 +71,7 @@
   }
   p {
     padding-top: 0.8em;
+    margin: 0;
   }
 
   p:first-of-type {
@@ -104,13 +106,11 @@
       width: 100%;
       margin-top: 1rem;
     }
-    input[type="submit"]{
-      @include light-button($sky-blue);
+    .submit{
       float: right;
-      margin-top: 1rem;
-      &:disabled{
-        @include light-button($med-gray);
-      }
+    }
+    .real_submit {
+      display: none;
     }
   }
 }

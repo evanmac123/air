@@ -60,7 +60,6 @@ class BoardsController < ApplicationController
   def create_as_guest
     authorize_as_guest
     login_as_guest(Demo.new) unless current_user.present?
-
     @create_user_with_board = CreateUserWithBoard.new params.merge(pre_user: current_user)
     success = @create_user_with_board.create
     @user = @create_user_with_board.user
@@ -74,12 +73,12 @@ class BoardsController < ApplicationController
     end
   end
 
-  protected
+  private
 
   def render_success
     respond_to do |format|
       format.json { render json: {status: 'success'} }
-      format.html { redirect_to client_admin_explore_path }
+      format.html { redirect_to post_creation_path }
     end
   end
 
@@ -90,7 +89,7 @@ class BoardsController < ApplicationController
         if params[:page_name] == "welcome"
           redirect_to :controller => 'pages', \
                       :action => 'show', \
-                      :id => "welcome", \
+                      :id => "home", \
                       flash: { failure: set_errors }
         elsif params[:page_name] == "product"
           redirect_to :controller => 'pages', \
@@ -102,6 +101,10 @@ class BoardsController < ApplicationController
         end
       end
     end
+  end
+
+  def post_creation_path
+    LIBRARY_ENABLED=="true" ? client_admin_stock_boards_path : client_admin_explore_path
   end
 
   def find_current_board

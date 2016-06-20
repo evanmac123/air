@@ -34,19 +34,20 @@ window.getStartedLightbox = function(){
   });
 
   $('#get_started_lightbox').lightbox_me({
-    onClose: function(){ 
+    onClose: function(){
       if( window.showRaffleAfterLightbox == true ){
         showRaffleBox("New Prize!");
         prizeModalPing("Saw Prize Modal");
-      } 
+      }
     }
   });
 }
 
 window.registerPotentialUserLightbox = function(){
+  var form = $("#register_potential_user_lightbox");
+  var submit_button = form.find(".submit");
   $('#register_potential_user_lightbox').lightbox_me({closeClick: false});
   $("#potential_user_name").on('input propertychange paste', function() {
-    submit_button = $("#register_potential_user_lightbox input[type='submit']")
     if( $(this).val().match(/\w+\s+\w+/) ){
       submit_button.removeAttr("disabled")
     }else{
@@ -56,5 +57,14 @@ window.registerPotentialUserLightbox = function(){
       $.post("/ping", {event: 'Saw welcome pop-up', properties: {action: "Entered Name"}})
     }
     window.enteredName = true
+  });
+  submit_button.click(function(e) {
+    e.preventDefault();
+    if( $(this).attr("disabled") ) {
+      return;
+    }
+
+    submit_button.addClass("with_spinner").attr("disabled", "disabled");
+    form.find(".real_submit").click();
   });
 }
