@@ -1,7 +1,7 @@
 require 'google/api_client'
 require 'pry'
 
-class GoogledriveClient
+class GoogleDriveClient
   APP_NAME="Airbo"
   APP_VERSION="2.0"
   SCOPE= ["https://www.googleapis.com/auth/drive", "https://spreadsheets.google.com/feeds/"] 
@@ -11,7 +11,7 @@ class GoogledriveClient
   end
 
   def spreadsheet_by_title title
-     file = session.spreadsheet_by_title()
+     file = session.spreadsheet_by_title(title)
   end
 
   private
