@@ -34,9 +34,7 @@ class GdriveClient
    #------------------------------------------
 
    def populate_data
-     #mixpanel_free_hrm_activity
      mixpanel_all_activity_by_user_type
-     #update_free_hrms
    end
 
    def update_free_hrms
