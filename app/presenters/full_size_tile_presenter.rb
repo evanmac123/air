@@ -95,15 +95,16 @@ class FullSizeTilePresenter
   end
 
   def old_browser?
-    true#browser.ie8?
+    browser.ie8?
   end
 
   def extracted_video_link
-    "https://www.youtube.com/embed/xCeW1aFW4pA"
+    Nokogiri::HTML::Document.parse( tile.embed_video).xpath("//iframe").attribute("src").value
   end
 
   def image_preview
-    if old_browser? && tile.embed_video.present?
+    if old_browser? &&
+      tile.embed_video.present?
       ActionController::Base.helpers.link_to extracted_video_link, target: "_blank" do
         image_preview_tag
       end
