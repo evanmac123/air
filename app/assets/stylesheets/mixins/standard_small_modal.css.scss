@@ -2,7 +2,7 @@
   @include standard-modal($container-width);
   padding: 50px 30px;
   .modal_container {
-    padding-top: 28px;
+    // padding-top: 28px;
     position: absolute;
     top: 16%;
     left: 50%;
@@ -16,7 +16,7 @@
   }
   .close-reveal-modal {
     position: absolute;
-    top: 0;
+    top: -7px;
     right: 0;
     left: auto;
     margin: 0;

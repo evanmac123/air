@@ -111,11 +111,26 @@
     .media_placeholders {
       overflow: auto;
       position: relative;
+      width: 200px;
+      margin: auto;
     }
     .image_placeholder, .video_placeholder {
+      cursor: pointer;
       label {
-        margin-top: 1em;
+        margin-top: 8px;
         cursor: default;
+        font-size: 12px;
+      }
+      .icon_circle {
+        overflow: auto;
+        border: 3px solid $gray;
+        border-radius: 50px;
+        width: 50px;
+        height: 50px;
+        margin: auto;
+      }
+      i {
+        font-size: 25px;
       }
       padding-top: 5em;
       padding-bottom: 5em;
@@ -123,24 +138,34 @@
         i, label {
           color: $darker-gray;
         }
+        .icon_circle {
+          border-color: $darker-gray;
+        }
       }
     }
     .video_placeholder {
       float: right;
       width: 50%;
-      border-left: 2px dashed #f3f3f3;
+      i {
+        padding-top: 10px;
+        padding-left: 4px;
+      }
     }
     .image_placeholder {
       float: none;
       width: auto;
       overflow: hidden;
+      i {
+        padding-top: 9px;
+        padding-left: 1px;
+      }
     }
   }
 }
 #image_uploader {
   &:hover {
     // border-style:dashed;
-    cursor: pointer;
+    // cursor: pointer;
     // .image_placeholder, .video_placeholder {
     //   i, label {
     //     color: $darker-gray;
