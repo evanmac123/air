@@ -42,7 +42,4 @@ class AirboMixpanelClient
     d.strftime("%Y-%m-%d")
   end
 
-
-
-
-end 
+end
