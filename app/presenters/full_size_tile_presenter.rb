@@ -91,7 +91,29 @@ class FullSizeTilePresenter
   end
 
   def show_video?
-    tile.embed_video.present?
+    tile.embed_video.present? && !old_browser?
+  end
+
+  def old_browser?
+    true#browser.ie8?
+  end
+
+  def extracted_video_link
+    "https://www.youtube.com/embed/xCeW1aFW4pA"
+  end
+
+  def image_preview
+    if old_browser? && tile.embed_video.present?
+      ActionController::Base.helpers.link_to extracted_video_link, target: "_blank" do
+        image_preview_tag
+      end
+    else
+      image_preview_tag
+    end
+  end
+
+  def image_preview_tag
+    ActionController::Base.helpers.image_tag image.url, :class => :tile_image, :alt => headline, id:"tile_img_preview"
   end
 
   protected
