@@ -6,7 +6,7 @@ class KpiReport
   FREE_HRM_ROW_INDEX = 8 
 
 
-  attr_accessor :g_drive_client, :mixpanel_client, :kpi_worksheet, :mixpanel_worksheet
+  attr_reader :g_drive_client, :mixpanel_client, :kpi_worksheet, :mixpanel_worksheet, :file
 
   def initialize
     @g_drive_client = GoogleDriveClient.new
@@ -16,7 +16,7 @@ class KpiReport
   end
 
   def run_report 
-    file = g_drive_client.spreadsheet_by_title ENV['KPI_SPREADSHEET_NAME']
+    @file = g_drive_client.spreadsheet_by_title ENV['KPI_SPREADSHEET_NAME']
     populate_mixpanel_data
   end
 
