@@ -21,7 +21,16 @@
 
     <div class="image_section" style="height:<%= tile.show_image? ? '' : '0px' %>">
       <div class="tile_full_image <%= image_is_loading ? 'loading' : '' %>" style="<%= tile.image_styles %>">
-        <%= tile.image_preview %>
+        <% if tile.old_browser? && tile.embed_video.present? %>
+          <%= link_to tile.extracted_video_link, target: "_blank" do %>
+            <div class="video_old_browser">
+              <h3>Click to play the video</h3>
+              <%= fa_icon "play-circle" %>
+            </div>
+          <% end %>
+        <% else %>
+          <%= image_tag tile.image.url, :class => :tile_image, :alt => tile.headline, id:"tile_img_preview" %>
+        <% end %>
         <div class="shadow_overlay non-landing"></div>
         <div class="image_credit">
           <div class="image_credit_view">

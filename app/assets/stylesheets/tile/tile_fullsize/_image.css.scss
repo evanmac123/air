@@ -42,6 +42,17 @@
  background: white;
 }
 
+.video_old_browser {
+  background: $white;
+  padding: 100px;
+  i {
+    font-size: 200px;
+  }
+  &:hover {
+    color: $n-blue;
+  }
+}
+
 
 .shadow_overlay {
   display: block;
