@@ -66,9 +66,16 @@ Airbo.EmbedVideo = (function() {
       submitVideo.prop("disabled", blockSubmit);
       $(".embed_video_err").toggle(blockSubmit);
     });
+    $("#embed_video_field").bind('keyup', function(e){
+      if(e.keyCode == 8) { // backspace
+        $(this).val("");
+        submitVideo.prop("disabled", true);
+      }
+    });
     submitVideo.click(function() {
       var embedCode = $("#embed_video_field").val();
       addVideo( embedCode );
+      $(this).prop("disabled", true);
 
       modalObj.close();
     });
