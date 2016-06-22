@@ -10,6 +10,18 @@
   position: relative;
   width: 100%;
   padding-top: 57%;
+  background: $gray-4;
+  .error_no_video {
+    content: "This video is broken. Plese click 'X' to add another one";
+    color: $n-red2;
+    position: absolute;
+    top: 30%;
+    text-align: center;
+    line-height: 42px;
+    padding: 30px;
+    font-size: 30px;
+    display: none;
+  }
   iframe {
     width: 100%;
     position: absolute;

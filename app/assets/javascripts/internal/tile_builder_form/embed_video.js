@@ -7,6 +7,19 @@ Airbo.EmbedVideo = (function() {
     , submitVideo
     , modalInitialized = false
   ;
+  function toggleVideoSection(show) {
+    if(show) {
+      $(".video_section").removeClass("hidden");
+      setTimeout(function(){
+        $(".error_no_video").show();
+      }, 1000);
+    } else {
+      $(".video_section").addClass("hidden");
+      setTimeout(function(){
+        $(".error_no_video").hide();
+      }, 1000);
+    }
+  }
   function addVideoImage() {
     var videoImage = $("#remote_media_url").data("video-image");
     $("#remote_media_url").val(videoImage);
@@ -15,9 +28,9 @@ Airbo.EmbedVideo = (function() {
     Airbo.TileImagesMgr.removeImage(); // image with video icon
   }
   function addVideo(embedCode) {
-    $("#image_uploader").hide();
-    $(".video_section").show();
     $(".video_frame_block").html(embedCode);
+    $("#image_uploader").hide();
+    toggleVideoSection(true);
     addVideoImage();
 
     $("#tile_builder_form_embed_video").val(embedCode);
@@ -25,7 +38,7 @@ Airbo.EmbedVideo = (function() {
   function removeVideo() {
     removeVideoImage();
     $("#image_uploader").show();
-    $(".video_section").hide();
+    toggleVideoSection(false);
     $(".video_frame_block").html("");
     $("#tile_builder_form_embed_video").val("");
   }
@@ -77,7 +90,7 @@ Airbo.EmbedVideo = (function() {
   function initForm() {
     if( $("#tile_builder_form_embed_video").val().length > 0 ) {
       $("#image_uploader").hide();
-      $(".video_section").show();
+      toggleVideoSection(true);
     }
     initFormEvents();
   }
