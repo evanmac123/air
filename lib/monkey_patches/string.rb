@@ -25,6 +25,11 @@ class String
     end
   end
 
+  def as_obfuscated_phone
+   ph = as_pretty_phone
+   ph.empty? ? ph : "(***)-***-#{ph[-4, 4]}"
+  end
+
   def as_pretty_phone
     return "" if self.blank?
 

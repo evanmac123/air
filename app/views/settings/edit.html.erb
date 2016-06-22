@@ -54,7 +54,7 @@
       <% if current_user.new_phone_number_needs_verification? %>
         <div class="module_inner" id="settings_new_number_verification">
           <%= form_for current_user, :url => phone_path, :method => :put do |form| %>
-            <p><%= label_tag "user_new_phone_validation", "To verify the number #{current_user.new_phone_number.as_pretty_phone}, please enter the validation code we sent to that number:" %></p>
+            <p><%= label_tag "user_new_phone_validation", "To verify the number #{current_user.new_phone_number.as_obfuscated_phone}, please enter the validation code we sent to that number:" %></p>
             <%= form.text_field :new_phone_validation, :value => '' %>
             <%= submit_tag 'Verify new number', :class => 'button_norm' %>
           <% end %>
@@ -63,7 +63,7 @@
       <%= form_for current_user, :url => account_path do |form| %>
         <div class="module_inner settings_number">
           <%= label_tag 'user_phone_number', "Mobile number" %>
-          <%= form.text_field :phone_number, :value => current_user.phone_number.try(:as_pretty_phone) %>
+          <%= form.text_field :phone_number, :value => current_user.phone_number.try(:as_obfuscated_phone) %>
         </div>
         <div class="module_inner settings_notification">
           Notify me via...
