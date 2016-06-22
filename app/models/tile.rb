@@ -44,6 +44,7 @@ class Tile < ActiveRecord::Base
   has_alphabetical_column :headline
 
   before_validation :sanitize_supporting_content
+  before_validation :sanitize_embed_video
   before_validation :set_image_processing, if: :image_changed?
   validates_presence_of :headline, :allow_blank => false, :message => "headline can't be blank"
   validates_presence_of :supporting_content, :allow_blank => false, :message => "supporting content can't be blank", :on => :client_admin
@@ -309,6 +310,14 @@ class Tile < ActiveRecord::Base
         'br', 'a'
       ],
       attributes: { 'a' => ['href', 'target'] }
+    ).strip
+  end
+
+  def sanitize_embed_video
+    self.embed_video = Sanitize.fragment(
+      (self.embed_video.try(:strip) || ""),
+      elements: ['iframe'],
+      attributes: { 'iframe' => ['src', 'width', 'height', 'allowfullscreen', 'webkitallowfullscreen', 'mozAllowFullScreen', 'frameborder', 'allowtransparency', 'frameborder', 'scrolling', 'class', 'oallowfullscreen'] }
     ).strip
   end
 
