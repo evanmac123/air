@@ -10,7 +10,7 @@
           <% end %>
         <% else %>
           <% if tile.is_possible_correct_answer?(answer_index) %>
-            <%= link_to answer, tile_completions_path(tile_id: tile.id, answer_index: answer_index), class: "right_multiple_choice_answer #{tile.is_invitation_answer?(answer_index) ? 'invitation_answer' : ''}", data: {tile_id: tile.id} %>
+            <%= link_to answer, tile_completions_path(tile_id: tile.id, answer_index: answer_index), class: "right_multiple_choice_answer #{tile.action_answer_class(answer_index)}", data: {tile_id: tile.id} %>
           <% else %>
             <%= link_to answer, '#', class: "wrong_multiple_choice_answer" %>
           <% end %>
