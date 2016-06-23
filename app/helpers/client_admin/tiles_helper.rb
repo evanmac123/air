@@ -32,7 +32,7 @@ module ClientAdmin::TilesHelper
     tile_types = default_tile_types
     if current_user.demo.dependent_board_enabled ||
        tile.question_subtype == Tile::INVITE_SPOUSE
-       
+
       tile_types = add_invite_item tile_types
     end
 
@@ -148,6 +148,15 @@ module ClientAdmin::TilesHelper
           choose: false,
           remove: false,
           add: false
+        },
+        Tile::CHANGE_EMAIL.parameterize("_") => {
+          name: "Change Email",
+          question: "Do you want to change your email address for digest?",
+          answers: ["Change my email", "Keep my current email"],
+          choose: true,
+          remove: true,
+          add: true,
+          correct: 0
         }
       }
     }
