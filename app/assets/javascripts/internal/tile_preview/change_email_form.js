@@ -3,7 +3,7 @@ var Airbo = window.Airbo || {};
 Airbo.ChangeEmailForm = (function() {
   var deferred
     , formSel = "form.change_email_form"
-    , noInviteLinkSel = formSel + " .no_invitation"
+    , exitFormSel = formSel + " .no_email_change"
     , tileQuizSecSel = ".multiple_choice_group"
     , form
   ;
@@ -27,7 +27,7 @@ Airbo.ChangeEmailForm = (function() {
 
     });
 
-    $(noInviteLinkSel).click(function(e) {
+    $(exitFormSel).click(function(e) {
       e.preventDefault();
       deferred.reject();
 
@@ -39,16 +39,12 @@ Airbo.ChangeEmailForm = (function() {
   function initValidator(){
     var config = {
 
-    errorClass: "dependent_user_invitation_error",
+    errorClass: "change_email_error",
       rules: {
-    "dependent_user_invitation[email]":{ required: true },
-    "dependent_user_invitation[subject]": { required: true },
-    "dependent_user_invitation[body]": { required: true }
+    "change_email[email]":{ required: true }
       },
       messages: {
-        "dependent_user_invitation[email]": "Email is required",
-        "dependent_user_invitation[subject]": "Subject is required",
-        "dependent_user_invitation[body]": "Email body is required"
+        "change_email[email]": "Email is required"
       },
 
       errorPlacement: function(error, element) {

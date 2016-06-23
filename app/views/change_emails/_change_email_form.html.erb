@@ -1,15 +1,9 @@
-<%= form_tag invitation_dependent_user_invitation_path, class: "bg-gray-quiz dependent_email content_sections dependent_email_form" do %>
-  <label>To</label>
-  <%= text_field_tag "dependent_user_invitation[email]", "", placeholder: "example@email.com" %>
-
-  <label>Subject</label>
-  <%= text_field_tag "dependent_user_invitation[subject]", dependent_board_email_subject%>
-
-  <label>Body</label>
-  <%= text_area_tag "dependent_user_invitation[body]", dependent_board_email_body, rows: "4" %>
+<%= form_tag change_email_path, class: "bg-gray-quiz content_sections change_email_form" do %>
+  <label>New Email Adress</label>
+  <%= text_field_tag "change_email[email]", "", placeholder: "example@email.com" %>
 
   <%= submit_tag "Send", class: "tile_button" %>
   <p>
-    <%= link_to "Nevermind, I don’t want to send an invitation.", "", class: "no_invitation righty" %>
+    <%= link_to "Nevermind, I don’t want to change my email.", "", class: "no_email_change righty" %>
   </p>
 <% end %>

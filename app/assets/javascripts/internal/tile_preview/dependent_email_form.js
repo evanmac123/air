@@ -3,7 +3,7 @@ var Airbo = window.Airbo || {};
 Airbo.DependentEmailForm = (function() {
   var deferred
     , formSel = "form.dependent_email_form"
-    , noInviteLinkSel = formSel + " .no_invitation"
+    , exitFormSel = formSel + " .no_invitation"
     , tileQuizSecSel = ".multiple_choice_group"
     , form
   ;
@@ -27,7 +27,7 @@ Airbo.DependentEmailForm = (function() {
 
     });
 
-    $(noInviteLinkSel).click(function(e) {
+    $(exitFormSel).click(function(e) {
       e.preventDefault();
       deferred.reject();
 
