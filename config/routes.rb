@@ -118,7 +118,7 @@ Health::Application.routes.draw do
   resources :locations, only: :index
 
   resources :suggested_tiles, only: [:new, :show, :create]
-  resource :change_email, only: [:new, :create]
+  resource :change_email, only: [:new, :create, :show]
 
   namespace :client_admin do
     resource :segmentation

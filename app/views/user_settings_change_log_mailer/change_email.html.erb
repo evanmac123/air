@@ -1,0 +1,3 @@
+<% content_for(:ie_link){ @confirm_url } %>
+<%= render partial: 'mailer/main_text', locals: {head_text: "You've changed your email address to #{@email}", subhead_text: "Please, confirm your change"} %>
+<%= render partial: 'mailer/main_button', locals: {button_text: "Confirm", button_url: @confirm_url } %>

@@ -4,13 +4,17 @@ class ChangeEmailsController < ApplicationController
   end
 
   def create
-    if permit_params[:email].present?
-
-      # head :ok
+    change_log = UserSettingsChangeLog.where(user: current_user).first_or_create
+    if change_log.save_email permit_params[:email]
+      change_log.send_confirmation_for_email
       render partial: 'success'
     else
       head :unprocessable_entity
     end
+  end
+
+  def show
+
   end
 
   protected

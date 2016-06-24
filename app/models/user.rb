@@ -50,6 +50,7 @@ class User < ActiveRecord::Base
   has_one    :billing_information
   has_one    :user_intro
   has_one    :dependent_user,  class_name: "User", foreign_key: :primary_user_id
+  has_one    :user_settings_change_log
   belongs_to :primary_user, class_name: "User"
 
   validate :normalized_phone_number_unique, :normalized_new_phone_number_unique, :normalized_new_phone_number_not_taken_by_board

@@ -997,14 +997,14 @@ ActiveRecord::Schema.define(:version => 20160624181035) do
   add_index "user_intros", ["user_id"], :name => "index_user_intros_on_user_id"
 
   create_table "user_settings_change_logs", :force => true do |t|
-    t.integer  "user_id_id"
+    t.integer  "user_id"
     t.string   "email",                      :default => "", :null => false
     t.string   "email_token", :limit => 128
     t.datetime "created_at",                                 :null => false
     t.datetime "updated_at",                                 :null => false
   end
 
-  add_index "user_settings_change_logs", ["user_id_id"], :name => "index_user_settings_change_logs_on_user_id_id"
+  add_index "user_settings_change_logs", ["user_id"], :name => "index_user_settings_change_logs_on_user_id"
 
   create_table "user_tile_copies", :force => true do |t|
     t.integer  "tile_id"
