@@ -10,7 +10,7 @@ class ReportRunner
   end
 
   def run workbook
-    @data  = MixpanelReports::ActivitySessionByUserTypeAndBoard.new(workbook).pull
+    @data  = MixpanelReports::ActivitySessionByUserTypeAndBoard.new.pull
     @report_worksheet = @file.worksheet_by_title("Mixpanel Data")
   end
 
