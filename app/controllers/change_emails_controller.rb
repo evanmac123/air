@@ -7,9 +7,10 @@ class ChangeEmailsController < ApplicationController
 
   def create
     change_log = UserSettingsChangeLog.where(user: current_user).first_or_create
-    if current_user.email != permit_params[:email] &&
-       permit_params[:email].present? &&
-       change_log.save_email(permit_params[:email])
+    new_email = permit_params[:email]
+    if new_email.present? &&
+       !User.where(email: new_email).first &&
+       change_log.save_email(new_email)
 
       change_log.send_confirmation_for_email
 
@@ -27,7 +28,7 @@ class ChangeEmailsController < ApplicationController
           # render nothing: true
         end
         format.html do
-          flash[:failure] = "That's not a valid email!"
+          flash[:failure] = "#{new_email} іs not a valid email!"
           redirect_to :back
         end
       end

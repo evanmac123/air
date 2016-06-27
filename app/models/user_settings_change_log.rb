@@ -1,5 +1,6 @@
 class UserSettingsChangeLog < ActiveRecord::Base
   belongs_to :user
+  validates_with EmailFormatValidator, allow_blank: true
 
   def save_email email
     self.email = email
