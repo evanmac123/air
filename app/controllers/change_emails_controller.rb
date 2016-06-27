@@ -2,16 +2,35 @@ class ChangeEmailsController < ApplicationController
   skip_before_filter :authorize
 
   def new
-    render partial: 'change_email_form'
+    render partial: 'form'
   end
 
   def create
     change_log = UserSettingsChangeLog.where(user: current_user).first_or_create
-    if change_log.save_email permit_params[:email]
+    if current_user.email != permit_params[:email] &&
+       permit_params[:email].present? &&
+       change_log.save_email(permit_params[:email])
+
       change_log.send_confirmation_for_email
-      render partial: 'success'
+
+      respond_to do |format|
+        format.js { render partial: 'success' }
+        format.html do
+          flash[:success] = "Confirmation email was sent to your current address. Please, confirm your change!"
+          redirect_to :back
+        end
+      end
     else
-      head :unprocessable_entity
+      respond_to do |format|
+        format.js do
+          head :unprocessable_entity
+          # render nothing: true
+        end
+        format.html do
+          flash[:failure] = "That's not a valid email!"
+          redirect_to :back
+        end
+      end
     end
   end
 
