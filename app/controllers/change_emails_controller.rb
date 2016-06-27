@@ -14,23 +14,18 @@ class ChangeEmailsController < ApplicationController
 
       change_log.send_confirmation_for_email
 
-      respond_to do |format|
-        format.js { render partial: 'success' }
-        format.html do
-          flash[:success] = "Confirmation email was sent to your current address. Please, confirm your change!"
-          redirect_to :back
-        end
+      if request.xhr?
+        render partial: 'success'
+      else
+        flash[:success] = "Confirmation email was sent to your current address. Please, confirm your change!"
+        redirect_to :back
       end
     else
-      respond_to do |format|
-        format.js do
-          head :unprocessable_entity
-          # render nothing: true
-        end
-        format.html do
-          flash[:failure] = "#{new_email} іs not a valid email!"
-          redirect_to :back
-        end
+      if request.xhr?
+        head :unprocessable_entity
+      else
+        flash[:failure] = "#{new_email} іs not a valid email!"
+        redirect_to :back
       end
     end
   end

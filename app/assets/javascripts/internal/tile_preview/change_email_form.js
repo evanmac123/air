@@ -41,10 +41,10 @@ Airbo.ChangeEmailForm = (function() {
 
     errorClass: "change_email_error",
       rules: {
-    "change_email[email]":{ required: true }
-      },
-      messages: {
-        "change_email[email]": "Email is required"
+        "change_email[email]":{
+          required: true,
+          email: true
+        }
       },
 
       errorPlacement: function(error, element) {
