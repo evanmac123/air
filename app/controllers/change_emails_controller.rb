@@ -21,10 +21,11 @@ class ChangeEmailsController < ApplicationController
     if change_log && change_log.update_user_email
       sign_in(change_log.reload.user, 1)
       flash[:success] = "Your email was successfully changed to #{current_user.email}"
+      redirect_to activity_path
     else
       flash[:failure] = "Error. Email was not changed. Plese, go to settings and try to change it again."
+      redirect_to '/'
     end
-    redirect_to '/'
   end
 
   protected
