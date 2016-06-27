@@ -17,9 +17,10 @@ class ChangeEmailsController < ApplicationController
 
   def show
     change_log = UserSettingsChangeLog.where(email_token: params[:token]).first
-
     if change_log && change_log.update_user_email
-      sign_in(change_log.reload.user, 1)
+      user = change_log.reload.user
+      sign_in(user, 1)
+      ping('Changed Email', {}, user)
       flash[:success] = "Your email was successfully changed to #{current_user.email}"
       redirect_to activity_path
     else

@@ -216,7 +216,9 @@ Airbo.UserTilePreview =(function(){
       tileType = "Public Tile";
     } else if( $(".tile_multiple_choice_answer a").hasClass("invitation_answer") ) {
       tileType = "Spouse Invite";
-    } else {
+    } else if( $(".tile_multiple_choice_answer a").hasClass("change_email_answer") ) {
+      tileType = "Email Change";
+    }else {
       tileType = "User";
     }
     var pingParams = {
