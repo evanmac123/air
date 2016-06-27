@@ -19,7 +19,7 @@ class ChangeEmailsController < ApplicationController
     change_log = UserSettingsChangeLog.where(email_token: params[:token]).first
 
     if change_log && change_log.update_user_email
-      sign_in(change_log.user, 1)
+      sign_in(change_log.reload.user, 1)
       flash[:success] = "Your email was successfully changed to #{current_user.email}"
     else
       flash[:failure] = "Error. Email was not changed. Plese, go to settings and try to change it again."

@@ -8,7 +8,7 @@ class UserSettingsChangeLog < ActiveRecord::Base
   end
 
   def send_confirmation_for_email
-    UserSettingsChangeLogMailer.change_email(self.id)
+    UserSettingsChangeLogMailer.delay.change_email(self.id)
   end
 
   def generate_token(val)
