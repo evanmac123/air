@@ -102,14 +102,6 @@ class User
         characteristic = Characteristic.find(characteristic_id)
         [characteristic.name, operators[index], Characteristic.find(characteristic_id).format_value(values[index])].join(' ')
       end
-
-      #columns.each do |index, characteristic_id|
-      #  characteristic = Characteristic.find(characteristic_id)
-      #  segmentation_explanation += [prefix, characteristic.name, operators[index], Characteristic.find(characteristic_id).format_value(values[index])].join(' ')
-      #  prefix = ','
-      #end
-
-      #segmentation_explanation
     end
   end
 end

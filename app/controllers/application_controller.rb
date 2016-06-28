@@ -400,9 +400,6 @@ class ApplicationController < ActionController::Base
   end
 
   def attempt_segmentation(demo)
-    #if params[:segment_column].present?
-      #@segmentation_result = current_user.set_segmentation_results!(params[:segment_column], params[:segment_operator], params[:segment_value], demo)
-    #end
 
     if params[:segment_column].present?
       if (params[:segment_column].length > 1 and params[:segment_column].values.include?("")) or
