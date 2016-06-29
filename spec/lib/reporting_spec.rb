@@ -7,14 +7,18 @@ describe Reporting::Db::TileActivity do
     @demo = FactoryGirl.create(:demo)
     @demo2 = FactoryGirl.create(:demo)
 
+    @tar = Reporting::Db::TileActivity.new(@demo, 8.weeks.ago, Date.today)
+
     @tile1 = FactoryGirl.create(:tile, :active, demo: @demo, created_at: 12.weeks.ago, activated_at: 11.weeks.ago)
     @tile2 = FactoryGirl.create(:tile, :active, demo: @demo, created_at: 12.weeks.ago, activated_at: 11.weeks.ago)
     @tile3 = FactoryGirl.create(:tile, :active, demo: @demo, created_at: 12.weeks.ago, activated_at: 11.weeks.ago)
 
+    @activated_before_reporting_range_tile = FactoryGirl.create(:tile, :active, demo: @demo,  activated_at: 16.weeks.ago)
 
-    
-    @activated_before_reporting_range_tile = FactoryGirl.create(:tile, :active, demo: @demo, created_at: 20.weeks.ago, activated_at: 16.weeks.ago)
-    @archived_before_reporting_range_tile = FactoryGirl.create(:tile, :active, demo: @demo, created_at: 20.weeks.ago, archived_at: 16.weeks.ago)
+    @posted_within_reporting_range_tile = FactoryGirl.create(:tile, :active, demo: @demo, created_at: 7.weeks.ago, activated_at: 7.weeks.ago)
+
+
+    @archived_before_reporting_range_tile = FactoryGirl.create(:tile, :active, demo: @demo, activated_at: 20.weeks.ago, archived_at: 16.weeks.ago)
 
     @belongs_to_different_demo_tile = FactoryGirl.create(:tile, :active, demo: @demo2, created_at: 8.weeks.ago, activated_at: 3.weeks.ago)
 
@@ -52,24 +56,29 @@ describe Reporting::Db::TileActivity do
     FactoryGirl.create(:tile_completion, user: @user4, tile: @belongs_to_different_demo_tile, created_at: 2.weeks.ago)
     FactoryGirl.create(:tile_completion, user: @user4, tile: @archived_before_reporting_range_tile, created_at: 18.weeks.ago)
 
-    @tar = Reporting::Db::TileActivity.new(@demo, 8.weeks.ago, Date.today)
   end
 
-  describe "tiles_posted_count" do
+  describe "tiles_posted" do
     it "counts only posted tiles for this demo" do 
-      expect(@tar.tiles_posted_count).to eq 4
+      expect(@tar.tiles_posted).to eq 1
     end
   end
 
-  describe "unique_tile_views_count" do
-    it "counts only unique tile views" do 
-      expect(@tar.unique_tile_views_count).to eq 8
+  describe "tiles_available" do
+    it "counts only posted tiles for this demo" do 
+      expect(@tar.tiles_available).to eq 5
     end
   end
 
-  describe "unique_tile_completions_count" do
+  describe "tile_views" do
     it "counts only unique tile views" do 
-      expect(@tar.unique_tile_conpletions_count).to eq 7
+      expect(@tar.tile_views).to eq 8
+    end
+  end
+
+  describe "tile_completions" do
+    it "counts only unique tile views" do 
+      expect(@tar.tile_completions).to eq 7
     end
   end
 

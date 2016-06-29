@@ -13,42 +13,50 @@ module Reporting
 
     class UserActivation < Base
 
-      def all_activated_as_of 
-        memberships.where("users.accepted_invitation_at is not null and users.accepted_invitation_at <= ?", end_date)
+      def total_eligible
+        @demo.users.count
       end
 
-      def newly_activated_as_of
-        memberships.where("users.accepted_invitation_at >= ? and users.accepted_invitation_at < ?", beg_date, end_date)
+      def total_activated 
+        memberships.where("users.accepted_invitation_at is not null and users.accepted_invitation_at <= ?", end_date).count
+      end
+
+      def newly_activated
+        memberships.where("users.accepted_invitation_at >= ? and users.accepted_invitation_at < ?", beg_date, end_date).count
       end
 
       def activation_percent 
         all_activated_as_of(end_date)/total_eligible
       end
 
-      def total_eligible
-        @demo.users.count
-      end
 
       def memberships
         User.where({}).joins(:board_memberships).where("board_memberships.demo_id" => @demo_id)
       end
     end
 
+
+    # Pulls unique tile view and completion activity for demo and date range
+
     class TileActivity < Base
 
-      def tiles_posted_count
-        @demo.tiles.where("activated_at <= ? and (archived_at is null or archived_at > ?)", beg_date, end_date).count
+      def tiles_available
+        @demo.tiles.where("archived_at is null or archived_at > ?", end_date).count
       end
 
-      def unique_tile_views_count
-        tile_views.count
+      def tiles_posted
+        @demo.tiles.where("activated_at >= ? and (archived_at is null or archived_at > ?)", beg_date, end_date).count
       end
 
-      def unique_tile_conpletions_count
-        tile_completions.count
+      def tile_views
+        views.count
       end
 
-      def unique_tiles_viewed_conversion
+      def tile_completions
+        completions.count
+      end
+
+      def tiles_viewed_conversion
         unique_tile_views_count/tiles_posted_count
       end
 
@@ -58,11 +66,11 @@ module Reporting
 
       private
 
-      def tile_views
+      def views
         @demo.tile_viewings.select("user_id,tile_id").where("tile_viewings.created_at >= ? and tile_viewings.created_at < ?", beg_date, end_date)
       end
 
-      def tile_completions
+      def completions
         @demo.tile_completions.select("user_id,tile_id").where("tile_completions.created_at >= ? and tile_completions.created_at < ?", beg_date, end_date)
       end
 
