@@ -60,25 +60,25 @@ describe Reporting::Db::TileActivity do
 
   describe "tiles_posted" do
     it "counts only posted tiles for this demo" do 
-      expect(@tar.tiles_posted).to eq 1
+      expect(@tar.posted).to eq 1
     end
   end
 
   describe "tiles_available" do
     it "counts only posted tiles for this demo" do 
-      expect(@tar.tiles_available).to eq 5
+      expect(@tar.available).to eq 5
     end
   end
 
   describe "tile_views" do
     it "counts only unique tile views" do 
-      expect(@tar.tile_views).to eq 8
+      expect(@tar.views).to eq 8
     end
   end
 
   describe "tile_completions" do
     it "counts only unique tile views" do 
-      expect(@tar.tile_completions).to eq 7
+      expect(@tar.completions).to eq 7
     end
   end
 
