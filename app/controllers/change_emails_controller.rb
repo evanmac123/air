@@ -17,10 +17,11 @@ class ChangeEmailsController < ApplicationController
         redirect_to :back
       end
     else
+      failure_mess = "Email #{change_log.errors.messages[:email].join(', ')}"
       if request.xhr?
-        head :unprocessable_entity
+        render text: failure_mess, status: :unprocessable_entity
       else
-        flash[:failure] = "Email #{change_log.errors.messages[:email].join(', ')}"
+        flash[:failure] = failure_mess
         redirect_to :back
       end
     end

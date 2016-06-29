@@ -19,7 +19,10 @@ Airbo.ChangeEmailForm = (function() {
           success: function(data, status, xhr) {
             $(formSel).replaceWith(data);
             setTimeout(deferred.resolve, 1000);
-          }
+          },
+          error: function(data, status, xhr) {
+            $(".change_email_error").show().text(data.responseText);
+          },
         });
       }else{
        console.log("invalid form");
@@ -38,18 +41,14 @@ Airbo.ChangeEmailForm = (function() {
 
   function initValidator(){
     var config = {
-
-    errorClass: "change_email_error",
       rules: {
         "change_email[email]":{
           required: true,
           email: true
         }
       },
-
-      errorPlacement: function(error, element) {
-        error.insertAfter(element);
-      }
+      errorElement : 'label',
+      errorLabelContainer: '.change_email_error'
     },
 
 
