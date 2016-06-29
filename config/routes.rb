@@ -16,6 +16,7 @@ Health::Application.routes.draw do
   match "ard/:public_slug/tiles" => "tiles#index", :as => "public_tiles", :via => :get
   match "ard/:public_slug/tile/:id" => "tiles#show", :as => "public_tile", :via => :get
 
+  get "admin/customer/kpis" => "admin/organizations#kpis", :as => "organization_kpis"
   get "admin/customer/metrics" => "admin/organizations#metrics", :as => "organization_metrics"
   post "admin/customer/metrics" => "admin/organizations#metrics_recalc", :as => "organization_metrics"
 

@@ -3,7 +3,7 @@ class Admin::OrganizationsController < AdminBaseController
   include CustomResponder
 
   before_filter :find_organization, only: [:edit, :show, :update, :destroy]
-  before_filter :parse_dates, only: [:metrics_recalc, :metrics]
+  before_filter :parse_dates, only: [:metrics_recalc, :metrics, :kpis]
 
   def index
     @organizations = Organization.all
@@ -19,6 +19,19 @@ class Admin::OrganizationsController < AdminBaseController
             @sdate, @edate = Metrics.default_date_range
             Metrics.current_week
           end
+    respond_to do |format| 
+      format.html
+      format.csv do 
+        data = FinancialsReporterService.to_csv @sdate, @edate
+        send_data data, filename: "kpi-#{@sdate}-#{@edate}.csv" 
+      end 
+    end
+  end
+
+
+  def kpis
+    @tar = Reporting::ClientUsage.new(params[:demo_id], @sdate, @edate)
+
     respond_to do |format| 
       format.html
       format.csv do 
