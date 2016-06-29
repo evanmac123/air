@@ -8,12 +8,8 @@ class ChangeEmailsController < ApplicationController
   def create
     change_log = UserSettingsChangeLog.where(user: current_user).first_or_create
     new_email = permit_params[:email]
-    if new_email.present? &&
-       !User.where(email: new_email).first &&
-       change_log.save_email(new_email)
-
+    if change_log.save_email(new_email)
       change_log.send_confirmation_for_email
-
       if request.xhr?
         render partial: 'success'
       else
@@ -24,7 +20,7 @@ class ChangeEmailsController < ApplicationController
       if request.xhr?
         head :unprocessable_entity
       else
-        flash[:failure] = "#{new_email} іs not a valid email!"
+        flash[:failure] = "Email #{change_log.errors.messages[:email].join(', ')}"
         redirect_to :back
       end
     end
