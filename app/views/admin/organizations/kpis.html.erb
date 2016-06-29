@@ -1,0 +1,51 @@
+
+<div class="row">
+
+  <div class="columns small-12 small-centered">
+<h1> Clienty KPIs </h1>
+
+
+<%= render "cust_kpi_menu", active: "kpi" %>
+  </div>
+</div>
+<div class="row">
+
+  <div class="columns small-12 small-centered">
+    <%=form_tag organization_kpis_path do %> 
+      <table>
+        <caption>Reporting Criteria</caption>
+        <thead>
+          <tr>
+            <th>Demo</th>
+            <th>Start</th>
+            <th>End</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%=select_tag "demo",options_from_collection_for_select(Demo.active.paid{|d| [d.name, d.id]}) %></td>
+            <td><%=text_field_tag "sdate", @sdate, type: :date%></td>
+            <td><%=text_field_tag "edate",@edate, type: :date%></td>
+    <td><%=submit_tag "Get Data", class:"button td-button right"%></td>
+            
+          </tr> 
+        </tbody>
+      </table>
+    <table>
+      <thead>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+
+    <%=link_to "Download CSV", organization_metrics_path(sdate:@sdate, edate: @edate, format: :csv),  class:"button right"%> 
+  <%end%>
+  </div>
+  <%=form_tag historical_metrics_path do%> 
+    <%=submit_tag "Process Historical Metrics", class: "button outlined"%>
+  <%end%>
+</div>
+
+
+
