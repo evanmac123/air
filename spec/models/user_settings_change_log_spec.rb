@@ -25,4 +25,13 @@ describe UserSettingsChangeLog do
     expect(uscl).to_not be_valid
     expect(uscl.errors[:email]).to eql(["already exists"])
   end
+
+  context "#save email" do
+    it "should generate token" do
+      uscl = UserSettingsChangeLog.new
+      uscl.save_email "some@email.com"
+      expect(uscl.email).to eql("some@email.com")
+      expect(uscl.email_token).to be_present
+    end
+  end
 end
