@@ -33,8 +33,8 @@ module Reporting
         memberships.where("users.accepted_invitation_at >= ? and users.accepted_invitation_at < ?", beg_date, end_date).count
       end
 
-      def activation_percent 
-        all_activated_as_of(end_date)/total_eligible
+      def activation_pct 
+        total_activated/total_eligible
       end
 
 

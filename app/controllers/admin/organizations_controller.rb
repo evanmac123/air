@@ -30,7 +30,8 @@ class Admin::OrganizationsController < AdminBaseController
 
 
   def kpis
-    @tar = Reporting::ClientUsage.new(params[:demo_id], @sdate, @edate)
+    @demos = Demo.paid
+    @data = Reporting::ClientUsage.run(params[:demo_id], @sdate, @edate)
 
     respond_to do |format| 
       format.html

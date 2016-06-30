@@ -2,7 +2,7 @@
 <div class="row">
 
   <div class="columns small-12 small-centered">
-<h1> Clienty KPIs </h1>
+<h1> Client KPIs </h1>
 
 
 <%= render "cust_kpi_menu", active: "kpi" %>
@@ -24,27 +24,40 @@
         </thead>
         <tbody>
           <tr>
-            <td><%=select_tag "demo",options_from_collection_for_select(Demo.active.paid{|d| [d.name, d.id]}) %></td>
+            <td><%=select_tag "demo_id",options_from_collection_for_select(@demos, :id, :name,@data[:demo_id])%></td>
             <td><%=text_field_tag "sdate", @sdate, type: :date%></td>
             <td><%=text_field_tag "edate",@edate, type: :date%></td>
-    <td><%=submit_tag "Get Data", class:"button td-button right"%></td>
-            
+            <td><%=submit_tag "Get Data", class:"button td-button right"%></td>
           </tr> 
         </tbody>
       </table>
-    <table>
-      <thead>
-      </thead>
-      <tbody>
-      </tbody>
-    </table>
 
-    <%=link_to "Download CSV", organization_metrics_path(sdate:@sdate, edate: @edate, format: :csv),  class:"button right"%> 
+        <table>
+          <thead>
+            <th>Metric</th>
+            <th>Week</th>
+            <th>Month</th>
+            <th>Quarter</th>
+          </thead>
+          <tbody>
+            <tr><th>Eligible Users</th> <td></td> <td></td> <td></td> </tr>
+            <tr><th>Total Activated</th> <td></td> <td></td><td></td></tr>
+            <tr><th>Newly Activated</th> <td></td><td></td><td></td></tr>
+            <tr><th>Activation Pct</th> <td></td><td><td><td></td></tr>
+            <tr><th>Posted Tiles</th> <td></td><td></td><td></td></tr>
+            <tr><th>Available Tiles</th> <td></td><td></td></td><td></tr>
+            <tr><th>Viewed</th> <td><td></td><td></td></td></tr>
+            <tr><th>Completions</th> <td></td><td></td></td><td></tr>
+            <tr><th>Viewed</th> <td><td></td><td></td></td></tr>
+            <tr><th>Completions</th> <td></td><td></td><td></td></tr>
+          </tbody>
+        </table>
+      <%if @data[:demo_id] %>
+        <%=link_to "Download CSV", organization_kpis_path(demo_id: @data_demo_id, sdate:@sdate, edate: @edate, format: :csv),  class:"button right"%> 
+      <%end%>
+
   <%end%>
   </div>
-  <%=form_tag historical_metrics_path do%> 
-    <%=submit_tag "Process Historical Metrics", class: "button outlined"%>
-  <%end%>
 </div>
 
 

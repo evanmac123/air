@@ -24,10 +24,10 @@ describe Reporting::Db::TileActivity do
 
 
 
-    @user1 = FactoryGirl.create(:user, name: "User 1")
-    @user2 = FactoryGirl.create(:user, name: "User 2")
-    @user3 = FactoryGirl.create(:user, name: "User 3")
-    @user4 = FactoryGirl.create(:user, name: "User 4")
+    @user1 = FactoryGirl.create(:user, demo: @demo, name: "User 1", accepted_invitation_at: 10.weeks.ago)
+    @user2 = FactoryGirl.create(:user, demo: @demo, name: "User 2", accepted_invitation_at: 10.weeks.ago)
+    @user3 = FactoryGirl.create(:user, demo: @demo, name: "User 3", accepted_invitation_at: 10.weeks.ago)
+    @user4 = FactoryGirl.create(:user, demo: @demo, name: "User 4", accepted_invitation_at: 10.weeks.ago)
 
 
     FactoryGirl.create(:tile_viewing, user: @user1, tile: @tile1, created_at: 2.weeks.ago)
@@ -56,6 +56,16 @@ describe Reporting::Db::TileActivity do
     FactoryGirl.create(:tile_completion, user: @user4, tile: @belongs_to_different_demo_tile, created_at: 2.weeks.ago)
     FactoryGirl.create(:tile_completion, user: @user4, tile: @archived_before_reporting_range_tile, created_at: 18.weeks.ago)
 
+  end
+
+  describe Reporting::ClientUsage do
+    it "returns {} when demo is nil" do 
+      expect(Reporting::ClientUsage.run(nil)[:demo_id]).to be_nil
+    end
+
+    it "can be initialized" do 
+      expect(Reporting::ClientUsage.run(@demo.id)[:demo_id]).to eq(@demo.id)
+    end
   end
 
   describe "tiles_posted" do
