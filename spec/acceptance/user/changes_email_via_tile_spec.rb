@@ -8,9 +8,18 @@ feature "Changes email via tile", js: true do
   end
   let(:user) {FactoryGirl.create :user, demo: demo, email: "old@email.com"}
 
-  it "should complete form for changing email" do
+  scenario "user should complete form for changing email" do
     visit tiles_path(as: user)
-    # screenshot_and_open_image
+    # right tile
     expect( page.find(".tile_headline").text ).to eql(tile.headline)
+
+    page.find(".right_multiple_choice_answer.change_email_answer").click
+    within(".change_email_form") do
+      expect_content "New Email Adress"
+      fill_in "change_email_email", with: "new@email.com"
+      click_button "Send"
+    end
+    expect_content "Confirmation email was sent to your current address. Please, confirm your change!"
+    expect_content next_tile.headline
   end
 end
