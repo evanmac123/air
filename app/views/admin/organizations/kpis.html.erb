@@ -19,6 +19,7 @@
             <th>Demo</th>
             <th>Start</th>
             <th>End</th>
+            <th>Interval</th>
             <th></th>
           </tr>
         </thead>
@@ -27,6 +28,7 @@
             <td><%=select_tag "demo_id",options_from_collection_for_select(@demos, :id, :name,@data[:demo_id])%></td>
             <td><%=text_field_tag "sdate", @sdate, type: :date%></td>
             <td><%=text_field_tag "edate",@edate, type: :date%></td>
+            <td><%=select_tag "interval",options_for_select([["Week","week"],["Month","month"],["Quarter", "quarter"]])%></td>
             <td><%=submit_tag "Get Data", class:"button td-button right"%></td>
           </tr> 
         </tbody>

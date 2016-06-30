@@ -11,9 +11,9 @@ module Reporting
 
       @tile1 = FactoryGirl.create(:tile, :active, demo: @demo, created_at: 12.weeks.ago, activated_at: 11.weeks.ago)
       @tile2 = FactoryGirl.create(:tile, :active, demo: @demo, created_at: 12.weeks.ago, activated_at: 11.weeks.ago)
-      @tile3 = FactoryGirl.create(:tile, :active, demo: @demo, created_at: 12.weeks.ago, activated_at: 11.weeks.ago)
+      @tile3 = FactoryGirl.create(:tile, :active, demo: @demo, created_at: 12.weeks.ago, activated_at: 3.weeks.ago)
 
-      @activated_before_reporting_range_tile = FactoryGirl.create(:tile, :active, demo: @demo,  activated_at: 16.weeks.ago)
+      @activated_before_reporting_range_tile = FactoryGirl.create(:tile, :active, demo: @demo,  created_at: 16.weeks.ago, activated_at: 16.weeks.ago)
 
       @posted_within_reporting_range_tile = FactoryGirl.create(:tile, :active, demo: @demo, created_at: 7.weeks.ago, activated_at: 7.weeks.ago)
 
@@ -61,23 +61,28 @@ module Reporting
 
       before do
         setup_data
-        @tar = TileActivity.new(@demo, 8.weeks.ago, Date.today)
+        @tar = TileActivity.new(@demo, 8.weeks.ago, Date.today, "week")
       end
 
-      describe "tiles_posted" do
+      describe "posted" do
         it "counts only posted tiles for this demo" do 
-          expect(@tar.posted).to eq 1
+          posted =@tar.posted 
+          expect(posted.first.count).to eq "1"
         end
       end
 
-      describe "tiles_available" do
+      describe "available" do
         it "counts only posted tiles for this demo" do 
-          expect(@tar.available).to eq 5
+          available =@tar.available 
+          expect(available.map(&:count)).to eq ["1", "3", "4", "5"]
         end
       end
 
       describe "tile_views" do
         it "counts only unique tile views" do 
+
+          views =@tar.available 
+          binding.pry
           expect(@tar.views).to eq 8
         end
       end

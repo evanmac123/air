@@ -54,15 +54,15 @@ module Reporting
     class TileActivity < Base
 
       def available
-        @demo.tiles.where("archived_at is null or archived_at > ?", end_date).count
+        @demo.tiles.select(cumulative_clause).where("activated_at <= ? and (archived_at is null or archived_at > ?)", end_date, end_date).group("interval")
       end
 
       def posted
-        @demo.tiles.where("activated_at >= ? and (archived_at is null or archived_at > ?)", beg_date, end_date).count
+        @demo.tiles.select(clause).where("activated_at >= ? and (archived_at is null or archived_at > ?)", beg_date, end_date).group("interval").order("interval")
       end
 
       def views
-        get_views.count
+        @demo.tile_viewings.select(view_clause).where("tile_viewings.created_at >= ? and tile_viewings.created_at < ?", beg_date, end_date).group("interval")
       end
 
       def completions
@@ -81,11 +81,26 @@ module Reporting
 
 
       def clause
-        "DATE_TRUNC('#{@interval}', accepted_invitation_at) AS interval, count(users.id) AS count"
+        "DATE_TRUNC('#{@interval}', activated_at) AS interval, count(id) AS count"
       end
 
+      def cumulative_clause
+        "DATE_TRUNC('#{@interval}', activated_at) AS interval, sum(count(id)) " +
+          " over (order by date_trunc('#{@interval}',activated_at)) as count"
+      end
+
+      def view_clause
+        "DATE_TRUNC('#{@interval}', tile_viewings.created_at) AS interval, count(tile_viewings.id) AS count"
+      end
+
+      def completion_clause
+        "user_id,tile_id #{cumulative_clause}"
+      end
+
+
+
+
       def get_views
-        @demo.tile_viewings.select("user_id,tile_id").where("tile_viewings.created_at >= ? and tile_viewings.created_at < ?", beg_date, end_date)
       end
 
       def get_completions
