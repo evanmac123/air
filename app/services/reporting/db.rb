@@ -3,20 +3,13 @@ module Reporting
     class Base
       attr_reader :beg_date, :end_date
 
-      def initialize demo_id, beg_date=1.month.ago, end_date=Date.today
+      def initialize demo_id, beg_date, end_date, interval
         @demo_id  = demo_id
         @demo  = Demo.find(@demo_id)
-        @beg_date = beg_date
-        @end_date = end_date
+        @beg_date = beg_date.beginning_of_week
+        @end_date = end_date.beginning_of_week
+        @interval = interval
       end
-
-     def beg_date= val
-
-     end 
-
-     def beg_date= val
-
-     end 
     end
 
     class UserActivation < Base
@@ -26,11 +19,11 @@ module Reporting
       end
 
       def total_activated 
-        memberships.where("users.accepted_invitation_at is not null and users.accepted_invitation_at <= ?", end_date).count
+        memberships.select(cumulative_clause).where("users.accepted_invitation_at is not null and users.accepted_invitation_at <= ?", end_date).group("interval")
       end
 
       def newly_activated
-        memberships.where("users.accepted_invitation_at >= ? and users.accepted_invitation_at < ?", beg_date, end_date).count
+        memberships.select(clause).where("users.accepted_invitation_at >= ? and users.accepted_invitation_at < ?", beg_date, end_date).group("interval")
       end
 
       def activation_pct 
@@ -41,6 +34,18 @@ module Reporting
       def memberships
         User.where({}).joins(:board_memberships).where("board_memberships.demo_id" => @demo_id)
       end
+
+      def clause
+        "DATE_TRUNC('#{@interval}', accepted_invitation_at) AS interval, count(users.id) AS count"
+      end
+
+      def cumulative_clause
+        "DATE_TRUNC('#{@interval}', accepted_invitation_at) AS interval, sum(count(users.id)) " +
+          " over (order by date_trunc('#{@interval}',accepted_invitation_at)) as count"
+      end
+
+
+
     end
 
 
@@ -73,6 +78,11 @@ module Reporting
       end
 
       private
+
+
+      def clause
+        "DATE_TRUNC('#{@interval}', accepted_invitation_at) AS interval, count(users.id) AS count"
+      end
 
       def get_views
         @demo.tile_viewings.select("user_id,tile_id").where("tile_viewings.created_at >= ? and tile_viewings.created_at < ?", beg_date, end_date)
