@@ -82,6 +82,11 @@ class Demo < ActiveRecord::Base
   end
   include ActsWithCurrentDemoChecked
 
+  def self.paid
+    where(is_paid: true)
+  end
+
+
   def activate_tiles_if_showtime
     tiles.activate_if_showtime
   end
