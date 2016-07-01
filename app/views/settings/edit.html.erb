@@ -36,15 +36,20 @@
     <div class="module personal_settings" id="email_change">
       <h3>Change Email</h3>
       <%= form_tag change_email_path do %>
+        <div class="row">
+          <div class="small-6 columns">
+            <label>Email Address</label>
+            <%= text_field_tag "change_email[email]", @email.split("@")[0] + "...", placeholder: "example@email.com" %>
+            <%= submit_tag 'Save Change', :class => 'button' %>
+          </div>
 
-        <% if @pending_email.present? %>
-          <label>Pending Email Change</label>
-          <%= text_field_tag "change_email[email]", @pending_email, placeholder: "example@email.com", disabled: true, class: "bg-red2" %>
-        <% end %>
-
-        <label>Email Address</label>
-        <%= text_field_tag "change_email[email]", @email.split("@")[0] + "...", placeholder: "example@email.com" %>
-        <%= submit_tag 'Save Change', :class => 'button' %>
+          <div class="small-6 columns">
+            <% if @pending_email.present? %>
+              <label>Pending Email Change</label>
+              <%= text_field_tag "change_email[email]", @pending_email, placeholder: "example@email.com", disabled: true, class: "bg-red2" %>
+            <% end %>
+          </div>
+        </div>
       <% end %>
     </div>
   </div>

@@ -67,6 +67,12 @@
     display: inline-block;
     float: left;
     width: 50%;
+    &:first-of-type {
+      padding-right: 4px;
+    }
+    &:last-of-type {
+      padding-left: 4px;
+    }
   }
   ul + ul {padding-top:1em;}
 }
