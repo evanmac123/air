@@ -36,8 +36,8 @@
     <div class="module personal_settings" id="email_change">
       <h3>Change Email</h3>
       <%= form_tag change_email_path do %>
-        <label>Email Adress</label>
-        <%= text_field_tag "change_email[email]", current_user.email, placeholder: "example@email.com" %>
+        <label>Email Address</label>
+        <%= text_field_tag "change_email[email]", @email, placeholder: "example@email.com" %>
         <%= submit_tag 'Save Change', :class => 'button' %>
       <% end %>
     </div>

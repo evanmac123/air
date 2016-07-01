@@ -4,6 +4,7 @@ class SettingsController < ApplicationController
 
   def edit
     @palette = current_user.demo.custom_color_palette
+    @email = UserSettingsChangeLog.where(user: current_user).first.email || current_user.email
   end
 
   def update
