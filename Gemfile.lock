@@ -680,8 +680,5 @@ DEPENDENCIES
   unicorn
   wice_grid!
 
-RUBY VERSION
-   ruby 2.0.0p643
-
 BUNDLED WITH
    1.12.4
