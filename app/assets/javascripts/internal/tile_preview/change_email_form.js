@@ -18,7 +18,7 @@ Airbo.ChangeEmailForm = (function() {
           dataType: 'html',
           success: function(data, status, xhr) {
             $(formSel).replaceWith(data);
-            setTimeout(deferred.resolve, 1000);
+            setTimeout(deferred.resolve, 5000);
           },
           error: function(data, status, xhr) {
             $(".change_email_error").show().text(data.responseText);

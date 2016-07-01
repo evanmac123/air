@@ -1,8 +1,8 @@
 <%= form_tag change_email_path, class: "bg-gray-quiz content_sections change_email_form" do %>
-  <label>New Email Adress</label>
+  <label>New Email Address</label>
   <%= text_field_tag "change_email[email]", "", placeholder: "example@email.com" %>
   <label class="change_email_error err"></label>
-  <%= submit_tag "Send", class: "tile_button" %>
+  <%= submit_tag "Change email", class: "tile_button" %>
   <p>
     <%= link_to "Nevermind, I don’t want to change my email.", "", class: "no_email_change righty" %>
   </p>

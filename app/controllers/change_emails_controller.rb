@@ -13,7 +13,7 @@ class ChangeEmailsController < ApplicationController
       if request.xhr?
         render partial: 'success'
       else
-        flash[:success] = "Confirmation email was sent to your current address. Please, confirm your change!"
+        flash[:success] = "A confirmation email was sent to your current email address. Please click the button in the email to confirm your email change."
         redirect_to :back
       end
     else

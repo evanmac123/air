@@ -151,7 +151,7 @@ module ClientAdmin::TilesHelper
         },
         Tile::CHANGE_EMAIL.parameterize("_") => {
           name: "Change Email",
-          question: "Do you want to change your email address for digest?",
+          question: "Would you like to change the email that you receive Airbo email notifications?",
           answers: ["Change my email", "Keep my current email"],
           choose: true,
           remove: true,

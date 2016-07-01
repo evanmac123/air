@@ -10,6 +10,6 @@ class UserSettingsChangeLogMailer < ActionMailer::Base
     @email = @change_log.email
     @confirm_url = change_email_url(token: @change_log.email_token)
 
-		mail to: @user.email, subject: "Email was changed", from: "Airbo <support@ourairbo.com>"
+		mail to: @user.email, subject: "Email Change Confirmation", from: "Airbo <support@ourairbo.com>"
   end
 end
