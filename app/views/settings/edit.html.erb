@@ -37,7 +37,7 @@
       <h3>Change Email</h3>
       <%= form_tag change_email_path do %>
         <label>Email Address</label>
-        <%= text_field_tag "change_email[email]", @email, placeholder: "example@email.com" %>
+        <%= text_field_tag "change_email[email]", @email.split("@")[0] + "...", placeholder: "example@email.com" %>
         <%= submit_tag 'Save Change', :class => 'button' %>
       <% end %>
     </div>

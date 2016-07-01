@@ -71,6 +71,8 @@ Airbo.ChangeEmailForm = (function() {
         $(tileQuizSecSel).hide().after(data);
         init();
 
+        $("#change_email_email").focus();
+
         var tileId = $(".tile_holder").data("current-tile-id");
         Airbo.Utils.ping('Opened Email Change Form', {tile_id: tileId});
       }
