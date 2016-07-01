@@ -46,7 +46,7 @@
           <div class="small-6 columns">
             <% if @pending_email.present? %>
               <label>Pending Email Change</label>
-              <%= text_field_tag "change_email[email]", @pending_email, placeholder: "example@email.com", disabled: true, class: "bg-red2" %>
+              <%= text_field_tag "change_email[email]", @pending_email, placeholder: "example@email.com", disabled: true, class: "bg-blocked" %>
             <% end %>
           </div>
         </div>

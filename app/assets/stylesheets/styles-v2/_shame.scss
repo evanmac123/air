@@ -130,6 +130,13 @@ td .button.td-button {
   }
 }
 
+.bg-blocked.bg-blocked {
+  background: #DDD;
+  &:hover {
+    background: #DDD;
+  }
+}
+
 .bg-whitish {
   background-color: #f9f9f9;
 }
