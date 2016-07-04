@@ -31,7 +31,7 @@ module Reporting
 
         data[:total_eligible] = activation.total_eligible
 
-        activation.total_activated.each do |res|
+        activation.activated.each do |res|
           timestamp= Date.parse(res.interval)
           data[timestamp][:activation][:total_activated] = res.count
           data[timestamp][:activation][:activation_pct] = res.count.to_f/data[:total_eligible].to_f
