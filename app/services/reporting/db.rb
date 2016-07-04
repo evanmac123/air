@@ -10,6 +10,18 @@ module Reporting
         @end_date = end_date.beginning_of_week
         @interval = interval
       end
+
+
+      private
+      def aggregation interval_field, key_field
+        "DATE_TRUNC('#{@interval}', #{interval_field}) AS interval, count(#{key_field}) as interval_count, sum(count(#{key_field})) " +
+          " over (order by date_trunc('#{@interval}', #{interval_field})) as cumulative_count"
+      end
+
+      def group_and_order relation
+        relation.group("interval").order("interval")
+      end
+
     end
 
     class UserActivation < Base
@@ -18,55 +30,39 @@ module Reporting
         @demo.users.count
       end
 
-      def total_activated 
-        memberships.select(cumulative_clause).where("users.accepted_invitation_at is not null and users.accepted_invitation_at <= ?", end_date).group("interval")
-      end
+      def activated 
 
-      def newly_activated
-        memberships.select(clause).where("users.accepted_invitation_at >= ? and users.accepted_invitation_at < ?", beg_date, end_date).group("interval")
+        agg_clause = aggregation "users.accepted_invitation_at", "users.id"
+       group_and_order( memberships.select(agg_clause).where("users.accepted_invitation_at is not null and users.accepted_invitation_at <= ?", end_date))
       end
 
       def activation_pct 
         total_activated/total_eligible
       end
 
-
       def memberships
-        User.where({}).joins(:board_memberships).where("board_memberships.demo_id" => @demo_id)
+        User.joins(:board_memberships).where("board_memberships.demo_id" => @demo_id)
       end
-
-      def clause
-        "DATE_TRUNC('#{@interval}', accepted_invitation_at) AS interval, count(users.id) AS count"
-      end
-
-      def cumulative_clause
-        "DATE_TRUNC('#{@interval}', accepted_invitation_at) AS interval, sum(count(users.id)) " +
-          " over (order by date_trunc('#{@interval}',accepted_invitation_at)) as count"
-      end
-
-
 
     end
 
 
-    # Pulls unique tile view and completion activity for demo and date range
 
     class TileActivity < Base
 
       def available
-        @demo.tiles.select(cumulative_clause).where("activated_at <= ? and (archived_at is null or archived_at > ?)", end_date, end_date).group("interval")
-      end
-
-      def posted
-        @demo.tiles.select(clause).where("activated_at >= ? and (archived_at is null or archived_at > ?)", beg_date, end_date).group("interval").order("interval")
+        agg_clause = aggregation "activated_at", "id"
+        group_and_order(@demo.tiles.select(agg_clause).where("activated_at <= ? and (archived_at is null or archived_at > ?)", end_date, end_date))
       end
 
       def views
-        @demo.tile_viewings.select(view_clause).where("tile_viewings.created_at >= ? and tile_viewings.created_at < ?", beg_date, end_date).group("interval")
+        agg_clause = aggregation "tile_viewings.created_at", "tile_viewings.id"
+        group_and_order(@demo.tile_viewings.select(agg_clause).where("tile_viewings.created_at >= ? and tile_viewings.created_at < ?", beg_date, end_date))
       end
 
       def completions
-        get_completions.count
+        agg_clause = aggregation "tile_completions.created_at", "tile_completions.id"
+        group_and_order(@demo.tile_completions.select(agg_clause).where("tile_completions.created_at >= ? and tile_completions.created_at < ?", beg_date, end_date))
       end
 
       def views_over_available
@@ -77,35 +73,6 @@ module Reporting
         completions/views
       end
 
-      private
-
-
-      def clause
-        "DATE_TRUNC('#{@interval}', activated_at) AS interval, count(id) AS count"
-      end
-
-      def cumulative_clause
-        "DATE_TRUNC('#{@interval}', activated_at) AS interval, sum(count(id)) " +
-          " over (order by date_trunc('#{@interval}',activated_at)) as count"
-      end
-
-      def view_clause
-        "DATE_TRUNC('#{@interval}', tile_viewings.created_at) AS interval, count(tile_viewings.id) AS count"
-      end
-
-      def completion_clause
-        "user_id,tile_id #{cumulative_clause}"
-      end
-
-
-
-
-      def get_views
-      end
-
-      def get_completions
-        @demo.tile_completions.select("user_id,tile_id").where("tile_completions.created_at >= ? and tile_completions.created_at < ?", beg_date, end_date)
-      end
 
     end
 
