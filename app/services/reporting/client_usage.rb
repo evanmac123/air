@@ -39,6 +39,7 @@ module Reporting
 
         activation.activated.each do |res|
           timestamp= Date.parse(res.interval)
+          next if timestamp < start.to_date
           data[:activation][timestamp][:current] = res.interval_count
           data[:activation][timestamp][:total] = res.cumulative_count
           data[:activation][timestamp][:activation_pct] = res.cumulative_count.to_f/data[:activation][:total_eligible].to_f
@@ -49,20 +50,23 @@ module Reporting
       def do_tile_activity data, demo,start, finish, interval
         activity = Reporting::Db::TileActivity.new(demo,start, finish, interval)
 
-        activity.posts do |res|
+      activity.posts.each do |res|
           timestamp= Date.parse(res.interval)
+          next if timestamp < start.to_date
           data[:tile_activity][:posts][timestamp][:current] = res.interval_count
           data[:tile_activity][:posts][timestamp][:total] = res.cumulative_count
         end
 
-        activity.views do |res|
+      activity.views.each do |res|
           timestamp= Date.parse(res.interval)
+          next if timestamp < start.to_date
           data[:tile_activity][:views][timestamp][:current] = res.interval_count
           data[:tile_activity][:views][timestamp][:total] = res.cumulative_count
         end
 
-        activity.completions do |res|
+      activity.completions.each do |res|
           timestamp= Date.parse(res.interval)
+          next if timestamp < start.to_date
           data[:tile_activity][:completions][timestamp][:current] = res.interval_count
           data[:tile_activity][:completions][timestamp][:total] = res.cumulative_count
         end

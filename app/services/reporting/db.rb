@@ -36,9 +36,11 @@ module Reporting
        group_and_order( memberships.select(agg_clause).where("users.accepted_invitation_at is not null and users.accepted_invitation_at <= ?", end_date))
       end
 
-      def activation_pct 
-        total_activated/total_eligible
-      end
+      #def activation_pct 
+        #total_activated/total_eligible
+      #end
+
+      private
 
       def memberships
         User.joins(:board_memberships).where("board_memberships.demo_id" => @demo_id)
@@ -50,7 +52,7 @@ module Reporting
 
     class TileActivity < Base
 
-      def available
+      def posts
         agg_clause = aggregation "activated_at", "id"
         group_and_order(@demo.tiles.select(agg_clause).where("activated_at <= ? and (archived_at is null or archived_at > ?)", end_date, end_date))
       end
