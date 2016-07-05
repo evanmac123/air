@@ -35,14 +35,13 @@ module Reporting
       def do_user_activation data, demo,start, finish, interval
         activation = Reporting::Db::UserActivation.new(demo,start, finish, interval)
 
-        data[:activation][:total_eligible] = activation.total_eligible
+        total_eligible = activation.total_eligible
+        data[:activation][:total_eligible] = total_eligible
 
         activation.activated.each do |res|
-          timestamp= Date.parse(res.interval)
-          next if timestamp < start.to_date
-          data[:activation][timestamp][:current] = res.interval_count
-          data[:activation][timestamp][:total] = res.cumulative_count
-          data[:activation][timestamp][:activation_pct] = res.cumulative_count.to_f/data[:activation][:total_eligible].to_f
+          populate_stats res, data[:activation], start do |period|
+            period[:activation_pct] = res.cumulative_count.to_f/total_eligible.to_f
+          end
         end
 
       end
@@ -50,25 +49,16 @@ module Reporting
       def do_tile_activity data, demo,start, finish, interval
         activity = Reporting::Db::TileActivity.new(demo,start, finish, interval)
 
-      activity.posts.each do |res|
-          timestamp= Date.parse(res.interval)
-          next if timestamp < start.to_date
-          data[:tile_activity][:posts][timestamp][:current] = res.interval_count
-          data[:tile_activity][:posts][timestamp][:total] = res.cumulative_count
+        activity.posts.each do |res|
+          populate_stats res, data[:tile_activity][:posts], start
         end
 
-      activity.views.each do |res|
-          timestamp= Date.parse(res.interval)
-          next if timestamp < start.to_date
-          data[:tile_activity][:views][timestamp][:current] = res.interval_count
-          data[:tile_activity][:views][timestamp][:total] = res.cumulative_count
+        activity.views.each do |res|
+          populate_stats res, data[:tile_activity][:views], start
         end
 
-      activity.completions.each do |res|
-          timestamp= Date.parse(res.interval)
-          next if timestamp < start.to_date
-          data[:tile_activity][:completions][timestamp][:current] = res.interval_count
-          data[:tile_activity][:completions][timestamp][:total] = res.cumulative_count
+        activity.completions.each do |res|
+          populate_stats res, data[:tile_activity][:completions], start
         end
 
         #data[timestamp][:tile_activity][:views_over_available] =activity.views_over_available
@@ -76,28 +66,43 @@ module Reporting
       end
 
 
+
+      def populate_stats res, stat, start, &block
+          timestamp= Date.parse(res.interval)
+          return if timestamp < start.to_date
+          period = stat[timestamp]
+          period[:current] = res.interval_count
+          period[:total] = res.cumulative_count
+          yield period if block_given?
+      end
+
+
       #Prepolutates empty hash for for each period interval of the date range
       def initialize_data_set data, start, finish
-
         r = RailsDateRange.new(start, finish).every(weeks:1)
         r.each do |timestamp|
           d = timestamp.to_date
-          data[:activation][d]={}
-          data[:activation][d][:current] =0 
-          data[:activation][d][:total] =0 
-          data[:tile_activity][:posts][d]={}
-          data[:tile_activity][:views][d]={}
-          data[:tile_activity][:completions][d]={}
-
-          data[:tile_activity][:posts][d][:current] =0 
-          data[:tile_activity][:posts][d][:total] = 0 
-          data[:tile_activity][:views][d][:current] =0 
-          data[:tile_activity][:views][d][:total] = 0 
-          data[:tile_activity][:completions][d][:current] =0 
-          data[:tile_activity][:completions][d][:total] = 0 
+          init_activation data, d
+          init_activity data, d
         end
+      end
+
+
+      def init_activation data, d
+          activation = data[:activation][d]={}
+          activation[:current] =0 
+          activation[:total] =0 
+      end
+
+      def init_activity data, d
+
+          activity = data[:tile_activity]
+          activity[:posts][d]={current:0, total:0}
+          activity[:views][d]={current:0, total:0}
+          activity[:completions][d]={current:0, total:0}
 
       end
+
     end
   end
 end
