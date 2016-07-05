@@ -11,9 +11,15 @@ module Reporting
         demo_id: demo,
         beg_date: start,
         end_date: finish,
+        activation:{}, 
+        tile_activity: {
+          posts:{}, 
+          views:{}, 
+          completions:{} 
+        }
       }
 
-      prepopulate_series data, start, finish
+      initialize_data_set data, start, finish
 
       if demo
         do_user_activation data, demo, start, finish, interval
@@ -54,18 +60,26 @@ module Reporting
         data[interval][:tile_activity][:completions_over_views] =activity.completions_over_views
       end
 
-      def prepopulate_series data, start, finish
+
+      #Prepolutates empty hash for for each period interval of the date range
+      def initialize_data_set data, start, finish
 
         r = RailsDateRange.new(start, finish).every(weeks:1)
         r.each do |timestamp|
           d = timestamp.to_date
-          data[d]={activation:{}, tile_activity:{}}
-          data[d][:activation][:total_activated] =0 
-          data[d][:activation][:newly_activated] =0 
-          data[d][:tile_activity][:posted] =0 
-          data[d][:tile_activity][:available] = 0 
-          data[d][:tile_activity][:views] = 0 
-          data[d][:tile_activity][:completions] = 0
+          data[:activation][d]={}
+          data[:activation][d][:current] =0 
+          data[:activation][d][:total] =0 
+          data[:tile_activity][:posts][d]={}
+          data[:tile_activity][:views][d]={}
+          data[:tile_activity][:completions][d]={}
+
+          data[:tile_activity][:posts][d][:current] =0 
+          data[:tile_activity][:posts][d][:total] = 0 
+          data[:tile_activity][:views][d][:current] =0 
+          data[:tile_activity][:views][d][:total] = 0 
+          data[:tile_activity][:completions][d][:current] =0 
+          data[:tile_activity][:completions][d][:total] = 0 
         end
 
       end
