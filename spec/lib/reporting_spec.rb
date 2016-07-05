@@ -130,52 +130,74 @@ module Reporting
           @res =ClientUsage.run(@demo.id)
         end
 
-        it "returns reports activtion correctly" do 
+        context "User Activation" do 
 
-          time_stamp1 =10.weeks.ago.beginning_of_week.to_date
-          time_stamp2 = 5.weeks.ago.beginning_of_week.to_date
-          expect(@res[:activation][:total_eligible]).to eq(5)
+          let(:base_hash){@res[:activation]}
 
-          expect(@res[:activation][time_stamp1][:current]).to eq("4")
-          expect(@res[:activation][time_stamp1][:total]).to eq("4")
-          expect(@res[:activation][time_stamp1][:activation_pct]).to eq(0.8)
+          it "calcs total eligible users" do
+            expect(base_hash[:total_eligible]).to eq(5)
+          end
 
-          expect(@res[:activation][time_stamp2][:current]).to eq("1")
-          expect(@res[:activation][time_stamp2][:total]).to eq("5")
-          expect(@res[:activation][time_stamp2][:activation_pct]).to eq(1.0)
+          it "returns reports activtion correctly" do 
+
+
+            period1=base_hash[10.weeks.ago.beginning_of_week.to_date]
+            period2=base_hash[ 5.weeks.ago.beginning_of_week.to_date]
+
+
+            expect(period1[:current]).to eq("4")
+            expect(period1[:total]).to eq("4")
+            expect(period1[:activation_pct]).to eq(0.8)
+
+            expect(period2[:current]).to eq("1")
+            expect(period2[:total]).to eq("5")
+            expect(period2[:activation_pct]).to eq(1.0)
+          end
         end
 
-        it "returns reports posts activity correctly" do 
-          time_stamp1 =11.weeks.ago.beginning_of_week.to_date
-          time_stamp2 =7.weeks.ago.beginning_of_week.to_date
-          expect(@res[:tile_activity][:posts][time_stamp1][:current]).to eq("1")
-          expect(@res[:tile_activity][:posts][time_stamp1][:total]).to eq("2")
+        context "Tile Activity" do 
+          let(:base_hash){@res[:tile_activity]}
 
-          expect(@res[:tile_activity][:posts][time_stamp2][:current]).to eq("2")
-          expect(@res[:tile_activity][:posts][time_stamp2][:total]).to eq("4")
-        end
+          it "returns reports posts activity correctly" do 
+            data=base_hash[:posts]
 
-        it "returns reports views activity correctly" do 
-          time_stamp1 =5.weeks.ago.beginning_of_week.to_date
-          time_stamp2 = 2.weeks.ago.beginning_of_week.to_date
-          expect(@res[:tile_activity][:views][time_stamp1][:current]).to eq("3")
-          expect(@res[:tile_activity][:views][time_stamp1][:total]).to eq("5")
+            period1=data[11.weeks.ago.beginning_of_week.to_date]
+            period2=data[ 7.weeks.ago.beginning_of_week.to_date]
 
-          expect(@res[:tile_activity][:views][time_stamp2][:current]).to eq("5")
-          expect(@res[:tile_activity][:views][time_stamp2][:total]).to eq("10")
-        end
+            expect(period1[:current]).to eq("1")
+            expect(period1[:total]).to eq("2")
 
-        it "returns reports completion activity correctly" do 
-          time_stamp1 =8.weeks.ago.beginning_of_week.to_date
-          time_stamp2 = 2.weeks.ago.beginning_of_week.to_date
-          expect(@res[:tile_activity][:completions][time_stamp1][:current]).to eq("1")
-          expect(@res[:tile_activity][:completions][time_stamp1][:total]).to eq("2")
+            expect(period2[:current]).to eq("2")
+            expect(period2[:total]).to eq("4")
+          end
 
-          expect(@res[:tile_activity][:completions][time_stamp2][:current]).to eq("3")
-          expect(@res[:tile_activity][:completions][time_stamp2][:total]).to eq("7")
+          it "returns reports views activity correctly" do 
+            data=base_hash[:views]
+
+            period1=data[5.weeks.ago.beginning_of_week.to_date]
+            period2=data[ 2.weeks.ago.beginning_of_week.to_date]
+
+            expect(period1[:current]).to eq("3")
+            expect(period1[:total]).to eq("5")
+
+            expect(period2[:current]).to eq("5")
+            expect(period2[:total]).to eq("10")
+          end
+
+          it "returns reports completion activity correctly" do 
+
+            data=base_hash[:completions]
+            period1=data[8.weeks.ago.beginning_of_week.to_date]
+            period2=data[ 2.weeks.ago.beginning_of_week.to_date]
+
+            expect(period1[:current]).to eq("1")
+            expect(period1[:total]).to eq("2")
+
+            expect(period2[:current]).to eq("3")
+            expect(period2[:total]).to eq("7")
+          end
         end
       end
-
     end
 
   end
