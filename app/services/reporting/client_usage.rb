@@ -23,7 +23,7 @@ module Reporting
 
       if demo
         do_user_activation data, demo, start, finish, interval
-        #do_tile_activity data, demo, start, finish, interval
+        do_tile_activity data, demo, start, finish, interval
       end
 
       data
@@ -35,29 +35,40 @@ module Reporting
       def do_user_activation data, demo,start, finish, interval
         activation = Reporting::Db::UserActivation.new(demo,start, finish, interval)
 
-        data[:total_eligible] = activation.total_eligible
+        data[:activation][:total_eligible] = activation.total_eligible
 
         activation.activated.each do |res|
           timestamp= Date.parse(res.interval)
-          data[timestamp][:activation][:total_activated] = res.count
-          data[timestamp][:activation][:activation_pct] = res.count.to_f/data[:total_eligible].to_f
-        end
-
-        activation.newly_activated.each do |res|
-          timestamp= Date.parse(res.interval)
-          data[timestamp][:activation][:newly_activated] = res.count
+          data[:activation][timestamp][:current] = res.interval_count
+          data[:activation][timestamp][:total] = res.cumulative_count
+          data[:activation][timestamp][:activation_pct] = res.cumulative_count.to_f/data[:activation][:total_eligible].to_f
         end
 
       end
 
       def do_tile_activity data, demo,start, finish, interval
         activity = Reporting::Db::TileActivity.new(demo,start, finish, interval)
-        data[interval][:tile_activity][:posted] = activity.posted
-        data[interval][:tile_activity][:available] = activity.available
-        data[interval][:tile_activity][:views] = activity.views
-        data[interval][:tile_activity][:completions] = activity.completions
-        data[interval][:tile_activity][:views_over_available] =activity.views_over_available
-        data[interval][:tile_activity][:completions_over_views] =activity.completions_over_views
+
+        activity.posts do |res|
+          timestamp= Date.parse(res.interval)
+          data[:tile_activity][:posts][timestamp][:current] = res.interval_count
+          data[:tile_activity][:posts][timestamp][:total] = res.cumulative_count
+        end
+
+        activity.views do |res|
+          timestamp= Date.parse(res.interval)
+          data[:tile_activity][:views][timestamp][:current] = res.interval_count
+          data[:tile_activity][:views][timestamp][:total] = res.cumulative_count
+        end
+
+        activity.completions do |res|
+          timestamp= Date.parse(res.interval)
+          data[:tile_activity][:completions][timestamp][:current] = res.interval_count
+          data[:tile_activity][:completions][timestamp][:total] = res.cumulative_count
+        end
+
+        #data[timestamp][:tile_activity][:views_over_available] =activity.views_over_available
+        #data[timestamp][:tile_activity][:completions_over_views] =activity.completions_over_views
       end
 
 
