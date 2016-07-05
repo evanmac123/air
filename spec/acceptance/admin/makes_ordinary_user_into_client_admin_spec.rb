@@ -9,7 +9,7 @@ feature "Site admin makes an ordinary user into a client admin" do
 
     FakeMixpanelTracker.clear_tracked_events
     crank_dj_clear
-    FakeMixpanelTracker.should have_event_matching('Creator - New', {source: 'Site Admin'})
+    FakeMixpanelTracker.should have_event_matching('claimed account', {source: 'Site Admin'})
   end
 
   it "sends no ping if the client admin status is not changed" do

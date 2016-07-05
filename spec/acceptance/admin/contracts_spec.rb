@@ -12,13 +12,13 @@ feature "Contracts", js:true, driver: :webkit do
     scenario "creates a primary contract with arr for organization" do
       add_arr
       click_button "Submit"
-      expect_sucess 
+      expect_sucess
     end
 
     scenario "creates a primary contract with mrr for organization" do
       add_mrr
       click_button "Submit"
-      expect_sucess 
+      expect_sucess
     end
   end
 
@@ -29,13 +29,13 @@ feature "Contracts", js:true, driver: :webkit do
     end
     scenario "creates a upgrade contract with mrr for organization" do#, driver: :selenium do
       begin_contract
-
+      screenshot_and_save_page
       page.find("tr", text: @parent.name).click
       click_link "Add Upgrade"
       fill_in_main_contract_details
       add_arr
       click_button "Submit"
-      expect_sucess 
+      expect_sucess
     end
   end
 
@@ -74,7 +74,7 @@ feature "Contracts", js:true, driver: :webkit do
 
  def add_arr
    choose "Annual"
-   fill_in "contract_arr", with: 10000 
+   fill_in "contract_arr", with: 10000
  end
 
  def add_mrr

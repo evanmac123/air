@@ -65,15 +65,15 @@ feature 'Topics on Explore' do
 
       visit explore_topic_path(@topic, as: a_client_admin)
 
-      expect_thumbnail_count 16, '.explore_tile'
+      expect_thumbnail_count 16
       expect_only_headlines_in(topic_tiles)
 
       show_more_tiles_link.click
-      expect_thumbnail_count 32, '.explore_tile'
+      expect_thumbnail_count 32
       expect_only_headlines_in(topic_tiles)
 
       show_more_tiles_link.click
-      expect_thumbnail_count 33, '.explore_tile'
+      expect_thumbnail_count 33
       expect_only_headlines_in(topic_tiles)
     end
   end

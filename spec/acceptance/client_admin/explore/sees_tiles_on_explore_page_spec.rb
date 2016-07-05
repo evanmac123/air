@@ -7,24 +7,24 @@ feature 'Sees tiles on explore page' do
     FactoryGirl.create(:tile, :public, status: Tile::ARCHIVE)
 
     visit explore_path(as: a_client_admin)
-    expect_thumbnail_count 3, '.explore_tile'
+    expect_thumbnail_count 3
     page.should_not have_content "I do not appear in public"
   end
 
   it "should have a working \"Show More\" button", js: true do
     FactoryGirl.create_list(:tile, 47, :public)
     visit explore_path(as: a_client_admin)
-    expect_thumbnail_count 16, '.explore_tile'
+    expect_thumbnail_count 16
 
     # These "sleep"s are a terrible hack, but I haven't gotten any of the
     # saner ways to get Poltergeist to wait for the AJAX request to work yet.
     show_more_tiles_link.click
     sleep 5
-    expect_thumbnail_count 32, '.explore_tile'
+    expect_thumbnail_count 32
 
     show_more_tiles_link.click
     sleep 5
-    expect_thumbnail_count 47, '.explore_tile'
+    expect_thumbnail_count 47
   end
 
   it "should ping when the more-tiles button is clicked", js: true do
@@ -38,23 +38,6 @@ feature 'Sees tiles on explore page' do
     sleep 5
     crank_dj_clear
     FakeMixpanelTracker.should have_event_matching('Explore Topic Page', action: 'Clicked See More')
-  end
-
-  it "should see information about creators for tiles that have them" do
-    other_board = FactoryGirl.create(:demo, name: "The Board You've All Been Waiting For")
-    creator = FactoryGirl.create(:client_admin, name: "John Q. Public", demo: other_board)
-    tile = FactoryGirl.create(:tile, :public, creator: creator)
-    creation_date = Date.parse("2013-05-01")
-    tile.update_attributes(created_at: creation_date.midnight)
-
-    begin
-      Timecop.travel(Chronic.parse("2014-05-01"))
-      visit explore_path(as: a_client_admin)
-
-      expect_content "John Q. Public"
-    ensure
-      Timecop.return
-    end
   end
 
   # FIXME use on topic page
@@ -103,23 +86,23 @@ feature 'Sees tiles on explore page' do
     before do
       @tile = FactoryGirl.create(:tile, :public)
     end
-
-    it "pings" do
+    # FIXME have this ping only for separate page
+    xit "pings" do
       visit explore_path(as: a_client_admin)
-      page.first('.explore_tile .headline a').click
+      page.first('a.tile_thumb_link').click
 
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear
       FakeMixpanelTracker.should have_event_matching('Explore Main Page', {action: "Tile Thumbnail Clicked"})
     end
 
-    it "pings when clicking through a tile in a later batch", js: true do#, driver: :selenium do
+    xit "pings when clicking through a tile in a later batch", js: true do#, driver: :selenium do
       FactoryGirl.create_list(:tile, 38, :public)
       visit explore_path(as: a_client_admin)
 
       2.times { click_link 'More' }
 
-      page.all('.explore_tile .headline a')[38].click
+      page.all('a.tile_thumb_link')[38].click
 
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear

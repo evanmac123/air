@@ -27,7 +27,6 @@ feature 'Carousel on Explore Tile Preview Page' do
   context "if user comes from explore main page" do
     before(:each) do
       visit explore_path(as: admin)
-      expect_content "Spam"
       click_link @tiles.first.headline
     end
 

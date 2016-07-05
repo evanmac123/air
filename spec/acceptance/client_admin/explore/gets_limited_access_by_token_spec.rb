@@ -55,15 +55,6 @@ feature 'Client admin gets limited access by token' do
     should_be_on tile_tag_show_explore_path
   end
 
-  scenario "can like a tile when logged in by token", js: true do
-    tile = FactoryGirl.create(:multiple_choice_tile, :public)
-
-    visit explore_path(explore_token: client_admin.explore_token)
-
-    click_link "Vote Up"
-    page.should have_content("Voted Up")
-  end
-
   scenario "can copy a tile when logged in by token", js: true do
     tile = FactoryGirl.create(:multiple_choice_tile, :public, :copyable)
     crank_dj_clear # resize tile images, otherwise copy blows up
@@ -71,8 +62,11 @@ feature 'Client admin gets limited access by token' do
 
     visit explore_path(explore_token: client_admin.explore_token)
 
-    click_link "Copy"
-    page.should have_content("Copied")
+    page.find(".tile_thumb_link").click
+    click_link "Copy to Board"
+    within ".sweet-alert" do
+      expect_content "Tile has been copied to your board's drafts section."
+    end
   end
 
   scenario "can't go outside the explore family using a token in the query parameter" do
