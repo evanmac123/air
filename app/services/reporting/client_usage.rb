@@ -3,11 +3,16 @@ module Reporting
 
   class ClientUsage
 
-    def self.run demo, beg_date=3.months.ago, end_date =Date.today, interval="week"
+    def self.run (args) #demo, beg_date=3.months.ago, end_date=Date.today, interval="week"
+
       data ={}
-      start = beg_date.beginning_of_week
-      finish = end_date.beginning_of_week
-      initialize_report_data_hash demo,data,start, finish
+      args = args.delete_if{|k,v|v.nil?}
+      opts = defaults.reverse_merge(args)
+      start = opts[:beg_date].beginning_of_week
+      finish = opts[:end_date].beginning_of_week
+      demo = opts[:demo]
+      interval=opts[:interval]
+      initialize_report_data_hash demo,data,start, finish, interval
 
       if demo
         do_user_activation data, demo, start, finish, interval
@@ -21,6 +26,11 @@ module Reporting
     class << self
 
       private
+
+      def defaults 
+        { beg_date:3.months.ago, end_date:Date.today, interval:"week"}
+
+      end
 
       def do_user_activation data, demo,start, finish, interval
         activation = Reporting::Db::UserActivation.new(demo,start, finish, interval)

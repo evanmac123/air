@@ -122,12 +122,12 @@ module Reporting
       end
 
       it "returns {} when demo is nil" do 
-        expect(ClientUsage.run(nil)[:demo_id]).to be_nil
+        expect(ClientUsage.run({})[:demo_id]).to be_nil
       end
 
       context "#run with demo" do  
         before do
-          @res =ClientUsage.run(@demo.id)
+          @res =ClientUsage.run({demo:@demo.id})
         end
 
         context "User Activation" do 
@@ -139,7 +139,6 @@ module Reporting
           end
 
           it "returns reports activtion correctly" do 
-
 
             period1=base_hash[10.weeks.ago.beginning_of_week.to_date]
             period2=base_hash[ 5.weeks.ago.beginning_of_week.to_date]
