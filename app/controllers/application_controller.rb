@@ -559,6 +559,10 @@ class ApplicationController < ActionController::Base
     Rails.env.production? || $test_force_ssl 
   end
 
+  def parse_start_and_end_dates
+    @sdate = params[:sdate].present? ? Date.strptime(params[:sdate], "%Y-%m-%d") : nil
+    @edate =  params[:edate].present? ? Date.strptime(params[:edate], "%Y-%m-%d") : nil
+  end
 
   def present(object, klass = nil, opts)
     klass ||= "#{object.class}Presenter".constantize

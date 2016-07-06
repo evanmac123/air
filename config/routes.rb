@@ -16,7 +16,6 @@ Health::Application.routes.draw do
   match "ard/:public_slug/tiles" => "tiles#index", :as => "public_tiles", :via => :get
   match "ard/:public_slug/tile/:id" => "tiles#show", :as => "public_tile", :via => :get
 
-  get "admin/customer/kpis" => "admin/organizations#kpis", :as => "organization_kpis"
   get "admin/customer/metrics" => "admin/organizations#metrics", :as => "organization_metrics"
   post "admin/customer/metrics" => "admin/organizations#metrics_recalc", :as => "organization_metrics"
 
@@ -45,6 +44,9 @@ Health::Application.routes.draw do
     post "invite_friend" => "friend_invitations#create", :as => "invite_friend"
     resource :dependent_user_invitation, only: [:new, :create]
   end
+
+
+
 
   resources :acts,        :only => [:index, :create]
   resources :users,       :only => [:new, :index, :show] do
@@ -263,6 +265,7 @@ Health::Application.routes.draw do
 
   namespace :admin do
 
+    resource :client_kpi_report
     resources :organizations, path: "customers" do
       resources :contracts, controller: "contracts"
       resources :billings

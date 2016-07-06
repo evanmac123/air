@@ -5,18 +5,20 @@
 <h1> Client KPIs </h1>
 
 
-<%= render "cust_kpi_menu", active: "kpi" %>
+<%# render "cust_kpi_menu", active: "kpi" %>
   </div>
 </div>
 <div class="row">
 
   <div class="columns small-12 small-centered">
-    <%=form_tag organization_kpis_path do %> 
+    <%=form_tag admin_client_kpi_report_path do %> 
       <table>
         <caption>Reporting Criteria</caption>
         <thead>
+          
           <tr>
             <th>Demo</th>
+
             <th>Start</th>
             <th>End</th>
             <th>Interval</th>
@@ -26,8 +28,8 @@
         <tbody>
           <tr>
             <td><%=select_tag "demo_id",options_from_collection_for_select(@demos, :id, :name,@data[:demo_id])%></td>
-            <td><%=text_field_tag "sdate", @sdate, type: :date%></td>
-            <td><%=text_field_tag "edate",@edate, type: :date%></td>
+            <td><%=text_field_tag "sdate", @data[:beg_date], type: :date%></td>
+            <td><%=text_field_tag "edate",@data[:end_date], type: :date%></td>
             <td><%=select_tag "interval",options_for_select([["Week","week"],["Month","month"],["Quarter", "quarter"]])%></td>
             <td><%=submit_tag "Get Data", class:"button td-button right"%></td>
           </tr> 
@@ -36,22 +38,23 @@
 
         <table>
           <thead>
-            <th>Metric</th>
-            <th>Week</th>
-            <th>Month</th>
-            <th>Quarter</th>
+            <tr>
+              <th>&nbsp;</th>
+            <%@data[:intervals].each do |interval|%>
+              <th><%=interval%></th>
+
+            <%end%>
+            </tr>
           </thead>
           <tbody>
-            <tr><th>Eligible Users</th> <td></td> <td></td> <td></td> </tr>
-            <tr><th>Total Activated</th> <td></td> <td></td><td></td></tr>
-            <tr><th>Newly Activated</th> <td></td><td></td><td></td></tr>
-            <tr><th>Activation Pct</th> <td></td><td><td><td></td></tr>
-            <tr><th>Posted Tiles</th> <td></td><td></td><td></td></tr>
-            <tr><th>Available Tiles</th> <td></td><td></td></td><td></tr>
-            <tr><th>Viewed</th> <td><td></td><td></td></td></tr>
-            <tr><th>Completions</th> <td></td><td></td></td><td></tr>
-            <tr><th>Viewed</th> <td><td></td><td></td></td></tr>
-            <tr><th>Completions</th> <td></td><td></td><td></td></tr>
+            <tr><th>Eligible Users</th>  </tr>
+            <tr><th>Total Activated</th></tr>
+            <tr><th>Newly Activated</th></tr>
+            <tr><th>Activation Pct</th></tr>
+            <tr><th>Posted Tiles</th></tr>
+            <tr><th>Available Tiles</th><td></tr>
+            <tr><th>Viewed</th> </tr>
+            <tr><th>Completions</th></tr>
           </tbody>
         </table>
       <%if @data[:demo_id] %>
