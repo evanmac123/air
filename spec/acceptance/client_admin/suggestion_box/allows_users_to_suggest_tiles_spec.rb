@@ -8,7 +8,7 @@ feature 'Client admin segments on characteristics' do
   context "user is not site admin" do
     let!(:admin) { FactoryGirl.create :client_admin, is_site_admin: false}
     let!(:demo)  { admin.demo  }
-    let!(:users) do 
+    let!(:users) do
       users = (1..2).to_a.map do |num|
         FactoryGirl.create :user, demo: demo, name: "User#{num}"
       end
@@ -31,7 +31,7 @@ feature 'Client admin segments on characteristics' do
   context "user is site admin" do
     let!(:admin) { FactoryGirl.create :client_admin, is_site_admin: true }
     let!(:demo)  { admin.demo  }
-    let!(:users) do 
+    let!(:users) do
       users = (1..4).to_a.map do |num|
         FactoryGirl.create :user, demo: demo, name: "User#{num}"
       end
@@ -76,14 +76,22 @@ feature 'Client admin segments on characteristics' do
       end
 
       it "should save switcher state after clicking 'save'", js: true do
-        all_users_switcher_on.click
-        demo.reload.everyone_can_make_tile_suggestions.should be_false
+        within "#suggestions_access_modal" do
+          all_users_switcher_on.click
+          expect_content "You've selected All Users"
+          demo.reload.everyone_can_make_tile_suggestions.should be_false
 
-        save_button.click
-        demo.reload.everyone_can_make_tile_suggestions.should be_true
-
-        specific_users_switcher_on.click
-        demo.reload.everyone_can_make_tile_suggestions.should be_true
+          save_button.click
+          demo.reload.everyone_can_make_tile_suggestions.should be_true
+          # save_and_open_page
+        end
+        
+        manage_access_link.click
+        within "#suggestions_access_modal" do
+          specific_users_switcher_on.click
+          expect_content "Type the name of an user"
+          demo.reload.everyone_can_make_tile_suggestions.should be_true
+        end
       end
     end
 
@@ -119,7 +127,7 @@ feature 'Client admin segments on characteristics' do
       context "Removing" do
         before do
           users.first.update_allowed_to_make_tile_suggestions true, demo
-          visit current_path 
+          visit current_path
           suggestion_box_title.click
           manage_access_link.click
         end
@@ -135,7 +143,7 @@ feature 'Client admin segments on characteristics' do
 
           #automatically waits for ajax without the need for any WaitForAjax
           #This confirms that the modal was closed susccessfully
-          expect(page).to_not have_content("Add people to suggestion box") 
+          expect(page).to_not have_content("Add people to suggestion box")
 
           manage_access_link.click #reopen modal
           within "table#allowed_to_suggest_users" do
@@ -148,7 +156,7 @@ feature 'Client admin segments on characteristics' do
     context "Warning Modal" do
       before do
         users.first.update_allowed_to_make_tile_suggestions true, demo
-        visit current_path 
+        visit current_path
         suggestion_box_title.click
         manage_access_link.click
       end

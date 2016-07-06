@@ -50,8 +50,8 @@ var Airbo = window.Airbo || {};
 
 $(document).ready(function() {
   $('.client_admin-users, .client_admins-show').foundation();
+  $(document).foundation();
+  $(document).foundation('reveal', {animation: "none"});
+  
+  $(document).confirmWithReveal(Airbo.Utils.confirmWithRevealConfig);
 });
-$(document).foundation();
-$(document).foundation('reveal', {animation: "none"});
-
-$(document).confirmWithReveal(Airbo.Utils.confirmWithRevealConfig);
