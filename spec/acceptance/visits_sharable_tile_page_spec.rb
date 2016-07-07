@@ -15,7 +15,7 @@ feature "visits sharable tile page" do
   end
 
   shared_examples_for 'gets registration form' do |name, selector|
-    scenario "when clicks #{name}", js: true, driver: :selenium do
+    scenario "when clicks #{name}", js: true do
       page.find(selector).click
       register_if_guest
     end
@@ -101,7 +101,7 @@ feature "visits sharable tile page" do
     it_should_behave_like "makes ping"
   end
 
-  scenario "show 404 error for not sharable tile" do 
+  scenario "show 404 error for not sharable tile" do
     tile2 = FactoryGirl.create :multiple_choice_tile
     visit sharable_tile_path(tile2)
     page.status_code.should be(404)

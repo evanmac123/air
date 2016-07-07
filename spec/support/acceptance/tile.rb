@@ -395,9 +395,9 @@ module TileHelpers
 
   def expect_show_more_tiles_link_disabled?(disabled)
     if disabled
-      page.should have_css("a.show_more_tiles[disabled]")
+      page.should_not have_css("a.show_more_tiles")
     else
-      page.should_not have_css("a.show_more_tiles[disabled]")
+      page.should have_css("a.show_more_tiles")
     end
   end
 

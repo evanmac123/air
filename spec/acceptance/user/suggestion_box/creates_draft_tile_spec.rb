@@ -15,7 +15,7 @@ feature 'Creates draft tile' do
   it "should open form", js: true do
     submit_tile_btn.click
     within form do
-      expect_content form_text
+      expect_content "Save Tile"
     end
   end
 
@@ -23,7 +23,7 @@ feature 'Creates draft tile' do
     submit_tile_btn.click
     fill_in_tile_form_entries
     click_create_button
-    within ".viewer" do 
+    within ".viewer" do
       expect(page).to  have_content "by Society"
       expect(page).to  have_content "Ten pounds of cheese"
       expect(page).to  have_content "Ten pounds of cheese. Yes? Or no?"
@@ -51,10 +51,10 @@ feature 'Creates draft tile' do
     question_subtype = options[:question_subtype] || Tile::MULTIPLE_CHOICE
     edit_text = options[:edit_text] || "foobar"
     points = options[:points] || "18"
- 
+
 
     choose_question_type_and_subtype question_type, question_subtype
-    fake_upload_image "cov1.png" 
+    fake_upload_image "cov1.png"
 
     fill_in_image_credit "by Society#{edit_text}"
     page.find("#tile_builder_form_headline").set("Ten pounds of cheese#{edit_text}")
@@ -69,6 +69,6 @@ feature 'Creates draft tile' do
   end
 
   def click_create_button
-    page.find("#publish input[type=submit]").trigger("click")
+    page.find(".submit_tile_form").trigger("click")
   end
 end

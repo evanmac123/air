@@ -5,20 +5,20 @@ feature "Guest user answering a tile in preview" do
     tile = FactoryGirl.create(:multiple_choice_tile, :public)
 
     visit explore_tile_preview_path(id: tile.id)
-    
 
-    click_link "Eggs"
-    page.should_not have_content("Correct!")
-  end
-
-  it "should not show success phrase if there is only one answer", js: true do
-    tile = FactoryGirl.create(:multiple_choice_tile, :public, 
-      multiple_choice_answers: ["Eggs"], correct_answer_index: 0)
-
-    visit explore_tile_preview_path(id: tile.id)
-    
 
     click_link "Eggs"
     page.should have_content("Correct!")
+  end
+
+  it "should not show success phrase if there is only one answer", js: true do
+    tile = FactoryGirl.create(:multiple_choice_tile, :public,
+      multiple_choice_answers: ["Eggs"], correct_answer_index: 0)
+
+    visit explore_tile_preview_path(id: tile.id)
+
+
+    click_link "Eggs"
+    page.should_not have_content("Correct!")
   end
 end

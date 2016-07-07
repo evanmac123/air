@@ -26,7 +26,7 @@ feature 'Makes a board by themself' do
   before do
     visit new_board_path
   end
-  
+
   context 'remembers user on login' do
     before do
       fill_in_valid_form_entries
@@ -47,7 +47,7 @@ feature 'Makes a board by themself' do
       Timecop.return
     end
   end
-  
+
   context 'the happy path' do
     before do
       fill_in_valid_form_entries
@@ -58,7 +58,7 @@ feature 'Makes a board by themself' do
     it 'should have created a new board with reasonable defaults' do
       # A purist will tell you not to delve into the DB in an acceptance test
       # but instead to only look at effects visible to the end user. But if we
-      # do that this test would be five times as long and ten times as 
+      # do that this test would be five times as long and ten times as
       # brittle. Also I don't hire purists.
 
       @new_board.name.should == NEW_BOARD_NAME + " Board"
@@ -91,7 +91,7 @@ feature 'Makes a board by themself' do
     it 'should leave them on the client admin explore path' do
       should_be_on client_admin_explore_path
     end
-    
+
 
     it 'should send a confirmation email to the new creator' do
       crank_dj_clear
@@ -100,7 +100,7 @@ feature 'Makes a board by themself' do
       current_email.to_s.should include(NEW_BOARD_NAME + " Board")
       current_email.to_s.should include(@new_board.users.first.cancel_account_token)
     end
- 
+
     it "should send an appropriate ping for the board creation" do
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear
@@ -110,7 +110,7 @@ feature 'Makes a board by themself' do
     it "should send an appropriate ping for the creator creation" do
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear
-      FakeMixpanelTracker.should have_event_matching("Creator - New", source: 'Marketing Page')
+      FakeMixpanelTracker.should have_event_matching("claimed account", source: 'Marketing Page')
     end
 
     it "should send board created notification to the airbo team" do
@@ -191,7 +191,7 @@ feature 'Makes a board by themself' do
     it "should retain values for both user and board on failure" do
       FactoryGirl.create(:demo, name: NEW_BOARD_NAME + " Board")
       FactoryGirl.create(:user, name: NEW_CREATOR_NAME)
-      
+
       fill_in_valid_form_entries
       submit_create_form
 

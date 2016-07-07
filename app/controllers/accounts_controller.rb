@@ -9,7 +9,7 @@ class AccountsController < ApplicationController
     current_user.attributes = params[:user].permit(:notification_method, :send_weekly_activity_report)
 
     if current_user.changed? && current_user.save
-      add_success "Your account update request has been successfully processed. #{phone_msg}"
+      flash[:success] = "Your account update request has been successfully processed. #{phone_msg}"
     end
 
     current_user.previous_changes.each do |field_name, changes|

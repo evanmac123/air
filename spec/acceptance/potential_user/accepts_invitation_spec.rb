@@ -7,7 +7,7 @@ feature "Potential User Accepts Invitation" do
     before(:each) do
       @user = FactoryGirl.create(:user)
       @demo = @user.demo
-      @potential_user = FactoryGirl.create(:potential_user, email: "john@snow.com", demo: @demo)
+      @potential_user = FactoryGirl.create(:potential_user, email: "john@snow.com", demo: @demo, primary_user: @user)
       @potential_user.is_invited_by @user
       visit invitation_path(@potential_user.invitation_code, demo_id: @demo.id, referrer_id: @user.id)
     end
@@ -42,7 +42,7 @@ feature "Potential User Accepts Invitation" do
     context "gives a name" do
       before(:each) do
         fill_in "potential_user_name", with: "my name"
-        click_button "Next"
+        click_link "Next"
       end
 
       it "should register new user in the system", js: true do
@@ -76,7 +76,7 @@ feature "Potential User Accepts Invitation" do
       before(:each) do
         @user2 = FactoryGirl.create(:user)
         @demo2 = @user2.demo
-        @potential_user2 = FactoryGirl.create(:potential_user, email: "john@snow.com", demo: @demo2)
+        @potential_user2 = FactoryGirl.create(:potential_user, email: "john@snow.com", demo: @demo2, primary_user: @user2)
         @potential_user2.is_invited_by @user2
       end
 
@@ -89,7 +89,7 @@ feature "Potential User Accepts Invitation" do
         # first invitation
         should_be_on activity_path
         fill_in "potential_user_name", with: "my name"
-        click_button "Next"
+        click_link "Next"
         expect_current_board_header(@demo)
         new_user = User.last
         new_user.name.should == "my name"
@@ -119,4 +119,4 @@ feature "Potential User Accepts Invitation" do
       page.should have_no_content('New Raffle!')
     end
   end
-end 
+end
