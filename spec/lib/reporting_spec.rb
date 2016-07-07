@@ -122,12 +122,13 @@ module Reporting
       end
 
       it "returns {} when demo is nil" do 
-        expect(ClientUsage.run({})[:demo_id]).to be_nil
+        expect(ClientUsage.new({}).run().demo).to be_nil
       end
 
       context "#run with demo" do  
         before do
-          @res =ClientUsage.run({demo:@demo.id})
+          rep =ClientUsage.new({demo:@demo.id}).run
+          @res = rep.data
         end
 
         context "User Activation" do 
