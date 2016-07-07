@@ -45,6 +45,9 @@ Health::Application.routes.draw do
     resource :dependent_user_invitation, only: [:new, :create]
   end
 
+
+
+
   resources :acts,        :only => [:index, :create]
   resources :users,       :only => [:new, :index, :show] do
     resource :password,
@@ -262,6 +265,7 @@ Health::Application.routes.draw do
 
   namespace :admin do
 
+    resource :client_kpi_report
     resources :organizations, path: "customers" do
       resources :contracts, controller: "contracts"
       resources :billings

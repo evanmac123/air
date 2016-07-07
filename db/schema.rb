@@ -1001,6 +1001,15 @@ ActiveRecord::Schema.define(:version => 20160616172308) do
   end
 
   add_index "user_intros", ["user_id"], :name => "index_user_intros_on_user_id"
+  create_table "user_settings_change_logs", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "email",                      :default => "", :null => false
+    t.string   "email_token", :limit => 128
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+  end
+
+  add_index "user_settings_change_logs", ["user_id"], :name => "index_user_settings_change_logs_on_user_id"
 
   create_table "user_tile_copies", :force => true do |t|
     t.integer  "tile_id"
@@ -1100,6 +1109,7 @@ ActiveRecord::Schema.define(:version => 20160616172308) do
     t.boolean  "manage_access_prompt_seen",                           :default => false,       :null => false
     t.boolean  "suggestion_box_prompt_seen",                          :default => false,       :null => false
     t.integer  "primary_user_id"
+    t.string   "official_email"
   end
 
   add_index "users", ["cancel_account_token"], :name => "index_users_on_cancel_account_token"
@@ -1123,5 +1133,6 @@ ActiveRecord::Schema.define(:version => 20160616172308) do
   add_index "users", ["spouse_id"], :name => "index_users_on_spouse_id"
   add_index "users", ["ssn_hash"], :name => "index_users_on_ssn_hash"
   add_index "users", ["zip_code"], :name => "index_users_on_zip_code"
+  add_index "users", ["official_email"], :name => "index_users_on_official_email"
 
 end

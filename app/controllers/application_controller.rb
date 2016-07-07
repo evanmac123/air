@@ -400,9 +400,6 @@ class ApplicationController < ActionController::Base
   end
 
   def attempt_segmentation(demo)
-    #if params[:segment_column].present?
-      #@segmentation_result = current_user.set_segmentation_results!(params[:segment_column], params[:segment_operator], params[:segment_value], demo)
-    #end
 
     if params[:segment_column].present?
       if (params[:segment_column].length > 1 and params[:segment_column].values.include?("")) or
@@ -562,6 +559,10 @@ class ApplicationController < ActionController::Base
     Rails.env.production? || $test_force_ssl 
   end
 
+  def parse_start_and_end_dates
+    @sdate = params[:sdate].present? ? Date.strptime(params[:sdate], "%Y-%m-%d") : nil
+    @edate =  params[:edate].present? ? Date.strptime(params[:edate], "%Y-%m-%d") : nil
+  end
 
   def present(object, klass = nil, opts)
     klass ||= "#{object.class}Presenter".constantize

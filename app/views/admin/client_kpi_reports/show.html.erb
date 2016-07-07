@@ -1,0 +1,113 @@
+
+<div class="row">
+
+  <div class="columns small-12 small-centered">
+<h1> Client KPIs </h1>
+
+
+<%# render "cust_kpi_menu", active: "kpi" %>
+  </div>
+</div>
+<div class="row">
+
+  <div class="columns small-12 small-centered">
+    <%=form_tag admin_client_kpi_report_path, method: :get do %> 
+      <table>
+        <caption>Reporting Criteria</caption>
+        <thead>
+          
+          <tr>
+            <th>Demo</th>
+
+            <th>Start</th>
+            <th>End</th>
+            <th>Interval</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%=select_tag "demo_id",options_from_collection_for_select(@demos, :id, :name,@report.demo)%></td>
+            <td><%=text_field_tag "sdate", @report.start, type: :date%></td>
+            <td><%=text_field_tag "edate",@report.finish, type: :date%></td>
+            <td><%=select_tag "interval",options_for_select([["Week","week"],["Month","month"],["Quarter", "quarter"]])%></td>
+            <td><%=submit_tag "Get Data", class:"button td-button right"%></td>
+          </tr> 
+        </tbody>
+      </table>
+
+        <table>
+          <thead>
+            <tr>
+              <th>&nbsp;</th>
+            <%@report.data[:intervals].each do |interval|%>
+              <th><%=interval%></th>
+            <%end%>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><th>Eligible Users</th>  </tr>
+            <tr>
+              <th>Total Activated</th>
+              <%@report.series_for_key([:activation], :total).each do|val|%>
+                <td><%=val%></td>
+              <%end%>
+            </tr>
+            <tr>
+              <th>Newly Activated</th>
+              <%@report.series_for_key([:activation], :current).each do|val|%>
+                <td><%=val%></td>
+              <%end%>
+            </tr>
+            <!--tr><th>Activation Pct</th></tr-->
+            <tr>
+              <th>Total Tiles</th>
+
+              <%@report.series_for_key([:tile_activity, :posts], :total).each do|val|%>
+                <td><%=val%></td>
+              <%end%>
+            </tr>
+            <tr>
+              <th>Posted Tiles</th>
+              <%@report.series_for_key([:tile_activity, :posts], :current).each do|val|%>
+                <td><%=val%></td>
+              <%end%>
+            </tr>
+            <tr>
+              <th>Total Views</th>
+              <%@report.series_for_key([:tile_activity, :views], :total).each do|val|%>
+                <td><%=val%></td>
+              <%end%>
+            </tr>
+            <tr>
+              <th>Current Views</th>
+              <%@report.series_for_key([:tile_activity, :views], :current).each do|val|%>
+                <td><%=val%></td>
+              <%end%>
+            </tr>
+
+            <tr><th>Total Completions</th>
+            
+              <%@report.series_for_key([:tile_activity, :completions], :total).each do|val|%>
+                <td><%=val%></td>
+              <%end%>
+            </tr>
+
+            <tr>
+              <th>Current Completions</th>
+              <%@report.series_for_key([:tile_activity, :completions], :total).each do|val|%>
+                <td><%=val%></td>
+              <%end%>
+            </tr>
+          </tbody>
+        </table>
+      <%if @report.demo %>
+        <%=link_to "Download CSV", admin_client_kpi_report_path(demo_id: @report.demo, sdate:@report.start, edate: @report.finish, format: :csv),  class:"button right"%> 
+      <%end%>
+
+  <%end%>
+  </div>
+</div>
+
+
+
