@@ -8,7 +8,7 @@ describe DependentUserMailer do
     mail = DependentUserMailer.notify(u.id, subject, body)
 
     expect(mail.subject).to eql(subject)
-    expect(mail.from).to eql(u.primary_user.name + " via Airbo")
+    expect(mail.from).to eql([u.primary_user.email])
     expect(mail.to).to eql([u.email])
 
     expect(mail.body).to match("You are invited to #{u.demo.name}")
