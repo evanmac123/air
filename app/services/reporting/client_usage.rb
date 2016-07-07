@@ -26,8 +26,18 @@ module Reporting
 
     end 
 
+    def series_for_key nodes,leaf
+      data[:intervals].map do |timestamp| 
+       fetch_for_path(nodes, timestamp, leaf)
+      end
     end
 
+    def fetch_for_path nodes, timestamp, leaf
+      arr =nodes.dup
+      arr.push timestamp
+      arr.push leaf 
+      arr.reduce(data){|slice, key| slice[key]}
+    end
 
 
     private
