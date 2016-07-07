@@ -1,7 +1,7 @@
 window.tilePublicPage = ->
   $("#save_progress_button").text("Create Board")
   $("#save_progress_button").click ->
-    $("#modal_link").click()
+    $('#sign_up_modal').foundation('reveal', 'open')
     pingOnAction "Clicked Create Board"
 
   $(".close_sign_up_modal").click ->
@@ -21,10 +21,10 @@ window.tilePublicPage = ->
     $.post('/ping', {event: "Tile - Viewed", properties: {action: action, tile_id: tile_id} })
     true
   #
-  # =>  Sign up form  
+  # =>  Sign up form
   #
   $().ready ->
-    $('#create_account_form').on('submit', 
+    $('#create_account_form').on('submit',
       creationStartCallback).on('ajax:success', creationResponseCallback)
 
   creationStartCallback = (event) ->
@@ -37,4 +37,3 @@ window.tilePublicPage = ->
     else
       $('#create_account_form').find(".errors_field").text(data.errors)
       $("#submit_account_form").removeAttr("disabled")
-

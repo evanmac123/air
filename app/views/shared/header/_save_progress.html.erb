@@ -3,7 +3,7 @@
     <a href="#" id="save_progress_button" class="open_save_progress_form">Save Progress</a>
     <%= link_to "Sign In", new_session_path, id: 'sign_in_button' %>
   <% end %>
-    
+
   <% if session[:display_start_over_button] %>
     <%= link_to "Start Over", guest_user_reset_path, id: 'guest_user_start_over_button', confirm: "Are you sure?", method: :put %>
   <%else%>

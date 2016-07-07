@@ -15,13 +15,13 @@ module SignUpModalHelpers
       submit_create_form
       @user = User.order("created_at DESC").first
       @user.name.should == NEW_CREATOR_NAME
-      expect_pings  ['Boards - New', {}, @user], 
-                    ["Creator - New", {}, @user]
+      expect_pings  ['Boards - New', {}, @user],
+                    ["claimed account", {}, @user]
     end
   end
 
   def fill_in_valid_form_entries
-    within(create_account_form_selector) do 
+    within(create_account_form_selector) do
       fill_in 'user[name]', with: NEW_CREATOR_NAME
       fill_in 'user[email]', with: NEW_CREATOR_EMAIL
       fill_in 'user[password]', with: NEW_CREATOR_PASSWORD
@@ -31,12 +31,12 @@ module SignUpModalHelpers
 
   def submit_create_form
     element_selector = page.evaluate_script("window.pathForActionAfterRegistration")
-    begin 
+    begin
       click_button "Create Free Account"
     #
     # => This part for explore tile preview page.
     #
-    # actionElement[0].click(); - this code should make last 
+    # actionElement[0].click(); - this code should make last
     # action that guest user had made before registration.
     # this doesn't work in tests but works in code.
     # so i have to do this action in tests manually

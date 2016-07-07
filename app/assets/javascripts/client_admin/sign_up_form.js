@@ -7,7 +7,7 @@ Airbo.SignUpFromPreview = (function(){
                           ".tag"
                         ].join(", ")
   ;
-  function creationStartCallback(event){ 
+  function creationStartCallback(event){
     $("#submit_account_form").attr("disabled", "disabled");
     $('#create_account_form').find(".errors_field").text("");
   }
@@ -29,7 +29,7 @@ Airbo.SignUpFromPreview = (function(){
     var inner = $(element).children().length == 0 ? $(element).text() : '';
     var idSelector = $(element).attr("id") ? $.trim($(element).attr("id")).split(" ").join("#") : "";
     var classSelector = $(element).attr("class") ? $.trim($(element).attr("class")).split(" ").join(".") : "";
-    var eleSelector = element.tagName.toLowerCase() + 
+    var eleSelector = element.tagName.toLowerCase() +
       ( (idSelector.length > 0) ? ("#" + idSelector) : "" ) +
       ( (classSelector.length > 0) ? ("." + classSelector) : "" ) +
       ( (inner.length > 0) ? ':contains(\'' + inner + '\')' : '' );
@@ -38,7 +38,7 @@ Airbo.SignUpFromPreview = (function(){
   function initEvents() {
     $(blockedElements).click( function(event){
       event.preventDefault();
-      event.stopImmediatePropagation(); 
+      event.stopImmediatePropagation();
       window.pathForActionAfterRegistration = dompath(event.target);
       modalObj.open();
       return false; // prevents default for remote calls
