@@ -1,6 +1,5 @@
 require 'airbo_mixpanel_client'
 require 'reporting/mixpanel'
-require 'pry'
 module Reporting
   module Mixpanel
 

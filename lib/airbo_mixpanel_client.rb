@@ -1,4 +1,3 @@
-require 'pry'
 require 'mixpanel_client'
 class AirboMixpanelClient
 

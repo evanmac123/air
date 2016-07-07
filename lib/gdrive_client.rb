@@ -1,5 +1,4 @@
 require 'google/api_client'
-require 'pry'
 
 class GdriveClient
   APP_NAME="Airbo"
