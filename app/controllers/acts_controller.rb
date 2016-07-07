@@ -14,16 +14,15 @@ class ActsController < ApplicationController
 
     authorize
     return if response_body.present? # such as if our authorization failed & we're bound for the signin page
-
     set_parent_board_user(params[:board_id])
     flash_message_in_parent_board
 
     @current_link_text = "Home"
     @current_user = current_user
-    
+
     @current_user.ping_page('activity feed')
 
-    
+
     @demo                  = current_user.demo
     @acts                  = find_requested_acts(@demo)
 
@@ -34,7 +33,7 @@ class ActsController < ApplicationController
     # This is handy for debugging the lightbox or working on its styles
     @display_get_started_lightbox ||= params[:display_get_started_lightbox]
 
-    #disable display of the 
+    #disable display of the
     @display_get_started_lightbox = false if params[:public_slug].present? and @demo.is_parent?
 
     if @display_get_started_lightbox
@@ -57,7 +56,7 @@ class ActsController < ApplicationController
       current_user.displayed_activity_page_admin_guide = true
       current_user.save!
     end
-    
+
     @displayable_categorized_tiles = Tile.displayable_categorized_to_user(current_user, tile_batch_size)
 
     show_conversion_form_provided_that { @demo.tiles.active.empty? }
@@ -92,12 +91,12 @@ class ActsController < ApplicationController
 
   def channel_specific_translations
     {
-      :say => "type", 
+      :say => "type",
       :Say => "Type",
       :help_command_explanation => "HELP - help desk, instructions\n"
     }
   end
-  
+
   def add_flash!(parsing_message_type, reply)
     case parsing_message_type
     when :success
@@ -143,7 +142,7 @@ class ActsController < ApplicationController
                 elsif session[:invitation_email_type].present?
                   session[:invitation_email_type]
                 end
-                
+
       ping('Saw welcome pop-up', {source: source}, current_user) if source
     end
     session[:invitation_email_type] = nil
@@ -153,4 +152,3 @@ class ActsController < ApplicationController
     @use_persistent_message = true
   end
 end
-

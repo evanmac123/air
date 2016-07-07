@@ -1,9 +1,9 @@
 var Airbo = window.Airbo || {};
 
-Airbo.DependentEmailForm = (function() {
+Airbo.ChangeEmailForm = (function() {
   var deferred
-    , formSel = "form.dependent_email_form"
-    , exitFormSel = formSel + " .no_invitation"
+    , formSel = "form.change_email_form"
+    , exitFormSel = formSel + " .no_email_change"
     , tileQuizSecSel = ".multiple_choice_group"
     , form
   ;
@@ -18,8 +18,11 @@ Airbo.DependentEmailForm = (function() {
           dataType: 'html',
           success: function(data, status, xhr) {
             $(formSel).replaceWith(data);
-            setTimeout(deferred.resolve, 1000);
-          }
+            setTimeout(deferred.resolve, 5000);
+          },
+          error: function(data, status, xhr) {
+            $(".change_email_error").show().text(data.responseText);
+          },
         });
       }else{
        console.log("invalid form");
@@ -38,22 +41,14 @@ Airbo.DependentEmailForm = (function() {
 
   function initValidator(){
     var config = {
-
-    errorClass: "dependent_user_invitation_error",
       rules: {
-    "dependent_user_invitation[email]":{ required: true },
-    "dependent_user_invitation[subject]": { required: true },
-    "dependent_user_invitation[body]": { required: true }
+        "change_email[email]":{
+          required: true,
+          email: true
+        }
       },
-      messages: {
-        "dependent_user_invitation[email]": "Email is required",
-        "dependent_user_invitation[subject]": "Subject is required",
-        "dependent_user_invitation[body]": "Email body is required"
-      },
-
-      errorPlacement: function(error, element) {
-        error.insertAfter(element);
-      }
+      errorElement : 'label',
+      errorLabelContainer: '.change_email_error'
     },
 
 
@@ -70,14 +65,16 @@ Airbo.DependentEmailForm = (function() {
   function get() {
     $.ajax({
       type: "GET",
-      url: '/invitation/dependent_user_invitation/new',
+      url: '/change_email/new',
       dataType: "html",
       success: function(data, status, xhr) {
         $(tileQuizSecSel).hide().after(data);
         init();
 
+        $("#change_email_email").focus();
+
         var tileId = $(".tile_holder").data("current-tile-id");
-        Airbo.Utils.ping('Opened Invite Form', {tile_id: tileId});
+        Airbo.Utils.ping('Opened Email Change Form', {tile_id: tileId});
       }
     });
 
