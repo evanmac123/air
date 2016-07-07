@@ -1,0 +1,3 @@
+<% content_for(:ie_link){ @confirm_url } %>
+<%= render partial: 'mailer/main_text', locals: {head_text: "It looks like you've changed your email address in Airbo to #{@email}", subhead_text: "Please click below to confirm the change. If you didn't didn't make this change, contact support@airbo.com."} %>
+<%= render partial: 'mailer/main_button', locals: {button_text: "Confirm", button_url: @confirm_url } %>

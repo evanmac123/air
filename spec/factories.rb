@@ -499,4 +499,10 @@ FactoryGirl.define do
     explore_intro_seen true
     explore_preview_copy_seen true
   end
+
+  factory :user_settings_change_log do
+    association :user
+    email "new_email@mail.com"
+    email_token "86f7e437faa5a7fce15d1ddcb9eaeaea377667b8"
+  end
 end

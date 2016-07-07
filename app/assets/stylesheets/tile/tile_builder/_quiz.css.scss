@@ -273,7 +273,7 @@
 
   &.survey{
     .tile_multiple_choice_answer{
-      &.invite_spouse{
+      &.invite_spouse, &.change_email{
         a {
           width:85%;
           margin-left: 10%;
