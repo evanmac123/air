@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe PotentialUser do
   let(:demo) { FactoryGirl.create :demo }
-  let(:user) { FactoryGirl.create(:potential_user, email: "bill@jo.com", demo: demo) }
+  let(:user) { FactoryGirl.create(:potential_user, email: "bill@jo.com", demo: demo, primary_user: nil) }
 
   it { should belong_to(:demo) }
   it { should belong_to(:game_referrer) }
@@ -11,7 +11,7 @@ describe PotentialUser do
   it { should validate_uniqueness_of(:invitation_code) }
 
   describe '#convert_to_full_user!' do
-    context "happy path" do 
+    context "happy path" do
       before(:each) do
         user.convert_to_full_user! "Bill Jo"
         @new_user = User.last

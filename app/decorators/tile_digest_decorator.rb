@@ -8,6 +8,7 @@ class TileDigestDecorator < Draper::Decorator
     url = object.thumbnail(:email_digest) # Paperclip returns the full url in staging and production modes
     full_url = Addressable::URI.parse(url)
     full_url.scheme = email_link_protocol unless full_url.scheme
+    # p full_url
     full_url.host = email_link_host unless full_url.host
     full_url.to_s
   end

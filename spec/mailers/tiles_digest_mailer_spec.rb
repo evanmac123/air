@@ -200,7 +200,7 @@ describe 'Digest email tile order' do
     Fixnum.any_instance.stubs(:headline)
     Fixnum.any_instance.stubs(:points)
     Fixnum.any_instance.stubs(:question).returns("dcsddsc")
-    Fixnum.any_instance.stubs(:thumbnail).returns('xxx')
+    Fixnum.any_instance.stubs(:thumbnail).returns('http://example.com/xxx')
 
     tile_ids = [1, 2, 3]
 
