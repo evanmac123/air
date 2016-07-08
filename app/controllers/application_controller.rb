@@ -564,7 +564,7 @@ class ApplicationController < ActionController::Base
     @edate =  params[:edate].present? ? Date.strptime(params[:edate], "%Y-%m-%d") : nil
   end
 
-  def present(object, klass = nil, opts)
+  def present(object, klass = nil, opts={})
     klass ||= "#{object.class}Presenter".constantize
     klass.new(object, view_context, opts)
   end

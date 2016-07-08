@@ -46,58 +46,41 @@
             </tr>
           </thead>
           <tbody>
-            <tr><th>Eligible Users</th>  </tr>
+            <tr><th>Eligible Users</th></tr>
+              <%= @report.data_cells([:activation], :total)%>
             <tr>
               <th>Total Activated</th>
-              <%@report.series_for_key([:activation], :total).each do|val|%>
-                <td><%=val%></td>
-              <%end%>
+              <%= @report.data_cells([:activation], :total)%>
             </tr>
             <tr>
               <th>Newly Activated</th>
-              <%@report.series_for_key([:activation], :current).each do|val|%>
-                <td><%=val%></td>
-              <%end%>
+              <%=@report.data_cells([:activation], :current)%>
             </tr>
             <!--tr><th>Activation Pct</th></tr-->
             <tr>
               <th>Total Tiles</th>
-
-              <%@report.series_for_key([:tile_activity, :posts], :total).each do|val|%>
-                <td><%=val%></td>
-              <%end%>
+              <%=@report.data_cells([:tile_activity, :posts], :total)%>
             </tr>
             <tr>
               <th>Posted Tiles</th>
-              <%@report.series_for_key([:tile_activity, :posts], :current).each do|val|%>
-                <td><%=val%></td>
-              <%end%>
+              <%=@report.data_cells([:tile_activity, :posts], :current)%>
             </tr>
             <tr>
               <th>Total Views</th>
-              <%@report.series_for_key([:tile_activity, :views], :total).each do|val|%>
-                <td><%=val%></td>
-              <%end%>
+              <%=@report.data_cells([:tile_activity, :views], :total)%>
             </tr>
             <tr>
               <th>Current Views</th>
-              <%@report.series_for_key([:tile_activity, :views], :current).each do|val|%>
-                <td><%=val%></td>
-              <%end%>
+              <%=@report.data_cells([:tile_activity, :views], :current)%>
             </tr>
 
             <tr><th>Total Completions</th>
-            
-              <%@report.series_for_key([:tile_activity, :completions], :total).each do|val|%>
-                <td><%=val%></td>
-              <%end%>
+              <%=@report.data_cells([:tile_activity, :completions], :total)%>
             </tr>
 
             <tr>
               <th>Current Completions</th>
-              <%@report.series_for_key([:tile_activity, :completions], :total).each do|val|%>
-                <td><%=val%></td>
-              <%end%>
+              <%=@report.data_cells([:tile_activity, :completions], :total)%>
             </tr>
           </tbody>
         </table>
