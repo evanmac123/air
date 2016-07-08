@@ -126,6 +126,10 @@ class User < ActiveRecord::Base
     downcase_sms_slug
   end
 
+  before_validation(on: :create) do
+    self.official_email=email if official_email.blank?
+  end
+
   before_validation do
     if @role.present?
       self.is_client_admin = self.role == 'Administrator'
