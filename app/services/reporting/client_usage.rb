@@ -12,19 +12,15 @@ module Reporting
       @demo = opts[:demo]
       @interval=opts[:interval]
       initialize_report_data_hash 
-
+      run
     end
 
-    def run #demo, beg_date=3.months.ago, end_date=Date.today, interval="week"
-
+    def run 
       if @demo
         do_user_activation
         do_tile_activity
       end
-
-      self #should be fully initialized with subkeys even if the demo is not provided #TODO throw argument error
-
-    end 
+    end
 
     def series_for_key nodes,leaf
       data[:intervals].map do |timestamp| 
@@ -52,7 +48,9 @@ module Reporting
       activation = Reporting::Db::UserActivation.new(demo,start, finish, interval)
 
       total_eligible = activation.total_eligible
-      data[:activation][:total_eligible] = total_eligible
+      data[:intervals].each do|interval|
+        data[:activation][interval][:total_eligible] = total_eligible
+      end
 
       activation.activated.each do |res|
         populate_stats res, data[:activation] do |period|
@@ -116,22 +114,30 @@ module Reporting
 
 
     def prepare_empty_hash
-
-      #data[:demo_id]= demo
-      #data[:beg_date]= start
-      #data[:end_date] = finish
       data[:activation]={} 
       data[:tile_activity]= {
         posts:{}, 
         views:{}, 
-        completions:{} 
+        completions:{}
       }
+      data[:kpis] = [
+        [[:activation], :total_eligible],
+        [[:activation], :total],
+        [[:activation], :current],
+        [[:tile_activity, :posts], :total],
+        [[:tile_activity, :posts], :current],
+        [[:tile_activity, :views], :total],
+        [[:tile_activity, :views], :current],
+        [[:tile_activity, :completions], :total],
+        [[:tile_activity, :completions], :current]
+      ]
       data[:intervals]=[]
     end
 
 
     def init_activation  d
       activation = data[:activation][d]={}
+      activation[:total_eligible] =0 
       activation[:current] =0 
       activation[:total] =0
     end
@@ -143,6 +149,8 @@ module Reporting
       activity[:views][d]={current:0, total:0}
       activity[:completions][d]={current:0, total:0}
     end
+
+
 
   end
 end

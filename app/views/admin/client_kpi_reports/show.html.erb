@@ -46,8 +46,9 @@
             </tr>
           </thead>
           <tbody>
-            <tr><th>Eligible Users</th></tr>
-              <%= @report.data_cells([:activation], :total)%>
+            <tr><th>Eligible Users</th>
+              <%= @report.data_cells([:activation], :total_eligible)%>
+            </tr>
             <tr>
               <th>Total Activated</th>
               <%= @report.data_cells([:activation], :total)%>
