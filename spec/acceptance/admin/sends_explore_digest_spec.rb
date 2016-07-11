@@ -42,7 +42,7 @@ feature 'Sends explore digest' do
     current_email.subject.should == valid_subject
     current_email.to_s.should =~ /#{valid_headline}.*#{valid_custom_message}/m
     # actually it's 50, but it works with 47
-    tile_headlines = @tiles[0,4].map{|t| t.headline.truncate(47) } 
+    tile_headlines = @tiles[0,4].map{|t| t.headline.truncate(47) }
     current_email.to_s.should =~ /#{tile_headlines[0]}.*#{tile_headlines[1]}.*#{tile_headlines[2]}.*#{tile_headlines[3]}/m
   end
 
@@ -51,12 +51,15 @@ feature 'Sends explore digest' do
       fill_in_valid_message_entries
 
       indices = [2, 0, 3, 1]
-      tile_ids = indices.map{|index| @tiles[index].id}
+      tiles = indices.map{|index| @tiles[index]}
+      tile_ids = tiles.map(&:id)
+      tile_headlines = tiles.map(&:headline)
       fill_in_valid_tile_fields(tile_ids)
       click_button button_label
 
       visit explore_path
-      page.body.should =~ /#{@tiles[2].headline}.*#{@tiles[0].headline}.*#{@tiles[3].headline}.*#{@tiles[1].headline}/m
+      # binding.pry
+      page.all(".tile_thumb_link .headline .text").map(&:text)[0...4].should == tile_headlines
     end
   end
 
