@@ -16,7 +16,7 @@ feature "Client admin copies parent board" do
   end
 
   def completed_tile_selector
-    ".tile_thumbnail:not(.placeholder_tile) .completed"
+    ".tile_thumbnail:not(.placeholder_tile).completed"
   end
 
   let(:client_admin) { an_admin }
@@ -124,6 +124,7 @@ feature "Client admin copies parent board" do
 
         # have 2 completed tiles on activity page
         visit activity_path(board_id: parent_demo, as: client_admin)
+        # save_and_open_page
         page.all(completed_tile_selector).count.should == 2
 
         # watch completed tiles
@@ -151,9 +152,9 @@ feature "Client admin copies parent board" do
         end
         click_link "Return to homepage"
         page.all(completed_tile_selector).count.should == 4
-        
+
         # use link from explore. it resets completions
-        visit parent_board_path(parent_demo, as: client_admin) 
+        visit parent_board_path(parent_demo, as: client_admin)
         page.all(completed_tile_selector).count.should == 0
       end
     end
