@@ -18,7 +18,21 @@ class ClientKpiReportPresenter < BasePresenter
     raw tds
   end
 
+  def interval_headers
+    tds=""
+    data[:intervals].each do |interval|
+      tds += content_tag :th, interval
+    end
+    raw tds
+  end
 
+  def interval_count pad=0
+    data[:intervals].size + pad
+  end
+
+  def row_group_header caption, pad=0 
+   content_tag :th, caption,  colspan: data[:intervals].size + pad
+  end
 
   def to_csv
 

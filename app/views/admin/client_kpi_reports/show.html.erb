@@ -39,48 +39,61 @@
         <table>
           <thead>
             <tr>
-              <th>&nbsp;</th>
-            <%@report.data[:intervals].each do |interval|%>
-              <th><%=interval%></th>
-            <%end%>
+              <th colspan="2">&nbsp;</th>
+              <%=@report.interval_headers %>
             </tr>
           </thead>
-          <tbody>
-            <tr><th>Eligible Users</th>
+          <tbody class="group-hdr">
+            <tr><%=@report.row_group_header "User Activity", 2%></tr>
+          </tbody> 
+          <tbody class="hdr-indent">
+            <tr>
+              <th rowspan="3">Activations</th>
+              <th >All Eligible </th>
               <%= @report.data_cells([:activation], :total_eligible)%>
             </tr>
-            <tr>
-              <th>Total Activated</th>
+            <tr >
+              <th >Cumulative</th>
               <%= @report.data_cells([:activation], :total)%>
             </tr>
             <tr>
-              <th>Newly Activated</th>
+              <th >For Period </th>
               <%=@report.data_cells([:activation], :current)%>
             </tr>
             <!--tr><th>Activation Pct</th></tr-->
+          </tbody>
+          <tbody class="group-hdr" >
+            <tr><%=@report.row_group_header "Tile Activity", 2%></tr>
+          </tbody>
+          <tbody class="hdr-indent">
+            
             <tr>
-              <th>Total Tiles</th>
+              <th rowspan="2">Posted</th>
+              <th>Cumulative </th>
               <%=@report.data_cells([:tile_activity, :posts], :total)%>
             </tr>
             <tr>
-              <th>Posted Tiles</th>
+              <th>For Period</th>
               <%=@report.data_cells([:tile_activity, :posts], :current)%>
             </tr>
             <tr>
-              <th>Total Views</th>
+              <th rowspan="2">Views</th>
+              <th>Cumulative</th>
               <%=@report.data_cells([:tile_activity, :views], :total)%>
             </tr>
             <tr>
-              <th>Current Views</th>
+              <th>For Period</th>
               <%=@report.data_cells([:tile_activity, :views], :current)%>
             </tr>
 
-            <tr><th>Total Completions</th>
+            <tr>
+              <th rowspan="2">Completions</th>
+              <th>Cumulative</th>
               <%=@report.data_cells([:tile_activity, :completions], :total)%>
             </tr>
 
             <tr>
-              <th>Current Completions</th>
+              <th>For Period</th>
               <%=@report.data_cells([:tile_activity, :completions], :total)%>
             </tr>
           </tbody>
