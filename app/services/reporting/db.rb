@@ -14,6 +14,7 @@ module Reporting
 
       private
       def aggregation interval_field, key_field
+
         "DATE_TRUNC('#{@interval}', #{interval_field}) AS interval, count(#{key_field}) as interval_count, sum(count(#{key_field})) " +
           " over (order by date_trunc('#{@interval}', #{interval_field})) as cumulative_count"
       end
@@ -26,7 +27,7 @@ module Reporting
 
     class UserActivation < Base
 
-      def eligible
+      def eligibles
         agg_clause = aggregation "users.created_at", "users.id"
         group_and_order( memberships.select(agg_clause).where("users.created_at <= ?", end_date))
       end

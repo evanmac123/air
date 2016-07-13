@@ -48,8 +48,7 @@ module Reporting
     def do_user_activation
       user = Reporting::Db::UserActivation.new(demo,start, finish, interval)
 
-      eligible = user.eligible
-      eligible.each do |res|
+      user.eligibles.each do |res|
         populate_stats res, data[:user][:eligibles]
       end
 
