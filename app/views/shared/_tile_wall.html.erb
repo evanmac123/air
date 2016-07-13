@@ -5,7 +5,7 @@
 <% hdr_text ||= nil %>
 <% tiles_length =  not_completed_tiles.try(:length).to_i + completed_tiles.try(:length).to_i %>
 
-<div id="tile_wall">
+<div id="tile_wall" data-display-first-tile-hint="<%= @display_first_tile_hint %>">
   <%=content_tag :h1, hdr_text, class:"tile-wall-header text-center padded-v-20" if hdr_text %>
   <%= render 'shared/tile_tags', tags: tags %>
 

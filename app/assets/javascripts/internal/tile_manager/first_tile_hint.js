@@ -62,5 +62,7 @@ Airbo.FirstTileHint = (function(){
 }());
 
 $(window).on("load", function(){
-  Airbo.FirstTileHint.init();
+  if ( $("#tile_wall").data("display-first-tile-hint") == true ) {
+    Airbo.FirstTileHint.init();
+  }
 });
