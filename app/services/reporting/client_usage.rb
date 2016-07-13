@@ -20,6 +20,7 @@ module Reporting
         do_user_activation
         do_tile_activity
       end
+      data
     end
 
     def series_for_key nodes,leaf
@@ -45,49 +46,52 @@ module Reporting
     end
 
     def do_user_activation
-      activation = Reporting::Db::UserActivation.new(demo,start, finish, interval)
+      user = Reporting::Db::UserActivation.new(demo,start, finish, interval)
 
-      total_eligible = activation.total_eligible
+      eligible = user.eligible
+      eligible.each do |res|
+        populate_stats res, data[:user][:eligibles]
+      end
+
+      user.activations.each do |res|
+        populate_stats res, data[:user][:activations] 
+      end
+
+      calc_activation_percent
+    end
+
+    def calc_activation_percent
       data[:intervals].each do|interval|
-        data[:activation][interval][:total_eligible] = total_eligible
+        data[:user][:activation_pct][interval][:total] = data[:user][:activations][interval][:total].to_f/data[:user][:eligibles][interval][:total].to_f
       end
-
-      activation.activated.each do |res|
-        populate_stats res, data[:activation] do |period|
-          period[:activation_pct] = res.cumulative_count.to_f/total_eligible.to_f
-        end
-
-      end
-
     end
 
     def do_tile_activity 
+      partition = data[:tile_activity]
       activity = Reporting::Db::TileActivity.new(demo,start, finish, interval)
 
       activity.posts.each do |res|
-        populate_stats res, data[:tile_activity][:posts]
+        populate_stats res, partition[:posts]
       end
 
       activity.views.each do |res|
-        populate_stats res, data[:tile_activity][:views]
+        populate_stats res, partition[:views]
       end
 
       activity.completions.each do |res|
-        populate_stats res, data[:tile_activity][:completions]
+        populate_stats res, partition[:completions]
       end
 
     end
 
 
-    def populate_stats res, stat, &block
+    def populate_stats res, stat
       timestamp= Date.parse(res.interval)
       return if timestamp < start.to_date
 
       period = stat[timestamp]
       period[:current] = res.interval_count
       period[:total] = res.cumulative_count
-
-      yield period if block_given?
     end
 
 
@@ -106,7 +110,7 @@ module Reporting
       r.each do |timestamp|
         d = timestamp.to_date
         data[:intervals] << d 
-        init_activation  d
+        init_users  d
         init_activity d
       end
     end
@@ -114,16 +118,24 @@ module Reporting
 
 
     def prepare_empty_hash
-      data[:activation]={} 
+      data[:user]={
+        eligibles:{},
+        activations:{},
+        activation_pct:{}
+      }
+
       data[:tile_activity]= {
-        posts:{}, 
-        views:{}, 
+        posts:{},
+        views:{},
         completions:{}
       }
       data[:kpis] = [
-        [[:activation], :total_eligible],
-        [[:activation], :total],
-        [[:activation], :current],
+        [[:user, :eligibles], :total],
+        [[:user, :eligibles], :current],
+        [[:user, :activations], :total],
+        [[:user, :activations], :current],
+        [[:user, :activation_pct], :total],
+        [[:user, :activation_pct], :current],
         [[:tile_activity, :posts], :total],
         [[:tile_activity, :posts], :current],
         [[:tile_activity, :views], :total],
@@ -135,11 +147,11 @@ module Reporting
     end
 
 
-    def init_activation  d
-      activation = data[:activation][d]={}
-      activation[:total_eligible] =0 
-      activation[:current] =0 
-      activation[:total] =0
+    def init_users  d
+      user = data[:user]
+      user[:eligibles][d]={current:0, total:0}
+      user[:activations][d]={current:0, total:0}
+      user[:activation_pct][d]={total:0}
     end
 
     def init_activity d

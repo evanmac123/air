@@ -26,11 +26,12 @@ module Reporting
 
     class UserActivation < Base
 
-      def total_eligible
-        @demo.users.count
+      def eligible
+        agg_clause = aggregation "users.created_at", "users.id"
+        group_and_order( memberships.select(agg_clause).where("users.created_at <= ?", end_date))
       end
 
-      def activated 
+      def activations 
 
         agg_clause = aggregation "users.accepted_invitation_at", "users.id"
        group_and_order( memberships.select(agg_clause).where("users.accepted_invitation_at is not null and users.accepted_invitation_at <= ?", end_date))

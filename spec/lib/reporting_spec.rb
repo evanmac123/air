@@ -22,11 +22,12 @@ module Reporting
 
 
 
-      @user1 = FactoryGirl.create(:user, demo: @demo, name: "User 1", accepted_invitation_at: 10.weeks.ago)
-      @user2 = FactoryGirl.create(:user, demo: @demo, name: "User 2", accepted_invitation_at: 10.weeks.ago)
-      @user3 = FactoryGirl.create(:user, demo: @demo, name: "User 3", accepted_invitation_at: 10.weeks.ago)
-      @user4 = FactoryGirl.create(:user, demo: @demo, name: "User 4", accepted_invitation_at: 10.weeks.ago)
-      @user5 = FactoryGirl.create(:user, demo: @demo, name: "User 5", accepted_invitation_at: 5.weeks.ago)
+      @user1 = FactoryGirl.create(:user, demo: @demo, name: "User 1", created_at: 11.weeks.ago, accepted_invitation_at: 10.weeks.ago)
+      @user2 = FactoryGirl.create(:user, demo: @demo, name: "User 2", created_at: 11.weeks.ago, accepted_invitation_at: 10.weeks.ago)
+      @user3 = FactoryGirl.create(:user, demo: @demo, name: "User 3", created_at: 11.weeks.ago, accepted_invitation_at: 10.weeks.ago)
+      @user4 = FactoryGirl.create(:user, demo: @demo, name: "User 4", created_at: 11.weeks.ago, accepted_invitation_at: 10.weeks.ago)
+      @user5 = FactoryGirl.create(:user, demo: @demo, name: "User 5", created_at: 7.weeks.ago, accepted_invitation_at: 5.weeks.ago)
+      @user6 = FactoryGirl.create(:user, demo: @demo2, name: "User 5",created_at: 7.weeks.ago, accepted_invitation_at: 5.weeks.ago)
 
 
       FactoryGirl.create(:tile_viewing, user: @user4, tile: @activated_before_reporting_range_tile, created_at: 13.weeks.ago)
@@ -106,13 +107,14 @@ module Reporting
         @act = UserActivation.new(@demo, 8.weeks.ago, Date.today, "week")
       end
 
-      describe "activated" do
+      describe "#activations" do
         it "returns a count" do
-          activations = @act.activated
+          activations = @act.activations
           expect(activations.map(&:cumulative_count)).to eq ["4","5"]
           expect(activations.map(&:interval_count)).to eq ["4","1"]
         end
       end
+
     end
 
     describe ClientUsage do
@@ -122,36 +124,48 @@ module Reporting
       end
 
       it "returns {} when demo is nil" do 
-        expect(ClientUsage.new({}).run().demo).to be_nil
+        res = ClientUsage.new({}).run()
+        expect(res[:demo]).to be_nil
       end
 
       context "#run with demo" do  
         before do
-          rep =ClientUsage.new({demo:@demo.id}).run
-          @res = rep.data
+          @res =ClientUsage.new({demo:@demo.id}).run
         end
 
         context "User Activation" do 
 
-          let(:base_hash){@res[:activation]}
+          let(:base_hash){@res[:user]}
+
 
           it "calcs total eligible users" do
-            expect(base_hash[:total_eligible]).to eq(5)
-          end
-
-          it "returns reports activtion correctly" do 
-
-            period1=base_hash[10.weeks.ago.beginning_of_week.to_date]
-            period2=base_hash[ 5.weeks.ago.beginning_of_week.to_date]
-
-
+            data=base_hash[:eligibles]
+            period1 = data[11.weeks.ago.beginning_of_week.to_date]
+            period2 = data[ 7.weeks.ago.beginning_of_week.to_date]
             expect(period1[:current]).to eq("4")
             expect(period1[:total]).to eq("4")
-            expect(period1[:activation_pct]).to eq(0.8)
+            expect(period2[:total]).to eq("5")
+            expect(period2[:current]).to eq("1")
+          end
+
+          it " reports activtion correctly" do 
+
+            data=base_hash[:activations]
+            period1 = data[10.weeks.ago.beginning_of_week.to_date]
+            period2 = data[ 5.weeks.ago.beginning_of_week.to_date]
+            expect(period1[:current]).to eq("4")
+            expect(period1[:total]).to eq("4")
 
             expect(period2[:current]).to eq("1")
             expect(period2[:total]).to eq("5")
-            expect(period2[:activation_pct]).to eq(1.0)
+            #expect(period2[:activation_pct]).to eq(1.0)
+          end
+
+          it "calcs activation percent" do
+            data=base_hash[:activation_pct]
+            period1 = data[10.weeks.ago.beginning_of_week.to_date]
+            period2 = data[ 5.weeks.ago.beginning_of_week.to_date]
+            expect(period1[:total]).to eq(0.8)
           end
         end
 
