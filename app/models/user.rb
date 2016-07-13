@@ -85,8 +85,8 @@ class User < ActiveRecord::Base
   validates :email, :with => :email_distinct_from_all_overflow_emails
   validates :overflow_email, :with => :overflow_email_distinct_from_all_emails
   validates_presence_of :email, :if => :converting_from_guest, :message => "Please enter a valid email address"
-  validates_presence_of :official_email 
-  validates_with EmailFormatValidator, field: :official_email 
+  validates_presence_of :official_email
+  validates_with EmailFormatValidator, field: :official_email
   validates_presence_of :email, :if => :creating_board, :message => "can't be blank"
   validates_with EmailFormatValidator, if: Proc.new {|u| u.invitation_method == :client_admin_invites}
 
@@ -1210,6 +1210,12 @@ class User < ActiveRecord::Base
 
   def intros
     user_intro || UserIntro.create(user: self)
+  end
+
+  def check_display_first_tile_hint
+    unless self.displayed_first_tile_hint
+      self.update_attribute("displayed_first_tile_hint", true)
+    end
   end
 
   protected

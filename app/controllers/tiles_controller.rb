@@ -45,6 +45,7 @@ class TilesController < ApplicationController
   end
 
   def show
+    current_user.check_display_first_tile_hint
     if params[:partial_only]
       set_parent_board_user_by_tile(params[:id])
       decide_whether_to_show_conversion_form

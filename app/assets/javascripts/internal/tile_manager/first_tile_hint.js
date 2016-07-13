@@ -2,10 +2,6 @@ Airbo = window.Airbo ||{};
 
 
 Airbo.FirstTileHint = (function(){
-  function setTop(){
-    var newTop = (parseInt($(".introjs-tooltip").css("top")) +15 )+"px";
-    $(".introjs-tooltip").css("top", newTop);
-  }
   function setLeftOffset(){
     var refWidth = parseInt($(".introjs-tooltipReferenceLayer").css("width"));
     var introWidth = parseInt($(".introjs-tooltip").css("width"));
@@ -14,7 +10,6 @@ Airbo.FirstTileHint = (function(){
   }
   function repositionTooltip(){
     setLeftOffset();
-    // setTop();
   }
   function styleTooltipButton(){
     $(".introjs-tooltip .introjs-button").addClass("button").addClass("outlined");
