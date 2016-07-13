@@ -75,7 +75,7 @@ Airbo.TileInteractionHint= (function(){
 
   function initRedraw(){
     showHintToolTip();
-restyleTooltip();
+    restyleTooltip();
     //styleTooltipButton();
     //repositionTooltip();
     repositionPulse();
@@ -91,7 +91,7 @@ restyleTooltip();
 
     if(!anatomySeen && $(anatomyIntroSelector).length >0){
       var points = $("#tile_point_value").text();
-      var prompt = "This is the right answer. </br>Click to earn " + points + " points"; 
+      var prompt = "This is the right answer. </br>Click to earn " + points + " points";
       var options = {
         tooltipClass: "simple",
         scrollToElement: false,
@@ -115,9 +115,9 @@ restyleTooltip();
 
       intro.onhintclose(function() {
         $(".introjs-hint").removeClass("introjs-hidehint")
-      }); 
+      });
 
-   
+
 
       intro.addHints();
     }
@@ -176,6 +176,8 @@ Airbo.LandingPageHandler = (function(){
 $(function(){
   Airbo.LandingPageHandler.init();
   $(window).on("load", function(){
-    Airbo.TileInteractionHint.init();
+    if ( $(".public-board .tile_holder").length > 0 ) {
+      Airbo.TileInteractionHint.init();
+    }
   });
 });
