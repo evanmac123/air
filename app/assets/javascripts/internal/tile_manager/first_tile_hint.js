@@ -46,6 +46,7 @@ Airbo.FirstTileHint = (function(){
     });
     intro.onhintclose(function() {
       $(".introjs-hint").removeClass("introjs-hidehint");
+      Airbo.Utils.ping("Tile Tooltip Seen", {"action":"Clicked 'Got it'"});
     });
     intro.addHints();
   }
