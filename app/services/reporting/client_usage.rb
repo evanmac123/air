@@ -2,13 +2,13 @@ require 'rails_date_range'
 module Reporting 
 
   class ClientUsage
-    attr_reader :data, :start, :finish, :interval, :demo
+    attr_reader :data, :start, :finish_date, :interval, :demo
     def initialize(args) 
       opts = args.delete_if{|k,v|v.nil?}
       opts = defaults.merge(opts)
       @data ={}
       @start = opts[:beg_date].beginning_of_week
-      @finish = opts[:end_date].beginning_of_week
+      @finish_date = opts[:end_date].beginning_of_week
       @demo = opts[:demo]
       @interval=opts[:interval]
       initialize_report_data_hash 
@@ -46,7 +46,7 @@ module Reporting
     end
 
     def do_user_activation
-      user = Reporting::Db::UserActivation.new(demo,start, finish, interval)
+      user = Reporting::Db::UserActivation.new(demo,start, finish_date, interval)
 
       user.eligibles.each do |res|
         populate_stats res, data[:user][:eligibles]
@@ -67,7 +67,7 @@ module Reporting
 
     def do_tile_activity 
       partition = data[:tile_activity]
-      activity = Reporting::Db::TileActivity.new(demo,start, finish, interval)
+      activity = Reporting::Db::TileActivity.new(demo,start, finish_date, interval)
 
       activity.posts.each do |res|
         populate_stats res, partition[:posts]
@@ -84,11 +84,11 @@ module Reporting
     end
 
 
-    def populate_stats res, stat
+    def populate_stats res, kpi 
       timestamp= Date.parse(res.interval)
       return if timestamp < start.to_date
 
-      period = stat[timestamp]
+      period = kpi[timestamp]
       period[:current] = res.interval_count
       period[:total] = res.cumulative_count
     end
@@ -104,8 +104,7 @@ module Reporting
     def init_intervals
       period = "#{interval}s".to_sym
 
-      r = RailsDateRange.new(start, finish).every({period => 1})
-
+      r = RailsDateRange.new(start, finish_date).every({period => 1})
       r.each do |timestamp|
         d = timestamp.to_date
         data[:intervals] << d 
