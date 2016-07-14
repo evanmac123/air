@@ -64,8 +64,10 @@ function fileAdded(data){
 
 function fileProgress(data){
   var progress;
+  // console.log(parseInt(data.loaded / data.total * 100, 10))
   if (data.context) {
     progress = parseInt(data.loaded / data.total * 100, 10);
+    // console.log(progress)
     data.context.find('.bar').css('width', progress + '%');
   }
   customHandler.progressed(data);
@@ -89,6 +91,7 @@ function handleAnyFileErrors(file){
 
 function initFileUploader() {
 
+  $(uploaderSelector).unbind();
   $(uploaderSelector).fileupload(
     {
       replaceFileInput: true,

@@ -31,7 +31,7 @@ module TilesHelper
       slug = params[:public_slug] || current_user.demo.public_slug
       public_activity_path(slug)
     else
-      activity_path(board_id: current_user.demo_id) 
+      activity_path(board_id: current_user.demo_id)
     end
   end
 end

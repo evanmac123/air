@@ -50,6 +50,7 @@ class User < ActiveRecord::Base
   has_one    :billing_information
   has_one    :user_intro
   has_one    :dependent_user,  class_name: "User", foreign_key: :primary_user_id
+  has_one    :user_settings_change_log
   belongs_to :primary_user, class_name: "User"
 
   validate :normalized_phone_number_unique, :normalized_new_phone_number_unique, :normalized_new_phone_number_not_taken_by_board
@@ -59,7 +60,6 @@ class User < ActiveRecord::Base
 
   validates_uniqueness_of :slug
   validates_uniqueness_of :sms_slug, :message => "Sorry, that username is already taken."
-  validates_uniqueness_of :overflow_email, :allow_blank => true
   # validates_uniqueness_of :email comes from Clearance
   validates_uniqueness_of :invitation_code, :allow_blank => true
 
@@ -80,17 +80,22 @@ class User < ActiveRecord::Base
   validates_format_of :zip_code, with: /\A\d{5}\z/, allow_blank: true
 
   validates_length_of :password, :minimum => 6, :allow_blank => true, :message => 'must have at least 6 characters', :unless => :converting_from_guest
+
+  validates_uniqueness_of :overflow_email, :allow_blank => true
   validates :email, :with => :email_distinct_from_all_overflow_emails
   validates :overflow_email, :with => :overflow_email_distinct_from_all_emails
+  validates_presence_of :email, :if => :converting_from_guest, :message => "Please enter a valid email address"
+  validates_presence_of :official_email 
+  validates_with EmailFormatValidator, field: :official_email 
+  validates_presence_of :email, :if => :creating_board, :message => "can't be blank"
+  validates_with EmailFormatValidator, if: Proc.new {|u| u.invitation_method == :client_admin_invites}
 
   validates_presence_of :password, :if => :converting_from_guest, :message => "Please enter a password at least 6 characters long"
   validates_length_of :password, :minimum => 6, :if => :converting_from_guest, :message => "Please enter a password at least 6 characters long"
-  validates_presence_of :email, :if => :converting_from_guest, :message => "Please enter a valid email address"
   validates_presence_of :location_id, if: :must_have_location
 
-  validates_with EmailFormatValidator, if: Proc.new {|u| u.invitation_method == :client_admin_invites}
-  validates_presence_of :email, :if => :creating_board, :message => "can't be blank"
   validates_presence_of :password, :if => :creating_board, :message => "please enter a password at least 6 characters long"
+
 
   has_attached_file :avatar,
     :styles => {:thumb => ["96x96#", :png]},
@@ -119,6 +124,10 @@ class User < ActiveRecord::Base
 
   before_validation do
     downcase_sms_slug
+  end
+
+  before_validation(on: :create) do
+    self.official_email=email if official_email.blank?
   end
 
   before_validation do

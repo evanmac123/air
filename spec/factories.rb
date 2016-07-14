@@ -270,13 +270,13 @@ FactoryGirl.define do
   factory :survey_tile, parent: :multiple_choice_tile do
     question_type Tile::SURVEY
     question_subtype Tile::MULTIPLE_CHOICE
-    correct_answer_index -1
+    correct_answer_index (-1)
   end
 
   factory :action_tile, parent: :multiple_choice_tile do
     question_type Tile::ACTION
     question_subtype Tile::TAKE_ACTION
-    correct_answer_index -1
+    correct_answer_index (-1)
   end
 
   factory :sharable_and_public_tile, parent: :multiple_choice_tile do
@@ -498,5 +498,11 @@ FactoryGirl.define do
   factory :user_intro do
     explore_intro_seen true
     explore_preview_copy_seen true
+  end
+
+  factory :user_settings_change_log do
+    association :user
+    email "new_email@mail.com"
+    email_token "86f7e437faa5a7fce15d1ddcb9eaeaea377667b8"
   end
 end

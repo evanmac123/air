@@ -43,6 +43,19 @@ table.first-column-header{
  }
 }
 
+tbody{
+  &.group-hdr{
+   th {
+     font-size:1.05em;
+   }
+  }
+  &.hdr-indent{
+    th[rowspan]{
+      padding-left: 15px;
+      font-weight: bold;
+    }
+  }
+}
 tr.resource-row{
   cursor: pointer
 }

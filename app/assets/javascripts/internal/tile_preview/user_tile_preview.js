@@ -216,7 +216,9 @@ Airbo.UserTilePreview =(function(){
       tileType = "Public Tile";
     } else if( $(".tile_multiple_choice_answer a").hasClass("invitation_answer") ) {
       tileType = "Spouse Invite";
-    } else {
+    } else if( $(".tile_multiple_choice_answer a").hasClass("change_email_answer") ) {
+      tileType = "Email Change";
+    }else {
       tileType = "User";
     }
     var pingParams = {
@@ -298,12 +300,14 @@ Airbo.UserTilePreview =(function(){
  }
 
  function rightAnswerClicked(event){
-   var invitationFormFun = function() {};
+   var formFun = function() {};
    if( $(event.target).hasClass("invitation_answer") ){
-     invitationFormFun = Airbo.DependentEmailForm.get;
+     formFun = Airbo.DependentEmailForm.get;
+   } else if( $(event.target).hasClass("change_email_answer") ){
+     formFun = Airbo.ChangeEmailForm.get;
    }
 
-   $.when(invitationFormFun()).done(function() {
+   $.when(formFun()).done(function() {
      targetAnswerClicked(event);
    }).fail(function() {
      Airbo.TileAnswers.reinitEvents();

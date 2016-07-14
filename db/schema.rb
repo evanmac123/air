@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160616172308) do
+ActiveRecord::Schema.define(:version => 20160701150607) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -1002,6 +1002,16 @@ ActiveRecord::Schema.define(:version => 20160616172308) do
 
   add_index "user_intros", ["user_id"], :name => "index_user_intros_on_user_id"
 
+  create_table "user_settings_change_logs", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "email",                      :default => "", :null => false
+    t.string   "email_token", :limit => 128
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+  end
+
+  add_index "user_settings_change_logs", ["user_id"], :name => "index_user_settings_change_logs_on_user_id"
+
   create_table "user_tile_copies", :force => true do |t|
     t.integer  "tile_id"
     t.integer  "user_id"
@@ -1100,6 +1110,7 @@ ActiveRecord::Schema.define(:version => 20160616172308) do
     t.boolean  "manage_access_prompt_seen",                           :default => false,       :null => false
     t.boolean  "suggestion_box_prompt_seen",                          :default => false,       :null => false
     t.integer  "primary_user_id"
+    t.string   "official_email"
   end
 
   add_index "users", ["cancel_account_token"], :name => "index_users_on_cancel_account_token"
@@ -1113,6 +1124,7 @@ ActiveRecord::Schema.define(:version => 20160616172308) do
   add_index "users", ["is_employee"], :name => "index_users_on_is_employee"
   add_index "users", ["location_id"], :name => "index_users_on_location_id"
   add_index "users", ["name"], :name => "user_name_trigram"
+  add_index "users", ["official_email"], :name => "index_users_on_official_email"
   add_index "users", ["overflow_email"], :name => "index_users_on_overflow_email"
   add_index "users", ["phone_number"], :name => "index_users_on_phone_number"
   add_index "users", ["privacy_level"], :name => "index_users_on_privacy_level"

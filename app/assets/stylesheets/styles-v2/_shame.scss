@@ -123,6 +123,20 @@ td .button.td-button {
   background: $n-blue;
 }
 
+.bg-red2.bg-red2 {
+  background: $n-red2;
+  &:hover {
+    background: $n-red2;
+  }
+}
+
+.bg-blocked.bg-blocked {
+  background: #DDD;
+  &:hover {
+    background: #DDD;
+  }
+}
+
 .bg-whitish {
   background-color: #f9f9f9;
 }

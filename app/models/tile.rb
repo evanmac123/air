@@ -25,6 +25,7 @@ class Tile < ActiveRecord::Base
   MULTIPLE_CHOICE       = "Multiple Choice".parameterize("_").freeze
   RSVP_TO_EVENT         = "RSVP to event".parameterize("_").freeze
   INVITE_SPOUSE         = "Invite Spouse".parameterize("_").freeze
+  CHANGE_EMAIL         = "Change Email".parameterize("_").freeze
 
 
   belongs_to :demo

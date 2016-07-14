@@ -67,6 +67,21 @@ class FullSizeTilePresenter
     tile.question_subtype == Tile::INVITE_SPOUSE
   end
 
+  def is_change_email_answer?(answer_index)
+    answer_index == tile.correct_answer_index &&
+    tile.question_subtype == Tile::CHANGE_EMAIL
+  end
+
+  def action_answer_class(answer_index)
+    if is_invitation_answer?(answer_index)
+      'invitation_answer'
+    elsif is_change_email_answer?(answer_index)
+      'change_email_answer'
+    else
+      ''
+    end
+  end
+
   def user_completed_tile_with_answer_index(answer_index)
     user_tile_completion.answer_index == answer_index
   end
