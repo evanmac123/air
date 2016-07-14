@@ -60,8 +60,10 @@ module Reporting
     end
 
     def calc_activation_percent
-      data[:intervals].each do|interval|
-        data[:user][:activation_pct][interval][:total] = data[:user][:activations][interval][:total].to_f/data[:user][:eligibles][interval][:total].to_f
+      data[:intervals].each do|d|
+        if data[:user][:activations][d][:total].to_i !=0
+          data[:user][:activation_pct][d][:total] = data[:user][:activations][d][:total].to_f/data[:user][:eligibles][d][:total].to_f
+        end
       end
     end
 
