@@ -71,9 +71,6 @@ module Reporting
        group_and_order( memberships.select(agg_clause).where("users.accepted_invitation_at is not null and users.accepted_invitation_at <= ?", end_date))
       end
 
-      #def activation_pct 
-        #total_activated/total_eligible
-      #end
 
       private
 
