@@ -23,13 +23,46 @@ module Reporting
         relation.group("interval").order("interval")
       end
 
+
+      def sql
+        b = beg_date.to_date.to_s
+        e = end_date.to_date.to_s
+        query = <<-SQL
+
+         WITH reporting_period AS (
+          SELECT generate_series(date_trunc('week', date '#{b}'), date_trunc('week', date '#{e}'), interval '1 week') 
+          AS interval
+         ),
+
+        bms AS (
+         SELECT users.created_at, board_memberships.demo_id 
+         FROM board_memberships JOIN users ON users.id = board_memberships.user_id 
+         WHERE demo_id=#{@demo.id}
+        )
+
+        SELECT date(interval) AS interval
+        , count(bms.created_at) AS interval_count 
+        , sum(count( bms.created_at) ) OVER (order by date_trunc('week', bms.created_at)) AS cumulative_count 
+
+        FROM reporting_period 
+
+        LEFT JOIN bms 
+
+        ON interval=date(date_trunc('week', bms.created_at) )
+
+        GROUP BY interval, date_trunc('week', bms.created_at) ORDER BY interval
+
+        SQL
+        query
+      end 
+
+
     end
 
     class UserActivation < Base
 
       def eligibles
-        agg_clause = aggregation "users.created_at", "users.id"
-        group_and_order( memberships.select(agg_clause).where("users.created_at <= ?", end_date))
+        User.find_by_sql(sql)
       end
 
       def activations 

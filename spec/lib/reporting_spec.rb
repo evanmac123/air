@@ -104,7 +104,7 @@ module Reporting
 
       before do
         setup_data
-        @act = UserActivation.new(@demo, 8.weeks.ago, Date.today, "week")
+        @act = UserActivation.new(@demo, 11.weeks.ago, Date.today, "week")
       end
 
       describe "#activations" do
@@ -171,8 +171,8 @@ module Reporting
 
           it "calcs activation percent" do
             data=base_hash[:activation_pct]
-            period1 = data[10.weeks.ago.beginning_of_week.to_date]
-            period2 = data[ 5.weeks.ago.beginning_of_week.to_date]
+            period1 = data[11.weeks.ago.beginning_of_week.to_date]
+            period2 = data[ 7.weeks.ago.beginning_of_week.to_date]
             expect(period1[:total]).to eq(0.8)
           end
         end
