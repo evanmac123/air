@@ -13,7 +13,12 @@ module Reporting
       end
 
 
-      private
+      protected
+
+      def count_by_interval interval_field, key_field
+        "DATE_TRUNC('#{@interval}', #{interval_field}) AS INTERVAL, COUNT(#{key_field}) AS interval_count"
+      end
+
       def aggregation interval_field, key_field
 
         "DATE_TRUNC('#{@interval}', #{interval_field}) AS interval, count(#{key_field}) as interval_count, sum(count(#{key_field})) " +
@@ -50,25 +55,58 @@ module Reporting
                  ) grouped_data
         SQL
       end
+   def sql2 select_for_primary_data
+        b = beg_date.to_date.to_s
+        e = end_date.to_date.to_s
+        qry=<<-SQL 
+                 SELECT
+                 interval
+                 , interval_count 
+                 , SUM(interval_count ) OVER (ORDER BY interval) AS cumulative_count 
+                 
+                 FROM
+                 (
+                 SELECT interval, MAX(interval_count) AS interval_count FROM
+                 (
+                   SELECT GENERATE_SERIES(DATE(DATE_TRUNC('#{@interval}', date '#{b}')), DATE(DATE_TRUNC('#{@interval}', date '#{e}')), interval '#{@series_interval}') AS interval,0 AS interval_count
+                   union 
 
+                   #{select_for_primary_data}
+                 
+                   GROUP BY 1 ORDER BY 1 
+                 ) sub1
+                 GROUP BY interval
+                 ) grouped_data
+        SQL
+      end
 
     end
 
     class UserActivation < Base
 
       def eligibles
-        User.find_by_sql(sql("users.created_at", "users.created_at", "users.created_at < DATE '#{end_date}'"))
+
+        qry = query_builder("users.created_at", "users.created_at", ["users.created_at < ?", end_date])
+
+        User.find_by_sql(sql2(qry))
       end
 
       def activations 
+        qry = query_builder("users.accepted_invitation_at", "users.id", ["users.accepted_invitation_at is not null and users.accepted_invitation_at <= ?", end_date])
 
-        #agg_clause = aggregation "users.accepted_invitation_at", "users.id"
-       #group_and_order( memberships.select(agg_clause).where("users.accepted_invitation_at is not null and users.accepted_invitation_at <= ?", end_date))
-        User.find_by_sql(sql("users.accepted_invitation_at", "users.id", "users.accepted_invitation_at is not null and users.accepted_invitation_at <= DATE '#{end_date}'"))
+        User.find_by_sql(sql2(qry))
       end
 
 
       private
+
+      def query_builder interval_field, key_field, condition
+
+        memberships
+          .select(count_by_interval(interval_field, key_field))
+          .where(condition)
+          .to_sql
+      end
 
       def memberships
         User.joins(:board_memberships).where("board_memberships.demo_id" => @demo_id)
@@ -108,3 +146,4 @@ module Reporting
 
   end
 end
+
