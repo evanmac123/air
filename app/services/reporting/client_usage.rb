@@ -19,6 +19,7 @@ module Reporting
       if @demo
         do_user_activation
         do_tile_activity
+        do_percents
       end
       data
     end
@@ -57,16 +58,21 @@ module Reporting
         populate_stats res, partition[:activations] 
       end
 
-      calc_activation_percent
     end
 
-    def calc_activation_percent
-      data[:intervals].each do|d|
-        if data[:user][:activations][d][:total].to_i !=0
-          data[:user][:activation_pct][d][:total] = data[:user][:activations][d][:total].to_f/data[:user][:eligibles][d][:total].to_f
-        end
-      end
-    end
+   def do_percents
+     calc_user_activation_percent
+   end
+
+
+   def calc_user_activation_percent
+     data[:intervals].each do|d|
+       if data[:user][:activations][d][:total].to_i !=0
+         data[:user][:activation_pct][d][:total] = data[:user][:activations][d][:total].to_f/data[:user][:eligibles][d][:total].to_f
+       end
+     end
+   end
+
 
     def do_tile_activity 
       partition = data[:tile_activity]
