@@ -13,6 +13,7 @@ module Reporting
       end
 
 
+      
       protected
 
       def query_builder relation, interval_field, key_field, condition
@@ -58,15 +59,12 @@ module Reporting
     class UserActivation < Base
 
       def eligibles
-
         qry = query_builder(memberships, "users.created_at", "users.created_at", ["users.created_at < ?", end_date])
-
         memberships.find_by_sql(wrapper_sql(qry))
       end
 
       def activations 
         qry = query_builder(memberships, "users.accepted_invitation_at", "users.id", ["users.accepted_invitation_at is not null and users.accepted_invitation_at <= ?", end_date])
-
         memberships.find_by_sql(wrapper_sql(qry))
       end
 
@@ -87,13 +85,11 @@ module Reporting
       def posts
         qry = query_builder(@demo.tiles, "tiles.activated_at", "tiles.id", ["activated_at <= ? and (archived_at is null or archived_at > ?)", end_date, end_date])
         @demo.tiles.find_by_sql(wrapper_sql(qry))
-
       end
 
       def views
         qry = query_builder(@demo.tile_viewings, "tile_viewings.created_at", "tile_viewings.id", ["tile_viewings.created_at >= ? and tile_viewings.created_at < ?", beg_date, end_date])
         @demo.tile_viewings.find_by_sql(wrapper_sql(qry))
-
       end
 
       def completions
