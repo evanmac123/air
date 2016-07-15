@@ -6,7 +6,7 @@ function bindPrizeModal(showStart, showFinish, publicSlug) {
       showRaffleBox("Prize Period Finished!", "Ok");
       prizeModalPing("Saw Prize Modal");
     } else if(showStart) {
-      if( $("#get_started_lightbox").length == 0 && $('#activity-joyride').length == 0 ){ 
+      if( $("#get_started_lightbox").length == 0 && $('#activity-joyride').length == 0 ){
       // not display prize and get started box simultaneously
         showRaffleBox("New Prize!");
         prizeModalPing("Saw Prize Modal");
@@ -15,13 +15,21 @@ function bindPrizeModal(showStart, showFinish, publicSlug) {
       }
     }
   });
-  $(".close_modal").click(function(){
+  function closeModal() {
     mq = window.matchMedia( "(min-width: 500px)" );
     if (mq.matches || window.oldBrowser) {
       $('[data-reveal]').foundation('reveal','close');
-      }else{
-        hideRaffleMobile();
-      }
+    }else{
+      hideRaffleMobile();
+    }
+  }
+  $(".close_modal").click(function(){
+    closeModal();
+  });
+  $("#prize_modal").click(function(event){
+    if($(event.target).is($("#prize_modal"))){
+      closeModal();
+    }
   });
   $("#raffle_data").click(function(){
     showRaffleBox("Prize");
@@ -42,7 +50,8 @@ function bindPrizeModal(showStart, showFinish, publicSlug) {
     mq = window.matchMedia( "(min-width: 500px)" );
     if (mq.matches || window.oldBrowser) {
       // window width is at least 500px
-      $("#modal_link").click();
+      // $("#modal_link").click();
+      $("#prize_modal").foundation('reveal', 'open');
     }
     else {
       // window width is less than 500px
@@ -67,4 +76,3 @@ function bindPrizeModal(showStart, showFinish, publicSlug) {
   window.prizeModalPing = prizeModalPing;
   window.showRaffleBox = showRaffleBox;
 };
-
