@@ -101,16 +101,6 @@ module Reporting
         @demo.tile_completions.find_by_sql(wrapper_sql(qry))
       end
 
-      def views_over_available
-        views/available
-      end
-
-      def completions_over_views
-        completions/views
-      end
-      
-     
-
     end
 
   end
