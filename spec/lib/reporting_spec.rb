@@ -76,24 +76,24 @@ module Reporting
       describe "#posts" do
         it "does cumulative count of tiles activated for this demo" do 
           available =@tar.posts 
-          expect(available.map(&:cumulative_count)).to eq ["1", "2", "4", "5"]
-          expect(available.map(&:interval_count)).to eq ["1", "1", "2", "1"]
+          expect(available.map(&:cumulative_count)).to eq ["1", "2", "2", "4", "4", "4", "4", "5", "5", "5", "5"]
+          expect(available.map(&:interval_count)).to eq ["1", "1", "0", "2", "0", "0", "0", "1", "0", "0", "0"]
         end
       end
 
       describe "#views" do
         it "counts only unique tile views" do 
           views =@tar.views 
-          expect(views.map(&:cumulative_count)).to eq [ "3", "8"]
-          expect(views.map(&:interval_count)).to eq ["3", "5"]
+          expect(views.map(&:cumulative_count)).to eq ["0", "0", "0", "3", "3", "3", "8", "8", "8"]
+          expect(views.map(&:interval_count)).to eq ["0", "0", "0", "3", "0", "0", "5", "0", "0"]
         end
       end
 
       describe "#completions" do
         it "counts only unique tile views" do 
           completions =@tar.completions 
-          expect(completions.map(&:cumulative_count)).to eq [ "1", "3", "6"]
-          expect(completions.map(&:interval_count)).to eq ["1", "2", "3"]
+          expect(completions.map(&:cumulative_count)).to eq ["1", "1", "1", "3", "3", "3", "6", "6", "6"]
+          expect(completions.map(&:interval_count)).to eq ["1", "0", "0", "2", "0", "0", "3", "0", "0"]
         end
       end
 
