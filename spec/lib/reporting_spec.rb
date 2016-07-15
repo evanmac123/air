@@ -172,9 +172,12 @@ module Reporting
 
           it "calcs activation percent" do
             data=base_hash[:activation_pct]
-            period1 = data[11.weeks.ago.beginning_of_week.to_date]
-            period2 = data[ 7.weeks.ago.beginning_of_week.to_date]
-            expect(period1[:total]).to eq(0.8)
+            period1 = data[10.weeks.ago.beginning_of_week.to_date]
+            period2 = data[7.weeks.ago.beginning_of_week.to_date]
+            period3 = data[ 5.weeks.ago.beginning_of_week.to_date]
+            expect(period1[:total]).to eq(1.0)
+            expect(period2[:total]).to eq(0.8)
+            expect(period3[:total]).to eq(1.0)
           end
         end
 
