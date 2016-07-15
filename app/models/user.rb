@@ -1212,12 +1212,6 @@ class User < ActiveRecord::Base
     user_intro || UserIntro.create(user: self)
   end
 
-  def check_display_first_tile_hint
-    unless self.displayed_first_tile_hint
-      self.update_attribute("displayed_first_tile_hint", true)
-    end
-  end
-
   protected
 
   def downcase_email

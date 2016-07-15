@@ -1,4 +1,4 @@
-Airbo = window.Airbo ||{};
+Airbo = window.Airbo || {};
 
 
 Airbo.FirstTileHint = (function(){

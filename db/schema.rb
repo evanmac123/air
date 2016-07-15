@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160713192413) do
+ActiveRecord::Schema.define(:version => 20160715140232) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -992,6 +992,7 @@ ActiveRecord::Schema.define(:version => 20160713192413) do
     t.datetime "created_at",                                   :null => false
     t.datetime "updated_at",                                   :null => false
     t.boolean  "explore_preview_copy_seen", :default => false
+    t.boolean  "displayed_first_tile_hint", :default => false
   end
 
   add_index "user_intros", ["user_id"], :name => "index_user_intros_on_user_id"
@@ -1104,7 +1105,6 @@ ActiveRecord::Schema.define(:version => 20160713192413) do
     t.boolean  "manage_access_prompt_seen",                           :default => false,       :null => false
     t.integer  "primary_user_id"
     t.string   "official_email"
-    t.boolean  "displayed_first_tile_hint",                           :default => false
   end
 
   add_index "users", ["cancel_account_token"], :name => "index_users_on_cancel_account_token"

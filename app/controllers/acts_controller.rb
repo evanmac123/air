@@ -57,7 +57,8 @@ class ActsController < ApplicationController
       current_user.save!
     end
 
-    @display_first_tile_hint = !current_user.displayed_first_tile_hint && !current_user.tile_completions.first.present?
+    @display_first_tile_hint = current_user.intros.display_first_tile_hint?
+    #true#!current_user.displayed_first_tile_hint && !current_user.tile_completions.first.present?
     # if @display_first_tile_hint
     #   # current_user.displayed_first_tile_hint = true
     #   # current_user.save!
