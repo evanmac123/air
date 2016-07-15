@@ -15,6 +15,14 @@ module Reporting
 
       protected
 
+      def query_builder relation, interval_field, key_field, condition
+
+        relation
+          .select(count_by_interval(interval_field, key_field))
+          .where(condition)
+          .to_sql
+      end
+
       def count_by_interval interval_field, key_field
         "DATE_TRUNC('#{@interval}', #{interval_field}) AS INTERVAL, COUNT(#{key_field}) AS interval_count"
       end
@@ -100,13 +108,6 @@ module Reporting
 
       private
 
-      def query_builder interval_field, key_field, condition
-
-        memberships
-          .select(count_by_interval(interval_field, key_field))
-          .where(condition)
-          .to_sql
-      end
 
       def memberships
         User.joins(:board_memberships).where("board_memberships.demo_id" => @demo_id)
