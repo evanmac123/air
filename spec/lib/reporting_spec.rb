@@ -110,16 +110,17 @@ module Reporting
       describe "#activations" do
         it "returns activation counts" do
           activations = @act.activations
-          expect(activations.map(&:cumulative_count)).to eq ["4","5"]
-          expect(activations.map(&:interval_count)).to eq ["4","1"]
+          expect(activations.map(&:cumulative_count)).to eq ["0", "4", "4", "4", "4", "4", "5", "5", "5", "5", "5", "5"]
+          expect(activations.map(&:interval_count)).to eq ["0", "4", "0", "0", "0", "0", "1", "0", "0", "0", "0", "0"]
         end
       end
 
       describe "#eligibles" do
         it "returns eligibles data" do
           eligibles = @act.eligibles
-          expect(eligibles.map(&:cumulative_count)).to eq ["4","5"]
-          expect(eligibles.map(&:interval_count)).to eq ["4","1"]
+
+          expect(eligibles.map(&:cumulative_count)).to eq ["4", "4", "4", "4", "5", "5", "5", "5", "5", "5", "5", "5"]
+          expect(eligibles.map(&:interval_count)).to eq ["4", "0", "0", "0", "1", "0", "0", "0", "0", "0", "0", "0"]
         end
       end
 

@@ -9,6 +9,7 @@ module Reporting
         @beg_date = beg_date.beginning_of_week
         @end_date = end_date.beginning_of_week
         @interval = interval
+        @series_interval=(interval == "quarter") ? "3 months" : "1 #{interval}"
       end
 
 
@@ -24,37 +25,31 @@ module Reporting
       end
 
 
-      def sql
+      def sql interval_field, key_field, conditions
         b = beg_date.to_date.to_s
         e = end_date.to_date.to_s
-        query = <<-SQL
-
-         WITH reporting_period AS (
-          SELECT generate_series(date_trunc('week', date '#{b}'), date_trunc('week', date '#{e}'), interval '1 week') 
-          AS interval
-         ),
-
-        bms AS (
-         SELECT users.created_at, board_memberships.demo_id 
-         FROM board_memberships JOIN users ON users.id = board_memberships.user_id 
-         WHERE demo_id=#{@demo.id}
-        )
-
-        SELECT date(interval) AS interval
-        , count(bms.created_at) AS interval_count 
-        , sum(count( bms.created_at) ) OVER (order by date_trunc('week', bms.created_at)) AS cumulative_count 
-
-        FROM reporting_period 
-
-        LEFT JOIN bms 
-
-        ON interval=date(date_trunc('week', bms.created_at) )
-
-        GROUP BY interval, date_trunc('week', bms.created_at) ORDER BY interval
-
+        qry=<<-SQL 
+                 SELECT
+                 interval
+                 , interval_count 
+                 , SUM(interval_count ) OVER (ORDER BY interval) AS cumulative_count 
+                 
+                 FROM
+                 (
+                 SELECT interval, MAX(interval_count) AS interval_count FROM
+                 (
+                   SELECT GENERATE_SERIES(DATE(DATE_TRUNC('#{@interval}', date '#{b}')), DATE(DATE_TRUNC('#{@interval}', date '#{e}')), interval '#{@series_interval}') AS interval,0 AS interval_count
+                   union 
+                 
+                   SELECT DATE_TRUNC('#{@interval}', #{interval_field}) AS INTERVAL, COUNT(#{key_field}) AS interval_count 
+                   FROM users JOIN board_memberships bm ON bm.user_id = users.id AND bm.demo_id = #{@demo.id} 
+                   WHERE #{conditions}
+                   GROUP BY 1 ORDER BY 1 
+                 ) sub1
+                 GROUP BY interval
+                 ) grouped_data
         SQL
-        query
-      end 
+      end
 
 
     end
@@ -62,13 +57,14 @@ module Reporting
     class UserActivation < Base
 
       def eligibles
-        User.find_by_sql(sql)
+        User.find_by_sql(sql("users.created_at", "users.created_at", "users.created_at < DATE '#{end_date}'"))
       end
 
       def activations 
 
-        agg_clause = aggregation "users.accepted_invitation_at", "users.id"
-       group_and_order( memberships.select(agg_clause).where("users.accepted_invitation_at is not null and users.accepted_invitation_at <= ?", end_date))
+        #agg_clause = aggregation "users.accepted_invitation_at", "users.id"
+       #group_and_order( memberships.select(agg_clause).where("users.accepted_invitation_at is not null and users.accepted_invitation_at <= ?", end_date))
+        User.find_by_sql(sql("users.accepted_invitation_at", "users.id", "users.accepted_invitation_at is not null and users.accepted_invitation_at <= DATE '#{end_date}'"))
       end
 
 
