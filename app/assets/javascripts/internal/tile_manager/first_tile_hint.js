@@ -2,55 +2,33 @@ Airbo = window.Airbo || {};
 
 
 Airbo.FirstTileHint = (function(){
-  function setLeftOffset(){
-    var refWidth = parseInt($(".introjs-tooltipReferenceLayer").css("width"));
-    var introWidth = parseInt($(".introjs-tooltip").css("width"));
-    var left = (refWidth-introWidth)/2-10 + "px";
-    $(".introjs-tooltip").css("left", left);
-  }
-  function repositionTooltip(){
-    setLeftOffset();
-  }
-  function styleTooltipButton(){
-    $(".introjs-tooltip .introjs-button").addClass("button").addClass("outlined");
-  }
-  function restyleTooltip(){
-    styleTooltipButton();
-    repositionTooltip();
-  }
+  var config = {
+    showStepNumbers: false,
+    showButtons: false,
+    scrollToElement: false,
+    overlayOpacity: 0,
+  };
   function initIntro() {
     if($('.tile-wrapper').length == 0){
       return;
     }
     var prompt = "Click on the Tile to begin.";
     var options = {
-      tooltipClass: "simple",
-      scrollToElement: false,
-      hints: [
+      steps: [
         {
           element: $('.tile-wrapper')[0],
-          hint: prompt,
-          hintPosition: 'top-middle'
+          intro: prompt,
+          position: 'top'
         },
       ],
     };
+    options = $.extend({},config,options);
     intro = introJs();
     intro.setOptions(options);
-    intro.onhintclick(function(event) {
-      setTimeout(restyleTooltip, 0);
-    });
-    intro.onhintclose(function() {
-      $(".introjs-hint").removeClass("introjs-hidehint");
-      Airbo.Utils.ping("Tile Tooltip Seen", {"action":"Clicked 'Got it'"});
-    });
-    intro.addHints();
-  }
-  function showHintToolTip(){
-    $(".introjs-hint").trigger("click")
+    intro.start();
   }
   function init() {
     initIntro();
-    showHintToolTip();
   }
   return {
     init: init
