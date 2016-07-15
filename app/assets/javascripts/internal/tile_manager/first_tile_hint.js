@@ -4,9 +4,9 @@ Airbo = window.Airbo || {};
 Airbo.FirstTileHint = (function(){
   var config = {
     showStepNumbers: false,
-    showButtons: false,
     scrollToElement: false,
     overlayOpacity: 0,
+    doneLabel: "Got it"
   };
   function initIntro() {
     if($('.tile-wrapper').length == 0){
@@ -25,6 +25,9 @@ Airbo.FirstTileHint = (function(){
     options = $.extend({},config,options);
     intro = introJs();
     intro.setOptions(options);
+    intro.oncomplete(function() {
+      Airbo.Utils.ping("Tile Tooltip Seen", {action: "Clicked 'Got it'"});
+    });
     intro.start();
   }
   function init() {
