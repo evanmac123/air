@@ -29,7 +29,7 @@
           <tr>
             <td><%=select_tag "demo_id",options_from_collection_for_select(@demos, :id, :name,@report.demo)%></td>
             <td><%=text_field_tag "sdate", @report.start, type: :date%></td>
-            <td><%=text_field_tag "edate",@report.finish, type: :date%></td>
+            <td><%=text_field_tag "edate",@report.finish_date, type: :date%></td>
             <td><%=select_tag "interval",options_for_select([["Week","week"],["Month","month"],["Quarter", "quarter"]])%></td>
             <td><%=submit_tag "Get Data", class:"button td-button right"%></td>
           </tr> 
@@ -48,58 +48,61 @@
           </tbody> 
           <tbody class="hdr-indent">
             <tr>
-              <th rowspan="3">Activations</th>
+              <th rowspan="4">Activations</th>
               <th >All Eligible </th>
-              <%= @report.data_cells([:activation], :total_eligible)%>
-            </tr>
-            <tr >
-              <th >Cumulative</th>
-              <%= @report.data_cells([:activation], :total)%>
+              <%= @report.data_cells([:user, :eligibles], :total)%>
             </tr>
             <tr>
               <th >For Period </th>
-              <%=@report.data_cells([:activation], :current)%>
+              <%=@report.data_cells([:user, :activations], :current)%>
             </tr>
-            <!--tr><th>Activation Pct</th></tr-->
+            <tr >
+              <th >Cumulative</th>
+              <%= @report.data_cells([:user, :activations], :total)%>
+            </tr>
+            <tr>
+              <th>Activation Pct</th>
+              <%=@report.data_cells([:user, :activation_pct], :total)%>
+            </tr>
           </tbody>
           <tbody class="group-hdr" >
             <tr><%=@report.row_group_header "Tile Activity", 2%></tr>
           </tbody>
           <tbody class="hdr-indent">
-            
             <tr>
               <th rowspan="2">Posted</th>
-              <th>Cumulative </th>
-              <%=@report.data_cells([:tile_activity, :posts], :total)%>
-            </tr>
-            <tr>
               <th>For Period</th>
               <%=@report.data_cells([:tile_activity, :posts], :current)%>
             </tr>
             <tr>
-              <th rowspan="2">Views</th>
-              <th>Cumulative</th>
-              <%=@report.data_cells([:tile_activity, :views], :total)%>
+              <th>Cumulative </th>
+              <%=@report.data_cells([:tile_activity, :posts], :total)%>
             </tr>
+
             <tr>
+              <th rowspan="2">Views</th>
               <th>For Period</th>
               <%=@report.data_cells([:tile_activity, :views], :current)%>
             </tr>
 
             <tr>
-              <th rowspan="2">Completions</th>
               <th>Cumulative</th>
-              <%=@report.data_cells([:tile_activity, :completions], :total)%>
+              <%=@report.data_cells([:tile_activity, :views], :total)%>
             </tr>
 
             <tr>
+              <th rowspan="2">Completions</th>
               <th>For Period</th>
+              <%=@report.data_cells([:tile_activity, :completions], :total)%>
+            </tr>
+            <tr>
+              <th>Cumulative</th>
               <%=@report.data_cells([:tile_activity, :completions], :total)%>
             </tr>
           </tbody>
         </table>
       <%if @report.demo %>
-        <%=link_to "Download CSV", admin_client_kpi_report_path(demo_id: @report.demo, sdate:@report.start, edate: @report.finish, format: :csv),  class:"button right"%> 
+        <%=link_to "Download CSV", admin_client_kpi_report_path(demo_id: @report.demo, sdate:@report.start, edate: @report.finish_date, format: :csv),  class:"button right"%> 
       <%end%>
 
   <%end%>

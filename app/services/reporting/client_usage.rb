@@ -48,12 +48,13 @@ module Reporting
     def do_user_activation
       user = Reporting::Db::UserActivation.new(demo,start, finish_date, interval)
 
+      partition = data[:user]
       user.eligibles.each do |res|
-        populate_stats res, data[:user][:eligibles]
+        populate_stats res, partition[:eligibles]
       end
 
       user.activations.each do |res|
-        populate_stats res, data[:user][:activations] 
+        populate_stats res, partition[:activations] 
       end
 
       calc_activation_percent

@@ -5,7 +5,7 @@ class ClientKpiReportPresenter < BasePresenter
   delegate :series_for_key, 
     :data, 
     :start, 
-    :finish, 
+    :finish_date, 
     :interval, 
     :demo, 
     to: :report
