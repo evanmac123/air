@@ -94,13 +94,13 @@ module Reporting
 
       def eligibles
 
-        qry = query_builder("users.created_at", "users.created_at", ["users.created_at < ?", end_date])
+        qry = query_builder(memberships, "users.created_at", "users.created_at", ["users.created_at < ?", end_date])
 
         User.find_by_sql(sql2(qry))
       end
 
       def activations 
-        qry = query_builder("users.accepted_invitation_at", "users.id", ["users.accepted_invitation_at is not null and users.accepted_invitation_at <= ?", end_date])
+        qry = query_builder(memberships, "users.accepted_invitation_at", "users.id", ["users.accepted_invitation_at is not null and users.accepted_invitation_at <= ?", end_date])
 
         User.find_by_sql(sql2(qry))
       end
@@ -120,8 +120,9 @@ module Reporting
     class TileActivity < Base
 
       def posts
-        agg_clause = aggregation "activated_at", "id"
-        group_and_order(@demo.tiles.select(agg_clause).where("activated_at <= ? and (archived_at is null or archived_at > ?)", end_date, end_date))
+        qry = query_builder(@demo.tiles, "tiles.activated_at", "tiles.id", ["activated_at <= ? and (archived_at is null or archived_at > ?)", end_date, end_date])
+
+        Tile.find_by_sql(sql2(qry))
       end
 
       def views
