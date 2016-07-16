@@ -124,8 +124,8 @@ module Reporting
       return if timestamp < start.to_date
 
       period = kpi[timestamp]
-      period[:current] = res.interval_count
-      period[:total] = res.cumulative_count
+      period[:current] = res.interval_count.to_i
+      period[:total] = res.cumulative_count.to_i
     end
 
 

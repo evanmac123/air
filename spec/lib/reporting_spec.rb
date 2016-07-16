@@ -151,10 +151,10 @@ module Reporting
             data=base_hash[:eligibles]
             period1 = data[11.weeks.ago.beginning_of_week.to_date]
             period2 = data[ 7.weeks.ago.beginning_of_week.to_date]
-            expect(period1[:current]).to eq("4")
-            expect(period1[:total]).to eq("4")
-            expect(period2[:total]).to eq("5")
-            expect(period2[:current]).to eq("1")
+            expect(period1[:current]).to eq(4)
+            expect(period1[:total]).to eq(4)
+            expect(period2[:total]).to eq(5)
+            expect(period2[:current]).to eq(1)
           end
 
           it " reports activtion correctly" do 
@@ -162,11 +162,11 @@ module Reporting
             data=base_hash[:activations]
             period1 = data[10.weeks.ago.beginning_of_week.to_date]
             period2 = data[ 5.weeks.ago.beginning_of_week.to_date]
-            expect(period1[:current]).to eq("4")
-            expect(period1[:total]).to eq("4")
+            expect(period1[:current]).to eq(4)
+            expect(period1[:total]).to eq(4)
 
-            expect(period2[:current]).to eq("1")
-            expect(period2[:total]).to eq("5")
+            expect(period2[:current]).to eq(1)
+            expect(period2[:total]).to eq(5)
             #expect(period2[:activation_pct]).to eq(1.0)
           end
 
@@ -190,11 +190,11 @@ module Reporting
             period1=data[11.weeks.ago.beginning_of_week.to_date]
             period2=data[ 7.weeks.ago.beginning_of_week.to_date]
 
-            expect(period1[:current]).to eq("1")
-            expect(period1[:total]).to eq("2")
+            expect(period1[:current]).to eq(1)
+            expect(period1[:total]).to eq(2)
 
-            expect(period2[:current]).to eq("2")
-            expect(period2[:total]).to eq("4")
+            expect(period2[:current]).to eq(2)
+            expect(period2[:total]).to eq(4)
           end
 
           it "returns reports views activity correctly" do 
@@ -203,11 +203,11 @@ module Reporting
             period1=data[5.weeks.ago.beginning_of_week.to_date]
             period2=data[ 2.weeks.ago.beginning_of_week.to_date]
 
-            expect(period1[:current]).to eq("3")
-            expect(period1[:total]).to eq("5")
+            expect(period1[:current]).to eq(3)
+            expect(period1[:total]).to eq(5)
 
-            expect(period2[:current]).to eq("5")
-            expect(period2[:total]).to eq("10")
+            expect(period2[:current]).to eq(5)
+            expect(period2[:total]).to eq(10)
           end
 
           it "returns reports completion activity correctly" do 
@@ -216,11 +216,11 @@ module Reporting
             period1=data[8.weeks.ago.beginning_of_week.to_date]
             period2=data[ 2.weeks.ago.beginning_of_week.to_date]
 
-            expect(period1[:current]).to eq("1")
-            expect(period1[:total]).to eq("2")
+            expect(period1[:current]).to eq(1)
+            expect(period1[:total]).to eq(2)
 
-            expect(period2[:current]).to eq("3")
-            expect(period2[:total]).to eq("7")
+            expect(period2[:current]).to eq(3)
+            expect(period2[:total]).to eq(7)
           end
         end
       end
