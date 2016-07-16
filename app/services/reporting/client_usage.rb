@@ -64,6 +64,7 @@ module Reporting
      calc_user_activation_percent
    end
 
+   def calc_user_activation_percent
      data[:intervals].each do|d|
        if eligible_users[d][:total].to_i !=0
          user_activation_percent[d][:total] = user_activations[d][:total].to_f/eligible_users[d][:total].to_f
