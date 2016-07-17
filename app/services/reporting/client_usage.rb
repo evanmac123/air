@@ -62,26 +62,48 @@ module Reporting
 
    def do_percents
      calc_user_activation_percent
+     calc_tile_views_percent
    end
 
    def calc_user_activation_percent
-     data[:intervals].each do|d|
-       if eligible_users[d][:total].to_i !=0
-         user_activation_percent[d][:total] = user_activations[d][:total].to_f/eligible_users[d][:total].to_f
-       end
-     end
+     percent_by_period user_activations, eligible_users, user_activation_percent
    end
 
    def calc_tile_views_percent
+     tile_event_conversion_percent tile_views, tile_views_percent
+   end
+
+   def percent_by_period actual, all_events, target
      data[:intervals].each do|d|
-       if data[:tile_activity][:activations][d][:total].to_i !=0
-         data[:user][:activation_pct][d][:total] = data[:user][:activations][d][:total].to_f/data[:user][:eligibles][d][:total].to_f
+       if all_events[d][:total].to_i !=0
+         target[d][:total] = actual[d][:total].to_f/all_events[d][:total]
        end
      end
    end
 
+   def tile_event_conversion_percent activity, target
+     data[:intervals].each do|d|
+       actual_events = activity[d][:total].to_f
+       users = activated_users[d][:total]
+       tiles = available_tiles[d][:total]
+       possible_events = users * tiles
+       if possible_events !=0
+         target[d][:total] = actual_events/( possible_events.to_f )
+       end
+     end
+   end
+
+
    def eligible_users
      data[:user][:eligibles]
+   end
+
+   def activated_users
+     data[:user][:activations]
+   end
+
+   def available_tiles
+     data[:tile_activity][:posts]
    end
 
    def user_activations
@@ -100,6 +122,14 @@ module Reporting
      data[:user][:activation_pct]
    end
 
+   def tile_views_percent
+     data[:tile_activity][:views_pct]
+   end
+
+   def user_completions_percent
+     data[:tile_activity][:completions_pct]
+   end
+
     def do_tile_activity 
       partition = data[:tile_activity]
       activity = Reporting::Db::TileActivity.new(demo,start, finish_date, interval)
@@ -115,7 +145,6 @@ module Reporting
       activity.completions.each do |res|
         populate_stats res, partition[:completions]
       end
-
     end
 
 
@@ -160,7 +189,9 @@ module Reporting
       data[:tile_activity]= {
         posts:{},
         views:{},
-        completions:{}
+        completions:{},
+        views_pct:{},
+        completions_pct:{}
       }
       data[:kpis] = [
         [[:user, :eligibles], :total],
@@ -193,6 +224,8 @@ module Reporting
       activity[:posts][d]={current:0, total:0}
       activity[:views][d]={current:0, total:0}
       activity[:completions][d]={current:0, total:0}
+      activity[:views_pct][d]={current:0, total:0}
+      activity[:completions_pct][d]={current:0, total:0}
     end
 
 

@@ -88,7 +88,7 @@ module Reporting
       end
 
       def views
-        qry = query_builder(@demo.tile_viewings, "tile_viewings.created_at", "tile_viewings.id", ["tile_viewings.created_at >= ? and tile_viewings.created_at < ?", beg_date, end_date])
+        qry = query_builder(@demo.tile_viewings, "tile_viewings.created_at", "tile_viewings.id", ["tile_viewings.created_at < ?", end_date])
         @demo.tile_viewings.find_by_sql(wrapper_sql(qry))
       end
 
