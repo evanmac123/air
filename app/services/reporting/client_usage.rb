@@ -63,6 +63,7 @@ module Reporting
    def do_percents
      calc_user_activation_percent
      calc_tile_views_percent
+     calc_tile_completions_percent
    end
 
    def calc_user_activation_percent
@@ -70,29 +71,39 @@ module Reporting
    end
 
    def calc_tile_views_percent
-     tile_event_conversion_percent tile_views, tile_views_percent
+     tile_activity_conversion_percent tile_views, tile_views_percent
    end
 
-   def percent_by_period actual, all_events, target
+   def calc_tile_completions_percent
+     tile_activity_conversion_percent tile_completions, tile_completions_percent
+   end
+
+   def percent_by_period activity, all_events, target
      data[:intervals].each do|d|
-       if all_events[d][:total].to_i !=0
-         target[d][:total] = actual[d][:total].to_f/all_events[d][:total]
-       end
+       occurrences = activity[d][:total]
+       possible_occurrences = all_events[d][:total].to_i 
+
+       calc_activity_conversion target[d], possible_occurrences, occurrences
      end
    end
 
-   def tile_event_conversion_percent activity, target
+   def tile_activity_conversion_percent activity, target
      data[:intervals].each do|d|
-       actual_events = activity[d][:total].to_f
+       occurrences = activity[d][:total]
+
        users = activated_users[d][:total]
        tiles = available_tiles[d][:total]
-       possible_events = users * tiles
-       if possible_events !=0
-         target[d][:total] = actual_events/( possible_events.to_f )
-       end
+       possible_occurrences = users * tiles
+
+       calc_activity_conversion target[d], possible_occurrences, occurrences
      end
    end
 
+   def calc_activity_conversion target,  possible_occurrences, occurrences
+     if possible_occurrences !=0
+       target[:total]= occurrences/possible_occurrences.to_f
+     end
+   end
 
    def eligible_users
      data[:user][:eligibles]
@@ -126,7 +137,7 @@ module Reporting
      data[:tile_activity][:views_pct]
    end
 
-   def user_completions_percent
+   def tile_completions_percent
      data[:tile_activity][:completions_pct]
    end
 
