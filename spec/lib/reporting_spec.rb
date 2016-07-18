@@ -71,8 +71,14 @@ module Reporting
       include Db
 
       before do
+        #Timecop.freeze(Date.new(2016,07,18))
         setup_data
         @tar = TileActivity.new(@demo, 8.weeks.ago, Date.today, "week")
+      end
+
+
+      after do
+        Timecop.return
       end
 
       describe "#posts" do
