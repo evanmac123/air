@@ -25,7 +25,7 @@ module Reporting
       end
 
       def count_by_interval interval_field, key_field
-        "DATE_TRUNC('#{@interval}', #{interval_field}) AS INTERVAL, COUNT(#{key_field}) AS interval_count"
+        "DATE_TRUNC('#{@interval}', #{interval_field}::Timestamp AT TIME ZONE  '-4:00' ) AS interval, COUNT(#{key_field}) AS interval_count"
       end
 
 
