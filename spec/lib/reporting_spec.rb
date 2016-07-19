@@ -71,21 +71,23 @@ module Reporting
       include Db
 
       before do
-        #Timecop.freeze(Date.new(2016,07,18))
+        #t = Time.local(2016, 02, 28, 23, 59, 0)  FIXME this fails for Feb 28,
+        #2016 WTF?????
+        #Timecop.freeze(t)
         setup_data
-        @tar = TileActivity.new(@demo, 8.weeks.ago, Date.today, "week")
+        @tar = TileActivity.new(@demo.id, 8.weeks.ago, Time.now, "week")
       end
 
 
       after do
-        Timecop.return
+        #Timecop.return
       end
 
       describe "#posts" do
         it "does cumulative count of tiles activated for this demo" do 
           available =@tar.posts 
-          expect(available.map(&:cumulative_count)).to eq ["1", "2", "2", "4", "4", "4", "4", "5", "5", "5", "5"]
           expect(available.map(&:interval_count)).to eq ["1", "1", "0", "2", "0", "0", "0", "1", "0", "0", "0"]
+          expect(available.map(&:cumulative_count)).to eq ["1", "2", "2", "4", "4", "4", "4", "5", "5", "5", "5"]
         end
       end
 
