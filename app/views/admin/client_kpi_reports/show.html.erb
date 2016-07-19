@@ -28,7 +28,7 @@
             <td><%=select_tag "demo_id",options_from_collection_for_select(@demos, :id, :name,@report.demo)%></td>
             <td><%=text_field_tag "sdate", @report.start, type: :date%></td>
             <td><%=text_field_tag "edate",@report.finish_date, type: :date%></td>
-            <td><%=select_tag "interval",options_for_select([["Day","day"],["Week","week"],["Month","month"]])%></td>
+            <td><%=select_tag "interval",options_for_select([["Day","day"],["Week","week"]]) %></td>
             <td><%=submit_tag "Get Data", class:"button td-button right"%></td>
           </tr> 
         </tbody>
