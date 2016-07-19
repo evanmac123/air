@@ -73,20 +73,24 @@ caption{
 }
 
 table.kpi-layout{
+  min-width: 50%;
   thead {
   }
   tbody{
-    /*width: 100%;*/
     &.group{
-      display:table;
       margin-bottom:25px;
 
       th {
-
-          margin-right: 10px;
+          padding-right: 30px;
         &.group-hdr{
+          padding-bottom: 20px;
+          padding-top: 20px;
+          padding-right: 10px;
           font-size:1.05em;
           font-weight: bold;
+          &::first-of-type{
+          padding-top: 10px;
+          }
         }
       }
     }
