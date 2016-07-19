@@ -30,8 +30,8 @@ module Reporting
 
 
       def wrapper_sql select_for_primary_data
-        b = beg_date.to_date.to_s
-        e = end_date.to_date.to_s
+        b = beg_date
+        e = end_date
         <<-SQL 
                  SELECT
                  interval
