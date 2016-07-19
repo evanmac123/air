@@ -41,7 +41,7 @@ describe UserIntro do
 
   def activate_first_tile_hint
     $rollout.define_group(GROUP_NAME) do |user|
-      !user.tile_completions.first.present?
+      user.tile_completions.count == 0
     end
 
     $rollout.activate_group(FEATURE_NAME, GROUP_NAME)
