@@ -72,7 +72,7 @@ module Reporting
 
       before do
         #t = Time.local(2016, 02, 28, 23, 0, 0)  #FIXME this fails for Feb 28, 2016 at after 11pm  WTF?????
-        Timecop.freeze(t)
+        #Timecop.freeze(t)
         setup_data
         @tar = TileActivity.new(@demo.id, 8.weeks.ago, Time.now, "week")
       end
