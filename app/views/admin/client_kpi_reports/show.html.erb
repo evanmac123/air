@@ -5,7 +5,6 @@
 <h1> Client KPIs </h1>
 
 
-<%# render "cust_kpi_menu", active: "kpi" %>
   </div>
 </div>
 <div class="row">
@@ -18,7 +17,6 @@
           
           <tr>
             <th>Demo</th>
-
             <th>Start</th>
             <th>End</th>
             <th>Interval</th>
@@ -35,72 +33,74 @@
           </tr> 
         </tbody>
       </table>
-
-        <table>
+     
+      <div class="table-container" >
+        <table class="kpi-layout">
           <thead>
             <tr>
-              <th colspan="2">&nbsp;</th>
+              <th >&nbsp;</th>
               <%=@report.interval_headers %>
             </tr>
           </thead>
-          <tbody class="group-hdr">
-            <tr><%=@report.row_group_header "User Activity", 2%></tr>
-          </tbody> 
-          <tbody class="hdr-indent">
+          <tbody class="igroup">
+            <tr><%=@report.row_group_header "User Activations"%></tr>
             <tr>
-              <th rowspan="4">Activations</th>
               <th >All Eligible </th>
-              <%= @report.data_cells([:user, :eligibles], :total)%>
+              <%= @report.eligible_users :total%>
             </tr>
             <tr>
               <th >For Period </th>
-              <%=@report.data_cells([:user, :activations], :current)%>
+              <%=@report.user_activations :current%>
             </tr>
             <tr >
               <th >Cumulative</th>
-              <%= @report.data_cells([:user, :activations], :total)%>
+              <%=@report.user_activations:total%>
             </tr>
             <tr>
-              <th>Activation Pct</th>
-              <%=@report.data_cells([:user, :activation_pct], :total)%>
+              <th>Conversion</th>
+              <%=@report.user_activations_pct :total%>
             </tr>
-          </tbody>
-          <tbody class="group-hdr" >
-            <tr><%=@report.row_group_header "Tile Activity", 2%></tr>
-          </tbody>
-          <tbody class="hdr-indent">
+            <tr><%=@report.row_group_header "Posts"%></tr>
             <tr>
-              <th rowspan="2">Posted</th>
               <th>For Period</th>
-              <%=@report.data_cells([:tile_activity, :posts], :current)%>
+              <%=@report.tiles_posted :current%>
             </tr>
             <tr>
               <th>Cumulative </th>
-              <%=@report.data_cells([:tile_activity, :posts], :total)%>
+              <%=@report.tiles_posted :total%>
             </tr>
-
+            <tr><%=@report.row_group_header "Views"%></tr>
             <tr>
-              <th rowspan="2">Views</th>
               <th>For Period</th>
-              <%=@report.data_cells([:tile_activity, :views], :current)%>
+              <%=@report.tiles_viewed :current%>
             </tr>
 
             <tr>
               <th>Cumulative</th>
-              <%=@report.data_cells([:tile_activity, :views], :total)%>
+              <%=@report.tiles_viewed :total%>
             </tr>
 
             <tr>
-              <th rowspan="2">Completions</th>
+              <th>Conversion</th>
+              <%=@report.tiles_views_pct :total%>
+            </tr>
+            <tr><%=@report.row_group_header "Completions"%></tr>
+            <tr>
               <th>For Period</th>
-              <%=@report.data_cells([:tile_activity, :completions], :total)%>
+              <%=@report.tiles_completed :current%>
             </tr>
             <tr>
               <th>Cumulative</th>
-              <%=@report.data_cells([:tile_activity, :completions], :total)%>
+              <%=@report.tiles_completed :total%>
+            </tr>
+
+            <tr>
+              <th>Conversion</th>
+              <%=@report.tiles_completions_pct :total%>
             </tr>
           </tbody>
         </table>
+      </div>
       <%if @report.demo %>
         <%=link_to "Download CSV", admin_client_kpi_report_path(demo_id: @report.demo, sdate:@report.start, edate: @report.finish_date, format: :csv),  class:"button right"%> 
       <%end%>
