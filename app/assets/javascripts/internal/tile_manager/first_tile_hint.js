@@ -28,6 +28,8 @@ Airbo.FirstTileHint = (function(){
     intro.oncomplete(function() {
       Airbo.Utils.ping("Tile Tooltip Seen", {action: "Clicked 'Got it'"});
     });
+
+    Airbo.Utils.ping("Tile Tooltip Seen", {action: "Displayed"});
     intro.start();
   }
   function init() {
