@@ -40,14 +40,20 @@ module Reporting
 
                  FROM
                  (
-                 SELECT interval, MAX(interval_count) AS interval_count FROM
+
+                 SELECT interval ,MAX(interval_count) AS interval_count FROM
                  (
-                   SELECT GENERATE_SERIES(DATE(DATE_TRUNC('#{@interval}', date '#{b}')), DATE(DATE_TRUNC('#{@interval}', date '#{e}')), interval '#{@series_interval}') AS interval,0 AS interval_count
-                   union 
+                   SELECT GENERATE_SERIES (
+                           DATE_TRUNC('#{@interval}', TIMESTAMP '#{b}'), 
+                           DATE_TRUNC('#{@interval}', TIMESTAMP '#{e}'), INTERVAL '#{@series_interval}'
+                   ) AS interval,
+                   0 AS interval_count
 
-        #{select_for_primary_data}
+                  UNION 
 
-                   GROUP BY 1 ORDER BY 1 
+                  #{select_for_primary_data}
+
+                  GROUP BY 1 ORDER BY 1 
                  ) sub1
                  GROUP BY interval
                  ) grouped_data
