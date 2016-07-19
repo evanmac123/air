@@ -147,7 +147,7 @@ module Reporting
 
       context "#run with demo" do  
         before do
-          @res =ClientUsage.new({demo:@demo.id, start: 12.weeks.ago}).run
+          @res =ClientUsage.new({demo:@demo.id, start: 12.weeks.ago, interval: "week"}).data
         end
 
         context "User Activation" do 
