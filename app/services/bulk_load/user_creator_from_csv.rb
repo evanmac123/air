@@ -109,11 +109,11 @@ class BulkLoad::UserCreatorFromCsv
       result.delete('email')
     end
 
-    return check_if_user_has_changed_email result
+    return check_if_user_has_changed_email result, user
 
   end
 
-  def check_if_user_has_changed_email result
+  def check_if_user_has_changed_email result, user
     #user email is different from official email so leave it alone
     if user.email !=result['email'] && user.official_email==result["email"]
       result.delete('email')
