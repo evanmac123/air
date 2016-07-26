@@ -1,5 +1,7 @@
 require 'acceptance/acceptance_helper'
 
+#FIXME remove this spec as this signup via SMS functionality is no longer used
+
 feature "User with SMS Account Upgrades to web account" do
     include EmailSpec::Helpers
     include EmailSpec::Matchers
@@ -12,7 +14,7 @@ feature "User with SMS Account Upgrades to web account" do
     @corporate_email = "special@needs.org"
     @personal_email = "gloss_black@james.net"
     @lolita_with_email = FactoryGirl.create(:claimed_user, email: @corporate_email, phone_number: @lolita_phone)
-    @juan_without_email = FactoryGirl.create(:claimed_user, email: nil, phone_number: @juan_phone)
+    @juan_without_email = FactoryGirl.create(:claimed_user, email: nil, official_email: "blase@blase.com", phone_number: @juan_phone)
 
   end
 
