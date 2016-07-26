@@ -52,10 +52,11 @@ feature 'User claims account' do
     expect_reply "Got it, #{@expected_referrer.name} recruited you. Thanks for letting us know."
   end
 
+  #FIXME this looks like a unit test to me.
   it "should not try to send a password reset message to an empty e-mail address" do
     ActionMailer::Base.deliveries.should be_empty
 
-    user = FactoryGirl.create(:user, email: nil, claim_code: 'bob')
+    user = FactoryGirl.create(:user, email: nil, official_email: "yada@doo.com", claim_code: 'bob')
     user.notification_method.should == 'email'
     send_message "bob"
     crank_dj_clear
