@@ -1,256 +1,93 @@
 <div class="admin ">
   <div class="row">
-    <div class="columns small-offset-8 small-4">
-      <div class="breadcrumb">
-        <%= link_to "Admin", admin_path %>
-        »
-        <%= @demo.name %>
-      </div>
+    <div class="columns large-12">
+        <h3 class="blue"><%= link_to "Admin", admin_path, class: "blue" %> | <%= @demo.name %></h3>
     </div>
   </div>
 
   <div class="row">
-    <div class="columns  small-6">
-      <%= button_to "Send me an Activity Report", admin_demo_reports_activities_path(@demo) %>
-      <% if @demo.upload_in_progress %>
-        This board is currently marked as having an update in progress
-        <%= button_to "Reset upload-in-progress status", admin_reset_bulk_upload_path(@demo), method: :delete %>
-      <% end %>
+    <div class="columns large-12">
+      <%= button_to "Send me an Activity Report", admin_demo_reports_activities_path(@demo), class: "button success" %>
+      <br>
       <% if @demo.is_paid? %>
-        This board is currently paid.
-        <%= button_to "Make board free", admin_demo_paid_status_path(@demo), method: :delete %>
+        <%= button_to "Make board free", admin_demo_paid_status_path(@demo), method: :delete, class: "button alert" %>
       <% else %>
-        This board is currently free.
-        <%= button_to "Make board paid", admin_demo_paid_status_path(@demo) %>
+        <%= button_to "Make board paid", admin_demo_paid_status_path(@demo), class: "button danger" %>
       <% end %>
-      <h2>Reports</h2>
-      <ul>
-        <li>
-          <%= link_to "Points", admin_demo_reports_points_path(@demo)  %>
-        </li>
-        <li>
-          <%= link_to "Interactions", admin_demo_reports_interactions_path(@demo)  %>
-        </li>
-        <li>
-          <%= link_to "Friendships", admin_demo_reports_friendships_path(@demo) %>
-        </li>
-      </ul>
-      <h2>
-        <%= @claimed_user_count   %>
-        users have accepted invitations 
-      </h2>
-      <h2>
-        <%= @user_with_mobile_count   %>
-        users have added mobile numbers to their accounts
-      </h2>
-      <h2>
-        <%= @user_with_game_referrer_count %>
-        users have credited a game referrer
-      </h2>
-      <ul>
-        <li>
-          <%= link_to "Locations for this demo", admin_demo_locations_path(@demo)  %>
-        </li>
-        <li>
-          <%= link_to "Characteristics for this demo", admin_demo_characteristics_path(@demo) %>
-        </li>
-        <li>
+      <br>
+      <% if @demo.upload_in_progress %>
+        <h4 class="red">Upload in progress...</h4>
+        <%= button_to "Reset upload-in-progress status", admin_reset_bulk_upload_path(@demo), method: :delete, class: "button danger" %>
+      <% end %>
+      <br>
+      <fieldset>
+        <legend>Reports</legend>
+      </fieldset>
+      <br>
+      <fieldset>
+        <legend>Info</legend>
+        <h4>
+          <span class="blue"><%= @claimed_user_count %></span>
+          users have accepted invitations
+        </h4>
+        <h4>
+          <span class="blue"><%= @user_with_mobile_count %></span>
+          users have added mobile numbers to their accounts
+        </h4>
+        <h4>
+          <span class="blue"><%= @user_with_game_referrer_count %></span>
+          users have credited a game referrer
+        </h4>
+      </fieldset>
+      <br>
+      <fieldset>
+        <legend>Actions</legend>
+        <h4>
+          <%= link_to "Characteristics for this board", admin_demo_characteristics_path(@demo) %>
+        </h4>
+        <h4>
           <%= link_to "Segment users", admin_demo_segmentation_path(@demo) %>
-        </li>
-        <li>
+        </h4>
+        <% if @demo.dependent_board_enabled %>
+          <h4>
+            <%= link_to "Dependent board data", admin_demo_dependent_board_path(@demo) %>
+          </h4>
+        <% end %>
+        <h4>
           <%= link_to "Send targeted messages to users in this demo", admin_demo_targeted_messages_path(@demo) %>
-        </li>
-        <li>
+        </h4>
+        <h4>
           <%= link_to "Conduct raffle", admin_demo_raffles_path(@demo) %>
-        </li>
-        <li>
+        </h4>
+        <h4>
           <%= link_to "Count peer invitations", admin_demo_peer_invitations_path(@demo) %>
-        </li>
-      </ul>
-      <h2>Settings</h2>
-      <ul>
-        <li>
-          <%= link_to "Edit basic settings for this game", edit_admin_demo_path(@demo) %>
-        </li>
-      </ul>
-      <p>
-      <% if @demo.phone_number.present? %>
-        Phone number for this game is 
-        <%= @demo.phone_number.as_pretty_phone %>
-      <% else %>
-        NO PHONE NUMBER SET FOR THIS GAME, MAKE SURE THAT IS WHAT YOU REALLY WANT
-      <% end %>
-      </p>
-      <p>
-      <% if @demo.email.present? %>
-        Email for this game is 
-        <%= @demo.email %>
-      <% else %>
-        NO EMAIL SET FOR THIS GAME, MAKE SURE THAT IS WHAT YOU REALLY WANT
-      <% end %>
-      </p>
-      <p>
-      <% if @demo.client_name.present? %>
-        <%= "Client name is #{@demo.client_name}" %>
-      <% else %>
-        No client name set
-      <% end %>
-      </p>
-      <p>
-      New players start with 
-      <%= @demo.seed_points   %>
-      points.
-      </p>
-      <ul>
-        <li>
-          <%= link_to "Tiles for this demo", admin_demo_tiles_path(@demo)  %>
-        </li>
-      </ul>
-      <p>
-      <% if @demo.allow_raw_in_persistent_message %>
-        Raw HTML allowed in persistent message
-      <% else %>
-        No raw HTML allowed in persistent message
-      <% end %>
-      </p>
-      <p>
-      Welcome message: 
-      <%= @demo.welcome_message  %>
-      </p>
-      <p>
-      <% if @demo.followup_welcome_message.present?  %>
-        Followup welcome message: 
-        <%= @demo.followup_welcome_message   %>
-        (send 
-        <%= @demo.followup_welcome_message_delay %>
-        minutes after invitation accepted)
-      <% else  %>
-        No followup message.
-      <% end %>
-      </p>
-      <p>
-      <% if @demo.credit_game_referrer_threshold && @demo.game_referrer_bonus  %>
-        Bonus for referring another user to the game: 
-        <%= @demo.game_referrer_bonus   %>
-        points (with a 
-        <%= @demo.credit_game_referrer_threshold   %>
-        minute threshold)
-      <% else  %>
-        No bonus for referring another user to the game.
-      <% end %>
-      </p>
-      <p>
-      <% if @demo.referred_credit_bonus  %>
-        Bonus for crediting the user who referred you to the game: 
-        <%= @demo.referred_credit_bonus   %>
-        points
-      <% else  %>
-        No bonus for crediting the user who referred you to the game
-      <% end %>
-      </p>
-      <p>
-      <% if @demo.prize.present?  %>
-        <%= "Prize response is \"#{@demo.prize}\"" %>
-      <% else  %>
-        Game will have default response about prizes (indicating no prize)  
-      <% end %>
-      </p>
-      <p>
-      <% if @demo.help_message.present?  %>
-        <%= "Help message is \"#{@demo.help_message}\""  %>
-      <% else  %>
-        Game will have default help message
-      <% end %>
-      </p>
-      <p>
-      <% if @demo.unrecognized_user_message.present?  %>
-        <%= "Phone-number-not-recognized message is \"#{@demo.unrecognized_user_message}\""  %>
-      <% else  %>
-        Game will have default phone-number-not-recognized message
-      <% end %>
-      </p>
-      <p>
-      <% if @demo.act_too_early_message.present?  %>
-        <%= "Response to command before game begins is \"#{@demo.act_too_early_message}\""  %>
-      <% else  %>
-        Game will have default response to command before game begins.  
-      <% end %>
-      </p>
-      <p>
-      <% if @demo.act_too_late_message.present?  %>
-        <%= "Response to command after game ends is \"#{@demo.act_too_late_message}\""  %>
-      <% else  %>
-        Game will have default response to command after game ends.  
-      <% end %>
-      </p>
-      <p>
-      <% if @demo.custom_already_claimed_message.present? %>
-        <%= %{Custom already-claimed message is "#{@demo.custom_already_claimed_message}"} %>
-      <% else %>
-        Game will have default already-claimed message
-      <% end %>
-      </p>
-      <p>
-      <% if @demo.login_announcement.present?  %>
-        <%= "Message user sees on login is \"#{@demo.login_announcement}\""  %>
-      <% else  %>
-        User sees no custom message on login
-      <% end %>
-      </p>
-      <p>
-      <% if @demo.mute_notice_threshold  %>
-        Mute notice to users after 
-        <%= @demo.mute_notice_threshold   %>
-        SMSes
-      <% else  %>
-        Game will have default mute notice threshold
-      <% end %>
-      </p>
-      <p>
-      <% if @demo.custom_support_reply.present? %>
-        <%= %{Custom support reply is "#{@demo.custom_support_reply}"} %>
-      <% else %>
-        No custom support reply.
-      <% end %>
-      </p>
-      <p>
-      <% if @demo.use_post_act_summaries %>
-        Post-act summaries will be sent
-      <% else %>
-        No post-act summaries will be sent
-      <% end %>
-      </p>
-      <p>
-      <% if @demo.tutorial_type == "multiple_choice" %>
-        Talking chicken will use multiple-choice sample tile
-      <% else  %>
-        Talking chicken will use old-school sample tile
-      <% end %>
-      </p>
-      <p>
-      <% if @demo.custom_reply_email_name.present? %>
-        Email mask is
-        <%= @demo.custom_reply_email_name %>
-      <% else %>
-        No custom email mask, using default
-      <% end %>
-      </p>
-      <p>
-      <%= "Game will#{' not' unless @demo.uses_tickets} use tickets" %>
-      <% if @demo.uses_tickets %>
-        <p>
-        <%= "Tickets are awarded every #{@demo.ticket_threshold} points" %>
-        </p>
-      <% end %>
-      </p>
-      <p class="explanation">
-      <%= translate('.explanation', :default => "Add HR people from %{company} to this demo, then send them an invitation to the demo.", :company => @demo.name)  %>
-      </p>
-      <h2>Users</h2>
-      <%= link_to "Bulk load users", new_admin_demo_bulk_load_path(@demo)  %>
-      <%= render 'user_paginator', :demo => @demo  %>
+        </h4>
+      </fieldset>
+      <br>
+      <fieldset>
+        <legend>Settings</legend>
+        <h3><%= link_to "Edit basic settings for this board", edit_admin_demo_path(@demo) %></h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Email</th>
+              <th>Phone Number</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><%= @demo.email %></td>
+              <td><%= @demo.phone_number.try(:as_pretty_phone) %></td>
+            </tr>
+          </tbody>
+        </table>
+      </fieldset>
+      <br>
+      <fieldset>
+        <legend>Users</legend>
+        <%= render 'user_paginator', :demo => @demo  %>
+      </fieldset>
 
     </div>
   </div>
 </div>
-

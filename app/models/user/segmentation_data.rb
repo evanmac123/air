@@ -20,7 +20,7 @@ class User::SegmentationData
     unless force
       segmentation_record = segmentation_record.where(:updated_at.lt => user.updated_at.utc)
     end
-    
+
     segmentation_record.update_all(user.values_for_segmentation)
   end
 

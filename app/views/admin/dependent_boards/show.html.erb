@@ -1,0 +1,102 @@
+<div class="row">
+  <div class="columns large-12">
+      <h3 class="blue"><%= link_to "Admin", admin_path, class: "blue" %> | <%= link_to @demo.name, admin_demo_path(@demo), class: "blue" %> | Dependent Board (<%= @dependent_board.name %>)</h3>
+  </div>
+</div>
+<br>
+<div class="dependent-boards-show row">
+  <% potential_users = @dependent_board.potential_users %>
+  <% users = @dependent_board.users %>
+
+  <ul class="tab">
+    <li><a href="#" class="tablinks" onclick="openTab(event, 'unactivatedSpouses')">potential users</a></li>
+    <li><a href="#" class="tablinks" onclick="openTab(event, 'activatedSpouses')">active users</a></li>
+  </ul>
+
+  <div id="activatedSpouses" class="tabcontent">
+    <table class="twelve">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% users.each do |user| %>
+          <tr>
+            <td><%= user.name %></td>
+            <td><%= user.email %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%= link_to "Download Users CSV", users_admin_demo_dependent_board_path(@dependent_board, format: :csv, params: { active: true }), class: "success button" %>
+  </div>
+
+  <div id="unactivatedSpouses" class="tabcontent">
+    <table class="twelve">
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>Spouse ID</th>
+          <th>Spouse Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% potential_users.each do |user| %>
+          <tr>
+            <td><%= user.email %></td>
+            <td><%= user.primary_user.id %></td>
+            <td><%= user.primary_user.email %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%= link_to "Download Users CSV", users_admin_demo_dependent_board_path(@dependent_board, format: :csv, params: { active: false }), class: "success button" %>
+  </div>
+</div>
+<br>
+<div class="row">
+  <%= form_tag admin_demo_dependent_board_send_targeted_message_path(@dependent_board, params: { primary_board: @demo.id }), id: 'message-content' do %>
+    <legend>Email</legend>
+    <br>
+    <div id="recipients-wrapper">
+      <%= label_tag :recipients %>
+      <%= select_tag "recipients", options_for_select([ "potential users", "active users"]) %>
+    </div>
+    <div id="subject-wrapper">
+      <%= label_tag :subject %>
+      <%= text_field_tag "subject", @subject %>
+    </div>
+    <div id="html-text-wrapper">
+      <%= label_tag :html_text, "HTML text" %>
+      <%= text_area_tag "html_text", @html_text, :rows => 20, :cols => 100, :class => "tinymce" %>
+    </div>
+    <div id="plain-text-wrapper">
+      <%= label_tag :plain_text %>
+      <%= text_area_tag "plain_text", @plain_text, :rows => 20, :cols => 147 %>
+    </div>
+    <%= submit_tag "Send Message", class: "button success" %>
+  <% end %>
+</div>
+
+<% unless Rails.env.test? %>
+  <% # This is not done through the asset pipeline since that leads to problems %>
+  <% # with inter-iframe communication when we load other TinyMCE windows such %>
+  <% # as the image insert dialog %>
+  <script src="/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+  <script>
+
+    tinyMCE.init({
+      mode: "exact",
+      elements: "html_text",
+      convert_urls: false,
+      style_formats: [
+        {title: 'bullet with elbow room', selector: 'li', styles: {'padding-bottom': '0.7em'}}
+      ]
+    });
+
+  </script>
+<% end %>

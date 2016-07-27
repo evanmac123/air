@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="columns large-12">
+      <h3 class="blue"><%= link_to "Admin", admin_path, class: "blue" %> | <%= link_to @demo.name, admin_demo_path(@demo), class: "blue" %> | Raffles</h3>
+  </div>
+</div>
+<div class="row">
+  <%= render 'shared/segmentation_results', segmentation_results: @segmentation_results  %>
+  <%= render 'shared/segmentation_form', :dummy_characteristics => @dummy_characteristics, :generic_characteristics => @generic_characteristics, :demo_specific_characteristics => @demo_specific_characteristics, :segmentation_url => admin_demo_segmentation_path(@demo) %>
+  <%= form_tag admin_demo_raffles_path(@demo), :id => 'pick-a-winner' do %>
+    <p>
+      <%= label_tag :ticket_maximum, "Only count tickets up to:" %>
+      <%= text_field_tag :ticket_maximum %>
+      <br/>
+      (leave blank to count all tickets with no limit)
+    </p>
+    <%= submit_tag "Pick a winner", class: "button success" %>
+    <%= image_tag "spinner.gif", :style => "display: none", :id => "winner-spinner" %>
+  <% end %>
+  <br>
+  <div id="winner-target"></div>
+  <%= form_tag admin_demo_gold_coin_reset_path(@demo) do %>
+    <%= submit_tag "Clear all tickets", :confirm => "Really clear out tickets for all users in this demo?", class: "button success" %>
+  <% end %>
+  <% content_for :javascript do %>
+    <script>
+      $('#pick-a-winner').submit(function(e) {
+        e.preventDefault();
+        var targetUrl = $('#pick-a-winner').attr('action');
+        var formData = $('#pick-a-winner').serialize();
+
+        $('#winner-spinner').show();
+        $.post(targetUrl, formData, function(data) {
+          $('#winner-target').html(data);
+          $('#winner-spinner').hide();
+        }, 'html')
+      });
+    </script>
+  <% end %>
+</div>

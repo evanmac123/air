@@ -2,7 +2,7 @@ require 'acceptance/acceptance_helper'
 
 feature 'Resets upload in progress' do
   def upload_in_progress_message
-    "This board is currently marked as having an update in progress"
+    "Upload in progress..."
   end
 
   def reset_button_text

@@ -4,7 +4,7 @@ feature 'Admin sends targeted messages using segmentation' do
   def set_up_models(options={})
     user_model_name = options[:use_phone] ? :user_with_phone : :user
 
-    @demo = FactoryGirl.create :demo
+    @demo = FactoryGirl.create(:demo)
     @users = []
     20.times {|i| @users << FactoryGirl.create(user_model_name, points: i, demo: @demo)}
     # Also let's make someUsers in a different demo to make sure we don't get leakage.
@@ -20,20 +20,20 @@ feature 'Admin sends targeted messages using segmentation' do
   def select_common_form_entries
     visit admin_demo_targeted_messages_path(@demo, as: an_admin)
 
-    select 'Metasyntactic variable', :from => "segment_column[0]"
-    select "does not equal", :from => "segment_operator[0]"
-    select "foo", :from => "segment_value[0]"
+    select 'Metasyntactic variable', from: "segment_column[0]"
+    select "does not equal", from: "segment_operator[0]"
+    select "foo", from: "segment_value[0]"
 
-    click_link "Add characteristic"
-    select "Points", :from => "segment_column[1]"
-    select "is greater than", :from => "segment_operator[1]"
-    fill_in "segment_value[1]", :with => "10"
+    click_link "Add Characteristic"
+    select "Points", from: "segment_column[1]"
+    select "is greater than", from: "segment_operator[1]"
+    fill_in "segment_value[1]", with: "10"
 
     click_button "Find segment"
 
     should_be_on(admin_demo_targeted_messages_path(@demo))
-    expect_content "USERS IN SEGMENT 6"
-    expect_content "SEGMENTED BY CHARACTERISTICS: Metasyntactic variable does not equal foo Points is greater than 10"
+    expect_content "Users in this segment: 6"
+    expect_content "Segmented by METASYNTACTIC VARIABLE DOES NOT EQUAL FOO and POINTS IS GREATER THAN 10."
     @expected_users = [11, 13, 14, 16, 17, 19].map{|i| @users[i]}
   end
 
@@ -44,12 +44,14 @@ feature 'Admin sends targeted messages using segmentation' do
     expect_content "Scheduled email to #{expected_mail_count} users"
 
     crank_dj_clear
-    ActionMailer::Base.deliveries.length.should == expected_mail_count
-    ActionMailer::Base.deliveries.each do |mail| 
+
+    expect(ActionMailer::Base.deliveries.length).to eq(expected_mail_count)
+
+    ActionMailer::Base.deliveries.each do |mail|
       html_part = mail.parts.select{|part| part.content_type =~ /html/}.first
       plain_part = mail.parts.select{|part| part.content_type =~ /text/}.first
 
-      mail.subject.should == expected_subject
+      expect(mail.subject).to eq(expected_subject)
       html_part.body.to_s.should include(expected_html_text)
       plain_part.body.to_s.should include(expected_plain_text)
     end
@@ -70,7 +72,7 @@ feature 'Admin sends targeted messages using segmentation' do
       fill_in "plain_text", :with => "some bullshit"
       click_button "It's going to be OK"
       crank_dj_clear
-    
+
       open_email 'joe@example.com'
       current_email.to_s.should include("From: Big Fun <bigfun@ourairbo.com>")
     end
@@ -181,7 +183,7 @@ feature 'Admin sends targeted messages using segmentation' do
     ActionMailer::Base.deliveries.should be_empty
     FakeTwilio.sent_messages.should be_empty
   end
-  
+
   it "should allow both emails and SMSes to be sent at the same time", :js => true do
     set_up_models(use_phone: true)
     select_common_form_entries
@@ -197,8 +199,8 @@ feature 'Admin sends targeted messages using segmentation' do
     expect_content "Scheduled SMS to 6 users"
 
     crank_dj_clear
-    ActionMailer::Base.deliveries.length.should == 6
-    FakeTwilio.sent_messages.length.should == 6
+    expect(ActionMailer::Base.deliveries.length).to eq(6)
+    expect(FakeTwilio.sent_messages.length).to eq(6)
   end
 
   it 'should respect notification preferences by default', :js => true do
@@ -224,8 +226,9 @@ feature 'Admin sends targeted messages using segmentation' do
     sms_users = @expected_users.select{|u| u.notification_method == 'sms' || u.notification_method == 'both'}
     email_users = @expected_users.select{|u| u.notification_method == 'email' || u.notification_method == 'both'}
 
-    ActionMailer::Base.deliveries.map(&:to).flatten.sort.should == email_users.map(&:email).sort
-    FakeTwilio.sent_messages.map{|sms| sms['To']}.sort.should == sms_users.map(&:phone_number).sort
+    expect(ActionMailer::Base.deliveries.map(&:to).flatten.sort).to eq(email_users.map(&:email).sort)
+
+    expect(FakeTwilio.sent_messages.map{|sms| sms['To']}.sort).to eq(sms_users.map(&:phone_number).sort)
   end
 
   it 'should allow override of notification preferences and send to everyone possible', :js => true do
@@ -254,7 +257,7 @@ feature 'Admin sends targeted messages using segmentation' do
 
   it "should have a link from somewhere in the admin side" do
     demo = FactoryGirl.create(:demo)
-    
+
 
     visit admin_demo_path(demo, as: an_admin)
     click_link "Send targeted messages to users in this demo"
@@ -278,7 +281,7 @@ feature 'Admin sends targeted messages using segmentation' do
     select "foo", :from => "segment_value[0]"
     click_button "Find segment"
 
-    expect_content "USERS IN SEGMENT 3"
+    expect_content "Users in this segment: 3"
 
     expect_value "html_text", expected_html_text
     expect_value "plain_text", expected_plain_text
@@ -303,7 +306,7 @@ feature 'Admin sends targeted messages using segmentation' do
 
     expect_content "Scheduled email to 6 users"
     expect_content "Scheduled SMS to 6 users"
-   
+
     expect_value "subject", expected_subject
     expect_value "html_text", expected_html_text
     expect_value "plain_text", expected_plain_text
@@ -313,13 +316,13 @@ feature 'Admin sends targeted messages using segmentation' do
   it "should not attempt to send an SMS to a user with a blank phone number", :js => true do
     set_up_models(use_phone: true)
     3.times {FactoryGirl.create(:user, demo: @demo)}
-    
+
 
     visit admin_demo_targeted_messages_path(@demo, as: an_admin)
     click_button "Find segment"
 
     should_be_on(admin_demo_targeted_messages_path(@demo))
-    expect_content "USERS IN SEGMENT 23"
+    expect_content "Users in this segment: 23"
 
     fill_in "sms_text", :with => 'some nonsense'
     click_button "It's going to be OK"
@@ -332,7 +335,7 @@ feature 'Admin sends targeted messages using segmentation' do
 
   it "should not show a misleading error message after scheduling a long email", :js => true do
     set_up_models
-    
+
     visit admin_demo_targeted_messages_path(@demo, as: an_admin)
     click_button "Find segment"
 
@@ -346,11 +349,11 @@ feature 'Admin sends targeted messages using segmentation' do
     fill_in "sms_text", :with => sms_text
 
     click_button "It's going to be OK"
-    page.status_code.should_not == 500
-    page.find('#html_text').value.should == long_text
-    page.find('#plain_text').value.should == long_text
-    page.find('#subject').value.should == mail_subject
-    page.find('#sms_text').value.should == sms_text
+    expect(page.status_code).to_not eq(500)
+    expect(page.find('#html_text').value).to eq(long_text)
+    expect(page.find('#plain_text').value).to eq(long_text)
+    expect(page.find('#subject').value).to eq(mail_subject)
+    expect(page.find('#sms_text').value).to eq(sms_text)
   end
 
   context "when the admin wishes to send a push later" do
@@ -362,7 +365,7 @@ feature 'Admin sends targeted messages using segmentation' do
       FakeTwilio.clear_messages
       ActionMailer::Base.deliveries.clear
 
-      
+
       visit admin_demo_targeted_messages_path(@demo, as: an_admin)
       click_button "Find segment"
 
@@ -371,7 +374,7 @@ feature 'Admin sends targeted messages using segmentation' do
       fill_in 'subject',    :with => "The subject of our push"
       fill_in 'sms_text',   :with => "A short message"
 
-      @base_time = Time.now
+      @base_time = Time.zone.now
       @send_time = @base_time + 10.minutes
 
       fill_in 'Send at', :with => (@send_time).to_s
@@ -419,14 +422,17 @@ feature 'Admin sends targeted messages using segmentation' do
       ActionMailer::Base.deliveries.should have(num_emails).emails
       FakeTwilio.sent_messages.should have(num_texts).texts
 
-      ActionMailer::Base.deliveries.map(&:to).flatten.sort.should == @email_users.collect(&:email).sort
-      FakeTwilio.sent_messages.map{ |sms| sms['To'] }.sort.should == @text_users.collect(&:phone_number).sort
+      expect(ActionMailer::Base.deliveries.map(&:to).flatten.sort).to eq(@email_users.collect(&:email).sort)
+
+      expect(FakeTwilio.sent_messages.map{ |sms| sms['To'] }.sort).to eq(@text_users.collect(&:phone_number).sort)
     end
 
     def check_push_message_recipients
       push_message = PushMessage.first
-      push_message.email_recipient_ids.sort.should == @email_users.collect(&:id).sort
-      push_message.sms_recipient_ids.sort.should   == @text_users.collect(&:id).sort
+
+      expect(push_message.email_recipient_ids.sort).to eq(@email_users.collect(&:id).sort)
+
+      expect(push_message.sms_recipient_ids.sort).to eq(@text_users.collect(&:id).sort)
     end
 
     # Originally had more than one test, but finally consolidated down to one. This is a pretty complex
@@ -442,7 +448,7 @@ feature 'Admin sends targeted messages using segmentation' do
 
       crank_dj_clear  # Get user info into MongoDB
 
-      
+
       visit admin_demo_targeted_messages_path(@demo, as: an_admin)
 
       select "Points", :from => "segment_column[0]"
@@ -451,14 +457,14 @@ feature 'Admin sends targeted messages using segmentation' do
 
       click_button "Find segment"  # Get list of (original) recipients
 
-      expect_content "SEGMENTED BY CHARACTERISTICS: Points is greater than 3"
-      expect_content "USERS IN SEGMENT 8"
+      expect_content "Segmented by POINTS IS GREATER THAN 3."
+      expect_content "Users in this segment: 8"
 
       fill_in "subject",   :with => 'email subject'
       fill_in "html_text", :with => 'email text'
       fill_in "sms_text",  :with => 'sms text'
 
-      @send_time = Time.now + 10.minutes
+      @send_time = Time.zone.now + 10.minutes
       fill_in 'Send at', :with => (@send_time).to_s
 
       click_button "It's going to be OK"  # Schedule the messages

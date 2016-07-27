@@ -59,19 +59,19 @@ class Characteristic < ActiveRecord::Base
   end
 
   def self.agnostic
-    where(:demo_id => nil)
+    where(demo_id: nil)
   end
 
   def self.generic
-    where(:demo_id => nil)
+    where(demo_id: nil)
   end
 
   def self.in_demo(demo)
-    where(:demo_id => demo.id)
+    where(demo_id: demo.id)
   end
 
   def self.visible_from_demo(demo)
-    dummy_characteristics = DummyCharacteristic.all(:demo_id => demo.id)
+    dummy_characteristics = DummyCharacteristic.all(demo_id: demo.id)
     generic_characteristics = Characteristic.generic
     demo_specific_characteristics = Characteristic.in_demo(demo)
 

@@ -1,0 +1,4 @@
+Email,ID,Spouse,Invitation_Code
+<% @users.each do |user| -%>
+<%= CSV.generate_line([user.email, user.id, user.primary_user_id, user.invitation_code]) -%>
+<% end %>

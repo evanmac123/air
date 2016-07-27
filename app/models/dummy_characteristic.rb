@@ -3,7 +3,7 @@
 # backed by the DB.
 #
 # We create these so that we have a nice, uniform interface for
-# displaying and querying on characteristics, without these things 
+# displaying and querying on characteristics, without these things
 # cluttering up a ton of code with special cases.
 
 class DummyCharacteristic
@@ -55,7 +55,7 @@ class GenderDummyCharacteristic
   end
 end
 
-# This dummy characteristic works a little differently, we need to set it up 
+# This dummy characteristic works a little differently, we need to set it up
 # manually.
 
 class LocationDummyCharacteristic < DummyCharacteristic

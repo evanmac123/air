@@ -106,9 +106,7 @@ group :development, :test do
                           # Note that all defaults can be overridden, see the github README for this gem
 
   gem "getopt"
-  #gem "ruby-debug19", :require => 'ruby-debug'
-  # gem 'debugger'
-	gem 'pry'
+  gem "pry-rails"
 	gem 'pry-byebug'
 end
 

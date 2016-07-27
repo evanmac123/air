@@ -392,6 +392,8 @@ GEM
     pry-byebug (3.1.0)
       byebug (~> 4.0)
       pry (~> 0.10)
+    pry-rails (0.3.4)
+      pry (>= 0.9.10)
     pundit (1.0.1)
       activesupport (>= 3.0.0)
     quiet_assets (1.0.2)
@@ -642,8 +644,8 @@ DEPENDENCIES
   paperclip-meta
   pg
   poltergeist
-  pry
   pry-byebug
+  pry-rails
   pundit
   quiet_assets
   rack
@@ -681,5 +683,8 @@ DEPENDENCIES
   unicorn
   wice_grid!
 
+RUBY VERSION
+   ruby 2.0.0p648
+
 BUNDLED WITH
-   1.12.4
+   1.12.5

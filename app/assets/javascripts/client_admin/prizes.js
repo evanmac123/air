@@ -96,7 +96,7 @@ function validateStartDate(){
   }
 
   if(startDate()){
-    $('#raffle_ends_at').datepicker( 'option', 'minDate', 
+    $('#raffle_ends_at').datepicker( 'option', 'minDate',
       new Date( startDate().getTime() + dayDuration() ) );
   }
   updatePickWinnersEndDate();
@@ -154,8 +154,8 @@ function updatePickWinnersEndDate(){
   text =  "You can pick winners starting ";
   if(end_date > 0){
     end_date = new Date(endDate().getTime() + minuteDuration());
-    text += weekDay(end_date) + 
-            ", " + monthName(end_date) + 
+    text += weekDay(end_date) +
+            ", " + monthName(end_date) +
             " " + end_date.getDate() + " at 12:00 AM ET";
   }else{
     text = "[Day of week, Month, DD at 12:00 AM] ET";
@@ -166,8 +166,8 @@ function updatePickWinnersEndDate(){
 function updatePreviewEndDate(){
   end_date = endDate();
   if(end_date > 0){
-    text =  "Ends " + weekDay(end_date) + 
-            ", " + monthName(end_date) + 
+    text =  "Ends " + weekDay(end_date) +
+            ", " + monthName(end_date) +
             " " + end_date.getDate();
   }else{
     text = "Ends [Day of week, MM DD]";
@@ -217,19 +217,19 @@ function updatePreviewDuration(){
   }else if(duration > weekDuration()){
     first_date_num = Math.floor(duration / weekDuration());
     first_date_text = pluralize("week", first_date_num);
-    second_date_num = Math.floor(duration / dayDuration()) - 
+    second_date_num = Math.floor(duration / dayDuration()) -
                       first_date_num * weekDuration() / dayDuration();
     second_date_text = pluralize("day", second_date_num);
   }else if(duration > dayDuration()){
     first_date_num = Math.floor(duration / dayDuration());
     first_date_text = pluralize("day", first_date_num);
-    second_date_num = Math.floor(duration / hourDuration()) - 
+    second_date_num = Math.floor(duration / hourDuration()) -
                       first_date_num * dayDuration() / hourDuration();
     second_date_text = pluralize("hour", second_date_num);
   }else{
     first_date_num = Math.floor(duration / hourDuration());
     first_date_text = pluralize("hour", first_date_num);
-    second_date_num = Math.floor(duration / minuteDuration()) - 
+    second_date_num = Math.floor(duration / minuteDuration()) -
                       first_date_num * hourDuration() / minuteDuration();
     second_date_text = pluralize("minute", second_date_num);
   }

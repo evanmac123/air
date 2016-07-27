@@ -1,17 +1,14 @@
 <div id="segmentation-results" class="section">
   <% if segmentation_results.present? %>
     <div id="segmentation-explanation" class="segmentation-results-col">
-        <h3>Segmented by characteristics:</h3>
-        <ul><% segmentation_results.explanation.each do |explanation_part| %>
-            <li class="explanation"><%= explanation_part %></li>
-        <% end %></ul>
-        <p id="segmented-at-timestamp">Searched <%= time_ago_in_words segmentation_results.created_at %> ago</p>
-    </div>
-
-    <div id="segmentation-numbers" class="segmentation-results-col">
-        <h4>Users in segment</h4>
-        <% found_user_ids = segmentation_results.found_user_ids %>
-        <h3><span><%= found_user_ids.length %></span></h3>
+      <div id="segmentation-explanation">
+        <h4>Segmented by <span class="explanation"><%= segmentation_results.format_criteria %></span>.
+        </h4>
+      </div>
+      <div id="segmentation-numbers" class="segmentation-results-col">
+        <h4>Users in this segment: <%= segmentation_results.found_user_ids.count %></h4>
+      </div>
+      <p id="segmented-at-timestamp">Searched <%= time_ago_in_words segmentation_results.created_at %> ago</p>
     </div>
 
     <div class="clear"></div>

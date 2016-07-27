@@ -4,17 +4,8 @@
 		@include form-group;
 		margin:0;
 	}
-	#segmentation_buttons {
-		padding-left:1.35em;
-		* {vertical-align: middle;}
-		a#add_more_characteristics {
-			@include app-button($med-gray);
-			margin-right: 0.5em;
-		}
-		input[type="submit"] { 
-			@include app-button($dark-green);
-			margin:0 0 1px 0;
-		}
+	.segmentation_button {
+		margin-bottom: 10px;
 	}
 	#segmentation_parameters {
 		padding:.5em 0 1em 0;
@@ -69,8 +60,8 @@
 				color:$light-gray;
 				padding:2em 0;
 			}
-			ul {margin-top:1em;}
-			.explanation {
+			span.explanation {
+				color: red;
 				border-bottom:1px lighten($light-gray, 4%) solid;
 				padding:.75em 0;
 				&:nth-of-type(1) {border-top:0;}
@@ -91,5 +82,5 @@
 			}
 		}
 	}
-	
+
 }

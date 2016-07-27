@@ -1,5 +1,24 @@
-<%= render 'shared/segmentation_results', segmentation_results: @segmentation_results %>
+<div class="row">
+  <div class="columns large-12">
+      <h3 class="blue"><%= link_to "Admin", admin_path, class: "blue" %> | <%= link_to @demo.name, admin_demo_path(@demo), class: "blue" %> | Segments</h3>
+  </div>
+</div>
+<div class="segmentation-show row">
+  <%= render 'shared/segmentation_results', segmentation_results: @segmentation_results %>
 
-<%= render 'shared/segmentation_form', :dummy_characteristics => @dummy_characteristics, :generic_characteristics => @generic_characteristics, :demo_specific_characteristics => @demo_specific_characteristics, :segmentation_url => admin_demo_segmentation_path(@demo) %>
+  <div class="show_user_links">
+    <%= link_to "Show users", "#", id: "show-user-link", class: "success button" %>
+    <%= link_to "Download Users CSV", admin_demo_users_path(@demo, format: :csv), class: "success button" %>
+  </div>
 
-<%= render 'shared/show_user_links' %>
+  <%= render 'shared/segmentation_form', dummy_characteristics: @dummy_characteristics, generic_characteristics: @generic_characteristics, demo_specific_characteristics: @demo_specific_characteristics, segmentation_url: admin_demo_segmentation_path(@demo) %>
+</div>
+
+<% content_for :javascript do %>
+  <%= javascript_tag do %>
+    $('#show-user-link').live('click', function(e) {
+      e.preventDefault();
+      $.get('<%= admin_demo_users_path(@demo, :format => :js) %>', function() { $('#show-user-spinner').hide()});
+    });
+  <% end %>
+<% end %>
