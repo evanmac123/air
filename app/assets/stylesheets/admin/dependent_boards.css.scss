@@ -1,0 +1,46 @@
+.dependent-boards-show {
+  ul.tab {
+    /* Style the list */
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #3498db;
+    background-color: $n-blue;
+    /* Float the list items side by side */
+    li {
+      float: left;
+      /* Style the links inside the list items */
+      a {
+        display: inline-block;
+        color: #fff;;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        transition: 0.3s;
+        font-size: 14px;
+        /* Change background color of links on hover */
+        &:hover {
+          background-color: #3498db;
+        }
+        /* Create an active/current tablink class */
+        &:focus {
+          background-color: #3498db;
+        }
+      }
+    }
+  }
+
+  /* Create an active/current tablink class */
+  .active {
+    background-color: #3498db;
+  }
+
+  /* Style the tab content */
+  .tabcontent {
+      display: none;
+      padding: 6px 12px;
+      border: 1px solid #ccc;
+      border-top: none;
+  }
+}

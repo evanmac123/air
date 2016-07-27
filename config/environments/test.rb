@@ -33,13 +33,10 @@ class ClearanceBackDoor
 end
 
 module Airbrake
-
   def self.notify e
     #Do Nothing
   end
-
 end
-
 
 Health::Application.configure do
   config.cache_classes = true

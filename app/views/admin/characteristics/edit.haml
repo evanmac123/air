@@ -4,13 +4,10 @@
     = "»"
     Edit characteristic
     = @characteristic.name
-
   #edit-warning
     %h2 Warning: editing a characteristic does not update users who have this characteristic
     As such, if you are editing a characteristic which you've already assigned to some users, it may be smarter to add a new characteristic instead.
-
   %h1
     Edit characteristic
     = @characteristic.name
-
   = render 'form', :characteristic => @characteristic

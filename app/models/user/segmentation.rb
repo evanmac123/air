@@ -1,7 +1,7 @@
 class User
   module Segmentation
     SEGMENTATION_CREATE_PRIORITY = 100
-    SEGMENTATION_UPDATE_PRIORITY = 100 
+    SEGMENTATION_UPDATE_PRIORITY = 100
 
     def values_for_segmentation
       {
@@ -25,7 +25,7 @@ class User
     end
 
     def segmentation_results
-      User::SegmentationResults.where(:owner_id => self.id).first
+      User::SegmentationResults.where(owner_id: self.id).first
     end
 
     def set_segmentation_results!(columns, operators, values, demo)
@@ -37,8 +37,7 @@ class User
 
     def self.load_segmented_user_information(columns, operators, values, demo_id)
       query = User::SegmentationData
-      query = query.where(:demo_ids => demo_id) if demo_id
-
+      query = query.where(demo_ids: demo_id) if demo_id
       if values.present?
         columns.each do |index, characteristic_id|
           casted_value = Characteristic.find(characteristic_id).cast_value(values[index])

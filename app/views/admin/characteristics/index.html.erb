@@ -1,0 +1,77 @@
+<div class="row">
+  <div class="columns large-12">
+    <% if @demo %>
+      <h3 class="blue"><%= link_to "Admin", admin_path, class: "blue" %> | <%= link_to @demo.name, admin_demo_path(@demo), class: "blue" %> | Characteristics</h3>
+    <% else %>
+      <h3 class="blue"><%= link_to "Admin", admin_path, class: "blue" %> | Characteristics</h3>
+    <% end %>
+  </div>
+</div>
+<div class="row admin">
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Type</th>
+        <th>Allowed Values</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @characteristics.each do |characteristic| %>
+        <tr>
+          <td class="characteristic-name"><%= characteristic.name %></td>
+          <td><%= characteristic.description %></td>
+          <td><%= characteristic.datatype.name %></td>
+          <td><%= characteristic.allowed_values.join(", ") %></td>
+          <td><%= link_to "Edit", edit_admin_characteristic_path(characteristic), class: "button success" %></td>
+          <td><%= button_to "Destroy", admin_characteristic_path(characteristic), method: :delete, confirm: "Really destroy \"#{characteristic.name}\"?", class: "button success" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= semantic_form_for @characteristic, url: form_submit_path do |f| %>
+    <fieldset>
+      <legend>Add New Characteristic</legend>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+      <%= f.label :description %>
+      <%= f.text_field :description %>
+      <%= f.select :datatype, options_for_select: Characteristic.datatype_names %>
+      <div id="allowed-values-wrapper">
+        <div id="allowed-values">
+          <%= label_tag "characteristic[allowed_values][]", "Allowed values" %>
+          <% (@characteristic.allowed_values.present? ? @characteristic.allowed_values : ['']).each do |allowed_value| %>
+            <%= text_field_tag "characteristic[allowed_values][]", allowed_value %>
+          <% end %>
+        </div>
+      </div>
+      <div>
+        <%= submit_tag "More allowed values", id: "more-allowed-values-button", class: "button success" %>
+      </div>
+      <br>
+      <div>
+        <%= f.submit class:"button" %>
+      </div>
+    </fieldset>
+  <% end %>
+  <%= content_for :javascript do %>
+    <script>
+      $('select[name="characteristic[datatype]"]').change(function(e) {
+        var newValue = enclosingSelect(e.target).val();
+        if ('Discrete' === newValue) {
+          $('#allowed-values').show();
+        } else {
+          $('#allowed-values').hide();
+        }
+      });
+
+      $('#more-allowed-values-button').click(function(e) {
+        e.preventDefault();
+        $('#allowed-values-wrapper').append('<input type="text" name="characteristic[allowed_values][]">');
+      });
+    </script>
+  <% end %>
+</div>

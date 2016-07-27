@@ -11,6 +11,7 @@ class Demo < ActiveRecord::Base
   has_many :users, through: :board_memberships
   has_many :acts
   has_many :tiles, :dependent => :destroy
+  has_many :potential_users
   # NOTE m_tiles is an unfortunate hack to compensate for shitty code implementation of MultipleChoiceTile
   has_many :m_tiles, :dependent => :destroy, class_name: 'MultipleChoiceTile'
   has_many :locations, :dependent => :destroy
@@ -85,7 +86,6 @@ class Demo < ActiveRecord::Base
   def self.paid
     where(is_paid: true)
   end
-
 
   def activate_tiles_if_showtime
     tiles.activate_if_showtime
@@ -398,7 +398,7 @@ class Demo < ActiveRecord::Base
     "Airbo is an interactive communication tool. Get started by clicking on a tile. Interact and answer questions to earn points."
   end
 
-  
+
 
   protected
 
@@ -475,7 +475,7 @@ class Demo < ActiveRecord::Base
 
   def override_explore_disabled
     if EXPLORE_ENABLED
-      self.explore_disabled =false 
+      self.explore_disabled =false
     end
     true
   end

@@ -21,7 +21,7 @@ feature 'Admin sees number of invitations' do
       fill_in "Start at", :with => "May 1, 2012, 3:00 AM"
       click_button "Count invitations"
 
-      expect_content "9 invitations sent from 2012-05-01 03:00:00 -0400 to just now"
+      expect_content "9 invitations sent"
     end
   end
 
@@ -30,7 +30,7 @@ feature 'Admin sees number of invitations' do
       fill_in "End at", :with => "May 1, 2012, 5:00 AM"
       click_button "Count invitations"
 
-      expect_content "4 invitations sent from the beginning of time to 2012-05-01 05:00:00 -0400"
+      expect_content "4 invitations sent"
     end
   end
 
@@ -40,7 +40,7 @@ feature 'Admin sees number of invitations' do
       fill_in "End at", :with => "May 1, 2012, 5:00 AM"
       click_button "Count invitations"
 
-      expect_content "3 invitations sent from 2012-05-01 03:00:00 -0400 to 2012-05-01 05:00:00 -0400"
+      expect_content "3 invitations sent"
     end
   end
 

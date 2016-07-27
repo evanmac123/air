@@ -1,0 +1,108 @@
+<div class="row">
+  <div class="columns large-12">
+      <h3 class="blue"><%= link_to "Admin", admin_path, class: "blue" %> | <%= link_to @demo.name, admin_demo_path(@demo), class: "blue" %> | Targeted Messages</h3>
+  </div>
+</div>
+<div class="segmentation-show row">
+  <%= render 'shared/segmentation_results', segmentation_results: @segmentation_results %>
+
+  <div class="show_user_links">
+    <%= link_to "Show users", "#", id: "show-user-link", class: "success button" %>
+    <%= link_to "Download Users CSV", admin_demo_users_path(@demo, format: :csv), class: "success button" %>
+  </div>
+
+  <%= render 'shared/segmentation_form', dummy_characteristics: @dummy_characteristics, generic_characteristics: @generic_characteristics, demo_specific_characteristics: @demo_specific_characteristics, segmentation_url: admin_demo_segmentation_path(@demo) %>
+</div>
+
+<div class="row">
+  <% content_for :javascript do %>
+    <%= javascript_tag do %>
+      $('#show-user-link').live('click', function(e) {
+        e.preventDefault();
+        $.get('<%= admin_demo_users_path(@demo, :format => :js) %>', function() { $('#show-user-spinner').hide()});
+      });
+    <% end %>
+  <% end %>
+
+  <%= form_tag admin_demo_targeted_messages_path(@demo), :id => 'message-content' do %>
+      <legend>Email</legend>
+      <br>
+      <div id="subject-wrapper">
+        <%= label_tag :subject %>
+        <%= text_field_tag "subject", @subject %>
+      </div>
+      <div id="html-text-wrapper">
+        <%= label_tag :html_text, "HTML text" %>
+        <%= text_area_tag "html_text", @html_text, :rows => 20, :cols => 100, :class => "tinymce" %>
+      </div>
+      <div id="plain-text-wrapper">
+        <%= label_tag :plain_text %>
+        <%= text_area_tag "plain_text", @plain_text, :rows => 20, :cols => 147 %>
+      </div>
+      <br>
+      <legend>SMS</legend>
+      <br>
+      <%= label_tag :sms_text %>
+      <%= text_field_tag "sms_text", @sms_text, :maxlength => 160, :size => 165 %>
+      <%= add_byte_counter_for "Sms text" %>
+    <br/>
+    <%= label_tag "send_at" %>
+    <%= text_field_tag "send_at" %>
+    If you leave this blank, we'll try to send the message as soon as possible.
+    <br/>
+    <%= label_tag "respect_notification_method" %>
+    <%= check_box_tag "respect_notification_method", "1", true %>
+    <br>
+    <%= submit_tag "It's going to be OK", class: "button success" %>
+  <% end %>
+  <hr>
+    <h2>Scheduled pushes</h2>
+    <% if @scheduled_pushes.empty? %>
+      <p>No incomplete pushes scheduled</p>
+    <% else %>
+      <table>
+        <tr>
+          <th>Scheduled for</th>
+          <th>Segment</th>
+          <th>Mail subject</th>
+          <th>SMS text</th>
+        </tr>
+        <% @scheduled_pushes.each do |scheduled_push| %>
+          <tr>
+            <td>
+              <%= scheduled_push.scheduled_for.try(:pretty_succinct) || "ASAP" %>
+            </td>
+            <td>
+              <%= scheduled_push.segment_description %>
+            </td>
+            <td>
+              <%= scheduled_push.subject %>
+            </td>
+            <td>
+              <%= scheduled_push.sms_text %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    <% end %>
+  </hr>
+</div>
+<% unless Rails.env.test? %>
+  <% # This is not done through the asset pipeline since that leads to problems %>
+  <% # with inter-iframe communication when we load other TinyMCE windows such %>
+  <% # as the image insert dialog %>
+  <script src="/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+  <script>
+
+    tinyMCE.init({
+      mode: "exact",
+      elements: "html_text",
+      convert_urls: false,
+      style_formats: [
+        {title: 'bullet with elbow room', selector: 'li', styles: {'padding-bottom': '0.7em'}}
+      ]
+    });
+
+
+  </script>
+<% end %>
