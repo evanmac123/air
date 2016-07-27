@@ -1,5 +1,5 @@
 <% presenter = as_null ? NullUserProgressPresenter.new(current_user.id, demo, @tile.try(:points)) : UserProgressPresenter.new(current_user, raffle, browser) %>
-<%=content_tag :div,  class: "user_container", data:{config:presenter.config} do%> 
+<%=content_tag :div,  class: "user_container", data:{config:presenter.config} do%>
   <div id="user_progress">
     <% if raffle %>
       <%= render partial: "shared/tiles/raffle_progress", locals: {raffle: raffle}  %>
@@ -44,4 +44,3 @@
 <% if raffle && current_user.can_see_raffle_modal? %>
   <%= render partial: "client_admin/prizes/prize_modal", locals: {raffle: raffle} %>
 <% end %>
-

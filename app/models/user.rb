@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
   has_many   :board_memberships, dependent: :destroy
   has_many   :demos, through: :board_memberships
   has_many   :user_in_raffle_infos, as: :user
-  has_many   :tile_viewings, as: :user
+  has_many   :tile_viewings, :dependent => :destroy, as: :user
   has_many   :viewed_tiles, through: :tile_viewings, source: :tile
   has_many   :parent_board_users
   has_one    :raffle, through: :demo
@@ -85,8 +85,8 @@ class User < ActiveRecord::Base
   validates :email, :with => :email_distinct_from_all_overflow_emails
   validates :overflow_email, :with => :overflow_email_distinct_from_all_emails
   validates_presence_of :email, :if => :converting_from_guest, :message => "Please enter a valid email address"
-  validates_presence_of :official_email 
-  validates_with EmailFormatValidator, field: :official_email 
+  validates_presence_of :official_email
+  validates_with EmailFormatValidator, field: :official_email
   validates_presence_of :email, :if => :creating_board, :message => "can't be blank"
   validates_with EmailFormatValidator, if: Proc.new {|u| u.invitation_method == :client_admin_invites}
 

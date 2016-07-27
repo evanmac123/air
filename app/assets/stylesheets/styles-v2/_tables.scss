@@ -43,19 +43,7 @@ table.first-column-header{
  }
 }
 
-tbody{
-  &.group-hdr{
-   th {
-     font-size:1.05em;
-   }
-  }
-  &.hdr-indent{
-    th[rowspan]{
-      padding-left: 15px;
-      font-weight: bold;
-    }
-  }
-}
+
 tr.resource-row{
   cursor: pointer
 }
@@ -78,4 +66,34 @@ caption{
   padding: 0 0 10px 0;
   font-size: 24px;
 }
+.table-container{
 
+ overflow: scroll;
+ padding:10px 20px
+}
+
+table.kpi-layout{
+  min-width: 50%;
+  thead {
+  }
+  tbody{
+    &.group{
+      margin-bottom:25px;
+
+      th {
+          padding-right: 30px;
+        &.group-hdr{
+          padding-bottom: 20px;
+          padding-top: 20px;
+          padding-right: 10px;
+          font-size:1.05em;
+          font-weight: bold;
+          &::first-of-type{
+          padding-top: 10px;
+          }
+        }
+      }
+    }
+
+  }
+}

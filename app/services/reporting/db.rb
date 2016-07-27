@@ -9,38 +9,74 @@ module Reporting
         @beg_date = beg_date.beginning_of_week
         @end_date = end_date.beginning_of_week
         @interval = interval
+        @series_interval=(interval == "quarter") ? "3 months" : "1 #{interval}"
       end
 
 
-      private
-      def aggregation interval_field, key_field
-        "DATE_TRUNC('#{@interval}', #{interval_field}) AS interval, count(#{key_field}) as interval_count, sum(count(#{key_field})) " +
-          " over (order by date_trunc('#{@interval}', #{interval_field})) as cumulative_count"
+      
+      protected
+
+      def query_builder relation, interval_field, key_field, condition
+
+        relation
+          .select(count_by_interval(interval_field, key_field))
+          .where(condition)
+          .to_sql
       end
 
-      def group_and_order relation
-        relation.group("interval").order("interval")
+      def count_by_interval interval_field, key_field
+        "DATE_TRUNC('#{@interval}', #{interval_field}::Timestamp AT TIME ZONE  '-4:00' ) AS interval, COUNT(#{key_field}) AS interval_count"
+      end
+
+
+      def wrapper_sql select_for_primary_data
+        b = beg_date
+        e = end_date
+        <<-SQL 
+                 SELECT
+                 interval
+                 , interval_count 
+                 , SUM(interval_count ) OVER (ORDER BY interval) AS cumulative_count 
+
+                 FROM
+                 (
+
+                 SELECT interval ,MAX(interval_count) AS interval_count FROM
+                 (
+                   SELECT GENERATE_SERIES (
+                           DATE_TRUNC('#{@interval}', TIMESTAMP '#{b}'), 
+                           DATE_TRUNC('#{@interval}', TIMESTAMP '#{e}'), INTERVAL '#{@series_interval}'
+                   ) AS interval,
+                   0 AS interval_count
+
+                  UNION 
+
+                  #{select_for_primary_data}
+
+                  GROUP BY 1 ORDER BY 1 
+                 ) sub1
+                 GROUP BY interval
+                 ) grouped_data
+        SQL
       end
 
     end
 
     class UserActivation < Base
 
-      def total_eligible
-        @demo.users.count
+      def eligibles
+        qry = query_builder(memberships, "users.created_at", "users.created_at", ["users.created_at < ?", end_date])
+        memberships.find_by_sql(wrapper_sql(qry))
       end
 
-      def activated 
-
-        agg_clause = aggregation "users.accepted_invitation_at", "users.id"
-       group_and_order( memberships.select(agg_clause).where("users.accepted_invitation_at is not null and users.accepted_invitation_at <= ?", end_date))
+      def activations 
+        qry = query_builder(memberships, "users.accepted_invitation_at", "users.id", ["users.accepted_invitation_at is not null and users.accepted_invitation_at <= ?", end_date])
+        memberships.find_by_sql(wrapper_sql(qry))
       end
 
-      #def activation_pct 
-        #total_activated/total_eligible
-      #end
 
       private
+
 
       def memberships
         User.joins(:board_memberships).where("board_memberships.demo_id" => @demo_id)
@@ -53,30 +89,22 @@ module Reporting
     class TileActivity < Base
 
       def posts
-        agg_clause = aggregation "activated_at", "id"
-        group_and_order(@demo.tiles.select(agg_clause).where("activated_at <= ? and (archived_at is null or archived_at > ?)", end_date, end_date))
+        qry = query_builder(@demo.tiles, "tiles.activated_at", "tiles.id", ["activated_at <= ? and (archived_at is null or archived_at > ?)", end_date, end_date])
+        @demo.tiles.find_by_sql(wrapper_sql(qry))
       end
 
       def views
-        agg_clause = aggregation "tile_viewings.created_at", "tile_viewings.id"
-        group_and_order(@demo.tile_viewings.select(agg_clause).where("tile_viewings.created_at >= ? and tile_viewings.created_at < ?", beg_date, end_date))
+        qry = query_builder(@demo.tile_viewings, "tile_viewings.created_at", "tile_viewings.id", ["tile_viewings.created_at < ?", end_date])
+        @demo.tile_viewings.find_by_sql(wrapper_sql(qry))
       end
 
       def completions
-        agg_clause = aggregation "tile_completions.created_at", "tile_completions.id"
-        group_and_order(@demo.tile_completions.select(agg_clause).where("tile_completions.created_at >= ? and tile_completions.created_at < ?", beg_date, end_date))
+        qry = query_builder(@demo.tile_completions, "tile_completions.created_at", "tile_completions.id", ["tile_completions.created_at >= ? and tile_completions.created_at < ?", beg_date, end_date])
+        @demo.tile_completions.find_by_sql(wrapper_sql(qry))
       end
-
-      def views_over_available
-        views/available
-      end
-
-      def completions_over_views
-        completions/views
-      end
-
 
     end
 
   end
 end
+

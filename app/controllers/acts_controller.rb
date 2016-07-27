@@ -57,6 +57,8 @@ class ActsController < ApplicationController
       current_user.save!
     end
 
+    @display_first_tile_hint = current_user.intros.display_first_tile_hint?
+
     @displayable_categorized_tiles = Tile.displayable_categorized_to_user(current_user, tile_batch_size)
 
     show_conversion_form_provided_that { @demo.tiles.active.empty? }

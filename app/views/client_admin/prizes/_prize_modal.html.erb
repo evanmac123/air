@@ -1,7 +1,6 @@
 <div id="prize_modal" class="reveal-modal" data-reveal>
      <%= render partial: "client_admin/prizes/prize", locals: {raffle: raffle, entries: starting_tickets} %>
 </div>
-<a href="#" id="modal_link" data-reveal-id="prize_modal" data-animation="fadeAndPop" data-animationspeed="300" data-closeonbackgroundclick="true" data-dismissmodalclass="close_modal">Click for a modal</a>
 <% js_at_end do %>
   bindPrizeModal(<%= raffle.show_start? current_user %>, <%= raffle.show_finish? current_user %>, '<%= params[:public_slug] %>');
 <% end %>
