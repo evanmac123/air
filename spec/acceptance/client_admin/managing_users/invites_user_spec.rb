@@ -53,7 +53,9 @@ feature 'Invites user' do
       expect_no_content "Next, send invite to Bob Jones"
     end
 
-    it "shouldn't be an option, if they have no email" do
+    #FIXME this functionality is deprecated. Remove this test after confirming.
+    #2016-07-26
+    pending "shouldn't be an option, if they have no email" do
       click_button "Add User"
 
       new_user = @demo.users.order("created_at DESC").first
