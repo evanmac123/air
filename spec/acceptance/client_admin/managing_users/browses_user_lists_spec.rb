@@ -157,8 +157,9 @@ feature 'Browses user lists' do
     expect_content "OK, we've just sent #{alfred.name} an invitation."
   end
 
+  #FIXME this functionality is probably no longer used. 2016-07-26
   it "should not present the option for an admin to try to invite a user without an email" do
-    alfred = FactoryGirl.create(:user, name: "Alfred Jones", demo: client_admin.demo, email: '')
+    alfred = FactoryGirl.create(:user, name: "Alfred Jones", demo: client_admin.demo, email: '', official_email:"yada@yada.com")
     alfred.should_not be_invited
     visit client_admin_users_path(show_everyone: true, as: client_admin)
     page.all("a[href='#{client_admin_user_invitation_path(alfred)}']").should be_empty

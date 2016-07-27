@@ -1,4 +1,5 @@
 require 'acceptance/acceptance_helper'
+#FIXME remove this code as this functionality is no longer used as of 2016-07-26
 
 feature "Spiderman offers ten dollars to anyone who can name all the ways to join H.Engage" do
     include EmailSpec::Helpers
@@ -14,7 +15,7 @@ feature "Spiderman offers ten dollars to anyone who can name all the ways to joi
   scenario "Juan has an SMS account (no email associated), then texts us his personal email" do
     juan_phone = '+12083665544'
     personal_email = 'jones@yall.biz'
-    juan = FactoryGirl.create(:claimed_user, email: nil, phone_number: juan_phone)
+    juan = FactoryGirl.create(:claimed_user, email: nil, official_email: "yada@yadd.con", phone_number: juan_phone)
     mo_sms(juan_phone, personal_email)
     crank_dj_clear
     open_email(personal_email).subject.should include("Your invitation to join the #{juan.demo.name}")

@@ -1,4 +1,6 @@
 require 'acceptance/acceptance_helper'
+# FIXME this functionality is probably no longer used. Remove test once that is
+# confirmed.! HR 2015-07-26
 
 metal_testing_hack(SmsController)
 
@@ -52,10 +54,11 @@ feature 'User claims account' do
     expect_reply "Got it, #{@expected_referrer.name} recruited you. Thanks for letting us know."
   end
 
+  #FIXME this looks like a unit test to me.
   it "should not try to send a password reset message to an empty e-mail address" do
     ActionMailer::Base.deliveries.should be_empty
 
-    user = FactoryGirl.create(:user, email: nil, claim_code: 'bob')
+    user = FactoryGirl.create(:user, email: nil, official_email: "yada@doo.com", claim_code: 'bob')
     user.notification_method.should == 'email'
     send_message "bob"
     crank_dj_clear
@@ -73,8 +76,7 @@ feature 'User claims account' do
       @other_demo = FactoryGirl.create(:demo, :name => "Amalgamated Consolidated", :credit_game_referrer_threshold => 60, :game_referrer_bonus => 1000, :email => 'ac@playhengage.com', :phone_number => "+12155551212")
       FactoryGirl.create(:claim_state_machine, :states => ClaimStateMachine::PredefinedMachines::COVIDIEN_THREE_STEP_STYLE, :demo => @other_demo)
 
-      @expected_user = FactoryGirl.create(:user, :demo => @demo, :claim_code => "bob", :email => '')
-      @expected_user.should_not be_claimed
+      @expected_user = FactoryGirl.create(:user, :demo => @demo, :claim_code => "bob", :email => nil, :official_email => 'babba@boowee.com')
       @expected_referrer = FactoryGirl.create(:user, :demo => @demo)
       @expected_referrer.update_attributes(:sms_slug => "referrer")
     end
@@ -122,7 +124,7 @@ feature 'User claims account' do
 
       context "and that user has a twin in another demo with similar rules" do
         before(:each) do
-          @twin = FactoryGirl.create(:user, demo: @other_demo, email: '', claim_code: 'bob')
+          @twin = FactoryGirl.create(:user, demo: @other_demo, email: '', official_email: "ladi@dadi.com", claim_code: 'bob')
         end
 
         it "should claim the correct account, depending where the incoming message goes to" do

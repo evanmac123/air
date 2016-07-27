@@ -69,9 +69,11 @@ feature 'Adds user' do
     expect_add_failed_message "Please enter a first and last name"
   end
 
+  #FIXME this functionality may no longer be used in the system. 2016-07-16
   it "should generate unique claim codes for each user" do
-    2.times do
+    [1,2].each do|num|
       fill_in "user[name]", with: "John Smith"
+      fill_in "user[email]", :with => "jemsh#{num}@example.com"
       click_button "Add User"
     end
 
