@@ -2,10 +2,13 @@ require 'spec_helper'
 
 describe 'Highchart#convert_date' do
   it "should convert a 'day/month/year' string to a 'month/day/year' DateTime" do
-    Highchart.convert_date('12/24/2012').should == '24/12/2012'.to_datetime
-    Highchart.convert_date('01/02/2012').should == '02/01/2012'.to_datetime
-    Highchart.convert_date('7/4/2012').should   == '4/7/2012'.to_datetime
-    Highchart.convert_date('11/6/2012').should  == '6/11/2012'.to_datetime
+    expect(Highchart.convert_date('12/24/2012')).to eq('24/12/2012'.to_datetime)
+
+    expect(Highchart.convert_date('01/02/2012')).to eq('02/01/2012'.to_datetime)
+
+    expect(Highchart.convert_date('7/4/2012')).to eq('4/7/2012'.to_datetime)
+
+    expect(Highchart.convert_date('11/6/2012')).to eq('6/11/2012'.to_datetime)
   end
 end
 
@@ -47,10 +50,10 @@ describe 'A group of tests...' do
       num_acts  = act_points.values.sum
       num_users = user_points.values.sum
 
-      num_acts.should  == 8
-      num_users.should == 8
+      expect(num_acts).to eq(8)
+      expect(num_users).to eq(8)
 
-      demo.acts.count.should == 16  # Make sure the bad acts were created
+      expect(demo.acts.count).to eq(16)  # Make sure the bad acts were created
 
       # Make sure each hour contains the correct number of acts and users
       # (Boundary hour got acts for +/- 1- and 2-minutes, while inner hours got just one act per hour)
@@ -260,12 +263,11 @@ describe 'Yet another group of tests...' do
   #
   # And if Phil ever assigns me *anything time-related in Rails* again.. well, he's bigger than me so I probably won't do anything.
 
-  describe 'Hourly#data_points' do
+  describe 'Hourly#data_points', focus: true do
     it 'should return the right number of acts and users' do
       day = Highchart.convert_date('11/11/2012')
       hour_1  = day + 1.hours + 5.hours
       hour_2  = day + 2.hours + 5.hours
-      hour_3  = day + 3.hours + 5.hours
       hour_21 = day + 21.hours
       hour_22 = day + 22.hours
       hour_23 = day + 23.hours
@@ -317,11 +319,12 @@ describe 'Yet another group of tests...' do
                       (21 - 5) => Y.new(6, 2),
                       (22 - 5) => Y.new(3, 1),
                       (23 - 5) => Y.new(1, 1)]
+
       y_values.default = Y.new(0, 0)
 
       0.upto(23) do |hour|
-        act_points[hour].should  == y_values[hour].acts
-        user_points[hour].should == y_values[hour].users
+        expect(act_points[hour]).to eq(y_values[hour].acts)
+        expect(user_points[hour]).to eq(y_values[hour].users)
       end
     end
   end
@@ -330,7 +333,6 @@ describe 'Yet another group of tests...' do
     it 'should return the right number of acts and users' do
       day_1 = Highchart.convert_date('7/1/2012')
       day_2 = Highchart.convert_date('7/4/2012')
-      day_3 = Highchart.convert_date('7/11/2012')
       day_4 = Highchart.convert_date('7/19/2012')
       day_5 = Highchart.convert_date('7/21/2012')
       day_6 = Highchart.convert_date('7/31/2012')

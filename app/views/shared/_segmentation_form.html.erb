@@ -1,21 +1,28 @@
 <% all_characteristics = dummy_characteristics + generic_characteristics + demo_specific_characteristics %>
 <%= render 'shared/prototype_characteristic_select', :all_characteristics => all_characteristics %>
 
-<%= form_tag segmentation_url, :class => 'section', :id => 'segmentation-form' do %>
+<%= form_tag segmentation_url, class: 'section', id: 'segmentation-form' do %>
   <fieldset>
     <div id="segmentation_parameters">
       <p class="label">Select a characteristic:</p>
-      <!--mustbelikethisforspacing-->
-      <div class="segmentation-triple-wrapper"><%= link_to 'Remove', '#', id: 'remove_this_characteristic_0', class: 'remove_this_characteristic' %><ul class="characteristics"><li class="segment-col1"><select name="segment_column[0]" id="segment_column_0" class="segment-column"></select></li><li class="segment-col2"><select name="segment_operator[0]" id="segment_operator_0" class="segment-operator"></select></li><li class="segment-col3"><select name="segment_value[0]" id="segment_value_0" class="segment-value"></select></li></ul>
-      <!--end-->
+      <div class="characteristics">
+        <div class="segment-col1">
+          <select name="segment_column[0]" id="segment_column_0" class="segment-column">
+          </select>
+        </div>
+        <div class="segment-col2">
+          <select name="segment_operator[0]" id="segment_operator_0" class="segment-operator">
+          </select>
+        </div>
+        <div class="segment-col3">
+          <select name="segment_value[0]" id="segment_value_0" class="segment-value">
+          </select>
+        </div>
       </div>
     </div>
-    <div id="segmentation_buttons">
-      <a href="#" id="add_more_characteristics">Add characteristic</a>
-      <!--< %= link_to "Add another", "#", :id => "add_more_characteristics" %>-->
-      <%= submit_tag "Find segment" %>
-      <%= image_tag "spinner_gears.gif", :style => 'display: none', :id => 'find-segment-spinner' %>
-    </div>
+    <%= link_to "Add Characteristic", "#", id: "add_more_characteristics", class: "success button segmentation-button" %><br><br>
+    <%= submit_tag "Find segment", class: "success button segmentation-button" %>
+    <%= image_tag "spinner_gears.gif", style: 'display: none', id: 'find-segment-spinner' %>
   </fieldset>
 <% end %>
 
@@ -78,7 +85,7 @@
                return('<option>' + value + '</option>')
              }).join('');
     }
-    
+
     $('.segment-column').live('change', function(e) {
       characteristicId = $(e.target).val();
 
@@ -94,7 +101,7 @@
 
         $('#' + segmentValueId).replaceWith(inputSpecifierHtml);
         $('#' + segmentOperatorId).html(allowedOperatorOptions);
-      } 
+      }
     });
 
     $('.remove_this_characteristic').live('click', function(e) {
@@ -111,7 +118,7 @@
       newSelectId = function(partName) {
         return 'segment_' + partName + '_' + nextSegmentationIndex
       }
-      
+
       segmentColumnName = newSelectName('column');
       segmentColumnId = newSelectId('column');
       segmentValueName = newSelectName('value');
@@ -123,18 +130,18 @@
 
       newSelectHtml = [
         '<div class="segmentation-triple-wrapper">',
-        '<a id="' + removeId + '" class="remove_this_characteristic" href="#">Remove</a>',
-        '<ul class="characteristics">',
-        '<li class="segment-col1"><select name="' + segmentColumnName + '" id="' + segmentColumnId + '" class="segment-column"></select></li>',
-        '<li class="segment-col2"><select name="' + segmentOperatorName + '" id="' + segmentOperatorId + '" class="segment-operator"></select></li>',
-        '<li class="segment-col3"><select name="' + segmentValueName + '" id="' + segmentValueId + '" class="segment-value"></select></li>',
-        '</ul>',
+        '<a id="' + removeId + '" class="remove_this_characteristic" href="#">remove characteristic</a>',
+        '<div class="characteristics">',
+        '<div class="segment-col1"><select name="' + segmentColumnName + '" id="' + segmentColumnId + '" class="segment-column"></select></div>',
+        '<div class="segment-col2"><select name="' + segmentOperatorName + '" id="' + segmentOperatorId + '" class="segment-operator"></select></div>',
+        '<div class="segment-col3"><select name="' + segmentValueName + '" id="' + segmentValueId + '" class="segment-value"></select></div>',
+        '</div>',
         '</div>'
       ].join('');
 
       $('#segmentation_parameters').append(newSelectHtml);
       $('#' + segmentColumnId).append(characteristicSelectHtml).data('value_select_id', segmentValueId);
-      
+
       nextSegmentationIndex += 1;
     });
 
@@ -147,8 +154,8 @@
       requestUrl = segmentationForm.attr('action') + '.js';
       requestParams = segmentationForm.serialize();
 
-      $.post(requestUrl, 
-             requestParams, 
+      $.post(requestUrl,
+             requestParams,
              function(data) {
                $('#find-segment-spinner').hide();
                $('#segmentation-results').replaceWith(data)

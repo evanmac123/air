@@ -9,11 +9,17 @@ class GenericMailer < ActionMailer::Base
 
   default reply_to: 'support@airbo.com'
 
-  def send_message(demo_id, user_id, subject, plain_text, html_text)
-    @user = User.find(user_id)
+  def send_message(demo_id, user_id, subject, plain_text, html_text, potential_users)
+    unless potential_users
+      @user = User.find(user_id)
+    else
+      @user = PotentialUser.find(user_id)
+    end
+
     return unless @user.email.present?
 
     _invitation_url = invitation_url(@user.invitation_code, demo_id: demo_id)
+
 
     @html_text = interpolate_invitation_url(_invitation_url, html_text).html_safe
     @plain_text = interpolate_invitation_url(_invitation_url, plain_text).html_safe
@@ -35,17 +41,18 @@ class GenericMailer < ActionMailer::Base
   end
 
   class BulkSender
-    def initialize(demo_id, user_ids, subject, plain_text, html_text)
+    def initialize(demo_id, user_ids, subject, plain_text, html_text, potential_users = false)
       @demo_id = demo_id
       @user_ids = user_ids
       @subject = subject
       @plain_text = plain_text
       @html_text = html_text
+      @potential_users = potential_users
     end
 
     def send_bulk_mails
       @user_ids.each do |user_id|
-        GenericMailer.delay_mail(:send_message, @demo_id, user_id, @subject, @plain_text, @html_text)
+        GenericMailer.delay_mail(:send_message, @demo_id, user_id, @subject, @plain_text, @html_text, @potential_users)
       end
     end
   end

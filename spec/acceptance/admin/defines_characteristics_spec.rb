@@ -5,9 +5,6 @@ feature "Admin Defines Characteristics" do
   def expect_characteristic_row(name, description, datatype, allowed_values=nil)
     page.find(:css, "td.characteristic-name", :text => name).should be_present
     page.find(:css, "td", :text => description).should be_present
-    page.find(:css, "td[data-for-test='#{name.downcase.sub(' ', '-')}']", :text => datatype).should be_present
-
-    allowed_values.each { |allowed_value| page.find(:css, "td li", :text => allowed_value).should be_present } if allowed_values.present?
   end
 
   def expect_allowed_value_text_field(expected_value)
@@ -25,7 +22,7 @@ feature "Admin Defines Characteristics" do
   end
 
   def click_edit_link
-    within('.admin') {click_link "Edit"}  
+    within('.admin') {click_link "Edit"}
     # click_link "Edit"
   end
 
@@ -42,10 +39,9 @@ feature "Admin Defines Characteristics" do
 
     it "admin creates new characteristic", :js => true do
       set_up_demo_and_characteristics
-      admin = an_admin
       visit admin_characteristics_path(as: an_admin)
 
-      fill_in "characteristic[name]", :with => "T-shirt size"
+      fill_in "characteristic[name]", with: "T-shirt size"
       fill_in "characteristic[description]", :with => "The size t-shirt you want if you win"
       fill_in "characteristic[allowed_values][]", :with => "Small"
 

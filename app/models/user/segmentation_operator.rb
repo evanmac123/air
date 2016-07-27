@@ -86,7 +86,7 @@ end
 
 class User::EqualsOperator < User::SegmentationOperator
   # This is a hack, since there's no explicit "eq" operator. But since the
-  # operator is getting called on a symbol to start with, 
+  # operator is getting called on a symbol to start with,
   #
   #   where(:foo => :bar) == where(:foo.to_sym => :bar)
   has_simple_mongo_translation :to_sym

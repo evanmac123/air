@@ -76,7 +76,7 @@ feature 'Admin conducts raffle' do
       select "equals", :from => "segment_operator[0]"
       select "#{@locations[0].name} (#{@demo.name})", :from => "segment_value[0]"
 
-      click_link "Add characteristic"
+      click_link "Add Characteristic"
       select "Shirt size", :from => "segment_column[1]"
       select "equals", :from => "segment_operator[1]"
       select "medium", :from => "segment_value[1]"

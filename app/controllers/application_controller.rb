@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
     "explore_v_1"  => "Explore - v. 8/25/14"
   }
 
-  before_filter :force_ssl 
+  before_filter :force_ssl
   before_filter :authorize
   before_filter :disable_mime_sniffing
   before_filter :disable_framing
@@ -44,7 +44,7 @@ class ApplicationController < ActionController::Base
     referrer_hash = User.referrer_hash(referrer)
     invitation_preview_url({:code => user.invitation_code}.merge(@referrer_hash))
   end
-  
+
   def force_ssl
 		return true unless prod_or_testing_ssl_outside_of_prod
     redirect_required = false
@@ -54,13 +54,13 @@ class ApplicationController < ActionController::Base
     unless request.ssl?
       redirect_required = true
     end
-    
+
     if redirect_required
       redirect_hostname = hostname_with_subdomain
       redirection_parameters = {
-        :protocol   => 'https', 
-        :host       => redirect_hostname, 
-        :action     => action_name, 
+        :protocol   => 'https',
+        :host       => redirect_hostname,
+        :action     => action_name,
         :controller => controller_name
       }.reverse_merge(params)
 
@@ -68,14 +68,14 @@ class ApplicationController < ActionController::Base
       return false
     end
   end
- 
+
   def force_no_ssl
     return unless request.ssl?
 
     redirection_parameters = {
-      :protocol   => 'http', 
-      :host       => request.host, 
-      :action     => action_name, 
+      :protocol   => 'http',
+      :host       => request.host,
+      :action     => action_name,
       :controller => controller_name
     }.reverse_merge(params)
 
@@ -92,7 +92,7 @@ class ApplicationController < ActionController::Base
   end
 
   def show_conversion_form_provided_that(allow_reshow = false)
-    # uncommenting this next line is handy for e.g. working on style or copy of 
+    # uncommenting this next line is handy for e.g. working on style or copy of
     # conversion form, as it will make the conversion form always pop.
     #return(@show_conversion_form = true)
 
@@ -259,7 +259,7 @@ class ApplicationController < ActionController::Base
   def explore_token_allowed
     false
   end
-  
+
   def find_explore_token
     params[:explore_token] || session[:explore_token]
   end
@@ -277,9 +277,9 @@ class ApplicationController < ActionController::Base
     #session things for marketing page ping
 
     if user.is_a? User
-      session[:user_id] = user.id 
+      session[:user_id] = user.id
     elsif user.is_a? GuestUser
-      session[:guest_user_id] = user.id 
+      session[:guest_user_id] = user.id
     end
 
 
@@ -352,7 +352,7 @@ class ApplicationController < ActionController::Base
   end
 
   def merge_flashes
-    unless @flash_successes_for_next_request.empty?      
+    unless @flash_successes_for_next_request.empty?
       flash[:success] = (@flash_successes_for_next_request + [flash[:success]]).join(' ')
     end
 
@@ -384,11 +384,11 @@ class ApplicationController < ActionController::Base
       Demo.default_persistent_message
     end
   end
- 
+
   def use_persistent_message?
     !(@display_get_started_lightbox) && @use_persistent_message.present?
   end
- 
+
   def log_out_if_logged_in
     current_user.reset_remember_token! if current_user
     cookies.delete(:remember_token)
@@ -400,7 +400,6 @@ class ApplicationController < ActionController::Base
   end
 
   def attempt_segmentation(demo)
-
     if params[:segment_column].present?
       if (params[:segment_column].length > 1 and params[:segment_column].values.include?("")) or
          (params[:segment_value] and params[:segment_value].values.include?(""))
@@ -409,7 +408,7 @@ class ApplicationController < ActionController::Base
         @segmentation_result = current_user.set_segmentation_results!(params[:segment_column], params[:segment_operator], params[:segment_value], demo)
       end
     end
-    
+
     respond_to do |format|
       format.html { redirect_to :back }
       format.js   { render partial: "shared/segmentation_results", locals: {segmentation_results: @segmentation_result}, layout: false }
@@ -451,7 +450,7 @@ class ApplicationController < ActionController::Base
   end
 
   # Note that subclasses of ApplicationController must implement their own
-  # board_is_public? method if they want to use allow_guest_user, since 
+  # board_is_public? method if they want to use allow_guest_user, since
   # there's no single way that we decide which board is pertinent in which
   # action.
 
@@ -517,7 +516,7 @@ class ApplicationController < ActionController::Base
   end
 
   def no_newrelic_for_site_admins
-    # The second conditional is a stupid hack because of the mess our 
+    # The second conditional is a stupid hack because of the mess our
     # authentication system is. Site admins have hundreds of boards available,
     # other users don't.
     if (current_user && current_user.is_site_admin) || (@boards_to_switch_to && @boards_to_switch_to.length > 100)
@@ -544,7 +543,7 @@ class ApplicationController < ActionController::Base
 
  	def enable_miniprofiler
 		if Rails.env.production_local? || (current_user && Rails.env.production? && PROFILABLE_USERS.include?(current_user.email))
-			Rack::MiniProfiler.authorize_request  
+			Rack::MiniProfiler.authorize_request
 		end
 	end
 
@@ -556,7 +555,7 @@ class ApplicationController < ActionController::Base
   end
 
 	def prod_or_testing_ssl_outside_of_prod
-    Rails.env.production? || $test_force_ssl 
+    Rails.env.production? || $test_force_ssl
   end
 
   def parse_start_and_end_dates

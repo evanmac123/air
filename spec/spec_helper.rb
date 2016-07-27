@@ -4,9 +4,6 @@ require 'rubygems'
 ENV["RAILS_ENV"] ||= 'test'
 ENV["AWS_SECRET_ACCESS_KEY"] ||= "fake_key"
 
-log_file = Rails.root.join("log/test.log")
-File.truncate(log_file, 0) if File.exist?(log_file)
-
 test_counter = 0
 
 require File.expand_path("../../config/environment", __FILE__)
@@ -17,6 +14,10 @@ require 'mocha/setup'
 require 'capybara/poltergeist'
 
 require 'capybara-screenshot/rspec'
+
+log_file = Rails.root.join("log/test.log")
+File.truncate(log_file, 0) if File.exist?(log_file)
+
 Capybara::Screenshot.autosave_on_failure = false
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -80,7 +81,7 @@ RSpec.configure do |config|
     test_counter +=1
     full_example_description = "Starting #{self.example.description} "
     Rails.logger.info("\n#{'-'*80}\n#{full_example_description} #{test_counter}--#{path}\n#{'-' * (full_example_description.length)}")
-    
+
   end
 
   config.before(:each) do

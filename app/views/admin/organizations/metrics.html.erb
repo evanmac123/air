@@ -1,17 +1,15 @@
-
 <div class="row">
-
+  <div class="columns large-12">
+      <h2 class="blue"><%= link_to "Admin", admin_path, class: "blue" %> | Metrics and KPIs</h2>
+  </div>
   <div class="columns small-12 small-centered">
-<h1> Metrics and KPIs </h1>
-
-
-<%= render "cust_kpi_menu", active: "kpi" %>
+    <%= render "cust_kpi_menu", active: "kpi" %>
   </div>
 </div>
 <div class="row">
 
   <div class="columns small-12 small-centered">
-    <%=form_tag organization_metrics_path do %> 
+    <%=form_tag organization_metrics_path do %>
       <table>
         <caption>Reporting Period</caption>
         <thead>
@@ -26,8 +24,8 @@
             <td><%=text_field_tag "sdate", @sdate, type: :date%></td>
             <td><%=text_field_tag "edate",@edate, type: :date%></td>
     <td><%=submit_tag "Get Data", class:"button td-button right"%></td>
-            
-          </tr> 
+
+          </tr>
         </tbody>
       </table>
     <table>
@@ -47,13 +45,10 @@
       </tbody>
     </table>
 
-    <%=link_to "Download CSV", organization_metrics_path(sdate:@sdate, edate: @edate, format: :csv),  class:"button right"%> 
+    <%=link_to "Download CSV", organization_metrics_path(sdate:@sdate, edate: @edate, format: :csv),  class:"button right"%>
   <%end%>
   </div>
-  <%=form_tag historical_metrics_path do%> 
+  <%=form_tag historical_metrics_path do%>
     <%=submit_tag "Process Historical Metrics", class: "button outlined"%>
   <%end%>
 </div>
-
-
-

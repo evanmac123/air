@@ -1,4 +1,5 @@
 Health::Application.routes.draw do
+  get "users/index"
 
   match "sms"           => "sms#create", :via => :post
   match "email"         => "email_command#create", :via => :post
@@ -294,6 +295,12 @@ Health::Application.routes.draw do
         resource :test_status, :only => :update
       end
 
+      resource :dependent_board, only: [:show] do
+        get "users", to: "dependent_boards/users#index"
+      end
+
+      post "dependent_board/send_targeted_message", to: "dependent_boards#send_targeted_message"
+
       resource :bulk_load, :only => [:new, :create]
 
       namespace :reports do
@@ -317,12 +324,14 @@ Health::Application.routes.draw do
       resources :characteristics
 
       resource :segmentation
+
       resource :targeted_messages
 
       resource :raffles
       resource :gold_coin_reset
       resource :peer_invitations, :only => [:show]
       resource :paid_status
+
     end #demo namespace
 
     resources :users, :only => [] do

@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="columns large-12">
+      <h3 class="blue"><%= link_to "Admin", admin_path, class: "blue" %> | <%= link_to @demo.name, admin_demo_path(@demo), class: "blue" %> | Peer Invitations</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="columns large-12">
+    <% if @invitation_count %>
+      <h3>
+        <%= @invitation_count %> invitations sent from <%= @start_time_description %> to <%= @end_time_description %>
+      </h3>
+    <% end %>
+  </div>
+
+  <%= form_tag admin_demo_peer_invitations_path(@demo), method: 'get' do |form| %>
+    <div class="columns large-3">
+      <%= label_tag "start_time", "Start at" %>
+      <%= text_field_tag "start_time" %>
+    </div>
+    <div class="columns large-3">
+      <%= label_tag "end_time", "End at" %>
+      <%= text_field_tag "end_time" %>
+    </div>
+    <div class="columns large-12">
+      <%= submit_tag "Count invitations", class: "button success" %>
+    </div>
+  <% end %>
+</div>

@@ -5,7 +5,7 @@ end
 When /^I pry$/ do
   binding.pry
 end
-
+``
 When /^I dump the page$/ do
   puts page.body
 end

@@ -16,7 +16,6 @@ class PushMessage < ActiveRecord::Base
 
   def perform
     update_attributes(state: SENDING)
-
     user_ids = User::Segmentation.load_segmented_user_information(segment_query_columns,
                                                                   segment_query_operators,
                                                                   segment_query_values,
@@ -49,6 +48,6 @@ class PushMessage < ActiveRecord::Base
   end
 
   def self.in_time_order
-    order("scheduled_for ASC NULLS FIRST")  
+    order("scheduled_for ASC NULLS FIRST")
   end
 end
