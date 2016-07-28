@@ -3,6 +3,12 @@ require 'rubygems'
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
 ENV["AWS_SECRET_ACCESS_KEY"] ||= "fake_key"
+
+log_file = Rails.root.join("log/test.log")
+File.truncate(log_file, 0) if File.exist?(log_file)
+
+test_counter = 0
+
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'clearance/testing'
@@ -70,6 +76,11 @@ RSpec.configure do |config|
   config.before(:each) do
     Mixpanel::Tracker.stubs(:new).with(MIXPANEL_TOKEN, Mocha::ParameterMatchers::KindOf.new(Hash)).returns(FakeMixpanelTracker)
     FakeMixpanelTracker.clear_tracked_events
+    path = example.metadata[:example_group][:file_path]
+    test_counter +=1
+    full_example_description = "Starting #{self.example.description} "
+    Rails.logger.info("\n#{'-'*80}\n#{full_example_description} #{test_counter}--#{path}\n#{'-' * (full_example_description.length)}")
+    
   end
 
   config.before(:each) do
