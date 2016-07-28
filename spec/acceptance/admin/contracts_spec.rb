@@ -27,7 +27,7 @@ feature "Contracts", js:true, driver: :webkit do
     before do
       @parent = FactoryGirl.create(:contract, :complete, organization: @org)
     end
-    scenario "creates a upgrade contract with mrr for organization" do#, driver: :selenium do
+    pending "creates a upgrade contract with mrr for organization" do#, driver: :selenium do
       begin_contract
       screenshot_and_save_page
       page.find("tr", text: @parent.name).click
