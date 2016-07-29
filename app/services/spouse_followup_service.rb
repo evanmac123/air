@@ -36,7 +36,7 @@ class SpouseFollowupService
     end
 
     def select_recipients
-      if recipients == "active users"
+      if recipients == "active users" || recipients == "send test message to current user"
         false
       elsif recipients == "potential users"
         true
