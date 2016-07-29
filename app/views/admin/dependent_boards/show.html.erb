@@ -59,7 +59,7 @@
 </div>
 <br>
 <div class="row">
-  <% message = @dependent_board.push_messages.last %>
+  <% message = @dependent_board.push_messages.last || PushMessage.new %>
   <%= form_tag admin_demo_dependent_board_send_targeted_message_path(@dependent_board, params: { primary_board: @demo.id }), id: 'message-content' do %>
     <legend>Email</legend>
     <br>
