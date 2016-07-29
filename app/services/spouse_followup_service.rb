@@ -1,7 +1,8 @@
 class SpouseFollowupService
   attr_reader :dependent_board, :recipients, :user_ids, :subject, :plain_text, :html_text
 
-  def initialize(params)
+  def initialize(params, current_user)
+    @current_user = current_user
     @dependent_board = Demo.find(params[:demo_id])
     @recipients = params[:recipients]
     @user_ids = find_users
@@ -29,6 +30,8 @@ class SpouseFollowupService
         dependent_board.users.pluck(:id)
       elsif recipients == "potential users"
         dependent_board.potential_users.pluck(:id)
+      elsif recipients == "send test message to current user"
+        [@current_user.id]
       end
     end
 

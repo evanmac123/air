@@ -5,15 +5,15 @@
 
       <ul id="confirm-add-user">
         <li id="add-user-button">
-          <%= submit_tag "Save edits" %>
+          <%= submit_tag "Save edits", class: "button" %>
         </li>
 
         <%= link_to "Delete user",
           client_admin_user_path(user),
            confirm: "Deleting users is irrevocable. There is no undo. All the history we have on this user (activities, connections, everything) will be gone forever if you push this button.", method: :delete ,
-           id: "delete-user" 
+           id: "delete-user"
         %>
-      </ul>      
+      </ul>
     </div>
   </div>
   <div class="large-2 columns" id="about-this-account">

@@ -5,7 +5,7 @@ class Admin::DependentBoardsController < AdminBaseController
   end
 
   def send_targeted_message
-    message = SpouseFollowupService.new(spouse_followup_params)
+    message = SpouseFollowupService.new(spouse_followup_params, current_user)
     message.send_message
 
     flash[:success] = "Scheduled email to #{message.user_ids.length} users."

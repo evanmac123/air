@@ -1,0 +1,33 @@
+<% invisible_flash_keys = [/^mp_track/, /^mp_alias/, /_allow_raw$/, /_flag$/, /previous_/, /tile_activated/] %>
+
+<% if listified_flash.any? %>
+  <div id="flash">
+    <% listified_flash.each do |key, value| -%>
+      <% next if invisible_flash_keys.any?{|regex| key.to_s =~ regex} %>
+      <div class="row">
+        <div class="flash-close">
+          <a href="#" id="close-flash">x</a>
+        </div>
+      </div>
+      <div id="flash_<%= key %>">
+        <div class="row">
+          <div class="flash-content large-12 columns">
+            <% bracketless = value.flatten.compact.map{|value_part| value_part.gsub('["', '').gsub('"]', '')} %>
+            <% result = if raw_allowed_in_flash?(key) %>
+              <% bracketless.length == 1 ? bracketless.first : bracketless %>
+            <% else %>
+              <% bracketless = bracketless.map{|value_part| "<div>" + h(value_part) + "</div>"}.join %>
+              <% bracketless.gsub! "support@airbo.com", link_to("support@airbo.com", "mailto:support@airbo.com") %>
+              <% bracketless %>
+            <% end %>
+            <%= raw result %>
+          </div>
+        </div>
+      </div>
+    <% end -%>
+  </div>
+<% end %>
+
+<% js_at_end do %>
+  bindCloseFlash('#close-flash', <%=!!(@persistent_message_shown)%>);
+<% end %>

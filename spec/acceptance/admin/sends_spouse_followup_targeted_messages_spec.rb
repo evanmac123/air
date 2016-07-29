@@ -30,4 +30,20 @@ feature 'Admin sends spouse followup messages' do
 
     expect(ActionMailer::Base.deliveries.count).to eq(6)
   end
+
+  it "should send email to current user when send test message to current user is selected", js: true do
+    Delayed::Worker.delay_jobs = false
+
+    @spouse_demo = FactoryGirl.create(:demo, name: "Spouse Board")
+    @primary_demo = FactoryGirl.create(:demo, name: "Primary Board", dependent_board_enabled: true, dependent_board_id: @spouse_demo.id)
+
+    visit admin_demo_dependent_board_path(@primary_demo, as: an_admin)
+
+    select "send test message to current user", from: "recipients"
+    fill_in "subject", with: "current user"
+    fill_in "html_text", with: "test"
+    click_button "Send Message"
+
+    expect(ActionMailer::Base.deliveries.count).to eq(1)
+  end
 end
