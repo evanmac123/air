@@ -52,7 +52,8 @@ end
 RSpec.configure do |config|
   config.mock_with :mocha
   config.use_transactional_fixtures = false
-
+  config.fail_fast = true
+  
   config.around(:each) do |example|
     # It should do all of this automatically. Want to bet on whether it does or not?
     if example.metadata[:driver]
