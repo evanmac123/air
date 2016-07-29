@@ -13,7 +13,6 @@ feature 'Designates board paid or free' do
     board = FactoryGirl.create(:demo)
     user = an_admin
     visit admin_demo_path(board, as: user)
-    expect_free_board_copy
 
     click_make_paid
     expect_ping 'Board Type', {type: "Paid"}, user
