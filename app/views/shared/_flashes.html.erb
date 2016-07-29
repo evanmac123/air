@@ -4,11 +4,6 @@
   <div id="flash">
     <% listified_flash.each do |key, value| -%>
       <% next if invisible_flash_keys.any?{|regex| key.to_s =~ regex} %>
-      <div class="row">
-        <div class="flash-close">
-          <a href="#" id="close-flash">x</a>
-        </div>
-      </div>
       <div id="flash_<%= key %>">
         <div class="row">
           <div class="flash-content large-12 columns">
@@ -21,6 +16,9 @@
               <% bracketless %>
             <% end %>
             <%= raw result %>
+          </div>
+          <div class="flash-close">
+            <a href="#" id="close-flash">x</a>
           </div>
         </div>
       </div>
