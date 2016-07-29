@@ -49,7 +49,7 @@ class User < ActiveRecord::Base
   has_one    :original_guest_user, :class_name => "GuestUser", :foreign_key => :converted_user_id, :inverse_of => :converted_user
   has_one    :billing_information
   has_one    :user_intro
-  has_one    :dependent_user,  class_name: "User", foreign_key: :primary_user_id
+  has_one    :dependent_user,  class_name: "User", foreign_key: :primary_user_id, dependent: :destroy
   has_one    :user_settings_change_log
   belongs_to :primary_user, class_name: "User"
 
