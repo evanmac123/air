@@ -18,7 +18,6 @@ feature 'Admin sends spouse followup messages' do
 
   it "should send email to all invited spouses who are not active users", :js => true do
     Delayed::Worker.delay_jobs = false
-
     set_up_models
 
     visit admin_demo_dependent_board_path(@primary_demo, as: an_admin)
