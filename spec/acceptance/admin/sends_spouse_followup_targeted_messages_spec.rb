@@ -30,7 +30,6 @@ feature 'Admin sends spouse followup messages' do
     expect(ActionMailer::Base.deliveries.count).to eq(6)
   end
 
-
   it "should send email to current user when send test message to current user is selected", js: true do
     Delayed::Worker.delay_jobs = false
 

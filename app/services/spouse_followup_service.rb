@@ -13,6 +13,12 @@ class SpouseFollowupService
   end
 
   def send_message
+    dependent_board.push_messages.create(
+      subject: subject,
+      plain_text: plain_text,
+      html_text: html_text
+    )
+
     GenericMailer::BulkSender.new(
       dependent_board.id,
       user_ids,
