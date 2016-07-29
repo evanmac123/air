@@ -69,15 +69,6 @@
     </div>
     <div id="subject-wrapper">
       <%= label_tag :subject %>
-      <%= text_field_tag "subject", @subject %>
-    </div>
-    <div id="html-text-wrapper">
-      <%= label_tag :html_text, "HTML text" %>
-      <%= text_area_tag "html_text", @html_text, :rows => 20, :cols => 100, :class => "tinymce" %>
-    </div>
-    <div id="plain-text-wrapper">
-      <%= label_tag :plain_text %>
-      <%= text_area_tag "plain_text", @plain_text, :rows => 20, :cols => 147 %>
       <%= text_field_tag "subject", message.subject %>
     </div>
     <div id="html-text-wrapper">
