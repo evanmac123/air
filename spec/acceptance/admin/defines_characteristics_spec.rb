@@ -8,7 +8,8 @@ feature "Admin Defines Characteristics" do
   end
 
   def expect_allowed_value_text_field(expected_value)
-    page.find(:css, %{[name="characteristic[allowed_values][]"][value="#{expected_value}"]}).should be_present
+    selector = '[name="characteristic[allowed_values][]"][value="' + expected_value + '"]'
+    page.find(:css, selector).should be_present
   end
 
   # We have all this nonsense because before(:each) and :js=>true do not play well together.
