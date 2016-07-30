@@ -11,6 +11,7 @@ feature "Client admin contacts airbo" do
     end
 
     it "should send ping", js: true, driver: :webkit do
+      pending "Convert to Controller spec"
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear
       FakeMixpanelTracker.should have_event_matching('Explore page - Interaction', "action"=>"Clicked \"Contact Airbo\" button")

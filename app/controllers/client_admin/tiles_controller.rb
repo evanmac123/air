@@ -77,6 +77,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @tile = get_tile
     if @tile
       @tile.destroy
+      #FIXME why is the ping destroy tile ping necessary?
       destroy_tile_ping params[:page]
     end
 

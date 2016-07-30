@@ -24,6 +24,7 @@ feature 'Lightbox for guest users' do
     end
 
     it "should send welcome pop-up ping" do
+      pending "Convert to controller spec"
       guest_user = GuestUser.last
       expect_ping "Saw welcome pop-up", {source: "Public Link"}, guest_user
     end

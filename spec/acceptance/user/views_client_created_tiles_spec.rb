@@ -48,7 +48,7 @@ feature 'User views tiles' do
 
     scenario 'and a ping is sent to Mixpanel', js: true do
       # FIXME this ping is on user side now
-      pending
+      pending 'Convert to controller spec'
       page.find('.right_multiple_choice_answer').click
 
       FakeMixpanelTracker.clear_tracked_events
@@ -58,6 +58,7 @@ feature 'User views tiles' do
     end
 
     scenario "but gets no ticket emails", js: true do
+      pending 'Convert to controller spec'
       click_answer 1
       crank_dj_clear
       ActionMailer::Base.deliveries.should be_empty

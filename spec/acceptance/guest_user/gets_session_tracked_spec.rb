@@ -7,6 +7,7 @@ feature "Guest user activity session tracking" do
   context "when a public board is first visited" do
     it "should log a new activity session" do
       visit public_board_path(board.public_slug)
+      pending 'Convert to controller spec'
 
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear
@@ -24,6 +25,7 @@ feature "Guest user activity session tracking" do
     end
 
     it "should long a new activity session" do
+      pending 'Convert to controller spec'
       visit public_board_path(board.public_slug)
 
       crank_dj_clear

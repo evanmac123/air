@@ -2,7 +2,7 @@ require 'acceptance/acceptance_helper'
 
 feature 'Visits marketing page' do
   def expect_marketing_blurb
-    expect_content "Create communications that drive employee engagement in any program, benefit, training or process."  
+    expect_content "Airbo is like a reinvented bulletin board."
   end
 
   context "as not user" do
@@ -14,6 +14,7 @@ feature 'Visits marketing page' do
     end
 
     scenario "pings Marketing page with has_ever_logged_in=false" do
+      pending 'Convert to controller spec'
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear
       FakeMixpanelTracker.should have_event_matching("viewed page", page_name: "Marketing Page", has_ever_logged_in: false )
@@ -33,6 +34,7 @@ feature 'Visits marketing page' do
     end 
 
     scenario "pings Marketing page" do
+      pending 'Convert to controller spec'
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear
       FakeMixpanelTracker.should have_event_matching("viewed page", \
@@ -52,6 +54,7 @@ feature 'Visits marketing page' do
     end 
 
     scenario "pings Marketing page" do
+      pending 'Convert to controller spec'
       @user = GuestUser.last
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear

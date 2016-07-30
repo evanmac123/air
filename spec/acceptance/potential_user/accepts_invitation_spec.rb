@@ -32,10 +32,12 @@ feature "Potential User Accepts Invitation" do
     end
 
     it "should send user-new ping" do
+      pending 'Convert to controller spec'
       expect_ping "User - New", {source: "User - Friend Invitation"}, @potential_user
     end
 
     it "should send welcome pop-up ping" do
+      pending 'Convert to controller spec'
       expect_ping "Saw welcome pop-up", {source: "Friend Invitation"}, @potential_user
     end
 
@@ -64,10 +66,12 @@ feature "Potential User Accepts Invitation" do
       end
 
       it "should send 'clicked next' ping", js: true do
+      pending 'Convert to controller spec'
         expect_ping "Saw welcome pop-up", {action: "Clicked 'Next'"}, @potential_user
       end
 
       it "should send 'entered name' ping", js: true do
+        pending 'Convert to controller spec'
         expect_ping "Saw welcome pop-up", {"action"=>"Entered Name"}, @potential_user
       end
     end

@@ -63,6 +63,7 @@ feature "interacts with a tile from the explore-preview page" do
 
     scenario "should ping", js: true do
       
+      pending 'Convert to controller spec'
       crank_dj_clear
       FakeMixpanelTracker.clear_tracked_events
 
@@ -144,6 +145,7 @@ feature "interacts with a tile from the explore-preview page" do
 
     scenario "ping when click linkedin icon", js: true do
       page.find('.share_linkedin').click            
+      pending 'Convert to controller spec'
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear
       properties = {"action" => 'Clicked share tile via LinkedIn', "tile_id" => @original_tile.id.to_s}
@@ -151,6 +153,7 @@ feature "interacts with a tile from the explore-preview page" do
     end
 
     scenario "ping when click linkedin icon", js: true do
+      pending 'Convert to controller spec'
       page.find('.share_mail').click            
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear

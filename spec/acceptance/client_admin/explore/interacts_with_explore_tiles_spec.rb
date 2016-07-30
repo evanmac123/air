@@ -21,6 +21,7 @@ feature "Interacts with tiles in explore page" do
   end
 
   it "pings when looking at a tile full-size", js: true do
+    pending "Convert to controller spec"
     tile = FactoryGirl.create(:multiple_choice_tile, :public)
     visit explore_path(as: a_client_admin)
 

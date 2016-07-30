@@ -66,6 +66,8 @@ class Admin::DemosController < AdminBaseController
   end
 
   def schedule_creation_ping
+   #FIXME why are we tracking our own site admin behavior in mixpanel?? for Fuck
+    #sake!!!
     ping 'Boards - New', {source: 'Site Admin'}, current_user
   end
 end

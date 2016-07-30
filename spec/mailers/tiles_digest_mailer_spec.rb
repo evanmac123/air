@@ -381,6 +381,8 @@ describe "#notify_one_explore" do
   let(:tile) {FactoryGirl.create(:tile)}
 
   it "should schedule a ping that the mail has been sent" do
+    pending 'Convert to controller spec'
+    #FIXME how should this be tested properly
     TilesDigestMailer.notify_one_explore(user.id, [tile.id], "subj", "head", "mess")
     FakeMixpanelTracker.clear_tracked_events
     crank_dj_clear

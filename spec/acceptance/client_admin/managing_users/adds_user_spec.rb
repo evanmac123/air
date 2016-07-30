@@ -83,6 +83,7 @@ feature 'Adds user' do
   end
 
   it "should send a mixpanel ping", js: true do
+    pending 'Convert to controller spec'
     fill_in_user_information
     click_button "Add User"
     FakeMixpanelTracker.clear_tracked_events
@@ -114,6 +115,7 @@ feature 'Adds user' do
     end
 
     it "should give a more appropriate mixpanel ping on inviting existing user", js: true do
+      pending 'Convert to controller spec'
       FactoryGirl.create(:user, email: USER_EMAIL)
       fill_in_user_information
 

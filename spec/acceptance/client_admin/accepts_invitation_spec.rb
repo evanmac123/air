@@ -150,6 +150,7 @@ feature "Client Admin Accepts Invitation" do
   end
 
   it "should send ping on friend invitation acceptance" do
+    pending "Convert to Controller spec"
     inviter = FactoryGirl.create :user
     visit invitation_path(@user.invitation_code, demo_id: inviter.demo.id, referrer_id: inviter.id)
 

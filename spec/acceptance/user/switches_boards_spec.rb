@@ -100,6 +100,7 @@ feature 'Switches boards' do
 
       context "mixpanel ping" do
         scenario "as a peon" do
+          pending 'Convert to controller spec'
           @user.is_client_admin.should be_false
           @user.is_site_admin.should be_false
           visit activity_path(as: @user)
@@ -111,6 +112,7 @@ feature 'Switches boards' do
         end
 
         scenario "as a client admin" do
+          pending 'Convert to controller spec'
           @user.is_client_admin = true
           @user.save!
 
@@ -123,6 +125,7 @@ feature 'Switches boards' do
         end
 
         scenario "as a site admin" do
+          pending 'Convert to controller spec'
           @user.is_site_admin = true
           @user.save!
 

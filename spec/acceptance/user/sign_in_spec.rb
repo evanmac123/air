@@ -8,6 +8,7 @@ feature 'Sign in' do
   end
 
   scenario 'page view should hit Mixpanel' do
+    pending 'Convert to controller spec'
     FakeMixpanelTracker.clear_tracked_events
 
     visit sign_in_path

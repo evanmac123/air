@@ -93,6 +93,7 @@ feature "Client Admin Interacts With Share And Public Section" do
       end
 
       scenario "sends share via #{name} ping", js: true do
+        pending "Convert to controller spec"
         expect_ping "Tile Shared", {"shared_to" => name, "tile_id" => @tile.id.to_s}, @client_admin
       end
     end

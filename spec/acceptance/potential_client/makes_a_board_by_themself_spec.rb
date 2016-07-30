@@ -102,12 +102,14 @@ feature 'Makes a board by themself' do
     end
 
     it "should send an appropriate ping for the board creation" do
+      pending 'Convert to controller spec'
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear
       FakeMixpanelTracker.should have_event_matching("Boards - New", source: 'Boards/new Page')
     end
 
     it "should send an appropriate ping for the creator creation" do
+      pending 'Convert to controller spec'
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear
       FakeMixpanelTracker.should have_event_matching("claimed account", source: 'Marketing Page')

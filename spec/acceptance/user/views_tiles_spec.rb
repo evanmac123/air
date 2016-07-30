@@ -54,6 +54,7 @@ feature 'User views tile' do
     end
 
     it "should ping", js: true do
+      pending 'Convert to controller spec'
       FakeMixpanelTracker.clear_tracked_events
       visit tiles_path
 

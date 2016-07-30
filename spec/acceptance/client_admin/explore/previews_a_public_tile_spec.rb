@@ -14,6 +14,7 @@ feature 'Previews a public tile' do
     end
 
     it "pings when the user clicks through the tag" do
+      pending 'Convert to controller spec'
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear
 

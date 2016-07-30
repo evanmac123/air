@@ -29,6 +29,7 @@ feature "activity session tracking" do
 
   context "when a user signs in" do
     it "should log a new activity session" do
+      pending 'Convert to controller spec'
       do_real_login
       crank_dj_clear
       FakeMixpanelTracker.should have_event_matching('Activity Session - New')
@@ -37,6 +38,7 @@ feature "activity session tracking" do
 
   context "when a user does something that triggers authorize after #{ApplicationController::ACTIVITY_SESSION_THRESHOLD} seconds or more" do
     it "should log a new activity session" do
+      pending 'Convert to controller spec'
       do_real_login
       crank_dj_clear
       FakeMixpanelTracker.clear_tracked_events

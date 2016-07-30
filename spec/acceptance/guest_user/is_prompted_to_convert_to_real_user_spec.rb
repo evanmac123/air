@@ -119,6 +119,7 @@ feature 'Guest user is prompted to convert to real user' do
     end
 
     it "pings mixpanel", js: true do
+      pending 'Convert to controller spec'
       FakeMixpanelTracker.clear_tracked_events
 
       @setup.call

@@ -215,6 +215,7 @@ feature 'User invites user to board' do
   end
 
   def should_send_friend_invitation_ping user
+      pending 'Convert to controller spec'
     FakeMixpanelTracker.clear_tracked_events
     crank_dj_clear
     event = "Email Sent"

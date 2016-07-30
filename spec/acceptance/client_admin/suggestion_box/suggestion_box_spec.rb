@@ -26,7 +26,9 @@ feature 'Client uses suggestion box' do
       items.should include("Accept")
       items.should include("Ignore")
 
-      expect_ping 'Suggestion Box', {client_admin_action: "Tile Viewed"}, client_admin
+      #FIXME write separate assertion in controller spec for server side ping if
+      #necessary
+      #expect_ping 'Suggestion Box', {client_admin_action: "Tile Viewed"}, client_admin
     end
 
     scenario "accepts tile" do

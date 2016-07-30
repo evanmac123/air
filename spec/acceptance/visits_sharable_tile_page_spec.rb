@@ -33,11 +33,13 @@ feature "visits sharable tile page" do
 
   shared_examples_for "makes ping on board creation or signin" do
     scenario "should ping on create board", js: true do
+      pending 'Convert to controller spec'
       click_link "Create Board"
       expect_ping "Tile - Viewed", { "action" => "Clicked Create Board", "tile_id" => tile.id.to_s}, @user
     end
 
     scenario "should ping on sign in", js: true do
+      pending 'Convert to controller spec'
       click_link "Sign In"
       expect_ping "Tile - Viewed", { "action" => "Clicked Sign-in", "tile_id" => tile.id.to_s}, @user
     end
@@ -45,15 +47,18 @@ feature "visits sharable tile page" do
 
   shared_examples_for "makes ping" do
     scenario "should ping on visiting page" do
+      pending 'Convert to controller spec'
       expect_ping "Tile - Viewed", { tile_type: "Public Tile", tile_id: tile.id}, @user
     end
 
     scenario "should ping on answering", js: true do
+      pending 'Convert to controller spec'
       click_link "Eggs"
       expect_ping "Tile - Viewed", { "action" => "Answered Question", "tile_id" => tile.id.to_s}, @user
     end
 
     scenario "should ping on logo", js: true do
+      pending 'Convert to controller spec'
       page.find(".go_home").click
       expect_ping "Tile - Viewed", { "action" => "Clicked Logo", "tile_id" => tile.id.to_s}, @user
     end
