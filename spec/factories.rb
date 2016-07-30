@@ -116,9 +116,10 @@ FactoryGirl.define do
 
     # This trait unlocks share pages
     trait :activated do |demo|
-      tiles do
-        [FactoryGirl.create(:multiple_choice_tile, status: Tile::ACTIVE, activated_at: Time.now, headline: "Tile #{SecureRandom.uuid}")]
-      end
+    
+      after(:create) do |demo, evaluator|
+        FactoryGirl.create(:multiple_choice_tile, status: Tile::ACTIVE, demo: demo,  activated_at: Time.now, headline: "Tile #{SecureRandom.uuid}")
+      end 
     end
 
     trait :with_turned_off_onboarding do
