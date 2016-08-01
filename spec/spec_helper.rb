@@ -46,8 +46,7 @@ Capybara.register_driver :webkit do |app|
 end
 
 
-
-
+ActiveRecord::Base.logger = nil
 
 RSpec.configure do |config|
   config.mock_with :mocha
