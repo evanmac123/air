@@ -57,11 +57,12 @@ describe "any controller descended from ApplicationController" do
 
 end
 
+# TODO: DEPRECATE "invalid ping logger" not used 
 describe AnyController do
   context "invalid ping logger" do
     controller do
       skip_before_filter :authorize
-      
+
       def index
         user = params[:user].present? ? FactoryGirl.create(:guest_user) : nil
         ping("some event", {}, user )
@@ -84,13 +85,13 @@ describe AnyController do
     end
 
     pending "should log ping without user", :make_controller do
-      #FIXME "This test causes all subsquent test to fail when run in suite" 
+      #FIXME "This test causes all subsquent test to fail when run in suite"
         Rails.logger.expects(:warn).with("INVALID USER PING SENT some event")
         get :index
     end
 
     pending "should log ping without user", :make_controller do
-      #FIXME "This test causes all subsquent test to fail when run in suite" 
+      #FIXME "This test causes all subsquent test to fail when run in suite"
         Rails.logger.expects(:warn).never
         get :index, :user => true
     end
