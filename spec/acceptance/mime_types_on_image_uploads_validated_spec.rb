@@ -9,4 +9,7 @@ feature 'Mime types on image uploads validated' do
     visit new_client_admin_tile_path(as: a_client_admin)
     fake_upload_image "not_an_image.txt"
   end
+
+  # TODO: test_suite_remediation: Do we want to keep this test?
+  
 end

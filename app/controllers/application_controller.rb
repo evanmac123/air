@@ -190,6 +190,7 @@ class ApplicationController < ActionController::Base
         refresh_activity_session(current_user)
         return true
       else
+        # TODO: test_suite_remediation: I think these flash messages are deprecated in the user flow.  Should remove along with pending specs in spec/acceptance/guest_user/gets_helpful_message_if_they_try_to_break_out_of_the_sandbox_spec.rb
         guest = GuestUser.where(id: session[:guest_user_id]).first
         demo = guest.try(:demo)
         if demo && $rollout.active?(:suppress_conversion_modal, demo)
