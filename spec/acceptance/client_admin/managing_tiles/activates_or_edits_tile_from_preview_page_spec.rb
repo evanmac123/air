@@ -46,7 +46,6 @@ feature 'Activates or edits tile from preview page', js:true do
     end
 
     it "should not show an activate link" do
-      save_and_open_page
       expect_no_activate_link
     end
   end
@@ -139,24 +138,16 @@ feature 'Activates or edits tile from preview page', js:true do
     end
   end
 
-  def activate_link_text
-    "Post"
+
+
+
+
+  def link_with_exact_text(text)
+    page.all("a", text: /\A#{text}\z/)
   end
 
-  def reactivate_link_text
-    "Repost"
-  end
-
-  def deactivate_link_text
-    "Archive"
-  end
-
-  def edit_link_text
-    "Edit"
-  end
-
-  def links_with_text(text)
-    page.all("a", text: text)
+  def link_with_text(text)
+    page.all("a", text: /\A#{text}\z/)
   end
 
   def click_activate_link
@@ -172,19 +163,19 @@ feature 'Activates or edits tile from preview page', js:true do
   end
 
   def click_edit_link
-    within('.content') {click_link edit_link_text}
+    within('.content') {click_link "Edit"}
   end
 
   def activate_links
-    links_with_text(activate_link_text)
+    link_with_text("Post")
   end
 
   def reactivate_links
-    links_with_text(reactivate_link_text)
+    link_with_text("Repost")
   end
 
   def deactivate_links
-    links_with_text(deactivate_link_text)
+    link_with_text('Archive')
   end
 
   def expect_activate_link
