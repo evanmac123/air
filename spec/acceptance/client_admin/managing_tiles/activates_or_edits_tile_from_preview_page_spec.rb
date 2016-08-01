@@ -1,3 +1,6 @@
+#FIXME these tests are passing but pretty poorly written. We don't need so many
+#test case here.!
+#
 require 'acceptance/acceptance_helper'
 
 feature 'Activates or edits tile from preview page', js:true do
@@ -70,8 +73,8 @@ feature 'Activates or edits tile from preview page', js:true do
 
     it "should link to the edit page" do
       click_edit_link
-      should_be_on edit_client_admin_tile_path(@tile)
-      #pending 'Convert to controller spec'
+      expect_content "Save Tile"
+      #pending 'Convert this part controller spec'
       #FIXME expect_mixpanel_action_ping('Tile Preview Page - Archive', 'Clicked Edit button')
     end
 
@@ -90,13 +93,15 @@ feature 'Activates or edits tile from preview page', js:true do
 
     it "should ping on clicking archive button" do
       pending 'Convert to controller spec'
-      click_link "Repost"
+      click_link "Post Again"
 
       expect_mixpanel_action_ping('Tile Preview Page - Archive', 'Clicked Re-post button')
     end
 
     it "should not show a deactivate link" do
-      expect_no_deactivate_link
+      within "#stat_change_sub" do
+        expect_no_deactivate_link
+      end
     end
   end
 
@@ -147,7 +152,7 @@ feature 'Activates or edits tile from preview page', js:true do
   end
 
   def link_with_text(text)
-    page.all("a", text: /\A#{text}\z/)
+    page.all("a", text: text)
   end
 
   def click_activate_link
@@ -163,11 +168,11 @@ feature 'Activates or edits tile from preview page', js:true do
   end
 
   def click_edit_link
-    within('.content') {click_link "Edit"}
+    within('.tile_preview_menu') {click_link "Edit"}
   end
 
   def activate_links
-    link_with_text("Post")
+    link_with_exact_text("Post")
   end
 
   def reactivate_links
