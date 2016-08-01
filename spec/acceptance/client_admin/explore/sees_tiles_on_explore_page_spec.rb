@@ -12,6 +12,8 @@ feature 'Sees tiles on explore page' do
   end
 
   it "should have a working \"Show More\" button", js: true do
+   #FIXME should not have sleeps in tests
+
     FactoryGirl.create_list(:tile, 47, :public)
     visit explore_path(as: a_client_admin)
     expect_thumbnail_count 16
@@ -19,11 +21,11 @@ feature 'Sees tiles on explore page' do
     # These "sleep"s are a terrible hack, but I haven't gotten any of the
     # saner ways to get Poltergeist to wait for the AJAX request to work yet.
     show_more_tiles_link.click
-    sleep 5
+    #sleep 5
     expect_thumbnail_count 32
 
     show_more_tiles_link.click
-    sleep 5
+    #sleep 5
     expect_thumbnail_count 47
   end
 
