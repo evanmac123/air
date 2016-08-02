@@ -48,7 +48,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   def edit
     @tile_builder_form =  get_tile
     new_or_edit @tile_builder_form
-    record_edit_ping
   end
 
   def update

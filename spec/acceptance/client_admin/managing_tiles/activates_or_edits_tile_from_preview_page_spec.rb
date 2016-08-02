@@ -24,12 +24,6 @@ feature 'Activates or edits tile from preview page', js:true do
       expect_tile_to_section_change "#active_tiles", "#archived_tiles"
     end
 
-    it "should link to the edit page" do
-      pending 'Convert to controller spec'
-      click_edit_link
-      expect_mixpanel_action_ping('Tile Preview Page - Posted', 'Clicked Edit button')
-    end
-
     it "should ping on clicking back to tiles button" do
       pending 'Convert to controller spec'
       click_link "Back to Tiles"
