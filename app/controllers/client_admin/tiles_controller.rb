@@ -20,6 +20,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @allowed_to_suggest_users = @demo.users_that_allowed_to_suggest_tiles
     intro_flags_index
     @accepted_tile = Tile.find(session.delete(:accepted_tile_id)) if session[:accepted_tile_id]
+    binding.pry
     record_index_ping
   end
 
@@ -54,7 +55,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @tile = get_tile
     if params[:update_status]
       update_status
-      record_update_status_ping
     else
       @tile.assign_attributes(params[:tile_builder_form])
       update_or_create @tile do
@@ -122,7 +122,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @tile = get_tile
 
     @tile.update_status(params[:update_status])
-    presenter =present(@tile, SingleAdminTilePresenter, {is_ie: browser.ie?})
+    presenter = present(@tile, SingleAdminTilePresenter, {is_ie: browser.ie?})
     render partial: 'client_admin/tiles/manage_tiles/single_tile', locals: { presenter: presenter}
   end
 
