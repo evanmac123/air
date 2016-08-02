@@ -72,7 +72,7 @@ RSpec.configure do |config|
 
     Capybara.use_default_driver
   end
-  config.before(:suite) do
+  config.before(:all) do
     log_file = Rails.root.join("log/test.log")
     File.truncate(log_file, 0) if File.exist?(log_file)
   end
