@@ -183,14 +183,14 @@ FactoryGirl.define do
   factory :tile do
     headline {"Tile #{SecureRandom.uuid}, y'all"}
     require_images false
-    remote_media_url "/images/avatars/thumb/missing.png"
     association :demo
     sequence(:position){ |n| n }
     status Tile::ACTIVE
-    type 'OldSchoolTile'
     question_type Tile::QUIZ
     question_subtype Tile::MULTIPLE_CHOICE
+    remote_media_url "https://s3.amazonaws.com/hengage-tiles-development/assets/airbo_logo_lightblue_square.png"
 
+    #remote_media_url "http://localhost:59999/images/avatars/thumb/missing.png"
     trait :with_creator do
       association :creator, :factory => :user
     end
@@ -243,10 +243,6 @@ FactoryGirl.define do
       status Tile::USER_DRAFT
       association :creator, factory: :user
     end
-  end
-
-  # Simple alias of :tile to :old_school_tile
-  factory :old_school_tile, parent: :tile do
   end
 
   factory :client_created_tile, parent: :tile do

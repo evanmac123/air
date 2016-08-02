@@ -1,2 +1,0 @@
-class OldSchoolTile < Tile
-end

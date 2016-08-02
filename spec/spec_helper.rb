@@ -4,6 +4,8 @@ require 'rubygems'
 ENV["RAILS_ENV"] ||= 'test'
 ENV["AWS_SECRET_ACCESS_KEY"] ||= "fake_key"
 
+require 'fileutils'
+
 test_counter = 0
 
 require File.expand_path("../../config/environment", __FILE__)
@@ -12,11 +14,8 @@ require 'clearance/testing'
 require 'rspec/autorun'
 require 'mocha/setup'
 require 'capybara/poltergeist'
-
 require 'capybara-screenshot/rspec'
-
-log_file = Rails.root.join("log/test.log")
-File.truncate(log_file, 0) if File.exist?(log_file)
+Capybara.server_port = 59999
 
 Capybara::Screenshot.autosave_on_failure = false
 # Requires supporting ruby files with custom matchers and macros, etc,
@@ -73,6 +72,10 @@ RSpec.configure do |config|
 
     Capybara.use_default_driver
   end
+  config.before(:suite) do
+    log_file = Rails.root.join("log/test.log")
+    File.truncate(log_file, 0) if File.exist?(log_file)
+  end
 
   config.before(:each) do
     Mixpanel::Tracker.stubs(:new).with(MIXPANEL_TOKEN, Mocha::ParameterMatchers::KindOf.new(Hash)).returns(FakeMixpanelTracker)
@@ -96,10 +99,10 @@ RSpec.configure do |config|
     end
   end
 
-  # handy if you've got a test that hangs
-  #config.before(:each) do
-    #puts example.metadata[:description]
-  #end
+  config.after(:suite) do
+   FileUtils.rm_rf "#{LOCAL_FILE_ATTACHMENT_BASE_PATH}/test"
+  end
+
 end
 
 
