@@ -108,14 +108,12 @@ class ApplicationController < ActionController::Base
     session[:conversion_form_shown_already] = @show_conversion_form
   end
 
-  # TODO: DEPRECATE not used
   def invalid_ping_logger(event, data_hash, user)
     if !user && !(["sessions", "pages"].include? params[:controller])
       Rails.logger.warn "INVALID USER PING SENT #{event}"
     end
   end
 
-  # TODO: DEPRECATE not used
   def ping_with_device_type(event, data_hash = {}, user = nil)
     _data_hash = data_hash.merge(device_type: device_type)
     ping_without_device_type(event, _data_hash, user)
