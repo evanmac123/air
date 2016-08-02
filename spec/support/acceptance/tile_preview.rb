@@ -41,7 +41,8 @@ module TilePreviewHelpers
   def expect_tile_copied(original_tile, copying_user)
     copied_tile = newest_tile
     
-    %w(correct_answer_index headline image_content_type image_file_size image_meta link_address multiple_choice_answers points question supporting_content thumbnail_content_type thumbnail_file_size thumbnail_meta type).each do |expected_same_field|
+    %w(correct_answer_index headline image_content_type link_address multiple_choice_answers points question supporting_content thumbnail_content_type   type).each do |expected_same_field|
+      Rails.logger.info("!! tile copy field : #{expected_same_field}")
       copied_tile[expected_same_field].should == original_tile[expected_same_field]
     end
 
