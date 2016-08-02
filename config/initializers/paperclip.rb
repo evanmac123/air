@@ -28,7 +28,7 @@ when 'production', 'staging', "production_local"
 
 when 'test',  'development'
 
-  LOCAL_FILE_ATTACHMENT_BASE_PATH = "public/system/attachments/"
+  LOCAL_FILE_ATTACHMENT_BASE_PATH = "public/system/attachments"
 
   ATTACHMENT_CONFIG_BASE = {}
 
