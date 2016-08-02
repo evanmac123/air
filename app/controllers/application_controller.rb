@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
   before_filter :initialize_flashes
   before_filter :set_show_conversion_form_before_this_request
 	before_filter :enable_miniprofiler #NOTE on by default in development
+  # TODO: DEPRECATE remove after removing yell_name method
   # This prints the controller and action to stdout on every action, which
   # is sometimes handy for debugging
   #before_filter :yell_name
@@ -40,6 +41,7 @@ class ApplicationController < ActionController::Base
     request.subdomain.present? ? request.host : "www." + request.host
   end
 
+  # TODO: DEPRECATE not called
   def invitation_preview_url_with_referrer(user, referrer)
     referrer_hash = User.referrer_hash(referrer)
     invitation_preview_url({:code => user.invitation_code}.merge(@referrer_hash))
@@ -69,6 +71,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # TODO: DEPRECATE not used
   def force_no_ssl
     return unless request.ssl?
 
@@ -126,11 +129,12 @@ class ApplicationController < ActionController::Base
 
   alias_method_chain :ping, :device_type
 
+  # TODO: DEPRECATE there's better solutions to making debugging easier, this controller is clogged enough
   def yell_name
     puts [params[:controller], params[:action]].join('#')
   end
 
-  def email_clicked_ping user
+  def email_clicked_ping(user)
     # We rig the timestamp here so that, if this ping is present, and there's
     # also a new activity session, this ping always appears before the activity
     # session ping.
@@ -156,7 +160,6 @@ class ApplicationController < ActionController::Base
   helper_method :permitted_params
 
   def authorize
-    #debugger if self.class == Users::PingsController
     return if authorize_as_potential_user
     authorize_by_explore_token
 
@@ -190,7 +193,7 @@ class ApplicationController < ActionController::Base
         refresh_activity_session(current_user)
         return true
       else
-        # TODO: test_suite_remediation: I think these flash messages are deprecated in the user flow.  Should remove along with pending specs in spec/acceptance/guest_user/gets_helpful_message_if_they_try_to_break_out_of_the_sandbox_spec.rb
+        # TODO: DEPRECATE test_suite_remediation: I think these flash messages are deprecated in the user flow.  Should remove along with pending specs in spec/acceptance/guest_user/gets_helpful_message_if_they_try_to_break_out_of_the_sandbox_spec.rb
         guest = GuestUser.where(id: session[:guest_user_id]).first
         demo = guest.try(:demo)
         if demo && $rollout.active?(:suppress_conversion_modal, demo)

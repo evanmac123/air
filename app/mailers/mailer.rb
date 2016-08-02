@@ -1,7 +1,7 @@
 class Mailer < ActionMailer::Base
   has_delay_mail
 
-  include EmailPreviewsHelper # Only includes the module for this controller (not for the views)
+  include EmailPreviewsHelper # TODO: DEPRECATE This module is useless
   helper :email  # loads app/helpers/email_helper.rb & includes EmailHelper into the VIEW
 
   default :from => "Airbo <play@ourairbo.com>",
@@ -123,7 +123,7 @@ class Mailer < ActionMailer::Base
   def guest_user_converted_to_real_user(user)
     @user = user
     @demo = @user.demo
-    
+
     @cancel_account_url = cancel_account_url(id: user.cancel_account_token)
     @board_name = user.demo.name
 
@@ -154,7 +154,7 @@ class Mailer < ActionMailer::Base
     mail :to      => @creator.email_with_name,
          :from    => @creator.reply_email_address,
          :subject => "Someone #{@action} your tile on Airbo"
-  end 
+  end
 
   def change_password user_id
     @user = User.find user_id
