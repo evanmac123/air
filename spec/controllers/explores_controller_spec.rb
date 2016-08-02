@@ -18,6 +18,26 @@ describe ExploresController do
       expect(subject).to have_received(:email_clicked_ping)
       expect(subject).to have_received(:explore_content_link_ping)
     end
+
+    it "should ping when the partial_only param is set to true, which occurs when more-tiles button is clicked" do
+      subject.stubs(:ping)
+
+      user = FactoryGirl.create(:client_admin)
+
+      get :show, explore_token: user.explore_token, partial_only: true
+
+      expect(subject).to have_received(:ping).with("Explore Topic Page", {action: "Clicked See More"}, subject.current_user)
+    end
+
+    it "should ping appropriately when return_to_explore_source: 'Explore Topic Page - Back To Explore' param is passed to controller", focus: true do
+      subject.stubs(:ping)
+
+      user = FactoryGirl.create(:client_admin)
+
+      get :show, explore_token: user.explore_token, partial_only: true, return_to_explore_source: 'Explore Topic Page - Back To Explore'
+
+      expect(subject).to have_received(:ping).with("Explore Topic Page", {action: "Back To Explore"}, subject.current_user)
+    end
   end
 
   describe 'GET tile_tag_show' do
