@@ -187,7 +187,6 @@ FactoryGirl.define do
     association :demo
     sequence(:position){ |n| n }
     status Tile::ACTIVE
-    type 'OldSchoolTile'
     question_type Tile::QUIZ
     question_subtype Tile::MULTIPLE_CHOICE
 
@@ -243,10 +242,6 @@ FactoryGirl.define do
       status Tile::USER_DRAFT
       association :creator, factory: :user
     end
-  end
-
-  # Simple alias of :tile to :old_school_tile
-  factory :old_school_tile, parent: :tile do
   end
 
   factory :client_created_tile, parent: :tile do
