@@ -85,7 +85,6 @@ RSpec.configure do |config|
     test_counter +=1
     full_example_description = "Starting #{self.example.description} "
     Rails.logger.info("\n#{'-'*80}\n#{full_example_description} #{test_counter}--#{path}\n#{'-' * (full_example_description.length)}")
-
   end
 
   config.before(:each) do
@@ -103,7 +102,6 @@ RSpec.configure do |config|
   config.after(:suite) do
    FileUtils.rm_rf "#{LOCAL_FILE_ATTACHMENT_BASE_PATH}/test"
   end
-
 end
 
 

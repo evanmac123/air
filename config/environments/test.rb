@@ -7,7 +7,8 @@ silence_warnings do
 end unless ENV['NO_DEBUGGER']
 
 # config/environments/test.rb
-ActiveSupport::Deprecation.debug = true
+
+# ActiveSupport::Deprecation.debug = true #backtrace for deprecation warnings
 
 class ClearanceBackDoor
   def initialize(app)
