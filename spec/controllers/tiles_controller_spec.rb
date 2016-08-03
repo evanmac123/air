@@ -8,7 +8,7 @@ describe TilesController do
       tile.is_sharable.should be_false
 
       @controller.current_user = user
-      
+
       get :index, nil, {start_tile: tile.id}
       assigns[:start_tile].should be_nil
     end

@@ -20,7 +20,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @allowed_to_suggest_users = @demo.users_that_allowed_to_suggest_tiles
     intro_flags_index
     @accepted_tile = Tile.find(session.delete(:accepted_tile_id)) if session[:accepted_tile_id]
-    binding.pry
     record_index_ping
   end
 

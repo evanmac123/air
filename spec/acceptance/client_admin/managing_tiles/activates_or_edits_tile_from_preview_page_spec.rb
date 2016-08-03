@@ -6,7 +6,6 @@ require 'acceptance/acceptance_helper'
 feature 'Activates or edits tile from preview page', js:true do
 
   context "an active tile" do
-    # FIXME: these tests are causing problems with the test suite due to the ajax calls. Locks up suite.  Move to clientside testing.
     before do
       @tile = FactoryGirl.create(:multiple_choice_tile, status: Tile::ACTIVE)
       @client_admin = FactoryGirl.create(:client_admin, demo: @tile.demo)
@@ -18,14 +17,14 @@ feature 'Activates or edits tile from preview page', js:true do
       page.find("#stat_toggle").click
     end
 
-    xit "should allow the tile to be deactivated"  do
+    it "should allow the tile to be deactivated"  do
       within status_change_sub do
         click_deactivate_link
       end
       expect_tile_to_section_change "#active_tiles", "#archived_tiles"
     end
 
-    xit "should not show an activate link" do
+    it "should not show an activate link" do
       expect_no_activate_link
     end
   end
@@ -46,13 +45,6 @@ feature 'Activates or edits tile from preview page', js:true do
         click_reactivate_link
       end
       expect_tile_to_section_change "#archived_tiles", "#active_tiles"
-    end
-
-    it "should ping on clicking archive button" do
-      pending 'Convert to controller spec'
-      click_link "Post Again"
-
-      expect_mixpanel_action_ping('Tile Preview Page - Archive', 'Clicked Re-post button')
     end
 
     it "should not show a deactivate link" do
@@ -79,30 +71,7 @@ feature 'Activates or edits tile from preview page', js:true do
       end
       expect_tile_to_section_change "#draft.manage_section", "#active_tiles"
     end
-
-
-    it "should link to the edit page" do
-      pending 'Convert to controller spec'
-      click_edit_link
-      expect_mixpanel_action_ping('Tile Preview Page - Draft', 'Clicked Edit button')
-    end
-
-    it "should ping on clicking back to tiles button" do
-      pending 'Convert to controller spec'
-      click_link "Back to Tiles"
-      expect_mixpanel_action_ping('Tile Preview Page - Draft', 'Clicked Back to Tiles button')
-    end
-
-    it "should ping on clicking new tile button" do
-      pending 'Convert to controller spec'
-      click_link "New Tile"
-      expect_mixpanel_action_ping('Tile Preview Page - Draft', 'Clicked New Tile button')
-    end
   end
-
-
-
-
 
   def link_with_exact_text(text)
     page.all("a", text: /\A#{text}\z/)
@@ -171,14 +140,6 @@ feature 'Activates or edits tile from preview page', js:true do
   def status_change_sub
     "#stat_change_sub"
   end
-
-  def expect_mixpanel_action_ping(event, action)
-    FakeMixpanelTracker.clear_tracked_events
-    crank_dj_clear
-    properties = {action: action}
-    FakeMixpanelTracker.should have_event_matching(event, properties)
-  end
-
 
   def expect_tile_to_section_change from, to
     selector = "#single-tile-#{@tile.id} .tile-wrapper a.tile_thumb_link"

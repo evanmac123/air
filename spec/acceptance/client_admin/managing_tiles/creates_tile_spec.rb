@@ -50,17 +50,6 @@ feature 'Creates tile' do
     new_tile.is_public.should be_false # by default
   end
 
-  scenario 'and Mixpanel gets a ping', js: true do
-    create_good_tile
-    page.status_code.should be(200)
-    #FIXME test ping elsewhere 
-    #pending 'Convert to controller spec'
-    #FakeMixpanelTracker.clear_tracked_events
-    #crank_dj_clear
-
-    #FakeMixpanelTracker.should have_event_matching('Tile - New', client_admin.data_for_mixpanel)
-  end
-
   scenario "does not activate tile after creating it, thus the tile appears at the front of the draft tile list", js: true do
     create_existing_tiles(demo, Tile::DRAFT, 2)
 
@@ -70,7 +59,7 @@ feature 'Creates tile' do
     visit tile_manager_page
 
     draft_tab.should have_num_tiles(3)
-   draft_tab.should have_first_tile(Tile.last, Tile::DRAFT)
+    draft_tab.should have_first_tile(Tile.last, Tile::DRAFT)
   end
 
   scenario "should have active answer links in the preview", js: true do
@@ -101,15 +90,15 @@ feature 'Creates tile' do
   end
 
   scenario "with overlong headline should have a reasonable error" do
-    # We don't use a JS-based driver to test this as a quick and dirty way of 
-    # simulating the behavior of certain browsers that don't respect the 
+    # We don't use a JS-based driver to test this as a quick and dirty way of
+    # simulating the behavior of certain browsers that don't respect the
     # character counters that are supposed to keep these fields to the proper
     # length. No names, but it rhymes with Finternet Fexplorer. Thanks,
     # Ficrosoft.
 
     fill_in "Headline", with: ("x" * 76)
     click_button "Save tile"
-    
+
     demo.tiles.reload.should be_empty
     expect_content "Sorry, we couldn't save this tile"
     expect_content "headline is too long"
@@ -173,7 +162,7 @@ feature 'Creates tile' do
 
   context "acting with image" do
     before(:each) do
-      fill_in_valid_form_entries 
+      fill_in_valid_form_entries
     end
 
     pending "clear the image", js: true do
@@ -192,7 +181,7 @@ feature 'Creates tile' do
     scenario "upload new image but make empty fields, click update tile\
               see new image and error message, fill empty fields, \
               save tile and get new image", js:true do
-      
+
       fill_in "Headline", with: ""
       fake_upload_image "cov2.jpg"
       click_create_button
@@ -277,7 +266,7 @@ feature 'Creates tile' do
       fill_in_supporting_content"Ten pounds of cheese. Yes? Or no?"
 
       choose_question_type_and_subtype Tile::QUIZ, Tile::MULTIPLE_CHOICE
-      
+
       fill_in_question "Numbers?"
       click_add_answer
       fill_in_answer_field 0, "1"
@@ -310,7 +299,7 @@ feature 'Creates tile' do
       supporting_content = 'The <b>origin</b> of the <a href="/wiki/Dog" target="_blank">domestic dog</a>'
       fill_in_supporting_content supporting_content
       click_create_button
-      
+
       tile = Tile.last
       tile.supporting_content.should == supporting_content
 

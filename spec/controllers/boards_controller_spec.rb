@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe BoardsController do
-  describe "#create" do
+  describe "POST create" do
     context "when logged in as a guest user" do
       before do
         @guest_user = FactoryGirl.create(:guest_user)

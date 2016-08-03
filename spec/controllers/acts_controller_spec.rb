@@ -3,6 +3,15 @@ require 'spec_helper'
 
 describe ActsController do
   describe "index" do
+    it "should send appropriate pings" do
+      subject.stubs(:saw_welcome_pop_up_ping)
+      demo = FactoryGirl.create(:demo, is_public: true)
+
+      get :index, public_slug: demo.public_slug
+
+      expect(subject).to have_received(:saw_welcome_pop_up_ping)
+    end
+
     context "when there's a guest user, but the persistent message is disabled for the board" do
       it "doesn't show it" do
         demo = FactoryGirl.create(:demo, is_public: true)
@@ -20,4 +29,3 @@ describe ActsController do
     response.should redirect_to sign_in_url
   end
 end
-
