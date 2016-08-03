@@ -173,7 +173,7 @@ feature 'Creates tile' do
 
     scenario 'changing the image', js: true do
 
-      fake_upload_image "cov1.jpg"
+      fake_upload_image img_file1
       click_create_button
       expect_content after_tile_save_message
     end
@@ -183,7 +183,7 @@ feature 'Creates tile' do
               save tile and get new image", js:true do
 
       fill_in "Headline", with: ""
-      fake_upload_image "cov2.jpg"
+      fake_upload_image img_file2
       click_create_button
 
       expect_content "Sorry, we couldn't save this tile"
@@ -260,7 +260,7 @@ feature 'Creates tile' do
     end
 
     scenario "when i make tile with answer blanks and duplicates it is saved correct", js: true do
-      fake_upload_image "cov1.jpg"
+      fake_upload_image img_file1
       fill_in_image_credit "by Society"
       fill_in "Headline",           with: "Ten pounds of cheese"
       fill_in_supporting_content"Ten pounds of cheese. Yes? Or no?"

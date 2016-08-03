@@ -284,7 +284,7 @@ module TileHelpers
 
     choose_question_type_and_subtype question_type, question_subtype
 
-    fake_upload_image "cov1.png"
+    fake_upload_image  img_file1
     fill_in_image_credit "by Society"
     fill_in "Headline",           with: "Ten pounds of cheese"
     fill_in_supporting_content("Ten pounds of cheese. Yes? Or no?")
@@ -461,5 +461,12 @@ module TileHelpers
     page.execute_script("$('#upload_preview').attr('src', '#{url}');")
   end
 
+    def img_file1
+      "engage_new.gif" 
+    end
+
+    def img_file2
+      "engage_new_2.gif"
+    end
 
 end
