@@ -4,6 +4,8 @@ describe BoardsController do
   describe "POST create" do
     context "when logged in as a guest user" do
       before do
+        subject.stubs(:ping)
+
         @guest_user = FactoryGirl.create(:guest_user)
         BoardsController.any_instance.stubs(:current_user).returns(@guest_user)
         BoardsController.any_instance.stubs(:sign_in).returns(true)

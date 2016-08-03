@@ -9,7 +9,7 @@ feature 'Client admin and the digest email for tiles' do
   before do
     user = FactoryGirl.create :user, demo: demo
     tile = create_tile on_day: '7/5/2013', activated_on: '7/5/2013', status: Tile::ACTIVE, demo: demo, headline: "Tile completed"
-    FactoryGirl.create(:tile_completion, tile: tile, user: user)      
+    FactoryGirl.create(:tile_completion, tile: tile, user: user)
   end
 
   # -------------------------------------------------
@@ -19,7 +19,7 @@ feature 'Client admin and the digest email for tiles' do
   end
 
   # -------------------------------------------------
-    
+
   def have_send_to_selector(selected)
     have_select 'digest[digest_send_to]', {selected: selected}
   end
@@ -61,7 +61,7 @@ feature 'Client admin and the digest email for tiles' do
   def expect_no_new_tiles_to_send_header
     expect_content "Send Email with New Tiles"
   end
-  
+
   def expect_digest_sent_content
     expect_content "Your Tiles have been successfully sent. New Tiles you post will appear in the email preview."
   end
@@ -87,7 +87,7 @@ feature 'Client admin and the digest email for tiles' do
   context 'No tiles exist for digest email' do
     before(:each) do
       FactoryGirl.create :tile, demo: demo
-      visit client_admin_share_path(as: admin)      
+      visit client_admin_share_path(as: admin)
     end
 
     scenario 'Text is correct when no follow-up emails are scheduled to be sent' do
@@ -103,29 +103,13 @@ feature 'Client admin and the digest email for tiles' do
       page.should contain 'Monday, July 01, 2013'
       page.should contain 'Tuesday, July 02, 2013'
       page.should contain 'Wednesday, July 03, 2013'
-      
+
       page.all(".cancel_button a").first.click
 
-      
+
       page.should_not contain 'Monday, July 01, 2013'
       page.should contain 'Tuesday, July 02, 2013'
       page.should contain 'Wednesday, July 03, 2013'
-      end
-    end
-
-    context "when a followup is cancelled" do
-      it "sends a ping", js: true, driver: :webkit do
-      pending 'Convert to controller spec'
-      accept_confirm do
-        create_follow_up_emails
-        visit client_admin_share_path(as: admin)
-
-        page.all('.cancel_button a').first.click
-        FakeMixpanelTracker.clear_tracked_events
-        crank_dj_clear
-
-        FakeMixpanelTracker.should have_event_matching('Followup - Cancelled')
-      end
       end
     end
   end
@@ -137,11 +121,11 @@ feature 'Client admin and the digest email for tiles' do
 
       expect_tiles_to_send_header
     end
-    
+
     it 'Form components are on the page and properly initialized', js: true do
       pending "NONSENSE: this test makes no sense why are we testing static html????"
      on_day('10/14/2013') do  # Monday
-        
+
         create_tile
         demo.update_attributes unclaimed_users_also_get_digest: true
 
@@ -205,7 +189,7 @@ feature 'Client admin and the digest email for tiles' do
 
       set_last_sent_on '7/4/2013'
       visit client_admin_share_path(as: admin)
-      
+
       expect_content 'Last tiles sent on Thursday, July 04, 2013'
     end
 
@@ -415,75 +399,11 @@ feature 'Client admin and the digest email for tiles' do
       end
 
       context "a ping gets sent" do
-        it "having the proper label" do
-      pending 'Convert to controller spec'
-          create_tile
-          visit client_admin_share_path(as: admin)
-          submit_button.click
-          
-          FakeMixpanelTracker.clear_tracked_events
-          crank_dj_clear
-
-          FakeMixpanelTracker.should have_event_matching('Digest - Sent')
-        end
-
-        it "recording if the digest is for everyone or just claimed users" do
-          pending 'Convert to controller spec'
-          create_tile
-          visit client_admin_share_path(as: admin)
-          select 'All Users', from: 'digest[digest_send_to]'
-          submit_button.click
-
-          FakeMixpanelTracker.clear_tracked_events
-          crank_dj_clear
-
-          FakeMixpanelTracker.should have_event_matching('Digest - Sent', {digest_send_to: 'all users'})
-
-          create_tile
-          visit client_admin_share_path(as: admin)
-          select 'Activated Users', from: 'digest[digest_send_to]'
-          submit_button.click
-
-          FakeMixpanelTracker.clear_tracked_events
-          crank_dj_clear
-
-          FakeMixpanelTracker.should have_event_matching('Digest - Sent', {digest_send_to: 'only joined users'})
-        end
-
-        it "recording if a followup was also scheduled" do
-          pending 'Convert to controller spec'
-          create_tile
-          visit client_admin_share_path(as: admin)
-          select "Never", from: 'digest[follow_up_day]'
-          submit_button.click
-
-          FakeMixpanelTracker.clear_tracked_events
-          crank_dj_clear
-
-          FakeMixpanelTracker.should have_event_matching('Digest - Sent', {followup_scheduled: false})
-
-          create_tile
-          visit client_admin_share_path(as: admin)
-          select "Saturday", from: 'digest[follow_up_day]'
-          submit_button.click
-
-          FakeMixpanelTracker.clear_tracked_events
-          crank_dj_clear
-
-          FakeMixpanelTracker.should have_event_matching('Digest - Sent', {followup_scheduled: true})
-        end
-
         it "recording if an optional message was also added", js: true do
           create_tile
           visit client_admin_share_path(as: admin)
           submit_button.click
           expect_digest_sent_content
-
-          #FIXME moves assertion controller spec
-          #pending 'Convert to controller spec'
-          #FakeMixpanelTracker.clear_tracked_events
-          #crank_dj_clear
-          #FakeMixpanelTracker.should have_event_matching('Digest - Sent', {optional_message_added: false})
 
           create_tile
           visit client_admin_share_path(as: admin)
@@ -491,21 +411,11 @@ feature 'Client admin and the digest email for tiles' do
           submit_button.click
           expect_digest_sent_content
 
-          #FIXME moves assertion controller spec
-          #FakeMixpanelTracker.clear_tracked_events
-          #crank_dj_clear
-          #FakeMixpanelTracker.should have_event_matching('Digest - Sent', {optional_message_added: false})
-
           create_tile
           visit client_admin_share_path(as: admin)
           fill_in "digest[custom_message]", with: 'hey'
           submit_button.click
           expect_digest_sent_content
-
-          #FIXME moves assertion controller spec
-          #FakeMixpanelTracker.clear_tracked_events
-          #crank_dj_clear
-          #FakeMixpanelTracker.should have_event_matching('Digest - Sent', {optional_message_added: true})
         end
 
         it "sends ping for sended new digest email", js:true do
@@ -514,11 +424,6 @@ feature 'Client admin and the digest email for tiles' do
           fill_in "digest[custom_message]", with: ''
           submit_button.click
           expect_digest_sent_content
-
-          #FIXME moves assertion controller spec
-          #FakeMixpanelTracker.clear_tracked_events
-          #crank_dj_clear
-          #FakeMixpanelTracker.should have_event_matching('Email Sent', {email_type: "Digest - v. 6/15/14"})
         end
 
         context "Email Cliked ping" do
@@ -532,37 +437,6 @@ feature 'Client admin and the digest email for tiles' do
             FactoryGirl.create :claimed_user, demo: demo, name: 'Taj Mahal',  email: 'taj@mahal.com'
 
             FactoryGirl.create :site_admin, demo: demo, name: 'Eric Claption',  email: 'site-admin@hengage.com'
-          end
-
-          it "sends ping when user click link in email", js: true do
-            create_tile
-            visit client_admin_share_path(as: admin)
-            fill_in "digest[custom_message]", with: ''
-            submit_button.click
-            expect_digest_sent_content
-
-            crank_dj_clear
-
-          #FIXME moves assertion controller spec
-            #all_addresses.each do |address|
-              #open_email(address)
-
-              #if %w(site-admin@hengage.com wc@clark.com taj@mahal.com).include?(address)  # Claimed, non-client-admin user?
-                #email_link = /tile_token/
-              #elsif address == 'client-admin@hengage.com' # client-admin?
-                #email_link = /acts/
-              #else
-                #email_link = /invitations/
-              #end
-              #user = User.where(email: address).first
-              #click_email_link_matching email_link
-
-              #ping_message = "Digest - v. 6/15/14"
-
-              #FakeMixpanelTracker.clear_tracked_events
-              #crank_dj_clear
-              #FakeMixpanelTracker.should have_event_matching('Email clicked', {email_type: ping_message}.merge(user.data_for_mixpanel))
-            #end
           end
         end
       end
@@ -579,7 +453,7 @@ feature 'Client admin and the digest email for tiles' do
       within ".follow_up" do
         find(".drop_down").click
         find("li", text: "Sunday").click
-      end 
+      end
 
 
       fill_in "digest[custom_message]", with: 'Custom Message'
@@ -623,7 +497,7 @@ feature 'Client admin and the digest email for tiles' do
     end
 
     it "should save entered text in digest form fields", js: true do
-      visit client_admin_share_path(as: admin)  
+      visit client_admin_share_path(as: admin)
 
       page.should have_field("Email subject", with: "Custom Subject")
       page.should have_field("Intro message", with: "Custom Message")

@@ -5,7 +5,8 @@ metal_testing_hack(SmsController)
 describe SmsController do
   describe "#create" do
     before(:each) do
-      # We don't use hardly any of these fields, but this is what Twilio 
+      subject.stubs(:ping)
+      # We don't use hardly any of these fields, but this is what Twilio
       # sends.
 
       @user = FactoryGirl.create :user, :phone_number => "+14152613077", :demo => (FactoryGirl.create(:demo, phone_number: "+14158675309"))
@@ -13,7 +14,7 @@ describe SmsController do
 
       @params = {
         'From'          => @user.phone_number,
-        'Body'          => 'ate kitten', 
+        'Body'          => 'ate kitten',
         'SmsSid'        => 'SM12ac8c0c64e01188d32fa2d4b40f1b5d',
         'ToCity'        => 'EAST BOSTON',
         'FromState'     => 'MA',

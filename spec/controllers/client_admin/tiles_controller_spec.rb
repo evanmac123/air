@@ -3,6 +3,7 @@ require 'spec_helper'
 describe ClientAdmin::TilesController do
   describe "POST create" do
     it "should ping Mixpanel when a tile is created" do
+      subject.stubs(:ping)
       subject.stubs(:schedule_tile_creation_ping)
       demo = FactoryGirl.create(:demo)
       client_admin = FactoryGirl.create(:client_admin, demo: demo)

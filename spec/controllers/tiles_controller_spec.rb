@@ -15,12 +15,16 @@ describe TilesController do
 
     context "as a regular user requesting a tile that's not sharable in a board you're not in" do
       it "should not assign that to @start_tile" do
+        subject.stubs(:ping)
+
         expect_no_start_tile_set_for_user(FactoryGirl.create(:user))
       end
     end
 
     context "as a guest requesting a tile that's not sharable in a board you're not in" do
       it "should not assign that to @start_tile" do
+        subject.stubs(:ping)
+
         expect_no_start_tile_set_for_user(FactoryGirl.create(:guest_user))
       end
     end

@@ -3,6 +3,7 @@ require 'spec_helper'
 describe TileController do
   describe "GET show" do
     it "sends appropriate pings" do
+      subject.stubs(:ping)
       subject.stubs(:tile_viewed_ping)
 
       tile = FactoryGirl.create(:multiple_choice_tile, is_sharable: true)
