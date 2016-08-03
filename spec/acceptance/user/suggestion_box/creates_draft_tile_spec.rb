@@ -54,7 +54,7 @@ feature 'Creates draft tile' do
 
 
     choose_question_type_and_subtype question_type, question_subtype
-    fake_upload_image "cov1.png"
+    fake_upload_image img_file1
 
     fill_in_image_credit "by Society#{edit_text}"
     page.find("#tile_builder_form_headline").set("Ten pounds of cheese#{edit_text}")
