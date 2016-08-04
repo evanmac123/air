@@ -33,7 +33,6 @@ class TilesDigestMailDigestPresenter < TilesDigestMailBasePresenter
 
   def link_options
     if @subject
-      @subject.gsub!(/[^0-9A-Za-z]/, '')
       {subject: @subject}
     else
       {}
