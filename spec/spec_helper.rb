@@ -75,6 +75,7 @@ RSpec.configure do |config|
   config.before(:suite) do
     log_file = Rails.root.join("log/test.log")
     File.truncate(log_file, 0) if File.exist?(log_file)
+    Delayed::Worker.delay_jobs = false
   end
 
   config.before(:each) do
