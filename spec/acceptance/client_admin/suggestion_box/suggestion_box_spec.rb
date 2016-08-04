@@ -25,10 +25,6 @@ feature 'Client uses suggestion box' do
       items = menu_items.map(&:text)
       items.should include("Accept")
       items.should include("Ignore")
-
-      #FIXME write separate assertion in controller spec for server side ping if
-      #necessary
-      #expect_ping 'Suggestion Box', {client_admin_action: "Tile Viewed"}, client_admin
     end
 
     scenario "accepts tile" do
@@ -50,7 +46,7 @@ feature 'Client uses suggestion box' do
 
         within "#suggestion_box #single-tile-#{tile.id}" do
           click_link "Ignore"
-        end 
+        end
       end
 
       scenario "should ignore tile" do

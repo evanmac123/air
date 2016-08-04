@@ -29,7 +29,6 @@ module TileHelpers
   # -------------------------------------------------
 
   DATE_REG_EXPR = /(\d{1,2})\/(\d{1,2})\/(\d{4})/  # e.g. 7/4/2013 -or- 07/04/2013
-  ASSET_HOST = "http://localhost:3000"
 
   def day_to_time(day)
     day.match DATE_REG_EXPR
@@ -284,7 +283,7 @@ module TileHelpers
 
     choose_question_type_and_subtype question_type, question_subtype
 
-    fake_upload_image "cov1.png"
+    fake_upload_image  img_file1
     fill_in_image_credit "by Society"
     fill_in "Headline",           with: "Ten pounds of cheese"
     fill_in_supporting_content("Ten pounds of cheese. Yes? Or no?")
@@ -456,10 +455,18 @@ module TileHelpers
 
 
   def fake_upload_image filename
-    url = "#{ASSET_HOST}/#{filename}"
+    uri = URI.join('file:///', "#{Rails.root}/spec/support/fixtures/tiles/#{filename}")
+    url = uri.path
     page.execute_script("$('#remote_media_url').val('#{url}');")
     page.execute_script("$('#upload_preview').attr('src', '#{url}');")
   end
 
+    def img_file1
+      "engage_new.gif" 
+    end
+
+    def img_file2
+      "engage_new_2.gif"
+    end
 
 end

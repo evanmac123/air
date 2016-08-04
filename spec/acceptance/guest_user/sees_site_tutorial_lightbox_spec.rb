@@ -6,7 +6,7 @@ feature 'Lightbox for guest users' do
   end
 
   let (:board) {FactoryGirl.create(:demo, :with_public_slug)}
-  
+
   context 'When a guest in a board with active tiles', js: true do
     before do
       FactoryGirl.create(:tile, status: Tile::ACTIVE, demo: board)
@@ -21,12 +21,6 @@ feature 'Lightbox for guest users' do
       within(site_tutorial_lightbox_selector, visible: true) { expect_content guest_user_specific_content }
       click_link "Sign in"
       should_be_on new_session_path
-    end
-
-    it "should send welcome pop-up ping" do
-      pending "Convert to controller spec"
-      guest_user = GuestUser.last
-      expect_ping "Saw welcome pop-up", {source: "Public Link"}, guest_user
     end
   end
 

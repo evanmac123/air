@@ -15,7 +15,6 @@ require 'rspec/autorun'
 require 'mocha/setup'
 require 'capybara/poltergeist'
 require 'capybara-screenshot/rspec'
-Capybara.server_port = 59999
 
 Capybara::Screenshot.autosave_on_failure = false
 # Requires supporting ruby files with custom matchers and macros, etc,
@@ -49,9 +48,10 @@ ActiveRecord::Base.logger = nil
 
 RSpec.configure do |config|
   config.mock_with :mocha
+  config.treat_symbols_as_metadata_keys_with_true_values = true
   config.use_transactional_fixtures = false
   #config.fail_fast = true
-  
+
   config.around(:each) do |example|
     # It should do all of this automatically. Want to bet on whether it does or not?
     if example.metadata[:driver]
@@ -75,6 +75,7 @@ RSpec.configure do |config|
   config.before(:all) do
     log_file = Rails.root.join("log/test.log")
     File.truncate(log_file, 0) if File.exist?(log_file)
+    Delayed::Worker.delay_jobs = false
   end
 
   config.before(:each) do
@@ -84,7 +85,6 @@ RSpec.configure do |config|
     test_counter +=1
     full_example_description = "Starting #{self.example.description} "
     Rails.logger.info("\n#{'-'*80}\n#{full_example_description} #{test_counter}--#{path}\n#{'-' * (full_example_description.length)}")
-
   end
 
   config.before(:each) do
@@ -102,9 +102,28 @@ RSpec.configure do |config|
   config.after(:suite) do
    FileUtils.rm_rf "#{LOCAL_FILE_ATTACHMENT_BASE_PATH}/test"
   end
-
 end
 
+
+module Paperclip
+  def self.run(cmd, params = "", expected_outcodes = 0)
+    case cmd
+    when "identify"
+      Rails.logger.info("!!!stubs identify")
+      return "100x100"
+    when "convert"
+      Rails.logger.info("!!!!stubs Convert")
+      return
+    else
+      super
+    end
+  end
+
+  class Attachment
+    def post_process
+    end
+  end
+end
 
 # Hack to allow us to use regular controller tests to test, among others, SmsController
 # (which is an ActionController::Metal).

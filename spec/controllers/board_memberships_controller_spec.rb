@@ -13,6 +13,8 @@ describe BoardMembershipsController do
     end
 
     before do
+      subject.stubs(:ping)
+
       request.env["HTTP_REFERER"] = ""
     end
 

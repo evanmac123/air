@@ -20,7 +20,6 @@ class TilePreviewsController < ApplicationController
     @prev_tile = Tile.next_public_tile params[:id], -1, params[:tag]
     @tag = TileTag.where(id: params[:tag]).first
     schedule_mixpanel_pings(@tile)
-binding.pry
     if params[:partial_only]
       explore_preview_copy_intro
       render partial: "tile_previews/tile_preview",

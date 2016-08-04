@@ -55,6 +55,7 @@ class User
     end
 
     def schedule_segmentation_update(force = false)
+      #FIXME not clear why this needs to run in a delayed job 
       return unless force || FIELDS_TRIGGERING_SEGMENTATION_UPDATE.any?{|field_name| changed.include?(field_name)}
 
       self.delay(priority: SEGMENTATION_UPDATE_PRIORITY).update_segmentation_info(force)

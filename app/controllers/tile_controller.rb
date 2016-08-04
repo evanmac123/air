@@ -2,7 +2,7 @@ class TileController < ApplicationController
   skip_before_filter :authorize
   prepend_before_filter :find_tile
   before_filter :allow_guest_user
-  
+
   def show
     set_guest_user_if_needed
     authorize
@@ -15,7 +15,7 @@ class TileController < ApplicationController
 
   def set_guest_user_if_needed
     unless current_user || session[:guest_user].present?
-      session[:guest_user] = {demo_id: @tile.demo_id} 
+      session[:guest_user] = {demo_id: @tile.demo_id}
     end
   end
 
@@ -26,7 +26,7 @@ class TileController < ApplicationController
   def find_tile
     @tile = Tile.where(id: params[:id], is_sharable: true).first
     unless @tile
-      not_found 
+      not_found
       return
     end
   end

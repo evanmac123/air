@@ -13,7 +13,7 @@ gem "formtastic"
 gem "pg"
 gem "flutie"
 gem "twilio-rb"
-gem "clearance"
+gem "clearance", "~> 0.16.3"
 gem "aws-s3"
 gem "delayed_job"
 gem "haml-rails"
@@ -125,7 +125,7 @@ group :test do
   gem "capybara-webkit"
   gem "poltergeist"
   gem "sinatra"
-  gem "mocha"
+  gem "mocha", require: false
   gem "selenium-webdriver"
   gem 'test_after_commit'
 end

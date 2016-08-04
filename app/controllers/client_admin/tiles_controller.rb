@@ -48,14 +48,12 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   def edit
     @tile_builder_form =  get_tile
     new_or_edit @tile_builder_form
-    record_edit_ping
   end
 
   def update
     @tile = get_tile
     if params[:update_status]
       update_status
-      record_update_status_ping
     else
       @tile.assign_attributes(params[:tile_builder_form])
       update_or_create @tile do
@@ -123,7 +121,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @tile = get_tile
 
     @tile.update_status(params[:update_status])
-    presenter =present(@tile, SingleAdminTilePresenter, {is_ie: browser.ie?})
+    presenter = present(@tile, SingleAdminTilePresenter, {is_ie: browser.ie?})
     render partial: 'client_admin/tiles/manage_tiles/single_tile', locals: { presenter: presenter}
   end
 

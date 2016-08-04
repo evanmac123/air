@@ -39,7 +39,7 @@ feature "Client Admin Interacts With Share And Public Section" do
       @client_admin.save                             # want to play with intro in every test
 
       tile = FactoryGirl.create(:multiple_choice_tile, demo: @client_admin.demo)
-      
+
       visit client_admin_tile_path(tile, as: @client_admin)
       expect_content share_section_intro_text
 
@@ -90,11 +90,6 @@ feature "Client Admin Interacts With Share And Public Section" do
         page.find('#sharable_tile_link')['disabled'].should_not be_present
         wait_for_ajax
         @tile.reload.is_sharable.should be_true
-      end
-
-      scenario "sends share via #{name} ping", js: true do
-        pending "Convert to controller spec"
-        expect_ping "Tile Shared", {"shared_to" => name, "tile_id" => @tile.id.to_s}, @client_admin
       end
     end
 
@@ -202,7 +197,7 @@ feature "Client Admin Interacts With Share And Public Section" do
 
       find('.tile_tags > li > .fa-times').click
       page.should_not have_content('random tag')
-     
+
       page.should_not have_css('.tile_tags > li')
     end
 

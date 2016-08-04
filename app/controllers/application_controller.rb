@@ -144,7 +144,7 @@ class ApplicationController < ActionController::Base
       event_time = (rack_timestamp || Time.now) - 5.seconds
       hsh = { email_type: email_ping_text, time: event_time }
       hsh.merge!({subject_line: params[:subject_line]}) if params[:subject_line]
-      ping("Email clicked",hsh , user) if email_ping_text.present?
+      ping("Email clicked", hsh, user) if email_ping_text.present?
     end
   end
 
@@ -491,7 +491,7 @@ class ApplicationController < ActionController::Base
   end
 
   def not_found
-    render :file => "#{Rails.root}/public/404.html", :status => :not_found, :layout => false
+    render file: "#{Rails.root}/public/404", status: :not_found, layout: false, formats: [:html]
   end
 
   def decide_if_tiles_can_be_done(satisfiable_tiles)

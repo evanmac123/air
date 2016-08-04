@@ -24,30 +24,6 @@ feature 'Activates or edits tile from preview page', js:true do
       expect_tile_to_section_change "#active_tiles", "#archived_tiles"
     end
 
-    it "should link to the edit page" do
-      pending 'Convert to controller spec'
-      click_edit_link
-      expect_mixpanel_action_ping('Tile Preview Page - Posted', 'Clicked Edit button')
-    end
-
-    it "should ping on clicking back to tiles button" do
-      pending 'Convert to controller spec'
-      click_link "Back to Tiles"
-      expect_mixpanel_action_ping('Tile Preview Page - Posted', 'Clicked Back to Tiles button')
-    end
-
-    it "should ping on clicking new tile button" do
-      pending 'Convert to controller spec'
-      click_link "New Tile"
-      expect_mixpanel_action_ping('Tile Preview Page - Posted', 'Clicked New Tile button')
-    end
-
-    it "should ping on clicking archive button" do
-      pending 'Convert to controller spec'
-      click_link "Archive"
-      expect_mixpanel_action_ping('Tile Preview Page - Posted', 'Clicked Archive button')
-    end
-
     it "should not show an activate link" do
       expect_no_activate_link
     end
@@ -69,33 +45,6 @@ feature 'Activates or edits tile from preview page', js:true do
         click_reactivate_link
       end
       expect_tile_to_section_change "#archived_tiles", "#active_tiles"
-    end
-
-    it "should link to the edit page" do
-      click_edit_link
-      expect_content "Save Tile"
-      #pending 'Convert this part controller spec'
-      #FIXME expect_mixpanel_action_ping('Tile Preview Page - Archive', 'Clicked Edit button')
-    end
-
-   it "should ping on clicking back to tiles button" do
-      pending 'Convert to controller spec'
-      click_link "Back to Tiles"
-      expect_mixpanel_action_ping('Tile Preview Page - Archive', 'Clicked Back to Tiles button')
-    end
-
-    it "should ping on clicking new tile button" do
-      pending 'Convert to controller spec'
-      click_link "New Tile"
-
-      expect_mixpanel_action_ping('Tile Preview Page - Archive', 'Clicked New Tile button')
-    end
-
-    it "should ping on clicking archive button" do
-      pending 'Convert to controller spec'
-      click_link "Post Again"
-
-      expect_mixpanel_action_ping('Tile Preview Page - Archive', 'Clicked Re-post button')
     end
 
     it "should not show a deactivate link" do
@@ -122,30 +71,7 @@ feature 'Activates or edits tile from preview page', js:true do
       end
       expect_tile_to_section_change "#draft.manage_section", "#active_tiles"
     end
-
-
-    it "should link to the edit page" do
-      pending 'Convert to controller spec'
-      click_edit_link
-      expect_mixpanel_action_ping('Tile Preview Page - Draft', 'Clicked Edit button')
-    end
-
-    it "should ping on clicking back to tiles button" do
-      pending 'Convert to controller spec'
-      click_link "Back to Tiles"
-      expect_mixpanel_action_ping('Tile Preview Page - Draft', 'Clicked Back to Tiles button')
-    end
-
-    it "should ping on clicking new tile button" do
-      pending 'Convert to controller spec'
-      click_link "New Tile"
-      expect_mixpanel_action_ping('Tile Preview Page - Draft', 'Clicked New Tile button')
-    end
   end
-
-
-
-
 
   def link_with_exact_text(text)
     page.all("a", text: /\A#{text}\z/)
@@ -214,14 +140,6 @@ feature 'Activates or edits tile from preview page', js:true do
   def status_change_sub
     "#stat_change_sub"
   end
-
-  def expect_mixpanel_action_ping(event, action)
-    FakeMixpanelTracker.clear_tracked_events
-    crank_dj_clear
-    properties = {action: action}
-    FakeMixpanelTracker.should have_event_matching(event, properties)
-  end
-
 
   def expect_tile_to_section_change from, to
     selector = "#single-tile-#{@tile.id} .tile-wrapper a.tile_thumb_link"
