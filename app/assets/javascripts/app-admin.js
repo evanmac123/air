@@ -28,4 +28,5 @@
 //= require  ../../../vendor/assets/javascripts/pickadate/picker.date
 //= require  ../../../vendor/assets/javascripts/pickadate/picker.time
 //= requre ./admin/contracts
-
+//= require ./admin/demo_search
+//= require ./admin/demo_filter

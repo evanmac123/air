@@ -398,7 +398,15 @@ class Demo < ActiveRecord::Base
     "Airbo is an interactive communication tool. Get started by clicking on a tile. Interact and answer questions to earn points."
   end
 
-
+  def company_size(user_count)
+    if user_count < 1000
+      "small"
+    elsif user_count < 5000
+      "medium"
+    else
+      "enterprise"
+    end
+  end
 
   protected
 
