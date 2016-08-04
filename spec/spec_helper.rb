@@ -105,6 +105,26 @@ RSpec.configure do |config|
 end
 
 
+module Paperclip
+  def self.run(cmd, params = "", expected_outcodes = 0)
+    case cmd
+    when "identify"
+      Rails.logger.info("!!!stubs identify")
+      return "100x100"
+    when "convert"
+      Rails.logger.info("!!!!stubs Convert")
+      return
+    else
+      super
+    end
+  end
+
+  class Attachment
+    def post_process
+    end
+  end
+end
+
 # Hack to allow us to use regular controller tests to test, among others, SmsController
 # (which is an ActionController::Metal).
 
