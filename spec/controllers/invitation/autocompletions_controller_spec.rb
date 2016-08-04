@@ -1,10 +1,11 @@
 require 'spec_helper'
 describe Invitation::AutocompletionsController do
-  
+
   before do
     User.delete_all
     Demo.delete_all
-    
+    subject.stubs(:ping)
+
     @demo1 = FactoryGirl.create(:demo, :name => "Bratwurst")
     @demo2 = FactoryGirl.create(:demo, :name => "Gleason")
 
@@ -18,10 +19,10 @@ describe Invitation::AutocompletionsController do
     @user7 = FactoryGirl.create(:claimed_user, :name => "Latino", :demo => @demo2, :email => "four@biker.com", :slug => "nutcase", :sms_slug => "nutcase")
     @user8 = FactoryGirl.create(:claimed_user, :name => "Va Va Va Voom", :demo => @demo2, :email => "seven@biker.com", :slug => "sixpack", :sms_slug => "sixpack")
     @user9 = FactoryGirl.create(:claimed_user, :name => "Joining Now 2", :demo => @demo2, :email => "angel@biker.com", :slug => "damnation", :sms_slug => "damnation")
-    
+
     sign_in_as @user0
   end
-   
+
   describe "find the user named lucy that's in our game" do
     it "should return 'Lucy'" do
       @params = {:entered_text => "ucy"}

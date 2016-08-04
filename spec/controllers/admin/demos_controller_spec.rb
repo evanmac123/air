@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Admin::DemosController do
   describe "POST create" do
     it "creates board and scehdules appropriate ping" do
+      subject.stubs(:ping)
       subject.stubs(:schedule_creation_ping)
       attrs = FactoryGirl.attributes_for(:demo)
       admin = FactoryGirl.create(:site_admin)

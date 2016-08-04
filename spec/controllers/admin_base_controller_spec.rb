@@ -11,7 +11,7 @@ end
 
 describe DummyController do
   before(:all) do
-    Health::Application.routes.draw do 
+    Health::Application.routes.draw do
       match "/echo", :controller => :dummy, :action => :echo
     end
   end

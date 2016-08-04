@@ -1,5 +1,5 @@
 class TilesDigestForm
-  attr_reader :demo, 
+  attr_reader :demo,
               :current_user,
               :follow_up_day,
               :custom_message,
@@ -13,8 +13,8 @@ class TilesDigestForm
     @demo = current_user.demo
     if params.present?
       # Need to do this because the param is the string "true" or "false"... and the string "false" is true
-      @unclaimed_users_also_get_digest =  if params[:digest_send_to] == 'true' 
-                                            true 
+      @unclaimed_users_also_get_digest =  if params[:digest_send_to] == 'true'
+                                            true
                                           elsif params[:digest_send_to] == 'false'
                                             false
                                           end
@@ -68,7 +68,7 @@ class TilesDigestForm
     send_test_digest
     unless follow_up_day == 'Never'
       send_test_digest true # test follow-up
-    end 
+    end
   end
 
   protected
@@ -83,7 +83,7 @@ class TilesDigestForm
                                         tile_ids,
                                         test_digest_subject(follow_up_email),
                                         follow_up_email,
-                                        custom_headline, 
+                                        custom_headline,
                                         custom_message
   end
 
@@ -92,7 +92,7 @@ class TilesDigestForm
       if custom_subject.present?
         "Don't Miss: #{custom_subject}"
       else
-        "Don't Miss Your New Tiles"  
+        "Don't Miss Your New Tiles"
       end
     else
       custom_subject || "New Tiles"

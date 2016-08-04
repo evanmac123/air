@@ -1,7 +1,7 @@
 require 'acceptance/acceptance_helper'
 
 #NOTE These tests are no longer valid as 05/2016 and introduction of Content Library new users are no directed to the content libary instead of Explore
-#TODO delete this feature spec  
+#TODO delete this feature spec
 
 feature 'Explore Intro', js: true do#, driver: :selenium do
   pending "first sign in" do
@@ -19,11 +19,6 @@ feature 'Explore Intro', js: true do#, driver: :selenium do
       within active_slide_sel do
         expect_content "Next"
       end
-    end
-
-    it "should ping about new user" do
-      pending "Convert to Controller spec"
-      expect_ping("Explore Onboarding", {"Source" => "New User"})
     end
 
     it "should show right text" do
@@ -66,11 +61,6 @@ feature 'Explore Intro', js: true do#, driver: :selenium do
       within active_slide_sel do
         expect_content "Next"
       end
-    end
-
-    it "should ping about email" do
-      pending "Convert to Controller spec"
-      expect_ping("Explore Onboarding", {"Source" => "Tiles Email"})
     end
 
     it "should show right text" do

@@ -5,6 +5,8 @@ require 'spec_helper'
 describe EmailCommandController do
   describe "#create" do
     before(:each) do
+      subject.stubs(:ping)
+
       ActionMailer::Base.deliveries.clear
       @user = FactoryGirl.create :user_with_phone
 
@@ -61,7 +63,7 @@ describe EmailCommandController do
         end
 
         it_should_behave_like "a success with a reply going back"
-        
+
         it "should leave the timestamp updated" do
           # the ridiculous things we have to do to deal with times in Ruby...
           (Time.now - @user.reload.last_unmonitored_mailbox_response_at).to_i.should == 0

@@ -7,6 +7,8 @@ include EmailHelper
 # so it calls 'TilesDigestMailer.notify_one' directly, without delivering the email.
 # That method returns a 'mail' object, whose content is then tested.
 
+# FIXME: Once we decide on a Spying library, we should test for appropriate pings in here. Specifically, test ping_on_digest_email is received when notify_one and notify_one_explore are called.
+
 describe 'Digest email' do
   let(:demo) { FactoryGirl.create :demo, tile_digest_email_sent_at: Date.yesterday }
 
@@ -21,6 +23,10 @@ describe 'Digest email' do
     create_tile headline: "Archive Tile", status: Tile::ARCHIVE  # This guy shouldn't show up in the email
 
     demo.digest_tiles(nil).pluck(:id)
+  end
+
+  before(:each) do
+    TilesDigestMailer.stubs(:ping_on_digest_email)
   end
 
   describe 'Delivery' do

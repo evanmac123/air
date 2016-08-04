@@ -1,17 +1,32 @@
 require 'spec_helper'
 
 describe ClientAdmin::TilesController do
-  it "should ping Mixpanel when a tile is created" do
-    subject.stubs(:schedule_tile_creation_ping)
-    demo = FactoryGirl.create(:demo)
-    client_admin = FactoryGirl.create(:client_admin, demo: demo)
+  describe "POST create" do
+    it "should ping Mixpanel when a tile is created" do
+      subject.stubs(:ping)
+      subject.stubs(:schedule_tile_creation_ping)
+      demo = FactoryGirl.create(:demo)
+      client_admin = FactoryGirl.create(:client_admin, demo: demo)
 
-    sign_in_as(client_admin)
+      sign_in_as(client_admin)
 
-    xhr :post, :create, tile_builder_form: tile_builder_form
+      xhr :post, :create, tile_builder_form: tile_builder_form
 
-    expect(response.status).to eq(200)
-    expect(subject).to have_received(:schedule_tile_creation_ping)
+      expect(response.status).to eq(200)
+      expect(subject).to have_received(:schedule_tile_creation_ping)
+    end
+  end
+
+  describe "GET new" do
+    it "sends new tile ping" do
+      subject.stubs(:ping)
+      client_admin = FactoryGirl.create(:client_admin)
+      sign_in_as(client_admin)
+
+      get :new
+
+      expect(subject).to have_received(:ping).with('Tiles Page', {action: 'Clicked Add New Tile'}, subject.current_user)
+    end
   end
 
   def tile_builder_form
