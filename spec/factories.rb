@@ -188,9 +188,9 @@ FactoryGirl.define do
     status Tile::ACTIVE
     question_type Tile::QUIZ
     question_subtype Tile::MULTIPLE_CHOICE
-    remote_media_url "https://s3.amazonaws.com/hengage-tiles-development/assets/airbo_logo_lightblue_square.png"
+    remote_media_url "/images/engage_new.gif"
 
-    #remote_media_url "http://localhost:59999/images/avatars/thumb/missing.png"
+
     trait :with_creator do
       association :creator, :factory => :user
     end
