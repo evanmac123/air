@@ -29,7 +29,6 @@ module TileHelpers
   # -------------------------------------------------
 
   DATE_REG_EXPR = /(\d{1,2})\/(\d{1,2})\/(\d{4})/  # e.g. 7/4/2013 -or- 07/04/2013
-  ASSET_HOST = "http://localhost:3000"
 
   def day_to_time(day)
     day.match DATE_REG_EXPR
@@ -456,7 +455,8 @@ module TileHelpers
 
 
   def fake_upload_image filename
-    url = "#{ASSET_HOST}/#{filename}"
+    uri = URI.join('file:///', "#{Rails.root}/spec/support/fixtures/tiles/#{filename}")
+    url = uri.path
     page.execute_script("$('#remote_media_url').val('#{url}');")
     page.execute_script("$('#upload_preview').attr('src', '#{url}');")
   end
