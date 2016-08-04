@@ -15,7 +15,6 @@ require 'rspec/autorun'
 require 'mocha/setup'
 require 'capybara/poltergeist'
 require 'capybara-screenshot/rspec'
-Capybara.server_port = 59999
 
 Capybara::Screenshot.autosave_on_failure = false
 # Requires supporting ruby files with custom matchers and macros, etc,
