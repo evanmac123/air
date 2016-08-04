@@ -33,6 +33,7 @@ feature 'Makes a board by themself' do
       submit_create_form
       @new_board = Demo.order("created_at DESC").first
     end
+
     it "signs in and remembers the user" do
       should_be_on client_admin_explore_path
       Timecop.travel(1.month)
@@ -102,14 +103,14 @@ feature 'Makes a board by themself' do
     end
 
     it "should send an appropriate ping for the board creation" do
-      pending 'Convert to controller spec'
+      pending 'MIXPANEL make client side after mixpanel audit or make model/unit tests'
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear
       FakeMixpanelTracker.should have_event_matching("Boards - New", source: 'Boards/new Page')
     end
 
     it "should send an appropriate ping for the creator creation" do
-      pending 'Convert to controller spec'
+      pending 'MIXPANEL make client side after mixpanel audit or make model/unit tests'
       FakeMixpanelTracker.clear_tracked_events
       crank_dj_clear
       FakeMixpanelTracker.should have_event_matching("claimed account", source: 'Marketing Page')

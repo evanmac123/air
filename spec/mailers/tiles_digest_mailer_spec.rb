@@ -7,8 +7,6 @@ include EmailHelper
 # so it calls 'TilesDigestMailer.notify_one' directly, without delivering the email.
 # That method returns a 'mail' object, whose content is then tested.
 
-# FIXME: Once we decide on a Spying library, we should test for appropriate pings in here. Specifically, test ping_on_digest_email is received when notify_one and notify_one_explore are called.
-
 describe 'Digest email' do
   let(:demo) { FactoryGirl.create :demo, tile_digest_email_sent_at: Date.yesterday }
 
@@ -380,6 +378,18 @@ describe "#notify_one" do
     blank_mail.should be_kind_of(ActionMailer::Base::NullMail)
     nil_mail.should be_kind_of(ActionMailer::Base::NullMail)
   end
+
+# NOTE: MIXPANEL testing implementation for unit testing pings with Bourne spies.  Still would rather move ALL pings client side with client side tests. 
+  it "should schedule a ping that the mail has been sent" do
+    TrackEvent.stubs(:ping)
+
+    user = FactoryGirl.create(:user)
+    tile = FactoryGirl.create(:tile)
+
+    TilesDigestMailer.notify_one(user.demo.id, user.id, [tile.id], 'New Tiles', false, nil, nil)
+
+    assert_received(TrackEvent, :ping) { |expect| expect.with("Email Sent", anything, anything) }
+  end
 end
 
 describe "#notify_one_explore" do
@@ -387,11 +397,10 @@ describe "#notify_one_explore" do
   let(:tile) {FactoryGirl.create(:tile)}
 
   it "should schedule a ping that the mail has been sent" do
-    pending 'Convert to controller spec'
-    #FIXME how should this be tested properly
+    TrackEvent.stubs(:ping)
+
     TilesDigestMailer.notify_one_explore(user.id, [tile.id], "subj", "head", "mess")
-    FakeMixpanelTracker.clear_tracked_events
-    crank_dj_clear
-    FakeMixpanelTracker.should have_event_matching('Email Sent', {email_type: "Explore - v. 8/25/14"})
+
+    assert_received(TrackEvent, :ping) { |expect| expect.with("Email Sent", anything, anything) }
   end
 end

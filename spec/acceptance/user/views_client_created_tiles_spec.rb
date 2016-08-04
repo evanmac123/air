@@ -46,24 +46,6 @@ feature 'User views tiles' do
       page.should have_content(all_tiles_done_message)
     end
 
-    scenario 'and a ping is sent to Mixpanel', js: true do
-      # FIXME this ping is on user side now
-      pending 'Convert to controller spec'
-      page.find('.right_multiple_choice_answer').click
-
-      FakeMixpanelTracker.clear_tracked_events
-      crank_dj_clear
-
-      FakeMixpanelTracker.should have_event_matching('Tile - Completed', {tile_id: @tile.id})
-    end
-
-    scenario "but gets no ticket emails", js: true do
-      pending 'Convert to controller spec'
-      click_answer 1
-      crank_dj_clear
-      ActionMailer::Base.deliveries.should be_empty
-    end
-
     scenario "when it's not the first tile navigated to", js: true do
       other_tile = FactoryGirl.create(:tile, demo: @tile.demo, headline: "The tile upon which we will start")
       visit tile_path(other_tile, as: @user)

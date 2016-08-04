@@ -118,23 +118,11 @@ feature 'Guest user is prompted to convert to real user' do
       expect_content "OK, you've cancelled that account."
     end
 
-    it "pings mixpanel", js: true do
-      pending 'Convert to controller spec'
-      FakeMixpanelTracker.clear_tracked_events
-
-      @setup.call
-      local_setup
-
-      crank_dj_clear
-
-      FakeMixpanelTracker.should have_event_matching('User - New', source: 'public link')
-    end
-    
     pending "when the email is used but unclaimed" do
       before do
         @setup.call
         wait_for_conversion_form
-        
+
         FactoryGirl.create(:user, email: 'jimmy@example.com')
         wait_for_conversion_form
         fill_in_conversion_name "Jimmy Jones"
@@ -152,7 +140,7 @@ feature 'Guest user is prompted to convert to real user' do
 
   shared_examples "conversion happy path without location" do
     # All this @setup and local_setup bullshit is because RSpec doesn't do the
-    # right thing (i.e. what I expected) when you have before blocks split 
+    # right thing (i.e. what I expected) when you have before blocks split
     # between shared example groups and regular example groups.
     #
     # By the time you read this, there may well be a better way to do it.
@@ -177,7 +165,7 @@ feature 'Guest user is prompted to convert to real user' do
       @location_names.each do |location_name|
         FactoryGirl.create(:location, name: location_name, demo: @board)
       end
-      
+
       @unexpected_location_name = "St. Elsewhere"
       FactoryGirl.create(:location, name: @unexpected_location_name)
     end
@@ -224,7 +212,7 @@ feature 'Guest user is prompted to convert to real user' do
         page.should have_content("Capital City")
       end
 
-      it "should use the selected location", js: true do        
+      it "should use the selected location", js: true do
         setup_before_visit
         visit public_board_path(public_slug: board.public_slug)
         wait_for_conversion_form
@@ -365,7 +353,7 @@ feature 'Guest user is prompted to convert to real user' do
         User.count.should == 1 # the one we created above, remember?
       end
     end
-   
+
     pending "when a bad location name is present" do
       before do
         @board = board
@@ -434,10 +422,10 @@ feature 'Guest user is prompted to convert to real user' do
     before do
       @board = board
       @setup = lambda do
-        create_tiles(board, 1) 
+        create_tiles(board, 1)
         visit public_board_path(public_slug: board.public_slug)
         close_tutorial_lightbox
-        click_link Tile.first.headline  
+        click_link Tile.first.headline
         click_right_answer
       end
     end
@@ -468,22 +456,22 @@ feature 'Guest user is prompted to convert to real user' do
     before do
       @board = board
       @setup = lambda do
-        create_tiles(board, 2) 
+        create_tiles(board, 2)
         visit public_board_path(public_slug: board.public_slug)
         close_tutorial_lightbox
         Tile.ordered_for_explore.each do |tile|
           visit activity_path
-          click_link tile.headline  
+          click_link tile.headline
           click_right_answer
         end
       end
     end
 
     it "should offer after completing both tiles", js: true do
-      create_tiles(board, 2) 
+      create_tiles(board, 2)
       visit public_board_path(public_slug: board.public_slug)
 
-      # We do #to_a here because ordered_for_explore apparently generates a 
+      # We do #to_a here because ordered_for_explore apparently generates a
       # more complex ORDER BY clause than #last can deal with, and we get a
       # SQL syntax error.
       all_tiles = Tile.ordered_for_explore.to_a
@@ -506,7 +494,7 @@ feature 'Guest user is prompted to convert to real user' do
 
   pending "when there are more than two tiles" do
     before do
-      create_tiles(board, 4) 
+      create_tiles(board, 4)
     end
 
     it "should offer after completing two tiles", js: true do
@@ -514,7 +502,7 @@ feature 'Guest user is prompted to convert to real user' do
 
       # See above for explanation of why we do to_a
       all_tiles = Tile.ordered_for_explore.to_a
-    
+
       close_tutorial_lightbox
       click_link all_tiles.first.headline
       click_right_answer
@@ -574,11 +562,11 @@ feature 'Guest user is prompted to convert to real user' do
     end
 
     it "should return user to last tile", js: true do
-      create_tiles(board, 2) 
+      create_tiles(board, 2)
       visit public_board_path(public_slug: board.public_slug)
 
       all_tiles = Tile.ordered_for_explore.to_a
-    
+
       close_tutorial_lightbox
       click_link all_tiles.first.headline
       click_right_answer
@@ -675,7 +663,7 @@ feature 'Guest user is prompted to convert to real user' do
   end
 
   def name_error_copy
-    "Please enter a first and last name"  
+    "Please enter a first and last name"
   end
 
   def expect_name_error
@@ -699,7 +687,7 @@ feature 'Guest user is prompted to convert to real user' do
   end
 
   def password_error_copy
-    "Please enter a password at least 6 characters long"  
+    "Please enter a password at least 6 characters long"
   end
 
   def expect_password_error

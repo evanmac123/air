@@ -6,7 +6,7 @@
 
 <% @tiles.each do |tile| %>
 
-    <%= tile.headline %>
+  <%= tile.headline %>
   <%= tile.email_site_link %>
   <%= tile.supporting_content + "\n" if @presenter.follow_up_email %> +<%= tile.points %> <%= tile.question %>
 <% end %>
