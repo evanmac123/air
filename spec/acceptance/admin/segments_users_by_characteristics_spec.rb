@@ -3,6 +3,7 @@ require 'acceptance/acceptance_helper'
 feature "Admin segmentation" do
   def create_characteristics_and_users
     @demo = FactoryGirl.create(:demo)
+    @loser = FactoryGirl.create(:user, :demo => @demo)
     @generic_characteristic_1 = FactoryGirl.create(:characteristic, :name => "Color", :allowed_values => %w(red orange yellow green blue indigo violet))
     @generic_characteristic_2 = FactoryGirl.create(:characteristic, :name => "Favorite Beatle", :allowed_values => %w(john paul george ringo))
     @generic_characteristic_3 = FactoryGirl.create(:characteristic, :name => "LOLPhrase", :allowed_values => %w(i can haz cheezburger))
@@ -13,32 +14,32 @@ feature "Admin segmentation" do
     %w(Here There Everywhere).each {|location_name| FactoryGirl.create(:location, name: location_name, demo: @demo)}
     @locations = @demo.locations.all
 
-    @loser = FactoryGirl.create(:user, :demo => @demo)
     @reds = []
     @blues = []
     @greens = []
 
     14.times do |i|
-      @reds << FactoryGirl.create(:user, :name => "Red Guy #{i}", :demo => @demo, :location => @locations[rand(3)], :employee_id => "reddude#{i}", :characteristics => {@generic_characteristic_1.id => "red"})
-      @blues << FactoryGirl.create(:user, :name => "Blue Guy #{i}", :demo => @demo, :location => @locations[rand(3)], :employee_id => "bluedude#{i}", :characteristics => {@generic_characteristic_1.id => "blue"})
-      @greens << FactoryGirl.create(:user, :name => "Green Guy #{i}", :demo => @demo, :location => @locations[rand(3)], :employee_id => "greendude#{i}", :characteristics => {@generic_characteristic_1.id => "green"})
+      @reds << FactoryGirl.build(:user, :name => "Red Guy #{i}", :demo => @demo, :location => @locations[rand(3)], :employee_id => "reddude#{i}", :characteristics => {@generic_characteristic_1.id => "red"})
+      @blues << FactoryGirl.build(:user, :name => "Blue Guy #{i}", :demo => @demo, :location => @locations[rand(3)], :employee_id => "bluedude#{i}", :characteristics => {@generic_characteristic_1.id => "blue"})
+      @greens << FactoryGirl.build(:user, :name => "Green Guy #{i}", :demo => @demo, :location => @locations[rand(3)], :employee_id => "greendude#{i}", :characteristics => {@generic_characteristic_1.id => "green"})
     end
 
     %w(john john paul paul paul george george george george ringo ringo ringo ringo ringo).each_with_index do |name, i|
       [@reds, @blues, @greens].each do |color_array|
         color_array[i].characteristics[@generic_characteristic_2.id] = name
-        color_array[i].save!
+        color_array[i]
       end
     end
 
     %w(low low low low low low low medium medium medium high high high high).each_with_index do |name, i|
       [@reds, @blues, @greens].each do |color_array|
         color_array[i].characteristics[@demo_specific_characteristic_1.id] = name
-        color_array[i].save!
+        color_array[i]
       end
     end
 
-    crank_off_dj
+    [@reds, @blues, @greens].each{|user_group| user_group.map(&:save)}
+    
   end
 
   def expect_discrete_operators_to_not_be_present(characteristic_name)
@@ -150,7 +151,6 @@ feature "Admin segmentation" do
     it "sees users segmented by two characteristics", :js => true do
       # Segmenting on multiple characteristics
       create_characteristics_and_users
-
       visit admin_demo_segmentation_path(@demo, as: an_admin)
 
       select "Color", :from => "segment_column[0]"
@@ -166,6 +166,7 @@ feature "Admin segmentation" do
       expect_content "Users in this segment: 4"
       click_link "Show users"
       [@reds[5], @reds[6], @reds[7], @reds[8]].each { |red| expect_user_content red }
+
     end
 
     it "sees users segmented by three characteristics", :js => true do
