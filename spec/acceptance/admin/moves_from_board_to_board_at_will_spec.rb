@@ -8,10 +8,10 @@ feature 'Site admin' do
     visit activity_path(as: admin)
 
     switch_to_board(first_board)
-    page.should have_content "Current Board #{first_board.name}"
+    expect_content "Current Board #{first_board.name}"
 
     switch_to_board(second_board)
-    page.should have_content "Current Board #{second_board.name}"
+    expect_content "Current Board #{second_board.name}"
 
     admin.demos.reload.should have(3).demos
   end
