@@ -278,7 +278,6 @@ class ApplicationController < ActionController::Base
 
   def refresh_activity_session(user)
     return if user.nil? || user.is_a?(PotentialUser)
-    #session things for marketing page ping
 
     if user.is_a? User
       session[:user_id] = user.id
@@ -286,9 +285,7 @@ class ApplicationController < ActionController::Base
       session[:guest_user_id] = user.id
     end
 
-
-    # We rig the timestamp to ensure that these always appear to Mixpanel to happen
-    # after the corresponding email ping (as in email_clicked_ping) if any.
+    # We rig the timestamp to ensure that these always appear to Mixpanel to happen after the corresponding email ping (as in email_clicked_ping) if any.
     if idle_period >= ACTIVITY_SESSION_THRESHOLD
       time = request.env['rack.timestamp'] || Time.now
       ping('Activity Session - New', {time: time - 1}, user)
@@ -533,7 +530,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_last_session_activity
-    session[:last_activity]=Time.now
+    session[:last_activity] = Time.now
   end
 
 

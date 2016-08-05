@@ -11,6 +11,8 @@ describe UserSettingsChangeLog do
 
     uscl.saving_email = true
     expect(uscl).to_not be_valid
+
+    uscl.save
     expect(uscl.errors[:email]).to eql(["can't be blank"])
   end
 

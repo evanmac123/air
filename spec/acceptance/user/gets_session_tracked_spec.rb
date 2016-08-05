@@ -1,5 +1,5 @@
 require 'acceptance/acceptance_helper'
-
+# FIXME: NICK to HERBY Revisit after Mixpanel audit.  Moving to controller specs was too involved. Instead, turned off delayed jobs and removed crank_dj_clear
 feature "activity session tracking" do
   before do
     user = FactoryGirl.create(:user, email: 'fred@foobar.com')
@@ -12,16 +12,15 @@ feature "activity session tracking" do
     Timecop.return
   end
 
-  let (:threshold) {ApplicationController::ACTIVITY_SESSION_THRESHOLD} # this would get real tedious to type
+  let (:threshold) {ApplicationController::ACTIVITY_SESSION_THRESHOLD}
 
   def do_real_login
-    # We want to exercise the #authorize method, so we can't use the backdoor
-    # in these tests.
+    Delayed::Worker.delay_jobs = false
+
     visit new_session_path
     fill_in "session[email]", with: "fred@foobar.com"
     fill_in "session[password]", with: "foobar"
 
-    crank_dj_clear
     FakeMixpanelTracker.clear_tracked_events
 
     click_button "Log In"
@@ -29,33 +28,26 @@ feature "activity session tracking" do
 
   context "when a user signs in" do
     it "should log a new activity session" do
-      pending 'Convert to controller spec'
       do_real_login
-      crank_dj_clear
       FakeMixpanelTracker.should have_event_matching('Activity Session - New')
     end
   end
 
   context "when a user does something that triggers authorize after #{ApplicationController::ACTIVITY_SESSION_THRESHOLD} seconds or more" do
     it "should log a new activity session" do
-      pending 'Convert to controller spec'
       do_real_login
-      crank_dj_clear
       FakeMixpanelTracker.clear_tracked_events
 
       Timecop.travel(threshold - 1)
       visit acts_path
-      crank_dj_clear
       FakeMixpanelTracker.should_not have_event_matching('Activity Session - New')
 
       Timecop.travel(threshold)
       visit acts_path
-      crank_dj_clear
       FakeMixpanelTracker.events_matching('Activity Session - New').should have(1).ping
 
       Timecop.travel(threshold + 1)
       visit acts_path
-      crank_dj_clear
       FakeMixpanelTracker.events_matching('Activity Session - New').should have(2).pings
     end
   end

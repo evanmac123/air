@@ -21,9 +21,9 @@ feature "interacts with a tile from the explore-preview page" do
 
   shared_examples_for 'copies/likes tile' do
     scenario "by clicking the proper link", js: true do
-      
+
       click_copy_button
-   
+
       crank_dj_clear
       Tile.count.should == 2
       expect_tile_copied(@original_tile, @user)
@@ -32,12 +32,12 @@ feature "interacts with a tile from the explore-preview page" do
     context "when the tile has no creator", js: true do
       before do
         @original_tile.update_attributes(creator: nil)
-        
+
       end
 
       it "should work", js: true do
         click_copy_button
-     
+
         crank_dj_clear
         Tile.count.should == 2
         expect_tile_copied(@original_tile, @user)
@@ -45,7 +45,7 @@ feature "interacts with a tile from the explore-preview page" do
     end
 
     scenario "should show a helpful message in a modal after copying", js: true do
-      
+
       click_copy_button
       page.find('.tile_copied_lightbox', visible: true)
 
@@ -53,7 +53,7 @@ feature "interacts with a tile from the explore-preview page" do
     end
 
     scenario "works if no creator is set", js: true do
-      
+
       @original_tile.update_attributes(creator: nil)
       click_copy_button
       page.find('.tile_copied_lightbox', visible: true)
@@ -61,31 +61,15 @@ feature "interacts with a tile from the explore-preview page" do
       expect_content post_copy_copy
     end
 
-    scenario "should ping", js: true do
-      
-      pending 'Convert to controller spec'
-      crank_dj_clear
-      FakeMixpanelTracker.clear_tracked_events
-
-      click_copy_button
-      crank_dj_clear
-      
-      FakeMixpanelTracker.should have_event_matching('Explore page - Interaction', {
-          tile_id: @original_tile.id,
-          action: 'Clicked Copy',
-          page: "Large Tile View"
-        })
-    end
-
     scenario "should record user who copied", js: true do
-      
+
       click_copy_button
-    
+
       @original_tile.user_tile_copies.reload.first.user_id.should eq @user.id
     end
-  
+
     scenario "should not show the link for a non-copyable tile", js: true do
-      
+
       tile = FactoryGirl.create(:multiple_choice_tile, :public)
       visit explore_tile_preview_path(tile, as: @user)
       page.should have_content("View Only")
@@ -94,7 +78,7 @@ feature "interacts with a tile from the explore-preview page" do
 
   shared_examples_for 'gets registration form after closing intro' do |name, selector|
     scenario "when clicks #{name}", js: true do
-      
+
       page.find(selector).click
       register_if_guest
     end
@@ -139,31 +123,9 @@ feature "interacts with a tile from the explore-preview page" do
   end
 
   shared_examples_for 'uses share tile link' do
-    before(:each) do
-      
-    end
-
-    scenario "ping when click linkedin icon", js: true do
-      page.find('.share_linkedin').click            
-      pending 'Convert to controller spec'
-      FakeMixpanelTracker.clear_tracked_events
-      crank_dj_clear
-      properties = {"action" => 'Clicked share tile via LinkedIn', "tile_id" => @original_tile.id.to_s}
-      FakeMixpanelTracker.should have_event_matching('Explore page - Interaction', properties)
-    end
-
-    scenario "ping when click linkedin icon", js: true do
-      pending 'Convert to controller spec'
-      page.find('.share_mail').click            
-      FakeMixpanelTracker.clear_tracked_events
-      crank_dj_clear
-      properties = {"action" => 'Clicked share tile via email', "tile_id" => @original_tile.id.to_s}
-      FakeMixpanelTracker.should have_event_matching('Explore page - Interaction', properties)
-    end
-
     scenario "should be without protocol", js: true do
       uri = URI.parse(current_url)
-      page.find('#share_link').value.should == "#{uri.host}:#{uri.port}#{uri.path}".gsub(/^www./, "")  
+      page.find('#share_link').value.should == "#{uri.host}:#{uri.port}#{uri.path}".gsub(/^www./, "")
     end
   end
 
@@ -185,10 +147,10 @@ feature "interacts with a tile from the explore-preview page" do
       client_admin = @user
       UserTileLike.create!(tile: tile, user: client_admin) # we liked this at some point in the past
 
-      visit explore_path(as: client_admin)    
+      visit explore_path(as: client_admin)
       click_tile
       page.find(:xpath,"//span[contains(@class, 'like_message')]/div[@id='like_value']").should have_content("1")
-      
+
       click_unlike_link_in_preview
       page.find(:xpath,"//span[contains(@class, 'like_message')]/div[@id='like_value']").should_not be_visible
     end
@@ -271,7 +233,7 @@ feature "interacts with a tile from the explore-preview page" do
   context "as guest for a public tile in a private board" do
     it "should allow the guest to see the tile" do
       private_board = FactoryGirl.create(:demo, is_public: false)
-      tile = FactoryGirl.create(:sharable_and_public_tile, demo: private_board)      
+      tile = FactoryGirl.create(:sharable_and_public_tile, demo: private_board)
       visit explore_tile_preview_path(tile)
 
       expect_no_content "This board is currently private"

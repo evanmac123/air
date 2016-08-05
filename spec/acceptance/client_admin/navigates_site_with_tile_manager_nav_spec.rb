@@ -21,7 +21,6 @@ feature 'Client Admin navigates site with tile manager navbar' do
       'Users' => 'client_admin_users_path'
     }.each do |link_text, page_path_code|
       it "should have a working link to #{link_text}" do
-        # save_and_open_page
         within tile_manager_nav do
           click_link link_text
         end

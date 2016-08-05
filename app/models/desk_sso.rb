@@ -1,3 +1,4 @@
+# FIXME: DEPRECATE not used anymore
 class DeskSSO
   def initialize(user)
     @user = user
