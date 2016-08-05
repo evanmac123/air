@@ -95,7 +95,6 @@ end
 # RSpec needs to be in :development group to expose generators
 # and rake tasks without having to type RAILS_ENV=test.
 group :development, :test do
-	gem "thin"
   gem "colored"
   gem "rspec-rails"
   gem "factory_girl_rails"
@@ -131,6 +130,7 @@ group :test do
 end
 
 group :development do
+  gem 'thin'
   gem 'quiet_assets'
   gem 'letter_opener'
   gem 'better_errors'
