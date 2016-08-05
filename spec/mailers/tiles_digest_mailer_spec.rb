@@ -368,18 +368,8 @@ describe '#notify_all_follow_up' do
 end
 
 describe "#notify_one" do
-  it "should not try to send to a blank or nil address" do
-    blank_mail_user = FactoryGirl.create(:user, email: '')
-    nil_mail_user   = FactoryGirl.create(:user, email: nil)
 
-    blank_mail = TilesDigestMailer.notify_one(blank_mail_user.demo.id, blank_mail_user.id, [], 'New Tiles', false, nil, nil)
-    nil_mail = TilesDigestMailer.notify_one(nil_mail_user.demo.id, nil_mail_user.id, [], 'New Tiles', false, nil, nil)
-
-    blank_mail.should be_kind_of(ActionMailer::Base::NullMail)
-    nil_mail.should be_kind_of(ActionMailer::Base::NullMail)
-  end
-
-# NOTE: MIXPANEL testing implementation for unit testing pings with Bourne spies.  Still would rather move ALL pings client side with client side tests. 
+# NOTE: MIXPANEL testing implementation for unit testing pings with Bourne spies.  Still would rather move ALL pings client side with client side tests.
   it "should schedule a ping that the mail has been sent" do
     TrackEvent.stubs(:ping)
 

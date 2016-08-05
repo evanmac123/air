@@ -57,7 +57,7 @@ class TilesDigestMailer < BaseTilesDigestMailer
 
     user_ids.each_with_index do |user_id, idx|
       subj = resolve_subject(subject, alt_subject,idx)
-      TilesDigestMailer.delay.notify_one(demo.id, user_id, tile_ids, subj, false, custom_headline, custom_message) 
+      TilesDigestMailer.delay.notify_one(demo.id, user_id, tile_ids, subj, false, custom_headline, custom_message)
     end
   end
 
