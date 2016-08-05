@@ -266,6 +266,7 @@ feature "Client admin opens tile stats", js: true, type: :feature do
 
   def select_grid_type type
     page.find('.grid_types .custom.dropdown').click
+    wait_for_ajax
     within '.grid_types .custom.dropdown.open' do
       page.find("li", text: type).click
       wait_for_ajax
@@ -278,6 +279,7 @@ feature "Client admin opens tile stats", js: true, type: :feature do
 
   def open_stats(tile)
     visit client_admin_tiles_path(as: client_admin)
+    wait_for_ajax
     within tile_cell(tile) do
       page.find(".tile_stats .unique_views").click
       wait_for_ajax
