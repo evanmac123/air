@@ -1,5 +1,3 @@
-require 'rubygems'
-
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
 ENV["AWS_SECRET_ACCESS_KEY"] ||= "fake_key"
@@ -17,19 +15,21 @@ require 'capybara/rspec'
 require 'capybara/poltergeist'
 require 'capybara-screenshot/rspec'
 
-Capybara.javascript_driver = :poltergeist
-
-Capybara::Screenshot.autosave_on_failure = false
-# Requires supporting ruby files with custom matchers and macros, etc,
-# in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
-Capybara.javascript_driver = :poltergeist
+Capybara::Screenshot.autosave_on_failure = false
 
-# Uncomment these lines for debug output
-#Capybara.register_driver :poltergeist do |app|
-#  Capybara::Poltergeist::Driver.new(app, debug: true)
-#end
+## Poltergeist Configuration
+#### If you'd like to run a feature spec in debug mode, change the Capybara js driver to :poltergeist_debug and you can insert page.driver.debug into your tests to pause the test and launch a browser which gives you the inspector to view your test run with.
+
+Capybara.register_driver :poltergeist_debug do |app|
+  Capybara::Poltergeist::Driver.new(app, inspector: true)
+end
+
+Capybara.javascript_driver = :poltergeist
+# Capybara.javascript_driver = :poltergeist_debug
+
+##
 
 ActiveRecord::Base.logger = nil
 
