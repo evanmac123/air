@@ -279,6 +279,7 @@ feature "Client admin opens tile stats", js: true, type: :feature do
 
   def open_stats(tile)
     visit client_admin_tiles_path(as: client_admin)
+    wait_for_ajax
     within tile_cell(tile) do
       page.find(".tile_stats .unique_views").click
       wait_for_ajax

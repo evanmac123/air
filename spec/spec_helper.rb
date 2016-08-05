@@ -1,5 +1,3 @@
-require 'rubygems'
-
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
 ENV["AWS_SECRET_ACCESS_KEY"] ||= "fake_key"
@@ -13,68 +11,33 @@ require 'rspec/rails'
 require 'clearance/testing'
 require 'rspec/autorun'
 require 'mocha/setup'
+require 'capybara/rspec'
 require 'capybara/poltergeist'
 require 'capybara-screenshot/rspec'
 
-Capybara.javascript_driver = :poltergeist
-
-Capybara::Screenshot.autosave_on_failure = false
-# Requires supporting ruby files with custom matchers and macros, etc,
-# in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
-# FIXME: REMOVE all this register_driver stuff.. Capybara does the middleware handling for us.
-# Regarding Poltergeist vs. Capy-Webkit: We prefer the former over the latter for JS testing.
-# However, there are some tests that work fine with Webkit but not with Poltergeist.
-# Rather than shave that yak, you can use Webkit on a single scenario by giving the options
-# js: true, driver: :webkit.
+Capybara::Screenshot.autosave_on_failure = false
+
+## Poltergeist Configuration
+#### If you'd like to run a feature spec in debug mode, change the Capybara js driver to :poltergeist_debug and you can insert page.driver.debug into your tests to pause the test and launch a browser which gives you the inspector to view your test run with.
+
+Capybara.register_driver :poltergeist_debug do |app|
+  Capybara::Poltergeist::Driver.new(app, inspector: true)
+end
 
 Capybara.javascript_driver = :poltergeist
+# Capybara.javascript_driver = :poltergeist_debug
 
-# Uncomment these lines for debug output
-#Capybara.register_driver :poltergeist do |app|
-#  Capybara::Poltergeist::Driver.new(app, debug: true)
-#end
-Capybara.register_driver :poltergeist do |app|
- Capybara::Poltergeist::Driver.new(app, timeout: 600, block_unknown_urls: true)
-end
-
-Capybara.register_driver :webkit do |app|
-  Capybara::Webkit.configure do |config|
-    config.block_unknown_urls
-  end
-  Capybara::Webkit::Driver.new(app, timeout: 600, block_unknown_urls: true)
-end
-
+##
 
 ActiveRecord::Base.logger = nil
 
 RSpec.configure do |config|
   config.mock_with :mocha
   config.treat_symbols_as_metadata_keys_with_true_values = true
-  config.use_transactional_fixtures = false
   # config.fail_fast = true
 
-  config.around(:each) do |example|
-    # It should do all of this automatically. Want to bet on whether it does or not?
-    if example.metadata[:driver]
-      Capybara.current_driver = example.metadata[:driver]
-    elsif example.metadata[:js]
-      Capybara.current_driver = :poltergeist
-    end
-
-    if Capybara.current_driver == :rack_test
-      DatabaseCleaner.strategy = :transaction
-    else
-      DatabaseCleaner.strategy = :deletion, {pre_count: true}
-    end
-
-    DatabaseCleaner.cleaning do
-      example.run
-    end
-
-    Capybara.use_default_driver
-  end
   config.before(:all) do
     log_file = Rails.root.join("log/test.log")
     File.truncate(log_file, 0) if File.exist?(log_file)
