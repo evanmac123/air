@@ -270,7 +270,9 @@ feature "Client admin opens tile stats" , js: true, type: :feature do
   def select_grid_type type
     page.find('.grid_types .custom.dropdown').click
     within '.grid_types .custom.dropdown.open' do
-      page.find("li", text: type).click
+      #NOTE this page is very heave to css parsing runs slowly which forces the
+      #wait param here
+      page.find("li", text: type, wait: 3).click
     end
   end
 
