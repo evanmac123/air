@@ -48,10 +48,9 @@ feature 'Client admin and tile manager page', js: true do
       within active_tab do
         tiles.each do |tile|
           within tile(tile) do
-            page.should contain tile.headline
-            page.should have_archive_link_for(tile)
-            edit_link_for(tile).should be_present
-            page.should have_preview_link_for(tile)
+            expect_content tile.headline
+            expect(page).to have_css "a[data-status='archive']", visible: false
+            expect(page).to have_css "li.edit_button a", visible: false
           end
         end
       end
@@ -66,8 +65,9 @@ feature 'Client admin and tile manager page', js: true do
 
       tiles.each do |tile|
         within tile(tile) do
-          page.should contain tile.headline
-          page.should have_reactivate_link_for(tile)
+          expect_content tile.headline
+          expect(page).to have_css "a[data-status='active']", visible: false
+          expect(page).to have_css "li.edit_button a", visible: false
         end
       end
     end
@@ -79,8 +79,8 @@ feature 'Client admin and tile manager page', js: true do
         active_tab.should  have_num_tiles(3)
         archive_tab.should have_num_tiles(0)
 
-        active_tab.find(:tile, kill).click_link('Archive')
-        #page.should contain "The #{kill.headline} tile has been archived"
+        active_tab.find(:tile, kill).hover
+        page.find("a", text: "Archive", visible: true).click
 
 
         within(active_tab)  { page.should_not contain kill.headline }
@@ -90,8 +90,10 @@ feature 'Client admin and tile manager page', js: true do
         archive_tab.should have_num_tiles(1)
         # Do it one more time to make sure that the most-recently archived tile appears first in the list
         #knife.archived_at.should be_nil
-        active_tab.find(:tile, knife).click_link('Archive')
-        #page.should contain "The #{knife.headline} tile has been archived"
+        #FIXME we should be able to assert in model or controller spec or js
+        #test that the order of tiles is correct
+        active_tab.find(:tile, knife).hover
+        page.find("a", text: "Archive", visible: true).click
 
 
         within(active_tab)  { page.should_not contain knife.headline }
@@ -110,8 +112,8 @@ feature 'Client admin and tile manager page', js: true do
         active_tab.should  have_num_tiles(0)
         archive_tab.should have_num_tiles(3)
 
-        archive_tab.find(:tile, kill).click_link('Post again')
-        #page.should contain "The #{kill.headline} tile has been published"
+        archive_tab.find(:tile, kill).hover
+        page.find("a", text: 'Post Again', visible: true).click
 
 
         within(archive_tab) { page.should_not contain kill.headline }
@@ -121,8 +123,9 @@ feature 'Client admin and tile manager page', js: true do
         archive_tab.should have_num_tiles(2)
 
         # Do it one more time to make sure that the most-recently activated tile appears first in the list
-        archive_tab.find(:tile, knife).click_link('Post again')
-        #page.should contain "The #{knife.headline} tile has been published"
+        archive_tab.find(:tile, knife).hover
+        page.find("a", text: 'Post Again', visible: true).click
+          
 
 
         within(archive_tab) { page.should_not contain knife.headline }
