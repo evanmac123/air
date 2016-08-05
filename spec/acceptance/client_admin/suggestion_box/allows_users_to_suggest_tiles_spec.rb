@@ -83,9 +83,8 @@ feature 'Client admin segments on characteristics' do
 
           save_button.click
           demo.reload.everyone_can_make_tile_suggestions.should be_true
-          # save_and_open_page
         end
-        
+
         manage_access_link.click
         within "#suggestions_access_modal" do
           specific_users_switcher_on.click
