@@ -100,7 +100,7 @@ feature 'Client admin segments on characteristics' do
       end
 
       context "Autocomplete Input" do
-        it "should autocomplete entered name and show users", js: true , driver: :webkit do
+        it "should autocomplete entered name and show users", js: true do
           fill_in_username_autocomplete("Use")
           autocomplete_result_names.count.should == 4
           autocomplete_result_names.should == ["User1", "User2", "User3", "User4"]
@@ -110,7 +110,7 @@ feature 'Client admin segments on characteristics' do
           autocomplete_result_names[0] =~ /No match for W./
         end
 
-        it "should add user from autocomplete list to user table on click", js: true , driver: :webkit do
+        it "should add user from autocomplete list to user table on click", js: true do
           fill_in_username_autocomplete("Use")
           username_autocomplete_results_click 0
 

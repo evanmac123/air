@@ -1,6 +1,8 @@
+# FIXME: REMOVE with related code
 require 'acceptance/acceptance_helper'
-feature "Contracts", js:true, driver: :webkit do
+feature "Contracts", js: true do
   before do
+    pending
     @org = FactoryGirl.create(:organization, :complete)
   end
 
@@ -18,6 +20,7 @@ feature "Contracts", js:true, driver: :webkit do
     scenario "creates a primary contract with mrr for organization" do
       add_mrr
       click_button "Submit"
+      binding.pry
       expect_sucess
     end
   end

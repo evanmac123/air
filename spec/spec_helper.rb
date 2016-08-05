@@ -16,11 +16,14 @@ require 'mocha/setup'
 require 'capybara/poltergeist'
 require 'capybara-screenshot/rspec'
 
+Capybara.javascript_driver = :poltergeist
+
 Capybara::Screenshot.autosave_on_failure = false
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
+# FIXME: REMOVE all this register_driver stuff.. Capybara does the middleware handling for us.
 # Regarding Poltergeist vs. Capy-Webkit: We prefer the former over the latter for JS testing.
 # However, there are some tests that work fine with Webkit but not with Poltergeist.
 # Rather than shave that yak, you can use Webkit on a single scenario by giving the options

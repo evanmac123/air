@@ -1,6 +1,7 @@
 require 'acceptance/acceptance_helper'
+include WaitForAjax
 
-feature "Client admin opens tile stats" , js: true, type: :feature do
+feature "Client admin opens tile stats", js: true, type: :feature do
 
   let!(:demo) { FactoryGirl.create :demo }
   let!(:client_admin) { FactoryGirl.create :client_admin, demo: demo }
@@ -41,25 +42,23 @@ feature "Client admin opens tile stats" , js: true, type: :feature do
       open_stats(@tile)
     end
 
-    pending "should show tile stats modal" do
+    it "should show tile stats modal" do
       within "#tile_stats_modal.open" do
         expect_content "0 UNIQUE VIEWS"
-        page.find(".close-reveal-modal").click
       end
-      expect_no_content "UNIQUE VIEWS"
     end
 
-    it "should show empty graph stats", js: true do
+    it "should show empty graph stats" do
       expect_content "0 UNIQUE VIEWS"
       expect_content "0 TOTAL VIEWS"
       expect_content "0 INTERACTIONS"
     end
 
-    it "should not show surevy table", js: true do
+    it "should not show surevy table" do
       expect_no_content @tile.question
     end
 
-    it "should show empty users table", js: true do
+    it "should show empty users table" do
       expect_content "No users have viewed or interacted with Tiles."
     end
   end
@@ -78,8 +77,7 @@ feature "Client admin opens tile stats" , js: true, type: :feature do
         open_stats(@tile)
       end
 
-      it "should show column names", js: true do #, driver: :selenium do
-        # sleep 100
+      it "should show column names" do
         expect_content "Name"
         expect_content "Email"
         expect_content "Views"
@@ -87,17 +85,16 @@ feature "Client admin opens tile stats" , js: true, type: :feature do
         expect_content "Date"
       end
 
-      #FIXME why do these test require webkit
-      it "should intialy sorted by name asc", js: true do
+      it "should intialy sorted by name asc" do
         first_name.should == @user_first_name.name
       end
 
-      it "should sort by name", js: true do
+      it "should sort by name" do
         table_column("name").click
         first_name.should == @user_last_name.name
       end
 
-      it "should sort by email", js: true do
+      it "should sort by email" do
         table_column("email").click
         first_name.should == @user_first_email.name
 
@@ -105,7 +102,7 @@ feature "Client admin opens tile stats" , js: true, type: :feature do
         first_name.should == @user_last_email.name
       end
 
-      it "should sort by views", js: true do
+      it "should sort by views" do
         table_column("views").click
         first_name.should == @user_least_views.name
 
@@ -113,7 +110,7 @@ feature "Client admin opens tile stats" , js: true, type: :feature do
         first_name.should == @user_most_views.name
       end
 
-      it "should sort by date", js: true do
+      it "should sort by date" do
         table_column("date").click
         first_name.should == @user_first_completed.name
 
@@ -132,13 +129,13 @@ feature "Client admin opens tile stats" , js: true, type: :feature do
         open_stats(@tile)
       end
 
-      it "should have pagination", js: true do
+      it "should have pagination" do
         within "tfoot" do
           expect_content "1 2 3 ... 5"
         end
       end
 
-      it "should paginate", js: true do
+      it "should paginate" do
         within "tfoot" do
           click_link "5"
         end
@@ -147,7 +144,7 @@ feature "Client admin opens tile stats" , js: true, type: :feature do
     end
 
     context "user table types" do
-      it "should show LIVE table by default", js: true do
+      it "should show LIVE table by default" do
         u = FactoryGirl.create(:user, demo: demo, name: "LIVE user")
         FactoryGirl.create(:tile_completion, user: u, tile: @tile)
         FactoryGirl.create(:tile_viewing, user: u, tile: @tile)
@@ -157,7 +154,7 @@ feature "Client admin opens tile stats" , js: true, type: :feature do
         first_name.should == "LIVE user"
       end
 
-      it "should show INTERACTED table", js: true do
+      it "should show INTERACTED table" do
         u = FactoryGirl.create(:user, demo: demo, name: "VIEWED AND INTERACTED user")
         FactoryGirl.create(:tile_completion, user: u, tile: @tile)
         FactoryGirl.create(:tile_viewing, user: u, tile: @tile)
@@ -168,7 +165,7 @@ feature "Client admin opens tile stats" , js: true, type: :feature do
         first_name.should == "VIEWED AND INTERACTED user"
       end
 
-      it "should open VIEWED ONLY table", js: true do
+      it "should open VIEWED ONLY table" do
         u = FactoryGirl.create(:user, demo: demo, name: "VIEWED ONLY user")
         FactoryGirl.create(:tile_viewing, user: u, tile: @tile)
 
@@ -178,7 +175,7 @@ feature "Client admin opens tile stats" , js: true, type: :feature do
         first_name.should == "VIEWED ONLY user"
       end
 
-      it "should open DIDN'T VIEW table", js: true do
+      it "should open DIDN'T VIEW table" do
         u = FactoryGirl.create(:user, demo: demo, name: "a DIDN'T VIEW user")
         open_stats(@tile)
 
@@ -187,7 +184,7 @@ feature "Client admin opens tile stats" , js: true, type: :feature do
         all_names.should include("a DIDN'T VIEW user")
       end
 
-      it "should open ALL table", js: true do
+      it "should open ALL table" do
         u = FactoryGirl.create(:user, demo: demo, name: "ALL user")
         FactoryGirl.create(:tile_completion, user: u, tile: @tile)
 
@@ -208,20 +205,20 @@ feature "Client admin opens tile stats" , js: true, type: :feature do
         open_stats(@tile)
       end
 
-      it "should show all users initally", js: true do
+      it "should show all users initally" do
         within "#tile_stats_grid" do
           all_names.should == ["user0", "user1", "user2", "user3", "user4", "user5", "user6", "user7", "user8"]
         end
       end
 
-      it "should filter by 'Yes' answer", js: true do
+      it "should filter by 'Yes' answer" do
         within "#tile_stats_grid" do
           page.first("td.answer_column", text: "Yes").click
           all_names.should == ["user0", "user3", "user6"]
         end
       end
 
-      it "should filter by 'No' answer", js: true do
+      it "should filter by 'No' answer" do
         within "#tile_stats_grid" do
           page.first("td.answer_column", text: "No").click
           all_names.should == ["user1", "user4", "user7"]
@@ -230,7 +227,7 @@ feature "Client admin opens tile stats" , js: true, type: :feature do
     end
 
     context "survey table" do
-      it "should show table", js: true do
+      it "should show table" do
         open_stats(@tile)
 
         expect_content "DOY YOU LIKE STATS PAGE?"
@@ -244,7 +241,7 @@ feature "Client admin opens tile stats" , js: true, type: :feature do
         end
       end
 
-      it "should show correct data", js: true do
+      it "should show correct data" do
         FactoryGirl.create(:tile_completion, tile: @tile, answer_index: 0)
         FactoryGirl.create(:tile_completion, tile: @tile, answer_index: 1)
         FactoryGirl.create(:tile_completion, tile: @tile, answer_index: 1)
@@ -270,9 +267,8 @@ feature "Client admin opens tile stats" , js: true, type: :feature do
   def select_grid_type type
     page.find('.grid_types .custom.dropdown').click
     within '.grid_types .custom.dropdown.open' do
-      #NOTE this page is very heave to css parsing runs slowly which forces the
-      #wait param here
-      page.find("li", text: type, wait: 3).click
+      page.find("li", text: type).click
+      wait_for_ajax
     end
   end
 
@@ -284,6 +280,7 @@ feature "Client admin opens tile stats" , js: true, type: :feature do
     visit client_admin_tiles_path(as: client_admin)
     within tile_cell(tile) do
       page.find(".tile_stats .unique_views").click
+      wait_for_ajax
     end
     expect_content "UNIQUE VIEWS"
   end

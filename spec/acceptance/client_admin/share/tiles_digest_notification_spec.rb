@@ -94,7 +94,7 @@ feature 'Client admin and the digest email for tiles' do
       expect_no_content follow_up_header_copy
     end
 
-    scenario 'Text is correct when follow-up emails are scheduled to be sent, and emails can be cancelled', js: true, driver: :webkit do  # (Didn't work with poltergeist)
+    scenario 'Text is correct when follow-up emails are scheduled to be sent, and emails can be cancelled', js: true do
       accept_confirm do
       create_follow_up_emails
       visit client_admin_share_path(as: admin)
@@ -123,7 +123,7 @@ feature 'Client admin and the digest email for tiles' do
     end
 
     it 'Form components are on the page and properly initialized', js: true do
-      pending "NONSENSE: this test makes no sense why are we testing static html????"
+      pending "NONSENSE: this test makes no sense why are we testing static html????  This is aso broken... Bad js code."
      on_day('10/14/2013') do  # Monday
 
         create_tile
@@ -157,11 +157,7 @@ feature 'Client admin and the digest email for tiles' do
       expect_no_content follow_up_header_copy
     end
 
-    scenario 'Text is correct when follow-up emails are scheduled to be sent, and emails can be cancelled', js: true, driver: :webkit do
-      # If you 'create_follow_up_emails' and then 'visit tile_manager_page' the follow-up email creation bombs.
-      # We've had this stupid fucking problem before. Luckily Phil figured out it is some kind of timing problem.
-      # We've also had the stupid fucking problem of stuff like this not working in poltergeist => have to use webkit
-      # (Man, testing is great... but sometimes it can be such a royal fucking pain in the ass)
+    scenario 'Text is correct when follow-up emails are scheduled to be sent, and emails can be cancelled', js: true do
       accept_confirm do
         create_tile
         create_follow_up_emails
