@@ -139,6 +139,7 @@ feature "Client admin opens tile stats", js: true, type: :feature do
         within "tfoot" do
           click_link "5"
         end
+        wait_for_ajax
         first_name.should == "user40"
       end
     end
@@ -161,7 +162,7 @@ feature "Client admin opens tile stats", js: true, type: :feature do
 
         open_stats(@tile)
         select_grid_type ("Interacted")
-
+        wait_for_ajax
         first_name.should == "VIEWED AND INTERACTED user"
       end
 
@@ -180,7 +181,7 @@ feature "Client admin opens tile stats", js: true, type: :feature do
         open_stats(@tile)
 
         select_grid_type "Didn't view"
-
+        wait_for_ajax
         all_names.should include("a DIDN'T VIEW user")
       end
 
@@ -190,7 +191,7 @@ feature "Client admin opens tile stats", js: true, type: :feature do
 
         open_stats(@tile)
         select_grid_type "All"
-
+        wait_for_ajax
         first_name.should == "ALL user"
       end
     end
