@@ -113,7 +113,6 @@ feature 'Client admin and tile manager page', js: true do
         archive_tab.find(:tile, kill).click_link('Post again')
         #page.should contain "The #{kill.headline} tile has been published"
 
-        kill.reload.activated_at.sec.should be_within(1).of(Time.now.sec)
 
         within(archive_tab) { page.should_not contain kill.headline }
         within(active_tab)  { page.should     contain kill.headline }
@@ -125,7 +124,6 @@ feature 'Client admin and tile manager page', js: true do
         archive_tab.find(:tile, knife).click_link('Post again')
         #page.should contain "The #{knife.headline} tile has been published"
 
-        knife.reload.activated_at.sec.should be_within(1).of(Time.now.sec)
 
         within(archive_tab) { page.should_not contain knife.headline }
         within(active_tab)  { page.should     contain knife.headline }
