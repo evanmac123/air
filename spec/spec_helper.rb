@@ -50,7 +50,7 @@ RSpec.configure do |config|
   config.mock_with :mocha
   config.treat_symbols_as_metadata_keys_with_true_values = true
   config.use_transactional_fixtures = false
-  #config.fail_fast = true
+  config.fail_fast = true
 
   config.around(:each) do |example|
     # It should do all of this automatically. Want to bet on whether it does or not?

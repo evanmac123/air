@@ -266,8 +266,9 @@ describe 'Yet another group of tests...' do
   describe 'Hourly#data_points', focus: true do
     it 'should return the right number of acts and users' do
       day = Highchart.convert_date('11/11/2012')
-      hour_1  = day + 1.hours + 5.hours
-      hour_2  = day + 2.hours + 5.hours
+
+      hour_1  = day + 1.hours
+      hour_2  = day + 2.hours
       hour_21 = day + 21.hours
       hour_22 = day + 22.hours
       hour_23 = day + 23.hours
@@ -309,16 +310,17 @@ describe 'Yet another group of tests...' do
       # Create an Hourly object to process these acts
       hourly = Highchart::Hourly.new(demo, '11/11/2012', '11/11/2012', true, true)
       act_points, user_points = hourly.data_points
-
       # Keys are x-values we are expecting y-values for. Define these expected (act, user) y-values.
       # For all other x-values both the 'act' and 'user' y-value should be 0.
       # For the reason why 5 is subtracted for some of the keys, see comments at beginning of this test.
       #
-      y_values = Hash[1  => Y.new(11, 4),
-                      2  => Y.new(4, 4),
-                      (21 - 5) => Y.new(6, 2),
-                      (22 - 5) => Y.new(3, 1),
-                      (23 - 5) => Y.new(1, 1)]
+      y_values = Hash[
+        (Highchart.convert_date('11/11/2012') + 1.hours).to_time.localtime.hour  => Y.new(11, 4),
+        (Highchart.convert_date('11/11/2012') + 2.hours).to_time.localtime.hour  => Y.new(4, 4),
+        (Highchart.convert_date('11/11/2012') + 21.hours).to_time.localtime.hour => Y.new(6, 2),
+        (Highchart.convert_date('11/11/2012') + 22.hours).to_time.localtime.hour => Y.new(3, 1),
+        (Highchart.convert_date('11/11/2012') + 23.hours).to_time.localtime.hour => Y.new(1, 1)
+      ]
 
       y_values.default = Y.new(0, 0)
 
