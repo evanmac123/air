@@ -131,7 +131,6 @@ feature 'Mutes emails from board management modal' do
   scenario 'mutes followup with a slider', js: true do
     visit activity_path(as: user)
     open_board_settings
-    wait_for_board_modal
 
     click_first_followup_mute
     wait_for_ajax
@@ -142,7 +141,6 @@ feature 'Mutes emails from board management modal' do
     user.board_memberships.first.update_attributes(followup_muted: true)
     visit activity_path(as: user)
     open_board_settings
-    wait_for_board_modal
     expect_first_followup_slider_in_mute_position
 
     click_first_followup_unmute
@@ -153,7 +151,6 @@ feature 'Mutes emails from board management modal' do
   scenario 'mutes both original and followup with a slider', js: true do
     visit activity_path(as: user)
     open_board_settings
-    wait_for_board_modal
 
     click_first_digest_mute
     wait_for_ajax
@@ -170,7 +167,6 @@ feature 'Mutes emails from board management modal' do
 
     visit activity_path(as: user)
     open_board_settings
-    wait_for_board_modal
     click_digest_mute_for_board(user.demo)
     wait_for_ajax
 
@@ -182,7 +178,6 @@ feature 'Mutes emails from board management modal' do
   scenario 'muting/unmuting original disables/enables followup slider when slider starts enabled', js: true do
     visit activity_path(as: user)
     open_board_settings
-    wait_for_board_modal
 
     expect_first_followup_slider_not_disabled
 
@@ -199,7 +194,6 @@ feature 'Mutes emails from board management modal' do
     board_membership_for_board(user, user.demo).update_attributes(digest_muted: true, followup_muted: true)
     visit activity_path(as: user)
     open_board_settings
-    wait_for_board_modal
 
     expect_first_followup_slider_disabled
 
@@ -216,7 +210,6 @@ feature 'Mutes emails from board management modal' do
     user.board_memberships.first.update_attributes(digest_muted: true)
     visit activity_path(as: user)
     open_board_settings
-    wait_for_board_modal
     expect_first_digest_slider_in_mute_position
 
     click_first_digest_unmute
