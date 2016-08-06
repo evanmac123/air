@@ -4,7 +4,7 @@
     <%= form_for :user, :url => admin_lost_user_path do |f| %>
       <label>Find a lost user</label>
       <%= f.text_field :email, :placeholder => 'email', style: "display:inline" %>
-      <%= f.submit "Find", class: "button success" %>
+      <%= f.submit "Find", class: "button primary" %>
     <% end %>
   </div>
 </div>
@@ -22,10 +22,11 @@
         <br>
       </div>
       <div class="columns large-12">
-        <button type="button" name="commit" value="all" id:"filter-all" class="button success demo-button filter-button active-filter">all</button>
-        <button type="button" name="commit" value="small" id:"filter-maybe" class="button success demo-button filter-button">small</button>
-        <button type="button" name="commit" value="medium" id:"filter-yes" class="button success demo-button filter-button">medium</button>
-        <button type="button" name="commit" value="enterprise" id:"filter-now" class="button success demo-button filter-button">enterprise</button>
+        <button type="button" name="commit" value="small" id:"filter-maybe" class="button demo-button filter-button" data-type="size">small</button>
+        <button type="button" name="commit" value="medium" id:"filter-yes" class="button demo-button filter-button" data-type="size">medium</button>
+        <button type="button" name="commit" value="enterprise" id:"filter-now" class="button demo-button filter-button" data-type="size">enterprise</button>
+        <button type="button" name="commit" value="enterprise" id:"filter-now" class="button demo-button filter-button" data-type="paidStatus" data-paid="true">paid</button>
+        <button type="button" name="commit" value="enterprise" id:"filter-now" class="button demo-button filter-button" data-type="paidStatus" data-paid="false">unpaid</button>
       </div>
     </div>
     <br>

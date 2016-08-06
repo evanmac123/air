@@ -26,8 +26,8 @@
           <td><%= characteristic.description %></td>
           <td><%= characteristic.datatype.name %></td>
           <td><%= characteristic.allowed_values.join(", ") %></td>
-          <td><%= link_to "Edit", edit_admin_characteristic_path(characteristic), class: "button success" %></td>
-          <td><%= button_to "Destroy", admin_characteristic_path(characteristic), method: :delete, confirm: "Really destroy \"#{characteristic.name}\"?", class: "button success" %></td>
+          <td><%= link_to "Edit", edit_admin_characteristic_path(characteristic), class: "button primary" %></td>
+          <td><%= button_to "Destroy", admin_characteristic_path(characteristic), method: :delete, confirm: "Really destroy \"#{characteristic.name}\"?", class: "button primary" %></td>
         </tr>
       <% end %>
     </tbody>
@@ -49,7 +49,7 @@
         </div>
       </div>
       <div>
-        <%= submit_tag "More allowed values", id: "more-allowed-values-button", class: "button success" %>
+        <%= submit_tag "More allowed values", id: "more-allowed-values-button", class: "button primary" %>
       </div>
       <br>
       <div>
