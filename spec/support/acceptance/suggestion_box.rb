@@ -83,11 +83,11 @@ module SuggestionBox
   end
 
   def all_users_switcher_on
-    page.find("#suggestion_switcher_on")
+    page.find("#suggestion_switcher_on", visible: false)
   end
 
   def specific_users_switcher_on
-    page.find("#suggestion_switcher_off")
+    page.find("#suggestion_switcher_off", visible: false)
   end
 
   def user_rows
