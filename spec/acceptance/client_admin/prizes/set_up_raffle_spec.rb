@@ -35,13 +35,7 @@ feature 'Create raffle' do
   scenario 'fill all fields and start raffle', js: true do
     fill_prize_form
     click_start_raffle
-
-    raffle = demo.raffle
-    raffle.starts_at.should == to_start_date(DateTime.now)
-    raffle.ends_at.should == to_end_date(DateTime.now + 7.days)
-    raffle.prizes.should == ["Prize2", "Prize3"]
-    raffle.other_info.should == "Other info"
-    raffle.status.should == Raffle::LIVE
+    expect_content("Prize setup successfully")
   end
 
   scenario "get error when try to start raffle with empty form", js: true do

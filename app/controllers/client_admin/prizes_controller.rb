@@ -24,6 +24,7 @@ class ClientAdmin::PrizesController < ClientAdminBaseController
       flash.delete(:failure)
       @raffle.set_timer_to_end_live
       #@raffle.delay(run_at: @raffle.ends_at).finish_raffle #2.minutes.from_now
+      flash[:success] = "Prize setup successfully"
       redirect_to client_admin_prizes_path
     else
       flash[:failure] = "Sorry, we couldn't start the prize: " + @raffle.errors.values.join(", ") + "."
