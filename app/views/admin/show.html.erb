@@ -39,8 +39,8 @@
       </thead>
       <tbody>
         <% @demos.each do |demo| %>
-          <% user_count = demo.users.count %>
-          <tr id="<%= demo.id %>" class="demo" data-companySize="<%= demo.company_size(user_count) %>">
+          <% user_count = demo.user_count.to_i %>
+          <tr id="<%= demo.id %>" class="demo" data-companySize="<%= demo.company_size(user_count) %>" data-isPaid="<%= demo.is_paid %>">
             <td class="title"><%= link_to demo.name, admin_demo_path(demo), class: "blue" %></td>
             <td class="company-size"><%= user_count %></td>
             <% if demo.dependent_board_id %>
