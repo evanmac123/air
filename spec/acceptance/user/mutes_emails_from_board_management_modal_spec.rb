@@ -4,6 +4,7 @@ feature 'Mutes emails from board management modal' do
   include BoardSettingsHelpers
   include WaitForAjax
 
+  #TODO remove any assertions from these tests taht
   let(:user) {FactoryGirl.create(:user)}
 
   def digest_mute_selector
@@ -35,23 +36,23 @@ feature 'Mutes emails from board management modal' do
   end
 
   def click_first_digest_mute
-    page.first(digest_mute_selector).click
+    page.first(digest_mute_selector, visible: false).click
   end
 
   def click_first_digest_unmute
-    page.first(digest_unmute_selector).click
+    page.first(digest_unmute_selector, visible: false).click
   end
 
   def click_first_followup_mute
-    page.first(followup_mute_selector).click
+    page.first(followup_mute_selector, visible:false).click
   end
 
   def click_first_followup_unmute
-    page.first(followup_unmute_selector).click
+    page.first(followup_unmute_selector, visible:false).click
   end
 
   def click_digest_mute_for_board(board)
-    page.first(selector_for_board digest_mute_selector, board).click
+    page.first(selector_for_board(digest_mute_selector, board), visible: false).click
   end
 
   def board_membership_for_board(user, board)
@@ -76,12 +77,12 @@ feature 'Mutes emails from board management modal' do
 
   def expect_first_digest_slider_in_mute_position
     page.first(digest_mute_selector, visible: false)['checked'].should be_true
-    page.first(digest_unmute_selector)['checked'].should_not be_true
+    page.first(digest_unmute_selector, visible:false)['checked'].should_not be_true
   end
 
   def expect_first_followup_slider_in_mute_position
     page.first(followup_mute_selector, visible:false)['checked'].should be_true
-    page.first(followup_unmute_selector)['checked'].should_not be_true
+    page.first(followup_unmute_selector, visible:false)['checked'].should_not be_true
   end
 
   def expect_last_followup_slider_in_unmute_position
@@ -91,11 +92,11 @@ feature 'Mutes emails from board management modal' do
 
   def expect_followup_slider_in_mute_position_for_board(board)
     page.first((selector_for_board followup_mute_selector, board), visible: false)['checked'].should be_true
-    page.first(selector_for_board followup_unmute_selector, board)['checked'].should be_false
+    page.first(selector_for_board(followup_unmute_selector, board), visible:false)['checked'].should be_false
   end
 
   def expect_followup_slider_in_unmute_position_for_board(board)
-    page.first(selector_for_board followup_mute_selector, board)['checked'].should be_false
+    page.first(selector_for_board(followup_mute_selector, board), visible:false)['checked'].should be_false
     page.first((selector_for_board followup_unmute_selector, board), visible: false)['checked'].should be_true
   end
 
