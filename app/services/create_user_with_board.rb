@@ -1,3 +1,5 @@
+#FIXME this entire logic needs to be completely rewritten. It is a utter cluster
+#fuck.  
 class CreateUserWithBoard
   attr_reader :user, :board
 
