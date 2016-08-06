@@ -73,7 +73,7 @@ feature "Potential User Accepts Invitation" do
         expect_current_board_header(@demo)
         new_user = User.last
         # second invitation
-        visit invitation_path(@potential_user.invitation_code, demo_id: @demo2.id, referrer_id: @user2.id)
+        visit invitation_path(@potential_user2.invitation_code, demo_id: @demo2.id, referrer_id: @user2.id)
         expect_current_board_header(@demo2)
       end
     end
