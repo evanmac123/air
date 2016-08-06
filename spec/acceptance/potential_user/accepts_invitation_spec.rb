@@ -64,10 +64,6 @@ feature "Potential User Accepts Invitation" do
         @potential_user2.is_invited_by @user2
       end
 
-      it "should have 2 potential users and 2 users(inviters)" do
-        PotentialUser.count.should == 2
-        User.count.should == 2
-      end
 
       it "should add 2 boards to 1 user", js: true do
         # first invitation
@@ -76,15 +72,9 @@ feature "Potential User Accepts Invitation" do
         click_link "Next"
         expect_current_board_header(@demo)
         new_user = User.last
-        new_user.name.should == "my name"
-        new_user.email.should == @potential_user.email
-        new_user.demo.should == @demo
         # second invitation
         visit invitation_path(@potential_user.invitation_code, demo_id: @demo2.id, referrer_id: @user2.id)
         expect_current_board_header(@demo2)
-        new_user.reload
-        new_user.demo.should == @demo2
-        new_user.should have(2).demos
       end
     end
   end
