@@ -148,6 +148,8 @@ feature 'In multiple boards appears present in all at once' do
       crank_dj_clear
 
       expect_all_headlines_in_some_email(@user, @first_board, @second_board)
+
+      Delayed::Worker.delay_jobs = false
     end
   end
 end
