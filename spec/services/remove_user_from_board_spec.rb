@@ -17,7 +17,7 @@ describe RemoveUserFromBoard do
         @user.add_board(@paid_board)
 
         @user.should have(2).demos
-       
+
         @remover = RemoveUserFromBoard.new(@user, @paid_board)
       end
 

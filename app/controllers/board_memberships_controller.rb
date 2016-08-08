@@ -1,4 +1,5 @@
 class BoardMembershipsController < ApplicationController
+  # FIXME: The action is only hit fromt he board_settings view, which is pegged for removal
   def destroy
     @board_to_leave = Demo.find(params[:id])
     if current_user.has_only_board?(@board_to_leave)

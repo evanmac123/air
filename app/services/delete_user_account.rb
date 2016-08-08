@@ -1,3 +1,4 @@
+# FIXME: This service is only used by board_settings, which is pegged for removal
 class DeleteUserAccount
   def initialize(user)
     @user = user
@@ -5,11 +6,7 @@ class DeleteUserAccount
 
   def delete!
     return false unless can_delete?
-
-    User.transaction do
-      lock_password
-      schedule_deletion
-    end
+    @user.destroy
   end
 
   def error_messages
@@ -18,21 +15,13 @@ class DeleteUserAccount
     end
   end
 
-  protected
+  private
 
-  def can_delete?
-    !in_a_paid_board?
-  end
+    def can_delete?
+      !in_a_paid_board?
+    end
 
-  def in_a_paid_board?
-    @in_a_paid_board ||= @user.demos.where(is_paid: true).first.present?
-  end
-
-  def lock_password
-    @user.update_attributes(encrypted_password: "****NO LOGIN****")
-  end
-  
-  def schedule_deletion
-    @user.delay.destroy
-  end
+    def in_a_paid_board?
+      @in_a_paid_board ||= @user.demos.where(is_paid: true).first.present?
+    end
 end
