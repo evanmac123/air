@@ -40,6 +40,7 @@ feature "Client admin opens tile stats", js: true, type: :feature do
     before do
       @tile = FactoryGirl.create :tile, status: Tile::ACTIVE, demo: demo, question: "Is survey table present?"
       open_stats(@tile)
+
     end
 
     it "should show tile stats modal" do
@@ -151,6 +152,7 @@ feature "Client admin opens tile stats", js: true, type: :feature do
         FactoryGirl.create(:tile_viewing, user: u, tile: @tile)
 
         open_stats(@tile)
+        expect_tile_headline(@tile)
 
         first_name.should == "LIVE user"
       end
@@ -161,6 +163,7 @@ feature "Client admin opens tile stats", js: true, type: :feature do
         FactoryGirl.create(:tile_viewing, user: u, tile: @tile)
 
         open_stats(@tile)
+        expect_tile_headline(@tile)
         select_grid_type ("Interacted")
         wait_for_ajax
         first_name.should == "VIEWED AND INTERACTED user"
@@ -171,15 +174,17 @@ feature "Client admin opens tile stats", js: true, type: :feature do
         FactoryGirl.create(:tile_viewing, user: u, tile: @tile)
 
         open_stats(@tile)
+        expect_tile_headline(@tile)
         select_grid_type "Viewed only"
 
         first_name.should == "VIEWED ONLY user"
       end
 
       it "should open DIDN'T VIEW table" do
-        u = FactoryGirl.create(:user, demo: demo, name: "a DIDN'T VIEW user")
+        FactoryGirl.create(:user, demo: demo, name: "a DIDN'T VIEW user")
         open_stats(@tile)
 
+        expect_tile_headline(@tile)
         select_grid_type "Didn't view"
         wait_for_ajax
         all_names.should include("a DIDN'T VIEW user")
@@ -190,6 +195,7 @@ feature "Client admin opens tile stats", js: true, type: :feature do
         FactoryGirl.create(:tile_completion, user: u, tile: @tile)
 
         open_stats(@tile)
+        expect_tile_headline(@tile)
         select_grid_type "All"
         wait_for_ajax
         first_name.should == "ALL user"
@@ -204,6 +210,7 @@ feature "Client admin opens tile stats", js: true, type: :feature do
           FactoryGirl.create(:tile_viewing, user: u, tile: @tile)
         end
         open_stats(@tile)
+        expect_tile_headline(@tile)
       end
 
       it "should show all users initally" do
@@ -231,8 +238,8 @@ feature "Client admin opens tile stats", js: true, type: :feature do
       it "should show table" do
         open_stats(@tile)
 
+        expect_tile_headline(@tile)
         expect_content "DOY YOU LIKE STATS PAGE?"
-
         expect_content "Answer"
         expect_content "Users"
         expect_content "Percent"
@@ -250,6 +257,7 @@ feature "Client admin opens tile stats", js: true, type: :feature do
         FactoryGirl.create(:tile_completion, tile: @tile, answer_index: 2)
 
         open_stats(@tile)
+        expect_tile_headline(@tile)
        within  ".survey-chart-table" do
          users = page.all("tr td.users")
          expect(users[0]).to have_content "1"
@@ -270,7 +278,6 @@ feature "Client admin opens tile stats", js: true, type: :feature do
     wait_for_ajax
     within '.grid_types .custom.dropdown.open' do
       page.find("li", text: type).click
-      wait_for_ajax
     end
   end
 
@@ -283,9 +290,7 @@ feature "Client admin opens tile stats", js: true, type: :feature do
     wait_for_ajax
     within tile_cell(tile) do
       page.find(".tile_stats .unique_views").click
-      wait_for_ajax
     end
-    expect_content "UNIQUE VIEWS"
   end
 
   def first_name
@@ -296,6 +301,12 @@ feature "Client admin opens tile stats", js: true, type: :feature do
 
   def all_names
     page.all("td.name_column").map(&:text)
+  end
+
+  def expect_tile_headline tile
+    within ".title_block" do
+      expect(page).to have_content(tile.headline)
+    end
   end
 
   def table_column name
