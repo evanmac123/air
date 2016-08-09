@@ -31,7 +31,7 @@
       </tbody>
     </table>
 
-    <%= link_to "Download Users CSV", users_admin_demo_dependent_board_path(@dependent_board, format: :csv, params: { active: true }), class: "success button" %>
+    <%= link_to "Download Users CSV", users_admin_demo_dependent_board_path(@dependent_board, format: :csv, params: { active: true }), class: "primary button" %>
   </div>
 
   <div id="unactivatedSpouses" class="tabcontent">
@@ -54,7 +54,7 @@
       </tbody>
     </table>
 
-    <%= link_to "Download Users CSV", users_admin_demo_dependent_board_path(@dependent_board, format: :csv, params: { active: false }), class: "success button" %>
+    <%= link_to "Download Users CSV", users_admin_demo_dependent_board_path(@dependent_board, format: :csv, params: { active: false }), class: "primary button" %>
   </div>
 </div>
 <br>
@@ -79,7 +79,7 @@
       <%= label_tag :plain_text %>
       <%= text_area_tag "plain_text", message.plain_text, :rows => 20, :cols => 147 %>
     </div>
-    <%= submit_tag "Send Message", class: "button success" %>
+    <%= submit_tag "Send Message", class: "button primary" %>
   <% end %>
 </div>
 

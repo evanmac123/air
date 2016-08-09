@@ -35,8 +35,6 @@ class Admin::DemosController < AdminBaseController
   end
 
   def update
-
-
     if @demo.update_attributes(permitted_params.demo)
       flash[:success] = "Demo updated"
       redirect_to admin_demo_path(@demo)
@@ -62,7 +60,7 @@ class Admin::DemosController < AdminBaseController
                                     else
                                       'keyword'
                                     end
-    params[:demo][:is_public] = true if params[:demo][:is_parent]  
+    params[:demo][:is_public] = true if params[:demo][:is_parent]
   end
 
   def schedule_creation_ping
