@@ -1,4 +1,4 @@
-#require 'reporting/db'
+require 'reporting/db'
 require 'spec_helper'
 module Reporting
   module Db
