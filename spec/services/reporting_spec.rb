@@ -137,7 +137,14 @@ module Reporting
     describe ClientUsage do
       include Db
       before do
+
+        #t = Time.local(2016, 02, 28, 23, 0, 0)  #FIXME this fails for Feb 28, 2016 at after 11pm  WTF?????
+        #Timecop.freeze(t)
         setup_data
+      end
+
+      after do
+        #Timecop.return
       end
 
       it "returns {} when demo is nil" do 
@@ -258,8 +265,6 @@ module Reporting
             data=base_hash[:completions_pct]
             expect(data.values.map{|h|h[:total]}).to eq [0.0, 0.0, 0.5, 0.125, 0.125, 0.25, 0.1, 0.1, 0.2, 0.2, 0.16, 0.28, 0.28, 0.28]
           end
-
-
 
         end
       end
