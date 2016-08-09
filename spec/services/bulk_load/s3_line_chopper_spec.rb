@@ -1,19 +1,24 @@
 require 'spec_helper'
 
 describe BulkLoad::S3LineChopper do
-  EXPECTED_OBJECT_KEY = "uploads/arbitrary_csv.csv"
-  TEST_FILE_PATH = Rails.root.join("spec/support/fixtures/arbitrary_csv.csv")
+  def expected_object_key
+    "uploads/arbitrary_csv.csv"
+  end
+
+  def test_file_path 
+    Rails.root.join("spec/support/fixtures/arbitrary_csv.csv")
+  end
 
   before do
     mock_s3 = MockS3.install
-    mock_s3.mount_file(EXPECTED_OBJECT_KEY, TEST_FILE_PATH, 100)
+    mock_s3.mount_file(expected_object_key, test_file_path, 100)
   end
 
-  let(:chopper) {BulkLoad::S3LineChopper.new("some_bucket", EXPECTED_OBJECT_KEY)}
+  let(:chopper) {BulkLoad::S3LineChopper.new("some_bucket", expected_object_key)}
 
   it "should read a file from S3 and call a callback for each line" do
     read_lines = []
-    expected_text = File.read(TEST_FILE_PATH)
+    expected_text = File.read(test_file_path)
 
     chopper.chop do |line|
       read_lines << line

@@ -12,7 +12,7 @@ feature 'Tags tile' do
     tag.tiles.reload.should be_empty
   end
 
-  it "shows the current tag when going to tagged tile", js: true do
+  it "shows the current tag when going to tagged tile" do
     tile = FactoryGirl.create(:multiple_choice_tile, demo: @client_admin.demo, is_sharable: true)
     tag = FactoryGirl.create(:tile_tag, title: "Cheese")
     tile.tile_taggings.create!(tile_tag: tag)
@@ -21,10 +21,10 @@ feature 'Tags tile' do
     find('.tile_tags > li').text.should eq tag.title
   end
 
-  it "editing untagged tile with an existing tag", js: true, driver: :webkit do
+  it "editing untagged tile with an existing tag" do
     tile = FactoryGirl.create(:multiple_choice_tile, demo: @client_admin.demo, is_sharable: true)
     tag = FactoryGirl.create(:tile_tag, title: "Cheese")
-    
+
     visit client_admin_tile_path(tile, as: @client_admin)
     open_public_section
     add_tile_tag "Cheese"
@@ -33,12 +33,12 @@ feature 'Tags tile' do
     tag.tiles.reload.should include(Tile.last)
   end
 
-  it "editing tagged tile with an existing tag", js: true, driver: :webkit do
+  it "editing tagged tile with an existing tag" do
     tile = FactoryGirl.create(:multiple_choice_tile, demo: @client_admin.demo)
     first_tag = FactoryGirl.create(:tile_tag, title: "Cheese")
     second_tag = FactoryGirl.create(:tile_tag, title: "Ducks")
     tile.tile_taggings.create!(tile_tag: first_tag)
-   
+
     visit client_admin_tile_path(tile, as: @client_admin)
     open_public_section
     #remove existing tile tags
@@ -51,7 +51,7 @@ feature 'Tags tile' do
     second_tag.tiles.reload.should include(tile)
   end
 
-  it "editing a tile with a new tag", js: true, driver: :webkit do
+  it "editing a tile with a new tag" do
     tile = FactoryGirl.create(:multiple_choice_tile, :public, demo: @client_admin.demo)
     visit client_admin_tile_path(tile, as: @client_admin)
 
@@ -62,7 +62,7 @@ feature 'Tags tile' do
     tag.tiles.should include(tile)
   end
 
-  it "normalizes tag names so they look consistent", js: true, driver: :webkit do
+  it "normalizes tag names so they look consistent" do
     tile = FactoryGirl.create(:multiple_choice_tile, :public, demo: @client_admin.demo)
     visit client_admin_tile_path(tile, as: @client_admin)
 
@@ -72,7 +72,7 @@ feature 'Tags tile' do
     TileTag.last.title.should eq "i am dumb"
   end
 
-  it "does not let a duplicate tag be created", js: true, driver: :webkit do
+  it "does not let a duplicate tag be created" do
     tag = FactoryGirl.create(:tile_tag, title: "Taken")
     tile = FactoryGirl.create(:multiple_choice_tile, demo: @client_admin.demo)
     visit client_admin_tile_path(tile, as: @client_admin)

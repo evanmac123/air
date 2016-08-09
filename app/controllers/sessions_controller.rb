@@ -1,10 +1,11 @@
 class SessionsController < Clearance::SessionsController
   before_filter :downcase_email
 
-  layout "external" 
+  layout "external"
 
   def new
     super
+    # FIXME: MIXPANEL This ping is useless. Remove.
     ping_page('login')
   end
 
@@ -38,7 +39,7 @@ class SessionsController < Clearance::SessionsController
 
     # For some reason, various people are getting redirected to /activity.js
     # So now after login we force to /activity.html
-    activity_path(:format => :html)
+    activity_path(format: :html)
   end
 
   protected

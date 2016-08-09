@@ -31,7 +31,7 @@ feature 'guest user who tries to play outside of the sandbox' do
       end
 
       pending "should have a live save-progress link", js: true do
-        #This test should be deprected 
+        # TODO: test_suite_remediation: see notes in application controller #This test should be deprected
         visit path_to_test
         click_link "Save your progress"
         expect_conversion_form

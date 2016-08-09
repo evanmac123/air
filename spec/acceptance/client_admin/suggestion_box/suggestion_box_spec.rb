@@ -25,11 +25,12 @@ feature 'Client uses suggestion box' do
       items = menu_items.map(&:text)
       items.should include("Accept")
       items.should include("Ignore")
-
-      expect_ping 'Suggestion Box', {client_admin_action: "Tile Viewed"}, client_admin
     end
 
     scenario "accepts tile" do
+      within ".user_submitted" do
+        page.find(".tile-wrapper").hover
+      end
       click_link "Accept"
       within ".sweet-alert.visible" do
         click_button "OK"
@@ -45,10 +46,12 @@ feature 'Client uses suggestion box' do
     context "Ignored Tile" do
 
       before  do
-
+        within ".user_submitted" do
+          page.find(".tile-wrapper").hover
+        end
         within "#suggestion_box #single-tile-#{tile.id}" do
           click_link "Ignore"
-        end 
+        end
       end
 
       scenario "should ignore tile" do

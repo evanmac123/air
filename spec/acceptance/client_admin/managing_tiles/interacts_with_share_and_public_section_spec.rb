@@ -39,7 +39,7 @@ feature "Client Admin Interacts With Share And Public Section" do
       @client_admin.save                             # want to play with intro in every test
 
       tile = FactoryGirl.create(:multiple_choice_tile, demo: @client_admin.demo)
-      
+
       visit client_admin_tile_path(tile, as: @client_admin)
       expect_content share_section_intro_text
 
@@ -91,10 +91,6 @@ feature "Client Admin Interacts With Share And Public Section" do
         wait_for_ajax
         @tile.reload.is_sharable.should be_true
       end
-
-      scenario "sends share via #{name} ping", js: true do
-        expect_ping "Tile Shared", {"shared_to" => name, "tile_id" => @tile.id.to_s}, @client_admin
-      end
     end
 
     it_should_behave_like "click share via button", "Explore",  ".share_via_explore"
@@ -117,7 +113,7 @@ feature "Client Admin Interacts With Share And Public Section" do
       end
 
       context "when there are no tags" do
-        it "should start in a disabled state and enable when a tag is entered", js: true, driver: :webkit do
+        it "should start in a disabled state and enable when a tag is entered", js: true do
           visit client_admin_tile_path(@tile, as: @client_admin)
           open_public_section
           page.should have_css('.share_to_explore.disabled')
@@ -171,7 +167,7 @@ feature "Client Admin Interacts With Share And Public Section" do
           @tile.is_public.should be_false
         end
 
-        it "should switch when toggled", js: true, driver: :webkit do
+        it "should switch when toggled", js: true do
           visit client_admin_tile_path(@tile, as: @client_admin)
           open_public_section
           add_new_tile_tag('The Humpty Dance')
@@ -193,7 +189,7 @@ feature "Client Admin Interacts With Share And Public Section" do
       visit client_admin_tile_path(@tile, as: @client_admin)
     end
 
-    scenario "tag is displayed after adding and is removable", js: true, driver: :webkit do
+    scenario "tag is displayed after adding and is removable", js: true do
       open_public_section
 
       add_new_tile_tag('random tag')
@@ -201,11 +197,11 @@ feature "Client Admin Interacts With Share And Public Section" do
 
       find('.tile_tags > li > .fa-times').click
       page.should_not have_content('random tag')
-     
+
       page.should_not have_css('.tile_tags > li')
     end
 
-    scenario "displays similiar tags and add tag button if exactly same tag is not present", js: true, driver: :webkit do
+    scenario "displays similiar tags and add tag button if exactly same tag is not present", js: true do
       tag1 = FactoryGirl.create :tile_tag, title: "untag"
       tag2 = FactoryGirl.create :tile_tag, title: "tagged"
 
@@ -220,7 +216,7 @@ feature "Client Admin Interacts With Share And Public Section" do
       expect_content "untag"
     end
 
-    scenario "tile public attrs are saved correctly if tags are added", js: true, driver: :webkit do
+    scenario "tile public attrs are saved correctly if tags are added", js: true do
       open_public_section
       add_new_tile_tag "tag"
       wait_for_explore_to_activate
@@ -246,7 +242,7 @@ feature "Client Admin Interacts With Share And Public Section" do
         visit client_admin_tile_path(@tile, as: @client_admin)
       end
 
-      scenario "should set max explore_page_priority for tile", js: true, driver: :webkit do
+      scenario "should set max explore_page_priority for tile", js: true do
         @tile.reload.explore_page_priority.should be_nil
 
         open_public_section
@@ -260,7 +256,7 @@ feature "Client Admin Interacts With Share And Public Section" do
         @tile.reload.explore_page_priority.should == 4
       end
 
-      scenario "should set tile to the first position on explore page", js: true, driver: :webkit do
+      scenario "should set tile to the first position on explore page", js: true do
         open_public_section
         add_new_tile_tag "tag"
         wait_for_explore_to_activate

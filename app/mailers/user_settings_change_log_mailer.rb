@@ -6,7 +6,6 @@ class UserSettingsChangeLogMailer < ActionMailer::Base
     @change_log = UserSettingsChangeLog.find change_log_id
     @user = User.find @change_log.user_id
     return if !@user || !@change_log
-
     @email = @change_log.email
     @confirm_url = change_email_url(token: @change_log.email_token)
 

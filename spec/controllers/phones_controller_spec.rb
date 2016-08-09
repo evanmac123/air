@@ -12,6 +12,8 @@ describe PhonesController do
       end
 
       before do
+        subject.stubs(:ping)
+
         @user = FactoryGirl.create(:user, phone_number: old_phone_number, new_phone_number: new_phone_number, new_phone_validation: "1234")
 
         sign_in_as(@user)

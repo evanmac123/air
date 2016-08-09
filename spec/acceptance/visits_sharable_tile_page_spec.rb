@@ -5,11 +5,6 @@ feature "visits sharable tile page" do
 
   let!(:tile) { FactoryGirl.create(:multiple_choice_tile, is_sharable: true) }
 
-  before(:each) do
-    crank_dj_clear
-    tile.reload
-  end
-
   def show_register_form?
     true
   end
@@ -31,34 +26,6 @@ feature "visits sharable tile page" do
     end
   end
 
-  shared_examples_for "makes ping on board creation or signin" do
-    scenario "should ping on create board", js: true do
-      click_link "Create Board"
-      expect_ping "Tile - Viewed", { "action" => "Clicked Create Board", "tile_id" => tile.id.to_s}, @user
-    end
-
-    scenario "should ping on sign in", js: true do
-      click_link "Sign In"
-      expect_ping "Tile - Viewed", { "action" => "Clicked Sign-in", "tile_id" => tile.id.to_s}, @user
-    end
-  end
-
-  shared_examples_for "makes ping" do
-    scenario "should ping on visiting page" do
-      expect_ping "Tile - Viewed", { tile_type: "Public Tile", tile_id: tile.id}, @user
-    end
-
-    scenario "should ping on answering", js: true do
-      click_link "Eggs"
-      expect_ping "Tile - Viewed", { "action" => "Answered Question", "tile_id" => tile.id.to_s}, @user
-    end
-
-    scenario "should ping on logo", js: true do
-      page.find(".go_home").click
-      expect_ping "Tile - Viewed", { "action" => "Clicked Logo", "tile_id" => tile.id.to_s}, @user
-    end
-  end
-
   context "as Nobody" do
     before do
       @user = nil
@@ -67,8 +34,6 @@ feature "visits sharable tile page" do
 
     it_should_behave_like "gets registration form", "create board button", "#save_progress_button"
     it_should_behave_like "answers the tile"
-    it_should_behave_like "makes ping"
-    it_should_behave_like "makes ping on board creation or signin"
   end
 
   it "should allow the user to see a shared tile in a private board" do
@@ -88,7 +53,6 @@ feature "visits sharable tile page" do
     end
 
     it_should_behave_like "answers the tile"
-    it_should_behave_like "makes ping"
   end
 
   context "as Client Admin" do
@@ -98,7 +62,6 @@ feature "visits sharable tile page" do
     end
 
     it_should_behave_like "answers the tile"
-    it_should_behave_like "makes ping"
   end
 
   scenario "show 404 error for not sharable tile" do

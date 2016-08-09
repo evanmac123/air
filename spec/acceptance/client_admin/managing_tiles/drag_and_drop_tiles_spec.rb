@@ -29,8 +29,8 @@ feature 'Client admin drags and drops tiles' do
   end
 
   shared_examples_for 'Moves tile between sections' do |section1, num1, i1, section2, num2, i2|
-    scenario "Move tile #{num1 - i1} from #{section1} to tile #{num2 - i2} in #{section2}", js: true do#, driver: :webkit do
-      pending "Works in production fails in the test environment FIXME enventuall"
+    scenario "Move tile #{num1 - i1} from #{section1} to tile #{num2 - i2} in #{section2}", js: true do
+      pending "Works in production fails in the test environment FIXME enventually. Weird logic for tests. Tests should be simple to understand! No sends!!"
       create_tiles_for_sections section1 => num1, section2 => num2
       tiles1 = demo.send(:"#{section1}_tiles").to_a
       tiles2 = demo.send(:"#{section2}_tiles").to_a
@@ -66,7 +66,10 @@ feature 'Client admin drags and drops tiles' do
   end
 
   context "Moves tiles on Manage Page" do
-    before(:each) { visit client_admin_tiles_path }
+    before(:each) do
+      visit client_admin_tiles_path
+    end
+
     it_should_behave_like "Moves tile in one section", "draft",   3, 1, 0
     it_should_behave_like "Moves tile in one section", "active",  5, 1, 3
     it_should_behave_like "Moves tile in one section", "archive", 4, 0, 2

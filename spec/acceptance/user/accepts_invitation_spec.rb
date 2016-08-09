@@ -43,7 +43,7 @@ feature "User Accepts Invitation" do
       expect_content logged_out_message
     end
   end
-    
+
   scenario "and gets no email after accepting invitation" do
     visit invitation_url(@user.invitation_code)
     set_password_if_needed
@@ -112,55 +112,5 @@ feature "User Accepts Invitation" do
 
     should_be_on activity_path
     expect_content "10 pts #{@user.name} joined"
-  end
-
-  context "pings" do
-    it "sends an appropriate ping" do
-      visit invitation_url(@user.invitation_code)
-      expect_ping "viewed page", {"invitation acceptance version" => "v. 6/25/14"}
-    end
-    
-    it "should send ping on friend invitation acceptance" do
-      visit invitation_path(@unclaimed_user.invitation_code, demo_id: @user.demo.id, referrer_id: @user.id)
-      expect_ping "User - New", {source: "User - Friend Invitation"}, @unclaimed_user
-    end
-
-    context "saw welcome pop up ping after coming by" do
-      it "Friend Invitation" do
-        visit invitation_path @unclaimed_user.invitation_code, demo_id: @user.demo_id, referrer_id: @user.id
-        expect_current_board_header(@demo)
-        expect_content welcome_message
-        @unclaimed_user.reload
-
-        expect_ping "Saw welcome pop-up", {source: "Friend Invitation"}, @unclaimed_user
-      end
-
-      it "Digest email" do
-        visit invitation_path @unclaimed_user.invitation_code, demo_id: @user.demo_id, email_type: "digest_new_v" 
-        expect_current_board_header(@demo)
-        expect_content welcome_message
-        @unclaimed_user.reload
-
-        expect_ping "Saw welcome pop-up", {source: "Digest email"}, @unclaimed_user
-      end
-
-      it "Follow-up" do
-        visit invitation_path @unclaimed_user.invitation_code, demo_id: @user.demo_id, email_type: "follow_new_v" 
-        expect_current_board_header(@demo)
-        expect_content welcome_message
-        @unclaimed_user.reload
-
-        expect_ping "Saw welcome pop-up", {source: "Follow-up"}, @unclaimed_user
-      end
-
-      it "Invitation email" do
-        visit invitation_path @unclaimed_user.invitation_code, demo_id: @user.demo_id
-        expect_current_board_header(@demo)
-        expect_content welcome_message
-        @unclaimed_user.reload
-
-        expect_ping "Saw welcome pop-up", {source: "Invitation email"}, @unclaimed_user
-      end
-    end
   end
 end

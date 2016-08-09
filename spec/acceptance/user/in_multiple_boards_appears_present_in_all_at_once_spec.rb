@@ -125,6 +125,9 @@ feature 'In multiple boards appears present in all at once' do
     end
 
     scenario "followups are received from both" do
+
+      Delayed::Worker.delay_jobs = true
+
       Timecop.freeze
       Timecop.travel(Chronic.parse("March 23, 2014, 12:00 PM")) # a Sunday
       visit client_admin_share_path(as: @first_admin)
@@ -145,6 +148,8 @@ feature 'In multiple boards appears present in all at once' do
       crank_dj_clear
 
       expect_all_headlines_in_some_email(@user, @first_board, @second_board)
+
+      Delayed::Worker.delay_jobs = false
     end
   end
 end

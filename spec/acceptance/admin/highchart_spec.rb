@@ -1,13 +1,7 @@
 require 'acceptance/acceptance_helper'
 include SteakHelperMethods
 
-# These tests worked fine in Capy 1.x and capy-webkit 0.13. But Capy 2.x and capy-webkit 0.14 no longer let you
-# test text within svg elements - which is where our charts live.
-#
-# Not sure why the capy-webkit guys are involved with this, but there's a discussion at:
-# https://github.com/thoughtbot/capybara-webkit/issues/437
-#
-# Regardless, while you can't specify selectors within svg elements, you can at the 'page' level, so all tests
+# While you can't specify selectors within svg elements, you can at the 'page' level, so all tests
 # are now on the 'page' as opposed to graph-specific areas, e.g. main title, x axis, etc.
 #
 # This was accomplished by simply duplicating all ~ 60 "have_content" tests, commenting out the original,
@@ -17,10 +11,7 @@ include SteakHelperMethods
 # Also note that many 'page' replacement calls for 'should_not have_content' are commented out because something
 # like 'should_not have_content 0' is pretty likely to fail. Although commented out, they remain in because
 # wanted to keep "pairs" of replacement calls intact so visually easier to remove when the time comes.
-#
-# => Need to keep an eye on on the 2 versions to see if upgrades allow us to go back to more specific testing.
-# These comments were written when we were using capybara 2.0.2 and capybara-webkit 0.14.1
-#
+
 
 feature 'Highchart Plot' do
   let(:demo)   { FactoryGirl.create :demo, name: 'Talk to the Duck' }
@@ -65,7 +56,7 @@ feature 'Highchart Plot' do
     visit client_admin_path(as: admin)
   end
 
- 
+
 
   # -------------------------------------------------
 

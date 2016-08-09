@@ -20,12 +20,12 @@ describe Tile do
     it "changes activated_it if the current status is archive" do
       tile  = FactoryGirl.create :tile, status: Tile::ARCHIVE
       expect{tile.status=Tile::ACTIVE;tile.save}.to change{tile.activated_at}
-    end 
+    end
 
     it "changes activated_it if the current status is DRAFT" do
       tile  = FactoryGirl.create :tile, status: Tile::DRAFT
       expect{tile.status=Tile::ACTIVE;tile.save}.to change{tile.activated_at}
-    end 
+    end
   end
 
   describe 'finders based on status' do
@@ -232,7 +232,7 @@ describe Tile do
     it "completes only tiles for users in this demo" do
       emails = [@reath.email, @lucy.email, @random_email]
       Tile.bulk_complete(@fun.id, @stretch.id, emails)
-      crank_dj_clear
+
       TileCompletion.count.should == 1
       TileCompletion.first.user.should == @lucy
       TileCompletion.first.tile_id.should == @stretch.id

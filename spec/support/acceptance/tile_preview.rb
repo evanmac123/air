@@ -1,14 +1,15 @@
 module TilePreviewHelpers
   def expect_copied_lightbox
-    page.should have_content(post_copy_copy)
+    page.find(".tile_copied_lightbox")
+    expect(page).to have_content("Tile has been copied to your board's drafts section.")
   end
 
   def click_copy_button
     page.find('.copy_to_board').click
     register_if_guest
     expect_copied_lightbox
-    
-    within '.tile_copied_lightbox' do 
+
+    within '.tile_copied_lightbox' do
       click_button "OK"
     end
   end
@@ -17,7 +18,7 @@ module TilePreviewHelpers
     page.first('.copy_tile_link').click
     expect_copied_lightbox
   end
- 
+
   def click_like
     first('.not_like_button').click
   end
@@ -40,8 +41,9 @@ module TilePreviewHelpers
 
   def expect_tile_copied(original_tile, copying_user)
     copied_tile = newest_tile
-    
-    %w(correct_answer_index headline image_content_type image_file_size image_meta link_address multiple_choice_answers points question supporting_content thumbnail_content_type thumbnail_file_size thumbnail_meta type).each do |expected_same_field|
+
+    %w(correct_answer_index headline image_content_type link_address multiple_choice_answers points question supporting_content thumbnail_content_type type).each do |expected_same_field|
+      Rails.logger.info("!! tile copy field : #{expected_same_field}")
       copied_tile[expected_same_field].should == original_tile[expected_same_field]
     end
 
@@ -51,8 +53,6 @@ module TilePreviewHelpers
     copied_tile.is_copyable.should be_false
     copied_tile.is_public.should be_false
 
-    #copied_tile.image_processing.should be_false
-    #copied_tile.thumbnail_processing.should be_false
     copied_tile.image_updated_at.should be_present
     copied_tile.thumbnail_updated_at.should be_present
     copied_tile.image_file_name.should == original_tile.image_file_name
