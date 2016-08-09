@@ -43,21 +43,6 @@ module TileManagerHelpers
     end
   end
 
-  def expect_mixpanel_action_ping(event, action)
-    FakeMixpanelTracker.clear_tracked_events
-    crank_dj_clear
-    properties = {action: action}
-    #p FakeMixpanelTracker.tracked_events
-    FakeMixpanelTracker.should have_event_matching(event, properties)
-  end
-
-  def expect_mixpanel_page_ping(event, page_name)
-    FakeMixpanelTracker.clear_tracked_events
-    crank_dj_clear
-    properties = {page_name: page_name}
-    FakeMixpanelTracker.should have_event_matching(event, properties)
-  end
-
   def visit_tile_manager_page
     visit tile_manager_page
   end
@@ -83,11 +68,11 @@ module TileManagerHelpers
     selected_tile.drag_to new_place_tile
   end
 
-  def move_tile_between_sections tile1, tile2
+  def move_tile_between_sections(tile1, tile2)
     selected_tile = tile(tile1)
     new_place_tile = tile(tile2)
-    selected_tile.drag_to new_place_tile
+    selected_tile.drag_to(new_place_tile)
     wait_for_ajax
-    move_tile tile1, tile2
+    move_tile(tile1, tile2)
   end
 end
