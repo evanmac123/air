@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 describe BulkLoad::S3BoardAdditionChopper do
-  EXPECTED_OBJECT_KEY = "uploads/arbitrary_csv.csv"
+  def expected_object_key
+    "uploads/arbitrary_csv.csv"
+  end
 
   def user_ids_linewise(users)
     users.map(&:id).join("\n") + "\n"
@@ -14,9 +16,9 @@ describe BulkLoad::S3BoardAdditionChopper do
       board.users.count.should == 0
 
       mock_s3 = MockS3.install
-      mock_s3.mount_string(EXPECTED_OBJECT_KEY, user_ids_linewise(users))
+      mock_s3.mount_string(expected_object_key, user_ids_linewise(users))
 
-      chopper = BulkLoad::S3BoardAdditionChopper.new("some_bucket", EXPECTED_OBJECT_KEY, board.id)
+      chopper = BulkLoad::S3BoardAdditionChopper.new("some_bucket", expected_object_key, board.id)
 
       chopper.add_users_to_board
 
