@@ -24,7 +24,7 @@ describe 'Explore digest email' do
       it { should have_subject      'Test explore digest email' }
     end
 
-    describe 'Logo. Display the H.Engage logo and alt-text' do
+    describe 'Logo. Display the HEngage logo and alt-text' do
       it { should have_selector "img[src $= '/assets/logo-white.png'][alt = 'Airbo']" }
     end
 

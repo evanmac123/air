@@ -20,7 +20,6 @@ feature "Contracts", js: true do
     scenario "creates a primary contract with mrr for organization" do
       add_mrr
       click_button "Submit"
-      binding.pry
       expect_sucess
     end
   end

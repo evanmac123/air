@@ -1,7 +1,7 @@
 require 'acceptance/acceptance_helper'
 #FIXME remove this code as this functionality is no longer used as of 2016-07-26
 
-feature "Spiderman offers ten dollars to anyone who can name all the ways to join H.Engage" do
+feature "Spiderman offers ten dollars to anyone who can name all the ways to join HEngage" do
     include EmailSpec::Helpers
     include EmailSpec::Matchers
 
