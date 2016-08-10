@@ -1132,6 +1132,7 @@ class User < ActiveRecord::Base
     board && board.is_parent && is_site_admin
   end
 
+  #FIXME this exact same code is implemented in Fake user behavior
   def display_get_started_lightbox
     on_first_login \
     && !get_started_lightbox_displayed \

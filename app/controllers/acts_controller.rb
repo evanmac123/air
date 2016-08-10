@@ -28,6 +28,7 @@ class ActsController < ApplicationController
 
     @palette = @demo.custom_color_palette
 
+    #FIXME this instance var is getting set 3 times
     @display_get_started_lightbox = current_user.display_get_started_lightbox
 
     # This is handy for debugging the lightbox or working on its styles
