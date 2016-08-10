@@ -58,6 +58,7 @@ feature 'Sends explore digest' do
       click_button button_label
 
       visit explore_path
+
       page.all(".tile_thumb_link .headline .text").map(&:text)[0...4].should == tile_headlines
     end
   end

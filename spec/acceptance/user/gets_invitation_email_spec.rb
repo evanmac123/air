@@ -121,7 +121,7 @@ We say it's better.
       @user.invite
       expect_email_content(@expected_text)
     end
-    
+
     custom_plain_text_with_blocks = <<-END_PLAINTEXT
 Welcome to H.Engage!
 [referrer_block]You have a referrer.[/referrer_block]
@@ -208,7 +208,7 @@ Either way, welcome.
         expect_subject "KNEEL BEFORE ZOD"
       end
     end
-    
+
     context "but there's no custom subject" do
       it "should use the default" do
         @user.invite

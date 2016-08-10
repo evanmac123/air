@@ -2,12 +2,11 @@
 
 <%= ('** ' + @forward_email_warning + ' **') if @forward_email_warning.present? %>
 
-Copyright (C) 2013 H.Engage. All Rights Reserved.
+Copyright (c) <%= Time.now.year %> HEngage, Inc. d/b/a Airbo All Rights Reserved.
 
 Our mailing address is:
-292 Newbury St.
-Suite 547
-Boston, MA 02115
+1600 Main Street
+Venice CA 90291
 
 <% if @user.present? %>
 You are getting this email because your company is using H.Engage to help people better understand HR programs. <% if @user.claimed? -%>If you would rather not receive notifications, go to: <%= email_account_settings_link %><% end %>
