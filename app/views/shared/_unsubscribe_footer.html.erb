@@ -20,7 +20,7 @@
     </tr>
     <tr>
       <td style="font-size:12px; color: gray; padding: 0 75px;">
-        <%= render 'copyright' %> Our mailing address is 1600 Main Street, Venice CA 90291.
+        <%= render partial: 'shared/copyright' %> Our mailing address is 1600 Main Street, Venice CA 90291.
         <% if @user.present? %>
           You received this email because your company uses Airbo by HEngage.
           <% if @user.claimed? %>

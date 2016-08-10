@@ -1,6 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-feature "visits sharable tile page" do
+feature "visits sharable tile page", js: true do
   include SignUpModalHelpers
 
   let!(:tile) { FactoryGirl.create(:multiple_choice_tile, is_sharable: true) }
