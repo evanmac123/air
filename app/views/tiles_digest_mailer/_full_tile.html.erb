@@ -1,5 +1,5 @@
 <!-- 2-col image/text -->
-<%site_link = tile.email_site_link%>
+<% site_link = subject ? URI.escape("#{tile.email_site_link}&subject_line=#{subject}") :  URI.escape(tile.email_site_link) %>
 <% tile_link_args = [site_link, tile.email_link_options.merge(style: "text-decoration:none;display:block;color:#2e2e2c;word-break:break-word;", target: "_blank", class: "tile_link"), subject] %>
 
 <%= link_to *tile_link_args do %>

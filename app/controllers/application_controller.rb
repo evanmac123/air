@@ -139,7 +139,8 @@ class ApplicationController < ActionController::Base
       rack_timestamp = request.env['rack.timestamp']
       event_time = (rack_timestamp || Time.now) - 5.seconds
       hsh = { email_type: email_ping_text, time: event_time }
-      ping("Email clicked",hsh , user) if email_ping_text.present?
+      hsh.merge!({subject_line: URI.unescape(params[:subject_line])}) if params[:subject_line]
+      ping("Email clicked", hsh, user) if email_ping_text.present?
     end
   end
 

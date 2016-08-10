@@ -96,6 +96,16 @@ describe 'Digest email' do
       subject { TilesDigestMailer.notify_one(demo.id, site_admin.id, tile_ids, "New Tiles", false, nil, nil) }
       it { should have_selector "a[href *= 'acts?demo_id=#{demo.id}&email_type=digest_new_v&tile_token=#{EmailLink.generate_token(site_admin)}&user_id=#{site_admin.id}']", count: 11 }
     end
+
+    context 'invalid characters' do
+      it 'escape all invalid characters in site link' do
+        email = TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "😎Invalid Chars", false, nil, nil)
+
+        is_subject_escaped = email.to_s.include?("subject_line=3D%F0%9F%98%8EInvalid%20Chars")
+        
+        expect(is_subject_escaped).to eq(true)
+      end
+    end
   end
 
   describe 'Tiles' do
