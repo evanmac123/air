@@ -1,3 +1,4 @@
+# FIXME: Test clientside after moving pings to MP api
 window.tilePublicPage = ->
   $("#save_progress_button").text("Create Board")
   $("#save_progress_button").click ->

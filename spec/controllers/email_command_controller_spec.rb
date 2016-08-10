@@ -5,6 +5,8 @@ require 'spec_helper'
 describe EmailCommandController do
   describe "#create" do
     before(:each) do
+      subject.stubs(:ping)
+
       ActionMailer::Base.deliveries.clear
       @user = FactoryGirl.create :user_with_phone
 
@@ -61,7 +63,7 @@ describe EmailCommandController do
         end
 
         it_should_behave_like "a success with a reply going back"
-        
+
         it "should leave the timestamp updated" do
           # the ridiculous things we have to do to deal with times in Ruby...
           (Time.now - @user.reload.last_unmonitored_mailbox_response_at).to_i.should == 0
@@ -85,31 +87,24 @@ describe EmailCommandController do
         end
 
         it "should have an appropriate non-monitored-email response, referring them to support" do
-          crank_dj_clear
           open_email(@user.email)
           current_email.to_s.should include("Sorry, you've replied to an unmonitored account. For assistance please contact support@airbo.com.")
         end
 
         it "should reply-to set to support" do
-          crank_dj_clear
           open_email(@user.email)
           current_email.reply_to.should == %w(support@airbo.com)
         end
 
         it "should have the correct from address" do
-          fancy_email = "Foo Inc. <foo@ourairbo.com>"
-          Demo.any_instance.stubs(:reply_email_address).returns(fancy_email)
-
-          crank_dj_clear
           open_email(@user.email)
 
-          current_email.to_s.should include(%!From: "Foo Inc." <foo@ourairbo.com>!)
-          current_email.from.should == %w(foo@ourairbo.com)
+          current_email.to_s.should include(%!From: Airbo <play@ourairbo.com>!)
+          current_email.from.should == %w(play@ourairbo.com)
         end
 
         it "should have a good default from address when the email is not from a user we recognize" do
           EmailCommand.last.update_attributes(user_id: nil)
-          crank_dj_clear
           open_email(@user.email)
 
           current_email.to_s.should include(%!From: Airbo <play@ourairbo.com>!)

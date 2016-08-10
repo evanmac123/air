@@ -9,7 +9,7 @@ class GenericMailer < ActionMailer::Base
 
   default reply_to: 'support@airbo.com'
 
-  def send_message(demo_id, user_id, subject, plain_text, html_text, potential_users)
+  def send_message(demo_id, user_id, subject, plain_text, html_text, potential_users = nil)
     unless potential_users
       @user = User.find(user_id)
     else

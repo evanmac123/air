@@ -8,7 +8,7 @@ describe IntercomPurger do
   describe "#purge!" do
     before do
       @fake_user_ids = %w(abcdef 123456 foobar)
-      @fake_users = @fake_user_ids.map do |fake_user_id| 
+      @fake_users = @fake_user_ids.map do |fake_user_id|
         fake_user = mock("Intercom::User")
         fake_user.stubs(:id).returns(fake_user_id)
         fake_user.stubs(:delete)
@@ -23,16 +23,13 @@ describe IntercomPurger do
     end
 
     it "should schedule deletion of all users in the segment" do
-      crank_dj_clear
-
       purger = IntercomPurger.new(segment_id)
+      purger.stubs(:schedule_deletion)
+
       purger.purge!
 
-      Delayed::Job.all.should have(3).queued_jobs
-
-      crank_dj_clear
       @fake_users.each do |fake_user|
-        fake_user.should have_received(:delete)
+        purger.should have_received(:schedule_deletion).with(fake_user)
       end
     end
   end

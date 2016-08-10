@@ -13,13 +13,13 @@
       <br/>
       (leave blank to count all tickets with no limit)
     </p>
-    <%= submit_tag "Pick a winner", class: "button success" %>
+    <%= submit_tag "Pick a winner", class: "button primary" %>
     <%= image_tag "spinner.gif", :style => "display: none", :id => "winner-spinner" %>
   <% end %>
   <br>
   <div id="winner-target"></div>
   <%= form_tag admin_demo_gold_coin_reset_path(@demo) do %>
-    <%= submit_tag "Clear all tickets", :confirm => "Really clear out tickets for all users in this demo?", class: "button success" %>
+    <%= submit_tag "Clear all tickets", :confirm => "Really clear out tickets for all users in this demo?", class: "button primary" %>
   <% end %>
   <% content_for :javascript do %>
     <script>

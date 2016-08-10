@@ -3,6 +3,8 @@ require 'spec_helper'
 describe AccountsController do
   describe "#update" do
     it "should not let a user update their mobile number to one that's already taken" do
+      subject.stubs(:ping)
+
       original_number = "+14155551212"
       new_number = "+18089761234"
 

@@ -7,15 +7,6 @@ feature 'Sign in' do
     u
   end
 
-  scenario 'page view should hit Mixpanel' do
-    FakeMixpanelTracker.clear_tracked_events
-
-    visit sign_in_path
-    crank_dj_clear
-
-    FakeMixpanelTracker.events_matching('viewed page', page_name: 'login').length.should == 1
-  end
-
   scenario "from a user who's not signed up" do
     try_login_with "unknownguy@hotmail.com", "ungabunga"
 

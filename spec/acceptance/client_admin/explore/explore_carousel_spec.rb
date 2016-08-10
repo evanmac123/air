@@ -95,6 +95,7 @@ feature 'Carousel on Explore Tile Preview Page' do
       click_copy_button
 
       crank_dj_clear
+      #FIXME verifying tile fields were copied should not be in acceptance test.
       expect_tile_copied(@tile, admin)
     end
   end

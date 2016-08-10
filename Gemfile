@@ -13,7 +13,7 @@ gem "formtastic"
 gem "pg"
 gem "flutie"
 gem "twilio-rb"
-gem "clearance"
+gem "clearance", "~> 0.16.3"
 gem "aws-s3"
 gem "delayed_job"
 gem "haml-rails"
@@ -95,7 +95,6 @@ end
 # RSpec needs to be in :development group to expose generators
 # and rake tasks without having to type RAILS_ENV=test.
 group :development, :test do
-	gem "thin"
   gem "colored"
   gem "rspec-rails"
   gem "factory_girl_rails"
@@ -125,12 +124,13 @@ group :test do
   gem "capybara-webkit"
   gem "poltergeist"
   gem "sinatra"
-  gem "mocha"
+  gem "mocha", require: false
   gem "selenium-webdriver"
   gem 'test_after_commit'
 end
 
 group :development do
+  gem 'thin'
   gem 'quiet_assets'
   gem 'letter_opener'
   gem 'better_errors'

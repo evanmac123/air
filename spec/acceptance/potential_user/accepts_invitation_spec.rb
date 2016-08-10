@@ -31,14 +31,6 @@ feature "Potential User Accepts Invitation" do
       should_be_on activity_path
     end
 
-    it "should send user-new ping" do
-      expect_ping "User - New", {source: "User - Friend Invitation"}, @potential_user
-    end
-
-    it "should send welcome pop-up ping" do
-      expect_ping "Saw welcome pop-up", {source: "Friend Invitation"}, @potential_user
-    end
-
     context "gives a name" do
       before(:each) do
         fill_in "potential_user_name", with: "my name"
@@ -62,14 +54,6 @@ feature "Potential User Accepts Invitation" do
         open_email @user.email
         current_email.to_s.should have_content "#{new_user.name} gave you credit for recruiting them. Many thanks and bonus points!"
       end
-
-      it "should send 'clicked next' ping", js: true do
-        expect_ping "Saw welcome pop-up", {action: "Clicked 'Next'"}, @potential_user
-      end
-
-      it "should send 'entered name' ping", js: true do
-        expect_ping "Saw welcome pop-up", {"action"=>"Entered Name"}, @potential_user
-      end
     end
 
     context "is invited to different boards simultaneusly" do
@@ -80,10 +64,6 @@ feature "Potential User Accepts Invitation" do
         @potential_user2.is_invited_by @user2
       end
 
-      it "should have 2 potential users and 2 users(inviters)" do
-        PotentialUser.count.should == 2
-        User.count.should == 2
-      end
 
       it "should add 2 boards to 1 user", js: true do
         # first invitation
@@ -92,15 +72,9 @@ feature "Potential User Accepts Invitation" do
         click_link "Next"
         expect_current_board_header(@demo)
         new_user = User.last
-        new_user.name.should == "my name"
-        new_user.email.should == @potential_user.email
-        new_user.demo.should == @demo
         # second invitation
-        visit invitation_path(@potential_user.invitation_code, demo_id: @demo2.id, referrer_id: @user2.id)
+        visit invitation_path(@potential_user2.invitation_code, demo_id: @demo2.id, referrer_id: @user2.id)
         expect_current_board_header(@demo2)
-        new_user.reload
-        new_user.demo.should == @demo2
-        new_user.should have(2).demos
       end
     end
   end

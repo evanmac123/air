@@ -812,10 +812,10 @@ describe User, "#schedule_followup_welcome_message" do
     SMS.stubs(:send_message)
 
     demo = FactoryGirl.create :demo, :followup_welcome_message => "hey hey", :followup_welcome_message_delay => 0
-    user = FactoryGirl.create :user, :phone_number => "+14155551212", :demo => demo, :notification_method => :both
+    user = FactoryGirl.create :user, phone_number: "+14155551212", demo: demo, notification_method: "both"
 
     2.times {user.schedule_followup_welcome_message}
-    crank_dj_clear
+
     SMS.should have_received(:send_message).once
   end
 end

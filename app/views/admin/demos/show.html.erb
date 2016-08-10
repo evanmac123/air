@@ -7,7 +7,7 @@
 
   <div class="row">
     <div class="columns large-12">
-      <%= button_to "Send me an Activity Report", admin_demo_reports_activities_path(@demo), class: "button success" %>
+      <%= button_to "Send me an Activity Report", admin_demo_reports_activities_path(@demo), class: "button primary" %>
       <br>
       <% if @demo.is_paid? %>
         <%= button_to "Make board free", admin_demo_paid_status_path(@demo), method: :delete, class: "button alert" %>

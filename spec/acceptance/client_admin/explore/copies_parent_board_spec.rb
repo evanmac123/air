@@ -124,7 +124,6 @@ feature "Client admin copies parent board" do
 
         # have 2 completed tiles on activity page
         visit activity_path(board_id: parent_demo, as: client_admin)
-        # save_and_open_page
         page.all(completed_tile_selector).count.should == 2
 
         # watch completed tiles

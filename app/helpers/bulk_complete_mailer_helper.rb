@@ -3,8 +3,12 @@ module BulkCompleteMailerHelper
 
   def explain_bucket(bucket_name, bucket_label, states)
     bucket = states[bucket_name]
-    formatted_contents = EMAIL_DIVIDER + bucket.join(EMAIL_DIVIDER)
-    "#{bucket_label} #{bucket.length}:#{formatted_contents}"
+    if bucket
+      formatted_contents = EMAIL_DIVIDER + bucket.join(EMAIL_DIVIDER)
+      "#{bucket_label} #{bucket.length}:#{formatted_contents}"
+    else
+      "#{bucket_label}"
+    end
   end
 
   def uncompleted_sum(states)

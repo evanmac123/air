@@ -23,7 +23,11 @@ class ImageProcessJob
     else
       @tile.image = @tile.thumbnail = image_path
     end
+
     @tile.save
+  rescue TypeError
+    Rails.logger.info("!!!! --- TypeError from media url  caught")
+    nil
   end
 
 
@@ -31,8 +35,6 @@ class ImageProcessJob
     #TODO fix me in test
     URI.parse(URI.encode(@tile.remote_media_url))
 
-  rescue TypeError
-    nil
   end
 
   def library_image

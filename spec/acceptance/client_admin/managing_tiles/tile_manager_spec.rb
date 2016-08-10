@@ -43,17 +43,14 @@ feature 'Client admin and tile manager page', js: true do
 
       visit_tile_manager_page
 
-      expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
-
       active_tab.should have_num_tiles(3)
 
       within active_tab do
         tiles.each do |tile|
           within tile(tile) do
-            page.should contain tile.headline
-            page.should have_archive_link_for(tile)
-            edit_link_for(tile).should be_present
-            page.should have_preview_link_for(tile)
+            expect_content tile.headline
+            expect(page).to have_css "a[data-status='archive']", visible: false
+            expect(page).to have_css "li.edit_button a", visible: false
           end
         end
       end
@@ -63,14 +60,14 @@ feature 'Client admin and tile manager page', js: true do
       tiles.each { |tile| tile.update_attributes status: Tile::ARCHIVE }
 
       visit_tile_manager_page
-      expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
 
       page.should have_num_tiles(3)
 
       tiles.each do |tile|
         within tile(tile) do
-          page.should contain tile.headline
-          page.should have_reactivate_link_for(tile)
+          expect_content tile.headline
+          expect(page).to have_css "a[data-status='active']", visible: false
+          expect(page).to have_css "li.edit_button a", visible: false
         end
       end
     end
@@ -79,12 +76,11 @@ feature 'Client admin and tile manager page', js: true do
       scenario "The 'Archive this tile' links work, including setting the 'archived_at' time and positioning most-recently-archived tiles first" do
         tiles.each { |tile| tile.update_attributes status: Tile::ACTIVE }
         visit_tile_manager_page
-        expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
         active_tab.should  have_num_tiles(3)
         archive_tab.should have_num_tiles(0)
 
-        active_tab.find(:tile, kill).click_link('Archive')
-        #page.should contain "The #{kill.headline} tile has been archived"
+        active_tab.find(:tile, kill).hover
+        page.find("a", text: "Archive", visible: true).click
 
 
         within(active_tab)  { page.should_not contain kill.headline }
@@ -94,8 +90,10 @@ feature 'Client admin and tile manager page', js: true do
         archive_tab.should have_num_tiles(1)
         # Do it one more time to make sure that the most-recently archived tile appears first in the list
         #knife.archived_at.should be_nil
-        active_tab.find(:tile, knife).click_link('Archive')
-        #page.should contain "The #{knife.headline} tile has been archived"
+        #FIXME we should be able to assert in model or controller spec or js
+        #test that the order of tiles is correct
+        active_tab.find(:tile, knife).hover
+        page.find("a", text: "Archive", visible: true).click
 
 
         within(active_tab)  { page.should_not contain knife.headline }
@@ -110,15 +108,13 @@ feature 'Client admin and tile manager page', js: true do
       scenario "The 'Activate this tile' links work, including setting the 'activated_at' time and positioning most-recently-activated tiles first" do
         tiles.each { |tile| tile.update_attributes status: Tile::ARCHIVE }
         visit_tile_manager_page
-        expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
 
         active_tab.should  have_num_tiles(0)
         archive_tab.should have_num_tiles(3)
 
-        archive_tab.find(:tile, kill).click_link('Post again')
-        #page.should contain "The #{kill.headline} tile has been published"
+        archive_tab.find(:tile, kill).hover
+        page.find("a", text: 'Post Again', visible: true).click
 
-        kill.reload.activated_at.sec.should be_within(1).of(Time.now.sec)
 
         within(archive_tab) { page.should_not contain kill.headline }
         within(active_tab)  { page.should     contain kill.headline }
@@ -127,10 +123,10 @@ feature 'Client admin and tile manager page', js: true do
         archive_tab.should have_num_tiles(2)
 
         # Do it one more time to make sure that the most-recently activated tile appears first in the list
-        archive_tab.find(:tile, knife).click_link('Post again')
-        #page.should contain "The #{knife.headline} tile has been published"
+        archive_tab.find(:tile, knife).hover
+        page.find("a", text: 'Post Again', visible: true).click
+          
 
-        knife.reload.activated_at.sec.should be_within(1).of(Time.now.sec)
 
         within(archive_tab) { page.should_not contain knife.headline }
         within(active_tab)  { page.should     contain knife.headline }
@@ -187,7 +183,6 @@ feature 'Client admin and tile manager page', js: true do
       end
 
       visit_tile_manager_page
-      expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
 
       section_tile_headlines('#active').should == expected_tile_table
     end
@@ -204,7 +199,6 @@ feature 'Client admin and tile manager page', js: true do
       end
 
       visit_tile_manager_page
-      expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
 
       section_tile_headlines('#archive').should == expected_tile_table[0..3]
     end
@@ -212,9 +206,7 @@ feature 'Client admin and tile manager page', js: true do
 
   it "has a button that you can click on to create a new tile" do
     visit_tile_manager_page
-    expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
     click_add_new_tile
-    expect_mixpanel_action_ping('Tiles Page', 'Clicked Add New Tile')
   end
 
   it "pads odd rows, in both the inactive and active sections, with blank placeholder cells, so the table comes out right", js: true do
@@ -222,22 +214,18 @@ feature 'Client admin and tile manager page', js: true do
     # 1 tile, 6 places in row, so
     FactoryGirl.create_list(:tile, 1, :draft, demo: admin.demo)
     visit_tile_manager_page
-    expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
     expect_draft_tile_placeholders(5)
 
     FactoryGirl.create_list(:tile, 3, :draft, demo: admin.demo)
     visit_tile_manager_page
-    expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
     expect_draft_tile_placeholders(2)
 
     FactoryGirl.create(:tile, :draft, demo: admin.demo)
     visit_tile_manager_page
-    expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
     expect_draft_tile_placeholders(1)
 
     FactoryGirl.create(:tile, :draft, demo: admin.demo)
     visit_tile_manager_page
-    expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
     expect_draft_tile_placeholders(0)
 
      # There's now the creation placeholder, plus 4 other draft tiles.
@@ -247,7 +235,6 @@ feature 'Client admin and tile manager page', js: true do
     # now, so...
     FactoryGirl.create(:tile, :draft, demo: admin.demo)
     visit_tile_manager_page
-    expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
     expect_draft_tile_placeholders(0)
 
     # And now let's do the active ones
@@ -255,27 +242,22 @@ feature 'Client admin and tile manager page', js: true do
 
     FactoryGirl.create(:tile, :active, demo: admin.demo)
     visit_tile_manager_page
-    expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
     expect_active_tile_placeholders(3)
 
     FactoryGirl.create(:tile, :active, demo: admin.demo)
     visit_tile_manager_page
-    expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
     expect_active_tile_placeholders(2)
 
     FactoryGirl.create(:tile, :active, demo: admin.demo)
     visit_tile_manager_page
-    expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
     expect_active_tile_placeholders(1)
 
     FactoryGirl.create(:tile, :active, demo: admin.demo)
     visit_tile_manager_page
-    expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
     expect_active_tile_placeholders(0)
 
     FactoryGirl.create(:tile, :active, demo: admin.demo)
     visit_tile_manager_page
-    expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
     expect_active_tile_placeholders(3)
 
     #And now let's look at archived sction(It's similiar to active)
@@ -283,22 +265,18 @@ feature 'Client admin and tile manager page', js: true do
 
     FactoryGirl.create(:tile, :archived, demo: admin.demo)
     visit_tile_manager_page
-    expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
     expect_inactive_tile_placeholders(3)
 
     FactoryGirl.create(:tile, :archived, demo: admin.demo)
     visit_tile_manager_page
-    expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
     expect_inactive_tile_placeholders(2)
 
     FactoryGirl.create(:tile, :archived, demo: admin.demo)
     visit_tile_manager_page
-    expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
     expect_inactive_tile_placeholders(1)
 
     FactoryGirl.create(:tile, :archived, demo: admin.demo)
     visit_tile_manager_page
-    expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
     expect_inactive_tile_placeholders(0)
     5.times { FactoryGirl.create(:tile, :archived, demo: admin.demo) }
 
@@ -308,7 +286,6 @@ feature 'Client admin and tile manager page', js: true do
     # and those two rows are full
     # now, so...
     visit_tile_manager_page
-    expect_mixpanel_page_ping('viewed page', 'Manage - Tiles')
     expect_inactive_tile_placeholders(0)
 
     # And now let's look at the full megillah of archived tiles

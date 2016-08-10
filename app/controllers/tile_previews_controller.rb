@@ -19,8 +19,7 @@ class TilePreviewsController < ApplicationController
     @next_tile = Tile.next_public_tile params[:id], 1, params[:tag]
     @prev_tile = Tile.next_public_tile params[:id], -1, params[:tag]
     @tag = TileTag.where(id: params[:tag]).first
-    schedule_mixpanel_pings @tile
-
+    schedule_mixpanel_pings(@tile)
     if params[:partial_only]
       explore_preview_copy_intro
       render partial: "tile_previews/tile_preview",
@@ -43,10 +42,6 @@ class TilePreviewsController < ApplicationController
   def schedule_mixpanel_pings(tile)
     ping "Tile - Viewed in Explore", {tile_id: tile.id}, current_user
     ping('Tile - Viewed', {tile_type: "Public Tile - Explore", tile_id: tile.id}, current_user)
-
-    if params[:thumb_click_source]
-      ping_action_after_dash params[:thumb_click_source], {tile_id: tile.id}, current_user
-    end
 
     if current_user.present?
       email_clicked_ping(current_user)

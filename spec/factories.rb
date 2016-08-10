@@ -4,10 +4,8 @@ FactoryGirl.define do
     association(:demo)
     association :user_intro
     # Need to find a way to set the location of a user without creating an entirely new demo
-    # association(:location)
     password  "password"
     sequence(:email) {|n| "darth_#{n}@sunni.ru" }
-    #submit_tile_intro_seen true
     suggestion_box_intro_seen true
     user_submitted_tile_intro_seen true
     manage_access_prompt_seen true
@@ -116,9 +114,10 @@ FactoryGirl.define do
 
     # This trait unlocks share pages
     trait :activated do |demo|
-      tiles do
-        [FactoryGirl.create(:multiple_choice_tile, status: Tile::ACTIVE, activated_at: Time.now, headline: "Tile #{SecureRandom.uuid}")]
-      end
+    
+      after(:create) do |demo, evaluator|
+        FactoryGirl.create(:multiple_choice_tile, status: Tile::ACTIVE, demo: demo,  activated_at: Time.now, headline: "Tile #{SecureRandom.uuid}")
+      end 
     end
 
     trait :with_turned_off_onboarding do
@@ -182,13 +181,12 @@ FactoryGirl.define do
   factory :tile do
     headline {"Tile #{SecureRandom.uuid}, y'all"}
     require_images false
-    remote_media_url "/images/avatars/thumb/missing.png"
     association :demo
     sequence(:position){ |n| n }
     status Tile::ACTIVE
-    type 'OldSchoolTile'
     question_type Tile::QUIZ
     question_subtype Tile::MULTIPLE_CHOICE
+    remote_media_url "/images/engage_new.gif"
 
     trait :with_creator do
       association :creator, :factory => :user
@@ -242,10 +240,6 @@ FactoryGirl.define do
       status Tile::USER_DRAFT
       association :creator, factory: :user
     end
-  end
-
-  # Simple alias of :tile to :old_school_tile
-  factory :old_school_tile, parent: :tile do
   end
 
   factory :client_created_tile, parent: :tile do

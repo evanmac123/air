@@ -3,6 +3,7 @@ require "spec_helper"
 describe ClientAdmin::TilesDigestNotificationsController do
   context "create" do
     it "should record the user IDs that the followup should go to" do
+      subject.stubs(:ping)
       demo = FactoryGirl.create(:demo)
       client_admin = FactoryGirl.create(:client_admin, demo: demo)
       other_users = FactoryGirl.create_list(:user, 2, demo: demo)

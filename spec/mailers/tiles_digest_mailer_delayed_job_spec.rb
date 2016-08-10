@@ -16,7 +16,7 @@ describe 'Follow-up email scheduled by delayed job' do
   # 'TilesDigestMailer#notify_all_follow_up_from_delayed_job' is the method that the cron-job runs once a day.
   # This spec also tests that 'FollowUpDigestEmail#send_follow_up_digest_email' returns the correct follow-up's for a given day.
   #
-  it 'follow-up records cause follow-up email to be sent' do
+  xit 'follow-up records cause follow-up email to be sent' do
     yesterday      = FactoryGirl.create_list :follow_up_digest_email, 1, send_on: Date.today - 1.day
     tomorrow       = FactoryGirl.create_list :follow_up_digest_email, 2, send_on: Date.today + 1.day
     day_after      = FactoryGirl.create_list :follow_up_digest_email, 3, send_on: Date.today + 2.days

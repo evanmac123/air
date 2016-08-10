@@ -26,7 +26,7 @@ feature 'User invites user to board' do
     @user7 = FactoryGirl.create(:claimed_user, :name => "Latino",         :demo => @demo2, :email => "four@biker.com", :slug => "nutcase", :sms_slug => "nutcase")
     @user8 = FactoryGirl.create(:user, :unclaimed, :name => "Va Va Va Voom",  :demo => @demo2, :email => "seven@biker.com", :slug => "sixpack", :sms_slug => "sixpack")
     @user9 = FactoryGirl.create(:claimed_user, :name => "Joining Now 2",  :demo => @demo2, :email => "angel@biker.com", :slug => "damnation", :sms_slug => "damnation")
-  
+
     visit activity_path
   end
 
@@ -41,7 +41,7 @@ feature 'User invites user to board' do
         should_find_user @user0.name
         found_users_count.should == 1
         should_have_invite_button @user0
-      end  
+      end
 
       context "invite unclaimed user" do
         before(:each) do
@@ -50,10 +50,6 @@ feature 'User invites user to board' do
 
         it "should send invitation", js: true do
           should_send_email @user0, @user, @demo1
-        end
-        
-        it "should send ping", js: true do
-          should_send_friend_invitation_ping @user0
         end
       end
     end
@@ -69,7 +65,7 @@ feature 'User invites user to board' do
         found_users_count.should == 1
         should_not_have_invite_button @user0
         expect_content "(already participating)"
-      end 
+      end
     end
 
     describe "search for unclaimed user from other board" do
@@ -106,10 +102,6 @@ feature 'User invites user to board' do
         it "should send invitation", js: true do
           should_send_email @user0, @user, @demo1
         end
-        
-        it "should send ping", js: true do
-          should_send_friend_invitation_ping @user0
-        end
       end
     end
 
@@ -124,7 +116,7 @@ feature 'User invites user to board' do
         found_users_count.should == 1
         should_not_have_invite_button @user1
         expect_content "(already participating)"
-      end 
+      end
     end
 
     describe "search for unclaimed user from other board" do
@@ -150,10 +142,6 @@ feature 'User invites user to board' do
 
         it "should send invitation", js: true do
           should_send_email @user8, @user, @demo1
-        end
-        
-        it "should send ping", js: true do
-          should_send_friend_invitation_ping @potential_user
         end
       end
     end
@@ -213,14 +201,4 @@ feature 'User invites user to board' do
     current_email.to_s.should have_content "#{referrer.name} invited you to"
     current_email.to_s.should have_content " join the #{demo.name}"
   end
-
-  def should_send_friend_invitation_ping user
-    FakeMixpanelTracker.clear_tracked_events
-    crank_dj_clear
-    event = "Email Sent"
-    properties = {email_type: "Friend Invitation"}.merge user.data_for_mixpanel 
-    FakeMixpanelTracker.should have_event_matching(event, properties)
-  end
-
-
 end

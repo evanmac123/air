@@ -98,7 +98,7 @@ feature 'User claims account' do
 
       context "and that user is claimed already" do
         before(:each) do
-          @original_claim_time = Time.now - 1.week
+          @original_claim_time = Time.zone.now - 1.week
           @expected_user.update_attributes(accepted_invitation_at: @original_claim_time, email: 'phil@hengage.com')
           @other_user = FactoryGirl.create(:user, demo: @demo, claim_code: "fred")
           send_message "bob"
@@ -180,7 +180,7 @@ feature 'User claims account' do
 
       context "and that user is claimed already" do
         before(:each) do
-          @original_claim_time = Time.now - 1.week
+          @original_claim_time = Time.zone.now - 1.week
           @expected_user.update_attributes(accepted_invitation_at: @original_claim_time)
 
           send_message "bob"

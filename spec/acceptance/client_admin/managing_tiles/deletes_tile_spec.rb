@@ -51,10 +51,6 @@ feature 'Client admin deletes tile' do
       expect_content "You've successfully deleted the #{@tile.headline} Tile."
       should_be_on client_admin_tiles_path
 
-      Tile.count.should == 0
-      TileCompletion.count.should == 0
-
-      expect_ping 'Tile - Deleted', {page: page_name}, @client_admin
     end
   end
 
