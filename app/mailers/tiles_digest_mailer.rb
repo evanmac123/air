@@ -4,7 +4,7 @@ class TilesDigestMailer < BaseTilesDigestMailer
                  custom_headline, custom_message, custom_from=nil, is_new_invite = nil)
 
     @user  = User.find user_id # XTR
-    return nil unless @user.email.present? 
+    return nil unless @user.email.present?
 
     @tile_ids = tile_ids
     @demo = Demo.find demo_id
@@ -15,17 +15,17 @@ class TilesDigestMailer < BaseTilesDigestMailer
 
 
     @tiles = TileBoardDigestDecorator.decorate_collection(
-      tiles_by_position,  
+      tiles_by_position,
       context: { demo: @demo, user: @user, follow_up_email: @follow_up_email, email_type:  @presenter.email_type }
-    )     
+    )
 
     ping_on_digest_email  @presenter.email_type, @user
-    mail  to: @user.email_with_name, from: @presenter.from_email, subject: subject 
+    mail  to: @user.email_with_name, from: @presenter.from_email, subject: subject
   end
 
   def notify_one_explore  user_id, tile_ids, subject, email_heading, custom_message, custom_from=nil
     @user  = User.find user_id
-    return nil unless @user.email.present? 
+    return nil unless @user.email.present?
 
     @presenter = TilesDigestMailExplorePresenter.new(custom_from, custom_message, email_heading, @user.explore_token)
 
@@ -35,39 +35,38 @@ class TilesDigestMailer < BaseTilesDigestMailer
 
     ping_on_digest_email(@presenter.email_type, @user)
 
-    mail to: @user.email_with_name, 
-      from: @presenter.from_email, 
-      subject: subject, 
-      template_path: 'explore_digest_mailer', 
+    mail to: @user.email_with_name,
+      from: @presenter.from_email,
+      subject: subject,
+      template_path: 'explore_digest_mailer',
       template_name: 'notify_one'
   end
 
   def notify_all_follow_up_from_delayed_job
-    FollowUpDigestEmail.send_follow_up_digest_email.each do |followup| 
-      TilesDigestMailer.delay(run_at: noon).notify_all_follow_up(followup.id) 
-    end	
+    FollowUpDigestEmail.send_follow_up_digest_email.each do |followup|
+      TilesDigestMailer.delay(run_at: noon).notify_all_follow_up(followup.id)
+    end
   end
 
   def notify_all(demo, unclaimed_users_also_get_digest, tile_ids, custom_headline, custom_message, subject, alt_subject=nil)
     user_ids = demo.users_for_digest(unclaimed_users_also_get_digest).pluck(:id)
 
-    user_ids.reject! do |user_id| 
-      BoardMembership.where(demo_id: demo.id, user_id: user_id, digest_muted: true).first.present? 
+    user_ids.reject! do |user_id|
+      BoardMembership.where(demo_id: demo.id, user_id: user_id, digest_muted: true).first.present?
     end
 
-    user_ids.each_with_index do |user_id, idx| 
+    user_ids.each_with_index do |user_id, idx|
       subj = resolve_subject(subject, alt_subject,idx)
-      TilesDigestMailer.delay.notify_one(demo.id, user_id, tile_ids, subj, false, custom_headline, custom_message) 
-
-    end 
+      TilesDigestMailer.delay.notify_one(demo.id, user_id, tile_ids, subj, false, custom_headline, custom_message)
+    end
   end
 
   def notify_all_follow_up(followup_id)
     followup = FollowUpDigestEmail.find followup_id
     subject = if followup.original_digest_subject.present?
-                "Don't Miss: #{followup.original_digest_subject}"              
+                "Don't Miss: #{followup.original_digest_subject}"
               else
-                "Don't Miss Your New Tiles"              
+                "Don't Miss Your New Tiles"
               end
     headline = followup.original_digest_headline
 

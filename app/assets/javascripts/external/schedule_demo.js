@@ -81,6 +81,7 @@ Airbo.ScheduleDemoModal = (function(){
   }
 
   function prepareForm(){
+   //FIXME there is no form here. So this codes throws an exception
     form[0].reset();
     validator.resetForm();
     $("#request_content").show();

@@ -15,9 +15,6 @@ feature 'Designates board paid or free' do
     visit admin_demo_path(board, as: user)
 
     click_make_paid
-    expect_ping 'Board Type', {type: "Paid"}, user
-
     click_make_free
-    expect_ping 'Board Type', {type: "Free"}, user
   end
 end

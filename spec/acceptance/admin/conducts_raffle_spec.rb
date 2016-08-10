@@ -2,15 +2,6 @@ require 'acceptance/acceptance_helper'
 
 feature 'Admin conducts raffle' do
 
-  def expect_winner_line(winner)
-    s = "And the winner is...#{winner.name} (#{winner.email})"
-    expect_content s
-  end
-
-  def expect_no_winner_text
-    expect_content "Nobody has any tickets, so nobody is a winner. Or everybody is."
-  end
-
   before(:each) do
     @demo = FactoryGirl.create(:demo, :with_tickets)
   end
@@ -134,4 +125,14 @@ feature 'Admin conducts raffle' do
       end
     end
   end
+
+  def expect_winner_line(winner)
+    s = "And the winner is...#{winner.name} (#{winner.email})"
+    expect_content s
+  end
+
+  def expect_no_winner_text
+    expect_content "Nobody has any tickets, so nobody is a winner. Or everybody is."
+  end
+
 end

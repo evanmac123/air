@@ -27,7 +27,7 @@ feature 'Browses user lists' do
 
 
   it "should show everyone except site admin if asked" do
-    5.times do |i| 
+    5.times do |i|
       user = FactoryGirl.create(:user, name: "Dude #{i}", demo: client_admin.demo)
     end
 
@@ -49,17 +49,13 @@ feature 'Browses user lists' do
 
   end
 
-  # NOTE: This test takes about 2 1/2 minutes to run (on my old machine, at least, RIP)
-  # Or even longer, especially if you're in a hurry.
   it "should paginate big result sets" do
-    puts "STARTING A SLOW TEST, GET COMFORTABLE"
-    puts "STARTING AT #{Time.now.to_s}"
     page_size = ClientAdmin::UsersController::PAGE_SIZE
 
     client_admin.update_attributes(name: "Zzzzzzzzz") # hack to make sure admin appears at the end of the list
-    (2 * page_size).times do |i| 
+    (2 * page_size).times do |i|
       user = FactoryGirl.create(:user, name: "Dude #{i}", demo: client_admin.demo)
-    end   
+    end
 
     other_demo_guy = FactoryGirl.create(:user, name: "Johnny Otherdemo")
     other_demo_guy.demo.should_not == client_admin.demo
@@ -143,15 +139,13 @@ feature 'Browses user lists' do
     end
 
     expect(user_table_contents).to_not include(this_user_data(client_admin))
-
-    puts "DONE AT #{Time.now.to_s}"
   end
 
   it "allows admin to invite user from the browse results page, assuming they have an email address", js:true do
     alfred = FactoryGirl.create(:user, name: "Alfred Jones", demo: client_admin.demo)
     alfred.should_not be_invited
     visit client_admin_users_path(show_everyone: true, as: client_admin)
-   within("tr.found-user[data-user-id='#{alfred.id}']") do 
+   within("tr.found-user[data-user-id='#{alfred.id}']") do
       page.find(".send-invite-link").click
     end
     expect_content "OK, we've just sent #{alfred.name} an invitation."

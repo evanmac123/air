@@ -41,6 +41,7 @@ class InvitationsController < ApplicationController
                   end
       @demo = Demo.find(params[:demo_id]) if params[:demo_id] =~ /^\d+$/
       # so many pings
+      # FIXME: Remove ping_page abstraction.  This come for free with mixpanel
       @user.ping_page('invitation acceptance', 'invitation acceptance version' => "v. 6/25/14")
       email_clicked_ping(@user)
       record_mixpanel_ping @user

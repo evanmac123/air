@@ -21,15 +21,10 @@ feature 'Create new board' do
     fill_in "board_name", with: board_name
   end
 
-  def wait_for_board_modal
-    expect_content "Create a new board" # slow your roll, Poltergeist  
-  end
-
   def try_to_create_new_board(user = a_regular_user)
     visit activity_path(as: user)
     open_board_menu
     click_create_board_link
-    wait_for_board_modal
     fill_in_new_board_name "Buttons"
     click_create_new_board_button
   end
@@ -51,7 +46,6 @@ feature 'Create new board' do
       visit activity_path(as: a_regular_user)
       open_board_menu
       click_create_board_link
-      wait_for_board_modal
     end
 
     it "should warn the user", js: true do

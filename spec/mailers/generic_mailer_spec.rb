@@ -23,7 +23,7 @@ describe GenericMailer do
       @user = FactoryGirl.create :user
       GenericMailer.send_message(demo.id, @user.id, "Here is the subject", "This is some text", "<p>This is some HTML</p>").deliver
 
-      should have_sent_email.to(@user.email)      
+      should have_sent_email.to(@user.email)
       should_not have_sent_email.with_body /Please do not forward it to others/
     end
 
@@ -65,7 +65,7 @@ describe GenericMailer do
         with_part('text/plain', /acts/).
         with_part('text/plain', /user_id=#{claimed_user.id}/).
         with_part('text/plain', /tile_token=#{EmailLink.generate_token(claimed_user)}/)
- 
+
       should have_sent_email.
         to(unclaimed_user.email).
         with_part('text/html', %r!invitations/#{unclaimed_user.invitation_code}!).
@@ -96,11 +96,6 @@ describe GenericMailer do
       user_ids = []
       5.times {user_ids << (FactoryGirl.create :user).id}
       GenericMailer::BulkSender.new(demo.id, user_ids, "This is a subject", "This is plain text", "<p>This is HTML</p>").send_bulk_mails
-      
-
-      user_ids.each do |user_id|
-        GenericMailer.should have_received(:delay_mail).with(:send_message, demo.id, user_id, "This is a subject", "This is plain text", "<p>This is HTML</p>")
-      end
 
       GenericMailer.should have_received(:delay_mail).times(5)
     end

@@ -10,13 +10,6 @@
 .left{
   float: left;
 }
-// Link Colors
-a, a:link, a:visited{
-  color: #070;
-}
-a:hover, a:focus{
-  color: lighten(#070, 12%);
-}
 
 table.admin_wide{
   width: 1150px;
@@ -68,14 +61,14 @@ th, td{
    &:first-child{display: block;}
  }
 }
-   
+
 .body{
   float: left;
   width: 600px;
 }
 .flip-flop{
   text-align: center;
-  margin-top: -5mm; 
+  margin-top: -5mm;
 }
 table:not(.first-column-header){
   tr:hover{
@@ -136,10 +129,10 @@ textarea{
 #start_time, #end_time{
   float: left;
   width: 200px;
-  padding: 20px; 
+  padding: 20px;
 }
 select{
-  font-size: 18px;  
+  font-size: 18px;
 }
 .long_page{ height: 10cm;}
 #reply_max_length_info_holder, #bullet_instructions_holder, #subject_instructions_holder, .blurb_instructions_holder, .example_instructions_holder{

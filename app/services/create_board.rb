@@ -1,3 +1,5 @@
+#FIXME this entire logic needs to be completely rewritten. It is a utter cluster
+#fuck.  
 class CreateBoard
   include NormalizeBoardName
   attr_reader :board

@@ -3,6 +3,7 @@ require 'spec_helper'
 describe ClientAdmin::TileImagesController do
   describe "GET index" do
     it "should return correct tiles" do
+      subject.stubs(:ping)
       demo = FactoryGirl.create(:demo)
       client_admin = FactoryGirl.create(:client_admin, demo: demo)
       tile_images = FactoryGirl.create_list :tile_image, 55

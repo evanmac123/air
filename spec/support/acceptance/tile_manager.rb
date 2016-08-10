@@ -3,10 +3,6 @@ module TileManagerHelpers
     find(:tile, tile)  # Uses our custom selector (defined in '/support/helpers/tile_helpers.rb')
   end
 
-  def have_archive_link_for(tile)
-    have_selector("a[data-status='archive'][href='#{status_change_client_admin_tile_path(tile)}']")
-  end
-
   def have_reactivate_link_for(tile)
     have_selector("a[data-status='active'][href='#{status_change_client_admin_tile_path(tile)}']")
   end
@@ -33,37 +29,22 @@ module TileManagerHelpers
 
   def expect_draft_tile_placeholders(expected_count)
     expect_tile_placeholders("draft", expected_count)
-  end 
-  
+  end
+
   def expect_page_to_be_locked
     page.should have_css('.fa-lock', visible: true)
     page.should have_content("Please create and post at least one tile to unlock this page.")
     page.should have_link 'Go to Tiles Page', client_admin_tiles_path
   end
-  
+
   def expect_link_to_have_lock_icon(container)
     within(container) do
       page.should have_css('.fa-lock', visible: true)
     end
   end
-  
-  def expect_mixpanel_action_ping(event, action)
-    FakeMixpanelTracker.clear_tracked_events
-    crank_dj_clear
-    properties = {action: action}
-    #p FakeMixpanelTracker.tracked_events
-    FakeMixpanelTracker.should have_event_matching(event, properties)    
-  end
-  
-  def expect_mixpanel_page_ping(event, page_name)
-    FakeMixpanelTracker.clear_tracked_events
-    crank_dj_clear
-    properties = {page_name: page_name}
-    FakeMixpanelTracker.should have_event_matching(event, properties)    
-  end
-  
+
   def visit_tile_manager_page
-    visit tile_manager_page 
+    visit tile_manager_page
   end
 
   def create_tiles_for_sections params
@@ -72,9 +53,9 @@ module TileManagerHelpers
     params.each do |section, number|
       (1..number).to_a.map do |i|
         FactoryGirl.create(
-          :multiple_choice_tile, 
-          section.to_sym, 
-          demo: demo, 
+          :multiple_choice_tile,
+          section.to_sym,
+          demo: demo,
           headline: "Tile #{section.capitalize} #{i}"
         )
       end
@@ -87,15 +68,11 @@ module TileManagerHelpers
     selected_tile.drag_to new_place_tile
   end
 
-  def move_tile_between_sections tile1, tile2
+  def move_tile_between_sections(tile1, tile2)
     selected_tile = tile(tile1)
     new_place_tile = tile(tile2)
-    selected_tile.drag_to new_place_tile
+    selected_tile.drag_to(new_place_tile)
     wait_for_ajax
-    move_tile tile1, tile2
-  end
-
-  def expect_tile_status_updated_ping tile_id, user
-    expect_ping "Moved Tile in Manage", {action: "Dragged tile to move", tile_id: tile_id}, user
+    move_tile(tile1, tile2)
   end
 end

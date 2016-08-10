@@ -9,7 +9,7 @@ describe "shared/header/_desktop_board_switcher.html.erb" do
     user.stubs(:can_create_board?).returns(false)
     user.stubs(:is_site_admin).returns(false)
 
-    render "shared/header/desktop_board_switcher.html.erb", user: user
+    render "shared/header/desktop_board_switcher", user: user
 
     rendered.should_not have_link("Create new board")
   end

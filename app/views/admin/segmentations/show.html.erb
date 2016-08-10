@@ -7,8 +7,8 @@
   <%= render 'shared/segmentation_results', segmentation_results: @segmentation_results %>
 
   <div class="show_user_links">
-    <%= link_to "Show users", "#", id: "show-user-link", class: "success button" %>
-    <%= link_to "Download Users CSV", admin_demo_users_path(@demo, format: :csv), class: "success button" %>
+    <%= link_to "Show users", "#", id: "show-user-link", class: "primary button" %>
+    <%= link_to "Download Users CSV", admin_demo_users_path(@demo, format: :csv), class: "primary button" %>
   </div>
 
   <%= render 'shared/segmentation_form', dummy_characteristics: @dummy_characteristics, generic_characteristics: @generic_characteristics, demo_specific_characteristics: @demo_specific_characteristics, segmentation_url: admin_demo_segmentation_path(@demo) %>

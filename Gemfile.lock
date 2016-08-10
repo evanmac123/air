@@ -327,7 +327,7 @@ GEM
     metaclass (0.0.1)
     method_source (0.8.2)
     mime-types (1.25.1)
-    mini_portile (0.6.2)
+    mini_portile2 (2.1.0)
     mixpanel (4.1.1)
       escape
       json
@@ -356,8 +356,9 @@ GEM
       net-ssh (>= 2.6.5)
     net-ssh (2.9.1)
     newrelic_rpm (3.9.9.275)
-    nokogiri (1.6.6.2)
-      mini_portile (~> 0.6.0)
+    nokogiri (1.6.8)
+      mini_portile2 (~> 2.1.0)
+      pkg-config (~> 1.1.7)
     nokogumbo (1.4.1)
       nokogiri
     oauth (0.4.7)
@@ -377,10 +378,10 @@ GEM
     paperclip-meta (0.4.3)
       paperclip
     pg (0.14.1)
-    poltergeist (1.7.0)
+    pkg-config (1.1.7)
+    poltergeist (1.10.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
-      multi_json (~> 1.0)
       websocket-driver (>= 0.2.0)
     polyamorous (1.1.0)
       activerecord (>= 3.0)
@@ -571,7 +572,7 @@ GEM
     uuid (2.3.6)
       macaddr (~> 1.0)
     websocket (1.2.3)
-    websocket-driver (0.6.2)
+    websocket-driver (0.6.4)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
     xml-simple (1.1.2)
@@ -598,7 +599,7 @@ DEPENDENCIES
   capybara-webkit
   carrierwave_direct
   chronic
-  clearance
+  clearance (~> 0.16.3)
   coffee-rails
   colored
   counter_culture

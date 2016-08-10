@@ -91,11 +91,11 @@ class Highchart
     LazyHighCharts::HighChart.new do |hc|
       hc.exporting(buttons: {printButton: {enabled: false}})  # Remove 'Print' button ; keep 'Save As Image/PDF'
 
-      hc.title(text: "Activity Levels", style: {color: '#4c4c4c', 
-        "font-size" => "16px", "font-family" => "Helvetica Neue", 
+      hc.title(text: "Activity Levels", style: {color: '#4c4c4c',
+        "font-size" => "16px", "font-family" => "Helvetica Neue",
         "font-style" => "normal", "font-weight" => "bold", "font-weight" => "500"})
       hc.subtitle(text: chart.subtitle, style: {color: '#a8a8a8',
-        "font-size" => "14px", "font-family" => "Helvetica Neue", 
+        "font-size" => "14px", "font-family" => "Helvetica Neue",
         "font-style" => "normal", "font-weight" => "normal", "font-weight" => "400"})
 
       hc.legend(layout: 'horizontal')

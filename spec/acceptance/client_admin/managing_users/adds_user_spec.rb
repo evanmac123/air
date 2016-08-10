@@ -82,15 +82,6 @@ feature 'Adds user' do
     john_smiths[0].claim_code.should_not == john_smiths[1].claim_code
   end
 
-  it "should send a mixpanel ping", js: true do
-    fill_in_user_information
-    click_button "Add User"
-    FakeMixpanelTracker.clear_tracked_events
-    crank_dj_clear
-
-    FakeMixpanelTracker.should have_event_matching('User - New', source: 'creator')
-  end
-
   context "if we try to add an existing user" do
     it "should allow them, if not already in the board, to be invited", js: true do
       FactoryGirl.create(:user, email: USER_EMAIL)
@@ -111,17 +102,6 @@ feature 'Adds user' do
 
       click_button "Add User"
       expect_content("It looks like #{USER_EMAIL} is already in your board.")
-    end
-
-    it "should give a more appropriate mixpanel ping on inviting existing user", js: true do
-      FactoryGirl.create(:user, email: USER_EMAIL)
-      fill_in_user_information
-
-      click_button "Add User"
-      FakeMixpanelTracker.clear_tracked_events
-      crank_dj_clear
-      FakeMixpanelTracker.should_not have_event_matching('User - New', source: 'creator')
-      FakeMixpanelTracker.should have_event_matching('User - Existing Invited', source: 'creator')
     end
 
     it "should have the correct board name in the invitation", js: true do

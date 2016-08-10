@@ -62,16 +62,16 @@ class EmailCommand < ActiveRecord::Base
     email_command.clean_subject = EmailCommand.clean_subject_line(email_command.email_subject)
     email_command.clean_body = EmailCommand.parse_email_body(email_command.email_plain)
     email_command.user = EmailCommand.find_user(email_command.email_from)
-    if email_command.user.nil? 
+    if email_command.user.nil?
       email_command.status = EmailCommand::Status::UNKNOWN_EMAIL
     else
       email_command.status = EmailCommand::Status::USER_VERIFIED
     end
     email_command.save
     email_command
-    
+
   end
-  
+
   def self.clean_email_address(email)
     stripped_version = email.match(/<(.*?)>/)
     address_only = (stripped_version.nil? ? email : stripped_version[1])
@@ -88,7 +88,7 @@ class EmailCommand < ActiveRecord::Base
     text.gsub!( /^fw:|fwd:/i, '' )
     text.strip
   end
-    
+
   def self.parse_email_body(email_body)
     return "" if email_body.blank?
     first_line = nil
@@ -101,13 +101,13 @@ class EmailCommand < ActiveRecord::Base
     }
     first_line
   end
-  
+
   def self.find_user(from_email)
     User.find_by_email(from_email)
   end
- 
+
   protected
-  
+
   def channel_specific_translations
     {:say => "email", :Say => "Email"}
   end
