@@ -5,9 +5,10 @@ when 'production', 'staging', "production_local"
 
   ATTACHMENT_CONFIG_BASE = {
     :storage => :s3,
-    :s3_protocol => 'https', 
+    :s3_protocol => 'https',
     :s3_credentials => S3_CREDENTIALS,
     :s3_headers => {'Expires' => 1.year.from_now.httpdate, 'Cache-Control' => 'max-age=315576000'},
+    :hash_data => "tiles/:attachment/:id/:style/:updated_at",
     :url            => ":s3_domain_url",
     :hash_secret => "Kid Sister Diary Secure",
   }
@@ -18,12 +19,10 @@ when 'production', 'staging', "production_local"
 
   TILE_THUMBNAIL_OPTIONS = {
     path: "/tile_thumbnails/:id/:hash__:filename",
-    hash_data:  "tiles/:attachment/:id/:style/:updated_at",
   }
 
   DEMO_LOGO_OPTIONS = {
     path: "/demo/:id/:hash__:filename",
-    hash_data:  "demos/:attachment/:id/:style/:updated_at",
   }
 
 when 'test',  'development'
