@@ -36,7 +36,7 @@ describe 'Digest email' do
   end
 
   describe 'Logo' do
-    it 'should display the H.Engage logo and alt-text if an alternative one is not provided' do
+    it 'should display the HEngage logo and alt-text if an alternative one is not provided' do
       email = TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "New Tiles", false, nil, nil)
 
       email.should have_selector "img[src $= '/assets/airbo_logo_lightblue.png'][alt = 'Airbo']"
@@ -166,7 +166,7 @@ describe 'Digest email' do
       it { should have_body_text "This email is unique for you. Please do not forward it." }
       it { should have_body_text 'For assistance contact' }
       it { should have_link      'support@airbo.com' }
-      it { should have_body_text "Our mailing address is 292 Newbury Street, Suite 547, Boston, MA 02115" }
+      it { should have_body_text "Our mailing address is 1600 Main Street, Venice CA 90291" }
 
       it { should have_link      'Unsubscribe' }
       it { should have_link 'Update Preferences' }
