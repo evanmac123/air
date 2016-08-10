@@ -18,7 +18,6 @@ class Mailer < ActionMailer::Base
                      else
                        invitation_url(user.invitation_code, referrer_hash.merge(demo_id: @demo.id))
                      end
-
     @plain_text = email_template.plain_text(user, referrer, @invitation_url)
     @html_text = email_template.html_text(user, referrer, @invitation_url).html_safe
 

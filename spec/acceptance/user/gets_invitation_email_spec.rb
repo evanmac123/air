@@ -245,7 +245,6 @@ If you're smart you'll go to [invitation_url] and play.
     end
 
     it "should interpolate invitation URLs" do
-      binding.pry
       expect_email_content("you'll go to #{invitation_url(@user.invitation_code)}")
     end
 
