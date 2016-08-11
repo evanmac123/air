@@ -1,40 +1,53 @@
 require 'acceptance/acceptance_helper'
 
-def expect_bad_public_board_message
-  expect_content "This board is currently private. Please contact support@airbo.com for assistance joining."
-end
+Capybara.javascript_driver = :selenium
+feature "Guest user visits airbo" do
+  before(:each) do
+    @demo = FactoryGirl.create(:demo)
+    @slug_path = "/ard/#{@demo.public_slug}"
+    @slug_activity_path = "#{@slug_path}/activity"
+    @slug_tiles_path = "#{@slug_path}/tiles"
+  end
 
-feature 'Views board via public link' do
-  {
-    '/ard/aboard'          => '/ard/aboard/activity',
-    '/ard/aboard/activity' => '/ard/aboard/activity',
-    '/ard/aboard/tiles'    => '/ard/aboard/tiles'
-  }.each do |entry_path, expected_destination|
-    context "to #{entry_path}" do
-      scenario "ends up on #{expected_destination}" do
-        FactoryGirl.create(:demo, public_slug: 'aboard')
-        visit entry_path
-        should_be_on expected_destination
-      end
+  context "first tile hint" do
+    before do
+      FactoryGirl.create(:tile, demo: @demo)
+    end
+    scenario "appears if there are no completions", js:true do
+      visit @slug_path
+      expect(page).to have_content("Click on the Tile to begin.")
+      click_link 'Got it'
+      expect(page).to have_no_content("Click on the Tile to begin.")
+    end
+
+    scenario "should not see first tile hint if user has completed tilese", js:true do
+      UserIntro.any_instance.stubs(:displayed_first_tile_hint).returns true
+      visit @slug_path
+      expect(page).to have_no_content("Click on the Tile to begin.")
     end
   end
-end
 
-%w(
-  /ard/derp
-  /ard/derp/activity
-  /ard/derp/tiles
-).each do |bad_path|
-  feature "going to a nonexistent public link such as #{bad_path}" do
-    it 'should give a helpful error' do
+  scenario 'successfully via any valid public link', js:true do
+    {
+      @slug_path =>  @slug_activity_path,
+      @slug_activity_path =>  @slug_activity_path,
+      @slug_tiles_path =>  @slug_tiles_path,
+    }.each do |entry_path, expected_destination|
+      visit entry_path
+      should_be_on expected_destination
+    end
+  end
+
+  scenario "sees error when arriving via invalid board link" do
+
+    %w(/ard/derp /ard/derp/activity /ard/derp/tiles)
+      .each do|bad_path|
       visit bad_path
       expect_bad_public_board_message
     end
   end
-end
 
-feature "going to a board that's not public" do
-  it "should give a helpful error" do
+  scenario "sees error when arriving via non public link" do
     board = FactoryGirl.create(:demo, is_public: false)
 
     visit public_board_path(board.public_slug)
@@ -46,5 +59,8 @@ feature "going to a board that's not public" do
     visit public_tiles_path(board.public_slug)
     expect_bad_public_board_message
   end
-end
 
+  def expect_bad_public_board_message
+    expect_content "This board is currently private. Please contact support@airbo.com for assistance joining."
+  end
+end
