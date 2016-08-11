@@ -6,9 +6,24 @@ describe PotentialUser do
 
   it { should belong_to(:demo) }
   it { should belong_to(:game_referrer) }
+  it { should belong_to(:primary_user) }
   it { should have_many(:peer_invitations) }
 
   it { should validate_uniqueness_of(:invitation_code) }
+
+  context "primary user is destroyed" do
+    it "should also be destroyed" do
+      user = FactoryGirl.create(:user)
+      FactoryGirl.create(:potential_user, primary_user_id: user.id)
+      FactoryGirl.create(:potential_user, primary_user_id: user.id)
+
+      expect(PotentialUser.count).to eq(2)
+
+      user.destroy
+
+      expect(PotentialUser.count).to eq(0)
+    end
+  end
 
   describe '#convert_to_full_user!' do
     context "happy path" do
