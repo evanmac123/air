@@ -19,7 +19,7 @@ class TilesDigestMailer < BaseTilesDigestMailer
       context: { demo: @demo, user: @user, follow_up_email: @follow_up_email, email_type:  @presenter.email_type }
     )
 
-    ping_on_digest_email  @presenter.email_type, @user
+    ping_on_digest_email(@presenter.email_type, @user, subject)
     mail  to: @user.email_with_name, from: @presenter.from_email, subject: subject
   end
 
@@ -33,7 +33,7 @@ class TilesDigestMailer < BaseTilesDigestMailer
 
     @tiles = TileExploreDigestDecorator.decorate_collection undecorated_tiles, context: { user: @user }
 
-    ping_on_digest_email(@presenter.email_type, @user)
+    ping_on_digest_email(@presenter.email_type, @user, subject)
 
     mail to: @user.email_with_name,
       from: @presenter.from_email,
