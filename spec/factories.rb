@@ -1,4 +1,5 @@
 FactoryGirl.define do
+  #USER
 
   factory :unnamed_user, :class => User do
     association(:demo)
@@ -89,6 +90,7 @@ FactoryGirl.define do
   #   association :location
   # end
 
+  #DEMO
   factory :demo do
     sequence(:name) {|n| "Coolio_#{n} Board" }
 
