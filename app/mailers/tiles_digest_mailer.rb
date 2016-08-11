@@ -2,7 +2,7 @@ class TilesDigestMailer < BaseTilesDigestMailer
 
   def notify_one(demo_id, user_id, tile_ids, subject, follow_up_email,
                  custom_headline, custom_message, custom_from=nil, is_new_invite = nil)
-
+    subject = sanitize_subject_line(subject)
     @user  = User.find user_id # XTR
     return nil unless @user.email.present?
 
@@ -23,11 +23,12 @@ class TilesDigestMailer < BaseTilesDigestMailer
     mail  to: @user.email_with_name, from: @presenter.from_email, subject: subject
   end
 
-  def notify_one_explore  user_id, tile_ids, subject, email_heading, custom_message, custom_from=nil
+  def notify_one_explore(user_id, tile_ids, subject, email_heading, custom_message, custom_from=nil)
+    subject = sanitize_subject_line(subject)
     @user  = User.find user_id
     return nil unless @user.email.present?
 
-    @presenter = TilesDigestMailExplorePresenter.new(custom_from, custom_message, email_heading, @user.explore_token)
+    @presenter = TilesDigestMailExplorePresenter.new(custom_from, custom_message, email_heading, @user.explore_token, subject)
 
     undecorated_tiles = tile_ids.map{|tile_id| Tile.find(tile_id)}
 
@@ -93,5 +94,11 @@ class TilesDigestMailer < BaseTilesDigestMailer
       end
   end
 
+  private
 
+    def sanitize_subject_line(subject)
+      if subject
+        subject.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
+      end
+    end
 end
