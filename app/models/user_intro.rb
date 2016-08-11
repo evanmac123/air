@@ -20,8 +20,6 @@ class UserIntro < ActiveRecord::Base
   end
 
   def display_first_tile_hint?
-    return false unless $rollout.active?(:first_tile_hint, self.user)
-
     self.displayed_first_tile_hint == false && self.user.tile_completions.count==0
   end
 
