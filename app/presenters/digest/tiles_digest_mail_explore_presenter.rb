@@ -5,11 +5,12 @@ class TilesDigestMailExplorePresenter < TilesDigestMailBasePresenter
   EXPLORE_TITLE = "Explore digest".freeze
   EXPLORE_EMAIL = "explore_v_1".freeze
 
-  def initialize(custom_from, custom_message, email_heading, explore_token)
+  def initialize(custom_from, custom_message, email_heading, explore_token, subject=nil)
     super(custom_message)
     @custom_from = custom_from
     @email_heading = email_heading
     @explore_token = explore_token
+    @subject = subject
   end
 
   def from_email
