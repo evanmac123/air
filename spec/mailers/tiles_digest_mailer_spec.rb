@@ -35,15 +35,6 @@ describe 'Digest email' do
     it { should have_subject      'New Tiles' }
   end
 
-  describe 'Invalid characters' do
-    it 'should sanitize them to prevent invalid byte sequences' do
-      email = TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "New Tiles\255😁", false, nil, nil)
-
-      expect(email.to_s.include?("Subject: New Tiles")).to eq(true)
-      expect(email.to_s.include?("Subject: New Tiles\255😁")).to eq(false)
-    end
-  end
-
   describe 'Logo' do
     it 'should display the HEngage logo and alt-text if an alternative one is not provided' do
       email = TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, "New Tiles", false, nil, nil)
