@@ -10,8 +10,7 @@ class TilesDigestMailBasePresenter
 
   def site_link
     if @subject
-      subject = @subject.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
-      "#{general_site_url}&subject_line=#{URI.escape(subject)}"
+      "#{general_site_url}&subject_line=#{URI.escape(@subject)}"
     else
       general_site_url
     end
