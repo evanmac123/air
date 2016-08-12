@@ -1,7 +1,7 @@
-H.Engage
+HEngage
 ========
 
-Information about the H.Engage Rails app
+Information about the HEngage Rails app
 
 Laptop setup
 ------------
@@ -80,7 +80,7 @@ Shell aliases: add to ~/.aliases
 Setting up the app itself
 -------------------------
 
-Get the H.Engage source code:
+Get the HEngage source code:
 
     git clone git@github.com:vladig17/hengage.git
 
@@ -575,7 +575,7 @@ Create a Rule in "site_admin" for the demo.
 * Since we are creating acts for the users activity feeds we want a valid description but a rule value that users won't discover by accident. Here is a good example from the Heineken demo d. r is the Rule and rv its RuleValue:
 
 irb(main):108:0> d
-=> #<Demo id: 135, name: "Heineken H.Engage", created_at: "2013-09-04 21:35:47", updated_at: "2013-10-02 17:25:33", seed_points: nil, custom_welcome_message: "Welcome to Heineken H.Engage! Watch for an email to...", ends_at: nil, followup_welcome_message: "", followup_welcome_message_delay: 0, credit_game_referrer_threshold: 100000, game_referrer_bonus: 5, use_standard_playbook: false, begins_at: nil, phone_number: "+19146195717", prize: "", help_message: "", email: "heineken@playhengage.com", unrecognized_user_message: "", act_too_early_message: "", act_too_late_message: "", referred_credit_bonus: 2, survey_answer_activity_message: "", login_announcement: "", total_user_rankings_last_updated_at: nil, average_user_rankings_last_updated_at: nil, mute_notice_threshold: nil, join_type: "pre-populated", sponsor: nil, example_tooltip: "", example_tutorial: "", ticket_threshold: 20, client_name: "Heineken", custom_reply_email_name: "The People Department", custom_already_claimed_message: "", use_post_act_summaries: true, custom_support_reply: "", internal_domains: [], show_invite_modal_when_game_closed: false, tile_digest_email_sent_at: "2013-10-02 17:25:33", website_locked: false, tutorial_type: "multiple_choice", unclaimed_users_also_get_digest: true>
+=> #<Demo id: 135, name: "Heineken HEngage", created_at: "2013-09-04 21:35:47", updated_at: "2013-10-02 17:25:33", seed_points: nil, custom_welcome_message: "Welcome to Heineken HEngage! Watch for an email to...", ends_at: nil, followup_welcome_message: "", followup_welcome_message_delay: 0, credit_game_referrer_threshold: 100000, game_referrer_bonus: 5, use_standard_playbook: false, begins_at: nil, phone_number: "+19146195717", prize: "", help_message: "", email: "heineken@playhengage.com", unrecognized_user_message: "", act_too_early_message: "", act_too_late_message: "", referred_credit_bonus: 2, survey_answer_activity_message: "", login_announcement: "", total_user_rankings_last_updated_at: nil, average_user_rankings_last_updated_at: nil, mute_notice_threshold: nil, join_type: "pre-populated", sponsor: nil, example_tooltip: "", example_tutorial: "", ticket_threshold: 20, client_name: "Heineken", custom_reply_email_name: "The People Department", custom_already_claimed_message: "", use_post_act_summaries: true, custom_support_reply: "", internal_domains: [], show_invite_modal_when_game_closed: false, tile_digest_email_sent_at: "2013-10-02 17:25:33", website_locked: false, tutorial_type: "multiple_choice", unclaimed_users_also_get_digest: true>
 
 Now create an act for each user. Note that you have to set the text to something (typically the rule's description) because if you don't the created act will have its "hidden" attribute set to "true" => won't show up in the feed.
 
@@ -601,7 +601,7 @@ irb(main):115:0* Act.create! demo: d, rule: r, text: r.description, user: u
   Tile Load (1.7ms)  SELECT "tiles".* FROM "tiles" INNER JOIN trigger_rule_triggers ON trigger_rule_triggers.tile_id = tiles.id WHERE "tiles"."demo_id" = 135 AND "tiles"."status" = 'active' AND (trigger_rule_triggers.rule_id = 2356) AND (start_time < '2013-10-28 16:59:42.491086' OR start_time IS NULL) AND (end_time > '2013-10-28 16:59:42.491199' OR end_time IS NULL)
    (1.9ms)  SELECT COUNT(*) FROM "friendships" WHERE "friendships"."state" = 'accepted' AND "friendships"."user_id" = 122719
    (1.2ms)  SELECT COUNT(*) FROM "friendships" WHERE "friendships"."state" = 'accepted' AND "friendships"."friend_id" = 122719
-  SQL (1.6ms)  INSERT INTO "delayed_jobs" ("attempts", "created_at", "failed_at", "handler", "last_error", "locked_at", "locked_by", "priority", "queue", "run_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"  [["attempts", 0], ["created_at", Mon, 28 Oct 2013 12:59:42 EDT -04:00], ["failed_at", nil], ["handler", "--- !ruby/object:Delayed::PerformableMethod\nobject: !ruby/object:Mixpanel::Tracker\n  token: 0bf0dc3d09bdeb203c0678181a70d99a\n  async: false\n  persist: false\n  env:\n    mixpanel_events: []\n  api_key: \nmethod_name: :track\nargs:\n- acted\n- :time: 2013-10-28 12:59:42.498424066 -04:00\n  :rule_value: $%rz234\n  :primary_tag: \n  :secondary_tags: []\n  :tagged_user_id: \n  :channel: ''\n  :suggestion_code: \n  :distinct_id: 122719\n  :id: 122719\n  :email: jfrancisco@heinekenusa.com\n  :game: Heineken H.Engage\n  :following_count: 11\n  :followers_count: 11\n  :score: 139\n  :account_creation_date: 2013-09-11\n  :joined_game_date: 2013-10-02\n  :location: \n"], ["last_error", nil], ["locked_at", nil], ["locked_by", nil], ["priority", 0], ["queue", nil], ["run_at", Mon, 28 Oct 2013 12:59:42 EDT -04:00], ["updated_at", Mon, 28 Oct 2013 12:59:42 EDT -04:00]]
+  SQL (1.6ms)  INSERT INTO "delayed_jobs" ("attempts", "created_at", "failed_at", "handler", "last_error", "locked_at", "locked_by", "priority", "queue", "run_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"  [["attempts", 0], ["created_at", Mon, 28 Oct 2013 12:59:42 EDT -04:00], ["failed_at", nil], ["handler", "--- !ruby/object:Delayed::PerformableMethod\nobject: !ruby/object:Mixpanel::Tracker\n  token: 0bf0dc3d09bdeb203c0678181a70d99a\n  async: false\n  persist: false\n  env:\n    mixpanel_events: []\n  api_key: \nmethod_name: :track\nargs:\n- acted\n- :time: 2013-10-28 12:59:42.498424066 -04:00\n  :rule_value: $%rz234\n  :primary_tag: \n  :secondary_tags: []\n  :tagged_user_id: \n  :channel: ''\n  :suggestion_code: \n  :distinct_id: 122719\n  :id: 122719\n  :email: jfrancisco@heinekenusa.com\n  :game: Heineken HEngage\n  :following_count: 11\n  :followers_count: 11\n  :score: 139\n  :account_creation_date: 2013-09-11\n  :joined_game_date: 2013-10-02\n  :location: \n"], ["last_error", nil], ["locked_at", nil], ["locked_by", nil], ["priority", 0], ["queue", nil], ["run_at", Mon, 28 Oct 2013 12:59:42 EDT -04:00], ["updated_at", Mon, 28 Oct 2013 12:59:42 EDT -04:00]]
    (8.3ms)  COMMIT
 => #<Act id: 749475, user_id: 122719, text: "Completed Alex, emailed my Personal Benefits Webpag...", created_at: "2013-10-28 16:59:42", updated_at: "2013-10-28 16:59:42", rule_id: 2356, inherent_points: nil, demo_id: 135, referring_user_id: nil, creation_channel: "", hidden: false, privacy_level: "connected", rule_value_id: nil>
 irb(main):116:0> 

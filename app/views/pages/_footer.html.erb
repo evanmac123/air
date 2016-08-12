@@ -1,7 +1,8 @@
+<%# FIXME: FLAG for removal %>
 <footer>
 <% if @display_social_links %>
   <div class="row main-row">
-    
+
 
     <div class="contact_us">
       <h3>Contact us</h3>
@@ -9,8 +10,8 @@
         <li class="reach_us"><a href="mailto:info@airbo.com">info@airbo.com</a></li>
       </ul>
       <div class="large-4 columns address">
-        <p>H.Engage</p>
-        <p>292 Newbury Street, Suite 547 Boston MA 02115</p>
+        <p>Airbo</p>
+        <p>1600 Main Street, Venice CA 90291</p>
       </div>
       <ul class="our_socmedia large-4 columns">
         <li><a href="http://www.linkedin.com/company/airbo/" target="_new" id="linkedin">LinkedIn</a></li>
@@ -21,7 +22,7 @@
   </div>
 <% end %>
   <div class="row copyright">
-    <p>Copyright &copy; 2014 H.Engage, Inc.</p>
+    <p><%= render 'shared/copyright' %></p>
   </div>
 
 </footer>
