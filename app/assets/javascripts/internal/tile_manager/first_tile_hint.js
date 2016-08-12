@@ -46,11 +46,8 @@ Airbo.FirstTileHint = (function(){
       url: '/user_intros',
       type: 'PUT',
       data: {"intro": "displayed_first_tile_hint"},
-      success: function(response) {
-        console.log("Firt tile hint updated");
-      },
       error: function(err){
-        console.log(err);
+        console.log("Error urable to update :displayed_first_tile_hint on UserIntro");
       }
     });
   }

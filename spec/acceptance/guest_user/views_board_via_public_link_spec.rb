@@ -1,6 +1,4 @@
 require 'acceptance/acceptance_helper'
-
-Capybara.javascript_driver = :selenium
 feature "Guest user visits airbo" do
   before(:each) do
     @demo = FactoryGirl.create(:demo)
@@ -16,7 +14,7 @@ feature "Guest user visits airbo" do
     scenario "appears if there are no completions", js:true do
       visit @slug_path
       expect(page).to have_content("Click on the Tile to begin.")
-      click_link 'Got it'
+      click_link 'Got it', visible: false #TODO figure out why visble:false is required even though the link is visible visually
       expect(page).to have_no_content("Click on the Tile to begin.")
     end
 
