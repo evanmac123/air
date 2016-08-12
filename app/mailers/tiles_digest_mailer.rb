@@ -2,7 +2,7 @@ class TilesDigestMailer < BaseTilesDigestMailer
 
   def notify_one(demo_id, user_id, tile_ids, subject, follow_up_email,
                  custom_headline, custom_message, custom_from=nil, is_new_invite = nil)
-
+    link_subject = sanitize_subject_line(subject)
     @user  = User.find user_id # XTR
     return nil unless @user.email.present?
 
@@ -11,7 +11,7 @@ class TilesDigestMailer < BaseTilesDigestMailer
 
 
     presenter_class = follow_up_email ? TilesDigestMailFollowUpPresenter : TilesDigestMailDigestPresenter
-    @presenter = presenter_class.new(@user, @demo, custom_from, custom_headline, custom_message, is_new_invite, subject)
+    @presenter = presenter_class.new(@user, @demo, custom_from, custom_headline, custom_message, is_new_invite, link_subject)
 
 
     @tiles = TileBoardDigestDecorator.decorate_collection(
@@ -19,21 +19,22 @@ class TilesDigestMailer < BaseTilesDigestMailer
       context: { demo: @demo, user: @user, follow_up_email: @follow_up_email, email_type:  @presenter.email_type }
     )
 
-    ping_on_digest_email  @presenter.email_type, @user
+    ping_on_digest_email(@presenter.email_type, @user, link_subject)
     mail  to: @user.email_with_name, from: @presenter.from_email, subject: subject
   end
 
-  def notify_one_explore  user_id, tile_ids, subject, email_heading, custom_message, custom_from=nil
+  def notify_one_explore(user_id, tile_ids, subject, email_heading, custom_message, custom_from=nil)
+    link_subject = sanitize_subject_line(subject)
     @user  = User.find user_id
     return nil unless @user.email.present?
 
-    @presenter = TilesDigestMailExplorePresenter.new(custom_from, custom_message, email_heading, @user.explore_token)
+    @presenter = TilesDigestMailExplorePresenter.new(custom_from, custom_message, email_heading, @user.explore_token, link_subject)
 
     undecorated_tiles = tile_ids.map{|tile_id| Tile.find(tile_id)}
 
     @tiles = TileExploreDigestDecorator.decorate_collection undecorated_tiles, context: { user: @user }
 
-    ping_on_digest_email(@presenter.email_type, @user)
+    ping_on_digest_email(@presenter.email_type, @user, link_subject)
 
     mail to: @user.email_with_name,
       from: @presenter.from_email,
@@ -93,5 +94,11 @@ class TilesDigestMailer < BaseTilesDigestMailer
       end
   end
 
+  private
 
+    def sanitize_subject_line(subject)
+      if subject
+        subject.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
+      end
+    end
 end

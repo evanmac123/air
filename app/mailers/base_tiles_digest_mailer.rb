@@ -4,8 +4,8 @@ class BaseTilesDigestMailer < ActionMailer::Base
   helper ApplicationHelper
 
   has_delay_mail       # Some kind of monkey-patch workaround (not even sure need)
-  include EmailHelper  
-  include ClientAdmin::TilesHelper 
+  include EmailHelper
+  include ClientAdmin::TilesHelper
 
   layout nil
 
@@ -17,12 +17,12 @@ class BaseTilesDigestMailer < ActionMailer::Base
 
 	protected
 
-	def tiles_by_position 
+	def tiles_by_position
 		Tile.where(id: @tile_ids).ordered_by_position
 	end
 
-	def ping_on_digest_email email_type, user
-		TrackEvent.ping( "Email Sent", {email_type: ping_message[email_type]}, user )
+	def ping_on_digest_email(email_type, user, subject = nil)
+		TrackEvent.ping( "Email Sent", {email_type: ping_message[email_type], subject_line: subject}, user )
 	end
 
 	def ping_message

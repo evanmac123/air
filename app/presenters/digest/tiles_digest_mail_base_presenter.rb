@@ -1,9 +1,19 @@
 class TilesDigestMailBasePresenter
+  attr_reader :custom_message
+
   STANDARD_DIGEST_HEADING = 'Your New Tiles Are Here!'.freeze
   STANDARD_FOLLOWUP_HEADING = "Don't miss your new tiles".freeze
 
   def initialize(custom_message)
     @custom_message = custom_message
+  end
+
+  def site_link
+    if @subject
+      "#{general_site_url}&subject_line=#{URI.escape(@subject)}"
+    else
+      general_site_url
+    end
   end
 
   def follow_up_email
@@ -39,22 +49,24 @@ class TilesDigestMailBasePresenter
   end
 
   def email_type
-		"" 
+		""
   end
 
-  attr_reader :custom_message
-
-  protected
-
-  def join_demo_copy
-    "Join my #{@demo.name}"        
+  def general_site_url
+    ""
   end
 
-  def join_demo_copy_or_digest_email_heading(use_join_demo_copy)
-    if use_join_demo_copy
-      join_demo_copy
-    else
-      digest_email_heading
+  private
+
+    def join_demo_copy
+      "Join my #{@demo.name}"
     end
-  end
+
+    def join_demo_copy_or_digest_email_heading(use_join_demo_copy)
+      if use_join_demo_copy
+        join_demo_copy
+      else
+        digest_email_heading
+      end
+    end
 end

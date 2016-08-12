@@ -43,6 +43,7 @@ class User < ActiveRecord::Base
   has_many   :tile_viewings, :dependent => :destroy, as: :user
   has_many   :viewed_tiles, through: :tile_viewings, source: :tile
   has_many   :parent_board_users
+  has_many   :potential_users, foreign_key: "primary_user_id", dependent: :destroy
   has_one    :raffle, through: :demo
   has_one    :current_board_membership, :class_name => "BoardMembership", :conditions => "is_current = true"
   has_one    :demo, through: :current_board_membership

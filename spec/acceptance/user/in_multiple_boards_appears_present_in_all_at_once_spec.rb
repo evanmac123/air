@@ -23,9 +23,13 @@ feature 'In multiple boards appears present in all at once' do
   end
 
   def expect_all_headlines_in_some_email(user, *boards)
-    emails_to_user = ActionMailer::Base.deliveries.select{|email| email.to.include?(user.email)}
-    headlines = boards.map{|board| first_tile_headline(board)}
-    headlines.all?{|headline| emails_to_user.any? {|email_to_user| email_to_user.html_part.body.to_s.include?(headline)} }.should be_true
+    emails_to_user = ActionMailer::Base.deliveries.select { |email|
+      email.to.include?(user.email)
+    }
+
+    headlines = boards.map{ |board| first_tile_headline(board) }
+
+    headlines.all? { |headline| emails_to_user.any? { |email_to_user| email_to_user.html_part.body.to_s.include?(headline)} }.should be_true
   end
 
   def submit_button
@@ -103,19 +107,17 @@ feature 'In multiple boards appears present in all at once' do
     scenario "digests are received from both" do
       visit client_admin_share_path(as: @first_admin)
       submit_button.click
-      crank_dj_clear
 
       open_email(@user.email)
       current_email.html_part.body.should include(first_tile_headline(@first_board))
       visit_in_email "Your New Tiles Are Here!"
       should_be_on activity_path
-      expect_current_board_header @first_board
+      expect_current_board_header @first_boardz
 
       ActionMailer::Base.deliveries.clear
 
       visit client_admin_share_path(as: @second_admin)
       submit_button.click
-      crank_dj_clear
 
       open_email(@user.email)
       current_email.html_part.body.should include(first_tile_headline(@second_board))
@@ -125,31 +127,21 @@ feature 'In multiple boards appears present in all at once' do
     end
 
     scenario "followups are received from both" do
-
-      Delayed::Worker.delay_jobs = true
-
       Timecop.freeze
       Timecop.travel(Chronic.parse("March 23, 2014, 12:00 PM")) # a Sunday
       visit client_admin_share_path(as: @first_admin)
       select "Tuesday", from: "digest[follow_up_day]"
       submit_button.click
-      crank_dj_clear
 
       visit client_admin_share_path(as: @second_admin)
       select "Tuesday", from: "digest[follow_up_day]"
       submit_button.click
-      crank_dj_clear
 
       Timecop.travel(Chronic.parse("March 25, 2014, 6:00 PM"))
-      # pretend to be the cron job that schedules, in the wee hours of every 
-      # morning, the followup emails to be sent that day.
+
       TilesDigestMailer.notify_all_follow_up_from_delayed_job
-      ActionMailer::Base.deliveries.clear
-      crank_dj_clear
 
       expect_all_headlines_in_some_email(@user, @first_board, @second_board)
-
-      Delayed::Worker.delay_jobs = false
     end
   end
 end

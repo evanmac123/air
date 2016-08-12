@@ -68,7 +68,6 @@ class InvitationsController < ApplicationController
   def invitation_to_board_already_accepted
     if @user.claimed?
       if current_user && current_user == @user
-        flash[:failure] = "You've already accepted your invitation to the game."
         if @demo.present? && @user.in_board?(@demo)
           current_user.move_to_new_demo(@demo)
         end
