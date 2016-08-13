@@ -7,7 +7,7 @@
   position: relative;
   padding: 0;
   background-color: $n-blue;
-  
+
   .hero_section {
     position: relative;
     height: calc(100% - 75px); // header height
@@ -40,21 +40,6 @@
         text-transform: uppercase;
         margin-bottom: 25px;
       }
-    }
-    .request_demo {
-      @include app-button($sky-blue);
-      display: block;
-      margin: auto;
-      margin-top: 54px;
-      padding: 18px;
-      width: 200px;
-      font-size: 18px;
-      font-weight: 500;
-    }
-    img {
-      display: block;
-      margin: auto;
-      margin-bottom: 30px;
     }
   }
 }
