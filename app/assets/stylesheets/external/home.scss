@@ -294,6 +294,15 @@ body.pages-home {
           font-weight: bold;
         }
       }
+      .product-hero {
+        img, object, embed {
+          max-width: 100%;
+          height: auto;
+        }
+        h1 {
+          font-size: 200%;
+        }
+      }
     }
   }
 }
