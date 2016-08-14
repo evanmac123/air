@@ -287,20 +287,83 @@ body.pages-home {
           }
         }
       }
-      .featured-news {
-        font-size: 20px;
-        margin: 0;
-        .featured-news-bold {
-          font-weight: bold;
+      .featured-news-section{
+        background-color: #f9f9f9;
+        padding-top: 40px;
+        padding-bottom: 40px;
+        margin-bottom: 40px;
+        .featured-news {
+          font-size: 20px;
+          margin: 0;
+          .featured-news-bold {
+            font-weight: bold;
+          }
         }
       }
+
       .product-hero {
         img, object, embed {
+          padding: 0 60px 0 60px;
           max-width: 100%;
           height: auto;
         }
-        h1 {
-          font-size: 200%;
+        .time-img {
+          max-width: 18%;
+          padding: 0 0 0 12px;
+        }
+        .product-text {
+          padding: 30px 0 0 60px;
+          h1 {
+            font-size: 200%;
+            font-weight: bold;
+          }
+          p {
+            margin-top: 0;
+          }
+          .time-quote {
+            font-size: 83%;
+            margin-left: -25px;
+            margin-top: 2px;
+            font-style: italic;
+          }
+        }
+        .product-img-two {
+          margin-top: 150px;
+        }
+      }
+
+      .product-hero-end {
+        .full-band {
+          margin-bottom: 80px;
+        }
+      }
+
+      .landing-footer {
+        background-color: #636363;
+        .section-one {
+          background-color: #303030;
+          height: 300px;
+        }
+        .section-two {
+          margin-top: 1px;
+          background-color: #303030;
+          height: 100px;
+          .full-band {
+            margin: 0;
+            padding: 0;
+            .logo {
+              .logo_image {
+                margin-top: 10px;
+                margin-left: 60px;
+                background-image: url('airbo_logo_white.png');
+                background-repeat: no-repeat;
+                background-position: center center;
+                background-size: 60%;
+                height: 70px;
+                width: 110px;
+              }
+            }
+          }
         }
       }
     }
