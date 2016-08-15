@@ -1212,7 +1212,7 @@ class User < ActiveRecord::Base
 
   def intros
     #FIXME should use appropriate AR first_or_create idiom
-    user_intro || UserIntro.create(user: self)
+    user_intro || self.create_user_intro #UserIntro.create(user: self)
   end
 
   protected
