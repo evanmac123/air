@@ -43,7 +43,7 @@ feature "Client admin copies parent board" do
     end
   end
 
-  context "in the parent board" do
+  context "in the parent board", js:true do
     before do
       @tiles = FactoryGirl.create_list :multiple_choice_tile, 4, :active, demo: parent_demo
       @draft_tiles = FactoryGirl.create_list :multiple_choice_tile, 2, :draft, demo: parent_demo
@@ -85,6 +85,7 @@ feature "Client admin copies parent board" do
       end
 
       it "should copy posted tiles from parent to drafts in current demo", js: true do
+        click_link "Got it" #NOTE first tile hint
         click_link "Copy"
         wait_for_ajax
 

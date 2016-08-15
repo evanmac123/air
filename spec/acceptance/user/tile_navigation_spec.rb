@@ -1,6 +1,7 @@
 require 'acceptance/acceptance_helper'
 
 feature 'User navigates to different tiles' do
+
   let(:demo)    { FactoryGirl.create :demo }
   let(:user)    { FactoryGirl.create :user, :claimed, demo: demo }
 
@@ -13,6 +14,7 @@ feature 'User navigates to different tiles' do
   end
 
   background do
+    UserIntro.any_instance.stubs(:displayed_first_tile_hint).returns(true)
     signin_as(user, user.password)
   end
 
