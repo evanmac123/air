@@ -1,6 +1,10 @@
 require 'acceptance/acceptance_helper'
 
-feature "Guest user answering a tile in preview" do
+feature "Guest user answering a tile in preview", js:true do
+  before do
+    #FIXME remove explore intro so this intervation is no longer necessary
+    UserIntro.any_instance.stubs(:explore_intro_seen).returns(true)
+   end
   it "should show success phrase for right answer", js: true do#, driver: :selenium do
     tile = FactoryGirl.create(:multiple_choice_tile, :public)
 
