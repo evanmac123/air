@@ -29,6 +29,7 @@ feature 'Starts over' do
 
   context "after finishing at least one tile" do
     before do
+      UserIntro.any_instance.stubs(:displayed_first_tile_hint).returns(true)
       visit public_board_path(board.public_slug)
       close_tutorial_lightbox
       click_link tile.headline
@@ -68,6 +69,7 @@ feature 'Starts over' do
   context "conversion form pops as normal after starting over" do
     context "in a many-tile board" do
       before do
+      UserIntro.any_instance.stubs(:displayed_first_tile_hint).returns(true)
         @tiles = [
           tile, 
           FactoryGirl.create(:multiple_choice_tile, :active, headline: "Tile 2", demo_id: board.id),
