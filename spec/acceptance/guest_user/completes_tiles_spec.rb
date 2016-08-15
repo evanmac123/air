@@ -1,6 +1,10 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Completes tiles' do
+  #FIXME The first tile hint conflict with the getting started lightbox. Disable
+  #first tile hint in test where it's not needed but this should be resolved in
+  #the application code.
+  
   let (:board) { FactoryGirl.create(:demo, :with_public_slug) }
   let! (:tile_1) { FactoryGirl.create(:multiple_choice_tile, status: Tile::ACTIVE, headline: "Tile the first", points: 30, demo: board) }
   let! (:tile_2) { FactoryGirl.create(:multiple_choice_tile, status: Tile::ACTIVE, headline: "Tile the second", demo: board) }
@@ -10,6 +14,7 @@ feature 'Completes tiles' do
   end
 
   before do
+    UserIntro.any_instance.stubs(:displayed_first_tile_hint).returns(true)
     visit public_board_path(public_slug: board.public_slug)
     close_tutorial_lightbox
     click_link tile_1.headline
