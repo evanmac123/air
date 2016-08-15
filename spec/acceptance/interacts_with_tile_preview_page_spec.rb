@@ -84,6 +84,7 @@ feature "interacts with a tile from the explore-preview page" do
 
   context "as Nobody", js: true  do
     before do
+      UserIntro.any_instance.stubs(:explore_intro_seen).returns(true)
       @original_tile = FactoryGirl.create(:multiple_choice_tile, :copyable, creator: creator, demo: creator.demo)
 
       visit explore_tile_preview_path(@original_tile, as: nil)
@@ -151,6 +152,8 @@ feature "interacts with a tile from the explore-preview page" do
 
   context "as Guest", js: true do
     before do
+
+      UserIntro.any_instance.stubs(:explore_intro_seen).returns(true)
       @original_tile = FactoryGirl.create(:multiple_choice_tile, :copyable, creator: creator, demo: creator.demo)
       @user = FactoryGirl.create(:guest_user)
 
