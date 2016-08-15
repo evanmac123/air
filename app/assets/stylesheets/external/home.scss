@@ -203,6 +203,16 @@ p {
 body.pages-home {
   .v-08-01-2016 {
     @media (min-width: 400px) {
+      .testimonial-main {
+        margin-bottom: 120px;
+        .full-band {
+          height: 600px;
+          width: 100%;
+        }
+        .fuji-logo {
+
+        }
+      }
       .hero {
         background-color: #fff;
         background-image: url('landing/landing.jpg');
