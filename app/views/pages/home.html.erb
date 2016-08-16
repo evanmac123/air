@@ -23,7 +23,7 @@
   <section class="product-hero">
     <div class="row full-band">
       <div class="product-text small-7 columns">
-        <h1>Employee communication technology for the 8 second attention span</h1>
+        <h1>Employee communication for the 8 second attention span</h1>
         <p class="sub-product-header">
           Airbo makes HR topics feel fun, simple and visual so employees read, understand and participate.
         </p>
@@ -33,7 +33,7 @@
           </div>
           <div class="small-9 columns">
             <p class="time-quote">
-              "The average attention span fot the notoriously ill-focused golfish is nine seconds, but according to a new study from Microsoft Corp., people now generally lose concentration after eight seconds, highlighting the effects of an increasingly digitalized lifestyle on the brain." - Time, May 2015
+              "People generally loose concentration after eight seconds, highlighting the effects of an increasingly digitalized lifestyle on the brain." - Time, May 2015
             </p>
           </div>
         </div>
@@ -51,9 +51,9 @@
         <%= image_tag("landing/product_img_two.png", class: "product-img-two") %>
       </div>
       <div class="product-text small-7 columns">
-        <h1>Enterprize content for the Buzzfeed generation</h1>
+        <h1>Enterprise content for the BuzzFeed generation</h1>
         <p class="sub-product-header">
-          Airbo helps you deliver content based on consumer best practices. Save time and budget by copying content from an exhaustive library, creating you own in minutes, or using our affordable content creation services.
+          Airbo helps you deliver content based on consumer best practices. Save time and budget by copying content from an exhaustive library, creating your own in minutes, or using our affordable content creation services.
         </p>
         <div class="row">
           <%= image_tag("landing/pew-logo.png", class: "product-img time-img") %>
@@ -61,7 +61,7 @@
           </div>
           <div class="small-9 columns">
             <p class="time-quote">
-              "Millenials ocertake Baby Boomers as America's largest generation." - Pew Reasearch Center, April 2016
+              "Millenials overtake Baby Boomers as America's largest generation." - Pew Reasearch Center, April 2016
             </p>
           </div>
         </div>
@@ -74,11 +74,16 @@
       <div class="small-12 columns text-center">
         <div class="row">
           <div class="fuji-logo">
-            <%= image_tag("marketing/clients/fuji.jpg", class: "product-img") %>
+            <%= image_tag("landing/fujifilm_logo.png", class: "product-img") %>
           </div>
         </div>
         <div class="row">
-          jdsfakljdfklasdjfklsajfdklsajfklsa
+          <div class="testimonial-text small-10 small-offset-1 columns">
+            <p>
+              Fujifilm uses Airbo to drive year-round engagement in Benefits and Wellness Programs. Over 87% of employees participate and Airbo has helped Fujifilm decrease their health care trend to 0% and increase Health Risk Assessment participation rates by 217%.
+            </p>
+          </div>
+
         </div>
       </div>
     </div>
@@ -86,9 +91,12 @@
 
   <section id="sign_up_block" class="join">
     <div class="join_block center">
-      <h2 class="text-center">Join to Discover</h2>
+      <h2 class="text-center">Ready to get started?</h2>
       <p class="text-center">Create a free account to see how companies use Airbo.</p>
-      <%= render partial: "pages/landing/form" %>
+      <div class="email-sign-up-form">
+        <input type="text" placeholder=" Enter your work email">
+        <input type="submit" value="Sign Up">
+      </div>
       <%= render partial: "pages/landing/logos" %>
     </div>
   </section>
@@ -96,14 +104,41 @@
 
   <footer id="pageFtr" class="landing-footer">
     <div class="section-one">
-      <div class="full-band">
-
+      <div class="row">
+        <div class="small-6 columns small-offset-1">
+          <table class="footer-links">
+            <thead class="footer-headers">
+              <tr>
+                <th>Airbo</th>
+                <th>Resources</th>
+                <th>Get Started</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><%= link_to "People", "#" %></td>
+                <td><%= link_to "Case Studies", "#" %></td>
+                <td><%= link_to "Schedule a Demo", "#" %></td>
+              </tr>
+              <tr>
+                <td><%= link_to "Careers", "#" %></td>
+                <td><%= link_to "Blog", "#" %></td>
+                <td><%= link_to "Sign Up", "#" %></td>
+              </tr>
+              <tr>
+                <td><%= link_to "Contact", "#" %></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
     <div class="section-two">
       <div class="full-band">
         <div class="row">
-          <div class="small-4">
+          <div class="small-2 columns">
             <div class="logo">
               <%= link_to "/" do %>
                 <div class="logo_image"></div>
