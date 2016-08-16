@@ -1,6 +1,7 @@
 require 'acceptance/acceptance_helper'
 
 feature "Guest user activity session tracking" do
+  pending "move this to a controller spec"
   let (:board) { FactoryGirl.create(:demo, is_public: true) }
   let (:threshold) {ApplicationController::ACTIVITY_SESSION_THRESHOLD}
 
