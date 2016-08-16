@@ -1,7 +1,7 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Site admin' do
-  scenario 'moves from board to board at will', js: true do
+  scenario 'moves from board to board at will', js: true, wonky: true do
     pending "Fails intermittently --refactor"
     first_board, second_board = FactoryGirl.create_list(:demo, 2)
     admin = FactoryGirl.create(:site_admin)

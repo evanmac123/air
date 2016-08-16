@@ -10,7 +10,7 @@ def click_right_answer
   page.find('.right_multiple_choice_answer').click
 end
 
-feature 'Progress bars', js: true do
+feature 'Progress bars', js: true, wonky: true do
   before(:each) do
     @demo = FactoryGirl.create(:demo, :with_public_slug, :with_tickets, ticket_threshold: 10)
     @normal_user = FactoryGirl.create(:user, :claimed, :with_phone_number, demo: @demo)

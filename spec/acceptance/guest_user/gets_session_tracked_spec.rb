@@ -1,7 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-feature "Guest user activity session tracking" do
-  pending "move this to a controller spec"
+feature "Guest user activity session tracking", wonky: true do
   let (:board) { FactoryGirl.create(:demo, is_public: true) }
   let (:threshold) {ApplicationController::ACTIVITY_SESSION_THRESHOLD}
 
@@ -20,6 +19,7 @@ feature "Guest user activity session tracking" do
 
   context "when a user does something that triggers authorize after #{ApplicationController::ACTIVITY_SESSION_THRESHOLD} seconds or more" do
     before do
+      pending "Should be a controller spec"
       Timecop.freeze
     end
 
