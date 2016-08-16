@@ -1,5 +1,59 @@
 
 body.pages-home {
+
+  .hero {
+    height: 400px;
+    color:white;
+    @media (min-width: 800px) {
+      &.v-08-01-2016{
+        height:700px;
+        .landing-hero-text {
+          margin-top: 200px;
+          margin-left: 80px;
+        }
+      }
+    }
+    .hero_content {
+      &.custom-text{
+        h1 {
+          font-weight: 400;
+          font-size: 30px;
+          line-height:1.57em;
+          margin-bottom: 5px;
+          max-width: 570px;
+        }
+        p {
+          color: #FFF;
+          letter-spacing: 0;
+          text-align: center;
+          margin: 20px auto;
+        }
+      }
+      .button, .flag {
+        font-size: 18px;
+      }
+
+      .flag.success{
+        padding: 10px 20px;
+        margin:0;
+        height: 37px;
+        margin-top: -4px;
+        font-size: 16px;
+
+        &.icon{
+          .fa{
+            font-size: 24px;
+            line-height:10px;
+            vertical-align: middle;
+            margin-left: 10px;
+            margin-right: 0px;
+          }
+        }
+      }
+
+
+    }
+  }
   .client_logos {
     max-width: 750px;
     margin: auto;
@@ -20,20 +74,74 @@ body.pages-home {
       margin-bottom: 30px;
       margin-top: 0;
     }
+
+  }
+
+
+  .topics {
+    @include topic-set();
   }
 
   .join {
+    background-color: #777777;
+    background-image: url('landing/explore-sign-up-bg.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    .join_block{
+      padding: 40px 20px;
+      background-color: #F9F9F9;
+      background-color: rgba(255, 255, 255, 0.95);
+      margin-top: 40px;
+      margin-bottom: 40px;
+      max-width: 600px;
+      h2 {
+        color: #666666;
+        font-size: 20px;
+      }
+      p {
+        color: #666666;
+        font-size: 16px;
+        letter-spacing: 0;
+        margin-bottom: 30px;
+      }
+      .sign_up {
+        max-width: 300px;
+        width: 100%;
+        margin: 40px auto;
+        // text-align: left;
+      }
+      .button {
+        margin-top: 5px;
+        font-size: inherit;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        text-transform: none;
+      }
+    }
     .client_logos {
       margin-top: 10px;
       max-width: 430px;
     }
   }
-
   @media only screen and (max-width: $foundation) {
     .clients {
       padding: 40px 5px;
       h5 {
         font-size: 16px;
+      }
+    }
+    .money {
+      padding: 50px 5px;
+      h2 {
+        font-size: 25px;
+        line-height: 37.5px;
+        margin-bottom: 15px;
+      }
+      .benefits_group {
+        .benefit_block {
+          max-width: none;
+          margin-top: 20px;
+        }
       }
     }
   }
@@ -45,6 +153,39 @@ body.pages-home {
         width: 100%;
       }
     }
+    .money .animation_block {
+      .mac_book {
+        display: none;
+      }
+      .animation {
+        padding: 0;
+        margin: 20px 0 50px 0;
+      }
+    }
+  }
+}
+
+.hiw-item img{
+  height:64px;
+}
+
+.hiw-text{
+  &.short p{
+    margin-bottom:0px;
+  }
+
+}
+
+p {
+ &.short{
+   margin-bottom:0px;
+   margin-top: 0px;
+ }
+}
+.hiw{
+  h2 {
+    margin-top:0px;
+    margin-bottom:40px;
   }
 }
 
