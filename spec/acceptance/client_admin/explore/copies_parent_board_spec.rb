@@ -50,6 +50,7 @@ feature "Client admin copies parent board" do
       @archived_tiles = FactoryGirl.create_list :multiple_choice_tile, 2, :archived, demo: parent_demo
 
 
+      UserIntro.any_instance.stubs(:displayed_first_tile_hint).returns(true)
       crank_dj_clear
     end
 
@@ -85,7 +86,6 @@ feature "Client admin copies parent board" do
       end
 
       it "should copy posted tiles from parent to drafts in current demo", js: true do
-        click_link "Got it" #NOTE first tile hint
         click_link "Copy"
         wait_for_ajax
 
