@@ -1,9 +1,9 @@
 #FIXME this entire logic needs to be completely rewritten. It is a utter cluster
 #fuck.
 class BoardsController < ApplicationController
-  layout 'external'
   skip_before_filter :authorize
   before_filter :allow_guest_user
+  layout 'standalone', only: [:new]
 
   include NormalizeBoardName
   include BoardsHelper
@@ -61,6 +61,7 @@ class BoardsController < ApplicationController
 
   def create_as_guest
     authorize_as_guest
+    binding.pry
     login_as_guest(Demo.new) unless current_user.present?
     @create_user_with_board = CreateUserWithBoard.new params.merge(pre_user: current_user)
     success = @create_user_with_board.create

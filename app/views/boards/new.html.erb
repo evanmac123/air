@@ -1,24 +1,34 @@
-<div class="row">
-  <div class="external-form-wrapper small-12 large-6 large-centered columns">
-    <h1>Create Your Board</h1>
+<div class="join-view">
+  <div class="row">
+    <div class="logo">
+      <%= link_to "/" do %>
+        <div class="logo_image"></div>
+      <% end %>
+    </div>
+    <div class="small-12 small-centered columns join-form">
+      <h1>Start the conversation.</h1>
+      <div class="line-separator"></div>
+      <h4>Join us and learn how Airbo engages organizations from 20 to 75,000 employees.</h4>
+      <%= form_tag boards_path do %>
+        <label class="input_label">Your name</label>
+        <%= text_field_tag "user[name]", @user.name %>
 
-    <%= form_tag boards_path do %>
-      <label class="input_label">Your name</label>
-      <%= text_field_tag "user[name]", @user.name %>
+        <label class="input_label">Your email</label>
+        <%= text_field_tag "user[email]", @user.email %>
 
-      <label class="input_label">Your email</label>
-      <%= text_field_tag "user[email]", @user.email %>
+        <label class="input_label">Choose a password (at least 6 characters long)</label>
+        <%= password_field_tag "user[password]", @user.password %>
 
-      <label class="input_label">Choose a password (at least 6 characters long)</label>
-      <%= password_field_tag "user[password]", @user.password %>
+        <label class="input_label">Company name</label>
+        <%= text_field_tag "board[name]", @board.name %>
+        <label class="input_label">Company size</label>
+        <%= select_tag "board[size]", options_for_select(["less than 100 employees", "100-500 employees", "500-1000 employees", "1000-5000 employees", "more than 5000 employees"]) %>
+        <%= hidden_field_tag "creation_source_board", "Boards/new Page" %>
+        <%= hidden_field_tag "creation_source_creator", "Marketing Page" %>
+        <%= submit_tag "Join Airbo", class: "join-button button success center" %>
 
-      <label class="input_label">Name for your new board</label>
-      <%= text_field_tag "board[name]", @board.name %>
-      <%= hidden_field_tag "creation_source_board", "Boards/new Page" %>
-      <%= hidden_field_tag "creation_source_creator", "Marketing Page" %>
-      <%= submit_tag "Create Board" %>
-
-      <p id="t-and-c-notice">By submitting this form or using this site, you are agreeing to the <%= link_to 'terms and conditions', terms_path, target: '_blank' %>.</p>
-    <% end %>
+        <p class="terms" id="t-and-c-notice">By submitting this form or using this site, you are agreeing to the <%= link_to 'terms and conditions', terms_path, target: '_blank' %>.</p>
+      <% end %>
+    </div>
   </div>
 </div>

@@ -2,6 +2,7 @@ class DemoRequestsController < ApplicationController
   layout 'external'
   skip_before_filter :authorize
   before_filter :allow_guest_user
+  layout 'standalone', only: [:new]
 
   def create
     request = EmailInfoRequest.create!(permitted_params)
@@ -10,7 +11,8 @@ class DemoRequestsController < ApplicationController
   end
 
   def new
-    @request = EmailInfoRequest.new
+    @user = User.new(email: params[:email])
+    @board = Demo.new
   end
 
   protected
