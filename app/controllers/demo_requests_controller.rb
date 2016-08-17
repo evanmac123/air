@@ -1,5 +1,7 @@
 class DemoRequestsController < ApplicationController
+  layout 'external'
   skip_before_filter :authorize
+  before_filter :allow_guest_user
 
   def create
     request = EmailInfoRequest.create!(permitted_params)
