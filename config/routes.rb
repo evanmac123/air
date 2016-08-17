@@ -100,6 +100,8 @@ Health::Application.routes.draw do
   resources :copy_boards, only: [:create]
   resources :parent_boards, only: [:show]
 
+  resource  :user_intros
+
 	resource :board_setting, only: [:show]
   resource :current_board, only: [:update]
   resource :explore, only: [:show] do

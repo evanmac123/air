@@ -81,6 +81,7 @@ feature 'User views tiles' do
   [[:mobile, 4, 4], [:tablet, 4, 4], [:desktop, 16, 4]].each do |device_type, expected_tile_batch_size, expected_tile_row_size|
     context "loaded in batches which on #{device_type} have #{expected_tile_batch_size} tiles apiece, with a \"See More\" link" do
       before do
+        UserIntro.any_instance.stubs(:displayed_first_tile_hint).returns(true)
         spoof_client_device(device_type)
         @demo = FactoryGirl.create(:demo)
         @user = FactoryGirl.create(:user, demo: @demo, sample_tile_completed: true)

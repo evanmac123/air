@@ -43,13 +43,14 @@ feature "Client admin copies parent board" do
     end
   end
 
-  context "in the parent board" do
+  context "in the parent board", js:true do
     before do
       @tiles = FactoryGirl.create_list :multiple_choice_tile, 4, :active, demo: parent_demo
       @draft_tiles = FactoryGirl.create_list :multiple_choice_tile, 2, :draft, demo: parent_demo
       @archived_tiles = FactoryGirl.create_list :multiple_choice_tile, 2, :archived, demo: parent_demo
 
 
+      UserIntro.any_instance.stubs(:displayed_first_tile_hint).returns(true)
       crank_dj_clear
     end
 

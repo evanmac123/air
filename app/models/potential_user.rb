@@ -6,6 +6,7 @@ class PotentialUser < ActiveRecord::Base
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i}
   validates_uniqueness_of :invitation_code
   before_create :set_invitation_code
+  has_one :user_intro, as: :userable
 
   include CancelAccountToken
   include User::FakeUserBehavior

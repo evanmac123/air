@@ -9,6 +9,7 @@ feature 'Lightbox for guest users' do
 
   context 'When a guest in a board with active tiles', js: true do
     before do
+      UserIntro.any_instance.stubs(:displayed_first_tile_hint).returns(true)
       FactoryGirl.create(:tile, status: Tile::ACTIVE, demo: board)
       visit public_board_path(board.public_slug)
     end

@@ -15,7 +15,7 @@ class GuestUser < ActiveRecord::Base
   has_many   :tile_viewings, as: :user
   has_many   :viewed_tiles, through: :tile_viewings
   has_one    :converted_user, :class_name => "User", :foreign_key => :original_guest_user_id, :inverse_of => :original_guest_user
-
+  has_one :user_intro, as: :userable
 
   include CancelAccountToken
   include User::FakeUserBehavior

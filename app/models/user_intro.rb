@@ -1,5 +1,5 @@
 class UserIntro < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :userable, polymorphic: true
 
   def show_explore_intro!
     if self.explore_intro_seen
@@ -20,9 +20,7 @@ class UserIntro < ActiveRecord::Base
   end
 
   def display_first_tile_hint?
-    return false unless $rollout.active?(:first_tile_hint, self.user)
-
-    self.displayed_first_tile_hint == false && self.user.tile_completions.count==0
+    self.displayed_first_tile_hint == false && userable.tile_completions.count==0
   end
 
   def check_display_first_tile_hint

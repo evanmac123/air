@@ -49,7 +49,7 @@ class User < ActiveRecord::Base
   has_one    :demo, through: :current_board_membership
   has_one    :original_guest_user, :class_name => "GuestUser", :foreign_key => :converted_user_id, :inverse_of => :converted_user
   has_one    :billing_information
-  has_one    :user_intro
+  has_one    :user_intro, as: :userable #FIXME this is confusing since we have an intros method below
   has_one    :dependent_user,  class_name: "User", foreign_key: :primary_user_id, dependent: :destroy
   has_one    :user_settings_change_log
   belongs_to :primary_user, class_name: "User"
@@ -1133,6 +1133,7 @@ class User < ActiveRecord::Base
     board && board.is_parent && is_site_admin
   end
 
+  #FIXME this exact same code is implemented in Fake user behavior
   def display_get_started_lightbox
     on_first_login \
     && !get_started_lightbox_displayed \
@@ -1210,7 +1211,8 @@ class User < ActiveRecord::Base
   end
 
   def intros
-    user_intro || UserIntro.create(user: self)
+    #FIXME should use appropriate AR first_or_create idiom
+    user_intro || self.create_user_intro #UserIntro.create(user: self)
   end
 
   protected

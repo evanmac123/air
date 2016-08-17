@@ -4,7 +4,7 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-Health::Application.config.secret_token = if Rails.env.development? or Rails.env.test?
+Health::Application.config.secret_token = if Rails.env.development? or Rails.env.production_local? or Rails.env.test?
                                             'x'*30
                                             else
                                               ENV['SECRET_TOKEN']

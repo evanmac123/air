@@ -160,6 +160,7 @@ class ApplicationController < ActionController::Base
   helper_method :permitted_params
 
   def authorize
+    #FIXME this entire flow is fucked! AAAAAARGHH!
     return if authorize_as_potential_user
     authorize_by_explore_token
 
@@ -174,10 +175,15 @@ class ApplicationController < ActionController::Base
   def authorize_as_potential_user
     if session[:potential_user_id].present? && !current_user
       @_potential_user = PotentialUser.find(session[:potential_user_id])
+      # FIXME the code here is doing too much. this method should simply return
+      # true/false
+      #----------------------------------------------------------
       allowed_pathes = [activity_path, potential_user_conversions_path, ping_path]
       if @_potential_user && !allowed_pathes.include?(request.path)
         redirect_to activity_path
       end
+      #------------------------------------------------------------
+      #FIXME 
       @_potential_user.present?
     end
   end
@@ -197,11 +203,14 @@ class ApplicationController < ActionController::Base
         guest = GuestUser.where(id: session[:guest_user_id]).first
         demo = guest.try(:demo)
         if demo && $rollout.active?(:suppress_conversion_modal, demo)
+        #FIXME this rollout is deprecated so this branch is no longer reachable
           flash[:failure] = "Sorry, you don't have permission to access that part of the site."
         else
           flash[:failure] = '<a href="#" class="open_save_progress_form">Save your progress</a> to access this part of the site.'
           flash[:failure_allow_raw] = true
         end
+        #
+        #FIXME WTF why are finding guest user twice????
         redirect_to public_activity_path(claimed_guest_user.demo.public_slug)
         return true
       end

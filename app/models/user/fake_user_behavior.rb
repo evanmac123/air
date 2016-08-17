@@ -139,7 +139,7 @@ module User::FakeUserBehavior
   end
 
   def intros
-    UserIntro.new(explore_intro_seen: true)
+   user_intro || self.create_user_intro
   end
 
   def is_potential_user?
