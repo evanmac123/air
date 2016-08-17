@@ -6,8 +6,10 @@
       <h3>
         HR and Corporate Communications use Airbo to modernize employee communcations.</h3>
       <div class="email-sign-up-form">
-        <input type="text" placeholder=" Enter your work email">
-        <input type="submit" value="Sign Up">
+        <%= form_tag( 'join', method: :get, class: "pre-signup" ) do |f| %>
+          <%= text_field_tag(:email, '', placeholder: " Enter your work email") %>
+          <%= submit_tag("Sign Up") %>
+        <% end %>
       </div>
 
 
@@ -22,7 +24,7 @@
 
   <section class="product-hero">
     <div class="row full-band">
-      <div class="product-text small-7 columns">
+      <div class="product-text product-right small-7 columns">
         <h1>Employee communication for the 8 second attention span</h1>
         <p class="sub-product-header">
           Airbo makes HR topics feel fun, simple and visual so employees read, understand and participate.
@@ -50,7 +52,7 @@
       <div class="small-5 columns">
         <%= image_tag("landing/product_img_two.png", class: "product-img-two") %>
       </div>
-      <div class="product-text small-7 columns">
+      <div class="product-text product-left small-7 columns">
         <h1>Enterprise content for the BuzzFeed generation</h1>
         <p class="sub-product-header">
           Airbo helps you deliver content based on consumer best practices. Save time and budget by copying content from an exhaustive library, creating your own in minutes, or using our affordable content creation services.
@@ -94,8 +96,10 @@
       <h2 class="text-center">Ready to get started?</h2>
       <p class="text-center">Create a free account to see how companies use Airbo.</p>
       <div class="email-sign-up-form">
-        <input type="text" placeholder=" Enter your work email">
-        <input type="submit" value="Sign Up">
+        <%= form_tag( 'join', method: :get, class: "pre-signup" ) do |f| %>
+          <%= text_field_tag(:email, '', placeholder: " Enter your work email") %>
+          <%= submit_tag("Sign Up") %>
+        <% end %>
       </div>
       <%= render partial: "pages/landing/logos" %>
     </div>
@@ -105,7 +109,7 @@
   <footer id="pageFtr" class="landing-footer">
     <div class="section-one">
       <div class="row">
-        <div class="small-6 columns small-offset-1">
+        <div class="footer-links-div-medium small-6 columns small-offset-1">
           <table class="footer-links">
             <thead class="footer-headers">
               <tr>
@@ -116,18 +120,74 @@
             </thead>
             <tbody>
               <tr>
-                <td><%= link_to "People", "#" %></td>
-                <td><%= link_to "Case Studies", "#" %></td>
-                <td><%= link_to "Schedule a Demo", "#" %></td>
+                <td><%= link_to "Company", "/company" %></td>
+                <td><%= link_to "Case Studies", "/case-studies" %></td>
+                <td><%= link_to "Schedule a Demo", "/demo_requests/new" %></td>
               </tr>
               <tr>
                 <td><%= link_to "Careers", "#" %></td>
-                <td><%= link_to "Blog", "#" %></td>
-                <td><%= link_to "Sign Up", "#" %></td>
+                <td><%= link_to "Blog", "http://blog.airbo.com/" %></td>
+                <td><%= link_to "Sign Up", "/join" %></td>
               </tr>
               <tr>
-                <td><%= link_to "Contact", "#" %></td>
+                <td><%= link_to "Contact Us", "", class: "open_intercom" %></td>
                 <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="footer-links-div-small small-11 small-offset-1 columns">
+          <table class="footer-links">
+            <thead class="footer-headers">
+              <tr>
+                <th>Airbo</th>
+                <th>Resources</th>
+                <th>Get Started</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><%= link_to "Company", "/company" %></td>
+                <td><%= link_to "Case Studies", "/case-studies" %></td>
+                <td><%= link_to "Schedule a Demo", "/demo_requests/new" %></td>
+              </tr>
+              <tr>
+                <td><%= link_to "Careers", "https://angel.co/airbo/jobs?utm_source=profile_module", target: "_blank" %></td>
+                <td><%= link_to "Blog", "http://blog.airbo.com/" %></td>
+                <td><%= link_to "Sign Up", "/join" %></td>
+              </tr>
+              <tr>
+                <td><%= link_to "Contact Us", "", class: "open_intercom" %></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="footer-links-div-extra-small small-11 small-offset-1 columns">
+          <table class="footer-links">
+            <thead class="footer-headers">
+              <tr>
+                <th>Airbo</th>
+                <th>Get Started</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><%= link_to "Company", "/company" %></td>
+                <td><%= link_to "Schedule a Demo", "/demo_requests/new" %></td>
+              </tr>
+              <tr>
+                <td><%= link_to "Careers", "https://angel.co/airbo/jobs?utm_source=profile_module", target: "_blank" %></td>
+                <td><%= link_to "Sign Up", "/join" %></td>
+              </tr>
+              <tr>
+                <td><%= link_to "Case Studies", "/case-studies" %></td>
+                <td><%= link_to "Contact Us", "", class: "open_intercom" %></td>
+              </tr>
+              <tr>
+                <td><%= link_to "Blog", "http://blog.airbo.com/" %></td>
                 <td></td>
               </tr>
             </tbody>
