@@ -171,7 +171,7 @@ Health::Application.routes.draw do
 
     resource :tiles_digest_notification, only: :create
 
-    resources :tiles_follow_up_email, only: :destroy
+    resources :tiles_follow_up_email
 
     resources :inactive_tiles, only: :index do
       member do
