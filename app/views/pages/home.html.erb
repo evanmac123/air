@@ -7,7 +7,7 @@
         HR and Corporate Communications use Airbo to modernize employee communcations.</h3>
       <div class="email-sign-up-form">
         <%= form_tag( 'join', method: :get, class: "pre-signup" ) do |f| %>
-          <%= text_field_tag(:email, '', placeholder: " Enter your work email") %>
+          <%= text_field_tag(:email, '', placeholder: " Enter your work email", class: "email-sign-up-input") %>
           <%= submit_tag("Sign Up") %>
         <% end %>
       </div>

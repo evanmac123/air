@@ -5,14 +5,16 @@ class DemoRequestsController < ApplicationController
   layout 'standalone', only: [:new]
 
   def create
-    request = EmailInfoRequest.create!(permitted_params)
+    request = EmailInfoRequest.create(permitted_params)
     request.notify_the_ks_of_demo_request
-    render json: {email: permitted_params[:email]}
+
+    flash[:new_success] = "Thanks for requesting a demo!  Someone from our team will contact you within 24 hours."
+
+    redirect_to root_path
   end
 
   def new
-    @user = User.new(email: params[:email])
-    @board = Demo.new
+    @demo_request = EmailInfoRequest.new
   end
 
   protected

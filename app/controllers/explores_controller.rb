@@ -14,7 +14,7 @@ class ExploresController < ClientAdminBaseController
 
     render_partial_if_requested
 
-    @show_explore_intro = current_user.intros.show_explore_intro!
+    show_explore_intro?
 
     if params[:return_to_explore_source]
       ping_action_after_dash params[:return_to_explore_source], {}, current_user
@@ -44,7 +44,14 @@ class ExploresController < ClientAdminBaseController
   add_method_tracer :tile_tag_show
 
   private
-     def find_tile_tags
+    def find_tile_tags
       params[:tile_tag]
+    end
+
+    def show_explore_intro?
+      intro = current_user.intros
+      if intro.show_explore_intro!
+        @show_explore_intro = true
+      end
     end
 end

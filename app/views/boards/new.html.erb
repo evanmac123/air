@@ -9,7 +9,7 @@
       <h1>Start the conversation.</h1>
       <div class="line-separator"></div>
       <h4>Join us and learn how Airbo engages organizations from 20 to 75,000 employees.</h4>
-      <%= form_tag boards_path do %>
+      <%= form_tag(set_new_board_url, id: "landing_sign_up_form") do %>
         <label class="input_label">Your name</label>
         <%= text_field_tag "user[name]", @user.name %>
 

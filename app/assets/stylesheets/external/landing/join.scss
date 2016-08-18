@@ -1,3 +1,10 @@
+$bp-small : 355px;
+$bp-small-2 : 476px;
+$bp-small-3 : 671.8px;
+$bp-med : 748.8px;
+$bp-large : 800px;
+$bp-xl : 1025px;
+$bp-xxl : 1440px;
 .join-view {
   background-repeat: no-repeat;
   background-position: center center;
@@ -7,7 +14,7 @@
   color:white;
   height: 100%;
   .logo {
-    margin-top: 190px;
+    margin-top: 70px;
     margin-bottom: 30px;
     .logo_image {
       display: block;
@@ -63,4 +70,32 @@
 }
 .join-footer {
   background-color: #636363;
+}
+@media only all and (max-width: $bp-xxl) {
+  .join-view {
+    height: 100%;
+    .logo {
+      margin-top: 20px;
+    }
+  }
+}
+@media only all and (max-width: $bp-small-2) {
+  .join-view {
+    height: 100%;
+    .logo {
+      display: none;
+    }
+    .join-form {
+      width: 300px;
+      h1 {
+        font-size: 16px;
+        padding:20px;
+        padding-bottom: 10px;
+      }
+      h4 {
+        font-size: 12px;
+        line-height: 20px;
+      }
+    }
+  }
 }
