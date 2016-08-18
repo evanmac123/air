@@ -1211,10 +1211,8 @@ class User < ActiveRecord::Base
   end
 
   def intros
-    intro = UserIntro.first_or_create(user: self)
-    intro.update_attributes(explore_intro_seen: false)
-
-    intro
+    #FIXME should use appropriate AR first_or_create idiom
+    user_intro || self.create_user_intro #UserIntro.create(user: self)
   end
 
   protected

@@ -30,7 +30,7 @@ Airbo.ExploreTileManager = (function(){
   }
   return {
     init: init
-  }
+  };
 }());
 
 $(function(){
