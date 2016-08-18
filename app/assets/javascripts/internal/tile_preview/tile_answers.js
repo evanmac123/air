@@ -1,9 +1,3 @@
-//FIXME
-/*
- * Note  these functions are called from point_and_ticket_animation.js as globals
- * so we need to keep them global for now
-*/
-
 
 
 var Airbo = window.Airbo || {};

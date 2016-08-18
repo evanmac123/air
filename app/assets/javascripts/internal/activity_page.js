@@ -34,6 +34,7 @@ window.getStartedLightbox = function(){
   });
 
   $('#get_started_lightbox').lightbox_me({
+    zIndex: 2000000,
     onClose: function(){
       if( window.showRaffleAfterLightbox == true ){
         showRaffleBox("New Prize!");
