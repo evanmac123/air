@@ -15,7 +15,7 @@ feature "Potential user requests demo" do
 
         click_button("Request demo")
 
-        expect_content("Thanks for requesting a demo! Someone from our team will contact you within 24 hours.")
+        expect_content("Thanks for requesting a demo! We’ll email you within the next few hours to schedule a 30 minute overview.")
       end
     end
   end
