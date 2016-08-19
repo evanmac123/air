@@ -16,7 +16,7 @@ feature 'Makes a board by themself' do
   end
 
   def submit_create_form
-    click_button "Create Board"
+    click_button "Join Airbo"
   end
 
   def board_created_notification_text(user, board)
@@ -24,7 +24,7 @@ feature 'Makes a board by themself' do
   end
 
   before do
-    visit new_board_path
+    visit join_path
   end
 
   context 'remembers user on login' do
@@ -95,7 +95,6 @@ feature 'Makes a board by themself' do
 
 
     it 'should send a confirmation email to the new creator' do
-      crank_dj_clear
       open_email NEW_CREATOR_EMAIL
 
       current_email.to_s.should include(NEW_BOARD_NAME + " Board")
@@ -131,9 +130,9 @@ feature 'Makes a board by themself' do
 
         pending "This entire spec only passes due to delayed job side effects"
         #FIXME please  The logic with creating new boards with users so convoluted
-        #involving extra transactions end callbacks that send emails etc. 
+        #involving extra transactions end callbacks that send emails etc.
         # When delayed jobs is disabled all of the implicit behaviors fall apart
-        # completely 
+        # completely
         #
         #
         #NOTE combine tests where the code path is identical so as to speed up
@@ -174,65 +173,29 @@ feature 'Makes a board by themself' do
         page.find('#user_password').value.should == NEW_CREATOR_PASSWORD
       end
     end
-    it "should show an error for a blank user name" do
-      fill_in_valid_form_entries
-      fill_in 'user[name]', with: ''
-      submit_create_form
-
-      should_be_on boards_path
-      expect_content "Sorry, we weren't able to create your board: user name can't be blank."
-    end
-
-    it "should show an error for a blank user email" do
-      fill_in_valid_form_entries
-      fill_in 'user[email]', with: ''
-      submit_create_form
-
-      should_be_on boards_path
-      expect_content "Sorry, we weren't able to create your board: user email can't be blank."
-    end
 
     it "should show an error for a non-unique user email" do
       FactoryGirl.create(:user, email: NEW_CREATOR_EMAIL)
       fill_in_valid_form_entries
       submit_create_form
 
-      should_be_on boards_path
+      should_be_on join_path
       expect_content "Sorry, we weren't able to create your board: user email has already been taken"
     end
 
-    it "should have reasonable errors for missing password" do
-      fill_in_valid_form_entries
-      fill_in "user[password]", with: ''
-      submit_create_form
-
-      should_be_on boards_path
-      expect_content "Sorry, we weren't able to create your board: please enter a password at least 6 characters long"
-    end
-
-    it "should display user errors even if the board has errors" do
-      fill_in_valid_form_entries
-      fill_in "board[name]", with: ''
-      fill_in "user[name]", with: ''
-      submit_create_form
-
-      should_be_on boards_path
-      expect_content "Sorry, we weren't able to create your board: the board name can't be blank, user name can't be blank"
-    end
-
-
 
     it "should not leave a board hanging around if the board is valid but the user isn't" do
+      user = FactoryGirl.create(:user)
       fill_in_valid_form_entries
-      fill_in "user[name]", with: ''
+      fill_in "user[email]", with: user.email
 
-      Demo.count.should be_zero
-      User.count.should be_zero
+      expect(Demo.count).to eq(1)
+      expect(User.count).to eq(1)
 
       submit_create_form
 
-      Demo.count.should be_zero
-      User.count.should be_zero
+      expect(Demo.count).to eq(1)
+      expect(User.count).to eq(1)
     end
   end
 
