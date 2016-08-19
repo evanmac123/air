@@ -1,18 +1,19 @@
 <div class="v-08-01-2016">
   <section class="bg-blue tall white hero" >
-    <%= render partial: "pages/landing/header" %>
-    <div class="landing-hero-text">
-      <h1>Get Their Attention</h1>
-      <h3>
-        HR and Corporate Communications use Airbo to modernize employee communcations.</h3>
-      <div class="email-sign-up-form">
-        <%= form_tag( 'join', method: :get, class: "pre-signup" ) do |f| %>
-          <%= text_field_tag(:email, '', placeholder: " Enter your work email", class: "email-sign-up-input") %>
-          <%= submit_tag("Sign Up") %>
-        <% end %>
-      </div>
+    <div class="row">
 
-
+      <%= render partial: "pages/landing/header" %>
+      <div class="landing-hero-text">
+        <h1>Get Their Attention</h1>
+        <h3>
+          HR and Corporate Communications use Airbo to modernize employee communcations.</h3>
+          <div class="email-sign-up-form">
+            <%= form_tag( 'join', method: :get, class: "pre-signup" ) do |f| %>
+            <%= text_field_tag(:email, '', placeholder: "Enter your work email", class: "email-sign-up-input") %>
+            <%= submit_tag("Sign Up") %>
+            <% end %>
+          </div>
+        </div>
     </div>
   </section>
 
@@ -97,7 +98,7 @@
       <p class="text-center">Create a free account to see how companies use Airbo.</p>
       <div class="email-sign-up-form">
         <%= form_tag( 'join', method: :get, class: "pre-signup" ) do |f| %>
-          <%= text_field_tag(:email, '', placeholder: " Enter your work email") %>
+          <%= text_field_tag(:email, '', placeholder: "Enter your work email") %>
           <%= submit_tag("Sign Up") %>
         <% end %>
       </div>
