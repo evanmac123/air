@@ -6,7 +6,7 @@ Health::Application.routes.draw do
   match "activity"      => "acts#index"
   match "activity/admin_return_guide_displayed" => "acts#admin_return_guide_displayed"
   match "scoreboard"    => "scores#index"
-  match "join"          => "boards#new"
+  match "join"          => "signup_requests#new"
 
   # moved these to top level but don't want to break old links
   match "client_admin/explore"     => "explores#show"
@@ -96,7 +96,7 @@ Health::Application.routes.draw do
   resource :admin, :only => :show
   resource :client_admin, :only => :show
 
-  resources :boards, only: [:new, :create, :update]
+  resources :boards, only: [:create, :update]
   resources :copy_boards, only: [:create]
   resources :parent_boards, only: [:show]
 
@@ -116,6 +116,7 @@ Health::Application.routes.draw do
 
 
   resources :demo_requests, only: [:create, :new]
+  resources :signup_requests, only: [:create, :new]
   resources :board_name_validations, only: :show
   resources :board_memberships, only: :destroy
   resources :mute_followups, only: :update

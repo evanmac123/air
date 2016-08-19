@@ -38,28 +38,47 @@ $(document).ready(function() {
   });
 
 
-  $("#landing_sign_up_form").submit(function(event){
-    var form = $("#landing_sign_up_form");
+  $("#landing_info_request_form").submit(function(event){
+    var form = $("#landing_info_request_form");
     var config={
       onkeyup: false,
       rules: {
-        "user[email]": {
+        "request[company]": {
+          required: true,
+          msg: "HEY"
+        },
+        "request[email]": {
           required: true,
           email: true
         },
-        "user[name]": {
+        "request[name]": {
           required: true,
         },
-        "user[password]": {
+        "request[password]": {
           required: true,
           minlength: 6
         },
-        "board[name]": {
+        "request[phone]": {
           required: true,
+          phoneUS: true
         },
-        "board[size]": {
+        "request[size]": {
           required: true,
         }
+      },
+      messages: {
+        "request[company]": {
+          required: "Please enter a company name.",
+        },
+        "request[name]": {
+          required: "Please enter your first and last name.",
+        },
+        "request[email]": {
+          required: "Please enter your work email.",
+        },
+        "request[phone]": {
+          required: "Please enter your phone number.",
+        },
       }
     };
 

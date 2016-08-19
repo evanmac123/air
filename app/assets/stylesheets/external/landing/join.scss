@@ -13,6 +13,10 @@ $bp-xxl : 1440px;
   background-image: url('landing/splash-image-join.jpg');
   color:white;
   height: 100%;
+  .err {
+    margin-bottom: 0;
+    padding-bottom: 10px;
+  }
   .logo {
     margin-top: 70px;
     margin-bottom: 30px;
