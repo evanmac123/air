@@ -45,7 +45,6 @@ $(document).ready(function() {
       rules: {
         "request[company]": {
           required: true,
-          msg: "HEY"
         },
         "request[email]": {
           required: true,

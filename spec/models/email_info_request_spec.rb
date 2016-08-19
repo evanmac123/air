@@ -3,7 +3,7 @@ require 'spec_helper'
 describe EmailInfoRequest do
   include Shoulda::Matchers::ActionMailer
 
-  describe "#notify_sales_of_demo_request" do
+  describe "#notify" do
     it "should create a job that notifies sales" do
       ActionMailer::Base.deliveries.clear
 
@@ -14,7 +14,7 @@ describe EmailInfoRequest do
         company: "Big Machines",
       )
 
-      request.notify_sales_of_demo_request
+      request.notify
       Delayed::Worker.new.work_off
 
       open_email 'team_k@airbo.com'
@@ -31,7 +31,7 @@ describe EmailInfoRequest do
     end
   end
 
-  describe "#notify_sales_of_signup_request" do
+  describe "#notify" do
     it "should create a job that notifies sales" do
       ActionMailer::Base.deliveries.clear
 
@@ -42,7 +42,7 @@ describe EmailInfoRequest do
         company: "Big Machines",
       )
 
-      request.notify_sales_of_signup_request
+      request.notify
       Delayed::Worker.new.work_off
 
       open_email 'team_k@airbo.com'

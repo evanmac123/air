@@ -6,7 +6,8 @@ class DemoRequestsController < ApplicationController
 
   def create
     request = EmailInfoRequest.create(permitted_params)
-    request.notify_sales_of_demo_request
+
+    request.notify
 
     flash[:new_success] = "Thanks for requesting a demo! We’ll email you within the next few hours to schedule a 30 minute overview."
 

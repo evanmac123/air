@@ -16,7 +16,7 @@ class EmailInfoRequestsController < ApplicationController
     }
 
     request = EmailInfoRequest.create!(hash)
-    request.notify_sales_of_demo_request
+    request.notify
 
     if params[:silent]
       render inline: ''
