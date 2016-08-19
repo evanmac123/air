@@ -1,4 +1,4 @@
-class DemoRequestsController < ApplicationController
+class SignupRequestsController < ApplicationController
   layout 'external'
   skip_before_filter :authorize
   before_filter :allow_guest_user
@@ -6,15 +6,15 @@ class DemoRequestsController < ApplicationController
 
   def create
     request = EmailInfoRequest.create(permitted_params)
-    request.notify_sales_of_demo_request
+    request.notify_sales_of_signup_request
 
-    flash[:new_success] = "Thanks for requesting a demo! We’ll email you within the next few hours to schedule a 30 minute overview."
+    flash[:new_success] = "Thanks for signing up with Airbo!  Someone from our team will contact you within 24 hours to get you setup!"
 
     redirect_to root_path
   end
 
   def new
-    @demo_request = EmailInfoRequest.new
+    @signup_request = EmailInfoRequest.new(email: params[:email])
   end
 
   protected

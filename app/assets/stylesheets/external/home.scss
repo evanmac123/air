@@ -8,7 +8,7 @@ $bp-xxl : 1440px;
 body.pages-home {
 
   .v-08-01-2016 {
-    
+
     .client_logos {
       max-width: 750px;
       margin: auto;
@@ -105,7 +105,6 @@ body.pages-home {
       height:768px;
       .landing-hero-text {
         margin-top: 350px;
-        margin-left: 120px;
         h1 {
           font-size: 55px;
           font-weight: bold;
@@ -121,7 +120,6 @@ body.pages-home {
         padding-top: 30px;
         .logo {
           .logo_image {
-            margin-left: 110px;
             background-image: url('airbo_logo_white.png');
             background-repeat: no-repeat;
             background-position: center center;
@@ -131,7 +129,6 @@ body.pages-home {
           }
         }
         .login {
-          margin-right: 110px;
           margin-top: 10px;
           .sign-in-button {
             color: #fff;
@@ -213,8 +210,7 @@ body.pages-home {
         margin-right: auto;
       }
       .testimonial-text {
-        font-size: 23px;
-        font-style: italic;
+        font-size: 20px;
       }
     }
     .join {
@@ -234,6 +230,7 @@ body.pages-home {
         h2 {
           color: #666666;
           font-weight: bold;
+          margin-top: 0;
         }
       }
     }
@@ -303,22 +300,11 @@ body.pages-home {
         height:720px;
         .landing-hero-text {
           margin-top: 275px;
-          margin-left: 150px;
           h1 {
             font-size: 55px;
           }
           h3 {
             font-size: 22px;
-          }
-        }
-        header{
-          .logo {
-            .logo_image {
-              margin-left: 140px;
-            }
-          }
-          .login {
-            margin-right: 140px;
           }
         }
       }
@@ -393,6 +379,7 @@ body.pages-home {
           }
           .login {
             margin-right: 70px;
+
             .sign-in-button {
               font-size: 17px;
               padding: 11px 15px 11px 15px;

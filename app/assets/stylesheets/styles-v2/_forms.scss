@@ -238,6 +238,12 @@ label.checkbox {
       @include linear-gradient-horizontal($n-green, lighten($n-green, 10%));
     }
   }
+
+  &.blue {
+    .indicator {
+      @include linear-gradient-horizontal($n-blue, lighten($n-blue, 10%));
+    }
+  }
 }
 
 
