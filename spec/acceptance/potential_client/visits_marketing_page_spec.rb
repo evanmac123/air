@@ -2,7 +2,7 @@ require 'acceptance/acceptance_helper'
 
 feature 'Visits marketing page' do
   def expect_marketing_blurb
-    expect_content "Airbo is like a reinvented bulletin board."
+    expect_content "Get Their Attention HR and Corporate Communications use Airbo to modernize employee communcations."
   end
 
   context "as not user" do

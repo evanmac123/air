@@ -20,7 +20,7 @@
   }
 }
 
-#flash_failure, #flash_notice, #flash_success {
+#flash_failure, #flash_notice, #flash_success, #flash_new_success {
   border:0;
   border-radius: 0;
   color:$white;
@@ -43,4 +43,7 @@
 #flash_success {
   background: $dark-green;
   .flash-content a {border-color:lighten($dark-green, 30%);}
+}
+#flash_new_success {
+  background: rgba(32, 217, 201, .9);
 }

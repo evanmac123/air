@@ -1,0 +1,101 @@
+$bp-small : 355px;
+$bp-small-2 : 476px;
+$bp-small-3 : 671.8px;
+$bp-med : 748.8px;
+$bp-large : 800px;
+$bp-xl : 1025px;
+$bp-xxl : 1440px;
+.join-view {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  position: relative;
+  background-image: url('landing/splash-image-join.jpg');
+  color:white;
+  height: 100%;
+  .logo {
+    margin-top: 70px;
+    margin-bottom: 30px;
+    .logo_image {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      background-image: url('logo-blue.png');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 100%;
+      height: 70px;
+      width: 110px;
+    }
+  }
+  .join-form {
+    border-radius: 18px;
+    background-color: rgba(255, 255, 255, 0.9);
+    max-width: 400px;
+    h1 {
+      font-size: 28px;
+      color: rgba(0, 0, 0, 0.7);
+      font-style: bold;
+      text-align: center;
+      padding:25px;
+      margin-bottom: 0;
+      padding-bottom: 15px;
+    }
+    h4 {
+      color: rgba(0, 0, 0, 0.7);
+      text-align: center;
+      font-size: 16px;
+      line-height: 20px;
+    }
+    .line-separator{
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      height: 1px;
+      width: 50px;
+      background:$n-blue;
+      border-bottom: 3px solid $n-blue;
+    }
+    .join-button {
+      &:focus {
+        background-color: darken($n-blue, 0.5)
+      }
+    }
+  }
+  .terms {
+    font-size: 10px;
+    color: rgba(0, 0, 0, 0.9);
+    padding-bottom: 10px;
+  }
+}
+.join-footer {
+  background-color: #636363;
+}
+@media only all and (max-width: $bp-xxl) {
+  .join-view {
+    height: 100%;
+    .logo {
+      margin-top: 20px;
+    }
+  }
+}
+@media only all and (max-width: $bp-small-2) {
+  .join-view {
+    height: 100%;
+    .logo {
+      display: none;
+    }
+    .join-form {
+      width: 300px;
+      h1 {
+        font-size: 16px;
+        padding:20px;
+        padding-bottom: 10px;
+      }
+      h4 {
+        font-size: 12px;
+        line-height: 20px;
+      }
+    }
+  }
+}

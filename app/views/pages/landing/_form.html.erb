@@ -5,14 +5,8 @@
   <%= label_tag "user[name]", "First and Last Name" %>
   <%= text_field_tag "user[name]", "", placeholder: "" %>
 
-  <%= label_tag "board[name]", "Company Name" %>
-  <%= text_field_tag "board[name]", "", placeholder: "" %>
-
   <%= label_tag "user[email]", "Email" %>
   <%= text_field_tag "user[email]", "", placeholder: "Work Email" %>
-
-  <%= label_tag "user[password]", "Create Password" %>
-  <%= password_field_tag "user[password]", "", placeholder: "At least 6 characters long please" %>
 
   <%= hidden_field_tag "page_name", sign_up_form_page_name(params) %>
   <%= hidden_field_tag "creation_source_board", creation_source(params) %>

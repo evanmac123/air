@@ -1,11 +1,20 @@
 class DemoRequestsController < ApplicationController
+  layout 'external'
   skip_before_filter :authorize
+  before_filter :allow_guest_user
+  layout 'standalone', only: [:new]
 
   def create
-    request = EmailInfoRequest.create!(permitted_params)
+    request = EmailInfoRequest.create(permitted_params)
     request.notify_the_ks_of_demo_request
-    # ping
-    render json: {email: permitted_params[:email]}
+
+    flash[:new_success] = "Thanks for requesting a demo!  Someone from our team will contact you within 24 hours."
+
+    redirect_to root_path
+  end
+
+  def new
+    @demo_request = EmailInfoRequest.new
   end
 
   protected
@@ -13,8 +22,4 @@ class DemoRequestsController < ApplicationController
   def permitted_params
     params[:demo_request].permit!
   end
-
-  # def ping
-  #   ping "New Lead", {action: "Submitted Email - v. 3.17.16", page_name: ""}, current_user
-  # end
 end

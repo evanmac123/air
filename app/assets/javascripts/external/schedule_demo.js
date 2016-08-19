@@ -59,13 +59,19 @@ Airbo.ScheduleDemoModal = (function(){
     form = $("#schedule_demo_form");
     var config={
       onkeyup: false,
-      onfocusout: function(event){
-        validator.resetForm();
-      },
       rules: {
         "demo_request[email]": {
           required: true,
           email: true
+        },
+        "demo_request[name]": {
+          required: true,
+        },
+        "demo_request[phone]": {
+          required: true,
+        },
+        "demo_request[company]": {
+          required: true,
         }
       }
     };
@@ -91,15 +97,10 @@ Airbo.ScheduleDemoModal = (function(){
   function initFormSubmit(){
 
     $("#schedule_demo_form").submit(function(event){
-      event.preventDefault();
-      if(form.valid()){
-        localStorage.setItem("demoRequested", true);
-        $.post( $(this).attr("action"), form.serialize())
-        .done(function(data, textStatus, jqXHR){
-          showConfirmation(data.email);
-        });
-      }else{
+      if(!form.valid()){
+        event.preventDefault();
         validator.focusInvalid();
+        validator.resetForm();
       }
     });
 
