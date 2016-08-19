@@ -209,24 +209,7 @@ body.client_admin-shares{
       }
     }
   }
-  #scheduled_followups {
-    padding-bottom: 2em;
-    border-bottom: 1px solid $lightest-gray;
-    #cancel_follow_up {
-      font-size: 14px;
-      .follow_up_email_details {
-        margin-bottom: 0.7em;
-        .cancel_button {
-          display: inline;
-          a {
-            margin-left: 10px;
-            font-weight: 400;
-            color: $med-gray;
-          }
-        }
-      }
-    }
-  }
+ 
 
   .tiles_to_be_shared {
     margin-top:4em;
