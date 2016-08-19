@@ -1,18 +1,15 @@
-<div class="row"></div>
 <section class="share_tools">
   <div id="public_board">
     <div class="row">
       <%= render 'public_board_controls' %>
     </div>
   </div>
+
+  <%= render 'manage_follow_ups' %>
+
   <div class="row">
-    <div class="large-12" id="digest">
-      <div class="cancel_follow_ups large-12 columns">
-        <%= render 'cancel_follow_ups' %>
-      </div>
-      <div class="large-12 columns" id="digest_management">
-        <%= render partial: 'digest_management' %>
-      </div>
+    <div class="large-12 columns" id="digest_management">
+      <%= render partial: 'digest_management' %>
     </div>
   </div>
 </section>

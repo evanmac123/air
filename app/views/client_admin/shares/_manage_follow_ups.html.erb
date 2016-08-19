@@ -1,26 +1,41 @@
 <% if  @follow_up_emails.any? %>
-  <div class="cancel_follow_ups large-12 columns">
-    <div id="scheduled_followups">
-      <h4>Scheduled Follow-Up</h4>
-      <% @follow_up_emails.each do |follow_up| %>
-        <div id="cancel_follow_up" >
-          <div class="follow_up_email_details" id="follow_up_email_<%= follow_up.id %>">
-          <%= follow_up.send_on.to_time.to_s(:tile_digest_email_sent_at) %>
-          <div class="cancel_button">
-            <%= link_to "Cancel", client_admin_tiles_follow_up_email_path(follow_up), method: :delete, remote: true, confirm: 'Are you sure?' %>
-          </div>
-          </div>
-        </div>
-        <div class="row">
-          <%=form_for follow_up, url: client_admin_tiles_follow_up_email_path(follow_up), html:{class: "inline"}  do |f| %>
-            <%=f.label :original_digest_subject, "Subject" %>
-            <%=f.text_field :original_digest_subject %>
-            <%=f.label :send_on, "Send Date" %>
-            <%=f.text_field :send_on, type: :date %>
-            <%=f.submit "Save Changes", class: "button" %>
+  <div class="row">
+    <h3 class="large-12 columns bold">Scheduled Follow-Up</h3>
+  </div>
+
+  <div class="row">
+    <div class="small-12 columns">
+      <table>
+        <thead>
+          <tr>
+            <th>Subject</th><th>Scheduled Date</th><th>&nbsp;</th>
+          </tr>
+        </thead>
+        <% @follow_up_emails.each do |follow_up| %>
+          <%=form_for follow_up, url: client_admin_tiles_follow_up_email_path(follow_up), html:{class: "top-bottom-margined-10 inline"}  do |f| %>
+            <tbody>
+              <tr> 
+                <td>
+                  <%= f.text_field :original_digest_subject, class:"hidden"%>
+                  <%=follow_up.original_digest_subject%>
+                </td>
+                <td>
+                  <%=f.text_field :send_on, type: :date, class:"hidden" %>
+                  <%= follow_up.send_on.to_time.to_s(:tile_digest_email_sent_at)%>
+                </td>
+                <td>
+                  <div class="links-bar">
+                    <%= link_to "Edit", "#", class: "button outlined inline small edit-followup"  %>
+                    <%= link_to "Send Now", client_admin_tiles_follow_up_email_path(follow_up), method: :put, remote: true, confirm: 'Are you sure?', class: "button inline small  "%>
+                    <%= link_to "Delete", client_admin_tiles_follow_up_email_path(follow_up), method: :delete, remote: true, confirm: 'Are you sure?', class: "button inline small  "%>
+                    <%=f.submit "Save", class: "button small hidden" %>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
           <%end%>
-        </div>
+        <% end %>
+      </table>
     </div>
-  <% end %>
   </div>
 <% end %>
