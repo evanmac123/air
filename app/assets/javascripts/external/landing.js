@@ -52,6 +52,7 @@ $(document).ready(function() {
         },
         "user[password]": {
           required: true,
+          minlength: 6
         },
         "board[name]": {
           required: true,
