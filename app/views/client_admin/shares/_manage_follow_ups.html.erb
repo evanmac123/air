@@ -1,40 +1,40 @@
 <% if  @follow_up_emails.any? %>
+  <div class="followups-list">
   <div class="row">
     <h3 class="large-12 columns bold">Scheduled Follow-Up</h3>
   </div>
 
   <div class="row">
-    <div class="small-12 columns">
+
+    <div class="large-12 small-6 columns">
       <table>
         <thead>
           <tr>
             <th>Subject</th><th>Scheduled Date</th><th>&nbsp;</th>
           </tr>
         </thead>
-        <% @follow_up_emails.each do |follow_up| %>
-          <%=form_for follow_up, url: client_admin_tiles_follow_up_email_path(follow_up), html:{class: "top-bottom-margined-10 inline"}  do |f| %>
-            <tbody>
+        <tbody>
+          <% @follow_up_emails.each do |follow_up| %>
+
+      
               <tr> 
                 <td>
-                  <%= f.text_field :original_digest_subject, class:"hidden"%>
-                  <%=follow_up.original_digest_subject%>
+                  <%= text_field_tag :original_digest_subject, follow_up.original_digest_subject, disabled: true%>
                 </td>
                 <td>
-                  <%=f.text_field :send_on, type: :date, class:"hidden" %>
-                  <%= follow_up.send_on.to_time.to_s(:tile_digest_email_sent_at)%>
+                  <%=text_field_tag :send_on, follow_up.send_on, disabled:true %>
                 </td>
                 <td>
-                  <div class="links-bar">
-                    <%= link_to "Edit", "#", class: "button outlined inline small edit-followup"  %>
-                    <%= link_to "Send Now", client_admin_tiles_follow_up_email_path(follow_up), method: :put, remote: true, confirm: 'Are you sure?', class: "button inline small  "%>
-                    <%= link_to "Delete", client_admin_tiles_follow_up_email_path(follow_up), method: :delete, remote: true, confirm: 'Are you sure?', class: "button inline small  "%>
-                    <%=f.submit "Save", class: "button small hidden" %>
+                  <div class="commands">
+                    <%= link_to "Edit", "#", class: "button outlined inline small edit"  %>
+                    <%= link_to "Save", client_admin_tiles_follow_up_email_path(follow_up), method: :put, confirm: 'Are you sure?', class: "save button inline small  "%>
+                    <%= link_to "Send Now", client_admin_tiles_follow_up_email_path(follow_up), method: :put, confirm: 'Are you sure?', class: "now button inline small  "%>
+                    <%= link_to "Delete", client_admin_tiles_follow_up_email_path(follow_up), method: :delete,  confirm: 'Are you sure?', class: "delete button inline small  "%>
                   </div>
                 </td>
               </tr>
-            </tbody>
-          <%end%>
-        <% end %>
+            <% end %>
+        </tbody>
       </table>
     </div>
   </div>
