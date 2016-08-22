@@ -484,7 +484,7 @@ class Demo < ActiveRecord::Base
 
   def override_explore_disabled
     if EXPLORE_ENABLED
-      self.explore_disabled =false
+      self.explore_disabled = false
     end
     true
   end

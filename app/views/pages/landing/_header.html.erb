@@ -1,19 +1,10 @@
-<header id="pageHeader" class="sticky_desktop">
-  <div class="row top">
-    <div class="columns logo">
+<header id="pageHeader">
+    <div class="login">
+      <a href="/sign_in", class="sign-in-button right"><i class='fa fa-user' aria-hidden='true'></i><span class="login-copy">Sign In</span></a>
+    </div>
+    <div class="logo">
       <%= link_to "/" do %>
         <div class="logo_image"></div>
       <% end %>
     </div>
-    <div class="columns mobile-toggle mobiile_only">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-    <div class="columns headerMenu">
-      <ul class="header-menu">
-        <%= render partial: "pages/landing/menu" %>
-      </ul>
-    </div>
-  </div>
 </header>

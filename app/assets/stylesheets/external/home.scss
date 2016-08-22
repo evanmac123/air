@@ -1,204 +1,961 @@
-
+$bp-small : 355px;
+$bp-small-2 : 476px;
+$bp-small-3 : 671.8px;
+$bp-med : 748.8px;
+$bp-large : 800px;
+$bp-xl : 1025px;
+$bp-xxl : 1440px;
 body.pages-home {
 
-  $h2-size: 24px;
+  .v-08-01-2016 {
 
-
-    color: $home-gray;
-
-    /*
-    h2 {
-      font-size: 24px;
-    }
-     */
-
-  .hero {
-    background-color: #379fd7;
-    background-image: linear-gradient(to bottom, #48bfff 0, #379fd7 100%);
-    height: 400px;
-    color:white;
-    &.v-04-14-2016{
-      height:auto;
-      h3{
-
-        line-height:1.75em;
-        font-size:22px;
+    .client_logos {
+      max-width: 750px;
+      margin: auto;
+      margin-top:24px;
+      overflow: auto;
+      img {
+        display: block;
+        margin: auto;
       }
     }
-    .hero_content {
-      &.custom-text{
-        h1 {
-          font-weight: 400;
-          font-size: 30px;
-          line-height:1.57em;
-          margin-bottom: 5px;
-          max-width: 570px;
+    .clients{
+      background-color: #f9f9f9;
+      padding-top:40px;
+      padding-bottom:40px;
+      h3 {
+        color: #666666;
+        font-weight: 400;
+        margin-bottom: 30px;
+        margin-top: 0;
+      }
+
+    }
+    .join {
+      background-color: #777777;
+      background-image: url('landing/explore-sign-up-bg.png');
+      background-repeat: no-repeat;
+      background-position: center center;
+      .join_block{
+        padding: 40px 20px;
+        background-color: #F9F9F9;
+        background-color: rgba(255, 255, 255, 0.95);
+        margin-top: 40px;
+        margin-bottom: 40px;
+        max-width: 600px;
+        h2 {
+          color: #666666;
+          font-size: 20px;
         }
         p {
-          color: #FFF;
+          color: #666666;
+          font-size: 16px;
           letter-spacing: 0;
-          text-align: center;
-          margin: 20px auto;
+          margin-bottom: 30px;
         }
       }
-      .button, .flag {
-        font-size: 18px;
-      }
-
-      .flag.success{
-        padding: 10px 20px;
-        margin:0;
-        height: 37px;
-        margin-top: -4px;
-        font-size: 16px;
-
-        &.icon{
-          .fa{
-            font-size: 24px;
-            line-height:10px;
-            vertical-align: middle;
-            margin-left: 10px;
-            margin-right: 0px;
-          }
-        }
-      } 
-
-
-    }
-  }
-  .client_logos {
-    max-width: 750px;
-    margin: auto;
-    margin-top:24px;
-    overflow: auto;
-    img {
-      display: block;
-      margin: auto;
-    }
-  }
-  .clients{
-    background-color: #f9f9f9;
-    padding-top:40px;
-    padding-bottom:40px;
-    h3 {
-      color: #666666;
-      font-weight: 400;
-      margin-bottom: 30px;
-      margin-top: 0;
-    }
-
-  }
-
-
-  .topics {
-    @include topic-set();
-  }
-
-  .join {
-    background-color: #777777;
-    background-image: url('landing/explore-sign-up-bg.png');
-    background-repeat: no-repeat;
-    background-position: center center;
-    .join_block{
-      padding: 40px 20px;
-      background-color: #F9F9F9;
-      background-color: rgba(255, 255, 255, 0.95);
-      margin-top: 40px;
-      margin-bottom: 40px;
-      max-width: 600px;
-      h2 {
-        color: #666666;
-        font-size: 20px;
-      }
-      p {
-        color: #666666;
-        font-size: 16px;
-        letter-spacing: 0;
-        margin-bottom: 30px;
-      }
-      .sign_up {
-        max-width: 300px;
-        width: 100%;
-        margin: 40px auto;
-        // text-align: left;
-      }
-      .button {
-        margin-top: 5px;
-        font-size: inherit;
-        padding-top: 10px;
-        padding-bottom: 10px;
-        text-transform: none;
+      .client_logos {
+        margin-top: 10px;
+        max-width: 430px;
       }
     }
-    .client_logos {
-      margin-top: 10px;
-      max-width: 430px;
-    }
-  }
-  @media only screen and (max-width: $foundation) {
-    .clients {
-      padding: 40px 5px;
-      h5 {
-        font-size: 16px;
-      }
-    }
-    .money {
-      padding: 50px 5px;
-      h2 {
-        font-size: 25px;
-        line-height: 37.5px;
-        margin-bottom: 15px;
-      }
-      .benefits_group {
-        .benefit_block {
-          max-width: none;
-          margin-top: 20px;
-        }
-      }
-    }
-  }
-  @media only screen and (max-width: $foundation) {
-    .join {
-      .join_block {
-        margin: 0;
-        max-width: none;
-        width: 100%;
-      }
-    }
-    .money .animation_block {
-      .mac_book {
+    .email-sign-up-form {
+      .email-input-hidden-label {
         display: none;
       }
-      .animation {
-        padding: 0;
-        margin: 20px 0 50px 0;
+
+      input[type="text"], input[type="email"] {
+        padding-left: 25px;
+        color: #707070;
+        border-radius: 25px 0 0 25px;
+        padding-right: 50px;
+        border: 0;
+        font-size: 20px;
+        width: 400px;
+        height: 55px;
+      }
+
+      input[type="submit"] {
+        margin-left: -5px;
+        padding: 0 20px 0 20px;
+        border-radius: 0 25px 25px 0;
+        border: none;
+        background: rgba(0, 231, 194, 0.6);
+        color: #fff;
+        -webkit-appearance: none;
+        &:hover {
+          background: lighten(rgba(55, 159, 215, .40), 15%);
+        }
+        &:focus {
+          outline: 0;
+        }
+        font-size: 20px;
+        width: 150px;
+        height: 55px;
+      }
+    }
+    .hero {
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover;
+      position: relative;
+      background-color: #fff;
+      background-image: url('landing/landing.jpg');
+      color:white;
+      height:768px;
+      .landing-hero-text {
+        margin-top: 350px;
+        h1 {
+          font-size: 55px;
+          font-weight: bold;
+          margin-bottom: 0;
+        }
+        h3 {
+          font-size: 20px;
+          margin-top: 10px;
+          letter-spacing: 1.1px;
+        }
+      }
+      header{
+        padding-top: 30px;
+        .logo {
+          .logo_image {
+            background-image: url('airbo_logo_white.png');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: 100%;
+            height: 70px;
+            width: 110px;
+          }
+        }
+        .login {
+          margin-top: 10px;
+          .sign-in-button {
+            color: #fff;
+            font-size: 20px;
+            padding: 11px 15px 11px 15px;
+            border-radius: 18px;
+            border: 2px solid #fff;
+            background-color: darken(rgba(55, 159, 215, 0), 5%);
+            &:hover {
+              background-color: darken(rgba(55, 159, 215, .2), 15%);
+            }
+          }
+          .login-copy {
+            padding-left: 10px;
+          }
+        }
+      }
+    }
+    .featured-news-section{
+      background-color: #f9f9f9;
+      padding-top: 40px;
+      padding-bottom: 40px;
+      margin-bottom: 40px;
+      .featured-news {
+        font-size: 20px;
+        margin: 0;
+        .featured-news-bold {
+          font-weight: bold;
+        }
+      }
+    }
+    .product-hero {
+      img, object, embed {
+        padding: 0 60px 0 60px;
+        max-width: 100%;
+        height: auto;
+      }
+      .time-img {
+        max-width: 18%;
+        padding: 0 0 0 12px;
+      }
+      .product-text {
+        margin-top: 60px;
+        padding: 30px 0 0 60px;
+        h1 {
+          font-size: 200%;
+          font-weight: bold;
+        }
+        p {
+          margin-top: 0;
+        }
+        .time-quote {
+          font-size: 83%;
+          margin-left: -25px;
+          margin-top: 2px;
+          font-style: italic;
+        }
+      }
+      .product-img-two {
+        margin-top: 200px;
+      }
+    }
+    .product-hero-end {
+      .full-band {
+        margin-bottom: 80px;
+      }
+    }
+    .testimonial-main {
+      background-color: #F5F6F7;
+      .full-band {
+        width: 100%;
+      }
+      .fuji-logo {
+        max-width: 30%;
+        display: block;
+        margin-top: 50px;
+        margin-bottom: 50px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .testimonial-text {
+        font-size: 20px;
+      }
+    }
+    .join {
+      background-color: #777777;
+      background-image: url('landing/explore-sign-up-bg.png');
+      background-repeat: no-repeat;
+      background-position: center center;
+      .join_block {
+        background-color: rgba(236, 240, 241, 0.90);
+        max-width: 600px;
+        margin-top: 70px;
+        margin-bottom: 70px;
+        p {
+          color: #666666;
+          letter-spacing: 0;
+        }
+        h2 {
+          color: #666666;
+          font-weight: bold;
+          margin-top: 0;
+        }
+      }
+    }
+    .landing-footer {
+      background-color: #636363;
+      table {
+        border: none;
+        margin: 65px 0 0 -25px;
+      }
+      .footer-links {
+        color: #B8B8B8;
+        td {
+          margin-bottom: 0;
+          padding-bottom: 0;
+          border: none;
+          background: #303030;
+          a {
+            font-size: 14px;
+            color: #B8B8B8;
+            &:hover {
+              color: #CFCFCF;
+            }
+          }
+        }
+        .footer-headers {
+          th {
+            padding-bottom: 0;
+            border: none;
+            background: #303030;
+            text-transform: uppercase;
+            color: #828282;
+          }
+        }
+      }
+
+      .section-one {
+        background-color: #303030;
+        height: 250px;
+      }
+
+      .section-two {
+        margin-top: 1px;
+        background-color: #303030;
+        height: 100px;
+        .full-band {
+          margin: 0;
+          padding: 0;
+          .logo {
+            .logo_image {
+              margin-top: 10px;
+              margin-left: 50px;
+              background-image: url('airbo_logo_white.png');
+              background-repeat: no-repeat;
+              background-position: center center;
+              background-size: 60%;
+              height: 70px;
+              width: 110px;
+            }
+          }
+        }
+      }
+    }
+
+
+    @media only all and (min-width: $bp-xxl) {
+      .hero {
+        height:720px;
+        .landing-hero-text {
+          margin-top: 275px;
+          h1 {
+            font-size: 55px;
+          }
+          h3 {
+            font-size: 22px;
+          }
+        }
+      }
+      .featured-news-section{
+        .featured-news {
+          font-size: 22px;
+        }
+      }
+      .product-hero {
+        img, object, embed {
+          padding: 0 30px 0 60px;
+          max-width: 100%;
+          height: auto;
+        }
+        .time-img {
+          max-width: 18%;
+          padding: 0 0 0 12px;
+        }
+        .product-text {
+          margin-top: 55px;
+          padding: 0 0 0 60px;
+          h1 {
+            font-size: 40px;
+          }
+          p {
+            font-size: 22px;
+          }
+          .time-quote {
+            font-size: 18px;;
+            margin-left: -25px;
+            margin-top: 2px;
+            font-style: italic;
+          }
+        }
+        .product-img-two {
+          margin-top: 150px;
+        }
+      }
+      .join_block {
+        margin-top: 150px;
+        margin-bottom: 150px;
+        p {
+          color: #666666;
+          letter-spacing: 0;
+        }
+        h2 {
+          font-size: 40px;
+        }
+      }
+      table {
+        border-color: #303030;
+      }
+    }
+    @media only all and (max-width: $bp-xxl) {
+      .hero {
+        height:690px;
+        .landing-hero-text {
+          margin-top: 250px;
+          margin-left: 80px;
+          h1 {
+            font-size: 43px;
+          }
+          h3 {
+            font-size: 16px;
+          }
+        }
+        header{
+          .logo {
+            .logo_image {
+              margin-left: 70px;
+            }
+          }
+          .login {
+            margin-right: 70px;
+
+            .sign-in-button {
+              font-size: 17px;
+              padding: 11px 15px 11px 15px;
+              border: 2px solid #fff;
+            }
+            .login-copy {
+              padding-left: 10px;
+            }
+          }
+        }
+      }
+      .featured-news-section{
+        .featured-news {
+          font-size: 18px;
+        }
+      }
+      .product-hero {
+        img, object, embed {
+          padding: 0 30px 0 60px;
+          max-width: 100%;
+          height: auto;
+        }
+        .time-img {
+          max-width: 18%;
+          padding: 0 0 0 12px;
+        }
+        .product-text {
+          margin-top: 55px;
+          padding: 0 0 0 60px;
+          h1 {
+            font-size: 25px;
+          }
+          p {
+            font-size: 16px;
+          }
+          .time-quote {
+            font-size: 83%;
+            margin-left: -25px;
+            margin-top: 2px;
+            font-style: italic;
+          }
+        }
+        .product-left {
+          padding-left: 10px;
+          padding-right: 25px;
+        }
+        .product-img-two {
+          margin-top: 150px;
+        }
+      }
+    }
+    @media only all and (max-width: $bp-xl) {
+      .hero {
+        .landing-hero-text {
+          margin-top: 250px;
+          margin-left: 80px;
+          h1 {
+            font-size: 43px;
+          }
+          h3 {
+            font-size: 16px;
+          }
+        }
+        header{
+          .logo {
+            .logo_image {
+              margin-left: 70px;
+            }
+          }
+          .login {
+            margin-right: 70px;
+            .sign-in-button {
+              font-size: 17px;
+              padding: 11px 15px 11px 15px;
+              border: 2px solid #fff;
+            }
+            .login-copy {
+              padding-left: 10px;
+            }
+          }
+        }
+      }
+      .email-sign-up-form {
+        input[type="text"], input[type="email"] {
+          font-size: 18px;
+          width: 350px;
+          height: 50px;
+        }
+        input[type="submit"] {
+          margin-left: -4px;
+          font-size: 18px;
+          width: 135px;
+          height: 50px;
+        }
+      }
+      .featured-news-section{
+        .featured-news {
+          font-size: 15px;
+        }
+      }
+      .product-hero {
+        img, object, embed {
+          padding: 0 30px 0 60px;
+          max-width: 100%;
+          height: auto;
+        }
+        .time-img {
+          max-width: 18%;
+          padding: 0 0 0 12px;
+        }
+        .product-text {
+          margin-top: 25px;
+          padding: 0 0 0 60px;
+          h1 {
+            font-size: 25px;
+          }
+          p {
+            font-size: 16px;
+          }
+          .time-quote {
+            font-size: 83%;
+            margin-left: -25px;
+            margin-top: 2px;
+            font-style: italic;
+          }
+        }
+        .product-left {
+          padding-left: 10px;
+          padding-right: 25px;
+        }
+        .product-img-two {
+          margin-top: 150px;
+        }
+      }
+      .product-hero-end {
+        .full-band {
+          margin-bottom: 60px;
+        }
+      }
+      .testimonial-main {
+        .full-band {
+          width: 100%;
+        }
+        .fuji-logo {
+          margin-top: 25px;
+          margin-bottom: 25px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+        .testimonial-text {
+          font-size: 20px;
+          font-style: italic;
+          margin-bottom: 0;
+        }
+      }
+      .join_block {
+        padding: 40px 20px;
+        p {
+          font-size: 16px;
+          margin-bottom: 30px;
+        }
+        h2 {
+          font-size: 35px;
+        }
+        .email-sign-up-form {
+          margin-left: 40px;
+        }
+      }
+    }
+    @media only all and (max-width: $bp-large) {
+      .hero {
+        .landing-hero-text {
+          margin-top: 300px;
+          margin-left: 80px;
+          h1 {
+            font-size: 35px;
+          }
+          h3 {
+            font-size: 13px;
+          }
+        }
+        header{
+          .logo {
+            .logo_image {
+              margin-left: 70px;
+            }
+          }
+          .login {
+            margin-right: 70px;
+            .sign-in-button {
+              font-size: 17px;
+              padding: 11px 15px 11px 15px;
+              border: 2px solid #fff;
+            }
+            .login-copy {
+              padding-left: 10px;
+            }
+          }
+        }
+      }
+      .email-sign-up-form {
+        input[type="text"], input[type="email"] {
+          font-size: 18px;
+          width: 350px;
+          height: 50px;
+        }
+        input[type="submit"] {
+          margin-left: -4px;
+          font-size: 18px;
+          width: 135px;
+          height: 50px;
+        }
+      }
+      .product-hero {
+        img, object, embed {
+          padding: 0 20px 0 30px;
+          max-width: 100%;
+          height: auto;
+        }
+        .time-img {
+          max-width: 18%;
+          padding: 0 0 0 12px;
+        }
+        .product-text {
+          margin-top: 25px;
+          padding: 0 10px 0 60px;
+          h1 {
+            font-size: 25px;
+          }
+          p {
+            font-size: 13px;
+          }
+          .time-quote {
+            font-size: 55%;
+            margin-left: -25px;
+            margin-top: 2px;
+            font-style: italic;
+          }
+        }
+        .product-left {
+          padding-left: 10px;
+          padding-right: 25px;
+        }
+        .product-img-two {
+          margin-top: 150px;
+        }
+      }
+      .testimonial-main {
+        .testimonial-text {
+          font-size: 17px;
+        }
+      }
+      .featured-news-section{
+        .featured-news {
+          font-size: 13px;
+        }
+      }
+      .join_block {
+        padding: 40px 20px;
+        display: block;
+        margin: auto;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        p {
+          font-size: 16px;
+          margin-bottom: 30px;
+        }
+        h2 {
+          font-size: 25px;
+        }
+        .email-sign-up-form {
+          margin-left: 40px;
+        }
+      }
+      .landing-footer {
+        .section-two {
+          .full-band {
+            .logo {
+              .logo_image {
+                margin-top: 10px;
+                margin-left: 20px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    @media only all and (min-width: $bp-small-3) {
+      .footer-links-div-small {
+        display: none;
+      }
+      .footer-links-div-extra-small {
+        display: none;
+      }
+    }
+    @media only all and (max-width: $bp-small-3) {
+
+      .hero {
+        .landing-hero-text {
+          margin-top: 280px;
+          margin-bottom: 60px;
+          margin-left: 80px;
+          h1 {
+            font-size: 35px;
+          }
+          h3 {
+            font-size: 13px;
+          }
+        }
+        .email-sign-up-form {
+          input[type="text"], input[type="email"] {
+            font-size: 13px;
+            width: 220px;
+            height: 30px;
+          }
+          input[type="submit"] {
+            margin-left: -4px;
+            font-size: 13px;
+            width: 90px;
+            height: 30px;
+          }
+        }
+      }
+      .product-hero {
+        .product-text {
+          margin-top: 25px;
+          padding: 0 10px 0 60px;
+          h1 {
+            font-size: 14px;
+          }
+          p {
+            font-size: 12px;
+          }
+          .time-quote {
+            display: none;
+          }
+          .time-img {
+            display: none;
+          }
+        }
+        .product-img-two {
+          margin-top: 50px;
+        }
+        .product-left {
+          margin: 0;
+          padding-left: 0;
+          padding-right: 25px;
+        }
+      }
+      .testimonial-main {
+        .testimonial-text {
+          font-size: 15px;
+        }
+      }
+      .join {
+        .email-sign-up-form {
+          text-align: center;
+          padding-left: 0;
+          margin-left: 0;
+          input[type="text"], input[type="email"] {
+            font-size: 14px;
+            width: 240px;
+            height: 30px;
+          }
+          input[type="submit"] {
+            margin-left: -4px;
+            font-size: 14px;
+            width: 100px;
+            height: 30px;
+          }
+        }
+        .join_block {
+          max-width: 500px;
+          h2 {
+            font-size: 25px;
+            color: #666666;
+            font-weight: bold;
+          }
+        }
+      }
+      .landing-footer {
+        table {
+          td, th {
+            width: 25px;
+          }
+        }
+        .footer-links-div-medium {
+          display: none;
+        }
+        .footer-links-div-small {
+          display: none;
+        }
+      }
+    }
+    @media only all and (max-width: 568px) {
+      .product-hero {
+        .product-text {
+          .product-img-two {
+            margin-top: 80px;
+          }
+        }
+      }
+    }
+    @media only all and (max-width: $bp-small-2) {
+      .hero {
+        header{
+          padding-top: 30px;
+          .logo {
+            .logo_image {
+              margin-left: 20px;
+              background-image: url('airbo_logo_white.png');
+              background-repeat: no-repeat;
+              background-position: center center;
+              background-size: 100%;
+              height: 50px;
+              width: 70px;
+            }
+          }
+          .login {
+            margin-right: 20px;
+            margin-top: 10px;
+            .sign-in-button {
+              color: #fff;
+              font-size: 14px;
+              padding: 9px 12px 9px 12px;
+              border-radius: 18px;
+              border: 2px solid #fff;
+              background-color: darken(rgba(55, 159, 215, 0), 5%);
+              &:hover {
+                background-color: darken(rgba(55, 159, 215, .2), 15%);
+              }
+            }
+            .login-copy {
+              padding-left: 10px;
+            }
+          }
+        }
+        .landing-hero-text {
+          margin-top: 280px;
+          margin-bottom: 30px;
+          margin-left: 10px;
+          h1 {
+            font-size: 35px;
+          }
+          h3 {
+            font-size: 13px;
+          }
+        }
+        .email-sign-up-form {
+          input[type="text"], input[type="email"] {
+            font-size: 13px;
+            width: 220px;
+            height: 30px;
+          }
+          input[type="submit"] {
+            margin-left: -4px;
+            font-size: 13px;
+            width: 90px;
+            height: 30px;
+          }
+        }
+      }
+      .product-hero {
+        .product-text {
+          margin-top: 0;
+          padding: 0;
+        }
+        .product-img-two {
+          margin-top: 40px;
+        }
+        .product-right {
+          padding-left: 15px;
+        }
+        .product-left {
+          padding-right: 15px;
+        }
+      }
+      .product-hero-end {
+        .full-band {
+          margin-bottom: 80px;
+        }
+      }
+      .join {
+        .email-sign-up-form {
+          padding-left: 0;
+          margin-left: 0;
+          input[type="text"], input[type="email"] {
+            font-size: 12px;
+            width: 220px;
+            height: 30px;
+          }
+          input[type="submit"] {
+            margin-left: -4px;
+            font-size: 12px;
+            width: 90px;
+            height: 30px;
+          }
+        }
+        .join_block {
+          max-width: 400px;
+          h2 {
+            font-size: 25px;
+            color: #666666;
+            font-weight: bold;
+          }
+        }
+      }
+      .landing-footer {
+        table {
+          td, th {
+            width: 25px;
+          }
+        }
+        .footer-links-div-medium {
+          display: none;
+        }
+        .footer-links-div-small {
+          display: none;
+        }
+      }
+    }
+    @media only all and (max-width: $bp-small) {
+      .hero {
+        .landing-hero-text {
+          h1 {
+            font-size: 25px;
+          }
+          h3 {
+            font-size: 12px;
+          }
+        }
+        .email-sign-up-form {
+          input[type="text"], input[type="email"] {
+            font-size: 11px;
+            width: 200px;
+            height: 30px;
+          }
+          input[type="submit"] {
+            margin-left: -4px;
+            font-size: 11px;
+            width: 70px;
+            height: 30px;
+          }
+        }
+      }
+      .join {
+        .email-sign-up-form {
+          padding-left: 0;
+          margin-left: 0;
+          input[type="text"], input[type="email"] {
+            font-size: 12px;
+            width: 200px;
+            height: 30px;
+          }
+          input[type="submit"] {
+            margin-left: -4px;
+            font-size: 12px;
+            width: 70px;
+            height: 30px;
+          }
+        }
+      }
+      .landing-footer {
+        table {
+          td, th {
+            width: 25px;
+          }
+        }
+        .footer-links-div-medium {
+          display: none;
+        }
+        .footer-links-div-small {
+          display: none;
+        }
       }
     }
   }
 }
-
-.hiw-item img{
-  height:64px;
-}
-
-.hiw-text{
-  &.short p{
-    margin-bottom:0px; 
-  }
-
-}
-
-p {
- &.short{
-   margin-bottom:0px;
-   margin-top: 0px;
- }
-}
-.hiw{
-  h2 {
-    margin-top:0px;
-    margin-bottom:40px;
-  }
-}
-
-

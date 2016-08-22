@@ -1,149 +1,212 @@
-<%content_for :head do%>
+<div class="v-08-01-2016">
+  <section class="bg-blue tall white hero" >
+    <div class="row">
 
-
-  <script>
-$(function(){
-  var handleScroll=  function (event){
-    console.log("scrolling");
-    toggleExploreMenu(false);
-  }
-
-
-  $(".tour-menu").on("click", function(event) {
-    event.preventDefault();
-    var anchor = event.target.hash
-      , srcEl = $(this)
-      , offset
-      ;
-
-    if(srcEl.parents("footer").length>0){
-      offset = 40;
-    }else{
-      offset = 100;
-    }
-
-
-    $('html, body').animate({
-        scrollTop: $(anchor).offset().top-offset
-    }, 500, handleExplore );  
-
-  });
-
-  function handleExplore(){
-    bindScroll();
-    setTimeout(function(){
-      toggleExploreMenu(true);
-    }, 0);
-  }
-
-  function toggleExploreMenu(on){
-    if (on){
-      $("#pg-home").css({"font-weight":"normal"});
-      $(".tour-menu").css({"font-weight":"bold"});
-    }else{
-      $("#pg-home").css({"font-weight":"bold"});
-      $(".tour-menu").css({"font-weight":"normal"});
-    }
-  }
-  
-
-  $(".see_airbo").click(function(){
-    $("#sign_up_block").show();
-  })
-
- 
-  function bindScroll(){
-    $(window).on("scroll", handleScroll);
-  }
-});
-
-  </script>
-
-<%end%>
-
-
-  <section class="bg-blue tall white text-center hero v-04-14-2016" >
-    <%= render partial: "pages/landing/header" %>
-    <div class="full-band">
-      <h1>Engaging Employee Communications</h1>
-      <h3>
-        Airbo is like a reinvented bulletin board. It transforms communications </br> that employees miss into attention-grabbing content they love.</h3>
-      <p>
-      <a class="button outlined see_airbo white" href="#tour" id="see-tour">See How It Works</a>
-      </p>
+      <%= render partial: "pages/landing/header" %>
+      <div class="landing-hero-text">
+        <h1>Get Their Attention</h1>
+        <h3>
+          HR and Corporate Communications use Airbo to modernize employee communications.</h3>
+          <div class="email-sign-up-form">
+            <%= form_tag( 'signup_requests/new', method: :get, class: "pre-signup" ) do |f| %>
+            <%= text_field_tag(:email, '', placeholder: "Enter your work email", class: "email-sign-up-input") %>
+            <%= submit_tag("Sign Up") %>
+            <% end %>
+          </div>
+        </div>
     </div>
   </section>
 
-<section class="clients">
-  <div class="clients_section row">
-    <p class="text-center short">Used by organizations from 20 to 75,000 employees.</p>
-    <%= render partial: "pages/landing/logos" %>
-  </div>
-</section>
+  <section class="featured-news-section">
+    <div class="clients_section row">
+      <p class="text-center featured-news"><span class="featured-news-bold">Featured News: </span>"Airbo CEO Vlad Gyster named Top 50 Benefits Technology Innovator." - Employee Benefit News</p>
+    </div>
+  </section>
 
-<a id="tour"></a>
-<div class="row full-band hiw">
-  <h2 class="text-center ">How it Works</h2>
-  <div class="small-8 columns small-centered text-center" >
-    <div class="row" >
-      <div class="small-12 large-4 columns">
-        <div class="hiw-item">
-          <%=image_tag "landing/sb-wellness-icon01.png"%>
-      <div class="hiw-text">
-        <h3>Tile</h3>
-        <p class="short">Bite-sized, interactive content that's fast to create.</p>
-      </div>
-        </div>
-      </div>
-
-      <div class="small-12 large-4 columns ">
-        <div class="hiw-item">
-          <%=image_tag "landing/sb-wellness-icon02.png"%>
-          <div class="hiw-text">
-            <h3>Board</h3>
-            <p class="short">A private site to post Tiles for employees to read.</p>
+  <section class="product-hero">
+    <div class="row full-band">
+      <div class="product-text product-right small-7 columns">
+        <h1>Employee communication for the 8 second attention span</h1>
+        <p class="sub-product-header">
+          Airbo makes HR topics feel fun, simple and visual so employees read, understand and participate.
+        </p>
+        <div class="row">
+          <%= image_tag("landing/time-logo.png", class: "product-img time-img") %>
+          <div class="small-3 columns">
+          </div>
+          <div class="small-9 columns">
+            <p class="time-quote">
+              "People generally lose concentration after eight seconds, highlighting the effects of an increasingly digitalized lifestyle on the brain." - Time, May 2015
+            </p>
           </div>
         </div>
       </div>
 
-      <div class="small-12 large-4 columns ">
-        <div class="hiw-item">
-          <%=image_tag "landing/sb-wellness-icon03.png"%>
-          <div class="hiw-text">
-            <h3>Metrics</h3>
-            <p class="short">Send Tiles and see who read and took action.</p>
+      <div class="small-5 columns">
+        <%= image_tag("landing/product_img_one.png", class: "product-img") %>
+      </div>
+    </div>
+  </section>
+
+  <section class="product-hero product-hero-end">
+    <div class="row full-band">
+      <div class="small-5 columns">
+        <%= image_tag("landing/product_img_two.png", class: "product-img-two") %>
+      </div>
+      <div class="product-text product-left small-7 columns">
+        <h1>Enterprise content for the BuzzFeed generation</h1>
+        <p class="sub-product-header">
+          Airbo helps you deliver content based on consumer best practices. Save time and budget by copying content from an exhaustive library, creating your own in minutes, or using our affordable content creation services.
+        </p>
+        <div class="row">
+          <%= image_tag("landing/pew-logo.png", class: "product-img time-img") %>
+          <div class="small-3 columns">
+          </div>
+          <div class="small-9 columns">
+            <p class="time-quote">
+              "Millenials overtake Baby Boomers as America's largest generation." - Pew Research Center, April 2016
+            </p>
           </div>
         </div>
+      </div>
     </div>
-    </div>
-  </div>
-</div>
-<a id="boards"> </a>
- <section class="topics padded-v-40">
-<h2 class="text-center ">Explore Boards</h2>
-<div class="row padded-v-20">
-  <div class="columns small-12 small-centered">
-    <div class="row ">
-      <%@sorted_demos.each do |board|%>
-        <div class="columns small-12 large-3 ">
-          <%= render partial: "pages/landing/topic", locals: {board:board,path: public_board_path(public_slug:board.public_slug)}%> 
+  </section>
+
+  <section class="testimonial-main">
+    <div class="row full-band">
+      <div class="small-12 columns text-center">
+        <div class="row">
+          <div class="fuji-logo">
+            <%= image_tag("landing/fujifilm_logo.png", class: "product-img") %>
+          </div>
         </div>
-      <%end%>
+        <div class="row">
+          <div class="testimonial-text small-10 small-offset-1 columns">
+            <p>
+              Fujifilm uses Airbo to drive year-round engagement in Benefits and Wellness Programs. Over 87% of employees participate. Health care trend has decreased to 0%. Health Risk Assessment participation rates went up by 217%.
+            </p>
+          </div>
+
+        </div>
+      </div>
     </div>
-  </div>
-<a id="sign_up_form"></a>
+  </section>
+
+  <section id="sign_up_block" class="join">
+    <div class="join_block center">
+      <h2 class="text-center">See how other companies use Airbo</h2>
+      <p class="text-center">Create a free account to browse examples from leading organizations.</p>
+      <div class="email-sign-up-form">
+        <%= form_tag( 'signup_requests/new', method: :get, class: "pre-signup" ) do |f| %>
+          <%= text_field_tag(:email, '', placeholder: "Enter your work email") %>
+          <%= submit_tag("Sign Up") %>
+        <% end %>
+      </div>
+      <%= render partial: "pages/landing/logos" %>
+    </div>
+  </section>
+
+
+  <footer id="pageFtr" class="landing-footer">
+    <div class="section-one">
+      <div class="row">
+        <div class="footer-links-div-medium small-6 columns small-offset-1">
+          <table class="footer-links">
+            <thead class="footer-headers">
+              <tr>
+                <th>Airbo</th>
+                <th>Resources</th>
+                <th>Get Started</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><%= link_to "Company", "/company" %></td>
+                <td><%= link_to "Case Studies", "/case-studies" %></td>
+                <td><%= link_to "Schedule a Demo", "/demo_requests/new" %></td>
+              </tr>
+              <tr>
+                <td><%= link_to "Careers", "https://angel.co/airbo/jobs?utm_source=profile_module", target: "_blank" %></td>
+                <td><%= link_to "Blog", "http://blog.airbo.com/" %></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><%= link_to "Contact Us", "", class: "open_intercom" %></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="footer-links-div-small small-11 small-offset-1 columns">
+          <table class="footer-links">
+            <thead class="footer-headers">
+              <tr>
+                <th>Airbo</th>
+                <th>Resources</th>
+                <th>Get Started</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><%= link_to "Company", "/company" %></td>
+                <td><%= link_to "Case Studies", "/case-studies" %></td>
+                <td><%= link_to "Schedule a Demo", "/demo_requests/new" %></td>
+              </tr>
+              <tr>
+                <td><%= link_to "Careers", "https://angel.co/airbo/jobs?utm_source=profile_module", target: "_blank" %></td>
+                <td><%= link_to "Blog", "http://blog.airbo.com/" %></td>
+              </tr>
+              <tr>
+                <td><%= link_to "Contact Us", "", class: "open_intercom" %></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="footer-links-div-extra-small small-11 small-offset-1 columns">
+          <table class="footer-links">
+            <thead class="footer-headers">
+              <tr>
+                <th>Airbo</th>
+                <th>Get Started</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><%= link_to "Company", "/company" %></td>
+                <td><%= link_to "Schedule a Demo", "/demo_requests/new" %></td>
+              </tr>
+              <tr>
+                <td><%= link_to "Careers", "https://angel.co/airbo/jobs?utm_source=profile_module", target: "_blank" %></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><%= link_to "Case Studies", "/case-studies" %></td>
+                <td><%= link_to "Contact Us", "", class: "open_intercom" %></td>
+              </tr>
+              <tr>
+                <td><%= link_to "Blog", "http://blog.airbo.com/" %></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="section-two">
+      <div class="full-band">
+        <div class="row">
+          <div class="small-2 columns">
+            <div class="logo">
+              <%= link_to "/" do %>
+                <div class="logo_image"></div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
 </div>
- </section>
-<%# render partial: "pages/landing/request_form" %>
-
-<section id="sign_up_block" class="join">
-  <div class="join_block center">
-    <h2 class="text-center">Join to Discover</h2>
-    <p class="text-center">Create a free account to see how companies use Airbo.</p>
-    <%= render partial: "pages/landing/form" %>
-    <%= render partial: "pages/landing/logos" %>
-  </div>
-</section>
-
-
-<%= render partial: "pages/landing/footer" %>

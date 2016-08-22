@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160811192046) do
+ActiveRecord::Schema.define(:version => 20160822183340) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -296,7 +296,7 @@ ActiveRecord::Schema.define(:version => 20160811192046) do
     t.string   "dependent_board_email_subject"
     t.text     "dependent_board_email_body"
     t.boolean  "alt_subject_enabled",                                  :default => false
-    t.boolean  "allow_embed_video",                                    :default => false
+    t.boolean  "allow_embed_video",                                    :default => true
   end
 
   create_table "email_commands", :force => true do |t|
@@ -672,6 +672,10 @@ ActiveRecord::Schema.define(:version => 20160811192046) do
     t.integer  "answer_index"
     t.boolean  "not_show_in_tile_progress", :default => false
   end
+
+  add_index "tile_completions", ["tile_id"], :name => "index_task_suggestions_on_task_id"
+  add_index "tile_completions", ["user_id"], :name => "index_task_suggestions_on_user_id"
+  add_index "tile_completions", ["user_type"], :name => "index_tile_completions_on_user_type"
 
   create_table "tile_images", :force => true do |t|
     t.string   "image_file_name"

@@ -7,7 +7,7 @@ class MultipleChoiceTile < Tile
   #FIXME should not need to have separate answers field but some processing on the field needs to happen and the client side creates an answers field instead of multiple_choice_answers
 
 
-  before_validation :set_answers, :if => :answers_populated? 
+  before_validation :set_answers, :if => :answers_populated?
 
   def points_positive
     unless points.present? && points > 0

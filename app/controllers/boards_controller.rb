@@ -1,15 +1,16 @@
 #FIXME this entire logic needs to be completely rewritten. It is a utter cluster
-#fuck.  
+#fuck.
 class BoardsController < ApplicationController
   layout 'external'
   skip_before_filter :authorize
   before_filter :allow_guest_user
+  layout 'standalone', only: [:new]
 
   include NormalizeBoardName
   include BoardsHelper
 
   def new
-    @user = User.new
+    @user = User.new(email: params[:email])
     @board = Demo.new
   end
 
@@ -30,7 +31,7 @@ class BoardsController < ApplicationController
 
     if board.save
       render json: {
-        success: true, 
+        success: true,
         updatedBoardName: @new_board_name,
         truncatedUpdatedBoardName: truncate_name_for_switcher(@new_board_name)
       }
@@ -98,8 +99,8 @@ class BoardsController < ApplicationController
                       :action => 'product', \
                       flash: { failure: set_errors }
         else
-          flash.now[:failure] = set_errors
-          render 'new'
+          flash[:failure] = set_errors
+          redirect_to "/join"
         end
       end
     end

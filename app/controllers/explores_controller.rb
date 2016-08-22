@@ -14,7 +14,8 @@ class ExploresController < ClientAdminBaseController
 
     render_partial_if_requested
 
-    @show_explore_intro = current_user.intros.show_explore_intro!
+    #Resolve introJS with new Onboarding. Some recent commit caused the experience to be buggy on account creation
+    @show_explore_intro = false
 
     if params[:return_to_explore_source]
       ping_action_after_dash params[:return_to_explore_source], {}, current_user
@@ -46,5 +47,5 @@ class ExploresController < ClientAdminBaseController
   private
      def find_tile_tags
       params[:tile_tag]
-    end
+     end
 end

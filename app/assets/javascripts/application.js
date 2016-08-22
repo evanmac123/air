@@ -8,7 +8,7 @@ var Airbo = window.Airbo || {};
 var DefaultUtils = {
 
   supportsFeatureByPresenceOfSelector: function(identifier){
-    return $(identifier).length > 0
+    return $(identifier).length > 0;
   },
 
 //FIXME Remove Deprecated PAGes features
@@ -20,7 +20,7 @@ var DefaultUtils = {
   },
 
   isAtPage: function(identifier){
-    return $(identifier).length > 0
+    return $(identifier).length > 0;
   },
 
   noop:  function(){},
@@ -92,15 +92,13 @@ var DefaultUtils = {
   flashMsg:function (xhr, defaultMsg){
     return xhr.getResponseHeader("X-Message") || defaultMsg;
   }
-
-  
-}
+};
 
 
 //FIXME add to airbo utils
 function isIE11() {
   return !!window.MSInputMethodContext;
-};
+}
 
 function isIE() {
   var myNav;
@@ -112,7 +110,7 @@ function isIE() {
   } else {
     return false;
   }
-};
+}
 
 
 $.extend(Airbo.Utils, DefaultUtils);

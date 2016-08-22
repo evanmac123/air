@@ -1,5 +1,5 @@
 class EmailInfoRequest < ActiveRecord::Base
-  def notify_the_ks_of_demo_request
+  def notify
     EmailInfoRequestNotifier.delay_mail(:info_requested, self)
   end
 end
