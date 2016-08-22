@@ -1,6 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-Capybara.javascript_driver=:selenium
+#Capybara.javascript_driver=:selenium
 
 feature "Client admin modifies the follow digest email", js: true do
 
@@ -29,15 +29,21 @@ feature "Client admin modifies the follow digest email", js: true do
   end
 
   context "Editing send on and subject" do
-    scenario "completes change"  do
+    scenario "confirms change"  do
       within @rowSelector do
         click_link "Edit"
         fill_in "original_digest_subject", with: "New Subject"
         fill_in "send_on", with: "2000-12-31"
         click_link "Save"
-        expect(page).to have_field 'original_digest_subject', disabled: true, with: 'New Subject'
-        expect(page).to have_field 'send_on', disabled: true, with: '2000-12-31'
       end
+
+      expect(page).to have_content(ClientAdmin::TilesFollowUpEmailController::SAVE_SUCCESS)
+
+        within @rowSelector do
+          expect(page).to have_field 'original_digest_subject', disabled: true, with: 'New Subject'
+          expect(page).to have_field 'send_on', disabled: true, with: '2000-12-31'
+        end
+      #TODO figure out if i like this pattern
     end
 
     scenario "cancels changes"  do
@@ -61,6 +67,8 @@ feature "Client admin modifies the follow digest email", js: true do
       within sweet_alert_popup do
         click_button "OK"
       end
+
+      expect(page).to have_content(ClientAdmin::TilesFollowUpEmailController::SEND_NOW_SUCCESS)
       expect(page).to have_css(".no-follow-up", visible: true)
       expect(page).to have_no_css(@rowSelector)
     end
@@ -89,6 +97,7 @@ feature "Client admin modifies the follow digest email", js: true do
         click_button "OK"
       end
 
+      expect(page).to have_content(ClientAdmin::TilesFollowUpEmailController::DELETE_SUCCESS)
       expect(page).to have_css(".no-follow-up", visible: true)
       expect(page).to have_no_css(@rowSelector)
     end
