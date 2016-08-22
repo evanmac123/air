@@ -21,7 +21,6 @@ feature 'Client admin gets limited access by token' do
   end
 
   def click_board_switcher
-    save_and_open_page
     page.find('#board_switch_toggler').click
   end
 
