@@ -26,4 +26,49 @@ class FollowUpDigestEmail < ActiveRecord::Base
 
     day_to_send > today ? day_to_send - today : 7 - (today - day_to_send)
   end
+
+
+  def trigger_deliveries
+    recipients.each do |recipient_id| 
+      TilesDigestMailer.delay.
+        notify_one( demo.id, recipient_id, tile_ids, subject, true, headline, nil)
+    end
+  end
+
+  def users_to_reject
+
+    demos = Demo.arel_table
+    board_memberships = BoardMembership.arel_table
+    tile_completions = TileCompletion.arel_table
+
+
+   res = BoardMembership.select(board_memberships[:user_id]).where(
+     demos[:id].eq(demo.id).and(board_memberships[:followup_muted].eq('f'))
+    ).joins(
+      board_memberships
+      .join(demos)
+      .on(board_memberships[:demo_id].eq(demos[:id]))
+      .join(tile_completions)
+      .on(tile_completions[:user_id].eq(board_memberships[:user_id])).join_sources
+    ).group(board_memberships[:user_id])
+      .having(tile_completions[:user_id].count.gt(0))
+
+    res.map(&:user_id)
+  end
+
+  def recipients
+    user_ids_to_deliver_to - users_to_reject
+  end
+
+  private
+
+  def headline
+    original_digest_headline
+  end
+
+  def subject
+    "Don't Miss#{original_digest_subject && original_digest_subject.prepend(': ') || ' Your New Tiles'}"
+  end
+
+
 end
