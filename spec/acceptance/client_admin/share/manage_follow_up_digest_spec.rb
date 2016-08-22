@@ -1,5 +1,6 @@
 require 'acceptance/acceptance_helper'
 
+Capybara.javascript_driver=:selenium
 
 feature "Client admin modifies the follow digest email", js: true do
 
@@ -22,14 +23,12 @@ feature "Client admin modifies the follow digest email", js: true do
                                    )
 
 
+      @rowSelector = ".followups-list #fu_#{@fu.id}"
     #bypass_modal_overlays(admin)
     visit client_admin_share_path(as: @admin)
   end
 
   context "Editing send on and subject" do
-    before do
-      @rowSelector = ".followups-list #fu_#{@fu.id}"
-    end
     scenario "completes change"  do
       within @rowSelector do
         click_link "Edit"
@@ -54,23 +53,63 @@ feature "Client admin modifies the follow digest email", js: true do
 
   end
 
-  scenario "send now"  do
-    rowSelector = ".followups-list #fu_#{@fu.id}"
-    within rowSelector do
-      click_link "Send Now"
+  context "send now"  do
+    scenario "confirm" do
+      within @rowSelector do
+        click_link "Send Now"
+      end
+      within sweet_alert_popup do
+        click_button "OK"
+      end
+      expect(page).to have_css(".no-follow-up", visible: true)
+      expect(page).to have_no_css(@rowSelector)
     end
-    expect(page).to have_no_css(rowSelector)
-    expect(page).to have_css(".no-follow-up", visible: true)
+
+    scenario "cancel" do
+      within @rowSelector do
+        click_link "Send Now"
+      end
+
+      within sweet_alert_popup do
+        click_button "Cancel"
+      end
+      expect(page).to have_css(".no-follow-up", visible: false)
+      expect(page).to have_css(@rowSelector)
+    end
+
   end
 
-  scenario "delete"  do
-    rowSelector = ".followups-list #fu_#{@fu.id}"
-    within rowSelector do
-      click_link "Delete"
+  context "delete"  do
+    scenario "confirm" do
+      within @rowSelector do
+        click_link "Delete"
+      end
+
+      within sweet_alert_popup do
+        click_button "OK"
+      end
+
+      expect(page).to have_css(".no-follow-up", visible: true)
+      expect(page).to have_no_css(@rowSelector)
     end
-    expect(page).to have_no_css(rowSelector)
-    expect(page).to have_css(".no-follow-up", visible: true)
+
+    scenario "cancel" do
+      within @rowSelector do
+        click_link "Delete"
+      end
+
+      within sweet_alert_popup do
+        click_button "Cancel"
+      end
+
+      expect(page).to have_css(".no-follow-up", visible: false)
+      expect(page).to have_css(@rowSelector)
+    end
+
   end
 
+  def sweet_alert_popup
+    ".sweet-alert.airbo.showSweetAlert.visible"
+  end
 
 end

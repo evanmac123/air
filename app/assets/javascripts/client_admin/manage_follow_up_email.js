@@ -37,6 +37,34 @@ Airbo.DigestEmailFollowUpManager = (function(){
   }
 
 
+  function approve(text, cb) {
+    swal(
+      {
+        title: "",
+        text: text,
+        cancelButtonText: "Cancel",
+        animation: false,
+        customClass: "airbo",
+        closeOnConfirm: true,
+        showCancelButton: true,
+        closeOnCancel: true
+      },
+
+      function(isConfirm){
+        if (isConfirm) {
+
+          cb &&cb();
+        }
+      }
+    );
+  }
+
+  function done(){
+    //swal({title: "Done", customClass: "airbo"});
+    //TODO can we show flash here
+  }
+
+
   function toggleEditMode(cmd, inputs){
     var hiddenCmdCss
       , disableEditing
@@ -93,7 +121,6 @@ Airbo.DigestEmailFollowUpManager = (function(){
   function save(cmd, inputs){
     function ok(data, status, xhr){
       toggleEditMode(cmd,inputs)
-      console.log("saved");
     }
 
     function failed(xhr, status, error){
@@ -106,22 +133,28 @@ Airbo.DigestEmailFollowUpManager = (function(){
   function now(cmd){
     function ok(data, status, xhr){
       handleRemoval(cmd)
+      done();
     }
 
     function failed(){
       console.log("unabled to send now");
     }
 
-    execute("PUT", cmd.attr("href"), {now: "true"}, ok, failed);
+    approve("Are you sure want to sen this followup immediately?", function(){
+      execute("PUT", cmd.attr("href"), {now: "true"}, ok, failed);
+    });
   }
 
   function destroy(cmd){
     function ok(data, status, xhr){
       handleRemoval(cmd)
+      done();
       Airbo.Utils.ping("Followup - Cancelled", data)
     }
 
-    execute("DELETE", cmd.attr("href"),{}, ok);
+    approve("Are you sure want to delete this followup email?", function(){
+      execute("DELETE", cmd.attr("href"),{}, ok);
+    });
 
   }
 
