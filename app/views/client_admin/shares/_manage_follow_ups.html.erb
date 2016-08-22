@@ -15,24 +15,29 @@
         </thead>
         <tbody>
           <% @follow_up_emails.each do |follow_up| %>
-
-      
-              <tr> 
-                <td>
-                  <%= text_field_tag :original_digest_subject, follow_up.original_digest_subject, disabled: true%>
-                </td>
-                <td>
-                  <%=text_field_tag :send_on, follow_up.send_on, disabled:true %>
-                </td>
-                <td>
-                  <div class="commands">
-                    <%= link_to "Edit", "#", class: "button outlined inline small edit"  %>
-                    <%= link_to "Save", client_admin_tiles_follow_up_email_path(follow_up), method: :put, confirm: 'Are you sure?', class: "save button inline small  "%>
-                    <%= link_to "Send Now", client_admin_tiles_follow_up_email_path(follow_up), method: :put, confirm: 'Are you sure?', class: "now button inline small  "%>
-                    <%= link_to "Delete", client_admin_tiles_follow_up_email_path(follow_up), method: :delete,  confirm: 'Are you sure?', class: "delete button inline small  "%>
-                  </div>
-                </td>
-              </tr>
+            <tr class="hidden no-follow-up"> 
+              <td colspan="3">No follow up emails scheduled </td>
+            </tr>
+            <tr> 
+              <td>
+                <%= text_field_tag :original_digest_subject, follow_up.original_digest_subject, disabled: true, data:{original_val: follow_up.original_digest_subject}%>
+              </td>
+              <td>
+                <%=text_field_tag :send_on, follow_up.send_on, disabled:true, data:{original_val: follow_up.send_on.to_s} %>
+              </td>
+              <td>
+                <div class="commands">
+                  <%= link_to "Edit", "#", class: "edit button outlined small", data:{action: "edit"} %>
+                  <%= link_to "Send Now", client_admin_tiles_follow_up_email_path(follow_up), 
+                    class: "now button small", data:{action:"now"} %>
+                  <%= link_to "Delete", client_admin_tiles_follow_up_email_path(follow_up), 
+                    class: "destroy button small", data:{action: "destroy"}%>
+                  <%= link_to "Save", client_admin_tiles_follow_up_email_path(follow_up), 
+                    class: "save button small hidden", data:{action:"save"} %>
+                  <%= link_to "Cancel", "#", class: "cancel button outlined small hidden", data:{action:"cancel"} %>
+                </div>
+              </td>
+            </tr>
             <% end %>
         </tbody>
       </table>
