@@ -9,7 +9,6 @@ class TilesDigestMailer < BaseTilesDigestMailer
     @tile_ids = tile_ids
     @demo = Demo.find demo_id
 
-
     presenter_class = follow_up_email ? TilesDigestMailFollowUpPresenter : TilesDigestMailDigestPresenter
     @presenter = presenter_class.new(@user, @demo, custom_from, custom_headline, custom_message, is_new_invite, link_subject)
 
@@ -63,6 +62,10 @@ class TilesDigestMailer < BaseTilesDigestMailer
   end
 
   def notify_all_follow_up(followup_id)
+    #FIXME rewrite this method to use FollowUpDigestEmail#process method
+    # this method is a classic case of the "Feature Envy" anti-pattern
+    # should be FollowUpDigestEmail.find(followup_id).trigger_deliveries
+
     followup = FollowUpDigestEmail.find followup_id
     subject = if followup.original_digest_subject.present?
                 "Don't Miss: #{followup.original_digest_subject}"
@@ -72,10 +75,19 @@ class TilesDigestMailer < BaseTilesDigestMailer
     headline = followup.original_digest_headline
 
     tile_ids = followup.tile_ids
+    
+    #FIXME thie logic is screwy followup.user_ids_to_deliver_to is never changed
+    #once the FollowUpDigestEmail model is created so this query is redundant.
+    #When this model is created the #user_ids_to_deliver_to is set to the result
+    #of #demo.users_for_digest(followup.unclaimed_users_also_get_digest)
+    #since it uses the same method to query the users as it used to create them
+    #in the first place it look like we can simply do  --> user_ids =  followup.user_ids_to_deliver_to
+
     user_ids = followup.demo.users_for_digest(followup.unclaimed_users_also_get_digest).where(id: followup.user_ids_to_deliver_to).pluck(:id)
 
     user_ids.reject! { |user_id| TileCompletion.user_completed_any_tiles?(user_id, tile_ids)}
     user_ids.reject! { |user_id| BoardMembership.where(demo_id: followup.demo_id, user_id: user_id, followup_muted: true).first.present? }
+
     user_ids.each    { |user_id| TilesDigestMailer.delay.notify_one(followup.demo.id, user_id, tile_ids, subject, true, headline, nil) }
 
     followup.destroy
