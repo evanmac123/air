@@ -59,9 +59,10 @@ Airbo.DigestEmailFollowUpManager = (function(){
     );
   }
 
-  function done(){
-    //swal({title: "Done", customClass: "airbo"});
-    //TODO can we show flash here
+  function done(type, xhr){
+    //TODO modify to use status from xhr instead of passing in status
+    var msg = xhr.getResponseHeader("X-Message") || "Request Completed Successfully";
+    Airbo.Utils.flash(type, msg);
   }
 
 
@@ -113,7 +114,6 @@ Airbo.DigestEmailFollowUpManager = (function(){
     }) 
   }
 
-
   function edit(cmd, inputs){
     toggleEditMode(cmd, inputs)
   }
@@ -121,6 +121,7 @@ Airbo.DigestEmailFollowUpManager = (function(){
   function save(cmd, inputs){
     function ok(data, status, xhr){
       toggleEditMode(cmd,inputs)
+      done("success", xhr);
     }
 
     function failed(xhr, status, error){
@@ -133,7 +134,7 @@ Airbo.DigestEmailFollowUpManager = (function(){
   function now(cmd){
     function ok(data, status, xhr){
       handleRemoval(cmd)
-      done();
+      done("success", xhr);
     }
 
     function failed(){
@@ -148,7 +149,7 @@ Airbo.DigestEmailFollowUpManager = (function(){
   function destroy(cmd){
     function ok(data, status, xhr){
       handleRemoval(cmd)
-      done();
+      done("success",xhr);
       Airbo.Utils.ping("Followup - Cancelled", data)
     }
 
