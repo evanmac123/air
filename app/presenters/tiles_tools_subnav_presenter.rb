@@ -20,7 +20,7 @@ class TilesToolsSubnavPresenter
     elements = set_subnav_elements.reject { |el|
       el[:item_id] == "explore" if demo.explore_disabled?
     }
-    
+
     elements.each do |item_params|
       yield correct_params(item_params)
     end
