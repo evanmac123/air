@@ -202,7 +202,7 @@ Airbo.TileAction = (function(){
     swal(
       {
         title: "",
-        text: "Are you sure you want to delete this tile? Deleting a tile is irrevocable and you'll loose all data associated with it.",
+        text: "Deleting a tile cannot be undone.\n\nAre you sure you want to delete this tile?",
         customClass: "airbo",
         animation: false,
         closeOnConfirm: false,
