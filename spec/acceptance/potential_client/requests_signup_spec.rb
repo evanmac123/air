@@ -15,7 +15,7 @@ feature "Potential user requests signup" do
 
         click_button("Submit")
 
-        expect_content("Thanks for signing up with Airbo! Someone from our team will contact you within 24 hours to get you setup!")
+        expect_content("Thanks for signing up with Airbo! Someone from our team will contact you within 24 hours to get you set up.")
       end
     end
   end

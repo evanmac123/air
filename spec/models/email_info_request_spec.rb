@@ -12,14 +12,15 @@ describe EmailInfoRequest do
         email:   'dude@bigco.com',
         comment: 'Hot shit!',
         company: "Big Machines",
+        source: "demo_request"
       )
 
       request.notify
       Delayed::Worker.new.work_off
 
-      open_email 'team_k@airbo.com'
+      open_email 'team@airbo.com'
 
-      current_email.subject.should include("Information Request")
+      current_email.subject.should include("Demo Request")
       [
         "Dude Duderson",
         "dude@bigco.com",
@@ -40,12 +41,13 @@ describe EmailInfoRequest do
         email:   'dude@bigco.com',
         comment: 'Hot shit!',
         company: "Big Machines",
+        source: "signup"
       )
 
       request.notify
       Delayed::Worker.new.work_off
 
-      open_email 'team_k@airbo.com'
+      open_email 'team@airbo.com'
 
       current_email.subject.should include("Signup Request")
     end
