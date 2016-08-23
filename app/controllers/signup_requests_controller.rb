@@ -11,7 +11,7 @@ class SignupRequestsController < ApplicationController
 
     flash[:new_success] = "Thanks for signing up with Airbo!  Someone from our team will contact you within 24 hours to get you set up."
 
-    redirect_to root_path
+    redirect_to root_path(signup_request: true)
   end
 
   def new

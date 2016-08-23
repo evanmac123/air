@@ -1,0 +1,31 @@
+<% if params[:signup_request] == "true" %>
+  <div class="landing-modal">
+    <div data-reveal class='reveal-modal text-center' id='signups_modal' style="background-color:none;">
+
+      <h2>Thanks for signing up to use Airbo!</h2>
+
+      <h3>Someone from our team will reach out to you in the next 24 hours to get you set up.</h3>
+      
+      <h3>In the meantime, would you like to read about how FujiFilm used Airbo to lower their healthcare trend to 0%.</h3>
+
+      <div>
+
+        <%= link_to 'FujiFilm Case Study', '/pages/fujifilm', class: "button  outlined" %>
+      </div>
+
+    </div>
+  </div>
+<% elsif params[:demo_request] == "true" %>
+  <div data-reveal class='reveal-modal' id='demo_requests_modal'>
+    <h2>Thanks for requesting a demo with Airbo!</h2>
+
+    <h3>Someone from our team will reach out to you in the next 24 hours to schedule a time to chat.</h3>
+
+    <h3>In the meantime, would you like to read about how FujiFilm used Airbo to lower their healthcare trend to 0%.</h3>
+
+    <div>
+
+      <%= link_to 'FujiFilm Case Study', '/pages/fujifilm', class: "button  outlined" %>
+    </div>
+  </div>
+<% end %>
