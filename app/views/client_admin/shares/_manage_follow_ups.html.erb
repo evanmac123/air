@@ -1,16 +1,16 @@
 <% unless @follow_up_emails.empty? %>
   <div id="scheduled_followups">
-    <h4>Scheduled Follow-Up</h4>
-    <table>
-      <% @follow_up_emails.each do |follow_up| %>
-        <tbody>
+    <h3>Scheduled Follow-Up</h3>
+    <table class="border-less">
+      <tbody>
+        <% @follow_up_emails.each do |follow_up| %>
           <tr>
-            <td><%= follow_up.original_digest_subject %> </td>
-            <td><%= follow_up.send_on.to_time.to_s(:tile_digest_email_sent_at) %></td>
+            <td class="subject">Don't Miss: <span><%= truncate(follow_up.original_digest_subject, length:50) %></span> </td>
+            <td class = "send_on"><%= follow_up.send_on.to_time.to_s(:tile_digest_email_sent_at) %></td>
             <td><%= link_to "Edit", edit_client_admin_tiles_follow_up_email_path(follow_up), class: "edit-follow-up"  %></td>
           </tr>
-        </tbody>
-      <% end %>
+        <% end %>
+      </tbody>
     </table>
   </div>
 <% end %>
