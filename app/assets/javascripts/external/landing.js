@@ -9,7 +9,7 @@ Airbo.Landing = (function(){
   }
   return {
   init: init
-}
+};
 }());
 
 $(function(){
@@ -37,6 +37,15 @@ $(document).ready(function() {
       $(this.email).removeAttr("style");
   });
 
+  var validCharactersRegex = /^[a-z][- a-z]*[- ]{1}[- a-z]*[a-z]$/i;
+  function fullname_valid(value) {
+      return validCharactersRegex.test(value);
+  }
+
+  $.validator.addMethod("custom_fullname", function(value, element) {
+      return fullname_valid(value);
+  }, "Please enter your first and last name.");
+
 
   $("#landing_info_request_form").submit(function(event){
     var form = $("#landing_info_request_form");
@@ -52,6 +61,7 @@ $(document).ready(function() {
         },
         "request[name]": {
           required: true,
+          custom_fullname: true
         },
         "request[password]": {
           required: true,
@@ -63,7 +73,7 @@ $(document).ready(function() {
         },
         "request[size]": {
           required: true,
-        }
+        },
       },
       messages: {
         "request[company]": {
@@ -78,6 +88,14 @@ $(document).ready(function() {
         "request[phone]": {
           required: "Please enter your phone number.",
         },
+      },
+      errorPlacement: function(error, element) {
+        var placement = $(element).data('error');
+        if (placement) {
+          $(placement).append(error);
+        } else {
+          error.insertAfter(element);
+        }
       }
     };
 
@@ -87,7 +105,6 @@ $(document).ready(function() {
     if(!form.valid()){
       event.preventDefault();
       validator.focusInvalid();
-      validator.resetForm();
     }
   });
 });

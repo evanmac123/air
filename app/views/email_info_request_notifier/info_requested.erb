@@ -1,0 +1,27 @@
+<h3>
+  <%= @email_info_request.pretty_source %>
+</h3>
+<h4>Request Created At: <%= @email_info_request.created_at.pretty  %></h4>
+<p>
+  Name:
+  <%= @email_info_request.name %>
+</p>
+<p>
+  Phone:
+  <%= @email_info_request.phone  %>
+</p>
+<p>
+  Email:
+  <%= @email_info_request.email  %>
+</p>
+<p>
+  Company:
+  <%= @email_info_request.company %>
+</p>
+<p>
+  Company Size:
+  <%= @email_info_request.size %>
+</p>
+<br/>
+
+<%= render 'shared/unsubscribe_footer'  %>

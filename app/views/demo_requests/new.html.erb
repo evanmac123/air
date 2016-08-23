@@ -10,10 +10,9 @@
       <div class="line-separator"></div>
       <h4>We’ll email you within the next few hours to schedule a 30 minute overview.</h4>
       <%= form_tag(demo_requests_path, id: "landing_info_request_form") do %>
-        <label class="input_label">Your first and last name</label>
+        <label class="input_label">Full name</label>
         <%= text_field_tag "request[name]" %>
-
-        <label class="input_label">Your email</label>
+        <label class="input_label">Email address</label>
         <%= text_field_tag "request[email]" %>
 
         <label class="input_label">Phone number</label>

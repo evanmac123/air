@@ -10,8 +10,8 @@ describe EmailInfoRequest do
       request = EmailInfoRequest.create!(
         name:    'Dude Duderson',
         email:   'dude@bigco.com',
-        comment: 'Hot shit!',
         company: "Big Machines",
+        size: "100-500 employees",
         source: "demo_request"
       )
 
@@ -24,8 +24,9 @@ describe EmailInfoRequest do
       [
         "Dude Duderson",
         "dude@bigco.com",
-        "Hot shit!",
+        "100-500 employees",
         "Big Machines",
+        "DEMO REQUEST",
       ].each do |text_piece|
         current_email.body.should include(text_piece)
       end
@@ -39,9 +40,9 @@ describe EmailInfoRequest do
       request = EmailInfoRequest.create!(
         name:    'Dude Duderson',
         email:   'dude@bigco.com',
-        comment: 'Hot shit!',
         company: "Big Machines",
-        source: "signup"
+        source: "signup",
+        size: "100-500 employees",
       )
 
       request.notify
@@ -50,6 +51,15 @@ describe EmailInfoRequest do
       open_email 'team@airbo.com'
 
       current_email.subject.should include("Signup Request")
+      [
+        "Dude Duderson",
+        "dude@bigco.com",
+        "100-500 employees",
+        "Big Machines",
+        "SIGNUP",
+      ].each do |text_piece|
+        current_email.body.should include(text_piece)
+      end
     end
   end
 end
