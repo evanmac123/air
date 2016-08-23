@@ -1,6 +1,31 @@
-.followups-list{
+
+.follow-up-email-form {
+  border-radius: 3px;
+  padding: 20px;
+  background: white;
+  width: 60%;
+  margin: auto;
+
+}
+.cmd-wrapper{
+  text-align: center;
   .commands {
-    margin-bottom: 20px;
+    /*display: inline-block;*/
   }
 }
+li.control-group{
+  margin-bottom: .5em;
+  label {
+    text-align: right;
+    display: inline-block;
+    vertical-align: middle;
+    width: 10em;
+    margin: 0 1em 0 0;
+  }
+  input {
+  display: inline-block;
+  width: auto;
+  }
+}
+
 

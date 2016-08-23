@@ -11,10 +11,6 @@ $table-line-height: 1.5em;
 
 @import "./vendor/foundation/components/tables";
 
-
-th {
-  @include font-weight-bold;
-}
 table:not(.first-column-header){
 
   width: 100%;
@@ -30,17 +26,31 @@ table:not(.first-column-header){
     border-bottom: 1px solid $border-color-1;
   }
 
+  &.border-less{ 
+    width: 70%;
+
+    tr:hover,
+    table tr.even:hover,
+    table tr.alt:hover,
+    table tr:nth-of-type(even):hover {
+      background-color: inherit
+    }
+    td {
+      border-bottom: 0;
+    }
+  }
+ 
 }
 
 table.first-column-header{
- th {
-   text-align:left;
-   padding-right: 75px;
- }
+  th {
+    text-align:left;
+    padding-right: 75px;
+  }
 
- tr {
-   background-color: inherit;
- }
+  tr {
+    background-color: inherit;
+  }
 }
 
 
@@ -49,28 +59,21 @@ tr.resource-row{
 }
 
 table.sortable{
- thead>th{
-  cursor:hand;
- }
+  thead>th{
+    cursor:hand;
+  }
 }
 
 
-tbody {
- th{
-   text-align:left;
- }
+table.border-less{
+
+  tr.even:hover,
+  tr.alt:hover,
+  tr:nth-of-type(even):hover {
+    background-color: inherit;
+  }
 }
 
-caption{
-  @include font-weight-bold;
-  padding: 0 0 10px 0;
-  font-size: 24px;
-}
-.table-container{
-
- overflow: scroll;
- padding:10px 20px
-}
 
 table.kpi-layout{
   min-width: 50%;
@@ -81,7 +84,7 @@ table.kpi-layout{
       margin-bottom:25px;
 
       th {
-          padding-right: 30px;
+        padding-right: 30px;
         &.group-hdr{
           padding-bottom: 20px;
           padding-top: 20px;
@@ -89,11 +92,48 @@ table.kpi-layout{
           font-size:1.05em;
           font-weight: bold;
           &::first-of-type{
-          padding-top: 10px;
+            padding-top: 10px;
           }
         }
       }
     }
 
+  }
+}
+
+
+
+tbody {
+  th{
+    text-align:left;
+  }
+}
+
+caption{
+  @include font-weight-bold;
+  padding: 0 0 10px 0;
+  font-size: 24px;
+}
+.table-container{
+
+  overflow: scroll;
+  padding:10px 20px
+}
+th {
+  @include font-weight-bold;
+}
+
+//FIXME make this widget
+
+#scheduled_followups{
+  table:not(.first-column-header){
+    &.border-less{
+      td {
+        font-size: 14px;
+      }
+      td:first-of-type{
+        padding-left: 0;
+      }
+    }
   }
 }
