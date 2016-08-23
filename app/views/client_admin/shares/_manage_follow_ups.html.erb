@@ -1,46 +1,16 @@
-<% if  @follow_up_emails.any? %>
-  <div class="followups-list">
-    <div class="row">
-      <h3 class="large-12 columns bold">Scheduled Follow-Up</h3>
-    </div>
-
-    <div class="row">
-
-      <div class="large-12 small-6 columns">
-        <table>
-          <thead>
-            <tr>
-              <th>Subject</th><th>Scheduled Date</th><th>&nbsp;</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @follow_up_emails.each do |follow_up| %>
-              <tr class="hidden no-follow-up" > 
-                <td colspan="3">No follow up emails scheduled </td>
-              </tr>
-              <tr id="fu_<%=follow_up.id%>"> 
-                <td>
-                  <%= text_field_tag :original_digest_subject, follow_up.original_digest_subject, disabled: true, data:{original_val: follow_up.original_digest_subject}%>
-                </td>
-                <td>
-                  <%=text_field_tag :send_on, follow_up.send_on, disabled:true, data:{original_val: follow_up.send_on.to_s} %>
-                </td>
-                <td>
-                  <div class="commands">
-                    <%= link_to "Edit", "#", class: "edit button outlined small", data:{action: "edit"} %>
-                    <%= link_to "Send Now", client_admin_tiles_follow_up_email_path(follow_up), 
-                      class: "now button small", data:{action:"now"} %>
-                    <%= link_to "Delete", client_admin_tiles_follow_up_email_path(follow_up), 
-                      class: "destroy button small", data:{action: "destroy"}%>
-                    <%= link_to "Save", client_admin_tiles_follow_up_email_path(follow_up), 
-                      class: "save button small hidden", data:{action:"save"} %>
-                    <%= link_to "Cancel", "#", class: "cancel button outlined small hidden", data:{action:"cancel"} %>
-                  </div>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  <% end %>
+<% unless @follow_up_emails.empty? %>
+  <div id="scheduled_followups">
+    <h4>Scheduled Follow-Up</h4>
+    <table>
+      <% @follow_up_emails.each do |follow_up| %>
+        <tbody>
+          <tr>
+            <td><%= follow_up.original_digest_subject %> </td>
+            <td><%= follow_up.send_on.to_time.to_s(:tile_digest_email_sent_at) %></td>
+            <td><%= link_to "Edit", edit_client_admin_tiles_follow_up_email_path(follow_up), class: "edit-follow-up"  %></td>
+          </tr>
+        </tbody>
+      <% end %>
+    </table>
+  </div>
+<% end %>

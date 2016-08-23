@@ -2,39 +2,159 @@ var Airbo = window.Airbo || {}
 
 
 Airbo.DigestEmailFollowUpManager = (function(){
-  var cmdSelector = ".commands .button"
-  ;
+  var cmdSelector = ".commands .button";
+  var currRow;
+
+  /*
+   *******************************
+   * Modal Popup Form
+   *
+   ******************************
+  */
+
+  var modal = (function(){
+
+    var modalId = "manage_follow_up"
+      , modalObj = Airbo.Utils.StandardModal()
+      , form
+      , validator
+    ;
 
 
-  function initCommands(){
+    function initPreviewElements() {
+      initEvents();
+    }
 
-    $(cmdSelector).on("click", function(event){
-      event.preventDefault();
-
-      var cmd = $(this)
-        , row = $(this).parents("tr")
-        , inputs = row.find("input")
-      ;
-
-      switch(cmd.data("action")){
-        case "edit":
-          edit(cmd, inputs);
-        break
-        case "save":
-          save(cmd, inputs );
-        break;
-        case "cancel":
-          cancel(cmd, inputs );
-        break;
-        case "now":
-          now(cmd);
-        break;
-        case "destroy":
-          destroy(cmd);
-        break;
+    function save(cmd){
+      
+      function ok(data, status, xhr){
+        done("success", xhr);
       }
-    });
-  }
+
+      function failed(xhr, status, error){
+      }
+
+      execute("PUT", cmd.attr("href"), cmd.parents("form").serialize(), ok, failed);
+    }
+
+
+    function now(cmd){
+      function ok(data, status, xhr){
+        handleRemoval()
+        done("success", xhr);
+      }
+
+      function failed(){
+        console.log("unabled to send now");
+      }
+
+      approve("Are you sure want to send this followup immediately?", function(){
+        execute("PUT", cmd.attr("href"), {now: "true"}, ok, failed);
+      });
+    }
+
+    function destroy(cmd){
+      function ok(data, status, xhr){
+        handleRemoval()
+        done("success",xhr);
+        Airbo.Utils.ping("Followup - Cancelled", data)
+      }
+
+      approve("Are you sure want to delete this followup email?", function(){
+        execute("DELETE", cmd.attr("href"),{}, ok);
+      });
+
+    }
+
+    function initCommands(){
+      $(cmdSelector).on("click", function(event){
+        event.preventDefault();
+
+        var cmd = $(this);
+
+        switch(cmd.data("action")){
+          case "save":
+            save(cmd);
+          break;
+          case "now":
+            now(cmd);
+          break;
+          case "destroy":
+            destroy(cmd);
+          break;
+        }
+      });
+    }
+
+
+    function initFormValidator(){
+      var config={
+        onkeyup: false,
+        rules: {
+          "follow_up_digest_email[send_on]": {
+            required: true,
+          },
+        }
+      };
+
+      config = $.extend({}, Airbo.Utils.validationConfig, config);
+      validator = form.validate(config);
+    }
+
+    function initFormSubmit(){
+      $(".edit_follow_up_digest_email").submit(function(event){
+        event.preventDefault();
+
+        if(!form.valid()){
+          validator.focusInvalid();
+          validator.resetForm();
+        }
+      });
+    }
+    function initForm(){
+      form = $(".edit_follow_up_digest_email");
+      initFormValidator();
+      initFormSubmit();
+    }
+
+    function open(url) {
+      $.ajax({
+        type: "GET",
+        dataType: "html",
+        url: url,
+        success: function(data, status,xhr){
+          modalObj.setContent(data);
+          modalObj.open();
+          initCommands();
+          initForm();
+        },
+
+        error: function(jqXHR, textStatus, error){
+          console.log(error);
+        }
+      });
+    }
+
+
+    function initModalObj() {
+      modalObj.init({
+        modalId: modalId,
+        useAjaxModal: true,
+      });
+    }
+
+    function init(){
+      initModalObj();
+      return this;
+    }
+
+    return {
+      init: init,
+      open: open,
+      close: modalObj.close,
+      modalId: modalId
+    }
+  }());
 
 
   function approve(text, cb) {
@@ -58,33 +178,21 @@ Airbo.DigestEmailFollowUpManager = (function(){
       }
     );
   }
+  function initEdit(){
+    $(".edit-follow-up").on("click", function(event){
+      var cmd = $(this)
+
+      event.preventDefault();
+      currRow = cmd.parents("tr");
+      modal.open(cmd.attr("href"));
+    });
+  }
 
   function done(type, xhr){
     //TODO modify to use status from xhr instead of passing in status
     var msg = xhr.getResponseHeader("X-Message") || "Request Completed Successfully";
+    modal.close();
     Airbo.Utils.flash(type, msg);
-  }
-
-
-  function toggleEditMode(cmd, inputs){
-    var hiddenCmdCss
-      , disableEditing
-    ;
-
-    if(cmd.hasClass("edit")) {
-      hiddenCmdCss = ".save, .cancel"
-      visibleCmdCss = ".now, .destroy"
-      disableEditing=false; 
-    }else{
-      hiddenCmdCss = ".edit, .now, .destroy";
-      visibleCmdCss = ".save, .cancel"
-      disableEditing=true; 
-    }
-
-    cmd.hide();
-    cmd.siblings(hiddenCmdCss).show();
-    cmd.siblings(visibleCmdCss).hide();
-    inputs.prop("disabled", disableEditing);
   }
 
   function execute(meth, url, data, success, fail){
@@ -96,79 +204,22 @@ Airbo.DigestEmailFollowUpManager = (function(){
     .done(success)
     .fail(fail)
   }
- 
 
-  function handleRemoval(cmd){
-    var tableBody = cmd.parents("tbody");
-    cmd.parents("tr").remove();
-
+  function handleRemoval(){
+    var tableBody = currRow.parents("tbody");
+    currRow.remove();
     if (tableBody.children("tr:not(.no-follow-up)").length == 0){
-      tableBody.children("tr.no-follow-up").show();
+      $("#schedule_followups").hide();
     }
   }
 
-  function restoreValues(inputs){
-    inputs.each(function(index, input){
-      var $input =  $(input);
-      $input.val($input.data("original-val"));
-    }) 
-  }
 
-  function edit(cmd, inputs){
-    toggleEditMode(cmd, inputs)
-  }
-
-  function save(cmd, inputs){
-    function ok(data, status, xhr){
-      toggleEditMode(cmd,inputs)
-      done("success", xhr);
-    }
-
-    function failed(xhr, status, error){
-    }
-
-    execute("PUT", cmd.attr("href"), inputs.serialize(), ok, failed);
-  }
-
-
-  function now(cmd){
-    function ok(data, status, xhr){
-      handleRemoval(cmd)
-      done("success", xhr);
-    }
-
-    function failed(){
-      console.log("unabled to send now");
-    }
-
-    approve("Are you sure want to sen this followup immediately?", function(){
-      execute("PUT", cmd.attr("href"), {now: "true"}, ok, failed);
-    });
-  }
-
-  function destroy(cmd){
-    function ok(data, status, xhr){
-      handleRemoval(cmd)
-      done("success",xhr);
-      Airbo.Utils.ping("Followup - Cancelled", data)
-    }
-
-    approve("Are you sure want to delete this followup email?", function(){
-      execute("DELETE", cmd.attr("href"),{}, ok);
-    });
-
-  }
-
-  function cancel(cmd, inputs){
-    toggleEditMode(cmd,inputs)
-    restoreValues(inputs)
-  }
 
 
   function init(){
-    initCommands();
+    modal.init();
+    initEdit();
   }
-  
 
   return {
     init: init,
@@ -179,3 +230,5 @@ Airbo.DigestEmailFollowUpManager = (function(){
 $(function(){
   Airbo.DigestEmailFollowUpManager.init();
 })
+
+
