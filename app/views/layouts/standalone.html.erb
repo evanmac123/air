@@ -42,7 +42,6 @@
     <%= render partial: "acts/public_board/schedule_demo_modal" %>
     <%= render :partial => 'shared/modals/modals' %>
 
-    <%= render 'shared/intercom' %>
     <%= javascript_include_tag asset_path('ga-marketing.js') if ENV['USE_GA'] %>
     <%= yield :javascript %>
     <%= javascript_include_tag 'jquery.lightbox_me' %>
