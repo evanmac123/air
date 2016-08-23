@@ -195,7 +195,7 @@ module ClientAdmin::TilesHelper
   end
 
   def destroy_tile_message_params
-    message = "Are you sure you want to delete this tile? Deleting a tile is irrevocable and you'll loose all data associated with it."
+    message = "Deleting a tile cannot be undone.\n\nAre you sure you want to delete this tile?"
     if browser.ie?
       message
     else

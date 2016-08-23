@@ -10,7 +10,7 @@ feature 'Client admin deletes tile' do
   end
 
   def destroy_tile_message
-    "Are you sure you want to delete this tile? Deleting a tile is irrevocable and you'll loose all data associated with it."
+    "Deleting a tile cannot be undone.\n\nAre you sure you want to delete this tile?"
   end
 
   def destroy_reveal_selector
