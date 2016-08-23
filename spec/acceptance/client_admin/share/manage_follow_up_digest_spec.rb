@@ -23,37 +23,47 @@ feature "Client admin modifies the follow digest email", js: true do
                                    )
 
 
-      @rowSelector = ".followups-list #fu_#{@fu.id}"
+      @rowSelector = ".followups #fu_#{@fu.id}"
     #bypass_modal_overlays(admin)
     visit client_admin_share_path(as: @admin)
+
+    within @rowSelector do
+      click_link "Edit"
+    end
   end
 
   context "Editing send on and subject" do
     scenario "confirms change"  do
-      within @rowSelector do
-        click_link "Edit"
-        fill_in "original_digest_subject", with: "New Subject"
-        fill_in "send_on", with: "2000-12-31"
+
+      within modal_form do
+        fill_in "Subject", with: "New Subject"
+        #TODO data selector
+        #fill_in "Send On", with: "2000-12-31" 
         click_link "Save"
       end
 
       expect(page).to have_content(ClientAdmin::TilesFollowUpEmailController::SAVE_SUCCESS)
 
         within @rowSelector do
-          expect(page).to have_field 'original_digest_subject', disabled: true, with: 'New Subject'
-          expect(page).to have_field 'send_on', disabled: true, with: '2000-12-31'
+          expect(page).to have_content 'New Subject'
+          #TODO get date
+          #expect(page).to have_content  [NEW DATE]
         end
-      #TODO figure out if i like this pattern
     end
 
     scenario "cancels changes"  do
-      within @rowSelector do
-        click_link "Edit"
+     pending "need to implement cancel action in spec"
+
+      within modal_form do
+
         fill_in "original_digest_subject", with: "New Subject"
         fill_in "send_on", with: "2000-12-31"
-        click_link "Cancel"
-        expect(page).to have_field 'original_digest_subject', disabled: true, with: @fu.original_digest_subject
-        expect(page).to have_field 'send_on', disabled: true, with: @fu.send_on
+        #close modal without changes
+      end
+
+      within @rowSelector do
+        expect(page).to have_content @fu.original_digest_subject
+        expect(page).to have_content @fu.send_on
       end
     end
 
@@ -61,27 +71,28 @@ feature "Client admin modifies the follow digest email", js: true do
 
   context "send now"  do
     scenario "confirm" do
-      within @rowSelector do
+
+      within modal_form do
         click_link "Send Now"
       end
+
       within sweet_alert_popup do
         click_button "OK"
       end
 
       expect(page).to have_content(ClientAdmin::TilesFollowUpEmailController::SEND_NOW_SUCCESS)
-      expect(page).to have_css(".no-follow-up", visible: true)
       expect(page).to have_no_css(@rowSelector)
     end
 
     scenario "cancel" do
-      within @rowSelector do
+
+      within modal_form do
         click_link "Send Now"
       end
 
       within sweet_alert_popup do
         click_button "Cancel"
       end
-      expect(page).to have_css(".no-follow-up", visible: false)
       expect(page).to have_css(@rowSelector)
     end
 
@@ -89,7 +100,7 @@ feature "Client admin modifies the follow digest email", js: true do
 
   context "delete"  do
     scenario "confirm" do
-      within @rowSelector do
+      within modal_form do
         click_link "Delete"
       end
 
@@ -98,12 +109,12 @@ feature "Client admin modifies the follow digest email", js: true do
       end
 
       expect(page).to have_content(ClientAdmin::TilesFollowUpEmailController::DELETE_SUCCESS)
-      expect(page).to have_css(".no-follow-up", visible: true)
       expect(page).to have_no_css(@rowSelector)
     end
 
     scenario "cancel" do
-      within @rowSelector do
+
+      within modal_form do
         click_link "Delete"
       end
 
@@ -111,7 +122,6 @@ feature "Client admin modifies the follow digest email", js: true do
         click_button "Cancel"
       end
 
-      expect(page).to have_css(".no-follow-up", visible: false)
       expect(page).to have_css(@rowSelector)
     end
 
@@ -119,6 +129,10 @@ feature "Client admin modifies the follow digest email", js: true do
 
   def sweet_alert_popup
     ".sweet-alert.airbo.showSweetAlert.visible"
+  end
+
+  def modal_form
+    "#manage_follow_up.reveal-modal"
   end
 
 end

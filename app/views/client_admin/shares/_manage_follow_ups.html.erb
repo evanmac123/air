@@ -1,10 +1,10 @@
 <% unless @follow_up_emails.empty? %>
   <div id="scheduled_followups">
     <h3>Scheduled Follow-Up</h3>
-    <table class="border-less">
+    <table class="followups border-less">
       <tbody>
         <% @follow_up_emails.each do |follow_up| %>
-          <tr>
+          <tr id="fu_<%=follow_up.id%>">
             <td class="subject">Don't Miss: <span><%= truncate(follow_up.original_digest_subject, length:50) %></span> </td>
             <td class = "send_on"><%= follow_up.send_on.to_time.to_s(:tile_digest_email_sent_at) %></td>
             <td><%= link_to "Edit", edit_client_admin_tiles_follow_up_email_path(follow_up), class: "edit-follow-up"  %></td>
