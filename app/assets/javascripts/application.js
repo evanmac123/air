@@ -91,6 +91,11 @@ var DefaultUtils = {
 
   flashMsg:function (xhr, defaultMsg){
     return xhr.getResponseHeader("X-Message") || defaultMsg;
+  },
+
+  truncate: function(text, len){
+    var max = (len || 30) - 3;
+    return text.length > max ?  text.substring(0, max) + '...' : text;
   }
 };
 

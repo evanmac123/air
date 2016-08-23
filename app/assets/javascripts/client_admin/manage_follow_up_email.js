@@ -29,6 +29,7 @@ Airbo.DigestEmailFollowUpManager = (function(){
       
       function ok(data, status, xhr){
         done("success", xhr);
+        update(data);
       }
 
       function failed(xhr, status, error){
@@ -113,8 +114,11 @@ Airbo.DigestEmailFollowUpManager = (function(){
     }
     function initForm(){
       form = $(".edit_follow_up_digest_email");
-      initFormValidator();
-      initFormSubmit();
+      $("#follow_up_digest_email_send_on").datepicker(
+        {
+          dateFormat: "DD, M dd, yy"
+        }
+      );
     }
 
     function open(url) {
@@ -181,7 +185,6 @@ Airbo.DigestEmailFollowUpManager = (function(){
   function initEdit(){
     $(".edit-follow-up").on("click", function(event){
       var cmd = $(this)
-
       event.preventDefault();
       currRow = cmd.parents("tr");
       modal.open(cmd.attr("href"));
@@ -213,6 +216,13 @@ Airbo.DigestEmailFollowUpManager = (function(){
     }
   }
 
+  function update(data){
+    var date = $.datepicker.parseDate("yy-mm-dd", data["send_on"]),
+      subject = Airbo.Utils.truncate(data["original_digest_subject"], 50)
+    ; 
+    currRow.find("td.subject>span").text(subject);
+    currRow.find("td.send_on").text($.datepicker.formatDate("D, M d, yy",date));
+  }
 
 
 
