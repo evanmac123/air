@@ -1,10 +1,17 @@
 class ClientAdmin::TilesFollowUpEmailController < ClientAdminBaseController
-  before_filter :get_followup, only:[:update, :destroy]
+  before_filter :get_followup, only:[:edit, :update, :destroy]
 
   #TODO figure out if i like this pattern
   SAVE_SUCCESS = "Your follow up email has been updated"
   SEND_NOW_SUCCESS = "Your follow up email has been rescheduled for immediate delivery"
   DELETE_SUCCESS = "Your follow up email has been canceled"
+
+  def edit
+    if request.xhr?
+      render partial: "follow_up_email_form", layout: false
+    end
+  end
+
 
   def update
     if params[:now].present? 
@@ -13,8 +20,7 @@ class ClientAdmin::TilesFollowUpEmailController < ClientAdminBaseController
       js_flash SEND_NOW_SUCCESS
       head :ok
     else
-      @follow_up_email.update_attributes(params.permit(:original_digest_subject, :send_on))
-      @follow_up_email.save
+      @follow_up_email.update_attributes(permitted_params)
       js_flash SAVE_SUCCESS
       render json: update_response
     end
@@ -49,6 +55,9 @@ class ClientAdmin::TilesFollowUpEmailController < ClientAdminBaseController
     @follow_up_email.as_json(root: false, only: [:original_digest_subject,  :send_on])
   end
 
+  def permitted_params
+    params.require(:follow_up_digest_email).permit(:original_digest_subject, :send_on)
+  end
 
   def js_flash msg
     response.headers["X-Message"]=msg
