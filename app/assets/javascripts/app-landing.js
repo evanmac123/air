@@ -16,11 +16,13 @@
 //= require ../../../vendor/assets/javascripts/intro.min
 //= require application
 //= require ./external/schedule_demo
+//= require ./external/landing_modals
 //= require ./external/request_form
 //= require ./internal_and_external/marketing_page_interactions
 
 $(function(){
   $(document).foundation();
+  Airbo.LandingModals.init();
   Airbo.ScheduleDemoModal.init();
   Airbo.Utils.TextSelectionDetector.init("#link_for_copy", Airbo.ScheduleDemoModal.linkCopied);
 });

@@ -5,7 +5,25 @@ $bp-med : 748.8px;
 $bp-large : 800px;
 $bp-xl : 1025px;
 $bp-xxl : 1440px;
+@mixin button-outlined-intro{
+
+  @include button-outlined-color($n-white);
+  &:hover {
+    color: $n-blue !important;
+  }
+}
 body.pages-home {
+
+  #signups_modal, #demo_requests_modal {
+    border-radius: 0;
+    background: $n-blue;
+    padding: 30px;
+    color: #fff;
+    a {
+      @include button-outlined-intro;
+      margin: 5px;
+    }
+  }
 
   .v-08-01-2016 {
 
