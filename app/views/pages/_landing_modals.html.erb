@@ -1,31 +1,34 @@
 <% if params[:signup_request] == "true" %>
   <div class="landing-modal">
     <div data-reveal class='reveal-modal text-center' id='signups_modal' style="background-color:none;">
-
-      <h2>Thanks for signing up to use Airbo!</h2>
+      <div class="text-center">
+        <%= image_tag "landing/logo-white.png" %>
+        <h2 class="white">Thanks for signing up!</h2>
+      </div>
 
       <h3>Someone from our team will reach out to you in the next 24 hours to get you set up.</h3>
-      
-      <h3>In the meantime, would you like to read about how FujiFilm used Airbo to lower their healthcare trend to 0%.</h3>
+      <h3>While you wait, learn about how others are using Airbo.</h3>
 
       <div>
-
-        <%= link_to 'FujiFilm Case Study', '/pages/fujifilm', class: "button  outlined" %>
+        <%= link_to 'Fujifilm Case Study', '/pages/fujifilm', class: "button  outlined" %>
+        <%= link_to 'ASHA Case Study', '/pages/asha', class: "button  outlined" %>
       </div>
 
     </div>
   </div>
 <% elsif params[:demo_request] == "true" %>
-  <div data-reveal class='reveal-modal' id='demo_requests_modal'>
-    <h2>Thanks for requesting a demo with Airbo!</h2>
+  <div data-reveal class='reveal-modal text-center' id='demo_requests_modal'>
+    <div class="text-center">
+      <%= image_tag "landing/logo-white.png" %>
+      <h2 class="white">Thanks for requesting a demo!</h2>
+    </div>
 
     <h3>Someone from our team will reach out to you in the next 24 hours to schedule a time to chat.</h3>
-
-    <h3>In the meantime, would you like to read about how FujiFilm used Airbo to lower their healthcare trend to 0%.</h3>
+    <h3>While you wait, learn about how others are using Airbo.</h3>
 
     <div>
-
-      <%= link_to 'FujiFilm Case Study', '/pages/fujifilm', class: "button  outlined" %>
+      <%= link_to 'Fujifilm Case Study', '/pages/fujifilm', class: "button  outlined" %>
+      <%= link_to 'ASHA Case Study', '/pages/asha', class: "button  outlined" %>
     </div>
   </div>
 <% end %>

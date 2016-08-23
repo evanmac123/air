@@ -9,9 +9,7 @@ class DemoRequestsController < ApplicationController
 
     request.notify
 
-    flash[:new_success] = "Thanks for requesting a demo! We’ll email you within the next few hours to schedule a 30 minute overview."
-
-    redirect_to root_path
+    redirect_to root_path(demo_request: true)
   end
 
   def new
