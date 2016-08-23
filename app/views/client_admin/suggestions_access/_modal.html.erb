@@ -3,7 +3,7 @@
 
   <%= render partial: 'client_admin/suggestions_access/form', locals: { demo: current_user.demo, users: @allowed_to_suggest_users } %>
 
-  <%= link_to '&#215;'.html_safe, '', class: "close-reveal-modal" %>
+  <%= link_to '&#215;'.html_safe, '', id: "close-suggestions-access-modal", class: "close-reveal-modal" %>
 </div>
 
 <%= render partial: 'client_admin/suggestions_access/warning_modal' %>

@@ -26,7 +26,7 @@ saveBtn = ->
   $("#save_suggestions_access")
 
 cancelBtn = ->
-  $('#cancel_suggestions_access, #suggestion_box_modal .close-reveal-modal')
+  $('#cancel_suggestions_access, #suggestion_box_modal .close-reveal-modal, #close-suggestions-access-modal')
 
 controlButtonsBlock = ->
   $('.control_buttons')
@@ -62,7 +62,7 @@ warningConfirm = ->
   $(warningModalSelector() + " .confirm")
 
 warningCancel = ->
-  $(warningModalSelector() + " .cancel, " + 
+  $(warningModalSelector() + " .cancel, " +
     warningModalSelector() + " .close-reveal-modal")
 
 manageAccessPrompt = ->
@@ -78,7 +78,7 @@ window.suggestionsAccess = (withModalEvents = true) ->
   cancelBtn().click (e) ->
     e.preventDefault()
     triggerModal('close')
-      
+
 
   if withModalEvents
     $(document).on 'open.fndtn.reveal', modalSelector(), ->
@@ -101,11 +101,11 @@ window.suggestionsAccess = (withModalEvents = true) ->
   if withModalEvents
     warningCancel().click (e) ->
       triggerWarningModal('close')
-      
+
     warningConfirm().click (e) ->
       window.needToBeSaved = 'reload'
       triggerWarningModal('close')
-      
+
 
     $(document).on 'closed.fndtn.reveal', warningModalSelector(), ->
       if window.needToBeSaved == 'reload'
@@ -157,9 +157,9 @@ window.suggestionsAccess = (withModalEvents = true) ->
     searchInput().val('').focus()
 
   searchInput().autocomplete
-    appendTo: searchResultsSelector(), 
-    source:   '/client_admin/users', 
-    html:     'html', 
+    appendTo: searchResultsSelector(),
+    source:   '/client_admin/users',
+    html:     'html',
     select:   getSelectedUser,
     focus:    (e) -> e.preventDefault()
   #
