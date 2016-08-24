@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160822183340) do
+ActiveRecord::Schema.define(:version => 20160824201049) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -476,6 +476,24 @@ ActiveRecord::Schema.define(:version => 20160822183340) do
   end
 
   add_index "labels", ["rule_id", "tag_id"], :name => "index_labels_on_rule_id_and_tag_id"
+
+  create_table "lead_contacts", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "email"
+    t.string   "name"
+    t.string   "phone"
+    t.string   "role"
+    t.string   "status"
+    t.string   "source"
+    t.string   "company"
+    t.string   "company_size"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "lead_contacts", ["email"], :name => "index_lead_contacts_on_email"
+  add_index "lead_contacts", ["status"], :name => "index_lead_contacts_on_status"
+  add_index "lead_contacts", ["user_id"], :name => "index_lead_contacts_on_user_id"
 
   create_table "levels", :force => true do |t|
     t.string   "name",              :default => "", :null => false
