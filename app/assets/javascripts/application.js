@@ -77,8 +77,10 @@ var DefaultUtils = {
     mixpanel.track(event, properties);
   },
 
-  flash: function(type,msg){
+  flash: function(type,msg,config ){
+    //TODO make flash duration configurable
     var flash= $(".flash-js");
+
     flash.find(".flash-content").text(msg)
     flash.find(".flash-js-msg").addClass(type);
     flash.fadeIn(500);
@@ -86,7 +88,7 @@ var DefaultUtils = {
     //would normally use native jquery fadeIn(n).fadeOut(n)
     setTimeout(function(){
       flash.fadeOut(0); 
-    }, 1000);
+    }, 2000);
   },
 
   flashMsg:function (xhr, defaultMsg){
