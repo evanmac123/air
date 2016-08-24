@@ -49,7 +49,7 @@ Airbo.DigestEmailFollowUpManager = (function(){
         console.log("unabled to send now");
       }
 
-      approve("Are you sure want to send this followup immediately?", function(){
+      approve("Are you sure want to send this follow up immediately?", function(){
         execute("PUT", cmd.attr("href"), {now: "true"}, ok, failed);
       });
     }
@@ -221,7 +221,7 @@ Airbo.DigestEmailFollowUpManager = (function(){
       subject = Airbo.Utils.truncate(data["original_digest_subject"], 50)
     ; 
     currRow.find("td.subject>span").text(subject);
-    currRow.find("td.send_on").text($.datepicker.formatDate("D, M d, yy",date));
+    currRow.find("td.send_on").text($.datepicker.formatDate("DD, M d, yy",date));
   }
 
 

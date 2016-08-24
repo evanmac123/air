@@ -285,8 +285,11 @@ describe '#notify_all_follow_up' do
       user = FactoryGirl.create(:claimed_user)
       user.email.should be_present
 
-      tile_ids = [FactoryGirl.create(:tile, demo: user.demo)]
-      follow_up = FactoryGirl.create :follow_up_digest_email, demo: user.demo, tile_ids: tile_ids, send_on: Date.today, original_digest_subject: custom_original_digest_subject, user_ids_to_deliver_to: [user.id]
+      tile = FactoryGirl.create(:tile, demo: user.demo)
+      follow_up = FactoryGirl.create :follow_up_digest_email, 
+        demo: user.demo, tile_ids: [tile.id], send_on: Date.today, 
+        original_digest_subject: custom_original_digest_subject, 
+        user_ids_to_deliver_to: [user.id]
 
       ActionMailer::Base.deliveries.clear
       TilesDigestMailer.notify_all_follow_up follow_up.id
@@ -302,8 +305,9 @@ describe '#notify_all_follow_up' do
       user = FactoryGirl.create(:claimed_user)
       user.email.should be_present
 
-      tile_ids = [FactoryGirl.create(:tile, demo: user.demo)]
-      follow_up = FactoryGirl.create :follow_up_digest_email, demo: user.demo, tile_ids: tile_ids, send_on: Date.today, user_ids_to_deliver_to: [user.id]
+      tile = FactoryGirl.create(:tile, demo: user.demo)
+      follow_up = FactoryGirl.create :follow_up_digest_email, demo: user.demo, 
+        tile_ids: [tile.id], send_on: Date.today, user_ids_to_deliver_to: [user.id]
 
       ActionMailer::Base.deliveries.clear
       TilesDigestMailer.notify_all_follow_up follow_up.id
@@ -319,8 +323,10 @@ describe '#notify_all_follow_up' do
       user = FactoryGirl.create(:claimed_user)
       user.email.should be_present
 
-      tile_ids = [FactoryGirl.create(:tile, demo: user.demo)]
-      follow_up = FactoryGirl.create :follow_up_digest_email, demo: user.demo, tile_ids: tile_ids, send_on: Date.today, original_digest_headline: 'Kneel before Zod', user_ids_to_deliver_to: [user.id]
+      tile = FactoryGirl.create(:tile, demo: user.demo)
+      follow_up = FactoryGirl.create :follow_up_digest_email, demo: user.demo, 
+        tile_ids: [tile.id], 
+        send_on: Date.today, original_digest_headline: 'Kneel before Zod', user_ids_to_deliver_to: [user.id]
 
       ActionMailer::Base.deliveries.clear
       TilesDigestMailer.notify_all_follow_up follow_up.id
@@ -337,8 +343,9 @@ describe '#notify_all_follow_up' do
       user = FactoryGirl.create(:claimed_user)
       user.email.should be_present
 
-      tile_ids = [FactoryGirl.create(:tile, demo: user.demo)]
-      follow_up = FactoryGirl.create :follow_up_digest_email, demo: user.demo, tile_ids: tile_ids, send_on: Date.today, user_ids_to_deliver_to: [user.id]
+      tile = FactoryGirl.create(:tile, demo: user.demo)
+      follow_up = FactoryGirl.create :follow_up_digest_email, 
+        demo: user.demo, tile_ids: [tile.id], send_on: Date.today, user_ids_to_deliver_to: [user.id]
 
       ActionMailer::Base.deliveries.clear
       TilesDigestMailer.notify_all_follow_up follow_up.id
@@ -369,7 +376,7 @@ end
 
 describe "#notify_one" do
 
-# NOTE: MIXPANEL testing implementation for unit testing pings with Bourne spies.  Still would rather move ALL pings client side with client side tests.
+  # NOTE: MIXPANEL testing implementation for unit testing pings with Bourne spies.  Still would rather move ALL pings client side with client side tests.
   it "should schedule a ping that the mail has been sent" do
     TrackEvent.stubs(:ping)
 
