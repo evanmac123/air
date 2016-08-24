@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="columns small-12 small-centered">
+      <%# link_to 'Add New Board', new_admin_organization_demo_path(@organization), class: "button righty" %>
+    <table>
+      <caption> Boards </caption>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>All Users</th>
+          <th>Active Users</th>
+          <th>Date Created</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @organization.demos.each do |demo| %>
+          <tr class="resource-row" data-url="<%=admin_demo_path(demo)%>">
+            <td><%= demo.name %></td>
+            <td><%= demo.status %></td>
+            <td><%= demo.users.count %></td>
+            <td><%= demo.users.claimed.count %></td>
+            <td><%= simple_date_format demo.created_at %></td>
+          </tr>
+        <%end%>
+      </tbody>
+    </table>
+  </div>
+</div>
+
