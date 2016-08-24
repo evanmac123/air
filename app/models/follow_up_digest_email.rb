@@ -83,7 +83,9 @@ class FollowUpDigestEmail < ActiveRecord::Base
   end
 
   def subject
-    "Don't Miss#{original_digest_subject && original_digest_subject.prepend(': ') || ' Your New Tiles'}"
+    text = original_digest_subject.blank? ? ' Your New Tiles' : ": #{original_digest_subject}"
+
+    "Dont Miss#{text}"
   end
 
 
