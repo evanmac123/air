@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
   extend User::Queries
   extend ValidImageMimeTypes
 
+  belongs_to :organization
   belongs_to :location
   belongs_to :game_referrer, :class_name => "User"
   belongs_to :spouse, :class_name => "User"

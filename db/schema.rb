@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160823223457) do
+ActiveRecord::Schema.define(:version => 20160824194157) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -1115,6 +1115,7 @@ ActiveRecord::Schema.define(:version => 20160823223457) do
     t.boolean  "suggestion_box_prompt_seen",                          :default => false,       :null => false
     t.integer  "primary_user_id"
     t.string   "official_email"
+    t.integer  "organization_id"
   end
 
   add_index "users", ["cancel_account_token"], :name => "index_users_on_cancel_account_token"

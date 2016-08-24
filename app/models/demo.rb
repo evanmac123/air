@@ -29,7 +29,7 @@ class Demo < ActiveRecord::Base
   has_one :raffle
   has_one :custom_color_palette
   belongs_to :dependent_board, class_name: "Demo", foreign_key: :dependent_board_id, dependent: :destroy
-
+  belongs_to :organization
 
   validates_inclusion_of :join_type, :in => JOIN_TYPES
 
