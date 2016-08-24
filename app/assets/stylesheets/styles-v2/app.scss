@@ -19,9 +19,6 @@ $has-tip-cursor-type: pointer;
 $row-width: em-calc(1000);
 $joyride-tip-bg: $n-white;
 $joyride-tip-border: solid 1px $border-color-1;;
-// $orbit-container-bg: transparent;
-// $orbit-bullet-nav-color: transparent;
-// $orbit-bullet-nav-color-active: $n-white;
 
 
 @import "./vendor/foundation/components/buttons";
@@ -34,7 +31,6 @@ $joyride-tip-border: solid 1px $border-color-1;;
 @import "./vendor/foundation/components/joyride";
 @import "./vendor/foundation/components/progress-bars";
 
-// @import "./vendor/foundation/components/orbit";
 @import "structure";
 @import "modals";
 @import "navigation";
