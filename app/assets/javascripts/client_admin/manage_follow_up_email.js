@@ -116,7 +116,7 @@ Airbo.DigestEmailFollowUpManager = (function(){
       form = $(".edit_follow_up_digest_email");
       $("#follow_up_digest_email_send_on").datepicker(
         {
-          dateFormat: "DD, M dd, yy"
+          dateFormat: "DD, MM dd, yy"
         }
       );
     }
@@ -221,7 +221,7 @@ Airbo.DigestEmailFollowUpManager = (function(){
       subject = Airbo.Utils.truncate(data["original_digest_subject"], 50)
     ; 
     currRow.find("td.subject>span").text(subject);
-    currRow.find("td.send_on").text($.datepicker.formatDate("DD, M d, yy",date));
+    currRow.find("td.send_on").text($.datepicker.formatDate("DD, MM d, yy",date));
   }
 
 
