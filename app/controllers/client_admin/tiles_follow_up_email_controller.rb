@@ -8,6 +8,8 @@ class ClientAdmin::TilesFollowUpEmailController < ClientAdminBaseController
 
   def edit
     if request.xhr?
+      #TODO this is a simple enough form that we can preload data as data
+      #attribues on the edit link rather making this roundtrip
       render partial: "follow_up_email_form", layout: false
     end
   end
