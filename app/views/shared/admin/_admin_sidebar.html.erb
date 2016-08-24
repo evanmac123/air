@@ -1,0 +1,12 @@
+<div id="admin-sidebar-wrapper">
+  <ul class="admin-sidebar-nav">
+    <li class="admin-sidebar-greeting">
+      <span>
+        Hey <%= current_user.first_name.capitalize %>
+      </span>
+    </li>
+    <li>
+      <%= link_to "dashboard", "#" %>
+    </li>
+  </ul>
+</div>

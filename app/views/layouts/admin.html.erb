@@ -14,11 +14,14 @@
   <body class="<%= body_class %>">
 
     <%= render 'shared/admin/header' %>
-    <%= render 'shared/admin_flashes' %>
-    <%= render 'shared/offcanvas_menu_signedin' %>
-      <%= yield %>
+    <div id="admin-layout-wrapper" class="toggled">
+      <%= render 'shared/admin/admin_sidebar' %>
+      <%= render 'shared/admin_flashes' %>
+      <%= render 'shared/offcanvas_menu_signedin' %>
+        <%= yield %>
 
-    <%= render :partial => 'shared/modals/modals' %>
+      <%= render :partial => 'shared/modals/modals' %>
+    </div>
     <%= render :partial => 'shared/javascript' %>
   </body>
 </html>

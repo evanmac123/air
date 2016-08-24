@@ -1,0 +1,136 @@
+//SIDEBAR
+#admin-layout-wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#admin-layout-wrapper.toggled {
+    padding-left: 250px;
+}
+
+#admin-sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    left: 250px;
+    width: 0;
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: auto;
+    background: rgba(0,0,0,0.85);
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#admin-layout-wrapper.toggled #admin-sidebar-wrapper {
+    width: 250px;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding: 15px;
+}
+
+#admin-layout-wrapper.toggled #page-content-wrapper {
+    position: absolute;
+    margin-right: -250px;
+}
+
+/* Sidebar Styles */
+
+.admin-sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.admin-sidebar-nav li {
+    text-indent: 20px;
+    line-height: 40px;
+}
+
+.admin-sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #999999;
+}
+
+.admin-sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #fff;
+    background: rgba(255,255,255,0.2);
+}
+
+.admin-sidebar-nav li a:active,
+.admin-sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.admin-sidebar-nav > .sidebar-header {
+    height: 65px;
+    color: #999999;
+    font-size: 18px;
+    line-height: 60px;
+    margin-top: 25px;
+    margin-bottom: -20px;
+}
+
+.admin-sidebar-nav > .admin-sidebar-greeting {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
+}
+
+.admin-sidebar-nav > .admin-sidebar-greeting span {
+    color: #999999;
+}
+
+.admin-sidebar-nav > .admin-sidebar-greeting span:hover {
+    color: #fff;
+    background: none;
+}
+
+@media(min-width:768px) {
+    #admin-layout-wrapper {
+        padding-left: 250px;
+    }
+
+    #admin-layout-wrapper.toggled {
+        padding-left: 0;
+    }
+
+    #admin-sidebar-wrapper {
+        width: 250px;
+    }
+
+    #admin-layout-wrapper.toggled #admin-sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+    }
+
+    #admin-layout-wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+}
+
+#admin-sidebar-toggle {
+  display: inline-block !important;
+  color: $darker-gray;
+  cursor: pointer;
+  margin-top: 0.4em;
+  padding-right: 1em;
+  font-size: 14px;
+}

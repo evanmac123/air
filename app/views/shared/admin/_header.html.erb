@@ -7,14 +7,9 @@
       <a class="go_home" href="<%= home_path %>"><%= image_tag user.logo_url %></a>
     </div>
 
-      <nav id="navigation" class="columns large-6">
-        <%= render 'shared/header/user_options', user: user %>
-      </nav>
-      <div class="large-4 columns" id="user_info">
-        <div id="me_toggle">
-          <div class="shadow_overlay"></div>
-          <%= default_avatar_tag user, :id => :top_avatar, :class => "avatar48" %>
-        </div>
-      </div>
+    <nav id="navigation" class="columns large-6">
+      <%= render 'shared/header/user_options', user: user %>
+    </nav>
+    <%= render 'shared/admin/header/user_info', user: user %>
   </div>
 </header>
