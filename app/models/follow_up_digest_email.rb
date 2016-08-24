@@ -35,6 +35,21 @@ class FollowUpDigestEmail < ActiveRecord::Base
     end
   end
 
+
+  def trigger_deliveries_legacy
+
+    user_ids_legacy.each    { |user_id| TilesDigestMailer.delay.notify_one(demo.id, user_id, tile_ids, subject, true, headline, nil) }
+
+  end
+
+  def user_ids_legacy
+
+    ids = demo.users_for_digest(unclaimed_users_also_get_digest).where(id: user_ids_to_deliver_to).pluck(:id)
+    ids.reject! { |user_id| TileCompletion.user_completed_any_tiles?(user_id, tile_ids)}
+    ids.reject! { |user_id| BoardMembership.where(demo_id: demo_id, user_id: user_id, followup_muted: true).first.present? }
+    ids
+  end
+
   def users_to_reject
 
     demos = Demo.arel_table
@@ -42,18 +57,19 @@ class FollowUpDigestEmail < ActiveRecord::Base
     tile_completions = TileCompletion.arel_table
 
 
-   res = BoardMembership.select(board_memberships[:user_id]).where(
-     demos[:id].eq(demo.id).and(board_memberships[:followup_muted].eq('f'))
-    ).joins(
-      board_memberships
+    res = BoardMembership.select([:user_id, :followup_muted, tile_completions[:user_id].count]).where(
+      demos[:id].eq(demo.id))
+      .joins(board_memberships
       .join(demos)
       .on(board_memberships[:demo_id].eq(demos[:id]))
-      .join(tile_completions)
-      .on(tile_completions[:user_id].eq(board_memberships[:user_id])).join_sources
-    ).group(board_memberships[:user_id])
-      .having(tile_completions[:user_id].count.gt(0))
-
+      .join(tile_completions, Arel::Nodes::OuterJoin)
+      .on(board_memberships[:user_id].eq(tile_completions[:user_id])
+      .and(tile_completions[:tile_id].in(tile_ids))
+         ).join_sources)
+      .group([board_memberships[:user_id], board_memberships[:followup_muted]])
+      .having(tile_completions[:user_id].count.gt(0).or(board_memberships[:followup_muted].eq(true)))
     res.map(&:user_id)
+#
   end
 
   def recipients
