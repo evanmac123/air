@@ -1,6 +1,7 @@
 require 'acceptance/acceptance_helper'
+Capybara.javascript_driver= :selenium
 
-feature "Client admin sets board's public status themself" do
+feature "Client admin sets board's public status themself", js:true do
   let! (:client_admin) { FactoryGirl.create(:client_admin) }
     
   before :each do
@@ -36,13 +37,14 @@ feature "Client admin sets board's public status themself" do
   end
 
   def expect_on_engaged
-    page.find('#private_button', visible: false)['checked'].should_not be_present
-    page.find('#public_button', visible: false)['checked'].should be_present
+    expect(page).to have_css(".public.engaged")
+    expect(page).to have_css(".private.disengaged")
   end
 
   def expect_off_engaged
-    page.find('#private_button', visible: false)['checked'].should be_present
-    page.find('#public_button', visible: false)['checked'].should_not be_present
+    expect(page).to have_css(".private.engaged")
+    #page.find('#private_button', visible: false)['checked'].should be_present
+    #page.find('#public_button', visible: false)['checked'].should_not be_present
   end
 
   def public_board_section
@@ -51,7 +53,6 @@ feature "Client admin sets board's public status themself" do
 
   context "when the board is public" do
     before :each do
-      client_admin.demo.is_public.should be_true
       visit client_admin_share_path(as: client_admin)
     end
 
@@ -60,6 +61,7 @@ feature "Client admin sets board's public status themself" do
     end
 
     it "should allow the client admin to set it private", js: true do
+      expect_on_engaged
       click_off_link
       expect_off_engaged
     end
