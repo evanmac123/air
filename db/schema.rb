@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160825135110) do
+ActiveRecord::Schema.define(:version => 20160825150222) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -549,9 +549,9 @@ ActiveRecord::Schema.define(:version => 20160825135110) do
     t.string   "sales_channel"
     t.boolean  "churned"
     t.text     "churn_reason"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-    t.boolean  "is_hrm"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+    t.boolean  "is_hrm",        :default => false
     t.string   "roles"
   end
 
