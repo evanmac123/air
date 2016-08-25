@@ -5,33 +5,53 @@ Airbo.Utils.BetweenList= (function(){
 
     function moveItems(origin, dest) {
       $(origin).find(':selected').appendTo(dest);
+      reSort(dest);
     }
 
     function moveAllItems(origin, dest) {
       $(origin).children().appendTo(dest);
     }
 
-    function initActions(){
-      $('.left').click(function () {
-        moveItems(right, left);
-      });
+    function reSort(select){
+      var options = select.children("option");
+      options.sort(function(a,b) {
+        var atext =a.text.toUpperCase()
+          , btext =b.text.toUpperCase() 
+        ;
 
-      $('.right').on('click', function () {
+        if (atext > btext) return 1;
+        if (atext < btext) return -1;
+        return 0
+      })
+
+      $(select).empty().append( options )
+    }
+
+    function initActions(){
+      $('.move-right').on('click', function () {
         moveItems(left, right);
       });
 
-      $('.leftall').on('click', function () {
-        moveAllItems(right, left);
+      $('.move-left').click(function () {
+        moveItems(right, left);
       });
 
-      $('.rightall').on('click', function () {
-        moveAllItems(left, right);
-      });
-    }
+      //$('.leftall').on('click', function () {
+        //moveAllItems(right, left);
+      //});
+
+      //$('.rightall').on('click', function () {
+        //moveAllItems(left, right);
+      //});
+
+
+          }
 
   function init(l, r){
-    left= $(l);
-    right= $(r);
+    left= $(".left-list");
+    right= $(".right-list");
+
+    reSort(left);
     initActions();
   }
 
@@ -40,4 +60,6 @@ Airbo.Utils.BetweenList= (function(){
   }
 }());
 
-
+$(function(){
+  Airbo.Utils.BetweenList.init();
+});
