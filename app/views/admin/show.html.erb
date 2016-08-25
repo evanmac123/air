@@ -17,6 +17,6 @@
     <p>
     <%= link_to 'Create New Board', new_admin_demo_path, class: "button"  %>
     </p>
-    <%= render "admin/demos/boards" %>
+    <%= render "admin/demos/boards",demos: @demos %>
   </div>
 </div>
