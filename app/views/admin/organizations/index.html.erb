@@ -13,7 +13,7 @@
         </tr>
       </thead>
       <tbody>
-        <% Organization.active.each do |organization| %>
+        <% Organization.all.each do |organization| %>
 
           <tr class="resource-row" data-url='<%=admin_organization_path(organization)%>'>
             <td><%= organization.name %></td>
