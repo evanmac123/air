@@ -1,7 +1,7 @@
 
 <div class="row">
   <div class="columns small-12 small-centered">
-    <h3><%= @organization.name %></h3>
+    <h1 class ="text-left"><%= @organization.name %></h1>
 
     <table class="first-column-header">
       <tbody>
@@ -11,6 +11,10 @@
           <td><%= @organization.num_employees %></td>
         </tr>
 
+        <tr>
+          <th>Is HRM</th>
+          <td><%= @organization.is_hrm.humanize %></td>
+        </tr>
         <tr>
           <th>Sales channel</th>
           <td><%= @organization.sales_channel %></td>
@@ -24,6 +28,11 @@
           <td><%= simple_date_format @organization.customer_start_date %></td>
         </tr>
       
+        <tr>
+          <th>Start</th>
+          <td><%= simple_date_format @organization.customer_start_date %></td>
+        </tr>
+
         <%if @organization.churned%>
        <tr>
           <th>End</th>
@@ -43,6 +52,9 @@
     <hr/>
   </div>
 </div>
-
-
-<%= render "org_boards" %>
+<div class="row">
+  <div class="columns small-12">
+    <%=link_to "Attach Boards", "#", class: "button" %>
+  </div>
+</div>
+<%= render "org_boards", boards: @organization.boards %>

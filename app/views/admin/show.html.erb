@@ -12,30 +12,11 @@
 </div>
 <br>
 <div class="row ">
-  <div class="columns large-6">
+  <div class="columns large-12">
+    <h3 class="blue">Boards</h3>
+    <p>
+    <%= link_to 'Create New Board', new_admin_demo_path, class: "button"  %>
+    </p>
     <%= render "admin/demos/boards" %>
-  </div>
-  <div class="columns large-6">
-    <p>
-    <%= link_to 'Tags', admin_tags_path, class: "blue" %>
-    </p>
-    <p>
-    <%= link_to 'Standard characteristics', admin_characteristics_path, class: "blue" %>
-    </p>
-    <p>
-    <%= link_to 'Explore Digest', new_admin_explore_digest_path, class: "blue" %>
-    </p>
-    <p>
-    <%= link_to 'Image Library', admin_tile_images_path, class: "blue" %>
-    </p>
-    <p>
-    <%= link_to 'Edit Support Page', edit_admin_support_path, class: "blue" %>
-    </p>
-    <p>
-    <%= link_to 'Customer Metrics & KPIs', organization_metrics_path, class: "blue" %>
-    </p>
-    <p>
-    <%= link_to 'Reports', admin_client_kpi_report_path, class: "blue" %>
-    </p>
   </div>
 </div>
