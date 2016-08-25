@@ -270,8 +270,10 @@ Health::Application.routes.draw do
   resources :cancel_account, :only => [:show, :destroy]
 
   namespace :admin do
-    resources :lead_contacts, path: "sales", only: [:index]
-    
+    namespace :sales do
+      resources :lead_contacts, only: [:index, :edit, :update]
+    end
+
     resource :client_kpi_report
     resources :organizations, path: "customers" do
       resources :contracts, controller: "contracts"

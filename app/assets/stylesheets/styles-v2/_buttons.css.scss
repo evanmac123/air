@@ -104,10 +104,15 @@
     &.white {
       @include button-outlined-color($text-color: $n-white, $hover-color: $n-blue);
     }
+    &.green {
+      @include button-outlined-color($text-color: #4fd4c0, $hover-color: $n-white);
+    }
     // &. {
     //   @include button-outlined-color($n-blue);
     // }
   }
+
+  &.tiny { @include button-size($padding:$button-tny); }
 
   .success{
     background-color:white;

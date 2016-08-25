@@ -27,6 +27,8 @@
 //= require  ../../../vendor/assets/javascripts/pickadate/picker
 //= require  ../../../vendor/assets/javascripts/pickadate/picker.date
 //= require  ../../../vendor/assets/javascripts/pickadate/picker.time
+//= require ../../../vendor/assets/javascripts/external/foundation.min
 //= requre ./admin/contracts
 //= require ./admin/demo_search
 //= require ./admin/demo_filter
+//= require ./admin/lead_contact

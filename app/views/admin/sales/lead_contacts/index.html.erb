@@ -1,0 +1,46 @@
+<div class="lead-contacts-container">
+  <div class="pending-leads columns small-10 small-offset-1">
+    <% pending_leads = @lead_contacts.pending %>
+    <fieldset>
+      <legend>
+        <% if pending_leads.count > 5 %>
+          Pending Leads <span class="alert badge"><%= pending_leads.count %></span>
+        <% else %>
+          Pending Leads <span class="badge"><%= pending_leads.count %></span>
+        <% end %>
+      </legend>
+      <% if pending_leads.count > 0 %>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Respond</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% pending_leads.limit(5).each do |lead_contact| %>
+              <tr id="<%= lead_contact.id %>">
+                <td class="name">
+                  <%= lead_contact.name %>
+                </td>
+                <td class="email">
+                  <%= lead_contact.email %>
+                </td>
+                <td class="phone">
+                  <%= lead_contact.phone %>
+                </td>
+                <td class="respond">
+                  <%= link_to "start", edit_admin_sales_lead_contact_path(lead_contact), class: "button tiny green" %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
+    </fieldset>
+  </div>
+
+  <%= render 'lead_contacts_modals' %>
+</div>

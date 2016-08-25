@@ -485,10 +485,10 @@ ActiveRecord::Schema.define(:version => 20160824201049) do
     t.string   "role"
     t.string   "status"
     t.string   "source"
-    t.string   "company"
-    t.string   "company_size"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.string   "organization_name"
+    t.string   "organization_size"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   add_index "lead_contacts", ["email"], :name => "index_lead_contacts_on_email"

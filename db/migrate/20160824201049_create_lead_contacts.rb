@@ -8,8 +8,8 @@ class CreateLeadContacts < ActiveRecord::Migration
       t.string :role
       t.string :status
       t.string :source
-      t.string :company
-      t.string :company_size
+      t.string :organization_name
+      t.string :organization_size
 
       t.timestamps
     end
