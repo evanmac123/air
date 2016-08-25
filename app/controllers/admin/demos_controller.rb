@@ -2,6 +2,10 @@ class Admin::DemosController < AdminBaseController
   before_filter :find_demo_by_id, :only => [:show, :edit, :update]
   before_filter :params_correction, :only => [:create, :update]
 
+  def index
+    @demos = Demo.list
+  end
+
   def new
     @demo = Demo.new
     @palette = @demo.build_custom_color_palette
