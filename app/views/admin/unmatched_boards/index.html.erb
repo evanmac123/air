@@ -1,0 +1,27 @@
+
+<h1>Unmatched Boards</h1>
+
+
+<div class="row ">
+  <div class="columns large-6">
+    <%=select_tag :organizations, options_from_collection_for_select(@organizations, :id, :name),{ :include_blank => true } %>
+  </div>
+</div>
+
+<div class="row ">
+  <div class="columns large-5">
+    <%=select_tag :unmatched, options_from_collection_for_select(@demos, :id, :name), class:"left-list", multiple: true%>
+  </div>
+
+  <div class="columns large-2">
+    <p>
+    <button class="button move-right">Add >></button>
+    </p>
+    <p>
+    <button class = "button move-left"> << Remove </button>
+    </p>
+  </div>
+  <div class="columns large-5 end">
+    <%=select_tag :matched, [], class: "right-list", multiple: true%>
+  </div>
+</div>

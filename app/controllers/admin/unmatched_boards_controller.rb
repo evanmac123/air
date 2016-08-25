@@ -2,7 +2,8 @@ class Admin::UnmatchedBoardsController < AdminBaseController
 
 
  def index
-   Demo.unmatched
+   @demos = Demo.unmatched
+   @organizations = Organization.all
  end
 
  def update

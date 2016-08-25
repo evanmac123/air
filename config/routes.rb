@@ -292,7 +292,7 @@ Health::Application.routes.draw do
 
     post "lost_user", :controller => "lost_users", :action => :create, :as => "lost_user"
 
-    resources :unmatched_demos
+    resources :unmatched_boards
 
     resources :demos do
       resources :users do
