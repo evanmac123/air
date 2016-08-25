@@ -3,6 +3,7 @@ class Organization < ActiveRecord::Base
 
   has_many :contracts
   has_many :demos
+  has_many :boards, class_name: :Demo
   has_many :users
 
   validates :name, :sales_channel, :num_employees, presence: true
