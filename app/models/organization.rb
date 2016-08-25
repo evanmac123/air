@@ -1,4 +1,6 @@
 class Organization < ActiveRecord::Base
+  serialize :roles, Array
+
   has_many :contracts
   has_many :demos
   has_many :users
