@@ -12,10 +12,6 @@
       <span class="commands">
         <%= link_to "Save", client_admin_tiles_follow_up_email_path(@follow_up_email), 
           class: "save button small", data:{action:"save"} %>
-        <%= link_to "Send Now", client_admin_tiles_follow_up_email_path(@follow_up_email), 
-          class: "now button small", data:{action:"now"} %>
-        <%= link_to "Delete", client_admin_tiles_follow_up_email_path(@follow_up_email), 
-          class: "destroy button outlined small", data:{action: "destroy"}%>
       </span>
     <%end%>
     </div>

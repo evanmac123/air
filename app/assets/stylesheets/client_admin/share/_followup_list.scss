@@ -6,25 +6,30 @@
   width: 60%;
   margin: auto;
 
-}
-.cmd-wrapper{
-  text-align: center;
-  .commands {
-    /*display: inline-block;*/
+  form{
+    width: 90%;
+    margin: auto;
   }
 }
+.cmd-wrapper{
+  text-align: right;
+}
+
 li.control-group{
   margin-bottom: .5em;
   label {
-    text-align: right;
-    display: inline-block;
-    vertical-align: middle;
-    width: 10em;
-    margin: 0 1em 0 0;
+    display: block;
+    padding: 5px;
+    font-weight:bold; 
   }
-  input {
-  display: inline-block;
-  width: auto;
+}
+
+.actions a{
+
+  padding:3px;
+  margin-left: 5px;
+  &:first-of-kind{
+    margin-left: 25px;
   }
 }
 

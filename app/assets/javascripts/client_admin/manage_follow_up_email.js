@@ -2,7 +2,7 @@ var Airbo = window.Airbo || {}
 
 
 Airbo.DigestEmailFollowUpManager = (function(){
-  var cmdSelector = ".commands .button";
+  var cmdSelector = "td.actions>a ";
   var currRow;
 
   /*
@@ -26,7 +26,7 @@ Airbo.DigestEmailFollowUpManager = (function(){
     }
 
     function save(cmd){
-      
+
       function ok(data, status, xhr){
         done("success", xhr);
         update(data);
@@ -38,80 +38,13 @@ Airbo.DigestEmailFollowUpManager = (function(){
       execute("PUT", cmd.attr("href"), cmd.parents("form").serialize(), ok, failed);
     }
 
-
-    function now(cmd){
-      function ok(data, status, xhr){
-        handleRemoval()
-        done("success", xhr);
-      }
-
-      function failed(){
-        console.log("unabled to send now");
-      }
-
-      approve("Are you sure want to send this follow up immediately?", function(){
-        execute("PUT", cmd.attr("href"), {now: "true"}, ok, failed);
-      });
-    }
-
-    function destroy(cmd){
-      function ok(data, status, xhr){
-        handleRemoval()
-        done("success",xhr);
-        Airbo.Utils.ping("Followup - Cancelled", data)
-      }
-
-      approve("Are you sure want to delete this followup email?", function(){
-        execute("DELETE", cmd.attr("href"),{}, ok);
-      });
-
-    }
-
-    function initCommands(){
-      $(cmdSelector).on("click", function(event){
+    function initSave(){
+      $(".button.save").on("click", function(event){
         event.preventDefault();
-
-        var cmd = $(this);
-
-        switch(cmd.data("action")){
-          case "save":
-            save(cmd);
-          break;
-          case "now":
-            now(cmd);
-          break;
-          case "destroy":
-            destroy(cmd);
-          break;
-        }
+        save($(this));
       });
     }
 
-
-    function initFormValidator(){
-      var config={
-        onkeyup: false,
-        rules: {
-          "follow_up_digest_email[send_on]": {
-            required: true,
-          },
-        }
-      };
-
-      config = $.extend({}, Airbo.Utils.validationConfig, config);
-      validator = form.validate(config);
-    }
-
-    function initFormSubmit(){
-      $(".edit_follow_up_digest_email").submit(function(event){
-        event.preventDefault();
-
-        if(!form.valid()){
-          validator.focusInvalid();
-          validator.resetForm();
-        }
-      });
-    }
     function initForm(){
       form = $(".edit_follow_up_digest_email");
       $("#follow_up_digest_email_send_on").datepicker(
@@ -121,6 +54,7 @@ Airbo.DigestEmailFollowUpManager = (function(){
       );
     }
 
+
     function open(url) {
       $.ajax({
         type: "GET",
@@ -129,7 +63,7 @@ Airbo.DigestEmailFollowUpManager = (function(){
         success: function(data, status,xhr){
           modalObj.setContent(data);
           modalObj.open();
-          initCommands();
+          initSave();
           initForm();
         },
 
@@ -182,14 +116,59 @@ Airbo.DigestEmailFollowUpManager = (function(){
       }
     );
   }
-  function initEdit(){
-    $(".edit-follow-up").on("click", function(event){
-      var cmd = $(this)
-      event.preventDefault();
-      currRow = cmd.parents("tr");
-      modal.open(cmd.attr("href"));
+
+  function edit(cmd){
+    modal.open(cmd.attr("href"));
+  }
+
+  function now(cmd){
+    function ok(data, status, xhr){
+      handleRemoval()
+      done("success", xhr);
+    }
+
+    function failed(){
+      console.log("unabled to send now");
+    }
+
+    approve("Are you sure want to send this follow up immediately?", function(){
+      execute("PUT", cmd.attr("href"), {now: "true"}, ok, failed);
     });
   }
+
+  function destroy(cmd){
+    function ok(data, status, xhr){
+      handleRemoval()
+      done("success",xhr);
+      Airbo.Utils.ping("Followup - Cancelled", data)
+    }
+
+    approve("Are you sure want to delete this followup email?", function(){
+      execute("DELETE", cmd.attr("href"),{}, ok);
+    });
+  }
+
+  function initCommands(){
+    $(cmdSelector).on("click", function(event){
+      event.preventDefault();
+
+      var cmd = $(this);
+      currRow = cmd.parents("tr")
+
+      switch(cmd.data("action")){
+        case "edit":
+          edit(cmd);
+        break;
+        case "now":
+          now(cmd);
+        break;
+        case "destroy":
+          destroy(cmd);
+        break;
+      }
+    });
+  }
+
 
   function done(type, xhr){
     //TODO modify to use status from xhr instead of passing in status
@@ -228,7 +207,7 @@ Airbo.DigestEmailFollowUpManager = (function(){
 
   function init(){
     modal.init();
-    initEdit();
+    initCommands();
   }
 
   return {

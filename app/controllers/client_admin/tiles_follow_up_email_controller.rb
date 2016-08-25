@@ -18,7 +18,7 @@ class ClientAdmin::TilesFollowUpEmailController < ClientAdminBaseController
   def update
     if params[:now].present? 
       @follow_up_email.trigger_deliveries
-      @follow_up_email.destroy
+      #@follow_up_email.destroy
       js_flash SEND_NOW_SUCCESS
       head :ok
     else
@@ -30,7 +30,7 @@ class ClientAdmin::TilesFollowUpEmailController < ClientAdminBaseController
   end
 
   def destroy
-    @follow_up_email.destroy
+    #@follow_up_email.destroy
     js_flash DELETE_SUCCESS
     render json: delete_response
   end

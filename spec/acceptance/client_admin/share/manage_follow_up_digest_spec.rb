@@ -1,6 +1,5 @@
 require 'acceptance/acceptance_helper'
 
-#Capybara.javascript_driver=:selenium
 
 feature "Client admin modifies the follow digest email", js: true do
 
@@ -27,12 +26,14 @@ feature "Client admin modifies the follow digest email", js: true do
     #bypass_modal_overlays(admin)
     visit client_admin_share_path(as: @admin)
 
-    within @rowSelector do
-      click_link "Edit"
-    end
   end
 
   context "Editing send on and subject" do
+    before do
+      within @rowSelector do
+        click_link "Edit"
+      end
+    end
     scenario "confirms change"  do
 
       within modal_form do
@@ -70,12 +71,12 @@ feature "Client admin modifies the follow digest email", js: true do
   end
 
   context "send now"  do
-    scenario "confirm" do
-
-      within modal_form do
+    before do
+      within @rowSelector do
         click_link "Send Now"
       end
-
+    end
+    scenario "confirm" do
       within sweet_alert_popup do
         click_button "OK"
       end
@@ -85,25 +86,21 @@ feature "Client admin modifies the follow digest email", js: true do
     end
 
     scenario "cancel" do
-
-      within modal_form do
-        click_link "Send Now"
-      end
-
       within sweet_alert_popup do
         click_button "Cancel"
       end
       expect(page).to have_css(@rowSelector)
     end
-
   end
 
   context "delete"  do
-    scenario "confirm" do
-      within modal_form do
-        click_link "Delete"
+    before do
+      within @rowSelector do
+        click_link "Cancel"
       end
+    end
 
+    scenario "confirm" do
       within sweet_alert_popup do
         click_button "OK"
       end
@@ -113,11 +110,6 @@ feature "Client admin modifies the follow digest email", js: true do
     end
 
     scenario "cancel" do
-
-      within modal_form do
-        click_link "Delete"
-      end
-
       within sweet_alert_popup do
         click_button "Cancel"
       end
