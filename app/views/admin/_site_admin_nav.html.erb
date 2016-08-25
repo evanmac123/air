@@ -3,9 +3,7 @@
     <!-- Title Area -->
     <li class="name">
       <h1>
-        <a href="http://www.zurb.com/expo">
-          Expo
-        </a>
+        <%=link_to "Dashoboard", admin_path%>
       </h1>
     </li>
     <li class="toggle-topbar"><a href="#"></a></li>
@@ -15,30 +13,38 @@
 
   <section class="top-bar-section">
     <!-- Right Nav Section -->
-    <ul class="right">
-      <li class=""><a href="#">Courses</a></li>
+    <ul class="left">
       <li class="has-dropdown not-click">
-        <a href="#">Library</a>
-        <ul class="dropdown"><li class="title back js-generated"><h5><a href="#">Back</a></h5></li>
-          <li class=""><a href="http://patterntap.com">Pattern Tap</a></li>
-          <li class=""><a href="http://www.zurb.com/word">Word</a></li>
-          <li class=""><a href="http://www.zurb.com/responsive">Responsive</a></li>
-          <li class=""><a href="http://www.zurb.com/playground">Playground</a></li>
-          <li class=""><a href="http://www.zurb.com/quips">Quips</a></li>
+        <a href="#">System Resources</a>
+        <ul class="dropdown">
+          <li>
+            <%= link_to 'Tags', admin_tags_path %>
+          </li>
+          <li>
+            <%= link_to 'Standard characteristics', admin_characteristics_path  %>
+          </li>
+          <li>
+            <%= link_to 'Image Library', admin_tile_images_path %>
+          </li>
+          <li>
+            <%= link_to 'Edit Support Page', edit_admin_support_path %>
+          </li>
         </ul>
       </li>
       <li class="has-dropdown not-click">
         <a href="http://www.zurb.com/expo/community">Community</a>
-        <ul class="dropdown"><li class="title back js-generated"><h5><a href="#">Back</a></h5></li>
-          <li class=""><a href="http://www.forrst.com">Forrst</a></li>
-          <li class=""><a href="http://www.zurb.com/soapbox">Soapbox</a></li>
-          <li class=""><a href="http://www.zurb.com/speak">Speak</a></li>
-          <li class=""><a href="http://www.zurb.com/wired">Wired</a></li>
-          <li class=""><a href="http://www.enrollapp.com">Enroll</a></li>
+        <ul class="dropdown">
+          <li>
+            <%= link_to 'Organizations', admin_organizations_path  %>
+          </li>
+          <li>
+            <%= link_to 'Boards', admin_demos_path  %>
+          </li>
+          <li>
+            <%= link_to 'Explore Digest', new_admin_explore_digest_path %>
+          </li>
+
         </ul>
-      </li>
-      <li class="">
-        <a href="http://www.zurb.com/jobs">Job Board</a>
       </li>
     </ul>
   </section>

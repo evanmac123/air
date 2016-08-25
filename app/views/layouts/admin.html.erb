@@ -9,21 +9,17 @@
 
     <%= csrf_meta_tag %>
     <%= mobvious_javascript %>
-    <%= render 'shared/nerf_animations_in_test' %>
   </head>
   <body class="<%= body_class %>">
 
     <%= render 'shared/header', :show_play_box => false %>
     <%= render 'shared/admin_flashes' %>
+    <%=render "admin/site_admin_nav"%>
     <%= render 'shared/offcanvas_menu_signedin' %>
       <%= yield %>
-    <div id="footer">
-      <%= render 'shared/copyright' %>
-    </div>
+  
 
     <%= render :partial => 'shared/modals/modals' %>
-    <%= render "shared/intercom" %>
     <%= render :partial => 'shared/javascript' %><!-- This is where 'yield :javascript' takes place -->
-    <div id='gradient-triangle'></div>
   </body>
 </html>
