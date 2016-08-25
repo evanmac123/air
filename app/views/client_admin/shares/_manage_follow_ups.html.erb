@@ -8,11 +8,11 @@
             <td class="subject">Don't Miss: <span><%= truncate(follow_up.original_digest_subject, length:50) %></span> </td>
             <td class = "send_on"><%= follow_up.send_on.to_time.to_s(:tile_digest_email_sent_at) %></td>
             <td class="actions">
-              <%= link_to "Edit", edit_client_admin_tiles_follow_up_email_path(follow_up), class: "edit-follow-up", data:{action: "edit"}  %>
+              <%= link_to "Edit", edit_client_admin_tiles_follow_up_email_path(follow_up), class: "link edit", data:{action: "edit"}  %>
               <%= link_to "Send Now", client_admin_tiles_follow_up_email_path(follow_up), 
-                class: "now ", data:{action:"now"} %>
+                class: "link now ", data:{action:"now"} %>
               <%= link_to "Cancel", client_admin_tiles_follow_up_email_path(follow_up), 
-                class: "destroy ", data:{action: "destroy"}%>
+                class: "link destroy ", data:{action: "destroy"}%>
           </td>
           </tr>
         <% end %>
