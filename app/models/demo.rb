@@ -87,6 +87,10 @@ class Demo < ActiveRecord::Base
     where(is_paid: true)
   end
 
+  def self.unmatched
+    where(organization_id: nil)
+  end
+
   def self.list
     #TODO change to arel
     select("id, name, dependent_board_id, is_paid, (SELECT COUNT(*) FROM board_memberships WHERE demo_id = demos.id) AS user_count").reorder("user_count DESC")
