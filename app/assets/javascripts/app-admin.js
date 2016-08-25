@@ -33,5 +33,6 @@
 
 //= require ../../../vendor/assets/javascripts/external/modernizr
 //= require ../../../vendor/assets/javascripts/external/foundation.min
-
-$(document).foundation();
+$(function(){
+  $(document).foundation();
+})
