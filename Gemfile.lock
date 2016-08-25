@@ -278,6 +278,8 @@ GEM
     httparty (0.13.3)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
+    humanize_boolean (0.0.2)
+      i18n
     i18n (0.7.0)
     inflecto (0.0.2)
     intercom (2.4.2)
@@ -624,6 +626,7 @@ DEPENDENCIES
   high_voltage
   historyjs-rails
   htmlentities
+  humanize_boolean
   intercom (~> 2.4.2)
   jquery-fileupload-rails
   jquery-rails
