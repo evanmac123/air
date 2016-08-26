@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160826024852) do
+ActiveRecord::Schema.define(:version => 20160826171057) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -325,10 +325,8 @@ ActiveRecord::Schema.define(:version => 20160826024852) do
     t.text     "dependent_board_email_body"
     t.boolean  "alt_subject_enabled",                                  :default => false
     t.boolean  "allow_embed_video",                                    :default => true
-    t.integer  "organization_id"
   end
 
-  add_index "demos", ["organization_id"], :name => "index_demos_on_organization_id"
   add_index "demos", ["public_slug"], :name => "index_demos_on_public_slug"
 
   create_table "email_commands", :force => true do |t|
@@ -479,26 +477,6 @@ ActiveRecord::Schema.define(:version => 20160826024852) do
 
   add_index "labels", ["rule_id", "tag_id"], :name => "index_labels_on_rule_id_and_tag_id"
 
-  create_table "lead_contacts", :force => true do |t|
-    t.integer  "user_id"
-    t.string   "email"
-    t.string   "name"
-    t.string   "phone"
-    t.string   "role"
-    t.string   "status"
-    t.string   "source"
-    t.string   "organization_name"
-    t.string   "organization_size"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-    t.integer  "organization_id"
-  end
-
-  add_index "lead_contacts", ["email"], :name => "index_lead_contacts_on_email"
-  add_index "lead_contacts", ["organization_id"], :name => "index_lead_contacts_on_organization_id"
-  add_index "lead_contacts", ["status"], :name => "index_lead_contacts_on_status"
-  add_index "lead_contacts", ["user_id"], :name => "index_lead_contacts_on_user_id"
-
   create_table "levels", :force => true do |t|
     t.string   "name",              :default => "", :null => false
     t.integer  "threshold",                         :null => false
@@ -561,15 +539,13 @@ ActiveRecord::Schema.define(:version => 20160826024852) do
 
   create_table "organizations", :force => true do |t|
     t.string   "name"
-    t.string   "num_employees"
+    t.integer  "num_employees"
     t.string   "sales_channel"
     t.boolean  "churned"
     t.text     "churn_reason"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end
-
-  add_index "organizations", ["name"], :name => "index_organizations_on_name"
 
   create_table "outgoing_emails", :force => true do |t|
     t.string   "subject"
