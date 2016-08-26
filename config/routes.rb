@@ -173,7 +173,7 @@ Health::Application.routes.draw do
 
     resource :tiles_digest_notification, only: :create
 
-    resources :tiles_follow_up_email, only: :destroy
+    resources :tiles_follow_up_email
 
     resources :inactive_tiles, only: :index do
       member do
@@ -275,7 +275,8 @@ Health::Application.routes.draw do
     end
 
     resource :client_kpi_report
-    resources :organizations, path: "customers" do
+    resources :organizations, as: :customers
+    resources :organizations do
       resources :contracts, controller: "contracts"
       resources :billings
     end
@@ -295,9 +296,14 @@ Health::Application.routes.draw do
 
     post "lost_user", :controller => "lost_users", :action => :create, :as => "lost_user"
 
-    resources :demos, :only => [:new, :create, :show, :edit, :update] do
-      # TODO: move :edit and :update onto resources :users below
-      resources :users, :only => [:index, :edit, :update, :destroy] do
+    resources :unmatched_boards, only: [:index, :update] do
+      collection  do 
+        post :update
+      end
+     end
+
+    resources :demos do
+      resources :users do
         resource :characteristics, :only => :update, :controller => "user_characteristics"
         resource :test_status, :only => :update
       end

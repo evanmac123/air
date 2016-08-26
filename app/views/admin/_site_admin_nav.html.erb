@@ -1,0 +1,51 @@
+<nav class="top-bar hide-for-small">
+  <ul class="title-area">
+    <!-- Title Area -->
+    <li class="name">
+      <h1>
+        <%=link_to "Dashoboard", admin_path%>
+      </h1>
+    </li>
+    <li class="toggle-topbar"><a href="#"></a></li>
+  </ul>
+
+
+
+  <section class="top-bar-section">
+    <!-- Right Nav Section -->
+    <ul class="left">
+      <li class="has-dropdown not-click">
+        <a href="#">System Resources</a>
+        <ul class="dropdown">
+          <li>
+            <%= link_to 'Tags', admin_tags_path %>
+          </li>
+          <li>
+            <%= link_to 'Standard characteristics', admin_characteristics_path  %>
+          </li>
+          <li>
+            <%= link_to 'Image Library', admin_tile_images_path %>
+          </li>
+          <li>
+            <%= link_to 'Edit Support Page', edit_admin_support_path %>
+          </li>
+        </ul>
+      </li>
+      <li class="has-dropdown not-click">
+        <a href="http://www.zurb.com/expo/community">Community</a>
+        <ul class="dropdown">
+          <li>
+            <%= link_to 'Organizations', admin_organizations_path  %>
+          </li>
+          <li>
+            <%= link_to 'Boards', admin_demos_path  %>
+          </li>
+          <li>
+            <%= link_to 'Explore Digest', new_admin_explore_digest_path %>
+          </li>
+
+        </ul>
+      </li>
+    </ul>
+  </section>
+</nav>

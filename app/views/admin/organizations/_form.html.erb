@@ -25,11 +25,11 @@
     <%= f.text_field :sales_channel %>
   </div>
   <%if @organization.churned %>
-  <div class="row" >
-    <%= f.label :churn_reason %>
-    <%= f.text_area :churn_reason %>
-  </div>
-<%end%>
+    <div class="row" >
+      <%= f.label :churn_reason %>
+      <%= f.text_area :churn_reason %>
+    </div>
+  <%end%>
   <div class="actions">
     <%= f.submit "Submit",  class: "button"%>
 

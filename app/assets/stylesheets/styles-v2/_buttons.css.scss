@@ -85,6 +85,7 @@
     // }
 }
 
+//FIXME remove specificity hack
 .button.button {
   @include button;
   // &. {

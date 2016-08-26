@@ -1,0 +1,18 @@
+
+<div class="follow-up-email-form">
+<h2 class="text-center">Edit Follow Up Details</h2>
+  <%=form_for(@follow_up_email, url: client_admin_tiles_follow_up_email_path(@follow_up_email)) do |f| %>
+
+    <ul>
+      <li class="control-group"><%=f.label :original_digest_subject, "Subject" %> <%= f.text_field :original_digest_subject%> </li>
+      <li class="control-group"><%=f.label :send_on, "Send On" %> <%=f.text_field :send_on, value: f.object.send_on.to_time.to_s(:tile_digest_email_sent_at), readonly: true %> </li> 
+    </ul>
+
+    <div class="cmd-wrapper">
+      <span class="commands">
+        <%= link_to "Save", client_admin_tiles_follow_up_email_path(@follow_up_email), 
+          class: "save button small", data:{action:"save"} %>
+      </span>
+    <%end%>
+    </div>
+</div>

@@ -1,93 +1,94 @@
-<div class="admin ">
-  <div class="row">
-    <div class="columns large-12">
-        <h3 class="blue"><%= link_to "Admin", admin_path, class: "blue" %> | <%= @demo.name %></h3>
-    </div>
+<div class="row">
+  <div class="columns large-12">
+    <h1 class="text-left"><%=@demo.name%></h1>
+    <h2 class="text-left"><%=@demo.organization_name%>
+  </h2>
   </div>
+</div>
 
-  <div class="row">
-    <div class="columns large-12">
-      <%= button_to "Send me an Activity Report", admin_demo_reports_activities_path(@demo), class: "button primary" %>
-      <br>
-      <% if @demo.is_paid? %>
-        <%= button_to "Make board free", admin_demo_paid_status_path(@demo), method: :delete, class: "button alert" %>
-      <% else %>
-        <%= button_to "Make board paid", admin_demo_paid_status_path(@demo), class: "button danger" %>
-      <% end %>
-      <br>
-      <% if @demo.upload_in_progress %>
-        <h4 class="red">Upload in progress...</h4>
-        <%= button_to "Reset upload-in-progress status", admin_reset_bulk_upload_path(@demo), method: :delete, class: "button danger" %>
-      <% end %>
-      <br>
-      <fieldset>
-        <legend>Reports</legend>
-      </fieldset>
-      <br>
-      <fieldset>
-        <legend>Info</legend>
-        <h4>
-          <span class="blue"><%= @claimed_user_count %></span>
-          users have accepted invitations
-        </h4>
-        <h4>
-          <span class="blue"><%= @user_with_mobile_count %></span>
-          users have added mobile numbers to their accounts
-        </h4>
-        <h4>
-          <span class="blue"><%= @user_with_game_referrer_count %></span>
-          users have credited a game referrer
-        </h4>
-      </fieldset>
-      <br>
-      <fieldset>
-        <legend>Actions</legend>
-        <h4>
-          <%= link_to "Characteristics for this board", admin_demo_characteristics_path(@demo) %>
-        </h4>
-        <h4>
-          <%= link_to "Segment users", admin_demo_segmentation_path(@demo) %>
-        </h4>
-        <% if @demo.dependent_board_enabled %>
-          <h4>
-            <%= link_to "Dependent board data", admin_demo_dependent_board_path(@demo) %>
-          </h4>
-        <% end %>
-        <h4>
-          <%= link_to "Send targeted messages to users in this demo", admin_demo_targeted_messages_path(@demo) %>
-        </h4>
-        <h4>
-          <%= link_to "Conduct raffle", admin_demo_raffles_path(@demo) %>
-        </h4>
-        <h4>
-          <%= link_to "Count peer invitations", admin_demo_peer_invitations_path(@demo) %>
-        </h4>
-      </fieldset>
-      <br>
-      <fieldset>
-        <legend>Settings</legend>
-        <h3><%= link_to "Edit basic settings for this board", edit_admin_demo_path(@demo) %></h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Email</th>
-              <th>Phone Number</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><%= @demo.email %></td>
-              <td><%= @demo.phone_number.try(:as_pretty_phone) %></td>
-            </tr>
-          </tbody>
-        </table>
-      </fieldset>
-      <br>
-      <fieldset>
-        <legend>Users</legend>
-        <%= render 'user_paginator', :demo => @demo  %>
-      </fieldset>
+<div class="row">
+  <div class="columns large-12">
+    <% if @demo.is_paid? %>
+      <%= link_to "Make board free", admin_demo_paid_status_path(@demo), method: :delete, class: "inline button alert" , form_class: "inline"%>
+    <% else %>
+      <%= link_to "Make board paid", admin_demo_paid_status_path(@demo), class: "inline button danger", form_class: "inline"%>
+    <% end %>
 
-    </div>
+    <%=link_to "#", class: "button outlined" do%>
+      <%=fa_icon("unlink")%>
+      <span>Unlink this board from:  <%=@demo.organization_name%></span>
+    <%end%>
+
+    <% if @demo.upload_in_progress %>
+      <h4 class="red">Upload in progress...</h4>
+      <%= button_to "Reset upload-in-progress status", admin_reset_bulk_upload_path(@demo), method: :delete, class: "button danger", form_class: "inline" %>
+    <% end %>
+  </div>
+</div>
+<div class="row">
+  <div class="columns large-12">
+      <h3>User Stats</h3>
+    <table class="first-column-header">
+      <tbody>
+        <tr><th>Accepted Invitations</th><td class="blue"><%= @claimed_user_count %></td></tr>
+        <tr><th>Added mobile numbers to their accounts</th><td class="blue"><%= @user_with_mobile_count %></td></tr>
+        <tr><th>Credited a game referrer</th><td class="blue"><%= @user_with_game_referrer_count %></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="row">
+  <div class="columns large-12">
+    <fieldset>
+      <legend>Actions</legend>
+      <h4>
+        <%= link_to "Characteristics for this board", admin_demo_characteristics_path(@demo) %>
+      </h4>
+      <h4>
+        <%= link_to "Segment users", admin_demo_segmentation_path(@demo) %>
+      </h4>
+      <% if @demo.dependent_board_enabled %>
+        <h4>
+          <%= link_to "Dependent board data", admin_demo_dependent_board_path(@demo) %>
+        </h4>
+      <% end %>
+      <h4>
+        <%= link_to "Send targeted messages to users in this demo", admin_demo_targeted_messages_path(@demo) %>
+      </h4>
+      <h4>
+        <%= link_to "Conduct raffle", admin_demo_raffles_path(@demo) %>
+      </h4>
+      <h4>
+        <%= link_to "Count peer invitations", admin_demo_peer_invitations_path(@demo) %>
+      </h4>
+    </fieldset>
+  </div>
+</div>
+<div class="row">
+  <div class="columns large-12">
+    <fieldset>
+      <legend>Settings</legend>
+      <h3><%= link_to "Edit basic settings for this board", edit_admin_demo_path(@demo) %></h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>Phone Number</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= @demo.email %></td>
+            <td><%= @demo.phone_number.try(:as_pretty_phone) %></td>
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>
+    <br>
+    <fieldset>
+      <legend>Users</legend>
+      <%= render 'user_paginator', :demo => @demo  %>
+    </fieldset>
   </div>
 </div>

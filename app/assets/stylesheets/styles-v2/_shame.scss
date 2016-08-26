@@ -22,12 +22,27 @@
   float:left;
 }
 
+.inline{
+  display:inline;
+}
+
+.inline-block{
+  display: inline-block;
+}
+
 .num-items{
  font-size: $font-size-1;
 }
 
 .text-center {
   text-align: center;
+}
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
 }
 
 .board_settings {
@@ -182,6 +197,14 @@ td .button.td-button {
 .hidden-field { // TODO: see if .hidden-field can be merged into .hidden
   display: none;
 }
+
+
+/*
+//This is current defined in main_styles
+.hidden.hidden.hidden {
+  display: none;
+}
+*/
 
 .client_admin-stock_boards-index {
   .core, .content {

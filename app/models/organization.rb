@@ -1,7 +1,11 @@
 class Organization < ActiveRecord::Base
+  serialize :roles, Array
+
   has_many :contracts
   has_many :demos
   has_many :lead_contacts
+  has_many :boards, class_name: :Demo
+  has_many :users
 
   validates :name, :sales_channel, :num_employees, presence: true
   # validates :num_employees, numericality: {integer_only: true}

@@ -1,0 +1,33 @@
+<div class="large-12 columns ready_to_send">
+  <h3>Email Tiles</h3>
+  <% if @digest_tiles.empty? %>
+    <div class="go_post_tiles_message">
+      No new Tiles to send. Go to
+      <%= link_to "Edit", client_admin_tiles_path %>
+      to post new Tiles.
+    </div>
+  <% end %>
+</div>
+<div class="large-3 columns">
+  <%= render partial: 'form' %>
+</div>
+<div class="large-9 email_preview">
+  <div class="email_preview_header">
+    <label>Email preview</label>
+    <div id="last-email">
+      <%= digest_email_sent_on_message %>
+    </div>
+  </div>
+  <ul class="email_preview_switchers button-group">
+    <li>
+      <%= link_to "Tiles Email Preview", "#", class: "button outlined selected full_width", id: "show_email_preview" %>
+    </li>
+    <li>
+      <%= link_to "Follow-Up Email Preview", "#", class: "button outlined full_width", id: "show_follow_up_preview" %>
+    </li>
+  </ul>
+  <%= render 'email_client_wrapper', demo: current_user.demo, subject: 'New Tiles' %>
+</div>
+<% js_at_end do %>
+  window.digestManagement()
+<% end %>

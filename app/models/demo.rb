@@ -30,7 +30,7 @@ class Demo < ActiveRecord::Base
   has_one :raffle
   has_one :custom_color_palette
   belongs_to :dependent_board, class_name: "Demo", foreign_key: :dependent_board_id, dependent: :destroy
-
+  belongs_to :organization
 
   validates_inclusion_of :join_type, :in => JOIN_TYPES
 
@@ -87,6 +87,19 @@ class Demo < ActiveRecord::Base
   def self.paid
     where(is_paid: true)
   end
+
+  def self.unmatched
+    where(organization_id: nil)
+  end
+
+  def self.list
+    #TODO change to arel
+    select("id, name, dependent_board_id, is_paid, (SELECT COUNT(*) FROM board_memberships WHERE demo_id = demos.id) AS user_count").reorder("user_count DESC")
+  end
+
+   def organization_name
+     organization.present? ? organization.name : "Unattached To Any Organization"
+   end
 
   def activate_tiles_if_showtime
     tiles.activate_if_showtime
@@ -152,7 +165,8 @@ class Demo < ActiveRecord::Base
   def digest_tiles(cutoff_time=self.tile_digest_email_sent_at)
     tiles.digest(self, cutoff_time)
   end
-
+ 
+  #FIXME WTF?  this is idiotic why not rename for the fucking variable OMG!!!!!
   # Note that 'unclaimed_users_also_get_digest' is a param passed to this method, not the demo's attribute of the same name
   def users_for_digest(unclaimed_users_also_get_digest)
     unclaimed_users_also_get_digest ? users : users.claimed

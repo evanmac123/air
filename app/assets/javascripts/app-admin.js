@@ -32,3 +32,8 @@
 //= require ./admin/demo_search
 //= require ./admin/demo_filter
 //= require ./admin/lead_contact
+//= require ../../../vendor/assets/javascripts/external/modernizr
+//= require ../../../vendor/assets/javascripts/external/foundation.min
+$(function(){
+  $(document).foundation();
+});

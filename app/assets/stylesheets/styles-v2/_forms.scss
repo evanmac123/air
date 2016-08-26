@@ -3,10 +3,14 @@
 form {
   width: 100%;
   &.inline {
-    span.label {
+    span.label, {
       margin-right: 10px;
     }
-    input[type=text], input[type=email] {
+
+    label {
+     display: inline;
+    }
+    input[type=text], input[type=email], input[type=date] {
       width: 250px;
       margin-right: 10px;
       margin-bottom: 0;
@@ -21,7 +25,7 @@ form {
     //   margin-bottom: 20px;
     // }
     @media only screen and (max-width: $foundation) {
-      span, input[type=text], input[type=email], .button {
+      span, input[type=text], input[type=email], input[type=date], .button {
         display: block;
         width: 100%;
         margin-bottom: 20px;

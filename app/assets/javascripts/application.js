@@ -75,6 +75,29 @@ var DefaultUtils = {
   ping: function(event, properties) {
     // $.post("/ping", { event: event, properties: properties });
     mixpanel.track(event, properties);
+  },
+
+  flash: function(type,msg,config ){
+    //TODO make flash duration configurable
+    var flash= $(".flash-js");
+
+    flash.find(".flash-content").text(msg)
+    flash.find(".flash-js-msg").addClass(type);
+    flash.fadeIn(500);
+    //TODO small hack to make flash show in specs
+    //would normally use native jquery fadeIn(n).fadeOut(n)
+    setTimeout(function(){
+      flash.fadeOut(0); 
+    }, 2000);
+  },
+
+  flashMsg:function (xhr, defaultMsg){
+    return xhr.getResponseHeader("X-Message") || defaultMsg;
+  },
+
+  truncate: function(text, len){
+    var max = (len || 30) - 3;
+    return text.length > max ?  text.substring(0, max) + '...' : text;
   }
 };
 
@@ -96,5 +119,6 @@ function isIE() {
   }
 }
 
-
-$.extend(Airbo.Utils, DefaultUtils);
+$(document).ready(function(){
+  $.extend(Airbo.Utils, DefaultUtils);
+});
