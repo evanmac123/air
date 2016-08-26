@@ -23,18 +23,19 @@ describe LeadContactUpdater do
       )
     end
 
-    describe "denial" do
-      it "updates the LeadContact attributes and cahnges status to denied" do
-        @attributes["phone"] = ""
+    describe "update" do
+      it "updates the LeadContact attributes" do
         @attributes["name"] = "New Name"
+        @attributes["phone"] = ""
+        @attributes["matched_organization"] = "Existing Org"
 
-        LeadContactUpdater.update(@attributes, "Deny")
+        LeadContactUpdater.new(@attributes, "Deny").update
 
         lead_contact = LeadContact.find(@lead_contact.id)
 
-        expect(lead_contact.status).to eq("denied")
         expect(lead_contact.name).to eq("New Name")
-        expect(lead_contact.phone).to eq("")
+        expect(lead_contact.phone).to eq("invalid")
+        expect(lead_contact.organization_name).to eq("Existing Org")
       end
     end
   end

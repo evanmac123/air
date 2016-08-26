@@ -9,8 +9,14 @@ class Admin::Sales::LeadContactsController < AdminBaseController
   end
 
   def update
-    lead_contact = LeadContactUpdater.dispatch(lead_contact_params, params[:commit])
-    redirect_to action: "edit", id: params[:id]
+    lead_contact = LeadContactUpdater.new(lead_contact_params, params[:commit])
+
+    if lead_contact.update
+      lead_contact.dispatch
+      redirect_to action: "index"
+    else
+      render "edit"
+    end
   end
 
   def create
