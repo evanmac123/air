@@ -2,7 +2,7 @@ class LeadContactUpdater
   attr_reader :lead_contact, :attributes, :routing_attributes, :action
 
   def initialize(params, action)
-    normalize_attribtues(params)
+    normalize_params(params)
     @lead_contact = LeadContact.find(params["id"])
     @attributes = base_attributes(params)
     @routing_attributes = routing_hash(params)
@@ -14,9 +14,8 @@ class LeadContactUpdater
   end
 
   def update
-    update_lead_contact_attributes
-
-    lead_contact.save
+    refresh_base_attributes
+    lead_contact.update_attributes(attributes)
   end
 
   def approve
@@ -28,7 +27,8 @@ class LeadContactUpdater
   end
 
   private
-    def normalize_attribtues(params)
+  
+    def normalize_params(params)
       params.update(params) { |_k, v| v.empty? ? nil : v }
     end
 
@@ -57,11 +57,10 @@ class LeadContactUpdater
       attributes[:organization_size] || lead_contact.organization_size
     end
 
-    def update_lead_contact_attributes
-      lead_contact.name = attributes[:name]
-      lead_contact.email = attributes[:email] || "invalid"
-      lead_contact.phone = attributes[:phone] || "invalid"
-      lead_contact.organization_name = validate_organization_name
-      lead_contact.organization_size = validate_organization_size
+    def refresh_base_attributes
+      attributes[:email] ||= "invalid"
+      attributes[:phone] ||= "invalid"
+      attributes[:organization_size] ||= lead_contact.organization_size
+      attributes[:organization_name] = validate_organization_name
     end
 end
