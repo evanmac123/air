@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160824201049) do
+ActiveRecord::Schema.define(:version => 20160826014253) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -325,8 +325,10 @@ ActiveRecord::Schema.define(:version => 20160824201049) do
     t.text     "dependent_board_email_body"
     t.boolean  "alt_subject_enabled",                                  :default => false
     t.boolean  "allow_embed_video",                                    :default => true
+    t.integer  "organization_id"
   end
 
+  add_index "demos", ["organization_id"], :name => "index_demos_on_organization_id"
   add_index "demos", ["public_slug"], :name => "index_demos_on_public_slug"
 
   create_table "email_commands", :force => true do |t|

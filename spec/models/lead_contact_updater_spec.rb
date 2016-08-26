@@ -48,5 +48,15 @@ describe LeadContactUpdater do
         expect(lead_contact.status).to eq("denied")
       end
     end
+
+    describe "dispatches to approve" do
+      it "changes the status to denied" do
+        LeadContactApproval.stubs(:dispatch)
+
+        LeadContactUpdater.new(@attributes, "Approve").dispatch
+
+        expect(LeadContactApproval).to have_received(:dispatch)
+      end
+    end
   end
 end

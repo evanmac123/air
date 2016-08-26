@@ -1,5 +1,6 @@
 class Organization < ActiveRecord::Base
   has_many :contracts
+  has_many :demos
 
   validates :name, :sales_channel, :num_employees, presence: true
   validates :num_employees, numericality: {integer_only: true}
@@ -29,7 +30,7 @@ class Organization < ActiveRecord::Base
     added_during_period(sdate,edate).inject(0){|sum,org | sum+= org.mrr_during_period(sdate,edate)}
   end
 
-  def active_mrr 
+  def active_mrr
     contracts.active.sum(&:calc_mrr)
   end
 
@@ -65,11 +66,11 @@ class Organization < ActiveRecord::Base
   end
 
   def active
-   !churned 
+   !churned
   end
 
-  def churned 
-   customer_end_date && customer_end_date < Date.today 
+  def churned
+   customer_end_date && customer_end_date < Date.today
   end
 
   def has_start_and_end
@@ -82,7 +83,7 @@ class Organization < ActiveRecord::Base
   end
 
   private
- 
+
   def ordered_contracts
     contracts.order("start_date asc")
   end

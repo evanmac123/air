@@ -23,7 +23,7 @@ class LeadContactUpdater
   end
 
   def approve
-    binding.pry
+    LeadContactApproval.dispatch(lead_contact, routing_attributes)
   end
 
   def deny
@@ -55,10 +55,6 @@ class LeadContactUpdater
 
     def validate_organization_name
       routing_attributes[:matched_organization] || attributes[:organization_name]
-    end
-
-    def validate_organization_size
-      attributes[:organization_size] || lead_contact.organization_size
     end
 
     def refresh_base_attributes
