@@ -68,7 +68,7 @@ class FollowUpDigestEmail < ActiveRecord::Base
   end
 
   def subject
-   original_digest_subject
+   "Don't Miss: #{original_digest_subject}"
   end
 
   #TODO Deprecate
