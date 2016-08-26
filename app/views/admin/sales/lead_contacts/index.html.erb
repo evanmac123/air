@@ -41,6 +41,49 @@
       <% end %>
     </fieldset>
   </div>
+  <br>
+  <div class="approved-leads leads-filedset columns small-10 small-offset-1">
+    <% approved_leads = @lead_contacts.approved %>
+    <fieldset>
+      <legend>
+        <% if approved_leads.count > 10 %>
+          Approved Leads <span class="alert badge"><%= approved_leads.count %></span>
+        <% else %>
+          Approved Leads <span class="badge"><%= approved_leads.count %></span>
+        <% end %>
+      </legend>
+      <% if approved_leads.count > 0 %>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% approved_leads.limit(10).each do |lead_contact| %>
+              <tr id="<%= lead_contact.id %>">
+                <td class="name">
+                  <%= lead_contact.name %>
+                </td>
+                <td class="email">
+                  <%= lead_contact.email %>
+                </td>
+                <td class="phone">
+                  <%= lead_contact.phone %>
+                </td>
+                <td class="approved">
+                  <%= lead_contact.status %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
+    </fieldset>
+  </div>
 
   <%= render 'lead_contacts_modals' %>
 </div>

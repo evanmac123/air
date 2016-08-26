@@ -1,6 +1,7 @@
 class LeadContact < ActiveRecord::Base
 
   belongs_to :user
+  belongs_to :organization
 
   validates :email, presence: true
   validates :name, presence: true
@@ -10,7 +11,8 @@ class LeadContact < ActiveRecord::Base
 
   before_create :build_lead_contact
 
-  scope :pending, ->{where(status: "pending")}
+  scope :pending, -> { where(status: "pending") }
+  scope :approved, -> { where(status: "approved") }
 
   private
     def build_lead_contact

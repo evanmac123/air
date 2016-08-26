@@ -50,12 +50,26 @@ describe LeadContactUpdater do
     end
 
     describe "dispatches to approve" do
-      it "changes the status to denied" do
-        LeadContactApproval.stubs(:dispatch)
+      describe "the LeadContact with a new organization" do
+        it "should create a new organization" do
+          expect(Organization.count).to eq(0)
 
-        LeadContactUpdater.new(@attributes, "Approve").dispatch
+          LeadContactUpdater.new(@attributes_for_new_organization, "Approve").dispatch
 
-        expect(LeadContactApproval).to have_received(:dispatch)
+          expect(Organization.count).to eq(1)
+        end
+
+        it "should add an organization as a reference to the LeadContact" do
+          LeadContactUpdater.new(@attributes_for_new_organization, "Approve").dispatch
+
+          expect(LeadContact.first.organization).to eq(Organization.first)
+        end
+
+        it "should change the LeadContact status to approved" do
+          LeadContactUpdater.new(@attributes_for_new_organization, "Approve").dispatch
+
+          expect(LeadContact.first.status).to eq("approved")
+        end
       end
     end
   end

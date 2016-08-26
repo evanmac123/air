@@ -1,9 +1,10 @@
 class Organization < ActiveRecord::Base
   has_many :contracts
   has_many :demos
+  has_many :lead_contacts
 
   validates :name, :sales_channel, :num_employees, presence: true
-  validates :num_employees, numericality: {integer_only: true}
+  # validates :num_employees, numericality: {integer_only: true}
 
 
   def self.active_during_period sdate, edate

@@ -5,6 +5,7 @@ class Demo < ActiveRecord::Base
 
   JOIN_TYPES = %w(pre-populated self-inviting public).freeze
 
+  belongs_to :organization
   has_many :guest_users
   has_many :parent_board_users
   has_many :board_memberships, dependent: :destroy

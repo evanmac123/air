@@ -23,7 +23,8 @@ class LeadContactUpdater
   end
 
   def approve
-    LeadContactApproval.dispatch(lead_contact, routing_attributes)
+    organization = find_or_create_organization
+    lead_contact.update_attributes(status: "approved", organization: organization)
   end
 
   def deny
@@ -62,5 +63,17 @@ class LeadContactUpdater
       attributes[:phone] ||= "invalid"
       attributes[:organization_size] ||= lead_contact.organization_size
       attributes[:organization_name] = validate_organization_name
+    end
+
+    def find_or_create_organization
+      if routing_attributes[:new_organization]
+        Organization.create(
+          name: lead_contact.organization_name,
+          num_employees: lead_contact.organization_size,
+          sales_channel: "inbound"
+        )
+      else
+        Organization.where(name: lead_contact.organization_name).first
+      end
     end
 end
