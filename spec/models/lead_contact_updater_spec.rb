@@ -38,5 +38,15 @@ describe LeadContactUpdater do
         expect(lead_contact.organization_name).to eq("Existing Org")
       end
     end
+
+    describe "dispatches to deny" do
+      it "changes the status to denied" do
+        LeadContactUpdater.new(@attributes, "Deny").dispatch
+
+        lead_contact = LeadContact.find(@lead_contact.id)
+
+        expect(lead_contact.status).to eq("denied")
+      end
+    end
   end
 end

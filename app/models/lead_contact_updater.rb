@@ -6,11 +6,15 @@ class LeadContactUpdater
     @lead_contact = LeadContact.find(params["id"])
     @attributes = base_attributes(params)
     @routing_attributes = routing_hash(params)
-    @action = action
+    @action = action.downcase
   end
 
   def dispatch
-    self.send(action)
+    begin
+      self.send(action)
+    rescue
+      true
+    end
   end
 
   def update
@@ -23,11 +27,11 @@ class LeadContactUpdater
   end
 
   def deny
-    binding.pry
+    lead_contact.update_attributes(status: "denied")
   end
 
   private
-  
+
     def normalize_params(params)
       params.update(params) { |_k, v| v.empty? ? nil : v }
     end
