@@ -35,6 +35,15 @@ module EmailHelper
     image_tag logo_url, image_options
   end
 
+  def internal_email_logo
+    image_options = { border: "0", style: "display:block;", width: "90"}
+    expanded_logo_path = ActionController::Base.helpers.asset_path('airbo_logo_lightblue.png')
+    logo_url = "#{::Rails.application.config.action_mailer.asset_host}#{expanded_logo_path}"
+    image_options.merge!(alt: 'Airbo')
+
+    image_tag logo_url, image_options
+  end
+
   def default_logo
     image_options = { border: "0", style: "display:block;", width: "72", height: "42"}
     logo_url = assets_url 'logo-white.png'

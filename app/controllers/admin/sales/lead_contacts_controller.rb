@@ -20,6 +20,9 @@ class Admin::Sales::LeadContactsController < AdminBaseController
   end
 
   def create
+    LeadContact.create(lead_contact_params)
+
+    redirect_to root_path(signup_request: true)
   end
 
   private
@@ -32,7 +35,8 @@ class Admin::Sales::LeadContactsController < AdminBaseController
         :organization_name,
         :organization_size,
         :new_organization,
-        :match_organization,
+        :matched_organization,
+        :source,
         :id
       )
     end

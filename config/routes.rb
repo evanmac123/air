@@ -271,7 +271,7 @@ Health::Application.routes.draw do
 
   namespace :admin do
     namespace :sales do
-      resources :lead_contacts, only: [:index, :edit, :update]
+      resources :lead_contacts, only: [:index, :edit, :update, :create]
     end
 
     resource :client_kpi_report
@@ -297,7 +297,7 @@ Health::Application.routes.draw do
     post "lost_user", :controller => "lost_users", :action => :create, :as => "lost_user"
 
     resources :unmatched_boards, only: [:index, :update] do
-      collection  do 
+      collection  do
         post :update
       end
      end

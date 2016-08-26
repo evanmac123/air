@@ -9,9 +9,9 @@ feature "Potential user requests signup" do
         fill_in("Enter your work email", with: "test@example.com", match: :first)
         click_button("Sign Up", match: :first)
 
-        fill_in('request[name]', with: "Test Name")
-        fill_in('request[company]', with: "Test Company")
-        fill_in('request[phone]', with: "9018484848")
+        fill_in('lead_contact[name]', with: "Test Name")
+        fill_in('lead_contact[company]', with: "Test Company")
+        fill_in('lead_contact[phone]', with: "9018484848")
 
         click_button("Submit")
 

@@ -7,7 +7,7 @@ class Organization < ActiveRecord::Base
   has_many :boards, class_name: :Demo
   has_many :users
 
-  validates :name, :sales_channel, presence: true
+  validates :name, presence: true
 
   def self.active_during_period sdate, edate
     all.select{|o| o.has_start_and_end && o.customer_start_date <=  sdate && o.customer_end_date > edate}

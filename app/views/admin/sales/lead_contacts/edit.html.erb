@@ -17,14 +17,14 @@
           <%= f.label :phone, "Phone number" %>
           <%= f.text_field :phone %>
 
-          <%= f.label :organization_name, "Lead Organization" %>
+          <%= f.label :organization_name, "Organization" %>
           <%= f.text_field :organization_name %>
           <div class="match-organization">
             <label class="input_label existing-org-options">Match an existing Organization</label>
             <%= text_field_tag "lead_contact[matched_organization]", nil, readonly: true, class: "existing-org-options" %>
           </div>
-          <%= f.label :organization_size, "Organization size", class: "new-org-options" %>
-          <%= select_tag "lead_contact[organization_size]", options_for_select(["less than 100 employees", "100-500 employees", "500-1000 employees", "1000-5000 employees", "more than 5000 employees"]), class: "new-org-options", disabled: true %>
+          <%= f.label :organization_size, "Estimated organization size", class: "new-org-options" %>
+          <%= select_tag "lead_contact[organization_size]", options_for_select(["less than 100 employees", "100-500 employees", "500-1000 employees", "1000-5000 employees", "more than 5000 employees"], selected: @lead_contact.organization_size), class: "new-org-options", disabled: true %>
           <label class="new-organization">
             <%= check_box_tag 'lead_contact[new_organization]' %>
             New Organization?

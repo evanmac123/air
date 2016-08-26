@@ -47,6 +47,20 @@ describe LeadContactUpdater do
 
         expect(lead_contact.status).to eq("denied")
       end
+
+      it "send an email to the LeadContact" do
+        LeadContactUpdater.new(@attributes, "Deny").dispatch
+
+        open_email @lead_contact.email
+
+        current_email.subject.should include(
+          'Thanks for reaching out to Airbo!'
+        )
+
+        current_email.body.should include(
+         "We’re sorry, but you’re not eligible to join Airbo. If you’d like to speak to an Account Executive, please feel free to reply to this email."
+        )
+      end
     end
 
     describe "dispatches to approve" do

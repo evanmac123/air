@@ -1,0 +1,54 @@
+<table width="480" align="center" cellpadding="0" cellspacing="0" border="0" class="columns">
+  <tr>
+    <td width="100" align="center" style="padding:20px;border-left:1px solid #dfdfdf;border-top:1px solid #dfdfdf;border-bottom:1px solid #dfdfdf;border-top-left-radius:4px;">
+      <%= internal_email_logo %>
+    </td>
+    <td width="376" style="font-family:Helvetica,Arial,sans-serif;font-size:25px;color:#48BFFF;padding-top:20px;border-right:1px solid #dfdfdf;border-top:1px solid #dfdfdf;border-bottom:1px solid #dfdfdf;border-top-right-radius:4px;">
+      <%= @lead_contact.source %>
+    </td>
+  </tr>
+</table>
+<table width="480" align="center" cellpadding="0" cellspacing="0" border="0" class="columns">
+  <tr>
+    <td style="padding:20px;border-left:1px solid #dfdfdf;border-right:1px solid #dfdfdf;">
+      <h4>Request Created At: <%= @lead_contact.created_at.pretty  %></h4>
+    </td>
+  </tr>
+  <tr>
+    <td style="padding:20px;border-left:1px solid #dfdfdf;border-right:1px solid #dfdfdf;">
+      <p>Name: <%= @lead_contact.name %></p>
+    </td>
+  </tr>
+  <tr>
+    <td style="padding:20px;border-left:1px solid #dfdfdf;border-right:1px solid #dfdfdf;">
+      <p>Email: <%= @lead_contact.email  %></p>
+    </td>
+  </tr>
+  <tr>
+  <tr>
+    <td style="padding:20px;border-left:1px solid #dfdfdf;border-right:1px solid #dfdfdf;">
+      <p>Phone: <%= link_to @lead_contact.phone, "tel:#{@lead_contact.phone}"  %></p>
+    </td>
+  </tr>
+  <tr>
+    <td style="padding:20px;border-left:1px solid #dfdfdf;border-right:1px solid #dfdfdf;">
+      <p>Organization: <%= @lead_contact.organization_name %></p>
+    </td>
+  </tr>
+  <tr>
+    <td style="padding:20px;border-left:1px solid #dfdfdf;border-right:1px solid #dfdfdf;">
+      <p>Estimated Organization Size: <%= @lead_contact.organization_size %></p>
+    </td>
+  </tr>
+</table>
+<table width="480" align="center" cellpadding="0" cellspacing="0" border="0" class="columns" style="border-top:1px solid #dfdfdf;">
+  <tr>
+    <td width="160" style="font-family:Helvetica,Arial,sans-serif;font-size:16px;color:#dfdfdf;mso-line-height-rule:exactly;line-height:18px;padding-top:20px;padding-bottom:20px;padding-left:20px;border-left:1px solid #dfdfdf;border-bottom:1px solid #dfdfdf;border-bottom-left-radius:4px;">
+      <%= link_to "Approve Lead", edit_admin_sales_lead_contact_url(@lead_contact), {style: "color:#dfdfdf;text-decoration:none;", target: "_blank"} %>
+    </td>
+    <td width="280" align="right" style="font-family:Helvetica,Arial,sans-serif;font-size:16px;color:#dfdfdf;mso-line-height-rule:exactly;line-height:18px;padding-top:20px;padding-bottom:20px;padding-right:20px;border-right:1px solid #dfdfdf;border-bottom:1px solid #dfdfdf;border-bottom-right-radius:4px;">
+      &nbsp;
+      Happy Selling! 🙃💰🎉
+    </td>
+  </tr>
+</table>

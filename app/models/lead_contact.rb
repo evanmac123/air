@@ -10,15 +10,26 @@ class LeadContact < ActiveRecord::Base
   validates :organization_size, presence: true
 
   before_create :build_lead_contact
+  after_create  :notify!
 
   scope :pending, -> { where(status: "pending") }
   scope :approved, -> { where(status: "approved") }
+
+  def notify!
+    if source == "Inbound: Signup Request"
+      notify_inbound_signup_request
+    end
+  end
 
   private
     def build_lead_contact
       add_initial_status
       parse_phone_number
       parse_organization_name
+    end
+
+    def notify_inbound_signup_request
+      LeadContactNotifier.delay_mail(:signup_request, self)
     end
 
     def add_initial_status
