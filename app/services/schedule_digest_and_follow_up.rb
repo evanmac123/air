@@ -46,7 +46,7 @@ class ScheduleDigestAndFollowUp
         tile_ids: tile_ids,
         send_on:  Date.today + follow_up_days_index.days,
         unclaimed_users_also_get_digest: unclaimed_users_also_get_digest,
-        original_digest_subject: custom_subject,
+        original_digest_subject: follow_up_digest_subject,
         original_digest_headline: custom_headline,
         user_ids_to_deliver_to: user_ids_to_deliver_to
       )
@@ -85,6 +85,10 @@ class ScheduleDigestAndFollowUp
 
     def digest_subject
       custom_subject || "New Tiles"
+    end
+
+    def follow_up_digest_subject
+      custom_subject || "Your New Tiles"
     end
 
     def user_ids_to_deliver_to
