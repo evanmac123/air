@@ -66,14 +66,11 @@ class LeadContactUpdater
     end
 
     def find_or_create_organization
-      if routing_attributes[:new_organization]
-        Organization.create(
-          name: lead_contact.organization_name,
-          size_estimate: lead_contact.organization_size,
-          sales_channel: "inbound"
-        )
-      else
-        Organization.where(name: lead_contact.organization_name).first
-      end
+      Organization.where(
+        name: lead_contact.organization_name
+      ).first_or_create(
+        size_estimate: lead_contact.organization_size,
+        sales_channel: "inbound"
+      )
     end
 end
