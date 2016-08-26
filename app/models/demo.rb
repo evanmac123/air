@@ -96,6 +96,10 @@ class Demo < ActiveRecord::Base
     select("id, name, dependent_board_id, is_paid, (SELECT COUNT(*) FROM board_memberships WHERE demo_id = demos.id) AS user_count").reorder("user_count DESC")
   end
 
+   def organization_name
+     organization.present? ? organization.name : "Unattached To Any Organization"
+   end
+
   def activate_tiles_if_showtime
     tiles.activate_if_showtime
   end

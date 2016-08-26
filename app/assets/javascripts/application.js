@@ -119,5 +119,6 @@ function isIE() {
   }
 }
 
-
-$.extend(Airbo.Utils, DefaultUtils);
+$(document).ready(function(){
+  $.extend(Airbo.Utils, DefaultUtils);
+});
