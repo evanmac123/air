@@ -69,7 +69,7 @@ class LeadContactUpdater
       if routing_attributes[:new_organization]
         Organization.create(
           name: lead_contact.organization_name,
-          num_employees: lead_contact.organization_size,
+          size_estimate: lead_contact.organization_size,
           sales_channel: "inbound"
         )
       else
