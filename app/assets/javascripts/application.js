@@ -119,6 +119,6 @@ function isIE() {
   }
 }
 
-$(document).ready(function(){
+(function initAirbo($){
   $.extend(Airbo.Utils, DefaultUtils);
-});
+})(jQuery)
