@@ -792,7 +792,7 @@ feature "Admin segmentation" do
   end
 
   it 'should give the user an idea of when the segment was looked up', :js => true do
-    Timecop.freeze(Time.zone.now)
+    #Timecop.freeze(Time.zone.now)
     @demo = FactoryGirl.create(:demo)
 
 
@@ -807,7 +807,6 @@ feature "Admin segmentation" do
     expect_content 'Searched less than a minute ago'
 
     Timecop.travel(10.minutes)
-    Timecop.freeze(Time.zone.now)
 
     select 'Joined?', :from => "segment_column[0]"
     select "equals",  :from => "segment_operator[0]"
