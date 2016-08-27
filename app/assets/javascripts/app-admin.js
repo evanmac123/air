@@ -33,3 +33,13 @@
 //= require ./admin/demo_filter
 //= require ./admin/lead_contact
 //= require ../../../vendor/assets/javascripts/external/modernizr
+$(document).ready(function($) {
+  $('.sidebar-accordion').find('.sidebar-accordion-toggle').click(function(){
+
+    $(this).next().slideToggle('fast');
+
+    //Hide the other panels
+    $(".sidebar-accordion-content").not($(this).next()).slideUp('fast');
+
+  });
+});

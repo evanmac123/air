@@ -53,34 +53,29 @@
 }
 
 .admin-sidebar-nav li {
-    text-indent: 20px;
-    line-height: 40px;
-}
-
-.admin-sidebar-nav li a {
     display: block;
     text-decoration: none;
     color: #999999;
+    text-indent: 20px;
+    line-height: 35px;
+}
+
+.admin-sidebar-nav a {
+    display: block;
+    text-decoration: none;
+    color: #999999;
+    line-height: 35px;
 }
 
 .admin-sidebar-nav li a:hover {
     text-decoration: none;
     color: #fff;
-    background: rgba(255,255,255,0.2);
+    background: #48BFFF;
 }
 
 .admin-sidebar-nav li a:active,
 .admin-sidebar-nav li a:focus {
     text-decoration: none;
-}
-
-.admin-sidebar-nav > .sidebar-header {
-    height: 65px;
-    color: #999999;
-    font-size: 18px;
-    line-height: 60px;
-    margin-top: 25px;
-    margin-bottom: -20px;
 }
 
 .admin-sidebar-nav > .admin-sidebar-greeting {
@@ -96,7 +91,24 @@
 .admin-sidebar-nav > .admin-sidebar-greeting span:hover {
     color: #fff;
     background: none;
+    &:after {
+      content: '🎉';
+    }
 }
+
+.sidebar-accordion-toggle, .sidebar-dashboard {
+  cursor: pointer;
+  color:  #999999;
+  font-size: 18px;
+}
+.sidebar-accordion-content {
+  display: none;
+  a {
+    margin-top: 0;
+    padding-left: 20px;
+  }
+}
+.sidebar-accordion-content.default {display: block;}
 
 @media(min-width:768px) {
     #admin-layout-wrapper {
@@ -133,4 +145,19 @@
   margin-top: 0.4em;
   padding-right: 1em;
   font-size: 14px;
+}
+
+#admin-sales-accordion {
+  &:hover {
+    &:after {
+      content: ' 💰'
+    }
+  }
+}
+#admin-customer-success-accordion {
+  &:hover {
+    &:after {
+      content: ' 🙃'
+    }
+  }
 }

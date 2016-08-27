@@ -65,7 +65,7 @@
   @include flag;
 
   &.green {
-    @include flag-color(#4fd4c0);
+    @include flag-color($n-green);
   }
   &.red {
     @include flag-color($n-red2);

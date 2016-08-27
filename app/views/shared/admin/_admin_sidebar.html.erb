@@ -5,8 +5,24 @@
         Hey <%= current_user.first_name.capitalize %>
       </span>
     </li>
+    <li class="sidebar-dashboard">
+      <%= link_to "Airbo Dashboard", admin_path %>
+    </li>
     <li>
-      <%= link_to "dashboard", "#" %>
+      <div class="sidebar-accordion">
+        <span id="admin-sales-accordion" class="sidebar-accordion-toggle">Sales</span>
+        <div class="sidebar-accordion-content">
+          <%= link_to "Leads", admin_sales_lead_contacts_path %>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="sidebar-accordion">
+        <span id="admin-customer-success-accordion" class="sidebar-accordion-toggle">Customer Success</span>
+        <div class="sidebar-accordion-content">
+          <%= link_to "Customer Success", "#" %>
+        </div>
+      </div>
     </li>
   </ul>
 </div>

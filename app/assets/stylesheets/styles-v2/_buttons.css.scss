@@ -95,7 +95,7 @@
   //   @include button-color($n-blue);
   // }
   &.green {
-    @include button-color(#4fd4c0);
+    @include button-color($n-green);
   }
   &.red {
     @include button-color(#BE2625);
@@ -106,7 +106,7 @@
       @include button-outlined-color($text-color: $n-white, $hover-color: $n-blue);
     }
     &.green {
-      @include button-outlined-color($text-color: #4fd4c0, $hover-color: $n-white);
+      @include button-outlined-color($text-color: $n-green, $hover-color: $n-white);
     }
     // &. {
     //   @include button-outlined-color($n-blue);
