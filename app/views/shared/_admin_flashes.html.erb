@@ -1,20 +1,18 @@
 <%if flash.any?%>
   <div id="flash">
-    <div class="row">
-      <div class="flash-close">
-        <a href="#" id="close-flash">x</a>
-      </div>
-    </div>
     <div id="flash_<%= flash.keys.first.to_s %>">
       <div class="row">
         <div class="flash-content large-12 columns">
           <%=flash[flash.keys.first]%>
         </div>
+        <div class="flash-close">
+          <a href="#" id="close-flash">x</a>
+        </div>
       </div>
     </div>
   </div>
+<%end%>
 
 <% js_at_end do %>
   bindCloseFlash('#close-flash', <%=!!(@persistent_message_shown)%>);
 <% end %>
-<%end%>

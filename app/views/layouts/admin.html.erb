@@ -12,8 +12,8 @@
   </head>
   <body class="<%= body_class %>">
 
-    <%= render 'shared/header', :show_play_box => false %>
     <%= render 'shared/admin_flashes' %>
+    <%= render 'shared/header', :show_play_box => false %>
     <%=render "admin/site_admin_nav"%>
     <%= render 'shared/offcanvas_menu_signedin' %>
       <%= yield %>
