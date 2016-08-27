@@ -1,0 +1,48 @@
+.chosen-container {
+  &.chosen-container-single {
+    font-size: 18px;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    border-radius:3px;
+    padding:8px;
+
+    .chosen-single{
+      padding:0;
+      border: 0;
+      background:none;
+      box-shadow: none;
+
+        div b {
+          border: 5px solid;
+          border-bottom-color: transparent;
+          border-left-color: transparent;
+          border-right-color: transparent;
+          width: 0;
+          margin: auto;
+          margin-top: 10px;
+          background:none;
+        }
+    }
+
+
+    &.chosen-container-active.chosen-with-drop {
+      .chosen-single{
+        padding:0;
+        background: none;
+        box-shadow: none;
+        border:none;
+
+      }
+
+      .chosen-drop{
+        border: 1px solid #ddd;
+        box-shadow: 3px 5px 10px rgba(0, 0, 0, 0.15);
+        .chosen-search input[type="text"] {
+          border: 1px solid #ddd;
+        }
+
+      }
+    }
+  }
+
+}

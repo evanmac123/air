@@ -49,6 +49,8 @@ class Demo < ActiveRecord::Base
   after_create :create_public_slug!
 
   accepts_nested_attributes_for :custom_color_palette
+  accepts_nested_attributes_for :organization
+
   has_alphabetical_column :name
 
   has_attached_file :logo,

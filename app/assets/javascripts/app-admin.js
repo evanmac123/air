@@ -33,6 +33,10 @@
 
 //= require ../../../vendor/assets/javascripts/external/modernizr
 //= require ../../../vendor/assets/javascripts/external/foundation.min
+//= require ../../../vendor/assets/javascripts/chosen.jquery.min
 $(function(){
-  $(document).foundation();
+  //FIXME foundation.min includes foundation.forms js which hijacks forms and
+  //hides elements like checkboxes. if we need to use any foundation js then we
+  //will need re-display any hijacked form elements 
+  //$(document).foundation();
 })

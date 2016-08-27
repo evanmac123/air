@@ -3,6 +3,7 @@
 *= require ../../../vendor/assets/stylesheets/pickadate/classic
 *= require ../../../vendor/assets/stylesheets/pickadate/classic.date
 *= require ../../../vendor/assets/stylesheets/tablesorter/themes/blue/style
+*= require chosen
 *
 */
 
@@ -37,3 +38,5 @@
 @import "./admin/targeted_messages.css.scss";
 @import "./admin/tile_images.css.scss";
 @import "./admin/dependent_boards.css.scss";
+@import "./admin/dependent_boards.css.scss";
+@import "./vendor_customization/chosen.css.scss";
