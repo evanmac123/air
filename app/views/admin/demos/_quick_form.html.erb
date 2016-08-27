@@ -5,13 +5,7 @@
       <%=form.label :name%>
       <%= form.text_field :name  %>
       <%=form.label :organization%>
-      <%=form.fields_for :organization, form.object do |org| %>
-        <%= org.select :name, options_from_collection_for_select(Organization.all, :id, :name),{}, class: "airbo-chosen-select" %>
-      <%end%>
-      <%=form.label :phone_number%>
-      <%= form.text_field :phone_number %>
-      <%=form.label :email%>
-      <%= form.text_field :email %>
+      <%= form.select :organization_id, options_from_collection_for_select(Organization.all, :id, :name),{}, class: "airbo-chosen-select" %>
       <%= form.submit "Create Board", class: "button" %>
   <% end %>
   </div>

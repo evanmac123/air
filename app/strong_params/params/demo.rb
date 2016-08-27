@@ -8,6 +8,7 @@ module Params
     #Todo make all fields allowed if site admin
     def demo_attributes
       attrs = [
+        :organization_id, 
         :name,
         :seed_points,
         :custom_welcome_message,

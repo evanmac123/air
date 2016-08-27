@@ -94,6 +94,7 @@ var DefaultUtils = {
     setTimeout(function(){
       flash.fadeOut(0); 
     }, 2000);
+
   },
 
   flashMsg:function (xhr, defaultMsg){
@@ -105,11 +106,12 @@ var DefaultUtils = {
     return text.length > max ?  text.substring(0, max) + '...' : text;
   },
 
-  initChosen: function(){
-    $(".airbo-chosen-select").chosen();
-  }, 
-
+  initChosen: function(config){
+    $(".airbo-chosen-select").chosen({config});
+  },
 };
+
+
 
 
 //FIXME add to airbo utils
