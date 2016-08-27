@@ -6,7 +6,7 @@
       <%= form.text_field :name  %>
       <%=form.label :organization%>
       <%=form.fields_for :organization, form.object do |org| %>
-        <%= org.select :name, options_from_collection_for_select(Organization.all, :id, :name) %>
+        <%= org.select :name, options_from_collection_for_select(Organization.all, :id, :name),{}, class: "airbo-chosen-select" %>
       <%end%>
       <%=form.label :phone_number%>
       <%= form.text_field :phone_number %>

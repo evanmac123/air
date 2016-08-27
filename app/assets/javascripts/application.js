@@ -5,6 +5,11 @@
 //= require_tree ./utils
 
 var Airbo = window.Airbo || {};
+
+Airbo.init = function(){
+  Airbo.Utils.initChosen();
+}
+
 var DefaultUtils = {
 
   supportsFeatureByPresenceOfSelector: function(identifier){
@@ -98,7 +103,12 @@ var DefaultUtils = {
   truncate: function(text, len){
     var max = (len || 30) - 3;
     return text.length > max ?  text.substring(0, max) + '...' : text;
-  }
+  },
+
+  initChosen: function(){
+    $(".airbo-chosen-select").chosen();
+  }, 
+
 };
 
 
@@ -121,4 +131,11 @@ function isIE() {
 
 (function initAirbo($){
   $.extend(Airbo.Utils, DefaultUtils);
+
+  $(function(){
+    Airbo.init();
+  })
+
 })(jQuery)
+
+
