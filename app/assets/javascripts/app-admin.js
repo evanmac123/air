@@ -1,5 +1,3 @@
-//= require jquery
-//= require jquery_ujs
 //= require application
 //= require jquery.ui.datepicker
 //= require jquery.ui.autocomplete
@@ -11,8 +9,6 @@
 //= require_tree ../../../vendor/assets/javascripts/admin/.
 //= require ./file-uploader
 //= require_tree ./admin/.
-//= require jquery.validate
-//= require jquery.validate.additional-methods
 //= require internal_and_external/nerf_links_with_login_modal
 //= require internal_and_external/topbar_togglers
 //= require internal/create_new_board
