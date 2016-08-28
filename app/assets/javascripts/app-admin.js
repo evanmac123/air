@@ -1,5 +1,6 @@
 //= require jquery
 //= require jquery_ujs
+//= require application
 //= require jquery.ui.datepicker
 //= require jquery.ui.autocomplete
 //= require jquery.ui.tabs
