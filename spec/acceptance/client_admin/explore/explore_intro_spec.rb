@@ -3,7 +3,7 @@ require 'acceptance/acceptance_helper'
 #NOTE These tests are no longer valid as 05/2016 and introduction of Content Library new users are no directed to the content libary instead of Explore
 #TODO delete this feature spec
 
-feature 'Explore Intro', js: true do#, driver: :selenium do
+feature 'Explore Intro', js: true do
   pending "first sign in" do
 
     # let!(:client_admin) { FactoryGirl.create(:client_admin) }
