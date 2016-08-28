@@ -44,6 +44,7 @@ class Demo < ActiveRecord::Base
   validates :email, uniqueness: { case_sensitive: false, allow_blank: true }
   validates_with EmailFormatValidator, allow_blank: true
 
+  before_validation :unlink_from_organization, if: :unlink
   before_save :normalize_phone_number_if_changed
   before_save :override_explore_disabled, on: :create
   after_create :create_public_slug!
@@ -84,6 +85,8 @@ class Demo < ActiveRecord::Base
     end
   end
   include ActsWithCurrentDemoChecked
+
+  attr_accessor :unlink
 
   def self.paid
     where(is_paid: true)
@@ -480,6 +483,10 @@ class Demo < ActiveRecord::Base
   end
 
   private
+
+  def unlink_from_organization
+      self.organization_id=nil
+  end
 
   def next_in_group array, id
    tile_offset(array, id, 1) || array.first

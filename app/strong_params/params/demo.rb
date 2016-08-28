@@ -9,6 +9,7 @@ module Params
     def demo_attributes
       attrs = [
         :organization_id, 
+        :unlink,
         :name,
         :seed_points,
         :custom_welcome_message,

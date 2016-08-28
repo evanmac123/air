@@ -4,7 +4,7 @@ Airbo.BoardsAndOrganizationMgr = (function(){
     $.ajax({
       url: url,
       type: "PUT",
-      data: {organization_id: nil}
+      data: {demo: {unlink: true}}
     })
     .done(function(){
       console.log("unlink worked");
