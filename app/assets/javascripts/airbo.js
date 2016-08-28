@@ -1,5 +1,13 @@
 var Airbo = {
   init:  function(){
+
+
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+
     this.Utils.initChosen();
     Airbo.BoardsAndOrganizationMgr.init();
   },
