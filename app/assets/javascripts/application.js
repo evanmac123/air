@@ -1,7 +1,9 @@
 //= require jquery
 //= require jquery.validate
 //= require jquery.validate.additional-methods
-//= require ../../../vendor/assets/javascripts/autosize
+//= require autosize
+//= require sweetalert/sweetalert.min
+//= require  medium-editor.min
 //= require airbo
 //= require_tree ./utils
 
