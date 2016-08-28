@@ -49,26 +49,10 @@ class Admin::DemosController < AdminBaseController
 
   protected
 
-  def massage_new_demo_parameters
-    if params[:demo][:custom_welcome_message].blank?
-      params[:demo].delete(:custom_welcome_message)
-    end
-
-    params[:demo].delete(:levels)
-  end
-
+  #FIXME this should be handled in a before_[|save|valiation|] handler  
   def params_correction
-    params[:demo][:tutorial_type] = if params.delete(:use_multiple_choice_tiles)
-                                      'multiple_choice'
-                                    else
-                                      'keyword'
-                                    end
     params[:demo][:is_public] = true if params[:demo][:is_parent]
   end
 
-  def schedule_creation_ping
-   #FIXME why are we tracking our own site admin behavior in mixpanel?? for Fuck
-    #sake!!!
-    ping 'Boards - New', {source: 'Site Admin'}, current_user
-  end
+
 end
