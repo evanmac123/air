@@ -2,13 +2,45 @@
 //= require jquery.validate
 //= require jquery.validate.additional-methods
 //= require ../../../vendor/assets/javascripts/autosize
+//= require airbo
 //= require_tree ./utils
 
-var Airbo = window.Airbo || {};
 
-Airbo.init = function(){
-  Airbo.Utils.initChosen();
+//FIXME add to airbo utils
+function isIE11() {
+  return !!window.MSInputMethodContext;
 }
+
+function isIE() {
+  var myNav;
+  myNav = navigator.userAgent.toLowerCase();
+  if (myNav.indexOf('msie') !== -1) {
+    return parseInt(myNav.split('msie')[1]);
+  } else if (isIE11()) {
+    return 11;
+  } else {
+    return false;
+  }
+}
+
+
+
+//function chosenAddOrg(term){
+  //var chosen = this;
+  //$.post('add_term.php', {term: term}, function(data){
+    //chosen.append_option({
+      //value: 'value-' + data.term,
+      //text: data.term
+    //});
+  //});
+//}
+
+//function initNoOrgFound(){
+  //$(".airbo-chosen-select").on("chosen:no_results", function(){
+    //console.log("not found");
+  //})
+//}
+
 
 var DefaultUtils = {
 
@@ -78,7 +110,6 @@ var DefaultUtils = {
   },
 
   ping: function(event, properties) {
-    // $.post("/ping", { event: event, properties: properties });
     mixpanel.track(event, properties);
   },
 
@@ -97,7 +128,7 @@ var DefaultUtils = {
 
   },
 
-  flashMsg:function (xhr, defaultMsg){
+  flashMsg: function (xhr, defaultMsg){
     return xhr.getResponseHeader("X-Message") || defaultMsg;
   },
 
@@ -113,31 +144,15 @@ var DefaultUtils = {
 
 
 
-
-//FIXME add to airbo utils
-function isIE11() {
-  return !!window.MSInputMethodContext;
-}
-
-function isIE() {
-  var myNav;
-  myNav = navigator.userAgent.toLowerCase();
-  if (myNav.indexOf('msie') !== -1) {
-    return parseInt(myNav.split('msie')[1]);
-  } else if (isIE11()) {
-    return 11;
-  } else {
-    return false;
-  }
-}
-
-(function initAirbo($){
-  $.extend(Airbo.Utils, DefaultUtils);
-
-  $(function(){
-    Airbo.init();
-  })
+(function($){
+   $.extend(Airbo.Utils, DefaultUtils);
+   
+   $(function(){
+     Airbo.init();
+   });
 
 })(jQuery)
+
+
 
 
