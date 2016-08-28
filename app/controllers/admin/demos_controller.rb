@@ -12,14 +12,13 @@ class Admin::DemosController < AdminBaseController
   end
 
   def create
-    Demo.transaction do
-      @demo = Demo.new(permitted_params.demo)
-      @demo.save!
-      schedule_creation_ping
+    @demo = Demo.new(permitted_params.demo)
+    if @demo.save
+      flash[:success] = "Demo created."
+      redirect_to admin_demo_path(@demo)
+    else
+      render :new
     end
-
-    flash[:success] = "Demo created."
-    redirect_to admin_demo_path(@demo)
   end
 
   def show
@@ -41,7 +40,11 @@ class Admin::DemosController < AdminBaseController
   def update
     if @demo.update_attributes(permitted_params.demo)
       flash[:success] = "Demo updated"
-      redirect_to admin_demo_path(@demo)
+      if request.xhr?
+        head :ok
+      else
+        redirect_to admin_demo_path(@demo)
+      end
     else
       flash.now[:failure] = "Couldn't update demo: #{@demo.errors.full_messages.join(', ')}"
       render :edit
@@ -50,26 +53,10 @@ class Admin::DemosController < AdminBaseController
 
   protected
 
-  def massage_new_demo_parameters
-    if params[:demo][:custom_welcome_message].blank?
-      params[:demo].delete(:custom_welcome_message)
-    end
-
-    params[:demo].delete(:levels)
-  end
-
+  #FIXME this should be handled in a before_[|save|valiation|] handler  
   def params_correction
-    params[:demo][:tutorial_type] = if params.delete(:use_multiple_choice_tiles)
-                                      'multiple_choice'
-                                    else
-                                      'keyword'
-                                    end
     params[:demo][:is_public] = true if params[:demo][:is_parent]
   end
 
-  def schedule_creation_ping
-   #FIXME why are we tracking our own site admin behavior in mixpanel?? for Fuck
-    #sake!!!
-    ping 'Boards - New', {source: 'Site Admin'}, current_user
-  end
+
 end

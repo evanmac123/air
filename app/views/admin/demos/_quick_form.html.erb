@@ -1,18 +1,10 @@
-<div class="row">
-  <div class="columns small-5 centered">
-
-    <%= form_for [:admin, demo] do |form| %>
-      <%=form.label :name%>
-      <%= form.text_field :name  %>
-      <%=form.label :organization%>
-      <%=form.fields_for :organization, form.object do |org| %>
-        <%= org.select :name, options_from_collection_for_select(Organization.all, :id, :name),{}, class: "airbo-chosen-select" %>
-      <%end%>
-      <%=form.label :phone_number%>
-      <%= form.text_field :phone_number %>
-      <%=form.label :email%>
-      <%= form.text_field :email %>
-      <%= form.submit "Create Board", class: "button" %>
+<%= form_for [:admin, demo] do |form| %>
+  <%=form.label :name%>
+  <%= form.text_field :name  %>
+  <%=form.label :organization, class:"inline-block"%> 
+  <%=link_to "Create new organization", new_admin_organization_path, class: "small right"%>
+  <%= form.select :organization_id, options_from_collection_for_select(Organization.all, :id, :name),
+    {include_blank:true}, class: "airbo-chosen-select", data:{ placeholder:"Choose an organization"}  %>
+    <%= form.submit "Create Board", class: "button" %>
   <% end %>
-  </div>
 </div>

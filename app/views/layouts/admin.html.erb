@@ -4,7 +4,6 @@
     <meta charset="utf-8" />
     <title>Airbo</title>
     <%= stylesheet_link_tag "app-admin" %>
-    <%= javascript_include_tag 'application' %>
     <%= javascript_include_tag 'app-admin' %>
 
     <%= csrf_meta_tag %>
@@ -12,8 +11,8 @@
   </head>
   <body class="<%= body_class %>">
 
-    <%= render 'shared/header', :show_play_box => false %>
     <%= render 'shared/admin_flashes' %>
+    <%= render 'shared/header', :show_play_box => false %>
     <%=render "admin/site_admin_nav"%>
     <%= render 'shared/offcanvas_menu_signedin' %>
       <%= yield %>
