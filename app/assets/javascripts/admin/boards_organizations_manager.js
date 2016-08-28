@@ -23,6 +23,7 @@ Airbo.BoardsAndOrganizationMgr = (function(){
         unlink(self.attr("href"));
       }
 
+      //TODO swich to sweetalert
       if(confirm("Are you sure")){
         doit();
       }
@@ -31,7 +32,6 @@ Airbo.BoardsAndOrganizationMgr = (function(){
   }
 
   function init(){
-    debugger
     if($(".admin-demo").length>0){
       initLink();
     }
