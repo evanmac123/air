@@ -93,6 +93,6 @@
     </fieldset>
   </div>
     <% if params[:status] == "approved" %>
-      <%= render 'lead_contacts_approval_modal', approved_lead_contact: approved_leads.last %>
+      <%= render 'lead_contacts_approval_modal', approved_lead_contact: approved_leads.first %>
     <% end %>
 </div>

@@ -9,7 +9,6 @@ class Admin::Sales::LeadContactsController < AdminBaseController
   end
 
   def update
-    binding.pry
     lead_contact = LeadContactUpdater.new(lead_contact_params, params[:commit])
 
     if lead_contact.update
