@@ -45,7 +45,7 @@ Airbo.BoardsAndOrganizationMgr = (function(){
 
   function initNewBoard(){
     $("form#new_organization #organization_name").blur(function(event){
-      $("form#new_organization #org_demo_name").val($(this).val());
+      $("form#new_organization #org_demo_name").val($(this).val() + " Board");
     });
   }
 
