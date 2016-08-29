@@ -36,7 +36,17 @@ Airbo.BoardsAndOrganizationMgr = (function(){
       initLink();
     }
 
+    if($("form#new_organization #organization_name").length > 0){
+      initNewBoard();
+    }
+
     Airbo.Utils.initChosen();
+  }
+
+  function initNewBoard(){
+    $("form#new_organization #organization_name").blur(function(event){
+      $("form#new_organization #org_demo_name").val($(this).val());
+    });
   }
 
 return{

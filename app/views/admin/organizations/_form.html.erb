@@ -32,7 +32,7 @@
       <%=f.fields_for :demos, @demo do |demo| %>
         <div class="row">
         <%= demo.label :name, "Board Name" %>
-        <%= demo.text_field :name %>
+        <%= demo.text_field :name, id: "org_demo_name", readonly: true %>
         </div>
       <%end%>
 
