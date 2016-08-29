@@ -315,7 +315,8 @@ feature 'Client admin and the digest email for tiles' do
             end
           end
 
-          it "records the original subject in the followup" do
+          it "records the original subject in the followup", convert_to: "unit" do
+            pending "convert to unit test"
             FollowUpDigestEmail.all.length.should == 1
             FollowUpDigestEmail.first.original_digest_subject.should == "#{@custom_subject}"
           end
@@ -333,7 +334,8 @@ feature 'Client admin and the digest email for tiles' do
             end
           end
 
-          it "creates a FollowUpDigestEmail with a nil original subject recorded" do
+          it "creates a FollowUpDigestEmail with a nil original subject recorded", convert_to: "unit" do
+            pending "convert to unit test"
             submit_button.click
             FollowUpDigestEmail.all.length.should == 1
             FollowUpDigestEmail.first.original_digest_subject.should be_nil
@@ -356,7 +358,9 @@ feature 'Client admin and the digest email for tiles' do
             end
           end
 
-          it "records that headline in the followup" do
+          it "records that headline in the followup", convert_to: "unit" do
+            pending "Should be unit test"
+
             FollowUpDigestEmail.all.length.should == 1
             FollowUpDigestEmail.first.original_digest_headline.should == @custom_headline
           end

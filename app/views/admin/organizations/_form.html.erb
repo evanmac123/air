@@ -16,20 +16,17 @@
     <%= f.label :name %>
     <%= f.text_field :name %>
   </div>
+
   <div class="row">
-    <%= f.label :num_employees, "Employees" %>
-    <%= f.number_field :num_employees %>
+    <%= f.label :name, "Contact Name %>
+    <%= f.text_field :name %>
   </div>
+
   <div class="row">
-    <%= f.label :sales_channel %>
-    <%= f.text_field :sales_channel %>
+    <%= f.label :email, "Contact Email %>
+    <%= f.text_field :email %>
   </div>
-  <%if @organization.churned %>
-    <div class="row" >
-      <%= f.label :churn_reason %>
-      <%= f.text_area :churn_reason %>
-    </div>
-  <%end%>
+
   <div class="actions">
     <%= f.submit "Submit",  class: "button"%>
 
@@ -38,3 +35,4 @@
 <% end %>
   </div>
 </div>
+
