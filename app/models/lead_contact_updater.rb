@@ -1,10 +1,11 @@
 class LeadContactUpdater
-  attr_reader :lead_contact, :attributes, :action
+  attr_reader :lead_contact, :attributes, :board_params, :action
 
-  def initialize(params, action)
-    normalize_params(params)
-    @lead_contact = LeadContact.find(params["id"])
-    @attributes = base_attributes(params)
+  def initialize(lead_contact_params, board_params, action)
+    normalize_params(lead_contact_params)
+    @lead_contact = LeadContact.find(lead_contact_params["id"])
+    @attributes = base_attributes(lead_contact_params)
+    @board_params = board_params
     @action = action.downcase
   end
 
@@ -31,6 +32,8 @@ class LeadContactUpdater
   end
 
   def process
+    LeadContactProcessor.dispatch(lead_contact, board_params)
+    lead_contact.update_attributes(status: "processed")
   end
 
   def status

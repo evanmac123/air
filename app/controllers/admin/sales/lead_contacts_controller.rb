@@ -9,7 +9,8 @@ class Admin::Sales::LeadContactsController < AdminBaseController
   end
 
   def update
-    lead_contact = LeadContactUpdater.new(lead_contact_params, params[:commit])
+    binding.pry
+    lead_contact = LeadContactUpdater.new(lead_contact_params, board_params, params[:commit])
 
     if lead_contact.update
       lead_contact.dispatch
@@ -38,6 +39,14 @@ class Admin::Sales::LeadContactsController < AdminBaseController
         :matched_organization,
         :source,
         :id
+      )
+    end
+
+    def board_params
+      params.require(:board).permit(
+        :template_id,
+        :name,
+        :logo
       )
     end
 

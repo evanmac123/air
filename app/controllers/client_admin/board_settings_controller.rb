@@ -10,6 +10,7 @@ class ClientAdmin::BoardSettingsController < ClientAdminBaseController
   end
 
   def logo
+    binding.pry
     @board.logo = if params[:demo].present? && params[:demo][:logo].present?
                     params[:demo][:logo]
                   else
