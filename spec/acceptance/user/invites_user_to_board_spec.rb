@@ -48,8 +48,8 @@ feature 'User invites user to board' do
           page.find(".single_click_invite").click
         end
 
-        it "should send invitation", js: true, convert_to: "unit" do
-          pending "Another fucking unit test in an accpteance tests clothes"
+        pending "should send invitation", js: true, convert_to: "unit" do
+          it "Another fucking unit test in an accpteance tests clothes"
           should_send_email @user0, @user, @demo1
         end
       end
