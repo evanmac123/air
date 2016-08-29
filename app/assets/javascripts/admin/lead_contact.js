@@ -35,8 +35,13 @@ Airbo.LeadContact = (function(){
 
   function initCloseAdminModal() {
     $('.admin-close-modal').on("click", function(e){
+      e.preventDefault();
       $(this).parent().foundation('reveal', 'close');
     });
+  }
+
+  function initDynamicModelLaunch() {
+    $("#lead-contacts-approval-modal").foundation('reveal', 'open');
   }
 
   function initOrgSearch() {
@@ -94,6 +99,16 @@ Airbo.LeadContact = (function(){
     });
   }
 
+  function initPrioritySelection() {
+    $(".topic_cell").on("click", function() {
+      $(".topic_cell").removeClass("selected");
+      $(this).addClass("selected");
+      $("#board_template").val($(this).data("boardName"));
+      $("#board_template_id").val($(this).data("boardId"));
+      $(".lead-board-details").show();
+    });
+  }
+
   function initApproveValidations() {
     $("#approve-lead-contact").on("click", function(event) {
       $("#lead_contact_matched_organization").prop('readonly', false);
@@ -136,10 +151,12 @@ Airbo.LeadContact = (function(){
   function init() {
     initOrgSearch();
     initRespondButton();
-    initCloseAdminModal();
     toggleOrganizationInputs();
     matchExistingOrg();
     initApproveValidations();
+    initCloseAdminModal();
+    initDynamicModelLaunch();
+    initPrioritySelection();
   }
 
   return {

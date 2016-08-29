@@ -1,5 +1,8 @@
 .lead-contacts-container {
   padding-top: 20px;
+  .lead-board-details {
+    display: none;
+  }
   .err {
     margin-bottom: 0;
     padding-bottom: 10px;
@@ -20,7 +23,7 @@
   }
 }
 
-.admin-close-modal {
+.admin-close-modal-x {
   color: $darker-gray;
   position: absolute;
   top: 0;
@@ -28,5 +31,51 @@
   padding: 10px;
   &:hover {
     color: $n-blue;
+  }
+}
+
+.admin-modal-buttons {
+  text-align: center;
+}
+
+#lead-contacts-approval-modal {
+  p {
+    color: $darker-gray;
+    margin: 10px;
+  }
+}
+
+.stock_boards {
+  background: transparent;
+  .topic_cell {
+    width:100%;
+    background: rgba(0, 0, 0, .6);
+    padding: 8px 8px;
+    margin-bottom: 12px;
+    &:hover {
+      background: $n-blue;
+    }
+  }
+  .selected {
+    background: $n-blue;
+  }
+
+  .preview {
+    a {
+      float: right;
+      color: #fff;
+      font-size: 14px;
+    }
+  }
+
+  .title {
+    font-size: 18px;
+    color: $white;
+    line-height: 1.5;
+    position: relative;
+
+    font-weight:normal;
+    text-align:left;
+    margin:0;
   }
 }

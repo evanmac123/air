@@ -32,6 +32,10 @@ class LeadContactUpdater
     LeadContactNotifier.delay_mail(:denial, lead_contact)
   end
 
+  def status
+    lead_contact.status
+  end
+
   private
 
     def normalize_params(params)

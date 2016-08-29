@@ -4,16 +4,17 @@ class Admin::Sales::LeadContactsController < AdminBaseController
   end
 
   def edit
-    @lead_contact = LeadContact.find(params[:id])
-    @organizations = Organization.select(:name)
+    @lead_contact = LeadContact.includes(:organization).find(params[:id])
+    choose_state
   end
 
   def update
+    binding.pry
     lead_contact = LeadContactUpdater.new(lead_contact_params, params[:commit])
 
     if lead_contact.update
       lead_contact.dispatch
-      redirect_to action: "index"
+      redirect_to admin_sales_lead_contacts_path(status: lead_contact.status)
     else
       render "edit"
     end
@@ -39,5 +40,15 @@ class Admin::Sales::LeadContactsController < AdminBaseController
         :source,
         :id
       )
+    end
+
+    def choose_state
+      if @lead_contact.status == "pending"
+        @organizations = Organization.select(:name)
+      elsif @lead_contact.status == "approved"
+        @stock_boards = Demo.stock_boards.select([:id, :name, :public_slug])
+        @user = User.new(name: @lead_contact.name, email: @lead_contact.email, organization_id: @lead_contact.organization.id)
+        @board = @user.demos.new(name: @lead_contact.organization_name)
+      end
     end
 end

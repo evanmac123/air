@@ -17,7 +17,7 @@
               <th>Organization</th>
               <th>Email</th>
               <th>Phone</th>
-              <th>Respond</th>
+              <th>Approve</th>
             </tr>
           </thead>
           <tbody>
@@ -35,8 +35,8 @@
                 <td class="phone">
                   <%= lead_contact.phone %>
                 </td>
-                <td class="respond">
-                  <%= link_to "start", edit_admin_sales_lead_contact_path(lead_contact), class: "button tiny green" %>
+                <td class="approve">
+                  <%= link_to "approve", edit_admin_sales_lead_contact_path(lead_contact), class: "button tiny green" %>
                 </td>
               </tr>
             <% end %>
@@ -64,7 +64,7 @@
               <th>Organization</th>
               <th>Email</th>
               <th>Phone</th>
-              <th>Status</th>
+              <th>Process</th>
             </tr>
           </thead>
           <tbody>
@@ -82,8 +82,8 @@
                 <td class="phone">
                   <%= lead_contact.phone %>
                 </td>
-                <td class="approved">
-                  <%= lead_contact.status %>
+                <td class="process">
+                  <%= link_to "process", edit_admin_sales_lead_contact_path(lead_contact), class: "button tiny green" %>
                 </td>
               </tr>
             <% end %>
@@ -92,6 +92,7 @@
       <% end %>
     </fieldset>
   </div>
-
-  <%= render 'lead_contacts_modals' %>
+    <% if params[:status] == "approved" %>
+      <%= render 'lead_contacts_approval_modal', approved_lead_contact: approved_leads.last %>
+    <% end %>
 </div>

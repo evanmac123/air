@@ -70,6 +70,8 @@ class Demo < ActiveRecord::Base
 
   validates_attachment_content_type :logo, content_type: valid_image_mime_types, message: invalid_mime_type_error
 
+  scope :stock_boards, -> { where(public_slug: HOMEPAGE_BOARD_SLUGS.split(",")) }
+
   # We go through this rigamarole since we can move a user from one demo to
   # another, and usually we will only be concerned with acts belonging to the
   # current demo. The :conditions option on has_many isn't quite flexible
@@ -165,7 +167,7 @@ class Demo < ActiveRecord::Base
   def digest_tiles(cutoff_time=self.tile_digest_email_sent_at)
     tiles.digest(self, cutoff_time)
   end
- 
+
   #FIXME WTF?  this is idiotic why not rename for the fucking variable OMG!!!!!
   # Note that 'unclaimed_users_also_get_digest' is a param passed to this method, not the demo's attribute of the same name
   def users_for_digest(unclaimed_users_also_get_digest)

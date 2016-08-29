@@ -13,7 +13,7 @@ class LeadContact < ActiveRecord::Base
   after_create  :notify!
 
   scope :pending, -> { where(status: "pending") }
-  scope :approved, -> { where(status: "approved") }
+  scope :approved, -> { where(status: "approved").order(:updated_at).reverse_order }
 
   def notify!
     if source == "Inbound: Signup Request"
