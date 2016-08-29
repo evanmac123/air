@@ -35,6 +35,8 @@ Airbo.BoardsAndOrganizationMgr = (function(){
     if($(".admin-demo").length>0){
       initLink();
     }
+
+    Airbo.Utils.initChosen();
   }
 
 return{
