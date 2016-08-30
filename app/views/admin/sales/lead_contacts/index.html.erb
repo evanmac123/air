@@ -42,7 +42,7 @@
               <th>Organization</th>
               <th>Email</th>
               <th>Phone</th>
-              <th>Approve</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -60,8 +60,8 @@
                 <td class="phone">
                   <%= lead_contact.phone %>
                 </td>
-                <td class="approve">
-                  <%= link_to "approve", edit_admin_sales_lead_contact_path(lead_contact), class: "button tiny green" %>
+                <td class="review">
+                  <%= link_to "review", edit_admin_sales_lead_contact_path(lead_contact), class: "button tiny green" %>
                 </td>
               </tr>
             <% end %>
