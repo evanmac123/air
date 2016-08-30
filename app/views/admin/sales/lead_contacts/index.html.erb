@@ -1,14 +1,39 @@
 <div class="lead-contacts-container">
-  <div class="pending-leads columns small-10 small-offset-1">
-    <% pending_leads = @lead_contacts.pending %>
-    <fieldset>
-      <legend>
-        <% if pending_leads.count > 5 %>
-          Pending Leads <span class="alert badge"><%= pending_leads.count %></span>
-        <% else %>
-          Pending Leads <span class="badge"><%= pending_leads.count %></span>
-        <% end %>
-      </legend>
+  <% pending_leads = @lead_contacts.pending %>
+  <% approved_leads = @lead_contacts.approved %>
+  <% processed_leads = @lead_contacts.processed %>
+  <div class="row">
+    <ul class="tab">
+      <li>
+        <a href="#" id="pending-leads-link" class="tablinks" data-target="pendingLeads">
+          <% if pending_leads.count > 5 %>
+            Pending Leads <span class="alert badge"><%= pending_leads.count %></span>
+          <% else %>
+            Pending Leads <span class="badge"><%= pending_leads.count %></span>
+          <% end %>
+        </a>
+      </li>
+      <li>
+        <a href="#" class="tablinks" data-target="approvedLeads">
+          <% if approved_leads.count > 10 %>
+            Approved Leads <span class="alert badge"><%= approved_leads.count %></span>
+          <% else %>
+            Approved Leads <span class="badge"><%= approved_leads.count %></span>
+          <% end %>
+        </a>
+      </li>
+      <li>
+        <a href="#" class="tablinks" data-target="processedLeads">
+          <% if processed_leads.count > 10 %>
+            Processed Leads <span class="alert badge"><%= processed_leads.count %></span>
+          <% else %>
+            Processed Leads <span class="badge"><%= processed_leads.count %></span>
+          <% end %>
+        </a>
+      </li>
+    </ul>
+
+    <div id="pendingLeads" class="pending-leads tabcontent">
       <% if pending_leads.count > 0 %>
         <table>
           <thead>
@@ -43,19 +68,8 @@
           </tbody>
         </table>
       <% end %>
-    </fieldset>
-  </div>
-  <br>
-  <div class="approved-leads leads-fieldset columns small-10 small-offset-1">
-    <% approved_leads = @lead_contacts.approved %>
-    <fieldset>
-      <legend>
-        <% if approved_leads.count > 10 %>
-          Approved Leads <span class="alert badge"><%= approved_leads.count %></span>
-        <% else %>
-          Approved Leads <span class="badge"><%= approved_leads.count %></span>
-        <% end %>
-      </legend>
+    </div>
+    <div id="approvedLeads" class="approved-leads tabcontent">
       <% if approved_leads.count > 0 %>
         <table>
           <thead>
@@ -90,18 +104,8 @@
           </tbody>
         </table>
       <% end %>
-    </fieldset>
-  </div>
-  <div class="processed-leads leads-fieldset columns small-10 small-offset-1">
-    <% processed_leads = @lead_contacts.processed %>
-    <fieldset>
-      <legend>
-        <% if approved_leads.count > 10 %>
-          Approved Leads <span class="alert badge"><%= processed_leads.count %></span>
-        <% else %>
-          Approved Leads <span class="badge"><%= processed_leads.count %></span>
-        <% end %>
-      </legend>
+    </div>
+    <div id="processedLeads" class="processed-leads tabcontent">
       <% if processed_leads.count > 0 %>
         <table>
           <thead>
@@ -136,9 +140,9 @@
           </tbody>
         </table>
       <% end %>
-    </fieldset>
+    </div>
   </div>
-    <% if params[:status] == "approved" %>
-      <%= render 'lead_contacts_approval_modal', approved_lead_contact: approved_leads.first %>
-    <% end %>
+  <% if params[:status] == "approved" %>
+    <%= render 'lead_contacts_approval_modal', approved_lead_contact: approved_leads.first %>
+  <% end %>
 </div>

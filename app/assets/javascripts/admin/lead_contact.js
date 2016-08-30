@@ -147,6 +147,20 @@ Airbo.LeadContact = (function(){
     });
   }
 
+  function openTab() {
+    $(".tablinks").on("click", function() {
+      $(".tablinks").removeClass("active");
+      $(this).addClass("active");
+      $(".tabcontent").hide();
+      $("#" + $(this).data("target")).show();
+    });
+  }
+
+  function initialTabs() {
+    $(".tabcontent").hide();
+    $("#pendingLeads").show();
+    $("#pending-leads-link").addClass("active");
+  }
 
   function init() {
     initOrgSearch();
@@ -157,6 +171,8 @@ Airbo.LeadContact = (function(){
     initCloseAdminModal();
     initDynamicModelLaunch();
     initPrioritySelection();
+    openTab();
+    initialTabs();
   }
 
   return {
