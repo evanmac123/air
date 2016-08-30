@@ -1,24 +1,26 @@
 class LeadContactProcessor
-  attr_reader :user, :board, :board_template
+  attr_reader :lead_contact, :user, :organization, :board, :board_template
 
   def self.dispatch(lead_contact, board_params)
     LeadContactProcessor.new(lead_contact, board_params).process
   end
 
   def initialize(lead_contact, board_params)
-    @user = build_user(lead_contact)
+    @lead_contact = lead_contact
+    @user = build_user
+    @organization = user.organization
     @board = build_board(board_params)
     @board_template = find_template(board_params[:template_id])
   end
 
   def process
-    binding.pry
-    copy_tiles_to_new_board
+    user.save
+    lead_contact.update_attributes(user_id: user.id)
   end
 
   private
 
-    def build_user(lead_contact)
+    def build_user
       User.new(
         name: lead_contact.name,
         email: lead_contact.email,
@@ -28,9 +30,14 @@ class LeadContactProcessor
     end
 
     def build_board(board_params)
-      user.demos.new(
+      board = organization.boards.create(
         name: board_params[:name],
-        logo: board_params[:logo].presence
+        logo: board_params[:logo].presence,
+        custom_reply_email_name: board_params[:custom_reply_email_name]
+      )
+
+      user.board_memberships.new(
+        demo_id: board.id
       )
     end
 

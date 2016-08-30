@@ -35,6 +35,9 @@
           <%= label_tag "board[name]", "Board Name" %>
           <%= text_field_tag "board[name]", "#{@board.name} Board" %>
 
+          <%= label_tag "board[custom_reply_email_name]", "'From' Name" %>
+          <%= text_field_tag "board[custom_reply_email_name]", "#{@board.name}" %>
+
           <%= label_tag "board[logo]", "Board Logo" %>
           <%= file_field_tag 'board[logo]' %>
           <%= f.submit "Process", class: "button" %>

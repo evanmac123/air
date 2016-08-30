@@ -3,6 +3,8 @@ class LeadContact < ActiveRecord::Base
   belongs_to :user
   belongs_to :organization
 
+  has_one :demo, through: :user
+
   validates :email, presence: true
   validates :name, presence: true
   validates :phone, presence: true
@@ -14,6 +16,8 @@ class LeadContact < ActiveRecord::Base
 
   scope :pending, -> { where(status: "pending") }
   scope :approved, -> { where(status: "approved").order(:updated_at).reverse_order }
+  scope :processed, -> { joins(:demo).where(status: "processed").where(demo: { tile_digest_email_sent_at: nil } ) }
+
 
   def notify!
     if source == "Inbound: Signup Request"

@@ -92,6 +92,52 @@
       <% end %>
     </fieldset>
   </div>
+  <div class="processed-leads leads-fieldset columns small-10 small-offset-1">
+    <% processed_leads = @lead_contacts.processed %>
+    <fieldset>
+      <legend>
+        <% if approved_leads.count > 10 %>
+          Approved Leads <span class="alert badge"><%= processed_leads.count %></span>
+        <% else %>
+          Approved Leads <span class="badge"><%= processed_leads.count %></span>
+        <% end %>
+      </legend>
+      <% if processed_leads.count > 0 %>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Organization</th>
+              <th>Email</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% processed_leads.limit(10).each do |lead_contact| %>
+              <tr id="<%= lead_contact.id %>">
+                <td class="name">
+                  <%= lead_contact.name %>
+                </td>
+                <td class="name">
+                  <%= lead_contact.organization_name %>
+                </td>
+                <td class="email">
+                  <%= lead_contact.email %>
+                </td>
+                <td class="preview-board">
+                  <%= link_to "customize board",  admin_sales_lead_contact_tiles_path(lead_contact), class: "button tiny", target: "_blank" %>
+                </td>
+                <td class="send-digest">
+                  <%= link_to "send digest email", new_admin_sales_lead_contact_invite_path(lead_contact), class: "button tiny green", target: "_blank" %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
+    </fieldset>
+  </div>
     <% if params[:status] == "approved" %>
       <%= render 'lead_contacts_approval_modal', approved_lead_contact: approved_leads.first %>
     <% end %>
