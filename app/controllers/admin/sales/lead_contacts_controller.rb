@@ -9,7 +9,6 @@ class Admin::Sales::LeadContactsController < AdminBaseController
   end
 
   def update
-    binding.pry
     lead_contact_updater = LeadContactUpdater.new(
       lead_contact_params,
       board_params[:board],
