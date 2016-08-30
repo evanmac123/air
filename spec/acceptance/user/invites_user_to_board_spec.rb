@@ -1,6 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-feature 'User invites user to board' do
+feature 'User invites user to board', broken: true do
   AUTOCOMPLETE_STATUS = {
     click: "CLICK ON THE PERSON YOU WANT TO INVITE:",
     hm: "HMMM...NO MATCH",
