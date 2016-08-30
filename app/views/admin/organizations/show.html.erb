@@ -5,32 +5,9 @@
     <table class="first-column-header">
       <tbody>
         <tr>
-          <th>Num employees</th>
-          <td><%= @organization.num_employees %></td>
-        </tr>
-
-        <tr>
           <th>Is HRM</th>
           <td><%= @organization.is_hrm.humanize %></td>
         </tr>
-        <tr>
-          <th>Contact</th>
-          <td><%= @organization.primary_contact %></td>
-        </tr>
-        <%if @organization.churned%>
-          <tr>
-            <th>End</th>
-            <td><%= simple_date_format @organization.customer_end_date %></td>
-          </tr>   <tr>
-            <th>Churned</th>
-            <td><%= @organization.churned %></td>
-          </tr>
-
-          <tr>
-            <th>Churn reason</th>
-            <td><%= @organization.churn_reason %></td>
-          </tr>
-        <%end%>
         <tr>
           <td colspan="2"> 
             <%=link_to "Edit this organization", edit_admin_organization_path(@organization)%>
