@@ -7,7 +7,8 @@ Airbo.BoardsAndOrganizationMgr = (function(){
       data: {demo: {unlink: true}}
     })
     .done(function(){
-      console.log("unlink worked");
+      Airbo.Utils.flash("success", "Board successfully unlinke");
+      $(".unlink").remove();
     })
     .fail(function(){
       console.log("unlink failed");

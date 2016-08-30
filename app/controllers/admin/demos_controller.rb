@@ -39,10 +39,10 @@ class Admin::DemosController < AdminBaseController
 
   def update
     if @demo.update_attributes(permitted_params.demo)
-      flash[:success] = "Demo updated"
       if request.xhr?
         head :ok
       else
+        flash[:success] = "Demo updated"
         redirect_to admin_demo_path(@demo)
       end
     else
