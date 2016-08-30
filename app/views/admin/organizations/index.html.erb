@@ -3,25 +3,7 @@
   <div class="columns small-12 small-centered">
     <h1>Organizations</h1>
 
-    <table class="sortable tablesorter">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Demos</th>
-          <th>Is Hrm?</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% Organization.all.each do |organization| %>
-
-          <tr class="resource-row" data-url='<%=admin_organization_path(organization)%>'>
-            <td><%= organization.name %></td>
-            <td><%= organization.demos.count %></td>
-            <td><%= organization.is_hrm.humanize %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+    <%= render "orgs_table" %>
 
     <div class="right">
       <%= link_to 'Add Organization', new_admin_organization_path, class: "button button-small" %>
