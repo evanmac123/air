@@ -38,7 +38,8 @@ Airbo.BoardsAndOrganizationMgr = (function(){
     }
 
     if($("form#new_organization #organization_name").length > 0){
-      initNewBoard();
+      //FIXME make configurable
+      //initewBoard();
     }
 
     Airbo.Utils.initChosen();
