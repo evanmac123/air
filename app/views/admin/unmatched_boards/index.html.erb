@@ -4,13 +4,13 @@
 <%=form_tag admin_unmatched_boards_path do %>
 <div class="row ">
   <div class="columns large-6">
-    <%=select_tag :organization, options_from_collection_for_select(@organizations, :id, :name),{ :include_blank => true } %>
+    <%=select_tag :organization, options_from_collection_for_select(@organizations, :id, :name),{ data: {placeholder: "Select an Organization"}, include_blank:  true, class: "airbo-chosen-select" }  %>
   </div>
 </div>
 
 <div class="row ">
   <div class="columns large-5">
-    <%=select_tag :unmatched, options_from_collection_for_select(@demos, :id, :name), class:"left-list", multiple: true, name:nil%>
+    <%=select_tag :unmatched, options_from_collection_for_select(@demos, :id, :name), class:"multi-list  left-list", multiple: true, name:nil%>
   </div>
 
   <div class="columns large-2">
@@ -22,8 +22,13 @@
     </p>
   </div>
   <div class="columns large-5 end">
-    <%=select_tag :matched, [], class: "right-list", multiple: true%>
+    <%=select_tag :matched, [], class: "multi-list  right-list", multiple: true%>
   </div>
-  <button type="submit" class = "button" >Go</button>
+</div>
+
+<div class="row ">
+  <div class="columns large-12 ">
+    <button type="submit" class = "button right" >Confirm Organization Match</button>
+  </div>
 </div>
 <%end%>

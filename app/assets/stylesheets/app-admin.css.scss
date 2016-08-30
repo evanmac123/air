@@ -3,6 +3,7 @@
 *= require ../../../vendor/assets/stylesheets/pickadate/classic
 *= require ../../../vendor/assets/stylesheets/pickadate/classic.date
 *= require ../../../vendor/assets/stylesheets/tablesorter/themes/blue/style
+*= require chosen
 *
 */
 
@@ -30,6 +31,7 @@
 @import "./internal/screen_tablet.css.scss";
 @import "./internal/appbar.css.scss";
 @import "./internal/screen_desktop.css.scss";
+@import "./internal/flash.css.scss";
 
 @import "./admin/tinymce.css.scss";
 @import "./admin/tinymce.css.scss";
@@ -39,3 +41,4 @@
 @import "./admin/dependent_boards.css.scss";
 @import "./admin/admin-sidebar-nav.scss";
 @import "./admin/lead-contacts.scss";
+@import "./vendor_customization/chosen.css.scss";

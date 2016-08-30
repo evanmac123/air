@@ -1,5 +1,4 @@
-//= require jquery
-//= require jquery_ujs
+//= require application
 //= require jquery.ui.datepicker
 //= require jquery.ui.autocomplete
 //= require jquery.ui.tabs
@@ -10,8 +9,6 @@
 //= require_tree ../../../vendor/assets/javascripts/admin/.
 //= require ./file-uploader
 //= require_tree ./admin/.
-//= require jquery.validate
-//= require jquery.validate.additional-methods
 //= require internal_and_external/nerf_links_with_login_modal
 //= require internal_and_external/topbar_togglers
 //= require internal/create_new_board
@@ -42,4 +39,12 @@ $(document).ready(function($) {
     $(".sidebar-accordion-content").not($(this).next()).slideUp('fast');
 
   });
+});
+
+$(function(){
+  //FIXME foundation.min includes foundation.forms js which hijacks forms and
+  //hides elements like checkboxes. if we need to use any foundation js then we
+  //will need re-display any hijacked form elements
+  //$(document).foundation();
+  Airbo.BoardsAndOrganizationMgr.init();
 });

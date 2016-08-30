@@ -16,23 +16,9 @@
           <td><%= @organization.is_hrm.humanize %></td>
         </tr>
         <tr>
-          <th>Sales channel</th>
-          <td><%= @organization.sales_channel %></td>
+          <th>Contact</th>
+          <td><%= @organization.primary_contact %></td>
         </tr>
-        <tr>
-          <th>MRR</th>
-          <td><%= simple_money_format @organization.active_mrr %></td>
-        </tr>
-        <tr>
-          <th>Start</th>
-          <td><%= simple_date_format @organization.customer_start_date %></td>
-        </tr>
-      
-        <tr>
-          <th>Start</th>
-          <td><%= simple_date_format @organization.customer_start_date %></td>
-        </tr>
-
         <%if @organization.churned%>
        <tr>
           <th>End</th>

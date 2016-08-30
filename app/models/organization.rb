@@ -8,6 +8,12 @@ class Organization < ActiveRecord::Base
   has_many :users
 
   validates :name, presence: true
+  
+  accepts_nested_attributes_for :demos
+  accepts_nested_attributes_for :users
+
+# FIXME: Herby: can we do this withou a callback? Orgs are created in the SDR flow before their first users or boards.
+  # after_create :create_default_board_membership
 
   def self.active_during_period sdate, edate
     all.select{|o| o.has_start_and_end && o.customer_start_date <=  sdate && o.customer_end_date > edate}
@@ -80,12 +86,24 @@ class Organization < ActiveRecord::Base
     customer_start_date && customer_end_date
   end
 
+  def primary_contact
+    users.first.try(:name) || "*No Primary Contact*"
+  end
 
   def life_time
     TimeDifference.between(customer_start_date, customer_end_date).in_months
   end
 
   private
+
+  def create_default_board_membership
+    if users.first && demos.first
+      bm = BoardMembership.new
+      bm.user = users.first
+      bm.demo = demos.first
+      bm.save
+    end
+  end
 
   def ordered_contracts
     contracts.order("start_date asc")

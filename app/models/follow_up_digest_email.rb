@@ -35,21 +35,6 @@ class FollowUpDigestEmail < ActiveRecord::Base
     end
   end
 
-
-  def trigger_deliveries_legacy
-
-    user_ids_legacy.each    { |user_id| TilesDigestMailer.delay.notify_one(demo.id, user_id, tile_ids, subject, true, headline, nil) }
-
-  end
-
-  def user_ids_legacy
-
-    ids = demo.users_for_digest(unclaimed_users_also_get_digest).where(id: user_ids_to_deliver_to).pluck(:id)
-    ids.reject! { |user_id| TileCompletion.user_completed_any_tiles?(user_id, tile_ids)}
-    ids.reject! { |user_id| BoardMembership.where(demo_id: demo_id, user_id: user_id, followup_muted: true).first.present? }
-    ids
-  end
-
   def users_to_reject
 
     demos = Demo.arel_table
@@ -83,10 +68,23 @@ class FollowUpDigestEmail < ActiveRecord::Base
   end
 
   def subject
-    text = original_digest_subject.blank? ? ' Your New Tiles' : ": #{original_digest_subject}"
-
-    "Dont Miss#{text}"
+   "Don't Miss: #{original_digest_subject}"
   end
 
+  #TODO Deprecate
+
+  def trigger_deliveries_legacy
+
+    user_ids_legacy.each    { |user_id| TilesDigestMailer.delay.notify_one(demo.id, user_id, tile_ids, subject, true, headline, nil) }
+
+  end
+
+  def user_ids_legacy
+
+    ids = demo.users_for_digest(unclaimed_users_also_get_digest).where(id: user_ids_to_deliver_to).pluck(:id)
+    ids.reject! { |user_id| TileCompletion.user_completed_any_tiles?(user_id, tile_ids)}
+    ids.reject! { |user_id| BoardMembership.where(demo_id: demo_id, user_id: user_id, followup_muted: true).first.present? }
+    ids
+  end
 
 end

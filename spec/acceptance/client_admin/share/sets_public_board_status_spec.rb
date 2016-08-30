@@ -1,5 +1,4 @@
 require 'acceptance/acceptance_helper'
-Capybara.javascript_driver= :selenium
 
 feature "Client admin sets board's public status themself", js:true do
   let! (:client_admin) { FactoryGirl.create(:client_admin) }

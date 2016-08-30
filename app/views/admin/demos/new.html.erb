@@ -1,5 +1,12 @@
-<h2 class="first"><%= link_to "Admin", admin_path %> » New Demo</h2>
 
-<p class="explanation"><%= translate('.explanation', :default => "Create a new demo for a prospective customer.") %></p>
+<div class="row">
+  <div class="columns small-12 ">
+    <h2 class="first"><%= link_to "Admin", admin_path %> » New Board</h2>
+  </div>
+</div>
 
-<%= render 'admin/demos/form', :demo => @demo %>
+<div class="row">
+  <div class="columns small-6 ">
+    <%= render 'admin/demos/quick_form', :demo => @demo %>
+  </div>
+</div>

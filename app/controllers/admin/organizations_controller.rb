@@ -38,6 +38,8 @@ class Admin::OrganizationsController < AdminBaseController
 
   def new
     @organization = Organization.new
+    @user = @organization.users.build
+    @demo = @organization.demos.build
     new_or_edit @organization 
   end
 
@@ -46,7 +48,9 @@ class Admin::OrganizationsController < AdminBaseController
   end
 
   def create 
+
     @organization = Organization.new(organization_params)
+
     update_or_create @organization, admin_organizations_path(@organization)
   end
 
@@ -64,6 +68,6 @@ class Admin::OrganizationsController < AdminBaseController
   end
 
   def organization_params
-    params.require(:organization).permit(:churn_reason, :name, :num_employees, :sales_channel)
+    params.require(:organization).permit(:churn_reason, :name, :is_hrm, :num_employees, :sales_channel, demos_attributes: [:name], users_attributes: [:name, :email, :password])
   end
 end

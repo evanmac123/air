@@ -3,7 +3,7 @@
     <!-- Title Area -->
     <li class="name">
       <h1>
-        <%=link_to "Dashoboard", admin_path%>
+        <%=link_to "Admin Home", admin_path%>
       </h1>
     </li>
     <li class="toggle-topbar"><a href="#"></a></li>
@@ -39,6 +39,9 @@
           </li>
           <li>
             <%= link_to 'Boards', admin_demos_path  %>
+          </li>
+          <li>
+            <%= link_to 'Board Matcher', admin_unmatched_boards_path  %>
           </li>
           <li>
             <%= link_to 'Explore Digest', new_admin_explore_digest_path %>

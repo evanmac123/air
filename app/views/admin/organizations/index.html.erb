@@ -4,11 +4,10 @@
     <h1>Organizations</h1>
 
     <table class="sortable tablesorter">
-      <caption>Active Customers</caption>
       <thead>
         <tr>
           <th>Name</th>
-          <th>Employees</th>
+          <th>Demos</th>
           <th>Is Hrm?</th>
         </tr>
       </thead>
@@ -17,7 +16,7 @@
 
           <tr class="resource-row" data-url='<%=admin_organization_path(organization)%>'>
             <td><%= organization.name %></td>
-            <td><%= organization.num_employees %></td>
+            <td><%= organization.demos.count %></td>
             <td><%= organization.is_hrm.humanize %></td>
           </tr>
         <% end %>
