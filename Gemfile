@@ -55,6 +55,7 @@ gem 'require_all'
 gem 'css_splitter', :git => "https://github.com/theairbo/css_splitter.git" #Allow customization of MAX_SELECTORS_DEFAULT via environment variable
 gem 'sanitize'
 gem 'htmlentities'
+gem 'rack-mini-profiler', require: false
 gem 'flamegraph'
 gem "unicorn"   # Some of our capybara webkit tests fail with thin, so we use unicorn
 gem "newrelic_rpm"

@@ -40,6 +40,8 @@ class LeadContactProcessor
       user.board_memberships.new(
         demo_id: board.id
       )
+
+      board
     end
 
     def find_template(board_id)
@@ -47,6 +49,6 @@ class LeadContactProcessor
     end
 
     def copy_tiles_to_new_board
-      CopyTile.new(board, user).copy_active_tiles_from_demo(board_template)
+      CopyBoard.new(board, board_template).copy_active_tiles_from_board
     end
 end
