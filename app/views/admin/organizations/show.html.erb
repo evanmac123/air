@@ -2,10 +2,8 @@
 <div class="row">
   <div class="columns small-12 small-centered">
     <h1 class ="text-left"><%= @organization.name %></h1>
-
     <table class="first-column-header">
       <tbody>
-
         <tr>
           <th>Num employees</th>
           <td><%= @organization.num_employees %></td>
@@ -20,23 +18,28 @@
           <td><%= @organization.primary_contact %></td>
         </tr>
         <%if @organization.churned%>
-       <tr>
-          <th>End</th>
-          <td><%= simple_date_format @organization.customer_end_date %></td>
-        </tr>   <tr>
-          <th>Churned</th>
-          <td><%= @organization.churned %></td>
-        </tr>
+          <tr>
+            <th>End</th>
+            <td><%= simple_date_format @organization.customer_end_date %></td>
+          </tr>   <tr>
+            <th>Churned</th>
+            <td><%= @organization.churned %></td>
+          </tr>
 
+          <tr>
+            <th>Churn reason</th>
+            <td><%= @organization.churn_reason %></td>
+          </tr>
+        <%end%>
         <tr>
-          <th>Churn reason</th>
-          <td><%= @organization.churn_reason %></td>
+          <td colspan="2"> 
+            <%=link_to "Edit this organization", edit_admin_organization_path(@organization)%>
+          </td>
         </tr>
-      <%end%>
       </tbody>
     </table>
     <hr/>
   </div>
 </div>
-
-<%= render "org_boards", boards: @organization.boards %>
+<div>
+  <%= render "org_boards", boards: @organization.boards %>
