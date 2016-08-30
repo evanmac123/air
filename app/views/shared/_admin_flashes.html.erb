@@ -13,6 +13,19 @@
   </div>
 <%end%>
 
+<div class="flash-js hidden">
+  <div class="flash-js-msg ">
+    <div class="row">
+      <div class="flash-content large-12 columns">
+      </div>
+      <div class="flash-close">
+        <a href="#" id="close-flash">x</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <% js_at_end do %>
   bindCloseFlash('#close-flash', <%=!!(@persistent_message_shown)%>);
 <% end %>

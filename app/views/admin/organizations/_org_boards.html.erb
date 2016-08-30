@@ -1,8 +1,8 @@
 <div class="row">
   <div class="columns small-12 small-centered">
       <%# link_to 'Add New Board', new_admin_organization_demo_path(@organization), class: "button righty" %>
+      <h2> Boards </h2>
     <table>
-      <caption> Boards </caption>
       <thead>
         <tr>
           <th>Name</th>
@@ -12,7 +12,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @organization.demos.each do |demo| %>
+        <% @organization.demos.name_order.each do |demo| %>
           <tr class="resource-row" data-url="<%=admin_demo_path(demo)%>">
             <td><%= demo.name %></td>
             <td><%= demo.users.count %></td>

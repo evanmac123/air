@@ -7,7 +7,8 @@ Airbo.BoardsAndOrganizationMgr = (function(){
       data: {demo: {unlink: true}}
     })
     .done(function(){
-      console.log("unlink worked");
+      Airbo.Utils.flash("success", "Board successfully unlinked");
+      $(".unlink").remove();
     })
     .fail(function(){
       console.log("unlink failed");
@@ -37,7 +38,8 @@ Airbo.BoardsAndOrganizationMgr = (function(){
     }
 
     if($("form#new_organization #organization_name").length > 0){
-      initNewBoard();
+      //FIXME make configurable
+      //initewBoard();
     }
 
     Airbo.Utils.initChosen();

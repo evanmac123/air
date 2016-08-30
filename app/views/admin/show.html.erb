@@ -13,10 +13,10 @@
 <br>
 <div class="row ">
   <div class="columns large-12">
-    <h3 class="blue">Boards</h3>
+    <h3 class="blue">Organizations</h3>
     <p>
-    <%= link_to 'Create New Board', new_admin_demo_path, class: "button"  %>
+    <%= link_to 'New Organization', new_admin_organization_path, class: "button"  %>
     </p>
-    <%= render "admin/demos/boards",demos: @demos %>
+    <%= render "admin/organizations/orgs_table" %>
   </div>
 </div>

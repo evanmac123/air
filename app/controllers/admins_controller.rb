@@ -1,7 +1,7 @@
 class AdminsController < AdminBaseController
   def show
     @current_user = current_user
-    @demos = Demo.list
+    @organizations = Organization.name_order
     render template: 'admin/show'
   end
 end

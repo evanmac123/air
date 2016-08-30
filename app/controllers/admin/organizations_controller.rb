@@ -6,7 +6,7 @@ class Admin::OrganizationsController < AdminBaseController
   before_filter :parse_start_and_end_dates, only: [:metrics_recalc, :metrics]
 
   def index
-    @organizations = Organization.all
+    @organizations = Organization.name_order
   end
 
   def show
@@ -40,7 +40,6 @@ class Admin::OrganizationsController < AdminBaseController
     @organization = Organization.new
     @user = @organization.users.build
     @demo = @organization.demos.build
-    new_or_edit @organization 
   end
 
   def edit
@@ -50,7 +49,6 @@ class Admin::OrganizationsController < AdminBaseController
   def create 
 
     @organization = Organization.new(organization_params)
-
     update_or_create @organization, admin_organizations_path(@organization)
   end
 

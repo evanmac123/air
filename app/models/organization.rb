@@ -7,13 +7,15 @@ class Organization < ActiveRecord::Base
   has_many :boards, class_name: :Demo
   has_many :users
 
-  validates :name, presence: true
-  
+  validates :name, presence: true  
   accepts_nested_attributes_for :demos
   accepts_nested_attributes_for :users
 
+
 # FIXME: Herby: can we do this withou a callback? Orgs are created in the SDR flow before their first users or boards.
   # after_create :create_default_board_membership
+
+  scope :name_order, ->{order("LOWER(name)")}
 
   def self.active_during_period sdate, edate
     all.select{|o| o.has_start_and_end && o.customer_start_date <=  sdate && o.customer_end_date > edate}

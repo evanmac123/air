@@ -16,6 +16,7 @@
         <%= f.label :name %>
         <%= f.text_field :name %>
       </div>
+      
       <%=f.fields_for :users, @user do |user| %>
         <div class="row">
           <%= user.label :name, "Contact Name" %>
@@ -29,16 +30,9 @@
         </div>
       <%end%>
 
-      <%=f.fields_for :demos, @demo do |demo| %>
-        <div class="row">
-        <%= demo.label :name, "Board Name" %>
-        <%= demo.text_field :name, id: "org_demo_name", readonly: true %>
-        </div>
-      <%end%>
-
       <div class="row">
         <p>
-        <%= f.label :is_hrm, "Is Hrm?", class:"inline" %>
+        <%= f.label :is_hrm, "Is HRM?", class:"inline" %>
         <%= f.check_box :is_hrm , class: "inline"%>
         </p>
       </div>
