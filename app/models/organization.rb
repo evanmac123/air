@@ -12,6 +12,8 @@ class Organization < ActiveRecord::Base
 
   after_create :create_default_board_membership
 
+  scope :name_order, ->{order("LOWER(name)")}
+
   def self.active_during_period sdate, edate
     all.select{|o| o.has_start_and_end && o.customer_start_date <=  sdate && o.customer_end_date > edate}
   end

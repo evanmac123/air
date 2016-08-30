@@ -7,7 +7,7 @@
     </tr>
   </thead>
   <tbody>
-    <% Organization.all.each do |organization| %>
+    <% @organizations.each do |organization| %>
 
       <tr class="resource-row" data-url='<%=admin_organization_path(organization)%>'>
         <td><%= organization.name %></td>
