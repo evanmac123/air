@@ -1,8 +1,57 @@
 <div class="row">
   <div class="columns small-12">
     <h1>New Organization</h1>
+    <div class="row">
+      <div class="columns small-6 small-centered">
+        <%= form_for([:admin, @organization]) do |f| %>
+          <% if @organization.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@organization.errors.count, "error") %> prohibited this organization from being saved:</h2>
+              <ul>
+                <% @organization.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
 
-    <%= render 'form' %>
+          <div class="row">
+            <%= f.label :name %>
+            <%= f.text_field :name %>
+          </div>
+          <%=f.fields_for :users, @user do |user| %>
+            <div class="row">
+              <%= user.label :name, "Contact Name (optional)" %>
+              <%= user.text_field :name %>
+            </div>
 
+            <div class="row">
+              <%= user.label :email, "Contact Email" %>
+              <%= user.text_field :email %>
+              <%= user.hidden_field :password, value: "password" %>
+            </div>
+          <%end%>
+
+          <%=f.fields_for :demos, @demo do |demo| %>
+            <div class="row">
+              <%= demo.label :name, "Board Name (optional)" %>
+              <%= demo.text_field :name, id: "org_demo_name", readonly: true %>
+            </div>
+          <%end%>
+          <div class="row">
+            <p>
+            <%= f.label :is_hrm, "Is Hrm?", class:"inline" %>
+            <%= f.check_box :is_hrm , class: "inline"%>
+            </p>
+          </div>
+
+          <div class="actions">
+            <%= f.submit "Submit",  class: "button"%>
+
+            <%= link_to 'Cancel', admin_organizations_path, class: "button outlined" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>

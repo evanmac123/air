@@ -7,8 +7,8 @@ class Organization < ActiveRecord::Base
   has_many :users
 
   validates :name, presence: true
-  accepts_nested_attributes_for :demos
-  accepts_nested_attributes_for :users
+  accepts_nested_attributes_for :demos, :reject_if => proc { |attributes| attributes['name'].blank? } 
+  accepts_nested_attributes_for :users, :reject_if => proc { |attributes| attributes['name'].blank? }
 
   after_create :create_default_board_membership
 
