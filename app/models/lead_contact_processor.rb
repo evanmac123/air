@@ -15,6 +15,7 @@ class LeadContactProcessor
 
   def process
     user.save
+    copy_tiles_to_new_board
     lead_contact.update_attributes(user_id: user.id)
   end
 
