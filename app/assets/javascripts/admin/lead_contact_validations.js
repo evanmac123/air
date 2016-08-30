@@ -126,17 +126,10 @@ Airbo.LeadContactValidations = (function(){
         return validCharactersRegex.test(value);
       }
 
-      function board_name_valid(value) {
-        
-      }
-
       $.validator.addMethod("custom_fullname", function(value, element) {
           return fullname_valid(value);
       }, "Please enter a first and last name.");
 
-      $.validator.addMethod("board_name_exists", function(value, element) {
-          return board_name_valid(value);
-      }, "This board name already exists.");
 
       var form = $(".edit_lead_contact");
       var config = {
@@ -159,6 +152,14 @@ Airbo.LeadContactValidations = (function(){
           },
           "board[name]": {
             required: true,
+            remote: {
+              url: "/api/v1/boards/validate_name",
+              data: {
+                name: function() {
+                  return $( "#board_name" ).val();
+                }
+              }
+            }
           },
           "board[custom_reply_email_name]": {
             required: true,
@@ -182,6 +183,7 @@ Airbo.LeadContactValidations = (function(){
           },
           "board[name]": {
             required: "Please enter a board name.",
+            remote: "This board name has already been taken."
           },
           "board[custom_reply_email_name]": {
             required: "Please enter a custom name that will be the 'from' name in board emails.",

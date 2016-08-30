@@ -370,6 +370,7 @@ Health::Application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       resources :boards, only: [:index]
+      get "/boards/validate_name"
     end
   end
 end
