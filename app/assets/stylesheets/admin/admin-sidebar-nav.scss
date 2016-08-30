@@ -164,3 +164,10 @@
     }
   }
 }
+#admin-product-accordion {
+  &:hover {
+    &:after {
+      content: ' 🔧'
+    }
+  }
+}

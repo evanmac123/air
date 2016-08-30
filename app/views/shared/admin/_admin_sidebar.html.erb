@@ -10,6 +10,14 @@
     </li>
     <li>
       <div class="sidebar-accordion">
+        <span id="admin-customer-success-accordion" class="sidebar-accordion-toggle">Customer Success</span>
+        <div class="sidebar-accordion-content">
+          <%= link_to "Dashboard", admin_path %>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="sidebar-accordion">
         <span id="admin-sales-accordion" class="sidebar-accordion-toggle">Sales</span>
         <div class="sidebar-accordion-content">
           <%= link_to "Leads", admin_sales_lead_contacts_path %>
@@ -18,9 +26,9 @@
     </li>
     <li>
       <div class="sidebar-accordion">
-        <span id="admin-customer-success-accordion" class="sidebar-accordion-toggle">Customer Success</span>
+        <span id="admin-product-accordion" class="sidebar-accordion-toggle">Product</span>
         <div class="sidebar-accordion-content">
-          <%= link_to "Customer Success", "#" %>
+          <%= link_to "Dashboard", admin_path %>
         </div>
       </div>
     </li>
