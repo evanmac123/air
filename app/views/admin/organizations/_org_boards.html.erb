@@ -12,7 +12,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @organization.demos.each do |demo| %>
+        <% @organization.demos.name_order.each do |demo| %>
           <tr class="resource-row" data-url="<%=admin_demo_path(demo)%>">
             <td><%= demo.name %></td>
             <td><%= demo.users.count %></td>
