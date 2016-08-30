@@ -366,4 +366,10 @@ Health::Application.routes.draw do
     resource :bulk_upload_errors, only: [:show]
     resource :support, only: [:show, :edit, :update]
   end
+
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      resources :boards, only: [:index]
+    end
+  end
 end
