@@ -41,7 +41,6 @@ class CopyBoard
 
   def set_new_data_for_copy(tile, copy)
     copy.demo = new_board
-    copy.is_cloned = true
     copy.position = copy.find_new_first_position
   end
 end

@@ -5,7 +5,7 @@ class LeadContact < ActiveRecord::Base
 
   has_one :demo, through: :user
 
-  validates :email, presence: true
+  validates :email, presence: true, uniqueness: { case_sensitive: false }
   validates :name, presence: true
   validates :phone, presence: true
   validates :organization_name, presence: true

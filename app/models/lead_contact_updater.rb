@@ -18,6 +18,7 @@ class LeadContactUpdater
   end
 
   def update
+    return false if User.exists?(email: lead_contact.email)
     lead_contact.update_attributes(attributes)
   end
 

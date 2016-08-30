@@ -1,5 +1,5 @@
 <div class="lead-contacts-container">
-  <%= form_for(@lead_contact, url: admin_sales_lead_contact_path, html: { multipart: true }) do |f| %>
+  <%= form_for(@lead_contact, url: admin_sales_lead_contact_path, html: { multipart: true }, id: "lead-contact-edit-form") do |f| %>
     <div class="columns small-7">
       <fieldset>
         <legend>
@@ -40,7 +40,7 @@
 
           <%= label_tag "board[logo]", "Board Logo" %>
           <%= file_field_tag 'board[logo]' %>
-          <%= f.submit "Process", class: "button" %>
+          <%= f.submit "Process", id: "process-lead-contact", class: "button" %>
         </div>
       </fieldset>
     </div>

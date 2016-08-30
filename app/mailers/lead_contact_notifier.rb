@@ -22,4 +22,14 @@ class LeadContactNotifier < ActionMailer::Base
       :subject => "Thanks for reaching out to Airbo!"
     )
   end
+
+  def duplicate_signup_request(lead_contact)
+    @lead_contact = lead_contact
+
+    mail(
+      :from    => 'Duplicate Signup Request<sales@airbo.com>',
+      :to      => 'team@airbo.com',
+      :subject => "Duplicate Signup Request"
+    )
+  end
 end

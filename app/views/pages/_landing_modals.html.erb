@@ -31,4 +31,19 @@
       <%= link_to 'ASHA Case Study', '/pages/asha', class: "button  outlined" %>
     </div>
   </div>
+<% elsif params[:failed_signup_request] == "true" %>
+  <div data-reveal class='reveal-modal text-center' id='demo_requests_modal'>
+    <div class="text-center">
+      <%= image_tag "landing/logo-white.png" %>
+      <h2 class="white">It looks like an Airbo account has already been requested with your email.</h2>
+    </div>
+
+    <h3>Someone from our team will be reaching out to you shortly.</h3>
+    <h3>While you wait, learn about how others are using Airbo.</h3>
+
+    <div>
+      <%= link_to 'Fujifilm Case Study', '/pages/fujifilm', class: "button  outlined" %>
+      <%= link_to 'ASHA Case Study', '/pages/asha', class: "button  outlined" %>
+    </div>
+  </div>
 <% end %>

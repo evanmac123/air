@@ -4,9 +4,14 @@ class SignupRequestsController < ApplicationController
   layout 'standalone', only: [:new]
 
   def create
-    LeadContact.create(lead_contact_params)
+    lead_contact = LeadContact.new(lead_contact_params)
 
-    redirect_to root_path(signup_request: true)
+    if !User.exists?(email: lead_contact.email) && lead_contact.save
+      redirect_to root_path(signup_request: true)
+    else
+      LeadContactNotifier.delay_mail(:duplicate_signup_request, lead_contact)
+      redirect_to root_path(failed_signup_request: true)
+    end
   end
 
   def new

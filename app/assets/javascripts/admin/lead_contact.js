@@ -109,44 +109,6 @@ Airbo.LeadContact = (function(){
     });
   }
 
-  function initApproveValidations() {
-    $("#approve-lead-contact").on("click", function(event) {
-      $("#lead_contact_matched_organization").prop('readonly', false);
-      var form = $(this).parent();
-      var config = {
-        onkeyup: false,
-        rules: {
-          "lead_contact[matched_organization]": {
-            required: true,
-            minlength: 2
-          },
-        },
-        messages: {
-          "lead_contact[matched_organization]": {
-            required: "Select and existing organization before approval.",
-          },
-        },
-        errorPlacement: function(error, element) {
-          var placement = $(element).data('error');
-          if (placement) {
-            $(placement).append(error);
-          } else {
-            error.insertAfter(element);
-          }
-        }
-      };
-
-      config = $.extend({}, Airbo.Utils.validationConfig, config);
-      var validator = form.validate(config);
-
-      if(!form.valid()){
-        event.preventDefault();
-        validator.focusInvalid();
-        $("#lead_contact_matched_organization").prop('readonly', true);
-      }
-    });
-  }
-
   function openTab() {
     $(".tablinks").on("click", function() {
       $(".tablinks").removeClass("active");
@@ -167,7 +129,6 @@ Airbo.LeadContact = (function(){
     initRespondButton();
     toggleOrganizationInputs();
     matchExistingOrg();
-    initApproveValidations();
     initCloseAdminModal();
     initDynamicModelLaunch();
     initPrioritySelection();

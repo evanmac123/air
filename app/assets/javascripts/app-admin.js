@@ -29,7 +29,9 @@
 //= require ./admin/demo_search
 //= require ./admin/demo_filter
 //= require ./admin/lead_contact
+//= require ./admin/lead_contact_validations
 //= require ../../../vendor/assets/javascripts/external/modernizr
+
 $(document).ready(function($) {
   $('.sidebar-accordion').find('.sidebar-accordion-toggle').click(function(){
 

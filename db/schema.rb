@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160826173628) do
+ActiveRecord::Schema.define(:version => 20160830162337) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -494,7 +494,7 @@ ActiveRecord::Schema.define(:version => 20160826173628) do
     t.integer  "organization_id"
   end
 
-  add_index "lead_contacts", ["email"], :name => "index_lead_contacts_on_email"
+  add_index "lead_contacts", ["email"], :name => "index_lead_contacts_on_email", :unique => true
   add_index "lead_contacts", ["organization_id"], :name => "index_lead_contacts_on_organization_id"
   add_index "lead_contacts", ["status"], :name => "index_lead_contacts_on_status"
   add_index "lead_contacts", ["user_id"], :name => "index_lead_contacts_on_user_id"

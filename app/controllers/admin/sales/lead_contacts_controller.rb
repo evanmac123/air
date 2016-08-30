@@ -9,17 +9,18 @@ class Admin::Sales::LeadContactsController < AdminBaseController
   end
 
   def update
-    lead_contact = LeadContactUpdater.new(
+    lead_contact_updater = LeadContactUpdater.new(
       lead_contact_params,
       board_params[:board],
       params[:commit]
     )
 
-    if lead_contact.update
-      lead_contact.dispatch
-      redirect_to admin_sales_lead_contacts_path(status: lead_contact.status)
+    if lead_contact_updater.update
+      lead_contact_updater.dispatch
+      redirect_to admin_sales_lead_contacts_path(status: lead_contact_updater.status)
     else
-      render "edit"
+      flash[:failure] = "This email you entered is used by an existing lead or user."
+      redirect_to edit_admin_sales_lead_contact_path(lead_contact_updater.lead_contact)
     end
   end
 
