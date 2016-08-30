@@ -52,6 +52,8 @@ class Demo < ActiveRecord::Base
   accepts_nested_attributes_for :custom_color_palette
   accepts_nested_attributes_for :organization
 
+  scope :name_order, ->{order("LOWER(name)")}
+
   has_alphabetical_column :name
 
   has_attached_file :logo,
@@ -97,8 +99,17 @@ class Demo < ActiveRecord::Base
   end
 
   def self.list
-    #TODO change to arel
-    select("id, name, dependent_board_id, is_paid, (SELECT COUNT(*) FROM board_memberships WHERE demo_id = demos.id) AS user_count").reorder("user_count DESC")
+    demos = Demo.arel_table
+    bms = BoardMembership.arel_table
+
+    BoardMembership.select([
+      demos[:id], demos[:name], demos[:dependent_board_id], demos[:is_paid], bms[:user_id].count.as('user_count')
+    ]).joins( bms.join(demos).on( bms[:demo_id].eq(demos[:id])
+    ).join_sources
+    ).order( Arel::Nodes::NamedFunction.new('LOWER', [demos[:name]])
+    ).group(
+      demos[:id], demos[:name], demos[:dependent_board_id], demos[:is_paid]
+    )
   end
 
    def organization_name
