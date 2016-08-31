@@ -12,7 +12,7 @@
       <% if @demo.is_paid? %>
         <%= link_to "Make board free", admin_demo_paid_status_path(@demo), method: :delete, class: "inline button alert" , form_class: "inline"%>
       <% else %>
-        <%= link_to "Make board paid", admin_demo_paid_status_path(@demo), class: "inline button danger", form_class: "inline"%>
+        <%= link_to "Make board paid", admin_demo_paid_status_path(@demo), method: :post, class: "inline button danger", form_class: "inline"%>
       <% end %>
 
       <%=link_to admin_demo_path(@demo), class: "button outlined unlink" do%>
