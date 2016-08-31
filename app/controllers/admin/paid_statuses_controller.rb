@@ -1,3 +1,4 @@
+# TODO: This is terrible. -Nick
 class Admin::PaidStatusesController < AdminBaseController
   before_filter :find_demo_by_demo_id
 
