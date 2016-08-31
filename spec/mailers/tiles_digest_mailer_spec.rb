@@ -245,25 +245,25 @@ describe '#notify_all_follow_up' do
     tile_ids = tiles.collect(&:id)
     user_ids = [john, paul, george, ringo].map(&:id)
 
-    follow_up = FactoryGirl.create :follow_up_digest_email, demo: demo, tile_ids: tile_ids, unclaimed_users_also_get_digest: true, send_on: Date.today, user_ids_to_deliver_to: user_ids
+    follow_up = FactoryGirl.create :follow_up_digest_email, demo: demo, tile_ids: tile_ids, unclaimed_users_also_get_digest: true, send_on: Date.today, user_ids_to_deliver_to: user_ids, original_digest_subject: "Your New Tiles"
 
     FactoryGirl.create :tile_completion, user: john,  tile: tiles[0]
     FactoryGirl.create :tile_completion, user: john,  tile: tiles[1]
     FactoryGirl.create :tile_completion, user: ringo, tile: tiles[2]
 
-    # Make sure that only paul and george receive follow-up emails
-    object = mock('delay')
-    TilesDigestMailer.stubs(:delay).returns(object)
-
-    object.expects(:notify_one).at_most(2)
-    object.expects(:notify_one).with(demo.id, paul.id,   tile_ids, "Don't Miss Your New Tiles", true, nil, nil)
-    object.expects(:notify_one).with(demo.id, george.id, tile_ids, "Don't Miss Your New Tiles", true, nil, nil)
-
     # Make sure we delete 'FollowUpDigestEmail' objects after we process them
     FollowUpDigestEmail.expects(:find).returns(follow_up)
     follow_up.expects(:destroy)
 
-    TilesDigestMailer.notify_all_follow_up follow_up.id
+    TilesDigestMailer.notify_all_follow_up(follow_up.id)
+
+    expect(ActionMailer::Base.deliveries.count).to eq(2)
+
+    recipients = ActionMailer::Base.deliveries.map(&:to).flatten.sort
+    subjects = ActionMailer::Base.deliveries.map(&:subject).flatten.uniq
+
+    expect(recipients).to eq(['george@beatles.com', 'paul@beatles.com'])
+    expect(subjects).to eq(["Don't Miss: Your New Tiles"])
   end
 
   it "should not deliver to users who did not get the original digest" do
@@ -286,9 +286,9 @@ describe '#notify_all_follow_up' do
       user.email.should be_present
 
       tile = FactoryGirl.create(:tile, demo: user.demo)
-      follow_up = FactoryGirl.create :follow_up_digest_email, 
-        demo: user.demo, tile_ids: [tile.id], send_on: Date.today, 
-        original_digest_subject: custom_original_digest_subject, 
+      follow_up = FactoryGirl.create :follow_up_digest_email,
+        demo: user.demo, tile_ids: [tile.id], send_on: Date.today,
+        original_digest_subject: custom_original_digest_subject,
         user_ids_to_deliver_to: [user.id]
 
       ActionMailer::Base.deliveries.clear
@@ -306,7 +306,7 @@ describe '#notify_all_follow_up' do
       user.email.should be_present
 
       tile = FactoryGirl.create(:tile, demo: user.demo)
-      follow_up = FactoryGirl.create :follow_up_digest_email, demo: user.demo, 
+      follow_up = FactoryGirl.create :follow_up_digest_email, demo: user.demo,
         tile_ids: [tile.id], send_on: Date.today, user_ids_to_deliver_to: [user.id]
 
       ActionMailer::Base.deliveries.clear
@@ -324,8 +324,8 @@ describe '#notify_all_follow_up' do
       user.email.should be_present
 
       tile = FactoryGirl.create(:tile, demo: user.demo)
-      follow_up = FactoryGirl.create :follow_up_digest_email, demo: user.demo, 
-        tile_ids: [tile.id], 
+      follow_up = FactoryGirl.create :follow_up_digest_email, demo: user.demo,
+        tile_ids: [tile.id],
         send_on: Date.today, original_digest_headline: 'Kneel before Zod', user_ids_to_deliver_to: [user.id]
 
       ActionMailer::Base.deliveries.clear
@@ -344,7 +344,7 @@ describe '#notify_all_follow_up' do
       user.email.should be_present
 
       tile = FactoryGirl.create(:tile, demo: user.demo)
-      follow_up = FactoryGirl.create :follow_up_digest_email, 
+      follow_up = FactoryGirl.create :follow_up_digest_email,
         demo: user.demo, tile_ids: [tile.id], send_on: Date.today, user_ids_to_deliver_to: [user.id]
 
       ActionMailer::Base.deliveries.clear

@@ -148,7 +148,10 @@ Airbo.LeadContact = (function(){
     initPrioritySelection();
     openTab();
     initialTabs();
-    chooseCorrectTab(window.location.href);
+
+    if ($(".lead-contacts-container").length > 0) {
+      chooseCorrectTab(window.location.href);
+    }
   }
 
   return {
