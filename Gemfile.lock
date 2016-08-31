@@ -287,9 +287,6 @@ GEM
     intercom (2.4.2)
       json
     ipaddress (0.8.0)
-    jbuilder (2.6.0)
-      activesupport (>= 3.0.0, < 5.1)
-      multi_json (~> 1.2)
     journey (1.0.4)
     jquery-fileupload-rails (0.4.5)
       actionpack (>= 3.1)
@@ -634,7 +631,6 @@ DEPENDENCIES
   htmlentities
   humanize_boolean
   intercom (~> 2.4.2)
-  jbuilder
   jquery-fileupload-rails
   jquery-rails
   jquery-ui-rails
