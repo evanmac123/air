@@ -78,7 +78,7 @@
               <th>Organization</th>
               <th>Email</th>
               <th>Phone</th>
-              <th>Process</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -97,7 +97,7 @@
                   <%= lead_contact.phone %>
                 </td>
                 <td class="process">
-                  <%= link_to "process", edit_admin_sales_lead_contact_path(lead_contact), class: "button tiny green" %>
+                  <%= link_to "build board", edit_admin_sales_lead_contact_path(lead_contact), class: "button tiny green" %>
                 </td>
               </tr>
             <% end %>
