@@ -14,9 +14,9 @@ class LeadContact < ActiveRecord::Base
   before_create :build_lead_contact
   after_create  :notify!
 
-  scope :pending, -> { where(status: "pending") }
+  scope :pending, -> { where(status: "pending").order(:updated_at).reverse_order }
   scope :approved, -> { where(status: "approved").order(:updated_at).reverse_order }
-  scope :processed, -> { joins(:demo).where(status: "processed").where(demo: { tile_digest_email_sent_at: nil } ) }
+  scope :processed, -> { joins(:demo).where(status: "processed").where(demo: { tile_digest_email_sent_at: nil } ).order(:updated_at).reverse_order }
 
 
   def notify!
