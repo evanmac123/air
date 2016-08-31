@@ -46,7 +46,7 @@
             </tr>
           </thead>
           <tbody>
-            <% pending_leads.limit(5).each do |lead_contact| %>
+            <% pending_leads.each do |lead_contact| %>
               <tr id="<%= lead_contact.id %>">
                 <td class="name">
                   <%= lead_contact.name %>
@@ -82,7 +82,7 @@
             </tr>
           </thead>
           <tbody>
-            <% approved_leads.limit(10).each do |lead_contact| %>
+            <% approved_leads.each do |lead_contact| %>
               <tr id="<%= lead_contact.id %>">
                 <td class="name">
                   <%= lead_contact.name %>
@@ -118,7 +118,7 @@
             </tr>
           </thead>
           <tbody>
-            <% processed_leads.limit(10).each do |lead_contact| %>
+            <% processed_leads.each do |lead_contact| %>
               <tr id="<%= lead_contact.id %>">
                 <td class="name">
                   <%= lead_contact.name %>

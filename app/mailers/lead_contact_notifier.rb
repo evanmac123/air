@@ -1,5 +1,5 @@
 class LeadContactNotifier < ActionMailer::Base
-  default :from => "sales@airbo.com"
+  default :from => "team@airbo.com"
   helper :email
   has_delay_mail
 
@@ -17,7 +17,7 @@ class LeadContactNotifier < ActionMailer::Base
     @lead_contact = lead_contact
 
     mail(
-      :from    => 'Airbo<sales@airbo.com>',
+      :from    => 'Airbo<team@airbo.com>',
       :to      => @lead_contact.email,
       :subject => "Thanks for reaching out to Airbo!"
     )
