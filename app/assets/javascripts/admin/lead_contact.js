@@ -148,19 +148,18 @@ Airbo.LeadContact = (function(){
     initPrioritySelection();
     openTab();
     initialTabs();
-
-    if ($(".lead-contacts-container").length > 0) {
-      chooseCorrectTab(window.location.href);
-    }
+    chooseCorrectTab(window.location.href);
   }
 
   return {
-  init: init
-};
+    init: init
+  };
 }());
 
 $(function(){
-  Airbo.LeadContact.init();
+  if ($(".lead-contacts-container").length > 0) {
+    Airbo.LeadContact.init();
+  }
 });
 
 var fillRespondForm = function(leadContact) {
