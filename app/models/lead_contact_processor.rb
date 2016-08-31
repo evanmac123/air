@@ -34,7 +34,8 @@ class LeadContactProcessor
       board = organization.boards.create(
         name: board_params[:name],
         logo: board_params[:logo].presence,
-        custom_reply_email_name: board_params[:custom_reply_email_name]
+        custom_reply_email_name: board_params[:custom_reply_email_name],
+        email: build_email(board_params[:name])
       )
 
       user.board_memberships.new(
@@ -42,6 +43,10 @@ class LeadContactProcessor
       )
 
       board
+    end
+
+    def build_email(board_name)
+      "#{board_name.gsub(/\W/,'')}@ourairbo.com"
     end
 
     def find_template(board_id)
