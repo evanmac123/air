@@ -1,4 +1,3 @@
-#
 var allUsers, cancelBtn, controlButtonsBlock, form, manageAccessBtn, manageAccessPrompt, modal, modalSelector, removeLinkSelector, saveBtn, searchInput, searchResultsSelector, specificUsers, switherOff, switherOn, userRow, userRows, usersTableBody, warningCancel, warningConfirm, warningModal, warningModalSelector;
 
 allUsers = function() {
