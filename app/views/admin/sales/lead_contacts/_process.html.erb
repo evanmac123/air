@@ -56,20 +56,22 @@
           <div class="columns small-12 small-centered">
               <% @stock_boards.each do |board| %>
               <div class="row ">
-                <div class="columns small-12 medium-6 stock_boards">
+                <div class="columns small-10 medium-6 stock_boards">
                   <div class="topic_cell" data-board-name="<%= board.name %>" data-board-id="<%= board.id %>">
                     <section class="board-name">
                       <h3 class="title">
                         <%= board.name %>
-                        <span class="preview">
-                          <%= link_to "preview", stock_board_path(library_slug: board.public_slug), target: "_blank" %>
-                        </span>
                       </h3>
                     </section>
                   </div>
                 </div>
+                <div class="columns small-2 preview-stock-board">
+                  <span class="preview">
+                    <%= link_to "preview", stock_board_path(library_slug: board.public_slug), target: "_blank" %>
+                  </span>
+                </div>
               </div>
-              <%end%>
+              <% end %>
           </div>
         </div>
       </fieldset>

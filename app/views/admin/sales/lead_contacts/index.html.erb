@@ -14,7 +14,7 @@
         </a>
       </li>
       <li>
-        <a href="#" class="tablinks" data-target="approvedLeads">
+        <a href="#" id="approved-leads-link" class="tablinks" data-target="approvedLeads">
           <% if approved_leads.count > 10 %>
             Approved Leads <span class="alert badge"><%= approved_leads.count %></span>
           <% else %>
@@ -23,7 +23,7 @@
         </a>
       </li>
       <li>
-        <a href="#" class="tablinks" data-target="processedLeads">
+        <a href="#" id="processed-leads-link" class="tablinks" data-target="processedLeads">
           <% if processed_leads.count > 10 %>
             Processed Leads <span class="alert badge"><%= processed_leads.count %></span>
           <% else %>

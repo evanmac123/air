@@ -83,6 +83,27 @@
   }
 }
 
+.preview-stock-board {
+  padding-top: 8px;
+  margin-bottom: 12px;
+  .preview {
+    a {
+      float: right;
+      color: $n-green;
+      font-size: 14px;
+      line-height: 1.5;
+      position: relative;
+
+      font-weight:normal;
+      text-align:left;
+      margin:0;
+      &:hover {
+        color: $n-blue;
+      }
+    }
+  }
+}
+
 .stock_boards {
   background: transparent;
   .topic_cell {
@@ -96,14 +117,6 @@
   }
   .selected {
     background: $n-blue;
-  }
-
-  .preview {
-    a {
-      float: right;
-      color: #fff;
-      font-size: 14px;
-    }
   }
 
   .title {

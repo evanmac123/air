@@ -124,6 +124,20 @@ Airbo.LeadContact = (function(){
     $("#pending-leads-link").addClass("active");
   }
 
+  function chooseCorrectTab(url) {
+    if (url.includes("approved")) {
+      $(".tablinks").removeClass("active");
+      $("#approved-leads-link").addClass("active");
+      $(".tabcontent").hide();
+      $("#approvedLeads").show();
+    } else if (url.includes("processed")) {
+      $(".tablinks").removeClass("active");
+      $("#processed-leads-link").addClass("active");
+      $(".tabcontent").hide();
+      $("#processedLeads").show();
+    }
+  }
+
   function init() {
     initOrgSearch();
     initRespondButton();
@@ -134,6 +148,7 @@ Airbo.LeadContact = (function(){
     initPrioritySelection();
     openTab();
     initialTabs();
+    chooseCorrectTab(window.location.href);
   }
 
   return {
