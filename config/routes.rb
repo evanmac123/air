@@ -1,4 +1,5 @@
 Health::Application.routes.draw do
+
   get "users/index"
 
   match "sms"           => "sms#create", :via => :post
@@ -269,6 +270,12 @@ Health::Application.routes.draw do
   resources :cancel_account, :only => [:show, :destroy]
 
   namespace :admin do
+    namespace :sales do
+      resources :lead_contacts, only: [:index, :edit, :update, :create] do
+        resources :invites, only: [:new]
+        resources :tiles, only: [:index]
+      end
+    end
 
     resource :client_kpi_report
     resources :organizations, as: :customers
@@ -293,7 +300,7 @@ Health::Application.routes.draw do
     post "lost_user", :controller => "lost_users", :action => :create, :as => "lost_user"
 
     resources :unmatched_boards, only: [:index, :update] do
-      collection  do 
+      collection  do
         post :update
       end
      end
@@ -358,5 +365,12 @@ Health::Application.routes.draw do
     resource :bulk_upload_progress, only: [:show]
     resource :bulk_upload_errors, only: [:show]
     resource :support, only: [:show, :edit, :update]
+  end
+
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      resources :boards, only: [:index]
+      get "/boards/validate_name"
+    end
   end
 end

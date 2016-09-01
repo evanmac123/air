@@ -4,8 +4,8 @@
 # just copied the FactoryGirl step definitions file over in its entirety from
 # an old version of FactoryGirl.
 #
-# Thoughtbot did this because they make a case that having a bunch of factory 
-# calls in a Cucumber example is an antipattern: 
+# Thoughtbot did this because they make a case that having a bunch of factory
+# calls in a Cucumber example is an antipattern:
 #
 # http://robots.thoughtbot.com/post/25650434584/writing-better-cucumber-scenarios-or-why-were
 #
@@ -155,4 +155,3 @@ FactoryGirl.factories.each do |factory|
     end
   end
 end
-

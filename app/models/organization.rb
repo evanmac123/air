@@ -3,14 +3,17 @@ class Organization < ActiveRecord::Base
 
   has_many :contracts
   has_many :demos
+  has_many :lead_contacts
   has_many :boards, class_name: :Demo
   has_many :users
 
-  validates :name, presence: true
-  accepts_nested_attributes_for :demos, :reject_if => proc { |attributes| attributes['name'].blank? } 
-  accepts_nested_attributes_for :users, :reject_if => proc { |attributes| attributes['name'].blank? }
+  validates :name, presence: true  
+  accepts_nested_attributes_for :demos
+  accepts_nested_attributes_for :users
 
-  after_create :create_default_board_membership
+
+# FIXME: Herby: can we do this withou a callback? Orgs are created in the SDR flow before their first users or boards.
+  # after_create :create_default_board_membership
 
   scope :name_order, ->{order("LOWER(name)")}
 
@@ -38,7 +41,7 @@ class Organization < ActiveRecord::Base
     added_during_period(sdate,edate).inject(0){|sum,org | sum+= org.mrr_during_period(sdate,edate)}
   end
 
-  def active_mrr 
+  def active_mrr
     contracts.active.sum(&:calc_mrr)
   end
 
@@ -74,11 +77,11 @@ class Organization < ActiveRecord::Base
   end
 
   def active
-   !churned 
+   !churned
   end
 
-  def churned 
-   customer_end_date && customer_end_date < Date.today 
+  def churned
+   customer_end_date && customer_end_date < Date.today
   end
 
   def has_start_and_end
@@ -103,7 +106,7 @@ class Organization < ActiveRecord::Base
       bm.save
     end
   end
- 
+
   def ordered_contracts
     contracts.order("start_date asc")
   end

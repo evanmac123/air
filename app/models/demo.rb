@@ -5,6 +5,7 @@ class Demo < ActiveRecord::Base
 
   JOIN_TYPES = %w(pre-populated self-inviting public).freeze
 
+  belongs_to :organization
   has_many :guest_users
   has_many :parent_board_users
   has_many :board_memberships, dependent: :destroy
@@ -73,6 +74,8 @@ class Demo < ActiveRecord::Base
     }.merge(DEMO_LOGO_OPTIONS)
 
   validates_attachment_content_type :logo, content_type: valid_image_mime_types, message: invalid_mime_type_error
+
+  scope :stock_boards, -> { where(public_slug: HOMEPAGE_BOARD_SLUGS.split(",")) }
 
   # We go through this rigamarole since we can move a user from one demo to
   # another, and usually we will only be concerned with acts belonging to the
@@ -180,7 +183,7 @@ class Demo < ActiveRecord::Base
   def digest_tiles(cutoff_time=self.tile_digest_email_sent_at)
     tiles.digest(self, cutoff_time)
   end
- 
+
   #FIXME WTF?  this is idiotic why not rename for the fucking variable OMG!!!!!
   # Note that 'unclaimed_users_also_get_digest' is a param passed to this method, not the demo's attribute of the same name
   def users_for_digest(unclaimed_users_also_get_digest)
