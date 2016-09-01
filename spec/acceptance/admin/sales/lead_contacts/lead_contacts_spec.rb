@@ -21,8 +21,6 @@ feature "LeadContacts", js: true do
 
       click_link "Continue"
 
-      click_link "Approved Leads"
-
       within ".approved-leads" do
         expect(page).to have_content(lead_contact.name)
         click_link "build board"
@@ -36,8 +34,6 @@ feature "LeadContacts", js: true do
       end
 
       click_button "Create Board"
-
-      click_link "Processed Leads"
 
       within ".processed-leads" do
         expect(page).to have_content(lead_contact.name)
@@ -54,13 +50,6 @@ feature "LeadContacts", js: true do
 
       within_window send_digest_window do
         expect(current_path).to eq("/client_admin/share")
-        # TODO: Add back after double alert bug fixed in tile digest email
-        # click_button "Send"
-        # page.driver.browser.switch_to.alert.accept
-        #
-        # within "#scheduled_followups" do
-        #   expect(page).to have_content("Don't Miss: Your New Tiles")
-        # end
       end
     end
   end
