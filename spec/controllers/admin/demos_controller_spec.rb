@@ -2,9 +2,7 @@ require 'spec_helper'
 
 describe Admin::DemosController do
   describe "POST create" do
-    it "creates board and scehdules appropriate ping" do
-      subject.stubs(:ping)
-      subject.stubs(:schedule_creation_ping)
+    it "creates board" do
       attrs = FactoryGirl.attributes_for(:demo)
       admin = FactoryGirl.create(:site_admin)
 
@@ -15,7 +13,6 @@ describe Admin::DemosController do
       post :create, demo: attrs
 
       expect(Demo.count).to eq(2)
-      expect(subject).to have_received(:schedule_creation_ping)
       expect(response.status).to eq(302)
       expect(flash[:success]).to be_present
     end

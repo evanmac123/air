@@ -1,0 +1,15 @@
+<% user = UserInHeaderPresenter.new(current_user, @public_tile_page, params, request) %>
+
+<header class="<%= user.has_tiles_tools_subnav? ? "admin_header" : '' %>">
+  <div class="row" id="top_bar">
+
+    <div class="large-2 columns" id="logo">
+      <a class="go_home" href="<%= home_path %>"><%= image_tag user.logo_url %></a>
+    </div>
+
+    <nav id="navigation" class="columns large-6">
+      <%= render 'shared/admin/header/user_options', user: user %>
+    </nav>
+    <%= render 'shared/admin/header/user_info', user: user %>
+  </div>
+</header>

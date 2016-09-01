@@ -24,17 +24,30 @@
 //= require  ../../../vendor/assets/javascripts/pickadate/picker
 //= require  ../../../vendor/assets/javascripts/pickadate/picker.date
 //= require  ../../../vendor/assets/javascripts/pickadate/picker.time
+//= require ../../../vendor/assets/javascripts/external/foundation.min
 //= requre ./admin/contracts
 //= require ./admin/demo_search
 //= require ./admin/demo_filter
-
-//= require ../../../vendor/assets/javascripts/external/modernizr
-//= require ../../../vendor/assets/javascripts/external/foundation.min
+//= require ./admin/lead_contact
+//= require ./admin/lead_contact_validations
 //= require ../../../vendor/assets/javascripts/chosen.jquery.min
+//= require ../../../vendor/assets/javascripts/external/modernizr
+
+$(document).ready(function($) {
+  $('.sidebar-accordion').find('.sidebar-accordion-toggle').click(function(){
+
+    $(this).next().slideToggle('fast');
+
+    //Hide the other panels
+    $(".sidebar-accordion-content").not($(this).next()).slideUp('fast');
+
+  });
+});
+
 $(function(){
   //FIXME foundation.min includes foundation.forms js which hijacks forms and
   //hides elements like checkboxes. if we need to use any foundation js then we
-  //will need re-display any hijacked form elements 
+  //will need re-display any hijacked form elements
   //$(document).foundation();
-  Airbo.BoardsAndOrganizationMgr.init()
-})
+  Airbo.BoardsAndOrganizationMgr.init();
+});

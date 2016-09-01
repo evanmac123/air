@@ -1,0 +1,5 @@
+<% if @lead_contact.status == "pending" %>
+  <%= render "approve" %>
+<% elsif @lead_contact.status == "approved" %>
+  <%= render "process" %>
+<% end %>

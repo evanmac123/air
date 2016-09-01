@@ -1,0 +1,11 @@
+<div class="user_options">
+  <ul>
+    <li><%= link_to "My Profile", user_path(user), :id => 'my_profile', :class => 'nav-activity-class' %></li>
+    <li><%= link_to "Profile Settings", edit_account_settings_path, :class => 'nav-settings' %></li>
+    <li><%= link_to "Airbo Admin", admin_path, class: 'nav-admin', id: 'nav-site-admin-link' %></li>
+    <li><%= link_to "Customer Success", admin_path, class: 'nav-admin', id: 'nav-site-admin-link' %></li>
+    <li><%= link_to "Sales", admin_sales_lead_contacts_path, class: 'nav-admin', id: 'nav-site-admin-link' %></li>
+    <li><%= link_to "Product", admin_path, class: 'nav-admin', id: 'nav-site-admin-link' %></li>
+    <li><%= link_to "Sign Out", sign_out_path, :method => :delete , :class => 'nav-signout' %></li>
+  </ul>
+</div>

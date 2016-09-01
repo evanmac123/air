@@ -32,34 +32,4 @@ describe EmailInfoRequest do
       end
     end
   end
-
-  describe "#notify" do
-    it "should create a job that notifies sales" do
-      ActionMailer::Base.deliveries.clear
-
-      request = EmailInfoRequest.create!(
-        name:    'Dude Duderson',
-        email:   'dude@bigco.com',
-        company: "Big Machines",
-        source: "signup",
-        size: "100-500 employees",
-      )
-
-      request.notify
-      Delayed::Worker.new.work_off
-
-      open_email 'team@airbo.com'
-
-      current_email.subject.should include("Signup Request")
-      [
-        "Dude Duderson",
-        "dude@bigco.com",
-        "100-500 employees",
-        "Big Machines",
-        "SIGNUP",
-      ].each do |text_piece|
-        current_email.body.should include(text_piece)
-      end
-    end
-  end
 end

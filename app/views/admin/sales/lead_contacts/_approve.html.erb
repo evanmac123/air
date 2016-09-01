@@ -1,0 +1,65 @@
+<div class="lead-contacts-container">
+  <div class="columns small-7">
+    <fieldset>
+      <legend>
+        Review
+      </legend>
+      <div class="columns small-8 small-offset-2">
+        <%= form_for(@lead_contact, url: admin_sales_lead_contact_path) do |f| %>
+          <%= f.hidden_field :id %>
+
+          <%= f.label :name, "Name" %>
+          <%= f.text_field :name %>
+
+          <%= f.label :email, "Email" %>
+          <%= f.text_field :email %>
+
+          <%= f.label :phone, "Phone number" %>
+          <%= f.text_field :phone %>
+
+          <%= f.label :organization_name, "Organization" %>
+          <%= f.text_field :organization_name %>
+          <div class="match-organization">
+            <label class="input_label existing-org-options">Match an existing Organization</label>
+            <%= text_field_tag "lead_contact[matched_organization]", nil, readonly: true, class: "existing-org-options" %>
+          </div>
+          <%= f.label :organization_size, "Estimated organization size", class: "new-org-options" %>
+          <%= select_tag "lead_contact[organization_size]", options_for_select(["less than 100 employees", "100-500 employees", "500-1000 employees", "1000-5000 employees", "more than 5000 employees"], selected: @lead_contact.organization_size), class: "new-org-options", disabled: true %>
+          <label class="new-organization">
+            <%= check_box_tag 'lead_contact[new_organization]' %>
+            New Organization?
+          </label>
+          <br>
+
+          <% if @lead_contact.status == "pending" %>
+            <%= f.submit "Approve", id: "approve-lead-contact", class: "join-button button green" %>
+            <%= f.submit "Deny", id: "deny-lead-contact", class: "join-button button red" %>
+          <% end %>
+        <% end %>
+      </div>
+    </fieldset>
+  </div>
+  <div class="columns small-5">
+    <fieldset>
+      <legend>
+        Organization Search
+      </legend>
+      <div class="row">
+        <div class="columns large-12">
+          <br>
+          <input type="text" name="org-search-input" id="org-search-input" placeholder="search existing organizations" class="form-control">
+          <button type="button" name="org-search" id="org-search" class="button">Search</button>
+          <br>
+          <p class="organization-search-helper hidden">
+            Select the correct organization:
+          </p>
+          <div class="search-results">
+            <% @organizations.each do |org| %>
+            <button id="<%= org.id %>" class="organization button outlined small green hidden"  data-name="<%= org.name %>"><%= org.name %></button>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</div>
