@@ -8,7 +8,7 @@ feature 'Admin denies a signup request' do
     visit admin_sales_lead_contacts_path(as: admin)
 
     within "tr##{lead_contact.id}" do
-      click_link "start"
+      click_link "review"
     end
 
     click_button "Deny"

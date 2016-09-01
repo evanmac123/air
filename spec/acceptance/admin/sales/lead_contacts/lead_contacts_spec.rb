@@ -25,7 +25,7 @@ feature "LeadContacts", js: true do
 
       within ".approved-leads" do
         expect(page).to have_content(lead_contact.name)
-        click_link "process"
+        click_link "build board"
       end
 
       find(".topic_cell", match: :first).click
@@ -35,7 +35,7 @@ feature "LeadContacts", js: true do
         expect(template_field.value).to eq("airbo.com Board")
       end
 
-      click_button "Process"
+      click_button "Create Board"
 
       click_link "Processed Leads"
 
