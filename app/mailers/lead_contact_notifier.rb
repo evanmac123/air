@@ -9,7 +9,7 @@ class LeadContactNotifier < ActionMailer::Base
     mail(
       :from    => 'Inbound Lead<sales@airbo.com>',
       :to      => 'team@airbo.com',
-      :subject => "New Inbound Lead: Signup Request"
+      :subject => 'New Inbound Lead: Signup Request'
     )
   end
 
@@ -19,7 +19,7 @@ class LeadContactNotifier < ActionMailer::Base
     mail(
       :from    => 'Airbo<team@airbo.com>',
       :to      => @lead_contact.email,
-      :subject => "Thanks for reaching out to Airbo!"
+      :subject => 'Thanks for reaching out to Airbo!'
     )
   end
 
@@ -29,7 +29,7 @@ class LeadContactNotifier < ActionMailer::Base
     mail(
       :from    => 'Duplicate Signup Request<sales@airbo.com>',
       :to      => 'team@airbo.com',
-      :subject => "Duplicate Signup Request"
+      :subject => 'Duplicate Signup Request'
     )
   end
 end

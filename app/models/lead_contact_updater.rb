@@ -6,13 +6,17 @@ class LeadContactUpdater
     @lead_contact = LeadContact.find(lead_contact_params["id"])
     @attributes = base_attributes(lead_contact_params)
     @board_params = board_params
-    @action = action.downcase
+    @action = action
   end
 
   def dispatch
-    begin
-      self.send(action)
-    rescue
+    if action == "Create Board"
+      process
+    elsif action == "Approve"
+      approve
+    elsif action == "Deny"
+      deny
+    else
       true
     end
   end

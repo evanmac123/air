@@ -64,6 +64,7 @@ class Admin::Sales::LeadContactsController < AdminBaseController
         @stock_boards = Demo.stock_boards.select([:id, :name, :public_slug])
         @user = User.new(name: @lead_contact.name, email: @lead_contact.email, organization_id: @lead_contact.organization.id)
         @board = @user.demos.new(name: @lead_contact.organization_name)
+        @board_names = Demo.pluck(:name)
       end
     end
 end

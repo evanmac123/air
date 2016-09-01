@@ -126,9 +126,18 @@ Airbo.LeadContactValidations = (function(){
         return validCharactersRegex.test(value);
       }
 
+      function valid_board_name(value, element) {
+        var board_names = JSON.parse($('#board_names').val());
+        return !board_names.includes(value);
+      }
+
       $.validator.addMethod("custom_fullname", function(value, element) {
           return fullname_valid(value);
       }, "Please enter a first and last name.");
+
+      $.validator.addMethod("board_name_taken", function(value, element) {
+          return valid_board_name(value);
+      }, "This board name is already taken.");
 
 
       var form = $(".edit_lead_contact");
@@ -152,14 +161,7 @@ Airbo.LeadContactValidations = (function(){
           },
           "board[name]": {
             required: true,
-            remote: {
-              url: "/api/v1/boards/validate_name",
-              data: {
-                name: function() {
-                  return $( "#board_name" ).val();
-                }
-              }
-            }
+            board_name_taken: true
           },
           "board[custom_reply_email_name]": {
             required: true,

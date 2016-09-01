@@ -9,7 +9,7 @@ class SignupRequestsController < ApplicationController
     if !User.exists?(email: lead_contact.email) && lead_contact.save
       redirect_to root_path(signup_request: true)
     else
-      LeadContactNotifier.delay_mail(:duplicate_signup_request, lead_contact)
+      LeadContactNotifier.duplicate_signup_request(lead_contact).deliver
       redirect_to root_path(failed_signup_request: true)
     end
   end
