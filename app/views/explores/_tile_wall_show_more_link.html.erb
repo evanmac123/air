@@ -1,14 +1,14 @@
 <div id="tile_links">
   <div class="more_tiles_button">
     <%= link_to '#', class: 'show_more_tiles button', 'data-tile-path'=> path_for_more_tiles, disabled: all_tiles_displayed do %>
-      More
-      <%= image_tag "spinner_gears_bg.gif", :style => 'display: none', :id => 'show_more_tiles_spinner' %>
+      More <i class="fa fa-angle-down" aria-hidden="true" id="show_more_tiles_down_arrow"></i>
+      <i class="fa fa-spinner fa-spin fa-fw", id="show_more_tiles_spinner", style="display: none"></i>
     <%end%>
   </div>
 </div>
 
 <% content_for :javascript do %>
   <%= javascript_tag do %>
-    bindShowMoreTilesLink('.show_more_tiles', '.tile_container[data-status=explore]', '#show_more_tiles_spinner', '#tile_wall_explore', 'append');
+    bindShowMoreTilesLink('.show_more_tiles', '.tile_container[data-status=explore]', '#show_more_tiles_spinner', '#show_more_tiles_down_arrow', '#tile_wall_explore', 'append');
   <% end %>
 <% end %>

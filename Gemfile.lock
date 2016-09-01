@@ -228,8 +228,8 @@ GEM
     fog-xml (0.1.1)
       fog-core
       nokogiri (~> 1.5, >= 1.5.11)
-    font-awesome-rails (4.2.0.0)
-      railties (>= 3.2, < 5.0)
+    font-awesome-rails (4.6.3.1)
+      railties (>= 3.2, < 5.1)
     formatador (0.2.5)
     formtastic (2.2.1)
       actionpack (>= 3.0)

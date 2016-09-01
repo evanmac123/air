@@ -7,10 +7,10 @@ Airbo.ProgressAndPrizeBar = (function(){
   //  All tile progress functions and set up
   //
   var  tileCompletedBarSel = "#completed_tiles"
-    , tileCompletedNumSel = "#completed_tiles_num" 
+    , tileCompletedNumSel = "#completed_tiles_num"
     , tileCongratSel = "#congrat_header"
-    , tileFullBarSel = "#tile_progress_bar" 
-    , tileCompleteDataSel = "#complete_info" 
+    , tileFullBarSel = "#tile_progress_bar"
+    , tileCompleteDataSel = "#complete_info"
     , tileAllSel = "#all_tiles"
     , progressBarSel = '#completed_progress'
     , radialProgressBarSel  = '.progress-radial'
@@ -30,17 +30,17 @@ Airbo.ProgressAndPrizeBar = (function(){
 function initDom(){
 
   tileCompletedBar = $(tileCompletedBarSel) ;
-  tileCompletedNum = $(tileCompletedNumSel); 
+  tileCompletedNum = $(tileCompletedNumSel);
   tileCongrat = $(tileCongratSel);
   tileFullBar  = $(tileFullBarSel);
-  tileCompleteData = $(tileCompleteDataSel) 
+  tileCompleteData = $(tileCompleteDataSel)
   tileAll = $(tileAllSel);
   progressBar = $(progressBarSel);
-  radialProgressBar = $(radialProgressBarSel); 
+  radialProgressBar = $(radialProgressBarSel);
 
 }
 
-  
+
 
   function animateCounter(domID, previous, current, duration, callback) {
     var counter = new countUp(domID, previous, current, 0, duration);
@@ -220,7 +220,7 @@ function initDom(){
    if (config.persistLocally === true) {
      return Airbo.LocalStorage.get(config.key);
    }else{
-     return config.completed 
+     return config.completed
    }
  }
 
@@ -230,7 +230,7 @@ function initDom(){
 
  function initLocalUserProgress(){
    progress = Airbo.LocalStorage.get(config.key) ||{available: config.tileIds, completed:{}, tileCount: config.tileCount, starting_points: 0,starting_tickets:0, ending_points:0}
-   Airbo.LocalStorage.set(config.key,progress); 
+   Airbo.LocalStorage.set(config.key,progress);
    setPointsFromLocal();
  }
 
@@ -274,7 +274,7 @@ function initDom(){
     setTileBar(config.available, completedCount);
     setCongratText();
 
-    bindShowMoreTilesLink('.show_more_tiles', '.tile-wrapper', '#show_more_tiles_spinner', '#tile_wall', 'replace', onMoreTilesDisplayed );
+    bindShowMoreTilesLink('.show_more_tiles', '.tile-wrapper', '#show_more_tiles_spinner', '#show_more_tiles_down_arrow', '#tile_wall', 'replace', onMoreTilesDisplayed );
   }
   return {
     setTileBar: setTileBar,
