@@ -21,6 +21,8 @@ describe LeadContactUpdater do
       @attributes_for_existing_organization = @attributes.merge(
         "matched_organization" => "Existing Org"
       )
+
+      @board_params = {}
     end
 
     describe "update" do
@@ -29,7 +31,7 @@ describe LeadContactUpdater do
         @attributes["phone"] = ""
         @attributes["matched_organization"] = "Existing Org"
 
-        LeadContactUpdater.new(@attributes, "Deny").update
+        LeadContactUpdater.new(@attributes, {}, "Deny").update
 
         lead_contact = LeadContact.find(@lead_contact.id)
 
@@ -41,7 +43,7 @@ describe LeadContactUpdater do
 
     describe "dispatches to deny" do
       it "changes the status to denied" do
-        LeadContactUpdater.new(@attributes, "Deny").dispatch
+        LeadContactUpdater.new(@attributes, {}, "Deny").dispatch
 
         lead_contact = LeadContact.find(@lead_contact.id)
 
@@ -49,7 +51,7 @@ describe LeadContactUpdater do
       end
 
       it "send an email to the LeadContact" do
-        LeadContactUpdater.new(@attributes, "Deny").dispatch
+        LeadContactUpdater.new(@attributes, {}, "Deny").dispatch
 
         open_email @lead_contact.email
 
@@ -58,7 +60,7 @@ describe LeadContactUpdater do
         )
 
         current_email.body.should include(
-         "We’re sorry, but you’re not eligible to join Airbo. If you’d like to speak to an Account Executive, please feel free to reply to this email."
+         "Hello - Thank you so much for your interest in Airbo! At this time, we only provide accounts to HR professionals, but if you have any questions or would like to chat with an Account Executive, please feel free to reply to this email, and we'd be happy to connect."
         )
       end
     end
@@ -68,19 +70,19 @@ describe LeadContactUpdater do
         it "should create a new organization" do
           expect(Organization.count).to eq(0)
 
-          LeadContactUpdater.new(@attributes_for_new_organization, "Approve").dispatch
+          LeadContactUpdater.new(@attributes_for_new_organization, {},  "Approve").dispatch
 
           expect(Organization.count).to eq(1)
         end
 
         it "should add an organization as a reference to the LeadContact" do
-          LeadContactUpdater.new(@attributes_for_new_organization, "Approve").dispatch
+          LeadContactUpdater.new(@attributes_for_new_organization, {},  "Approve").dispatch
 
           expect(LeadContact.first.organization).to eq(Organization.first)
         end
 
         it "should change the LeadContact status to approved" do
-          LeadContactUpdater.new(@attributes_for_new_organization, "Approve").dispatch
+          LeadContactUpdater.new(@attributes_for_new_organization, {},  "Approve").dispatch
 
           expect(LeadContact.first.status).to eq("approved")
         end
