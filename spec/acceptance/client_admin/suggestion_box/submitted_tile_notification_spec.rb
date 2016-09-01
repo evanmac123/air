@@ -1,7 +1,7 @@
 #TODO remove this test if feature is deprecated
 
 require 'acceptance/acceptance_helper'
-
+#Capybara.javascript_driver = :selenium
 feature 'Client admin visits link from submitted tile notification' do
   include WaitForAjax
   include SuggestionBox
@@ -34,11 +34,11 @@ feature 'Client admin visits link from submitted tile notification' do
     admin.suggestion_box_intro_seen = true
     admin.save
 
-    visit submitted_tile_notifications_path demo_id: demo.id
   end
 
   it "should show intro", js: true do
     pending "This intro seems to be deactivated"
+    visit submitted_tile_notifications_path demo_id: demo.id
     current_path.should == client_admin_tiles_path
     within intro_sel do
       expect_content intro_text
