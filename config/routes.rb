@@ -280,6 +280,9 @@ Health::Application.routes.draw do
     resource :client_kpi_report
     resources :organizations, as: :customers
     resources :organizations do
+      collection do
+        post "import"
+      end
       resources :contracts, controller: "contracts"
       resources :billings
     end
