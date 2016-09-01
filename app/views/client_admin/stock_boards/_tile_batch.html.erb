@@ -21,8 +21,8 @@
   <%if @show_more_tiles%>
     <div id='tile_links'>
       <%=link_to  stock_board_path(public_slug: params[:public_slug]), class: 'show_more_tiles', data:{contentType: "html"} do %>
-        More
-        <%=image_tag "spinner_gears_bg.gif", :style => 'display: none', :id => 'show_more_tiles_spinner'%>
+        More <i class="fa fa-angle-down" aria-hidden="true" id="show_more_tiles_down_arrow"></i>
+        <i class="fa fa-spinner fa-spin fa-fw", id="show_more_tiles_spinner", style="display: none"></i>
       <%end%>
     </div>
   <%end%>
