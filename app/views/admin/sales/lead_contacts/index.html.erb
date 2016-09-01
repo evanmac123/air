@@ -142,6 +142,7 @@
       <% end %>
     </div>
   </div>
+  <%= hidden_field_tag "status", params[:status] || "pending" %>
   <% if params[:status] == "approved" %>
     <%= render 'lead_contacts_approval_modal', approved_lead_contact: approved_leads.first %>
   <% end %>

@@ -9,7 +9,7 @@ feature 'Admin aproves a signup request', js: true do
 
       visit admin_sales_lead_contacts_path(as: admin)
 
-      click_link "start"
+      click_link "review"
 
       fill_in "search existing organizations", with: organization.name.first
 
@@ -19,9 +19,7 @@ feature 'Admin aproves a signup request', js: true do
 
       click_button "Approve"
 
-      within "div.pending-leads" do
-        expect(page).to_not have_content(lead_contact.name)
-      end
+      click_link "Continue"
 
       within "div.approved-leads" do
         expect(page).to have_content(lead_contact.name)
@@ -39,7 +37,7 @@ feature 'Admin aproves a signup request', js: true do
 
       visit admin_sales_lead_contacts_path(as: admin)
 
-      click_link "start"
+      click_link "review"
 
       find(:css, "#lead_contact_new_organization").set(true)
 
@@ -47,9 +45,7 @@ feature 'Admin aproves a signup request', js: true do
 
       click_button "Approve"
 
-      within "div.pending-leads" do
-        expect(page).to_not have_content(lead_contact.name)
-      end
+      click_link "Continue"
 
       within "div.approved-leads" do
         expect(page).to have_content(lead_contact.name)

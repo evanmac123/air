@@ -124,13 +124,14 @@ Airbo.LeadContact = (function(){
     $("#pending-leads-link").addClass("active");
   }
 
-  function chooseCorrectTab(url) {
-    if (url.includes("approved")) {
+  function chooseCorrectTab() {
+    var status = $('#status').val();
+    if (status.includes("approved")) {
       $(".tablinks").removeClass("active");
       $("#approved-leads-link").addClass("active");
       $(".tabcontent").hide();
       $("#approvedLeads").show();
-    } else if (url.includes("processed")) {
+    } else if (status.includes("processed")) {
       $(".tablinks").removeClass("active");
       $("#processed-leads-link").addClass("active");
       $(".tabcontent").hide();
@@ -149,7 +150,9 @@ Airbo.LeadContact = (function(){
     openTab();
     initialTabs();
     if ($(".lead-contacts-index").length > 0) {
-      chooseCorrectTab(window.location.href);
+      if ($('#status').val() != "pending") {
+        chooseCorrectTab();
+      }
     }
   }
 
