@@ -207,6 +207,9 @@ Airbo.LeadContactValidations = (function(){
       if(!form.valid()){
         event.preventDefault();
         validator.focusInvalid();
+      } else {
+        $(".button-copy").hide();
+        $("#processing-lead-spinner").show();
       }
     });
   }

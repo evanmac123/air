@@ -1,7 +1,9 @@
 <div id="tile_links">
   <div class="more_tiles_button">
     <%= link_to '#', class: 'show_more_tiles button', data: {"tile-path" => tiles_path(board_id: params[:board_id])}, disabled: disable_button do %>
-      More <i class="fa fa-angle-down" aria-hidden="true" id="show_more_tiles_down_arrow"></i>
+      <span class="show_more_tiles_copy">
+        More <i class="fa fa-angle-down" aria-hidden="true" id="show_more_tiles_down_arrow"></i>
+      </span>
       <i class="fa fa-spinner fa-spin fa-fw", id="show_more_tiles_spinner", style="display: none"></i>
     <%end%>
   </div>

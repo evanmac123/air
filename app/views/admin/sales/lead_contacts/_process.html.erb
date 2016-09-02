@@ -43,7 +43,7 @@
           <%# TODO: FIX dependency on commit in LeadContactController. This is unrealiable when using ajax to validate forms because the commit params gets removed in that instance. For now, manually adding commit param. %>
           <%= hidden_field_tag "board_names", @board_names.to_json %>
 
-          <%= f.submit "Create Board", id: "process-lead-contact", class: "button" %>
+          <button type="submit" name="commit" value="Create Board" id="process-lead-contact" class="button"><span class="button-copy">Create Board</span><i class="fa fa-spinner fa-spin fa-fw", id="processing-lead-spinner", style="display: none"></i></button>
         </div>
       </fieldset>
     </div>
