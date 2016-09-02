@@ -14,6 +14,17 @@
 
 /* MIXIN DEFINITIONS NEXT (so we can use them later) */
 @import "./mixins/main_styles.css.scss";
+@import "./internal/prize_box.css.scss";
+/* RWD */
+@import "./internal/user_progress_iphone.css.scss";
+@media only screen and (min-width: 500px) {
+  @import "./internal/user_progress.css.scss";
+}
+@media only screen and (min-width: $foundation) {
+  @import "./internal/user_progress_desktop.css.scss";
+}
+@import "./internal/user_progress_ie8.css.scss";
+@import "./internal/raffle_progress_ie.css.scss";
 @import "./mixins/lightbox.css.scss";
 @import "./mixins/board_topics.css.scss";
 @import "font-awesome";
