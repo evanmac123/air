@@ -2,12 +2,10 @@ Airbo = window.Airbo ||{};
 
 
 Airbo.TileInteractionHint= (function(){
-  var intro
-    , tileInteractionCookie= "interacted-with-mp-tile"
-    , anatomyIntroSelector= ".public-board .tile_holder"
-    , anatomySeen = Airbo.CookieMonster.getCookie(tileInteractionCookie)
-    , hintClicked = false
-    , pingName="Marketing Page Interaction"
+  var intro,
+      tileInteractionCookie= "interacted-with-mp-tile",
+      anatomyIntroSelector= ".public-board .tile_holder",
+      anatomySeen = Airbo.CookieMonster.getCookie(tileInteractionCookie), hintClicked = false
   ;
 
   function setCookie(name){
@@ -21,7 +19,7 @@ Airbo.TileInteractionHint= (function(){
 
   function repositionPulse(){
     var hintTop = parseInt($(".introjs-hint").css("top"));
-    $(".introjs-hint").css("top", (hintTop+2) +"px")
+    $(".introjs-hint").css("top", (hintTop+2) +"px");
   }
 
   function styleTooltipButton(){
@@ -41,7 +39,7 @@ Airbo.TileInteractionHint= (function(){
   }
 
   function showHintToolTip(){
-    $(".introjs-hint").trigger("click")
+    $(".introjs-hint").trigger("click");
   }
 
   function initOnTileInteraction(){
@@ -49,7 +47,6 @@ Airbo.TileInteractionHint= (function(){
       var id= $(this).data("tile-id");
       var board= $("body").data("board-id");
       setCookie(tileInteractionCookie);
-      Airbo.Utils.ping(pingName, {"action":"Completed Tile",  "id":id, "game": board});
       removeHint();
     });
   }
@@ -104,7 +101,6 @@ Airbo.TileInteractionHint= (function(){
         ],
       };
 
-
       intro = introJs();
 
       intro.setOptions(options);
@@ -114,10 +110,8 @@ Airbo.TileInteractionHint= (function(){
       });
 
       intro.onhintclose(function() {
-        $(".introjs-hint").removeClass("introjs-hidehint")
+        $(".introjs-hint").removeClass("introjs-hidehint");
       });
-
-
 
       intro.addHints();
     }
@@ -128,53 +122,19 @@ Airbo.TileInteractionHint= (function(){
     initIntro();
     initRedraw();
     initOnTileInteraction();
-    disableHintExitOnOutsideClick()
+    disableHintExitOnOutsideClick();
   }
 
   return {
     init: init,
-  }
+  };
 
-}())
-
-
-Airbo.LandingPageHandler = (function(){
-
-  var pingName="Marketing Page Interaction";
-
-  function initPingOnBoardOpen(){
-    $(".topic").click(function(event){
-      event.preventDefault();
-      var name = $(this).data("name");
-      Airbo.Utils.ping(pingName, {"action": "Viewed Board", "name":name} );
-      window.location = $(this).attr('href');
-    })
-  }
+}());
 
 
-  function initPingOnTileOpen() {
-    $(".tile_thumbnail a").click(function(event){
-      var id= $(this).data("id");
-      Airbo.Utils.ping(pingName,  {"action": "Viewed Tile", "id": id} );
-      window.location = $(this).attr('href');
-    });
-  }
-
-  function init(){
-    initPingOnBoardOpen();
-    initPingOnTileOpen();
-  }
-
-
-  return {
-   init: init
-  }
-
-}())
 
 
 $(function(){
-  Airbo.LandingPageHandler.init();
   $(window).on("load", function(){
     if ( $(".public-board .tile_holder").length > 0 ) {
       Airbo.TileInteractionHint.init();
