@@ -25,7 +25,6 @@ class LeadContactProcessor
       User.new(
         name: lead_contact.name,
         email: lead_contact.email,
-        phone_number: lead_contact.phone,
         organization_id: lead_contact.organization_id
       )
     end
