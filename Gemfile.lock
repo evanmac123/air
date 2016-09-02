@@ -1,12 +1,4 @@
 GIT
-  remote: git://github.com/Empact/roo.git
-  revision: 6aa6a731222a26a3cd5ea26a3e78445387b1193d
-  specs:
-    roo (2.3.1)
-      nokogiri (~> 1)
-      rubyzip (~> 1.1, < 2.0.0)
-
-GIT
   remote: https://github.com/avbrychak/wice_grid
   revision: a3795c4953d325ec11229cc8127058803df4f145
   branch: rails3
@@ -476,6 +468,13 @@ GEM
     retriable (1.4.1)
     rollout (2.0.0)
       redis
+    roo (2.5.1)
+      nokogiri (~> 1)
+      rubyzip (~> 1.1, < 2.0.0)
+    roo-xls (1.0.0)
+      nokogiri
+      roo (>= 2.0.0beta1, < 3)
+      spreadsheet (> 0.9.0)
     rspec-core (2.12.0)
     rspec-expectations (2.12.0)
       diff-lcs (~> 1.1.3)
@@ -491,6 +490,7 @@ GEM
       rubinius-core-api
     rubinius-core-api (0.0.1)
     ruby-graphviz (1.0.9)
+    ruby-ole (1.2.12)
     rubyzip (1.2.0)
     sanitize (4.0.0)
       crass (~> 1.0.2)
@@ -524,6 +524,8 @@ GEM
       rack-protection (~> 1.2)
       tilt (~> 1.3, >= 1.3.3)
     slop (3.6.0)
+    spreadsheet (1.1.3)
+      ruby-ole (>= 1.0)
     sprockets (2.2.3)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -667,7 +669,8 @@ DEPENDENCIES
   redis-rails
   require_all
   rollout
-  roo!
+  roo
+  roo-xls
   rspec-mocks
   rspec-rails
   sanitize
