@@ -233,6 +233,7 @@ body.pages-home {
         font-size: 20px;
       }
     }
+
     .join {
       background-color: #777777;
       background-image: url('landing/explore-sign-up-bg.png');
@@ -248,6 +249,19 @@ body.pages-home {
         h2 {
           color: #666666;
           font-weight: bold;
+          margin-top: 0;
+        }
+      }
+    }
+    .ebn-cover-main {
+      .ebn-cover-text {
+        margin-top: 60px;
+        padding: 30px 0 0 60px;
+        h1 {
+          font-size: 200%;
+          font-weight: bold;
+        }
+        p {
           margin-top: 0;
         }
       }
@@ -564,6 +578,19 @@ body.pages-home {
           margin-left: 40px;
         }
       }
+      .ebn-cover-main {
+        .ebn-cover-text {
+          margin-top: 40px;
+          padding: 12px;
+          h1 {
+            font-size: 180%;
+            font-weight: bold;
+          }
+          p {
+            margin-top: 0;
+          }
+        }
+      }
     }
     @media only all and (max-width: $bp-large) {
       .hero {
@@ -651,6 +678,19 @@ body.pages-home {
       .featured-news-section{
         .featured-news {
           font-size: 13px;
+        }
+      }
+      .ebn-cover-main {
+        .ebn-cover-text {
+          margin-top: 35px;
+          padding: 12px;
+          h1 {
+            font-size: 160%;
+            font-weight: bold;
+          }
+          p {
+            margin-top: 0;
+          }
         }
       }
       .join_block {
@@ -747,6 +787,9 @@ body.pages-home {
         .testimonial-text {
           font-size: 15px;
         }
+      }
+      .ebn-cover-main {
+        display: none;
       }
       .join {
         .email-sign-up-form {
