@@ -11,4 +11,8 @@ class FileUploadWrapper
     @file.path
   end
 
+  def raw
+   @file
+  end
+
 end
