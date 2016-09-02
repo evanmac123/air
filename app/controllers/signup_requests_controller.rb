@@ -6,7 +6,7 @@ class SignupRequestsController < ApplicationController
   def create
     lead_contact = LeadContact.new(lead_contact_params)
 
-    if user_exists(lead_contact) && lead_contact.save
+    if user_valid(lead_contact) && lead_contact.save
       redirect_to root_path(signup_request: true)
     else
       LeadContactNotifier.duplicate_signup_request(lead_contact).deliver
@@ -24,7 +24,7 @@ class SignupRequestsController < ApplicationController
     params[:lead_contact].permit!
   end
 
-  def user_exists(lead_contact)
+  def user_valid(lead_contact)
     !User.exists?(email: lead_contact.email) && !User.exists?(phone_number: lead_contact.phone)
   end
 end
