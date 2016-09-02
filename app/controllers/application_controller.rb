@@ -183,7 +183,7 @@ class ApplicationController < ActionController::Base
         redirect_to activity_path
       end
       #------------------------------------------------------------
-      #FIXME 
+      #FIXME
       @_potential_user.present?
     end
   end

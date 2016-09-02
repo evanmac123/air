@@ -1,0 +1,80 @@
+<div class="lead-contacts-container">
+  <%= form_for(@lead_contact, url: admin_sales_lead_contact_path, html: { multipart: true }, id: "lead-contact-edit-form") do |f| %>
+    <div class="columns small-7">
+      <fieldset>
+        <legend>
+          Review Lead
+        </legend>
+        <div class="columns small-8 small-offset-2">
+          <%= f.hidden_field :id %>
+
+          <%= f.label :name, "Name" %>
+          <%= f.text_field :name %>
+
+          <%= f.label :email, "Email" %>
+          <%= f.text_field :email %>
+
+          <%= f.label :phone, "Phone number" %>
+          <%= f.text_field :phone %>
+
+          <%= f.label :organization_name, "Organization" %>
+          <%= f.text_field :organization_name, readonly: true %>
+        </div>
+      </fieldset>
+      <br>
+      <fieldset class="lead-board-details">
+        <legend>
+          Board Details
+        </legend>
+        <div class="columns small-8 small-offset-2">
+          <%= label_tag "board[template]", "Board Template" %>
+          <%= text_field_tag "board[template]", nil, disabled: true %>
+
+          <%= hidden_field_tag "board[template_id]", nil %>
+
+          <%= label_tag "board[name]", "Board Name" %>
+          <%= text_field_tag "board[name]", "#{@board.name} Board" %>
+
+          <%= label_tag "board[custom_reply_email_name]", "'From' Name" %>
+          <%= text_field_tag "board[custom_reply_email_name]", "#{@board.name}" %>
+
+          <%= label_tag "board[logo]", "Board Logo" %>
+          <%= file_field_tag 'board[logo]' %>
+          <%# TODO: FIX dependency on commit in LeadContactController. This is unrealiable when using ajax to validate forms because the commit params gets removed in that instance. For now, manually adding commit param. %>
+          <%= hidden_field_tag "board_names", @board_names.to_json %>
+
+          <%= f.submit "Create Board", id: "process-lead-contact", class: "button" %>
+        </div>
+      </fieldset>
+    </div>
+    <div class="columns small-5">
+      <fieldset>
+        <legend>
+          Select a Board Based on Lead's Priorities
+        </legend>
+        <div class="row padded-v-20">
+          <div class="columns small-12 small-centered">
+              <% @stock_boards.each do |board| %>
+              <div class="row ">
+                <div class="columns small-10 medium-6 stock_boards">
+                  <div class="topic_cell" data-board-name="<%= board.name %>" data-board-id="<%= board.id %>">
+                    <section class="board-name">
+                      <h3 class="title">
+                        <%= board.name %>
+                      </h3>
+                    </section>
+                  </div>
+                </div>
+                <div class="columns small-2 preview-stock-board">
+                  <span class="preview">
+                    <%= link_to "preview", stock_board_path(library_slug: board.public_slug), target: "_blank" %>
+                  </span>
+                </div>
+              </div>
+              <% end %>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  <% end %>
+</div>

@@ -2,11 +2,23 @@
 <div class="row">
   <div class="columns small-12 small-centered">
     <h1>Organizations</h1>
-
-    <%= render "orgs_table" %>
-
-    <div class="right">
-      <%= link_to 'Add Organization', new_admin_organization_path, class: "button button-small" %>
-    </div> 
   </div>
 </div>
+
+<div class="row">
+  <div class="columns small-9">
+    <%=form_tag import_admin_organizations_path, multipart: true , class:"inline" do %>
+      <%=file_field_tag :file, class:"inline", style:"width:auto" %>
+      <%=submit_tag "Import from Spreadsheet", class: "inline button button-small"%>
+    <%end%>
+  </div>
+  <div class="columns small-3">
+    <%= link_to 'Add One Organization', new_admin_organization_path %>
+  </div>
+</div>
+<div class="row">
+  <div class="columns small-12 small-centered">
+    <%= render "orgs_table" %>
+  </div> 
+</div>
+

@@ -28,7 +28,16 @@ class Admin::OrganizationsController < AdminBaseController
     end
   end
 
-
+  
+  def import
+    importer = OrganizationImporter.new(FileUploadWrapper.new(params[:file]))
+    org = nil
+    importer.rows.each do |row| 
+      org = Organization.where(name: row["Company"]).first_or_initialize
+      org.save
+    end
+    redirect_to admin_organizations_path
+  end
 
 
   def metrics_recalc

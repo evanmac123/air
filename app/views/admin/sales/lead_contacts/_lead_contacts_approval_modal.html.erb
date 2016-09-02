@@ -1,0 +1,23 @@
+<%= render layout: 'admin_modal', locals: { id: 'lead-contacts-approval-modal' } do %>
+  <div class="columns small-10 small-offset-2">
+    <h2 class="blue">Approved Inbound Lead: <%= approved_lead_contact.name %></h2>
+    <h4 class="blue">Next steps:</h4>
+    <ul>
+      <p>
+        Call twice within the next hour: <span class="blue"><%= approved_lead_contact.phone %></span>
+      </p>
+      <p>
+        If you don't reach them via phone, send email: <span class="blue"><%= approved_lead_contact.email %></span>
+      </p>
+    </ul>
+    <h4 class="blue">Contact objectives:</h4>
+    <ul>
+      <p>Understand priorities to help curate initial board</p>
+      <p>Set expectations around account access and next steps</p>
+    </ul>
+    <br>
+  </div>
+  <div class="admin-modal-buttons">
+    <%= link_to 'Continue', '', class: "button outlined admin-close-modal" %>
+  </div>
+<% end %>

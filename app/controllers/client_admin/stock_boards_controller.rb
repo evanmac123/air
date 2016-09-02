@@ -18,8 +18,8 @@ class ClientAdmin::StockBoardsController < ClientAdminBaseController
 
   private
 
-  def max_tiles 
-    curr_page * 16 
+  def max_tiles
+    curr_page * 16
   end
 
   def curr_page

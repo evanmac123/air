@@ -7,7 +7,9 @@ feature 'Admin sees number of referred users' do
     2.times{FactoryGirl.create(:user, :claimed, demo: demo)}
 
     visit admin_demo_path(demo, as: an_admin)
-
-    expect_content "3 users have credited a game referrer"
+    within "table.stats" do
+      expect(page).to have_css("th", text: "Credited a game referrer")
+      expect(page).to have_css("td", text: "3")
+    end
   end
 end
