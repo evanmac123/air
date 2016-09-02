@@ -3,18 +3,14 @@
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <html>
 <head>
+  <title>Airbo Public Board <%=@demo.name%></title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= csrf_meta_tag %>
   <%= content_for :meta %>
-  <title>Airbo Public Board <%=@demo.name%></title>
   <%= split_stylesheet_link_tag "app-internal", :media => "all", :split_count => 5 %>
   <%= split_stylesheet_link_tag "app-user-progress", :media => "all", :split_count => 2 %>
   <%# stylesheet_link_tag "app-landing" %>
-  <%= javascript_include_tag "https://api.intercom.io/api/js/library.js" %>
-  <%= javascript_include_tag 'for-modern-browsers' unless browser.ie8? %>
-  <%= javascript_include_tag 'application' %>
-  <%= javascript_include_tag 'app-internal' %>
-  <%= javascript_include_tag asset_path('ga.js') if ENV['USE_GA'] %>
   <!--[if lt IE 9]>
     <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <style type="text/css">.gradient {filter: none;}</style>
@@ -22,7 +18,11 @@
     <%= stylesheet_link_tag 'internal/internal_ie8' %>
   <![endif]-->
 
-  <%= csrf_meta_tag %>
+  <%= javascript_include_tag "https://api.intercom.io/api/js/library.js" %>
+  <%= javascript_include_tag 'for-modern-browsers' unless browser.ie8? %>
+  <%= javascript_include_tag 'application' %>
+  <%= javascript_include_tag 'app-internal' %>
+  <%= javascript_include_tag asset_path('ga.js') if ENV['USE_GA'] %>
   <%= render 'shared/mixpanel' unless @is_admin_page %>
   <%= render 'shared/inspectlet' %>
   <%= mp_track_page "Public Parent Board " %>
