@@ -37,19 +37,16 @@
 @import "./internal/guest_conversion_form.css.scss";
 
 @import "./internal/tags.css.scss";
-@import "./client_admin/tile_manager/tiles.css.scss";
 @import "./internal/board_settings_iphone.css.scss";
 @import "./internal/tile.css.scss";
 @import "./external/sign_up_form.css.scss";
 @import "./external/sign_up_form_ie.css.scss";
-@import './client_admin/tiles_tools_subnav';
-@import './client_admin/tile_manager/tile_preview';
 @import './tile/tile_builder/tile_builder';
 @import './tile/tile_preview/menu';
 @import "./internal/character_counter.css.scss";
-@import "./vendor_customization/sweetalert.css.scss";
-@import "./vendor_customization/medium.css.scss";
-@import "./vendor_customization/introjs.scss";
+@import "./client_admin/tile_manager/tiles.css.scss";
+@import './client_admin/tiles_tools_subnav';
+@import './client_admin/tile_manager/tile_preview';
 @import "./client_admin/explore/tile_preview.css.scss";
 
 @import "./external/landing/common.css.scss";
@@ -60,6 +57,12 @@
 
 @import "./external/category.scss";
 /* RWD */
+
+
+@import "./vendor_customization/sweetalert.css.scss";
+@import "./vendor_customization/medium.css.scss";
+@import "./vendor_customization/introjs.scss";
+
 @media only screen and (min-width: 319px) {
   @import "./internal/screen_iphone.css.scss";
 }
