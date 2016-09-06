@@ -1,7 +1,27 @@
 var Airbo = window.Airbo || {};
 
-Airbo.SignupRequest= (function(){
-  function validateSignupRequestForm() {
+Airbo.MarketingPage = (function(){
+
+  function preSignup() {
+    $(".pre-signup").submit(function(e) {
+      var enteredEmail = this.email.value;
+      if ( /(.+)@(.+){2,}\.(.+){2,}/.test(enteredEmail) === false ) {
+        e.preventDefault();
+        if (enteredEmail.length === 0) {
+          $(this.email).attr("placeholder", "Please enter a valid email");
+        } else {
+          $(this.email).css("color", "#E26A6A");
+        }
+      }
+    });
+
+    $(".pre-signup").keyup(function(e) {
+      var enteredEmail = this.email.value;
+        $(this.email).removeAttr("style");
+    });
+  }
+
+  function validateSignupRequest() {
     var validCharactersRegex = /^[a-z][- a-z]*[- ]{1}[- a-z]*[a-z]$/i;
     function fullname_valid(value) {
         return validCharactersRegex.test(value);
@@ -12,41 +32,45 @@ Airbo.SignupRequest= (function(){
     }, "Please enter your first and last name.");
 
 
-    $("#signup_request_form").submit(function(event){
-      var form = $("#signup_request_form");
+    $("#landing_info_request_form").submit(function(event){
+      var form = $("#landing_info_request_form");
       var config={
         onkeyup: false,
         rules: {
-          "lead_contact[organization_name]": {
+          "request[company]": {
             required: true,
           },
-          "lead_contact[email]": {
+          "request[email]": {
             required: true,
             email: true
           },
-          "lead_contact[name]": {
+          "request[name]": {
             required: true,
             custom_fullname: true
           },
-          "lead_contact[phone]": {
+          "request[password]": {
+            required: true,
+            minlength: 6
+          },
+          "request[phone]": {
             required: true,
             phoneUS: true
           },
-          "lead_contact[organization_size]": {
+          "request[size]": {
             required: true,
           },
         },
         messages: {
-          "lead_contact[company]": {
+          "request[company]": {
             required: "Please enter a company name.",
           },
-          "lead_contact[name]": {
+          "request[name]": {
             required: "Please enter your first and last name.",
           },
-          "lead_contact[email]": {
+          "request[email]": {
             required: "Please enter your work email.",
           },
-          "lead_contact[phone]": {
+          "request[phone]": {
             required: "Please enter your phone number.",
           },
         },
@@ -67,22 +91,19 @@ Airbo.SignupRequest= (function(){
         event.preventDefault();
         validator.focusInvalid();
       } else {
-        var email = form.children("#lead_contact_email").val();
-
-        Airbo.MarketingPagePings.signupRequestPings(email);
+        var email = form.children("#request_email").val();
+        Airbo.MarketingPagePings.demoRequestPings(email);
       }
     });
   }
 
   function init() {
-    validateSignupRequestForm();
+    preSignup();
+    validateSignupRequest();
   }
 
   return {
-  init: init
-};
-}());
+    init: init
+  };
 
-$(function(){
-  Airbo.SignupRequest.init();
-});
+}());

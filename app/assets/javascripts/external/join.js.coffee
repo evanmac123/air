@@ -1,10 +1,10 @@
 # This is COFFEE SCRIPT :D
 
-  
+
 # This is how you call the stuff that loads when the page is finished loading
 $ ->
   loadDivs()
-  connectDisplayContactPrefs()  
+  connectDisplayContactPrefs()
 ############# find a way to only include this once ###########
 delay = (ms, func) -> setTimeout func, ms
 ####################################################

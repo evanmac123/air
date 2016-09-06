@@ -1,6 +1,7 @@
 $bp-small : 355px;
 $bp-small-2 : 476px;
 $bp-small-3 : 671.8px;
+$bp-small-4 : 725px;
 $bp-med : 748.8px;
 $bp-large : 800px;
 $bp-xl : 1025px;
@@ -54,13 +55,15 @@ body.pages-home {
       background-image: url('landing/explore-sign-up-bg.png');
       background-repeat: no-repeat;
       background-position: center center;
+      height: 500px;
       .join_block{
         padding: 40px 20px;
         background-color: #F9F9F9;
         background-color: rgba(255, 255, 255, 0.95);
-        margin-top: 40px;
-        margin-bottom: 40px;
         max-width: 600px;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
         h2 {
           color: #666666;
           font-size: 20px;
@@ -231,6 +234,7 @@ body.pages-home {
         font-size: 20px;
       }
     }
+
     .join {
       background-color: #777777;
       background-image: url('landing/explore-sign-up-bg.png');
@@ -239,8 +243,6 @@ body.pages-home {
       .join_block {
         background-color: rgba(236, 240, 241, 0.90);
         max-width: 600px;
-        margin-top: 70px;
-        margin-bottom: 70px;
         p {
           color: #666666;
           letter-spacing: 0;
@@ -249,6 +251,23 @@ body.pages-home {
           color: #666666;
           font-weight: bold;
           margin-top: 0;
+        }
+      }
+    }
+    .ebn-cover-main {
+      margin-top: 50px;
+      margin-bottom: 50px;
+      .ebn-cover-text {
+        margin-top: 100px;
+        h1 {
+          font-size: 200%;
+          font-weight: bold;
+        }
+        p {
+          margin-top: 0;
+          color:#636363;
+          font-size: 20px;
+          font-style: italic;
         }
       }
     }
@@ -362,8 +381,6 @@ body.pages-home {
         }
       }
       .join_block {
-        margin-top: 150px;
-        margin-bottom: 150px;
         p {
           color: #666666;
           letter-spacing: 0;
@@ -566,6 +583,19 @@ body.pages-home {
           margin-left: 40px;
         }
       }
+      .ebn-cover-main {
+        .ebn-cover-text {
+          margin-top: 40px;
+          padding: 12px;
+          h1 {
+            font-size: 180%;
+            font-weight: bold;
+          }
+          p {
+            margin-top: 0;
+          }
+        }
+      }
     }
     @media only all and (max-width: $bp-large) {
       .hero {
@@ -655,12 +685,22 @@ body.pages-home {
           font-size: 13px;
         }
       }
+      .ebn-cover-main {
+        .ebn-cover-text {
+          margin-top: 35px;
+          padding: 12px;
+          h1 {
+            font-size: 160%;
+            font-weight: bold;
+          }
+          p {
+            margin-top: 0;
+          }
+        }
+      }
       .join_block {
         padding: 40px 20px;
         display: block;
-        margin: auto;
-        margin-top: 20px;
-        margin-bottom: 20px;
         p {
           font-size: 16px;
           margin-bottom: 30px;
@@ -683,6 +723,12 @@ body.pages-home {
             }
           }
         }
+      }
+    }
+
+    @media only all and (max-width: $bp-small-4) {
+      .ebn-cover-main {
+        display: none;
       }
     }
 
@@ -752,6 +798,9 @@ body.pages-home {
         .testimonial-text {
           font-size: 15px;
         }
+      }
+      .ebn-cover-main {
+        display: none;
       }
       .join {
         .email-sign-up-form {
@@ -867,7 +916,7 @@ body.pages-home {
           padding: 0;
         }
         .product-img-two {
-          margin-top: 40px;
+          margin-top: 80px;
         }
         .product-right {
           padding-left: 15px;
@@ -878,7 +927,7 @@ body.pages-home {
       }
       .product-hero-end {
         .full-band {
-          margin-bottom: 80px;
+          margin-bottom: 0;
         }
       }
       .join {
