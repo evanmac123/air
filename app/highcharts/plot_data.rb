@@ -9,7 +9,11 @@ class PlotData
   end
 
   def data
-    cumulate data_hash.values
+    @data ||=cumulate data_hash.values
+  end
+
+  def max_value
+   data.max
   end
 
   protected

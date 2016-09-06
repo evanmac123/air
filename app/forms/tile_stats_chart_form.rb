@@ -2,13 +2,14 @@ class TileStatsChartForm
   include ActiveModel::Conversion
 
   ACTION_TYPES = ['unique_views', 'total_views', 'interactions'].freeze
-  VALUE_TYPES = ['cumulative', 'activity'].freeze
+  VALUE_TYPES = ['cumulative', 'activity'].freeze #TODO change to "activity" to "Per Period"
 
   attr_reader :tile,
               :time_handler,
               :action_type,
               :value_type,
-              :new_chart
+              :new_chart,
+              :period
 
   delegate  :interval_type,
             :date_range_type,
@@ -24,12 +25,39 @@ class TileStatsChartForm
     @tile = tile
     @action_type = params.delete(:action_type) || ACTION_TYPES[0]
     @value_type = params.delete(:value_type) || VALUE_TYPES[0]
+
+
     params = initial_params if params.empty?
     @new_chart = params[:new_chart]
+
     @time_handler = TimeHandler.new(
-      params.slice(:interval_type, :start_date, :end_date, :date_range_type, :changed_field, :new_chart)
+      params.slice(
+        :interval_type,
+        :start_date, 
+        :end_date,
+        :date_range_type,
+        :changed_field,
+        :new_chart
+      )
     ).handle
+
+    @period = Period.new(interval_type, start_date, end_date)
+    @action_query = ("Query::" + action_type.camelize).constantize.new(tile, @period)
   end
+
+  def self.interval_types_select_list
+    Period::INTERVAL_TYPES.collect {|name| [ name.capitalize, name ] }
+  end
+
+  def self.value_types_select_list
+    VALUE_TYPES.collect {|name| [ name.capitalize, name ] }
+  end
+
+  # Form specific methods:
+  def self.model_name
+    ActiveModel::Name.new(TileStatsChartForm)
+  end
+
 
   def changed_field
     nil
@@ -44,22 +72,11 @@ class TileStatsChartForm
   end
 
   def chart_params
-    period = Period.new(interval_type, start_date, end_date)
-    action_query = ("Query::" + action_type.camelize).constantize.new(tile, period)
-    [period, action_query, @value_type]
+    [@period, @action_query, @value_type]
   end
 
-  def self.interval_types_select_list
-    Period::INTERVAL_TYPES.collect {|name| [ name.capitalize, name ] }
-  end
-
-  def self.value_types_select_list
-    VALUE_TYPES.collect {|name| [ name.capitalize, name ] }
-  end
-
-  # Form specific methods:
-  def self.model_name
-    ActiveModel::Name.new(TileStatsChartForm)
+  def data
+    PlotData.new( @period, @action_query, @value_type)
   end
 
   def persisted?
