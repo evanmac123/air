@@ -1,4 +1,4 @@
-class ChartBuilder
+class LineChartBuilder
   attr_reader :period, :plot_data
 
   def initialize period, data
