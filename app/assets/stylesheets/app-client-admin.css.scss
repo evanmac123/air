@@ -7,49 +7,57 @@
 *= require slick-carousel/slick/slick.scss
 *= require slick-carousel/slick/slick-theme.scss
 */
-@import "font-awesome";
+
+
+
+/*
+***************************************************
+TODO remove commented out lines that have been pused into
+_common_user_client_admin completely once I've confirmed that that
+styles changes haven't broken anything.
+*****************************************************/
+
+@import "./_common_user_client_admin.css.scss";
+
+/*@import "font-awesome";*/
 @import "wice_grid";
 @import "./vendor/introjs.min";
 @import "flick/jquery-ui-1.8.10.custom.css";
-
-/* UNIVERSAL STYLESHEETS */
-@import "./mixins/main_styles.css.scss";
-@import "./mixins/board_topics.css.scss";
-@import "./internal/flash.css.scss";
-@import "./internal/mast.css.scss";
+/*@import "./mixins/main_styles.css.scss";*/
+/*@import "./mixins/board_topics.css.scss";*/
+/*@import "./internal/flash.css.scss";*/
+/*@import "./internal/mast.css.scss";*/
 @import "./internal/mast_desktop.css.scss";
-
-/* CLIENT ADMIN */
-@import './client_admin/share/shares.css.scss';
+@import "./client_admin/share/shares.css.scss";
 @import "./client_admin/board_activity.css.scss";
 @import "./client_admin/segmentations.css.scss";
 @import "./client_admin/user_manager.css.scss";
 @import "./client_admin/billing_information.css.scss";
-@import "./internal/prize_box.css.scss";
-@import './client_admin/prizes.css.scss';
-@import './internal/board_settings_iphone.css.scss';
-@import './internal/board_settings_desktop.css.scss';
-@import "./internal/tiles.css.scss";
+/*@import "./internal/prize_box.css.scss";*/
+@import "./client_admin/prizes.css.scss";
+/*@import "./internal/board_settings_iphone.css.scss";*/
+@import "./internal/board_settings_desktop.css.scss";
+/*@import "./internal/tiles.css.scss";*/
 @import "./internal/screen_desktop.css.scss";
 @import "./internal/large_tile_viewer_desktop.css.scss";
 @import "./tile/tile_fullsize/_tiles_fullsize.css.scss";
-@import "./external/category.scss";
-@import "internal/screen_tablet.css.scss";
-@import 'client_admin/tiles_tools_subnav';
+/*@import "./external/category.scss";*/
+@import "./internal/screen_tablet.css.scss";
+@import './client_admin/tiles_tools_subnav';
 @import "./client_admin/board_settings.css.scss";
 @import "./internal/screen_large.css.scss";
-@import "./client_admin/tile_manager/tiles.css.scss";
-@import './internal/large_tile_viewer_desktop';
+/*@import "./client_admin/tile_manager/tiles.css.scss";*/
+@import "./internal/large_tile_viewer_desktop";
 @import "./tile/tile_preview/menu.scss";
 @import "./tile/tile_preview/arrows.scss";
 @import "./client_admin/tile_manager/tile_preview.css.scss";
-@import "./client_admin/explore/tile_preview.css.scss";
-@import "./internal/character_counter.css.scss";
+/*@import "./client_admin/explore/tile_preview.css.scss";*/
+/*@import "./internal/character_counter.css.scss";*/
 @import "./tile/tile_stats/tile_stats.css.scss";
-@import "./vendor_customization/sweetalert.css.scss";
-@import "./vendor_customization/medium.css.scss";
+/*@import "./vendor_customization/sweetalert.css.scss";*/
+/*@import "./vendor_customization/medium.css.scss";*/
 @import "./vendor_customization/slick-carousel.scss";
-@import "./vendor_customization/introjs.scss";
-@import "client_admin/explore/explore.css.scss";
-@import "client_admin/explore/tile_tag_show.scss";
-@import "client_admin/explore/explore_intro";
+/*@import "./vendor_customization/introjs.scss";*/
+@import "./client_admin/explore/explore.css.scss";
+@import "./client_admin/explore/tile_tag_show.scss";
+@import "./client_admin/explore/explore_intro";
