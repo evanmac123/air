@@ -131,6 +131,8 @@ Health::Application.routes.draw do
   namespace :client_admin do
     resource :segmentation
 
+    resource :reports
+
     resources :users, only: [:index, :create, :edit, :update, :destroy] do
       resource :invitation, :only => :create
     end
