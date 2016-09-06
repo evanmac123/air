@@ -38,7 +38,7 @@ class EmailCommand < ActiveRecord::Base
   end
 
   def too_soon_for_another_unmonitored_mailbox_reminder?
-    user.too_soon_for_another_unmonitored_mailbox_reminder?
+    user.too_soon_for_another_unmonitored_mailbox_reminder? if user
   end
 
   def set_attributes_for_unmonitored_mailbox_response
@@ -56,7 +56,7 @@ class EmailCommand < ActiveRecord::Base
   def self.create_from_incoming_email(params)
     email_command = EmailCommand.new
     email_command.email_to = params['to']
-    email_command.email_from = EmailCommand.clean_email_address(params['from'])
+    email_command.email_from = EmailCommand.clean_email_address(params['from'].to_s)
     email_command.email_subject = params['subject']
     email_command.email_plain = params['plain']
     email_command.clean_subject = EmailCommand.clean_subject_line(email_command.email_subject)
