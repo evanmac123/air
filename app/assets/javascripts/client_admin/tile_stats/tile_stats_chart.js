@@ -98,6 +98,7 @@ Airbo.TileStatsChart = (function(){
       dateRange.val(0);
       dateRange.trigger("change", true); // to update custom select
     });
+
     $(document).on("change", downloadChartSel, function(e){
       text = downloadChart.val();
 
@@ -108,6 +109,7 @@ Airbo.TileStatsChart = (function(){
       downloadChart.find('option').eq(0).prop('selected', true);
       downloadChart.trigger("change", true); // to update custom select
     });
+
     $(document).on("click", dateStartSel + ", " + dateEndSel, function(){
       $(this).addClass("opened");
     });
@@ -125,7 +127,7 @@ Airbo.TileStatsChart = (function(){
 }());
 
 $(function(){
-  if (Airbo.Utils.isAtPage(Airbo.Utils.Pages.TILE_STATS_CHART)) {
+  if (Airbo.Utils.supportsFeatureByPresenceOfSelector("#new_tile_stats_chart_form")) {
     Airbo.TileStatsChart.init();
   }
 });
