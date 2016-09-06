@@ -1,4 +1,4 @@
-class TileStatsChart < ChartBuilder
+class TileStatsChart < LineChartBuilder
 
   protected
 
