@@ -60,7 +60,7 @@ class LineChartReportForm
     raise NotImplementedError.new("Must be implemented in subclass")
   end
 
-  def data
+  def plot_data
     raise NotImplementedError.new("Must be implemented in subclass")
   end
 
