@@ -1,9 +1,15 @@
 class TileStatsChartForm < LineChartReportForm 
 
   def initialize tile, params = {}
-    super
+    @tile = tile
+    super params
+
     @period = Period.new(interval_type, start_date, end_date)
     @action_query = ("Query::" + action_type.camelize).constantize.new(tile, @period)
+  end
+
+  def tile
+    @tile
   end
 
   def action_types
@@ -22,12 +28,20 @@ class TileStatsChartForm < LineChartReportForm
     PlotData.new( @period, @action_query, @value_type)
   end
 
-
   # Implements ActiveModel methods
 
   def self.model_name
     ActiveModel::Name.new(TileStatsChartForm)
   end
 
+  protected
 
+  def initial_params
+    {
+      start_date: tile.created_at.strftime("%b %d, %Y"),
+      end_date: Time.now.strftime("%b %d, %Y"),
+      changed_field: 'end_date', # to trigger time handler
+      new_chart: true
+    }
+  end
 end

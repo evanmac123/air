@@ -2,12 +2,10 @@ class LineChartReportForm
   include ActiveModel::Conversion
 
 
-  attr_reader :tile,
-              :time_handler,
-              :action_type,
-              :value_type,
-              :new_chart,
-              :period
+  attr_reader :action_type,
+    :value_type,
+    :new_chart,
+    :period
 
   delegate  :interval_type,
             :date_range_type,
@@ -19,13 +17,12 @@ class LineChartReportForm
             :show_date_range,
             to: :time_handler
 
-  def initialize tile, params = {}
-    @tile = tile
+  def initialize params = {}
     @action_type = params.delete(:action_type) || action_types[0]
     @value_type = params.delete(:value_type) || value_types[0]
 
-
     params = initial_params if params.empty?
+
     @new_chart = params[:new_chart]
 
     @time_handler = TimeHandler.new(
@@ -75,13 +72,22 @@ class LineChartReportForm
     false
   end
 
+  protected
+
+  def initial_params
+    {
+      start_date: 1.week.ago,
+      end_date: Time.now.strftime("%b %d, %Y"),
+      changed_field: 'end_date', # to trigger time handler
+      new_chart: true
+    }
+  end
+
   private
-    def initial_params
-      {
-        start_date: tile.created_at.strftime("%b %d, %Y"),
-        end_date: Time.now.strftime("%b %d, %Y"),
-        changed_field: 'end_date', # to trigger time handler
-        new_chart: true
-      }
-    end
+
+   def time_handler
+     @time_handler
+   end
+
+
 end
