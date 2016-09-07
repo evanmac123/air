@@ -1,9 +1,9 @@
 class ClientAdmin::ReportsController < ClientAdminBaseController
 
   def show
-   @demo = current_user.demo
-   @report = Reporting::ClientUsage.new({demo:@demo.id, start: 12.weeks.ago, interval: "week"})
-
+    @demo = current_user.demo
+    @chart_form = BoardStatsLineChartForm.new @demo, {action_type: params[:action_type]}
+    @chart = BoardStatsChart.new(@chart_form.period, @chart_form.plot_data).draw
   end
 
 end
