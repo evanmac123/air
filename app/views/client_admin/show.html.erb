@@ -1,13 +1,42 @@
-<div id="client-admin-demo-analytics" class="analytics-v1">
-  <div class="row title_block">
-    <h1>
-      <%= @tile.headline.truncate(60) %>
-    </h1>
-  </div>
-  <div class="row stats_page">
-    <div class="large-12 columns">
-      <%= render partial: 'client_admin/activity/activity_charts', locals: {chart_form: @chart_form, chart: @chart} %>
-      <%= render(partial: 'client_admin/activity/activity_grid_section') %>
+<div class="analytics-v1">
+  <div id="client-admin-demo-analytics">
+    <div class="row title_block">
+      <div class="small-4 columns centered">
+        <div class="activity-header total-users">
+          <h1 class="header-number">
+            345
+          </h1>
+          <span class="header-unit">
+            users joined
+          </span>
+        </div>
+      </div>
+      <div class="small-4 columns centered">
+        <div class="activity-header total-tiles">
+          <h1 class="header-number">
+            78
+          </h1>
+          <span class="header-unit">
+            tiles posted
+          </span>
+        </div>
+      </div>
+      <div class="small-4 columns centered">
+        <div class="activity-header total-actions">
+          <h1 class="header-number">
+            344350
+          </h1>
+          <span class="header-unit">
+            actions taken
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="row stats_page">
+      <div class="large-12 columns">
+        <%= render partial: 'client_admin/activity/activity_charts', locals: {chart_form: @chart_form, chart: @chart} %>
+        <%= render(partial: 'client_admin/activity/activity_grid_section') %>
+      </div>
     </div>
   </div>
 </div>
