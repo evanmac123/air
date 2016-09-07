@@ -1,4 +1,4 @@
-class TileStatsChartForm
+class DemoStatsChartForm
   include ActiveModel::Conversion
 
   ACTION_TYPES = ['unique_views', 'total_views', 'interactions'].freeze

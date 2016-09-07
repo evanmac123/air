@@ -1,36 +1,23 @@
 class ClientAdminsController < ClientAdminBaseController
 
   def show
-    respond_to do |format|
-      format.html do
-        demo = current_user.demo
+    @tile = Tile.first
+    @chart_form = DemoStatsChartForm.new @tile, {action_type: params[:action_type]}
 
-        @claimed_user_count = demo.claimed_user_count
-        @with_phone_percentage = demo.claimed_user_with_phone_fraction.as_rounded_percentage
-        @with_peer_invitation_fraction = demo.claimed_user_with_peer_invitation_fraction.as_rounded_percentage
-        @demo = demo
+    @chart = DemoStatsChart.new(@chart_form.period, @chart_form.data).draw
 
-        params[:chart_start_date]   = (Time.now - 30.days).to_s(:chart_start_end_day)
-        params[:chart_end_date]     = Time.now.to_s(:chart_start_end_day)
-        params[:chart_plot_content] = 'Both'
-        params[:chart_interval]     = 'Weekly'
-        params[:chart_label_points] = '0'
-
-        ping_page('Manage - Activity', current_user)
-
-        render template: 'client_admin/show'
-      end
-
-      format.js do
-        @chart = Highchart.chart(current_user.demo,
-                                 params[:chart_start_date],
-                                 params[:chart_end_date],
-                                 params[:chart_plot_content],
-                                 params[:chart_interval],
-                                 params[:chart_label_points])
-
-        render template: '/client_admin/charts/chart'
-      end
-    end
+    grid_builder = TileStatsGrid.new(@tile)
+    @tile_stats_grid = initialize_grid(*(grid_builder.args))
+    @current_grid = grid_builder.query_type
+    render template: "client_admin/show"
   end
+
+  private
+    def page_to_string
+      render_to_string(
+        'client_admin/show',
+        formats: [:html],
+        layout: false
+      )
+    end
 end

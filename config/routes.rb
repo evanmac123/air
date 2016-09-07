@@ -131,7 +131,9 @@ Health::Application.routes.draw do
   namespace :client_admin do
     resource :segmentation
 
-    resource :reports
+    resource :reports do
+      post "/temporary_create", to: "reports#temporary_create"
+    end
 
     resources :users, only: [:index, :create, :edit, :update, :destroy] do
       resource :invitation, :only => :create

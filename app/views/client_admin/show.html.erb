@@ -1,22 +1,13 @@
-
-<div class="row">
-  <div class="large-3 columns quick_stats">
-    <div class="stats section">
-      <ul class="stat-group">
-        <h4>Participants</h4>
-        <h1><%= number_with_delimiter @claimed_user_count %></h1>
-      </ul>
-      <ul class="stat-group">
-        <h4>Added Mobile Numbers</h4>
-        <h1><%= @with_phone_percentage %></h1>
-      </ul>
-      <ul class="stat-group">
-        <h4>Recruited By Peer</h4>
-        <h1><%= @with_peer_invitation_fraction %></h1>
-      </ul>
-    </div>
+<div id="client-admin-demo-analytics" class="analytics-v1">
+  <div class="row title_block">
+    <h1>
+      <%= @tile.headline.truncate(60) %>
+    </h1>
   </div>
-  <div class="large-9 columns">
-    <%= render partial: 'client_admin/charts/chart' %>
+  <div class="row stats_page">
+    <div class="large-12 columns">
+      <%= render partial: 'client_admin/activity/activity_charts', locals: {chart_form: @chart_form, chart: @chart} %>
+      <%= render(partial: 'client_admin/activity/activity_grid_section') %>
+    </div>
   </div>
 </div>
