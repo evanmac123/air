@@ -164,7 +164,7 @@ JS
 
     def series_params
       {
-        data: plot_data.data,
+        data: plot_data.values,
         color: '#48BFFF'
       }
     end

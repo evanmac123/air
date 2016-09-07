@@ -24,7 +24,7 @@ class TileStatsChartForm < LineChartReportForm
     action + " " + (action == action_type ? "selected" : "")
   end
 
-  def data
+  def plot_data
     PlotData.new( @period, @action_query, @value_type)
   end
 

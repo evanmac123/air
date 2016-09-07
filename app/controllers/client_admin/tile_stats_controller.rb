@@ -3,7 +3,7 @@ class ClientAdmin::TileStatsController < ClientAdminBaseController
     @tile = Tile.find(params[:tile_id])
     @chart_form = TileStatsChartForm.new @tile, {action_type: params[:action_type]}
 
-    @chart = TileStatsChart.new(@chart_form.period, @chart_form.data).draw
+    @chart = TileStatsChart.new(@chart_form.period, @chart_form.plot_data).draw
 
     @survey_chart = @tile.survey_chart if @tile.is_survey?
 

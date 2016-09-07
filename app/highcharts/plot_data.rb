@@ -8,12 +8,12 @@ class PlotData
     @value_type = value_type
   end
 
-  def data
+  def values
     @data ||=cumulate data_hash.values
   end
 
   def max_value
-   data.max
+   values.max
   end
 
   protected
