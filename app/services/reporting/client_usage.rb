@@ -7,6 +7,7 @@ module Reporting
       opts = args.delete_if{|k,v|v.nil?}
       opts = defaults.merge(opts)
       @data ={}
+      #TODO why am I still doing beginning of week here?
       @start = opts[:beg_date].beginning_of_week
       @finish_date = opts[:end_date].beginning_of_week
       @demo = opts[:demo]

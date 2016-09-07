@@ -140,23 +140,23 @@ JS
       function() {
         prevY = this.series.yData[this.index - 1];
         if(prevY){
-          precentInc = 100.0 * (this.y - prevY) / prevY;
+          percentInc = 100.0 * (this.y - prevY) / prevY;
         } else {
           if(this.y == 0) {
-            precentInc = 0;
+            percentInc = 0;
           } else {
-            precentInc = 100;
+            percentInc = 100;
           }
         }
 
         sign = "";
-        if(precentInc > 0){
+        if(percentInc > 0){
           sign = "+";
         }
 
 
         return "<div style='padding-top:3px;'>" + this.y +
-                 " <span style='color:#0489d1;'>" + sign + precentInc + "%</span>" +
+                 " <span style='color:#0489d1;'>" + sign + percentInc + "%</span>" +
                "</div>";
       }
 JS
@@ -164,7 +164,7 @@ JS
 
     def series_params
       {
-        data: plot_data.data,
+        data: plot_data.values,
         color: '#48BFFF'
       }
     end

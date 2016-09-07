@@ -1,2 +1,3 @@
 class TileStatsChart < LineChartBuilder
+
 end
