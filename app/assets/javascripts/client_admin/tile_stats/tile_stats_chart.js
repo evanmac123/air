@@ -54,7 +54,7 @@ Airbo.TileStatsChart = (function(){
     datesSelection = $(datesSelectionSel);
     dateRange = $(dateRangeInputSel);
     datePickers = $(dateStartSel + ", " + dateEndSel);
-    changedFiled = $(changedFieldSel);
+    changedField = $(changedFieldSel);
     form = $(formSel);
     downloadChart = $(downloadChartSel);
 
@@ -85,7 +85,7 @@ Airbo.TileStatsChart = (function(){
       }else if(input[0] == dateRange[0] && input.find("option").eq(0).attr("selected")){
         return;
       }else{
-        changedFiled.val(input.attr("name").match(/\[(.*)\]/)[1]);
+        changedField.val(input.attr("name").match(/\[(.*)\]/)[1]);
         submitForm();
       }
     });
