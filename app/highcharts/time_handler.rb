@@ -45,6 +45,10 @@ class TimeHandler
     show_date_selection? ? "none" : "block"
   end
 
+  def period
+    @period ||= Period.new(interval_type, start_date, end_date)
+  end
+
   protected
     def show_date_selection?
       !new_chart && (changed_field == "start_date" || changed_field == "end_date")

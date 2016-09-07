@@ -4,8 +4,7 @@ class TileStatsChartForm < LineChartReportForm
     @tile = tile
     super params
 
-    @period = Period.new(interval_type, start_date, end_date)
-    @action_query = ("Query::" + action_type.camelize).constantize.new(tile, @period)
+    @action_query = ("Query::" + action_type.camelize).constantize.new(tile, period)
   end
 
   def tile
@@ -25,7 +24,7 @@ class TileStatsChartForm < LineChartReportForm
   end
 
   def plot_data
-    PlotData.new( @period, @action_query, @value_type)
+    PlotData.new( period, @action_query, @value_type)
   end
 
   # Implements ActiveModel methods

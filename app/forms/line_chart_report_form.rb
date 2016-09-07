@@ -7,15 +7,16 @@ class LineChartReportForm
     :new_chart,
     :period
 
-  delegate  :interval_type,
-            :date_range_type,
-            :start_date,
-            :end_date,
-            :date_range_types_disabled_option,
-            :date_range_types_select_list,
-            :show_dates_selection,
-            :show_date_range,
-            to: :time_handler
+  delegate :interval_type,
+    :period,
+    :date_range_type,
+    :start_date,
+    :end_date,
+    :date_range_types_disabled_option,
+    :date_range_types_select_list,
+    :show_dates_selection,
+    :show_date_range,
+    to: :time_handler
 
   def initialize params = {}
     @action_type = params.delete(:action_type) || action_types[0]
