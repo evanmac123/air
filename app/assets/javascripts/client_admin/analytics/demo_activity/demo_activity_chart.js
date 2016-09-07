@@ -2,6 +2,7 @@ var Airbo = window.Airbo || {};
 
 Airbo.DemoActivityChart = (function(){
   // Selectors
+
   var
       actionInputSel    = "[name='demo_stats_chart_form[action_type]']",
       intervalInputSel  = "[name='demo_stats_chart_form[interval_type]']",

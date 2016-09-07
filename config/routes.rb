@@ -135,6 +135,12 @@ Health::Application.routes.draw do
       post "/temporary_create", to: "reports#temporary_create"
     end
 
+    resources :board_stats_grids, :only => [:index] do
+      collection do
+        get 'new_completions_count'
+      end
+    end
+
     resources :users, only: [:index, :create, :edit, :update, :destroy] do
       resource :invitation, :only => :create
     end

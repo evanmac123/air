@@ -6,8 +6,6 @@ class BoardStatsLineChartForm < LineChartReportForm
     pull_data
   end
 
-<<<
-
   def plot_data
     #TODO create a struct or similar object that has a values and max_value
     #method that returns the desired subset of the data from the @data and
@@ -43,7 +41,4 @@ class BoardStatsLineChartForm < LineChartReportForm
   def pull_data
    @data =  Reporting::ClientUsage.new({demo:@board.id, start: @start_date, end_date: @end_date , interval: report_interval}).data
   end
-
-
-
 end

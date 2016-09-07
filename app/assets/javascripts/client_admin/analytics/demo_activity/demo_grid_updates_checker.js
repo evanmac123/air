@@ -6,7 +6,7 @@ Airbo.DemoGridUpdatesChecker = (function(){
       checkLink,
       tileGridSectionSel = ".demo_grid_section",
       tileGridSection,
-      tableSel = "#tile_stats_grid table",
+      tableSel = "#board_stats_grid table",
       table,
       newRecordsSectionSel = ".new_records",
       startTimeInMs;

@@ -1,6 +1,6 @@
-<% tile_stats_grid ||= @tile_stats_grid %>
+<% board_stats_grid ||= @board_stats_grid %>
 <% tile ||= @tile %>
-<%= grid(tile_stats_grid, hide_csv_button: true) do |g|
+<%= grid(board_stats_grid, hide_csv_button: true) do |g|
   g.blank_slate "<div class='grid_no_record'>#{empty_grid_message(@current_grid)}</div>".html_safe
   g.column name: 'Name', attribute: 'name', html: {class: "name_column"}, in_csv: false do |row|
     link_to row.user_name, edit_client_admin_user_path(row.user_id)

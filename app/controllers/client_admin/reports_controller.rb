@@ -8,9 +8,8 @@ class ClientAdmin::ReportsController < ClientAdminBaseController
 
   def temporary_create
     @tile = Tile.first
-    binding.pry
     @chart_form = DemoStatsChartForm.new @tile, params[:demo_stats_chart_form]
-    @chart = DemoStatsChart.new(@chart_form.period, @chart_form.data).draw
+    @chart = DemoStatsChart.new(@chart_form.period, @chart_form.plot_data).draw
     render json: { chart: chart_to_string, success: true}
     # @demo = current_user.demo
     # @chart_form = BoardStatsLineChartForm.new @demo, {action_type: params[:action_type]}
