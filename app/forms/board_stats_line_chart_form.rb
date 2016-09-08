@@ -7,9 +7,6 @@
    end
 
    def plot_data
-     #TODO create a struct or similar object that has a values and max_value
-     #method that returns the desired subset of the data from the @data and
-
      OpenStruct.new(:values => @plot_data, :max_value => @plot_data.max)
    end
 
@@ -58,9 +55,7 @@
      @plot_data = [0]
    end
 
-   def activations
-     # TODO: Is this what you have in mind here? Or just another hit to the DB?
-     @data[:user][:activations].map { |a| a[1][:total] }.inject(:+)
+
    def series_key
       case action_type
        when "tile_views"
