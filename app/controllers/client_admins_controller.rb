@@ -6,9 +6,9 @@ class ClientAdminsController < ClientAdminBaseController
 
     @chart = BoardStatsChart.new(@chart_form.period, @chart_form.plot_data).draw
 
-    grid_builder = BoardStatsGrid.new(@board)
-    @board_stats_grid = initialize_grid(*grid_builder.args)
-    @current_grid = grid_builder.query_type
+    #grid_builder = BoardStatsGrid.new(@board)
+    #@board_stats_grid = initialize_grid(*grid_builder.args)
+    #@current_grid = grid_builder.query_type
     render template: "client_admin/show"
   end
 
