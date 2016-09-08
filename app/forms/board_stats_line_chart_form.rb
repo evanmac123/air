@@ -48,6 +48,10 @@
      @new_chart ? "" : @board.tile_completions.count
    end
 
+   def tiles_posted
+      @board.tiles.active.count
+   end
+
    private
 
    def build_report_data
