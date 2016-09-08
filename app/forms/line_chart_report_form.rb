@@ -29,7 +29,7 @@ class LineChartReportForm
     @time_handler = TimeHandler.new(
       params.slice(
         :interval_type,
-        :start_date, 
+        :start_date,
         :end_date,
         :date_range_type,
         :changed_field,
@@ -50,7 +50,7 @@ class LineChartReportForm
   def value_types
     ['cumulative', 'activity'] #TODO change to "activity" to "Per Period"
   end
- 
+
 
   def value_types_select_list
     value_types.collect {|name| [ name.capitalize, name ] }
@@ -77,7 +77,7 @@ class LineChartReportForm
 
   def initial_params
     {
-      start_date: 1.week.ago,
+      start_date: 1.week.ago.strftime("%b %d, %Y"),
       end_date: Time.now.strftime("%b %d, %Y"),
       changed_field: 'end_date', # to trigger time handler
       new_chart: true
