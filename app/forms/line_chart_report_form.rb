@@ -39,39 +39,47 @@ class LineChartReportForm
 
   end
 
-  def self.interval_types_select_list
-    Period::INTERVAL_TYPES.collect {|name| [ name.capitalize, name ] }
+  def self.model_name
+    raise NotImplementedError.new("Must be implemented in subclass")
   end
 
-  def action_types
-    []
+  def self.interval_types_select_list
+    Period::INTERVAL_TYPES.collect {|name| [ name.capitalize, name ] }
   end
 
   def value_types
     ['cumulative', 'activity'] #TODO change to "activity" to "Per Period"
   end
 
-
-  def value_types_select_list
-    value_types.collect {|name| [ name.capitalize, name ] }
+  def action_type_class action
+    # TODO: this method needs to be here for the UI
+    action + " " + (action == action_type ? "selected" : "")
   end
 
-  def self.model_name
-    raise NotImplementedError.new("Must be implemented in subclass")
-  end
-
-  def plot_data
-    raise NotImplementedError.new("Must be implemented in subclass")
+  def action_num(action)
+    self.send(action.to_sym) 
   end
 
   def changed_field
     nil
   end
 
-
   def persisted?
     false
   end
+
+  def action_types
+    raise NotImplementedError.new("Must be implemented in subclass")
+  end
+
+  def value_types_select_list
+    value_types.collect {|name| [ name.capitalize, name ] }
+  end
+
+  def plot_data
+    raise NotImplementedError.new("Must be implemented in subclass")
+  end
+
 
   protected
 
