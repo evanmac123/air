@@ -1,6 +1,6 @@
  class BoardStatsLineChartForm < LineChartReportForm
    def initialize board, params = {}
-     @board = Demo.last
+     @board = board
      super params
      pull_data
    end
