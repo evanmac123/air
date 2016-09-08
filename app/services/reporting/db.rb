@@ -6,8 +6,9 @@ module Reporting
       def initialize demo_id, beg_date, end_date, interval
         @demo_id  = demo_id
         @demo  = Demo.find(@demo_id)
-        @beg_date = beg_date.beginning_of_week
-        @end_date = end_date.beginning_of_week
+
+        @beg_date = beg_date.send("beginning_of_#{interval}")
+        @end_date = end_date.end_of_day
         @interval = interval
         @series_interval=(interval == "quarter") ? "3 months" : "1 #{interval}"
       end
