@@ -2,6 +2,7 @@
    def initialize board, params = {}
      @board = board
      super params
+     parse_dates
      pull_data
    end
 
@@ -26,8 +27,8 @@
    end
 
    def parse_dates
-     @start_date = parse_date(params["start_date"])
-     @end_date = parse_date(params["end_date"])
+     @start_date = parse_date(start_date)
+     @end_date = parse_date(end_date)
    end
 
    def parse_date str
@@ -64,7 +65,8 @@
      if @new_chart
        build_null_data
      else
-       @report =  Reporting::ClientUsage.new({demo: @board.id, start: @start_date, end_date: @end_date , interval: report_interval})
+       @report =  Reporting::ClientUsage.new({demo: @board.id, beg_date: @start_date, end_date: @end_date , interval: report_interval})
+
        build_report_data
      end
    end
