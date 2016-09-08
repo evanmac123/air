@@ -88,7 +88,7 @@
 
      def initial_params
        {
-         start_date: @board.created_at.strftime("%b %d, %Y"),
+         start_date: 3.months.ago.strftime("%b %d, %Y"),
          end_date: Time.now.strftime("%b %d, %Y"),
          changed_field: 'end_date', # to trigger time handler
          new_chart: true
