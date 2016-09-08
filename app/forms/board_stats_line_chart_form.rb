@@ -16,12 +16,16 @@
    end
 
    def action_types
-    ['tile_views', 'activations', 'activity_sessions', 'interactions']
+     ['activity_sessions','tile_views', 'interactions' ]
    end
 
    def report_interval
      period.time_unit
    end
+
+
+   # FIXME this feels a bit hacky. Seems like dates should in right format 
+   # by the time we are here (TimeHandler?)  but is fine for now.
 
    def parse_dates
      @start_date = parse_date(start_date)
@@ -40,6 +44,14 @@
      @new_chart ? "" : @board.users.claimed.count
    end
 
+   def actions_taken
+     @board.acts.count
+   end
+
+   def users_joined
+     @board.users.claimed.count
+   end
+
    def activity_sessions
      @new_chart ? "" : "-"
    end
@@ -55,10 +67,8 @@
    private
 
    def build_report_data
-
-   aggregation =  @value_type == "cumulative" ? :total : :current
-
-   @plot_data ||=  @report.series_for_key(series_key, aggregation)
+     aggregation =  @value_type == "cumulative" ? :total : :current
+     @plot_data ||=  @report.series_for_key(series_key, aggregation)
    end
 
    def build_null_data
