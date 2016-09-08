@@ -1,6 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.DemoActivityGrid = (function(){
+Airbo.BoardActivityGrid = (function(){
   // Selectros
   var tileGridSectionSel = ".demo_grid_section",
       paginationLinkSel = tileGridSectionSel + " .pagination a",
@@ -67,7 +67,7 @@ Airbo.DemoActivityGrid = (function(){
     if(updatesChecker){
       updatesChecker.reStart();
     } else {
-      updatesChecker = Airbo.DemoGridUpdatesChecker.init();
+      updatesChecker = Airbo.BoardGridUpdatesChecker.init();
       updatesChecker.start();
     }
   }
@@ -90,7 +90,7 @@ Airbo.DemoActivityGrid = (function(){
 
       input = $(this);
       gridRequest(updateLink + "?grid_type=" + input.val());
-    })
+    });
 
     $(document).on("click", answerCellSel, function(e){
       e.preventDefault();
@@ -110,6 +110,6 @@ Airbo.DemoActivityGrid = (function(){
 
 $(function(){
   if (Airbo.Utils.supportsFeatureByPresenceOfSelector("#client-admin-demo-analytics")) {
-    Airbo.DemoActivityGrid.init();
+    Airbo.BoardActivityGrid.init();
   }
 });

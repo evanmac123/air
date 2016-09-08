@@ -1,6 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.DemoGridUpdatesChecker = (function(){
+Airbo.BoardGridUpdatesChecker = (function(){
   var timeoutID,
       interval = 30000, // ms
       checkLink,
@@ -17,7 +17,7 @@ Airbo.DemoGridUpdatesChecker = (function(){
 
   function findOrCreateNewRecordsSection(){
     newRecordsSection = findNewRecordsSection();
-    if(newRecordsSection.length == 0) {
+    if (newRecordsSection.length === 0) {
       table.find('thead').after("<td class='new_records' colspan='5'></td>");
       newRecordsSection = findNewRecordsSection();
     }

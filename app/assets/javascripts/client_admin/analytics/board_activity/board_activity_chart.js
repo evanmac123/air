@@ -1,20 +1,20 @@
 var Airbo = window.Airbo || {};
 
-Airbo.DemoActivityChart = (function(){
+Airbo.BoardActivityChart = (function(){
   // Selectors
 
   var
-      actionInputSel    = "[name='demo_stats_chart_form[action_type]']",
-      intervalInputSel  = "[name='demo_stats_chart_form[interval_type]']",
-      valueInputSel     = "[name='demo_stats_chart_form[value_type]']",
-      dateRangeInputSel = "[name='demo_stats_chart_form[date_range_type]']",
-      dateStartSel      = "[name='demo_stats_chart_form[start_date]']",
-      dateEndSel        = "[name='demo_stats_chart_form[end_date]']",
-      changedFieldSel   = "[name='demo_stats_chart_form[changed_field]']",
+      actionInputSel    = "[name='board_stats_line_chart_form[action_type]']",
+      intervalInputSel  = "[name='board_stats_line_chart_form[interval_type]']",
+      valueInputSel     = "[name='board_stats_line_chart_form[value_type]']",
+      dateRangeInputSel = "[name='board_stats_line_chart_form[date_range_type]']",
+      dateStartSel      = "[name='board_stats_line_chart_form[start_date]']",
+      dateEndSel        = "[name='board_stats_line_chart_form[end_date]']",
+      changedFieldSel   = "[name='board_stats_line_chart_form[changed_field]']",
       datesSelectionSel = ".dates_selection",
       downloadChartSel = "#download_chart",
       doneBtnSel        = datesSelectionSel + " a",
-      formSel           = "#new_demo_stats_chart_form",
+      formSel           = "#new_board_stats_line_chart_form",
       formSendSel       = [
         actionInputSel,
         intervalInputSel,
@@ -129,6 +129,6 @@ Airbo.DemoActivityChart = (function(){
 
 $(function(){
   if (Airbo.Utils.supportsFeatureByPresenceOfSelector("#client-admin-demo-analytics")) {
-    Airbo.DemoActivityChart.init();
+    Airbo.BoardActivityChart.init();
   }
 });

@@ -1,5 +1,5 @@
 <% board_stats_grid ||= @board_stats_grid %>
-<% tile ||= @tile %>
+<% board ||= @board %>
 <%= grid(board_stats_grid, hide_csv_button: true) do |g|
   g.blank_slate "<div class='grid_no_record'>#{empty_grid_message(@current_grid)}</div>".html_safe
   g.column name: 'Name', attribute: 'name', html: {class: "name_column"}, in_csv: false do |row|
@@ -16,7 +16,7 @@
   end
   g.column name: 'Answer', model: "TileCompletion", attribute: 'answer_index', html: {class: "answer_column"} do |row|
     if row.tile_answer_index
-      tile.multiple_choice_answers[row.tile_answer_index.to_i]
+      board.multiple_choice_answers[row.tile_answer_index.to_i]
     else
       "-"
     end

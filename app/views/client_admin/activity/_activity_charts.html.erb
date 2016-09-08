@@ -15,7 +15,7 @@
       <i class="chart_column chart-load-wheel fa fa-spinner fa-spin fa-3x fa-fw"></i>
     <% end %>
     <div class="chart_column" style="display:<%= f.object.new_chart ? 'none' : 'block' %>;">
-      <%= f.select :interval_type, options_for_select(DemoStatsChartForm.interval_types_select_list, f.object.interval_type), {}, { class: "interval_custom_drop" } %>
+      <%= f.select :interval_type, options_for_select(BoardStatsLineChartForm.interval_types_select_list, f.object.interval_type), {}, { class: "interval_custom_drop" } %>
       <%= f.select :value_type, options_for_select(chart_form.value_types_select_list, f.object.value_type), {}, { class: "value_custom_drop" } %>
       <span class="date_range_block" style="display:<%= f.object.show_date_range %>;">
         <%= f.select :date_range_type, options_for_select(f.object.date_range_types_select_list, f.object.date_range_types_disabled_option), {}, { class: "date_range_custom_drop"} %>
@@ -31,7 +31,7 @@
       </div>
       <%= f.hidden_field :changed_field %>
 
-      <%= high_chart('demo_chart', chart) %>
+      <%= high_chart('board_chart', chart) %>
     </div>
   <% end %>
 </div>
