@@ -32,11 +32,20 @@
      Time.strptime(str, "%b %d, %Y")
    end
 
+   def tile_views
+     @new_chart ? "" : @board.tile_viewings.count
    end
 
-   def action_num(action)
-     #FIXME
-     100
+   def activations
+     @new_chart ? "" : @board.users.claimed.count
+   end
+
+   def activity_sessions
+     @new_chart ? "" : "-"
+   end
+
+   def interactions
+     @new_chart ? "" : @board.tile_completions.count
    end
 
    private
