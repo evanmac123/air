@@ -32,9 +32,6 @@
      Time.strptime(str, "%b %d, %Y")
    end
 
-   def action_type_class action
-     # TODO: this method needs to be here for the UI
-     action + " " + (action == action_type ? "selected" : "")
    end
 
    def action_num(action)
