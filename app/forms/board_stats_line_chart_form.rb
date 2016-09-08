@@ -48,7 +48,10 @@
    private
 
    def build_report_data
-     @plot_data ||=  @report.series_for_key([:tile_activity, :views], :current)
+
+   aggregation =  @value_type == "cumulative" ? :total : :current
+
+   @plot_data ||=  @report.series_for_key(series_key, aggregation)
    end
 
    def build_null_data
@@ -58,6 +61,17 @@
    def activations
      # TODO: Is this what you have in mind here? Or just another hit to the DB?
      @data[:user][:activations].map { |a| a[1][:total] }.inject(:+)
+   def series_key
+      case action_type
+       when "tile_views"
+         [:tile_activity, :views]
+       when "interactions"
+         [:tile_activity, :completions]
+       when "activations"
+         [:user, :activations]
+       when "activity_sessions"
+         [:tile_activity, :views]
+      end
    end
 
 
