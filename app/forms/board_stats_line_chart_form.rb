@@ -1,126 +1,112 @@
-# class BoardStatsLineChartForm < LineChartReportForm
-#   def initialize board, params = {}
-#     @board = Demo.last
-#     super params
-#     #TODO make sure you can pull the data here
-#     pull_data
-#   end
-#
-#   def plot_data
-#     #TODO create a struct or similar object that has a values and max_value
-#     #method that returns the desired subset of the data from the @data and
-#     #max_value from that data series
-#     PlotData.new(period, @action_type, @value_type, @data)
-#   end
-#
-#
-#   def self.model_name
-#     ActiveModel::Name.new(BoardStatsLineChartForm)
-#   end
-#
-#   def action_types
-#     #TODO change to match data structure returned from Reporting::ClientUsage
-#     # TODO: Change Reporting::ClientUsage to match the below structure
-#    ['activations', 'activity_sessions', 'views', 'interactions']
-#   end
-#
-#   def report_interval
-#     period.time_unit
-#   end
-#
-#   def parse_dates
-#     @start_date = parse_date(params["start_date"])
-#     @end_date = parse_date(params["end_date"])
-#   end
-#
-#   def parse_date str
-#     Time.strptime(str, "%b %d, %Y")
-#   end
-#
-#   def action_type_class action
-#     # TODO: this method needs to be here for the UI
-#     action + " " + (action == action_type ? "selected" : "")
-#   end
-#
-#   def action_num(action)
-#     self.send(action)
-#   end
-#
-#   private
-#
-#   def activations
-#     # TODO: Is this what you have in mind here? Or just another hit to the DB?
-#     @data[:user][:activations].map { |a| a[1][:total] }.inject(:+)
-#   end
-#
-#   def activity_sessions
-#
-#   end
-#
-#   def views
-#     @data.tile_views
-#   end
-#
-#   def interactions
-#
-#   end
-#
-#   def pull_data
-#    @data =  Reporting::ClientUsage.new({demo: @board.id, start: @start_date, end_date: @end_date , interval: report_interval}).data
-#   end
-#
-#     def initial_params
-#       {
-#         start_date: @board.created_at.strftime("%b %d, %Y"),
-#         end_date: Time.now.strftime("%b %d, %Y"),
-#         changed_field: 'end_date', # to trigger time handler
-#         new_chart: true
-#       }
-#     end
-# end
-class BoardStatsLineChartForm < LineChartReportForm
+ class BoardStatsLineChartForm < LineChartReportForm
+   def initialize board, params = {}
+     @board = board
+     super params
+     parse_dates
+     pull_data
+   end
 
-  def initialize tile, params = {}
-    @tile = tile
-    super params
+   def plot_data
+     OpenStruct.new(:values => @plot_data, :max_value => @plot_data.max)
+   end
 
-    @action_query = ("Query::" + action_type.camelize).constantize.new(tile, period)
-  end
 
-  def tile
-    @tile
-  end
+   def self.model_name
+     ActiveModel::Name.new(BoardStatsLineChartForm)
+   end
 
-  def action_types
-   ['unique_views', 'total_views', 'interactions', 'interactions']
-  end
+   def action_types
+     ['activity_sessions','tile_views', 'interactions' ]
+   end
 
-  def action_num action
-    tile.send(action.to_sym)
-  end
+   def report_interval
+     period.time_unit
+   end
 
-  def action_type_class action
-    action + " " + (action == action_type ? "selected" : "")
-  end
 
-  def plot_data
-    PlotData.new( period, @action_query, @value_type)
-  end
+   # FIXME this feels a bit hacky. Seems like dates should in right format 
+   # by the time we are here (TimeHandler?)  but is fine for now.
 
-  # Implements ActiveModel methods
+   def parse_dates
+     @start_date = parse_date(start_date)
+     @end_date = parse_date(end_date)
+   end
 
-  def self.model_name
-    ActiveModel::Name.new(BoardStatsLineChartForm)
-  end
+   def parse_date str
+     Time.strptime(str, "%b %d, %Y")
+   end
 
-  protected
+   def tile_views
+     @new_chart ? "" : @board.tile_viewings.count
+   end
 
-  def initial_params
-    {
-      start_date: tile.created_at.strftime("%b %d, %Y"),
-      end_date: Time.now.strftime("%b %d, %Y"),
-      changed_field: 'end_date', # to trigger time handler
-      new_chart: true
-    }
-  end
-end
+   def activations
+     @new_chart ? "" : @board.users.claimed.count
+   end
+
+   def actions_taken
+     @board.acts.count
+   end
+
+   def users_joined
+     @board.users.claimed.count
+   end
+
+   def activity_sessions
+     @new_chart ? "" : "-"
+   end
+
+   def interactions
+     @new_chart ? "" : @board.tile_completions.count
+   end
+
+   def tiles_posted
+      @board.tiles.active.count
+   end
+
+   private
+
+   def build_report_data
+     aggregation =  @value_type == "cumulative" ? :total : :current
+     @plot_data ||=  @report.series_for_key(series_key, aggregation)
+   end
+
+   def build_null_data
+     @plot_data = [0]
+   end
+
+
+   def series_key
+      case action_type
+       when "tile_views"
+         [:tile_activity, :views]
+       when "interactions"
+         [:tile_activity, :completions]
+       when "activations"
+         [:user, :activations]
+       when "activity_sessions"
+         [:tile_activity, :views]
+      end
+   end
+
+
+   def pull_data
+     if @new_chart
+       build_null_data
+     else
+       @report =  Reporting::ClientUsage.new({demo: @board.id, beg_date: @start_date, end_date: @end_date , interval: report_interval})
+
+       build_report_data
+     end
+   end
+
+     def initial_params
+       {
+         start_date: 3.months.ago.strftime("%b %d, %Y"),
+         end_date: Time.now.strftime("%b %d, %Y"),
+         changed_field: 'end_date', # to trigger time handler
+         new_chart: true
+       }
+     end
+ end
+
