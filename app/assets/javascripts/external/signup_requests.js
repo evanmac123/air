@@ -66,6 +66,10 @@ Airbo.SignupRequest= (function(){
       if(!form.valid()){
         event.preventDefault();
         validator.focusInvalid();
+      } else {
+        var email = form.children("#lead_contact_email").val();
+
+        Airbo.MarketingPagePings.signupRequestPings(email);
       }
     });
   }

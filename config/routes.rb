@@ -85,6 +85,7 @@ Health::Application.routes.draw do
   get "faq" => "pages#faq", :as => "faq" # FIXME dead url?
   get "faq_body" => "pages#faq_body", :as => "faq_toc" # FIXME dead url?
   get "faq_toc" => "pages#faq_toc", :as => "faq_body" # FIXME dead url?
+  get "demo_link" => "pages#demo_link", as: "demo_link"
 
   get "terms" => "pages#terms", :as => "terms"
   get "privacy" => "pages#privacy", :as => "privacy"
@@ -130,6 +131,16 @@ Health::Application.routes.draw do
 
   namespace :client_admin do
     resource :segmentation
+
+    resource :reports do
+      post "/temporary_create", to: "reports#temporary_create"
+    end
+
+    resources :board_stats_grids, :only => [:index] do
+      collection do
+        get 'new_completions_count'
+      end
+    end
 
     resources :users, only: [:index, :create, :edit, :update, :destroy] do
       resource :invitation, :only => :create

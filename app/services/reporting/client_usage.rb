@@ -1,21 +1,23 @@
 require 'rails_date_range'
-module Reporting 
+module Reporting
 
   class ClientUsage
     attr_reader :data, :start, :finish_date, :interval, :demo
-    def initialize(args) 
+
+    def initialize(args)
       opts = args.delete_if{|k,v|v.nil?}
       opts = defaults.merge(opts)
       @data ={}
-      @start = opts[:beg_date].beginning_of_week
-      @finish_date = opts[:end_date].beginning_of_week
+      #TODO why am I still doing beginning of week here?
       @demo = opts[:demo]
       @interval=opts[:interval]
-      initialize_report_data_hash 
+      @start = opts[:beg_date].send("beginning_of_#{@interval}")
+      @finish_date = opts[:end_date].send("end_of_day")
+      initialize_report_data_hash
       run
     end
 
-    def run 
+    def run
       if @demo
         do_user_activation
         do_tile_activity
@@ -25,7 +27,7 @@ module Reporting
     end
 
     def series_for_key nodes,leaf
-      data[:intervals].map do |timestamp| 
+      data[:intervals].map do |timestamp|
        fetch_for_path(nodes, timestamp, leaf)
       end
     end
@@ -33,7 +35,7 @@ module Reporting
     def fetch_for_path nodes, timestamp, leaf
       arr =nodes.dup
       arr.push timestamp
-      arr.push leaf 
+      arr.push leaf
       arr.reduce(data){|slice, key| slice[key]}
     end
 
@@ -41,7 +43,7 @@ module Reporting
     private
 
 
-    def defaults 
+    def defaults
       { beg_date:3.months.ago, end_date:Date.today, interval:"week"}
 
     end
@@ -55,7 +57,7 @@ module Reporting
       end
 
       user.activations.each do |res|
-        populate_stats res, partition[:activations] 
+        populate_stats res, partition[:activations]
       end
 
     end
@@ -81,7 +83,7 @@ module Reporting
    def percent_by_period activity, all_events, target
      data[:intervals].each do|d|
        occurrences = activity[d][:total]
-       possible_occurrences = all_events[d][:total].to_i 
+       possible_occurrences = all_events[d][:total].to_i
 
        calc_activity_conversion target[d], possible_occurrences, occurrences
      end
@@ -141,7 +143,7 @@ module Reporting
      data[:tile_activity][:completions_pct]
    end
 
-    def do_tile_activity 
+    def do_tile_activity
       partition = data[:tile_activity]
       activity = Reporting::Db::TileActivity.new(demo,start, finish_date, interval)
 
@@ -159,7 +161,7 @@ module Reporting
     end
 
 
-    def populate_stats res, kpi 
+    def populate_stats res, kpi
       timestamp= Date.parse(res.interval)
       return if timestamp < start.to_date
 
@@ -171,8 +173,8 @@ module Reporting
 
 
 
-    def initialize_report_data_hash 
-      prepare_empty_hash 
+    def initialize_report_data_hash
+      prepare_empty_hash
       init_intervals
     end
 
@@ -182,7 +184,7 @@ module Reporting
       r = RailsDateRange.new(start, finish_date).every({period => 1})
       r.each do |timestamp|
         d = timestamp.to_date
-        data[:intervals] << d 
+        data[:intervals] << d
         init_users  d
         init_activity d
       end

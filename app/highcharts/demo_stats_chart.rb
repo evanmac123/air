@@ -1,0 +1,2 @@
+class DemoStatsChart < LineChartBuilder
+end

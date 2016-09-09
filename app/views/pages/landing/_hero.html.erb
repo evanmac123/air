@@ -1,13 +1,13 @@
 <% no_shadow ||= false %>
 <% with_shadow = !no_shadow %>
-<% no_header = false %>
+<% no_header = no_header || false %>
 
 <% hero_class ||= "" %>
 <div class="hero <%=hero_class%>">
   <% if with_shadow %>
     <div class="shadow_overlay"></div>
   <% end %>
-  <%= render partial: "pages/landing/header" unless no_header==true%>
+  <%= render partial: "pages/landing/header" unless no_header == true %>
   <div class="hero_section">
     <div class="hero_content">
       <%= yield %>

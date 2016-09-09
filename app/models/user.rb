@@ -498,7 +498,6 @@ class User < ActiveRecord::Base
       id:                    self.id,
       email:                 (self.is_client_admin ? self.email : nil),
       game:                  self.demo_id,
-      score:                 self.points,
       account_creation_date: self.created_at.to_date,
       joined_game_date:      self.accepted_invitation_at.try(:to_date),
       location:              self.location.try(:name),

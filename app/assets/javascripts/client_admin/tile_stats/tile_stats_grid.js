@@ -109,7 +109,7 @@ Airbo.TileStatsGrid = (function(){
 }());
 
 $(function(){
-  if (Airbo.Utils.isAtPage(Airbo.Utils.Pages.TILE_STATS_GRID)) {
+  if (Airbo.Utils.supportsFeatureByPresenceOfSelector("#tile_stats_grid")) {
     Airbo.TileStatsGrid.init();
   }
 });

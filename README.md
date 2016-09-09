@@ -251,6 +251,10 @@ TILE_BUCKET:                                      hengage-tiles-development
 
 Miscellaneous Things That I Just Want To Get Up Here On A Friday Night
 ----------------------------------------------------------------------
+DELETE ALL LOCAL BRANCHES THAT HAVE BEEN MERGED
+git branch --merged | egrep -v "(^\*|master|dev)" | xargs git branch -d
+
+
 SOFTWARE NEEDED TO RUN OUR APP
 Start Redis Server: redis-server /etc/redis.conf
 MongoDB URI: mongodb://127.0.0.1:27017/health_development
