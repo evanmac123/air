@@ -1,7 +1,6 @@
 var Airbo = {
   init:  function(){
 
-
     $.ajaxSetup({
       headers: {
         'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
@@ -13,18 +12,6 @@ var Airbo = {
   Utils: {
 
     supportsFeatureByPresenceOfSelector: function(identifier){
-      return $(identifier).length > 0;
-    },
-
-    //FIXME Remove Deprecated PAGes features
-    Pages: {
-      TILE_BUILDER: "#new_tile_builder_form",
-      TILE_STATS_CHART: "#new_tile_stats_chart_form",
-      TILE_STATS_GRID: "#tile_stats_grid",
-      SURVEY_TABLE: "#survey_table"
-    },
-
-    isAtPage: function(identifier){
       return $(identifier).length > 0;
     },
 

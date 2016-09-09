@@ -1,19 +1,20 @@
 var Airbo = window.Airbo || {};
 
-Airbo.TileStatsChart = (function(){
+Airbo.BoardActivityChart = (function(){
   // Selectors
+
   var
-      actionInputSel    = "[name='tile_stats_chart_form[action_type]']",
-      intervalInputSel  = "[name='tile_stats_chart_form[interval_type]']",
-      valueInputSel     = "[name='tile_stats_chart_form[value_type]']",
-      dateRangeInputSel = "[name='tile_stats_chart_form[date_range_type]']",
-      dateStartSel      = "[name='tile_stats_chart_form[start_date]']",
-      dateEndSel        = "[name='tile_stats_chart_form[end_date]']",
-      changedFieldSel   = "[name='tile_stats_chart_form[changed_field]']",
+      actionInputSel    = "[name='board_stats_line_chart_form[action_type]']",
+      intervalInputSel  = "[name='board_stats_line_chart_form[interval_type]']",
+      valueInputSel     = "[name='board_stats_line_chart_form[value_type]']",
+      dateRangeInputSel = "[name='board_stats_line_chart_form[date_range_type]']",
+      dateStartSel      = "[name='board_stats_line_chart_form[start_date]']",
+      dateEndSel        = "[name='board_stats_line_chart_form[end_date]']",
+      changedFieldSel   = "[name='board_stats_line_chart_form[changed_field]']",
       datesSelectionSel = ".dates_selection",
       downloadChartSel = "#download_chart",
       doneBtnSel        = datesSelectionSel + " a",
-      formSel           = "#new_tile_stats_chart_form",
+      formSel           = "#new_board_stats_line_chart_form",
       formSendSel       = [
         actionInputSel,
         intervalInputSel,
@@ -36,7 +37,7 @@ Airbo.TileStatsChart = (function(){
   function formResponse(){
     return function (data){
       if(data.success){
-        $(".tile_chart_section").replaceWith(data.chart);
+        $(".demo_chart_section").replaceWith(data.chart);
         initVars();
       }
     };
@@ -54,7 +55,7 @@ Airbo.TileStatsChart = (function(){
     datesSelection = $(datesSelectionSel);
     dateRange = $(dateRangeInputSel);
     datePickers = $(dateStartSel + ", " + dateEndSel);
-    changedField = $(changedFieldSel);
+    changedFiled = $(changedFieldSel);
     form = $(formSel);
     downloadChart = $(downloadChartSel);
 
@@ -85,7 +86,7 @@ Airbo.TileStatsChart = (function(){
       }else if(input[0] == dateRange[0] && input.find("option").eq(0).attr("selected")){
         return;
       }else{
-        changedField.val(input.attr("name").match(/\[(.*)\]/)[1]);
+        changedFiled.val(input.attr("name").match(/\[(.*)\]/)[1]);
         submitForm();
       }
     });
@@ -127,7 +128,7 @@ Airbo.TileStatsChart = (function(){
 }());
 
 $(function(){
-  if (Airbo.Utils.supportsFeatureByPresenceOfSelector("#new_tile_stats_chart_form")) {
-    Airbo.TileStatsChart.init();
+  if (Airbo.Utils.supportsFeatureByPresenceOfSelector("#client-admin-demo-analytics")) {
+    Airbo.BoardActivityChart.init();
   }
 });

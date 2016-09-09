@@ -1,22 +1,43 @@
+<div class="analytics-v1">
+  <div id="client-admin-demo-analytics">
+    <div class="row title_block">
+      <div class="small-4 columns centered">
+        <div class="activity-header total-users">
+          <h1 class="header-number">
 
-<div class="row">
-  <div class="large-3 columns quick_stats">
-    <div class="stats section">
-      <ul class="stat-group">
-        <h4>Participants</h4>
-        <h1><%= number_with_delimiter @claimed_user_count %></h1>
-      </ul>
-      <ul class="stat-group">
-        <h4>Added Mobile Numbers</h4>
-        <h1><%= @with_phone_percentage %></h1>
-      </ul>
-      <ul class="stat-group">
-        <h4>Recruited By Peer</h4>
-        <h1><%= @with_peer_invitation_fraction %></h1>
-      </ul>
+            <%=@chart_form.users_joined%>
+          </h1>
+          <span class="header-unit">
+            users joined
+          </span>
+        </div>
+      </div>
+      <div class="small-4 columns centered">
+        <div class="activity-header total-tiles">
+          <h1 class="header-number">
+            <%=@chart_form.tiles_posted%>
+          </h1>
+          <span class="header-unit">
+            tiles posted
+          </span>
+        </div>
+      </div>
+      <div class="small-4 columns centered">
+        <div class="activity-header total-actions">
+          <h1 class="header-number">
+            <%=@chart_form.actions_taken%>
+          </h1>
+          <span class="header-unit">
+            actions taken
+          </span>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="large-9 columns">
-    <%= render partial: 'client_admin/charts/chart' %>
+    <div class="row stats_page">
+      <div class="large-12 columns">
+        <%= render partial: 'client_admin/activity/activity_charts', locals: {chart_form: @chart_form, chart: @chart} %>
+        <%= render partial: 'client_admin/activity/activity_grid_section' %>
+      </div>
+    </div>
   </div>
 </div>

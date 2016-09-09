@@ -1,0 +1,53 @@
+@import 'partials/activity_grid';
+@import 'partials/chart';
+.analytics-v1 {
+  #client-admin-demo-analytics {
+    .content {
+      background: $off-white;
+    }
+    .title_block {
+      position: relative;
+      padding: 30px 40px;
+      width: 1007px;
+    }
+    .activity-header {
+      background-color: $n-blue;
+      margin: 10px;
+      width: 15em;
+      height: 7em;
+      border-radius: 3px;
+      .header-number {
+        color: #fff;
+        margin: 0;
+        padding-top: 12px;
+        padding-left: 10px;
+        font-size: 300%;
+      }
+      .header-unit {
+        color: #fff;
+        margin: 0;
+        padding-left: 10px;
+        font-size: 18px;
+      }
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+    .total-users{
+      background-color: $n-yellow;
+    }
+    .total-tiles{
+      background-color: $n-green;
+    }
+    .total-actions{
+      background-color: $n-purple;
+    }
+    .columns {
+      padding: 0;
+    }
+    .stats_page {
+      max-width: 1007px;
+      padding: 40px 40px 50px 40px;
+    }
+  }
+}

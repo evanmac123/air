@@ -1,0 +1,397 @@
+.analytics-v1 {
+  #client-admin-demo-analytics {
+    // Demo activity specific
+    // General styles
+    .demo_chart_section {
+      overflow: hidden;
+      margin-bottom: 40px;
+      margin-right: -10px;
+    }
+    .actions_column {
+      margin-top: 60px;
+      width: 200px;
+      float: left;
+    }
+    .chart_column {
+      float: left !important;
+      position: relative;
+      width: calc(100% - 200px);
+      height: 380px;
+      margin-top: 6px;
+      // hide download in chart
+      .highcharts-button {
+        display: none;
+      }
+    }
+
+    .chart-load-wheel {
+      color: $n-blue;
+      height: auto;
+      margin-top: 60px;
+    }
+
+    .action_type_block {
+      margin-bottom: 27px;
+      padding: 4px 0 7px 18px;
+      border-left: 3px solid transparent;
+      &:last-child {
+        margin-bottom: 0;
+      }
+      &.selected {
+        border-color: $n-blue;
+        .action_num {
+          font-weight: 400;
+        }
+        .action_name {
+          font-weight: 500;
+        }
+      }
+      &:hover {
+        transform: scale(1.1);
+
+        .action_num {
+          font-weight: 400;
+        }
+        .action_name {
+          font-weight: 500;
+        }
+      }
+      label {
+        margin: 0;
+      }
+      .custom.radio, input[type='radio'] {
+        display: none;
+      }
+      .action_num, .action_name {
+        color: #444;
+      }
+      .action_num {
+        font-size: 30px;
+        padding-bottom: 2px;
+        line-height: 27px;
+      }
+      .action_name {
+        font-size: 16px;
+        line-height: 14px;
+        padding-top: 10px;
+      }
+    }
+
+    //
+    // => Selectors
+    //
+    $font-size: 13px;
+    $font-weight: 500;
+    // => Custom dropdown full restyling
+    .custom.dropdown {
+      border-radius: 3px;
+      border-color: #ccc;
+      background: $white;
+      margin: 0;
+      margin-right: 12px;
+      float: left;
+      height: 31px;
+      &:hover {
+        border-color:  #A8A8A8;
+        .current {
+          color: #636363;
+        }
+        .selector:after { //caret
+          border-top-color: #7b7b7b !important;
+        }
+      }
+      &:active, &.open {
+        border-color: #8A8A8A;
+        .current {
+          color: #424242;
+        }
+        .selector:after { //caret
+          border-top-color: #666 !important;
+        }
+      }
+      .selector {
+        height: 2em;
+        &:after { //caret
+          border-top-color: #b0b0b0 !important;
+        }
+      }
+      .current { // closed dropdown
+        margin-left: 0;
+        padding: 8px 12px;
+        line-height: 1;
+        font-size: $font-size;
+        font-weight: $font-weight;
+        color: #919191;
+      }
+      ul {
+        box-shadow: 0px 2px 3px -2px rgba(0,0,0,0.22);
+        border-radius: 3px;
+        border-color: #dedede;
+        li {
+          padding: 4px 12px;
+          line-height: 1;
+          font-size: $font-size;
+          font-weight: $font-weight;
+          border-width: 1px;
+          color: #919191;
+          box-shadow: none;
+          &.selected {
+            background: transparent;
+            color: #424242;
+          }
+          &:hover {
+            background: transparent;
+            color: #424242;
+          }
+          &:first-child {
+            padding-top: 10px;
+          }
+          &:last-child {
+            padding-bottom: 10px;
+          }
+        }
+      }
+    }
+    // Specific dropdowns
+    .interval_custom_drop {
+      width: 95px !important;
+      margin-left: 45px !important;
+    }
+    .value_custom_drop {
+      width: 115px !important;
+    }
+    .date_range_custom_drop {
+      width: 215px !important;
+      li:first-child {
+        display: none;
+      }
+      li:nth-child(2) {
+        padding-top: 8px !important;
+      }
+    }
+
+    .dates_selection {
+      float: left;
+      .datepicker {
+        float: left;
+        width: 105px;
+        margin-right: 12px;
+        margin-bottom: 0;
+        padding: 8px 12px;
+        line-height: 1;
+        font-size: $font-size;
+        font-weight: $font-weight;
+        height: 32px;
+        color: #919191;
+        border-color: #c4c4c4;
+        height: 31px;
+        &:hover {
+          color: #636363;
+          border-color: #9E9E9E;
+        }
+        &:active, &.opened {
+          color: #424242;
+          border-color: #808080;
+        }
+        // &.opened {
+        //   border-color: $sky-blue;
+        // }
+      }
+      span {
+        float: left;
+        font-size: $font-size;
+        font-weight: $font-weight;
+        color: #919191;
+        padding: 8px 6px;
+        padding-left: 0;
+        margin-left: -6px;
+      }
+       a {
+        @include app-button($sky-blue);
+        float: left;
+        font-size: $font-size;
+        font-weight: $font-weight;
+        padding: 8px 13px;
+        height: 30px;
+      }
+    }
+
+
+    .download_chart_block {
+      float: right;
+      width: 141px;
+      padding-right: 9px;
+      .custom.dropdown {
+        li.disabled {
+          display: none;
+        }
+        li:nth-child(2) {
+          padding-top: 8px !important;
+        }
+      }
+    }
+
+    #board_chart {
+      position: absolute;
+      top: 53px;
+      left: 0;
+      height: 265px;
+      width: 737px;
+    }
+
+    // Jquery Datepicker resyling
+    #ui-datepicker-div {
+      $color-passive: #818385;
+      $color-active: #454545;
+      $border-color: #d6d6d6;
+
+      margin-top: 12px;
+      margin-left: -44px;
+      font-size: 13px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      // top triangle
+      &:before, &:after {
+        content: " ";
+        display: block;
+        border: 6px solid transparent;
+        position: absolute;
+        visibility: visible;
+        left: 91px;
+        z-index: 1;
+      }
+      &:before {
+        border-bottom-color: $border-color;
+        top: -11px;
+      }
+      &:after {
+        border-bottom-color: #f5f5f5;
+        top: -10px;
+      }
+
+      .ui-datepicker-header {
+        width: 88.5%;
+        background: #f5f5f5;
+        border: 1px solid $border-color;
+        border-bottom-width: 0;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 5px;
+        border-top-left-radius: 5px;
+        .ui-icon-circle-triangle-w, .ui-icon-circle-triangle-e {
+          border: 4px solid #f5f5f5;
+          background-image: none;
+          height: 8px;
+          margin-top: -4px;
+          &:hover {
+            background-image: none;
+          }
+        }
+        .ui-icon-circle-triangle-w {
+          border-right-color: #818385;
+        }
+        .ui-icon-circle-triangle-e {
+          border-width: 4px;
+          height: 8px;
+          margin-top: -3px;
+          border-left-color: #818385;
+        }
+        a {
+          background: none;
+          border: 0;
+          top: 2px;
+          &.ui-datepicker-next {
+            right: 2px;
+          }
+          &.ui-datepicker-prev {
+            left: 2px;
+          }
+          &:hover {
+            .ui-icon-circle-triangle-w {
+              border-right-color: $color-active;
+            }
+            .ui-icon-circle-triangle-e {
+              border-left-color: $color-active;
+            }
+          }
+        }
+        .ui-datepicker-month {
+          color: $text-color;
+        }
+      }
+      table.ui-datepicker-calendar {
+        margin: 0;
+        width: 87%;
+        box-shadow: 0px 2px 3px -2px rgba(0,0,0,0.22);
+
+        // border-bottom-left-radius: 8px;
+        // border-bottom-right-radius: 8px;
+        border-collapse: separate;
+        overflow: hidden;
+        th {
+          background-color: #f5f5f5;
+          padding: 6px 0;
+          border: 1px solid $border-color;
+          border-left-width: 0;
+          border-right-width: 0;
+          &:first-child {
+            border-left-width: 1px;
+          }
+          &:last-child {
+            border-right-width: 1px;
+          }
+          span {
+            color: #4c4c4c;
+          }
+        }
+        tr:last-child {
+          td:first-child {
+            border-bottom-left-radius: 6px;
+            overflow: hidden;
+          }
+          td:last-child {
+            border-bottom-right-radius: 6px;
+            overflow: hidden;
+          }
+        }
+        td {
+          padding: 0;
+          border: 1px solid $border-color;
+          background: $white;
+          // height: 26px;
+          &.ui-datepicker-other-month {
+            a {
+              opacity: 1;
+              color: lighten($color-passive, 25%);
+            }
+          }
+          &.ui-datepicker-unselectable {
+            opacity: 1;
+            span {
+              background: $white;
+              border: none;
+              text-align: center;
+              color: lighten($color-passive, 25%);
+            }
+          }
+          a {
+            background: white;
+            text-align: center;
+            // border-color: white;
+            border: none;
+            color: $color-passive;
+            font-weight: 700;
+            line-height: 2;
+            padding: 0;
+            width: 26px;
+            &:hover, &.ui-state-active {
+              background: $gray;
+              color: $white;
+            }
+          }
+        }
+      }
+    }
+  }
+}

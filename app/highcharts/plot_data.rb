@@ -2,14 +2,19 @@ class PlotData
   attr_reader :period, :action_query
   delegate  :point_interval, to: :period
 
-  def initialize period, action_query, value_type
+  def initialize(period, action_query, value_type, data=nil)
     @period = period
     @action_query = action_query
     @value_type = value_type
+    @data = data
   end
 
-  def data
-    cumulate data_hash.values
+  def values
+    @data ||=cumulate data_hash.values
+  end
+
+  def max_value
+   values.max
   end
 
   protected

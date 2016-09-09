@@ -1,17 +1,15 @@
 var Airbo = window.Airbo || {};
 
-Airbo.TileStatsGrid = (function(){
+Airbo.BoardActivityGrid = (function(){
   // Selectros
-  var tileGridSectionSel = ".tile_grid_section",
-      paginationLinkSel = tileGridSectionSel + " .pagination a",
-      sortLinkSel = tileGridSectionSel + " th a",
+  var boardGridSectionSel = ".demo_grid_section",
+      paginationLinkSel = boardGridSectionSel + " .pagination a",
+      sortLinkSel = boardGridSectionSel + " th a",
       linkInGridSel = [paginationLinkSel, sortLinkSel].join(", "),
-      gridTypeSel = "#grid_type_select",
-      answerCellSel = tileGridSectionSel + " tbody .answer_column",
-      surveyTableSel = "#survey_table";
+      gridTypeSel = "#grid_type_select";
+
   // JQuery Objects
-  var tileGridSection,
-      surveyTable;
+  var boardGridSection;
 
   var updateLink,
       updatesChecker,
@@ -20,7 +18,7 @@ Airbo.TileStatsGrid = (function(){
   function ajaxResponse(){
     return function (data){
       if(data.success){
-        tileGridSection.replaceWith(data.grid);
+        boardGridSection.replaceWith(data.grid);
         initVars();
         $(document).foundation();
       }
@@ -44,30 +42,15 @@ Airbo.TileStatsGrid = (function(){
     gridRequest( updateLink + "?" + getLinkParams(link) );
   }
 
-  function markAnswerInSurveyTable(answer){
-    selectedRow = surveyTable.find("td:contains('" + answer + "')").closest('tr');
-    selectedRow.addClass("selected");
-  }
-
-  function unmarkAnswerInSurveyTable() {
-    surveyTable.find('tr.selected').removeClass('selected');
-  }
-
-  function filterByAnswer(answer){
-    if(answer == "-") return;
-    markAnswerInSurveyTable(answer);
-    gridRequest( updateLink + "?answer_filter=" + answer);
-  }
 
   function initVars(){
-    tileGridSection = $(tileGridSectionSel);
-    updateLink = tileGridSection.data("update-link");
-    surveyTable = $(surveyTableSel);
+    boardGridSection = $(boardGridSectionSel);
+    updateLink = boardGridSection.data("update-link");
 
     if(updatesChecker){
       updatesChecker.reStart();
     } else {
-      updatesChecker = Airbo.GridUpdatesChecker.init();
+      updatesChecker = Airbo.BoardGridUpdatesChecker.init();
       updatesChecker.start();
     }
   }
@@ -86,15 +69,9 @@ Airbo.TileStatsGrid = (function(){
 
     $(document).on("change", gridTypeSel, function(e){
       e.preventDefault();
-      unmarkAnswerInSurveyTable();
 
       input = $(this);
       gridRequest(updateLink + "?grid_type=" + input.val());
-    })
-
-    $(document).on("click", answerCellSel, function(e){
-      e.preventDefault();
-      filterByAnswer( $(this).text() );
     });
   }
 
@@ -109,7 +86,7 @@ Airbo.TileStatsGrid = (function(){
 }());
 
 $(function(){
-  if (Airbo.Utils.supportsFeatureByPresenceOfSelector("#tile_stats_grid")) {
-    Airbo.TileStatsGrid.init();
+  if (Airbo.Utils.supportsFeatureByPresenceOfSelector("#client-admin-demo-analytics")) {
+    Airbo.BoardActivityGrid.init();
   }
 });
