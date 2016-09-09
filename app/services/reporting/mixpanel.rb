@@ -3,41 +3,48 @@ module Reporting
 
 
     class Report
-      def initialize beg_date=nil, end_date=nil
+      def initialize opts
+        parse_dates(opts)
+        @params= opts.reverse_merge!(config)
         @mixpanel = AirboMixpanelClient.new
-        @beg_date = beg_date || Date.today.beginning_of_week(:sunday).prev_week(:sunday).at_midnight
-        @end_date = end_date || @beg_date.end_of_week(:sunday).end_of_day
-
-        @date_range = {
-          from_date: date_format(@beg_date), 
-          to_date:  date_format(@end_date)
-        }
       end
 
-      def pull
-        params.merge! @date_range
-        result =  @mixpanel.request(endpoint, params)
-        raw_data = extract_report_data result
-        handle_result raw_data
+      def data
+        @data ||= parse_and_transform(extract_report_data)
       end
 
 
-      def handle_result raw_data
-        parse_and_transform raw_data
+      def raw_data
+        @raw_data ||= @mixpanel.request(endpoint,@params)
       end
+
+      def client
+        @mixpanel
+      end
+
 
       protected
 
-      def parse_and_transform data
-        #noop
+      def parse_and_transform values
+        raise "You need to implement endpoint  in a subclass"
       end
 
       def endpoint
         raise "You need to implement endpoint  in a subclass"
       end 
 
-      def params
-        {}
+      def parse_dates opts
+        @from = opts.delete(:from_date) || Date.today.beginning_of_week(:sunday).prev_week(:sunday).at_midnight
+        @to = opts.delete(:to_date) || start.end_of_week(:sunday).end_of_day
+      end
+
+      def config
+        {
+          from_date: date_format(@from), 
+          to_date:  date_format(@to),
+          unit: "week",
+          type: "general"
+        }
       end
 
       private
@@ -46,8 +53,8 @@ module Reporting
         d.strftime "%Y-%m-%d"
       end
 
-      def extract_report_data result
-        result.fetch("data", {}).fetch("values", [])
+      def extract_report_data 
+        raw_data.fetch("data", {}).fetch("values", [])
       end
     end
   end
