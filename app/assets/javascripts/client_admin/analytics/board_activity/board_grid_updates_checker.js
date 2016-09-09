@@ -4,8 +4,8 @@ Airbo.BoardGridUpdatesChecker = (function(){
   var timeoutID,
       interval = 30000, // ms
       checkLink,
-      tileGridSectionSel = ".demo_grid_section",
-      tileGridSection,
+      boardGridSectionSel = ".demo_grid_section",
+      boardGridSection,
       tableSel = "#board_stats_grid table",
       table,
       newRecordsSectionSel = ".new_records",
@@ -68,8 +68,8 @@ Airbo.BoardGridUpdatesChecker = (function(){
   }
 
   function initVars() {
-    tileGridSection = $(tileGridSectionSel);
-    checkLink = tileGridSection.data('updates-checker-link');
+    boardGridSection = $(boardGridSectionSel);
+    checkLink = boardGridSection.data('updates-checker-link');
     table = $(tableSel);
   }
 

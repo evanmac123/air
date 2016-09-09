@@ -1,10 +1,9 @@
 class BoardStatsGrid
-  attr_reader :board, :query_type, :answer_filter
+  attr_reader :board, :query_type
 
-  def initialize board, query_type = nil, answer_filter = nil
+  def initialize board, query_type = nil
     @board = board
     @query_type = set_query_type(query_type)
-    @answer_filter = answer_filter.present? ? answer_filter : nil
   end
 
   def args
@@ -17,20 +16,20 @@ class BoardStatsGrid
     if query_type.present?
       query_type
     else
-      GridQuery::TileActions::GRID_TYPES.keys.first
+      GridQuery::BoardActions::GRID_TYPES.keys.first
     end
   end
 
   def query
-    GridQuery::TileActions.new(board, query_type, answer_filter).query
+    GridQuery::BoardActions.new(board, query_type).query
   end
 
   def grid_params
     {
       name: 'board_stats_grid',
-      order: 'name',
-      order_direction: 'asc',
-      per_page: 10,
+      order: 'board_tile_viewings.updated_at',
+      order_direction: 'desc',
+      per_page: 40,
       enable_export_to_csv: true,
       csv_file_name: "board_stats_report_#{DateTime.now.strftime("%d_%m_%y")}"
     }
