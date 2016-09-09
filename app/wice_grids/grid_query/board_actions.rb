@@ -5,7 +5,6 @@ class GridQuery::BoardActions
     "live" => "Live",
     "interacted" => "Interacted",
     "viewed_only" => "Viewed only",
-    "not_viewed" => "Didn't view",
     "all" => "All"
   }.freeze
 
@@ -25,15 +24,11 @@ class GridQuery::BoardActions
     end
 
     def viewed_only
-      all.where{ board_tile_viewings.id != nil }.where{ board_tile_completions.id == nil }
+      all.where{ board_tile_viewings.id != nil }.where{ tile_completions.id == nil }
     end
 
     def interacted
-      all.where{ board_tile_viewings.id != nil }.where{ board_tile_completions.id != nil }
-    end
-
-    def not_viewed
-      all.where{ board_tile_viewings.id == nil }
+      all.where{ board_tile_viewings.id != nil }.where{ tile_completions.id != nil }
     end
 
     def all
@@ -52,7 +47,7 @@ class GridQuery::BoardActions
           "LEFT JOIN (" +
            users_viewings_subquery.to_sql +
           ") AS board_tile_viewings " +
-          "ON board_tile_viewings.user_id = users.id"
+          "ON board_tile_viewings.user_id = users.id AND board_tile_viewings.tile_id = tile_completions.tile_id"
         end.
         select(
           "users.id AS user_id, \

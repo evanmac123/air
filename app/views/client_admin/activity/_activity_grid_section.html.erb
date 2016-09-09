@@ -4,7 +4,7 @@
       <div class="table_title">Activity</div>
       <div class="grid_types">
         <form class="custom">
-          <%= select_tag "grid_type_select", options_for_select(GridQuery::TileActions::GRID_TYPES.invert, @current_grid) %>
+          <%= select_tag "grid_type_select", options_for_select(GridQuery::BoardActions::GRID_TYPES.invert, @current_grid) %>
         </form>
       </div>
     </div>

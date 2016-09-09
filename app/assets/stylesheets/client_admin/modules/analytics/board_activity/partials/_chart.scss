@@ -8,6 +8,7 @@
       margin-right: -10px;
     }
     .actions_column {
+      margin-top: 60px;
       width: 200px;
       float: left;
     }
@@ -15,7 +16,7 @@
       float: left !important;
       position: relative;
       width: calc(100% - 200px);
-      height: 285px;
+      height: 380px;
       margin-top: 6px;
       // hide download in chart
       .highcharts-button {
@@ -75,6 +76,7 @@
         padding-top: 10px;
       }
     }
+
     //
     // => Selectors
     //

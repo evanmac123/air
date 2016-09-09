@@ -1,7 +1,7 @@
 class ClientAdmin::BoardStatsGridsController < ClientAdminBaseController
   def index
-    @board = current_demo
-    grid_builder = BoardStatsGrid.new(@board, params["grid_type"], params[:answer_filter])
+    @board = current_user.demo
+    grid_builder = BoardStatsGrid.new(@board, params["grid_type"])
     @board_stats_grid = initialize_grid(*grid_builder.args)
     @current_grid = grid_builder.query_type
 

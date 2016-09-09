@@ -24,7 +24,7 @@
    end
 
 
-   # FIXME this feels a bit hacky. Seems like dates should in right format 
+   # FIXME this feels a bit hacky. Seems like dates should in right format
    # by the time we are here (TimeHandler?)  but is fine for now.
 
    def parse_dates
@@ -66,7 +66,7 @@
 
    private
 
-  
+
    def build_null_data
      @plot_data = [0]
    end
@@ -124,4 +124,3 @@
      }
    end
  end
-
