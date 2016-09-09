@@ -53,7 +53,7 @@
    end
 
    def activity_sessions
-     @new_chart ? "" : "-"
+     @new_chart ? "0" : @sessions_total
    end
 
    def interactions
@@ -66,11 +66,7 @@
 
    private
 
-   def build_report_data
-     aggregation =  @value_type == "cumulative" ? :total : :current
-     @plot_data ||=  @report.series_for_key(series_key, aggregation)
-   end
-
+  
    def build_null_data
      @plot_data = [0]
    end
@@ -89,24 +85,43 @@
       end
    end
 
-
    def pull_data
      if @new_chart
        build_null_data
      else
-       @report =  Reporting::ClientUsage.new({demo: @board.id, beg_date: @start_date, end_date: @end_date , interval: report_interval})
-
-       build_report_data
+        get_report
      end
    end
 
-     def initial_params
-       {
-         start_date: 3.months.ago.strftime("%b %d, %Y"),
-         end_date: Time.now.strftime("%b %d, %Y"),
-         changed_field: 'end_date', # to trigger time handler
-         new_chart: true
-       }
+   def get_report
+     if action_type=="activity_sessions"
+       aggregation =  @value_type == "cumulative" ? "general" : "unique"
+       @report = Reporting::Mixpanel::UniqueActivitySessionByBoard.new({demo_id:@board.id, type: aggregation, unit: report_interval, from_date: @start_date, to_date: @end_date})
+
+       build_mixpanel_report_data
+     else
+       @report = Reporting::ClientUsage.new({demo: @board.id, beg_date: @start_date, end_date: @end_date , interval: report_interval})
+       build_db_report_data
      end
+   end
+
+   def build_db_report_data
+     aggregation =  @value_type == "cumulative" ? :total : :current
+     @plot_data ||=  @report.series_for_key(series_key, aggregation)
+   end
+
+   def build_mixpanel_report_data
+     @plot_data = Hash[@report.data.sort].values
+     @sessions_total = @plot_data.sum
+   end
+
+   def initial_params
+     {
+       start_date: 3.months.ago.strftime("%b %d, %Y"),
+       end_date: Time.now.strftime("%b %d, %Y"),
+       changed_field: 'end_date', # to trigger time handler
+       new_chart: true
+     }
+   end
  end
 
