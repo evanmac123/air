@@ -97,7 +97,6 @@
      if action_type=="activity_sessions"
        aggregation =  @value_type == "cumulative" ? "general" : "unique"
        @report = Reporting::Mixpanel::UniqueActivitySessionByBoard.new({demo_id:@board.id, type: aggregation, unit: report_interval, from_date: @start_date, to_date: @end_date})
-
        build_mixpanel_report_data
      else
        @report = Reporting::ClientUsage.new({demo: @board.id, beg_date: @start_date, end_date: @end_date , interval: report_interval})
@@ -111,8 +110,10 @@
    end
 
    def build_mixpanel_report_data
-     @plot_data = Hash[@report.data.sort].values
-     @sessions_total = @plot_data.sum
+     values = Hash[@report.data.sort].values
+     sum = 0
+     @plot_data = values.map{|val|sum += val}
+     @sessions_total = @plot_data.max
    end
 
    def initial_params
