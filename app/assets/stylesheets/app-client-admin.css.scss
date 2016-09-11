@@ -6,6 +6,7 @@
 *= require sweetalert
 *= require slick-carousel/slick/slick.scss
 *= require slick-carousel/slick/slick-theme.scss
+*= require introjs.min
 */
 
 
@@ -21,7 +22,6 @@ styles changes haven't broken anything.
 
 /*@import "font-awesome";*/
 @import "wice_grid";
-@import "introjs.min";
 @import "flick/jquery-ui-1.8.10.custom.css";
 /*@import "./mixins/main_styles.css.scss";*/
 /*@import "./mixins/board_topics.css.scss";*/

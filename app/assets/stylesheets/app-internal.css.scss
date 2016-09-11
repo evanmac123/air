@@ -2,15 +2,12 @@
 *= require_self
 *= require medium-editor/medium-editor
 *= require medium-editor/themes/default
-*/
-
-/*
 *= require tooltipster/tooltipster
 *= require tooltipster/themes/tooltipster-shadow
 *= require sweetalert
+*= require introjs.min
 */
 @import "./internal/intercom.css.scss";
-@import "introjs.min";
 
 /* MIXIN DEFINITIONS NEXT (so we can use them later) */
 /*@import "./mixins/main_styles.css.scss";*/
