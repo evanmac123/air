@@ -1,25 +1,45 @@
-//TODO remove as part of deprecating ie9 support
-@import "mixins/main_styles.css.scss";
-// $default: "Arial";
-@import "screen.css.scss";
+
+//TODO potentially remove this file as part of deprecating ie9 support
 $small_cap_size: .625em;
 $under_small_cap: .25em; // space under small cap text
 $bar-height: 1.3em; // controls height of elements in Top Bar
 $top-bar-height: #{($bar-height + $small_cap_size + $under_small_cap)};
-@import "screen_tablet.css.scss";
-@import "screen_desktop.css.scss";
-@import "screen_large.css.scss";
-@import "large_tile_viewer_desktop.css.scss";
+
+/*NOTE commments out the immediately following imports from this file that are already included at higher level */
+
+/*@import "mixins/main_styles.css.scss";*/
+/*@import "screen.css.scss";*/
+/*@import "screen_tablet.css.scss";*/
+/*@import "screen_desktop.css.scss";*/
+/*@import "screen_large.css.scss";*/
+/*@import "large_tile_viewer_desktop.css.scss";*/
+
+/*TODO remove import statements altogether once functionality is confirmed to be
+ * working */
+
+
+/*NOTE adds back mixins and variables lost due to the commenting out of imports */
+$header-color:      #fff;
+$white:             #fff;
+$gray:              #818385;
+$med-gray:          #a8a8a8;
+$light-gray:        #dfdfdf;
+@mixin font-bold-local {
+  font-style:normal;
+  font-weight:bolder;
+  font-weight: 700;
+}
+
 
 
 body {
   border-top:none; font-size:16px; 
   // font-family:$default;
-  h1.headline {@include font-bold;}
-  a, a:link, a:visited {@include font-bold;}
+  h1.headline {@include font-bold-local;}
+  a, a:link, a:visited {@include font-bold-local;}
 }
 .small_cap {
-  @include font-bold;
+  @include font-bold-local;
   font-size:11px;
 }
 

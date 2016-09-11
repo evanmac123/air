@@ -1,3 +1,10 @@
+@mixin standard_reveal_dimensions {
+  width: 40%;
+  left: 75%;
+  z-index: 5000;
+}
+
+
 // ====== Off canvas nav
 header nav {display: none;}
 header #small-toggle.off-canvas-toggle a {
