@@ -53,7 +53,7 @@
    end
 
    def activity_sessions
-     @new_chart ? "0" : @sessions_total
+     @new_chart ? "" : @sessions_total
    end
 
    def interactions
@@ -93,27 +93,39 @@
      end
    end
 
+   #TODO explore more elegant way of pulling mixpanel data along with db data
+
    def get_report
      if action_type=="activity_sessions"
        aggregation =  @value_type == "cumulative" ? "general" : "unique"
-       @report = Reporting::Mixpanel::UniqueActivitySessionByBoard.new({demo_id:@board.id, type: aggregation, unit: report_interval, from_date: @start_date, to_date: @end_date})
-
-       build_mixpanel_report_data
+       report  = pull_mixpanel(aggregation)
+       #build_mixpanel_report_data report
+       series =  mixpanel_series_from report
+       @plot_data = series
+       @sessions_total = series.max
      else
-       @report = Reporting::ClientUsage.new({demo: @board.id, beg_date: @start_date, end_date: @end_date , interval: report_interval})
-       build_db_report_data
+       report = Reporting::ClientUsage.new({demo: @board.id, beg_date: @start_date, end_date: @end_date , interval: report_interval})
+       build_db_report_data report
+       report = pull_mixpanel("cumulative")
+       series = mixpanel_series_from(report)
+       @sessions_total = series.max
      end
    end
 
-   def build_db_report_data
-     aggregation =  @value_type == "cumulative" ? :total : :current
-     @plot_data ||=  @report.series_for_key(series_key, aggregation)
+   def pull_mixpanel aggregation
+     Reporting::Mixpanel::UniqueActivitySessionByBoard.new({demo_id:@board.id, type: aggregation, unit: report_interval, from_date: @start_date, to_date: @end_date})
    end
 
-   def build_mixpanel_report_data
-     @plot_data = Hash[@report.data.sort].values
-     @sessions_total = @plot_data.sum
+   def build_db_report_data report
+     aggregation =  @value_type == "cumulative" ? :total : :current
+     @plot_data ||=  report.series_for_key(series_key, aggregation)
    end
+
+   def mixpanel_series_from report
+     sum = 0
+     (Hash[report.data.sort].values).map{|val|sum += val}
+   end
+
 
    def initial_params
      {
