@@ -2,24 +2,24 @@
 <% board ||= @board %>
 <%= grid(board_stats_grid, hide_csv_button: true) do |g|
   g.blank_slate "<div class='grid_no_record'>#{empty_grid_message(@current_grid)}</div>".html_safe
-  g.column name: 'Activity Date', model: 'TileViewing', attribute: 'updated_at' do |row|
-    Time.parse(row.tile_views_updated_at).strftime("%F, %I:%M%p") || "-"
+  g.column name: 'Activity Date', model: 'TileViewing', attribute: 'updated_at', ordering: false do |row|
+    Time.parse(row.tile_views_updated_at).strftime("%F") || "-"
   end
-  g.column name: 'Name', attribute: 'name', in_csv: false do |row|
+  g.column name: 'Name', attribute: 'name', in_csv: false, ordering: false do |row|
     link_to row.user_name, edit_client_admin_user_path(row.user_id)
   end
-  g.column name: 'Name', attribute: 'name', in_html: false do |row|
+  g.column name: 'Name', attribute: 'name', in_html: false, ordering: false do |row|
     row.user_name
   end
-  g.column name: 'Tile', model: 'Tile', attribute: 'headline' do |row|
+  g.column name: 'Tile', model: 'Tile', attribute: 'headline', ordering: false do |row|
     row.tile_headline
   end
-  g.column name: 'Views', model: 'TileViewing', attribute: 'views' do |row|
+  g.column name: 'Views', model: 'TileViewing', attribute: 'views', ordering: false do |row|
     row.tile_views || "-"
   end
-  g.column name: 'Completions', model: "TileCompletion", attribute: 'updated_at' do |row|
+  g.column name: 'Completions', model: "TileCompletion", attribute: 'updated_at', ordering: false do |row|
     if row.completion_date
-      row.completion_date.split.first
+      "Completed"
     else
       "-"
     end
