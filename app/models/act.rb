@@ -12,7 +12,6 @@ class Act < ActiveRecord::Base
     # Privacy level is denormalized from user onto act in the interest of
     # making #allowed_to_view_by_privacy_settings more efficient. It was
     # killing our DB.
-
     self.privacy_level = user.privacy_level
     true
   end
@@ -54,9 +53,9 @@ class Act < ActiveRecord::Base
   end
 
   def self.unhidden
-    where(:hidden => false)  
+    where(:hidden => false)
   end
-  
+
   def self.same_demo(user)
     where(:demo_id => user.demo_id)
   end
@@ -75,7 +74,7 @@ class Act < ActiveRecord::Base
     friends = viewing_user.accepted_friends.where("users.privacy_level != 'nobody'")
     viewable_user_ids = friends.pluck(:id) + [viewing_user.id]
 
-    # UGH. But there's not a straightforward way to do a UNION in ActiveRecord, 
+    # UGH. But there's not a straightforward way to do a UNION in ActiveRecord,
     # and performance of a straightforward OR-ed query was getting poor.
     # OPTZ: Use the limit/offset trick to improve query of this still more
     find_by_sql(["SELECT acts.* FROM acts WHERE acts.demo_id = ? AND acts.hidden = 'f' AND acts.user_id IN (?) UNION \
