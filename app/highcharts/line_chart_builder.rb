@@ -140,7 +140,7 @@ JS
       function() {
         prevY = this.series.yData[this.index - 1];
         if(prevY){
-          percentInc = 100.0 * (this.y - prevY) / prevY;
+          percentInc = Math.round(100.0 * (this.y - prevY) / prevY);
         } else {
           if(this.y == 0) {
             percentInc = 0;

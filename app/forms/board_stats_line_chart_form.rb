@@ -7,7 +7,7 @@
    end
 
    def plot_data
-     OpenStruct.new(:values => @plot_data, :max_value => @plot_data.max)
+     OpenStruct.new(:values => @plot_data.map{|x|x.round(2)}, :max_value => @plot_data.max)
    end
 
 
