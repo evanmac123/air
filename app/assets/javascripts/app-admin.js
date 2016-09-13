@@ -49,5 +49,6 @@ $(function(){
   //hides elements like checkboxes. if we need to use any foundation js then we
   //will need re-display any hijacked form elements
   //$(document).foundation();
+  Airbo.Utils.ES6Polyfills.init();
   Airbo.BoardsAndOrganizationMgr.init();
 });
