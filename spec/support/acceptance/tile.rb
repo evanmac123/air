@@ -137,7 +137,7 @@ module TileHelpers
   end
 
   def fill_in_answer_field(index, text)
-    page.all(answer_link_selector)[index].trigger("click")
+    page.all(answer_link_selector)[index].click
     page.find(answer_field_selector, visible: true).set(text)
   end
 
@@ -146,7 +146,7 @@ module TileHelpers
   end
 
   def fill_in_question text
-    page.find(".tile_question").trigger("click")
+    page.find(".tile_question").click
     #FIXME shouldn't clicking make the form element visible?
     page.find("#tile_builder_form_question", visible: false).set(text)
   end
@@ -160,8 +160,8 @@ module TileHelpers
   end
 
   def select_correct_answer(index)
-    page.all(".tile_multiple_choice_answer a")[index].trigger("click")
-    page.all(".correct-answer-button")[index].trigger("click")
+    page.all(".tile_multiple_choice_answer a")[index].click
+    page.all(".correct-answer-button")[index].click
   end
 
   def add_tile_tag(tag)
@@ -312,8 +312,8 @@ module TileHelpers
   end
 
   def choose_question_type_and_subtype question_type, question_subtype
-    page.find("##{question_type}").trigger('click')
-    page.find("##{question_type}-#{question_subtype}").trigger('click')
+    page.find("##{question_type}").click
+    page.find("##{question_type}-#{question_subtype}").click
   end
 
 
@@ -462,7 +462,7 @@ module TileHelpers
   end
 
     def img_file1
-      "engage_new.gif" 
+      "engage_new.gif"
     end
 
     def img_file2
