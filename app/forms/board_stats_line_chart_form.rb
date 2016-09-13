@@ -99,15 +99,14 @@
      if action_type=="activity_sessions"
        aggregation =  @value_type == "cumulative" ? "general" : "unique"
        report  = pull_mixpanel(aggregation)
-       #build_mixpanel_report_data report
-       series =  mixpanel_series_from report
+       series =  mixpanel_series_from report, aggregation
        @plot_data = series
        @sessions_total = series.max
      else
        report = Reporting::ClientUsage.new({demo: @board.id, beg_date: @start_date, end_date: @end_date , interval: report_interval})
        build_db_report_data report
        report = pull_mixpanel("cumulative")
-       series = mixpanel_series_from(report)
+       series = mixpanel_series_from(report, "cumulative")
        @sessions_total = series.max
      end
    end
@@ -121,9 +120,13 @@
      @plot_data ||=  report.series_for_key(series_key, aggregation)
    end
 
-   def mixpanel_series_from report
-     sum = 0
-     (Hash[report.data.sort].values).map{|val|sum += val}
+   def mixpanel_series_from report, aggregation
+     data = Hash[report.data.sort].values
+     if(aggregation == "cumulative")
+       sum = 0
+       data = data.map{|val|sum += val}
+     end
+     data
    end
 
 
