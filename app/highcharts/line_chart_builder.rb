@@ -1,9 +1,10 @@
 class LineChartBuilder
   attr_reader :period, :plot_data
 
-  def initialize period, data
+  def initialize(period, data, background_color = "#fafafa")
     @period = period
     @plot_data = data
+    @background_color = background_color
   end
 
   def draw
@@ -22,7 +23,7 @@ class LineChartBuilder
   protected
     def chart_params
       {
-        backgroundColor: "#fafafa",
+        backgroundColor: @background_color,
         events: {
           load: load_function.js_code
         }
