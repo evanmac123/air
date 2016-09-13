@@ -1,2 +1,0 @@
-class DemoStatsChart < LineChartBuilder
-end

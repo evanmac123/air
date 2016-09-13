@@ -3,7 +3,7 @@
 <%= grid(board_stats_grid, hide_csv_button: true) do |g|
   g.blank_slate "<div class='grid_no_record'>#{empty_grid_message(@current_grid)}</div>".html_safe
   g.column name: 'Activity Date', model: 'TileViewing', attribute: 'updated_at', ordering: false do |row|
-    Time.parse(row.tile_views_updated_at).strftime("%F") || "-"
+    Time.parse(row.tile_views_updated_at).strftime("%D") || "-"
   end
   g.column name: 'Name', attribute: 'name', in_csv: false, ordering: false do |row|
     link_to row.user_name, edit_client_admin_user_path(row.user_id)
@@ -17,7 +17,7 @@
   g.column name: 'Views', model: 'TileViewing', attribute: 'views', ordering: false do |row|
     row.tile_views || "-"
   end
-  g.column name: 'Completions', model: "TileCompletion", attribute: 'updated_at', ordering: false do |row|
+  g.column name: 'Interactions', model: "TileCompletion", attribute: 'updated_at', ordering: false do |row|
     if row.completion_date
       "Completed"
     else

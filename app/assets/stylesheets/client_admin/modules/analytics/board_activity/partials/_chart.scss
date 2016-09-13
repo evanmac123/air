@@ -16,7 +16,7 @@
       float: left !important;
       position: relative;
       width: calc(100% - 200px);
-      height: 380px;
+      height: 400px;
       margin-top: 6px;
       // hide download in chart
       .highcharts-button {
@@ -38,7 +38,7 @@
         margin-bottom: 0;
       }
       &.selected {
-        border-color: $n-blue;
+        border-color: rgba(72,191,255, 0.5);
         .action_num {
           font-weight: 400;
         }
@@ -47,8 +47,8 @@
         }
       }
       &:hover {
-        transform: scale(1.1);
-
+        border-color: $n-blue;
+        cursor: pointer;
         .action_num {
           font-weight: 400;
         }
@@ -235,7 +235,7 @@
       position: absolute;
       top: 53px;
       left: 0;
-      height: 265px;
+      height: 335px;
       width: 737px;
     }
 

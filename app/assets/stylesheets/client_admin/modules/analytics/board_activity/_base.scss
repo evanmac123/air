@@ -7,14 +7,11 @@
     }
     .title_block {
       position: relative;
-      padding: 30px 40px;
-      margin-left: 75px;
-      width: 1007px;
+      padding: 0 60px 30px 60px;
     }
     .activity-header {
       background-color: $n-blue;
-      margin: 10px;
-      width: 15em;
+      margin: 20px;
       height: 7em;
       border-radius: 3px;
       .header-number {
@@ -48,7 +45,7 @@
     }
     .stats_page {
       max-width: 1007px;
-      padding: 40px 40px 50px 40px;
+      padding: 20px 40px 50px 40px;
     }
   }
 }
