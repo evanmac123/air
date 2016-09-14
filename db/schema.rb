@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160830162337) do
+ActiveRecord::Schema.define(:version => 20160914164542) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -559,6 +559,14 @@ ActiveRecord::Schema.define(:version => 20160830162337) do
 
   add_index "more_info_requests", ["user_id"], :name => "index_more_info_requests_on_user_id"
 
+  create_table "onboardings", :force => true do |t|
+    t.integer  "organization_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "onboardings", ["organization_id"], :name => "index_onboardings_on_organization_id"
+
   create_table "organizations", :force => true do |t|
     t.string   "name"
     t.integer  "num_employees"
@@ -1025,6 +1033,17 @@ ActiveRecord::Schema.define(:version => 20160830162337) do
   end
 
   add_index "user_intros", ["user_id"], :name => "index_user_intros_on_user_id"
+
+  create_table "user_onboardings", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "onboarding_id"
+    t.string   "state"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "user_onboardings", ["onboarding_id"], :name => "index_user_onboardings_on_onboarding_id"
+  add_index "user_onboardings", ["user_id"], :name => "index_user_onboardings_on_user_id"
 
   create_table "user_settings_change_logs", :force => true do |t|
     t.integer  "user_id"

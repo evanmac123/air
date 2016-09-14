@@ -24,6 +24,14 @@ Health::Application.routes.draw do
   post "admin/contracts/import" => "admin/contracts#import", :as => "contracts_import"
   post "admin/metrics/historical" => "admin/metrics#historical", :as => "historical_metrics"
 
+  match "myairbo/:id" => "user_onboardings#show"
+  match "newairbo" => "onboardings#create"
+
+  get "onboardings" => "onboardings#create"
+
+  resources :user_onboardings, only: [:show]
+  get "user_onboardings" => "user_onboardings#create"
+
   resources :tiles, :only => [:index, :show]
   resources :tile, :only => [:show], as: "sharable_tile"
   resources :tile_completions, :only => [:create]

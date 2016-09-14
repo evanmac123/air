@@ -27,6 +27,7 @@ class User < ActiveRecord::Base
   belongs_to :game_referrer, :class_name => "User"
   belongs_to :spouse, :class_name => "User"
   has_one    :lead_contact, dependent: :destroy
+  has_one    :user_onboarding, dependent: :destroy
   has_many   :acts, :dependent => :destroy, :as => :user
   has_many   :friendships, :dependent => :destroy
   has_many   :friends, :through => :friendships

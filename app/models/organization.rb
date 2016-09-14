@@ -6,14 +6,11 @@ class Organization < ActiveRecord::Base
   has_many :lead_contacts
   has_many :boards, class_name: :Demo
   has_many :users
+  has_one  :onboarding
 
-  validates :name, presence: true  
+  validates :name, presence: true, uniqueness: true
   accepts_nested_attributes_for :demos
   accepts_nested_attributes_for :users
-
-
-# FIXME: Herby: can we do this withou a callback? Orgs are created in the SDR flow before their first users or boards.
-  # after_create :create_default_board_membership
 
   scope :name_order, ->{order("LOWER(name)")}
 
