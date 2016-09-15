@@ -8,4 +8,7 @@ class TopicBoard < ActiveRecord::Base
   validates :topic, :board, presence: true
   validates :is_reference, uniqueness:  {scope: :topic_id}
 
+  def topic_name
+    topic.name
+  end
 end

@@ -4,7 +4,7 @@ class OnboardingsController < ApplicationController
 
 
   def new
-      @topic_boards = TopicBoard.scoped
+      @topic_boards = TopicBoard.reference_board_set
       @onboarding_initializer = OnboardingInitializer.new(onboarding_params)
   end
 
