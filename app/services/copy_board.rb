@@ -7,6 +7,7 @@ class CopyBoard
   end
 
   def copy_active_tiles_from_board
+    binding.pry
     board_template.active_tiles.reverse.each do |tile|
       copy_tile(tile)
     end
