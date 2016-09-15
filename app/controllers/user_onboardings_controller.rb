@@ -5,7 +5,10 @@ class UserOnboardingsController < ApplicationController
   def show
     @user_onboarding = UserOnboarding.includes([:user, :onboarding]).find(params[:id])
     @board = @user_onboarding.board
-    @tiles = @board.active_tiles
+    sign_in(@user_onboarding.user)
+
+    @tiles = Tile.displayable_categorized_to_user(current_user, 10)
+
   end
 
   def update

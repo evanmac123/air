@@ -21,13 +21,14 @@ class OnboardingInitializer
 
   def initialize_onboarding
     org = Organization.where(name: organization_name).first_or_create!
-    onboarding = Onboarding.first_or_create!(organization: org)
 
     user = org.users.where(email: email).first_or_create! do |u|
       u.update_attributes!(name: name)
     end
 
     copy_reference_board(org, user)
+
+    onboarding = Onboarding.first_or_create!(organization: org, demo_id: user.demo_id)
     @user_onboarding = onboarding.user_onboardings.create!(user: user)
   end
 

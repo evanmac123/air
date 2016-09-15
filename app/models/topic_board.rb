@@ -11,4 +11,8 @@ class TopicBoard < ActiveRecord::Base
   def topic_name
     topic.name
   end
+
+  def tiles
+    board.active_tiles
+  end
 end

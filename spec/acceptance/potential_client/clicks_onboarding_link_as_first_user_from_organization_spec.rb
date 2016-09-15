@@ -1,5 +1,6 @@
 require 'acceptance/acceptance_helper'
 
+
 feature "Potential client recieves an invitation to try airbo and clicks link in email", js: true do
   before do
     FactoryGirl.create_list(:topic_board, 3, :valid, is_reference: true)
@@ -11,14 +12,16 @@ feature "Potential client recieves an invitation to try airbo and clicks link in
         visit onboarding_email_link
         expect(page).to have_css(".topic-board", count: TopicBoard.reference_board_set.count)
 
+        topic_board = TopicBoard.reference_board_set.first
+
         within ".topic-boards" do
-          page.find(".topic-board", text: TopicBoard.reference_board_set.first.topic_name).click
+          page.find(".topic-board", text: topic_board.topic_name).click
         end
 
         expect(current_path).to eq("/myairbo/#{UserOnboarding.first.id}")
 
-        within "#tile-wall" do
-          expect(page).to have_css(".tile_container", count: TopicBoard.reference_board_set.first.active_tiles.count)
+        within "#tile_wall" do
+          expect(page).to have_css(".tile_container", count: topic_board.tiles.count)
         end
       end
     end
