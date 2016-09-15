@@ -4,7 +4,6 @@ class OnboardingsController < ApplicationController
 
   def create
     onboarding_initializer = OnboardingInitializer.new(onboarding_params)
-    binding.pry
     if should_onboard? && onboarding_initializer.save
       redirect_to "/myairbo/#{onboarding_initializer.user_onboarding_id}"
     else

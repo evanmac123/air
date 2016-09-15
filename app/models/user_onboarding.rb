@@ -8,7 +8,7 @@ class UserOnboarding < ActiveRecord::Base
 
   def update_state
     if onboarding.user_onboardings.count > 1
-      self.update_attributes(state: "view_board")
+      self.update_attributes(state: "invited")
     else
       self.update_attributes(state: "initial")
     end
