@@ -1,10 +1,11 @@
 class OnboardingInitializer
-  attr_reader :email, :name, :organization_name
+  attr_reader :email, :name, :organization_name, :reference_board_id, :error
 
   def initialize(params)
     @email = params[:email]
     @name = params[:name]
     @organization_name = params[:organization]
+    @reference_board_id = params[:board_id]
   end
 
   def save
@@ -12,7 +13,8 @@ class OnboardingInitializer
       ActiveRecord::Base.transaction do
         initialize_onboarding
       end
-    rescue
+    rescue => e
+      @error = e
       false
     end
   end
@@ -25,10 +27,40 @@ class OnboardingInitializer
       u.update_attributes(name: name)
     end
 
+    copy_reference_board(org, user)
+
     @user_onboarding = onboarding.user_onboardings.create!(user: user)
   end
 
   def user_onboarding_id
     @user_onboarding.id
   end
+
+  private
+
+    def copy_reference_board(org, user)
+      reference_board = find_reference_board(reference_board_id)
+
+      board = org.boards.create!(
+        name: org.name,
+        email: user.email
+      )
+
+      user.board_memberships.create!(
+        demo_id: board.id,
+        is_client_admin: true
+      )
+
+      user.update_attributes!(demo_id: board.id)
+
+      copy_tiles_to_new_board(new_board, reference_board)
+    end
+
+    def copy_tiles_to_new_board(new_board, reference_board)
+      CopyBoard.new(new_board, reference_board).copy_active_tiles_from_board
+    end
+
+    def find_reference_board(board_id)
+      Demo.includes(:tiles).find(board_id)
+    end
 end

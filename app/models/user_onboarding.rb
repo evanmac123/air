@@ -13,4 +13,8 @@ class UserOnboarding < ActiveRecord::Base
       self.update_attributes(state: "initial")
     end
   end
+
+  def board
+    onboarding.board
+  end
 end

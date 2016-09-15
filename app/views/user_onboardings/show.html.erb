@@ -1,2 +1,7 @@
-<h1>UserOnboardings#show</h1>
-<p>Find me in app/views/user_onboardings/new.html.erb</p>
+<div class="user-onboarding-container">
+  <div class="row">
+    <div class="columns small-12">
+      <%= render partial: "user_onboarding", locals: { state: @user_onboarding.state } %>
+    </div>
+  </div>
+</div>

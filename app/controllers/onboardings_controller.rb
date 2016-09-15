@@ -13,6 +13,7 @@ class OnboardingsController < ApplicationController
 
   def create
     onboarding_initializer = OnboardingInitializer.new(onboarding_params)
+    binding.pry
     if should_onboard? && onboarding_initializer.save
       redirect_to "/myairbo/#{onboarding_initializer.user_onboarding_id}"
     else
@@ -32,7 +33,7 @@ class OnboardingsController < ApplicationController
         email:        params[:email],
         name:         params[:name],
         organization: params[:organization],
-        topic_board_id: params[:topic_board_id]
+        board_id: params[:topic_board_id]
       }
     end
 end
