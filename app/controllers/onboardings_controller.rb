@@ -2,14 +2,13 @@ class OnboardingsController < ApplicationController
   skip_before_filter :authorize
   layout 'onboarding'
 
-
   def new
     if should_onboard?
       @topic_boards = TopicBoard.reference_board_set
       @onboarding_initializer = OnboardingInitializer.new(onboarding_params)
     else
-      redirect_to "myairbo/#{user.user_onboarding.id}"
-     end
+      redirect_to "/myairbo/#{@user.user_onboarding.id}"
+    end
   end
 
   def create
@@ -22,6 +21,7 @@ class OnboardingsController < ApplicationController
   end
 
   private
+
     def should_onboard?
       @user = User.where(email: params[:email]).first_or_initialize
       @user.user_onboarding.nil?

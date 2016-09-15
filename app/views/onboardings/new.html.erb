@@ -1,10 +1,11 @@
 <div class="onboarding-container">
   <div class="row">
     <div class="columns small-12">
-      <%=form_tag onboardings_path do%>
-        <%=hidden_field_tag :email, @onboarding_initializer.email%>
-        <%=hidden_field_tag :name, @onboarding_initializer.name%>
-        <%=hidden_field_tag :organization, @onboarding_initializer.organization_name%>
+      <%= form_tag onboardings_path, id:"onboarding-form" do %>
+        <%= hidden_field_tag :email, @onboarding_initializer.email %>
+        <%= hidden_field_tag :name, @onboarding_initializer.name %>
+        <%= hidden_field_tag :organization, @onboarding_initializer.organization_name %>
+        <%= hidden_field_tag :topic_board_id %>
       <%end%>
     </div>
   </div>
@@ -18,7 +19,7 @@
     </div>
 
     <% @topic_boards.each do |topic_board| %>
-      <div class="topic-board">
+      <div class="topic-board button" data-board-id="<%= topic_board.demo_id %>">
         <%= topic_board.topic_name %>
       </div>
     <% end %>
@@ -28,4 +29,11 @@
 
 <script type="text/javascript">
   $('#onboarding_new_modal').foundation('reveal', 'open');
+
+  $(".topic-board").on("click", function() {
+    var self = $(this);
+    $("#topic_board_id").val(self.data("board-id"));
+
+    $("#onboarding-form").submit();
+  })
 </script>

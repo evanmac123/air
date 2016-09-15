@@ -19,8 +19,8 @@ class UserOnboardingsController < ApplicationController
   private
     def user_onboarding_params
       {
-        params[:id],
-        params[:topic_board_id]
+        id: params[:id],
+        topic_board_id: params[:topic_board_id]
       }
     end
 end

@@ -27,8 +27,7 @@ Health::Application.routes.draw do
   match "myairbo/:id" => "user_onboardings#show"
   match "newairbo" => "onboardings#new"
 
-  get "onboardings" => "onboardings#create"
-
+  resources :onboardings, only: [:create, :new]
   resources :user_onboardings, only: [:show]
   get "user_onboardings" => "user_onboardings#create"
 
