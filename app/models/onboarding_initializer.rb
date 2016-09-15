@@ -28,7 +28,6 @@ class OnboardingInitializer
     end
 
     copy_reference_board(org, user)
-
     @user_onboarding = onboarding.user_onboardings.create!(user: user)
   end
 
@@ -41,17 +40,15 @@ class OnboardingInitializer
     def copy_reference_board(org, user)
       reference_board = find_reference_board(reference_board_id)
 
-      board = org.boards.create!(
+      new_board = org.boards.create!(
         name: org.name,
         email: user.email
       )
 
       user.board_memberships.create!(
-        demo_id: board.id,
+        demo_id: new_board.id,
         is_client_admin: true
       )
-
-      user.update_attributes!(demo_id: board.id)
 
       copy_tiles_to_new_board(new_board, reference_board)
     end
