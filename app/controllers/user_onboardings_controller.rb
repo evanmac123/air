@@ -4,6 +4,8 @@ class UserOnboardingsController < ApplicationController
 
   def show
     @user_onboarding = UserOnboarding.includes([:user, :onboarding]).find(params[:id])
+    @board = @user_onboarding.board
+    @tiles = @board.active_tiles
   end
 
   def update

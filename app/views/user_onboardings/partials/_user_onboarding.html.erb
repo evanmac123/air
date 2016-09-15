@@ -1,0 +1,2 @@
+<%= render partial: 'shared/tiles/user_progress', locals: {as_null:false, raffle: current_user.demo.raffle} %>
+<%= render 'shared/tile_wall', @tiles.merge(path_for_more_tiles: tiles_path) %>
