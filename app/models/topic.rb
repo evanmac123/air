@@ -1,11 +1,11 @@
 class Topic < ActiveRecord::Base
   has_many :tile_tags
+  has_one :reference_board, class_name: TopicBoard,  foreign_key: :topic_id, conditions:{is_reference: true}
+  has_many :topic_boards
+  has_many :boards, through: :topic_boards, class_name: Demo
+
   validates :name, :uniqueness => true
 
-  # full_topics = {
-  #   "Benefits" => ["Health Plan Basics", "Rx Benefits", "Health Care Reform", "Health Care Consumerism", "Dental", "Vision", "Open Enrollment Process", "Decision Support"],
-  #   "Compliance" => ["Policy", "Sexual Harassment", "Compliance Form"]
-  # }
   def self.make_topics_with_tags full_topics
     full_topics.each do |name, tag_titles|
       topic = find_or_create name
