@@ -4,8 +4,12 @@ class OnboardingsController < ApplicationController
 
 
   def new
+    if should_onboard?
       @topic_boards = TopicBoard.reference_board_set
       @onboarding_initializer = OnboardingInitializer.new(onboarding_params)
+    else
+      redirect_to "myairbo/#{user.user_onboarding.id}"
+     end
   end
 
   def create
@@ -19,15 +23,16 @@ class OnboardingsController < ApplicationController
 
   private
     def should_onboard?
-      params[:onboard]
-      #  && !current_user
+      @user = User.where(email: params[:email]).first_or_initialize
+      @user.user_onboarding.nil?
     end
 
     def onboarding_params
       {
         email:        params[:email],
         name:         params[:name],
-        organization: params[:organization]
+        organization: params[:organization],
+        topic_board_id: params[:topic_board_id]
       }
     end
 end
