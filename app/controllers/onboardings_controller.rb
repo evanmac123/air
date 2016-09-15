@@ -1,10 +1,15 @@
 class OnboardingsController < ApplicationController
-  skip_before_filter :authorize, only: [:create]
+  skip_before_filter :authorize
   layout 'onboarding'
+
+
+  def new
+      @topic_boards = TopicBoard.scoped
+      @onboarding_initializer = OnboardingInitializer.new(onboarding_params)
+  end
 
   def create
     onboarding_initializer = OnboardingInitializer.new(onboarding_params)
-    binding.pry
     if should_onboard? && onboarding_initializer.save
       redirect_to "/myairbo/#{onboarding_initializer.user_onboarding_id}"
     else

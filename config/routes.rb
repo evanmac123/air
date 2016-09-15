@@ -25,7 +25,7 @@ Health::Application.routes.draw do
   post "admin/metrics/historical" => "admin/metrics#historical", :as => "historical_metrics"
 
   match "myairbo/:id" => "user_onboardings#show"
-  match "newairbo" => "onboardings#create"
+  match "newairbo" => "onboardings#new"
 
   get "onboardings" => "onboardings#create"
 
