@@ -496,8 +496,6 @@ ActiveRecord::Schema.define(:version => 20160914180232) do
     t.integer  "user_id"
   end
 
-  add_index "more_info_requests", ["user_id"], :name => "index_more_info_requests_on_user_id"
-
   create_table "onboardings", :force => true do |t|
     t.integer  "organization_id"
     t.datetime "created_at",      :null => false
@@ -906,8 +904,6 @@ ActiveRecord::Schema.define(:version => 20160914180232) do
     t.integer  "userable_id"
     t.string   "userable_type"
   end
-
-  add_index "user_intros", ["user_id"], :name => "index_user_intros_on_user_id"
 
   create_table "user_onboardings", :force => true do |t|
     t.integer  "user_id"
