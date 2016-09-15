@@ -1,0 +1,11 @@
+<div class="onboarding-container">
+  <div class="row">
+    <div class="columns small-12">
+      <%=form_tag onboardings_path do%>
+      <%=hidden_field_tag :email, @onboarding_initializer.email%> 
+      <%=hidden_field_tag :name, @onboarding_initializer.name%> 
+      <%=hidden_field_tag :organization, @onboarding_initializer.organization_name%>
+    <%end%>
+    </div>
+  </div>
+</div>

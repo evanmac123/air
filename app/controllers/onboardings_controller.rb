@@ -1,6 +1,12 @@
 class OnboardingsController < ApplicationController
-  skip_before_filter :authorize, only: [:create]
+  skip_before_filter :authorize
   layout 'onboarding'
+
+
+  def new
+      @topic_boards = TopicBoard.scoped
+      @onboarding_initializer = OnboardingInitializer.new(onboarding_params)
+  end
 
   def create
     onboarding_initializer = OnboardingInitializer.new(onboarding_params)
