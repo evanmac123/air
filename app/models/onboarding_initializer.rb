@@ -24,7 +24,7 @@ class OnboardingInitializer
     onboarding = Onboarding.first_or_create!(organization: org)
 
     user = org.users.where(email: email).first_or_create! do |u|
-      u.update_attributes(name: name)
+      u.update_attributes!(name: name)
     end
 
     copy_reference_board(org, user)
