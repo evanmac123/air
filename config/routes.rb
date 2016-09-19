@@ -296,6 +296,7 @@ Health::Application.routes.draw do
     end
 
     resource :client_kpi_report
+    resources :topic_boards
     resources :organizations, as: :customers
     resources :organizations do
       collection do

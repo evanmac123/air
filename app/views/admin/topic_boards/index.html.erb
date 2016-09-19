@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="columns small-12">
+    <h1 class="text-left">Topic Boards</h1>
+  </div>
+</div>
+<div class="row">
+  <div class="columns small-12">
+    <table>
+      <thead>
+        <tr>
+          <th>Topic</th>
+          <th>Board</th>
+          <th>Is Primary Reference</th>
+        </tr>
+      </thead>
+    <tbody>
+      <%=@topic_boords.each do |topic| %>
+       <tr class="">
+         <td><%=topic.topic_name%></td>
+         <td><%=topic.board_name%></td>
+         <td><%=topic.is_reference%></td>
+         <td><%=link_to "Edit", edit_admin_topic_board_path(topic)%></td>
+       </tr>
+      <%end%>
+    </tbody>
+
+  </div>
+</div>
