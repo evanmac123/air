@@ -45,7 +45,7 @@
    end
 
    def actions_taken
-     @board.acts.count
+     @board.tile_completions.count + @board.tile_viewings.count
    end
 
    def users_joined
@@ -99,7 +99,7 @@
      if action_type=="activity_sessions"
        aggregation =  @value_type == "cumulative" ? "general" : "unique"
        report  = pull_mixpanel(aggregation, @start_date, @end_date)
-       series =  mixpanel_series_from report, aggregation 
+       series =  mixpanel_series_from report, aggregation
        @plot_data = series
      else
        report = Reporting::ClientUsage.new({demo: @board.id, beg_date: @start_date, end_date: @end_date , interval: report_interval})

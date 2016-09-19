@@ -35,9 +35,9 @@ class GridQuery::BoardActions
     end
 
     def scoped
-      users_viewings_subquery = board.tile_viewings.select(["tile_viewings.*", "tiles.headline AS headline"]).includes(:tile).where(user_type: 'User')
+      users_viewings_subquery = board.tile_viewings.select(["tile_viewings.*", "tiles.headline AS headline"]).includes(:tile).where(user_type: 'User').limit(500)
 
-      users_completions_subquery = board.tile_completions.where(user_type: 'User')
+      users_completions_subquery = board.tile_completions.where(user_type: 'User').limit(500)
 
       board.users.
         joins do
