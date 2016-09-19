@@ -5,7 +5,7 @@
         <div class="action_type_block <%= f.object.action_type_class(action_type) %>">
           <%= f.radio_button :action_type, action_type %>
           <%= f.label :action_type,  value: action_type do %>
-            <div class="action_num"><%= f.object.action_num(action_type) %></div>
+            <div class="action_num"><%= number_with_delimiter(f.object.action_num(action_type), :delimiter => ',') %></div>
             <div class="action_name"><%= action_type.humanize %></div>
           <% end %>
         </div>
