@@ -1,24 +1,16 @@
-<div class="row">
-  <div class="columns small-8 small-centered">
-    <%=form_for [:admin, @topic_board] do |f| %>
-      <ul>
-        <li>
-          <label>Topic</label>
-          <%=f.select :topic, options_from_collection_for_select(@topics, :id,  :name), {include_blank: true}, class: "airbo-chosen-select"%>
-        </li>
 
-        <li>
-          <label>Board</label>
-          <%=f.select :board, options_from_collection_for_select(@demos, :id,  :name), {include_blank: true}, class: "airbo-chosen-select" %>
-        </li>
-      </ul>
-    <%end%>
+<div class="row">
+  <div class="columns small-12">
+    <h1 class="text-left">Create Topic Board</h1>
   </div>
 </div>
 
+<div class="row">
+  <div class="columns small-6">
+    <%= render "form" %>
+    <p>
+    <%=link_to "Reference Boards List", admin_topic_boards_path %>
+    </p>
+  </div>
+</div>
 
-<script>
-$(function(){
- Airbo.Utils.initChosen();
-})
-</script>
