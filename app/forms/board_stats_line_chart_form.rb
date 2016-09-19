@@ -105,8 +105,8 @@
      else
        report = Reporting::ClientUsage.new({demo: @board.id, beg_date: @start_date, end_date: @end_date , interval: report_interval})
        build_db_report_data report
-       report = pull_mixpanel("cumulative")
-       series = mixpanel_series_from(report, "cumulative")
+       report = pull_mixpanel("general")
+       series = mixpanel_series_from(report, "general")
        @sessions_total = series.max
      end
    end
@@ -122,7 +122,7 @@
 
    def mixpanel_series_from report, aggregation
      data = Hash[report.data.sort].values
-     if(aggregation == "cumulative")
+     if(aggregation == "general")
        sum = 0
        data = data.map{|val|sum += val}
      end
