@@ -114,7 +114,7 @@
 
    def life_time_sessions
      report = pull_mixpanel("general", @board.created_at.to_date, Date.today)
-     series = mixpanel_series_from(report, "general")
+     series =  Hash[report.data.sort].values
      series.sum
    end
 
