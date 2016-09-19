@@ -334,6 +334,10 @@ class Demo < ActiveRecord::Base
     end
   end
 
+  def organization_name
+    organization.name
+  end
+
   def print_pending_friendships
     total_friendships = Friendship.where(:user_id => user_ids).count / 2
     number_accepted = Friendship.where(:user_id => user_ids, :state => "accepted").count / 2
