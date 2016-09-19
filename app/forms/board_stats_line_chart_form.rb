@@ -53,7 +53,7 @@
    end
 
    def activity_sessions
-     @new_chart ? "" : @sessions_total
+     @new_chart ? "" : life_time_sessions
    end
 
    def interactions
@@ -98,21 +98,24 @@
    def get_report
      if action_type=="activity_sessions"
        aggregation =  @value_type == "cumulative" ? "general" : "unique"
-       report  = pull_mixpanel(aggregation)
-       series =  mixpanel_series_from report, aggregation
+       report  = pull_mixpanel(aggregation, @start_date, @end_date)
+       series =  mixpanel_series_from report, aggregation 
        @plot_data = series
-       @sessions_total = series.max
      else
        report = Reporting::ClientUsage.new({demo: @board.id, beg_date: @start_date, end_date: @end_date , interval: report_interval})
        build_db_report_data report
-       report = pull_mixpanel("general")
-       series = mixpanel_series_from(report, "general")
-       @sessions_total = series.max
      end
    end
 
-   def pull_mixpanel aggregation
-     Reporting::Mixpanel::UniqueActivitySessionByBoard.new({demo_id:@board.id, type: aggregation, unit: report_interval, from_date: @start_date, to_date: @end_date})
+   def pull_mixpanel aggregation, start_date, end_date
+     Reporting::Mixpanel::UniqueActivitySessionByBoard.new({demo_id:@board.id, type: aggregation, unit: report_interval, from_date: start_date, to_date: end_date})
+   end
+
+
+   def life_time_sessions
+     report = pull_mixpanel("general", @board.created_at, Date.today)
+     series = mixpanel_series_from(report, "general")
+     series.sum
    end
 
    def build_db_report_data report
