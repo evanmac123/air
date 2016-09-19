@@ -24,11 +24,14 @@ Health::Application.routes.draw do
   post "admin/contracts/import" => "admin/contracts#import", :as => "contracts_import"
   post "admin/metrics/historical" => "admin/metrics#historical", :as => "historical_metrics"
 
-  match "myairbo/:id" => "user_onboardings#show"
+  match "myairbo/:id" => "user_onboardings#show", as: "myairbo"
   match "newairbo" => "onboardings#new"
 
   resources :onboardings, only: [:create, :new]
-  resources :user_onboardings, only: [:show]
+  resources :user_onboardings, only: [:show] do
+    resources :tiles, only: [:show]
+  end
+
   get "user_onboardings" => "user_onboardings#create"
 
   resources :tiles, :only => [:index, :show]

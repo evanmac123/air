@@ -20,10 +20,11 @@ class OnboardingInitializer
   end
 
   def initialize_onboarding
+    binding.pry
     org = Organization.where(name: organization_name).first_or_create!
 
     user = org.users.where(email: email).first_or_create! do |u|
-      u.update_attributes!(name: name)
+      u.name = name
     end
 
     copy_reference_board(org, user)
