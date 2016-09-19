@@ -106,16 +106,25 @@ class Demo < ActiveRecord::Base
   def self.list
     demos = Demo.arel_table
     bms = BoardMembership.arel_table
+    orgs = Organization.arel_table
 
-    BoardMembership.select([
-      demos[:id], demos[:name], demos[:dependent_board_id], demos[:is_paid], bms[:user_id].count.as('user_count')
-    ]).joins( bms.join(demos).on( bms[:demo_id].eq(demos[:id])
-    ).join_sources
-    ).order( Arel::Nodes::NamedFunction.new('LOWER', [demos[:name]])
-    ).group(
-      demos[:id], demos[:name], demos[:dependent_board_id], demos[:is_paid]
+    x = Demo.select
+    (
+      [orgs[:name].as("org_name"), demos[:id], demos[:name], demos[:dependent_board_id], 
+       demos[:is_paid], bms[:user_id].count.as('user_count')]
+    ).joins
+    (
+      bms.join(orgs).on( demos[:organization_id].eq(orgs[:id]))
+      .join(bms,Arel::Nodes::OuterJoin).on( bms[:demo_id].eq(demos[:id]))
+      .join_sources
+    ).order(
+      Arel::Nodes::NamedFunction.new('LOWER', [demos[:name]])
     )
+
+    x.group(orgs[:name], demos[:id], demos[:name], demos[:dependent_board_id], 
+            demos[:is_paid])
   end
+
 
    def organization_name
      organization.present? ? organization.name : "Unattached To Any Organization"
