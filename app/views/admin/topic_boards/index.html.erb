@@ -11,18 +11,25 @@
           <th>Topic</th>
           <th>Board</th>
           <th>Is Primary Reference</th>
+          <th>&nbsp;</th>
         </tr>
       </thead>
     <tbody>
-      <%=@topic_boords.each do |topic| %>
+      <%@topic_boards.each do |topic| %>
        <tr class="">
          <td><%=topic.topic_name%></td>
          <td><%=topic.board_name%></td>
          <td><%=topic.is_reference%></td>
-         <td><%=link_to "Edit", edit_admin_topic_board_path(topic)%></td>
+         <td>
+           <%=link_to "Edit", edit_admin_topic_board_path(topic)%>
+           <%=link_to "Delete", admin_topic_boards_path(topic)%>
+         </td>
        </tr>
       <%end%>
     </tbody>
-
+    </table>
+    <div>
+    <%=link_to "New Topic Board", new_admin_topic_board_path%>
+    </div>
   </div>
 </div>
