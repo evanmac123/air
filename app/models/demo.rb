@@ -108,12 +108,10 @@ class Demo < ActiveRecord::Base
     bms = BoardMembership.arel_table
     orgs = Organization.arel_table
 
-    x = Demo.select
-    (
+    x = Demo.select(
       [orgs[:name].as("org_name"), demos[:id], demos[:name], demos[:dependent_board_id], 
        demos[:is_paid], bms[:user_id].count.as('user_count')]
-    ).joins
-    (
+    ).joins(
       bms.join(orgs).on( demos[:organization_id].eq(orgs[:id]))
       .join(bms,Arel::Nodes::OuterJoin).on( bms[:demo_id].eq(demos[:id]))
       .join_sources
