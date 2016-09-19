@@ -114,17 +114,11 @@ var Airbo = {
       return text.length > max ?  text.substring(0, max) + '...' : text;
     },
 
-    chosenConfig: {
-      create_option: function chosenAddOrg(term){
-        var chosen = this;
-        window.location = "/admin/organizations/new";
-      },
-      create_option_text: 'Create a new organization'
-    },
+
 
     initChosen: function(opts){
-      var config = $.extend({}, {selector: ".airbo-chosen-select", options: this.chosenConfig}, opts);
-      $(config.selector).chosen(config.options);
+      var config = $.extend({}, {selector: ".airbo-chosen-select" }, opts);
+      $(config.selector).chosen(config);
     }
   }
 
