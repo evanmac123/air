@@ -16,7 +16,7 @@
    end
 
    def action_types
-     ['activity_sessions','tile_views', 'interactions' ]
+     ['user_activity_sessions','unique_tile_views', 'interactions' ]
    end
 
    def report_interval
@@ -36,7 +36,7 @@
      Time.strptime(str, "%b %d, %Y")
    end
 
-   def tile_views
+   def unique_tile_views
      @new_chart ? "" : @board.tile_viewings.count
    end
 
@@ -52,7 +52,7 @@
      @board.users.claimed.count
    end
 
-   def activity_sessions
+   def user_activity_sessions
      @new_chart ? "" : life_time_sessions
    end
 
@@ -80,7 +80,7 @@
          [:tile_activity, :completions]
        when "activations"
          [:user, :activations]
-       when "activity_sessions"
+       when "user_activity_sessions"
          [:tile_activity, :views]
       end
    end
