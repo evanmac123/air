@@ -27,8 +27,8 @@
   <%= render 'user_onboardings/partials/header' %>
   <main class="main">
     <%= render partial: 'user_onboardings/partials/onboarding_subnav', locals: { onboarding_status: @onboarding_status } if current_user %>
-    <div class="core <%= params[:controller] %>-content">
-      <div class="content <%= params[:controller] %>-content">
+    <div class="core <%= params[:controller] + "-" + params[:action] %>-content">
+      <div class="content <%= params[:controller] + "-" + params[:action] %>-content">
         <%= yield %>
       </div>
     </div>

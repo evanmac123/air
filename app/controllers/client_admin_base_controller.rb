@@ -1,5 +1,5 @@
 class ClientAdminBaseController < ApplicationController
-  must_be_authorized_to :client_admin,   unless: [:explore_token_allowed]
+  must_be_authorized_to :client_admin,   unless: [:explore_token_allowed, :onboarding_auth]
   must_be_authorized_to :explore_family, if:     [:explore_token_allowed]
 
   layout "client_admin_layout"
@@ -10,6 +10,14 @@ class ClientAdminBaseController < ApplicationController
 
   def explore_token_allowed
     false
+  end
+
+  def onboarding_auth
+    current_user.user_onboarding && onboarding_controllers
+  end
+
+  def onboarding_controllers
+    params[:controller] == "client_admin/reports" || params[:controller] == "client_admin/board_stats_grid"
   end
 
   def load_tags

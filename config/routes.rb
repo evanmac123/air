@@ -32,7 +32,7 @@ Health::Application.routes.draw do
     resources :tiles, only: [:show]
   end
 
-  get "user_onboardings" => "user_onboardings#create"
+  get "myairbo/:id/activity" => "user_onboardings#activity", as: :onboarding_activity
 
   resources :tiles, :only => [:index, :show]
   resources :tile, :only => [:show], as: "sharable_tile"
@@ -394,8 +394,7 @@ Health::Application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      resources :boards, only: [:index]
-      get "/boards/validate_name"
+      resources :user_onboardings, only: [:update]
     end
   end
 end

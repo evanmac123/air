@@ -51,7 +51,7 @@ class OnboardingSubnavPresenter
         },
         {
           item_id: "board_activity",
-          link: myairbo_path(user_onboarding, {state: user_onboarding.state, subnav: "activity"}),
+          link: onboarding_activity_path(user_onboarding, {state: user_onboarding.state, subnav: "activity"}),
           icon: "line-chart",
           text: "Activity"
         },
