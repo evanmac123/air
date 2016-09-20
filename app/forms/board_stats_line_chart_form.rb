@@ -84,8 +84,6 @@
          [:tile_activity, :completions]
        when "activations"
          [:user, :activations]
-       when "unique_employee_visits"
-         [:tile_activity, :views]
       end
    end
 
@@ -100,7 +98,7 @@
    #TODO explore more elegant way of pulling mixpanel data along with db data
 
    def get_report
-     if action_type=="activity_sessions"
+     if action_type=="unique_employee_visits"
        aggregation =  @value_type == "cumulative" ? "general" : "unique"
        report  = pull_mixpanel(aggregation, @start_date, @end_date)
        series =  mixpanel_series_from report, aggregation
