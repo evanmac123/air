@@ -7,29 +7,25 @@
         <%= hidden_field_tag :organization, @onboarding_initializer.organization_name %>
         <%= hidden_field_tag :topic_board_id %>
       <%end%>
-    </div>
-  </div>
-</div>
-
-<div class="onboarding-modal">
-  <div data-reveal class='reveal-modal text-center' id='onboarding_new_modal' style="background-color:none;">
-    <div class="text-center">
-      <h2>Welcome to your Airbo</h2>
-      <p></p>
-    </div>
-   <div class="topic-boards">
-    <% @topic_boards.each do |topic_board| %>
-      <div class="topic-board button" data-board-id="<%= topic_board.demo_id %>">
-        <%= topic_board.topic_name %>
+      <div class='text-center onboarding-new'>
+        <div>
+          <h2>Hi. Welcome to your Airbo🙃.</h2>
+          <h2>We all have so much to do. Let's start with just one topic.</h2>
+          <p></p>
+        </div>
+        <div class="topic-boards">
+          <% @topic_boards.each do |topic_board| %>
+          <div class="topic-board button" data-board-id="<%= topic_board.demo_id %>">
+            <%= topic_board.topic_name %>
+          </div>
+          <% end %>
+        </div>
       </div>
-    <% end %>
-    <div>
+    </div>
   </div>
 </div>
 
 <script type="text/javascript">
-  $('#onboarding_new_modal').foundation('reveal', 'open');
-
   $(".topic-board").on("click", function() {
     var self = $(this);
     $("#topic_board_id").val(self.data("board-id"));

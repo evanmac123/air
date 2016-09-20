@@ -14,7 +14,7 @@
     <% if not_completed_tiles.present? %>
       <% not_completed_tiles.each do |tile| %>
         <% present(tile, SingleTilePresenter, { public_slug: params[:public_slug], type: "user", is_ie: browser.ie?, completed: false, user_onboarding: @user_onboarding.id }) do |presenter| %>
-        <%= render 'user_onboardings/partials/single_tile', presenter: presenter %>
+        <%= render 'client_admin/tiles/manage_tiles/single_tile', presenter: presenter %>
       <% end %>
       <% end %>
     <% end %>

@@ -11,9 +11,9 @@
   <%= javascript_include_tag 'for-modern-browsers' unless browser.ie8? %>
   <%= javascript_include_tag 'app-admin' %>
   <%= javascript_include_tag 'app-client-admin' %>
+  <%= stylesheet_link_tag 'app-user-progress' %>
 
   <%= split_stylesheet_link_tag "app-client-admin", :media => "all", :split_count => 3 %>
-  <%= stylesheet_link_tag 'app-user-progress' %>
 
 
   <%= csrf_meta_tag %>
@@ -28,11 +28,8 @@
   <main class="main">
     <%= render partial: 'user_onboardings/partials/onboarding_subnav', locals: { onboarding_status: @onboarding_status } if current_user %>
     <div class="core">
-      <div class="content" style="background-color: #d9dfe9">
+      <div class="content">
         <%= yield %>
-      </div>
-      <div id="footer">
-        <%= render 'shared/copyright' %>
       </div>
     </div>
   </main>

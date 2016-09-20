@@ -4,6 +4,7 @@ class OnboardingsController < ApplicationController
 
   def new
     if should_onboard?
+      sign_out
       @topic_boards = TopicBoard.reference_board_set
       @onboarding_initializer = OnboardingInitializer.new(onboarding_params)
     else

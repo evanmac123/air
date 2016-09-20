@@ -1,7 +1,17 @@
-<header>
-  <div class="row onboarding-top-bar" id="top_bar">
-    <div class="large-2 columns" id="logo">
-      <a class="go_home" href="<%= home_path %>"><%= image_tag 'airbo-onboarding.png' %></a>
+<header class="onboarding-top-bar">
+  <div class="row" id="top_bar">
+    <div class="small-12 columns">
+      <div id="logo">
+        <a href="<%= home_path %>" style="margin-top:18px"><%= image_tag 'airbo-onboarding.png' %></a>
+      </div>
+      <div class="steps-progress-bar" style="margin-top:-55px; margin-bottom:70px;">
+        <ul class="progressbar">
+          <li>Build your Airbo</li>
+          <li>Explore</li>
+          <li>Analyze</li>
+          <li>Share</li>
+        </ul>
+      </div>
     </div>
   </div>
 </header>

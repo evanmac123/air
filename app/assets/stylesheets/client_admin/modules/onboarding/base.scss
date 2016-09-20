@@ -1,3 +1,16 @@
-.onboarding-top-base {
-  background-color: red;
+.onboarding-top-bar {
+  z-index: -2;
+}
+
+.onboarding-container {
+  h2 {
+    color: $text-color;
+  }
+  .onboarding-new {
+    margin-top: 100px;
+  }
+}
+
+.user-onboarding-container {
+  background: red;
 }
