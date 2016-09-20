@@ -16,7 +16,7 @@
    end
 
    def action_types
-     ['user_activity_sessions','unique_tile_views', 'interactions' ]
+     ['unique_employee_visits','unique_tile_views', 'unique_tile_interactions' ]
    end
 
    def report_interval
@@ -49,19 +49,23 @@
    end
 
    def users_joined
-     @board.users.claimed.count
+     @claimed ||= @board.users.claimed.count
    end
 
-   def user_activity_sessions
+   def unique_employee_visits
      @new_chart ? "" : life_time_sessions
    end
 
-   def interactions
+   def unique_tile_interactions
      @new_chart ? "" : @board.tile_completions.count
    end
 
    def tiles_posted
       @board.tiles.active.count
+   end
+
+   def user_activation_pct
+     (100.00 * users_joined/@board.users.count).round(0)
    end
 
    private
@@ -76,11 +80,11 @@
       case action_type
        when "unique_tile_views"
          [:tile_activity, :views]
-       when "interactions"
+       when "unique_tile_interactions"
          [:tile_activity, :completions]
        when "activations"
          [:user, :activations]
-       when "user_activity_sessions"
+       when "unique_employee_visits"
          [:tile_activity, :views]
       end
    end
