@@ -6,7 +6,7 @@ class TopicBoard < ActiveRecord::Base
   scope :reference_board_set, ->{where is_reference: true}
 
   validates :topic, :board, presence: true
-  validates :is_reference, uniqueness:  {scope: :topic_id}
+  validate :one_reference_board_per_topic
 
   def topic_name
     topic.name
@@ -19,4 +19,13 @@ class TopicBoard < ActiveRecord::Base
   def tiles
     board.active_tiles
   end
+
+  private
+
+  def one_reference_board_per_topic
+    if TopicBoard.exists? ["topic_id = ? AND  demo_id != ?", topic_id, demo_id]
+      errors.add(:base, "There is already a reference board selected for the '#{topic_name}' topic")
+    end
+  end
+
 end
