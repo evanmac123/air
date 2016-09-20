@@ -3,43 +3,31 @@ require 'acceptance/acceptance_helper'
 feature 'Client admin sees basic stats on dashboard' do
   context "with a small number of users" do
     before do
-      demo = signin_as_client_admin.demo
-      2.times {FactoryGirl.create :user, :claimed, demo: demo}
-      5.times {FactoryGirl.create :user, :claimed, :with_phone_number, demo: demo}
-      7.times {FactoryGirl.create :user, :claimed, :with_game_referrer, demo: demo}
-      10.times {FactoryGirl.create :user, demo: demo}
-      2.times {FactoryGirl.create :site_admin, demo: demo}
-      FactoryGirl.create :tile, demo: demo
-
-      # That makes 26 total, 14 claimed, 2 site admin(we don't count them)
+      @demo = signin_as_client_admin.demo
+      10.times {FactoryGirl.create :user, :claimed, demo: @demo}
+      5.times { FactoryGirl.create :tile, demo: @demo }
     end
 
-    it "should include the number of claimed users" do
+    it "should include the number of users for the board" do
       visit client_admin_path
-      expect_content "Participants 14"
+      within "div.total-users" do
+        expect_content "10 users joined"
+      end
     end
 
-    it "should include the percentage of users with mobile phones" do
+    it "should include the number of tiles posted for the board" do
       visit client_admin_path
-      expect_content "Added Mobile Numbers 36%"
+      within "div.total-tiles" do
+        expect_content "5 tiles posted"
+      end
     end
 
-    it "should include the percentage of users who credited a game referrer" do
+    it "should include the number of actions taken for the board" do
+      7.times { User.first.acts.create(demo_id: @demo.id) }
       visit client_admin_path
-      expect_content "Recruited By Peer 50%"
-    end
-  end
-
-  context "when there are 1000 or more claimed users" do
-    before do
-      FactoryGirl.create :tile, demo: signin_as_client_admin.demo
-      Demo.any_instance.stubs(:claimed_user_count).returns(123456)
-    end
-
-    it "should display the number of claimed users in a prettier way" do
-#      signin_as_client_admin.demo
-      visit client_admin_path
-      expect_content "Participants 123,456" # notice the comma
+      within "div.total-actions" do
+        expect_content "7 actions taken"
+      end
     end
   end
 end
