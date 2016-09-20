@@ -155,8 +155,7 @@ JS
           sign = "+";
         }
 
-
-        return "<div style='padding-top:3px;'>" + this.y +
+        return "<div style='padding-top:3px;'>" + Highcharts.numberFormat(this.y, 0, '', ',') +
                  " <span style='color:#0489d1;'>" + sign + percentInc + "%</span>" +
                "</div>";
       }
