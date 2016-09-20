@@ -74,7 +74,7 @@
 
    def series_key
       case action_type
-       when "tile_views"
+       when "unique_tile_views"
          [:tile_activity, :views]
        when "interactions"
          [:tile_activity, :completions]
