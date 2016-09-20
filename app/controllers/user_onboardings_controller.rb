@@ -8,7 +8,6 @@ class UserOnboardingsController < ApplicationController
     sign_in(@user_onboarding.user)
 
     @tiles = Tile.displayable_categorized_to_user(current_user, 10)
-
   end
 
   def update
