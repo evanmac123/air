@@ -8,11 +8,6 @@
       <% end %>
 
       <%= text %>
-      <% if text == "Share" %>
-        <span>
-          <%= @tiles_to_be_sent || tiles_to_be_sent(current_user) %>
-        </span>
-      <% end %>
     <% end %>
   </li>
 <% else %>

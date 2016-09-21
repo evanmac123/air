@@ -1,6 +1,5 @@
 class Api::V1::UserOnboardingsController < ApplicationController
   def update
-    binding.pry
     @user_onboarding = UserOnboarding.find(params[:id])
     @user_onboarding.assign_attributes(user_onboarding_params)
 

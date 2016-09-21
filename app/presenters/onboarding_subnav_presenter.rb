@@ -39,32 +39,23 @@ class OnboardingSubnavPresenter
   end
 
   def subnav_elements
-    nav = []
-
-    nav.tap do |els|
-      els.concat(
-        [{
-          item_id: "my_airbo_nav",
-          link: myairbo_path(user_onboarding, {state: user_onboarding.state, subnav: "myairbo"}),
-          image: "airbo_logo_lightblue_square.png",
-          text: "My Airbo"
-        }])
-
-      els.concat(
-        [{
-          item_id: "board_activity",
-          link: onboarding_activity_path(user_onboarding, {state: user_onboarding.state, subnav: "activity"}),
-          icon: "line-chart",
-          text: "Activity"
-        }]) if @user_onboarding.state != "first"
-
-      els.concat(
-        [{
-          item_id: "share_tiles",
-          link: myairbo_path(user_onboarding, {state: user_onboarding.state, subnav: "share"}),
-          icon: "share-alt",
-          text: "Share"
-        }]) if @user_onboarding.state == "third"
-    end
+    [{
+      item_id: "my_airbo_nav",
+      link: myairbo_path(user_onboarding, {state: user_onboarding.state, subnav: "myairbo"}),
+      image: "airbo_logo_lightblue_square.png",
+      text: "My Airbo"
+    },
+    {
+      item_id: "board_activity",
+      link: onboarding_activity_path(user_onboarding, {state: user_onboarding.state, subnav: "activity"}),
+      icon: "line-chart",
+      text: "Activity"
+    },
+    {
+      item_id: "share_airbo",
+      link: onboarding_share_path(user_onboarding, {state: user_onboarding.state, subnav: "share_airbo"}),
+      icon: "group",
+      text: "Share"
+    },]
   end
 end

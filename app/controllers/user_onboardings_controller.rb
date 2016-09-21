@@ -32,6 +32,16 @@ class UserOnboardingsController < ApplicationController
     render template: "client_admin/show"
   end
 
+  def share
+    @user_onboarding = UserOnboarding.includes([:user, :onboarding]).find(params[:id])
+  end
+
+  def create
+    @user_onboarding = UserOnboarding.find(params[:id])
+    @user_onboarding.update_state
+    redirect_to myairbo_path(@user_onboarding)
+  end
+
   private
     def user_onboarding_params
       {

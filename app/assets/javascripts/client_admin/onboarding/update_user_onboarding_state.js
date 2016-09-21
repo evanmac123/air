@@ -10,6 +10,8 @@ Airbo.UserOnboardingUpdate = (function() {
         contentType: 'application/json', // format of request payload
         dataType: 'json', // format of the response
         success: function(res) {
+          $(".progressbar li:nth-child(2)").addClass("active");
+          $("#board_activity").show();
           return res;
         }
       });
