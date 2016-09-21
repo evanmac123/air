@@ -7,17 +7,17 @@
             <%=  number_with_delimiter(@chart_form.users_joined, :delimiter => ',') %>
           </h1>
           <span class="header-unit">
-            Users Joined
+            Employees Activated
           </span>
         </div>
       </div>
       <div class="small-4 columns centered">
         <div class="activity-header total-tiles">
           <h1 class="header-number">
-            <%= @chart_form.user_activation_pct%>
+            <%= "#{@chart_form.user_activation_pct}%"%>
           </h1>
           <span class="header-unit">
-            User Activation Percent
+            Population Activated
           </span>
         </div>
       </div>
