@@ -12,7 +12,6 @@ feature "Client admin creates tiles", js: true do
       click_link "Add New Tile"
       fill_in_tile_form_entries edit_text: "baz", points: "10"
       click_create_button
-
       page.find(".viewer")
 
       within ".viewer" do
@@ -23,7 +22,7 @@ feature "Client admin creates tiles", js: true do
       end
 
       expect(page).to have_selector(".tile_multiple_choice_answer a.right_multiple_choice_answer", text: "Youbaz")
-      expect(page).to have_selector("#tile_point_value", text: "18")
+      expect(page).to have_selector("#tile_point_value", text: "10")
     end
 
   end
@@ -55,9 +54,8 @@ feature "Client admin creates tiles", js: true do
     scenario  "edit all tile fields" do
 
       fill_in_tile_form_entries edit_text: edit_text, points: points
+      select_correct_answer 2 
       click_create_button
-
-      page.find(".viewer")
 
       within ".viewer" do
         expect(page).to  have_content "by Society#{edit_text}"
@@ -65,7 +63,6 @@ feature "Client admin creates tiles", js: true do
         expect(page).to  have_content "Ten pounds of cheese. Yes? Or no?#{edit_text}"
         expect(page).to  have_content "Who rules?#{edit_text}"
       end
-
       expect(page).to have_selector("a.right_multiple_choice_answer", text: "Hipster#{edit_text}")
       expect(page).to have_selector("#tile_point_value", text: points)
     end
@@ -89,7 +86,8 @@ feature "Client admin creates tiles", js: true do
 
     fill_in_image_credit "by Society#{edit_text}"
     page.find("#tile_builder_form_headline").set("Ten pounds of cheese#{edit_text}")
-    page.find("#tile_supporting_content").native.send_key("Ten pounds of cheese. Yes? Or no?#{edit_text}")
+    el = page.find(:css, "#supporting_content_editor", visible: false)
+    el.set("Ten pounds of cheese. Yes? Or no?#{edit_text}")
     fill_in_question "Who rules?#{edit_text}"
     2.times {click_add_answer}
     fill_in_answer_field 0, "Me#{edit_text}"
