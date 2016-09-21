@@ -16,7 +16,7 @@
    end
 
    def action_types
-     ['unique_employee_visits','unique_tile_views', 'unique_tile_interactions' ]
+     ['total_employee_visits','unique_tile_views', 'unique_tile_interactions' ]
    end
 
    def report_interval
@@ -52,7 +52,7 @@
      @claimed ||= @board.users.claimed.count
    end
 
-   def unique_employee_visits
+   def total_employee_visits
      @new_chart ? "" : life_time_sessions
    end
 
@@ -98,7 +98,7 @@
    #TODO explore more elegant way of pulling mixpanel data along with db data
 
    def get_report
-     if action_type=="unique_employee_visits"
+     if action_type=="total_employee_visits"
        aggregation =  @value_type == "cumulative" ? "general" : "unique"
        report  = pull_mixpanel(aggregation, @start_date, @end_date)
        series =  mixpanel_series_from report, aggregation
