@@ -7,7 +7,7 @@
    end
 
    def plot_data
-     OpenStruct.new(:values => @plot_data, :max_value => @plot_data.max)
+     OpenStruct.new(:values => @plot_data.map{|x|x.round(2)}, :max_value => @plot_data.max)
    end
 
 
@@ -16,7 +16,7 @@
    end
 
    def action_types
-     ['activity_sessions','tile_views', 'interactions' ]
+     ['total_employee_visits','unique_tile_views', 'unique_tile_interactions' ]
    end
 
    def report_interval
@@ -36,7 +36,7 @@
      Time.strptime(str, "%b %d, %Y")
    end
 
-   def tile_views
+   def unique_tile_views
      @new_chart ? "" : @board.tile_viewings.count
    end
 
@@ -45,23 +45,27 @@
    end
 
    def actions_taken
-     @board.acts.count
+     @board.tile_completions.count + @board.tile_viewings.count
    end
 
    def users_joined
-     @board.users.claimed.count
+     @claimed ||= @board.users.claimed.count
    end
 
-   def activity_sessions
-     @new_chart ? "" : @sessions_total
+   def total_employee_visits
+     @new_chart ? "" : life_time_sessions
    end
 
-   def interactions
+   def unique_tile_interactions
      @new_chart ? "" : @board.tile_completions.count
    end
 
    def tiles_posted
       @board.tiles.active.count
+   end
+
+   def user_activation_pct
+     (100.00 * users_joined/@board.users.count).round(0)
    end
 
    private
@@ -74,14 +78,12 @@
 
    def series_key
       case action_type
-       when "tile_views"
+       when "unique_tile_views"
          [:tile_activity, :views]
-       when "interactions"
+       when "unique_tile_interactions"
          [:tile_activity, :completions]
        when "activations"
          [:user, :activations]
-       when "activity_sessions"
-         [:tile_activity, :views]
       end
    end
 
@@ -96,24 +98,26 @@
    #TODO explore more elegant way of pulling mixpanel data along with db data
 
    def get_report
-     if action_type=="activity_sessions"
+     if action_type=="total_employee_visits"
        aggregation =  @value_type == "cumulative" ? "general" : "unique"
-       report  = pull_mixpanel(aggregation)
-       #build_mixpanel_report_data report
-       series =  mixpanel_series_from report
+       report  = pull_mixpanel(aggregation, @start_date, @end_date)
+       series =  mixpanel_series_from report, aggregation
        @plot_data = series
-       @sessions_total = series.max
      else
        report = Reporting::ClientUsage.new({demo: @board.id, beg_date: @start_date, end_date: @end_date , interval: report_interval})
        build_db_report_data report
-       report = pull_mixpanel("cumulative")
-       series = mixpanel_series_from(report)
-       @sessions_total = series.max
      end
    end
 
-   def pull_mixpanel aggregation
-     Reporting::Mixpanel::UniqueActivitySessionByBoard.new({demo_id:@board.id, type: aggregation, unit: report_interval, from_date: @start_date, to_date: @end_date})
+   def pull_mixpanel aggregation, start_date, end_date
+     Reporting::Mixpanel::UniqueActivitySessionByBoard.new({demo_id:@board.id, type: aggregation, unit: report_interval, from_date: start_date, to_date: end_date})
+   end
+
+
+   def life_time_sessions
+     report = pull_mixpanel("general", @board.created_at.to_date, Date.today)
+     series =  Hash[report.data.sort].values
+     series.sum
    end
 
    def build_db_report_data report
@@ -121,9 +125,13 @@
      @plot_data ||=  report.series_for_key(series_key, aggregation)
    end
 
-   def mixpanel_series_from report
-     sum = 0
-     (Hash[report.data.sort].values).map{|val|sum += val}
+   def mixpanel_series_from report, aggregation
+     data = Hash[report.data.sort].values
+     if(aggregation == "general")
+       sum = 0
+       data = data.map{|val|sum += val}
+     end
+     data
    end
 
 

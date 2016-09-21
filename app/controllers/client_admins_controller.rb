@@ -3,7 +3,7 @@ class ClientAdminsController < ClientAdminBaseController
   def show
     @board = current_user.demo
     @chart_form = BoardStatsLineChartForm.new @board, {action_type: params[:action_type]}
-    @chart = BoardStatsChart.new(@chart_form.period, @chart_form.plot_data).draw
+    @chart = BoardStatsChart.new(@chart_form.period, @chart_form.plot_data, "#fff").draw
 
     grid_builder = BoardStatsGrid.new(@board)
     @board_stats_grid = initialize_grid(*grid_builder.args)

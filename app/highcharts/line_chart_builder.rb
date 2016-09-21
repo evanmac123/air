@@ -1,9 +1,10 @@
 class LineChartBuilder
   attr_reader :period, :plot_data
 
-  def initialize period, data
+  def initialize(period, data, background_color = "#fafafa")
     @period = period
     @plot_data = data
+    @background_color = background_color
   end
 
   def draw
@@ -22,7 +23,7 @@ class LineChartBuilder
   protected
     def chart_params
       {
-        backgroundColor: "#fafafa",
+        backgroundColor: @background_color,
         events: {
           load: load_function.js_code
         }
@@ -140,7 +141,7 @@ JS
       function() {
         prevY = this.series.yData[this.index - 1];
         if(prevY){
-          percentInc = 100.0 * (this.y - prevY) / prevY;
+          percentInc = Math.round(100.0 * (this.y - prevY) / prevY);
         } else {
           if(this.y == 0) {
             percentInc = 0;
@@ -154,8 +155,7 @@ JS
           sign = "+";
         }
 
-
-        return "<div style='padding-top:3px;'>" + this.y +
+        return "<div style='padding-top:3px;'>" + Highcharts.numberFormat(this.y, 0, '', ',') +
                  " <span style='color:#0489d1;'>" + sign + percentInc + "%</span>" +
                "</div>";
       }

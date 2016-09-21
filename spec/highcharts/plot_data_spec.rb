@@ -35,13 +35,13 @@ describe PlotData do
           "2015-09-18 16:00:00"=>0, "2015-09-18 17:00:00"=>0, "2015-09-18 18:00:00"=>0, "2015-09-18 19:00:00"=>0,
           "2015-09-18 20:00:00"=>0, "2015-09-18 21:00:00"=>0, "2015-09-18 22:00:00"=>0, "2015-09-18 23:00:00"=>10
         }
-      plot_data.data.should == [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 10]
+      plot_data.values.should == [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 10]
     end
 
     it "should fill actions for value_type: cumulative" do
       @value_type = "cumulative"
       plot_data = PlotData.new @period, @action_query, @value_type
-      plot_data.data.should == [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 9, 19]
+      plot_data.values.should == [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 9, 19]
     end
   end
 
@@ -78,13 +78,13 @@ describe PlotData do
           "2015-09-17 00:00:00"=>0,
           "2015-09-18 00:00:00"=>10
         }
-      plot_data.data.should == [3, 5, 1, 0, 10]
+      plot_data.values.should == [3, 5, 1, 0, 10]
     end
 
     it "should fill actions for value_type: cumulative" do
       @value_type = "cumulative"
       plot_data = PlotData.new @period, @action_query, @value_type
-      plot_data.data.should == [3, 8, 9, 9, 19]
+      plot_data.values.should == [3, 8, 9, 9, 19]
     end
   end
 
@@ -120,13 +120,13 @@ describe PlotData do
           "2015-09-14 00:00:00"=>8,
           "2015-09-21 00:00:00"=>8
         }
-      plot_data.data.should == [3, 8, 8]
+      plot_data.values.should == [3, 8, 8]
     end
 
     it "should fill actions for value_type: cumulative" do
       @value_type = "cumulative"
       plot_data = PlotData.new @period, @action_query, @value_type
-      plot_data.data.should == [3, 11, 19]
+      plot_data.values.should == [3, 11, 19]
     end
   end
 
@@ -161,13 +161,13 @@ describe PlotData do
         "2015-09-01 00:00:00"=>1,
         "2015-10-01 00:00:00"=>10
       }
-      plot_data.data.should == [8, 1, 10]
+      plot_data.values.should == [8, 1, 10]
     end
 
     it "should fill actions for value_type: cumulative" do
       @value_type = "cumulative"
       plot_data = PlotData.new @period, @action_query, @value_type
-      plot_data.data.should == [8, 9, 19]
+      plot_data.values.should == [8, 9, 19]
     end
   end
 end

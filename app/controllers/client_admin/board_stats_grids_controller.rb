@@ -5,7 +5,7 @@ class ClientAdmin::BoardStatsGridsController < ClientAdminBaseController
     @board_stats_grid = initialize_grid(*grid_builder.args)
     @current_grid = grid_builder.query_type
 
-    export_grid_if_requested('board_stats_grid' => 'grid') do
+    export_grid_if_requested('board_stats_grid' => 'client_admin/activity/activity_grid') do
       render json: { grid: grid_to_string, success: true }
     end
   end
