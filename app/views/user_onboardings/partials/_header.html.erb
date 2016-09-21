@@ -5,12 +5,42 @@
         <a href="<%= home_path %>" style="margin-top:18px"><%= image_tag 'airbo-onboarding.png' %></a>
       </div>
       <div class="steps-progress-bar" style="margin-top:-55px; margin-bottom:16px;float:right">
-        <ul class="progressbar">
-          <li>Build your Airbo</li>
-          <li>Explore</li>
-          <li>Analyze</li>
-          <li>Share</li>
-        </ul>
+        <% if @user_onboarding.state == "first" %>
+          <ul class="progressbar">
+            <li class="active">Build your Airbo</li>
+            <li>Explore</li>
+            <li>Analyze</li>
+            <li>Share</li>
+          </ul>
+        <% elsif @user_onboarding.state == "second" %>
+          <ul class="progressbar">
+            <li class="active">Build your Airbo</li>
+            <li class="active">Explore</li>
+            <li>Analyze</li>
+            <li>Share</li>
+          </ul>
+        <% elsif @user_onboarding.state == "third" %>
+          <ul class="progressbar">
+            <li class="active">Build your Airbo</li>
+            <li class="active">Explore</li>
+            <li class="active">Analyze</li>
+            <li>Share</li>
+          </ul>
+        <% elsif @user_onboarding.state == "fourth" %>
+          <ul class="progressbar">
+            <li class="active">Build your Airbo</li>
+            <li class="active">Explore</li>
+            <li class="active">Analyze</li>
+            <li class="active">Share</li>
+          </ul>
+        <% else %>
+          <ul class="progressbar">
+            <li>Build your Airbo</li>
+            <li>Explore</li>
+            <li>Analyze</li>
+            <li>Share</li>
+          </ul>
+        <% end %>
       </div>
     </div>
   </div>
