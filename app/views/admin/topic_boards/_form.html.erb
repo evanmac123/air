@@ -18,7 +18,7 @@
     </ul>
     <p>
     <%=f.submit "Save",class: "button right" %>
-    <%=link_to "Edit", edit_admin_topic_board_path(@topic_board), class:'button outlined'%>
+    <%=link_to "Edit", edit_admin_topic_board_path(@topic_board), class:'button outlined' if @topic_board.persisted?%>
     </p>
   <%end%>
 </div>
