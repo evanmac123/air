@@ -87,6 +87,7 @@ class ScheduleDigestAndFollowUp
       custom_subject || "New Tiles"
     end
 
+    #TODO this should be done in the before_validation  filter
     def follow_up_digest_subject
       custom_subject || "Your New Tiles"
     end

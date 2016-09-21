@@ -42,8 +42,6 @@ module Reporting
         {
           from_date: date_format(@from), 
           to_date:  date_format(@to),
-          unit: "week",
-          type: "general"
         }
       end
 

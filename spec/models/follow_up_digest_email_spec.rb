@@ -77,7 +77,6 @@ describe FollowUpDigestEmail do
       describe "#recipients" do
         it "list only claimed non muted users" do
           expect(@fu.recipients).to match_array [@user4.id, @user5.id]
-          expect(@fu.user_ids_legacy).to match_array [@user4.id, @user5.id]
         end
       end
     end
@@ -92,7 +91,6 @@ describe FollowUpDigestEmail do
       describe "#recipients" do
         it "mails all non muted recipients" do
           expect(@fu.recipients).to match_array [@user4.id, @user5.id, @user6.id]
-          expect(@fu.user_ids_legacy).to match_array [@user4.id, @user5.id, @user6.id]
         end 
       end
 
