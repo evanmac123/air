@@ -9,9 +9,12 @@ feature "Client admin creates tiles", js: true do
       visit client_admin_tiles_path(as: client_admin)
     end
     scenario "Creates new tile", js: true do
-      page.find("#add_new_tile").trigger("click")
-      fill_in_tile_form_entries
+      click_link "Add New Tile"
+      fill_in_tile_form_entries edit_text: "baz", points: "10"
       click_create_button
+
+      page.find(".viewer")
+
       within ".viewer" do
         expect(page).to  have_content "by Society"
         expect(page).to  have_content "Ten pounds of cheese"
@@ -19,7 +22,7 @@ feature "Client admin creates tiles", js: true do
         expect(page).to  have_content "Who rules?"
       end
 
-      expect(page).to have_selector(".tile_multiple_choice_answer a.right_multiple_choice_answer", text: "Hipster")
+      expect(page).to have_selector(".tile_multiple_choice_answer a.right_multiple_choice_answer", text: "Youbaz")
       expect(page).to have_selector("#tile_point_value", text: "18")
     end
 
@@ -54,6 +57,7 @@ feature "Client admin creates tiles", js: true do
       fill_in_tile_form_entries edit_text: edit_text, points: points
       click_create_button
 
+      page.find(".viewer")
 
       within ".viewer" do
         expect(page).to  have_content "by Society#{edit_text}"
@@ -69,8 +73,7 @@ feature "Client admin creates tiles", js: true do
 
 
   def click_create_button
-
-    page.find("#new_tile_builder_form .submit_tile_form").trigger("click")
+    page.find("#new_tile_builder_form .submit_tile_form").click
   end
 
   def fill_in_tile_form_entries options = {}
@@ -92,7 +95,7 @@ feature "Client admin creates tiles", js: true do
     fill_in_answer_field 0, "Me#{edit_text}"
     fill_in_answer_field 1, "You#{edit_text}"
     fill_in_answer_field 2, "Hipster#{edit_text}"
-    click_answer.times { select_correct_answer 2 } if question_type == Tile::QUIZ
+    click_answer.times { select_correct_answer 1 } if question_type == Tile::QUIZ
     fill_in_points points
   end
 
