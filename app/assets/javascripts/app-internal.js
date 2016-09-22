@@ -24,7 +24,6 @@
 //= require jquery.tooltipster.min
 //= require ./external/schedule_demo
 //= require ./external/request_form
-//= require_tree ./vendor_customization
 $(document).ready(function() {
   $('.settings-edit').foundation();
 
