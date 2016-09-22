@@ -1,7 +1,4 @@
 //= require mobvious-rails
-//= require sweetalert/sweetalert.min
-//= require  medium-editor.min
-//= require chosen.jquery.min
 //= require_tree ./client_admin
 //= require ./ajax-response-handler
 //= require_tree ../../../vendor/assets/javascripts/external/
