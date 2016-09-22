@@ -23,10 +23,10 @@
   <%= render 'shared/inspectlet' %>
   <%= content_for :head%>
 </head>
-<body class="<%= body_class %> onboarding-body client_admin_main <%= @user_onboarding.try(:state)%>-user-onboarding-state" data-id="<%= @user_onboarding.try(:id) %>" data-state="<%= @user_onboarding.try(:state)%>" style="-webkit-overflow-scrolling: touch; overflow:visible; ">
+<body class="<%= body_class %> onboarding-body client_admin_main <%= @user_onboarding.state %>-user-onboarding-state" data-id="<%= @user_onboarding.try(:id) %>" data-state="<%= @user_onboarding.state %>" style="-webkit-overflow-scrolling: touch; overflow:visible; ">
   <%= render 'user_onboardings/partials/header' %>
   <main class="main">
-    <%= render partial: 'user_onboardings/partials/onboarding_subnav', locals: { onboarding_status: @onboarding_status } if current_user %>
+    <%= render partial: 'user_onboardings/partials/onboarding_subnav', locals: { onboarding_status: @onboarding_status } if @user_onboarding.state == 3 %>
     <div class="core <%= params[:controller] + "-" + params[:action] %>-content">
       <div class="content <%= params[:controller] + "-" + params[:action] %>-content">
         <%= yield %>

@@ -14,3 +14,45 @@
 .user_onboardings-show-content {
   background: $tile-wall-bg;
 }
+
+.onboarding-progress {
+  background: $ca-subnav-color;
+  text-align: center;
+  color: #fff;
+  height: 55px;
+  .progress .meter {
+      background: #FFB748;
+      height: 100%;
+      display: block;
+  }
+  .onboarding-progress-bar {
+    background-color: $off-white;
+    height: 1.1em;
+    border: 0 solid $off-white;
+    padding: 0;
+    margin-bottom: 0;
+  }
+  .onboarding-button {
+    font-size: 13px;
+    padding: 7px 12px;
+    &:hover {
+      color: #FFB748;
+    }
+   }
+}
+
+.onboarding-progress-content {
+  padding-top: 20px;
+}
+
+
+.progress-bar-label {
+  font-size: 13px;
+  padding-top: 2px;
+  color: $gray-1;
+}
+
+.expand-tasks {
+  margin-top: -7px;
+  font-size: 3px;
+}

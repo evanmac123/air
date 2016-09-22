@@ -4,16 +4,10 @@ class UserOnboarding < ActiveRecord::Base
   attr_accessible :user, :onboarding, :state
   validates_presence_of :user_id
   validates_presence_of :onboarding_id
-  after_create :set_state
-
-  def set_state
-    self.update_attributes(state: "first")
-  end
 
   def update_state
-    unless states[-1] == self.state
-      new_state = states[states.index(state) + 1]
-      self.update_attributes(state: new_state)
+    unless state == final_state
+      self.update_attributes(state: state + 1)
     end
   end
 
@@ -21,9 +15,11 @@ class UserOnboarding < ActiveRecord::Base
     onboarding.board
   end
 
-  private
+  def final_state
+    4
+  end
 
-    def states
-      ["first", "second", "third", "fourth"]
-    end
+  def percent_complete
+    (state.to_f / final_state) * 100
+  end
 end
