@@ -1,7 +1,7 @@
 <div class="progress-modal">
   <div data-reveal class='onboarding-progress-modal medium' id='progress-modal' style="background-color:none;">
       <span class="progress-modal-header">Get started 🎉</span>
-      <div class="button outlined blue-alt" style="float:right">
+      <div class="button outlined blue-alt close-reveal-modal" style="float:right">
         Collapse <i class="expand-down fa fa-caret-up" aria-hidden="true"></i>
       </div>
       <div class="progress-steps">
@@ -23,3 +23,10 @@
       </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  $(".close-reveal-modal").on("click", function(){
+    debugger
+    $(".progress-modal").foundation('reveal', 'close');
+  });
+</script>
