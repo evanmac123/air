@@ -16,7 +16,7 @@ class UserOnboarding < ActiveRecord::Base
   end
 
   def final_state
-    4
+    5
   end
 
   def percent_complete
