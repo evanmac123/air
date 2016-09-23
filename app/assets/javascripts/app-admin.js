@@ -30,6 +30,7 @@
 //= require ./admin/demo_filter
 //= require ./admin/lead_contact
 //= require ./admin/lead_contact_validations
+//= require ./admin/cheer
 //= require ../../../vendor/assets/javascripts/chosen.jquery.min
 //= require ../../../vendor/assets/javascripts/external/modernizr
 
