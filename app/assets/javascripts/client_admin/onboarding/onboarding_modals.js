@@ -3,7 +3,10 @@ var Airbo = window.Airbo || {};
 Airbo.OnboardingModals = (function(){
 
   function init() {
-    $('#progress-modal').foundation('reveal', 'open');
+    $(".open-progress-modal").on("click", function() {
+      $('#progress-modal').foundation('reveal', 'open');
+    });
+    $('#progress-modal').foundation('reveal', 'close');
   }
 
   return {
