@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160916212020) do
+ActiveRecord::Schema.define(:version => 20160923203306) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -365,6 +365,14 @@ ActiveRecord::Schema.define(:version => 20160916212020) do
     t.string   "size"
     t.string   "company"
     t.string   "source"
+  end
+
+  create_table "experiments", :force => true do |t|
+    t.string   "name"
+    t.integer  "counter",    :default => 0
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+    t.boolean  "active",     :default => true
   end
 
   create_table "follow_up_digest_emails", :force => true do |t|
@@ -1054,9 +1062,9 @@ ActiveRecord::Schema.define(:version => 20160916212020) do
   create_table "user_onboardings", :force => true do |t|
     t.integer  "user_id"
     t.integer  "onboarding_id"
-    t.string   "state"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.integer  "state",         :default => 2
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
   end
 
   add_index "user_onboardings", ["onboarding_id"], :name => "index_user_onboardings_on_onboarding_id"
