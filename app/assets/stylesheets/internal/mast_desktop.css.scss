@@ -1,7 +1,4 @@
-// @import "mixins/placeholder_color";
-// @import "vendor/foundation/_variables";
-// @import "vendor/foundation/_global";
-// @import "vendor/foundation/_switch";
+
 @import "mixins/green_paddle_switch";
 
 /* -- Top bar / header -- */
@@ -379,12 +376,6 @@ header {
   #open-intercom {
     float: right;
   }
-}
-
-@mixin standard_reveal_dimensions {
-  width: 40%;
-  left: 75%;
-  z-index: 5000;
 }
 
 body.explores {

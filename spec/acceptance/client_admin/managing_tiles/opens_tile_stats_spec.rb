@@ -1,5 +1,6 @@
 require 'acceptance/acceptance_helper'
-include WaitForAjax
+#include WaitForAjax
+
 
 feature "Client admin opens tile stats", js: true, type: :feature do
 
@@ -71,6 +72,9 @@ feature "Client admin opens tile stats", js: true, type: :feature do
                                   question: "Doy you like stats page?",
                                   multiple_choice_answers: ["Yes", "No", "A V8 Buick"]
     end
+
+    #TODO Make sure these assertions first_name == ... are the best way to do
+    #these tests.
 
     context "sorting in user table" do
       before do
@@ -219,6 +223,8 @@ feature "Client admin opens tile stats", js: true, type: :feature do
       it "should filter by 'Yes' answer" do
         within "#tile_stats_grid" do
           page.first("td.answer_column", text: "Yes").click
+          expect(page).to have_no_css("td.answer_column", text: "No")
+          expect(page).to have_no_css("td.answer_column", text: "A V8 Buick")
           all_names.should == ["user0", "user3", "user6"]
         end
       end
@@ -226,6 +232,8 @@ feature "Client admin opens tile stats", js: true, type: :feature do
       it "should filter by 'No' answer" do
         within "#tile_stats_grid" do
           page.first("td.answer_column", text: "No").click
+          expect(page).to have_no_css("td.answer_column", text: "Yes")
+          expect(page).to have_no_css("td.answer_column", text: "A V8 Buick")
           all_names.should == ["user1", "user4", "user7"]
         end
       end

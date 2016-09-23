@@ -2,19 +2,23 @@ require "spec_helper"
 
 describe CssSplitter::Splitter do
   context "every big stylesheet should be splitted for ie9" do
-    [
-      "app-client-admin",
-      "app-internal",
-      "app-user-progress"
-    ].each do |name|
-      it "#{name}" do
-        file = get_file name
-        sel_number = count_selectors(file)
-        stylesheets_number = sel_number / max_selectors + 1
-        # p name.to_s + " " + sel_number.to_s + " " + stylesheets_number.to_s
-        check_stylesheets_num name, stylesheets_number
-      end
+    it "app-client-admin" do
+      name = "app-client-admin"
+      file = get_file  name
+      sel_number = count_selectors(file)
+      stylesheets_number = sel_number / max_selectors + 1
+      # p name.to_s + " " + sel_number.to_s + " " + stylesheets_number.to_s
+      check_stylesheets_num name, stylesheets_number
     end
+
+    it "app-internal" do
+      name = "app-internal"
+      file = get_file name 
+      sel_number = count_selectors(file)
+      stylesheets_number = sel_number / max_selectors + 1
+      check_stylesheets_num name, stylesheets_number
+    end
+
   end
 
 

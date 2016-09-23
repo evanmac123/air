@@ -15,10 +15,10 @@ feature 'Client admin sees basic stats on dashboard' do
       #TODO complete this test spec with more assertions about the page
       visit client_admin_path
       within ".total-users" do
-        expect_content "7 Users joined"
+        expect_content "7 Employees Activated"
       end
 
-      within ".total-tiles" do
+      within ".tiles-posted" do
         expect_content "1 Tiles posted"
       end
     end

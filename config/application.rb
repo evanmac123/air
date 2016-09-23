@@ -27,7 +27,7 @@ module Health
     config.assets.initialize_on_precompile = false
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '0.0.3'
-
+    config.assets.paths += Dir["#{Rails.root}/vendor/assets/stylesheets"].sort_by { |dir| -dir.size }
     # Tell rake which assets to precompile (default is application.css and application.js)
     # Note that even though our files are named .scss, the ones in this list are the plain .css counterparts
     config.assets.precompile += %w(
@@ -46,8 +46,6 @@ module Health
       app-user-progress.css
       app-user-progress_split2.css
       styleguide.css
-      vendor/ie8-grid16-foundation-4.css
-      vendor/ie8-grid12-foundation-4.css
       external/external_ie8.css
       external/standalone_ie8.css
       internal/internal_ie8.css
@@ -94,7 +92,9 @@ module Health
       internal/countUp.min.js
       internal/point_and_ticket_animation.js
       internal/validate_new_board.js
+      ie8-grid12-foundation-4.css
     )
+
 
     ################################################################
 

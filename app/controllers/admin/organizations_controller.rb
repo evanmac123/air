@@ -1,3 +1,4 @@
+require 'file_upload_wrapper'
 require 'custom_responder'
 class Admin::OrganizationsController < AdminBaseController
   include CustomResponder

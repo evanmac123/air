@@ -15,6 +15,14 @@ var Airbo = {
       return $(identifier).length > 0;
     },
 
+    isOldIE: function(){
+      if($("html").hasClass("lt-ie9")){
+         return true;
+      }else {
+        return false;
+      }
+    },
+
     noop:  function(){},
 
     urlParamValueByname: function getQueryVariable(variable, target){

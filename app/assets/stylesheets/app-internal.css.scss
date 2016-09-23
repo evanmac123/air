@@ -2,26 +2,42 @@
 *= require_self
 *= require medium-editor/medium-editor
 *= require medium-editor/themes/default
-*/
-
-/*
 *= require tooltipster/tooltipster
 *= require tooltipster/themes/tooltipster-shadow
 *= require sweetalert
+*= require introjs.min
 */
 @import "./internal/intercom.css.scss";
-@import "./vendor/introjs.min";
 
 /* MIXIN DEFINITIONS NEXT (so we can use them later) */
-@import "./mixins/main_styles.css.scss";
+/*@import "./mixins/main_styles.css.scss";*/
+
+/*
+***************************************************
+TODO remove commented out lines that have been pused into
+_common_user_client_admin completely once I've confirmed that that
+styles changes haven't broken anything.
+*****************************************************/
+
+@import "./_common_user_client_admin.css.scss";
+/*@import "./internal/prize_box.css.scss";*/
+@import "./internal/user_progress_iphone.css.scss";
+
+@media only screen and (min-width: 500px) {
+  @import "./internal/user_progress.css.scss";
+}
+@media only screen and (min-width: $foundation) {
+  @import "./internal/user_progress_desktop.css.scss";
+}
+
+@import "./internal/user_progress_ie8.css.scss";
+@import "./internal/raffle_progress_ie.css.scss";
 @import "./mixins/lightbox.css.scss";
 @import "./mixins/board_topics.css.scss";
-@import "font-awesome";
-
-/* CUSTOM STYLESHEETS LAST */
-@import "./internal/flash.css.scss";
+/*@import "font-awesome";*/
+/*@import "./internal/flash.css.scss";*/
 @import "./internal/screen.css.scss";
-@import "./internal/mast.css.scss";
+/*@import "./internal/mast.css.scss";*/
 @import "./internal/autocompletion.css.scss";
 @import "./internal/misc.css.scss";
 @import "./internal/dashboard.css.scss";
@@ -31,47 +47,23 @@
 @import "./internal/settings.css.scss";
 @import "./internal/faq.css.scss";
 @import "./internal/unsupported.css.scss";
-
-@import "./internal/tiles.css.scss";
-
+/*@import "./internal/tiles.css.scss";*/
 @import "./internal/guest_conversion_form.css.scss";
-
 @import "./internal/tags.css.scss";
-@import "./client_admin/tile_manager/tiles.css.scss";
-@import "./internal/board_settings_iphone.css.scss";
-@import "./internal/tile.css.scss";
+/*@import "./internal/board_settings_iphone.css.scss";*/
+/*@import "./internal/tile.css.scss";*/
 @import "./external/sign_up_form.css.scss";
 @import "./external/sign_up_form_ie.css.scss";
-@import './client_admin/tiles_tools_subnav';
-@import './client_admin/tile_manager/tile_preview';
-@import './tile/tile_builder/tile_builder';
-@import './tile/tile_preview/menu';
-@import "./internal/character_counter.css.scss";
-@import "./vendor_customization/sweetalert.css.scss";
-@import "./vendor_customization/medium.css.scss";
-@import "./vendor_customization/introjs.scss";
-@import "./client_admin/explore/tile_preview.css.scss";
-
+/*@import "./internal/character_counter.css.scss";*/
+/*@import "./client_admin/tile_manager/tiles.css.scss";*/
+/*@import "./client_admin/explore/tile_preview.css.scss";*/
 @import "./external/landing/common.css.scss";
-@import "external/landing/header.css.scss";
-@import "external/landing/hero.css.scss";
-@import "external/landing/footer.css.scss";
+@import "./external/landing/header.css.scss";
+@import "./external/landing/hero.css.scss";
+@import "./external/landing/footer.css.scss";
+/*@import "./external/category.scss";*/
+/*@import "./vendor_customization/sweetalert.css.scss";*/
+/*@import "./vendor_customization/medium.css.scss";*/
+/*@import "./vendor_customization/introjs.scss";*/
 
 
-@import "./external/category.scss";
-/* RWD */
-@media only screen and (min-width: 319px) {
-  @import "./internal/screen_iphone.css.scss";
-}
-@media only screen and (min-width: 500px) {
-  @import "./internal/screen_tablet.css.scss";
-  @import "./external/sign_up_form_tablet.css.scss";
-}
-@media only screen and (min-width: $foundation) {
-  @import "./internal/screen_desktop.css.scss";
-  @import "./internal/large_tile_viewer_desktop.css.scss";
-  @import "./internal/board_settings_desktop.css.scss";
-}
-@media only screen and (min-width: $mid-desktop) {
-  @import "./internal/screen_large.css.scss";
-}

@@ -1,86 +1,86 @@
 .segmentation_tool {padding-top:3em;}
 .segmentation_tool form {
-	fieldset {
-		@include form-group;
-		margin:0;
-	}
-	.segmentation_button {
-		margin-bottom: 10px;
-	}
-	#segmentation_parameters {
-		padding:.5em 0 1em 0;
-		.segmentation-triple-wrapper {margin-bottom:.5em;}
-		a.remove_this_characteristic, .characteristics {
-			display: inline-block;
-			vertical-align: middle;
-		}
-		a.remove_this_characteristic {
-			background:image-url('client_admin/sprites.png') no-repeat transparent;
-			background-position:0 -49px;
-			height:27px;
-			width:22px;
-			font-size:0;
-			text-indent: -9999999px;
-		}
-		p.label {
-			@include caption;
-			padding:0 0 .75em 2.5em;
-			color:$gray;
-		}
-		.characteristics {
-			li {
-				display:inline-block;
-				padding-right:5px;
-			}
-			select, input[type="text"] {
-				font-size:1em;
-			}
-			select.segment-operator {width:170px;}
-			.segment-col1 select {width:225px;}
-			.segment-col3 {
-				select, input[type="text"] {width:175px;}
-				input[type="checkbox"] {margin-right:.5em;}
-			}
-		}
-	}
+  fieldset {
+    @include form-group;
+    margin:0;
+  }
+  .segmentation_button {
+    margin-bottom: 10px;
+  }
+  #segmentation_parameters {
+    padding:.5em 0 1em 0;
+    .segmentation-triple-wrapper {margin-bottom:.5em;}
+    a.remove_this_characteristic, .characteristics {
+      display: inline-block;
+      vertical-align: middle;
+    }
+    a.remove_this_characteristic {
+      background:image-url('client_admin/sprites.png') no-repeat transparent;
+      background-position:0 -49px;
+      height:27px;
+      width:22px;
+      font-size:0;
+      text-indent: -9999999px;
+    }
+    p.label {
+      @include caption;
+      padding:0 0 .75em 2.5em;
+      color:$gray;
+    }
+    .characteristics {
+      li {
+        display:inline-block;
+        padding-right:5px;
+      }
+      select, input[type="text"] {
+        font-size:1em;
+      }
+      select.segment-operator {width:170px;}
+      .segment-col1 select {width:225px;}
+      .segment-col3 {
+        select, input[type="text"] {width:175px;}
+        input[type="checkbox"] {margin-right:.5em;}
+      }
+    }
+  }
 }
 
 #segmentation-results {
-	margin-top:3em;
-	&:after{@include clear;}
-	.segmentation-results-col {
-		display:inline-block;
-		float:left;
-		padding-right:1em;
-		vertical-align: top;
-		&#segmentation-explanation {
-			width:63%;
-			p#segmented-at-timestamp {
-				@include caption;
-				color:$light-gray;
-				padding:2em 0;
-			}
-			span.explanation {
-				color: red;
-				border-bottom:1px lighten($light-gray, 4%) solid;
-				padding:.75em 0;
-				&:nth-of-type(1) {border-top:0;}
-			}
-		}
-		&#segmentation-numbers {
-			@include form-group;
-			@include light-to-color-gradient(lighten($blue, 53%), 2%);
-			text-align: center;
-			width:37%;
-			h3 {
-				color:$blue;
-				@include font-bold;
-				display:block;
-				line-height:1.5em;
-				font-size:3.5em;
-				margin-bottom:0;
-			}
-		}
-	}
+  margin-top:3em;
+  &:after{@include clear;}
+  .segmentation-results-col {
+    display:inline-block;
+    float:left;
+    padding-right:1em;
+    vertical-align: top;
+    &#segmentation-explanation {
+      width:63%;
+      p#segmented-at-timestamp {
+        @include caption;
+        color:$light-gray;
+        padding:2em 0;
+      }
+      span.explanation {
+        color: red;
+        border-bottom:1px lighten($light-gray, 4%) solid;
+        padding:.75em 0;
+        &:nth-of-type(1) {border-top:0;}
+      }
+    }
+    &#segmentation-numbers {
+      @include form-group;
+      @include light-to-color-gradient(lighten($blue, 53%), 2%);
+      text-align: center;
+      width:37%;
+      h3 {
+        color:$blue;
+        @include font-bold;
+        display:block;
+        line-height:1.5em;
+        font-size:3.5em;
+        margin-bottom:0;
+      }
+    }
+  }
 
 }
