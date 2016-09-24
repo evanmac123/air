@@ -1,7 +1,7 @@
 <div class="onboarding-container">
   <div class="row">
     <div class="columns small-12">
-      <%= form_tag onboardings_path, id:"onboarding-form" do %>
+      <%= form_tag api_v1_onboardings_path, id:"onboarding-form" do %>
         <%= hidden_field_tag :email, @onboarding_initializer.email %>
         <%= hidden_field_tag :name, @onboarding_initializer.name %>
         <%= hidden_field_tag :organization, @onboarding_initializer.organization_name %>
@@ -10,7 +10,7 @@
       <div class='text-center onboarding-new'>
         <div>
           <h2>Hi. Welcome to your Airbo🙃.</h2>
-          <h2>We all have so much to do. Let's start with just one topic.</h2>
+          <h3>We all have so much to do. Let's start with just one topic.</h3>
           <p></p>
         </div>
         <div class="topic-boards">
@@ -23,13 +23,24 @@
       </div>
     </div>
   </div>
+  <%= render 'user_onboardings/partials/customizing_airbo_modal' %>
 </div>
+
 
 <script type="text/javascript">
   $(".topic-board").on("click", function() {
     var self = $(this);
     $("#topic_board_id").val(self.data("board-id"));
-
-    $("#onboarding-form").submit();
+    $(".onboarding-new").hide()
+    $('#customizing-airbo-modal').foundation('reveal', 'open');
+    $.post("/api/v1/onboardings", $("#onboarding-form").serialize()).done(function(data) {
+      if (data["user_onboarding"]) {
+        window.location.href = "/user_onboardings/" + data["user_onboarding"]
+      } else {
+        $(".onboarding-new").show()
+        $('#customizing-airbo-modal').foundation('reveal', 'close');
+      }
+    });
+    // $("#onboarding-form").submit();
   })
 </script>
