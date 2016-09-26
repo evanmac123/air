@@ -48,11 +48,3 @@ Airbo.UserOnboardingUpdate = (function() {
     init: init
   };
 })();
-
-
-
-$(function(){
-  if (Airbo.Utils.supportsFeatureByPresenceOfSelector(".onboarding-body")) {
-    Airbo.UserOnboardingUpdate.init();
-  }
-});

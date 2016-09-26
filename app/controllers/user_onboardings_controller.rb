@@ -28,7 +28,6 @@ class UserOnboardingsController < ApplicationController
     grid_builder = BoardStatsGrid.new(@board)
     @board_stats_grid = initialize_grid(*grid_builder.args)
     @current_grid = grid_builder.query_type
-
     render template: "client_admin/show"
   end
 

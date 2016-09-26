@@ -7,6 +7,7 @@ class OnboardingsController < ApplicationController
       sign_out
       @topic_boards = TopicBoard.reference_board_set
       @onboarding_initializer = OnboardingInitializer.new(onboarding_params)
+      @user_onboarding = UserOnboarding.new(state: 1)
     else
       redirect_to "/myairbo/#{@user.user_onboarding.id}"
     end

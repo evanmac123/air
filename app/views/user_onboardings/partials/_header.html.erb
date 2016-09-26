@@ -1,47 +1,45 @@
 <header class="onboarding-top-bar">
   <div class="row" id="top_bar">
-    <div class="small-12 columns">
+    <div class="small-6 columns">
       <div id="logo">
-        <a href="<%= home_path %>" style="margin-top:18px"><%= image_tag 'airbo-onboarding.png' %></a>
-      </div>
-      <div class="steps-progress-bar" style="margin-top:-55px; margin-bottom:16px;float:right">
-        <% if @user_onboarding.try(:state) == "first" %>
-          <ul class="progressbar">
-            <li class="active">Build your Airbo</li>
-            <li>Explore</li>
-            <li>Analyze</li>
-            <li>Share</li>
-          </ul>
-        <% elsif @user_onboarding.try(:state) == "second" %>
-          <ul class="progressbar">
-            <li class="active">Build your Airbo</li>
-            <li class="active">Explore</li>
-            <li>Analyze</li>
-            <li>Share</li>
-          </ul>
-        <% elsif @user_onboarding.try(:state) == "third" %>
-          <ul class="progressbar">
-            <li class="active">Build your Airbo</li>
-            <li class="active">Explore</li>
-            <li class="active">Analyze</li>
-            <li>Share</li>
-          </ul>
-        <% elsif @user_onboarding.try(:state) == "fourth" %>
-          <ul class="progressbar">
-            <li class="active">Build your Airbo</li>
-            <li class="active">Explore</li>
-            <li class="active">Analyze</li>
-            <li class="active">Share</li>
-          </ul>
-        <% else %>
-          <ul class="progressbar">
-            <li>Build your Airbo</li>
-            <li>Explore</li>
-            <li>Analyze</li>
-            <li>Share</li>
-          </ul>
-        <% end %>
+        <a href="<%= home_path %>" style="margin-top:7px;margin-bottom:7px"><%= image_tag 'airbo-onboarding.png' %></a>
       </div>
     </div>
+    <div class="small-6 columns">
+      <div class="button outlined green-alt schedule-demo-button">
+        Schedule a demo
+      </div>
+    </div>
+  </div>
+  <div class="onboarding-progress" id="top_bar">
+    <div class="row onboarding-progress-content onboarding-progress-desktop">
+      <div class="small-2 small-offset-1 columns progress-bar-label">
+        <span>Get started <%= "(#{@user_onboarding.state}/#{@user_onboarding.final_state})"%></span>
+      </div>
+      <div class="small-6 columns">
+        <div class="progress radius onboarding-progress-bar">
+          <span class="meter" style="width: <%= @user_onboarding.percent_complete %>%"></span>
+        </div>
+      </div>
+      <div class="small-2 columns end expand-tasks">
+        <div class="button outlined onboarding-button off-white-and-yellow open-progress-modal">
+          Expand <i class="expand-down fa fa-caret-down" aria-hidden="true"></i>
+        </div>
+      </div>
+    </div>
+    <div class="row onboarding-progress-content onboarding-progress-mobile">
+      <div class="small-6 columns">
+        <div class="progress radius onboarding-progress-bar">
+          <span class="meter" style="width: <%= @user_onboarding.percent_complete %>%"></span>
+        </div>
+      </div>
+      <div class="small-6 columns expand-tasks">
+        <div class="button outlined onboarding-button onboarding-modal-button off-white-and-yellow open-progress-modal">
+          Expand <i class="expand-down fa fa-caret-down" aria-hidden="true"></i>
+        </div>
+      </div>
+    </div>
+    <%= render 'user_onboardings/partials/progress_modal' %>
+    <%= render 'user_onboardings/partials/schedule_demo_modal' %>
   </div>
 </header>

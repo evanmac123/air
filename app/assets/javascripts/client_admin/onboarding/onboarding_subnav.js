@@ -15,11 +15,3 @@ Airbo.OnboardingSubnav = (function() {
     init: init
   };
 })();
-
-
-
-$(function(){
-  if (Airbo.Utils.supportsFeatureByPresenceOfSelector(".onboarding-body")) {
-    Airbo.OnboardingSubnav.init();
-  }
-});
