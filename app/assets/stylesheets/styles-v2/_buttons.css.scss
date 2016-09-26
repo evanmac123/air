@@ -132,7 +132,10 @@
       @include button-outlined-color($text-color: $n-yellow, $hover-color: $off-white);
     }
     &.blue-alt {
-      @include button-outlined-color($text-color: $n-blue, $hover-color: #fff);
+      @include button-outlined-color-alt($text-color: $n-blue, $hover-color: #fff);
+    }
+    &.green-alt {
+      @include button-outlined-color-alt($text-color: $n-green, $hover-color: $n-blue);
     }
     &.off-white-and-yellow {
       @include button-outlined-color-alt($text-color: $gray-1, $hover-color: $n-yellow);

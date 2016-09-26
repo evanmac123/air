@@ -8,6 +8,9 @@
         <%= hidden_field_tag :topic_board_id %>
       <%end%>
       <div class='text-center onboarding-new'>
+        <div class="onboarding-new-image">
+          <%= image_tag "onboard-illustration-mock-1.png" %>
+        </div>
         <div>
           <h2>Hi. Welcome to your Airbo🙃.</h2>
           <h3>We all have so much to do. Let's start with just one topic.</h3>
@@ -15,7 +18,7 @@
         </div>
         <div class="topic-boards">
           <% @topic_boards.each do |topic_board| %>
-          <div class="topic-board button" data-board-id="<%= topic_board.demo_id %>">
+          <div class="topic-board topic-board-button button" data-board-id="<%= topic_board.demo_id %>">
             <%= topic_board.topic_name %>
           </div>
           <% end %>

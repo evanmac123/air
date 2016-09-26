@@ -14,6 +14,19 @@ Airbo.OnboardingModals = (function(){
   animation: 'fadeAndPop',
   animation_speed: 350});
     });
+
+    $(".schedule-demo-button").on("click", function() {
+      $.post("/api/v1/email_info_requests", $("#demo-request-form").serialize());
+      $('#schedule-demo-modal').foundation('reveal', 'open', {
+  animation: 'fadeAndPop',
+  animation_speed: 350});
+    });
+
+    $(".close-demo-button").on("click", function() {
+      $('#schedule-demo-modal').foundation('reveal', 'close', {
+  animation: 'fadeAndPop',
+  animation_speed: 350});
+    });
   }
 
   return {

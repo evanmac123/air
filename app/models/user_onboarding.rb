@@ -22,4 +22,12 @@ class UserOnboarding < ActiveRecord::Base
   def percent_complete
     (state.to_f / final_state) * 100
   end
+
+  def regulate_progress(step)
+    if (state + 1) < step
+      "locked"
+    elsif state == step
+      "complete"
+    end
+  end
 end

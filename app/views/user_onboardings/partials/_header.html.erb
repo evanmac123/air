@@ -1,8 +1,13 @@
 <header class="onboarding-top-bar">
   <div class="row" id="top_bar">
-    <div class="small-12 columns">
+    <div class="small-6 columns">
       <div id="logo">
         <a href="<%= home_path %>" style="margin-top:7px;margin-bottom:7px"><%= image_tag 'airbo-onboarding.png' %></a>
+      </div>
+    </div>
+    <div class="small-6 columns">
+      <div class="button outlined green-alt schedule-demo-button">
+        Schedule a demo
       </div>
     </div>
   </div>
@@ -35,5 +40,6 @@
       </div>
     </div>
     <%= render 'user_onboardings/partials/progress_modal' %>
+    <%= render 'user_onboardings/partials/schedule_demo_modal' %>
   </div>
 </header>

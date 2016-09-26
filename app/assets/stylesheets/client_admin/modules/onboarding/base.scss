@@ -1,3 +1,4 @@
+
 .onboarding-container {
   h2 {
     color: $gray;
@@ -7,8 +8,19 @@
     color: $gray;
   }
   .onboarding-new {
-    margin-top: 100px;
+    margin-top: 50px;
   }
+}
+
+.topic-board-button {
+  margin-top: 10px;
+}
+
+.schedule-demo-button {
+  float: right;
+  margin-top: 15px;
+  font-size: 130px;
+  padding: 7px 12px;
 }
 
 .user_onboardings-show-content {
@@ -99,6 +111,11 @@
 
 .onboarding-progress-mobile {
   display: none;
+}
+
+.schedule-demo-modal {
+  top:117px;
+  color: $gray;
 }
 
 .onboarding-progress-modal {
