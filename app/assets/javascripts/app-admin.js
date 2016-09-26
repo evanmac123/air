@@ -3,9 +3,6 @@
 //= require jquery.ui.autocomplete
 //= require jquery.ui.tabs
 //= require mobvious-rails
-//= require sweetalert/sweetalert.min
-//= require  medium-editor.min
-//= require chosen.jquery.min
 //= require ../../../vendor/assets/javascripts/internal/jquery.jpanelmenu.min
 //= require ../../../vendor/assets/javascripts/internal/jRespond.min
 //= require ./internal_and_external/underscore-min
