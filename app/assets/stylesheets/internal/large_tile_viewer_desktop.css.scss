@@ -71,6 +71,19 @@
   }
 
 }
+
+#tile_preview_modal {
+  .tile_holder {
+    width: 600px;
+    margin-top: 50px;
+    box-shadow: none;
+    overflow: hidden;
+  }
+  .tile_preview_container {
+    max-width: 784px;
+    padding-top: 33px;
+  }
+}
 .client_admin-tiles.client_admin-tiles-show {
   .content .row {max-width:71.25em;}
 }

@@ -1,35 +1,4 @@
-#tile_preview_modal {
-  .switch{
-    @include green-paddle-switch;
-  }
 
-  .tile_holder {
-    width: 600px;
-    margin-top: 50px;
-    box-shadow: none;
-    overflow: hidden;
-  }
-  .tile_control, h5 {
-    display: inline-block;
-  }
-  .tile_control {
-    font-size:.875em;
-    margin-bottom:1em;
-    &.back_to_all {@include app-button($blue);}
-    &.tile_turn_on {@include app-button($dark-green);}
-    &.tile_turn_off {@include app-button($med-gray);}
-    &.edit_this_tile {@include light-button($gray);}
-  }
-  h5 {
-    color:$med-gray;
-    float:right;
-    padding:.75em 1em;
-  }
-  .tile_preview_container {
-    max-width: 784px;
-    padding-top: 33px;
-  }
-}
 body.client_admin-tiles.client_admin-tiles-index {
   //
   // => Share Section
