@@ -10,16 +10,21 @@ Airbo.UserOnboardingUpdate = (function() {
         contentType: 'application/json', // format of request payload
         dataType: 'json', // format of the response
         success: function(res) {
-          $("#tile_manager_nav").show();
-          $("#share_airbo").hide();
-          return res;
+          sleep(1000).then(() => {
+            $("#share_airbo").hide();
+            $("#tile_manager_nav").fadeIn("slow", function() {
+            });
+            $(".progress-bar-label span").text("Get started (3/5)");
+            $(".onboarding-progress-bar .meter").css("width", "60%");
+            return res;
+          });
         }
       });
     });
   }
 
   function thirdUpdate(id) {
-    $("#board_activity").on("click", function() {
+    $(".close-viewed-activity-modal-button").on("click", function() {
       $.ajax({
         type: "PUT",
         url: "/api/v1/user_onboardings/" + id,
@@ -27,6 +32,8 @@ Airbo.UserOnboardingUpdate = (function() {
         contentType: 'application/json', // format of request payload
         dataType: 'json', // format of the response
         success: function(res) {
+          $(".progress-bar-label span").text("Get started (4/5)");
+          $(".onboarding-progress-bar .meter").css("width", "80%");
           return res;
         }
       });
@@ -42,6 +49,10 @@ Airbo.UserOnboardingUpdate = (function() {
     if (Airbo.Utils.supportsFeatureByPresenceOfSelector(".user-onboarding-state-3")) {
       thirdUpdate(id);
     }
+  }
+
+  function sleep (time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
   }
 
   return {

@@ -23,6 +23,7 @@ class OnboardingInitializer
     org = Organization.where(name: organization_name).first_or_create!
     user = org.users.where(email: email).first_or_create! do |u|
       u.name = name
+      u.accepted_invitation_at = Time.now
     end
 
     copy_reference_board(org, user)
