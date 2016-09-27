@@ -15,9 +15,6 @@
     position:relative;
     max-width:46em;
     width:100%;
-    #slideshow {
-      padding-top: 0rem;
-    }
     a#prev, a#next {
       position: absolute;
       color:darken($tile-wall-bg, 3%);
@@ -78,6 +75,10 @@
     margin-top: 50px;
     box-shadow: none;
     overflow: hidden;
+  }
+
+  #slideshow {
+    padding-top: 0rem;
   }
   .tile_preview_container {
     max-width: 784px;
