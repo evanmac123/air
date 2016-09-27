@@ -41,19 +41,19 @@ class OnboardingSubnavPresenter
   def subnav_elements
     [{
       item_id: "my_airbo_nav",
-      link: myairbo_path(user_onboarding, {state: user_onboarding.state, subnav: "myairbo"}),
+      link: user_onboarding.id ? myairbo_path(user_onboarding) : "#",
       image: "airbo_logo_lightblue_square.png",
       text: "My Airbo"
     },
     {
       item_id: "board_activity",
-      link: onboarding_activity_path(user_onboarding, {state: user_onboarding.state, subnav: "activity"}),
+      link: user_onboarding.id ? onboarding_activity_path(user_onboarding) : "#",
       icon: "line-chart",
       text: "Activity"
     },
     {
       item_id: "share_airbo",
-      link: onboarding_share_path(user_onboarding, {state: user_onboarding.state, subnav: "share_airbo"}),
+      link: user_onboarding.id ? onboarding_share_path(user_onboarding) : "#",
       icon: "group",
       text: "Share"
     },]
