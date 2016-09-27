@@ -26,7 +26,7 @@ class UserOnboarding < ActiveRecord::Base
   def regulate_progress(step)
     if (state + 1) < step
       "locked"
-    elsif state == step
+    elsif state >= step
       "complete"
     end
   end

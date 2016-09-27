@@ -3,10 +3,10 @@ var Airbo = window.Airbo || {};
 Airbo.OnboardingSubnav = (function() {
   function init(){
     var state = $(".onboarding-body").data("state");
-    if (state == "first") {
-      $("#board_activity").hide();
-      $("#share_airbo").hide();
-    } else if (state == "second") {
+    if (state < 3) {
+      $("#tile_manager_nav").hide();
+    } else if (state < 4) {
+      $("#tile_manager_nav").show();
       $("#share_airbo").hide();
     }
   }

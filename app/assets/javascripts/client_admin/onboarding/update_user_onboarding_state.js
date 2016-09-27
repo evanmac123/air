@@ -1,29 +1,29 @@
 var Airbo = window.Airbo || {};
 
 Airbo.UserOnboardingUpdate = (function() {
-  function firstUpdate(id) {
+  function secondUpdate(id) {
     $(".tile_multiple_choice_answer").on("click", function() {
       $.ajax({
         type: "PUT",
         url: "/api/v1/user_onboardings/" + id,
-        data: JSON.stringify({ user_onboarding: { state: "second" } }),
+        data: JSON.stringify({ user_onboarding: { state: 3 } }),
         contentType: 'application/json', // format of request payload
         dataType: 'json', // format of the response
         success: function(res) {
-          $(".progressbar li:nth-child(2)").addClass("active");
-          $("#board_activity").show();
+          $("#tile_manager_nav").show();
+          $("#share_airbo").hide();
           return res;
         }
       });
     });
   }
 
-  function secondUpdate(id) {
+  function thirdUpdate(id) {
     $("#board_activity").on("click", function() {
       $.ajax({
         type: "PUT",
         url: "/api/v1/user_onboardings/" + id,
-        data: JSON.stringify({ user_onboarding: { state: "third" } }),
+        data: JSON.stringify({ user_onboarding: { state: 4 } }),
         contentType: 'application/json', // format of request payload
         dataType: 'json', // format of the response
         success: function(res) {
@@ -35,12 +35,12 @@ Airbo.UserOnboardingUpdate = (function() {
 
   function init(){
     var id = $(".onboarding-body").data("id");
-    if (Airbo.Utils.supportsFeatureByPresenceOfSelector(".first-user-onboarding-state")) {
-      firstUpdate(id);
+    if (Airbo.Utils.supportsFeatureByPresenceOfSelector(".user-onboarding-state-2")) {
+      secondUpdate(id);
     }
 
-    if (Airbo.Utils.supportsFeatureByPresenceOfSelector(".second-user-onboarding-state")) {
-      secondUpdate(id);
+    if (Airbo.Utils.supportsFeatureByPresenceOfSelector(".user-onboarding-state-3")) {
+      thirdUpdate(id);
     }
   }
 
