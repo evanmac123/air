@@ -152,6 +152,7 @@
       cursor: pointer;
     }
     tfoot{
+      background: $off-white;
       td {
         border: 0;
         padding: 0;
@@ -164,15 +165,16 @@
   }
   .pagination {
     float: none;
+    background-color: $off-white;
   }
   div.pagination {
     padding: 20px 14px;
-    background: $off-white;
   }
   ul.pagination {
     margin-left: 40%;
     margin-top: 14px;
     font-size: 13px;
+    background: $off-white;
     li {
       margin-left: 7px;
       a {

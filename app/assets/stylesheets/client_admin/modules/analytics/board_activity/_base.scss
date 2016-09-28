@@ -1,7 +1,18 @@
 @import 'partials/activity_grid';
 @import 'partials/chart';
+.client_admins-show {
+  .main {
+    .core {
+      background: $off-white;
+    }
+  }
+  .content {
+    background: $off-white;
+  }
+}
 .analytics-v1 {
   #client-admin-demo-analytics {
+    background: $off-white;
     .content {
       background: $off-white;
     }
@@ -15,20 +26,17 @@
       height: 7em;
       border-radius: 3px;
       .header-number {
-        color: #fff;
+        color: $off-white;
         margin: 0;
         padding-top: 12px;
-        padding-left: 10px;
+        padding-left: 20px;
         font-size: 300%;
       }
       .header-unit {
         color: #fff;
         margin: 0;
-        padding-left: 10px;
+        padding-left: 25px;
         font-size: 18px;
-      }
-      &:hover {
-        transform: scale(1.1);
       }
     }
     .total-users{
