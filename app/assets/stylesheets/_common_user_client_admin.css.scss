@@ -19,9 +19,6 @@
 @import "./tile/tile_preview/menu.scss";
 
 @import "./internal/screen.css.scss";
-@import "./internal/screen_tablet.css.scss";
-@import "./internal/screen_desktop.css.scss";
-@import "./internal/screen_large.css.scss";
 
 @media only screen and (min-width: 319px) {
   @import "./internal/screen_iphone.css.scss";
