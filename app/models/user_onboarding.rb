@@ -5,6 +5,14 @@ class UserOnboarding < ActiveRecord::Base
   validates_presence_of :user_id
   validates_presence_of :onboarding_id
 
+  FINAL_STATE = 5
+
+  before_create :set_auth_hash
+
+  def validate_token(token)
+    token == generate_token
+  end
+
   def update_state
     unless state == final_state
       self.update_attributes(state: state + 1)
@@ -29,5 +37,16 @@ class UserOnboarding < ActiveRecord::Base
     elsif state >= step
       "complete"
     end
+  end
+
+
+  private
+
+  def set_auth_hash
+    self.auth_hash = Digest::SHA1.hexdigest(user.email + salt)
+  end
+
+  def salt
+    "#{onboarding.organization.name}-#{onboarding.id}"
   end
 end
