@@ -6,10 +6,14 @@ $bar-height: 1.3em; // controls height of elements in Top Bar
 $top-bar-height: #{($bar-height + $small_cap_size + $under_small_cap)};
 
 /*NOTE commments out the immediately following imports from this file that are already included at higher level */
-
+@mixin standard_reveal_dimensions {
+  width: 40%;
+  left: 75%;
+  z-index: 5000;
+}
 @import "mixins/main_styles.css.scss";
-/*@import "screen.css.scss";*/
-@import "mast.css.scss";
+@import "screen.css.scss";
+/*@import "mast.css.scss";*/
 @import "screen_tablet.css.scss";
 @import "screen_desktop.css.scss";
 @import "screen_large.css.scss";
@@ -21,12 +25,7 @@ $top-bar-height: #{($bar-height + $small_cap_size + $under_small_cap)};
 
 
 /*NOTE adds back mixins and variables lost due to the commenting out of imports */
-$header-color:      #fff;
-$white:             #fff;
-$gray:              #818385;
-$med-gray:          #a8a8a8;
-$light-gray:        #dfdfdf;
-@mixin font-bold-local {
+  @mixin font-bold-local {
   font-style:normal;
   font-weight:bolder;
   font-weight: 700;
