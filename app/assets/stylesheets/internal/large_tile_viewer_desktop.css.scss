@@ -8,8 +8,12 @@
   .tile_holder {
     font-size:1em;
     margin:0 auto;
+
   }
 
+    #slideshow {
+      padding-top: 0rem;
+    }
   // Large Prev and Next buttons
   .viewer {
     position:relative;
@@ -77,9 +81,6 @@
     overflow: hidden;
   }
 
-  #slideshow {
-    padding-top: 0rem;
-  }
   .tile_preview_container {
     max-width: 784px;
     padding-top: 33px;
