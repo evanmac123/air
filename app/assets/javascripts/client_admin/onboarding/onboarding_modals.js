@@ -64,17 +64,6 @@ Airbo.OnboardingModals = (function(){
   animation_speed: 350});
     });
 
-    var completionCount = 0;
-    $(".tile_multiple_choice_answer").on("click", function() {
-      completionCount += 1;
-      sleep(1000).then(() => {
-        if (state == 3 && completionCount % 2 == 1) {
-          $('#activity-modal').foundation('reveal', 'open', {
-            animation: 'fadeAndPop',
-            animation_speed: 350});
-          }
-      });
-    });
 
     $(".close-viewed-activity-modal-button").on("click", function() {
       $('#activity-modal').foundation('reveal', 'close', {
@@ -82,12 +71,24 @@ Airbo.OnboardingModals = (function(){
   animation_speed: 350});
     });
 
-    if (state == 4 && $("#client-admin-demo-analytics").length > 0) {
+    if (state == 3 && $("#client-admin-demo-analytics").length > 0) {
       sleep(1000).then(() => {
         $('#viewed-activity-modal').foundation('reveal', 'open', {
           animation: 'fadeAndPop',
           animation_speed: 350});
       });
+    }
+
+    if ($("#share-modal").length > 0) {
+      $('#share-modal').foundation('reveal', 'open', {
+        animation: 'fadeAndPop',
+        animation_speed: 350});
+    }
+
+    if ($("#onboarding-complete-modal").length > 0) {
+      $('#onboarding-complete-modal').foundation('reveal', 'open', {
+        animation: 'fadeAndPop',
+        animation_speed: 350});
     }
   }
 

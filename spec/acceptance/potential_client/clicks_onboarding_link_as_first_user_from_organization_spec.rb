@@ -30,6 +30,6 @@ feature "Potential client recieves an invitation to try airbo and clicks link in
   end
 
   def onboarding_email_link
-    "/newairbo?email=nick%40weiland.com&name=Nicl+Weiland&onboard=true&organization=Noc+Com"
+    "/newairbo?email=james%40dean.com&name=James+Dean&onboard=true&organization=James+Town"
   end
 end

@@ -16,6 +16,10 @@ Airbo.UserOnboardingUpdate = (function() {
             });
             $(".progress-bar-label span").text("Get started (3/5)");
             $(".onboarding-progress-bar .meter").css("width", "60%");
+            $($(".progress-steps").children()[2]).addClass("complete");
+            $('#activity-modal').foundation('reveal', 'open', {
+              animation: 'fadeAndPop',
+              animation_speed: 350});
             return res;
           });
         }
@@ -34,6 +38,7 @@ Airbo.UserOnboardingUpdate = (function() {
         success: function(res) {
           $(".progress-bar-label span").text("Get started (4/5)");
           $(".onboarding-progress-bar .meter").css("width", "80%");
+          $($(".progress-steps").children()[3]).addClass("complete");
           return res;
         }
       });

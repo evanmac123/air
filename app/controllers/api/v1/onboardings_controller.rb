@@ -3,7 +3,6 @@ class Api::V1::OnboardingsController < ApplicationController
 
   def create
     onboarding_initializer = OnboardingInitializer.new(onboarding_params)
-    binding.pry
     render json: { success: onboarding_initializer.save, user_onboarding: onboarding_initializer.user_onboarding_id }
   end
 

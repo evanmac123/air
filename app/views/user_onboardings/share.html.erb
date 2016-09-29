@@ -1,22 +1,21 @@
 <div class="join-view">
   <div class="row">
-    <div class="logo">
-      <%= link_to "/" do %>
-        <div class="logo_image"></div>
-      <% end %>
+    <div class="onboarding-new-image text-center">
+      <%= image_tag "onboard-illustration-mock-schedule.png" %>
     </div>
-    <div class="small-4 small-centered columns join-form">
+    <div class="small-6 small-centered columns onboarding-share-header">
       <h1>Invite your colleagues to Airbo</h1>
       <div class="line-separator"></div>
       <br>
-      <%= form_tag(user_onboardings_path, id: "signup_request_form") do %>
+
+      <%= form_tag(user_onboardings_path, id: "onboarding_share_form", class: " onboarding-share-form") do %>
         <label class="input_label">Full Name</label>
-        <%= text_field_tag "user_onboarding[name]" %>
+        <%= text_field_tag "user_onboardings[onboarding_one[name]]" %>
 
         <label class="input_label">Email</label>
-        <%= text_field_tag "user_onboarding[email]" %>
+        <%= text_field_tag "user_onboardings[onboarding_one[email]]" %>
         <%= hidden_field_tag "id", @user_onboarding.id %>
-        <%= submit_tag "Invite", class: "join-button button success center" %>
+        <%= submit_tag "Invite", class: "join-button button outlined blue-alt success center" %>
       <% end %>
     </div>
   </div>
