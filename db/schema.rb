@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160830162337) do
+ActiveRecord::Schema.define(:version => 20160923203306) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -167,6 +167,12 @@ ActiveRecord::Schema.define(:version => 20160830162337) do
   end
 
   add_index "characteristics", ["demo_id"], :name => "index_characteristics_on_demo_id"
+
+  create_table "cheers", :force => true do |t|
+    t.string   "body"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "claim_attempt_histories", :force => true do |t|
     t.string   "from",              :default => "", :null => false
@@ -367,6 +373,14 @@ ActiveRecord::Schema.define(:version => 20160830162337) do
     t.string   "source"
   end
 
+  create_table "experiments", :force => true do |t|
+    t.string   "name"
+    t.integer  "counter",    :default => 0
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+    t.boolean  "active",     :default => true
+  end
+
   create_table "follow_up_digest_emails", :force => true do |t|
     t.integer  "demo_id"
     t.text     "tile_ids"
@@ -563,6 +577,16 @@ ActiveRecord::Schema.define(:version => 20160830162337) do
   end
 
   add_index "more_info_requests", ["user_id"], :name => "index_more_info_requests_on_user_id"
+
+  create_table "onboardings", :force => true do |t|
+    t.integer  "organization_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.integer  "demo_id"
+  end
+
+  add_index "onboardings", ["demo_id"], :name => "index_onboardings_on_demo_id"
+  add_index "onboardings", ["organization_id"], :name => "index_onboardings_on_organization_id"
 
   create_table "organizations", :force => true do |t|
     t.string   "name"
@@ -946,6 +970,15 @@ ActiveRecord::Schema.define(:version => 20160830162337) do
 
   add_index "timed_bonus", ["demo_id", "user_id"], :name => "index_timed_bonus_on_demo_id_and_user_id"
 
+  create_table "topic_boards", :force => true do |t|
+    t.integer  "demo_id"
+    t.integer  "topic_id"
+    t.boolean  "is_reference"
+    t.boolean  "is_library"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
   create_table "topics", :force => true do |t|
     t.string   "name",       :null => false
     t.string   "image"
@@ -1031,6 +1064,17 @@ ActiveRecord::Schema.define(:version => 20160830162337) do
   end
 
   add_index "user_intros", ["user_id"], :name => "index_user_intros_on_user_id"
+
+  create_table "user_onboardings", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "onboarding_id"
+    t.integer  "state",         :default => 2
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+  end
+
+  add_index "user_onboardings", ["onboarding_id"], :name => "index_user_onboardings_on_onboarding_id"
+  add_index "user_onboardings", ["user_id"], :name => "index_user_onboardings_on_user_id"
 
   create_table "user_settings_change_logs", :force => true do |t|
     t.integer  "user_id"
