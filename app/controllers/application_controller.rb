@@ -150,7 +150,10 @@ class ApplicationController < ActionController::Base
 
   private
 
+  
+
   alias authorize_without_guest_checks authorize
+ 
 
 
   def permitted_params
@@ -166,10 +169,19 @@ class ApplicationController < ActionController::Base
 
     return if authorize_as_guest
     return if authorize_to_public_board
-
+    return if authorize_with_onboarding_token_hash
     authorize_without_guest_checks
 
     refresh_activity_session(current_user)
+  end
+
+  def authorize_with_onboarding_auth_hash
+    if params[:onboarding_token].present?
+      user_onboarding = UserOnboarding.where(auth_hash: params[:onboarding_token]).first
+      if user_onboarding && user_onboarding.completed
+        #... 
+      end
+    end
   end
 
   def authorize_as_potential_user
