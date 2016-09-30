@@ -2,9 +2,10 @@ require 'spec_helper'
 
 describe OnboardingsController do
   let(:valid_params){{ 
-    name: "Test Name", email: "test@test.com", organization: "Test Company", topic_board_id: Demo.first.id } }
+    name: "Test Name", email: "test@test.com", organization: "Test Company", topic_board_id: @demo.id } }
   before do
-    Demo.create({name: "Reference Board"})
+    @tb = FactoryGirl.create(:topic_board, :valid)
+    @demo = @tb.board
   end
 
   describe '#create' do
