@@ -18,8 +18,7 @@ class OnboardingsController < ApplicationController
     if should_onboard? 
       onboarding_initializer.save
       if onboarding_initializer.error.nil?
-        cookie[:user_onboarding]=  onboarding_initializer.user_onboarding.auth_hash
-        redirect_to "/myairbo/#{onboarding_initializer.user_onboarding_id}" and return
+        cookies[:user_onboarding]=  onboarding_initializer.user_onboarding.auth_hash
       else
         flash[:errors]=onboarding_initializer.error.message
       end
@@ -28,6 +27,10 @@ class OnboardingsController < ApplicationController
     redirect_to root_path
   end
 
+
+  def set_auth_cookie
+    cookie[:user_onboarding]="12345"
+  end
 
   private
 

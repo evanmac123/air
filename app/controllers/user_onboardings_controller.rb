@@ -1,5 +1,6 @@
 class UserOnboardingsController < ApplicationController
   skip_before_filter :authorize, only: [:show]
+  skip_before_filter :authorize_with_onboarding_auth_hash
   layout 'onboarding'
 
   def show

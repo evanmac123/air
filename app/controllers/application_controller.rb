@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
   }
 
   before_filter :force_ssl
+  before_filter :authorize_with_onboarding_auth_hash
   before_filter :authorize
   before_filter :disable_mime_sniffing
   before_filter :disable_framing
@@ -169,20 +170,21 @@ class ApplicationController < ActionController::Base
 
     return if authorize_as_guest
     return if authorize_to_public_board
-    return if authorize_with_onboarding_auth_hash
     authorize_without_guest_checks
 
     refresh_activity_session(current_user)
   end
 
   def authorize_with_onboarding_auth_hash
-    if params[:onboarding_token].present?
-      user_onboarding = UserOnboarding.where(auth_hash: params[:onboarding_token]).first
-      if user_onboarding && user_onboarding.completed
-        #... 
+    if cookies[:user_onboarding].present?
+      user_onboarding = UserOnboarding.where(auth_hash: cookies[:user_onboarding]).first
+      if user_onboarding && !user_onboarding.completed
+        sign_in(user_onboarding.user)
+        redirect_to user_onboarding_path(user_onboarding)
       end
     end
   end
+
 
   def authorize_as_potential_user
     if session[:potential_user_id].present? && !current_user
