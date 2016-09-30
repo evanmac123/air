@@ -39,6 +39,7 @@
     $('#customizing-airbo-modal').foundation('reveal', 'open');
    
     $.post(form.attr("action"), form.serialize()).done(function(data) {
+      Airbo.CookieMonster.setCookie("user_onboarding", data["hash"]);
       if (data["user_onboarding"]) {
         window.location.href = "/user_onboardings/" + data["user_onboarding"]
       } else {

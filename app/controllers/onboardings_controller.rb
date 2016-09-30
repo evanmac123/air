@@ -18,7 +18,6 @@ class OnboardingsController < ApplicationController
     if should_onboard? 
       onboarding_initializer.save
       if onboarding_initializer.error.nil?
-        cookies[:user_onboarding]=  onboarding_initializer.user_onboarding.auth_hash
         if request.xhr?
           render json: { success: onboarding_initializer.save, user_onboarding: onboarding_initializer.user_onboarding_id } and return
         else
