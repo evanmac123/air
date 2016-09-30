@@ -19,6 +19,11 @@ class OnboardingsController < ApplicationController
       onboarding_initializer.save
       if onboarding_initializer.error.nil?
         cookies[:user_onboarding]=  onboarding_initializer.user_onboarding.auth_hash
+        if request.xhr?
+          render json: { success: onboarding_initializer.save, user_onboarding: onboarding_initializer.user_onboarding_id } and return
+        else
+          redirect_to "/myairbo/#{onboarding_initializer.user_onboarding_id}" and return
+        end
       else
         flash[:errors]=onboarding_initializer.error.message
       end

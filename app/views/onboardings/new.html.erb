@@ -1,7 +1,7 @@
 <div class="onboarding-container">
   <div class="row">
     <div class="columns small-12">
-      <%= form_tag api_v1_onboardings_path, id:"onboarding-form" do %>
+      <%= form_tag onboardings_path, id:"onboarding-form" do %>
         <%= hidden_field_tag :email, @onboarding_initializer.email %>
         <%= hidden_field_tag :name, @onboarding_initializer.name %>
         <%= hidden_field_tag :organization, @onboarding_initializer.organization_name %>
@@ -33,10 +33,12 @@
 <script type="text/javascript">
   $(".topic-board").on("click", function() {
     var self = $(this);
+    var form = $("#onboarding-form");
     $("#topic_board_id").val(self.data("board-id"));
     $(".onboarding-new").hide()
     $('#customizing-airbo-modal').foundation('reveal', 'open');
-    $.post("/api/v1/onboardings", $("#onboarding-form").serialize()).done(function(data) {
+   
+    $.post(form.attr("action"), form.serialize()).done(function(data) {
       if (data["user_onboarding"]) {
         window.location.href = "/user_onboardings/" + data["user_onboarding"]
       } else {
