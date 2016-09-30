@@ -9,6 +9,24 @@ class UserOnboardingsController < ApplicationController
     @tiles = Tile.displayable_categorized_to_user(current_user, 10)
   end
 
+  def update
+    user_onboarding_updater = UserOnboardingUpdater.new(user_onboarding_params)
+
+    if user_onboarding_updater.save
+      redirect_to "/myairbo/#{params[:id]}"
+    else
+      #why might this fail??
+    end
+  end
+
+  def create
+    @user_onboarding = UserOnboarding.find(params[:id])
+    UserOnboardingInitializer.new(@user_onboarding, params[:user_onboardings]).save
+
+    @user_onboarding.update_state
+    redirect_to myairbo_path(@user_onboarding, { shared: true, state: @user_onboarding.state })
+  end
+
   def activity
     @user_onboarding = UserOnboarding.includes([:user, :onboarding]).find(params[:id])
     if request.user_agent =~ /Mobile|webOS/
@@ -29,19 +47,12 @@ class UserOnboardingsController < ApplicationController
     @user_onboarding = UserOnboarding.includes([:user, :onboarding]).find(params[:id])
   end
 
-  def create
-    @user_onboarding = UserOnboarding.find(params[:id])
-    UserOnboardingInitializer.new(@user_onboarding, params[:user_onboardings]).save
-
-    @user_onboarding.update_state
-    redirect_to myairbo_path(@user_onboarding, { shared: true, state: @user_onboarding.state })
-  end
 
   private
-    def user_onboarding_params
-      {
-        id: params[:id],
-        topic_board_id: params[:topic_board_id]
-      }
-    end
+  def user_onboarding_params
+    {
+      id: params[:id],
+      topic_board_id: params[:topic_board_id]
+    }
+  end
 end
