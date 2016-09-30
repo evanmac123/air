@@ -31,6 +31,10 @@ class UserOnboarding < ActiveRecord::Base
     (state.to_f / final_state) * 100
   end
 
+   def completed
+     state == FINAL_STATE
+   end
+
   def regulate_progress(step)
     if (state + 1) < step
       "locked"
