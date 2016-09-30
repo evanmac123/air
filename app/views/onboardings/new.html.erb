@@ -38,13 +38,13 @@
     $(".onboarding-new").hide()
     $('#customizing-airbo-modal').foundation('reveal', 'open');
    
-    $.post(form.attr("action"), form.serialize()).done(function(data) {
+    $.post(form.attr("action"), form.serialize()).done(function(data, status, xhr) {
       Airbo.CookieMonster.setCookie("user_onboarding", data["hash"]);
       if (data["user_onboarding"]) {
-        window.location.href = "/user_onboardings/" + data["user_onboarding"]
+        window.location.href = xhr.getResponseHeader("location");
       } else {
         $(".onboarding-new").show()
-        $('#customizing-airbo-modal').foundation('reveal', 'close');
+          $('#customizing-airbo-modal').foundation('reveal', 'close');
       }
     });
     // $("#onboarding-form").submit();

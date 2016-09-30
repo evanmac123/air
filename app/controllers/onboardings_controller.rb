@@ -18,8 +18,10 @@ class OnboardingsController < ApplicationController
     if should_onboard? 
       onboarding_initializer.save
       if onboarding_initializer.error.nil?
+        user_onboarding = onboarding_initializer.user_onboarding
         if request.xhr?
-          render json: { success: onboarding_initializer.save, user_onboarding: onboarding_initializer.user_onboarding_id } and return
+
+          render json: { success: onboarding_initializer.save, user_onboarding: onboarding_initializer.user_onboarding_id, hash: user_onboarding.auth_hash}, location: user_onboarding_path(user_onboarding) and return
         else
           redirect_to "/myairbo/#{onboarding_initializer.user_onboarding_id}" and return
         end
