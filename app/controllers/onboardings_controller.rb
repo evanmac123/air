@@ -15,12 +15,19 @@ class OnboardingsController < ApplicationController
 
   def create
     onboarding_initializer = OnboardingInitializer.new(onboarding_params)
-    if should_onboard? && onboarding_initializer.save
-      redirect_to "/myairbo/#{onboarding_initializer.user_onboarding_id}"
-    else
-      redirect_to root_path
+    if should_onboard? 
+      onboarding_initializer.save
+      if onboarding_initializer.error.nil?
+        cookie[:user_onboarding]=  onboarding_initializer.user_onboarding.auth_hash
+        redirect_to "/myairbo/#{onboarding_initializer.user_onboarding_id}" and return
+      else
+        flash[:errors]=onboarding_initializer.error.message
+      end
     end
+
+    redirect_to root_path
   end
+
 
   private
 

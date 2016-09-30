@@ -1,5 +1,5 @@
 class OnboardingInitializer
-  attr_reader :email, :name, :organization_name, :reference_board_id, :error
+  attr_reader :email, :name, :organization_name, :user_onboarding, :reference_board_id, :error
 
   def initialize(params)
     @email = params[:email]
@@ -15,7 +15,6 @@ class OnboardingInitializer
       end
     rescue => e
       @error = e
-      false
     end
   end
 
