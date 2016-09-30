@@ -23,7 +23,6 @@ describe OnboardingsController do
       context 'missing email' do
         it "redirects to root" do
           post :create, valid_params.except(:email)
-          expect(response.cookies[:user_onboarding]).to_not be_nil
           expect(response.status).to eq(302)
 
           expect(response).to redirect_to(root_path)
