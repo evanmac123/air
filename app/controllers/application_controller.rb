@@ -169,7 +169,7 @@ class ApplicationController < ActionController::Base
 
     return if authorize_as_guest
     return if authorize_to_public_board
-    return if authorize_with_onboarding_token_hash
+    return if authorize_with_onboarding_auth_hash
     authorize_without_guest_checks
 
     refresh_activity_session(current_user)
