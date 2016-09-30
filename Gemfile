@@ -62,7 +62,8 @@ gem "newrelic_rpm"
 gem "jquery-fileupload-rails"#
 gem "acts_as_singleton"
 
-gem "roo", :git => "git://github.com/Empact/roo.git"
+gem "roo"
+gem "roo-xls" 
 gem "hashugar"
 gem 'addressable'
 gem "humanize_boolean"

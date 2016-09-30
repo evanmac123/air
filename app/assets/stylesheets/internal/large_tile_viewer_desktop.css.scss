@@ -2,22 +2,23 @@
 .tiles.tiles-index,
 .tile_previews.tile_previews-show,
 .client_admin-tiles.client_admin-tiles-show,
-.client_admin-stock_tiles.client_admin-stock_tiles-show,
-#tile_preview_modal {
+.client_admin-stock_tiles.client_admin-stock_tiles-show
+{
   .content .row {max-width:70em;}
   .tile_holder {
     font-size:1em;
     margin:0 auto;
+
   }
 
+    #slideshow {
+      padding-top: 0rem;
+    }
   // Large Prev and Next buttons
   .viewer {
     position:relative;
     max-width:46em;
     width:100%;
-    #slideshow {
-      padding-top: 0rem;
-    }
     a#prev, a#next {
       position: absolute;
       color:darken($tile-wall-bg, 3%);
@@ -70,6 +71,20 @@
     }
   }
 
+}
+
+#tile_preview_modal {
+  .tile_holder {
+    width: 600px;
+    margin-top: 50px;
+    box-shadow: none;
+    overflow: hidden;
+  }
+
+  .tile_preview_container {
+    max-width: 784px;
+    padding-top: 33px;
+  }
 }
 .client_admin-tiles.client_admin-tiles-show {
   .content .row {max-width:71.25em;}

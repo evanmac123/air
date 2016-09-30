@@ -398,6 +398,7 @@ Health::Application.routes.draw do
       resources :user_onboardings, only: [:update]
       resources :onboardings, only: [:create]
       resources :email_info_requests, only: [:create]
+      resources :cheers, only: [:create]
     end
   end
 end

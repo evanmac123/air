@@ -1,4 +1,7 @@
-@import "internal/internal_ie8.css.scss";
+//TODO remove as part of deprecating ie9 support
+
+$med-gray:          #a8a8a8;
+$dark-green:        #4FAA60;
 
 header {
   .admin_options #manage_board:before {background:$dark-green;}

@@ -1,24 +1,45 @@
-@import "mixins/main_styles.css.scss";
-// $default: "Arial";
-@import "screen.css.scss";
+
+//TODO potentially remove this file as part of deprecating ie9 support
 $small_cap_size: .625em;
 $under_small_cap: .25em; // space under small cap text
 $bar-height: 1.3em; // controls height of elements in Top Bar
 $top-bar-height: #{($bar-height + $small_cap_size + $under_small_cap)};
+
+/*NOTE commments out the immediately following imports from this file that are already included at higher level */
+@mixin standard_reveal_dimensions {
+  width: 40%;
+  left: 75%;
+  z-index: 5000;
+}
+@import "mixins/main_styles.css.scss";
+@import "screen.css.scss";
+/*@import "mast.css.scss";*/
 @import "screen_tablet.css.scss";
 @import "screen_desktop.css.scss";
 @import "screen_large.css.scss";
 @import "large_tile_viewer_desktop.css.scss";
 
+@import "user_progress_ie8.css.scss";
+
+
+
+/*NOTE adds back mixins and variables lost due to the commenting out of imports */
+  @mixin font-bold-local {
+  font-style:normal;
+  font-weight:bolder;
+  font-weight: 700;
+}
+
+
 
 body {
   border-top:none; font-size:16px; 
   // font-family:$default;
-  h1.headline {@include font-bold;}
-  a, a:link, a:visited {@include font-bold;}
+  h1.headline {@include font-bold-local;}
+  a, a:link, a:visited {@include font-bold-local;}
 }
 .small_cap {
-  @include font-bold;
+  @include font-bold-local;
   font-size:11px;
 }
 

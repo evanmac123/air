@@ -1,8 +1,25 @@
-
-
+<div class="row cheers-component">
+  <div class="columns large-12">
+    <% if Cheer.today? %>
+      <h3 class="cheer"><%= Cheer.sample %></h3>
+    <% else %>
+      <div class="new-cheer">
+        <br>
+        <%= form_for :cheer, url: api_v1_cheers_path, html: { id: "cheer_form" } do |f| %>
+          <%= f.label :body, "Today's Cheer" %>
+          <%= f.text_field :body %>
+          <%= f.submit "Get shit done!", class: "button", id: "submit-cheer" %>
+        <% end %>
+      </div>
+      <div class="cheer-posted" style="display:none">
+        <h3 class="cheer"></h3>
+      </div>
+    <% end %>
+  </div>
+</div>
+<br>
 <div class="row ">
   <div class="columns large-12">
-    <h3 class="blue">Admin | home</h3>
     <%= form_for :user, :url => admin_lost_user_path do |f| %>
       <label>Find a lost user</label>
       <%= f.text_field :email, :placeholder => 'email', style: "display:inline" %>

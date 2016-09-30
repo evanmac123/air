@@ -42,7 +42,7 @@ feature "Potential user requests signup" do
 
           click_button("Submit")
 
-          expect_content("It looks like an Airbo account has already been requested with your email.")
+          expect_content("It looks like an Airbo account has already been requested with your email")
 
           admin = FactoryGirl.create(:site_admin)
 

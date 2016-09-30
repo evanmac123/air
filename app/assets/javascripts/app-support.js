@@ -4,4 +4,3 @@
 //= require jquery.ui.autocomplete
 //= require jquery.tocify
 //= require ./support/support
-//= require_tree ./vendor_customization

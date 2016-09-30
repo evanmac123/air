@@ -189,12 +189,11 @@ td .button.td-button {
   background-color: $n-white;
 }
 
-.hidden,
-.hidden-field { // TODO: see if .hidden-field can be merged into .hidden
-  display: none;
+form.custom{
+  .hidden-field{
+    display:none;
+  }
 }
-
-
 /*
 //This is current defined in main_styles
 .hidden.hidden.hidden {

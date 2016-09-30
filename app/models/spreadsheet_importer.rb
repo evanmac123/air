@@ -16,7 +16,8 @@ class SpreadsheetImporter
 
   #Need to read the original file and strip put nont UTF-8 characters
   def sanitized_file
-    tmpfile = Tempfile.new(@file.path)
+    tmpfile =  Tempfile.new(["foo", @file.extension])
+
     tmpfile.write(File.read(@file.path).encode('utf-8', 'binary', invalid: :replace, undef: :replace, replace: ''))
     tmpfile.rewind
     tmpfile

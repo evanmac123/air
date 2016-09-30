@@ -168,6 +168,12 @@ ActiveRecord::Schema.define(:version => 20160928173344) do
 
   add_index "characteristics", ["demo_id"], :name => "index_characteristics_on_demo_id"
 
+  create_table "cheers", :force => true do |t|
+    t.string   "body"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "claim_attempt_histories", :force => true do |t|
     t.string   "from",              :default => "", :null => false
     t.text     "claim_information"
@@ -365,6 +371,14 @@ ActiveRecord::Schema.define(:version => 20160928173344) do
     t.string   "size"
     t.string   "company"
     t.string   "source"
+  end
+
+  create_table "experiments", :force => true do |t|
+    t.string   "name"
+    t.integer  "counter",    :default => 0
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+    t.boolean  "active",     :default => true
   end
 
   create_table "follow_up_digest_emails", :force => true do |t|
