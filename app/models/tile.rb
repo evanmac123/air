@@ -308,12 +308,11 @@ class Tile < ActiveRecord::Base
   end
 
   def can_update_activated
-    @block_activated_at_update.nil?
+    @block_activated_at_update.nil? || @block_activated_at_update == false
   end
 
-
   def already_activated
-    status == ACTIVE && activated_at.present?
+    (status == ACTIVE || status==ARCHIVE) && activated_at.present?
   end
 
   def never_activated

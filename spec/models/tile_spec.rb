@@ -12,10 +12,6 @@ describe Tile do
   pending { should_have_valid_mime_type(Tile, :image_content_type) }
 
   context "status and activated_at" do
-    it "doesn't change activated_it if the current tile is already activated" do
-      tile  = FactoryGirl.create :tile
-      expect{tile.status=Tile::ACTIVE;tile.save}.to_not change{tile.activated_at}
-    end
 
     it "changes activated_it if the current status is archive" do
       tile  = FactoryGirl.create :tile, status: Tile::ARCHIVE
@@ -27,6 +23,15 @@ describe Tile do
       expect{tile.status=Tile::ACTIVE;tile.save}.to change{tile.activated_at}
     end
   end
+
+ describe ".update_status" do
+
+   it "doesn't change activated_it when status is active but suppress is true" do
+     tile  = FactoryGirl.create :tile, status: Tile::ARCHIVE, activated_at: 1.month.ago
+      expect{ tile.update_status({"status" => "active", "suppress" => "true"}) }.to_not change{tile.activated_at}
+    end
+ end
+
 
   describe 'finders based on status' do
     # The test below was written first and exercises all tile-status combinations pretty thoroughly.
