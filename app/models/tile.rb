@@ -107,11 +107,12 @@ class Tile < ActiveRecord::Base
   def status=(new_status)
     case new_status
     when ACTIVE  then
-      if !already_activated
+      if can_update_activated || never_activated 
         self.activated_at = Time.now
       end
     when ARCHIVE then self.archived_at  = Time.now
     end
+
     write_attribute(:status, new_status)
   end
 
@@ -167,8 +168,9 @@ class Tile < ActiveRecord::Base
     CopyTile.new(new_demo, copying_user).copy_tile self
   end
 
-  def update_status status
-    self.status = status
+  def update_status params
+    handle_unarchived(params["status"], params["suppress"])
+    self.status = params["status"]
     self.position = find_new_first_position
     self.save
   end
@@ -297,8 +299,25 @@ class Tile < ActiveRecord::Base
 
   private
 
+  #FIXME the code around handling update status has gotten quite ugly
+
+  def handle_unarchived new_status,suppress
+    if status==ARCHIVE && new_status==ACTIVE && suppress=="true"
+      @block_activated_at_update = true
+    end
+  end
+
+  def can_update_activated
+    @block_activated_at_update.nil?
+  end
+
+
   def already_activated
     status == ACTIVE && activated_at.present?
+  end
+
+  def never_activated
+    !already_activated
   end
 
   def sanitize_supporting_content

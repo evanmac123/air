@@ -61,11 +61,20 @@ Airbo.TileAction = (function(){
 
     Airbo.Utils.ping("Tile " + mess[status], {action: action, tile_id: tileId});
   }
+
   function submitTileForUpadte(tile,target, postProcess ){
+    var newStatus = target.data("status");
+    var data ={"update_status": {"status": newStatus, "suppress": false}};
+
+    function isRepostingArchivedTile(){
+     return target.parents("#archive.manage_section").length>0;
+    }
+
+    function submit(){
       $.ajax({
         url: target.data("url") || target.attr("href"),
         type: "put",
-        data: {"update_status": target.data("status")},
+        data: data,
         dataType: "html",
         success: function(data, status,xhr){
           closeModal( $(tileModalSelector) );
@@ -78,7 +87,36 @@ Airbo.TileAction = (function(){
           movePing(tileId, status, "Clicked button to move");
         }
       });
+    }
+
+    if(isRepostingArchivedTile()){
+      swal(
+        {
+          title: "Block this Tile from future digest emails?",
+          text: "Click 'Yes' block it, 'No' to inlclude it in the next digest.",
+          customClass: "airbo",
+          showConfirmationButton: true,
+          showCancelButton: true,
+          cancelButtonText: "No",
+          confirmButtonText: "Yes",
+          closeOnConfirm: true,
+          closeOnCancel: true,
+          allowEscapeKey: false,
+        },
+
+        function(isConfirm){
+          if (isConfirm) {
+            data.update_status.suppress=true;
+          }
+          submit();
+        }
+      );
+    }else{
+      submit();
+    }
+
   }
+
   function updateStatus(target){
     tile = tileByStatusChangeTriggerLocation(target);
 
