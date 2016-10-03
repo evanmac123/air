@@ -1,3 +1,4 @@
+#TODO rename to make clear this is for suggested tile alone
 class TileStatusChangeManager
 
   def initialize tile
