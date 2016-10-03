@@ -226,13 +226,13 @@ Airbo.TileAction = (function(){
   function confirmDeletion(trigger){
     var tile = tileByStatusChangeTriggerLocation(trigger);
     function postProcess(){
-      var isArhciveSection = tile.data("status") == "archive";
+      var isArchiveSection = tile.data("status") == "archive";
       tile.remove();
       // if(Airbo.TileManager.getManagerType() == "main") {
       Airbo.Utils.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
       updateShowMoreDraftTilesButton();
       // }
-      if(isArhciveSection) {
+      if(isArchiveSection) {
         loadLastArchiveTile();
       }
     }
