@@ -10,53 +10,58 @@ Airbo.TileAction = (function(){
   // => Update Status
   //
   function closeModal(modal){
-   modal.foundation("reveal", "close");
+    modal.foundation("reveal", "close");
   }
 
-   function tileContainerByDataTileId(id){
-   return  $(tileWrapperSelector + "[data-tile-container-id=" + id + "]");
+  function tileContainerByDataTileId(id){
+    return  $(tileWrapperSelector + "[data-tile-container-id=" + id + "]");
   }
 
   function tileByStatusChangeTriggerLocation(target){
-      return tileContainerByDataTileId(target.data("tile-id"));
-      }
+    return tileContainerByDataTileId(target.data("tile-id"));
+  }
+
   function replaceTileContent(tile, id){
     selector = tileWrapperSelector + "[data-tile-container-id=" + id + "]";
     $(selector).replaceWith(tile);
   }
+
+
   function moveTile(currTile, data){
     sections = {
-       "active": "active",
-       "draft": "draft",
-       "archive": "archive",
-       "user_submitted": "suggestion_box",
-       "ignored": "suggestion_box"
+      "active": "active",
+      "draft": "draft",
+      "archive": "archive",
+      "user_submitted": "suggestion_box",
+      "ignored": "suggestion_box"
     };
     var newTile = $(data)
       , status = newTile.data("status")
       , newSection = "#" + sections[status]
     ;
 
-   if(status !=="user_submitted" && status!=="ignored"){
-     currTile.remove();
-     $(newSection).prepend(newTile);
-     window.updateTilesAndPlaceholdersAppearance();
-   }else{
-     replaceTileContent(newTile, newTile.data("tile-container-id"));
-     updateUserSubmittedTilesCounter();
-   }
+    if(status !=="user_submitted" && status!=="ignored"){
+      currTile.remove();
+      $(newSection).prepend(newTile);
+      window.updateTilesAndPlaceholdersAppearance();
+    }else{
+      replaceTileContent(newTile, newTile.data("tile-container-id"));
+      updateUserSubmittedTilesCounter();
+    }
   }
+
   function updateUserSubmittedTilesCounter() {
     submittedTile = $(".tile_thumbnail.user_submitted");
     $("#user_submitted_tiles_counter").html(submittedTile.length);
   }
+
   function movePing(tileId, status, action){
     var mess = {
-       "active": "Posted",
-       "draft": "Drafted",
-       "archive": "Archived",
-       "user_submitted": "Unignored",
-       "ignored": "Ignored"
+      "active": "Posted",
+      "draft": "Drafted",
+      "archive": "Archived",
+      "user_submitted": "Unignored",
+      "ignored": "Ignored"
     };
 
     Airbo.Utils.ping("Tile " + mess[status], {action: action, tile_id: tileId});
@@ -119,7 +124,6 @@ Airbo.TileAction = (function(){
 
   function updateStatus(target){
     tile = tileByStatusChangeTriggerLocation(target);
-
     function closeAnyToolTips(){
       if((target).parents(".tooltipster-base").length > 0){
         $("li#stat_toggle").tooltipster("hide");
@@ -146,9 +150,11 @@ Airbo.TileAction = (function(){
     );
     swapModalButtons();
   }
+
   function swapModalButtons(){
     // $("button.cancel").before($("button.confirm"));
   }
+
   function afterDuplicationModal(tileId){
     swal(
       {
@@ -167,6 +173,7 @@ Airbo.TileAction = (function(){
     );
     swapModalButtons();
   }
+
   function makeDuplication(trigger) {
     processingDuplicationModal();
 
@@ -189,16 +196,18 @@ Airbo.TileAction = (function(){
   // => Deletion
   //
   function submitTileForDeletion(tile,target, postProcess ){
-      $.ajax({
-        url: target.data("url") || target.attr("href"),
-        type: "delete",
-        success: function(data, status,xhr){
-          swal.close();
-          closeModal( $(tileModalSelector) );
-          postProcess();
-        }
-      });
+    $.ajax({
+      url: target.data("url") || target.attr("href"),
+      type: "delete",
+      success: function(data, status,xhr){
+        swal.close();
+        closeModal( $(tileModalSelector) );
+        postProcess();
+      }
+    });
   }
+
+
   function loadLastArchiveTile() {
     var archiveSection = $(".manage_section#archive");
     var placeholders = tilePlaceholdersInSection( archiveSection );
@@ -223,6 +232,8 @@ Airbo.TileAction = (function(){
       }
     });
   }
+
+
   function confirmDeletion(trigger){
     var tile = tileByStatusChangeTriggerLocation(trigger);
     function postProcess(){
