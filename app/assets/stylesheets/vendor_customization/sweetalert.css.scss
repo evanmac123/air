@@ -23,6 +23,17 @@
   .sa-confirm-button-container {
     float: right;
   }
+
+  input[type='checkbox']{
+    display: inline;
+    padding: 0;
+    width: inherit;
+    border: 0;
+    margin: 0;
+    padding:0;
+    height: auto;
+  }
+
   button{
     margin-top: 15px;
     margin-left: 10px;
