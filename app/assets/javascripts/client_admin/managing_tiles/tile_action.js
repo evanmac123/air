@@ -98,22 +98,24 @@ Airbo.TileAction = (function(){
       swal(
         {
           title: "",
-          text: "Would you like this Tile to appear in the next Tile digest email? Remember, Tiles that users have already interacted with won’t appear as a new Tile.",
-          customClass: "airbo",
-          showConfirmationButton: true,
-          showCancelButton: true,
-          cancelButtonText: "No",
-          confirmButtonText: "Yes",
-          closeOnConfirm: true,
-          closeOnCancel: true,
-          allowEscapeKey: false,
+      text: "Would you like this Tile to appear in the next Tile digest email? Remember, Tiles that users have already interacted with won’t appear as a new Tile. </br><label>Allow in digest: <input type='checkbox' value='yes' id='digestable'/> </label>",
+      customClass: "airbo",
+      showConfirmationButton: true,
+      showCancelButton: true,
+      cancelButtonText: "No",
+      confirmButtonText: "Yes",
+      closeOnConfirm: true,
+      closeOnCancel: true,
+      allowEscapeKey: true,
+      html: true,
+      animation: false,
         },
 
         function(isConfirm){
           if (isConfirm) {
-            data.update_status.suppress=false;
+            data.update_status.suppress = !$(".sweet-alert input#digestable").is(':checked');
+            submit();
           }
-          submit();
         }
       );
     }else{
