@@ -94,7 +94,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       params[:left_tile_id],
       @tile.id,
       params[:right_tile_id],
-      params[:status]
+      params[:status],
+      params[:suppress]
     )
     @tile.reload
 

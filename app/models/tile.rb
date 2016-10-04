@@ -239,8 +239,8 @@ class Tile < ActiveRecord::Base
     FindAdditionalTilesForManageSection.new(status_name, presented_ids, tile_demo_id).find
   end
 
-  def self.insert_tile_between left_tile_id, tile_id, right_tile_id, new_status = nil
-    InsertTileBetweenTiles.new(left_tile_id, tile_id, right_tile_id, new_status).insert!
+  def self.insert_tile_between left_tile_id, tile_id, right_tile_id, new_status = nil, suppress=true
+    InsertTileBetweenTiles.new(left_tile_id, tile_id, right_tile_id, new_status, suppress).insert!
   end
 
   def self.reorder_explore_page_tiles! tile_ids
@@ -279,6 +279,14 @@ class Tile < ActiveRecord::Base
     use_old_line_break_css
   end
 
+  def prevent_activated_at_reset
+   @block_activated_at_update = true
+  end
+
+  def allow_activated_at_reset
+   @block_activated_at_update = false
+  end
+
   protected
 
   def set_on_first_position
@@ -296,6 +304,7 @@ class Tile < ActiveRecord::Base
   def no_post_process_on_copy
     !(@making_copy)
   end
+
 
   private
 

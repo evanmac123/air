@@ -4,6 +4,8 @@ String.prototype.times = function(n) {
   }, this);
 };
 
+var suppressDigestOnUnarchiveTile = true;
+
 window.dragAndDropProperties = {
   items: ".tile_container:not(.placeholder_container)",
   connectWith: ".manage_section",
@@ -74,6 +76,7 @@ window.dragAndDropTiles = function() {
   };
 
   window.tileSortable = $("#draft, #active, #archive").sortable($.extend(window.dragAndDropProperties, dragAndDropTilesEvents)).disableSelection();
+
   updateEvent = function(event, tile, section) {
     if (isTileInSection(tile, section)) {
       tileInfo(tile, "remove");
@@ -235,7 +238,8 @@ window.dragAndDropTiles = function() {
         left_tile_id: left_tile_id,
         right_tile_id: right_tile_id,
         status: status,
-        source_section: sourceSectionParams()
+        source_section: sourceSectionParams(),
+        suppress: suppressDigestOnUnarchiveTile
       },
       type: 'POST',
       url: '/client_admin/tiles/' + id + '/sort',
@@ -383,8 +387,37 @@ window.dragAndDropTiles = function() {
   moveComfirmationModal = function() {
     window.moveConfirmationDeferred = $.Deferred();
     window.moveConfirmation = window.moveConfirmationDeferred.promise();
-    return $(".move-tile-confirm").foundation('reveal', 'open');
+
+    confirmReposting();
   };
+
+
+  function confirmReposting(){
+
+    var data ={"update_status": {"status": 'archive', "suppress": true}};
+    swal({
+      title: "",
+      text: "Would you like this Tile to appear in the next Tile digest email? Remember, Tiles that users have already interacted with won’t appear as a new Tile. </br><label>Allow in digest: <input type='checkbox' value='yes' id='digestable'/> </label>",
+      customClass: "airbo",
+      showConfirmationButton: true,
+      showCancelButton: true,
+      cancelButtonText: "No",
+      confirmButtonText: "Yes",
+      closeOnConfirm: true,
+      closeOnCancel: true,
+      allowEscapeKey: true,
+      html: true
+    },
+
+    function(isConfirm){
+      if (isConfirm) {
+        suppressDigestOnUnarchiveTile= !$(".sweet-alert input#digestable").is(':checked');
+        window.moveConfirmationDeferred.resolve();
+        return;
+      }
+        window.moveConfirmationDeferred.reject();
+    });
+  }
 
 
   isTileMoved = function(tile, fromSectionName, toSectionName) {

@@ -69,7 +69,7 @@ Airbo.TileAction = (function(){
 
   function submitTileForUpadte(tile,target, postProcess ){
     var newStatus = target.data("status");
-    var data ={"update_status": {"status": newStatus, "suppress": false}};
+    var data ={"update_status": {"status": newStatus, "suppress": true}};
 
     function isRepostingArchivedTile(){
      return target.parents("#archive.manage_section").length>0;
@@ -97,8 +97,8 @@ Airbo.TileAction = (function(){
     if(isRepostingArchivedTile()){
       swal(
         {
-          title: "Block this Tile from future digest emails?",
-          text: "Click 'Yes' block it, 'No' to inlclude it in the next digest.",
+          title: "",
+          text: "Would you like this Tile to appear in the next Tile digest email? Remember, Tiles that users have already interacted with won’t appear as a new Tile.",
           customClass: "airbo",
           showConfirmationButton: true,
           showCancelButton: true,
@@ -111,7 +111,7 @@ Airbo.TileAction = (function(){
 
         function(isConfirm){
           if (isConfirm) {
-            data.update_status.suppress=true;
+            data.update_status.suppress=false;
           }
           submit();
         }
