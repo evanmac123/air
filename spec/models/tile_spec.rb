@@ -24,13 +24,13 @@ describe Tile do
     end
   end
 
- describe ".update_status" do
+  describe ".update_status" do
 
-   it "doesn't change activated_it when status is active but suppress is true" do
-     tile  = FactoryGirl.create :tile, status: Tile::ARCHIVE, activated_at: 1.month.ago
+    it "doesn't change activated_it when status is active but suppress is true" do
+      tile  = FactoryGirl.create :tile, status: Tile::ARCHIVE, activated_at: 1.month.ago
       expect{ tile.update_status({"status" => "active", "suppress" => "true"}) }.to_not change{tile.activated_at}
     end
- end
+  end
 
 
   describe 'finders based on status' do
@@ -90,28 +90,28 @@ describe Tile do
     end
   end
 
-	context "status changes" do
-		let(:user){FactoryGirl.create(:user)}
-		let(:demo) { FactoryGirl.create :demo }
-		let(:tile) { FactoryGirl.create :multiple_choice_tile, status: Tile::USER_SUBMITTED, demo: demo, creator: user, user_created: true }
+  context "status changes" do
+    let(:user){FactoryGirl.create(:user)}
+    let(:demo) { FactoryGirl.create :demo }
+    let(:tile) { FactoryGirl.create :multiple_choice_tile, status: Tile::USER_SUBMITTED, demo: demo, creator: user, user_created: true }
 
-		it "triggers status change manager if status has changed" do
-			tile.status = Tile::DRAFT
-			TileStatusChangeManager.any_instance.expects(:process)
-			tile.save
-		end
+    it "triggers status change manager if status has changed" do
+      tile.status = Tile::DRAFT
+      TileStatusChangeManager.any_instance.expects(:process)
+      tile.save
+    end
 
-		it "does not trigger status change manager if status has not changed" do
-			tile.question = "2B || !2B"
-			TileStatusChangeManager.any_instance.expects(:process).never
-			tile.save
-		end
+    it "does not trigger status change manager if status has not changed" do
+      tile.question = "2B || !2B"
+      TileStatusChangeManager.any_instance.expects(:process).never
+      tile.save
+    end
 
-		it "triggers status change manager on creation " do
-			TileStatusChangeManager.any_instance.expects(:process)
-			FactoryGirl.create :multiple_choice_tile, status: Tile::USER_SUBMITTED, demo: demo, creator: user, user_created: true
-		end
-	end
+    it "triggers status change manager on creation " do
+      TileStatusChangeManager.any_instance.expects(:process)
+      FactoryGirl.create :multiple_choice_tile, status: Tile::USER_SUBMITTED, demo: demo, creator: user, user_created: true
+    end
+  end
 
   it "setting or updating tile status updates the corresponding timestamps" do
 
@@ -285,13 +285,13 @@ describe Tile do
   describe "#survey_chart" do
     it "should return array with right statistic" do
       tile = FactoryGirl.create(:survey_tile, \
-        question: "Do you belive in life after life", \
-        multiple_choice_answers: ["Yes", "No"])
+                                question: "Do you belive in life after life", \
+                                multiple_choice_answers: ["Yes", "No"])
       tc1 = FactoryGirl.create(:tile_completion, tile: tile, answer_index: 0 )
       tc2 = FactoryGirl.create(:tile_completion, tile: tile, answer_index: 1 )
       tc3 = FactoryGirl.create(:tile_completion, tile: tile, answer_index: 1 )
       tile.survey_chart.should == [{"answer"=>"Yes", "number"=>1, "percent"=>33.33},
-                                    {"answer"=>"No", "number"=>2, "percent"=>66.67}]
+                                   {"answer"=>"No", "number"=>2, "percent"=>66.67}]
     end
   end
 
