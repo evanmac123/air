@@ -15,22 +15,16 @@ class OnboardingsController < ApplicationController
 
   def create
     onboarding_initializer = OnboardingInitializer.new(onboarding_params)
-    if should_onboard? 
-      onboarding_initializer.save
-      if onboarding_initializer.error.nil?
-        user_onboarding = onboarding_initializer.user_onboarding
-        if request.xhr?
-
-          render json: { success: onboarding_initializer.save, user_onboarding: onboarding_initializer.user_onboarding_id, hash: user_onboarding.auth_hash}, location: user_onboarding_path(user_onboarding) and return
-        else
-          redirect_to "/myairbo/#{onboarding_initializer.user_onboarding_id}" and return
-        end
-      else
-        flash[:errors]=onboarding_initializer.error.message
-      end
+    if should_onboard? && onboarding_initializer.save
+      user_onboarding = onboarding_initializer.user_onboarding
+      render json: { success: true, 
+                     user_onboarding: onboarding_initializer.user_onboarding_id, 
+                     hash: user_onboarding.auth_hash
+      }, 
+      location: user_onboarding_path(user_onboarding), status: :ok
+    else
+      head :unprocessable_entity, response.headers["X-Message"]=user_onboarding.error
     end
-
-    redirect_to root_path
   end
 
 

@@ -24,16 +24,16 @@ class UserOnboarding < ActiveRecord::Base
   end
 
   def final_state
-    5
+    FINAL_STATE
   end
 
   def percent_complete
     (state.to_f / final_state) * 100
   end
 
-   def completed
-     state == FINAL_STATE
-   end
+  def completed
+    state == FINAL_STATE
+  end
 
   def regulate_progress(step)
     if (state + 1) < step
