@@ -97,18 +97,18 @@ Airbo.TileAction = (function(){
     if(isRepostingArchivedTile()){
       swal(
         {
-          title: "",
-      text: "Would you like this Tile to appear in the next Tile digest email? Remember, Tiles that users have already interacted with won’t appear as a new Tile. </br><label>Allow in digest: <input type='checkbox' value='yes' id='digestable'/> </label>",
-      customClass: "airbo",
-      showConfirmationButton: true,
-      showCancelButton: true,
-      cancelButtonText: "No",
-      confirmButtonText: "Yes",
-      closeOnConfirm: true,
-      closeOnCancel: true,
-      allowEscapeKey: true,
-      html: true,
-      animation: false,
+          title: "Are you sure you want to un archive this Tile?",
+          text: "If yes check here if you want it to also appear in the next Digest Email <p><label>Allow in digest: <input type='checkbox' value='yes' id='digestable'/> </label></p>",
+          customClass: "airbo",
+          showConfirmationButton: true,
+          showCancelButton: true,
+          cancelButtonText: "Cancel",
+          confirmButtonText: "Re Post",
+          closeOnConfirm: true,
+          closeOnCancel: true,
+          allowEscapeKey: true,
+          html: true,
+          animation: false,
         },
 
         function(isConfirm){
