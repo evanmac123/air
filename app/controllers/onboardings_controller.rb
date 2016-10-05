@@ -23,7 +23,7 @@ class OnboardingsController < ApplicationController
       }, 
       location: user_onboarding_path(user_onboarding), status: :ok
     else
-      head :unprocessable_entity, response.headers["X-Message"]=user_onboarding.error
+      head :unprocessable_entity, response.headers["X-Message"]=onboarding_initializer.error
     end
   end
 
