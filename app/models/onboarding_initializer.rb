@@ -15,6 +15,7 @@ class OnboardingInitializer
       end
     rescue => e
       @error = e
+      false
     end
   end
 
