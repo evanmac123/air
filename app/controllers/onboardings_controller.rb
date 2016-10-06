@@ -17,10 +17,10 @@ class OnboardingsController < ApplicationController
     onboarding_initializer = OnboardingInitializer.new(onboarding_params)
     if should_onboard? && onboarding_initializer.save
       user_onboarding = onboarding_initializer.user_onboarding
-      render json: { success: true, 
-                     user_onboarding: onboarding_initializer.user_onboarding_id, 
+      render json: { success: true,
+                     user_onboarding: onboarding_initializer.user_onboarding_id,
                      hash: user_onboarding.auth_hash
-      }, 
+      },
       location: user_onboarding_path(user_onboarding), status: :ok
     else
       head :unprocessable_entity, response.headers["X-Message"]=onboarding_initializer.error
