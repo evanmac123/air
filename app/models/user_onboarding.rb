@@ -1,6 +1,7 @@
 class UserOnboarding < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :user, autosave: true
   belongs_to :onboarding
+
   attr_accessible :user, :onboarding, :state
   validates_presence_of :user_id
   validates_presence_of :onboarding_id

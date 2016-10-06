@@ -10,13 +10,27 @@ class OnboardingInitializer
 
   def save
     begin
-      ActiveRecord::Base.transaction do
+      #ActiveRecord::Base.transaction do
         initialize_onboarding
-      end
+      #end
     rescue => e
       @error = e
       false
     end
+  end
+
+  def assemble
+    org = Organization.where(name: organization_name).first_or_initialize
+    user = org.users.first_or_build({email:email, name: name, accepted_invitation_at: Time.now})
+
+    onboarding = org.onboarding || org.build_onboarding
+    onboarding.build_board(reference_board.attributes.merge({name: copied_board_name, public_slug: copied_board_name})) #board
+    onboarding.user_onboardings.build.user = user
+    org.save
+    binding.pry
+    #onboarding = Onboarding.where(organization: org).first_or_initialize do |o|
+      #o.demo_id = user.reload.demo_id
+    #end
   end
 
   def initialize_onboarding
@@ -39,10 +53,13 @@ class OnboardingInitializer
     @user_onboarding.id
   end
 
+  def target_user
+
+  end
+
   private
 
     def copy_reference_board(org, user)
-      reference_board = find_reference_board(reference_board_id)
 
       board_name = copied_board_name(org, reference_board)
 
@@ -63,15 +80,15 @@ class OnboardingInitializer
       CopyBoard.new(new_board, reference_board).copy_active_tiles_from_board
     end
 
-    def find_reference_board(board_id)
-      Demo.includes(:tiles).find(board_id)
+    def reference_board
+      @ref_board ||=Demo.includes(:tiles).find(@reference_board_id)
     end
 
-    def copied_board_name(org, reference_board)
-      org.name + "-" + topic_name(reference_board)
+    def copied_board_name
+      organization_name + "-" + topic_name
     end
 
-    def topic_name(reference_board)
+    def topic_name
       reference_board.topic_board.topic.name
     end
 end
