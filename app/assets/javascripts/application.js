@@ -4,7 +4,6 @@
 //= require jquery.validate.additional-methods
 //= require autosize
 //= require airbo
-//= require airbo
 //= require_tree ./utils
 
 function isIE11() {
