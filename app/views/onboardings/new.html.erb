@@ -9,7 +9,7 @@
       <%end%>
       <div class='text-center onboarding-new'>
         <div class="onboarding-new-image">
-          <%= image_tag "onboard-illustration-mock-1.png" %>
+          <%= image_tag "onboarding_welcome.png" %>
         </div>
         <div>
           <h2>Hi. Welcome to your Airbo🙃.</h2>
@@ -37,7 +37,7 @@
     $("#topic_board_id").val(self.data("board-id"));
     $(".onboarding-new").hide()
     $('#customizing-airbo-modal').foundation('reveal', 'open');
-   
+
     $.post(form.attr("action"), form.serialize()).done(function(data, status, xhr) {
       Airbo.CookieMonster.setCookie("user_onboarding", data["hash"]);
       if (data["user_onboarding"]) {
