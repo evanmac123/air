@@ -39,6 +39,7 @@ Airbo.UserOnboardingUpdate = (function() {
           $(".progress-bar-label span").text("Get started (4/5)");
           $(".onboarding-progress-bar .meter").css("width", "80%");
           $($(".progress-steps").children()[3]).addClass("complete");
+          $($(".progress-steps").children()[4]).removeClass("locked");
           $("#tile_manager_nav #share_airbo").show();
           return res;
         }

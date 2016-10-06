@@ -14,13 +14,8 @@
   <%= stylesheet_link_tag 'app-user-progress' %>
   <%= split_stylesheet_link_tag "app-client-admin", :media => "all", :split_count => 3 %>
 
-
-
   <%= csrf_meta_tag %>
-  <%= mobvious_javascript %>
-  <%= render 'shared/nerf_animations_in_test' %>
   <%= render partial: '/shared/mixpanel' %>
-  <%= render 'shared/inspectlet' %>
   <%= content_for :head%>
 </head>
 <body class="<%= body_class %> onboarding-body client_admin_main user-onboarding-state-<%= @user_onboarding.state %>" data-id="<%= @user_onboarding.try(:id) %>" data-state="<%= @user_onboarding.state %>" style="-webkit-overflow-scrolling: touch; overflow:visible; ">
@@ -39,9 +34,7 @@
   <% render 'shared/intercom' %>
 
   <%= yield :lightbox %>
-  <%= render :partial => 'shared/modals/modals' %>
-  <%= render :partial => 'shared/javascript' %><!-- This is where 'yield :javascript' takes place -->
+  <%= render :partial => 'shared/javascript' %>
   <div id='gradient-triangle'></div>
-  <%= javascript_include_tag 'rem.min.js' %>
 </body>
 </html>
