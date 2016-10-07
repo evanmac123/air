@@ -3,41 +3,28 @@ class OnboardingsController < ApplicationController
   layout 'onboarding'
 
   def new
-    if should_onboard?
+
+    @onboarding_initializer = OnboardingInitializer.new(onboarding_params)
+    if @onboarding_initializer.has_no_active_user_onboarding?
       sign_out
-      @topic_boards = TopicBoard.reference_board_set
-      @onboarding_initializer = OnboardingInitializer.new(onboarding_params)
-      @user_onboarding = UserOnboarding.new(state: 1)
     else
-      redirect_to "/myairbo/#{@user.user_onboarding.id}"
+      redirect_to "/myairbo/#{@onboarding_initializer.user_onboarding_id}"
     end
   end
 
   def create
-    onboarding_initializer = OnboardingInitializer.new(onboarding_params)
-    if should_onboard? && onboarding_initializer.save
-      user_onboarding = onboarding_initializer.user_onboarding
-      render json: { success: true,
-                     user_onboarding: onboarding_initializer.user_onboarding_id,
-                     hash: user_onboarding.auth_hash
-      },
-      location: user_onboarding_path(user_onboarding), status: :ok
+    on_it = OnboardingInitializer.new(onboarding_params)
+
+    if on_it.save
+      uob = on_it.user_onboarding
+      render json:{ uob: on_it.user_onboarding_id, hash: uob.auth_hash }, location: user_onboarding_path(uob), status: :ok
     else
-      head :unprocessable_entity, response.headers["X-Message"]=onboarding_initializer.error
+      head :unprocessable_entity, response.headers["X-Message"]=on_it.error
     end
   end
 
-
-  def set_auth_cookie
-    cookie[:user_onboarding]="12345"
-  end
 
   private
-
-    def should_onboard?
-      @user = User.where(email: params[:email]).first_or_initialize
-      @user.user_onboarding.nil?
-    end
 
     def onboarding_params
       {

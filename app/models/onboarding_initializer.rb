@@ -6,84 +6,86 @@ class OnboardingInitializer
     @name = params[:name]
     @organization_name = params[:organization]
     @reference_board_id = params[:board_id]
+    @uob= UserOnboarding.new({state: 1})
   end
 
   def save
-    begin
-      #ActiveRecord::Base.transaction do
-        initialize_onboarding
-      #end
-    rescue => e
-      @error = e
-      false
-    end
+    assemble
+    @organization.save!
+  rescue => e
+    @error = e
+    false
   end
 
-  def assemble
-    org = Organization.where(name: organization_name).first_or_initialize
-    onboarding = org.build_onboarding
-    board = onboarding.build_board(reference_board.attributes.merge({name: copied_board_name, public_slug: copied_board_name})) #board
-    user_onboarding = onboarding.user_onboardings.build({onboarding: onboarding, user: User.new({email:email, name: name, accepted_invitation_at: Time.now})})
-    board.board_memberships.build({user: user_onboarding.user})
-    org.save
-  end
-
-  def initialize_onboarding
-    org = Organization.where(name: organization_name).first_or_create!
-    user = org.users.where(email: email).first_or_create! do |u|
+  def user
+    @user ||= User.where({email:email}).first_or_initialize do |u|
       u.name = name
-      u.accepted_invitation_at = Time.now
+      u.accepted_invitation_at = Time.now 
     end
+  end
 
-    copy_reference_board(org, user)
+  def state
+    user_onboarding.present? ? user_onboarding.state : 1
+  end
 
-    onboarding = Onboarding.where(organization: org).first_or_create! do |o|
-      o.demo_id = user.reload.demo_id
-    end
+  def has_active_user_onboarding?
+    user_onboarding.persisted?
+  end
 
-    @user_onboarding = onboarding.user_onboardings.where(user: user).first_or_create!(user: user)
+  def has_no_active_user_onboarding?
+    not has_active_user_onboarding?
+  end
+
+  def user_onboarding
+    @uob ||= user.user_onboarding
   end
 
   def user_onboarding_id
-    @user_onboarding.id
+    has_active_user_onboarding? ? user_onboarding.id : nil
   end
 
-  def target_user
-
+  def topic_boards
+    @topic_boards ||= TopicBoard.reference_board_set
   end
 
   private
 
-    def copy_reference_board(org, user)
+  def validate_user
+    user.include(:organization).persisted? 
+  end
 
-      board_name = copied_board_name(org, reference_board)
+  def assemble
 
-      board = org.boards.where(name: board_name).first_or_create! do |b|
-        b.email = user.email
-      end
+    if user.user_onboarding.nil?
+      @organization = Organization.where(name: organization_name).first_or_initialize
+      onboarding = @organization.onboarding || @organization.build_onboarding
+      board = onboarding.board || onboarding.build_board(reference_board.attributes.merge({name: copied_board_name, public_slug: copied_board_name})) #board
 
-      user.board_memberships.where(demo_id: board.id).first_or_create! do |bm|
-        bm.is_client_admin = true
-      end
+      @user_onboarding = user.user_onboarding || onboarding.user_onboardings.build({
+        onboarding: onboarding, 
+        user: user,
+        state: 1
+      })
 
-      if board.tiles.empty?
-        copy_tiles_to_new_board(board, reference_board)
-      end
+      board.board_memberships.build({user: @user_onboarding.user, is_client_admin: true})
     end
+  end
 
-    def copy_tiles_to_new_board(new_board, reference_board)
-      CopyBoard.new(new_board, reference_board).copy_active_tiles_from_board
-    end
 
-    def reference_board
-      @ref_board ||=Demo.includes(:tiles).find(@reference_board_id)
-    end
 
-    def copied_board_name
-      organization_name + "-" + topic_name
-    end
+  def copy_tiles_to_new_board(new_board, reference_board)
+    CopyBoard.new(new_board, reference_board).copy_active_tiles_from_board
+  end
 
-    def topic_name
-      reference_board.topic_board.topic.name
-    end
+  def reference_board
+    @ref_board ||=Demo.includes(:tiles).find(@reference_board_id)
+  end
+
+  def copied_board_name
+    organization_name + "-" + topic_name
+  end
+
+  def topic_name
+    reference_board.topic_board.topic.name
+  end
 end
