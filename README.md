@@ -144,16 +144,16 @@ Running the tests
 
 Our CI runs with the following script:
 
-  `bundle install --deployment --path vendor/bundle`
-  `bundle exec rake db:create db:migrate db:test:prepare`
-  `bundle exec RSPEC_RERUN_TAG="~broken:true" rake rspec-rerun:spec[3]`
+  `bundle install --deployment --path vendor/bundle
+   bundle exec rake db:create db:migrate db:test:prepare
+   bundle exec RSPEC_RERUN_TAG="~broken:true" rake rspec-rerun:spec[3]`
 
   The output of the test suite from RSPEC will include a section that lists "flaky tests". These are tests that passed after some number of reruns and should be prioritized based on the "cost" that is associated with them, which is based on the time impact on the test suite.
 
 To run the whole suite locally under the same CI configuration:
     Add the following ENV variables:
-    `export RSPEC_RERUN_RETRY_COUNT="3"``
-    `export RSPEC_RERUN_TAG="~broken:true"`
+    `export RSPEC_RERUN_RETRY_COUNT="3"
+     export RSPEC_RERUN_TAG="~broken:true"`
 
     Run:
     `rake rspec-rerun:spec`
