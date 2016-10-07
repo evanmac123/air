@@ -21,16 +21,11 @@ class OnboardingInitializer
 
   def assemble
     org = Organization.where(name: organization_name).first_or_initialize
-    user = org.users.first_or_build({email:email, name: name, accepted_invitation_at: Time.now})
-
-    onboarding = org.onboarding || org.build_onboarding
-    onboarding.build_board(reference_board.attributes.merge({name: copied_board_name, public_slug: copied_board_name})) #board
-    onboarding.user_onboardings.build.user = user
+    onboarding = org.build_onboarding
+    board = onboarding.build_board(reference_board.attributes.merge({name: copied_board_name, public_slug: copied_board_name})) #board
+    user_onboarding = onboarding.user_onboardings.build({onboarding: onboarding, user: User.new({email:email, name: name, accepted_invitation_at: Time.now})})
+    board.board_memberships.build({user: user_onboarding.user})
     org.save
-    binding.pry
-    #onboarding = Onboarding.where(organization: org).first_or_initialize do |o|
-      #o.demo_id = user.reload.demo_id
-    #end
   end
 
   def initialize_onboarding
