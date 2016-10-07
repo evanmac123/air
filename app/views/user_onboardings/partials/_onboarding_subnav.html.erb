@@ -1,4 +1,4 @@
-<% subnav = OnboardingSubnavPresenter.new(@user_onboarding) %>
+<% subnav = OnboardingSubnavPresenter.new(user_onboarding) %>
 <ul id="tile_manager_nav">
   <% subnav.items_with_corrected_params do |item_params| %>
     <%= render partial: "user_onboardings/partials/subnav_item", locals: item_params %>
