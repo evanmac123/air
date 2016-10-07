@@ -1,2 +1,0 @@
-	2016-10-07 14:53:26 -0700	passed	Admin conducts raffle when no segment is selected and no users have tickets should say so	./spec/acceptance/admin/conducts_raffle_spec.rb			9.042135
-	2016-10-07 14:53:29 -0700	passed	Admin conducts raffle when no segment is selected and some users have tickets and no maximum ticket amount is specified should select a user pseudorandomly proportional to how many tickets they have	./spec/acceptance/admin/conducts_raffle_spec.rb			3.683183
