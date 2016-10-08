@@ -28,6 +28,10 @@ class UserOnboarding < ActiveRecord::Base
     FINAL_STATE
   end
 
+  def in_process?
+    self.persisted? 
+  end
+
   def percent_complete
     (state.to_f / final_state) * 100
   end

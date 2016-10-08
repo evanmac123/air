@@ -3,12 +3,13 @@ class OnboardingsController < ApplicationController
   layout 'onboarding'
 
   def new
-
     @onboarding_initializer = OnboardingInitializer.new(onboarding_params)
-    if @onboarding_initializer.has_no_active_user_onboarding?
+    @user_onboarding = @onboarding_initializer.user_onboarding
+
+    if @user_onboarding.new_record?
       sign_out
     else
-      redirect_to "/myairbo/#{@onboarding_initializer.user_onboarding_id}"
+      redirect_to user_onboarding_path(@user_onboarding)
     end
   end
 
@@ -16,10 +17,10 @@ class OnboardingsController < ApplicationController
     on_it = OnboardingInitializer.new(onboarding_params)
 
     if on_it.save
-      uob = on_it.user_onboarding
-      render json:{ uob: on_it.user_onboarding_id, hash: uob.auth_hash }, location: user_onboarding_path(uob), status: :ok
+      render json: on_it.to_auth_json, location: user_onboarding_path(on_it.user_onboarding), status: :ok
     else
-      head :unprocessable_entity, response.headers["X-Message"]=on_it.error
+      response.headers["X-Message"] = on_it.error
+      head :unprocessable_entity
     end
   end
 

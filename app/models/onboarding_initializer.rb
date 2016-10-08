@@ -6,7 +6,7 @@ class OnboardingInitializer
     @name = params[:name]
     @organization_name = params[:organization]
     @reference_board_id = params[:board_id]
-    @uob= UserOnboarding.new({state: 1})
+    @user_onboarding = UserOnboarding.new({state: 1})
   end
 
   def save
@@ -24,35 +24,19 @@ class OnboardingInitializer
     end
   end
 
-  def state
-    user_onboarding.present? ? user_onboarding.state : 1
-  end
-
-  def has_active_user_onboarding?
-    user_onboarding.persisted?
-  end
-
-  def has_no_active_user_onboarding?
-    not has_active_user_onboarding?
-  end
-
   def user_onboarding
-    @uob ||= user.user_onboarding
-  end
-
-  def user_onboarding_id
-    has_active_user_onboarding? ? user_onboarding.id : nil
+    @user_onboarding ||= user.user_onboarding
   end
 
   def topic_boards
     @topic_boards ||= TopicBoard.reference_board_set
   end
 
-  private
+   def to_auth_json
+     { user_onboarding: user_onboarding.id, hash: user_onboarding.auth_hash }
+   end
 
-  def validate_user
-    user.include(:organization).persisted? 
-  end
+  private
 
   def assemble
 
@@ -61,12 +45,11 @@ class OnboardingInitializer
       onboarding = @organization.onboarding || @organization.build_onboarding
       board = onboarding.board || onboarding.build_board(reference_board.attributes.merge({name: copied_board_name, public_slug: copied_board_name})) #board
 
-      @user_onboarding = user.user_onboarding || onboarding.user_onboardings.build({
+      @user_onboarding = onboarding.user_onboardings.build({
         onboarding: onboarding, 
         user: user,
         state: 1
       })
-
       board.board_memberships.build({user: @user_onboarding.user, is_client_admin: true})
     end
   end
