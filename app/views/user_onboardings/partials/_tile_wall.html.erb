@@ -40,5 +40,7 @@
     <%= render 'user_onboardings/partials/onboarding_complete_modal' %>
   <% elsif params[:shared] == "true" %>
     <%= render 'user_onboardings/partials/share_modal' %>
+  <% elsif params[:return_onboarding] == "true" %>
+    <%= render 'user_onboardings/partials/welcome_back_modal' %>
   <% end %>
 </div>

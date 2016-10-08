@@ -42,7 +42,7 @@ class UserInHeaderPresenter
     elsif current_user.is_guest?
       public_activity_path(current_user.demo.public_slug)
     elsif @request.cookies["user_onboarding"].present?
-      user_onboarding_path(current_user.user_onboarding.id)
+      user_onboarding_path(current_user.user_onboarding.id, return_onboarding: true)
     else
       activity_path
     end

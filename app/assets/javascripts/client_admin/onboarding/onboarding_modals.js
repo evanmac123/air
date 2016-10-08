@@ -27,9 +27,9 @@ Airbo.OnboardingModals = (function(){
     });
 
     if (state == 2 && $("#tile_wall").length > 0) {
-      sleep(1000).then(() => {
+      setTimeout(function() {
         triggerModal('#board-view-modal', 'open');
-      });
+      }, 1000);
     }
 
     $(".close-tile-view-button").on("click", function() {
@@ -37,9 +37,9 @@ Airbo.OnboardingModals = (function(){
     });
 
     if (state == 2 && $("#tile_progress_bar").length > 0) {
-      sleep(1000).then(() => {
+      setTimeout(function() {
         triggerModal('#tile-view-modal', 'open');
-      });
+      }, 1000);
     }
 
     $(".close-activity-modal-button").on("click", function() {
@@ -52,24 +52,24 @@ Airbo.OnboardingModals = (function(){
     });
 
     if (state == 3 && $("#client-admin-demo-analytics").length > 0) {
-      sleep(1000).then(() => {
+      setTimeout(function() {
         triggerModal('#viewed-activity-modal', 'open');
-      });
+      }, 1000);
     }
 
     if ($("#share-modal").length > 0) {
       triggerModal("#share-modal", 'open');
     }
 
+    if ($("#welcome-back-modal").length > 0) {
+      triggerModal("#welcome-back-modal", 'open');
+    }
+
     if ($("#onboarding-complete-modal").length > 0) {
       triggerModal("#onboarding-complete-modal", 'open');
     }
   }
-
-  function sleep (time) {
-    return new Promise((resolve) => setTimeout(resolve, time));
-  }
-
+  
   function triggerModal(modalSelector, action) {
     $(modalSelector).foundation('reveal', action, {
       animation: 'fadeAndPop',
