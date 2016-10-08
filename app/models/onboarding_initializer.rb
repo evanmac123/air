@@ -43,21 +43,23 @@ class OnboardingInitializer
     if user.user_onboarding.nil?
       @organization = Organization.where(name: organization_name).first_or_initialize
       onboarding = @organization.onboarding || @organization.build_onboarding
-      board = onboarding.board || onboarding.build_board(reference_board.attributes.merge({name: copied_board_name, public_slug: copied_board_name})) #board
+      @board = onboarding.board || onboarding.build_board(reference_board.attributes.merge({name: copied_board_name, public_slug: copied_board_name})) #board
 
       @user_onboarding = onboarding.user_onboardings.build({
         onboarding: onboarding, 
         user: user,
         state: 1
       })
-      board.board_memberships.build({user: @user_onboarding.user, is_client_admin: true})
+      @board.board_memberships.build({user: @user_onboarding.user, is_client_admin: true})
+
+      copy_tiles_to_new_board
     end
   end
 
 
 
-  def copy_tiles_to_new_board(new_board, reference_board)
-    CopyBoard.new(new_board, reference_board).copy_active_tiles_from_board
+  def copy_tiles_to_new_board
+    CopyBoard.new(@board, reference_board).copy_active_tiles_from_board
   end
 
   def reference_board
