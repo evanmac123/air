@@ -19,10 +19,10 @@
   <%= content_for :head%>
 </head>
 
-<body class="<%= body_class %> onboarding-body client_admin_main user-onboarding-state-<%= @onboarding_initializer.state %>" data-id="<%= @onboarding_initializer.user_onboarding_id %>" data-state="<%= @onboarding_initializer.state %>" style="-webkit-overflow-scrolling: touch; overflow:visible; ">
-  <%= render partial: 'user_onboardings/partials/header' , locals:{user_onboarding: @onboarding_initializer.user_onboarding}%>
+<body class="<%= body_class %> onboarding-body client_admin_main user-onboarding-state-<%= @user_onboarding.state %>" data-id="<%= @user_onboarding.id %>" data-state="<%= @user_onboarding.state %>" style="-webkit-overflow-scrolling: touch; overflow:visible; ">
+  <%= render partial: 'user_onboardings/partials/header' , locals:{user_onboarding: @user_onboarding}%>
   <main class="main">
-  <%= render partial: 'user_onboardings/partials/onboarding_subnav', locals:{user_onboarding: @onboarding_initializer.user_onboarding}%>
+  <%= render partial: 'user_onboardings/partials/onboarding_subnav', locals:{user_onboarding: @user_onboarding}%>
     <div class="core <%= params[:controller] + "-" + params[:action] %>-content">
       <div class="content <%= params[:controller] + "-" + params[:action] %>-content">
         <%= yield %>
