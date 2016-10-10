@@ -48,7 +48,7 @@ class OnboardingInitializer
       @user_onboarding = onboarding.user_onboardings.build({
         onboarding: onboarding, 
         user: user,
-        state: 1
+        state: 2
       })
       @board.board_memberships.build({user: @user_onboarding.user, is_client_admin: true})
 
