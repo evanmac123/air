@@ -14,4 +14,4 @@ Airbo.OnboardingSubnav = (function() {
   return {
     init: init
   };
-})();
+}());

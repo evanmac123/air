@@ -10,7 +10,7 @@ Airbo.UserOnboardingUpdate = (function() {
         contentType: 'application/json', // format of request payload
         dataType: 'json', // format of the response
         success: function(res) {
-          sleep(1000).then(() => {
+          setTimeout(function() {
             $("#share_airbo").hide();
             $("#tile_manager_nav").fadeIn("slow", function() {
             });
@@ -21,7 +21,7 @@ Airbo.UserOnboardingUpdate = (function() {
               animation: 'fadeAndPop',
               animation_speed: 350});
             return res;
-          });
+          }, 1000);
         }
       });
     });
@@ -56,10 +56,6 @@ Airbo.UserOnboardingUpdate = (function() {
     if (Airbo.Utils.supportsFeatureByPresenceOfSelector(".user-onboarding-state-3")) {
       thirdUpdate(id);
     }
-  }
-
-  function sleep (time) {
-    return new Promise((resolve) => setTimeout(resolve, time));
   }
 
   return {
