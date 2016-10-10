@@ -10,22 +10,13 @@ class UserOnboardingsController < ApplicationController
     @tiles = Tile.displayable_categorized_to_user(current_user, 10)
   end
 
-  def update
-    user_onboarding_updater = UserOnboardingUpdater.new(user_onboarding_params)
-
-    if user_onboarding_updater.save
-      redirect_to "/myairbo/#{params[:id]}"
-    else
-      #why might this fail??
-    end
+  def new
+    #new for secondary users
+    #welcome modal that takes users' names
   end
 
   def create
-    @user_onboarding = UserOnboarding.find(params[:id])
-    UserOnboardingInitializer.new(@user_onboarding, params[:user_onboardings]).save
-
-    @user_onboarding.update_state
-    redirect_to myairbo_path(@user_onboarding, { shared: true, state: @user_onboarding.state })
+    #create for secondary users
   end
 
   def activity
@@ -33,6 +24,7 @@ class UserOnboardingsController < ApplicationController
     if request.user_agent =~ /Mobile|webOS/
       render template: "user_onboardings/activity_mobile"
     else
+      #create poro to manage actiivty
       @board = @user_onboarding.board
       @chart_form = BoardStatsLineChartForm.new @board, {action_type: params[:action_type]}
       @chart = BoardStatsChart.new(@chart_form.period, @chart_form.plot_data, "#fff").draw
@@ -46,6 +38,8 @@ class UserOnboardingsController < ApplicationController
 
   def share
     @user_onboarding = UserOnboarding.includes([:user, :onboarding]).find(params[:id])
+    #finish share; write mailer for sharing to colleagues
+    #comma delimted list of emails; do not take names
   end
 
 
