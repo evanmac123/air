@@ -5,8 +5,8 @@ describe OnboardingInitializer do
 
   describe "#save" do
     before do
-      FactoryGirl.create(:demo)
-      @onit = OnboardingInitializer.new({email: "test@test1.com", organization: "Test Com", name: "Test User", board_id: Demo.first.id})
+      topic = FactoryGirl.create(:topic_board, :valid)
+      @onit = OnboardingInitializer.new({email: "test@test1.com", organization: "Test Com", name: "Test User", board_id: topic.board.id})
     end
 
     it "creates and valid object" do

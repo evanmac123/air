@@ -8,13 +8,10 @@
       <div class="line-separator"></div>
       <br>
 
-      <%= form_tag(user_onboardings_path, id: "onboarding_share_form", class: " onboarding-share-form") do %>
-        <label class="input_label">Full Name</label>
-        <%= text_field_tag "user_onboardings[onboarding_one[name]]" %>
-
-        <label class="input_label">Email</label>
-        <%= text_field_tag "user_onboardings[onboarding_one[email]]" %>
-        <%= hidden_field_tag "id", @user_onboarding.id %>
+      <%= form_tag(user_onboarding_invites_path, id: "onboarding_share_form", class: " onboarding-share-form") do %>
+        <%= label_tag "user_onboarding_emails", "Emails (add up to five comma separated emails)" %>
+        <%= text_field_tag "user_onboarding_emails" %>
+        <%= hidden_field_tag "user_onboarding_id", @user_onboarding.id %>
         <%= submit_tag "Invite", class: "join-button button outlined blue-alt success center" %>
       <% end %>
     </div>
