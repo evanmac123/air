@@ -7,7 +7,7 @@ class UserOnboardingsController < ApplicationController
     @user_onboarding = UserOnboarding.includes([:user, :onboarding]).find(params[:id])
     @board = @user_onboarding.board
     sign_in(@user_onboarding.user)
-    @tiles = Tile.displayable_categorized_to_user(current_user, 10)
+    @tiles = Tile.displayable_categorized_to_user(current_user, nil)
   end
 
   def create

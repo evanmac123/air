@@ -1324,6 +1324,10 @@ class User < ActiveRecord::Base
     User.where(["name ILIKE ? AND claim_code = ?", first_name.like_escape + '%', claim_code]).first
   end
 
+  def active_onboarding?
+    binding.pry
+  end
+
 
 
   private
