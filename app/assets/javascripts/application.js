@@ -6,6 +6,9 @@
 //= require airbo
 //= require_tree ./utils
 
+//=require ./internal/tile_manager/first_tile_hint
+
+
 function isIE11() {
   return !!window.MSInputMethodContext;
 }

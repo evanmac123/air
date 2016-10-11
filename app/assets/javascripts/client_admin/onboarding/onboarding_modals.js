@@ -24,6 +24,7 @@ Airbo.OnboardingModals = (function(){
 
     $(".close-board-view-button").on("click", function() {
       triggerModal('#board-view-modal', 'close');
+      Airbo.FirstTileHint.init();
     });
 
     if (state == 2 && $("#tile_wall").length > 0) {
