@@ -11,9 +11,8 @@ class OnboardingInitializer
 
   def save
     assemble
-    @organization.save!
   rescue => e
-    @error = e
+    @error = e.message
     false
   end
 
@@ -25,7 +24,7 @@ class OnboardingInitializer
   end
 
   def user_onboarding
-    @user_onboarding ||= user.user_onboarding
+    @user_onboarding
   end
 
   def topic_boards
@@ -40,20 +39,22 @@ class OnboardingInitializer
 
   def assemble
 
+    @organization = Organization.where(name: organization_name).first_or_initialize
     if user.user_onboarding.nil?
-      @organization = Organization.where(name: organization_name).first_or_initialize
       onboarding = @organization.onboarding || @organization.build_onboarding
-      @board = onboarding.board || onboarding.build_board(reference_board.attributes.merge({name: copied_board_name, public_slug: copied_board_name})) #board
-
       @user_onboarding = onboarding.user_onboardings.build({
         onboarding: onboarding, 
         user: user,
         state: 2
       })
-      @board.board_memberships.build({user: @user_onboarding.user, is_client_admin: true})
 
+      @board = onboarding.board || onboarding.build_board(reference_board.attributes.merge({name: copied_board_name, public_slug: copied_board_name})) #board
+      @board.board_memberships.build({user: @user_onboarding.user, is_client_admin: true})
       copy_tiles_to_new_board
+    else
+      @user_onboarding = user.user_onboarding
     end
+    @organization.save!
   end
 
 
