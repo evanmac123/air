@@ -1,35 +1,44 @@
 class UserOnboardingInitializer
-  attr_reader :onboarding, :new_onboardings, :root_user
-  def initialize(root_user_onboarding, new_onboardings)
-    @root_user = root_user_onboarding.user
-    @onboarding = root_user_onboarding.onboarding
-    @new_onboardings = new_onboardings
+  attr_reader :onboarding, :name, :email, :user_onboarding, :error
+  def initialize(params)
+    @onboarding = Onboarding.find(params[:onboarding_id])
+    @email = params[:email]
+    @name = params[:name]
   end
 
   def save
-    org = onboarding.organization
+    assemble
+  rescue => e
+    @error = e.message
+    false
+  end
 
-    new_onboardings.each do |_key, user_onboarding|
-      if user_onboarding[:email] && user_onboarding[:name]
-        user = org.users.where(email: user_onboarding[:email]).first_or_create do |u|
-          u.name = user_onboarding[:name]
-          u.accepted_invitation_at = Time.now
-        end
+  def assemble
+    if user.user_onboarding.nil?
+      join_org_board
+      @user_onboarding = onboarding.user_onboardings.build({ user: user })
+    else
+      @user_onboarding = user.user_onboarding
+    end
 
-        if user.persisted?
-          join_org_board(org, user)
-          @user_onboarding = onboarding.user_onboardings.where(user: user).first_or_create!(user: user)
+    onboarding.save!
+  end
 
-          OnboardingShareNotifier.delay_mail(user, @user_onboarding, root_user)
-        end
+  def onboarding_id
+    onboarding.id
+  end
+
+  private
+
+    def user
+      @user ||= User.where({ email: email }).first_or_create do |u|
+        u.name = name
+        u.accepted_invitation_at = Time.now
       end
     end
-  end
 
-  def join_org_board(org, user)
-    board = org.onboarding.board
-    user.board_memberships.where(demo_id: board.id).first_or_create! do |bm|
-      bm.is_client_admin = true
+    def join_org_board
+      board = onboarding.board
+      user.board_memberships.build({ demo: board, is_client_admin: true })
     end
-  end
 end

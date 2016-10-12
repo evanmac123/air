@@ -47,7 +47,6 @@ class UserOnboarding < ActiveRecord::Base
     end
   end
 
-
   private
 
   def set_auth_hash

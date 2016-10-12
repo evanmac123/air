@@ -9,6 +9,7 @@
   <tr>
     <td style="font-family:Helvetica,Arial,sans-serif;font-size:16px;color:#2e2e2c;mso-line-height-rule:exactly;line-height:22px;padding-top:20px;padding-left:10px;padding-right:10px;padding-bottom:20px;border-left:1px solid #dfdfdf;border-right:1px solid #dfdfdf;border-bottom:1px solid #dfdfdf;">
         Hello - This is an invite.
+        <% link_to "See your Airbo", new_user_onboarding_path({ referrer: @referrer.name, org: @organization.name, user_onboarding: { email: @email, onboarding_id: @onboarding.id, state: 2 } }),  %>
     </td>
   </tr>
 </table>

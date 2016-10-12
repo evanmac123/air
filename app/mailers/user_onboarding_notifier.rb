@@ -16,6 +16,7 @@ class UserOnboardingNotifier < ActionMailer::Base
     @email = email
     @referrer = referrer
     @organization = organization
+    @onboarding = organization.onboarding
 
     subject = "I think this could work for us."
 

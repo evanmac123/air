@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe OnboardingsController do
-  let(:valid_params){{
-    name: "Test Name", email: "test@test.com", organization: "Test Company", topic_board_id: @demo.id } }
+describe UserOnboardingsController do
+  let(:valid_params){ { user_onboarding: {
+    name: "Test Name", email: "test@test.com", onboarding_id: @onboarding.id } } }
   before do
-    @tb = FactoryGirl.create(:topic_board, :valid)
-    @demo = @tb.board
+    @root_user_onboarding = FactoryGirl.create(:user_onboarding)
+    @onboarding = @root_user_onboarding.onboarding
   end
 
   describe '#create' do
@@ -16,7 +16,7 @@ describe OnboardingsController do
 
         expect(response.status).to eq(200)
 
-        body = {"success"=>true, "user_onboarding"=>1, "hash"=>"1ead90e2f3fc89116b57681993316cfaa2e4a066"}.to_json
+        body = {"success"=>true, "user_onboarding"=>2, "hash"=>"9c0c957e612c2d2821394b95bce61af20995a0e1"}.to_json
 
         expect(response.body).to eq(body)
       end
@@ -26,7 +26,8 @@ describe OnboardingsController do
       context 'missing email' do
         xit "redirects to root" do
           post :create, valid_params.except(:email)
-          expect(response.status).to eq(200)
+          expect(response.status).to eq(302)
+
           expect(response).to redirect_to(root_path)
         end
       end
@@ -35,7 +36,7 @@ describe OnboardingsController do
         xit "redirects to root" do
           post :create, valid_params.except(:name)
 
-          expect(response.status).to eq(200)
+          expect(response.status).to eq(302)
 
           expect(response).to redirect_to(root_path)
         end
@@ -45,12 +46,11 @@ describe OnboardingsController do
         xit "redirects to root" do
           post :create, valid_params.except(:organization)
 
-          expect(response.status).to eq(200)
+          expect(response.status).to eq(302)
 
           expect(response).to redirect_to(root_path)
         end
       end
     end
   end
-
 end

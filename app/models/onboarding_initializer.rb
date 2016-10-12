@@ -14,7 +14,7 @@ class OnboardingInitializer
         initialize_onboarding
       end
     rescue => e
-      @error = e
+      @error = e.message
       false
     end
   end

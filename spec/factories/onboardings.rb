@@ -3,5 +3,6 @@
 FactoryGirl.define do
   factory :onboarding do
     organization factory: :organization
+    board factory: :demo
   end
 end
