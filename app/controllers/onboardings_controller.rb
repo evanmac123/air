@@ -15,9 +15,9 @@ class OnboardingsController < ApplicationController
 
   def create
     on_it = OnboardingInitializer.new(onboarding_params)
-
     if on_it.save
-      render json: on_it.to_auth_json, location: user_onboarding_path(on_it.user_onboarding), status: :ok
+      sign_in on_it.user
+      render json: on_it.to_json, location: user_onboarding_path(on_it.user_onboarding), status: :ok
     else
       response.headers["X-Message"] = on_it.error
       head :unprocessable_entity

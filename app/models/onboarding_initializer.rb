@@ -31,8 +31,12 @@ class OnboardingInitializer
     @topic_boards ||= TopicBoard.reference_board_set
   end
 
-   def to_auth_json
-     { user_onboarding: user_onboarding.id, hash: user_onboarding.auth_hash }
+   def to_json
+     {
+       user_onboarding: user_onboarding.id, 
+       hash: user_onboarding.auth_hash, 
+       user: user.data_for_mixpanel.merge({time: DateTime.now })
+     }
    end
 
   private
