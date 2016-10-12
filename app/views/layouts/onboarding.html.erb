@@ -27,6 +27,9 @@
       <div class="content <%= params[:controller] + "-" + params[:action] %>-content">
         <%= yield %>
       </div>
+      <div id="footer">
+        <%= render 'shared/copyright' %>
+      </div>
     </div>
   </main>
 
