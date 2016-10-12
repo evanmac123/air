@@ -5,8 +5,6 @@ class SessionsController < Clearance::SessionsController
 
   def new
     super
-    # FIXME: MIXPANEL This ping is useless. Remove.
-    ping_page('login')
   end
 
   def create
