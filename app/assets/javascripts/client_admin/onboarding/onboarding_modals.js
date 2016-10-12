@@ -40,7 +40,7 @@ Airbo.OnboardingModals = (function(){
       triggerModal("#tile-view-modal", 'close');
     });
 
-    if (state == 2 && $("#tile_progress_bar").length > 0) {
+    if (state == 2 && $(".tile_main").length > 0) {
       setTimeout(function() {
         triggerModal('#tile-view-modal', 'open');
       }, 1000);

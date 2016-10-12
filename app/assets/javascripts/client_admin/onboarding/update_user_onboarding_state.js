@@ -11,9 +11,10 @@ Airbo.UserOnboardingUpdate = (function() {
         dataType: 'json', // format of the response
         success: function(res) {
           setTimeout(function() {
-            $("#share_airbo").hide();
-            $("#tile_manager_nav").fadeIn("slow", function() {
-            });
+            $("#board_activity i").addClass("fa-line-chart");
+            $("#board_activity i").removeClass("fa-lock");
+            $("#board_activity a").unbind('click', false);
+
             $(".progress-bar-label span").text("Get started (3/5)");
             $(".onboarding-progress-bar .meter").css("width", "60%");
             $($(".progress-steps").children()[2]).addClass("complete");
@@ -40,7 +41,11 @@ Airbo.UserOnboardingUpdate = (function() {
           $(".onboarding-progress-bar .meter").css("width", "80%");
           $($(".progress-steps").children()[3]).addClass("complete");
           $($(".progress-steps").children()[4]).removeClass("locked");
-          $("#tile_manager_nav #share_airbo").show();
+
+          $("#share_airbo i").addClass("fa-group");
+          $("#share_airbo i").removeClass("fa-lock");
+          $("#share_airbo a").unbind('click', false);
+
           return res;
         }
       });
