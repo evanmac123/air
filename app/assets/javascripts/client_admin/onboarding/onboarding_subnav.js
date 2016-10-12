@@ -4,10 +4,17 @@ Airbo.OnboardingSubnav = (function() {
   function init(){
     var state = $(".onboarding-body").data("state");
     if (state < 3) {
-      $("#tile_manager_nav").hide();
+      $("#board_activity i").removeClass("fa-line-chart");
+      $("#board_activity i").addClass("fa-lock");
+      $("#board_activity a").bind('click', false);
+
+      $("#share_airbo i").removeClass("fa-group");
+      $("#share_airbo i").addClass("fa-lock");
+      $("#share_airbo a").bind('click', false);
     } else if (state < 4) {
-      $("#tile_manager_nav").show();
-      $("#share_airbo").hide();
+      $("#share_airbo i").removeClass("fa-group");
+      $("#share_airbo i").addClass("fa-lock");
+      $("#share_airbo a").bind('click', false);
     }
   }
 
