@@ -4,7 +4,7 @@ Airbo.OnboardingModals = (function(){
 
   function init() {
     var state = $(".onboarding-body").data("state");
-    if(state==3 && $("#tile_wall").length > 0){
+    if(state==3 & $(".user_onboardings-activity").length==0{
       showActivityToolTip();
     }
 
@@ -87,7 +87,9 @@ Airbo.OnboardingModals = (function(){
       tooltipPosition: "auto",
       tooltipClass: "onboarding-activity",
       doneLabel: "Got it",
-      overlayOpacity: 0.2
+      overlayOpacity: 0.2,
+      exitOnEsc: false,
+      exitOnOverlayClick: false,
     };
 
     intro = introJs();
