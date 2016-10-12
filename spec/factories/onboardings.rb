@@ -2,6 +2,6 @@
 
 FactoryGirl.define do
   factory :onboarding do
-    organization nil
+    organization factory: :organization
   end
 end

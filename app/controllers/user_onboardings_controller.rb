@@ -7,25 +7,11 @@ class UserOnboardingsController < ApplicationController
     @user_onboarding = UserOnboarding.includes([:user, :onboarding]).find(params[:id])
     @board = @user_onboarding.board
     sign_in(@user_onboarding.user)
-    @tiles = Tile.displayable_categorized_to_user(current_user, 10)
-  end
-
-  def update
-    user_onboarding_updater = UserOnboardingUpdater.new(user_onboarding_params)
-
-    if user_onboarding_updater.save
-      redirect_to "/myairbo/#{params[:id]}"
-    else
-      #why might this fail??
-    end
+    @tiles = Tile.displayable_categorized_to_user(current_user, nil)
   end
 
   def create
-    @user_onboarding = UserOnboarding.find(params[:id])
-    UserOnboardingInitializer.new(@user_onboarding, params[:user_onboardings]).save
-
-    @user_onboarding.update_state
-    redirect_to myairbo_path(@user_onboarding, { shared: true, state: @user_onboarding.state })
+    #create actions for secondary users
   end
 
   def activity
@@ -43,11 +29,6 @@ class UserOnboardingsController < ApplicationController
       render template: "client_admin/show"
     end
   end
-
-  def share
-    @user_onboarding = UserOnboarding.includes([:user, :onboarding]).find(params[:id])
-  end
-
 
   private
   def user_onboarding_params

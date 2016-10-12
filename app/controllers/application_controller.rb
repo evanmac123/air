@@ -151,10 +151,10 @@ class ApplicationController < ActionController::Base
 
   private
 
-  
+
 
   alias authorize_without_guest_checks authorize
- 
+
 
 
   def permitted_params
@@ -179,6 +179,7 @@ class ApplicationController < ActionController::Base
       user_onboarding = UserOnboarding.where(auth_hash: cookies[:user_onboarding]).first
       if user_onboarding && !user_onboarding.completed
         sign_in(user_onboarding.user)
+        refresh_activity_session(current_user)
       end
     end
   end

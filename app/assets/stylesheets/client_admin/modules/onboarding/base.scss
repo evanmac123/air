@@ -84,7 +84,7 @@
     display: none;
   }
   .complete {
-    color: $n-green;
+    color: darken($n-green, 5%);
     .step-checkbox {
       display: none;
     }
