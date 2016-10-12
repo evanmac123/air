@@ -20,6 +20,7 @@ class OnboardingInitializer
     @user ||= User.where({email:email}).first_or_initialize do |u|
       u.name = name
       u.accepted_invitation_at = Time.now 
+      u.organization = @organization
     end
   end
 
