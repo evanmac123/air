@@ -24,6 +24,10 @@ class UserOnboarding < ActiveRecord::Base
     onboarding.board
   end
 
+  def organization
+    onboarding.organization
+  end
+
   def final_state
     FINAL_STATE
   end

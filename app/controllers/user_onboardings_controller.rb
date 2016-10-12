@@ -7,16 +7,12 @@ class UserOnboardingsController < ApplicationController
     @user_onboarding = UserOnboarding.includes([:user, :onboarding]).find(params[:id])
     @board = @user_onboarding.board
     sign_in(@user_onboarding.user)
-    @tiles = Tile.displayable_categorized_to_user(current_user, 10)
-  end
 
-  def new
-    #new for secondary users
-    #welcome modal that takes users' names
+    @tiles = Tile.displayable_categorized_to_user(current_user, nil)
   end
 
   def create
-    #create for secondary users
+    #create actions for secondary users
   end
 
   def activity
@@ -35,13 +31,6 @@ class UserOnboardingsController < ApplicationController
       render template: "client_admin/show"
     end
   end
-
-  def share
-    @user_onboarding = UserOnboarding.includes([:user, :onboarding]).find(params[:id])
-    #finish share; write mailer for sharing to colleagues
-    #comma delimted list of emails; do not take names
-  end
-
 
   private
   def user_onboarding_params

@@ -1324,8 +1324,6 @@ class User < ActiveRecord::Base
     User.where(["name ILIKE ? AND claim_code = ?", first_name.like_escape + '%', claim_code]).first
   end
 
-
-
   private
 
   def self.add_joining_to_activity_stream(user)
