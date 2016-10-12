@@ -4,12 +4,16 @@ class OnboardingsController < ApplicationController
 
   def new
     @onboarding_initializer = OnboardingInitializer.new(onboarding_params)
-    @user_onboarding = @onboarding_initializer.user_onboarding
-
-    if @user_onboarding.new_record?
-      sign_out
+    if @onboarding_initializer.is_valid?
+      @user_onboarding = @onboarding_initializer.user_onboarding
+      if @user_onboarding.new_record?
+        sign_out
+      else
+        redirect_to user_onboarding_path(@user_onboarding)
+      end
     else
-      redirect_to user_onboarding_path(@user_onboarding)
+      flash[:failure]="Your onboarding link appears to be invalid. Please click 'Contact Us' or 'Schedule a Demo' links below for assistance." 
+      redirect_to root_path
     end
   end
 

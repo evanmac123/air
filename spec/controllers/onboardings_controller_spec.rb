@@ -15,6 +15,25 @@ describe OnboardingsController do
     @demo = @tb.board
   end
 
+  describe "#new" do
+    context 'with valid params' do
+      it "proceeds" do
+        get :new, valid_params
+        expect(response.status).to eq(200)
+      end
+    end
+
+    context 'with invalid params' do
+      context 'missing email' do
+        it "restarts" do
+          get :new, valid_params.except(:email)
+          expect(flash[:failure]).to eq "You onboarding link appears to be invalid. Please click 'Contact Us' or 'Schedule a Demo' links below for assistance."
+          expect(response).to redirect_to(root_path)
+        end
+      end
+    end
+  end
+
   describe '#create' do
     context 'with valid params' do
 
