@@ -17,12 +17,11 @@ class UserOnboardingsController < ApplicationController
       @user_onboarding = UserOnboarding.new(state: 1)
       @referrer = params[:referrer]
     else
-      binding.pry
+      redirect_to "/myairbo/#{@user.user_onboarding.id}"
     end
   end
 
   def create
-    binding.pry
     user_onboarding_init = UserOnboardingInitializer.new(user_onboarding_params)
     if should_onboard? && user_onboarding_init.save
       user_onboarding = user_onboarding_init.user_onboarding
