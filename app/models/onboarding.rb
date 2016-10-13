@@ -8,8 +8,8 @@ class Onboarding < ActiveRecord::Base
 
   def purge
      user_onboardings.delete_all
-     board.users.delete_all
      board.delete
+     organization.users.delete_all
      organization.delete
      self.destroy
   end

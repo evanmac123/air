@@ -4,7 +4,7 @@ Airbo.OnboardingModals = (function(){
 
   function init() {
     var state = $(".onboarding-body").data("state");
-    if(state==3 & $(".user_onboardings-activity").length==0{
+    if (state == 3 & $(".user_onboardings-activity").length === 0) {
       showActivityToolTip();
     }
 
@@ -96,7 +96,7 @@ Airbo.OnboardingModals = (function(){
     intro.setOptions(options);
     intro.start();
   }
-  
+
   function triggerModal(modalSelector, action) {
     $(modalSelector).foundation('reveal', action, {
       animation: 'fadeAndPop',
