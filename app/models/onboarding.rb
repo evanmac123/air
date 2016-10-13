@@ -3,15 +3,15 @@ class Onboarding < ActiveRecord::Base
   belongs_to :board, class_name: Demo, foreign_key: :demo_id
 
   has_many :user_onboardings, dependent: :destroy
-
+  has_many :users, through: :user_onboardings, dependent: :destroy
   private
 
   def purge
-     user_onboardings.delete_all
-     board.delete
-     organization.users.delete_all
-     organization.delete
-     self.destroy
+    user_onboardings.destroy
+    users.destroy
+    organization.destroy
+    board.destroy
+    self.destroy
   end
 
 end
