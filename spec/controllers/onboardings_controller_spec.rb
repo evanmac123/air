@@ -27,7 +27,7 @@ describe OnboardingsController do
       context 'missing email' do
         it "restarts" do
           get :new, valid_params.except(:email)
-          expect(flash[:failure]).to eq "You onboarding link appears to be invalid. Please click 'Contact Us' or 'Schedule a Demo' links below for assistance."
+          expect(flash[:failure]).to eq "Your onboarding link appears to be invalid. Please click 'Contact Us' or 'Schedule a Demo' links below for assistance."
           expect(response).to redirect_to(root_path)
         end
       end

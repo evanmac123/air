@@ -7,19 +7,17 @@ class OnboardingInitializer
     @organization_name = params[:organization]
     @reference_board_id = params[:board_id]
     @user_onboarding = UserOnboarding.new({state: 1})
-    assemble
   end
 
   def save
-    #assemble
-    @organization.save!
+    assemble
   rescue => e
     @error = e.message
     false
   end
 
   def is_valid?
-    @organization.valid?
+    @organization_name.present? && @email.present? && @name.present?
   end
 
   def user
@@ -65,6 +63,8 @@ class OnboardingInitializer
     else
       @user_onboarding = user.user_onboarding
     end
+
+    @organization.save!
   end
 
 
