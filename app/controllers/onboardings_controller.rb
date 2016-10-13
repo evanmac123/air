@@ -3,41 +3,33 @@ class OnboardingsController < ApplicationController
   layout 'onboarding'
 
   def new
-    if should_onboard?
-      sign_out
-      @topic_boards = TopicBoard.reference_board_set
-      @onboarding_initializer = OnboardingInitializer.new(onboarding_params)
-      @user_onboarding = UserOnboarding.new(state: 1)
+    @onboarding_initializer = OnboardingInitializer.new(onboarding_params)
+    if @onboarding_initializer.is_valid?
+      @user_onboarding = @onboarding_initializer.user_onboarding
+      if @user_onboarding.new_record?
+        sign_out
+      else
+        redirect_to user_onboarding_path(@user_onboarding)
+      end
     else
-      redirect_to "/myairbo/#{@user.user_onboarding.id}"
+      flash[:failure]="Your onboarding link appears to be invalid. Please click 'Contact Us' or 'Schedule a Demo' links below for assistance."
+      redirect_to root_path
     end
   end
 
   def create
-    onboarding_initializer = OnboardingInitializer.new(onboarding_params)
-    if should_onboard? && onboarding_initializer.save
-      user_onboarding = onboarding_initializer.user_onboarding
-      render json: { success: true,
-                     user_onboarding: onboarding_initializer.user_onboarding_id,
-                     hash: user_onboarding.auth_hash
-      },
-      location: user_onboarding_path(user_onboarding), status: :ok
+    on_it = OnboardingInitializer.new(onboarding_params)
+    if on_it.save
+      sign_in on_it.user
+      render json: on_it.to_json, location: user_onboarding_path(on_it.user_onboarding), status: :ok
     else
-      head :unprocessable_entity, response.headers["X-Message"] = onboarding_initializer.error
+      response.headers["X-Message"] = on_it.error
+      head :unprocessable_entity
     end
   end
 
-
-  def set_auth_cookie
-    cookie[:user_onboarding]="12345"
-  end
 
   private
-
-    def should_onboard?
-      @user = User.where(email: params[:email]).first_or_initialize
-      @user.user_onboarding.nil?
-    end
 
     def onboarding_params
       {

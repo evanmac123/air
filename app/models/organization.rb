@@ -2,11 +2,22 @@ class Organization < ActiveRecord::Base
   serialize :roles, Array
 
   has_many :contracts
-  has_many :demos
+  has_many :demos, autosave: true
   has_many :lead_contacts
-  has_many :boards, class_name: :Demo
-  has_many :users
-  has_one  :onboarding
+  has_many :boards, class_name: :Demo, autosave: true
+
+  has_many :users do
+    def first_or_build(attrs)
+      where(email: attrs[:email]).first || build(attrs)
+    end
+  end
+
+  has_one :onboarding, autosave: true do
+    def get_or_build(attrs)
+       self || build(attrs)
+    end
+  end
+
 
   validates :name, presence: true, uniqueness: true
   accepts_nested_attributes_for :demos

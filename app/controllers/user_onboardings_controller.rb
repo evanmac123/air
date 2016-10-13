@@ -7,6 +7,7 @@ class UserOnboardingsController < ApplicationController
     @user_onboarding = UserOnboarding.includes([:user, :onboarding]).find(params[:id])
     @board = @user_onboarding.board
     sign_in(@user_onboarding.user)
+
     @tiles = Tile.displayable_categorized_to_user(current_user, nil)
   end
 
@@ -40,6 +41,7 @@ class UserOnboardingsController < ApplicationController
     if request.user_agent =~ /Mobile|webOS/
       render template: "user_onboardings/activity_mobile"
     else
+      #create poro to manage actiivty
       @board = @user_onboarding.board
       @chart_form = BoardStatsLineChartForm.new @board, {action_type: params[:action_type]}
       @chart = BoardStatsChart.new(@chart_form.period, @chart_form.plot_data, "#fff").draw

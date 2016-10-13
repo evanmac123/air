@@ -6,72 +6,81 @@ class OnboardingInitializer
     @name = params[:name]
     @organization_name = params[:organization]
     @reference_board_id = params[:board_id]
+    @user_onboarding = UserOnboarding.new({state: 1})
+    assemble
   end
 
   def save
-    begin
-      ActiveRecord::Base.transaction do
-        initialize_onboarding
-      end
-    rescue => e
-      @error = e.message
-      false
-    end
+    @organization.save!
+  rescue => e
+    @error = e.message
+    false
   end
 
-  def initialize_onboarding
-    org = Organization.where(name: organization_name).first_or_create!
-    user = org.users.where(email: email).first_or_create! do |u|
+  def is_valid?
+    @organization.valid?
+  end
+
+  def user
+    @user ||= User.where({email:email}).first_or_initialize do |u|
       u.name = name
       u.accepted_invitation_at = Time.now
+      u.organization = @organization
     end
-
-    copy_reference_board(org, user)
-
-    onboarding = Onboarding.where(organization: org).first_or_create! do |o|
-      o.demo_id = user.reload.demo_id
-    end
-
-    @user_onboarding = onboarding.user_onboardings.where(user: user).first_or_create!(user: user)
   end
 
-  def user_onboarding_id
-    @user_onboarding.id
+  def user_onboarding
+    @user_onboarding
   end
+
+  def topic_boards
+    @topic_boards ||= TopicBoard.reference_board_set
+  end
+
+   def to_json
+     {
+       user_onboarding: user_onboarding.id,
+       hash: user_onboarding.auth_hash,
+       user: user.data_for_mixpanel.merge({time: DateTime.now })
+     }
+   end
 
   private
 
-    def copy_reference_board(org, user)
-      reference_board = find_reference_board(reference_board_id)
+  def assemble
 
-      board_name = copied_board_name(org, reference_board)
+    @organization = Organization.where(name: organization_name).first_or_initialize
+    if user.user_onboarding.nil?
+      onboarding = @organization.onboarding || @organization.build_onboarding
+      @user_onboarding = onboarding.user_onboardings.build({
+        onboarding: onboarding,
+        user: user,
+        state: 2
+      })
 
-      board = org.boards.where(name: board_name).first_or_create! do |b|
-        b.email = user.email
-      end
-
-      user.board_memberships.where(demo_id: board.id).first_or_create! do |bm|
-        bm.is_client_admin = true
-      end
-
-      if board.tiles.empty?
-        copy_tiles_to_new_board(board, reference_board)
-      end
+      @board = onboarding.board || onboarding.build_board(reference_board.attributes.merge({name: copied_board_name, public_slug: copied_board_name})) #board
+      @board.board_memberships.build({user: @user_onboarding.user, is_client_admin: true})
+      copy_tiles_to_new_board
+    else
+      @user_onboarding = user.user_onboarding
     end
+  end
 
-    def copy_tiles_to_new_board(new_board, reference_board)
-      CopyBoard.new(new_board, reference_board).copy_active_tiles_from_board
-    end
 
-    def find_reference_board(board_id)
-      Demo.includes(:tiles).find(board_id)
-    end
 
-    def copied_board_name(org, reference_board)
-      org.name + "-" + topic_name(reference_board)
-    end
+  def copy_tiles_to_new_board
+    CopyBoard.new(@board, reference_board).copy_active_tiles_from_board
+  end
 
-    def topic_name(reference_board)
-      reference_board.topic_board.topic.name
-    end
+  def reference_board
+    @ref_board ||=Demo.includes(:tiles).find(@reference_board_id)
+  end
+
+  def copied_board_name
+    organization_name + "-" + topic_name
+  end
+
+  def topic_name
+    reference_board.topic_board.topic.name
+  end
 end

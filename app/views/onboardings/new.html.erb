@@ -17,7 +17,7 @@
           <p></p>
         </div>
         <div class="topic-boards">
-          <% @topic_boards.each do |topic_board| %>
+          <% @onboarding_initializer.topic_boards.each do |topic_board| %>
           <div class="topic-board topic-board-button button" data-board-id="<%= topic_board.demo_id %>">
             <%= topic_board.topic_name %>
           </div>

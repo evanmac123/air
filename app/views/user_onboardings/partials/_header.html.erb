@@ -14,11 +14,11 @@
   <div class="onboarding-progress" id="top_bar">
     <div class="row onboarding-progress-content onboarding-progress-desktop">
       <div class="small-2 small-offset-1 columns progress-bar-label">
-        <span>Get started <%= "(#{@user_onboarding.state}/#{@user_onboarding.final_state})"%></span>
+        <span>Get started <%= "(#{user_onboarding.state}/#{user_onboarding.final_state})"%></span>
       </div>
       <div class="small-6 columns">
         <div class="progress radius onboarding-progress-bar">
-          <span class="meter" style="width: <%= @user_onboarding.percent_complete %>%"></span>
+          <span class="meter" style="width: <%= user_onboarding.percent_complete %>%"></span>
         </div>
       </div>
       <div class="small-2 columns end expand-tasks">
@@ -30,7 +30,7 @@
     <div class="row onboarding-progress-content onboarding-progress-mobile">
       <div class="small-6 columns">
         <div class="progress radius onboarding-progress-bar">
-          <span class="meter" style="width: <%= @user_onboarding.percent_complete %>%"></span>
+          <span class="meter" style="width: <%= user_onboarding.percent_complete %>%"></span>
         </div>
       </div>
       <div class="small-6 columns expand-tasks">
@@ -39,10 +39,10 @@
         </div>
       </div>
     </div>
-    <%= render 'user_onboardings/partials/progress_modal' %>
-    <%= render 'user_onboardings/partials/schedule_demo_modal' %>
-    <%= render 'user_onboardings/partials/tile_view_modal' %>
-    <%= render 'user_onboardings/partials/activity_modal' %>
-    <%= render 'user_onboardings/partials/viewed_activity_modal' %>
+    <%= render  partial: 'user_onboardings/partials/progress_modal', locals: {user_onboarding: user_onboarding} %>
+    <%= render  partial: 'user_onboardings/partials/schedule_demo_modal', locals: {user_onboarding: user_onboarding}%>
+    <%= render  partial: 'user_onboardings/partials/tile_view_modal' %>
+    <%= render  partial: 'user_onboardings/partials/activity_modal' %>
+    <%= render  partial: 'user_onboardings/partials/viewed_activity_modal' %>
   </div>
 </header>

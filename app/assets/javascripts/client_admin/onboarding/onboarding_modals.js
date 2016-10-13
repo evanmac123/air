@@ -4,6 +4,9 @@ Airbo.OnboardingModals = (function(){
 
   function init() {
     var state = $(".onboarding-body").data("state");
+    if(state==3 & $(".user_onboardings-activity").length==0{
+      showActivityToolTip();
+    }
 
     $(".open-progress-modal").on("click", function() {
       triggerModal('#progress-modal', 'open');
@@ -24,6 +27,7 @@ Airbo.OnboardingModals = (function(){
 
     $(".close-board-view-button").on("click", function() {
       triggerModal('#board-view-modal', 'close');
+      Airbo.FirstTileHint.init();
     });
 
     if (state == 2 && $("#tile_wall").length > 0) {
@@ -44,6 +48,7 @@ Airbo.OnboardingModals = (function(){
 
     $(".close-activity-modal-button").on("click", function() {
       triggerModal("#activity-modal", 'close');
+      showActivityToolTip();
     });
 
 
@@ -70,6 +75,28 @@ Airbo.OnboardingModals = (function(){
     }
   }
 
+  function showActivityToolTip(){
+    var options = {
+      steps: [
+        {
+          element: "#board_activity",
+          intro: "Click here to see your Activity",
+        }
+      ],
+      showStepNumbers: false,
+      tooltipPosition: "auto",
+      tooltipClass: "onboarding-activity",
+      doneLabel: "Got it",
+      overlayOpacity: 0.2,
+      exitOnEsc: false,
+      exitOnOverlayClick: false,
+    };
+
+    intro = introJs();
+    intro.setOptions(options);
+    intro.start();
+  }
+  
   function triggerModal(modalSelector, action) {
     $(modalSelector).foundation('reveal', action, {
       animation: 'fadeAndPop',

@@ -1,9 +1,12 @@
 class UserOnboarding < ActiveRecord::Base
   belongs_to :user
   belongs_to :onboarding
+
   attr_accessible :user, :onboarding, :state
-  validates_presence_of :user_id
-  validates_presence_of :onboarding_id
+  validates_presence_of :user
+  validates_presence_of :onboarding
+
+  validates_associated :user 
 
   FINAL_STATE = 5
 
@@ -29,6 +32,10 @@ class UserOnboarding < ActiveRecord::Base
 
   def final_state
     FINAL_STATE
+  end
+
+  def in_process?
+    self.persisted? 
   end
 
   def percent_complete
