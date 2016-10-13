@@ -7,11 +7,11 @@ Airbo.FirstTileHint = (function(){
     ,pingTitle = "Tile Tooltip Seen", 
     config = {
     showStepNumbers: false,
-    scrollToElement: false,
+    scrollToElement: true,
     overlayOpacity: 0,
     doneLabel: "Got it",
-    exitOnEsc: false,
-    exitOnOverlayClick: false,
+    exitOnEsc: true,
+    exitOnOverlayClick: true,
   };
 
   function hasTiles(){

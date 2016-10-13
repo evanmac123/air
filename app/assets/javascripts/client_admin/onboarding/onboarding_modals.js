@@ -97,8 +97,9 @@ Airbo.OnboardingModals = (function(){
       tooltipClass: "onboarding-activity",
       doneLabel: "Got it",
       overlayOpacity: 0,
-      exitOnEsc: false,
-      exitOnOverlayClick: false,
+      scrollToElement: true,
+      exitOnEsc: true,
+      exitOnOverlayClick: true,
     };
 
     intro = introJs();
