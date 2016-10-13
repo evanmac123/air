@@ -4,14 +4,17 @@
       <div class="columns small-12">
         <div class='text-center onboarding-new'>
           <div class="onboarding-new-image">
-            <%= image_tag "airbo_complete_tile_check.png" %>
+            <%= image_tag "airbo_complete_tile_check.png", class: "onboarding-img" %>
           </div>
-          <h3>You've just completed a tile!! Everytime an employee views or interacts with a tile, that data is collected and displayed on your analytics dashboard.</h3>
-
-          <h3>Visit your activity dashboard to by selecting "Activity" on the sidebar.</h3>
+          <h3>Great job completing your first Tile! You can now see data on who reads and answers your Tiles on the Activity Dashboard.</h3>
           <div class="button outlined blue-alt close-activity-modal-button">
-            Continue
+            Complete More Tiles
           </div>
+          <% if @user_onboarding.id %>
+            <div class="button outlined blue-alt close-activity-modal-button">
+              <%= link_to "View Activity Dashboard", onboarding_activity_path(@user_onboarding.id) %>
+            </div>
+          <% end %>
         </div>
       </div>
   </div>

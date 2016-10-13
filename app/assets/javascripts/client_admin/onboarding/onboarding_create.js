@@ -12,7 +12,7 @@ Airbo.OnboardingCreate = (function() {
       $.post(form.attr("action"), form.serialize()).done(
         function(data, status, xhr) {
           Airbo.CookieMonster.setCookie("user_onboarding", data.hash);
-          Airbo.Utils.ping("Activity Session - New", data["user"]);
+          Airbo.Utils.ping("Activity Session - New", data.user);
           if ( data.user_onboarding ) {
             window.location.href = xhr.getResponseHeader("location");
           } else {

@@ -81,6 +81,13 @@ Airbo.OnboardingModals = (function(){
     if ($("#onboarding-complete-modal").length > 0) {
       triggerModal("#onboarding-complete-modal", 'open');
     }
+
+    $(".tile_multiple_choice_answer").on("click", function() {
+      if ($("#tiles_done_message").length > 0) {
+        $("#tiles_done_message").hide();
+        triggerModal("#onboarding-tiles-complete-modal", 'open');
+      }
+    });
   }
 
 

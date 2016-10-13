@@ -68,7 +68,7 @@
 }
 
 .progress-modal-header {
-  font-size: 30px;
+  font-size: 18px;
   color: $gray;
 }
 
@@ -122,6 +122,10 @@
 .onboarding-generic-modals {
   top:117px;
   color: $gray;
+}
+
+.onboarding-img {
+  max-height: 300px;
 }
 
 .onboarding-progress-modal {
