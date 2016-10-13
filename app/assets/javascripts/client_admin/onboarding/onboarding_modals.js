@@ -27,7 +27,9 @@ Airbo.OnboardingModals = (function(){
 
     $(".close-board-view-button").on("click", function() {
       triggerModal('#board-view-modal', 'close');
-      Airbo.FirstTileHint.init();
+      if(state == 2){
+        Airbo.FirstTileHint.init();
+      }
     });
 
     if (state == 2 && $("#tile_wall").length > 0) {
@@ -54,7 +56,13 @@ Airbo.OnboardingModals = (function(){
 
     $(".close-viewed-activity-modal-button").on("click", function() {
       triggerModal("#activity-modal", 'close');
+      showShareToolTip();
     });
+
+
+    if (state == 4 && $(".user_onboardings-activity").length>0 ){
+      showShareToolTip();
+    }
 
     if (state == 3 && $("#client-admin-demo-analytics").length > 0) {
       setTimeout(function() {
@@ -75,19 +83,20 @@ Airbo.OnboardingModals = (function(){
     }
   }
 
-  function showActivityToolTip(){
+
+  function showNextStepToolTip(selector, prompt){
     var options = {
       steps: [
         {
-          element: "#board_activity",
-          intro: "Click here to see your Activity",
+          element: selector,
+          intro: prompt
         }
       ],
       showStepNumbers: false,
       tooltipPosition: "auto",
       tooltipClass: "onboarding-activity",
       doneLabel: "Got it",
-      overlayOpacity: 0.2,
+      overlayOpacity: 0,
       exitOnEsc: false,
       exitOnOverlayClick: false,
     };
@@ -95,6 +104,14 @@ Airbo.OnboardingModals = (function(){
     intro = introJs();
     intro.setOptions(options);
     intro.start();
+  }
+
+  function showActivityToolTip(){
+    showNextStepToolTip("#board_activity", "Click here to see your Activity");
+  }
+
+ function showShareToolTip(){
+      showNextStepToolTip("#share_airbo", "Click here to share Airbo with your colleagues");
   }
 
   function triggerModal(modalSelector, action) {

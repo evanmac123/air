@@ -9,7 +9,9 @@ Airbo.FirstTileHint = (function(){
     showStepNumbers: false,
     scrollToElement: false,
     overlayOpacity: 0,
-    doneLabel: "Got it"
+    doneLabel: "Got it",
+    exitOnEsc: false,
+    exitOnOverlayClick: false,
   };
 
   function hasTiles(){
