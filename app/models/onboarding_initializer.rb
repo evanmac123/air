@@ -23,7 +23,7 @@ class OnboardingInitializer
   def user
     @user ||= User.where({email:email}).first_or_initialize do |u|
       u.name = name
-      u.accepted_invitation_at = Time.now 
+      u.accepted_invitation_at = Time.now
       u.organization = @organization
     end
   end
@@ -38,8 +38,8 @@ class OnboardingInitializer
 
    def to_json
      {
-       user_onboarding: user_onboarding.id, 
-       hash: user_onboarding.auth_hash, 
+       user_onboarding: user_onboarding.id,
+       hash: user_onboarding.auth_hash,
        user: user.data_for_mixpanel.merge({time: DateTime.now })
      }
    end
@@ -52,7 +52,7 @@ class OnboardingInitializer
     if user.user_onboarding.nil?
       onboarding = @organization.onboarding || @organization.build_onboarding
       @user_onboarding = onboarding.user_onboardings.build({
-        onboarding: onboarding, 
+        onboarding: onboarding,
         user: user,
         state: 2
       })

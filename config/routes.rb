@@ -28,7 +28,7 @@ Health::Application.routes.draw do
   match "newairbo" => "onboardings#new"
 
   resources :onboardings, only: [:create, :new]
-  resources :user_onboardings, only: [:show, :create] do
+  resources :user_onboardings, only: [:show, :create, :new] do
     resources :tiles, only: [:show]
     resources :onboarding_invites, only: [:new, :create], as: "invites"
   end

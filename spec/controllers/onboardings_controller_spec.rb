@@ -3,10 +3,10 @@ require 'spec_helper'
 describe OnboardingsController do
   let(:valid_params){
     {
-      name: "Test Name", 
-      email: "test@test.com", 
-      organization: "Test Company", 
-      topic_board_id: @demo.id 
+      name: "Test Name",
+      email: "test@test.com",
+      organization: "Test Company",
+      topic_board_id: @demo.id
     }
   }
 
@@ -50,7 +50,7 @@ describe OnboardingsController do
         it "restarts onboarding" do
           post :create, valid_params.except(:email)
           expect(response.status).to eq(422)
-          expect(response.headers["X-Message"]).to_not be_nil 
+          expect(response.headers["X-Message"]).to_not be_nil
         end
       end
 
@@ -58,7 +58,7 @@ describe OnboardingsController do
         it "restarts onboarding" do
           post :create, valid_params.except(:name)
           expect(response.status).to eq(422)
-          expect(response.headers["X-Message"]).to_not be_nil 
+          expect(response.headers["X-Message"]).to_not be_nil
         end
       end
 
@@ -66,7 +66,7 @@ describe OnboardingsController do
         it "restarts onboarding" do
           post :create, valid_params.except(:organization)
           expect(response.status).to eq(422)
-          expect(response.headers["X-Message"]).to_not be_nil 
+          expect(response.headers["X-Message"]).to_not be_nil
         end
       end
     end
@@ -76,11 +76,9 @@ describe OnboardingsController do
     user_onboarding = UserOnboarding.last
     user = user_onboarding.user
     {
-      user_onboarding: user_onboarding.id, 
-      hash: user_onboarding.auth_hash, 
+      user_onboarding: user_onboarding.id,
+      hash: user_onboarding.auth_hash,
       user: user.data_for_mixpanel.merge({time: DateTime.now })
     }.to_json
-
   end
-
 end

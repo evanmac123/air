@@ -1,0 +1,30 @@
+<div class="onboarding-container">
+  <div class="row">
+    <div class="columns small-8 small-offset-2">
+      <div class='text-center user-onboarding-new'>
+        <div class="onboarding-new-image">
+          <%= image_tag "airbo_venice.png" %>
+        </div>
+        <%= form_tag user_onboardings_path, id:"user-onboarding-form" do %>
+          <%= hidden_field_tag "user_onboarding[email]", @user_onboarding_init.email %>
+          <%= hidden_field_tag "user_onboarding[onboarding_id]", @user_onboarding_init.onboarding_id %>
+        <div class='text-center user-onboarding-new'>
+          <div>
+            <h2>Hi. Welcome to your Airbo🙃.</h2>
+            <h3><%= @referrer %> invited to to learn more about how Airbo can improve employee engagement.</h3>
+            <p></p>
+          </div>
+          <%= label_tag "Fullname" %>
+          <%= text_field_tag "user_onboarding[name]" %>
+          <div class="topic_boards">
+            <div class="accept-invite button">
+              Get Started
+            </div>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <%= render 'user_onboardings/partials/customizing_airbo_modal' %>
+</div>

@@ -4,12 +4,12 @@
       <div class="columns small-12">
         <div class='text-center onboarding-new'>
           <%= form_tag api_v1_email_info_requests_path, id:"demo-request-form" do %>
-            <%= hidden_field_tag "request[email]", @onboarding_initializer.try(:email) || user_onboarding.user.email %>
-            <%= hidden_field_tag "request[name]", @onboarding_initializer.try(:name) || user_onboarding.user.name %>
+            <%= hidden_field_tag "request[email]", @onboarding_initializer.try(:email) || @user_onboarding_init.try(:email) || @user_onboarding.user.email %>
+            <%= hidden_field_tag "request[name]", @onboarding_initializer.try(:name) || @user_onboarding_init.try(:email) || @user_onboarding.user.name %>
             <%= hidden_field_tag "request[source]", "demo_request" %>
           <%end%>
           <div class="onboarding-new-image">
-            <%= image_tag "onboarding_rocket_twilight.png" %>
+            <%= image_tag "airbo_character_hi.png" %>
           </div>
           <h3>Hang tight. One of our Airbonauts will reach out to you shortly to schedule a demo.</h3>
           <div class="button outlined blue-alt close-demo-button">

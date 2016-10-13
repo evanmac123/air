@@ -12,7 +12,7 @@ class OnboardingsController < ApplicationController
         redirect_to user_onboarding_path(@user_onboarding)
       end
     else
-      flash[:failure]="Your onboarding link appears to be invalid. Please click 'Contact Us' or 'Schedule a Demo' links below for assistance." 
+      flash[:failure]="Your onboarding link appears to be invalid. Please click 'Contact Us' or 'Schedule a Demo' links below for assistance."
       redirect_to root_path
     end
   end
