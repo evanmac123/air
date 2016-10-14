@@ -10,12 +10,10 @@ class OnboardingInvitesController < ApplicationController
   def create
     user_onboarding = UserOnboarding.includes([:user, :onboarding]).find(params[:user_onboarding_id])
 
-    entry_state = user_onboarding.state
-
     UserOnboardingNotifier.notify_all(user_onboarding, params[:user_onboarding_emails])
 
-    user_onboarding.update_state
+    user_onboarding.update_attributes(shared: true)
 
-    redirect_to user_onboarding_path(user_onboarding, shared: true, state: entry_state)
+    redirect_to user_onboarding_path(user_onboarding, shared: true, state: user_onboarding.state)
   end
 end

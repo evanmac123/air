@@ -6,7 +6,10 @@ class OnboardingsController < ApplicationController
     @onboarding_initializer = OnboardingInitializer.new(onboarding_params)
     if @onboarding_initializer.is_valid?
       @user_onboarding = @onboarding_initializer.user_onboarding
-      if @user_onboarding.new_record?
+      if request.user_agent =~ /Mobile|webOS/
+        ping('Mobile Onboarding', {email: params[:email], name: params[:name]})
+        render template: "user_onboardings/onboarding_mobile"
+      elsif @user_onboarding.new_record?
         sign_out
       else
         redirect_to user_onboarding_path(@user_onboarding)

@@ -2,13 +2,12 @@ class UserOnboarding < ActiveRecord::Base
   belongs_to :user
   belongs_to :onboarding
 
-  attr_accessible :user, :onboarding, :state
   validates_presence_of :user
   validates_presence_of :onboarding
 
-  validates_associated :user 
+  validates_associated :user
 
-  FINAL_STATE = 5
+  FINAL_STATE = 4
 
   before_create :set_auth_hash
 
@@ -35,7 +34,7 @@ class UserOnboarding < ActiveRecord::Base
   end
 
   def in_process?
-    self.persisted? 
+    self.persisted?
   end
 
   def percent_complete
@@ -50,6 +49,12 @@ class UserOnboarding < ActiveRecord::Base
     if (state + 1) < step
       "locked"
     elsif state >= step
+      "complete"
+    end
+  end
+
+  def regulate_demo_and_share_progress
+    if demo_scheduled || shared
       "complete"
     end
   end

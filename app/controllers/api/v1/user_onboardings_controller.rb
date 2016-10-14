@@ -2,14 +2,14 @@
 class Api::V1::UserOnboardingsController < ApplicationController
   def update
     @user_onboarding = UserOnboarding.find(params[:id])
-    @user_onboarding.assign_attributes(user_onboarding_params)
+    @user_onboarding.update_attributes(user_onboarding_params)
 
-    render json: { success: @user_onboarding.save, user_onboarding: @user_onboarding.attributes }
+    render json: { user_onboarding: @user_onboarding.attributes }
   end
 
   private
 
     def user_onboarding_params
-      params.require(:user_onboarding).permit(:state)
+      params.require(:user_onboarding).permit(:state, :demo_scheduled, :shared)
     end
 end

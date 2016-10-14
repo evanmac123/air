@@ -15,7 +15,7 @@ Airbo.UserOnboardingUpdate = (function() {
             $("#board_activity i").removeClass("fa-lock");
             $("#board_activity a").unbind('click', false);
 
-            $(".progress-bar-label span").text("Get started (3/5)");
+            $(".progress-bar-label span").text("Tour Progress (3/5)");
             $(".onboarding-progress-bar .meter").css("width", "60%");
             $($(".progress-steps").children()[2]).addClass("complete");
             $('#activity-modal').foundation('reveal', 'open', {
@@ -37,7 +37,7 @@ Airbo.UserOnboardingUpdate = (function() {
         contentType: 'application/json', // format of request payload
         dataType: 'json', // format of the response
         success: function(res) {
-          $(".progress-bar-label span").text("Get started (4/5)");
+          $(".progress-bar-label span").text("Tour Progress (4/5)");
           $(".onboarding-progress-bar .meter").css("width", "80%");
           $($(".progress-steps").children()[3]).addClass("complete");
           $($(".progress-steps").children()[4]).removeClass("locked");

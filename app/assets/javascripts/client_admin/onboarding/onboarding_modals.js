@@ -4,6 +4,9 @@ Airbo.OnboardingModals = (function(){
 
   function init() {
     var state = $(".onboarding-body").data("state");
+    var id = $(".onboarding-body").data("id");
+    var demoScheduled = $(".onboarding-body").data("demo-scheduled");
+
     if (state == 3 & $(".user_onboardings-activity").length === 0) {
       showActivityToolTip();
     }
@@ -17,7 +20,21 @@ Airbo.OnboardingModals = (function(){
     });
 
     $(".schedule-demo-button").on("click", function() {
-      $.post("/api/v1/email_info_requests", $("#demo-request-form").serialize());
+      debugger
+      if (demoScheduled !== true) {
+        $.post("/api/v1/email_info_requests", $("#demo-request-form").serialize());
+        $.ajax({
+          type: "PUT",
+          url: "/api/v1/user_onboardings/" + id,
+          data: JSON.stringify({ user_onboarding: { demo_scheduled: true } }),
+          contentType: 'application/json', // format of request payload
+          dataType: 'json',
+          success: function(res) {
+            $(".onboarding-body").attr("data-demo-scheduled", "false");
+            return res;
+          }
+        });
+      }
       triggerModal('#schedule-demo-modal', 'open');
     });
 

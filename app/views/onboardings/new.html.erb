@@ -1,6 +1,6 @@
 <div class="onboarding-container">
   <div class="row">
-    <div class="columns small-12">
+    <div class="onboarding-new-container columns small-8 small-offset-2">
       <%= form_tag onboardings_path, id:"onboarding-form" do %>
         <%= hidden_field_tag :email, @onboarding_initializer.email %>
         <%= hidden_field_tag :name, @onboarding_initializer.name %>
