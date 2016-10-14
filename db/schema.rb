@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161014182419) do
+ActiveRecord::Schema.define(:version => 20161014215146) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -507,6 +507,7 @@ ActiveRecord::Schema.define(:version => 20161014182419) do
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
     t.integer  "demo_id"
+    t.string   "topic_name"
   end
 
   add_index "onboardings", ["demo_id"], :name => "index_onboardings_on_demo_id"
