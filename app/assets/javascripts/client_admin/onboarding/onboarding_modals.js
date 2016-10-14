@@ -45,7 +45,7 @@ Airbo.OnboardingModals = (function(){
     $(".close-board-view-button").on("click", function() {
       triggerModal('#board-view-modal', 'close');
       if(state == 2){
-        Airbo.FirstTileHint.init();
+        Airbo.FirstTileHint.init({ showButtons:false});
       }
     });
 
@@ -126,17 +126,41 @@ Airbo.OnboardingModals = (function(){
       exitOnOverlayClick: true,
     };
 
+  
+
     intro = introJs();
     intro.setOptions(options);
     intro.start();
   }
 
-  function showActivityToolTip(){
-    showNextStepToolTip("#board_activity", "Click here to see your Activity");
+
+  function showHint(element,prompt) {
+
+    var options = {
+      tooltipClass: "simple",
+      scrollToElement: false,
+      hints: [
+        {
+          element: element,
+          hint: prompt,
+          hintPosition: 'top-middle'
+        },
+      ],
+    };
+
+    intro = introJs();
+
+    intro.setOptions(options);
+
+    intro.addHints();
   }
 
- function showShareToolTip(){
-      showNextStepToolTip("#share_airbo", "Click here to share Airbo with your colleagues");
+  function showActivityToolTip(){
+    showHint(".fa.fa-line-chart", "Click here to see your Activity");
+  }
+
+  function showShareToolTip(){
+    showHint("#share_airbo", "Click here to share Airbo with your colleagues");
   }
 
   function triggerModal(modalSelector, action) {

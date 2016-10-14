@@ -12,25 +12,22 @@ Airbo.FirstTileHint = (function(){
     doneLabel: "Got it",
     exitOnEsc: true,
     exitOnOverlayClick: true,
+    steps: [
+      {
+        element: ".tile-wrapper:first-of-type",
+        intro: "This is the first Tile. We recommend clicking it to begin.",
+        position: 'top'
+      },
+    ],
   };
 
   function hasTiles(){
     return $(tileSelector).length > 0
   }
 
-  function initIntro() {
+  function initIntro(opts) {
     if(hasTiles()) {
-      var options = {
-        steps: [
-          {
-            element: $('.tile-wrapper')[0],
-            intro: "Click on the Tile to begin.",
-            position: 'top'
-          },
-        ],
-      };
-
-      options = $.extend({},config,options);
+      options = $.extend({},config,opts);
       intro = introJs();
       intro.setOptions(options);
       intro.oncomplete(function() {
@@ -54,8 +51,8 @@ Airbo.FirstTileHint = (function(){
     });
   }
 
-  function init() {
-    initIntro();
+  function init(opts) {
+    initIntro(opts);
   }
   
   return {
