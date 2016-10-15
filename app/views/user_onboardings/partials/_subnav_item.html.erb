@@ -1,6 +1,7 @@
 <% unless blocked %>
+  <% item_id == "contact_us" ? klass = "mini-text white open_intercom" : klass = "mini-text white" %>
   <li id="<%= item_id %>">
-    <%= link_to link, link_options.merge({class: "mini-text white"}) do %>
+    <%= link_to link, link_options.merge({class: klass}) do %>
       <% if icon.present? %>
         <%= fa_icon icon %>
       <% elsif image.present? %>

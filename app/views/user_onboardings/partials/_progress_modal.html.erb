@@ -1,25 +1,38 @@
-<div class="progress-modal">
-  <div data-reveal class='onboarding-progress-modal reveal-modal' id='progress-modal' style="background:#fafafa;">
-      <span class="progress-modal-header">Get to know your Airbo with these steps:</span>
-      <div class="button outlined blue-alt close-progress-modal onboarding-button" style="float:right">
-        Close <i class="expand-down fa fa-caret-up" aria-hidden="true"></i>
+<div class="">
+  <div id="progress-modal" class="reveal-modal medium onboarding-generic-modals" data-reveal aria-labelledby="onboardingProgress" aria-hidden="true" role="dialog" style="background:#fafafa;">
+    <div id="logo">
+      <%= image_tag 'airbo-tour-small.png' %>
+    </div>
+    <div class="progress-steps">
+      <div class="progress-step row locked">
+        <span class="progress-step-copy"><%= "#{user_onboarding.state}/#{user_onboarding.final_state} steps completed" %></span>
       </div>
-      <div class="progress-steps">
-        <div class="progress-step row <%= user_onboarding.regulate_progress(1) %>">
-          <i class="fa fa-square-o step-checkbox" aria-hidden="true"></i><i class="fa fa-check-square-o step-complete" aria-hidden="true"></i><i class="fa fa-lock step-locked" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp; <span class="progress-step-copy">Build your Airbo</span>
-        </div>
-        <div class="progress-step row <%= user_onboarding.regulate_progress(2) %>">
-          <i class="fa fa-square-o step-checkbox" aria-hidden="true"></i><i class="fa fa-check-square-o step-complete" aria-hidden="true"></i><i class="fa fa-lock step-locked" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp; <span class="progress-step-copy">Choose a priority</span>
-        </div>
-        <div class="progress-step row <%= user_onboarding.regulate_progress(3) %>">
-          <i class="fa fa-square-o step-checkbox" aria-hidden="true"></i><i class="fa fa-check-square-o step-complete" aria-hidden="true"></i><i class="fa fa-lock step-locked" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp; <span class="progress-step-copy">Interact with a tile</span>
-        </div>
-        <div class="progress-step row <%= user_onboarding.regulate_progress(4) %>">
-          <i class="fa fa-square-o step-checkbox" aria-hidden="true"></i><i class="fa fa-check-square-o step-complete" aria-hidden="true"></i><i class="fa fa-lock step-locked" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp; <span class="progress-step-copy">Review analytics</span>
-        </div>
-        <div class="progress-step row <%= user_onboarding.regulate_demo_and_share_progress %>">
-          <i class="fa fa-square-o step-checkbox" aria-hidden="true"></i><i class="fa fa-check-square-o step-complete" aria-hidden="true"></i><i class="fa fa-lock step-locked" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp; <span class="progress-step-copy">Extra: Schedule a demo or share tour with colleagues</span>
+      <div class="progress-step row <%= user_onboarding.regulate_progress(1) %>">
+        <i class="fa fa-square-o step-checkbox" aria-hidden="true"></i><i class="fa fa-check-square-o step-complete" aria-hidden="true"></i><i class="fa fa-lock step-locked" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp; <span class="progress-step-copy">Build your Airbo</span>
+      </div>
+      <div class="progress-step row <%= user_onboarding.regulate_progress(2) %>">
+        <i class="fa fa-square-o step-checkbox" aria-hidden="true"></i><i class="fa fa-check-square-o step-complete" aria-hidden="true"></i><i class="fa fa-lock step-locked" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp; <span class="progress-step-copy">Choose a priority (You selected <%= @user_onboarding.state %>)</span>
+      </div>
+      <div class="progress-step row <%= user_onboarding.regulate_progress(3) %>">
+        <i class="fa fa-square-o step-checkbox" aria-hidden="true"></i><i class="fa fa-check-square-o step-complete" aria-hidden="true"></i><i class="fa fa-lock step-locked" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp; <span class="progress-step-copy">Interact with a tile (You have completed <%= @user_onboarding.completed_tile_count %>/<%= @user_onboarding.board_tiles_count %> tiles)</span>
+      </div>
+      <div class="progress-step row <%= user_onboarding.regulate_progress(4) %>">
+        <i class="fa fa-square-o step-checkbox" aria-hidden="true"></i><i class="fa fa-check-square-o step-complete" aria-hidden="true"></i><i class="fa fa-lock step-locked" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp; <span class="progress-step-copy">Review your Analytics Dashboard</span>
+      </div>
+      <div class="progress-step row <%= user_onboarding.regulate_progress(5) %>">
+        <i class="fa fa-square-o step-checkbox" aria-hidden="true"></i><i class="fa fa-check-square-o step-complete" aria-hidden="true"></i><i class="fa fa-lock step-locked" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp; <span class="progress-step-copy">Send Tiles Digest Email</span>
+      </div>
+    </div>
+    <br><br>
+    <div class="progress-options">
+      <div class="columns small-12">
+        <div class='text-center onboarding-new'>
+          <div class="button outlined blue-alt close-board-view-button">
+            Continue
+          </div>
         </div>
       </div>
+    </div>
+    <a class="close-reveal-modal" aria-label="Close">&#215;</a>
   </div>
 </div>

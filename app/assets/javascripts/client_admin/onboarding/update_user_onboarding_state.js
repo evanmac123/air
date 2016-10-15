@@ -42,7 +42,7 @@ Airbo.UserOnboardingUpdate = (function() {
           $($(".progress-steps").children()[3]).addClass("complete");
           $($(".progress-steps").children()[4]).removeClass("locked");
 
-          $("#share_airbo i").addClass("fa-group");
+          $("#share_airbo i").addClass("fa-share-alt");
           $("#share_airbo i").removeClass("fa-lock");
           $("#share_airbo a").unbind('click', false);
 
