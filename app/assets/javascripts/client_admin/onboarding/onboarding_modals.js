@@ -48,6 +48,10 @@ Airbo.OnboardingModals = (function(){
       }
     });
 
+    $(".close-progress-modal").on("click", function() {
+      triggerModal('#progress-modal', 'close');
+    });
+
     if (state == 2 && $("#tile_wall").length > 0) {
       setTimeout(function() {
         triggerModal('#board-view-modal', 'open');
