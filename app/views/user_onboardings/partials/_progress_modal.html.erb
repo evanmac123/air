@@ -14,13 +14,20 @@
         <i class="fa fa-square-o step-checkbox" aria-hidden="true"></i><i class="fa fa-check-square-o step-complete" aria-hidden="true"></i><i class="fa fa-lock step-locked" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp; <span class="progress-step-copy">Choose a priority (You selected <%= @user_onboarding.state %>)</span>
       </div>
       <div class="progress-step row <%= user_onboarding.regulate_progress(3) %>">
-        <i class="fa fa-square-o step-checkbox" aria-hidden="true"></i><i class="fa fa-check-square-o step-complete" aria-hidden="true"></i><i class="fa fa-lock step-locked" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp; <span class="progress-step-copy">Interact with a tile (You have completed <%= @user_onboarding.completed_tile_count %>/<%= @user_onboarding.board_tiles_count %> tiles)</span>
+        <i class="fa fa-square-o step-checkbox" aria-hidden="true"></i><i class="fa fa-check-square-o step-complete" aria-hidden="true"></i><i class="fa fa-lock step-locked" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;
+        <% if @user_onboarding.state > 2 %>
+          <span class="progress-step-copy"><%= link_to "Interact with a tile (You have completed #{@user_onboarding.completed_tile_count}/#{@user_onboarding.board_tiles_count} tiles)", myairbo_path(@user_onboarding) %></span>
+        <% else %>
+          <span class="progress-step-copy">Interact with a tile (You have completed <%= @user_onboarding.completed_tile_count %>/<%= @user_onboarding.board_tiles_count %> tiles)</span>
+        <% end %>
       </div>
       <div class="progress-step row <%= user_onboarding.regulate_progress(4) %>">
-        <i class="fa fa-square-o step-checkbox" aria-hidden="true"></i><i class="fa fa-check-square-o step-complete" aria-hidden="true"></i><i class="fa fa-lock step-locked" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp; <span class="progress-step-copy">Review your Analytics Dashboard</span>
-      </div>
-      <div class="progress-step row <%= user_onboarding.regulate_progress(5) %>">
-        <i class="fa fa-square-o step-checkbox" aria-hidden="true"></i><i class="fa fa-check-square-o step-complete" aria-hidden="true"></i><i class="fa fa-lock step-locked" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp; <span class="progress-step-copy">Send Tiles Digest Email</span>
+        <i class="fa fa-square-o step-checkbox" aria-hidden="true"></i><i class="fa fa-check-square-o step-complete" aria-hidden="true"></i><i class="fa fa-lock step-locked" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;
+        <% if @user_onboarding.state > 3 %>
+          <span class="progress-step-copy"><%= link_to "Review your Analytics Dashboard", onboarding_activity_path(user_onboarding) %></span>
+        <% else %>
+          <span class="progress-step-copy">Review your Analytics Dashboard</span>
+        <% end %>
       </div>
     </div>
     <br><br>

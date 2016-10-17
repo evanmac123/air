@@ -90,9 +90,10 @@ Airbo.OnboardingModals = (function(){
       }, 1000);
     }
 
-    if ($("#share-modal").length > 0) {
+    $("#share_airbo").on("click", function(e) {
+      e.preventDefault();
       triggerModal("#share-modal", 'open');
-    }
+    });
 
     if ($("#welcome-back-modal").length > 0) {
       triggerModal("#welcome-back-modal", 'open');

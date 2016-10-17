@@ -15,8 +15,8 @@ Airbo.UserOnboardingUpdate = (function() {
             $("#board_activity i").removeClass("fa-lock");
             $("#board_activity a").unbind('click', false);
 
-            $(".progress-bar-label span").text("Tour Progress (3/5)");
-            $(".onboarding-progress-bar .meter").css("width", "60%");
+            $(".progress-bar-label span").text("Tour Progress (3/4)");
+            $(".onboarding-progress-bar .meter").css("width", "75%");
             $($(".progress-steps").children()[2]).addClass("complete");
             $('#activity-modal').foundation('reveal', 'open', {
               animation: 'fadeAndPop',
@@ -37,14 +37,9 @@ Airbo.UserOnboardingUpdate = (function() {
         contentType: 'application/json', // format of request payload
         dataType: 'json', // format of the response
         success: function(res) {
-          $(".progress-bar-label span").text("Tour Progress (4/5)");
-          $(".onboarding-progress-bar .meter").css("width", "80%");
+          $(".progress-bar-label span").text("Tour Progress (4/4)");
+          $(".onboarding-progress-bar .meter").css("width", "100%");
           $($(".progress-steps").children()[3]).addClass("complete");
-          $($(".progress-steps").children()[4]).removeClass("locked");
-
-          $("#share_airbo i").addClass("fa-share-alt");
-          $("#share_airbo i").removeClass("fa-lock");
-          $("#share_airbo a").unbind('click', false);
 
           return res;
         }
