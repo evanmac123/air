@@ -36,7 +36,7 @@ h2 {
   margin: 20px 0;
 }
 
-h3 {
+h3, .h3 {
   font-size: $font-size-3;
   @include font-weight-bold;
   line-height: 1.25em;
@@ -49,6 +49,12 @@ h4 {
   @include font-weight-bold;
   margin: 1.5em 0;
 }
+
+.half-em-bottom-margin{
+  margin-bottom: .5em;
+}
+
+
 
 /* Standard Type Elements */
 
@@ -78,11 +84,15 @@ p {
   }
 }
 
-.onboarding-generic-modals p{
+.onboarding-generic-modals {
   font-size: $font-size-3;
   @include font-weight-bold;
   line-height: 1.25em;
 
+  ul.initial{
+    list-style-type: initial;
+    list-style-position: inside;
+  }
 }
 
 
@@ -114,10 +124,6 @@ ul.list {
   list-style-type: disc;
 }
 
-ul.initial{
-  list-style-type: initial;
-  list-style-position:initial;
-}
 
 ol.list {
   list-style-type: decimal;

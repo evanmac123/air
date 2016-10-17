@@ -43,7 +43,7 @@ class OnboardingSubnavPresenter
     },
     {
       item_id: "share_airbo",
-      link: user_onboarding.id ? new_user_onboarding_invite_path(user_onboarding) : "#",
+      link: "",
       icon: "share-alt",
       text: "Share"
     },

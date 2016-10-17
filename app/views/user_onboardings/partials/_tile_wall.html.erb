@@ -35,11 +35,14 @@
     <% end %>
   </div>
   <%= render 'shared/tiles_wall_client_admin_tools', disable_button: true %>
+<<<<<<< HEAD
   <%= render partial: 'user_onboardings/partials/board_view_modal', locals: {user_onboarding: @user_onboarding} %>
+=======
+  <%= render 'user_onboardings/partials/share_modal' %>
+  <%= render 'user_onboardings/partials/board_view_modal' %>
+>>>>>>> b4caa0b28bc28ecf3a93f30a816ad4efaed10f74
   <% if params[:state] && params[:state].to_i == @user_onboarding.final_state && params[:complete] == "true" %>
     <%= render 'user_onboardings/partials/onboarding_complete_modal' %>
-  <% elsif params[:shared] == "true" %>
-    <%= render 'user_onboardings/partials/share_modal' %>
   <% elsif params[:return_onboarding] == "true" %>
     <%= render 'user_onboardings/partials/welcome_back_modal' %>
   <% end %>

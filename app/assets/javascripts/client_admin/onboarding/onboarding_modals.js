@@ -48,6 +48,10 @@ Airbo.OnboardingModals = (function(){
       }
     });
 
+    $(".close-progress-modal").on("click", function() {
+      triggerModal('#progress-modal', 'close');
+    });
+
     if (state == 2 && $("#tile_wall").length > 0) {
       setTimeout(function() {
         triggerModal('#board-view-modal', 'open');
@@ -86,9 +90,10 @@ Airbo.OnboardingModals = (function(){
       }, 1000);
     }
 
-    if ($("#share-modal").length > 0) {
+    $("#share_airbo").on("click", function(e) {
+      e.preventDefault();
       triggerModal("#share-modal", 'open');
-    }
+    });
 
     if ($("#welcome-back-modal").length > 0) {
       triggerModal("#welcome-back-modal", 'open');

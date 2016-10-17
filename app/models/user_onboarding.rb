@@ -7,7 +7,7 @@ class UserOnboarding < ActiveRecord::Base
 
   validates_associated :user
 
-  FINAL_STATE = 5
+  FINAL_STATE = 4
 
   before_create :set_auth_hash
 

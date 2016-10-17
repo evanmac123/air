@@ -6,8 +6,13 @@
           <div class="onboarding-new-image">
             <%= image_tag "airbo_people_connecting.png", class: "onboarding-img" %>
           </div>
-          <h3>Congratulations - you've successfully shared your Airbo! Feel free to go back to Preview and try out a few more Tiles, or visit Activity to see more data once your colleagues interact. Once they have - ask their thoughts on the experience!</h3>
-          <div class="button outlined blue-alt close-board-view-button">
+          <h3>Share your Airbo with colleagues by sending them the link below.</h3>
+          <div class="columns small-10 small-offset-1">
+            <div class="share_link_div">
+              <%= text_field_tag 'public_slug', public_board_url(current_user.demo.public_slug), id: 'public_board_field', disabled: true %>
+            </div>
+          </div>
+          <div class="button outlined-alt blue-and-green close-board-view-button">
             Keep exploring
           </div>
         </div>
