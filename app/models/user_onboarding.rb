@@ -21,6 +21,10 @@ class UserOnboarding < ActiveRecord::Base
     end
   end
 
+  def topic_name
+    onboarding.topic_name
+  end
+
   def board
     onboarding.board
   end

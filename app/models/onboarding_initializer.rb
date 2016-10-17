@@ -50,12 +50,13 @@ class OnboardingInitializer
 
     @organization = Organization.where(name: organization_name).first_or_initialize
     if user.user_onboarding.nil?
-      onboarding = @organization.onboarding || @organization.build_onboarding
+      onboarding = @organization.onboarding || @organization.build_onboarding(topic_name: topic_name)
       @user_onboarding = onboarding.user_onboardings.build({
         onboarding: onboarding,
         user: user,
         state: 2
       })
+
 
       @board = onboarding.board || onboarding.build_board(reference_board.attributes.merge({name: copied_board_name, public_slug: copied_board_name})) #board
       @board.board_memberships.build({user: @user_onboarding.user, is_client_admin: true})
@@ -82,6 +83,6 @@ class OnboardingInitializer
   end
 
   def topic_name
-    reference_board.topic_board.topic.name
+    reference_board.topic_board.topic_name
   end
 end
