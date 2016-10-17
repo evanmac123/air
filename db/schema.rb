@@ -1069,7 +1069,7 @@ ActiveRecord::Schema.define(:version => 20161017215631) do
     t.string   "auth_hash"
     t.boolean  "demo_scheduled", :default => false, :null => false
     t.boolean  "shared",         :default => false, :null => false
-    t.boolean  "completed",      :default => false, :null => false
+    t.string   "completed"
   end
 
   add_index "user_onboardings", ["onboarding_id"], :name => "index_user_onboardings_on_onboarding_id"

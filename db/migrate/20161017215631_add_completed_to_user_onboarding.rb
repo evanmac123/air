@@ -1,5 +1,5 @@
 class AddCompletedToUserOnboarding < ActiveRecord::Migration
   def change
-    add_column :user_onboardings, :completed, :boolean, null: false, default: false
+    add_column :user_onboardings, :completed, :string
   end
 end

@@ -1,6 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.MarketingPagePings = (function(){
+Airbo.OnboardingPings = (function(){
   function intercomPing(id, state) {
     $("#contact_us").click(function() {
       Airbo.Utils.ping("Onboarding", { metric: "intercom", user_onboarding_id: id, user_onboarding_state: state });
