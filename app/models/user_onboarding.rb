@@ -57,14 +57,6 @@ class UserOnboarding < ActiveRecord::Base
     end
   end
 
-  def completed_tile_count
-    "fix"
-  end
-
-  def board_tiles_count
-    "fix"
-  end
-
   private
 
   def set_auth_hash

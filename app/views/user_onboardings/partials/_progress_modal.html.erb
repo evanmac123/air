@@ -13,7 +13,7 @@
       <div class="progress-step row <%= user_onboarding.regulate_progress(2) %>">
         <i class="fa fa-square-o step-checkbox" aria-hidden="true"></i><i class="fa fa-check-square-o step-complete" aria-hidden="true"></i><i class="fa fa-lock step-locked" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;
         <% if @user_onboarding.id %>
-          <span class="progress-step-copy">Choose a priority (You selected <%= @user_onboarding.state %>)</span>
+          <span class="progress-step-copy">Choose a priority (You selected <%= @user_onboarding.topic_name %>)</span>
         <% else %>
           <span class="progress-step-copy">Choose a priority</span>
         <% end %>
@@ -21,7 +21,7 @@
       <div class="progress-step row <%= user_onboarding.regulate_progress(3) %>">
         <i class="fa fa-square-o step-checkbox" aria-hidden="true"></i><i class="fa fa-check-square-o step-complete" aria-hidden="true"></i><i class="fa fa-lock step-locked" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;
         <% if @user_onboarding.state > 2 %>
-          <span class="progress-step-copy"><%= link_to "Interact with a tile (You have completed #{@user_onboarding.completed_tile_count}/#{@user_onboarding.board_tiles_count} tiles)", myairbo_path(@user_onboarding) %></span>
+          <span class="progress-step-copy"><%= link_to "Interact with a tile", myairbo_path(@user_onboarding) %></span>
         <% else %>
           <span class="progress-step-copy">Interact with a tile</span>
         <% end %>
