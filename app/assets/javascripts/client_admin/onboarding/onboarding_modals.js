@@ -15,12 +15,8 @@ Airbo.OnboardingModals = (function(){
       triggerModal('#progress-modal', 'open');
     });
 
-    $(".close-progress-modal").on("click", function() {
-      triggerModal('#progress-modal', 'close');
-    });
-
     $(".schedule-demo-button").on("click", function() {
-      if (demoScheduled !== true) {
+      if (demoScheduled !== true && id !== "") {
         $.post("/api/v1/email_info_requests", $("#demo-request-form").serialize());
         $.ajax({
           type: "PUT",
@@ -37,10 +33,6 @@ Airbo.OnboardingModals = (function(){
       triggerModal('#schedule-demo-modal', 'open');
     });
 
-    $(".close-demo-button").on("click", function() {
-      triggerModal('#schedule-demo-modal', 'close');
-    });
-
     $(".close-board-view-button").on("click", function() {
       triggerModal('#board-view-modal', 'close');
       if(state == 2){
@@ -48,19 +40,11 @@ Airbo.OnboardingModals = (function(){
       }
     });
 
-    $(".close-progress-modal").on("click", function() {
-      triggerModal('#progress-modal', 'close');
-    });
-
     if (state == 2 && $("#tile_wall").length > 0) {
       setTimeout(function() {
         triggerModal('#board-view-modal', 'open');
       }, 1000);
     }
-
-    $(".close-tile-view-button").on("click", function() {
-      triggerModal("#tile-view-modal", 'close');
-    });
 
     if (state == 2 && $(".tile_main").length > 0) {
       setTimeout(function() {
@@ -72,17 +56,6 @@ Airbo.OnboardingModals = (function(){
       triggerModal("#activity-modal", 'close');
       showActivityToolTip();
     });
-
-
-    $(".close-viewed-activity-modal-button").on("click", function() {
-      triggerModal("#activity-modal", 'close');
-      showShareToolTip();
-    });
-
-
-    if (state == 4 && $(".user_onboardings-activity").length>0 ){
-      showShareToolTip();
-    }
 
     if (state == 3 && $("#client-admin-demo-analytics").length > 0) {
       setTimeout(function() {
@@ -108,6 +81,10 @@ Airbo.OnboardingModals = (function(){
         $("#tiles_done_message").hide();
         triggerModal("#onboarding-tiles-complete-modal", 'open');
       }
+    });
+
+    $(".close-modal").on("click", function() {
+      closeModal($(this).parents(".reveal-modal"));
     });
   }
 
@@ -163,15 +140,15 @@ Airbo.OnboardingModals = (function(){
     showHint(".fa.fa-line-chart", "Click here to see your Activity");
   }
 
-  function showShareToolTip(){
-    showHint("#share_airbo", "Click here to share Airbo with your colleagues");
-  }
-
   function triggerModal(modalSelector, action) {
     $(modalSelector).foundation('reveal', action, {
       animation: 'fadeAndPop',
       animation_speed: 350
     });
+  }
+
+  function closeModal(modal) {
+    triggerModal(modal, "close");
   }
 
   return {

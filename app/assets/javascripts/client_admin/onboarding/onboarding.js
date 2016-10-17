@@ -7,4 +7,8 @@ $(function() {
     Airbo.OnboardingCreate.init();
     Airbo.UserOnboardingCreate.init();
   }
+
+  if (Airbo.Utils.supportsFeatureByPresenceOfSelector(".onboardings-new")) {
+    $("#logo a").removeAttr("href");
+  }
 });
