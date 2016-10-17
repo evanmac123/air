@@ -17,7 +17,7 @@ Airbo.UserOnboardingUpdate = (function() {
 
             $(".progress-bar-label span").text("Tour Progress (3/4)");
             $(".onboarding-progress-bar .meter").css("width", "75%");
-            $($(".progress-steps").children()[2]).addClass("complete");
+            $($(".progress-steps").children()[3]).addClass("complete");
             $('#activity-modal').foundation('reveal', 'open', {
               animation: 'fadeAndPop',
               animation_speed: 350});
@@ -39,7 +39,7 @@ Airbo.UserOnboardingUpdate = (function() {
         success: function(res) {
           $(".progress-bar-label span").text("Tour Progress (4/4)");
           $(".onboarding-progress-bar .meter").css("width", "100%");
-          $($(".progress-steps").children()[3]).addClass("complete");
+          $($(".progress-steps").children()[4]).addClass("complete");
 
           return res;
         }

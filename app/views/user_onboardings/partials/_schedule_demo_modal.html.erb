@@ -4,18 +4,18 @@
       <div class="columns small-12">
         <div class='onboarding-new'>
           <%= form_tag api_v1_email_info_requests_path, id:"demo-request-form" do %>
-            <%= hidden_field_tag "request[email]", @onboarding_initializer.try(:email) || @user_onboarding_init.try(:email) || @user_onboarding.user.email %>
-            <%= hidden_field_tag "request[name]", @onboarding_initializer.try(:name) || @user_onboarding_init.try(:email) || @user_onboarding.user.name %>
+            <%= hidden_field_tag "request[email]", @onboarding_initializer.try(:email) || @user_onboarding.user.email %>
+            <%= hidden_field_tag "request[name]", @onboarding_initializer.try(:name) || @user_onboarding.user.name %>
             <%= hidden_field_tag "request[source]", "demo_request" %>
           <%end%>
           <div class="text-center onboarding-new-image">
             <%= image_tag "airbo_character_hi.png", class: "onboarding-img" %>
           </div>
-          <p>Thanks for requesting a demo!</p>
-          <p>An Airbo team member will reach out to you shortly to get one scheduled.</p>
+          <p>Thank you for expressing interest in a demo!</p>
+          <p>An Airbo team member will reach out to you at <span style="font-weight: bold"><%= @onboarding_initializer.try(:email) || @user_onboarding.user.email %></span> with more information.</p>
           <div class="text-center">
-            <div class="button outlined blue-alt close-demo-button">
-              Return to your Airbo
+            <div class="button outlined-alt blue-and-green close-modal">
+              Continue
             </div>
           </div>
         </div>

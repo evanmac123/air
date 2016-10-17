@@ -37,6 +37,7 @@
   </div>
 
   <% render 'shared/intercom' %>
+  <%= render 'user_onboardings/partials/share_modal' if @user_onboarding.id %>
 
   <%= yield :lightbox %>
   <%= render :partial => 'shared/javascript' %>
