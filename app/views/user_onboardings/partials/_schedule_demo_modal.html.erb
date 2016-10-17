@@ -11,10 +11,10 @@
           <div class="onboarding-new-image">
             <%= image_tag "airbo_character_hi.png", class: "onboarding-img" %>
           </div>
-          <h3>Thanks for requesting a demo!</h3>
-          <h3>An Airbo team member will reach out to you shortly to get one scheduled.</h3>
+          <h3>Thank you for expressing interest in a demo!</h3>
+          <h3>An Airbo team member will reach out to you at <span style="font-weight: bold"><%= @user_onboarding_init.try(:email) || @user_onboarding.user.email %></span> with more information.</h3>
           <div class="button outlined-alt blue-and-green close-demo-button">
-            Return to your Airbo
+            Continue
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-<header class="onboarding-top-bar">
+<header class="onboarding-top-bar" style="margin-bottom:0">
   <div class="row" id="top_bar">
     <div class="small-6 columns">
       <div id="logo">
@@ -14,7 +14,7 @@
   <div class="onboarding-progress" id="top_bar">
     <div class="row onboarding-progress-content onboarding-progress-desktop">
       <div class="small-2 small-offset-1 columns progress-bar-label">
-        <span>Tour Progress <%= "(#{user_onboarding.state}/#{user_onboarding.final_state})"%></span>
+        <span>Tour Steps <%= "(#{user_onboarding.state}/#{user_onboarding.final_state})"%></span>
       </div>
       <div class="small-6 columns">
         <div class="progress radius onboarding-progress-bar">

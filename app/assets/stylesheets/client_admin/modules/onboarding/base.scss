@@ -45,7 +45,7 @@
 }
 
 .onboarding-progress {
-  background: $ca-subnav-color;
+  background: lighten($ca-subnav-color, 5%);
   text-align: center;
   color: $off-white;
   height: 55px;
