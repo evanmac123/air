@@ -2,16 +2,20 @@
   <div data-reveal class='board-view-modal onboarding-generic-modals reveal-modal medium' id='board-view-modal' style="background:#fff;">
     <div class="row">
       <div class="columns small-12">
-        <div class='text-center onboarding-new'>
-          <div class="onboarding-new-image">
+        <div class='onboarding-new'>
+          <div class="text-center onboarding-new-image">
             <%= image_tag "airbo_board.png", class: "onboarding-img" %>
           </div>
-          <h3>Your Airbo is an interactive bulletin board where you post important information in bite-sized units called <strong>Tiles.</strong>
+          <p>
+          Your Airbo is an interactive bulletin board where you post important information in bite-sized units called <strong>Tiles.</strong>
+          </p>
             <p>
             Since you expresssed interest in <strong><%=user_onboarding.topic_name%> </strong>,  we've selected some cool <%=user_onboarding.topic_name%> related <strong>Tiles</strong> from our library for you viewing pleasure.</p>
-          </h3>
-          <div class="button outlined blue-alt close-board-view-button">
-            View Tiles
+          </>
+          <div class="text-center">
+            <div class=" button outlined blue-alt close-board-view-button">
+              View Tiles
+            </div>
           </div>
         </div>
       </div>
