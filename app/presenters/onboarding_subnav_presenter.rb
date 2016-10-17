@@ -28,16 +28,6 @@ class OnboardingSubnavPresenter
     params
   end
 
-  def subnav_elements_with_blocked_items
-    elements = subnav_elements
-    elements.each do |element|
-      if list_of_blocked_items.include? element[:text]
-        element[:blocked] = true
-      end
-    end
-    elements
-  end
-
   def subnav_elements
     [{
       item_id: "my_airbo_nav",
@@ -54,8 +44,14 @@ class OnboardingSubnavPresenter
     {
       item_id: "share_airbo",
       link: user_onboarding.id ? new_user_onboarding_invite_path(user_onboarding) : "#",
-      icon: "group",
+      icon: "share-alt",
       text: "Share"
+    },
+    {
+      item_id: "contact_us",
+      link: "",
+      icon: "info",
+      text: "Help"
     },]
   end
 end

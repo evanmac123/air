@@ -13,7 +13,11 @@ Airbo.OnboardingSubnav = (function() {
       $("#board_activity i").addClass("fa-lock");
       $("#board_activity a").bind('click', false);
 
-      $("#share_airbo i").removeClass("fa-group");
+      $("#share_airbo i").removeClass("fa-share-alt");
+      $("#share_airbo i").addClass("fa-lock");
+      $("#share_airbo a").bind('click', false);
+    } else if (state < 4) {
+      $("#share_airbo i").removeClass("fa-share-alt");
       $("#share_airbo i").addClass("fa-lock");
       $("#share_airbo a").bind('click', false);
     }

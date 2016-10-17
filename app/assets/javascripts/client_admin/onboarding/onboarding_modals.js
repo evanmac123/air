@@ -20,7 +20,6 @@ Airbo.OnboardingModals = (function(){
     });
 
     $(".schedule-demo-button").on("click", function() {
-      debugger
       if (demoScheduled !== true) {
         $.post("/api/v1/email_info_requests", $("#demo-request-form").serialize());
         $.ajax({
@@ -126,7 +125,7 @@ Airbo.OnboardingModals = (function(){
       exitOnOverlayClick: true,
     };
 
-  
+
 
     intro = introJs();
     intro.setOptions(options);

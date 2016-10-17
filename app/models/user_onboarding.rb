@@ -7,7 +7,7 @@ class UserOnboarding < ActiveRecord::Base
 
   validates_associated :user
 
-  FINAL_STATE = 4
+  FINAL_STATE = 5
 
   before_create :set_auth_hash
 
@@ -57,10 +57,12 @@ class UserOnboarding < ActiveRecord::Base
     end
   end
 
-  def regulate_demo_and_share_progress
-    if demo_scheduled || shared
-      "complete"
-    end
+  def completed_tile_count
+    "fix"
+  end
+
+  def board_tiles_count
+    "fix"
   end
 
   private
