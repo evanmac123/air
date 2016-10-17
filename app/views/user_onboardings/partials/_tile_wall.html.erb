@@ -36,9 +36,8 @@
   </div>
   <%= render 'shared/tiles_wall_client_admin_tools', disable_button: true %>
   <%= render 'user_onboardings/partials/board_view_modal' %>
-  <% if params[:state] && params[:state].to_i == @user_onboarding.final_state %>
-    <%= render 'user_onboardings/partials/onboarding_complete_modal' %>
-  <% elsif params[:return_onboarding] == "true" %>
+  
+  <% if params[:return_onboarding] == "true" %>
     <%= render 'user_onboardings/partials/welcome_back_modal' %>
   <% end %>
 </div>

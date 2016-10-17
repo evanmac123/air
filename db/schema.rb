@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161014215146) do
+ActiveRecord::Schema.define(:version => 20161017215631) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -1069,6 +1069,7 @@ ActiveRecord::Schema.define(:version => 20161014215146) do
     t.string   "auth_hash"
     t.boolean  "demo_scheduled", :default => false, :null => false
     t.boolean  "shared",         :default => false, :null => false
+    t.boolean  "completed",      :default => false, :null => false
   end
 
   add_index "user_onboardings", ["onboarding_id"], :name => "index_user_onboardings_on_onboarding_id"
