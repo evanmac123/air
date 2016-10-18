@@ -16,7 +16,7 @@
    end
 
    def action_types
-     ['unique_tile_views', 'unique_tile_interactions','total_employee_visits']
+     ['unique_tile_views', 'unique_tile_interactions', 'total_employee_visits']
    end
 
    def report_interval
