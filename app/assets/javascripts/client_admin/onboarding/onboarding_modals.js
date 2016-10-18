@@ -124,6 +124,7 @@ Airbo.OnboardingModals = (function(){
 
     intro.oncomplete(function() {
       triggerModal("#onboarding-complete-modal", 'open');
+      Airbo.UserOnboardingUpdate.thirdUpdate($(".onboarding-body").data("id"));
     });
   }
 
@@ -151,32 +152,6 @@ Airbo.OnboardingModals = (function(){
     intro = introJs();
     intro.setOptions(options);
     intro.start();
-  }
-
-
-  function showHint(element,prompt) {
-
-    var options = {
-      tooltipClass: "simple",
-      scrollToElement: false,
-      hints: [
-        {
-          element: element,
-          hint: prompt,
-          hintPosition: 'top-middle'
-        },
-      ],
-    };
-
-    intro = introJs();
-
-    intro.setOptions(options);
-
-    intro.addHints();
-  }
-
-  function showActivityToolTip(){
-    showHint(".fa.fa-line-chart", "Click here to see your Activity");
   }
 
   function triggerModal(modalSelector, action) {
