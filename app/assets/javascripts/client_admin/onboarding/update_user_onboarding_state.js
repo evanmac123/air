@@ -3,12 +3,13 @@ var Airbo = window.Airbo || {};
 Airbo.UserOnboardingUpdate = (function() {
   function secondUpdate(id) {
     $(".tile_multiple_choice_answer").on("click", function() {
+      Airbo.OnboardingKpis.completeTilePing();
       $.ajax({
         type: "PUT",
         url: "/api/v1/user_onboardings/" + id,
         data: JSON.stringify({ user_onboarding: { state: 3 } }),
-        contentType: 'application/json', // format of request payload
-        dataType: 'json', // format of the response
+        contentType: 'application/json',
+        dataType: 'json',
         success: function(res) {
           setTimeout(function() {
             $("#board_activity i").addClass("fa-line-chart");
@@ -34,13 +35,43 @@ Airbo.UserOnboardingUpdate = (function() {
         type: "PUT",
         url: "/api/v1/user_onboardings/" + id,
         data: JSON.stringify({ user_onboarding: { state: 4 } }),
-        contentType: 'application/json', // format of request payload
-        dataType: 'json', // format of the response
+        contentType: 'application/json',
+        dataType: 'json',
         success: function(res) {
           $(".progress-bar-label span").text("Tour Progress (4/4)");
           $(".onboarding-progress-bar .meter").css("width", "100%");
           $($(".progress-steps").children()[4]).addClass("complete");
 
+          return res;
+        }
+      });
+    });
+  }
+
+  function finalCta(id) {
+    $("#complete-yes-more-info").on("click", function() {
+      Airbo.OnboardingKpis.answersMoreInfoQuestionPing("yes");
+      $.ajax({
+        type: "PUT",
+        url: "/api/v1/user_onboardings/" + id,
+        data: JSON.stringify({ user_onboarding: { more_info: "yes" } }),
+        contentType: 'application/json',
+        dataType: 'json',
+        success: function(res) {
+          return res;
+        }
+      });
+    });
+
+    $("#complete-no-more-info").on("click", function() {
+      Airbo.OnboardingKpis.answersMoreInfoQuestionPing("no");
+      $.ajax({
+        type: "PUT",
+        url: "/api/v1/user_onboardings/" + id,
+        data: JSON.stringify({ user_onboarding: { more_info: "no" } }),
+        contentType: 'application/json',
+        dataType: 'json',
+        success: function(res) {
           return res;
         }
       });
@@ -55,6 +86,10 @@ Airbo.UserOnboardingUpdate = (function() {
 
     if (Airbo.Utils.supportsFeatureByPresenceOfSelector(".user-onboarding-state-3")) {
       thirdUpdate(id);
+    }
+
+    if (Airbo.Utils.supportsFeatureByPresenceOfSelector(".user-onboarding-state-4")) {
+      finalCta(id);
     }
   }
 
