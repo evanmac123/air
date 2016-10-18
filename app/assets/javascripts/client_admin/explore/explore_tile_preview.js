@@ -49,20 +49,7 @@ Airbo.ExploreTilePreview = (function(){
 
     Airbo.ImageLoadingPlaceholder.init();
   }
-  function runIntro() {
-    if (introShowed) return;
-    introShowed = true;
-    var menuElWithIntro = $(".preview_menu_item");
-    if( menuElWithIntro.data('intro').length == 0 ) return;
 
-    var intro = introJs();
-    intro.setOptions({
-      showStepNumbers: false,
-      doneLabel: 'Got it',
-      tooltipClass: "airbo_preview_intro"
-    });
-    intro.start();
-  }
   function open(preview) {
     modalObj.setContent(preview);
     modalObj.open();
@@ -81,7 +68,6 @@ Airbo.ExploreTilePreview = (function(){
       onOpenedEvent: function() {
         // initEvents();
         arrowsObj.position();
-        runIntro();
       }
     });
   }
@@ -91,7 +77,6 @@ Airbo.ExploreTilePreview = (function(){
       containerSel: ".content",
       onOpenedEvent: function() {
         arrowsObj.position();
-        runIntro();
       }
     });
   }
