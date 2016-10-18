@@ -53,7 +53,6 @@
     }
   }
 
-  
 
   .introjs-prevbutton,.introjs-nextbutton{
     float: left;
@@ -108,3 +107,11 @@
   box-shadow: none;
 }
 
+.introjs-button.introjs-nextbutton.introjs-disabled {
+ display: none;
+}
+
+
+.introjs-button.introjs-prevbutton.introjs-disabled {
+ display: none;
+}
