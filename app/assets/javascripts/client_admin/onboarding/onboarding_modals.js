@@ -69,7 +69,7 @@ Airbo.OnboardingModals = (function(){
       triggerModal("#welcome-back-modal", 'open');
     }
 
-    if ($("#onboarding-complete-modal").length > 0) {
+    if (state == 4) {
       triggerModal("#onboarding-complete-modal", 'open');
     }
 
@@ -93,14 +93,14 @@ Airbo.OnboardingModals = (function(){
         },
         {
           element: ".title_block",
-          intro: "This area shows total Tiles you've posted, employees activated and what percentage of your population is using Airbo." 
+          intro: "This area shows total Tiles you've posted, employees activated and what percentage of your population is using Airbo."
         },
 
         {
           element: ".stats_page",
-          intro: "Use the chart to analyze  Tile specific activity by date range.", 
+          intro: "Use the chart to analyze  Tile specific activity by date range.",
           position: "top"
-        }, 
+        },
 
         {
           element: "#board_stats_grid",

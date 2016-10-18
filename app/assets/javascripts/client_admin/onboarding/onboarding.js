@@ -6,6 +6,7 @@ $(function() {
     Airbo.OnboardingModals.init();
     Airbo.OnboardingCreate.init();
     Airbo.UserOnboardingCreate.init();
+    Airbo.OnboardingPings.init();
   }
 
   if (Airbo.Utils.supportsFeatureByPresenceOfSelector(".onboardings-new")) {
