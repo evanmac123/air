@@ -49,7 +49,7 @@ Airbo.UserOnboardingUpdate = (function() {
   function finalCta(id) {
     $("#complete-yes-more-info").on("click", function() {
       Airbo.OnboardingKpis.answersMoreInfoQuestionPing("yes");
-      Intercom('show');
+      openIntercom();
       $.ajax({
         type: "PUT",
         url: "/api/v1/user_onboardings/" + id,
