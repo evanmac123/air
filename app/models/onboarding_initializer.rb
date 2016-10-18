@@ -25,6 +25,7 @@ class OnboardingInitializer
       u.name = name
       u.accepted_invitation_at = Time.now
       u.organization = @organization
+      u.is_client_admin = true
     end
   end
 
@@ -79,7 +80,7 @@ class OnboardingInitializer
   end
 
   def copied_board_name
-    organization_name + "-" + topic_name
+    organization_name + "-" + topic_name + "-" + @organization.boards.count.to_s
   end
 
   def topic_name

@@ -36,6 +36,15 @@ class UserOnboardingsController < ApplicationController
     end
   end
 
+  def update
+    @user_onboarding = UserOnboarding.find(params[:id])
+    if @user_onboarding.update_attributes(user_onboarding_params)
+      redirect_to home_path({onboarding_complete: true})
+    else
+      redirect_to home_path({onboarding_complete: false})
+    end
+  end
+
   def activity
     @user_onboarding = UserOnboarding.includes([:user, :onboarding]).find(params[:id])
     if request.user_agent =~ /Mobile|webOS/
@@ -56,7 +65,7 @@ class UserOnboardingsController < ApplicationController
   private
 
     def user_onboarding_params
-      params.require(:user_onboarding).permit(:email, :onboarding_id, :name)
+      params.require(:user_onboarding).permit(:email, :onboarding_id, :name, :completed, :more_info)
     end
 
     def should_onboard?

@@ -7,24 +7,16 @@
             <%= image_tag "airbo_venice_fireworks.png", class: "onboarding-img" %>
           </div>
           <p>Awesome job. You have finished the Airbo Tour.</p>
-          <% if @user_onboarding.more_info %>
-            <p>Feel free to share your Airbo with colleagues via the <strong>Share</strong> tab and don't hesitate to <strong>schedule ad demo</strong> or ask a question via the <strong>Help</strong> tab.</p>
-            <div class="text-center">
-              <div id="complete-yes-more-info" class="button outlined-alt blue-and-green close-modal">
-                Continue
-              </div>
+          <p>There's a ton more to see, including <strong>creating tiles</strong>, <strong>browsing Airbo content</strong>, and <strong>sharing content with colleagues</strong>.</p>
+          <p>Would you like to continue to the full Airbo experience?</p>
+          <div class="text-center">
+            <div id="complete-yes-more-info" class="button outlined-alt blue-and-green onboarding-final-cta">
+              Sounds good
             </div>
-          <% else %>
-            <p>There's a ton more to see.  Would you like to learn more about how Airbo can be used to boost employee engagement?</p>
-            <div class="text-center">
-              <div id="complete-yes-more-info" class="button outlined-alt blue-and-green close-modal onboarding-final-cta">
-                Sounds good
-              </div>
-              <div id="complete-no-more-info" class="button outlined-alt blue-and-green close-modal onboarding-final-cta">
-                Not right now
-              </div>
+            <div id="complete-no-more-info" class="button outlined-alt blue-and-green close-modal onboarding-final-cta">
+              Not right now
             </div>
-          <% end %>
+          </div>
         </div>
       </div>
     </div>

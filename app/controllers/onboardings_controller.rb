@@ -3,20 +3,24 @@ class OnboardingsController < ApplicationController
   layout 'onboarding'
 
   def new
-    @onboarding_initializer = OnboardingInitializer.new(onboarding_params)
-    if @onboarding_initializer.is_valid?
-      @user_onboarding = @onboarding_initializer.user_onboarding
-      if request.user_agent =~ /Mobile|webOS/
-        ping('Mobile Onboarding', {email: params[:email], name: params[:name]})
-        render template: "user_onboardings/onboarding_mobile"
-      elsif @user_onboarding.new_record?
-        sign_out
+    if valid_params
+      @onboarding_initializer = OnboardingInitializer.new(onboarding_params)
+      if @onboarding_initializer.is_valid?
+        @user_onboarding = @onboarding_initializer.user_onboarding
+        if request.user_agent =~ /Mobile|webOS/
+          ping('Mobile Onboarding', {email: params[:email], name: params[:name]})
+          render template: "user_onboardings/onboarding_mobile"
+        elsif @user_onboarding.new_record?
+          sign_out
+        else
+          redirect_to user_onboarding_path(@user_onboarding)
+        end
       else
-        redirect_to user_onboarding_path(@user_onboarding)
+        flash[:failure]="Your onboarding link appears to be invalid. Please click 'Contact Us' or 'Schedule a Demo' links below for assistance."
+        redirect_to root_path
       end
     else
-      flash[:failure]="Your onboarding link appears to be invalid. Please click 'Contact Us' or 'Schedule a Demo' links below for assistance."
-      redirect_to root_path
+      redirect_to new_signup_request_path
     end
   end
 
@@ -42,5 +46,9 @@ class OnboardingsController < ApplicationController
         organization: params[:organization],
         board_id: params[:topic_board_id]
       }
+    end
+
+    def valid_params
+      params[:email] && params[:name] && params[:organization]
     end
 end

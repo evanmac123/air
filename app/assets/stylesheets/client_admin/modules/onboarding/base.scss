@@ -174,7 +174,7 @@
   );
 }
 
-.customizing-airbo-modal {
+.customizing-airbo-modal, .loading-full-airbo-modal {
   @include reveal-bg();
   @include reveal-modal-base(
     // Provides reveal base styles, can be set to false to override.

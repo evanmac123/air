@@ -10,6 +10,6 @@ class Api::V1::UserOnboardingsController < ApplicationController
   private
 
     def user_onboarding_params
-      params.require(:user_onboarding).permit(:state, :demo_scheduled, :shared, :more_info)
+      params.require(:user_onboarding).permit(:state, :demo_scheduled, :shared, :more_info, :completed)
     end
 end

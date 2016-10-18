@@ -34,6 +34,7 @@ class UserOnboardingInitializer
       @user ||= User.where({ email: email }).first_or_create do |u|
         u.name = name
         u.accepted_invitation_at = Time.now
+        u.is_client_admin = true
       end
     end
 

@@ -39,6 +39,7 @@
   <% render 'shared/intercom' %>
   <%= render 'user_onboardings/partials/share_modal' if @user_onboarding.id %>
   <%= render 'user_onboardings/partials/onboarding_complete_modal' %>
+  <%= render 'user_onboardings/partials/loading_full_airbo_modal' %>
 
   <%= yield :lightbox %>
   <%= render :partial => 'shared/javascript' %>
