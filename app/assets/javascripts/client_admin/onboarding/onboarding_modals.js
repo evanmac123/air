@@ -8,7 +8,7 @@ Airbo.OnboardingModals = (function(){
     var demoScheduled = $(".onboarding-body").data("demo-scheduled");
 
     if (state == 3 & $(".user_onboardings-activity").length === 0) {
-      showActivityToolTip();
+      //noop
     }
 
     $(".open-progress-modal").on("click", function() {
@@ -54,13 +54,10 @@ Airbo.OnboardingModals = (function(){
 
     $(".close-activity-modal-button").on("click", function() {
       triggerModal("#activity-modal", 'close');
-      showActivityToolTip();
     });
 
     if (state == 3 && $("#client-admin-demo-analytics").length > 0) {
-      setTimeout(function() {
-        triggerModal('#viewed-activity-modal', 'open');
-      }, 1000);
+      activityPageIntro();
     }
 
     $("#share_airbo").on("click", function(e) {
@@ -85,6 +82,48 @@ Airbo.OnboardingModals = (function(){
 
     $(".close-modal").on("click", function() {
       closeModal($(this).parents(".reveal-modal"));
+    });
+  }
+
+  function activityPageIntro(){
+    var options = {
+      steps: [
+        {
+         intro: "Welcome to your Airbo Activity Page. Let's take a quick tour",
+        },
+        {
+          element: ".title_block",
+          intro: "This area shows total Tiles you've posted, employees activated and what percentage of your population is using Airbo." 
+        },
+
+        {
+          element: ".stats_page",
+          intro: "Use the chart to analyze  Tile specific activity by date range.", 
+          position: "top"
+        }, 
+
+        {
+          element: "#board_stats_grid",
+          intro: "This real-time activity feed shows what employees are doing right now on Airbo."
+        }
+      ],
+      showStepNumbers: false,
+      tooltipPosition: "auto",
+      tooltipClass: "onboarding-activity",
+      doneLabel: "Got it",
+      overlayOpacity: 1,
+      scrollToElement: true,
+      exitOnEsc: true,
+      exitOnOverlayClick: true,
+    };
+
+
+    intro = introJs();
+    intro.setOptions(options);
+    intro.start();
+
+    intro.oncomplete(function() {
+      triggerModal("#onboarding-complete-modal", 'open');
     });
   }
 
