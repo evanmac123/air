@@ -30,21 +30,19 @@ Airbo.UserOnboardingUpdate = (function() {
   }
 
   function thirdUpdate(id) {
-    $(".close-viewed-activity-modal-button").on("click", function() {
-      $.ajax({
-        type: "PUT",
-        url: "/api/v1/user_onboardings/" + id,
-        data: JSON.stringify({ user_onboarding: { state: 4 } }),
-        contentType: 'application/json',
-        dataType: 'json',
-        success: function(res) {
-          $(".progress-bar-label span").text("Tour Progress (4/4)");
-          $(".onboarding-progress-bar .meter").css("width", "100%");
-          $($(".progress-steps").children()[4]).addClass("complete");
+    $.ajax({
+      type: "PUT",
+      url: "/api/v1/user_onboardings/" + id,
+      data: JSON.stringify({ user_onboarding: { state: 4 } }),
+      contentType: 'application/json',
+      dataType: 'json',
+      success: function(res) {
+        $(".progress-bar-label span").text("Tour Progress (4/4)");
+        $(".onboarding-progress-bar .meter").css("width", "100%");
+        $($(".progress-steps").children()[4]).addClass("complete");
 
-          return res;
-        }
-      });
+        return res;
+      }
     });
   }
 
@@ -85,16 +83,13 @@ Airbo.UserOnboardingUpdate = (function() {
       secondUpdate(id);
     }
 
-    if (Airbo.Utils.supportsFeatureByPresenceOfSelector(".user-onboarding-state-3")) {
-      thirdUpdate(id);
-    }
-
     if (Airbo.Utils.supportsFeatureByPresenceOfSelector(".user-onboarding-state-4")) {
       finalCta(id);
     }
   }
 
   return {
-    init: init
+    init: init,
+    thirdUpdate: thirdUpdate
   };
 })();
