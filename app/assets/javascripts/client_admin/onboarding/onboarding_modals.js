@@ -97,7 +97,7 @@ Airbo.OnboardingModals = (function(){
         },
 
         {
-          element: ".stats_page",
+          element: ".activity-graph",
           intro: "Use the chart to analyze  Tile specific activity by date range.",
           position: "top"
         },
@@ -113,8 +113,8 @@ Airbo.OnboardingModals = (function(){
       doneLabel: "Got it",
       overlayOpacity: 1,
       scrollToElement: true,
-      exitOnEsc: true,
-      exitOnOverlayClick: true,
+      exitOnEsc: false,
+      exitOnOverlayClick: false,
     };
 
 
