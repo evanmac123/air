@@ -101,11 +101,13 @@
 .introjs-helperLayer {
   position: absolute;
   z-index: 9999998;
-  background-color: #f3f3f3; 
+  background-color: #fafafa; 
   border:none;
   border-radius: 4px;
   box-shadow: none;
 }
+
+
 
 .introjs-button.introjs-nextbutton.introjs-disabled {
  display: none;
