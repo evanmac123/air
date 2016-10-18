@@ -129,31 +129,6 @@ Airbo.OnboardingModals = (function(){
   }
 
 
-  function showNextStepToolTip(selector, prompt){
-    var options = {
-      steps: [
-        {
-          element: selector,
-          intro: prompt
-        }
-      ],
-      showStepNumbers: false,
-      tooltipPosition: "auto",
-      tooltipClass: "onboarding-activity",
-      doneLabel: "Got it",
-      overlayOpacity: 0,
-      scrollToElement: true,
-      exitOnEsc: true,
-      exitOnOverlayClick: true,
-    };
-
-
-
-    intro = introJs();
-    intro.setOptions(options);
-    intro.start();
-  }
-
   function triggerModal(modalSelector, action) {
     $(modalSelector).foundation('reveal', action, {
       animation: 'fadeAndPop',
