@@ -19,6 +19,7 @@ Airbo.UserOnboardingUpdate = (function() {
             $(".progress-bar-label span").text("Tour Progress (3/4)");
             $(".onboarding-progress-bar .meter").css("width", "75%");
             $($(".progress-steps").children()[3]).addClass("complete");
+            $(".progress-step-header").text("You've completed 3 steps out of 4");
             $('#activity-modal').foundation('reveal', 'open', {
               animation: 'fadeAndPop',
               animation_speed: 350});

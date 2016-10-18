@@ -101,7 +101,7 @@
 .introjs-helperLayer {
   position: absolute;
   z-index: 9999998;
-  background-color: #fafafa; 
+  background-color: #fafafa;
   border:none;
   border-radius: 4px;
   box-shadow: none;
@@ -110,10 +110,14 @@
 
 
 .introjs-button.introjs-nextbutton.introjs-disabled {
- display: none;
+  display: none;
 }
 
 
 .introjs-button.introjs-prevbutton.introjs-disabled {
- display: none;
+  display: none;
+}
+
+.introjs-button.introjs-skipbutton.introjs-disabled {
+  display: none;
 }

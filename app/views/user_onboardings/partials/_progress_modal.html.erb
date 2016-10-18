@@ -5,7 +5,7 @@
     </div>
     <div class="progress-steps">
       <div class="progress-step row locked">
-        <span class="progress-step-copy"><%= "#{user_onboarding.state}/#{user_onboarding.final_state} steps completed" %></span>
+        <span class="progress-step-copy progress-step-header"><%= "You've completed #{pluralize(user_onboarding.state, 'step')} out of #{user_onboarding.final_state}" %></span>
       </div>
       <div class="progress-step row <%= user_onboarding.regulate_progress(1) %>">
         <i class="fa fa-square-o step-checkbox" aria-hidden="true"></i><i class="fa fa-check-square-o step-complete" aria-hidden="true"></i><i class="fa fa-lock step-locked" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp; <span class="progress-step-copy">Build your Airbo</span>
@@ -13,7 +13,7 @@
       <div class="progress-step row <%= user_onboarding.regulate_progress(2) %>">
         <i class="fa fa-square-o step-checkbox" aria-hidden="true"></i><i class="fa fa-check-square-o step-complete" aria-hidden="true"></i><i class="fa fa-lock step-locked" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;
         <% if @user_onboarding.id %>
-          <span class="progress-step-copy">Choose a priority (You selected <%= @user_onboarding.topic_name %>)</span>
+          <span class="progress-step-copy">Choose a priority (You selected <strong><%= @user_onboarding.topic_name %></strong>)</span>
         <% else %>
           <span class="progress-step-copy">Choose a priority</span>
         <% end %>
@@ -35,7 +35,8 @@
         <% end %>
       </div>
     </div>
-    <br><br>
+
+    <br>
     <div class="progress-options">
       <div class="columns small-12">
         <div class='text-center onboarding-new'>

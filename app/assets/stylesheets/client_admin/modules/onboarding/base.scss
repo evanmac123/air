@@ -94,6 +94,7 @@
   color: $n-blue;
   a {
     color: $n-blue;
+    text-decoration: underline;
   }
   .step-complete {
     display: none;
@@ -105,6 +106,7 @@
     color: darken($n-green, 5%);
     a {
       color: darken($n-green, 5%);
+      text-decoration: underline;
     }
     .step-checkbox {
       display: none;
