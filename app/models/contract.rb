@@ -22,20 +22,12 @@ class Contract < ActiveRecord::Base
     where("parent_contract_id is not NULL")
   end
 
-  def self.active
-    where("in_collection is false and end_date >= ?", Date.today)
-  end
-
   def self.current
     where(in_collection: false)
   end
 
   def self.delinquent
     where(in_collection: true)
-  end
-
-  def self.inactive
-    where("end_date < ?", Date.today)
   end
 
   def self.auto_renewing
@@ -46,13 +38,26 @@ class Contract < ActiveRecord::Base
     where(auto_renew: false)
   end
 
+  def self.active
+    current.where("end_date >= ?", Date.today)
+  end
+
+  def self.active_as_of_date d
+    current.where("end_date >= ? and start_date <= ?", d, d)
+  end
+
+  def self.active_during_period sdate, edate
+    current.where("start_date <= ? and end_date > ?", sdate, edate)
+  end
+
+  def self.inactive
+    where("end_date < ?", Date.today)
+  end
+
   def self.expiring_within_date_range sdate, edate
     where("end_date >= ? and end_date <= ?", sdate, edate)
   end
 
-  def self.active_during_period sdate, edate
-    where("start_date <= ? and end_date > ?", sdate, edate).current
-  end
 
   def self.added_during_period sdate, edate
     where("start_date >= ? and start_date < ?", sdate, edate)
@@ -74,6 +79,7 @@ class Contract < ActiveRecord::Base
     added_during_period(sdate, edate).sum(&:calc_mrr)
   end
 
+
   def self.arr_during_period sdate, edate
     active_during_period(sdate, edate).sum(&:calc_arr)
   end
@@ -82,8 +88,17 @@ class Contract < ActiveRecord::Base
     active_during_period(sdate, edate).sum(&:calc_mrr)
   end
 
+  def self.active_mrr_for_date start_date
+    active_as_of_date(start_date).sum(&:calc_mrr)
+  end
+
+
   def self.mrr_possibly_churning_during_period sdate, edate 
     expiring_within_date_range(sdate, edate).sum(&:calc_mrr)
+  end
+
+  def self.mrr_churned_during_period sdate, edate 
+    expiring_within_date_range(sdate, edate).cancelled.sum(&:calc_mrr)
   end
 
   def self.mrr_churned_during_period sdate, edate 
