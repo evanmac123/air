@@ -494,7 +494,9 @@ class User < ActiveRecord::Base
   end
 
   def data_for_mixpanel
+    # FIXME: Overwriting distinct_id here is removing built-in mixpanel functionality that facilitates easy funnels.  We should refactor ALL mixpanel implementation.
     {
+      distinct_id:           self.mixpanel_distinct_id,
       id:                    self.id,
       email:                 (self.is_client_admin ? self.email : nil),
       game:                  self.demo_id,
