@@ -495,7 +495,6 @@ class User < ActiveRecord::Base
 
   def data_for_mixpanel
     {
-      distinct_id:           self.mixpanel_distinct_id,
       id:                    self.id,
       email:                 (self.is_client_admin ? self.email : nil),
       game:                  self.demo_id,
