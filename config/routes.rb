@@ -24,6 +24,17 @@ Health::Application.routes.draw do
   post "admin/contracts/import" => "admin/contracts#import", :as => "contracts_import"
   post "admin/metrics/historical" => "admin/metrics#historical", :as => "historical_metrics"
 
+  match "myairbo/:id" => "user_onboardings#show", as: "myairbo"
+  match "newairbo" => "onboardings#new"
+
+  resources :onboardings, only: [:create, :new]
+  resources :user_onboardings, only: [:show, :create, :new, :update] do
+    resources :tiles, only: [:show]
+    resources :onboarding_invites, only: [:new, :create], as: "invites"
+  end
+
+  get "myairbo/:id/activity" => "user_onboardings#activity", as: :onboarding_activity
+
   resources :tiles, :only => [:index, :show]
   resources :tile, :only => [:show], as: "sharable_tile"
   resources :tile_completions, :only => [:create]
@@ -289,6 +300,7 @@ Health::Application.routes.draw do
     end
 
     resource :client_kpi_report
+    resources :topic_boards
     resources :organizations, as: :customers
     resources :organizations do
       collection do
@@ -383,6 +395,9 @@ Health::Application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
+      resources :user_onboardings, only: [:update]
+      resources :onboardings, only: [:create]
+      resources :email_info_requests, only: [:create]
       resources :cheers, only: [:create]
     end
   end

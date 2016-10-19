@@ -1,0 +1,19 @@
+<div class="join-view">
+  <div class="row">
+    <div class="onboarding-new-image text-center">
+      <%= image_tag "onboarding_rocket_earth.png" %>
+    </div>
+    <div class="small-6 small-centered columns onboarding-share-header">
+      <h1>Invite your colleagues to Airbo</h1>
+      <div class="line-separator"></div>
+      <br>
+
+      <%= form_tag(user_onboarding_invites_path, id: "onboarding_share_form", class: " onboarding-share-form") do %>
+        <%= label_tag "user_onboarding_emails", "Emails (add up to five comma separated emails)" %>
+        <%= text_field_tag "user_onboarding_emails" %>
+        <%= hidden_field_tag "user_onboarding_id", @user_onboarding.id %>
+        <%= submit_tag "Invite", class: "join-button button outlined-alt blue-and-green success center" %>
+      <% end %>
+    </div>
+  </div>
+</div>

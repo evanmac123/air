@@ -3,7 +3,7 @@ class Cheer < ActiveRecord::Base
   validates :body, presence: true
 
   def self.today?
-    last.created_at.today?
+    last && last.created_at.today?
   end
 
   def self.sample

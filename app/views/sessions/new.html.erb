@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="external-form-wrapper small-12 large-6 large-centered columns">
+    <h1>Log In</h1>
+    <%= form_tag session_path do   %>
+      <label class="input_label">Email address</label>
+      <%= text_field_tag "session[email]", (params[:session] and params[:session][:email]) %>
+      <label class="input_label">Password</label>
+      <%= password_field_tag "session[password]", nil %>
+      <% if params[:demo_id] %>
+        <%= hidden_field_tag :demo_id, params[:demo_id] %>
+      <% end %>
+      <div class="wrap">
+        <%= label_tag "session[remember_me]", "Remember me (Don't check this on a shared computer)", :class => :inline %>
+        <%= check_box_tag "session[remember_me]", 1, true %>
+      </div>
+      <%= submit_tag "Log In" %>
+      <%= link_to "Set or Reset Your Password", new_password_path, id: "set_or_reset_password" %>
+    <% end %>
+  </div>
+</div>
+<%= mp_track_page "sign in" %>

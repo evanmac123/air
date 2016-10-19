@@ -1,0 +1,8 @@
+<% subnav = TilesToolsSubnavPresenter.new(current_user) %>
+<% if subnav.show_subnav? %>
+  <ul class="<%= subnav.tile_manager_nav_class %>" id="tile_manager_nav">
+    <% subnav.items_with_corrected_params do |item_params| %>
+      <%= render partial: "shared/tiles_tools_subnav/subnav_item", locals: item_params %>
+    <% end %>
+  </ul>
+<% end %>

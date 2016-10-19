@@ -6,6 +6,9 @@ class Demo < ActiveRecord::Base
   JOIN_TYPES = %w(pre-populated self-inviting public).freeze
 
   belongs_to :organization
+
+  has_one  :topic_board
+  has_one  :onboarding
   has_many :guest_users
   has_many :parent_board_users
   has_many :board_memberships, dependent: :destroy
@@ -42,7 +45,6 @@ class Demo < ActiveRecord::Base
 
   validate :ticket_fields_all_set, :if => :uses_tickets
 
-  validates :email, uniqueness: { case_sensitive: false, allow_blank: true }
   validates_with EmailFormatValidator, allow_blank: true
 
   before_validation :unlink_from_organization, if: :unlink
@@ -104,16 +106,23 @@ class Demo < ActiveRecord::Base
   def self.list
     demos = Demo.arel_table
     bms = BoardMembership.arel_table
+    orgs = Organization.arel_table
 
-    BoardMembership.select([
-      demos[:id], demos[:name], demos[:dependent_board_id], demos[:is_paid], bms[:user_id].count.as('user_count')
-    ]).joins( bms.join(demos).on( bms[:demo_id].eq(demos[:id])
-    ).join_sources
-    ).order( Arel::Nodes::NamedFunction.new('LOWER', [demos[:name]])
-    ).group(
-      demos[:id], demos[:name], demos[:dependent_board_id], demos[:is_paid]
+    x = Demo.select(
+      [orgs[:name].as("org_name"), demos[:id], demos[:name], demos[:dependent_board_id],
+       demos[:is_paid], bms[:user_id].count.as('user_count')]
+    ).joins(
+      bms.join(orgs).on( demos[:organization_id].eq(orgs[:id]))
+      .join(bms,Arel::Nodes::OuterJoin).on( bms[:demo_id].eq(demos[:id]))
+      .join_sources
+    ).order(
+      Arel::Nodes::NamedFunction.new('LOWER', [demos[:name]])
     )
+
+    x.group(orgs[:name], demos[:id], demos[:name], demos[:dependent_board_id],
+            demos[:is_paid])
   end
+
 
    def organization_name
      organization.present? ? organization.name : "Unattached To Any Organization"
@@ -330,6 +339,10 @@ class Demo < ActiveRecord::Base
     else
       name
     end
+  end
+
+  def organization_name
+    organization.name
   end
 
   def print_pending_friendships

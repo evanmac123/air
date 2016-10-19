@@ -27,6 +27,7 @@ class User < ActiveRecord::Base
   belongs_to :game_referrer, :class_name => "User"
   belongs_to :spouse, :class_name => "User"
   has_one    :lead_contact, dependent: :destroy
+  has_one    :user_onboarding, dependent: :destroy
   has_many   :acts, :dependent => :destroy, :as => :user
   has_many   :friendships, :dependent => :destroy
   has_many   :friends, :through => :friendships
@@ -1322,8 +1323,6 @@ class User < ActiveRecord::Base
     return nil unless (first_name && claim_code)
     User.where(["name ILIKE ? AND claim_code = ?", first_name.like_escape + '%', claim_code]).first
   end
-
-
 
   private
 

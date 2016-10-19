@@ -1,0 +1,239 @@
+
+.onboarding-container {
+  h2 {
+    color: $gray;
+  }
+  h3 {
+    font-size: 24px;
+    color: $gray;
+  }
+  .onboarding-new {
+    margin-top: 50px;
+  }
+  .content {
+    padding-top: 0;
+  }
+}
+
+.user_onboardings-activity {
+  #footer {
+    background-color: $off-white;
+    margin: 0;
+  }
+}
+
+.user_onboardings-activity-content {
+  background-color: $off-white;
+}
+
+.onboarding-share-form {
+  color: $gray;
+}
+.onboarding-share-header {
+  color: $gray;
+}
+
+.topic-board-button {
+  margin-top: 10px;
+}
+
+.schedule-demo-button {
+  float: right;
+  margin-top: 15px;
+  font-size: 130px;
+  padding: 7px 12px;
+}
+
+.user_onboardings-show-content {
+  background: $tile-wall-bg;
+}
+
+.onboarding-progress {
+  background: lighten($ca-subnav-color, 5%);
+  text-align: center;
+  color: $off-white;
+  height: 55px;
+  .progress .meter {
+      background: #FFB748;
+      height: 100%;
+      display: block;
+  }
+  .onboarding-progress-bar {
+    background-color: $off-white;
+    height: 1.1em;
+    border: 0 solid $off-white;
+    padding: 0;
+    margin-bottom: 0;
+  }
+  .onboarding-button {
+    font-size: 13px;
+    padding: 7px 12px;
+   }
+}
+
+.onboarding-progress-content {
+  padding-top: 20px;
+}
+
+
+.progress-bar-label {
+  font-size: 13px;
+  padding-top: 2px;
+  color: $gray-1;
+}
+
+.progress-modal-header {
+  font-size: 18px;
+  color: $gray;
+}
+
+.progress-steps {
+  font-size: 18px;
+  margin-left: 25px;
+  margin-top: 30px;
+  color: $n-blue;
+  a {
+    color: $n-blue;
+    text-decoration: underline;
+  }
+  .step-complete {
+    display: none;
+  }
+  .step-locked {
+    display: none;
+  }
+  .complete {
+    color: darken($n-green, 5%);
+    a {
+      color: darken($n-green, 5%);
+      text-decoration: underline;
+    }
+    .step-checkbox {
+      display: none;
+    }
+    .step-complete {
+      display: inline;
+    }
+  }
+  .locked {
+    padding-left: 1.5px;
+    color: $gray;
+    .step-checkbox {
+      display: none;
+    }
+    .step-locked {
+      display: inline;
+    }
+  }
+}
+
+.progress-step-copy {
+}
+
+.progress-step {
+  margin-top: 15px;
+}
+.expand-tasks {
+  margin-top: -7px;
+  font-size: 3px;
+}
+
+.onboarding-progress-mobile {
+  display: none;
+}
+
+.onboarding-generic-modals {
+  top:60px;
+  color: $gray;
+}
+
+.onboarding-img {
+  max-height: 300px;
+}
+
+.onboarding-progress-modal {
+  @include reveal-bg();
+  @include reveal-modal-base(
+    // Provides reveal base styles, can be set to false to override.
+    $base-style:true,
+    // Sets reveal width Default: $reveal-default-width or 80%
+    $width:45%
+  );
+  @include reveal-modal-style(
+    $bg:$off-white,
+    // Set reveal border style. Default: $reveal-border-style or solid
+    $border:true,
+    // Width of border (i.e. 1px). Default: $reveal-border-width.
+    $border-style:$reveal-border-style,
+    // Color of border. Default: $reveal-border-color.
+    $border-width:$reveal-border-width,
+    // Color of border. Default: $reveal-border-color.
+    $border-color:$n-yellow,
+    // Choose whether or not to include the default box-shadow. Default: true, Options: false
+    $box-shadow:false,
+    // Default: $reveal-position-top or 50px
+    $top-offset: 118px
+  );
+}
+
+.customizing-airbo-modal, .loading-full-airbo-modal {
+  @include reveal-bg();
+  @include reveal-modal-base(
+    // Provides reveal base styles, can be set to false to override.
+    $base-style:true,
+    // Sets reveal width Default: $reveal-default-width or 80%
+    $width:55%
+  );
+  @include reveal-modal-style(
+    $bg: transparent,
+    // Set reveal border style. Default: $reveal-border-style or solid
+    $border:true,
+    // Width of border (i.e. 1px). Default: $reveal-border-width.
+    $border-style:$reveal-border-style,
+    // Color of border. Default: $reveal-border-color.
+    $border-width:$reveal-border-width,
+    // Choose whether or not to include the default box-shadow. Default: true, Options: false
+    $box-shadow:false,
+    // Default: $reveal-position-top or 50px
+    $top-offset: 250px
+  );
+}
+
+.customize-load-wheel {
+  color: $gray-6;
+}
+
+@media only screen
+  and (max-width: 1000px) {
+  .onboarding-progress-modal {
+    @include reveal-modal-base(
+      $width:60%
+    );
+  }
+}
+
+@media only screen
+  and (max-width: 736px) {
+  .onboarding-progress-modal {
+    @include reveal-modal-base(
+      $width:95%
+    );
+  }
+  .progress-bar-label {
+    display: none;
+  }
+  .onboarding-progress-desktop {
+    display: none;
+  }
+  .onboarding-progress-mobile {
+    display:block;;
+  }
+  .progress-modal-header {
+    padding-top: 400px;
+    font-size: 20px;
+    color: $gray;
+  }
+  .onboarding-top-bar {
+    margin-bottom: 0;
+  }
+}

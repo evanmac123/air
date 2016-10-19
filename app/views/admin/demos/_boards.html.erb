@@ -8,6 +8,7 @@
   <thead>
     <tr>
       <th>Board</th>
+      <th>Organization</th>
       <th>Number of Users</th>
       <th>Dependent Board</th>
     </tr>
@@ -17,6 +18,7 @@
       <% user_count = demo.user_count.to_i %>
       <tr id="<%= demo.id %>" class="demo"  data-isPaid="<%= demo.is_paid %>">
         <td class="title"><%= link_to demo.name, admin_demo_path(demo), class: "blue" %></td>
+        <td ><%= demo.org_name %></td>
         <td class="company-size"><%= user_count %></td>
         <% if demo.dependent_board_id %>
           <td><%= link_to demo.dependent_board_id, admin_demo_path(demo.dependent_board_id), class: "blue" %></td>

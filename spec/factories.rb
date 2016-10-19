@@ -427,6 +427,7 @@ FactoryGirl.define do
   end
 
   factory :organization  do
+    name "Airbo Org"
 
     trait :complete do
       sequence(:name){|n| "Client-#{n}"}

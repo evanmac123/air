@@ -29,23 +29,14 @@ body.client_admin-tile_stats, #tile_stats_modal {
       margin-bottom: 0;
     }
     &.selected {
-      border-color: $sky-blue;
-      .action_num {
-        font-weight: 400;
-      }
-      .action_name {
-        font-weight: 500;
-      }
+      border-color: rgba(72,191,255, 0.5);
     }
     &:hover {
-      .action_num {
-        font-weight: 400;
-      }
-      .action_name {
-        font-weight: 500;
-      }
+      border-color: $n-blue;
+      cursor: pointer;
     }
     label {
+      cursor: inherit;
       margin: 0;
     }
     .custom.radio, input[type='radio'] {
@@ -56,13 +47,11 @@ body.client_admin-tile_stats, #tile_stats_modal {
     }
     .action_num {
       font-size: 30px;
-      font-weight: 300;
       padding-bottom: 2px;
       line-height: 27px;
     }
     .action_name {
       font-size: 16px;
-      font-weight: 400;
       line-height: 14px;
       padding-top: 10px;
     }

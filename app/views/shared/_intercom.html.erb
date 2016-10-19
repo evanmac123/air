@@ -1,29 +1,31 @@
 <% if use_intercom? %>
   <% http_host = controller.env['HTTP_HOST'] %>
   <% _intercom_user = @intercom_user || current_user || @user %>
-  <% intercom_user_id_with_env = _intercom_user.id.to_s + "-" + Rails.env %>
-  <% if _intercom_user.is_guest? %>
-    <% intercom_user_id_with_env = "GUEST-" + intercom_user_id_with_env %>
-  <% elsif _intercom_user.is_parent_board_user? %>
-    <% intercom_user_id_with_env = "PARENT-BOARD-" + intercom_user_id_with_env %>
-  <% end %>
+  <% if _intercom_user.try(:persisted?) %>
+    <% intercom_user_id_with_env = _intercom_user.id.to_s + "-" + Rails.env %>
+    <% if _intercom_user.is_guest? %>
+      <% intercom_user_id_with_env = "GUEST-" + intercom_user_id_with_env %>
+    <% elsif _intercom_user.is_parent_board_user? %>
+      <% intercom_user_id_with_env = "PARENT-BOARD-" + intercom_user_id_with_env %>
+    <% end %>
 
-  <% js_at_end do %>
-    bindIntercomSettings(
-      "<%= _intercom_user.email.html_safe %>",
-      <%= _intercom_user.accepted_invitation_at.to_i %>,
-      "<%= _intercom_user.name %>",
-      "<%= intercom_user_id_with_env %>",
-      "<%= Digest::SHA1.hexdigest('9rlx8hyy' + intercom_user_id_with_env) %>", 
-      "<%= _intercom_user.demo_id %>",
-      <%= _intercom_user.is_client_admin %>
-    );
+    <% js_at_end do %>
+      bindIntercomSettings(
+        "<%= _intercom_user.email.html_safe %>",
+        <%= _intercom_user.accepted_invitation_at.to_i %>,
+        "<%= _intercom_user.name %>",
+        "<%= intercom_user_id_with_env %>",
+        "<%= Digest::SHA1.hexdigest('9rlx8hyy' + intercom_user_id_with_env) %>",
+        "<%= _intercom_user.demo_id %>",
+        <%= _intercom_user.is_client_admin %>
+      );
 
-    <%# We don't push regular user data to Intercom until they actually open
-      the Intercom window, but we do for client admins on page load, so that
-      it then proceeds on from Intercom to Salesforce. What, us convoluted? %>
-    <% if _intercom_user.is_client_admin %>
-      bootIntercomWhenReady();
+      <%# We don't push regular user data to Intercom until they actually open
+        the Intercom window, but we do for client admins on page load, so that
+        it then proceeds on from Intercom to Salesforce. What, us convoluted? %>
+      <% if _intercom_user.is_client_admin %>
+        bootIntercomWhenReady();
+      <% end %>
     <% end %>
   <% end %>
 <% end %>
