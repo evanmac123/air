@@ -50,20 +50,20 @@ Airbo.UserOnboardingUpdate = (function() {
   function finalCta(id) {
     $("#complete-yes-more-info").on("click", function() {
       Airbo.OnboardingKpis.answersMoreInfoQuestionPing("yes");
-      $(".onboarding-complete-modal").foundation('reveal', 'close');
+      $(".onboarding-complete-modal").hide();
       $('#loading-full-airbo-modal').foundation('reveal', 'open');
       $('#loading-full-airbo-modal').css("top", "40%");
-      // $.ajax({
-      //   type: "PUT",
-      //   url: "/api/v1/user_onboardings/" + id,
-      //   data: JSON.stringify({ user_onboarding: { completed: true, more_info: "yes" } }),
-      //   contentType: 'application/json',
-      //   dataType: 'json',
-      //   success: function(res) {
-      //     window.location = "/client_admin/tiles";
-      //     return res;
-      //   }
-      // });
+      $.ajax({
+        type: "PUT",
+        url: "/api/v1/user_onboardings/" + id,
+        data: JSON.stringify({ user_onboarding: { completed: true, more_info: "yes" } }),
+        contentType: 'application/json',
+        dataType: 'json',
+        success: function(res) {
+          window.location = "/client_admin/tiles?from_onboarding=true";
+          return res;
+        }
+      });
     });
   }
 

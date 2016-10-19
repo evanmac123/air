@@ -92,7 +92,7 @@ Airbo.OnboardingModals = (function(){
       tooltipClass: "airbo-onboarding",
       steps: [
         {
-          intro: "Welcome to your Airbo Activity Page. Let's take a quick tour...",
+          intro: "Welcome to your Airbo Activity Page. Let's take a quick tour.",
         },
         {
           element: ".title_block",
