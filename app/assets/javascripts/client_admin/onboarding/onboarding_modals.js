@@ -89,22 +89,31 @@ Airbo.OnboardingModals = (function(){
     var options = {
       steps: [
         {
-         intro: "Welcome to your Airbo Activity Page. Let's take a quick tour",
+         intro: "Welcome to your Airbo Activity Page. Let's take a quick tour:",
+         tooltipClass: "airbo airbo-onboarding",
+         highlightClass: "airbo"
         },
         {
           element: ".title_block",
-          intro: "This area shows total Tiles you've posted, employees activated and what percentage of your population is using Airbo."
+          intro: "This area shows total Tiles you've posted, employees activated and what percentage of your population is using Airbo.",
+          tooltipClass: "airbo airbo-onboarding",
+          highlightClass: "airbo"
+
         },
 
         {
           element: ".activity-graph",
           intro: "Use the chart to analyze  Tile specific activity by date range.",
-          position: "top"
+          position: "top",
+          tooltipClass: "airbo airbo-onboarding",
+          highlightClass: "airbo"
         },
 
         {
           element: "#board_stats_grid",
-          intro: "This real-time activity feed shows what employees are doing right now on Airbo."
+          intro: "This real-time activity feed shows what employees are doing right now on Airbo.",
+          tooltipClass: "airbo airbo-onboarding",
+          highlightClass: "airbo"
         }
       ],
       showStepNumbers: false,
