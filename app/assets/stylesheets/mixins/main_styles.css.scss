@@ -554,11 +554,6 @@ body {
   }
 }
 
-@import "mixins/intro_js_restyling";
-.introjs-tooltip {
-  @include intro-js-restyling;
-}
-
 //FIXME this needs to be moved to shame
 .hidden.hidden.hidden {
   display: none;
