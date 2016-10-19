@@ -1,7 +1,7 @@
 $(function() {
   if (Airbo.Utils.supportsFeatureByPresenceOfSelector(".onboarding-body")) {
     $(".grid_types").hide();
-    
+
     $(".topic-board-button").on("click", function() {
       Airbo.OnboardingKpis.selectPriorityPing();
     });
@@ -12,6 +12,10 @@ $(function() {
     Airbo.OnboardingCreate.init();
     Airbo.UserOnboardingCreate.init();
     Airbo.OnboardingPings.init();
+  }
+
+  if (Airbo.Utils.supportsFeatureByPresenceOfSelector(".user-onboarding-state-1")) {
+    Airbo.OnboardingKpis.initializeOnboardingPing();
   }
 
   if (Airbo.Utils.supportsFeatureByPresenceOfSelector(".onboardings-new")) {

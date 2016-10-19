@@ -50,7 +50,7 @@ Airbo.UserOnboardingUpdate = (function() {
 
   function finalCta(id) {
     $("#complete-yes-more-info").on("click", function() {
-      Airbo.OnboardingKpis.answersMoreInfoQuestionPing("yes");
+      Airbo.OnboardingKpis.answersMoreInfoQuestionPing();
       $(".onboarding-complete-modal").hide();
       $('#loading-full-airbo-modal').foundation('reveal', 'open');
       $('#loading-full-airbo-modal').css("top", "40%");
