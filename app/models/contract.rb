@@ -23,7 +23,15 @@ class Contract < ActiveRecord::Base
   end
 
   def self.active
-    where("end_date >= ?", Date.today)
+    where("in_collection is false and end_date >= ?", Date.today)
+  end
+
+  def self.current
+    where(in_collection: false)
+  end
+
+  def self.delinquent
+    where(in_collection: true)
   end
 
   def self.inactive
@@ -43,7 +51,7 @@ class Contract < ActiveRecord::Base
   end
 
   def self.active_during_period sdate, edate
-    where("start_date <= ? and end_date > ?", sdate, edate)
+    where("start_date <= ? and end_date > ?", sdate, edate).current
   end
 
   def self.added_during_period sdate, edate

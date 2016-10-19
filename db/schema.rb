@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161018005543) do
+ActiveRecord::Schema.define(:version => 20161019184725) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -179,12 +179,13 @@ ActiveRecord::Schema.define(:version => 20161018005543) do
     t.string   "plan"
     t.integer  "max_users"
     t.text     "notes"
-    t.datetime "created_at",                           :null => false
-    t.datetime "updated_at",                           :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.integer  "parent_contract_id"
     t.boolean  "is_actual",          :default => true
     t.boolean  "auto_renew",         :default => true
     t.string   "cycle"
+    t.boolean  "in_collection",      :default => false
   end
 
   create_table "custom_color_palettes", :force => true do |t|
