@@ -15,6 +15,8 @@ class Contract < ActiveRecord::Base
   QUARTERLY="quarterly"
   SEMI_ANNUAL="semi_annual"
   CUSTOM = "custom"
+   
+  before_validation :set_name
 
   def self.upgrades
     where("parent_contract_id is not NULL")
@@ -147,6 +149,10 @@ class Contract < ActiveRecord::Base
   end
 
   private
+
+  def set_name
+    self.name = "#{organization_name}: #{start_date}-#{end_date}"
+  end
 
   def new_end_date date
     e = cal_end_date date 

@@ -44,9 +44,11 @@ class Admin::ContractsController < AdminBaseController
     org = nil
     importer.rows.each do |row| 
       org = Organization.where(name: row["Company"]).first_or_initialize
-      org.num_employees = 1
-      org.sales_channel = "Direct"
-      org.save
+      if(org.new_record?)
+        org.num_employees = 1
+        org.sales_channel = "Direct"
+        org.save
+      end
 
       contract = org.contracts.build
       data = heads.reject{|h| h=="Company"}
@@ -55,7 +57,6 @@ class Admin::ContractsController < AdminBaseController
         contract[field_mapping[head]]=row[head] if field_mapping[head]
       end
 
-      contract.name = "#{org.name} #{org.contracts.count +1}"
       contract.save
     end
     redirect_to admin_contracts_path
@@ -125,7 +126,7 @@ class Admin::ContractsController < AdminBaseController
       "Amount Booked"=>"amt_booked",
       "Date Booked"=>"date_booked",
       "Plan"=>"plan",
-      "MRR"=>"marr",
+      "MRR"=>"mrr",
       "ARR"=>"arr",
       "Max Users"=>"max_users",
       "Cycle" => "cycle"
