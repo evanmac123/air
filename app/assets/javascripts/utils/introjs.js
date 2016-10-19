@@ -2,11 +2,14 @@ var Airbo = window.Airbo || {};
 Airbo.Utils = Airbo.Utils || {};
 
 Airbo.Utils.IntroJs = (function(){
-  var intro;
+  var intro,
+  tooltipClass = "airbo ",
+    highlightClass = "airbo "
+  ;
+
   var defaults = {
     showStepNumbers: false,
     tooltipPosition: "auto",
-    tooltipClass: "onboarding-activity",
     doneLabel: "Got it",
     overlayOpacity: 1,
     scrollToElement: true,
@@ -14,8 +17,18 @@ Airbo.Utils.IntroJs = (function(){
     exitOnOverlayClick: false,
   }
 
+
+  function applyCss(opts){
+    tooltipClass = "airbo " + (opts.tooltipClass || "");
+    highlightClass = "airbo " + (opts.highlightClass ||"");
+    return {
+      tooltipClass: tooltipClass,
+      highlightClass: highlightClass
+    };
+  }
+
   function init(opts){
-    var options = $.extend({},defaults, opts)
+    var options = $.extend({},defaults, opts, applyCss(opts))
     intro = introJs();
     intro.setOptions(options);
     return intro;
