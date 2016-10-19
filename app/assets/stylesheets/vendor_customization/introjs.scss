@@ -67,5 +67,11 @@
   .introjs-button {
     @include button;
     @include button-outlined-color-alt($text-color: $n-blue, $hover-color: $n-green);
+
+   &.introjs-prevbutton{
+     display: none;
+   }
   }
+
 }
+

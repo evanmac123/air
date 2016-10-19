@@ -15,6 +15,7 @@ Airbo.Utils.IntroJs = (function(){
     scrollToElement: true,
     exitOnEsc: false,
     exitOnOverlayClick: false,
+    hidePrev: true, 
   }
 
 
