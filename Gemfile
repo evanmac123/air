@@ -63,7 +63,7 @@ gem "jquery-fileupload-rails"#
 gem "acts_as_singleton"
 
 gem "roo"
-gem "roo-xls" 
+gem "roo-xls"
 gem "hashugar"
 gem 'addressable'
 gem "humanize_boolean"
@@ -110,6 +110,8 @@ group :development, :test do
   gem "getopt"
   gem "pry-rails"
 	gem 'pry-byebug'
+  gem 'rspec-rerun'
+  gem 'rspec_log_formatter'
 end
 
 group :test do

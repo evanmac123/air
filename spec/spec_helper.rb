@@ -74,6 +74,12 @@ RSpec.configure do |config|
   config.after(:suite) do
    FileUtils.rm_rf "#{LOCAL_FILE_ATTACHMENT_BASE_PATH}/test"
   end
+
+  config.formatters << RspecLogFormatter::Formatter::Factory.new.build
+  config.formatters << RspecLogFormatter::AnalyzerFormatter::Factory.new(
+      max_reruns: 3, #ENV['RSPEC_RERUN_RETRY_COUNT'] is also a great choice
+      builds_to_analyze: 5
+  ).build
 end
 
 
