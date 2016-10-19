@@ -65,10 +65,6 @@ Airbo.OnboardingModals = (function(){
       triggerModal("#share-modal", 'open');
     });
 
-    if ($("#welcome-back-modal").length > 0) {
-      triggerModal("#welcome-back-modal", 'open');
-    }
-
     if (state == 4) {
       triggerModal("#onboarding-complete-modal", 'open');
     }
