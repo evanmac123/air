@@ -98,7 +98,7 @@ Airbo.OnboardingModals = (function(){
 
         {
           element: ".activity-graph",
-          intro: "Use this chart to review different employee activities by date range.",
+          intro: "Use this chart to review employee activity by date range.",
           position: "top",
         },
 

@@ -16,7 +16,7 @@ Airbo.ClientAdminEditIntro = (function(){
 
         {
           element: "#active_tiles",
-          intro: "Posted Tiles are Tiles that have been shared or ready to shared with your employees.",
+          intro: "Posted Tiles are Tiles that have been shared or are ready to be shared with your employees.",
           position: "top"
         },
       ],
