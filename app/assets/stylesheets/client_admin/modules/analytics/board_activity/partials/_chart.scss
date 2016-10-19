@@ -1,7 +1,11 @@
 .analytics-v1 {
   #client-admin-demo-analytics {
     // Demo activity specific
-    // General styles
+    // General stylesheets
+    .activity-graph {
+      min-height: 335px;
+    }
+
     .demo_chart_section {
       overflow: hidden;
       margin-bottom: 40px;
