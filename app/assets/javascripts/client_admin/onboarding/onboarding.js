@@ -15,6 +15,7 @@ $(function() {
 
   if (Airbo.Utils.supportsFeatureByPresenceOfSelector("#onboarding-to-full-client-admin")) {
     $("#onboarding-to-full-client-admin").on("click", function() {
+      Airbo.OnboardingKpis.fullyConvertedPing();
       Airbo.Utils.Modals.close("#from-onboarding-modal");
       openIntercom();
     });

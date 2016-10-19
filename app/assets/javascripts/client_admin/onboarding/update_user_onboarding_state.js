@@ -31,6 +31,7 @@ Airbo.UserOnboardingUpdate = (function() {
   }
 
   function thirdUpdate(id) {
+    Airbo.OnboardingKpis.viewsActivityDashboardPing();
     $.ajax({
       type: "PUT",
       url: "/api/v1/user_onboardings/" + id,

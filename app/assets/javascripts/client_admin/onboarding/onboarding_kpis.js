@@ -17,10 +17,15 @@ Airbo.OnboardingKpis = (function(){
     Airbo.Utils.ping("Onboarding", { kpi: "answers more info cta", user_onboarding_id: $(".onboarding-body").data("id"), user_onboarding_state: $(".onboarding-body").data("state"),  response: response });
   }
 
+  function fullyConvertedPing() {
+    Airbo.Utils.ping("Onboarding", { kpi: "fully converts to client admin" });
+  }
+
   return {
     selectPriorityPing: selectPriorityPing,
     completeTilePing: completeTilePing,
     viewsActivityDashboardPing: viewsActivityDashboardPing,
-    answersMoreInfoQuestionPing: answersMoreInfoQuestionPing
+    answersMoreInfoQuestionPing: answersMoreInfoQuestionPing,
+    fullyConvertedPing: fullyConvertedPing
   };
 }());
