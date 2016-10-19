@@ -3,7 +3,7 @@ namespace :db do
     desc "Prep data for onboarding"
     task prep_onboarding: :environment do
       puts "updating explore topics"
-      Topic.all.each { |t| t.update_attribtues(is_explore:true) }
+      Topic.all.each { |t| t.update_attributes(is_explore:true) }
 
       puts "creating new topics and topic boards"
       [["Open Enrollment", 1714], ["Financial Education", 1715], ["Biometrics", 1716], ["Prescription Drugs", 1717], ["Health Plan Basics", 1718]].each do |t|
