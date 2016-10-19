@@ -55,7 +55,7 @@ class OnboardingsController < ApplicationController
     end
 
     def find_org_onboarding
-      organization = Organization.joins(onboarding: :user_onboardings).where(name: params[:organization]).first
+      organization = Organization.joins(onboarding: :user_onboardings).where(name: params[:organization]).first_or_initialize
       @onboarding = organization.onboarding
     end
 end
