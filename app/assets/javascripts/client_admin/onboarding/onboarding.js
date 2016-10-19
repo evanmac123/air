@@ -1,6 +1,11 @@
 $(function() {
   if (Airbo.Utils.supportsFeatureByPresenceOfSelector(".onboarding-body")) {
     $(".grid_types").hide();
+    
+    $(".topic-board-button").on("click", function() {
+      Airbo.OnboardingKpis.selectPriorityPing();
+    });
+
     Airbo.OnboardingSubnav.init();
     Airbo.UserOnboardingUpdate.init();
     Airbo.OnboardingModals.init();

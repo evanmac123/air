@@ -29,7 +29,6 @@ class OnboardingsController < ApplicationController
     on_it = OnboardingInitializer.new(onboarding_params)
     if on_it.save
       sign_in on_it.user
-      ping("Onboarding", { kpi: "selects priority", user_onboarding_id: on_it.user_onboarding.id, user_onboarding_state: on_it.user_onboarding.state })
 
       render json: on_it.to_json, location: user_onboarding_path(on_it.user_onboarding), status: :ok
     else
