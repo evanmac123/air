@@ -17,7 +17,6 @@
 //= require ./external/marketing_page
 //= require ./external/marketing_page_modals
 //= require ./external/signup_requests
-//= require ./internal_and_external/marketing_page_interactions
 
 $(function(){
   $(document).foundation();
