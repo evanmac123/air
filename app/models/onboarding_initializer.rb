@@ -69,12 +69,12 @@ class OnboardingInitializer
       if @board.tiles.empty?
         copy_tiles_to_new_board
       end
+      @organization.save!
+      @board.save!
     else
       @user_onboarding = user.user_onboarding
+      @organization.save!
     end
-
-    @organization.save!
-    @board.save!
   end
 
   def copy_tiles_to_new_board

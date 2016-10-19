@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161019191300) do
+ActiveRecord::Schema.define(:version => 20161019194124) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -976,10 +976,11 @@ ActiveRecord::Schema.define(:version => 20161019191300) do
   end
 
   create_table "topics", :force => true do |t|
-    t.string   "name",       :null => false
+    t.string   "name",                         :null => false
     t.string   "image"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+    t.boolean  "is_explore", :default => true, :null => false
   end
 
   create_table "trigger_demographic_triggers", :force => true do |t|
