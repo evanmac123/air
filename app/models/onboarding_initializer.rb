@@ -34,7 +34,7 @@ class OnboardingInitializer
   end
 
   def topic_boards
-    @topic_boards ||= TopicBoard.reference_board_set
+    @topic_boards ||= TopicBoard.onboarding_board_set
   end
 
    def to_json

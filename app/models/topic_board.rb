@@ -4,6 +4,7 @@ class TopicBoard < ActiveRecord::Base
   belongs_to :topic
   scope :library_board_set, ->{where is_library: true}
   scope :reference_board_set, ->{where is_reference: true}
+  scope :onboarding_board_set, ->{where is_onboarding: true}
 
   validates :topic, :board, presence: true
   validate :one_reference_board_per_topic
