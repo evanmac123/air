@@ -26,10 +26,11 @@ Airbo.OnboardingKpis = (function(){
   }
 
   return {
+    initializeOnboardingPing: initializeOnboardingPing,
     selectPriorityPing: selectPriorityPing,
     completeTilePing: completeTilePing,
     viewsActivityDashboardPing: viewsActivityDashboardPing,
     answersMoreInfoQuestionPing: answersMoreInfoQuestionPing,
-    fullyConvertedPing: fullyConvertedPing
+    fullyConvertedPing: fullyConvertedPing,
   };
 }());
