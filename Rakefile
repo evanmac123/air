@@ -4,6 +4,3 @@
 require File.expand_path('../config/application', __FILE__)
 require 'rake'
 Health::Application.load_tasks
-
-require 'rspec-rerun/tasks'
-task default: 'rspec-rerun:spec'
