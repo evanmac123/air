@@ -86,7 +86,7 @@ class OnboardingInitializer
   end
 
   def copied_board_name
-    organization_name + "-" + topic_name + "-" + @organization.boards.count.to_s
+    organization_name + " " + topic_name
   end
 
   def topic_name
