@@ -73,9 +73,7 @@ Airbo.UserOnboardingUpdate = (function() {
       secondUpdate(id);
     }
 
-    if (Airbo.Utils.supportsFeatureByPresenceOfSelector(".user-onboarding-state-4")) {
-      finalCta(id);
-    }
+    finalCta(id);
   }
 
   return {
