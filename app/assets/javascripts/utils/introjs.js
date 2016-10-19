@@ -15,8 +15,8 @@ Airbo.Utils.IntroJs = (function(){
     scrollToElement: true,
     exitOnEsc: false,
     exitOnOverlayClick: false,
-    hidePrev: true, 
-  }
+    hidePrev: true,
+  };
 
 
   function applyCss(opts){
@@ -29,14 +29,14 @@ Airbo.Utils.IntroJs = (function(){
   }
 
   function init(opts){
-    var options = $.extend({},defaults, opts, applyCss(opts))
+    var options = $.extend({},defaults, opts, applyCss(opts));
     intro = introJs();
     intro.setOptions(options);
     return intro;
   }
 
   return {
-    init: init, 
+    init: init,
   };
 
-}())
+}());

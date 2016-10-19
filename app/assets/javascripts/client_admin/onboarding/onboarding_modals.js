@@ -36,7 +36,7 @@ Airbo.OnboardingModals = (function(){
     $(".close-board-view-button").on("click", function() {
       triggerModal('#board-view-modal', 'close');
       if(state == 2){
-        Airbo.FirstTileHint.init({ showButtons:false});
+        Airbo.FirstTileHint.init({ showButtons:false, tooltipPosition: "top" });
       }
     });
 
@@ -113,7 +113,7 @@ Airbo.OnboardingModals = (function(){
       ],
     };
 
-    intro = Airbo.Utils.IntroJs.init(options)
+    intro = Airbo.Utils.IntroJs.init(options);
     intro.start();
 
     intro.oncomplete(function() {

@@ -1,5 +1,5 @@
 class OnboardingInitializer
-  attr_reader :email, :name, :organization_name, :user_onboarding, :reference_board_id, :error
+  attr_reader :email, :name, :organization_name, :user_onboarding, :reference_board_id, :error, :organization
 
   def initialize(params)
     @email = params[:email]
@@ -48,7 +48,6 @@ class OnboardingInitializer
   private
 
   def assemble
-
     @organization = Organization.where(name: organization_name).first_or_initialize
     if user.user_onboarding.nil?
       onboarding = @organization.onboarding || @organization.build_onboarding(topic_name: topic_name)
@@ -59,17 +58,24 @@ class OnboardingInitializer
       })
 
 
-      @board = onboarding.board || onboarding.build_board(reference_board.attributes.merge({name: copied_board_name, public_slug: copied_board_name})) #board
-      @board.board_memberships.build({user: @user_onboarding.user, is_client_admin: true})
-      copy_tiles_to_new_board
+      @board = onboarding.board || onboarding.build_board(reference_board.attributes.merge({name: copied_board_name, public_slug: copied_board_name}))
+
+      @board.board_memberships.build({
+        user: @user_onboarding.user,
+        is_client_admin: true,
+        is_current: true
+      })
+
+      if @board.tiles.empty?
+        copy_tiles_to_new_board
+      end
     else
       @user_onboarding = user.user_onboarding
     end
 
     @organization.save!
+    @board.save!
   end
-
-
 
   def copy_tiles_to_new_board
     CopyBoard.new(@board, reference_board).copy_active_tiles_from_board
