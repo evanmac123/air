@@ -1,7 +1,7 @@
 .draft_blocked_message
   Oops! Sorry, you can't move a tile that's been completed by users back to draft. You can archive it.
 .row
-  .large-12.columns
+  .large-12.columns.posted-tiles
     %h4 Posted
     = link_to "Download Stats", client_admin_tiles_report_path(report: Tile::ACTIVE, format: "csv"), class: "download_csv button  outlined has-tip", title: "Download Excel file with statistics for all of the Tiles in this section.", data: {tooltip: true}
     %div#active.manage_section
