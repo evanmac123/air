@@ -20,7 +20,6 @@ Health::Application.routes.draw do
 
 
   post "admin/contracts/import" => "admin/contracts#import", :as => "contracts_import"
-  post "admin/metrics/historical" => "admin/metrics#historical", :as => "historical_metrics"
 
   match "myairbo/:id" => "user_onboardings#show", as: "myairbo"
   match "newairbo" => "onboardings#new"
