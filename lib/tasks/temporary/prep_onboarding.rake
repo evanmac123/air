@@ -12,7 +12,7 @@ namespace :db do
         TopicBoard.create(demo_id: t.last, topic_id: topic.id, is_onboarding: true)
       end
 
-      TopicBoard.create(demo_id: 1719, topic_id: 1)
+      TopicBoard.create(demo_id: 1719, topic_id: 1, is_onboarding: true)
     end
   end
 end
