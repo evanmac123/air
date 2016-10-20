@@ -7,7 +7,7 @@ namespace :admin do
         if today.wday ==0 || ENV["FORCE_FIN_CALC"]="on"
           sdate = today.beginning_of_week
           edate = today
-          FinancialsReporterService.build_wee sdate, edate
+          FinancialsReporterService.build_week sdate, edate
         else
           Rails.logger.warn "Not Sunday Skipping Financials Report"
         end
