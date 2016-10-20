@@ -1,16 +1,16 @@
-body.acts-index{
+.user_onboardings, body.acts-index{
   #user_progress{
     padding-bottom: 2rem !important;
   }
 }
-body.tiles-index, body.acts-index, .client_admin-stock_boards,
+.user_onboardings, body.tiles-index, body.acts-index, .client_admin-stock_boards,
 .client_admin-stock_tiles{
   header{
     box-shadow: none;
   }
   .content{
     padding-top: 0em !important;
-  } 
+  }
   #user_progress{
     background: $white;
     padding: 1em;
@@ -22,7 +22,7 @@ body.tiles-index, body.acts-index, .client_admin-stock_boards,
     font-weight: 700;
     margin-bottom: 1em;
     &:after {@include clear;}
-    .progress_header{        
+    .progress_header{
         height: 1rem;
         width: 100%;
         color: $white;
@@ -71,7 +71,7 @@ body.tiles-index, body.acts-index, .client_admin-stock_boards,
         box-shadow: inset 0 0 7px #cbc9c9;
         /* -------------------------------------
          * Optional centered circle w/text
-         * ------------------------------------- */  
+         * ------------------------------------- */
         .overlay{
           position: absolute;
           width: 22px;
@@ -100,14 +100,14 @@ body.tiles-index, body.acts-index, .client_admin-stock_boards,
             @if($i < $half){
               $startdeg: -90deg;
               $nextdeg: $startdeg + ( $increment * $i );
-              background-image: linear-gradient($startdeg, 
-                $backColor 50%, transparent 50%, transparent), 
+              background-image: linear-gradient($startdeg,
+                $backColor 50%, transparent 50%, transparent),
               linear-gradient($nextdeg, $barColor 50%, $backColor 50%, $backColor);
             }@else{
               $startdeg: 90deg;
               $nextdeg: $startdeg + ( $increment * ( $i - $half ) );
-              background-image: linear-gradient($nextdeg, 
-                $barColor 50%, transparent 50%, transparent), 
+              background-image: linear-gradient($nextdeg,
+                $barColor 50%, transparent 50%, transparent),
               linear-gradient(360deg + $startdeg, $barColor 50%, $backColor 50%, $backColor);
             }
           }

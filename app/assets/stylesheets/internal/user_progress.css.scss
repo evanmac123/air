@@ -1,10 +1,10 @@
-body.acts-index, .client_admin-stock_boards, .client_admin-stock_tiles{
+.user_onboardings, body.acts-index, .client_admin-stock_boards, .client_admin-stock_tiles{
   .user_container{
     height: 10rem;
     background: #d9dfe9;
   }
 }
-body.tiles-index, body.acts-index, .client_admin-stock_boards, .client_admin-stock_tiles{
+.user_onboardings, body.tiles-index, body.acts-index, .client_admin-stock_boards, .client_admin-stock_tiles{
   #user_progress{
     //max-width: 600px;
     max-width: 46.8rem;
@@ -73,7 +73,7 @@ body.tiles-index, body.acts-index, .client_admin-stock_boards, .client_admin-sto
         box-shadow: none;
         /* -------------------------------------
          * Optional centered circle w/text
-         * ------------------------------------- */  
+         * ------------------------------------- */
         .overlay{
           position: absolute;
           width: 40px;
@@ -102,13 +102,13 @@ body.tiles-index, body.acts-index, .client_admin-stock_boards, .client_admin-sto
             @if($i < $half){
               $startdeg: -90deg;
               $nextdeg: $startdeg + ( $increment * $i );
-              background-image: 
+              background-image:
                 linear-gradient($startdeg, $backColor 50%, transparent 50%, transparent),
                 linear-gradient($nextdeg, $barColor 50%, $backColor 50%, $backColor);
             }@else{
               $startdeg: 90deg;
               $nextdeg: $startdeg + ( $increment * ( $i - $half ) );
-              background-image: 
+              background-image:
                 linear-gradient($nextdeg, $barColor 50%, transparent 50%, transparent),
                 linear-gradient(360deg + $startdeg, $barColor 50%, $backColor 50%, $backColor);
             }

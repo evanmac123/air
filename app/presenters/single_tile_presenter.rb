@@ -1,6 +1,6 @@
 class SingleTilePresenter < BasePresenter
 
-  attr_reader :tile, :type
+  attr_reader :tile, :type, :user_onboarding
   delegate  :id,
             :thumbnail,
             :headline,
@@ -9,12 +9,12 @@ class SingleTilePresenter < BasePresenter
 
   presents :tile
 
-  def initialize object,template, options
+  def initialize(object, template, options)
     super
-
     @type = options[:type] # explore or user
     @public_slug = options[:public_slug]
     @completed = options[:completed]
+    @user_onboarding = options[:user_onboarding]
   end
 
   def tile_id
@@ -54,6 +54,8 @@ class SingleTilePresenter < BasePresenter
   def show_tile_path
     if type == 'explore'
       explore_tile_preview_path(self)
+    elsif user_onboarding
+      user_onboarding_tile_path(user_onboarding, tile)
     else
       @public_slug ? public_tile_path(@public_slug, tile) : tile_path(tile)
     end

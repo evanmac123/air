@@ -110,8 +110,6 @@ group :development, :test do
   gem "getopt"
   gem "pry-rails"
 	gem 'pry-byebug'
-  gem 'rspec-rerun'
-  gem 'rspec_log_formatter'
 end
 
 group :test do

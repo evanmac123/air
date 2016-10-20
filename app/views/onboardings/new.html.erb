@@ -1,0 +1,43 @@
+<div class="onboarding-container">
+  <div class="row">
+    <div class="onboarding-new-container columns small-8 small-offset-2">
+      <%= form_tag onboardings_path, id:"onboarding-form" do %>
+        <%= hidden_field_tag :email, @onboarding_initializer.email %>
+        <%= hidden_field_tag :name, @onboarding_initializer.name %>
+        <%= hidden_field_tag :organization, @onboarding_initializer.organization_name %>
+        <%= hidden_field_tag :topic_board_id %>
+      <%end%>
+      <div class='text-center onboarding-new onboarding-landing'>
+        <div class="onboarding-new-image">
+          <%= image_tag "airbo_venice.png", class: "onboarding-img" %>
+        </div>
+        <% if @onboarding %>
+          <div>
+            <h2>Hi! Welcome to your Airbo.</h2>
+            <h3>Engaging employees can be tough. Take a tour of Airbo to see how we can help engage employees by exploring your organization's <%= @onboarding.topic_name %> Tiles.</h3>
+            <p></p>
+          </div>
+          <div class="topic-boards">
+            <div class="topic-board topic-board-button button">
+              Get Started
+            </div>
+          </div>
+        <% else %>
+          <div>
+            <h2>Hi! Welcome to your Airbo.</h2>
+            <h3>Employee communications can be a tough job. Select a priority to see how we can help keep employees engaged.</h3>
+            <p></p>
+          </div>
+          <div class="topic-boards">
+            <% @onboarding_initializer.topic_boards.each do |topic_board| %>
+            <div class="topic-board topic-board-button button" data-board-id="<%= topic_board.demo_id %>">
+              <%= topic_board.topic_name %>
+            </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <%= render 'user_onboardings/partials/customizing_airbo_modal' %>
+</div>

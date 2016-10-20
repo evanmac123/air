@@ -32,24 +32,30 @@ Airbo.BoardsAndOrganizationMgr = (function(){
     });
   }
 
-  function init(){
-    if($(".admin-demo").length>0){
-      initLink();
-    }
-
-    if($("form#new_organization #organization_name").length > 0){
-      //FIXME make configurable
-      //initewBoard();
-    }
-
-    Airbo.Utils.initChosen();
-  }
-
   function initNewBoard(){
     $("form#new_organization #organization_name").blur(function(event){
       $("form#new_organization #org_demo_name").val($(this).val() + " Board");
     });
   }
+
+  function init(){
+    if(Airbo.Utils.supportsFeatureByPresenceOfSelector(".admin-unmatched_boards-index")){
+      if($(".admin-demo").length>0){
+        initLink();
+      }
+
+      Airbo.Utils.initChosen(
+        {
+          create_option: function chosenAddOrg(term){
+            var chosen = this;
+            window.location = "/admin/organizations/new";
+          },
+          create_option_text: 'Create a new organization',
+        }
+      );
+    }
+  }
+
 
 return{
   init: init
