@@ -52,7 +52,7 @@ describe Topic do
       board = FactoryGirl.create(:demo)
       board2 = FactoryGirl.create(:demo)
       topic = FactoryGirl.create(:topic, name:"Wellness")
-      binding.pry
+
       FactoryGirl.create(:topic_board, is_reference:true, topic: topic, board: board)
       FactoryGirl.create(:topic_board, topic: topic, board: board2)
 
