@@ -24,7 +24,7 @@ describe Topic do
       TileTag.count.should == 4
       arr1 = ["Rx Benefits", "Health Plan Basics"]
       arr2 = ["Health Care Reform", "Sexual Harassment"]
-      expect { arr1 & Topic.find_or_create("Benefits").tile_tags.pluck(:title) == arr1}.to be_true 
+      expect { arr1 & Topic.find_or_create("Benefits").tile_tags.pluck(:title) == arr1}.to be_true
       expect {Topic.find_or_create("Compliance").tile_tags.pluck(:title) == arr2}.to be_true
     end
   end
@@ -52,6 +52,7 @@ describe Topic do
       board = FactoryGirl.create(:demo)
       board2 = FactoryGirl.create(:demo)
       topic = FactoryGirl.create(:topic, name:"Wellness")
+      binding.pry
       FactoryGirl.create(:topic_board, is_reference:true, topic: topic, board: board)
       FactoryGirl.create(:topic_board, topic: topic, board: board2)
 
