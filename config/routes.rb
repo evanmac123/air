@@ -18,8 +18,6 @@ Health::Application.routes.draw do
   match "ard/:public_slug/tiles" => "tiles#index", :as => "public_tiles", :via => :get
   match "ard/:public_slug/tile/:id" => "tiles#show", :as => "public_tile", :via => :get
 
-  get "admin/customer/metrics" => "admin/metrics#index", :as => "organization_metrics"
-  post "admin/customer/metrics" => "admin/organizations#metrics_recalc", :as => "organization_metrics"
 
   post "admin/contracts/import" => "admin/contracts#import", :as => "contracts_import"
   post "admin/metrics/historical" => "admin/metrics#historical", :as => "historical_metrics"
@@ -292,6 +290,9 @@ Health::Application.routes.draw do
   resources :cancel_account, :only => [:show, :destroy]
 
   namespace :admin do
+
+
+    resources :historical_metrics, only: [:create]
     namespace :sales do
       resources :lead_contacts, only: [:index, :edit, :update, :create] do
         resources :invites, only: [:new]
@@ -299,7 +300,10 @@ Health::Application.routes.draw do
       end
     end
 
+
+    resources :metrics
     resource :client_kpi_report
+    resource :financials_kpi_dashboard
     resources :topic_boards
     resources :organizations, as: :customers
     resources :organizations do

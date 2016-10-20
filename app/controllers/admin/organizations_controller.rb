@@ -4,7 +4,6 @@ class Admin::OrganizationsController < AdminBaseController
   include CustomResponder
 
   before_filter :find_organization, only: [:edit, :show, :update, :destroy]
-  before_filter :parse_start_and_end_dates, only: [:metrics_recalc, :metrics]
 
   def index
     @organizations = Organization.name_order
