@@ -1,6 +1,5 @@
 class UserOnboardingsController < ApplicationController
-  skip_before_filter :authorize, only: [:show, :new, :create, :activity]
-  # skip_before_filter :authorize_with_onboarding_auth_hash
+  skip_before_filter :authorize, only: [:show, :create, :activity]
   layout 'onboarding'
 
   def show
@@ -9,17 +8,6 @@ class UserOnboardingsController < ApplicationController
     sign_in(@user_onboarding.user)
 
     @tiles = Tile.displayable_categorized_to_user(current_user, nil)
-  end
-
-  def new
-    if should_onboard?
-      sign_out
-      @user_onboarding_init = UserOnboardingInitializer.new(user_onboarding_params)
-      @user_onboarding = UserOnboarding.new(state: 1)
-      @referrer = params[:referrer]
-    else
-      redirect_to "/myairbo/#{@user.user_onboarding.id}"
-    end
   end
 
   def create
@@ -33,15 +21,6 @@ class UserOnboardingsController < ApplicationController
       location: user_onboarding_path(user_onboarding), status: :ok
     else
       head :unprocessable_entity, response.headers["X-Message"] = user_onboarding_init.error
-    end
-  end
-
-  def update
-    @user_onboarding = UserOnboarding.find(params[:id])
-    if @user_onboarding.update_attributes(user_onboarding_params)
-      redirect_to home_path({onboarding_complete: true})
-    else
-      redirect_to home_path({onboarding_complete: false})
     end
   end
 
@@ -71,9 +50,5 @@ class UserOnboardingsController < ApplicationController
     def should_onboard?
       @user = User.where(email: params[:user_onboarding][:email]).first_or_initialize
       @user.user_onboarding.nil?
-    end
-
-    def set_auth_cookie
-      cookie[:user_onboarding]="12345"
     end
 end
