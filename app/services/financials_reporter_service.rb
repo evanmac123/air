@@ -36,8 +36,18 @@ class FinancialsReporterService
   end
 
   def self.to_csv sdate, edate 
-    data = Metrics.by_start_and_end sdate, edate
-    table = self.to_table data
+    generate_csv(self.tabular_data_by_date(sdate, edate))
+  end
+
+  def self.tabular_data_by_date sdate, edate
+    self.to_table(raw_data(sdate, edate))
+  end
+
+  def self.raw_data sdate, edate
+    Metrics.by_start_and_end(sdate, edate)
+  end
+
+  def self.generate_csv table
     CSV.generate do |csv|
       table.each do|row|
         csv << row
@@ -51,12 +61,11 @@ class FinancialsReporterService
       rows=[]  
       rows[0]=mapping[0]
       data.each do|h,v|
-        rows << h[meth] 
+        rows << h[meth]
       end
       table << rows
     end
    table
   end
 
-    
 end
