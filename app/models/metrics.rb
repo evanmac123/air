@@ -23,7 +23,7 @@ class Metrics < ActiveRecord::Base
 
   def self.aggregate
     vals = self.select(kpi_fields.join(',')).map do |m|
-      m.attributes
+      m.attributes.inject({}){|h,(k,v)|h[k]=v.class==BigDecimal ? v.to_i : v ;h}
     end
     vals
   end
