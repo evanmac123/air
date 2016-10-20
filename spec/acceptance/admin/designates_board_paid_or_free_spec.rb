@@ -10,7 +10,8 @@ feature 'Designates board paid or free', js: true do
   end
 
   scenario 'in the appropriate place' do
-    board = FactoryGirl.create(:demo)
+    organization = FactoryGirl.create(:organization)
+    board = FactoryGirl.create(:demo, organization: organization)
     user = an_admin
 
     visit admin_demo_path(board, as: user)

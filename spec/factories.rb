@@ -92,6 +92,7 @@ FactoryGirl.define do
 
   #DEMO
   factory :demo do
+    association :organization
     sequence(:name) {|n| "Coolio_#{n} Board" }
 
     trait :with_email do
@@ -427,7 +428,7 @@ FactoryGirl.define do
   end
 
   factory :organization  do
-    name "Airbo Org"
+    sequence(:name) {|n| "Airbo Org #{n}" }
 
     trait :complete do
       sequence(:name){|n| "Client-#{n}"}

@@ -123,10 +123,9 @@ class Demo < ActiveRecord::Base
             demos[:is_paid])
   end
 
-
-   def organization_name
-     organization.present? ? organization.name : "Unattached To Any Organization"
-   end
+  def organization_name
+   organization.present? ? organization.name : "Unattached To Any Organization"
+  end
 
   def activate_tiles_if_showtime
     tiles.activate_if_showtime
