@@ -3,7 +3,7 @@ class BoardMembership < ActiveRecord::Base
   belongs_to :demo
   belongs_to :location
 
-	scope :admins, ->{where(:is_client_admin => true)}
+	scope :admins, ->{ where(:is_client_admin => true) }
 
   attr_accessor :role
   before_validation do
@@ -14,7 +14,7 @@ class BoardMembership < ActiveRecord::Base
   end
 
   after_destroy do
-    destroy_dependent_user
+    update_or_destroy_user
   end
 
   def role
@@ -26,7 +26,6 @@ class BoardMembership < ActiveRecord::Base
       end
     end
   end
-
 
   def self.current
     where(is_current: true)
@@ -40,22 +39,11 @@ class BoardMembership < ActiveRecord::Base
     includes(:demo).order("demos.tile_last_posted_at DESC")
   end
 
-  def destroy_dependent_user
-    _dependent_board_id = self.demo.dependent_board_id
-
-    if _dependent_board_id
-      _primary_user_id = self.user_id
-
-      dependent_users = User.joins(:board_memberships).where do
-        (primary_user_id == _primary_user_id) &
-        (board_memberships.demo_id == _dependent_board_id)
-      end.readonly(false)
-
-      dependent_users.each do |u|
-        moved_to_other_board = RemoveUserFromBoard.new(u, _dependent_board_id).remove!
-        u.destroy unless moved_to_other_board # last board
-      end
+  def update_or_destroy_user
+    if user.board_memberships.empty?
+      user.destroy
+    elsif user.board_memberships.where(is_current: true).empty?
+      user.board_memberships.first.update_attributes(is_current: true)
     end
-    true
   end
 end
