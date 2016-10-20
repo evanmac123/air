@@ -3,7 +3,7 @@ class BoardMembership < ActiveRecord::Base
   belongs_to :demo
   belongs_to :location
 
-	scope :admins, ->{ where(:is_client_admin => true) }
+	scope :admins, -> { where(:is_client_admin => true) }
 
   attr_accessor :role
   before_validation do
@@ -18,6 +18,7 @@ class BoardMembership < ActiveRecord::Base
   end
 
   def role
+    # FIXME: What is this? Are we using roles meaningfully? Please let's rewrite auth...
     @role ||= begin
       if self.is_client_admin
         'Administrator'
