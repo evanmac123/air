@@ -11,6 +11,8 @@
           <tr>
             <th>Start</th>
             <th>End</th>
+            <th>Interval</th>
+            <th>Customer</th>
             <th></th>
           </tr>
         </thead>
@@ -18,15 +20,63 @@
           <tr>
             <td><%=text_field_tag "sdate", @sdate, type: :date%></td>
             <td><%=text_field_tag "edate",@edate, type: :date%></td>
+            <td><%=select_tag "interval",options_for_select({"Weekly"=>"weekly", "Monthly" =>"monthly", "Yearly"=>"yearly"})%></td>
+            <td><%=select_tag "Customer",options_from_collection_for_select(Organization.name_order, :id, :name), {include_blank: true, prompt: "All"}%></td>
             <td><%=submit_tag "Get Data", class:"button td-button right"%></td>
 
           </tr>
         </tbody>
       </table>
-
-      <div id="container" style="width:100%; height:400px;" data-plotdata ="<%=@plot_data.to_json%>"></div>
   </div>
 </div>
+<div class="row">
+  <div class="columns small-12">
+    <p>
+    <div class="row title_block">
+      <div class="small-4 columns centered">
+        <div class="activity-header total-users">
+          <h1 class="header-number">
+            <%=  number_with_delimiter(1000, :delimiter => ',') %>
+          </h1>
+          <span class="header-unit">
+            Revenue Booked
+          </span>
+        </div>
+      </div>
+      <div class="small-4 columns centered">
+        <div class="activity-header population-percent">
+          <h1 class="header-number">
+            1000
+          </h1>
+          <span class="header-unit">
+            MRR
+          </span>
+        </div>
+      </div>
+      <div class="small-4 columns centered">
+        <div class="activity-header tiles-posted">
+          <h1 class="header-number">
+            <%= number_with_delimiter(10000, :delimiter => ',') %>
+          </h1>
+          <span class="header-unit">
+            Customers
+          </span>
+        </div>
+      </div>
+    </div>
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="columns small-12">
+    <p>
+    <div id="container" style="width:100%; height:400px;" data-plotdata ="<%=@plot_data.to_json%>"></div>
+    </p>
+  </div>
+</div>
+
+
 
 <div class="row ">
   <div class="large-12 columns">
