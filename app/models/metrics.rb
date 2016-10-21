@@ -22,10 +22,26 @@ class Metrics < ActiveRecord::Base
   end
 
   def self.aggregate
-    vals = self.select(kpi_fields.join(',')).map do |m|
-      m.attributes.inject({}){|h,(k,v)|h[k]=v.class==BigDecimal ? v.to_i : v ;h}
+    #Note self is an active record relation
+    self.select(qry_select_stmt).map do |record|
+      add_to_metric_set(record)
     end
-    vals
+
+  end
+
+  def self.add_to_metric_set record
+    record.attributes.inject({}) do |metric_set,(metric,value)|
+      metric_set[metric] = convert_to_int_if_big_decimal(value)
+      metric_set
+    end
+  end
+
+  def self.convert_to_int_if_big_decimal field_value
+    field_value.class==BigDecimal ? field_value.to_i : field_value
+  end
+
+  def self.qry_select_stmt
+    kpi_fields.join(',')
   end
 
   def self.kpi_fields
@@ -45,7 +61,6 @@ class Metrics < ActiveRecord::Base
     ]
   end
 
-
   def self.field_headers
     [
       ["Date","date"],
@@ -62,6 +77,14 @@ class Metrics < ActiveRecord::Base
       ["Percent MRR Churn","pct"],
       ["Net MRR Churn", "pct"]
     ]
+  end
+
+  def self.metric_labels
+    field_headers.map{|fh|fh[0]}
+  end
+
+  def self.label_field_mapping
+    Hash[metric_labels.zip kpi_fields]
   end
 
   def self.field_mapping

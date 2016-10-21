@@ -28,7 +28,7 @@ class FinancialsReporterService
       sdate = min_start.beginning_of_week
       edate = sdate.end_of_week
       while sdate < Date.today do 
-        FinancialsReporterService.build_week sdate, edate
+        build_week sdate, edate
         sdate = sdate.advance(weeks: 1)
         edate = edate.advance(weeks: 1)
       end
@@ -43,6 +43,10 @@ class FinancialsReporterService
     self.to_table(raw_data(sdate, edate))
   end
 
+  def self.plot_data_by_date sdate, edate
+    self.to_plot_data(raw_data(sdate, edate))
+  end
+
   def self.raw_data sdate, edate
     Metrics.by_start_and_end(sdate, edate)
   end
@@ -55,17 +59,36 @@ class FinancialsReporterService
     end
   end
 
-  def self.to_table data
+
+  def self.to_table metric_set_array
     table =[]
-    Metrics.field_mapping.each do|mapping, meth|
-      rows=[]  
-      rows[0]=mapping[0]
-      data.each do|h,v|
-        rows << h[meth]
+    Metrics.label_field_mapping.each do|label, metric|
+      rows=[]
+      rows[0]=label
+
+      metric_set_array.each do|metric_set|
+        rows << metric_set[metric]
       end
+
       table << rows
     end
    table
+  end
+
+  def self.to_plot_data metric_set_array
+    hash_table ={}
+    Metrics.kpi_fields.each do|metric|
+      rows = []
+      metric_set_array.each do|metric_set|
+        rows << metric_set[metric]
+      end
+      hash_table[metric]=rows
+    end
+    hash_table["weekending_date"].map{|d| d.to_time.to_i*1000}.zip(hash_table["starting_mrr"])
+  end
+
+  def self.default_date_range
+    Metrics.default_date_range
   end
 
 end
