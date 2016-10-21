@@ -5,8 +5,10 @@
 //= require mobvious-rails
 //= require ../../../vendor/assets/javascripts/internal/jquery.jpanelmenu.min
 //= require ../../../vendor/assets/javascripts/internal/jRespond.min
-//= require ./internal_and_external/underscore-min
+//= require ../../../vendor/assets/javascripts/client_admin/jquery.form.min
+//= require ../../../vendor/assets/javascripts/highcharts.js
 //= require_tree ../../../vendor/assets/javascripts/admin/.
+//= require ./internal_and_external/underscore-min
 //= require ./file-uploader
 //= require_tree ./admin/.
 //= require internal_and_external/nerf_links_with_login_modal
