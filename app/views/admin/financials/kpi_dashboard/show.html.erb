@@ -36,7 +36,7 @@
       <div class="small-4 columns centered">
         <div class="activity-header total-users">
           <h1 class="header-number">
-            <%=  number_with_delimiter(1000, :delimiter => ',') %>
+            <%=  number_with_delimiter(FinancialsReporterService.current_amount_booked.to_i, :delimiter => ',') %>
           </h1>
           <span class="header-unit">
             Revenue Booked
@@ -46,7 +46,7 @@
       <div class="small-4 columns centered">
         <div class="activity-header population-percent">
           <h1 class="header-number">
-            1000
+            <%=  number_with_delimiter(FinancialsReporterService.current_mrr.to_i, :delimiter => ',') %>
           </h1>
           <span class="header-unit">
             MRR
@@ -56,7 +56,7 @@
       <div class="small-4 columns centered">
         <div class="activity-header tiles-posted">
           <h1 class="header-number">
-            <%= number_with_delimiter(10000, :delimiter => ',') %>
+            <%= number_with_delimiter(FinancialsReporterService.active_customers, :delimiter => ',') %>
           </h1>
           <span class="header-unit">
             Customers

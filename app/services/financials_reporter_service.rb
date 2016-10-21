@@ -59,6 +59,18 @@ class FinancialsReporterService
     end
   end
 
+  def self.current_mrr
+    Contract.active_mrr_for_date
+  end
+
+  def self.current_amount_booked
+    Contract.active_booked_for_date
+  end
+
+  def self.active_customers
+    Contract.active.includes(:organization).count
+  end
+
 
   def self.to_table metric_set_array
     table =[]

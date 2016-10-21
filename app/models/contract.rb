@@ -88,10 +88,13 @@ class Contract < ActiveRecord::Base
     active_during_period(sdate, edate).sum(&:calc_mrr)
   end
 
-  def self.active_mrr_for_date start_date
+  def self.active_mrr_for_date start_date=Date.today
     active_as_of_date(start_date).sum(&:calc_mrr)
   end
 
+  def self.active_booked_for_date start_date=Date.today
+    active_as_of_date(start_date).sum(&:amt_booked)
+  end
 
   def self.mrr_possibly_churning_during_period sdate, edate 
     expiring_within_date_range(sdate, edate).sum(&:calc_mrr)
@@ -137,11 +140,11 @@ class Contract < ActiveRecord::Base
     dup
   end
 
-  def calc_mrr
-    if (mrr || arr)
-      mrr || arr/12 
-    end
-  end
+ def calc_mrr
+   if (mrr || arr)
+     mrr || arr/12 
+   end
+ end
 
   def calc_arr
     if(mrr || arr)
