@@ -3,6 +3,7 @@ class Admin::MetricsController < AdminBaseController
 
   def index
     get_kpi
+
     respond_to do |format| 
       format.html
       format.csv do 
@@ -12,6 +13,9 @@ class Admin::MetricsController < AdminBaseController
     end
   end
 
+
+  private
+
   def get_kpi
     if @sdate && @edate
       @kpi = Metrics.by_start_and_end @sdate,@edate
@@ -19,4 +23,5 @@ class Admin::MetricsController < AdminBaseController
       @kpi, @sdate, @edate = Metrics.current_week_with_date_range
     end
   end
+
 end
