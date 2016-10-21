@@ -33,8 +33,6 @@
 //= require ./admin/cheer
 //= require ../../../vendor/assets/javascripts/chosen.jquery.min
 //= require ../../../vendor/assets/javascripts/external/modernizr
-//= require highcharts/highcharts
-//= require highcharts/modules/exporting
 //
 $(document).ready(function($) {
   $('.sidebar-accordion').find('.sidebar-accordion-toggle').click(function(){
