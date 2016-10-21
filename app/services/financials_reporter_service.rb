@@ -103,4 +103,12 @@ class FinancialsReporterService
     Metrics.default_date_range
   end
 
+  def self.totals
+    {
+      totalBooked: current_amount_booked.to_i,
+      totalCustomers: active_customers,
+      totalMrr: current_mrr.to_i,
+    }
+  end
+
 end
