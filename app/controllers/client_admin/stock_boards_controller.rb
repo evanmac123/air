@@ -14,7 +14,6 @@ class ClientAdmin::StockBoardsController < ClientAdminBaseController
     end
   end
 
-
   private
 
     def max_tiles
