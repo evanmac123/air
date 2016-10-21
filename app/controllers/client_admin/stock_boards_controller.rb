@@ -1,8 +1,7 @@
 class ClientAdmin::StockBoardsController < ClientAdminBaseController
   include TileBatchHelper
   def index
-     sort_demos
-
+    @boards = library_boards
   end
 
   def show
@@ -18,25 +17,15 @@ class ClientAdmin::StockBoardsController < ClientAdminBaseController
 
   private
 
-  def max_tiles
-    curr_page * 16
-  end
+    def max_tiles
+      curr_page * 16
+    end
 
-  def curr_page
-    @page ||= params[:page].try(:to_i) || 1
-  end
+    def curr_page
+      @page ||= params[:page].try(:to_i) || 1
+    end
 
- def board_slugs
-   @slugs ||= HOMEPAGE_BOARD_SLUGS.split(",")
- end
-
-
- def sort_demos
-   @demos = Demo.where(public_slug:board_slugs)
-   @sorted_demos = board_slugs.map do|slug|
-     @demos.where(public_slug: slug).first
-   end.compact
- end
-
-
+    def library_boards
+      Demo.joins(:topic_board).where(topic_board: { is_library: true } )
+    end
 end

@@ -1,11 +1,9 @@
 <div class="topics ">
   <div class="row">
     <div class="columns small-12 small-centered">
-
-        <h1 class="text-center" >Content Library</h1>
+      <h1 class="text-center" >Content Library</h1>
     </div>
   </div>
-
 
   <div class="row">
     <div class="columns small-12 large-12 large-centered">
@@ -15,13 +13,15 @@
     </div>
   </div>
 
-
   <div class="row padded-v-20">
     <div class="columns small-12 small-centered">
       <div class="row ">
-        <%@sorted_demos.each do |board|%>
+        <% @boards.each do |board| %>
           <div class="columns small-12 large-3 ">
-            <%= render partial: "pages/landing/topic", locals: {board:board, path: stock_board_path(library_slug:board.public_slug)}%>
+            <%= render partial: "pages/landing/topic", locals: {
+              board: board,
+              path: stock_board_path(library_slug: board.public_slug)
+              } %>
           </div>
         <%end%>
       </div>

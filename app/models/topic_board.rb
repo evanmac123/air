@@ -24,8 +24,12 @@ class TopicBoard < ActiveRecord::Base
   private
 
     def one_reference_board_per_topic
-      if TopicBoard.where(topic_id: topic_id, is_reference: true).any? && is_reference
+      if reference_board_exists
         errors.add(:base, "There is already a reference board selected for the '#{topic_name}' topic")
       end
+    end
+
+    def reference_board_exists
+      TopicBoard.where(topic_id: topic_id, is_reference: true).any? && is_reference && changed.grep("is_reference").any?
     end
 end
