@@ -82,16 +82,24 @@
   <div class="large-12 columns">
     <table>
       <thead>
+        <tr>
+          <td>&nbsp;</td>
+          <%@kpi.each do |h| %>
+            <td><%=simple_format_by_type "date", h[Metrics.label_field_mapping["Date"]]%></td>
+          <%end%>
+        </tr>
       </thead>
       <tbody>
-        <%if ! @kpi.nil?%>
+        <%if @kpi.present?%>
           <%Metrics.field_mapping.each do |header,field|%>
-            <tr>
-              <th><%=header[0]%></th>
-              <%@kpi.each do |h| %>
-                <td><%=simple_format_by_type header[1], h[field]%></td>
-              <%end%>
-            </tr>
+            <%if header[0]!="Date"%>
+              <tr>
+                <th><%=header[0]%></th>
+                <%@kpi.each do |h| %>
+                  <td><%=simple_format_by_type header[1], h[field] %></td>
+                <%end%>
+              </tr>
+            <%end%>
           <%end%>
         <%end%>
       </tbody>
