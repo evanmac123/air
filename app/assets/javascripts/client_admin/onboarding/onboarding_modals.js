@@ -85,7 +85,7 @@ Airbo.OnboardingModals = (function(){
     var intro,
     options = {
 
-      tooltipClass: "airbo-onboarding no-skip",
+      tooltipClass: "airbo-onboarding",
       steps: [
         {
           intro: "Welcome to your Airbo Activity Page. Let's take a quick tour.",
@@ -113,6 +113,11 @@ Airbo.OnboardingModals = (function(){
     intro.start();
 
     intro.oncomplete(function() {
+      triggerModal("#onboarding-complete-modal", 'open');
+      Airbo.UserOnboardingUpdate.thirdUpdate($(".onboarding-body").data("id"));
+    });
+
+    intro.onexit(function() {
       triggerModal("#onboarding-complete-modal", 'open');
       Airbo.UserOnboardingUpdate.thirdUpdate($(".onboarding-body").data("id"));
     });
