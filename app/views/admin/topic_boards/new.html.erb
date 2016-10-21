@@ -1,16 +1,34 @@
-
 <div class="row">
-  <div class="columns small-12">
-    <h1 class="text-left">Create Topic Board</h1>
-  </div>
-</div>
+  <h1>Create a new Topic Board</h1>
+  <div class="columns small-7">
+    <%=form_for [:admin, @topic_board] do |f| %>
 
-<div class="row">
-  <div class="columns small-6">
-    <%= render "form" %>
-    <p>
+      <%= f.label :topic_id, "Topic" %>
+      <%= f.select :topic_id, options_from_collection_for_select(@topics, :id,  :name, f.object.topic_id), {include_blank: true}, class: "airbo-chosen-select" %>
+      <br>
+
+      <%= f.label :demo_id, "Board" %>
+      <%=f.select :demo_id, options_from_collection_for_select(@demos, :id,  :name, f.object.demo_id), {include_blank: true}, class: "airbo-chosen-select" %>
+      <br>
+
+      <%= f.label :cover_image, "Cover Image"  %>
+      <%= f.file_field :cover_image, { id:"file_input" } %>
+      <br>
+
+      <%= f.label :is_library do %>
+        Is Library? <%= f.check_box :is_library, checked: false %>
+      <% end %>
+
+      <%= f.label :is_onboarding do %>
+        Is Onboarding? <%= f.check_box :is_onboarding, checked: false %>
+      <% end %>
+
+      <%= f.submit "Save",class: "button right" %>
+
+      <%= link_to "Edit", edit_admin_topic_board_path(@topic_board), class:'button outlined' if @topic_board.persisted? %>
+
+      <%= link_to "Create New Topic", new_admin_topic_path %>
+    <%end%>
     <%=link_to "Reference Boards List", admin_topic_boards_path %>
-    </p>
   </div>
 </div>
-
