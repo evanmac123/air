@@ -2,6 +2,8 @@ var Airbo = window.Airbo || {};
 
 Airbo.FinancialKpiChart = (function(){
 
+  var ajaxHandler = Airbo.AjaxResponseHandler;
+
   function initChart(){
     var myChart = Highcharts.chart('container', {
       chart: {
@@ -17,7 +19,6 @@ Airbo.FinancialKpiChart = (function(){
       } ]
     });
   }
-
 
   function legend_params(){
     return { enabled: false };
@@ -72,8 +73,24 @@ Airbo.FinancialKpiChart = (function(){
 
   }
 
+  function refresh(data){
+    
+  }
+
+  function submitFailure(){
+    console.log("error occured"); 
+  }
+
+  function initForm(){
+    $("#financials_filter").submit(function(event){
+      event.preventDefault(); 
+      Airbo.AjaxResponseHandler.submit($(this), submitSuccess, submitFailure);
+    })
+  }
+
   function init(){
     initChart();
+    initForm();
   }
 
   return {
