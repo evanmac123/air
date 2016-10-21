@@ -300,9 +300,10 @@ Health::Application.routes.draw do
     end
 
 
-    resources :metrics
     resource :client_kpi_report
-    resource :financials_kpi_dashboard
+    resource :financials_kpi_dashboard, only:[:show], controller: "financials/kpi_dashboard"
+
+    resources :metrics
     resources :topic_boards
     resources :organizations, as: :customers
     resources :organizations do
