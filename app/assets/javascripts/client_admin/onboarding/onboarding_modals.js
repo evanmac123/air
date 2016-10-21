@@ -85,7 +85,7 @@ Airbo.OnboardingModals = (function(){
     var intro,
     options = {
 
-      tooltipClass: "airbo-onboarding",
+      tooltipClass: "airbo-onboarding no-skip",
       steps: [
         {
           intro: "Welcome to your Airbo Activity Page. Let's take a quick tour.",
