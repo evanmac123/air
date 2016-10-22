@@ -43,6 +43,11 @@ class FinancialsReporterService
     self.to_table(raw_data(sdate, edate))
   end
 
+
+  def self.matrix_by_date sdate, edate
+    self.to_matrix(raw_data(sdate, edate))
+  end
+
   def self.plot_data_by_date sdate, edate
     self.to_plot_data(raw_data(sdate, edate))
   end
@@ -110,5 +115,14 @@ class FinancialsReporterService
       totalMrr: current_mrr.to_i,
     }
   end
+
+  def self.to_matrix res
+    binding.pry
+    fields = res.map(&:keys).flatten.uniq
+    values = res.map(&:values).transpose
+    Hash[fields.zip values]
+  end
+
+
 
 end

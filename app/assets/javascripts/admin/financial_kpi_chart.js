@@ -2,10 +2,15 @@ var Airbo = window.Airbo || {};
 
 Airbo.FinancialKpiChart = (function(){
 
-  var ajaxHandler = Airbo.AjaxResponseHandler;
+  var totalCustomers = ".total-customers .header-number",
+    totalBooked = ".total-booked .header-number",
+    totalMrr = ".total-mrr .header-number",
+    chartContainer = "#chart-container",
+    kpiChart
+  ;
 
-  function initChart(){
-    var myChart = Highcharts.chart('container', {
+  function initChart(container){
+     kpiChart = Highcharts.chart(container.attr("id"), {
       chart: {
         type: 'line'
       },
@@ -15,7 +20,7 @@ Airbo.FinancialKpiChart = (function(){
       xAxis: x_axis_params() ,
       yAxis: y_axis_params(),
       series: [{
-        data: $("#container").data("plotdata")
+        data: []//container.data("plotdata")
       } ]
     });
   }
@@ -70,11 +75,33 @@ Airbo.FinancialKpiChart = (function(){
       min: 0,
       tickPixelInterval: 47
     }
+  }
 
+  function initVars(){
+   totalMrr = $(totalMrr);
+   totalCustomers = $(totalCustomers);
+   totalBooked = $(totalBooked);
+   chartContainer = $(chartContainer);
   }
 
   function refresh(data){
-    
+    refreshChart(data.plotData)
+    refreshTotals(data.totals)
+  }
+
+  function refreshTable(tableData){
+
+  }
+
+  function refreshChart(plotData){
+    kpiChart.series[0].setData(plotData);
+  }
+
+  function refreshTotals(totals){
+    [totalMrr, totalCustomers, totalBooked].forEach(function(kpi){
+      var metric = $(kpi);
+      metric.text(totals[metric.data("kpi")]);
+    })
   }
 
   function submitFailure(){
@@ -84,14 +111,33 @@ Airbo.FinancialKpiChart = (function(){
   function initForm(){
     $("#financials_filter").submit(function(event){
       event.preventDefault(); 
-      Airbo.AjaxResponseHandler.submit($(this), submitSuccess, submitFailure);
+      Airbo.AjaxResponseHandler.submit($(this), refresh, submitFailure);
     })
   }
 
   function init(){
-    initChart();
+    initVars();
+    initChart(chartContainer);
     initForm();
   }
+
+  var template=[
+    "<table>",
+    "<thead><tr><td>&nbsp;</td>",
+    "{{each data.headers}}",
+    "<td>{{this}}</td>",
+    "{{/each}",
+    "</tr></thead>",
+    "<tbody>",
+    "{{each dataRow}}",
+    "<tr>",
+    "<th>{{column.header}}</th>"
+    "{{each column.values}}",
+    "<td>{{this}}</td>"
+    "{{/each}}",
+    "</tr></tbody></table>"
+  ];
+
 
   return {
     init: init

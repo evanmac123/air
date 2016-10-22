@@ -34,9 +34,9 @@
     <p>
     <div class="row title_block">
       <div class="small-4 columns centered">
-        <div class="activity-header total-users">
-          <h1 class="header-number">
-            <%=  number_with_delimiter(FinancialsReporterService.current_amount_booked.to_i, :delimiter => ',') %>
+        <div class="activity-header total-booked">
+          <h1 class="header-number" data-kpi="totalBooked">
+            <%=  number_with_delimiter(@totals[:totalBooked].to_i, :delimiter => ',') %>
           </h1>
           <span class="header-unit">
             Revenue Booked
@@ -44,9 +44,9 @@
         </div>
       </div>
       <div class="small-4 columns centered">
-        <div class="activity-header population-percent">
-          <h1 class="header-number">
-            <%=  number_with_delimiter(FinancialsReporterService.current_mrr.to_i, :delimiter => ',') %>
+        <div class="activity-header total-mrr">
+          <h1 class="header-number" data-kpi="totalMrr">
+            <%=  number_with_delimiter(@totals[:totalMrr].to_i, :delimiter => ',') %>
           </h1>
           <span class="header-unit">
             MRR
@@ -54,9 +54,9 @@
         </div>
       </div>
       <div class="small-4 columns centered">
-        <div class="activity-header tiles-posted">
-          <h1 class="header-number">
-            <%= number_with_delimiter(FinancialsReporterService.active_customers, :delimiter => ',') %>
+        <div class="activity-header total-customers">
+          <h1 class="header-number" data-kpi="totalCustomers">
+            <%= number_with_delimiter(@totals[:totalCustomers], :delimiter => ',') %>
           </h1>
           <span class="header-unit">
             Customers
@@ -71,7 +71,7 @@
 <div class="row">
   <div class="columns small-12">
     <p>
-    <div id="container" style="width:100%; height:400px;" data-plotdata ="<%=@plot_data.to_json%>"></div>
+    <div id="chart-container" style="width:100%; height:400px;" data-plotdata ="<%=@plot_data.to_json%>"></div>
     </p>
   </div>
 </div>
@@ -108,4 +108,9 @@
     <%=link_to "Download CSV", admin_metrics_path(sdate:@sdate, edate: @edate, format: :csv),  class:"button right"%>
   <%end%>
   </div>
+
 </div>
+  <script type="text/template">
+
+
+  </script>

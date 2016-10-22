@@ -1,7 +1,7 @@
 class Metrics < ActiveRecord::Base
 
   def self.by_start_and_end sdate, edate
-    where(["weekending_date >= ? and weekending_date < ?",sdate, edate]).aggregate
+    where(["weekending_date >= ? and weekending_date < ?",sdate, edate]).to_array_of_record_hashes
   end
 
   def self.current_week
@@ -21,18 +21,18 @@ class Metrics < ActiveRecord::Base
     [@sweek, @this_week]
   end
 
-  def self.aggregate
+  def self.to_array_of_record_hashes
     #Note self is an active record relation
     self.select(qry_select_stmt).map do |record|
-      add_to_metric_set(record)
+      normalize_values(record)
     end
 
   end
 
-  def self.add_to_metric_set record
-    record.attributes.inject({}) do |metric_set,(metric,value)|
-      metric_set[metric] = convert_to_int_if_big_decimal(value)
-      metric_set
+  def self.normalize_values record
+    record.attributes.inject({}) do |normalized,(field,value)|
+      normalized[field] = convert_to_int_if_big_decimal(value)
+      normalized
     end
   end
 
@@ -90,4 +90,5 @@ class Metrics < ActiveRecord::Base
   def self.field_mapping
     Hash[field_headers.zip kpi_fields]
   end
+
 end

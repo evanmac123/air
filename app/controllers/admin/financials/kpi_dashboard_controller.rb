@@ -5,7 +5,7 @@ class Admin::Financials::KpiDashboardController < AdminBaseController
     @plot_data = FinancialsReporterService.plot_data_by_date @sdate, @edate
     @totals= FinancialsReporterService.totals
     if request.xhr?
-      render json: {series: @plot_data.to_json, totals: @totals.to_json, table_data: @kpi.to_json}
+      render json: {plotData: @plot_data, totals: @totals, tableData: @kpi}
     end
   end
 
