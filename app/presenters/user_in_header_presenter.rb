@@ -1,3 +1,4 @@
+
 class UserInHeaderPresenter
   include Rails.application.routes.url_helpers
   include ActionView::Helpers::FormOptionsHelper
@@ -41,7 +42,7 @@ class UserInHeaderPresenter
       nil
     elsif current_user.is_guest?
       public_activity_path(current_user.demo.public_slug)
-    elsif @request.cookies["user_onboarding"].present? && !current_user.user_onboarding.completed
+    elsif @request.cookies["user_onboarding"].present? && current_user.user_onboarding && !current_user.user_onboarding.completed
       user_onboarding_path(current_user.user_onboarding.id, return_onboarding: true)
     else
       activity_path

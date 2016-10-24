@@ -1,31 +1,23 @@
-var Airbo = window.Airbo || {}
+var Airbo = window.Airbo || {};
 Airbo.ClientAdminEditIntro = (function(){
 
   function setupClientAdminEditIntro(){
     var intro, options = {
+      tooltipClass: "airbo-onboarding",
+      doneLabel: "Get Started",
       steps: [
         {
           intro: "This is where manage your Tiles. Let's go over the basic sections.",
         },
         {
           element: "#draft_tiles",
-          intro: "Draft is where you'll find Tiles you've copied or created but have posted."
+          intro: "Draft is where you'll find Tiles you've copied or created but have not posted."
         },
 
         {
           element: "#active_tiles",
-          intro: "Posted Tiles are Tiles that have been shared or ready to shared with your employees.",
+          intro: "Posted Tiles are Tiles that have been shared or are ready to be shared with your employees.",
           position: "top"
-        },
-
-        {
-          element: "#archived_tiles",
-          intro: "Archived Tiles are Tiles that you no longer want to share with employees."
-        },
-
-        {
-          intro: "Click here to create a new Tile from scratch.",
-          element: "#add_new_tile"
         },
       ],
     };
@@ -34,8 +26,7 @@ Airbo.ClientAdminEditIntro = (function(){
     intro = Airbo.Utils.IntroJs.init(options);
     intro.start();
     intro.oncomplete(function() {
-      triggerModal("#onboarding-complete-modal", 'open');
-      Airbo.UserOnboardingUpdate.thirdUpdate($(".onboarding-body").data("id"));
+      Airbo.Utils.Modals.trigger("#from-onboarding-modal", 'open');
     });
   }
 
@@ -51,7 +42,7 @@ Airbo.ClientAdminEditIntro = (function(){
 }());
 
 $(function(){
-  if(Airbo.Utils.supportsFeatureByPresenceOfSelector(".manage_tiles")){
+  if(Airbo.Utils.supportsFeatureByPresenceOfSelector("#from-onboarding-modal")){
     Airbo.ClientAdminEditIntro.init();
   }
-})
+});

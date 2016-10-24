@@ -63,7 +63,7 @@ gem "jquery-fileupload-rails"#
 gem "acts_as_singleton"
 
 gem "roo"
-gem "roo-xls" 
+gem "roo-xls"
 gem "hashugar"
 gem 'addressable'
 gem "humanize_boolean"

@@ -36,7 +36,7 @@ Airbo.OnboardingModals = (function(){
     $(".close-board-view-button").on("click", function() {
       triggerModal('#board-view-modal', 'close');
       if(state == 2){
-        Airbo.FirstTileHint.init({ showButtons:false});
+        Airbo.FirstTileHint.init({ showButtons:false, tooltipPosition: "top" });
       }
     });
 
@@ -65,10 +65,6 @@ Airbo.OnboardingModals = (function(){
       triggerModal("#share-modal", 'open');
     });
 
-    if ($("#welcome-back-modal").length > 0) {
-      triggerModal("#welcome-back-modal", 'open');
-    }
-
     if (state == 4) {
       triggerModal("#onboarding-complete-modal", 'open');
     }
@@ -92,7 +88,7 @@ Airbo.OnboardingModals = (function(){
       tooltipClass: "airbo-onboarding",
       steps: [
         {
-          intro: "Welcome to your Airbo Activity Page. Let's take a quick tour...",
+          intro: "Welcome to your Airbo Activity Page. Let's take a quick tour.",
         },
         {
           element: ".title_block",
@@ -102,7 +98,7 @@ Airbo.OnboardingModals = (function(){
 
         {
           element: ".activity-graph",
-          intro: "Use this chart to review different employee activities by date range.",
+          intro: "Use this chart to review employee activity by date range.",
           position: "top",
         },
 
@@ -113,7 +109,7 @@ Airbo.OnboardingModals = (function(){
       ],
     };
 
-    intro = Airbo.Utils.IntroJs.init(options)
+    intro = Airbo.Utils.IntroJs.init(options);
     intro.start();
 
     intro.oncomplete(function() {

@@ -15,6 +15,9 @@
 
 <%= render partial: 'client_admin/tiles/manage_tiles/move_tile_confirmation_modal' %>
 
+<% if params[:from_onboarding] %>
+  <%= render partial: 'client_admin/partials/from_onboarding_modal' %>
+<% end %>
 
 <% content_for :javascript do %>
   <script>

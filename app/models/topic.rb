@@ -3,6 +3,7 @@ class Topic < ActiveRecord::Base
   has_one :reference_board, class_name: TopicBoard,  foreign_key: :topic_id, conditions:{is_reference: true}
   has_many :topic_boards
   has_many :boards, through: :topic_boards, class_name: Demo
+  scope :is_explore, ->{where is_explore: true}
 
   validates :name, :uniqueness => true
 

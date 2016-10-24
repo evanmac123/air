@@ -150,16 +150,6 @@ feature "Client Admin Changes Board Settings" do
       demo.reload.email.should == "board10@ourairbo.com"
     end
 
-    it "should not update email address if it's not available", js: true do
-      within board_email_form do
-        fill_in "Email Address", with: "board2"
-        click_button "Update"
-      end
-
-      expect_content "Sorry, that email address is already taken."
-      demo.reload.email.should == "board1@ourairbo.com"
-    end
-
     it "should not allow empty email address", js: true do
       within board_email_form do
         fill_in "Email Address", with: ""

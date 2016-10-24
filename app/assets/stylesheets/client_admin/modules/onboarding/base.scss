@@ -151,6 +151,16 @@
   max-height: 300px;
 }
 
+.onboardings-new-content {
+  padding-top: 0;
+}
+
+.initial {
+  li {
+    margin-left: 15px;
+  }
+}
+
 .onboarding-progress-modal {
   @include reveal-bg();
   @include reveal-modal-base(

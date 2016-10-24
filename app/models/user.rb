@@ -494,6 +494,7 @@ class User < ActiveRecord::Base
   end
 
   def data_for_mixpanel
+    # FIXME: Overwriting distinct_id here is removing built-in mixpanel functionality that facilitates easy funnels.  We need to alias the mixpanel id to user id.
     {
       distinct_id:           self.mixpanel_distinct_id,
       id:                    self.id,

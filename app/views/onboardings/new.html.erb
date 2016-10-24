@@ -7,22 +7,35 @@
         <%= hidden_field_tag :organization, @onboarding_initializer.organization_name %>
         <%= hidden_field_tag :topic_board_id %>
       <%end%>
-      <div class='text-center onboarding-new'>
+      <div class='text-center onboarding-new onboarding-landing'>
         <div class="onboarding-new-image">
           <%= image_tag "airbo_venice.png", class: "onboarding-img" %>
         </div>
-        <div>
-          <h2>Hi! Welcome to your Airbo.</h2>
-          <h3>We know you have a lot of priorities, but let's start with selecting your most important one.</h3>
-          <p></p>
-        </div>
-        <div class="topic-boards">
-          <% @onboarding_initializer.topic_boards.each do |topic_board| %>
-          <div class="topic-board topic-board-button button" data-board-id="<%= topic_board.demo_id %>">
-            <%= topic_board.topic_name %>
+        <% if @onboarding %>
+          <div>
+            <h2>Hi! Welcome to your Airbo.</h2>
+            <h3>Engaging employees can be tough. Take a tour of Airbo to see how we can help engage employees by exploring your organization's <%= @onboarding.topic_name %> Tiles.</h3>
+            <p></p>
           </div>
-          <% end %>
-        </div>
+          <div class="topic-boards">
+            <div class="topic-board topic-board-button button">
+              Get Started
+            </div>
+          </div>
+        <% else %>
+          <div>
+            <h2>Hi! Welcome to your Airbo.</h2>
+            <h3>Employee communications can be a tough job. Select a priority to see how we can help keep employees engaged.</h3>
+            <p></p>
+          </div>
+          <div class="topic-boards">
+            <% @onboarding_initializer.topic_boards.each do |topic_board| %>
+            <div class="topic-board topic-board-button button" data-board-id="<%= topic_board.demo_id %>">
+              <%= topic_board.topic_name %>
+            </div>
+            <% end %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
