@@ -152,7 +152,8 @@ Airbo.FinancialKpiChart = (function(){
          y: data.starting_mrr.values[idx]
        }
      });
-    tableData = { headers: data.weekending_date.values, rows: getTableRows(data)};
+
+     tableData = { headers: converDates(), rows: getTableRows(data)};
  }
 
  function getTableRows(data){
@@ -160,6 +161,12 @@ Airbo.FinancialKpiChart = (function(){
      if(kpi !== "weekending_date"){
        return data[kpi];
      }
+   });
+ }
+
+ function converDates(){
+   return dates.map(function(date){
+     return (new Date(date)).toLocaleString("en-US", {year: "2-digit", month: "2-digit", day: "2-digit"});
    });
  }
 
