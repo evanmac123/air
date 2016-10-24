@@ -7,9 +7,28 @@ Airbo.FinancialKpiChart = (function(){
     totalMrr = ".total-mrr .header-number",
     chartContainer = "#chart-container",
     chartData,
+    tableData,
     dates, 
     kpiChart
   ;
+  var tableTemplate=[
+    "<table>",
+    "<thead><tr><td>&nbsp;</td>",
+    "{{#each headers}}",
+    "<td>{{this}}</td>",
+    "{{/each}}",
+    "</tr></thead>",
+    "<tbody>",
+    "{{#each rows}}",
+    "<tr>",
+    "<th>{{label}}</th>",
+    "{{#each values}}",
+    "<td>{{this}}</td>",
+    "{{/each}}",
+    "</tr>",
+    "{{/each}}",
+    "</tbody></table>"
+  ].join("");
 
   function initChart(container){
      kpiChart = Highcharts.chart(container.attr("id"), {
@@ -87,16 +106,18 @@ Airbo.FinancialKpiChart = (function(){
   }
 
   function refresh(data){
-    refreshChart(data.tableData)
-    refreshTotals(data.totals)
+    prepareDataForChart(data.tableData);
+    refreshChart();
+    refreshTotals(data.totals);
+    refreshTable(tableData)
   }
 
-  function refreshTable(tableData){
-
+  function refreshTable(data){
+    rebuildTable();
   }
 
-  function refreshChart(data){
-    prepareDataForChart(data);
+
+  function refreshChart(){
     kpiChart.series[0].setData(chartData);
   }
 
@@ -131,8 +152,16 @@ Airbo.FinancialKpiChart = (function(){
          y: data.starting_mrr.values[idx]
        }
      });
+    tableData = { headers: data.weekending_date.values, rows: getTableRows(data)};
  }
 
+ function getTableRows(data){
+   return Object.keys(data).map(function (kpi) { 
+     if(kpi !== "weekending_date"){
+       return data[kpi];
+     }
+   });
+ }
 
  function getDateSeries(data){
    dates = data.map(
@@ -141,6 +170,14 @@ Airbo.FinancialKpiChart = (function(){
      });
  }
 
+
+ function rebuildTable(){
+  
+    var theTemplate = Handlebars.compile (tableTemplate);  
+   $(".table-container").html(theTemplate (tableData));
+ }
+
+
   function init(){
    initVars();
    initChartDataFromDataAttributes();
@@ -148,22 +185,7 @@ Airbo.FinancialKpiChart = (function(){
    initForm();
   }
 
-  var template=[
-    "<table>",
-    "<thead><tr><td>&nbsp;</td>",
-    "{{each data.headers}}",
-    "<td>{{this}}</td>",
-    "{{/each}",
-    "</tr></thead>",
-    "<tbody>",
-    "{{each dataRow}}",
-    "<tr>",
-    "<th>{{column.header}}</th>",
-    "{{each column.values}}",
-    "<td>{{this}}</td>",
-    "{{/each}}",
-    "</tr></tbody></table>"
-  ];
+
 
 
   return {
