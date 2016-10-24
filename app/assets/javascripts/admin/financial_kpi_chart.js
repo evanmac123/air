@@ -123,8 +123,11 @@ Airbo.FinancialKpiChart = (function(){
 
   function refreshTotals(totals){
     [totalMrr, totalCustomers, totalBooked].forEach(function(kpi){
-      var metric = $(kpi);
-      metric.text(totals[metric.data("kpi")]);
+      var metric = $(kpi)
+        , val = totals[metric.data("kpi")]
+      ;
+
+      metric.text(val.toLocaleString("en-US");
     })
   }
 
