@@ -126,9 +126,8 @@ Airbo.FinancialKpiChart = (function(){
       var metric = $(kpi)
         , val = totals[metric.data("kpi")]
       ;
-
-      metric.text(val.toLocaleString("en-US");
-    })
+      metric.text(val.toLocaleString("en-US"));
+    });
   }
 
   function submitFailure(){
