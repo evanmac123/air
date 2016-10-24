@@ -7,6 +7,7 @@ Airbo.FinancialKpiChart = (function(){
     totalMrr = ".total-mrr .header-number",
     chartContainer = "#chart-container",
     chartData,
+    dates, 
     kpiChart
   ;
 
@@ -94,8 +95,9 @@ Airbo.FinancialKpiChart = (function(){
 
   }
 
-  function refreshChart(plotData){
-    kpiChart.series[0].setData(plotData);
+  function refreshChart(data){
+    prepareDataForChart(data);
+    kpiChart.series[0].setData(chartData);
   }
 
   function refreshTotals(totals){
@@ -121,12 +123,21 @@ Airbo.FinancialKpiChart = (function(){
   }
 
  function prepareDataForChart(data){
-   chartData = data.weekending_date.values.map(
-     function(val,idx){ 
+   getDateSeries(data.weekending_date.values);
+   chartData = dates.map(
+     function(date,idx){ 
        return{
-         x: Date.parse(val),
+         x: date,
          y: data.starting_mrr.values[idx]
        }
+     });
+ }
+
+
+ function getDateSeries(data){
+   dates = data.map(
+     function(val,idx){ 
+       return  Date.parse(val)
      });
  }
 
@@ -137,22 +148,22 @@ Airbo.FinancialKpiChart = (function(){
    initForm();
   }
 
-  //var template=[
-    //"<table>",
-    //"<thead><tr><td>&nbsp;</td>",
-    //"{{each data.headers}}",
-    //"<td>{{this}}</td>",
-    //"{{/each}",
-    //"</tr></thead>",
-    //"<tbody>",
-    //"{{each dataRow}}",
-    //"<tr>",
-    //"<th>{{column.header}}</th>"
-    //"{{each column.values}}",
-    //"<td>{{this}}</td>",
-    //"{{/each}}",
-    //"</tr></tbody></table>"
-  //];
+  var template=[
+    "<table>",
+    "<thead><tr><td>&nbsp;</td>",
+    "{{each data.headers}}",
+    "<td>{{this}}</td>",
+    "{{/each}",
+    "</tr></thead>",
+    "<tbody>",
+    "{{each dataRow}}",
+    "<tr>",
+    "<th>{{column.header}}</th>",
+    "{{each column.values}}",
+    "<td>{{this}}</td>",
+    "{{/each}}",
+    "</tr></tbody></table>"
+  ];
 
 
   return {
