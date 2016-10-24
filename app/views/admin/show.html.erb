@@ -8,7 +8,7 @@
         <%= form_for :cheer, url: api_v1_cheers_path, html: { id: "cheer_form" } do |f| %>
           <%= f.label :body, "Today's Cheer" %>
           <%= f.text_field :body %>
-          <%= f.submit "Get shit done!", class: "button", id: "submit-cheer" %>
+          <%= f.submit "Submit cheer", class: "button", id: "submit-cheer" %>
         <% end %>
       </div>
       <div class="cheer-posted" style="display:none">

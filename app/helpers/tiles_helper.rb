@@ -27,11 +27,21 @@ module TilesHelper
   end
 
   def all_tiles_done_link
-    if params[:public_slug] || current_user.is_a?(GuestUser)
+    if request.cookies["user_onboarding"].present? && !current_user.user_onboarding.completed
+      onboarding_activity_path(current_user.user_onboarding.id)
+    elsif params[:public_slug] || current_user.is_a?(GuestUser)
       slug = params[:public_slug] || current_user.demo.public_slug
       public_activity_path(slug)
     else
       activity_path(board_id: current_user.demo_id)
+    end
+  end
+
+  def all_tiles_done_link_text
+    if request.cookies["user_onboarding"].present? && !current_user.user_onboarding.completed
+      "See Activity Dashboard"
+    else
+      "Return to homepage"
     end
   end
 end

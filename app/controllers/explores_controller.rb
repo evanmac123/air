@@ -8,7 +8,7 @@ class ExploresController < ClientAdminBaseController
   before_filter :limit_tiles_to_batch_size
 
   def show
-    @topics = Topic.rearrange_by_other
+    @topics = Topic.is_explore.rearrange_by_other
     @path_for_more_tiles = explore_path
     @parent_boards = Demo.where(is_parent: true)
 

@@ -2,8 +2,6 @@ Airbo 🎉
 ========
 [![Build Status](https://semaphoreci.com/api/v1/projects/ba420932-a062-4cec-916a-fedd904d027a/966715/badge.svg)](https://semaphoreci.com/airbo/hengage)
 
-Information about the HEngage Rails app
-
 Laptop setup
 ------------
 
@@ -32,7 +30,7 @@ The following instructions are for an Ubuntu system; some slight modifications m
 1. pgadmin3 (Optional: PostgreSQL GUI admin tool)
 1. curl (Optional: If using RVM - see below)
 
-Since the _Package Manager_ is used to install these packages they might not be as up-to-date as needed. 
+Since the _Package Manager_ is used to install these packages they might not be as up-to-date as needed.
 If this is the case you will need to go to the appropriate site to get the latest and greatest version.
 
 #### Git
@@ -76,7 +74,7 @@ Shell aliases: add to ~/.aliases
     if [ -e "$HOME/.aliases" ]; then
       source "$HOME/.aliases"
     fi
-    
+
 
 Setting up the app itself
 -------------------------
@@ -99,13 +97,13 @@ Load the development database:
 Prepare the test database:
 
     rake db:test:prepare
-    
+
 You need to create one user before firing up the app, so after you've cloned the repository and got everything
 else set up, fire up a Rails console and create a (claimed, admin) user thusly (password must have at least 6 characters):
 
     user = FactoryGirl.build :user, :claimed, name: 'Joe Blow', password: 'joeblow', password_confirmation: 'joeblow', email: 'joe@blow.com', is_site_admin: true
     user.save
-    
+
 Staging and production environments
 -----------------------------------
 
@@ -127,7 +125,7 @@ This creates a new branch for your feature. Name it something relevant. Run the 
     git add -A
     git commit -m "my awesome feature"
     git push origin feature-branch
-    
+
 Open up the Github repo, change into your feature-branch branch. Press the "Pull request" button. It should automatically choose the commits that are different between master and your feature-branch. Create a pull request and share the link in Campfire with the team. When someone else gives you the thumbs-up, you can merge into master:
 
     git up
@@ -140,21 +138,29 @@ Running the app
 To run the app locally:
 
     rails s
-    
+
 Running the tests
 -----------------
 
-To run the whole suite:
+Our CI runs with the following script:
 
-    be rake
+  `bundle install --deployment --path vendor/bundle
+   bundle exec rake db:create db:migrate db:test:prepare
+   bundle exec RSPEC_RERUN_TAG="~broken:true" rake rspec-rerun:spec[3]`
 
-To run an individual spec file:
+  The output of the test suite from RSPEC will include a section that lists "flaky tests". These are tests that passed after some number of reruns and should be prioritized based on the "cost" that is associated with them, which is based on the time impact on the test suite.
 
-    s spec/models/user_spec.rb
-    
-To run an individual Cucumber file:
+To run the whole suite locally under the same CI configuration:
+    Add the following ENV variables:
+    `export RSPEC_RERUN_RETRY_COUNT="3"
+     export RSPEC_RERUN_TAG="~broken:true"`
 
-    cuc features/admin_adds_rules.feature
+    Run:
+    `rake rspec-rerun:spec`
+
+    `gem rspec-rerun` will output all failing specs to `rspec.failures`, which is used as a data store for rerunning specs.
+
+    `gem rspec_log_formatter` will output all spec results to `rspec.history`, which is used as a data store to analyze test flakiness and cost.
 
 Deploying
 ---------
@@ -200,12 +206,12 @@ Transfer production data to staging:
 
     heroku pgbackups:capture --remote production
     heroku pgbackups:restore DATABASE `heroku pgbackups:url --remote production` --remote staging
-    
+
 CONFIG vars
 -----------
 Make sure to set these vars as appropriate.  Below is for example purpose only
 
-MAX_SELECTORS_DEFAULT                             3072 
+MAX_SELECTORS_DEFAULT                             3072
 
 (IE9 craps out after this number of css selectors
 Acutally the limit is 4095 but there maybe a file size limitation as well so we
@@ -216,7 +222,7 @@ ACTIVITY_SESSION_THRESHOLD:                       120
 APP_HOST:                                         hengage-dev.herokuapp.com
 AVATAR_BUCKET:                                    hengage-avatars-development
 AWS_ACCESS_KEY_ID:                                [KEY]
-AWS_BULK_UPLOAD_ACCESS_KEY_ID:                    [KEY] 
+AWS_BULK_UPLOAD_ACCESS_KEY_ID:                    [KEY]
 AWS_BULK_UPLOAD_SECRET_ACCESS_KEY:                [SECRET]
 AWS_SECRET_ACCESS_KEY:                            [KEY]
 BILLING_INFORMATION_ENTERED_NOTIFICATION_ADDRESS: team@air.bo
@@ -301,7 +307,7 @@ phil@rutger:~$ heroku ps -a hengage
 === web (1X): `bundle exec unicorn -p $PORT `
 web.1: up 2013/09/23 16:19:09 (~ 26m ago)
 web.2: up 2013/09/23 16:19:13 (~ 26m ago)
-:	:	:	:	:	:	:	:	:	
+:	:	:	:	:	:	:	:	:
 web.44: up 2013/09/23 16:19:23 (~ 26m ago)
 web.45: up 2013/09/23 16:19:09 (~ 26m ago)
 
@@ -383,10 +389,10 @@ RUN SPECS FROM COMMAND LINE
   rvm current  (ruby-1.9.3-p194 => wrong)
   rvm use ruby-1.9.3-p194@hengage
   rvm current  (ruby-1.9.3-p194@hengage => correct)
-ONE TEST 
+ONE TEST
   bundle exec rspec
   spec/acceptance/client_admin/tile_manager_spec.rb
-ALL TESTS 
+ALL TESTS
   bundle exec rake spec
 
 AMAZON S3
@@ -396,7 +402,7 @@ My Account > AWS Management Console > S3
 UPLOAD A LOGO FOR A DEMO TO S3
 Get the logo from the K's. If it's a .psd file => have them convert it to a .png or .jpg
 Create bucket for logo image, e.g. heinekin_logo
-Clck 'Upload' and add a file. 
+Clck 'Upload' and add a file.
 Then, button at bottom:
 Set details > set permissions > make everything public
 Upload image file to bucket
@@ -495,13 +501,13 @@ Some notes on the actual session below...
 If you start with an XLS file => need to convert to CSV =>
 * No spaces in filename
 * Delete the first row (which names the fields)
-First load the CSV file to Amazon S3. 
+First load the CSV file to Amazon S3.
 Instructions for accessing S3 are above.
 Bulk-load files are stored in the hengage-tmp bucket.
 
 Perform locally to make sure can process entire file without errors before creating/updating users in production database:
 * Make sure redis-server and delayed-job worker are running.
-* Create a demo to hold the users (all of which will be created because none already exist to be updated). 
+* Create a demo to hold the users (all of which will be created because none already exist to be updated).
 ** The one created below has an id of 41
 ** REMEMBER TO SUBSTITUTE THE DEMO_ID OF THE DEMO IN PRODUCTION WHEN YOU DO THIS FOR REAL!
 
@@ -534,9 +540,9 @@ REDISTOGO_URL:               redis://redistogo:6718b47d991f95efc8dbe8a6779c345b@
 :	:	:	:	:	:	:	:	:	:
 < ... Many More – Just need the AWS_xxx and REDISTOGO_URL ones...>
 
-larry@hengage:~/RubyMine/Hengage$ 
-# Notice setting environment variables before specifying command 
-# There are no quotes around the -s tag data 
+larry@hengage:~/RubyMine/Hengage$
+# Notice setting environment variables before specifying command
+# There are no quotes around the -s tag data
 # 'email' is the “uniqueness” field in the CSV data for each employee; usually either this or 'employee_id'
 # Filename would typically contain underscores instead of camel-case, i.e. aegis_eligiblity_file.csv (I just entered it wrong for this example)
 AWS_ACCESS_KEY_ID=AKIAJVBKNOIHHPUOUHYA AWS_SECRET_ACCESS_KEY=wVWjV8UxSl4y22x3SmSNsmUvRrRSGCIdXOEr9rM6 rake bulk_load[hengage-tmp,AegisEligiblityFile.csv,41,email] -- -s name,email
@@ -550,7 +556,7 @@ Job ID for feeder is 29425
 rake aborted!
 Don't know how to build task 'name,email'
 (See full trace by running task with --trace)
-larry@hengage:~/RubyMine/Hengage$ 
+larry@hengage:~/RubyMine/Hengage$
 
 DONE RUNNING LOCALLY => ASK ONE OF THE K'S TO CONFIRM 3-5 DATA ELEMENTS (I.E. USERS) AS SOME KIND OF SANITY CHECK THAT THE THING WORKED PROPERLY. SEAL OF APPROVAL FROM THE K'S =>
 NOW RUN IN PRODUCTION - NOTICE HOW demo_id IS DIFFERENT! (41 vs. 119)
@@ -569,14 +575,14 @@ rake aborted!
 Don't know how to build task 'name,email'
 
 (See full trace by running task with --trace)
-larry@hengage:~/RubyMine/Hengage$ 
+larry@hengage:~/RubyMine/Hengage$
 
 ================================
 
 To create rules and acts for a user's activity feed:
 
-Create a Rule in "site_admin" for the demo. 
-* One of the Ks typically does this. 
+Create a Rule in "site_admin" for the demo.
+* One of the Ks typically does this.
 * Since we are creating acts for the users activity feeds we want a valid description but a rule value that users won't discover by accident. Here is a good example from the Heineken demo d. r is the Rule and rv its RuleValue:
 
 irb(main):108:0> d
@@ -588,14 +594,14 @@ irb(main):115:0* Act.create! demo: d, rule: r, text: r.description, user: u
    (1.3ms)  BEGIN
   SQL (2.0ms)  INSERT INTO "acts" ("created_at", "creation_channel", "demo_id", "hidden", "inherent_points", "privacy_level", "referring_user_id", "rule_id", "rule_value_id", "text", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING "id"  [["created_at", Mon, 28 Oct 2013 12:59:42 EDT -04:00], ["creation_channel", ""], ["demo_id", 135], ["hidden", false], ["inherent_points", nil], ["privacy_level", "connected"], ["referring_user_id", nil], ["rule_id", 2356], ["rule_value_id", nil], ["text", "Completed Alex, emailed my Personal Benefits Webpage to thepeopledepartment@heinekenusa.com and earned 5 extra tickets towards the prize drawing!"], ["updated_at", Mon, 28 Oct 2013 12:59:42 EDT -04:00], ["user_id", 122719]]
   User Exists (1.4ms)  SELECT 1 AS one FROM "users" WHERE ("users"."email" = 'jfrancisco@heinekenusa.com' AND "users"."id" != 122719) LIMIT 1
-   (1.6ms)  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "users" WHERE (phone_number = '+13475247226' AND id != 122719) LIMIT 1) subquery_for_count 
+   (1.6ms)  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "users" WHERE (phone_number = '+13475247226' AND id != 122719) LIMIT 1) subquery_for_count
   Demo Load (1.6ms)  SELECT "demos".* FROM "demos" WHERE "demos"."id" = 135 LIMIT 1
   RuleValue Load (1.6ms)  SELECT "rule_values".* FROM "rule_values" INNER JOIN "rules" ON "rule_values"."rule_id" = "rules"."id" WHERE "rules"."demo_id" = 135
   User Exists (1.4ms)  SELECT 1 AS one FROM "users" WHERE ("users"."slug" = 'yudelkaking' AND "users"."id" != 122719) LIMIT 1
   User Exists (1.3ms)  SELECT 1 AS one FROM "users" WHERE ("users"."sms_slug" = 'yudelkaking' AND "users"."id" != 122719) LIMIT 1
   User Exists (2.5ms)  SELECT 1 AS one FROM "users" WHERE ("users"."invitation_code" = 'b74d1322a9201595282affa6157eabe763c13503' AND "users"."id" != 122719) LIMIT 1
   User Load (1.6ms)  SELECT "users".* FROM "users" WHERE "users"."overflow_email" = 'jfrancisco@heinekenusa.com'
-   (2.0ms)  UPDATE "users" SET "last_acted_at" = '2013-10-28 16:59:42.445244', "updated_at" = '2013-10-28 16:59:42.467708', "flashes_for_next_request" = '--- 
+   (2.0ms)  UPDATE "users" SET "last_acted_at" = '2013-10-28 16:59:42.445244', "updated_at" = '2013-10-28 16:59:42.467708', "flashes_for_next_request" = '---
 ...
 ', "characteristics" = '--- {}
 ' WHERE "users"."id" = 122719
@@ -609,7 +615,7 @@ irb(main):115:0* Act.create! demo: d, rule: r, text: r.description, user: u
   SQL (1.6ms)  INSERT INTO "delayed_jobs" ("attempts", "created_at", "failed_at", "handler", "last_error", "locked_at", "locked_by", "priority", "queue", "run_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"  [["attempts", 0], ["created_at", Mon, 28 Oct 2013 12:59:42 EDT -04:00], ["failed_at", nil], ["handler", "--- !ruby/object:Delayed::PerformableMethod\nobject: !ruby/object:Mixpanel::Tracker\n  token: 0bf0dc3d09bdeb203c0678181a70d99a\n  async: false\n  persist: false\n  env:\n    mixpanel_events: []\n  api_key: \nmethod_name: :track\nargs:\n- acted\n- :time: 2013-10-28 12:59:42.498424066 -04:00\n  :rule_value: $%rz234\n  :primary_tag: \n  :secondary_tags: []\n  :tagged_user_id: \n  :channel: ''\n  :suggestion_code: \n  :distinct_id: 122719\n  :id: 122719\n  :email: jfrancisco@heinekenusa.com\n  :game: Heineken HEngage\n  :following_count: 11\n  :followers_count: 11\n  :score: 139\n  :account_creation_date: 2013-09-11\n  :joined_game_date: 2013-10-02\n  :location: \n"], ["last_error", nil], ["locked_at", nil], ["locked_by", nil], ["priority", 0], ["queue", nil], ["run_at", Mon, 28 Oct 2013 12:59:42 EDT -04:00], ["updated_at", Mon, 28 Oct 2013 12:59:42 EDT -04:00]]
    (8.3ms)  COMMIT
 => #<Act id: 749475, user_id: 122719, text: "Completed Alex, emailed my Personal Benefits Webpag...", created_at: "2013-10-28 16:59:42", updated_at: "2013-10-28 16:59:42", rule_id: 2356, inherent_points: nil, demo_id: 135, referring_user_id: nil, creation_channel: "", hidden: false, privacy_level: "connected", rule_value_id: nil>
-irb(main):116:0> 
+irb(main):116:0>
 
 Finally, you will typically update the tickets and/or points for each user. Nothing special here, just the appropriate method call:
 u.update_attributes tickets: u.tickets + 3, points: u.points + 5

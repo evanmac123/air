@@ -2,20 +2,30 @@ class Organization < ActiveRecord::Base
   serialize :roles, Array
 
   has_many :contracts
-  has_many :demos
+  has_many :demos, autosave: true
   has_many :lead_contacts
-  has_many :boards, class_name: :Demo
-  has_many :users
+  has_many :boards, class_name: :Demo, autosave: true
 
-  validates :name, presence: true  
+  has_many :users do
+    def first_or_build(attrs)
+      where(email: attrs[:email]).first || build(attrs)
+    end
+  end
+
+  has_one :onboarding, autosave: true do
+    def get_or_build(attrs)
+       self || build(attrs)
+    end
+  end
+
+
+  validates :name, presence: true, uniqueness: true
   accepts_nested_attributes_for :demos
   accepts_nested_attributes_for :users
 
-
-# FIXME: Herby: can we do this withou a callback? Orgs are created in the SDR flow before their first users or boards.
-  # after_create :create_default_board_membership
-
   scope :name_order, ->{order("LOWER(name)")}
+
+
 
   def self.active_during_period sdate, edate
     all.select{|o| o.has_start_and_end && o.customer_start_date <=  sdate && o.customer_end_date > edate}

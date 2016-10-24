@@ -61,3 +61,5 @@ license_notes
 doc/*.svg
 public/test_bad.html
 rspec.log.txt
+rspec.failures
+rspec.history

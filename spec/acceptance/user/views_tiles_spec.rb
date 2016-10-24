@@ -31,16 +31,16 @@ feature 'User views tile' do
 
     scenario "should see first tile hint if there are completions", js:true do
       signin_as(@kendra, 'milking')
-      expect(page).to have_content("Click on the Tile to begin.")
+      expect(page).to have_content("This is the first Tile. We recommend clicking it to begin.")
       click_link 'Got it', visible: false #TODO figure out why visible:false is required even though the link is visible visually
 
-      expect(page).to have_no_content("Click on the Tile to begin.")
+      expect(page).to have_no_content("This is the first Tile. We recommend clicking it to begin.")
     end
 
     scenario "should not see first tile hint if user has completed tilese", js:true do
       UserIntro.any_instance.stubs(:displayed_first_tile_hint).returns true
       signin_as(@kendra, 'milking')
-      expect(page).to have_no_content("Click on the Tile to begin.")
+      expect(page).to have_no_content("This is the first Tile. We recommend clicking it to begin.")
     end
   end
 

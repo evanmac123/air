@@ -3,7 +3,7 @@
     <%= fa_icon "ban" %>
   </div>
 </div>
-<div class="row">
+<div class="row draft-and-suggested-tiles">
   <div class="large-12 columns">
   <ul class="tabs">
     <li id="draft_title"><a href="#" class="for-draft selected">Draft</a>
@@ -52,14 +52,6 @@
     <div class="manage_section hidden" id="suggestion_box">
       <%= render partial: 'client_admin/tiles/manage_tiles/no_tiles_section', locals: {display_no_tiles_section: @suggested_tiles.empty?, row_size: 6} %>
       <%= render partial: '/client_admin/tiles/manage_tiles/tiles_table', locals: {tiles: @suggested_tiles} %>
-      <% if @manage_access_prompt %>
-        <div id="manage_access_prompt">
-          To enable the Suggestion Box, select users who can access it in "Manage Access".
-          <div class="arrow_line">
-            <%= fa_icon "angle-up" %>
-          </div>
-        </div>
-      <% end %>
     </div>
   </div>
 </div>

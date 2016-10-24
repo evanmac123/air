@@ -1,0 +1,48 @@
+<header class="onboarding-top-bar" style="margin-bottom:0">
+  <div class="row" id="top_bar">
+    <div class="small-6 columns">
+      <div id="logo">
+        <a href="<%= home_path %>" style="margin-top:7px;margin-bottom:7px"><%= image_tag 'airbo-onboarding.png' %></a>
+      </div>
+    </div>
+    <div class="small-6 columns">
+      <div class="button outlined-alt blue-and-green schedule-demo-button">
+        Schedule a demo
+      </div>
+    </div>
+  </div>
+  <div class="onboarding-progress" id="top_bar">
+    <div class="row onboarding-progress-content onboarding-progress-desktop">
+      <div class="small-2 small-offset-1 columns progress-bar-label">
+        <span>Tour Steps <%= "(#{user_onboarding.state}/#{user_onboarding.final_state})"%></span>
+      </div>
+      <div class="small-6 columns">
+        <div class="progress radius onboarding-progress-bar">
+          <span class="meter" style="width: <%= user_onboarding.percent_complete %>%"></span>
+        </div>
+      </div>
+      <div class="small-2 columns end expand-tasks">
+        <div class="button outlined-alt onboarding-button off-white-and-yellow open-progress-modal">
+          Checklist <i class="expand-down fa fa-caret-down" aria-hidden="true"></i>
+        </div>
+      </div>
+    </div>
+    <div class="row onboarding-progress-content onboarding-progress-mobile">
+      <div class="small-6 columns">
+        <div class="progress radius onboarding-progress-bar">
+          <span class="meter" style="width: <%= user_onboarding.percent_complete %>%"></span>
+        </div>
+      </div>
+      <div class="small-6 columns expand-tasks">
+        <div class="button outlined-alt onboarding-button onboarding-modal-button off-white-and-yellow open-progress-modal">
+          Expand <i class="expand-down fa fa-caret-down" aria-hidden="true"></i>
+        </div>
+      </div>
+    </div>
+    <%= render  partial: 'user_onboardings/partials/progress_modal', locals: {user_onboarding: user_onboarding} %>
+    <%= render  partial: 'user_onboardings/partials/schedule_demo_modal', locals: {user_onboarding: user_onboarding}%>
+    <%= render  partial: 'user_onboardings/partials/tile_view_modal' %>
+    <%= render  partial: 'user_onboardings/partials/activity_modal' %>
+    <%= render  partial: 'user_onboardings/partials/viewed_activity_modal' %>
+  </div>
+</header>
