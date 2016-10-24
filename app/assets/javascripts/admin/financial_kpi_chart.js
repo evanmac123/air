@@ -6,6 +6,7 @@ Airbo.FinancialKpiChart = (function(){
     totalBooked = ".total-booked .header-number",
     totalMrr = ".total-mrr .header-number",
     chartContainer = "#chart-container",
+    chartData,
     kpiChart
   ;
 
@@ -20,7 +21,7 @@ Airbo.FinancialKpiChart = (function(){
       xAxis: x_axis_params() ,
       yAxis: y_axis_params(),
       series: [{
-        data: container.data("plotdata")
+        data: chartData
       } ]
     });
   }
@@ -85,7 +86,7 @@ Airbo.FinancialKpiChart = (function(){
   }
 
   function refresh(data){
-    refreshChart(data.plotData)
+    refreshChart(data.tableData)
     refreshTotals(data.totals)
   }
 
@@ -115,10 +116,25 @@ Airbo.FinancialKpiChart = (function(){
     })
   }
 
+  function initChartDataFromDataAttributes(){
+    prepareDataForChart(chartContainer.data("plotdata"));
+  }
+
+ function prepareDataForChart(data){
+   chartData = data.weekending_date.values.map(
+     function(val,idx){ 
+       return{
+         x: Date.parse(val),
+         y: data.starting_mrr.values[idx]
+       }
+     });
+ }
+
   function init(){
-    initVars();
-    initChart(chartContainer);
-    initForm();
+   initVars();
+   initChartDataFromDataAttributes();
+   initChart(chartContainer);
+   initForm();
   }
 
   //var template=[

@@ -53,22 +53,11 @@ class FinancialsReporterService
     [sdate, edate]
   end
 
-  #def self.to_csv sdate, edate 
-    #generate_csv(self.tabular_data_by_date(sdate, edate))
-  #end
-
-  #def self.tabular_data_by_date sdate, edate
-    #self.to_table(raw_data(sdate, edate))
-  #end
-
   def self.get_data_by_date sdate, edate
-    self.to_matrix(raw_data(sdate, edate))
+    self.build_data_set(raw_data(sdate, edate))
   end
 
-  #def self.plot_data_by_date sdate, edate
-    #self.to_plot_data(raw_data(sdate, edate))
-  #end
- def self.to_matrix res
+  def self.build_data_set res
     fields = res.map(&:keys).flatten.uniq
     values = res.map(&:values).transpose
     container = Metrics.record_hash
@@ -92,38 +81,6 @@ class FinancialsReporterService
       end
     end
   end
-
-
-
-
-  #def self.to_table metric_set_array
-    #table =[]
-    #Metrics.label_field_mapping.each do|label, metric|
-      #rows=[]
-      #rows[0]=label
-
-      #metric_set_array.each do|metric_set|
-        #rows << metric_set[metric]
-      #end
-
-      #table << rows
-    #end
-   #table
-  #end
-
-  #def self.to_plot_data metric_set_array
-    #hash_table ={}
-    #Metrics.kpi_fields.each do|metric|
-      #rows = []
-      #metric_set_array.each do|metric_set|
-        #rows << metric_set[metric]
-      #end
-      #hash_table[metric]=rows
-    #end
-    #hash_table["weekending_date"].map{|d| d.to_time.to_i*1000}.zip(hash_table["starting_mrr"])
-  #end
-
-
 
   def self.totals
     {

@@ -3,11 +3,10 @@ class Admin::Financials::KpiDashboardController < AdminBaseController
   before_filter :get_dates, only: [:show]
   def show
     @table_data = FinancialsReporterService.get_data_by_date @sdate,@edate
-    @dates = @table_data.delete("weekending_date")["values"]
+    @dates = @table_data["weekending_date"]["values"]
     @totals= FinancialsReporterService.totals
-   @plot_data=@table_data["starting_mrr"]["values"]
     if request.xhr?
-      render json: {plotData: @plot_data, totals: @totals, tableData: @kpi}
+      render json: {totals: @totals, tableData: @table_data}
     end
   end
 
