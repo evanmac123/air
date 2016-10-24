@@ -52,7 +52,7 @@ class Organization < ActiveRecord::Base
   end
 
   def self.as_customer
-    joins(:contracts)
+    joins(:contracts).uniq
   end
 
   def active_mrr
