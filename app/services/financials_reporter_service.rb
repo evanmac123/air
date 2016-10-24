@@ -35,35 +35,6 @@ class FinancialsReporterService
     end
   end
 
-  def self.to_csv sdate, edate 
-    generate_csv(self.tabular_data_by_date(sdate, edate))
-  end
-
-  def self.tabular_data_by_date sdate, edate
-    self.to_table(raw_data(sdate, edate))
-  end
-
-
-  def self.matrix_by_date sdate, edate
-    self.to_matrix(raw_data(sdate, edate))
-  end
-
-  def self.plot_data_by_date sdate, edate
-    self.to_plot_data(raw_data(sdate, edate))
-  end
-
-  def self.raw_data sdate, edate
-    Metrics.by_start_and_end(sdate, edate)
-  end
-
-  def self.generate_csv table
-    CSV.generate do |csv|
-      table.each do|row|
-        csv << row
-      end
-    end
-  end
-
   def self.current_mrr
     Contract.active_mrr_for_date
   end
@@ -76,37 +47,83 @@ class FinancialsReporterService
     Contract.active.includes(:organization).count
   end
 
-
-  def self.to_table metric_set_array
-    table =[]
-    Metrics.label_field_mapping.each do|label, metric|
-      rows=[]
-      rows[0]=label
-
-      metric_set_array.each do|metric_set|
-        rows << metric_set[metric]
-      end
-
-      table << rows
-    end
-   table
-  end
-
-  def self.to_plot_data metric_set_array
-    hash_table ={}
-    Metrics.kpi_fields.each do|metric|
-      rows = []
-      metric_set_array.each do|metric_set|
-        rows << metric_set[metric]
-      end
-      hash_table[metric]=rows
-    end
-    hash_table["weekending_date"].map{|d| d.to_time.to_i*1000}.zip(hash_table["starting_mrr"])
-  end
-
   def self.default_date_range
-    Metrics.default_date_range
+    edate = Date.today.beginning_of_week
+    sdate = edate.advance(weeks: -5)
+    [sdate, edate]
   end
+
+  #def self.to_csv sdate, edate 
+    #generate_csv(self.tabular_data_by_date(sdate, edate))
+  #end
+
+  #def self.tabular_data_by_date sdate, edate
+    #self.to_table(raw_data(sdate, edate))
+  #end
+
+  def self.get_data_by_date sdate, edate
+    self.to_matrix(raw_data(sdate, edate))
+  end
+
+  #def self.plot_data_by_date sdate, edate
+    #self.to_plot_data(raw_data(sdate, edate))
+  #end
+ def self.to_matrix res
+    fields = res.map(&:keys).flatten.uniq
+    values = res.map(&:values).transpose
+    container = Metrics.record_hash
+    new_hash =Hash[fields.zip values]
+    container.each do|field, sub_hash|
+      sub_hash["values"]=new_hash[field] 
+      sub_hash["label"]=field_to_label_map[field]
+    end
+    container
+  end
+
+
+  def self.raw_data sdate, edate
+    Metrics.normalized_by_start_and_end sdate, edate 
+  end
+
+  def self.generate_csv table
+    CSV.generate do |csv|
+      table.each do|row|
+        csv << row
+      end
+    end
+  end
+
+
+
+
+  #def self.to_table metric_set_array
+    #table =[]
+    #Metrics.label_field_mapping.each do|label, metric|
+      #rows=[]
+      #rows[0]=label
+
+      #metric_set_array.each do|metric_set|
+        #rows << metric_set[metric]
+      #end
+
+      #table << rows
+    #end
+   #table
+  #end
+
+  #def self.to_plot_data metric_set_array
+    #hash_table ={}
+    #Metrics.kpi_fields.each do|metric|
+      #rows = []
+      #metric_set_array.each do|metric_set|
+        #rows << metric_set[metric]
+      #end
+      #hash_table[metric]=rows
+    #end
+    #hash_table["weekending_date"].map{|d| d.to_time.to_i*1000}.zip(hash_table["starting_mrr"])
+  #end
+
+
 
   def self.totals
     {
@@ -116,13 +133,19 @@ class FinancialsReporterService
     }
   end
 
-  def self.to_matrix res
-    binding.pry
-    fields = res.map(&:keys).flatten.uniq
-    values = res.map(&:values).transpose
-    Hash[fields.zip values]
+   def self.field_to_label_map
+    {"weekending_date"=>"Date",
+     "starting_customers"=>"Starting Customers",
+     "added_customers"=>"Customers Added",
+     "cust_possible_churn"=>"Possible Churn",
+     "cust_churned"=>"Churned",
+     "starting_mrr"=>"Starting MRR",
+     "added_mrr"=>"MRR Added",
+     "new_cust_mrr"=>"New Customer MRR",
+     "upgrade_mrr"=>"Upgrade MRR ",
+     "possible_churn_mrr"=>"MRR Possible Churn",
+     "churned_mrr"=>"MRR Churned",
+     "percent_churned_mrr"=>"Percent MRR Churn",
+     "net_churned_mrr"=>"Net MRR Churn"}
   end
-
-
-
 end

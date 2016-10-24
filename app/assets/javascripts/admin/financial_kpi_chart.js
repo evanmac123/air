@@ -20,7 +20,7 @@ Airbo.FinancialKpiChart = (function(){
       xAxis: x_axis_params() ,
       yAxis: y_axis_params(),
       series: [{
-        data: []//container.data("plotdata")
+        data: container.data("plotdata")
       } ]
     });
   }
@@ -121,22 +121,22 @@ Airbo.FinancialKpiChart = (function(){
     initForm();
   }
 
-  var template=[
-    "<table>",
-    "<thead><tr><td>&nbsp;</td>",
-    "{{each data.headers}}",
-    "<td>{{this}}</td>",
-    "{{/each}",
-    "</tr></thead>",
-    "<tbody>",
-    "{{each dataRow}}",
-    "<tr>",
-    "<th>{{column.header}}</th>"
-    "{{each column.values}}",
-    "<td>{{this}}</td>"
-    "{{/each}}",
-    "</tr></tbody></table>"
-  ];
+  //var template=[
+    //"<table>",
+    //"<thead><tr><td>&nbsp;</td>",
+    //"{{each data.headers}}",
+    //"<td>{{this}}</td>",
+    //"{{/each}",
+    //"</tr></thead>",
+    //"<tbody>",
+    //"{{each dataRow}}",
+    //"<tr>",
+    //"<th>{{column.header}}</th>"
+    //"{{each column.values}}",
+    //"<td>{{this}}</td>",
+    //"{{/each}}",
+    //"</tr></tbody></table>"
+  //];
 
 
   return {

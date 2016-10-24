@@ -1,9 +1,11 @@
 class Admin::Financials::KpiDashboardController < AdminBaseController
   before_filter :parse_start_and_end_dates, only: [:show]
+  before_filter :get_dates, only: [:show]
   def show
-    get_kpi
-    @plot_data = FinancialsReporterService.plot_data_by_date @sdate, @edate
+    @table_data = FinancialsReporterService.get_data_by_date @sdate,@edate
+    @dates = @table_data.delete("weekending_date")["values"]
     @totals= FinancialsReporterService.totals
+   @plot_data=@table_data["starting_mrr"]["values"]
     if request.xhr?
       render json: {plotData: @plot_data, totals: @totals, tableData: @kpi}
     end
@@ -18,9 +20,6 @@ class Admin::Financials::KpiDashboardController < AdminBaseController
     end
   end
 
-  def get_kpi
-    get_dates
-    @kpi = Metrics.by_start_and_end @sdate,@edate
-  end
+
 end
 

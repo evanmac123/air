@@ -1,19 +1,20 @@
 class Metrics < ActiveRecord::Base
 
-  def self.by_start_and_end sdate, edate
-    where(["weekending_date >= ? and weekending_date < ?",sdate, edate]).to_array_of_record_hashes
+  def self.normalized_by_start_and_end sdate, edate
+    by_start_and_end(sdate, edate).to_array_of_record_hashes
   end
 
   def self.current_week
-    sdate, edate = default_date_range
-    by_start_and_end(sdate, edate)
+    by_start_and_end(*default_date_range)
   end
-
 
   def self.current_week_with_date_range
-   [by_start_and_end(*default_date_range),@sweek, @this_week]
+    [by_start_and_end(*default_date_range),@sweek, @this_week]
   end
 
+  def self.by_start_and_end sdate, edate
+    where(["weekending_date >= ? and weekending_date < ?",sdate, edate])
+  end
 
   def self.default_date_range
     @this_week =Date.today.beginning_of_week
@@ -23,10 +24,13 @@ class Metrics < ActiveRecord::Base
 
   def self.to_array_of_record_hashes
     #Note self is an active record relation
-    self.select(qry_select_stmt).map do |record|
+    results.map do |record|
       normalize_values(record)
     end
+  end
 
+  def self.results
+    select(qry_select_fields)
   end
 
   def self.normalize_values record
@@ -40,8 +44,8 @@ class Metrics < ActiveRecord::Base
     field_value.class==BigDecimal ? field_value.to_i : field_value
   end
 
-  def self.qry_select_stmt
-    kpi_fields.join(',')
+  def self.qry_select_fields
+    kpi_fields.join(",")
   end
 
   def self.kpi_fields
@@ -61,34 +65,17 @@ class Metrics < ActiveRecord::Base
     ]
   end
 
-  def self.field_headers
-    [
-      ["Date","date"],
-      ["Starting Customers","int"],
-      ["Customers Added","int"],
-      ["Possible Churn","int"],
-      ["Churned","int"],
-      ["Starting MRR", "money"],
-      ["MRR Added","money"],
-      ["New Customer MRR","money"],
-      ["Upgrade MRR ","money"],
-      ["MRR Possible Churn","money"],
-      ["MRR Churned","money"],
-      ["Percent MRR Churn","pct"],
-      ["Net MRR Churn", "pct"]
-    ]
+  def self.record_hash
+    columns_for_kpi.inject({}) do |hash,column|
+      hash[column.name]={
+        "type" => column.type
+      }
+      hash
+    end
   end
 
-  def self.metric_labels
-    field_headers.map{|fh|fh[0]}
-  end
-
-  def self.label_field_mapping
-    Hash[metric_labels.zip kpi_fields]
-  end
-
-  def self.field_mapping
-    Hash[field_headers.zip kpi_fields]
+  def self.columns_for_kpi
+    columns.reject{|c| kpi_fields.include?(c.name)==false}
   end
 
 end
