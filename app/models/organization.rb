@@ -28,15 +28,15 @@ class Organization < ActiveRecord::Base
 
 
   def self.active_during_period sdate, edate
-    all.select{|o| o.has_start_and_end && o.customer_start_date <=  sdate && o.customer_end_date > edate}
+    as_customer.select{|o| o.has_start_and_end && o.customer_start_date <=  sdate && o.customer_end_date > edate}
   end
 
   def self.added_during_period sdate, edate
-    all.select{|o| o.has_start_and_end && o.customer_start_date > sdate && o.customer_start_date < edate}
+    as_customer.select{|o| o.has_start_and_end && o.customer_start_date > sdate && o.customer_start_date < edate}
   end
 
   def self.possible_churn_during_period sdate, edate
-    all.select{|o| o.has_start_and_end && o.customer_end_date > sdate && o.customer_end_date <= edate}
+    as_customer.select{|o| o.has_start_and_end && o.customer_end_date > sdate && o.customer_end_date <= edate}
   end
 
   def self.churned_during_period sdate, edate
@@ -49,6 +49,10 @@ class Organization < ActiveRecord::Base
 
   def self.new_customer_mrr_added_during_period sdate, edate
     added_during_period(sdate,edate).inject(0){|sum,org | sum+= org.mrr_during_period(sdate,edate)}
+  end
+
+  def self.as_customer
+    joins(:contracts)
   end
 
   def active_mrr
