@@ -93,6 +93,7 @@
         </thead>
         <tbody>
           <%@table_data.each do |field, sub_hash|%>
+            <%next if field=="weekending_date"%>
             <tr>
               <th><%=sub_hash["label"]%></th>
               <%sub_hash["values"].each do |val| %>
