@@ -13,9 +13,17 @@ Airbo.Utils.Modals = (function(){
     Airbo.Utils.Modals.trigger(modal, "close");
   }
 
+  function bindClose() {
+    $(".close-airbo-modal").on("click", function() {
+      var modal = this.closest(".reveal-modal");
+      Airbo.Utils.Modals.trigger(modal, "close");
+    });
+  }
+
   return {
     trigger: trigger,
-    close: close
+    close: close,
+    bindClose: bindClose
   };
 
 }());

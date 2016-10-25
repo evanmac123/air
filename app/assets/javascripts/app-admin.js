@@ -31,6 +31,7 @@
 //= require ./admin/lead_contact
 //= require ./admin/lead_contact_validations
 //= require ./admin/cheer
+//= require ./admin/delete_board_modal
 //= require ../../../vendor/assets/javascripts/chosen.jquery.min
 //= require ../../../vendor/assets/javascripts/external/modernizr
 
@@ -43,6 +44,12 @@ $(document).ready(function($) {
     $(".sidebar-accordion-content").not($(this).next()).slideUp('fast');
 
   });
+
+  $("#delete-board").on("click", function() {
+    Airbo.Utils.Modals.trigger("#delete-board-modal", 'open');
+  });
+
+  Airbo.Utils.Modals.bindClose();
 });
 
 $(function(){
