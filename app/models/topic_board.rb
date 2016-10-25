@@ -5,7 +5,13 @@ class TopicBoard < ActiveRecord::Base
   scope :library_board_set, ->{ where is_library: true }
   scope :reference_board_set, ->{ where is_reference: true }
   scope :onboarding_board_set, ->{ where is_onboarding: true }
-  has_attached_file :cover_image, styles: { medium: "300x200>", thumb: "100x100>" }, default_url: "/images/airbo_venice.png"
+  has_attached_file :cover_image,
+    {
+      styles: { medium: "300x200>", thumb: "100x100>" },
+      default_style: :medium,
+      default_url: "assets/images/airbo_venice.png",
+      bucket: S3_LOGO_BUCKET
+    }.merge(TOPIC_BOARD_OPTIONS)
 
   validates_attachment_content_type :cover_image, content_type: /\Aimage\/.*\z/
 
