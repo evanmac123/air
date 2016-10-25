@@ -26,6 +26,7 @@ class Admin::TopicBoardsController < AdminBaseController
 
   def create
     @topic_board = TopicBoard.create(permitted_params)
+    @topic_board.board.update_attributes({ is_parent: true, is_public: true })
     if @topic_board.valid?
       flash[:success]="Topic Board Created Successfully"
       redirect_to admin_topic_boards_path
