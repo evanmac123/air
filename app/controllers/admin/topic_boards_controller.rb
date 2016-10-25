@@ -44,10 +44,7 @@ class Admin::TopicBoardsController < AdminBaseController
         :is_reference,
         :is_library,
         :is_onboarding,
-        :cover_image_file_name,
-        :cover_image_content_type,
-        :cover_image_file_size,
-        :cover_image_updated_at
+        :cover_image
       )
     end
 

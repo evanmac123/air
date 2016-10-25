@@ -38,10 +38,7 @@ class Admin::TopicsController < AdminBaseController
       params.require(:topic).permit(
         :name,
         :is_explore,
-        :cover_image_file_name,
-        :cover_image_content_type,
-        :cover_image_file_size,
-        :cover_image_updated_at
+        :cover_image
       )
     end
 end
