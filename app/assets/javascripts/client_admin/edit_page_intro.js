@@ -28,6 +28,10 @@ Airbo.ClientAdminEditIntro = (function(){
     intro.oncomplete(function() {
       Airbo.Utils.Modals.trigger("#from-onboarding-modal", 'open');
     });
+
+    intro.onexit(function() {
+      Airbo.Utils.Modals.trigger("#from-onboarding-modal", 'open');
+    });
   }
 
   function init(){

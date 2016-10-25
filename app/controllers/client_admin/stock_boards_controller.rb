@@ -1,11 +1,11 @@
 class ClientAdmin::StockBoardsController < ClientAdminBaseController
   include TileBatchHelper
   def index
-     sort_demos
-
+    @boards = library_boards
   end
 
   def show
+    # FIXME: optimize this query
     @current_user = current_user
     @demo = Demo.public_board_by_public_slug(params[:library_slug])
     @tiles = @demo.tiles.active.order("activated_at desc").limit(max_tiles)
@@ -15,28 +15,17 @@ class ClientAdmin::StockBoardsController < ClientAdminBaseController
     end
   end
 
-
   private
 
-  def max_tiles
-    curr_page * 16
-  end
+    def max_tiles
+      curr_page * 16
+    end
 
-  def curr_page
-    @page ||= params[:page].try(:to_i) || 1
-  end
+    def curr_page
+      @page ||= params[:page].try(:to_i) || 1
+    end
 
- def board_slugs
-   @slugs ||= HOMEPAGE_BOARD_SLUGS.split(",")
- end
-
-
- def sort_demos
-   @demos = Demo.where(public_slug:board_slugs)
-   @sorted_demos = board_slugs.map do|slug|
-     @demos.where(public_slug: slug).first
-   end.compact
- end
-
-
+    def library_boards
+      Demo.joins(:topic_board).where(topic_board: { is_library: true } )
+    end
 end

@@ -292,11 +292,13 @@ Health::Application.routes.draw do
 
   namespace :admin do
     namespace :sales do
-      resources :lead_contacts, only: [:index, :edit, :update, :create] do
+      resources :lead_contacts, only: [:index, :edit, :update, :create, :destroy] do
         resources :invites, only: [:new]
         resources :tiles, only: [:index]
       end
     end
+
+    resources :topics
 
     resource :client_kpi_report
     resources :topic_boards

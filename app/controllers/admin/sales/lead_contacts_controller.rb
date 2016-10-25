@@ -3,6 +3,12 @@ class Admin::Sales::LeadContactsController < AdminBaseController
     @lead_contacts = LeadContact.scoped
   end
 
+  def destroy
+    LeadContact.find(params[:id]).destroy
+
+    redirect_to admin_sales_lead_contacts_path
+  end
+
   def edit
     @lead_contact = LeadContact.includes(:organization).find(params[:id])
     choose_state
