@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161019194124) do
+ActiveRecord::Schema.define(:version => 20161024205247) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -493,6 +493,8 @@ ActiveRecord::Schema.define(:version => 20161019194124) do
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
     t.date     "weekending_date"
+    t.decimal  "amt_booked"
+    t.string   "interval"
   end
 
   create_table "more_info_requests", :force => true do |t|
