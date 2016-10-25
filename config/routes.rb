@@ -298,7 +298,7 @@ Health::Application.routes.draw do
       end
     end
 
-    resources :topics, only: [:new, :create]
+    resources :topics
 
     resource :client_kpi_report
     resources :topic_boards

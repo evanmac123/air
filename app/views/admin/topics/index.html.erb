@@ -1,0 +1,26 @@
+<div class="row">
+  <h3>Topics</h3>
+  <div class="columns small-12">
+    <table>
+      <thead>
+        <tr>
+          <th>Topic</th>
+          <th>Is Explore?</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+    <tbody>
+      <%@topics.each do |topic| %>
+       <tr class="">
+         <td><%= topic.name %></td>
+         <td><%= topic.is_explore %></td>
+         <td><%= link_to "Edit", edit_admin_topic_path(topic) %></td>
+       </tr>
+      <%end%>
+    </tbody>
+    </table>
+    <div>
+    <%= link_to "New Topic", new_admin_topic_path %>
+    </div>
+  </div>
+</div>

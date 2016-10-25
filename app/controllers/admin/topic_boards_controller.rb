@@ -45,5 +45,4 @@ class Admin::TopicBoardsController < AdminBaseController
     @demos = Demo.name_order.select([:name, :id])
     @topics = Topic.scoped.select([:name, :id])
   end
-
 end

@@ -1,0 +1,14 @@
+<%= form_for [:admin, @topic] do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %><br>
+  <br>
+  <%= f.label :cover_image, "Image"  %>
+  <%= f.file_field :cover_image, { id:"file_input" } %>
+  <br>
+  <%= f.label :is_explore do %>
+    Is explore? <%= f.check_box :is_explore, checked: false %>
+  <% end %>
+  <br>
+  <%= f.submit "Save", class:"button" %>
+  <%= link_to "All topics", admin_topics_path %>
+<% end %>

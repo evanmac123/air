@@ -1,24 +1,29 @@
-<div class="topic-board-form">
-  <%=form_for [:admin, @topic_board] do |f| %>
-    <ul>
-      <li>
-        <label>Topic</label>
-        <%=f.select :topic_id, options_from_collection_for_select(@topics, :id,  :name, f.object.topic_id), {include_blank: true}, class: "airbo-chosen-select"%>
-      </li>
+<%=form_for [:admin, @topic_board] do |f| %>
 
-      <li>
-        <label>Board</label>
-        <%=f.select :demo_id, options_from_collection_for_select(@demos, :id,  :name, f.object.demo_id), {include_blank: true}, class: "airbo-chosen-select" %>
-      </li>
+  <%= f.label :topic_id, "Topic" %>
+  <%= f.select :topic_id, options_from_collection_for_select(@topics, :id,  :name, f.object.topic_id), {include_blank: true}, class: "airbo-chosen-select" %>
+  <br>
 
-      <li>
-        <label>Make this board the Reference board for this topic </label>
-        <%=f.check_box :is_reference %> Yes
-      </li>
-    </ul>
-    <p>
-    <%=f.submit "Save",class: "button right" %>
-    <%=link_to "Edit", edit_admin_topic_board_path(@topic_board), class:'button outlined' if @topic_board.persisted?%>
-    </p>
-  <%end%>
-</div>
+  <%= f.label :demo_id, "Board" %>
+  <%=f.select :demo_id, options_from_collection_for_select(@demos, :id,  :name, f.object.demo_id), {include_blank: true}, class: "airbo-chosen-select" %>
+  <br>
+
+  <%= f.label :cover_image, "Cover Image"  %>
+  <%= f.file_field :cover_image, { id:"file_input" } %>
+  <br>
+
+  <%= f.label :is_library do %>
+    Is Library? <%= f.check_box :is_library, checked: false %>
+  <% end %>
+
+  <%= f.label :is_onboarding do %>
+    Is Onboarding? <%= f.check_box :is_onboarding, checked: false %>
+  <% end %>
+
+  <%= f.submit "Save",class: "button right" %>
+
+  <%= link_to "Edit", edit_admin_topic_board_path(@topic_board), class:'button outlined' if @topic_board.persisted? %>
+
+  <%= link_to "Create New Topic", new_admin_topic_path %>
+<%end%>
+<%=link_to "Library/Onboarding Boards List", admin_topic_boards_path %>

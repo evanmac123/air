@@ -1,34 +1,33 @@
 
 <div class="row">
-  <h1>Topic Boards</h1>
+  <h3>Library/Onboarding Boards</h3>
   <div class="columns small-12">
     <table>
       <thead>
         <tr>
-          <th>Topic</th>
           <th>Board</th>
+          <th>Topic</th>
           <th>Is Library?</th>
           <th>Is Onboarding?</th>
-          <th>&nbsp;</th>
+          <th></th>
+          <th></th>
         </tr>
       </thead>
     <tbody>
-      <%@topic_boards.each do |topic| %>
+      <%@topic_boards.each do |topic_board| %>
        <tr class="">
-         <td><%= topic.topic_name %></td>
-         <td><%= topic.board_name %></td>
-         <td><%= topic.is_library %></td>
-         <td><%= topic.is_onboarding %></td>
-         <td>
-           <%= link_to "Edit", edit_admin_topic_board_path(topic) %>
-           <%= link_to "Delete", admin_topic_boards_path(topic) %>
-         </td>
+         <td><%= topic_board.board_name %></td>
+         <td><%= topic_board.topic_name %></td>
+         <td><%= topic_board.is_library %></td>
+         <td><%= topic_board.is_onboarding %></td>
+         <td><%= link_to "Edit", edit_admin_topic_board_path(topic_board) %></td>
+         <td><%= link_to "Delete", admin_topic_boards_path(topic_board) %></td>
        </tr>
       <%end%>
     </tbody>
     </table>
     <div>
-    <%= link_to "New Topic Board", new_admin_topic_board_path %>
+    <%= link_to "New Library/Onboarding Board", new_admin_topic_board_path %>
     </div>
   </div>
 </div>

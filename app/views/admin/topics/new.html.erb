@@ -1,18 +1,6 @@
 <div class="row">
-  <h1>Create a new Topic</h1>
+  <h3>Create a new Topic</h3>
   <div class="columns small-7">
-    <%= form_for [:admin, @topic] do |f| %>
-    <%= f.label :name %>
-    <%= f.text_field :name %><br>
-    <br>
-    <%= f.label :cover_image, "Image"  %>
-    <%= f.file_field :cover_image, { id:"file_input" } %>
-    <br>
-    <%= f.label :is_explore do %>
-      Is explore? <%= f.check_box :is_explore, checked: false %>
-    <% end %>
-    <br>
-    <%= f.submit "Create Topic", class:"button" %>
-    <% end %>
+    <%= render "form" %>
   </div>
 </div>
