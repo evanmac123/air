@@ -21,7 +21,7 @@
          <td><%= topic_board.is_library %></td>
          <td><%= topic_board.is_onboarding %></td>
          <td><%= link_to "Edit", edit_admin_topic_board_path(topic_board) %></td>
-         <td><%= link_to "Delete", admin_topic_boards_path(topic_board) %></td>
+         <td><%= link_to "Remove from Library and Onboarding", [:admin, topic_board], method: :delete %></td>
        </tr>
       <%end%>
     </tbody>

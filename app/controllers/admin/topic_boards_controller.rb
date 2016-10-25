@@ -36,6 +36,12 @@ class Admin::TopicBoardsController < AdminBaseController
     end
   end
 
+  def destroy
+    topic_board = TopicBoard.find(params[:id]).destroy
+    flash[:success] = "#{topic_board.board.name} removed from Library and Onboarding."
+    redirect_to admin_topic_boards_path
+  end
+
   private
 
     def permitted_params
