@@ -13,16 +13,14 @@
   <br>
 
   <%= f.label :is_library do %>
-    Is Library? <%= f.check_box :is_library, checked: false %>
+    Is Library? <%= f.check_box :is_library %>
   <% end %>
 
   <%= f.label :is_onboarding do %>
-    Is Onboarding? <%= f.check_box :is_onboarding, checked: false %>
+    Is Onboarding? <%= f.check_box :is_onboarding %>
   <% end %>
 
   <%= f.submit "Save",class: "button right" %>
-
-  <%= link_to "Edit", edit_admin_topic_board_path(@topic_board), class:'button outlined' if @topic_board.persisted? %>
 
   <%= link_to "Create New Topic", new_admin_topic_path %>
 <%end%>

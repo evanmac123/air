@@ -37,12 +37,12 @@ class Admin::TopicBoardsController < AdminBaseController
 
   private
 
-  def permitted_params
-   params.require(:topic_board).permit(:topic_id, :demo_id, :is_reference, :is_library, :is_onboarding, :cover_image)
-  end
+    def permitted_params
+     params.require(:topic_board).permit(:topic_id, :demo_id, :is_reference, :is_library, :is_onboarding, :cover_image)
+    end
 
-  def resources
-    @demos = Demo.name_order.select([:name, :id])
-    @topics = Topic.scoped.select([:name, :id])
-  end
+    def resources
+      @demos = Demo.name_order.select([:name, :id])
+      @topics = Topic.scoped.select([:name, :id])
+    end
 end
