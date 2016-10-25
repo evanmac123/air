@@ -5,6 +5,7 @@ class ClientAdmin::StockBoardsController < ClientAdminBaseController
   end
 
   def show
+    # FIXME: optimize this query
     @current_user = current_user
     @demo = Demo.public_board_by_public_slug(params[:library_slug])
     @tiles = @demo.tiles.active.order("activated_at desc").limit(max_tiles)
