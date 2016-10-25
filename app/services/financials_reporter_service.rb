@@ -16,6 +16,7 @@ class FinancialsReporterService
     m.churned_mrr=kpi.mrr_churned_during_period
     m.percent_churned_mrr=kpi.percent_mrr_churn_during_period
     m.net_churned_mrr=kpi.net_mrr_churn_during_period
+    m.amt_booked=kpi.amount_booked_during_period
     m.weekending_date=edate
     m.save
   end

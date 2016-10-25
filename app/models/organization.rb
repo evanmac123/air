@@ -28,12 +28,24 @@ class Organization < ActiveRecord::Base
 
 
   def self.active_during_period sdate, edate
-    as_customer.select{|o| o.has_start_and_end && o.customer_start_date <=  sdate && o.customer_end_date > edate}
+    as_customer.select{|o| o.has_start_and_end && o.customer_start_date <= edate  && o.customer_end_date > edate}
   end
 
   def self.added_during_period sdate, edate
-    as_customer.select{|o| o.has_start_and_end && o.customer_start_date > sdate && o.customer_start_date < edate}
+    as_customer.select{|o| o.has_start_and_end && o.customer_start_date >= sdate && o.customer_start_date <= edate}
   end
+
+  def self.new_customer_mrr_added_during_period sdate, edate
+    added_during_period(sdate,edate).inject(0){|sum,org | sum+= org.mrr_during_period(sdate,edate)}
+  end
+
+  def self.new_customer_arr_added_during_period sdate, edate
+   added_during_period(sdate,edate).inject(0){|sum,org| sum += org.arr_during_period(sdate,edate)}
+  end
+
+ #NOTE customer will not show up as possible churn if they have 1 or more
+  #contracts expiring after edate. Their contracts will be included in possible
+  #churn
 
   def self.possible_churn_during_period sdate, edate
     as_customer.select{|o| o.has_start_and_end && o.customer_end_date > sdate && o.customer_end_date <= edate}
@@ -41,15 +53,17 @@ class Organization < ActiveRecord::Base
 
   def self.churned_during_period sdate, edate
     possible_churn_during_period(sdate, edate).select{|o|o.contracts.auto_renewing.count == 0}
+    #as_customer.select{|o|  o.customer_end_date < sdate && o.customer_end_date > sdate.advance(weeks: -1)}
+  end
+  
+  def self.mrr_possibly_churning_during_period sdate, edate
+    possible_churn_during_period(sdate, edate)
   end
 
-  def self.new_customer_arr_added_during_period sdate, edate
-   added_during_period(sdate,edate).inject(0){|sum,org| sum += org.arr_during_period(sdate,edate)}
-  end
+  #-----------
 
-  def self.new_customer_mrr_added_during_period sdate, edate
-    added_during_period(sdate,edate).inject(0){|sum,org | sum+= org.mrr_during_period(sdate,edate)}
-  end
+
+
 
   def self.as_customer
     joins(:contracts).uniq
