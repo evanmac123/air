@@ -74,10 +74,6 @@ class FinancialsCalcService
     retained_customers.map{|c|c.mrr_churn_during_period(sdate, edate)}
   end
 
-  def retained_customer_net_mrr_churn
-    retained_customers.sum{|c|c.mrr_churn_during_period(sdate, edate)}
-  end
-
   def upgrade_mrr
    @upgrade_mrr ||= retained_customer_churn.select{|i|i>0}.sum
   end
@@ -126,33 +122,7 @@ class FinancialsCalcService
 
   private
 
-  #def active_contracts_during_period
-    #Contract.active_during_period(sdate, edate).count
-  #end
 
-  #def added_contracts_during_period
-    #Contract.added_during_period(sdate, edate).count
-  #end
-
-  #def arr_possibly_churning_during_period
-    #Contract.arr_possibly_churning_during_period(sdate, edate)
-  #end
-
-  #def arr_during_period
-    #Contract.arr_during_period(sdate, edate)
-  #end
-
-  #def arr_added_during_period
-    #Contract.arr_added_during_period(sdate, edate)
-  #end
-
-  #def new_customer_arr_added_during_period
-    #Organization.new_customer_arr_added_during_period(sdate, edate)
-  #end
-
-  #def arr_added_from_upgrades_during_period
-    #Contract.arr_added_from_upgrades_during_period(sdate, edate)
-  #end
 
 
 end
