@@ -21,9 +21,6 @@ class FinancialsCalcService
     @current_cust ||=Organization.active_as_of_date edate
   end
 
-  def churned_customers
-    Organization.churned_during_period sdate, edate
-  end
 
   def added_customers
     @cust_added ||= Organization.added_during_period sdate, edate
@@ -52,16 +49,26 @@ class FinancialsCalcService
   end
 
   def new_customer_mrr
-    customers_added.sum{|c|c.mrr_as_of_date(edate)}
+    @new_cust_mrr ||= added_customers.sum{|c|c.mrr_as_of_date(edate)}
   end
+
+  def lost_customer_mrr
+    @lost_cust_mrr ||= lost_customers.sum{|c|c.mrr_as_of_date(sdate)}
+  end
+
+  def retained_customers
+   @retained_customers ||= current_customers-added_customers
+  end
+
+  def lost_customers
+    @lost_customers ||=starting_customers - retained_customers
+  end
+
 
   #------------------------
   # Upgades/Downgrad MRR Methods
   #_________________________
 
-  def retained_customers
-    current_customers-added_customers
-  end
 
   def retained_customer_churn
     retained_customers.map{|c|c.mrr_churn_during_period(sdate, edate)}
@@ -70,7 +77,6 @@ class FinancialsCalcService
   def retained_customer_net_mrr_churn
     retained_customers.sum{|c|c.mrr_churn_during_period(sdate, edate)}
   end
-
 
   def upgrade_mrr
     retained_customer_churn.select{|i|i>0}.sum
@@ -82,28 +88,9 @@ class FinancialsCalcService
 
   #---- good
 
-  def churned_customer_mrr
-    #TBD
-    #churned_customers.sum{|c|c.mrr_during_period sdate, edate}
-  end
-
-
-
-
-  #NOTE could possible use the result of active_during_period
-  def mrr_upgrades_during_period
-    Contract.mrr_added_during_period(sdate, edate) - new_customer_mrr_added_during_period
-  end
-
-
   def possible_churn_during_period
     Organization.possible_churn_during_period(sdate, edate).count
   end
-
-  def churned_during_period
-    Organization.churned_during_period(sdate, edate).count
-  end
-
 
   def mrr_possibly_churning_during_period
     Contract.mrr_possibly_churning_during_period(sdate, edate)
@@ -112,6 +99,22 @@ class FinancialsCalcService
   def amount_booked_during_period sdate, edate
     booked_during_period
   end
+
+  protected
+
+  #NOTE these methods is overwritten in the  HistoricalFinancialsCalcService
+
+  def churned_customers
+    Organization.churned_during_period sdate, edate
+  end
+
+  def churned_customer_mrr
+    #TBD
+    #churned_customers.sum{|c|c.mrr_during_period sdate, edate}
+  end
+
+
+
 
 
   private
