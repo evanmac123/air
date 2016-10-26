@@ -117,9 +117,6 @@ class FinancialsCalcService
   end
 
 
-
-
-
   private
 
 
