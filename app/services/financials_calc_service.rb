@@ -79,13 +79,20 @@ class FinancialsCalcService
   end
 
   def upgrade_mrr
-    retained_customer_churn.select{|i|i>0}.sum
+   @upgrade_mrr ||= retained_customer_churn.select{|i|i>0}.sum
   end
 
   def downgrade_mrr
-    retained_customer_churn.select{|i|i<0}.sum
+   @downgrade_mrr ||= retained_customer_churn.select{|i|i<0}.sum
   end
 
+  def mrr_added
+    @mrr_add ||= upgrade_mrr + new_customer_mrr
+  end
+
+  def mrr_churned
+    @mrr_churned ||= downgrade_mrr - lost_customer_mrr
+  end
   #---- good
 
   def possible_churn_during_period
