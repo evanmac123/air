@@ -3,7 +3,7 @@ namespace :db do
     desc "Cleanup users without current boards"
     task cleanup_users_without_current_boards: :environment do
       puts "Looking for lost users..."
-      users = User.all.reject { |u| u.current_board_membership != nil }
+      users = User.includes(:demo, :board_memberships).where(demo: { id: nil} )
 
       puts "#{users.count} users are lost.  Helping them find their way..."
       users.each { |u|
