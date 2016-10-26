@@ -21,8 +21,6 @@ class FinancialsCalcService
     Organization.churned_during_period sdate, edate
   end
 
-
-
   def customers_added
     @cust_added ||= Organization.added_during_period sdate, edate
   end
@@ -32,7 +30,6 @@ class FinancialsCalcService
   end
 
   def starting_mrr
-    #@starting_mrr ||=Contract.active_mrr_as_of_date edate
     @starting_mrr ||=Contract.mrr_during_period sdate, edate
   end
 
@@ -41,11 +38,11 @@ class FinancialsCalcService
     #churned_customers.sum{|c|c.mrr_during_period sdate, edate}
   end
 
-  #---- good
   def current_mrr
-    #@current_mrr ||= starting_mrr - churned_customer_mrr
-    @current_mrr ||=Contract.active_mrr_as_of_date  date
+    @current_mrr ||=Contract.active_mrr_as_of_date  edate
   end
+
+  #---- good
 
   def new_cust_mrr
     Organization.new_customer_mrr_added_during_period(sdate, edate)
