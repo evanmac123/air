@@ -48,19 +48,43 @@ class Organization < ActiveRecord::Base
   end
 
 
+  #-----------
 
+  def mrr_churn_during_period sdate, edate
+    current = mrr_as_of_date(edate) 
+    starting = mrr_as_of_date(sdate)
+    current-starting
+  end
+
+  def mrr_as_of_date date
+    active_contracts_as_of_date(date).sum(&:calc_mrr)
+  end
+
+  def active_contracts_as_of_date date
+    contracts.active_as_of_date(date)
+  end
+
+
+#------------------WIP-----------------------------------------
+
+
+ #NOTE customer will not show up as possible churn if they have 1 or more
+  #contracts expiring after edate. Their contracts will be included in possible
+  #churned
+  #
+  #
+ 
 
   def self.new_customer_mrr_added_during_period sdate, edate
     added_during_period(sdate,edate).inject(0){|sum,org | sum+= org.mrr_during_period(sdate,edate)}
   end
 
+
   def self.new_customer_arr_added_during_period sdate, edate
    added_during_period(sdate,edate).inject(0){|sum,org| sum += org.arr_during_period(sdate,edate)}
   end
 
- #NOTE customer will not show up as possible churn if they have 1 or more
-  #contracts expiring after edate. Their contracts will be included in possible
-  #churn
+
 
   def self.possible_churn_during_period sdate, edate
     as_customer.select{|o| o.has_start_and_end && o.customer_end_date > sdate && o.customer_end_date <= edate}
@@ -69,9 +93,6 @@ class Organization < ActiveRecord::Base
   def self.mrr_possibly_churning_during_period sdate, edate
     possible_churn_during_period(sdate, edate)
   end
-
-  #-----------
-
 
 
 
