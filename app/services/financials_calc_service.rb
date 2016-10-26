@@ -1,24 +1,55 @@
 class FinancialsCalcService
-  attr_accessor :report_date, :sdate, :edate 
+  attr_accessor :report_date, :sdate, :edate, :last_week
 
   def initialize(report_date=Date.today)
     @report_date = report_date 
+    @last_week = report_date.advance(weeks: -1) 
+
     @sdate = report_date.advance(weeks: -1) 
-    @edate = report_date.advance(days: -1) 
+    @edate = report_date.advance(days: -1)
+  end
+
+  def starting_customers
+    @starting_cust ||=Organization.active_during_period sdate,edate
+  end
+
+  def current_customers
+    @current_cust ||=(starting_customers + customers_added).uniq - churned_customers
+  end
+
+  def churned_customers
+    Organization.churned_during_period sdate, edate
+  end
+
+
+
+  def customers_added
+    @cust_added ||= Organization.added_during_period sdate, edate
+  end
+
+  def net_change_in_customers
+    current_customers.count - starting_customers.count
   end
 
   def starting_mrr
-    @starting_mrr ||=Contract.active_mrr_as_of_date report_date.advance(weeks: -1)
+    #@starting_mrr ||=Contract.active_mrr_as_of_date edate
+    @starting_mrr ||=Contract.mrr_during_period sdate, edate
   end
 
+  def churned_customer_mrr
+    #TBD
+    #churned_customers.sum{|c|c.mrr_during_period sdate, edate}
+  end
 
+  #---- good
   def current_mrr
-    @current_mrr ||= Contract.active_mrr_as_of_date report_date
+    #@current_mrr ||= starting_mrr - churned_customer_mrr
+    @current_mrr ||=Contract.active_mrr_as_of_date  date
   end
 
-   def new_cust_mrr
-     Organization.new_customer_mrr_added_during_period(sdate, edate)
-   end
+  def new_cust_mrr
+    Organization.new_customer_mrr_added_during_period(sdate, edate)
+  end
 
    def net_changed_mrr
      @net_change ||=current_mrr - starting_mrr
@@ -31,32 +62,6 @@ class FinancialsCalcService
    def downgrade_mrr
      
    end
-
-   #def starting_customers
-   #def added_customers
-   #def cust_possible_churn
-   #def cust_churned
-   #def added_mrr
-   #def upgrade_mrr
-   #def possible_churn_mrr
-   #def churned_mrr
-   #def percent_churned_mrr
-   #def net_churned_mrr
-   #def created_at
-   #def updated_at
-   #def weekending_date
-   #def amt_booked
-   #def interval
-
-
- 
-
-  def active_organizations_during_period 
-    Organization.active_during_period(sdate, edate).count
-  end
-
-
-  #NOTE could possible use the result of active_during_period
   def added_organizations_during_period 
     Organization.added_during_period(sdate, edate).count
   end
@@ -65,6 +70,7 @@ class FinancialsCalcService
     Organization.new_customer_mrr_added_during_period(sdate, edate) #OK
   end
 
+  #NOTE could possible use the result of active_during_period
   def mrr_upgrades_during_period
     Contract.mrr_added_during_period(sdate, edate) - new_customer_mrr_added_during_period
   end

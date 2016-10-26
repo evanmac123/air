@@ -26,14 +26,29 @@ class Organization < ActiveRecord::Base
   scope :name_order, ->{order("LOWER(name)")}
 
 
+  def self.as_customer
+    joins(:contracts).uniq
+  end
+
+  def self.active_as_of_date d
+    as_customer.select{|o| o.contracts.active_as_of_date(d).count > 0}
+  end
+
 
   def self.active_during_period sdate, edate
-    as_customer.select{|o| o.has_start_and_end && o.customer_start_date <= edate  && o.customer_end_date > edate}
+    as_customer.select{|o| o.has_start_and_end && o.customer_start_date <= edate  && o.customer_end_date >= edate}
   end
 
   def self.added_during_period sdate, edate
     as_customer.select{|o| o.has_start_and_end && o.customer_start_date >= sdate && o.customer_start_date <= edate}
   end
+
+  def self.churned_during_period sdate, edate
+    possible_churn_during_period(sdate, edate).select{|o|o.contracts.auto_renewing.count == 0}
+  end
+
+
+
 
   def self.new_customer_mrr_added_during_period sdate, edate
     added_during_period(sdate,edate).inject(0){|sum,org | sum+= org.mrr_during_period(sdate,edate)}
@@ -51,11 +66,6 @@ class Organization < ActiveRecord::Base
     as_customer.select{|o| o.has_start_and_end && o.customer_end_date > sdate && o.customer_end_date <= edate}
   end
 
-  def self.churned_during_period sdate, edate
-    possible_churn_during_period(sdate, edate).select{|o|o.contracts.auto_renewing.count == 0}
-    #as_customer.select{|o|  o.customer_end_date < sdate && o.customer_end_date > sdate.advance(weeks: -1)}
-  end
-  
   def self.mrr_possibly_churning_during_period sdate, edate
     possible_churn_during_period(sdate, edate)
   end
@@ -65,9 +75,6 @@ class Organization < ActiveRecord::Base
 
 
 
-  def self.as_customer
-    joins(:contracts).uniq
-  end
 
   def active_mrr
     contracts.active.sum(&:calc_mrr)

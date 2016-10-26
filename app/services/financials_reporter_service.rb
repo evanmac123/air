@@ -1,4 +1,4 @@
-class FinancialsReporterService
+class FinancialsReporterService 
   def self.build_week sdate, edate
     kpi =  FinancialsCalcService.new(sdate, edate)
 
@@ -21,6 +21,31 @@ class FinancialsReporterService
     m.save
   end
 
+   def self.build_week_historical sdate, edate
+    kpi =  HistoricalFinancialsCalcService.new(sdate, edate)
+
+    m = Metrics.new
+
+    m.starting_customers= kpi.active_organizations_during_period
+    m.added_customers= kpi.added_organizations_during_period
+    m.cust_possible_churn= kpi.possible_churn_during_period
+    m.cust_churned= kpi.churned_during_period
+    m.starting_mrr=kpi.mrr_during_period
+    m.added_mrr=kpi.mrr_added_during_period
+    m.new_cust_mrr=kpi.new_customer_mrr_added_during_period
+    m.upgrade_mrr=kpi.mrr_upgrades_during_period
+    m.possible_churn_mrr=kpi.mrr_possibly_churning_during_period
+    m.churned_mrr=kpi.mrr_churned_during_period
+    m.percent_churned_mrr=kpi.percent_mrr_churn_during_period
+    m.net_churned_mrr=kpi.net_mrr_churn_during_period
+    m.amt_booked=kpi.amount_booked_during_period
+    m.weekending_date=edate
+    m.save
+  end
+
+
+
+
   def self.build_historical 
     if Contract.count==0 || Organization.count == 0
       Rails.logger.warn "Skipping Activity Report Not Monday"
@@ -29,7 +54,7 @@ class FinancialsReporterService
       sdate = min_start.beginning_of_week
       edate = sdate.end_of_week
       while sdate < Date.today do 
-        build_week sdate, edate
+        build_week_historical sdate, edate
         sdate = sdate.advance(weeks: 1)
         edate = edate.advance(weeks: 1)
       end
