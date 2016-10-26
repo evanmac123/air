@@ -316,6 +316,10 @@ Health::Application.routes.draw do
       resources :billings
     end
 
+    namespace :reference do
+      get "style_guide"
+    end
+
     resources :billings
 
     resources :rule_values, :only => [:destroy]
