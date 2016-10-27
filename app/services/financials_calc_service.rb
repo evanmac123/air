@@ -17,13 +17,24 @@ class FinancialsCalcService
     @starting_cust ||=Organization.active_as_of_date sdate
   end
 
+  def starting_customer_count
+    starting_customers.count
+  end
+
   def current_customers
     @current_cust ||=Organization.active_as_of_date edate
   end
 
+  def current_customer_count
+    current_customers.count
+  end
 
   def added_customers
     @cust_added ||= Organization.added_during_period sdate, edate
+  end
+
+  def added_customer_count
+    added_customers.count
   end
 
   def net_change_in_customers
@@ -34,14 +45,29 @@ class FinancialsCalcService
     @retained_customers ||= current_customers-added_customers
   end
 
-  def customers_possibly_churning
-    Organization.possible_churn_during_period(sdate, edate)
+  def retained_customer_count
+    retained_customers.count
   end
 
-  def lost_customers
-    @lost_customers ||=starting_customers - retained_customers
+  def possible_churn_customers
+   @possible_churn_customer ||=  Organization.possible_churn_during_period(sdate, edate)
+  end
+  
+  def possible_churn_customer_count
+    possible_churn_customers.count
   end
 
+  def churned_customers
+    @churned_customers ||=starting_customers - retained_customers
+  end
+
+  def churned_customer_count
+    churned_customers.count
+  end
+
+  def percent_churned_customers
+    churned_customer_count/possible_churn_customer_count
+  end
 
   #------------------------
   # Basic MRR Methods
@@ -64,11 +90,11 @@ class FinancialsCalcService
     @new_cust_mrr ||= added_customers.sum{|c|c.mrr_as_of_date(edate)}
   end
 
-  def lost_customer_mrr
-    @lost_cust_mrr ||= lost_customers.sum{|c|c.mrr_as_of_date(sdate)}
+  def churned_customer_mrr
+    @lost_cust_mrr ||= churned_customers.sum{|c|c.mrr_as_of_date(sdate)}
   end
 
-  def mrr_possibly_churning
+  def possible_churn_mrr
     Contract.mrr_possibly_churning_during_period(sdate, edate)
   end
 
@@ -97,6 +123,13 @@ class FinancialsCalcService
     @mrr_churned ||= downgrade_mrr - lost_customer_mrr
   end
 
+  def net_churned_mrr
+    (upgrade_mrr - churned_mrr)/starting_mrr
+  end
+
+  def percent_churned_mrr
+    churned_mrr/possible_churn_mrr
+  end
 
   def amount_booked_during_period sdate, edate
     booked_during_period
