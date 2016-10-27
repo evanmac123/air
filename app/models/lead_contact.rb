@@ -32,7 +32,7 @@ class LeadContact < ActiveRecord::Base
 
     def destroy_board_and_users
       add_deleted_lead_contacts_to_redis
-      user.destroy if user
+      # user.destroy if user # FIXME: figure out why user/demo destroys are timing out due to segmentation
     end
 
     def add_deleted_lead_contacts_to_redis
