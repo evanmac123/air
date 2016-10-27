@@ -66,10 +66,6 @@ class Contract < ActiveRecord::Base
     where("start_date >= ? and start_date <= ?", sdate, edate)
   end
 
-  def self.expiring_within_date_range sdate, edate
-    where("end_date >= ? and end_date <= ?", sdate, edate)
-  end
-
   def self.expiring_during_period sdate, edate
     where("end_date >= ? and end_date <= ?", sdate, edate)
   end
@@ -95,7 +91,7 @@ class Contract < ActiveRecord::Base
   end
 
   def self.mrr_possibly_churning_during_period sdate, edate 
-    expiring_within_date_range(sdate, edate).sum(&:calc_mrr)
+    expiring_during_period(sdate, edate).sum(&:calc_mrr)
   end
 
   def self.arr_during_period sdate, edate
