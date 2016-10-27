@@ -104,23 +104,6 @@ def retained_customers
     booked_during_period
   end
 
-  protected
-
-  #NOTE these methods is overwritten in the  HistoricalFinancialsCalcService
-
-  def churned_customers
-    Organization.churned_during_period sdate, edate
-  end
-
-  def churned_customer_mrr
-    #TBD
-    #churned_customers.sum{|c|c.mrr_during_period sdate, edate}
-  end
-
-
-  private
-
-
 
 
 end
