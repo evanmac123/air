@@ -1,110 +1,119 @@
+<div class="analytics-v1">
+  <div class="financials-dashboard">
+    <div class="row">
+      <h1>Financials KPI Dashboard</h1>
+    </div>
 
-<div class="row">
-  <div class="columns small-12 small-centered">
-    <p>
-    <h1>Financials KPI Dashboard</h1>
-    </p>
-    <%=form_tag admin_financials_kpi_dashboard_path, method: :get, id: "financials_filter" do %>
-      <table>
-        <caption>Reporting Period</caption>
-        <thead>
-          <tr>
-            <th>Start</th>
-            <th>End</th>
-            <th>Interval</th>
-            <th>Customer</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><%=text_field_tag "sdate", @sdate, type: :date%></td>
-            <td><%=text_field_tag "edate",@edate, type: :date%></td>
-            <td><%=select_tag "interval",options_for_select({"Weekly"=>"weekly", "Monthly" =>"monthly", "Yearly"=>"yearly"})%></td>
-            <td><%=select_tag "Customer",options_from_collection_for_select(Organization.name_order, :id, :name), {include_blank: true, prompt: "All"}%></td>
-            <td><%=submit_tag "Get Data", class:"button td-button right"%></td>
-
-          </tr>
-        </tbody>
-      </table>
-    <%end%>
-  </div>
-</div>
-<div class="row">
-  <div class="columns small-12">
-    <p>
-    <div class="row title_block">
-      <div class="small-4 columns centered">
-        <div class="activity-header total-booked">
-          <h1 class="header-number" data-kpi="totalBooked">
-            <%=  number_with_delimiter(@totals[:totalBooked].to_i, :delimiter => ',') %>
-          </h1>
-          <span class="header-unit">
-            Revenue Booked
-          </span>
-        </div>
-      </div>
-      <div class="small-4 columns centered">
-        <div class="activity-header total-mrr">
-          <h1 class="header-number" data-kpi="totalMrr">
-            <%=  number_with_delimiter(@totals[:totalMrr].to_i, :delimiter => ',') %>
-          </h1>
-          <span class="header-unit">
-            MRR
-          </span>
-        </div>
-      </div>
-      <div class="small-4 columns centered">
-        <div class="activity-header total-customers">
-          <h1 class="header-number" data-kpi="totalCustomers">
-            <%= number_with_delimiter(@totals[:totalCustomers], :delimiter => ',') %>
-          </h1>
-          <span class="header-unit">
-            Customers
-          </span>
-        </div>
+    <div class="row">
+      <div class="columns small-12 ">
+        <h2 class="text-center"><%="Today's (#{simple_format_by_type("date", Date.today)}) Stats"%></h2>
       </div>
     </div>
-    </p>
-  </div>
-</div>
+    <div class="row">
+      <div class="columns small-12">
+        <p>
+        <div class="row title_block">
+          <div class="small-4 columns centered">
+            <div class="activity-header total-booked">
+              <h1 class="header-number" data-kpi="totalBooked">
+                <%=  number_with_delimiter(@totals[:totalBooked].to_i, :delimiter => ',') %>
+              </h1>
+              <span class="header-unit">
+                Revenue Booked
+              </span>
+            </div>
+          </div>
+          <div class="small-4 columns centered">
+            <div class="activity-header total-mrr">
+              <h1 class="header-number" data-kpi="totalMrr">
+                <%=  number_with_delimiter(@totals[:totalMrr].to_i, :delimiter => ',') %>
+              </h1>
+              <span class="header-unit">
+                MRR
+              </span>
+            </div>
+          </div>
+          <div class="small-4 columns centered">
+            <div class="activity-header total-customers">
+              <h1 class="header-number" data-kpi="totalCustomers">
+                <%= number_with_delimiter(@totals[:totalCustomers], :delimiter => ',') %>
+              </h1>
+              <span class="header-unit">
+                Customers
+              </span>
+            </div>
+          </div>
+        </div>
+        </p>
+      </div>
+    </div>
 
-<div class="row">
-  <div class="columns small-12">
-    <p>
-    <div id="chart-container" style="width:100%; height:400px;" data-plotdata ="<%=@table_data.to_json%>"></div>
-    </p>
-  </div>
-</div>
+    <div class="row">
+      <div class="columns small-12 small-centered">
+        <%=form_tag admin_financials_kpi_dashboard_path, method: :get, id: "financials_filter" do %>
+          <table>
+            <caption>Historical Data by Reporting Period</caption>
+            <thead>
+              <tr>
+                <th>Start</th>
+                <th>End</th>
+                <!--th>Interval</th>
+                  <th>Customer</th-->
+                  <th>&nbsp;</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><%=text_field_tag "sdate", @sdate, type: :date%></td>
+                <td><%=text_field_tag "edate",@edate, type: :date%></td>
+                <!--td><%#select_tag "interval",options_for_select({"Weekly"=>"weekly", "Monthly" =>"monthly", "Yearly"=>"yearly"})%></td>
+                  <td><%#select_tag "Customer",options_from_collection_for_select(Organization.name_order, :id, :name), {include_blank: true, prompt: "All"}%></td-->
+                  <td><%=submit_tag "Get Data", class:"button td-button right"%></td>
+
+              </tr>
+            </tbody>
+          </table>
+        <%end%>
+      </div>
+    </div>
+    <div class="row">
+      <div class="columns small-12">
+        <p>
+        <div id="chart-container" style="width:100%; height:400px;" data-plotdata ="<%=@table_data.to_json%>"></div>
+        </p>
+      </div>
+    </div>
 
 
 
-<div class="row ">
-  <div class="large-12 columns">
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <td>&nbsp;</td>
-            <%@dates.each do |date| %>
-              <td><%=simple_format_by_type "date", date%></td>
-            <%end%>
-          </tr>
-        </thead>
-        <tbody>
-          <%@table_data.each do |field, sub_hash|%>
-            <%next if field=="weekending_date"%>
-            <tr>
-              <th><%=sub_hash["label"]%></th>
-              <%sub_hash["values"].each do |val| %>
-                <td><%=simple_format_by_type sub_hash["type"], val %></td>
+    <div class="row ">
+      <div class="large-12 columns">
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <td>&nbsp;</td>
+                <%@dates.each do |date| %>
+                  <td><%=simple_format_by_type "date", date%></td>
+                <%end%>
+              </tr>
+            </thead>
+            <tbody>
+              <%@table_data.each do |field, sub_hash|%>
+                <%next if field=="weekending_date"%>
+                <tr>
+                  <th><%=sub_hash["label"]%></th>
+                  <%sub_hash["values"].each do |val| %>
+                    <td><%=simple_format_by_type sub_hash["type"], val %></td>
+                  <%end%>
+                </tr>
               <%end%>
-            </tr>
-          <%end%>
-        </tbody>
-      </table>
-    </div>
-    <%#link_to "Download CSV", admin_metrics_path(sdate:@sdate, edate: @edate, format: :csv),  class:"button right"%>
-  </div>
+            </tbody>
+          </table>
+        </div>
+        <%#link_to "Download CSV", admin_metrics_path(sdate:@sdate, edate: @edate, format: :csv),  class:"button right"%>
+      </div>
 
+    </div>
+  </div>
 </div>
