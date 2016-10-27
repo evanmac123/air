@@ -34,6 +34,10 @@ class FinancialsCalcService
     @retained_customers ||= current_customers-added_customers
   end
 
+  def customers_possibly_churning
+    Organization.possible_churn_during_period(sdate, edate)
+  end
+
   def lost_customers
     @lost_customers ||=starting_customers - retained_customers
   end
@@ -65,6 +69,9 @@ class FinancialsCalcService
     @lost_cust_mrr ||= lost_customers.sum{|c|c.mrr_as_of_date(sdate)}
   end
 
+  def mrr_possibly_churning
+    Contract.mrr_possibly_churning_during_period(sdate, edate)
+  end
 
   #------------------------
   # Upgades/Downgrad MRR Methods
@@ -91,13 +98,6 @@ class FinancialsCalcService
     @mrr_churned ||= downgrade_mrr - lost_customer_mrr
   end
 
-  def possible_churn_during_period
-    Organization.possible_churn_during_period(sdate, edate)
-  end
- 
-  def mrr_possibly_churning_during_period
-    Contract.mrr_possibly_churning_during_period(sdate, edate)
-  end
 
   def amount_booked_during_period sdate, edate
     booked_during_period
