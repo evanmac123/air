@@ -70,10 +70,6 @@ class Contract < ActiveRecord::Base
     where("end_date >= ? and end_date <= ?", sdate, edate)
   end
 
-  def self.expired_during_period sdate, edate
-    where("end_date >= ? and end_date <= ?", sdate, edate)
-  end
-
   def self.active_mrr_as_of_date report_date=Date.today
     active_as_of_date(report_date).sum(&:calc_mrr)
   end
@@ -82,20 +78,12 @@ class Contract < ActiveRecord::Base
     active_during_period(sdate, edate).sum(&:calc_mrr)
   end
 
-  def self.active_not_expiring_mrr_during_period sdate, edate
-    active_not_expiring_during_period(sdate, edate).sum(&:calc_mrr)
-  end
-
   def self.mrr_added_during_period sdate, edate
     added_during_period(sdate, edate).sum(&:calc_mrr)
   end
 
   def self.mrr_possibly_churning_during_period sdate, edate 
     expiring_during_period(sdate, edate).sum(&:calc_mrr)
-  end
-
-  def self.arr_during_period sdate, edate
-    active_during_period(sdate, edate).sum(&:calc_arr)
   end
 
   def self.booked_during_period sdate, edate

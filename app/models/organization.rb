@@ -85,9 +85,6 @@ class Organization < ActiveRecord::Base
     contracts.active.sum(&:calc_mrr)
   end
 
-  def arr_during_period sdate, edate
-    contracts.arr_during_period(sdate, edate)
-  end
 
   def mrr_during_period sdate, edate
     contracts.mrr_during_period(sdate, edate)
