@@ -66,7 +66,7 @@ class FinancialsCalcService
   end
 
   def percent_churned_customers
-    churned_customer_count/possible_churn_customer_count
+   possible_churn_customer_count == 0 ? 0 : churned_customer_count/possible_churn_customer_count
   end
 
   #------------------------
@@ -120,15 +120,15 @@ class FinancialsCalcService
   end
 
   def churned_mrr
-    @mrr_churned ||= downgrade_mrr - lost_customer_mrr
+    @mrr_churned ||= downgrade_mrr - churned_customer_mrr
   end
 
   def net_churned_mrr
-    (upgrade_mrr - churned_mrr)/starting_mrr
+    starting_mrr == 0 ? 0 : (upgrade_mrr - churned_mrr)/starting_mrr
   end
 
   def percent_churned_mrr
-    churned_mrr/possible_churn_mrr
+   possible_churn_mrr == 0 ? 0 : churned_mrr/possible_churn_mrr
   end
 
   def amount_booked_during_period sdate, edate
