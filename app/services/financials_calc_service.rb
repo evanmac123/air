@@ -48,7 +48,6 @@ class FinancialsCalcService
   #_________________________
 
 
-
   def starting_mrr
     @starting_mrr ||=Contract.mrr_during_period sdate, edate
   end
@@ -90,11 +89,11 @@ class FinancialsCalcService
    @downgrade_mrr ||= retained_customer_churn.select{|i|i<0}.sum
   end
 
-  def mrr_added
+  def added_mrr
     @mrr_add ||= upgrade_mrr + new_customer_mrr
   end
 
-  def mrr_churned
+  def churned_mrr
     @mrr_churned ||= downgrade_mrr - lost_customer_mrr
   end
 
