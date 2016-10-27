@@ -1,4 +1,5 @@
 class FinancialsReporterService 
+
   def self.build_week sdate
     kpi =  FinancialsCalcService.new(sdate)
 
@@ -102,7 +103,7 @@ class FinancialsReporterService
     }
   end
 
-def self.kpi_field_display_type_map
+  def self.kpi_field_display_type_map
     {
       "weekending_date"=>"date",
       "starting_mrr"=>"money",
