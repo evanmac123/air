@@ -162,7 +162,7 @@ module ApplicationHelper
     when "money" 
       simple_money_format val
     when "pct"
-      "#{simple_number_format val}%"
+      "#{simple_percentage_format val}"
     else 
       val
     end
@@ -179,6 +179,11 @@ module ApplicationHelper
   def simple_number_format num
     number_with_delimiter num.to_i
   end
+
+  def simple_percentage_format num
+    number_to_percentage(num, precision:3, strip_insignificant_zeros:true)
+  end
+
 
   def unescape_html html
     coder = HTMLEntities.new

@@ -104,7 +104,7 @@
                 <tr>
                   <th><%=sub_hash["label"]%></th>
                   <%sub_hash["values"].each do |val| %>
-                    <td><%=simple_format_by_type sub_hash["type"], val %></td>
+                    <td><%=simple_format_by_type sub_hash["display"], val %></td>
                   <%end%>
                 </tr>
               <%end%>

@@ -76,6 +76,7 @@ class FinancialsReporterService
     container.each do|field, sub_hash|
       sub_hash["values"]=new_hash[field] 
       sub_hash["label"]=field_to_label_map[field]
+      sub_hash["display"]=kpi_field_display_type_map[field]
     end
     container
   end
@@ -101,6 +102,35 @@ class FinancialsReporterService
     }
   end
 
+def self.kpi_field_display_type_map
+    {
+      "weekending_date"=>"date",
+      "starting_mrr"=>"money",
+      "added_mrr"=>"money",
+      "new_cust_mrr"=>"money",
+      "upgrade_mrr"=>"money",
+      "churned_mrr"=>"money",
+      "downgrade_mrr"=>"money",
+      "net_changed_mrr"=>"money",
+      "current_mrr"=>"money",
+      "churned_customer_mrr"=>"money",
+      "starting_customers"=>"num",
+      "added_customers"=>"num",
+      "churned_customers"=>"num",
+      "net_change_customers"=>"num",
+      "current_customers"=>"num",
+      "possible_churn_customers"=>"num",
+      "possible_churn_mrr"=>"money",
+      "percent_churned_customers"=>"pct",
+      "percent_churned_mrr"=>"pct",
+      "net_churned_mrr"=>"pct",
+      "amt_booked" => "money",
+      "added_customer_amt_booked" => "money",
+      "renewal_amt_booked" => "money"
+    }
+  end
+
+
   def self.field_to_label_map
     {
       "weekending_date"=>"Date",
@@ -120,8 +150,8 @@ class FinancialsReporterService
       "current_customers"=>"Current Customers",
       "possible_churn_customers"=>"Possible Churn Customers",
       "possible_churn_mrr"=>"Possible Churn MRR",
-      "percent_churned_customers"=>"Percent MRR Customers",
-      "percent_churned_mrr"=>"Percent MRR Churn",
+      "percent_churned_customers"=>"Percent Churned Customers",
+      "percent_churned_mrr"=>"Percent Churn MRR ",
       "net_churned_mrr"=>"Net MRR Churn",
       "amt_booked" => "Amount Booked",
       "added_customer_amt_booked" => "New Customer Amount Booked",
