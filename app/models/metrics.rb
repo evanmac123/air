@@ -76,10 +76,8 @@ class Metrics < ActiveRecord::Base
   end
 
   def self.record_hash
-    columns_for_kpi.inject({}) do |hash,column|
-      hash[column.name]={
-        "type" => column.type
-      }
+    kpi_fields.inject({}) do |hash,column|
+      hash[column]={}
       hash
     end
   end
