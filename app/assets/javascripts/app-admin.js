@@ -32,7 +32,6 @@
 //= require ./admin/lead_contact_validations
 //= require ./admin/cheer
 //= require ./admin/delete_board_modal
-//= require ./admin/reference/styleguide
 //= require ../../../vendor/assets/javascripts/chosen.jquery.min
 //= require ../../../vendor/assets/javascripts/external/modernizr
 
