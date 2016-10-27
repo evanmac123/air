@@ -73,16 +73,6 @@ class Organization < ActiveRecord::Base
   #churned
   #
   #
- 
-
-  def self.new_customer_mrr_added_during_period sdate, edate
-    added_during_period(sdate,edate).inject(0){|sum,org | sum+= org.mrr_during_period(sdate,edate)}
-  end
-
-
-  def self.new_customer_arr_added_during_period sdate, edate
-   added_during_period(sdate,edate).inject(0){|sum,org| sum += org.arr_during_period(sdate,edate)}
-  end
 
 
 
@@ -125,13 +115,6 @@ class Organization < ActiveRecord::Base
       .group("organizations.id, organizations.name")
   end
 
-  def self.active
-    all.select{|o|o.active==true}
-  end
-
-  def self.churned
-    all.select{|o|o.churned==true}
-  end
 
   def customer_start_date
     @cust_start ||=ordered_contracts.first.try(:start_date)
