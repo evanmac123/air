@@ -3,9 +3,19 @@ class Topic < ActiveRecord::Base
   has_one :reference_board, class_name: TopicBoard,  foreign_key: :topic_id, conditions:{is_reference: true}
   has_many :topic_boards
   has_many :boards, through: :topic_boards, class_name: Demo
-  scope :is_explore, ->{where is_explore: true}
+  scope :is_explore, -> { where is_explore: true }
+  has_attached_file :cover_image,
+    {
+      styles: { medium: "300x200>", thumb: "100x100>" },
+      default_style: :medium,
+      default_url: "assets/images/airbo_venice.png",
+      bucket: S3_LOGO_BUCKET
+    }.merge(TOPIC_OPTIONS)
 
-  validates :name, :uniqueness => true
+  validates_attachment_content_type :cover_image, content_type: /\Aimage\/.*\z/
+
+  validates :name, uniqueness: true, presence: true
+  validates :cover_image, presence: true
 
   def self.make_topics_with_tags full_topics
     full_topics.each do |name, tag_titles|

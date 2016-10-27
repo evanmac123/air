@@ -116,6 +116,11 @@ Airbo.OnboardingModals = (function(){
       triggerModal("#onboarding-complete-modal", 'open');
       Airbo.UserOnboardingUpdate.thirdUpdate($(".onboarding-body").data("id"));
     });
+
+    intro.onexit(function() {
+      triggerModal("#onboarding-complete-modal", 'open');
+      Airbo.UserOnboardingUpdate.thirdUpdate($(".onboarding-body").data("id"));
+    });
   }
 
 

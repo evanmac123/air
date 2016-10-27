@@ -51,9 +51,15 @@ class Admin::DemosController < AdminBaseController
     end
   end
 
+  def destroy
+    board = Demo.find(params[:id]).destroy
+    flash[:success] = "#{board.name} deleted"
+    redirect_to admin_demos_path
+  end
+
   protected
 
-  #FIXME this should be handled in a before_[|save|valiation|] handler  
+  #FIXME this should be handled in a before_[|save|valiation|] handler
   def params_correction
     params[:demo][:is_public] = true if params[:demo][:is_parent]
   end

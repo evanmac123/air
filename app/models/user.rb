@@ -180,7 +180,10 @@ class User < ActiveRecord::Base
 
   has_alphabetical_column :name
 
-  scope :non_admin, -> {where('users.is_site_admin <> ? AND users.is_client_admin <> ?', true, true)}
+  scope :non_admin, -> { where('users.is_site_admin <> ? AND users.is_client_admin <> ?', true, true) }
+
+  scope :client_admin, -> { where('users.is_site_admin <> ? AND users.is_client_admin = ?', true, true) }
+
 
   def demo_id
     self.demo.id

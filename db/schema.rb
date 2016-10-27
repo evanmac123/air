@@ -981,17 +981,25 @@ ActiveRecord::Schema.define(:version => 20161027181130) do
     t.integer  "topic_id"
     t.boolean  "is_reference"
     t.boolean  "is_library"
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
-    t.boolean  "is_onboarding", :default => false, :null => false
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
+    t.boolean  "is_onboarding",            :default => false, :null => false
+    t.string   "cover_image_file_name"
+    t.string   "cover_image_content_type"
+    t.integer  "cover_image_file_size"
+    t.datetime "cover_image_updated_at"
   end
 
   create_table "topics", :force => true do |t|
-    t.string   "name",                         :null => false
+    t.string   "name",                                       :null => false
     t.string   "image"
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
-    t.boolean  "is_explore", :default => true, :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+    t.boolean  "is_explore",               :default => true, :null => false
+    t.string   "cover_image_file_name"
+    t.string   "cover_image_content_type"
+    t.integer  "cover_image_file_size"
+    t.datetime "cover_image_updated_at"
   end
 
   create_table "trigger_demographic_triggers", :force => true do |t|

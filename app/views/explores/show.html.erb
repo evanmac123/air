@@ -7,7 +7,11 @@
         <div class="tile_container">
           <%= link_to explore_topic_path(topic), class: "topic" do %>
             <div class="topic_cell">
-              <%= image_tag("topics/#{topic.name.parameterize.underscore}.png") %>
+              <% if topic.cover_image.present? %>
+                <%= image_tag topic.cover_image.url(:medium) %>
+              <% else %>
+                <%= image_tag("topics/#{topic.name.parameterize.underscore}.png") %>
+              <% end %>
               <div class="shadow_overlay"></div>
               <p class="title"><%= topic.name %></p>
             </div>

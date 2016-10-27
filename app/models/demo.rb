@@ -7,7 +7,7 @@ class Demo < ActiveRecord::Base
 
   belongs_to :organization
 
-  has_one  :topic_board
+  has_one  :topic_board, dependent: :destroy
   has_one  :onboarding
   has_many :guest_users
   has_many :parent_board_users
@@ -77,7 +77,7 @@ class Demo < ActiveRecord::Base
 
   validates_attachment_content_type :logo, content_type: valid_image_mime_types, message: invalid_mime_type_error
 
-  scope :stock_boards, -> { where(public_slug: HOMEPAGE_BOARD_SLUGS.split(",")) }
+  scope :stock_boards, -> { joins(:topic_board).where(topic_board: { is_library: true } ) }
 
   # We go through this rigamarole since we can move a user from one demo to
   # another, and usually we will only be concerned with acts belonging to the

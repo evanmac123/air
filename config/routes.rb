@@ -292,12 +292,13 @@ Health::Application.routes.draw do
 
     resources :historical_metrics, only: [:create]
     namespace :sales do
-      resources :lead_contacts, only: [:index, :edit, :update, :create] do
+      resources :lead_contacts, only: [:index, :edit, :update, :create, :destroy] do
         resources :invites, only: [:new]
         resources :tiles, only: [:index]
       end
     end
 
+    resources :topics
 
     resource :client_kpi_report
     resource :financials_kpi_dashboard, only:[:show], controller: "financials/kpi_dashboard"
@@ -316,6 +317,10 @@ Health::Application.routes.draw do
     resources :contracts do
       resources :upgrades, controller: "contracts"
       resources :billings
+    end
+
+    namespace :reference do
+      get "style_guide"
     end
 
     resources :billings

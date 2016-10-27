@@ -5,41 +5,28 @@ describe BoardMembership do
   it { should belong_to(:demo) }
   it { should belong_to(:location) }
 
-  describe "after_destroy#destroy_dependent_user" do
-    before do
-      primary_board = FactoryGirl.create( :demo, :with_dependent_board)
-      @primary_user = FactoryGirl.create(:user, demo: primary_board)
+  describe "after_destroy#update_or_destroy_user" do
 
-      @dependent_board = primary_board.dependent_board
+    it "should destroy the user if the user has no other board memberships" do
+      user = FactoryGirl.create(:user)
 
-      @alt_primary_user = FactoryGirl.create(:user)
-      @alt_spouse = FactoryGirl.create(:user, demo: @dependent_board, primary_user: @alt_primary_user)
+      user.demo.board_memberships.first.destroy
+
+      expect(BoardMembership.count).to eq(0)
+      expect(User.count).to eq(0)
     end
 
-    it "should destroy dependent user from dependent board" do
-      spouse = FactoryGirl.create(:user, primary_user: @primary_user, demo: @dependent_board)
+    it "should set the current board_membership to another board_membership if the current board membership is destroyed" do
+      user = FactoryGirl.create(:user)
+      board_2 = FactoryGirl.create(:demo)
 
-      expect(@dependent_board.users.pluck(:id).sort).to eq([@alt_spouse.id, spouse.id].sort)
-      expect(User.pluck(:id).sort).to eq([@primary_user.id, @alt_primary_user.id, @alt_spouse.id, spouse.id].sort)
+      board_membership_2 = BoardMembership.create(user: user, demo: board_2, is_current: false)
 
-      @primary_user.current_board_membership.destroy
+      user.demo.board_memberships.first.destroy
 
-      expect(@dependent_board.reload.users.pluck(:id)).to eq([@alt_spouse.id])
-      expect(User.pluck(:id).sort).to eq([@primary_user.id, @alt_primary_user.id, @alt_spouse.id].sort)
-    end
-
-    it "should remove user form dependent board and move to another" do
-      spouse = FactoryGirl.create :user, primary_user: @primary_user, demo: @dependent_board
-      d2 = FactoryGirl.create :demo
-      spouse.add_board(d2)
-
-      expect(@dependent_board.users.pluck(:id).sort).to eq([@alt_spouse.id, spouse.id].sort)
-
-      @primary_user.current_board_membership.destroy
-
-      expect(@dependent_board.reload.users.pluck(:id)).to eq([@alt_spouse.id])
-      expect(User.pluck(:id).sort).to eq([@primary_user.id, @alt_primary_user.id, @alt_spouse.id, spouse.id].sort)
-      expect(d2.reload.users.pluck(:id)).to eq([spouse.id])
+      expect(BoardMembership.count).to eq(1)
+      expect(BoardMembership.first.id).to eq(board_membership_2.id)
+      expect(BoardMembership.first.is_current).to eq(true)
     end
   end
 end
