@@ -32,7 +32,7 @@ class LeadContact < ActiveRecord::Base
 
     def destroy_board_and_users
       add_deleted_lead_contacts_to_redis
-      demo.destroy if demo
+      user.destroy if user
     end
 
     def add_deleted_lead_contacts_to_redis
