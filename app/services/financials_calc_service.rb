@@ -30,6 +30,15 @@ class FinancialsCalcService
     current_customers.count - starting_customers.count
   end
 
+def retained_customers
+   @retained_customers ||= current_customers-added_customers
+  end
+
+  def lost_customers
+    @lost_customers ||=starting_customers - retained_customers
+  end
+
+
   #------------------------
   # Basic MRR Methods
   #_________________________
@@ -54,14 +63,6 @@ class FinancialsCalcService
 
   def lost_customer_mrr
     @lost_cust_mrr ||= lost_customers.sum{|c|c.mrr_as_of_date(sdate)}
-  end
-
-  def retained_customers
-   @retained_customers ||= current_customers-added_customers
-  end
-
-  def lost_customers
-    @lost_customers ||=starting_customers - retained_customers
   end
 
 
