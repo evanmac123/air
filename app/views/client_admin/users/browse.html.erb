@@ -20,22 +20,28 @@
           <th class="results-send-invite">Administator?</th>
         </tr>
       </thead>
-      <% @client_admin.each do |user| %>
-        <tr class="found-user" data-user-id='<%=user.id%>'>
-          <td class="results-name"><%= link_to user.name, edit_client_admin_user_path(user), class: 'edit-user link' %></td>
-          <td class="results-email"><%= user.email %></td>
-          <td class="results-joined">
-            <%= user.claimed? ? "Yes" : "No" %>
-          </td>
-          <td class="results-send-invite">
-            <% if user.invitable? %>
-              <%= link_to  client_admin_user_invitation_path(user), {method: :post, class: "send-invite-link"} do %>
-                <i class="fa fa-envelope"></i>
+      <% if @offset == 0 %>
+        <% @client_admin.each do |user| %>
+          <tr class="found-user" data-user-id='<%=user.id%>'>
+            <td class="results-name"><%= link_to user.name, edit_client_admin_user_path(user), class: 'edit-user link' %></td>
+            <td class="results-email"><%= user.email %></td>
+            <td class="results-joined">
+              <%= user.claimed? ? "Yes" : "No" %>
+            </td>
+            <td class="results-send-invite">
+              <% if user.invitable? %>
+                <%= link_to  client_admin_user_invitation_path(user), {method: :post, class: "send-invite-link"} do %>
+                  <i class="fa fa-envelope"></i>
+                <% end %>
               <% end %>
-            <% end %>
-          </td>
-          <td><i class="fa fa-check" aria-hidden="true"></i></td>
-        </tr>
+            </td>
+            <td>
+              <% if user.is_client_admin %>
+                <i class="fa fa-check" aria-hidden="true"></i>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
       <% end %>
       <% @users.each do |user| %>
         <tr class="found-user" data-user-id='<%=user.id%>'>
@@ -51,7 +57,11 @@
               <% end %>
             <% end %>
           </td>
-          <td></td>
+          <td>
+            <% if user.is_client_admin %>
+              <i class="fa fa-check" aria-hidden="true"></i>
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </table>
