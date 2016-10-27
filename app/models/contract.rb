@@ -78,11 +78,6 @@ class Contract < ActiveRecord::Base
     where("end_date >= ? and end_date <= ?", sdate, edate)
   end
 
-  def self.expired_on_date_rage date
-    where("end_date <= ?", sdate)
-  end
-
-
   def self.active_mrr_as_of_date report_date=Date.today
     active_as_of_date(report_date).sum(&:calc_mrr)
   end
@@ -103,46 +98,6 @@ class Contract < ActiveRecord::Base
     expiring_within_date_range(sdate, edate).sum(&:calc_mrr)
   end
 
-  def self.expired_mrr_during_period sdate, edate 
-    expiring_during_period(sdate, edate).sum(&:calc_mrr)
-  end
-
-
-  def self.net_mrr_during_period sdate, edate
-    mrr_added_during_period(sdate, edate) - expired_mrr_during_period(sdate,edate)
-  end
-
-  def self.net_added_mrr_during_period sdate, edate
-    net=  net_mrr_during_period(sdate,edate) 
-    net > 0 ? net : 0
-  end
-
-
-  def self.net_lost_mrr_during_period sdate, edate
-    net=  net_mrr_during_period(sdate,edate) 
-    net < 0 ? net : 0
-  end
-
-
-
-
-  def self.mrr_churned_during_period sdate, edate 
-    #expiring_within_date_range(sdate, edate).sum(&:calc_mrr)
-    net_mrr_during_period < 0 ? net_mrr_during_period : 0
-  end
-
-  def self.mrr_added_from_upgrades_during_period sdate, edate
-   added_during_period(sdate, edate).upgrades.sum(&:calc_mrr)
-  end
-
-  def self.arr_added_from_upgrades_during_period sdate, edate
-   added_during_period(sdate, edate).upgrades.sum(&:calc_arr)
-  end
-
-  def self.arr_added_during_period sdate, edate
-    added_during_period(sdate, edate).sum(&:calc_arr)
-  end
-
   def self.arr_during_period sdate, edate
     active_during_period(sdate, edate).sum(&:calc_arr)
   end
@@ -153,10 +108,6 @@ class Contract < ActiveRecord::Base
 
   def self.active_booked_for_date start_date=Date.today
     active_as_of_date(start_date).sum(&:amt_booked)
-  end
-
-  def self.arr_possibly_churning_during_period sdate, edate
-    expiring_within_date_range(sdate, edate).sum(&:calc_arr)
   end
 
   def status
