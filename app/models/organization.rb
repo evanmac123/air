@@ -31,16 +31,16 @@ class Organization < ActiveRecord::Base
   end
 
   def self.active_as_of_date d
-    as_customer.select{|o| o.contracts.active_as_of_date(d).count > 0}
+    as_customer.select{|o| o.active_as_of_date(d)}
   end
 
 
   def self.active_during_period sdate, edate
-    as_customer.select{|o| o.has_start_and_end && o.customer_start_date <= edate  && o.customer_end_date >= edate}
+    as_customer.select{|o| o.active_during_period(sdate, edate)}
   end
 
   def self.added_during_period sdate, edate
-    as_customer.select{|o| o.has_start_and_end && o.customer_start_date >= sdate && o.customer_start_date <= edate}
+    as_customer.select{|o| o.added_during_period(sdate, edate)}
   end
 
   def self.churned_during_period sdate, edate
@@ -94,8 +94,17 @@ class Organization < ActiveRecord::Base
     possible_churn_during_period(sdate, edate)
   end
 
+  def added_during_period sdate, edate
+    has_start_and_end && customer_start_date >= sdate && customer_start_date <= edate
+  end
 
+  def active_during_period sdate, edate
+    has_start_and_end && customer_start_date <= edate  && customer_end_date >= edate
+  end
 
+  def active_as_of_date date
+    contracts.active_as_of_date(date).count > 0
+  end
 
   def active_mrr
     contracts.active.sum(&:calc_mrr)
