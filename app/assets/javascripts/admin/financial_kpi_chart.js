@@ -203,5 +203,7 @@ Airbo.FinancialKpiChart = (function(){
 }());
 
 $(function(){
-  Airbo.FinancialKpiChart.init();
+  if(Airbo.Utils.supportsFeatureByPresenceOfSelector(".financial-kpis-graph")){
+    Airbo.FinancialKpiChart.init();
+  }
 });
