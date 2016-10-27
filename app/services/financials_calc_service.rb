@@ -38,7 +38,7 @@ class FinancialsCalcService
   end
 
   def net_change_in_customers
-    current_customers.count - starting_customers.count
+    current_customer_count - starting_customer_count
   end
 
   def retained_customers
