@@ -15,14 +15,24 @@
         <tr id="search-labels">
           <th class="results-name">Name</th>
           <th class="results-email">Email</th>
-          <th class="results-email"></th>
-          <th class="results-email"></th>
+          <th class="results-joined">Joined?</th>
+          <th class="results-send-invite">Invite</th>
         </tr>
       </thead>
       <% @client_admin.each do |user| %>
         <tr class="found-user" data-user-id='<%=user.id%>'>
           <td class="results-name"><%= link_to user.name, edit_client_admin_user_path(user), class: 'edit-user link' %></td>
           <td class="results-email"><%= user.email %></td>
+          <td class="results-joined">
+            <%= user.claimed? ? "Yes" : "No" %>
+          </td>
+          <td class="results-send-invite">
+            <% if user.invitable? %>
+              <%= link_to  client_admin_user_invitation_path(user), {method: :post, class: "send-invite-link"} do %>
+                <i class="fa fa-envelope"></i>
+              <% end %>
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </table>
