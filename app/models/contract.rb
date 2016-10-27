@@ -98,6 +98,18 @@ class Contract < ActiveRecord::Base
     active_as_of_date(start_date).sum(&:amt_booked)
   end
 
+  def self.booked_year_to_date date=Date.today
+    where("date_booked >= ? and date_booked <= ?", date.beginning_of_year, date).sum(&:amt_booked)
+  end
+
+
+
+  def self.min_activity_date
+    min_start = minimum(:start_date)
+    min_booked =  minimum(:date_booked)
+    min_start < min_booked ? min_start : min_booked
+  end
+
   def status
     end_date >= Date.today ? "Active" : "Closed"
   end
@@ -125,6 +137,7 @@ class Contract < ActiveRecord::Base
     dup.save
     dup
   end
+
 
  def calc_mrr
    if (mrr || arr)
