@@ -46,15 +46,15 @@ class FinancialsReporterService
   end
 
   def self.current_mrr
-    #Contract.active_mrr_for_date
+    Contract.active_mrr_today
   end
 
   def self.current_amount_booked
-    #Contract.active_booked_for_date
+    Contract.active_booked_for_date
   end
 
   def self.active_customers
-    #Contract.active.includes(:organization).count
+    Contract.active.includes(:organization).count
   end
 
   def self.default_date_range

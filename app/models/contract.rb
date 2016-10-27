@@ -46,6 +46,10 @@ class Contract < ActiveRecord::Base
     where("end_date < ?", Date.today)
   end
 
+  def self.active_mrr_today
+   active.sum(&:calc_mrr)
+  end 
+
   #--------------------------------------------------------
   # Used for forecasting and historical analysis
   #--------------------------------------------------------
