@@ -1,38 +1,54 @@
-<div class="large-8 row large-centered">
-  <section class="logos">
-    <div class="large-12 large-centered">
-      <h5>Our logos</h5>
-      <div class="example large-6 columns light-bg">
-        <%= image_tag "logo.png", alt: "HEngage" %>
-      </div>
-      <div class="example large-6 columns light-bg">
-        <%= image_tag "airbo_logo_lightblue_square_smile.png", alt: "HEngage" %>
-      </div>
-    </div>
-  </section>
-
+<div class="row">
   <section class="colors">
     <%
       palettes = {
         "Color palette" => {
-          "sky-blue"        => "#4face0",
-          "blue"            => "#50698C",
-          "light-blue"      => "#a7d5ef",
-          "dark"            => "#0c0c0b",
-          "dark-gray"       => "#2e2e2c",
-          "darker-gray"     => "#66676d",
-          "gray"            => "#818385",
-          "med-gray"        => "#a8a8a8",
-          "light-gray"      => "#dfdfdf",
-          "lightest-gray"      => "#f2f2f2",
-          "off-white"    => "#fafafa",
-          "almost-white"    => "#fefefe",
-          "white"           => "#fff",
-          "dark-green"      => "#4FAA60",
-          "red"             => "#BC4C40"
+          "$n-white"          => "#FFFFFF",
+          "$n-blue"           => "#48BFFF",
+          "$n-red"            => "#FF8A58",
+          "$n-red2"           => "#BE2625",
+          "$n-purple"         => "#B6A9F1",
+          "$n-pink"           => "#FF687B",
+          "$n-green"          => "#4fd4c0",
+          "$n-yellow"         => "#FFB748",
+          "$text-color-1"     => "#404040",
+          "$border-color-1"   => "#DDDDDD",
+          "$gray-1"           => "#F9F9F9",
+          "$gray-2"           => "#F0F0F0",
+          "$gray-3"           => "#EEEEEE",
+          "$gray-4"           => "#999999",
+          "$gray-5"           => "#A8A8A8",
+          "$gray-6"           => "#DDDDDD",
+          "$gray-7"           => "#e8e8e8",
+          "$home-gray"        => "#666666",
+          "$darker-gray"      => "#66676d",
+          "$light-gray"       => "#dfdfdf",
+          "$lightest-gray"    => "#f2f2f2",
+          "$blue"             => "#50698C",
+          "$dark-gray"        => "#2e2e2c",
+          "$med-gray"         => "#a8a8a8",
+          "$gray"             => "#818385",
+          "$almost-white"     => "#fefefe",
+          "$off-white"        => "#fafafa",
+          "$dark"             => "#0c0c0b",
+          "$blue"             => "#50698C",
+          "$light-blue"       => "#a7d5ef",
+          "$dark-green"       => "#4FAA60",
+          "$red"              => "#BC4C40",
+          "$white"            => "#fff",
+          "$header-color"     => "#fff",
+          "$offcanvas-gray"   => "#2e2e2c",
+          "$text-color"       => "#4c4c4c",
+          "$tile-text"        => "#a8a8a8",
+          "$tile-tag-border"  => "#dfdfdf",
+          "$body-bg"          => "lighten($blue, 56.5%)",
+          "$tile-wall-bg"     => "lighten($blue, 45%)",
+          "$form-bg"          => "lighten($blue, 53%)",
+          "$ca-subnav-color"  => "darken($blue, 15%)",
         }
       }
     %>
+
     <% palettes.each do |palette_name, palette| %>
       <h5><%= palette_name %></h5>
       <div class="large-12 columns large-centered">
@@ -48,8 +64,10 @@
       </div>
     <% end %>
   </section>
+</div>
 
-  <section class="headers">
+<div class="row">
+    <section class="headers">
     <h5>Headers</h5>
     <div class="large-12 columns large-centered">
       <div class="example row">
@@ -573,4 +591,16 @@
       <p>Sticking to the styles documented here will keep everything on-brand and consistent, so that every message communicated to customers speaks with the Airbo voice.</p>
     </section>
   </div>
+</div>
+<div class="row">
+  <section class="images">
+    <h5>Our images</h5>
+    <% images = Dir["app/assets/images/**/*.{jpg,jpeg,png,gif,bmp}"].map { |image| image[18..-1] } %>
+    <ul class="large-block-grid-6 centered">
+      <% images.each do |image| %>
+        <li><%= image_tag image, alt: image %></li>
+      <% end %>
+
+    </ul>
+  </section>
 </div>

@@ -1,0 +1,38 @@
+<ul class="breadcrumb">
+  <li class="<%= (:selected if raffle.status == Raffle::SET_UP) %>">
+    Set Up
+  </li>
+  <li class="<%= (:selected if raffle.status == Raffle::LIVE) %>">
+    Live
+  </li>
+  <li class="<%= (:selected if raffle.status == Raffle::PICK_WINNERS || raffle.status == Raffle::PICKED_WINNERS) %>">
+    Pick Winners
+  </li>
+</ul>
+<div class="how-to">
+  <% if raffle.status == Raffle::SET_UP %>
+    <a class="how_works" href="https://www.airbo.com/support#Prizes" target="_blank">
+      <icon class="fa fa-question-circle"></icon>
+      How do prizes work?
+    </a>q
+  <% elsif raffle.status == Raffle::LIVE %>
+    <div class="pick_winners_from">
+      You can pick winners starting
+      <%= raffle.ends_at ? (raffle.ends_at + 1.minute).strftime("%A, %B %e at %l:%M %p") : "[Day of week, MM DD at 12:00 AM]" %>
+      ET
+    </div>
+  <% elsif raffle.status == Raffle::PICKED_WINNERS %>
+    <a class="button outlined new_prize" data-confirm-message="Winners for this prize period will be cleared. Confirm?" href="<%= start_new_client_admin_prizes_path %>">
+      <i class="fa fa-gift"></i>
+      New Prize
+    </a>
+  <% end %>
+</div>
+<script>
+  $(".new_prize").click(function(e){
+    if( !$(this).hasClass("confirmation") ){
+      e.preventDefault();
+      makeConfirmButton( $(this) );
+    }
+  });
+</script>
