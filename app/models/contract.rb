@@ -91,7 +91,7 @@ class Contract < ActiveRecord::Base
   end
 
   def self.booked_during_period sdate, edate
-    where("date_booked >= ? and date_booked <= ?", sdate, edate).map(&:amt_booked).sum
+    where("date_booked >= ? and date_booked <= ?", sdate, edate).sum(&:amt_booked)
   end
 
   def self.active_booked_for_date start_date=Date.today

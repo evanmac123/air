@@ -23,8 +23,7 @@ class FinancialsReporterService
     m.current_customers = kpi.current_customer_count
     m.possible_churn_customers = kpi.possible_churn_customer_count
     m.percent_churned_customers = kpi.percent_churned_customers
-
-    #m.amt_booked=kpi.amount_booked
+    m.amt_booked=kpi.amount_booked
     m.weekending_date= kpi.edate
     m.save
   end
