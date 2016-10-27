@@ -1,0 +1,54 @@
+@import 'partials/activity_grid';
+@import 'partials/chart';
+
+.analytics-v1 {
+
+  h1.header-number {
+    line-height: 1.25em;
+    text-align: left;
+  }
+  background: $off-white;
+
+  .content {
+    background: $off-white;
+  }
+  .title_block {
+    position: relative;
+    padding: 0 60px 30px 60px;
+  }
+  .activity-header {
+    background-color: $n-blue;
+    margin: 20px;
+    height: 7em;
+    border-radius: 3px;
+    .header-number {
+      color: $off-white;
+      margin: 0;
+      padding-top: 12px;
+      padding-left: 20px;
+      font-size: 300%;
+    }
+    .header-unit {
+      color: #fff;
+      margin: 0;
+      padding-left: 25px;
+      font-size: 18px;
+    }
+  }
+  .total-booked{
+    background-color: $n-yellow;
+  }
+  .total-customers{
+    background-color: $n-green;
+  }
+  .total-mrr{
+    background-color: $n-purple;
+  }
+  .columns {
+    padding: 0;
+  }
+  .stats_page {
+    max-width: 1007px;
+    padding: 20px 40px 50px 40px;
+  }
+}
