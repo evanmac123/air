@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161024205247) do
+ActiveRecord::Schema.define(:version => 20161027133715) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -480,8 +480,8 @@ ActiveRecord::Schema.define(:version => 20161024205247) do
   create_table "metrics", :force => true do |t|
     t.integer  "starting_customers"
     t.integer  "added_customers"
-    t.integer  "cust_possible_churn"
-    t.integer  "cust_churned"
+    t.integer  "posible_churn_customers"
+    t.integer  "churned_customers"
     t.decimal  "starting_mrr"
     t.decimal  "added_mrr"
     t.decimal  "new_cust_mrr"
@@ -490,11 +490,17 @@ ActiveRecord::Schema.define(:version => 20161024205247) do
     t.decimal  "churned_mrr"
     t.float    "percent_churned_mrr"
     t.float    "net_churned_mrr"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
     t.date     "weekending_date"
     t.decimal  "amt_booked"
     t.string   "interval"
+    t.decimal  "downgrade_mmr"
+    t.decimal  "churned_customer_mrr"
+    t.decimal  "net_changed_mrr"
+    t.integer  "net_change_customers"
+    t.integer  "current_customers"
+    t.float    "percent_churned_customers"
   end
 
   create_table "more_info_requests", :force => true do |t|
