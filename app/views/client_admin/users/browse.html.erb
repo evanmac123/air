@@ -9,7 +9,7 @@
 
 <div class="row">
   <div class="large-12 columns">
-    <h3>Administrators:</h3>
+    <h3>All Users:</h3>
     <table id="search-results-table">
       <thead>
         <tr id="search-labels">
@@ -17,6 +17,7 @@
           <th class="results-email">Email</th>
           <th class="results-joined">Joined?</th>
           <th class="results-send-invite">Invite</th>
+          <th class="results-send-invite">Administator?</th>
         </tr>
       </thead>
       <% @client_admin.each do |user| %>
@@ -33,20 +34,9 @@
               <% end %>
             <% end %>
           </td>
+          <td><i class="fa fa-check" aria-hidden="true"></i></td>
         </tr>
       <% end %>
-    </table>
-
-    <h3>Users:</h3>
-    <table id="search-results-table">
-      <thead>
-        <tr id="search-labels">
-          <th class="results-name">Name</th>
-          <th class="results-email">Email</th>
-          <th class="results-joined">Joined?</th>
-          <th class="results-send-invite">Invite</th>
-        </tr>
-      </thead>
       <% @users.each do |user| %>
         <tr class="found-user" data-user-id='<%=user.id%>'>
           <td class="results-name"><%= link_to user.name, edit_client_admin_user_path(user), class: 'edit-user link' %></td>
@@ -61,6 +51,7 @@
               <% end %>
             <% end %>
           </td>
+          <td></td>
         </tr>
       <% end %>
     </table>
