@@ -23,7 +23,6 @@ class Metrics < ActiveRecord::Base
   end
 
   def self.to_array_of_record_hashes
-    #Note self is an active record relation
     results.map do |record|
       normalize_values(record)
     end
