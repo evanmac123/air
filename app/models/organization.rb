@@ -48,6 +48,11 @@ class Organization < ActiveRecord::Base
   end
 
 
+  def self.possible_churn_during_period sdate, edate
+    active_as_of_date(sdate).select{|o| o.contracts.active_not_expiring_during_period(sdate,edate).count == 0 }
+  end
+
+
   #-----------
 
   def mrr_churn_during_period sdate, edate
@@ -74,14 +79,6 @@ class Organization < ActiveRecord::Base
   #
   #
 
-
-
-  def self.possible_churn_during_period sdate, edate
-    as_customer.select{|o| o.has_start_and_end && o.customer_end_date > sdate && o.customer_end_date <= edate}
-  end
-
-  def self.mrr_possibly_churning_during_period sdate, edate
-    possible_churn_during_period(sdate, edate)
   end
 
   def added_during_period sdate, edate

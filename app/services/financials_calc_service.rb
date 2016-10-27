@@ -93,7 +93,7 @@ def retained_customers
   #---- good
 
   def possible_churn_during_period
-    Organization.possible_churn_during_period(sdate, edate).count
+    Organization.possible_churn_during_period(sdate, edate)
   end
 
   def mrr_possibly_churning_during_period
