@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161027151304) do
+ActiveRecord::Schema.define(:version => 20161027153940) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -546,7 +546,6 @@ ActiveRecord::Schema.define(:version => 20161027151304) do
   create_table "metrics", :force => true do |t|
     t.integer  "starting_customers"
     t.integer  "added_customers"
-    t.integer  "posible_churn_customers"
     t.integer  "churned_customers"
     t.decimal  "starting_mrr"
     t.decimal  "added_mrr"
@@ -569,7 +568,7 @@ ActiveRecord::Schema.define(:version => 20161027151304) do
     t.float    "percent_churned_customers"
     t.decimal  "current_mrr"
     t.integer  "cust_churned"
-    t.integer  "cust_possible_churn"
+    t.integer  "possible_churn_customers"
   end
 
   create_table "more_info_requests", :force => true do |t|

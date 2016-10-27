@@ -49,19 +49,27 @@ class Metrics < ActiveRecord::Base
   end
 
   def self.kpi_fields
-    ["weekending_date", 
-     "starting_customers",
-     "added_customers",
-     "cust_possible_churn",
-     "cust_churned",
-     "starting_mrr",
-     "added_mrr",
-     "new_cust_mrr",
-     "upgrade_mrr",
-     "possible_churn_mrr",
-     "churned_mrr",
-     "percent_churned_mrr",
-     "net_churned_mrr",
+    [
+      "weekending_date",
+      "starting_mrr",
+      "added_mrr",
+      "new_cust_mrr",
+      "upgrade_mrr",
+      "churned_mrr",
+      "downgrade_mrr",
+      "net_changed_mrr",
+      "current_mrr",
+      "churned_customer_mrr",
+      "starting_customers",
+      "added_customers",
+      "churned_customers",
+      "net_change_customers",
+      "current_customers",
+      "possible_churn_customers",
+      "possible_churn_mrr",
+      "percent_churned_customers",
+      "percent_churned_mrr",
+      "net_churned_mrr"
     ]
   end
 

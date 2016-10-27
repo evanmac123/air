@@ -1,6 +1,6 @@
 class FinancialsReporterService 
-  def self.build_week sdate, edate
-    kpi =  FinancialsCalcService.new(report_date)
+  def self.build_week sdate
+    kpi =  FinancialsCalcService.new(sdate)
 
     m = Metrics.new
 
@@ -14,17 +14,17 @@ class FinancialsReporterService
     m.net_changed_mrr = kpi.net_changed_mrr #missing
     m.net_churned_mrr = kpi.net_churned_mrr
     m.current_mrr = kpi.current_mrr
-    m.possible_churn_mrr=kpi.possible_churn_mrr
-    m.percent_churned_mrr=kpi.percent_churned_mrr
-    m.starting_customers = kpi.starting_customers
-    m.added_customers = kpi.added_customers
-    m.cust_churned = kpi.churned_customer_count #rename to churned_customrs 
+    m.possible_churn_mrr =kpi.possible_churn_mrr
+    m.percent_churned_mrr =kpi.percent_churned_mrr
+    m.starting_customers = kpi.starting_customer_count
+    m.added_customers = kpi.added_customer_count
+    m.churned_customers = kpi.churned_customer_count #rename to churned_customrs 
     m.net_change_customers = kpi.net_change_in_customers #missing
-    m.current_customers = kpi.current_customers #missing
-    m.cust_possible_churn= kpi.possible_churn_customer_count #rename possible_churn_customers
+    m.current_customers = kpi.current_customer_count #missing
+    m.possible_churn_customers = kpi.possible_churn_customer_count #rename possible_churn_customers
     m.percent_churned_customers = kpi.percent_churned_customers #missing
 
-    m.amt_booked=kpi.amount_booked_during_period
+    #m.amt_booked=kpi.amount_booked
     m.weekending_date= kpi.edate
     m.save
   end
@@ -38,7 +38,7 @@ class FinancialsReporterService
       sdate = min_start.beginning_of_week
       edate = sdate.end_of_week
       while sdate < Date.today do 
-        build_week sdate, edate
+        build_week sdate
         sdate = sdate.advance(weeks: 1)
         edate = edate.advance(weeks: 1)
       end
@@ -46,15 +46,15 @@ class FinancialsReporterService
   end
 
   def self.current_mrr
-    Contract.active_mrr_for_date
+    #Contract.active_mrr_for_date
   end
 
   def self.current_amount_booked
-    Contract.active_booked_for_date
+    #Contract.active_booked_for_date
   end
 
   def self.active_customers
-    Contract.active.includes(:organization).count
+    #Contract.active.includes(:organization).count
   end
 
   def self.default_date_range
@@ -102,16 +102,23 @@ class FinancialsReporterService
 
   def self.field_to_label_map
     {"weekending_date"=>"Date",
-     "starting_customers"=>"Starting Customers",
-     "added_customers"=>"Customers Added",
-     "cust_possible_churn"=>"Possible Churn",
-     "cust_churned"=>"Churned",
      "starting_mrr"=>"Starting MRR",
      "added_mrr"=>"MRR Added",
      "new_cust_mrr"=>"New Customer MRR",
      "upgrade_mrr"=>"Upgrade MRR ",
-     "possible_churn_mrr"=>"MRR Possible Churn",
      "churned_mrr"=>"MRR Churned",
+     "downgrade_mrr"=>"Downgrade MRR ",
+     "net_changed_mrr"=>"Net changed MRR ",
+     "current_mrr"=>"Current MRR ",
+     "churned_customer_mrr"=>"Churned Customer MRR ",
+     "starting_customers"=>"Starting Customers",
+     "added_customers"=>"Customers Added",
+     "churned_customers"=>"Churned Customers",
+     "net_change_customers"=>"Net Changed Customers",
+     "current_customers"=>"Current Customers",
+     "possible_churn_customers"=>"Possible Churn Customers",
+     "possible_churn_mrr"=>"Possible Churn MRR",
+     "percent_churned_customers"=>"Percent MRR Customers",
      "percent_churned_mrr"=>"Percent MRR Churn",
      "net_churned_mrr"=>"Net MRR Churn"}
   end
