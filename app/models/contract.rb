@@ -42,10 +42,17 @@ class Contract < ActiveRecord::Base
     current.where("end_date >= ?", Date.today)
   end
 
+  def self.inactive
+    where("end_date < ?", Date.today)
+  end
+
+  #--------------------------------------------------------
+  # Used for forecasting and historical analysis
+  #--------------------------------------------------------
+ 
   def self.active_as_of_date d
     current.where("end_date >= ? and start_date <= ?", d, d)
   end
-
 
   def self.active_during_period sdate, edate
     current.where("start_date <= ? and end_date >= ?", sdate, sdate)
@@ -59,10 +66,6 @@ class Contract < ActiveRecord::Base
     where("start_date >= ? and start_date <= ?", sdate, edate)
   end
 
-  def self.inactive
-    where("end_date < ?", Date.today)
-  end
-
   def self.expiring_within_date_range sdate, edate
     where("end_date >= ? and end_date <= ?", sdate, edate)
   end
@@ -70,7 +73,6 @@ class Contract < ActiveRecord::Base
   def self.expiring_during_period sdate, edate
     where("end_date >= ? and end_date <= ?", sdate, edate)
   end
-
 
   def self.expired_during_period sdate, edate
     where("end_date >= ? and end_date <= ?", sdate, edate)
@@ -80,7 +82,6 @@ class Contract < ActiveRecord::Base
     where("end_date <= ?", sdate)
   end
 
-  #---------
 
   def self.active_mrr_as_of_date report_date=Date.today
     active_as_of_date(report_date).sum(&:calc_mrr)
@@ -106,7 +107,6 @@ class Contract < ActiveRecord::Base
     expiring_during_period(sdate, edate).sum(&:calc_mrr)
   end
 
-  #-----------
 
   def self.net_mrr_during_period sdate, edate
     mrr_added_during_period(sdate, edate) - expired_mrr_during_period(sdate,edate)
@@ -134,10 +134,6 @@ class Contract < ActiveRecord::Base
   def self.mrr_added_from_upgrades_during_period sdate, edate
    added_during_period(sdate, edate).upgrades.sum(&:calc_mrr)
   end
-
-
-
-
 
   def self.arr_added_from_upgrades_during_period sdate, edate
    added_during_period(sdate, edate).upgrades.sum(&:calc_arr)
