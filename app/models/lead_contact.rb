@@ -18,6 +18,9 @@ class LeadContact < ActiveRecord::Base
   scope :approved, -> { where(status: "approved").order(:updated_at).reverse_order }
   scope :processed, -> { joins(:demo).where(status: "processed").where(demo: { tile_digest_email_sent_at: nil } ).order(:updated_at).reverse_order }
 
+  after_destroy do
+    destroy_board_and_users
+  end
 
   def notify!
     if source == "Inbound: Signup Request"
@@ -26,6 +29,23 @@ class LeadContact < ActiveRecord::Base
   end
 
   private
+
+    def destroy_board_and_users
+      add_deleted_lead_contacts_to_redis
+      # user.destroy if user # FIXME: figure out why user/demo destroys are timing out due to segmentation
+    end
+
+    def add_deleted_lead_contacts_to_redis
+      attrs = {
+        name:name,
+        email: email,
+        phone: phone,
+        org: organization_name
+      }
+
+      $redis.sadd("deleted_lead_contacts", attrs.to_json)
+    end
+
     def build_lead_contact
       add_initial_status
       parse_phone_number

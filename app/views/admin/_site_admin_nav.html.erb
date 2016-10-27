@@ -3,14 +3,11 @@
     <!-- Title Area -->
     <li class="name">
       <h1>
-        <%=link_to "Admin Home", admin_path%>
+        <%= link_to "Admin Home", admin_path %>
       </h1>
     </li>
     <li class="toggle-topbar"><a href="#"></a></li>
   </ul>
-
-
-
   <section class="top-bar-section">
     <!-- Right Nav Section -->
     <ul class="left">
@@ -45,6 +42,22 @@
           </li>
           <li>
             <%= link_to 'Topics', admin_topics_path  %>
+          </li>
+        </ul>
+      </li>
+      <li class="has-dropdown not-click">
+        <a href="#">Sales</a>
+        <ul class="dropdown">
+          <li>
+            <%= link_to 'Inbound Leads', admin_sales_lead_contacts_path  %>
+          </li>
+        </ul>
+      </li>
+      <li class="has-dropdown not-click">
+        <a href="#">Product</a>
+        <ul class="dropdown">
+          <li>
+            <%= link_to 'Style Guide', admin_reference_style_guide_path  %>
           </li>
         </ul>
       </li>
