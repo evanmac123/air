@@ -30,8 +30,8 @@ class FinancialsCalcService
     current_customers.count - starting_customers.count
   end
 
-def retained_customers
-   @retained_customers ||= current_customers-added_customers
+  def retained_customers
+    @retained_customers ||= current_customers-added_customers
   end
 
   def lost_customers
@@ -90,12 +90,11 @@ def retained_customers
   def mrr_churned
     @mrr_churned ||= downgrade_mrr - lost_customer_mrr
   end
-  #---- good
 
   def possible_churn_during_period
     Organization.possible_churn_during_period(sdate, edate)
   end
-
+ 
   def mrr_possibly_churning_during_period
     Contract.mrr_possibly_churning_during_period(sdate, edate)
   end

@@ -14,7 +14,7 @@ class Organization < ActiveRecord::Base
 
   has_one :onboarding, autosave: true do
     def get_or_build(attrs)
-       self || build(attrs)
+      self || build(attrs)
     end
   end
 
@@ -69,18 +69,6 @@ class Organization < ActiveRecord::Base
     contracts.active_as_of_date(date)
   end
 
-
-#------------------WIP-----------------------------------------
-
-
- #NOTE customer will not show up as possible churn if they have 1 or more
-  #contracts expiring after edate. Their contracts will be included in possible
-  #churned
-  #
-  #
-
-  end
-
   def added_during_period sdate, edate
     has_start_and_end && customer_start_date >= sdate && customer_start_date <= edate
   end
@@ -118,15 +106,15 @@ class Organization < ActiveRecord::Base
   end
 
   def customer_end_date
-   @cust_end ||= ordered_contracts.last.try(:end_date)
+    @cust_end ||= ordered_contracts.last.try(:end_date)
   end
 
   def active
-   !churned
+    !churned
   end
 
   def churned
-   customer_end_date && customer_end_date < Date.today
+    customer_end_date && customer_end_date < Date.today
   end
 
   def has_start_and_end
