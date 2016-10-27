@@ -131,15 +131,15 @@ class FinancialsCalcService
    possible_churn_mrr == 0 ? 0 : churned_mrr/possible_churn_mrr
   end
 
-  def amount_booked
+  def amt_booked
     Contract.booked_during_period(sdate, edate)
   end
 
-  def added_customer_amount_booked
+  def added_customer_amt_booked
     added_customers.sum{|o|o.contracts.booked_during_period(sdate, edate)}
   end
 
-  def renewals_amount_booked
+  def renewal_amt_booked
     retained_customers.sum{|o|o.contracts.booked_during_period(sdate, edate)}
   end
 

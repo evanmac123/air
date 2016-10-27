@@ -23,7 +23,7 @@ class FinancialsReporterService
     m.current_customers = kpi.current_customer_count
     m.possible_churn_customers = kpi.possible_churn_customer_count
     m.percent_churned_customers = kpi.percent_churned_customers
-    m.amt_booked =kpi.amount_booked
+    m.amt_booked =kpi.amt_booked
     m.added_customer_amt_booked =kpi.added_customer_amt_booked
     m.renewal_amt_booked =kpi.renewal_amt_booked
     m.weekending_date = kpi.edate
@@ -102,25 +102,30 @@ class FinancialsReporterService
   end
 
   def self.field_to_label_map
-    {"weekending_date"=>"Date",
-     "starting_mrr"=>"Starting MRR",
-     "added_mrr"=>"MRR Added",
-     "new_cust_mrr"=>"New Customer MRR",
-     "upgrade_mrr"=>"Upgrade MRR ",
-     "churned_mrr"=>"MRR Churned",
-     "downgrade_mrr"=>"Downgrade MRR ",
-     "net_changed_mrr"=>"Net changed MRR ",
-     "current_mrr"=>"Current MRR ",
-     "churned_customer_mrr"=>"Churned Customer MRR ",
-     "starting_customers"=>"Starting Customers",
-     "added_customers"=>"Customers Added",
-     "churned_customers"=>"Churned Customers",
-     "net_change_customers"=>"Net Changed Customers",
-     "current_customers"=>"Current Customers",
-     "possible_churn_customers"=>"Possible Churn Customers",
-     "possible_churn_mrr"=>"Possible Churn MRR",
-     "percent_churned_customers"=>"Percent MRR Customers",
-     "percent_churned_mrr"=>"Percent MRR Churn",
-     "net_churned_mrr"=>"Net MRR Churn"}
+    {
+      "weekending_date"=>"Date",
+      "starting_mrr"=>"Starting MRR",
+      "added_mrr"=>"MRR Added",
+      "new_cust_mrr"=>"New Customer MRR",
+      "upgrade_mrr"=>"Upgrade MRR ",
+      "churned_mrr"=>"MRR Churned",
+      "downgrade_mrr"=>"Downgrade MRR ",
+      "net_changed_mrr"=>"Net changed MRR ",
+      "current_mrr"=>"Current MRR ",
+      "churned_customer_mrr"=>"Churned Customer MRR ",
+      "starting_customers"=>"Starting Customers",
+      "added_customers"=>"Customers Added",
+      "churned_customers"=>"Churned Customers",
+      "net_change_customers"=>"Net Changed Customers",
+      "current_customers"=>"Current Customers",
+      "possible_churn_customers"=>"Possible Churn Customers",
+      "possible_churn_mrr"=>"Possible Churn MRR",
+      "percent_churned_customers"=>"Percent MRR Customers",
+      "percent_churned_mrr"=>"Percent MRR Churn",
+      "net_churned_mrr"=>"Net MRR Churn",
+      "amt_booked" => "Amount Booked",
+      "added_customer_amt_booked" => "New Customer Amount Booked",
+      "renewal_amt_booked" => "Renewal Amount Booked"
+    }
   end
 end

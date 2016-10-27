@@ -68,7 +68,10 @@ class Metrics < ActiveRecord::Base
       "possible_churn_mrr",
       "percent_churned_customers",
       "percent_churned_mrr",
-      "net_churned_mrr"
+      "net_churned_mrr",
+      "amt_booked",
+      "added_customer_amt_booked",
+      "renewal_amt_booked"
     ]
   end
 
