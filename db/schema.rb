@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161027133715) do
+ActiveRecord::Schema.define(:version => 20161027151304) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -561,12 +561,15 @@ ActiveRecord::Schema.define(:version => 20161027133715) do
     t.date     "weekending_date"
     t.decimal  "amt_booked"
     t.string   "interval"
-    t.decimal  "downgrade_mmr"
+    t.decimal  "downgrade_mrr"
     t.decimal  "churned_customer_mrr"
     t.decimal  "net_changed_mrr"
     t.integer  "net_change_customers"
     t.integer  "current_customers"
     t.float    "percent_churned_customers"
+    t.decimal  "current_mrr"
+    t.integer  "cust_churned"
+    t.integer  "cust_possible_churn"
   end
 
   create_table "more_info_requests", :force => true do |t|
