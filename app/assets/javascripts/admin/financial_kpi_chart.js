@@ -33,12 +33,13 @@ Airbo.FinancialKpiChart = (function(){
         type: 'line'
       },
       title: {
-        text: 'Monthly Recuring Revenue'
+        text: 'Weekly KPIs'
       },
       xAxis: x_axis_params() ,
       yAxis: y_axis_params(),
       series: [{
-        data: chartData
+        name: 'MRR',
+        data: chartData,
       } ]
     });
   }
