@@ -2,15 +2,12 @@ var Airbo = window.Airbo || {};
 
 Airbo.FinancialKpiChart = (function(){
 
-  var totalCustomers = ".total-customers .header-number",
-    totalBooked = ".total-booked .header-number",
-    totalMrr = ".total-mrr .header-number",
-    chartContainer = "#chart-container",
-    chartData,
-    tableData,
-    dates, 
-    kpiChart
-  ;
+  var chartData,
+  , tableData,
+  , dates, 
+  , kpiChart
+  , chartContainer = "#chart-container"
+;
   var tableTemplate=[
     "<table>",
     "<thead><tr><td>&nbsp;</td>",
@@ -99,16 +96,12 @@ Airbo.FinancialKpiChart = (function(){
   }
 
   function initVars(){
-   totalMrr = $(totalMrr);
-   totalCustomers = $(totalCustomers);
-   totalBooked = $(totalBooked);
    chartContainer = $(chartContainer);
   }
 
   function refresh(data){
     prepareDataForChart(data.tableData);
     refreshChart();
-    refreshTotals(data.totals);
     refreshTable(tableData)
     kpiChart.hideLoading();
   }
@@ -122,14 +115,6 @@ Airbo.FinancialKpiChart = (function(){
     kpiChart.series[0].setData(chartData);
   }
 
-  function refreshTotals(totals){
-    [totalMrr, totalCustomers, totalBooked].forEach(function(kpi){
-      var metric = $(kpi)
-        , val = totals[metric.data("kpi")]
-      ;
-      metric.text(val.toLocaleString("en-US"));
-    });
-  }
 
   function submitFailure(){
     console.log("error occured"); 
