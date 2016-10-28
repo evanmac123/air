@@ -26,6 +26,13 @@ class Contract < ActiveRecord::Base
     where(in_collection: false)
   end
 
+  def self.current_as_of d
+    where("delinquency_date is null or delinquency_date > ?", d)
+  end
+
+  def self.delinquent_as_of d
+    where("delinquency_date  <= ?", d)
+  end
   def self.delinquent
     where(in_collection: true)
   end
@@ -48,22 +55,27 @@ class Contract < ActiveRecord::Base
 
   def self.active_mrr_today
    active.sum(&:calc_mrr)
-  end 
+  end
+
+  def self.delinquent_mrr_as_of_date d
+    delinquent_as_of(d).sum(&:calc_mrr) 
+  end
+
 
   #--------------------------------------------------------
   # Used for forecasting and historical analysis
   #--------------------------------------------------------
  
   def self.active_as_of_date d
-    current.where("end_date >= ? and start_date <= ?", d, d)
+    current_as_of(d).where("end_date >= ? and start_date <= ?", d, d)
   end
 
   def self.active_during_period sdate, edate
-    current.where("start_date <= ? and end_date >= ?", sdate, sdate)
+    current_as_of(sdate).where("start_date <= ? and end_date >= ?", sdate, sdate)
   end
 
   def self.active_not_expiring_during_period sdate, edate
-    current.where("start_date <= ? and end_date >= ?", edate, edate)
+    current_as_of(sdate).where("start_date <= ? and end_date >= ?", edate, edate)
   end
 
   def self.added_during_period sdate, edate

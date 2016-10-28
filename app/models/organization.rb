@@ -34,6 +34,9 @@ class Organization < ActiveRecord::Base
     as_customer.select{|o| o.active_as_of_date(d)}
   end
 
+  def self.currently_active
+    active_as_of_date(Date.today)
+  end
 
   def self.active_during_period sdate, edate
     as_customer.select{|o| o.active_during_period(sdate, edate)}
@@ -47,6 +50,13 @@ class Organization < ActiveRecord::Base
     possible_churn_during_period(sdate, edate).select{|o|o.contracts.auto_renewing.count == 0}
   end
 
+  def self.with_deliquent_contracts_as_of_date date
+    as_customer.select{|o|o.contracts.delinquent_as_of(date).count > 0} 
+  end
+
+  def self.delinquent_as_of_date date
+    with_deliquent_contracts_as_of_date(date).select{|o|o.contracts.active_as_of_date(date).count == 0}
+  end
 
   def self.possible_churn_during_period sdate, edate
     active_as_of_date(sdate).select{|o| o.contracts.active_not_expiring_during_period(sdate,edate).count == 0 }
