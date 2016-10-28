@@ -32,7 +32,7 @@ class FinancialsReporterService
   end
 
 
-  def self.build_historical 
+  def self.build_historical(date = nil)
     if Contract.count==0 || Organization.count == 0
       Rails.logger.warn "Skipping Activity Report Not Monday"
     else
