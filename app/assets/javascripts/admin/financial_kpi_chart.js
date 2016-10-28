@@ -110,6 +110,7 @@ Airbo.FinancialKpiChart = (function(){
     refreshChart();
     refreshTotals(data.totals);
     refreshTable(tableData)
+    kpiChart.hideLoading();
   }
 
   function refreshTable(data){
@@ -137,6 +138,7 @@ Airbo.FinancialKpiChart = (function(){
   function initForm(){
     $("#financials_filter").submit(function(event){
       event.preventDefault(); 
+      kpiChart.showLoading();
       Airbo.AjaxResponseHandler.submit($(this), refresh, submitFailure);
     })
   }
