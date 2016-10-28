@@ -10,11 +10,11 @@ class Contract < ActiveRecord::Base
   validates :arr, :mrr, numericality: true, allow_nil: true
   validate :arr_or_mrr_provided
 
-  ANNUAL="annual"
-  MONTHLY="monthly"
-  QUARTERLY="quarterly"
-  SEMI_ANNUAL="semi_annual"
-  CUSTOM = "custom"
+  ANNUAL="Annual"
+  MONTHLY="Monthly"
+  QUARTERLY="Quarterly"
+  SEMI_ANNUAL="Semi Annual"
+  CUSTOM = "Custom"
    
   before_validation :set_name
 
@@ -145,7 +145,8 @@ class Contract < ActiveRecord::Base
   def renew
     dup = self.dup
     dup.start_date = end_date.advance(days:1)
-    dup.end_date = new_end_date end_date
+    dup.end_date = new_end_date(end_date)
+    dup.date_booked = dup.start_date
     dup.save
     dup
   end
