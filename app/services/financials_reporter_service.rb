@@ -55,6 +55,10 @@ class FinancialsReporterService
     Contract.booked_year_to_date
   end
 
+  def self.current_arr
+    Contract.active_arr_today
+  end
+
   def self.active_customers
     Organization.currently_active.count
   end
@@ -97,7 +101,7 @@ class FinancialsReporterService
 
   def self.totals
     {
-      totalBooked: current_amount_booked.to_i,
+      totalArr: current_arr.to_i,
       totalCustomers: active_customers,
       totalMrr: current_mrr.to_i,
     }

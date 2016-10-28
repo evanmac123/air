@@ -57,6 +57,10 @@ class Contract < ActiveRecord::Base
    active.sum(&:calc_mrr)
   end
 
+  def self.active_arr_today
+    active.sum(&:calc_mrr) * 12
+  end
+
   def self.delinquent_mrr_as_of_date d
     delinquent_as_of(d).sum(&:calc_mrr) 
   end

@@ -62,9 +62,6 @@ class Organization < ActiveRecord::Base
     active_as_of_date(sdate).select{|o| o.contracts.active_not_expiring_during_period(sdate,edate).count == 0 }
   end
 
-
-  #-----------
-
   def mrr_churn_during_period sdate, edate
     current = mrr_as_of_date(edate) 
     starting = mrr_as_of_date(sdate)
