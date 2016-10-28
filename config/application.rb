@@ -54,6 +54,7 @@ module Health
       public_board_fixed_headers.css
       public_board_fixed_headers.js
       app-admin.js
+      app-highcharts-standalone.js
       app-internal.js
       app-external.js
       app-landing.js

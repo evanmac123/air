@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161021222518) do
+ActiveRecord::Schema.define(:version => 20161028001514) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -37,7 +37,6 @@ ActiveRecord::Schema.define(:version => 20161021222518) do
   add_index "acts", ["rule_value_id"], :name => "index_acts_on_rule_value_id"
   add_index "acts", ["text"], :name => "index_acts_on_text"
   add_index "acts", ["user_id"], :name => "index_acts_on_player_id"
-  add_index "acts", ["user_type"], :name => "index_acts_on_user_type"
 
   create_table "bad_message_replies", :force => true do |t|
     t.string   "body",           :limit => 160
@@ -106,6 +105,13 @@ ActiveRecord::Schema.define(:version => 20161021222518) do
     t.integer  "organization_id"
   end
 
+  create_table "blacklists", :force => true do |t|
+    t.integer  "raffle_id"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "board_memberships", :force => true do |t|
     t.boolean  "is_current",                       :default => true
     t.boolean  "is_client_admin",                  :default => false
@@ -117,13 +123,13 @@ ActiveRecord::Schema.define(:version => 20161021222518) do
     t.integer  "user_id"
     t.datetime "created_at",                                          :null => false
     t.datetime "updated_at",                                          :null => false
-    t.boolean  "not_show_onboarding",              :default => false
     t.boolean  "displayed_tile_post_guide",        :default => false
     t.boolean  "displayed_tile_success_guide",     :default => false
+    t.boolean  "not_show_onboarding",              :default => false
     t.boolean  "digest_muted",                     :default => false
     t.boolean  "followup_muted",                   :default => false
-    t.boolean  "send_weekly_activity_report",      :default => true
     t.boolean  "allowed_to_make_tile_suggestions", :default => false, :null => false
+    t.boolean  "send_weekly_activity_report",      :default => true
   end
 
   add_index "board_memberships", ["demo_id"], :name => "index_board_memberships_on_demo_id"
@@ -203,12 +209,14 @@ ActiveRecord::Schema.define(:version => 20161021222518) do
     t.string   "plan"
     t.integer  "max_users"
     t.text     "notes"
-    t.datetime "created_at",                           :null => false
-    t.datetime "updated_at",                           :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.integer  "parent_contract_id"
     t.boolean  "is_actual",          :default => true
     t.boolean  "auto_renew",         :default => true
     t.string   "cycle"
+    t.boolean  "in_collection",      :default => false
+    t.date     "delinquency_date"
   end
 
   add_index "contracts", ["organization_id"], :name => "index_contracts_on_organization_id"
@@ -367,14 +375,6 @@ ActiveRecord::Schema.define(:version => 20161021222518) do
     t.string   "source"
   end
 
-  create_table "experiments", :force => true do |t|
-    t.string   "name"
-    t.integer  "counter",    :default => 0
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
-    t.boolean  "active",     :default => true
-  end
-
   create_table "follow_up_digest_emails", :force => true do |t|
     t.integer  "demo_id"
     t.text     "tile_ids"
@@ -447,14 +447,13 @@ ActiveRecord::Schema.define(:version => 20161021222518) do
     t.integer  "tickets",                              :default => 0
     t.integer  "ticket_threshold_base",                :default => 0
     t.integer  "demo_id"
-    t.datetime "created_at",                                              :null => false
-    t.datetime "updated_at",                                              :null => false
+    t.datetime "created_at",                                             :null => false
+    t.datetime "updated_at",                                             :null => false
     t.integer  "converted_user_id"
     t.boolean  "get_started_lightbox_displayed"
     t.datetime "last_acted_at"
     t.datetime "last_session_activity_at"
     t.boolean  "seeing_marketing_page_for_first_time", :default => true
-    t.boolean  "onboarding_seen",                      :default => false
   end
 
   add_index "guest_users", ["demo_id"], :name => "index_guest_users_on_demo_id"
@@ -548,8 +547,7 @@ ActiveRecord::Schema.define(:version => 20161021222518) do
   create_table "metrics", :force => true do |t|
     t.integer  "starting_customers"
     t.integer  "added_customers"
-    t.integer  "cust_possible_churn"
-    t.integer  "cust_churned"
+    t.integer  "churned_customers"
     t.decimal  "starting_mrr"
     t.decimal  "added_mrr"
     t.decimal  "new_cust_mrr"
@@ -558,9 +556,22 @@ ActiveRecord::Schema.define(:version => 20161021222518) do
     t.decimal  "churned_mrr"
     t.float    "percent_churned_mrr"
     t.float    "net_churned_mrr"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
     t.date     "weekending_date"
+    t.decimal  "amt_booked"
+    t.string   "interval"
+    t.decimal  "downgrade_mrr"
+    t.decimal  "churned_customer_mrr"
+    t.decimal  "net_changed_mrr"
+    t.integer  "net_change_customers"
+    t.integer  "current_customers"
+    t.float    "percent_churned_customers"
+    t.decimal  "current_mrr"
+    t.integer  "cust_churned"
+    t.integer  "possible_churn_customers"
+    t.decimal  "added_customer_amt_booked"
+    t.decimal  "renewal_amt_booked"
   end
 
   create_table "more_info_requests", :force => true do |t|
@@ -831,7 +842,6 @@ ActiveRecord::Schema.define(:version => 20161021222518) do
 
   add_index "tile_completions", ["tile_id"], :name => "index_task_suggestions_on_task_id"
   add_index "tile_completions", ["user_id"], :name => "index_task_suggestions_on_user_id"
-  add_index "tile_completions", ["user_type"], :name => "index_tile_completions_on_user_type"
 
   create_table "tile_images", :force => true do |t|
     t.string   "image_file_name"
@@ -927,14 +937,15 @@ ActiveRecord::Schema.define(:version => 20161021222518) do
     t.integer  "points"
     t.boolean  "image_processing"
     t.boolean  "thumbnail_processing"
+    t.integer  "image_container_id"
+    t.boolean  "is_public",               :default => false, :null => false
+    t.boolean  "is_copyable",             :default => false, :null => false
     t.integer  "creator_id"
+    t.integer  "original_creator_id"
+    t.datetime "original_created_at"
     t.string   "question_type"
     t.string   "question_subtype"
     t.text     "image_credit"
-    t.boolean  "is_public",               :default => false, :null => false
-    t.boolean  "is_copyable",             :default => false, :null => false
-    t.integer  "original_creator_id"
-    t.datetime "original_created_at"
     t.boolean  "is_sharable",             :default => false, :null => false
     t.integer  "tile_completions_count",  :default => 0
     t.integer  "explore_page_priority"
@@ -946,6 +957,7 @@ ActiveRecord::Schema.define(:version => 20161021222518) do
     t.string   "remote_media_url"
     t.string   "remote_media_type"
     t.boolean  "use_old_line_break_css",  :default => false
+    t.string   "video_url",               :default => "",    :null => false
     t.text     "embed_video",             :default => "",    :null => false
   end
 
@@ -1079,8 +1091,8 @@ ActiveRecord::Schema.define(:version => 20161021222518) do
     t.string   "auth_hash"
     t.boolean  "demo_scheduled", :default => false, :null => false
     t.boolean  "shared",         :default => false, :null => false
-    t.string   "more_info"
     t.boolean  "completed",      :default => false, :null => false
+    t.string   "more_info"
   end
 
   add_index "user_onboardings", ["onboarding_id"], :name => "index_user_onboardings_on_onboarding_id"
@@ -1177,21 +1189,22 @@ ActiveRecord::Schema.define(:version => 20161021222518) do
     t.boolean  "has_own_tile_completed",                              :default => false
     t.boolean  "displayed_tile_post_guide",                           :default => false
     t.boolean  "displayed_tile_success_guide",                        :default => false
+    t.boolean  "displayed_activity_page_admin_guide",                 :default => false
     t.boolean  "displayed_active_tile_guide",                         :default => false
     t.boolean  "has_own_tile_completed_displayed",                    :default => false
     t.integer  "has_own_tile_completed_id"
-    t.boolean  "displayed_activity_page_admin_guide",                 :default => false
     t.string   "explore_token"
     t.boolean  "is_test_user"
     t.boolean  "share_section_intro_seen"
     t.string   "mixpanel_distinct_id"
     t.datetime "last_unmonitored_mailbox_response_at"
-    t.boolean  "send_weekly_activity_report",                         :default => true
     t.boolean  "allowed_to_make_tile_suggestions",                    :default => false,       :null => false
     t.boolean  "submitted_tile_menu_intro_seen",                      :default => false,       :null => false
+    t.boolean  "send_weekly_activity_report",                         :default => true
     t.boolean  "suggestion_box_intro_seen",                           :default => false,       :null => false
     t.boolean  "user_submitted_tile_intro_seen",                      :default => false,       :null => false
     t.boolean  "manage_access_prompt_seen",                           :default => false,       :null => false
+    t.boolean  "suggestion_box_prompt_seen",                          :default => false,       :null => false
     t.integer  "primary_user_id"
     t.string   "official_email"
     t.integer  "organization_id"

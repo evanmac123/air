@@ -1,15 +1,27 @@
-require 'custom_responder'
 class Admin::MetricsController < AdminBaseController
-  include CustomResponder
+  before_filter :parse_start_and_end_dates, only: [:index]
 
+  def index
+    get_kpi
 
-  def historical
-    FinancialsReporterService.delay.build_historical
-    flash[:success]="Processing your historical metrics please check back in a few minutes"
-    redirect_to organization_metrics_path
+    respond_to do |format| 
+      format.html
+      format.csv do 
+        data = FinancialsReporterService.to_csv @sdate, @edate
+        send_data data, filename: "kpi-#{@sdate}-#{@edate}.csv" 
+      end 
+    end
   end
+
 
   private
 
+  def get_kpi
+    if @sdate && @edate
+      @kpi = Metrics.by_start_and_end @sdate,@edate
+    else
+      @kpi, @sdate, @edate = Metrics.current_week_with_date_range
+    end
+  end
 
 end

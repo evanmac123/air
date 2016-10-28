@@ -18,5 +18,21 @@
     <hr/>
   </div>
 </div>
-<div>
-  <%= render "org_boards", boards: @organization.boards %>
+
+<div class="row">
+  <div class="columns small-12">
+    <div id="tabs">
+      <ul class="tabs">
+        <li><a href="#tab-1" >Boards</a></li>
+        <li><a href="#tab-2">Contracts</a></li>
+      </ul>
+      <div id="tab-1" class="tab">
+        <%= render "org_boards", boards: @organization.boards %>
+      </div>
+
+      <div id="tab-2" class="tab">
+        <%= render "cust_contracts", organization: @organization %>
+      </div>
+    </div>
+  </div>
+</div>

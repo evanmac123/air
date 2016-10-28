@@ -1,6 +1,5 @@
 //= require mobvious-rails
 //= require_tree ./client_admin
-//= require ./ajax-response-handler
 //= require_tree ../../../vendor/assets/javascripts/external/
 
 //= require highcharts/highcharts
