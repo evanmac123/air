@@ -56,7 +56,7 @@ class FinancialsReporterService
   end
 
   def self.active_customers
-    Contract.active.includes(:organization).count
+    Organization.currently_active.count
   end
 
   def self.default_date_range
@@ -136,7 +136,7 @@ class FinancialsReporterService
     {
       "weekending_date"=>"Date",
       "starting_mrr"=>"Starting MRR",
-      "added_mrr"=>"MRR Added",
+      "added_mrr"=>"Added MRR",
       "new_cust_mrr"=>"New Customer MRR",
       "upgrade_mrr"=>"Upgrade MRR ",
       "churned_mrr"=>"MRR Churned",
