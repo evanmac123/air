@@ -36,7 +36,7 @@ class FinancialsReporterService
     if Contract.count==0 || Organization.count == 0
       Rails.logger.warn "Skipping Activity Report Not Monday"
     else
-      min_start = Contract.min_activity_date
+      min_start = date || Contract.min_activity_date
       sdate = min_start.beginning_of_week
       edate = sdate.end_of_week
       while sdate < Date.today do 
