@@ -46,6 +46,8 @@
         <table>
           <thead>
             <tr>
+              <th>Created</th>
+              <th>Days In Pending</th>
               <th>Name</th>
               <th>Organization</th>
               <th>Email</th>
@@ -57,6 +59,12 @@
           <tbody>
             <% pending_leads.each do |lead_contact| %>
               <tr id="<%= lead_contact.id %>">
+                <td class="name">
+                  <%= lead_contact.created_at.strftime("%D") %>
+                </td>
+                <td class="name">
+                  <%= (Date.today - lead_contact.updated_at.to_date).to_i %>
+                </td>
                 <td class="name">
                   <%= lead_contact.name %>
                 </td>
@@ -88,6 +96,8 @@
         <table>
           <thead>
             <tr>
+              <th>Created</th>
+              <th>Days In Approved</th>
               <th>Name</th>
               <th>Organization</th>
               <th>Email</th>
@@ -99,6 +109,12 @@
           <tbody>
             <% approved_leads.each do |lead_contact| %>
               <tr id="<%= lead_contact.id %>">
+                <td class="name">
+                  <%= lead_contact.created_at.strftime("%D") %>
+                </td>
+                <td class="name">
+                  <%= (Date.today - lead_contact.updated_at.to_date).to_i %>
+                </td>
                 <td class="name">
                   <%= lead_contact.name %>
                 </td>
@@ -130,6 +146,8 @@
         <table>
           <thead>
             <tr>
+              <th>Created</th>
+              <th>Days In Processed</th>
               <th>Name</th>
               <th>Organization</th>
               <th>Email</th>
@@ -141,6 +159,12 @@
           <tbody>
             <% processed_leads.each do |lead_contact| %>
               <tr id="<%= lead_contact.id %>">
+                <td class="name">
+                  <%= lead_contact.created_at.strftime("%D") %>
+                </td>
+                <td class="name">
+                  <%= (Date.today - lead_contact.updated_at.to_date).to_i %>
+                </td>
                 <td class="name">
                   <%= lead_contact.name %>
                 </td>
@@ -202,7 +226,4 @@
     </div>
   </div>
   <%= hidden_field_tag "status", params[:status] || "pending" %>
-  <% if params[:status] == "approved" %>
-    <%= render 'lead_contacts_approval_modal', approved_lead_contact: approved_leads.first %>
-  <% end %>
 </div>

@@ -40,10 +40,6 @@ Airbo.LeadContact = (function(){
     });
   }
 
-  function initDynamicModelLaunch() {
-    $("#lead-contacts-approval-modal").foundation('reveal', 'open');
-  }
-
   function initOrgSearch() {
     $("#org-search").on("click", function(e) {
       e.preventDefault();
@@ -145,7 +141,6 @@ Airbo.LeadContact = (function(){
     toggleOrganizationInputs();
     matchExistingOrg();
     initCloseAdminModal();
-    initDynamicModelLaunch();
     initPrioritySelection();
     openTab();
     initialTabs();

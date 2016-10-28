@@ -12,13 +12,15 @@
       <% if @demo.is_paid? %>
         <%= link_to "Make board free", admin_demo_paid_status_path(@demo), method: :delete, class: "inline button alert" , form_class: "inline"%>
       <% else %>
-        <%= link_to "Make board paid", admin_demo_paid_status_path(@demo), method: :post, class: "inline button danger", form_class: "inline"%>
+        <%= link_to "Make board paid", admin_demo_paid_status_path(@demo), method: :post, class: "inline button danger", form_class: "inline" %>
       <% end %>
 
-      <%=link_to admin_demo_path(@demo), class: "button outlined unlink" do%>
+      <%=link_to admin_demo_path(@demo), class: "button outlined unlink" do %>
         <%=fa_icon("unlink") %>
         <span>Unlink this board from:  <%=@demo.organization_name%></span>
       <% end if @demo.organization.present? %>
+
+      <%= link_to "View Board", current_board_path({ board_id: @demo.id, admin_view_board: true }), method: :put, class: "outlined-alt green button", form_class: "inline"%>
 
       <%= link_to "Delete Board", "#", id: "delete-board", class: "inline button outline red danger", form_class: "inline", style: "float:right" %>
 
