@@ -57,6 +57,10 @@ class FinancialsCalcService
     possible_churn_customers.count
   end
 
+  def delinquent_customers
+    @delinquent_customers = Organization.with_deliquent_contracts_as_of_date(sdate)
+  end
+
   def churned_customers
     @churned_customers ||=starting_customers - retained_customers
   end
