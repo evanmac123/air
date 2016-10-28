@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161027181130) do
+ActiveRecord::Schema.define(:version => 20161028001514) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -216,6 +216,7 @@ ActiveRecord::Schema.define(:version => 20161027181130) do
     t.boolean  "auto_renew",         :default => true
     t.string   "cycle"
     t.boolean  "in_collection",      :default => false
+    t.date     "delinquency_date"
   end
 
   add_index "contracts", ["organization_id"], :name => "index_contracts_on_organization_id"
