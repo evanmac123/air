@@ -2,12 +2,13 @@ var Airbo = window.Airbo || {};
 
 Airbo.FinancialKpiChart = (function(){
 
-  var chartData,
-  , tableData,
-  , dates, 
-  , kpiChart
-  , chartContainer = "#chart-container"
-;
+  var chartData
+    , tableData
+    , dates 
+    , kpiChart
+    , chartContainer = "#chart-container"
+  ;
+
   var tableTemplate=[
     "<table>",
     "<thead><tr><td>&nbsp;</td>",
@@ -28,7 +29,7 @@ Airbo.FinancialKpiChart = (function(){
   ].join("");
 
   function initChart(container){
-     kpiChart = Highcharts.chart(container.attr("id"), {
+    kpiChart = Highcharts.chart(container.attr("id"), {
       chart: {
         type: 'line'
       },
@@ -97,7 +98,7 @@ Airbo.FinancialKpiChart = (function(){
   }
 
   function initVars(){
-   chartContainer = $(chartContainer);
+    chartContainer = $(chartContainer);
   }
 
   function refresh(data){
@@ -133,57 +134,57 @@ Airbo.FinancialKpiChart = (function(){
     prepareDataForChart(chartContainer.data("plotdata"));
   }
 
- function prepareDataForChart(data){
-   getDateSeries(data.weekending_date.values);
-   chartData = dates.map(
-     function(date,idx){ 
-       return{
-         x: date,
-         y: data.starting_mrr.values[idx]
-       }
-     });
+  function prepareDataForChart(data){
+    getDateSeries(data.weekending_date.values);
+    chartData = dates.map(
+      function(date,idx){ 
+        return{
+          x: date,
+          y: data.starting_mrr.values[idx]
+        }
+      });
 
-     tableData = { headers: converDates(), rows: getTableRows(data)};
- }
+      tableData = { headers: converDates(), rows: getTableRows(data)};
+  }
 
- function getTableRows(data){
-   return Object.keys(data).map(function (kpi) { 
-     if(kpi !== "weekending_date"){
-       return data[kpi];
-     }
-   });
- }
+  function getTableRows(data){
+    return Object.keys(data).map(function (kpi) { 
+      if(kpi !== "weekending_date"){
+        return data[kpi];
+      }
+    });
+  }
 
- function converDates(){
-   return dates.map(function(date){
-     return (new Date(date)).toLocaleString("en-US", {year: "2-digit", month: "2-digit", day: "2-digit"});
-   });
- }
+  function converDates(){
+    return dates.map(function(date){
+      return (new Date(date)).toLocaleString("en-US", {year: "2-digit", month: "2-digit", day: "2-digit"});
+    });
+  }
 
- function getDateSeries(data){
-   if(data !== null){
-     dates = data.map(
-       function(val,idx){ 
-         return  Date.parse(val)
-       });
-   }else{
+  function getDateSeries(data){
+    if(data !== null){
+      dates = data.map(
+        function(val,idx){ 
+          return  Date.parse(val)
+        });
+    }else{
       alert("Something went wrong with this request. Please refresh and try again or change the date range")
-   }
- }
+    }
+  }
 
 
- function rebuildTable(){
-  
-    var theTemplate = Handlebars.compile (tableTemplate);  
-   $(".table-container").html(theTemplate (tableData));
- }
+  function rebuildTable(){
+
+     var theTemplate = Handlebars.compile (tableTemplate);  
+    $(".table-container").html(theTemplate (tableData));
+  }
 
 
   function init(){
-   initVars();
-   initChartDataFromDataAttributes();
-   initChart(chartContainer);
-   initForm();
+    initVars();
+    initChartDataFromDataAttributes();
+    initChart(chartContainer);
+    initForm();
   }
 
 
