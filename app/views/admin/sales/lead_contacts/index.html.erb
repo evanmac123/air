@@ -31,6 +31,14 @@
           <% end %>
         </a>
       </li>
+      <li>
+        <a href="#" id="deleted-leads-link" class="tablinks" data-target="deletedLeads">
+          <% deleted_leads = $redis.smembers("deleted_lead_contacts") %>
+          <% if deleted_leads.length > 0 %>
+            Deleted Leads <span class="badge"><%= deleted_leads.length %></span>
+          <% end %>
+        </a>
+      </li>
     </ul>
 
     <div id="pendingLeads" class="pending-leads tabcontent">
@@ -38,16 +46,25 @@
         <table>
           <thead>
             <tr>
+              <th>Created</th>
+              <th>Days In Pending</th>
               <th>Name</th>
               <th>Organization</th>
               <th>Email</th>
               <th>Phone</th>
+              <th></th>
               <th></th>
             </tr>
           </thead>
           <tbody>
             <% pending_leads.each do |lead_contact| %>
               <tr id="<%= lead_contact.id %>">
+                <td class="name">
+                  <%= lead_contact.created_at.strftime("%D") %>
+                </td>
+                <td class="name">
+                  <%= (Date.today - lead_contact.updated_at.to_date).to_i %>
+                </td>
                 <td class="name">
                   <%= lead_contact.name %>
                 </td>
@@ -63,6 +80,11 @@
                 <td class="review">
                   <%= link_to "review", edit_admin_sales_lead_contact_path(lead_contact), class: "button tiny green" %>
                 </td>
+                <td class="delete">
+                  <%= form_for [:admin, :sales, lead_contact], method: :delete do |f| %>
+                    <%= f.submit "delete", class: "button tiny red" %>
+                  <% end %>
+                </td>
               </tr>
             <% end %>
           </tbody>
@@ -74,16 +96,25 @@
         <table>
           <thead>
             <tr>
+              <th>Created</th>
+              <th>Days In Approved</th>
               <th>Name</th>
               <th>Organization</th>
               <th>Email</th>
               <th>Phone</th>
+              <th></th>
               <th></th>
             </tr>
           </thead>
           <tbody>
             <% approved_leads.each do |lead_contact| %>
               <tr id="<%= lead_contact.id %>">
+                <td class="name">
+                  <%= lead_contact.created_at.strftime("%D") %>
+                </td>
+                <td class="name">
+                  <%= (Date.today - lead_contact.updated_at.to_date).to_i %>
+                </td>
                 <td class="name">
                   <%= lead_contact.name %>
                 </td>
@@ -99,6 +130,11 @@
                 <td class="process">
                   <%= link_to "build board", edit_admin_sales_lead_contact_path(lead_contact), class: "button tiny green" %>
                 </td>
+                <td class="delete">
+                  <%= form_for [:admin, :sales, lead_contact], method: :delete do |f| %>
+                  <%= f.submit "delete", class: "button tiny red" %>
+                  <% end %>
+                </td>
               </tr>
             <% end %>
           </tbody>
@@ -110,9 +146,12 @@
         <table>
           <thead>
             <tr>
+              <th>Created</th>
+              <th>Days In Processed</th>
               <th>Name</th>
               <th>Organization</th>
               <th>Email</th>
+              <th></th>
               <th></th>
               <th></th>
             </tr>
@@ -120,6 +159,12 @@
           <tbody>
             <% processed_leads.each do |lead_contact| %>
               <tr id="<%= lead_contact.id %>">
+                <td class="name">
+                  <%= lead_contact.created_at.strftime("%D") %>
+                </td>
+                <td class="name">
+                  <%= (Date.today - lead_contact.updated_at.to_date).to_i %>
+                </td>
                 <td class="name">
                   <%= lead_contact.name %>
                 </td>
@@ -135,6 +180,44 @@
                 <td class="send-digest">
                   <%= link_to "send digest email", new_admin_sales_lead_contact_invite_path(lead_contact), class: "button tiny green", target: "_blank" %>
                 </td>
+                <td class="delete">
+                  <%= form_for [:admin, :sales, lead_contact], method: :delete do |f| %>
+                    <%= f.submit "delete", class: "button tiny red" %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
+    </div>
+    <div id="deletedLeads" class="deleted-leads tabcontent">
+      <% if deleted_leads.length > 0 %>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Organization</th>
+              <th>Email</th>
+              <th>Phone</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% deleted_leads.each do |lead_contact| %>
+              <% lead_contact = JSON.parse(lead_contact) %>
+              <tr>
+                <td class="name">
+                  <%= lead_contact["name"] %>
+                </td>
+                <td class="name">
+                  <%= lead_contact["org"] %>
+                </td>
+                <td class="email">
+                  <%= lead_contact["email"] %>
+                </td>
+                <td class="phone">
+                  <%= lead_contact["phone"] %>
+                </td>
               </tr>
             <% end %>
           </tbody>
@@ -143,7 +226,4 @@
     </div>
   </div>
   <%= hidden_field_tag "status", params[:status] || "pending" %>
-  <% if params[:status] == "approved" %>
-    <%= render 'lead_contacts_approval_modal', approved_lead_contact: approved_leads.first %>
-  <% end %>
 </div>

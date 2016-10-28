@@ -18,11 +18,18 @@ Health::Application.routes.draw do
   match "ard/:public_slug/tiles" => "tiles#index", :as => "public_tiles", :via => :get
   match "ard/:public_slug/tile/:id" => "tiles#show", :as => "public_tile", :via => :get
 
-  get "admin/customer/metrics" => "admin/organizations#metrics", :as => "organization_metrics"
-  post "admin/customer/metrics" => "admin/organizations#metrics_recalc", :as => "organization_metrics"
 
   post "admin/contracts/import" => "admin/contracts#import", :as => "contracts_import"
-  post "admin/metrics/historical" => "admin/metrics#historical", :as => "historical_metrics"
+
+  match "myairbo/:id" => "user_onboardings#show", as: "myairbo"
+  match "newairbo" => "onboardings#new"
+
+  resources :onboardings, only: [:create, :new]
+  resources :user_onboardings, only: [:show, :create] do
+    resources :tiles, only: [:show]
+  end
+
+  get "myairbo/:id/activity" => "user_onboardings#activity", as: :onboarding_activity
 
   resources :tiles, :only => [:index, :show]
   resources :tile, :only => [:show], as: "sharable_tile"
@@ -281,14 +288,23 @@ Health::Application.routes.draw do
   resources :cancel_account, :only => [:show, :destroy]
 
   namespace :admin do
+
+
+    resources :historical_metrics, only: [:create]
     namespace :sales do
-      resources :lead_contacts, only: [:index, :edit, :update, :create] do
+      resources :lead_contacts, only: [:index, :edit, :update, :create, :destroy] do
         resources :invites, only: [:new]
         resources :tiles, only: [:index]
       end
     end
 
+    resources :topics
+
     resource :client_kpi_report
+    resource :financials_kpi_dashboard, only:[:show], controller: "financials/kpi_dashboard"
+
+    resources :metrics
+    resources :topic_boards
     resources :organizations, as: :customers
     resources :organizations do
       collection do
@@ -301,6 +317,10 @@ Health::Application.routes.draw do
     resources :contracts do
       resources :upgrades, controller: "contracts"
       resources :billings
+    end
+
+    namespace :reference do
+      get "style_guide"
     end
 
     resources :billings
@@ -383,6 +403,9 @@ Health::Application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
+      resources :user_onboardings, only: [:update]
+      resources :onboardings, only: [:create]
+      resources :email_info_requests, only: [:create]
       resources :cheers, only: [:create]
     end
   end

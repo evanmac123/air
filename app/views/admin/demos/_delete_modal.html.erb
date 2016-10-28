@@ -1,0 +1,22 @@
+<div class="delete-board-modal-container">
+  <div data-reveal class='delete-board-modal onboarding-generic-modals reveal-modal medium' id='delete-board-modal' style="background:#fff;">
+    <div class="row">
+      <div class="columns small-12">
+        <div class='onboarding-new'>
+          <p>
+          Deleting boards <strong>cannot</strong> be undone.
+          </p>
+          <p>
+          <div class="text-center">
+            <div class="button outlined red">
+              <%= link_to "delete", [:admin, @demo], method: :delete %>
+            </div>
+            <div class="button outlined close-airbo-modal">
+              Cancel
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

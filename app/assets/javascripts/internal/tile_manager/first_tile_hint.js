@@ -4,33 +4,30 @@ Airbo = window.Airbo || {};
 Airbo.FirstTileHint = (function(){
 
   var tileSelector = ".tile-wrapper"
-    ,pingTitle = "Tile Tooltip Seen", 
-    config = {
-    showStepNumbers: false,
-    scrollToElement: false,
-    overlayOpacity: 0,
-    doneLabel: "Got it"
-  };
+    ,pingTitle = "Tile Tooltip Seen"
+  ; 
 
   function hasTiles(){
     return $(tileSelector).length > 0
   }
 
-  function initIntro() {
+  function initIntro(opts) {
+    var config = {
+      overlayOpacity: 0,
+      doneLabel: "Got it",
+      exitOnEsc: true,
+      steps: [
+        {
+          element: ".tile-wrapper:first-of-type",
+          intro: "This is the first Tile. We recommend clicking it to begin.",
+          position: 'top'
+        },
+      ],
+    };
     if(hasTiles()) {
-      var options = {
-        steps: [
-          {
-            element: $('.tile-wrapper')[0],
-            intro: "Click on the Tile to begin.",
-            position: 'top'
-          },
-        ],
-      };
+      options = $.extend({},config,opts);
 
-      options = $.extend({},config,options);
-      intro = introJs();
-      intro.setOptions(options);
+      intro = Airbo.Utils.IntroJs.init(options)
       intro.oncomplete(function() {
         Airbo.Utils.ping("Tile Tooltip Seen", {action: "Clicked 'Got it'"});
         setFirstTileHintIntroToSeen()
@@ -52,8 +49,8 @@ Airbo.FirstTileHint = (function(){
     });
   }
 
-  function init() {
-    initIntro();
+  function init(opts) {
+    initIntro(opts);
   }
   
   return {

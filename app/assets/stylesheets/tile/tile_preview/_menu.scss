@@ -37,19 +37,19 @@
   .preview_menu_item {
     width: 16%;
     a {
-      padding: 11px 13px 13px 14px;
+      padding: 11px 20px;
     }
     &#suggested_info{
-     width: 60%;
+     width: 50%;
      text-align:left;
     }
 
     &#suggested_accept{
-     width: 20%;
+     width: 25%;
     }
 
     &#suggested_ignore{
-     width: 20%;
+     width: 25%;
     }
   }
   .preview_menu_text {
@@ -74,17 +74,17 @@
   }
   &.draft_menu {
     .preview_menu_item a {
-      padding: 11px 14px 13px 15px;
+      padding: 11px 20px;
     }
   }
   &.active_menu {
     .preview_menu_item a {
-      padding: 11px 13px 13px 14px;
+      padding: 11px 20px;
     }
   }
   &.archive_menu {
     .preview_menu_item a {
-      padding: 11px 13px 13px 13px;
+      padding: 11px 20px;
     }
   }
   &.explore_menu {

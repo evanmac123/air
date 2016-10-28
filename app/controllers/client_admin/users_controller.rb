@@ -89,8 +89,10 @@ class ClientAdmin::UsersController < ClientAdminBaseController
   def render_browse_page
     @offset = params[:offset].present? ? params[:offset].to_i : 0
 
-    @users = current_user.demo.users.where(is_site_admin: false).alphabetical.limit(PAGE_SIZE).offset(@offset)
+    users = current_user.demo.users.where(is_site_admin: false)
 
+    @client_admin = users.client_admin.alphabetical
+    @users = users.non_admin.alphabetical.limit(PAGE_SIZE).offset(@offset)
     @result_description = "everyone"
 
     @show_previous_link = @offset > 0

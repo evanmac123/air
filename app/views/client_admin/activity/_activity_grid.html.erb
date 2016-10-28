@@ -6,7 +6,7 @@
     Time.parse(row.tile_views_updated_at).strftime("%D") || "-"
   end
   g.column name: 'Name', attribute: 'name', in_csv: false, ordering: false do |row|
-    link_to row.user_name, edit_client_admin_user_path(row.user_id)
+    row.user_name
   end
   g.column name: 'Name', attribute: 'name', in_html: false, ordering: false do |row|
     row.user_name

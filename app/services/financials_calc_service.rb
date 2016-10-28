@@ -1,94 +1,150 @@
 class FinancialsCalcService
-  attr_accessor :sdate, :edate 
+  attr_accessor :report_date, :sdate, :edate, :last_week
 
-  def initialize(sdate = 1.week.ago.to_date, edate=Date.today)
-    @sdate = sdate
-    @edate = edate
+  def initialize(report_date=Date.today)
+    @report_date = report_date 
+    @last_week = report_date.advance(weeks: -1) 
+
+    @sdate = report_date.advance(weeks: -1) 
+    @edate = report_date.advance(days: -1)
   end
 
- 
+  #------------------------
+  # Customer Methods
+  #_________________________
 
-  def active_organizations_during_period 
-    Organization.active_during_period(sdate, edate).count
+  def starting_customers
+    @starting_cust ||=Organization.active_as_of_date sdate
   end
 
-  def added_organizations_during_period 
-    Organization.added_during_period(sdate, edate).count
+  def starting_customer_count
+    starting_customers.count
   end
 
-  def possible_churn_during_period
-    Organization.possible_churn_during_period(sdate, edate).count
+  def current_customers
+    @current_cust ||=Organization.active_as_of_date edate
   end
 
-  def churned_during_period
-    Organization.churned_during_period(sdate, edate).count
+  def current_customer_count
+    current_customers.count
   end
 
-  def new_customer_mrr_added_during_period
-    Organization.new_customer_mrr_added_during_period(sdate, edate)
+  def added_customers
+    @cust_added ||= Organization.added_during_period sdate, edate
   end
 
-  def mrr_during_period
-    @starting_mrr ||=Contract.mrr_during_period(sdate, edate)
+  def added_customer_count
+    added_customers.count
   end
 
-  def mrr_upgrades_during_period
-    @upgrade_mrr ||= Contract.mrr_added_from_upgrades_during_period(sdate, edate)
+  def net_change_in_customers
+    current_customer_count - starting_customer_count
   end
 
-  def mrr_added_during_period
-    @mrr_add ||= Contract.mrr_added_during_period(sdate, edate)
+  def retained_customers
+    @retained_customers ||= current_customers-added_customers
   end
 
-  def mrr_possibly_churning_during_period
+  def retained_customer_count
+    retained_customers.count
+  end
+
+  def possible_churn_customers
+   @possible_churn_customer ||=  Organization.possible_churn_during_period(sdate, edate)
+  end
+  
+  def possible_churn_customer_count
+    possible_churn_customers.count
+  end
+
+  def delinquent_customers
+    @delinquent_customers = Organization.with_deliquent_contracts_as_of_date(sdate)
+  end
+
+  def churned_customers
+    @churned_customers ||=starting_customers - retained_customers
+  end
+
+  def churned_customer_count
+    churned_customers.count
+  end
+
+  def percent_churned_customers
+   possible_churn_customer_count == 0 ? 0 : churned_customer_count/possible_churn_customer_count
+  end
+
+  #------------------------
+  # Basic MRR Methods
+  #_________________________
+
+
+  def starting_mrr
+    @starting_mrr ||=Contract.mrr_during_period sdate, edate
+  end
+
+  def current_mrr
+    @current_mrr ||=Contract.active_mrr_as_of_date edate
+  end
+
+  def net_changed_mrr
+    @net_change ||=current_mrr - starting_mrr
+  end
+
+  def new_customer_mrr
+    @new_cust_mrr ||= added_customers.sum{|c|c.mrr_as_of_date(edate)}
+  end
+
+  def churned_customer_mrr
+    @lost_cust_mrr ||= churned_customers.sum{|c|c.mrr_as_of_date(sdate)}
+  end
+
+  def possible_churn_mrr
     Contract.mrr_possibly_churning_during_period(sdate, edate)
   end
 
-  def mrr_churned_during_period
-    @churned_mrr ||= Contract.mrr_churned_during_period(sdate, edate)
+  #------------------------
+  # Upgades/Downgrad MRR Methods
+  #_________________________
+
+
+  def retained_customer_churn
+    retained_customers.map{|c|c.mrr_churn_during_period(sdate, edate)}
   end
 
-  def percent_mrr_churn_during_period
-    return 0 if mrr_churned_during_period == 0
-    mrr_possibly_churning_during_period/mrr_churned_during_period
+  def upgrade_mrr
+   @upgrade_mrr ||= retained_customer_churn.select{|i|i>0}.sum
   end
 
-  def net_mrr_churn_during_period
-    return 0 if mrr_churned_during_period == 0
-    (mrr_upgrades_during_period-mrr_churned_during_period)/mrr_during_period
+  def downgrade_mrr
+   @downgrade_mrr ||= retained_customer_churn.select{|i|i<0}.sum
   end
 
-
-
-  private
-
-  def active_contracts_during_period
-    Contract.active_during_period(sdate, edate).count
+  def added_mrr
+    @mrr_add ||= upgrade_mrr + new_customer_mrr
   end
 
-  def added_contracts_during_period
-    Contract.added_during_period(sdate, edate).count
+  def churned_mrr
+    @mrr_churned ||= downgrade_mrr - churned_customer_mrr
   end
 
-  def arr_possibly_churning_during_period
-    Contract.arr_possibly_churning_during_period(sdate, edate)
+  def net_churned_mrr
+    starting_mrr == 0 ? 0 : (upgrade_mrr - churned_mrr)/starting_mrr
   end
 
-  def arr_during_period
-    Contract.arr_during_period(sdate, edate)
+  def percent_churned_mrr
+   possible_churn_mrr == 0 ? 0 : churned_mrr/possible_churn_mrr
   end
 
-  def arr_added_during_period
-    Contract.arr_added_during_period(sdate, edate)
+  def amt_booked
+    Contract.booked_during_period(sdate, edate)
   end
 
-  def new_customer_arr_added_during_period
-    Organization.new_customer_arr_added_during_period(sdate, edate)
+  def added_customer_amt_booked
+    added_customers.sum{|o|o.contracts.booked_during_period(sdate, edate)}
   end
 
-  def arr_added_from_upgrades_during_period
-    Contract.arr_added_from_upgrades_during_period(sdate, edate)
+  def renewal_amt_booked
+    retained_customers.sum{|o|o.contracts.booked_during_period(sdate, edate)}
   end
-
 
 end

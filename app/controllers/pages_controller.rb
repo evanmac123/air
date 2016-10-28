@@ -28,25 +28,15 @@ class PagesController < HighVoltage::PagesController
 
   def show
     login_as_guest(Demo.new) unless current_user
-    sort_demos
+    @boards = library_boards
     super
   end
 
   private
 
-  def board_slugs
-    @slugs ||= HOMEPAGE_BOARD_SLUGS.split(",")
+  def library_boards
+    Demo.joins(:topic_board).where(topic_board: { is_library: true } )
   end
-
-
-
-  def sort_demos
-    @demos = Demo.where(public_slug:board_slugs)
-    @sorted_demos = board_slugs.map do|slug|
-     @demos.where(public_slug: slug).first
-    end.compact
-  end
-
 
   def layout_for_page
     case page_name

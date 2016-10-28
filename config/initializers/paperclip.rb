@@ -27,6 +27,16 @@ when 'production', 'staging', "production_local"
     hash_data: "demos/:attachment/:id/:style/:updated_at",
   }
 
+  TOPIC_OPTIONS = {
+    path: "/topic/:id/:hash__:filename",
+    hash_data: "topics/:attachment/:id/:style/:updated_at",
+  }
+
+  TOPIC_BOARD_OPTIONS = {
+    path: "/topic_board/:id/:hash__:filename",
+    hash_data: "topic_boards/:attachment/:id/:style/:updated_at",
+  }
+
 when 'test',  'development'
 
   LOCAL_FILE_ATTACHMENT_BASE_PATH = "public/system/attachments"
@@ -45,6 +55,14 @@ when 'test',  'development'
     path: "#{LOCAL_FILE_ATTACHMENT_BASE_PATH}/#{Rails.env}/demo/:id/:filename",
   }
 
+  TOPIC_OPTIONS = {
+    path: "#{LOCAL_FILE_ATTACHMENT_BASE_PATH}/#{Rails.env}/topic/:id/:filename",
+  }
+
+  TOPIC_BOARD_OPTIONS = {
+    path: "#{LOCAL_FILE_ATTACHMENT_BASE_PATH}/#{Rails.env}/topic_board/:id/:filename",
+  }
+
 else
   raise 'Environment Not Found'
 end
@@ -52,3 +70,5 @@ end
 TILE_IMAGE_OPTIONS.merge!(ATTACHMENT_CONFIG_BASE)
 TILE_THUMBNAIL_OPTIONS.merge!(ATTACHMENT_CONFIG_BASE)
 DEMO_LOGO_OPTIONS.merge!(ATTACHMENT_CONFIG_BASE)
+TOPIC_OPTIONS.merge!(ATTACHMENT_CONFIG_BASE)
+TOPIC_BOARD_OPTIONS.merge!(ATTACHMENT_CONFIG_BASE)

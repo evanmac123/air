@@ -1,6 +1,6 @@
 <div class="row">
   <div class="columns small-12 small-centered">
-      <%= link_to 'Add New Contract', new_admin_organization_contract_path(@organization), class: "button righty" %>
+      <%= link_to 'Add New Contract', new_admin_organization_contract_path(organization), class: "button righty" %>
     <table>
       <caption> Contracts </caption>
       <thead>
@@ -22,8 +22,8 @@
         </tr>
       </thead>
       <tbody>
-        <% @organization.contracts.each do |contract| %>
-          <tr class="resource-row" data-url="<%=admin_contract_path(contract)%>">
+        <% organization.contracts.order("end_date desc").each do |contract| %>
+          <tr class="resource-row stat-<%=contract.status.downcase%>" data-url="<%=admin_contract_path(contract)%>">
             <td><%= contract.name %></td>
             <td><%= contract.plan %></td>
             <td><%= simple_date_format contract.start_date %></td>

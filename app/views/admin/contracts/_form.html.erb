@@ -115,6 +115,12 @@
             <%= f.text_field :date_booked, type: :date %>
           </div>
 
+          <div class="row">
+            <%= f.label :in_collection, class: "checkbox inline" do%>
+              In Collection <%= f.check_box :in_collection, type: :date %>
+            <%end%>
+          </div>
+
         </div>
       </div>
       <div class="row">

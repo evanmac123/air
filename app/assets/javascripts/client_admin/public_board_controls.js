@@ -1,4 +1,4 @@
-//FIXME remove from global namespace and into IIF
+//FIXME remove from global namespace and into IIF and refactor!
 window.publicBoardControls = function() {
   $(document).on('keydown keyup keypress', '#public_board_field', function(event) {
     if (!(event.ctrlKey || event.altKey || event.metaKey)) {
@@ -12,6 +12,8 @@ window.publicBoardControls = function() {
   });
 
   return $(document).ready(function() {
+    $("#public_button").attr("checked", $("#public_button").data("checked"));
+
     $('#digest_digest_send_to').on('change', function(event) {
       if ($('#digest_digest_send_to option:selected').text() === "All Users") {
         $('#all_users').show();

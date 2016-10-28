@@ -4,7 +4,6 @@ class Admin::OrganizationsController < AdminBaseController
   include CustomResponder
 
   before_filter :find_organization, only: [:edit, :show, :update, :destroy]
-  before_filter :parse_start_and_end_dates, only: [:metrics_recalc, :metrics]
 
   def index
     @organizations = Organization.name_order
@@ -12,24 +11,6 @@ class Admin::OrganizationsController < AdminBaseController
 
   def show
   end
-
-  def metrics
-    @kpi =if @sdate && @edate 
-            Metrics.by_start_and_end @sdate,@edate
-          else
-            @sdate, @edate = Metrics.default_date_range
-            Metrics.current_week
-          end
-    respond_to do |format| 
-      format.html
-      format.csv do 
-        data = FinancialsReporterService.to_csv @sdate, @edate
-        send_data data, filename: "kpi-#{@sdate}-#{@edate}.csv" 
-      end 
-    end
-  end
-
-  
   def import
     importer = OrganizationImporter.new(FileUploadWrapper.new(params[:file]))
     org = nil
@@ -40,11 +21,6 @@ class Admin::OrganizationsController < AdminBaseController
     redirect_to admin_organizations_path
   end
 
-
-  def metrics_recalc
-    @kpi = Metrics.by_start_and_end @sdate,@edate
-    render :metrics
-  end
 
   def new
     @organization = Organization.new

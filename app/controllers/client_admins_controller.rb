@@ -1,9 +1,11 @@
 class ClientAdminsController < ClientAdminBaseController
 
   def show
+    ping_page("Manage - Activity", current_user)
+
     @board = current_user.demo
     @chart_form = BoardStatsLineChartForm.new @board, {action_type: params[:action_type]}
-    @chart = BoardStatsChart.new(@chart_form.period, @chart_form.plot_data, "#fff").draw
+    @chart = BoardStatsChart.new(@chart_form.period, @chart_form.plot_data).draw
 
     grid_builder = BoardStatsGrid.new(@board)
     @board_stats_grid = initialize_grid(*grid_builder.args)

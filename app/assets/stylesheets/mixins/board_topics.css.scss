@@ -1,5 +1,5 @@
-@mixin topic-set(){ 
-    background-color:#f9f9f9; 
+@mixin topic-set(){
+    background-color:#f9f9f9;
     h2{
       margin-bottom:40px;
     }
@@ -24,13 +24,13 @@
       position: relative;
       /*float: left;*/
       border-radius: 3px;
-      /*margin: 0 25px 40px 25px;*/
+      margin: 7px;
       overflow: hidden;
       .cover-footer{
         position:absolute;
         bottom:17px;
         h2{
-          font-weight: bold; 
+          font-weight: bold;
           font-size:14px;
         }
       }
@@ -39,7 +39,7 @@
         padding-top: 0px;
         /*width: 238px;*/
         width:100%;
-        min-width:238px;
+        min-width:228px;
         height: 300px;
         border-radius: 3px;
         background-size: cover;
@@ -90,5 +90,3 @@
       }
     }
 }
-
-

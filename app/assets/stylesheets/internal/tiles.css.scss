@@ -6,30 +6,12 @@
   padding:.5em 0 1em;
   // margin:-2em 0 2em 0;
   a, a:link, a:visited {@include font-semibold;}
-  #tile_links {
+  #tile_links{
     text-align: center;
-    padding:0;
-    a {margin:0;}
     .show_more_tiles {
-      @include app-button($sky-blue);
-      &:before, &:after {
-        @include arrow-down(lighten($sky-blue, 10%), 8px);
-        margin:0 1em;
-        position: relative;
-        vertical-align: middle;
-      }
+      width: 140px;
       &[disabled] {
-        color: $light-gray !important;;
-        @include app-button($med-gray);
-
-        &:before, &:after {
-          visibility:hidden;
-        }
-      }
-      #show_more_tiles_spinner {
-        display: inline-block;
-        vertical-align: top;
-        height:1em;
+        display: none;
       }
     }
   }
