@@ -175,10 +175,14 @@ Airbo.FinancialKpiChart = (function(){
  }
 
  function getDateSeries(data){
-   dates = data.map(
-     function(val,idx){ 
-       return  Date.parse(val)
-     });
+   if(data !== null){
+     dates = data.map(
+       function(val,idx){ 
+         return  Date.parse(val)
+       });
+   }else{
+      alert("Something went wrong with this request. Please refresh and try again or change the date range")
+   }
  }
 
 
