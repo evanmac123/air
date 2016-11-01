@@ -1,6 +1,6 @@
 var bindShowMoreTilesLink;
 var currentPage = 1;
-bindShowMoreTilesLink = function(moreTilesSelector, tileSelector, spinnerSelector, downArrowSelector, targetSelector, updateMethod, afterRenderCallback) {
+bindShowMoreTilesLink = function(moreTilesSelector, tileSelector, spinnerSelector, downArrowSelector, targetSelector, updateMethod, afterRenderCallback, tileType) {
    $("body").on('click', moreTilesSelector,  function(event) {
     var offset;
     var self = $(this);
@@ -17,7 +17,7 @@ bindShowMoreTilesLink = function(moreTilesSelector, tileSelector, spinnerSelecto
 
     offset = $(tileSelector).length;
 
-    $.get(path, { offset: offset, partial_only: 'true', page: currentPage  }, (function(data) {
+    $.get(path, { offset: offset, partial_only: 'true', page: currentPage, tile_type: tileType }, (function(data) {
     var content = data.htmlContent || data;
       $(spinnerSelector).hide();
       $(downArrowSelector).show();

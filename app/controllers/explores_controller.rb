@@ -3,30 +3,16 @@ class ExploresController < ClientAdminBaseController
   include LoginByExploreToken
   include ExploreHelper
 
-  before_filter :find_tiles
-  before_filter :set_all_tiles_displayed
-  before_filter :limit_tiles_to_batch_size
-
   def show
-    @topics = Topic.is_explore.rearrange_by_other
+    find_tiles
+    @campaigns = campaign_boards.sample(4)
     @path_for_more_tiles = explore_path
-    @parent_boards = Demo.where(is_parent: true)
 
     render_partial_if_requested
-
-    #Resolve introJS with new Onboarding. Some recent commit caused the experience to be buggy on account creation
-    @show_explore_intro = false
-
-    if params[:return_to_explore_source]
-      ping_action_after_dash params[:return_to_explore_source], {}, current_user
-    end
-
-    email_clicked_ping(current_user)
-    explore_intro_ping @show_explore_intro, params
-    explore_content_link_ping
   end
 
   def tile_tag_show
+    find_tiles
     @tiles = @tiles.reorder("position desc")
 
     @tile_tag = TileTag.find(params[:tile_tag])
@@ -45,7 +31,8 @@ class ExploresController < ClientAdminBaseController
   add_method_tracer :tile_tag_show
 
   private
-     def find_tile_tags
-      params[:tile_tag]
+
+     def campaign_boards
+       Demo.joins(:topic_board).where(topic_board: { is_library: true } )
      end
 end

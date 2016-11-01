@@ -1,38 +1,58 @@
 module ExploreHelper
   # fixed number for explore page
   def tile_batch_size
-    16
+    12
   end
 
   def find_tiles
-    @eligible_tiles = Tile.viewable_in_public.tagged_with(find_tile_tags)
+    @explore_tiles ||= Tile.copyable.tagged_with(find_tile_tags)
 
-    @tiles = @eligible_tiles.
+    set_recommended_tiles
+    set_verified_tiles
+    set_community_tiles
+  end
+
+  def set_recommended_tiles
+    @recommended_tiles ||= @explore_tiles.
+      limit(6)
+  end
+
+  def set_verified_tiles
+    @verified_tiles ||= @explore_tiles.
       ordered_for_explore.
-      offset(offset)
-    # @eligible_tiles = Tile.where(true)
-    # @tiles = @eligible_tiles.offset(offset)
+      offset(offset).
+      limit(tile_batch_size)
+
+    @all_verified_tiles = @verified_tiles.count <= tile_batch_size
   end
 
-  def set_all_tiles_displayed
-    @all_tiles_displayed = @tiles.count <= tile_batch_size
-  end
+  def set_community_tiles
+    @community_tiles ||= @explore_tiles.
+      ordered_for_explore.
+      offset(offset).
+      limit(tile_batch_size).reverse
 
-  def limit_tiles_to_batch_size
-    @tiles = @tiles.limit(tile_batch_size)
+    @all_community_tiles = @community_tiles.count <= tile_batch_size
   end
 
   def render_partial_if_requested
     return unless params[:partial_only]
 
-    ping("Explore Topic Page", {action: "Clicked See More"}, current_user)
+    @explore_tiles ||= Tile.copyable.tagged_with(find_tile_tags)
 
-    html_content = render_to_string partial: "explores/tiles", locals: {tiles: @tiles}
-    last_batch = @eligible_tiles.count <= offset + tile_batch_size
+    if params[:tile_type] == "verified-explore"
+      @more_tiles = @verified_tiles
+      @last_batch = @all_verified_tiles
+    elsif params[:tile_type] == "community-explore"
+      @more_tiles = @community_tiles
+      @last_batch = @all_community_tiles
+    end
+
+    html_content = render_to_string partial: "explores/tiles", locals: {tiles: @more_tiles}
 
     render json: {
       htmlContent: html_content,
-      lastBatch:   last_batch
+      lastBatch:   @last_batch
     }
   end
 
@@ -58,5 +78,9 @@ module ExploreHelper
     if params[:explore_content_link]
       ping "Explore page - Interaction", {"action" => 'Clicked "Explore more great content"'}, current_user
     end
+  end
+
+  def find_tile_tags
+   params[:tile_tag]
   end
 end

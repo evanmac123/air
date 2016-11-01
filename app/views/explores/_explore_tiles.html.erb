@@ -1,0 +1,45 @@
+<div class="row explore-tiles-tabs">
+  <div class="explore-tiles-titles large-12 columns">
+    <ul class="tabs">
+      <li id="verified_title">
+        <a href="#" class="explore_tiles_tab selected" data-content-selector="#verified_tiles">Airbo Tiles</a>
+      </li>
+        <li id="community_tiles_title">
+          <a href="#" class="explore_tiles_tab" data-content-selector="#community_tiles">Community Tiles</a>
+        </li>
+    </ul>
+  </div>
+</div>
+
+<div class="manage_section explore_tiles_section" id="verified_tiles">
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="tile_wall_explore">
+        <%= render partial: 'explores/tiles', locals: {tiles: @verified_tiles } %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="more-airbo-tiles">
+        <%= render partial: 'explores/tile_wall_show_more_link', locals: {path_for_more_tiles: @path_for_more_tiles, all_tiles_displayed: @all_tiles_displayed, tile_type: "verified-explore", tile_count: @verified_tiles.count, target_selector: "#verified_tiles .tile_wall_explore"} %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="manage_section explore_tiles_section hidden" id="community_tiles">
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="tile_wall_explore">
+        <%= render partial: 'explores/tiles', locals: {tiles: @community_tiles } %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="more-community-tiles">
+        <%= render partial: 'explores/tile_wall_show_more_link', locals: {path_for_more_tiles: @path_for_more_tiles, all_tiles_displayed: @all_tiles_displayed, tile_type: "community-explore", tile_count: @community_tiles.count, target_selector: "#community_tiles .tile_wall_explore"} %>
+      </div>
+    </div>
+  </div>
+</div>
