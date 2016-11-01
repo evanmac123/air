@@ -36,7 +36,6 @@ window.dragAndDropTiles = function() {
       var section, tile;
       section = $(this);
       tile = ui.item;
-      debugger
       return $.when(window.moveConfirmation).then(function() {
         return updateEvent(event, tile, section);
       });
@@ -221,7 +220,7 @@ window.dragAndDropTiles = function() {
       controlElements.css("display", "");
       return shadowOverlay.css("opacity", "");
     } else if (action === "hide") {
-      //controlElements.hide();
+      controlElements.hide();
       return shadowOverlay.css("opacity", "0");
     } else if (action === "remove") {
       return controlElements.remove();
@@ -396,18 +395,18 @@ window.dragAndDropTiles = function() {
 
 
   function confirmReposting(tile){
-    Airbo.TileAction.confirmUnarchive(
-      function(isConfirm){
-        if (isConfirm) {
-          suppressDigestOnUnarchiveTile= !$(".sweet-alert input#digestable").is(':checked');
-          window.moveConfirmationDeferred.resolve();
-        }else{
-          tile.find(".tile_buttons, .tile_stats").show();
-          window.moveConfirmationDeferred.reject();
-        }
+    var checkConfirm = function (isConfirm){
+      if (isConfirm) {
+        suppressDigestOnUnarchiveTile= !$(".sweet-alert input#digestable").is(':checked');
+        window.moveConfirmationDeferred.resolve();
+      }else{
+        tileInfo(tile,"show");
+        window.moveConfirmationDeferred.reject();
+      }
 
-        resetGloballVariables();
-      });
+      resetGloballVariables();
+    }
+    Airbo.TileAction.confirmUnarchive(checkConfirm);
   }
 
 
