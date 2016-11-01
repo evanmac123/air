@@ -2,30 +2,37 @@ var Airbo = window.Airbo || {};
 
 Airbo.CopyTileToBoard = (function(){
   function copyToBoard(self, source) {
-
     var path = self.attr("href");
+    changeCopyButtonText(self, source);
 
+    $.post(path, {},
+      function(data) {
+        if(data.success) {
+          copySuccess(self, source);
+        }
+      },
+      'json'
+    );
+  }
+
+  function changeCopyButtonText(self, source) {
     if (source === "thumbnail") {
       self.text("Copying...");
     } else if (source === "preview_modal") {
       var text = self.children(".header_text");
       text.text("Copying...");
     }
+  }
 
-    $.post(path, {},
-      function(data) {
-        if(data.success) {
-          if (source === "thumbnail") {
-            self.text("Copied");
-          } else if (source === "preview_modal") {
-            text.text("Copied");
-            Airbo.CopyAlert.open();
-            $("a[data-tile-id='" + data.tile_id + "'].explore_copy_link").text("Copied");
-          }
-        }
-      },
-      'json'
-    );
+  function copySuccess(self, source) {
+    if (source === "thumbnail") {
+      self.text("Copied");
+    } else if (source === "preview_modal") {
+      var text = self.children(".header_text");
+      text.text("Copied");
+      Airbo.CopyAlert.open();
+      $("a[data-tile-id='" + data.tile_id + "'].explore_copy_link").text("Copied");
+    }
   }
 
   function bindThumbnailCopyButton() {
