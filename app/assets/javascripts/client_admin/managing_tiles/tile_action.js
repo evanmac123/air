@@ -75,6 +75,8 @@ Airbo.TileAction = (function(){
      return target.parents("#archive.manage_section").length>0;
     }
 
+    function submitWithCheckbox(){
+    }
     function submit(){
       $.ajax({
         url: target.data("url") || target.attr("href"),
@@ -95,10 +97,25 @@ Airbo.TileAction = (function(){
     }
 
     if(isRepostingArchivedTile()){
+      confirmUnarchive(function(isConfirm){
+        if (isConfirm) {
+          data.update_status.suppress = !$(".sweet-alert input#digestable").is(':checked');
+          console.log(data);
+          submit();
+        }
+      })
+    }else{
+      submit();
+    }
+
+  }
+
+  function confirmUnarchive(confirmCallback){
+
       swal(
         {
           title: "Are you sure you want to un archive this Tile?",
-          text: "If yes check here if you want it to also appear in the next Digest Email <p><label>Allow in digest: <input type='checkbox' value='yes' id='digestable'/> </label></p>",
+          text: "Would you like this Tile to appear in the next Tile digest email? Remember, Tiles that users have already interacted with, will not appear as a new Tile. Yes, No, Cancel<p><label>Allow in digest: <input type='checkbox' value='yes' id='digestable'/> </label></p>",
           customClass: "airbo",
           showConfirmationButton: true,
           showCancelButton: true,
@@ -110,18 +127,15 @@ Airbo.TileAction = (function(){
           html: true,
           animation: false,
         },
+        confirmCallback
 
-        function(isConfirm){
-          if (isConfirm) {
-            data.update_status.suppress = !$(".sweet-alert input#digestable").is(':checked');
-            submit();
-          }
-        }
+        //function(isConfirm){
+          //if (isConfirm) {
+            //data.update_status.suppress = !$(".sweet-alert input#digestable").is(':checked');
+            //submit();
+          //}
+        //}
       );
-    }else{
-      submit();
-    }
-
   }
 
   function updateStatus(target){
@@ -305,6 +319,7 @@ Airbo.TileAction = (function(){
     makeDuplication: makeDuplication,
     confirmDeletion: confirmDeletion,
     confirmAcceptance: confirmAcceptance,
-    movePing: movePing
+    movePing: movePing,
+    confirmUnarchive: confirmUnarchive
   }
 }());

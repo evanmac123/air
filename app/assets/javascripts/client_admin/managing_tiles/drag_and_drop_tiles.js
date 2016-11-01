@@ -36,6 +36,7 @@ window.dragAndDropTiles = function() {
       var section, tile;
       section = $(this);
       tile = ui.item;
+      debugger
       return $.when(window.moveConfirmation).then(function() {
         return updateEvent(event, tile, section);
       });
@@ -103,7 +104,7 @@ window.dragAndDropTiles = function() {
     if (completedTileWasAttemptedToBeMovedInBlockedDraft()) {
       return cancelTileMoving();
     } else if (isTileMoved(tile, "archive", "active") && tileCompletionsNum(tile) > 0) {
-      return moveComfirmationModal();
+      return moveComfirmationModal(tile);
     } else if (isTileMoved(tile, "draft", "active")) {
       id = findTileId(tile);
       return Airbo.TileAction.movePing(id, "active", "Dragged tile to move");
@@ -220,7 +221,7 @@ window.dragAndDropTiles = function() {
       controlElements.css("display", "");
       return shadowOverlay.css("opacity", "");
     } else if (action === "hide") {
-      controlElements.hide();
+      //controlElements.hide();
       return shadowOverlay.css("opacity", "0");
     } else if (action === "remove") {
       return controlElements.remove();
@@ -384,43 +385,29 @@ window.dragAndDropTiles = function() {
     }
   };
 
-  moveComfirmationModal = function() {
+  moveComfirmationModal = function(tile) {
     window.moveConfirmationDeferred = $.Deferred();
     window.moveConfirmation = window.moveConfirmationDeferred.promise();
 
-    confirmReposting();
+    confirmReposting(tile);
+
   };
 
 
-  function confirmReposting(){
 
-    var data ={"update_status": {"status": 'archive', "suppress": true}};
-    swal({
-      title: "Are you sure you want to un archive this Tile?",
-      text: "If yes check here if you want it to also appear in the next Digest Email <p><label>Allow in digest: <input type='checkbox' value='yes' id='digestable'/> </label></p>",
-      customClass: "airbo",
-      showConfirmationButton: true,
-      showCancelButton: true,
-      cancelButtonText: "Cancel",
-      confirmButtonText: "Re Post",
-      closeOnConfirm: true,
-      closeOnCancel: true,
-      allowEscapeKey: true,
-      html: true,
-      animation: false,
-    },
+  function confirmReposting(tile){
+    Airbo.TileAction.confirmUnarchive(
+      function(isConfirm){
+        if (isConfirm) {
+          suppressDigestOnUnarchiveTile= !$(".sweet-alert input#digestable").is(':checked');
+          window.moveConfirmationDeferred.resolve();
+        }else{
+          tile.find(".tile_buttons, .tile_stats").show();
+          window.moveConfirmationDeferred.reject();
+        }
 
-    function(isConfirm){
-      if (isConfirm) {
-        suppressDigestOnUnarchiveTile= !$(".sweet-alert input#digestable").is(':checked');
-        window.moveConfirmationDeferred.resolve();
-      }else{
-
-        window.moveConfirmationDeferred.reject();
-      }
-
-      resetGloballVariables();
-    });
+        resetGloballVariables();
+      });
   }
 
 
