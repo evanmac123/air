@@ -56,7 +56,11 @@ class SingleAdminTilePresenter < BasePresenter
   end
 
   def show_tile_path
-    client_admin_tile_path(tile)
+    if type == 'explore'
+      explore_tile_preview_path(self)
+    else
+      client_admin_tile_path(tile)
+    end
   end
 
   def has_archive_button?
