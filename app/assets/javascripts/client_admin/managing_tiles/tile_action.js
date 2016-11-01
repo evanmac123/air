@@ -115,7 +115,7 @@ Airbo.TileAction = (function(){
       swal(
         {
           title: "Are you sure you want to un-archive this Tile?",
-          text: "Would you like this Tile to appear in the next Tile digest email? Remember, Tiles that users have already interacted with will not appear as a new Tile. <p class='extra-interaction'><label>Check here to also include in the digest: <input type='checkbox' value='yes' id='digestable'/> </label></p>",
+          text: "If so, would you like this Tile to appear in the next Tile digest email? Remember, Tiles that users have already interacted with will not appear as a new Tile. <p class='extra-interaction'><label>Yes include in the digest: <input type='checkbox' value='yes' id='digestable'/> </label></p>",
           customClass: "airbo",
           showConfirmationButton: true,
           showCancelButton: true,
