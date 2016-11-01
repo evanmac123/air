@@ -22,7 +22,7 @@
   <div class="row">
     <div class="large-12 columns">
       <div class="more-airbo-tiles">
-        <%= render partial: 'explores/tile_wall_show_more_link', locals: {path_for_more_tiles: @path_for_more_tiles, all_tiles_displayed: @all_tiles_displayed, tile_type: "verified-explore", tile_count: @verified_tiles.count, target_selector: "#verified_tiles .tile_wall_explore"} %>
+        <%= render partial: 'explores/tile_wall_show_more_link', locals: {path_for_more_tiles: @path_for_more_content, all_tiles_displayed: @all_tiles_displayed, tile_type: "verified-explore", tile_count: @verified_tiles.count, target_selector: "#verified_tiles .tile_wall_explore"} %>
       </div>
     </div>
   </div>
@@ -38,7 +38,7 @@
   <div class="row">
     <div class="large-12 columns">
       <div class="more-community-tiles">
-        <%= render partial: 'explores/tile_wall_show_more_link', locals: {path_for_more_tiles: @path_for_more_tiles, all_tiles_displayed: @all_tiles_displayed, tile_type: "community-explore", tile_count: @community_tiles.count, target_selector: "#community_tiles .tile_wall_explore"} %>
+        <%= render partial: 'explores/tile_wall_show_more_link', locals: {path_for_more_tiles: @path_for_more_content, all_tiles_displayed: @all_tiles_displayed, tile_type: "community-explore", tile_count: @community_tiles.count, target_selector: "#community_tiles .tile_wall_explore"} %>
       </div>
     </div>
   </div>

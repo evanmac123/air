@@ -9,9 +9,11 @@
 @import "mixins/green_paddle_switch";
 
 body.explores {
-  #tile_links{
+  .show-more-content-div{
     text-align: center;
-    .show_more_tiles {
+    margin-top: 20px;
+    margin-bottom: 40px;
+    .show_more_tiles, .show_more_campaigns {
       width: 140px;
       &[disabled] {
         display: none;
