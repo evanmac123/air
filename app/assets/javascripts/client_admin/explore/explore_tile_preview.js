@@ -1,15 +1,12 @@
 var Airbo = window.Airbo || {};
 
 Airbo.ExploreTilePreview = (function(){
-  var copyBtnSel = ".copy_to_board"
-    // , copyBtn
-    // , tileNavigationSelector = ".button_arrow"
-    , modalObj = Airbo.Utils.StandardModal()
-    , modalId = "explore_tile_preview"
-    , arrowsObj// = Airbo.TilePreivewArrows()
-    , introShowed = false
-    , self
-  ;
+  var modalObj = Airbo.Utils.StandardModal(),
+      modalId = "explore_tile_preview",
+      arrowsObj,
+      introShowed = false,
+      self;
+
   function ping(action) {
     var tile_id;
     tile_id = $("[data-current-tile-id]").data("current-tile-id");
@@ -24,22 +21,7 @@ Airbo.ExploreTilePreview = (function(){
   }
   function initEvents() {
     Airbo.StickyMenu.init(self);
-
-    $(copyBtnSel + ":not([disabled])").click(function(event) {
-      event.preventDefault();
-      var button = $(this);
-      button.attr("disabled", "disabled");
-      copyUrl = button.attr("href");
-      $.post(copyUrl, {},
-        function(data) {
-          if(data.success) {
-            button.removeAttr("disabled");
-            Airbo.CopyAlert.open();
-          }
-        },
-        'json'
-      );
-    });
+    Airbo.CopyTileToBoard.init();
 
     $('.right_multiple_choice_answer').one("click", function(event) {
       event.preventDefault();
@@ -80,10 +62,7 @@ Airbo.ExploreTilePreview = (function(){
       }
     });
   }
-  // function initVars() {
 
-  //   // copyBtn = $(copyBtnSel);
-  // }
   function init(fakeModal) {
     self = this;
     if(fakeModal) {

@@ -20,7 +20,7 @@ class SingleAdminTilePresenter < BasePresenter
 
   def initialize object,template, options
     super
-    @type = tile.status.to_sym
+    @type = get_type(options[:page_type])
     @format =  options[:format]||:html
   end
 
@@ -28,6 +28,9 @@ class SingleAdminTilePresenter < BasePresenter
     @tile_id ||= id
   end
 
+  def get_type(page_type)
+    page_type ? page_type : tile.status.to_sym
+  end
 
   def type? *types
     if types.size == 0
@@ -47,6 +50,10 @@ class SingleAdminTilePresenter < BasePresenter
     true
   end
 
+  def has_activation_dates?
+    type? :active, :archive, :draft, :user_submitted, :ignored
+  end
+
   def activation_dates
     content_tag :div, raw(timestamp), class: "activation_dates"
   end
@@ -56,7 +63,7 @@ class SingleAdminTilePresenter < BasePresenter
   end
 
   def show_tile_path
-    if type == 'explore'
+    if type == :explore
       explore_tile_preview_path(self)
     else
       client_admin_tile_path(tile)
@@ -89,6 +96,10 @@ class SingleAdminTilePresenter < BasePresenter
 
   def has_ignore_button?
     type? :user_submitted
+  end
+
+  def has_copy_button?
+    type? :explore
   end
 
   def has_undo_ignore_button?

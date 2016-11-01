@@ -1,5 +1,5 @@
 <% tiles.each do |tile| %>
-  <% present(tile, SingleTilePresenter, {public_slug: params[:public_slug],  is_ie: browser.ie?, completed: false, type: "explore" }) do |presenter| %>
+  <% present(tile, SingleAdminTilePresenter, {public_slug: params[:public_slug],  is_ie: browser.ie?, completed: false, page_type: :explore }) do |presenter| %>
     <%= render 'client_admin/tiles/manage_tiles/single_tile', presenter: presenter %>
   <% end %>
 <% end %>

@@ -40,7 +40,7 @@ class SingleTilePresenter < BasePresenter
   end
 
   def has_tile_buttons?
-    false
+    type == 'explore'
   end
 
   def activation_dates

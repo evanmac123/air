@@ -9,14 +9,16 @@ class CopyTilesController < ClientAdminBaseController
     copy = tile.copy_to_new_demo(current_user.demo, current_user)
     schedule_copy_ping(tile)
     schedule_tile_creation_ping(copy)
+    store_copy_in_redis(current_user.id, params[:tile_id])
     render json: {
       success: true,
       editTilePath: edit_client_admin_tile_path(copy),
-      copyCount: tile.reload.copy_count
+      copyCount: tile.reload.copy_count,
+      tile_id: tile.id
     }
   end
 
-  protected
+  private
     def schedule_copy_ping(tile)
       case param_path
       when "via_explore_page_thumbnail"
@@ -30,5 +32,9 @@ class CopyTilesController < ClientAdminBaseController
 
     def schedule_tile_creation_ping(tile)
       ping('Tile - New', {tile_source: "Explore Page", is_public: tile.is_public, is_copyable: tile.is_copyable, tag: tile.tile_tags.first.try(:title)}, current_user)
+    end
+
+    def store_copy_in_redis(uid, tile_id)
+      $redis.sadd("users:#{uid}:copies", tile_id)
     end
 end
