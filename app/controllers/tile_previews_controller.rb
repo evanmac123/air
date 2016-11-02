@@ -15,7 +15,7 @@ class TilePreviewsController < ApplicationController
   include ExploreHelper
 
   def show
-    @tiles = params[:tile_ids] ? Tile.where(id: params[:tile_ids]) : Tile.copyable.verified_explore
+    @tiles = params[:tile_ids] ? get_sorted_explore_tiles : Tile.copyable.verified_explore
     @next_tile = next_explore_tile(1)
     @prev_tile = next_explore_tile(-1)
 
@@ -33,6 +33,12 @@ class TilePreviewsController < ApplicationController
   end
 
   private
+
+    def get_sorted_explore_tiles
+      ids = params[:tile_ids].map(&:to_i)
+      default_sorting = Tile.where(id: ids).group_by(&:id)
+      ids.map { |id| default_sorting[id].first }
+    end
 
     def explore_preview_copy_intro
       @show_explore_preview_copy_intro = current_user.intros.show_explore_preview_copy!
