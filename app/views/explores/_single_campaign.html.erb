@@ -1,6 +1,6 @@
 <%= link_to path, class: "topic", data: {name: board.name, id: board.id } do %>
   <div class="topic_cell" style="background-image: url('<%= board.topic_board.cover_image.url || board.cover_image.url %>')">
-    <div class="shadow_overlay"></div>
+    <div class="campaign_shadow_overlay"></div>
     <section class="board-name">
       <h3 class="title"><%= board.topic_board.topic_name %></h3>
     </section>

@@ -53,18 +53,10 @@
         }
       }
 
-      .shadow_overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(21, 47, 61, 0.1);
-        display: block;
-        &:hover{
-          background-color: rgba(21, 47, 61, 0.9);
-        }
+      .campaign_shadow_overlay {
+        // TODO: Design
       }
+      
       .title {
         max-width: 150px;
         font-size: 18px;
