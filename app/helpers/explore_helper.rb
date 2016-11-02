@@ -75,7 +75,8 @@ module ExploreHelper
 
     render json: {
       htmlContent: html_content,
-      lastBatch:   @last_batch
+      lastBatch:   @last_batch,
+      objectCount: @more_tiles.count
     }
   end
 
@@ -87,7 +88,8 @@ module ExploreHelper
 
     render json: {
       htmlContent: html_content,
-      lastBatch:   @last_batch
+      lastBatch:   @last_batch,
+      objectCount: @more_campaigns.count
     }
   end
 

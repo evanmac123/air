@@ -56,6 +56,7 @@ Airbo.ShowMoreContent = (function() {
       switch (attrs.updateMethod) {
         case 'append':
           $(attrs.targetSelector).append(content);
+          updateOffsets(self, attrs, data);
         break;
         case 'replace':
           $(attrs.targetSelector).replaceWith(content);
@@ -66,6 +67,14 @@ Airbo.ShowMoreContent = (function() {
       }
 
     }), attrs.contentType);
+  }
+
+  function updateOffsets(self, attrs, data) {
+    if (attrs.tileOffset) {
+      self.data().tileCount += data.objectCount;
+    } else if (attrs.campaignOffset) {
+      self.data().campaignCount += data.objectCount;
+    }
   }
 
   function initEvents() {
