@@ -23,8 +23,8 @@ module ExploreHelper
   end
 
   def set_recommended_tiles
-    @recommended_tiles ||= Tile.
-      copyable.
+    @recommended_tiles ||= @explore_tiles.
+      verified_explore.
       limit(6)
   end
 

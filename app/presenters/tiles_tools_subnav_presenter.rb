@@ -100,55 +100,56 @@ class TilesToolsSubnavPresenter
 
       els.concat(
         [
-        {
-          item_id: "managing_tiles",
-          link: client_admin_tiles_path,
-          icon: "pencil",
-          text: "Edit"
-        },
-        {
-          item_id: "home_nav",
-          link: activity_path,
-          image: "airbo_logo_lightblue_square.png",
-          text: "Preview"
-        },
-        {
-          item_id: "share_tiles",
-          link: client_admin_share_path,
-          icon: "share-alt",
-          text: "Share"
-        },
-        {
-          item_id: "board_activity",
-          link: client_admin_path,
-          icon: "line-chart",
-          text: "Activity"
-        },
-        {
-          item_id: "prizes_nav",
-          link: client_admin_prizes_path,
-          icon: "trophy",
-          text: "Prizes"
-        },
-        {
-          item_id: "users",
-          link: client_admin_users_path,
-          icon: "users",
-          text: "Users"
-        },
-        {
-          item_id: "settings",
-          link: client_admin_board_settings_path,
-          icon: "cog",
-          text: "Settings"
-        },
-        {
-          item_id: "admin_help",
-          link: support_path,
-          icon: "question",
-          text: "Help",
-          link_options: { target: "_blank" }
-        }]
+          {
+            item_id: "managing_tiles",
+            link: client_admin_tiles_path,
+            icon: "pencil",
+            text: "Edit"
+          },
+          {
+            item_id: "home_nav",
+            link: activity_path,
+            image: "airbo_logo_lightblue_square.png",
+            text: "Preview"
+          },
+          {
+            item_id: "share_tiles",
+            link: client_admin_share_path,
+            icon: "share-alt",
+            text: "Share"
+          },
+          {
+            item_id: "board_activity",
+            link: client_admin_path,
+            icon: "line-chart",
+            text: "Activity"
+          },
+          {
+            item_id: "prizes_nav",
+            link: client_admin_prizes_path,
+            icon: "trophy",
+            text: "Prizes"
+          },
+          {
+            item_id: "users",
+            link: client_admin_users_path,
+            icon: "users",
+            text: "Users"
+          },
+          {
+            item_id: "settings",
+            link: client_admin_board_settings_path,
+            icon: "cog",
+            text: "Settings"
+          },
+          {
+            item_id: "admin_help",
+            link: support_path,
+            icon: "question",
+            text: "Help",
+            link_options: { target: "_blank" }
+          }
+        ]
       )
     end
   end
