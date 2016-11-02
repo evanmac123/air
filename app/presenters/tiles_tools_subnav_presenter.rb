@@ -91,25 +91,26 @@ class TilesToolsSubnavPresenter
         text: "Explore"
       }]) if show_explore?
 
-      els.concat([{
-        item_id: "library",
-        link: client_admin_stock_boards_path,
-        icon: "bank",
-        text: "Library"
-      }]) if show_library?
+      # els.concat([{
+      #   item_id: "library",
+      #   link: client_admin_stock_boards_path,
+      #   icon: "bank",
+      #   text: "Library"
+      # }]) if show_library?
 
       els.concat(
-        [{
-          item_id: "home_nav",
-          link: activity_path,
-          image: "airbo_logo_lightblue_square.png",
-          text: "Preview"
-        },
+        [
         {
           item_id: "managing_tiles",
           link: client_admin_tiles_path,
           icon: "pencil",
           text: "Edit"
+        },
+        {
+          item_id: "home_nav",
+          link: activity_path,
+          image: "airbo_logo_lightblue_square.png",
+          text: "Preview"
         },
         {
           item_id: "share_tiles",
