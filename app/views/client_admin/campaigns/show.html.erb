@@ -1,4 +1,11 @@
 <div class="explores">
+  <section class="explore-breadcrumbs">
+    <div class="row collapse" >
+      <div class="columns small-12">
+        <%=link_to "Back to Explore", client_admin_explore_path %> <i class="spacer fa fa-angle-right"></i> <span><%= @board.topic_board.topic_name %></span>
+      </div>
+    </div>
+  </section>
   <div id="tile_wall_explore">
     <section class="manage_section" id="explore_tiles">
       <%= render partial: 'explores/explore_campaign' %>

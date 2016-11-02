@@ -1,13 +1,28 @@
 <div class="row explore-tiles-tabs">
-  <div class="explore-tiles-titles large-12 columns">
+  <div class="explore-tiles-titles small-12 columns">
     <ul class="tabs">
-      <li id="verified_title">
-        <a href="#" class="explore_tiles_tab selected" data-content-selector="#verified_tiles">Campaign Tiles</a>
+      <li id="campaign_title">
+        <a href="#" class="explore_tiles_tab selected"><%= @board.topic_board.topic_name %></a>
       </li>
     </ul>
   </div>
 </div>
-
+<section class="campaign-description">
+  <div class="row collapse" >
+    <div class="columns small-12">
+      <h4><%= @board.cover_message %></h4>
+    </div>
+  </div>
+</section>
+<div class="row explore-tiles-tabs">
+  <div class="explore-tiles-titles small-12 columns copy-all-tiles">
+    <ul class="tabs">
+      <li>
+        <a href="#" class="button outlined-alt green">Copy all Tiles</a>
+      </li>
+    </ul>
+  </div>
+</div>
 <div class="manage_section explore_tiles_section" id="verified_tiles">
   <div class="row">
     <div class="large-12 columns">
