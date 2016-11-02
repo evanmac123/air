@@ -65,7 +65,7 @@ module ExploreHelper
       @last_batch = @all_community_tiles
     end
 
-    html_content = render_to_string partial: "explores/tiles", locals: {tiles: @more_tiles}
+    html_content = render_to_string partial: "explores/tiles", locals: { tiles: @more_tiles, tile_ids: @more_tiles.pluck(:id) }
 
     render json: {
       htmlContent: html_content,
