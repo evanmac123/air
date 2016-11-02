@@ -8,6 +8,8 @@ module ExploreHelper
   end
 
   def find_tiles_and_campaigns
+    @explore_tiles ||= Tile.copyable
+
     set_campaigns
     set_recommended_tiles
     set_verified_tiles
@@ -27,11 +29,7 @@ module ExploreHelper
   end
 
   def set_verified_tiles
-    verified_org = Organization.includes(:tiles).where(name: "Airbo").first
-
-    @all_verified_tiles = verified_org.
-      tiles.
-      copyable
+    @all_verified_tiles = @explore_tiles.verified_explore
 
     batched_verified_tiles = @all_verified_tiles.
       ordered_for_explore.
@@ -42,11 +40,7 @@ module ExploreHelper
   end
 
   def set_community_tiles
-    tiles_table = Arel::Table.new(:tiles)
-
-    @all_community_tiles = Tile.
-      copyable.
-      where(tiles_table[:id].not_in(@all_verified_tiles.pluck(:id)))
+    @all_community_tiles = @explore_tiles.community_explore
 
     batched_community_tiles = @all_community_tiles.
       ordered_for_explore.

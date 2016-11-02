@@ -32,6 +32,7 @@ class Tile < ActiveRecord::Base
   belongs_to :creator, class_name: 'User'
   belongs_to :original_creator, class_name: 'User'
 
+  has_one :organization, through: :demo
   has_many :tile_completions, :dependent => :destroy
   has_many :completed_tiles, source: :tile, through: :tile_completions
   has_many :tile_taggings, dependent: :destroy
@@ -179,6 +180,16 @@ class Tile < ActiveRecord::Base
 
   def viewed_by user
     TileViewing.add(self, user) if user
+  end
+
+  def self.verified_explore
+    joins(:organization).copyable.where(organization: {name: "Airbo"})
+  end
+
+  def self.community_explore
+    tiles_table = Arel::Table.new(:tiles)
+
+    copyable.where(tiles_table[:id].not_in(verified_explore.pluck(:id)))
   end
 
   def self.displayable_categorized_to_user(user, maximum_tiles)
