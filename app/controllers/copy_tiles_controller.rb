@@ -35,6 +35,6 @@ class CopyTilesController < ClientAdminBaseController
     end
 
     def store_copy_in_redis(tile_id)
-      $redis.sadd("boards:#{current_user.demo_id}:copies", tile_id)
+      $redis.sadd("users:#{current_user.id}:copies", tile_id)
     end
 end
