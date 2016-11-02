@@ -15,7 +15,7 @@ class TilePreviewsController < ApplicationController
   include ExploreHelper
 
   def show
-    @tiles = params[:tile_ids] ? Tile.where(id: params[:tile_ids]) : Tile.copyable #make this default to Airbo tiles scope
+    @tiles = params[:tile_ids] ? Tile.where(id: params[:tile_ids]) : Tile.copyable.verified_explore
     @next_tile = next_explore_tile(1)
     @prev_tile = next_explore_tile(-1)
 
