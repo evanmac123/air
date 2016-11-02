@@ -8,8 +8,6 @@ module ExploreHelper
   end
 
   def find_tiles_and_campaigns
-    @explore_tiles ||= Tile.copyable.tagged_with(find_tile_tags)
-
     set_campaigns
     set_recommended_tiles
     set_verified_tiles
@@ -23,27 +21,39 @@ module ExploreHelper
   end
 
   def set_recommended_tiles
-    @recommended_tiles ||= @explore_tiles.
+    @recommended_tiles ||= Tile.
+      copyable.
       limit(6)
   end
 
   def set_verified_tiles
-    verified_tiles ||= @explore_tiles.
+    verified_org = Organization.includes(:tiles).where(name: "Airbo").first
+
+    @all_verified_tiles = verified_org.
+      tiles.
+      copyable
+
+    batched_verified_tiles = @all_verified_tiles.
       ordered_for_explore.
       offset(offset)
 
-    @all_verified_tiles = verified_tiles.count <= tile_batch_size
-    @verified_tiles = verified_tiles.limit(tile_batch_size)
+    @all_verified_tiles_displayed = batched_verified_tiles.count <= tile_batch_size
+    @verified_tiles = batched_verified_tiles.limit(tile_batch_size)
   end
 
   def set_community_tiles
-    community_tiles ||= @explore_tiles.
+    tiles_table = Arel::Table.new(:tiles)
+
+    @all_community_tiles = Tile.
+      copyable.
+      where(tiles_table[:id].not_in(@all_verified_tiles.pluck(:id)))
+
+    batched_community_tiles = @all_community_tiles.
       ordered_for_explore.
       offset(offset)
 
-    @all_community_tiles = community_tiles.count <= tile_batch_size
-
-    @community_tiles = community_tiles.limit(tile_batch_size)
+    @all_community_tiles_displayed = batched_community_tiles.count <= tile_batch_size
+    @community_tiles = batched_community_tiles.limit(tile_batch_size)
   end
 
   def render_partial_if_requested
@@ -58,14 +68,16 @@ module ExploreHelper
 
   def render_tiles_partial
     if params[:content_type] == "verified-explore"
+      @all_tiles  = @all_verified_tiles
       @more_tiles = @verified_tiles
-      @last_batch = @all_verified_tiles
+      @last_batch = @all_verified_tiles_displayed
     elsif params[:content_type] == "community-explore"
+      @all_tiles  = @all_community_tiles
       @more_tiles = @community_tiles
-      @last_batch = @all_community_tiles
+      @last_batch = @all_community_tiles_displayed
     end
 
-    html_content = render_to_string partial: "explores/tiles", locals: { tiles: @more_tiles, tile_ids: @more_tiles.pluck(:id) }
+    html_content = render_to_string partial: "explores/tiles", locals: { tiles: @more_tiles, tile_ids: @all_tiles.pluck(:id) }
 
     render json: {
       htmlContent: html_content,

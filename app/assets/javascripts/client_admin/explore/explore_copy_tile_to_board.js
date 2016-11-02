@@ -48,7 +48,26 @@ Airbo.CopyTileToBoard = (function(){
     });
   }
 
+  function bindCopyAllTiles() {
+    $("#copy-all-tiles-button").on("click", function(e) {
+      e.preventDefault();
+      copyAllTiles($(this));
+    });
+  }
+
+  function copyAllTiles(self) {
+    self.text("Copying...");
+    var copies = [];
+    $.each($(".explore_copy_link"), function( index, selector ) {
+      copyToBoard($(selector), "thumbnail");
+    });
+
+    self.text("All Tiles Copied");
+    self.addClass("disabled");
+  }
+
   function init() {
+    bindCopyAllTiles();
     bindThumbnailCopyButton();
     bindTilePreviewCopyButton();
   }
