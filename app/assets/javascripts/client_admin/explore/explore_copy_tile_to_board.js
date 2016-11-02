@@ -4,11 +4,10 @@ Airbo.CopyTileToBoard = (function(){
   function copyToBoard(self, source) {
     var path = self.attr("href");
     changeCopyButtonText(self, source);
-
     $.post(path, {},
       function(data) {
         if(data.success) {
-          copySuccess(self, source);
+          copySuccess(self, source, data);
         }
       },
       'json'
@@ -24,7 +23,7 @@ Airbo.CopyTileToBoard = (function(){
     }
   }
 
-  function copySuccess(self, source) {
+  function copySuccess(self, source, data) {
     if (source === "thumbnail") {
       self.text("Copied");
     } else if (source === "preview_modal") {

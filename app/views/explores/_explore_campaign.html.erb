@@ -1,0 +1,19 @@
+<div class="row explore-tiles-tabs">
+  <div class="explore-tiles-titles large-12 columns">
+    <ul class="tabs">
+      <li id="verified_title">
+        <a href="#" class="explore_tiles_tab selected" data-content-selector="#verified_tiles">Campaign Tiles</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="manage_section explore_tiles_section" id="verified_tiles">
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="tile_wall_explore">
+        <%= render partial: 'explores/tiles', locals: {tiles: @tiles, tile_ids: @tiles.pluck(:id) } %>
+      </div>
+    </div>
+  </div>
+</div>

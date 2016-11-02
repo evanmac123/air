@@ -14,13 +14,14 @@ class SingleAdminTilePresenter < BasePresenter
             :demo,
             :is_placeholder?,
             to: :tile
-  attr_reader :tile, :type
+  attr_reader :tile, :type, :tiles_grouped_ids
 
   presents :tile
 
   def initialize object,template, options
     super
     @type = get_type(options[:page_type])
+    @tiles_grouped_ids = options[:tile_ids]
     @format =  options[:format]||:html
   end
 
@@ -50,12 +51,10 @@ class SingleAdminTilePresenter < BasePresenter
     true
   end
 
-  def has_activation_dates?
-    type? :active, :archive, :draft, :user_submitted, :ignored
-  end
-
   def activation_dates
-    content_tag :div, raw(timestamp), class: "activation_dates"
+    if type? :active, :archive, :draft, :user_submitted, :ignored
+      content_tag :div, raw(timestamp), class: "activation_dates"
+    end
   end
 
   def has_tile_stats?
@@ -64,7 +63,7 @@ class SingleAdminTilePresenter < BasePresenter
 
   def show_tile_path
     if type == :explore
-      explore_tile_preview_path(self)
+      explore_tile_preview_path(self, tile_ids: tiles_grouped_ids)
     else
       client_admin_tile_path(tile)
     end

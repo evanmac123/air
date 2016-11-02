@@ -12,7 +12,7 @@ module ApplicationHelper
   end
 
   def following_count_phrase(user)
-    pluralize(user.accepted_friends.count, 'person')   
+    pluralize(user.accepted_friends.count, 'person')
   end
 
   def followers_count_phrase(user)
@@ -51,7 +51,7 @@ module ApplicationHelper
     flash.each do |key, value|
       @listified_flash[key] = [value]
     end
-    
+
     @listified_flash
   end
 
@@ -83,28 +83,11 @@ module ApplicationHelper
     request.env['mobvious.device_type'] == :desktop
   end
 
-  #FIXME this fucking code, once again fucking sucks! 
-  #
-  def tile_thumbnail_target(tile, selected_tag_id = nil)
-    # It would have been much neater to deal with this via inheritance.
-    # Too bad you can't inherit views, and doing it with helpers didn't seem
-    # to, as it were, help.
-    #
-    # So instead we get this hack:
-    if params[:controller] == 'explores'
-      explore_tile_preview_path(tile, tag_id: selected_tag_id)
-    elsif params[:library_slug] 
-      client_admin_stock_tile_path(tile)
-    else
-      params[:public_slug] ? public_tile_path(params[:public_slug], tile) : tile_path(tile)
-    end
-  end
-
   def guest_for_tile_preview?
     params[:controller] == "tile_previews" \
       && (current_user.nil? || current_user.is_guest?)
   end
-  
+
   def user_is_guest_for_tile_preview?
     params[:controller] == "tile_previews" \
       && !current_user.is_client_admin && !current_user.is_site_admin
@@ -131,7 +114,7 @@ module ApplicationHelper
   end
 
   def use_intercom?
-    Rails.env.production? || Rails.env.staging? || ENV['INTERCOM']  
+    Rails.env.production? || Rails.env.staging? || ENV['INTERCOM']
   end
 
   def ie9_or_older?
@@ -141,7 +124,7 @@ module ApplicationHelper
   def nr_trace(name)
     result = nil
 
-    self.class.trace_execution_scoped([name]) do 
+    self.class.trace_execution_scoped([name]) do
       result = yield
     end
 
@@ -156,14 +139,14 @@ module ApplicationHelper
   end
 
   def simple_format_by_type type, val
-    case type 
+    case type
     when "date"
-      simple_date_format val 
-    when "money" 
+      simple_date_format val
+    when "money"
       simple_money_format val
     when "pct"
       "#{simple_number_format val}%"
-    else 
+    else
       val
     end
   end
@@ -185,7 +168,7 @@ module ApplicationHelper
     raw coder.decode("" + html + "")
   end
 
-  def dependent_board_email_subject 
+  def dependent_board_email_subject
     current_user.demo.dependent_board_email_subject || DEFAULT_INVITE_DEPENDENT_SUBJECT_LINE
   end
 

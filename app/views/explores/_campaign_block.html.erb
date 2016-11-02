@@ -3,7 +3,7 @@
       <div class="topic-board-div">
         <%= render partial: "explores/single_campaign", locals: {
           board: board,
-          path: stock_board_path(library_slug: board.public_slug)
+          path: client_admin_explore_campaign_path(board)
           } %>
       </div>
   </div>

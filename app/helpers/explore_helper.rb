@@ -43,7 +43,7 @@ module ExploreHelper
 
     @all_community_tiles = community_tiles.count <= tile_batch_size
 
-    @community_tiles = community_tiles.limit(tile_batch_size).reverse
+    @community_tiles = community_tiles.limit(tile_batch_size)
   end
 
   def render_partial_if_requested
@@ -118,6 +118,6 @@ module ExploreHelper
   end
 
   def campaign_boards
-    Demo.joins(:topic_board).where(topic_board: { is_library: true } )
+    Demo.includes(topic_board: :topic).where(topic_board: { is_library: true } )
   end
 end

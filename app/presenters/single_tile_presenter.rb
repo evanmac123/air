@@ -52,9 +52,7 @@ class SingleTilePresenter < BasePresenter
   end
 
   def show_tile_path
-    if type == 'explore'
-      explore_tile_preview_path(self)
-    elsif user_onboarding
+    if user_onboarding
       user_onboarding_tile_path(user_onboarding, tile)
     else
       @public_slug ? public_tile_path(@public_slug, tile) : tile_path(tile)

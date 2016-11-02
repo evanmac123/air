@@ -1,5 +1,6 @@
 Health::Application.routes.draw do
 
+
   get "users/index"
 
   match "sms"           => "sms#create", :via => :post
@@ -212,6 +213,7 @@ Health::Application.routes.draw do
 
     resources :public_boards, only: [:create, :destroy]
     resource :explore, only: :show do
+      resources :campaigns, only: [:show, :index]
       member do
         get 'tile_tag_show'
         get 'tile_preview'
