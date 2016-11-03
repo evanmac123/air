@@ -29,6 +29,11 @@ class SingleAdminTilePresenter < BasePresenter
     @tile_id ||= id
   end
 
+  def copied?
+    $redis.
+    sinter("boards:#{current_user.demo_id}:copies").include?(tile_id.to_s)
+  end
+
   def get_type(page_type)
     page_type ? page_type : tile.status.to_sym
   end
@@ -156,7 +161,8 @@ class SingleAdminTilePresenter < BasePresenter
       tile_completions_count,
       total_views,
       unique_views,
-      @is_ie
+      @is_ie,
+      copied?
     ].join('-')
   end
 
