@@ -106,13 +106,19 @@ body.explores, .explores {
     h4{
       display: inline-block;
       margin-bottom: 30px;
-      margin-left: 1.5em;
+      margin-left: 1em;
       margin-top: 10px;
     }
   }
 
   .explore-tiles-tabs {
     z-index: 2;
+  }
+
+  .explore-tiles-tab {
+    &:hover {
+      color: $n-blue;
+    }
   }
 
   #recommended_container, #collection_boards, #explore_tiles {
@@ -125,9 +131,6 @@ body.explores, .explores {
     z-index: 2;
     .tile_container {
       margin-top: 7px;
-    }
-    h4 {
-      margin-left: 1em;
     }
   }
 
