@@ -19,7 +19,6 @@ Airbo.ShowMoreContent = (function() {
       };
 
       updateContent(self, attrs);
-      Airbo.CopyTileToBoard.init();
     });
   }
 
@@ -41,7 +40,6 @@ Airbo.ShowMoreContent = (function() {
       };
 
       updateContent(self, attrs);
-      Airbo.CopyTileToBoard.init();
     });
   }
 
@@ -59,6 +57,7 @@ Airbo.ShowMoreContent = (function() {
         case 'append':
           $(attrs.targetSelector).append(content);
           updateOffsets(self, attrs, data);
+          Airbo.CopyTileToBoard.init();
         break;
         case 'replace':
           $(attrs.targetSelector).replaceWith(content);
