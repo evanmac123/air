@@ -27,11 +27,18 @@ body.explores, .explores {
     }
   }
 
+  #copy-all-tiles-button {
+    margin: 10px 0 30px 65px;
+  }
+
   #campaign_title {
     a {
-      font-size: 50px;
+      font-size: 40px;
       color: $darker-gray;
       font-weight: 800;
+      text-decoration: none;
+      cursor: default;
+      border-bottom: 3px solid #48bfff;
     }
   }
 
