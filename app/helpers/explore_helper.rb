@@ -3,23 +3,23 @@ module ExploreHelper
     12
   end
 
-  def campaign_batch_size
+  def collection_batch_size
     4
   end
 
-  def find_tiles_and_campaigns
+  def find_tiles_and_collections
     @explore_tiles ||= Tile.copyable
 
-    set_campaigns
+    set_collections
     set_recommended_tiles
     set_verified_tiles
     set_community_tiles
   end
 
-  def set_campaigns
-    campaigns = campaign_boards.offset(campaign_offset)
-    @all_campaigns = campaigns.count <= campaign_batch_size
-    @campaigns = campaigns.limit(campaign_batch_size)
+  def set_collections
+    collections = collection_boards.offset(collection_offset)
+    @all_collections = collections.count <= collection_batch_size
+    @collections = collections.limit(collection_batch_size)
   end
 
   def set_recommended_tiles
@@ -53,8 +53,8 @@ module ExploreHelper
   def render_partial_if_requested
     return unless params[:partial_only]
 
-    if params[:content_type] == "campaign"
-      render_campaigns_partial
+    if params[:content_type] == "collection"
+      render_collections_partial
     else
       render_tiles_partial
     end
@@ -80,16 +80,16 @@ module ExploreHelper
     }
   end
 
-  def render_campaigns_partial
-    @more_campaigns = @campaigns
-    @last_batch = @all_campaigns
+  def render_collections_partial
+    @more_collections = @collections
+    @last_batch = @all_collections
 
-    html_content = render_to_string partial: "explores/campaign_block", locals: { campaigns: @more_campaigns }
+    html_content = render_to_string partial: "explores/collection_block", locals: { collections: @more_collections }
 
     render json: {
       htmlContent: html_content,
       lastBatch:   @last_batch,
-      objectCount: @more_campaigns.count
+      objectCount: @more_collections.count
     }
   end
 
@@ -97,8 +97,8 @@ module ExploreHelper
     @_offset = params[:tile_offset].present? ? params[:tile_offset].to_i : 0
   end
 
-  def campaign_offset
-    @_campaign_offset = params[:campaign_offset].present? ? params[:campaign_offset].to_i : 0
+  def collection_offset
+    @_collection_offset = params[:collection_offset].present? ? params[:collection_offset].to_i : 0
   end
 
   def new_user?
@@ -125,7 +125,7 @@ module ExploreHelper
    params[:tile_tag]
   end
 
-  def campaign_boards
+  def collection_boards
     Demo.includes(topic_board: :topic).where(topic_board: { is_library: true } )
   end
 end

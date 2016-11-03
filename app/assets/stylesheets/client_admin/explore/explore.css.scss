@@ -10,6 +10,13 @@
 
 body.explores, .explores {
 
+  .explore-headers {
+    font-size: 25px;
+    color: $darker-gray;
+    &.non-link {
+    }
+  }
+
   .explore-breadcrumbs {
     padding: 10px 0 0 65px;
     a, span, .spacer {
@@ -28,10 +35,10 @@ body.explores, .explores {
   }
 
   #copy-all-tiles-button {
-    margin: 25px 0 30px 65px;
+    margin: 25px 0 30px 20px;
   }
 
-  #campaign_title {
+  #collection_title {
     a {
       font-size: 40px;
       color: $darker-gray;
@@ -46,7 +53,7 @@ body.explores, .explores {
     text-align: center;
     margin-top: 20px;
     margin-bottom: 40px;
-    .show_more_tiles, .show_more_campaigns {
+    .show_more_tiles, .show_more_collections {
       width: 140px;
       &[disabled] {
         display: none;
@@ -98,7 +105,7 @@ body.explores, .explores {
 
     h4{
       display: inline-block;
-      margin-bottom: 2em;
+      margin-bottom: 30px;
       margin-left: 1.5em;
       margin-top: 10px;
     }
@@ -108,13 +115,12 @@ body.explores, .explores {
     z-index: 2;
   }
 
-  #recommended_container, #campaign_boards, #explore_tiles {
+  #recommended_container, #collection_boards, #explore_tiles {
     background: $almost-white;
     padding: 2em 0 0 0;
   }
 
   #recommended_container {
-    padding-left: 20px;
     box-shadow: 0px 1px 6px 1.2px $med-gray;
     z-index: 2;
     .tile_container {
@@ -125,9 +131,13 @@ body.explores, .explores {
     }
   }
 
-  #campaign_boards {
+  #collection_boards {
     box-shadow: 0px 1px 6px 1.2px $med-gray;
     z-index: 1;
+  }
+
+  #recommended_tiles {
+    padding-left: 10px;
   }
 
   //
@@ -172,7 +182,7 @@ body.explores, .explores {
     margin-bottom: 0;
   }
 
-  .campaign-description {
+  .collection-description {
     h4 {
       color: $darker-gray;
       padding: 0 10px;

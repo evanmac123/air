@@ -9,7 +9,7 @@ Airbo.ShowMoreContent = (function() {
         path: self.data("tile-path"),
         type: self.data("tile-type"),
         tileOffset: self.data("tile-count"),
-        campaignOffset: null,
+        collectionOffset: null,
         contentType: self.data('contentType'),
         targetSelector: self.data('target-selector'),
         disabled: self.attr('disabled'),
@@ -22,20 +22,20 @@ Airbo.ShowMoreContent = (function() {
     });
   }
 
-  function initMoreCampaigns() {
-    $(".explore_show_more_campaigns").on("click", function(e) {
+  function initMoreCollections() {
+    $(".explore_show_more_collections").on("click", function(e) {
       e.preventDefault();
       var self = $(this);
       var attrs = {
-        path: self.data("campaign-path"),
-        type: "campaign",
+        path: self.data("collection-path"),
+        type: "collection",
         tileOffset: null,
-        campaignOffset: self.data("campaign-count"),
+        collectionOffset: self.data("collection-count"),
         contentType: self.data('contentType'),
         targetSelector: self.data('target-selector'),
         disabled: self.attr('disabled'),
-        downArrowSelector: '.show_more_campaigns_copy',
-        spinnerSelector: '.show_more_campaigns_spinner',
+        downArrowSelector: '.show_more_collections_copy',
+        spinnerSelector: '.show_more_collections_spinner',
         updateMethod: 'append'
       };
 
@@ -49,7 +49,7 @@ Airbo.ShowMoreContent = (function() {
     $(attrs.downArrowSelector).hide();
     $(attrs.spinnerSelector).show();
 
-    $.get(attrs.path, { tile_offset: attrs.tileOffset, campaign_offset: attrs.campaignOffset, partial_only: 'true', content_type: attrs.type }, (function(data) {
+    $.get(attrs.path, { tile_offset: attrs.tileOffset, collection_offset: attrs.collectionOffset, partial_only: 'true', content_type: attrs.type }, (function(data) {
       var content = data.htmlContent || data;
       $(attrs.spinnerSelector).hide();
       $(attrs.downArrowSelector).show();
@@ -73,14 +73,14 @@ Airbo.ShowMoreContent = (function() {
   function updateOffsets(self, attrs, data) {
     if (attrs.tileOffset) {
       self.data().tileCount += data.objectCount;
-    } else if (attrs.campaignOffset) {
-      self.data().campaignCount += data.objectCount;
+    } else if (attrs.collectionOffset) {
+      self.data().collectionCount += data.objectCount;
     }
   }
 
   function initEvents() {
     initMoreTiles();
-    initMoreCampaigns();
+    initMoreCollections();
   }
 
   function init() {

@@ -4,7 +4,7 @@ class ExploresController < ClientAdminBaseController
   include ExploreHelper
 
   def show
-    find_tiles_and_campaigns
+    find_tiles_and_collections
     @path_for_more_content = explore_path
 
     render_partial_if_requested

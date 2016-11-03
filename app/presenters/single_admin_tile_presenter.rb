@@ -30,8 +30,7 @@ class SingleAdminTilePresenter < BasePresenter
   end
 
   def copied?
-    $redis.
-    sinter("boards:#{current_user.demo_id}:copies").include?(tile_id.to_s)
+    $redis.sismember("boards:#{current_user.demo_id}:copies", tile_id)
   end
 
   def get_type(page_type)
