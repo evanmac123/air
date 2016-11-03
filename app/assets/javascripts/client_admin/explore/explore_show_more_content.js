@@ -19,6 +19,7 @@ Airbo.ShowMoreContent = (function() {
       };
 
       updateContent(self, attrs);
+      Airbo.CopyTileToBoard.init();
     });
   }
 
@@ -40,6 +41,7 @@ Airbo.ShowMoreContent = (function() {
       };
 
       updateContent(self, attrs);
+      Airbo.CopyTileToBoard.init();
     });
   }
 
