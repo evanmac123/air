@@ -102,9 +102,7 @@
   }
   &.explore {
     .tile-wrapper {
-      -webkit-box-shadow: 2px 3px 10px 1px rgba(0,0,0,0.22);
-      -moz-box-shadow: 2px 3px 10px 1px rgba(0,0,0,0.22);
-      box-shadow: 2px 3px 10px 1px rgba(0,0,0,0.22);
+      box-shadow: 1px 1px 8px 1px rgba(0,0,0,0.2);
     }
   }
 }

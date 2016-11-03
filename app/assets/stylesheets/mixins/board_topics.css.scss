@@ -26,6 +26,7 @@
       border-radius: 3px;
       margin: 7px;
       overflow: hidden;
+      box-shadow: 1px 1px 8px 1px rgba(0,0,0,0.2);
       .cover-footer{
         position:absolute;
         bottom:17px;
@@ -55,7 +56,7 @@
       .collection_shadow_overlay {
         // TODO: Design
       }
-      
+
       .title {
         max-width: 150px;
         font-size: 18px;
