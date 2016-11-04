@@ -9,7 +9,7 @@
 <div class="row">
 
   <div class="columns small-12 small-centered">
-    <%=form_tag organization_metrics_path do %>
+    <%=form_tag admin_metrics_path, method: :get do %>
       <table>
         <caption>Reporting Period</caption>
         <thead>
@@ -45,10 +45,10 @@
       </tbody>
     </table>
 
-    <%=link_to "Download CSV", organization_metrics_path(sdate:@sdate, edate: @edate, format: :csv),  class:"button right"%>
+    <%=link_to "Download CSV", admin_metrics_path(sdate:@sdate, edate: @edate, format: :csv),  class:"button right"%>
   <%end%>
   </div>
-  <%=form_tag historical_metrics_path do%>
+  <%=form_tag admin_historical_metrics_path do%>
     <%=submit_tag "Process Historical Metrics", class: "button outlined"%>
   <%end%>
 </div>
