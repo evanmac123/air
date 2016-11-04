@@ -11,6 +11,10 @@ class UserOnboarding < ActiveRecord::Base
 
   before_create :set_auth_hash
 
+  def email
+    user.email
+  end
+
   def validate_token(token)
     token == generate_token
   end
