@@ -42,6 +42,7 @@ class Tile < ActiveRecord::Base
   has_many :tile_viewings, dependent: :destroy
   has_many :user_viewers, through: :tile_viewings, source: :user, source_type: 'User'
   has_many :guest_user_viewers, through: :tile_viewings, source: :user, source_type: 'GuestUser'
+  has_one :recommended_tile
 
   has_alphabetical_column :headline
 
@@ -182,6 +183,10 @@ class Tile < ActiveRecord::Base
     TileViewing.add(self, user) if user
   end
 
+  def self.recommended
+    joins(:recommended_tile)
+  end
+
   def self.verified_explore
     joins(:organization).copyable.where(organization: {name: "Airbo"})
   end
@@ -287,6 +292,10 @@ class Tile < ActiveRecord::Base
   def show_external_link?
     use_old_line_break_css
   end
+
+  def recommended?
+   recommended_tile.present?
+  end 
 
   protected
 
