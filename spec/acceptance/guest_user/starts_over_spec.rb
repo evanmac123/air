@@ -71,7 +71,7 @@ feature 'Starts over' do
       before do
       UserIntro.any_instance.stubs(:displayed_first_tile_hint).returns(true)
         @tiles = [
-          tile, 
+          tile,
           FactoryGirl.create(:multiple_choice_tile, :active, headline: "Tile 2", demo_id: board.id),
           FactoryGirl.create(:multiple_choice_tile, :active, headline: "Tile 3", demo_id: board.id)
         ]
@@ -82,19 +82,18 @@ feature 'Starts over' do
         close_tutorial_lightbox
 
         click_link tile.headline
-        @tiles[0,2].each do |tile|
+        @tiles[0,1].each do |tile|
           page.find('.right_multiple_choice_answer:not(.clicked_right_answer)').click
-          #answer(tile.correct_answer_index).click
         end
+
         close_conversion_form
 
         click_start_over_button
         close_tutorial_lightbox
 
         click_link tile.headline
-        @tiles[0,2].each do |tile|
+        @tiles[0,1].each do |tile|
           page.find('.right_multiple_choice_answer:not(.clicked_right_answer)').click
-          #answer(tile.correct_answer_index).click
         end
         expect_conversion_form
       end
