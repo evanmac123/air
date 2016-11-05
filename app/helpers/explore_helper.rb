@@ -130,14 +130,15 @@ module ExploreHelper
   end
 
   def toggle_recommend tile
-    tile.recommended? ? unrecommend_link(tile) : recommend_link(tile)
-  end
-
-  def unrecommend_link tile
-    link_to "Unrecommend",  admin_recommended_tile_path(tile), method: :delete
+    tile.recommended? ? unrecommend_link(tile.recommended_tile) : recommend_link(tile)
   end
 
   def recommend_link tile
-    link_to "Recommend",  admin_recommended_tiles_path(tile)
+    link_to "Recommend",  admin_recommended_tiles_path, class: "button recommend add", data:{tile_id: tile.id}
   end
+
+  def unrecommend_link recommended
+    link_to "Unrecommend",  admin_recommended_tile_path(recommended), class: "button recommend remove", method: :delete,  data:{id: recommended.id}
+  end
+
 end
