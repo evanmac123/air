@@ -126,6 +126,10 @@ class Contract < ActiveRecord::Base
     min_start < min_booked ? min_start : min_booked
   end
 
+  def pretty_name
+   "#{start_date.strftime('%b %d, %Y')}  --   #{end_date.strftime('%b %d, %Y')}"
+  end
+
   def status
     end_date >= Date.today ? "Active" : "Closed"
   end
