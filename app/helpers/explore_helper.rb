@@ -24,7 +24,6 @@ module ExploreHelper
 
   def set_recommended_tiles
     @recommended_tiles = @explore_tiles.
-      verified_explore.
       recommended.limit(6)
   end
 

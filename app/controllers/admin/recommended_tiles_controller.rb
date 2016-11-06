@@ -3,7 +3,7 @@ class Admin::RecommendedTilesController < AdminBaseController
   include ExploreHelper
 
   def index
-    @tiles = Tile.copyable.limit(10)
+    @tiles = Tile.copyable
   end
 
   def create
