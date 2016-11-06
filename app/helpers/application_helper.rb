@@ -141,18 +141,24 @@ module ApplicationHelper
   def simple_format_by_type type, val
     case type
     when "date"
-      simple_date_format val
-    when "money"
+      simple_date_format val 
+    when "mon_d_y"
+      simple_date_mon_d_yyyy val 
+    when "money" 
       simple_money_format val
     when "pct"
-      "#{simple_number_format val}%"
-    else
+      "#{simple_percentage_format val}"
+    else 
       val
     end
   end
 
   def simple_date_format date
     date.try(:strftime, "%m/%d/%Y")
+  end
+
+  def simple_date_mon_d_yyyy date
+    date.try(:strftime, "%b %d, %Y")
   end
 
   def simple_money_format amt
@@ -162,6 +168,11 @@ module ApplicationHelper
   def simple_number_format num
     number_with_delimiter num.to_i
   end
+
+  def simple_percentage_format num
+    number_to_percentage(num, precision:3, strip_insignificant_zeros:true)
+  end
+
 
   def unescape_html html
     coder = HTMLEntities.new
