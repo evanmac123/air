@@ -1212,7 +1212,7 @@ ActiveRecord::Schema.define(:version => 20161107172315) do
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["official_email"], :name => "index_users_on_official_email", :unique => true
+  add_index "users", ["official_email"], :name => "index_users_on_official_email"
   add_index "users", ["organization_id"], :name => "index_users_on_organization_id"
 
 end
