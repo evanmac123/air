@@ -59,7 +59,7 @@ Airbo.GuestUserConversionForm = (function(){
 
   function bindConversionReminder() {
     $(".right_multiple_choice_answer, #next, #prev").on("click", function() {
-      if($("#completed_tiles_num").text() % 2 === 0) {
+      if($("#completed_tiles_num").text() % 3 === 0) {
         $("#guest-conversion-modal").foundation("reveal","open");
       }
     });
