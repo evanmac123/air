@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161104231714) do
+ActiveRecord::Schema.define(:version => 20161107172315) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -1211,29 +1211,8 @@ ActiveRecord::Schema.define(:version => 20161104231714) do
     t.integer  "organization_id"
   end
 
-  add_index "users", ["cancel_account_token"], :name => "index_users_on_cancel_account_token"
-  add_index "users", ["claim_code"], :name => "index_users_on_claim_code"
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["email"], :name => "user_email_trigram"
-  add_index "users", ["employee_id"], :name => "index_users_on_employee_id"
-  add_index "users", ["explore_token"], :name => "index_users_on_explore_token"
-  add_index "users", ["game_referrer_id"], :name => "index_users_on_game_referrer_id"
-  add_index "users", ["invitation_code"], :name => "index_users_on_invitation_code"
-  add_index "users", ["is_employee"], :name => "index_users_on_is_employee"
-  add_index "users", ["location_id"], :name => "index_users_on_location_id"
-  add_index "users", ["name"], :name => "index_users_on_name"
-  add_index "users", ["name"], :name => "user_name_trigram"
   add_index "users", ["official_email"], :name => "index_users_on_official_email", :unique => true
   add_index "users", ["organization_id"], :name => "index_users_on_organization_id"
-  add_index "users", ["overflow_email"], :name => "index_users_on_overflow_email"
-  add_index "users", ["phone_number"], :name => "index_users_on_phone_number"
-  add_index "users", ["privacy_level"], :name => "index_users_on_privacy_level"
-  add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
-  add_index "users", ["slug"], :name => "index_users_on_slug"
-  add_index "users", ["slug"], :name => "user_slug_trigram"
-  add_index "users", ["sms_slug"], :name => "index_users_on_sms_slug"
-  add_index "users", ["spouse_id"], :name => "index_users_on_spouse_id"
-  add_index "users", ["ssn_hash"], :name => "index_users_on_ssn_hash"
-  add_index "users", ["zip_code"], :name => "index_users_on_zip_code"
 
 end
