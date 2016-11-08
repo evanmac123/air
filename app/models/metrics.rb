@@ -52,13 +52,13 @@ class Metrics < ActiveRecord::Base
       "weekending_date",
       "starting_mrr",
       "added_mrr",
-      "new_cust_mrr",
       "upgrade_mrr",
+      "new_cust_mrr",
       "churned_mrr",
       "downgrade_mrr",
+      "churned_customer_mrr",
       "net_changed_mrr",
       "current_mrr",
-      "churned_customer_mrr",
       "starting_customers",
       "added_customers",
       "churned_customers",
@@ -66,12 +66,14 @@ class Metrics < ActiveRecord::Base
       "current_customers",
       "possible_churn_customers",
       "possible_churn_mrr",
+      "churned_customers",
+      "churned_mrr",
       "percent_churned_customers",
       "percent_churned_mrr",
       "net_churned_mrr",
-      "amt_booked",
       "added_customer_amt_booked",
-      "renewal_amt_booked"
+      "renewal_amt_booked",
+      "amt_booked",
     ]
   end
 

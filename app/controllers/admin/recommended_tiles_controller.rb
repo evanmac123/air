@@ -3,7 +3,7 @@ class Admin::RecommendedTilesController < AdminBaseController
   include ExploreHelper
 
   def index
-    @tiles = Tile.copyable
+    @tiles = Tile.verified_explore
   end
 
   def create
@@ -25,5 +25,4 @@ class Admin::RecommendedTilesController < AdminBaseController
       head :unprocessible_entity
     end
   end
-
 end

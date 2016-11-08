@@ -25,6 +25,9 @@
           <tr>
             <th>Customer</th><td><%=link_to @contract.organization_name,admin_organization_path(@contract.organization) %></td></div>
           </tr>
+          <tr>
+            <th>Contract Active</th><h3><td><%=@contract.pretty_name%></h3> </td>
+          </tr>
         </table>
       </div>
 

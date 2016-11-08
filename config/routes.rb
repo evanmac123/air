@@ -1,6 +1,5 @@
 Health::Application.routes.draw do
 
-
   get "users/index"
 
   match "sms"           => "sms#create", :via => :post
@@ -89,7 +88,6 @@ Health::Application.routes.draw do
   get "tour" => 'pages#tour', as: 'tour'
   get "company" => 'pages#company', as: 'company'
   get "case-studies" => 'pages#case-studies', as: 'case_studies'
-  get "product" => 'pages#product', as: 'product'
   get "faq" => "pages#faq", :as => "faq" # FIXME dead url?
   get "faq_body" => "pages#faq_body", :as => "faq_toc" # FIXME dead url?
   get "faq_toc" => "pages#faq_toc", :as => "faq_body" # FIXME dead url?
@@ -291,6 +289,7 @@ Health::Application.routes.draw do
 
   namespace :admin do
 
+    resources :explore_customizations, only: [:new, :create]
 
     resources :historical_metrics, only: [:create]
     namespace :sales do

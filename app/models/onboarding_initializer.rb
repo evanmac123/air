@@ -6,7 +6,7 @@ class OnboardingInitializer
     @name = params[:name]
     @organization_name = params[:organization]
     @reference_board_id = params[:board_id]
-    @user_onboarding = UserOnboarding.new({state: 1})
+    @user_onboarding = UserOnboarding.new({state: 1, user: user})
   end
 
   def save

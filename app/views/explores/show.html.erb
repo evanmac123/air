@@ -1,5 +1,5 @@
 <div id="tile_wall_explore">
-  <section class="manage_section" id="recommended_container">
+  <section class="manage_section" id="recommended_container" style="background:<%= $redis.hget("explore_customization", "recommended_tiles_background_color") %>">
     <%= render partial: 'explores/recommended_tiles' %>
   </section>
   <section class="manage_section" id="collection_boards">

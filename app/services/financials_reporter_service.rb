@@ -1,7 +1,7 @@
 class FinancialsReporterService 
 
-  def self.build_week sdate
-    kpi =  FinancialsCalcService.new(sdate)
+  def self.build_week date
+    kpi =  FinancialsCalcService.new(date)
 
     m = Metrics.new
 
@@ -143,22 +143,22 @@ class FinancialsReporterService
       "added_mrr"=>"Added MRR",
       "new_cust_mrr"=>"New Customer MRR",
       "upgrade_mrr"=>"Upgrade MRR ",
-      "churned_mrr"=>"MRR Churned",
+      "churned_mrr"=>"Churned MRR",
       "downgrade_mrr"=>"Downgrade MRR ",
       "net_changed_mrr"=>"Net changed MRR ",
-      "current_mrr"=>"Current MRR ",
+      "current_mrr"=>"Ending MRR ",
       "churned_customer_mrr"=>"Churned Customer MRR ",
       "starting_customers"=>"Starting Customers",
       "added_customers"=>"Customers Added",
       "churned_customers"=>"Churned Customers",
       "net_change_customers"=>"Net Changed Customers",
-      "current_customers"=>"Current Customers",
+      "current_customers"=>"Ending Customers",
       "possible_churn_customers"=>"Possible Churn Customers",
       "possible_churn_mrr"=>"Possible Churn MRR",
       "percent_churned_customers"=>"Percent Churned Customers",
       "percent_churned_mrr"=>"Percent Churn MRR ",
-      "net_churned_mrr"=>"Net MRR Churn",
-      "amt_booked" => "Amount Booked",
+      "net_churned_mrr"=>"Net Churn Rate",
+      "amt_booked" => "Total Booked",
       "added_customer_amt_booked" => "New Customer Amount Booked",
       "renewal_amt_booked" => "Renewal Amount Booked"
     }

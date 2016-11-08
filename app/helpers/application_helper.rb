@@ -141,14 +141,14 @@ module ApplicationHelper
   def simple_format_by_type type, val
     case type
     when "date"
-      simple_date_format val 
+      simple_date_format val
     when "mon_d_y"
-      simple_date_mon_d_yyyy val 
-    when "money" 
+      simple_date_mon_d_yyyy val
+    when "money"
       simple_money_format val
     when "pct"
       "#{simple_percentage_format val}"
-    else 
+    else
       val
     end
   end
