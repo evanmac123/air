@@ -170,10 +170,10 @@ class User < ActiveRecord::Base
     update_associated_act_privacy_levels
   end
 
-  after_destroy do
-    # destroy_friendships_where_secondary
-    destroy_segmentation_info
-  end
+  # after_destroy do
+  #   # destroy_friendships_where_secondary
+  #   destroy_segmentation_info
+  # end
 
   attr_accessor :password_confirmation, :converting_from_guest, :must_have_location, :creating_board, :role
 
