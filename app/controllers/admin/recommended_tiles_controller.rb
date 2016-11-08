@@ -3,7 +3,7 @@ class Admin::RecommendedTilesController < AdminBaseController
   include ExploreHelper
 
   def index
-    @tiles = Tile.copyable
+    @tiles = Tile.verified_explore
   end
 
   def create
@@ -21,5 +21,4 @@ class Admin::RecommendedTilesController < AdminBaseController
       render json: {id: t.tile_id, path: admin_recommended_tiles_path}, status: :ok
     end
   end
-
 end
