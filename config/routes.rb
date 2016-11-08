@@ -300,6 +300,7 @@ Health::Application.routes.draw do
     end
 
     resources :topics
+    resources :recommended_tiles
 
     resource :client_kpi_report
     resource :financials_kpi_dashboard, only:[:show], controller: "financials/kpi_dashboard"

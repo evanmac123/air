@@ -24,8 +24,7 @@ module ExploreHelper
 
   def set_recommended_tiles
     @recommended_tiles = @explore_tiles.
-      verified_explore.
-      limit(6)
+      recommended.limit(6)
   end
 
   def set_verified_tiles
@@ -128,4 +127,17 @@ module ExploreHelper
   def collection_boards
     Demo.includes(topic_board: :topic).where(topic_board: { is_library: true } )
   end
+
+  def toggle_recommend tile
+    tile.recommended? ? unrecommend_link(tile.recommended_tile) : recommend_link(tile)
+  end
+
+  def recommend_link tile
+    link_to "Recommend",  admin_recommended_tiles_path, class: "button recommend add", data:{tile_id: tile.id}
+  end
+
+  def unrecommend_link recommended
+    link_to "Unrecommend",  admin_recommended_tile_path(recommended), class: "button recommend remove", method: :delete,  data:{id: recommended.id}
+  end
+
 end
