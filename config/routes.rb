@@ -1,6 +1,5 @@
 Health::Application.routes.draw do
 
-
   get "users/index"
 
   match "sms"           => "sms#create", :via => :post
@@ -290,6 +289,7 @@ Health::Application.routes.draw do
 
   namespace :admin do
 
+    resources :explore_customizations, only: [:new, :create]
 
     resources :historical_metrics, only: [:create]
     namespace :sales do

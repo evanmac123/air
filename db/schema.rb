@@ -637,6 +637,16 @@ ActiveRecord::Schema.define(:version => 20161107213541) do
     t.integer  "delayed_job_id"
   end
 
+  create_table "recommended_tiles", :force => true do |t|
+    t.integer  "tile_id"
+    t.integer  "user_id"
+    t.integer  "demo_id"
+    t.integer  "topic_id"
+    t.string   "action_taken"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
   create_table "rule_values", :force => true do |t|
     t.string   "value"
     t.boolean  "is_primary", :default => false, :null => false
