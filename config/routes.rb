@@ -19,8 +19,6 @@ Health::Application.routes.draw do
   match "ard/:public_slug/tile/:id" => "tiles#show", :as => "public_tile", :via => :get
 
 
-  post "admin/contracts/import" => "admin/contracts#import", :as => "contracts_import"
-
   match "myairbo/:id" => "user_onboardings#show", as: "myairbo"
   match "newairbo" => "onboardings#new"
 
@@ -315,6 +313,10 @@ Health::Application.routes.draw do
     end
 
     resources :contracts do
+      post "import", as: "import_contracts"
+      get "import", on: :collection
+
+
       resources :upgrades, controller: "contracts"
       resources :billings
     end
