@@ -10,22 +10,31 @@ class Contract < ActiveRecord::Base
   validates :arr, :mrr, numericality: true, allow_nil: true
   validate :arr_or_mrr_provided
 
-  ANNUAL="annual"
-  MONTHLY="monthly"
-  QUARTERLY="quarterly"
-  SEMI_ANNUAL="semi_annual"
-  CUSTOM = "custom"
+  ANNUAL="Annual"
+  MONTHLY="Monthly"
+  QUARTERLY="Quarterly"
+  SEMI_ANNUAL="Semi Annual"
+  CUSTOM = "Custom"
+   
+  before_validation :set_name
 
   def self.upgrades
     where("parent_contract_id is not NULL")
   end
 
-  def self.active
-    where("end_date >= ?", Date.today)
+  def self.current
+    where(in_collection: false)
   end
 
-  def self.inactive
-    where("end_date < ?", Date.today)
+  def self.current_as_of d
+    where("delinquency_date is null or delinquency_date > ?", d)
+  end
+
+  def self.delinquent_as_of d
+    where("delinquency_date  <= ?", d)
+  end
+  def self.delinquent
+    where(in_collection: true)
   end
 
   def self.auto_renewing
@@ -36,52 +45,89 @@ class Contract < ActiveRecord::Base
     where(auto_renew: false)
   end
 
-  def self.expiring_within_date_range sdate, edate
-    where("end_date >= ? and end_date <= ?", sdate, edate)
+  def self.active
+    current.where("end_date >= ?", Date.today)
+  end
+
+  def self.inactive
+    where("end_date < ?", Date.today)
+  end
+
+  def self.active_mrr_today
+   active.sum(&:calc_mrr)
+  end
+
+  def self.active_arr_today
+    active.sum(&:calc_mrr) * 12
+  end
+
+  def self.delinquent_mrr_as_of_date d
+    delinquent_as_of(d).sum(&:calc_mrr) 
+  end
+
+
+  #--------------------------------------------------------
+  # Used for forecasting and historical analysis
+  #--------------------------------------------------------
+ 
+  def self.active_as_of_date d
+    current_as_of(d).where("end_date >= ? and start_date <= ?", d, d)
   end
 
   def self.active_during_period sdate, edate
-    where("start_date <= ? and end_date > ?", sdate, edate)
+    current_as_of(sdate).where("start_date <= ? and end_date >= ?", sdate, sdate)
+  end
+
+  def self.active_not_expiring_during_period sdate, edate
+    current_as_of(sdate).where("start_date <= ? and end_date >= ?", edate, edate)
   end
 
   def self.added_during_period sdate, edate
-    where("start_date >= ? and start_date < ?", sdate, edate)
+    where("start_date >= ? and start_date <= ?", sdate, edate)
   end
 
-  def self.arr_added_from_upgrades_during_period sdate, edate
-   added_during_period(sdate, edate).upgrades.sum(&:calc_arr)
+  def self.expiring_during_period sdate, edate
+    where("end_date >= ? and end_date <= ?", sdate, edate)
   end
 
-  def self.mrr_added_from_upgrades_during_period sdate, edate
-   added_during_period(sdate, edate).upgrades.sum(&:calc_mrr)
-  end
-
-  def self.arr_added_during_period sdate, edate
-    added_during_period(sdate, edate).sum(&:calc_arr)
-  end
-
-  def self.mrr_added_during_period sdate, edate
-    added_during_period(sdate, edate).sum(&:calc_mrr)
-  end
-
-  def self.arr_during_period sdate, edate
-    active_during_period(sdate, edate).sum(&:calc_arr)
+  def self.active_mrr_as_of_date report_date=Date.today
+    active_as_of_date(report_date).sum(&:calc_mrr)
   end
 
   def self.mrr_during_period sdate, edate
     active_during_period(sdate, edate).sum(&:calc_mrr)
   end
 
+  def self.mrr_added_during_period sdate, edate
+    added_during_period(sdate, edate).sum(&:calc_mrr)
+  end
+
   def self.mrr_possibly_churning_during_period sdate, edate 
-    expiring_within_date_range(sdate, edate).sum(&:calc_mrr)
+    expiring_during_period(sdate, edate).sum(&:calc_mrr)
   end
 
-  def self.mrr_churned_during_period sdate, edate 
-    expiring_within_date_range(sdate, edate).cancelled.sum(&:calc_mrr)
+  def self.booked_during_period sdate, edate
+    where("date_booked >= ? and date_booked <= ?", sdate, edate).sum(&:amt_booked)
   end
 
-  def self.arr_possibly_churning_during_period sdate, edate
-    expiring_within_date_range(sdate, edate).sum(&:calc_arr)
+  def self.active_booked_for_date start_date=Date.today
+    active_as_of_date(start_date).sum(&:amt_booked)
+  end
+
+  def self.booked_year_to_date date=Date.today
+    where("date_booked >= ? and date_booked <= ?", date.beginning_of_year, date).sum(&:amt_booked)
+  end
+
+
+
+  def self.min_activity_date
+    min_start = minimum(:start_date)
+    min_booked =  minimum(:date_booked)
+    min_start < min_booked ? min_start : min_booked
+  end
+
+  def pretty_name
+   "#{start_date.strftime('%b %d, %Y')}  --   #{end_date.strftime('%b %d, %Y')}"
   end
 
   def status
@@ -107,16 +153,18 @@ class Contract < ActiveRecord::Base
   def renew
     dup = self.dup
     dup.start_date = end_date.advance(days:1)
-    dup.end_date = new_end_date end_date
+    dup.end_date = new_end_date(end_date)
+    dup.date_booked = dup.start_date
     dup.save
     dup
   end
 
-  def calc_mrr
-    if (mrr || arr)
-      mrr || arr/12 
-    end
-  end
+
+ def calc_mrr
+   if (mrr || arr)
+     mrr || arr/12 
+   end
+ end
 
   def calc_arr
     if(mrr || arr)
@@ -147,6 +195,10 @@ class Contract < ActiveRecord::Base
   end
 
   private
+
+  def set_name
+    self.name = "#{organization_name}: #{start_date}-#{end_date}"
+  end
 
   def new_end_date date
     e = cal_end_date date 

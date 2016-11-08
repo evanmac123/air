@@ -1,4 +1,3 @@
-//= require ./ajax-response-handler
 //= require jquery
 //= require jquery.effects.highlight
 //= require jquery_ujs

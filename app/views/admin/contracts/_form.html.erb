@@ -25,6 +25,9 @@
           <tr>
             <th>Customer</th><td><%=link_to @contract.organization_name,admin_organization_path(@contract.organization) %></td></div>
           </tr>
+          <tr>
+            <th>Contract Active</th><h3><td><%=@contract.pretty_name%></h3> </td>
+          </tr>
         </table>
       </div>
 
@@ -113,6 +116,12 @@
           <div class="row">
             <%= f.label :date_booked %>
             <%= f.text_field :date_booked, type: :date %>
+          </div>
+
+          <div class="row">
+            <%= f.label :in_collection, class: "checkbox inline" do%>
+              In Collection <%= f.check_box :in_collection, type: :date %>
+            <%end%>
           </div>
 
         </div>

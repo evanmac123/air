@@ -19,11 +19,8 @@ Health::Application.routes.draw do
   match "ard/:public_slug/tiles" => "tiles#index", :as => "public_tiles", :via => :get
   match "ard/:public_slug/tile/:id" => "tiles#show", :as => "public_tile", :via => :get
 
-  get "admin/customer/metrics" => "admin/organizations#metrics", :as => "organization_metrics"
-  post "admin/customer/metrics" => "admin/organizations#metrics_recalc", :as => "organization_metrics"
 
   post "admin/contracts/import" => "admin/contracts#import", :as => "contracts_import"
-  post "admin/metrics/historical" => "admin/metrics#historical", :as => "historical_metrics"
 
   match "myairbo/:id" => "user_onboardings#show", as: "myairbo"
   match "newairbo" => "onboardings#new"
@@ -92,7 +89,6 @@ Health::Application.routes.draw do
   get "tour" => 'pages#tour', as: 'tour'
   get "company" => 'pages#company', as: 'company'
   get "case-studies" => 'pages#case-studies', as: 'case_studies'
-  get "product" => 'pages#product', as: 'product'
   get "faq" => "pages#faq", :as => "faq" # FIXME dead url?
   get "faq_body" => "pages#faq_body", :as => "faq_toc" # FIXME dead url?
   get "faq_toc" => "pages#faq_toc", :as => "faq_body" # FIXME dead url?
@@ -293,6 +289,9 @@ Health::Application.routes.draw do
   resources :cancel_account, :only => [:show, :destroy]
 
   namespace :admin do
+
+
+    resources :historical_metrics, only: [:create]
     namespace :sales do
       resources :lead_contacts, only: [:index, :edit, :update, :create, :destroy] do
         resources :invites, only: [:new]
@@ -303,6 +302,9 @@ Health::Application.routes.draw do
     resources :topics
 
     resource :client_kpi_report
+    resource :financials_kpi_dashboard, only:[:show], controller: "financials/kpi_dashboard"
+
+    resources :metrics
     resources :topic_boards
     resources :organizations, as: :customers
     resources :organizations do

@@ -27,7 +27,6 @@ class ActsController < ApplicationController
     @acts                  = find_requested_acts(@demo)
 
     @palette = @demo.custom_color_palette
-
     #FIXME this instance var is getting set 3 times
     @display_get_started_lightbox = current_user.display_get_started_lightbox
 
@@ -36,6 +35,7 @@ class ActsController < ApplicationController
 
     #disable display of the
     @display_get_started_lightbox = false if params[:public_slug].present? and @demo.is_parent?
+
 
     if @display_get_started_lightbox
       @get_started_lightbox_message = persistent_message_or_default(current_user)
@@ -58,7 +58,9 @@ class ActsController < ApplicationController
       current_user.save!
     end
 
-    @display_first_tile_hint = current_user.intros.display_first_tile_hint?
+    if @display_get_started_lightbox==false
+      @display_first_tile_hint =  current_user.intros.display_first_tile_hint?
+    end
 
     @displayable_categorized_tiles = Tile.displayable_categorized_to_user(current_user, tile_batch_size)
 

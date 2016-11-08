@@ -61,6 +61,21 @@
           </li>
         </ul>
       </li>
+
+      <li class="has-dropdown not-click">
+        <a href="#">Financials</a>
+        <ul class="dropdown">
+          <li>
+            <%= link_to 'Dashboard', admin_financials_kpi_dashboard_path %>
+          </li>
+          <li>
+            <%= link_to 'Contracts', admin_contracts_path  %>
+          </li>
+          <li>
+            <%= link_to 'Billings', admin_billings_path %>
+          </li>
+        </ul>
+      </li>
     </ul>
   </section>
 </nav>

@@ -131,7 +131,7 @@ class User < ActiveRecord::Base
   end
 
   before_validation(on: :create) do
-    self.official_email=email if official_email.blank?
+    self.official_email = email if official_email.blank?
   end
 
   before_validation do
