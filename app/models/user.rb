@@ -171,7 +171,7 @@ class User < ActiveRecord::Base
   end
 
   after_destroy do
-    destroy_friendships_where_secondary
+    # destroy_friendships_where_secondary
     destroy_segmentation_info
   end
 
