@@ -1103,8 +1103,8 @@ ActiveRecord::Schema.define(:version => 20161108212341) do
     t.string   "auth_hash"
     t.boolean  "demo_scheduled", :default => false, :null => false
     t.boolean  "shared",         :default => false, :null => false
-    t.string   "more_info"
     t.boolean  "completed",      :default => false, :null => false
+    t.string   "more_info"
   end
 
   add_index "user_onboardings", ["onboarding_id"], :name => "index_user_onboardings_on_onboarding_id"
@@ -1222,8 +1222,17 @@ ActiveRecord::Schema.define(:version => 20161108212341) do
     t.integer  "organization_id"
   end
 
-
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["cancel_account_token"], :name => "index_users_on_cancel_account_token"
+  add_index "users", ["claim_code"], :name => "index_users_on_claim_code"
+  add_index "users", ["email"], :name => "index_users_on_email"
+  add_index "users", ["email"], :name => "user_email_trigram"
+  add_index "users", ["employee_id"], :name => "index_users_on_employee_id"
+  add_index "users", ["explore_token"], :name => "index_users_on_explore_token"
+  add_index "users", ["game_referrer_id"], :name => "index_users_on_game_referrer_id"
+  add_index "users", ["invitation_code"], :name => "index_users_on_invitation_code"
+  add_index "users", ["is_employee"], :name => "index_users_on_is_employee"
+  add_index "users", ["location_id"], :name => "index_users_on_location_id"
+  add_index "users", ["name"], :name => "user_name_trigram"
   add_index "users", ["official_email"], :name => "index_users_on_official_email"
   add_index "users", ["organization_id"], :name => "index_users_on_organization_id"
   add_index "users", ["overflow_email"], :name => "index_users_on_overflow_email"
