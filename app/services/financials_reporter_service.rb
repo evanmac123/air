@@ -70,22 +70,23 @@ class FinancialsReporterService
   end
 
   def self.get_data_by_date sdate, edate
-    self.build_data_set(raw_data(sdate, edate))
+    self.build_data_set(row_set(raw_data(sdate, edate)))
   end
 
-  def self.build_data_set res
-    fields = res.map(&:keys).flatten.uniq
-    values = res.map(&:values).transpose
-    container = Metrics.record_hash
-    new_hash =Hash[fields.zip values]
+  def self.build_data_set row_data 
+    container = HashWithIndifferentAccess.new(kpi_fields)
     container.each do|field, sub_hash|
-      sub_hash["values"]=new_hash[field] 
-      sub_hash["label"]=field_to_label_map[field]
-      sub_hash["display"]=kpi_field_display_type_map[field]
+      sub_hash[:values] = row_data[field]
     end
     container
   end
 
+
+  def self.row_set res
+    fields = res.map(&:keys).flatten.uniq
+    values = res.map(&:values).transpose
+    Hash[fields.zip(values)]
+  end
 
   def self.raw_data sdate, edate
     Metrics.normalized_by_start_and_end sdate, edate 
@@ -107,10 +108,156 @@ class FinancialsReporterService
     }
   end
 
+  def self.kpi_fields
+    {  
+      "weekending_date" => {
+        label: "Date",
+        type: "date"
+      },
+      "starting_mrr" => {
+        label: "Starting MRR",
+        type:"money" 
+      },
+      "added_mrr" => {
+        label: "Added MRR",
+        type: "money"
+      },
+
+      "upgrade_mrr"  => {
+        label: "Upgrade MRR",
+        type: "money"
+      },
+
+      "new_cust_mrr" => {
+        label: "New Customer MRR",
+        type: "money"
+      },
+
+      "churned_mrr" => {
+        label: "Churned MRR",
+        type: "money"
+      },
+      "downgrade_mrr" => {
+        label: "Downgrade MRR",
+        type: "money"
+      },
+      "churned_customer_mrr" => {
+        label: "Churned Customer MRR",
+        type: "money"
+      },
+      "net_changed_mrr" => {
+        label: "Net Change MRR",
+        type: "money"
+      } ,
+      "current_mrr" => {
+        label: "Ending MRR",
+        type: ""
+      } ,
+      "starting_customers" => {
+        label: "Starting Customers",
+        type: "num"
+      } ,
+      "added_customers" => {
+        label: "Added Customers",
+        type: "num"
+      } ,
+      "churned_customers" => {
+        label: "Churned Customers",
+        type: "num"
+      } ,
+      "net_change_customers" => {
+        label: "Net Change Customers",
+        type: "num"
+      } ,
+      "current_customers" => {
+        label: "Ending Customers",
+        type: "num"
+      } ,
+      "possible_churn_customers" => {
+        label: "Possible Churn Customers",
+        type: "num"
+      } ,
+      "possible_churn_mrr" => {
+        label: "Possible Churn MRR",
+        type: "money"
+      } ,
+      "churned_customers" => {
+        label: "Churned Customers",
+        type: "num"
+      } ,
+      "churned_mrr" => {
+        label: "Churned MRR",
+        type: "money"
+      } ,
+      "percent_churned_customers" => {
+        label: "Percent Churned Customers",
+        type: "pct"
+      } ,
+      "percent_churned_mrr" => {
+        label: "Percent Churned MRR",
+        type: "pct"
+      } ,
+      "net_churned_mrr" => {
+        label: "Net Churned MRR",
+        type: "pct"
+      } ,
+      "added_customer_amt_booked" => {
+        label: "New Customer Booked",
+        type: "money"
+      },
+      "renewal_amt_booked" => {
+        label: "Renewals Booked",
+        type: "money"
+      } ,
+      "amt_booked" => {
+        label: "Total Booked",
+        type: "money"
+      } ,
     }
   end
 
+  def self.query_select_fields
+    kpi_fields.keys.join(",")
+  end 
+
+  def self.sections
+    { 
+      mrr:  ["starting_mrr",
+             "added_mrr",
+             "upgrade_mrr",
+             "new_cust_mrr",
+             "churned_mrr",
+             "downgrade_mrr",
+             "churned_customer_mrr",
+             "net_changed_mrr",
+             "current_mrr"
+    ],
+    customers: [ 
+      "starting_customers",
+      "added_customers",
+      "churned_customers",
+      "net_change_customers",
+      "current_customers",
+      "possible_churn_customers",
+      "possible_churn_mrr",
+      "churned_customers",
+    ],
+    churn: [ 
+      "possible_churn_customers",
+      "possible_churn_mrr",
+      "churned_customers",
+      "churned_mrr",
+      "percent_churned_customers",
+      "percent_churned_mrr",
+      "net_churned_mrr",
+    ],
+    bookings: [
+      "added_customer_amt_booked",
+      "renewal_amt_booked",
+      "amt_booked",
+    ]
 
     }
   end
+
 end
