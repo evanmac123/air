@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161028001514) do
+ActiveRecord::Schema.define(:version => 20161107213541) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -309,6 +309,7 @@ ActiveRecord::Schema.define(:version => 20161028001514) do
   end
 
   add_index "demos", ["organization_id"], :name => "index_demos_on_organization_id"
+  add_index "demos", ["public_slug"], :name => "index_demos_on_public_slug"
 
   create_table "email_commands", :force => true do |t|
     t.integer  "user_id"
@@ -732,6 +733,9 @@ ActiveRecord::Schema.define(:version => 20161028001514) do
     t.boolean  "not_show_in_tile_progress", :default => false
   end
 
+  add_index "tile_completions", ["tile_id"], :name => "index_task_suggestions_on_task_id"
+  add_index "tile_completions", ["user_id"], :name => "index_task_suggestions_on_user_id"
+
   create_table "tile_images", :force => true do |t|
     t.string   "image_file_name"
     t.string   "image_content_type"
@@ -838,6 +842,9 @@ ActiveRecord::Schema.define(:version => 20161028001514) do
     t.boolean  "use_old_line_break_css",  :default => false
     t.text     "embed_video",             :default => "",    :null => false
   end
+
+  add_index "tiles", ["is_copyable"], :name => "index_tiles_on_is_copyable"
+  add_index "tiles", ["is_public"], :name => "index_tiles_on_is_public"
 
   create_table "timed_bonus", :force => true do |t|
     t.datetime "expires_at",                    :null => false
@@ -947,8 +954,8 @@ ActiveRecord::Schema.define(:version => 20161028001514) do
     t.string   "auth_hash"
     t.boolean  "demo_scheduled", :default => false, :null => false
     t.boolean  "shared",         :default => false, :null => false
-    t.boolean  "completed",      :default => false, :null => false
     t.string   "more_info"
+    t.boolean  "completed",      :default => false, :null => false
   end
 
   add_index "user_onboardings", ["onboarding_id"], :name => "index_user_onboardings_on_onboarding_id"
@@ -1058,6 +1065,7 @@ ActiveRecord::Schema.define(:version => 20161028001514) do
     t.integer  "organization_id"
   end
 
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["official_email"], :name => "index_users_on_official_email"
   add_index "users", ["organization_id"], :name => "index_users_on_organization_id"
 

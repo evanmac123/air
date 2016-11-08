@@ -40,13 +40,17 @@ var Airbo = {
 
     validationConfig: {
 
-      errorPlacement: function(error, element) {
-        element.parent().append(error);
-      },
-
       errorClass: "err",
-
       errorElement: "label",
+
+      errorPlacement: function(error, element) {
+        var placement = $(element).data('error');
+        if (placement) {
+          $(placement).append(error);
+        } else {
+          error.insertAfter(element);
+        }
+      },
 
       highlight: function(element, errorClass, validClass) {
         $(element).addClass("error").removeClass(errorClass);
@@ -80,13 +84,13 @@ var Airbo = {
       //TODO make flash duration configurable
       var flash= $(".flash-js");
 
-      flash.find(".flash-content").text(msg)
+      flash.find(".flash-content").text(msg);
       flash.find(".flash-js-msg").addClass(type);
       flash.fadeIn(500);
       //TODO small hack to make flash show in specs
       //would normally use native jquery fadeIn(n).fadeOut(n)
       setTimeout(function(){
-        flash.fadeOut(0); 
+        flash.fadeOut(0);
       }, 2000);
 
     },
