@@ -216,23 +216,27 @@ class FinancialsReporterService
     }
   end
 
+
   def self.query_select_fields
     kpi_fields.keys.join(",")
   end 
 
   def self.sections
     { 
-      mrr:  ["starting_mrr",
-             "added_mrr",
-             "upgrade_mrr",
-             "new_cust_mrr",
-             "churned_mrr",
-             "downgrade_mrr",
-             "churned_customer_mrr",
-             "net_changed_mrr",
-             "current_mrr"
+
+      "MRR" =>  [
+        "starting_mrr",
+        "added_mrr",
+        "upgrade_mrr",
+        "new_cust_mrr",
+        "churned_mrr",
+        "downgrade_mrr",
+        "churned_customer_mrr",
+        "net_changed_mrr",
+        "current_mrr"
     ],
-    customers: [ 
+
+    "Customers" => [ 
       "starting_customers",
       "added_customers",
       "churned_customers",
@@ -242,7 +246,8 @@ class FinancialsReporterService
       "possible_churn_mrr",
       "churned_customers",
     ],
-    churn: [ 
+
+    "Churn" => [ 
       "possible_churn_customers",
       "possible_churn_mrr",
       "churned_customers",
@@ -251,7 +256,8 @@ class FinancialsReporterService
       "percent_churned_mrr",
       "net_churned_mrr",
     ],
-    bookings: [
+
+    "Bookings" => [
       "added_customer_amt_booked",
       "renewal_amt_booked",
       "amt_booked",
