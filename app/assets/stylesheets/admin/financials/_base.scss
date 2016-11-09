@@ -1,27 +1,14 @@
-@import 'partials/activity_grid';
-@import 'partials/chart';
 
-.analytics-v1 {
+.financials-dashboard {
 
-  h1.header-number {
-    line-height: 1.25em;
-    text-align: left;
-  }
-  background: $off-white;
-
-  .content {
-    background: $off-white;
-  }
-  .title_block {
-    position: relative;
-    padding: 0 60px 30px 60px;
-  }
   .activity-header {
     background-color: $n-blue;
     margin: 20px;
     height: 7em;
     border-radius: 3px;
     .header-number {
+      line-height: 1.25em;
+      text-align: left;
       color: $off-white;
       margin: 0;
       padding-top: 12px;
@@ -44,11 +31,8 @@
   .total-mrr{
     background-color: $n-purple;
   }
-  .columns {
-    padding: 0;
-  }
-  .stats_page {
-    max-width: 1007px;
-    padding: 20px 40px 50px 40px;
+
+  .separator{
+   background-color: $n-green;
   }
 }
