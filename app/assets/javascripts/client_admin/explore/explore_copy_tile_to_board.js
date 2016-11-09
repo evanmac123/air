@@ -65,7 +65,7 @@ Airbo.CopyTileToBoard = (function(){
     });
 
     self.text("All Tiles Copied");
-    self.addClass("disabled");
+    self.addClass("disabled green");
   }
 
   function init() {
