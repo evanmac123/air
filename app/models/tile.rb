@@ -188,7 +188,9 @@ class Tile < ActiveRecord::Base
   end
 
   def self.verified_explore
-    joins(:organization).copyable.where(organization: {name: "Airbo"})
+    tiles_table = Arel::Table.new(:tiles)
+
+    joins(:organization).copyable.where(organization: {name: "Airbo"}).where(tiles_table[:id].not_in(recommended.pluck(:id)))
   end
 
   def self.community_explore
@@ -295,7 +297,7 @@ class Tile < ActiveRecord::Base
 
   def recommended?
    recommended_tile.present?
-  end 
+  end
 
   protected
 
