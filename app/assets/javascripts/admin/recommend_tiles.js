@@ -4,9 +4,9 @@ var Airbo = window.Airbo || {};
 Airbo.TileRecommender = (function(){ 
 
   function action(event){
+    event.preventDefault();
     link = $(event.target);
     link.hasClass("add") ? recommend(link) : cancel(link);
-    event.preventDefault();
   }
 
   function initHandlers(){
