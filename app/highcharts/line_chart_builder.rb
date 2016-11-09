@@ -1,7 +1,7 @@
 class LineChartBuilder
   attr_reader :period, :plot_data
 
-  def initialize(period, data, background_color = "#fafafa")
+  def initialize(period, data, background_color = "#fff")
     @period = period
     @plot_data = data
     @background_color = background_color

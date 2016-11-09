@@ -28,6 +28,20 @@ Airbo.ExploreKpis = (function(){
     Airbo.Utils.ping("Explore page - Interaction", properties);
   }
 
+  function viewedExplorePing(currentUserData) {
+    var properties = $.extend({page_name: "explore"}, currentUserData);
+    Airbo.Utils.ping("viewed page", properties);
+
+    if ( $(".client_admin-collections").length > 0) {
+      viewedCollectionPing(currentUserData);
+    }
+  }
+
+  function viewedCollectionPing(currentUserData) {
+    var properties = $.extend({ page_name: "explore collection", collection: $(".explores").data("collectionId")}, currentUserData);
+    Airbo.Utils.ping("viewed page", properties);
+  }
+
   function bindKPIs(currentUserData) {
     $(".explore_tiles_tab").on("click", function() {
       tileSectionTabsPing(currentUserData, $(this));
@@ -44,6 +58,7 @@ Airbo.ExploreKpis = (function(){
 
   function init() {
     var currentUserData = $("body").data("currentUser");
+    viewedExplorePing(currentUserData);
     bindKPIs(currentUserData);
   }
 
