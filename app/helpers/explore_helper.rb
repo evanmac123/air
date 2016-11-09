@@ -64,13 +64,15 @@ module ExploreHelper
       @all_tiles  = @all_verified_tiles
       @more_tiles = @verified_tiles
       @last_batch = @all_verified_tiles_displayed
+      @section = "Airbo Tile"
     elsif params[:content_type] == "community-explore"
       @all_tiles  = @all_community_tiles
       @more_tiles = @community_tiles
       @last_batch = @all_community_tiles_displayed
+      @section = "Community Tile"
     end
 
-    html_content = render_to_string partial: "explores/tiles", locals: { tiles: @more_tiles, tile_ids: @all_tiles.pluck(:id) }
+    html_content = render_to_string partial: "explores/tiles", locals: { tiles: @more_tiles, tile_ids: @all_tiles.pluck(:id), section: @section }
 
     render json: {
       htmlContent: html_content,
