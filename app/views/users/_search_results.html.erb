@@ -1,0 +1,26 @@
+<h3>
+  Showing search results for
+  <%= "\"#{search_string}\"" %>
+</h3>
+<ul id="other-users">
+  <% if other_users.empty? %>
+    Sorry, I couldn't find any users with the name
+    <%= '"' + search_string + '"' %>
+  <% else %>
+    <% other_users.each do |u| %>
+      <li class="user relative">
+        <div class="user-avatar">
+          <%= link_to user_path(u) do %>
+            <%= avatar_96(u) %>
+          <% end %>
+        </div>
+        <div class="user-info">
+          <div class="user-name_email">
+            <%= link_to u.name, user_path(u), :class => 'name-of-user' %>
+          </div>
+          <%= render 'follow_buttons', :user => u %>
+        </div>
+      </li>
+    <% end %>
+  <% end %>
+</ul>

@@ -17,7 +17,7 @@ feature 'Sees feedback if they search for users and come up empty' do
 
     search_string = "Four score and seven years ago"
     fill_in 'search_string', with: search_string
-    click_button "Find!"
+    click_button "Search"
 
     expect_empty_result_message search_string
   end
