@@ -1,7 +1,8 @@
 var Airbo = window.Airbo || {};
 
 Airbo.ExploreKpis = (function(){
-  function copyAllTilesPing(currentUserData, button) {
+  function copyAllTilesPing(button) {
+    var currentUserData = $("body").data("currentUser");
     var properties = $.extend({action: "Clicked Copy All Tiles"}, currentUserData);
     Airbo.Utils.ping("Explore page - Interaction", properties);
   }
@@ -28,10 +29,6 @@ Airbo.ExploreKpis = (function(){
   }
 
   function bindKPIs(currentUserData) {
-    $("#copy-all-tiles-button").on("click", function() {
-      copyAllTilesPing(currentUserData, $(this));
-    });
-
     $(".explore_tiles_tab").on("click", function() {
       tileSectionTabsPing(currentUserData, $(this));
     });
@@ -41,19 +38,19 @@ Airbo.ExploreKpis = (function(){
     });
 
     $("#back-to-explore-link").on("click", function() {
-     backToExplorePing(currentUserData, $(this));
+      backToExplorePing(currentUserData, $(this));
     });
   }
 
   function init() {
     var currentUserData = $("body").data("currentUser");
     bindKPIs(currentUserData);
-    
   }
 
   return {
     init: init,
-    copyTilePing: copyTilePing
+    copyTilePing: copyTilePing,
+    copyAllTilesPing: copyAllTilesPing
   };
 }());
 

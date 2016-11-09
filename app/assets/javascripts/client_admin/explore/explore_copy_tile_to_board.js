@@ -57,6 +57,7 @@ Airbo.CopyTileToBoard = (function(){
   }
 
   function copyAllTiles(self) {
+    Airbo.ExploreKpis.copyAllTilesPing(self);
     self.text("Copying...");
     var copies = [];
     $.each($(".explore_copy_link"), function( index, selector ) {
