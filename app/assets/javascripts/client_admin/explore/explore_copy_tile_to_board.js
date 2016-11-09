@@ -3,6 +3,7 @@ var Airbo = window.Airbo || {};
 Airbo.CopyTileToBoard = (function(){
   function copyToBoard(self, source) {
     var path = self.attr("href");
+    Airbo.ExploreKpis.copyTilePing(self, source);
     changeCopyButtonText(self, source);
     $.post(path, {},
       function(data) {

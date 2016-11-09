@@ -6,8 +6,9 @@ Airbo.ExploreKpis = (function(){
     Airbo.Utils.ping("Explore page - Interaction", properties);
   }
 
-  function copyTilePing(currentUserData, button) {
-    var properties = $.extend({action: "Clicked" + button.text(), tile_id: button.data("tileId"), section: button.data("section")}, currentUserData);
+  function copyTilePing(button, source) {
+    var currentUserData = $("body").data("currentUser");
+    var properties = $.extend({action: "Clicked Copy", tile_id: button.data("tileId"), section: button.data("section"), source: source}, currentUserData);
     Airbo.Utils.ping("Explore page - Interaction", properties);
   }
 
@@ -21,10 +22,6 @@ Airbo.ExploreKpis = (function(){
       copyAllTilesPing(currentUserData, $(this));
     });
 
-    $(".explore_copy_link").on("click", function() {
-      copyTilePing(currentUserData, $(this));
-    });
-
     $(".explore_tiles_tab").on("click", function() {
       tileSectionTabsPing(currentUserData, $(this));
     });
@@ -36,7 +33,8 @@ Airbo.ExploreKpis = (function(){
   }
 
   return {
-    init: init
+    init: init,
+    copyTilePing: copyTilePing
   };
 }());
 
