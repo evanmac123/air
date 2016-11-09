@@ -9,7 +9,7 @@
     <% end %>
     <div id="recommended_tiles">
       <div id="tile_wall_explore">
-        <%= render partial: 'explores/tiles', locals: { tiles: @recommended_tiles, tile_ids: @recommended_tiles.pluck(:id) } %>
+        <%= render partial: 'explores/tiles', locals: { tiles: @recommended_tiles, tile_ids: @recommended_tiles.pluck(:id), section: "Recommended Tile" } %>
       </div>
     </div>
   </div>

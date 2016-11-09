@@ -14,7 +14,7 @@ class SingleAdminTilePresenter < BasePresenter
             :demo,
             :is_placeholder?,
             to: :tile
-  attr_reader :tile, :type, :tiles_grouped_ids
+  attr_reader :tile, :type, :tiles_grouped_ids, :section
 
   presents :tile
 
@@ -23,6 +23,7 @@ class SingleAdminTilePresenter < BasePresenter
     @type = get_type(options[:page_type])
     @tiles_grouped_ids = options[:tile_ids]
     @format =  options[:format]||:html
+    @section = options[:section]
   end
 
   def tile_id

@@ -25,7 +25,7 @@
   <div class="row">
     <div class="large-12 columns">
       <div class="tile_wall_explore">
-        <%= render partial: 'explores/tiles', locals: {tiles: @tiles, tile_ids: @tiles.pluck(:id) } %>
+        <%= render partial: 'explores/tiles', locals: {tiles: @tiles, tile_ids: @tiles.pluck(:id), section: "Collection Tile" } %>
       </div>
     </div>
   </div>
