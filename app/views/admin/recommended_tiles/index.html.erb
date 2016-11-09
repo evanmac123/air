@@ -13,7 +13,7 @@
           <tr>
             <td><%=image_tag tile.thumbnail, style:"height: 75px;width:50px" %></td>
             <td><%=tile.headline%></td>
-            <td><%=toggle_recommend(tile)%></td>
+            <td><%=toggle_recommend(tile)%><span class="button hidden processing">Processing...<span></td>
           </tr>
         <%end%>
       </tbody>
