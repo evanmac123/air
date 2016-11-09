@@ -68,7 +68,7 @@ class SingleAdminTilePresenter < BasePresenter
 
   def show_tile_path
     if type == :explore
-      explore_tile_preview_path(self, tile_ids: tiles_grouped_ids)
+      explore_tile_preview_path(self, tile_ids: tiles_grouped_ids, section: section)
     else
       client_admin_tile_path(tile)
     end

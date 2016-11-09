@@ -18,6 +18,7 @@ class TilePreviewsController < ApplicationController
     @tiles = params[:tile_ids] ? get_sorted_explore_tiles : Tile.copyable.verified_explore
     @next_tile = next_explore_tile(1)
     @prev_tile = next_explore_tile(-1)
+    schedule_mixpanel_pings(@tile)
 
     if params[:partial_only]
       explore_preview_copy_intro
@@ -33,6 +34,15 @@ class TilePreviewsController < ApplicationController
   end
 
   private
+
+    def schedule_mixpanel_pings(tile)
+      ping("Tile - Viewed in Explore", {tile_id: tile.id, section: params[:section]}, current_user)
+      ping('Tile - Viewed', {tile_type: "Public Tile - Explore", tile_id: tile.id}, current_user)
+
+      if current_user.present?
+        email_clicked_ping(current_user)
+      end
+    end
 
     def get_sorted_explore_tiles
       ids = params[:tile_ids].map(&:to_i)
