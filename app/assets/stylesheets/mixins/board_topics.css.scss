@@ -60,13 +60,12 @@
           left:0;
           height:100%;
           width:100%;
-          background: rgba(255, 255, 255, 0.92);
+          background: rgba(0, 0, 0, 0.25);
           opacity: 0;
           &:after {
-            color: #666666;
             content:"Open";
             display: block;
-            margin-top:6em;
+            margin-top:8.2em;
             text-align: center;
             text-transform: uppercase;
           }
