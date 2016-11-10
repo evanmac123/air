@@ -97,6 +97,10 @@ class UserInHeaderPresenter
     current_user.not_in_any_paid_boards?
   end
 
+  def show_contact_airbo?
+    request.url.include? 'explore' # in explore section
+  end
+
   def show_side_menu_button?
     !current_user.is_guest?
   end
