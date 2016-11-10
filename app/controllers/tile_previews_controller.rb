@@ -23,7 +23,7 @@ class TilePreviewsController < ApplicationController
     if params[:partial_only]
       explore_preview_copy_intro
       render partial: "tile_previews/tile_preview",
-             locals: {tile: @tile, tag: @tag, next_tile: @next_tile, prev_tile: @prev_tile, section: params[:section]},
+             locals: { tile: @tile, tag: @tag, next_tile: @next_tile, prev_tile: @prev_tile, section: params[:section] || "Explore Digest" },
              layout: false
     else
       @show_explore_intro = current_user.intros.show_explore_intro!
@@ -42,6 +42,10 @@ class TilePreviewsController < ApplicationController
       if current_user.present?
         email_clicked_ping(current_user)
       end
+    end
+
+    def find_current_board
+      @tile.demo
     end
 
     def get_sorted_explore_tiles
