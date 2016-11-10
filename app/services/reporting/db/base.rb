@@ -3,10 +3,7 @@ module Reporting
     class Base
       attr_reader :beg_date, :end_date
 
-      def initialize demo_id, beg_date, end_date, interval
-        @demo_id  = demo_id
-        @demo  = Demo.find(@demo_id)
-
+      def initialize  beg_date, end_date, interval
         @beg_date = beg_date.send("beginning_of_#{interval}")
         @end_date = end_date.end_of_day
         @interval = interval
@@ -14,7 +11,7 @@ module Reporting
       end
 
 
-      
+
       protected
 
       def query_builder relation, interval_field, key_field, condition
@@ -52,7 +49,7 @@ module Reporting
 
                   UNION 
 
-                  #{select_for_primary_data}
+        #{select_for_primary_data}
 
                   GROUP BY 1 ORDER BY 1 
                  ) sub1
@@ -62,50 +59,5 @@ module Reporting
       end
 
     end
-
-    class UserActivation < Base
-
-      def eligibles
-        qry = query_builder(memberships, "users.created_at", "users.created_at", ["users.created_at < ?", end_date])
-        memberships.find_by_sql(wrapper_sql(qry))
-      end
-
-      def activations 
-        qry = query_builder(memberships, "users.accepted_invitation_at", "users.id", ["users.accepted_invitation_at is not null and users.accepted_invitation_at <= ?", end_date])
-        memberships.find_by_sql(wrapper_sql(qry))
-      end
-
-
-      private
-
-
-      def memberships
-        User.joins(:board_memberships).where("board_memberships.demo_id" => @demo_id)
-      end
-
-    end
-
-
-
-    class TileActivity < Base
-
-      def posts
-        qry = query_builder(@demo.tiles, "tiles.activated_at", "tiles.id", ["activated_at <= ? and (archived_at is null or archived_at > ?)", end_date, end_date])
-        @demo.tiles.find_by_sql(wrapper_sql(qry))
-      end
-
-      def views
-        qry = query_builder(@demo.tile_viewings, "tile_viewings.created_at", "tile_viewings.id", ["tile_viewings.created_at < ?", end_date])
-        @demo.tile_viewings.find_by_sql(wrapper_sql(qry))
-      end
-
-      def completions
-        qry = query_builder(@demo.tile_completions, "tile_completions.created_at", "tile_completions.id", ["tile_completions.created_at >= ? and tile_completions.created_at < ?", beg_date, end_date])
-        @demo.tile_completions.find_by_sql(wrapper_sql(qry))
-      end
-
-    end
-
   end
 end
-

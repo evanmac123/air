@@ -49,6 +49,7 @@ module Reporting
     end
 
     def do_user_activation
+      binding.pry
       user = Reporting::Db::UserActivation.new(demo,start, finish_date, interval)
 
       partition = data[:user]
@@ -144,6 +145,8 @@ module Reporting
    end
 
     def do_tile_activity
+
+      binding.pry
       partition = data[:tile_activity]
       activity = Reporting::Db::TileActivity.new(demo,start, finish_date, interval)
 
