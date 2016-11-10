@@ -49,9 +49,6 @@
           .collection_shadow_overlay{
             opacity: 1;
           }
-          .title, .subtitle.num-tiles{
-            color: #666666;
-          }
         }
 
         .collection_shadow_overlay {
@@ -60,10 +57,11 @@
           left:0;
           height:100%;
           width:100%;
-          background: rgba(0, 0, 0, 0.25);
+          background: rgba(0, 0, 0, 0.5);
           opacity: 0;
           &:after {
             content:"Open";
+            color: #fff;
             display: block;
             margin-top:8.2em;
             text-align: center;
