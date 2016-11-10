@@ -93,8 +93,8 @@ class UserInHeaderPresenter
     current_user.is_client_admin_in_any_board
   end
 
-  def show_contact_airbo?
-    current_user.not_in_any_paid_boards?
+  def has_intercom_help?
+    !current_user.is_client_admin
   end
 
   def show_contact_airbo?
