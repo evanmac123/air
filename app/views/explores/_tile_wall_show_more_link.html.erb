@@ -1,16 +1,10 @@
-<div id="tile_links">
+<div class="show-more-content-div">
   <div class="more_tiles_button">
-    <%= link_to '#', class: 'show_more_tiles button', 'data-tile-path'=> path_for_more_tiles, disabled: all_tiles_displayed do %>
+    <%= link_to '#', class: 'explore_show_more_tiles show_more_tiles button', data: { 'tile-path' => path_for_more_tiles, 'tile-type' => tile_type, 'tile-count' => tile_count, 'target-selector' => target_selector }, disabled: all_tiles_displayed do %>
       <span class="show_more_tiles_copy">
         More <i class="fa fa-angle-down" aria-hidden="true" id="show_more_tiles_down_arrow"></i>
       </span>
-      <i class="fa fa-spinner fa-spin fa-fw", id="show_more_tiles_spinner", style="display: none"></i>
+      <i class="fa fa-spinner fa-spin fa-fw show_more_tiles_spinner", style="display: none"></i>
     <%end%>
   </div>
 </div>
-
-<% content_for :javascript do %>
-  <%= javascript_tag do %>
-    bindShowMoreTilesLink('.show_more_tiles', '.tile_container[data-status=explore]', '#show_more_tiles_spinner', '.show_more_tiles_copy', '#tile_wall_explore', 'append');
-  <% end %>
-<% end %>

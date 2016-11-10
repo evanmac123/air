@@ -22,10 +22,10 @@
     .topic {
       display: block;
       position: relative;
-      /*float: left;*/
       border-radius: 3px;
       margin: 7px;
       overflow: hidden;
+      box-shadow: 1px 1px 8px 1px rgba(0,0,0,0.2);
       .cover-footer{
         position:absolute;
         bottom:17px;
@@ -34,37 +34,50 @@
           font-size:14px;
         }
       }
+
       .topic_cell {
-        /*display: table-cell;*/
         padding-top: 0px;
-        /*width: 238px;*/
         width:100%;
         min-width:228px;
         height: 300px;
         border-radius: 3px;
         background-size: cover;
-        border-bottom:3px solid #dfdfdf;
         box-shadow: 0 2px 3px rgba(0,0,0,0.5);
         padding: 17px 17px;
-        /*position: relative;*/
 
         &:hover {
-          border-bottom-color: #48bfff;
+          .collection_shadow_overlay{
+            opacity: 1;
+          }
         }
+
+        .collection_shadow_overlay {
+          position: absolute;
+          top:0;
+          left:0;
+          height:100%;
+          width:100%;
+          background: rgba(0, 0, 0, 0.5);
+          opacity: 0;
+          &:after {
+            content:"Open";
+            color: #fff;
+            display: block;
+            margin-top:8.2em;
+            text-align: center;
+            text-transform: uppercase;
+          }
+        }
+        .collection_overlay {
+          position: absolute;
+          top:0;
+          left:0;
+          width:100%;
+          height: 100%;
+        }
+
       }
 
-      .shadow_overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(21, 47, 61, 0.1);
-        display: block;
-        &:hover{
-          background-color: rgba(21, 47, 61, 0.9);
-        }
-      }
       .title {
         max-width: 150px;
         font-size: 18px;

@@ -3,9 +3,4 @@
   <% js_at_end do %>
     window.contactAirbo();
   <% end %>
-<% elsif user.has_intercom_help? %>
-  <div id="open-intercom" >Help</div>
-  <% js_at_end do %>
-    $(document).ready(function() {bindIntercomOpen('#open-intercom')});
-  <% end %>
 <% end %>

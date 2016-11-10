@@ -32,6 +32,7 @@ class Tile < ActiveRecord::Base
   belongs_to :creator, class_name: 'User'
   belongs_to :original_creator, class_name: 'User'
 
+  has_one :organization, through: :demo
   has_many :tile_completions, :dependent => :destroy
   has_many :completed_tiles, source: :tile, through: :tile_completions
   has_many :tile_taggings, dependent: :destroy
@@ -41,6 +42,7 @@ class Tile < ActiveRecord::Base
   has_many :tile_viewings, dependent: :destroy
   has_many :user_viewers, through: :tile_viewings, source: :user, source_type: 'User'
   has_many :guest_user_viewers, through: :tile_viewings, source: :user, source_type: 'GuestUser'
+  has_one :recommended_tile
 
   has_alphabetical_column :headline
 
@@ -181,6 +183,22 @@ class Tile < ActiveRecord::Base
     TileViewing.add(self, user) if user
   end
 
+  def self.recommended
+    joins(:recommended_tile)
+  end
+
+  def self.verified_explore
+    tiles_table = Arel::Table.new(:tiles)
+
+    joins(:organization).copyable.where(organization: {name: "Airbo"}).where(tiles_table[:id].not_in(recommended.pluck(:id)))
+  end
+
+  def self.community_explore
+    tiles_table = Arel::Table.new(:tiles)
+
+    copyable.where(tiles_table[:id].not_in(verified_explore.pluck(:id)))
+  end
+
   def self.displayable_categorized_to_user(user, maximum_tiles)
     DisplayCategorizedTiles.new(user, maximum_tiles).displayable_categorized_tiles
   end
@@ -275,6 +293,10 @@ class Tile < ActiveRecord::Base
 
   def show_external_link?
     use_old_line_break_css
+  end
+
+  def recommended?
+   recommended_tile.present?
   end
 
   protected
