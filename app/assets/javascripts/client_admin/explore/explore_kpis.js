@@ -1,65 +1,65 @@
 var Airbo = window.Airbo || {};
 
 Airbo.ExploreKpis = (function(){
+  var currentUserData;
+
   function copyAllTilesPing(button) {
-    var currentUserData = $("body").data("currentUser");
-    var properties = $.extend({action: "Clicked Copy All Tiles"}, currentUserData);
+    var properties = $.extend({ action: "Clicked Copy All Tiles" }, currentUserData);
     Airbo.Utils.ping("Explore page - Interaction", properties);
   }
 
   function copyTilePing(button, source) {
-    var currentUserData = $("body").data("currentUser");
-    var properties = $.extend({action: "Clicked Copy", tile_id: button.data("tileId"), section: button.data("section"), source: source}, currentUserData);
+    var properties = $.extend({ action: "Clicked Copy", tile_id: button.data("tileId"), section: button.data("section"), source: source }, currentUserData);
     Airbo.Utils.ping("Explore page - Interaction", properties);
   }
 
-  function tileSectionTabsPing(currentUserData, tab) {
-    var properties = $.extend({action: "Clicked " + tab.text()}, currentUserData);
+  function tileSectionTabsPing(tab) {
+    var properties = $.extend({ action: "Clicked " + tab.text() }, currentUserData);
     Airbo.Utils.ping("Explore page - Interaction", properties);
   }
 
-  function collectionClickedPing(currentUserData, topic) {
-    var properties = $.extend({action: "Clicked Collection", collection: topic.data("name"), board: topic.data("id")}, currentUserData);
+  function collectionClickedPing(topic) {
+    var properties = $.extend({ action: "Clicked Collection", collection: topic.data("name"), board: topic.data("id") }, currentUserData);
     Airbo.Utils.ping("Explore page - Interaction", properties);
   }
 
-  function backToExplorePing(currentUserData, link) {
+  function backToExplorePing(link) {
     var properties = $.extend({action: "Clicked Back To Explore"}, currentUserData);
     Airbo.Utils.ping("Explore page - Interaction", properties);
   }
 
-  function viewedExplorePing(currentUserData) {
-    var properties = $.extend({page_name: "explore"}, currentUserData);
+  function viewedExplorePing() {
+    var properties = $.extend({ page_name: "explore" }, currentUserData);
     Airbo.Utils.ping("viewed page", properties);
 
     if ( $(".client_admin-collections").length > 0) {
-      viewedCollectionPing(currentUserData);
+      viewedCollectionPing();
     }
   }
 
-  function viewedCollectionPing(currentUserData) {
+  function viewedCollectionPing() {
     var properties = $.extend({ page_name: "explore collection", collection: $(".explores").data("collectionId")}, currentUserData);
     Airbo.Utils.ping("viewed page", properties);
   }
 
-  function bindKPIs(currentUserData) {
+  function bindKPIs() {
     $(".explore_tiles_tab").on("click", function() {
-      tileSectionTabsPing(currentUserData, $(this));
+      tileSectionTabsPing($(this));
     });
 
     $(".topic").on("click", function() {
-      collectionClickedPing(currentUserData, $(this));
+      collectionClickedPing($(this));
     });
 
     $("#back-to-explore-link").on("click", function() {
-      backToExplorePing(currentUserData, $(this));
+      backToExplorePing($(this));
     });
   }
 
   function init() {
-    var currentUserData = $("body").data("currentUser");
-    viewedExplorePing(currentUserData);
-    bindKPIs(currentUserData);
+    currentUserData = $("body").data("currentUser");
+    viewedExplorePing();
+    bindKPIs();
   }
 
   return {
