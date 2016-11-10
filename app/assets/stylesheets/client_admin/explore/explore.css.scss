@@ -8,6 +8,12 @@
 
 @import "mixins/green_paddle_switch";
 
+.client_admin-collections {
+  .content {
+    background: $almost-white;
+  }
+}
+
 body.explores, .explores {
 
   .explore-headers {
@@ -18,6 +24,7 @@ body.explores, .explores {
   }
 
   .explore-breadcrumbs {
+    background: #fefefe;
     padding: 10px 0 0 65px;
     a, span, .spacer {
       font-size: 18px;

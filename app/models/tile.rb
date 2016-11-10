@@ -184,7 +184,7 @@ class Tile < ActiveRecord::Base
   end
 
   def self.recommended
-    joins(:recommended_tile)
+    joins(:recommended_tile).order(:created_at)
   end
 
   def self.verified_explore
