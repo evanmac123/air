@@ -35,7 +35,7 @@ module Reporting
 
       def parse_dates opts
         @from = opts.delete(:from_date) || Date.today.beginning_of_week(:sunday).prev_week(:sunday).at_midnight
-        @to = opts.delete(:to_date) || start.end_of_week(:sunday).end_of_day
+        @to = opts.delete(:to_date) || @from.end_of_week(:sunday).end_of_day
       end
 
       def config
