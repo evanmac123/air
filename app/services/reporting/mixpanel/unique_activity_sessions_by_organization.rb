@@ -2,7 +2,7 @@ require 'airbo_mixpanel_client'
 require 'reporting/mixpanel'
 module Reporting
   module Mixpanel
-    class UniqueActivitySessionsByOrganization
+    class UniqueActivitySessionsByOrganization < Report
       def initialize opts
         super(build(opts))
       end
@@ -14,6 +14,7 @@ module Reporting
           type: 'unique',
           unit: 'week'
         })
+
       end
 
       def endpoint
