@@ -4,12 +4,12 @@
 $include-html-panel-classes: $include-html-classes !default;
 
 // We use these to control the background and border styles
-$panel-bg: darken(#fff, 5%) !default;
+$panel-bg: #fff !default;
 $panel-border-style: solid !default;
 $panel-border-size: 1px !default;
 
 // We use this % to control how much we darken things on hover
-$panel-function-factor: 10% !default;
+$panel-function-factor: 25% !default;
 $panel-border-color: darken($panel-bg, $panel-function-factor) !default;
 
 // We use these to set default inner padding and bottom margin
@@ -35,7 +35,7 @@ $callout-panel-link-color: #fff !default;
     border-style: $panel-border-style;
     border-width: $panel-border-size;
     border-color: darken($bg, $panel-function-factor);
-    margin-bottom: $panel-margin-bottom;
+    margin-top: $panel-margin-bottom;
     padding: $padding;
 
     background: $bg;

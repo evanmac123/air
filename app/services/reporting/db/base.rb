@@ -30,11 +30,11 @@ module Reporting
       def wrapper_sql select_for_primary_data
         b = beg_date
         e = end_date
-        <<-SQL 
+        <<-SQL
                  SELECT
                  interval
-                 , interval_count 
-                 , SUM(interval_count ) OVER (ORDER BY interval) AS cumulative_count 
+                 , interval_count
+                 , SUM(interval_count ) OVER (ORDER BY interval) AS cumulative_count
 
                  FROM
                  (
@@ -42,16 +42,16 @@ module Reporting
                  SELECT interval ,MAX(interval_count) AS interval_count FROM
                  (
                    SELECT GENERATE_SERIES (
-                           DATE_TRUNC('#{@interval}', TIMESTAMP '#{b}'), 
+                           DATE_TRUNC('#{@interval}', TIMESTAMP '#{b}'),
                            DATE_TRUNC('#{@interval}', TIMESTAMP '#{e}'), INTERVAL '#{@series_interval}'
                    ) AS interval,
                    0 AS interval_count
 
-                  UNION 
+                  UNION
 
         #{select_for_primary_data}
 
-                  GROUP BY 1 ORDER BY 1 
+                  GROUP BY 1 ORDER BY 1
                  ) sub1
                  GROUP BY interval
                  ) grouped_data
