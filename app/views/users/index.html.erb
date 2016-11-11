@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="large-4 columns" id="secondary">
+    <div id="search_box_wrapper">
+      <div class="module" id="search-box">
+        <h3>Find Users</h3>
+        <div id="search">
+          <%= form_tag users_path, :method => :get do %>
+            <%= label_tag "search_string", "search bar", :class => :hidden %>
+            <%= text_field_tag "search_string", nil, :placeholder => "Type name" %>
+            <%= submit_tag "Search", :id => "find_button button", :class => "button outlined" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="large-7 columns" id="main">
+    <div id="directory_wrapper">
+      <div class="directory module">
+        <% if @search_string %>
+          <%= render 'search_results', search_string: @search_string, other_users: @other_users %>
+        <% end %>
+        <% if @users_cropped %>
+          <div class="focus_on_search_bar" style="display: inline;">
+            <%= "(First #{@users_cropped} results returned. Didn't find who you're looking for? Try" %>
+            <%= link_to @search_link_text, '#' %>
+            )
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -21,11 +21,11 @@ Feature: Directory of other users
   
   Scenario: Follow controls appear for other users
     Given I fill in "search bar" with "Sven"
-    And I press "Find!"
+    And I press "Search"
     Then I should see a follow button for "Sven"
     And I should not see an unfollow button for "Sven"
     When I fill in "search bar" with "Phil"
-    And I press "Find!"
+    And I press "Search"
     Then I should see an unfollow button for "Phil Aaronson"
     And I should not see a follow button for "Phil Aaronson"
     And I should see an unfollow button for "Phil Darnowsky"
@@ -35,12 +35,12 @@ Feature: Directory of other users
 
   Scenario: Other users in alphabetical order
     Given I fill in "search bar" with "phil"
-    And I press "Find!"
+    And I press "Search"
     Then I should see "Phil Aaronson,Phil Darnowsky,Phil Zymurgy" in that order
     
   Scenario: Users are searchable
     Given I fill in "search bar" with "phi"
-    And I press "Find!"
+    And I press "Search"
     Then I should see "Phil Darnowsky" within a link to the user page for "Phil Darnowsky" in the Other Players list
     And I should see an avatar "phil.png" for "Phil Darnowsky"
     And I should see "Phil Aaronson" within a link to the user page for "Phil Aaronson" in the Other Players list
@@ -52,7 +52,7 @@ Feature: Directory of other users
  
   Scenario: Success message
     Given I fill in "search bar" with "Sven"
-    And I press "Find!"
+    And I press "Search"
     And I press the button next to "Sven"
     Then I should see "OK, you'll be connected with Sven, pending their acceptance."
     When I press the button next to "Sven"

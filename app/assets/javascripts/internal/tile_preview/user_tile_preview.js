@@ -114,7 +114,7 @@ Airbo.UserTilePreview =(function(){
             Airbo.ScheduleDemoModal.openModal();
             Airbo.ScheduleDemoModal.modalPing("Source", "Auto");
           } else {
-            lightboxConversionForm();
+            $("#guest-conversion-modal").foundation("reveal","open");
           }
         }
 

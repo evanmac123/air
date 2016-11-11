@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="small-12 columns">
+    <h4>Explore Customizations</h4>
+  </div>
+  <fieldset>
+    <legend>Recommended Tiles</legend>
+    <div class="row">
+      <div class="small-6 columns">
+        <%= form_tag admin_explore_customizations_path, remote: true do %>
+          <%= label_tag "Recommended Tiles Background Color" %>
+          <%= text_field_tag "value", $redis.hget("explore_customization", "recommended_tiles_background_color") %>
+          <%= hidden_field_tag "key", "recommended_tiles_background_color" %>
+
+          <%= render partial: "shared/button_with_spinner", locals: { button_id: "", button_classes: "explore-customizations-button", button_text: "Set" } %>
+        <% end %>
+      </div>
+      <div class="small-6 columns">
+        <%= form_tag admin_explore_customizations_path, remote: true do %>
+          <%= label_tag "Recommended Tiles Text Color" %>
+          <%= text_field_tag "value", $redis.hget("explore_customization", "recommended_tiles_text_color") %>
+          <%= hidden_field_tag "key", "recommended_tiles_text_color" %>
+
+          <%= render partial: "shared/button_with_spinner", locals: { button_id: "", button_classes: "explore-customizations-button", button_text: "Set" } %>
+        <% end %>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="small-6 columns">
+        <%= form_tag admin_explore_customizations_path, remote: true do %>
+          <%= label_tag "Recommended Tiles Header Copy" %>
+          <%= text_field_tag "value", $redis.hget("explore_customization", "recommended_tiles_header_copy") %>
+          <%= hidden_field_tag "key", "recommended_tiles_header_copy" %>
+
+          <%= render partial: "shared/button_with_spinner", locals: { button_id: "", button_classes: "explore-customizations-button", button_text: "Set" } %>
+        <% end %>
+      </div>
+      <div class="small-6 columns">
+        <%= form_tag admin_explore_customizations_path, remote: true do %>
+          <%= label_tag "Recommended Tiles Header Icon URL" %>
+          <%= text_field_tag "value", $redis.hget("explore_customization", "recommended_tiles_header_icon") %>
+          <%= hidden_field_tag "key", "recommended_tiles_header_icon" %>
+
+          <%= render partial: "shared/button_with_spinner", locals: { button_id: "", button_classes: "explore-customizations-button", button_text: "Set" } %>
+        <% end %>
+      </div>
+    </div>
+  </fieldset>
+</div>

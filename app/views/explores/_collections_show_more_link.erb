@@ -1,0 +1,10 @@
+<div class="show-more-content-div">
+  <div class="more_collections_button">
+    <%= link_to '#', class: 'explore_show_more_collections show_more_collections button', data: { 'collection-path' => path_for_more_collections, 'collection-count' => collection_count, 'target-selector' => target_selector }, disabled: all_collections_displayed do %>
+      <span class="show_more_collections_copy">
+        More <i class="fa fa-angle-down" aria-hidden="true" id="show_more_collections_down_arrow"></i>
+      </span>
+      <i class="fa fa-spinner fa-spin fa-fw show_more_collections_spinner", style="display: none"></i>
+    <%end%>
+  </div>
+</div>

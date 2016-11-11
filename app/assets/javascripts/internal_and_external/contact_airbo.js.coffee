@@ -3,9 +3,9 @@ contactAirboId = ->
 
 contactAirboPing = ->
   $.post "/ping",
-    event: 'Explore page - Interaction', 
+    event: 'Explore page - Interaction',
     properties:
-      action: 'Clicked "Contact Airbo" button'
+      action: 'Clicked Contact Airbo button'
 
 window.contactAirbo = ->
   $ ->

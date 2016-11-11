@@ -5,6 +5,7 @@ class Organization < ActiveRecord::Base
   has_many :demos, autosave: true
   has_many :lead_contacts
   has_many :boards, class_name: :Demo, autosave: true
+  has_many :tiles, through: :boards
 
   has_many :users do
     def first_or_build(attrs)

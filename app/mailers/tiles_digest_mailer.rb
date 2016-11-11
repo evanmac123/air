@@ -31,7 +31,7 @@ class TilesDigestMailer < BaseTilesDigestMailer
 
     undecorated_tiles = tile_ids.map{|tile_id| Tile.find(tile_id)}
 
-    @tiles = TileExploreDigestDecorator.decorate_collection undecorated_tiles, context: { user: @user }
+    @tiles = TileExploreDigestDecorator.decorate_collection undecorated_tiles, context: { user: @user, tile_ids: tile_ids }
 
     ping_on_digest_email(@presenter.email_type, @user, link_subject)
 

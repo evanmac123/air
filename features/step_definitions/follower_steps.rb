@@ -57,7 +57,7 @@ end
 When /^I find and request to be friends with "(.*?)"$/ do |username|
   step "I go to the user directory page"
   step %{I fill in "search bar" with "#{username}"}
-  step %{I press "Find!"}
+  step %{I press "Search"}
   step %{I press the befriend button for "#{username}"}
 end
 

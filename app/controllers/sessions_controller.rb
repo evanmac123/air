@@ -37,7 +37,7 @@ class SessionsController < Clearance::SessionsController
 
     # For some reason, various people are getting redirected to /activity.js
     # So now after login we force to /activity.html
-    activity_path(format: :html)
+    explore_path
   end
 
   protected
