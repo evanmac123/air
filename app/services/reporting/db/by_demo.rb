@@ -1,4 +1,3 @@
-include "reporint/db" 
 module Reporting
   module Db
     class ByBoard < Base
