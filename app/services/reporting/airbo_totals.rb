@@ -65,12 +65,14 @@ module Reporting
 
           scope.each { |demo|
             key = days_since_launch || "current"
-            current_percent = $redis.hget("reporting:airbo:percent_of_eligible_population_joined", key)
+            percent_hash = $redis.hgetall("reporting:airbo:percent_of_eligible_population_joined:#{key}")
 
             demo_percent = calculate_percent_population_joined_for_demo(demo)
 
-            new_percent = ((current_percent + demo_percent)).round(2)
-            $redis.hset("reporting:airbo:percent_of_eligible_population_joined", key, new_percent)
+            new_percent = (((percent_hash[:percent] * percent_hash[:count]) + demo_percent) / (percent_hash[:count] + 1)).round(2)
+            $redis.hmset("reporting:airbo:percent_of_eligible_population_joined:#{key}", "percent", new_percent, "count", percent_hash[:count] + 1)
+
+            $redis.hset("reporting:airbo:percent_of_eligible_population_joined:#{demo.id}", key, demo_percent)
           }
         end
 
