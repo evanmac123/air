@@ -21,5 +21,15 @@
         <%= Reporting::AirboTotals.get_total_paid_organizations_by_week %>
       </div>
     </div>
+    <div class="row">
+      <div class="panel">
+        <h3>Percent Eligible Population Joined</h3>
+        <% ["current", 30, 60, 120]. each do |key| %>
+          <h3><%= key ? "#{key} Days" : "Current" %></h3>
+          <%= $redis.hgetall("reporting:airbo:percent_of_eligible_population_joined:#{key}") %>
+          <br>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>

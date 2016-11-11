@@ -2,10 +2,9 @@ module Reporting
   class AirboTotals
     class << self
       def set_total_paid_organizations
-        count = demos.count
+        count = Organization.joins(:boards).where(demos: { id: demo_ids }).count
 
         $redis.hset("reporting:airbo:total_paid_orgs:months", month, count)
-
         $redis.hset("reporting:airbo:total_paid_orgs:weeks", week, count)
       end
 
@@ -18,10 +17,9 @@ module Reporting
       end
 
       def set_total_paid_client_admins
-        count = User.joins(:demo).where(demo: { id: demos.pluck(:id) } ).where(is_client_admin: true).count
+        count = User.joins(:demo).where(demo: { id: demo_ids } ).where(is_client_admin: true).count
 
         $redis.hset("reporting:airbo:total_paid_client_admins:months", month, count)
-
         $redis.hset("reporting:airbo:total_paid_client_amdins:weeks", week, count)
       end
 
@@ -33,11 +31,11 @@ module Reporting
         $redis.hgetall("reporting:airbo:total_paid_client_amdins:weeks")
       end
 
-      def set_percent_of_eligible_population_joined(days_since_launch = nil)
-        if days_since_launch
-          set_percent_by_days_since_launch(days_since_launch)
-        else
+      def set_percent_of_eligible_population_joined(days_since_launch)
+        if days_since_launch == "current"
           set_current_percent
+        else
+          set_percent_by_days_since_launch(days_since_launch)
         end
       end
 
@@ -47,31 +45,56 @@ module Reporting
           @demos || Demo.paid
         end
 
+        def demo_ids
+          @demo_ids || demos.pluck(:id)
+        end
+
         def month
-          Date.today.strftime("%B %Y")
+          Date.today.strftime("%m/%y")
         end
 
         def week
-          Date.today.beginning_of_week.strftime("%m/%d/%Y")
+          Date.today.beginning_of_week.strftime("%m/%d/%y")
+        end
+
+        def adjust_current_percent_by_count(percent_hash)
+          percent_hash["percent"].to_i * percent_hash["count"].to_i
         end
 
         def calculate_percent_population_joined_for_demo(demo)
-          (demo.users.where(User.arel_table[:accepted_invitation_at].not_eq(nil)).count.to_f / demo.users.count).round(2)
+          (joined_users_count(demo) / total_users_count(demo)).round(2)
+        end
+
+        def calculate_percent_population_joined_for_key(percent_hash, demo_percent)
+
+          total = adjust_current_percent_by_count(percent_hash) + demo_percent
+          population = percent_hash["count"].to_i + 1
+
+          (total / population).round(2)
+        end
+
+        def total_users_count(demo)
+          demo.users.count
+        end
+
+        def joined_users_count(demo)
+          demo.users.where(User.arel_table[:accepted_invitation_at].not_eq(nil)).count.to_f
         end
 
         def set_percent_by_days_since_launch(days_since_launch)
           date = Date.today - days_since_launch.days
-          scope = demos.includes(:users).where(launch_date: date)
+          # scope = demos.includes(:users).where(launch_date: date)
+          scope = Demo.paid
+          key = days_since_launch
 
           scope.each { |demo|
-            key = days_since_launch || "current"
             percent_hash = $redis.hgetall("reporting:airbo:percent_of_eligible_population_joined:#{key}")
+            binding.pry
 
             demo_percent = calculate_percent_population_joined_for_demo(demo)
+            new_percent = calculate_percent_population_joined_for_key(percent_hash, demo_percent)
 
-            new_percent = (((percent_hash[:percent] * percent_hash[:count]) + demo_percent) / (percent_hash[:count] + 1)).round(2)
-            $redis.hmset("reporting:airbo:percent_of_eligible_population_joined:#{key}", "percent", new_percent, "count", percent_hash[:count] + 1)
-
+            $redis.hmset("reporting:airbo:percent_of_eligible_population_joined:#{key}", "percent", new_percent, "count", percent_hash["count"].to_i + 1)
             $redis.hset("reporting:airbo:percent_of_eligible_population_joined:#{demo.id}", key, demo_percent)
           }
         end
@@ -83,7 +106,13 @@ module Reporting
 
           percent = (joined_users.count.to_f / scope.count).round(2)
 
-          $redis.hset("reporting:airbo:percent_of_eligible_population_joined", "current", percent)
+          $redis.hmset("reporting:airbo:percent_of_eligible_population_joined:current", "percent", percent, "count", scope.count)
+        end
+
+        def rake_methods
+          [30, 60, 120, "current"].each { |key|
+            $redis.hmset("reporting:airbo:percent_of_eligible_population_joined:#{key}", "percent", 0, "count", 0)
+          }
         end
     end
   end
