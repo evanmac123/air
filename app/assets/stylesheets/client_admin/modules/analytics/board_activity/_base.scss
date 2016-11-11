@@ -1,21 +1,7 @@
 @import 'partials/activity_grid';
 @import 'partials/chart';
-.client_admins-show {
-  .main {
-    .core {
-      background: $off-white;
-    }
-  }
-  .content {
-    background: $off-white;
-  }
-}
 .analytics-v1 {
   #client-admin-demo-analytics {
-    background: $off-white;
-    .content {
-      background: $off-white;
-    }
     .title_block {
       position: relative;
       padding: 0 60px 30px 60px;
@@ -26,7 +12,7 @@
       height: 7em;
       border-radius: 3px;
       .header-number {
-        color: $off-white;
+        color: #fff;
         margin: 0;
         padding-top: 12px;
         padding-left: 20px;

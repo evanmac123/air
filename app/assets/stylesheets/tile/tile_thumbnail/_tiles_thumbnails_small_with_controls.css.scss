@@ -2,7 +2,7 @@
 // => Small tile thumbnail (66.7%)
 //
 #draft_tiles .tile_container:not(.tile_in_active):not(.tile_in_archive),
-.tile_container.tile_in_draft {
+.tile_container.tile_in_draft, #recommended_tiles .tile_container:not(.tile_in_active):not(.tile_in_archive) {
   height: 240px;
   width: 16%;
   @media only screen and (max-width: 1100px) {

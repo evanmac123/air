@@ -13,17 +13,11 @@ class UsersController < Clearance::UsersController
     if @search_string
       @search_string = @search_string.downcase.strip.gsub(/\s+/, ' ')
 
-      if @search_string.length < MINIMUM_SEARCH_STRING_LENGTH
-        flash[:failure] = "Please enter at least #{MINIMUM_SEARCH_STRING_LENGTH} letters of the person's name, then click \"Find!\""
-        @other_users = []
+      @other_users = User.claimed.demo_mates(current_user).alphabetical.name_like(@search_string)
+      @users_cropped = USER_LIMIT if @other_users.length > USER_LIMIT
+      @other_users = @other_users[0, USER_LIMIT]
 
-      else
-        @other_users = User.claimed.demo_mates(current_user).alphabetical.name_like(@search_string)
-        @users_cropped = USER_LIMIT if @other_users.length > USER_LIMIT
-        @other_users = @other_users[0, USER_LIMIT]
-
-        @search_link_text = "refining your search"
-      end
+      @search_link_text = "refining your search"
     end
 
     current_user.ping_page('user directory', :game => current_user.demo.name)
@@ -50,13 +44,13 @@ class UsersController < Clearance::UsersController
     @current_link_text = "My Profile" if @viewing_self
     @has_friends = (@user.accepted_friends.count > 0)
     @pending_friends = @user.pending_friends
-    
+
     @display_user_stats = current_user.can_see_activity_of(@user)
     @reason_for_privacy = @user.name + @user.reason_for_privacy
     if @pending_friends.present?
-      @display_pending_friendships = true if @viewing_self || current_user.is_site_admin       
+      @display_pending_friendships = true if @viewing_self || current_user.is_site_admin
     end
-    
+
     if @viewing_self
       current_user.ping_page 'own profile'
     elsif @viewing_other
@@ -67,8 +61,8 @@ class UsersController < Clearance::UsersController
   private
 
   def authorized_by_token
-    if params[:token].present? && 
-      (user = User.find params[:user_id]) && 
+    if params[:token].present? &&
+      (user = User.find params[:user_id]) &&
       EmailLink.validate_token(user, params[:token])
 
       sign_in(user)

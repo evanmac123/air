@@ -131,7 +131,7 @@ class User < ActiveRecord::Base
   end
 
   before_validation(on: :create) do
-    self.official_email=email if official_email.blank?
+    self.official_email = email if official_email.blank?
   end
 
   before_validation do
@@ -187,6 +187,10 @@ class User < ActiveRecord::Base
 
   def demo_id
     self.demo.id
+  end
+
+  def organization_id
+    self.demo.organization_id
   end
 
   def email_optional?
@@ -503,6 +507,7 @@ class User < ActiveRecord::Base
       id:                    self.id,
       email:                 (self.is_client_admin ? self.email : nil),
       game:                  self.demo_id,
+      organization:          self.organization_id,
       account_creation_date: self.created_at.to_date,
       joined_game_date:      self.accepted_invitation_at.try(:to_date),
       location:              self.location.try(:name),

@@ -2,7 +2,7 @@ function bindIntercomSettings(email, created_at, name, user_id, user_hash, demo,
   // Notice the underscore: "_intercomSettings"
   // This because if we called it intercomSettings, no underscore, it'd
   // automatically push the user data to Intercom when we call loadIntercom,
-  // and we want to wait on that until the user actually tries to open 
+  // and we want to wait on that until the user actually tries to open
   // Intercom.
   window._intercomSettings = {
     app_id: 'iukuloq8',
@@ -21,7 +21,7 @@ function bindIntercomSettings(email, created_at, name, user_id, user_hash, demo,
       activator: '#IntercomDefaultWidget',
       label: 'Support',
       use_counter: true
-    }
+    };
   }
 }
 

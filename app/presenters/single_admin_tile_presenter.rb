@@ -14,20 +14,29 @@ class SingleAdminTilePresenter < BasePresenter
             :demo,
             :is_placeholder?,
             to: :tile
-  attr_reader :tile, :type
+  attr_reader :tile, :type, :tiles_grouped_ids, :section
 
   presents :tile
 
   def initialize object,template, options
     super
-    @type = tile.status.to_sym
+    @type = get_type(options[:page_type])
+    @tiles_grouped_ids = options[:tile_ids]
     @format =  options[:format]||:html
+    @section = options[:section]
   end
 
   def tile_id
     @tile_id ||= id
   end
 
+  def copied?
+    $redis.sismember("boards:#{current_user.demo_id}:copies", tile_id)
+  end
+
+  def get_type(page_type)
+    page_type ? page_type : tile.status.to_sym
+  end
 
   def type? *types
     if types.size == 0
@@ -48,7 +57,9 @@ class SingleAdminTilePresenter < BasePresenter
   end
 
   def activation_dates
-    content_tag :div, raw(timestamp), class: "activation_dates"
+    if type? :active, :archive, :draft, :user_submitted, :ignored
+      content_tag :div, raw(timestamp), class: "activation_dates"
+    end
   end
 
   def has_tile_stats?
@@ -56,7 +67,11 @@ class SingleAdminTilePresenter < BasePresenter
   end
 
   def show_tile_path
-    client_admin_tile_path(tile)
+    if type == :explore
+      explore_tile_preview_path(self, tile_ids: tiles_grouped_ids, section: section)
+    else
+      client_admin_tile_path(tile)
+    end
   end
 
   def has_archive_button?
@@ -85,6 +100,10 @@ class SingleAdminTilePresenter < BasePresenter
 
   def has_ignore_button?
     type? :user_submitted
+  end
+
+  def has_copy_button?
+    type? :explore
   end
 
   def has_undo_ignore_button?
@@ -142,7 +161,8 @@ class SingleAdminTilePresenter < BasePresenter
       tile_completions_count,
       total_views,
       unique_views,
-      @is_ie
+      @is_ie,
+      copied?
     ].join('-')
   end
 
