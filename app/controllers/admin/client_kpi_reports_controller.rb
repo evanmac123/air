@@ -1,7 +1,5 @@
 class Admin::ClientKpiReportsController < AdminBaseController
   def show
-    Reporting::AirboTotals.set_total_paid_organizations
-    Reporting::AirboTotals.set_total_paid_client_admins
   end
 end
   # before_filter :parse_start_and_end_dates

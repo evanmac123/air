@@ -39,6 +39,15 @@ module Reporting
         end
       end
 
+      def get_percent_of_eligible_population_joined
+        ["current", "30", "60", "120"].inject({}) do |hash, key|
+          data = $redis.hgetall("reporting:airbo:percent_of_eligible_population_joined:#{key}")
+
+          hash[key] = data["percent"].to_f * 100
+          hash
+        end
+      end
+
       private
 
         def demos
@@ -83,19 +92,17 @@ module Reporting
 
         def set_percent_by_days_since_launch(days_since_launch)
           date = Date.today - days_since_launch.days
-          # scope = demos.includes(:users).where(launch_date: date)
-          scope = Demo.paid
+          scope = demos.includes(:users).where(launch_date: date)
           key = days_since_launch
 
           scope.each { |demo|
             percent_hash = $redis.hgetall("reporting:airbo:percent_of_eligible_population_joined:#{key}")
-            binding.pry
 
             demo_percent = calculate_percent_population_joined_for_demo(demo)
             new_percent = calculate_percent_population_joined_for_key(percent_hash, demo_percent)
 
             $redis.hmset("reporting:airbo:percent_of_eligible_population_joined:#{key}", "percent", new_percent, "count", percent_hash["count"].to_i + 1)
-            $redis.hset("reporting:airbo:percent_of_eligible_population_joined:#{demo.id}", key, demo_percent)
+            $redis.hset("reporting:airbo:percent_of_eligible_population_joined_by_demo:#{demo.id}", key, demo_percent)
           }
         end
 
