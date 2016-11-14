@@ -1,7 +1,7 @@
 class Metrics < ActiveRecord::Base
 
   def self.normalized_by_start_and_end sdate, edate
-    by_start_and_end(sdate, edate).to_array_of_record_hashes
+    by_start_and_end(sdate, edate).order("weekending_date asc").to_array_of_record_hashes
   end
 
   def self.current_week
