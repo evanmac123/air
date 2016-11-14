@@ -29,6 +29,7 @@ class FinancialsReporterService
     m.renewal_amt_booked = kpi.renewal_amt_booked
     m.upgrade_amt_booked = kpi.upgrade_amt_booked
     m.weekending_date = kpi.edate
+    m.report_date = date
     m.save
   end
 
@@ -157,7 +158,7 @@ class FinancialsReporterService
 
   def self.kpi_fields
     {  
-      "weekending_date" => {
+      "report_date" => {
         label: "Date",
         type: "date",
         indent: 0
