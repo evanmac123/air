@@ -38,7 +38,7 @@ module Reporting
               "2016-10-31",
               "2016-11-07"
             ],
-           "values"=> {
+            "values"=> {
               "272"=> {
                 "2016-09-05"=>0,
                 "2016-08-08"=>0,
@@ -60,6 +60,7 @@ module Reporting
             }
           }
         }
+      end
     end
   end
 end
