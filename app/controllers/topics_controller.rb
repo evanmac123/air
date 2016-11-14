@@ -11,7 +11,7 @@ class TopicsController < ClientAdminBaseController
   def show
     @tiles = @tiles.reorder("position desc")
     @tile_tags = @topic.tile_tags.alphabetical.rearrange_by_other
-    @path_for_more_tiles = explore_topic_path(@topic)
+    @path_for_more_content = explore_topic_path(@topic)
     render_partial_if_requested
   end
 

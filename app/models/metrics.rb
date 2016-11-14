@@ -1,7 +1,7 @@
 class Metrics < ActiveRecord::Base
 
   def self.normalized_by_start_and_end sdate, edate
-    by_start_and_end(sdate, edate).to_array_of_record_hashes
+    by_start_and_end(sdate, edate).order("weekending_date asc").to_array_of_record_hashes
   end
 
   def self.current_week
@@ -44,46 +44,6 @@ class Metrics < ActiveRecord::Base
   end
 
   def self.qry_select_fields
-    kpi_fields.join(",")
+    FinancialsReporterService.query_select_fields
   end
-
-  def self.kpi_fields
-    [
-      "weekending_date",
-      "starting_mrr",
-      "added_mrr",
-      "new_cust_mrr",
-      "upgrade_mrr",
-      "churned_mrr",
-      "downgrade_mrr",
-      "net_changed_mrr",
-      "current_mrr",
-      "churned_customer_mrr",
-      "starting_customers",
-      "added_customers",
-      "churned_customers",
-      "net_change_customers",
-      "current_customers",
-      "possible_churn_customers",
-      "possible_churn_mrr",
-      "percent_churned_customers",
-      "percent_churned_mrr",
-      "net_churned_mrr",
-      "amt_booked",
-      "added_customer_amt_booked",
-      "renewal_amt_booked"
-    ]
-  end
-
-  def self.record_hash
-    kpi_fields.inject({}) do |hash,column|
-      hash[column]={}
-      hash
-    end
-  end
-
-  def self.columns_for_kpi
-    columns.reject{|c| kpi_fields.include?(c.name)==false}
-  end
-
 end

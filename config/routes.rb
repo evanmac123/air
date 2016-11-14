@@ -19,8 +19,6 @@ Health::Application.routes.draw do
   match "ard/:public_slug/tile/:id" => "tiles#show", :as => "public_tile", :via => :get
 
 
-  post "admin/contracts/import" => "admin/contracts#import", :as => "contracts_import"
-
   match "myairbo/:id" => "user_onboardings#show", as: "myairbo"
   match "newairbo" => "onboardings#new"
 
@@ -88,7 +86,6 @@ Health::Application.routes.draw do
   get "tour" => 'pages#tour', as: 'tour'
   get "company" => 'pages#company', as: 'company'
   get "case-studies" => 'pages#case-studies', as: 'case_studies'
-  get "product" => 'pages#product', as: 'product'
   get "faq" => "pages#faq", :as => "faq" # FIXME dead url?
   get "faq_body" => "pages#faq_body", :as => "faq_toc" # FIXME dead url?
   get "faq_toc" => "pages#faq_toc", :as => "faq_body" # FIXME dead url?
@@ -209,6 +206,7 @@ Health::Application.routes.draw do
 
     resources :public_boards, only: [:create, :destroy]
     resource :explore, only: :show do
+      resources :collections, only: [:show, :index]
       member do
         get 'tile_tag_show'
         get 'tile_preview'
@@ -289,6 +287,7 @@ Health::Application.routes.draw do
 
   namespace :admin do
 
+    resources :explore_customizations, only: [:new, :create]
 
     resources :historical_metrics, only: [:create]
     namespace :sales do
@@ -299,6 +298,7 @@ Health::Application.routes.draw do
     end
 
     resources :topics
+    resources :recommended_tiles
 
     resource :client_kpi_report
     resource :financials_kpi_dashboard, only:[:show], controller: "financials/kpi_dashboard"
@@ -315,6 +315,10 @@ Health::Application.routes.draw do
     end
 
     resources :contracts do
+      post "import", as: "import_contracts"
+      get "import", on: :collection
+
+
       resources :upgrades, controller: "contracts"
       resources :billings
     end

@@ -35,9 +35,11 @@ class SessionsController < Clearance::SessionsController
   def url_after_create
     return params[:url_after_create] if params[:url_after_create].present?
 
-    # For some reason, various people are getting redirected to /activity.js
-    # So now after login we force to /activity.html
-    activity_path(format: :html)
+    if current_user.is_client_admin? || current_user.is_site_admin?
+      explore_path
+    else
+      activity_path
+    end
   end
 
   protected

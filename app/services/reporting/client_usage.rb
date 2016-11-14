@@ -144,6 +144,7 @@ module Reporting
    end
 
     def do_tile_activity
+
       partition = data[:tile_activity]
       activity = Reporting::Db::TileActivity.new(demo,start, finish_date, interval)
 

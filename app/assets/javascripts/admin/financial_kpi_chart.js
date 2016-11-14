@@ -101,11 +101,21 @@ Airbo.FinancialKpiChart = (function(){
     chartContainer = $(chartContainer);
   }
 
-  function refresh(data){
+  function refreshWithJson(data){
     prepareDataForChart(data.tableData);
     refreshChart();
-    refreshTable(tableData)
     kpiChart.hideLoading();
+
+    refreshTable(tableData)
+  }
+
+  function refreshWithHTML(html){
+
+    $(".tabular-data").html(html);
+    initChartDataFromDataAttributes();
+    refreshChart();
+    kpiChart.hideLoading();
+
   }
 
   function refreshTable(data){
@@ -126,16 +136,16 @@ Airbo.FinancialKpiChart = (function(){
     $("#financials_filter").submit(function(event){
       event.preventDefault(); 
       kpiChart.showLoading();
-      Airbo.AjaxResponseHandler.submit($(this), refresh, submitFailure);
+      Airbo.AjaxResponseHandler.submit($(this), refreshWithHTML, submitFailure, "html");
     })
   }
 
   function initChartDataFromDataAttributes(){
-    prepareDataForChart(chartContainer.data("plotdata"));
+    prepareDataForChart($(".chart-data").data("plotdata"));
   }
 
   function prepareDataForChart(data){
-    getDateSeries(data.weekending_date.values);
+    getDateSeries(data.report_date.values);
     chartData = dates.map(
       function(date,idx){ 
         return{
@@ -149,7 +159,7 @@ Airbo.FinancialKpiChart = (function(){
 
   function getTableRows(data){
     return Object.keys(data).map(function (kpi) { 
-      if(kpi !== "weekending_date"){
+      if(kpi !== "report_date"){
         return data[kpi];
       }
     });

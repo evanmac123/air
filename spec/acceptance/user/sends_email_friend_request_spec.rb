@@ -38,11 +38,7 @@ feature "User tries to friend someone" do
 
     visit users_path
     fill_in 'search_string', with: 'Sue'
-    click_button 'Find!'
-
-    # NOTE: Can't use the statement below in place of the one above because the actual
-    # button is hidden => results in a 'Capybara::Poltergeist::ObsoleteNode' error
-    # click_button 'add_friend'
+    click_button 'Search'
 
     page.find('div.follow-btn').click
     page.should have_content "OK, you'll be connected with Sue Friend, pending their acceptance"
@@ -90,7 +86,7 @@ feature "User tries to friend someone" do
             and should see his connection even if not logged in", js: true do
     deliver_and_open_email_for(friend)
     accept_the_friendship
-    
+
     delete "/sign_out"
 
     deliver_and_open_email_for(user)
@@ -129,4 +125,3 @@ feature "User tries to friend someone" do
     friend.should_not be_friends_with user
   end
 end
-

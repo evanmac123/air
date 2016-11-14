@@ -49,11 +49,12 @@ Airbo.AjaxResponseHandler = (function(){
     Airbo.Utils.noop
   }
 
-  function submit(form, successCallback, failCallBack){
+  function submit(form, successCallback, failCallBack, dataType){
     $.ajax({
       url: form.attr("action"),
       type: form.attr("method"),
       data: form.serialize(),
+      dataType: (dataType || "json")
     }).done(function(data,status,xhr){
 
       silentSuccess(data, status, xhr, function(data){

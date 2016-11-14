@@ -1,0 +1,14 @@
+<div class="explores" data-collection-id="<%= @board.id %>">
+  <div id="tile_wall_explore">
+    <section class="explore-breadcrumbs">
+      <div class="row collapse" >
+        <div class="columns small-12">
+          <%= link_to "Back to Explore", client_admin_explore_path, id: "back-to-explore-link" %> <i class="spacer fa fa-angle-right"></i> <span><%= @board.topic_board.topic_name %></span>
+        </div>
+      </div>
+    </section>
+    <section class="manage_section" id="explore_tiles">
+      <%= render partial: 'explores/explore_collection' %>
+    </section>
+  </div>
+</div>

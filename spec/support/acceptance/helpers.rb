@@ -338,8 +338,7 @@ module SteakHelperMethods
   end
 
   def close_conversion_form
-    evaluate_script("$('#guest_conversion_form_wrapper').trigger('close')")
-    page.find('#guest_conversion_form_wrapper', visible: false)
+    page.find('.close-reveal-modal').click
   end
 
   def conversion_form_selector
@@ -351,14 +350,7 @@ module SteakHelperMethods
   end
 
   def expect_conversion_form
-    Capybara.default_max_wait_time = 30
-    wait_for_conversion_form
-
-    within(conversion_form_selector) do
-      page.find("input[type=text][name='user[name]']").should be_present
-      page.find("input[type=text][name='user[email]']").should be_present
-      page.find("input[type=password][name='user[password]']").should be_present
-    end
+    expect(page).to have_selector("#guest-conversion-modal", visible: true)
   end
 
   def expect_counter_text(counter, max_characters)

@@ -1,0 +1,8 @@
+<div class="row">
+  <div class="columns small-12">
+    <%=form_tag contracts_import_path, multipart: true do %>
+      <%=file_field_tag :file %>
+      <%=submit_tag "submit"%>
+    <%end%>
+  </div>
+</div>
