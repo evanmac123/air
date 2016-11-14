@@ -2,7 +2,7 @@ module Reporting
   class AirboTotals
     class << self
       def set_total_paid_organizations
-        count = Organization.joins(:boards).where(demos: { id: demo_ids }).count
+        count = Organization.joins(:boards).where(demos: { id: demo_ids }).uniq.count
 
         $redis.hset("reporting:airbo:total_paid_orgs:months", month, count)
         $redis.hset("reporting:airbo:total_paid_orgs:weeks", week, count)
