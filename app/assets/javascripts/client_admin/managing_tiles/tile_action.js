@@ -10,7 +10,7 @@ Airbo.TileAction = (function(){
 
   var unarchivePrompt =  "Users who completed it before won't see it again. If you want to re-use the content, please create a new Tile."
   ;
-  var adminUnarchivePrompt =  "If so, would you like this Tile to appear in the next Tile digest email? Remember, Tiles that users have already interacted with will not appear as new Tiles. <p class='extra-interaction'><label>Yes include in the digest: <input type='checkbox' value='yes' id='digestable'/> </label></p>"
+  var adminUnarchivePrompt =  "<p class='extra-interaction'><label>Click to include in the digest when reposted: <input type='checkbox' value='yes' id='digestable'/> </label></p>"
   ;
 
 
