@@ -83,8 +83,6 @@ Airbo.TileAction = (function(){
      return target.parents("#archive.manage_section").length>0;
     }
 
-    function submitWithCheckbox(){
-    }
     function submit(){
       $.ajax({
         url: target.data("url") || target.attr("href"),
