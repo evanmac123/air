@@ -105,7 +105,11 @@ Airbo.TileAction = (function(){
     if(isRepostingArchivedTile()){
       confirmUnarchive(function(isConfirm){
         if (isConfirm) {
-          data.update_status.suppress = !$(".sweet-alert input#digestable").is(':checked');
+          if(Airbo.Utils.userIsSiteAdmin()){
+            data.update_status.suppress = !$(".sweet-alert input#digestable").is(':checked');
+          }else{
+            data.update_status.suppress = false;
+          }
           console.log(data);
           submit();
         }
