@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161114031546) do
+ActiveRecord::Schema.define(:version => 20161114055705) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -574,6 +574,7 @@ ActiveRecord::Schema.define(:version => 20161114031546) do
     t.decimal  "added_customer_amt_booked"
     t.decimal  "renewal_amt_booked"
     t.decimal  "upgrade_amt_booked"
+    t.date     "report_date"
   end
 
   create_table "more_info_requests", :force => true do |t|
