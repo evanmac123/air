@@ -6,6 +6,14 @@ Airbo.TileAction = (function(){
     , tileWrapperSelector =".tile_container"
     , editSelector = ".edit_button a"
   ;
+
+
+  var unarchivePrompt =  "Users who completed it before won't see it again. If you want to re-use the content, please create a new Tile."
+  ;
+  var adminUnarchivePrompt =  "If so, would you like this Tile to appear in the next Tile digest email? Remember, Tiles that users have already interacted with will not appear as new Tiles. <p class='extra-interaction'><label>Yes include in the digest: <input type='checkbox' value='yes' id='digestable'/> </label></p>"
+  ;
+
+
   //
   // => Update Status
   //
@@ -111,16 +119,16 @@ Airbo.TileAction = (function(){
   }
 
   function confirmUnarchive(confirmCallback){
-
-      swal(
+       var txt = Airbo.Utils.userIsSiteAdmin() ? adminUnarchivePrompt : unarchivePrompt;
+          swal(
         {
           title: "Are you sure you want to repost this Tile?",
-          text: "If so, would you like this Tile to appear in the next Tile digest email? Remember, Tiles that users have already interacted with will not appear as new Tiles. <p class='extra-interaction'><label>Yes include in the digest: <input type='checkbox' value='yes' id='digestable'/> </label></p>",
+          text: txt,
           customClass: "airbo",
           showConfirmationButton: true,
           showCancelButton: true,
-          cancelButtonText: "Nevermind",
-          confirmButtonText: "Repost",
+          cancelButtonText: "Cancel",
+          confirmButtonText: "Confirm",
           closeOnConfirm: true,
           closeOnCancel: true,
           allowEscapeKey: true,
