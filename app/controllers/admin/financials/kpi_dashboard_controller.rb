@@ -6,7 +6,8 @@ class Admin::Financials::KpiDashboardController < AdminBaseController
     @dates = @table_data["weekending_date"]["values"]
     @totals= FinancialsReporterService.totals
     if request.xhr?
-      render json: {totals: @totals, tableData: @table_data}
+      #render json: {totals: @totals, tableData: @table_data}
+      render partial: "table_with_chart_data"
     end
   end
 
