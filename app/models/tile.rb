@@ -298,6 +298,14 @@ class Tile < ActiveRecord::Base
     use_old_line_break_css
   end
 
+  def prevent_activated_at_reset
+   @block_activated_at_update = true
+  end
+
+  def allow_activated_at_reset
+   @block_activated_at_update = false
+  end
+
   def recommended?
    recommended_tile.present?
   end
