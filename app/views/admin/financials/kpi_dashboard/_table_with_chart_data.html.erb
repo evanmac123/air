@@ -19,7 +19,7 @@
               </tr>
               <%fields.each do |field|%>
                 <tr>
-                  <th><%=@table_data[field]["label"]%></th>
+                  <th class='indent-<%=@table_data[field]["indent"]%>'><%=@table_data[field]["label"]%></th>
                   <%@table_data[field]["values"].each do |val| %>
                     <td><%=simple_format_by_type @table_data[field]["type"], val %></td>
                   <%end%>

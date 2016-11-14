@@ -79,9 +79,55 @@ class FinancialsReporterService
     container.each do|field, sub_hash|
       sub_hash[:values] = row_data[field]
     end
+
+    add_group_separators(container)
+    container.merge!(aliased_kpis(container))
     container
   end
 
+
+  def self.add_group_separators(container)
+    group_separators.each do |key, label|
+      add_group_separator(container, key, label)
+    end
+    container
+  end
+
+  def self.add_group_separator container, key, label
+    container[key]= {
+      label: label,
+      type:"",
+      indent: 0,
+      values: []
+    }
+    container
+  end
+
+  def self.group_separators 
+     {"possible_churn" => "Possible Churn",
+      "actual_churn" => "Actual Churn",
+      "pct_churn" => "% Churn",
+     }
+  end
+
+  def self.aliased_kpis container
+
+    {
+      churned_mrr_alias: {
+        label:  "Churned",
+        type: "grp",
+        indent: 0,
+        values: container["churned_mrr"]["values"],
+      } ,
+      churned_customers_alias: {
+        label:  "Churned",
+        type: "grp",
+        indent: 0,
+        values:  container["churned_customers"]["values"],
+      } ,
+
+    }
+  end
 
   def self.row_set res
     fields = res.map(&:keys).flatten.uniq
@@ -113,110 +159,135 @@ class FinancialsReporterService
     {  
       "weekending_date" => {
         label: "Date",
-        type: "date"
+        type: "date",
+        indent: 0
       },
       "starting_mrr" => {
-        label: "Starting MRR",
-        type:"money" 
+        label: "Starting",
+        type:"money",
+        indent: 0
       },
       "added_mrr" => {
-        label: "Added MRR",
-        type: "money"
+        label: "Added",
+        type: "money",
+        indent: 0
       },
 
       "upgrade_mrr"  => {
-        label: "Upgrade MRR",
-        type: "money"
+        label: "Upgrades",
+        type: "money",
+        indent: 1
       },
 
       "new_cust_mrr" => {
-        label: "New Customer MRR",
-        type: "money"
+        label: "New Customers",
+        type: "money",
+        indent: 1
       },
 
       "churned_mrr" => {
         label: "Churned MRR",
-        type: "money"
+        type: "money",
+        indent: 0
       },
       "downgrade_mrr" => {
-        label: "Downgrade MRR",
-        type: "money"
+        label: "Downgrades",
+        type: "money",
+        indent: 1
       },
       "churned_customer_mrr" => {
-        label: "Churned Customer MRR",
-        type: "money"
+        label: "Lost Customers",
+        type: "money",
+        indent: 1
       },
       "net_changed_mrr" => {
-        label: "Net Change MRR",
-        type: "money"
+        label: "Net Change",
+        type: "money",
+        indent: 0
       } ,
       "current_mrr" => {
-        label: "Ending MRR",
-        type: "money"
+        label: "Ending",
+        type: "money",
+        indent: 0
       } ,
       "starting_customers" => {
-        label: "Starting Customers",
-        type: "num"
+        label: "Starting",
+        type: "num",
+        indent: 0
       } ,
       "added_customers" => {
-        label: "Added Customers",
+        label: "Added",
         type: "num"
       } ,
       "churned_customers" => {
-        label: "Churned Customers",
-        type: "num"
+        label: "Churned",
+        type: "num",
+        indent: 0
       } ,
       "net_change_customers" => {
-        label: "Net Change Customers",
-        type: "num"
+        label: "Net Change",
+        type: "num",
+        indent: 0
       } ,
       "current_customers" => {
-        label: "Ending Customers",
-        type: "num"
+        label: "Ending",
+        type: "num",
+        indent: 0
       } ,
       "possible_churn_customers" => {
-        label: "Possible Churn Customers",
-        type: "num"
+        label: "Customers",
+        type: "num",
+        indent: 1
       } ,
       "possible_churn_mrr" => {
-        label: "Possible Churn MRR",
-        type: "money"
+        label: "MRR",
+        type: "money",
+        indent: 1
       } ,
       "churned_customers" => {
-        label: "Churned Customers",
-        type: "num"
+        label: "Customers",
+        type: "num",
+        indent: 1
       } ,
       "churned_mrr" => {
-        label: "Churned MRR",
-        type: "money"
+        label: "MRR",
+        type: "money",
+        indent: 1
       } ,
       "percent_churned_customers" => {
-        label: "Percent Churned Customers",
-        type: "pct"
+        label: "Customers",
+        type: "pct",
+        indent: 1
       } ,
       "percent_churned_mrr" => {
-        label: "Percent Churned MRR",
-        type: "pct"
+        label: "MRR",
+        type: "pct",
+        indent: 1
       } ,
       "net_churned_mrr" => {
-        label: "Net Churned MRR",
-        type: "pct"
+        label: "Net Churned Rate",
+        type: "pct",
+        indent: 0
       } ,
       "added_customer_amt_booked" => {
         label: "New Customer Booked",
-        type: "money"
+        type: "money",
+        indent: 0
       },
       "renewal_amt_booked" => {
         label: "Renewals Booked",
-        type: "money"
+        type: "money",
+        indent: 0
       } ,
       "upgrade_amt_booked" => {
         label: "Upgrades Booked",
-        type: "money"
+        type: "money",
+        indent: 0
       } ,
       "amt_booked" => {
         label: "Total Booked",
-        type: "money"
+        type: "money",
+        indent: 0
       } ,
     }
   end
@@ -234,7 +305,7 @@ class FinancialsReporterService
         "added_mrr",
         "upgrade_mrr",
         "new_cust_mrr",
-        "churned_mrr",
+        "churned_mrr_alias",
         "downgrade_mrr",
         "churned_customer_mrr",
         "net_changed_mrr",
@@ -244,19 +315,19 @@ class FinancialsReporterService
     "Customers" => [ 
       "starting_customers",
       "added_customers",
-      "churned_customers",
+      "churned_customers_alias",
       "net_change_customers",
       "current_customers",
-      "possible_churn_customers",
-      "possible_churn_mrr",
-      "churned_customers",
     ],
 
     "Churn" => [ 
+      "possible_churn",
       "possible_churn_customers",
       "possible_churn_mrr",
+      "actual_churn",
       "churned_customers",
       "churned_mrr",
+      "pct_churn",
       "percent_churned_customers",
       "percent_churned_mrr",
       "net_churned_mrr",
