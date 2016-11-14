@@ -26,7 +26,8 @@ class FinancialsReporterService
     m.percent_churned_customers = kpi.percent_churned_customers
     m.amt_booked =kpi.amt_booked
     m.added_customer_amt_booked =kpi.added_customer_amt_booked
-    m.renewal_amt_booked =kpi.renewal_amt_booked
+    m.renewal_amt_booked = kpi.renewal_amt_booked
+    m.upgrade_amt_booked = kpi.upgrade_amt_booked
     m.weekending_date = kpi.edate
     m.save
   end
@@ -151,7 +152,7 @@ class FinancialsReporterService
       } ,
       "current_mrr" => {
         label: "Ending MRR",
-        type: ""
+        type: "money"
       } ,
       "starting_customers" => {
         label: "Starting Customers",
@@ -209,6 +210,10 @@ class FinancialsReporterService
         label: "Renewals Booked",
         type: "money"
       } ,
+      "upgrade_amt_booked" => {
+        label: "Upgrades Booked",
+        type: "money"
+      } ,
       "amt_booked" => {
         label: "Total Booked",
         type: "money"
@@ -260,6 +265,7 @@ class FinancialsReporterService
     "Bookings" => [
       "added_customer_amt_booked",
       "renewal_amt_booked",
+      "upgrade_amt_booked",
       "amt_booked",
     ]
 

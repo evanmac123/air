@@ -143,6 +143,10 @@ class FinancialsCalcService
     added_customers.sum{|o|o.contracts.booked_during_period(sdate, edate)}
   end
 
+  def upgrade_amt_booked
+    Contract.upgrades.booked_during_period(sdate,edate)
+  end
+
   def renewal_amt_booked
     retained_customers.sum{|o|o.contracts.booked_during_period(sdate, edate)}
   end
