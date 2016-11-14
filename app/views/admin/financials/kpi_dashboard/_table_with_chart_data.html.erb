@@ -1,0 +1,34 @@
+<div class="chart-data" data-plotdata ="<%=@table_data.to_json%>">
+  <div class="row ">
+    <div class="large-12 columns">
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <td>&nbsp;</td>
+              <%@table_data["weekending_date"][:values].each do |date| %>
+                <td><%=simple_format_by_type "date", date%></td>
+              <%end%>
+            </tr>
+          </thead>
+          <%FinancialsReporterService.sections.each do |section_label, fields| %>
+            <tbody>
+              <tr class="separator">
+                <th><%=section_label%></th>
+                <td colspan='<%=@table_data["weekending_date"][:values].count%>'>&nbsp;</td>
+              </tr>
+              <%fields.each do |field|%>
+                <tr>
+                  <th><%=@table_data[field]["label"]%></th>
+                  <%@table_data[field]["values"].each do |val| %>
+                    <td><%=simple_format_by_type @table_data[field]["type"], val %></td>
+                  <%end%>
+                <%end%>
+                </tr>
+            </tbody>
+          <%end%>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

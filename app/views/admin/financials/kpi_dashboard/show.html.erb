@@ -65,55 +65,23 @@
               <td><%=text_field_tag "sdate", @sdate, type: :date%></td>
               <td><%=text_field_tag "edate",@edate, type: :date%></td>
                 <td><%=submit_tag "Get Data", class:"button td-button right"%></td>
-
             </tr>
           </tbody>
         </table>
       <%end%>
     </div>
   </div>
+ 
   <div class="row">
     <div class="columns small-12">
       <p>
-      <div class="financial-kpis-graph" id="chart-container" style="width:100%; height:400px;" data-plotdata ="<%=@table_data.to_json%>"></div>
+      <div class="financial-kpis-graph" id="chart-container" style="width:100%; height:400px;" ></div>
       </p>
     </div>
   </div>
 
-
-
-  <div class="row ">
-    <div class="large-12 columns">
-      <div class="table-container">
-        <table>
-          <thead>
-            <tr>
-              <td>&nbsp;</td>
-              <%@table_data["weekending_date"][:values].each do |date| %>
-                <td><%=simple_format_by_type "date", date%></td>
-              <%end%>
-            </tr>
-          </thead>
-          <%FinancialsReporterService.sections.each do |section_label, fields| %>
-            <tbody>
-              <tr class="separator">
-                <th><%=section_label%></th>
-                <td colspan='<%=@table_data["weekending_date"][:values].count%>'>&nbsp;</td>
-              </tr>
-              <%fields.each do |field|%>
-                <tr>
-                  <th><%=@table_data[field]["label"]%></th>
-                  <%@table_data[field]["values"].each do |val| %>
-                    <td><%=simple_format_by_type @table_data[field]["type"], val %></td>
-                  <%end%>
-                <%end%>
-                </tr>
-            </tbody>
-          <%end%>
-        </table>
-      </div>
-      <%#link_to "Download CSV", admin_metrics_path(sdate:@sdate, edate: @edate, format: :csv),  class:"button right"%>
-    </div>
-
+  <div class="tabular-data">
+    <%= render "table_with_chart_data" %>
   </div>
+
 </div>
