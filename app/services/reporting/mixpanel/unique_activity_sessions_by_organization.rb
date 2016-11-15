@@ -4,10 +4,10 @@ module Reporting
   module Mixpanel
     class UniqueActivitySessionsByOrganization < Report
       def initialize opts #{from_date: ?, to_date: ?}
-        super(build(opts))
+        super(configure(opts))
       end
 
-      def build opts
+      def configure opts
         opts.merge!({
           event: "Activity Session - New",
           on: %Q|string(properties["organization"])|,
