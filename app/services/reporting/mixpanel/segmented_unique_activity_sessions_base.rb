@@ -2,7 +2,7 @@ require 'airbo_mixpanel_client'
 require 'reporting/mixpanel'
 module Reporting
   module Mixpanel
-    class UniqueActivitySessionsBySegment < Report
+    class SegmentUniqueActivitySessionsBase < Report
 
       def initialize opts #{from_date: ?, to_date: ?}
         super(configure(opts))
