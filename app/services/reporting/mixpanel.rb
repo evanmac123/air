@@ -9,9 +9,6 @@ module Reporting
         @mixpanel = AirboMixpanelClient.new
       end
 
-      def data
-        @data ||= parse_and_transform(extract_report_data)
-      end
 
 
       def raw_data
@@ -22,12 +19,6 @@ module Reporting
         @mixpanel
       end
 
-
-      protected
-
-      def parse_and_transform values
-        raise "You need to implement endpoint  in a subclass"
-      end
 
       def endpoint
         raise "You need to implement endpoint  in a subclass"
@@ -51,9 +42,6 @@ module Reporting
         d.strftime "%Y-%m-%d"
       end
 
-      def extract_report_data 
-        raw_data.fetch("data", {}).fetch("values", [])
-      end
     end
   end
 end

@@ -9,7 +9,9 @@ module Reporting
         super(build(opts))
       end
 
-      protected
+      def data
+        @data ||= parse_and_transform(extract_report_data_values)
+      end
 
       def build opts
         opts.merge!({
@@ -30,6 +32,9 @@ module Reporting
         @demo_id 
       end
 
+      def extract_report_data_values
+        raw_data.fetch("data", {}).fetch("values", [])
+      end
     end
   end
 end
