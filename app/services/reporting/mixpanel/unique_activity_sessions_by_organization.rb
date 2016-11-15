@@ -3,8 +3,11 @@ require 'reporting/mixpanel'
 module Reporting
   module Mixpanel
     class UniqueActivitySessionsByOrganization < Report
+
       def initialize opts #{from_date: ?, to_date: ?}
         super(configure(opts))
+        @summary = {} 
+        @endpoint= "segmentation"
       end
 
       def configure opts
@@ -17,9 +20,34 @@ module Reporting
 
       end
 
-      def endpoint
-        @endpoint= "segmentation"
+      def count_orgs_with_uniq_sessions_gt_zero
+        summarize_data
+        summary.select{|k, v| v>0 && k!="undefined"}.count
       end
+
+      def summarize_data
+        values.each do |org_id, series_data|
+          tot_uniq_sessions = series_data.values.sum
+          @summary[org_id]=tot_uniq_sessions
+        end
+      end
+
+      def endpoint
+        @endpoint
+      end
+
+      def summary
+        @summary
+      end
+
+      def values 
+        @values ||= raw_data.fetch("data",{}).fetch("values", {})
+      end
+
+      def series
+        @series ||= raw_data.fetch("data",{}).fetch("series", [])
+      end
+
 
       private
       def sample_data
