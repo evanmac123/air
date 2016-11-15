@@ -2,7 +2,7 @@ require 'airbo_mixpanel_client'
 require 'reporting/mixpanel'
 module Reporting
   module Mixpanel
-    class SegmentUniqueActivitySessionsBase < Report
+    class SegmentedUniqueActivitySessionsBase < Report
 
       def initialize opts #{from_date: ?, to_date: ?}
         super(configure(opts))
@@ -11,13 +11,6 @@ module Reporting
       end
 
       def configure opts
-        opts.merge!({
-          event: "Activity Session - New",
-          on: %Q|string(properties["id"])|,
-          unit: 'week',
-          type: 'unique',
-          where: %Q|(properties["user_type"] == "client admin") and (properties["board_type"] == "Paid") and properties["is_test_user"] == false|
-        })
       end
 
 
