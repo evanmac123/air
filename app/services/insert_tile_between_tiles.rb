@@ -1,8 +1,11 @@
 class InsertTileBetweenTiles
-  def initialize left_tile_id, tile_id, right_tile_id, status = nil
+  def initialize left_tile_id, tile_id, right_tile_id, status = nil, suppress=true
     @left_tile = Tile.where(id: left_tile_id).first
     @tile = Tile.where(id: tile_id).first
     @right_tile = Tile.where(id: right_tile_id).first
+
+    handle_unarchived(status, suppress)
+
     @status = status if Tile::STATUS.include?(status)
   end
 
@@ -18,6 +21,14 @@ class InsertTileBetweenTiles
   end
 
   protected
+
+
+  def handle_unarchived new_status,suppress
+    if @tile.status==Tile::ARCHIVE && new_status==Tile::ACTIVE && suppress=="true"
+      @tile.prevent_activated_at_reset
+    end
+  end
+
 
   def tile_is_already_on_this_place
     if  (@left_tile.present? && @left_tile == @tile.left_tile) ||

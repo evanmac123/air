@@ -7,9 +7,18 @@ var Airbo = {
       }
     });
 
+    this.currentUser = this.Utils.currentUser();
+
   },
 
   Utils: {
+    userIsSiteAdmin: function(){
+     return Airbo.currentUser.user_type === "site admin";
+    },
+
+    currentUser: function(){
+       return $("body").data("current-user"); 
+    },
 
     supportsFeatureByPresenceOfSelector: function(identifier){
       return $(identifier).length > 0;

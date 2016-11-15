@@ -61,7 +61,7 @@ class Tile < ActiveRecord::Base
   validates_presence_of :remote_media_url, message: "image is missing" , if: :requires_remote_media_url
 
   before_create :set_on_first_position
-  before_save :ensure_protocol_on_link_address, :handle_status_change
+  before_save :ensure_protocol_on_link_address, :handle_suggested_tile_status_change
   before_save :set_image_credit_to_blank_if_default
   after_save :process_image, if: :image_changed?
   before_post_process :no_post_process_on_copy
@@ -109,11 +109,12 @@ class Tile < ActiveRecord::Base
   def status=(new_status)
     case new_status
     when ACTIVE  then
-      if !already_activated
+      if can_update_activated || never_activated 
         self.activated_at = Time.now
       end
     when ARCHIVE then self.archived_at  = Time.now
     end
+
     write_attribute(:status, new_status)
   end
 
@@ -169,8 +170,9 @@ class Tile < ActiveRecord::Base
     CopyTile.new(new_demo, copying_user).copy_tile self
   end
 
-  def update_status status
-    self.status = status
+  def update_status params
+    handle_unarchived(params["status"], params["suppress"])
+    self.status = params["status"]
     self.position = find_new_first_position
     self.save
   end
@@ -256,8 +258,8 @@ class Tile < ActiveRecord::Base
     FindAdditionalTilesForManageSection.new(status_name, presented_ids, tile_demo_id).find
   end
 
-  def self.insert_tile_between left_tile_id, tile_id, right_tile_id, new_status = nil
-    InsertTileBetweenTiles.new(left_tile_id, tile_id, right_tile_id, new_status).insert!
+  def self.insert_tile_between left_tile_id, tile_id, right_tile_id, new_status = nil, suppress=true
+    InsertTileBetweenTiles.new(left_tile_id, tile_id, right_tile_id, new_status, suppress).insert!
   end
 
   def self.reorder_explore_page_tiles! tile_ids
@@ -296,6 +298,14 @@ class Tile < ActiveRecord::Base
     use_old_line_break_css
   end
 
+  def prevent_activated_at_reset
+   @block_activated_at_update = true
+  end
+
+  def allow_activated_at_reset
+   @block_activated_at_update = false
+  end
+
   def recommended?
    recommended_tile.present?
   end
@@ -318,10 +328,27 @@ class Tile < ActiveRecord::Base
     !(@making_copy)
   end
 
+
   private
 
+  #FIXME the code around handling update status has gotten quite ugly
+
+  def handle_unarchived new_status,suppress
+    if status==ARCHIVE && new_status==ACTIVE && suppress=="true"
+      @block_activated_at_update = true
+    end
+  end
+
+  def can_update_activated
+    @block_activated_at_update.nil? || @block_activated_at_update == false
+  end
+
   def already_activated
-    status == ACTIVE && activated_at.present?
+    (status == ACTIVE || status==ARCHIVE) && activated_at.present?
+  end
+
+  def never_activated
+    !already_activated
   end
 
   def sanitize_supporting_content
@@ -354,7 +381,7 @@ class Tile < ActiveRecord::Base
     self.image_credit ="" if image_credit == "Add Image Credit"
   end
 
-  def handle_status_change
+  def handle_suggested_tile_status_change
     if changed.map(&:to_sym).include?(:status)
       TileStatusChangeManager.new(self).process
     end

@@ -84,22 +84,15 @@ class TilesToolsSubnavPresenter
      nav = []
 
     nav.tap do |els|
-      els.concat([{
-        item_id: "explore",
-        link: explore_path,
-        icon: "rocket",
-        text: "Explore"
-      }]) if show_explore?
-
-      # els.concat([{
-      #   item_id: "library",
-      #   link: client_admin_stock_boards_path,
-      #   icon: "bank",
-      #   text: "Library"
-      # }]) if show_library?
 
       els.concat(
         [
+          {
+            item_id: "explore",
+            link: explore_path,
+            icon: "rocket",
+            text: "Explore"
+          },
           {
             item_id: "managing_tiles",
             link: client_admin_tiles_path,
