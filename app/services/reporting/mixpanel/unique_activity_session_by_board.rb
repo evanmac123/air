@@ -28,7 +28,7 @@ module Reporting
         data_set.values.first
       end
 
-        def demo_id
+      def demo_id
         @demo_id 
       end
 
