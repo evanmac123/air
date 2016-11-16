@@ -22,7 +22,7 @@
                   <tr>
                     <th><%= Reporting::ClientKPIReport.kpi_fields[kpi][:label] %></th>
                     <% @report_data.each do |date, report| %>
-                      <td><%= report[kpi] %></td>
+                      <td><%= simple_format_by_type(Reporting::ClientKPIReport.kpi_fields[kpi][:type], report[kpi]) %></td>
                     <%end%>
                   <%end%>
                   </tr>
