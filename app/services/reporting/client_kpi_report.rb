@@ -18,7 +18,7 @@ module Reporting
       {
 
         "Overall Satisfaction" =>  [
-          "net_promoter_score",
+          # "net_promoter_score",
           "total_paid_orgs",
           "org_unique_activity_sessions",
           "percent_engaged_organizations",
@@ -29,7 +29,18 @@ module Reporting
           "total_paid_client_admins",
           "activity_sessions_per_client_admin"
         ],
-
+        "Planning" => [
+          "unique_orgs_that_copied_tiles",
+          "percent_orgs_that_copied_tiles",
+          "total_tiles_copied",
+          "average_tiles_copied_per_org_that_copied"
+        ],
+        "Content" => [
+          "orgs_that_posted_tiles",
+          "percent_of_orgs_that_posted_tiles",
+          "total_tiles_posted",
+          "average_tiles_posted_per_organization_that_posted"
+        ],
         "Engagement" => [
           "percent_joined_current",
           "percent_joined_30_days",
@@ -43,89 +54,115 @@ module Reporting
 
     def self.kpi_fields
       {
-        "net_promoter_score" => {
-          label: "",
-          type: "num",
-          indent: 0,
-          value: "" 
-        },
+        # "net_promoter_score" => {
+        #   label: "",
+        #   type: "num",
+        #   indent: 0,
+        # },
         "total_paid_orgs" =>{
           label: "Total Paid Organizations",
           type: "num",
           indent: 0,
-          value: total_paid_orgs 
         },
         "org_unique_activity_sessions" =>{
           label: "Unique Organizations with One or More Activity Session",
           type: "num",
           indent: 0,
-          value: org_unique_activity_sessions(time_unit) 
         },
         "percent_engaged_organizations" =>{
           label: "% of Engaged Organizations",
           type: "pct",
           indent: 0,
-          value: percent_engaged_organizations 
         },
         "total_paid_client_admins" =>{
           label: "Total Paid Client Admins" ,
           type: "num",
           indent: 0,
-          value: total_paid_client_admins 
         },
         "client_admin_unique_activity_sessions" =>{
           label: "Unique Paid Client Admins with One or More Activity Session",
           type: "num",
           indent: 0,
-          value: client_admin_unique_activity_sessions(time_unit) 
         },
         "percent_engaged_client_admin" =>{
           label: "% of Engaged Paid Client Admins",
-          type: "num",
+          type: "pct",
           indent: 0,
-          value: percent_engaged_client_admin 
         },
         "total_paid_client_admin_activity_sessions" =>{
           label: "Total Paid Client Admin Activity Sessions",
           type: "num",
           indent: 0,
-          value: total_client_admin_activity_sessions(time_unit) 
         },
         "total_paid_client_admins" =>{
           label: "Total Paid Client Admins",
           type: "num",
           indent: 0,
-          value: total_paid_client_admins 
         },
         "activity_sessions_per_client_admin" =>{
           label: "Activity Sessions Per Client Admin",
           type: "num",
           indent: 0,
-          value: activity_sessions_per_client_admin 
+        },
+        "percent_orgs_that_copied_tiles" =>{
+          label: "% Orgs that Copied Tiles",
+          type: "pct",
+          indent: 0,
+        },
+        "total_tiles_copied" =>{
+          label: "Total Tiles Copied",
+          type: "num",
+          indent: 0,
+        },
+        "unique_orgs_that_copied_tiles" =>{
+          label: "Unique Orgs that Copied Tiles",
+          type: "num",
+          indent: 0,
+        },
+        "average_tiles_copied_per_org_that_copied" =>{
+          label: "Avg Tiles Copied Per Org that Copied",
+          type: "num",
+          indent: 0,
+        },
+        "orgs_that_posted_tiles" =>{
+          label: "Orgs That Posted Tiles",
+          type: "num",
+          indent: 0,
+        },
+         "percent_of_orgs_that_posted_tiles" =>{
+          label: "% of Orgs That Posted Tiles",
+          type: "pct",
+          indent: 0,
+        },
+        "total_tiles_posted" =>{
+          label: "Total Tiles Posted",
+          type: "num",
+          indent: 0,
+        },
+        "average_tiles_posted_per_organization_that_posted" =>{
+          label: "Average Tiles Posted Per Organization That Posted Tiles",
+          type: "num",
+          indent: 0,
         },
         "percent_joined_current" =>{
           label: "% of eligible population joined",
           type: "num",
           indent: 0,
-          value: percent_population_joined["current"] 
         },
         "percent_joined_30_days" =>{
-          label: "",
+          label: "30 Days",
           type: "num",
           indent: 0,
-          value: percent_population_joined["30"] 
         },
         "percent_joined_60_days" =>{
-          label: "",
+          label: "60 Days",
           type: "num",
           indent: 0,
-          value:percent_population_joined["60"] 
         },
         "percent_joined_120_days" =>{
-          label: "",
+          label: "120 Days",
           type: "num",
           indent: 0,
-          value: percent_population_joined["120"]
         }
       }
     end
@@ -143,6 +180,14 @@ module Reporting
           total_paid_client_admin_activity_sessions: total_client_admin_activity_sessions(time_unit),
           activity_sessions_per_client_admin: activity_sessions_per_client_admin,
           percent_engaged_organizations: percent_engaged_organizations,
+          unique_orgs_that_copied_tiles: unique_orgs_that_copied_tiles(time_unit),
+          percent_orgs_that_copied_tiles: percent_orgs_that_copied_tiles,
+          total_tiles_copied: total_tiles_copied(time_unit),
+          average_tiles_copied_per_org_that_copied: average_tiles_copied_per_org_that_copied,
+          orgs_that_posted_tiles: orgs_that_posted_tiles(time_unit),
+          percent_of_orgs_that_posted_tiles: percent_of_orgs_that_posted_tiles,
+          total_tiles_posted: total_tiles_posted(time_unit),
+          average_tiles_posted_per_organization_that_posted: average_tiles_posted_per_organization_that_posted,
           percent_engaged_client_admin: percent_engaged_client_admin,
           percent_joined_current: percent_population_joined["current"],
           percent_joined_30_days: percent_population_joined["30"],
@@ -183,16 +228,60 @@ module Reporting
         @total_client_admin_activity_sessions ||= Reporting::Mixpanel::TotalClientAdminActivitySessions.new(opts).values.count
       end
 
+      def unique_orgs_that_copied_tiles(time_unit)
+        opts = date_opts_for_mixpanel(time_unit)
+        @unique_orgs_that_copied_tiles ||= Reporting::Mixpanel::UniqueOrganizationsWithCopiedTiles.new(opts).values.count
+      end
+
+      def calc_percent(a, b)
+        ((a.to_f / b) * 100).round(2)
+      end
+
+      def calc_avg(a, b)
+        (a.to_f / b).round(2)
+      end
+
+      def percent_orgs_that_copied_tiles
+        calc_percent(@unique_orgs_that_copied_tiles, @total_paid_orgs)
+      end
+
+      def total_tiles_copied(time_unit)
+        opts = date_opts_for_mixpanel(time_unit)
+        @total_tiles_copied ||= Reporting::Mixpanel::TotalTilesCopied.new(opts).values.count
+      end
+
+      def average_tiles_copied_per_org_that_copied
+        calc_avg(@total_tiles_copied, @unique_orgs_that_copied_tiles)
+      end
+
+      def orgs_that_posted_tiles(time_unit)
+        opts = date_opts_for_mixpanel(time_unit)
+        @orgs_that_posted_tiles ||= Reporting::Mixpanel::UniqueOrganizationsWithPostedTiles.new(opts).values.count
+      end
+
+      def percent_of_orgs_that_posted_tiles
+        calc_percent(@orgs_that_posted_tiles, @total_paid_orgs)
+      end
+
+      def total_tiles_posted(time_unit)
+        opts = date_opts_for_mixpanel(time_unit)
+        @total_tiles_posted ||= Reporting::Mixpanel::TotalTilesPostedByPaidClientAdmin.new(opts).values.count
+      end
+
+      def average_tiles_posted_per_organization_that_posted
+        calc_avg(@total_tiles_posted, @orgs_that_posted_tiles)
+      end
+
       def percent_engaged_organizations
-        (@org_unique_activity_sessions.to_f / @total_paid_orgs) * 100
+        calc_percent(@org_unique_activity_sessions, @total_paid_orgs)
       end
 
       def percent_engaged_client_admin
-        (@total_client_admin_activity_sessions.to_f / @total_paid_client_admins) * 100
+        calc_percent(@total_client_admin_activity_sessions, @total_paid_client_admins)
       end
 
       def activity_sessions_per_client_admin
-        (@client_admin_unique_activity_sessions.to_f / @total_paid_client_admins) * 100
+        calc_avg(@total_client_admin_activity_sessions, @total_paid_client_admins)
       end
 
       def set_all_percent_joined!
