@@ -6,28 +6,28 @@ class ActiveBoardCollector
     @admin_board_memberships = opts[:selected_boards] || load_memberships
     validate_report_dates opts
     map_admins_to_boards
-		collect
+    collect
   end
 
   def active_boards
     @active_boards ||=collect
   end
 
-	def send_mail_notifications
+  def send_mail_notifications
     active_boards.each do |active_board|
-			send_for_admin(active_board)
+      send_for_admin(active_board)
     end
-	end
+  end
 
-	def send_for_admin(active_board)
-		active_board.admins.each do |admin|
-			BoardActivityMailer.notify(active_board.board, admin, active_board.tiles, @beg_date, @end_date).deliver
+  def send_for_admin(active_board)
+    active_board.admins.each do |admin|
+      BoardActivityMailer.notify(active_board.board, admin, active_board.tiles, @beg_date, @end_date).deliver
     end
-	end
+  end
 
-	def  board_admins board
-     @board_admins[board]
-	end
+  def  board_admins board
+    @board_admins[board]
+  end
 
   private
   def collect
@@ -48,7 +48,7 @@ class ActiveBoardCollector
     period_end = opts[:end_date]
 
     if period_start && period_end && period_start.is_a?(Time) && 
-      period_end.is_a?(Time) && period_start < period_end
+        period_end.is_a?(Time) && period_start < period_end
 
       @beg_date = period_start 
       @end_date = period_end 
@@ -67,19 +67,19 @@ class ActiveBoardCollector
   end
 
 
-	def load_memberships
+  def load_memberships
 
-		BoardMembership.select(BoardMembership.arel_table[Arel.star]).where(
-			BoardMembership.arel_table[:is_client_admin].eq('t').and(BoardMembership.arel_table[:send_weekly_activity_report].eq('t')).or(
-				BoardMembership.arel_table[:is_current].eq('t').and(
-					User.arel_table[:is_client_admin].eq('t').and(BoardMembership.arel_table[:send_weekly_activity_report].eq('t'))
-				)
-			)
-		).joins(
-			BoardMembership.arel_table.join(User.arel_table).on(
-				User.arel_table[:id].eq(BoardMembership.arel_table[:user_id])
-			).join_sources
-)	end
+    BoardMembership.select(BoardMembership.arel_table[Arel.star]).where(
+      BoardMembership.arel_table[:is_client_admin].eq('t').and(BoardMembership.arel_table[:send_weekly_activity_report].eq('t')).or(
+        BoardMembership.arel_table[:is_current].eq('t').and(
+          User.arel_table[:is_client_admin].eq('t').and(BoardMembership.arel_table[:send_weekly_activity_report].eq('t'))
+        )
+      )
+    ).joins(
+      BoardMembership.arel_table.join(User.arel_table).on(
+        User.arel_table[:id].eq(BoardMembership.arel_table[:user_id])
+      ).join_sources
+    )	end
 
 end
 

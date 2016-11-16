@@ -6,12 +6,14 @@ module Reporting
     class UniqueActivitySessionByBoard < Report
 
       def initialize opts
-        super(build(opts))
+        super(configure(opts))
       end
 
-      protected
+      def data
+        @data ||= parse_and_transform(extract_report_data_values)
+      end
 
-      def build opts
+      def configure opts
         opts.merge!({
           event: 'Activity Session - New',
           where:  %Q|(string(properties["game"]) == "#{opts.delete(:demo_id)}")|,
@@ -26,10 +28,13 @@ module Reporting
         data_set.values.first
       end
 
-        def demo_id
+      def demo_id
         @demo_id 
       end
 
+      def extract_report_data_values
+        raw_data.fetch("data", {}).fetch("values", [])
+      end
     end
   end
 end

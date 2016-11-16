@@ -9,29 +9,23 @@ module Reporting
         @mixpanel = AirboMixpanelClient.new
       end
 
-      def data
-        @data ||= parse_and_transform(extract_report_data)
-      end
-
 
       def raw_data
         @raw_data ||= @mixpanel.request(endpoint,@params)
+      end
+
+      def result_data
+        raw_data.fetch("data",{})
       end
 
       def client
         @mixpanel
       end
 
-
-      protected
-
-      def parse_and_transform values
-        raise "You need to implement endpoint  in a subclass"
-      end
-
       def endpoint
         raise "You need to implement endpoint  in a subclass"
       end 
+
 
       def parse_dates opts
         @from = opts.delete(:from_date) || Date.today.beginning_of_week(:sunday).prev_week(:sunday).at_midnight
@@ -45,15 +39,13 @@ module Reporting
         }
       end
 
-      private
 
+
+      private
       def date_format d
         d.strftime "%Y-%m-%d"
       end
 
-      def extract_report_data 
-        raw_data.fetch("data", {}).fetch("values", [])
-      end
     end
   end
 end
