@@ -7,8 +7,6 @@ module Reporting
       report_data.each { |date, data|
         report_data[date] = JSON.parse(data)
       }
-
-      Hash[report_data.to_a.reverse]
     end
 
     def self.run_report()
