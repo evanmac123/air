@@ -28,13 +28,14 @@ module Reporting
           "total_paid_client_admin_activity_sessions",
           "total_paid_client_admins",
           "activity_sessions_per_client_admin"
+        ],
 
-      "Engagement" => [
-        "percent_joined_current",
-        "percent_joined_30_days",
-        "percent_joined_60_days",
-        "percent_joined_120_days"
-      ],
+        "Engagement" => [
+          "percent_joined_current",
+          "percent_joined_30_days",
+          "percent_joined_60_days",
+          "percent_joined_120_days"
+        ],
 
       }
     end
