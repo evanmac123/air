@@ -3,4 +3,3 @@ class Admin::ClientKpiReportsController < AdminBaseController
     @report_data = Reporting::ClientKPIReport.get_weekly_report_data
   end
 end
-
