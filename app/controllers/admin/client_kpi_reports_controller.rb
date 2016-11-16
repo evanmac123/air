@@ -1,5 +1,6 @@
 class Admin::ClientKpiReportsController < AdminBaseController
   def show
+    @report_data = Reporting::ClientKPIReport.get_weekly_report_data
   end
 end
   # before_filter :parse_start_and_end_dates
