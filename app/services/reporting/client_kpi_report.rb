@@ -26,7 +26,11 @@ module Reporting
           nil,
           "total_paid_client_admins",
           "client_admin_unique_activity_sessions",
-          "percent_engaged_client_admin"
+          "percent_engaged_client_admin",
+          nil,
+          "total_paid_client_admin_activity_sessions",
+          "total_paid_client_admins",
+          "activity_sessions_per_client_admin"
       ],
 
       "Engagement" => [
@@ -49,6 +53,8 @@ module Reporting
           total_paid_client_admins: total_paid_client_admins,
           org_unique_activity_sessions: org_unique_activity_sessions(time_unit),
           client_admin_unique_activity_sessions: client_admin_unique_activity_sessions(time_unit),
+          total_paid_client_admin_activity_sessions: total_client_admin_activity_sessions(time_unit),
+          activity_sessions_per_client_admin: activity_sessions_per_client_admin,
           percent_engaged_organizations: percent_engaged_organizations,
           percent_engaged_client_admin: percent_engaged_client_admin,
           percent_joined_current: percent_population_joined["current"],
@@ -85,11 +91,20 @@ module Reporting
         @client_admin_unique_activity_sessions ||= Reporting::Mixpanel::ClientAdminWithUniqueActivitySessions.new(opts).values.count
       end
 
+      def total_client_admin_activity_sessions(time_unit)
+        opts = date_opts_for_mixpanel(time_unit)
+        @total_client_admin_activity_sessions ||= Reporting::Mixpanel::TotalClientAdminActivitySessions.new(opts).values.count
+      end
+
       def percent_engaged_organizations
         (@org_unique_activity_sessions.to_f / @total_paid_orgs) * 100
       end
 
       def percent_engaged_client_admin
+        (@total_client_admin_activity_sessions.to_f / @total_paid_client_admins) * 100
+      end
+
+      def activity_sessions_per_client_admin
         (@client_admin_unique_activity_sessions.to_f / @total_paid_client_admins) * 100
       end
 
