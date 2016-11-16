@@ -186,11 +186,11 @@ class User < ActiveRecord::Base
 
 
   def demo_id
-    self.demo.id
+    self.demo.try(&:id)
   end
 
   def organization_id
-    self.demo.organization_id
+    self.demo.try(&:organization_id)
   end
 
   def email_optional?
