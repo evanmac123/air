@@ -10,8 +10,8 @@ module Reporting
     end
 
     def self.run_report()
-      new.run_report(:by_week)
-      new.run_report(:by_month)
+      ClientKPIReport.new.run_report(:by_week)
+      ClientKPIReport.new.run_report(:by_month)
     end
 
     def self.sections
