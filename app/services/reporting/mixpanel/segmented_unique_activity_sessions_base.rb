@@ -39,9 +39,7 @@ module Reporting
 
       private
 
-      def result_data
-        raw_data.fetch("data",{})
-      end
+   
 
     end
   end

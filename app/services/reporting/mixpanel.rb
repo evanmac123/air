@@ -10,15 +10,17 @@ module Reporting
       end
 
 
-
       def raw_data
         @raw_data ||= @mixpanel.request(endpoint,@params)
+      end
+
+      def result_data
+        raw_data.fetch("data",{})
       end
 
       def client
         @mixpanel
       end
-
 
       def endpoint
         raise "You need to implement endpoint  in a subclass"
@@ -37,8 +39,9 @@ module Reporting
         }
       end
 
-      private
 
+
+      private
       def date_format d
         d.strftime "%Y-%m-%d"
       end
