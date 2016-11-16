@@ -2,7 +2,7 @@ module Reporting
   class AirboTotals
     class << self
       def set_total_paid_organizations
-        count = Organization.joins(:boards).where(demos: { id: demo_ids }).count
+        count = Organization.joins(:boards).where(demos: { id: demo_ids }).uniq.count
 
         $redis.hset("reporting:airbo:total_paid_orgs:months", month, count)
         $redis.hset("reporting:airbo:total_paid_orgs:weeks", week, count)
@@ -20,7 +20,7 @@ module Reporting
         count = User.joins(:demo).where(demo: { id: demo_ids } ).where(is_client_admin: true).count
 
         $redis.hset("reporting:airbo:total_paid_client_admins:months", month, count)
-        $redis.hset("reporting:airbo:total_paid_client_amdins:weeks", week, count)
+        $redis.hset("reporting:airbo:total_paid_client_admins:weeks", week, count)
       end
 
       def get_total_paid_client_admins_by_month
@@ -28,7 +28,7 @@ module Reporting
       end
 
       def get_total_paid_client_admins_by_week
-        $redis.hgetall("reporting:airbo:total_paid_client_amdins:weeks")
+        $redis.hgetall("reporting:airbo:total_paid_client_admins:weeks")
       end
 
       def set_percent_of_eligible_population_joined(days_since_launch)
