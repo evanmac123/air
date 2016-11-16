@@ -43,6 +43,96 @@ module Reporting
       }
     end
 
+
+    def self.kpi_fields
+      {
+        "net_promoter_score" => {
+          label: "",
+          type: "num",
+          indent: 0,
+          value: "" 
+        },
+        "total_paid_orgs" =>{
+          label: "Total Paid Organizations",
+          type: "num",
+          indent: 0,
+          value: total_paid_orgs 
+        },
+        "org_unique_activity_sessions" =>{
+          label: "Unique Organizations with One or More Activity Session",
+          type: "num",
+          indent: 0,
+          value: org_unique_activity_sessions(time_unit) 
+        },
+        "percent_engaged_organizations" =>{
+          label: "% of Engaged Organizations",
+          type: "pct",
+          indent: 0,
+          value: percent_engaged_organizations 
+        },
+        "total_paid_client_admins" =>{
+          label: "Total Paid Client Admins" ,
+          type: "num",
+          indent: 0,
+          value: total_paid_client_admins 
+        },
+        "client_admin_unique_activity_sessions" =>{
+          label: "Unique Paid Client Admins with One or More Activity Session",
+          type: "num",
+          indent: 0,
+          value: client_admin_unique_activity_sessions(time_unit) 
+        },
+        "percent_engaged_client_admin" =>{
+          label: "% of Engaged Paid Client Admins",
+          type: "num",
+          indent: 0,
+          value: percent_engaged_client_admin 
+        },
+        "total_paid_client_admin_activity_sessions" =>{
+          label: "Total Paid Client Admin Activity Sessions",
+          type: "num",
+          indent: 0,
+          value: total_client_admin_activity_sessions(time_unit) 
+        },
+        "total_paid_client_admins" =>{
+          label: "Total Paid Client Admins",
+          type: "num",
+          indent: 0,
+          value: total_paid_client_admins 
+        },
+        "activity_sessions_per_client_admin" =>{
+          label: "Activity Sessions Per Client Admin",
+          type: "num",
+          indent: 0,
+          value: activity_sessions_per_client_admin 
+        },
+        "percent_joined_current" =>{
+          label: "% of eligible population joined",
+          type: "num",
+          indent: 0,
+          value: percent_population_joined["current"] 
+        },
+        "percent_joined_30_days" =>{
+          label: "",
+          type: "num",
+          indent: 0,
+          value: percent_population_joined["30"] 
+        },
+        "percent_joined_60_days" =>{
+          label: "",
+          type: "num",
+          indent: 0,
+          value:percent_population_joined["60"] 
+        },
+        "percent_joined_120_days" =>{
+          label: "",
+          type: "num",
+          indent: 0,
+          value: percent_population_joined["120"]
+        }
+      }
+    end
+
     def run_report(time_unit)
       set_all_percent_joined!
       percent_population_joined = get_percent_joined
