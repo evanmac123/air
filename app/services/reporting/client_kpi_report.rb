@@ -146,22 +146,22 @@ module Reporting
         },
         "percent_joined_current" =>{
           label: "% of eligible population joined",
-          type: "num",
+          type: "pct",
           indent: 0,
         },
         "percent_joined_30_days" =>{
           label: "30 Days",
-          type: "num",
+          type: "pct",
           indent: 0,
         },
         "percent_joined_60_days" =>{
           label: "60 Days",
-          type: "num",
+          type: "pct",
           indent: 0,
         },
         "percent_joined_120_days" =>{
           label: "120 Days",
-          type: "num",
+          type: "pct",
           indent: 0,
         }
       }
