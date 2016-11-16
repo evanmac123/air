@@ -19,19 +19,15 @@ module Reporting
 
         "Overall Satisfaction" =>  [
           "net_promoter_score",
-          nil,
           "total_paid_orgs",
           "org_unique_activity_sessions",
           "percent_engaged_organizations",
-          nil,
           "total_paid_client_admins",
           "client_admin_unique_activity_sessions",
           "percent_engaged_client_admin",
-          nil,
           "total_paid_client_admin_activity_sessions",
           "total_paid_client_admins",
           "activity_sessions_per_client_admin"
-      ],
 
       "Engagement" => [
         "percent_joined_current",
