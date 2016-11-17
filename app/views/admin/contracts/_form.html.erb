@@ -55,7 +55,7 @@
           </div>
 
           <div class="row">
-            <%= f.label :term %>
+            <%= f.label :term, "Custom Term"%>
             <%= f.text_field :term %>
           </div>
 
@@ -67,6 +67,11 @@
           <div class="row ">
             <%= f.label :amt_booked %>
             <%= f.text_field :amt_booked %>
+          </div>
+
+          <div class="row">
+            <%= f.label :date_booked %>
+            <%= f.text_field :date_booked, type: :date %>
           </div>
 
         </div>
@@ -83,10 +88,25 @@
           <div class="row">
             <div class="inline-input-group">
               <label>Revenue Estimate Type</label>
-              <label class="checkbox inline">
-                <%=f.check_box :is_actual%>
-                Actual<span class="mini-text"> (Uncheck  if projection)</span>
-              </label>
+              <label class="radio inline"><%=f.radio_button :is_actual, true %>Actual</label>
+              <label class="radio inline"><%=f.radio_button :is_actual, false %>Projected</label>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="inline-input-group">
+              <label>Action on Expiration</label>
+              <label class="radio inline"><%=f.radio_button :auto_renew, true %>Renew</label>
+              <label class="radio inline"><%=f.radio_button :auto_renew, false %>Cancel</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="inline-input-group">
+              <label>Deliquency Status</label>
+              <label class="radio inline"><%=f.radio_button :in_collection, false %>Current</label>
+              <label class="radio inline"><%=f.radio_button :in_collection, true %>In Collection</label>
             </div>
           </div>
 
@@ -113,18 +133,7 @@
             <%=text_field_tag "rev",@contract.calculated_rr,  id: "calculated_revenue", readonly: "readonly",  class:"disabled" %> 
           </div>
 
-          <div class="row">
-            <%= f.label :date_booked %>
-            <%= f.text_field :date_booked, type: :date %>
-          </div>
-
-          <div class="row">
-            <%= f.label :in_collection, class: "checkbox inline" do%>
-              In Collection <%= f.check_box :in_collection, type: :date %>
-            <%end%>
-          </div>
-
-        </div>
+             </div>
       </div>
       <div class="row">
         <%= f.label :notes %>

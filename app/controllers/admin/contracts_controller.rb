@@ -73,7 +73,7 @@ class Admin::ContractsController < AdminBaseController
                                      :arr, :mrr, :name,  
                                      :amt_booked, :date_booked, 
                                      :is_actual, :max_users, :cycle,
-                                     :term, :notes, :in_collection)
+                                     :term, :notes, :auto_renew, :in_collection)
   end
 
   def show_mrr?
