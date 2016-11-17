@@ -127,6 +127,7 @@ class Contract < ActiveRecord::Base
   end
 
   def pretty_name
+    return "" if start_date.nil? or end_date.nil?
    "#{start_date.strftime('%b %d, %Y')}  --   #{end_date.strftime('%b %d, %Y')}"
   end
 

@@ -1,30 +1,35 @@
-<div class="row">
-  <div class="columns small-12">
-    <div class="row">
-      <div class="panel">
-        <h3>Total Paid Client Admin</h3>
-        <h3>By month:</h3>
-        <%= render 'airbo_totals_table', data: Reporting::AirboTotals.get_total_paid_client_admins_by_month, display: :integer  %>
-
-        <h3>By week:</h3>
-        <%= render 'airbo_totals_table', data: Reporting::AirboTotals.get_total_paid_client_admins_by_week, display: :integer %>
-
-      </div>
-    </div>
-    <div class="row">
-      <div class="panel">
-        <h3>Total Paid Organizations</h3>
-        <h3>By month:</h3>
-        <%= render 'airbo_totals_table', data: Reporting::AirboTotals.get_total_paid_organizations_by_month, display: :integer %>
-
-        <h3>By week:</h3>
-        <%= render 'airbo_totals_table', data: Reporting::AirboTotals.get_total_paid_organizations_by_week, display: :integer %>
-      </div>
-    </div>
-    <div class="row">
-      <div class="panel">
-        <h3>Percent Eligible Population Joined</h3>
-        <%= render 'airbo_totals_table', data: Reporting::AirboTotals.get_percent_of_eligible_population_joined, display: :percent %>
+<div class="client-admin-kpi-dashboard">
+  <div class="chart-data">
+    <div class="row ">
+      <div class="large-12 columns">
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <td>&nbsp;</td>
+                <% @report_data.keys.each do |date| %>
+                  <td><%= date %></td>
+                <%end%>
+              </tr>
+            </thead>
+            <% Reporting::ClientKPIReport.sections.each do |section_label, kpis| %>
+              <tbody>
+                <tr class="separator">
+                  <th width="275"><%= section_label %></th>
+                  <td colspan='<%= @report_data.count %>'>&nbsp;</td>
+                </tr>
+                <% kpis.each do |kpi| %>
+                  <tr>
+                    <th><%= Reporting::ClientKPIReport.kpi_fields[kpi][:label] %></th>
+                    <% @report_data.each do |date, report| %>
+                      <td><%= simple_format_by_type(Reporting::ClientKPIReport.kpi_fields[kpi][:type], report[kpi]) %></td>
+                    <%end%>
+                  <%end%>
+                  </tr>
+              </tbody>
+            <%end%>
+          </table>
+        </div>
       </div>
     </div>
   </div>
