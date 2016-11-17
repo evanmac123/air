@@ -35,8 +35,11 @@ class Admin::OrganizationsController < AdminBaseController
   def create
     @organization = Organization.new(organization_params)
     if @organization.save
-      link_board_and_user(@organization.users.first, @organization.boards.first)
-      current_user.move_to_new_demo(@organization.boards.first)
+      user = @organization.users.first
+      board = @organization.boards.first
+      link_board_and_user(user, board)
+      current_user.move_to_new_demo(board)
+      flash[:success] = "Invitation URL for #{user.name}: #{ invitation_url(user.invitation_code)}"
       redirect_to explore_path
     else
       render :new
