@@ -6,22 +6,13 @@ class Organization < ActiveRecord::Base
   has_many :lead_contacts
   has_many :boards, class_name: :Demo, autosave: true
   has_many :tiles, through: :boards
-
-  has_many :users do
-    def first_or_build(attrs)
-      where(email: attrs[:email]).first || build(attrs)
-    end
-  end
-
-  has_one :onboarding, autosave: true do
-    def get_or_build(attrs)
-      self || build(attrs)
-    end
-  end
-
+  has_many :board_memberships, through: :boards
+  has_many :users
+  has_one :onboarding, autosave: true
 
   validates :name, presence: true, uniqueness: true
-  accepts_nested_attributes_for :demos
+
+  accepts_nested_attributes_for :boards
   accepts_nested_attributes_for :users
 
   scope :name_order, ->{order("LOWER(name)")}
@@ -52,7 +43,7 @@ class Organization < ActiveRecord::Base
   end
 
   def self.with_deliquent_contracts_as_of_date date
-    as_customer.select{|o|o.contracts.delinquent_as_of(date).count > 0} 
+    as_customer.select{|o|o.contracts.delinquent_as_of(date).count > 0}
   end
 
   def self.delinquent_as_of_date date
@@ -64,7 +55,7 @@ class Organization < ActiveRecord::Base
   end
 
   def mrr_churn_during_period sdate, edate
-    current = mrr_as_of_date(edate) 
+    current = mrr_as_of_date(edate)
     starting = mrr_as_of_date(sdate)
     current-starting
   end
