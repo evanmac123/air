@@ -15,7 +15,7 @@
             <% Reporting::ClientKPIReport.sections.each do |section_label, kpis| %>
               <tbody>
                 <tr class="separator">
-                  <th><%= section_label %></th>
+                  <th width="275"><%= section_label %></th>
                   <td colspan='<%= @report_data.count %>'>&nbsp;</td>
                 </tr>
                 <% kpis.each do |kpi| %>
