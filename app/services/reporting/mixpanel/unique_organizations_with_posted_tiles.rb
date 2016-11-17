@@ -6,8 +6,8 @@ module Reporting
 
       def configure opts
         opts.merge!({
-          event: "Tile Posted", 
-          unit: "week",
+          event: "Tile Posted",
+          unit: "day",
           type: "unique",
           where: %Q|properties["is_test_user"] == false and ("client admin" in properties["user_type"]) and (defined (properties["user_type"]))|,
           on: 'string(properties["organization"])',

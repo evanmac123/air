@@ -6,8 +6,8 @@ module Reporting
 
       def configure opts
         opts.merge!({
-          event: "Explore page - Interaction", 
-          unit: "week",
+          event: "Explore page - Interaction",
+          unit: "day",
           type: "unique",
           on: 'string(properties["organization"])',
           where: %Q|(properties["action"] == "Clicked Copy")|,
