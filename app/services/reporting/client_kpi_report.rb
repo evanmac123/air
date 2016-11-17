@@ -9,8 +9,8 @@ module Reporting
       }
     end
 
-    def self.run_report()
-      ClientKPIReport.new.run_report(:by_week)
+    def self.run_report(historical_date = nil)
+      ClientKPIReport.new.run_report(:by_week, historical_date)
       ClientKPIReport.new.run_report(:by_month)
     end
 
@@ -167,7 +167,8 @@ module Reporting
       }
     end
 
-    def run_report(time_unit)
+    def run_report(time_unit, historical_date)
+      @historical_date = historical_date
       set_all_percent_joined!
       percent_population_joined = get_percent_joined
 
@@ -320,7 +321,7 @@ module Reporting
 
       def date_opts_for_mixpanel(time_unit)
         if time_unit == :by_week
-          date = Date.today
+          date = @historical_date || Date.today
           { from_date: date.beginning_of_week, to_date: date }
         elsif time_unit == :by_month
           date = Date.today
@@ -333,7 +334,11 @@ module Reporting
       end
 
       def week
-        Date.today.beginning_of_week.strftime("%m/%d/%y")
+        if @historical_date
+          @historical_date.beginning_of_week.strftime("%m/%d/%y")
+        else
+          Date.today.beginning_of_week.strftime("%m/%d/%y")
+        end
       end
 
       def adjust_current_percent_by_count(percent_hash)

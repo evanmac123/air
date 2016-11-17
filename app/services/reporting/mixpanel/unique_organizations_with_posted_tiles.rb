@@ -9,7 +9,7 @@ module Reporting
           event: "Tile Posted",
           unit: "day",
           type: "unique",
-          where: %Q|properties["is_test_user"] == false and ("client admin" in properties["user_type"]) and (defined (properties["user_type"]))|,
+          where: %Q|properties["is_test_user"] == false and ("client admin" in properties["user_type"]) and (defined (properties["user_type"])) and (properties["board_type"] == "Paid")|,
           on: 'string(properties["organization"])',
         })
       end
