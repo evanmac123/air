@@ -333,7 +333,7 @@ module Reporting
       end
 
       def week
-        Date.today.end_of_week + 1.day
+        (Date.today.end_of_week + 1.day).strftime("%m/%d/%y")
       end
 
       def adjust_current_percent_by_count(percent_hash)
