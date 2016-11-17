@@ -3,7 +3,7 @@ class Admin::RecommendedTilesController < AdminBaseController
   include ExploreHelper
 
   def index
-    @tiles = Tile.verified_explore
+    @tiles = Tile.all_airbo_tiles
   end
 
   def create

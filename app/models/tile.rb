@@ -109,7 +109,7 @@ class Tile < ActiveRecord::Base
   def status=(new_status)
     case new_status
     when ACTIVE  then
-      if can_update_activated || never_activated 
+      if can_update_activated || never_activated
         self.activated_at = Time.now
       end
     when ARCHIVE then self.archived_at  = Time.now
@@ -193,6 +193,10 @@ class Tile < ActiveRecord::Base
     tiles_table = Arel::Table.new(:tiles)
 
     joins(:organization).copyable.where(organization: {name: "Airbo"}).where(tiles_table[:id].not_in(recommended.pluck(:id)))
+  end
+
+  def self.all_airbo_tiles
+    joins(:organization).copyable.where(organization: {name: "Airbo"})
   end
 
   def self.community_explore
