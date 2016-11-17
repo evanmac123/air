@@ -195,42 +195,45 @@ module Reporting
           percent_joined_120_days: percent_population_joined["120"],
         }
 
-      post_report_to_redis(data.to_json)
+      post_report_to_redis(data.to_json, time_unit)
     end
 
-    def post_report_to_redis(report_data)
-      $redis.hset("reporting:client_kpis:monthly", month, report_data)
-      $redis.hset("reporting:client_kpis:weekly", week, report_data)
+    def post_report_to_redis(report_data, time_unit)
+      if time_unit == :by_week
+        $redis.hset("reporting:client_kpis:weekly", week, report_data)
+      elsif time_unit == :by_month
+        $redis.hset("reporting:client_kpis:monthly", month, report_data)
+      end
     end
 
     private
 
       def total_paid_orgs
-        @total_paid_orgs ||= Organization.joins(:boards).where(demos: { id: demo_ids }).uniq.count
+        @total_paid_orgs = Organization.joins(:boards).where(demos: { id: demo_ids }).uniq.count
       end
 
       def total_paid_client_admins
-        @total_paid_client_admins ||= User.joins(:demo).where(demo: { id: demo_ids } ).where(is_client_admin: true).count
+        @total_paid_client_admins = User.joins(:demo).where(demo: { id: demo_ids } ).where(is_client_admin: true).count
       end
 
       def org_unique_activity_sessions(time_unit)
         opts = date_opts_for_mixpanel(time_unit)
-        @org_unique_activity_sessions ||= Reporting::Mixpanel::OrganizationWithUniqueActivitySessions.new(opts).values.count
+        @org_unique_activity_sessions = Reporting::Mixpanel::OrganizationWithUniqueActivitySessions.new(opts).values.count
       end
 
       def client_admin_unique_activity_sessions(time_unit)
         opts = date_opts_for_mixpanel(time_unit)
-        @client_admin_unique_activity_sessions ||= Reporting::Mixpanel::ClientAdminWithUniqueActivitySessions.new(opts).values.count
+        @client_admin_unique_activity_sessions = Reporting::Mixpanel::ClientAdminWithUniqueActivitySessions.new(opts).values.count
       end
 
       def total_client_admin_activity_sessions(time_unit)
         opts = date_opts_for_mixpanel(time_unit)
-        @total_client_admin_activity_sessions ||= Reporting::Mixpanel::TotalClientAdminActivitySessions.new(opts).values.count
+        @total_client_admin_activity_sessions = Reporting::Mixpanel::TotalClientAdminActivitySessions.new(opts).values.first.values.sum
       end
 
       def unique_orgs_that_copied_tiles(time_unit)
         opts = date_opts_for_mixpanel(time_unit)
-        @unique_orgs_that_copied_tiles ||= Reporting::Mixpanel::UniqueOrganizationsWithCopiedTiles.new(opts).values.count
+        @unique_orgs_that_copied_tiles = Reporting::Mixpanel::UniqueOrganizationsWithCopiedTiles.new(opts).values.count
       end
 
       def calc_percent(a, b)
@@ -247,7 +250,7 @@ module Reporting
 
       def total_tiles_copied(time_unit)
         opts = date_opts_for_mixpanel(time_unit)
-        @total_tiles_copied ||= Reporting::Mixpanel::TotalTilesCopied.new(opts).values.count
+        @total_tiles_copied = Reporting::Mixpanel::TotalTilesCopied.new(opts).values.first.values.sum
       end
 
       def average_tiles_copied_per_org_that_copied
@@ -256,7 +259,7 @@ module Reporting
 
       def orgs_that_posted_tiles(time_unit)
         opts = date_opts_for_mixpanel(time_unit)
-        @orgs_that_posted_tiles ||= Reporting::Mixpanel::UniqueOrganizationsWithPostedTiles.new(opts).values.count
+        @orgs_that_posted_tiles = Reporting::Mixpanel::UniqueOrganizationsWithPostedTiles.new(opts).values.count
       end
 
       def percent_of_orgs_that_posted_tiles
@@ -265,7 +268,7 @@ module Reporting
 
       def total_tiles_posted(time_unit)
         opts = date_opts_for_mixpanel(time_unit)
-        @total_tiles_posted ||= Reporting::Mixpanel::TotalTilesPostedByPaidClientAdmin.new(opts).values.count
+        @total_tiles_posted = Reporting::Mixpanel::TotalTilesPostedByPaidClientAdmin.new(opts).values.first.values.sum
       end
 
       def average_tiles_posted_per_organization_that_posted
@@ -277,7 +280,7 @@ module Reporting
       end
 
       def percent_engaged_client_admin
-        calc_percent(@total_client_admin_activity_sessions, @total_paid_client_admins)
+        calc_percent(@client_admin_unique_activity_sessions, @total_paid_client_admins)
       end
 
       def activity_sessions_per_client_admin
@@ -317,8 +320,8 @@ module Reporting
 
       def date_opts_for_mixpanel(time_unit)
         if time_unit == :by_week
-          date = Date.today.beginning_of_week
-          { from_date: date - 1.week, to_date: date }
+          date = Date.today
+          { from_date: date.beginning_of_week, to_date: date }
         elsif time_unit == :by_month
           date = Date.today
           { from_date: date.beginning_of_month, to_date: date }
