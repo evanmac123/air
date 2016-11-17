@@ -277,7 +277,7 @@ module Reporting
       end
 
       def percent_engaged_client_admin
-        calc_percent(@total_client_admin_activity_sessions, @total_paid_client_admins)
+        calc_percent(@client_admin_unique_activity_sessions, @total_paid_client_admins)
       end
 
       def activity_sessions_per_client_admin
@@ -317,8 +317,8 @@ module Reporting
 
       def date_opts_for_mixpanel(time_unit)
         if time_unit == :by_week
-          date = Date.today.beginning_of_week
-          { from_date: date - 1.week, to_date: date }
+          date = Date.today
+          { from_date: date.beginning_of_week, to_date: date }
         elsif time_unit == :by_month
           date = Date.today
           { from_date: date.beginning_of_month, to_date: date }
