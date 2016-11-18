@@ -125,7 +125,7 @@ class Tile < ActiveRecord::Base
   #end
 
   def update_status params
-    handle_unarchived(params["status"], params["suppress"])
+    handle_unarchived(params["status"], params["redigest"])
 
     self.status = params["status"]
     self.position = find_new_first_position

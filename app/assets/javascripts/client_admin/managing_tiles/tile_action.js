@@ -106,11 +106,8 @@ Airbo.TileAction = (function(){
       confirmUnarchive(function(isConfirm){
         if (isConfirm) {
           if(Airbo.Utils.userIsSiteAdmin()){
-            data.update_status.allowRedigest = $(".sweet-alert input#digestable").is(':checked');
-          }else{
-            data.update_status.allowRedigest = false;
+            data.update_status.redigest = $(".sweet-alert input#digestable").is(':checked');
           }
-          console.log(data);
           submit();
         }
       })
