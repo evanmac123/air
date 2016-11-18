@@ -1,5 +1,6 @@
 module Reporting
   class ClientKPIReport
+    PAID_CLIENTS_DELIGHTED_TREND = 75029
 
     def self.get_weekly_report_data
       report_data = $redis.hgetall("reporting:client_kpis:weekly")
@@ -18,8 +19,8 @@ module Reporting
       {
 
         "Overall Satisfaction" =>  [
-          "net_promoter_score",
-          "net_promoter_score_response_count",
+          "paid_net_promoter_score",
+          "paid_net_promoter_score_response_count",
           "total_paid_orgs",
           "org_unique_activity_sessions",
           "percent_engaged_organizations",
@@ -55,12 +56,12 @@ module Reporting
 
     def self.kpi_fields
       {
-        "net_promoter_score" => {
+        "paid_net_promoter_score" => {
           label: "Net Promoter Score (last 90 days)",
           type: "num",
           indent: 0,
         },
-        "net_promoter_score_response_count" => {
+        "paid_net_promoter_score_response_count" => {
           label: "Net Promoter Score Response Count",
           type: "num",
           indent: 0,
@@ -179,8 +180,8 @@ module Reporting
 
       data =
         {
-          net_promoter_score: get_net_promoter_score.nps,
-          net_promoter_score_response_count: get_net_promoter_score.response_count,
+          paid_net_promoter_score: get_paid_net_promoter_score.nps,
+          paid_net_promoter_score_response_count: get_paid_net_promoter_score.response_count,
           total_paid_orgs: total_paid_orgs,
           total_paid_client_admins: total_paid_client_admins,
           org_unique_activity_sessions: org_unique_activity_sessions(time_unit),
@@ -216,8 +217,8 @@ module Reporting
 
     private
 
-      def get_net_promoter_score
-        @nps ||= Integrations::NetPromoterScore.get_metrics
+      def get_paid_net_promoter_score
+        @nps ||= Integrations::NetPromoterScore.get_metrics({ trend: PAID_CLIENTS_DELIGHTED_TREND })
       end
 
       def total_paid_orgs
