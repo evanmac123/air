@@ -108,6 +108,23 @@ Airbo.TileFormModal = (function(){
 
   function openModal(){
     modalObj.open();
+    triggerMixpanelTileCreateDurationTracking();
+  }
+
+  function genPseudoTileId(){
+    return Airbo.currentUser.id + "-" + Date.now();
+  }
+
+  function tileCreationPingProps(){
+    return $.extend({}, Airbo.currentUser, {pseudoTileId: genPseudoTileId() })
+  }
+
+  function triggerMixpanelTileCreateDurationTracking(){
+    var props = tileCreationPingProps();
+    debugger
+    $("#pseudo_tile_id").val(props.pseudoTileId);
+    $("#pseudo_tile_id").data("props", props);
+    Airbo.Utils.ping("Add New Tile Clicked", Airbo.currentUser, props);
   }
 
   function open(url) {
