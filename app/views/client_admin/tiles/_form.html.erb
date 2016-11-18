@@ -6,6 +6,7 @@
       <%= f.hidden_field :status %>
       <%= f.hidden_field :remote_media_type,  id: "remote_media_type" %>
       <%= f.hidden_field :image_from_library, id: "image_from_library"%>
+      <%= hidden_field_tag :pseudo_tile_id %>
 
       <div class="tile_holder_container">
         <%= render 'shared/tiles/form/submit_button', form: f %>
