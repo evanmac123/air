@@ -48,7 +48,6 @@ Airbo.TileManager = (function(){
 
   function initEvents() {
     $(newTileBtnSel).click(function(e){
-      //TODO create ping for new tile
       e.preventDefault();
       url = $(this).attr("href");
 
