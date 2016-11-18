@@ -1,8 +1,38 @@
 <div class="row">
   <div class="columns small-12">
-    <h1>Edit <%=@organization.name%></h1>
+    <div class="row">
+      <h3>Edit Organization: <%= @organization.name %></h3>
+    </div>
 
-    <%= render 'form' %>
+    <div class="row">
+      <div class="columns small-6 ">
+        <%= form_for([:admin, @organization]) do |f| %>
+          <% if @organization.errors.any? %>
+            <div id="error_explanation">
+              <ul>
+                <% @organization.errors.full_messages.each do |msg| %>
+                  <li style="color: red;"><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+            <br>
+          <% end %>
 
+
+          <div class="row">
+            <%= f.label :name %>
+            <%= f.text_field :name %>
+          </div>
+          <div class="row">
+            <%= f.label :is_hrm, "Is HRM?", class:"inline" %>
+            <%= f.check_box :is_hrm , class: "inline"%>
+          </div>
+          <br>
+          <div class="row">
+            <%= f.submit "Submit",  class: "button"%>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>

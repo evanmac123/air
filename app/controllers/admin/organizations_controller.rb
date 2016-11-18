@@ -29,7 +29,6 @@ class Admin::OrganizationsController < AdminBaseController
   end
 
   def edit
-    new_or_edit @organization
   end
 
   def create
@@ -47,8 +46,14 @@ class Admin::OrganizationsController < AdminBaseController
   end
 
   def update
-    @organization.assign_attributes organization_params
-    update_or_create @organization, admin_organizations_path(@organization)
+    @organization.assign_attributes(organization_params)
+
+    if @organization.save
+      flash[:success] = "#{@organization.name} has been updated."
+      redirect_to admin_path
+    else
+      render :edit
+    end
   end
 
   private
@@ -58,7 +63,7 @@ class Admin::OrganizationsController < AdminBaseController
   end
 
   def organization_params
-    params.require(:organization).permit(:churn_reason, :name, :is_hrm, :num_employees, :sales_channel, demos_attributes: [:name], users_attributes: [:name, :email, :password], boards_attributes: [:name])
+    params.require(:organization).permit(:churn_reason, :name, :is_hrm, :num_employees, :sales_channel, demos_attributes: [:name], users_attributes: [:name, :email, :password, :is_client_admin], boards_attributes: [:name])
   end
 
   def link_board_and_user(user, board)

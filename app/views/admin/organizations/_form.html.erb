@@ -16,8 +16,8 @@
         <%= f.label :name %>
         <%= f.text_field :name %>
       </div>
-      
-      <%=f.fields_for :users, @user do |user| %>
+
+      <%= f.fields_for :users, @user do |user| %>
         <div class="row">
           <%= user.label :name, "Contact Name" %>
           <%= user.text_field :name %>
@@ -45,4 +45,3 @@
     <% end %>
   </div>
 </div>
-
