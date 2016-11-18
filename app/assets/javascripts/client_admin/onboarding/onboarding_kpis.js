@@ -36,7 +36,7 @@ Airbo.OnboardingKpis = (function(){
     var email = $(".onboarding-body").data("email");
     var ip    = $(".onboarding-body").data("ip");
     var currentUser = $("body").data("currentUser");
-    return $.extend({ onboarding_id: id, onboarding_email: email, ip: ip, step: step, kpi: kpi }, currentUser);
+    return $.extend({ onboarding_id: id, onboarding_email: email, ip_address: ip, step: step, kpi: kpi }, currentUser);
   }
 
   return {
