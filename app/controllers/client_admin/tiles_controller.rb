@@ -90,12 +90,13 @@ class ClientAdmin::TilesController < ClientAdminBaseController
  #FIXME this code sucks!!! simply posting of tile ids and current positions
     #would simplify this whole process
     @tile = get_tile
+
     Tile.insert_tile_between(
       params[:left_tile_id],
       @tile.id,
       params[:right_tile_id],
       params[:status],
-      params[:suppress]
+      params[:redigest]
     )
     @tile.reload
 

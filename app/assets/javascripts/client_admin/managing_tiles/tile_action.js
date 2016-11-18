@@ -77,7 +77,7 @@ Airbo.TileAction = (function(){
 
   function submitTileForUpadte(tile,target, postProcess ){
     var newStatus = target.data("status");
-    var data ={"update_status": {"status": newStatus, "suppress": true}};
+    var data ={"update_status": {"status": newStatus, "allowRedigest": false}};
 
     function isRepostingArchivedTile(){
      return target.parents("#archive.manage_section").length>0;
@@ -106,9 +106,9 @@ Airbo.TileAction = (function(){
       confirmUnarchive(function(isConfirm){
         if (isConfirm) {
           if(Airbo.Utils.userIsSiteAdmin()){
-            data.update_status.suppress = !$(".sweet-alert input#digestable").is(':checked');
+            data.update_status.allowRedigest = $(".sweet-alert input#digestable").is(':checked');
           }else{
-            data.update_status.suppress = false;
+            data.update_status.allowRedigest = false;
           }
           console.log(data);
           submit();

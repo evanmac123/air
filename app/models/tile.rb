@@ -49,6 +49,7 @@ class Tile < ActiveRecord::Base
   before_validation :sanitize_supporting_content
   before_validation :sanitize_embed_video
   before_validation :set_image_processing, if: :image_changed?
+  before_save :update_timestamps, if: :status_changed?
   validates_presence_of :headline, :allow_blank => false, :message => "headline can't be blank"
   validates_presence_of :supporting_content, :allow_blank => false, :message => "supporting content can't be blank", :on => :client_admin
   validates_presence_of :question, :allow_blank => false, :message => "question can't be blank", :on => :client_admin
@@ -64,6 +65,7 @@ class Tile < ActiveRecord::Base
   before_save :ensure_protocol_on_link_address, :handle_suggested_tile_status_change
   before_save :set_image_credit_to_blank_if_default
   after_save :process_image, if: :image_changed?
+
   before_post_process :no_post_process_on_copy
 
   STATUS.each do |status_name|
@@ -106,17 +108,36 @@ class Tile < ActiveRecord::Base
     end
   end
 
-  def status=(new_status)
-    case new_status
+  def update_timestamps
+    case status
     when ACTIVE  then
-      if can_update_activated || never_activated
+      if  never_activated || activated_at_reset_allowed?
         self.activated_at = Time.now
       end
-    when ARCHIVE then self.archived_at  = Time.now
+    when ARCHIVE then 
+      self.archived_at  = Time.now
     end
 
-    write_attribute(:status, new_status)
   end
+
+  #def status=(new_status)
+    #write_attribute(:status, new_status)
+  #end
+
+  def update_status params
+    handle_unarchived(params["status"], params["suppress"])
+
+    self.status = params["status"]
+    self.position = find_new_first_position
+    self.save
+  end
+
+  def handle_unarchived new_status, redigest
+    if status == ARCHIVE && new_status == ACTIVE && redigest=="true"
+      allow_activated_at_reset
+    end
+  end
+
 
   def points= p
     write_attribute(:points, p.to_i)
@@ -170,12 +191,7 @@ class Tile < ActiveRecord::Base
     CopyTile.new(new_demo, copying_user).copy_tile self
   end
 
-  def update_status params
-    handle_unarchived(params["status"], params["suppress"])
-    self.status = params["status"]
-    self.position = find_new_first_position
-    self.save
-  end
+
 
   def find_new_first_position
     Tile.where(demo: self.demo, status: self.status).maximum(:position).to_i + 1
@@ -262,8 +278,8 @@ class Tile < ActiveRecord::Base
     FindAdditionalTilesForManageSection.new(status_name, presented_ids, tile_demo_id).find
   end
 
-  def self.insert_tile_between left_tile_id, tile_id, right_tile_id, new_status = nil, suppress=true
-    InsertTileBetweenTiles.new(left_tile_id, tile_id, right_tile_id, new_status, suppress).insert!
+  def self.insert_tile_between left_tile_id, tile_id, right_tile_id, new_status = nil, redigest=false
+    InsertTileBetweenTiles.new(left_tile_id, tile_id, right_tile_id, new_status, redigest).insert!
   end
 
   def self.reorder_explore_page_tiles! tile_ids
@@ -303,22 +319,25 @@ class Tile < ActiveRecord::Base
   end
 
   def prevent_activated_at_reset
-   @block_activated_at_update = true
+    @activated_at_reset_allowed = false
   end
 
   def allow_activated_at_reset
-   @block_activated_at_update = false
+   @activated_at_reset_allowed = true
+  end
+
+  def activated_at_reset_allowed?
+    @activated_at_reset_allowed == true
   end
 
   def recommended?
    recommended_tile.present?
   end
 
-  protected
-
   def set_on_first_position
     self.position = find_new_first_position
   end
+
 
   def ensure_protocol_on_link_address
     return unless link_address_changed?
@@ -331,21 +350,12 @@ class Tile < ActiveRecord::Base
   def no_post_process_on_copy
     !(@making_copy)
   end
-
+ 
 
   private
 
   #FIXME the code around handling update status has gotten quite ugly
 
-  def handle_unarchived new_status,suppress
-    if status==ARCHIVE && new_status==ACTIVE && suppress=="true"
-      @block_activated_at_update = true
-    end
-  end
-
-  def can_update_activated
-    @block_activated_at_update.nil? || @block_activated_at_update == false
-  end
 
   def already_activated
     (status == ACTIVE || status==ARCHIVE) && activated_at.present?

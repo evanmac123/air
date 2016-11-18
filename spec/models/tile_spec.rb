@@ -13,9 +13,20 @@ describe Tile do
 
   context "status and activated_at" do
 
-    it "changes activated_it if the current status is archive" do
+    it "forbids updating activated_at when unarchiving tiles be default" do
       tile  = FactoryGirl.create :tile, status: Tile::ARCHIVE
-      expect{tile.status=Tile::ACTIVE;tile.save}.to change{tile.activated_at}
+      expect(tile.activated_at_reset_allowed?).to be_false 
+    end
+
+    it "doesnt change activated_at if on un archival if not explicitly set" do
+      tile  = FactoryGirl.create :tile, status: Tile::ARCHIVE, activated_at: 1.month.ago
+      expect{tile.status=Tile::ACTIVE;tile.save}.to_not change{tile.activated_at}
+    end
+
+    it "allows updating activated_at when unarchiving tiles when explicitly set" do
+      tile  = FactoryGirl.create :tile, status: Tile::ARCHIVE
+      tile.allow_activated_at_reset
+      expect(tile.activated_at_reset_allowed?).to be_true 
     end
 
     it "changes activated_it if the current status is DRAFT" do
@@ -24,11 +35,33 @@ describe Tile do
     end
   end
 
-  describe ".update_status" do
+  describe "handle_unarchive" do
+    it "allows activated_at reset if allow digest flag is true" do
+      tile  = FactoryGirl.create :tile, status: Tile::ARCHIVE
+      tile.handle_unarchived(Tile::ACTIVE, "true")
+      expect(tile.activated_at_reset_allowed?).to be_true 
+    end 
 
-    it "doesn't change activated_it when status is active but suppress is true" do
+
+    it "prevents activated_at reset if allow digest flag is false" do
+      tile  = FactoryGirl.create :tile, status: Tile::ARCHIVE
+      tile.handle_unarchived(Tile::ACTIVE, "false")
+      expect(tile.activated_at_reset_allowed?).to be_false
+    end 
+
+  end
+
+
+
+  describe ".update_status" do
+    it "doesn't change activated_it when status is active but allowdigest is false " do
       tile  = FactoryGirl.create :tile, status: Tile::ARCHIVE, activated_at: 1.month.ago
-      expect{ tile.update_status({"status" => "active", "suppress" => "true"}) }.to_not change{tile.activated_at}
+      expect{ tile.update_status({"status" => "active", "redigest" => "false"}) }.to_not change{tile.activated_at}
+    end
+
+    it "doesn't change activated_it when status is active but allowdigest is false " do
+      tile  = FactoryGirl.create :tile, status: Tile::ARCHIVE, activated_at: 1.month.ago
+      expect{ tile.update_status({"status" => "active"}) }.to_not change{tile.activated_at}
     end
   end
 
@@ -119,7 +152,6 @@ describe Tile do
 
     time_1 = Time.zone.now
     Timecop.freeze(time_1)
-
     tile_1 = FactoryGirl.create :tile, status: Tile::ACTIVE
     tile_1.activated_at.to_s.should == time_1.to_s
     tile_1.archived_at.should be_nil
@@ -132,15 +164,16 @@ describe Tile do
     tile_3.activated_at.should be_nil
     tile_3.archived_at.should be_nil
 
-    # Don't forget to verify that we can override the time-stamp assignments with FactoryGirl.
-    # Note: As per the sample output below (from a failing test) the time from the dbase contains
-    # too much information for this test => just grab the first part of the date
-    # expected: "2013-08-15" ; got: "2013-08-15 00:00:00 -0400"
+     #Don't forget to verify that we can override the time-stamp assignments with FactoryGirl.
+     #Note: As per the sample output below (from a failing test) the time from the dbase contains
+     #too much information for this test => just grab the first part of the date
+     #expected: "2013-08-15" ; got: "2013-08-15 00:00:00 -0400"
 
     tile_4 = FactoryGirl.create :tile, status: Tile::ACTIVE, activated_at: Date.tomorrow
     (tile_4.activated_at.to_s.split)[0].should == Date.tomorrow.to_s
 
-    tile_5 = FactoryGirl.create :tile, status: Tile::ARCHIVE, archived_at: Date.yesterday
+    tile_5 = FactoryGirl.create :tile, status: Tile::ARCHIVE
+    tile_5.update_column(:archived_at,  Date.yesterday) #use set to skip callback that auto sets archived date
     (tile_5.archived_at.to_s.split)[0].should == Date.yesterday.to_s
 
     #------------------------------------------------
@@ -160,18 +193,16 @@ describe Tile do
 
     #------------------------------------------------
 
-    # Test setting status via assignment
+    #Test setting status via assignment
 
     time_3 = time_2 + 1.minute
     Timecop.freeze(time_3)
 
     tile_1.status = Tile::ACTIVE
-    tile_1.activated_at.to_s.should == time_3.to_s
     tile_1.archived_at.to_s.should == time_2.to_s
 
     tile_2.status = Tile::ARCHIVE
     tile_2.activated_at.to_s.should == time_2.to_s
-    tile_2.archived_at.to_s.should == time_3.to_s
 
     Timecop.return
   end

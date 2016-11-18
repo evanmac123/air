@@ -4,7 +4,7 @@ String.prototype.times = function(n) {
   }, this);
 };
 
-var suppressDigestOnUnarchiveTile = true;
+var allowRedigest = false;
 
 window.dragAndDropProperties = {
   items: ".tile_container:not(.placeholder_container)",
@@ -239,7 +239,7 @@ window.dragAndDropTiles = function() {
         right_tile_id: right_tile_id,
         status: status,
         source_section: sourceSectionParams(),
-        suppress: suppressDigestOnUnarchiveTile
+        redigest: allowRedigest
       },
       type: 'POST',
       url: '/client_admin/tiles/' + id + '/sort',
@@ -397,7 +397,7 @@ window.dragAndDropTiles = function() {
   function confirmReposting(tile){
     var checkConfirm = function (isConfirm){
       if (isConfirm) {
-        suppressDigestOnUnarchiveTile= !$(".sweet-alert input#digestable").is(':checked');
+        allowRedigest = $(".sweet-alert input#digestable").is(':checked');
         window.moveConfirmationDeferred.resolve();
       }else{
         tileInfo(tile,"show");
