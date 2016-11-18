@@ -29,7 +29,7 @@
   <%= render 'shared/inspectlet' %>
   <%=content_for :head%>
 </head>
-<body class="<%= body_class %> client_admin_main" style="-webkit-overflow-scrolling: touch; overflow:visible; " data-current-user="<%= current_user.data_for_mixpanel.to_json %>">
+<body class="<%= body_class %> client_admin_main" style="-webkit-overflow-scrolling: touch; overflow:visible; " data-current-user="<%= current_user.data_for_mixpanel.to_json %>" data-ip="<%= request.remote_ip %>">
   <%= render 'shared/header' %>
   <%= render 'shared/flashes' %>
   <%= render 'shared/offcanvas_menu_signedin' %>

@@ -19,7 +19,7 @@
   <%= content_for :head%>
 </head>
 
-<body class="<%= body_class %> onboarding-body client_admin_main user-onboarding-state-<%= @user_onboarding.state %>" data-id="<%= @user_onboarding.id %>" data-state="<%= @user_onboarding.state %>" data-demo-scheduled="<%= @user_onboarding.demo_scheduled %>" data-email="<%= @user_onboarding.email %>" style="-webkit-overflow-scrolling: touch; overflow:visible; ">
+<body class="<%= body_class %> onboarding-body client_admin_main user-onboarding-state-<%= @user_onboarding.state %>" data-id="<%= @user_onboarding.id %>" data-state="<%= @user_onboarding.state %>" data-demo-scheduled="<%= @user_onboarding.demo_scheduled %>" data-email="<%= @user_onboarding.email %>" data-ip="<%= request.remote_ip %>" data-current-user="<%= current_user.try(:data_for_mixpanel).to_json %>" data-ip="<%= request.remote_ip %>" style="-webkit-overflow-scrolling: touch; overflow:visible;">
   <% unless request.user_agent =~ /Mobile|webOS/ %>
     <%= render partial: 'user_onboardings/partials/header' , locals:{user_onboarding: @user_onboarding}%>
     <main class="main">

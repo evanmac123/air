@@ -1,40 +1,40 @@
 var Airbo = window.Airbo || {};
 
 Airbo.OnboardingKpis = (function(){
+  var id;
+  var email;
+  var ip;
+  var currentUser;
+
   function initializeOnboardingPing() {
-    var id = $(".onboarding-body").data("id");
-    var email = $(".onboarding-body").data("email");
-    Airbo.Utils.ping("Onboarding: Step 1", { id: id, email: email, kpi: "land on onboarding page" });
+    var properties = $.extend({ onboarding_id: id, onboarding_email: email, ip: ip}, currentUserData);
+    Airbo.Utils.ping("Onboarding: Step 1", properties);
+    debugger
   }
 
   function selectPriorityPing() {
-    var id = $(".onboarding-body").data("id");
-    var email = $(".onboarding-body").data("email");
-    Airbo.Utils.ping("Onboarding: Step 2", { id: id, email: email, kpi: "selects priority" });
+    var properties = $.extend({ onboarding_id: id, onboarding_email: email, ip: ip}, currentUserData);
+    Airbo.Utils.ping("Onboarding: Step 2", properties);
   }
 
   function completeTilePing() {
-    var id = $(".onboarding-body").data("id");
-    var email = $(".onboarding-body").data("email");
-    Airbo.Utils.ping("Onboarding: Step 3", { id: id, email: email, kpi: "completes tile" });
+    var properties = $.extend({ onboarding_id: id, onboarding_email: email, ip: ip}, currentUserData);
+    Airbo.Utils.ping("Onboarding: Step 3", properties);
   }
 
   function viewsActivityDashboardPing() {
-    var id = $(".onboarding-body").data("id");
-    var email = $(".onboarding-body").data("email");
-    Airbo.Utils.ping("Onboarding: Step 4", { id: id, email: email, kpi: "views activity dashboard" });
+    var properties = $.extend({ onboarding_id: id, onboarding_email: email, ip: ip}, currentUserData);
+    Airbo.Utils.ping("Onboarding: Step 4", properties);
   }
 
   function answersMoreInfoQuestionPing() {
-    var id = $(".onboarding-body").data("id");
-    var email = $(".onboarding-body").data("email");
-    Airbo.Utils.ping("Onboarding: Step 5", { id: id, email: email, kpi: "answers more info cta" });
+    var properties = $.extend({ onboarding_id: id, onboarding_email: email, ip: ip}, currentUserData);
+    Airbo.Utils.ping("Onboarding: Step 5", properties);
   }
 
   function fullyConvertedPing() {
-    var id = $(".onboarding-body").data("id");
-    var email = $(".onboarding-body").data("email");
-    Airbo.Utils.ping("Onboarding: Step 6", { id: id, email: email, kpi: "fully converts to client admin" });
+    var properties = $.extend({ onboarding_id: id, onboarding_email: email, ip: ip}, currentUserData);
+    Airbo.Utils.ping("Onboarding: Step 6", properties);
   }
 
   return {
@@ -46,3 +46,12 @@ Airbo.OnboardingKpis = (function(){
     fullyConvertedPing: fullyConvertedPing,
   };
 }());
+
+$(function(){
+  if( $(".onboarding-body").length > 0 ) {
+    id    = $(".onboarding-body").data("id");
+    email = $(".onboarding-body").data("email");
+    ip    = $(".onboarding-body").data("ip");
+    currentUser = $("body").data("currentUser");
+  }
+});
