@@ -18,7 +18,8 @@ module Reporting
       {
 
         "Overall Satisfaction" =>  [
-          # "net_promoter_score",
+          "net_promoter_score",
+          "net_promoter_score_response_count",
           "total_paid_orgs",
           "org_unique_activity_sessions",
           "percent_engaged_organizations",
@@ -54,11 +55,16 @@ module Reporting
 
     def self.kpi_fields
       {
-        # "net_promoter_score" => {
-        #   label: "",
-        #   type: "num",
-        #   indent: 0,
-        # },
+        "net_promoter_score" => {
+          label: "Net Promoter Score (last 90 days)",
+          type: "num",
+          indent: 0,
+        },
+        "net_promoter_score_response_count" => {
+          label: "Net Promoter Score Response Count",
+          type: "num",
+          indent: 0,
+        },
         "total_paid_orgs" =>{
           label: "Total Paid Organizations",
           type: "num",
@@ -173,6 +179,8 @@ module Reporting
 
       data =
         {
+          net_promoter_score: get_net_promoter_score.nps,
+          net_promoter_score_response_count: get_net_promoter_score.response_count,
           total_paid_orgs: total_paid_orgs,
           total_paid_client_admins: total_paid_client_admins,
           org_unique_activity_sessions: org_unique_activity_sessions(time_unit),
@@ -207,6 +215,10 @@ module Reporting
     end
 
     private
+
+      def get_net_promoter_score
+        @nps ||= Integrations::NetPromoterScore.get_metrics
+      end
 
       def total_paid_orgs
         @total_paid_orgs = Organization.joins(:boards).where(demos: { id: demo_ids }).uniq.count

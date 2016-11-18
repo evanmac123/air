@@ -67,6 +67,8 @@ gem "roo-xls"
 gem "hashugar"
 gem 'addressable'
 gem "humanize_boolean"
+
+gem 'delighted'
 #
 # Gems used only for assets and not required
 # in production environments by default.
