@@ -152,6 +152,8 @@ GEM
       delayed_job (~> 3.0)
     delayed_paperclip (2.9.0)
       paperclip (>= 3.3)
+    delighted (1.5.1)
+      multi_json
     diesel (0.1.5)
       railties
     diff-lcs (1.1.3)
@@ -615,6 +617,7 @@ DEPENDENCIES
   delayed_job
   delayed_job_active_record
   delayed_paperclip
+  delighted
   draper (~> 1.3)
   email_spec (~> 1.1)
   factory_girl_rails
@@ -697,4 +700,4 @@ RUBY VERSION
    ruby 2.0.0p648
 
 BUNDLED WITH
-   1.13.5
+   1.13.6
