@@ -3,7 +3,7 @@ module Integrations
     #Delighted API docs: https://delighted.com/docs/api
     class << self
       def send_nps_survey(user)
-        if post_to_delighted?
+        if post_to_delighted?(user)
           Delighted::Person.create(
             email: user.email,
             name: user.name,
@@ -39,7 +39,7 @@ module Integrations
           }
         end
 
-        def post_to_delighted?
+        def post_to_delighted?(user)
           ENV['RACK_ENV'] == 'production' && !user.is_site_admin && !user.is_test_user
         end
     end
