@@ -86,7 +86,9 @@ var Airbo = {
     },
 
     ping: function(event, properties) {
-      mixpanel.track(event, properties);
+      if (Airbo.Utile.userIsSiteadmin === false){
+        mixpanel.track(event, properties);
+      }
     },
 
     flash: function(type,msg,config ){
