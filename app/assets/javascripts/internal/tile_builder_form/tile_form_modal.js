@@ -33,6 +33,20 @@ Airbo.TileFormModal = (function(){
     return tileContainer.getBoundingClientRect();
   }
 
+  function setTileCreationPingProps(){
+    var props =$.extend({}, Airbo.currentUser, {pseudoTileId: Airbo.currentUser.id + "-" + Date.now() });
+    $("#pseudo_tile_id").data("props", props);
+  }
+
+  function triggerMixpanelTileCreateDurationTracking(){
+    setTileCreationPingProps();
+    Airbo.Utils.ping("Tile Creation - Start", getTileCreationPingProps());
+  }
+
+  function getTileCreationPingProps(){
+    return $("#pseudo_tile_id").data("props");
+  }
+
   function initFormElements() {
     validator = Airbo.TileFormValidator.init(form);
 
@@ -69,6 +83,7 @@ Airbo.TileFormModal = (function(){
 
     tileManager.updateSections(data);
 
+    Airbo.Utils.ping("Tile Creation - Complete", getTileCreationPingProps());
     var tilePreview = Airbo.TilePreviewModal;
     tilePreview.init();
     tilePreview.open(data.preview);
@@ -77,6 +92,7 @@ Airbo.TileFormModal = (function(){
   function initEvents() {
     form.on("click", pickImageSel, function(e){
       e.preventDefault();
+      Airbo.Utils.ping("Tile Creation - Add Image", getTileCreationPingProps());
       var libraryUrl = $("#image_uploader").data("libraryUrl");
       imageLibraryModal.open(libraryUrl);
     });
@@ -101,31 +117,16 @@ Airbo.TileFormModal = (function(){
 
   function initVars() {
     form = $(formSel);
-    // pickImage = $(pickImageSel);
     submitLink = form.find(".submit_tile_form");
-    // submitBtn = form.find("input[type=submit]");
   }
 
   function openModal(){
     modalObj.open();
-    triggerMixpanelTileCreateDurationTracking();
   }
 
-  function genPseudoTileId(){
-    return Airbo.currentUser.id + "-" + Date.now();
-  }
 
-  function tileCreationPingProps(){
-    return $.extend({}, Airbo.currentUser, {pseudoTileId: genPseudoTileId() })
-  }
 
-  function triggerMixpanelTileCreateDurationTracking(){
-    var props = tileCreationPingProps();
-    debugger
-    $("#pseudo_tile_id").val(props.pseudoTileId);
-    $("#pseudo_tile_id").data("props", props);
-    Airbo.Utils.ping("Add New Tile Clicked", Airbo.currentUser, props);
-  }
+
 
   function open(url) {
     $.ajax({
@@ -138,6 +139,7 @@ Airbo.TileFormModal = (function(){
         initEvents();
         initFormElements();
         modalObj.open();
+        triggerMixpanelTileCreateDurationTracking();
       },
 
       error: function(jqXHR, textStatus, error){
