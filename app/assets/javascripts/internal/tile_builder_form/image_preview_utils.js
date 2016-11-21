@@ -67,7 +67,6 @@ $(function() {
 
         $("#remote_media_url").focusout();
         if($("#images_modal").hasClass("open")){
-          // $("#images_modal").foundation("reveal", "close");
           modal.close();
         }
       }
