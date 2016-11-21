@@ -250,11 +250,11 @@ module Reporting
       end
 
       def calc_percent(a, b)
-        ((a.to_f / b) * 100).round(2)
+        ((a.to_f / b) * 100).round(2) || 0
       end
 
       def calc_avg(a, b)
-        (a.to_f / b).round(2)
+        (a.to_f / b).round(2) || 0
       end
 
       def percent_orgs_that_copied_tiles
