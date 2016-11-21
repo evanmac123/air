@@ -260,7 +260,6 @@ module Reporting
       end
 
       def percent_orgs_that_copied_tiles
-        binding.pry
         calc_percent(@unique_orgs_that_copied_tiles, @total_paid_orgs)
       end
 
