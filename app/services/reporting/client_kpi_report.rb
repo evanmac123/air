@@ -250,14 +250,17 @@ module Reporting
       end
 
       def calc_percent(a, b)
-        ((a.to_f / b) * 100).round(2) || 0
+        return 0 if b == 0
+        ((a.to_f / b) * 100).round(2)
       end
 
       def calc_avg(a, b)
-        (a.to_f / b).round(2) || 0
+        return 0 if b == 0
+        (a.to_f / b).round(2)
       end
 
       def percent_orgs_that_copied_tiles
+        binding.pry
         calc_percent(@unique_orgs_that_copied_tiles, @total_paid_orgs)
       end
 
