@@ -16,6 +16,12 @@ var Airbo = {
      return Airbo.currentUser.user_type === "site admin";
     },
 
+    userNotSiteAdmin: function(){
+      return !(this.userIsSiteAdmin());
+    },
+
+
+
     currentUser: function(){
        return $("body").data("current-user"); 
     },
@@ -86,7 +92,7 @@ var Airbo = {
     },
 
     ping: function(event, properties) {
-      if (Airbo.Utile.userIsSiteadmin === false){
+      if (Airbo.Utils.userNotSiteAdmin === true){
         mixpanel.track(event, properties);
       }
     },
