@@ -69,6 +69,8 @@ gem 'addressable'
 gem "humanize_boolean"
 
 gem 'delighted'
+gem "skylight"
+gem 'airbrake', '~> 5.4'
 #
 # Gems used only for assets and not required
 # in production environments by default.
@@ -145,6 +147,5 @@ group :development do
 end
 
 group :production do
-  gem 'airbrake', '~> 5.4'
   gem 'rails_12factor'
 end
