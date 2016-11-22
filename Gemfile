@@ -145,6 +145,6 @@ group :development do
 end
 
 group :production do
-  gem "airbrake"
+  gem 'airbrake', '~> 5.4'
   gem 'rails_12factor'
 end
