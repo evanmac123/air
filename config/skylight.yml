@@ -1,3 +1,3 @@
 ---
 # The authentication token for the application.
-authentication: x-QbeYfGQEAWA7mH3n5-5YMC6WuI5Lb9Ri2ycgDFH2M
+authentication: <%= ENV['SKYLIGHT'] %>
