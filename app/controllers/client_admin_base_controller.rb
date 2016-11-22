@@ -5,7 +5,7 @@ class ClientAdminBaseController < ApplicationController
   layout "client_admin_layout"
 
   before_filter :set_is_client_admin_action
-  before_filter :send_net_promoter_score_survey
+  # before_filter :send_net_promoter_score_survey
 
   protected
 
