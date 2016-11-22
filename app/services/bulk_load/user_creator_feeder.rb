@@ -1,5 +1,4 @@
 class BulkLoad::UserCreatorFeeder
-  include BulkLoad::MemoizedRedisClient
   include BulkLoad::BulkLoadRedisKeys
 
   attr_reader :object_key
@@ -20,7 +19,7 @@ class BulkLoad::UserCreatorFeeder
 
   def feed
     while !done?
-      line = redis.rpop(redis_load_queue_key)
+      line = $redis.rpop(redis_load_queue_key)
       redo unless line
 
       @line_index += 1
@@ -28,14 +27,14 @@ class BulkLoad::UserCreatorFeeder
       user = user_creator.create_user(line)
 
       if user.invalid?
-        redis.lpush(redis_failed_load_queue_key, line_error_message(user))
+        $redis.lpush(redis_failed_load_queue_key, line_error_message(user))
       end
     end
   end
 
   def done?
-    redis.get(redis_all_lines_chopped_key) == 'done' &&
-    redis.llen(redis_load_queue_key) == 0
+    $redis.get(redis_all_lines_chopped_key) == 'done' &&
+    $redis.llen(redis_load_queue_key) == 0
   end
 
   protected

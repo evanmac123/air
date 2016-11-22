@@ -184,6 +184,8 @@ class User < ActiveRecord::Base
 
   scope :client_admin, -> { where('users.is_site_admin <> ? AND users.is_client_admin = ?', true, true) }
 
+  # default_scope { includes(:demo) }
+
 
   def demo_id
     self.demo.try(&:id)
