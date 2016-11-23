@@ -4,13 +4,9 @@ module Reporting
   module Mixpanel
     class TileCreationFunnel < Report
 
-      #def initialize opts
-        #super(configure(opts))
-      #end
-
       def configure opts
         opts.merge!({
-          funnel_id: 2080300,
+          funnel_id: MIXPANEL_FUNNEL_REPORTS["Tile Creation"],
           interval: 30,
         })
       end
