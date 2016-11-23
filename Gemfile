@@ -3,7 +3,7 @@ source 'https://www.rubygems.org'
 ruby '2.0.0'
 
 gem 'rails', '=3.2.22.1'
-gem 'rack'  # Update rack to 1.3.0 or later to get rid of utf8 string regex warnings
+gem 'rack' # Update rack to 1.3.0 or later to get rid of utf8 string regex warnings
 gem 'delayed_job_active_record'
 gem 'high_voltage'
 gem 'paperclip', '~>3.3.0'
@@ -34,7 +34,6 @@ gem 'nokogiri'
 gem 'lazy_high_charts'#, '~>1.4.0'
 gem 'json', '>= 1.7.7'
 gem 'carrierwave_direct'
-gem 'redis'
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 gem 'rack-timeout'
 gem 'delayed_paperclip'
@@ -47,7 +46,6 @@ gem 'kaminari'
 gem 'browser'
 gem 'squeel'
 gem 'draper', '~> 1.3'
-gem 'redis-rails'
 gem 'strong_parameters'
 gem 'intercom', '~>2.4.2'
 gem 'counter_culture'
@@ -59,6 +57,11 @@ gem 'unicorn'   # Some of our capybara webkit tests fail with thin, so we use un
 gem 'newrelic_rpm'
 gem 'jquery-fileupload-rails'#
 gem 'acts_as_singleton'
+
+#redis + caching
+gem 'redis'
+gem 'redis-rails'
+gem 'redis-rack-cache'
 
 gem 'roo'
 gem 'roo-xls'

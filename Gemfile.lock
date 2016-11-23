@@ -424,7 +424,7 @@ GEM
     rake (10.5.0)
     rdoc (3.12.2)
       json (~> 1.4)
-    redis (3.0.2)
+    redis (3.3.2)
     redis-actionpack (3.2.4)
       actionpack (~> 3.2.0)
       redis-rack (~> 1.4.4)
@@ -435,11 +435,14 @@ GEM
     redis-rack (1.4.4)
       rack (~> 1.4.0)
       redis-store (~> 1.1.4)
+    redis-rack-cache (1.2.4)
+      rack-cache (~> 1.2)
+      redis-store (~> 1.1.0)
     redis-rails (3.2.4)
       redis-actionpack (~> 3.2.4)
       redis-activesupport (~> 3.2.4)
       redis-store (~> 1.1.4)
-    redis-store (1.1.4)
+    redis-store (1.1.7)
       redis (>= 2.2)
     request_store (1.0.8)
     rest-client (1.6.7)
@@ -637,6 +640,7 @@ DEPENDENCIES
   rails3_before_render
   rails_12factor
   redis
+  redis-rack-cache
   redis-rails
   rollout
   roo
