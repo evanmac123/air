@@ -25,7 +25,6 @@
   <%= javascript_include_tag 'for-modern-browsers' unless browser.ie8? %>
   <%= javascript_include_tag asset_path('ga.js') if ENV['USE_GA'] %>
   <%= render 'shared/mixpanel' unless @is_admin_page %>
-  <%= render 'shared/inspectlet' %>
   <%= mobvious_javascript %>
   <%= render 'shared/nerf_animations_in_test' %>
   <%= render "shared/custom_palette"  if @palette && @palette.enabled?%>

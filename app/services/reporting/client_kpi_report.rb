@@ -250,10 +250,12 @@ module Reporting
       end
 
       def calc_percent(a, b)
+        return 0 if b == 0
         ((a.to_f / b) * 100).round(2)
       end
 
       def calc_avg(a, b)
+        return 0 if b == 0
         (a.to_f / b).round(2)
       end
 

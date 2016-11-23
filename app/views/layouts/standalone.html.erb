@@ -17,7 +17,6 @@
     <%= render 'pages/optimizely_marketing' %>
     <%= render "shared/opengraph_meta_tags" %>
     <%= render 'shared/mixpanel' %>
-    <%= render 'shared/inspectlet' %>
     <%= mp_track_page @page_name_for_mixpanel if @page_name_for_mixpanel.present? %>
 
     <!--[if lt IE 9]>
