@@ -5,14 +5,9 @@ module Reporting
     class SegmentedUniqueActivitySessionsBase < Report
 
       def initialize opts #{from_date: ?, to_date: ?}
-        super(configure(opts))
+        super
         @summary_by_date = {} 
-        @endpoint= "segmentation"
       end
-
-      def configure opts
-      end
-
 
       def count_greater_than_zero_by_date_series
          series.each do |date|
@@ -34,12 +29,8 @@ module Reporting
       end
 
       def endpoint
-        @endpoint
+        "segmentation"
       end
-
-      private
-
-   
 
     end
   end

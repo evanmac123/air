@@ -5,8 +5,7 @@ module Reporting
     class TotalByEventType < Report 
 
       def initialize opts
-        super(configure(opts))
-        @endpoint = "segmentation"
+        super
       end
 
       def count_series
@@ -25,7 +24,7 @@ module Reporting
       end
 
       def endpoint
-        @endpoint
+        "segmentation"
       end
     end
   end

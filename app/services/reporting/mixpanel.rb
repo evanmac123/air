@@ -4,7 +4,7 @@ module Reporting
 
     class Report
       def initialize opts
-        parse_dates(opts)
+        parse_dates(configure(opts))
         @params= config.reverse_merge!(opts)
         @mixpanel = AirboMixpanelClient.new
       end
@@ -24,7 +24,11 @@ module Reporting
 
       def endpoint
         raise "You need to implement endpoint  in a subclass"
-      end 
+      end
+
+      def configure opts
+        opts
+      end
 
 
       def parse_dates opts
