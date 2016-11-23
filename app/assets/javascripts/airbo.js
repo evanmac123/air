@@ -92,7 +92,7 @@ var Airbo = {
     },
 
     ping: function(event, properties) {
-      if (Airbo.Utils.userNotSiteAdmin === true){
+      if (Airbo.Utils.userNotSiteAdmin() === true){
         mixpanel.track(event, properties);
       }
     },
