@@ -5,7 +5,7 @@ module Reporting
     class Report
       def initialize opts
         parse_dates(configure(opts))
-        @params= config.reverse_merge!(opts)
+        @params= config.reverse_merge!(opts).with_indifferent_access
         @mixpanel = AirboMixpanelClient.new
       end
 
