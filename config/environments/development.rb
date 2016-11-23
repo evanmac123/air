@@ -5,10 +5,6 @@ Health::Application.configure do
 
   # Settings specified here will take precedence over those in config/application.rb
 
-  config.dev_tweaks.autoload_rules do
-    keep :xhr  # Disables caching of ajax requests
-  end
-
   config.generators do |g|
     g.template_engine :erb
     g.stylesheets = false
@@ -75,4 +71,3 @@ Rails.application.routes.default_url_options[:host] = ENV['APP_HOST'] || 'localh
     :enable_starttls_auto => true
    }
 end
-
