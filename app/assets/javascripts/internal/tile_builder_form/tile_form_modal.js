@@ -40,11 +40,11 @@ Airbo.TileFormModal = (function(){
 
   function triggerMixpanelTileCreateDurationTracking(){
     setTileCreationPingProps();
-    Airbo.Utils.ping("Tile Creation - Start", getTileCreationPingProps());
+    Airbo.Utils.ping("Tile Creation", getTileCreationPingProps("start"));
   }
 
-  function getTileCreationPingProps(){
-    return $("#pseudo_tile_id").data("props");
+  function getTileCreationPingProps(step){
+    return $.extend({"action": step}, $("#pseudo_tile_id").data("props"));
   }
 
   function initFormElements() {
@@ -83,7 +83,6 @@ Airbo.TileFormModal = (function(){
 
     tileManager.updateSections(data);
 
-    Airbo.Utils.ping("Tile Creation - Complete", getTileCreationPingProps());
     var tilePreview = Airbo.TilePreviewModal;
     tilePreview.init();
     tilePreview.open(data.preview);
@@ -92,7 +91,7 @@ Airbo.TileFormModal = (function(){
   function initEvents() {
     form.on("click", pickImageSel, function(e){
       e.preventDefault();
-      Airbo.Utils.ping("Tile Creation - Add Image", getTileCreationPingProps());
+      Airbo.Utils.ping("Tile Creation", getTileCreationPingProps("add image"));
       var libraryUrl = $("#image_uploader").data("libraryUrl");
       imageLibraryModal.open(libraryUrl);
     });
@@ -108,6 +107,7 @@ Airbo.TileFormModal = (function(){
       var formObj = $(this);
       if(formObj.valid()){
         disablesubmitLink();
+        Airbo.Utils.ping("Tile Creation", getTileCreationPingProps("save"));
         ajaxHandler.submit(formObj, submitSuccess, enablesubmitLink);
       }else{
         validator.focusInvalid();
