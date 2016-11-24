@@ -62,6 +62,7 @@ gem 'acts_as_singleton'
 gem 'redis'
 gem 'redis-rails'
 gem 'redis-rack-cache'
+gem 'nest'
 
 gem 'roo'
 gem 'roo-xls'
