@@ -14,8 +14,8 @@ describe CopyTilesController do
 
       post :create, tile_id: tile.id
 
-      expect(subject).to have_received(:schedule_copy_ping).with(tile)
       expect(subject).to have_received(:schedule_tile_creation_ping)
+      expect(Demo.first.rdb['copies'].sismember(tile.id)).to eq(1)
     end
   end
 end

@@ -1,8 +1,10 @@
 case Rails.env
 when 'production', 'staging', "production_local"
   $redis = Redis.new(url: ENV['REDISTOGO_URL'])
-when 'test',  'development'
+when 'development'
   $redis = Redis.new(host: 'localhost', port: 6379)
+when 'test'
+  $redis = Redis.new(host: 'localhost', port: 6379, db: 1)
 end
 
 class Redis
@@ -33,3 +35,5 @@ ActiveRecord::Base.class_eval do
     Nest.new(name)
   end
 end
+
+# Nest is a very simple library, so this is why we feel confortable monkeypatching here.  Link to full library: https://github.com/soveran/nest/blob/master/lib/nest.rb
