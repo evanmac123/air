@@ -2,7 +2,7 @@ require 'airbo_mixpanel_client'
 require 'reporting/mixpanel'
 module Reporting
   module Mixpanel
-    class ClientAdminWithUniqueActivitySessions < SegmentedUniqueActivitySessionsBase
+    class ClientAdminWithUniqueActivitySessions < UniqueEventsBase
 
       def configure opts
         opts.merge!({
