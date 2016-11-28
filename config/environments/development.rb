@@ -70,4 +70,6 @@ Rails.application.routes.default_url_options[:host] = ENV['APP_HOST'] || 'localh
     :authentication => :plain,
     :enable_starttls_auto => true
    }
+
+   config.cache_store = :redis_store, "redis://127.0.0.1:6379/0/cache", { expires_in: 5.years }
 end
