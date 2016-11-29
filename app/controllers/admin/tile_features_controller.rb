@@ -14,7 +14,16 @@ class Admin::TileFeaturesController < AdminBaseController
   end
 
   def update
-    TileFeature.dispatch(tile_feature_params)
+    @tile_features = TileFeature.scoped
+    @tile_feature = TileFeature.find(params[:id])
+
+    if @tile_feature.update_attributes(tile_feature_ar_params)
+      @tile_feature.dispatch_redis_updates(tile_feature_redis_params)
+    else
+      flash[:failure] = @tile_feature.errors.full_messages
+    end
+
+    redirect_to admin_tile_features_path
   end
 
   def new
