@@ -2,7 +2,7 @@
   <section class="manage_section" id="recommended_container" style="background:<%= $redis.hget("explore_customization", "recommended_tiles_background_color") %>">
     <%= render partial: 'explores/recommended_tiles' %>
   </section>
-  <% TileFeature.scoped.each do |feature| %>
+  <% TileFeature.ordered.each do |feature| %>
     <section class="manage_section" id="recommended_container" style="background:<%= feature.background_color %>">
       <%= render partial: 'explores/tile_feature', locals: { feature: feature } %>
     </section>
