@@ -1,0 +1,92 @@
+<div class="row">
+  <div class="columns small-12">
+    <h3>Tile Features</h3>
+    <% @tile_features.each do |feature| %>
+        <div class = "columns small-10 admin-tile-feature" data-tileFeature = "<%= feature.id %>">
+          <h3><%= feature.name %> Feature</h3>
+          <%= form_for feature, url: admin_tile_features_path, remote: true do |f| %>
+            <div class="row">
+              <div class="small-6 columns">
+                  <%= f.label :name, "Name" %>
+                  <%= f.text_field :name %>
+              </div>
+              <div class="small-6 columns">
+                  <%= f.label :rank, "Rank" %>
+                  <%= f.number_field :rank %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="small-6 columns">
+                  <%= f.label :custom_icon_url, "Custom Icon Url" %>
+                  <%= f.text_field :custom_icon_url %>
+              </div>
+              <div class="small-6 columns">
+                  <%= f.label :text_color, "Text Color" %>
+                  <%= f.text_field :text_color %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="small-6 columns">
+                  <%= f.label :header_copy, "Header Copy" %>
+                  <%= f.text_field :header_copy %>
+              </div>
+              <div class="small-6 columns">
+                  <%= f.label :background_color, "Background Color" %>
+                  <%= f.text_field :background_color %>
+              </div>
+            </div>
+
+            <%= render partial: "shared/button_with_spinner", locals: { button_id: "", button_classes: "explore-customizations-button", button_text: "Save" } %>
+          <% end %>
+        </div>
+        <div class="row">
+          
+        </div>
+    <% end %>
+  </div>
+</div>
+
+
+  <!-- def tile_ids(starting_position = 0, ending_position = 5)
+    rdb[:tile_ids].zrange(starting_position, ending_position)
+  end
+
+  def add_tile(position, id)
+    rdb[:tile_ids].zadd(position, id)
+  end
+
+  def custom_icon_url
+    rdb[:custom_icon_url].get
+  end
+
+  def custom_icon_url=(url)
+    rdb[:custom_icon_url].set(url)
+  end
+
+  def text_color
+    rdb[:text_color].get
+  end
+
+  def text_color=(color)
+    rdb[:text_color].set(color)
+  end
+
+  def header_copy
+    rdb[:header_copy].get
+  end
+
+  def header_copy=(copy)
+    rdb[:header_copy].set(copy)
+  end
+
+  def background_color
+    rdb[:background_color].get
+  end
+
+  def background_color=(color)
+    rdb[:background_color].set(color)
+  end
+
+  def get_tiles(tiles)
+    tiles.where(id: tile_ids)
+  end -->
