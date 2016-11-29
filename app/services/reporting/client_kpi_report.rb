@@ -41,7 +41,8 @@ module Reporting
           "orgs_that_posted_tiles",
           "percent_of_orgs_that_posted_tiles",
           "total_tiles_posted",
-          "average_tiles_posted_per_organization_that_posted"
+          "average_tiles_posted_per_organization_that_posted",
+          "average_tile_creation_speed"
         ],
         "Engagement" => [
           "percent_joined_current",
@@ -247,6 +248,11 @@ module Reporting
       def unique_orgs_that_copied_tiles(time_unit)
         opts = date_opts_for_mixpanel(time_unit)
         @unique_orgs_that_copied_tiles = Reporting::Mixpanel::UniqueOrganizationsWithCopiedTiles.new(opts).values.count
+      end
+
+      def avg_times_through_funnel(time_unit)
+        opts = date_opts_for_mixpanel(time_unit)
+        @time_through_funnel = Reporting::Mixpanel::TileCreationFunnel.new(opts).avg_times_through_funnel
       end
 
       def calc_percent(a, b)
