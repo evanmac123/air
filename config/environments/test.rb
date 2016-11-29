@@ -35,12 +35,6 @@ class ClearanceBackDoor
   end
 end
 
-module Airbrake
-  def self.notify e
-    #Do Nothing
-  end
-end
-
 Health::Application.configure do
   config.cache_classes = true
 
@@ -93,4 +87,6 @@ Health::Application.configure do
   config.middleware.use ClearanceBackDoor
 
   config.action_mailer.asset_host = "//example.com"
+
+  config.cache_store = :redis_store, "redis://127.0.0.1:6379/1/cache", { expires_in: 5.years }
 end

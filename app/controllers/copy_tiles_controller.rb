@@ -23,6 +23,8 @@ class CopyTilesController < ClientAdminBaseController
     end
 
     def store_copy_in_redis(tile_id)
-      $redis.sadd("boards:#{current_user.demo_id}:copies", tile_id)
+      #nest implementation
+      # Demo.rdb[current_user.demo_id]["copies"].sadd(tile_id)
+      $redis.sadd("Demo:#{current_user.demo_id}:copies", tile_id)
     end
 end

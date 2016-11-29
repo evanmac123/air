@@ -1,5 +1,4 @@
 class BulkLoad::S3LineChopper
-  include BulkLoad::MemoizedRedisClient
   include BulkLoad::BulkLoadRedisKeys
 
   attr_reader :object_key
@@ -13,7 +12,7 @@ class BulkLoad::S3LineChopper
     buffer = ""
     s3.buckets[@bucket_name].objects[@object_key].read do |chunk|
       buffer += chunk
-      
+
       buffer.lines.each do |line|
         if line =~ /\n$/
           block.call(line)

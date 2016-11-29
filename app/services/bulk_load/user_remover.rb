@@ -1,6 +1,5 @@
 class BulkLoad::UserRemover
   include BulkLoad::BulkLoadRedisKeys
-  include BulkLoad::MemoizedRedisClient
 
   DEFAULT_EMAIL_WHITELIST_DOMAINS = %w(
     air.bo
@@ -20,9 +19,9 @@ class BulkLoad::UserRemover
   def user_ids_to_remove
     # Contrary to our usual practice, we don't memoize this with an ivar.
     # This way we can remove individual user IDs via UserRetainer#retain_user by hitting
-    # Redis directly and not worry about having to keep our own ivar up to 
-    # date with Redis.
-    cached = redis.smembers(redis_user_ids_to_remove_key)
+    # $redis directly and not worry about having to keep our own ivar up to
+    # date with $redis.
+    cached = $redis.smembers(redis_user_ids_to_remove_key)
     if cached.present?
       cached
     else
@@ -60,7 +59,7 @@ class BulkLoad::UserRemover
   attr_reader :object_key
 
   def compute_user_ids_to_remove
-    # This interpolation is safe because, remmeber, we whitelist 
+    # This interpolation is safe because, remmeber, we whitelist
     # @unique_id_field in #initialize.
     query = board.users.
               where("users.#{@unique_id_field} NOT IN (?) OR users.#{@unique_id_field} IS NULL", unique_ids_to_keep).
@@ -75,11 +74,11 @@ class BulkLoad::UserRemover
   end
 
   def cache_ids_to_remove_in_redis(ids)
-    ids.each {|id| redis.sadd(redis_user_ids_to_remove_key, id) }
+    ids.each {|id| $redis.sadd(redis_user_ids_to_remove_key, id) }
   end
 
   def unique_ids_to_keep
-    @unique_ids_to_keep ||= redis.smembers(redis_unique_ids_key)
+    @unique_ids_to_keep ||= $redis.smembers(redis_unique_ids_key)
   end
 
   def board
