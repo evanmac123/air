@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161129183939) do
+ActiveRecord::Schema.define(:version => 20161129193102) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -251,6 +251,9 @@ ActiveRecord::Schema.define(:version => 20161129183939) do
     t.float    "average_tile_creation_time"
     t.datetime "created_at",                                        :null => false
     t.datetime "updated_at",                                        :null => false
+    t.date     "report_date"
+    t.date     "from_date"
+    t.date     "to_date"
   end
 
   create_table "custom_color_palettes", :force => true do |t|
