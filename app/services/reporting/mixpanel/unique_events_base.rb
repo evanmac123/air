@@ -20,12 +20,17 @@ module Reporting
         values.select{ |segment, data| data[date]>0}.count
       end
 
+
       def values
         @values ||=result_data.fetch("values", {})
       end
 
       def series
         @series ||= result_data.fetch("series", [])
+      end
+
+      def summary_by_date
+        @summary_by_date
       end
 
       def endpoint
