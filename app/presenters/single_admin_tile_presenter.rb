@@ -162,7 +162,8 @@ class SingleAdminTilePresenter < BasePresenter
       total_views,
       unique_views,
       @is_ie,
-      copied?
+      copied?,
+      section
     ].join('-')
   end
 
