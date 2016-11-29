@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :tile_feature do
-    rank 1
-    name "MyString"
+    sequence(:name) { |n| "Tile Feature #{n}" }
+    sequence(:rank) { |n| n }
   end
 end

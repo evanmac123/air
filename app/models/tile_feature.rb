@@ -1,9 +1,29 @@
 class TileFeature < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
-  validates :rank, uniqueness: true
+  validates :rank, presence: true, uniqueness: true
 
-  def tile_ids(starting_position = 0, ending_position = 5)
-    rdb[:tile_ids].zrange(starting_position, ending_position)
+  scope :active, -> { where(active: true) }
+  scope :ordered, -> { active.order(:rank) }
+
+  def dispatch_redis_updates(redis_params)
+    redis_params.each { |redis_key, value|
+      self.send("#{redis_key}=", value) if value
+    }
+  end
+
+  def tile_ids=(tile_ids)
+    tile_ids = tile_ids.gsub(/\s+/, "").split(",").select { |id| id.to_i != 0 }
+
+    rdb[:tile_ids].set(tile_ids.join(","))
+  end
+
+  def tile_ids
+    ids = rdb[:tile_ids].get
+    ids.split(",") if ids
+  end
+
+  def tile_ids_formatted
+    rdb[:tile_ids].get
   end
 
   def add_tile(position, id)
@@ -43,6 +63,8 @@ class TileFeature < ActiveRecord::Base
   end
 
   def get_tiles(tiles)
-    tiles.where(id: tile_ids)
+    grouped_tiles = tiles.where(id: tile_ids).group_by(&:id)
+
+    tile_ids.map { |id| grouped_tiles[id.to_i].first }
   end
 end

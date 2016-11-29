@@ -287,7 +287,7 @@ Health::Application.routes.draw do
 
   namespace :admin do
 
-    resources :tile_features, only: [:index, :create]
+    resources :tile_features, only: [:index, :create, :update, :destroy, :new]
 
     resources :explore_customizations, only: [:new, :create]
 

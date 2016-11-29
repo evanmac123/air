@@ -3,9 +3,14 @@
     border: 1px solid $gray;
     border-radius: 5px;
     padding: 20px;
+    margin-bottom: 20px;
   }
 
   .float-right {
     float: right;
+  }
+
+  .tile-features-new-button {
+    margin-top: 2em;
   }
 }

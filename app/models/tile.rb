@@ -202,7 +202,7 @@ class Tile < ActiveRecord::Base
   end
 
   def self.featured_tile_ids
-    (TileFeature.scoped.map(&:tile_ids) + recommended.pluck(:id)).flatten
+    (TileFeature.active.map(&:tile_ids) + recommended.pluck(:id)).flatten
   end
 
   def self.recommended
