@@ -1,4 +1,3 @@
-require 'reporting/db'
 require 'spec_helper'
 module Reporting
   module Db
@@ -83,24 +82,24 @@ module Reporting
       end
 
       describe "#posts" do
-        it "does cumulative count of tiles activated for this demo" do 
-          available =@tar.posts 
+        it "does cumulative count of tiles activated for this demo" do
+          available =@tar.posts
           expect(available.map(&:interval_count)).to eq ["1", "1", "0", "2", "0", "0", "0", "1", "0", "0", "0"]
           expect(available.map(&:cumulative_count)).to eq ["1", "2", "2", "4", "4", "4", "4", "5", "5", "5", "5"]
         end
       end
 
       describe "#views" do
-        it "counts only unique tile views" do 
-          views =@tar.views 
+        it "counts only unique tile views" do
+          views =@tar.views
           expect(views.map(&:cumulative_count)).to eq ["1", "1", "1", "2", "5", "5", "5", "10", "10", "10"]
           expect(views.map(&:interval_count)).to eq   ["1", "0", "0", "1", "3", "0", "0", "5", "0", "0"]
         end
       end
 
       describe "#completions" do
-        it "counts only unique tile views" do 
-          completions =@tar.completions 
+        it "counts only unique tile views" do
+          completions =@tar.completions
           expect(completions.map(&:cumulative_count)).to eq ["1", "1", "1", "3", "3", "3", "6", "6", "6"]
           expect(completions.map(&:interval_count)).to eq ["1", "0", "0", "2", "0", "0", "3", "0", "0"]
         end
@@ -147,17 +146,17 @@ module Reporting
         #Timecop.return
       end
 
-      it "returns {} when demo is nil" do 
+      it "returns {} when demo is nil" do
         res = ClientUsage.new({}).run()
         expect(res[:demo]).to be_nil
       end
 
-      context "#run with demo" do  
+      context "#run with demo" do
         before do
           @res =ClientUsage.new({demo:@demo.id, start: 12.weeks.ago, interval: "week"}).data
         end
 
-        context "User Activation" do 
+        context "User Activation" do
 
           let(:base_hash){@res[:user]}
 
@@ -178,7 +177,7 @@ module Reporting
             expect(period3[:total]).to eq(5)
           end
 
-          it " reports activation correctly" do 
+          it " reports activation correctly" do
 
             data=base_hash[:activations]
             period1 = data[11.weeks.ago.beginning_of_week.to_date]
@@ -209,10 +208,10 @@ module Reporting
           end
         end
 
-        context "Tile Activity" do 
+        context "Tile Activity" do
           let(:base_hash){@res[:tile_activity]}
 
-          it "returns reports posts activity correctly" do 
+          it "returns reports posts activity correctly" do
             data=base_hash[:posts]
             period1=data[11.weeks.ago.beginning_of_week.to_date]
             period2=data[ 7.weeks.ago.beginning_of_week.to_date]
@@ -224,7 +223,7 @@ module Reporting
             expect(period2[:total]).to eq(4)
           end
 
-          it "returns reports views activity correctly" do 
+          it "returns reports views activity correctly" do
             data=base_hash[:views]
 
             period1=data[5.weeks.ago.beginning_of_week.to_date]
@@ -236,7 +235,7 @@ module Reporting
             expect(period2[:total]).to eq(10)
           end
 
-          it "returns reports completion activity correctly" do 
+          it "returns reports completion activity correctly" do
 
             data=base_hash[:completions]
             period1=data[8.weeks.ago.beginning_of_week.to_date]
@@ -273,7 +272,3 @@ module Reporting
 
   end
 end
-
-
-
-
