@@ -9,7 +9,6 @@ class CreateCustSuccessKpis < ActiveRecord::Migration
       t.integer :total_paid_client_admins
       t.integer :unique_client_admin_with_activity_sessions
       t.integer :total_paid_client_admin_activity_sessions
-      t.integer :total_paid_client_admins
       t.integer :unique_orgs_that_copied_tiles
       t.integer :total_tiles_copied
       t.integer :orgs_that_posted_tiles
