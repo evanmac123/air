@@ -31,6 +31,14 @@ module Reporting
         @summary_by_date = {} 
         @params= config.reverse_merge!(opts).with_indifferent_access
         @mixpanel = AirboMixpanelClient.new
+        init_data_hash
+      end
+
+      def init_data_hash
+        series.inject(@summary_by_date) do |h, k|
+          h[k]={}
+          h
+        end
       end
 
       def run
