@@ -4,11 +4,7 @@ module Reporting
   module Mixpanel
     class UniqueEventsBase < Report
       include MixpanelUnsegmentedResult
-
-      def endpoint
-        "segmentation"
-      end
-
+      include Segmentation
     end
   end
 end

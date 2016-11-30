@@ -13,6 +13,12 @@ module Reporting
       end
     end
 
+    module Segmentation
+      def endpoint
+        "segmentation"
+      end
+    end
+
     module MixpanelSegmentedResult
       def by_reporting_period
         series.each do |date|
