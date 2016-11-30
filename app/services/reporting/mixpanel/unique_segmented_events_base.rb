@@ -3,18 +3,11 @@ require 'reporting/mixpanel'
 module Reporting
   module Mixpanel
     class UniqueSegmentedEventsBase < UniqueEventsBase
+      include MixpanelSegmentedResult
 
       def initialize opts
         super
         init_data_hash
-      end
-
-      def by_reporting_period
-        series.each do |date|
-          values.each do |segment, data|
-            @summary_by_date[date][segment] = data[date]
-          end
-        end
       end
 
       def init_data_hash
@@ -24,10 +17,7 @@ module Reporting
         end
       end
 
-
     end
-
-
 
   end
 end
