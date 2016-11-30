@@ -7,9 +7,9 @@ class Admin::ExploreDigestsController < AdminBaseController
 
   def create
     @explore_digest_form = if params[:commit] == 'Send real digest'
-                             ExploreDigestForm.new(params[:explore_digest_form])
+                             ExploreDigestForm.new(params[:explore_digest_form], params[:feature])
                            else
-                             ExploreDigestTestForm.new(params[:explore_digest_form], current_user)
+                             ExploreDigestTestForm.new(params[:explore_digest_form], current_user, params[:feature])
                            end
 
     if @explore_digest_form.valid?
