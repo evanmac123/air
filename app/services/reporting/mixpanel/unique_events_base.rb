@@ -4,7 +4,7 @@ module Reporting
   module Mixpanel
     class UniqueEventsBase < Report
 
-      def initialize opts #{from_date: ?, to_date: ?}
+      def initialize opts
         super
         @summary_by_date = {} 
       end
@@ -27,6 +27,7 @@ module Reporting
       end
 
       private
+
       def by_reporting_period 
         series.each do |date|
           values.each do |event, data|
