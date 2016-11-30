@@ -7,7 +7,7 @@ module Reporting
       def configure opts
         opts.merge!({
           event: "Explore page - Interaction",
-          unit: "day",
+          unit: "week",
           type: "unique",
           on: 'string(properties["organization"])',
           where: %Q|(properties["action"] == "Clicked Copy") and properties["is_test_user"] == false and ("client admin" in properties["user_type"]) and (defined (properties["user_type"]))|,
