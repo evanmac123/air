@@ -3,39 +3,73 @@ require 'reporting/mixpanel'
 module Reporting
   module Mixpanel
     class UniqueActivitySessionAfterTimePeriodInDays < UniqueEventsBase
+      def initialize opts #{from_date: ?, to_date: ?}
+        super
+      end
+
+      RANGES ={
+        first: { label: "30Days",  min:1, max: 30},
+        second: {label: "60Days",  min: 31, max: 60},
+        third: { label: "120Days", min: 61, max: 120}
+      }
+
 
       def configure opts
         opts.merge!({
           event: "Activity Session - New",
           on: %Q|string(properties["days_since_activated"])|,
           unit: 'week',
-          where:%Q|properties["days_since_activated"] == 30 or properties["days_since_activated"] == 60 or properties["days_since_activated"] == 120|,
+          where:%Q|
+          (properties["days_since_activated"] >= #{RANGES[:first][:min]} and properties["days_since_activated"] <= #{RANGES[:first][:max]})
+          or (properties["days_since_activated"] >= #{RANGES[:second][:min]} and properties["days_since_activated"] <= #{RANGES[:second][:max]})
+          or (properties["days_since_activated"] >=#{RANGES[:third][:min]} and properties["days_since_activated"] <= #{RANGES[:third][:max]})
+          |,
           type: 'unique',
         })
 
       end
 
-      def init_data_hash
-
-        series.inject(@summary_by_date) do |h, k| 
-          h[k]={"30"=>{},"60"=>{},"120"=>{}}
-          h
-        end
+      def values_for_date date
+        build_data
+        summary_by_date[date_format(date)]
       end
 
-      def reported_by_date
+      private
+
+      def build_data
+        init_data_hash
         series.each do |date|
-          values.each do |period, data|
-           @summary_by_date[date][period]=data[date]
+          values.each do |days, data|
+           period = days_to_period(days)
+           @summary_by_date[date][period] += data[date]
           end
         end
       end
 
-      def values_for_date date
-        summary_by_date[data]
+      def init_data_hash
+        series.inject(@summary_by_date) do |h, k| 
+          h[k]={RANGES[:first][:label]=>0,RANGES[:second][:label]=>0,RANGES[:third][:label]=>0}
+          h
+        end
       end
 
-      private
+      def raw_data
+        sample_data
+      end
+
+       def days_to_period days
+         num_days = days.to_i
+         case 
+         when num_days.between?(RANGES[:first][:min], RANGES[:first][:max])
+           RANGES[:first][:label]
+         when num_days.between?(RANGES[:second][:min],RANGES[:second][:max])
+           RANGES[:second][:label]
+         when num_days.between?(RANGES[:third][:min],RANGES[:third][:max])
+           RANGES[:third][:label]
+         end
+       end
+
+
 
       def sample_data
 
@@ -45,7 +79,7 @@ module Reporting
             "series"=> ["2016-10-24", "2016-10-31", "2016-11-07", "2016-11-14", "2016-11-21", "2016-11-28"], 
             "values"=> {
               "30"=> {"2016-11-28"=> 1, "2016-11-21"=> 0, "2016-10-24"=> 0, "2016-11-07"=> 0, "2016-10-31"=> 0, "2016-11-14"=> 0}, 
-              "20"=> {"2016-11-28"=> 1, "2016-11-21"=> 0, "2016-10-24"=> 0, "2016-11-07"=> 0, "2016-10-31"=> 0, "2016-11-14"=> 0}, 
+              "60"=> {"2016-11-28"=> 1, "2016-11-21"=> 0, "2016-10-24"=> 0, "2016-11-07"=> 0, "2016-10-31"=> 0, "2016-11-14"=> 0}, 
               "120"=> {"2016-11-28"=> 1, "2016-11-21"=> 0, "2016-10-24"=> 0, "2016-11-07"=> 0, "2016-10-31"=> 0, "2016-11-14"=> 0}
             }
           }
