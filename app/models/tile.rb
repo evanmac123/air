@@ -114,7 +114,7 @@ class Tile < ActiveRecord::Base
       if  never_activated || activated_at_reset_allowed?
         self.activated_at = Time.now
       end
-    when ARCHIVE then 
+    when ARCHIVE then
       self.archived_at  = Time.now
     end
 
@@ -201,6 +201,10 @@ class Tile < ActiveRecord::Base
     TileViewing.add(self, user) if user
   end
 
+  def self.featured_tile_ids
+    (TileFeature.active.map(&:tile_ids) + recommended.pluck(:id)).flatten
+  end
+
   def self.recommended
     joins(:recommended_tile).order(recommended_tile: :created_at)
   end
@@ -208,7 +212,7 @@ class Tile < ActiveRecord::Base
   def self.verified_explore
     tiles_table = Arel::Table.new(:tiles)
 
-    joins(:organization).copyable.where(organization: {name: "Airbo"}).where(tiles_table[:id].not_in(recommended.pluck(:id)))
+    joins(:organization).copyable.where(organization: {name: "Airbo"}).where(tiles_table[:id].not_in(featured_tile_ids))
   end
 
   def self.all_airbo_tiles
@@ -350,7 +354,7 @@ class Tile < ActiveRecord::Base
   def no_post_process_on_copy
     !(@making_copy)
   end
- 
+
 
   private
 

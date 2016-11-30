@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161114055705) do
+ActiveRecord::Schema.define(:version => 20161129171000) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -750,6 +750,14 @@ ActiveRecord::Schema.define(:version => 20161114055705) do
 
   add_index "tile_completions", ["tile_id"], :name => "index_task_suggestions_on_task_id"
   add_index "tile_completions", ["user_id"], :name => "index_task_suggestions_on_user_id"
+
+  create_table "tile_features", :force => true do |t|
+    t.integer  "rank"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.boolean  "active"
+  end
 
   create_table "tile_images", :force => true do |t|
     t.string   "image_file_name"
