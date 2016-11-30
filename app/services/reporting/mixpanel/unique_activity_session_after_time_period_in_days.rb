@@ -2,17 +2,13 @@ require 'airbo_mixpanel_client'
 require 'reporting/mixpanel'
 module Reporting
   module Mixpanel
-    class UniqueActivitySessionAfterTimePeriodInDays < UniqueEventsBase
-      def initialize opts #{from_date: ?, to_date: ?}
-        super
-      end
+    class UniqueActivitySessionAfterTimePeriodInDays < UniqueSegmentedEventsBase
 
-      RANGES ={
+      RANGES = {
         first: { label: "30Days",  min:1, max: 30},
         second: {label: "60Days",  min: 31, max: 60},
         third: { label: "120Days", min: 61, max: 120}
       }
-
 
       def configure opts
         opts.merge!({
@@ -26,18 +22,9 @@ module Reporting
           |,
           type: 'unique',
         })
-
       end
 
-      def values_for_date date
-        build_data
-        summary_by_date[date_format(date)]
-      end
-
-      private
-
-      def build_data
-        init_data_hash
+      def by_reporting_period
         series.each do |date|
           values.each do |days, data|
            period = days_to_period(days)
@@ -53,38 +40,45 @@ module Reporting
         end
       end
 
-      def raw_data
-        sample_data
+
+      private
+
+      def days_to_period days
+        num_days = days.to_i
+        case 
+        when num_days.between?(RANGES[:first][:min], RANGES[:first][:max])
+          RANGES[:first][:label]
+        when num_days.between?(RANGES[:second][:min],RANGES[:second][:max])
+          RANGES[:second][:label]
+        when num_days.between?(RANGES[:third][:min],RANGES[:third][:max])
+          RANGES[:third][:label]
+        end
       end
 
-       def days_to_period days
-         num_days = days.to_i
-         case 
-         when num_days.between?(RANGES[:first][:min], RANGES[:first][:max])
-           RANGES[:first][:label]
-         when num_days.between?(RANGES[:second][:min],RANGES[:second][:max])
-           RANGES[:second][:label]
-         when num_days.between?(RANGES[:third][:min],RANGES[:third][:max])
-           RANGES[:third][:label]
-         end
-       end
 
+     #---------------------------
+      # used for testing purpose uncomment if needed
+      #---------------------------
+      
+      #def raw_data
+         #sample_data
+      #end
 
+      #def sample_data
 
-      def sample_data
-
-        {
-          "legend_size"=> 3, 
-          "data"=> {
-            "series"=> ["2016-10-24", "2016-10-31", "2016-11-07", "2016-11-14", "2016-11-21", "2016-11-28"], 
-            "values"=> {
-              "30"=> {"2016-11-28"=> 1, "2016-11-21"=> 0, "2016-10-24"=> 0, "2016-11-07"=> 0, "2016-10-31"=> 0, "2016-11-14"=> 0}, 
-              "60"=> {"2016-11-28"=> 1, "2016-11-21"=> 0, "2016-10-24"=> 0, "2016-11-07"=> 0, "2016-10-31"=> 0, "2016-11-14"=> 0}, 
-              "120"=> {"2016-11-28"=> 1, "2016-11-21"=> 0, "2016-10-24"=> 0, "2016-11-07"=> 0, "2016-10-31"=> 0, "2016-11-14"=> 0}
-            }
-          }
-        }
-      end
+        #{
+          #"legend_size"=> 3, 
+          #"data"=> {
+            #"series"=> ["2016-10-24", "2016-10-31", "2016-11-07", "2016-11-14", "2016-11-21", "2016-11-28"], 
+            #"values"=> {
+              #"30"=> {"2016-11-28"=> 1, "2016-11-21"=> 0, "2016-10-24"=> 0, "2016-11-07"=> 0, "2016-10-31"=> 0, "2016-11-14"=> 0}, 
+              #"40"=> {"2016-11-28"=> 1, "2016-11-21"=> 0, "2016-10-24"=> 0, "2016-11-07"=> 0, "2016-10-31"=> 0, "2016-11-14"=> 0}, 
+              #"60"=> {"2016-11-28"=> 1, "2016-11-21"=> 0, "2016-10-24"=> 0, "2016-11-07"=> 0, "2016-10-31"=> 0, "2016-11-14"=> 0}, 
+              #"120"=> {"2016-11-28"=> 1, "2016-11-21"=> 0, "2016-10-24"=> 0, "2016-11-07"=> 0, "2016-10-31"=> 0, "2016-11-14"=> 0}
+            #}
+          #}
+        #}
+      #end
 
     end
   end
