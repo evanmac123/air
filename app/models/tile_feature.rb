@@ -65,6 +65,6 @@ class TileFeature < ActiveRecord::Base
   def get_tiles(tiles)
     grouped_tiles = tiles.where(id: tile_ids).group_by(&:id)
 
-    tile_ids.map { |id| grouped_tiles[id.to_i].first }
+    tile_ids.map { |id| grouped_tiles[id.to_i].try(:first) }
   end
 end
