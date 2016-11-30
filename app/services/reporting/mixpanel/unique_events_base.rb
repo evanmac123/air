@@ -9,17 +9,10 @@ module Reporting
         @summary_by_date = {} 
       end
 
-      def count_greater_than_zero_by_date_series
-         series.each do |date|
-           @summary_by_date[date] = with_events_by_date(date)
-         end
-         @summary_by_date
+      def run
+        by_reporting_period
+        summary_by_date
       end
-
-      def with_events_by_date date
-        values.select{ |segment, data| data[date]>0}.count
-      end
-
 
       def values
         @values ||=result_data.fetch("values", {})
@@ -31,6 +24,15 @@ module Reporting
 
       def summary_by_date
         @summary_by_date
+      end
+
+      private
+      def by_reporting_period 
+        series.each do |date|
+          values.each do |event, data|
+            @summary_by_date[date] = data[date]
+          end
+        end
       end
 
       def endpoint
