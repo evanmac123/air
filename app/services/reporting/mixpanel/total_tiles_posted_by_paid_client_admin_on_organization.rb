@@ -2,7 +2,7 @@ require 'airbo_mixpanel_client'
 require 'reporting/mixpanel'
 module Reporting
   module Mixpanel
-    class TotalTilesPostedByPaidClientAdminOnOrganization < TotalByEventType
+    class TotalTilesPostedByPaidClientAdminOnOrganization < TotalSegmentedByEventType
 
       def configure opts
         opts.merge!({
