@@ -17,7 +17,8 @@ class ExploreDigestMailer < BaseTilesDigestMailer
       subject: subject
   end
 
-  def notify_all(explore_digest, users)
+  def notify_all(explore_digest, users = nil)
+    users ||= User.client_admin
     users.each { |user|
       ExploreDigestMailer.delay.notify_one(explore_digest, user)
     }

@@ -65,7 +65,7 @@ class ExploreDigest < ActiveRecord::Base
   end
 
   def deliver_digest!
-    ExploreDigestMailer.delay.notify_all(self, all_client_admin_ids)
+    ExploreDigestMailer.delay.notify_all(self)
     self.update_attributes(delivered: true)
   end
 
@@ -82,10 +82,6 @@ class ExploreDigest < ActiveRecord::Base
   end
 
   private
-    def all_client_admin_ids
-      User.client_admin.pluck(:id)
-    end
-
     def validate_features
       current_feature = 1
 
