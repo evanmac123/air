@@ -1,10 +1,29 @@
 module Reporting
   class CustomerSuccessKpiBuilder
-    attr_accessor :report_date, :from_date, :to_date, :last_week
-    def initialize opts
-      @demos || Demo.paid
-      @demo_ids || @demos.pluck(:id)
-      opts = date_opts_for_mixpanel(time_unit)
+    attr_accessor :report_date, :from_date, :to_date
+    attr_reader :opts, :demo_ids, :demos
+
+    def initialize(report_date = Date.today,  interval = "week") 
+      @opts = {}
+      @interval = interval
+      @report_date = report_date
+      @demos = Demo.paid
+      @demo_ids = @demos.pluck(:id)
+      parse_dates
+    end
+
+    def parse_dates
+       @interval == "week" ? weekly : monthly
+    end
+
+    def monthly
+      opts[:from_date] = report_date.beginning_of_month
+      opts[:to_date] = report_date.end_of_month.end_of_day
+    end
+
+    def weekly
+      opts[:from_date] = report_date.beginning_of_week(:monday)
+      opts[:to_date] = opts[:from_date].end_of_week(:sunday).end_of_day
     end
 
 
