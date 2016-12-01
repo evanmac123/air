@@ -157,16 +157,6 @@ module Reporting
       (Date.today.end_of_week + 1.day).strftime("%m/%d/%y")
     end
 
-    def date_opts_for_mixpanel(time_unit)
-      if time_unit == :by_week
-        date = Date.today
-        { from_date: date.beginning_of_week, to_date: date }
-      elsif time_unit == :by_month
-        date = Date.today
-        { from_date: date.beginning_of_month, to_date: date }
-      end
-    end
-
     def calc_percent(a, b)
       return 0 if b == 0
       ((a.to_f / b) * 100).round(2)
