@@ -37,6 +37,10 @@ module Reporting
         @summary_by_date.values.first.keys.count
       end
 
+      def get_count_by_segment(segment)
+        @summary_by_date.values.first[segment]
+      end
+
       def sum
         run
         @summary_by_date.values.first.values.sum
@@ -47,10 +51,12 @@ module Reporting
     class Report
       attr_reader :from, :to
 
-      def initialize opts
-        parse_dates(configure(opts))
+      def initialize options
+        @options = options.dup
+        configure(@options)
+        parse_dates
         @summary_by_date = {} 
-        @params= config.reverse_merge!(opts).with_indifferent_access
+        @params = config.reverse_merge!(@options).with_indifferent_access
         @mixpanel = AirboMixpanelClient.new
         init_data_hash
       end
@@ -99,9 +105,9 @@ module Reporting
       end
 
 
-      def parse_dates opts
-        @from = opts.delete(:from_date) || Date.today.beginning_of_week(:monday)
-        @to = opts.delete(:to_date) || @from.end_of_week(:sunday).end_of_day
+      def parse_dates
+        @from = @options.delete(:from_date) || Date.today.beginning_of_week(:monday)
+        @to = @options.delete(:to_date) || @from.end_of_week(:sunday).end_of_day
       end
 
       def config
