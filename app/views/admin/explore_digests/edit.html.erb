@@ -60,7 +60,7 @@
                   <%= text_area_tag "features[#{feature_count}][feature_message]", @explore_digest.features(feature_count, :feature_message), rows: 5, columns: 60 %>
 
                   <%= label_tag "features[#{feature_count}][tile_ids]", "Tile Ids (in order and comma separated)" %>
-                  <%= text_field_tag "features[1][tile_ids]", @explore_digest.features(feature_count, :tile_ids).try(:split, ", "), { placeholder: "1, 2, 3, 4, 5, 6" } %>
+                  <%= text_field_tag "features[#{feature_count}][tile_ids]", @explore_digest.features(feature_count, :tile_ids).try(:split, ", "), { placeholder: "1, 2, 3, 4, 5, 6" } %>
                 </div>
               </div>
               <% feature_count += 1 %>
