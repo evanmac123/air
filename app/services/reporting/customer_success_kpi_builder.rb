@@ -160,13 +160,29 @@ module Reporting
 
 
 
-    end
-
-    end
-
-    end
-
     #----------Utility Methods
+    #
+
+
+    def formatted_total_completion_time t
+      "%2d days %2d hours %2d mins %2d seconds" % [ days(t), hours(t), mins(t), seconds(t)]
+    end
+
+    def days t
+      t/86400 ==0 ? nil : t/86400
+    end
+
+    def hours t
+      t/3600%24 == 0 ? nil : t/3600%24
+    end
+
+    def mins t
+      t/60%60 == 0 ? nil : t/60%60
+    end
+
+    def seconds t
+      t%60 == 0 ? nil : t%60
+    end
 
     def month
       Date.today.strftime("%m/%y")
