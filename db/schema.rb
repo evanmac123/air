@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161129193102) do
+ActiveRecord::Schema.define(:version => 20161201155042) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -254,6 +254,7 @@ ActiveRecord::Schema.define(:version => 20161129193102) do
     t.date     "report_date"
     t.date     "from_date"
     t.date     "to_date"
+    t.date     "weekending_date"
   end
 
   create_table "custom_color_palettes", :force => true do |t|
