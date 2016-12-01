@@ -65,10 +65,15 @@ module Reporting
     end
 
 
+    # from ----Net promoter score
 
     def paid_net_promoter_score
       @nps ||= Integrations::NetPromoterScore.get_metrics({ trend: PAID_CLIENTS_DELIGHTED_TREND })
     end
+
+
+    # --------- From Data base
+    #
 
     def total_paid_orgs
       @total_paid_orgs = Organization.joins(:boards).where(demos: { id: demo_ids }).uniq.count
@@ -78,60 +83,54 @@ module Reporting
       @total_paid_client_admins = User.joins(:demo).where(demo: { id: demo_ids } ).where(is_client_admin: true).count
     end
 
-    def org_unique_activity_sessions(time_unit)
-      opts = date_opts_for_mixpanel(time_unit)
-      @org_unique_activity_sessions = Reporting::Mixpanel::OrganizationWithUniqueActivitySessions.new(opts).values.count
+    #----------------------------MIXPANEL DATA ----------------------------
+
+    def org_unique_activity_sessions
+      @org_unique_activity_sessions = Reporting::Mixpanel::OrganizationWithUniqueActivitySessions.new(opts).get_count
     end
 
-    def client_admin_unique_activity_sessions(time_unit)
-      opts = date_opts_for_mixpanel(time_unit)
-      @client_admin_unique_activity_sessions = Reporting::Mixpanel::ClientAdminWithUniqueActivitySessions.new(opts).values.count
+    def client_admin_unique_activity_sessions
+      @client_admin_unique_activity_sessions = Reporting::Mixpanel::ClientAdminWithUniqueActivitySessions.new(opts).get_count
     end
 
-    def total_client_admin_activity_sessions(time_unit)
-      opts = date_opts_for_mixpanel(time_unit)
-      @total_client_admin_activity_sessions = Reporting::Mixpanel::TotalClientAdminActivitySessions.new(opts).values.first.values.sum
+    def total_client_admin_activity_sessions
+      @total_client_admin_activity_sessions = Reporting::Mixpanel::TotalClientAdminActivitySessions.new(opts).get_count
     end
 
-    def unique_orgs_that_copied_tiles(time_unit)
-      opts = date_opts_for_mixpanel(time_unit)
-      @unique_orgs_that_copied_tiles = Reporting::Mixpanel::UniqueOrganizationsWithCopiedTiles.new(opts).values.count
+    def unique_orgs_that_copied_tiles
+      @unique_orgs_that_copied_tiles = Reporting::Mixpanel::UniqueOrganizationsWithCopiedTiles.new(opts).get_count
     end
 
-    def avg_times_through_funnel(time_unit)
-      opts = date_opts_for_mixpanel(time_unit)
+    def total_tiles_copied
+      @total_tiles_copied = Reporting::Mixpanel::TotalTilesCopied.new(opts).get_count
+    end
+
+    def total_tiles_posted
+      @total_tiles_posted = Reporting::Mixpanel::TotalTilesPostedByPaidClientAdmin.new(opts).get_count
+    end
+
+    def orgs_that_posted_tiles
+      @orgs_that_posted_tiles = Reporting::Mixpanel::UniqueOrganizationsWithPostedTiles.new(opts).get_count
+    end
+
+    def retention
+      @retention ||= Reporting::Mixpanel::UniqueActivitySessionAfterTimePeriodInDays.new(opts)
+    end
+
+    def avg_times_through_funnel
       @time_through_funnel = Reporting::Mixpanel::TileCreationFunnel.new(opts).avg_times_through_funnel
-    end
-
-    def retention_post_activation
-      @retention ||= Report::Mixpanel::UniqueActivitySessionAfterTimePeriodInDays.new(opts)
-    end
-
-    def percent_orgs_that_copied_tiles
-      calc_percent(@unique_orgs_that_copied_tiles, @total_paid_orgs)
-    end
-
-    def total_tiles_copied(time_unit)
-      opts = date_opts_for_mixpanel(time_unit)
-      @total_tiles_copied = Reporting::Mixpanel::TotalTilesCopied.new(opts).values.first.values.sum
     end
 
     def average_tiles_copied_per_org_that_copied
       calc_avg(@total_tiles_copied, @unique_orgs_that_copied_tiles)
     end
 
-    def orgs_that_posted_tiles(time_unit)
-      opts = date_opts_for_mixpanel(time_unit)
-      @orgs_that_posted_tiles = Reporting::Mixpanel::UniqueOrganizationsWithPostedTiles.new(opts).values.count
+    def percent_orgs_that_copied_tiles
+      calc_percent(@unique_orgs_that_copied_tiles, @total_paid_orgs)
     end
 
     def percent_of_orgs_that_posted_tiles
       calc_percent(@orgs_that_posted_tiles, @total_paid_orgs)
-    end
-
-    def total_tiles_posted(time_unit)
-      opts = date_opts_for_mixpanel(time_unit)
-      @total_tiles_posted = Reporting::Mixpanel::TotalTilesPostedByPaidClientAdmin.new(opts).values.first.values.sum
     end
 
     def average_tiles_posted_per_organization_that_posted
@@ -149,6 +148,9 @@ module Reporting
     def activity_sessions_per_client_admin
       calc_avg(@total_client_admin_activity_sessions, @total_paid_client_admins)
     end
+
+    #----------Utility Methods
+
     def month
       Date.today.strftime("%m/%y")
     end
