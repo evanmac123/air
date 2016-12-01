@@ -66,6 +66,7 @@ class ExploreDigest < ActiveRecord::Base
 
   def deliver_digest!
     ExploreDigestMailer.delay.notify_all(self, all_client_admin_ids)
+    self.update_attributes(delivered: true)
   end
 
   def get_tiles(feature, tiles = Tile.copyable)
