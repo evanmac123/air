@@ -77,21 +77,30 @@ module Reporting
           "activity_sessions_per_client_admin"
         ],
         "Planning" => [
+          "percent_paid_orgs_view_tile_in_explore",
+          "paid_orgs_visited_explore",
+          "total_tiles_viewed_in_explore_by_paid_orgs",
+          "paid_client_admins_who_viewed_tiles_in_explore",
+          "tiles_viewed_per_paid_client_admin"
         ],
-
         "Creation" => [
-          "percent_orgs_that_copied_tiles",
+          "percent_paid_orgs_added_a_tile",
+          "tiles_added_by_paid_client_admins",
+          "paid_orgs_that_added_a_tile",
+
+          "percent_added_tiles_copied_from_explore",
+          "percent_added_tiles_created_from_scratch",
+
           "total_tiles_copied",
           "unique_orgs_that_copied_tiles",
-          "average_tiles_copied_per_org_that_copied"
-        ],
-        "Content" => [
-          "orgs_that_posted_tiles",
-          "percent_of_orgs_that_posted_tiles",
-          "total_tiles_posted",
-          "average_tiles_posted_per_organization_that_posted",
+          "average_tiles_copied_per_org_that_copied",
+
+          "tiles_created_from_scratch",
+          "orgs_that_created_tiles_from_scratch",
+          "average_tiles_created_from_scratch_per_org_that_created",
           "average_tile_creation_time"
         ],
+
         "Engagement" => [
           "percent_joined_current",
           "percent_joined_30_days",
@@ -176,6 +185,74 @@ module Reporting
           hint: "Activity Sessions Per Engaged Client Admin",
           indent: 1,
         },
+
+
+        "percent_paid_orgs_view_tile_in_explore" => {
+          label: "Explore Engagement",
+          type: "pct",
+          hint: "% of Paid Organizations that viewed a Tile in Airbo Explore",
+          indent: 0
+        },
+        "paid_orgs_visited_explore" => {
+          label: "Customers",
+          type: "num",
+          hint: "# of paid organizations that accessed any part of Airbo Explore",
+          indent: 1
+        },
+        "total_tiles_viewed_in_explore_by_paid_orgs" => {
+          label: "Total Tile Views",
+          type: "num",
+          hint: "Total # of Tiles viewed in Explore by Paid Organizations",
+          indent: 2
+        },
+        "paid_client_admins_who_viewed_tiles_in_explore" => {
+          label: "Client Admins",
+          type: "num",
+          hint: "# of client admins that viewed Tiles",
+          indent: 2
+        },
+        "tiles_viewed_per_paid_client_admin" => {
+          label: " Per Client Admin",
+          type: "num",
+          hint: "# of Tile Views per Paid Client Admin",
+          indent: 0
+        },
+
+
+
+        "percent_paid_orgs_added_a_tile" => {
+          label: "Tile Creation Engagement",
+          type: "pct",
+          hint: "% of Paid Organizations that added a tile",
+          indent: 0
+        },
+        "tiles_added_by_paid_client_admins" => {
+          label: "New Tiles Added",
+          type: "num",
+          hint: "# of Unique Tiles Added by Paid Client Admins",
+          indent: 0
+        },
+        "paid_orgs_that_added_a_tile" => {
+          label: "Customers",
+          type: "num",
+          hint: "# of customers that added Tiles",
+          indent: 1
+        },
+        "percent_added_tiles_copied_from_explore" => {
+          label: "Copied",
+          type: "pct",
+          hint: "% of New Tiles that were copied from Explore",
+          indent: 1
+        },
+        "percent_added_tiles_created_from_scratch" => {
+          label: "Created",
+          type: "pct",
+          hint: "% of New Tiles that were created from scratch",
+          indent: 1
+        },
+
+
+
         "percent_orgs_that_copied_tiles" =>{
           label: "Copied",
           type: "pct",
@@ -224,13 +301,34 @@ module Reporting
           hint: "",
           indent: 0,
         },
-        "average_tile_creation_time" =>{
-          label: "Average Tiles Creation Time",
+
+        "tiles_created_from_scratch" => {
+          label: "Tiles Created",
           type: "num",
           hint: "",
-          indent: 0,
+          indent: 0
         },
- "percent_joined_current" =>{
+        "orgs_that_created_tiles_from_scratch" => {
+          label: "Customers",
+          type: "num",
+          hint: "",
+          indent: 1
+        },
+        "average_tiles_created_from_scratch_per_org_that_created" => {
+          label: "Average",
+          type: "num",
+          hint: "",
+          indent: 1
+        },
+
+        "average_tile_creation_time" =>{
+          label: "Speed",
+          type: "num",
+          hint: "",
+          indent: 1,
+        },
+
+        "percent_joined_current" =>{
           label: "% of eligible population joined",
           type: "pct",
           hint: "",
