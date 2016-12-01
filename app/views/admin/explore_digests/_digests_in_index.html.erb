@@ -6,7 +6,7 @@
       <table class="sortable tablesorter">
         <thead>
           <tr>
-            <th>Header</th>
+            <th>Subject</th>
             <th>Created At</th>
             <% if state == "delivered" %>
               <th>Delivered At</th>
@@ -18,7 +18,7 @@
         <tbody>
           <% digests.each do |digest| %>
             <tr class="resource-row">
-              <td><%= digest.defaults(:header) %></td>
+              <td><%= digest.defaults(:subject) %></td>
               <td><%= digest.created_at.to_formatted_s(:short) %></td>
               <% if state == "delivered" %>
                 <td><%= digest.delivered_at.to_formatted_s(:short) %></td>
