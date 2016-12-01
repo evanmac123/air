@@ -6,7 +6,6 @@ Airbo.ExploreDigest = (function(){
       event.preventDefault();
       var count = $(".feature-section").length + 1;
       addNewFeatureTemplate(count);
-      bindAddExploreDigestTileIDField();
     });
   }
 
