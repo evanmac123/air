@@ -1,6 +1,5 @@
 module Reporting
   class ClientKPIReport
-    PAID_CLIENTS_DELIGHTED_TREND = 75029
 
     def get_data_by_date sdate, edate
       self.build_data_set(row_set(raw_data(sdate, edate)))

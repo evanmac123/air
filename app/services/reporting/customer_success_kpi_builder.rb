@@ -1,5 +1,7 @@
 module Reporting
   class CustomerSuccessKpiBuilder
+    PAID_CLIENTS_DELIGHTED_TREND = 75029
+
     attr_accessor :report_date, :from_date, :to_date
     attr_reader :opts, :demo_ids, :demos
 
