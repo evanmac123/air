@@ -37,6 +37,7 @@ class Admin::ExploreDigestsController < AdminBaseController
         @explore_digest.deliver_test_digest!(current_user)
         render :edit
       elsif @explore_digest.approved
+        @explore_digest.update_attributes(delivered_at: Time.now)
         @explore_digest.deliver_digest!
         flash[:success] = "Digest delivered"
         redirect_to admin_explore_digests_path

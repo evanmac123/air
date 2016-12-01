@@ -1,6 +1,6 @@
 class ExploreDigest < ActiveRecord::Base
   scope :delivered, -> { where(delivered: true) }
-  scope :approved, -> { where(approved: true) }
+  scope :approved, -> { where(approved: true).where(delivered_at: nil) }
   scope :pending, -> { where(approved: false) }
 
   def defaults(key)
