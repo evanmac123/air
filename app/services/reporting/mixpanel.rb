@@ -1,6 +1,12 @@
 module Reporting
   module Mixpanel
 
+    module Segmentation
+      def endpoint
+        "segmentation"
+      end
+    end
+
     module MixpanelUnsegmentedResult
       def by_reporting_period 
         series.each do |date|
@@ -8,14 +14,11 @@ module Reporting
             @summary_by_date[date] = data[date]
           end
         end
-
-        @summary_by_date
       end
-    end
 
-    module Segmentation
-      def endpoint
-        "segmentation"
+      def get_count
+        run
+        @summary_by_date.values.first
       end
     end
 
@@ -27,6 +30,18 @@ module Reporting
           end
         end
       end
+
+      #TODO is there a more elegant way to do this
+      def get_count
+        run
+        @summary_by_date.values.first.keys.count
+      end
+
+      def sum
+        run
+        @summary_by_date.values.first.values.sum
+      end
+
     end
 
     class Report
@@ -49,6 +64,9 @@ module Reporting
 
       def run
         by_reporting_period
+      end
+
+      def summary_by_date
         @summary_by_date
       end
 
