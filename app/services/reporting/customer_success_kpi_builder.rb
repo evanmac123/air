@@ -49,10 +49,11 @@ module Reporting
       kpi.percent_orgs_that_copied_tiles = percent_orgs_that_copied_tiles
       kpi.percent_of_orgs_that_posted_tiles = percent_of_orgs_that_posted_tiles
 
-      #kpi.percent_retained_post_activation_30_days =
-      #kpi.percent_retained_post_activation_60_days =
-      #kpi.percent_retained_post_activation_120_days =
-      #kpi.average_tile_creation_time =
+      kpi.percent_retained_post_activation_30_days = retention_by_days("30")
+      kpi.percent_retained_post_activation_60_days =  retention_by_days("60")
+      kpi.percent_retained_post_activation_120_days =  retention_by_days("120")
+
+      kpi.average_tile_creation_time = avg_tile_creation_time
 
 
       #kpi.percent_joined_current =
@@ -60,6 +61,10 @@ module Reporting
       #kpi.percent_joined_60_days =
       #kpi.percent_joined_120_days =
 
+      kpi.from_date = opts[:to_date]
+      kpi.to_date = opts[:to_date]
+      kpi.report_date = opts[:from_date]
+      kpi.weekending_date = opts[:to_date]
       kpi.save
 
     end
