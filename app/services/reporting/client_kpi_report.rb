@@ -2,7 +2,7 @@ module Reporting
   class ClientKPIReport
 
     def get_data_by_date sdate, edate
-      self.build_data_set(row_set(raw_data(sdate, edate)))
+      build_data_set(row_set(raw_data(sdate, edate)))
     end
 
     def build_data_set row_data 
@@ -20,6 +20,11 @@ module Reporting
       {}
     end
 
+    def default_date_range
+      edate = Date.today.beginning_of_week
+      sdate = edate.advance(weeks: -5)
+      [sdate, edate]
+    end
 
     def row_set res
       fields = res.map(&:keys).flatten.uniq
@@ -101,6 +106,12 @@ module Reporting
 
     def kpi_fields
       {
+
+        "report_date" => {
+          label: "Date",
+          type: "date",
+          indent: 0
+        },
         "paid_net_promoter_score" => {
           label: "Net Promoter Score (last 90 days)",
           type: "num",
