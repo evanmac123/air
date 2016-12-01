@@ -94,12 +94,24 @@ module Reporting
       @org_unique_activity_sessions = Reporting::Mixpanel::OrganizationWithUniqueActivitySessions.new(opts).get_count
     end
 
+    def percent_engaged_organizations
+      calc_percent(@org_unique_activity_sessions, @total_paid_orgs)
+    end
+
     def client_admin_unique_activity_sessions
       @client_admin_unique_activity_sessions = Reporting::Mixpanel::ClientAdminWithUniqueActivitySessions.new(opts).get_count
     end
 
     def total_client_admin_activity_sessions
       @total_client_admin_activity_sessions = Reporting::Mixpanel::TotalClientAdminActivitySessions.new(opts).get_count
+    end
+
+    def percent_engaged_client_admin
+      calc_percent(@client_admin_unique_activity_sessions, @total_paid_client_admins)
+    end
+
+    def activity_sessions_per_client_admin
+      calc_avg(@total_client_admin_activity_sessions, @total_paid_client_admins)
     end
 
     def unique_orgs_that_copied_tiles
@@ -142,16 +154,12 @@ module Reporting
       calc_avg(@total_tiles_posted, @orgs_that_posted_tiles)
     end
 
-    def percent_engaged_organizations
-      calc_percent(@org_unique_activity_sessions, @total_paid_orgs)
+
+
     end
 
-    def percent_engaged_client_admin
-      calc_percent(@client_admin_unique_activity_sessions, @total_paid_client_admins)
     end
 
-    def activity_sessions_per_client_admin
-      calc_avg(@total_client_admin_activity_sessions, @total_paid_client_admins)
     end
 
     #----------Utility Methods
