@@ -26,9 +26,9 @@ module Reporting
       opts[:to_date] = opts[:from_date].end_of_week(:sunday).end_of_day
     end
 
+    def build
+      kpi = CustSuccessKpi.new
 
-    def build_week
-      kpi = CustomerSuccessKpi.new
 
       kpi.paid_net_promoter_score = paid_net_promoter_score
       kpi.paid_net_promoter_score_response_count = paid_net_promoter_score.response_count
