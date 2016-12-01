@@ -5,9 +5,9 @@ module Reporting
     class UniqueActivitySessionAfterTimePeriodInDays < UniqueSegmentedEventsBase
 
       RANGES = {
-        first: { label: "30Days",  min:1, max: 30},
-        second: {label: "60Days",  min: 31, max: 60},
-        third: { label: "120Days", min: 61, max: 120}
+        first: { label: "30",  min:1, max: 30},
+        second: {label: "60",  min: 31, max: 60},
+        third: { label: "120", min: 61, max: 120}
       }
 
       def configure opts
