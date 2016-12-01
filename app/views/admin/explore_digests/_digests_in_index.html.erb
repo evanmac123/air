@@ -19,9 +19,9 @@
           <% digests.each do |digest| %>
             <tr class="resource-row">
               <td><%= digest.defaults(:subject) %></td>
-              <td><%= digest.created_at.to_formatted_s(:short) %></td>
+              <td><%= "#{digest.created_at.to_formatted_s(:short)} EST" %></td>
               <% if state == "delivered" %>
-                <td><%= digest.delivered_at.to_formatted_s(:short) %></td>
+                <td><%= "#{digest.delivered_at.to_formatted_s(:short)} EST" %></td>
               <% end %>
               <td><%= digest.defaults(:note) %></td>
               <td><%= link_to "Edit", edit_admin_explore_digest_path(digest) %></td>
