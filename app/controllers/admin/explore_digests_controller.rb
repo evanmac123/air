@@ -20,6 +20,7 @@ class Admin::ExploreDigestsController < AdminBaseController
 
   def update
     @explore_digest = ExploreDigest.find(params[:id])
+    @explore_digest.update_attributes(explore_digest_params)
     @explore_digest.post_to_redis(params[:defaults], params[:features])
 
     redirect_to edit_admin_explore_digest_path(@explore_digest)
@@ -49,5 +50,9 @@ class Admin::ExploreDigestsController < AdminBaseController
 
     def test_digest?
       params[:test_digest] == "true"
+    end
+
+    def explore_digest_params
+      params.require(:explore_digest).permit(:approved)
     end
 end
