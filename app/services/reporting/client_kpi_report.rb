@@ -64,23 +64,25 @@ module Reporting
     def sections
       {
 
-        "Overall Satisfaction" =>  [
+        "Overall Engagement" =>  [
           "paid_net_promoter_score",
           "paid_net_promoter_score_response_count",
-          "total_paid_orgs",
-          "unique_org_with_activity_sessions",
           "percent_engaged_organizations",
-          "total_paid_client_admins",
-          "unique_client_admin_with_activity_sessions",
+          "unique_org_with_activity_sessions",
+          "total_paid_orgs",
           "percent_engaged_client_admin",
-          "total_paid_client_admin_activity_sessions",
+          "unique_client_admin_with_activity_sessions",
           "total_paid_client_admins",
+          "total_paid_client_admin_activity_sessions",
           "activity_sessions_per_client_admin"
         ],
         "Planning" => [
-          "unique_orgs_that_copied_tiles",
+        ],
+
+        "Creation" => [
           "percent_orgs_that_copied_tiles",
           "total_tiles_copied",
+          "unique_orgs_that_copied_tiles",
           "average_tiles_copied_per_org_that_copied"
         ],
         "Content" => [
@@ -110,143 +112,164 @@ module Reporting
         "report_date" => {
           label: "Date",
           type: "date",
+          hint: "",
           indent: 0
         },
         "paid_net_promoter_score" => {
-          label: "Net Promoter Score (last 90 days)",
+          label: "Net Promoter Score (NPS)",
           type: "num",
+          hint: "Rolling 90 days",
           indent: 0,
         },
         "paid_net_promoter_score_response_count" => {
-          label: "Net Promoter Score Response Count",
+          label: "Responses",
           type: "num",
-          indent: 0,
+          hint: "",
+          indent: 1,
         },
-        "total_paid_orgs" =>{
-          label: "Total Paid Organizations",
-          type: "num",
+        "percent_engaged_organizations" =>{
+          label: "Customer Engagement",
+          type: "pct",
+          hint: "",
           indent: 0,
         },
         "unique_org_with_activity_sessions" =>{
-          label: "Unique Organizations with One or More Activity Session",
+          label: "Engaged ",
           type: "num",
-          indent: 0,
+          hint: "Unique Organizations with One or More Activity Session",
+          indent: 1,
         },
-        "percent_engaged_organizations" =>{
-          label: "% of Engaged Organizations",
+        "total_paid_orgs" =>{
+          label: "Customers",
+          type: "num",
+          hint: "",
+          indent: 1,
+        },
+        "percent_engaged_client_admin" =>{
+          label: "Client Admin Engagement",
           type: "pct",
-          indent: 0,
-        },
-        "total_paid_client_admins" =>{
-          label: "Total Paid Client Admins" ,
-          type: "num",
+          hint: "",
           indent: 0,
         },
         "unique_client_admin_with_activity_sessions" =>{
-          label: "Unique Paid Client Admins with One or More Activity Session",
+          label: "Engaged",
           type: "num",
-          indent: 0,
-        },
-        "percent_engaged_client_admin" =>{
-          label: "% of Engaged Paid Client Admins",
-          type: "pct",
-          indent: 0,
-        },
-        "total_paid_client_admin_activity_sessions" =>{
-          label: "Total Paid Client Admin Activity Sessions",
-          type: "num",
-          indent: 0,
+          hint: "Unique Paid Client Admins with One or More Activity Session",
+          indent: 1,
         },
         "total_paid_client_admins" =>{
-          label: "Total Paid Client Admins",
+          label: "Client Admins" ,
           type: "num",
+          hint: "",
+          indent: 1,
+        },
+
+        "total_paid_client_admin_activity_sessions" =>{
+          label: "Total Activity Sessions",
+          type: "num",
+          hint: "",
           indent: 0,
         },
         "activity_sessions_per_client_admin" =>{
-          label: "Activity Sessions Per Client Admin",
+          label: "Per Engaged Client Admin",
           type: "num",
-          indent: 0,
+          hint: "Activity Sessions Per Engaged Client Admin",
+          indent: 1,
         },
         "percent_orgs_that_copied_tiles" =>{
-          label: "% Orgs that Copied Tiles",
+          label: "Copied",
           type: "pct",
-          indent: 0,
+          hint: "% of New Tiles that were copied from Explore",
+          indent: 1,
         },
         "total_tiles_copied" =>{
-          label: "Total Tiles Copied",
+          label: "Tiles Copied",
           type: "num",
+          hint: "",
           indent: 0,
         },
         "unique_orgs_that_copied_tiles" =>{
-          label: "Unique Orgs that Copied Tiles",
+          label: "Customers",
           type: "num",
-          indent: 0,
+          hint: "",
+          indent: 1,
         },
         "average_tiles_copied_per_org_that_copied" =>{
-          label: "Avg Tiles Copied Per Org that Copied",
+          label: "Average",
           type: "num",
-          indent: 0,
+          hint: "Avg Tiles Copied Per Org that Copied",
+          indent: 1,
         },
         "orgs_that_posted_tiles" =>{
           label: "Orgs That Posted Tiles",
           type: "num",
+          hint: "",
           indent: 0,
         },
         "percent_of_orgs_that_posted_tiles" =>{
           label: "% of Orgs That Posted Tiles",
           type: "pct",
+          hint: "",
           indent: 0,
         },
         "total_tiles_posted" =>{
           label: "Total Tiles Posted",
           type: "num",
+          hint: "",
           indent: 0,
         },
         "average_tiles_posted_per_organization_that_posted" =>{
           label: "Average Tiles Posted Per Organization That Posted Tiles",
           type: "num",
+          hint: "",
           indent: 0,
         },
         "average_tile_creation_time" =>{
           label: "Average Tiles Creation Time",
           type: "num",
+          hint: "",
           indent: 0,
         },
  "percent_joined_current" =>{
           label: "% of eligible population joined",
           type: "pct",
+          hint: "",
           indent: 0,
         },
-
         "percent_joined_30_days" =>{
           label: "30 Days",
           type: "pct",
+          hint: "",
           indent: 0,
         },
         "percent_joined_60_days" =>{
           label: "60 Days",
           type: "pct",
+          hint: "",
           indent: 0,
         },
         "percent_joined_120_days" =>{
           label: "120 Days",
           type: "pct",
+          hint: "",
           indent: 0,
         },
-
         "percent_retained_post_activation_30_days" =>{
           label: "30 Days",
           type: "pct",
+          hint: "",
           indent: 0,
         },
         "percent_retained_post_activation_60_days" =>{
           label: "60 Days",
           type: "pct",
+          hint: "",
           indent: 0,
         },
         "percent_retained_post_activation_120_days" =>{
           label: "120 Days",
           type: "pct",
+          hint: "",
           indent: 0,
         },
       }
