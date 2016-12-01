@@ -38,6 +38,7 @@ module Reporting
       end
 
       def get_count_by_segment(segment)
+        run
         @summary_by_date.values.first[segment]
       end
 
