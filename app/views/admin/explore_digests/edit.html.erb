@@ -13,6 +13,9 @@
 
             <%= label_tag "defaults[subheader]", "Subheader" %>
             <%= text_field_tag "defaults[subheader]", @explore_digest.defaults(:subheader) %>
+
+            <%= label_tag "defaults[note]", "Note" %>
+            <%= text_field_tag "defaults[note]", @explore_digest.defaults(:note) %>
           </div>
         </div>
         <div class="columns small-6">
