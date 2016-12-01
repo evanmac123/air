@@ -118,6 +118,7 @@ group :development do
   gem 'thin'
   gem 'quiet_assets'
   gem 'letter_opener'
+  gem 'letter_opener_web', '~> 1.2.0'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'meta_request'

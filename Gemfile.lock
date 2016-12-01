@@ -297,6 +297,9 @@ GEM
       hash-deep-merge
     letter_opener (1.0.0)
       launchy (>= 2.0.4)
+    letter_opener_web (1.2.3)
+      letter_opener (~> 1.0)
+      rails (>= 3.2)
     little-plugger (1.1.4)
     logging (2.0.0)
       little-plugger (~> 1.1)
@@ -622,6 +625,7 @@ DEPENDENCIES
   kaminari
   lazy_high_charts
   letter_opener
+  letter_opener_web (~> 1.2.0)
   meta_request
   mixpanel
   mixpanel_client

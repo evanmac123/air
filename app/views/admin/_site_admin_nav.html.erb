@@ -12,22 +12,37 @@
     <!-- Right Nav Section -->
     <ul class="left">
       <li class="has-dropdown not-click">
-        <a href="#">Admin Tools</a>
+        <a href="#">Content</a>
         <ul class="dropdown">
           <li>
             <%= link_to 'Image Library', admin_tile_images_path %>
           </li>
           <li>
-            <%= link_to 'Edit Support Page', edit_admin_support_path %>
+            <%= link_to 'Explore Digests', admin_explore_digests_path %>
           </li>
           <li>
-            <%= link_to 'Explore Digest', new_admin_explore_digest_path %>
+            <%= link_to 'New Explore Digest', new_admin_explore_digest_path %>
+          </li>
+          <li>
+            <%= link_to 'Recommended Tiles (deprecate)', admin_recommended_tiles_path  %>
+          </li>
+          <li>
+            <%= link_to 'Explore Customization (deprecate)', new_admin_explore_customization_path  %>
+          </li>
+          <li>
+            <%= link_to 'Tile Features', admin_tile_features_path  %>
+          </li>
+          <li>
+            <%= link_to 'Topics (deprecate)', admin_topics_path  %>
           </li>
         </ul>
       </li>
       <li class="has-dropdown not-click">
-        <a href="#">Board Management</a>
+        <a href="#">Customer Success</a>
         <ul class="dropdown">
+          <li>
+            <%= link_to 'Customer Success KPIs', admin_client_kpi_report_path %>
+          </li>
           <li>
             <%= link_to 'Organizations', admin_organizations_path  %>
           </li>
@@ -39,18 +54,6 @@
           </li>
           <li>
             <%= link_to 'Library/Onboarding Boards', admin_topic_boards_path  %>
-          </li>
-          <li>
-            <%= link_to 'Topics', admin_topics_path  %>
-          </li>
-          <li>
-            <%= link_to 'Recommended Tiles', admin_recommended_tiles_path  %>
-          </li>
-          <li>
-            <%= link_to 'Explore Customization', new_admin_explore_customization_path  %>
-          </li>
-          <li>
-            <%= link_to 'Tile Features', admin_tile_features_path  %>
           </li>
         </ul>
       </li>
@@ -71,13 +74,19 @@
           <li>
             <%= link_to 'Style Guide', admin_reference_style_guide_path  %>
           </li>
+          <li>
+            <%= link_to 'Edit Support Page', edit_admin_support_path %>
+          </li>
         </ul>
       </li>
       <li class="has-dropdown not-click">
-        <a href="#">KPI</a>
+        <a href="#">KPIs</a>
         <ul class="dropdown">
           <li>
-            <%= link_to 'KPI Dashboard', admin_client_kpi_report_path %>
+            <%= link_to 'Customer Success KPIs', admin_client_kpi_report_path %>
+          </li>
+          <li>
+            <%= link_to 'Financial KPIs', admin_financials_kpi_dashboard_path %>
           </li>
         </ul>
       </li>
@@ -86,7 +95,7 @@
         <a href="#">Financials</a>
         <ul class="dropdown">
           <li>
-            <%= link_to 'Dashboard', admin_financials_kpi_dashboard_path %>
+            <%= link_to 'Financial KPIs', admin_financials_kpi_dashboard_path %>
           </li>
           <li>
             <%= link_to 'Contracts', admin_contracts_path  %>

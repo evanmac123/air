@@ -1,16 +1,16 @@
 class ExploreDigestMailer < BaseTilesDigestMailer
+  include Rails.application.routes.url_helpers
 
-  def notify_one(sections, subject, user)
+  def notify_one(explore_digest, user)
     @user  = user
     return nil unless @user.email.present?
 
-    @presenter = TilesDigestMailExplorePresenter.new(sections, email_attrs, user, custom_from)
+    @presenter = ExploreDigestPresenter.new(@user.explore_token)
+    @explore_digest = explore_digest
 
-    undecorated_tiles = tile_ids.map{|tile_id| Tile.find(tile_id)}
+    subject = @explore_digest.defaults(:subject)
 
-    @tiles = TileExploreDigestDecorator.decorate_collection undecorated_tiles, context: { user: @user, tile_ids: tile_ids }
-
-    ping_on_digest_email(@presenter.email_type, @user, link_subject)
+    ping_on_digest_email(@presenter.email_type, @user, subject)
 
     mail to: @user.email_with_name,
       from: @presenter.from_email,
@@ -19,11 +19,17 @@ class ExploreDigestMailer < BaseTilesDigestMailer
       template_name: 'notify_one'
   end
 
-  def notify_all(sections, email_attrs, users = nil, custom_from = nil)
-    users = users || User.where{ (is_client_admin) == true | (is_site_admin == true) }
-
+  def notify_all(explore_digest, users)
     users.each { |user|
-      ExploreDigestMailer.delay.notify_one(sections, email_attrs, user, custom_from)
+      ExploreDigestMailer.delay.notify_one(explore_digest, user)
     }
+  end
+
+  def general_site_url
+    if Rails.env.development? or Rails.env.test?
+      'http://localhost:3000' + explore_path(explore_token: @explore_token, email_type: email_type)
+    else
+      explore_url(explore_token: @explore_token, email_type: email_type, host: email_link_host, protocol: email_link_protocol)
+    end
   end
 end

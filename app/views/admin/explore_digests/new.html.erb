@@ -1,68 +1,60 @@
 <div class="row">
   <div class="columns small-12">
-    <h3>Explore Digest</h3>
-    <%= form_for @explore_digest_form, url: admin_explore_digest_path do |form| %>
+    <h3>Explore Digest Email</h3>
+    <%= form_for [:admin, @explore_digest] do |f| %>
       <div class="row">
         <div class="columns small-6">
-          <fieldset>
-            <legend>Explore Defaults</legend>
-            <%= form.label :subject %>
-            <%= form.text_field :subject %>
-          </fieldset>
+          <div class="panel">
+            <%= label_tag "defaults[subject]", "Subject" %>
+            <%= text_field "defaults[subject]", @explore_digest.defaults(:subject) %>
 
-          <fieldset>
-            <legend>Explore Body</legend>
-            <%= form.label :headline %>
-            <%= form.text_field :headline %>
+            <%= label_tag "defaults[header]", "Header" %>
+            <%= text_field "defaults[header]", @explore_digest.defaults(:header) %>
 
-            <%= form.label :custom_message %>
-            <%= form.text_area :custom_message, rows: 5, columns: 60 %>
-
-            <%= form.label "Tile IDs" %>
-            <div id="tile_ids_container">
-              <% form.object.tile_ids.each_with_index do |tile_id| %>
-              <%= text_field_tag "explore_digest_form[tile_ids][]", tile_id %>
-              <% end %>
-            </div>
-
-            <%= form.submit "Add another tile ID", id: 'add_tile_id', class: "button" %>
-          </fieldset>
-        </div>
-        <div class="columns small-6">
-          <fieldset>
-            <legend>Features</legend>
-            <%= form.submit "Add feature", id: 'add_feature', class: "button" %>
-            <div class="features-container">
-              <fieldset class="feature-section">
-                <legend>Feature</legend>
-                <div class="add-feature-form">
-                  <%= label_tag "feature[1][headline]", "Headline" %>
-                  <%= text_field_tag "feature[1][headline]" %>
-
-                  <%= label_tag "feature[1][custom_message]", "Custom Message" %>
-                  <%= text_area_tag "feature[1][custom_message]", nil, rows: 5, columns: 60 %>
-
-                  <%= label_tag "feature[1][tile_ids]", "Tile IDs" %>
-                  <div id="feature_tile_ids_container">
-                    <% 4.times do %>
-                      <%= text_field_tag "feature[1][tile_ids][]" %>
-                    <% end %>
-                  </div>
-                </div>
-              </fieldset>
-            </fieldset>
-            </div>
+            <%= label_tag "defaults[subheader]", "Subheader" %>
+            <%= text_field "defaults[subheader]", @explore_digest.defaults(:subheader) %>
+          </div>
         </div>
       </div>
       <div class="row">
-        <div class="columns small-2">
-          <%= form.submit "Send test digest to self", class: "button" %>
-        </div>
-        <div class="columns small-2">
-          <%= form.submit "Send real digest", confirm: "Reorder tiles and send real digest?", class: "button red" %>
+        <div class="columns small-10">
+          <h3>Features</h3>
+          <%= f.submit "Add feature", id: 'add_feature', class: "button" %>
+          <div class="features-container">
+            <div class="panel feature-section">
+              <legend>Feature 1</legend>
+              <br>
+              <div class="add-feature-form">
+                <%= label_tag "features[1][headline]", "Headline" %>
+                <%= text_field_tag "features[1][headline]", @explore_digest.features(1, :headline) %>
+
+                <%= label_tag "features[1][headline_icon_url]", "Headline Icon URL" %>
+                <%= text_field_tag "features[1][headline_icon_url]", @explore_digest.features(1, :headline_icon_url) %>
+
+                <%= label_tag "features[1][feature_message]", "Feature Message" %>
+                <%= text_area_tag "features[1][feature_message]", @explore_digest.features(1, :feature_message), rows: 5, columns: 60 %>
+
+                <%= label_tag "features[1][tile_ids]", "Tile Ids (in order and comma separated)" %>
+                <%= text_field_tag "features[1][tile_ids]", @explore_digest.features(1, :tile_ids).try(:split, ", "), { placeholder: "1, 2, 3, 4, 5, 6" } %>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-
+      <div class="row">
+        <div class="columns small-12">
+          <br>
+          <%= f.submit "Save", class: "button" %>
+        </div>
+      </div>
+      <!-- <div class="row">
+        <div class="columns small-2">
+          <%= f.submit "Send test digest to self", class: "button" %>
+        </div>
+        <div class="columns small-2">
+          <%= f.submit "Send real digest", confirm: "Reorder tiles and send real digest?", class: "button red" %>
+        </div>
+      </div> -->
     <% end %>
   </div>
 </div>

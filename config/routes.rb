@@ -1,4 +1,7 @@
 Health::Application.routes.draw do
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
 
   get "users/index"
 
@@ -400,7 +403,9 @@ Health::Application.routes.draw do
 
     resources :reset_bulk_uploads, only: [:destroy]
 
-    resource :explore_digest, only: [:new, :create]
+    resources :explore_digests do
+      post :deliver
+    end
     resources :tile_images, only: [:create, :index, :destroy]
     resource :bulk_upload_progress, only: [:show]
     resource :bulk_upload_errors, only: [:show]
