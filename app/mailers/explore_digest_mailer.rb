@@ -1,6 +1,4 @@
 class ExploreDigestMailer < BaseTilesDigestMailer
-  include Rails.application.routes.url_helpers
-
   def notify_one(explore_digest, user)
     @user  = user
     return nil unless @user.email.present?
@@ -22,13 +20,5 @@ class ExploreDigestMailer < BaseTilesDigestMailer
     users.each { |user|
       ExploreDigestMailer.delay.notify_one(explore_digest, user)
     }
-  end
-
-  def general_site_url
-    if Rails.env.development? or Rails.env.test?
-      'http://localhost:3000' + explore_path(explore_token: @explore_token, email_type: email_type)
-    else
-      explore_url(explore_token: @explore_token, email_type: email_type, host: email_link_host, protocol: email_link_protocol)
-    end
   end
 end
