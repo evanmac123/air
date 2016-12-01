@@ -61,7 +61,7 @@ class ExploreDigest < ActiveRecord::Base
   end
 
   def deliver_test_digest!(current_user)
-    ExploreDigestMailer.notify_one(self, current_user)
+    ExploreDigestMailer.notify_one(self, current_user).deliver
   end
 
   def deliver_digest!
