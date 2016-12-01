@@ -134,8 +134,12 @@ module Reporting
       @retention ||= Reporting::Mixpanel::UniqueActivitySessionAfterTimePeriodInDays.new(opts)
     end
 
-    def avg_times_through_funnel
-      @time_through_funnel = Reporting::Mixpanel::TileCreationFunnel.new(opts).avg_times_through_funnel
+    def retention_by_days days
+      retention.get_count_by_segment(days)
+    end
+
+    def avg_tile_creation_time
+      @tile_creation_time = Reporting::Mixpanel::TileCreationFunnel.new(opts).get_avg_time
     end
 
     def average_tiles_copied_per_org_that_copied
