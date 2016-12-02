@@ -1,4 +1,7 @@
 Health::Application.routes.draw do
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
 
   get "users/index"
 
@@ -289,8 +292,6 @@ Health::Application.routes.draw do
 
     resources :tile_features, only: [:index, :create, :update, :destroy, :new]
 
-    resources :explore_customizations, only: [:new, :create]
-
     resources :historical_metrics, only: [:create]
     namespace :sales do
       resources :lead_contacts, only: [:index, :edit, :update, :create, :destroy] do
@@ -300,7 +301,6 @@ Health::Application.routes.draw do
     end
 
     resources :topics
-    resources :recommended_tiles
 
     resource :client_kpi_report
     resource :financials_kpi_dashboard, only:[:show], controller: "financials/kpi_dashboard"
@@ -400,7 +400,9 @@ Health::Application.routes.draw do
 
     resources :reset_bulk_uploads, only: [:destroy]
 
-    resource :explore_digest, only: [:new, :create]
+    resources :explore_digests do
+      post :deliver
+    end
     resources :tile_images, only: [:create, :index, :destroy]
     resource :bulk_upload_progress, only: [:show]
     resource :bulk_upload_errors, only: [:show]

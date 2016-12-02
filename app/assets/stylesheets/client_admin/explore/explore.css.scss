@@ -68,7 +68,7 @@ body.explores, .explores {
     }
   }
 
-  #recommended_container, #explore_tiles {
+  .channel_container, #explore_tiles {
     .tile-wrapper {
       .tile_buttons {
         opacity: 1;
@@ -79,7 +79,7 @@ body.explores, .explores {
     }
   }
 
-  #recommended_container {
+  .channel_container {
     .tile-wrapper {
       .tile_buttons {
         top: 84%;
@@ -134,12 +134,12 @@ body.explores, .explores {
     }
   }
 
-  #recommended_container, #collection_boards, #explore_tiles {
+  .channel_container, #collection_boards, #explore_tiles {
     background: $almost-white;
     padding: 2em 0 0 0;
   }
 
-  #recommended_container {
+  .channel_container {
     box-shadow: 0px 1px 6px 1.2px $med-gray;
     z-index: 2;
     .tile_container {
@@ -152,7 +152,7 @@ body.explores, .explores {
     z-index: 1;
   }
 
-  #recommended_tiles {
+  #channel_tiles {
     padding-left: 10px;
   }
 

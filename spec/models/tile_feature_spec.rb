@@ -9,6 +9,7 @@ describe TileFeature do
   let(:tile_feature) { TileFeature.new }
 
   it "assigns redis values given hash of parameters" do
+    FactoryGirl.create_list(:tile, 6, is_copyable: true, is_public: true)
     tile_feature.dispatch_redis_updates(redis_params)
 
     expect(tile_feature.custom_icon_url).to eq(redis_params["custom_icon_url"])
@@ -36,9 +37,10 @@ describe TileFeature do
     end
 
     it "removes non integers" do
-      tile_feature.dispatch_redis_updates({ tile_ids: "word, ##32, 43" })
+      tile_id = FactoryGirl.create(:tile, is_copyable: true, is_public: true).id
+      tile_feature.dispatch_redis_updates({ tile_ids: "word, ##32, #{tile_id}" })
 
-      expect(tile_feature.tile_ids).to eq(["43"])
+      expect(tile_feature.tile_ids).to eq(["#{tile_id}"])
     end
   end
 
@@ -69,12 +71,15 @@ describe TileFeature do
 
   context "tile retrieval" do
     it "gets tiles in the correct order" do
-      FactoryGirl.create_list(:tile, 5)
+      FactoryGirl.create_list(:tile, 5, is_copyable: true, is_public: true)
+      tile_id_1 = Tile.first.id
+      tile_id_3 = Tile.all[3].id
+      tile_id_2 = Tile.last.id
 
-      tile_feature.dispatch_redis_updates({ tile_ids: "3,5,1" })
+      tile_feature.dispatch_redis_updates({ tile_ids: "#{tile_id_2},#{tile_id_3},#{tile_id_1}" })
       feature_tiles = tile_feature.get_tiles(Tile.scoped)
 
-      expect(feature_tiles.map(&:id)).to eq([3, 5, 1])
+      expect(feature_tiles.map(&:id).join(",")).to eq("#{tile_id_2},#{tile_id_3},#{tile_id_1}")
     end
   end
 

@@ -74,7 +74,7 @@ class TilePreviewsController < ApplicationController
     end
 
     def next_explore_tile(offset)
-      next_tile = @tiles[@tiles.index(@tile) + offset] || @tiles.first
+      next_tile = @tiles[@tiles.index(@tile).to_i + offset] || @tiles.first
       next_tile || @tile
     end
 end

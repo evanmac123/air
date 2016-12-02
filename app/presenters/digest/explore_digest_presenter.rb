@@ -1,24 +1,18 @@
-class TilesDigestMailExplorePresenter < TilesDigestMailBasePresenter
+class ExploreDigestPresenter < TilesDigestMailBasePresenter
   include Rails.application.routes.url_helpers
   include EmailHelper
 
   EXPLORE_TITLE = "Explore digest".freeze
   EXPLORE_EMAIL = "explore_v_1".freeze
 
-  def initialize(custom_from, custom_message, email_heading, explore_token, subject=nil)
-    super(custom_message)
-    @custom_from = custom_from
-    @email_heading = email_heading
+  attr_reader :email_heading
+
+  def initialize(explore_token)
     @explore_token = explore_token
-    @subject = subject
   end
 
   def from_email
-    if @custom_from.present?
-      @custom_from
-    else
-      "Airbo Explore <airboexplore@ourairbo.com>"
-    end
+    "Airbo Explore <airboexplore@ourairbo.com>"
   end
 
   def title
@@ -40,6 +34,4 @@ class TilesDigestMailExplorePresenter < TilesDigestMailBasePresenter
   def works_on_mobile?
     false
   end
-
-  attr_reader :email_heading
 end
