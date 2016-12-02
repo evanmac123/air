@@ -6,10 +6,4 @@ MIXPANEL_API_SECRET = ENV['MIXPANEL_API_SECRET'] || '1d780c449c865d729da548286fe
 MIXPANEL_TOKEN = ENV['MIXPANEL_TOKEN'] || '05a30c487f3f60afa2e2a3876a4c05d6'
 MP_HOMPAGE_TAG_VERSION=ENV['MP_HOMPAGE_TAG_VERSION'] || "8/1/2016"
 
-if Rails.env.development? || Rails.env.production_local? ||RACK_ENV="development"
-  MIXPANEL_FUNNEL_REPORTS={"Tile Creation" => 2087554}
-elsif RACK_ENV="staging"
-  MIXPANEL_FUNNEL_REPORTS={"Tile Creation" => ""}
-elsif RACK_ENV="production"
-  MIXPANEL_FUNNEL_REPORTS={"Tile Creation" => ""}
-end
+MIXPANEL_FUNNEL_REPORTS={"Tile Creation" => ENV['MIXPANEL_TILE_CREATION_FUNNEL_ID']}
