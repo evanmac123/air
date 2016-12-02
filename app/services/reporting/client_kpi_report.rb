@@ -129,6 +129,7 @@ module Reporting
           type: "num",
           hint: "Rolling 90 days",
           indent: 0,
+          css: "hilite"
         },
         "paid_net_promoter_score_response_count" => {
           label: "Responses",
@@ -141,6 +142,7 @@ module Reporting
           type: "pct 0",
           hint: "",
           indent: 0,
+          css: "hilite"
         },
         "unique_org_with_activity_sessions" =>{
           label: "Engaged ",
@@ -159,6 +161,7 @@ module Reporting
           type: "pct 0",
           hint: "",
           indent: 0,
+          css: "hilite"
         },
         "unique_client_admin_with_activity_sessions" =>{
           label: "Engaged",
@@ -191,7 +194,8 @@ module Reporting
           label: "Explore Engagement",
           type: "pct 0",
           hint: "% of Paid Organizations that viewed a Tile in Airbo Explore",
-          indent: 0
+          indent: 0,
+          css: "hilite"
         },
         "paid_orgs_visited_explore" => {
           label: "Customers",
@@ -224,7 +228,8 @@ module Reporting
           label: "Tile Creation Engagement",
           type: "pct 0",
           hint: "% of Paid Organizations that added a tile",
-          indent: 0
+          indent: 0,
+          css: "hilite"
         },
         "tiles_added_by_paid_client_admins" => {
           label: "New Tiles Added",

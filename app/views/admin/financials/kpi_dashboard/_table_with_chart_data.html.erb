@@ -21,7 +21,7 @@
                 <tr>
                   <th colspan= '<%=@table_data[field]["colspan"]%>' title='<%=@table_data[field]["hint"]%>' class='<%=@table_data[field]["type"]%> indent-<%=@table_data[field]["indent"]%>'><%=@table_data[field]["label"]%></th>
                   <%@table_data[field]["values"].each do |val| %>
-                    <td><%=simple_format_by_type @table_data[field]["type"], val %></td>
+                    <td class='<%=@table_data[field]["css"]%>'><%=simple_format_by_type @table_data[field]["type"], val %></td>
                   <%end%>
                 <%end%>
                 </tr>
