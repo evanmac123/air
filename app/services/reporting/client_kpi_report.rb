@@ -329,7 +329,7 @@ module Reporting
         },
 
         "percent_joined_current" =>{
-          label: "% of eligible population joined",
+          label: "User Activation",
           type: "pct",
           hint: "",
           indent: 0,
