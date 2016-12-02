@@ -64,9 +64,16 @@ class ExploreDigest < ActiveRecord::Base
     ExploreDigestMailer.notify_one(self, current_user).deliver
   end
 
+  def deliver_targeted_digest!(user_ids = @targeted_digest_ids)
+    users = User.client_admin.where(id: user_ids)
+
+    ExploreDigestMailer.notify_all(self, users)
+    self.update_attributes(delivered: true, delivered_at: Time.now)
+  end
+
   def deliver_digest!
     ExploreDigestMailer.delay.notify_all(self)
-    self.update_attributes(delivered: true)
+    self.update_attributes(delivered: true, delivered_at: Time.now)
   end
 
   def get_tiles(feature, tiles = Tile.copyable)
@@ -76,7 +83,8 @@ class ExploreDigest < ActiveRecord::Base
     tile_ids.map { |id| grouped_tiles[id.to_i].first }
   end
 
-  def validate
+  def validate(targeted_digest)
+    validate_targeted_digest(targeted_digest)
     validate_defaults
     validate_features
   end
@@ -102,11 +110,21 @@ class ExploreDigest < ActiveRecord::Base
       }
     end
 
+    def validate_targeted_digest(targeted_digest)
+      if targeted_digest[:send] == "true"
+        @targeted_digest_ids = targeted_digest[:users].gsub(/\s+/, "").split(",").select { |id| id.to_i != 0 }
+
+        if @targeted_digest_ids.empty? || User.client_admin.where(id: @targeted_digest_ids).length != @targeted_digest_ids.length
+          errors.add(:base, "Some of your targeted users are not client admin")
+        end
+      end
+    end
+
     def feature_keys_for_validation
       [:headline, :tile_ids]
     end
 
     def default_keys_for_validation
-      [:subject, :header]
+      []
     end
 end

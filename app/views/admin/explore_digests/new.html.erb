@@ -4,19 +4,7 @@
     <%= form_for [:admin, @explore_digest] do |f| %>
       <div class="row">
         <div class="columns small-6">
-          <div class="panel">
-            <%= label_tag "defaults[subject]", "Subject" %>
-            <%= text_field "defaults[subject]", @explore_digest.defaults(:subject) %>
-
-            <%= label_tag "defaults[header]", "Header" %>
-            <%= text_field "defaults[header]", @explore_digest.defaults(:header) %>
-
-            <%= label_tag "defaults[subheader]", "Subheader" %>
-            <%= text_field "defaults[subheader]", @explore_digest.defaults(:subheader) %>
-
-            <%= label_tag "defaults[note]", "Note" %>
-            <%= text_field_tag "defaults[note]", @explore_digest.defaults(:note) %>
-          </div>
+          <%= render "digest_defaults" %>
         </div>
       </div>
       <div class="row">
@@ -50,14 +38,6 @@
           <%= f.submit "Save", class: "button" %>
         </div>
       </div>
-      <!-- <div class="row">
-        <div class="columns small-2">
-          <%= f.submit "Send test digest to self", class: "button" %>
-        </div>
-        <div class="columns small-2">
-          <%= f.submit "Send real digest", confirm: "Reorder tiles and send real digest?", class: "button red" %>
-        </div>
-      </div> -->
     <% end %>
   </div>
 </div>

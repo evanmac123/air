@@ -4,24 +4,12 @@
     <%= form_for [:admin, @explore_digest] do |f| %>
       <div class="row">
         <div class="columns small-6">
-          <div class="panel">
-            <%= label_tag "defaults[subject]", "Subject" %>
-            <%= text_field_tag "defaults[subject]", @explore_digest.defaults(:subject) %>
-
-            <%= label_tag "defaults[header]", "Header" %>
-            <%= text_field_tag "defaults[header]", @explore_digest.defaults(:header) %>
-
-            <%= label_tag "defaults[subheader]", "Subheader" %>
-            <%= text_field_tag "defaults[subheader]", @explore_digest.defaults(:subheader) %>
-
-            <%= label_tag "defaults[note]", "Note" %>
-            <%= text_field_tag "defaults[note]", @explore_digest.defaults(:note) %>
-          </div>
+          <%= render "digest_defaults" %>
         </div>
         <div class="columns small-6">
           <div class="panel">
             <div class="row">
-              <p id="error_explanation" style="color:red;padding:10px;size:8px;"></p>
+              <p id="response_explanation" style="padding:10px;size:8px;margin-top:0"></p>
             </div>
             <div class="row">
               <div class="columns small-6">
@@ -35,8 +23,17 @@
             <br>
             <br>
             <div class="row">
-              <div class="columns small-2">
+              <div class="columns small-12">
                 <%= render partial: "shared/button_with_spinner", locals: { button_id: "send_real_digest", button_classes: "red", button_text: "Send real digest" } %>
+              </div>
+            </div>
+            <br>
+            <div class="row" style="border-top: 1px solid #bfbfbf;margin-top:17px;">
+              <br>
+              <div class="columns small-12">
+                <%= label_tag "targeted_digest[users]", "User Ids (comma separated)" %>
+                <%= text_field_tag "targeted_digest[users]" %>
+                <%= render partial: "shared/button_with_spinner", locals: { button_id: "send_targeted_digest", button_classes: "red outlined", button_text: "Send targeted digest" } %>
               </div>
             </div>
           </div>

@@ -28,7 +28,7 @@ class Admin::ExploreDigestsController < AdminBaseController
 
   def deliver
     @explore_digest = ExploreDigest.find(params[:explore_digest_id])
-    @explore_digest.validate
+    @explore_digest.validate(targeted_digest_params)
 
     if @explore_digest.errors.any?
       render json: {status: 'failure', errors: @explore_digest.errors.full_messages.join(", ")}
@@ -37,10 +37,13 @@ class Admin::ExploreDigestsController < AdminBaseController
         @explore_digest.deliver_test_digest!(current_user)
         render :edit
       elsif @explore_digest.approved
-        @explore_digest.update_attributes(delivered_at: Time.now)
-        @explore_digest.deliver_digest!
-        flash[:success] = "Digest delivered"
-        redirect_to admin_explore_digests_path
+        if targeted_digest?
+          @explore_digest.deliver_targeted_digest!
+        else
+          @explore_digest.deliver_digest!
+        end
+
+        render json: {status: 'success', flash: "Digest delivered"}
       else
         render json: {status: 'failure', errors: "Digest not approved"}
       end
@@ -53,7 +56,15 @@ class Admin::ExploreDigestsController < AdminBaseController
       params[:test_digest] == "true"
     end
 
+    def targeted_digest?
+      params[:targeted_digest][:send] == "true"
+    end
+
     def explore_digest_params
       params.require(:explore_digest).permit(:approved)
+    end
+
+    def targeted_digest_params
+      params.require(:targeted_digest).permit(:send, :users)
     end
 end

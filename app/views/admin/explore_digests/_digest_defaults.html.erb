@@ -1,0 +1,13 @@
+<div class="panel">
+  <%= label_tag "defaults[subject]", "Subject" %>
+  <%= text_field_tag "defaults[subject]", @explore_digest.defaults(:subject), placeholder: "Default: Airbo Explore" %>
+
+  <%= label_tag "defaults[header]", "Header" %>
+  <%= text_field_tag "defaults[header]", @explore_digest.defaults(:header), placeholder: "Default: Airbo Explore" %>
+
+  <%= label_tag "defaults[subheader]", "Subheader" %>
+  <%= text_field_tag "defaults[subheader]", @explore_digest.defaults(:subheader), placeholder: "Default: Weekly Tiles for {user, first_name}" %>
+
+  <%= label_tag "defaults[note]", "Note" %>
+  <%= text_field_tag "defaults[note]", @explore_digest.defaults(:note) %>
+</div>

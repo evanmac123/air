@@ -1,4 +1,7 @@
 class ExploreDigestMailer < BaseTilesDigestMailer
+  helper :interpolation
+  include InterpolationHelper
+
   def notify_one(explore_digest, user)
     @user  = user
     return nil unless @user.email.present?
@@ -6,7 +9,7 @@ class ExploreDigestMailer < BaseTilesDigestMailer
     @presenter = ExploreDigestPresenter.new(@user.explore_token)
     @explore_digest = explore_digest
 
-    subject = @explore_digest.defaults(:subject)
+    subject = get_subject
 
     ping_on_digest_email(@presenter.email_type, @user, subject)
 
@@ -21,4 +24,9 @@ class ExploreDigestMailer < BaseTilesDigestMailer
       ExploreDigestMailer.delay.notify_one(explore_digest, user)
     }
   end
+
+  private
+    def get_subject
+      @explore_digest.defaults(:subject).empty? ? interpolate!(@explore_digest.defaults(:subject)) : "Airbo Explore"
+    end
 end
