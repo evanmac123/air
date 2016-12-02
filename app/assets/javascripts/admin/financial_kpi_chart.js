@@ -30,11 +30,14 @@ Airbo.FinancialKpiChart = (function(){
 
   function initChart(container){
     kpiChart = Highcharts.chart(container.attr("id"), {
+      credits: {
+        enabled: false
+      },
       chart: {
         type: 'line'
       },
       title: {
-        text: 'Weekly KPIs'
+        text: ''
       },
       xAxis: x_axis_params() ,
       yAxis: y_axis_params(),
