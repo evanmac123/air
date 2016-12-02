@@ -203,7 +203,7 @@ module Reporting
           label: "Total Tile Views",
           type: "num",
           hint: "Total # of Tiles viewed in Explore by Paid Organizations",
-          indent: 2
+          indent: 1
         },
         "paid_client_admins_who_viewed_tiles_in_explore" => {
           label: "Client Admins",
@@ -215,7 +215,7 @@ module Reporting
           label: " Per Client Admin",
           type: "num",
           hint: "# of Tile Views per Paid Client Admin",
-          indent: 0
+          indent: 2
         },
 
 
