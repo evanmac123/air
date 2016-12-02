@@ -136,7 +136,7 @@ Airbo.FinancialKpiChart = (function(){
   }
 
   function initForm(){
-    $("#financials_filter").submit(function(event){
+    $("#financials-filter .date-range-filter").submit(function(event){
       event.preventDefault(); 
       kpiChart.showLoading();
       Airbo.AjaxResponseHandler.submit($(this), refreshWithHTML, submitFailure, "html");

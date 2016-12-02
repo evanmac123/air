@@ -40,6 +40,11 @@ Airbo.SiteAdminInitializer = ( function(){
     initModalCloser();
     initBoardsAndOrgs();
     initKpiTooltips();
+    $('.pickadate').pickadate({
+      hiddenName:true,
+      formatSubmit: "yyyy-mm-dd",
+      format: "mmm dd, yyyy"
+    })
   }
 
 

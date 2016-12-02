@@ -159,6 +159,10 @@ module ApplicationHelper
     date.try(:strftime, "%m/%d/%Y")
   end
 
+  def simple_date_format_Y_d_m date, sep="-"
+    date.try(:strftime, "%Y#{sep}%m#{sep}%d")
+  end
+
   def simple_date_mon_d_yyyy date
     date.try(:strftime, "%b %d, %Y")
   end
