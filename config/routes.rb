@@ -292,8 +292,6 @@ Health::Application.routes.draw do
 
     resources :tile_features, only: [:index, :create, :update, :destroy, :new]
 
-    resources :explore_customizations, only: [:new, :create]
-
     resources :historical_metrics, only: [:create]
     namespace :sales do
       resources :lead_contacts, only: [:index, :edit, :update, :create, :destroy] do
@@ -303,7 +301,6 @@ Health::Application.routes.draw do
     end
 
     resources :topics
-    resources :recommended_tiles
 
     resource :client_kpi_report
     resource :financials_kpi_dashboard, only:[:show], controller: "financials/kpi_dashboard"
