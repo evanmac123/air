@@ -6,8 +6,23 @@ class ExploreDigestForm
   validate :at_least_one_tile_id
   validate :all_tile_ids_viewable_in_public
 
-  def initialize(params)
+  attr_accessor :features
+
+  def initialize(params, features = nil)
     @params = params
+    @features = sanitize(features) || default_features
+  end
+
+  def sanitize(features)
+    features.each { |feature, attrs|
+      attrs["tile_ids"] = clean_tile_ids(attrs["tile_ids"])
+
+      if attrs["headline"].blank? || attrs["custom_message"].blank? || attrs["tile_ids"].empty?
+        attrs = nil
+      end
+    }
+
+    features.delete_if { |k,v| v.nil? }
   end
 
   def persisted?
@@ -15,7 +30,7 @@ class ExploreDigestForm
   end
 
   def tile_ids
-    @tile_ids ||= @params[:tile_ids].reject(&:blank?).map(&:to_i).uniq
+    @tile_ids ||= clean_tile_ids(@params[:tile_ids])
   end
 
   def subject
@@ -58,14 +73,27 @@ class ExploreDigestForm
 
   private
 
+  def clean_tile_ids(ids)
+    ids.reject(&:blank?).map(&:to_i).uniq
+  end
+
   def reorder_explore_page_tiles!
     Tile.reorder_explore_page_tiles! tile_ids
+  end
+
+  def default_features
+    {
+      1 => {
+        tile_ids: [nil] * 4
+      }
+    }
   end
 end
 
 class ExploreDigestTestForm < ExploreDigestForm
-  def initialize(params, user)
+  def initialize(params, user, features = nil)
     @params = params
+    @features = sanitize(features) || default_features
     @user = user
   end
 
@@ -81,6 +109,7 @@ end
 
 class NullExploreDigestForm < ExploreDigestForm
   def initialize
+    @features = default_features
   end
 
   def subject

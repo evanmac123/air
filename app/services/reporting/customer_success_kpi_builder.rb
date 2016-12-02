@@ -31,8 +31,7 @@ module Reporting
     def build
       kpi = CustSuccessKpi.new
 
-
-      kpi.paid_net_promoter_score = paid_net_promoter_score
+      kpi.paid_net_promoter_score = paid_net_promoter_score.nps
       kpi.paid_net_promoter_score_response_count = paid_net_promoter_score.response_count
       kpi.total_paid_orgs = total_paid_orgs
       kpi.unique_org_with_activity_sessions = org_unique_activity_sessions

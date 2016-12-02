@@ -147,7 +147,9 @@ module ApplicationHelper
     when "money"
       simple_money_format val
     when "pct"
-      "#{simple_percentage_format val}"
+      "#{simple_percentage_format(val)}"
+    when "pct 0"
+      "#{simple_percentage_format(val, { precision: 0}) }"
     else
       val
     end
@@ -169,8 +171,9 @@ module ApplicationHelper
     number_with_delimiter num.to_i
   end
 
-  def simple_percentage_format num
-    number_to_percentage(num, precision:3, strip_insignificant_zeros:true)
+  def simple_percentage_format num, opts={}
+    opts.merge!({strip_insignificant_zeros:true})
+    number_to_percentage(num, opts)
   end
 
 

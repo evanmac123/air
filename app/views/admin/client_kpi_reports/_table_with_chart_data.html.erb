@@ -2,7 +2,7 @@
   <div class="row ">
     <div class="large-12 columns">
       <div class="table-container">
-        <table>
+        <table class="kpi">
           <thead>
             <tr>
               <td>&nbsp;</td>
@@ -19,9 +19,9 @@
               </tr>
               <%fields.each do |field|%>
                 <tr>
-                  <th  title='<%=@table_data[field]["hint"]%>' class='indent-<%=@table_data[field]["indent"]%>'><%=@table_data[field]["label"]%></th>
+                  <th  title='<%=@table_data[field]["hint"]%>' class='<%=@table_data[field]["css"]%> indent-<%=@table_data[field]["indent"]%>'><%=@table_data[field]["label"]%></th>
                   <%@table_data[field]["values"].each do |val| %>
-                    <td><%=simple_format_by_type @table_data[field]["type"], val %></td>
+                    <td class='<%=@table_data[field]["css"]%>'><%=simple_format_by_type @table_data[field]["type"], val %></td>
                   <%end%>
                 <%end%>
                 </tr>

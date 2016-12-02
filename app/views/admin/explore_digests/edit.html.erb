@@ -1,0 +1,76 @@
+<div class="row" id="digest_id" data-id="<%= @explore_digest.id %>">
+  <div class="columns small-12">
+    <h3>Explore Digest Email</h3>
+    <%= form_for [:admin, @explore_digest] do |f| %>
+      <div class="row">
+        <div class="columns small-6">
+          <%= render "digest_defaults" %>
+        </div>
+        <div class="columns small-6">
+          <div class="panel">
+            <div class="row">
+              <p id="response_explanation" style="padding:10px;size:8px;margin-top:0"></p>
+            </div>
+            <div class="row">
+              <div class="columns small-6">
+                <%= render partial: "shared/button_with_spinner", locals: { button_id: "send_test_digest", button_classes: "", button_text: "Send test digest to self" } %>
+              </div>
+              <div class="columns small-6">
+                <%= f.label :approved, "Approved?", class:"inline" %>
+                <%= f.check_box :approved, class: "inline" %>
+              </div>
+            </div>
+            <br>
+            <br>
+            <div class="row">
+              <div class="columns small-12">
+                <%= render partial: "shared/button_with_spinner", locals: { button_id: "send_real_digest", button_classes: "red", button_text: "Send real digest" } %>
+              </div>
+            </div>
+            <br>
+            <div class="row" style="border-top: 1px solid #bfbfbf;margin-top:17px;">
+              <br>
+              <div class="columns small-12">
+                <%= label_tag "targeted_digest[users]", "User Ids (comma separated)" %>
+                <%= text_field_tag "targeted_digest[users]" %>
+                <%= render partial: "shared/button_with_spinner", locals: { button_id: "send_targeted_digest", button_classes: "red outlined", button_text: "Send targeted digest" } %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="columns small-10">
+          <h3>Features</h3>
+          <%= f.submit "Add feature", id: 'add_feature', class: "button" %>
+          <div class="features-container">
+            <% feature_count = 1 %>
+            <% @explore_digest.feature_count.times do %>
+              <div class="panel feature-section">
+                <legend><%= "Feature #{feature_count}" %></legend>
+                <br>
+                <div class="add-feature-form">
+                  <%= label_tag "features[#{feature_count}][headline]", "Headline" %>
+                  <%= text_field_tag "features[#{feature_count}][headline]", @explore_digest.features(feature_count, :headline) %>
+
+                  <%= label_tag "features[#{feature_count}][feature_message]", "Feature Message" %>
+                  <%= text_area_tag "features[#{feature_count}][feature_message]", @explore_digest.features(feature_count, :feature_message), rows: 5, columns: 60 %>
+
+                  <%= label_tag "features[#{feature_count}][tile_ids]", "Tile Ids (in order and comma separated)" %>
+                  <%= text_field_tag "features[#{feature_count}][tile_ids]", @explore_digest.features(feature_count, :tile_ids).try(:split, ", "), { placeholder: "1, 2, 3, 4, 5, 6" } %>
+                </div>
+              </div>
+              <% feature_count += 1 %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <br>
+        <div class="columns small-2">
+          <%= render partial: "shared/button_with_spinner", locals: { button_id: "update_explore_digest", button_classes: "explore_digest_persist", button_text: "Save" } %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

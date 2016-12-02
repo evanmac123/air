@@ -13,6 +13,8 @@ class TileFeature < ActiveRecord::Base
 
   def tile_ids=(tile_ids)
     tile_ids = tile_ids.gsub(/\s+/, "").split(",").select { |id| id.to_i != 0 }
+    eligible_tiles = Tile.copyable.where(id: tile_ids).pluck(:id)
+    tile_ids = tile_ids.select { |id| eligible_tiles.include?(id.to_i) }
 
     rdb[:tile_ids].set(tile_ids.join(","))
   end
@@ -63,6 +65,7 @@ class TileFeature < ActiveRecord::Base
   end
 
   def get_tiles(tiles)
+    # TODO: Benchmark methods for retrieving AR objects in given order
     grouped_tiles = tiles.where(id: tile_ids).group_by(&:id)
 
     tile_ids.map { |id| grouped_tiles[id.to_i].try(:first) }

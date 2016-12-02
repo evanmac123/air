@@ -28,12 +28,11 @@
 //= require  ../../../vendor/assets/javascripts/pickadate/picker.time
 //= require ../../../vendor/assets/javascripts/external/foundation.min
 //= requre ./admin/contracts
-//= require ./admin/demo_search
-//= require ./admin/demo_filter
 //= require ./admin/lead_contact
 //= require ./admin/lead_contact_validations
 //= require ./admin/cheer
 //= require ./admin/delete_board_modal
+//= require ./admin/explore_digest
 //= require ../../../vendor/assets/javascripts/chosen.jquery.min
 //= require ../../../vendor/assets/javascripts/external/modernizr
 //

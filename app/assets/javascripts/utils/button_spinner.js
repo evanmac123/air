@@ -26,10 +26,19 @@ Airbo.Utils.ButtonSpinner = (function(){
     button.children("#button_spinner").toggle();
   }
 
+  function reset(button) {
+    button.children("#button_complete").hide();
+    button.children("#button_spinner").hide();
+    button.children("#button_text").show();
+    button.removeClass("disabled");
+    button.removeClass("green");
+  }
+
   return {
     trigger: trigger,
     completeSuccess: completeSuccess,
-    completeError: completeError
+    completeError: completeError,
+    reset: reset
   };
 
 }());

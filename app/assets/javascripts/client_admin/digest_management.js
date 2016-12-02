@@ -4,7 +4,7 @@ emailPreviewLink = function(followUp) {
   if (followUp == null) {
     followUp = false;
   }
-  return "/client_admin/preview_invite_email?follow_up_email=" + followUp + "&&custom_message=%20";
+  return "/client_admin/preview_tiles_digest_email?follow_up_email=" + followUp + "&&custom_message=%20";
 };
 
 loadEmailPreview = function(followUp) {

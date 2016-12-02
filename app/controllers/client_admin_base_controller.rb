@@ -36,8 +36,4 @@ class ClientAdminBaseController < ApplicationController
   def set_is_client_admin_action
     @is_client_admin_action = true
   end
-
-  def send_net_promoter_score_survey
-    Integrations::NetPromoterScore.delay.send_nps_survey(current_user)
-  end
 end

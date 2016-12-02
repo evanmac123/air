@@ -1,13 +1,5 @@
 <div class="financials-dashboard">
-  <div class="row">
-    <h1>Financials KPI Dashboard</h1>
-  </div>
 
-  <div class="row">
-    <div class="columns small-12 ">
-      <h2 class="text-center"><%=" Stats For Today: #{simple_date_mon_d_yyyy(Date.today)}"%></h2>
-    </div>
-  </div>
   <div class="row">
     <div class="columns small-12">
       <p>
@@ -15,7 +7,7 @@
         <div class="small-4 columns centered">
           <div class="activity-header total-arr">
             <h1 class="header-number" data-kpi="totalArr">
-              <%=  number_with_delimiter(@totals[:totalArr].to_i, :delimiter => ',') %>
+              <%=  simple_format_by_type "money", number_with_delimiter(@totals[:totalArr].to_i, :delimiter => ',') %>
             </h1>
             <span class="header-unit">
               ARR 
@@ -25,7 +17,7 @@
         <div class="small-4 columns centered">
           <div class="activity-header total-mrr">
             <h1 class="header-number" data-kpi="totalMrr">
-              <%=  number_with_delimiter(@totals[:totalMrr].to_i, :delimiter => ',') %>
+              <%=  simple_format_by_type "money", number_with_delimiter(@totals[:totalMrr].to_i, :delimiter => ',') %>
             </h1>
             <span class="header-unit">
               MRR
@@ -50,7 +42,6 @@
   <div class="row">
     <div class="columns small-12 small-centered">
 
-      <h2  class="text-center">Historical Data by Date Range</h2>
       <%=form_tag admin_financials_kpi_dashboard_path, method: :get, id: "financials_filter" do %>
         <table>
           <thead>
