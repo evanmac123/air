@@ -61,9 +61,53 @@ Airbo.ExploreDigest = (function(){
     });
   }
 
+  function initForm() {
+    $("#create_explore_digest").on("click", function(e) {
+      routeForm($(this), "POST");
+    });
+
+    $("#update_explore_digest").on("click", function(e) {
+      routeForm($(this), "PUT");
+    });
+  }
+
+  function routeForm(submission, method) {
+    var form = submission.parents("form");
+    submitForm(form, submission, method);
+  }
+
+  function submitForm(form, self, method) {
+    Airbo.Utils.ButtonSpinner.trigger(self);
+    $.ajax({
+      type: method,
+      url: form.attr("action"),
+      data: form.serialize()
+    }).done(function(data) {
+      if (data.errors) {
+        $("#response_explanation").text(data.errors).css("color", "red");
+        Airbo.Utils.ButtonSpinner.completeError(self);
+      } else {
+        Airbo.Utils.ButtonSpinner.completeSuccess(self, true);
+        if (method === "POST") {
+          var id = data.explore_digest.id;
+          window.location = "/admin/explore_digests/" + id + "/edit";
+        }
+      }
+    });
+  }
+
+  function initInputChangeEvent() {
+    var input = $("input");
+    input.on("change", function() {
+      Airbo.Utils.ButtonSpinner.reset($(".explore_digest_persist"));
+    });
+  }
+
   function init() {
     bindAddExploreDigestFeatureForm();
     initMailerForms();
+    initForm();
+    initInputChangeEvent();
   }
 
   return {

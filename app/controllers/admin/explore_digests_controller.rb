@@ -11,7 +11,11 @@ class Admin::ExploreDigestsController < AdminBaseController
     @explore_digest = ExploreDigest.create
     @explore_digest.post_to_redis(params[:defaults], params[:features])
 
-    redirect_to edit_admin_explore_digest_path(@explore_digest)
+    if @explore_digest.errors.any?
+      render json: {status: 'failure', errors: @explore_digest.errors.full_messages.join(", ")}
+    else
+      render json: {status: 'success', explore_digest: @explore_digest.attributes }
+    end
   end
 
   def edit
@@ -23,7 +27,11 @@ class Admin::ExploreDigestsController < AdminBaseController
     @explore_digest.update_attributes(explore_digest_params)
     @explore_digest.post_to_redis(params[:defaults], params[:features])
 
-    redirect_to edit_admin_explore_digest_path(@explore_digest)
+    if @explore_digest.errors.any?
+      render json: {status: 'failure', errors: @explore_digest.errors.full_messages.join(", ")}
+    else
+      render json: {status: 'success', explore_digest: @explore_digest.attributes }
+    end
   end
 
   def deliver

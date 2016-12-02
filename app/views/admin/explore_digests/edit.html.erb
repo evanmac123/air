@@ -71,7 +71,7 @@
       <div class="row">
         <br>
         <div class="columns small-2">
-          <%= f.submit "Save", class: "button" %>
+          <%= render partial: "shared/button_with_spinner", locals: { button_id: "update_explore_digest", button_classes: "explore_digest_persist", button_text: "Save" } %>
         </div>
       </div>
     <% end %>
