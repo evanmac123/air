@@ -27,9 +27,11 @@ Airbo.SiteAdminInitializer = ( function(){
   }
 
   function initKpiTooltips(){
-    $(".kpi-tooltip").tooltipster({
-      interactive: true,
-    });
+    $("span.kpi-tooltip").tooltipster(
+      {
+        theme: "tooltipster-shadow",
+      }
+    );
   }
 
 
