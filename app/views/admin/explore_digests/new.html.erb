@@ -19,9 +19,6 @@
                 <%= label_tag "features[1][headline]", "Headline" %>
                 <%= text_field_tag "features[1][headline]", @explore_digest.features(1, :headline) %>
 
-                <%= label_tag "features[1][headline_icon_url]", "Headline Icon URL" %>
-                <%= text_field_tag "features[1][headline_icon_url]", @explore_digest.features(1, :headline_icon_url) %>
-
                 <%= label_tag "features[1][feature_message]", "Feature Message" %>
                 <%= text_area_tag "features[1][feature_message]", @explore_digest.features(1, :feature_message), rows: 5, columns: 60 %>
 

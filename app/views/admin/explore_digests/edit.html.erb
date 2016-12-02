@@ -53,9 +53,6 @@
                   <%= label_tag "features[#{feature_count}][headline]", "Headline" %>
                   <%= text_field_tag "features[#{feature_count}][headline]", @explore_digest.features(feature_count, :headline) %>
 
-                  <%= label_tag "features[#{feature_count}][headline_icon_url]", "Headline Icon URL" %>
-                  <%= text_field_tag "features[#{feature_count}][headline_icon_url]", @explore_digest.features(feature_count, :headline_icon_url) %>
-
                   <%= label_tag "features[#{feature_count}][feature_message]", "Feature Message" %>
                   <%= text_area_tag "features[#{feature_count}][feature_message]", @explore_digest.features(feature_count, :feature_message), rows: 5, columns: 60 %>
 
