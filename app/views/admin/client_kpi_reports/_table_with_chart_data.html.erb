@@ -1,4 +1,4 @@
-<div class="chart-data" data-plotdata ="<%=@table_data.to_json%>">
+<div>
   <div class="row ">
     <div class="large-12 columns">
       <div class="table-container">
@@ -19,7 +19,9 @@
               </tr>
               <%fields.each do |field|%>
                 <tr>
-                  <th  title='<%=@table_data[field]["hint"]%>' class='<%=@table_data[field]["css"]%> indent-<%=@table_data[field]["indent"]%>'><%=@table_data[field]["label"]%></th>
+                  <th class='<%=@table_data[field]["css"]%> indent-<%=@table_data[field]["indent"]%>'>
+                    <span class='<%=@table_data[field]["css"]%>' title='<%=@table_data[field]["hint"]%>'><%=@table_data[field]["label"]%><span>
+                  </th>
                   <%@table_data[field]["values"].each do |val| %>
                     <td class='<%=@table_data[field]["css"]%>'><%=simple_format_by_type @table_data[field]["type"], val %></td>
                   <%end%>
