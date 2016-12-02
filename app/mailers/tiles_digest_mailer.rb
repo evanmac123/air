@@ -22,26 +22,6 @@ class TilesDigestMailer < BaseTilesDigestMailer
     mail  to: @user.email_with_name, from: @presenter.from_email, subject: subject
   end
 
-  def notify_one_explore(user_id, tile_ids, subject, email_heading, custom_message, custom_from=nil)
-    link_subject = sanitize_subject_line(subject)
-    @user  = User.find user_id
-    return nil unless @user.email.present?
-
-    @presenter = TilesDigestMailExplorePresenter.new(custom_from, custom_message, email_heading, @user.explore_token, link_subject)
-
-    undecorated_tiles = tile_ids.map{|tile_id| Tile.find(tile_id)}
-
-    @tiles = TileExploreDigestDecorator.decorate_collection undecorated_tiles, context: { user: @user, tile_ids: tile_ids }
-
-    ping_on_digest_email(@presenter.email_type, @user, link_subject)
-
-    mail to: @user.email_with_name,
-      from: @presenter.from_email,
-      subject: subject,
-      template_path: 'explore_digest_mailer',
-      template_name: 'notify_one'
-  end
-
   def notify_all_follow_up_from_delayed_job
     FollowUpDigestEmail.send_follow_up_digest_email.each do |followup|
       TilesDigestMailer.delay(run_at: noon).notify_all_follow_up(followup.id)
@@ -66,11 +46,6 @@ class TilesDigestMailer < BaseTilesDigestMailer
     followup = FollowUpDigestEmail.find followup_id
     followup.trigger_deliveries
     followup.destroy
-  end
-
-  def notify_all_explore tile_ids, subject, email_heading, custom_message, custom_from=nil
-    user_ids = User.where{ (is_client_admin) == true | (is_site_admin == true) }
-    user_ids.each{ |user_id| TilesDigestMailer.delay.notify_one_explore(user_id, tile_ids, subject, email_heading, custom_message, custom_from=nil) }
   end
 
   def resolve_subject subject, alt_subject, idx
