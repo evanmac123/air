@@ -13,7 +13,7 @@ var Airbo = {
 
   Utils: {
     userIsSiteAdmin: function(){
-     return Airbo.currentUser.user_type === "site admin";
+     return Airbo.currentUser && Airbo.currentUser.user_type === "site admin";
     },
 
     userNotSiteAdmin: function(){
