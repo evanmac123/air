@@ -51,17 +51,34 @@ module Reporting
       kpi.percent_orgs_that_copied_tiles = percent_orgs_that_copied_tiles
       kpi.percent_of_orgs_that_posted_tiles = percent_of_orgs_that_posted_tiles
 
+     #TODO implement or revise calculation for these kpis
+
+      kpi.percent_paid_orgs_view_tile_in_explore = nil
+      kpi.paid_orgs_visited_explore = nil
+      kpi.total_tiles_viewed_in_explore_by_paid_orgs = nil
+      kpi.paid_client_admins_who_viewed_tiles_in_explore = nil
+      kpi.tiles_viewed_per_paid_client_admin = nil
+      kpi.percent_paid_orgs_added_a_tile = nil
+      kpi.tiles_added_by_paid_client_admins = nil
+      kpi.paid_orgs_that_added_a_tile = nil
+      kpi.percent_added_tiles_copied_from_explore = nil
+      kpi.percent_added_tiles_created_from_scratch = nil
+      kpi.tiles_created_from_scratch = nil
+      kpi.orgs_that_created_tiles_from_scratch = nil
+      kpi.average_tiles_created_from_scratch_per_org_that_created = nil
+
+      kpi.average_tile_creation_time = avg_tile_creation_time
+
       kpi.percent_retained_post_activation_30_days = retention_by_days("30")
       kpi.percent_retained_post_activation_60_days =  retention_by_days("60")
       kpi.percent_retained_post_activation_120_days =  retention_by_days("120")
 
-      kpi.average_tile_creation_time = avg_tile_creation_time
 
+      kpi.percent_joined_current = percent_joined_current
+      kpi.percent_joined_30_days = percent_joined_30
+      kpi.percent_joined_60_days = percent_joined_60
+      kpi.percent_joined_120_days = percent_joined_120
 
-      #kpi.percent_joined_current =
-      #kpi.percent_joined_30_days =
-      #kpi.percent_joined_60_days =
-      #kpi.percent_joined_120_days =
 
       kpi.from_date = opts[:to_date]
       kpi.to_date = opts[:to_date]
@@ -137,7 +154,9 @@ module Reporting
     end
 
     def retention_by_days days
-      retention.get_count_by_segment(days)
+      #TODO fix implementation
+       return nil
+      #retention.get_count_by_segment(days)
     end
 
     def avg_tile_creation_time
@@ -160,7 +179,17 @@ module Reporting
       calc_avg(@total_tiles_posted, @orgs_that_posted_tiles)
     end
 
+    def percent_joined_current
+    end
 
+    def percent_joined_30
+    end
+
+    def percent_joined_60
+    end
+
+    def percent_joined_120
+    end
 
     #----------Utility Methods
     #
