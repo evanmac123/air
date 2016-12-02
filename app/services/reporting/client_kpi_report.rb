@@ -138,7 +138,7 @@ module Reporting
         },
         "percent_engaged_organizations" =>{
           label: "Customer Engagement",
-          type: "pct",
+          type: "pct 0",
           hint: "",
           indent: 0,
         },
@@ -156,7 +156,7 @@ module Reporting
         },
         "percent_engaged_client_admin" =>{
           label: "Client Admin Engagement",
-          type: "pct",
+          type: "pct 0",
           hint: "",
           indent: 0,
         },
@@ -189,7 +189,7 @@ module Reporting
 
         "percent_paid_orgs_view_tile_in_explore" => {
           label: "Explore Engagement",
-          type: "pct",
+          type: "pct 0",
           hint: "% of Paid Organizations that viewed a Tile in Airbo Explore",
           indent: 0
         },
@@ -222,7 +222,7 @@ module Reporting
 
         "percent_paid_orgs_added_a_tile" => {
           label: "Tile Creation Engagement",
-          type: "pct",
+          type: "pct 0",
           hint: "% of Paid Organizations that added a tile",
           indent: 0
         },
@@ -240,13 +240,13 @@ module Reporting
         },
         "percent_added_tiles_copied_from_explore" => {
           label: "Copied",
-          type: "pct",
+          type: "pct 0",
           hint: "% of New Tiles that were copied from Explore",
           indent: 1
         },
         "percent_added_tiles_created_from_scratch" => {
           label: "Created",
-          type: "pct",
+          type: "pct 0",
           hint: "% of New Tiles that were created from scratch",
           indent: 1
         },
@@ -255,7 +255,7 @@ module Reporting
 
         "percent_orgs_that_copied_tiles" =>{
           label: "Copied",
-          type: "pct",
+          type: "pct 0",
           hint: "% of New Tiles that were copied from Explore",
           indent: 1,
         },
@@ -285,7 +285,7 @@ module Reporting
         },
         "percent_of_orgs_that_posted_tiles" =>{
           label: "% of Orgs That Posted Tiles",
-          type: "pct",
+          type: "pct 0",
           hint: "",
           indent: 0,
         },
@@ -330,43 +330,43 @@ module Reporting
 
         "percent_joined_current" =>{
           label: "User Activation",
-          type: "pct",
+          type: "pct 0",
           hint: "",
           indent: 1,
         },
         "percent_joined_30_days" =>{
           label: "30 Days",
-          type: "pct",
+          type: "pct 0",
           hint: "",
           indent: 2,
         },
         "percent_joined_60_days" =>{
           label: "60 Days",
-          type: "pct",
+          type: "pct 0",
           hint: "",
           indent: 2,
         },
         "percent_joined_120_days" =>{
           label: "120 Days",
-          type: "pct",
+          type: "pct 0",
           hint: "",
           indent: 2,
         },
         "percent_retained_post_activation_30_days" =>{
           label: "30 Day Retention",
-          type: "pct",
+          type: "pct 0",
           hint: "Percent user who had unique activity session within 30 days of activation",
           indent: 1,
         },
         "percent_retained_post_activation_60_days" =>{
           label: "60 Day Retention",
-          type: "pct",
+          type: "pct 0",
           hint: "Percent user who had unique activity session within 60 days of activation",
           indent: 1,
         },
         "percent_retained_post_activation_120_days" =>{
           label: "120 Day Retention",
-          type: "pct",
+          type: "pct 0",
           hint: "Percent user who had unique activity session within 120 days of activation",
           indent: 1,
         },
