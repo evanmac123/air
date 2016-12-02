@@ -353,21 +353,21 @@ module Reporting
           indent: 2,
         },
         "percent_retained_post_activation_30_days" =>{
-          label: "30 Days",
+          label: "30 Day Retention",
           type: "pct",
-          hint: "",
+          hint: "Percent user who had unique activity session within 30 days of activation",
           indent: 1,
         },
         "percent_retained_post_activation_60_days" =>{
-          label: "60 Days",
+          label: "60 Day Retention",
           type: "pct",
-          hint: "",
+          hint: "Percent user who had unique activity session within 60 days of activation",
           indent: 1,
         },
         "percent_retained_post_activation_120_days" =>{
-          label: "120 Days",
+          label: "120 Day Retention",
           type: "pct",
-          hint: "",
+          hint: "Percent user who had unique activity session within 120 days of activation",
           indent: 1,
         },
       }
