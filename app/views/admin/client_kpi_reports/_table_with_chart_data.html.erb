@@ -6,7 +6,7 @@
           <thead>
             <tr>
               <td>&nbsp;</td>
-              <%@table_data["report_date"][:values].each do |date| %>
+              <%@dates.each do |date| %>
                 <td><%=simple_format_by_type "date", date%></td>
               <%end%>
             </tr>
@@ -15,7 +15,7 @@
             <tbody>
               <tr class="separator">
                 <th><%=section_label%></th>
-                <td colspan='<%=@table_data["report_date"][:values].count%>'>&nbsp;</td>
+                <td colspan='<%=@dates.count%>'>&nbsp;</td>
               </tr>
               <%fields.each do |field|%>
                 <tr>

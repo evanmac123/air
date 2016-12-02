@@ -1,5 +1,6 @@
 class Admin::ClientKpiReportsController < AdminBaseController
-  before_filter :get_dates
+  before_filter :parse_start_and_end_dates, only: [:show]
+  before_filter :get_dates, only: [:show]
 
   def show
     rep = Reporting::ClientKPIReport.new

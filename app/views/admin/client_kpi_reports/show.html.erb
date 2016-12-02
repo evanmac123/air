@@ -25,7 +25,17 @@
   </div>
 
   <div class="tabular-data">
+    <%if @dates.present? %>
     <%= render "table_with_chart_data" %>
+  <%else%>
+    <div class="row">
+      <div class="columns large-12">
+        <h2>
+          No data has been collected for the selected time frame
+        </h2>
+      </div>
+    </div>
+  <%end%>
   </div>
 
 </div>
