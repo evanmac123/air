@@ -30,9 +30,9 @@ end
 #   Capybara::Poltergeist::Driver.new(app, {js_errors: false})
 # end
 
-# Capybara.javascript_driver = :poltergeist
+Capybara.javascript_driver = :poltergeist
 # Capybara.javascript_driver = :poltergeist_debug
-Capybara.javascript_driver = :selenium
+# Capybara.javascript_driver = :selenium
 
 
 ##
