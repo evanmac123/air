@@ -148,6 +148,8 @@ module ApplicationHelper
       simple_money_format val
     when "pct"
       "#{simple_percentage_format val}"
+    when "pct 0"
+      "#{simple_percentage_format val, 3}"
     else
       val
     end
@@ -169,8 +171,8 @@ module ApplicationHelper
     number_with_delimiter num.to_i
   end
 
-  def simple_percentage_format num
-    number_to_percentage(num, precision:3, strip_insignificant_zeros:true)
+  def simple_percentage_format num, precision=3
+    number_to_percentage(num, precision: precision, strip_insignificant_zeros:true)
   end
 
 
