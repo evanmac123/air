@@ -31,7 +31,7 @@ class SingleAdminTilePresenter < BasePresenter
   end
 
   def copied?
-    $redis.sismember("boards:#{current_user.demo_id}:copies", tile_id)
+    $redis.sismember("Demo:#{current_user.demo_id}:copies", tile_id)
   end
 
   def get_type(page_type)
@@ -162,7 +162,8 @@ class SingleAdminTilePresenter < BasePresenter
       total_views,
       unique_views,
       @is_ie,
-      copied?
+      copied?,
+      section
     ].join('-')
   end
 

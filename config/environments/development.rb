@@ -5,10 +5,6 @@ Health::Application.configure do
 
   # Settings specified here will take precedence over those in config/application.rb
 
-  config.dev_tweaks.autoload_rules do
-    keep :xhr  # Disables caching of ajax requests
-  end
-
   config.generators do |g|
     g.template_engine :erb
     g.stylesheets = false
@@ -74,5 +70,6 @@ Rails.application.routes.default_url_options[:host] = ENV['APP_HOST'] || 'localh
     :authentication => :plain,
     :enable_starttls_auto => true
    }
-end
 
+   config.cache_store = :redis_store, "redis://127.0.0.1:6379/0/cache", { expires_in: 5.years }
+end

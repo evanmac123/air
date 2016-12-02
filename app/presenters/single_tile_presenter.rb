@@ -21,6 +21,7 @@ class SingleTilePresenter < BasePresenter
     @tile_id ||= id
   end
 
+  #this method is redundant as to_param is notset for Tile, so it just returns id
   def to_param
     @to_param ||= tile.to_param
   end

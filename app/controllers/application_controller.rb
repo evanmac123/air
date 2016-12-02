@@ -18,11 +18,6 @@ class ApplicationController < ActionController::Base
   before_filter :initialize_flashes
   before_filter :set_show_conversion_form_before_this_request
 	before_filter :enable_miniprofiler #NOTE on by default in development
-  # TODO: DEPRECATE remove after removing yell_name method
-  # This prints the controller and action to stdout on every action, which
-  # is sometimes handy for debugging
-  #before_filter :yell_name
-
   before_render :persist_guest_user
   before_render :add_persistent_message
   before_render :no_newrelic_for_site_admins
@@ -40,12 +35,6 @@ class ApplicationController < ActionController::Base
   # Used since our *.hengage.com SSL cert does not cover plain hengage.com.
   def hostname_with_subdomain
     request.subdomain.present? ? request.host : "www." + request.host
-  end
-
-  # TODO: DEPRECATE not called
-  def invitation_preview_url_with_referrer(user, referrer)
-    referrer_hash = User.referrer_hash(referrer)
-    invitation_preview_url({:code => user.invitation_code}.merge(@referrer_hash))
   end
 
   def force_ssl
@@ -70,21 +59,6 @@ class ApplicationController < ActionController::Base
       redirect_to redirection_parameters
       return false
     end
-  end
-
-  # TODO: DEPRECATE not used
-  def force_no_ssl
-    return unless request.ssl?
-
-    redirection_parameters = {
-      :protocol   => 'http',
-      :host       => request.host,
-      :action     => action_name,
-      :controller => controller_name
-    }.reverse_merge(params)
-
-    redirect_to redirection_parameters
-    return false
   end
 
   def wrong_phone_validation_code_error
@@ -130,11 +104,6 @@ class ApplicationController < ActionController::Base
 
   alias_method_chain :ping, :device_type
 
-  # TODO: DEPRECATE there's better solutions to making debugging easier, this controller is clogged enough
-  def yell_name
-    puts [params[:controller], params[:action]].join('#')
-  end
-
   def email_clicked_ping(user)
     # We rig the timestamp here so that, if this ping is present, and there's
     # also a new activity session, this ping always appears before the activity
@@ -154,8 +123,6 @@ class ApplicationController < ActionController::Base
 
 
   alias authorize_without_guest_checks authorize
-
-
 
   def permitted_params
     @permitted_params ||= PermittedParams.new(params, current_user)
