@@ -8,6 +8,9 @@
   <%= label_tag "defaults[subheader]", "Subheader" %>
   <%= text_field_tag "defaults[subheader]", @explore_digest.defaults(:subheader), placeholder: "Default: Weekly Tiles for {user, first_name}" %>
 
-  <%= label_tag "defaults[notes]", "Notes" %>
+  <%= label_tag "defaults[color]", "Color" %>
+  <%= text_field_tag "defaults[color]", @explore_digest.defaults(:subheader), placeholder: "Default: #48BFFF (Airbo blue)" %>
+
+  <%= label_tag "defaults[notes]", "Internal Notes" %>
   <%= text_area_tag "defaults[notes]", @explore_digest.defaults(:notes) %>
 </div>
