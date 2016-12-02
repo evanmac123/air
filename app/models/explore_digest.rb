@@ -96,7 +96,7 @@ class ExploreDigest < ActiveRecord::Base
       feature_count.times do
         feature_keys_for_validation.each { |key|
           if features(current_feature, key).to_s.empty?
-            errors.add(:base, "#{key} cannot be empty for feature #{current_feature}")
+            errors.add(:base, "#{key} is invalid for feature #{current_feature}")
           end
         }
       end

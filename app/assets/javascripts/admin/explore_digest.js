@@ -1,6 +1,9 @@
 var Airbo = window.Airbo || {};
 
 Airbo.ExploreDigest = (function(){
+  var id;
+  var path;
+
   function bindAddExploreDigestFeatureForm() {
     $('#add_feature').click(function(event) {
       event.preventDefault();
@@ -14,10 +17,11 @@ Airbo.ExploreDigest = (function(){
   }
 
   function initMailerForms() {
+    id = $("#digest_id").data("id");
+    path = '/admin/explore_digests/' + id + '/deliver';
+
     $("#send_test_digest").on("click", function(e) {
       var self = $(this);
-      var id = $("#digest_id").data("id");
-      var path = '/admin/explore_digests/' + id + '/deliver';
       var params = { test_digest: true, targeted_digest: { send: false } };
       deliver(path, self, params);
     });
@@ -27,8 +31,6 @@ Airbo.ExploreDigest = (function(){
 
       if (confirmed === true) {
         var self = $(this);
-        var id = $("#digest_id").data("id");
-        var path = '/admin/explore_digests/' + id + '/deliver';
         var params = { test_digest: false, targeted_digest: { send: false } };
         deliver(path, self, params);
       }
@@ -39,8 +41,6 @@ Airbo.ExploreDigest = (function(){
 
       if (confirmed === true) {
         var self = $(this);
-        var id = $("#digest_id").data("id");
-        var path = '/admin/explore_digests/' + id + '/deliver';
         var user_ids = $("#targeted_digest_users").val();
         var params = { test_digest: false, targeted_digest: { send: true, users: user_ids  } };
         deliver(path, self, params);
@@ -87,6 +87,7 @@ Airbo.ExploreDigest = (function(){
         $("#response_explanation").text(data.errors).css("color", "red");
         Airbo.Utils.ButtonSpinner.completeError(self);
       } else {
+        $("#response_explanation").text("");
         Airbo.Utils.ButtonSpinner.completeSuccess(self, true);
         if (method === "POST") {
           var id = data.explore_digest.id;
