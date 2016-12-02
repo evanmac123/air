@@ -3,6 +3,7 @@
 //= require jquery.ui.autocomplete
 //= require jquery.ui.tabs
 //= require mobvious-rails
+//= require jquery.tooltipster.min
 //= require ../../../vendor/assets/javascripts/internal/jquery.jpanelmenu.min
 //= require ../../../vendor/assets/javascripts/internal/jRespond.min
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.form.min
@@ -37,19 +38,4 @@
 //= require ../../../vendor/assets/javascripts/chosen.jquery.min
 //= require ../../../vendor/assets/javascripts/external/modernizr
 //
-$(document).ready(function($) {
-  $("#delete-board").on("click", function() {
-    Airbo.Utils.Modals.trigger("#delete-board-modal", 'open');
-  });
 
-  Airbo.Utils.Modals.bindClose();
-});
-
-$(function(){
-  //FIXME foundation.min includes foundation.forms js which hijacks forms and
-  //hides elements like checkboxes. if we need to use any foundation js then we
-  //will need re-display any hijacked form elements
-  //$(document).foundation();
-  // Airbo.Utils.ES6Polyfills.init();
-  Airbo.BoardsAndOrganizationMgr.init();
-});
