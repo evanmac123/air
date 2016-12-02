@@ -1,36 +1,41 @@
-<div class="client-admin-kpi-dashboard">
-  <div class="chart-data">
-    <div class="row ">
-      <div class="large-12 columns">
-        <div class="table-container">
-          <table>
-            <thead>
-              <tr>
-                <td>&nbsp;</td>
-                <% @report_data.keys.each do |date| %>
-                  <td><%= date %></td>
-                <%end%>
-              </tr>
-            </thead>
-            <% Reporting::ClientKPIReport.sections.each do |section_label, kpis| %>
-              <tbody>
-                <tr class="separator">
-                  <th width="275"><%= section_label %></th>
-                  <td colspan='<%= @report_data.count %>'>&nbsp;</td>
-                </tr>
-                <% kpis.each do |kpi| %>
-                  <tr>
-                    <th><%= Reporting::ClientKPIReport.kpi_fields[kpi][:label] %></th>
-                    <% @report_data.each do |date, report| %>
-                      <td><%= simple_format_by_type(Reporting::ClientKPIReport.kpi_fields[kpi][:type], report[kpi]) %></td>
-                    <%end%>
-                  <%end%>
-                  </tr>
-              </tbody>
-            <%end%>
-          </table>
-        </div>
-      </div>
+<div class="financials-dashboard">
+
+  <div class="row">
+    <div class="columns small-12 small-centered">
+
+      <%=form_tag admin_client_kpi_report_path, method: :get, id: "financials_filter" do %>
+        <table>
+          <thead>
+            <tr>
+              <th>Start</th>
+              <th>End</th>
+                <th>&nbsp;</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><%=text_field_tag "sdate", @sdate, type: :date%></td>
+              <td><%=text_field_tag "edate",@edate, type: :date%></td>
+                <td><%=submit_tag "Get Data", class:"button td-button right"%></td>
+            </tr>
+          </tbody>
+        </table>
+      <%end%>
     </div>
   </div>
+
+  <div class="tabular-data">
+    <%if @dates.present? %>
+    <%= render "table_with_chart_data" %>
+  <%else%>
+    <div class="row">
+      <div class="columns large-12">
+        <h2>
+          No data has been collected for the selected time frame
+        </h2>
+      </div>
+    </div>
+  <%end%>
+  </div>
+
 </div>

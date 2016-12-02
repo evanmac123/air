@@ -9,7 +9,7 @@ module Reporting
           event: "Explore page - Interaction",
           type: "general",
           where: %Q|(properties["user_type"] == "client admin") and properties["is_test_user"] == false and (properties["board_type"] == "Free") and (properties["action"] == "Clicked Copy")|,
-          unit: "day"
+          unit: "week"
         })
       end
     end

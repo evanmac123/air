@@ -129,9 +129,15 @@ function initCustomHandlers(handler){
 
 }
 
+function disableImageUploderTrigger(){
+  $('body').off('click', uploaderTriggerSelector);
+}
+
 
 function init(handler){
-  $('body').off('click', uploaderTriggerSelector);
+  //TODO can't remember why this is neccessary
+
+  disableImageUploderTrigger();
   initCustomHandlers(handler);
   initChooseFileDelegator();
   initFileUploader();

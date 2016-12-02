@@ -2,7 +2,7 @@ require 'airbo_mixpanel_client'
 require 'reporting/mixpanel'
 module Reporting
   module Mixpanel
-    class TotalByEventType < Report 
+    class UniqueEventsBase < Report
       include MixpanelUnsegmentedResult
       include Segmentation
     end

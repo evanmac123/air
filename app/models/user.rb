@@ -196,6 +196,10 @@ class User < ActiveRecord::Base
     true if phone_number
   end
 
+  def days_since_activated
+    accepted_invitation_at.nil? ? 0 : (Date.today - accepted_invitation_at.to_date).to_i
+  end
+
   def role
     @role ||= begin
       if self.is_client_admin || (self.current_board_membership && self.current_board_membership.is_client_admin)
@@ -502,18 +506,19 @@ class User < ActiveRecord::Base
   def data_for_mixpanel
     # FIXME: Overwriting distinct_id here is removing built-in mixpanel functionality that facilitates easy funnels.  We need to alias the mixpanel id to user id.
     {
-      distinct_id:           self.mixpanel_distinct_id,
-      id:                    self.id,
-      email:                 (self.is_client_admin ? self.email : nil),
-      game:                  self.demo_id,
-      organization:          self.organization_id,
-      account_creation_date: self.created_at.to_date,
-      joined_game_date:      self.accepted_invitation_at.try(:to_date),
-      location:              self.location.try(:name),
-      user_type:             self.highest_ranking_user_type,
-      is_test_user:          !!(self.is_test_user), # remember, the !! normalized nil to false
-      board_type:            (self.demo.try(:is_paid) ? "Paid" : "Free"),
-      first_time_user:       false
+      distinct_id:           mixpanel_distinct_id,
+      id:                    id,
+      email:                 is_client_admin ? email : nil,
+      game:                  demo_id,
+      organization:          organization_id,
+      account_creation_date: created_at.to_date,
+      joined_game_date:      accepted_invitation_at.try(:to_date),
+      location:              location.try(:name),
+      user_type:             highest_ranking_user_type,
+      is_test_user:          !!(is_test_user), # remember, the !! normalized nil to false
+      board_type:            (demo.try(:is_paid) ? "Paid" : "Free"),
+      first_time_user:       false,
+      days_since_activated:  days_since_activated,
     }
   end
 

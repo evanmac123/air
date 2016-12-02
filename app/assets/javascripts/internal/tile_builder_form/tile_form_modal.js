@@ -33,6 +33,20 @@ Airbo.TileFormModal = (function(){
     return tileContainer.getBoundingClientRect();
   }
 
+  function setTileCreationPingProps(){
+    var props =$.extend({}, Airbo.currentUser, {pseudoTileId: Airbo.currentUser.id + "-" + Date.now() });
+    $("#pseudo_tile_id").data("props", props);
+  }
+
+  function triggerMixpanelTileCreateDurationTracking(){
+    setTileCreationPingProps();
+    Airbo.Utils.ping("Tile Creation", getTileCreationPingProps("start"));
+  }
+
+  function getTileCreationPingProps(step){
+    return $.extend({"action": step}, $("#pseudo_tile_id").data("props"));
+  }
+
   function initFormElements() {
     validator = Airbo.TileFormValidator.init(form);
 
@@ -77,6 +91,7 @@ Airbo.TileFormModal = (function(){
   function initEvents() {
     form.on("click", pickImageSel, function(e){
       e.preventDefault();
+      Airbo.Utils.ping("Tile Creation", getTileCreationPingProps("add image"));
       var libraryUrl = $("#image_uploader").data("libraryUrl");
       imageLibraryModal.open(libraryUrl);
     });
@@ -92,6 +107,7 @@ Airbo.TileFormModal = (function(){
       var formObj = $(this);
       if(formObj.valid()){
         disablesubmitLink();
+        Airbo.Utils.ping("Tile Creation", getTileCreationPingProps("save"));
         ajaxHandler.submit(formObj, submitSuccess, enablesubmitLink);
       }else{
         validator.focusInvalid();
@@ -101,14 +117,16 @@ Airbo.TileFormModal = (function(){
 
   function initVars() {
     form = $(formSel);
-    // pickImage = $(pickImageSel);
     submitLink = form.find(".submit_tile_form");
-    // submitBtn = form.find("input[type=submit]");
   }
 
   function openModal(){
     modalObj.open();
   }
+
+
+
+
 
   function open(url) {
     $.ajax({
@@ -121,6 +139,7 @@ Airbo.TileFormModal = (function(){
         initEvents();
         initFormElements();
         modalObj.open();
+        triggerMixpanelTileCreateDurationTracking();
       },
 
       error: function(jqXHR, textStatus, error){

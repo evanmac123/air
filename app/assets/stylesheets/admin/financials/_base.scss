@@ -39,5 +39,31 @@
   .indent-1{
     padding-left: 1.5em;
   }
+  .indent-2{
+    padding-left: 2.5em;
+  }
+
+  .indent-3{
+    padding-left: 3.5em;
+  }
+
+  .hilite{
+    font-weight: bold;
+  }
+
+ table.kpi{
+   td {
+      text-align: right;
+   }
+
+   th {
+     border-bottom: 1px solid #dddddd;
+     .grp{
+       background: #DDD;
+     }
+   }
+ }
 
 }
+
+

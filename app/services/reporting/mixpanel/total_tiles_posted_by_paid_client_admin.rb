@@ -9,7 +9,7 @@ module Reporting
           event: "Tile Posted",
           type: "general",
           where:%Q|properties["is_test_user"] == false and (properties["user_type"] == "client admin") and (properties["board_type"] == "Paid")|,
-          unit: "day"
+          unit: "week"
         })
       end
     end

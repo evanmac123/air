@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161130235019) do
+ActiveRecord::Schema.define(:version => 20161201214525) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -187,6 +187,55 @@ ActiveRecord::Schema.define(:version => 20161130235019) do
     t.string   "cycle"
     t.boolean  "in_collection",      :default => false
     t.date     "delinquency_date"
+  end
+
+  create_table "cust_success_kpis", :force => true do |t|
+    t.integer  "paid_net_promoter_score"
+    t.integer  "paid_net_promoter_score_response_count"
+    t.integer  "total_paid_orgs"
+    t.integer  "unique_org_with_activity_sessions"
+    t.integer  "total_paid_client_admins"
+    t.integer  "unique_client_admin_with_activity_sessions"
+    t.integer  "total_paid_client_admin_activity_sessions"
+    t.integer  "unique_orgs_that_copied_tiles"
+    t.integer  "total_tiles_copied"
+    t.integer  "orgs_that_posted_tiles"
+    t.integer  "total_tiles_posted"
+    t.float    "activity_sessions_per_client_admin"
+    t.float    "average_tiles_copied_per_org_that_copied"
+    t.float    "average_tiles_posted_per_organization_that_posted"
+    t.float    "average_tile_creation_speed"
+    t.float    "percent_engaged_organizations"
+    t.float    "percent_engaged_client_admin"
+    t.float    "percent_orgs_that_copied_tiles"
+    t.float    "percent_of_orgs_that_posted_tiles"
+    t.float    "percent_joined_current"
+    t.float    "percent_joined_30_days"
+    t.float    "percent_joined_60_days"
+    t.float    "percent_joined_120_days"
+    t.float    "percent_retained_post_activation_30_days"
+    t.float    "percent_retained_post_activation_60_days"
+    t.float    "percent_retained_post_activation_120_days"
+    t.float    "average_tile_creation_time"
+    t.datetime "created_at",                                              :null => false
+    t.datetime "updated_at",                                              :null => false
+    t.date     "report_date"
+    t.date     "from_date"
+    t.date     "to_date"
+    t.date     "weekending_date"
+    t.float    "percent_paid_orgs_view_tile_in_explore"
+    t.integer  "paid_orgs_visited_explore"
+    t.integer  "total_tiles_viewed_in_explore_by_paid_orgs"
+    t.integer  "paid_client_admins_who_viewed_tiles_in_explore"
+    t.integer  "tiles_viewed_per_paid_client_admin"
+    t.float    "percent_paid_orgs_added_a_tile"
+    t.integer  "tiles_added_by_paid_client_admins"
+    t.integer  "paid_orgs_that_added_a_tile"
+    t.float    "percent_added_tiles_copied_from_explore"
+    t.float    "percent_added_tiles_created_from_scratch"
+    t.integer  "tiles_created_from_scratch"
+    t.integer  "orgs_that_created_tiles_from_scratch"
+    t.float    "average_tiles_created_from_scratch_per_org_that_created"
   end
 
   create_table "custom_color_palettes", :force => true do |t|

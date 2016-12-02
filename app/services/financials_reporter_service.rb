@@ -80,7 +80,6 @@ class FinancialsReporterService
     container.each do|field, sub_hash|
       sub_hash[:values] = row_data[field]
     end
-
     add_group_separators(container)
     container.merge!(aliased_kpis(container))
     container
@@ -95,9 +94,11 @@ class FinancialsReporterService
   end
 
   def self.add_group_separator container, key, label
+    colspan = container["report_date"]["values"].count + 1
     container[key]= {
       label: label,
-      type:"",
+      colspan: colspan,
+      type: "grp",
       indent: 0,
       values: []
     }
@@ -116,13 +117,13 @@ class FinancialsReporterService
     {
       churned_mrr_alias: {
         label:  "Churned",
-        type: "grp",
+        type: "money",
         indent: 0,
         values: container["churned_mrr"]["values"],
       } ,
       churned_customers_alias: {
         label:  "Churned",
-        type: "grp",
+        type: "num",
         indent: 0,
         values:  container["churned_customers"]["values"],
       } ,

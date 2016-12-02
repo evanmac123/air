@@ -3,8 +3,6 @@ var Airbo = window.Airbo || {};
 Airbo.TileManager = (function(){
   var newTileBtnSel = "#add_new_tile"
     , sectionSelector = ".manage_section"
-    // , editTileBtnSel = ".edit_button a"
-    // , openFormSel = [newTileBtnSel, editTileBtnSel].join(", ")
     , tileWrapperSelector =".tile_container"
     , managerType // main or archived
   ;
@@ -23,16 +21,16 @@ Airbo.TileManager = (function(){
   }
 
   function tileContainerByDataTileId(id){
-   return  $(tileWrapperSelector + "[data-tile-container-id=" + id + "]");
+    return  $(tileWrapperSelector + "[data-tile-container-id=" + id + "]");
   }
 
   function updateTileSection(data){
     var selector
       , section = pageSectionByStatus(data.tileStatus)
       , tile = $(data.tile)
-      img = tile.find(".tile_thumbnail_image>img")[0];
+    img = tile.find(".tile_thumbnail_image>img")[0];
 
-      $(img).css({height:"100%",width:"100%"});
+    $(img).css({height:"100%",width:"100%"});
 
     if(tileContainerByDataTileId(data.tileId).length > 0){
       replaceTileContent(tile, data.tileId);
@@ -41,13 +39,13 @@ Airbo.TileManager = (function(){
       Airbo.Utils.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
     }
     tileThumbnail.initTile(data.tileId);
-    // new_tile = tileContainerByDataTileId(data.tileId);
-    // thumbnailMenu.initMoreBtn(new_tile.find(".more_button"));
   }
+
   function updateSections(data) {
     updateTileSection(data);
     updateShowMoreDraftTilesButton();
   }
+
   function initEvents() {
     $(newTileBtnSel).click(function(e){
       e.preventDefault();
@@ -58,9 +56,11 @@ Airbo.TileManager = (function(){
       tileForm.open(url);
     });
   }
+
   function initVars() {
     tileThumbnail = Airbo.TileThumbnail.init(this);
   }
+
   function init(type) {
     managerType = type;
     initVars();
@@ -77,7 +77,7 @@ Airbo.TileManager = (function(){
 $(function(){
   var manageType;
   var manageNum = $(".manage_tiles").length;
-  
+
   if( manageNum > 0 ) {
     if(manageNum == 3) {
       manageType = "main";
