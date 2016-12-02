@@ -27,6 +27,6 @@ class ExploreDigestMailer < BaseTilesDigestMailer
 
   private
     def get_subject
-      @explore_digest.defaults(:subject).empty? ? interpolate!(@explore_digest.defaults(:subject)) : "Airbo Explore"
+      @explore_digest.defaults(:subject).empty? ? "Airbo Explore" : interpolate!(@explore_digest.defaults(:subject))
     end
 end
