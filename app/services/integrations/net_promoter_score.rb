@@ -2,6 +2,14 @@ module Integrations
   class NetPromoterScore
     #Delighted API docs: https://delighted.com/docs/api
     class << self
+      def send_survey_to_all_paid_client_admin
+        users = User.client_admin.includes(:demos).where(demos: { is_paid: true } ).uniq
+
+        users.each { |user|
+          send_nps_survey(user)
+        }
+      end
+
       def send_nps_survey(user)
         if post_to_delighted?(user)
           Delighted::Person.create(
@@ -37,6 +45,10 @@ module Integrations
             created_at:            user.created_at,
             board_type:            (user.demo.try(:is_paid) ? "Paid" : "Free"),
           }
+        end
+
+        def user_attrs
+          [:is, :demo_id, :organization_id, :created_at, :email, :name, :is_site_admin, :is_test_user]
         end
 
         def post_to_delighted?(user)

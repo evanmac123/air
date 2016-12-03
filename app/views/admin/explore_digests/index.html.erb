@@ -1,0 +1,10 @@
+<div class="row">
+  <div class="columns small-12">
+    <h3>Explore Digests</h3>
+    <br>
+    <%= link_to "New", new_admin_explore_digest_path, class: "button"  %>
+  </div>
+</div>
+<%= render "digests_in_index", state: "approved", digests: @explore_digests.approved %>
+<%= render "digests_in_index", state: "pending", digests: @explore_digests.pending %>
+<%= render "digests_in_index", state: "delivered", digests: @explore_digests.delivered %>

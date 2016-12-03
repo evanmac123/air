@@ -49,7 +49,6 @@ class Demo < ActiveRecord::Base
 
   before_validation :unlink_from_organization, if: :unlink
   before_save :normalize_phone_number_if_changed
-  before_save :override_explore_disabled, on: :create
   after_create :create_public_slug!
 
   accepts_nested_attributes_for :custom_color_palette
@@ -528,12 +527,5 @@ class Demo < ActiveRecord::Base
 
   def by_status_and_position_of_tile status
     tiles.where(status: status).ordered_by_position.map(&:id)
-  end
-
-  def override_explore_disabled
-    if EXPLORE_ENABLED
-      self.explore_disabled = false
-    end
-    true
   end
 end

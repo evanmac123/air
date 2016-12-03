@@ -6,7 +6,7 @@
     <% else %>
       <h4 class="explore-headers non-link" style="color:<%= feature.text_color %>"><%= feature.header_copy || "#{feature.name} Tiles" %></h4>
     <% end %>
-    <div id="recommended_tiles">
+    <div id="channel_tiles">
       <div id="tile_wall_explore">
         <%= render partial: 'explores/tiles', locals: { tiles: feature.get_tiles(@explore_tiles), tile_ids: feature.tile_ids, section: feature.name } %>
       </div>

@@ -1,7 +1,7 @@
 class ClientAdmin::UsersInvitesController < ClientAdminBaseController
   include ClientAdmin::TilesHelper
 
-  prepend_before_filter :allow_same_origin_framing, only: [:preview_invite_email]
+  prepend_before_filter :allow_same_origin_framing, only: [:preview_tiles_digest_email]
 
   def create
     params[:users_invite][:demo_id] = current_user.demo_id
@@ -19,7 +19,7 @@ class ClientAdmin::UsersInvitesController < ClientAdminBaseController
     end
   end
 
-  def preview_invite_email
+  def preview_tiles_digest_email
     @demo  = current_user.demo
     @user  = current_user # XTR
 
@@ -50,16 +50,5 @@ class ClientAdmin::UsersInvitesController < ClientAdminBaseController
     end
 
     render 'tiles_digest_mailer/notify_one', :layout => false
-  end
-
-  def preview_explore
-    @user  = current_user
-    custom_message = "Recently, we released the Health Plan Basics Collection. In 2 weeks, 4 companies used the Tiles to educate their employees. This week, we're releasing a complementary Collection called Prescription Drug Basics. With nearly 60% of Americans using a prescription, prescription drug insurance is more important than ever. These Tiles help educate employees on how to pick and use their plan."
-    email_heading = "More Americans than ever are taking prescription drugs"
-    @presenter = TilesDigestMailExplorePresenter.new(nil, custom_message, email_heading, @user.explore_token)
-    undecorated_tiles = Tile.copyable.limit(10)
-    @tiles = TileExploreDigestDecorator.decorate_collection undecorated_tiles, context: { user: @user, tile_ids: undecorated_tiles.pluck(:id) }
-
-    render 'explore_digest_mailer/notify_one', :layout => false
   end
 end
