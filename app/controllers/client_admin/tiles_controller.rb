@@ -41,7 +41,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   def new
     @tile_builder_form =  @demo.m_tiles.build(status: Tile::DRAFT)
     new_or_edit @tile_builder_form
-    record_new_ping
   end
 
 

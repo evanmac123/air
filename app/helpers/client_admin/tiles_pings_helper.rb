@@ -6,9 +6,7 @@ module ClientAdmin::TilesPingsHelper
     end
   end
 
-  def record_new_ping
-    ping('Tiles Page', {action: 'Clicked Add New Tile'}, current_user)
-  end
+
 
   def tile_status_updated_ping tile, action
     ping('Moved Tile in Manage', {action: action, tile_id: tile.id}, current_user)
