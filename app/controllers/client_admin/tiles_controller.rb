@@ -65,7 +65,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @tile_builder_form =  @tile = @demo.m_tiles.build(params[:tile_builder_form].merge(creator_id: current_user.id))
 
     update_or_create @tile_builder_form do
-      schedule_tile_creation_ping(@tile_builder_form)
+      schedule_tile_creation_ping(@tile_builder_form, "Self Created")
       render_preview_and_single
     end
   end
