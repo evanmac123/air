@@ -148,6 +148,38 @@ module Reporting
       @orgs_that_posted_tiles = Reporting::Mixpanel::UniqueOrganizationsWithPostedTiles.new(opts).get_count
     end
 
+    def tiles_added_by_paid_client_admins
+      @tiles_added ||= Reporting::Mixpanel::TotalTilesAddedByPaidClientAdmin.new(opts)
+    end
+
+    def total_tiles_added
+      tiles_added_by_paid_client_admins.sum
+    end
+
+    def total_tiles_added_created_from_scratch
+      tiles_added_by_paid_client_admins.results_by_segment["Self Created"]
+    end
+
+    def total_tiles_added_copied
+      tiles_added_by_paid_client_admins.results_by_segment["Explore Page"]
+    end
+
+    def percent_of_tiles_added_created_from_scratch
+      calc_percent(total_tiles_added_created_from_scratch,total_tiles_added)
+    end
+
+    def percent_of_tiles_added_copied
+      calc_percent(total_tiles_added_copied,total_tiles_added)
+    end
+
+    def orgs_that_added_tiles
+      @orgs_that_added_tiles ||= Reporting::Mixpanel::UniqueOrganizationsThatAddedTiles.new(opts).get_count
+    end
+
+    def percent_of_orgs_that_added_tile
+      calc_percent(orgs_that_added_tiles, total_paid_orgs)
+    end
+
     def retention
       @retention ||= Reporting::Mixpanel::UniqueActivitySessionAfterTimePeriodInDays.new(opts)
     end
