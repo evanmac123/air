@@ -56,18 +56,6 @@ describe Organization do
     end
   end
 
-  describe ".active_by_date" do
-    before do 
-      @client = FactoryGirl.create(:organization, :complete, :with_active_contract)
-      @client2 = FactoryGirl.create(:organization, :complete, :with_active_contract)
-      @client3 = FactoryGirl.create(:organization, :complete)
-    end
-
-    it "excludes inactive clients" do
-      expect(Organization.active_after_date(Date.today).all.count).to eq 2
-    end
-  end
-
   context "active and churned" do
     before do 
       @client = FactoryGirl.create(:organization, :complete)

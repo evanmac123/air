@@ -89,14 +89,6 @@ class Organization < ActiveRecord::Base
     contracts.mrr_during_period(sdate, edate)
   end
 
-  def self.active_after_date date
-    joins(:contracts)
-      .select("organizations.id, organizations.name")
-      .where("contracts.end_date > ?", date)
-      .group("organizations.id, organizations.name")
-  end
-
-
   def customer_start_date
     @cust_start ||=ordered_contracts.first.try(:start_date)
   end
