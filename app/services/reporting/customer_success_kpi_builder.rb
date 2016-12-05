@@ -69,14 +69,14 @@ module Reporting
       kpi.average_tile_creation_time = avg_tile_creation_time
 
 
+      kpis.percent_orgs_that_added_tiles = percent_of_orgs_that_added_tiles 
 
+      kpis.unique_orgs_that_added_tiles = orgs_that_added_tiles
       kpis.total_tiles_added_by_paid_client_admin = total_tiles_added
       kpis.total_tiles_added_from_copy_by_paid_client_admin = total_tiles_added_from_copy
       kpis.total_tiles_added_from_scratch_by_paid_client_admin = total_tiles_added_from_scratch
       kpis.percent_of_added_tiles_from_copy = percent_of_tiles_added_from_copy
       kpis.percent_of_added_tiles_from_scratch = percent_of_tiles_added_from_scratch
-      kpis.unique_orgs_that_added_tiles = orgs_that_added_tiles
-      kpis.percent_orgs_that_added_tiles = percent_of_orgs_that_added_tiles 
 
       kpi.percent_retained_post_activation_30_days = retention_by_days("30")
       kpi.percent_retained_post_activation_60_days =  retention_by_days("60")

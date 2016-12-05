@@ -84,14 +84,14 @@ module Reporting
           "tiles_viewed_per_paid_client_admin"
         ],
         "Creation" => [
-          "percent_paid_orgs_added_a_tile",
-          "tiles_added_by_paid_client_admins",
-          "paid_orgs_that_added_a_tile",
+          "percent_orgs_that_added_tiles",
+          "total_tiles_added_by_paid_client_admin",
+          "unique_orgs_that_added_tiles",
 
-          "percent_added_tiles_copied_from_explore",
-          "percent_added_tiles_created_from_scratch",
+          "percent_of_added_tiles_from_copy",
+          "percent_of_added_tiles_from_scratch",
 
-          "total_tiles_copied",
+          "total_tiles_added_from_copy_by_paid_client_admin",
           "unique_orgs_that_copied_tiles",
           "average_tiles_copied_per_org_that_copied",
 
@@ -228,35 +228,35 @@ module Reporting
           css: "kpi-tooltip",
           indent: 2
         },
-        "percent_paid_orgs_added_a_tile" => {
+        "percent_orgs_that_added_tiles" => {
           label: "Tile Creation Engagement",
           type: "pct 0",
           hint: "% of Paid Organizations that added a tile",
           indent: 0,
           css: "hilite kpi-tooltip"
         },
-        "tiles_added_by_paid_client_admins" => {
+        "total_tiles_added_by_paid_client_admin" => {
           label: "New Tiles Added",
           type: "num",
-          hint: "# of Unique Tiles Added by Paid Client Admins",
+          hint: "# Total Tiles Added by Paid Client Admins",
           css: "kpi-tooltip",
           indent: 0
         },
-        "paid_orgs_that_added_a_tile" => {
+        "unique_orgs_that_added_tiles" => {
           label: "Customers",
           type: "num",
           hint: "# of customers that added Tiles",
           css: "kpi-tooltip",
           indent: 1
         },
-        "percent_added_tiles_copied_from_explore" => {
+        "percent_of_added_tiles_from_copy" => {
           label: "Copied",
           type: "pct 0",
           hint: "% of New Tiles that were copied from Explore",
           css: "kpi-tooltip",
           indent: 1
         },
-        "percent_added_tiles_created_from_scratch" => {
+        "percent_of_added_tiles_from_scratch" => {
           label: "Created",
           type: "pct 0",
           hint: "% of New Tiles that were created from scratch",
@@ -270,7 +270,7 @@ module Reporting
           css: "kpi-tooltip",
           indent: 1,
         },
-        "total_tiles_copied" =>{
+        "total_tiles_added_from_copy_by_paid_client_admin" =>{
           label: "Tiles Copied",
           type: "num",
           hint: "",
