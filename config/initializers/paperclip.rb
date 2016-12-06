@@ -39,29 +39,21 @@ when 'production', 'staging', "production_local"
 
 when 'test',  'development'
 
-  LOCAL_FILE_ATTACHMENT_BASE_PATH = "public/system/attachments"
-
-  ATTACHMENT_CONFIG_BASE = {}
-
-  TILE_IMAGE_OPTIONS     = {
-    path: "#{LOCAL_FILE_ATTACHMENT_BASE_PATH}/#{Rails.env}/tiles/:id/:filename"
+  ATTACHMENT_CONFIG_BASE = {
+    storage: :fog,
+    fog_credentials: {
+      provider: "Local",
+      local_root: "#{Rails.root}/public"
+    },
+    fog_directory: "",
+    fog_host: "http://localhost:3000"
   }
 
-  TILE_THUMBNAIL_OPTIONS = {
-    path: "#{LOCAL_FILE_ATTACHMENT_BASE_PATH}/#{Rails.env}/tile_thumbnails/:id/:filename",
-  }
-
-  DEMO_LOGO_OPTIONS = {
-    path: "#{LOCAL_FILE_ATTACHMENT_BASE_PATH}/#{Rails.env}/demo/:id/:filename",
-  }
-
-  TOPIC_OPTIONS = {
-    path: "#{LOCAL_FILE_ATTACHMENT_BASE_PATH}/#{Rails.env}/topic/:id/:filename",
-  }
-
-  TOPIC_BOARD_OPTIONS = {
-    path: "#{LOCAL_FILE_ATTACHMENT_BASE_PATH}/#{Rails.env}/topic_board/:id/:filename",
-  }
+  TILE_IMAGE_OPTIONS     = {}
+  TILE_THUMBNAIL_OPTIONS = {}
+  DEMO_LOGO_OPTIONS = {}
+  TOPIC_OPTIONS = {}
+  TOPIC_BOARD_OPTIONS = {}
 
 else
   raise 'Environment Not Found'

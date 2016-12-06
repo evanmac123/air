@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161205193413) do
+ActiveRecord::Schema.define(:version => 20161205223416) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -141,7 +141,11 @@ ActiveRecord::Schema.define(:version => 20161205193413) do
     t.datetime "image_updated_at"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
+    t.string   "slug"
+    t.boolean  "active"
   end
+
+  add_index "channels", ["slug"], :name => "index_channels_on_slug"
 
   create_table "characteristics", :force => true do |t|
     t.string   "name"

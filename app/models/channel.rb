@@ -1,10 +1,14 @@
 class Channel < ActiveRecord::Base
-  attr_accessible :image, :name
-
-  has_attached_file :cover_image,
+  before_save :update_slug
+  has_attached_file :image,
     {
-      styles: { explore: "167x83" },
+      styles: { explore: "190x90#" },
       default_style: :explore,
-      bucket: S3_LOGO_BUCKET
-    }.merge(CHANNEL_OPTIONS)
+      path: "channel/:id/:filename",
+      bucket: APP_BUCKET
+    }.merge(ATTACHMENT_CONFIG_BASE)
+
+  def update_slug
+    self.slug = name.parameterize
+  end
 end
