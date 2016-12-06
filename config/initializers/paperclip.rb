@@ -43,10 +43,11 @@ when 'test',  'development'
     storage: :fog,
     fog_credentials: {
       provider: "Local",
-      local_root: "#{Rails.root}/public"
+      local_root: "#{Rails.root}/public/system/attachments/#{Rails.env}"
     },
     fog_directory: "",
-    fog_host: "http://localhost:3000/system/attachments/#{Rails.env}"
+    fog_host: "http://localhost:3000/system/attachments/#{Rails.env}",
+    path: ":class/:id/:filename",
   }
 
   TILE_IMAGE_OPTIONS     = {}
