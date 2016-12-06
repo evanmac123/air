@@ -9,13 +9,13 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   before_filter :permit_params, only: [:create, :update]
 
   def index
-    @all_tiles = @demo.tiles.all
+    @all_tiles = @demo.tiles.group_by { |t| t.status }
 
-    @actives = @all_tiles.select{ |t| t.status == Tile::ACTIVE}
-    @archives = @all_tiles.select{ |t| t.status == Tile::ARCHIVE}
-    @drafts =  @all_tiles.select{ |t| t.status == Tile::DRAFT}
-    @suggesteds = @all_tiles.select{ |t| t.status== Tile::USER_SUBMITTED or t.status == Tile::IGNORED }
-    @submitteds = @all_tiles.select{|t|t.status==Tile::USER_SUBMITTED}
+    @actives = tiles_by_grp(Tile::ACTIVE)
+    @archives = tiles_by_grp(Tile::ARCHIVE)
+    @drafts =  tiles_by_grp(Tile::DRAFT)
+    @suggesteds = tiles_by_grp(Tile::USER_SUBMITTED)  | tiles_by_grp(Tile::IGNORED)
+    @submitteds = tiles_by_grp(Tile::USER_SUBMITTED)
 
     @active_tiles  = @demo.active_tiles_with_placeholders(@actives)
 
@@ -158,6 +158,11 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   private
+
+  def tiles_by_grp grp
+    @all_tiles[grp] || []
+  end
+
   def permit_params
     params.require(:tile_builder_form).permit!
   end
