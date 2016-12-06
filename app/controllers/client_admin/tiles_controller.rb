@@ -210,32 +210,42 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
 
   def intro_flags_index
-    @board_is_brand_new = @demo.tiles.limit(1).first.nil? && params[:show_suggestion_box] != "true"
-    @show_suggestion_box_intro =  if !current_user.suggestion_box_intro_seen
-
-                                    current_user.suggestion_box_intro_seen = true
-                                    current_user.save
-                                  end
-    @user_submitted_tile_intro =  if  params[:user_submitted_tile_intro] &&
-                                      !current_user.user_submitted_tile_intro_seen &&
-                                      @demo.tiles.user_submitted.first.present? &&
-                                      !@show_suggestion_box_intro
-
-                                    current_user.user_submitted_tile_intro_seen = true
-                                    current_user.save
-                                  end
-    @manage_access_prompt = !current_user.manage_access_prompt_seen &&
-      if @user_submitted_tiles_counter > 0 ||
-         @allowed_to_suggest_users.count > 0 ||
-         @demo.everyone_can_make_tile_suggestions
-
-        current_user.manage_access_prompt_seen = true
-        current_user.save
-        false
-      else
-        true
-      end
+    @board_is_brand_new = @all_tiles.empty? && params[:show_suggestion_box] != "true"
+    @show_suggestion_box_intro =  should_show_suggestion_box_intro?
+    @user_submitted_tile_intro =   should_show_submitted_tile_intro?
+    @manage_access_prompt = should_show_manage_access_prompt?
   end
+
+  def should_show_submitted_tile_intro?
+     val = !current_user.user_submitted_tile_intro_seen && @submitteds.any? 
+     val = val && !@show_suggestion_box_intro && params[:user_submitted_tile_intro] 
+
+     if val
+       current_user.user_submitted_tile_intro_seen = true
+       return current_user.save
+     end
+  end
+
+  def should_show_suggestion_box_intro?
+    if !current_user.suggestion_box_intro_seen
+      current_user.suggestion_box_intro_seen = true
+      return current_user.save
+    end
+  end
+
+  def should_show_manage_access_prompt?
+    if !current_user.manage_access_prompt_seen &&  tile_suggestion_enabled?
+      current_user.manage_access_prompt_seen = true
+      return current_user.save
+    end
+  end
+
+  def tile_suggestion_enabled?
+    @user_submitted_tiles_counter > 0 ||
+      @allowed_to_suggest_users.count > 0 ||
+      @demo.everyone_can_make_tile_suggestions
+  end
+
 
   def show_share_section_intro
     if !current_user.share_section_intro_seen && @tile.has_client_admin_status?
