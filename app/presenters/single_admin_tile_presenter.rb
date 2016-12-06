@@ -160,6 +160,7 @@ class SingleAdminTilePresenter < BasePresenter
       tile_completions_count,
       total_views,
       unique_views,
+      copied?,
       @is_ie,
       section
     ].join('-')
