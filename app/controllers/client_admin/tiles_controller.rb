@@ -9,13 +9,24 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   before_filter :permit_params, only: [:create, :update]
 
   def index
+    tile_set = @demo.tiles.all
 
-    @active_tiles  = @demo.active_tiles_with_placeholders
-    @archive_tiles = (@demo.archive_tiles_with_placeholders)[0,4]
-    @draft_tiles = @demo.draft_tiles_with_placeholders
-    @suggested_tiles = @demo.suggested_tiles_with_placeholders
-    @user_submitted_tiles_counter = @demo.tiles.user_submitted.count
+    actives = tile_set.select{ |t| t.status == Tile::ACTIVE}
+    archives = tile_set.select{ |t| t.status == Tile::ARCHIVE}
+    drafts =  tile_set.select{ |t| t.status == Tile::DRAFT}
+    suggesteds = tile_set.select{ |t| t.status== Tile::USER_SUBMITTED or t.status == Tile::IGNORED }
+    submitteds = tile_set.select{|t|t.status==Tile::USER_SUBMITTED}
+
+    @active_tiles  = @demo.active_tiles_with_placeholders(actives)
+
+    @archive_tiles = (@demo.archive_tiles_with_placeholders archives)[0,4]
+    @draft_tiles = @demo.draft_tiles_with_placeholders drafts
+    @suggested_tiles = @demo.suggested_tiles_with_placeholders suggesteds
+    @user_submitted_tiles_counter = submitteds.count
+
+
     @allowed_to_suggest_users = @demo.users_that_allowed_to_suggest_tiles
+
     intro_flags_index
     @accepted_tile = Tile.find(session.delete(:accepted_tile_id)) if session[:accepted_tile_id]
     record_index_ping
