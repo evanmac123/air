@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161206141922) do
+ActiveRecord::Schema.define(:version => 20161206230844) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -1028,8 +1028,13 @@ ActiveRecord::Schema.define(:version => 20161206141922) do
     t.text     "embed_video",             :default => "",    :null => false
   end
 
+  add_index "tiles", ["activated_at"], :name => "index_tiles_on_activated_at"
+  add_index "tiles", ["archived_at"], :name => "index_tiles_on_archived_at"
+  add_index "tiles", ["created_at"], :name => "index_tiles_on_created_at"
+  add_index "tiles", ["demo_id"], :name => "index_tiles_on_demo_id"
   add_index "tiles", ["is_copyable"], :name => "index_tiles_on_is_copyable"
   add_index "tiles", ["is_public"], :name => "index_tiles_on_is_public"
+  add_index "tiles", ["status"], :name => "index_tiles_on_status"
 
   create_table "timed_bonus", :force => true do |t|
     t.datetime "expires_at",                    :null => false
