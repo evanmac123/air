@@ -9,20 +9,20 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   before_filter :permit_params, only: [:create, :update]
 
   def index
-    tile_set = @demo.tiles.all
+    @all_tiles = @demo.tiles.all
 
-    actives = tile_set.select{ |t| t.status == Tile::ACTIVE}
-    archives = tile_set.select{ |t| t.status == Tile::ARCHIVE}
-    drafts =  tile_set.select{ |t| t.status == Tile::DRAFT}
-    suggesteds = tile_set.select{ |t| t.status== Tile::USER_SUBMITTED or t.status == Tile::IGNORED }
-    submitteds = tile_set.select{|t|t.status==Tile::USER_SUBMITTED}
+    @actives = @all_tiles.select{ |t| t.status == Tile::ACTIVE}
+    @archives = @all_tiles.select{ |t| t.status == Tile::ARCHIVE}
+    @drafts =  @all_tiles.select{ |t| t.status == Tile::DRAFT}
+    @suggesteds = @all_tiles.select{ |t| t.status== Tile::USER_SUBMITTED or t.status == Tile::IGNORED }
+    @submitteds = @all_tiles.select{|t|t.status==Tile::USER_SUBMITTED}
 
-    @active_tiles  = @demo.active_tiles_with_placeholders(actives)
+    @active_tiles  = @demo.active_tiles_with_placeholders(@actives)
 
-    @archive_tiles = (@demo.archive_tiles_with_placeholders archives)[0,4]
-    @draft_tiles = @demo.draft_tiles_with_placeholders drafts
-    @suggested_tiles = @demo.suggested_tiles_with_placeholders suggesteds
-    @user_submitted_tiles_counter = submitteds.count
+    @archive_tiles = (@demo.archive_tiles_with_placeholders @archives)[0,4]
+    @draft_tiles = @demo.draft_tiles_with_placeholders @drafts
+    @suggested_tiles = @demo.suggested_tiles_with_placeholders @suggesteds
+    @user_submitted_tiles_counter = @submitteds.count
 
 
     @allowed_to_suggest_users = @demo.users_that_allowed_to_suggest_tiles
