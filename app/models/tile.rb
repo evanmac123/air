@@ -120,10 +120,6 @@ class Tile < ActiveRecord::Base
 
   end
 
-  #def status=(new_status)
-    #write_attribute(:status, new_status)
-  #end
-
   def update_status params
     handle_unarchived(params["status"], params["redigest"])
 
