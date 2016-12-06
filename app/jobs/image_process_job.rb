@@ -38,7 +38,7 @@ class ImageProcessJob
   end
 
   def library_image
-    @lib_image ||=TileImage.where(id: @library_image_id).first
+    @lib_image ||= TileImage.where(id: @library_image_id).first
   end
 
   handle_asynchronously :perform

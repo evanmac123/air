@@ -28,7 +28,7 @@ when 'production', 'staging', "production_local"
     hash_data: "tiles/:attachment/:id/:style/:updated_at"
   }
 
-#deprecate teh rest of these:
+#deprecate the rest of these:
   DEMO_LOGO_OPTIONS = {
     path: "/demo/:id/:hash__:filename",
   }
@@ -59,13 +59,14 @@ when 'test',  'development'
 
   #attachement_config_base is a poor pattern.  Begin replacing with config.paperclip_defaults in environments/*.rb
   ATTACHMENT_CONFIG_BASE = {}
-
+  
+  #these need custom paths because the calling class is not the model
   TILE_IMAGE_OPTIONS = {
-    path: "tiles/:id/:hash__:filename",
+    path: "/tiles/:id/:hash__:filename",
   }
 
   TILE_THUMBNAIL_OPTIONS = {
-    path: "tile_thumbnails/:id/:hash__:filename",
+    path: "/tile_thumbnails/:id/:hash__:filename",
   }
 
 #deprecate teh rest of these:
