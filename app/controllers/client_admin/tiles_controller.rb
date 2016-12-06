@@ -9,9 +9,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   before_filter :permit_params, only: [:create, :update]
 
   def index
-    # Update 'status' for tiles with 'start_time' and 'end_time' attributes (before you fetch the different tile groups)
-    @demo.activate_tiles_if_showtime
-    @demo.archive_tiles_if_curtain_call
+
     @active_tiles  = @demo.active_tiles_with_placeholders
     @archive_tiles = (@demo.archive_tiles_with_placeholders)[0,4]
     @draft_tiles = @demo.draft_tiles_with_placeholders
