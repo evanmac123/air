@@ -46,7 +46,7 @@ when 'test',  'development'
       local_root: "#{Rails.root}/public"
     },
     fog_directory: "",
-    fog_host: "http://localhost:3000"
+    fog_host: "http://localhost:3000/system/attachments/#{Rails.env}"
   }
 
   TILE_IMAGE_OPTIONS     = {}
