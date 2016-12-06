@@ -96,7 +96,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def sort
- #FIXME this code sucks!!! simply posting of tile ids and current positions
+    #FIXME this code sucks!!! simply posting of tile ids and current positions
     #would simplify this whole process
     @tile = get_tile
 
@@ -113,10 +113,10 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
     if params[:source_section].present?
       @last_tiles = Tile.find_additional_tiles_for_manage_section(
-                      params[:source_section][:name],
-                      params[:source_section][:presented_ids],
-                      get_demo.id
-                    )
+        params[:source_section][:name],
+        params[:source_section][:presented_ids],
+        get_demo.id
+      )
     end
 
 
