@@ -160,7 +160,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   private
 
   def tiles_by_grp grp
-    @all_tiles[grp] || []
+    tiles = @all_tiles[grp] || []
+    tiles.sort_by{|t| t.position}.reverse
   end
 
   def permit_params
