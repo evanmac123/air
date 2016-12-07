@@ -1,4 +1,10 @@
 class FinancialsReporterService 
+  REPORT_DATE_RANGE_TYPES = {
+    "Past week" =>       1.week,
+    "Past 30 days" =>    30.days,
+    "Past 3 months" =>   3.months,
+    "Past 12 months" =>  12.months,
+  }
 
   def self.build_week date
     kpi =  FinancialsCalcService.new(date)

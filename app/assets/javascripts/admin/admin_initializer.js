@@ -34,17 +34,32 @@ Airbo.SiteAdminInitializer = ( function(){
     );
   }
 
+  function initPickadate(){
+    $('.pickadate').pickadate({
+      hiddenName:true,
+      formatSubmit: "yyyy-mm-dd",
+      format: "mmm dd, yyyy"
+    })
+  }
+
+  function initJQueryDatePicker(){
+   $(".datepicker").datepicker({
+      showOtherMonths: true,
+      selectOtherMonths: true,
+      dateFormat: 'M d, yy',
+      maxDate: 0,
+      onClose: function(dateText, inst) {
+        $(inst.input).removeClass("opened");
+      }
+    });
+  }
 
   function init(){
     initBoardDeleter();
     initModalCloser();
     initBoardsAndOrgs();
     initKpiTooltips();
-    $('.pickadate').pickadate({
-      hiddenName:true,
-      formatSubmit: "yyyy-mm-dd",
-      format: "mmm dd, yyyy"
-    })
+    initJQueryDatePicker();
   }
 
 
