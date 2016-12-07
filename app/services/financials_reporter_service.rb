@@ -77,6 +77,7 @@ class FinancialsReporterService
 
   def self.build_data_set row_data 
     container = HashWithIndifferentAccess.new(kpi_fields)
+    return container if row_data.empty? 
     container.each do|field, sub_hash|
       sub_hash[:values] = row_data[field]
     end
