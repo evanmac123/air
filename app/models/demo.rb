@@ -64,7 +64,7 @@ class Demo < ActiveRecord::Base
       :default_style => :thumb,
       :default_url => "/assets/logo.png",
       :bucket => S3_LOGO_BUCKET
-    }.merge(DEMO_LOGO_OPTIONS)
+    }.merge!(DEMO_LOGO_OPTIONS)
 
   has_attached_file :cover_image,
     {
@@ -72,7 +72,7 @@ class Demo < ActiveRecord::Base
       #:default_style => :thumb,
       :default_url => "/assets/logo.png",
       :bucket => S3_LOGO_BUCKET
-    }.merge(DEMO_LOGO_OPTIONS)
+    }.merge!(DEMO_LOGO_OPTIONS)
 
   validates_attachment_content_type :logo, content_type: valid_image_mime_types, message: invalid_mime_type_error
 

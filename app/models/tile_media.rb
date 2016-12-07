@@ -5,16 +5,16 @@ class TileMedia < ActiveRecord::Base
   attr_accessible :processed, :remote_url, :upload
 
 
-    validates_with Paperclip::Validators::AttachmentPresenceValidator, attributes: [:document], if: :require_images, 
+    validates_with Paperclip::Validators::AttachmentPresenceValidator, attributes: [:document], if: :require_images,
                                                 message: "image is missing"
 
-    validates_with Paperclip::Validators::AttachmentSizeValidator,     less_than: (2.5).megabytes, 
-                                                message: " the image is too large, please use a smaller file", 
-                                                attributes: [:image], 
+    validates_with Paperclip::Validators::AttachmentSizeValidator,     less_than: (2.5).megabytes,
+                                                message: " the image is too large, please use a smaller file",
+                                                attributes: [:image],
                                                 if: :require_images
 
-    validates_attachment_content_type           :image, 
-                                                content_type: valid_image_mime_types, 
+    validates_attachment_content_type           :image,
+                                                content_type: valid_image_mime_types,
                                                 message: invalid_mime_type_error
 
 
@@ -29,7 +29,7 @@ has_attached_file :document,
         default_style:  :viewer,
         default_url:    "/assets/avatars/thumb/missing.png",
         bucket:         S3_TILE_BUCKET
-      }.merge(TILE_IMAGE_OPTIONS)
+      }.merge!(TILE_IMAGE_OPTIONS)
 
 
 

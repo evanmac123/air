@@ -4,7 +4,6 @@ class Channel < ActiveRecord::Base
     {
       styles: { explore: "190x90#" },
       default_style: :explore,
-      bucket: APP_BUCKET
     }
 
   def update_slug
