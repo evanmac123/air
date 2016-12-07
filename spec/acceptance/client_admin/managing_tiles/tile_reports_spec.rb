@@ -1,5 +1,7 @@
 require 'acceptance/acceptance_helper'
 
+TestAfterCommit.enabled = true
+
 feature 'client admin views tiles reports' do
   let(:admin) { FactoryGirl.create :client_admin }
   let(:demo)  { admin.demo  }

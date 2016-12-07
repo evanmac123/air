@@ -9,15 +9,24 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   before_filter :permit_params, only: [:create, :update]
 
   def index
-    # Update 'status' for tiles with 'start_time' and 'end_time' attributes (before you fetch the different tile groups)
-    @demo.activate_tiles_if_showtime
-    @demo.archive_tiles_if_curtain_call
-    @active_tiles  = @demo.active_tiles_with_placeholders
-    @archive_tiles = (@demo.archive_tiles_with_placeholders)[0,4]
-    @draft_tiles = @demo.draft_tiles_with_placeholders
-    @suggested_tiles = @demo.suggested_tiles_with_placeholders
-    @user_submitted_tiles_counter = @demo.tiles.user_submitted.count
+    @all_tiles = @demo.tiles.group_by { |t| t.status }
+
+    @actives = tiles_by_grp(Tile::ACTIVE)
+    @archives = tiles_by_grp(Tile::ARCHIVE)
+    @drafts =  tiles_by_grp(Tile::DRAFT)
+    @suggesteds = tiles_by_grp(Tile::USER_SUBMITTED)  | tiles_by_grp(Tile::IGNORED)
+    @submitteds = tiles_by_grp(Tile::USER_SUBMITTED)
+
+    @active_tiles  = @demo.active_tiles_with_placeholders(@actives)
+
+    @archive_tiles = (@demo.archive_tiles_with_placeholders @archives)[0,4]
+    @draft_tiles = @demo.draft_tiles_with_placeholders @drafts
+    @suggested_tiles = @demo.suggested_tiles_with_placeholders @suggesteds
+    @user_submitted_tiles_counter = @submitteds.count
+
+
     @allowed_to_suggest_users = @demo.users_that_allowed_to_suggest_tiles
+
     intro_flags_index
     @accepted_tile = Tile.find(session.delete(:accepted_tile_id)) if session[:accepted_tile_id]
     record_index_ping
@@ -87,7 +96,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def sort
- #FIXME this code sucks!!! simply posting of tile ids and current positions
+    #FIXME this code sucks!!! simply posting of tile ids and current positions
     #would simplify this whole process
     @tile = get_tile
 
@@ -104,10 +113,10 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
     if params[:source_section].present?
       @last_tiles = Tile.find_additional_tiles_for_manage_section(
-                      params[:source_section][:name],
-                      params[:source_section][:presented_ids],
-                      get_demo.id
-                    )
+        params[:source_section][:name],
+        params[:source_section][:presented_ids],
+        get_demo.id
+      )
     end
 
 
@@ -149,6 +158,11 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   private
+
+  def tiles_by_grp grp
+    @all_tiles[grp] || []
+  end
+
   def permit_params
     params.require(:tile_builder_form).permit!
   end
@@ -201,32 +215,42 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
 
   def intro_flags_index
-    @board_is_brand_new = @demo.tiles.limit(1).first.nil? && params[:show_suggestion_box] != "true"
-    @show_suggestion_box_intro =  if !current_user.suggestion_box_intro_seen
-
-                                    current_user.suggestion_box_intro_seen = true
-                                    current_user.save
-                                  end
-    @user_submitted_tile_intro =  if  params[:user_submitted_tile_intro] &&
-                                      !current_user.user_submitted_tile_intro_seen &&
-                                      @demo.tiles.user_submitted.first.present? &&
-                                      !@show_suggestion_box_intro
-
-                                    current_user.user_submitted_tile_intro_seen = true
-                                    current_user.save
-                                  end
-    @manage_access_prompt = !current_user.manage_access_prompt_seen &&
-      if @user_submitted_tiles_counter > 0 ||
-         @allowed_to_suggest_users.count > 0 ||
-         @demo.everyone_can_make_tile_suggestions
-
-        current_user.manage_access_prompt_seen = true
-        current_user.save
-        false
-      else
-        true
-      end
+    @board_is_brand_new = @all_tiles.empty? && params[:show_suggestion_box] != "true"
+    @show_suggestion_box_intro =  should_show_suggestion_box_intro?
+    @user_submitted_tile_intro =   should_show_submitted_tile_intro?
+    @manage_access_prompt = should_show_manage_access_prompt?
   end
+
+  def should_show_submitted_tile_intro?
+     val = !current_user.user_submitted_tile_intro_seen && @submitteds.any? 
+     val = val && !@show_suggestion_box_intro && params[:user_submitted_tile_intro] 
+
+     if val
+       current_user.user_submitted_tile_intro_seen = true
+       return current_user.save
+     end
+  end
+
+  def should_show_suggestion_box_intro?
+    if !current_user.suggestion_box_intro_seen
+      current_user.suggestion_box_intro_seen = true
+      return current_user.save
+    end
+  end
+
+  def should_show_manage_access_prompt?
+    if !current_user.manage_access_prompt_seen &&  tile_suggestion_enabled?
+      current_user.manage_access_prompt_seen = true
+      return current_user.save
+    end
+  end
+
+  def tile_suggestion_enabled?
+    @user_submitted_tiles_counter > 0 ||
+      @allowed_to_suggest_users.count > 0 ||
+      @demo.everyone_can_make_tile_suggestions
+  end
+
 
   def show_share_section_intro
     if !current_user.share_section_intro_seen && @tile.has_client_admin_status?

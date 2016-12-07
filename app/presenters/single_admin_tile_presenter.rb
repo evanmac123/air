@@ -153,7 +153,6 @@ class SingleAdminTilePresenter < BasePresenter
       self.class,
       'v2.ant',
       timestamp,
-      completion_percentage,
       thumbnail,
       type,
       tile_id,
@@ -161,8 +160,8 @@ class SingleAdminTilePresenter < BasePresenter
       tile_completions_count,
       total_views,
       unique_views,
-      @is_ie,
       copied?,
+      @is_ie,
       section
     ].join('-')
   end
