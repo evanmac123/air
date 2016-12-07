@@ -98,6 +98,7 @@ end
 group :test do
   gem 'cucumber-rails', :require => false
   gem 'bourne'
+  gem 'test_after_commit'
   gem 'capybara'
   gem 'capybara-screenshot'
   gem 'database_cleaner'
