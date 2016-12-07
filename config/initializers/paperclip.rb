@@ -16,8 +16,6 @@ when 'production', 'staging', "production_local"
     }
   )
 
-  ATTACHMENT_CONFIG_BASE = {}
-
   TILE_IMAGE_OPTIONS = {
     path: "/tiles/:id/:hash__:filename",
     hash_data: "tiles/:attachment/:id/:style/:updated_at"
@@ -28,11 +26,11 @@ when 'production', 'staging', "production_local"
     hash_data: "tiles/:attachment/:id/:style/:updated_at"
   }
 
-#deprecate the rest of these:
   DEMO_LOGO_OPTIONS = {
     path: "/demo/:id/:hash__:filename",
   }
 
+#deprecate the rest of these:
   TOPIC_OPTIONS = {
     path: "/topic/:id/:hash__:filename",
   }
@@ -52,42 +50,33 @@ when 'test',  'development'
       },
       fog_directory: "",
       fog_host: "http://localhost:3000/system/attachments/#{Rails.env}",
-      hash_secret: "Kid Sister Diary Secure",
       path: ":class/:id/:filename",
     }
   )
 
-  #attachement_config_base is a poor pattern.  Begin replacing with config.paperclip_defaults in environments/*.rb
-  ATTACHMENT_CONFIG_BASE = {}
-  
   #these need custom paths because the calling class is not the model
   TILE_IMAGE_OPTIONS = {
-    path: "/tiles/:id/:hash__:filename",
+    path: "/tiles/:id/:filename",
   }
 
   TILE_THUMBNAIL_OPTIONS = {
-    path: "/tile_thumbnails/:id/:hash__:filename",
+    path: "/tile_thumbnails/:id/:filename",
   }
 
 #deprecate teh rest of these:
   DEMO_LOGO_OPTIONS = {
-    path: "demo/:id/:hash__:filename",
+    path: "demo/:id/:filename",
   }
 
+#deprecate teh rest of these:
   TOPIC_OPTIONS = {
-    path: "topic/:id/:hash__:filename",
+    path: "topic/:id/:filename",
   }
 
   TOPIC_BOARD_OPTIONS = {
-    path: "topic_board/:id/:hash__:filename",
+    path: "topic_board/:id/:filename",
   }
 
 else
   raise 'Environment Not Found'
 end
-
-# TILE_IMAGE_OPTIONS.merge!(ATTACHMENT_CONFIG_BASE)
-# TILE_THUMBNAIL_OPTIONS.merge!(ATTACHMENT_CONFIG_BASE)
-# DEMO_LOGO_OPTIONS.merge!(ATTACHMENT_CONFIG_BASE)
-# TOPIC_OPTIONS.merge!(ATTACHMENT_CONFIG_BASE)
-# TOPIC_BOARD_OPTIONS.merge!(ATTACHMENT_CONFIG_BASE)

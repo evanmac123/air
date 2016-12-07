@@ -37,8 +37,6 @@ Capybara.javascript_driver = :poltergeist
 
 ##
 
-ActiveRecord::Base.logger = nil
-
 RSpec.configure do |config|
   config.mock_with :mocha
   config.treat_symbols_as_metadata_keys_with_true_values = true

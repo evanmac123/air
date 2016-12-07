@@ -129,7 +129,7 @@ module Reporting
           type: "num",
           hint: "Rolling 90 days",
           indent: 0,
-          css: "hilite"
+          css: "hilite kpi-tooltip"
         },
         "paid_net_promoter_score_response_count" => {
           label: "Responses",
@@ -148,6 +148,7 @@ module Reporting
           label: "Engaged ",
           type: "num",
           hint: "Unique Organizations with One or More Activity Session",
+          css: "kpi-tooltip",
           indent: 1,
         },
         "total_paid_orgs" =>{
@@ -167,6 +168,7 @@ module Reporting
           label: "Engaged",
           type: "num",
           hint: "Unique Paid Client Admins with One or More Activity Session",
+          css: "kpi-tooltip",
           indent: 1,
         },
         "total_paid_client_admins" =>{
@@ -186,6 +188,7 @@ module Reporting
           label: "Per Engaged Client Admin",
           type: "num",
           hint: "Activity Sessions Per Engaged Client Admin",
+          css: "kpi-tooltip",
           indent: 1,
         },
 
@@ -195,73 +198,76 @@ module Reporting
           type: "pct 0",
           hint: "% of Paid Organizations that viewed a Tile in Airbo Explore",
           indent: 0,
-          css: "hilite"
+          css: "hilite kpi-tooltip"
         },
         "paid_orgs_visited_explore" => {
           label: "Customers",
           type: "num",
           hint: "# of paid organizations that accessed any part of Airbo Explore",
+          css: "kpi-tooltip",
           indent: 1
         },
         "total_tiles_viewed_in_explore_by_paid_orgs" => {
           label: "Total Tile Views",
           type: "num",
           hint: "Total # of Tiles viewed in Explore by Paid Organizations",
+          css: "kpi-tooltip",
           indent: 1
         },
         "paid_client_admins_who_viewed_tiles_in_explore" => {
           label: "Client Admins",
           type: "num",
           hint: "# of client admins that viewed Tiles",
+          css: "kpi-tooltip",
           indent: 2
         },
         "tiles_viewed_per_paid_client_admin" => {
           label: " Per Client Admin",
           type: "num",
           hint: "# of Tile Views per Paid Client Admin",
+          css: "kpi-tooltip",
           indent: 2
         },
-
-
-
         "percent_paid_orgs_added_a_tile" => {
           label: "Tile Creation Engagement",
           type: "pct 0",
           hint: "% of Paid Organizations that added a tile",
           indent: 0,
-          css: "hilite"
+          css: "hilite kpi-tooltip"
         },
         "tiles_added_by_paid_client_admins" => {
           label: "New Tiles Added",
           type: "num",
           hint: "# of Unique Tiles Added by Paid Client Admins",
+          css: "kpi-tooltip",
           indent: 0
         },
         "paid_orgs_that_added_a_tile" => {
           label: "Customers",
           type: "num",
           hint: "# of customers that added Tiles",
+          css: "kpi-tooltip",
           indent: 1
         },
         "percent_added_tiles_copied_from_explore" => {
           label: "Copied",
           type: "pct 0",
           hint: "% of New Tiles that were copied from Explore",
+          css: "kpi-tooltip",
           indent: 1
         },
         "percent_added_tiles_created_from_scratch" => {
           label: "Created",
           type: "pct 0",
           hint: "% of New Tiles that were created from scratch",
+          css: "kpi-tooltip",
           indent: 1
         },
-
-
-
         "percent_orgs_that_copied_tiles" =>{
           label: "Copied",
           type: "pct 0",
           hint: "% of New Tiles that were copied from Explore",
+          css: "kpi-tooltip",
           indent: 1,
         },
         "total_tiles_copied" =>{
@@ -279,6 +285,7 @@ module Reporting
         "average_tiles_copied_per_org_that_copied" =>{
           label: "Average",
           type: "num",
+          css: "kpi-tooltip",
           hint: "Avg Tiles Copied Per Org that Copied",
           indent: 1,
         },
@@ -361,18 +368,21 @@ module Reporting
           label: "30 Day Retention",
           type: "pct 0",
           hint: "Percent user who had unique activity session within 30 days of activation",
+          css: "kpi-tooltip",
           indent: 1,
         },
         "percent_retained_post_activation_60_days" =>{
           label: "60 Day Retention",
           type: "pct 0",
           hint: "Percent user who had unique activity session within 60 days of activation",
+          css: "kpi-tooltip",
           indent: 1,
         },
         "percent_retained_post_activation_120_days" =>{
           label: "120 Day Retention",
           type: "pct 0",
           hint: "Percent user who had unique activity session within 120 days of activation",
+          css: "kpi-tooltip",
           indent: 1,
         },
       }

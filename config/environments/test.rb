@@ -40,6 +40,7 @@ Health::Application.configure do
 
   # Log error messages when you accidentally call methods on nil.
   config.whiny_nils = true
+  config.log_level = :debug
 
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true
@@ -89,4 +90,6 @@ Health::Application.configure do
   config.action_mailer.asset_host = "//example.com"
 
   config.cache_store = :redis_store, "redis://127.0.0.1:6379/1/cache", { expires_in: 5.years }
+
+  Paperclip.options[:log] = false
 end
