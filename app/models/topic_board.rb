@@ -8,7 +8,7 @@ class TopicBoard < ActiveRecord::Base
   has_attached_file :cover_image,
     {
       styles: { medium: "300x200>", thumb: "100x100>" },
-      default_style: :medium,\
+      default_style: :medium
     }.merge(TOPIC_BOARD_OPTIONS)
 
   validates_attachment_content_type :cover_image, content_type: /\Aimage\/.*\z/
