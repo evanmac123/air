@@ -14,7 +14,9 @@ class ActsController < ApplicationController
 
     authorize
     return if response_body.present? # such as if our authorization failed & we're bound for the signin page
+
     set_parent_board_user(params[:board_id])
+
     flash_message_in_parent_board
 
     @current_link_text = "Home"
@@ -23,8 +25,8 @@ class ActsController < ApplicationController
     @current_user.ping_page('activity feed')
 
 
-    @demo                  = current_user.demo
-    @acts                  = find_requested_acts(@demo)
+    @demo = current_user.demo
+    @acts= find_requested_acts(@demo)
 
     @palette = @demo.custom_color_palette
     #FIXME this instance var is getting set 3 times
@@ -85,8 +87,8 @@ class ActsController < ApplicationController
 
   def find_requested_acts(demo)
     offset = params[:offset].present? ? params[:offset].to_i : 0
-    acts = Act.displayable_to_user(current_user, demo, ACT_BATCH_SIZE, offset)
-    @show_more_acts_btn = (acts.count == ACT_BATCH_SIZE)
+    acts = Act.displayable_to_user(current_user, demo, ACT_BATCH_SIZE, offset).all
+    @show_more_acts_btn = (acts.length == ACT_BATCH_SIZE)
     acts
   end
 
