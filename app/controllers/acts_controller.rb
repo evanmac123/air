@@ -23,8 +23,8 @@ class ActsController < ApplicationController
     @current_user.ping_page('activity feed')
 
 
-    @demo                  = current_user.demo
-    @acts                  = find_requested_acts(@demo)
+    @demo = current_user.demo
+    @acts= find_requested_acts(@demo)
 
     @palette = @demo.custom_color_palette
     #FIXME this instance var is getting set 3 times
