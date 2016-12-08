@@ -106,13 +106,6 @@ ActiveRecord::Schema.define(:version => 20161208001315) do
     t.integer  "organization_id"
   end
 
-  create_table "blacklists", :force => true do |t|
-    t.integer  "raffle_id"
-    t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "board_memberships", :force => true do |t|
     t.boolean  "is_current",                       :default => true
     t.boolean  "is_client_admin",                  :default => false
@@ -156,6 +149,20 @@ ActiveRecord::Schema.define(:version => 20161208001315) do
 
   add_index "bonus_thresholds_users", ["bonus_threshold_id"], :name => "index_bonus_thresholds_users_on_bonus_threshold_id"
   add_index "bonus_thresholds_users", ["user_id"], :name => "index_bonus_thresholds_users_on_user_id"
+
+  create_table "channels", :force => true do |t|
+    t.string   "name"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.string   "slug"
+    t.boolean  "active"
+  end
+
+  add_index "channels", ["slug"], :name => "index_channels_on_slug"
 
   create_table "characteristics", :force => true do |t|
     t.string   "name"
@@ -601,8 +608,6 @@ ActiveRecord::Schema.define(:version => 20161208001315) do
   end
 
   add_index "locations", ["demo_id"], :name => "index_locations_on_demo_id"
-  add_index "locations", ["name"], :name => "location_name_trigram"
-  add_index "locations", ["normalized_name"], :name => "location_normalized_name_trigram"
 
   create_table "metrics", :force => true do |t|
     t.integer  "starting_customers"
@@ -882,13 +887,25 @@ ActiveRecord::Schema.define(:version => 20161208001315) do
   add_index "surveys", ["demo_id"], :name => "index_surveys_on_demo_id"
   add_index "surveys", ["open_at"], :name => "index_surveys_on_open_at"
 
-  create_table "tags", :force => true do |t|
-    t.string   "name"
-    t.string   "description"
+  create_table "taggings", :force => true do |t|
+    t.integer  "tag_id"
+    t.integer  "taggable_id"
+    t.string   "taggable_type"
+    t.integer  "tagger_id"
+    t.string   "tagger_type"
+    t.string   "context",       :limit => 128
     t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "daily_limit"
   end
+
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], :name => "taggings_idx", :unique => true
+  add_index "taggings", ["taggable_id", "taggable_type", "context"], :name => "index_taggings_on_taggable_id_and_taggable_type_and_context"
+
+  create_table "tags", :force => true do |t|
+    t.string  "name"
+    t.integer "taggings_count", :default => 0
+  end
+
+  add_index "tags", ["name"], :name => "index_tags_on_name", :unique => true
 
   create_table "tile_completions", :force => true do |t|
     t.integer  "tile_id"
@@ -913,7 +930,10 @@ ActiveRecord::Schema.define(:version => 20161208001315) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.boolean  "active"
+    t.integer  "channel_id"
   end
+
+  add_index "tile_features", ["channel_id"], :name => "index_tile_features_on_channel_id"
 
   create_table "tile_images", :force => true do |t|
     t.string   "image_file_name"
@@ -1289,14 +1309,12 @@ ActiveRecord::Schema.define(:version => 20161208001315) do
   add_index "users", ["cancel_account_token"], :name => "index_users_on_cancel_account_token"
   add_index "users", ["claim_code"], :name => "index_users_on_claim_code"
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["email"], :name => "user_email_trigram"
   add_index "users", ["employee_id"], :name => "index_users_on_employee_id"
   add_index "users", ["explore_token"], :name => "index_users_on_explore_token"
   add_index "users", ["game_referrer_id"], :name => "index_users_on_game_referrer_id"
   add_index "users", ["invitation_code"], :name => "index_users_on_invitation_code"
   add_index "users", ["is_employee"], :name => "index_users_on_is_employee"
   add_index "users", ["location_id"], :name => "index_users_on_location_id"
-  add_index "users", ["name"], :name => "user_name_trigram"
   add_index "users", ["official_email"], :name => "index_users_on_official_email"
   add_index "users", ["organization_id"], :name => "index_users_on_organization_id"
   add_index "users", ["overflow_email"], :name => "index_users_on_overflow_email"
@@ -1304,7 +1322,6 @@ ActiveRecord::Schema.define(:version => 20161208001315) do
   add_index "users", ["privacy_level"], :name => "index_users_on_privacy_level"
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
   add_index "users", ["slug"], :name => "index_users_on_slug"
-  add_index "users", ["slug"], :name => "user_slug_trigram"
   add_index "users", ["sms_slug"], :name => "index_users_on_sms_slug"
   add_index "users", ["spouse_id"], :name => "index_users_on_spouse_id"
   add_index "users", ["ssn_hash"], :name => "index_users_on_ssn_hash"
