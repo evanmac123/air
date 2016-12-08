@@ -68,9 +68,8 @@ class Tile < ActiveRecord::Base
 
   before_post_process :no_post_process_on_copy
 
-  STATUS.each do |status_name|
-    scope status_name.to_sym, -> { where(status: status_name).ordered_by_position }
-  end
+
+
   scope :after_start_time, -> { where("start_time < ? OR start_time IS NULL", Time.now) }
   scope :before_end_time, -> { where("end_time > ? OR end_time IS NULL", Time.now) }
   scope :after_start_time_and_before_end_time, -> { after_start_time.before_end_time }
@@ -100,14 +99,19 @@ class Tile < ActiveRecord::Base
   alias_attribute :unique_views, :unique_viewings_count
   alias_attribute :interactions, :tile_completions_count
 
-  # Custom Attribute Setter: ensure that setting/updating the 'status' updates the corresponding time-stamp
+
+  # Dynamically define 'status?' instance methods  and scopes
+  # TODO consider refactoring to remove metaprogramming here. prob not needed
 
   STATUS.each do |status_name|
     define_method(status_name + "?") do
       self.status == status_name
     end
+
+    scope status_name.to_sym, -> { where(status: status_name).ordered_by_position }
   end
 
+  # Custom Attribute Setter: ensure that setting/updating the 'status' updates the corresponding time-stamp
   def update_timestamps
     case status
     when ACTIVE  then
@@ -119,10 +123,6 @@ class Tile < ActiveRecord::Base
     end
 
   end
-
-  #def status=(new_status)
-    #write_attribute(:status, new_status)
-  #end
 
   def update_status params
     handle_unarchived(params["status"], params["redigest"])
@@ -251,28 +251,6 @@ class Tile < ActiveRecord::Base
     tiles[tiles.index(tile) + offset] || first_tile
   end
 
-  # ------------------------------------------------------------------------------------------------------------------
-  # These methods are for synchronizing a tile's start_time/end_time with its ACTIVE/ARCHIVE status.
-  # (Tile has a custom attribute writer that updates the activated_at/archived_at along with the ACTIVE/ARCHIVE status)
-  #
-  # For 'activate_if_showtime' you need to set the 'start_time' to 'nil' because of the following scenario:
-  # On Sunday, one of the Ks creates a tile with a 'start_time' of Monday. This is not uncommon as the Ks tend to work 80 hours per week.
-  # Tuesday rolls around and the client-admin fires up the Tile Manager (which calls this method) => tile becomes active.
-  # On Wednesday a client-admin decides to archive this tile.
-  # On Thursday, the same logic would once again activate this tile because (a) it is archived -and- (b) Thursday is > Monday (its 'start_time').
-  #
-  # And the fun doesn't stop there: a similar scenario (and solution) exists for automatically archiving tiles!
-  # ------------------------------------------------------------------------------------------------------------------
-  def self.activate_if_showtime
-    showtime = archive.where("start_time IS NOT NULL AND ? > start_time", Time.now)
-    showtime.each { |tile| tile.update_attributes status: ACTIVE, start_time: nil }
-  end
-
-  def self.archive_if_curtain_call
-    curtain_call = active.where("end_time IS NOT NULL AND ? > end_time", Time.now)
-    curtain_call.each { |tile| tile.update_attributes status: ARCHIVE, end_time: nil }
-  end
-  # ------------------------------------------------------------------------------------------------------------------
 
   def self.bulk_complete(demo_id, tile_id, emails)
     Delayed::Job.enqueue TileBulkCompletionJob.new(demo_id, tile_id, emails)

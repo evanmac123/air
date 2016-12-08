@@ -16,7 +16,7 @@ class Contract < ActiveRecord::Base
   SEMI_ANNUAL="Semi Annual"
   CUSTOM = "Custom"
    
-  before_validation :set_name
+  before_validation :set_name, :if => :organization
 
   def self.upgrades
     where("parent_contract_id is not NULL")

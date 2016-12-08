@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161206141922) do
+ActiveRecord::Schema.define(:version => 20161208001315) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -918,7 +918,9 @@ ActiveRecord::Schema.define(:version => 20161206141922) do
     t.boolean  "not_show_in_tile_progress", :default => false
   end
 
+  add_index "tile_completions", ["created_at"], :name => "index_tile_completions_on_created_at"
   add_index "tile_completions", ["tile_id"], :name => "index_task_suggestions_on_task_id"
+  add_index "tile_completions", ["tile_id"], :name => "index_tile_completions_on_tile_id"
   add_index "tile_completions", ["user_id"], :name => "index_task_suggestions_on_user_id"
   add_index "tile_completions", ["user_type"], :name => "index_tile_completions_on_user_type"
 
@@ -992,7 +994,9 @@ ActiveRecord::Schema.define(:version => 20161206141922) do
     t.datetime "updated_at",                :null => false
   end
 
+  add_index "tile_viewings", ["created_at"], :name => "index_tile_viewings_on_created_at"
   add_index "tile_viewings", ["tile_id", "user_id", "user_type"], :name => "index_tile_viewings_on_tile_and_user", :unique => true
+  add_index "tile_viewings", ["tile_id"], :name => "index_tile_viewings_on_tile_id"
 
   create_table "tiles", :force => true do |t|
     t.integer  "demo_id"
@@ -1049,8 +1053,13 @@ ActiveRecord::Schema.define(:version => 20161206141922) do
     t.text     "embed_video",             :default => "",    :null => false
   end
 
+  add_index "tiles", ["activated_at"], :name => "index_tiles_on_activated_at"
+  add_index "tiles", ["archived_at"], :name => "index_tiles_on_archived_at"
+  add_index "tiles", ["created_at"], :name => "index_tiles_on_created_at"
+  add_index "tiles", ["demo_id"], :name => "index_tiles_on_demo_id"
   add_index "tiles", ["is_copyable"], :name => "index_tiles_on_is_copyable"
   add_index "tiles", ["is_public"], :name => "index_tiles_on_is_public"
+  add_index "tiles", ["status"], :name => "index_tiles_on_status"
 
   create_table "timed_bonus", :force => true do |t|
     t.datetime "expires_at",                    :null => false

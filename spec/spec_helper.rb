@@ -9,7 +9,6 @@ test_counter = 0
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'clearance/testing'
-require 'rspec/autorun'
 require 'mocha/setup'
 require 'capybara/rspec'
 require 'capybara/poltergeist'

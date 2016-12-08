@@ -207,32 +207,6 @@ describe Tile do
     Timecop.return
   end
 
-  describe "activating and archiving tiles with 'start_time's and 'end_time's" do
-    let(:demo) { FactoryGirl.create :demo }
-
-    it "#activate_if_showtime activates tiles that are good to go" do
-      good_to_go = FactoryGirl.create_list(:tile, 3, demo: demo, status: Tile::ARCHIVE, start_time: Time.now - 1.second)
-
-      demo.tiles.activate_if_showtime
-
-      good_to_go.each do |tile|
-        tile.reload.status.should == Tile::ACTIVE
-        tile.start_time.should be_nil
-      end
-    end
-
-    it "#archive_if_curtain_call archives tiles that have expired" do
-      expired = FactoryGirl.create_list(:tile, 3, demo: demo, status: Tile::ACTIVE, end_time: Time.now - 1.second)
-
-      demo.tiles.archive_if_curtain_call
-
-      expired.each do |tile|
-        tile.reload.status.should == Tile::ARCHIVE
-        tile.end_time.should be_nil
-      end
-    end
-  end
-
   describe "satisfiable to a particular user" do
     before(:each) do
       Demo.find_each {|f| f.destroy}
