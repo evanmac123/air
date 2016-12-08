@@ -1,11 +1,21 @@
 desc "Restores most important images after a pg_restore"
 namespace :pg_restore do
   namespace :seed do
-    task explore_images: :environment do
+    task tile_images: :environment do
+      require 'open-uri'
+      tile_images = TileImage.all_ready.limit(200)
+
+      tile_images.each { |tile_image|
+        img_link = URI.parse(URI.encode("https://unsplash.it/200?random"))
+        tile_image.image = img_link
+        tile_image.thumbnail = img_link
+        tile_image.save
+      }
+
+      tile_image_ids = tile_images.pluck(:id)
+
       Tile.copyable.each { |tile|
-        img_link = "http://localhost:3000/system/tile_image_seed.png"
-        tile.remote_media_url = img_link
-        tile.save
+        ImageProcessJob.new(tile.id, tile_image_ids.sample).perform
       }
     end
   end

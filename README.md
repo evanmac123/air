@@ -20,15 +20,15 @@ The following instructions are for an Ubuntu system; some slight modifications m
 
 #### Install the following packages
 1. build-essential
-1. git
-1. postgresql
-1. mongodb
-1. libqtwebkit-dev
-1. libpq-dev
-1. nodejs
-1. ImageMagick
-1. pgadmin3 (Optional: PostgreSQL GUI admin tool)
-1. curl (Optional: If using RVM - see below)
+2. git
+3. postgresql
+4. mongodb
+5. libqtwebkit-dev
+6. libpq-dev
+7. nodejs
+8. ImageMagick
+9. pgadmin3 (Optional: PostgreSQL GUI admin tool)
+10. curl (Optional: If using RVM - see below)
 
 Since the _Package Manager_ is used to install these packages they might not be as up-to-date as needed.
 If this is the case you will need to go to the appropriate site to get the latest and greatest version.
@@ -253,6 +253,15 @@ STRIPE_API_PRIVATE_KEY:                           [KEY]
 STRIPE_API_PUBLIC_KEY:                            [KEY]
 TILE_BUCKET:                                      hengage-tiles-development
 
+
+Restore Development Environment From Production
+-----------------------------------------------
+Redis
+
+Install redis-dump: `npm install redis-dump -g`
+redis-dump -a [password] -h [host] -p [port] > prod_redis.txt
+cat prod_redis.txt | redis-cli
+rm prod_redis.txt
 
 
 

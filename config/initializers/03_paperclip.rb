@@ -7,7 +7,7 @@ when 'production', 'staging', "production_local"
       s3_credentials: S3_CREDENTIALS,
       s3_headers: {'Expires' => 1.year.from_now.httpdate, 'Cache-Control' => 'max-age=315576000'},
       bucket: APP_BUCKET,
-      url:         ":s3_domain_url",
+      url: ":s3_domain_url",
       hash_secret: "Kid Sister Diary Secure",
       path: ":class/:attachment/:id/:style/:filename"
     }
@@ -27,6 +27,7 @@ when 'production', 'staging', "production_local"
 
   DEMO_LOGO_OPTIONS = {
     path: "/demo/:id/:hash__:filename",
+    bucket: S3_LOGO_BUCKET
   }
 
   TOPIC_BOARD_OPTIONS = {
@@ -41,15 +42,13 @@ when 'test',  'development'
       url: "/system/:rails_env/:class/:attachment/:id/:style/:filename",
       default_url: ":rails_root/assets/images/airbo_character_hi.png"
     }
-   )
+  )
 
-  #these need custom paths because the calling class is not the model
+  #We need these because because they were originally implemented with custom paths. If we want to move away from the custom pattern, we can do a mass S3 sync. Also, if we want to move away from the merge pattern in the modals for Paperclip, we likely have to setup a mock S3 for dev.
+
   TILE_IMAGE_OPTIONS = {}
-
   TILE_THUMBNAIL_OPTIONS = {}
-
   DEMO_LOGO_OPTIONS = {}
-
   TOPIC_BOARD_OPTIONS = {}
 else
   raise 'Environment Not Found'
