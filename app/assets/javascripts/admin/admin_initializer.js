@@ -23,7 +23,7 @@ Airbo.SiteAdminInitializer = ( function(){
     //FIXME foundation.min includes foundation.forms js which hijacks forms and
     //hides elements like checkboxes. if we need to use any foundation js then we
     //will need re-display any hijacked form elements
-    //$(document).foundation();
+    $(document).foundation();
   }
 
   function initKpiTooltips(){
@@ -60,6 +60,7 @@ Airbo.SiteAdminInitializer = ( function(){
     initBoardsAndOrgs();
     initKpiTooltips();
     initJQueryDatePicker();
+    initZurbFoundation()
   }
 
 
