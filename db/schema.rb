@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161208001315) do
+ActiveRecord::Schema.define(:version => 20161209000917) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(:version => 20161208001315) do
 
   add_index "acts", ["demo_id"], :name => "index_acts_on_demo_id"
   add_index "acts", ["hidden", "demo_id"], :name => "index_acts_on_hidden_and_demo_id"
+  add_index "acts", ["hidden"], :name => "index_acts_on_hidden"
   add_index "acts", ["privacy_level"], :name => "index_acts_on_privacy_level"
   add_index "acts", ["referring_user_id"], :name => "index_acts_on_referring_user_id"
   add_index "acts", ["rule_id"], :name => "index_acts_on_rule_id"
