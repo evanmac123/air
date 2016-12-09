@@ -5,7 +5,6 @@ class PagesController < HighVoltage::PagesController
   before_filter :allow_guest_user
   before_filter :force_html_format
   before_filter :signed_out_only_on_root
-  before_filter :display_social_links_if_marketing_page
   before_filter :set_page_name
   before_filter :set_page_name_for_mixpanel
   before_filter :set_user_for_mixpanel
@@ -19,8 +18,6 @@ class PagesController < HighVoltage::PagesController
   PAGE_NAMES_FOR_MIXPANEL = {
     'welcome'        => "Marketing Page",
     'home'           => "Landing Page V. #{MP_HOMPAGE_TAG_VERSION}",
-    'customer_tiles' => 'customer tiles', # FIXME dead url?
-    'more_info'      => 'More Info, marketing', # FIXME dead url?
     'privacy'        => 'privacy policy',
     'terms'          => 'terms and conditions'
   }
@@ -28,25 +25,15 @@ class PagesController < HighVoltage::PagesController
 
   def show
     login_as_guest(Demo.new) unless current_user
-    @boards = library_boards
     super
   end
 
   private
 
-  def library_boards
-    Demo.joins(:topic_board).where(topic_board: { is_library: true } )
-  end
-
   def layout_for_page
     case page_name
     when 'privacy', 'terms'
       'external'
-    when 'more_info',  # FIXME dead url?
-      @body_id = "homepage"
-      'external_marketing'
-    when 'heineken', 'miltoncat', 'customer_tiles'
-      'external_marketing'
     else
       'standalone'
     end
@@ -57,13 +44,8 @@ class PagesController < HighVoltage::PagesController
     redirect_to home_path if signed_in?
   end
 
-
-  def display_social_links_if_marketing_page
-    display_social_links if %w(more_info asha miltoncat heineken fujifilm customer_tiles).include?(params[:id])
-  end
-
   def page_name
-    page_name = params[:id] || params[:action]
+    params[:id] || params[:action]
   end
 
   def set_page_name

@@ -16,7 +16,6 @@ Health::Application.routes.draw do
   # moved these to top level but don't want to break old links
   match "client_admin/explore"     => "explores#show"
   match "client_admin/explore_new" => "explores#show"
-  match "library/:library_slug" => "client_admin/stock_boards#show", :as => "stock_board", :via => :get
   match "ard/:public_slug" => "public_boards#show", :as => "public_board", :via => :get
   match "ard/:public_slug/activity" => "acts#index", :as => "public_activity", :via => :get
   match "ard/:public_slug/tiles" => "tiles#index", :as => "public_tiles", :via => :get
@@ -86,19 +85,14 @@ Health::Application.routes.draw do
   match "sign_up"  => "users#new"
   match "sign_out" => "sessions#destroy"
 
-  root :to => 'pages#show', :id => 'home'
-  get "tour" => 'pages#tour', as: 'tour'
+  root to: 'pages#show', id: 'home'
   get "company" => 'pages#company', as: 'company'
   get "case-studies" => 'pages#case-studies', as: 'case_studies'
-  get "faq" => "pages#faq", :as => "faq" # FIXME dead url?
-  get "faq_body" => "pages#faq_body", :as => "faq_toc" # FIXME dead url?
-  get "faq_toc" => "pages#faq_toc", :as => "faq_body" # FIXME dead url?
   get "demo_link" => "pages#demo_link", as: "demo_link"
-
   get "terms" => "pages#terms", :as => "terms"
   get "privacy" => "pages#privacy", :as => "privacy"
 
-  resources :pages, :only => :show
+  resources :pages, only: :show
   resource :support, only: :show
 
 
@@ -159,9 +153,6 @@ Health::Application.routes.draw do
     resources :locations, :only => :create
 
     resources :multiple_choice_tiles, controller: 'tiles'
-
-    resources :stock_boards, path: 'library'
-    resources :stock_tiles, path: 'library_tiles'
 
     resources :tiles do
       collection do

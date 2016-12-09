@@ -1,9 +1,9 @@
-body.tiles.tiles-index, .client_admin-stock_tiles.client_admin-stock_tiles-show{
+body.tiles.tiles-index{
   background:$tile-wall-bg;
   .core, .content {background:$tile-wall-bg;}
 }
 
-body.tiles.tiles-index, .client_admin-stock_tiles.client_admin-stock_tiles-show{
+body.tiles.tiles-index{
   // completed mark
   .tile_holder .completed {
     &:before {

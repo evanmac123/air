@@ -405,10 +405,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def display_social_links
-    @display_social_links = true
-  end
-
   def persist_guest_user
     if current_user.try(:is_guest?)
       session[:guest_user] = current_user.to_guest_user_hash

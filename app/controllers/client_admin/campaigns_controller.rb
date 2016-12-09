@@ -11,6 +11,6 @@ class ClientAdmin::CampaignsController < ClientAdminBaseController
   private
 
     def campaigns
-      Demo.joins(:topic_board).where(topic_board: { is_library: true } )
+      Demo.campaigns
     end
 end

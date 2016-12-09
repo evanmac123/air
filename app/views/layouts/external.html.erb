@@ -37,7 +37,6 @@
       <div id="status"><%= yield :status %></div>
       <%= yield %>
     </div>
-    <%= render "pages/footer" %>
 
     <%= render :partial => 'shared/modals/modals' %>
     <%= javascript_include_tag asset_path('ga-marketing.js') if ENV['USE_GA'] %>

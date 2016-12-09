@@ -1,18 +1,18 @@
 var Airbo = window.Airbo || {};
 
 Airbo.UserTilePreview =(function(){
-  var pointValue
-    , storageKey
-    , tileId
-    , progressType = "remote"
-    , progress
-    , config
-    , tileSelectedByNav = true
-    , nextTileParams = { }
-  ;
+  var pointValue,
+      storageKey,
+      tileId,
+      progressType = "remote",
+      progress,
+      config,
+      tileSelectedByNav = true,
+      nextTileParams = { };
+
   function findCsrfToken() {
     return $('meta[name="csrf-token"]').attr('content');
-  };
+  }
 
 
   function showOrHideStartOverButton(showFlag) {
@@ -21,18 +21,18 @@ Airbo.UserTilePreview =(function(){
     } else {
       $('#guest_user_start_over_button').hide();
     }
-  };
+  }
 
   function grayoutTile(callback) {
     $('#spinner_large').fadeIn('slow', callback);
-  };
+  }
 
   function ungrayoutTile() {
     return $('#spinner_large').fadeOut('slow');
-  };
+  }
 
   function isRemote(){
-    return progressType=="remote"
+    return progressType == "remote";
   }
 
 
@@ -51,14 +51,14 @@ Airbo.UserTilePreview =(function(){
   }
 
   function keys(obj){
-    return Object.keys(obj)
+    return Object.keys(obj);
   }
 
 
   function grayoutAndScroll() {
     grayoutTile(function(){
-      window.scrollTo(0,0)
-    })
+      window.scrollTo(0,0);
+    });
     return true;
   }
 
@@ -124,7 +124,6 @@ Airbo.UserTilePreview =(function(){
 
 
     if(isLocal() && allTilesCompleted()){
-
       showAllFinished(responseText);
     }else{
       getTile(params, cb);
@@ -185,11 +184,11 @@ Airbo.UserTilePreview =(function(){
   function mergeReturnedDataWithLocal(data){
     var result = $.extend({}, data);
     if(isLocal()){
-      result.all_tiles = progress.tileCount
-      result.completed_tiles = completedTileCount()
-      result.ending_points = progress.starting_points
-      result.ending_tickets = 0
-      result.raffle_progress_bar = false
+      result.all_tiles = progress.tileCount;
+      result.completed_tiles = completedTileCount();
+      result.ending_points = progress.starting_points;
+      result.ending_tickets = 0;
+      result.raffle_progress_bar = false;
       result.all_tiles_done = progress.tileCount === completedTileCount();
 
       applyCompletionCheck();
@@ -198,12 +197,12 @@ Airbo.UserTilePreview =(function(){
   }
 
 
-
+  //TODO: Deprecate this and all related to old library implementation.
   function showAllFinished(responseText){
 
-    var result = mergeReturnedDataWithLocal({})
-      , backToHomepage = "<div id='tiles_done_message'><a href='/library/" + config.slug + "'>Return to homepage</a></div>"
-    ;
+    var result = mergeReturnedDataWithLocal({}),
+    backToHomepage = "<div id='tiles_done_message'><a href='/library/" + config.slug + "'>Return to homepage</a></div>";
+
     $.when(Airbo.ProgressAndPrizeBar.predisplayAnimations(result, responseText)).then(function(){
       $('.content .container.row').html(backToHomepage);
     });
@@ -232,10 +231,9 @@ Airbo.UserTilePreview =(function(){
   }
 
   function postTileCompletion(event) {
-    var response
-      , answer
-      , promise
-    ;
+    var response,
+        answer,
+        promise;
 
     if (isRemote()){
       postTileCompletionPing(event);
@@ -246,7 +244,7 @@ Airbo.UserTilePreview =(function(){
           dataType: "json"
         });
         return response;
-    }else{
+    } else {
       promise = postToLocalStorage();
       promise.then(function(response){
         var data = response[2];
@@ -256,17 +254,17 @@ Airbo.UserTilePreview =(function(){
       });
       return promise;
     }
-  };
+  }
 
   function removeTileIdFromAvailable(){
-    var idx = findTileInAvailable()
+    var idx = findTileInAvailable();
     if (idx >= 0){
      progress.available.splice(idx, 1);
     }
   }
 
   function findTileInAvailable(){
-    return $.inArray(tileId,progress.available)
+    return $.inArray(tileId,progress.available);
   }
 
   function postToLocalStorage(){
@@ -278,7 +276,7 @@ Airbo.UserTilePreview =(function(){
   }
 
  function allTilesCompleted(){
-   return (completedTileCount() === progress.tileCount)
+   return (completedTileCount() === progress.tileCount);
  }
 
  function initNextTileParams(){
@@ -291,9 +289,9 @@ Airbo.UserTilePreview =(function(){
 
  //TODO make sure not broken
  function targetAnswerClicked(event) {
-   var tileCompletionPosted = postTileCompletion(event)
-     , grayedOutAndScrolled = grayoutAndScroll(event)
-   ;
+   var tileCompletionPosted = postTileCompletion(event),
+       grayedOutAndScrolled = grayoutAndScroll(event);
+
    $.when( tileCompletionPosted,grayedOutAndScrolled).then(function(xhr, res) {
      getTileAfterAnswer(xhr[2].responseText);
    });
@@ -318,9 +316,7 @@ Airbo.UserTilePreview =(function(){
    var url;
 
    if(isRemote()){
-     url ='/tiles/' + $('#slideshow .tile_holder').data('current-tile-id')
-   }else{
-     url ='/client_admin/library_tiles/' + nextTile();
+     url ='/tiles/' + $('#slideshow .tile_holder').data('current-tile-id');
    }
    return url;
  }
@@ -335,17 +331,8 @@ Airbo.UserTilePreview =(function(){
 
    tileId = configObj.data("current-tile-id");
    pointValue = configObj.data("point-value");
-   config = $(".user_container").data("config")
-   storageKey = config.key
-
-   if($(".client_admin-stock_tiles-show").length>0){
-     progressType = "local";
-     progress = Airbo.LocalStorage.get(storageKey);
-
-     applyCompletionCheck();
-     window.history.replaceState("", "", "/client_admin/library_tiles/"+tileId);
-   }
-
+   config = $(".user_container").data("config");
+   storageKey = config.key;
 
    initNextTileParams();
    setUpAnswers();
@@ -356,7 +343,7 @@ Airbo.UserTilePreview =(function(){
     Airbo.TileAnswers.init({
       onRightAnswer: rightAnswerClicked
     });
-  };
+  }
 
   function bindTileCarouselNavigationButtons() {
     $("body").on('click', '#next, #prev', function(event) {
@@ -366,8 +353,7 @@ Airbo.UserTilePreview =(function(){
       grayoutTile();
       getTileByNavigation(target);
     });
-
-  };
+  }
 
 
   function init(){
@@ -376,11 +362,11 @@ Airbo.UserTilePreview =(function(){
   }
   return {
    init: init
-  }
+ };
 }());
 
 $(document).ready(function() {
-  if( $(".tiles-index, .client_admin-stock_tiles-show" ).length > 0) {
+  if( $(".tiles-index" ).length > 0) {
     Airbo.UserTilePreview.init();
   }
   // external tile preview
