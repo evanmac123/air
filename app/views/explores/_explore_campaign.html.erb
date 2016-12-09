@@ -1,13 +1,13 @@
 <div class="row explore-tiles-tabs">
   <div class="explore-tiles-titles small-12 columns">
     <ul class="tabs">
-      <li id="collection_title">
+      <li id="campaign_title">
         <a href="#" class="explore_tiles_tab"><%= @board.topic_board.topic_name %></a>
       </li>
     </ul>
   </div>
 </div>
-<section class="collection-description">
+<section class="campaign-description">
   <div class="row collapse" >
     <div class="columns small-12">
       <h4><%= @board.cover_message %></h4>
@@ -25,7 +25,7 @@
   <div class="row">
     <div class="large-12 columns">
       <div class="tile_wall_explore">
-        <%= render partial: 'explores/tiles', locals: {tiles: @tiles, tile_ids: @tiles.pluck(:id), section: "Collection Tile" } %>
+        <%= render partial: 'explores/tiles', locals: {tiles: @tiles, tile_ids: @tiles.pluck(:id), section: "Campaign Tile" } %>
       </div>
     </div>
   </div>

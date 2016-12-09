@@ -44,13 +44,13 @@ Airbo.SiteAdminInitializer = ( function(){
       hiddenName:true,
       formatSubmit: "yyyy-mm-dd",
       format: "mmm dd, yyyy"
-    })
+    });
   }
 
 
   return {
    init: init
-  }
+ };
 
 })();
 
@@ -59,4 +59,3 @@ Airbo.SiteAdminInitializer = ( function(){
 $(function(){
   Airbo.SiteAdminInitializer.init();
 });
-

@@ -209,7 +209,7 @@ Health::Application.routes.draw do
 
     resources :public_boards, only: [:create, :destroy]
     resource :explore, only: :show do
-      resources :collections, only: [:show, :index]
+      resources :campaigns, only: [:show]
       member do
         get 'tile_tag_show'
         get 'tile_preview'

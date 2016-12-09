@@ -1,4 +1,8 @@
-@import './client_admin/explore/channel';
+@import './mixins/channels';
+
+.channels {
+  @include channels;
+}
 
 #admin-layout-wrapper {
   margin-bottom: 200px;

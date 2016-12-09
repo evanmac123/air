@@ -1,58 +1,42 @@
 class Admin::CampaignsController < AdminBaseController
   def new
-    render json: { success: true,
-                   html: render_to_string(
-                     layout: false,
-                     template: 'admin/campaigns/_campaign_form',
-                     locals: { campaign: Campaign.new, demos: Demo.airbo }
-                   )
-                 }
+    @campaign = Campaign.new
+    @demos = Demo.select([:name, :id]).airbo
   end
 
-  def show
-    render json: { success: true,
-                   html: render_to_string(
-                     layout: false,
-                     template: 'admin/campaigns/_campaign_form',
-                     locals: { campaign: Campaign.find(params[:id]), demos: Demo.airbo }
-                   )
-                 }
+  def edit
+    @campaign = Campaign.find(params[:id])
+    @demos = Demo.select([:name, :id]).airbo
   end
 
   def index
-    @campaigns = Campaign.scoped
+    @campaigns = Campaign.alphabetical
   end
 
   def create
     @campaign = Campaign.new(campaign_params)
 
-    @campaign.save ? render_success : render_error
+    if @campaign.save
+      redirect_to admin_campaigns_path
+    else
+      flash.now[:failure] = @campaign.errors.full_messages.join(", ")
+      render :new
+    end
   end
 
   def update
     @campaign = Campaign.find(params[:id])
 
-    @campaign.update_attributes(campaign_params) ? render_success : render_error
+    if @campaign.update_attributes(campaign_params)
+      redirect_to admin_campaigns_path
+    else
+      flash.now[:failure] = @campaign.errors.full_messages.join(", ")
+      render :edit
+    end
   end
 
   private
     def campaign_params
-      params.require(:campaign).permit(:name, :description, :demo_id, :cover_image, :tag_list)
-    end
-
-    def render_success
-      render json:
-        {
-          success: true,
-          campaign: @campaign.attributes.merge(cover_image_url: @campaign.cover_image.url)
-        }
-    end
-
-    def render_error
-      render json:
-        {
-          success: false,
-          errors:  @campaign.errors.full_messages.join(", ")
-        }
+      params.require(:campaign).permit(:name, :description, :demo_id, :cover_image, :channel_tag_list, :active)
     end
 end

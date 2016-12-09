@@ -1,4 +1,4 @@
-@mixin topic-set(){
+@mixin campaigns(){
     background-color:#f9f9f9;
     h2{
       margin-bottom:40px;
@@ -8,7 +8,7 @@
       color: $home-gray;
       font-weight: 500;
     }
-    .topics_container {
+    .campaigns_container {
       margin: auto;
       overflow: auto;
       max-width: 900px;
@@ -19,7 +19,7 @@
         max-width: 300px;
       }
     }
-    .topic {
+    .campaign {
       display: block;
       position: relative;
       border-radius: 3px;
@@ -35,7 +35,7 @@
         }
       }
 
-      .topic_cell {
+      .campaign-cell {
         padding-top: 0px;
         width:100%;
         min-width:228px;
@@ -46,12 +46,12 @@
         padding: 17px 17px;
 
         &:hover {
-          .collection_shadow_overlay{
+          .campaign_shadow_overlay{
             opacity: 1;
           }
         }
 
-        .collection_shadow_overlay {
+        .campaign_shadow_overlay {
           position: absolute;
           top:0;
           left:0;
@@ -68,7 +68,7 @@
             text-transform: uppercase;
           }
         }
-        .collection_overlay {
+        .campaign_overlay {
           position: absolute;
           top:0;
           left:0;

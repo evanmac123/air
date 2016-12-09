@@ -4,7 +4,7 @@ class ExploresController < ClientAdminBaseController
   include ExploreHelper
 
   def show
-    find_tiles_and_collections
+    find_tiles_and_campaigns
     @path_for_more_content = explore_path
 
     render_partial_if_requested
@@ -23,7 +23,7 @@ class ExploresController < ClientAdminBaseController
       ping_action_after_dash(params[:tag_click_source], {tag: @tile_tag.title}, current_user)
     end
 
-    ping("Viewed Collection", {tag: @tile_tag.title}, current_user)
+    ping("Viewed Campaign", {tag: @tile_tag.title}, current_user)
   end
 
   add_method_tracer :show

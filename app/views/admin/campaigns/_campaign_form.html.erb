@@ -1,8 +1,6 @@
 <div class="row">
   <div class = "columns small-10 admin-tile-campaign" data-campaign = "<%= campaign.id %>">
-    <% section_class = campaign.new_record? ? "new" : "" %>
-    <div class="<%= "#{section_class}-campaign-section panel" %>">
-
+    <div class="panel">
       <%= form_for([:admin, campaign]) do |f| %>
         <div id="response_explanation">
         </div>
@@ -12,22 +10,17 @@
             <%= f.label :name, "Name" %>
             <%= f.text_field :name, placeholder: "Wellness" %>
           </div>
-          <div class="large-3 large-offset-3 columns campaign-image-container" style="background-image: url('<%= campaign.cover_image.url %>')">
-            <% if campaign.cover_image.exists? %>
-              <div class="campaign_shadow_overlay"></div>
-              <div class="campaign_overlay"></div>
-              <h3 class="name"><%= campaign.name  %></h3>
-            <% else %>
-              <div class="campaign-placeholder", style="border: 1px dotted #bfbfbf;height:90px;width:170px">
-
-              </div>
-            <% end %>
-          </div>
         </div>
         <div class="row">
           <div class="small-6 columns">
             <%= f.label :description, "Description"  %>
             <%= f.text_area :description %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-6 columns">
+            <%= f.label :channel_tag_list, "Channel Tags (comma separated tags)" %>
+            <%= f.text_area :channel_tag_list, value: f.object.channel_tags.join(", ") %>
           </div>
         </div>
         <div class="row">
@@ -48,8 +41,7 @@
             <%= f.check_box :active %>
           </div>
           <div class="large-2 large-offset-6 columns" style="text-align:right">
-            <% button_action = campaign.new_record? ? "create" : "update" %>
-            <%= render partial: "shared/button_with_spinner", locals: { button_id: "", button_classes: "#{button_action}_campaign", button_text: "Save" } %>
+            <%= f.submit "Save", class: "button" %>
           </div>
         </div>
       <% end %>

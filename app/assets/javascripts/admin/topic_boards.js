@@ -7,13 +7,11 @@ Airbo.TopicBoards = (function(){
 
   return {
    init: init,
-  }
+ };
 
 }());
 
 
 $(function(){
   Airbo.TopicBoards.init();
-})
-
-
+});

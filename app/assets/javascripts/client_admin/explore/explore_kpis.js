@@ -18,8 +18,8 @@ Airbo.ExploreKpis = (function(){
     Airbo.Utils.ping("Explore page - Interaction", properties);
   }
 
-  function collectionClickedPing(topic) {
-    var properties = $.extend({ action: "Clicked Collection", collection: topic.data("name"), board: topic.data("id") }, currentUserData);
+  function campaignClickedPing(topic) {
+    var properties = $.extend({ action: "Clicked Campaign", campaign: topic.data("name"), board: topic.data("id") }, currentUserData);
     Airbo.Utils.ping("Explore page - Interaction", properties);
   }
 
@@ -32,13 +32,13 @@ Airbo.ExploreKpis = (function(){
     var properties = $.extend({ page_name: "explore" }, currentUserData);
     Airbo.Utils.ping("viewed page", properties);
 
-    if ( $(".client_admin-collections").length > 0) {
-      viewedCollectionPing();
+    if ( $(".client_admin-campaigns").length > 0) {
+      viewedCampaignPing();
     }
   }
 
-  function viewedCollectionPing() {
-    var properties = $.extend({ page_name: "explore collection", collection: $(".explores").data("collectionId")}, currentUserData);
+  function viewedCampaignPing() {
+    var properties = $.extend({ page_name: "explore campaign", campaign: $(".explores").data("campaignId")}, currentUserData);
     Airbo.Utils.ping("viewed page", properties);
   }
 
@@ -48,7 +48,7 @@ Airbo.ExploreKpis = (function(){
     });
 
     $(".topic").on("click", function() {
-      collectionClickedPing($(this));
+      campaignClickedPing($(this));
     });
 
     $("#back-to-explore-link").on("click", function() {
