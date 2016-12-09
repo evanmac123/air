@@ -36,6 +36,7 @@ Airbo.CopyTileToBoard = (function(){
   }
 
   function bindThumbnailCopyButton() {
+    $(".explore_copy_link").unbind();
     $(".explore_copy_link").on("click", function(e) {
       e.preventDefault();
       copyToBoard($(this), "thumbnail");
@@ -43,6 +44,7 @@ Airbo.CopyTileToBoard = (function(){
   }
 
   function bindTilePreviewCopyButton() {
+    $(".copy_to_board").unbind();
     $(".copy_to_board" + ":not([disabled])").click(function(e) {
       e.preventDefault();
       copyToBoard($(this), "preview_modal");
@@ -50,8 +52,9 @@ Airbo.CopyTileToBoard = (function(){
   }
 
   function bindCopyAllTiles() {
-    $("#copy-all-tiles-button").on("click", function(e) {
+    $("#copy-all-tiles-button").one("click", function(e) {
       e.preventDefault();
+      $(this).on("click", function(e) { e.preventDefault(); });
       copyAllTiles($(this));
     });
   }
@@ -75,7 +78,7 @@ Airbo.CopyTileToBoard = (function(){
   }
 
   return {
-    init: init
+    init: init,
   };
 }());
 
