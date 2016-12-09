@@ -1,0 +1,47 @@
+<div class="row">
+  <div class = "columns small-10 admin-tile-channel" data-channel = "<%= channel.slug %>">
+    <% section_class = channel.new_record? ? "new" : "" %>
+    <div class="<%= "#{section_class}-channel-section panel" %>">
+
+      <%= form_for([:admin, channel]) do |f| %>
+        <div id="response_explanation">
+        </div>
+        <br>
+        <div class="row image-row">
+          <div class="large-6 columns">
+            <%= f.label :name, "Name" %>
+            <%= f.text_field :name, placeholder: "Wellness" %>
+          </div>
+          <div class="large-3 large-offset-3 columns channel-image-container" style="background-image: url('<%= channel.image.url(:explore) %>')">
+              <% if channel.image.exists? %>
+                  <div class="channel_shadow_overlay"></div>
+                  <div class="channel_overlay"></div>
+                  <h3 class="name"><%= channel.name  %></h3>
+              <% else %>
+                <div class="channel-placeholder", style="border: 1px dotted #bfbfbf;height:90px;width:170px">
+
+                </div>
+              <% end %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-6 columns">
+            <%= f.label :image, "Image"  %>
+            <%= f.file_field :image, { id:"file_input" } %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-6 columns">
+            <%= f.label :active, "Active?" %>
+            <%= f.check_box :active %>
+          </div>
+          <div class="large-2 large-offset-6 columns" style="text-align:right">
+            <% button_action = channel.new_record? ? "create" : "update" %>
+            <%= render partial: "shared/button_with_spinner", locals: { button_id: "", button_classes: "#{button_action}_channel", button_text: "Save" } %>
+          </div>
+        </div>
+      <% end %>
+
+      </div>
+  </div>
+</div>

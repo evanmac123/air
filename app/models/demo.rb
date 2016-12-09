@@ -63,16 +63,13 @@ class Demo < ActiveRecord::Base
       :styles => {:thumb => ["x46>", :png]},
       :default_style => :thumb,
       :default_url => "/assets/logo.png",
-      :bucket => S3_LOGO_BUCKET
-    }.merge(DEMO_LOGO_OPTIONS)
+    }.merge!(DEMO_LOGO_OPTIONS)
 
   has_attached_file :cover_image,
     {
       :styles => {:thumb => ["30x30#", :png]},
-      #:default_style => :thumb,
       :default_url => "/assets/logo.png",
-      :bucket => S3_LOGO_BUCKET
-    }.merge(DEMO_LOGO_OPTIONS)
+    }.merge!(DEMO_LOGO_OPTIONS)
 
   validates_attachment_content_type :logo, content_type: valid_image_mime_types, message: invalid_mime_type_error
 
@@ -146,24 +143,20 @@ class Demo < ActiveRecord::Base
     tiles.suggested
   end
 
-  def archive_tiles_with_placeholders
-    self.class.add_odd_row_placeholders! archive_tiles
+  def archive_tiles_with_placeholders tile_set=archive_tiles
+    self.class.add_odd_row_placeholders! tile_set
   end
 
-  def archive_tiles_with_placeholders_and_pagination(page)
-    self.class.add_odd_row_placeholders! archive_tiles.page(page).per(12)
+  def active_tiles_with_placeholders tile_set=active_tiles
+    self.class.add_odd_row_placeholders! tile_set
   end
 
-  def active_tiles_with_placeholders
-    self.class.add_odd_row_placeholders! active_tiles
+  def draft_tiles_with_placeholders tile_set=draft_tiles
+    self.class.add_odd_row_placeholders! tile_set, 6
   end
 
-  def draft_tiles_with_placeholders
-    self.class.add_odd_row_placeholders! draft_tiles, 6
-  end
-
-  def suggested_tiles_with_placeholders
-    self.class.add_odd_row_placeholders! suggested_tiles
+  def suggested_tiles_with_placeholders tile_set=suggested_tiles
+    self.class.add_odd_row_placeholders! tile_set
   end
 
   def self.add_placeholders tiles

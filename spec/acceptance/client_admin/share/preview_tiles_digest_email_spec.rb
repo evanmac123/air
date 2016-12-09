@@ -17,11 +17,10 @@ feature "Client admin previews invite email", js: true do
 
     context "follow up email" do
       before do
-        visit client_admin_preview_tiles_digest_email_path(as: client_admin)
+        visit client_admin_preview_tiles_digest_email_path(follow_up_email: true, as: client_admin)
       end
 
       it "should show empty follow up email" do
-        click "Follow-Up Email Preview"
         expect_content "Don't miss your new tiles"
         expect_content "No tiles posted"
       end

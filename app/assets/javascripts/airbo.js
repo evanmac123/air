@@ -23,7 +23,7 @@ var Airbo = {
 
 
     currentUser: function(){
-       return $("body").data("current-user"); 
+       return $("body").data("current-user");
     },
 
     supportsFeatureByPresenceOfSelector: function(identifier){
@@ -92,9 +92,7 @@ var Airbo = {
     },
 
     ping: function(event, properties) {
-      if (Airbo.Utils.userNotSiteAdmin() === true){
-        mixpanel.track(event, properties);
-      }
+      mixpanel.track(event, properties);
     },
 
     flash: function(type,msg,config ){

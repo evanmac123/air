@@ -8,9 +8,7 @@ class Topic < ActiveRecord::Base
     {
       styles: { medium: "300x200>", thumb: "100x100>" },
       default_style: :medium,
-      default_url: "assets/images/airbo_venice.png",
-      bucket: S3_LOGO_BUCKET
-    }.merge(TOPIC_OPTIONS)
+    }
 
   validates_attachment_content_type :cover_image, content_type: /\Aimage\/.*\z/
 

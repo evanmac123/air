@@ -44,7 +44,7 @@ class UserProgressPresenter
   end
 
   def tile_ids
-     @demo.tiles.active.map(&:id)
+     @active_ids ||= @demo.tiles.active.map(&:id)
   end
 
   def config
