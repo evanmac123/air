@@ -4,6 +4,7 @@ class FinancialsReporterService
     "Past 30 days" =>    30.days,
     "Past 3 months" =>   3.months,
     "Past 12 months" =>  12.months,
+    "Custom Range"   =>  -1
   }
 
   def self.build_week date
