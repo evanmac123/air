@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161209000917) do
+ActiveRecord::Schema.define(:version => 20161209015215) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -150,6 +150,21 @@ ActiveRecord::Schema.define(:version => 20161209000917) do
 
   add_index "bonus_thresholds_users", ["bonus_threshold_id"], :name => "index_bonus_thresholds_users_on_bonus_threshold_id"
   add_index "bonus_thresholds_users", ["user_id"], :name => "index_bonus_thresholds_users_on_user_id"
+
+  create_table "campaigns", :force => true do |t|
+    t.integer  "demo_id"
+    t.string   "description"
+    t.string   "cover_image_file_name"
+    t.string   "cover_image_content_type"
+    t.integer  "cover_image_file_size"
+    t.datetime "cover_image_updated_at"
+    t.string   "name"
+    t.boolean  "active",                   :default => false
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
+  end
+
+  add_index "campaigns", ["demo_id"], :name => "index_campaigns_on_demo_id"
 
   create_table "channels", :force => true do |t|
     t.string   "name"

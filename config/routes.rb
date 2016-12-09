@@ -291,6 +291,7 @@ Health::Application.routes.draw do
   namespace :admin do
 
     resources :channels
+    resources :campaigns
 
     resources :tile_features, only: [:index, :create, :update, :destroy, :new]
 

@@ -1,0 +1,59 @@
+<div class="row">
+  <div class = "columns small-10 admin-tile-campaign" data-campaign = "<%= campaign.id %>">
+    <% section_class = campaign.new_record? ? "new" : "" %>
+    <div class="<%= "#{section_class}-campaign-section panel" %>">
+
+      <%= form_for([:admin, campaign]) do |f| %>
+        <div id="response_explanation">
+        </div>
+        <br>
+        <div class="row image-row">
+          <div class="large-6 columns">
+            <%= f.label :name, "Name" %>
+            <%= f.text_field :name, placeholder: "Wellness" %>
+          </div>
+          <div class="large-3 large-offset-3 columns campaign-image-container" style="background-image: url('<%= campaign.cover_image.url %>')">
+            <% if campaign.cover_image.exists? %>
+              <div class="campaign_shadow_overlay"></div>
+              <div class="campaign_overlay"></div>
+              <h3 class="name"><%= campaign.name  %></h3>
+            <% else %>
+              <div class="campaign-placeholder", style="border: 1px dotted #bfbfbf;height:90px;width:170px">
+
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-6 columns">
+            <%= f.label :description, "Description"  %>
+            <%= f.text_area :description %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-6 columns">
+            <%= f.label :cover_image, "Cover Image"  %>
+            <%= f.file_field :cover_image, { id: "file_input" } %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-6 columns">
+            <%= f.label :demo_id, "Board" %>
+            <%=f.select :demo_id, options_from_collection_for_select(demos, :id,  :name, f.object.demo_id), {include_blank: true}, class: "airbo-chosen-select" %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-6 columns">
+            <%= f.label :active, "Active?" %>
+            <%= f.check_box :active %>
+          </div>
+          <div class="large-2 large-offset-6 columns" style="text-align:right">
+            <% button_action = campaign.new_record? ? "create" : "update" %>
+            <%= render partial: "shared/button_with_spinner", locals: { button_id: "", button_classes: "#{button_action}_campaign", button_text: "Save" } %>
+          </div>
+        </div>
+      <% end %>
+
+      </div>
+  </div>
+</div>

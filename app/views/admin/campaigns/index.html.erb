@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="columns small-12">
+    <h3>Campaigns</h3>
+    <div class="row">
+      <div class="columns small-2">
+        <%= render partial: "shared/button_with_spinner", locals: { button_id: "new-campaign", button_classes: "", button_text: "New" } %>
+      </div>
+    </div>
+  </div>
+</div>
+  <div id="new-campaign-container">
+  </div>
+  <div id="campaign-container">
+    <% @campaigns.each do |campaign| %>
+      <%= render "campaign_form", campaign: campaign %>
+    <% end %>
+  </div>
+</div>

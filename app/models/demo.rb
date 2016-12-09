@@ -55,6 +55,7 @@ class Demo < ActiveRecord::Base
   accepts_nested_attributes_for :organization
 
   scope :name_order, ->{order("LOWER(name)")}
+  scope :airbo, -> { joins(:organization).where(organization: {name: "Airbo"}) }
 
   has_alphabetical_column :name
 
