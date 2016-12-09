@@ -6,7 +6,7 @@
 *= require tooltipster/tooltipster
 *= require tooltipster/themes/tooltipster-shadow
 *= require chosen
-*
+*= require jquery-ui/jquery-ui-1.8.10.custom
 */
 
 /* MIXIN DEFINITIONS NEXT (so we can use them later) */
@@ -29,4 +29,5 @@
 @import "./admin/tile-feature.css.scss";
 
 @import "./admin/financials/base";
+
 @import "./vendor_customization/chosen.css.scss";

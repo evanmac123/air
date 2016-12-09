@@ -7,6 +7,7 @@
 *= require slick-carousel/slick/slick.scss
 *= require slick-carousel/slick/slick-theme.scss
 *= require introjs.min
+*= require jquery-ui/jquery-ui-1.8.10.custom
 */
 
 
@@ -21,7 +22,6 @@ styles changes haven't broken anything.
 @import "./_common_user_client_admin.css.scss";
 
 @import "wice_grid";
-@import "flick/jquery-ui-1.8.10.custom.css";
 @import "./client_admin/share/shares.css.scss";
 @import "./client_admin/board_activity.css.scss";
 @import "./client_admin/segmentations.css.scss";
