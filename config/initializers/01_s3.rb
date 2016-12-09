@@ -7,4 +7,4 @@ S3_AVATAR_BUCKET = ENV['AVATAR_BUCKET'] || 'hengage-avatars-development'
 S3_TILE_BUCKET = ENV['TILE_BUCKET'] || 'hengage-tiles-development'
 S3_TILE_THUMBNAIL_BUCKET = ENV['TILE_BUCKET'] || 'hengage-tiles-development'
 S3_LOGO_BUCKET = ENV['LOGO_BUCKET'] || 'hengage-logos-development'
-
+APP_BUCKET = ENV['APP_S3_BUCKET'] || 'airbo-development'

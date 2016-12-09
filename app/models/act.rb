@@ -73,14 +73,7 @@ class Act < ActiveRecord::Base
 
     friends = viewing_user.accepted_friends.where("users.privacy_level != 'nobody'")
     viewable_user_ids = friends.pluck(:id) + [viewing_user.id]
-
-    # UGH. But there's not a straightforward way to do a UNION in ActiveRecord,
-    # and performance of a straightforward OR-ed query was getting poor.
-    # OPTZ: Use the limit/offset trick to improve query of this still more
-    find_by_sql(["SELECT acts.* FROM acts WHERE acts.demo_id = ? AND acts.hidden = 'f' AND acts.user_id IN (?) UNION \
-                  SELECT acts.* FROM acts WHERE acts.demo_id = ? AND acts.hidden = 'f' AND acts.privacy_level = 'everybody' \
-                  ORDER BY created_at DESC LIMIT ? OFFSET ?",
-                  board.id, viewable_user_ids, board.id, limit, offset])
+    board.acts.where("hidden ='f' and (user_id in (?) or privacy_level='everybody')", viewable_user_ids).order("created_at desc").limit(limit).offset(offset)
   end
 
   def self.for_profile(viewing_user, _offset=0)

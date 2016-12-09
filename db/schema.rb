@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161205181242) do
+ActiveRecord::Schema.define(:version => 20161209000917) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(:version => 20161205181242) do
 
   add_index "acts", ["demo_id"], :name => "index_acts_on_demo_id"
   add_index "acts", ["hidden", "demo_id"], :name => "index_acts_on_hidden_and_demo_id"
+  add_index "acts", ["hidden"], :name => "index_acts_on_hidden"
   add_index "acts", ["privacy_level"], :name => "index_acts_on_privacy_level"
   add_index "acts", ["referring_user_id"], :name => "index_acts_on_referring_user_id"
   add_index "acts", ["rule_id"], :name => "index_acts_on_rule_id"
@@ -132,6 +133,23 @@ ActiveRecord::Schema.define(:version => 20161205181242) do
     t.integer "user_id"
     t.integer "bonus_threshold_id"
   end
+
+  add_index "bonus_thresholds_users", ["bonus_threshold_id"], :name => "index_bonus_thresholds_users_on_bonus_threshold_id"
+  add_index "bonus_thresholds_users", ["user_id"], :name => "index_bonus_thresholds_users_on_user_id"
+
+  create_table "channels", :force => true do |t|
+    t.string   "name"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.string   "slug"
+    t.boolean  "active"
+  end
+
+  add_index "channels", ["slug"], :name => "index_channels_on_slug"
 
   create_table "characteristics", :force => true do |t|
     t.string   "name"
@@ -602,14 +620,6 @@ ActiveRecord::Schema.define(:version => 20161205181242) do
 
   add_index "organizations", ["name"], :name => "index_organizations_on_name"
 
-  create_table "outgoing_emails", :force => true do |t|
-    t.string   "subject"
-    t.string   "from"
-    t.text     "to"
-    t.text     "raw"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "outgoing_sms", :force => true do |t|
     t.string   "body"
@@ -785,13 +795,29 @@ ActiveRecord::Schema.define(:version => 20161205181242) do
     t.datetime "close_at"
   end
 
-  create_table "tags", :force => true do |t|
-    t.string   "name"
-    t.string   "description"
+  add_index "surveys", ["close_at"], :name => "index_surveys_on_close_at"
+  add_index "surveys", ["demo_id"], :name => "index_surveys_on_demo_id"
+  add_index "surveys", ["open_at"], :name => "index_surveys_on_open_at"
+
+  create_table "taggings", :force => true do |t|
+    t.integer  "tag_id"
+    t.integer  "taggable_id"
+    t.string   "taggable_type"
+    t.integer  "tagger_id"
+    t.string   "tagger_type"
+    t.string   "context",       :limit => 128
     t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "daily_limit"
   end
+
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], :name => "taggings_idx", :unique => true
+  add_index "taggings", ["taggable_id", "taggable_type", "context"], :name => "index_taggings_on_taggable_id_and_taggable_type_and_context"
+
+  create_table "tags", :force => true do |t|
+    t.string  "name"
+    t.integer "taggings_count", :default => 0
+  end
+
+  add_index "tags", ["name"], :name => "index_tags_on_name", :unique => true
 
   create_table "tile_completions", :force => true do |t|
     t.integer  "tile_id"
@@ -804,13 +830,22 @@ ActiveRecord::Schema.define(:version => 20161205181242) do
     t.boolean  "not_show_in_tile_progress", :default => false
   end
 
+  add_index "tile_completions", ["created_at"], :name => "index_tile_completions_on_created_at"
+  add_index "tile_completions", ["tile_id"], :name => "index_task_suggestions_on_task_id"
+  add_index "tile_completions", ["tile_id"], :name => "index_tile_completions_on_tile_id"
+  add_index "tile_completions", ["user_id"], :name => "index_task_suggestions_on_user_id"
+  add_index "tile_completions", ["user_type"], :name => "index_tile_completions_on_user_type"
+
   create_table "tile_features", :force => true do |t|
     t.integer  "rank"
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.boolean  "active"
+    t.integer  "channel_id"
   end
+
+  add_index "tile_features", ["channel_id"], :name => "index_tile_features_on_channel_id"
 
   create_table "tile_images", :force => true do |t|
     t.string   "image_file_name"
@@ -863,6 +898,10 @@ ActiveRecord::Schema.define(:version => 20161205181242) do
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
   end
+
+  add_index "tile_viewings", ["created_at"], :name => "index_tile_viewings_on_created_at"
+  add_index "tile_viewings", ["tile_id", "user_id", "user_type"], :name => "index_tile_viewings_on_tile_and_user", :unique => true
+  add_index "tile_viewings", ["tile_id"], :name => "index_tile_viewings_on_tile_id"
 
   create_table "tiles", :force => true do |t|
     t.integer  "demo_id"
@@ -918,6 +957,14 @@ ActiveRecord::Schema.define(:version => 20161205181242) do
     t.boolean  "use_old_line_break_css",  :default => false
     t.text     "embed_video",             :default => "",    :null => false
   end
+
+  add_index "tiles", ["activated_at"], :name => "index_tiles_on_activated_at"
+  add_index "tiles", ["archived_at"], :name => "index_tiles_on_archived_at"
+  add_index "tiles", ["created_at"], :name => "index_tiles_on_created_at"
+  add_index "tiles", ["demo_id"], :name => "index_tiles_on_demo_id"
+  add_index "tiles", ["is_copyable"], :name => "index_tiles_on_is_copyable"
+  add_index "tiles", ["is_public"], :name => "index_tiles_on_is_public"
+  add_index "tiles", ["status"], :name => "index_tiles_on_status"
 
   create_table "timed_bonus", :force => true do |t|
     t.datetime "expires_at",                    :null => false
@@ -1138,7 +1185,25 @@ ActiveRecord::Schema.define(:version => 20161205181242) do
     t.integer  "organization_id"
   end
 
+  add_index "users", ["cancel_account_token"], :name => "index_users_on_cancel_account_token"
+  add_index "users", ["claim_code"], :name => "index_users_on_claim_code"
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["employee_id"], :name => "index_users_on_employee_id"
+  add_index "users", ["explore_token"], :name => "index_users_on_explore_token"
+  add_index "users", ["game_referrer_id"], :name => "index_users_on_game_referrer_id"
+  add_index "users", ["invitation_code"], :name => "index_users_on_invitation_code"
+  add_index "users", ["is_employee"], :name => "index_users_on_is_employee"
+  add_index "users", ["location_id"], :name => "index_users_on_location_id"
   add_index "users", ["official_email"], :name => "index_users_on_official_email"
   add_index "users", ["organization_id"], :name => "index_users_on_organization_id"
+  add_index "users", ["overflow_email"], :name => "index_users_on_overflow_email"
+  add_index "users", ["phone_number"], :name => "index_users_on_phone_number"
+  add_index "users", ["privacy_level"], :name => "index_users_on_privacy_level"
+  add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
+  add_index "users", ["slug"], :name => "index_users_on_slug"
+  add_index "users", ["sms_slug"], :name => "index_users_on_sms_slug"
+  add_index "users", ["spouse_id"], :name => "index_users_on_spouse_id"
+  add_index "users", ["ssn_hash"], :name => "index_users_on_ssn_hash"
+  add_index "users", ["zip_code"], :name => "index_users_on_zip_code"
 
 end

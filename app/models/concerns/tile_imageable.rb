@@ -16,8 +16,7 @@ module Concerns::TileImageable
         styles:         {:viewer => ["666>", :png]},
         default_style:  :viewer,
         default_url:    "/assets/avatars/thumb/missing.png",
-        bucket:         S3_TILE_BUCKET
-      }.merge(TILE_IMAGE_OPTIONS)
+      }.merge!(TILE_IMAGE_OPTIONS)
 
     has_attached_file :thumbnail,
       {
@@ -26,14 +25,13 @@ module Concerns::TileImageable
           email_digest: ["190x160#", :png]
         },
         default_style:  :carousel,
-        default_url:    "/assets/avatars/thumb/missing.png",
-        bucket:         S3_TILE_THUMBNAIL_BUCKET,
+        default_url:    "/assets/avatars/missing.png",
         preserve_files: true  # preserve old attachments on update and delete. WHY?
                               # to fix next scenario: CA sends digest email
                               # but then changes an image in some tile.
-                              # so user gets email with a link to the old 
+                              # so user gets email with a link to the old
                               # image which was removed
-      }.merge(TILE_THUMBNAIL_OPTIONS)
+      }.merge!(TILE_THUMBNAIL_OPTIONS)
 
     process_in_background :image,
                           processing_image_url: :processing_image_fallback,
@@ -63,7 +61,7 @@ module Concerns::TileImageable
     height, width = if image_processing? || image.height.nil? || image.width.nil?
                       [484, 666]
                     else
-                      [image.height, image.width] 
+                      [image.height, image.width]
                     end
 
     full_width = 600.0 # px for full size tile

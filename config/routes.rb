@@ -1,4 +1,5 @@
 Health::Application.routes.draw do
+
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
@@ -288,6 +289,8 @@ Health::Application.routes.draw do
   resources :cancel_account, :only => [:show, :destroy]
 
   namespace :admin do
+
+    resources :channels
 
     resources :tile_features, only: [:index, :create, :update, :destroy, :new]
 

@@ -2,11 +2,10 @@ require 'spec_helper'
 
 describe ExploreDigest do
   it "posts to redis and validates copyable tiles" do
-    explore_digest = ExploreDigest.new
+    explore_digest = ExploreDigest.create
     params = explore_digest_params
 
     explore_digest.post_to_redis(params["defaults"], params["features"])
-
     expect(explore_digest.defaults(:subject)).to eq(params["defaults"]["subject"])
     expect(explore_digest.defaults(:header)).to eq(params["defaults"]["header"])
     expect(explore_digest.defaults(:subheader)).to eq(params["defaults"]["subheader"])
@@ -28,7 +27,7 @@ describe ExploreDigest do
     FactoryGirl.create_list(:tile, 2, is_copyable: true, is_public: false)
     FactoryGirl.create_list(:tile, 2, is_copyable: false, is_public: false)
 
-    explore_digest = ExploreDigest.new
+    explore_digest = ExploreDigest.create
     params = { "features" => { "1" => { "tile_ids"=> Tile.pluck(:id).join(", ") } } }
 
     explore_digest.post_to_redis(params["defaults"], params["features"])
@@ -38,7 +37,7 @@ describe ExploreDigest do
   end
 
   it "can tell you how many features it has" do
-    explore_digest = ExploreDigest.new
+    explore_digest = ExploreDigest.create
     params = explore_digest_params
 
     explore_digest.post_to_redis(params["defaults"], params["features"])
@@ -52,12 +51,11 @@ describe ExploreDigest do
     FactoryGirl.create_list(:tile, 2, is_copyable: true, is_public: false)
     FactoryGirl.create_list(:tile, 2, is_copyable: false, is_public: false)
 
-    explore_digest = ExploreDigest.new
+    explore_digest = ExploreDigest.create
     tile_ids = Tile.copyable.pluck(:id).shuffle.join(", ")
     params = { "features" => { "1" => { "tile_ids"=> tile_ids } } }
 
     explore_digest.post_to_redis(params["defaults"], params["features"])
-    binding.pry
     sorted_tiles = explore_digest.get_tiles(1)
 
     expect(sorted_tiles.map(&:id)).to eq(tile_ids.split(", ").map(&:to_i))

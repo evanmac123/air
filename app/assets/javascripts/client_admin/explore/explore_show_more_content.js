@@ -1,8 +1,8 @@
 var Airbo = window.Airbo || {};
 
 Airbo.ShowMoreContent = (function() {
-  function initMoreTiles() {
-    $(".explore_show_more_tiles").on("click", function(e) {
+  function initMoreTiles(selector) {
+    $(selector).one("click", function(e) {
       e.preventDefault();
       var self = $(this);
       var attrs = {
@@ -22,8 +22,8 @@ Airbo.ShowMoreContent = (function() {
     });
   }
 
-  function initMoreCollections() {
-    $(".explore_show_more_collections").on("click", function(e) {
+  function initMoreCollections(selector) {
+    $(selector).one("click", function(e) {
       e.preventDefault();
       var self = $(this);
       var attrs = {
@@ -44,8 +44,6 @@ Airbo.ShowMoreContent = (function() {
   }
 
   function updateContent(self, attrs) {
-    if (attrs.disabled == 'disabled') { return; }
-
     $(attrs.downArrowSelector).hide();
     $(attrs.spinnerSelector).show();
 
@@ -53,6 +51,7 @@ Airbo.ShowMoreContent = (function() {
       var content = data.htmlContent || data;
       $(attrs.spinnerSelector).hide();
       $(attrs.downArrowSelector).show();
+      resetBindings();
       switch (attrs.updateMethod) {
         case 'append':
           $(attrs.targetSelector).append(content);
@@ -78,9 +77,16 @@ Airbo.ShowMoreContent = (function() {
     }
   }
 
+  function resetBindings() {
+    $(".explore_show_more_collections").unbind();
+    $(".explore_show_more_tiles").unbind();
+    initMoreCollections(".explore_show_more_collections");
+    initMoreTiles(".explore_show_more_tiles");
+  }
+
   function initEvents() {
-    initMoreTiles();
-    initMoreCollections();
+    initMoreTiles(".explore_show_more_tiles");
+    initMoreCollections(".explore_show_more_collections");
   }
 
   function init() {

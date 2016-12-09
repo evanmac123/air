@@ -1,48 +1,50 @@
 require 'spec_helper'
 
 describe TileViewing do
+  TestAfterCommit.enabled = true
   it { should belong_to(:user) }
   it { should belong_to(:tile) }
-  
+
   describe TileViewing, "#increment" do
     before do
-      @tv = FactoryGirl.create :tile_viewing
+      @tile_viewing = FactoryGirl.create(:tile_viewing)
     end
 
     it "views should = 1 by default" do
-      @tv.views.should == 1
+      expect(@tile_viewing.views).to eq(1)
     end
 
     it "should increment views" do
-      @tv.increment
-      @tv.views.should == 2
+      @tile_viewing.increment
+      expect(@tile_viewing.views).to eq(2)
     end
   end
 
   describe TileViewing, ".add" do
     before do
-      @tile = FactoryGirl.create :tile
-      @user = FactoryGirl.create :user
+      @tile = FactoryGirl.create(:tile)
+      @user = FactoryGirl.create(:user)
     end
 
     it "should create tile viewing or increase views" do
-      tv = TileViewing.add @tile, @user
-      tv.views.should == 1
+      TileViewing.add(@tile, @user)
 
-      tv = TileViewing.add @tile, @user
-      tv.views.should == 2
+      expect(TileViewing.first.views).to eq(1)
+
+      TileViewing.add(@tile, @user)
+      tile_viewing = TileViewing.where(tile: @tile, user: @user).first
+
+      expect(tile_viewing.views).to eq(2)
     end
 
     it "should increase tile's counters" do
-      @tile.total_views.should == 0
-      @tile.unique_views.should == 0
+      tile = FactoryGirl.create(:tile)
+      user = FactoryGirl.create(:user)
+      TileViewing.add(tile, user)
+      TileViewing.add(tile, user)
 
-      tv = TileViewing.add @tile, @user
-      tv.views.should == 1
-
-      @tile.reload
-      @tile.total_views.should == 1
-      @tile.unique_views.should == 1
+      expect(Tile.find(tile.id).total_views).to eq(2)
+      expect(Tile.find(tile.id).unique_views).to eq(1)
     end
   end
 
@@ -53,12 +55,12 @@ describe TileViewing do
     end
 
     it "should return number of views" do
-      num = TileViewing.views @tile, @user
-      num.should == 0
+      expect(TileViewing.views(@tile, @user)).to eq(0)
 
-      TileViewing.add @tile, @user
-      num = TileViewing.views @tile, @user
-      num.should == 1
+      TileViewing.add(@tile, @user)
+      views = TileViewing.views(@tile, @user)
+
+      expect(views).to eq(1)
     end
   end
 end

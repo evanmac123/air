@@ -1144,8 +1144,9 @@ class User < ActiveRecord::Base
   end
 
   def have_access_to_parent_board?(board)
+    return false unless is_site_admin
     board = Demo.where(id: board).first unless board.is_a? Demo
-    board && board.is_parent && is_site_admin
+    board && board.is_parent
   end
 
   #FIXME this exact same code is implemented in Fake user behavior
