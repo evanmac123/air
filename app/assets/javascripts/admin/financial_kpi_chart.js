@@ -7,7 +7,12 @@ Airbo.FinancialKpiChart = (function(){
     , dates 
     , kpiChart
     , chartContainer = "#chart-container"
+    , builtinRangeSel =".builtin-date-range"
+    , customRangeSel = ".custom-date-range"
+    , builtinRange
+    , customRange
   ;
+
 
   var tableTemplate=[
     "<table>",
@@ -101,6 +106,10 @@ Airbo.FinancialKpiChart = (function(){
   }
 
   function initVars(){
+
+    builtinRange =$(builtinRangeSel);
+    customRange = $(customRangeSel); 
+
     chartContainer = $(chartContainer);
   }
 
@@ -113,12 +122,15 @@ Airbo.FinancialKpiChart = (function(){
   }
 
   function refreshWithHTML(html){
-
     $(".tabular-data").html(html);
-    initChartDataFromDataAttributes();
-    refreshChart();
-    kpiChart.hideLoading();
+    if ($(".no-chart-data").length === 0){
+      initChartDataFromDataAttributes();
+      refreshChart();
+    }else{
+      kpiChart.series[0].remove(true);
+    }
 
+    kpiChart.hideLoading();
   }
 
   function refreshTable(data){
@@ -131,17 +143,7 @@ Airbo.FinancialKpiChart = (function(){
   }
 
 
-  function submitFailure(){
-    console.log("error occured"); 
-  }
 
-  function initForm(){
-    $("#financials-filter .date-range-filter").submit(function(event){
-      event.preventDefault(); 
-      kpiChart.showLoading();
-      Airbo.AjaxResponseHandler.submit($(this), refreshWithHTML, submitFailure, "html");
-    })
-  }
 
   function initChartDataFromDataAttributes(){
     prepareDataForChart($(".chart-data").data("plotdata"));
@@ -197,11 +199,61 @@ Airbo.FinancialKpiChart = (function(){
     initVars();
     initChartDataFromDataAttributes();
     initChart(chartContainer);
+    initDateFilters();
     initForm();
+    initCustomDateDone();
+  }
+
+  function submitFailure(){
+    console.log("error occured"); 
+  }
+
+  function initForm(){
+    $("#financials-filter .report-filter").submit(function(event){
+      event.preventDefault(); 
+      kpiChart.showLoading();
+      Airbo.AjaxResponseHandler.submit($(this), refreshWithHTML, submitFailure, "html");
+    })
+  }
+
+  function startDateFromTimeStamp(ts){
+    var start = Date.now() - (ts * 1000);
+    return new Date(start); 
   }
 
 
 
+  function initDateFilters(){
+    var s
+      , e = new Date()
+    ;
+
+    $("#date_range").change(function(event){
+      if($(this).val()==="-1"){
+        customRange.show();
+        builtinRange.hide();
+      }else{
+        s = startDateFromTimeStamp($(this).val());
+        $("input[name='sdate']").val(extractDateStringFromISO(s));
+        $("input[name='edate']").val(extractDateStringFromISO(e));
+      }
+    });
+  }
+
+  function extractDateStringFromISO(d){
+    return d.toISOString().split("T")[0]
+  }
+
+  function initCustomDateDone(){
+    $("body").on("click", ".custom-date-done", function(e){
+      var  range = $("#sdate").val() + "-" + $("#edate").val() ;
+      e.preventDefault();
+      customRange.hide();
+      builtinRange.show();
+
+      $(".date_range_custom_drop a.current").text(range);
+    });
+  }
 
   return {
     init: init
