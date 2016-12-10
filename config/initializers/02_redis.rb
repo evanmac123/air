@@ -36,4 +36,4 @@ ActiveRecord::Base.class_eval do
   end
 end
 
-# Nest is a very simple library, so this is why we feel confortable monkeypatching here.  Link to full library: https://github.com/soveran/nest/blob/master/lib/nest.rb
+# Nest is a very simple library, so this is why we feel comfortable monkeypatching here.  Link to full library: https://github.com/soveran/nest/blob/master/lib/nest.rb

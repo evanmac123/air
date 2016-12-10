@@ -6,7 +6,7 @@ feature "User proper stuff in masthead" do
     has_password(user, "foobar")
 
     signin_as(user, "foobar")
-    should_be_on activity_path(:format => :html)
+    should_be_on activity_path
 
     expect_avatar_in_masthead('ein_berliner.png')
   end
