@@ -35,7 +35,7 @@ Airbo.SiteAdminInitializer = ( function(){
   }
 
   function initPickadate(){
-    $('.datepicker').pickadate({
+    $('.pickadate').pickadate({
       hiddenName:true,
       formatSubmit: "yyyy-mm-dd",
       format: "mmm dd, yyyy",
