@@ -38,7 +38,7 @@ class FinancialsReporterService
       m.renewal_amt_booked = kpi.renewal_amt_booked
       m.upgrade_amt_booked = kpi.upgrade_amt_booked
       m.weekending_date = kpi.edate
-      m.report_date = date
+      m.report_date = kpi.sdate
       m.save
     end
 
