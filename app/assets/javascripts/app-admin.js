@@ -4,6 +4,7 @@
 //= require jquery.ui.tabs
 //= require mobvious-rails
 //= require jquery.tooltipster.min
+//= require jquery.ba-throttle-debounce.min.js
 //= require ../../../vendor/assets/javascripts/internal/jquery.jpanelmenu.min
 //= require ../../../vendor/assets/javascripts/internal/jRespond.min
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.form.min
