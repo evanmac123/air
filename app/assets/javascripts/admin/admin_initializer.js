@@ -35,10 +35,11 @@ Airbo.SiteAdminInitializer = ( function(){
   }
 
   function initPickadate(){
-    $('.pickadate').pickadate({
+    $('.datepicker').pickadate({
       hiddenName:true,
       formatSubmit: "yyyy-mm-dd",
-      format: "mmm dd, yyyy"
+      format: "mmm dd, yyyy",
+      container: ".custom-date-range"
     })
   }
 
@@ -47,6 +48,7 @@ Airbo.SiteAdminInitializer = ( function(){
       showOtherMonths: true,
       selectOtherMonths: true,
       dateFormat: 'M d, yy',
+      altFormat: "dd/mm/yy",
       maxDate: 0,
       onClose: function(dateText, inst) {
         $(inst.input).removeClass("opened");
@@ -59,7 +61,7 @@ Airbo.SiteAdminInitializer = ( function(){
     initModalCloser();
     initBoardsAndOrgs();
     initKpiTooltips();
-    initJQueryDatePicker();
+    initPickadate();
     initZurbFoundation()
   }
 
