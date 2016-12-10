@@ -123,6 +123,7 @@ Airbo.FinancialKpiChart = (function(){
 
   function refreshWithHTML(html){
     $(".tabular-data").html(html);
+    Airbo.Utils.StickyTable.init();
     if ($(".no-chart-data").length === 0){
       initChartDataFromDataAttributes();
       refreshChart();
