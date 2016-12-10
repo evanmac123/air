@@ -81,7 +81,7 @@ class BoardsController < ApplicationController
   def render_success
     respond_to do |format|
       format.json { render json: {status: 'success'} }
-      format.html { redirect_to post_creation_path }
+      format.html { redirect_to explore_path }
     end
   end
 

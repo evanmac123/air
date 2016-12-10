@@ -59,7 +59,7 @@ feature "interacts with a tile from the explore-preview page" do
 
   context "as Client admin", js: true, wonky: true do
     before do
-      pending "Fails intermittently" 
+      pending "Fails intermittently"
       @original_tile = FactoryGirl.create(:multiple_choice_tile, :copyable, creator: creator, demo: creator.demo)
 
       @user = FactoryGirl.create(:client_admin, name: "Lucille Adminsky")
@@ -108,16 +108,6 @@ feature "interacts with a tile from the explore-preview page" do
         page.all("a.see_airbo").last.click
 
         expect(page).to have_content("Create an account to interact with this tile and many others.")
-      end
-    end
-
-    context "when I click on a category tag" do
-      it "should prompt me to sign up" do
-        expect(page.has_button?("Create Free Account")).to eq(false)
-
-        page.find("a.tag", match: :first).click
-
-        expect(page.has_button?("Create Free Account")).to eq(true)
       end
     end
 
@@ -178,16 +168,6 @@ feature "interacts with a tile from the explore-preview page" do
         page.all("a.see_airbo").last.click
 
         expect(page).to have_content("Create an account to interact with this tile and many others.")
-      end
-    end
-
-    context "when I click on a category tag" do
-      it "should prompt me to sign up" do
-        expect(page.has_button?("Create Free Account")).to eq(false)
-
-        page.find("a.tag", match: :first).click
-
-        expect(page.has_button?("Create Free Account")).to eq(true)
       end
     end
 

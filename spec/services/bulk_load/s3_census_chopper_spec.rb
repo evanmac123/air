@@ -40,19 +40,6 @@ describe BulkLoad::S3CensusChopper do
       stored_ids.sort.should == expected_ids.sort
     end
 
-    it "should record the number of lines processed to Redis on a running basis" do
-      mock_redis = stub("Redis client", lpush: nil, set: nil, sadd: nil)
-      chopper.stubs(:redis).returns(mock_redis)
-
-      chopper.feed_to_redis(1) do
-      end
-
-      line_count_sequence = sequence('line_count')
-      1.upto(20).each do |expected_count|
-        mock_redis.should have_received(:set).with(chopper.redis_lines_completed_key, expected_count).in_sequence(line_count_sequence)
-      end
-    end
-
     it "should have some kind of way of indicating that it's done" do
       $redis.get(chopper.redis_all_lines_chopped_key).should be_nil
 
