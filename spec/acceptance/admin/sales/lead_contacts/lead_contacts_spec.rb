@@ -4,9 +4,9 @@ feature "LeadContacts", js: true do
     it "should create an organization, user and cloned board for lead contact" do
       admin = FactoryGirl.create(:site_admin)
       lead_contact = FactoryGirl.create(:lead_contact, organization_name: "Lead")
-      stock_board = FactoryGirl.create(:demo, name: "airbo.com Board", public_slug: "internal-validation")
+      campaign = FactoryGirl.create(:demo, name: "airbo.com Board", public_slug: "internal-validation")
       tile = FactoryGirl.create(:tile, demo: stock_board)
-      Demo.stubs(:stock_boards).returns(Demo.where(name: stock_board.name))
+      Demo.stubs(:campaigns).returns(Demo.where(name: campaign.name))
 
       visit admin_sales_lead_contacts_path(as: admin)
 
@@ -18,8 +18,6 @@ feature "LeadContacts", js: true do
       check "lead_contact_new_organization"
 
       click_button "Approve"
-
-      click_link "Continue"
 
       within ".approved-leads" do
         expect(page).to have_content(lead_contact.name)

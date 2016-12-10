@@ -18,9 +18,7 @@ feature 'Admin aproves a signup request', js: true do
       click_button organization.name
 
       click_button "Approve"
-
-      click_link "Continue"
-
+      
       within "div.approved-leads" do
         expect(page).to have_content(lead_contact.name)
         expect(page).to have_content("Client")
@@ -44,8 +42,6 @@ feature 'Admin aproves a signup request', js: true do
       fill_in "Organization", with: "Client"
 
       click_button "Approve"
-
-      click_link "Continue"
 
       within "div.approved-leads" do
         expect(page).to have_content(lead_contact.name)
