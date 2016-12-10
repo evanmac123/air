@@ -246,7 +246,7 @@ Airbo.FinancialKpiChart = (function(){
 
   function initCustomDateDone(){
     $("body").on("click", ".custom-date-done", function(e){
-      var  range = $("#sdate").val() + "-" + $("#edate").val() ;
+      var  range = $("#sdate").val() + " to " + $("#edate").val() ;
       e.preventDefault();
       customRange.hide();
       builtinRange.show();
