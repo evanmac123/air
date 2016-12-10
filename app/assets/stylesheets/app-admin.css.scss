@@ -1,5 +1,4 @@
 /*
-*= require_self
 *= require ../../../vendor/assets/stylesheets/tablesorter/themes/blue/style
 *= require pickadate/classic
 *= require pickadate/classic.date
@@ -31,3 +30,4 @@
 @import "./admin/financials/base";
 
 @import "./vendor_customization/chosen.css.scss";
+@import "./vendor_customization/pickadate.css.scss";
