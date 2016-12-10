@@ -160,7 +160,7 @@ class FinancialsReporterService
 
     def build_from_null_set
       fields = kpi_fields.keys
-      values =kpi_fields.map{|f| f=="report_date" ? [Date.today] : [0]}
+      values =fields.map{|f| f=="report_date" ? [Date.today] : [0]}
       Hash[fields.zip(values)]
     end
 
