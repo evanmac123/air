@@ -70,7 +70,7 @@ RSpec.configure do |config|
   end
 
   config.after(:suite) do
-   FileUtils.rm_rf "#{LOCAL_FILE_ATTACHMENT_BASE_PATH}/test"
+   FileUtils.rm_rf "#{Rails.root}/public/system/test"
   end
 end
 

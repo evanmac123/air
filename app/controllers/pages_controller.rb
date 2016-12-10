@@ -34,6 +34,9 @@ class PagesController < HighVoltage::PagesController
     case page_name
     when 'privacy', 'terms'
       'external'
+    when 'more_info',  # FIXME dead url?
+      @body_id = "homepage"
+      'external_marketing'
     else
       'standalone'
     end

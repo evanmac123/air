@@ -3,26 +3,23 @@ require 'spec_helper'
 describe CopyTile do
   describe "#copy_tile" do
     before do
-      @original_tile = FactoryGirl.create :multiple_choice_tile, :active, headline: "Copy me!"
-      @demo = FactoryGirl.create :demo
-      FactoryGirl.create_list :multiple_choice_tile, 5, :draft
-      @copying_user = FactoryGirl.create :client_admin
-
-      @ct = CopyTile.new(@demo, @copying_user)
+      @original_tile = FactoryGirl.create(:tile, points: 0)
+      @copying_user = FactoryGirl.create(:client_admin)
+      @copy_tile_service = CopyTile.new(@copying_user.demo, @copying_user)
     end
 
     it "should copy tile" do
-      tile = @ct.copy_tile(@original_tile, false)
-
+      tile = @copy_tile_service.copy_tile(@original_tile)
       attr_list.each do |attr_name|
         expect(tile.send(attr_name)).to eq(@original_tile.send(attr_name))
       end
     end
 
     it "should set copied tile to first place in drafts" do
-      tile = @ct.copy_tile(@original_tile, false)
-      @demo.reload
-      @demo.draft_tiles.first.id == tile.id
+      demo = @copying_user.demo
+      FactoryGirl.create_list(:tile, 3, demo: demo)
+      tile = @copy_tile_service.copy_tile(@original_tile)
+      expect(demo.draft_tiles.first.id).to eq(tile.id)
     end
   end
   #

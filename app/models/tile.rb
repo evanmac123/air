@@ -191,8 +191,6 @@ class Tile < ActiveRecord::Base
     CopyTile.new(new_demo, copying_user).copy_tile self
   end
 
-
-
   def find_new_first_position
     Tile.where(demo: self.demo, status: self.status).maximum(:position).to_i + 1
   end

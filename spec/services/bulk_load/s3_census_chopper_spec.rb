@@ -13,20 +13,15 @@ describe BulkLoad::S3CensusChopper do
   let(:line_count) {File.read(test_file_path).lines.to_a.length}
 
   describe "#feed_to_redis" do
-    
-    before(:each) do
-      Redis.new.flushdb
-    end
-   
+
     def expect_lines_in_queue(key, expected_count)
       chopper.feed_to_redis(lines_to_preview)
 
-      redis = Redis.new
-      redis.llen(key).should == expected_count
+      expect($redis.llen(key)).to eq(expected_count)
 
       expected_lines = File.read(test_file_path).lines.to_a[0, expected_count]
       expected_lines.each do |line|
-        redis.rpop(key).should == line
+        $redis.rpop(key).should == line
       end
     end
 
@@ -40,8 +35,7 @@ describe BulkLoad::S3CensusChopper do
 
     it "should extract the unique field of each line into a queue" do
       chopper.feed_to_redis(lines_to_preview)
-      redis = Redis.new
-      stored_ids = redis.smembers(chopper.redis_unique_ids_key)
+      stored_ids = $redis.smembers(chopper.redis_unique_ids_key)
       expected_ids = CSV.parse(File.read(test_file_path)).map{|row| row[1]}
       stored_ids.sort.should == expected_ids.sort
     end
@@ -60,12 +54,12 @@ describe BulkLoad::S3CensusChopper do
     end
 
     it "should have some kind of way of indicating that it's done" do
-      Redis.new.get(chopper.redis_all_lines_chopped_key).should be_nil
+      $redis.get(chopper.redis_all_lines_chopped_key).should be_nil
 
       chopper.feed_to_redis(1) do
       end
 
-      Redis.new.get(chopper.redis_all_lines_chopped_key).should be_present
+      $redis.get(chopper.redis_all_lines_chopped_key).should be_present
     end
   end
 end
