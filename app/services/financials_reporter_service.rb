@@ -143,10 +143,28 @@ class FinancialsReporterService
     end
 
     def row_set res
+      if res.any?
+        build_from_results res
+      else
+        build_from_null_set
+      end
+    end
+
+    def build_from_results res
+
       fields = res.map(&:keys).flatten.uniq
       values = res.map(&:values).transpose
+
       Hash[fields.zip(values)]
     end
+
+    def build_from_null_set
+      fields = kpi_fields.keys
+      values =kpi_fields.map{|f| f=="report_date" ? [Date.today] : [0]}
+      Hash[fields.zip(values)]
+    end
+
+
 
     def raw_data sdate, edate
       Metrics.normalized_by_start_and_end sdate, edate 
