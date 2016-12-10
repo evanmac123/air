@@ -3,20 +3,18 @@ require 'acceptance/acceptance_helper'
 feature 'site admin monitors bulk upload progress' do
   include BulkLoad::BulkLoadRedisKeys
 
-  let(:redis)      {Redis.new}
   let(:object_key) {"fakefile.csv"}
 
   def set_fake_list(key, length)
-    length.times { redis.lpush key, 'x' }
+    length.times { $redis.lpush key, 'x' }
   end
 
   before do
-     pending "This behavior should not be tested in a request spec"
+    pending "This behavior should not be tested in a request spec"
     board = FactoryGirl.create(:demo)
     users = FactoryGirl.create_list(:user, 10)
     users.each{|user| user.add_board(board)}
 
-    redis.flushdb
     set_fake_list(redis_load_queue_key, 167)
     set_fake_list(redis_failed_load_queue_key, 6)
 
