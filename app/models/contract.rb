@@ -128,7 +128,11 @@ class Contract < ActiveRecord::Base
 
   def pretty_name
     return "" if start_date.nil? or end_date.nil?
-   "#{start_date.strftime('%b %d, %Y')}  --   #{end_date.strftime('%b %d, %Y')}"
+    prettify_name
+  end
+
+  def prettify_name
+   "#{start_date.strftime('%b %d, %Y')}  to   #{end_date.strftime('%b %d, %Y')}"
   end
 
   def status
@@ -198,7 +202,7 @@ class Contract < ActiveRecord::Base
   private
 
   def set_name
-    self.name = "#{organization_name}: #{start_date}-#{end_date}"
+    self.name ="#{organization_name}: #{pretty_name}"
   end
 
   def new_end_date date
