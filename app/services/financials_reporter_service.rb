@@ -32,8 +32,8 @@ class FinancialsReporterService
       [sdate, edate]
     end
 
-    def get_data_by_date sdate, edate
-      build_data_set(row_set(raw_data(sdate, edate)))
+    def get_data_by_date_and_interval sdate, edate, interval
+      build_data_set(row_set(raw_data(sdate, edate, interval)))
     end
 
     def build_data_set row_data 
@@ -117,8 +117,8 @@ class FinancialsReporterService
 
 
 
-    def raw_data sdate, edate
-      Metrics.normalized_by_start_and_end sdate, edate 
+    def raw_data sdate, edate, interval=Metrics::WEEKLY
+      Metrics.normalized_by_date_range_and_interval sdate, edate, interval
     end
 
     def generate_csv table

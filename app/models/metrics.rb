@@ -1,7 +1,13 @@
 class Metrics < ActiveRecord::Base
+  WEEKLY="weekly"
+  MONTHLY="monthly"
 
-  def self.normalized_by_start_and_end sdate, edate
-    by_start_and_end(sdate, edate).order("weekending_date asc").to_array_of_record_hashes
+  def self.normalized_by_date_range_and_interval sdate, edate, interval
+    by_interval(range).by_start_and_end(sdate, edate).order("from asc").to_array_of_record_hashes
+  end
+
+  def self.by_interval(interval = WEEKLY)
+    where(interval: intercal)
   end
 
   def self.current_week

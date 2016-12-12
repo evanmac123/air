@@ -2,7 +2,7 @@ class HistoricalFinKpiBuilder
 
   class << self
 
-    def build kpi
+    def build kpi, interval
 
       m = Metrics.new
       m.starting_mrr = kpi.starting_mrr
@@ -28,8 +28,9 @@ class HistoricalFinKpiBuilder
       m.added_customer_amt_booked =kpi.added_customer_amt_booked
       m.renewal_amt_booked = kpi.renewal_amt_booked
       m.upgrade_amt_booked = kpi.upgrade_amt_booked
-      m.weekending_date = kpi.edate
-      m.report_date = kpi.sdate
+      m.from = kpi.sdate
+      m.to = kpi.edate
+      m.interval = interval
       m.save
     end
 
@@ -39,7 +40,7 @@ class HistoricalFinKpiBuilder
         edate = sdate.end_of_week
 
         while sdate < Date.today do 
-          build FinancialsCalcService.new(sdate, edate)
+          build(FinancialsCalcService.new(sdate, edate), Metrics::WEEKLY)
 
           sdate = sdate.advance(weeks: 1)
           edate = sdate.end_of_week
@@ -53,7 +54,7 @@ class HistoricalFinKpiBuilder
         edate = sdate.end_of_month
 
         while sdate < Date.today do 
-          build FinancialsCalcService.new(sdate, edate)
+          build(FinancialsCalcService.new(sdate, edate), Metrics::MONTHLY)
 
           sdate = sdate.advance(months: 1)
           edate = sdate.end_of_month
