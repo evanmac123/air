@@ -1,4 +1,4 @@
-class HistoricalFinKpiBuilder
+class FinancialKpiBuilder
 
   class << self
 
@@ -34,7 +34,19 @@ class HistoricalFinKpiBuilder
       m.save
     end
 
-    def build_weekly(from=nil)
+    def build_current_week
+      sdate = Date.today.beginning_of_week
+      edate = sdate.end_of_week
+      build(FinancialsCalcService.new(sdate, edate), Metrics::WEEKLY)
+    end
+
+    def build_current_month
+      sdate = Date.today.beginning_of_month
+      edate = sdate.end_of_month
+      build(FinancialsCalcService.new(sdate, edate), Metrics::MONTHLY)
+    end
+
+    def build_weekly_historicals(from=nil)
       if has_data?
         sdate = min_start(from).beginning_of_week
         edate = sdate.end_of_week
@@ -48,7 +60,7 @@ class HistoricalFinKpiBuilder
       end
     end
 
-    def build_monthly(from=nil)
+    def build_monthly_historicals(from=nil)
       if has_data?
         sdate = min_start(from).beginning_of_month
         edate = sdate.end_of_month
