@@ -1,9 +1,5 @@
 Health::Application.routes.draw do
 
-  if Rails.env.development?
-    mount LetterOpenerWeb::Engine, at: "/letter_opener"
-  end
-
   get "users/index"
 
   match "sms"           => "sms#create", :via => :post
@@ -133,6 +129,8 @@ Health::Application.routes.draw do
 
   namespace :client_admin do
     resource :segmentation
+
+    resources :channels, only: [:show]
 
     resource :reports do
       post "/temporary_create", to: "reports#temporary_create"

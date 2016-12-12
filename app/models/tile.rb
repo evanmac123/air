@@ -27,6 +27,7 @@ class Tile < ActiveRecord::Base
   INVITE_SPOUSE         = "Invite Spouse".parameterize("_").freeze
   CHANGE_EMAIL         = "Change Email".parameterize("_").freeze
 
+  acts_as_taggable_on :channels
 
   belongs_to :demo
   belongs_to :creator, class_name: 'User'
@@ -84,12 +85,6 @@ class Tile < ActiveRecord::Base
   scope :digest, ->(demo, cutoff_time) { cutoff_time.nil? ? active : active.where("activated_at > ?", cutoff_time) }
   scope :viewable_in_public, -> { where(is_public: true, status: [Tile::ACTIVE, Tile::ARCHIVE]) }
   scope :copyable, -> { viewable_in_public.where(is_copyable: true) }
-  scope :tagged_with, ->(tag_id) do
-    if tag_id.present?
-      tagged_tile_ids = TileTagging.where(tile_tag_id: tag_id).pluck(:tile_id)
-      where(id: tagged_tile_ids)
-    end
-  end
   scope :ordered_for_explore, -> { order("explore_page_priority DESC NULLS LAST").order("id DESC") }
   scope :ordered_by_position, -> { order "position DESC" }
 
@@ -234,13 +229,6 @@ class Tile < ActiveRecord::Base
     ids_completed = user.tile_completions.map(&:tile_id)
     satisfiable_tiles = tiles_due_in_demo.reject {|t| ids_completed.include? t.id}
     satisfiable_tiles.sort_by(&:position).reverse
-  end
-
-  def self.next_public_tile tile_id, offset, tag_id
-    tiles = Tile.viewable_in_public.ordered_for_explore.tagged_with(tag_id)
-    tile = Tile.viewable_in_public.where(id: tile_id).first
-    next_tile = tiles[tiles.index(tile) + offset] || tiles.first # if index out of length
-    next_tile || tile # i.e. we have only one tile so next tile is nil
   end
 
   def self.next_manage_tile tile, offset, carousel = true

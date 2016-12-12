@@ -9,4 +9,8 @@ class Channel < ActiveRecord::Base
   def update_slug
     self.slug = name.parameterize
   end
+
+  def tiles
+    @tiles ||= Tile.copyable.tagged_with(self.name).uniq
+  end
 end

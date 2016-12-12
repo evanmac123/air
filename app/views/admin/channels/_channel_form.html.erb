@@ -32,6 +32,12 @@
         </div>
         <div class="row">
           <div class="small-6 columns">
+            <%= f.label :description, "Description"  %>
+            <%= f.text_area :description %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-6 columns">
             <%= f.label :active, "Active?" %>
             <%= f.check_box :active %>
           </div>
