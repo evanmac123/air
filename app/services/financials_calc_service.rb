@@ -1,12 +1,9 @@
 class FinancialsCalcService
-  attr_accessor :report_date, :sdate, :edate, :last_week
+  attr_accessor :report_date, :sdate, :edate
 
-  def initialize(report_date=Date.today)
-    @report_date = report_date 
-    @last_week = report_date.advance(weeks: -1) 
-
-    @sdate = report_date.advance(weeks: -1) 
-    @edate = report_date.advance(days: -1)
+  def initialize(sdate, edate)
+    @sdate =  sdate
+    @edate =  edate
   end
 
   #------------------------

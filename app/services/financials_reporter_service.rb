@@ -9,55 +9,6 @@ class FinancialsReporterService
 
   class << self
 
-    def build_week date
-      kpi =  FinancialsCalcService.new(date)
-
-      m = Metrics.new
-
-      m.starting_mrr = kpi.starting_mrr
-      m.added_mrr = kpi.added_mrr
-      m.upgrade_mrr = kpi.upgrade_mrr
-      m.new_cust_mrr = kpi.new_customer_mrr
-      m.churned_mrr = kpi.churned_mrr
-      m.downgrade_mrr = kpi.downgrade_mrr
-      m.churned_customer_mrr = kpi.churned_customer_mrr
-      m.net_changed_mrr = kpi.net_changed_mrr
-      m.net_churned_mrr = kpi.net_churned_mrr
-      m.current_mrr = kpi.current_mrr
-      m.possible_churn_mrr =kpi.possible_churn_mrr
-      m.percent_churned_mrr =kpi.percent_churned_mrr
-      m.starting_customers = kpi.starting_customer_count
-      m.added_customers = kpi.added_customer_count
-      m.churned_customers = kpi.churned_customer_count
-      m.net_change_customers = kpi.net_change_in_customers
-      m.current_customers = kpi.current_customer_count
-      m.possible_churn_customers = kpi.possible_churn_customer_count
-      m.percent_churned_customers = kpi.percent_churned_customers
-      m.amt_booked =kpi.amt_booked
-      m.added_customer_amt_booked =kpi.added_customer_amt_booked
-      m.renewal_amt_booked = kpi.renewal_amt_booked
-      m.upgrade_amt_booked = kpi.upgrade_amt_booked
-      m.weekending_date = kpi.edate
-      m.report_date = kpi.sdate
-      m.save
-    end
-
-
-    def build_historical(date = nil)
-      if Contract.count==0 || Organization.count == 0
-        Rails.logger.warn "Skipping Activity Report Not Monday"
-      else
-        min_start = date || Contract.min_activity_date
-        sdate = min_start.beginning_of_week
-        edate = sdate.end_of_week
-        while sdate < Date.today do 
-          build_week sdate
-          sdate = sdate.advance(weeks: 1)
-          edate = edate.advance(weeks: 1)
-        end
-      end
-    end
-
 
     def current_mrr
       Contract.active_mrr_today
