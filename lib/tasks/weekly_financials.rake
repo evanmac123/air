@@ -13,7 +13,8 @@ namespace :admin do
 
 
       task :build_historical => :environment do
-        FinancialsReporterService.build_historical
+        FinancialKpiBuilder.build_weekly_historicals
+        FinancialKpiBuilder.build_monthly_historicals
       end
     end
   end
