@@ -27,8 +27,8 @@ class FinancialsReporterService
     end
 
     def default_date_range
+      sdate = Date.today.advance(days: -30)
       edate = Date.today.end_of_week
-      sdate = edate.beginning_of_week.advance(weeks: -5)
       [sdate, edate]
     end
 
