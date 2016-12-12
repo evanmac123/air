@@ -47,9 +47,8 @@ Airbo.TileSharingMgr = (function(){
     });
 
     $(".share_via_explore").click(function() {
-      var selector = ".share_options"
-        , shareOptions = $(selector)
-      ;
+      var selector = ".share_options",
+          shareOptions = $(selector);
 
       sendTileSharedPing("Explore");
       turnOnSharableTile();
