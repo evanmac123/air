@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161212025059) do
+ActiveRecord::Schema.define(:version => 20161212183603) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -186,9 +186,9 @@ ActiveRecord::Schema.define(:version => 20161212025059) do
     t.integer  "organization_id"
     t.date     "start_date"
     t.date     "end_date"
-    t.decimal  "mrr"
-    t.decimal  "arr"
-    t.decimal  "amt_booked"
+    t.integer  "mrr"
+    t.integer  "arr"
+    t.integer  "amt_booked"
     t.date     "date_booked"
     t.integer  "term"
     t.string   "plan"
