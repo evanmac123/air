@@ -28,8 +28,8 @@ class HistoricalFinKpiBuilder
       m.added_customer_amt_booked =kpi.added_customer_amt_booked
       m.renewal_amt_booked = kpi.renewal_amt_booked
       m.upgrade_amt_booked = kpi.upgrade_amt_booked
-      m.from = kpi.sdate
-      m.to = kpi.edate
+      m.from_date = kpi.sdate
+      m.to_date = kpi.edate
       m.interval = interval
       m.save
     end

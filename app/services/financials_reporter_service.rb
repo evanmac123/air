@@ -56,7 +56,7 @@ class FinancialsReporterService
     end
 
     def add_group_separator container, key, label
-      colspan = container["report_date"]["values"].count + 1
+      colspan = container["from_date"]["values"].count + 1
       container[key]= {
         label: label,
         colspan: colspan,
@@ -111,7 +111,7 @@ class FinancialsReporterService
 
     def build_from_null_set
       fields = kpi_fields.keys
-      values =fields.map{|f| f=="report_date" ? [Date.today] : [0]}
+      values =fields.map{|f| f=="from_date" ? [Date.today] : [0]}
       Hash[fields.zip(values)]
     end
 
@@ -139,7 +139,7 @@ class FinancialsReporterService
 
     def kpi_fields
       {  
-        "report_date" => {
+        "from_date" => {
           label: "Date",
           type: "date",
           indent: 0

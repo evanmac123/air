@@ -151,7 +151,7 @@ Airbo.FinancialKpiChart = (function(){
   }
 
   function prepareDataForChart(data){
-    getDateSeries(data.report_date.values);
+    getDateSeries(data.from_date.values);
     chartData = dates.map(
       function(date,idx){ 
         return{
@@ -165,7 +165,7 @@ Airbo.FinancialKpiChart = (function(){
 
   function getTableRows(data){
     return Object.keys(data).map(function (kpi) { 
-      if(kpi !== "report_date"){
+      if(kpi !== "from_date"){
         return data[kpi];
       }
     });
