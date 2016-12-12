@@ -6,9 +6,7 @@ module ClientAdmin::TilesPingsHelper
     end
   end
 
-  def record_new_ping
-    ping('Tiles Page', {action: 'Clicked Add New Tile'}, current_user)
-  end
+
 
   def tile_status_updated_ping tile, action
     ping('Moved Tile in Manage', {action: action, tile_id: tile.id}, current_user)
@@ -26,12 +24,23 @@ module ClientAdmin::TilesPingsHelper
     ping('Tile - Deleted', {page: page}, current_user)
   end
 
-  def schedule_tile_creation_ping(tile)
-    ping('Tile - New', {tile_source: "Self Created", is_public: tile.is_public, is_copyable: tile.is_copyable, tag: tile.tile_tags.first.try(:title)}, current_user)
+  def schedule_tile_creation_ping(tile, source)
+    ping('Tile - New', tile_creation_ping_props(tile, source), current_user)
   end
 
   def tile_in_box_viewed_ping tile
     return unless tile.suggested?
     ping('Suggestion Box', {client_admin_action: "Tile Viewed", tile_id: tile.id}, current_user)
   end
+
+
+  def tile_creation_ping_props tile, source
+    {
+      tile_source: source, 
+      is_public: tile.is_public, 
+      is_copyable: tile.is_copyable, 
+      tag: tile.tile_tags.first.try(:title)
+    }
+  end
+
 end

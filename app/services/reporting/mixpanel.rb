@@ -39,12 +39,16 @@ module Reporting
 
       def get_count_by_segment(segment)
         run
-        @summary_by_date.values.first[segment]
+        results_by_segment[segment]
       end
 
       def sum
         run
-        @summary_by_date.values.first.values.sum
+        results_by_segment.values.sum
+      end
+
+      def results_by_segment
+        @summary_by_date.values.first
       end
 
     end

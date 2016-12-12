@@ -68,6 +68,16 @@ module Reporting
 
       kpi.average_tile_creation_time = avg_tile_creation_time
 
+
+      kpis.percent_orgs_that_added_tiles = percent_of_orgs_that_added_tiles 
+
+      kpis.unique_orgs_that_added_tiles = orgs_that_added_tiles
+      kpis.total_tiles_added_by_paid_client_admin = total_tiles_added
+      kpis.total_tiles_added_from_copy_by_paid_client_admin = total_tiles_added_from_copy
+      kpis.total_tiles_added_from_scratch_by_paid_client_admin = total_tiles_added_from_scratch
+      kpis.percent_of_added_tiles_from_copy = percent_of_tiles_added_from_copy
+      kpis.percent_of_added_tiles_from_scratch = percent_of_tiles_added_from_scratch
+
       kpi.percent_retained_post_activation_30_days = retention_by_days("30")
       kpi.percent_retained_post_activation_60_days =  retention_by_days("60")
       kpi.percent_retained_post_activation_120_days =  retention_by_days("120")
@@ -146,6 +156,38 @@ module Reporting
 
     def orgs_that_posted_tiles
       @orgs_that_posted_tiles = Reporting::Mixpanel::UniqueOrganizationsWithPostedTiles.new(opts).get_count
+    end
+
+    def tiles_added_by_paid_client_admins
+      @tiles_added ||= Reporting::Mixpanel::TotalTilesAddedByPaidClientAdmin.new(opts)
+    end
+
+    def total_tiles_added
+      tiles_added_by_paid_client_admins.sum
+    end
+
+    def total_tiles_added_from_scratch
+      tiles_added_by_paid_client_admins.results_by_segment["Self Created"]
+    end
+
+    def total_tiles_added_from_copy
+      tiles_added_by_paid_client_admins.results_by_segment["Explore Page"]
+    end
+
+    def percent_of_tiles_added_created_from_scratch
+      calc_percent(total_tiles_added_from_scratch,total_tiles_added)
+    end
+
+    def percent_of_tiles_added_from_copy
+      calc_percent(total_tiles_added_from_copy,total_tiles_added)
+    end
+
+    def orgs_that_added_tiles
+      @orgs_that_added_tiles ||= Reporting::Mixpanel::UniqueOrganizationsThatAddedTiles.new(opts).get_count
+    end
+
+    def percent_of_orgs_that_added_tiles
+      calc_percent(orgs_that_added_tiles, total_paid_orgs)
     end
 
     def retention

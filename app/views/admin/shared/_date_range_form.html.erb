@@ -1,19 +1,21 @@
 
-<%=form_tag path, method: :get, class: "date-range-filter" do %>
-  <table>
-    <thead>
-      <tr>
-        <th>Start</th>
-        <th>End</th>
-        <th>&nbsp;</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-                <td><%=text_field_tag "sdate", @sdate, data: {value: simple_date_format_Y_d_m(@sdate) }, class: "pickadate"%></td>
-                <td><%=text_field_tag "edate",@edate, data: {value: simple_date_format_Y_d_m(@edate) },class: "pickadate"%></td>
-        <td><%=submit_tag "Get Data", class:"button td-button right"%></td>
-      </tr>
-    </tbody>
-  </table>
-<%end%>
+<%= form_tag path, method: :get,  class: "custom report-filter" do %>
+  <div class="row row-collapse" >
+    <div class="columns small-3">
+      <%= select_tag :interval, options_for_select({"Weekly" => "weekly",  "Monthly" =>"monthly" }), { class: "interval_custom_drop" } %>
+    </div>
+
+    <div class="columns small-4 end">
+      <span class="builtin-date-range" >
+        <%= select_tag :date_range, options_for_select(FinancialsReporterService::REPORT_DATE_RANGE_TYPES, FinancialsReporterService::REPORT_DATE_RANGE_TYPES["Past 30 days"]), { class: "date_range_custom_drop"} %>
+      </span>
+      <div class="custom-date-range" style="display:none">
+        <%= text_field_tag :sdate, @sdate, class: "pickadate", data: {value: simple_date_format_Y_d_m(@sdate)} %>
+        <%= text_field_tag :edate, @edate, class: "pickadate", data: {value: simple_date_format_Y_d_m(@edate)} %>
+        <%= link_to "Done", "#", class: "custom-date-done button button-small" %>
+      </div>
+    </div>
+    <button class="button">Submit</button>
+  </div>
+
+  <%end%>

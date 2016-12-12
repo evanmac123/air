@@ -15,8 +15,10 @@ class Contract < ActiveRecord::Base
   QUARTERLY="Quarterly"
   SEMI_ANNUAL="Semi Annual"
   CUSTOM = "Custom"
-   
-  before_validation :set_name, :if => :organization
+
+  before_validation :set_name, :if => :organization, on: :create
+
+  before_validation :set_revenue, :if => :revenue_changed?
 
   def self.upgrades
     where("parent_contract_id is not NULL")
@@ -128,7 +130,11 @@ class Contract < ActiveRecord::Base
 
   def pretty_name
     return "" if start_date.nil? or end_date.nil?
-   "#{start_date.strftime('%b %d, %Y')}  --   #{end_date.strftime('%b %d, %Y')}"
+    prettify_name
+  end
+
+  def prettify_name
+   "#{start_date.strftime('%b %d, %Y')}  to   #{end_date.strftime('%b %d, %Y')}"
   end
 
   def status
@@ -146,6 +152,7 @@ class Contract < ActiveRecord::Base
   def contract_length_in_months
     TimeDifference.between(end_date, start_date).in_months
   end
+  
 
   def organization_name
     organization.name
@@ -197,8 +204,20 @@ class Contract < ActiveRecord::Base
 
   private
 
+  def revenue_changed?
+    changes.keys && ["arr", "mrr"]
+  end
+
+  def set_revenue
+   if arr_changed?
+     self.mrr = (arr/12).to_i
+   else
+     self.arr = (mrr*12).to_i
+   end
+  end
+
   def set_name
-    self.name = "#{organization_name}: #{start_date}-#{end_date}"
+    self.name ="#{organization_name}: #{pretty_name}"
   end
 
   def new_end_date date

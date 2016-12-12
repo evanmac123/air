@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161212175351) do
+ActiveRecord::Schema.define(:version => 20161212183603) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -226,9 +226,9 @@ ActiveRecord::Schema.define(:version => 20161212175351) do
     t.integer  "organization_id"
     t.date     "start_date"
     t.date     "end_date"
-    t.decimal  "mrr"
-    t.decimal  "arr"
-    t.decimal  "amt_booked"
+    t.integer  "mrr"
+    t.integer  "arr"
+    t.integer  "amt_booked"
     t.date     "date_booked"
     t.integer  "term"
     t.string   "plan"
@@ -274,8 +274,8 @@ ActiveRecord::Schema.define(:version => 20161212175351) do
     t.float    "percent_retained_post_activation_60_days"
     t.float    "percent_retained_post_activation_120_days"
     t.float    "average_tile_creation_time"
-    t.datetime "created_at",                                              :null => false
-    t.datetime "updated_at",                                              :null => false
+    t.datetime "created_at",                                          :null => false
+    t.datetime "updated_at",                                          :null => false
     t.date     "report_date"
     t.date     "from_date"
     t.date     "to_date"
@@ -285,14 +285,14 @@ ActiveRecord::Schema.define(:version => 20161212175351) do
     t.integer  "total_tiles_viewed_in_explore_by_paid_orgs"
     t.integer  "paid_client_admins_who_viewed_tiles_in_explore"
     t.integer  "tiles_viewed_per_paid_client_admin"
-    t.float    "percent_paid_orgs_added_a_tile"
-    t.integer  "tiles_added_by_paid_client_admins"
-    t.integer  "paid_orgs_that_added_a_tile"
-    t.float    "percent_added_tiles_copied_from_explore"
-    t.float    "percent_added_tiles_created_from_scratch"
     t.integer  "tiles_created_from_scratch"
-    t.integer  "orgs_that_created_tiles_from_scratch"
-    t.float    "average_tiles_created_from_scratch_per_org_that_created"
+    t.integer  "total_tiles_added_by_paid_client_admin"
+    t.integer  "total_tiles_added_from_copy_by_paid_client_admin"
+    t.integer  "total_tiles_added_from_scratch_by_paid_client_admin"
+    t.float    "percent_of_added_tiles_from_copy"
+    t.float    "percent_of_added_tiles_from_scratch"
+    t.integer  "unique_orgs_that_added_tiles"
+    t.float    "percent_orgs_that_added_tiles"
   end
 
   create_table "custom_color_palettes", :force => true do |t|
@@ -642,7 +642,6 @@ ActiveRecord::Schema.define(:version => 20161212175351) do
     t.float    "net_churned_mrr"
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
-    t.date     "weekending_date"
     t.decimal  "amt_booked"
     t.string   "interval"
     t.decimal  "downgrade_mrr"
@@ -657,7 +656,8 @@ ActiveRecord::Schema.define(:version => 20161212175351) do
     t.decimal  "added_customer_amt_booked"
     t.decimal  "renewal_amt_booked"
     t.decimal  "upgrade_amt_booked"
-    t.date     "report_date"
+    t.date     "from_date"
+    t.date     "to_date"
   end
 
   create_table "more_info_requests", :force => true do |t|

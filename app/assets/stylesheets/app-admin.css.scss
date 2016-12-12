@@ -1,12 +1,11 @@
 /*
-*= require_self
 *= require ../../../vendor/assets/stylesheets/tablesorter/themes/blue/style
 *= require pickadate/classic
 *= require pickadate/classic.date
 *= require tooltipster/tooltipster
 *= require tooltipster/themes/tooltipster-shadow
 *= require chosen
-*
+*= require jquery-ui/jquery-ui-1.8.10.custom
 */
 
 /* MIXIN DEFINITIONS NEXT (so we can use them later) */
@@ -27,6 +26,10 @@
 @import "./admin/dependent_boards.css.scss";
 @import "./admin/lead-contacts.scss";
 @import "./admin/tile-feature.css.scss";
+@import "./utils/stickytable.css.scss";
+@import "./utils/report-filter.css.scss";
 
 @import "./admin/financials/base";
+
 @import "./vendor_customization/chosen.css.scss";
+@import "./vendor_customization/pickadate.css.scss";
