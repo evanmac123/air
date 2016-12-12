@@ -3,7 +3,7 @@ class Admin::Financials::KpiDashboardController < AdminBaseController
   before_filter :get_dates, only: [:show]
   def show
     @dates = @table_data["report_date"]["values"] || []
-    @table_data = FinancialsReporterService.get_data_by_date_and_interval @sdate,@edate
+    @table_data = FinancialsReporterService.get_data_by_date_and_interval @sdate,@edate, params[:interval]
     @totals= FinancialsReporterService.totals
     if request.xhr?
       #render json: {totals: @totals, tableData: @table_data}

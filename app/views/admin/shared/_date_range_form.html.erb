@@ -2,7 +2,7 @@
 <%= form_tag path, method: :get,  class: "custom report-filter" do %>
   <div class="row row-collapse" >
     <div class="columns small-3">
-      <%= select_tag :interval_type, options_for_select({weekly: "Weekly", monthly: "Monthly"}), { class: "interval_custom_drop" } %>
+      <%= select_tag :interval, options_for_select({"Weekly" => "weekly",  "Monthly" =>"monthly" }), { class: "interval_custom_drop" } %>
     </div>
 
     <div class="columns small-4 end">
