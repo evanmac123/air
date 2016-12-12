@@ -15,8 +15,10 @@ class Contract < ActiveRecord::Base
   QUARTERLY="Quarterly"
   SEMI_ANNUAL="Semi Annual"
   CUSTOM = "Custom"
-   
+
   before_validation :set_name, :if => :organization, on: :create
+
+  before_validation :set_revenue, :if => :revenue_changed?
 
   def self.upgrades
     where("parent_contract_id is not NULL")
@@ -150,6 +152,7 @@ class Contract < ActiveRecord::Base
   def contract_length_in_months
     TimeDifference.between(end_date, start_date).in_months
   end
+  
 
   def organization_name
     organization.name
@@ -200,6 +203,18 @@ class Contract < ActiveRecord::Base
   end
 
   private
+
+  def revenue_changed?
+    changes.keys && ["arr", "mrr"]
+  end
+
+  def set_revenue
+   if arr_changed?
+     self.mrr = (arr/12).to_i
+   else
+     self.arr = (mrr*12).to_i
+   end
+  end
 
   def set_name
     self.name ="#{organization_name}: #{pretty_name}"
