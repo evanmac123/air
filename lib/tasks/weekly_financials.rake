@@ -5,7 +5,7 @@ namespace :admin do
       task :populate_weekly => :environment do
         today = Date.today
         if today.wday==1
-          FinancialsReporterService.build_week today
+          FinancialKpiBuilder.build_weekly_historicals(Date.yesterday)
         else
           Rails.logger.warn "Not monday Skipping Financials Report"
         end
