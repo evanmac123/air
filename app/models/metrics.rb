@@ -19,7 +19,7 @@ class Metrics < ActiveRecord::Base
   end
 
   def self.by_start_and_end sdate, edate
-    where(["to_date >= ? and to_date < ?",sdate, edate])
+    where(["from_date >= ? and to_date <= ?",sdate, edate])
   end
 
   def self.default_date_range
