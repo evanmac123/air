@@ -1,6 +1,6 @@
 <div class="row">
   <div class="channels flickity-channels-carousel">
-    <% Channel.all.each do |channel| %>
+    <% Channel.active.each do |channel| %>
       <div class="carousel-cell channel-image-container" style="background-image: url('<%= channel.image.url(:explore) %>')" data-id="<%= channel.id %>">
         <div class="channel_shadow_overlay"></div>
         <div class="channel_overlay"></div>
