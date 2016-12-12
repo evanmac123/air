@@ -1,0 +1,32 @@
+.report-filter {
+  .pickadate{
+    width:105px;
+    float: left;
+    width: 105px;
+    margin-right: 12px;
+    margin-bottom: 0;
+    padding: 8px 12px;
+    line-height: 1;
+    font-size: 13px;
+    font-weight: 500;
+    height: 32px;
+    color: #919191;
+    border-color: #c4c4c4;
+    height: 31px;
+  }
+
+  .dropdown a.current {
+    padding: 8px 12px;
+    font-size: 13px;
+    height: 31px;
+    line-height: 1.5em;
+  }
+
+
+  ul.menu li, .dropdown ul li {
+    padding: 8px 12px;
+    font-size: 13px;
+    height: 31px;
+    line-height: 1.5em;
+  }
+}
