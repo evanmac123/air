@@ -7,6 +7,7 @@ class Demo < ActiveRecord::Base
 
   belongs_to :organization
 
+  has_one  :campaign, dependent: :destroy
   has_one  :topic_board, dependent: :destroy
   has_one  :onboarding
   has_many :guest_users

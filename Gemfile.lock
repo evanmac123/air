@@ -21,13 +21,6 @@ GIT
     css_splitter (0.4.2)
       sprockets (>= 2.0.0)
 
-GIT
-  remote: https://github.com/weilandia/activerecord-collection_cache_key
-  revision: aa0ea12459ab1240c5e093f7910d9ea12f5a31e5
-  specs:
-    activerecord-collection_cache_key (0.1.2)
-      activerecord (>= 3.0, < 5.0)
-
 GEM
   remote: https://www.rubygems.org/
   specs:
@@ -52,6 +45,8 @@ GEM
       activesupport (= 3.2.22.1)
       arel (~> 3.0.2)
       tzinfo (~> 0.3.29)
+    activerecord-collection_cache_key (0.1.3)
+      activerecord (>= 3.0, < 5.0)
     activeresource (3.2.22.1)
       activemodel (= 3.2.22.1)
       activesupport (= 3.2.22.1)
@@ -589,7 +584,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord-collection_cache_key!
+  activerecord-collection_cache_key
   acts-as-taggable-on (~> 3.5.0)
   acts_as_singleton
   addressable

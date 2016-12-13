@@ -1,5 +1,11 @@
 @import './mixins/channels';
 
+.admin-table {
+  th {
+    text-align: left;
+  }
+}
+
 .channels {
   @include channels;
 }
