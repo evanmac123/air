@@ -1,141 +1,165 @@
 module Reporting
   class CustomerSuccessKpiBuilder
     PAID_CLIENTS_DELIGHTED_TREND = 75029
+    MONTHLY = "months"
+    WEEKLY = "weeks"
+    attr_accessor :from_date, :to_date
+    attr_reader :opts, :demo_ids, :demos, :report_intervals
 
-    attr_accessor :report_date, :from_date, :to_date
-    attr_reader :opts, :demo_ids, :demos
-
-    def initialize(report_date = Date.today,  interval = "week") 
+    def initialize(from_date = Date.today, to_date = Date.today.end_of_week, interval = WEEKLY) 
+      @from_date = from_date
+      @to_date = to_date
       @opts = {}
       @interval = interval
-      @report_date = report_date
+      @report_intervals = {}
       @demos = Demo.paid
       @demo_ids = @demos.pluck(:id)
       parse_dates
     end
 
     def parse_dates
-      @interval == "week" ? weekly : monthly
+      @interval == WEEKLY ? weekly : monthly
+      build_report_intervals
     end
 
     def monthly
-      opts[:from_date] = report_date.beginning_of_month
-      opts[:to_date] = report_date.end_of_month.end_of_day
+      opts[:from_date] =from_date.beginning_of_month
+      opts[:to_date] = to_date.end_of_month.end_of_day
     end
 
     def weekly
-      opts[:from_date] = report_date.beginning_of_week(:monday)
-      opts[:to_date] = opts[:from_date].end_of_week(:sunday).end_of_day
+      opts[:from_date] = from_date.beginning_of_week(:monday)
+      opts[:to_date] = to_date.end_of_week(:sunday).end_of_day
+    end
+
+    def build_report_intervals
+      start_int = opts[:from_date] 
+      while start_int < opts[:to_date]
+
+        @report_intervals[start_int] = end_interval(start_int)
+        start_int = advance_interval(start_int)
+      end
+    end
+
+    def end_interval s
+      @interval == WEEKLY ? s.end_of_week : s.end_of_month
+    end
+
+    def advance_interval s
+      @interval == WEEKLY ? s.advance(weeks:1) : s.adance(months:1)
     end
 
     def build
-      kpi = CustSuccessKpi.new
+      report_intervals.each do |start_interval, end_interval|
+        @start_interval = start_interval.strftime("%Y-%m-%d")
 
-      kpi.paid_net_promoter_score = paid_net_promoter_score.nps
-      kpi.paid_net_promoter_score_response_count = paid_net_promoter_score.response_count
+        kpi = CustSuccessKpi.new
 
-
-     #-------------------------------------------------------------------------
-     # Engagement
-     #-------------------------------------------------------------------------
-     
-
-     #-------------------------------------------------------------------------
-     #     Customer Engagement
-     #-------------------------------------------------------------------------
-      kpi.total_paid_orgs = total_paid_orgs
-      kpi.unique_org_with_activity_sessions = org_unique_activity_sessions
-      kpi.percent_engaged_organizations = percent_engaged_organizations
-
-     #-------------------------------------------------------------------------
-     #     Client Admin Engagement
-     #-------------------------------------------------------------------------
-      kpi.total_paid_client_admins = total_paid_client_admins
-      kpi.unique_client_admin_with_activity_sessions = client_admin_unique_activity_sessions
-      kpi.total_paid_client_admin_activity_sessions =  total_client_admin_activity_sessions
-      kpi.percent_engaged_client_admin = percent_engaged_client_admin
-      kpi.activity_sessions_per_client_admin = activity_sessions_per_client_admin
+        kpi.paid_net_promoter_score = paid_net_promoter_score.nps
+        kpi.paid_net_promoter_score_response_count = paid_net_promoter_score.response_count
 
 
-     #-------------------------------------------------------------------------
-     # Planning
-     #-------------------------------------------------------------------------
-
-     #-------------------------------------------------------------------------
-     #     Explore Engagement
-     #-------------------------------------------------------------------------
-      kpi.percent_paid_orgs_view_tile_in_explore = nil
-      #kpi.paid_orgs_visited_explore = nil
-      kpi.total_tiles_viewed_in_explore_by_paid_orgs = nil
-      kpi.paid_client_admins_who_viewed_tiles_in_explore = nil
-      kpi.tiles_viewed_per_paid_client_admin = nil
+        #-------------------------------------------------------------------------
+        # Engagement
+        #-------------------------------------------------------------------------
 
 
+        #-------------------------------------------------------------------------
+        #     Customer Engagement
+        #-------------------------------------------------------------------------
+        kpi.total_paid_orgs = total_paid_orgs
+        kpi.unique_org_with_activity_sessions = org_unique_activity_sessions
+        kpi.percent_engaged_organizations = percent_engaged_organizations
 
-     #-------------------------------------------------------------------------
-     #  Creation 
-     #-------------------------------------------------------------------------
-     
-     #-------------------------------------------------------------------------
-     #     All Added 
-     #-------------------------------------------------------------------------
-
-      kpi.percent_orgs_that_added_tiles = percent_of_orgs_that_added_tiles 
-      kpi.total_tiles_added_by_paid_client_admin = tiles_added_by_paid_client_admins #NOTE Extra !!!
-      kpi.unique_orgs_that_added_tiles = orgs_that_added_tiles #NOTE Extra !!!
-      kpi.percent_of_added_tiles_from_copy = percent_of_tiles_added_from_copy
-      kpi.percent_of_added_tiles_from_scratch = percent_of_tiles_added_created_from_scratch
-      kpi.total_tiles_copied = total_tiles_copied
-      kpi.tiles_created_from_scratch = total_tiles_added_from_scratch
-      kpi.orgs_that_created_tiles_from_scratch = orgs_that_created_tiles_from_scratch
-      kpi.average_tiles_created_from_scratch_per_org_that_created = nil
-      kpi.average_tile_creation_time = avg_tile_creation_time
+        #-------------------------------------------------------------------------
+        #     Client Admin Engagement
+        #-------------------------------------------------------------------------
+        kpi.total_paid_client_admins = total_paid_client_admins
+        kpi.unique_client_admin_with_activity_sessions = client_admin_unique_activity_sessions
+        kpi.total_paid_client_admin_activity_sessions =  total_client_admin_activity_sessions
+        kpi.percent_engaged_client_admin = percent_engaged_client_admin
+        kpi.activity_sessions_per_client_admin = activity_sessions_per_client_admin
 
 
-      kpi.average_tiles_copied_per_org_that_copied = average_tiles_copied_per_org_that_copied
-      kpi.percent_orgs_that_copied_tiles = percent_orgs_that_copied_tiles
-      kpi.unique_orgs_that_copied_tiles = unique_orgs_that_copied_tiles
+        #-------------------------------------------------------------------------
+        # Planning
+        #-------------------------------------------------------------------------
 
-      kpi.unique_orgs_that_added_tiles = orgs_that_added_tiles
-      kpi.total_tiles_added_by_paid_client_admin = total_tiles_added
-      kpi.total_tiles_added_from_copy_by_paid_client_admin = total_tiles_added_from_copy
-      kpi.total_tiles_added_from_scratch_by_paid_client_admin = total_tiles_added_from_scratch
-      kpi.percent_of_added_tiles_from_copy = percent_of_tiles_added_from_copy
-      kpi.percent_of_added_tiles_from_scratch = percent_of_tiles_added_created_from_scratch
-
-     #-------------------------------------------------------------------------
-     # Retention
-     #-------------------------------------------------------------------------
-      kpi.percent_retained_post_activation_30_days = retention_by_days("30")
-      kpi.percent_retained_post_activation_60_days =  retention_by_days("60")
-      kpi.percent_retained_post_activation_120_days =  retention_by_days("120")
+        #-------------------------------------------------------------------------
+        #     Explore Engagement
+        #-------------------------------------------------------------------------
+        kpi.percent_paid_orgs_view_tile_in_explore = nil
+        #kpi.paid_orgs_visited_explore = nil
+        kpi.total_tiles_viewed_in_explore_by_paid_orgs = nil
+        kpi.paid_client_admins_who_viewed_tiles_in_explore = nil
+        kpi.tiles_viewed_per_paid_client_admin = nil
 
 
-      kpi.percent_joined_current = percent_joined_current
-      kpi.percent_joined_30_days = percent_joined_30
-      kpi.percent_joined_60_days = percent_joined_60
-      kpi.percent_joined_120_days = percent_joined_120
+
+        #-------------------------------------------------------------------------
+        #  Creation 
+        #-------------------------------------------------------------------------
+
+        #-------------------------------------------------------------------------
+        #     All Added 
+        #-------------------------------------------------------------------------
+
+        kpi.percent_orgs_that_added_tiles = percent_of_orgs_that_added_tiles 
+        kpi.total_tiles_added_by_paid_client_admin = tiles_added_by_paid_client_admins #NOTE Extra !!!
+        kpi.unique_orgs_that_added_tiles = orgs_that_added_tiles #NOTE Extra !!!
+        kpi.percent_of_added_tiles_from_copy = percent_of_tiles_added_from_copy
+        kpi.percent_of_added_tiles_from_scratch = percent_of_tiles_added_created_from_scratch
+        kpi.total_tiles_copied = total_tiles_copied
+        kpi.tiles_created_from_scratch = total_tiles_added_from_scratch
+        kpi.orgs_that_created_tiles_from_scratch = orgs_that_created_tiles_from_scratch
+        kpi.average_tiles_created_from_scratch_per_org_that_created = nil
+        kpi.average_tile_creation_time = avg_tile_creation_time
 
 
-     #-------------------------------------------------------------------------
-     # Delivery
-     #-------------------------------------------------------------------------
+        kpi.average_tiles_copied_per_org_that_copied = average_tiles_copied_per_org_that_copied
+        kpi.percent_orgs_that_copied_tiles = percent_orgs_that_copied_tiles
+        kpi.unique_orgs_that_copied_tiles = unique_orgs_that_copied_tiles
 
-      kpi.average_tiles_posted_per_organization_that_posted = average_tiles_posted_per_organization_that_posted
-      kpi.percent_of_orgs_that_posted_tiles = percent_of_orgs_that_posted_tiles
-      kpi.orgs_that_posted_tiles = orgs_that_posted_tiles
-      kpi.total_tiles_posted = total_tiles_posted
+        kpi.unique_orgs_that_added_tiles = orgs_that_added_tiles
+        kpi.total_tiles_added_by_paid_client_admin = total_tiles_added
+        kpi.total_tiles_added_from_copy_by_paid_client_admin = total_tiles_added_from_copy
+        kpi.total_tiles_added_from_scratch_by_paid_client_admin = total_tiles_added_from_scratch
+        kpi.percent_of_added_tiles_from_copy = percent_of_tiles_added_from_copy
+        kpi.percent_of_added_tiles_from_scratch = percent_of_tiles_added_created_from_scratch
 
-     #-------------------------------------------------------------------------
-     # meta
-     #-------------------------------------------------------------------------
+        #-------------------------------------------------------------------------
+        # Retention
+        #-------------------------------------------------------------------------
+        kpi.percent_retained_post_activation_30_days = retention_by_days("30")
+        kpi.percent_retained_post_activation_60_days =  retention_by_days("60")
+        kpi.percent_retained_post_activation_120_days =  retention_by_days("120")
 
-      kpi.from_date = opts[:to_date]
-      kpi.to_date = opts[:to_date]
-      kpi.report_date = opts[:from_date]
-      kpi.weekending_date = opts[:to_date]
-      kpi.save
 
+        kpi.percent_joined_current = percent_joined_current
+        kpi.percent_joined_30_days = percent_joined_30
+        kpi.percent_joined_60_days = percent_joined_60
+        kpi.percent_joined_120_days = percent_joined_120
+
+
+        #-------------------------------------------------------------------------
+        # Delivery
+        #-------------------------------------------------------------------------
+
+        kpi.average_tiles_posted_per_organization_that_posted = average_tiles_posted_per_organization_that_posted
+        kpi.percent_of_orgs_that_posted_tiles = percent_of_orgs_that_posted_tiles
+        kpi.orgs_that_posted_tiles = orgs_that_posted_tiles
+        kpi.total_tiles_posted = total_tiles_posted
+
+        #-------------------------------------------------------------------------
+        # meta
+        #-------------------------------------------------------------------------
+
+        kpi.from_date = start_interval
+        kpi.to_date = end_interval
+        kpi.report_date = start_interval
+        kpi.weekending_date = end_interval
+        kpi.save
+      end
     end
 
 
@@ -165,7 +189,7 @@ module Reporting
     #-------------------------------------------------------------------------
 
     def org_unique_activity_sessions
-      @org_unique_activity_sessions = Reporting::Mixpanel::OrganizationWithUniqueActivitySessions.new(opts).get_count
+      @org_unique_activity_sessions = Reporting::Mixpanel::OrganizationWithUniqueActivitySessions.new(opts).get_count(@start_interval)
     end
 
     def percent_engaged_organizations
@@ -173,11 +197,11 @@ module Reporting
     end
 
     def client_admin_unique_activity_sessions
-      @client_admin_unique_activity_sessions = Reporting::Mixpanel::ClientAdminWithUniqueActivitySessions.new(opts).get_count
+      @client_admin_unique_activity_sessions = Reporting::Mixpanel::ClientAdminWithUniqueActivitySessions.new(opts).get_count(@start_interval)
     end
 
     def total_client_admin_activity_sessions
-      @total_client_admin_activity_sessions = Reporting::Mixpanel::TotalClientAdminActivitySessions.new(opts).get_count
+      @total_client_admin_activity_sessions = Reporting::Mixpanel::TotalClientAdminActivitySessions.new(opts).get_count(@start_interval)
     end
 
     def percent_engaged_client_admin
@@ -189,16 +213,16 @@ module Reporting
     end
 
 
-     #-------------------------------------------------------------------------
-     # Planning
-     #-------------------------------------------------------------------------
+    #-------------------------------------------------------------------------
+    # Planning
+    #-------------------------------------------------------------------------
 
-     #-------------------------------------------------------------------------
-     #     Explore Engagement
-     #-------------------------------------------------------------------------
+    #-------------------------------------------------------------------------
+    #     Explore Engagement
+    #-------------------------------------------------------------------------
 
 
-     #TODO missing
+    #TODO missing
 
     #-------------------------------------------------------------------------
     # creation 
@@ -213,11 +237,11 @@ module Reporting
     end
 
     def total_tiles_added
-      tiles_added_by_paid_client_admins.sum
+      tiles_added_by_paid_client_admins.sum(@start_interval)
     end
 
     def orgs_that_added_tiles
-      @orgs_that_added_tiles ||= Reporting::Mixpanel::UniqueOrganizationsThatAddedTiles.new(opts).get_count
+      @orgs_that_added_tiles ||= Reporting::Mixpanel::UniqueOrganizationsThatAddedTiles.new(opts).get_count(@start_interval)
     end
 
 
@@ -225,9 +249,9 @@ module Reporting
       tiles_added_by_paid_client_admins.results_by_segment["Explore Page"]
     end
 
-   #FIXME duplicates functionality #total_tiles_added_from_copy 
+    #FIXME duplicates functionality #total_tiles_added_from_copy 
     def total_tiles_copied
-      @total_tiles_copied = Reporting::Mixpanel::TotalTilesCopied.new(opts).get_count
+      @total_tiles_copied = Reporting::Mixpanel::TotalTilesCopied.new(opts).get_count(@start_interval)
     end
 
     def percent_of_tiles_added_from_copy
@@ -238,13 +262,13 @@ module Reporting
       calc_percent(total_tiles_added_from_scratch,total_tiles_added)
     end
 
-      def unique_orgs_that_copied_tiles
-      @unique_orgs_that_copied_tiles ||= Reporting::Mixpanel::UniqueOrganizationsWithCopiedTiles.new(opts).get_count
-      end
+    def unique_orgs_that_copied_tiles
+      @unique_orgs_that_copied_tiles ||= Reporting::Mixpanel::UniqueOrganizationsWithCopiedTiles.new(opts).get_count(@start_interval)
+    end
 
-      def orgs_that_created_tiles_from_scratch
-        @unique_orgs_that_created_tiles ||= Reporting::Mixpanel::UniqueOrganizationsThatCreatedTilesFromScratch.new(opts).get_count
-      end
+    def orgs_that_created_tiles_from_scratch
+      @unique_orgs_that_created_tiles ||= Reporting::Mixpanel::UniqueOrganizationsThatCreatedTilesFromScratch.new(opts).get_count(@start_interval)
+    end
 
     def total_tiles_added_from_scratch
       @tiles_created_from_scratch  ||= tiles_added_by_paid_client_admins.results_by_segment["Self Created"]
@@ -314,11 +338,11 @@ module Reporting
     # Delivery
     #-------------------------------------------------------------------------
     def total_tiles_posted
-      @total_tiles_posted = Reporting::Mixpanel::TotalTilesPostedByPaidClientAdmin.new(opts).get_count
+      @total_tiles_posted = Reporting::Mixpanel::TotalTilesPostedByPaidClientAdmin.new(opts).get_count(@start_interval)
     end
 
     def orgs_that_posted_tiles
-      @orgs_that_posted_tiles = Reporting::Mixpanel::UniqueOrganizationsWithPostedTiles.new(opts).get_count
+      @orgs_that_posted_tiles = Reporting::Mixpanel::UniqueOrganizationsWithPostedTiles.new(opts).get_count(@start_interval)
     end
     #-------------------------------------------------------------------------
     # Other
