@@ -2,17 +2,9 @@ case Rails.env
 when 'production', 'staging', "production_local"
   $redis = Redis.new(url: ENV['REDISTOGO_URL'])
 when 'development'
-  $redis = Redis.new(host: 'localhost', port: 6379)
+  $redis = Redis.new(host: 'localhost', port: 6379, db: 14)
 when 'test'
-  $redis = Redis.new(host: 'localhost', port: 6379, db: 1)
-end
-
-class Redis
-  class << self
-    def non_cache_keys
-      $redis.scan(0, { match: "[^cache]*" })[1]
-    end
-  end
+  $redis = Redis.new(host: 'localhost', port: 6379, db: 15)
 end
 
 Nest.class_eval do
