@@ -8,7 +8,7 @@ module Reporting
         opts.merge!({
           event: "Activity Session - New",
           unit: 'week',
-          where:%Q|(properties["user_type"] == "client admin") and (properties["board_type"] == "Paid") and properties["is_test_user"] == false|,
+          where:%Q|(properties["user_type"] == "client admin") and (properties["board_type"] == "Paid") and properties["organization"] != "#{AIRBO_ORG_ID}"|,
           type: 'general',
         })
       end
