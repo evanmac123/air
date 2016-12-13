@@ -2,7 +2,7 @@ require 'airbo_mixpanel_client'
 require 'reporting/mixpanel'
 module Reporting
   module Mixpanel
-    class UniqueOrganizationsWithPostedTiles < UniqueSegmentedEventsBase
+    class UniqueOrganizationsWithViewedTiles < UniqueSegmentedEventsBase
 
       def configure opts
         opts.merge!({
