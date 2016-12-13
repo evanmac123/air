@@ -69,7 +69,6 @@ module Reporting
         #-------------------------------------------------------------------------
         kpi.total_paid_orgs = total_paid_orgs
         kpi.unique_org_with_activity_sessions = org_unique_activity_sessions
-        kpi.percent_engaged_organizations = percent_engaged_organizations
 
         #-------------------------------------------------------------------------
         #     Client Admin Engagement
@@ -77,7 +76,6 @@ module Reporting
         kpi.total_paid_client_admins = total_paid_client_admins
         kpi.unique_client_admin_with_activity_sessions = client_admin_unique_activity_sessions
         kpi.total_paid_client_admin_activity_sessions =  total_client_admin_activity_sessions
-        kpi.percent_engaged_client_admin = percent_engaged_client_admin
         kpi.activity_sessions_per_client_admin = activity_sessions_per_client_admin
 
 
@@ -88,13 +86,10 @@ module Reporting
         #-------------------------------------------------------------------------
         #     Explore Engagement
         #-------------------------------------------------------------------------
-        kpi.percent_paid_orgs_view_tile_in_explore = nil
         #kpi.paid_orgs_visited_explore = nil
         kpi.total_tiles_viewed_in_explore_by_paid_orgs = total_tiles_viewed_in_explore
         kpi.paid_client_admins_who_viewed_tiles_in_explore = unique_client_admin_with_viewed_tiles_in_explore
         kpi.tiles_viewed_per_paid_client_admin = nil
-
-
 
         #-------------------------------------------------------------------------
         #  Creation 
@@ -104,31 +99,44 @@ module Reporting
         #     All Added 
         #-------------------------------------------------------------------------
 
-        kpi.percent_orgs_that_added_tiles = percent_of_orgs_that_added_tiles 
         kpi.total_tiles_added_by_paid_client_admin = total_tiles_added #NOTE Extra !!!
-        kpi.unique_orgs_that_added_tiles = orgs_that_added_tiles #NOTE Extra !!!
-        kpi.percent_of_added_tiles_from_copy = percent_of_tiles_added_from_copy
-        kpi.percent_of_added_tiles_from_scratch = percent_of_tiles_added_created_from_scratch
         kpi.total_tiles_copied = total_tiles_copied
         kpi.tiles_created_from_scratch = total_tiles_added_from_scratch
         kpi.orgs_that_created_tiles_from_scratch = orgs_that_created_tiles_from_scratch
-        kpi.average_tiles_created_from_scratch_per_org_that_created = nil
-        kpi.average_tile_creation_time = avg_tile_creation_time
-
-
-        kpi.average_tiles_copied_per_org_that_copied = average_tiles_copied_per_org_that_copied
-        kpi.percent_orgs_that_copied_tiles = percent_orgs_that_copied_tiles
         kpi.unique_orgs_that_copied_tiles = unique_orgs_that_copied_tiles
 
         kpi.unique_orgs_that_added_tiles = orgs_that_added_tiles
         kpi.total_tiles_added_from_copy_by_paid_client_admin = total_tiles_added_from_copy
         kpi.total_tiles_added_from_scratch_by_paid_client_admin = total_tiles_added_from_scratch
-        kpi.percent_of_added_tiles_from_copy = percent_of_tiles_added_from_copy
-        kpi.percent_of_added_tiles_from_scratch = percent_of_tiles_added_created_from_scratch
-
         #-------------------------------------------------------------------------
         # Retention
         #-------------------------------------------------------------------------
+
+
+        #-------------------------------------------------------------------------
+        # Delivery
+        #-------------------------------------------------------------------------
+
+        kpi.orgs_that_posted_tiles = orgs_that_posted_tiles
+        kpi.total_tiles_posted = total_tiles_posted
+
+
+
+        kpi.average_tiles_created_from_scratch_per_org_that_created = nil
+        kpi.average_tile_creation_time = avg_tile_creation_time
+        kpi.average_tiles_copied_per_org_that_copied = average_tiles_copied_per_org_that_copied
+        kpi.average_tiles_posted_per_organization_that_posted = average_tiles_posted_per_organization_that_posted
+
+        kpi.percent_paid_orgs_view_tile_in_explore = percent_of_orgs_that_viewed_tiles
+        kpi.percent_engaged_organizations = percent_engaged_organizations
+        kpi.percent_engaged_client_admin = percent_engaged_client_admin
+        kpi.percent_orgs_that_added_tiles = percent_of_orgs_that_added_tiles 
+        kpi.percent_of_added_tiles_from_copy = percent_of_tiles_added_from_copy
+        kpi.percent_of_added_tiles_from_scratch = percent_of_tiles_added_created_from_scratch
+        kpi.percent_orgs_that_copied_tiles = percent_orgs_that_copied_tiles
+        kpi.percent_of_added_tiles_from_copy = percent_of_tiles_added_from_copy
+        kpi.percent_of_added_tiles_from_scratch = percent_of_tiles_added_created_from_scratch
+
         kpi.percent_retained_post_activation_30_days = retention_by_days("30")
         kpi.percent_retained_post_activation_60_days =  retention_by_days("60")
         kpi.percent_retained_post_activation_120_days =  retention_by_days("120")
@@ -138,16 +146,8 @@ module Reporting
         kpi.percent_joined_30_days = percent_joined_30
         kpi.percent_joined_60_days = percent_joined_60
         kpi.percent_joined_120_days = percent_joined_120
-
-
-        #-------------------------------------------------------------------------
-        # Delivery
-        #-------------------------------------------------------------------------
-
-        kpi.average_tiles_posted_per_organization_that_posted = average_tiles_posted_per_organization_that_posted
         kpi.percent_of_orgs_that_posted_tiles = percent_of_orgs_that_posted_tiles
-        kpi.orgs_that_posted_tiles = orgs_that_posted_tiles
-        kpi.total_tiles_posted = total_tiles_posted
+
 
         #-------------------------------------------------------------------------
         # meta
@@ -239,7 +239,7 @@ module Reporting
     #-------------------------------------------------------------------------
 
     def percent_of_orgs_that_added_tiles
-      calc_percent(orgs_that_added_tiles, total_paid_orgs)
+      calc_percent(@orgs_that_added_tiles, total_paid_orgs)
     end
 
     def tiles_added_by_paid_client_admins
@@ -286,8 +286,13 @@ module Reporting
 
 
     def percent_of_orgs_that_added_tiles
-      calc_percent(orgs_that_added_tiles, total_paid_orgs)
+      calc_percent(@orgs_that_added_tiles, total_paid_orgs)
     end
+
+    def percent_of_orgs_that_viewed_tiles
+      calc_percent(@unique_org_explore_tile_views, total_paid_orgs)
+    end
+
 
     def average_tiles_copied_per_org_that_copied
       calc_avg(@total_tiles_copied, @unique_orgs_that_copied_tiles)
