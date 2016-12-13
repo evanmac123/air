@@ -222,7 +222,11 @@ module Reporting
 
 
     def unique_client_admin_with_viewed_tiles_in_explore
-       @unique_clientd_admin_explore_tile_views =Reporting::Mixpanel::ClientAdminWithUniqueExploreTileViews.new(opts).get_count(@start_interval)
+       @unique_client_admin_explore_tile_views =Reporting::Mixpanel::ClientAdminWithUniqueExploreTileViews.new(opts).get_count(@start_interval)
+    end
+
+    def unique_organizations_with_viewed_tiles_in_explore
+       @unique_org_explore_tile_views =Reporting::Mixpanel::UniqueOrganizationsWithViewedTiles.new(opts).get_count(@start_interval)
     end
     #TODO missing
 
