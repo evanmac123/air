@@ -11,13 +11,17 @@
 
 .client_admin-campaigns {
   .content {
-    background: $almost-white;
+    background: #fff;
   }
 }
 
 body.explores, .explores {
-  .channels {
-    @include channels;
+  .channel-row {
+    height: 100px;
+    .channels {
+      display: none;
+      @include channels;
+    }
   }
 
   .campaigns {
@@ -33,7 +37,7 @@ body.explores, .explores {
   }
 
   .explore-breadcrumbs {
-    background: #fefefe;
+    background: #fff;
     padding: 0 0 0 65px;
     a, span, .spacer {
       font-size: 18px;
@@ -111,14 +115,14 @@ body.explores, .explores {
   }
 
   .core {
-    background: $almost-white;
+    background: #fff;
   }
   .content {
-    background: $almost-white;
+    background: #fff;
     padding: 0;
   }
   #footer {
-    background: $almost-white;
+    background: #fff;
   }
 
   .manage_section {
@@ -144,7 +148,7 @@ body.explores, .explores {
   }
 
   .channel_container, #campaign_boards, #explore_tiles {
-    background: $almost-white;
+    background: #fff;
     padding: 2em 0 0 0;
   }
 
@@ -168,7 +172,7 @@ body.explores, .explores {
   //
 
   #explore_tiles {
-    background: $almost-white;
+    background: #fff;
     padding-top: 21px;
     #verified {
       margin-left: 6px;

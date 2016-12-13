@@ -1,4 +1,8 @@
 @mixin channels() {
+  .channel-row {
+    height: 100px;
+  }
+
   .flickity-slider {
     margin-left: 3px;
   }
@@ -8,6 +12,7 @@
   .carousel-cell {
     cursor: pointer;
   }
+
   .channel-image-container {
     height: 68px;
     width: 160px;
