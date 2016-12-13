@@ -9,9 +9,10 @@
 
 @import "mixins/green_paddle_switch";
 
-.client_admin-campaigns {
+.client_admin-campaigns, .client_admin-channels {
   .content {
     background: #fff;
+    padding: 0;
   }
 }
 
