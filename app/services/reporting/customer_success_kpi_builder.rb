@@ -53,6 +53,8 @@ module Reporting
       report_intervals.each do |start_interval, end_interval|
         @start_interval = start_interval.strftime("%Y-%m-%d")
 
+       get_data
+
         kpi = CustSuccessKpi.new
 
         kpi.paid_net_promoter_score = paid_net_promoter_score.nps
@@ -68,14 +70,14 @@ module Reporting
         #     Customer Engagement
         #-------------------------------------------------------------------------
         kpi.total_paid_orgs = total_paid_orgs
-        kpi.unique_org_with_activity_sessions = org_unique_activity_sessions
+        kpi.unique_org_with_activity_sessions = @org_unique_activity_sessions
 
         #-------------------------------------------------------------------------
         #     Client Admin Engagement
         #-------------------------------------------------------------------------
         kpi.total_paid_client_admins = total_paid_client_admins
-        kpi.unique_client_admin_with_activity_sessions = client_admin_unique_activity_sessions
-        kpi.total_paid_client_admin_activity_sessions =  total_client_admin_activity_sessions
+        kpi.unique_client_admin_with_activity_sessions = @client_admin_unique_activity_sessions
+        kpi.total_paid_client_admin_activity_sessions =  @total_client_admin_activity_sessions
         kpi.activity_sessions_per_client_admin = activity_sessions_per_client_admin
 
 
@@ -87,8 +89,8 @@ module Reporting
         #     Explore Engagement
         #-------------------------------------------------------------------------
         #kpi.paid_orgs_visited_explore = nil
-        kpi.total_tiles_viewed_in_explore_by_paid_orgs = total_tiles_viewed_in_explore
-        kpi.paid_client_admins_who_viewed_tiles_in_explore = unique_client_admin_with_viewed_tiles_in_explore
+        kpi.total_tiles_viewed_in_explore_by_paid_orgs = @total_tiles_viewed_in_explore
+        kpi.paid_client_admins_who_viewed_tiles_in_explore = @unique_client_admin_with_viewed_tiles_in_explore
         kpi.tiles_viewed_per_paid_client_admin = nil
 
         #-------------------------------------------------------------------------
@@ -99,15 +101,15 @@ module Reporting
         #     All Added 
         #-------------------------------------------------------------------------
 
+        kpi.unique_orgs_that_added_tiles = @orgs_that_added_tiles
         kpi.total_tiles_added_by_paid_client_admin = total_tiles_added #NOTE Extra !!!
-        kpi.total_tiles_copied = total_tiles_copied
+        kpi.total_tiles_copied = @total_tiles_copied
         kpi.tiles_created_from_scratch = total_tiles_added_from_scratch
-        kpi.orgs_that_created_tiles_from_scratch = orgs_that_created_tiles_from_scratch
-        kpi.unique_orgs_that_copied_tiles = unique_orgs_that_copied_tiles
+        kpi.orgs_that_created_tiles_from_scratch = @orgs_that_created_tiles_from_scratch
+        kpi.unique_orgs_that_copied_tiles = @unique_orgs_that_copied_tiles
 
-        kpi.unique_orgs_that_added_tiles = orgs_that_added_tiles
-        kpi.total_tiles_added_from_copy_by_paid_client_admin = total_tiles_added_from_copy
         kpi.total_tiles_added_from_scratch_by_paid_client_admin = total_tiles_added_from_scratch
+        kpi.total_tiles_added_from_copy_by_paid_client_admin = total_tiles_added_from_copy
         #-------------------------------------------------------------------------
         # Retention
         #-------------------------------------------------------------------------
@@ -117,8 +119,8 @@ module Reporting
         # Delivery
         #-------------------------------------------------------------------------
 
-        kpi.orgs_that_posted_tiles = orgs_that_posted_tiles
-        kpi.total_tiles_posted = total_tiles_posted
+        kpi.orgs_that_posted_tiles = @orgs_that_posted_tiles
+        kpi.total_tiles_posted = @total_tiles_posted
 
 
 
@@ -168,7 +170,6 @@ module Reporting
       @nps = Integrations::NetPromoterScore.get_metrics({ trend: PAID_CLIENTS_DELIGHTED_TREND })
     end
 
-
     # --------- From Data base
     #
 
@@ -212,6 +213,8 @@ module Reporting
     end
 
 
+
+
     #-------------------------------------------------------------------------
     # Planning
     #-------------------------------------------------------------------------
@@ -230,9 +233,12 @@ module Reporting
     end
 
     def total_tiles_viewed_in_explore
-      @total_tiles_viewed_in_explore = Reporting::Mixpanel::TotalTilesViewedInExplore.new(opts).get_cont 
+      @total_tiles_viewed_in_explore = Reporting::Mixpanel::TotalTilesViewedInExplore.new(opts).get_count 
     end
-    #TODO missing
+
+    def tiles_viewed_per_paid_client_admin
+     calc_avg(@total_tiles_viewed_in_explore, @unique_client_admin_explore_tile_views)
+    end
 
     #-------------------------------------------------------------------------
     # creation 
@@ -244,10 +250,11 @@ module Reporting
 
     def tiles_added_by_paid_client_admins
       @tiles_added = Reporting::Mixpanel::TotalTilesAddedByPaidClientAdmin.new(opts)
+      @total_tiles_added =@tiles_added.sum(@start_interval)
     end
 
     def total_tiles_added
-      @tiles_added.sum(@start_interval)
+      @total_tiles_added
     end
 
     def orgs_that_added_tiles
@@ -277,8 +284,10 @@ module Reporting
     end
 
     def orgs_that_created_tiles_from_scratch
-      @unique_orgs_that_created_tiles = Reporting::Mixpanel::UniqueOrganizationsThatCreatedTilesFromScratch.new(opts).get_count(@start_interval)
+      @orgs_that_created_tiles_from_scratch = Reporting::Mixpanel::UniqueOrganizationsThatCreatedTilesFromScratch.new(opts).get_count(@start_interval)
     end
+
+
 
     def total_tiles_added_from_scratch
       @tiles_created_from_scratch  = @tiles_added.results_by_segment["Self Created"]
@@ -367,7 +376,21 @@ module Reporting
       calc_percent(@unique_orgs_that_copied_tiles, @total_paid_orgs)
     end
 
-
+    def get_data
+      org_unique_activity_sessions
+      client_admin_unique_activity_sessions
+      total_client_admin_activity_sessions
+      unique_client_admin_with_viewed_tiles_in_explore
+      unique_organizations_with_viewed_tiles_in_explore
+      total_tiles_viewed_in_explore
+      orgs_that_added_tiles
+      total_tiles_copied
+      unique_orgs_that_copied_tiles
+      orgs_that_created_tiles_from_scratch
+      orgs_that_posted_tiles
+      total_tiles_posted
+      tiles_added_by_paid_client_admins
+    end
 
     #----------Utility Methods
     #
