@@ -209,7 +209,7 @@ module Reporting
     end
 
     def activity_sessions_per_client_admin
-      calc_avg(@total_client_admin_activity_sessions, @total_paid_client_admins)
+      calc_avg(@total_client_admin_activity_sessions, client_admin_unique_activity_sessions)
     end
 
 
