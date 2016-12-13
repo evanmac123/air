@@ -165,7 +165,7 @@ module Reporting
     # from ----Net promoter score
 
     def paid_net_promoter_score
-      @nps ||= Integrations::NetPromoterScore.get_metrics({ trend: PAID_CLIENTS_DELIGHTED_TREND })
+      @nps = Integrations::NetPromoterScore.get_metrics({ trend: PAID_CLIENTS_DELIGHTED_TREND })
     end
 
 
@@ -235,20 +235,20 @@ module Reporting
     end
 
     def tiles_added_by_paid_client_admins
-      @tiles_added ||= Reporting::Mixpanel::TotalTilesAddedByPaidClientAdmin.new(opts)
+      @tiles_added = Reporting::Mixpanel::TotalTilesAddedByPaidClientAdmin.new(opts)
     end
 
     def total_tiles_added
-      tiles_added_by_paid_client_admins.sum(@start_interval)
+      @tiles_added.sum(@start_interval)
     end
 
     def orgs_that_added_tiles
-      @orgs_that_added_tiles ||= Reporting::Mixpanel::UniqueOrganizationsThatAddedTiles.new(opts).get_count(@start_interval)
+      @orgs_that_added_tiles = Reporting::Mixpanel::UniqueOrganizationsThatAddedTiles.new(opts).get_count(@start_interval)
     end
 
 
     def total_tiles_added_from_copy
-      tiles_added_by_paid_client_admins.results_by_segment["Explore Page"]
+      @tiles_added.results_by_segment["Explore Page"]
     end
 
     #FIXME duplicates functionality #total_tiles_added_from_copy 
@@ -265,15 +265,15 @@ module Reporting
     end
 
     def unique_orgs_that_copied_tiles
-      @unique_orgs_that_copied_tiles ||= Reporting::Mixpanel::UniqueOrganizationsWithCopiedTiles.new(opts).get_count(@start_interval)
+      @unique_orgs_that_copied_tiles = Reporting::Mixpanel::UniqueOrganizationsWithCopiedTiles.new(opts).get_count(@start_interval)
     end
 
     def orgs_that_created_tiles_from_scratch
-      @unique_orgs_that_created_tiles ||= Reporting::Mixpanel::UniqueOrganizationsThatCreatedTilesFromScratch.new(opts).get_count(@start_interval)
+      @unique_orgs_that_created_tiles = Reporting::Mixpanel::UniqueOrganizationsThatCreatedTilesFromScratch.new(opts).get_count(@start_interval)
     end
 
     def total_tiles_added_from_scratch
-      @tiles_created_from_scratch  ||= tiles_added_by_paid_client_admins.results_by_segment["Self Created"]
+      @tiles_created_from_scratch  = @tiles_added.results_by_segment["Self Created"]
     end
 
 
@@ -303,7 +303,7 @@ module Reporting
     #-------------------------------------------------------------------------
 
     def retention
-      @retention ||= Reporting::Mixpanel::UniqueActivitySessionAfterTimePeriodInDays.new(opts)
+      @retention = Reporting::Mixpanel::UniqueActivitySessionAfterTimePeriodInDays.new(opts)
     end
 
     def retention_by_days days
