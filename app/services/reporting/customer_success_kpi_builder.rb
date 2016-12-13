@@ -91,7 +91,7 @@ module Reporting
         kpi.percent_paid_orgs_view_tile_in_explore = nil
         #kpi.paid_orgs_visited_explore = nil
         kpi.total_tiles_viewed_in_explore_by_paid_orgs = nil
-        kpi.paid_client_admins_who_viewed_tiles_in_explore = nil
+        kpi.paid_client_admins_who_viewed_tiles_in_explore = unique_client_admin_with_viewed_tiles_in_explore
         kpi.tiles_viewed_per_paid_client_admin = nil
 
 
@@ -222,6 +222,9 @@ module Reporting
     #-------------------------------------------------------------------------
 
 
+    def unique_client_admin_with_viewed_tiles_in_explore
+       @unique_clientd_admin_explore_tile_views =Reporting::Mixpanel::ClientAdminWithUniqueExploreTileViews.new(opts).get_count(@start_interval)
+    end
     #TODO missing
 
     #-------------------------------------------------------------------------
