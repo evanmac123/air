@@ -89,7 +89,7 @@ Health::Application.configure do
 
   config.action_mailer.asset_host = "//example.com"
 
-  config.cache_store = :redis_store, "redis://127.0.0.1:6379/1/cache", { expires_in: 5.years }
+  config.cache_store = :redis_store, { host: "localhost", port: 6379, db: 15 }
 
   Paperclip.options[:log] = false
 end

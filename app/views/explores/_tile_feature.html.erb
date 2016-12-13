@@ -10,7 +10,9 @@
         <% end %>
         <div id="channel_tiles">
           <div id="tile_wall_explore">
-            <%= render partial: 'explores/tiles', locals: { tiles: feature_tiles, tile_ids: feature.tile_ids, section: feature.name } %>
+            <% cache feature_tiles do %>
+              <%= render partial: 'explores/tiles', locals: { tiles: feature_tiles, tile_ids: feature.tile_ids, section: feature.name } %>
+            <% end %>
           </div>
         </div>
       </div>
