@@ -3,9 +3,7 @@
     <%= render partial: 'explores/channels', locals: { channels: Channel.display_channels } %>
   </section>
   <% TileFeature.ordered.each do |feature| %>
-    <section class="manage_section channel_container" id="<%= feature.name %>" style="background:<%= feature.background_color %>">
-      <%= render partial: 'explores/tile_feature', locals: { feature: feature } %>
-    </section>
+    <%= render partial: 'explores/tile_feature', locals: { feature: feature } %>
   <% end %>
   <section class="manage_section" id="campaign_boards">
     <%= render partial: 'explores/campaigns' %>

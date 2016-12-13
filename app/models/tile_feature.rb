@@ -65,9 +65,9 @@ class TileFeature < ActiveRecord::Base
   end
 
   def get_tiles(tiles)
-    # TODO: Benchmark methods for retrieving AR objects in given order
-    grouped_tiles = tiles.where(id: tile_ids).group_by(&:id)
-
-    tile_ids.map { |id| grouped_tiles[id.to_i].try(:first) }
+    if tile_ids
+      grouped_tiles = tiles.where(id: tile_ids).group_by(&:id)
+      tile_ids.map { |id| grouped_tiles[id.to_i].try(:first) }
+    end
   end
 end

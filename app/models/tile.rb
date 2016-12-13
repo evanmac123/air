@@ -43,7 +43,6 @@ class Tile < ActiveRecord::Base
   has_many :tile_viewings, dependent: :destroy
   has_many :user_viewers, through: :tile_viewings, source: :user, source_type: 'User'
   has_many :guest_user_viewers, through: :tile_viewings, source: :user, source_type: 'GuestUser'
-  has_one :recommended_tile
 
   has_alphabetical_column :headline
 
@@ -195,11 +194,7 @@ class Tile < ActiveRecord::Base
   end
 
   def self.featured_tile_ids
-    (TileFeature.active.map(&:tile_ids) + recommended.pluck(:id)).flatten
-  end
-
-  def self.recommended
-    joins(:recommended_tile).order(recommended_tile: :created_at)
+    TileFeature.active.flat_map(&:tile_ids).compact
   end
 
   def self.verified_explore
@@ -298,14 +293,9 @@ class Tile < ActiveRecord::Base
     @activated_at_reset_allowed == true
   end
 
-  def recommended?
-   recommended_tile.present?
-  end
-
   def set_on_first_position
     self.position = find_new_first_position
   end
-
 
   def ensure_protocol_on_link_address
     return unless link_address_changed?

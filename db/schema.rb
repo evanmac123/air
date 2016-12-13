@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161212183603) do
+ActiveRecord::Schema.define(:version => 20161213184102) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -792,18 +792,6 @@ ActiveRecord::Schema.define(:version => 20161212183603) do
     t.datetime "updated_at",     :null => false
     t.integer  "delayed_job_id"
   end
-
-  create_table "recommended_tiles", :force => true do |t|
-    t.integer  "tile_id"
-    t.integer  "user_id"
-    t.integer  "demo_id"
-    t.integer  "topic_id"
-    t.string   "action_taken"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
-  add_index "recommended_tiles", ["tile_id"], :name => "index_recommended_tiles_on_tile_id", :unique => true
 
   create_table "rule_values", :force => true do |t|
     t.string   "value"
