@@ -9,6 +9,10 @@ class Channel < ActiveRecord::Base
 
   scope :active, -> { where(active: true) }
 
+  def self.display_channels(exclude_ids = nil)
+    exclude_ids ? active.where(Channel.arel_table[:id].not_eq(exclude_ids)) : active
+  end
+
   def update_slug
     self.slug = name.parameterize
   end

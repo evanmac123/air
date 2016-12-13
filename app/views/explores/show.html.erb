@@ -1,6 +1,6 @@
 <div id="tile_wall_explore">
   <section class="manage_section" id="channels">
-    <%= render partial: 'explores/channels' %>
+    <%= render partial: 'explores/channels', locals: { channels: Channel.display_channels } %>
   </section>
   <% TileFeature.ordered.each do |feature| %>
     <section class="manage_section channel_container" id="<%= feature.name %>" style="background:<%= feature.background_color %>">

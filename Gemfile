@@ -25,6 +25,9 @@ gem 'bson_ext'
 gem 'pundit'
 gem 'google_drive'
 gem 'time_difference'
+gem 'cache_digests'
+gem 'activerecord-collection_cache_key', git: 'https://github.com/weilandia/activerecord-collection_cache_key'
+
 
 gem 'jquery-rails'
 gem 'jquery-validation-rails'

@@ -1,13 +1,12 @@
 var Airbo = window.Airbo || {};
 
 Airbo.TileSharingMgr = (function(){
-  var tileStatusOff
-    , tileStatusOn
-    , sharableTileLink
-    , tileStatusOffSelector = ".tile_status .off"
-    , tileStatusOnSelector = ".tile_status .on"
-    , sharableTileLinkSelector = "#sharable_tile_link"
-  ;
+  var tileStatusOff,
+      tileStatusOn,
+      sharableTileLink,
+      tileStatusOffSelector = ".tile_status .off",
+      tileStatusOnSelector = ".tile_status .on",
+      sharableTileLinkSelector = "#sharable_tile_link";
 
   function initOnOffLinks(){
 

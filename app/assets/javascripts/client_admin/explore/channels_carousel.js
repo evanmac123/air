@@ -8,6 +8,7 @@ Airbo.ChannelsCarousel = (function(){
       cellAlign: 'center',
       contain: true,
       groupCells: true,
+      wrapAround: true
     });
 
     $carousel.on( 'staticClick.flickity', function( event, pointer, cellElement, cellIndex ) {

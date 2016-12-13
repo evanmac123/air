@@ -5,5 +5,6 @@ class ClientAdmin::ChannelsController < ClientAdminBaseController
 
   def show
     @channel = Channel.find(params[:id])
+    @display_channels = Channel.display_channels(@channel.id)
   end
 end
