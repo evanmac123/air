@@ -105,7 +105,7 @@ module Reporting
         #-------------------------------------------------------------------------
 
         kpi.percent_orgs_that_added_tiles = percent_of_orgs_that_added_tiles 
-        kpi.total_tiles_added_by_paid_client_admin = tiles_added_by_paid_client_admins #NOTE Extra !!!
+        kpi.total_tiles_added_by_paid_client_admin = total_tiles_added #NOTE Extra !!!
         kpi.unique_orgs_that_added_tiles = orgs_that_added_tiles #NOTE Extra !!!
         kpi.percent_of_added_tiles_from_copy = percent_of_tiles_added_from_copy
         kpi.percent_of_added_tiles_from_scratch = percent_of_tiles_added_created_from_scratch
@@ -121,7 +121,6 @@ module Reporting
         kpi.unique_orgs_that_copied_tiles = unique_orgs_that_copied_tiles
 
         kpi.unique_orgs_that_added_tiles = orgs_that_added_tiles
-        kpi.total_tiles_added_by_paid_client_admin = total_tiles_added
         kpi.total_tiles_added_from_copy_by_paid_client_admin = total_tiles_added_from_copy
         kpi.total_tiles_added_from_scratch_by_paid_client_admin = total_tiles_added_from_scratch
         kpi.percent_of_added_tiles_from_copy = percent_of_tiles_added_from_copy
