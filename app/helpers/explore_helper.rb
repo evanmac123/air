@@ -66,7 +66,7 @@ module ExploreHelper
       @section = "Community Tile"
     end
 
-    html_content = render_to_string partial: "explores/tiles", locals: { tiles: @more_tiles, tile_ids: @all_tiles.pluck(:id), section: @section }
+    html_content = render_to_string partial: "explore/tiles", locals: { tiles: @more_tiles, tile_ids: @all_tiles.pluck(:id), section: @section }
 
     render json: {
       htmlContent: html_content,
@@ -79,7 +79,7 @@ module ExploreHelper
     @more_campaigns = @campaigns
     @last_batch = @all_campaigns
 
-    html_content = render_to_string partial: "explores/campaign_block", locals: { campaigns: @more_campaigns }
+    html_content = render_to_string partial: "explore/campaign_block", locals: { campaigns: @more_campaigns }
 
     render json: {
       htmlContent: html_content,

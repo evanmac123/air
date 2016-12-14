@@ -1,14 +1,14 @@
 <div id="tile_wall_explore">
   <section class="manage_section" id="channels">
-    <%= render partial: 'explores/channels', locals: { channels: Channel.display_channels } %>
+    <%= render partial: 'explore/channels', locals: { channels: Channel.display_channels() } %>
   </section>
   <% TileFeature.ordered.each do |feature| %>
-    <%= render partial: 'explores/tile_feature', locals: { feature: feature } %>
+    <%= render partial: 'explore/tile_feature', locals: { feature: feature } %>
   <% end %>
   <section class="manage_section" id="campaign_boards">
-    <%= render partial: 'explores/campaigns' %>
+    <%= render partial: 'explore/campaigns' %>
   </section>
   <section class="manage_section" id="explore_tiles">
-    <%= render partial: 'explores/explore_tiles' %>
+    <%= render partial: 'explore/explore_tiles' %>
   </section>
 </div>

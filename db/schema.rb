@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161214191457) do
+ActiveRecord::Schema.define(:version => 20161214222511) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -162,9 +162,11 @@ ActiveRecord::Schema.define(:version => 20161214191457) do
     t.boolean  "active",                   :default => false
     t.datetime "created_at",                                  :null => false
     t.datetime "updated_at",                                  :null => false
+    t.string   "slug"
   end
 
   add_index "campaigns", ["demo_id"], :name => "index_campaigns_on_demo_id"
+  add_index "campaigns", ["slug"], :name => "index_campaigns_on_slug"
 
   create_table "channels", :force => true do |t|
     t.string   "name"
@@ -172,12 +174,13 @@ ActiveRecord::Schema.define(:version => 20161214191457) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
     t.string   "slug"
     t.boolean  "active"
     t.string   "description"
     t.string   "image_header"
+    t.integer  "rank",               :default => 0
   end
 
   add_index "channels", ["slug"], :name => "index_channels_on_slug"

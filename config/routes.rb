@@ -10,8 +10,6 @@ Health::Application.routes.draw do
   match "join"          => "signup_requests#new"
 
   # moved these to top level but don't want to break old links
-  match "client_admin/explore"     => "explores#show"
-  match "client_admin/explore_new" => "explores#show"
   match "ard/:public_slug" => "public_boards#show", :as => "public_board", :via => :get
   match "ard/:public_slug/activity" => "acts#index", :as => "public_activity", :via => :get
   match "ard/:public_slug/tiles" => "tiles#index", :as => "public_tiles", :via => :get
@@ -104,13 +102,15 @@ Health::Application.routes.draw do
 
 	resource :board_setting, only: [:show]
   resource :current_board, only: [:update]
-  resource :explore, only: [:show] do
-    resources :tile_previews, only: [:show], :path => "tile"
+
+  resource :explore, only: [:show], controller: :explore do
+    resources :tile_previews, only: [:show], path: "tile"
     resource :copy_tile, only: [:create]
-    member do
-      get 'tile_tag_show'
-    end
-    resources :topics, only: [:show]
+  end
+
+  namespace :explore do
+    resources :campaigns, only: [:show]
+    resources :channels, only: [:show]
   end
 
 
@@ -130,7 +130,6 @@ Health::Application.routes.draw do
   namespace :client_admin do
     resource :segmentation
 
-    resources :channels, only: [:show]
 
     resource :reports do
       post "/temporary_create", to: "reports#temporary_create"
@@ -197,13 +196,6 @@ Health::Application.routes.draw do
     resource :tiles_report, only: :show
 
     resources :public_boards, only: [:create, :destroy]
-    resource :explore, only: :show do
-      resources :campaigns, only: [:show]
-      member do
-        get 'tile_tag_show'
-        get 'tile_preview'
-      end
-    end
 
     resources :tile_tags, only: [:index] do
       collection do

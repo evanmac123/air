@@ -1,5 +1,6 @@
 class Channel < ActiveRecord::Base
   before_save :update_slug
+  validates :name, uniqueness: true, presence: true
 
   has_attached_file :image,
     {
@@ -8,9 +9,14 @@ class Channel < ActiveRecord::Base
     }
 
   scope :active, -> { where(active: true) }
+  scope :active_ordered, -> { active.order("channels.rank DESC") }
 
-  def self.display_channels(exclude_ids = nil)
-    exclude_ids ? sub_explore_channels(exclude_ids) : home_explore_channels
+  def self.display_channels(excluded_channels = 'explore')
+    active_ordered.where(Channel.arel_table[:slug].not_eq(excluded_channels))
+  end
+
+  def to_param
+    self.slug
   end
 
   def update_slug
@@ -20,14 +26,4 @@ class Channel < ActiveRecord::Base
   def tiles
     @tiles ||= Tile.copyable.tagged_with(self.name).uniq
   end
-
-  private
-
-    def sub_explore_channels(exclude_ids)
-      active.where(Channel.arel_table[:id].not_eq(exclude_ids))
-    end
-
-    def home_explore_channels
-      active.where(Channel.arel_table[:name].not_eq("Explore"))
-    end
 end
