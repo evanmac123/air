@@ -78,7 +78,6 @@ module Reporting
         ],
         "Planning" => [
           "percent_paid_orgs_view_tile_in_explore",
-          "paid_orgs_visited_explore",
           "total_tiles_viewed_in_explore_by_paid_orgs",
           "paid_client_admins_who_viewed_tiles_in_explore",
           "tiles_viewed_per_paid_client_admin"
@@ -199,13 +198,6 @@ module Reporting
           hint: "% of Paid Organizations that viewed a Tile in Airbo Explore",
           indent: 0,
           css: "hilite kpi-tooltip"
-        },
-        "paid_orgs_visited_explore" => {
-          label: "Customers",
-          type: "num",
-          hint: "# of paid organizations that accessed any part of Airbo Explore",
-          css: "kpi-tooltip",
-          indent: 1
         },
         "total_tiles_viewed_in_explore_by_paid_orgs" => {
           label: "Total Tile Views",
