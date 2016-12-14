@@ -11,7 +11,7 @@ class Channel < ActiveRecord::Base
   scope :active, -> { where(active: true) }
   scope :active_ordered, -> { active.order("channels.rank DESC") }
 
-  def self.display_channels(excluded_channels = 'explore')
+  def self.display_channels(excluded_channels = nil)
     active_ordered.where(Channel.arel_table[:slug].not_eq(excluded_channels))
   end
 

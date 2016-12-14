@@ -1,6 +1,6 @@
 <div id="tile_wall_explore">
   <section class="manage_section" id="channels">
-    <%= render partial: 'explore/channels', locals: { channels: Channel.display_channels() } %>
+    <%= render partial: 'explore/channels', locals: { channels: Channel.display_channels('explore') } %>
   </section>
   <% TileFeature.ordered.each do |feature| %>
     <%= render partial: 'explore/tile_feature', locals: { feature: feature } %>
