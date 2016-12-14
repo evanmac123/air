@@ -12,9 +12,9 @@ module Reporting
         "funnels"
       end
 
-      def get_avg_time
+      def get_avg_time(date =nil)
         run
-        @summary_by_date.values.first
+        date.nil? ? @summary_by_date.values.first : @summary_by_date[date]
       end
 
       def by_reporting_period

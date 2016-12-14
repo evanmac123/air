@@ -124,7 +124,7 @@ module Reporting
 
 
 
-        kpi.average_tiles_created_from_scratch_per_org_that_created = nil
+        kpi.average_tiles_created_from_scratch_per_org_that_created = average_tiles_created_from_scratch_per_org_that_created
         kpi.average_tile_creation_time = avg_tile_creation_time
         kpi.average_tiles_copied_per_org_that_copied = average_tiles_copied_per_org_that_copied
         kpi.average_tiles_posted_per_organization_that_posted = average_tiles_posted_per_organization_that_posted
@@ -292,12 +292,12 @@ module Reporting
     end
 
     def average_tiles_created_from_scratch_per_org_that_created
-      calc_avg(@tiles_created_from_scratch, @unique_orgs_that_created_tiles)
+      calc_avg(@tiles_created_from_scratch, @orgs_that_created_tiles_from_scratch)
     end
 
 
     def avg_tile_creation_time
-      @tile_creation_time = Reporting::Mixpanel::TileCreationFunnel.new(opts).get_avg_time
+      @avg_tile_creation_time = Reporting::Mixpanel::TileCreationFunnel.new(opts).get_avg_time(@start_interval)
     end
 
 
