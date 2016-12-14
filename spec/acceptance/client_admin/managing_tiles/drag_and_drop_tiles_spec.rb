@@ -40,11 +40,11 @@ feature 'Client admin drags and drops tiles' do
       tiles2.insert i2, tiles1.delete_at(i1)
       wait_for_ajax
 
-      section_tile_headlines("##{section1}").should == tiles1.map(&:headline)
-      section_tile_headlines("##{section2}").should == tiles2.map(&:headline)
+      expect(section_tile_headlines("##{section1}")).to eq(tiles1.map(&:headline))
+      expect(section_tile_headlines("##{section2}")).to eq(tiles2.map(&:headline))
 
-      demo.reload.send(:"#{section1}_tiles").should == tiles1
-      demo.reload.send(:"#{section2}_tiles").should == tiles2
+      expect(demo.reload.send(:"#{section1}_tiles")).to eq(tiles1)
+      expect(demo.reload.send(:"#{section2}_tiles")).to eq(tiles2)
     end
   end
 
@@ -101,34 +101,20 @@ feature 'Client admin drags and drops tiles' do
         @tiles2.insert @i2, @tiles1.delete_at(@i1)
         wait_for_ajax
 
-        section_tile_headlines("##{@section1}").should == @tiles1.map(&:headline)
-        section_tile_headlines("##{@section2}").should == @tiles2.map(&:headline)
+        expect(section_tile_headlines("##{@section1}")).to eq(@tiles1.map(&:headline))
+        expect(section_tile_headlines("##{@section2}")).to eq(@tiles2.map(&:headline))
 
-        demo.reload.send(:"#{@section1}_tiles").should == @tiles1
-        demo.reload.send(:"#{@section2}_tiles").should == @tiles2
+        expect(demo.reload.send(:"#{@section1}_tiles")).to eq(@tiles1)
+        expect(demo.reload.send(:"#{@section2}_tiles")).to eq(@tiles2)
       end
 
-      it "should show modal if tile has completions. should not save on canseling", js: true do
+      it "should show modal if tile has completions", js: true do
         FactoryGirl.create :tile_completion, user: admin, tile: @tiles1[@i1]
         visit current_path
         move_tile_between_sections @tiles1[@i1], @tiles2[@i2]
 
-        expect_content move_modal_text
-        within move_modal_selector do
-          click_link "Cancel"
-        end
-
-        wait_for_ajax
-        # nothing changes
-        section_tile_headlines("##{@section1}").should == @tiles1.map(&:headline)
-        section_tile_headlines("##{@section2}").should == @tiles2.map(&:headline)
-
-        demo.reload.send(:"#{@section1}_tiles").should == @tiles1
-        demo.reload.send(:"#{@section2}_tiles").should == @tiles2
+        expect(page).to have_content(move_modal_text)
       end
-
-      # should show modal if tile has completions. should save on confirming
-      # i can't test this scenario. sadly
     end
   end
 
@@ -138,11 +124,6 @@ feature 'Client admin drags and drops tiles' do
   end
 
   def move_modal_text
-    "Are you sure you want to re-use this Tile? Users who completed it before won't see it again. If you want to re-use the content, please create a new Tile."
+    "If you want to re-use the content, please create a new Tile."
   end
-
-  def move_modal_selector
-    ".move-tile-confirm"
-  end
-
 end

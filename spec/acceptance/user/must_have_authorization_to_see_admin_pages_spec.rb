@@ -34,7 +34,7 @@ feature 'User must have authorization to see admin pages' do
 
     it "can't go to site admin pages" do
       visit admin_path
-      should_be_on activity_path
+      should_be_on explore_path
     end
 
     it "has no nav link to site admin pages" do

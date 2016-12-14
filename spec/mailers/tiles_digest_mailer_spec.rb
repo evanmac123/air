@@ -308,8 +308,8 @@ describe '#notify_all_follow_up' do
 
       tile = FactoryGirl.create(:tile, demo: user.demo)
 
-     
-      follow_up = FactoryGirl.create :follow_up_digest_email, demo: user.demo, 
+
+      follow_up = FactoryGirl.create :follow_up_digest_email, demo: user.demo,
          tile_ids: [tile.id],send_on: Date.today, user_ids_to_deliver_to: [user.id]
 
       ActionMailer::Base.deliveries.clear
@@ -387,19 +387,6 @@ describe "#notify_one" do
     tile = FactoryGirl.create(:tile)
 
     TilesDigestMailer.notify_one(user.demo.id, user.id, [tile.id], 'New Tiles', false, nil, nil)
-
-    assert_received(TrackEvent, :ping) { |expect| expect.with("Email Sent", anything, anything) }
-  end
-end
-
-describe "#notify_one_explore" do
-  let(:user) {FactoryGirl.create(:user)}
-  let(:tile) {FactoryGirl.create(:tile)}
-
-  it "should schedule a ping that the mail has been sent" do
-    TrackEvent.stubs(:ping)
-
-    TilesDigestMailer.notify_one_explore(user.id, [tile.id], "subj", "head", "mess")
 
     assert_received(TrackEvent, :ping) { |expect| expect.with("Email Sent", anything, anything) }
   end

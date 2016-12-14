@@ -23,5 +23,5 @@ Airbo.CopyAlert = (function(){
   }
   return {
     open: open
-  }
+  };
 }());

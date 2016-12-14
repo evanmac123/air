@@ -47,7 +47,8 @@ describe ExploreDigestMailer do
       "defaults"=> {
         "subject"=>"Subject",
         "header"=>"Header",
-        "subheader"=>"Subheader"
+        "subheader"=>"Subheader",
+        "color"=>""
       },
       "features"=> {
         "1"=> {

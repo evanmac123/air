@@ -17,10 +17,4 @@ describe "shared/_guest_conversion_lightbox.html.haml" do
     render "shared/guest_conversion_lightbox", standard_locals
     rendered.should_not include(location_placeholder_text)
   end
-
-  it "should not display the location autocomplete if the board in question doesn't use it" do
-    demo_with_location = FactoryGirl.create(:demo, use_location_in_conversion: true)
-    render "shared/guest_conversion_lightbox", standard_locals.merge(demo: demo_with_location)
-    rendered.should include(location_placeholder_text)
-  end
 end

@@ -1,3 +1,5 @@
+<%= render 'shared/intercom' %>
+
 <%= render layout: "pages/landing/hero", locals:{hero_class: "", no_header: true } do %>
 <div class="text-center">
   <%= image_tag "landing/company/smiley_logo_white.png" %>
@@ -56,5 +58,6 @@
     </div>
   </div>
 </main>
-
-<%= render partial: "pages/landing/footer" %>
+<div class="landing-page-container v-08-01-2016">
+  <%= render 'footer' %>
+</div>

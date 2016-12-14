@@ -5,17 +5,30 @@
 @import './tile/tile_thumbnail/tiles_thumbnails_controls';
 @import './tile/tile_thumbnail/tiles_thumbnails_small_with_controls';
 @import './tile/tile_thumbnail/tiles_thumbnails_transition';
-@import 'channel';
+@import './mixins/channels';
 
 @import "mixins/green_paddle_switch";
 
-.client_admin-collections {
+.client_admin-campaigns, .client_admin-channels {
   .content {
-    background: $almost-white;
+    background: #fff;
+    padding: 0;
   }
 }
 
 body.explores, .explores {
+  .channel-row {
+    height: 100px;
+    .channels {
+      display: none;
+      @include channels;
+    }
+  }
+
+  .campaigns {
+    @include campaigns;
+    background: transparent;
+  }
 
   .explore-headers {
     font-size: 25px;
@@ -25,7 +38,7 @@ body.explores, .explores {
   }
 
   .explore-breadcrumbs {
-    background: #fefefe;
+    background: #fff;
     padding: 0 0 0 65px;
     a, span, .spacer {
       font-size: 18px;
@@ -46,7 +59,7 @@ body.explores, .explores {
     margin: 25px 0 30px 20px;
   }
 
-  #collection_title {
+  #campaign_title {
     a {
       font-size: 40px;
       color: $darker-gray;
@@ -61,7 +74,7 @@ body.explores, .explores {
     text-align: center;
     margin-top: 20px;
     margin-bottom: 40px;
-    .show_more_tiles, .show_more_collections {
+    .show_more_tiles, .show_more_campaigns {
       width: 140px;
       &[disabled] {
         display: none;
@@ -103,14 +116,14 @@ body.explores, .explores {
   }
 
   .core {
-    background: $almost-white;
+    background: #fff;
   }
   .content {
-    background: $almost-white;
+    background: #fff;
     padding: 0;
   }
   #footer {
-    background: $almost-white;
+    background: #fff;
   }
 
   .manage_section {
@@ -135,8 +148,8 @@ body.explores, .explores {
     }
   }
 
-  .channel_container, #collection_boards, #explore_tiles {
-    background: $almost-white;
+  .channel_container, #campaign_boards, #explore_tiles {
+    background: #fff;
     padding: 2em 0 0 0;
   }
 
@@ -148,7 +161,7 @@ body.explores, .explores {
     }
   }
 
-  #collection_boards {
+  #campaign_boards {
     box-shadow: 0px 1px 6px 1.2px $med-gray;
     z-index: 1;
   }
@@ -160,7 +173,7 @@ body.explores, .explores {
   //
 
   #explore_tiles {
-    background: $almost-white;
+    background: #fff;
     padding-top: 21px;
     #verified {
       margin-left: 6px;
@@ -199,7 +212,7 @@ body.explores, .explores {
     margin-bottom: 0;
   }
 
-  .collection-description {
+  .campaign-description {
     h4 {
       color: $darker-gray;
       padding: 0 18px;

@@ -9,7 +9,7 @@ Airbo.ShowMoreContent = (function() {
         path: self.data("tile-path"),
         type: self.data("tile-type"),
         tileOffset: self.data("tile-count"),
-        collectionOffset: null,
+        campaignOffset: null,
         contentType: self.data('contentType'),
         targetSelector: self.data('target-selector'),
         disabled: self.attr('disabled'),
@@ -22,20 +22,20 @@ Airbo.ShowMoreContent = (function() {
     });
   }
 
-  function initMoreCollections(selector) {
+  function initMoreCampaigns(selector) {
     $(selector).one("click", function(e) {
       e.preventDefault();
       var self = $(this);
       var attrs = {
-        path: self.data("collection-path"),
-        type: "collection",
+        path: self.data("campaign-path"),
+        type: "campaign",
         tileOffset: null,
-        collectionOffset: self.data("collection-count"),
+        campaignOffset: self.data("campaign-count"),
         contentType: self.data('contentType'),
         targetSelector: self.data('target-selector'),
         disabled: self.attr('disabled'),
-        downArrowSelector: '.show_more_collections_copy',
-        spinnerSelector: '.show_more_collections_spinner',
+        downArrowSelector: '.show_more_campaigns_copy',
+        spinnerSelector: '.show_more_campaigns_spinner',
         updateMethod: 'append'
       };
 
@@ -47,7 +47,7 @@ Airbo.ShowMoreContent = (function() {
     $(attrs.downArrowSelector).hide();
     $(attrs.spinnerSelector).show();
 
-    $.get(attrs.path, { tile_offset: attrs.tileOffset, collection_offset: attrs.collectionOffset, partial_only: 'true', content_type: attrs.type }, (function(data) {
+    $.get(attrs.path, { tile_offset: attrs.tileOffset, campaign_offset: attrs.campaignOffset, partial_only: 'true', content_type: attrs.type }, (function(data) {
       var content = data.htmlContent || data;
       $(attrs.spinnerSelector).hide();
       $(attrs.downArrowSelector).show();
@@ -72,21 +72,21 @@ Airbo.ShowMoreContent = (function() {
   function updateOffsets(self, attrs, data) {
     if (attrs.tileOffset) {
       self.data().tileCount += data.objectCount;
-    } else if (attrs.collectionOffset) {
-      self.data().collectionCount += data.objectCount;
+    } else if (attrs.campaignOffset) {
+      self.data().campaignCount += data.objectCount;
     }
   }
 
   function resetBindings() {
-    $(".explore_show_more_collections").unbind();
+    $(".explore_show_more_campaigns").unbind();
     $(".explore_show_more_tiles").unbind();
-    initMoreCollections(".explore_show_more_collections");
+    initMoreCampaigns(".explore_show_more_campaigns");
     initMoreTiles(".explore_show_more_tiles");
   }
 
   function initEvents() {
     initMoreTiles(".explore_show_more_tiles");
-    initMoreCollections(".explore_show_more_collections");
+    initMoreCampaigns(".explore_show_more_campaigns");
   }
 
   function init() {

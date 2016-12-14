@@ -1,0 +1,14 @@
+<%= link_to path, class: "campaign", data: {name: board.name, id: board.id } do %>
+  <div class="campaign-cell" style="background-image: url('<%= board.topic_board.cover_image.url || board.cover_image.url %>')">
+    <div class="campaign_shadow_overlay"></div>
+    <div class="campaign_overlay"></div>
+    <section class="board-name">
+      <h3 class="title"><%= board.topic_board.topic_name %></h3>
+    </section>
+    <section class="cover-footer">
+      <div class="num-tiles subtitle">
+        <%="#{board.tiles.copyable.active.count} Tiles"%>
+      </div>
+    </section>
+  </div>
+<% end %>

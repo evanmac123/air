@@ -112,7 +112,7 @@ class MockS3
     mock_s3 = MockS3.install
     mock_s3.mount_file(object_key, uploaded_path, 50)
 
-    Redis.new.flushdb
+    $redis.flushdb
     object_key
   end
 

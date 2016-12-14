@@ -1,3 +1,4 @@
+<%= render 'shared/intercom' %>
 <%= render layout: "pages/landing/hero", locals: { no_header: true }  do %>
   <h1 class="white text-center">American-Speech-Language-Hearing Association (ASHA)</h1>
 <% end %>
@@ -54,7 +55,7 @@
 
 <div class="row">
   <div class="large-8 large-centered columns">
-    <h3> Getting Employess The Information They Need </h3>
+    <h3> Getting Employees The Information They Need </h3>
     <p>
     Janet McNichol, Director of Human Resources at the American Speech-Language-Hearing Association (ASHA), needed to find new ways to capture the attention of more than 280 busy employees ranging from administrative staff to PhD-holding professionals. Communications were already being posted to ASHA’s intranet, Facebook, Janet’s blog Inside Workplace Wellness, and sent in weekly emails.
     </p>
@@ -109,5 +110,6 @@
 
   </div>
 </div>
-
-<%= render partial: "pages/landing/footer" %>
+<div class="landing-page-container v-08-01-2016">
+  <%= render 'footer' %>
+</div>

@@ -40,7 +40,7 @@ Airbo.SiteAdminInitializer = ( function(){
       formatSubmit: "yyyy-mm-dd",
       format: "mmm dd, yyyy",
       container: ".custom-date-range"
-    })
+    });
   }
 
   function initJQueryDatePicker(){
@@ -62,13 +62,13 @@ Airbo.SiteAdminInitializer = ( function(){
     initBoardsAndOrgs();
     initKpiTooltips();
     initPickadate();
-    initZurbFoundation()
+    initZurbFoundation();
   }
 
 
   return {
    init: init
-  }
+ };
 
 })();
 
@@ -77,4 +77,3 @@ Airbo.SiteAdminInitializer = ( function(){
 $(function(){
   Airbo.SiteAdminInitializer.init();
 });
-

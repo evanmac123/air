@@ -81,7 +81,7 @@ class BoardsController < ApplicationController
   def render_success
     respond_to do |format|
       format.json { render json: {status: 'success'} }
-      format.html { redirect_to post_creation_path }
+      format.html { redirect_to explore_path }
     end
   end
 
@@ -104,10 +104,6 @@ class BoardsController < ApplicationController
         end
       end
     end
-  end
-
-  def post_creation_path
-    LIBRARY_ENABLED=="true" ? client_admin_stock_boards_path : client_admin_explore_path
   end
 
   def find_current_board

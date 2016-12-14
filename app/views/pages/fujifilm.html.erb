@@ -1,3 +1,4 @@
+<%= render 'shared/intercom' %>
 <%= render layout: "pages/landing/hero", locals: { no_header: true } do %>
   <h1 class="white text-center">Fujifilm Case Study</h1>
 <% end %>
@@ -153,5 +154,6 @@
     </table>
   </div>
 </div>
-
-<%= render partial: "pages/landing/footer" %>
+<div class="landing-page-container v-08-01-2016">
+  <%= render 'footer' %>
+</div>

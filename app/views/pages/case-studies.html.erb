@@ -1,7 +1,9 @@
-<%= render layout: "pages/landing/hero", locals: {no_shadow: true, no_header: true, hero_class: ""} do %>
+<%= render 'shared/intercom' %>
+<%= render layout: "pages/landing/hero", locals: {no_shadow: false, no_header: true, hero_class: ""} do %>
   <h1 class="white text-center" >Case Studies</h1>
 <% end %>
-
+<br>
+<br>
 <div class="row case_study">
   <div class="large-6 columns">
     <%=image_tag "case_studies/fujifilm_mainpic.png" %>
@@ -16,7 +18,7 @@
     </p>
   </div>
 </div>
-
+<br>
 <div class="row case_study">
   <div class="large-6 columns">
     <%=image_tag "landing/case-studies/janet_mcnichol.jpg" %>
@@ -31,5 +33,7 @@
     <p>
   </div>
 </div>
-
-<%= render partial: "pages/landing/footer" %>
+<br>
+<div class="landing-page-container v-08-01-2016">
+  <%= render 'footer' %>
+</div>
