@@ -64,3 +64,4 @@ rspec.log.txt
 rspec.failures
 rspec.history
 .tmp_prod_mixpanel
+.tmp_prod_env

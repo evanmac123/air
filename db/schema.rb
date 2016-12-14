@@ -274,8 +274,8 @@ ActiveRecord::Schema.define(:version => 20161213184102) do
     t.float    "percent_retained_post_activation_60_days"
     t.float    "percent_retained_post_activation_120_days"
     t.float    "average_tile_creation_time"
-    t.datetime "created_at",                                          :null => false
-    t.datetime "updated_at",                                          :null => false
+    t.datetime "created_at",                                              :null => false
+    t.datetime "updated_at",                                              :null => false
     t.date     "report_date"
     t.date     "from_date"
     t.date     "to_date"
@@ -293,6 +293,8 @@ ActiveRecord::Schema.define(:version => 20161213184102) do
     t.float    "percent_of_added_tiles_from_scratch"
     t.integer  "unique_orgs_that_added_tiles"
     t.float    "percent_orgs_that_added_tiles"
+    t.integer  "orgs_that_created_tiles_from_scratch"
+    t.integer  "average_tiles_created_from_scratch_per_org_that_created"
   end
 
   create_table "custom_color_palettes", :force => true do |t|

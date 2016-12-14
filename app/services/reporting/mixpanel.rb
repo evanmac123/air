@@ -16,10 +16,11 @@ module Reporting
         end
       end
 
-      def get_count
+      def get_count date=nil
         run
-        @summary_by_date.values.first
+        date.nil? ? @summary_by_date.values.first : @summary_by_date[date]
       end
+
     end
 
     module MixpanelSegmentedResult
@@ -32,23 +33,24 @@ module Reporting
       end
 
       #TODO is there a more elegant way to do this
-      def get_count
+      def get_count date = nil
         run
-        @summary_by_date.values.first.keys.count
+        data = date.nil? ?  @summary_by_date.values.first : @summary_by_date[date]
+        data.select{|k,v| v>0}.count
       end
 
-      def get_count_by_segment(segment)
+      def get_count_by_segment(segment, date = nil)
         run
-        results_by_segment[segment]
+        results_by_segment(date)[segment]
       end
 
-      def sum
+      def sum date=nil
         run
-        results_by_segment.values.sum
+        results_by_segment(date).values.sum
       end
 
-      def results_by_segment
-        @summary_by_date.values.first
+      def results_by_segment date=nil
+        date.nil?  ? @summary_by_date.values.first : @summary_by_date[date]
       end
 
     end
