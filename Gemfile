@@ -63,7 +63,6 @@ gem 'acts-as-taggable-on', '~> 3.5.0'
 #redis + caching
 gem 'redis'
 gem 'redis-rails'
-gem 'redis-rack-cache'
 gem 'nest'
 
 gem 'roo'

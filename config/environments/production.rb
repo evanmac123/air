@@ -26,10 +26,6 @@ Health::Application.configure do
 
   # Use a different cache store in production
   # config.cache_store = :mem_cache_store
-  config.action_dispatch.rack_cache = {
-    metastore: "#{ENV['REDIS_CACHE']}/metastore",
-    entitystore: "#{ENV['REDIS_CACHE']}/entitystore"
-  }
 
   # Disable Rails's static asset server
   # In production, Apache or nginx will already do this
