@@ -16,6 +16,13 @@ Airbo.ChannelsCarousel = (function(){
 
     $carousel.on( 'staticClick.flickity', function( event, pointer, cellElement, cellIndex ) {
       var id = $(cellElement).data("id");
+      var name = $(cellElement).data("name");
+      var currentUserData = $("body").data("currentUser");
+
+      var properties = $.extend({ action: "Clicked Channel", channel: name }, currentUserData);
+
+      Airbo.Utils.ping("Explore page - Interaction", properties);
+
       window.location = "/client_admin/channels/" + id;
     });
   }
