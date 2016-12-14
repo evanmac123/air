@@ -10,7 +10,7 @@ class Channel < ActiveRecord::Base
   scope :active, -> { where(active: true) }
 
   def self.display_channels(exclude_ids = nil)
-    exclude_ids ? active.where(Channel.arel_table[:id].not_eq(exclude_ids)) : active
+    exclude_ids ? sub_explore_channels(exclude_ids) : home_explore_channels
   end
 
   def update_slug
@@ -20,4 +20,14 @@ class Channel < ActiveRecord::Base
   def tiles
     @tiles ||= Tile.copyable.tagged_with(self.name).uniq
   end
+
+  private
+
+    def sub_explore_channels(exclude_ids)
+      active.where(Channel.arel_table[:id].not_eq(exclude_ids))
+    end
+
+    def home_explore_channels
+      active.where(Channel.arel_table[:name].not_eq("Explore"))
+    end
 end
