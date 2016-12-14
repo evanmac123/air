@@ -9,14 +9,17 @@
         <br>
         <div class="row image-row">
           <div class="large-6 columns">
-            <%= f.label :name, "Name" %>
+            <%= f.label :name, "Channel Name" %>
             <%= f.text_field :name, placeholder: "Wellness" %>
+
+            <%= f.label :image_header, "Image Header" %>
+            <%= f.text_field :image_header, placeholder: "Financial" %>
           </div>
           <div class="large-3 large-offset-3 columns channel-image-container" style="background-image: url('<%= channel.image.url(:explore) %>')">
               <% if channel.image.exists? %>
                   <div class="channel_shadow_overlay"></div>
                   <div class="channel_overlay"></div>
-                  <h3 class="name"><%= channel.name  %></h3>
+                  <h3 class="name"><%= channel.image_header  %></h3>
               <% end %>
           </div>
         </div>

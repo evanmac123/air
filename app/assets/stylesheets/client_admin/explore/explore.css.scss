@@ -25,6 +25,13 @@ body.explores, .explores {
     }
   }
 
+  .explore-sub-page-header {
+    font-size: 40px;
+    color: $darker-gray;
+    font-weight: 800;
+    border-bottom: 3px solid #48bfff;
+  }
+
   .campaigns {
     @include campaigns;
     background: transparent;

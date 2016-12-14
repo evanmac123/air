@@ -36,6 +36,7 @@ class Admin::OrganizationsController < AdminBaseController
     if @organization.save
       user = @organization.users.first
       board = @organization.boards.first
+      copy_tiles_to_board(board)
       link_board_and_user(user, board)
       current_user.move_to_new_demo(board)
       flash[:success] = "Invitation URL for #{user.name}: #{ invitation_url(user.invitation_code)}"
@@ -68,5 +69,11 @@ class Admin::OrganizationsController < AdminBaseController
 
   def link_board_and_user(user, board)
     user.board_memberships.create(demo: board)
+  end
+
+  def copy_tiles_to_board(board)
+    unless params[:copy_board].empty?
+      CopyBoard.new(board, Demo.find(params[:copy_board])).copy_active_tiles_from_board
+    end
   end
 end
