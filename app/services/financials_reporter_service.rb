@@ -243,7 +243,7 @@ class FinancialsReporterService
         } ,
         "percent_churned_mrr" => {
           label: "MRR",
-          type: "pct",
+          type: "pct 0",
           indent: 1
         } ,
         "net_churned_mrr" => {
