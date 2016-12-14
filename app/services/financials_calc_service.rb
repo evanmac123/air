@@ -125,7 +125,7 @@ class FinancialsCalcService
   end
 
   def net_churned_mrr
-    starting_mrr == 0 ? 0 : (upgrade_mrr - churned_mrr)/starting_mrr
+    possible_churn_mrr == 0 ? 0 : (upgrade_mrr - churned_mrr)/possible_churn_mrr
   end
 
   def percent_churned_mrr
