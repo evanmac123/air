@@ -2,10 +2,10 @@
   <div class="channels flickity-channels-carousel">
     <% channels.each do |channel| %>
       <% cache channel do %>
-        <div class="carousel-cell channel-image-container" style="background-image: url('<%= channel.image.url(:explore) %>')" data-id="<%= channel.id %>">
+        <div class="carousel-cell channel-image-container" style="background-image: url('<%= channel.image.url(:explore) %>')" data-id="<%= channel.id %>" data-name="<%= channel.name %>">
           <div class="channel_shadow_overlay"></div>
           <div class="channel_overlay"></div>
-          <h3 class="name"><%= channel.name  %></h3>
+          <h3 class="name"><%= channel.image_header  %></h3>
         </div>
       <% end %>
     <% end %>
