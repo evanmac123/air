@@ -1,13 +1,12 @@
 var Airbo = window.Airbo || {};
 
 Airbo.TileSharingMgr = (function(){
-  var tileStatusOff
-    , tileStatusOn
-    , sharableTileLink
-    , tileStatusOffSelector = ".tile_status .off"
-    , tileStatusOnSelector = ".tile_status .on"
-    , sharableTileLinkSelector = "#sharable_tile_link"
-  ;
+  var tileStatusOff,
+      tileStatusOn,
+      sharableTileLink,
+      tileStatusOffSelector = ".tile_status .off",
+      tileStatusOnSelector = ".tile_status .on",
+      sharableTileLinkSelector = "#sharable_tile_link";
 
   function initOnOffLinks(){
 
@@ -47,9 +46,8 @@ Airbo.TileSharingMgr = (function(){
     });
 
     $(".share_via_explore").click(function() {
-      var selector = ".share_options"
-        , shareOptions = $(selector)
-      ;
+      var selector = ".share_options",
+          shareOptions = $(selector);
 
       sendTileSharedPing("Explore");
       turnOnSharableTile();

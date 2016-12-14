@@ -1,0 +1,10 @@
+<div class="show-more-content-div">
+  <div class="more_campaigns_button">
+    <%= link_to '#', class: 'explore_show_more_campaigns show_more_campaigns button', data: { 'campaign-path' => path_for_more_campaigns, 'campaign-count' => campaign_count, 'target-selector' => target_selector }, disabled: all_campaigns_displayed do %>
+      <span class="show_more_campaigns_copy">
+        More <i class="fa fa-angle-down" aria-hidden="true" id="show_more_campaigns_down_arrow"></i>
+      </span>
+      <i class="fa fa-spinner fa-spin fa-fw show_more_campaigns_spinner", style="display: none"></i>
+    <%end%>
+  </div>
+</div>

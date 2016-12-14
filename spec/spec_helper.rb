@@ -25,9 +25,9 @@ Capybara.register_driver :poltergeist_debug do |app|
   Capybara::Poltergeist::Driver.new(app, inspector: true)
 end
 
-# Capybara.register_driver :poltergeist do |app|
-#   Capybara::Poltergeist::Driver.new(app, {js_errors: false})
-# end
+Capybara.register_driver :poltergeist do |app|
+  Capybara::Poltergeist::Driver.new(app, { js_errors: false })
+end
 
 Capybara.javascript_driver = :poltergeist
 # Capybara.javascript_driver = :poltergeist_debug
@@ -70,7 +70,7 @@ RSpec.configure do |config|
   end
 
   config.after(:suite) do
-   FileUtils.rm_rf "#{LOCAL_FILE_ATTACHMENT_BASE_PATH}/test"
+   FileUtils.rm_rf "#{Rails.root}/public/system/test"
   end
 end
 

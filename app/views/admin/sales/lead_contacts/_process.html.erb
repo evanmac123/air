@@ -54,9 +54,9 @@
         </legend>
         <div class="row padded-v-20">
           <div class="columns small-12 small-centered">
-              <% @stock_boards.each do |board| %>
+              <% @campaigns.each do |board| %>
               <div class="row ">
-                <div class="columns small-10 medium-6 stock_boards">
+                <div class="columns small-10 medium-6 campaigns">
                   <div class="topic_cell" data-board-name="<%= board.name %>" data-board-id="<%= board.id %>">
                     <section class="board-name">
                       <h3 class="title">
@@ -65,9 +65,9 @@
                     </section>
                   </div>
                 </div>
-                <div class="columns small-2 preview-stock-board">
+                <div class="columns small-2 preview-campaign">
                   <span class="preview">
-                    <%= link_to "preview", stock_board_path(library_slug: board.public_slug), target: "_blank" %>
+                    <%= link_to "preview", public_board_path(public_slug: board.public_slug), target: "_blank" %>
                   </span>
                 </div>
               </div>

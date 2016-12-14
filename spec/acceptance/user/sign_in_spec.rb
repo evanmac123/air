@@ -35,18 +35,18 @@ feature 'Sign in' do
   scenario "redirects to the activity page" do
     try_login_with user.email, "foobar"
 
-    should_be_on activity_path(format: 'html')
+    should_be_on activity_path
   end
 
   scenario "Signing in is case insensitive" do
-    user.email.capitalize.should_not == user.email
+    expect(user.email.capitalize).to_not eq(user.email)
     try_login_with user.email.capitalize, "foobar"
     should_be_signed_in
   end
 
   scenario "with SMS slug a.k.a username, case-insensitively" do
     user.sms_slug.should be_present
-    user.sms_slug.capitalize.should_not == user.sms_slug
+    expect(user.sms_slug.capitalize).to_not eq(user.sms_slug)
 
     try_login_with user.sms_slug, "foobar"
     should_be_signed_in

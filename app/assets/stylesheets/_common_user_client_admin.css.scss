@@ -1,5 +1,5 @@
 @import "font-awesome";
-@import "./mixins/board_topics.css.scss";
+@import "./mixins/campaigns.css.scss";
 @import "./mixins/main_styles.css.scss";
 @import "./internal/flash.css.scss";
 @import "./internal/mast.css.scss";
@@ -30,7 +30,7 @@
   @import "./internal/screen_desktop.css.scss";
   @import "./internal/large_tile_viewer_desktop.css.scss";
   @import "./internal/board_settings_desktop.css.scss";
-  
+
 }
 @media only screen and (min-width: $mid-desktop) {
   @import "./internal/screen_large.css.scss";

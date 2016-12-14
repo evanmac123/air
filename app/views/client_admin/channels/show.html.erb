@@ -1,0 +1,47 @@
+<% cache @channel do %>
+  <div class="explores" data-channel-id="<%= @channel.id %>">
+    <div id="tile_wall_explore">
+      <section class="manage_section" id="channels">
+        <% cache @display_channels do %>
+          <%= render partial: 'explores/channels', locals: { channels: @display_channels } %>
+        <% end %>
+      </section>
+      <section class="manage_section" id="explore_tiles">
+        <div class="row explore-tiles-tabs">
+          <div class="explore-tiles-titles small-12 columns">
+            <ul class="tabs">
+              <li id="campaign_title">
+                <a href="#" class="explore_tiles_tab"><%= @channel.name %></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <section class="campaign-description">
+          <div class="row collapse" >
+            <div class="columns small-12">
+              <h4><%= @channel.description %></h4>
+            </div>
+          </div>
+        </section>
+        <div class="row">
+          <div class="columns large-12">
+            <div id="copy-all-tiles-button" class="button">
+              Copy all Tiles
+            </div>
+          </div>
+        </div>
+        <div class="manage_section explore_tiles_section" id="verified_tiles">
+          <div class="row">
+            <div class="large-12 columns">
+              <div class="tile_wall_explore">
+                <% cache @channel.tiles do %>
+                  <%= render partial: 'explores/tiles', locals: {tiles: @channel.tiles, tile_ids: @channel.tiles.pluck(:id), section: "Channel" } %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+<% end %>

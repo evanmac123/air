@@ -4,8 +4,7 @@
 *= require medium-editor/medium-editor
 *= require medium-editor/themes/default
 *= require sweetalert
-*= require slick-carousel/slick/slick.scss
-*= require slick-carousel/slick/slick-theme.scss
+*= require flickity.min.css
 *= require introjs.min
 *= require jquery-ui/jquery-ui-1.8.10.custom
 */
@@ -33,7 +32,6 @@ styles changes haven't broken anything.
 @import "./client_admin/board_settings.css.scss";
 @import "./tile/tile_preview/arrows.scss";
 @import "./tile/tile_stats/tile_stats.css.scss";
-@import "./vendor_customization/slick-carousel.scss";
 @import "./client_admin/explore/explore.css.scss";
 @import "./client_admin/explore/tile_tag_show.scss";
 @import "./client_admin/explore/explore_intro";

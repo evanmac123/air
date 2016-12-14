@@ -19,9 +19,13 @@ class TilePublicForm
     save_tile if valid?
   end
 
+  def channels
+    @tile.channels
+  end
+
   def tile_tags
     @tile_tags ||= begin
-      tile_tag_ids = (@parameters && @parameters[:tile_tag_ids] && @parameters[:tile_tag_ids].split(',')) || 
+      tile_tag_ids = (@parameters && @parameters[:tile_tag_ids] && @parameters[:tile_tag_ids].split(',')) ||
         (@tile && @tile.tile_taggings.map(&:tile_tag_id)) || []
       TileTag.where(id: tile_tag_ids)
     end
@@ -50,9 +54,9 @@ class TilePublicForm
   end
 
   def save_tile
-    Tile.transaction do 
+    Tile.transaction do
       if tile.save(context: :client_admin) && tile_became_public
-        Tile.reorder_explore_page_tiles!([tile.id]) 
+        Tile.reorder_explore_page_tiles!([tile.id])
       end
     end
   end
@@ -63,7 +67,7 @@ class TilePublicForm
   end
 
   def tile_tag_ids
-    @tile_tag_ids ||= (@parameters && @parameters[:tile_tag_ids] && @parameters[:tile_tag_ids]) || 
+    @tile_tag_ids ||= (@parameters && @parameters[:tile_tag_ids] && @parameters[:tile_tag_ids]) ||
       (@tile && @tile.tile_taggings.map(&:tile_tag_id).join(',')) || ''
   end
 
@@ -74,7 +78,7 @@ class TilePublicForm
       new_tile_tag_ids = tile_tag_ids
       if tile.persisted?
         existing_tile_tag_ids = @tile.tile_taggings.map(&:tile_tag_id)
-        new_tile_tag_ids = tile_tag_ids - existing_tile_tag_ids                    
+        new_tile_tag_ids = tile_tag_ids - existing_tile_tag_ids
       end
 
       #only keep the new and non-removed tile taggings
@@ -83,14 +87,14 @@ class TilePublicForm
         associated_tile_taggings << tile.tile_taggings.build(tile_tag_id: tile_tag_id)
       end
       tile.tile_taggings = associated_tile_taggings
-    else 
+    else
       tile.tile_taggings = []
-    end      
+    end
   end
 
   def main_objects_all_valid
-    if tile.is_public? && 
-        tile.tile_taggings.size < 1 && 
+    if tile.is_public? &&
+        tile.tile_taggings.size < 1 &&
         tile.tile_tags.size < 1
       errors.add(:base, 'at least one tag must exist for public tile')
     end

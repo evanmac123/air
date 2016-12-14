@@ -1,4 +1,14 @@
-@import './client_admin/explore/channel';
+@import './mixins/channels';
+
+.admin-table {
+  th {
+    text-align: left;
+  }
+}
+
+.channels {
+  @include channels;
+}
 
 #admin-layout-wrapper {
   margin-bottom: 200px;

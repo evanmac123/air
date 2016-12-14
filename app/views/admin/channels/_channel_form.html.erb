@@ -17,10 +17,6 @@
                   <div class="channel_shadow_overlay"></div>
                   <div class="channel_overlay"></div>
                   <h3 class="name"><%= channel.name  %></h3>
-              <% else %>
-                <div class="channel-placeholder", style="border: 1px dotted #bfbfbf;height:90px;width:170px">
-
-                </div>
               <% end %>
           </div>
         </div>
@@ -28,6 +24,12 @@
           <div class="small-6 columns">
             <%= f.label :image, "Image"  %>
             <%= f.file_field :image, { id:"file_input" } %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-6 columns">
+            <%= f.label :description, "Description"  %>
+            <%= f.text_area :description %>
           </div>
         </div>
         <div class="row">

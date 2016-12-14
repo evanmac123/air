@@ -1,12 +1,7 @@
 require 'spec_helper'
 
 describe BulkLoad::UserRetainer do
-  let(:redis) {Redis.new}
   let(:object_key) {"some_file.csv"}
-
-  before do
-    Redis.new.flushdb
-  end
 
   describe "#retain_user" do
     it "should easily let you remove a user from the set to be removed" do

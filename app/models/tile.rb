@@ -27,6 +27,7 @@ class Tile < ActiveRecord::Base
   INVITE_SPOUSE         = "Invite Spouse".parameterize("_").freeze
   CHANGE_EMAIL         = "Change Email".parameterize("_").freeze
 
+  acts_as_taggable_on :channels
 
   belongs_to :demo
   belongs_to :creator, class_name: 'User'
@@ -42,7 +43,6 @@ class Tile < ActiveRecord::Base
   has_many :tile_viewings, dependent: :destroy
   has_many :user_viewers, through: :tile_viewings, source: :user, source_type: 'User'
   has_many :guest_user_viewers, through: :tile_viewings, source: :user, source_type: 'GuestUser'
-  has_one :recommended_tile
 
   has_alphabetical_column :headline
 
@@ -84,12 +84,6 @@ class Tile < ActiveRecord::Base
   scope :digest, ->(demo, cutoff_time) { cutoff_time.nil? ? active : active.where("activated_at > ?", cutoff_time) }
   scope :viewable_in_public, -> { where(is_public: true, status: [Tile::ACTIVE, Tile::ARCHIVE]) }
   scope :copyable, -> { viewable_in_public.where(is_copyable: true) }
-  scope :tagged_with, ->(tag_id) do
-    if tag_id.present?
-      tagged_tile_ids = TileTagging.where(tile_tag_id: tag_id).pluck(:tile_id)
-      where(id: tagged_tile_ids)
-    end
-  end
   scope :ordered_for_explore, -> { order("explore_page_priority DESC NULLS LAST").order("id DESC") }
   scope :ordered_by_position, -> { order "position DESC" }
 
@@ -191,8 +185,6 @@ class Tile < ActiveRecord::Base
     CopyTile.new(new_demo, copying_user).copy_tile self
   end
 
-
-
   def find_new_first_position
     Tile.where(demo: self.demo, status: self.status).maximum(:position).to_i + 1
   end
@@ -202,11 +194,7 @@ class Tile < ActiveRecord::Base
   end
 
   def self.featured_tile_ids
-    (TileFeature.active.map(&:tile_ids) + recommended.pluck(:id)).flatten
-  end
-
-  def self.recommended
-    joins(:recommended_tile).order(recommended_tile: :created_at)
+    TileFeature.active.flat_map(&:tile_ids).compact
   end
 
   def self.verified_explore
@@ -236,13 +224,6 @@ class Tile < ActiveRecord::Base
     ids_completed = user.tile_completions.map(&:tile_id)
     satisfiable_tiles = tiles_due_in_demo.reject {|t| ids_completed.include? t.id}
     satisfiable_tiles.sort_by(&:position).reverse
-  end
-
-  def self.next_public_tile tile_id, offset, tag_id
-    tiles = Tile.viewable_in_public.ordered_for_explore.tagged_with(tag_id)
-    tile = Tile.viewable_in_public.where(id: tile_id).first
-    next_tile = tiles[tiles.index(tile) + offset] || tiles.first # if index out of length
-    next_tile || tile # i.e. we have only one tile so next tile is nil
   end
 
   def self.next_manage_tile tile, offset, carousel = true
@@ -312,14 +293,9 @@ class Tile < ActiveRecord::Base
     @activated_at_reset_allowed == true
   end
 
-  def recommended?
-   recommended_tile.present?
-  end
-
   def set_on_first_position
     self.position = find_new_first_position
   end
-
 
   def ensure_protocol_on_link_address
     return unless link_address_changed?

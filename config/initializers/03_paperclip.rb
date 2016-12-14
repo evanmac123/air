@@ -40,7 +40,6 @@ when 'test',  'development'
   Paperclip::Attachment.default_options.merge!(
     {
       url: "/system/:rails_env/:class/:attachment/:id/:style/:filename",
-      default_url: ":rails_root/assets/images/airbo_character_hi.png"
     }
   )
 

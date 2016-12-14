@@ -222,8 +222,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def should_show_submitted_tile_intro?
-     val = !current_user.user_submitted_tile_intro_seen && @submitteds.any? 
-     val = val && !@show_suggestion_box_intro && params[:user_submitted_tile_intro] 
+     val = !current_user.user_submitted_tile_intro_seen && @submitteds.any?
+     val = val && !@show_suggestion_box_intro && params[:user_submitted_tile_intro]
 
      if val
        current_user.user_submitted_tile_intro_seen = true

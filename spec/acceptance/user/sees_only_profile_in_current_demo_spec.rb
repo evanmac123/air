@@ -5,11 +5,11 @@ feature "User Sees Only Profile In Current Demo" do
     @user1 = FactoryGirl.create :claimed_user
     @user2 = FactoryGirl.create :claimed_user
 
-    @user1.demo.should_not == @user2.demo
-    
+    expect(@user1.demo).to_not eq(@user2.demo)
+
     has_password @user1, "foobar"
     signin_as @user1, "foobar"
-    should_be_on activity_path(:format => :html)
+    should_be_on activity_path
 
     visit user_path(@user2)
     page.should_not have_content(@user2.email)

@@ -7,6 +7,7 @@ class Demo < ActiveRecord::Base
 
   belongs_to :organization
 
+  has_one  :campaign, dependent: :destroy
   has_one  :topic_board, dependent: :destroy
   has_one  :onboarding
   has_many :guest_users
@@ -55,6 +56,7 @@ class Demo < ActiveRecord::Base
   accepts_nested_attributes_for :organization
 
   scope :name_order, ->{order("LOWER(name)")}
+  scope :airbo, -> { joins(:organization).where(organization: {name: "Airbo"}) }
 
   has_alphabetical_column :name
 
@@ -73,7 +75,7 @@ class Demo < ActiveRecord::Base
 
   validates_attachment_content_type :logo, content_type: valid_image_mime_types, message: invalid_mime_type_error
 
-  scope :stock_boards, -> { joins(:topic_board).where(topic_board: { is_library: true } ) }
+  scope :campaigns, -> { joins(:topic_board).where(topic_board: { is_library: true } ) }
 
   # We go through this rigamarole since we can move a user from one demo to
   # another, and usually we will only be concerned with acts belonging to the

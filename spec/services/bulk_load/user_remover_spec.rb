@@ -2,18 +2,13 @@ require 'spec_helper'
 
 describe BulkLoad::UserRemover do
   include BulkLoad::BulkLoadRedisKeys
-  
-  before do
-    Redis.new.flushdb
-  end
 
   let(:employee_ids_to_keep) {%w(123 456 78910 1112131415)}
   let(:employee_ids_to_remove) {%w(0914 89185 109059 8918 0910950)}
   let(:object_key) {"some_file.csv"}
-  let(:redis) {Redis.new}
 
   def load_employee_ids_to_keep_into_redis
-    redis.sadd(redis_unique_ids_key, employee_ids_to_keep)
+    $redis.sadd(redis_unique_ids_key, employee_ids_to_keep)
   end
 
   def weird_user_prettyprinter(user_id)
@@ -37,7 +32,7 @@ describe BulkLoad::UserRemover do
       create_users_from_employee_ids(@board, employee_ids_to_keep) + create_users_from_employee_ids(@other_board, employee_ids_to_keep + employee_ids_to_remove)
       @users_to_remove = create_users_from_employee_ids(@board, employee_ids_to_remove)
     end
-    
+
     context "when the set of user IDs has not yet been determined" do
       it "should determine the set of user IDs to delete and stick them in a queue" do
         load_employee_ids_to_keep_into_redis
@@ -85,7 +80,7 @@ describe BulkLoad::UserRemover do
 
     remover = BulkLoad::UserRemover.new(board.id, object_key, :employee_id)
     rig_user_ids_for_bulk_removal(remover, users.map(&:id))
-    
+
     result = []
     remover.each_user_id do |user_id|
       result << weird_user_prettyprinter(user_id)
@@ -113,7 +108,7 @@ describe BulkLoad::UserRemover do
     board = FactoryGirl.create(:demo)
     users = FactoryGirl.create_list(:user, 2)
     users.each {|user| user.add_board(board)}
-    users.each do |user| 
+    users.each do |user|
       user.demo_ids.should have(2).ids
       user.demo_ids.should include(board.id)
     end

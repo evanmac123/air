@@ -1,0 +1,36 @@
+<% cache @board do %>
+  <div class="row explore-tiles-tabs">
+    <div class="explore-tiles-titles small-12 columns">
+      <ul class="tabs">
+        <li id="campaign_title">
+          <a href="#" class="explore_tiles_tab"><%= @board.topic_board.topic_name %></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <section class="campaign-description">
+    <div class="row collapse" >
+      <div class="columns small-12">
+        <h4><%= @board.cover_message %></h4>
+      </div>
+    </div>
+  </section>
+  <div class="row">
+    <div class="columns large-12">
+      <div id="copy-all-tiles-button" class="button">
+        Copy all Tiles
+      </div>
+    </div>
+  </div>
+  <div class="manage_section explore_tiles_section" id="verified_tiles">
+    <div class="row">
+      <div class="large-12 columns">
+        <div class="tile_wall_explore">
+          <% cache @tiles do %>
+            <%= render partial: 'explores/tiles', locals: {tiles: @tiles, tile_ids: @tiles.pluck(:id), section: "Campaign Tile" } %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

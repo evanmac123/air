@@ -1,3 +1,4 @@
+# TODO: This fails because ENV['PURGE_BUCKET'] is not set anywhere...
 class EligibilityFilePurger
   AGE_THRESHOLD = (ENV['PURGE_AGE_THRESHOLD'].try(:to_i) || 7.days).freeze
 

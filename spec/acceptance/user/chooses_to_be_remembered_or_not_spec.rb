@@ -13,8 +13,8 @@ feature "User Chooses To Be Remembered Or Not" do
 
   scenario "User wants to be remembered" do
     click_button "Log In"
-    should_be_on activity_path(:format => :html)
-    
+    should_be_on activity_path
+
     Timecop.travel(1.month)
     visit activity_path
     should_be_on activity_path
@@ -30,7 +30,7 @@ feature "User Chooses To Be Remembered Or Not" do
   scenario "User does not want to be remembered" do
     uncheck "session[remember_me]"
     click_button "Log In"
-    should_be_on activity_path(format: :html)
+    should_be_on activity_path
 
     Timecop.travel(19.minutes)
     visit activity_path

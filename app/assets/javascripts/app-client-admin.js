@@ -16,7 +16,7 @@
 
 //= require ../../../vendor/assets/javascripts/internal/jquery.jpanelmenu.min
 //= require ../../../vendor/assets/javascripts/internal/jRespond.min
-//= require slick-carousel/slick/slick
+//= require ../../../vendor/assets/javascripts/flickity.pkgd.min.js
 
 //= require ./internal_and_external/underscore-min
 //= require ./internal/tile_preview/tile_answers
