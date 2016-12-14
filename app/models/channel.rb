@@ -18,6 +18,6 @@ class Channel < ActiveRecord::Base
   end
 
   def tiles
-    @tiles ||= Tile.copyable.tagged_with(self.name).order("tiles.updated_at DESC").uniq
+    @tiles ||= Tile.copyable.tagged_with(self.name).uniq
   end
 end
