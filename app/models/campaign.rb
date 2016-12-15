@@ -4,7 +4,7 @@ class Campaign < ActiveRecord::Base
 
   belongs_to :demo
   acts_as_taggable_on :channels
-  
+
   has_attached_file :cover_image,
     {
       styles: { explore: "190x90#" },
@@ -13,9 +13,9 @@ class Campaign < ActiveRecord::Base
 
   scope :alphabetical, -> { order(:name) }
 
-  def to_param
-    self.slug
-  end
+  # def to_param
+  #   self.slug
+  # end
 
   def update_slug
     self.slug = name.parameterize
