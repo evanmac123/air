@@ -46,28 +46,25 @@ class FinancialKpiBuilder
       build(FinancialsCalcService.new(sdate, edate), Metrics::MONTHLY)
     end
 
-    def build_weekly_historicals(from=nil)
+    def build_weekly_historicals(from_date=nil)
       if has_data?
-        sdate = min_start(from).beginning_of_week
+        sdate = min_start(from_date).beginning_of_week
         edate = sdate.end_of_week
-
-        while sdate < Date.today do 
+        while sdate < Date.today.beginning_of_week do 
           build(FinancialsCalcService.new(sdate, edate), Metrics::WEEKLY)
-
           sdate = sdate.advance(weeks: 1)
           edate = sdate.end_of_week
         end
       end
     end
 
-    def build_monthly_historicals(from=nil)
+    def build_monthly_historicals(from_date=nil)
       if has_data?
-        sdate = min_start(from).beginning_of_month
+        sdate = min_start(from_date).beginning_of_month
         edate = sdate.end_of_month
 
-        while sdate < Date.today do 
-          build(FinancialsCalcService.new(sdate, edate), Metrics::MONTHLY)
-
+        while sdate < Date.today.beginning_of_month do 
+         build(FinancialsCalcService.new(sdate, edate), Metrics::MONTHLY)
           sdate = sdate.advance(months: 1)
           edate = sdate.end_of_month
         end
