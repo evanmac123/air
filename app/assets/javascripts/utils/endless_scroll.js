@@ -28,11 +28,11 @@ Airbo.Utils.EndlessScroll = (function(){
 
     nextPage = function() {
       var path = content_container.data("path");
-
       if (isLoadingNextPage || !path) {
         return;
       }
 
+      viewMore.show();
       isLoadingNextPage = true;
       lastLoadAt = new Date();
 
