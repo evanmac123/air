@@ -225,44 +225,44 @@ Airbo.FinancialKpiChart = (function(){
 
   function setEndDateForRange(){
     var selected = $("#interval option:selected").val()
-      , e
+      , edate
     ;
 
     if(selected === "monthly"){
-      e = Airbo.Utils.Dates.lastDayOfMonth();
+      edate = Airbo.Utils.Dates.lastDayOfMonth();
     }else if (selected=="weekly"){
-      e = Airbo.Utils.Dates.lastDayOfWeek();
+      edate = Airbo.Utils.Dates.lastDayOfWeek();
     }else{
-      e = new Date();
+      edate = new Date();
     }
 
-    $("input[name='edate']").val(extractDateStringFromISO(e));
+    $("input[name='edate']").val(extractDateStringFromISO(edate));
   }
 
 
   function initDateFilters(){
 
     $("#date_range").change(function(event){
-      var s;
+      var sdate;
 
       if($(this).val()==="-1"){
         customRange.show();
         builtinRange.hide();
       }else{
-        s = startDateFromTimeStamp($(this).val());
-        $("input[name='sdate']").val(extractDateStringFromISO(s));
+        sdate = startDateFromTimeStamp($(this).val());
+        $("input[name='sdate']").val(extractDateStringFromISO(sdate));
       }
     });
   }
 
-  function extractDateStringFromISO(d){
-    return d.toISOString().split("T")[0]
+  function extractDateStringFromISO(date){
+    return date.toISOString().split("T")[0]
   }
 
   function initCustomDateDone(){
-    $("body").on("click", ".custom-date-done", function(e){
+    $("body").on("click", ".custom-date-done", function(event){
       var  range = $("#sdate").val() + " to " + $("#edate").val() ;
-      e.preventDefault();
+      event.preventDefault();
       customRange.hide();
       builtinRange.show();
 
