@@ -4,6 +4,7 @@ Airbo.Utils.EndlessScroll = (function(){
   function init(content_container) {
     var approachingBottomOfPage,
         isLoadingNextPage,
+        minCount,
         lastLoadAt,
         spaceAboveBottom,
         minTimeBetweenPages,
@@ -17,6 +18,7 @@ Airbo.Utils.EndlessScroll = (function(){
     lastLoadAt = null;
     minTimeBetweenPages = 500;
     spaceAboveBottom = 1500;
+    minCount = content_container.data("minCount") || 28;
 
     waitedLongEnoughBetweenPages = function() {
       return lastLoadAt === null || new Date() - lastLoadAt > minTimeBetweenPages;
@@ -32,32 +34,34 @@ Airbo.Utils.EndlessScroll = (function(){
         return;
       }
 
-      viewMore.show();
-      isLoadingNextPage = true;
-      lastLoadAt = new Date();
-
-      var page = parseInt(content_container.data("page")) || 0;
-      page += 1;
       var count = content_container.data("count");
+      if (count >= minCount) {
+        viewMore.show();
+        isLoadingNextPage = true;
+        lastLoadAt = new Date();
 
-      $.ajax({
-        url: path,
-        data: { page: page, count: count },
-        method: 'GET',
-        dataType: 'json',
-        success: function(data) {
-          content_container.data("page", page);
-          content_container.data("count", count + data.added);
-          content_container.append(data.content);
-          lastBatch = data.lastBatch;
-          isLoadingNextPage = false;
-          lastLoadAt = new Date();
+        var page = parseInt(content_container.data("page")) || 0;
+        page += 1;
 
-          if (lastBatch === true) {
-            viewMore.hide();
+        $.ajax({
+          url: path,
+          data: { page: page, count: count },
+          method: 'GET',
+          dataType: 'json',
+          success: function(data) {
+            content_container.data("page", page);
+            content_container.data("count", count + data.added);
+            content_container.append(data.content);
+            lastBatch = data.lastBatch;
+            isLoadingNextPage = false;
+            lastLoadAt = new Date();
+
+            if (lastBatch === true) {
+              viewMore.hide();
+            }
           }
-        }
-      });
+        });
+      }
     };
 
     $(window).scroll(function() {
