@@ -9,9 +9,9 @@
           <h4 class="explore-headers non-link" style="color:<%= feature.text_color %>"><%= feature.header_copy || "#{feature.name} Tiles" %></h4>
         <% end %>
         <div id="channel_tiles">
-          <div id="tile_wall_explore">
+          <div class="tile_wall_explore">
             <% cache feature_tiles do %>
-              <%= render partial: 'explore/tiles', locals: { tiles: feature_tiles, tile_ids: feature.tile_ids, section: feature.name } %>
+              <%= render partial: 'explore/tiles', locals: { tiles: feature_tiles, section: feature.name } %>
             <% end %>
           </div>
         </div>

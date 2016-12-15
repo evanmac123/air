@@ -52,15 +52,9 @@ Airbo.ShowMoreContent = (function() {
       $(attrs.spinnerSelector).hide();
       $(attrs.downArrowSelector).show();
       resetBindings();
-      switch (attrs.updateMethod) {
-        case 'append':
-          $(attrs.targetSelector).append(content);
-          updateOffsets(self, attrs, data);
-          Airbo.CopyTileToBoard.init();
-        break;
-        case 'replace':
-          $(attrs.targetSelector).replaceWith(content);
-      }
+      $(attrs.targetSelector).append(content);
+      updateOffsets(self, attrs, data);
+      Airbo.CopyTileToBoard.init();
 
       if (data.lastBatch) {
         $(self).attr('disabled', 'disabled');

@@ -1,5 +1,5 @@
 <% tiles.each do |tile| %>
-  <% present( tile, SingleExploreTilePresenter, {is_ie: browser.ie?, tile_ids: tile_ids, section: section }) do |presenter| %>
+  <% present( tile, SingleExploreTilePresenter, {is_ie: browser.ie?, section: section }) do |presenter| %>
     <% cache presenter do %>
       <%= render 'explore/single_explore_tile', presenter: presenter %>
     <% end %>

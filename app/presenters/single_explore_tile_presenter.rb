@@ -11,7 +11,6 @@ class SingleExploreTilePresenter < BasePresenter
 
   def initialize(object, template, options)
     super
-    @tiles_grouped_ids = options[:tile_ids]
     @format =  options[:format]||:html
     @section = options[:section]
   end
@@ -21,7 +20,7 @@ class SingleExploreTilePresenter < BasePresenter
   end
 
   def show_tile_path
-    explore_tile_preview_path(self, tile_ids: tiles_grouped_ids, section: section)
+    explore_tile_preview_path(tile)
   end
 
   def cache_key
