@@ -9,6 +9,7 @@
 //= require ../../../vendor/assets/javascripts/internal/jRespond.min
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.form.min
 //= require ../../../vendor/assets/javascripts/handlebars.min-latest.js
+//= require jquery.floatThead.min
 //= require_tree ../../../vendor/assets/javascripts/admin/.
 //= require ./internal_and_external/underscore-min
 //= require ./file-uploader
