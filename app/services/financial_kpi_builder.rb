@@ -37,14 +37,14 @@ class FinancialKpiBuilder
     def build_current_week
       sdate = Date.today.beginning_of_week
       edate = sdate.end_of_week
-      Metric.where({from_date: sdate, to_date: edate, interval: Metrics::WEEKLY}).first.delete
+      Metrics.where({from_date: sdate, to_date: edate, interval: Metrics::WEEKLY}).delete_all
       build(FinancialsCalcService.new(sdate, edate), Metrics::WEEKLY)
     end
 
     def build_current_month
       sdate = Date.today.beginning_of_month
       edate = sdate.end_of_month
-      Metric.where({from_date: sdate, to_date: edate, interval: Metrics::MONTHLY}).first.delete
+      Metrics.where({from_date: sdate, to_date: edate, interval: Metrics::MONTHLY}).delete_all
       build(FinancialsCalcService.new(sdate, edate), Metrics::MONTHLY)
     end
 
