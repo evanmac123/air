@@ -13,11 +13,12 @@ Airbo.Utils.EndlessScroll = (function(){
         waitedLongEnoughBetweenPages,
         lastBatch;
 
-    viewMore = content_container.siblings($('.endless_scroll_loading'));
     isLoadingNextPage = false;
     lastLoadAt = null;
-    minTimeBetweenPages = 500;
-    spaceAboveBottom = 1500;
+
+    viewMore = content_container.siblings($('.endless_scroll_loading'));
+    minTimeBetweenPages = content_container.data("minTimeBetweenPages") || 500;
+    spaceAboveBottom = content_container.data("spaceAboveBottom") || 1500;
     minCount = content_container.data("minCount") || 28;
 
     waitedLongEnoughBetweenPages = function() {
