@@ -213,9 +213,14 @@ Airbo.FinancialKpiChart = (function(){
     $("#financials-filter .report-filter").submit(function(event){
       event.preventDefault(); 
       kpiChart.showLoading();
-      setEndDateForRange();
+      adjustDateRanges();
       Airbo.AjaxResponseHandler.submit($(this), refreshWithHTML, submitFailure, "html");
     })
+  }
+
+  function adjustDateRanges(){
+    setStartDateForRange();
+    setEndDateForRange();
   }
 
   function startDateFromTimeStamp(ts){
@@ -230,13 +235,29 @@ Airbo.FinancialKpiChart = (function(){
 
     if(selected === "monthly"){
       edate = Airbo.Utils.Dates.lastDayOfMonth();
-    }else if (selected=="weekly"){
+    }else {
       edate = Airbo.Utils.Dates.lastDayOfWeek();
-    }else{
-      edate = new Date();
     }
 
     $("input[name='edate']").val(extractDateStringFromISO(edate));
+  }
+
+  function setStartDateForRange(){
+    var interval = $("#interval option:selected").val()
+      , range = $("#date_range option:selected").val()
+      , sdate
+    ;
+ 
+    debugger
+    if(range !=="-1"){
+      sdate = startDateFromTimeStamp(range);
+      if(interval === "monthly"){
+        sdate = Airbo.Utils.Dates.firstDayOfMonth(sdate);
+      }else{
+        sdate = Airbo.Utils.Dates.firstDayOfWeek(sdate);
+      }
+      $("input[name='sdate']").val(extractDateStringFromISO(sdate));
+    }
   }
 
 
@@ -244,7 +265,6 @@ Airbo.FinancialKpiChart = (function(){
 
     $("#date_range").change(function(event){
       var sdate;
-
       if($(this).val()==="-1"){
         customRange.show();
         builtinRange.hide();
