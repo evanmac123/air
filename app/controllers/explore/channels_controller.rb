@@ -5,6 +5,15 @@ class Explore::ChannelsController < ClientAdminBaseController
 
   def show
     @channel = Channel.find_by_slug(params[:id])
-    @display_channels = Channel.display_channels(@channel.slug)
+    @tiles = @channel.tiles.page(params[:page]).per(40)
+
+    respond_to do |format|
+      format.html {
+        @display_channels = Channel.display_channels(@channel.slug)
+      }
+
+      format.json {
+      }
+    end
   end
 end

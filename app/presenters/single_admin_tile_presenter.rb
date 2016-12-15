@@ -14,28 +14,19 @@ class SingleAdminTilePresenter < BasePresenter
             :demo,
             :is_placeholder?,
             to: :tile
-  attr_reader :tile, :type, :tiles_grouped_ids, :section
+  attr_reader :tile, :type, :tiles_grouped_ids
 
   presents :tile
 
   def initialize object,template, options
     super
-    @type = get_type(options[:page_type])
+    @type = tile.status.to_sym
     @tiles_grouped_ids = options[:tile_ids]
     @format =  options[:format]||:html
-    @section = options[:section]
   end
 
   def tile_id
     @tile_id ||= id
-  end
-
-  def copied?
-    $redis.sismember("Demo:#{current_user.demo_id}:copies", tile_id)
-  end
-
-  def get_type(page_type)
-    page_type ? page_type : tile.status.to_sym
   end
 
   def type? *types
@@ -67,11 +58,7 @@ class SingleAdminTilePresenter < BasePresenter
   end
 
   def show_tile_path
-    if type == :explore
-      explore_tile_preview_path(self, tile_ids: tiles_grouped_ids, section: section)
-    else
-      client_admin_tile_path(tile)
-    end
+    client_admin_tile_path(tile)
   end
 
   def has_archive_button?
@@ -160,9 +147,7 @@ class SingleAdminTilePresenter < BasePresenter
       tile_completions_count,
       total_views,
       unique_views,
-      copied?,
-      @is_ie,
-      section
+      @is_ie
     ].join('-')
   end
 

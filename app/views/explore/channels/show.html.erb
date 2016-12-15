@@ -28,9 +28,9 @@
       <div class="manage_section explore_tiles_section" id="verified_tiles">
         <div class="row">
           <div class="large-12 columns">
-            <div class="tile_wall_explore">
-              <% cache @channel.tiles do %>
-                <%= render partial: 'explore/tiles', locals: {tiles: @channel.tiles, tile_ids: @channel.tiles.pluck(:id), section: "Channel" } %>
+            <div class="tile_wall_explore" data-channel-page="<%= params[:page] %>">
+              <% cache @tiles do %>
+                <%= render partial: 'explore/tiles', locals: {tiles: @tiles, tile_ids: @tiles.pluck(:id), section: "Channel" } %>
               <% end %>
             </div>
           </div>

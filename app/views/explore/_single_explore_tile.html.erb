@@ -1,0 +1,36 @@
+<% cache presenter do %>
+  <%= content_tag :div,  class: "tile_container",  data: {"tile-container-id" => "#{presenter.id}"} do %>
+    <%=content_tag :div, class: "tile_thumbnail", id: "single-tile-#{presenter.id}", data: {"tile_id" =>"#{presenter.id}"} do %>
+      <div class="tile-wrapper">
+        <%= link_to presenter.show_tile_path, class:'tile_thumb_link' , data:{action: "show", tile_id: presenter.id} do %>
+          <div class="tile_thumbnail_image">
+            <%= image_tag presenter.thumbnail %>
+          </div>
+          <div class="headline">
+            <div class="text">
+              <%= presenter.headline %>
+            </div>
+          </div>
+          <div class="shadow_overlay"></div>
+          <div class="tile_overlay"></div>
+        <% end %>
+
+        <ul class="tile_buttons">
+          <li class="explore_copy_button">
+            <%= link_to explore_copy_tile_path(tile_id: presenter.id, path: :via_explore_page_tile_view), class: "button outlined explore_copy_link", data: { "tile-id" => presenter.id, "section" => presenter.section } do %>
+              <% if presenter.copied? %>
+                <span class="explore_thumbnail_copy_text">
+                  Copied
+                </span>
+              <% else %>
+                <span class="explore_thumbnail_copy_text">
+                  Copy
+                </span>
+              <% end %>
+            <% end %>
+          </li>
+        </ul>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>
