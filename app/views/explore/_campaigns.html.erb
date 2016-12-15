@@ -3,7 +3,7 @@
     <h4 class="explore-headers non-link">Airbo Campaigns</h4>
     <div class="manage_section" id="campaigns">
       <div class="campaigns campaign-wall-explore">
-        <%= render partial: 'explores/campaign_block', locals: { campaigns: @campaigns } %>
+        <%= render partial: 'explore/campaign_block', locals: { campaigns: @campaigns } %>
       </div>
     </div>
   </div>
@@ -11,7 +11,7 @@
 <div class="row">
   <div class="large-12 columns">
     <div class="more-airbo-campaigns">
-      <%= render partial: 'explores/campaigns_show_more_link', locals: {path_for_more_campaigns: @path_for_more_content, all_campaigns_displayed: @all_campaigns, campaign_count: @campaigns.count, target_selector: "#campaigns .campaign-wall-explore"} %>
+      <%= render partial: 'explore/campaigns_show_more_link', locals: {path_for_more_campaigns: @path_for_more_content, all_campaigns_displayed: @all_campaigns, campaign_count: @campaigns.count, target_selector: "#campaigns .campaign-wall-explore"} %>
     </div>
   </div>
 </div>

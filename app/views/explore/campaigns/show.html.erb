@@ -1,12 +1,12 @@
-<div class="explores" data-campaign-id="<%= @board.id %>">
+<div class="explore" data-campaign-id="<%= @board.id %>">
   <div id="tile_wall_explore">
     <section class="manage_section" id="channels">
       <% cache @display_channels do %>
-        <%= render partial: 'explores/channels', locals: { channels: @display_channels } %>
+        <%= render partial: 'explore/channels', locals: { channels: @display_channels } %>
       <% end %>
     </section>
     <section class="manage_section" id="explore_tiles">
-      <%= render partial: 'explores/explore_campaign' %>
+      <%= render partial: 'explore/explore_campaign' %>
     </section>
   </div>
 </div>

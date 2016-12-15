@@ -1,4 +1,4 @@
-class ClientAdmin::CampaignsController < ClientAdminBaseController
+class Explore::CampaignsController < ClientAdminBaseController
   include TileBatchHelper
   include LoginByExploreToken
   include ExploreHelper

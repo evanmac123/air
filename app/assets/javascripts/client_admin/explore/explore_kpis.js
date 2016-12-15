@@ -38,7 +38,7 @@ Airbo.ExploreKpis = (function(){
   }
 
   function viewedCampaignPing() {
-    var properties = $.extend({ page_name: "explore campaign", campaign: $(".explores").data("campaignId")}, currentUserData);
+    var properties = $.extend({ page_name: "explore campaign", campaign: $(".explore").data("campaignId")}, currentUserData);
     Airbo.Utils.ping("viewed page", properties);
   }
 

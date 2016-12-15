@@ -1,4 +1,4 @@
-class ExploresController < ClientAdminBaseController
+class ExploreController < ClientAdminBaseController
   include TileBatchHelper
   include LoginByExploreToken
   include ExploreHelper

@@ -10,24 +10,24 @@ class Invitation::AcceptancesController < ApplicationController
   def update
     # Set this as true so presence of name is validated
     @user.attributes = permitted_params.user
-    
+
     @user.password = @user.password_confirmation = params[:user][:password]
     @user.invitation_code = params[:invitation_code] if params[:invitation_code].present?
-    
+
     referrer_id = params[:referrer_id]
     if referrer_id =~ /^\d+$/
       @user.game_referrer_id = referrer_id
     end
     add_user_errors
-    
+
     if @user.errors.present?
       @html_body_controller_name = "invitations"
       @html_body_action_name = "show"
       render "/invitations/show" and return
     end
-    
+
     unless @user.accepted_invitation_at
-      @user.join_game(:silent) 
+      @user.join_game(:silent)
       @user.credit_game_referrer @user.game_referrer_id
     end
 
@@ -37,11 +37,11 @@ class Invitation::AcceptancesController < ApplicationController
     if demo
       add_user_to_board_if_allowed(demo)
     end
-   
+
     sign_in(@user, params[:remember_me])
     flash[:success] = "Welcome, #{@user.first_name}!"
     if @user.is_client_admin || @user.is_site_admin
-      redirect_to client_admin_explore_path
+      redirect_to explore_path
     else
       redirect_to activity_path
     end
@@ -59,7 +59,7 @@ class Invitation::AcceptancesController < ApplicationController
 
   def add_user_to_board_if_allowed(board)
     return unless (invitation_code = @user.invitation_code)
-    
+
     if (potential_user = PotentialUser.find_by_invitation_code(invitation_code))
       add_user_to_board_and_move(PotentialUser.demo)
     elsif (user = User.find_by_invitation_code(invitation_code))
@@ -79,7 +79,7 @@ class Invitation::AcceptancesController < ApplicationController
   def add_user_errors
     @user.valid?
     if params[:user][:password].blank?
-      @user.errors.add(:password, "Please choose a password") 
+      @user.errors.add(:password, "Please choose a password")
     end
   end
 end

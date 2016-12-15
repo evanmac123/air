@@ -55,7 +55,7 @@ Airbo.Channels = (function(){
         Airbo.Utils.ButtonSpinner.completeError(self);
       } else {
         if (method === "POST") {
-          $.get("/admin/channels/" + data.channel.id).done(function(data) {
+          $.get("/admin/channels/" + data.channel.slug).done(function(data) {
             $(".new-channel-section").remove();
             $('#channel-container').prepend(data.html);
 
