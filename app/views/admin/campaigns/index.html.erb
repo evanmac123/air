@@ -28,6 +28,7 @@
               <td><%= "#{campaign.created_at.to_date.to_formatted_s(:long_ordinal)}" %></td>
               <td><%= "#{campaign.updated_at.to_date.to_formatted_s(:long_ordinal)}" %></td>
               <td><%= campaign.active %></td>
+              <% binding.pry %>
               <td><%= link_to "Edit", edit_admin_campaign_path(campaign) %></td>
             </tr>
           <% end %>

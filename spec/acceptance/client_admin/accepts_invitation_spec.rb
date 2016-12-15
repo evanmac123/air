@@ -21,7 +21,7 @@ feature "Client Admin Accepts Invitation" do
     fill_in_required_invitation_fields
     click_button "Log in"
 
-    should_be_on client_admin_explore_path
+    should_be_on explore_path
     expect_content "Welcome, #{@user.first_name}!"
 
     visit activity_path
@@ -54,7 +54,7 @@ feature "Client Admin Accepts Invitation" do
     fill_in_required_invitation_fields
     click_button "Log in"
 
-    should_be_on client_admin_explore_path
+    should_be_on explore_path
     expect_content "Welcome, #{@user.first_name}!"
 
     visit activity_path
@@ -68,7 +68,7 @@ feature "Client Admin Accepts Invitation" do
     fill_in_required_invitation_fields
     click_button "Log in"
 
-    should_be_on client_admin_explore_path
+    should_be_on explore_path
     expect_content "Welcome, #{@user.first_name}!"
 
     visit activity_path
@@ -128,7 +128,7 @@ feature "Client Admin Accepts Invitation" do
 
     fill_in_required_invitation_fields
     click_button 'Log in'
-    should_be_on(client_admin_explore_path)
+    should_be_on(explore_path)
   end
 
   context "when there is no client name specified for the demo" do

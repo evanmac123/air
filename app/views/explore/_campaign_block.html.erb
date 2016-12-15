@@ -1,9 +1,9 @@
 <% @campaigns.each do |board| %>
   <div class="tile_container">
       <div>
-        <%= render partial: "explores/single_campaign", locals: {
+        <%= render partial: "explore/single_campaign", locals: {
           board: board,
-          path: client_admin_explore_campaign_path(board)
+          path: explore_campaign_path(board)
           } %>
       </div>
   </div>

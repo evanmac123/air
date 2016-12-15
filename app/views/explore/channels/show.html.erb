@@ -1,8 +1,8 @@
-<div class="explores" data-channel-id="<%= @channel.id %>">
+<div class="explore" data-channel-id="<%= @channel.id %>">
   <div id="tile_wall_explore">
     <section class="manage_section" id="channels">
       <% cache @display_channels do %>
-        <%= render partial: 'explores/channels', locals: { channels: @display_channels } %>
+        <%= render partial: 'explore/channels', locals: { channels: @display_channels } %>
       <% end %>
     </section>
     <section class="manage_section" id="explore_tiles">
@@ -30,7 +30,7 @@
           <div class="large-12 columns">
             <div class="tile_wall_explore">
               <% cache @channel.tiles do %>
-                <%= render partial: 'explores/tiles', locals: {tiles: @channel.tiles, tile_ids: @channel.tiles.pluck(:id), section: "Channel" } %>
+                <%= render partial: 'explore/tiles', locals: {tiles: @channel.tiles, tile_ids: @channel.tiles.pluck(:id), section: "Channel" } %>
               <% end %>
             </div>
           </div>

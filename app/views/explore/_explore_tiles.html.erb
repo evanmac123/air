@@ -15,14 +15,14 @@
   <div class="row">
     <div class="large-12 columns">
       <div class="tile_wall_explore">
-        <%= render partial: 'explores/tiles', locals: {tiles: @verified_tiles, tile_ids: @verified_tiles.pluck(:id), section: "Airbo Tile" } %>
+        <%= render partial: 'explore/tiles', locals: {tiles: @verified_tiles, tile_ids: @verified_tiles.pluck(:id), section: "Airbo Tile" } %>
       </div>
     </div>
   </div>
   <div class="row">
     <div class="large-12 columns">
       <div class="more-airbo-tiles">
-        <%= render partial: 'explores/tile_wall_show_more_link', locals: {path_for_more_tiles: @path_for_more_content, all_tiles_displayed: @all_tiles_displayed, tile_type: "verified-explore", tile_count: @verified_tiles.count, target_selector: "#verified_tiles .tile_wall_explore"} %>
+        <%= render partial: 'explore/tile_wall_show_more_link', locals: {path_for_more_tiles: @path_for_more_content, all_tiles_displayed: @all_tiles_displayed, tile_type: "verified-explore", tile_count: @verified_tiles.count, target_selector: "#verified_tiles .tile_wall_explore"} %>
       </div>
     </div>
   </div>
@@ -31,14 +31,14 @@
   <div class="row">
     <div class="large-12 columns">
       <div class="tile_wall_explore">
-        <%= render partial: 'explores/tiles', locals: { tiles: @community_tiles, tile_ids: @community_tiles.pluck(:id), section: "Community Tile" } %>
+        <%= render partial: 'explore/tiles', locals: { tiles: @community_tiles, tile_ids: @community_tiles.pluck(:id), section: "Community Tile" } %>
       </div>
     </div>
   </div>
   <div class="row">
     <div class="large-12 columns">
       <div class="more-community-tiles">
-        <%= render partial: 'explores/tile_wall_show_more_link', locals: {path_for_more_tiles: @path_for_more_content, all_tiles_displayed: @all_tiles_displayed, tile_type: "community-explore", tile_count: @community_tiles.count, target_selector: "#community_tiles .tile_wall_explore"} %>
+        <%= render partial: 'explore/tile_wall_show_more_link', locals: {path_for_more_tiles: @path_for_more_content, all_tiles_displayed: @all_tiles_displayed, tile_type: "community-explore", tile_count: @community_tiles.count, target_selector: "#community_tiles .tile_wall_explore"} %>
       </div>
     </div>
   </div>

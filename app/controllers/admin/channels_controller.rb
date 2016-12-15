@@ -14,7 +14,7 @@ class Admin::ChannelsController < AdminBaseController
                    html: render_to_string(
                      layout: false,
                      template: 'admin/channels/_channel_form',
-                     locals: { channel: Channel.find(params[:id]) }
+                     locals: { channel: Channel.find_by_slug(params[:id]) }
                    )
                  }
   end
@@ -30,14 +30,14 @@ class Admin::ChannelsController < AdminBaseController
   end
 
   def update
-    @channel = Channel.find(params[:id])
+    @channel = Channel.find_by_slug(params[:id])
 
     @channel.update_attributes(channel_params) ? render_success : render_error
   end
 
   private
     def channel_params
-      params.require(:channel).permit(:name, :image, :active)
+      params.require(:channel).permit(:name, :image, :active, :image_header)
     end
 
     def render_success
