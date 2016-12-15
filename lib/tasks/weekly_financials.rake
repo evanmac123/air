@@ -11,6 +11,10 @@ namespace :admin do
         end
       end
 
+      task :populate_daily => :environment do
+          FinancialKpiBuilder.build_current_week
+          FinancialKpiBuilder.build_current_month
+      end
 
       task :build_historical => :environment do
         FinancialKpiBuilder.build_weekly_historicals
