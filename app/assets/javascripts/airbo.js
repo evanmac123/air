@@ -21,7 +21,6 @@ var Airbo = {
     },
 
 
-
     currentUser: function(){
        return $("body").data("current-user");
     },
@@ -142,10 +141,33 @@ var Airbo = {
     },
 
 
-
     initChosen: function(opts){
       var config = $.extend({}, {selector: ".airbo-chosen-select" }, opts);
       $(config.selector).chosen(config);
+    },
+
+    Dates: {
+      lastDayOfWeek: function (d){
+        var curr = d || new Date()
+          , dayOfmonth = curr.getDate()
+          , dayOfWeek = curr.getDay()
+          , adjustment = dayOfmonth - dayOfWeek
+          , firstday = new Date(curr.setDate(adjustment +1)) 
+          , lastday = new Date(curr.setDate(adjustment +7))
+        ;
+        return lastday;
+      },
+
+      lastDayOfMonth:  function(d){
+        var curr = d || new Date()
+          , year = curr.getFullYear()
+          , month = curr.getMonth()
+          , firstDay = new Date(year, month , 1)
+          , lastDay = new Date(year, month + 1, 0)
+        ;
+        return lastDay
+
+      }
     }
   }
 
