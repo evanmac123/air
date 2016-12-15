@@ -38,14 +38,18 @@ class Metrics < ActiveRecord::Base
     select(qry_select_fields)
   end
 
-  def self.normalize_values record
-    record.attributes.inject({}) do |normalized,(field,value)|
+  def normalize
+    attributes.inject({}) do |normalized,(field,value)|
       normalized[field] = convert_to_int_if_big_decimal(value)
       normalized
     end
   end
 
-  def self.convert_to_int_if_big_decimal field_value
+  def self.normalize_values record
+    record.normalize
+  end
+
+  def convert_to_int_if_big_decimal field_value
     field_value.class==BigDecimal ? field_value.to_i : field_value
   end
 
