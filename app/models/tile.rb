@@ -212,7 +212,7 @@ class Tile < ActiveRecord::Base
     tiles_table = Arel::Table.new(:tiles)
     airbo_tiles = joins(:organization).explore.where(organization: { name: "Airbo" } )
 
-    copyable.where(tiles_table[:id].not_in(airbo_tiles.pluck(:id)))
+    explore.where(tiles_table[:id].not_in(airbo_tiles.pluck(:id)))
   end
 
   def self.displayable_categorized_to_user(user, maximum_tiles)
