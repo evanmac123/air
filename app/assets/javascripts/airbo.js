@@ -147,15 +147,34 @@ var Airbo = {
     },
 
     Dates: {
-      lastDayOfWeek: function (d){
+      firstDayOfWeek: function(d){
+
         var curr = d || new Date()
           , dayOfmonth = curr.getDate()
           , dayOfWeek = curr.getDay()
           , adjustment = dayOfmonth - dayOfWeek
           , firstday = new Date(curr.setDate(adjustment +1)) 
+        ;
+        return firstday;
+      },
+
+      lastDayOfWeek: function (d){
+        var curr = d || new Date()
+          , dayOfmonth = curr.getDate()
+          , dayOfWeek = curr.getDay()
+          , adjustment = dayOfmonth - dayOfWeek
           , lastday = new Date(curr.setDate(adjustment +7))
         ;
         return lastday;
+      },
+
+      firstDayOfMonth:  function(d){
+        var curr = d || new Date()
+          , year = curr.getFullYear()
+          , month = curr.getMonth()
+          , firstDay = new Date(year, month , 1)
+        ;
+        return firstDay;
       },
 
       lastDayOfMonth:  function(d){
@@ -165,7 +184,7 @@ var Airbo = {
           , firstDay = new Date(year, month , 1)
           , lastDay = new Date(year, month + 1, 0)
         ;
-        return lastDay
+        return lastDay;
 
       }
     }
