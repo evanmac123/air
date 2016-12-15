@@ -56,6 +56,11 @@
       text-align: right;
    }
 
+   tbody th{
+     white-space: nowrap;
+   }
+
+
    th {
      border-bottom: 1px solid #dddddd;
      .grp{

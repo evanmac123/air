@@ -67,7 +67,7 @@ class FinancialsCalcService
   end
 
   def percent_churned_customers
-   possible_churn_customer_count == 0 ? 0 : churned_customer_count/possible_churn_customer_count
+    possible_churn_customer_count == 0 ? 0 : churned_customer_count/possible_churn_customer_count.to_f * 100
   end
 
   #------------------------
@@ -125,11 +125,11 @@ class FinancialsCalcService
   end
 
   def net_churned_mrr
-    starting_mrr == 0 ? 0 : (upgrade_mrr - churned_mrr)/starting_mrr
+    starting_mrr == 0 ? 0 : (upgrade_mrr - churned_mrr)/starting_mrr.to_f * 100
   end
 
   def percent_churned_mrr
-   possible_churn_mrr == 0 ? 0 : churned_mrr/possible_churn_mrr
+    possible_churn_mrr == 0 ? 0 : (churned_mrr.abs/possible_churn_mrr.to_f) * 100
   end
 
   def amt_booked
@@ -145,7 +145,7 @@ class FinancialsCalcService
   end
 
   def renewal_amt_booked
-    retained_customers.sum{|o|o.contracts.booked_during_period(sdate, edate)}
+    retained_customers.sum{|o|o.contracts.booked_during_period(sdate, edate)} - upgrade_amt_booked
   end
 
 end

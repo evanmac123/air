@@ -2,24 +2,25 @@
 
   <div class="row">
     <div class="columns small-12 small-centered">
-      <div class="table-container">
+      <div>
         <%=render partial: "/admin/shared/date_range_form", locals:{path: admin_client_kpi_report_path} %>
       </div>
-    </div>
-  </div>
 
-  <div class="tabular-data">
-    <%if @dates.present? %>
-      <%= render "table_with_chart_data" %>
-    <%else%>
-      <div class="row">
-        <div class="columns large-12">
-          <h2>
-            No data has been collected for the selected time frame
-          </h2>
-        </div>
+      <div class="tabular-data">
+        <%if @dates.present? %>
+          <%= render "table_with_chart_data" %>
+        <%else%>
+          <div class="row">
+            <div class="columns large-12">
+              <h2>
+                No data has been collected for the selected time frame
+              </h2>
+            </div>
+          </div>
+        <%end%>
       </div>
-    <%end%>
+
+    </div>
   </div>
 
 </div>
