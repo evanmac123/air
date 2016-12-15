@@ -243,7 +243,7 @@ class FinancialsReporterService
         } ,
         "percent_churned_mrr" => {
           label: "MRR",
-          type: "pct",
+          type: "pct 0",
           indent: 1
         } ,
         "net_churned_mrr" => {
@@ -252,22 +252,22 @@ class FinancialsReporterService
           indent: 0
         } ,
         "added_customer_amt_booked" => {
-          label: "New Customer Booked",
+          label: "New Customer",
           type: "money",
           indent: 0
         },
         "renewal_amt_booked" => {
-          label: "Renewals Booked",
+          label: "Renewals",
           type: "money",
           indent: 0
         } ,
         "upgrade_amt_booked" => {
-          label: "Upgrades Booked",
+          label: "Upgrades",
           type: "money",
           indent: 0
         } ,
         "amt_booked" => {
-          label: "Total Booked",
+          label: "Total",
           type: "money",
           indent: 0
         } ,
@@ -316,10 +316,10 @@ class FinancialsReporterService
         ],
 
         "Bookings" => [
-          "added_customer_amt_booked",
-          "renewal_amt_booked",
-          "upgrade_amt_booked",
           "amt_booked",
+          "added_customer_amt_booked",
+          "upgrade_amt_booked",
+          "renewal_amt_booked",
         ]
 
       }

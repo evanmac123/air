@@ -147,7 +147,7 @@ module ApplicationHelper
     when "money"
       simple_money_format val
     when "pct"
-      "#{simple_percentage_format(val)}"
+      "#{simple_percentage_format(val, {precision: 2} )}"
     when "pct 0"
       "#{simple_percentage_format(val, { precision: 0}) }"
     else

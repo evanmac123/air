@@ -24,6 +24,7 @@
     transition: all .125s ease-in-out;
     z-index: 50;
     width: auto; /* Prevent table from stretching to full size */
+
   }
   .sticky-wrap .sticky-thead {
     box-shadow: 0 0.25em 0.1em -0.1em rgba(0,0,0,.125);
@@ -34,10 +35,12 @@
     opacity: 1;
     z-index: 150;
 
+    th {
+      text-align: left;
+    }
   }
-  .sticky-wrap .sticky-intersect th {
-    background-color: #666;
-    color: #eee;
+  .sticky-wrap .sticky-intersect  table thead tr th {
+    text-align: left;
   }
   .sticky-wrap td,
   .sticky-wrap th {
@@ -48,7 +51,11 @@
     overflow-y: auto;
     max-height: 50vh;
   }
-  table thead tr th {
-   text-align: right;
+
+
+  table thead tr th:not(:first-child) {
+    text-align: right;
   }
 }
+
+
