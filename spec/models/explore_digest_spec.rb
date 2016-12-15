@@ -22,10 +22,10 @@ describe ExploreDigest do
   end
 
   it "validates copyable tiles appropriately" do
-    FactoryGirl.create_list(:tile, 3, is_copyable: true, is_public: true)
-    FactoryGirl.create_list(:tile, 2, is_copyable: false, is_public: true)
-    FactoryGirl.create_list(:tile, 2, is_copyable: true, is_public: false)
-    FactoryGirl.create_list(:tile, 2, is_copyable: false, is_public: false)
+    FactoryGirl.create_list(:tile, 3, is_public: true)
+    FactoryGirl.create_list(:tile, 2, is_public: true)
+    FactoryGirl.create_list(:tile, 2, is_public: false)
+    FactoryGirl.create_list(:tile, 2, is_public: false)
 
     explore_digest = ExploreDigest.create
     params = { "features" => { "1" => { "tile_ids"=> Tile.pluck(:id).join(", ") } } }
@@ -33,7 +33,7 @@ describe ExploreDigest do
     explore_digest.post_to_redis(params["defaults"], params["features"])
 
     eq(params["features"]["1"]["feature_message"])
-    expect(explore_digest.features(1, :tile_ids)).to eq(Tile.copyable.pluck(:id).sort.join(","))
+    expect(explore_digest.features(1, :tile_ids)).to eq(Tile.explore.pluck(:id).sort.join(","))
   end
 
   it "can tell you how many features it has" do
@@ -46,13 +46,13 @@ describe ExploreDigest do
   end
 
   it "retrieves tiles in correct order" do
-    FactoryGirl.create_list(:tile, 3, is_copyable: true, is_public: true)
-    FactoryGirl.create_list(:tile, 2, is_copyable: false, is_public: true)
-    FactoryGirl.create_list(:tile, 2, is_copyable: true, is_public: false)
-    FactoryGirl.create_list(:tile, 2, is_copyable: false, is_public: false)
+    FactoryGirl.create_list(:tile, 3, is_public: true)
+    FactoryGirl.create_list(:tile, 2, is_public: true)
+    FactoryGirl.create_list(:tile, 2, is_public: false)
+    FactoryGirl.create_list(:tile, 2, is_public: false)
 
     explore_digest = ExploreDigest.create
-    tile_ids = Tile.copyable.pluck(:id).shuffle.join(", ")
+    tile_ids = Tile.explore.pluck(:id).shuffle.join(", ")
     params = { "features" => { "1" => { "tile_ids"=> tile_ids } } }
 
     explore_digest.post_to_redis(params["defaults"], params["features"])

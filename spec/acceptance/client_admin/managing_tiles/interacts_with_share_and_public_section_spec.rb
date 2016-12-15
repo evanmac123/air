@@ -230,7 +230,6 @@ feature "Client Admin Interacts With Share And Public Section" do
       TileTag.last.title.should eq "tag"
       TileTag.last.tiles.first.should == @tile
       @tile.reload.is_public.should be_true
-      @tile.reload.is_copyable.should be_true
     end
 
     context "position on explore page" do

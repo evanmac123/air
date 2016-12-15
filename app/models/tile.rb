@@ -82,8 +82,9 @@ class Tile < ActiveRecord::Base
       .ordered_by_position
   end
   scope :digest, ->(demo, cutoff_time) { cutoff_time.nil? ? active : active.where("activated_at > ?", cutoff_time) }
-  scope :viewable_in_public, -> { where(is_public: true, status: [Tile::ACTIVE, Tile::ARCHIVE]) }
-  scope :copyable, -> { viewable_in_public.where(is_copyable: true) }
+
+  scope :explore, -> { where(is_public: true, status: [Tile::ACTIVE, Tile::ARCHIVE]) }
+
   scope :ordered_for_explore, -> { order("explore_page_priority DESC NULLS LAST").order("id DESC") }
   scope :ordered_by_position, -> { order "position DESC" }
 
@@ -200,16 +201,16 @@ class Tile < ActiveRecord::Base
   def self.verified_explore
     tiles_table = Arel::Table.new(:tiles)
 
-    joins(:organization).copyable.where(organization: {name: "Airbo"}).where(tiles_table[:id].not_in(featured_tile_ids))
+    joins(:organization).explore.where(organization: {name: "Airbo"}).where(tiles_table[:id].not_in(featured_tile_ids))
   end
 
   def self.all_airbo_tiles
-    joins(:organization).copyable.where(organization: {name: "Airbo"})
+    joins(:organization).explore.where(organization: {name: "Airbo"})
   end
 
   def self.community_explore
     tiles_table = Arel::Table.new(:tiles)
-    airbo_tiles = joins(:organization).copyable.where(organization: { name: "Airbo" } )
+    airbo_tiles = joins(:organization).explore.where(organization: { name: "Airbo" } )
 
     copyable.where(tiles_table[:id].not_in(airbo_tiles.pluck(:id)))
   end

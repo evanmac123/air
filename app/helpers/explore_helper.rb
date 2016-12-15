@@ -8,7 +8,7 @@ module ExploreHelper
   end
 
   def find_tiles_and_campaigns
-    @explore_tiles ||= Tile.copyable
+    @explore_tiles ||= Tile.explore
 
     set_campaigns
     set_verified_tiles

@@ -16,7 +16,7 @@ namespace :pg_restore do
 
       tile_image_ids = tile_images.pluck(:id)
 
-      Tile.copyable.each { |tile|
+      Tile.explore.each { |tile|
         ImageProcessJob.new(tile.id, tile_image_ids.sample).perform
       }
     end

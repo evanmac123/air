@@ -5,7 +5,7 @@ include EmailHelper
 
 describe ExploreDigestMailer do
   before(:each) do
-    FactoryGirl.create_list(:tile, 6, is_copyable: true, is_public: true)
+    FactoryGirl.create_list(:tile, 6, is_public: true)
 
     @explore_digest = ExploreDigest.create
     @params = explore_digest_params

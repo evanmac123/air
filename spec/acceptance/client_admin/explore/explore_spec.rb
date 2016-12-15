@@ -4,7 +4,7 @@ feature "Explore" do
   before(:each) do
     @demo = FactoryGirl.create(:demo)
     @user = FactoryGirl.create(:user, is_client_admin: true, demo: @demo)
-    @tiles = FactoryGirl.create_list(:tile, 3, is_copyable: true, is_public: true, demo: @demo)
+    @tiles = FactoryGirl.create_list(:tile, 3, is_public: true, demo: @demo)
   end
 
   context "when user visits explore" do

@@ -8,7 +8,7 @@ describe TilePreviewsController do
       subject.stubs(:explore_intro_ping)
       organization = FactoryGirl.create(:organization, name: "Airbo")
       user = FactoryGirl.create(:client_admin)
-      tile = FactoryGirl.create(:tile, :public, is_copyable: true, organization: organization)
+      tile = FactoryGirl.create(:tile, :public, organization: organization)
 
       xhr :get, :show, id: tile.id, explore_token: user.explore_token, email_type: "explore_v_1"
 
