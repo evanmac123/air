@@ -213,6 +213,7 @@ Airbo.FinancialKpiChart = (function(){
     $("#financials-filter .report-filter").submit(function(event){
       event.preventDefault(); 
       kpiChart.showLoading();
+      setEndDateForRange();
       Airbo.AjaxResponseHandler.submit($(this), refreshWithHTML, submitFailure, "html");
     })
   }
@@ -222,21 +223,34 @@ Airbo.FinancialKpiChart = (function(){
     return new Date(start); 
   }
 
+  function setEndDateForRange(){
+    var selected = $("#interval option:selected").val()
+      , e
+    ;
+
+    if(selected === "monthly"){
+      e = Airbo.Utils.Dates.lastDayOfMonth();
+    }else if (selected=="weekly"){
+      e = Airbo.Utils.Dates.lastDayOfWeek();
+    }else{
+      e = new Date();
+    }
+
+    $("input[name='edate']").val(extractDateStringFromISO(e));
+  }
 
 
   function initDateFilters(){
-    var s
-      , e = new Date()
-    ;
 
     $("#date_range").change(function(event){
+      var s;
+
       if($(this).val()==="-1"){
         customRange.show();
         builtinRange.hide();
       }else{
         s = startDateFromTimeStamp($(this).val());
         $("input[name='sdate']").val(extractDateStringFromISO(s));
-        $("input[name='edate']").val(extractDateStringFromISO(e));
       }
     });
   }
