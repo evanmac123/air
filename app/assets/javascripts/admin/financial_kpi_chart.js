@@ -248,7 +248,6 @@ Airbo.FinancialKpiChart = (function(){
       , sdate
     ;
  
-    debugger
     if(range !=="-1"){
       sdate = startDateFromTimeStamp(range);
       if(interval === "monthly"){
