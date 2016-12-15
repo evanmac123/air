@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161214191457) do
+ActiveRecord::Schema.define(:version => 20161215001521) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -662,6 +662,10 @@ ActiveRecord::Schema.define(:version => 20161214191457) do
     t.date     "from_date"
     t.date     "to_date"
   end
+
+  add_index "metrics", ["from_date"], :name => "index_metrics_on_from_date"
+  add_index "metrics", ["interval"], :name => "index_metrics_on_interval"
+  add_index "metrics", ["to_date"], :name => "index_metrics_on_to_date"
 
   create_table "more_info_requests", :force => true do |t|
     t.string   "phone_number"
