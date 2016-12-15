@@ -2,5 +2,3 @@
   <%= render partial: 'meta_tags', locals: { tile: @tile } %>
 <%end%>
 <%= render partial: 'tile_preview', locals: { tile: @tile, tag: @tag, next_tile: @next_tile, prev_tile: @prev_tile, section: "Explore Digest" } %>
-
-<%= render partial: 'explore/explore_intro' if @show_explore_intro %>
