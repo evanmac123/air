@@ -120,8 +120,6 @@ class Contract < ActiveRecord::Base
     where("date_booked >= ? and date_booked <= ?", date.beginning_of_year, date).sum(&:amt_booked)
   end
 
-
-
   def self.min_activity_date
     min_start = minimum(:start_date)
     min_booked =  minimum(:date_booked)
@@ -163,6 +161,7 @@ class Contract < ActiveRecord::Base
     dup.start_date = end_date.advance(days:1)
     dup.end_date = new_end_date(end_date)
     dup.date_booked = dup.start_date
+    dup.renewed_on = Date.today
     dup.save
     dup
   end
