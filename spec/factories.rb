@@ -234,7 +234,6 @@ FactoryGirl.define do
     trait :copyable do
       is_sharable true
       is_public true
-      is_copyable true
       status Tile::ACTIVE
       tile_tags {[FactoryGirl.create(:tile_tag)]}
     end

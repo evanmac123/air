@@ -1,12 +1,39 @@
 <div class="explore" data-campaign-id="<%= @board.id %>">
-  <div id="tile_wall_explore">
-    <section class="manage_section" id="channels">
-      <% cache @display_channels do %>
-        <%= render partial: 'explore/channels', locals: { channels: @display_channels } %>
-      <% end %>
+  <section class="manage_section" id="channels">
+    <% cache @display_channels do %>
+      <%= render partial: 'explore/channels', locals: { channels: @display_channels } %>
+    <% end %>
+  </section>
+  <section class="manage_section" id="explore_tiles">
+    <div class="row explore-tiles-tabs">
+      <div class="explore-tiles-titles small-12 columns">
+          <span class="explore-sub-page-header"><%= @board.topic_board.topic_name %></span>
+      </div>
+    </div>
+    <section class="campaign-description">
+      <div class="row collapse" >
+        <div class="columns small-12">
+          <h4><%= @board.cover_message %></h4>
+        </div>
+      </div>
     </section>
-    <section class="manage_section" id="explore_tiles">
-      <%= render partial: 'explore/explore_campaign' %>
-    </section>
-  </div>
+    <div class="row">
+      <div class="columns large-12">
+        <div id="copy-all-tiles-button" class="button">
+          Copy all Tiles
+        </div>
+      </div>
+    </div>
+    <div class="manage_section explore_tiles_section">
+      <div class="row">
+        <div class="large-12 columns">
+          <div class="tile_wall_explore">
+            <% cache @tiles do %>
+              <%= render partial: 'explore/tiles', locals: {tiles: @tiles, section: "Campaign Tile" } %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>

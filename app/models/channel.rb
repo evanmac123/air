@@ -24,6 +24,6 @@ class Channel < ActiveRecord::Base
   end
 
   def tiles
-    @tiles ||= Tile.copyable.tagged_with(self.name).uniq
+    @tiles ||= Tile.explore.tagged_with(self.name).uniq
   end
 end

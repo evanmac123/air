@@ -4,12 +4,14 @@ Airbo.ExploreTileManager = (function(){
   function initEvents() {
     $("body").on("click", ".tile_thumb_link", function(e){
       e.preventDefault();
+      var tileIds = getTileIds(this);
+
       $.ajax({
         type: "GET",
         dataType: "html",
         url: $(this).attr("href") ,
-        data: {partial_only: true},
-        success: function(data, status,xhr){
+        data: { partial_only: true, tile_ids: tileIds },
+        success: function(data, status, xhr){
           var tilePreview = Airbo.ExploreTilePreview;
           tilePreview.init();
           tilePreview.open(data);
@@ -21,20 +23,26 @@ Airbo.ExploreTileManager = (function(){
       });
     });
   }
-  function initVars() {
 
+  function getTileIds(self) {
+    var tiles = $(self).parents(".tile_container").siblings(".tile_container").andSelf();
+    return $.makeArray(tiles).map(function(tile) {
+      return $(tile).data("tile-container-id");
+    });
   }
+
   function init() {
-    initVars();
     initEvents();
   }
+
   return {
     init: init
   };
+
 }());
 
 $(function(){
-  if( $("#tile_wall_explore").length > 0 ) {
+  if( $(".tile_wall_explore").length > 0 ) {
     Airbo.ExploreTileManager.init();
   }
 });

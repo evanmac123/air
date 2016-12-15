@@ -1,41 +1,42 @@
 <div class="explore" data-channel-id="<%= @channel.id %>">
-  <div id="tile_wall_explore">
-    <section class="manage_section" id="channels">
-      <% cache @display_channels do %>
-        <%= render partial: 'explore/channels', locals: { channels: @display_channels } %>
-      <% end %>
-    </section>
-    <section class="manage_section" id="explore_tiles">
-      <div class="row explore-tiles-tabs">
-        <div class="explore-tiles-titles small-12 columns">
-            <span class="explore-sub-page-header"><%= @channel.name %></span>
+  <section class="manage_section" id="channels">
+    <% cache @display_channels do %>
+      <%= render partial: 'explore/channels', locals: { channels: @display_channels } %>
+    <% end %>
+  </section>
+  <section class="manage_section" id="explore_tiles">
+    <div class="row explore-tiles-tabs">
+      <div class="explore-tiles-titles small-12 columns">
+          <span class="explore-sub-page-header"><%= @channel.name %></span>
+      </div>
+    </div>
+    <section class="campaign-description">
+      <div class="row collapse" >
+        <div class="columns small-12">
+          <h4><%= @channel.description %></h4>
         </div>
       </div>
-      <section class="campaign-description">
-        <div class="row collapse" >
-          <div class="columns small-12">
-            <h4><%= @channel.description %></h4>
-          </div>
+    </section>
+    <div class="row">
+      <div class="columns large-12">
+        <div id="copy-all-tiles-button" class="button">
+          Copy all Tiles
         </div>
-      </section>
+      </div>
+    </div>
+    <div class="manage_section explore_tiles_section" id="verified_tiles">
       <div class="row">
-        <div class="columns large-12">
-          <div id="copy-all-tiles-button" class="button">
-            Copy all Tiles
+        <div class="large-12 columns">
+          <div class="endless_scroll_content_container tile_wall_explore" data-page="<%= params[:page] || 1 %>" data-count="<%= @tiles.count %>" data-path="<%= explore_channel_path(@channel) %>">
+            <% cache @tiles do %>
+              <%= render partial: 'explore/tiles', locals: {tiles: @tiles, section: "Channel" } %>
+            <% end %>
+          </div>
+          <div class="endless_scroll_loading text-center" style="">
+            <i class="fa fa-spinner fa-spin fa-3x text-center" style="color:#48BFFF;margin-top:30px;"></i>
           </div>
         </div>
       </div>
-      <div class="manage_section explore_tiles_section" id="verified_tiles">
-        <div class="row">
-          <div class="large-12 columns">
-            <div class="tile_wall_explore">
-              <% cache @channel.tiles do %>
-                <%= render partial: 'explore/tiles', locals: {tiles: @channel.tiles, tile_ids: @channel.tiles.pluck(:id), section: "Channel" } %>
-              <% end %>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </div>
+    </div>
+  </section>
 </div>

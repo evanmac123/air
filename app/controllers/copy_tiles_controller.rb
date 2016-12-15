@@ -6,7 +6,7 @@ class CopyTilesController < ClientAdminBaseController
   include LoginByExploreToken
 
   def create
-    tile = Tile.copyable.where(id: params[:tile_id]).first
+    tile = Tile.explore.where(id: params[:tile_id]).first
     copy = tile.copy_to_new_demo(current_user.demo, current_user)
     schedule_tile_creation_ping(copy, "Explore Page")
     store_copy_in_redis(params[:tile_id])

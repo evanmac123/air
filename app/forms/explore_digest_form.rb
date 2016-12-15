@@ -4,7 +4,7 @@ class ExploreDigestForm
   include ActiveModel::Validations
 
   validate :at_least_one_tile_id
-  validate :all_tile_ids_viewable_in_public
+  validate :explore_tiles?
 
   attr_accessor :features
 
@@ -62,12 +62,12 @@ class ExploreDigestForm
     end
   end
 
-  def all_tile_ids_viewable_in_public
-    public_tile_ids = Tile.where(id: tile_ids).viewable_in_public.pluck(:id)
+  def explore_tiles?
+    public_tile_ids = Tile.where(id: tile_ids).explore.pluck(:id)
     nonpublic_tile_ids = tile_ids - public_tile_ids
 
     unless nonpublic_tile_ids.empty?
-      errors.add(:base, "following tiles are not public: " + nonpublic_tile_ids.sort.join(', '))
+      errors.add(:base, "following tiles are not explore tiles: " + nonpublic_tile_ids.sort.join(', '))
     end
   end
 

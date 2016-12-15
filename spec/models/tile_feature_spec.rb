@@ -9,7 +9,7 @@ describe TileFeature do
   let(:tile_feature) { FactoryGirl.create(:tile_feature, active: true) }
 
   it "assigns redis values given hash of parameters" do
-    FactoryGirl.create_list(:tile, 6, is_copyable: true, is_public: true)
+    FactoryGirl.create_list(:tile, 6, is_public: true)
     tile_feature.dispatch_redis_updates(redis_params)
 
     expect(tile_feature.custom_icon_url).to eq(redis_params["custom_icon_url"])
@@ -37,7 +37,7 @@ describe TileFeature do
     end
 
     it "removes non integers" do
-      tile_id = FactoryGirl.create(:tile, is_copyable: true, is_public: true).id
+      tile_id = FactoryGirl.create(:tile, is_public: true).id
       tile_feature.dispatch_redis_updates({ tile_ids: "word, ##32, #{tile_id}" })
 
       expect(tile_feature.tile_ids).to eq(["#{tile_id}"])
@@ -71,7 +71,7 @@ describe TileFeature do
 
   context "tile retrieval" do
     it "gets tiles in the correct order" do
-      FactoryGirl.create_list(:tile, 5, is_copyable: true, is_public: true)
+      FactoryGirl.create_list(:tile, 5, is_public: true)
       tile_id_1 = Tile.first.id
       tile_id_3 = Tile.all[3].id
       tile_id_2 = Tile.last.id
@@ -86,7 +86,7 @@ describe TileFeature do
   context "tile collections in explore do not include featured tiles" do
     it "excludes featured tiles in the Tile.verified_explore query" do
       org = FactoryGirl.create(:organization, name: "Airbo")
-      FactoryGirl.create_list(:tile, 10, organization: org, is_copyable: true, is_public: true)
+      FactoryGirl.create_list(:tile, 10, organization: org, is_public: true)
 
       expect(Tile.verified_explore.count).to eq(10)
 

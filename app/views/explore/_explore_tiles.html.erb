@@ -15,7 +15,7 @@
   <div class="row">
     <div class="large-12 columns">
       <div class="tile_wall_explore">
-        <%= render partial: 'explore/tiles', locals: {tiles: @verified_tiles, tile_ids: @verified_tiles.pluck(:id), section: "Airbo Tile" } %>
+        <%= render partial: 'explore/tiles', locals: {tiles: @verified_tiles, section: "Airbo Tile" } %>
       </div>
     </div>
   </div>
@@ -31,7 +31,7 @@
   <div class="row">
     <div class="large-12 columns">
       <div class="tile_wall_explore">
-        <%= render partial: 'explore/tiles', locals: { tiles: @community_tiles, tile_ids: @community_tiles.pluck(:id), section: "Community Tile" } %>
+        <%= render partial: 'explore/tiles', locals: { tiles: @community_tiles, section: "Community Tile" } %>
       </div>
     </div>
   </div>

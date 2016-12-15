@@ -50,7 +50,6 @@ module TilePreviewHelpers
     copied_tile.creator.name.should == copying_user.name
     copied_tile.status.should == Tile::DRAFT
     copied_tile.demo_id.should == copying_user.demo_id
-    copied_tile.is_copyable.should be_false
     copied_tile.is_public.should be_false
 
     copied_tile.image_updated_at.should be_present
