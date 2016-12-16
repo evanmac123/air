@@ -137,8 +137,6 @@ Airbo.FinancialKpiChart = (function(){
   }
 
 
-
-
   function initChartDataFromDataAttributes(){
     prepareDataForChart($(".chart-data").data("plotdata"));
   }
@@ -149,7 +147,7 @@ Airbo.FinancialKpiChart = (function(){
       function(date,idx){ 
         return{
           x: date,
-          y: data.starting_mrr.values[idx]
+          y: parseInt(data.starting_mrr.values[idx])
         }
       });
 
