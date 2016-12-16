@@ -2,8 +2,8 @@ class Metrics < ActiveRecord::Base
   WEEKLY="weekly"
   MONTHLY="monthly"
 
-  def self.normalized_by_date_range_and_interval sdate, edate, interval="weekly"
-    by_interval(interval).by_start_and_end(sdate, edate).order("from_date asc").to_array_of_record_hashes
+  def self.normalized_by_date_range_and_interval sdate, edate, interval=WEEKLY
+    by_interval(interval).by_start_and_end(sdate, edate).order("from_date asc")
   end
 
   def self.by_interval(interval = WEEKLY)
@@ -28,32 +28,4 @@ class Metrics < ActiveRecord::Base
     [@sweek, @this_week]
   end
 
-  def self.to_array_of_record_hashes
-    results.map do |record|
-      normalize_values(record)
-    end
-  end
-
-  def self.results
-    select(qry_select_fields)
-  end
-
-  def normalize
-    attributes.inject({}) do |normalized,(field,value)|
-      normalized[field] = convert_to_int_if_big_decimal(value)
-      normalized
-    end
-  end
-
-  def self.normalize_values record
-    record.normalize
-  end
-
-  def convert_to_int_if_big_decimal field_value
-    field_value.class==BigDecimal ? field_value.to_i : field_value
-  end
-
-  def self.qry_select_fields
-    FinancialsReporterService.query_select_fields
-  end
 end

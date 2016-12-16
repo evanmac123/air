@@ -7,10 +7,6 @@ Airbo.FinancialKpiChart = (function(){
     , dates 
     , kpiChart
     , chartContainer = "#chart-container"
-    , builtinRangeSel =".builtin-date-range"
-    , customRangeSel = ".custom-date-range"
-    , builtinRange
-    , customRange
   ;
 
 
@@ -106,10 +102,6 @@ Airbo.FinancialKpiChart = (function(){
   }
 
   function initVars(){
-
-    builtinRange =$(builtinRangeSel);
-    customRange = $(customRangeSel); 
-
     chartContainer = $(chartContainer);
   }
 
@@ -123,7 +115,8 @@ Airbo.FinancialKpiChart = (function(){
 
   function refreshWithHTML(html){
     $(".tabular-data").html(html);
-    Airbo.Utils.StickyTable.init();
+    Airbo.Utils.StickyTable.reflow();
+
     if ($(".no-chart-data").length === 0){
       initChartDataFromDataAttributes();
       refreshChart();
@@ -144,8 +137,6 @@ Airbo.FinancialKpiChart = (function(){
   }
 
 
-
-
   function initChartDataFromDataAttributes(){
     prepareDataForChart($(".chart-data").data("plotdata"));
   }
@@ -156,7 +147,7 @@ Airbo.FinancialKpiChart = (function(){
       function(date,idx){ 
         return{
           x: date,
-          y: data.starting_mrr.values[idx]
+          y: parseInt(data.starting_mrr.values[idx])
         }
       });
 
@@ -196,14 +187,6 @@ Airbo.FinancialKpiChart = (function(){
   }
 
 
-  function init(){
-    initVars();
-    initChartDataFromDataAttributes();
-    initChart(chartContainer);
-    initDateFilters();
-    initForm();
-    initCustomDateDone();
-  }
 
   function submitFailure(){
     console.log("error occured"); 
@@ -213,34 +196,11 @@ Airbo.FinancialKpiChart = (function(){
     $("#financials-filter .report-filter").submit(function(event){
       event.preventDefault(); 
       kpiChart.showLoading();
-      adjustDateRanges();
+      Airbo.Utils.KpiReportDateFilter.adjustDateRanges();
       Airbo.AjaxResponseHandler.submit($(this), refreshWithHTML, submitFailure, "html");
     })
   }
 
-  function adjustDateRanges(){
-    setStartDateForRange();
-    setEndDateForRange();
-  }
-
-  function startDateFromTimeStamp(ts){
-    var start = Date.now() - (ts * 1000);
-    return new Date(start); 
-  }
-
-  function setEndDateForRange(){
-    var selected = $("#interval option:selected").val()
-      , edate
-    ;
-
-    if(selected === "monthly"){
-      edate = Airbo.Utils.Dates.lastDayOfMonth();
-    }else {
-      edate = Airbo.Utils.Dates.lastDayOfWeek();
-    }
-
-    $("input[name='edate']").val(extractDateStringFromISO(edate));
-  }
 
   function setStartDateForRange(){
     var interval = $("#interval option:selected").val()
@@ -260,34 +220,17 @@ Airbo.FinancialKpiChart = (function(){
   }
 
 
-  function initDateFilters(){
 
-    $("#date_range").change(function(event){
-      var sdate;
-      if($(this).val()==="-1"){
-        customRange.show();
-        builtinRange.hide();
-      }else{
-        sdate = startDateFromTimeStamp($(this).val());
-        $("input[name='sdate']").val(extractDateStringFromISO(sdate));
-      }
-    });
+  function init(){
+    initVars();
+    initChartDataFromDataAttributes();
+    initChart(chartContainer);
+    initForm();
+
+    Airbo.Utils.KpiReportDateFilter.init();
+    Airbo.Utils.StickyTable.init();
   }
 
-  function extractDateStringFromISO(date){
-    return date.toISOString().split("T")[0]
-  }
-
-  function initCustomDateDone(){
-    $("body").on("click", ".custom-date-done", function(event){
-      var  range = $("#sdate").val() + " to " + $("#edate").val() ;
-      event.preventDefault();
-      customRange.hide();
-      builtinRange.show();
-
-      $(".date_range_custom_drop a.current").text(range);
-    });
-  }
 
   return {
     init: init

@@ -51,6 +51,10 @@
     font-weight: bold;
   }
 
+  .table-container{
+    overflow: auto;
+  }
+
  table.kpi{
    td {
       text-align: right;
@@ -60,6 +64,9 @@
      white-space: nowrap;
    }
 
+   th:not(:first-child){
+     text-align: right ;
+   }
 
    th {
      border-bottom: 1px solid #dddddd;
