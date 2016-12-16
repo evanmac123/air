@@ -2,10 +2,14 @@ var Airbo = window.Airbo ||{}
 
 Airbo.Utils = Airbo.Utils || {}
 Airbo.Utils.StickyTable = (function(){
-var $table
+  var $table
   function initTable(){
-    $table.floatThead();
     $table = $('table.sticky');
+    $table.floatThead(
+      {
+        position: 'absolute',
+      }
+    );
   }
 
   function init(){
