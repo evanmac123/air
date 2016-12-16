@@ -2,7 +2,7 @@ class Metrics < ActiveRecord::Base
   WEEKLY="weekly"
   MONTHLY="monthly"
 
-  def self.normalized_by_date_range_and_interval sdate, edate, interval=WEEKLY
+  def self.by_date_range_and_interval sdate, edate, interval=WEEKLY
     by_interval(interval).by_start_and_end(sdate, edate).order("from_date asc")
   end
 

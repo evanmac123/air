@@ -7,12 +7,8 @@ module Reporting
       [sdate, edate]
     end
 
-    def get_data_by_date sdate, edate
-      build_data_set(row_set(to_array_of_record_hashes(raw_data(sdate, edate))))
-    end
-
-    def raw_data sdate, edate
-      CustSuccessKpi.select(query_select_fields).normalized_by_start_and_end sdate, edate 
+    def db_fields
+      CustSuccessKpi.select(query_select_fields)
     end
 
     def sections

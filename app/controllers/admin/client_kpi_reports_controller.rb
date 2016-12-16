@@ -4,7 +4,7 @@ class Admin::ClientKpiReportsController < AdminBaseController
 
   def show
     rep = Reporting::ClientKPIReport.new
-    @table_data = rep.get_data_by_date(@sdate, @edate)
+    @table_data = rep.get_data_by_date_and_interval @sdate,@edate, params[:interval] || Metrics::WEEKLY
     @dates = @table_data["report_date"]["values"]
   end
 
