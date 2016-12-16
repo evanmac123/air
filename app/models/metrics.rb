@@ -3,7 +3,7 @@ class Metrics < ActiveRecord::Base
   MONTHLY="monthly"
 
   def self.normalized_by_date_range_and_interval sdate, edate, interval="weekly"
-       by_interval(interval).by_start_and_end(sdate, edate).order("from_date asc")
+    by_interval(interval).by_start_and_end(sdate, edate).order("from_date asc")
   end
 
   def self.by_interval(interval = WEEKLY)
@@ -28,12 +28,4 @@ class Metrics < ActiveRecord::Base
     [@sweek, @this_week]
   end
 
-  def self.results
-    select(qry_select_fields)
-  end
-
-
-  def self.qry_select_fields
-    FinancialsReporterService.query_select_fields
-  end
 end

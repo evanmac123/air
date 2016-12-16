@@ -38,7 +38,7 @@ class FinancialsReporterService
 
 
     def raw_data sdate, edate, interval=Metrics::WEEKLY
-      Metrics.normalized_by_date_range_and_interval(sdate, edate, interval)
+      Metrics.select(query_select_fields).normalized_by_date_range_and_interval(sdate, edate, interval)
     end
 
     def to_array_of_record_hashes results
