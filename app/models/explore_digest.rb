@@ -17,7 +17,7 @@ class ExploreDigest < ActiveRecord::Base
 
   def set_tile_ids(feature, tile_ids)
     tile_ids = tile_ids.gsub(/\s+/, "").split(",").select { |id| id.to_i != 0 }
-    eligible_tiles = Tile.copyable.where(id: tile_ids).pluck(:id)
+    eligible_tiles = Tile.explore.where(id: tile_ids).pluck(:id)
     tile_ids = tile_ids.select { |id| eligible_tiles.include?(id.to_i) }
     rdb[:features][feature][:tile_ids].set(tile_ids.join(","))
   end
@@ -76,7 +76,7 @@ class ExploreDigest < ActiveRecord::Base
     self.update_attributes(delivered: true, delivered_at: Time.now)
   end
 
-  def get_tiles(feature, tiles = Tile.copyable)
+  def get_tiles(feature, tiles = Tile.explore)
     tile_ids = features(feature, :tile_ids).split(",")
     grouped_tiles = tiles.where(id: tile_ids).group_by(&:id)
 

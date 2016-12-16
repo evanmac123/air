@@ -10,7 +10,7 @@ describe CopyTilesController do
       client_admin = FactoryGirl.create(:client_admin)
       sign_in_as(client_admin)
 
-      tile = FactoryGirl.create(:tile, is_copyable: true, is_public: true, status: Tile::ACTIVE)
+      tile = FactoryGirl.create(:tile, is_public: true, status: Tile::ACTIVE)
 
       post :create, tile_id: tile.id
 

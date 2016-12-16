@@ -12,16 +12,6 @@
       <% end %>
     </ul>
   </div>
-  <div class="allow_copying">
-    <span class="allow_copying_message">
-      Allow Copying
-      </span>
-      <%= content_tag "div", class: config[:copy_switch_classes] do %>
-        <%= form.radio_button :is_copyable, true, id: "allow_copying_on" %>
-        <%= form.radio_button :is_copyable, false, id: "allow_copying_off" %>
-        <span class="green-paddle"></span>
-      <% end %>
-  </div>
   <%= content_tag :div, class: config[:share_to_explore_classes] do %>
     <%= config[:share_to_explore_text] %>
   <% end %>

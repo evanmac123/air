@@ -13,7 +13,7 @@ class TileFeature < ActiveRecord::Base
 
   def tile_ids=(tile_ids)
     tile_ids = tile_ids.gsub(/\s+/, "").split(",").select { |id| id.to_i != 0 }
-    eligible_tiles = Tile.copyable.where(id: tile_ids).pluck(:id)
+    eligible_tiles = Tile.explore.where(id: tile_ids).pluck(:id)
     tile_ids = tile_ids.select { |id| eligible_tiles.include?(id.to_i) }
 
     rdb[:tile_ids].set(tile_ids.join(","))

@@ -5,7 +5,7 @@ class Explore::CampaignsController < ClientAdminBaseController
 
   def show
     @board = campaigns.find(params[:id])
-    @tiles = @board.tiles.copyable.active.order("activated_at desc")
+    @tiles = @board.tiles.explore.active.order("activated_at desc")
     @display_channels = Channel.display_channels()
   end
 

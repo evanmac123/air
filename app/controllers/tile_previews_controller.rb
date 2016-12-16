@@ -15,7 +15,7 @@ class TilePreviewsController < ApplicationController
   include ExploreHelper
 
   def show
-    @tiles = params[:tile_ids] ? get_sorted_explore_tiles : Tile.copyable.verified_explore
+    @tiles = params[:tile_ids] ? get_sorted_explore_tiles : Tile.explore.verified_explore
     @next_tile = next_explore_tile(1)
     @prev_tile = next_explore_tile(-1)
     schedule_mixpanel_pings(@tile)
@@ -59,7 +59,7 @@ class TilePreviewsController < ApplicationController
     end
 
     def find_tile
-      @tile = Tile.copyable.where(id: params[:id]).first
+      @tile = Tile.explore.where(id: params[:id]).first
 
       unless @tile
         not_found
