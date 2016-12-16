@@ -10,14 +10,6 @@ class Metrics < ActiveRecord::Base
     where(interval: interval)
   end
 
-  def self.current_week
-    by_start_and_end(*default_date_range)
-  end
-
-  def self.current_week_with_date_range
-    [by_start_and_end(*default_date_range),@sweek, @this_week]
-  end
-
   def self.by_start_and_end sdate, edate
     where(["from_date >= ? and to_date <= ?",sdate, edate])
   end

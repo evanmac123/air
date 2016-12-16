@@ -5,13 +5,6 @@ class CustSuccessKpi < ActiveRecord::Base
     by_start_and_end(sdate, edate).order("weekending_date asc").to_array_of_record_hashes
   end
 
-  def self.current_week
-    by_start_and_end(*default_date_range)
-  end
-
-  def self.current_week_with_date_range
-    [by_start_and_end(*default_date_range),@sweek, @this_week]
-  end
 
   def self.by_start_and_end sdate, edate
     where(["weekending_date >= ? and weekending_date < ?",sdate, edate])
