@@ -1,6 +1,6 @@
 # require Rails.root.join('app/presenters/tile_preview/intros_presenter')
 
-class TilePreviewsController < ApplicationController
+class Explore::TilePreviewsController < ApplicationController
   skip_before_filter :authorize
   before_filter :find_tile
   before_filter :authorize_by_explore_token
@@ -20,15 +20,11 @@ class TilePreviewsController < ApplicationController
     @prev_tile = next_explore_tile(-1)
     schedule_mixpanel_pings(@tile)
 
-    if params[:partial_only]
-      explore_preview_copy_intro
-      render partial: "tile_previews/tile_preview",
+    if request.xhr?
+      render partial: "explore/tile_previews/tile_preview",
              locals: { tile: @tile, tag: @tag, next_tile: @next_tile, prev_tile: @prev_tile, section: params[:section] },
              layout: false
     else
-      @show_explore_intro = current_user.intros.show_explore_intro!
-      explore_preview_copy_intro unless @show_explore_intro
-      explore_intro_ping @show_explore_intro, params
       render "show", layout: "single_tile_guest_layout" if  logged_in_as_guest?
     end
   end
@@ -37,7 +33,6 @@ class TilePreviewsController < ApplicationController
 
     def schedule_mixpanel_pings(tile)
       ping("Tile - Viewed in Explore", {tile_id: tile.id, section: params[:section]}, current_user)
-      ping('Tile - Viewed', {tile_type: "Public Tile - Explore", tile_id: tile.id}, current_user)
 
       if current_user.present?
         email_clicked_ping(current_user)
@@ -54,17 +49,8 @@ class TilePreviewsController < ApplicationController
       ids.map { |id| default_sorting[id].first }
     end
 
-    def explore_preview_copy_intro
-      @show_explore_preview_copy_intro = current_user.intros.show_explore_preview_copy!
-    end
-
     def find_tile
-      @tile = Tile.explore.where(id: params[:id]).first
-
-      unless @tile
-        not_found
-        return
-      end
+      @tile = Tile.explore.find(params[:id])
     end
 
     def login_as_guest_to_tile_board

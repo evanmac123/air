@@ -10,12 +10,6 @@ FactoryGirl.define do
     suggestion_box_intro_seen true
     user_submitted_tile_intro_seen true
     manage_access_prompt_seen true
-    trait :with_explore_intro do
-      user_intro { FactoryGirl.create :user_intro, explore_intro_seen: false }
-    end
-    trait :with_explore_preview_copy_intro do
-      user_intro { FactoryGirl.create :user_intro, explore_preview_copy_seen: false }
-    end
   end
 
   factory :user,  :parent => :unnamed_user do

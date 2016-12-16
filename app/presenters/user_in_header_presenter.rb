@@ -1,4 +1,3 @@
-
 class UserInHeaderPresenter
   include Rails.application.routes.url_helpers
   include ActionView::Helpers::FormOptionsHelper

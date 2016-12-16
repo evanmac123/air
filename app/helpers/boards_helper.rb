@@ -6,7 +6,7 @@ module BoardsHelper
   end
 
   def creation_source params
-    if params[:controller] == "tile_previews"
+    if params[:controller] == "explore/tile_previews"
       "Explore"
     elsif params[:controller] == "pages"
       if params[:action] == "product"
@@ -20,7 +20,7 @@ module BoardsHelper
   end
 
   def sign_up_form_page_name params
-    if params[:controller] == "tile_previews"
+    if params[:controller] == "explore/tile_previews"
       "explore"
     elsif params[:controller] == "pages"
       if params[:action] == "product"

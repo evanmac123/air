@@ -1,4 +1,4 @@
-class CopyTilesController < ClientAdminBaseController
+class Explore::CopyTilesController < ClientAdminBaseController
   skip_before_filter :authorize
   prepend_before_filter :authorize_by_explore_token
 

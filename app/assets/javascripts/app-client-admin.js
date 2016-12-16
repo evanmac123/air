@@ -1,5 +1,6 @@
 //= require mobvious-rails
 //= require_tree ./client_admin
+//= require_tree ./explore
 //= require_tree ../../../vendor/assets/javascripts/external/
 
 //= require highcharts/highcharts
