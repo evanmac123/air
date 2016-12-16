@@ -1,6 +1,6 @@
 # require Rails.root.join('app/presenters/tile_preview/intros_presenter')
 
-class TilePreviewsController < ApplicationController
+class Explore::TilePreviewsController < ApplicationController
   skip_before_filter :authorize
   before_filter :find_tile
   before_filter :authorize_by_explore_token
@@ -26,9 +26,6 @@ class TilePreviewsController < ApplicationController
              locals: { tile: @tile, tag: @tag, next_tile: @next_tile, prev_tile: @prev_tile, section: params[:section] },
              layout: false
     else
-      @show_explore_intro = current_user.intros.show_explore_intro!
-      explore_preview_copy_intro unless @show_explore_intro
-      explore_intro_ping @show_explore_intro, params
       render "show", layout: "single_tile_guest_layout" if  logged_in_as_guest?
     end
   end

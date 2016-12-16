@@ -104,11 +104,11 @@ Health::Application.routes.draw do
   resource :current_board, only: [:update]
 
   resource :explore, only: [:show], controller: :explore do
-    resources :tile_previews, only: [:show], path: "tile"
-    resource :copy_tile, only: [:create]
   end
 
   namespace :explore do
+    resource  :copy_tile, only: [:create]
+    resources :tile_previews, only: [:show], path: "tile"
     resources :campaigns, only: [:show]
     resources :channels, only: [:show]
   end

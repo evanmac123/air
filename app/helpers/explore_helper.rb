@@ -98,16 +98,6 @@ module ExploreHelper
     Time.now - current_user.accepted_invitation_at < 1.minute
   end
 
-  def explore_intro_ping show, params
-    return unless show
-    source = if params[:explore_token].present?
-      "Tiles Email"
-    else
-      new_user? ? "New User" : "Existing User"
-    end
-    ping "Explore Onboarding", {"Source" => source}, current_user
-  end
-
   def explore_content_link_ping
     if params[:explore_content_link]
       ping "Explore page - Interaction", {"action" => 'Clicked "Explore more great content"'}, current_user

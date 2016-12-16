@@ -5,7 +5,6 @@ describe TilePreviewsController do
     it "should construe an email_type parameter to mean we came here by clicking an email, and ping accordingly" do
       subject.stubs(:ping)
       subject.stubs(:email_clicked_ping)
-      subject.stubs(:explore_intro_ping)
       organization = FactoryGirl.create(:organization, name: "Airbo")
       user = FactoryGirl.create(:client_admin)
       tile = FactoryGirl.create(:tile, :public, organization: organization)
@@ -14,7 +13,6 @@ describe TilePreviewsController do
 
       expect(response.status).to eq(200)
       expect(subject).to have_received(:email_clicked_ping)
-      expect(subject).to have_received(:explore_intro_ping)
     end
 
     it "should return 404 error if tile is not found" do
