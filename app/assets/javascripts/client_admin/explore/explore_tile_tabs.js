@@ -25,7 +25,7 @@ Airbo.ExploreTileTabs = (function() {
 }());
 
 $(function(){
-  if( $("#tile_wall_explore").length > 0 ) {
+  if( $(".tile_wall_explore").length > 0 ) {
     Airbo.ExploreTileTabs.init();
   }
 });
