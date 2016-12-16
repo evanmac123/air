@@ -94,11 +94,6 @@ feature "Client admin opens tile stats", js: true, type: :feature do
         first_name.should == @user_first_name.name
       end
 
-      it "should sort by name" do
-        table_column("name").click
-        first_name.should == @user_last_name.name
-      end
-
       it "should sort by email" do
         table_column("email").click
         first_name.should == @user_first_email.name
