@@ -33,18 +33,49 @@ class FinancialsReporterService
     end
 
     def get_data_by_date_and_interval sdate, edate, interval
-      build_data_set(row_set(raw_data(sdate, edate, interval)))
+      build_data_set(row_set(to_array_of_record_hashes(raw_data(sdate, edate, interval))))
     end
 
-    def build_data_set row_data 
+
+    def raw_data sdate, edate, interval=Metrics::WEEKLY
+      Metrics.normalized_by_date_range_and_interval(sdate, edate, interval)
+    end
+
+    def to_array_of_record_hashes results
+      results.map(&:attributes)
+    end
+
+    def build_data_set rows 
       container = HashWithIndifferentAccess.new(kpi_fields)
-      return container if row_data.empty? 
+      return container if rows.empty? 
       container.each do|field, sub_hash|
-        sub_hash[:values] = row_data[field]
+        sub_hash[:values] = rows[field]
       end
       add_group_separators(container)
       container.merge!(aliased_kpis(container))
       container
+    end
+
+    def build_from_results res
+
+      fields = res.map(&:keys).flatten.uniq
+      values = res.map(&:values).transpose
+
+      Hash[fields.zip(values)]
+    end
+
+    def build_from_null_set
+      fields = kpi_fields.keys
+      values =fields.map{|f| f=="from_date" ? [Date.today] : [0]}
+      Hash[fields.zip(values)]
+    end
+
+    def row_set res
+      if res.any?
+        build_from_results res
+      else
+        build_from_null_set
+      end
     end
 
 
@@ -93,33 +124,7 @@ class FinancialsReporterService
       }
     end
 
-    def row_set res
-      if res.any?
-        build_from_results res
-      else
-        build_from_null_set
-      end
-    end
 
-    def build_from_results res
-
-      fields = res.map(&:keys).flatten.uniq
-      values = res.map(&:values).transpose
-
-      Hash[fields.zip(values)]
-    end
-
-    def build_from_null_set
-      fields = kpi_fields.keys
-      values =fields.map{|f| f=="from_date" ? [Date.today] : [0]}
-      Hash[fields.zip(values)]
-    end
-
-
-
-    def raw_data sdate, edate, interval=Metrics::WEEKLY
-      Metrics.normalized_by_date_range_and_interval sdate, edate, interval
-    end
 
     def generate_csv table
       CSV.generate do |csv|
