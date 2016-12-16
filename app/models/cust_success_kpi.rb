@@ -10,11 +10,6 @@ class CustSuccessKpi < ActiveRecord::Base
     where(["weekending_date >= ? and weekending_date < ?",sdate, edate])
   end
 
-  def self.default_date_range
-    @this_week =Date.today.beginning_of_week
-    @sweek = @this_week.advance(weeks: -5)
-    [@sweek, @this_week]
-  end
 
   def self.to_array_of_record_hashes
     results.map do |record|

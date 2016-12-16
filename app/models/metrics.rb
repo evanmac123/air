@@ -14,10 +14,4 @@ class Metrics < ActiveRecord::Base
     where(["from_date >= ? and to_date <= ?",sdate, edate])
   end
 
-  def self.default_date_range
-    @this_week =Date.today.beginning_of_week
-    @sweek = @this_week.advance(weeks: -5)
-    [@sweek, @this_week]
-  end
-
 end
