@@ -2,24 +2,26 @@ var Airbo = window.Airbo ||{}
 
 Airbo.Utils = Airbo.Utils || {}
 Airbo.Utils.StickyTable = (function(){
-
+var $table
   function initTable(){
-    var $table = $('table.sticky');
     $table.floatThead();
+    $table = $('table.sticky');
   }
 
   function init(){
     initTable();
   }
 
+  function reflow(){
+    init();
+  }
+
   return {
-    init: init
+    init: init,
+    reflow: reflow
   }
 
 }());
 
 
-$(function(){
-  Airbo.Utils.StickyTable.init();
-})
 
