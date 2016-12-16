@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe CopyTilesController do
+describe Explore::CopyTilesController do
   describe "POST create" do
     it "should send appropriate pings" do
       subject.stubs(:ping)

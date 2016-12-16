@@ -331,18 +331,6 @@ module AirboAuthorizationHelper
     end
   end
 
-  def enable_miniprofiler
-    if Rails.env.production_local? || (current_user && Rails.env.production? && PROFILABLE_USERS.include?(current_user.email))
-      Rack::MiniProfiler.authorize_request
-    end
-  end
-
-  def profiler_step(name, &block)
-    Rack::MiniProfiler.step(name) do
-      yield
-    end
-  end
-
   def prod_or_testing_ssl_outside_of_prod
     Rails.env.production? || $test_force_ssl
   end

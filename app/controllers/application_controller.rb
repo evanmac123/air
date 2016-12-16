@@ -35,6 +35,18 @@ class ApplicationController < ActionController::Base
   include AirboPingsHelper
   include AirboFlashHelper
 
+  def enable_miniprofiler
+    if Rails.env.production_local? || (current_user && Rails.env.production? && PROFILABLE_USERS.include?(current_user.email))
+      Rack::MiniProfiler.authorize_request
+    end
+  end
+
+  def profiler_step(name, &block)
+    Rack::MiniProfiler.step(name) do
+      yield
+    end
+  end
+
 
   private
 

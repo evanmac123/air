@@ -4,6 +4,7 @@ feature "User Accepts Invitation" do
   include SessionHelpers
 
   before(:each) do
+    binding.pry
     @demo = FactoryGirl.create :demo, :activated
     @user = FactoryGirl.create :claimed_user, demo: @demo, name: "Bob Q. Smith, III", password: "foobar"
     @unclaimed_user = FactoryGirl.create :user, name: "Bob Q. Smith, III"

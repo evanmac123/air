@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe TilePreviewsController do
+describe Explore::TilePreviewsController do
   describe 'GET show' do
     it "should construe an email_type parameter to mean we came here by clicking an email, and ping accordingly" do
       subject.stubs(:ping)
