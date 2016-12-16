@@ -2,7 +2,7 @@ module Reporting
   class ClientKPIReport
 
     def get_data_by_date sdate, edate
-      build_data_set(row_set(raw_data(sdate, edate)))
+      build_data_set(row_set(to_array_of_record_hashes(raw_data(sdate, edate))))
     end
 
     def build_data_set row_data 
@@ -33,7 +33,11 @@ module Reporting
     end
 
     def raw_data sdate, edate
-      CustSuccessKpi.normalized_by_start_and_end sdate, edate 
+      CustSuccessKpi.select(query_select_fields).normalized_by_start_and_end sdate, edate 
+    end
+
+    def to_array_of_record_hashes results
+      results.map(&:attributes)
     end
 
     def query_select_fields
