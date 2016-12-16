@@ -33,7 +33,7 @@ $top-bar-height: #{($bar-height + $small_cap_size + $under_small_cap)};
 
 
 body {
-  border-top:none; font-size:16px; 
+  border-top:none; font-size:16px;
   // font-family:$default;
   h1.headline {@include font-bold-local;}
   a, a:link, a:visited {@include font-bold-local;}
@@ -90,7 +90,7 @@ header {
   left:81%;
 }
 .tiles.tiles-index .viewer,
-.tile_previews.tile_previews-show .viewer {
+.tile_previews.tile_previews-show .viewer, .explore-tile_previews.explore-tile_previews-show .viewer {
   a#prev, a#next {
     width:2em;
     font-size: 0.7em;
@@ -99,7 +99,7 @@ header {
   a#next {right:3em;}
 }
 .tiles.tiles-index .tile_quiz,
-.tile_previews.tile_previews-show .tile_quiz {
+.tile_previews.tile_previews-show .tile_quiz, .explore-tile_previews.explore-tile_previews-show .tile_quiz {
   .tile_points_bar {border-top-color:darken($light-gray, 2%)}
   .tile_points_bar .earnable_points {
     top:0;
