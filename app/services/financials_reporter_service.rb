@@ -38,6 +38,7 @@ class FinancialsReporterService
 
 
     def raw_data sdate, edate, interval=Metrics::WEEKLY
+      sdate, edate = interval== Metrics::WEEKLY ? [sdate.beginning_of_week, edate.end_of_week] : [sdate.beginning_of_month, edate.end_of_month]
       Metrics.select(query_select_fields).normalized_by_date_range_and_interval(sdate, edate, interval)
     end
 
