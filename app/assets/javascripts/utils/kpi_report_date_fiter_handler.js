@@ -100,7 +100,4 @@ Airbo.Utils.KpiReportDateFilter = (function(){
 }());
 
 
-$(function(){
-  Airbo.Utils.KpiReportDateFilter.init();
-})
 
