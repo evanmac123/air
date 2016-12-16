@@ -57,7 +57,6 @@ class FinancialsReporterService
     end
 
     def build_from_results res
-
       fields = res.map(&:keys).flatten.uniq
       values = res.map(&:values).transpose
 
@@ -124,16 +123,6 @@ class FinancialsReporterService
       }
     end
 
-
-
-    def generate_csv table
-      CSV.generate do |csv|
-        table.each do|row|
-          csv << row
-        end
-      end
-    end
-
     def totals
       {
         totalArr: current_arr.to_i,
@@ -143,7 +132,7 @@ class FinancialsReporterService
     end
 
     def kpi_fields
-      {  
+      {
         "from_date" => {
           label: "Date",
           type: "date",
@@ -328,6 +317,14 @@ class FinancialsReporterService
         ]
 
       }
+    end
+
+    def generate_csv table
+      CSV.generate do |csv|
+        table.each do|row|
+          csv << row
+        end
+      end
     end
   end
 end
