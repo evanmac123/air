@@ -9,8 +9,13 @@ Airbo.Utils.KpiReportDateFilter = (function(){
   ;
 
   function adjustDateRanges(){
-    setStartDateForRange();
-    setEndDateForRange();
+    var interval = $("#interval option:selected").val()
+      , range = $("#date_range option:selected").val()
+    ;
+    if(range !=="-1"){
+      setStartDateForRange(interval, range);
+      setEndDateForRange(interval,range);
+    }
   }
 
   function startDateFromTimeStamp(ts){
@@ -18,27 +23,20 @@ Airbo.Utils.KpiReportDateFilter = (function(){
     return new Date(start); 
   }
 
-  function setEndDateForRange(){
-    var selected = $("#interval option:selected").val()
-      , edate
-    ;
+  function setEndDateForRange(interval, range){
+    var edate;
 
-    if(selected === "monthly"){
-      edate = Airbo.Utils.Dates.lastDayOfMonth();
-    }else {
-      edate = Airbo.Utils.Dates.lastDayOfWeek();
-    }
-
-    $("input[name='edate']").val(extractDateStringFromISO(edate));
+      if(interval === "monthly"){
+        edate = Airbo.Utils.Dates.lastDayOfMonth();
+      }else {
+        edate = Airbo.Utils.Dates.lastDayOfWeek();
+      }
+      $("input[name='edate']").val(extractDateStringFromISO(edate));
   }
 
-  function setStartDateForRange(){
-    var interval = $("#interval option:selected").val()
-      , range = $("#date_range option:selected").val()
-      , sdate
-    ;
- 
-    if(range !=="-1"){
+  function setStartDateForRange(interval, range){
+    var sdate;
+
       sdate = startDateFromTimeStamp(range);
       if(interval === "monthly"){
         sdate = Airbo.Utils.Dates.firstDayOfMonth(sdate);
@@ -46,7 +44,6 @@ Airbo.Utils.KpiReportDateFilter = (function(){
         sdate = Airbo.Utils.Dates.firstDayOfWeek(sdate);
       }
       $("input[name='sdate']").val(extractDateStringFromISO(sdate));
-    }
   }
 
 
