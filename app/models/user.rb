@@ -184,6 +184,23 @@ class User < ActiveRecord::Base
 
   scope :client_admin, -> { where('users.is_site_admin <> ? AND users.is_client_admin = ?', true, true) }
 
+  # TODO: Rewrite this method to use roles architecture and deprecate explore family:
+  ## def authorized?(role)
+  ##   self.roles.includes?(role)
+  ## end
+  def authorized_to?(page_class)
+    case page_class.to_sym
+    when :site_admin
+      is_site_admin
+    when :client_admin
+      is_site_admin || is_client_admin
+    when :explore_family
+      is_site_admin || is_client_admin_in_any_board
+    else
+      false
+    end
+  end
+
   def demo_id
     self.demo.try(&:id)
   end
@@ -946,19 +963,6 @@ class User < ActiveRecord::Base
     OutgoingMessage.send_message(referring_user, referrer_sms_text)
 
     referred_sms_text
-  end
-
-  def authorized_to?(page_class)
-    case page_class.to_sym
-    when :site_admin
-      is_site_admin
-    when :client_admin
-      is_site_admin || is_client_admin
-    when :explore_family
-      is_site_admin || is_client_admin_in_any_board
-    else
-      false
-    end
   end
 
   def to_ticket_progress_calculator
