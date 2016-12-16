@@ -4,6 +4,7 @@
 
   <div id="tile_preview_section">
     <%=render partial: 'copy_btn', locals: {tile: tile} unless guest_for_tile_preview?%>
+
     <div class="large-centered columns clearfix tile_preview_block">
       <%= render "tiles/full_size_tile", tile: tile, is_preview: true, image_is_loading: true %>
     </div>
@@ -11,7 +12,7 @@
 
 </div>
 <div class="bars">
-  <%=render partial: 'share_bar', locals: {tile: tile} %>
+    <%=render partial: 'share_bar', locals: {tile: tile} %>
   <div class="bg-white center bar_for_preview align_left offset_top">
     <%=render partial: 'creator', locals: { tile: tile } %>
     <%# TODO: Put new tags here after implementation @weilandia %>
