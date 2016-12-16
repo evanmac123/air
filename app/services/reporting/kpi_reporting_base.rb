@@ -36,6 +36,31 @@ module Reporting
       Hash[fields.zip(values)]
     end
 
+    def group_separators 
+      { }
+    end
 
+    def aliased_kpis container
+      {}
+    end
+
+    def add_group_separators(container)
+      group_separators.each do |key, label|
+        add_group_separator(container, key, label)
+      end
+      container
+    end
+
+    def add_group_separator container, key, label
+      colspan = container["from_date"]["values"].count + 1
+      container[key]= {
+        label: label,
+        colspan: colspan,
+        type: "grp",
+        indent: 0,
+        values: []
+      }
+      container
+    end
   end
 end
