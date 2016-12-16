@@ -227,9 +227,7 @@ Airbo.FinancialKpiChart = (function(){
     initVars();
     initChartDataFromDataAttributes();
     initChart(chartContainer);
-    initDateFilters();
     initForm();
-    initCustomDateDone();
 
     Airbo.Utils.KpiReportDateFilter.init();
     Airbo.Utils.StickyTable.init();
