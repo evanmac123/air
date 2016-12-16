@@ -26,32 +26,6 @@ class ApplicationController < ActionController::Base
   alias_method :clearance_authenticate, :authorize
   include AirboAuthorizationHelper
   alias_method :airbo_authorize, :authorize
-
-  ##End this nonsense first =>
-    def self.must_be_authorized_to(page_class, options={})
-      unless_symbols = options.delete(:unless)
-      if_symbols = options.delete(:if)
-
-      before_filter(options) do
-        if if_symbols.present?
-          if_symbols.each do |if_symbol|
-            return true unless send(if_symbol)
-          end
-        end
-
-        if unless_symbols.present?
-          unless_symbols.each do |unless_symbol|
-            return true if send(unless_symbol)
-          end
-        end
-
-        unless current_user.authorized_to?(page_class)
-          redirect_to '/'
-          return false
-        end
-      end
-    end
-  ##
   ######
 
   ##Mobvious detects whether your app / website is being accessed by a phone, or by a tablet, or by a personal computer

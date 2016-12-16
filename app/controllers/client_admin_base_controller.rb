@@ -1,12 +1,19 @@
 class ClientAdminBaseController < ApplicationController
-  must_be_authorized_to :client_admin,   unless: [:explore_token_allowed, :onboarding_auth]
-  must_be_authorized_to :explore_family, if:     [:explore_token_allowed]
+  before_filter :authorized?
   before_filter :set_is_client_admin_action
 
   layout "client_admin_layout"
 
-
   private
+  
+    def authorized?
+      role = explore_token_allowed ? :explore_family : :client_admin
+
+      unless current_user && current_user.authorized_to?(role)
+        redirect_to '/'
+        return false
+      end
+    end
 
     def explore_token_allowed
       false
