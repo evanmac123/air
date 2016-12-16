@@ -1,6 +1,6 @@
 class SettingsController < ApplicationController
 
-  before_filter :authorize_without_guest_checks
+  before_filter :clearance_authenticate
 
   def edit
     @palette = current_user.demo.custom_color_palette

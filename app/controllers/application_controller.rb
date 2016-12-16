@@ -25,7 +25,11 @@ class ApplicationController < ActionController::Base
   after_filter :merge_flashes
 
 	include Pundit
+  alias_method :pundit_authorize, :authorize
+
   include Clearance::Authentication
+  alias_method :clearance_authenticate, :authorize
+
   include Mobvious::Rails::Controller
   include TrackEvent
   protect_from_forgery
@@ -120,10 +124,6 @@ class ApplicationController < ActionController::Base
 
   private
 
-
-
-  alias authorize_without_guest_checks authorize
-
   def permitted_params
     @permitted_params ||= PermittedParams.new(params, current_user)
   end
@@ -137,7 +137,7 @@ class ApplicationController < ActionController::Base
 
     return if authorize_as_guest
     return if authorize_to_public_board
-    authorize_without_guest_checks
+    clearance_authenticate
     refresh_activity_session(current_user)
   end
 
