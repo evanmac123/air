@@ -5,17 +5,6 @@ module AirboAuthorizationHelper
     super
   end
 
-  def airbo_authorize
-    #FIXME this entire flow is fucked! AAAAAARGHH!
-    return if authorize_as_potential_user
-    authorize_by_explore_token
-
-    return if authorize_as_guest
-    return if authorize_to_public_board
-    clearance_authenticate
-    refresh_activity_session(current_user)
-  end
-
   def authorize_with_onboarding_auth_hash
     if cookies[:user_onboarding].present? && current_user.nil?
       user_onboarding = UserOnboarding.where(auth_hash: cookies[:user_onboarding]).first
@@ -27,7 +16,7 @@ module AirboAuthorizationHelper
   end
 
 
-  def authorize_as_potential_user
+  def authenticate_as_potential_user
     if session[:potential_user_id].present? && !current_user
       @_potential_user = PotentialUser.find(session[:potential_user_id])
       # FIXME the code here is doing too much. this method should simply return
@@ -43,7 +32,7 @@ module AirboAuthorizationHelper
     end
   end
 
-  def authorize_as_guest
+  def authenticate_as_guest
     if logged_in_as_guest?
       if guest_user_allowed?
         board = find_current_board # must be implemented in subclass
@@ -80,7 +69,7 @@ module AirboAuthorizationHelper
     refresh_activity_session(current_user)
   end
 
-  def authorize_to_public_board
+  def authenticate_to_public_board
     return false unless guest_user_allowed? && params[:public_slug]
 
     demo = Demo.public_board_by_public_slug(params[:public_slug])
@@ -108,7 +97,7 @@ module AirboAuthorizationHelper
     true
   end
 
-  def authorize_by_explore_token
+  def authenticate_by_explore_token
     return if current_user
     return unless explore_token_allowed
 

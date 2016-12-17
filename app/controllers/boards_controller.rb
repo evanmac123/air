@@ -61,7 +61,7 @@ class BoardsController < ApplicationController
   end
 
   def create_as_guest
-    authorize_as_guest
+    authenticate_as_guest
     login_as_guest(Demo.new) unless current_user.present?
     @create_user_with_board = CreateUserWithBoard.new params.merge(pre_user: current_user)
     success = @create_user_with_board.create

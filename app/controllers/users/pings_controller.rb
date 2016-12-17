@@ -3,7 +3,7 @@ class Users::PingsController < ApplicationController
   include LoginByExploreToken
 
   prepend_before_filter :allow_guest_user
-  before_filter :authorize_by_explore_token
+  before_filter :authenticate_by_explore_token
 
   def create
     page_name = params[:page_name]

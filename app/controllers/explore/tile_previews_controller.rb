@@ -3,11 +3,11 @@
 class Explore::TilePreviewsController < ApplicationController
   skip_before_filter :authorize
   before_filter :find_tile
-  before_filter :authorize_by_explore_token
+  before_filter :authenticate_by_explore_token
 
   before_filter :allow_guest_user
   before_filter :login_as_guest_to_tile_board
-  before_filter :authorize_as_guest
+  before_filter :authenticate_as_guest
 
   layout "client_admin_layout"
 

@@ -10,10 +10,8 @@ class ActsController < ApplicationController
   ACT_BATCH_SIZE = 5
 
   def index
-    return if authorized_by_tile_token # such as if we got here by a digest email
-
     authorize
-    return if response_body.present? # such as if our authorization failed & we're bound for the signin page
+    return unless current_user # if authorization failed
 
     set_parent_board_user(params[:board_id])
 

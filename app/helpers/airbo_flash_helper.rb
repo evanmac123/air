@@ -1,6 +1,6 @@
 module AirboFlashHelper
   FLASHES_ALLOWING_RAW = %w(notice)
-  
+
   ##FLASH MGMT =>
   def add_success(text)
     @flash_successes_for_next_request << text

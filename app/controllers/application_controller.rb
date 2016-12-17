@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-
   ##AirboAuthorizationHelper =>
   before_filter :force_ssl
   before_filter :authorize_with_onboarding_auth_hash
@@ -25,7 +24,16 @@ class ApplicationController < ActionController::Base
   include Clearance::Authentication
   alias_method :clearance_authenticate, :authorize
   include AirboAuthorizationHelper
-  alias_method :airbo_authorize, :authorize
+
+  #This should be renamed to authenticate
+  def authorize
+    return if authenticate_as_potential_user
+    return if authenticate_by_explore_token
+    return if authenticate_as_guest
+    return if authenticate_to_public_board
+    clearance_authenticate
+    refresh_activity_session(current_user)
+  end
   ######
 
   ##Mobvious detects whether your app / website is being accessed by a phone, or by a tablet, or by a personal computer
