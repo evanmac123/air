@@ -5,7 +5,7 @@ class CustSuccessKpi < ActiveRecord::Base
   end
 
   def self.by_start_and_end sdate, edate
-    where(["weekending_date >= ? and weekending_date < ?",sdate, edate])
+    where(["from_date >= ? and from_date < ?",sdate, edate])
   end
 
   def self.by_interval(interval = WEEKLY)
