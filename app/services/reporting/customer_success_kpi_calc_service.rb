@@ -1,129 +1,197 @@
 module Reporting
   class CustomerSuccessKpiCalcService
-    attr_accessor :start_interval, :sdate, :edate
+    attr_accessor :curr_interval_start, :curr_interval_end, :interval
 
-    def initialize(sdate, edate, interval)
-      @sdate =  sdate
-      @edate =  edate
+    PAID_CLIENTS_DELIGHTED_TREND = 75029
+    MONTHLY = "monthy"
+    WEEKLY = "weekly"
+
+    def initialize(from_date, to_date, interval)
+      @from_date =  from_date
+      @to_date =  to_date
       @interval = interval
-      @start_interval_date = @interval == "weekly" ? sdate.beginning_of_week : sdate.beginning_of_month
-      @start_interval = @start_interval_date.strftime("%Y-%m-%d")
+      @curr_interval_start = @from_date 
+      setup_current_interval
       get_data
     end
 
-    def paid_net_promoter_score
+
+
+    def get_paid_net_promoter_score
       @nps = Integrations::NetPromoterScore.get_metrics({ trend: PAID_CLIENTS_DELIGHTED_TREND })
     end
 
-    def total_paid_orgs
+    def paid_net_promoter_score
+      @nps
+    end
+
+    def get_total_paid_orgs
       @total_paid_orgs = Organization.joins(:boards).where(demos: { id: @demo_ids }).uniq.count
     end
 
-    def total_paid_client_admins
+    def total_paid_orgs
+      @total_paid_orgs
+    end
+
+    def get_total_paid_client_admins
       @total_paid_client_admins = User.joins(:demo).where(demo: { id: @demo_ids } ).where(is_client_admin: true).count
+    end
+
+    def total_paid_client_admins
+      @total_paid_client_admins
+    end
+
+    def get_org_unique_activity_sessions
+      @org_unique_activity_sessions = Reporting::Mixpanel::OrganizationWithUniqueActivitySessions.new(opts)
     end
 
 
     def org_unique_activity_sessions
-      @org_unique_activity_sessions = Reporting::Mixpanel::OrganizationWithUniqueActivitySessions.new(opts).get_count(@start_interval)
+      @org_unique_activity_sessions.get_count(@curr_interval_key)
     end
 
     def percent_engaged_organizations
-      calc_percent(@org_unique_activity_sessions, @total_paid_orgs)
+      calc_percent(org_unique_activity_sessions, total_paid_orgs) #OK
+    end
+
+    def get_client_admin_unique_activity_sessions
+      @client_admin_unique_activity_sessions = Reporting::Mixpanel::ClientAdminWithUniqueActivitySessions.new(opts)
     end
 
     def client_admin_unique_activity_sessions
-      @client_admin_unique_activity_sessions = Reporting::Mixpanel::ClientAdminWithUniqueActivitySessions.new(opts).get_count(@start_interval)
+      @client_admin_unique_activity_sessions.get_count(@curr_interval_key)
     end
+
+    def get_total_client_admin_activity_sessions
+      @total_client_admin_activity_sessions = Reporting::Mixpanel::TotalClientAdminActivitySessions.new(opts)
+    end
+
 
     def total_client_admin_activity_sessions
-      @total_client_admin_activity_sessions = Reporting::Mixpanel::TotalClientAdminActivitySessions.new(opts).get_count(@start_interval)
+      @total_client_admin_activity_sessions.get_count(@curr_interval_key)
     end
 
+
     def percent_engaged_client_admin
-      calc_percent(@client_admin_unique_activity_sessions, @total_paid_client_admins)
+      calc_percent(client_admin_unique_activity_sessions, total_paid_client_admins)
     end
 
     def activity_sessions_per_client_admin
-      calc_avg(@total_client_admin_activity_sessions, client_admin_unique_activity_sessions)
+      calc_avg(total_client_admin_activity_sessions, client_admin_unique_activity_sessions)
     end
 
 
+    def get_unique_client_admin_with_viewed_tiles_in_explore
+      @unique_client_admin_with_viewed_tiles_in_explore =Reporting::Mixpanel::ClientAdminWithUniqueExploreTileViews.new(opts)
+    end
+
     def unique_client_admin_with_viewed_tiles_in_explore
-      @unique_client_admin_with_viewed_tiles_in_explore =Reporting::Mixpanel::ClientAdminWithUniqueExploreTileViews.new(opts).get_count(@start_interval)
+      @unique_client_admin_with_viewed_tiles_in_explore.get_count(@curr_interval_key)
+    end
+
+    def get_unique_organizations_with_viewed_tiles_in_explore
+      @unique_organizations_with_viewed_tiles_in_explore =Reporting::Mixpanel::UniqueOrganizationsWithViewedTiles.new(opts)
     end
 
     def unique_organizations_with_viewed_tiles_in_explore
-      @unique_organizations_with_viewed_tiles_in_explore =Reporting::Mixpanel::UniqueOrganizationsWithViewedTiles.new(opts).get_count(@start_interval)
+      @unique_organizations_with_viewed_tiles_in_explore.get_count(@curr_interval_key)
+    end
+
+    def get_total_tiles_viewed_in_explore
+      @total_tiles_viewed_in_explore = Reporting::Mixpanel::TotalTilesViewedInExplore.new(opts)
     end
 
     def total_tiles_viewed_in_explore
-      @total_tiles_viewed_in_explore = Reporting::Mixpanel::TotalTilesViewedInExplore.new(opts).get_count(@start_interval)
+      @total_tiles_viewed_in_explore.get_count(@curr_interval_key)
     end
+
 
     def tiles_viewed_per_paid_client_admin
-      calc_avg(@total_tiles_viewed_in_explore, @unique_client_admin_with_viewed_tiles_in_explore)
+      calc_avg(total_tiles_viewed_in_explore, unique_client_admin_with_viewed_tiles_in_explore)
     end
 
 
-    def tiles_added_by_paid_client_admins
-      @tiles_added = Reporting::Mixpanel::TotalTilesAddedByPaidClientAdmin.new(opts)
-      @total_tiles_added = @tiles_added.sum(@start_interval)
+    def get_tiles_added_by_paid_client_admins
+      @tiles_added_by_paid_client_admins = Reporting::Mixpanel::TotalTilesAddedByPaidClientAdmin.new(opts)
     end
 
     def total_tiles_added
-      @total_tiles_added
+      @tiles_added_by_paid_client_admins.sum(@curr_interval_key)
     end 
 
     def total_tiles_added_from_copy
-      @total_tiles_added_from_copy = @tiles_added.get_count_by_segment("Explore Page", @start_interval)
+      @tiles_added_by_paid_client_admins.get_count_by_segment("Explore Page", @curr_interval_key)
     end
 
     def total_tiles_added_from_scratch
-      @tiles_created_from_scratch  = @tiles_added.get_count_by_segment("Self Created", @start_interval)
+       @tiles_added_by_paid_client_admins.get_count_by_segment("Self Created", @curr_interval_key)
+    end
+
+    def get_orgs_that_added_tiles
+      @orgs_that_added_tiles = Reporting::Mixpanel::UniqueOrganizationsThatAddedTiles.new(opts)
     end
 
     def orgs_that_added_tiles
-      @orgs_that_added_tiles = Reporting::Mixpanel::UniqueOrganizationsThatAddedTiles.new(opts).get_count(@start_interval)
+      @orgs_that_added_tiles.get_count(@curr_interval_key)
     end
 
     def percent_of_orgs_that_added_tiles
-      calc_percent(@orgs_that_added_tiles, @total_paid_orgs)
+      calc_percent(orgs_that_added_tiles, total_paid_orgs)
     end
 
     def percent_of_tiles_added_from_copy
-      calc_percent(total_tiles_added_from_copy, @total_tiles_added)
+      calc_percent(total_tiles_added_from_copy, total_tiles_added)
     end
 
     def percent_of_tiles_added_created_from_scratch
-      calc_percent(total_tiles_added_from_scratch,@total_tiles_added)
+      calc_percent(total_tiles_added_from_scratch, total_tiles_added)
     end
 
+    def get_unique_orgs_that_copied_tiles
+      @unique_orgs_that_copied_tiles = Reporting::Mixpanel::UniqueOrganizationsWithCopiedTiles.new(opts)
+    end
+
+
     def unique_orgs_that_copied_tiles
-      @unique_orgs_that_copied_tiles = Reporting::Mixpanel::UniqueOrganizationsWithCopiedTiles.new(opts).get_count(@start_interval)
+      @unique_orgs_that_copied_tiles.get_count(@curr_interval_key)
+    end
+
+
+    def get_orgs_that_created_tiles_from_scratch
+      @orgs_that_created_tiles_from_scratch = Reporting::Mixpanel::UniqueOrganizationsThatCreatedTilesFromScratch.new(opts)
     end
 
     def orgs_that_created_tiles_from_scratch
-      @orgs_that_created_tiles_from_scratch = Reporting::Mixpanel::UniqueOrganizationsThatCreatedTilesFromScratch.new(opts).get_count(@start_interval)
+      @orgs_that_created_tiles_from_scratch.get_count(@curr_interval_key)
     end
 
+
     def percent_of_orgs_that_viewed_tiles
-      calc_percent(@unique_organizations_with_viewed_tiles_in_explore, @total_paid_orgs)
+      calc_percent(unique_organizations_with_viewed_tiles_in_explore, total_paid_orgs)
     end
 
 
     def average_tiles_copied_per_org_that_copied
-      calc_avg(@total_tiles_added_from_copy, @unique_orgs_that_copied_tiles)
+      calc_avg(total_tiles_added_from_copy, unique_orgs_that_copied_tiles)
     end
 
     def average_tiles_created_from_scratch_per_org_that_created
-      calc_avg(@tiles_created_from_scratch, @orgs_that_created_tiles_from_scratch)
+      calc_avg(total_tiles_added_from_scratch, orgs_that_created_tiles_from_scratch)
+    end
+
+    def get_avg_tile_creation_time
+      @avg_tile_creation_time = Reporting::Mixpanel::TileCreationFunnel.new(opts)
     end
 
 
     def avg_tile_creation_time
-      @avg_tile_creation_time = Reporting::Mixpanel::TileCreationFunnel.new(opts).get_avg_time(@start_interval)
+      @avg_tile_creation_time.get_avg_time(@curr_interval_key)
     end
+
+    def get_retention
+      @retention = Reporting::Mixpanel::UniqueActivitySessionAfterTimePeriodInDays.new(opts)
+    end
+
 
     def retention
       @retention = Reporting::Mixpanel::UniqueActivitySessionAfterTimePeriodInDays.new(opts)
@@ -136,11 +204,11 @@ module Reporting
     end
 
     def percent_of_orgs_that_posted_tiles
-      calc_percent(@orgs_that_posted_tiles, @total_paid_orgs)
+      calc_percent(orgs_that_posted_tiles, total_paid_orgs)
     end
 
     def average_tiles_posted_per_organization_that_posted
-      calc_avg(@total_tiles_posted, @orgs_that_posted_tiles)
+      calc_avg(total_tiles_posted, orgs_that_posted_tiles)
     end
 
     def percent_joined_current
@@ -155,45 +223,78 @@ module Reporting
     def percent_joined_120
     end
 
+    def get_total_tiles_posted
+      @total_tiles_posted = Reporting::Mixpanel::TotalTilesPostedByPaidClientAdmin.new(opts)
+    end
+
+
     def total_tiles_posted
-      @total_tiles_posted = Reporting::Mixpanel::TotalTilesPostedByPaidClientAdmin.new(opts).get_count(@start_interval)
+      @total_tiles_posted.get_count(@curr_interval_key)
+    end
+
+    def get_orgs_that_posted_tiles
+      @orgs_that_posted_tiles = Reporting::Mixpanel::UniqueOrganizationsWithPostedTiles.new(opts)
     end
 
     def orgs_that_posted_tiles
-      @orgs_that_posted_tiles = Reporting::Mixpanel::UniqueOrganizationsWithPostedTiles.new(opts).get_count(@start_interval)
+      @orgs_that_posted_tiles.get_count(@curr_interval_key)
     end
 
     def percent_orgs_that_copied_tiles
-      calc_percent(@unique_orgs_that_copied_tiles, @total_paid_orgs)
+      calc_percent(unique_orgs_that_copied_tiles, total_paid_orgs)
     end
 
     def get_data
       @demo_ids = Demo.paid.pluck(:id) 
-      total_paid_orgs
-      org_unique_activity_sessions
-      client_admin_unique_activity_sessions
-      total_client_admin_activity_sessions
-      unique_client_admin_with_viewed_tiles_in_explore
-      unique_organizations_with_viewed_tiles_in_explore
-      total_tiles_viewed_in_explore
-      orgs_that_added_tiles
-      tiles_added_by_paid_client_admins
-      unique_orgs_that_copied_tiles
-      orgs_that_created_tiles_from_scratch
-      orgs_that_posted_tiles
-      total_tiles_posted
+
+      get_paid_net_promoter_score
+      get_total_paid_client_admins
+      get_total_paid_orgs
+      get_org_unique_activity_sessions
+      get_client_admin_unique_activity_sessions
+      get_total_client_admin_activity_sessions
+      get_unique_client_admin_with_viewed_tiles_in_explore
+      get_unique_organizations_with_viewed_tiles_in_explore
+      get_total_tiles_viewed_in_explore
+      get_orgs_that_added_tiles
+      get_tiles_added_by_paid_client_admins
+      get_unique_orgs_that_copied_tiles
+      get_orgs_that_created_tiles_from_scratch
+      get_orgs_that_posted_tiles
+      get_total_tiles_posted
+      get_avg_tile_creation_time
     end
 
     #----------Utility Methods
 
+
+
     def advance_interval
-      @start_interval_date = interval == WEEKLY ? @start_interval_date.advance(weeks:1) : @start_interval_date.adance(months:1)
+      if @interval == WEEKLY
+        @curr_interval_start =   @curr_interval_start.advance(weeks:1) 
+      else
+        @curr_interval_start =  @curr_interval_start.advance(months:1)
+      end
+      setup_current_interval
     end
 
     private 
 
+    def setup_current_interval
+      @curr_interval_end = end_interval(@curr_interval_start)
+      @curr_interval_key = format_date(@curr_interval_start)
+    end
+
+    def end_interval s
+      @interval == WEEKLY ? s.end_of_week : s.end_of_month
+    end
+
+    def format_date date
+      date.strftime("%Y-%m-%d")
+    end
+
     def opts
-      {from_date: sdate, to_date: edate}
+      {from_date: @from_date, to_date: @to_date}
     end
 
     def formatted_total_completion_time t
@@ -214,14 +315,6 @@ module Reporting
 
     def seconds t
       t%60 == 0 ? nil : t%60
-    end
-
-    def month
-      Date.today.strftime("%m/%y")
-    end
-
-    def week
-      (Date.today.end_of_week + 1.day).strftime("%m/%d/%y")
     end
 
     def calc_percent(a, b)
