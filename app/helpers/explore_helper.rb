@@ -106,6 +106,6 @@ module ExploreHelper
 
   def campaign_boards
     # TODO: NEXT RELEASE: change to Demo.includes(:campaign).where(campaign: { active: true })  (add as campaigns scope on Demo)
-    Demo.includes(topic_board: :topic).where(topic_board: { is_library: true } )
+    Demo.includes(topic_board: :topic).where(topic_board: { is_library: true } ).order(:name)
   end
 end

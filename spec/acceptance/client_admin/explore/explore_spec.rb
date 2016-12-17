@@ -22,14 +22,14 @@ feature "Explore" do
 
         within "section#channel_1" do
           expect(page).to have_css('.explore-headers', text: "channel_1")
-          expect(page).to have_content(Tile.find(1).headline)
+          expect(page).to have_content(Tile.first.headline)
         end
 
         expect(page).to_not have_css('#channel_2')
 
         within "section#channel_3" do
           expect(page).to have_css('.explore-headers', text: "channel_3")
-          expect(page).to have_content(Tile.find(3).headline)
+          expect(page).to have_content(Tile.last.headline)
         end
       end
     end
