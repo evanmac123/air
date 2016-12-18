@@ -67,7 +67,7 @@ module Reporting
     def kpi_fields
       {
 
-        "report_date" => {
+        "from_date" => {
           label: "Date",
           type: "date",
           hint: "",
