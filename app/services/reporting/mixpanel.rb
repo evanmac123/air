@@ -114,7 +114,7 @@ module Reporting
 
       def parse_dates
         @from = @options.delete(:from_date) || Date.today.beginning_of_week(:monday)
-        @to = @options.delete(:to_date) || @from.end_of_week(:sunday).end_of_day
+        @to = @options.delete(:to_date) || @from.end_of_week(:sunday)
       end
 
       def config

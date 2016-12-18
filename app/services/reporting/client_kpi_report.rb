@@ -278,7 +278,7 @@ module Reporting
         "average_tile_creation_time" =>{
           label: "Speed",
           type: "num",
-          hint: "",
+          hint: "Average tile creation time in seconds",
           indent: 1,
         },
 
