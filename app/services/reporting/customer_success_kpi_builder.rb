@@ -90,15 +90,15 @@ module Reporting
         if has_data?
           sdate = min_start(from_date).beginning_of_month
           kpi = Reporting::CustomerSuccessKpiCalcService.new(sdate, Date.today.beginning_of_month, MONTHLY)
-          while sdate < Date.today.beginning_of_month do 
-            build(kpi,MONTHLY)
+          while kpi.curr_interval_start < Date.today.beginning_of_month do 
+            build(kpi)
             sdate = kpi.advance_interval
           end
         end
       end
 
       def min_start(date)
-        date || Date.new(2016,12,1)
+        date || Date.new(2016,9,1)
       end
 
       def has_data?
