@@ -3,7 +3,7 @@ module Reporting
     attr_accessor :curr_interval_start, :curr_interval_end, :interval
 
     PAID_CLIENTS_DELIGHTED_TREND = 75029
-    MONTHLY = "monthy"
+    MONTHLY = "monthly"
     WEEKLY = "weekly"
 
     def initialize(from_date, to_date, interval)
@@ -289,12 +289,16 @@ module Reporting
       @interval == WEEKLY ? s.end_of_week : s.end_of_month
     end
 
+    def unit
+      @interval == WEEKLY ? "week" : "month" 
+    end
+
     def format_date date
       date.strftime("%Y-%m-%d")
     end
 
     def opts
-      {from_date: @from_date, to_date: @to_date}
+      {from_date: @from_date, to_date: @to_date, unit: unit}
     end
 
     def formatted_total_completion_time t

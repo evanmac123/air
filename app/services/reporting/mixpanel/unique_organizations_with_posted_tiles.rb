@@ -7,7 +7,6 @@ module Reporting
       def configure opts
         opts.merge!({
           event: "Tile Posted",
-          unit: "week",
           type: "unique",
           where: %Q|properties["organization"] != "#{AIRBO_ORG_ID}" and ("client admin" in properties["user_type"]) and (defined (properties["user_type"])) and (properties["board_type"] == "Paid")|,
           on: 'string(properties["organization"])',

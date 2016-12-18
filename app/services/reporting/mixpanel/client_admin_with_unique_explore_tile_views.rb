@@ -7,7 +7,6 @@ module Reporting
       def configure opts
         opts.merge!({
           event: "Tile - Viewed in Explore",
-          unit: 'week',
           where:%Q|(properties["user_type"] == "client admin") and (properties["board_type"] == "Paid") and properties["organization"] != "#{AIRBO_ORG_ID}"|,
           type: 'unique',
         })

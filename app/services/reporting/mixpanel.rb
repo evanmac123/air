@@ -59,11 +59,9 @@ module Reporting
       attr_reader :from, :to
 
       def initialize options
-        @options = options.dup
-        configure(@options)
-        parse_dates
         @summary_by_date = {} 
-        @params = config.reverse_merge!(@options).with_indifferent_access
+        @options = options.dup
+        @params = configure(get_date_range_config).with_indifferent_access
         @mixpanel = AirboMixpanelClient.new
         init_data_hash
       end
@@ -108,31 +106,21 @@ module Reporting
       end
 
       def configure opts
-        opts
+        raise "You need to implement endpoint  in a subclass"
       end
 
-
-      def parse_dates
-        @from = @options.delete(:from_date) || Date.today.beginning_of_week(:monday)
-        @to = @options.delete(:to_date) || @from.end_of_week(:sunday)
-      end
-
-      def config
+      def get_date_range_config
+        from = @options.delete(:from_date) || Date.today.beginning_of_week(:monday)
+        to = @options.delete(:to_date) || from.end_of_week(:sunday)
         {
-          from_date: formatted_from, 
-          to_date: formatted_to
+          from_date: date_format(from),
+          to_date: date_format(to),
+          unit: @options.delete(:unit) || "week"
         }
       end
 
-      def formatted_from
-        date_format(@from)
-      end
-
-      def formatted_to
-        date_format(@to)
-      end
-
       private
+
       def date_format d
         d.strftime "%Y-%m-%d"
       end
