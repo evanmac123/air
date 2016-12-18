@@ -50,15 +50,15 @@ module Reporting
           "average_tile_creation_time"
         ],
 
-        "Engagement" => [
-          "percent_joined_current",
-          "percent_joined_30_days",
-          "percent_joined_60_days",
-          "percent_joined_120_days",
-          "percent_retained_post_activation_30_days",
-          "percent_retained_post_activation_60_days",
-          "percent_retained_post_activation_120_days"
-        ],
+        #"Engagement" => [
+          #"percent_joined_current",
+          #"percent_joined_30_days",
+          #"percent_joined_60_days",
+          #"percent_joined_120_days",
+          #"percent_retained_post_activation_30_days",
+          #"percent_retained_post_activation_60_days",
+          #"percent_retained_post_activation_120_days"
+        #],
 
       }
     end
