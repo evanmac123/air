@@ -5,8 +5,9 @@ class ClientAdminBaseController < ApplicationController
   layout "client_admin_layout"
 
   private
-  
+
     def authorized?
+      # TODO: Deprecate :explore_family
       role = explore_token_allowed ? :explore_family : :client_admin
 
       unless current_user && current_user.authorized_to?(role)

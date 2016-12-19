@@ -1,6 +1,4 @@
 module AirboAuthorizationHelper
-  ACTIVITY_SESSION_THRESHOLD = ENV['ACTIVITY_SESSION_THRESHOLD'].try(:to_i) || 900 # in seconds
-
   def current_user
     super
   end
@@ -20,7 +18,7 @@ module AirboAuthorizationHelper
     if session[:potential_user_id].present? && !current_user
       @_potential_user = PotentialUser.find(session[:potential_user_id])
       # FIXME the code here is doing too much. this method should simply return
-      # true/false
+      # true/false and should be moved to a Pundit policy on these three specific actions.
       #----------------------------------------------------------
       allowed_pathes = [activity_path, potential_user_conversions_path, ping_path]
       if @_potential_user && !allowed_pathes.include?(request.path)
@@ -43,26 +41,20 @@ module AirboAuthorizationHelper
         refresh_activity_session(current_user)
         return true
       else
-        # TODO: DEPRECATE test_suite_remediation: I think these flash messages are deprecated in the user flow.  Should remove along with pending specs in spec/acceptance/guest_user/gets_helpful_message_if_they_try_to_break_out_of_the_sandbox_spec.rb
         guest = GuestUser.where(id: session[:guest_user_id]).first
         demo = guest.try(:demo)
-        if demo && $rollout.active?(:suppress_conversion_modal, demo)
-        #FIXME this rollout is deprecated so this branch is no longer reachable
-          flash[:failure] = "Sorry, you don't have permission to access that part of the site."
-        else
-          flash[:failure] = '<a href="#" class="open_save_progress_form">Save your progress</a> to access this part of the site.'
-          flash[:failure_allow_raw] = true
-        end
-        #
-        #FIXME WTF why are finding guest user twice????
-        redirect_to public_activity_path(claimed_guest_user.demo.public_slug)
+
+        flash[:failure] = '<a href="#" class="open_save_progress_form">Save your progress</a> to access this part of the site.'
+        flash[:failure_allow_raw] = true
+
+        redirect_to public_activity_path(demo.try(:public_slug))
         return true
       end
     end
   end
 
   def login_as_guest(demo)
-    session[:guest_user] = {demo_id: demo.id}
+    session[:guest_user] = { demo_id: demo.id }
     if session[:guest_user_id]
       session[:guest_user][:id] = session[:guest_user_id]
     end
@@ -143,30 +135,8 @@ module AirboAuthorizationHelper
     params[:explore_token] || session[:explore_token]
   end
 
-  def refresh_activity_session(user)
-    return if user.nil? || user.is_a?(PotentialUser)
-
-    if user.is_a? User
-      session[:user_id] = user.id
-    elsif user.is_a? GuestUser
-      session[:guest_user_id] = user.id
-    end
-
-    # We rig the timestamp to ensure that these always appear to Mixpanel to happen after the corresponding email ping (as in email_clicked_ping) if any.
-    if idle_period >= ACTIVITY_SESSION_THRESHOLD
-      time = request.env['rack.timestamp'] || Time.now
-      ping('Activity Session - New', {time: time - 1}, user)
-    end
-
-    set_last_session_activity
-  end
-
   def explore_token_allowed
     false
-  end
-
-  def claimed_guest_user
-    GuestUser.find(session[:guest_user][:id])
   end
 
   def public_board_not_found
@@ -246,22 +216,6 @@ module AirboAuthorizationHelper
     @no_tiles_to_do = current_user.demo.tiles.active.empty?
   end
 
-  def disable_mime_sniffing
-    response.headers['X-Content-Type-Options'] = 'nosniff'
-  end
-
-  def allow_same_origin_framing
-    @allow_same_origin_framing = true
-  end
-
-  def disable_framing
-    response.headers['X-Frame-Options'] = frame_option
-  end
-
-  def frame_option
-    @allow_same_origin_framing ? 'SAMEORIGIN' : 'DENY'
-  end
-
   def override_public_board_setting
     false
   end
@@ -277,51 +231,6 @@ module AirboAuthorizationHelper
 
   def ignore_all_newrelic
     NewRelic::Agent.ignore_transaction
-  end
-
-  def set_last_session_activity
-    session[:last_activity] = Time.now
-  end
-
-  def last_session_activity
-    session[:last_activity].to_i || 0
-  end
-
-  def idle_period
-    @difference ||= Time.now.to_i - last_session_activity
-  end
-
-  # Used since our *.hengage.com SSL cert does not cover plain hengage.com.
-  def hostname_with_subdomain
-    request.subdomain.present? ? request.host : "www." + request.host
-  end
-
-  def force_ssl
-    return true unless prod_or_testing_ssl_outside_of_prod
-    redirect_required = false
-    unless request.subdomain.present?
-      redirect_required = true
-    end
-    unless request.ssl?
-      redirect_required = true
-    end
-
-    if redirect_required
-      redirect_hostname = hostname_with_subdomain
-      redirection_parameters = {
-        :protocol   => 'https',
-        :host       => redirect_hostname,
-        :action     => action_name,
-        :controller => controller_name
-      }.reverse_merge(params)
-
-      redirect_to redirection_parameters
-      return false
-    end
-  end
-
-  def prod_or_testing_ssl_outside_of_prod
-    Rails.env.production? || $test_force_ssl
   end
 
   #Deprecated? =>

@@ -5,8 +5,4 @@ class ExplorePolicy < ApplicationPolicy
     @user = user
   end
 
-  def show?
-    binding.pry
-    user.admin? or not post.published?
-  end
 end

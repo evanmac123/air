@@ -1,14 +1,19 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  ##AirboAuthorizationHelper =>
+
+  ##AirboSecurityHelper
   before_filter :force_ssl
-  before_filter :authorize_with_onboarding_auth_hash
-  before_filter :authorize
   before_filter :disable_mime_sniffing
   before_filter :disable_framing
+  ##
+
+  before_filter :enable_miniprofiler #NOTE on by default in development
+
+  ##AirboAuthorizationHelper =>
+  before_filter :authorize_with_onboarding_auth_hash
+  before_filter :authorize
   before_filter :set_show_conversion_form_before_this_request
   before_render :persist_guest_user
-  before_filter :enable_miniprofiler #NOTE on by default in development
   before_render :no_newrelic_for_site_admins
   ##
 
@@ -25,6 +30,12 @@ class ApplicationController < ActionController::Base
   alias_method :clearance_authenticate, :authorize
   include AirboAuthorizationHelper
 
+  include AirboActivitySessionHelper
+  include AirboSecurityHelper
+  include AirboPingsHelper
+  include AirboFlashHelper
+  include Mobvious::Rails::Controller
+
   #This should be renamed to authenticate
   def authorize
     return if authenticate_as_potential_user
@@ -36,13 +47,7 @@ class ApplicationController < ActionController::Base
   end
   ######
 
-  ##Mobvious detects whether your app / website is being accessed by a phone, or by a tablet, or by a personal computer
-  include Mobvious::Rails::Controller
-  ##
-
-  include AirboPingsHelper
-  include AirboFlashHelper
-
+  # TODO: Can we find a solution that does not require dev methods (miniprofiler, newrelic) in AppController??
   def enable_miniprofiler
     if Rails.env.production_local? || (current_user && Rails.env.production? && PROFILABLE_USERS.include?(current_user.email))
       Rack::MiniProfiler.authorize_request
@@ -55,6 +60,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def present(object, klass = nil, opts={})
+    klass ||= "#{object.class}Presenter".constantize
+    klass.new(object, view_context, opts)
+  end
 
   private
 
@@ -100,10 +109,5 @@ class ApplicationController < ActionController::Base
     def parse_start_and_end_dates
       @sdate = params[:sdate].present? ? Date.strptime(params[:sdate], "%Y-%m-%d") : nil
       @edate =  params[:edate].present? ? Date.strptime(params[:edate], "%Y-%m-%d") : nil
-    end
-
-    def present(object, klass = nil, opts={})
-      klass ||= "#{object.class}Presenter".constantize
-      klass.new(object, view_context, opts)
     end
 end
