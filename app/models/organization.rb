@@ -26,6 +26,19 @@ class Organization < ActiveRecord::Base
     as_customer.select{|o| o.active_as_of_date(d)}
   end
 
+  def self.with_active_contracts date
+    org_table = Organization.arel_table
+    contract_table = Contract.arel_table
+
+    self.select(org_table[:name]).joins(
+      org_table.join(contract_table).on(
+        org_table[:id].eq(contract_table[:organization_id]).and(
+          contract_table[:end_date].gteq(date).and(contract_table[:in_collection].eq(false))
+        )
+      ).join_sources
+    ).uniq
+  end
+
   def self.currently_active
     active_as_of_date(Date.today)
   end
@@ -116,6 +129,8 @@ class Organization < ActiveRecord::Base
   def life_time
     TimeDifference.between(customer_start_date, customer_end_date).in_months
   end
+
+  
 
   private
 
