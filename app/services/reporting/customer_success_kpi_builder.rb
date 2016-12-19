@@ -98,7 +98,7 @@ module Reporting
       end
 
       def min_start(date)
-        date || Date.new(2016,9,1)
+        date || Date.new(2016,11,1)
       end
 
       def has_data?
