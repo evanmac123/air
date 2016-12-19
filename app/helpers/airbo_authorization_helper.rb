@@ -4,52 +4,53 @@ module AirboAuthorizationHelper
   end
 
   def authenticate_with_onboarding_auth_hash
-    if cookies[:user_onboarding].present? && current_user.nil?
-      user_onboarding = UserOnboarding.where(auth_hash: cookies[:user_onboarding]).first
-      if user_onboarding && !user_onboarding.completed
-        sign_in(user_onboarding.user)
-        refresh_activity_session(current_user)
-        return true
-      end
+    return false unless cookies[:user_onboarding].present? && !current_user
+    user_onboarding = UserOnboarding.find_by_auth_hash(auth_hash: cookies[:user_onboarding])
+    if user_onboarding && !user_onboarding.completed
+      sign_in(user_onboarding.user)
+      refresh_activity_session(current_user)
+      return true
+    else
+      return false
     end
   end
 
   def authenticate_as_potential_user
-    if session[:potential_user_id].present? && !current_user
-      @_potential_user = PotentialUser.find(session[:potential_user_id])
-      # FIXME the code here is doing too much. this method should simply return
-      # true/false and should be moved to a Pundit policy on these three specific actions.
-      #----------------------------------------------------------
-      allowed_pathes = [activity_path, potential_user_conversions_path, ping_path]
-      if @_potential_user && !allowed_pathes.include?(request.path)
-        redirect_to activity_path
-      end
-      #------------------------------------------------------------
-      #FIXME
-      @_potential_user.present?
+    return false unless session[:potential_user_id].present? && !current_user
+    potential_user = PotentialUser.find_by_id(session[:potential_user_id])
+
+    # FIXME the code here is doing too much. this method should simply return
+    # true/false and should be moved to a Pundit policy on these three specific actions.
+    #----------------------------------------------------------
+    allowed_pathes = [activity_path, potential_user_conversions_path, ping_path]
+    if potential_user && !allowed_pathes.include?(request.path)
+      redirect_to activity_path
+    elsif potential_user
+      return true
+    else
+      return false
     end
   end
 
   def authenticate_as_guest
-    if logged_in_as_guest?
-      if guest_user_allowed?
-        board = find_current_board # must be implemented in subclass
-        unless override_public_board_setting || (board && board.is_public)
-          public_board_not_found
-        end
-
-        refresh_activity_session(current_user)
-        return true
-      else
-        guest = GuestUser.where(id: session[:guest_user_id]).first
-        demo = guest.try(:demo)
-
-        flash[:failure] = '<a href="#" class="open_save_progress_form">Save your progress</a> to access this part of the site.'
-        flash[:failure_allow_raw] = true
-
-        redirect_to public_activity_path(demo.try(:public_slug))
-        return true
+    return false unless logged_in_as_guest?
+    if guest_user_allowed?
+      board = find_current_board # must be implemented in subclass
+      unless override_public_board_setting || (board && board.is_public)
+        public_board_not_found
       end
+
+      refresh_activity_session(current_user)
+      return true
+    else
+      guest = GuestUser.where(id: session[:guest_user_id]).first
+      demo = guest.try(:demo)
+
+      flash[:failure] = '<a href="#" class="open_save_progress_form">Save your progress</a> to access this part of the site.'
+      flash[:failure_allow_raw] = true
+
+      redirect_to public_activity_path(demo.try(:public_slug))
+      return true
     end
   end
 
@@ -110,14 +111,13 @@ module AirboAuthorizationHelper
   end
 
   def authenticate_by_explore_token
-    return if current_user
-    return unless explore_token_allowed
+    return false unless explore_token_allowed && !current_user
 
     explore_token = find_explore_token
-    return unless explore_token.present?
+    return false unless explore_token.present?
 
     user = User.find_by_explore_token(explore_token)
-    return unless user.present? && user.is_client_admin_in_any_board
+    return false unless user.present? && user.is_client_admin_in_any_board
 
     remember_explore_token(explore_token)
 
