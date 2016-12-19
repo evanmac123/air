@@ -26,7 +26,8 @@ class Tile < ActiveRecord::Base
   RSVP_TO_EVENT         = "RSVP to event".parameterize("_").freeze
   INVITE_SPOUSE         = "Invite Spouse".parameterize("_").freeze
   CHANGE_EMAIL         = "Change Email".parameterize("_").freeze
-
+  MAX_HEADLINE_LEN = 75
+  MAX_SUPPORTING_CONTENT_LEN = 700
   acts_as_taggable_on :channels
 
   belongs_to :demo
@@ -49,19 +50,25 @@ class Tile < ActiveRecord::Base
   before_validation :sanitize_supporting_content
   before_validation :sanitize_embed_video
   before_validation :set_image_processing, if: :image_changed?
-  before_save :update_timestamps, if: :status_changed?
+
   validates_presence_of :headline, :allow_blank => false, :message => "headline can't be blank"
-  validates_presence_of :supporting_content, :allow_blank => false, :message => "supporting content can't be blank", :on => :client_admin
-  validates_presence_of :question, :allow_blank => false, :message => "question can't be blank", :on => :client_admin
+  validates_presence_of :supporting_content, :allow_blank => false, :message => "supporting content can't be blank", :on => :client_admin, if: :state_is_anything_but_draft?
+  validates_presence_of :question, :allow_blank => false, :message => "question can't be blank", :on => :client_admin, if: :state_is_anything_but_draft?
+  validates_presence_of :remote_media_url, message: "image is missing" , if: [:requires_remote_media_url, :state_is_anything_but_draft?]
   validates_inclusion_of :status, in: STATUS
 
-  #FIXME should be use a constant instead of magic numbers here.
-  validates_length_of :headline, maximum: 75, message: "headline is too long (maximum is 75 characters)"
-  validates_with RawTextLengthInHTMLFieldValidator, field: :supporting_content, maximum: 700, message: "supporting content is too long (maximum is 600 characters)"
+  validates_length_of :headline, maximum: MAX_HEADLINE_LEN, message: "headline is too long (maximum is #{MAX_HEADLINE_LEN} characters)"
+  validates_with RawTextLengthInHTMLFieldValidator, field: :supporting_content, maximum: MAX_SUPPORTING_CONTENT_LEN, message: "supporting content is too long (maximum is #{MAX_SUPPORTING_CONTENT_LEN} characters)"
 
-  validates_presence_of :remote_media_url, message: "image is missing" , if: :requires_remote_media_url
+
+  def state_is_anything_but_draft?
+     status != DRAFT
+  end
+
+
 
   before_create :set_on_first_position
+  before_save :update_timestamps, if: :status_changed?
   before_save :ensure_protocol_on_link_address, :handle_suggested_tile_status_change
   before_save :set_image_credit_to_blank_if_default
   after_save :process_image, if: :image_changed?

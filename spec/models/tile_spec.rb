@@ -11,6 +11,29 @@ describe Tile do
 
   pending { should_have_valid_mime_type(Tile, :image_content_type) }
 
+  context "incomplete drafts" do
+    it "it can be saved with just  headline" do
+      tile = Tile.new
+      tile.status = Tile::DRAFT
+      tile.headline = "headliner"
+      expect(tile.valid?).to be_true
+    end
+
+    it "it cannot be saved without at least headline" do
+      tile = Tile.new
+      tile.status = Tile::DRAFT
+      expect(tile.valid?).to be_false
+    end
+
+
+    it "it cannot set to active if incomplete" do
+      tile  = FactoryGirl.create :tile, status: Tile::ACTIVE
+      tile.remote_media_url = nil
+      expect(tile.valid?).to be_false
+    end
+  end
+
+
   context "status and activated_at" do
 
     it "forbids updating activated_at when unarchiving tiles be default" do
