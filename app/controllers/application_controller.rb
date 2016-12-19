@@ -37,6 +37,7 @@ class ApplicationController < ActionController::Base
 
   #This should be renamed to authenticate
   def authorize
+    return if authenticate_by_tile_token
     return if authenticate_with_onboarding_auth_hash
     return if authenticate_as_potential_user
     return if authenticate_by_explore_token

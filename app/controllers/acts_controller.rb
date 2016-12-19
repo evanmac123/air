@@ -3,14 +3,12 @@ class ActsController < ApplicationController
   include TileBatchHelper
   include UserInParentBoardHelper
 
-  skip_before_filter :authorize, only: :index
   before_filter :allow_guest_user, only: :index
   before_filter :use_persistent_message, only: :index
 
   ACT_BATCH_SIZE = 5
 
   def index
-    authorize
     return unless current_user # if authorization failed
 
     set_parent_board_user(params[:board_id])
@@ -115,21 +113,6 @@ class ActsController < ApplicationController
 
   def no_current_tile
     params['current_tile'].blank?
-  end
-
-  def authorized_by_tile_token
-    if params[:tile_token].present? && (user = User.find params[:user_id]) && EmailLink.validate_token(user, params[:tile_token])
-      sign_in(user, 1)
-      if params[:demo_id].present?
-        user.move_to_new_demo(params[:demo_id])
-      end
-      email_clicked_ping(current_user)
-      flash[:success] = "Welcome back, #{user.first_name}"
-      redirect_to activity_url
-    else
-      email_clicked_ping(current_user)
-      nil # not authorized_by_tile_token
-    end
   end
 
   def find_current_board
