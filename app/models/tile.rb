@@ -50,6 +50,7 @@ class Tile < ActiveRecord::Base
   before_validation :sanitize_supporting_content
   before_validation :sanitize_embed_video
   before_validation :set_image_processing, if: :image_changed?
+  before_validation :nullify_remote_media_url_if_blank
 
   validates_presence_of :headline, :allow_blank => false, :message => "headline can't be blank"
   validates_presence_of :supporting_content, :allow_blank => false, :message => "supporting content can't be blank", :on => :client_admin, if: :state_is_anything_but_draft?
@@ -140,6 +141,9 @@ class Tile < ActiveRecord::Base
     end
   end
 
+  def nullify_remote_media_url_if_blank
+    write_attribute(:remote_media_url, nil) if remote_media_url == "" 
+  end
 
   def points= p
     write_attribute(:points, p.to_i)
