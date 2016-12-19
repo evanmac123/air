@@ -110,6 +110,7 @@ module AirboAuthorizationHelper
   end
 
   def show_conversion_form_provided_that(allow_reshow = false)
+    # TODO: This conversion form nonsense is totally fucked. Why on earth is this coupled to authentication and app controller????
     # uncommenting this next line is handy for e.g. working on style or copy of
     # conversion form, as it will make the conversion form always pop.
     #return(@show_conversion_form = true)
