@@ -26,13 +26,16 @@ module Reporting
     end
 
     def get_total_paid_orgs
-      @total_paid_orgs = Organization.joins(:boards).where(demos: { id: @demo_ids }).uniq.count
+      @total_paid_orgs = Organization.active_as_of_date @curr_interval_start
     end
 
     def total_paid_orgs
       @total_paid_orgs
     end
 
+
+    #FIXME this number is disconnected from organizations because paid demos are
+    #not connected to organizations properly
     def get_total_paid_client_admins
       @total_paid_client_admins = User.joins(:demo).where(demo: { id: @demo_ids } ).where(is_client_admin: true).count
     end
