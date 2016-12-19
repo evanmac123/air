@@ -26,7 +26,7 @@ module Reporting
     end
 
     def get_total_paid_orgs
-      @total_paid_orgs = Organization.active_as_of_date @curr_interval_start
+      @total_paid_orgs = Organization.active_as_of_date(@curr_interval_start).count
     end
 
     def total_paid_orgs
