@@ -2,7 +2,7 @@ module Reporting
   class CustomerSuccessKpiBuilder
     MONTHS = "months"
     WEEKS = "weeks"
-    MONTHLY = "monthy"
+    MONTHLY = "monthly"
     WEEKLY = "weekly"
 
     class << self
