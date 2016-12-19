@@ -9,16 +9,16 @@ Airbo.TileFormValidator = (function(){
     errorclass: "tile_builder_error",
     rules: {
       "tile_builder_form[supporting_content]": {
-        required: true,
+        required: false,
         minWords: 1,
         maxTextLength: 700
       },
       "tile_builder_form[headline]":              { required: true },
-      "tile_builder_form[remote_media_url]":      { required: true },
-      "tile_builder_form[question_subtype]":      { required: true },
-      "tile_builder_form[question]":              { required: true },
-      "tile_builder_form[correct_answer_index]":  { required: true },
-      "tile_builder_form[answers][]":             { required: true }
+      "tile_builder_form[remote_media_url]":      { required: false },
+      "tile_builder_form[question_subtype]":      { required: false },
+      "tile_builder_form[question]":              { required: false },
+      "tile_builder_form[correct_answer_index]":  { required: false },
+      "tile_builder_form[answers][]":             { required: false }
     },
     invalidHandler: function(form, validator) {
       var errors = validator.numberOfInvalids();
