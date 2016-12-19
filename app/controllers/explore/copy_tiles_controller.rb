@@ -1,9 +1,5 @@
 class Explore::CopyTilesController < ClientAdminBaseController
-  skip_before_filter :authorize
-  prepend_before_filter :authenticate_by_explore_token
-
   include ClientAdmin::TilesPingsHelper
-  include LoginByExploreToken
 
   def create
     tile = Tile.explore.where(id: params[:tile_id]).first
@@ -21,9 +17,6 @@ class Explore::CopyTilesController < ClientAdminBaseController
   private
 
     def store_copy_in_redis(tile_id)
-      #nest implementation
-      # Demo.rdb[current_user.demo_id]["copies"].sadd(tile_id)
-      $redis.sadd("Demo:#{current_user.demo_id}:copies", tile_id)
+      current_user.demo.rdb[:copies].sadd(tile_id)
     end
-
 end
