@@ -201,6 +201,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def end_user?
+    !is_client_admin && !is_site_admin
+  end
+
   def demo_id
     self.demo.try(&:id)
   end

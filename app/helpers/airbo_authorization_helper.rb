@@ -54,18 +54,23 @@ module AirboAuthorizationHelper
   end
 
   def authenticate_by_tile_token
-    if params[:tile_token].present? && (user = User.find params[:user_id]) && EmailLink.validate_token(user, params[:tile_token])
+    return false unless params[:tile_token]
+
+    user = User.find_by_id(params[:user_id])
+    email_clicked_ping(user)
+
+    if should_authenticate_by_tile_token?(params[:tile_token], user)
       sign_in(user, 1)
-      if params[:demo_id].present?
-        user.move_to_new_demo(params[:demo_id])
-      end
-      email_clicked_ping(current_user)
+      user.move_to_new_demo(params[:demo_id]) if params[:demo_id].present?
       flash[:success] = "Welcome back, #{user.first_name}"
-      redirect_to activity_url
+      return true
     else
-      email_clicked_ping(current_user)
-      nil # not authorized_by_tile_token
+      return false
     end
+  end
+
+  def should_authenticate_by_tile_token?(tile_token, user)
+    user && user.end_user? && EmailLink.validate_token(user, tile_token)
   end
 
   def login_as_guest(demo)
