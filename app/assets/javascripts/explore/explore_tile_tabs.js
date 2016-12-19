@@ -5,12 +5,10 @@ Airbo.ExploreTileTabs = (function() {
     $(".explore_tiles_tab").on("click", function(e) {
       e.preventDefault();
       var self = $(this);
-
-      if (!self.hasClass("selected")) {
-        $(".explore_tiles_section").toggle();
-        self.addClass("selected");
-        $(".selected").removeClass("selected");
-      }
+      $(".explore_tiles_section").hide();
+      $(self.data("content-selector")).show();
+      $(".selected").removeClass("selected");
+      self.addClass("selected");
     });
   }
 
