@@ -233,21 +233,4 @@ module AirboAuthorizationHelper
   def ignore_all_newrelic
     NewRelic::Agent.ignore_transaction
   end
-
-  #Deprecated? =>
-  def current_user_is_site_admin
-    current_user && current_user.is_site_admin
-  end
-
-  def going_to_settings
-    controller_name == "settings"
-  end
-
-  def game_not_yet_begun?
-    current_user && current_user.demo.game_not_yet_begun?
-  end
-
-  def hostname_without_subdomain
-    request.subdomain.present? ? request.host.gsub(/^[^.]+\./, '') : request.host
-  end
 end
