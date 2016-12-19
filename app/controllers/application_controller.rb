@@ -8,7 +8,6 @@ class ApplicationController < ActionController::Base
   ##
 
   ##AirboAuthorizationHelper =>
-  before_filter :authorize_with_onboarding_auth_hash
   before_filter :authorize
   before_filter :set_show_conversion_form_before_this_request
   before_render :persist_guest_user
@@ -23,6 +22,12 @@ class ApplicationController < ActionController::Base
 
   before_filter :enable_miniprofiler #NOTE on by default in development
 
+  include AirboActivitySessionHelper
+  include AirboSecurityHelper
+  include AirboPingsHelper
+  include AirboFlashHelper
+  include Mobvious::Rails::Controller
+
   ###### Airbo authentication/authorizaiton`
 	include Pundit
   alias_method :pundit_authorize, :authorize
@@ -32,6 +37,7 @@ class ApplicationController < ActionController::Base
 
   #This should be renamed to authenticate
   def authorize
+    return if authenticate_with_onboarding_auth_hash
     return if authenticate_as_potential_user
     return if authenticate_by_explore_token
     return if authenticate_as_guest
@@ -40,12 +46,6 @@ class ApplicationController < ActionController::Base
     refresh_activity_session(current_user)
   end
   ######
-
-  include AirboActivitySessionHelper
-  include AirboSecurityHelper
-  include AirboPingsHelper
-  include AirboFlashHelper
-  include Mobvious::Rails::Controller
 
   # TODO: Can we find a solution that does not require dev methods (miniprofiler, newrelic) in AppController??
   def enable_miniprofiler

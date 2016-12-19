@@ -3,16 +3,16 @@ module AirboAuthorizationHelper
     super
   end
 
-  def authorize_with_onboarding_auth_hash
+  def authenticate_with_onboarding_auth_hash
     if cookies[:user_onboarding].present? && current_user.nil?
       user_onboarding = UserOnboarding.where(auth_hash: cookies[:user_onboarding]).first
       if user_onboarding && !user_onboarding.completed
         sign_in(user_onboarding.user)
         refresh_activity_session(current_user)
+        return true
       end
     end
   end
-
 
   def authenticate_as_potential_user
     if session[:potential_user_id].present? && !current_user
