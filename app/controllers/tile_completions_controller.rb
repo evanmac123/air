@@ -1,7 +1,8 @@
 class TileCompletionsController < ApplicationController
   include UserInParentBoardHelper
 
-  prepend_before_filter :allow_guest_user, :only => :create
+  prepend_before_filter :allow_guest_user
+  prepend_before_filter :login_as_guest
 
   def create
     tile = find_tile
@@ -32,50 +33,46 @@ class TileCompletionsController < ApplicationController
     }
   end
 
-  protected
+  private
 
-  def find_tile
-    unless @_tile
-      @_tile = Tile.find(params[:tile_id])
+    def find_tile
+      @tile ||= Tile.find(params[:tile_id])
     end
 
-    @_tile
-  end
+    def create_tile_completion(tile, answer_index)
+      completion = TileCompletion.new(:tile_id => tile.id, :user => current_user, :answer_index => answer_index)
+      completion.save
+    end
+    # TODO: move this from controller
+    def create_act(tile)
+      Act.create(
+        user: current_user,
+        demo_id: current_user.demo_id,
+        inherent_points: tile.points,
+        text: text_of_completion_act(tile),
+        creation_channel: 'web'
+      )
+    end
 
-  def create_tile_completion(tile, answer_index)
-    completion = TileCompletion.new(:tile_id => tile.id, :user => current_user, :answer_index => answer_index)
-    completion.save
-  end
-  # TODO: move this from controller
-  def create_act(tile)
-    Act.create(
-      user: current_user,
-      demo_id: current_user.demo_id,
-      inherent_points: tile.points,
-      text: text_of_completion_act(tile),
-      creation_channel: 'web'
-    )
-  end
+    def text_of_completion_act(tile)
+      "completed the tile: \"#{tile.headline}\""
+    end
 
-  def text_of_completion_act(tile)
-    "completed the tile: \"#{tile.headline}\""
-  end
+    def find_current_board
+      @current_board ||= find_tile.demo
+    end
 
-  def find_current_board
-    find_tile.demo
-  end
+    def remember_points_and_tickets
+      @starting_points = current_user.points || 0
+      @starting_tickets = current_user.tickets || 0
+    end
 
-  def remember_points_and_tickets
-    @starting_points = current_user.points || 0
-    @starting_tickets = current_user.tickets || 0
-  end
+    def persist_points_and_tickets
+      flash[:previous_points] = @previous_points
+      flash[:previous_tickets] = @previous_tickets
+    end
 
-  def persist_points_and_tickets
-    flash[:previous_points] = @previous_points
-    flash[:previous_tickets] = @previous_tickets
-  end
-
-  def add_start_over_if_guest
-    session[:display_start_over_button] = true if current_user.is_guest?
-  end
+    def add_start_over_if_guest
+      session[:display_start_over_button] = true if current_user.is_guest?
+    end
 end

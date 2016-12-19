@@ -2,7 +2,6 @@ class PagesController < HighVoltage::PagesController
   include TileBatchHelper
 
   skip_before_filter :authorize
-  before_filter :allow_guest_user
   before_filter :force_html_format
   before_filter :signed_out_only_on_root
   before_filter :set_page_name
@@ -22,9 +21,7 @@ class PagesController < HighVoltage::PagesController
     'terms'          => 'terms and conditions'
   }
 
-
   def show
-    login_as_guest(Demo.new) unless current_user
     super
   end
 

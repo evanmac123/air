@@ -1,5 +1,6 @@
 class GuestUserResetsController < ApplicationController
   prepend_before_filter :allow_guest_user
+  prepend_before_filter :login_as_guest
 
   def update
     if current_user.is_guest?
@@ -22,9 +23,9 @@ class GuestUserResetsController < ApplicationController
     render nothing: true
   end
 
-  protected
+  private
 
-  def find_current_board
-    current_user.demo
-  end
+    def find_current_board
+      current_user.demo
+    end
 end

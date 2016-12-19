@@ -1,9 +1,50 @@
-module AirboAuthorizationHelper
+module AirboAuthenticationHelper
   def current_user
-    super
+    super || potential_user || guest_user
   end
 
-  def authenticate_with_onboarding_auth_hash
+  def potential_user
+    @potential_user
+  end
+
+  def guest_user
+    @guest_user
+  end
+
+  def authenticate_as_guest_user
+    # TODO: the copuling with find_current_board is still weird here.
+    return false unless guest_user_allowed? && find_current_board && (logged_in_as_guest? || !current_user)
+
+    board = find_current_board # must be implemented in subclass
+    login_as_guest(board)
+
+    if override_public_board_setting || (board && board.is_public)
+      refresh_activity_session(current_user)
+    else
+      public_board_not_found
+    end
+
+    return true
+  end
+
+  def authenticate_as_potential_user
+    return false unless session[:potential_user_id].present? && !current_user
+    @potential_user = PotentialUser.find_by_id(session[:potential_user_id])
+
+    # FIXME the code here is doing too much. this method should simply return
+    # true/false and should be moved to a Pundit policy on these three specific actions.
+    #----------------------------------------------------------
+    allowed_pathes = [activity_path, potential_user_conversions_path, ping_path]
+    if @potential_user && !allowed_pathes.include?(request.path)
+      redirect_to activity_path
+    elsif @potential_user
+      return true
+    else
+      return false
+    end
+  end
+
+  def authenticate_by_onboarding_auth_hash
     return false unless cookies[:user_onboarding].present? && !current_user
     user_onboarding = UserOnboarding.find_by_auth_hash(auth_hash: cookies[:user_onboarding])
     if user_onboarding && !user_onboarding.completed
@@ -15,48 +56,8 @@ module AirboAuthorizationHelper
     end
   end
 
-  def authenticate_as_potential_user
-    return false unless session[:potential_user_id].present? && !current_user
-    potential_user = PotentialUser.find_by_id(session[:potential_user_id])
-
-    # FIXME the code here is doing too much. this method should simply return
-    # true/false and should be moved to a Pundit policy on these three specific actions.
-    #----------------------------------------------------------
-    allowed_pathes = [activity_path, potential_user_conversions_path, ping_path]
-    if potential_user && !allowed_pathes.include?(request.path)
-      redirect_to activity_path
-    elsif potential_user
-      return true
-    else
-      return false
-    end
-  end
-
-  def authenticate_as_guest
-    return false unless logged_in_as_guest?
-    if guest_user_allowed?
-      board = find_current_board # must be implemented in subclass
-      unless override_public_board_setting || (board && board.is_public)
-        public_board_not_found
-      end
-
-      refresh_activity_session(current_user)
-      return true
-    else
-      guest = GuestUser.where(id: session[:guest_user_id]).first
-      demo = guest.try(:demo)
-
-      flash[:failure] = '<a href="#" class="open_save_progress_form">Save your progress</a> to access this part of the site.'
-      flash[:failure_allow_raw] = true
-
-      redirect_to public_activity_path(demo.try(:public_slug))
-      return true
-    end
-  end
-
   def authenticate_by_tile_token
     return false unless params[:tile_token]
-
     user = User.find_by_id(params[:user_id])
     email_clicked_ping(user)
 
@@ -74,12 +75,20 @@ module AirboAuthorizationHelper
     user && user.end_user? && EmailLink.validate_token(user, tile_token)
   end
 
-  def login_as_guest(demo)
-    session[:guest_user] = { demo_id: demo.id }
-    if session[:guest_user_id]
-      session[:guest_user][:id] = session[:guest_user_id]
+  def login_as_guest(demo = Demo.new)
+    unless current_user
+      session[:guest_user] = { demo_id: demo.id }
+      if session[:guest_user_id]
+        session[:guest_user][:id] = session[:guest_user_id]
+      end
+
+      @guest_user = find_or_create_guest_user
+      refresh_activity_session(current_user)
     end
-    refresh_activity_session(current_user)
+  end
+
+  def logged_in_as_guest?
+    session[:guest_user].present? && current_user.is_a?(GuestUser)
   end
 
   def authenticate_to_public_board
@@ -165,27 +174,11 @@ module AirboAuthorizationHelper
     render 'shared/public_board_not_found', layout: 'external_marketing'
   end
 
-  def current_user_with_guest_user
-    return @_potential_user if @_potential_user && !current_user_without_guest_user
-    return current_user_without_guest_user unless guest_user_allowed?
-
-    if (user = current_user_without_guest_user)
-      return user
-    end
-
-    if logged_in_as_guest?
-      @_guest_user ||= find_or_create_guest_user
-      @_guest_user
-    else
-      nil
-    end
-  end
-  alias_method_chain :current_user, :guest_user
-
   def force_html_format
     request.format = :html
   end
 
+  # TODO: Move to policies!
   def allow_guest_user
     @guest_user_allowed_in_action = true
   end
@@ -194,8 +187,8 @@ module AirboAuthorizationHelper
     @guest_user_allowed_in_action
   end
 
-  def logged_in_as_guest?
-    session[:guest_user].present? && current_user_without_guest_user.nil? && current_user_by_explore_token.nil?
+  def find_current_board
+    nil
   end
 
   # Note that subclasses of ApplicationController must implement their own
@@ -215,15 +208,15 @@ module AirboAuthorizationHelper
 
   def find_or_create_guest_user
     if session[:guest_user][:id].present?
-      guest_user = GuestUser.find(session[:guest_user][:id])
+      guest = GuestUser.find(session[:guest_user][:id])
       if params[:public_slug]
         board = Demo.find_by_public_slug(params[:public_slug])
-        if board.present? && guest_user.demo_id != board.id
-          guest_user.demo = board
-          guest_user.save!
+        if board.present? && guest.demo_id != board.id
+          guest.demo = board
+          guest.save!
         end
       end
-      guest_user
+      guest
     else
       GuestUser.create!(session[:guest_user])
     end

@@ -11,10 +11,9 @@ class UserIntrosController < ApplicationController
     end
   end
 
-  protected
+  private
 
-  def find_current_board
-    current_user.demo
-  end
-
+    def find_current_board
+      current_user.demo
+    end
 end

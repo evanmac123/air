@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   before_filter :disable_framing
   ##
 
-  ##AirboAuthorizationHelper =>
+  ##AirboAuthenticationHelper =>
   before_filter :authorize
   before_filter :set_show_conversion_form_before_this_request
   before_render :persist_guest_user
@@ -33,17 +33,18 @@ class ApplicationController < ActionController::Base
   alias_method :pundit_authorize, :authorize
   include Clearance::Authentication
   alias_method :clearance_authenticate, :authorize
-  include AirboAuthorizationHelper
+  include AirboAuthenticationHelper
 
   #This should be renamed to authenticate
   def authorize
     return if authenticate_by_tile_token
-    return if authenticate_with_onboarding_auth_hash
+    return if authenticate_by_onboarding_auth_hash
     return if authenticate_as_potential_user
     return if authenticate_by_explore_token
-    return if authenticate_as_guest
     return if authenticate_to_public_board
+    return if authenticate_as_guest_user
     clearance_authenticate
+
     refresh_activity_session(current_user)
   end
   ######

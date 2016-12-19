@@ -1,6 +1,5 @@
 class ClientAdmin::PrizesController < ClientAdminBaseController
   before_filter :find_raffle
-  prepend_before_filter :allow_guest_user
 
   def index
     ping_page("Manage - Prizes", current_user)
@@ -69,21 +68,21 @@ class ClientAdmin::PrizesController < ClientAdminBaseController
     render 'delete_winner' unless @new_user.present?
   end
 
-  protected
+  private
 
-  def find_raffle
-    @demo = current_user.demo
-    Raffle.new(demo: @demo).save(validate: false) unless @demo.raffle
-    @raffle = @demo.reload.raffle
-    @winners = @raffle.winners
-  end
+    def find_raffle
+      @demo = current_user.demo
+      Raffle.new(demo: @demo).save(validate: false) unless @demo.raffle
+      @raffle = @demo.reload.raffle
+      @winners = @raffle.winners
+    end
 
-  def raffle_params
-    params.permit(raffle: [{prizes: []}, :starts_at, :ends_at])
-    raffle = HashWithIndifferentAccess.new(params[:raffle].to_hash)
-    raffle[:prizes].reject!(&:empty?)
-    raffle[:starts_at] =  DateTime.strptime(raffle[:starts_at] + " 00:00", "%m/%d/%Y %H:%M").change(:offset => "-0400") if raffle[:starts_at].present?
-    raffle[:ends_at] =  DateTime.strptime(raffle[:ends_at] + " 23:59", "%m/%d/%Y %H:%M").change(:offset => "-0400") if raffle[:ends_at].present?
-    raffle
-  end
+    def raffle_params
+      params.permit(raffle: [{prizes: []}, :starts_at, :ends_at])
+      raffle = HashWithIndifferentAccess.new(params[:raffle].to_hash)
+      raffle[:prizes].reject!(&:empty?)
+      raffle[:starts_at] =  DateTime.strptime(raffle[:starts_at] + " 00:00", "%m/%d/%Y %H:%M").change(:offset => "-0400") if raffle[:starts_at].present?
+      raffle[:ends_at] =  DateTime.strptime(raffle[:ends_at] + " 23:59", "%m/%d/%Y %H:%M").change(:offset => "-0400") if raffle[:ends_at].present?
+      raffle
+    end
 end

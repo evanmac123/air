@@ -4,7 +4,8 @@ class TilesController < ApplicationController
   include ApplicationHelper
   include UserInParentBoardHelper
 
-  prepend_before_filter :allow_guest_user, :only => [:index, :show]
+  prepend_before_filter :allow_guest_user, only: [:index, :show]
+  prepend_before_filter :login_as_guest, only: [:index, :show]
 
 
      #FIXME FIXME this logic is sooooooo convoluted!!!!!

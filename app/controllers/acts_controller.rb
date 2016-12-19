@@ -3,7 +3,7 @@ class ActsController < ApplicationController
   include TileBatchHelper
   include UserInParentBoardHelper
 
-  before_filter :allow_guest_user, only: :index
+  prepend_before_filter :allow_guest_user, only: :index
   before_filter :use_persistent_message, only: :index
 
   ACT_BATCH_SIZE = 5
@@ -79,64 +79,64 @@ class ActsController < ApplicationController
 
   add_method_tracer :index
 
-  protected
+  private
 
-  def find_requested_acts(demo)
-    offset = params[:offset].present? ? params[:offset].to_i : 0
-    acts = Act.displayable_to_user(current_user, demo, ACT_BATCH_SIZE, offset).all
-    @show_more_acts_btn = (acts.length == ACT_BATCH_SIZE)
-    acts
-  end
-
-  def render_act_update
-    render :partial => 'shared/more_acts', :locals => {:acts => @acts}
-  end
-
-  def channel_specific_translations
-    {
-      :say => "type",
-      :Say => "Type",
-      :help_command_explanation => "HELP - help desk, instructions\n"
-    }
-  end
-
-  def add_flash!(parsing_message_type, reply)
-    case parsing_message_type
-    when :success
-      add_success reply
-    when :failure
-      add_failure reply
-    else
-      flash[parsing_message_type] = reply
+    def find_requested_acts(demo)
+      offset = params[:offset].present? ? params[:offset].to_i : 0
+      acts = Act.displayable_to_user(current_user, demo, ACT_BATCH_SIZE, offset).all
+      @show_more_acts_btn = (acts.length == ACT_BATCH_SIZE)
+      acts
     end
-  end
 
-  def no_current_tile
-    params['current_tile'].blank?
-  end
-
-  def find_current_board
-    if params[:public_slug]
-      Demo.public_board_by_public_slug(params[:public_slug])
-    elsif current_user
-      current_user.demo
+    def render_act_update
+      render :partial => 'shared/more_acts', :locals => {:acts => @acts}
     end
-  end
 
-  def saw_welcome_pop_up_ping show_pop_up
-    if show_pop_up || current_user.is_a?(PotentialUser)
-      source =  if params[:public_slug].present?
-                  "Public Link"
-                elsif session[:invitation_email_type].present?
-                  session[:invitation_email_type]
-                end
-
-      ping('Saw welcome pop-up', {source: source}, current_user) if source
+    def channel_specific_translations
+      {
+        :say => "type",
+        :Say => "Type",
+        :help_command_explanation => "HELP - help desk, instructions\n"
+      }
     end
-    session[:invitation_email_type] = nil
-  end
 
-  def use_persistent_message
-    @use_persistent_message = true
-  end
+    def add_flash!(parsing_message_type, reply)
+      case parsing_message_type
+      when :success
+        add_success reply
+      when :failure
+        add_failure reply
+      else
+        flash[parsing_message_type] = reply
+      end
+    end
+
+    def no_current_tile
+      params['current_tile'].blank?
+    end
+
+    def find_current_board
+      if params[:public_slug]
+        @current_board ||= Demo.public_board_by_public_slug(params[:public_slug])
+      elsif current_user
+        current_user.demo
+      end
+    end
+
+    def saw_welcome_pop_up_ping show_pop_up
+      if show_pop_up || current_user.is_a?(PotentialUser)
+        source =  if params[:public_slug].present?
+                    "Public Link"
+                  elsif session[:invitation_email_type].present?
+                    session[:invitation_email_type]
+                  end
+
+        ping('Saw welcome pop-up', {source: source}, current_user) if source
+      end
+      session[:invitation_email_type] = nil
+    end
+
+    def use_persistent_message
+      @use_persistent_message = true
+    end
 end

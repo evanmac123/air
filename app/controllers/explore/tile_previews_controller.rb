@@ -1,13 +1,8 @@
 # require Rails.root.join('app/presenters/tile_preview/intros_presenter')
 
 class Explore::TilePreviewsController < ApplicationController
-  skip_before_filter :authorize
+  prepend_before_filter :allow_guest_user
   before_filter :find_tile
-  before_filter :authenticate_by_explore_token
-
-  before_filter :allow_guest_user
-  before_filter :login_as_guest_to_tile_board
-  before_filter :authenticate_as_guest
 
   layout "client_admin_layout"
 
@@ -40,7 +35,7 @@ class Explore::TilePreviewsController < ApplicationController
     end
 
     def find_current_board
-      @tile.demo
+      @current_board ||= @tile.demo
     end
 
     def get_sorted_explore_tiles
@@ -51,12 +46,6 @@ class Explore::TilePreviewsController < ApplicationController
 
     def find_tile
       @tile = Tile.explore.find(params[:id])
-    end
-
-    def login_as_guest_to_tile_board
-      if current_user.nil?
-        login_as_guest(@tile.demo)
-      end
     end
 
     def next_explore_tile(offset)
