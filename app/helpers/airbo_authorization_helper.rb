@@ -103,6 +103,7 @@ module AirboAuthorizationHelper
 
     refresh_activity_session(user)
     remember_explore_user(UserRestrictedToExplorePages.new(user))
+    return true
   end
 
   def set_show_conversion_form_before_this_request
