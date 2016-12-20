@@ -72,7 +72,7 @@ module AirboAuthenticationHelper
     # FIXME the code here is doing too much. this method should simply return
     # true/false and should be moved to a Pundit policy on these three specific actions.
     #----------------------------------------------------------
-    allowed_pathes = [activity_path, potential_user_conversions_path, ping_path]
+    allowed_pathes = [activity_path, potential_user_conversions_path]
     if @potential_user && !allowed_pathes.include?(request.path)
       redirect_to activity_path
     elsif @potential_user

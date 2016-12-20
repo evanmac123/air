@@ -92,13 +92,7 @@ Airbo.TileSharingMgr = (function(){
   function  sendTileSharedPing(shared_to) {
     var tile_id;
     tile_id = $("[data-current-tile-id]").data("current-tile-id");
-    $.post("/ping", {
-      event: 'Tile Shared',
-      properties: {
-        shared_to: shared_to,
-        tile_id: tile_id
-      }
-    });
+    Airbo.Utils.ping('Tile Shared', { shared_to: shared_to, tile_id: tile_id} );
   }
 
   function sharedViaSocialPing(element) {

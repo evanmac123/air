@@ -9,13 +9,12 @@ $(document).ready(function() {
 
 pingClick = function(action) {
   var slideName = $('#get_started_lightbox').data('slide-name');
-
-  $.post("/ping", {event: 'Saw welcome pop-up', properties: {action: action, page: slideName}});
-}
+  Airbo.Utils.ping('Saw welcome pop-up', { action: action, page: slideName } );
+};
 
 closeGetStartedLightbox = function() {
   $('#get_started_lightbox').trigger('close');
-}
+};
 
 window.getStartedLightbox = function(){
   function closeWithPing(action) {
@@ -36,31 +35,37 @@ window.getStartedLightbox = function(){
   $('#get_started_lightbox').lightbox_me({
     zIndex: 2000000,
     onClose: function(){
-      if( window.showRaffleAfterLightbox == true ){
+      if( window.showRaffleAfterLightbox === true ) {
         showRaffleBox("New Prize!");
         prizeModalPing("Saw Prize Modal");
       }
     }
   });
-}
+};
 
 window.registerPotentialUserLightbox = function(){
   var form = $("#register_potential_user_lightbox");
   var submit_button = form.find(".submit");
+
   $('#register_potential_user_lightbox').lightbox_me({closeClick: false});
+
   $("#potential_user_name").on('input propertychange paste', function() {
-    if( $(this).val().match(/\w+\s+\w+/) ){
-      submit_button.removeAttr("disabled")
-    }else{
-      submit_button.attr("disabled", "disabled")
+    if( $(this).val().match(/\w+\s+\w+/) ) {
+      submit_button.removeAttr("disabled");
+    } else {
+      submit_button.attr("disabled", "disabled");
     }
+
     if(!window.enteredName){
-      $.post("/ping", {event: 'Saw welcome pop-up', properties: {action: "Entered Name"}})
+      Airbo.Utils.ping('Saw welcome pop-up', { action: "Entered Name" } );
     }
-    window.enteredName = true
+
+    window.enteredName = true;
   });
+
   submit_button.click(function(e) {
     e.preventDefault();
+
     if( $(this).attr("disabled") ) {
       return;
     }
@@ -68,4 +73,4 @@ window.registerPotentialUserLightbox = function(){
     submit_button.addClass("with_spinner").attr("disabled", "disabled");
     form.find(".real_submit").click();
   });
-}
+};

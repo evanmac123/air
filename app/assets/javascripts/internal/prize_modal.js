@@ -6,7 +6,7 @@ function bindPrizeModal(showStart, showFinish, publicSlug) {
       showRaffleBox("Prize Period Finished!", "Ok");
       prizeModalPing("Saw Prize Modal");
     } else if(showStart) {
-      if( $("#get_started_lightbox").length == 0 && $('#activity-joyride').length == 0 ){
+      if( $("#get_started_lightbox").length === 0 && $('#activity-joyride').length === 0 ){
       // not display prize and get started box simultaneously
         showRaffleBox("New Prize!");
         prizeModalPing("Saw Prize Modal");
@@ -35,13 +35,11 @@ function bindPrizeModal(showStart, showFinish, publicSlug) {
     showRaffleBox("Prize");
     prizeModalPing("Clicked Prize Info");
   });
+
   function prizeModalPing(event){
-    $.ajax({
-      type: "POST",
-      url: "/ping",
-      data: { event: event, properties: { action: "Clicked Start", public_slug: publicSlug} }
-    });
+    Airbo.Utils.ping(event, { action: "Clicked Start", public_slug: publicSlug } );
   }
+
   function showRaffleBox(header, button_text){
     button_text = typeof button_text !== 'undefined' ? button_text : "Start";
 
@@ -75,4 +73,4 @@ function bindPrizeModal(showStart, showFinish, publicSlug) {
 
   window.prizeModalPing = prizeModalPing;
   window.showRaffleBox = showRaffleBox;
-};
+}

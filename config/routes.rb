@@ -68,8 +68,6 @@ Health::Application.routes.draw do
   post 'resend_phone_verification' => 'users/phone_verification#create', :as => 'resend_phone_verification'
   delete 'cancel_phone_verification' => 'users/phone_verification#destroy', :as => 'cancel_phone_verification'
 
-  post "ping" => "users/pings#create"
-  post "universal_ping" => "users/pings#create_universal_ping"
   # Override some Clearance routes
   resources :passwords,
     :controller => 'passwords',
@@ -121,8 +119,6 @@ Health::Application.routes.draw do
   resources :board_memberships, only: :destroy
   resources :mute_followups, only: :update
   resources :mute_digests, only: :update
-
-  resources :locations, only: :index
 
   resources :suggested_tiles, only: [:new, :show, :create]
   resource :change_email, only: [:new, :create, :show]
