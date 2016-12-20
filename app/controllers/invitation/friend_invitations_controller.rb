@@ -1,6 +1,6 @@
 class Invitation::FriendInvitationsController < ApplicationController
   
-  skip_before_filter :authorize
+  skip_before_filter :authenticate
   before_filter :clearance_authenticate
   
   def create

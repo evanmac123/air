@@ -1,5 +1,5 @@
 class UserOnboardingsController < ApplicationController
-  skip_before_filter :authorize, only: [:show, :create, :activity]
+  skip_before_filter :authenticate, only: [:show, :create, :activity]
   layout 'onboarding'
 
   def show

@@ -1,5 +1,5 @@
 class ExploreController < ClientAdminBaseController
-  skip_before_filter :authorize
+  skip_before_filter :authenticate
   include TileBatchHelper
   include LoginByExploreToken
   include ExploreHelper

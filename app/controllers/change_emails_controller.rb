@@ -1,5 +1,5 @@
 class ChangeEmailsController < ApplicationController
-  skip_before_filter :authorize
+  skip_before_filter :authenticate
 
   def new
     render partial: 'form'

@@ -1,7 +1,7 @@
 
     #TODO remove this controller?
 class Api::V1::OnboardingsController < ApplicationController
-  skip_before_filter :authorize
+  skip_before_filter :authenticate
 
   def create
     onboarding_initializer = OnboardingInitializer.new(onboarding_params)

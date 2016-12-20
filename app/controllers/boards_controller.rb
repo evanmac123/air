@@ -2,7 +2,7 @@
 #fuck.
 class BoardsController < ApplicationController
   layout 'external'
-  skip_before_filter :authorize
+  skip_before_filter :authenticate
   prepend_before_filter :allow_guest_user
   layout 'standalone', only: [:new]
 
@@ -43,7 +43,7 @@ class BoardsController < ApplicationController
   protected
 
   def create_as_existing
-    authorize
+    authenticate
     return if response.redirect? # auth failed
 
     board_creator = CreateBoard.new(params[:board_name])

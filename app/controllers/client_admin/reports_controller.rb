@@ -1,5 +1,5 @@
 class ClientAdmin::ReportsController < ClientAdminBaseController
-  skip_before_filter :authorize
+  skip_before_filter :authenticate
 
   def show
     @demo = current_user.demo

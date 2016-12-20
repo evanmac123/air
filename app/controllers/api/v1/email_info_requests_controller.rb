@@ -1,5 +1,5 @@
 class Api::V1::EmailInfoRequestsController < ApplicationController
-  skip_before_filter :authorize
+  skip_before_filter :authenticate
 
   def create
     request = EmailInfoRequest.new(permitted_params)

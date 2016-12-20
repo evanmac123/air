@@ -1,12 +1,27 @@
 class PublicBoardsController < ApplicationController
-  skip_before_filter :authorize
   prepend_before_filter :allow_guest_user
 
- #FIXME why have a separate resource that simply redirects to another
-  #resource!!!!
-
   def show
-    redirect_to public_activity_path(params: request.params.except("action", "controller"))
+    board = find_current_board
+    if override_public_board_setting || (board && board.is_public)
+      if current_user.is_a?(User)
+        if current_user.demos.include?(board)
+          current_user.move_to_new_demo(board)
+        else
+          current_user.add_board(board)
+          current_user.move_to_new_demo(board)
+          current_user.get_started_lightbox_displayed = false
+          current_user.session_count = 1
+          current_user.save
+          flash[:success] = "You've now joined the #{board.name} board!"
+        end
+      end
+
+      refresh_activity_session(current_user)
+      redirect_to public_activity_path(public_slug: params[:public_slug])
+    else
+      public_board_not_found
+    end
   end
 
   protected

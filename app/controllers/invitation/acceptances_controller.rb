@@ -3,7 +3,7 @@
 class Invitation::AcceptancesController < ApplicationController
   before_filter :find_user, :only => [:update, :generate_password]
 
-  skip_before_filter :authorize, :only => [:update, :generate_password]
+  skip_before_filter :authenticate, :only => [:update, :generate_password]
 
   layout "external"
 

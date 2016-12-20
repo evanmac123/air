@@ -8,10 +8,9 @@ class ApplicationController < ActionController::Base
   ##
 
   ##AirboAuthenticationHelper =>
-  before_filter :authorize
+  before_filter :authenticate
   before_filter :set_show_conversion_form_before_this_request
   before_render :persist_guest_user
-  before_render :no_newrelic_for_site_admins
   ##
 
   ##AirboFlashHelper =>
@@ -20,6 +19,7 @@ class ApplicationController < ActionController::Base
   after_filter :merge_flashes
   ##
 
+  before_render :no_newrelic_for_site_admins
   before_filter :enable_miniprofiler #NOTE on by default in development
 
   include AirboActivitySessionHelper
@@ -34,19 +34,6 @@ class ApplicationController < ActionController::Base
   include Clearance::Authentication
   alias_method :clearance_authenticate, :authorize
   include AirboAuthenticationHelper
-
-  #This should be renamed to authenticate
-  def authorize
-    return if authenticate_by_tile_token
-    return if authenticate_by_onboarding_auth_hash
-    return if authenticate_as_potential_user
-    return if authenticate_by_explore_token
-    return if authenticate_to_public_board
-    return if authenticate_as_guest_user
-    clearance_authenticate
-
-    refresh_activity_session(current_user)
-  end
   ######
 
   # TODO: Can we find a solution that does not require dev methods (miniprofiler, newrelic) in AppController??
@@ -65,6 +52,19 @@ class ApplicationController < ActionController::Base
   def present(object, klass = nil, opts={})
     klass ||= "#{object.class}Presenter".constantize
     klass.new(object, view_context, opts)
+  end
+
+  def no_newrelic_for_site_admins
+    # The second conditional is a stupid hack because of the mess our
+    # authentication system is. Site admins have hundreds of boards available,
+    # other users don't.
+    if (current_user && current_user.is_site_admin) || (@boards_to_switch_to && @boards_to_switch_to.length > 100)
+      ignore_all_newrelic
+    end
+  end
+
+  def ignore_all_newrelic
+    NewRelic::Agent.ignore_transaction
   end
 
   private
@@ -111,5 +111,14 @@ class ApplicationController < ActionController::Base
     def parse_start_and_end_dates
       @sdate = params[:sdate].present? ? Date.strptime(params[:sdate], "%Y-%m-%d") : nil
       @edate =  params[:edate].present? ? Date.strptime(params[:edate], "%Y-%m-%d") : nil
+    end
+
+    def decide_if_tiles_can_be_done(satisfiable_tiles)
+      @all_tiles_done = satisfiable_tiles.empty?
+      @no_tiles_to_do = current_user.demo.tiles.active.empty?
+    end
+
+    def not_found
+      render file: "#{Rails.root}/public/404", status: :not_found, layout: false, formats: [:html]
     end
 end

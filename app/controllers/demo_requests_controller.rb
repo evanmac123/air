@@ -1,5 +1,5 @@
 class DemoRequestsController < ApplicationController
-  skip_before_filter :authorize
+  skip_before_filter :authenticate
 
   layout 'standalone'
 

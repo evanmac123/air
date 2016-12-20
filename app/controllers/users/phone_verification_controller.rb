@@ -1,6 +1,6 @@
 class Users::PhoneVerificationController < ApplicationController
 
-  before_filter :authorize
+  before_filter :authenticate
   
   def create
     if current_user.new_phone_number.present?

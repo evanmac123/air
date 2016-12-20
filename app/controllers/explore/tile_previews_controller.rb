@@ -1,8 +1,6 @@
-# require Rails.root.join('app/presenters/tile_preview/intros_presenter')
-
 class Explore::TilePreviewsController < ApplicationController
+  prepend_before_filter :find_tile
   prepend_before_filter :allow_guest_user
-  before_filter :find_tile
 
   layout "client_admin_layout"
 
@@ -45,7 +43,7 @@ class Explore::TilePreviewsController < ApplicationController
     end
 
     def find_tile
-      @tile = Tile.explore.find(params[:id])
+      @tile ||= Tile.explore.find(params[:id])
     end
 
     def next_explore_tile(offset)

@@ -1,5 +1,5 @@
 class AccountsController < ApplicationController
-  skip_before_filter :authorize
+  skip_before_filter :authenticate
   before_filter :clearance_authenticate
   before_filter :initialize_flashes
   after_filter :merge_flashes

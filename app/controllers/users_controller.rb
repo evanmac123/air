@@ -2,7 +2,7 @@ class UsersController < Clearance::UsersController
   USER_LIMIT = 50
   MINIMUM_SEARCH_STRING_LENGTH = 3
 
-  skip_before_filter :authorize, only: :show
+  skip_before_filter :authenticate, only: :show
 
   def index
     @palette = current_user.demo.custom_color_palette
@@ -24,8 +24,8 @@ class UsersController < Clearance::UsersController
   end
 
   def show
-    authorized_by_token # if user come through friendship acceptance notification email
-    authorize
+    authenticated_by_token # if user come through friendship acceptance notification email
+    authenticate
     return if response_body.present? # such as if our authorization failed & we're bound for the signin page
 
     @user = current_user.demo.users.find_by_slug(params[:id])
@@ -60,7 +60,7 @@ class UsersController < Clearance::UsersController
 
   private
 
-  def authorized_by_token
+  def authenticated_by_token
     if params[:token].present? &&
       (user = User.find params[:user_id]) &&
       EmailLink.validate_token(user, params[:token])

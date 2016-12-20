@@ -1,5 +1,5 @@
 class FriendshipsController < ApplicationController
-  skip_before_filter :authorize, only: :accept
+  skip_before_filter :authenticate, only: :accept
 
   def create
     mixpanel_properties = {:channel => :web}

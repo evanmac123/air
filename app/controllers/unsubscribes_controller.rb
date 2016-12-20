@@ -1,6 +1,6 @@
 class UnsubscribesController < ApplicationController
 
-  skip_before_filter :authorize
+  skip_before_filter :authenticate
 
   def new
     @user = User.find(params[:user_id])
