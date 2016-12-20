@@ -1,9 +1,4 @@
 class AccountsController < ApplicationController
-  skip_before_filter :authenticate
-  before_filter :clearance_authenticate
-  before_filter :initialize_flashes
-  after_filter :merge_flashes
-
   def update
     phone_msg = update_phone_number
     current_user.attributes = params[:user].permit(:notification_method, :send_weekly_activity_report)
