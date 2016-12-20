@@ -80,7 +80,7 @@
           <% end %>
         </div>
       <% end %>
-      <%= form_for current_user, :url => account_path do |form| %>
+      <%= form_for current_user, url: account_path do |form| %>
         <div class="module_inner settings_number">
           <%= label_tag 'user_phone_number', "Mobile number" %>
           <%= form.text_field :phone_number, :value => current_user.phone_number.try(:as_obfuscated_phone) %>
