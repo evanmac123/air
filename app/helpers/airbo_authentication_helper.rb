@@ -160,10 +160,6 @@ module AirboAuthenticationHelper
     false
   end
 
-  def public_board_not_found
-    render 'shared/public_board_not_found', layout: 'external_marketing'
-  end
-
   # TODO: Move to policies!
   def allow_guest_user
     @guest_user_allowed_in_action = true
