@@ -1,6 +1,6 @@
-var Airbo = window.Airbo || {Utils:{}}
+var Airbo = window.Airbo || {}
 
-Airbo.Utils.TileDragDropSort = (function(){
+Airbo.TileDragDropSort = (function(){
   var dragAndDropProperties = {
     items: ".tile_container:not(.placeholder_container)",
     connectWith: ".manage_section",
@@ -11,8 +11,8 @@ Airbo.Utils.TileDragDropSort = (function(){
     handle: ".tile-wrapper"
   };
 
-  var placeholderSelectorSel = ".tile_container.placeholder_container:not(.hidden_tile)"
-    , notDraggedTileSelectorSel = ".tile_container:not(.ui-sortable-helper):not(.hidden_tile)"
+  var placeholderSelector = ".tile_container.placeholder_container:not(.hidden_tile)"
+    , notDraggedTileSelector = ".tile_container:not(.ui-sortable-helper):not(.hidden_tile)"
     , sectionNames = ["draft", "active", "archive", "suggestion_box"]
     , placeholderHTML = '<div class="tile_container placeholder_container">' + '<div class="tile_thumbnail placeholder_tile"></div>' + '</div>'
 
@@ -155,7 +155,7 @@ Airbo.Utils.TileDragDropSort = (function(){
 
   function updateAllPlaceholders() {
     var i, len, ref, results, section;
-    ref = sectionNames();
+    ref = sectionNames;
     results = [];
     for (i = 0, len = ref.length; i < len; i++) {
       section = ref[i];
@@ -166,8 +166,8 @@ Airbo.Utils.TileDragDropSort = (function(){
 
   function updatePlaceholders(section) {
     var allTilesNumber, expectedPlaceholdersNumber, placeholdersNumber, tilesNumber;
-    allTilesNumber = $("#" + section).find(notDraggedTileSelector()).length;
-    placeholdersNumber = $("#" + section).find(placeholderSelector()).length;
+    allTilesNumber = $("#" + section).find(notDraggedTileSelector).length;
+    placeholdersNumber = $("#" + section).find(placeholderSelector).length;
     tilesNumber = allTilesNumber - placeholdersNumber;
     expectedPlaceholdersNumber = (numberInRow(section) - (tilesNumber % numberInRow(section))) % numberInRow(section);
     removePlaceholders(section);
@@ -175,16 +175,16 @@ Airbo.Utils.TileDragDropSort = (function(){
   }
 
   function removePlaceholders(section) {
-    return $("#" + section).children(placeholderSelector()).remove();
+    return $("#" + section).children(placeholderSelector).remove();
   }
 
   function addPlaceholders(section, number) {
-    return $("#" + section).append(placeholderHTML().times(number));
+    return $("#" + section).append(placeholderHTML.times(number));
   }
 
   function updateAllNoTilesSections() {
     var i, len, ref, results, section;
-    ref = sectionNames();
+    ref = sectionNames;
     results = [];
     for (i = 0, len = ref.length; i < len; i++) {
       section = ref[i];
@@ -196,7 +196,7 @@ Airbo.Utils.TileDragDropSort = (function(){
   function updateNoTilesSection(section) {
     var no_tiles_section;
     no_tiles_section = $("#" + section).find(".no_tiles_section");
-    if ($("#" + section).children(notDraggedTileSelector()).length === 0) {
+    if ($("#" + section).children(notDraggedTileSelector).length === 0) {
       return no_tiles_section.show();
     } else {
       return no_tiles_section.hide();
@@ -294,7 +294,7 @@ Airbo.Utils.TileDragDropSort = (function(){
 
   function updateTileVisibility() {
     var i, len, ref, results, section;
-    ref = sectionNames();
+    ref = sectionNames;
     results = [];
     for (i = 0, len = ref.length; i < len; i++) {
       section = ref[i];
@@ -323,7 +323,7 @@ Airbo.Utils.TileDragDropSort = (function(){
 
   function updateTileVisibilityIn(section) {
     var i, index, len, results, tile, tiles, visibleTilesNumber;
-    tiles = $("#" + section).find("> " + notDraggedTileSelector());
+    tiles = $("#" + section).find("> " + notDraggedTileSelector);
     visibleTilesNumber = visibleTilesNumberIn(section);
     results = [];
     for (index = i = 0, len = tiles.length; i < len; index = ++i) {
@@ -417,25 +417,28 @@ Airbo.Utils.TileDragDropSort = (function(){
 
   function isTileMoved(tile, fromSectionName, toSectionName) {
     return getTilesSection(tile) === toSectionName && window.sourceSectionName === fromSectionName;
-  };
+  }
 
 
   function init(){
     initDroppable();
     initTileSorting();
-
   }
 
 
-  return init(){
+  return {
     init: init,
-    updateTileVisibilityIn: updateTileVisibilityIn, 
+    updateTileVisibilityIn: updateTileVisibilityIn,
   }
 
 
-});
+})();
 
-
+$(function(){
+if(Airbo.Utils.supportsFeatureByPresenceOfSelector(".client_admin-tiles-index"))
+  Airbo.TileDragDropSort.init();
+ window.expandDraftSectionOrSuggestionBox();
+})
 
 //window.updateTileVisibilityIn = updateTileVisibilityIn;
 //window.updateTilesAndPlaceholdersAppearance = updateTilesAndPlaceholdersAppearance;
