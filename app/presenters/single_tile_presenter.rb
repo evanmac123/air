@@ -1,6 +1,6 @@
 class SingleTilePresenter < BasePresenter
 
-  attr_reader :tile, :tile_status :user_onboarding
+  attr_reader :tile, :type, :user_onboarding
   delegate  :id,
             :thumbnail,
             :headline,
@@ -27,6 +27,10 @@ class SingleTilePresenter < BasePresenter
   end
 
   def status
+    type
+  end
+ 
+  def tile_status
     type
   end
 
