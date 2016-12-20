@@ -1,37 +1,20 @@
+var Airbo = window.Airbo || {Utils:{}}
 
+Airbo.Utils.TileDragDropSort = (function(){
+  var dragAndDropProperties = {
+    items: ".tile_container:not(.placeholder_container)",
+    connectWith: ".manage_section",
+    cancel: ".placeholder_container, .no_tiles_section",
+    revert: true,
+    tolerance: "pointer",
+    placeholder: "tile_container",
+    handle: ".tile-wrapper"
+  };
 
-String.prototype.times = function(n) {
-  return Array.prototype.join.call({
-    length: n + 1
-  }, this);
-};
-
-var allowRedigest = false;
-
-window.dragAndDropProperties = {
-  items: ".tile_container:not(.placeholder_container)",
-  connectWith: ".manage_section",
-  cancel: ".placeholder_container, .no_tiles_section",
-  revert: true,
-  tolerance: "pointer",
-  placeholder: "tile_container",
-  handle: ".tile-wrapper"
-};
-
-window.dragAndDropTiles = function() {
-  var addPlaceholders, cancelTileMoving, completedTileWasAttemptedToBeMovedInBlockedDraft, draftSectionIsCompressed, dragAndDropTilesEvents, findTileId, getTilesSection, iOSdevice, isDraftBlockedOverlayShowed, isTileInSection, isTileMoved, moveComfirmationModal, notDraggedTileSelector, numberInRow, overEvent, placeholderHTML, placeholderSelector, receiveEvent, removePlaceholders, resetGloballVariables, saveTilePosition, sectionNames, sectionParams, showDraftBlockedMess, showDraftBlockedOverlay, sourceSectionParams, startEvent, stopEvent, tileCompletionsNum, tileInfo, turnOffDraftBlocking, turnOnDraftBlocking, updateAllNoTilesSections, updateAllPlaceholders, updateEvent, updateNoTilesSection, updatePlaceholders, updateTileInSectionClass, updateTileVisibility, updateTileVisibilityIn, updateTilesAndPlaceholdersAppearance, visibleTilesNumberIn;
-
-  $("#draft").droppable({
-    accept: ".tile_container",
-    out: function(event, ui) {
-      return showDraftBlockedOverlay(false);
-    },
-    over: function(event, ui) {
-      if ($("#draft").sortable("option", "disabled")) {
-        return showDraftBlockedOverlay(true);
-      }
-    }
-  });
+  var placeholderSelectorSel = ".tile_container.placeholder_container:not(.hidden_tile)"
+    , notDraggedTileSelectorSel = ".tile_container:not(.ui-sortable-helper):not(.hidden_tile)"
+    , sectionNames = ["draft", "active", "archive", "suggestion_box"]
+    , placeholderHTML = '<div class="tile_container placeholder_container">' + '<div class="tile_thumbnail placeholder_tile"></div>' + '</div>'
 
   dragAndDropTilesEvents = {
     update: function(event, ui) {
@@ -77,30 +60,50 @@ window.dragAndDropTiles = function() {
     }
   };
 
-  window.tileSortable = $("#draft, #active, #archive").sortable($.extend(window.dragAndDropProperties, dragAndDropTilesEvents)).disableSelection();
 
-  updateEvent = function(event, tile, section) {
+  function initDroppable(){
+    $("#draft").droppable({
+      accept: ".tile_container",
+      out: function(event, ui) {
+        return showDraftBlockedOverlay(false);
+      },
+      over: function(event, ui) {
+        if ($("#draft").sortable("option", "disabled")) {
+          return showDraftBlockedOverlay(true);
+        }
+      }
+    });
+  }
+
+  function initTileSorting(){
+    var config = $.extend(dragAndDropProperties, dragAndDropTilesEvents)
+    $("#draft, #active, #archive").sortable(config).disableSelection();
+  }
+
+
+
+  function  updateEvent(event, tile, section) {
     if (isTileInSection(tile, section)) {
       tileInfo(tile, "remove");
       return saveTilePosition(tile);
     } else {
       return window.sourceSectionName = section.attr("id");
     }
-  };
+  }
 
-  overEvent = function(event, tile, section) {
+  function  overEvent (event, tile, section) {
     updateTilesAndPlaceholdersAppearance();
     return updateTileInSectionClass(tile, section);
-  };
+  }
 
-  startEvent = function(event, tile, section) {
+  function startEvent(event, tile, section) {
     resetGloballVariables();
     turnOnDraftBlocking(tile, section);
     showDraftBlockedMess(false);
     return tileInfo(tile, "hide");
-  };
+  }
 
-  receiveEvent = function(event, tile, section) {
+  function receiveEvent(event, tile, section) {
     var id;
     if (completedTileWasAttemptedToBeMovedInBlockedDraft()) {
       return cancelTileMoving();
@@ -110,9 +113,9 @@ window.dragAndDropTiles = function() {
       id = findTileId(tile);
       return Airbo.TileAction.movePing(id, "active", "Dragged tile to move");
     }
-  };
+  }
 
-  stopEvent = function(event, tile, section) {
+  function stopEvent(event, tile, section) {
     turnOffDraftBlocking(tile, section);
     if (completedTileWasAttemptedToBeMovedInBlockedDraft()) {
       showDraftBlockedMess(true, section);
@@ -120,52 +123,37 @@ window.dragAndDropTiles = function() {
     }
     updateTilesAndPlaceholdersAppearance();
     return tileInfo(tile, "show");
-  };
+  }
 
-  numberInRow = function(section) {
+
+
+  function numberInRow(section) {
     if (section === "draft" || section === "suggestion_box") {
       return 6;
     } else {
       return 4;
     }
-  };
+  }
 
-  placeholderSelector = function() {
-    return ".tile_container.placeholder_container:not(.hidden_tile)";
-  };
-
-  notDraggedTileSelector = function() {
-    return ".tile_container:not(.ui-sortable-helper):not(.hidden_tile)";
-  };
-
-  placeholderHTML = function() {
-    return '<div class="tile_container placeholder_container">' + '<div class="tile_thumbnail placeholder_tile"></div>' + '</div>';
-  };
-
-  sectionNames = function() {
-    return ["draft", "active", "archive", "suggestion_box"];
-  };
-
-  findTileId = function(tile) {
+  function findTileId(tile) {
     return tile.find(".tile_thumbnail").data("tile-id");
-  };
+  }
 
-  getTilesSection = function(tile) {
+  function getTilesSection(tile) {
     return tile.closest(".manage_section").attr("id");
-  };
+  }
 
-  updateTileInSectionClass = function(tile, section) {
+  function updateTileInSectionClass(tile, section) {
     return tile.removeClass("tile_in_draft").removeClass("tile_in_active").removeClass("tile_in_archive").addClass("tile_in_" + section.attr("id"));
-  };
-  updateTilesAndPlaceholdersAppearance = function() {
+  }
+
+  function updateTilesAndPlaceholdersAppearance() {
     updateAllPlaceholders();
     updateAllNoTilesSections();
     return updateTileVisibility();
-  };
+  }
 
-  window.updateTilesAndPlaceholdersAppearance = updateTilesAndPlaceholdersAppearance;
-
-  updateAllPlaceholders = function() {
+  function updateAllPlaceholders() {
     var i, len, ref, results, section;
     ref = sectionNames();
     results = [];
@@ -174,9 +162,9 @@ window.dragAndDropTiles = function() {
       results.push(updatePlaceholders(section));
     }
     return results;
-  };
+  }
 
-  updatePlaceholders = function(section) {
+  function updatePlaceholders(section) {
     var allTilesNumber, expectedPlaceholdersNumber, placeholdersNumber, tilesNumber;
     allTilesNumber = $("#" + section).find(notDraggedTileSelector()).length;
     placeholdersNumber = $("#" + section).find(placeholderSelector()).length;
@@ -184,17 +172,17 @@ window.dragAndDropTiles = function() {
     expectedPlaceholdersNumber = (numberInRow(section) - (tilesNumber % numberInRow(section))) % numberInRow(section);
     removePlaceholders(section);
     return addPlaceholders(section, expectedPlaceholdersNumber);
-  };
+  }
 
-  removePlaceholders = function(section) {
+  function removePlaceholders(section) {
     return $("#" + section).children(placeholderSelector()).remove();
-  };
+  }
 
-  addPlaceholders = function(section, number) {
+  function addPlaceholders(section, number) {
     return $("#" + section).append(placeholderHTML().times(number));
-  };
+  }
 
-  updateAllNoTilesSections = function() {
+  function updateAllNoTilesSections() {
     var i, len, ref, results, section;
     ref = sectionNames();
     results = [];
@@ -203,9 +191,9 @@ window.dragAndDropTiles = function() {
       results.push(updateNoTilesSection(section));
     }
     return results;
-  };
+  }
 
-  updateNoTilesSection = function(section) {
+  function updateNoTilesSection(section) {
     var no_tiles_section;
     no_tiles_section = $("#" + section).find(".no_tiles_section");
     if ($("#" + section).children(notDraggedTileSelector()).length === 0) {
@@ -213,9 +201,9 @@ window.dragAndDropTiles = function() {
     } else {
       return no_tiles_section.hide();
     }
-  };
+  }
 
-  tileInfo = function(tile, action) {
+  function tileInfo(tile, action) {
     var controlElements, shadowOverlay;
     controlElements = tile.find(".tile_buttons, .tile_stats");
     shadowOverlay = tile.find(".shadow_overlay");
@@ -228,9 +216,9 @@ window.dragAndDropTiles = function() {
     } else if (action === "remove") {
       return controlElements.remove();
     }
-  };
+  }
 
-  saveTilePosition = function(tile) {
+  function saveTilePosition(tile) {
     var id, left_tile_id, right_tile_id, status;
     id = findTileId(tile);
     left_tile_id = findTileId(tile.prev());
@@ -251,9 +239,9 @@ window.dragAndDropTiles = function() {
         return Airbo.TileThumbnail.initTile(id);
       }
     });
-  };
+  }
 
-  sourceSectionParams = function() {
+  function sourceSectionParams() {
     var section;
     if (window.sourceSectionName) {
       section = $("#" + window.sourceSectionName);
@@ -262,10 +250,10 @@ window.dragAndDropTiles = function() {
     } else {
       return null;
     }
-  };
+  }
 
 
-  sectionParams = function(section) {
+  function sectionParams(section) {
     var name, presented_ids, tile, tiles;
     name = section.attr("id");
     tiles = section.find(".tile_thumbnail:not(.placeholder_tile)");
@@ -282,12 +270,14 @@ window.dragAndDropTiles = function() {
       name: name,
       presented_ids: presented_ids
     };
-  };
-  tileCompletionsNum = function(tile) {
+  }
+
+  function tileCompletionsNum(tile) {
     var ref;
     return parseInt((ref = tile.find(".completions").text().match(/\d+/)) != null ? ref[0] : void 0);
-  };
-  turnOnDraftBlocking = function(tile, section) {
+  }
+
+  function turnOnDraftBlocking(tile, section) {
     var completions, status;
     status = getTilesSection(tile);
     completions = tileCompletionsNum(tile);
@@ -295,14 +285,14 @@ window.dragAndDropTiles = function() {
       $("#draft").sortable("disable");
       return section.sortable("refresh");
     }
-  };
+  }
 
-  turnOffDraftBlocking = function(tile, section) {
+  function turnOffDraftBlocking(tile, section) {
     $("#draft").sortable("enable");
     return section.sortable("refresh");
-  };
+  }
 
-  updateTileVisibility = function() {
+  function updateTileVisibility() {
     var i, len, ref, results, section;
     ref = sectionNames();
     results = [];
@@ -311,13 +301,13 @@ window.dragAndDropTiles = function() {
       results.push(updateTileVisibilityIn(section));
     }
     return results;
-  };
+  }
 
-  draftSectionIsCompressed = function() {
+  function draftSectionIsCompressed() {
     return $("#draft_tiles").hasClass("compressed_section");
-  };
+  }
 
-  visibleTilesNumberIn = function(section) {
+  function visibleTilesNumberIn(section) {
     if (section === "draft" || section === "suggestion_box") {
       if (draftSectionIsCompressed()) {
         return numberInRow(section);
@@ -329,9 +319,9 @@ window.dragAndDropTiles = function() {
     } else {
       return 9999;
     }
-  };
+  }
 
-  updateTileVisibilityIn = function(section) {
+  function updateTileVisibilityIn(section) {
     var i, index, len, results, tile, tiles, visibleTilesNumber;
     tiles = $("#" + section).find("> " + notDraggedTileSelector());
     visibleTilesNumber = visibleTilesNumberIn(section);
@@ -345,26 +335,25 @@ window.dragAndDropTiles = function() {
       }
     }
     return results;
-  };
-  window.updateTileVisibilityIn = updateTileVisibilityIn;
+  }
 
-  showDraftBlockedOverlay = function(isOn) {
+  function showDraftBlockedOverlay(isOn) {
     if (isOn) {
       return $(".draft_overlay").show();
     } else {
       return $(".draft_overlay").hide();
     }
-  };
+  }
 
-  isDraftBlockedOverlayShowed = function() {
+  function isDraftBlockedOverlayShowed() {
     return $(".draft_overlay").css("display") === "block";
-  };
+  }
 
-  completedTileWasAttemptedToBeMovedInBlockedDraft = function() {
+  function completedTileWasAttemptedToBeMovedInBlockedDraft() {
     return isDraftBlockedOverlayShowed();
-  };
+  }
 
-  showDraftBlockedMess = function(isOn, section) {
+  function showDraftBlockedMess(isOn, section) {
     var mess_div;
     if (isOn) {
       mess_div = section.closest(".manage_tiles").find(".draft_blocked_message");
@@ -377,30 +366,29 @@ window.dragAndDropTiles = function() {
     } else {
       return $(".draft_blocked_message").hide();
     }
-  };
+  }
 
-  iOSdevice = function() {
+  function iOSdevice() {
     return navigator.userAgent.match(/(iPad|iPhone|iPod)/g);
-  };
+  }
 
-  isTileInSection = function(tile, section) {
+  function isTileInSection(tile, section) {
     return getTilesSection(tile) === section.attr("id");
-  };
+  }
 
-  cancelTileMoving = function() {
+  function cancelTileMoving() {
     if (window.sourceSectionName) {
       return $("#" + window.sourceSectionName).sortable("cancel").sortable("refresh");
     }
-  };
+  }
 
-  moveComfirmationModal = function(tile) {
+  function moveComfirmationModal(tile) {
     window.moveConfirmationDeferred = $.Deferred();
     window.moveConfirmation = window.moveConfirmationDeferred.promise();
 
     confirmReposting(tile);
 
   };
-
 
 
   function confirmReposting(tile){
@@ -419,13 +407,35 @@ window.dragAndDropTiles = function() {
   }
 
 
-  isTileMoved = function(tile, fromSectionName, toSectionName) {
+  function resetGloballVariables() {
+    sourceSectionName = null;
+    moveConfirmationDeferred = null;
+    moveConfirmation = null;
+  }
+
+
+
+  function isTileMoved(tile, fromSectionName, toSectionName) {
     return getTilesSection(tile) === toSectionName && window.sourceSectionName === fromSectionName;
   };
 
-  return resetGloballVariables = function() {
-    window.sourceSectionName = null;
-    window.moveConfirmationDeferred = null;
-    return window.moveConfirmation = null;
-  };
-};
+
+  function init(){
+    initDroppable();
+    initTileSorting();
+
+  }
+
+
+  return init(){
+    init: init,
+    updateTileVisibilityIn: updateTileVisibilityIn, 
+  }
+
+
+});
+
+
+
+//window.updateTileVisibilityIn = updateTileVisibilityIn;
+//window.updateTilesAndPlaceholdersAppearance = updateTilesAndPlaceholdersAppearance;
