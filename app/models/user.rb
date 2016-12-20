@@ -194,8 +194,6 @@ class User < ActiveRecord::Base
       is_site_admin
     when :client_admin
       is_site_admin || is_client_admin
-    when :explore_family
-      is_site_admin || is_client_admin_in_any_board
     else
       false
     end

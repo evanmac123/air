@@ -7,10 +7,7 @@ class ClientAdminBaseController < ApplicationController
   private
 
     def authorized?
-      # TODO: Deprecate :explore_family
-      role = explore_token_allowed ? :explore_family : :client_admin
-
-      unless current_user && current_user.authorized_to?(role)
+      unless current_user && current_user.authorized_to?(:client_admin)
         redirect_to '/'
         return false
       end
@@ -26,10 +23,6 @@ class ClientAdminBaseController < ApplicationController
 
     def onboarding_controllers
       params[:controller] == "client_admin/reports" || params[:controller] == "client_admin/board_stats_grid"
-    end
-
-    def load_tags
-      @tags = TileTag.alphabetical
     end
 
     def load_locations
