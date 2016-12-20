@@ -67,6 +67,9 @@
   &.green {
     @include flag-color($n-green);
   }
+  &.grey {
+    @include flag-color($gray-5);
+  }
   &.red {
     @include flag-color($n-red2);
   }
@@ -110,6 +113,10 @@
     &.outlined {
       @include flag-with-spinner;//($n-blue);
          }
+  }
+
+  &.tight{
+    padding: 8px;
   }
 
   &.full_width {

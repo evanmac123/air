@@ -15,6 +15,13 @@
         <% end %>
       </li>
     <% end %>
+  <% if presenter.has_working_button? %>
+      <li class="edit_button">
+        <%= link_to edit_client_admin_tile_path(presenter), data:{action: "edit", "tile-id" => presenter.tile_id, status: presenter.status} do %>
+          <%= fa_icon 'wrench' %>
+        <% end %>
+      </li>
+    <% end %>
 
     <% if presenter.has_archive_button? %>
       <li class="archive_button">
@@ -32,6 +39,17 @@
         <% end %>
       </li>
     <% end %>
+
+    <% if presenter.has_disabled_activate_button? %>
+      <li >
+        <span  class = "flag grey disabled tight" >
+          Pending
+        </span>
+      </li>
+    <% end %>
+
+
+
 
     <% if presenter.has_ignore_button? %>
       <li class="ignore_button">
