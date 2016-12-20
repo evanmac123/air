@@ -9,8 +9,6 @@ class ActsController < ApplicationController
   ACT_BATCH_SIZE = 5
 
   def index
-    return unless current_user # if authorization failed
-
     set_parent_board_user(params[:board_id])
 
     flash_message_in_parent_board

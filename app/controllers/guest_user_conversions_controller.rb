@@ -1,6 +1,5 @@
 class GuestUserConversionsController < ApplicationController
   prepend_before_filter :allow_guest_user
-  prepend_before_filter :login_as_guest
 
   def create
     unless current_user.is_guest?
@@ -36,6 +35,6 @@ class GuestUserConversionsController < ApplicationController
     end
 
     def find_current_board
-      current_user.demo
+      Demo.find(params[:user][:demo_id])
     end
 end

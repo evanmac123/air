@@ -13,16 +13,16 @@ module AirboAuthenticationHelper
 
   def authenticate
     return if authenticated?
-    return if authenticate_user
     return if authenticate_by_tile_token
     return if authenticate_by_onboarding_auth_hash
     return if authenticate_as_potential_user
     return if authenticate_by_explore_token
-    return if authenticate_as_guest_user
+    login_as_guest(find_current_board) if guest_user_allowed?
+    authenticate_user
   end
 
   def authenticated?
-    if current_user
+    if current_user || signed_in?
       refresh_activity_session(current_user)
       return true
     else
@@ -31,8 +31,7 @@ module AirboAuthenticationHelper
   end
 
   def authenticate_user
-    return false unless params[:password]
-    clearance_authenticate
+    clearance_authenticate unless current_user
     refresh_activity_session(current_user)
   end
 
@@ -45,10 +44,13 @@ module AirboAuthenticationHelper
       sign_in(user, 1)
       user.move_to_new_demo(params[:demo_id]) if params[:demo_id].present?
       flash[:success] = "Welcome back, #{user.first_name}"
-      return true
     else
-      return false
+      authenticate_user
     end
+  end
+
+  def should_authenticate_by_tile_token?(tile_token, user)
+    user && user.end_user? && EmailLink.validate_token(user, tile_token)
   end
 
   def authenticate_by_onboarding_auth_hash
@@ -84,9 +86,8 @@ module AirboAuthenticationHelper
     return false unless explore_token_allowed
 
     explore_token = find_explore_token
-    return false unless explore_token.present?
-
     user = User.find_by_explore_token(explore_token)
+
     return false unless user.present? && user.is_client_admin_in_any_board
 
     remember_explore_token(explore_token)
@@ -96,28 +97,17 @@ module AirboAuthenticationHelper
     return true
   end
 
-  def authenticate_as_guest_user
-    return false unless guest_user_allowed? && (logged_in_as_guest? || !current_user)
-
-    login_as_guest(find_current_board)
-    return true
+  def find_explore_token
+    params[:explore_token] || session[:explore_token]
   end
 
-  def should_authenticate_by_tile_token?(tile_token, user)
-    user && user.end_user? && EmailLink.validate_token(user, tile_token)
-  end
-
-  def login_as_guest(demo = nil)
+  def login_as_guest(demo)
     unless current_user
-      demo = demo || Demo.new
-      session[:guest_user] = { demo_id: demo.id }
-
+      session[:guest_user] = { demo_id: demo.try(:id) }
       if session[:guest_user_id]
         session[:guest_user][:id] = session[:guest_user_id]
       end
-
       @guest_user = find_or_create_guest_user
-      refresh_activity_session(current_user)
     end
   end
 
@@ -150,10 +140,6 @@ module AirboAuthenticationHelper
 
   def remember_explore_token(explore_token)
     session[:explore_token] = explore_token
-  end
-
-  def find_explore_token
-    params[:explore_token] || session[:explore_token]
   end
 
   def explore_token_allowed

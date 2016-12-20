@@ -1,6 +1,6 @@
 class Explore::TilePreviewsController < ApplicationController
-  prepend_before_filter :find_tile
   prepend_before_filter :allow_guest_user
+  prepend_before_filter :find_tile
 
   layout "client_admin_layout"
 

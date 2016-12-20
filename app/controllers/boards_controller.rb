@@ -3,7 +3,6 @@
 class BoardsController < ApplicationController
   layout 'external'
   skip_before_filter :authenticate
-  prepend_before_filter :allow_guest_user
   layout 'standalone', only: [:new]
 
   include NormalizeBoardName
@@ -61,7 +60,9 @@ class BoardsController < ApplicationController
   end
 
   def create_as_guest
-    login_as_guest
+    login_as_guest(find_current_board)
+    authenticate
+
     @create_user_with_board = CreateUserWithBoard.new params.merge(pre_user: current_user)
     success = @create_user_with_board.create
     @user = @create_user_with_board.user

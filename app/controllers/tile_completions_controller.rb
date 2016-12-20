@@ -2,9 +2,8 @@ class TileCompletionsController < ApplicationController
   include UserInParentBoardHelper
 
   prepend_before_filter :allow_guest_user
-  prepend_before_filter :login_as_guest
 
-  def create
+  def create    
     tile = find_tile
     set_parent_board_user(tile.demo_id)
 
