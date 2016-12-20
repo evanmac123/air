@@ -69,9 +69,6 @@ module AirboAuthenticationHelper
     return false unless session[:potential_user_id].present?
     @potential_user = PotentialUser.find_by_id(session[:potential_user_id])
 
-    # FIXME the code here is doing too much. this method should simply return
-    # true/false and should be moved to a Pundit policy on these three specific actions.
-    #----------------------------------------------------------
     allowed_pathes = [activity_path, potential_user_conversions_path]
     if @potential_user && !allowed_pathes.include?(request.path)
       redirect_to activity_path
@@ -108,30 +105,12 @@ module AirboAuthenticationHelper
         session[:guest_user][:id] = session[:guest_user_id]
       end
       @guest_user = find_or_create_guest_user
+      session[:guest_user] = current_user.to_guest_user_hash
     end
   end
 
   def logged_in_as_guest?
     session[:guest_user].present? && current_user.is_a?(GuestUser)
-  end
-
-  def set_show_conversion_form_before_this_request
-    session[:conversion_form_shown_before_this_request] = session[:conversion_form_shown_already]
-  end
-
-  def show_conversion_form_provided_that(allow_reshow = false)
-    # TODO: This conversion form nonsense is totally fucked. Why on earth is this coupled to authentication and app controller????
-    # uncommenting this next line is handy for e.g. working on style or copy of
-    # conversion form, as it will make the conversion form always pop.
-    #return(@show_conversion_form = true)
-
-    return if session[:conversion_form_shown_already] && !(allow_reshow)
-    return unless current_user && current_user.is_guest?
-    demo = current_user.try(:demo)
-    return if demo && $rollout.active?(:suppress_conversion_modal, demo)
-
-    @show_conversion_form = yield
-    session[:conversion_form_shown_already] = @show_conversion_form
   end
 
   def remember_explore_user(user)
@@ -161,12 +140,6 @@ module AirboAuthenticationHelper
 
   def current_user_by_explore_token
     nil
-  end
-
-  def persist_guest_user
-    if current_user.try(:is_guest?)
-      session[:guest_user] = current_user.to_guest_user_hash
-    end
   end
 
   def find_or_create_guest_user
