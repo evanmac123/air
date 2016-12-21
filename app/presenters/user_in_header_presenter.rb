@@ -24,11 +24,7 @@ class UserInHeaderPresenter
               to: :current_user
 
   def initialize(user, public_tile_page, params, request)
-    @current_user = if user.is_parent_board_user?
-              user.original_user
-            else
-              user
-            end
+    @current_user = user
     @public_tile_page = public_tile_page
     @params = params
     @request = request

@@ -109,15 +109,6 @@ Airbo.UserTilePreview =(function(){
 
         }
 
-        if (result.show_conversion_form === true) {
-          if ($("body").data("public-board") === true) {
-            Airbo.ScheduleDemoModal.openModal();
-            Airbo.ScheduleDemoModal.modalPing("Source", "Auto");
-          } else {
-            $("#guest-conversion-modal").foundation("reveal","open");
-          }
-        }
-
       };
       $.when(Airbo.ProgressAndPrizeBar.predisplayAnimations(result, responseText)).then(handler);
     };

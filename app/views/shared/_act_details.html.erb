@@ -1,9 +1,9 @@
 <%= cache [__FILE__, 'v4.ant', act, user] do %>
   <p class="user small_margin">
-    <% if user.is_guest? || user.is_parent_board_user? %>
+    <% if user.is_guest? %>
       <%= user.name %>
     <% else %>
-      <%= link_to(user.name, user, :class => 'name-of-user') %> 
+      <%= link_to(user.name, user, :class => 'name-of-user') %>
     <% end %>
     <%= (act.text) %>
   </p>

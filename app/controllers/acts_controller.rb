@@ -1,7 +1,6 @@
 class ActsController < ApplicationController
   include Reply
   include TileBatchHelper
-  include UserInParentBoardHelper
 
   prepend_before_filter :allow_guest_user, only: :index
   before_filter :use_persistent_message, only: :index
@@ -9,85 +8,61 @@ class ActsController < ApplicationController
   ACT_BATCH_SIZE = 5
 
   def index
-    set_parent_board_user(params[:board_id])
-
-    flash_message_in_parent_board
-
-    @current_link_text = "Home"
-    @current_user = current_user
-
-    @current_user.ping_page('activity feed')
-
-
+    current_user.ping_page('activity feed')
     @demo = current_user.demo
-    @acts= find_requested_acts(@demo)
-
+    @acts = find_requested_acts(@demo)
     @palette = @demo.custom_color_palette
-    #FIXME this instance var is getting set 3 times
-    @display_get_started_lightbox = current_user.display_get_started_lightbox
 
-    # This is handy for debugging the lightbox or working on its styles
-    @display_get_started_lightbox ||= params[:display_get_started_lightbox]
-
-    #disable display of the
-    @display_get_started_lightbox = false if params[:public_slug].present? and @demo.is_parent?
-
-
-    if @display_get_started_lightbox
-      @get_started_lightbox_message = persistent_message_or_default(current_user)
-      if @demo.allow_raw_in_persistent_message
-        @get_started_lightbox_message = @get_started_lightbox_message.html_safe
-      end
-
-      current_user.get_started_lightbox_displayed = true
-      current_user.save
-    end
-
-    saw_welcome_pop_up_ping @display_get_started_lightbox
-
-    @display_activity_page_admin_guide = current_user.is_a?(User) \
-                                      && current_user.is_client_admin? \
-                                      && !current_user.displayed_activity_page_admin_guide? \
-                                      && current_user.show_onboarding?
-    if @display_activity_page_admin_guide
-      current_user.displayed_activity_page_admin_guide = true
-      current_user.save!
-    end
-
-    if @display_get_started_lightbox==false
-      @display_first_tile_hint =  current_user.intros.display_first_tile_hint?
-    end
+    set_modals_and_intros
 
     @displayable_categorized_tiles = Tile.displayable_categorized_to_user(current_user, tile_batch_size)
 
-    show_conversion_form_provided_that { @demo.tiles.active.empty? }
     decide_if_tiles_can_be_done(@displayable_categorized_tiles[:not_completed_tiles])
 
-
-    respond_to do |format|
-      format.html do
-        render layout: "public_board" if @demo.is_parent? & params[:public_slug].present?
-      end
-
-      format.js do
-        render_act_update
-      end
+    if request.xhr?
+      render partial: 'shared/more_acts', locals: { acts: @acts }
     end
   end
 
-  add_method_tracer :index
-
   private
+
+    def set_modals_and_intros
+      #FIXME this instance var is getting set 3 times
+      @display_get_started_lightbox = current_user.display_get_started_lightbox
+      @display_get_started_lightbox = false if params[:public_slug].present?
+
+      # This is handy for debugging the lightbox or working on its styles
+      @display_get_started_lightbox ||= params[:display_get_started_lightbox]
+
+
+
+      if @display_get_started_lightbox
+        @get_started_lightbox_message = persistent_message_or_default(current_user)
+        current_user.get_started_lightbox_displayed = true
+      end
+
+      @display_activity_page_admin_guide = display_admin_guide?
+
+      if @display_activity_page_admin_guide
+        current_user.displayed_activity_page_admin_guide = true
+      end
+
+      if @display_get_started_lightbox == false
+        @display_first_tile_hint =  current_user.intros.display_first_tile_hint?
+      end
+
+      current_user.save
+    end
+
+    def display_admin_guide?
+      current_user.is_client_admin && current_user.displayed_activity_page_admin_guide
+    end
 
     def find_requested_acts(demo)
       offset = params[:offset].present? ? params[:offset].to_i : 0
       acts = Act.displayable_to_user(current_user, demo, ACT_BATCH_SIZE, offset).all
       @show_more_acts_btn = (acts.length == ACT_BATCH_SIZE)
       acts
-    end
-
-    def render_act_update
-      render :partial => 'shared/more_acts', :locals => {:acts => @acts}
     end
 
     def channel_specific_translations
@@ -119,19 +94,6 @@ class ActsController < ApplicationController
       elsif current_user
         current_user.demo
       end
-    end
-
-    def saw_welcome_pop_up_ping show_pop_up
-      if show_pop_up || current_user.is_a?(PotentialUser)
-        source =  if params[:public_slug].present?
-                    "Public Link"
-                  elsif session[:invitation_email_type].present?
-                    session[:invitation_email_type]
-                  end
-
-        ping('Saw welcome pop-up', {source: source}, current_user) if source
-      end
-      session[:invitation_email_type] = nil
     end
 
     def use_persistent_message

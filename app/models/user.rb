@@ -45,7 +45,6 @@ class User < ActiveRecord::Base
   has_many   :user_in_raffle_infos, as: :user
   has_many   :tile_viewings, :dependent => :destroy, as: :user
   has_many   :viewed_tiles, through: :tile_viewings, source: :tile
-  has_many   :parent_board_users
   has_many   :potential_users, foreign_key: "primary_user_id", dependent: :destroy
   has_one    :raffle, through: :demo
   has_one    :current_board_membership, :class_name => "BoardMembership", :conditions => "is_current = true"
@@ -1149,22 +1148,12 @@ class User < ActiveRecord::Base
     demo_ids.length > 1
   end
 
-  def have_access_to_parent_board?(board)
-    return false unless is_site_admin
-    board = Demo.where(id: board).first unless board.is_a? Demo
-    board && board.is_parent
-  end
-
   #FIXME this exact same code is implemented in Fake user behavior
   def display_get_started_lightbox
     on_first_login \
     && !get_started_lightbox_displayed \
     && demo.tiles.active.present? \
     && show_onboarding?
-  end
-
-  def is_parent_board_user?
-    false
   end
 
   def copy_active_tiles_from_demo(demo)

@@ -10,10 +10,4 @@ class UserIntrosController < ApplicationController
       head :unprocessable_entity, intro.errors.msg
     end
   end
-
-  private
-
-    def find_current_board
-      current_user.demo
-    end
 end

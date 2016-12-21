@@ -11,7 +11,6 @@ class Demo < ActiveRecord::Base
   has_one  :topic_board, dependent: :destroy
   has_one  :onboarding
   has_many :guest_users
-  has_many :parent_board_users
   has_many :board_memberships, dependent: :destroy
   has_many :users, through: :board_memberships
   has_many :acts

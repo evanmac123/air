@@ -9,7 +9,6 @@ class ApplicationController < ActionController::Base
 
   ##AirboAuthenticationHelper =>
   before_filter :authenticate
-  before_filter :set_show_conversion_form_before_this_request
   ##
 
   ##AirboFlashHelper =>
@@ -119,24 +118,5 @@ class ApplicationController < ActionController::Base
 
     def not_found
       render file: "#{Rails.root}/public/404", status: :not_found, layout: false, formats: [:html]
-    end
-
-    def show_conversion_form_provided_that(allow_reshow = false)
-      # TODO: This conversion form nonsense is totally fucked. Why on earth is this coupled to authentication and app controller????
-      # uncommenting this next line is handy for e.g. working on style or copy of
-      # conversion form, as it will make the conversion form always pop.
-      #return(@show_conversion_form = true)
-
-      return if session[:conversion_form_shown_already] && !(allow_reshow)
-      return unless current_user && current_user.is_guest?
-      demo = current_user.try(:demo)
-      return if demo && $rollout.active?(:suppress_conversion_modal, demo)
-
-      @show_conversion_form = yield
-      session[:conversion_form_shown_already] = @show_conversion_form
-    end
-
-    def set_show_conversion_form_before_this_request
-      session[:conversion_form_shown_before_this_request] = session[:conversion_form_shown_already]
     end
 end

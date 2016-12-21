@@ -121,14 +121,6 @@ module User::FakeUserBehavior
     && show_onboarding?
   end
 
-  def have_access_to_parent_board?(board)
-    false
-  end
-
-  def is_parent_board_user?
-    false
-  end
-
   def can_make_tile_suggestions? _demo = nil
     false
   end

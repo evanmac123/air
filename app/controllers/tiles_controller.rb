@@ -2,7 +2,6 @@ class TilesController < ApplicationController
   include TileBatchHelper
   include ActionView::Helpers::NumberHelper
   include ApplicationHelper
-  include UserInParentBoardHelper
 
   prepend_before_filter :allow_guest_user, only: [:index, :show]
 
@@ -18,21 +17,18 @@ class TilesController < ApplicationController
     @demo = current_user.demo
     @palette = @demo.custom_color_palette
     if params[:partial_only]
-      set_parent_board_user(params[:board_id])
       @current_user = current_user
 
       render_tile_wall_as_partial
       ignore_all_newrelic if @current_user.is_site_admin
     else
       @in_public_board = params[:public_slug].present?
-      set_parent_board_user_by_tile(session[:start_tile])
       @current_user = current_user
 
       @start_tile = find_start_tile
 
       @current_tile_ids = satisfiable_tiles.map(&:id)
       decide_if_tiles_can_be_done(satisfiable_tiles)
-      decide_whether_to_show_conversion_form
 
       schedule_viewed_tile_ping(@start_tile)
       increment_tile_views_counter @start_tile, current_user
@@ -42,8 +38,6 @@ class TilesController < ApplicationController
         @user_onboarding = UserOnboarding.find(params[:user_onboarding])
         render layout: "onboarding"
       end
-
-      render layout: "public_board" if @in_public_board and @demo.is_parent?
     end
 
   end
@@ -51,9 +45,6 @@ class TilesController < ApplicationController
   def show
     current_user.intros.check_display_first_tile_hint
     if params[:partial_only]
-      set_parent_board_user_by_tile(params[:id])
-      decide_whether_to_show_conversion_form
-
       new_tile_was_rendered = render_new_tile
       if new_tile_was_rendered
         schedule_viewed_tile_ping(current_tile)
@@ -63,7 +54,7 @@ class TilesController < ApplicationController
     else
       session[:start_tile] = params[:id]
       if params[:public_slug]
-        redirect_to public_tiles_path(params[:public_slug]) and current_user.demo.is_parent?
+        redirect_to public_tiles_path(params[:public_slug])
       elsif params[:user_onboarding_id]
         redirect_to tiles_path({ user_onboarding: params[:user_onboarding_id] })
       else
@@ -109,7 +100,6 @@ class TilesController < ApplicationController
       flash_content: render_to_string('shared/_flashes', layout: false),
       tile_content: tile_content(all_tiles_done, after_posting),
       all_tiles_done: all_tiles_done,
-      show_conversion_form: @show_conversion_form,
       show_start_over_button: current_user.can_start_over?,
       raffle_progress_bar: raffle_progress_bar * 10,
       all_tiles: all_tiles,
@@ -173,22 +163,6 @@ class TilesController < ApplicationController
     render json: {htmlContent: html_content}
   end
 
-  def decide_whether_to_show_conversion_form
-    #return (@show_conversion_form = true)
-    @current_user ||= current_user
-    active_tile_count = @current_user.demo.tiles.active.count
-
-    if active_tile_count == 1
-      show_conversion_form_provided_that { satisfiable_tiles.empty? }
-    else
-      tile_completion_count = @current_user.tile_completions.joins(:tile).where("#{Tile.table_name}.demo_id" => @current_user.demo_id).count
-      tile_viewings_count = @current_user.tile_viewings.count
-      allow_reshow = false #tile_completion_count == active_tile_count
-
-      show_conversion_form_provided_that(allow_reshow) { tile_completion_count == 2 || tile_completion_count == active_tile_count || tile_viewings_count == 2 }
-    end
-  end
-
   def show_completed_tiles
     @show_completed_tiles ||=  (params[:completed_only] == 'true') ||
       (session[:start_tile] &&
@@ -208,10 +182,6 @@ class TilesController < ApplicationController
         current_user.tile_completions.order("#{TileCompletion.table_name}.id desc").includes(:tile).where("#{Tile.table_name}.demo_id" => current_user.demo_id).map(&:tile)
       end
     end
-  end
-
-  def find_current_board
-    current_user.demo
   end
 
   def schedule_viewed_tile_ping(tile)

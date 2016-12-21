@@ -1,6 +1,5 @@
 class Admin::DemosController < AdminBaseController
   before_filter :find_demo_by_id, :only => [:show, :edit, :update]
-  before_filter :params_correction, :only => [:create, :update]
 
   def index
     @demos = Demo.list
@@ -56,13 +55,4 @@ class Admin::DemosController < AdminBaseController
     flash[:success] = "#{board.name} deleted"
     redirect_to admin_demos_path
   end
-
-  protected
-
-  #FIXME this should be handled in a before_[|save|valiation|] handler
-  def params_correction
-    params[:demo][:is_public] = true if params[:demo][:is_parent]
-  end
-
-
 end

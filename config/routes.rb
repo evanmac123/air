@@ -94,7 +94,6 @@ Health::Application.routes.draw do
 
   resources :boards, only: [:new, :create, :update]
   resources :copy_boards, only: [:create]
-  resources :parent_boards, only: [:show]
 
   resource  :user_intros
 

@@ -8,7 +8,7 @@ module Params
     #Todo make all fields allowed if site admin
     def demo_attributes
       attrs = [
-        :organization_id, 
+        :organization_id,
         :unlink,
         :name,
         :seed_points,
@@ -61,7 +61,6 @@ module Params
         :logo_file_size,
         :logo_updated_at,
         :allow_raw_in_persistent_message,
-        :is_parent,
         :everyone_can_make_tile_suggestions,
         :cover_message,
         :cover_image_file_name,
