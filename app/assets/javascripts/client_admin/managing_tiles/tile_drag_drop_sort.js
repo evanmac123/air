@@ -431,6 +431,7 @@ Airbo.TileDragDropSort = (function(){
   return {
     init: init,
     updateTileVisibilityIn: updateTileVisibilityIn,
+    updateTilesAndPlaceholdersAppearance: updateTilesAndPlaceholdersAppearance
   }
 
 
