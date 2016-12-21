@@ -6,6 +6,18 @@ String.prototype.times = function(n) {
 };
 var allowRedigest = false;
 Airbo.TileDragDropSort = (function(){
+
+  var sourceSectionName
+    , placeholderSelector = ".tile_container.placeholder_container:not(.hidden_tile)"
+    , notDraggedTileSelector = ".tile_container:not(.ui-sortable-helper):not(.hidden_tile)"
+    , sectionNames = ["draft", "active", "archive", "suggestion_box"]
+    , placeholderHTML = '<div class="tile_container placeholder_container">' + '<div class="tile_thumbnail placeholder_tile"></div>' + '</div>'
+    , sourceSectionName
+    , moveConfirmationDeferred
+    , moveConfirmation
+  ;
+
+
   var dragAndDropProperties = {
     items: ".tile_container:not(.placeholder_container)",
     connectWith: ".manage_section",
@@ -21,7 +33,7 @@ Airbo.TileDragDropSort = (function(){
       var section, tile;
       section = $(this);
       tile = ui.item;
-      return $.when(window.moveConfirmation).then(function() {
+      return $.when(moveConfirmation).then(function() {
         return updateEvent(event, tile, section);
       });
     },
@@ -51,7 +63,7 @@ Airbo.TileDragDropSort = (function(){
       var section, tile;
       section = $(this);
       tile = ui.item;
-      return $.when(window.moveConfirmation).then(function() {
+      return $.when(moveConfirmation).then(function() {
         return stopEvent(event, tile, section);
       }, function() {
         cancelTileMoving();
@@ -59,13 +71,6 @@ Airbo.TileDragDropSort = (function(){
       });
     }
   };
-  var sourceSectionName
-    , placeholderSelector = ".tile_container.placeholder_container:not(.hidden_tile)"
-    , notDraggedTileSelector = ".tile_container:not(.ui-sortable-helper):not(.hidden_tile)"
-    , sectionNames = ["draft", "active", "archive", "suggestion_box"]
-    , placeholderHTML = '<div class="tile_container placeholder_container">' + '<div class="tile_thumbnail placeholder_tile"></div>' + '</div>'
-
-
 
   function initDraftDroppable(){
     $("#draft").droppable({
@@ -388,8 +393,8 @@ Airbo.TileDragDropSort = (function(){
   }
 
   function moveComfirmationModal(tile) {
-    window.moveConfirmationDeferred = $.Deferred();
-    window.moveConfirmation = window.moveConfirmationDeferred.promise();
+    moveConfirmationDeferred = $.Deferred();
+    moveConfirmation = moveConfirmationDeferred.promise();
 
     confirmReposting(tile);
 
@@ -400,10 +405,10 @@ Airbo.TileDragDropSort = (function(){
     var checkConfirm = function (isConfirm){
       if (isConfirm) {
         allowRedigest = $(".sweet-alert input#digestable").is(':checked');
-        window.moveConfirmationDeferred.resolve();
+        moveConfirmationDeferred.resolve();
       }else{
         tileInfo(tile,"show");
-        window.moveConfirmationDeferred.reject();
+        moveConfirmationDeferred.reject();
       }
 
       resetGloballVariables();
