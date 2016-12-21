@@ -354,7 +354,7 @@ Airbo.TileDragDropSort = (function(){
   }
 
   function isDraftBlockedOverlayShowed() {
-    $(".draft_overlay").css("display") === "block";
+     return $(".draft_overlay").css("display") === "block";
   }
 
 
