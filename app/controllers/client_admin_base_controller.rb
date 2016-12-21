@@ -1,5 +1,4 @@
 class ClientAdminBaseController < ApplicationController
-  before_filter :authorized?
   before_filter :set_is_client_admin_action
 
   layout "client_admin_layout"
@@ -7,7 +6,13 @@ class ClientAdminBaseController < ApplicationController
   private
 
     def authorized?
-      unless current_user && current_user.authorized_to?(:client_admin)
+      if current_user && explore_token_allowed
+        return if current_user.authorized_to?(:explore_family)
+      elsif current_user && onboarding_auth
+        return true
+      elsif current_user
+        return if current_user.authorized_to?(:client_admin)
+      else
         redirect_to '/'
         return false
       end

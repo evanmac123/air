@@ -1,11 +1,6 @@
 require 'spec_helper'
 
 describe Contract do
-  it "is invalid without all required fields" do
-    c = Contract.new
-    expect(c.valid?).to be_false
-  end
-
   it "is valid if all required fields provided" do
     c = FactoryGirl.build(:contract, :complete)
     expect(c.valid?).to be_true
@@ -40,7 +35,7 @@ describe Contract do
         d = c.renew
         expect(d.start_date).to eq Date.new(2015,1,1)
         expect(d.end_date).to eq Date.new(2015,12,31)
-      end 
+      end
 
       it "sets proper start and end for semi-annaul contracts" do
         sdate = Date.new(2014,1,1)
@@ -49,7 +44,7 @@ describe Contract do
         d = c.renew
         expect(d.start_date).to eq Date.new(2014,7,1)
         expect(d.end_date).to eq Date.new(2014,12,31)
-      end 
+      end
 
       it "sets proper start and end for quarterly contracts" do
         sdate = Date.new(2014,1,1)
@@ -58,7 +53,7 @@ describe Contract do
         d = c.renew
         expect(d.start_date).to eq Date.new(2014,4,1)
         expect(d.end_date).to eq Date.new(2014,6,30)
-      end 
+      end
 
       it "sets proper start and end for monthly contracts" do
         sdate = Date.new(2014,2,1)
@@ -67,7 +62,7 @@ describe Contract do
         d = c.renew
         expect(d.start_date).to eq Date.new(2014,3,1)
         expect(d.end_date).to eq Date.new(2014,3,31)
-      end 
+      end
 
       it "sets proper start and end for custom contracts" do
         sdate = Date.new(2014,2,1)
@@ -76,7 +71,7 @@ describe Contract do
         d = c.renew
         expect(d.start_date).to eq Date.new(2014,6,1)
         expect(d.end_date).to eq Date.new(2014,8,31)
-      end 
+      end
     end
 
     context "random  days and  month" do
@@ -87,7 +82,7 @@ describe Contract do
         d = c.renew
         expect(d.start_date).to eq Date.new(2015,1,18)
         expect(d.end_date).to eq Date.new(2016,1,17)
-      end 
+      end
 
       it "sets proper start and end for semi-annaul contracts" do
         sdate = Date.new(2014,1,17)
@@ -96,7 +91,7 @@ describe Contract do
         d = c.renew
         expect(d.start_date).to eq Date.new(2014,7,17)
         expect(d.end_date).to eq Date.new(2015,1,16)
-      end 
+      end
 
       it "sets proper start and end for monthly contracts" do
         sdate = Date.new(2014,3,13)
@@ -105,10 +100,10 @@ describe Contract do
         d = c.renew
         expect(d.start_date).to eq Date.new(2014,4,13)
         expect(d.end_date).to eq Date.new(2014,5,12)
-      end 
+      end
 
 
-     
+
       it "sets proper start and end for custom contracts" do
         sdate = Date.new(2014,2,1)
         edate = Date.new(2014,5,31)
@@ -116,10 +111,10 @@ describe Contract do
         d = c.renew
         expect(d.start_date).to eq Date.new(2014,6,1)
         expect(d.end_date).to eq Date.new(2014,8,31)
-      end 
+      end
     end
 
 
-    
+
   end
 end

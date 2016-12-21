@@ -16,6 +16,8 @@ class ApplicationController < ActionController::Base
   after_filter :merge_flashes
   ##
 
+  before_filter :authorized?
+
   before_filter :enable_miniprofiler #NOTE on by default in development
 
   include AirboActivitySessionHelper
@@ -31,6 +33,10 @@ class ApplicationController < ActionController::Base
   alias_method :clearance_authenticate, :authorize
   include AirboAuthenticationHelper
   ######
+
+  def authorized?
+    true
+  end
 
   def enable_miniprofiler
     if Rails.env.production_local? || (current_user && Rails.env.production? && PROFILABLE_USERS.include?(current_user.email))

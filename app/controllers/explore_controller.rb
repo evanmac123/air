@@ -1,5 +1,4 @@
 class ExploreController < ClientAdminBaseController
-  skip_before_filter :authenticate
   include TileBatchHelper
   include LoginByExploreToken
   include ExploreHelper
@@ -7,7 +6,7 @@ class ExploreController < ClientAdminBaseController
   def show
     find_tiles_and_campaigns
     @path_for_more_content = explore_path
-
+    binding.pry
     render_partial_if_requested
   end
 end

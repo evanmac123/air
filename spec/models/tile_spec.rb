@@ -9,13 +9,11 @@ describe Tile do
   it { should have_many(:guest_user_viewers) }
   it { should ensure_inclusion_of(:status).in_array(Tile::STATUS) }
 
-  pending { should_have_valid_mime_type(Tile, :image_content_type) }
-
   context "status and activated_at" do
 
     it "forbids updating activated_at when unarchiving tiles be default" do
       tile  = FactoryGirl.create :tile, status: Tile::ARCHIVE
-      expect(tile.activated_at_reset_allowed?).to be_false 
+      expect(tile.activated_at_reset_allowed?).to be_false
     end
 
     it "doesnt change activated_at if on un archival if not explicitly set" do
@@ -26,7 +24,7 @@ describe Tile do
     it "allows updating activated_at when unarchiving tiles when explicitly set" do
       tile  = FactoryGirl.create :tile, status: Tile::ARCHIVE
       tile.allow_activated_at_reset
-      expect(tile.activated_at_reset_allowed?).to be_true 
+      expect(tile.activated_at_reset_allowed?).to be_true
     end
 
     it "changes activated_it if the current status is DRAFT" do
@@ -39,15 +37,15 @@ describe Tile do
     it "allows activated_at reset if allow digest flag is true" do
       tile  = FactoryGirl.create :tile, status: Tile::ARCHIVE
       tile.handle_unarchived(Tile::ACTIVE, "true")
-      expect(tile.activated_at_reset_allowed?).to be_true 
-    end 
+      expect(tile.activated_at_reset_allowed?).to be_true
+    end
 
 
     it "prevents activated_at reset if allow digest flag is false" do
       tile  = FactoryGirl.create :tile, status: Tile::ARCHIVE
       tile.handle_unarchived(Tile::ACTIVE, "false")
       expect(tile.activated_at_reset_allowed?).to be_false
-    end 
+    end
 
   end
 
