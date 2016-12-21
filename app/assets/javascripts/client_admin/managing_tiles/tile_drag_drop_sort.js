@@ -67,7 +67,7 @@ Airbo.TileDragDropSort = (function(){
 
 
 
-  function initDroppable(){
+  function initDraftDroppable(){
     $("#draft").droppable({
       accept: ".tile_container",
       out: function(event, ui) {
@@ -428,7 +428,7 @@ Airbo.TileDragDropSort = (function(){
 
 
   function init(){
-    initDroppable();
+    initDraftDroppable();
     initTileSorting();
   }
 
