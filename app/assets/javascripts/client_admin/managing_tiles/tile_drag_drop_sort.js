@@ -111,7 +111,7 @@ Airbo.TileDragDropSort = (function(){
 
   function receiveEvent(event, tile, section) {
     var id;
-    if (completedTileWasAttemptedToBeMovedInBlockedDraft()) {
+    if (isDraftBlockedOverlayShowed()) {
       cancelTileMoving();
     } else if (isTileMoved(tile, "archive", "active") && tileCompletionsNum(tile) > 0) {
       moveComfirmationModal(tile);
@@ -123,7 +123,7 @@ Airbo.TileDragDropSort = (function(){
 
   function stopEvent(event, tile, section) {
     turnOffDraftBlocking(tile, section);
-    if (completedTileWasAttemptedToBeMovedInBlockedDraft()) {
+    if (isDraftBlockedOverlayShowed()) {
       showDraftBlockedMess(true, section);
       showDraftBlockedOverlay(false);
     }
@@ -356,9 +356,6 @@ Airbo.TileDragDropSort = (function(){
     $(".draft_overlay").css("display") === "block";
   }
 
-  function completedTileWasAttemptedToBeMovedInBlockedDraft() {
-    return isDraftBlockedOverlayShowed();
-  }
 
   function showDraftBlockedMess(isOn, section) {
     var mess_div;
@@ -428,7 +425,7 @@ Airbo.TileDragDropSort = (function(){
 
 
   function init(){
-    initDraftDroppable();
+    //initDraftDroppable();
     initTileSorting();
   }
 
