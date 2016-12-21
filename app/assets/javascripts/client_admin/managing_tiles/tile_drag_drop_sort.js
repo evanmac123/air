@@ -11,11 +11,6 @@ Airbo.TileDragDropSort = (function(){
     handle: ".tile-wrapper"
   };
 
-  var placeholderSelector = ".tile_container.placeholder_container:not(.hidden_tile)"
-    , notDraggedTileSelector = ".tile_container:not(.ui-sortable-helper):not(.hidden_tile)"
-    , sectionNames = ["draft", "active", "archive", "suggestion_box"]
-    , placeholderHTML = '<div class="tile_container placeholder_container">' + '<div class="tile_thumbnail placeholder_tile"></div>' + '</div>'
-
   dragAndDropTilesEvents = {
     update: function(event, ui) {
       var section, tile;
@@ -59,6 +54,12 @@ Airbo.TileDragDropSort = (function(){
       });
     }
   };
+  var sourceSectionName
+    , placeholderSelector = ".tile_container.placeholder_container:not(.hidden_tile)"
+    , notDraggedTileSelector = ".tile_container:not(.ui-sortable-helper):not(.hidden_tile)"
+    , sectionNames = ["draft", "active", "archive", "suggestion_box"]
+    , placeholderHTML = '<div class="tile_container placeholder_container">' + '<div class="tile_thumbnail placeholder_tile"></div>' + '</div>'
+
 
 
   function initDroppable(){
