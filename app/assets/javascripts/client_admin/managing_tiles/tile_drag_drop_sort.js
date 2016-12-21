@@ -179,7 +179,7 @@ Airbo.TileDragDropSort = (function(){
   }
 
   function addPlaceholders(section, number) {
-    return $("#" + section).append(placeholderHTML.times(number));
+    return $("#" + section).append(placeholderHTML).times(number);
   }
 
   function updateAllNoTilesSections() {
