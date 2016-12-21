@@ -250,9 +250,9 @@ Airbo.TileDragDropSort = (function(){
 
   function sourceSectionParams() {
     var section;
-    if (window.sourceSectionName) {
-      section = $("#" + window.sourceSectionName);
-      window.sourceSectionName = null;
+    if (sourceSectionName) {
+      section = $("#" + sourceSectionName);
+      sourceSectionName = null;
       return sectionParams(section);
     } else {
       return null;
@@ -384,8 +384,8 @@ Airbo.TileDragDropSort = (function(){
   }
 
   function cancelTileMoving() {
-    if (window.sourceSectionName) {
-      return $("#" + window.sourceSectionName).sortable("cancel").sortable("refresh");
+    if (sourceSectionName) {
+      return $("#" + sourceSectionName).sortable("cancel").sortable("refresh");
     }
   }
 
@@ -423,7 +423,7 @@ Airbo.TileDragDropSort = (function(){
 
 
   function isTileMoved(tile, fromSectionName, toSectionName) {
-    return getTilesSection(tile) === toSectionName && window.sourceSectionName === fromSectionName;
+    return getTilesSection(tile) === toSectionName && sourceSectionName === fromSectionName;
   }
 
 
