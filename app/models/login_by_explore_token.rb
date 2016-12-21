@@ -7,7 +7,6 @@ module LoginByExploreToken
     super || current_user_by_explore_token
   end
 
-
   def current_user_by_explore_token
     @current_user_by_explore_token
   end
