@@ -1,4 +1,6 @@
 module ActsHelper
+  ACT_BATCH_SIZE = 5
+
   def set_modals_and_intros
     @display_get_started_lightbox = current_user.display_get_started_lightbox
 
@@ -37,5 +39,12 @@ module ActsHelper
     else
       Demo.default_persistent_message
     end
+  end
+
+  def find_requested_acts(demo)
+    offset = params[:offset].present? ? params[:offset].to_i : 0
+    acts = Act.displayable_to_user(current_user, demo, ACT_BATCH_SIZE, offset).all
+    @show_more_acts_btn = (acts.length == ACT_BATCH_SIZE)
+    acts
   end
 end

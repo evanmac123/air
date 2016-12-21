@@ -3,7 +3,7 @@ class TilesController < ApplicationController
   include ActionView::Helpers::NumberHelper
   include ApplicationHelper
 
-  prepend_before_filter :allow_guest_user, only: [:index, :show]
+  prepend_before_filter :allow_guest_user_if_public, only: [:index, :show]
 
      #FIXME FIXME this logic is sooooooo convoluted!!!!!
   # so I don't forget the next time i look at this crazy code
@@ -87,7 +87,6 @@ class TilesController < ApplicationController
   def first_id
     satisfiable_tiles.first.try(:id)
   end
-
 
   def render_new_tile
     after_posting = params[:afterPosting] == "true"

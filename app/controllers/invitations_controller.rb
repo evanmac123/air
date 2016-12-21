@@ -30,7 +30,6 @@ class InvitationsController < ApplicationController
     set_invitation_email_type_for_ping
 
     @user = User.find_by_invitation_code(params[:id])
-    # can return potential user or user
     @user = PotentialUser.search_by_invitation_code(params[:id]) unless @user
 
     if @user
@@ -42,7 +41,7 @@ class InvitationsController < ApplicationController
       @demo = Demo.find(params[:demo_id]) if params[:demo_id] =~ /^\d+$/
       # so many pings
       # FIXME: Remove ping_page abstraction.  This come for free with mixpanel
-      @user.ping_page('invitation acceptance', 'invitation acceptance version' => "v. 6/25/14")
+      @user.ping_page('invitation acceptance')
       email_clicked_ping(@user)
       record_mixpanel_ping @user
 
@@ -125,6 +124,12 @@ class InvitationsController < ApplicationController
     session[:potential_user_id] = @user.id
     @user.update_attribute :game_referrer_id, @referrer.try(:id)
     redirect_to activity_path
+  end
+
+  def log_out_if_logged_in
+    current_user.reset_remember_token! if current_user
+    cookies.delete(:remember_token)
+    self.current_user = nil
   end
 
   def record_mixpanel_ping user

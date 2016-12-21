@@ -1,9 +1,8 @@
 # encoding: utf-8
 
 class Invitation::AcceptancesController < ApplicationController
-  before_filter :find_user, :only => [:update, :generate_password]
-
-  skip_before_filter :authenticate, :only => [:update, :generate_password]
+  before_filter :find_user
+  skip_before_filter :authenticate
 
   layout "external"
 

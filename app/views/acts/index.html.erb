@@ -1,15 +1,17 @@
-<%= javascript_include_tag 'jquery.lightbox_me' %>
-<%= render partial: 'shared/tiles/user_progress', locals: {as_null:false, raffle: current_user.demo.raffle} %>
-<%= render 'shared/tile_wall', @displayable_categorized_tiles.merge(path_for_more_tiles: tiles_path) %>
+<div class="">
+  <%= javascript_include_tag 'jquery.lightbox_me' %>
+  <%= render partial: 'shared/tiles/user_progress', locals: {as_null:false, raffle: current_user.demo.raffle} %>
+  <%= render 'shared/tile_wall', @displayable_categorized_tiles.merge(path_for_more_tiles: tiles_path) %>
 
-<%= render "activity_feed" %>
+  <%= render "acts/activity_feed" %>
 
-<%= render "shared/guest_conversion_lightbox", user: current_user, demo: current_user.demo %>
+  <%= render "shared/guest_conversion_lightbox", user: current_user, demo: current_user.demo %>
 
-<% if current_user.is_a? PotentialUser %>
-  <%= render partial: "register_potential_user_lightbox" %>
-<% elsif @display_activity_page_admin_guide %>
-  <%= render partial: "activity_page_admin_guide" %>
-<% elsif @display_get_started_lightbox %>
-  <%= render "get_started_lightbox", board_name: current_user.demo.name, is_guest: current_user.is_guest?, get_started_lightbox_message: @get_started_lightbox_message, suppress_conversion_modal: false %>
-<% end %>
+  <% if current_user.is_a? PotentialUser %>
+    <%= render "acts/register_potential_user_lightbox" %>
+  <% elsif @display_activity_page_admin_guide %>
+    <%= render "acts/activity_page_admin_guide" %>
+  <% elsif @display_get_started_lightbox %>
+    <%= render "acts/get_started_lightbox", board_name: current_user.demo.name, is_guest: current_user.is_guest?, get_started_lightbox_message: @get_started_lightbox_message, suppress_conversion_modal: false %>
+  <% end %>
+</div>

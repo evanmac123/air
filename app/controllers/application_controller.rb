@@ -64,12 +64,6 @@ class ApplicationController < ActionController::Base
       "Sorry, the code you entered was invalid. Please try typing it again."
     end
 
-    def log_out_if_logged_in
-      current_user.reset_remember_token! if current_user
-      cookies.delete(:remember_token)
-      self.current_user = nil
-    end
-
     def load_characteristics(demo)
       @dummy_characteristics, @generic_characteristics, @demo_specific_characteristics = Characteristic.visible_from_demo(demo)
     end

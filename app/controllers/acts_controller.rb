@@ -2,9 +2,7 @@ class ActsController < ApplicationController
   include TileBatchHelper
   include ActsHelper
 
-  prepend_before_filter :allow_guest_user, only: :index
-
-  ACT_BATCH_SIZE = 5
+  prepend_before_filter :allow_guest_user_if_public
 
   def index
     current_user.ping_page('activity feed')
@@ -24,13 +22,6 @@ class ActsController < ApplicationController
   end
 
   private
-
-    def find_requested_acts(demo)
-      offset = params[:offset].present? ? params[:offset].to_i : 0
-      acts = Act.displayable_to_user(current_user, demo, ACT_BATCH_SIZE, offset).all
-      @show_more_acts_btn = (acts.length == ACT_BATCH_SIZE)
-      acts
-    end
 
     def find_current_board
       if params[:public_slug]
