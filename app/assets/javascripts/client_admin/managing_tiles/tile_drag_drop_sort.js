@@ -1,5 +1,11 @@
 var Airbo = window.Airbo || {}
 
+String.prototype.times = function(n) {
+  return Array.prototype.join.call({
+    length: n + 1
+  }, this);
+};
+var allowRedigest = false;
 Airbo.TileDragDropSort = (function(){
   var dragAndDropProperties = {
     items: ".tile_container:not(.placeholder_container)",
