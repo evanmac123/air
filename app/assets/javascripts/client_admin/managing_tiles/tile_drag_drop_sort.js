@@ -289,6 +289,7 @@ Airbo.TileDragDropSort = (function(){
     status = getTilesSection(tile);
     completions = tileCompletionsNum(tile);
     if (status !== "draft" && completions > 0) {
+      showDraftBlockedOverlay(true);
       $("#draft").sortable("disable");
       return section.sortable("refresh");
     }
