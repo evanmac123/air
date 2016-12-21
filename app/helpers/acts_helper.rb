@@ -1,17 +1,12 @@
 module ActsHelper
   def set_modals_and_intros
-    #FIXME this instance var is getting set 3 times
     @display_get_started_lightbox = current_user.display_get_started_lightbox
-    @display_get_started_lightbox = false if params[:public_slug].present?
-
-    # This is handy for debugging the lightbox or working on its styles
-    @display_get_started_lightbox ||= params[:display_get_started_lightbox]
-
-
 
     if @display_get_started_lightbox
-      @get_started_lightbox_message = persistent_message_or_default(current_user)
+      @get_started_lightbox_message = welcome_message
       current_user.get_started_lightbox_displayed = true
+    elsif current_user.is_a?(GuestUser)
+      welcome_message_flash
     end
 
     @display_activity_page_admin_guide = display_admin_guide?
@@ -20,16 +15,27 @@ module ActsHelper
       current_user.displayed_activity_page_admin_guide = true
     end
 
-    if @display_get_started_lightbox == false
-      @display_first_tile_hint =  current_user.intros.display_first_tile_hint?
-    end
-
-    @use_persistent_message = true
-
     current_user.save
   end
 
   def display_admin_guide?
-    current_user.is_client_admin && current_user.displayed_activity_page_admin_guide
+    current_user.is_client_admin && !current_user.displayed_activity_page_admin_guide
+  end
+
+  def welcome_message_flash
+    keys_for_real_flashes = %w(success failure notice).map(&:to_sym)
+    return if keys_for_real_flashes.any?{|key| flash[key].present?}
+
+    flash.now[:success] = [welcome_message]
+  end
+
+  def welcome_message
+    message_from_board = current_user.try(:demo).try(:persistent_message)
+
+    if message_from_board.present?
+      message_from_board
+    else
+      Demo.default_persistent_message
+    end
   end
 end

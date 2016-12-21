@@ -13,11 +13,9 @@ class ApplicationController < ActionController::Base
 
   ##AirboFlashHelper =>
   before_filter :initialize_flashes
-  before_render :add_persistent_message
   after_filter :merge_flashes
   ##
 
-  before_render :no_newrelic_for_site_admins
   before_filter :enable_miniprofiler #NOTE on by default in development
 
   include AirboActivitySessionHelper
@@ -34,7 +32,6 @@ class ApplicationController < ActionController::Base
   include AirboAuthenticationHelper
   ######
 
-  # TODO: Can we find a solution that does not require dev methods (miniprofiler, newrelic) in AppController??
   def enable_miniprofiler
     if Rails.env.production_local? || (current_user && Rails.env.production? && PROFILABLE_USERS.include?(current_user.email))
       Rack::MiniProfiler.authorize_request
@@ -50,19 +47,6 @@ class ApplicationController < ActionController::Base
   def present(object, klass = nil, opts={})
     klass ||= "#{object.class}Presenter".constantize
     klass.new(object, view_context, opts)
-  end
-
-  def no_newrelic_for_site_admins
-    # The second conditional is a stupid hack because of the mess our
-    # authentication system is. Site admins have hundreds of boards available,
-    # other users don't.
-    if (current_user && current_user.is_site_admin) || (@boards_to_switch_to && @boards_to_switch_to.length > 100)
-      ignore_all_newrelic
-    end
-  end
-
-  def ignore_all_newrelic
-    NewRelic::Agent.ignore_transaction
   end
 
   private

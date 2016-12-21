@@ -1,5 +1,5 @@
 class SessionsController < Clearance::SessionsController
-  skip_before_filter :authenticate, only: [:new]
+  skip_before_filter :authenticate
   before_filter :downcase_email
 
   layout "external"
@@ -21,7 +21,6 @@ class SessionsController < Clearance::SessionsController
         @user.move_to_new_demo(params[:demo_id])
       end
 
-      flash_success_after_create
       flash_login_announcement
       flash[:mp_track_logged_in] = "logged in"
       redirect_back_or(url_after_create)
@@ -55,10 +54,6 @@ class SessionsController < Clearance::SessionsController
     if (login_announcement = @user.demo.login_announcement).present?
       flash[:notice] = login_announcement
     end
-  end
-
-  def flash_success_after_create
-    # No "Signed in" message
   end
 
   def flash_failure_after_create

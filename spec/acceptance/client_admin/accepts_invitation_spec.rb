@@ -86,13 +86,13 @@ feature "Client Admin Accepts Invitation" do
 
   scenario "user sets password, with no confirmation needed" do
     visit invitation_url(@user.invitation_code)
-    fill_in "Choose a password", :with => "foofoo"
+    fill_in "Choose a password", with: "foofoo"
     click_button "Log in"
 
     click_link "Sign Out"
 
-    fill_in "session[email]", :with => @user.email
-    fill_in "session[password]", :with => 'foofoo'
+    fill_in "session[email]", with: @user.email
+    fill_in "session[password]", with: 'foofoo'
     click_button "Log In"
 
     should_be_on explore_path
