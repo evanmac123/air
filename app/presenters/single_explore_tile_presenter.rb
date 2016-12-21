@@ -16,7 +16,7 @@ class SingleExploreTilePresenter < BasePresenter
   end
 
   def copied?
-    $redis.sismember("Demo:#{current_user.demo_id}:copies", id)
+    $redis.sismember("Demo:#{current_user.try(:demo_id)}:copies", id)
   end
 
   def show_tile_path

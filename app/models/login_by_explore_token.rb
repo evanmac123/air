@@ -1,3 +1,4 @@
+# TODO: deprecate
 module LoginByExploreToken
   def explore_token_allowed
     true

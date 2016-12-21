@@ -1,10 +1,8 @@
-class Explore::TilePreviewsController < ApplicationController
-  prepend_before_filter :allow_guest_user
+class Explore::TilePreviewsController < ExploreBaseController
   prepend_before_filter :find_tile
+  prepend_before_filter :allow_guest_user
+  skip_before_filter :authorize
 
-  layout "client_admin_layout"
-
-  include LoginByExploreToken
   include ExploreHelper
 
   def show

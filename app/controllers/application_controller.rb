@@ -7,8 +7,12 @@ class ApplicationController < ActionController::Base
   before_filter :disable_framing
   ##
 
-  ##AirboAuthenticationHelper =>
+  ##AirboAuthenticationHelper or BaseClass =>
   before_filter :authenticate
+  ##
+
+  ##Defined on BaseClass =>
+  before_filter :authorize
   ##
 
   ##AirboFlashHelper =>
@@ -16,7 +20,6 @@ class ApplicationController < ActionController::Base
   after_filter :merge_flashes
   ##
 
-  before_filter :authorized?
 
   before_filter :enable_miniprofiler #NOTE on by default in development
 
@@ -34,7 +37,7 @@ class ApplicationController < ActionController::Base
   include AirboAuthenticationHelper
   ######
 
-  def authorized?
+  def authorize
     true
   end
 

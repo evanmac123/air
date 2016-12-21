@@ -1,5 +1,4 @@
 class AdminBaseController < ApplicationController
-  before_filter :authorized?
   before_filter :strip_smart_punctuation!
   before_filter :set_admin_page_flag
 
@@ -7,11 +6,15 @@ class AdminBaseController < ApplicationController
 
   private
 
-    def authorized?
-      unless current_user && current_user.authorized_to?(:site_admin)
-        redirect_to '/'
-        return false
-      end
+    def authenticate
+      authenticate_user
+    end
+
+    def authorize
+      return true if current_user.authorized_to?(:site_admin)
+
+      redirect_to '/'
+      return false
     end
 
     def strip_smart_punctuation!

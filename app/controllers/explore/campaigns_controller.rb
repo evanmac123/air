@@ -1,6 +1,5 @@
-class Explore::CampaignsController < ClientAdminBaseController
+class Explore::CampaignsController < ExploreBaseController
   include TileBatchHelper
-  include LoginByExploreToken
   include ExploreHelper
 
   def show

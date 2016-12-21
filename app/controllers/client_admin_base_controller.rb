@@ -5,21 +5,16 @@ class ClientAdminBaseController < ApplicationController
 
   private
 
-    def authorized?
-      if current_user && explore_token_allowed
-        return if current_user.authorized_to?(:explore_family)
-      elsif current_user && onboarding_auth
-        return true
-      elsif current_user
-        return if current_user.authorized_to?(:client_admin)
-      else
-        redirect_to '/'
-        return false
-      end
+    def authenticate
+      authenticate_user
     end
 
-    def explore_token_allowed
-      false
+    def authorize
+      return true if onboarding_auth
+      return true if current_user.authorized_to?(:client_admin)
+
+      redirect_to '/'
+      return false
     end
 
     def onboarding_auth

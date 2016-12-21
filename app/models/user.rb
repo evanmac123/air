@@ -531,7 +531,7 @@ class User < ActiveRecord::Base
       email:                 is_client_admin ? email : nil,
       game:                  demo_id,
       organization:          organization_id,
-      account_creation_date: created_at.to_date,
+      account_creation_date: created_at.try(:to_date),
       joined_game_date:      accepted_invitation_at.try(:to_date),
       location:              location.try(:name),
       user_type:             highest_ranking_user_type,

@@ -1,6 +1,5 @@
-class Explore::ChannelsController < ClientAdminBaseController
+class Explore::ChannelsController < ExploreBaseController
   include TileBatchHelper
-  include LoginByExploreToken
   include ExploreHelper
 
   def show
