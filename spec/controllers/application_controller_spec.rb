@@ -7,7 +7,7 @@ describe "any controller descended from ApplicationController" do
   context "redirecting" do
     controller do
 
-      skip_before_filter :authorize
+      skip_before_filter :authorize!
 
       def index
         render :inline => 'some nonsense'
@@ -63,7 +63,7 @@ end
 describe AnyController do
   context "invalid ping logger" do
     controller do
-      skip_before_filter :authorize
+      skip_before_filter :authorize!
 
       def index
         user = params[:user].present? ? FactoryGirl.create(:guest_user) : nil

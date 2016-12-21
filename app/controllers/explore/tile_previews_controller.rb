@@ -1,7 +1,7 @@
 class Explore::TilePreviewsController < ExploreBaseController
   prepend_before_filter :find_tile
   prepend_before_filter :allow_guest_user
-  skip_before_filter :authorize
+  skip_before_filter :authorize!
 
   include ExploreHelper
 

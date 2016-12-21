@@ -10,10 +10,8 @@ class AdminBaseController < ApplicationController
       authenticate_user
     end
 
-    def authorize
+    def authorized?
       return true if current_user.authorized_to?(:site_admin)
-
-      redirect_to '/'
       return false
     end
 

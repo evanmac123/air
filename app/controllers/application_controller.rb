@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   ##
 
   ##Defined on BaseClass =>
-  before_filter :authorize
+  before_filter :authorize!
   ##
 
   ##AirboFlashHelper =>
@@ -37,7 +37,13 @@ class ApplicationController < ActionController::Base
   include AirboAuthenticationHelper
   ######
 
-  def authorize
+  def authorize!
+    unless authorized?
+      redirect_to root_path
+    end
+  end
+
+  def authorized?
     true
   end
 

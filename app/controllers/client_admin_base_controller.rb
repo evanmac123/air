@@ -9,11 +9,9 @@ class ClientAdminBaseController < ApplicationController
       authenticate_user
     end
 
-    def authorize
+    def authorized?
       return true if onboarding_auth
       return true if current_user.authorized_to?(:client_admin)
-
-      redirect_to '/'
       return false
     end
 

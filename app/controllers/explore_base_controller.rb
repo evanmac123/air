@@ -10,10 +10,8 @@ class ExploreBaseController < ApplicationController
     authenticate_user
   end
 
-  def authorize
+  def authorized?
     return true if current_user.authorized_to?(:explore_family)
-
-    redirect_to '/'
     return false
   end
 
