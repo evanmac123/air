@@ -1,5 +1,4 @@
 var Airbo = window.Airbo || {}
-
 String.prototype.times = function(n) {
   return Array.prototype.join.call({
     length: n + 1
@@ -92,33 +91,33 @@ Airbo.TileDragDropSort = (function(){
   function  updateEvent(event, tile, section) {
     if (isTileInSection(tile, section)) {
       tileInfo(tile, "remove");
-      return saveTilePosition(tile);
+      saveTilePosition(tile);
     } else {
-      return window.sourceSectionName = section.attr("id");
+     sourceSectionName = section.attr("id");
     }
   }
 
   function  overEvent (event, tile, section) {
     updateTilesAndPlaceholdersAppearance();
-    return updateTileInSectionClass(tile, section);
+    updateTileInSectionClass(tile, section);
   }
 
   function startEvent(event, tile, section) {
     resetGloballVariables();
     turnOnDraftBlocking(tile, section);
     showDraftBlockedMess(false);
-    return tileInfo(tile, "hide");
+    tileInfo(tile, "hide");
   }
 
   function receiveEvent(event, tile, section) {
     var id;
     if (completedTileWasAttemptedToBeMovedInBlockedDraft()) {
-      return cancelTileMoving();
+      cancelTileMoving();
     } else if (isTileMoved(tile, "archive", "active") && tileCompletionsNum(tile) > 0) {
-      return moveComfirmationModal(tile);
+      moveComfirmationModal(tile);
     } else if (isTileMoved(tile, "draft", "active")) {
       id = findTileId(tile);
-      return Airbo.TileAction.movePing(id, "active", "Dragged tile to move");
+      Airbo.TileAction.movePing(id, "active", "Dragged tile to move");
     }
   }
 
@@ -129,7 +128,7 @@ Airbo.TileDragDropSort = (function(){
       showDraftBlockedOverlay(false);
     }
     updateTilesAndPlaceholdersAppearance();
-    return tileInfo(tile, "show");
+    tileInfo(tile, "show");
   }
 
 
@@ -151,13 +150,13 @@ Airbo.TileDragDropSort = (function(){
   }
 
   function updateTileInSectionClass(tile, section) {
-    return tile.removeClass("tile_in_draft").removeClass("tile_in_active").removeClass("tile_in_archive").addClass("tile_in_" + section.attr("id"));
+    tile.removeClass("tile_in_draft").removeClass("tile_in_active").removeClass("tile_in_archive").addClass("tile_in_" + section.attr("id"));
   }
 
   function updateTilesAndPlaceholdersAppearance() {
     updateAllPlaceholders();
     updateAllNoTilesSections();
-    return updateTileVisibility();
+    updateTileVisibility();
   }
 
   function updateAllPlaceholders() {
@@ -186,7 +185,8 @@ Airbo.TileDragDropSort = (function(){
   }
 
   function addPlaceholders(section, number) {
-    return $("#" + section).append(placeholderHTML).times(number);
+
+     $("#" + section).append(placeholderHTML.times(number));
   }
 
   function updateAllNoTilesSections() {
@@ -204,9 +204,9 @@ Airbo.TileDragDropSort = (function(){
     var no_tiles_section;
     no_tiles_section = $("#" + section).find(".no_tiles_section");
     if ($("#" + section).children(notDraggedTileSelector).length === 0) {
-      return no_tiles_section.show();
+      no_tiles_section.show();
     } else {
-      return no_tiles_section.hide();
+      no_tiles_section.hide();
     }
   }
 
@@ -216,12 +216,12 @@ Airbo.TileDragDropSort = (function(){
     shadowOverlay = tile.find(".shadow_overlay");
     if (action === "show") {
       controlElements.css("display", "");
-      return shadowOverlay.css("opacity", "");
+      shadowOverlay.css("opacity", "");
     } else if (action === "hide") {
       controlElements.hide();
-      return shadowOverlay.css("opacity", "0");
+      shadowOverlay.css("opacity", "0");
     } else if (action === "remove") {
-      return controlElements.remove();
+      controlElements.remove();
     }
   }
 
@@ -231,7 +231,7 @@ Airbo.TileDragDropSort = (function(){
     left_tile_id = findTileId(tile.prev());
     right_tile_id = findTileId(tile.next());
     status = getTilesSection(tile);
-    return $.ajax({
+     $.ajax({
       data: {
         left_tile_id: left_tile_id,
         right_tile_id: right_tile_id,
@@ -243,7 +243,7 @@ Airbo.TileDragDropSort = (function(){
       url: '/client_admin/tiles/' + id + '/sort',
       success: function() {
         updateTileVisibility();
-        return Airbo.TileThumbnail.initTile(id);
+        Airbo.TileThumbnail.initTile(id);
       }
     });
   }
@@ -296,7 +296,7 @@ Airbo.TileDragDropSort = (function(){
 
   function turnOffDraftBlocking(tile, section) {
     $("#draft").sortable("enable");
-    return section.sortable("refresh");
+    section.sortable("refresh");
   }
 
   function updateTileVisibility() {
@@ -346,14 +346,14 @@ Airbo.TileDragDropSort = (function(){
 
   function showDraftBlockedOverlay(isOn) {
     if (isOn) {
-      return $(".draft_overlay").show();
+      $(".draft_overlay").show();
     } else {
-      return $(".draft_overlay").hide();
+       $(".draft_overlay").hide();
     }
   }
 
   function isDraftBlockedOverlayShowed() {
-    return $(".draft_overlay").css("display") === "block";
+    $(".draft_overlay").css("display") === "block";
   }
 
   function completedTileWasAttemptedToBeMovedInBlockedDraft() {
@@ -366,12 +366,12 @@ Airbo.TileDragDropSort = (function(){
       mess_div = section.closest(".manage_tiles").find(".draft_blocked_message");
       mess_div.show();
       if (!iOSdevice()) {
-        return $('html, body').scrollTo(mess_div, {
+         $('html, body').scrollTo(mess_div, {
           duration: 500
         });
       }
     } else {
-      return $(".draft_blocked_message").hide();
+      $(".draft_blocked_message").hide();
     }
   }
 
