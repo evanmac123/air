@@ -108,7 +108,6 @@ Airbo.TileDragDropSort = (function(){
   }
 
   function startEvent(event, tile, section) {
-    resetGloballVariables();
     turnOnDraftBlocking(tile, section);
     showDraftBlockedMess(false);
     tileInfo(tile, "hide");
@@ -410,18 +409,11 @@ Airbo.TileDragDropSort = (function(){
         tileInfo(tile,"show");
         moveConfirmationDeferred.reject();
       }
-
-      resetGloballVariables();
     }
     Airbo.TileAction.confirmUnarchive(checkConfirm);
   }
 
 
-  function resetGloballVariables() {
-    sourceSectionName = null;
-    moveConfirmationDeferred = null;
-    moveConfirmation = null;
-  }
 
 
 
