@@ -1,10 +1,10 @@
-# def authorized?
-#   current_permission.allow?
-# end
-#
-# def current_permission
-#   @current_permission ||= Permission.new(current_user, params[:controller], params[:action])
-# end
+def authorized?
+  current_permission.allow?
+end
+
+def current_permission
+  @current_permission ||= Permission.new(current_user, params[:controller], params[:action])
+end
 
 class Permission
   extend Forwardable

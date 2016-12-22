@@ -1,4 +1,4 @@
-class BoardSettingsController < ApplicationController
+class BoardSettingsController < UserBaseController
 	def show
 		if request.xhr?
 			user = UserInHeaderPresenter.new(current_user, @public_tile_page, params, request)

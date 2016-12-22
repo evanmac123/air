@@ -1,7 +1,7 @@
 require 'spec_helper'
 #TODO refactor when I actually understand how this works.!
 
-class AnyController < ApplicationController; end
+class AnyController < UserBaseController; end
 
 describe "any controller descended from ApplicationController" do
   context "redirecting" do

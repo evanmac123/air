@@ -1,5 +1,4 @@
 class GuestUserResetsController < ApplicationController
-  prepend_before_filter :allow_guest_user
 
   def update
     if current_user.is_guest?

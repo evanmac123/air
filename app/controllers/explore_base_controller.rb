@@ -45,4 +45,8 @@ class ExploreBaseController < ApplicationController
   def remember_explore_token(explore_token)
     session[:explore_token] = explore_token
   end
+
+  def remember_explore_user(user)
+    @current_user_by_explore_token = user
+  end
 end

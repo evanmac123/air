@@ -1,15 +1,11 @@
-class Invitation::FriendInvitationsController < ApplicationController
-  
-  skip_before_filter :authenticate
-  before_filter :clearance_authenticate
-  
+class Invitation::FriendInvitationsController < UserBaseController
   def create
     render 'shared/ajax_refresh_page' and return unless current_user
     # Pre-populated Domain
     invitee_id = params[:invitee_id]
     invitee_email = params[:invitee_email]
     if invitee_id.present?
-      invite_user_by_id invitee_id        
+      invite_user_by_id invitee_id
     elsif invitee_email.present?
       invite_user_by_email invitee_email
     else
@@ -19,7 +15,7 @@ class Invitation::FriendInvitationsController < ApplicationController
 
   protected
 
-  def invite_user_by_id invitee_id 
+  def invite_user_by_id invitee_id
     user = User.find(invitee_id)
     if user.nil?
       @message =  "User not found."
@@ -30,9 +26,9 @@ class Invitation::FriendInvitationsController < ApplicationController
     else
       user.invite(current_user)
       @message = success_message
-      attempted, successful = 1,1     
+      attempted, successful = 1,1
     end
-    record_mixpanel_ping(attempted, successful, "name", user)  
+    record_mixpanel_ping(attempted, successful, "name", user)
   end
 
   def invite_user_by_email invitee_email
@@ -62,7 +58,7 @@ class Invitation::FriendInvitationsController < ApplicationController
       attempted_invitations:  attempted_invitations,
       invited_via: invited_via
 
-    } 
+    }
 
     ping('Email Sent', {email_type: "Friend Invitation"}, user) if user
   end

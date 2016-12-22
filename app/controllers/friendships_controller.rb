@@ -3,7 +3,7 @@ class FriendshipsController < ApplicationController
 
   def create
     mixpanel_properties = {:channel => :web}
-    if params[:friend_link] == "follow_to_see_activity" 
+    if params[:friend_link] == "follow_to_see_activity"
       mixpanel_properties[:friend_link] = :follow_to_see_activity
     end
 
@@ -28,7 +28,7 @@ class FriendshipsController < ApplicationController
       format.js
     end
   end
-  
+
   def update
     @user = User.find_by_slug(params[:user_id])
     friendship = Friendship.where(:user_id => @user.id, :friend_id => current_user.id).first
@@ -55,7 +55,7 @@ class FriendshipsController < ApplicationController
     else
       add_success "You were not connected to #{@friend.name}. No action taken"
     end
-    
+
     respond_to do |format|
       format.html do
         redirect_to :back

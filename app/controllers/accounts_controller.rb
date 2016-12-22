@@ -1,4 +1,4 @@
-class AccountsController < ApplicationController
+class AccountsController < UserBaseController
   def update
     phone_msg = update_phone_number
     current_user.attributes = params[:user].permit(:notification_method, :send_weekly_activity_report)

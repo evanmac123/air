@@ -1,7 +1,4 @@
-class VerificationsController < ApplicationController
-  skip_before_filter :authenticate
-  before_filter :clearance_authenticate
-
+class VerificationsController < UserBaseController
   def show
     current_user.ping_page("interstitial phone verification")
   end

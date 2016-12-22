@@ -1,4 +1,4 @@
-class LoggedInUserPasswordsController < ApplicationController
+class LoggedInUserPasswordsController < UserBaseController
   def update
     user = current_user
     password, password_confirmation = [params[:user][:password], params[:user][:password_confirmation]]

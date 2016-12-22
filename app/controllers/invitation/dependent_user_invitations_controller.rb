@@ -1,4 +1,4 @@
-class Invitation::DependentUserInvitationsController < ApplicationController
+class Invitation::DependentUserInvitationsController < UserBaseController
   def new
     render partial: 'dependent_email_form'
   end

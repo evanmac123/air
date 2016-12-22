@@ -1,8 +1,9 @@
 #FIXME this entire logic needs to be completely rewritten. It is a utter cluster
 #fuck.
 class BoardsController < ApplicationController
-  layout 'external'
   skip_before_filter :authenticate
+
+  layout 'external'
   layout 'standalone', only: [:new]
 
   include NormalizeBoardName

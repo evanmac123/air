@@ -1,4 +1,4 @@
-class SettingsController < ApplicationController
+class SettingsController < UserBaseController
 
   before_filter :clearance_authenticate
 

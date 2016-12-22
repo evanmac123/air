@@ -1,4 +1,4 @@
-class PotentialUserConversionsController < ApplicationController
+class PotentialUserConversionsController < UserBaseController
   def create
     clicked_next_ping
 

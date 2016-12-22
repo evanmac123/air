@@ -15,7 +15,7 @@ module AirboAuthenticationHelper
     return if authenticated?
     return if authenticate_by_onboarding_auth_hash
     return if authenticate_as_potential_user
-    login_as_guest(find_current_board) if guest_user_allowed?
+    login_as_guest(find_current_board)
     authenticate_user
   end
 
@@ -72,10 +72,6 @@ module AirboAuthenticationHelper
 
   def logged_in_as_guest?
     session[:guest_user].present? && current_user.is_a?(GuestUser)
-  end
-
-  def remember_explore_user(user)
-    @current_user_by_explore_token = user
   end
 
   # TODO: Move to policies!

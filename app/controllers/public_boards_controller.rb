@@ -1,6 +1,4 @@
 class PublicBoardsController < ApplicationController
-  prepend_before_filter :allow_guest_user
-
   def show
     board = find_current_board
     if override_public_board_setting || (board && board.is_public)

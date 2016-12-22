@@ -1,8 +1,6 @@
 
     #TODO remove this controller?
-class Api::V1::OnboardingsController < ApplicationController
-  skip_before_filter :authenticate
-
+class Api::V1::OnboardingsController < Api::ApiController
   def create
     onboarding_initializer = OnboardingInitializer.new(onboarding_params)
     cookies[:user_onboarding]=  onboarding_initializer.user_onboarding.auth_hash

@@ -1,4 +1,4 @@
-class EmailCommandController< ApplicationController
+class EmailCommandController < ApplicationController
   skip_before_filter :authenticate
   skip_before_filter :force_ssl
   skip_before_filter :verify_authenticity_token
@@ -6,7 +6,7 @@ class EmailCommandController< ApplicationController
   UNMONITORED_MAILBOX_RESPONSE = "Sorry, you've replied to an unmonitored account. For assistance please contact support@airbo.com.".freeze
 
   def create
-    email_command = EmailCommand.create_from_incoming_email(params)      
+    email_command = EmailCommand.create_from_incoming_email(params)
 
     if email_command.looks_like_autoresponder? || email_command.too_soon_for_another_unmonitored_mailbox_reminder?
       email_command.update_attributes(status: EmailCommand::Status::SILENT_SUCCESS)

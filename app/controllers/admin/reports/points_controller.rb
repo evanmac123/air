@@ -1,4 +1,4 @@
-class Admin::Reports::PointsController < ApplicationController
+class Admin::Reports::PointsController < UserBaseController
   def show
     @demo = Demo.find(params[:demo_id])
     @users = @demo.users.claimed

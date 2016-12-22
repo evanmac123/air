@@ -1,4 +1,4 @@
-class Users::PhoneVerificationController < ApplicationController
+class Users::PhoneVerificationController < UserBaseController
 
   before_filter :authenticate
   

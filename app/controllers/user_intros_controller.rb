@@ -1,6 +1,4 @@
 class UserIntrosController < ApplicationController
-  prepend_before_filter :allow_guest_user
-
   def update
     intro = current_user.intros
     intro[params[:intro]]=true

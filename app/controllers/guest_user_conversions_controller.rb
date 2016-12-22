@@ -1,6 +1,4 @@
 class GuestUserConversionsController < ApplicationController
-  prepend_before_filter :allow_guest_user
-
   def create
     unless current_user.is_guest?
       render inline: ''

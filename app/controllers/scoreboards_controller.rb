@@ -1,4 +1,4 @@
-class ScoreboardsController < ApplicationController
+class ScoreboardsController < UserBaseController
   def show
   end
 end

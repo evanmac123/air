@@ -1,6 +1,4 @@
 class TileCompletionsController < ApplicationController
-  prepend_before_filter :allow_guest_user
-
   def create
     tile = find_tile
 

@@ -1,4 +1,4 @@
-class AdminBaseController < ApplicationController
+class AdminBaseController < UserBaseController
   before_filter :strip_smart_punctuation!
   before_filter :set_admin_page_flag
 

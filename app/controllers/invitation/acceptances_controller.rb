@@ -1,8 +1,8 @@
 # encoding: utf-8
 
 class Invitation::AcceptancesController < ApplicationController
-  before_filter :find_user
   skip_before_filter :authenticate
+  before_filter :find_user
 
   layout "external"
 

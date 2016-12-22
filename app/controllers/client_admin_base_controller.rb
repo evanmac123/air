@@ -1,4 +1,4 @@
-class ClientAdminBaseController < ApplicationController
+class ClientAdminBaseController < UserBaseController
   before_filter :set_is_client_admin_action
 
   layout "client_admin_layout"
