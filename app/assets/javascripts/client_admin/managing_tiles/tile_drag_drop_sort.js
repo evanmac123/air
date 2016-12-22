@@ -18,17 +18,15 @@ Airbo.TileDragDropSort = (function(){
   ;
 
 
-  var dragAndDropProperties = {
+  var sortableConfig = {
     items: ".tile_container:not(.placeholder_container)",
     connectWith: ".manage_section",
     cancel: ".placeholder_container, .no_tiles_section",
     revert: true,
     tolerance: "pointer",
     placeholder: "tile_container",
-    handle: ".tile-wrapper"
-  };
-
-  dragAndDropTilesEvents = {
+    handle: ".tile-wrapper",
+ 
     update: function(event, ui) {
       var section, tile;
       section = $(this);
@@ -87,8 +85,7 @@ Airbo.TileDragDropSort = (function(){
   }
 
   function initTileSorting(){
-    var config = $.extend(dragAndDropProperties, dragAndDropTilesEvents)
-    $("#draft, #active, #archive").sortable(config).disableSelection();
+    $("#draft, #active, #archive").sortable(sortableConfig).disableSelection();
   }
 
 
