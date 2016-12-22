@@ -440,5 +440,3 @@ if(Airbo.Utils.supportsFeatureByPresenceOfSelector(".client_admin-tiles-index"))
  window.expandDraftSectionOrSuggestionBox();
 })
 
-//window.updateTileVisibilityIn = updateTileVisibilityIn;
-//window.updateTilesAndPlaceholdersAppearance = updateTilesAndPlaceholdersAppearance;
