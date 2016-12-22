@@ -94,16 +94,6 @@ module ExploreHelper
     @_campaign_offset = params[:campaign_offset].present? ? params[:campaign_offset].to_i : 0
   end
 
-  def new_user?
-    Time.now - current_user.accepted_invitation_at < 1.minute
-  end
-
-  def explore_content_link_ping
-    if params[:explore_content_link]
-      ping "Explore page - Interaction", {"action" => 'Clicked "Explore more great content"'}, current_user
-    end
-  end
-
   def campaign_boards
     # TODO: NEXT RELEASE: change to Demo.includes(:campaign).where(campaign: { active: true })  (add as campaigns scope on Demo)
     Demo.includes(topic_board: :topic).where(topic_board: { is_library: true } ).order(:name)

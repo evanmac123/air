@@ -1,7 +1,4 @@
 class Explore::ChannelsController < ExploreBaseController
-  include TileBatchHelper
-  include ExploreHelper
-
   def show
     @channel = Channel.find_by_slug(params[:id])
     @tiles = @channel.tiles.page(params[:page]).per(28)

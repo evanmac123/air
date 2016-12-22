@@ -25,28 +25,28 @@ class ExploreBaseController < ApplicationController
 
   private
 
-  def authenticate_by_explore_token
-    explore_token = find_explore_token
-    user = User.find_by_explore_token(explore_token)
+    def authenticate_by_explore_token
+      explore_token = find_explore_token
+      user = User.find_by_explore_token(explore_token)
 
-    return false unless user.present? && user.is_client_admin_in_any_board
+      return false unless user.present? && user.is_client_admin_in_any_board
 
-    remember_explore_token(explore_token)
+      remember_explore_token(explore_token)
 
-    refresh_activity_session(user)
-    remember_explore_user(UserRestrictedToExplorePages.new(user))
-    return true
-  end
+      refresh_activity_session(user)
+      remember_explore_user(UserRestrictedToExplorePages.new(user))
+      return true
+    end
 
-  def find_explore_token
-    params[:explore_token] || session[:explore_token]
-  end
+    def find_explore_token
+      params[:explore_token] || session[:explore_token]
+    end
 
-  def remember_explore_token(explore_token)
-    session[:explore_token] = explore_token
-  end
+    def remember_explore_token(explore_token)
+      session[:explore_token] = explore_token
+    end
 
-  def remember_explore_user(user)
-    @current_user_by_explore_token = user
-  end
+    def remember_explore_user(user)
+      @current_user_by_explore_token = user
+    end
 end

@@ -36,6 +36,7 @@ class Admin::ChannelsController < AdminBaseController
   end
 
   private
+  
     def channel_params
       params.require(:channel).permit(:name, :image, :active, :image_header)
     end
