@@ -1,11 +1,7 @@
 class AdminBaseController < UserBaseController
   before_filter :strip_smart_punctuation!
-  
-  layout 'admin'
 
-  def authenticate
-    authenticate_user
-  end
+  layout 'admin'
 
   def authorized?
     return true if current_user.authorized_to?(:site_admin)

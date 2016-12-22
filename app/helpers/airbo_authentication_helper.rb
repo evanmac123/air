@@ -79,12 +79,6 @@ module AirboAuthenticationHelper
     @guest_user_allowed_in_action = true
   end
 
-  def allow_guest_user_if_public
-    if params[:public_slug]
-      allow_guest_user
-    end
-  end
-
   def guest_user_allowed?
     @guest_user_allowed_in_action
   end

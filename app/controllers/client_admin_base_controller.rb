@@ -5,10 +5,6 @@ class ClientAdminBaseController < UserBaseController
 
   private
 
-    def authenticate
-      authenticate_user
-    end
-
     def authorized?
       return true if onboarding_auth
       return true if current_user.authorized_to?(:client_admin)

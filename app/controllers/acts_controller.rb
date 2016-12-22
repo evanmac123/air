@@ -1,9 +1,6 @@
-class ActsController < ApplicationController
+class ActsController < UserBaseController
   include TileBatchHelper
   include ActsHelper
-
-  prepend_before_filter :allow_guest_user_if_public
-  prepend_before_filter :authenticate_by_tile_token
 
   def index
     current_user.ping_page('activity feed')
@@ -23,6 +20,12 @@ class ActsController < ApplicationController
   end
 
   private
+
+    def authenticate
+      authenticate_by_tile_token
+      login_as_guest(find_current_board) if params[:public_slug]
+      super
+    end
 
     def find_current_board
       if params[:public_slug]
@@ -48,6 +51,7 @@ class ActsController < ApplicationController
     end
 
     def should_authenticate_by_tile_token?(tile_token, user)
-      user && user.end_user? && EmailLink.validate_token(user, tile_token)
+      # TODO: This is unsafe for client admin as they are logged in without a password.  Consider a user.end_user? check.
+      user && EmailLink.validate_token(user, tile_token)
     end
 end
