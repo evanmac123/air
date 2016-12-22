@@ -1,8 +1,6 @@
-class UsersController < Clearance::UsersController
+class UsersController < UserBaseController
   USER_LIMIT = 50
   MINIMUM_SEARCH_STRING_LENGTH = 3
-
-  prepend_before_filter :authenticate_by_token, only: :show
 
   def index
     @palette = current_user.demo.custom_color_palette
@@ -57,6 +55,11 @@ class UsersController < Clearance::UsersController
   end
 
   private
+
+    def authenticate
+      return if authenticate_by_token
+      super
+    end
 
     def authenticate_by_token
       if params[:token].present? &&

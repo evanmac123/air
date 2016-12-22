@@ -12,7 +12,7 @@ module AirboAuthenticationHelper
   end
 
   def authenticate
-    true
+    return true
   end
 
   def authenticated?

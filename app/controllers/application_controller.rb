@@ -44,7 +44,6 @@ class ApplicationController < ActionController::Base
   end
 
   def authorized?
-    redirect_to activity_path if session[:potential_user_id]
     return true
   end
 
