@@ -47,4 +47,9 @@ module ActsHelper
     @show_more_acts_btn = (acts.length == ACT_BATCH_SIZE)
     acts
   end
+
+  def decide_if_tiles_can_be_done(satisfiable_tiles)
+    @all_tiles_done = satisfiable_tiles.empty?
+    @no_tiles_to_do = current_user.demo.tiles.active.empty?
+  end
 end

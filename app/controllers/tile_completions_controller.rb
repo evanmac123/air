@@ -2,6 +2,8 @@ class TileCompletionsController < ApplicationController
   before_filter :find_tile
   before_filter :login_as_guest
 
+  include ActsHelper
+
   def create
     unless current_user.in_board?(@tile.demo_id)
       not_found

@@ -11,19 +11,6 @@ module AirboAuthenticationHelper
     @guest_user
   end
 
-  def authenticate
-    return true
-  end
-
-  def authenticated?
-    if current_user || signed_in?
-      refresh_activity_session(current_user)
-      return true
-    else
-      return false
-    end
-  end
-
   def authenticate_user
     clearance_authenticate unless current_user
     refresh_activity_session(current_user)

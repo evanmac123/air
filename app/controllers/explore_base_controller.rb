@@ -3,7 +3,6 @@ class ExploreBaseController < ApplicationController
   layout "client_admin_layout"
 
   def authenticate
-    return if authenticated?
     return if authenticate_by_explore_token
     login_as_guest(find_current_board) if guest_user_allowed?
 

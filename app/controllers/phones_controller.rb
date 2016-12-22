@@ -11,4 +11,10 @@ class PhonesController < UserBaseController
     add_failure wrong_phone_validation_code_error
     redirect_to :back
   end
+
+  private
+
+    def wrong_phone_validation_code_error
+      "Sorry, the code you entered was invalid. Please try typing it again."
+    end
 end

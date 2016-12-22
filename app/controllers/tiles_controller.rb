@@ -2,6 +2,8 @@ class TilesController < ApplicationController
   include TileBatchHelper
   include ActionView::Helpers::NumberHelper
   include ApplicationHelper
+  include ActsHelper
+  
      #FIXME FIXME this logic is sooooooo convoluted!!!!!
   # so I don't forget the next time i look at this crazy code
   # Index and show essentially do the same thing display a single tiles_path

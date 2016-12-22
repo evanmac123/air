@@ -1,4 +1,6 @@
 class ClientAdmin::SegmentationsController < ClientAdminBaseController
+  include SegmentationHelper
+  
   def show
     load_characteristics current_user.demo
   end

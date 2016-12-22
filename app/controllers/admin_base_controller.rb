@@ -14,10 +14,6 @@ class AdminBaseController < UserBaseController
       @demo = Demo.find(params[:demo_id])
     end
 
-    def load_characteristics(demo)
-      @dummy_characteristics, @generic_characteristics, @demo_specific_characteristics = Characteristic.visible_from_demo(demo)
-    end
-
     def set_admin_page_flag
       @is_admin_page = true
     end
@@ -46,5 +42,10 @@ class AdminBaseController < UserBaseController
       str.gsub(/(“|”)/, '"').
           gsub(/(‘|’)/, '\'').
           gsub(/(–|—)/, '-')
+    end
+
+    def parse_start_and_end_dates
+      @sdate = params[:sdate].present? ? Date.strptime(params[:sdate], "%Y-%m-%d") : nil
+      @edate =  params[:edate].present? ? Date.strptime(params[:edate], "%Y-%m-%d") : nil
     end
 end
