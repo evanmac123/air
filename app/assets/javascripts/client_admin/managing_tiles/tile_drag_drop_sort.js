@@ -73,9 +73,6 @@ Airbo.TileDragDropSort = (function(){
   function initDraftDroppable(){
     $("#draft").droppable({
       accept: ".tile_container",
-      out: function(event, ui) {
-        showDraftBlockedOverlay(false);
-      },
       over: function(event, ui) {
         if ($("#draft").sortable("option", "disabled")) {
           showDraftBlockedOverlay(true);
@@ -89,9 +86,6 @@ Airbo.TileDragDropSort = (function(){
   function initActiveDroppable(){
     $("#active").droppable({
       accept: ".tile_container",
-      out: function(event, ui) {
-        showDraftBlockedOverlay(false);
-      },
       over: function(event, ui) {
         if ($("#active").sortable("option", "disabled")) {
           showDraftBlockedOverlay(true);
