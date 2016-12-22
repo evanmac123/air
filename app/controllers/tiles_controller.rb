@@ -18,7 +18,6 @@ class TilesController < ApplicationController
       @current_user = current_user
 
       render_tile_wall_as_partial
-      ignore_all_newrelic if @current_user.is_site_admin
     else
       @in_public_board = params[:public_slug].present?
       @current_user = current_user

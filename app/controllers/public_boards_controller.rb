@@ -1,7 +1,7 @@
 class PublicBoardsController < ApplicationController
   def show
     board = find_current_board
-    if override_public_board_setting || (board && board.is_public)
+    if board && board.is_public
       if current_user.is_a?(User)
         add_board_to_user
       end
@@ -29,6 +29,5 @@ class PublicBoardsController < ApplicationController
       current_user.save
       flash[:success] = "You've now joined the #{board.name} board!"
     end
-
   end
 end

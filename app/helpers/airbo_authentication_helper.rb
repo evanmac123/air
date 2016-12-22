@@ -57,10 +57,6 @@ module AirboAuthenticationHelper
     end
   end
 
-  def logged_in_as_guest?
-    session[:guest_user].present? && current_user.is_a?(GuestUser)
-  end
-
   # TODO: Move to policies!
   def allow_guest_user
     @guest_user_allowed_in_action = true
@@ -71,10 +67,6 @@ module AirboAuthenticationHelper
   end
 
   def find_current_board
-    nil
-  end
-
-  def current_user_by_explore_token
     nil
   end
 
@@ -92,9 +84,5 @@ module AirboAuthenticationHelper
     else
       GuestUser.create!(session[:guest_user])
     end
-  end
-
-  def override_public_board_setting
-    false
   end
 end

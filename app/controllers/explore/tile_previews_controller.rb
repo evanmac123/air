@@ -16,7 +16,8 @@ class Explore::TilePreviewsController < ExploreBaseController
              locals: { tile: @tile, tag: @tag, next_tile: @next_tile, prev_tile: @prev_tile, section: params[:section] },
              layout: false
     else
-      render "show", layout: "single_tile_guest_layout" if  logged_in_as_guest?
+      # TODO: merge layouts for an explore that is open to all
+      render "show", layout: "single_tile_guest_layout" if  current_user.is_a?(GuestUser)
     end
   end
 
