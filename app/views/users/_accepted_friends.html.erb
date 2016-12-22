@@ -1,0 +1,18 @@
+<div id="following_wrapper">
+  <div class="module" id="following">
+    <% if current_user == @user  %>
+      <h3>Your Connections</h3>
+      <%= link_to "Add", users_path, :class => "link margin-left-5px" %>
+    <% else %>
+      <h3>
+        <%= "#{@user.first_name}'s connections" %>
+      </h3>
+    <% end %>
+    <% unless @display_user_stats %>
+      <%= render 'follow_link' %>
+    <% else       %>
+      <%= render 'shared/connections_list', user: @user %>
+    <% end %>
+    <div class="cf"></div>
+  </div>
+</div>

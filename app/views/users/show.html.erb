@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="large-4 columns">
+    <div class="module" id="about-player">
+      <div class="player-avatar">
+        <%= avatar_96(@user) %>
+      </div>
+      <ul class="player-info">
+        <li>
+          <h2>
+            <%= @user.name %>
+          </h2>
+        </li>
+        <li>
+          <%= render 'follow_buttons', user: @user %>
+        </li>
+      </ul>
+    </div>
+    <%= render 'accepted_friends' %>
+    <% if @display_pending_friendships   %>
+      <div class="module" id="followed-by">
+        <h3>Connection Requests</h3>
+        <ul id="friend_requests">
+          <% @pending_friends.each do |friend| %>
+            <li class="user">
+              <p class="user-name">
+                <%= link_to friend.name, user_path(friend) %>
+              </p>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+  <div class="large-7 columns">
+    <div class="module" id="recent-activity">
+      <h3>Recent Activity</h3>
+      <% unless @display_user_stats %>
+        <%= render 'follow_link' %>
+      <% else %>
+        <ul id="user-acts">
+          <li class="act-shim"></li>
+          <%= render :partial => 'shared/act', :collection => @acts, :as => :act %>
+        </ul>
+      <% end %>
+      <%= render 'shared/see_more' %>
+    </div>
+  </div>
+  <%= js_at_end do %>
+    bindSeeMoreActs('#{user_acts_path(user_id: @user.id, format: :js)}', #{@acts.length});
+  <% end %>
+</div>

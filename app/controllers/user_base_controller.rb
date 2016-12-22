@@ -4,7 +4,7 @@ class UserBaseController < ApplicationController
   end
 
   def authorized?
-    return true if current_user.is_a?ç(User)
+    return true if current_user.is_a?(User)
     return false
   end
 end

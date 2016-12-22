@@ -2,7 +2,7 @@ class UsersController < Clearance::UsersController
   USER_LIMIT = 50
   MINIMUM_SEARCH_STRING_LENGTH = 3
 
-  skip_before_filter :authenticate, only: :show
+  prepend_before_filter :authenticate_by_token, only: :show
 
   def index
     @palette = current_user.demo.custom_color_palette
@@ -24,19 +24,16 @@ class UsersController < Clearance::UsersController
   end
 
   def show
-    authenticated_by_token # if user come through friendship acceptance notification email
-    authenticate
-    return if response_body.present? # such as if our authorization failed & we're bound for the signin page
+    demo = current_user.demo
 
-    @user = current_user.demo.users.find_by_slug(params[:id])
-    @current_user = current_user
-    @palette = current_user.demo.custom_color_palette
+    @user = demo.users.find_by_slug(params[:id])
+    @palette = demo.custom_color_palette
+
     unless @user
       not_found
       return
     end
 
-    @locations = @user.demo.locations
     @acts = @user.acts.for_profile(current_user)
     @viewing_self = signed_in? && current_user == @user
     @viewing_other = signed_in? && current_user != @user
@@ -47,6 +44,7 @@ class UsersController < Clearance::UsersController
 
     @display_user_stats = current_user.can_see_activity_of(@user)
     @reason_for_privacy = @user.name + @user.reason_for_privacy
+
     if @pending_friends.present?
       @display_pending_friendships = true if @viewing_self || current_user.is_site_admin
     end
@@ -60,13 +58,13 @@ class UsersController < Clearance::UsersController
 
   private
 
-  def authenticated_by_token
-    if params[:token].present? &&
-      (user = User.find params[:user_id]) &&
-      EmailLink.validate_token(user, params[:token])
+    def authenticate_by_token
+      if params[:token].present? &&
+        (user = User.find(params[:user_id])) &&
+        EmailLink.validate_token(user, params[:token])
 
-      sign_in(user)
-      redirect_to user_url(params[:id])
+        sign_in(user)
+        redirect_to user_url(params[:id])
+      end
     end
-  end
 end

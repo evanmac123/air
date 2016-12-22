@@ -792,7 +792,6 @@ class User < ActiveRecord::Base
     )
   end
 
-
   def follow_removed_message
     I18n.t(
       "activerecord.models.user.base_follow_message",
