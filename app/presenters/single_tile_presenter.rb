@@ -26,8 +26,19 @@ class SingleTilePresenter < BasePresenter
     @to_param ||= tile.to_param
   end
 
+  def assembly_required?
+    !tile.is_fully_assembled?
+  end
   def status
     type
+  end
+ 
+  def tile_status
+    type
+  end
+
+  def completion_status
+    tile.is_fully_assembled? ? "finished" : "unfinished"
   end
 
   def completed_class

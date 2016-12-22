@@ -51,7 +51,7 @@ Airbo.TileAction = (function(){
     if(status !=="user_submitted" && status!=="ignored"){
       currTile.remove();
       $(newSection).prepend(newTile);
-      window.updateTilesAndPlaceholdersAppearance();
+      Airbo.TileDragDropSort.updateTilesAndPlaceholdersAppearance();
     }else{
       replaceTileContent(newTile, newTile.data("tile-container-id"));
       updateUserSubmittedTilesCounter();

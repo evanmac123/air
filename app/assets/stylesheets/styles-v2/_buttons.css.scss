@@ -162,6 +162,10 @@
 
   &.tiny { @include button-size($padding:$button-tny); }
 
+  &.tight{
+    padding: 8px;
+  }
+
   .success{
     background-color:white;
     color: $n-blue;

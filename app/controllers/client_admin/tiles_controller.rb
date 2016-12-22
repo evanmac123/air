@@ -36,7 +36,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   def show
     @tile = get_tile
     prepTilePreview
-    tile_in_box_viewed_ping @tile
     if request.xhr?
       render layout: false
     end

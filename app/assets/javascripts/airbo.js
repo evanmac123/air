@@ -109,6 +109,14 @@ var Airbo = {
 
     },
 
+    alert: function (text) {
+      swal({
+        title: "",
+        text: text,
+        customClass: "airbo",
+      });
+    },
+
     approve: function (text, cb) {
       swal(
         {

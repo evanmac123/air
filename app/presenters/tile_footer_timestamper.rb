@@ -12,7 +12,7 @@ module TileFooterTimestamper
   protected
 
   def timestamp_plain
-    case tile_type
+    case get_tile_status
     when :active
       [
         spanned_text(span_params),
@@ -31,18 +31,18 @@ module TileFooterTimestamper
   end
 
   def timestamp_html
-    if type? *html_allowed_types
+    if tile_status_matches? *html_allowed_types
       spanned_text span_params
     else
       ''
     end
   end
 
-  def tile_type
-    if type?(:archive) && tile.activated_at.nil?
+  def get_tile_status
+    if tile_status_matches?(:archive) && tile.activated_at.nil?
       :archive_never_activated
     else
-      type
+      tile_status
     end
   end
 
@@ -51,7 +51,7 @@ module TileFooterTimestamper
   end
 
   def span_params
-    case tile_type
+    case get_tile_status
     when :draft
       {
         title: "Created: ",
