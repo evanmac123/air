@@ -43,6 +43,13 @@ class SingleAdminTilePresenter < BasePresenter
     end
   end
 
+
+  def completion_status
+    tile.is_fully_assembled? ? "finished" : "unfinished"
+  end
+
+
+
   def completed_class
     ""
   end
