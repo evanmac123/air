@@ -11,7 +11,6 @@ class TilesController < ApplicationController
   # the second time we render the partial via ajax.
 
   def index
-    binding.pry
     @demo = current_user.demo
     @palette = @demo.custom_color_palette
     if params[:partial_only]
