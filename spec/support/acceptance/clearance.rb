@@ -2,7 +2,7 @@ module SteakHelperMethods
   def should_be_signed_out
     # Copied this directly from the Cucumber steak of the same name. Don't
     # quite understand the signifigance.
-    expect_content "Sign-in"
+    expect_content "Sign In"
   end
 
   def should_be_signed_in

@@ -3,6 +3,7 @@ class ActsController < ApplicationController
   include ActsHelper
 
   prepend_before_filter :allow_guest_user_if_public
+  prepend_before_filter :authenticate_by_tile_token
 
   def index
     current_user.ping_page('activity feed')
@@ -29,5 +30,24 @@ class ActsController < ApplicationController
       elsif current_user
         current_user.demo
       end
+    end
+
+    def authenticate_by_tile_token
+      return false unless params[:tile_token]
+      user = User.find_by_id(params[:user_id])
+      email_clicked_ping(user)
+
+      if should_authenticate_by_tile_token?(params[:tile_token], user)
+        sign_in(user, 1)
+        user.move_to_new_demo(params[:demo_id]) if params[:demo_id].present?
+        flash[:success] = "Welcome back, #{user.first_name}"
+        redirect_to activity_url
+      else
+        return false
+      end
+    end
+
+    def should_authenticate_by_tile_token?(tile_token, user)
+      user && user.end_user? && EmailLink.validate_token(user, tile_token)
     end
 end

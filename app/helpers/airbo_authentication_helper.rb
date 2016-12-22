@@ -13,7 +13,6 @@ module AirboAuthenticationHelper
 
   def authenticate
     return if authenticated?
-    return if authenticate_by_tile_token
     return if authenticate_by_onboarding_auth_hash
     return if authenticate_as_potential_user
     login_as_guest(find_current_board) if guest_user_allowed?
@@ -32,24 +31,6 @@ module AirboAuthenticationHelper
   def authenticate_user
     clearance_authenticate unless current_user
     refresh_activity_session(current_user)
-  end
-
-  def authenticate_by_tile_token
-    return false unless params[:tile_token]
-    user = User.find_by_id(params[:user_id])
-    email_clicked_ping(user)
-
-    if should_authenticate_by_tile_token?(params[:tile_token], user)
-      sign_in(user, 1)
-      user.move_to_new_demo(params[:demo_id]) if params[:demo_id].present?
-      flash[:success] = "Welcome back, #{user.first_name}"
-    else
-      authenticate_user
-    end
-  end
-
-  def should_authenticate_by_tile_token?(tile_token, user)
-    user && user.end_user? && EmailLink.validate_token(user, tile_token)
   end
 
   def authenticate_by_onboarding_auth_hash

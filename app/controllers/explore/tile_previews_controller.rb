@@ -41,7 +41,11 @@ class Explore::TilePreviewsController < ExploreBaseController
     end
 
     def find_tile
-      @tile ||= Tile.explore.find(params[:id])
+      begin
+        @tile ||= Tile.explore.find(params[:id])
+      rescue
+        not_found
+      end
     end
 
     def next_explore_tile(offset)

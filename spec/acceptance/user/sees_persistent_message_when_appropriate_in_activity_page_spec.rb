@@ -35,17 +35,6 @@ feature 'Sees persistent message when appropriate in activity page' do
           within(outer_element_selector) { page.all('a', text: 'go here').should be_empty }
         end
       end
-
-      context "if switch for same is on" do
-        before do
-          @demo.update_attributes(allow_raw_in_persistent_message: true)
-        end
-
-        it "allows raw HTML in the persistent message in the flash" do
-          visit activity_path(public_slug: @demo.public_slug)
-          within(outer_element_selector) { page.all('a', text: 'go here').should be_present }
-        end
-      end
     end
   end
 
@@ -124,6 +113,4 @@ feature 'Sees persistent message when appropriate in activity page' do
 
     it_should_behave_like 'raw HTML in the persistent message', '#get_started_lightbox'
   end
-
-  it "has the site admin set whether that is allowed"
 end

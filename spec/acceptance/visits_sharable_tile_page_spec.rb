@@ -5,10 +5,6 @@ feature "visits sharable tile page", js: true do
 
   let!(:tile) { FactoryGirl.create(:multiple_choice_tile, is_sharable: true) }
 
-  def show_register_form?
-    true
-  end
-
   shared_examples_for 'gets registration form' do |name, selector|
     scenario "when clicks #{name}", js: true do
       page.find(selector).click
