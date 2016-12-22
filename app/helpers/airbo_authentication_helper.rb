@@ -13,7 +13,6 @@ module AirboAuthenticationHelper
 
   def authenticate
     return if authenticated?
-    return if authenticate_by_onboarding_auth_hash
     return if authenticate_as_potential_user
     login_as_guest(find_current_board)
     authenticate_user
@@ -31,18 +30,6 @@ module AirboAuthenticationHelper
   def authenticate_user
     clearance_authenticate unless current_user
     refresh_activity_session(current_user)
-  end
-
-  def authenticate_by_onboarding_auth_hash
-    return false unless cookies[:user_onboarding].present?
-    user_onboarding = UserOnboarding.find_by_auth_hash(auth_hash: cookies[:user_onboarding])
-    if user_onboarding && !user_onboarding.completed
-      sign_in(user_onboarding.user)
-      refresh_activity_session(current_user)
-      return true
-    else
-      return false
-    end
   end
 
   def authenticate_as_potential_user

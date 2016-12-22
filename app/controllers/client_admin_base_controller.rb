@@ -3,12 +3,29 @@ class ClientAdminBaseController < UserBaseController
 
   layout "client_admin_layout"
 
+  def authenticate
+    return if authenticate_by_onboarding_auth_hash
+    super
+  end
+
+  def authorized?
+    return true if onboarding_auth
+    return true if current_user.authorized_to?(:client_admin)
+    return false
+  end
+
   private
 
-    def authorized?
-      return true if onboarding_auth
-      return true if current_user.authorized_to?(:client_admin)
-      return false
+    def authenticate_by_onboarding_auth_hash
+      return false unless cookies[:user_onboarding].present?
+      user_onboarding = UserOnboarding.find_by_auth_hash(auth_hash: cookies[:user_onboarding])
+      if user_onboarding && !user_onboarding.completed
+        sign_in(user_onboarding.user)
+        refresh_activity_session(current_user)
+        return true
+      else
+        return false
+      end
     end
 
     def onboarding_auth
