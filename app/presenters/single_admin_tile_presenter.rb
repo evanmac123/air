@@ -29,6 +29,10 @@ class SingleAdminTilePresenter < BasePresenter
     @tile_id ||= id
   end
 
+  def assembly_required?
+    !tile.is_fully_assembled?
+  end
+
   def tile_status_matches? *statuses
     if statuses.size == 0
       false
