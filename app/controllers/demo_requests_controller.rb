@@ -1,6 +1,4 @@
 class DemoRequestsController < ApplicationController
-  skip_before_filter :authenticate
-
   layout 'standalone'
 
   def create

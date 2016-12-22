@@ -12,10 +12,6 @@ module AirboAuthenticationHelper
   end
 
   def authenticate
-    return if authenticated?
-    return if authenticate_as_potential_user
-    login_as_guest(find_current_board)
-    authenticate_user
   end
 
   def authenticated?
@@ -32,20 +28,6 @@ module AirboAuthenticationHelper
     refresh_activity_session(current_user)
   end
 
-  def authenticate_as_potential_user
-    return false unless session[:potential_user_id].present?
-    @potential_user = PotentialUser.find_by_id(session[:potential_user_id])
-
-    allowed_pathes = [activity_path, potential_user_conversions_path]
-    if @potential_user && !allowed_pathes.include?(request.path)
-      redirect_to activity_path
-    elsif @potential_user
-      return true
-    else
-      return false
-    end
-  end
-
   def login_as_guest(demo)
     unless current_user
       session[:guest_user] = { demo_id: demo.try(:id) }
@@ -55,6 +37,10 @@ module AirboAuthenticationHelper
       @guest_user = find_or_create_guest_user
       session[:guest_user] = current_user.to_guest_user_hash
     end
+  end
+
+  def use_guest_user?
+    false
   end
 
   # TODO: Move to policies!

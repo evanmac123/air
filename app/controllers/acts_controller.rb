@@ -22,7 +22,8 @@ class ActsController < ApplicationController
   private
 
     def authenticate
-      authenticate_by_tile_token
+      return if authenticate_by_tile_token
+      return if authenticate_as_potential_user
       login_as_guest(find_current_board) if params[:public_slug]
       authenticate_user
     end
@@ -53,5 +54,16 @@ class ActsController < ApplicationController
     def should_authenticate_by_tile_token?(tile_token, user)
       # TODO: This is unsafe for client admin as they are logged in without a password.  Consider a user.end_user? check.
       user && EmailLink.validate_token(user, tile_token)
+    end
+
+    def authenticate_as_potential_user
+      return false unless session[:potential_user_id]
+      @potential_user = PotentialUser.find_by_id(session[:potential_user_id])
+
+      if @potential_user
+        return true
+      else
+        return false
+      end
     end
 end

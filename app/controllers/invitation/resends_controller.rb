@@ -1,12 +1,11 @@
 class Invitation::ResendsController < ApplicationController
-  skip_before_filter :authenticate
   layout "external"
 
   def new
   end
 
   def create
-    user = User.where(:email => params[:email].downcase, :invited => true).first
+    user = User.where(email: params[:email].downcase, invited: true).first
 
     if user
       if user.accepted_invitation_at.nil?

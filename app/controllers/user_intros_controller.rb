@@ -1,4 +1,4 @@
-class UserIntrosController < ApplicationController
+class UserIntrosController < UserBaseController
   def update
     intro = current_user.intros
     intro[params[:intro]]=true

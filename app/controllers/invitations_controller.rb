@@ -1,6 +1,4 @@
 class InvitationsController < ApplicationController
-  skip_before_filter :authenticate
-
   layout 'external'
 
   def new

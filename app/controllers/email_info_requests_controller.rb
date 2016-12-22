@@ -1,7 +1,6 @@
 require 'email_info_request'
 
 class EmailInfoRequestsController < ApplicationController
-  skip_before_filter :authenticate
   skip_before_filter :force_ssl
 
   def create

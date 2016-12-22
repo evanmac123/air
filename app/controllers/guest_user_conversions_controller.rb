@@ -1,6 +1,6 @@
 class GuestUserConversionsController < ApplicationController
   def create
-    unless current_user.is_guest?
+    unless current_user && current_user.is_guest?
       render inline: ''
       return
     end

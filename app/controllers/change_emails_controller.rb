@@ -1,6 +1,4 @@
-class ChangeEmailsController < ApplicationController
-  skip_before_filter :authenticate
-
+class ChangeEmailsController < UserBaseController
   def new
     render partial: 'form'
   end

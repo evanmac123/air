@@ -1,8 +1,6 @@
 #FIXME this entire logic needs to be completely rewritten. It is a utter cluster
 #fuck.
-class BoardsController < ApplicationController
-  skip_before_filter :authenticate
-
+class BoardsController < UserBaseController
   layout 'external'
   layout 'standalone', only: [:new]
 
@@ -15,7 +13,18 @@ class BoardsController < ApplicationController
   end
 
   def create
-    params[:as_existing] ? create_as_existing : create_as_guest
+    board_creator = CreateBoard.new(params[:board_name])
+    if board_creator.create
+      board = board_creator.board
+      current_user.add_board(board)
+      current_user.move_to_new_demo(board)
+      current_user.is_client_admin = true
+      current_user.save!
+      BoardCreatedNotificationMailer.delay_mail(:notify, current_user.id, board.id)
+      redirect_to client_admin_tiles_path
+    else
+      redirect_to :back
+    end
   end
 
   def update
@@ -42,25 +51,8 @@ class BoardsController < ApplicationController
 
   protected
 
-  def create_as_existing
-    authenticate
-    return if response.redirect? # auth failed
-
-    board_creator = CreateBoard.new(params[:board_name])
-    if board_creator.create
-      board = board_creator.board
-      current_user.add_board(board)
-      current_user.move_to_new_demo(board)
-      current_user.is_client_admin = true
-      current_user.save!
-      BoardCreatedNotificationMailer.delay_mail(:notify, current_user.id, board.id)
-      redirect_to client_admin_tiles_path
-    else
-      redirect_to :back
-    end
-  end
-
   def create_as_guest
+    # TODO: deprecate
     login_as_guest(find_current_board)
     authenticate
 

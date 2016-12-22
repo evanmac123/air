@@ -1,6 +1,4 @@
 class SignupRequestsController < ApplicationController
-  skip_before_filter :authenticate
-
   layout 'standalone'
 
   def create

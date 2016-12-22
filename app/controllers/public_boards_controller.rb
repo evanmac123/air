@@ -1,4 +1,6 @@
 class PublicBoardsController < ApplicationController
+  before_filter :login_as_guest
+
   def show
     board = find_current_board
     if board && board.is_public

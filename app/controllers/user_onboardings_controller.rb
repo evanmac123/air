@@ -1,5 +1,4 @@
 class UserOnboardingsController < ApplicationController
-  skip_before_filter :authenticate
   layout 'onboarding'
 
   def show

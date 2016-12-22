@@ -1,7 +1,6 @@
 class GuestUserResetsController < ApplicationController
-
   def update
-    if current_user.is_guest?
+    if current_user && current_user.is_guest?
       current_user.points = 0
       current_user.tickets = 0
       current_user.get_started_lightbox_displayed = false

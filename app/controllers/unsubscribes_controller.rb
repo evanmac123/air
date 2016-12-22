@@ -1,7 +1,4 @@
 class UnsubscribesController < ApplicationController
-
-  skip_before_filter :authenticate
-
   def new
     @user = User.find(params[:user_id])
     @token = params[:token]
@@ -10,7 +7,7 @@ class UnsubscribesController < ApplicationController
   end
 
   def show
-    render :layout => 'external'
+    render layout: 'external'
   end
 
   def create
