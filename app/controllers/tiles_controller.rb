@@ -3,6 +3,8 @@ class TilesController < ApplicationController
   include ActionView::Helpers::NumberHelper
   include ApplicationHelper
 
+  before_filter :login_as_guest
+
      #FIXME FIXME this logic is sooooooo convoluted!!!!!
   # so I don't forget the next time i look at this crazy code
   # Index and show essentially do the same thing display a single tiles_path
@@ -61,11 +63,6 @@ class TilesController < ApplicationController
   end
 
   private
-
-    def authenticate
-      login_as_guest(find_current_board) if params[:public_slug]
-      authenticate_user
-    end
 
     def find_current_board
       @current_board ||= Demo.public_board_by_public_slug(params[:public_slug])

@@ -49,4 +49,13 @@ class ExploreBaseController < ApplicationController
     def remember_explore_user(user)
       @current_user_by_explore_token = user
     end
+
+    # TODO: remove after opening up explore
+    def allow_guest_user
+      @guest_user_allowed_in_action = true
+    end
+
+    def guest_user_allowed?
+      @guest_user_allowed_in_action
+    end
 end

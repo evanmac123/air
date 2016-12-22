@@ -12,6 +12,7 @@ module AirboAuthenticationHelper
   end
 
   def authenticate
+    true
   end
 
   def authenticated?
@@ -28,7 +29,11 @@ module AirboAuthenticationHelper
     refresh_activity_session(current_user)
   end
 
-  def login_as_guest(demo)
+  def find_current_board
+    nil
+  end
+
+  def login_as_guest(demo = find_current_board)
     unless current_user
       session[:guest_user] = { demo_id: demo.try(:id) }
       if session[:guest_user_id]
@@ -37,23 +42,6 @@ module AirboAuthenticationHelper
       @guest_user = find_or_create_guest_user
       session[:guest_user] = current_user.to_guest_user_hash
     end
-  end
-
-  def use_guest_user?
-    false
-  end
-
-  # TODO: Move to policies!
-  def allow_guest_user
-    @guest_user_allowed_in_action = true
-  end
-
-  def guest_user_allowed?
-    @guest_user_allowed_in_action
-  end
-
-  def find_current_board
-    nil
   end
 
   def find_or_create_guest_user

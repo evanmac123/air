@@ -1,8 +1,9 @@
 class TileCompletionsController < ApplicationController
-  def create
-    tile = find_tile
+  before_filter :find_tile
+  before_filter :login_as_guest
 
-    unless current_user.in_board?(tile.demo_id)
+  def create
+    unless current_user.in_board?(@tile.demo_id)
       not_found
       return false
     end
@@ -11,8 +12,8 @@ class TileCompletionsController < ApplicationController
 
     remember_points_and_tickets
 
-    if create_tile_completion(tile, answer_index)
-      create_act(tile)
+    if create_tile_completion(@tile, answer_index)
+      create_act(@tile)
     else
       flash[:failure] = "It looks like you've already done this tile, possibly in a different browser window or tab."
     end

@@ -17,8 +17,8 @@ class ClientAdminBaseController < UserBaseController
   private
 
     def authenticate_by_onboarding_auth_hash
-      return false unless cookies[:user_onboarding].present?
-      user_onboarding = UserOnboarding.find_by_auth_hash(auth_hash: cookies[:user_onboarding])
+      return false unless cookies[:user_onboarding]
+      user_onboarding = UserOnboarding.where(auth_hash: cookies[:user_onboarding]).first
       if user_onboarding && !user_onboarding.completed
         sign_in(user_onboarding.user)
         refresh_activity_session(current_user)

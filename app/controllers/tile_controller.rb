@@ -1,4 +1,5 @@
 class TileController < ApplicationController
+  prepend_before_filter :login_as_guest
   prepend_before_filter :find_tile
 
   def show

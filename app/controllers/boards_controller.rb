@@ -49,57 +49,33 @@ class BoardsController < UserBaseController
     end
   end
 
-  protected
-
-  def create_as_guest
-    # TODO: deprecate
-    login_as_guest(find_current_board)
-    authenticate
-
-    @create_user_with_board = CreateUserWithBoard.new params.merge(pre_user: current_user)
-    success = @create_user_with_board.create
-    @user = @create_user_with_board.user
-    @board = @create_user_with_board.board
-
-    if success
-      sign_in(@user, 1)
-      render_success
-    else
-      render_failure(@create_user_with_board.set_errors)
-    end
-  end
-
   private
 
-  def render_success
-    respond_to do |format|
-      format.json { render json: {status: 'success'} }
-      format.html { redirect_to explore_path }
+    def render_success
+      respond_to do |format|
+        format.json { render json: {status: 'success'} }
+        format.html { redirect_to explore_path }
+      end
     end
-  end
 
-  def render_failure(set_errors)
-    respond_to do |format|
-      format.json { render json: {status: 'failure', errors: set_errors} }
-      format.html do
-        if params[:page_name] == "welcome"
-          redirect_to :controller => 'pages', \
-                      :action => 'show', \
-                      :id => "home", \
-                      flash: { failure: set_errors }
-        elsif params[:page_name] == "product"
-          redirect_to :controller => 'pages', \
-                      :action => 'product', \
-                      flash: { failure: set_errors }
-        else
-          flash[:failure] = set_errors
-          redirect_to "/join"
+    def render_failure(set_errors)
+      respond_to do |format|
+        format.json { render json: {status: 'failure', errors: set_errors} }
+        format.html do
+          if params[:page_name] == "welcome"
+            redirect_to :controller => 'pages', \
+                        :action => 'show', \
+                        :id => "home", \
+                        flash: { failure: set_errors }
+          elsif params[:page_name] == "product"
+            redirect_to :controller => 'pages', \
+                        :action => 'product', \
+                        flash: { failure: set_errors }
+          else
+            flash[:failure] = set_errors
+            redirect_to "/join"
+          end
         end
       end
     end
-  end
-
-  def find_current_board
-    @current_board ||= Demo.new(is_public: true)
-  end
 end
