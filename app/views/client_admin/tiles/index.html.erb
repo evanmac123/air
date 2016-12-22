@@ -5,9 +5,19 @@
 
 <div class="completed_tiles_containment">
   <section class="manage_tiles" id="active_tiles">
+    <div class="draft_overlay">
+      <div class="overlay_message">
+        <%= fa_icon "ban" %>
+      </div>
+    </div>
     <%= render partial: 'client_admin/tiles/manage_tiles/active' %>
   </section>
   <section class="manage_tiles" id="archived_tiles">
+    <div class="draft_overlay">
+      <div class="overlay_message">
+        <%= fa_icon "ban" %>
+      </div>
+    </div>
     <%= render partial: 'client_admin/tiles/manage_tiles/archive' %>
   </section>
   <%= render partial: 'client_admin/tiles/manage_tiles/show_all_archive' %>
