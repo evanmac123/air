@@ -74,15 +74,34 @@ Airbo.TileDragDropSort = (function(){
     $("#draft").droppable({
       accept: ".tile_container",
       out: function(event, ui) {
-        return showDraftBlockedOverlay(false);
+        showDraftBlockedOverlay(false);
       },
       over: function(event, ui) {
         if ($("#draft").sortable("option", "disabled")) {
-          return showDraftBlockedOverlay(true);
+          showDraftBlockedOverlay(true);
         }
       }
     });
   }
+
+
+
+  function initActiveDroppable(){
+    $("#active").droppable({
+      accept: ".tile_container",
+      out: function(event, ui) {
+        showDraftBlockedOverlay(false);
+      },
+      over: function(event, ui) {
+        if ($("#active").sortable("option", "disabled")) {
+          showDraftBlockedOverlay(true);
+        }
+      }
+    });
+  }
+
+
+
 
   function initTileSorting(){
     $("#draft, #active, #archive").sortable(sortableConfig).disableSelection();
@@ -107,6 +126,7 @@ Airbo.TileDragDropSort = (function(){
   function startEvent(event, tile, section) {
     turnOnDraftBlocking(tile, section);
     showDraftBlockedMess(false);
+    disableActiveSorting(event, tile, section)
     tileInfo(tile, "hide");
   }
 
@@ -123,6 +143,7 @@ Airbo.TileDragDropSort = (function(){
   }
 
   function stopEvent(event, tile, section) {
+    $("#active").sortable("enable");
     turnOffDraftBlocking(tile, section);
     if (isDraftBlockedOverlayShowed()) {
       showDraftBlockedMess(true, section);
@@ -290,12 +311,17 @@ Airbo.TileDragDropSort = (function(){
     status = getTilesSection(tile);
     completions = tileCompletionsNum(tile);
     if (status !== "draft" && completions > 0) {
-      showDraftBlockedOverlay(true);
       $("#draft").sortable("disable");
       return section.sortable("refresh");
     }
   }
 
+  function disableActiveSorting(event, tile, section){
+    if(tile.data("assemblyRequired") === true){
+      $("#active").sortable("disable");
+      return section.sortable("refresh");
+    }
+  }
   function turnOffDraftBlocking(tile, section) {
     $("#draft").sortable("enable");
     section.sortable("refresh");
@@ -420,8 +446,9 @@ Airbo.TileDragDropSort = (function(){
 
 
   function init(){
-    //initDraftDroppable();
     initTileSorting();
+    initDraftDroppable();
+    initActiveDroppable();
   }
 
 
