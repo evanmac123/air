@@ -15,7 +15,7 @@ module Concerns::TileImageable
         # aspect ratio."
         styles:         {:viewer => ["666>", :png]},
         default_style:  :viewer,
-        default_url:    "avatars/thumb/missing.png",
+        default_url:    "/avatars/thumb/missing.png",
       }.merge!(TILE_IMAGE_OPTIONS)
 
     has_attached_file :thumbnail,
@@ -25,7 +25,7 @@ module Concerns::TileImageable
           email_digest: ["190x160#", :png]
         },
         default_style:  :carousel,
-        default_url:    "avatars/missing.png",
+        default_url:    "/avatars/thumb/missing.png",
         preserve_files: true  # preserve old attachments on update and delete. WHY?
                               # to fix next scenario: CA sends digest email
                               # but then changes an image in some tile.
