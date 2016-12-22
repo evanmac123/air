@@ -67,6 +67,10 @@ class TilesController < ApplicationController
     authenticate_user
   end
 
+  def find_current_board
+    @current_board ||= Demo.public_board_by_public_slug(params[:public_slug])
+  end
+
   def find_start_tile
     if start_tile_id.to_s == '0'
       current_user.sample_tile
