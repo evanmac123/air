@@ -15,6 +15,11 @@
     border-radius: 0 0 3px 3px;
   }
   .preview_menu_item, .preview_menu_text {
+    &.disabled{
+      a{
+        cursor: not-allowed;
+      }
+    }
     float: left;
     border-left: 1px $tile-wall-bg solid;
     font-size: 14px;
@@ -36,8 +41,16 @@
   }
   .preview_menu_item {
     width: 16%;
+    &.disabled{
+      a{
+        cursor: not-allowed;
+      }
+    }
     a {
       padding: 11px 20px;
+      .disabled & {
+       cursor: not-allowed;
+      }
     }
     &#suggested_info{
      width: 50%;
