@@ -75,32 +75,28 @@ Airbo.TileDragDropSort = (function(){
       accept: ".tile_container",
       over: function(event, ui) {
         if ($("#draft").sortable("option", "disabled")) {
-          showDraftBlockedOverlay(true);
+          showDraftBlockedOverlay(true, $("#draft"));
+          Airbo.Utils.alert("You may not move tiles with user completions back to drafts");
         }
       }
     });
   }
-
-
 
   function initActiveDroppable(){
     $("#active").droppable({
       accept: ".tile_container",
       over: function(event, ui) {
         if ($("#active").sortable("option", "disabled")) {
-          showDraftBlockedOverlay(true);
+          showDraftBlockedOverlay(true, $("#active") );
+          Airbo.Utils.alert("You may not post pending tiles");
         }
       }
     });
   }
 
-
-
-
   function initTileSorting(){
     $("#draft, #active, #archive").sortable(sortableConfig).disableSelection();
   }
-
 
 
   function  updateEvent(event, tile, section) {
@@ -119,7 +115,6 @@ Airbo.TileDragDropSort = (function(){
 
   function startEvent(event, tile, section) {
     turnOnDraftBlocking(tile, section);
-    showDraftBlockedMess(false);
     disableActiveSorting(event, tile, section)
     tileInfo(tile, "hide");
   }
@@ -139,10 +134,7 @@ Airbo.TileDragDropSort = (function(){
   function stopEvent(event, tile, section) {
     $("#active").sortable("enable");
     turnOffDraftBlocking(tile, section);
-    if (isDraftBlockedOverlayShowed()) {
-      showDraftBlockedMess(true, section);
-      showDraftBlockedOverlay(false);
-    }
+    showDraftBlockedOverlay(false);
     updateTilesAndPlaceholdersAppearance();
     tileInfo(tile, "show");
   }
@@ -316,6 +308,7 @@ Airbo.TileDragDropSort = (function(){
       return section.sortable("refresh");
     }
   }
+
   function turnOffDraftBlocking(tile, section) {
     $("#draft").sortable("enable");
     section.sortable("refresh");
@@ -366,9 +359,11 @@ Airbo.TileDragDropSort = (function(){
     return results;
   }
 
-  function showDraftBlockedOverlay(isOn) {
-    if (isOn) {
-      $(".draft_overlay").show();
+  function showDraftBlockedOverlay(isOn, node) {
+    var overlay;
+    if (isOn && node) {
+      overlay = node.parents(".manage_tiles").children(".draft_overlay");
+      overlay.show();
     } else {
        $(".draft_overlay").hide();
     }
@@ -376,26 +371,6 @@ Airbo.TileDragDropSort = (function(){
 
   function isDraftBlockedOverlayShowed() {
      return $(".draft_overlay").css("display") === "block";
-  }
-
-
-  function showDraftBlockedMess(isOn, section) {
-    var mess_div;
-    if (isOn) {
-      mess_div = section.closest(".manage_tiles").find(".draft_blocked_message");
-      mess_div.show();
-      if (!iOSdevice()) {
-         $('html, body').scrollTo(mess_div, {
-          duration: 500
-        });
-      }
-    } else {
-      $(".draft_blocked_message").hide();
-    }
-  }
-
-  function iOSdevice() {
-    return navigator.userAgent.match(/(iPad|iPhone|iPod)/g);
   }
 
   function isTileInSection(tile, section) {
@@ -430,14 +405,9 @@ Airbo.TileDragDropSort = (function(){
     Airbo.TileAction.confirmUnarchive(checkConfirm);
   }
 
-
-
-
-
   function isTileMoved(tile, fromSectionName, toSectionName) {
     return getTilesSection(tile) === toSectionName && sourceSectionName === fromSectionName;
   }
-
 
   function init(){
     initTileSorting();
