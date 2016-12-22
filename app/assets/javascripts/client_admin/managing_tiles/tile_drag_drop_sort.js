@@ -139,6 +139,51 @@ Airbo.TileDragDropSort = (function(){
     tileInfo(tile, "show");
   }
 
+  function showDraftBlockedOverlay(isOn, node) {
+    var overlay;
+    if (isOn && node) {
+      overlay = node.parents(".manage_tiles").children(".draft_overlay");
+      overlay.show();
+    } else {
+       $(".draft_overlay").hide();
+    }
+  }
+
+  function isDraftBlockedOverlayShowed() {
+    return $(".draft_overlay").css("display") === "block";
+  }
+
+  function isTileInSection(tile, section) {
+    return getTilesSection(tile) === section.attr("id");
+  }
+
+  function cancelTileMoving() {
+    if (sourceSectionName) {
+      return $("#" + sourceSectionName).sortable("cancel").sortable("refresh");
+    }
+  }
+
+  function turnOnDraftBlocking(tile, section) {
+    var completions, status;
+    status = getTilesSection(tile);
+    completions = tileCompletionsNum(tile);
+    if (status !== "draft" && completions > 0) {
+      $("#draft").sortable("disable");
+      return section.sortable("refresh");
+    }
+  }
+
+  function disableActiveSorting(event, tile, section){
+    if(tile.data("assemblyRequired") === true){
+      $("#active").sortable("disable");
+      return section.sortable("refresh");
+    }
+  }
+
+  function turnOffDraftBlocking(tile, section) {
+    $("#draft").sortable("enable");
+    section.sortable("refresh");
+  }
 
 
   function numberInRow(section) {
@@ -292,27 +337,6 @@ Airbo.TileDragDropSort = (function(){
     return parseInt((ref = tile.find(".completions").text().match(/\d+/)) != null ? ref[0] : void 0);
   }
 
-  function turnOnDraftBlocking(tile, section) {
-    var completions, status;
-    status = getTilesSection(tile);
-    completions = tileCompletionsNum(tile);
-    if (status !== "draft" && completions > 0) {
-      $("#draft").sortable("disable");
-      return section.sortable("refresh");
-    }
-  }
-
-  function disableActiveSorting(event, tile, section){
-    if(tile.data("assemblyRequired") === true){
-      $("#active").sortable("disable");
-      return section.sortable("refresh");
-    }
-  }
-
-  function turnOffDraftBlocking(tile, section) {
-    $("#draft").sortable("enable");
-    section.sortable("refresh");
-  }
 
   function updateTileVisibility() {
     var i, len, ref, results, section;
@@ -359,36 +383,10 @@ Airbo.TileDragDropSort = (function(){
     return results;
   }
 
-  function showDraftBlockedOverlay(isOn, node) {
-    var overlay;
-    if (isOn && node) {
-      overlay = node.parents(".manage_tiles").children(".draft_overlay");
-      overlay.show();
-    } else {
-       $(".draft_overlay").hide();
-    }
-  }
-
-  function isDraftBlockedOverlayShowed() {
-     return $(".draft_overlay").css("display") === "block";
-  }
-
-  function isTileInSection(tile, section) {
-    return getTilesSection(tile) === section.attr("id");
-  }
-
-  function cancelTileMoving() {
-    if (sourceSectionName) {
-      return $("#" + sourceSectionName).sortable("cancel").sortable("refresh");
-    }
-  }
-
   function moveComfirmationModal(tile) {
     moveConfirmationDeferred = $.Deferred();
     moveConfirmation = moveConfirmationDeferred.promise();
-
     confirmReposting(tile);
-
   };
 
 
