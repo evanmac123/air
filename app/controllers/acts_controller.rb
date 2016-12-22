@@ -1,4 +1,4 @@
-class ActsController < UserBaseController
+class ActsController < ApplicationController
   include TileBatchHelper
   include ActsHelper
 
@@ -24,7 +24,7 @@ class ActsController < UserBaseController
     def authenticate
       authenticate_by_tile_token
       login_as_guest(find_current_board) if params[:public_slug]
-      super
+      authenticate_user
     end
 
     def find_current_board
