@@ -55,4 +55,10 @@ class Admin::DemosController < AdminBaseController
     flash[:success] = "#{board.name} deleted"
     redirect_to admin_demos_path
   end
+
+  private
+
+    def find_demo_by_id
+      @demo = Demo.find(params[:id])
+    end
 end
