@@ -76,7 +76,7 @@ Airbo.TileDragDropSort = (function(){
       over: function(event, ui) {
         if ($("#draft").sortable("option", "disabled")) {
           showDraftBlockedOverlay(true, $("#draft"));
-          Airbo.Utils.alert("You may not move tiles with user completions back to drafts");
+          Airbo.Utils.alert("You may not move tiles that have already been completed back to drafts");
         }
       }
     });
@@ -88,7 +88,7 @@ Airbo.TileDragDropSort = (function(){
       over: function(event, ui) {
         if ($("#active").sortable("option", "disabled")) {
           showDraftBlockedOverlay(true, $("#active") );
-          Airbo.Utils.alert("You may not post pending tiles");
+          Airbo.Utils.alert("The tile you are trying to post is an incomplete draft. Please complete it before posting.");
         }
       }
     });
