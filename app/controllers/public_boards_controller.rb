@@ -5,7 +5,7 @@ class PublicBoardsController < ApplicationController
     board = find_current_board
     if board && board.is_public
       if current_user.is_a?(User)
-        add_board_to_user
+        add_board_to_user(board)
       end
 
       redirect_to public_activity_path(public_slug: params[:public_slug])
@@ -20,7 +20,7 @@ class PublicBoardsController < ApplicationController
     @current_board ||= Demo.public_board_by_public_slug(params[:public_slug])
   end
 
-  def add_board_to_user
+  def add_board_to_user(board)
     if current_user.demos.include?(board)
       current_user.move_to_new_demo(board)
     else
