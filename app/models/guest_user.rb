@@ -81,7 +81,8 @@ class GuestUser < ActiveRecord::Base
 
   def to_guest_user_hash # used to persist this guest's information to the next request
     {
-      :id => id
+      id: id,
+      demo_id: demo.try(:id)
     }
   end
 

@@ -1,4 +1,5 @@
 class ActsController < ApplicationController
+  include AllowGuestUsers
   include TileBatchHelper
   include ActsHelper
 
@@ -21,11 +22,15 @@ class ActsController < ApplicationController
 
   private
 
+    def current_user
+      super || @potential_user || guest_user
+    end
+
     def authenticate
-      return if authenticate_by_tile_token
-      return if authenticate_as_potential_user
-      login_as_guest(find_current_board) if params[:public_slug]
-      require_login unless current_user
+      return true if authenticate_by_tile_token
+      return true if authenticate_as_potential_user
+      return guest_user if params[:public_slug]
+      require_login
     end
 
     def find_current_board
@@ -58,11 +63,5 @@ class ActsController < ApplicationController
     def authenticate_as_potential_user
       return false unless session[:potential_user_id]
       @potential_user = PotentialUser.find_by_id(session[:potential_user_id])
-
-      if @potential_user
-        return true
-      else
-        return false
-      end
     end
 end

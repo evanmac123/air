@@ -1,7 +1,7 @@
 class TileCompletionsController < ApplicationController
   before_filter :find_tile
-  before_filter :login_as_guest
 
+  include AllowGuestUsers
   include ActsHelper
 
   def create

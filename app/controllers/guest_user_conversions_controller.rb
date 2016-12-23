@@ -1,4 +1,6 @@
 class GuestUserConversionsController < ApplicationController
+  include AllowGuestUsers
+
   def create
     unless current_user && current_user.is_guest?
       render inline: ''

@@ -7,13 +7,8 @@ class ApplicationController < ActionController::Base
   before_filter :disable_framing
   ##
 
-  ##AirboAuthenticationHelper or BaseClass =>
   before_filter :authenticate
-  ##
-
-  ##Defined on BaseClass =>
   before_filter :authorize!
-  ##
 
   ##AirboFlashHelper =>
   before_filter :initialize_flashes
@@ -36,9 +31,11 @@ class ApplicationController < ActionController::Base
   alias_method :clearance_authenticate, :authenticate
   alias_method :clearance_sign_in, :sign_in
 
-  include AirboAuthenticationHelper
-
   def authenticate
+    return true
+  end
+
+  def authorized?
     return true
   end
 
@@ -48,11 +45,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def authorized?
-    return true
-  end
-
-  def sign_in(user, remember_me=false)
+  def sign_in(user, remember_me = false)
     clearance_sign_in(user) do |status|
       if status.success?
         cookies[:remember_me] = { value: remember_me, expires: 1.year.from_now }

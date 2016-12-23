@@ -1,14 +1,17 @@
 class ExploreBaseController < ApplicationController
+  include AllowGuestUsers
+
   layout "client_admin_layout"
 
   def authenticate
-    require_login unless guest_user_allowed?
-    return if authenticate_by_explore_token
-    login_as_guest(find_current_board) if guest_user_allowed?
+    return true if authenticate_by_explore_token
+    return true if guest_user_allowed?
+    require_login
   end
 
   def authorized?
     return true if current_user.authorized_to?(:explore_family)
+    return guest_user if guest_user_allowed?
     return false
   end
 
@@ -47,12 +50,7 @@ class ExploreBaseController < ApplicationController
       @current_user_by_explore_token = user
     end
 
-    # TODO: remove after opening up explore
-    def allow_guest_user
-      @guest_user_allowed_in_action = true
-    end
-
     def guest_user_allowed?
-      @guest_user_allowed_in_action
+      return true if params[:controller] == 'explore/tile_previews' && params[:action].in?(%w(show))
     end
 end

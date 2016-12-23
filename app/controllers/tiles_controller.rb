@@ -1,4 +1,5 @@
 class TilesController < ApplicationController
+  include AllowGuestUsers
   include TileBatchHelper
   include ActionView::Helpers::NumberHelper
   include ApplicationHelper
@@ -37,7 +38,6 @@ class TilesController < ApplicationController
         render layout: "onboarding"
       end
     end
-
   end
 
   def show
@@ -61,10 +61,6 @@ class TilesController < ApplicationController
   end
 
   private
-
-    def authenticate
-      login_as_guest(find_current_board)
-    end
 
     def find_current_board
       @current_board ||= Demo.public_board_by_public_slug(params[:public_slug])

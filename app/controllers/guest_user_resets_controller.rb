@@ -1,4 +1,6 @@
 class GuestUserResetsController < ApplicationController
+  include AllowGuestUsers
+
   def update
     if current_user && current_user.is_guest?
       current_user.points = 0

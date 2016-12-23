@@ -1,5 +1,5 @@
 class PublicBoardsController < ApplicationController
-  before_filter :login_as_guest
+  include AllowGuestUsers
 
   def show
     board = find_current_board
@@ -14,21 +14,21 @@ class PublicBoardsController < ApplicationController
     end
   end
 
-  protected
+  private
 
-  def find_current_board
-    @current_board ||= Demo.public_board_by_public_slug(params[:public_slug])
-  end
-
-  def add_board_to_user(board)
-    if current_user.demos.include?(board)
-      current_user.move_to_new_demo(board)
-    else
-      current_user.add_board(board)
-      current_user.move_to_new_demo(board)
-      current_user.get_started_lightbox_displayed = false
-      current_user.save
-      flash[:success] = "You've now joined the #{board.name} board!"
+    def find_current_board
+      @current_board ||= Demo.public_board_by_public_slug(params[:public_slug])
     end
-  end
+
+    def add_board_to_user(board)
+      if current_user.demos.include?(board)
+        current_user.move_to_new_demo(board)
+      else
+        current_user.add_board(board)
+        current_user.move_to_new_demo(board)
+        current_user.get_started_lightbox_displayed = false
+        current_user.save
+        flash[:success] = "You've now joined the #{board.name} board!"
+      end
+    end
 end
