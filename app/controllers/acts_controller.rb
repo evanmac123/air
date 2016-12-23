@@ -42,7 +42,7 @@ class ActsController < ApplicationController
       email_clicked_ping(user)
 
       if should_authenticate_by_tile_token?(params[:tile_token], user)
-        sign_in(user, 1)
+        sign_in(user, :remember_user)
         user.move_to_new_demo(params[:demo_id]) if params[:demo_id].present?
         flash[:success] = "Welcome back, #{user.first_name}"
         redirect_to activity_url

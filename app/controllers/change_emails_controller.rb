@@ -29,7 +29,7 @@ class ChangeEmailsController < UserBaseController
     change_log = UserSettingsChangeLog.where(email_token: params[:token]).first
     if change_log && change_log.update_user_email
       user = change_log.reload.user
-      sign_in(user, 1)
+      sign_in(user, :remember_user)
       ping('Changed Email', {}, user)
       flash[:success] = "Your email was successfully changed to #{current_user.email}"
       redirect_to activity_path
