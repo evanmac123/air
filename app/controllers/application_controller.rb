@@ -34,6 +34,7 @@ class ApplicationController < ActionController::Base
 
   include Clearance::Controller
   alias_method :clearance_authenticate, :authenticate
+  alias_method :clearance_sign_in, :sign_in
 
   include AirboAuthenticationHelper
 
@@ -49,6 +50,15 @@ class ApplicationController < ActionController::Base
 
   def authorized?
     return true
+  end
+
+  def sign_in(user, remember_me=false)
+    clearance_sign_in(user) do |status|
+      if status.success?
+        cookies[:remember_me] = { value: remember_me, expires: 1.year.from_now }
+        session.delete(:guest_user)
+      end
+    end
   end
   ######
 
