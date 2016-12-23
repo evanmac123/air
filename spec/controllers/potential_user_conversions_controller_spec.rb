@@ -14,7 +14,7 @@ describe PotentialUserConversionsController do
 
       post :create
 
-      expect(subject).to have_received(:ping).with("Saw welcome pop-up", {action: "Clicked 'Next'"}, subject.current_user)
+      expect(subject).to have_received(:ping).with("Saw welcome pop-up", {action: "Clicked 'Next'"}, subject.send(:current_user))
     end
   end
 end

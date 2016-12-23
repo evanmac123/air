@@ -41,7 +41,6 @@ class TilesController < ApplicationController
   end
 
   def show
-    current_user.intros.check_display_first_tile_hint
     if params[:partial_only]
       new_tile_was_rendered = render_new_tile
       if new_tile_was_rendered
@@ -64,7 +63,7 @@ class TilesController < ApplicationController
   private
 
     def authenticate
-      login_as_guest(find_current_board) if params[:public_slug]
+      login_as_guest(find_current_board)
     end
 
     def find_current_board
@@ -175,9 +174,8 @@ class TilesController < ApplicationController
     end
 
     def user_satisfiable_tiles
-      @user_tiles ||=Tile.satisfiable_to_user(current_user, params[:demo])
+      @user_tiles ||= Tile.satisfiable_to_user(current_user, params[:demo])
     end
-
 
     def satisfiable_tiles
       @_satisfiable_tiles ||= begin

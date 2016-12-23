@@ -1,9 +1,8 @@
 class ExploreBaseController < ApplicationController
-  prepend_before_filter :require_login
-
   layout "client_admin_layout"
 
   def authenticate
+    require_login unless guest_user_allowed?
     return if authenticate_by_explore_token
     login_as_guest(find_current_board) if guest_user_allowed?
   end
