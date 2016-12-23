@@ -75,15 +75,6 @@ feature "Client Admin Changes Board Settings" do
       demo.reload.name.should == "Board 1"
       expect_content "Sorry, you must enter a board name."
     end
-
-    it "should clear form by clear link", js: true do
-      within board_name_form do
-        fill_in "Board Name", with: "Board 4"
-        clear_link.click
-      end
-
-      find_field('Board Name').value.should eq 'Board 1'
-    end
   end
 
   context "board logo form" do
@@ -256,15 +247,6 @@ feature "Client Admin Changes Board Settings" do
       end
 
       demo.reload.persistent_message.should == "Happy New Year!"
-    end
-
-    it "should clear form by clear link", js: true do
-      within board_welcome_message_form do
-        fill_in "Welcome Message", with: "Happy New Year!"
-        clear_link.click
-      end
-
-      find_field("Welcome Message").value.should eq welcome_message
     end
   end
 end

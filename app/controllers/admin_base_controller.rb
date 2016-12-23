@@ -18,6 +18,11 @@ class AdminBaseController < UserBaseController
       @is_admin_page = true
     end
 
+    def parse_start_and_end_dates
+      @sdate = params[:sdate].present? ? Date.strptime(params[:sdate], "%Y-%m-%d") : nil
+      @edate =  params[:edate].present? ? Date.strptime(params[:edate], "%Y-%m-%d") : nil
+    end
+
     # TODO: Figure out why tese are necessary:
 
     def strip_smart_punctuation!
@@ -42,10 +47,5 @@ class AdminBaseController < UserBaseController
       str.gsub(/(“|”)/, '"').
           gsub(/(‘|’)/, '\'').
           gsub(/(–|—)/, '-')
-    end
-
-    def parse_start_and_end_dates
-      @sdate = params[:sdate].present? ? Date.strptime(params[:sdate], "%Y-%m-%d") : nil
-      @edate =  params[:edate].present? ? Date.strptime(params[:edate], "%Y-%m-%d") : nil
     end
 end

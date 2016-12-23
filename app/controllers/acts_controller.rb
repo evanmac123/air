@@ -52,7 +52,6 @@ class ActsController < ApplicationController
     end
 
     def should_authenticate_by_tile_token?(tile_token, user)
-      # TODO: This is unsafe for client admin as they are logged in without a password.  Consider a user.end_user? check.
       user && EmailLink.validate_token(user, tile_token)
     end
 

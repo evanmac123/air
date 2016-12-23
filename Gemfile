@@ -97,7 +97,8 @@ group :development, :test do
 end
 
 group :test do
-  gem 'cucumber-rails', :require => false
+  gem 'codeclimate-test-reporter', require: false
+  gem 'cucumber-rails', require: false
   gem 'bourne'
   gem 'test_after_commit'
   gem 'capybara'
