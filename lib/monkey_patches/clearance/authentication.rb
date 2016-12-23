@@ -1,68 +1,25 @@
-# Notice of Security Vulnerability
-# When a user's session expires, all a hacker has to do is rewind the clock
-# on that computer a bit and go to hengage.com (not hengage.com/sign_in) and
-# they will still be logged in. We may want to fix this at some point
-
-module Clearance
-  SESSION_EXPIRED = %!You've been logged out due to inactivity. If needed, <a href="/passwords/new">create or reset your password</a>.!.freeze
-
-  module Authentication
-    module InstanceMethods
-      module SignInWithRememberMe
-        def sign_in(user, remember_me=false)
-          cookies[:remember_me] = { value: remember_me, expires: 1.year.from_now }
-          super(user)
-          if signed_in?
-            # This bit is so that we can trigger the message in
-            # YouveBeenSignedOutMessage later
-            session[:session_open] = true
-          end
-
-          session.delete(:guest_user)
-        end
+module Clearance::Authentication
+  module InstanceMethods
+    module SignInWithRememberMe
+      def sign_in(user, remember_me=false)
+        cookies[:remember_me] = { value: remember_me, expires: 1.year.from_now }
+        session.delete(:guest_user)
+        super(user)
       end
-
-      module YouveBeenSignedOutMessage
-        def authorize
-          super
-          unless signed_in?
-            # Clearance doesn't normally log you out, but we've added that feature.
-            # So this gives a nice message if you're not authenticated but you
-            # were, say just a minute ago
-            if session[:session_open]
-              session[:session_open] = false
-              flash[:failure] = Clearance::SESSION_EXPIRED
-              flash[:failure_allow_raw] = true
-            end
-          end
-        end
-      end
-
-      include YouveBeenSignedOutMessage
-      include SignInWithRememberMe
     end
+    include SignInWithRememberMe
   end
+end
 
-  class Session
-    def add_cookie_to_headers(headers)
-      if cookies && cookies['remember_me'] == 1.to_s
-        expire_time = 10.years.from_now.utc
-      else
-        expire_time = Clearance.configuration.cookie_expiration.call
-      end
-
-      if signed_in?
-        Rack::Utils.set_cookie_header!(
-          headers,
-          REMEMBER_TOKEN_COOKIE,
-          value:   current_user.remember_token,
-          expires: expire_time,
-          path:    "/",
-          secure:  Rails.env.production?,
-          httponly: true
-        )
+module Clearance::Authorization
+  module InstanceMethods
+    module YouveBeenSignedOutMessage
+      def require_login
+        unless signed_in?
+          deny_access(%!You've been logged out due to inactivity. If needed, #{ActionController::Base.helpers.link_to "create or reset your password", '/passwords/new'}.!.html_safe)
+        end
       end
     end
-
+    include YouveBeenSignedOutMessage
   end
 end

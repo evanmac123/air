@@ -31,8 +31,10 @@ class ApplicationController < ActionController::Base
   ###### Airbo authentication/authorizaiton
 	include Pundit
   alias_method :pundit_authorize, :authorize
-  include Clearance::Authentication
-  alias_method :clearance_authenticate, :authorize
+
+  include Clearance::Controller
+  alias_method :clearance_authenticate, :authenticate
+
   include AirboAuthenticationHelper
 
   def authenticate

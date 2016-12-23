@@ -1,5 +1,4 @@
 class SessionsController < Clearance::SessionsController
-  skip_before_filter :authenticate
   before_filter :downcase_email
 
   layout "external"
@@ -9,8 +8,7 @@ class SessionsController < Clearance::SessionsController
   end
 
   def create
-    @user = ::User.authenticate(params[:session][:email],
-                                params[:session][:password])
+    @user = clearance_authenticate(params)
 
     if @user.nil?
       flash_failure_after_create
@@ -52,7 +50,7 @@ class SessionsController < Clearance::SessionsController
 
   def flash_login_announcement
     if (login_announcement = @user.demo.login_announcement).present?
-      flash[:notice] = login_announcement
+      flash[:success] = login_announcement
     end
   end
 

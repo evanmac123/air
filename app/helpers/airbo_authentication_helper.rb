@@ -11,11 +11,6 @@ module AirboAuthenticationHelper
     @guest_user
   end
 
-  def authenticate_user
-    clearance_authenticate unless current_user
-    refresh_activity_session(current_user)
-  end
-
   def find_current_board
     nil
   end
