@@ -9,6 +9,7 @@ class ClientAdminBaseController < UserBaseController
   end
 
   def authorized?
+    super
     return true if onboarding_auth
     return true if current_user.authorized_to?(:client_admin)
     return false

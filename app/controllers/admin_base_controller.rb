@@ -5,7 +5,6 @@ class AdminBaseController < UserBaseController
 
   def authorized?
     super
-    binding.pry
     return true if current_user.authorized_to?(:site_admin)
     return false
   end
