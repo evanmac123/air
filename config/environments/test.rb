@@ -10,31 +10,6 @@ end unless ENV['NO_DEBUGGER']
 
 # ActiveSupport::Deprecation.debug = true #backtrace for deprecation warnings
 
-class ClearanceBackDoor
-  def initialize(app)
-    @app = app
-  end
-
-  def call(env)
-    @env = env
-    sign_in_through_the_back_door
-    @app.call(@env)
-  end
-
-  private
-
-  def sign_in_through_the_back_door
-    if user_id = params['as']
-      user = User.find_by_slug(user_id)
-      @env[:clearance].sign_in(user)
-    end
-  end
-
-  def params
-    Rack::Utils.parse_query(@env['QUERY_STRING'])
-  end
-end
-
 Health::Application.configure do
   config.cache_classes = true
 
@@ -85,7 +60,9 @@ Health::Application.configure do
   config.assets.allow_debugging = true
   ##########################################################################################
 
-  config.middleware.use ClearanceBackDoor
+  config.middleware.use Clearance::BackDoor do |slug|
+    Clearance.configuration.user_model.find_by_slug(slug)
+  end
 
   config.action_mailer.asset_host = "//example.com"
 
