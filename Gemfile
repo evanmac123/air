@@ -3,7 +3,7 @@ source 'https://www.rubygems.org'
 ruby '2.0.0'
 
 gem 'rails', '=3.2.22.1'
-gem 'rack' # Update rack to 1.3.0 or later to get rid of utf8 string regex warnings
+gem 'rack', '~> 1.4.7'
 gem 'delayed_job_active_record'
 gem 'high_voltage'
 gem 'paperclip', '~>3.3.0'
@@ -14,6 +14,9 @@ gem 'pg'
 gem 'flutie'
 gem 'twilio-rb'
 gem 'clearance'
+### Remove after porting passwords to BCRYPT:
+gem 'clearance-deprecated_password_strategies'
+###
 gem 'aws-s3'
 gem 'delayed_job'
 gem 'haml-rails'
@@ -88,7 +91,7 @@ end
 group :development, :test do
   gem 'faker'
   gem 'colored'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 2.12.0'
   gem 'factory_girl_rails'
   gem 'steak'
 	gem 'rspec-mocks'
