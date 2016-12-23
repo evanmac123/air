@@ -115,10 +115,7 @@ module User::FakeUserBehavior
   end
 
   def display_get_started_lightbox
-    on_first_login \
-    && !get_started_lightbox_displayed \
-    && demo.tiles.active.present? \
-    && show_onboarding?
+    !get_started_lightbox_displayed && demo.tiles.active.present?
   end
 
   def can_make_tile_suggestions? _demo = nil

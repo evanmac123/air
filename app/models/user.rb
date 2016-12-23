@@ -971,10 +971,6 @@ class User < ActiveRecord::Base
     TicketProgressCalculator.new(self)
   end
 
-  def on_first_login
-    session_count == 1
-  end
-
   def self.find_by_either_email(email)
     email = email.strip.downcase
     where("email = ? OR overflow_email = ?", email, email).first
@@ -1149,12 +1145,8 @@ class User < ActiveRecord::Base
     demo_ids.length > 1
   end
 
-  #FIXME this exact same code is implemented in Fake user behavior
   def display_get_started_lightbox
-    on_first_login \
-    && !get_started_lightbox_displayed \
-    && demo.tiles.active.present? \
-    && show_onboarding?
+    !get_started_lightbox_displayed && demo.tiles.active.present?
   end
 
   def copy_active_tiles_from_demo(demo)

@@ -20,11 +20,6 @@ module Clearance::Authentication
           session[:session_open] = true
         end
 
-        # This is where we increment the session count so we can trigger things like the
-        # invite friends modal and the tutorial
-        current_user.session_count += 1
-        current_user.save
-
         session.delete(:guest_user)
       end
     end

@@ -27,7 +27,6 @@ class PublicBoardsController < ApplicationController
       current_user.add_board(board)
       current_user.move_to_new_demo(board)
       current_user.get_started_lightbox_displayed = false
-      current_user.session_count = 1
       current_user.save
       flash[:success] = "You've now joined the #{board.name} board!"
     end
