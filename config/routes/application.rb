@@ -75,7 +75,6 @@ match "sign_in"  => "sessions#new"
 match "sign_up"  => "users#new"
 match "sign_out" => "sessions#destroy"
 
-root to: 'pages#show', id: 'home'
 get "company" => 'pages#company', as: 'company'
 get "case-studies" => 'pages#case-studies', as: 'case_studies'
 get "demo_link" => "pages#demo_link", as: "demo_link"

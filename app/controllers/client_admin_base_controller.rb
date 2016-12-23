@@ -9,7 +9,6 @@ class ClientAdminBaseController < UserBaseController
   end
 
   def authorized?
-    super
     return true if authorize_onboarding
     return true if current_user.authorized_to?(:client_admin)
     return false
@@ -23,6 +22,7 @@ class ClientAdminBaseController < UserBaseController
       if user_onboarding && !user_onboarding.completed
         sign_in(user_onboarding.user)
         refresh_activity_session(current_user)
+        redirect_to user_onboarding_path(current_user.user_onboarding.id, return_onboarding: true)
         return true
       else
         return false

@@ -1,9 +1,7 @@
 class PagesController < HighVoltage::PagesController
   include TileBatchHelper
 
-  skip_before_filter :authenticate
   before_filter :force_html_format
-  before_filter :signed_out_only_on_root
   before_filter :set_page_name
   before_filter :set_page_name_for_mixpanel
   before_filter :set_user_for_mixpanel
@@ -37,11 +35,6 @@ class PagesController < HighVoltage::PagesController
       else
         'standalone'
       end
-    end
-
-    def signed_out_only_on_root
-      return unless params[:id] == 'home'
-      redirect_to home_path if signed_in?
     end
 
     def page_name

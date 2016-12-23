@@ -8,10 +8,16 @@ class ExploreBaseController < ApplicationController
     super
   end
 
+  def authorize!
+    unless authorized?
+      require_login
+    end
+  end
+
   def authorized?
     return true if current_user.authorized_to?(:explore_family)
     return guest_user if guest_user_allowed?
-    require_login
+    return false
   end
 
   def current_user
@@ -51,5 +57,10 @@ class ExploreBaseController < ApplicationController
 
     def guest_user_allowed?
       return true if params[:controller] == 'explore/tile_previews' && params[:action].in?(%w(show))
+      return false
+    end
+
+    def find_current_board
+      Demo.new
     end
 end

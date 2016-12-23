@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :authenticate
+  prepend_before_filter :authenticate
   before_filter :authorize!
 
   ##AirboSecurityHelper
@@ -39,14 +39,14 @@ class ApplicationController < ActionController::Base
     return true
   end
 
-  def authorized?
-    return true
-  end
-
   def authorize!
     unless authorized?
       redirect_to root_path
     end
+  end
+
+  def authorized?
+    return true
   end
 
   def sign_in(user, remember_me = false)
