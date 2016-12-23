@@ -35,6 +35,7 @@ class ApplicationController < ActionController::Base
   alias_method :clearance_sign_in, :sign_in
 
   def authenticate
+    refresh_activity_session(current_user) if current_user
     return true
   end
 

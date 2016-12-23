@@ -5,14 +5,13 @@ class ExploreBaseController < ApplicationController
 
   def authenticate
     return true if authenticate_by_explore_token
-    return true if guest_user_allowed?
-    require_login
+    super
   end
 
   def authorized?
     return true if current_user.authorized_to?(:explore_family)
     return guest_user if guest_user_allowed?
-    return false
+    require_login
   end
 
   def current_user

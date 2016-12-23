@@ -4,7 +4,7 @@ class ClientAdminBaseController < UserBaseController
   layout "client_admin_layout"
 
   def authenticate
-    return if authenticate_by_onboarding_auth_hash
+    return true if authenticate_by_onboarding_auth_hash
     super
   end
 

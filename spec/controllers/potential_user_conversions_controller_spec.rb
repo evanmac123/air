@@ -1,20 +1,28 @@
 require 'spec_helper'
 
 describe PotentialUserConversionsController do
-  describe "POST create" do
-    it "should send appropriate pings" do
-      subject.stubs(:ping)
+  describe "POST #create" do
+    context 'when session hash includes potential_user_id' do
+      before do
+        user = FactoryGirl.create(:user)
+        demo = user.demo
 
-      user = FactoryGirl.create(:user)
-      demo = user.demo
-      potential_user = FactoryGirl.create(:potential_user, email: "john@snow.com", demo: demo, primary_user: user)
-      potential_user.is_invited_by user
+        potential_user = FactoryGirl.create(:potential_user, email: "john@snow.com", demo: demo, primary_user: user)
 
-      sign_in_as(potential_user)
+        potential_user.is_invited_by(user)
 
-      post :create
+        post :create, { potential_user_name: "Test Name" }, { potential_user_id: potential_user.id }
+      end
 
-      expect(subject).to have_received(:ping).with("Saw welcome pop-up", {action: "Clicked 'Next'"}, subject.send(:current_user))
+      context 'and a valid name in entered' do
+        it "welcomes converted user by name" do
+          expect(flash[:success]).to eq("Welcome, Test Name")
+        end
+
+        it "redirects to activity_path" do
+          expect(response).to redirect_to(activity_path)
+        end
+      end
     end
   end
 end

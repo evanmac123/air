@@ -3,8 +3,8 @@ class DependentUserMailer < ActionMailer::Base
   layout "mailer"
   default :reply_to => 'support@airbo.com'
 
-	def notify(dependent_user_id, subject, body)
-    @dependent_user = PotentialUser.find dependent_user_id
+  def notify(dependent_user, subject, body)
+    @dependent_user = dependent_user
     return unless @dependent_user
 
     @dependent_email = @dependent_user.email

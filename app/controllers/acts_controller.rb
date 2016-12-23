@@ -31,6 +31,7 @@ class ActsController < ApplicationController
       return true if authenticate_as_potential_user
       return guest_user if params[:public_slug]
       require_login
+      super
     end
 
     def find_current_board

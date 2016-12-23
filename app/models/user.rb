@@ -85,6 +85,7 @@ class User < ActiveRecord::Base
   validates_length_of :password, :minimum => 6, :allow_blank => true, :message => 'must have at least 6 characters', :unless => :converting_from_guest
 
   validates_uniqueness_of :overflow_email, :allow_blank => true
+  validates_uniqueness_of :email
   validates :email, :with => :email_distinct_from_all_overflow_emails
   validates :overflow_email, :with => :overflow_email_distinct_from_all_emails
   validates_presence_of :email, :if => :converting_from_guest, :message => "Please enter a valid email address"

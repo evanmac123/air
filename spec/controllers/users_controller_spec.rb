@@ -4,7 +4,6 @@ describe ::UsersController do
   describe "#show" do
     before(:each) do
       subject.stubs(:ping)
-
       @demo = FactoryGirl.create :demo
       @user_we_are_viewing = FactoryGirl.create :claimed_user, :demo => @demo
       @friend = FactoryGirl.create :claimed_user, :demo => @demo
@@ -17,32 +16,28 @@ describe ::UsersController do
     end
 
     it "should allow admin to view information" do
-      @controller.current_user = FactoryGirl.create :site_admin, :demo => @demo
-      @current_user = @controller.current_user
-      get :show, :id => @user_we_are_viewing.slug
+      site_admin = FactoryGirl.create(:site_admin, demo: @demo)
+      sign_in_as(site_admin)
+      get :show, id: @user_we_are_viewing.slug
       response.should be_success
       assigns(:display_user_stats).should be_true
       assigns(:display_pending_friendships).should be_true
     end
 
     it "should allow friend to view information" do
-      @controller.current_user = @friend
-      @current_user = @controller.current_user
-      get :show, :id => @user_we_are_viewing.slug
+      sign_in_as(@friend)
+      get :show, id: @user_we_are_viewing.slug
       response.should be_success
       assigns(:display_user_stats).should be_true
-      assigns(:display_pending_friendships).should be_false  # friends don't see others' pending friends
+      assigns(:display_pending_friendships).should be_false
     end
 
     it "should not allow random people to view information" do
-      @controller.current_user = @random_user
-      @current_user = @controller.current_user
+      sign_in_as(@random_user)
       get :show, :id => @user_we_are_viewing.slug
       response.should be_success
       assigns(:display_user_stats).should be_false
       assigns(:display_pending_friendships).should be_false
     end
-
-
   end
 end
