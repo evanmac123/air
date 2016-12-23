@@ -25,6 +25,7 @@ class ActsController < ApplicationController
       return if authenticate_by_tile_token
       return if authenticate_as_potential_user
       login_as_guest(find_current_board) if params[:public_slug]
+      require_login unless current_user
     end
 
     def find_current_board
