@@ -1,26 +1,29 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  before_filter :authenticate
+  before_filter :authorize!
+
   ##AirboSecurityHelper
   before_filter :force_ssl
   before_filter :disable_mime_sniffing
   before_filter :disable_framing
   ##
 
-  before_filter :authenticate
-  before_filter :authorize!
-
-  ##AirboFlashHelper =>
+  ##AirboFlashHelper
   before_filter :initialize_flashes
   after_filter :merge_flashes
   ##
 
-  before_filter :enable_miniprofiler #NOTE on by default in development
+  ##MiniprofilerHelper
+  before_filter :enable_miniprofiler
+  ##
 
   include AirboActivitySessionHelper
   include AirboSecurityHelper
   include AirboPingsHelper
   include AirboFlashHelper
+  include MiniprofilerHelper
   include Mobvious::Rails::Controller
 
   ###### Airbo authentication/authorizaiton
@@ -68,17 +71,5 @@ class ApplicationController < ActionController::Base
 
     def not_found
       render file: "#{Rails.root}/public/404", status: :not_found, layout: false, formats: [:html]
-    end
-
-    def enable_miniprofiler
-      if Rails.env.production_local? || (current_user && Rails.env.production? && PROFILABLE_USERS.include?(current_user.email))
-        Rack::MiniProfiler.authorize_request
-      end
-    end
-
-    def profiler_step(name, &block)
-      Rack::MiniProfiler.step(name) do
-        yield
-      end
     end
 end
