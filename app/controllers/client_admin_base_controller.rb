@@ -10,7 +10,7 @@ class ClientAdminBaseController < UserBaseController
 
   def authorized?
     super
-    return true if onboarding_auth
+    return true if authorize_onboarding
     return true if current_user.authorized_to?(:client_admin)
     return false
   end
@@ -29,12 +29,13 @@ class ClientAdminBaseController < UserBaseController
       end
     end
 
-    def onboarding_auth
-      current_user.user_onboarding && onboarding_controllers
+    def authorize_onboarding
+      current_user.user_onboarding && onboarding_user_allowed?
     end
 
-    def onboarding_controllers
-      params[:controller] == "client_admin/reports" || params[:controller] == "client_admin/board_stats_grid"
+    def onboarding_user_allowed?
+      return true if params[:controller] == 'client_admin/reports'
+      return true if params[:controller] == 'client_admin/board_stats_grid'
     end
 
     def load_locations
