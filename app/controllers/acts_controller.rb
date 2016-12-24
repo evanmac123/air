@@ -26,12 +26,12 @@ class ActsController < ApplicationController
       super || @potential_user || guest_user
     end
 
+    # TODO: refactor this into authentication AND authorization
     def authenticate
       return true if authenticate_by_tile_token
       return true if authenticate_as_potential_user
       return guest_user if params[:public_slug]
       return false if require_login
-      super
     end
 
     def find_current_board

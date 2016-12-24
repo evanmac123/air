@@ -1,13 +1,13 @@
 module AirboActivitySessionHelper
   ACTIVITY_SESSION_THRESHOLD = 15.minutes
 
-  def refresh_activity_session(user)
-    return if user.nil? || user.is_a?(PotentialUser)
-    update_session_with_user_id(user)
+  def refresh_activity_session
+    return unless current_user && !current_user.is_a?(PotentialUser)
+    update_session_with_user_id(current_user)
     time = request.env['rack.timestamp'] || Time.now.to_i
 
     if idle_period(time) >= ACTIVITY_SESSION_THRESHOLD
-      ping('Activity Session - New', { time: time }, user)
+      ping('Activity Session - New', { time: time }, current_user)
     end
 
     set_last_session_activity(time)

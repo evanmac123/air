@@ -5,7 +5,6 @@ class ClientAdminBaseController < UserBaseController
 
   def authenticate
     return true if authenticate_by_onboarding_auth_hash
-    super
   end
 
   def authorized?

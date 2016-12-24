@@ -5,7 +5,6 @@ class ExploreBaseController < ApplicationController
 
   def authenticate
     return true if authenticate_by_explore_token
-    super
   end
 
   def authorize!

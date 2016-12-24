@@ -58,7 +58,6 @@ class UsersController < UserBaseController
 
     def authenticate
       return true if authenticate_by_token
-      super
     end
 
     def authenticate_by_token
