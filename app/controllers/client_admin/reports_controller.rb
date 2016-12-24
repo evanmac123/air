@@ -1,4 +1,7 @@
 class ClientAdmin::ReportsController < ClientAdminBaseController
+  # TODO: This is the last jenky bit of authentication.  Resolve why we have to skip here for the report ajax to work.
+  skip_before_filter :authenticate
+
   def show
     @demo = current_user.demo
     @chart_form = BoardStatsLineChartForm.new @demo, {action_type: params[:action_type]}
