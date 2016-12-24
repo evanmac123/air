@@ -1,7 +1,4 @@
 class SettingsController < UserBaseController
-
-  before_filter :clearance_authenticate
-
   def edit
     @palette = current_user.demo.custom_color_palette
     @email = current_user.email
