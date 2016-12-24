@@ -30,7 +30,7 @@ class ActsController < ApplicationController
       return true if authenticate_by_tile_token
       return true if authenticate_as_potential_user
       return guest_user if params[:public_slug]
-      require_login
+      return false if require_login
       super
     end
 
