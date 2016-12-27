@@ -46,99 +46,36 @@ feature 'Browses user lists' do
 
     expect(user_table_contents).to_not include(this_user_data(other_demo_guy))
     expect(user_table_contents).to_not include(this_user_data(site_admin_guy))
-
   end
 
   it "should paginate big result sets" do
     page_size = ClientAdmin::UsersController::PAGE_SIZE
 
-    client_admin.update_attributes(name: "Zzzzzzzzz") # hack to make sure admin appears at the end of the list
-    (2 * page_size).times do |i|
-      user = FactoryGirl.create(:user, name: "Dude #{i}", demo: client_admin.demo)
+    (page_size + 1).times do |i|
+      FactoryGirl.create(:user, name: "Dude #{i}", demo: client_admin.demo)
     end
 
-    other_demo_guy = FactoryGirl.create(:user, name: "Johnny Otherdemo")
-    other_demo_guy.demo.should_not == client_admin.demo
+    users = client_admin.demo.users
 
-    first_page_users = client_admin.demo.users.alphabetical.limit(page_size)
-    second_page_users = client_admin.demo.users.alphabetical.limit(page_size).offset(page_size)
+    other_demo_guy = FactoryGirl.create(:user, name: "Johnny Otherdemo")
+    expect(other_demo_guy.demo).to_not eq(client_admin.demo)
 
     visit client_admin_users_path(as: client_admin)
     click_link "Show everyone"
 
-    first_page_data =  user_data_for(first_page_users)
-    second_page_data =  user_data_for(second_page_users)
-
-    first_page_data.each do|data|
-      expect(user_table_contents).to include(data)
+    users.where(is_client_admin: true).each do |admin|
+      expect(page).to have_content(admin.email)
     end
 
-    second_page_data.each do|data|
-      expect(user_table_contents).to_not include(data)
+    users.where(is_client_admin: false).alphabetical.limit(page_size).each do |user|
+      expect(page).to have_content(user.email)
     end
 
-    expect(user_table_contents).to_not include(this_user_data(client_admin))
-
-    expect_no_content "Previous page"
     click_link "Next page"
 
-    bust_user_table_cache
+    last_user = client_admin.demo.users.alphabetical.last
 
-    first_page_data.each do|data|
-      expect(user_table_contents).to_not include(data)
-    end
-
-    second_page_data.each do|data|
-      expect(user_table_contents).to include(data)
-    end
-
-    expect(user_table_contents).to_not include(this_user_data(client_admin))
-
-    expect_content "Previous page"
-    click_link "Next page"
-
-    bust_user_table_cache
-
-    first_page_data.each do|data|
-      expect(user_table_contents).to_not include(data)
-    end
-
-    second_page_data.each do|data|
-      expect(user_table_contents).to_not include(data)
-    end
-
-    expect(user_table_contents).to include(this_user_data(client_admin))
-
-    expect_content "Previous page"
-    expect_no_content "Next page"
-
-    click_link "Previous page"
-
-    bust_user_table_cache
-
-    first_page_data.each do|data|
-      expect(user_table_contents).to_not include(data)
-    end
-
-    second_page_data.each do|data|
-      expect(user_table_contents).to include(data)
-    end
-
-    expect(user_table_contents).to_not include(this_user_data(client_admin))
-
-    click_link "Previous page"
-
-    bust_user_table_cache
-
-    first_page_data.each do|data|
-      expect(user_table_contents).to include(data)
-    end
-
-    second_page_data.each do|data|
-      expect(user_table_contents).to_not include(data)
-    end
-
-    expect(user_table_contents).to_not include(this_user_data(client_admin))
+    expect(page).to have_content(last_user.email)
   end
 
   it "allows admin to invite user from the browse results page, assuming they have an email address", js:true do
@@ -151,7 +88,6 @@ feature 'Browses user lists' do
     expect_content "OK, we've just sent #{alfred.name} an invitation."
   end
 
-  #FIXME this functionality is probably no longer used. 2016-07-26
   it "should not present the option for an admin to try to invite a user without an email" do
     alfred = FactoryGirl.create(:user, name: "Alfred Jones", demo: client_admin.demo, email: '', official_email:"yada@yada.com")
     alfred.should_not be_invited

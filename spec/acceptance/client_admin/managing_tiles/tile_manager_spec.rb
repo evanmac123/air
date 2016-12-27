@@ -7,14 +7,13 @@ feature 'Client admin and tile manager page', js: true do
   let(:admin) { FactoryGirl.create :client_admin }
   let(:demo)  { admin.demo  }
 
-  background do
-    bypass_modal_overlays(admin)
+  before(:each) do
     signin_as(admin, admin.password)
   end
 
   context 'No tiles exist for any of the types' do
 
-    before(:each) { visit_tile_manager_page }
+    before(:each) { visit(client_admin_tiles_path) }
 
     scenario 'Correct message is displayed when there are no Active tiles' do
       page.find("#active .no_tiles_section", visible: true).should be_present
@@ -28,20 +27,16 @@ feature 'Client admin and tile manager page', js: true do
   end
 
   context 'Tiles exist for each of the types' do
-    # NOTES 1: The default 'status' for tiles is 'active'
-    #       2: I have no idea why Phil hates kittens so much. Someone should keep an eye on him...
-    #
-    #       (I don't hate kittens. I love them, especially in soy sauce. --Phil)
-    let(:kill)        { create_tile headline: 'Phil Kills Kittens'  }
-    let(:knife)       { create_tile headline: 'Phil Knifes Kittens' }
-    let(:kannibalize) { create_tile headline: 'Phil Kannibalizes Kittens' }
+    let(:first)        { create_tile headline: 'first headline'  }
+    let(:second)       { create_tile headline: 'second headline' }
+    let(:third) { create_tile headline: 'third headline' }
 
-    let!(:tiles) { [kill, knife, kannibalize] }
+    let!(:tiles) { [first, second, third] }
 
     scenario "The tile content is correct for Active tiles" do
       tiles.each { |tile| tile.update_attributes status: Tile::ACTIVE }
 
-      visit_tile_manager_page
+      visit(client_admin_tiles_path)
 
       active_tab.should have_num_tiles(3)
 
@@ -59,7 +54,7 @@ feature 'Client admin and tile manager page', js: true do
     scenario "The tile content is correct for Archive tiles" do
       tiles.each { |tile| tile.update_attributes status: Tile::ARCHIVE }
 
-      visit_tile_manager_page
+      visit(client_admin_tiles_path)
 
       page.should have_num_tiles(3)
 
@@ -75,66 +70,34 @@ feature 'Client admin and tile manager page', js: true do
     context 'Archiving and activating tiles' do
       scenario "The 'Archive this tile' links work, including setting the 'archived_at' time and positioning most-recently-archived tiles first" do
         tiles.each { |tile| tile.update_attributes status: Tile::ACTIVE }
-        visit_tile_manager_page
+        visit(client_admin_tiles_path)
         active_tab.should  have_num_tiles(3)
         archive_tab.should have_num_tiles(0)
 
-        active_tab.find(:tile, kill).hover
+        active_tab.find(:tile, first).hover
         page.find("a", text: "Archive", visible: true).click
 
 
-        within(active_tab)  { page.should_not contain kill.headline }
-        within(archive_tab) { page.should     contain kill.headline }
+        within(active_tab)  { page.should_not contain first.headline }
+        within(archive_tab) { page.should     contain first.headline }
 
         active_tab.should  have_num_tiles(2)
         archive_tab.should have_num_tiles(1)
         # Do it one more time to make sure that the most-recently archived tile appears first in the list
-        #knife.archived_at.should be_nil
+        #second.archived_at.should be_nil
         #FIXME we should be able to assert in model or controller spec or js
         #test that the order of tiles is correct
-        active_tab.find(:tile, knife).hover
+        active_tab.find(:tile, second).hover
         page.find("a", text: "Archive", visible: true).click
 
 
-        within(active_tab)  { page.should_not contain knife.headline }
-        within(archive_tab) { page.should     contain knife.headline }
+        within(active_tab)  { page.should_not contain second.headline }
+        within(archive_tab) { page.should     contain second.headline }
 
         active_tab.should  have_num_tiles(1)
         archive_tab.should have_num_tiles(2)
 
-        archive_tab.should have_first_tile(knife, Tile::ARCHIVE)
-      end
-
-      scenario "The 'Activate this tile' links work, including setting the 'activated_at' time and positioning most-recently-activated tiles first" do
-        tiles.each { |tile| tile.update_attributes status: Tile::ARCHIVE }
-        visit_tile_manager_page
-
-        active_tab.should  have_num_tiles(0)
-        archive_tab.should have_num_tiles(3)
-
-        archive_tab.find(:tile, kill).hover
-        page.find("a", text: 'Post Again', visible: true).click
-
-
-        within(archive_tab) { page.should_not contain kill.headline }
-        within(active_tab)  { page.should     contain kill.headline }
-
-        active_tab.should  have_num_tiles(1)
-        archive_tab.should have_num_tiles(2)
-
-        # Do it one more time to make sure that the most-recently activated tile appears first in the list
-        archive_tab.find(:tile, knife).hover
-        page.find("a", text: 'Post Again', visible: true).click
-          
-
-
-        within(archive_tab) { page.should_not contain knife.headline }
-        within(active_tab)  { page.should     contain knife.headline }
-
-        active_tab.should  have_num_tiles(2)
-        archive_tab.should have_num_tiles(1)
-
-        active_tab.should have_first_tile(knife, Tile::ACTIVE)
+        archive_tab.should have_first_tile(second, Tile::ARCHIVE)
       end
     end
   end
@@ -144,7 +107,7 @@ feature 'Client admin and tile manager page', js: true do
       before do
         @tile = FactoryGirl.create :tile, demo: admin.demo, status: Tile::ACTIVE, creator: admin
         FactoryGirl.create :tile, demo: admin.demo, status: Tile::ACTIVE, creator: admin
-        visit_tile_manager_page
+        visit(client_admin_tiles_path)
       end
 
       scenario "count appears near share link indicating the number tiles to be shared" do
@@ -170,42 +133,10 @@ feature 'Client admin and tile manager page', js: true do
         end
       end
     end
-
-    it "for Active tiles" do
-      expected_tile_table =
-        [
-          "Tile 9", "Tile 7", "Tile 5", "Tile 3",
-          "Tile 1", "Tile 8", "Tile 6", "Tile 4",
-          "Tile 2", "Tile 0"
-        ]
-      expected_tile_table.reverse.each do|tile|
-        demo.tiles.find_by_headline(tile).update_status(Tile::ACTIVE)
-      end
-
-      visit_tile_manager_page
-
-      section_tile_headlines('#active').should == expected_tile_table
-    end
-
-    it "for Archived tiles, showing only a limited selection of them" do
-      expected_tile_table =
-        [
-          "Tile 9", "Tile 7", "Tile 5", "Tile 3",
-          "Tile 1", "Tile 8", "Tile 6", "Tile 4",
-          "Tile 2", "Tile 0"
-        ]
-      expected_tile_table.reverse.each do|tile|
-        demo.tiles.find_by_headline(tile).update_status(Tile::ARCHIVE)
-      end
-
-      visit_tile_manager_page
-
-      section_tile_headlines('#archive').should == expected_tile_table[0..3]
-    end
   end
 
   it "has a button that you can click on to create a new tile" do
-    visit_tile_manager_page
+    visit(client_admin_tiles_path)
     click_add_new_tile
   end
 
@@ -213,19 +144,19 @@ feature 'Client admin and tile manager page', js: true do
 
     # 1 tile, 6 places in row, so
     FactoryGirl.create_list(:tile, 1, :draft, demo: admin.demo)
-    visit_tile_manager_page
+    visit(client_admin_tiles_path)
     expect_draft_tile_placeholders(5)
 
     FactoryGirl.create_list(:tile, 3, :draft, demo: admin.demo)
-    visit_tile_manager_page
+    visit(client_admin_tiles_path)
     expect_draft_tile_placeholders(2)
 
     FactoryGirl.create(:tile, :draft, demo: admin.demo)
-    visit_tile_manager_page
+    visit(client_admin_tiles_path)
     expect_draft_tile_placeholders(1)
 
     FactoryGirl.create(:tile, :draft, demo: admin.demo)
-    visit_tile_manager_page
+    visit(client_admin_tiles_path)
     expect_draft_tile_placeholders(0)
 
      # There's now the creation placeholder, plus 4 other draft tiles.
@@ -234,49 +165,49 @@ feature 'Client admin and tile manager page', js: true do
     # (really the first 3 + creation placeholder) and those two rows are full
     # now, so...
     FactoryGirl.create(:tile, :draft, demo: admin.demo)
-    visit_tile_manager_page
+    visit(client_admin_tiles_path)
     expect_draft_tile_placeholders(0)
 
     # And now let's do the active ones
     expect_active_tile_placeholders(0)
 
     FactoryGirl.create(:tile, :active, demo: admin.demo)
-    visit_tile_manager_page
+    visit(client_admin_tiles_path)
     expect_active_tile_placeholders(3)
 
     FactoryGirl.create(:tile, :active, demo: admin.demo)
-    visit_tile_manager_page
+    visit(client_admin_tiles_path)
     expect_active_tile_placeholders(2)
 
     FactoryGirl.create(:tile, :active, demo: admin.demo)
-    visit_tile_manager_page
+    visit(client_admin_tiles_path)
     expect_active_tile_placeholders(1)
 
     FactoryGirl.create(:tile, :active, demo: admin.demo)
-    visit_tile_manager_page
+    visit(client_admin_tiles_path)
     expect_active_tile_placeholders(0)
 
     FactoryGirl.create(:tile, :active, demo: admin.demo)
-    visit_tile_manager_page
+    visit(client_admin_tiles_path)
     expect_active_tile_placeholders(3)
 
     #And now let's look at archived sction(It's similiar to active)
     expect_inactive_tile_placeholders(0)
 
     FactoryGirl.create(:tile, :archived, demo: admin.demo)
-    visit_tile_manager_page
+    visit(client_admin_tiles_path)
     expect_inactive_tile_placeholders(3)
 
     FactoryGirl.create(:tile, :archived, demo: admin.demo)
-    visit_tile_manager_page
+    visit(client_admin_tiles_path)
     expect_inactive_tile_placeholders(2)
 
     FactoryGirl.create(:tile, :archived, demo: admin.demo)
-    visit_tile_manager_page
+    visit(client_admin_tiles_path)
     expect_inactive_tile_placeholders(1)
 
     FactoryGirl.create(:tile, :archived, demo: admin.demo)
-    visit_tile_manager_page
+    visit(client_admin_tiles_path)
     expect_inactive_tile_placeholders(0)
     5.times { FactoryGirl.create(:tile, :archived, demo: admin.demo) }
 
@@ -285,7 +216,7 @@ feature 'Client admin and tile manager page', js: true do
     # expect 3 placeholders. But we only show the first 8 archive tiles
     # and those two rows are full
     # now, so...
-    visit_tile_manager_page
+    visit(client_admin_tiles_path)
     expect_inactive_tile_placeholders(0)
 
     # And now let's look at the full megillah of archived tiles
