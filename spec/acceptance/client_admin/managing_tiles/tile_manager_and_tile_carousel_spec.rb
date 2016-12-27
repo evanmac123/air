@@ -9,7 +9,7 @@ feature 'The order of the tiles in the tile mangaer and carousel are in synch', 
   before do
     UserIntro.any_instance.stubs(:displayed_first_tile_hint).returns(true)
 
-    1.up_to(4) do |i|
+    1.upto(4) do |i|
       tiles << FactoryGirl.create(:tile,  demo: demo, headline: "Tile #{i}", created_at: Time.now + i.days)
     end
 
