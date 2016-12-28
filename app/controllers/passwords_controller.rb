@@ -1,7 +1,12 @@
-class PasswordsController < Clearance::PasswordsController
-  # We monkeypatch this stuff since the regular Clearance::PasswordsController
-  # expects us to identify users by ID, when we're actually using the slug.
-
+class PasswordsController < ApplicationController
+  # TODO: Rewrite this controller to inherit cleanly from Clearance::PasswordsController
+  skip_before_filter :require_login,
+    only: [:create, :edit, :new, :update],
+    raise: false
+  skip_before_filter :authorize,
+    only: [:create, :edit, :new, :update],
+    raise: false
+  before_filter :ensure_existing_user, only: [:edit, :update]
   before_filter :force_html_format
   before_filter :downcase_email
 

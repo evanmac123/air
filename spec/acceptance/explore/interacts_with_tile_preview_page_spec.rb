@@ -90,23 +90,11 @@ feature "interacts with a tile from the explore-preview page" do
       visit explore_tile_preview_path(@original_tile, as: nil)
     end
 
-    context "when I click on Explore" do
-      it "should prompt me to sign up" do
-        expect(page.has_button?("Create Free Account")).to eq(false)
-
-        page.find("a.see_airbo", match: :first).click
-
-        expect(page.has_button?("Create Free Account")).to eq(true)
-      end
-    end
-
     context "when I click on See How It Works" do
-      it "should prompt me to sign up" do
-        expect(page).to have_no_content("Create an account to interact with this tile and many others.")
+      it "should redirect to demo_requests/new" do
+        click_link "See How It Works"
 
-        page.all("a.see_airbo").last.click
-
-        expect(page).to have_content("Create an account to interact with this tile and many others.")
+        expect(current_path).to eq(new_demo_request_path)
       end
     end
 
@@ -151,22 +139,18 @@ feature "interacts with a tile from the explore-preview page" do
     end
 
     context "when I click on Explore" do
-      it "should prompt me to sign up" do
-        expect(page.has_button?("Create Free Account")).to eq(false)
+      it "should redirect to demo_requests/new" do
+        click_link "Explore"
 
-        page.find("a.see_airbo", match: :first).click
-
-        expect(page.has_button?("Create Free Account")).to eq(true)
+        expect(current_path).to eq(new_demo_request_path)
       end
     end
 
     context "when I click on See How It Works" do
-      it "should prompt me to sign up" do
-        expect(page).to have_no_content("Create an account to interact with this tile and many others.")
+      it "should redirect to demo_requests/new" do
+        click_link "See How It Works"
 
-        page.all("a.see_airbo").last.click
-
-        expect(page).to have_content("Create an account to interact with this tile and many others.")
+        expect(current_path).to eq(new_demo_request_path)
       end
     end
 

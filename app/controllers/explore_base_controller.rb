@@ -16,7 +16,7 @@ class ExploreBaseController < ApplicationController
   end
 
   def authorized?
-    return true if current_user.authorized_to?(:explore_family)
+    return true if current_user && current_user.authorized_to?(:explore_family)
     return guest_user if guest_user_allowed?
     return false
   end
