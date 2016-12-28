@@ -4,7 +4,7 @@ module ActsHelper
   def set_modals_and_intros
     @display_get_started_lightbox = current_user.display_get_started_lightbox
 
-    if @display_get_started_lightbox
+    if @display_get_started_lightbox && current_user.is_a?(User)
       @get_started_lightbox_message = welcome_message
       current_user.get_started_lightbox_displayed = true
     elsif current_user.is_a?(GuestUser)

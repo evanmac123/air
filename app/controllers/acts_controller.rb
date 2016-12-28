@@ -22,10 +22,6 @@ class ActsController < ApplicationController
 
   private
 
-    def current_user
-      super || @potential_user || guest_user
-    end
-
     # TODO: refactor this into authentication AND authorization
     def authenticate
       return true if authenticate_by_tile_token
@@ -59,10 +55,5 @@ class ActsController < ApplicationController
 
     def should_authenticate_by_tile_token?(tile_token, user)
       user && EmailLink.validate_token(user, tile_token)
-    end
-
-    def authenticate_as_potential_user
-      return false unless session[:potential_user_id]
-      @potential_user = PotentialUser.find_by_id(session[:potential_user_id])
     end
 end

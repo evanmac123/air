@@ -1,6 +1,6 @@
 module AllowGuestUsers
   def current_user
-    super || guest_user
+    super || @potential_user || guest_user
   end
 
   def guest_user(demo = find_current_board)
@@ -26,5 +26,10 @@ module AllowGuestUsers
       @cached_guest_user.demo = board
       @cached_guest_user.save!
     end
+  end
+
+  def authenticate_as_potential_user
+    return false unless session[:potential_user_id]
+    @potential_user = PotentialUser.find_by_id(session[:potential_user_id])
   end
 end

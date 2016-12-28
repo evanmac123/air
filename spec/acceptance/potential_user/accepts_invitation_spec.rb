@@ -28,7 +28,7 @@ feature "Potential User Accepts Invitation" do
 
     it "should redirect from any other path to activity path" do
       visit users_path
-      should_be_on activity_path
+      should_be_on sign_in_path
     end
 
     context "gives a name" do
@@ -39,7 +39,7 @@ feature "Potential User Accepts Invitation" do
 
       it "should register new user in the system", js: true do
         new_user = User.last
-        new_user.name.should == "my name"
+        expect(new_user.name).to eq("my name")
         new_user.email.should == @potential_user.email
       end
 
