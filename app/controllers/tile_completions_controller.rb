@@ -1,5 +1,5 @@
 class TileCompletionsController < ApplicationController
-  include AllowGuestUsers
+  include AllowGuestUsersConcern
   include ActsHelper
 
   prepend_before_filter :find_tile

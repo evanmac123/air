@@ -1,5 +1,5 @@
 class PublicBoardsController < ApplicationController
-  include AllowGuestUsers
+  include AllowGuestUsersConcern
 
   def show
     @board ||= find_board_for_guest

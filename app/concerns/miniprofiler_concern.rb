@@ -1,4 +1,4 @@
-module MiniprofilerHelper
+module MiniprofilerConcern
   def enable_miniprofiler
     #NOTE on by default in development
     if Rails.env.production_local? || (current_user && Rails.env.production? && PROFILABLE_USERS.include?(current_user.email))

@@ -1,4 +1,4 @@
-module AllowGuestUsers
+module AllowGuestUsersConcern
   def current_user
     super || @potential_user || guest_user?
   end

@@ -1,4 +1,4 @@
-module AirboFlashHelper
+module FlashConcern
   FLASHES_ALLOWING_RAW = %w(notice)
 
   ##FLASH MGMT =>

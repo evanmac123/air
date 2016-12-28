@@ -1,5 +1,5 @@
 class GuestUserConversionsController < ApplicationController
-  include AllowGuestUsers
+  include AllowGuestUsersConcern
 
   def create
     unless current_user && current_user.is_guest?

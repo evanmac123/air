@@ -1,6 +1,6 @@
-module AirboPingsHelper
+module MixpanelConcern
   include TrackEvent
-  
+
   def invalid_ping_logger(event, data_hash, user)
     if !user && !(["sessions", "pages"].include? params[:controller])
       Rails.logger.warn "INVALID USER PING SENT #{event}"

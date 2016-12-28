@@ -1,4 +1,4 @@
-module AuthorizePublicBoards
+module AuthorizePublicBoardsConcern
   def guest_user?
     guest_user if find_board_for_guest || single_tile_request
   end

@@ -1,5 +1,5 @@
 class GuestUserResetsController < ApplicationController
-  include AllowGuestUsers
+  include AllowGuestUsersConcern
 
   def update
     if current_user && current_user.is_guest?

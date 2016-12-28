@@ -1,6 +1,6 @@
 class ActsController < ApplicationController
-  include AllowGuestUsers
-  include AuthorizePublicBoards
+  include AllowGuestUsersConcern
+  include AuthorizePublicBoardsConcern
   include TileBatchHelper
   include ActsHelper
 

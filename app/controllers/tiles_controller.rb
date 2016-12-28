@@ -1,6 +1,6 @@
 class TilesController < ApplicationController
-  include AllowGuestUsers
-  include AuthorizePublicBoards
+  include AllowGuestUsersConcern
+  include AuthorizePublicBoardsConcern
   include TileBatchHelper
   include ActionView::Helpers::NumberHelper
   include ApplicationHelper

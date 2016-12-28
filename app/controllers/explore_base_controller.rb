@@ -1,5 +1,5 @@
 class ExploreBaseController < ApplicationController
-  include AllowGuestUsers
+  include AllowGuestUsersConcern
 
   prepend_before_filter :authenticate
 

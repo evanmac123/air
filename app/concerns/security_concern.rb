@@ -1,4 +1,4 @@
-module AirboSecurityHelper
+module SecurityConcern
   def force_ssl
     # TODO: ummmm why not just config.force_ssl = true??
     return true unless prod_or_testing_ssl_outside_of_prod

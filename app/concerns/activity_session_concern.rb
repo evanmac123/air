@@ -1,4 +1,4 @@
-module AirboActivitySessionHelper
+module ActivitySessionConcern
   ACTIVITY_SESSION_THRESHOLD = 15.minutes
 
   def refresh_activity_session

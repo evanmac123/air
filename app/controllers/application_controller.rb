@@ -19,11 +19,11 @@ class ApplicationController < ActionController::Base
   before_filter :enable_miniprofiler
   ##
 
-  include AirboActivitySessionHelper
-  include AirboSecurityHelper
-  include AirboPingsHelper
-  include AirboFlashHelper
-  include MiniprofilerHelper
+  include ActivitySessionConcern
+  include SecurityConcern
+  include MixpanelConcern
+  include FlashConcern
+  include MiniprofilerConcern
   include Mobvious::Rails::Controller
 
   ###### Airbo authentication/authorizaiton
