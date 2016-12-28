@@ -1,4 +1,5 @@
 class ClientAdminBaseController < UserBaseController
+  prepend_before_filter :authenticate
   before_filter :set_is_client_admin_action
 
   layout "client_admin_layout"

@@ -1,4 +1,6 @@
 class UsersController < UserBaseController
+  prepend_before_filter :authenticate
+  
   USER_LIMIT = 50
   MINIMUM_SEARCH_STRING_LENGTH = 3
 

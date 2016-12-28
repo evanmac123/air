@@ -3,6 +3,8 @@ class ActsController < ApplicationController
   include TileBatchHelper
   include ActsHelper
 
+  prepend_before_filter :authenticate
+
   def index
     current_user.ping_page('activity feed')
     @demo = current_user.demo
@@ -22,12 +24,16 @@ class ActsController < ApplicationController
 
   private
 
-    # TODO: refactor this into authentication AND authorization
     def authenticate
       return true if authenticate_by_tile_token
       return true if authenticate_as_potential_user
       return guest_user if params[:public_slug]
-      return false if require_login
+    end
+
+    def authorize!
+      unless current_user.is_a?(GuestUser) || current_user.is_a?(PotentialUser)
+        require_login
+      end
     end
 
     def find_current_board

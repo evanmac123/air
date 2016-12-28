@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  prepend_before_filter :authenticate
   before_filter :authorize!
   before_filter :refresh_activity_session
 
@@ -34,10 +33,6 @@ class ApplicationController < ActionController::Base
   include Clearance::Controller
   alias_method :clearance_authenticate, :authenticate
   alias_method :clearance_sign_in, :sign_in
-
-  def authenticate
-    return true
-  end
 
   def authorize!
     unless authorized?

@@ -1,6 +1,8 @@
 class ExploreBaseController < ApplicationController
   include AllowGuestUsers
 
+  prepend_before_filter :authenticate
+
   layout "client_admin_layout"
 
   def authenticate
