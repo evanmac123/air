@@ -3,10 +3,10 @@ class PublicBoardsController < ApplicationController
   include CurrentUserOrGuestUser
 
   def show
-    board = find_current_board
-    if board && board.is_public
+    @board ||= find_board_for_guest
+    if @board && @board.is_public
       if current_user.is_a?(User)
-        add_board_to_user(board)
+        add_board_to_user(@board)
       end
 
       redirect_to public_activity_path(public_slug: params[:public_slug])
@@ -17,8 +17,8 @@ class PublicBoardsController < ApplicationController
 
   private
 
-    def find_current_board
-      @current_board ||= Demo.public_board_by_public_slug(params[:public_slug])
+    def find_board_for_guest
+      @board = Demo.public_board_by_public_slug(params[:public_slug])
     end
 
     def add_board_to_user(board)

@@ -1,5 +1,5 @@
 module AllowGuestUsers
-  def guest_user(demo = find_current_board)
+  def guest_user(demo = find_board_for_guest)
     @cached_guest_user ||= GuestUser.find(session[:guest_user_id] ||= create_guest_user(demo).id)
 
     attach_board_to_guest_user if params[:public_slug]

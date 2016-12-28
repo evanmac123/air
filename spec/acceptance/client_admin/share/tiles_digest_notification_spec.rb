@@ -93,26 +93,6 @@ feature 'Client admin and the digest email for tiles' do
     scenario 'Text is correct when no follow-up emails are scheduled to be sent' do
       expect_no_content follow_up_header_copy
     end
-
-    scenario 'Text is correct when follow-up emails are scheduled to be sent, and emails can be cancelled', js: true do
-      pending "Add a test with multiple follow ups to manage_follow_up_dist_spec and delete this test" 
-      accept_confirm do
-      create_follow_up_emails
-      visit client_admin_share_path(as: admin)
-
-      expect_follow_up_header
-      page.should contain 'Monday, July 01, 2013'
-      page.should contain 'Tuesday, July 02, 2013'
-      page.should contain 'Wednesday, July 03, 2013'
-
-      page.all(".cancel_button a").first.click
-
-
-      page.should_not contain 'Monday, July 01, 2013'
-      page.should contain 'Tuesday, July 02, 2013'
-      page.should contain 'Wednesday, July 03, 2013'
-      end
-    end
   end
 
   context 'Tiles exist for digest email' do
@@ -123,52 +103,11 @@ feature 'Client admin and the digest email for tiles' do
       expect_tiles_to_send_header
     end
 
-    it 'Form components are on the page and properly initialized', js: true do
-      pending "NONSENSE: this test makes no sense why are we testing static html????  This is aso broken... Bad js code."
-     on_day('10/14/2013') do  # Monday
-
-        create_tile
-        demo.update_attributes unclaimed_users_also_get_digest: true
-
-        visit client_admin_share_path(as: admin)
-
-        page.should have_send_to_selector('All Users')
-        page.should have_follow_up_selector('Thursday')
-        expect_character_counter_for '#digest_custom_message', 160
-        expect_character_counter_for '#digest_custom_headline', 75
-      end
-
-      on_day('10/18/2013') do  # Friday
-        create_tile
-        demo.update_attributes unclaimed_users_also_get_digest: false
-
-        visit client_admin_share_path(as: admin)
-
-        page.should have_send_to_selector('Activated Users')
-        page.should have_follow_up_selector('Tuesday')
-        expect_character_counter_for '#digest_custom_message', 160
-        expect_character_counter_for '#digest_custom_headline', 75
-      end
-    end
-
     scenario 'Text is correct when no follow-up emails are scheduled to be sent' do
       create_tile
       visit client_admin_share_path(as: admin)
 
       expect_no_content follow_up_header_copy
-    end
-
-
-    scenario 'The last-digest-email-sent-on date is correct' do
-      create_tile
-      visit client_admin_share_path(as: admin)
-
-      expect_no_content 'Last tiles sent on'
-
-      set_last_sent_on '7/4/2013'
-      visit client_admin_share_path(as: admin)
-
-      expect_content 'Last tiles sent on Thursday, July 04, 2013'
     end
 
     context "Clicking the 'Send' button" do
@@ -314,12 +253,6 @@ feature 'Client admin and the digest email for tiles' do
               current_email.subject.should == @custom_subject
             end
           end
-
-          it "records the original subject in the followup", convert_to: "unit" do
-            pending "convert to unit test"
-            FollowUpDigestEmail.all.length.should == 1
-            FollowUpDigestEmail.first.original_digest_subject.should == "#{@custom_subject}"
-          end
         end
 
         context "and the optional admin-supplied custom subject is not filled in" do
@@ -332,13 +265,6 @@ feature 'Client admin and the digest email for tiles' do
               open_email(address)
               current_email.subject.should == "New Tiles"
             end
-          end
-
-          it "creates a FollowUpDigestEmail with a nil original subject recorded", convert_to: "unit" do
-            pending "convert to unit test"
-            submit_button.click
-            FollowUpDigestEmail.all.length.should == 1
-            FollowUpDigestEmail.first.original_digest_subject.should be_nil
           end
         end
 
@@ -356,13 +282,6 @@ feature 'Client admin and the digest email for tiles' do
               current_email.html_part.body.should contain(@custom_headline)
               current_email.text_part.body.should contain(@custom_headline)
             end
-          end
-
-          it "records that headline in the followup", convert_to: "unit" do
-            pending "Should be unit test"
-
-            FollowUpDigestEmail.all.length.should == 1
-            FollowUpDigestEmail.first.original_digest_headline.should == @custom_headline
           end
         end
 

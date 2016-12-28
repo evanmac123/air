@@ -65,7 +65,7 @@ class ExploreBaseController < ApplicationController
       return false
     end
 
-    def find_current_board
+    def find_board_for_guest
       Demo.new
     end
 end

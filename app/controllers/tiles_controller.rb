@@ -15,7 +15,7 @@ class TilesController < ApplicationController
   # the second time we render the partial via ajax.
 
   def index
-    @demo = current_user.demo
+    @demo ||= current_user.demo
     @palette = @demo.custom_color_palette
     if params[:partial_only]
       @current_user = current_user
@@ -63,8 +63,22 @@ class TilesController < ApplicationController
 
   private
 
-    def find_current_board
-      @current_board ||= Demo.public_board_by_public_slug(params[:public_slug])
+    def guest_user?
+      guest_user if find_board_for_guest
+    end
+
+    def find_board_for_guest
+      @demo = Demo.public_board_by_public_slug(params[:public_slug])
+    end
+
+    def authorize!
+      unless current_user.is_a?(GuestUser)
+        if params[:public_slug]
+          redirect_to public_board_path(params[:public_slug])
+        else
+          require_login
+        end
+      end
     end
 
     def find_start_tile

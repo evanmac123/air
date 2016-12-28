@@ -11,8 +11,8 @@ class TileController < ApplicationController
 
   private
 
-    def find_current_board
-      @current_board ||= @tile.demo
+    def find_board_for_guest
+      @demo ||= @tile.demo
     end
 
     def find_tile

@@ -3,7 +3,7 @@ class TileCompletionsController < ApplicationController
   include CurrentUserOrGuestUser
   include ActsHelper
 
-  before_filter :find_tile
+  prepend_before_filter :find_tile
 
   def create
     unless current_user.in_board?(@tile.demo_id)
@@ -56,8 +56,8 @@ class TileCompletionsController < ApplicationController
       "completed the tile: \"#{tile.headline}\""
     end
 
-    def find_current_board
-      @current_board ||= find_tile.demo
+    def find_board_for_guest
+      @demo ||= @tile.demo
     end
 
     def remember_points_and_tickets

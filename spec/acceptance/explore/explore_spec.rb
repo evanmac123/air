@@ -14,7 +14,12 @@ feature "Explore" do
         @channel_2 = FactoryGirl.create(:tile_feature, name: "channel_2", rank: 2, active: false)
         @channel_3 = FactoryGirl.create(:tile_feature, name: "channel_3", rank: 3, active: true)
 
-        TileFeature.scoped.each { |tf| tf.dispatch_redis_updates({ header_copy: tf.name, tile_ids: Tile.find(tf.rank).id.to_s }) }
+        TileFeature.scoped.each_with_index do |tf, i|
+          tf.dispatch_redis_updates({
+            header_copy: tf.name,
+            tile_ids: @tiles[i].id.to_s
+          })
+        end
       end
 
       scenario "should only display active channels with tiles" do

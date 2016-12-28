@@ -35,7 +35,7 @@ class GuestUserConversionsController < ApplicationController
       render json: {status: 'failure', errors: current_user.errors.messages}
     end
 
-    def find_current_board
+    def find_board_for_guest
       Demo.find(params[:user][:demo_id])
     end
 end

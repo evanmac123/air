@@ -7,7 +7,7 @@ class ActsController < ApplicationController
 
   def index
     current_user.ping_page('activity feed')
-    @demo = current_user.demo
+    @demo ||= current_user.demo
     @acts = find_requested_acts(@demo)
     @palette = @demo.custom_color_palette
 
@@ -25,31 +25,31 @@ class ActsController < ApplicationController
   private
 
     def current_user
-      super || @potential_user || guest_user?
+      super || @potential_user || guest_user?gits
     end
 
     def authenticate
       return true if authenticate_by_tile_token
       return true if authenticate_as_potential_user
-      return guest_user if params[:public_slug]
+      return true if guest_user?
     end
 
     def authorize!
       unless current_user.is_a?(GuestUser) || current_user.is_a?(PotentialUser)
-        require_login
+        if params[:public_slug]
+          render 'shared/public_board_not_found', layout: 'external_marketing'
+        else
+          require_login
+        end
       end
     end
 
     def guest_user?
-      guest_user if params[:public_slug]
+      guest_user if find_board_for_guest
     end
 
-    def find_current_board
-      if params[:public_slug]
-        @current_board ||= Demo.public_board_by_public_slug(params[:public_slug])
-      elsif current_user
-        current_user.demo
-      end
+    def find_board_for_guest
+      @demo = Demo.public_board_by_public_slug(params[:public_slug])
     end
 
     def authenticate_by_tile_token
