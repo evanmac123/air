@@ -1,8 +1,4 @@
 module AllowGuestUsers
-  def current_user
-    super || @potential_user || guest_user
-  end
-
   def guest_user(demo = find_current_board)
     @cached_guest_user ||= GuestUser.find(session[:guest_user_id] ||= create_guest_user(demo).id)
 

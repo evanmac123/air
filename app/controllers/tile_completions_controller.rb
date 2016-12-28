@@ -1,8 +1,9 @@
 class TileCompletionsController < ApplicationController
-  before_filter :find_tile
-
   include AllowGuestUsers
+  include CurrentUserOrGuestUser
   include ActsHelper
+
+  before_filter :find_tile
 
   def create
     unless current_user.in_board?(@tile.demo_id)

@@ -1,5 +1,6 @@
 class TilesController < ApplicationController
   include AllowGuestUsers
+  include CurrentUserOrGuestUser
   include TileBatchHelper
   include ActionView::Helpers::NumberHelper
   include ApplicationHelper

@@ -24,6 +24,10 @@ class ActsController < ApplicationController
 
   private
 
+    def current_user
+      super || @potential_user || guest_user?
+    end
+
     def authenticate
       return true if authenticate_by_tile_token
       return true if authenticate_as_potential_user
@@ -34,6 +38,10 @@ class ActsController < ApplicationController
       unless current_user.is_a?(GuestUser) || current_user.is_a?(PotentialUser)
         require_login
       end
+    end
+
+    def guest_user?
+      guest_user if params[:public_slug]
     end
 
     def find_current_board

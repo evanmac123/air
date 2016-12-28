@@ -22,7 +22,7 @@ class ExploreBaseController < ApplicationController
   end
 
   def current_user
-    super || current_user_by_explore_token
+    super || current_user_by_explore_token || guest_user?
   end
 
   def current_user_by_explore_token
@@ -30,6 +30,10 @@ class ExploreBaseController < ApplicationController
   end
 
   private
+
+    def guest_user?
+      guest_user if guest_user_allowed?
+    end
 
     def authenticate_by_explore_token
       explore_token = find_explore_token

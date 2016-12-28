@@ -1,5 +1,6 @@
 class PublicBoardsController < ApplicationController
   include AllowGuestUsers
+  include CurrentUserOrGuestUser
 
   def show
     board = find_current_board

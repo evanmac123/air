@@ -27,7 +27,6 @@ class InvitationsController < ApplicationController
   end
 
   def show
-
     @user = User.find_by_invitation_code(params[:id])
     @user = PotentialUser.search_by_invitation_code(params[:id]) unless @user
 
@@ -83,7 +82,8 @@ class InvitationsController < ApplicationController
 
     def invitation_to_board_already_accepted
       if @user.claimed?
-        if current_user && current_user == @user
+        if @user.end_user?
+          sign_in(@user, :remember_me)
           if @demo.present? && @user.in_board?(@demo)
             current_user.move_to_new_demo(@demo)
           end
