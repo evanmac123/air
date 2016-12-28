@@ -1,6 +1,6 @@
 class TilesController < ApplicationController
   include AllowGuestUsers
-  include CurrentUserOrGuestUser
+  include AuthorizePublicBoards
   include TileBatchHelper
   include ActionView::Helpers::NumberHelper
   include ApplicationHelper
@@ -62,24 +62,6 @@ class TilesController < ApplicationController
   end
 
   private
-
-    def guest_user?
-      guest_user if find_board_for_guest
-    end
-
-    def find_board_for_guest
-      @demo = Demo.public_board_by_public_slug(params[:public_slug])
-    end
-
-    def authorize!
-      unless current_user.is_a?(GuestUser)
-        if params[:public_slug]
-          redirect_to public_board_path(params[:public_slug])
-        else
-          require_login
-        end
-      end
-    end
 
     def find_start_tile
       if start_tile_id.to_s == '0'

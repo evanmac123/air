@@ -1,6 +1,5 @@
 class GuestUserConversionsController < ApplicationController
   include AllowGuestUsers
-  include CurrentUserOrGuestUser
 
   def create
     unless current_user && current_user.is_guest?
@@ -36,6 +35,6 @@ class GuestUserConversionsController < ApplicationController
     end
 
     def find_board_for_guest
-      Demo.find(params[:user][:demo_id])
+      @demo ||= Demo.find(params[:user][:demo_id])
     end
 end

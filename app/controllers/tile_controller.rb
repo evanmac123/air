@@ -1,6 +1,5 @@
 class TileController < ApplicationController
   include AllowGuestUsers
-  include CurrentUserOrGuestUser
 
   prepend_before_filter :find_tile
 

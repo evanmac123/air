@@ -1,6 +1,5 @@
 class GuestUserResetsController < ApplicationController
   include AllowGuestUsers
-  include CurrentUserOrGuestUser
 
   def update
     if current_user && current_user.is_guest?
@@ -26,6 +25,6 @@ class GuestUserResetsController < ApplicationController
   private
 
     def find_board_for_guest
-      Demo.find(params[:user][:demo_id])
+      @demo ||= Demo.find(params[:user][:demo_id])
     end
 end

@@ -1,6 +1,5 @@
 class PublicBoardsController < ApplicationController
   include AllowGuestUsers
-  include CurrentUserOrGuestUser
 
   def show
     @board ||= find_board_for_guest
@@ -18,7 +17,7 @@ class PublicBoardsController < ApplicationController
   private
 
     def find_board_for_guest
-      @board = Demo.public_board_by_public_slug(params[:public_slug])
+      @board ||= Demo.public_board_by_public_slug(params[:public_slug])
     end
 
     def add_board_to_user(board)
