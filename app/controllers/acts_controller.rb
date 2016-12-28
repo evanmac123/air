@@ -25,7 +25,7 @@ class ActsController < ApplicationController
   private
 
     def current_user
-      super || @potential_user || guest_user?gits
+      super || @potential_user || guest_user?
     end
 
     def authenticate
