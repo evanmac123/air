@@ -117,14 +117,14 @@ feature 'User claims account' do
 
         it "should not re-claim that user" do
           @expected_user.reload
-          @expected_user.accepted_invitation_at.to_s.should == @original_claim_time.to_s
+          expect(@expected_user.accepted_invitation_at.to_s).to eq(@original_claim_time.to_s)
           expect_contact_unset @expected_user
         end
       end
 
       context "and that user has a twin in another demo with similar rules" do
         before(:each) do
-          @twin = FactoryGirl.create(:user, demo: @other_demo, email: '', official_email: "ladi@dadi.com", claim_code: 'bob')
+          @twin = FactoryGirl.create(:user, demo: @other_demo, email: 'email@email.com', official_email: "ladi@dadi.com", claim_code: 'bob')
         end
 
         it "should claim the correct account, depending where the incoming message goes to" do

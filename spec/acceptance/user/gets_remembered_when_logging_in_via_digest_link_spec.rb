@@ -1,14 +1,14 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Gets remembered when logging in via digest link' do
-  let(:user) {FactoryGirl.create(:user)}
+  let(:user) { FactoryGirl.create(:user) }
 
   after(:each) do
     Timecop.return
   end
 
   def travel_past_login_expiration
-    Timecop.freeze(Clearance.configuration.cookie_expiration.call + 1.minute)
+    Timecop.freeze(Clearance.configuration.cookie_expiration.call(cookies) + 1.minute)
   end
 
   scenario "if it's their first login (i.e. they get their password generated)" do
