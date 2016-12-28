@@ -19,7 +19,6 @@ feature "Guest user activity session tracking", wonky: true do
 
   context "when a user does something that triggers authorize after #{ApplicationController::ACTIVITY_SESSION_THRESHOLD} seconds or more" do
     before do
-      pending "Should be a controller spec"
       Timecop.freeze
     end
 
