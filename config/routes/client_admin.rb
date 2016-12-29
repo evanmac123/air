@@ -112,29 +112,3 @@ namespace :client_admin do
   resources :suggestions_access, only: [:index]
   resources :allowed_to_suggest_users, only: [:destroy, :show]
 end
-
-resource :account, :only => [:update] do
-  resource :phone, :only => [:update]
-  resource :avatar, :only => [:update, :destroy]
-  resource :sms_slug, :only => [:update]
-  resource :name, :only => [:update]
-  resource :settings, :only => [:edit, :update]
-  resource :location, :only => [:update]
-end
-
-resources :email_info_requests, :only => [:create]
-
-resource :demographics, :only => [:update]
-
-resource :logged_in_user_password, :only => [:update]
-
-resources :thumbnails, :only => [:index]
-resources :submitted_tile_notifications, only: [:index]
-
-resources :potential_user_conversions, :only => [:create]
-resources :guest_user_conversions, :only => [:create]
-resource :guest_user_reset, :only => [:update] do
-  member do
-    post 'saw_modal'
-  end
-end

@@ -30,9 +30,6 @@ resources :tile_completions, :only => [:create]
 
 resource :session, :controller => 'sessions'
 
-resource :phone,      :only => [:update] do
-  resource :verification, :only => [:show, :update]
-end
 get "invitation" => "email_previews#invitation", :as => "invitation_preview"
 
 resource :unsubscribe, :only => [:new, :create, :show]
@@ -63,8 +60,6 @@ resources :users,       :only => [:new, :index, :show] do
   resources :acts, :only => [:index], :controller => "users/acts"
 
 end
-post 'resend_phone_verification' => 'users/phone_verification#create', :as => 'resend_phone_verification'
-delete 'cancel_phone_verification' => 'users/phone_verification#destroy', :as => 'cancel_phone_verification'
 
 # Override some Clearance routes
 resources :passwords,
@@ -110,3 +105,29 @@ resource :change_email, only: [:new, :create, :show]
 
 # See CancelAccountController for why this isn't rolled into AccountController
 resources :cancel_account, :only => [:show, :destroy]
+
+resource :account, :only => [:update] do
+  resource :phone, :only => [:update]
+  resource :avatar, :only => [:update, :destroy]
+  resource :sms_slug, :only => [:update]
+  resource :name, :only => [:update]
+  resource :settings, :only => [:edit, :update]
+  resource :location, :only => [:update]
+end
+
+resources :email_info_requests, :only => [:create]
+
+resource :demographics, :only => [:update]
+
+resource :logged_in_user_password, :only => [:update]
+
+resources :thumbnails, :only => [:index]
+resources :submitted_tile_notifications, only: [:index]
+
+resources :potential_user_conversions, :only => [:create]
+resources :guest_user_conversions, :only => [:create]
+resource :guest_user_reset, :only => [:update] do
+  member do
+    post 'saw_modal'
+  end
+end
