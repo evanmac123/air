@@ -35,6 +35,7 @@ class UsersController < UserBaseController
     end
 
     @acts = @user.acts.for_profile(current_user)
+
     @viewing_self = signed_in? && current_user == @user
     @viewing_other = signed_in? && current_user != @user
 

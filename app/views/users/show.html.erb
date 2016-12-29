@@ -45,7 +45,8 @@
       <%= render 'shared/see_more' %>
     </div>
   </div>
-  <%= js_at_end do %>
-    bindSeeMoreActs('#{user_acts_path(user_id: @user.id, format: :js)}', #{@acts.length});
+
+  <% js_at_end do %>
+    bindSeeMoreActs('<%= user_acts_path(@user) %>', <%= @acts.length %>)
   <% end %>
 </div>

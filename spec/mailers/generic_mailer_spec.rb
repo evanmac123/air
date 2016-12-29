@@ -28,13 +28,10 @@ describe GenericMailer do
     end
 
     it "should not try to send to an empty email address" do
-      users = FactoryGirl.create_list(:user, 2)
-      users.first.update_attributes(email: nil)
-      users.last.update_attributes(email: '  ')
+      user = FactoryGirl.create(:user)
+      user.update_attributes(email: nil)
 
-      users.each do |user|
-        GenericMailer.send_message(demo.id, user.id, "Here is the subject", "This is some text", "<p>This is some HTML</p>").deliver
-      end
+      GenericMailer.send_message(demo.id, user.id, "Here is the subject", "This is some text", "<p>This is some HTML</p>").deliver
 
       ActionMailer::Base.deliveries.should be_empty
     end

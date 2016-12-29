@@ -96,6 +96,7 @@ feature 'User views tiles' do
       end
 
       it "should load the next #{expected_tile_batch_size} on clicking See More", js: true do
+        visit activity_path(as: @user)
         show_more_tiles_link.click
         expect_thumbnail_count(expected_tile_batch_size * 2)
         expect_placeholder_count(0)

@@ -32,6 +32,7 @@ feature 'User views tile' do
 
     scenario 'views tile image', js: true do
       # Click on the first tile, and it should take you to the tiles  path
+      click_link "Get started!"
       click_link 'discover fire'
       should_be_on tiles_path
 
