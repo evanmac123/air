@@ -6,9 +6,10 @@ class PublicBoardsController < ApplicationController
     if @board && @board.is_public
       if current_user.is_a?(User)
         add_board_to_user(@board)
+        redirect_to activity_path
+      else
+        redirect_to public_activity_path(public_slug: params[:public_slug])
       end
-
-      redirect_to public_activity_path(public_slug: params[:public_slug])
     else
       render 'shared/public_board_not_found', layout: 'external_marketing'
     end
