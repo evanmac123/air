@@ -1,5 +1,5 @@
 class Admin::TargetedMessagesController < AdminBaseController
-  include SegmentationHelper
+  include SegmentationConcern
   
   FIELDS_TO_KEEP = %w(subject plain_text html_text sms_text)
 

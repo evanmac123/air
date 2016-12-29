@@ -1,5 +1,5 @@
 class Admin::RafflesController < AdminBaseController
-  include SegmentationHelper
+  include SegmentationConcern
   
   before_filter :find_demo_by_demo_id
 

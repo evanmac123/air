@@ -1,4 +1,4 @@
-module SegmentationHelper
+module SegmentationConcern
   def attempt_segmentation(demo)
     if params[:segment_column].present?
       if (params[:segment_column].length > 1 and params[:segment_column].values.include?("")) or
