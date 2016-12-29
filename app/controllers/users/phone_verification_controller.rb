@@ -1,7 +1,6 @@
 class Users::PhoneVerificationController < UserBaseController
+  # TODO: Deprecate controller. This is all handled in the user settings page and is no longer part of some deprecated onboarding.
 
-  before_filter :authenticate
-  
   def create
     if current_user.new_phone_number.present?
       current_user.send_new_phone_validation_token

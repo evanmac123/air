@@ -42,7 +42,7 @@ feature 'Uploads file to fake bulk uploader' do
   end
 
   def last_loaded_message
-    date_string = Time.now.strftime("%B %e, %Y")
+    date_string = Time.zone.now.strftime("%B %e, %Y")
     "Last added users on #{date_string}"
   end
 

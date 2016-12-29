@@ -47,9 +47,17 @@ class ApplicationController < ActionController::Base
   def sign_in(user, remember_me = false)
     clearance_sign_in(user) do |status|
       if status.success?
-        cookies[:remember_me] = { value: remember_me, expires: 1.year.from_now }
+        set_remember_user(remember_me)
         session.delete(:guest_user)
       end
+    end
+  end
+
+  def set_remember_user(remember_me)
+    if remember_me
+      cookies.permanent[:remember_me] = remember_me
+    else
+      cookies.delete(:remember_me)
     end
   end
   ######
