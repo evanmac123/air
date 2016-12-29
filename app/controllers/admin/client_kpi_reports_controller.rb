@@ -15,6 +15,4 @@ class Admin::ClientKpiReportsController < AdminBaseController
       @sdate, @edate = Reporting::ClientKPIReport.new.default_date_range
     end
   end
-
-
 end
