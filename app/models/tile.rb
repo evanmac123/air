@@ -142,6 +142,7 @@ class Tile < ActiveRecord::Base
   end
 
   def nullify_remote_media_url_if_blank
+    self.image = nil
     write_attribute(:remote_media_url, nil) if remote_media_url == "" 
   end
 
