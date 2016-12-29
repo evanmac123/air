@@ -1,0 +1,117 @@
+FactoryGirl.define do
+  factory :tile do
+    headline {"Tile #{SecureRandom.uuid}, y'all"}
+    require_images false
+    association :demo
+    sequence(:position){ |n| n }
+    status Tile::ACTIVE
+    question_type Tile::QUIZ
+    question_subtype Tile::MULTIPLE_CHOICE
+    remote_media_url "/images/engage_new.gif"
+
+    trait :with_creator do
+      association :creator, :factory => :user
+    end
+
+    trait :archived do
+      status Tile::ARCHIVE
+    end
+
+    trait :active do
+      status Tile::ACTIVE
+    end
+
+    trait :draft do
+      status Tile::DRAFT
+    end
+
+    trait :user_draft do
+      status Tile::USER_DRAFT
+    end
+
+    trait :user_submitted do
+      status Tile::USER_SUBMITTED
+      association :creator, factory: :user
+    end
+
+    trait :ignored do
+      status Tile::IGNORED
+    end
+
+    trait :sharable do
+      is_sharable true
+    end
+
+    trait :public do
+      is_sharable true
+      is_public true
+      status Tile::ACTIVE
+      tile_tags {[FactoryGirl.create(:tile_tag)]}
+    end
+
+    trait :copyable do
+      is_sharable true
+      is_public true
+      status Tile::ACTIVE
+      tile_tags {[FactoryGirl.create(:tile_tag)]}
+    end
+
+    trait :user_drafted do
+      status Tile::USER_DRAFT
+      association :creator, factory: :user
+    end
+  end
+
+  factory :client_created_tile, parent: :tile do
+    supporting_content "This is some extra text by the tile"
+    question "Who loves ya, baby?"
+    require_images true
+    image {File.open(Rails.root.join "spec/support/fixtures/tiles/cov1.jpg")}
+    thumbnail {File.open(Rails.root.join "spec/support/fixtures/tiles/cov1_thumbnail.jpg")}
+    image_credit "by Human"
+  end
+
+  factory :multiple_choice_tile, parent: :client_created_tile, class: MultipleChoiceTile do
+    type 'MultipleChoiceTile'
+    question "Which of the following comes out of a bird?"
+    points 99
+    #TODO fix this so that the tile uses the native multiple_choice_answers_field
+    #answers ["Ham", "Eggs", "A V8 Buick"]
+    multiple_choice_answers ["Ham", "Eggs", "A V8 Buick"]
+    correct_answer_index 1
+  end
+
+  factory :survey_tile, parent: :multiple_choice_tile do
+    question_type Tile::SURVEY
+    question_subtype Tile::MULTIPLE_CHOICE
+    correct_answer_index (-1)
+  end
+
+  factory :action_tile, parent: :multiple_choice_tile do
+    question_type Tile::ACTION
+    question_subtype Tile::TAKE_ACTION
+    correct_answer_index (-1)
+  end
+
+  factory :sharable_and_public_tile, parent: :multiple_choice_tile do
+    is_public true
+    is_sharable true
+    tile_taggings do
+      [FactoryGirl.create(:tile_tagging)]
+    end
+  end
+
+  factory :tile_image do
+    image {File.open(Rails.root.join "spec/support/fixtures/tiles/cov2.jpg")}
+    thumbnail {File.open(Rails.root.join "spec/support/fixtures/tiles/cov2_thumbnail.jpg")}
+  end
+
+  factory :tile_completion do
+    association :user
+    association :tile
+
+    trait :with_answer_index do
+      answer_index 0
+    end
+  end
+end
