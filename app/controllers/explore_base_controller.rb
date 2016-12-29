@@ -43,7 +43,6 @@ class ExploreBaseController < ApplicationController
 
       remember_explore_token(explore_token)
 
-      refresh_activity_session(user)
       remember_explore_user(UserRestrictedToExplorePages.new(user))
       return true
     end
