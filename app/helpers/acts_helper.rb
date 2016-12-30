@@ -2,22 +2,18 @@ module ActsHelper
   ACT_BATCH_SIZE = 5
 
   def set_modals_and_intros
-    @display_get_started_lightbox = current_user.display_get_started_lightbox
+    unless current_user.is_a?(PotentialUser)
+      @display_get_started_lightbox = current_user.display_get_started_lightbox
 
-    if @display_get_started_lightbox && current_user
-      @get_started_lightbox_message = welcome_message
-      current_user.get_started_lightbox_displayed = true
-    elsif current_user.is_a?(GuestUser)
-      welcome_message_flash
+      if @display_get_started_lightbox && current_user
+        @get_started_lightbox_message = welcome_message
+        current_user.get_started_lightbox_displayed = true
+      elsif current_user.is_a?(GuestUser)
+        welcome_message_flash
+      end
+
+      current_user.save
     end
-
-    @display_activity_page_admin_guide = display_admin_guide?
-
-    if @display_activity_page_admin_guide
-      current_user.displayed_activity_page_admin_guide = true
-    end
-
-    current_user.save
   end
 
   def display_admin_guide?

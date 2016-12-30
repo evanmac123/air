@@ -334,7 +334,7 @@ class Demo < ActiveRecord::Base
   end
 
   def organization_name
-    organization.name
+    organization.try(:name)
   end
 
   def print_pending_friendships

@@ -10,4 +10,4 @@ en:
       next: "&rsaquo;"
       truncate: "..."
   flashes:
-      failure_when_not_signed_in_html: "You've been logged out due to inactivity. If needed, <a href='/passwords/new'>create or reset your password</a>."
+      failure_when_not_signed_in_html: "Please sign in or create an account to access this part of the site. If needed, <a href='/passwords/new'>create or reset your password</a>."

@@ -9,8 +9,6 @@
 
   <% if current_user.is_a? PotentialUser %>
     <%= render "acts/register_potential_user_lightbox" %>
-  <% elsif @display_activity_page_admin_guide %>
-    <%= render "acts/activity_page_admin_guide" %>
   <% elsif @display_get_started_lightbox %>
     <%= render "acts/get_started_lightbox", board_name: current_user.demo.name, is_guest: current_user.is_guest?, get_started_lightbox_message: @get_started_lightbox_message, suppress_conversion_modal: false %>
   <% end %>
