@@ -1,12 +1,18 @@
 var Airbo = window.Airbo || {};
 
 Airbo.TileFormValidator = (function(){
-  var form,
-      tileModalSelector = "#tile_form_modal";
+
+  var form
+    , tileModalSelector = "#tile_form_modal"
+  ;
+
   var config = {
     debug: true,
+
     ignore: [],
+
     errorclass: "tile_builder_error",
+
     rules: {
       "tile_builder_form[supporting_content]": {
         required: false,
@@ -20,6 +26,7 @@ Airbo.TileFormValidator = (function(){
       "tile_builder_form[correct_answer_index]":  { required: false },
       "tile_builder_form[answers][]":             { required: false }
     },
+
     invalidHandler: function(form, validator) {
       var errors = validator.numberOfInvalids();
       if (errors) {
@@ -34,11 +41,13 @@ Airbo.TileFormValidator = (function(){
         }
       }
     },
+
     messages: {
       "tile_builder_form[question_subtype]": "Question option is required.",
       "tile_builder_form[correct_answer_index]": "Please select one choice as the correct answer.",
       "tile_builder_form[answers][]": "Please provide text for all answer options."
     },
+
     errorPlacement: function(error, element) {
       if(element.attr("name")=="tile_builder_form[question_subtype]"){
         error.insertAfter(".quiz_content>.placeholder");
@@ -60,30 +69,35 @@ Airbo.TileFormValidator = (function(){
       $(element).parents(".content_sections").removeClass( errorClassName(element, errorClass) );
     }
   };
+
   function errorClassName(element, errorClass) {
     name = $(element).attr("name");
     switch(name) {
       case "tile_builder_form[question_subtype]":
         errorClass = "question_" + errorClass;
-        break;
+      break;
       case "tile_builder_form[correct_answer_index]":
         errorClass = "index_" + errorClass;
-        break;
+      break;
       case "tile_builder_form[answers][]":
         errorClass = "answer_" + errorClass;
-        break;
+      break;
     }
     return errorClass;
   }
+
   function initValidator(){
     makeConfig = $.extend({}, Airbo.Utils.validationConfig, config);
     return form.validate(makeConfig);
   }
+
   function init(formObj) {
     form = formObj;
     return initValidator();
   }
+
   return {
     init: init
   }
+
 }());
