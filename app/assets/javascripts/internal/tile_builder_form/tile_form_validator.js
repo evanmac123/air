@@ -2,11 +2,13 @@ var Airbo = window.Airbo || {};
 
 Airbo.TileFormValidator = (function(){
 
-  var form
-    , tileModalSelector = "#tile_form_modal"
-  ;
 
-  var config = {
+  var tileModalSelector = "#tile_form_modal"
+    , conditionFunction
+    , context = this
+   ;
+
+  var config= {
     debug: true,
 
     ignore: [],
@@ -15,16 +17,16 @@ Airbo.TileFormValidator = (function(){
 
     rules: {
       "tile_builder_form[supporting_content]": {
-        required: false,
+        required: isRequired,
         minWords: 1,
-        maxTextLength: 700
+        maxTextLength: hasLimit
       },
       "tile_builder_form[headline]":              { required: true },
-      "tile_builder_form[remote_media_url]":      { required: false },
-      "tile_builder_form[question_subtype]":      { required: false },
-      "tile_builder_form[question]":              { required: false },
-      "tile_builder_form[correct_answer_index]":  { required: false },
-      "tile_builder_form[answers][]":             { required: false }
+      "tile_builder_form[remote_media_url]":      { required: isRequired},
+      "tile_builder_form[question_subtype]":      { required: isRequired},
+      "tile_builder_form[question]":              { required: isRequired},
+      "tile_builder_form[correct_answer_index]":  { required: isRequired},
+      "tile_builder_form[answers][]":             { required: isRequired}
     },
 
     invalidHandler: function(form, validator) {
@@ -86,14 +88,28 @@ Airbo.TileFormValidator = (function(){
     return errorClass;
   }
 
-  function initValidator(){
-    makeConfig = $.extend({}, Airbo.Utils.validationConfig, config);
-    return form.validate(makeConfig);
+  function isRequired(el){
+    var form = $("#new_tile_builder_form");
+
+    if($("#tile_builder_form_status", form).val() ==="draft"){
+      return false;
+    }else{
+      return true;
+    }
+  }
+
+  function hasLimit(){
+    var form = $("#new_tile_builder_form");
+    if($("#tile_builder_form_status", form).val() ==="draft"){
+      return 9999999;
+    }else{
+      return 700;
+    }
   }
 
   function init(formObj) {
-    form = formObj;
-    return initValidator();
+    makeConfig = $.extend({}, Airbo.Utils.validationConfig, config);
+    return formObj.validate(makeConfig);
   }
 
   return {
