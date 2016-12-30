@@ -49,8 +49,13 @@ class Tile < ActiveRecord::Base
 
   before_validation :sanitize_supporting_content
   before_validation :sanitize_embed_video
+  before_create :set_on_first_position
   before_save :set_image_processing, if: :image_changed?
   before_validation :nullify_remote_media_url_if_blank
+  before_save :update_timestamps, if: :status_changed?
+  before_save :ensure_protocol_on_link_address, :handle_suggested_tile_status_change
+  before_save :set_image_credit_to_blank_if_default
+  after_save :process_image, if: :image_changed?
 
   validates_presence_of :headline, :allow_blank => false, :message => "headline can't be blank"
   validates_presence_of :supporting_content, :allow_blank => false, :message => "supporting content can't be blank", if: :state_is_anything_but_draft?
@@ -67,12 +72,6 @@ class Tile < ActiveRecord::Base
   end
 
 
-
-  before_create :set_on_first_position
-  before_save :update_timestamps, if: :status_changed?
-  before_save :ensure_protocol_on_link_address, :handle_suggested_tile_status_change
-  before_save :set_image_credit_to_blank_if_default
-  after_save :process_image, if: :image_changed?
 
   before_post_process :no_post_process_on_copy
 
