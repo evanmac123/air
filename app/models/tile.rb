@@ -49,9 +49,10 @@ class Tile < ActiveRecord::Base
 
   before_validation :sanitize_supporting_content
   before_validation :sanitize_embed_video
+  before_validation :remove_images, if: :image_set_to_blank, on: :update
+
   before_create :set_on_first_position
   before_save :set_image_processing, if: :image_changed?
-  before_validation :nullify_remote_media_url_if_blank
   before_save :update_timestamps, if: :status_changed?
   before_save :ensure_protocol_on_link_address, :handle_suggested_tile_status_change
   before_save :set_image_credit_to_blank_if_default
@@ -65,7 +66,6 @@ class Tile < ActiveRecord::Base
 
   validates_length_of :headline, maximum: MAX_HEADLINE_LEN, message: "headline is too long (maximum is #{MAX_HEADLINE_LEN} characters)"
   validates_with RawTextLengthInHTMLFieldValidator, field: :supporting_content, maximum: MAX_SUPPORTING_CONTENT_LEN, message: "supporting content is too long (maximum is #{MAX_SUPPORTING_CONTENT_LEN} characters)"
-
 
   def state_is_anything_but_draft?
      status != DRAFT
@@ -138,11 +138,6 @@ class Tile < ActiveRecord::Base
     if status == ARCHIVE && new_status == ACTIVE && redigest=="true"
       allow_activated_at_reset
     end
-  end
-
-  def nullify_remote_media_url_if_blank
-    self.image = nil
-    write_attribute(:remote_media_url, nil) if remote_media_url == "" 
   end
 
   def is_fully_assembled?
@@ -329,7 +324,19 @@ class Tile < ActiveRecord::Base
   private
 
   #FIXME the code around handling update status has gotten quite ugly
+  def image_set_to_blank
+    remote_media_url == ""
+  end
 
+  def remove_images
+    write_attribute(:remote_media_url, nil) 
+    image.destroy
+
+    # NOTE this destroy call is for consistency only. Paperclip is configured
+    # with preserve_files: true for thumbnails so that thumbnails are never
+    # deleted #see  TileImageable module for details
+    thumbnail.destroy 
+  end
 
   def already_activated
     (status == ACTIVE || status==ARCHIVE) && activated_at.present?
