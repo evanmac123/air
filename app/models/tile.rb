@@ -52,7 +52,6 @@ class Tile < ActiveRecord::Base
   before_validation :remove_images, if: :image_set_to_blank, on: :update
 
   before_create :set_on_first_position
-  before_save :set_image_processing, if: :image_changed?
   before_save :update_timestamps, if: :status_changed?
   before_save :ensure_protocol_on_link_address, :handle_suggested_tile_status_change
   before_save :set_image_credit_to_blank_if_default
@@ -391,8 +390,4 @@ class Tile < ActiveRecord::Base
     changes.keys.include? "remote_media_url"
   end
 
-  def set_image_processing
-    self.thumbnail_processing = true
-    self.image_processing =  true
-  end
 end
