@@ -306,4 +306,19 @@ FactoryGirl.define do
     email "new_email@mail.com"
     email_token "86f7e437faa5a7fce15d1ddcb9eaeaea377667b8"
   end
+
+
+  factory :tile_image do
+    image {File.open(Rails.root.join "spec/support/fixtures/tiles/cov2.jpg")}
+    thumbnail {File.open(Rails.root.join "spec/support/fixtures/tiles/cov2_thumbnail.jpg")}
+  end
+
+ factory :tile_completion do
+    association :user
+    association :tile
+
+    trait :with_answer_index do
+      answer_index 0
+    end
+  end
 end
