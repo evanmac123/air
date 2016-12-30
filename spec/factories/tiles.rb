@@ -4,10 +4,12 @@ FactoryGirl.define do
     require_images false
     association :demo
     sequence(:position){ |n| n }
+    supporting_content "This is some extra text by the tile"
     status Tile::ACTIVE
+    question "Who loves ya, baby?"
     question_type Tile::QUIZ
     question_subtype Tile::MULTIPLE_CHOICE
-    remote_media_url "/images/engage_new.gif"
+    remote_media_url "spec/support/fixtures/tiles/cov1.jpg"
 
     trait :with_creator do
       association :creator, :factory => :user
@@ -63,11 +65,6 @@ FactoryGirl.define do
   end
 
   factory :client_created_tile, parent: :tile do
-    supporting_content "This is some extra text by the tile"
-    question "Who loves ya, baby?"
-    require_images true
-    image {File.open(Rails.root.join "spec/support/fixtures/tiles/cov1.jpg")}
-    thumbnail {File.open(Rails.root.join "spec/support/fixtures/tiles/cov1_thumbnail.jpg")}
     image_credit "by Human"
   end
 
@@ -101,4 +98,5 @@ FactoryGirl.define do
     end
   end
 
+ 
 end
