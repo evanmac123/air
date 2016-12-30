@@ -36,10 +36,9 @@ describe Tile do
       tile.remote_media_url = nil
       tile.status = Tile::ACTIVE 
       expect(tile.save).to be_false
-     end
+    end
 
   end
-
 
   context "status and activated_at" do
 
@@ -194,10 +193,10 @@ describe Tile do
     expect(tile_3.activated_at).to be_nil
     expect(tile_3.archived_at).to be_nil
 
-     #Don't forget to verify that we can override the time-stamp assignments with FactoryGirl.
-     #Note: As per the sample output below (from a failing test) the time from the dbase contains
-     #too much information for this test => just grab the first part of the date
-     #expected: "2013-08-15" ; got: "2013-08-15 00:00:00 -0400"
+    #Don't forget to verify that we can override the time-stamp assignments with FactoryGirl.
+    #Note: As per the sample output below (from a failing test) the time from the dbase contains
+    #too much information for this test => just grab the first part of the date
+    #expected: "2013-08-15" ; got: "2013-08-15 00:00:00 -0400"
 
     tile_4 = FactoryGirl.create :tile, status: Tile::ACTIVE, activated_at: Date.tomorrow
     expect((tile_4.activated_at.to_s.split)[0]).to eq(Date.tomorrow.to_s)
@@ -326,7 +325,7 @@ describe Tile do
       tc2 = FactoryGirl.create(:tile_completion, tile: tile, answer_index: 1 )
       tc3 = FactoryGirl.create(:tile_completion, tile: tile, answer_index: 1 )
       expect(tile.survey_chart).to eq([{"answer"=>"Yes", "number"=>1, "percent"=>33.33},
-                                   {"answer"=>"No", "number"=>2, "percent"=>66.67}])
+                                       {"answer"=>"No", "number"=>2, "percent"=>66.67}])
     end
   end
 
