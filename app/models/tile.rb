@@ -323,7 +323,6 @@ class Tile < ActiveRecord::Base
 
   private
 
-  #FIXME the code around handling update status has gotten quite ugly
   def image_set_to_blank
     remote_media_url == ""
   end
@@ -338,6 +337,7 @@ class Tile < ActiveRecord::Base
     thumbnail.destroy 
   end
 
+  #FIXME the code around handling update status has gotten quite ugly
   def already_activated
     (status == ACTIVE || status==ARCHIVE) && activated_at.present?
   end
