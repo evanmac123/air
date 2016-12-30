@@ -1,6 +1,4 @@
 require 'acceptance/acceptance_helper'
-#include WaitForAjax
-
 
 feature "Client admin opens tile stats", js: true, type: :feature do
 
@@ -41,7 +39,6 @@ feature "Client admin opens tile stats", js: true, type: :feature do
     before do
       @tile = FactoryGirl.create :tile, status: Tile::ACTIVE, demo: demo, question: "Is survey table present?"
       open_stats(@tile)
-
     end
 
     it "should show tile stats modal" do
@@ -96,7 +93,7 @@ feature "Client admin opens tile stats", js: true, type: :feature do
 
       it "should sort by email" do
         table_column("email").click
-        first_name.should == @user_first_email.name
+        expect(first_name).to eq(@user_first_email.name)
 
         table_column("email").click
         first_name.should == @user_last_email.name
@@ -104,7 +101,7 @@ feature "Client admin opens tile stats", js: true, type: :feature do
 
       it "should sort by views" do
         table_column("views").click
-        first_name.should == @user_least_views.name
+        expect(first_name).to eq(@user_least_views.name)
 
         table_column("views").click
         first_name.should == @user_most_views.name
@@ -112,7 +109,7 @@ feature "Client admin opens tile stats", js: true, type: :feature do
 
       it "should sort by date" do
         table_column("date").click
-        first_name.should == @user_first_completed.name
+        expect(first_name).to eq(@user_first_completed.name)
 
         table_column("date").click
         first_name.should == @user_last_completed.name
@@ -183,8 +180,7 @@ feature "Client admin opens tile stats", js: true, type: :feature do
 
         expect_tile_headline(@tile)
         select_grid_type "Didn't view"
-
-        all_names.should include("a DIDN'T VIEW user")
+        expect(all_names.include?("a DIDN'T VIEW user")).to eq(true)
       end
 
       it "should open ALL table" do
@@ -205,6 +201,7 @@ feature "Client admin opens tile stats", js: true, type: :feature do
           FactoryGirl.create(:tile_completion, user: u, tile: @tile, answer_index: i%3)
           FactoryGirl.create(:tile_viewing, user: u, tile: @tile)
         end
+        
         open_stats(@tile)
         expect_tile_headline(@tile)
       end
@@ -313,5 +310,4 @@ feature "Client admin opens tile stats", js: true, type: :feature do
     column_name = name == "date" ? name : (name + "_column")
     page.find("th.#{column_name} a")
   end
-
 end
