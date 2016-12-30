@@ -5,7 +5,7 @@ feature 'Manages board settings' do
   context "when they admin no boards" do
     before do
       @user = FactoryGirl.create(:user)
-      @user.boards_as_admin.should be_empty
+      expect(@user.boards_as_admin).to be_empty
       @boards = [@user.demo, FactoryGirl.create(:demo)]
       @user.add_board(@boards.last)
     end
@@ -13,7 +13,7 @@ feature 'Manages board settings' do
     it "should not display the admin controls", js: true do
       visit activity_path(as: @user)
       open_board_settings
-      page.should have_no_css(board_admin_controls_selector)
+      expect(page).to have_no_css(board_admin_controls_selector)
     end
 
     it "should show all boards they are a regular user in, in the appropriate section", js: true do
@@ -83,7 +83,7 @@ feature 'Manages board settings' do
 
       fill_in_new_board_name(board_to_change,new_name)
       click_save_link
-      page.should have_no_content(original_board_name)
+      expect(page).to have_no_content(original_board_name)
       expect_content new_name
     end
 
@@ -113,12 +113,12 @@ feature 'Manages board settings' do
 
       # And let's just sanity check that these two methods do in fact partition
       # boards like we want.
-      @user.boards_as_regular_user.should have(2).board
-      @user.boards_as_admin.should have(2).board
+      expect(@user.boards_as_regular_user.size).to eq(2)
+      expect(@user.boards_as_admin.size).to eq(2)
 
       all_boards = @user.boards_as_regular_user + @user.boards_as_admin
-      all_boards.should have(4).boards
-      all_boards.map(&:id).uniq.should have(4).ids
+      expect(all_boards.size).to eq(4)
+      expect(all_boards.map(&:id).uniq.size).to eq(4)
     end
 
     it "should show each board, once, in the correct section", js: true do

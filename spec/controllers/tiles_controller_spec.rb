@@ -5,10 +5,10 @@ describe TilesController do
     def expect_no_start_tile_set_for_user(user)
       tile = FactoryGirl.create(:tile)
       expect(tile.demo_id).to_not eq(user.demo_id)
-      expect(tile.is_sharable).to be_false
+      expect(tile.is_sharable).to be_falsey
 
       get :index, nil, {start_tile: tile.id}
-      assigns[:start_tile].should be_nil
+      expect(assigns[:start_tile]).to be_nil
     end
 
     context "as a regular user requesting a tile that's not sharable in a board you're not in" do
@@ -18,7 +18,7 @@ describe TilesController do
         user = FactoryGirl.create(:user)
 
         expect(tile.demo_id).to_not eq(user.demo_id)
-        expect(tile.is_sharable).to be_false
+        expect(tile.is_sharable).to be_falsey
 
         sign_in_as(user)
         get :index, nil, { start_tile: tile.id }
@@ -34,7 +34,7 @@ describe TilesController do
         user = FactoryGirl.create(:guest_user)
 
         expect(tile.demo_id).to_not eq(user.demo_id)
-        expect(tile.is_sharable).to be_false
+        expect(tile.is_sharable).to be_falsey
 
         sign_in_as(user)
         get :index, nil, { start_tile: tile.id }

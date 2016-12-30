@@ -14,15 +14,15 @@ describe "client_admin/tiles/tile_preview/_public_section.html.erb" do
   context "when passed a public tile" do
     it "should have the proper copy" do
       render "client_admin/tiles/tile_preview/public_section", form: mock_form(true), has_tags_class: ""
-      rendered.should have_css('.share_to_explore.remove_from_explore', text: 'Remove')
+      expect(rendered).to have_css('.share_to_explore.remove_from_explore', text: 'Remove')
     end
   end
 
   context "when passed a private tile" do
     it "should have the proper copy" do
       render "client_admin/tiles/tile_preview/public_section", form: mock_form(false), has_tags_class: ""
-      rendered.should have_css('.share_to_explore', text: 'Share')
-      rendered.should_not have_css('.share_to_explore.remove_from_explore')
+      expect(rendered).to have_css('.share_to_explore', text: 'Share')
+      expect(rendered).not_to have_css('.share_to_explore.remove_from_explore')
     end
   end
 end

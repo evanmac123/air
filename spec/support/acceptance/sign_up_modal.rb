@@ -10,11 +10,11 @@ module SignUpModalHelpers
 
   def register_if_guest
     if show_register_form? # method must be implemented in test file
-      page.should have_selector('#sign_up_modal', visible: true)
+      expect(page).to have_selector('#sign_up_modal', visible: true)
       fill_in_valid_form_entries
       submit_create_form
       @user = User.order("created_at DESC").first
-      @user.name.should == NEW_CREATOR_NAME
+      expect(@user.name).to eq(NEW_CREATOR_NAME)
     end
   end
 

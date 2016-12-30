@@ -42,18 +42,18 @@ describe EligibilityFilePurger do
 
     it "should delete all objects in the bucket older than the threshold" do
       @old_objects.each do |old_object|
-        old_object.should have_received(:delete)
+        expect(old_object).to have_received(:delete)
       end
 
       @old_object_keys.each do |old_object_key|
-        @mock_s3.objects[old_object_key].should be_nil
+        expect(@mock_s3.objects[old_object_key]).to be_nil
       end
     end
 
     it "should not delete any objects in the bucker newer than the threshold" do
       @new_object_keys.each do |new_object_key|
         object = @mock_s3.objects[new_object_key]
-        object.should have_received(:delete).never
+        expect(object).to have_received(:delete).never
       end
     end
   end

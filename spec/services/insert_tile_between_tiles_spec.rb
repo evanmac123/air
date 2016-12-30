@@ -17,8 +17,8 @@ describe InsertTileBetweenTiles do
       right_tile = tiles[2]
       InsertTileBetweenTiles.new(left_tile.id, tile.id, right_tile.id, Tile::DRAFT).insert!
       tile.reload
-      tile.left_tile.should == left_tile
-      tile.right_tile.should == right_tile
+      expect(tile.left_tile).to eq(left_tile)
+      expect(tile.right_tile).to eq(right_tile)
     end
 
     it "should work with only left tile" do
@@ -28,8 +28,8 @@ describe InsertTileBetweenTiles do
       right_tile = nil
       InsertTileBetweenTiles.new(left_tile.id, tile.id, nil, Tile::DRAFT).insert!
       tile.reload
-      tile.left_tile.should == left_tile
-      tile.right_tile.should == right_tile
+      expect(tile.left_tile).to eq(left_tile)
+      expect(tile.right_tile).to eq(right_tile)
     end
 
     it "should work only with right tile" do
@@ -39,8 +39,8 @@ describe InsertTileBetweenTiles do
       right_tile = tiles[3]
       InsertTileBetweenTiles.new(nil, tile.id, right_tile.id, Tile::DRAFT).insert!
       tile.reload
-      tile.left_tile.should == left_tile
-      tile.right_tile.should == right_tile
+      expect(tile.left_tile).to eq(left_tile)
+      expect(tile.right_tile).to eq(right_tile)
     end
 
     it "should work set status if needed" do
@@ -50,15 +50,15 @@ describe InsertTileBetweenTiles do
       right_tile = tiles[2]
       InsertTileBetweenTiles.new(left_tile.id, tile.id, right_tile.id, Tile::DRAFT).insert!
       tile.reload
-      tile.status.should == Tile::DRAFT
+      expect(tile.status).to eq(Tile::DRAFT)
     end
 
     it "should work if section is empty" do
       tile = FactoryGirl.create(:multiple_choice_tile, :active, demo: demo)
       InsertTileBetweenTiles.new(nil, tile.id, nil, Tile::DRAFT).insert!
       tile.reload
-      tile.status.should == Tile::DRAFT
-      tile.position.should == 0
+      expect(tile.status).to eq(Tile::DRAFT)
+      expect(tile.position).to eq(0)
     end
 
     it "should update positions of tiles to the left" do
@@ -68,8 +68,8 @@ describe InsertTileBetweenTiles do
       right_tile = tiles[1]
       InsertTileBetweenTiles.new(left_tile.id, tile.id, right_tile.id, Tile::DRAFT).insert!
       tile.reload
-      tiles[2].reload.position.should == tile.position + 1 
-      tiles[3].reload.position.should == tile.position + 2
+      expect(tiles[2].reload.position).to eq(tile.position + 1) 
+      expect(tiles[3].reload.position).to eq(tile.position + 2)
     end
   end
 end

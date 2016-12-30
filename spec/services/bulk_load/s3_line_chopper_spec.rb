@@ -24,6 +24,6 @@ describe BulkLoad::S3LineChopper do
       read_lines << line
     end
 
-    read_lines.join("").should == expected_text
+    expect(read_lines.join("")).to eq(expected_text)
   end
 end

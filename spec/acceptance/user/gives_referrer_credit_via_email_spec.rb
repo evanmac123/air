@@ -11,6 +11,6 @@ feature "Make sure when I email someone else's claim code from my claimed accoun
     body = @fred.claim_code
     email_originated_message_received(@suzie.email, 'cool subject', body)
     crank_dj_clear
-    @fred.reload.email.should_not == @suzie.email
+    expect(@fred.reload.email).not_to eq(@suzie.email)
   end
 end

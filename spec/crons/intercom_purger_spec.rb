@@ -29,7 +29,7 @@ describe IntercomPurger do
       purger.purge!
 
       @fake_users.each do |fake_user|
-        purger.should have_received(:schedule_deletion).with(fake_user)
+        expect(purger).to have_received(:schedule_deletion).with(fake_user)
       end
     end
   end

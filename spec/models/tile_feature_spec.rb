@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe TileFeature do
-  it { should validate_presence_of :name}
-  it { should validate_uniqueness_of :name}
-  it { should validate_presence_of :rank}
-  it { should validate_uniqueness_of :rank}
+  it { is_expected.to validate_presence_of :name}
+  it { is_expected.to validate_uniqueness_of :name}
+  it { is_expected.to validate_presence_of :rank}
+  it { is_expected.to validate_uniqueness_of :rank}
 
   let(:tile_feature) { FactoryGirl.create(:tile_feature, active: true) }
 

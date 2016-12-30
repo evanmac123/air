@@ -13,14 +13,14 @@ module SteakHelperMethods
   end
   
   def expect_mt_sms(receiving_number, expected_text)
-    FakeTwilio::SMS.should have_sent_text(receiving_number, expected_text.gsub(/\\n/, "\n"))
+    expect(FakeTwilio::SMS).to have_sent_text(receiving_number, expected_text.gsub(/\\n/, "\n"))
   end
 
   def expect_no_mt_sms(receiving_number, expected_text=nil)
     if expected_text
-      FakeTwilio::SMS.should_not have_sent_text(receiving_number, expected_text.gsub(/\\n/, "\n"))
+      expect(FakeTwilio::SMS).not_to have_sent_text(receiving_number, expected_text.gsub(/\\n/, "\n"))
     else
-      FakeTwilio::SMS.should_not have_sent_text_to(receiving_number)
+      expect(FakeTwilio::SMS).not_to have_sent_text_to(receiving_number)
     end
   end
 
@@ -29,11 +29,11 @@ module SteakHelperMethods
   end
 
   def expect_mt_sms_including(receiving_number, expected_text)
-    mt_sms_including?(receiving_number, expected_text).should be_true
+    expect(mt_sms_including?(receiving_number, expected_text)).to be_truthy
   end
 
   def expect_no_mt_sms_including(receiving_number, expected_text)
-    mt_sms_including?(receiving_number, expected_text).should be_false
+    expect(mt_sms_including?(receiving_number, expected_text)).to be_falsey
   end
 
   def dump_sent_texts

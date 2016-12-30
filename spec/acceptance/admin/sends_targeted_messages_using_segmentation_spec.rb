@@ -55,8 +55,8 @@ feature 'Admin sends targeted messages using segmentation' do
       plain_part = mail.parts.select{|part| part.content_type =~ /text/}.first
 
       expect(mail.subject).to eq(expected_subject)
-      html_part.body.to_s.should include(expected_html_text)
-      plain_part.body.to_s.should include(expected_plain_text)
+      expect(html_part.body.to_s).to include(expected_html_text)
+      expect(plain_part.body.to_s).to include(expected_plain_text)
     end
   end
 
@@ -77,7 +77,7 @@ feature 'Admin sends targeted messages using segmentation' do
       crank_dj_clear
 
       open_email 'joe@example.com'
-      current_email.to_s.should include("From: Big Fun <bigfun@ourairbo.com>")
+      expect(current_email.to_s).to include("From: Big Fun <bigfun@ourairbo.com>")
     end
   end
 
@@ -108,7 +108,7 @@ feature 'Admin sends targeted messages using segmentation' do
     expect_content "Email text blank, no emails sent"
 
     crank_dj_clear
-    ActionMailer::Base.deliveries.should be_empty
+    expect(ActionMailer::Base.deliveries).to be_empty
   end
 
   context "when plain text field is all whitespace and HTML text field has no non-whitespace text" do
@@ -123,7 +123,7 @@ feature 'Admin sends targeted messages using segmentation' do
       expect_content "Email text blank, no emails sent"
 
       crank_dj_clear
-      ActionMailer::Base.deliveries.should be_empty
+      expect(ActionMailer::Base.deliveries).to be_empty
     end
 
     context "but the HTML text field has got an image in it" do
@@ -138,13 +138,13 @@ feature 'Admin sends targeted messages using segmentation' do
         expect_no_content "Email text blank, no emails sent"
 
         crank_dj_clear
-        ActionMailer::Base.deliveries.should_not be_empty
+        expect(ActionMailer::Base.deliveries).not_to be_empty
       end
     end
   end
 
   it "should allow texts to be sent", :js => true do
-    pending "implementation may have changed"
+    skip "implementation may have changed"
     set_up_models(use_phone: true)
     select_common_form_entries
 
@@ -171,7 +171,7 @@ feature 'Admin sends targeted messages using segmentation' do
 
     crank_dj_clear
 
-    FakeTwilio.sent_messages.should be_empty
+    expect(FakeTwilio.sent_messages).to be_empty
   end
 
   it "should have helpful messages if email text and sms text are all blank", :js => true do
@@ -184,8 +184,8 @@ feature 'Admin sends targeted messages using segmentation' do
     expect_content "SMS text blank, no SMSes sent"
 
     crank_dj_clear
-    ActionMailer::Base.deliveries.should be_empty
-    FakeTwilio.sent_messages.should be_empty
+    expect(ActionMailer::Base.deliveries).to be_empty
+    expect(FakeTwilio.sent_messages).to be_empty
   end
 
   it "should allow both emails and SMSes to be sent at the same time", :js => true do
@@ -255,8 +255,8 @@ feature 'Admin sends targeted messages using segmentation' do
     expect_content "Scheduled SMS to 6 users"
 
     crank_dj_clear
-    ActionMailer::Base.deliveries.should have(6).emails
-    FakeTwilio.sent_messages.should have(6).texts
+    expect(ActionMailer::Base.deliveries.size).to eq(6)
+    expect(FakeTwilio.sent_messages.size).to eq(6)
   end
 
   it "should have a link from somewhere in the admin side" do
@@ -334,7 +334,7 @@ feature 'Admin sends targeted messages using segmentation' do
     expect_content "Scheduled SMS to 20 users"
 
     crank_dj_clear
-    FakeTwilio.sent_messages.should have(20).texts
+    expect(FakeTwilio.sent_messages.size).to eq(20)
   end
 
   it "should not show a misleading error message after scheduling a long email", :js => true do
@@ -392,24 +392,24 @@ feature 'Admin sends targeted messages using segmentation' do
 
     #FIXME do not test  non view behavior in acceptance tests!
     it 'should allow a communication to be sent later', :js => true do
-     pending "This behavior should not be tested in a request spec"
+     skip "This behavior should not be tested in a request spec"
      expect_content "Scheduled email to 1 users"
       expect_content "Scheduled SMS to 1 users"
 
       crank_dj_clear
 
-      FakeTwilio.sent_messages.should be_empty
-      ActionMailer::Base.deliveries.should be_empty
+      expect(FakeTwilio.sent_messages).to be_empty
+      expect(ActionMailer::Base.deliveries).to be_empty
 
       Timecop.travel(10.minutes + 1.second)
       crank_dj_clear
 
-      FakeTwilio.sent_messages.should have(1).sms
-      ActionMailer::Base.deliveries.should have(1).email
+      expect(FakeTwilio.sent_messages.size).to eq(1)
+      expect(ActionMailer::Base.deliveries.size).to eq(1)
     end
 
     it 'should allow a communication to be tracked after the fact', :js => true do
-     pending "This behavior should not be tested in a request spec"
+     skip "This behavior should not be tested in a request spec"
       expect_content "Scheduled email to 1 users"
 
       crank_dj_clear
@@ -427,8 +427,8 @@ feature 'Admin sends targeted messages using segmentation' do
   context 'list of qualified recipients changes between time scheduled and time sent' do
 
     def check_emails_and_texts(num_emails, num_texts)
-      ActionMailer::Base.deliveries.should have(num_emails).emails
-      FakeTwilio.sent_messages.should have(num_texts).texts
+      expect(ActionMailer::Base.deliveries.size).to eq(num_emails)
+      expect(FakeTwilio.sent_messages.size).to eq(num_texts)
 
       expect(ActionMailer::Base.deliveries.map(&:to).flatten.sort).to eq(@email_users.collect(&:email).sort)
 
@@ -503,7 +503,7 @@ feature 'Admin sends targeted messages using segmentation' do
     it "new users who qualify should be on the list, old users who no longer qualify should be off the list, and \
         the database record for this targeted message should be updated to reflect the new list of recipients", :js => true do
       
-     pending "This behavior should not be tested in a request spec"
+     skip "This behavior should not be tested in a request spec"
       Timecop.travel(@send_time + 1.second)  # Send the
       crank_dj_clear                         # messages
 

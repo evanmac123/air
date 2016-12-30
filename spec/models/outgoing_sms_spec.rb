@@ -1,5 +1,5 @@
 require 'spec_helper'
 
 describe OutgoingSms do
-  it { should belong_to :mate }
+  it { is_expected.to belong_to :mate }
 end

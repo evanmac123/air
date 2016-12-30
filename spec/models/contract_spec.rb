@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Contract do
   it "is valid if all required fields provided" do
     c = FactoryGirl.build(:contract, :complete)
-    expect(c.valid?).to be_true
+    expect(c.valid?).to be_truthy
   end
 
   it "is a valid upgrade if all fields provided and has valid parent" do
@@ -18,12 +18,12 @@ describe Contract do
 
   it "is an invalid if custom without term " do
     c = FactoryGirl.build(:contract, :complete, :custom )
-    expect(c.valid?).to be_false
+    expect(c.valid?).to be_falsey
   end
 
   it "is an valid if custom without term " do
     c = FactoryGirl.build(:contract, :complete, :custom_valid )
-    expect(c.valid?).to be_true
+    expect(c.valid?).to be_truthy
   end
 
   describe "renew" do

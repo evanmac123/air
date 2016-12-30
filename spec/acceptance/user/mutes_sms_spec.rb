@@ -87,13 +87,13 @@ feature 'Mutes sms' do
   end
 
   scenario "gets texts about muting only, not e-mails" do
-    ActionMailer::Base.deliveries.should be_empty
+    expect(ActionMailer::Base.deliveries).to be_empty
     10.times do
       SMS.send_message user, "hi"
       user.reload
     end
     crank_dj_clear
 
-    ActionMailer::Base.deliveries.should be_empty
+    expect(ActionMailer::Base.deliveries).to be_empty
   end
 end

@@ -32,7 +32,7 @@ feature 'Browses user lists' do
     end
 
     other_demo_guy = FactoryGirl.create(:user, name: "Johnny Otherdemo")
-    other_demo_guy.demo.should_not == client_admin.demo
+    expect(other_demo_guy.demo).not_to eq(client_admin.demo)
     site_admin_guy = FactoryGirl.create(:site_admin, name: "Site Dude", demo: client_admin.demo)
 
     non_site_admins = client_admin.demo.users.where(is_site_admin: false)
@@ -80,7 +80,7 @@ feature 'Browses user lists' do
 
   it "allows admin to invite user from the browse results page, assuming they have an email address", js:true do
     alfred = FactoryGirl.create(:user, name: "Alfred Jones", demo: client_admin.demo)
-    alfred.should_not be_invited
+    expect(alfred).not_to be_invited
     visit client_admin_users_path(show_everyone: true, as: client_admin)
    within("tr.found-user[data-user-id='#{alfred.id}']") do
       page.find(".send-invite-link").click
@@ -90,8 +90,8 @@ feature 'Browses user lists' do
 
   it "should not present the option for an admin to try to invite a user without an email" do
     alfred = FactoryGirl.create(:user, name: "Alfred Jones", demo: client_admin.demo, email: '', official_email:"yada@yada.com")
-    alfred.should_not be_invited
+    expect(alfred).not_to be_invited
     visit client_admin_users_path(show_everyone: true, as: client_admin)
-    page.all("a[href='#{client_admin_user_invitation_path(alfred)}']").should be_empty
+    expect(page.all("a[href='#{client_admin_user_invitation_path(alfred)}']")).to be_empty
   end
 end

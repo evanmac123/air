@@ -12,7 +12,7 @@ feature "User Sees Only Profile In Current Demo" do
     should_be_on activity_path
 
     visit user_path(@user2)
-    page.should_not have_content(@user2.email)
-    page.status_code.should == 404
+    expect(page).not_to have_content(@user2.email)
+    expect(page.status_code).to eq(404)
   end
 end

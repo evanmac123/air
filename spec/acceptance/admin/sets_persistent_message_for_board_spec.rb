@@ -13,6 +13,6 @@ feature 'Admin sets persistent message for board' do
     fill_in_persistent_message(message)
     click_button "Update Game"
 
-    board.reload.persistent_message.should == message
+    expect(board.reload.persistent_message).to eq(message)
   end
 end

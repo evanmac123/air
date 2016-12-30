@@ -10,7 +10,7 @@ feature 'site admin monitors bulk upload progress' do
   end
 
   before do
-    pending "This behavior should not be tested in a request spec"
+    skip "This behavior should not be tested in a request spec"
     board = FactoryGirl.create(:demo)
     users = FactoryGirl.create_list(:user, 10)
     users.each{|user| user.add_board(board)}
@@ -55,6 +55,6 @@ feature 'site admin monitors bulk upload progress' do
   it 'should link to a page where you can see the errors' do
     click_link "(see errors)"
     uri = URI.parse(current_url)
-    "#{uri.path}?#{uri.query}".should == admin_bulk_upload_errors_path(object_key: object_key)
+    expect("#{uri.path}?#{uri.query}").to eq(admin_bulk_upload_errors_path(object_key: object_key))
   end
 end

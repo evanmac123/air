@@ -37,39 +37,39 @@ describe SmsController do
       end
 
       it "should return some text with a 200 status" do
-        response.status.should == 200
-        response.content_type.should == 'text/plain'
-        response.body.should_not be_blank
+        expect(response.status).to eq(200)
+        expect(response.content_type).to eq('text/plain')
+        expect(response.body).not_to be_blank
       end
 
       it "should record a IncomingSms" do
-        IncomingSms.count.should == 1
+        expect(IncomingSms.count).to eq(1)
 
         incoming_sms = IncomingSms.first
-        incoming_sms.from.should == "+14152613077"
-        incoming_sms.body.should == "ate kitten"
-        incoming_sms.twilio_sid.should == "SM12ac8c0c64e01188d32fa2d4b40f1b5d"
+        expect(incoming_sms.from).to eq("+14152613077")
+        expect(incoming_sms.body).to eq("ate kitten")
+        expect(incoming_sms.twilio_sid).to eq("SM12ac8c0c64e01188d32fa2d4b40f1b5d")
       end
 
       it "should record an OutgoingSms" do
-        OutgoingSms.count.should == 1
+        expect(OutgoingSms.count).to eq(1)
 
         outgoing_sms = OutgoingSms.first
-        outgoing_sms.mate.should == IncomingSms.first
-        outgoing_sms.to.should == "+14152613077"
-        outgoing_sms.body.should == response.body
+        expect(outgoing_sms.mate).to eq(IncomingSms.first)
+        expect(outgoing_sms.to).to eq("+14152613077")
+        expect(outgoing_sms.body).to eq(response.body)
       end
 
       it "should bump the user's mt_texts_today" do
-        (@user.reload.mt_texts_today - @original_mt_texts_today).should == 1
+        expect(@user.reload.mt_texts_today - @original_mt_texts_today).to eq(1)
       end
     end
 
     context "when properly authenticated as the heartbeat" do
       it "should return a short code with a 200 status" do
         post('create', {'Heartbeat' => SmsController::HEARTBEAT_CODE})
-        response.status.should == 200
-        response.body.should == 'ok'
+        expect(response.status).to eq(200)
+        expect(response.body).to eq('ok')
       end
     end
 
@@ -77,8 +77,8 @@ describe SmsController do
       it "should return a blank 404" do
         post :create, @params.merge({'AccountSid' => Twilio::ACCOUNT_SID + "youbrokeit"})
 
-        response.status.should == 404
-        response.body.should be_blank
+        expect(response.status).to eq(404)
+        expect(response.body).to be_blank
       end
     end
   end

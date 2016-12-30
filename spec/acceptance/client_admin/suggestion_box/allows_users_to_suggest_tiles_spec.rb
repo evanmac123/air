@@ -67,7 +67,7 @@ feature 'Client admin segments on characteristics' do
           expect(page).to have_css ".specific_users_copy.on"
           expect(page).to_not have_css ".all_users_copy.on"
         end
-        user_rows.count.should == 0
+        expect(user_rows.count).to eq(0)
       end
 
       it "should switch to all users", js: true do
@@ -76,7 +76,7 @@ feature 'Client admin segments on characteristics' do
       end
 
       it "should save switcher state after clicking 'save'", js: true do
-        pending "this test needs the UI to be updated with visual confirmaiton of actions taken"
+        skip "this test needs the UI to be updated with visual confirmaiton of actions taken"
         within "#suggestions_access_modal" do
           all_users_switcher_on.click
           expect_content "You've selected All Users"
@@ -100,11 +100,11 @@ feature 'Client admin segments on characteristics' do
       context "Autocomplete Input" do
         it "should autocomplete entered name and show users", js: true do
           fill_in_username_autocomplete("Use")
-          autocomplete_result_names.count.should == 4
-          autocomplete_result_names.should == ["User1", "User2", "User3", "User4"]
+          expect(autocomplete_result_names.count).to eq(4)
+          expect(autocomplete_result_names).to eq(["User1", "User2", "User3", "User4"])
 
           fill_in_username_autocomplete("W")
-          autocomplete_result_names.count.should == 1
+          expect(autocomplete_result_names.count).to eq(1)
           autocomplete_result_names[0] =~ /No match for W./
         end
 
@@ -113,11 +113,11 @@ feature 'Client admin segments on characteristics' do
           username_autocomplete_results_click 0
 
           wait_for_ajax
-          user_rows.first.find(".user_name").text.should == "User1"
+          expect(user_rows.first.find(".user_name").text).to eq("User1")
 
           save_button.click
 
-          demo.users_that_allowed_to_suggest_tiles.pluck(:name).should == ["User1"]
+          expect(demo.users_that_allowed_to_suggest_tiles.pluck(:name)).to eq(["User1"])
         end
       end
 
@@ -165,14 +165,14 @@ feature 'Client admin segments on characteristics' do
           page.find(".user_remove a").click
         end
 
-        user_rows.count.should == 0
+        expect(user_rows.count).to eq(0)
 
         suggestion_box_cancel.click
         expect_content warning_modal_mess
         # cancel modal and this moves us back in suggestion box
         warning_cancel.click
         expect_content suggestion_box_header
-        user_rows.count.should == 0
+        expect(user_rows.count).to eq(0)
 
         suggestion_box_cancel.click
         expect_content warning_modal_mess
@@ -182,7 +182,7 @@ feature 'Client admin segments on characteristics' do
         # open box again and get our initial data
         manage_access_link.click
         expect_content suggestion_box_header
-        user_rows.count.should == 1
+        expect(user_rows.count).to eq(1)
       end
     end
   end

@@ -209,7 +209,7 @@ feature "Client admin opens tile stats", js: true, type: :feature do
 
       it "should show all users initally" do
         within "#tile_stats_grid" do
-          all_names.should == ["user0", "user1", "user2", "user3", "user4", "user5", "user6", "user7", "user8"]
+          expect(all_names).to eq(["user0", "user1", "user2", "user3", "user4", "user5", "user6", "user7", "user8"])
         end
       end
 
@@ -218,7 +218,7 @@ feature "Client admin opens tile stats", js: true, type: :feature do
           page.first("td.answer_column", text: "Yes").click
           expect(page).to have_no_css("td.answer_column", text: "No")
           expect(page).to have_no_css("td.answer_column", text: "A V8 Buick")
-          all_names.should == ["user0", "user3", "user6"]
+          expect(all_names).to eq(["user0", "user3", "user6"])
         end
       end
 
@@ -227,7 +227,7 @@ feature "Client admin opens tile stats", js: true, type: :feature do
           page.first("td.answer_column", text: "No").click
           expect(page).to have_no_css("td.answer_column", text: "Yes")
           expect(page).to have_no_css("td.answer_column", text: "A V8 Buick")
-          all_names.should == ["user1", "user4", "user7"]
+          expect(all_names).to eq(["user1", "user4", "user7"])
         end
       end
     end
@@ -243,7 +243,7 @@ feature "Client admin opens tile stats", js: true, type: :feature do
         expect_content "Percent"
 
         @tile.multiple_choice_answers.each do |answer|
-          page.find(".survey-chart-table").should have_content answer
+          expect(page.find(".survey-chart-table")).to have_content answer
         end
       end
 

@@ -32,7 +32,7 @@ describe "any controller descended from ApplicationController" do
       context "and no subdomain is specified" do
         it "should redirect to the corresponding HTTPS endpoint, with www subdomain" do
           get :index
-          response.should redirect_to("https://www.test.host/activity")
+          expect(response).to redirect_to("https://www.test.host/activity")
         end
       end
 
@@ -43,14 +43,14 @@ describe "any controller descended from ApplicationController" do
 
         it "should redirect to the corresponding HTTPS endpoint, using the original subdomain" do
           get :index
-          response.should redirect_to("https://secure.test.host/activity")
+          expect(response).to redirect_to("https://secure.test.host/activity")
         end
       end
 
       context "with query parameters" do
         it "should preserve them" do
           get :index, :foo => "foo", :bar => "bar"
-          response.location.should =~ /\?bar=bar\&foo=foo$/
+          expect(response.location).to match(/\?bar=bar\&foo=foo$/)
         end
       end
     end
@@ -86,13 +86,13 @@ describe AnyController do
       $test_force_ssl = true
     end
 
-    pending "should log ping without user", :make_controller do
+    skip "should log ping without user", :make_controller do
       #FIXME "This test causes all subsquent test to fail when run in suite"
         Rails.logger.expects(:warn).with("INVALID USER PING SENT some event")
         get :index
     end
 
-    pending "should log ping without user", :make_controller do
+    skip "should log ping without user", :make_controller do
       #FIXME "This test causes all subsquent test to fail when run in suite"
         Rails.logger.expects(:warn).never
         get :index, :user => true

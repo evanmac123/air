@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe UserSettingsChangeLog do
-  it { should belong_to :user }
+  it { is_expected.to belong_to :user }
 
   it "should validate email presense if saving_email" do
     uscl = UserSettingsChangeLog.new

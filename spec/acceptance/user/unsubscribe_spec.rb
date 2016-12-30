@@ -10,20 +10,20 @@ feature "Leah unsubscribes" do
   end
 
   it "should create an unsubscribe" do
-    Unsubscribe.count.should == 0
+    expect(Unsubscribe.count).to eq(0)
     visit @unsubscribe_url
     #fill_in 'unsubscribe_reason', with: @reason 
     click_button 'Unsubscribe'
-    page.should have_content 'You have been unsubscribed'
-    Unsubscribe.count.should == 1
+    expect(page).to have_content 'You have been unsubscribed'
+    expect(Unsubscribe.count).to eq(1)
     a = Unsubscribe.first
-    a.user_id.should == @leah.id
+    expect(a.user_id).to eq(@leah.id)
     #a.reason.should == @reason
   end
 
   context "when Leah is unclaimed" do
     before do
-      @leah.should_not be_claimed
+      expect(@leah).not_to be_claimed
     end
 
     it "should not have a link to the account preferences page" do

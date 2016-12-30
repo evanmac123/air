@@ -25,7 +25,7 @@ feature 'Uploads file to fake bulk uploader' do
   end
 
   def expect_total_users_display(count)
-    page.should have_content("Activated users #{count}")
+    expect(page).to have_content("Activated users #{count}")
   end
 
   def template_url
@@ -53,15 +53,15 @@ feature 'Uploads file to fake bulk uploader' do
     crank_dj_clear
     open_email(BulkUploadNotificationMailer::ADDRESS_TO_NOTIFY)
 
-    current_email.body.should match(%r!https://s3.amazonaws.com/#{BULK_UPLOADER_BUCKET}/uploads/[0123456789abcdef-]{36}/arbitrary_csv.csv!)
-    current_email.body.should contain(@client_admin.name)
-    current_email.body.should contain(@client_admin.email)
-    current_email.body.should contain(@client_admin.demo.name)
-    current_email.body.should contain(@client_admin.demo_id)
+    expect(current_email.body).to match(%r!https://s3.amazonaws.com/#{BULK_UPLOADER_BUCKET}/uploads/[0123456789abcdef-]{36}/arbitrary_csv.csv!)
+    expect(current_email.body).to contain(@client_admin.name)
+    expect(current_email.body).to contain(@client_admin.email)
+    expect(current_email.body).to contain(@client_admin.demo.name)
+    expect(current_email.body).to contain(@client_admin.demo_id)
   end
 
   it "has a count of the number of users" do
-    @client_admin.demo.users.claimed.should be_empty
+    expect(@client_admin.demo.users.claimed).to be_empty
 
     visit client_admin_users_path(as: @client_admin)
     expect_total_users_display 0
@@ -76,32 +76,32 @@ feature 'Uploads file to fake bulk uploader' do
       user.add_board(@client_admin.demo)
     end
 
-    @client_admin.demo.users.claimed.should have(3).claimed_users
+    expect(@client_admin.demo.users.claimed.size).to eq(3)
     visit client_admin_users_path(as: @client_admin)
     expect_total_users_display 3
   end
 
   it "has a downloadable template" do
     visit client_admin_users_path(as: @client_admin)
-    page.first("a[href=\"#{template_url}\"]").should be_present
+    expect(page.first("a[href=\"#{template_url}\"]")).to be_present
   end
 
   it "has a reasonable message for the user" do
     visit client_admin_users_path(as: @client_admin)
-    page.should have_no_content(upload_in_progress_message)
+    expect(page).to have_no_content(upload_in_progress_message)
 
     simulate_upload
-    page.should have_content(upload_in_progress_message)
+    expect(page).to have_content(upload_in_progress_message)
   end
 
   it "updates the users_last_loaded date" do
     Timecop.freeze
     begin
       visit client_admin_users_path(as: @client_admin)
-      page.should have_no_content(last_loaded_message)
+      expect(page).to have_no_content(last_loaded_message)
 
       simulate_upload
-      page.should have_content(last_loaded_message)
+      expect(page).to have_content(last_loaded_message)
     ensure
       Timecop.return
     end

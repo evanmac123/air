@@ -43,7 +43,7 @@ feature 'User views tile' do
 
     context "when a tile has no attached link address" do
       before(:each) do
-        @make_toast.link_address.should be_blank
+        expect(@make_toast.link_address).to be_blank
       end
 
       scenario "it should not be wrapped in a link" do
@@ -51,7 +51,7 @@ feature 'User views tile' do
         toast_image = page.find("img[alt='make toast']")
         parent = page.find(:xpath, toast_image.path + "/..")
 
-        parent.tag_name.should_not == "a"
+        expect(parent.tag_name).not_to eq("a")
         parent.click
         should_be_on tiles_path
       end
@@ -61,10 +61,10 @@ feature 'User views tile' do
   context "when there are no tiles to be seen" do
     it "should show 4 placeholders" do
       user = FactoryGirl.create(:user, :claimed)
-      user.demo.tiles.should be_empty
+      expect(user.demo.tiles).to be_empty
 
       visit activity_path(as: user)
-      page.all(".placeholder_tile.tile_thumbnail").count.should == 4
+      expect(page.all(".placeholder_tile.tile_thumbnail").count).to eq(4)
     end
   end
 end

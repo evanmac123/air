@@ -102,13 +102,13 @@ module SteakHelperMethods
 
   def expect_suggestion_recorded(user_or_username, suggestion_text)
     user = user_or_username.kind_of?(User) ? user_or_username : User.find_by_name(user_or_username)
-    Suggestion.where(:user_id => user.id, :value => suggestion_text).first.should_not be_nil
+    expect(Suggestion.where(:user_id => user.id, :value => suggestion_text).first).not_to be_nil
   end
 
   def expect_avatar_in_masthead(expected_filename)
     avatar = page.find(:css, 'img.avatar48')
     avatar_url = avatar['src'].gsub(/\?.*$/, '') # Chop off query params
-    avatar_url.should =~ /#{expected_filename}$/
+    expect(avatar_url).to match(/#{expected_filename}$/)
   end
 
   def expect_default_avatar_in_masthead
@@ -118,7 +118,7 @@ module SteakHelperMethods
   def expect_logo_in_header expected_filename
     logo = page.find(:css, "#logo .go_home img")
     logo_url = logo['src'].gsub(/\?.*$/, '')
-    logo_url.should =~ /#{expected_filename}$/
+    expect(logo_url).to match(/#{expected_filename}$/)
   end
 
   def expect_default_logo_in_header
@@ -128,13 +128,13 @@ module SteakHelperMethods
   def expect_inline_style(css_selector, style_key, expected_value)
     element = find(:css, css_selector)
     style = element['style']
-    style.should_not be_nil
+    expect(style).not_to be_nil
 
     styles = style.split(/\s*\;\s*/)
 
     style_sought = styles.detect{|style| style =~ /^#{style_key}\s*:\s*(.*)$/}
-    style_sought.should_not be_nil
-    $1.should == expected_value
+    expect(style_sought).not_to be_nil
+    expect($1).to eq(expected_value)
   end
 
   def page_text
@@ -146,11 +146,11 @@ module SteakHelperMethods
   end
 
   def expect_content_case_insensitive(expected_content)
-    page_text.downcase.should include(expected_content.downcase)
+    expect(page_text.downcase).to include(expected_content.downcase)
   end
 
   def expect_no_content(unexpected_content)
-    page.should have_no_content(unexpected_content)
+    expect(page).to have_no_content(unexpected_content)
   end
 
   def find_select_element(select_identifier)
@@ -168,17 +168,17 @@ module SteakHelperMethods
   def expect_selected(expected_value, select_identifier = nil)
     option_context = select_identifier ? find_select_element(select_identifier) : page
     option_expected_to_be_selected = option_context.find %{option[@value="#{expected_value}"]}
-    option_expected_to_be_selected['selected'].should be_present
+    expect(option_expected_to_be_selected['selected']).to be_present
   end
 
   def expect_no_option_selected(select_identifier)
     select = find_select_element(select_identifier)
-    select.all("option[@select]").should be_empty
+    expect(select.all("option[@select]")).to be_empty
   end
 
   def expect_value(input_identifier, expected_value)
     input = find_input_element(input_identifier)
-    input.value.should == expected_value
+    expect(input.value).to eq(expected_value)
   end
 
   def expect_checked(input_identifier)
@@ -187,9 +187,9 @@ module SteakHelperMethods
 
     case input_element['type']
     when 'checkbox'
-      input_element.value.to_i.should == 1
+      expect(input_element.value.to_i).to eq(1)
     when 'radio'
-      input_element['checked'].should be_present
+      expect(input_element['checked']).to be_present
     else
       raise "element #{input_identifier} was expected to be radio or checkbox, but was a #{input_element['type']}"
     end
@@ -200,11 +200,11 @@ module SteakHelperMethods
   end
 
   def expect_raffle_entries count
-    page.find("#raffle_entries").text.should == count.to_s
+    expect(page.find("#raffle_entries").text).to eq(count.to_s)
   end
 
   def expect_link(text, url)
-    page.find(:xpath, "//a[@href='#{url}']", :text => text).should be_present
+    expect(page.find(:xpath, "//a[@href='#{url}']", :text => text)).to be_present
   end
 
   def act_via_play_box(text)
@@ -225,15 +225,15 @@ module SteakHelperMethods
   end
 
   def expect_button(text)
-    buttons_with_text(text).should_not be_empty
+    expect(buttons_with_text(text)).not_to be_empty
   end
 
   def expect_no_button(text)
-    buttons_with_text(text).should be_empty
+    expect(buttons_with_text(text)).to be_empty
   end
 
   def expect_none_selected(input_name)
-    page.all(:css, "input[@name='#{input_name}']").any?(&:checked?).should_not be_true
+    expect(page.all(:css, "input[@name='#{input_name}']").any?(&:checked?)).not_to be_truthy
   end
 
   def click_submit_in_form(form_selector)
@@ -279,11 +279,11 @@ module SteakHelperMethods
   end
 
   def expect_disabled(element)
-    element["disabled"].should_not be_nil
+    expect(element["disabled"]).not_to be_nil
   end
 
   def expect_not_disabled(element)
-    element["disabled"].should be_nil
+    expect(element["disabled"]).to be_nil
   end
 
   def wait_until(timeout = Capybara.default_max_wait_time)
@@ -295,7 +295,7 @@ module SteakHelperMethods
   end
 
   def expect_game_referrer_id(expected_id)
-    expected_id.to_s.should == page.find('#user_game_referrer_id').value
+    expect(expected_id.to_s).to eq(page.find('#user_game_referrer_id').value)
   end
 
   def open_admin_nav
@@ -334,7 +334,7 @@ module SteakHelperMethods
   end
 
   def expect_no_site_tutorial_lightbox
-    page.all(site_tutorial_lightbox_selector).should be_empty
+    expect(page.all(site_tutorial_lightbox_selector)).to be_empty
   end
 
   def close_conversion_form
@@ -346,7 +346,7 @@ module SteakHelperMethods
   end
 
   def wait_for_conversion_form
-    page.should have_selector(conversion_form_selector, visible: true)
+    expect(page).to have_selector(conversion_form_selector, visible: true)
   end
 
   def expect_conversion_form
@@ -354,7 +354,7 @@ module SteakHelperMethods
   end
 
   def expect_counter_text(counter, max_characters)
-    counter.text.should == counter_text(max_characters)
+    expect(counter.text).to eq(counter_text(max_characters))
   end
 
   def expect_character_counter_for(selector, max_characters)

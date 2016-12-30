@@ -14,8 +14,8 @@ describe SMS do
 
       Delayed::Worker.new.work_off(10)
 
-      Twilio::SMS.should have_received(:create).with(:to => "+14155551212", :from => TWILIO_PHONE_NUMBER, :body => "hi 1")
-      Twilio::SMS.should have_received(:create).with(:to => "+16175551212", :from => TWILIO_PHONE_NUMBER, :body => "hi 2")
+      expect(Twilio::SMS).to have_received(:create).with(:to => "+14155551212", :from => TWILIO_PHONE_NUMBER, :body => "hi 1")
+      expect(Twilio::SMS).to have_received(:create).with(:to => "+16175551212", :from => TWILIO_PHONE_NUMBER, :body => "hi 2")
     end
 
     context "when sending to a User" do
@@ -25,14 +25,14 @@ describe SMS do
 
       context "whose demo has no custom phone number" do
         before do
-          @user.demo.phone_number.should be_nil
+          expect(@user.demo.phone_number).to be_nil
         end
 
         it "should send from the default number" do
           SMS.send_message(@user, "hi")
           Delayed::Worker.new.work_off(10)
 
-          Twilio::SMS.should have_received(:create).with(:to => "+14155551212", :from => TWILIO_PHONE_NUMBER, :body => "hi")
+          expect(Twilio::SMS).to have_received(:create).with(:to => "+14155551212", :from => TWILIO_PHONE_NUMBER, :body => "hi")
         end
       end
 
@@ -45,7 +45,7 @@ describe SMS do
           SMS.send_message(@user, "hi")
           Delayed::Worker.new.work_off(10)
 
-          Twilio::SMS.should have_received(:create).with(:to => "+14155551212", :from => "+16175551212", :body => "hi")
+          expect(Twilio::SMS).to have_received(:create).with(:to => "+14155551212", :from => "+16175551212", :body => "hi")
         end
       end
 
@@ -54,7 +54,7 @@ describe SMS do
         3.times {SMS.send_message(@user, 'hey there')}
         Delayed::Worker.new.work_off(10)
         
-        (@user.reload.mt_texts_today - original_mt_texts_today).should == 3
+        expect(@user.reload.mt_texts_today - original_mt_texts_today).to eq(3)
       end
 
       it "should send nothing if the user is muted" do
@@ -62,12 +62,12 @@ describe SMS do
         @user.update_attributes(:last_muted_at => (23.hours + 59.minutes + 59.seconds).ago)
         SMS.send_message(@user, "hi")
         Delayed::Worker.new.work_off(10)
-        Twilio::SMS.should have_received(:create).never
+        expect(Twilio::SMS).to have_received(:create).never
 
         @user.update_attributes(:last_muted_at => (24.hours.ago))
         SMS.send_message(@user, "hey")
         Delayed::Worker.new.work_off(10)
-        Twilio::SMS.should have_received(:create)
+        expect(Twilio::SMS).to have_received(:create)
         
         Timecop.return
       end
@@ -81,10 +81,10 @@ describe SMS do
 
       SMS.bulk_send_messages(users.map(&:id), "hey friends!")
       crank_dj_clear
-      Twilio::SMS.should have_received(:create).times(3)
+      expect(Twilio::SMS).to have_received(:create).times(3)
 
       users.each do |user|
-        Twilio::SMS.should have_received(:create).with(:to => user.phone_number, :from => TWILIO_PHONE_NUMBER, :body => "hey friends!")
+        expect(Twilio::SMS).to have_received(:create).with(:to => user.phone_number, :from => TWILIO_PHONE_NUMBER, :body => "hey friends!")
       end
     end
   end

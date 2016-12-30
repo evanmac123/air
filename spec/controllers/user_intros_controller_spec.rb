@@ -9,7 +9,7 @@ describe UserIntrosController do
       FactoryGirl.create(:tile, headline: "I'm a tile", demo: @demo, activated_at: 1.day.ago)
       sign_in_as(@kendra)
       xhr :put, :update, {intro: "displayed_first_tile_hint"}
-      response.code.should == "200"
+      expect(response.code).to eq("200")
     end
 
     it "completes with 200 status code as a guest_user" do
@@ -17,7 +17,7 @@ describe UserIntrosController do
       FactoryGirl.create(:tile, demo: @demo)
       session[:guest_user]={demo_id: @demo.id}
       xhr :put, :update, {intro: "displayed_first_tile_hint"}
-      response.code.should == "200"
+      expect(response.code).to eq("200")
     end
   end
 end

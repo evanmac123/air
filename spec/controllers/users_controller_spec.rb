@@ -19,25 +19,25 @@ describe ::UsersController do
       site_admin = FactoryGirl.create(:site_admin, demo: @demo)
       sign_in_as(site_admin)
       get :show, id: @user_we_are_viewing.slug
-      response.should be_success
-      assigns(:display_user_stats).should be_true
-      assigns(:display_pending_friendships).should be_true
+      expect(response).to be_success
+      expect(assigns(:display_user_stats)).to be_truthy
+      expect(assigns(:display_pending_friendships)).to be_truthy
     end
 
     it "should allow friend to view information" do
       sign_in_as(@friend)
       get :show, id: @user_we_are_viewing.slug
-      response.should be_success
-      assigns(:display_user_stats).should be_true
-      assigns(:display_pending_friendships).should be_false
+      expect(response).to be_success
+      expect(assigns(:display_user_stats)).to be_truthy
+      expect(assigns(:display_pending_friendships)).to be_falsey
     end
 
     it "should not allow random people to view information" do
       sign_in_as(@random_user)
       get :show, :id => @user_we_are_viewing.slug
-      response.should be_success
-      assigns(:display_user_stats).should be_false
-      assigns(:display_pending_friendships).should be_false
+      expect(response).to be_success
+      expect(assigns(:display_user_stats)).to be_falsey
+      expect(assigns(:display_pending_friendships)).to be_falsey
     end
   end
 end

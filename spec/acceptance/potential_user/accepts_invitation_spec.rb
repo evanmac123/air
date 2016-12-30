@@ -14,8 +14,8 @@ feature "Potential User Accepts Invitation" do
 
     it "should get email with invitation" do
       open_email @potential_user.email
-      current_email.to_s.should have_content "#{@user.name} invited you to"
-      current_email.to_s.should have_content " join the #{@demo.name}"
+      expect(current_email.to_s).to have_content "#{@user.name} invited you to"
+      expect(current_email.to_s).to have_content " join the #{@demo.name}"
     end
 
     it "should direct to activity page" do
@@ -40,7 +40,7 @@ feature "Potential User Accepts Invitation" do
       it "should register new user in the system", js: true do
         new_user = User.last
         expect(new_user.name).to eq("my name")
-        new_user.email.should == @potential_user.email
+        expect(new_user.email).to eq(@potential_user.email)
       end
 
       it "should show welcome message", js: true do
@@ -52,7 +52,7 @@ feature "Potential User Accepts Invitation" do
         new_user = User.last
 
         open_email @user.email
-        current_email.to_s.should have_content "#{new_user.name} gave you credit for recruiting them. Many thanks and bonus points!"
+        expect(current_email.to_s).to have_content "#{new_user.name} gave you credit for recruiting them. Many thanks and bonus points!"
       end
     end
 
@@ -90,7 +90,7 @@ feature "Potential User Accepts Invitation" do
       visit invitation_path(@potential_user.invitation_code, demo_id: @demo.id, referrer_id: @user.id)
       expect_content "Enter your first and last name to continue:".upcase
       sleep 1 # yeah yeah yeah shut up I'm in no mood
-      page.should have_no_content('New Raffle!')
+      expect(page).to have_no_content('New Raffle!')
     end
   end
 end

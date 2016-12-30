@@ -11,18 +11,18 @@ describe SMS::OutgoingMessageJob do
   context "#perform" do
     it "should post the message to Twilio" do
       @job.perform
-      Twilio::SMS.should have_received(:create).with(:from => "+14155551212", :to => "+16175551212", :body => "hey there")
+      expect(Twilio::SMS).to have_received(:create).with(:from => "+14155551212", :to => "+16175551212", :body => "hey there")
     end
 
     it "should record an OutgoingSms" do
       @job.perform
 
-      OutgoingSms.count.should == 1
+      expect(OutgoingSms.count).to eq(1)
 
       outgoing_sms = OutgoingSms.first
-      outgoing_sms.body.should == 'hey there'
-      outgoing_sms.to.should == "+16175551212"
-      outgoing_sms.mate.should be_nil
+      expect(outgoing_sms.body).to eq('hey there')
+      expect(outgoing_sms.to).to eq("+16175551212")
+      expect(outgoing_sms.mate).to be_nil
     end
 
     context "when the number is one of our dummy numbers (in the 999 area code)" do
@@ -33,7 +33,7 @@ describe SMS::OutgoingMessageJob do
 
       it "should not try to send" do
         @job.perform
-        Twilio::SMS.should have_received(:create).never
+        expect(Twilio::SMS).to have_received(:create).never
       end
     end
 
@@ -45,7 +45,7 @@ describe SMS::OutgoingMessageJob do
 
       it "should alert Airbrake" do
         @job.perform
-        Airbrake.should have_received(:notify).with(:error_class => @exception.class, :error_message => @exception.message, :parameters => {:from => "+14155551212", :to => "+16175551212", :body => "hey there"})
+        expect(Airbrake).to have_received(:notify).with(:error_class => @exception.class, :error_message => @exception.message, :parameters => {:from => "+14155551212", :to => "+16175551212", :body => "hey there"})
       end
     end
   end

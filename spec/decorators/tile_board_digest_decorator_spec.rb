@@ -9,8 +9,8 @@ describe TileBoardDigestDecorator do
 
   context "#email_site_link" do
     it "should return acts path for claimed user" do
-      TileBoardDigestDecorator.decorate(@tile, context: {user: @user, demo: @demo}) \
-      	.email_site_link.should match "acts"
+      expect(TileBoardDigestDecorator.decorate(@tile, context: {user: @user, demo: @demo}) \
+      	.email_site_link).to match "acts"
     end
   end
 end

@@ -29,8 +29,8 @@ feature 'Progress bars', js: true, wonky: true do
 
       click_right_answer
       visit @path
-      completed_tiles_number.should == tile_num + 1
-      total_points.should == points + @tile_1.points
+      expect(completed_tiles_number).to eq(tile_num + 1)
+      expect(total_points).to eq(points + @tile_1.points)
     end
   end
 
@@ -41,7 +41,7 @@ feature 'Progress bars', js: true, wonky: true do
       expect_no_content "New Prize!"
     end
     it "ping on first enter to new raffle" do
-      page.should have_content "New Prize!"
+      expect(page).to have_content "New Prize!"
       #FIXME move assertion to controller spec
       #FakeMixpanelTracker.clear_tracked_events
       #crank_dj_clear
@@ -75,7 +75,7 @@ feature 'Progress bars', js: true, wonky: true do
 
   context "for guest user" do
     before(:each) do
-      pending "Fails intermittently - refactor"
+      skip "Fails intermittently - refactor"
       @user = @guest_user
       @raffle = @demo.raffle = FactoryGirl.create(:raffle, :live, demo: @demo)
       @path = public_tiles_path(@demo.public_slug)
@@ -88,7 +88,7 @@ feature 'Progress bars', js: true, wonky: true do
 
   context "for user" do
     before(:each) do
-      pending "Fails intermittently -- refactor"
+      skip "Fails intermittently -- refactor"
       @user = @normal_user
 
       @raffle = @demo.raffle = FactoryGirl.create(:raffle, :live, demo: @demo)

@@ -17,13 +17,13 @@ describe "tiles/_multiple_choice_answers.html.erb" do
 
     context "and this answer is the one used to complete" do
       it "should render a clicked right answer" do
-        rendered.should have_css('.clicked_right_answer', text: 'Zero')
+        expect(rendered).to have_css('.clicked_right_answer', text: 'Zero')
       end
     end
 
     context "but this answer is not the one used to complete" do
       it "should render a nerfed answer" do
-        rendered.should have_css('.nerfed_answer', text: 'One')
+        expect(rendered).to have_css('.nerfed_answer', text: 'One')
       end
     end
   end

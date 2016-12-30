@@ -26,7 +26,7 @@ describe DummyController do
     it "should substitute plain Latin-1 punctuation for the fancy kind put in by a word processor" do
       get :echo, :text => "“”‘’–—"
       expect(response.status).to eq(200)
-      response.body.should == "\"\"''--"
+      expect(response.body).to eq("\"\"''--")
     end
   end
 end

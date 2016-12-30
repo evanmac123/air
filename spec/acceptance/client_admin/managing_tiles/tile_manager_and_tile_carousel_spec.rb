@@ -65,7 +65,7 @@ feature 'The order of the tiles in the tile mangaer and carousel are in synch', 
     end
 
     def check_manager(active_tile_headlines_order)
-      section_tile_headlines('#active').should == active_tile_headlines_order
+      expect(section_tile_headlines('#active')).to eq(active_tile_headlines_order)
     end
 
     def click_next_button

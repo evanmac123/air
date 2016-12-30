@@ -52,8 +52,8 @@ feature "Client Admin Changes Board Settings" do
         click_button "Update"
       end
 
-      demo.reload.name.should == "Board 5"
-      page.find("#current_board_name").text.should == "Board 5"
+      expect(demo.reload.name).to eq("Board 5")
+      expect(page.find("#current_board_name").text).to eq("Board 5")
     end
 
     it "should not update board name if it's not available", js: true do
@@ -62,7 +62,7 @@ feature "Client Admin Changes Board Settings" do
         click_button "Update"
       end
 
-      demo.reload.name.should == "Board 1"
+      expect(demo.reload.name).to eq("Board 1")
       expect_content "Sorry, that board name is already taken."
     end
 
@@ -72,7 +72,7 @@ feature "Client Admin Changes Board Settings" do
         click_button "Update"
       end
 
-      demo.reload.name.should == "Board 1"
+      expect(demo.reload.name).to eq("Board 1")
       expect_content "Sorry, you must enter a board name."
     end
   end
@@ -92,7 +92,7 @@ feature "Client Admin Changes Board Settings" do
         click_button "Update"
       end
 
-      demo.reload.logo_file_name.should == 'tasty.jpg'
+      expect(demo.reload.logo_file_name).to eq('tasty.jpg')
       expect_logo_in_header 'tasty.png'
     end
 
@@ -105,7 +105,7 @@ feature "Client Admin Changes Board Settings" do
       expect_content wrong_format_message
 
       expect_default_logo_in_header
-      demo.reload.logo.url.should =~ /logo.png/
+      expect(demo.reload.logo.url).to match(/logo.png/)
     end
 
     it "sholud set default logo by clear link", js: true do
@@ -119,7 +119,7 @@ feature "Client Admin Changes Board Settings" do
       end
 
       expect_default_logo_in_header
-      demo.reload.logo.url.should =~ /logo.png/
+      expect(demo.reload.logo.url).to match(/logo.png/)
     end
   end
 
@@ -138,7 +138,7 @@ feature "Client Admin Changes Board Settings" do
         click_button "Update"
       end
 
-      demo.reload.email.should == "board10@ourairbo.com"
+      expect(demo.reload.email).to eq("board10@ourairbo.com")
     end
 
     it "should not allow empty email address", js: true do
@@ -149,7 +149,7 @@ feature "Client Admin Changes Board Settings" do
 
       expect_no_content "Sorry, that email address is already taken."
       expect_content "Sorry, you must enter an email address."
-      demo.reload.email.should == "board1@ourairbo.com"
+      expect(demo.reload.email).to eq("board1@ourairbo.com")
     end
 
     it "should clear form by clear link", js: true do
@@ -158,7 +158,7 @@ feature "Client Admin Changes Board Settings" do
         clear_link.click
       end
 
-      find_field('Email Address').value.should eq 'board1'
+      expect(find_field('Email Address').value).to eq 'board1'
     end
   end
 
@@ -173,7 +173,7 @@ feature "Client Admin Changes Board Settings" do
         click_button "Update"
       end
 
-      demo.reload.custom_reply_email_name.should == "Good Guy"
+      expect(demo.reload.custom_reply_email_name).to eq("Good Guy")
     end
 
     it "should clear form by clear link", js: true do
@@ -182,7 +182,7 @@ feature "Client Admin Changes Board Settings" do
         clear_link.click
       end
 
-      find_field("'From' Name").value.should eq ''
+      expect(find_field("'From' Name").value).to eq ''
     end
   end
 
@@ -201,7 +201,7 @@ feature "Client Admin Changes Board Settings" do
         click_button "Update"
       end
 
-      demo.reload.public_slug.should == "board-0"
+      expect(demo.reload.public_slug).to eq("board-0")
     end
 
     it "should not update public slug if it's not available", js: true do
@@ -211,7 +211,7 @@ feature "Client Admin Changes Board Settings" do
       end
 
       expect_content "Sorry, that public link is already taken."
-      demo.reload.public_slug.should == "board-1"
+      expect(demo.reload.public_slug).to eq("board-1")
     end
 
     it "should not allow empty public link", js: true do
@@ -222,7 +222,7 @@ feature "Client Admin Changes Board Settings" do
 
       expect_no_content "Sorry, that public link is already taken."
       expect_content "Sorry, you must enter a public link."
-      demo.reload.public_slug.should == "board-1"
+      expect(demo.reload.public_slug).to eq("board-1")
     end
 
     it "should clear form by clear link", js: true do
@@ -231,7 +231,7 @@ feature "Client Admin Changes Board Settings" do
         clear_link.click
       end
 
-      find_field("Public Link").value.should eq 'board-1'
+      expect(find_field("Public Link").value).to eq 'board-1'
     end
   end
 
@@ -246,7 +246,7 @@ feature "Client Admin Changes Board Settings" do
         click_button "Update"
       end
 
-      demo.reload.persistent_message.should == "Happy New Year!"
+      expect(demo.reload.persistent_message).to eq("Happy New Year!")
     end
   end
 end

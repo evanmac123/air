@@ -43,7 +43,7 @@ feature 'User views tiles' do
 
     scenario 'and sees a helpful message afterwards', js: true do
       page.find('.right_multiple_choice_answer').click
-      page.should have_content(all_tiles_done_message)
+      expect(page).to have_content(all_tiles_done_message)
     end
 
     scenario "when it's not the first tile navigated to", js: true do
@@ -63,7 +63,7 @@ feature 'User views tiles' do
         short_url = "http://www.example.com"
         @tile.update_attributes(link_address: short_url)
         visit tiles_path(as: @user)
-        page.all("a[href='#{short_url}'][target=_blank]", text: short_url).should have(1).visible_link
+        expect(page.all("a[href='#{short_url}'][target=_blank]", text: short_url).size).to eq(1)
       end
     end
 
@@ -73,7 +73,7 @@ feature 'User views tiles' do
         truncated_long_url = "http://www.example.com/abcd..."
         @tile.update_attributes(link_address: long_url)
         visit tiles_path(as: @user)
-        page.all("a[href='#{long_url}'][target=_blank]", text: truncated_long_url).should have(1).visible_link
+        expect(page.all("a[href='#{long_url}'][target=_blank]", text: truncated_long_url).size).to eq(1)
       end
     end
   end

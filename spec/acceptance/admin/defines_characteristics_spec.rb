@@ -3,14 +3,14 @@ require 'acceptance/acceptance_helper'
 feature "Admin Defines Characteristics" do
 
   def expect_characteristic_row(name, description, datatype, allowed_values=nil)
-    page.find(:css, "td.characteristic-name", :text => name).should be_present
-    page.find(:css, "td", :text => description).should be_present
+    expect(page.find(:css, "td.characteristic-name", :text => name)).to be_present
+    expect(page.find(:css, "td", :text => description)).to be_present
   end
 
   def expect_allowed_value_text_field(expected_value)
     #FIXME should not be testing js effects on feature spec
     selector = '[name="characteristic[allowed_values][]"][value="' + expected_value + '"]'
-    page.find(:css, selector).should be_present
+    expect(page.find(:css, selector)).to be_present
   end
 
   # We have all this nonsense because before(:each) and :js=>true do not play well together.
@@ -20,7 +20,7 @@ feature "Admin Defines Characteristics" do
     @characteristic_1 = FactoryGirl.create :characteristic, :demo_specific, :demo => @demo, :name => "Cheese preference", :description => "what sort of cheese does you best", :allowed_values => %w(Stinky Extra-Smelly)
     @characteristic_2 = FactoryGirl.create :characteristic, :demo_specific, :name => "Cake or death", :description => "A simple question really", :allowed_values => %w(Cake Death)
 
-    @characteristic_2.demo.should_not == @demo
+    expect(@characteristic_2.demo).not_to eq(@demo)
   end
 
   def click_edit_link
@@ -74,7 +74,7 @@ feature "Admin Defines Characteristics" do
 
       # Overwrite some allowed values, blank out some others, add some new ones, whee.
       allowed_value_fields = page.all('input[name="characteristic[allowed_values][]"]')
-      allowed_value_fields.length.should == 3
+      expect(allowed_value_fields.length).to eq(3)
 
       allowed_value_fields[1].set('   ')
       allowed_value_fields[2].set('cheese whiz')
@@ -180,20 +180,20 @@ feature "Admin Defines Characteristics" do
       visit admin_characteristics_path(as: an_admin)
 
       select "Number", :from => "characteristic[datatype]"
-      page.all('input[name="characteristic[allowed_values][]"]').select(&:visible?).should be_empty
+      expect(page.all('input[name="characteristic[allowed_values][]"]').select(&:visible?)).to be_empty
 
       select "Date", :from => "characteristic[datatype]"
-      page.all('input[name="characteristic[allowed_values][]"]').select(&:visible?).should be_empty
+      expect(page.all('input[name="characteristic[allowed_values][]"]').select(&:visible?)).to be_empty
 
       select "Boolean", :from => "characteristic[datatype]"
-      page.all('input[name="characteristic[allowed_values][]"]').select(&:visible?).should be_empty
+      expect(page.all('input[name="characteristic[allowed_values][]"]').select(&:visible?)).to be_empty
 
       select "Time", :from => "characteristic[datatype]"
-      page.all('input[name="characteristic[allowed_values][]"]').select(&:visible?).should be_empty
+      expect(page.all('input[name="characteristic[allowed_values][]"]').select(&:visible?)).to be_empty
 
       # And bring that field back
       select "Discrete", :from => "characteristic[datatype]"
-      page.all('input[name="characteristic[allowed_values][]"]').select(&:visible?).should_not be_empty
+      expect(page.all('input[name="characteristic[allowed_values][]"]').select(&:visible?)).not_to be_empty
     end
   end
 end

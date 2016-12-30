@@ -64,8 +64,8 @@ feature 'client admin views tiles reports', broken: true do
 
           click_download_active_link
 
-          page.response_headers['Content-Type'].should =~ %r{text/csv}
-          page.response_headers['Content-Disposition'].should =~ initial_filename('active')
+          expect(page.response_headers['Content-Type']).to match(%r{text/csv})
+          expect(page.response_headers['Content-Disposition']).to match(initial_filename('active'))
 
           expected_csv = <<CSV
 Headline,Status,Total Views,Unique Views,Completions,% of participants
@@ -80,7 +80,7 @@ CSV
           expected_csv_tile_nums = get_tile_nums expected_csv
           expect(csv_tile_nums).to eq(expected_csv_tile_nums)
 
-          page.body.should == expected_csv
+          expect(page.body).to eq(expected_csv)
         end
       end
     end
@@ -91,8 +91,8 @@ CSV
           visit client_admin_tiles_path(as: admin)
           click_download_archive_link
 
-          page.response_headers['Content-Type'].should =~ %r{text/csv}
-          page.response_headers['Content-Disposition'].should =~ initial_filename('archive')
+          expect(page.response_headers['Content-Type']).to match(%r{text/csv})
+          expect(page.response_headers['Content-Disposition']).to match(initial_filename('archive'))
 
           expected_csv = <<CSV
 Headline,Status,Total Views,Unique Views,Completions,% of participants
@@ -106,7 +106,7 @@ CSV
           expected_csv_tile_nums = get_tile_nums expected_csv
           expect(csv_tile_nums).to eq(expected_csv_tile_nums)
 
-          page.body.should == expected_csv
+          expect(page.body).to eq(expected_csv)
         end
       end
     end

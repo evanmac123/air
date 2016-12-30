@@ -29,13 +29,13 @@ feature 'Completes tiles' do
   scenario 'and doesn\'t see the tile in question anymore as completed', js: true do
     click_right_answer
     visit public_activity_path(board.public_slug)
-    page.all(".not-completed #tile-thumbnail-#{tile_1.id}").should be_empty
+    expect(page.all(".not-completed #tile-thumbnail-#{tile_1.id}")).to be_empty
   end
 
   scenario 'and completed tiles count should update', js: true do
     old_number = completed_tiles_number
     click_right_answer
     visit public_activity_path(board.public_slug)
-    completed_tiles_number.should == old_number + 1
+    expect(completed_tiles_number).to eq(old_number + 1)
   end
 end

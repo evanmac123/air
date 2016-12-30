@@ -49,12 +49,12 @@ RSpec.configure do |config|
     Delayed::Worker.delay_jobs = false
   end
 
-  config.before(:each) do
+  config.before(:each) do |example|
     Mixpanel::Tracker.stubs(:new).with(MIXPANEL_TOKEN, Mocha::ParameterMatchers::KindOf.new(Hash)).returns(FakeMixpanelTracker)
     FakeMixpanelTracker.clear_tracked_events
     path = example.metadata[:example_group][:file_path]
     test_counter +=1
-    full_example_description = "Starting #{self.example.description} "
+    full_example_description = "Starting #{RSpec.current_example} "
     Rails.logger.info("\n#{'-'*80}\n#{full_example_description} #{test_counter}--#{path}\n#{'-' * (full_example_description.length)}")
   end
 
@@ -67,7 +67,7 @@ RSpec.configure do |config|
   config.before(:each) do
     begin
       FakeTwilio.clear_messages
-    rescue NameError => e # quietly ignore if FakeTwilio not loaded
+    rescue NameError
     end
   end
 

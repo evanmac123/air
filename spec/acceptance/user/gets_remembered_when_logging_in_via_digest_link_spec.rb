@@ -12,7 +12,7 @@ feature 'Gets remembered when logging in via digest link' do
   end
 
   scenario "if it's their first login (i.e. they get their password generated)" do
-    user.should_not be_claimed
+    expect(user).not_to be_claimed
     visit generate_password_invitation_acceptance_path(user_id: user.id, invitation_code: user.invitation_code)
     should_be_on activity_path
 

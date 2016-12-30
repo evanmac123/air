@@ -18,7 +18,7 @@ feature 'Client admin deletes tile' do
   end
 
   before do
-    pending
+    skip
     @demo = FactoryGirl.create :demo
     @client_admin = FactoryGirl.create :client_admin, demo: @demo
     @tile = FactoryGirl.create :multiple_choice_tile, demo: @demo
@@ -39,8 +39,8 @@ feature 'Client admin deletes tile' do
         page.find(".cancel").click
       end
       expect_no_content destroy_tile_message
-      Tile.count.should == 1
-      Tile.first.should == @tile
+      expect(Tile.count).to eq(1)
+      expect(Tile.first).to eq(@tile)
     end
 
     it "should remove tile if click conform and send ping", js: true do

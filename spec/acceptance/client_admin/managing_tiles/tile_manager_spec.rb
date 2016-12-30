@@ -16,13 +16,13 @@ feature 'Client admin and tile manager page', js: true do
     before(:each) { visit(client_admin_tiles_path) }
 
     scenario 'Correct message is displayed when there are no Active tiles' do
-      page.find("#active .no_tiles_section", visible: true).should be_present
-      page.should have_num_tiles(0)
+      expect(page.find("#active .no_tiles_section", visible: true)).to be_present
+      expect(page).to have_num_tiles(0)
     end
 
     scenario 'Correct message is displayed when there are no Archive tiles' do
-      page.find("#active .no_tiles_section", visible: true).should be_present
-      page.should have_num_tiles(0)
+      expect(page.find("#active .no_tiles_section", visible: true)).to be_present
+      expect(page).to have_num_tiles(0)
     end
   end
 
@@ -38,7 +38,7 @@ feature 'Client admin and tile manager page', js: true do
 
       visit(client_admin_tiles_path)
 
-      active_tab.should have_num_tiles(3)
+      expect(active_tab).to have_num_tiles(3)
 
       within active_tab do
         tiles.each do |tile|
@@ -56,7 +56,7 @@ feature 'Client admin and tile manager page', js: true do
 
       visit(client_admin_tiles_path)
 
-      page.should have_num_tiles(3)
+      expect(page).to have_num_tiles(3)
 
       tiles.each do |tile|
         within tile(tile) do
@@ -71,18 +71,18 @@ feature 'Client admin and tile manager page', js: true do
       scenario "The 'Archive this tile' links work, including setting the 'archived_at' time and positioning most-recently-archived tiles first" do
         tiles.each { |tile| tile.update_attributes status: Tile::ACTIVE }
         visit(client_admin_tiles_path)
-        active_tab.should  have_num_tiles(3)
-        archive_tab.should have_num_tiles(0)
+        expect(active_tab).to  have_num_tiles(3)
+        expect(archive_tab).to have_num_tiles(0)
 
         active_tab.find(:tile, first).hover
         page.find("a", text: "Archive", visible: true).click
 
 
-        within(active_tab)  { page.should_not contain first.headline }
-        within(archive_tab) { page.should     contain first.headline }
+        within(active_tab)  { expect(page).not_to contain first.headline }
+        within(archive_tab) { expect(page).to     contain first.headline }
 
-        active_tab.should  have_num_tiles(2)
-        archive_tab.should have_num_tiles(1)
+        expect(active_tab).to  have_num_tiles(2)
+        expect(archive_tab).to have_num_tiles(1)
         # Do it one more time to make sure that the most-recently archived tile appears first in the list
         #second.archived_at.should be_nil
         #FIXME we should be able to assert in model or controller spec or js
@@ -91,13 +91,13 @@ feature 'Client admin and tile manager page', js: true do
         page.find("a", text: "Archive", visible: true).click
 
 
-        within(active_tab)  { page.should_not contain second.headline }
-        within(archive_tab) { page.should     contain second.headline }
+        within(active_tab)  { expect(page).not_to contain second.headline }
+        within(archive_tab) { expect(page).to     contain second.headline }
 
-        active_tab.should  have_num_tiles(1)
-        archive_tab.should have_num_tiles(2)
+        expect(active_tab).to  have_num_tiles(1)
+        expect(archive_tab).to have_num_tiles(2)
 
-        archive_tab.should have_first_tile(second, Tile::ARCHIVE)
+        expect(archive_tab).to have_first_tile(second, Tile::ARCHIVE)
       end
     end
   end
@@ -114,7 +114,7 @@ feature 'Client admin and tile manager page', js: true do
         within('#share_tiles') do
           #in this scenario, one tile is created in 'before do' so the number
           #of tiles to be shared should be one
-          page.should have_content("2")
+          expect(page).to have_content("2")
         end
       end
     end

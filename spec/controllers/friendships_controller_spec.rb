@@ -10,7 +10,7 @@ describe FriendshipsController do
     sign_in_as(friender)
     post :create, user_id: friendee.slug
 
-    response.should be_not_found
-    Friendship.count.should == 0
+    expect(response).to be_not_found
+    expect(Friendship.count).to eq(0)
   end
 end

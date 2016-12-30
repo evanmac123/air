@@ -16,7 +16,7 @@ feature 'Has nav link to support' do
     visit(client_admin_path(as: a_client_admin))
 
     within tile_manager_nav do
-      page.find(desk_link_selector).text.should == desk_link_text
+      expect(page.find(desk_link_selector).text).to eq(desk_link_text)
     end
   end
 end

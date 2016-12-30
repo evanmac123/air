@@ -18,15 +18,15 @@ describe ExploreDigestMailer do
 
       ExploreDigestMailer.notify_one(@explore_digest, user).deliver
 
-      ActionMailer::Base.deliveries.should have(1).email
+      expect(ActionMailer::Base.deliveries.size).to eq(1)
 
       ActionMailer::Base.deliveries.each do |mail|
-        mail.to_s.should contain("Subject")
-        mail.to_s.should contain("Header")
-        mail.to_s.should contain("Subheader")
-        mail.to_s.should contain("Test Headline 1")
-        mail.to_s.should contain("Test Headline 2")
-        mail.to_s.should contain("Test Headline 3")
+        expect(mail.to_s).to contain("Subject")
+        expect(mail.to_s).to contain("Header")
+        expect(mail.to_s).to contain("Subheader")
+        expect(mail.to_s).to contain("Test Headline 1")
+        expect(mail.to_s).to contain("Test Headline 2")
+        expect(mail.to_s).to contain("Test Headline 3")
       end
     end
   end
@@ -38,7 +38,7 @@ describe ExploreDigestMailer do
 
       ExploreDigestMailer.notify_all(@explore_digest)
 
-      ActionMailer::Base.deliveries.should have(3).emails
+      expect(ActionMailer::Base.deliveries.size).to eq(3)
     end
   end
 

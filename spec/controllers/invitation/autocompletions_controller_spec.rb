@@ -27,8 +27,8 @@ describe Invitation::AutocompletionsController do
     it "should return 'Lucy'" do
       @params = {:entered_text => "ucy"}
       get :index, @params
-      assigns[:matched_users].length.should == 1
-      assigns[:matched_users].should include @user2
+      expect(assigns[:matched_users].length).to eq(1)
+      expect(assigns[:matched_users]).to include @user2
     end
   end
 
@@ -36,7 +36,7 @@ describe Invitation::AutocompletionsController do
     it "should return 'sterling'" do
       @params = {:entered_text => "six"}
       get :index, @params
-      assigns[:matched_users].length.should == 0
+      expect(assigns[:matched_users].length).to eq(0)
     end
   end
 end

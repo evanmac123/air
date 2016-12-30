@@ -17,7 +17,7 @@ describe ActiveBoardCollector do
 		end
 
 		it "returns non-empty if tile viewing activity exists for date range" do
-			expect(@collector.active_boards.any?).to be_true
+			expect(@collector.active_boards.any?).to be_truthy
 		end 
 
 		it "has only one active board" do
@@ -25,14 +25,14 @@ describe ActiveBoardCollector do
 		end	
 
 		it "returns non-empty if tile viewing activity exists for date range" do
-			expect(@collector.active_boards.any?).to be_true
+			expect(@collector.active_boards.any?).to be_truthy
 		end 
 
 		it "returns empty if no tile activity exists for date range" do
 			@completion.update_attribute(:created_at, 2.weeks.ago)
 			@viewing.update_attribute(:created_at, 2.weeks.ago)
 			@collector = create_date_range_collector
-			expect(@collector.active_boards.blank?).to be_true
+			expect(@collector.active_boards.blank?).to be_truthy
 		end
 
 		it "correctly finds multiple active boards" do

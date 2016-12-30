@@ -173,9 +173,9 @@ module TileHelpers
     normalized_tag = tag.strip.capitalize.gsub(/\s+/, ' ')
 
     selector = %Q{ul.ui-autocomplete li.ui-menu-item a:contains("#{normalized_tag}")}
-    page.should have_selector("ul.ui-autocomplete li.ui-menu-item a:contains('#{normalized_tag}')")
+    expect(page).to have_selector("ul.ui-autocomplete li.ui-menu-item a:contains('#{normalized_tag}')")
     page.execute_script %Q{ $('#{selector}').trigger('mouseenter').click() }
-    page.find('.tile_tags>li', text: tag).should have_content(normalized_tag(tag))
+    expect(page.find('.tile_tags>li', text: tag)).to have_content(normalized_tag(tag))
   end
 
   def after_tile_save_message(options={})
@@ -207,9 +207,9 @@ module TileHelpers
     a_text = "Click to add."
     selector = %Q{ul.ui-autocomplete li.ui-menu-item a:contains("#{a_text}")}
 
-    page.should have_selector("ul.ui-autocomplete li.ui-menu-item a:contains('#{a_text}')")
+    expect(page).to have_selector("ul.ui-autocomplete li.ui-menu-item a:contains('#{a_text}')")
     page.execute_script %Q{ $('#{selector}').trigger('mouseenter').click() }
-    page.find('.tile_tags>li', text: normalized_tag(tag)).should have_content(normalized_tag(tag))
+    expect(page.find('.tile_tags>li', text: normalized_tag(tag))).to have_content(normalized_tag(tag))
   end
 
   def write_new_tile_tag tag
@@ -331,7 +331,7 @@ module TileHelpers
   end
 
   def expect_current_tile_id(tile)
-     page.find('.tile_holder')["data-current-tile-id"].should == tile.id.to_s
+     expect(page.find('.tile_holder')["data-current-tile-id"]).to eq(tile.id.to_s)
   end
 
   def new_tile_placeholder_text
@@ -394,18 +394,18 @@ module TileHelpers
 
   def expect_show_more_tiles_link_disabled?(disabled)
     if disabled
-      page.should_not have_css("a.show_more_tiles")
+      expect(page).not_to have_css("a.show_more_tiles")
     else
-      page.should have_css("a.show_more_tiles")
+      expect(page).to have_css("a.show_more_tiles")
     end
   end
 
   def expect_thumbnail_count(expected_count, tile_wrapper='.tile-wrapper')
-    page.all(tile_wrapper).should have(expected_count).thumbnails
+    expect(page.all(tile_wrapper).size).to eq(expected_count)
   end
 
   def expect_placeholder_count(expected_count)
-    page.all('.placeholder_tile').should have(expected_count).placeholders
+    expect(page.all('.placeholder_tile').size).to eq(expected_count)
   end
 
   def attach_tile locator, path
@@ -414,13 +414,13 @@ module TileHelpers
   end
 
   def show_tile_image
-    page.should have_selector('img.tile_image', visible: true)
-    page.should have_selector('.image_placeholder', visible: false)
+    expect(page).to have_selector('img.tile_image', visible: true)
+    expect(page).to have_selector('.image_placeholder', visible: false)
   end
 
   def show_tile_image_placeholder
-    page.should have_selector('img.tile_image', visible: false)
-    page.should have_selector('.image_placeholder', visible: true)
+    expect(page).to have_selector('img.tile_image', visible: false)
+    expect(page).to have_selector('.image_placeholder', visible: true)
   end
 
   # First "copy" in these next method name refers to the act of copying
@@ -446,11 +446,11 @@ module TileHelpers
   end
 
   def have_tile_manager_nav
-    page.should have_selector('#tile_manager_nav')
+    expect(page).to have_selector('#tile_manager_nav')
   end
 
   def have_no_tile_manager_nav
-    page.should_not have_selector('#tile_manager_nav')
+    expect(page).not_to have_selector('#tile_manager_nav')
   end
 
 

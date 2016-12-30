@@ -60,44 +60,44 @@ feature 'Mutes emails from board management modal' do
   end
 
   def expect_digest_muted(user, board)
-    board_membership_for_board(user, board).digest_muted.should be_true
+    expect(board_membership_for_board(user, board).digest_muted).to be_truthy
   end
 
   def expect_digest_unmuted(user, board)
-    board_membership_for_board(user, board).digest_muted.should be_false
+    expect(board_membership_for_board(user, board).digest_muted).to be_falsey
   end
 
   def expect_followup_muted(user, board)
-    board_membership_for_board(user, board).followup_muted.should be_true
+    expect(board_membership_for_board(user, board).followup_muted).to be_truthy
   end
 
   def expect_followup_unmuted(user, board)
-    board_membership_for_board(user, board).followup_muted.should be_false
+    expect(board_membership_for_board(user, board).followup_muted).to be_falsey
   end
 
   def expect_first_digest_slider_in_mute_position
-    page.first(digest_mute_selector, visible: false)['checked'].should be_true
-    page.first(digest_unmute_selector, visible:false)['checked'].should_not be_true
+    expect(page.first(digest_mute_selector, visible: false)['checked']).to be_truthy
+    expect(page.first(digest_unmute_selector, visible:false)['checked']).not_to be_truthy
   end
 
   def expect_first_followup_slider_in_mute_position
-    page.first(followup_mute_selector, visible:false)['checked'].should be_true
-    page.first(followup_unmute_selector, visible:false)['checked'].should_not be_true
+    expect(page.first(followup_mute_selector, visible:false)['checked']).to be_truthy
+    expect(page.first(followup_unmute_selector, visible:false)['checked']).not_to be_truthy
   end
 
   def expect_last_followup_slider_in_unmute_position
-    page.all(followup_mute_selector)[-1]['checked'].should_not be_true
-    page.all(followup_unmute_selector)[-1]['checked'].should be_true
+    expect(page.all(followup_mute_selector)[-1]['checked']).not_to be_truthy
+    expect(page.all(followup_unmute_selector)[-1]['checked']).to be_truthy
   end
 
   def expect_followup_slider_in_mute_position_for_board(board)
-    page.first((selector_for_board followup_mute_selector, board), visible: false)['checked'].should be_true
-    page.first(selector_for_board(followup_unmute_selector, board), visible:false)['checked'].should be_false
+    expect(page.first((selector_for_board followup_mute_selector, board), visible: false)['checked']).to be_truthy
+    expect(page.first(selector_for_board(followup_unmute_selector, board), visible:false)['checked']).to be_falsey
   end
 
   def expect_followup_slider_in_unmute_position_for_board(board)
-    page.first(selector_for_board(followup_mute_selector, board), visible:false)['checked'].should be_false
-    page.first((selector_for_board followup_unmute_selector, board), visible: false)['checked'].should be_true
+    expect(page.first(selector_for_board(followup_mute_selector, board), visible:false)['checked']).to be_falsey
+    expect(page.first((selector_for_board followup_unmute_selector, board), visible: false)['checked']).to be_truthy
   end
 
   def followup_input_selectors
@@ -110,21 +110,21 @@ feature 'Mutes emails from board management modal' do
 
   def expect_first_followup_slider_not_disabled
     followup_input_selectors.each do |input_selector|
-      page.first(input_selector, visible: false)['disabled'].should_not be_present
+      expect(page.first(input_selector, visible: false)['disabled']).not_to be_present
     end
 
     followup_presentation_selectors.each do |presentation_selector|
-      page.first(presentation_selector + '.disabled').should_not be_present
+      expect(page.first(presentation_selector + '.disabled')).not_to be_present
     end
   end
 
   def expect_first_followup_slider_disabled
     followup_input_selectors.each do |input_selector|
-      page.first(input_selector, visible: false)['disabled'].should be_present
+      expect(page.first(input_selector, visible: false)['disabled']).to be_present
     end
 
     followup_presentation_selectors.each do |presentation_selector|
-      page.first(presentation_selector + '.disabled').should be_present
+      expect(page.first(presentation_selector + '.disabled')).to be_present
     end
   end
 

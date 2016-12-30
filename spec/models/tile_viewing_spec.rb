@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe TileViewing do
   TestAfterCommit.enabled = true
-  it { should belong_to(:user) }
-  it { should belong_to(:tile) }
+  it { is_expected.to belong_to(:user) }
+  it { is_expected.to belong_to(:tile) }
 
   describe TileViewing, "#increment" do
     before do

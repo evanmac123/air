@@ -26,7 +26,7 @@ feature "User sees correct values in rafle bar" do
       user.demo = @demo
       user.save
       
-      user.demo.uses_tickets.should be_true
+      expect(user.demo.uses_tickets).to be_truthy
 
       has_password(user, "foobar")
       signin_as(user, "foobar")

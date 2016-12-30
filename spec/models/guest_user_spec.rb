@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe GuestUser do
-  it { should have_many(:tile_viewings) }
-  it { should have_many(:viewed_tiles) }
+  it { is_expected.to have_many(:tile_viewings) }
+  it { is_expected.to have_many(:viewed_tiles) }
   
   let(:user) { FactoryGirl.create(:guest_user) }
 
@@ -26,18 +26,18 @@ describe GuestUser do
 
       converted_user = convert
      
-      converted_user.should_not == user
+      expect(converted_user).not_to eq(user)
 
-      converted_user.tile_viewing_ids.sort.should == tile_viewing_ids.sort
-      converted_user.tile_completion_ids.sort.should == tile_completion_ids.sort
-      converted_user.act_ids.sort.should == act_ids.sort
+      expect(converted_user.tile_viewing_ids.sort).to eq(tile_viewing_ids.sort)
+      expect(converted_user.tile_completion_ids.sort).to eq(tile_completion_ids.sort)
+      expect(converted_user.act_ids.sort).to eq(act_ids.sort)
     end
 
     it "copies over points and tickets" do
       user.update_attributes(points: 234, tickets: 456)
       converted_user = convert
-      converted_user.points.should == 234
-      converted_user.tickets.should == 456
+      expect(converted_user.points).to eq(234)
+      expect(converted_user.tickets).to eq(456)
     end
 
     it "copies user in raffle information" do
@@ -46,47 +46,47 @@ describe GuestUser do
       raffle2 = FactoryGirl.create(:raffle)
       user_in_raffle_info2 = FactoryGirl.create(:user_in_raffle_info, user: user, raffle: raffle2)
       
-      user.user_in_raffle_infos.should == [user_in_raffle_info1, user_in_raffle_info2]
+      expect(user.user_in_raffle_infos).to eq([user_in_raffle_info1, user_in_raffle_info2])
       converted_user = convert
-      converted_user.user_in_raffle_infos.pluck(:id).should == [user_in_raffle_info1.id, user_in_raffle_info2.id]
+      expect(converted_user.user_in_raffle_infos.pluck(:id)).to eq([user_in_raffle_info1.id, user_in_raffle_info2.id])
     end
 
     it "sets the name appropriately" do
-      convert.name.should == "Jimmy Smits"
+      expect(convert.name).to eq("Jimmy Smits")
     end
 
     it "sets the email appropriately" do
-      convert.email.should == "jimmy@example.com"
+      expect(convert.email).to eq("jimmy@example.com")
     end
 
     it "sets the password appropriately" do
       converted_user = convert
       authenticated_user = User.authenticate 'jimmy@example.com', 'weakpassword'
-      authenticated_user.should == converted_user
+      expect(authenticated_user).to eq(converted_user)
     end
 
     it "puts the user in the same board as the guest" do
-      convert.demo_id.should == user.demo_id
+      expect(convert.demo_id).to eq(user.demo_id)
     end
 
     it "remembers a connection between the converted user and the guest" do
       converted_user = convert
-      converted_user.original_guest_user.should == user
-      user.converted_user.should == converted_user
+      expect(converted_user.original_guest_user).to eq(user)
+      expect(user.converted_user).to eq(converted_user)
     end
 
     it "claims to converted user" do
-      convert.should be_claimed
+      expect(convert).to be_claimed
     end
 
     it "sets characteristics to an empty hash" do
-      convert.characteristics.should == {}
+      expect(convert.characteristics).to eq({})
     end
 
     it "sets last_acted_at" do
       baseline = Time.now
       user.update_attributes(last_acted_at: baseline)
-      convert.last_acted_at.to_i.should == baseline.to_i
+      expect(convert.last_acted_at.to_i).to eq(baseline.to_i)
     end
   end
 
@@ -97,91 +97,91 @@ describe GuestUser do
 
     it "makes errors in the underlying user available in the GuestUser's own errors" do
       unhappy_convert
-      user.errors.should_not be_empty
+      expect(user.errors).not_to be_empty
     end
 
     it "should leave no half-baked Users around" do
       unhappy_convert
-      User.all.should have(0).users
+      expect(User.all.size).to eq(0)
     end
 
     it "should return nil" do
-      unhappy_convert.should be_nil
+      expect(unhappy_convert).to be_nil
     end
 
     it "requires a name" do
       user.convert_to_full_user!("", "jimmy@example.com", "weakpassword")
-      user.errors.keys.should include(:name)
+      expect(user.errors.keys).to include(:name)
     end
 
     it "requires an email address" do
       user.convert_to_full_user!("jimmy", "", "weakpassword")
-      user.errors.keys.should include(:email)
+      expect(user.errors.keys).to include(:email)
     end
 
     it "requires the email be unique if the email belongs to a claimed user" do
       FactoryGirl.create(:user, :claimed, email: "jimmy@example.com")
       convert
-      user.errors.keys.should include(:email)
+      expect(user.errors.keys).to include(:email)
     end
 
     it "requires a password" do
       user.convert_to_full_user!("jimmy", "jimmy@example.com", "")
-      user.errors.keys.should include(:password)
-      user.errors.keys.should_not include(:password_confirmation) # just shut up already
+      expect(user.errors.keys).to include(:password)
+      expect(user.errors.keys).not_to include(:password_confirmation) # just shut up already
     end
 
     it "requires a valid location name if one is present" do
       bad_location_name = "Nowhere"
       user.convert_to_full_user!("jimmy", "jimmy@example.com", "foobar", bad_location_name)
-      user.errors.keys.should include(:location_id)
+      expect(user.errors.keys).to include(:location_id)
     end
   end
 
   describe "#accepted_invitation_at" do
     it "should return the creation timestamp" do
-      user.accepted_invitation_at.should == user.created_at
+      expect(user.accepted_invitation_at).to eq(user.created_at)
     end
   end
 
   [:location, :date_of_birth].each do |nil_field|
     describe "##{nil_field.to_s}" do
       it "should return nil" do
-        user.send(nil_field).should be_nil
+        expect(user.send(nil_field)).to be_nil
       end
     end
   end
 
   describe "notification method" do
     it "should return \"n/a\"" do
-      user.notification_method.should == "n/a"
+      expect(user.notification_method).to eq("n/a")
     end
   end
 
   describe "slug" do
     it "should return \"guestuser\"" do
-      user.slug.should == "guestuser"
+      expect(user.slug).to eq("guestuser")
     end
   end
 
   describe "#data_for_mixpanel" do
     it "should include the game ID" do
-      user.demo.should_not be_nil
-      user.data_for_mixpanel[:game].should == user.demo.id
+      expect(user.demo).not_to be_nil
+      expect(user.data_for_mixpanel[:game]).to eq(user.demo.id)
     end
 
     it "should always report false for is_test_user" do
-      user.data_for_mixpanel[:is_test_user].should == false
+      expect(user.data_for_mixpanel[:is_test_user]).to eq(false)
     end
   end
 
   describe "#is_test_user?" do
     it "should be false always" do
-      user.is_test_user?.should be_false
+      expect(user.is_test_user?).to be_falsey
     end
   end
 
   it "is not a client admin" do
-    user.is_client_admin.should be_false
+    expect(user.is_client_admin).to be_falsey
   end
 end

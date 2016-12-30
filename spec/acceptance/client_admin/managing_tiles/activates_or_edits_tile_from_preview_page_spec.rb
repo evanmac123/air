@@ -110,23 +110,23 @@ feature 'Activates or edits tile from preview page', js:true do
   end
 
   def expect_activate_link
-    activate_links.should_not be_empty
+    expect(activate_links).not_to be_empty
   end
 
   def expect_reactivate_link
-    reactivate_links.should_not be_empty
+    expect(reactivate_links).not_to be_empty
   end
 
   def expect_deactivate_link
-    deactivate_links.should_not be_empty
+    expect(deactivate_links).not_to be_empty
   end
 
   def expect_no_activate_link
-    activate_links.should be_empty
+    expect(activate_links).to be_empty
   end
 
   def expect_no_deactivate_link
-    deactivate_links.should be_empty
+    expect(deactivate_links).to be_empty
   end
 
   def expect_activated_content(tile)
