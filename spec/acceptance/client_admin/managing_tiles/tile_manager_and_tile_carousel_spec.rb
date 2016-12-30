@@ -23,6 +23,10 @@ feature 'The order of the tiles in the tile mangaer and carousel are in synch', 
       signin_as(admin, admin.password)
       visit tile_manager_page
       check_manager(active_tile_headlines_order)
+
+      visit activity_path
+      click_link "Get started!"
+      
       check_carousel_and_viewer(active_tile_headlines_order, Tile.first)
     end
 

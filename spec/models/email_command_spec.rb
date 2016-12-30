@@ -1,5 +1,5 @@
 require 'spec_helper'
-#  include Shoulda::Matchers::ActionMailer 
+#  include Shoulda::Matchers::ActionMailer
 
 describe EmailCommand do
   it { should belong_to(:user) }
@@ -13,16 +13,16 @@ describe EmailCommand, "#status" do
       email_command.should_not be_valid
     end
     it "'failed', it should be valid" do
-      (FactoryGirl.create :email_command, :status => EmailCommand::Status::FAILED).should be_valid 
+      (FactoryGirl.create :email_command, :status => EmailCommand::Status::FAILED).should be_valid
     end
     it "'success', it should be valid" do
-      (FactoryGirl.create :email_command, :status => EmailCommand::Status::SUCCESS).should be_valid 
+      (FactoryGirl.create :email_command, :status => EmailCommand::Status::SUCCESS).should be_valid
     end
     it "'unknown email', it should be valid" do
-      (FactoryGirl.create :email_command, :status => EmailCommand::Status::UNKNOWN_EMAIL).should be_valid 
+      (FactoryGirl.create :email_command, :status => EmailCommand::Status::UNKNOWN_EMAIL).should be_valid
     end
     it "'user verified', it should be valid" do
-      (FactoryGirl.create :email_command, :status => EmailCommand::Status::USER_VERIFIED).should be_valid 
+      (FactoryGirl.create :email_command, :status => EmailCommand::Status::USER_VERIFIED).should be_valid
     end
   end
 end
@@ -44,7 +44,7 @@ end
 describe EmailCommand, "#receiving" do
   context "when an email arrives " do
     it "should parse the params correctly and be valid" do
-      email_command = EmailCommand.create_from_incoming_email(test_email_params)      
+      email_command = EmailCommand.create_from_incoming_email(test_email_params)
       email_command.email_to.should      eql test_email_params['to']
       email_command.email_from.should    eql test_email_params['from']
       email_command.email_subject.should eql test_email_params['subject']
@@ -162,5 +162,3 @@ def test_email_params
     "plain"=>"\n\nhere's the command\nand this is a new line\n\n\nand two new lines\n\n\n\nand a third new line"
   }
 end
-
-

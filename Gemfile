@@ -91,10 +91,9 @@ end
 group :development, :test do
   gem 'faker'
   gem 'colored'
-  gem 'rspec-rails', '~> 2.12.0'
+  gem 'rspec-rails', '~> 2.99.0'
   gem 'factory_girl_rails'
   gem 'steak'
-	gem 'rspec-mocks'
   gem 'pry-rails'
 	gem 'pry-byebug'
 end
@@ -117,7 +116,7 @@ group :test do
   gem 'capybara-webkit'
   gem 'poltergeist'
   gem 'sinatra'
-  gem 'mocha', require: false
+  gem 'mocha'
   gem 'selenium-webdriver'
 end
 
