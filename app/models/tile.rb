@@ -141,7 +141,7 @@ class Tile < ActiveRecord::Base
   end
 
   def is_fully_assembled?
-    headline.present? && supporting_content.present? && question.present?
+    headline.present? && supporting_content.present? && question.present? && remote_media_url.present?
   end
 
   def points= p
