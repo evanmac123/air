@@ -4,7 +4,7 @@ class RawTextLengthInHTMLFieldValidator < ActiveModel::Validator
     value = record[field]
     raw_text = Nokogiri::HTML::Document.parse(value).text
 
-    if raw_text.length > maximum
+    if raw_text.length > maximum and record.status != Tile::DRAFT
       record.errors.add field, message
     end
   end
