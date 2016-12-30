@@ -256,7 +256,7 @@ module SteakHelperMethods
   end
 
   def click_carousel_tile(tile)
-    find("a[href='#{tile_path(tile)}']").click
+    page.find("a[href='#{tile_path(tile)}']").click
   end
 
   def show_previous_tile
