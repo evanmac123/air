@@ -3,6 +3,8 @@ require 'spec_helper'
 describe Tile do
 
 
+  LONG_TEXT  =  "*" * (Tile::MAX_SUPPORTING_CONTENT_LEN + 1)
+
   it { should belong_to(:demo) }
   it { should belong_to(:creator) }
   it { should have_many(:tile_tags) }
@@ -15,6 +17,8 @@ describe Tile do
 
   context "incomplete drafts" do
     let(:demo){Demo.new}
+    
+
     it "it can be saved with just  headline" do
       tile = Tile.new
       tile.status = Tile::DRAFT
@@ -40,8 +44,19 @@ describe Tile do
       tile.remote_media_url = nil
       tile.status = Tile::ACTIVE 
       expect(tile.save).to be_false
+    end
+
+    it "can be saved as draft if supporting content len > specfied max" do
+      tile  = FactoryGirl.create :tile, status: Tile::DRAFT, supporting_content: LONG_TEXT
+      expect(tile.save).to be_true
      end
 
+    it "cannot be posted if supporting content len > specfied max" do
+      tile  = FactoryGirl.create :tile, status: Tile::DRAFT
+      tile.supporting_content = LONG_TEXT
+      tile.status = Tile::ACTIVE 
+      expect(tile.save).to be_false
+     end
   end
 
 
