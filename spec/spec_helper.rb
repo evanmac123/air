@@ -40,7 +40,7 @@ Capybara.javascript_driver = :poltergeist
 
 RSpec.configure do |config|
   config.mock_with :mocha
-  config.treat_symbols_as_metadata_keys_with_true_values = true
+  config.example_status_persistence_file_path = "#{Rails.root}/spec/specs_with_statuses.txt"
   # config.fail_fast = true
 
   config.before(:all) do

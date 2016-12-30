@@ -91,7 +91,7 @@ end
 group :development, :test do
   gem 'faker'
   gem 'colored'
-  gem 'rspec-rails', '~> 2.99.0'
+  gem 'rspec-rails', '~> 3.0'
   gem 'factory_girl_rails'
   gem 'steak'
   gem 'pry-rails'
