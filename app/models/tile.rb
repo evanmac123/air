@@ -61,7 +61,7 @@ class Tile < ActiveRecord::Base
   validates_presence_of :headline, :allow_blank => false, :message => "headline can't be blank"
   validates_presence_of :supporting_content, :allow_blank => false, :message => "supporting content can't be blank", if: :state_is_anything_but_draft?
   validates_presence_of :question, :allow_blank => false, :message => "question can't be blank",  if: :state_is_anything_but_draft?
-  validates_presence_of :remote_media_url, message: "image is missing" , if: [:requires_remote_media_url, :state_is_anything_but_draft?] 
+  validates_presence_of :remote_media_url, message: "image is missing" , if: :state_is_anything_but_draft?
   validates_inclusion_of :status, in: STATUS
 
   validates_length_of :headline, maximum: MAX_HEADLINE_LEN, message: "headline is too long (maximum is #{MAX_HEADLINE_LEN} characters)"
@@ -382,17 +382,6 @@ class Tile < ActiveRecord::Base
     end
   end
 
-  def requires_remote_media_url
-    is_brand_new_tile? || setting_empty_image?
-  end
-
-  def setting_empty_image?
-    self.persisted? && changed.include?("remote_media_url") && remote_media_url.blank?
-  end
-
-  def is_brand_new_tile?
-    self.new_record? && !image.present?
-  end
 
   def process_image
     ImageProcessJob.new(id, image_from_library).perform unless is_cloned?
