@@ -101,17 +101,4 @@ FactoryGirl.define do
     end
   end
 
-  factory :tile_image do
-    image {File.open(Rails.root.join "spec/support/fixtures/tiles/cov2.jpg")}
-    thumbnail {File.open(Rails.root.join "spec/support/fixtures/tiles/cov2_thumbnail.jpg")}
-  end
-
-  factory :tile_completion do
-    association :user
-    association :tile
-
-    trait :with_answer_index do
-      answer_index 0
-    end
-  end
 end
