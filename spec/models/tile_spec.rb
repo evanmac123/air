@@ -10,6 +10,7 @@ describe Tile do
   it { is_expected.to ensure_inclusion_of(:status).in_array(Tile::STATUS) }
 
   context "incomplete drafts" do
+    let(:demo){Demo.new}
     it "it can be saved with just  headline" do
       tile = Tile.new
       tile.status = Tile::DRAFT
@@ -29,6 +30,14 @@ describe Tile do
       tile.remote_media_url = nil
       expect(tile.valid?).to be_false
     end
+
+    it "cannot be posted if missing image" do
+      tile  = FactoryGirl.create :tile, status: Tile::DRAFT
+      tile.remote_media_url = nil
+      tile.status = Tile::ACTIVE 
+      expect(tile.save).to be_false
+     end
+
   end
 
 
@@ -39,7 +48,7 @@ describe Tile do
       expect(tile.activated_at_reset_allowed?).to be_falsey
     end
 
-    it "doesnt change activated_at if on un archival if not explicitly set" do
+    it "doesnt change activated_at on un-archival if not explicitly set" do
       tile  = FactoryGirl.create :tile, status: Tile::ARCHIVE, activated_at: 1.month.ago
       expect{tile.status=Tile::ACTIVE;tile.save}.to_not change{tile.activated_at}
     end
@@ -50,9 +59,9 @@ describe Tile do
       expect(tile.activated_at_reset_allowed?).to be_truthy
     end
 
-    it "changes activated_it if the current status is DRAFT" do
-      tile  = FactoryGirl.create :tile, status: Tile::DRAFT
-      expect{tile.status=Tile::ACTIVE;tile.save}.to change{tile.activated_at}
+    it "updates activated_at if the status changes from DRAFT to ACTIVE" do
+      tile = FactoryGirl.create :tile, status: Tile::DRAFT
+      expect{tile.status=Tile::ACTIVE; tile.save}.to change{tile.activated_at}
     end
   end
 
