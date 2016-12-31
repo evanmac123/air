@@ -141,13 +141,18 @@ Airbo.TileAction = (function(){
 
   function updateStatus(target){
     tile = tileByStatusChangeTriggerLocation(target);
+
     function closeAnyToolTips(){
       if((target).parents(".tooltipster-base").length > 0){
         $("li#stat_toggle").tooltipster("hide");
       }
     }
 
-    submitTileForUpadte(tile,target, closeAnyToolTips);
+    if(tile.hasClass("unfinished")){
+      Airbo.Utils.alert("This tile is not yet valid. Please add all required fields and fix any errors pryor to posting.");
+    }else{
+      submitTileForUpadte(tile,target, closeAnyToolTips);
+    }
   }
   //
   // => Duplication
