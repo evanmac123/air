@@ -34,7 +34,7 @@ Airbo.TilePreviewModal = (function(){
     });
   }
   function initPreviewMenuTooltips(){
-    $(".tipsy").tooltipster({
+    $(".tipsy:not(.disabled)").tooltipster({
       theme: "tooltipster-shadow",
       interactive: true,
       position: "bottom",
@@ -43,6 +43,14 @@ Airbo.TilePreviewModal = (function(){
       trigger: "click"
     });
   }
+
+  function initDisabled(){
+    $(".tipsy.disabled").click(function(){
+     Airbo.Utils.alert("This tile is not yet valid. Please add all required fields and fix any errors pryor to posting, archiving or sharing");
+    });
+  }
+
+
   function initStickyPreviewMenu() {
     Airbo.StickyMenu.init(self);
   }
@@ -77,6 +85,7 @@ Airbo.TilePreviewModal = (function(){
     });
 
     $(".preview_menu_item .accept").click(function(e){
+    initDisabled();
       e.preventDefault();
       e.stopPropagation();
       target = $(this);
