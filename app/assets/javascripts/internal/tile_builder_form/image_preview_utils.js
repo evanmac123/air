@@ -45,7 +45,7 @@ $(function() {
       function setFormFieldsForSelectedImage(url, type){
         remoteMediaUrl.val(url);
         remoteMediaType.val(type || "image");
-        remoteMediaUrl.change();
+        setTimeout(function(){remoteMediaUrl.change();}, 0);
       }
 
 
