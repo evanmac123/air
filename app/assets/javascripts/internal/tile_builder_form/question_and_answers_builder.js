@@ -21,6 +21,7 @@ Airbo.TileQuestionBuilder = (function(){
     , answerFieldSelector = ".answer-field"
     , tileBuilderFormSelector = "#new_tile_builder_form"
     , tileTextContainerSelector = "#new_tile_builder_form .tile_texts_container"
+    , initialized = false;
   ;
 
   var DEFAULT_QUESTION_IDENTIFIER="Action-read_tile";  //TODO This is a quick hack make configurable in future
@@ -524,6 +525,9 @@ Airbo.TileQuestionBuilder = (function(){
 
     $("#tile_builder_form_question_type").val(type);
     $("#tile_builder_form_question_subtype").val(subtype);
+    if(initialized){
+      tileBuilderForm.change();
+    }
   }
 
   function initialTypeSetUp(){
@@ -577,6 +581,7 @@ Airbo.TileQuestionBuilder = (function(){
       $("body").trigger("click");
        $(".answer_text").css("visibility", "visible")
     });
+    initialized = true;
   }
 
   return {
