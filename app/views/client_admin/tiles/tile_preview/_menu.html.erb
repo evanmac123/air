@@ -3,7 +3,7 @@
   <% if tile.suggested? %>
     <%= render partial: "client_admin/tiles/tile_preview/suggested_menu", locals:{tile: tile} %>
   <% else %>
-    <%= render partial: "client_admin/tiles/tile_preview/ca_created_menu", locals:{tile: tile, tooltip_class: (tile.is_fully_assembled? ? "tipsy" : "disabled")} %>
+    <%= render partial: "client_admin/tiles/tile_preview/ca_created_menu", locals:{tile: tile, tooltip_class: (tile.is_fully_assembled? ? "tipsy" : "tipsy disabled")} %>
   <% end %>
 <%end %>
 
