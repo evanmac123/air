@@ -124,6 +124,26 @@ Airbo.TileFormModal = (function(){
     modalObj.open();
   }
 
+  function updateThumbnail(data){
+    tileManager.updateSections(data);
+  }
+
+  function autoSaveSuccess(data){
+    updateThumbnail(data)
+    enablesubmitLink();
+  }
+
+  function initAutoSave(){
+
+    $(form).on("change", function() {
+      if(form.valid()){
+        disablesubmitLink()
+        ajaxHandler.submit(form, autoSaveSuccess, $.noop);
+      }
+    });
+
+  }
+
 
 
 
@@ -140,6 +160,7 @@ Airbo.TileFormModal = (function(){
         initFormElements();
         modalObj.open();
         triggerMixpanelTileCreateDurationTracking();
+        initAutoSave();
       },
 
       error: function(jqXHR, textStatus, error){

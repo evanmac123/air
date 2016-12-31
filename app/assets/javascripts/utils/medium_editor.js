@@ -175,6 +175,7 @@ Airbo.Utils.mediumEditor = (function() {
         }
 
         field.blur();
+        field.change();
       });
 
     })
