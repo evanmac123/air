@@ -166,8 +166,6 @@ Airbo.TileAction = (function(){
         animation: false,
         showConfirmButton: false,
         html: true
-        // showCancelButton: true,
-        // cancelButtonText: "Edit Tile"
       }
     );
     swapModalButtons();
