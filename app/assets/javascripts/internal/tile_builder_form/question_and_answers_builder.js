@@ -561,7 +561,9 @@ Airbo.TileQuestionBuilder = (function(){
     tileTextContainer = $(tileTextContainerSelector);
     tileBuilderForm = $(tileBuilderFormSelector);
   }
+
   function init (){
+
     initJQueryObjects();
     getTileTypes();
     initQuestionTypeMenus();
@@ -579,7 +581,7 @@ Airbo.TileQuestionBuilder = (function(){
     $("body").on("blur", ".answer-field", function(event){
       event.preventDefault();
       $("body").trigger("click");
-       $(".answer_text").css("visibility", "visible")
+      $(".answer_text").css("visibility", "visible")
     });
     initialized = true;
   }
