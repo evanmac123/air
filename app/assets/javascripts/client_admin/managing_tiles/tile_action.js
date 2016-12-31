@@ -169,7 +169,7 @@ Airbo.TileAction = (function(){
   }
 
   function swapModalButtons(){
-    // $("button.cancel").before($("button.confirm"));
+     $("button.cancel").before($("button.confirm"));
   }
 
   function afterDuplicationModal(tileId){
