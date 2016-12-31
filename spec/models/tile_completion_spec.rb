@@ -42,13 +42,23 @@ describe TileCompletion do
     u_1_t_3.destroy  # u_1 has not completed any tiles
     user_ids.each do |user_id|
       tile_completed = TileCompletion.user_completed_any_tiles?(user_id, tile_ids)
-      expect(tile_completed).to(user_id eq(u_1.id) ? be_falsey : be_truthy)
+
+      if user_id == u_1.id
+        expect(tile_completed).to eq(false)
+      else
+        expect(tile_completed).to eq(true)
+      end
     end
 
     u_2_t_3.destroy  # u_1 and u_2 have not completed any tiles
     user_ids.each do |user_id|
       tile_completed = TileCompletion.user_completed_any_tiles?(user_id, tile_ids)
-      expect(tile_completed).to(user_id eq(u_3.id) ? be_truthy : be_falsey)
+
+      if user_id == u_3.id
+        expect(tile_completed).to eq(true)
+      else
+        expect(tile_completed).to eq(false)
+      end
     end
 
     u_3_t_2.destroy  # u_1 and u_2 and u_3 have not completed any tiles

@@ -17,7 +17,7 @@ describe Raffle do
       expect(@raffle.blacklisted_users).to eq([])
       arr1 = @raffle.demo.users.pluck(:email)
       arr2 = @users.map(&:email)
-      expect{arr1 & arr2 == arr1}.to be_truthy
+      expect(arr1.sort).to eq(arr2.sort)
     end
 
     it "should pick required number of winners" do
