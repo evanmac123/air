@@ -30,15 +30,24 @@ Airbo.TileFormValidator = (function(){
     },
 
     invalidHandler: function(form, validator) {
-      var errors = validator.numberOfInvalids();
-      if (errors) {
-        if($(validator.errorList[0].element).is(":visible")) {
-          $(tileModalSelector).animate({
-            scrollTop: $(validator.errorList[0].element).offset().top
+      /*
+       * Scrolls first invalid element into view if visible
+      */
+      var errors = validator.numberOfInvalids()
+        , modal = $(tileModalSelector)
+        , firstError = $(validator.errorList[0].element)
+      ;
+
+      if (errors && modal.is(":visible")) {
+
+        if(firstError.is(":visible")) {
+          modal.animate({
+            scrollTop: firstError.offset().top
           }, 250);
         } else {
-          $(tileModalSelector).animate({
-            scrollTop: $("#" + $(validator.errorList[0].element).data("proxyid")).offset().top
+          /* The element is hidden due complex UI use the proxy */
+          modal.animate({
+            scrollTop: $("#" + firstError.data("proxyid")).offset().top
           }, 1000);
         }
       }
