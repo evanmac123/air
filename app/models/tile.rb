@@ -49,7 +49,7 @@ class Tile < ActiveRecord::Base
 
   before_validation :sanitize_supporting_content
   before_validation :sanitize_embed_video
-  before_validation :remove_images, if: :image_set_to_blank, on: :update
+  before_validation :remove_images, if: :image_set_to_blank
 
   before_create :set_on_first_position
   before_save :update_timestamps, if: :status_changed?
