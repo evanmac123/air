@@ -583,7 +583,7 @@ Airbo.TileQuestionBuilder = (function(){
       $("body").trigger("click");
       $(".answer_text").css("visibility", "visible")
     });
-    initialized = true;
+    setTimeout(function(){initialized = true;},0)
   }
 
   return {
