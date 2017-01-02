@@ -21,7 +21,7 @@ Airbo.TileFormValidator = (function(){
         minWords: 1,
         maxTextLength: hasLimit
       },
-      "tile_builder_form[headline]":              { required: true },
+      "tile_builder_form[headline]":              { required: requiredIfImageMissing },
       "tile_builder_form[remote_media_url]":      { required: isRequired},
       "tile_builder_form[question_subtype]":      { required: isRequired},
       "tile_builder_form[question]":              { required: isRequired},
@@ -104,6 +104,18 @@ Airbo.TileFormValidator = (function(){
       return false;
     }else{
       return true;
+    }
+  }
+
+  function requiredIfImageMissing(){
+    var form = $("#new_tile_builder_form")
+      , image_url = $("#remote_media_url").val()
+
+    if(image_url === undefined || image_url === ""){
+      return true;
+    }
+    else{
+      return false;
     }
   }
 
