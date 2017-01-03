@@ -19,21 +19,28 @@ describe Tile do
     let(:demo){Demo.new}
     
 
-    it "it can be saved with just  headline" do
+    it "can be created with just  headline" do
       tile = Tile.new
       tile.status = Tile::DRAFT
       tile.headline = "headliner"
       expect(tile.valid?).to be_true
     end
-
-    it "it cannot be saved without at least headline" do
+   it "can be created with just  image" do
       tile = Tile.new
       tile.status = Tile::DRAFT
+      tile.remote_media_url = "image.png"
+      expect(tile.valid?).to be_true
+    end
+
+    it "cannot be created if headline and image missing" do
+      tile = Tile.new
+      tile.headline = nil
+      tile.remote_media_url = nil
       expect(tile.valid?).to be_false
     end
 
 
-    it "it cannot set to active if incomplete" do
+    it "cannot set to active if incomplete" do
       tile  = FactoryGirl.create :tile, status: Tile::ACTIVE
       tile.remote_media_url = nil
       expect(tile.valid?).to be_false
