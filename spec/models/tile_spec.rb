@@ -11,14 +11,14 @@ describe Tile do
 
   context "incomplete drafts" do
     let(:demo){Demo.new}
-
+  LONG_TEXT  =  "*" * (Tile::MAX_SUPPORTING_CONTENT_LEN + 1)
     it "can be created with just  headline" do
       tile = Tile.new
       tile.status = Tile::DRAFT
       tile.headline = "headliner"
       expect(tile.valid?).to be_true
     end
-    it "can be created with just  image" do
+   it "can be created with just  image" do
       tile = Tile.new
       tile.status = Tile::DRAFT
       tile.remote_media_url = "image.png"
@@ -45,6 +45,20 @@ describe Tile do
       tile.status = Tile::ACTIVE 
       expect(tile.save).to be_false
     end
+
+    it "can be saved as draft if supporting content len > specfied max" do
+      tile  = FactoryGirl.create :tile, status: Tile::DRAFT, supporting_content: LONG_TEXT
+      expect(tile.save).to be_true
+     end
+
+    it "cannot be posted if supporting content len > specfied max" do
+      tile  = FactoryGirl.create :tile, status: Tile::DRAFT
+      tile.supporting_content = LONG_TEXT
+      tile.status = Tile::ACTIVE 
+      expect(tile.save).to be_false
+     end
+  end
+
 
   end
 
