@@ -132,15 +132,19 @@ Airbo.TileFormModal = (function(){
   }
 
   function autoSaveSuccess(data){
+    currform.attr("action", data.updatePath);
+    currform.attr("method", "PUT");
+
     updateThumbnail(data)
     enablesubmitLink();
   }
 
   function initAutoSave(){
+    var me = this;
     $(currform).on("change", function() {
       if(currform.valid()){
         disablesubmitLink()
-        ajaxHandler.submit(currform, autoSaveSuccess, $.noop);
+        ajaxHandler.submit(currform, autoSaveSuccess.bind(me), $.noop);
       }
     });
 
