@@ -3,22 +3,12 @@ module ExploreHelper
     12
   end
 
-  def campaign_batch_size
-    4
-  end
-
   def find_tiles_and_campaigns
     @explore_tiles ||= Tile.explore
 
-    set_campaigns
+    @campaigns = Campaign.all
     set_verified_tiles
     set_community_tiles
-  end
-
-  def set_campaigns
-    campaigns = campaign_boards.offset(campaign_offset)
-    @all_campaigns = campaigns.count <= campaign_batch_size
-    @campaigns = campaigns.limit(campaign_batch_size)
   end
 
   def set_verified_tiles
@@ -45,12 +35,7 @@ module ExploreHelper
 
   def render_partial_if_requested
     return unless params[:partial_only]
-
-    if params[:content_type] == "campaign"
-      render_campaigns_partial
-    else
-      render_tiles_partial
-    end
+    render_tiles_partial
   end
 
   def render_tiles_partial
@@ -73,29 +58,7 @@ module ExploreHelper
     }
   end
 
-  def render_campaigns_partial
-    @more_campaigns = @campaigns
-    @last_batch = @all_campaigns
-
-    html_content = render_to_string partial: "explore/campaign_block", locals: { campaigns: @more_campaigns }
-
-    render json: {
-      htmlContent: html_content,
-      lastBatch:   @last_batch,
-      objectCount: @more_campaigns.count
-    }
-  end
-
   def offset
     @_offset = params[:tile_offset].present? ? params[:tile_offset].to_i : 0
-  end
-
-  def campaign_offset
-    @_campaign_offset = params[:campaign_offset].present? ? params[:campaign_offset].to_i : 0
-  end
-
-  def campaign_boards
-    # TODO: NEXT RELEASE: change to Demo.includes(:campaign).where(campaign: { active: true })  (add as campaigns scope on Demo)
-    Demo.includes(topic_board: :topic).where(topic_board: { is_library: true } ).order(:name)
   end
 end

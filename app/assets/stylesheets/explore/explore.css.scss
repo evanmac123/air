@@ -6,6 +6,7 @@
 @import './tile/tile_thumbnail/tiles_thumbnails_small_with_controls';
 @import './tile/tile_thumbnail/tiles_thumbnails_transition';
 @import './mixins/channels';
+@import './vendor_customization/flickity';
 
 @import "mixins/green_paddle_switch";
 
@@ -159,6 +160,10 @@ body.explore, .explore {
   .channel_container, #campaign_boards, #explore_tiles {
     background: #fff;
     padding: 2em 0 0 0;
+  }
+
+  #campaign_boards {
+    padding-bottom: 20px;
   }
 
   .channel_container {

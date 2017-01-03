@@ -1,4 +1,4 @@
-<div class="explore" data-campaign-id="<%= @board.id %>">
+<div class="explore" data-campaign-id="<%= @campaign.id %>">
   <section class="manage_section" id="channels">
     <% cache @display_channels do %>
       <%= render partial: 'explore/channels', locals: { channels: @display_channels } %>
@@ -7,13 +7,13 @@
   <section class="manage_section" id="explore_tiles">
     <div class="row explore-tiles-tabs">
       <div class="explore-tiles-titles small-12 columns">
-          <span class="explore-sub-page-header"><%= @board.topic_board.topic_name %></span>
+          <span class="explore-sub-page-header"><%= @campaign.name %></span>
       </div>
     </div>
     <section class="campaign-description">
       <div class="row collapse" >
         <div class="columns small-12">
-          <h4><%= @board.cover_message %></h4>
+          <h4><%= @campaign.description %></h4>
         </div>
       </div>
     </section>

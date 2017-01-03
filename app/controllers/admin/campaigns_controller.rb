@@ -10,7 +10,7 @@ class Admin::CampaignsController < AdminBaseController
   end
 
   def index
-    @campaigns = Campaign.alphabetical
+    @campaigns = Campaign.all
   end
 
   def create
