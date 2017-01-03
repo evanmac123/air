@@ -7,7 +7,6 @@ module Reporting
       def configure opts
         opts.merge!({
           funnel_id: MIXPANEL_FUNNEL_REPORTS["Tile Creation"],
-          unit: "week",
         })
       end
 

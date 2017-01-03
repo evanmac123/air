@@ -14,7 +14,6 @@ module Reporting
         opts.merge!({
           event: "Activity Session - New",
           on: %Q|string(properties["days_since_activated"])|,
-          unit: 'week',
           where:%Q|
           (properties["days_since_activated"] >= #{RANGES[:first][:min]} and properties["days_since_activated"] <= #{RANGES[:first][:max]})
           or (properties["days_since_activated"] >= #{RANGES[:second][:min]} and properties["days_since_activated"] <= #{RANGES[:second][:max]})

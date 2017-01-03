@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161215164030) do
+ActiveRecord::Schema.define(:version => 20161216212301) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -300,6 +300,7 @@ ActiveRecord::Schema.define(:version => 20161215164030) do
     t.float    "percent_orgs_that_added_tiles"
     t.integer  "orgs_that_created_tiles_from_scratch"
     t.integer  "average_tiles_created_from_scratch_per_org_that_created"
+    t.string   "interval"
   end
 
   create_table "custom_color_palettes", :force => true do |t|

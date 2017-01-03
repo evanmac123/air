@@ -2,7 +2,10 @@ class Metrics < ActiveRecord::Base
   WEEKLY="weekly"
   MONTHLY="monthly"
 
-  def self.normalized_by_date_range_and_interval sdate, edate, interval=WEEKLY
+  scope :weekly, -> {where(interval: WEEKLY)}
+  scope :monthly, -> {where(interval: MONTHLY)}
+
+  def self.by_date_range_and_interval sdate, edate, interval=WEEKLY
     by_interval(interval).by_start_and_end(sdate, edate).order("from_date asc")
   end
 
@@ -10,22 +13,8 @@ class Metrics < ActiveRecord::Base
     where(interval: interval)
   end
 
-  def self.current_week
-    by_start_and_end(*default_date_range)
-  end
-
-  def self.current_week_with_date_range
-    [by_start_and_end(*default_date_range),@sweek, @this_week]
-  end
-
   def self.by_start_and_end sdate, edate
     where(["from_date >= ? and to_date <= ?",sdate, edate])
-  end
-
-  def self.default_date_range
-    @this_week =Date.today.beginning_of_week
-    @sweek = @this_week.advance(weeks: -5)
-    [@sweek, @this_week]
   end
 
 end

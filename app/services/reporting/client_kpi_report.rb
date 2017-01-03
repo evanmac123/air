@@ -1,64 +1,14 @@
 module Reporting
-  class ClientKPIReport
+  class ClientKPIReport <KpiReportingBase
 
-    def get_data_by_date sdate, edate
-      build_data_set(row_set(raw_data(sdate, edate)))
-    end
-
-    def build_data_set row_data 
-      container = HashWithIndifferentAccess.new(kpi_fields)
-      container.each do|field, sub_hash|
-        sub_hash[:values] = row_data[field]
-      end
-
-      add_group_separators(container)
-      container.merge!(aliased_kpis(container))
-      container
-    end
-
-    def aliased_kpis container
-      {}
-    end
-
-    def default_date_range
+      def default_date_range
       edate = Date.today.beginning_of_week
       sdate = edate.advance(weeks: -5)
       [sdate, edate]
     end
 
-    def row_set res
-      fields = res.map(&:keys).flatten.uniq
-      values = res.map(&:values).transpose
-      Hash[fields.zip(values)]
-    end
-
-    def raw_data sdate, edate
-      CustSuccessKpi.normalized_by_start_and_end sdate, edate 
-    end
-
-    def query_select_fields
-      kpi_fields.keys.join(",")
-    end 
-
-    def add_group_separators(container)
-      group_separators.each do |key, label|
-        add_group_separator(container, key, label)
-      end
-      container
-    end
-
-    def add_group_separator container, key, label
-      container[key]= {
-        label: label,
-        type:"",
-        indent: 0,
-        values: []
-      }
-      container
-    end
-
-    def group_separators 
-      { }
+    def db_fields
+      CustSuccessKpi.select(query_select_fields)
     end
 
     def sections
@@ -100,15 +50,15 @@ module Reporting
           "average_tile_creation_time"
         ],
 
-        "Engagement" => [
-          "percent_joined_current",
-          "percent_joined_30_days",
-          "percent_joined_60_days",
-          "percent_joined_120_days",
-          "percent_retained_post_activation_30_days",
-          "percent_retained_post_activation_60_days",
-          "percent_retained_post_activation_120_days"
-        ],
+        #"Engagement" => [
+          #"percent_joined_current",
+          #"percent_joined_30_days",
+          #"percent_joined_60_days",
+          #"percent_joined_120_days",
+          #"percent_retained_post_activation_30_days",
+          #"percent_retained_post_activation_60_days",
+          #"percent_retained_post_activation_120_days"
+        #],
 
       }
     end
@@ -117,7 +67,7 @@ module Reporting
     def kpi_fields
       {
 
-        "report_date" => {
+        "from_date" => {
           label: "Date",
           type: "date",
           hint: "",
@@ -328,7 +278,7 @@ module Reporting
         "average_tile_creation_time" =>{
           label: "Speed",
           type: "num",
-          hint: "",
+          hint: "Average tile creation time in seconds",
           indent: 1,
         },
 
@@ -417,9 +367,6 @@ module Reporting
 
         demo_percent = calculate_percent_joined_for_demo(demo)
         new_percent = calculate_percent_joined_for_key(percent_hash, demo_percent)
-
-        $redis.hmset("reporting:client_kpis:percent_joined:#{key}", "percent", new_percent, "count", percent_hash["count"].to_i + 1)
-        $redis.hset("reporting:client_kpis:percent_joined_by_demo:#{demo.id}", key, demo_percent)
       }
     end
 
@@ -430,7 +377,6 @@ module Reporting
 
       percent = (joined_users.count.to_f / scope.count).round(2)
 
-      $redis.hmset("reporting:client_kpis:percent_joined:current", "percent", percent, "count", scope.count)
     end
   end
 end

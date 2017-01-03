@@ -193,7 +193,7 @@ Airbo.FinancialKpiChart = (function(){
   }
 
   function initForm(){
-    $("#financials-filter .report-filter").submit(function(event){
+    $(".report-filter").submit(function(event){
       event.preventDefault(); 
       kpiChart.showLoading();
       Airbo.Utils.KpiReportDateFilter.adjustDateRanges();

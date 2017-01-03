@@ -9,7 +9,6 @@ module Reporting
           event: "Tile Posted",
           type: "general",
           where:%Q|properties["organization"] != "#{AIRBO_ORG_ID}" and (properties["user_type"] == "client admin") and (properties["board_type"] == "Paid")|,
-          unit: "week"
         })
       end
     end
