@@ -16,10 +16,6 @@ module ActsHelper
     end
   end
 
-  def display_admin_guide?
-    current_user.is_client_admin && !current_user.displayed_activity_page_admin_guide
-  end
-
   def welcome_message_flash
     keys_for_real_flashes = %w(success failure notice).map(&:to_sym)
     return if keys_for_real_flashes.any?{|key| flash[key].present?}

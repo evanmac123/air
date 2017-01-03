@@ -1068,7 +1068,6 @@ class User < ActiveRecord::Base
     elsif (self.is_client_admin || self.is_site_admin)
       self.current_board_membership.update_attribute(:not_show_onboarding, true)
       self.get_started_lightbox_displayed = true
-      self.displayed_activity_page_admin_guide = true
       self.save!
       false
     else
