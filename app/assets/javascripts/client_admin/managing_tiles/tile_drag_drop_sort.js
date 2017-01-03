@@ -88,7 +88,8 @@ Airbo.TileDragDropSort = (function(){
       over: function(event, ui) {
         if ($("#active").sortable("option", "disabled")) {
           showDraftBlockedOverlay(true, $("#active") );
-          Airbo.Utils.alert("This tile is not yet valid. Please add all required fields and fix any errors pryor to posting.");
+          Airbo.Utils.alert(Airbo.Utils.Messages.incompleteTile);
+ 
         }
       }
     });

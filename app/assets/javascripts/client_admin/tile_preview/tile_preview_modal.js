@@ -41,7 +41,7 @@ Airbo.TilePreviewModal = (function(){
 
   function initDisabled(){
     $(".tipsy.disabled").click(function(){
-     Airbo.Utils.alert("This tile is not yet valid. Please add all required fields and fix any errors pryor to posting, archiving or sharing");
+      Airbo.Utils.alert(Airbo.Utils.Messages.incompleteTile);
     });
   }
 

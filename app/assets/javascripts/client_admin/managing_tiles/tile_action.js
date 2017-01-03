@@ -149,7 +149,7 @@ Airbo.TileAction = (function(){
     }
 
     if(tile.hasClass("unfinished")){
-      Airbo.Utils.alert("This tile is not yet valid. Please add all required fields and fix any errors pryor to posting.");
+      Airbo.Utils.alert(Airbo.Utils.Messages.incompleteTile);
     }else{
       submitTileForUpadte(tile,target, closeAnyToolTips);
     }
